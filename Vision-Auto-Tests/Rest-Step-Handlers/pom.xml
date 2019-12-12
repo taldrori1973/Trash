@@ -3,20 +3,14 @@
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <parent>
-        <artifactId>APSoluteVision-Automation</artifactId>
+        <artifactId>Vision-Auto-Tests</artifactId>
         <groupId>com.radware.vision.automation</groupId>
         <version>${revision}</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
-    <packaging>pom</packaging>
-    <artifactId>Vision-Auto-Tests</artifactId>
-    <name>Vision-Auto-Tests</name>
 
-    <modules>
-        <module>Vision-Tests</module>
-        <module>Webui-Step-Handlers</module>
-        <module>Rest-Step-Handlers</module>
-        <module>Rest-Step-Handlers</module>
-        <module>Rest-Step-Handlers</module>
-    </modules>
+    <artifactId>Rest-Step-Handlers</artifactId>
+    <name>Rest-Step-Handlers</name>
+
+
 </project>
