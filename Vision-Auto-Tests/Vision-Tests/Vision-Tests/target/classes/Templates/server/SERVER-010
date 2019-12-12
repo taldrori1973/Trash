@@ -1,0 +1,2 @@
+classes modify network create SG10 1 -a 216.0.0.0 -s 8 -f 216.0.0.0 -t 216.255.255.255 -m ipMask
+dp server-protection protected-servers create SERVER-010 -dst SG10

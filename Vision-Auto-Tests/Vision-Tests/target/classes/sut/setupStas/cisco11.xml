@@ -1,0 +1,36 @@
+<ciscoSwitch1>
+	<class>com.aas.cisco.product.cswitch.CiscoSwitch</class>
+	<conn>
+		<class>com.aqua.sysobj.conn.ConnectivityManager</class>
+		<cli>
+			<class>com.aas.cisco.connection.CiscoCliConnection</class>
+			<host>176.188.1.11</host>
+			<user>radware</user>
+			<password>radware</password>
+			<connectOnInit>false</connectOnInit>
+		</cli>
+	</conn>
+		
+	<switchport>
+		<class>com.aas.cisco.product.cswitch.switchport.SwitchPortCli</class>
+	</switchport>
+	<basic>
+		<class>com.aas.cisco.product.basic.BasicCli</class>
+	</basic>
+		
+	<ports index="25">
+		<class>com.aas.cisco.product.port.CiscoPort</class>
+		<type>GigabitEthernet</type>
+		<name>0/25</name>
+	</ports>
+	<ports index="26">
+		<class>com.aas.cisco.product.port.CiscoPort</class>
+		<type>GigabitEthernet</type>
+		<name>0/26</name>
+	</ports>
+	<ports index="31">
+		<class>com.aas.cisco.product.port.CiscoPort</class>
+		<type>GigabitEthernet</type>
+		<name>0/31</name>
+	</ports>
+</ciscoSwitch1>

@@ -1,0 +1,103 @@
+@VRM_BDoS_Baseline @TC105963
+
+Feature: VRM Application Dashboard Accessibility
+
+  @SID_13
+Scenario: fetch Alteons
+    Then CLI Run remote linux Command "result=`curl -ks -X "POST" "https://localhost/mgmt/system/user/login" -H "Content-Type: application/json" -d $"{\"username\": \"radware\",\"password\": \"radware\"}"`; jsession=`echo $result | tr "," "\n"|grep -i jsession|tr -d '"' | cut -d: -f2`; curl -k -XPOST -H "Cookie: JSESSIONID=$jsession" -d '{}' https://localhost:443/mgmt/system/monitor/dpm/alteon/fetch" on "ROOT_SERVER_CLI"
+
+  @SID_1
+  Scenario: Login and open Application Dashboard
+    Then REST Login with user "sys_admin" and password "radware"
+    Then REST Vision Install License Request "vision-reporting-module-ADC"
+    Then UI Login with user "sys_admin" and password "radware"
+    And UI Open Upper Bar Item "ADC"
+    And UI Open "Dashboards" Tab
+    And UI Open "Application Dashboard" Sub Tab
+
+  @SID_2
+  Scenario: Set Accessibility patterns traffic graphs
+    Given UI Click Button "Accessibility Open Menu"
+    Then UI Click Button "Accessibility Color Patterns" with value "Use Patterns For Colors"
+    Then UI Click Button "Accessibility Open Menu"
+
+  @SID_3
+  Scenario: DPM - Validate Dashboards accessibility - color patterns
+    Then UI Validate Pie Chart data "VIRTUAL SERVICES"
+      | label   | shapeType | colors  | backgroundColor |
+      | Down    | plus      | #B4121B | plus            |
+      | Up      | ring      | #00843F | ring            |
+      | Warning | cross     | #DF8F01 | cross           |
+
+  @SID_4
+  Scenario: VRM ADC validate Accessibility patterns in DPM 1st drill
+    Then UI click Table row by keyValue or Index with elementLabel "virts table" findBy columnName "Application Name" findBy cellValue "Rejith_32326515:80"
+    Then UI Validate Line Chart attributes "End-To-End Time" with Label "Client RTT"
+      | attributes      | value   |
+      | shapeType       | plus    |
+      | backgroundColor | #F1BEBE |
+      | colors          | #F1BEBE |
+    Then UI Validate Line Chart attributes "End-To-End Time" with Label "Server RTT"
+      | attributes      | value   |
+      | shapeType       | cross   |
+      | backgroundColor | #9BB1C8 |
+      | colors          | #9BB1C8 |
+  @SID_5
+  Scenario: validate Accessibility patterns in real-servers drill
+    Then UI "expand" Table row by keyValue or Index with elementLabel "Virtual Service.Table" findBy columnName "Group ID" findBy cellValue "1"
+    Then UI Validate Line Chart attributes "CONTENT RULE EXPAND ROW THROUGHPUT" with Label "1"
+      | attributes      | value   |
+      | shapeType       | plus    |
+      | backgroundColor | #6296BA |
+      | colors          | #6296BA |
+    Then UI Validate Line Chart attributes "CONTENT RULE EXPAND ROW THROUGHPUT" with Label "10"
+      | attributes      | value   |
+      | shapeType       | cross   |
+      | backgroundColor | #76DDFB |
+      | colors          | #76DDFB |
+
+  @SID_6
+  Scenario: Go back to ADC dashboard
+    And UI Open "Dashboards" Tab
+    And UI Open "Application Dashboard" Sub Tab
+
+  @SID_7
+  Scenario: VRM ADC Set Accessibility stop auto refresh
+    And UI Open "Dashboards" Tab
+    And UI Open "Application Dashboard" Sub Tab
+    Given UI Click Button "Accessibility Open Menu"
+    Then UI Click Button "Accessibility Auto Refresh" with value "Stop Auto-Refresh"
+    Then UI Click Button "Accessibility Close"
+
+  @SID_8
+  Scenario: copy script to delete down Virts
+  * CLI copy "/home/radware/ADC_delete_down_virt.sh" from "GENERIC_LINUX_SERVER" to "ROOT_SERVER_CLI" "/opt/radware/storage/"
+
+  @SID_9
+  Scenario: VRM ADC Validate Dashboards Charts numbers while refresh is off
+    Then CLI Run remote linux Command "/opt/radware/storage/ADC_delete_down_virt.sh localhost 35" on "ROOT_SERVER_CLI" and wait 30 seconds
+    Then UI Open "Reports" Tab
+    Then UI Open "Dashboards" Tab
+    Then UI Open "Application Dashboard" Sub Tab
+    Then UI Validate Pie Chart data "VIRTUAL SERVICES"
+      | label      | data |
+      | Down       | 4    |
+      | Up         | 2    |
+      | Warning    | 8    |
+
+  @SID_10
+  Scenario: VRM ADC set Accessibility clear settings
+    Given UI Click Button "Accessibility Open Menu"
+    Then UI Click Button "Accessibility Clear" with value "Quit Accessibility"
+    Then UI Click Button "Accessibility Close"
+
+  @SID_11
+  Scenario: VRM ADC validate Accessibility clear settings
+    Then UI Validate Pie Chart data "VIRTUAL SERVICES"
+      | label | shapeType |
+      | Down  | cross     |
+      | Up    | ring      |
+
+  @SID_12
+  Scenario: Cleanup
+    Then UI logout and close browser

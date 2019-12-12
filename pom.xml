@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>com.radware.vision.automation</groupId>
+    <artifactId>APSoluteVision-Automation</artifactId>
+    <version>${revision}</version>
+    <packaging>pom</packaging>
+    <name>APSoluteVision-Automation</name>
+
+    <modules>
+        <module>Vision-Auto-Tests</module>
+        <module>Vision-Auto-Infra</module>
+    </modules>
+
+    <properties>
+        <VISION_VERSION>4.50.00</VISION_VERSION>
+        <revision>${VISION_VERSION}-SNAPSHOT</revision>
+    </properties>
+
+    <repositories>
+        <repository>
+            <id>common-artifactory</id>
+            <name>artifactory-snapshots</name>
+            <url>http://bldartifactory:8081/artifactory/list/auto-common-infra-snapshot/</url>
+            <snapshots>
+                <enabled>true</enabled>
+            </snapshots>
+            <releases>
+                <enabled>false</enabled>
+            </releases>
+        </repository>
+        <repository>
+            <id>alteon-test-auto-rexternals</id>
+            <name>alteon-test-auto-rexternals</name>
+            <url>http://bldartifactory:8081/artifactory/list/alteon-test-auto-rexternals/</url>
+            <snapshots>
+                <enabled>true</enabled>
+            </snapshots>
+            <releases>
+                <enabled>false</enabled>
+            </releases>
+        </repository>
+        <repository>
+            <id>auto-common-infra-release</id>
+            <name>auto-common-infra-release</name>
+            <url>http://bldartifactory:8081/artifactory/list/auto-common-infra-release/</url>
+        </repository>
+        <repository>
+            <id>vision-artifactory</id>
+            <name>vision-artifactory-snapshots</name>
+            <url>http://bldartifactory:8081/artifactory/list/auto-vision-snapshot-local/</url>
+            <snapshots>
+                <enabled>true</enabled>
+            </snapshots>
+            <releases>
+                <enabled>true</enabled>
+            </releases>
+        </repository>
+        <repository>
+            <id>vision-dev-repo</id>
+            <name>vision-dev-repo</name>
+            <url>http://visartifactory.il.corp.radware.com:8081/artifactory/libs-snapshot</url>
+        </repository>
+        <repository>
+            <id>Top-Q_repo</id>
+            <name>topq-remote-repo</name>
+            <url>http://hudson.corp.radware.com:8081/artifactory/Maven-Remote_topq</url>
+        </repository>
+    </repositories>
+
+    <distributionManagement>
+        <snapshotRepository>
+            <id>bld-artifactory</id>
+            <name>hudson-snapshots</name>
+            <url>http://bldartifactory:8081/artifactory/list/auto-vision-snapshot-local/</url>
+            <uniqueVersion>true</uniqueVersion>
+        </snapshotRepository>
+    </distributionManagement>
+
+    <profiles>
+        <profile>
+            <id>production</id>
+            <properties>
+                <artifact-type>PRODUCTION</artifact-type>
+            </properties>
+        </profile>
+        <profile>
+            <id>development</id>
+            <activation>
+                <activeByDefault>true</activeByDefault>
+            </activation>
+            <properties>
+                <artifact-type>DEVELOPMENT</artifact-type>
+            </properties>
+        </profile>
+    </profiles>
+</project>

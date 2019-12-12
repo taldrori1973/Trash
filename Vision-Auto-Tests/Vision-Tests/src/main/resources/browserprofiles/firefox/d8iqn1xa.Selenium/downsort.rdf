@@ -1,0 +1,30 @@
+<?xml version="1.0"?>
+<RDF:RDF xmlns:NC="http://home.netscape.com/NC-rdf#"
+         xmlns:RDF="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+  <RDF:Seq RDF:about="NC:KeywordRoot">
+    <RDF:li RDF:resource="NC:KeywordRoot:172*"/>
+  </RDF:Seq>
+  <RDF:Seq RDF:about="NC:ExtensionRoot">
+    <RDF:li RDF:resource="NC:ExtensionRoot:*.*"/>
+  </RDF:Seq>
+  <RDF:Seq RDF:about="NC:DefaultRoot">
+    <RDF:li RDF:resource="NC:DefaultRoot:default"/>
+  </RDF:Seq>
+  <RDF:Description RDF:about="NC:DefaultRoot:default"
+                   NC:location="C:\Users\urig\Desktop"
+                   NC:action="selectPrompt"
+                   NC:saving="selectLast"
+                   NC:subfolder="selectNone" />
+  <RDF:Description RDF:about="NC:ExtensionRoot:*.*"
+                   NC:ext="*.*"
+                   NC:location="C:\Users\urig\Downloads"
+                   NC:action="selectOver"
+                   NC:saving="selectAuto"
+                   NC:subfolder="selectNone" />
+  <RDF:Description RDF:about="NC:KeywordRoot:172*"
+                   NC:ext="172*"
+                   NC:location="C:\Users\urig\Downloads"
+                   NC:action="selectOver"
+                   NC:saving="selectAuto"
+                   NC:subfolder="selectNone" />
+</RDF:RDF>

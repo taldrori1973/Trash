@@ -1,0 +1,4 @@
+classes modify network create SG9 1 -s 0 -f 209.0.0.0 -t 209.235.4.191 -m ipRange
+classes modify network create SG9 2 -s 0 -f 209.235.4.224 -t 209.255.255.254 -m ipRange
+classes modify network create SG10 1 -a 216.0.0.0 -s 8 -f 216.0.0.0 -t 216.255.255.255 -m ipMask
+dp policies-config table create Global-9 -sn SG9 -dn SG10 -di twoway

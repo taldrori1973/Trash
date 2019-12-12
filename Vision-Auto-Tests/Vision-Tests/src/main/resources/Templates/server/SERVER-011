@@ -1,0 +1,4 @@
+classes modify network create SG11 1 -a 2001:0538:: -s 32 -f 2001:0538:: -t 2001:0538:ffff:ffff:ffff:ffff:ffff:ffff -m ipMask
+classes modify network create SG11 2 -a 2600:1100:: -s 28 -f 2600:1100:: -t 2600:110f:ffff:ffff:ffff:ffff:ffff:ffff -m ipMask
+classes modify network create SG11 3 -a 2607:f020:2000:: -s 40 -f 2607:f020:2000:: -t 2607:f020:20ff:ffff:ffff:ffff:ffff:ffff -m ipMask
+dp server-protection protected-servers create SERVER-011 -dst SG11

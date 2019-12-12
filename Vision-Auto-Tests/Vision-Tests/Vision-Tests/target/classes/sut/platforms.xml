@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+
+<platforms>
+	<AAS_3408>
+		<ports quantity="4" speed="1000" designation="data" type="copper" />
+		<ports quantity="4" speed="1000" designation="data" type="shared" />
+		<ports quantity="4" speed="1000" designation="data" type="sfp" />
+		<ports quantity="1" speed="1000" designation="mng" type="copper" />
+	</AAS_3408>
+	
+	<AAS_3408E>
+		<ports quantity="4" speed="1000" designation="data" type="copper" />
+		<ports quantity="4" speed="1000" designation="data" type="shared" />
+		<ports quantity="4" speed="1000" designation="data" type="sfp" />
+		<ports quantity="1" speed="1000" designation="mng" type="copper" />
+	</AAS_3408E>
+
+	<AAS_2424SSL>
+		<ports quantity="24" speed="100" designation="data" type="copper" />
+		<ports quantity="4" speed="1000" designation="data" type="sfp" />
+		<ports quantity="1" speed="100" designation="mng" type="copper" />
+	</AAS_2424SSL>
+
+	<AAS_2208E>
+		<ports quantity="8" speed="100" designation="data" type="copper" />
+		<ports quantity="2" speed="1000" designation="data" type="sfp" />
+		<ports quantity="1" speed="100" designation="mng" type="copper" />
+	</AAS_2208E>
+	
+	<AAS_2216E>
+		<ports quantity="16" speed="100" designation="data" type="copper" />
+		<ports quantity="2" speed="1000" designation="data" type="sfp" />
+		<ports quantity="1" speed="100" designation="mng" type="copper" />
+	</AAS_2216E>
+	
+	<AAS_4408>
+		<ports quantity="5" speed="1000" designation="data" type="copper" />
+		<ports quantity="1" speed="1000" designation="mng" type="copper" />
+		<ports quantity="2" speed="1000" designation="data" type="sfp" />
+	</AAS_4408>
+	
+	<AAS_4416>
+		<ports quantity="12" speed="1000" designation="data" type="copper" />
+		<ports quantity="4" speed="1000" designation="data" type="sfp" />
+		<ports quantity="2" speed="1000" designation="mng" type="copper" />
+	</AAS_4416>
+	
+	<AAS_5224>
+            <ports quantity="18" speed="1000" designation="data" type="sfp" />
+            <ports quantity="8" speed="1000" designation="data" type="copper" />
+            <ports quantity="2" speed="1000" designation="mng" type="copper" />
+    </AAS_5224>
+    
+	<AAS_5412>
+		<ports quantity="8" speed="1000" designation="data" type="copper" />
+		<ports quantity="4" speed="1000" designation="data" type="sfp" />
+		<ports quantity="2" speed="1000" designation="mng" type="copper" />
+	</AAS_5412>
+	
+	<ODS4>
+		<ports quantity="15" speed="1000" designation="data" type="sfp" />
+		<ports quantity="8" speed="1000" designation="data" type="copper" />
+  		<ports quantity="2" speed="1000" designation="mng" type="copper" />
+  		   
+ 	</ODS4>
+ 	
+	<AAS_SwADC>
+            <ports quantity="5" speed="1000" designation="data" type="copper" />
+            <ports quantity="1" speed="1000" designation="mng" type="copper" />
+            <ports quantity="2" speed="1000" designation="data" type="sfp" />
+     </AAS_SwADC>
+     
+	<ODS-HT>
+		<ports quantity="24" speed="1000" designation="data" type="sfp" />
+  		<ports quantity="2" speed="1000" designation="mng" type="copper" />
+	</ODS-HT>
+	
+</platforms>

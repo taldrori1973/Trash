@@ -1,0 +1,4 @@
+classes modify network create SG2 1 -s 0 -f 66.151.0.0 -t 69.255.255.254 -m ipRange
+classes modify network create SG3 1 -s 0 -f 70.0.0.0 -t 74.255.255.254 -m ipRange
+classes modify network create SG3 2 -s 0 -f 130.0.0.0 -t 144.255.255.254 -m ipRange
+dp policies-config table create Global-2 -sn SG2 -dn SG3 -di twoway

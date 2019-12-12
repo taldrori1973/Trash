@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<aas>
+		<class>com.aas.product.AasProduct</class>
+		<aasCliApplication>
+			<class>com.aas.basics.application.AasCliApplication</class>
+			<conn edit="enable">
+	            <class>com.aas.basics.connection.AasConnectivityManager</class>
+	            <cli>
+					<class>com.aas.basics.connection.AasCliConnectionTelnet</class>
+					<useTelInputStream>true</useTelInputStream>
+					<password>radware</password>
+					<user>radware</user>
+					<host edit="enable">172.17.178.33</host>
+					<connectOnInit>false</connectOnInit>
+					<useBuffer>true</useBuffer>
+					<dump>true</dump>
+				</cli>
+				<console>
+	           		<class>com.aas.basics.connection.AasCliConnectionTerminalSrv</class>
+					<useTelnetInputStream>true</useTelnetInputStream>
+					<user>radware</user>
+					<password>radware</password>
+					<host>172.17.178.33</host>
+					<protocol>telnet</protocol>
+					<port>21</port>
+					<dump>true</dump>
+					<connectOnInit>false</connectOnInit>
+				</console>
+				<ssh>
+					<class>com.aas.basics.connection.AasCliConnectionTelnet</class>
+					<useTelInputStream>true</useTelInputStream>
+					<user>radware</user>
+					<password>radware</password>
+					<host edit="enable">172.17.178.33</host>
+					<protocol>ssh</protocol>						
+					<dump>true</dump>
+					<connectOnInit>false</connectOnInit>
+				</ssh>
+	 		</conn> 
+ 		</aasCliApplication>
+ 		<gaCliApplication>
+			<class>com.aas.basics.application.AasCliApplication</class>
+			<conn edit="enable">
+	            <class>com.aas.basics.connection.AasConnectivityManager</class>
+	            <cli>
+					<class>com.aas.basics.connection.AasCliConnectionTelnet</class>
+					<useTelInputStream>true</useTelInputStream>
+					<password>radware</password>
+					<user>radware</user>
+					<host edit="enable">172.17.178.33</host>
+					<connectOnInit>false</connectOnInit>
+					<useBuffer>true</useBuffer>
+					<dump>true</dump>
+				</cli>
+				<console>
+	           		<class>com.aas.basics.connection.AasCliConnectionTerminalSrv</class>
+					<useTelnetInputStream>true</useTelnetInputStream>
+					<user>radware</user>
+					<password>radware</password>
+					<host>172.17.178.33</host>
+					<protocol>telnet</protocol>
+					<port>21</port>
+					<dump>true</dump>
+					<connectOnInit>false</connectOnInit>
+				</console>
+				<ssh>
+					<class>com.aas.basics.connection.AasCliConnectionTelnet</class>
+					<useTelInputStream>true</useTelInputStream>
+					<user>radware</user>
+					<password>radware</password>
+					<host edit="enable">172.17.178.33</host>
+					<protocol>ssh</protocol>						
+					<dump>true</dump>
+					<connectOnInit>false</connectOnInit>
+				</ssh>
+	 		</conn> 
+ 		</gaCliApplication>
+ 		<environment>
+ 		<platform>AAS_4416</platform>
+ 		</environment> 			
+</aas>

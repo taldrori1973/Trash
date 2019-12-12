@@ -1,0 +1,2 @@
+classes modify network create SG12 1 -a 209.235.4.192 -s 27 -f 209.235.4.192 -t 209.235.4.223 -m ipMask
+dp server-protection protected-servers create SERVER-012 -dst SG12

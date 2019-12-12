@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<connectivity>
+	<devices>
+		<aas>
+			<port name="1" index="1" dcTo="switch" otherPortIndex="1" vlan="110" isAvailable="true"/>
+			<port name="2" index="2" dcTo="switch" otherPortIndex="1" vlan="111" isAvailable="true"/>
+			<port name="3" index="3" dcTo="switchdirect" otherPortIndex="25" vlan="500" isAvailable="true"/>
+			<port name="4" index="4" dcTo="switchdirect" otherPortIndex="26" vlan="500" isAvailable="true"/>
+			<port name="5" index="5" dcTo="dut" otherPortIndex="5" vlan="1" isAvailable="false"/>
+			<port name="6" index="6" dcTo="dut" otherPortIndex="-1" vlan="1" isAvailable="false"/>
+			<port name="7" index="7" dcTo="dut" otherPortIndex="7" vlan="1" isAvailable="false"/>
+			<port name="8" index="8" dcTo="dut" otherPortIndex="-1" vlan="1" isAvailable="false"/>
+			<port name="9" index="9" dcTo="dut" otherPortIndex="7" vlan="1" isAvailable="false"/>
+			<port name="1" index="10" dcTo="dut" otherPortIndex="-1" vlan="1" isAvailable="false"/>
+			<port name="1" index="11" dcTo="dut" otherPortIndex="-1" vlan="1" isAvailable="false"/>
+			<port name="1" index="12" dcTo="dut" otherPortIndex="-1" vlan="1" isAvailable="false"/>
+			<port name="1" index="13" dcTo="dut" otherPortIndex="7" vlan="1" isAvailable="false"/>
+			<port name="1" index="14" dcTo="dut" otherPortIndex="-1" vlan="1" isAvailable="false"/>
+			<port name="1" index="15" dcTo="dut" otherPortIndex="-1" vlan="1" isAvailable="false"/>
+			<port name="1" index="16" dcTo="dut" otherPortIndex="-1" vlan="1" isAvailable="false"/>
+			<port name="1" index="17" dcTo="dut" otherPortIndex="-1" vlan="1" isAvailable="false"/>
+			<port name="1" index="18" dcTo="dut" otherPortIndex="-1" vlan="1" isAvailable="false"/>
+			<port name="1" index="19" dcTo="dut" otherPortIndex="-1" vlan="1" isAvailable="false"/>
+			<port name="1" index="20" dcTo="dut" otherPortIndex="-1" vlan="1" isAvailable="false"/>
+			<port name="1" index="21" dcTo="dut" otherPortIndex="-1" vlan="1" isAvailable="false"/>
+			<port name="1" index="22" dcTo="dut" otherPortIndex="-1" vlan="1" isAvailable="false"/>
+			<port name="1" index="23" dcTo="dut" otherPortIndex="-1" vlan="1" isAvailable="false"/>
+			<port name="1" index="24" dcTo="dut" otherPortIndex="-1" vlan="1" isAvailable="false"/>
+			<port name="1" index="25" dcTo="dut" otherPortIndex="7" vlan="1" isAvailable="false"/>
+			<port name="1" index="26" dcTo="dut" otherPortIndex="-1" vlan="1" isAvailable="false"/>
+			<port name="1" index="27" dcTo="dut" otherPortIndex="-1" vlan="1" isAvailable="false"/>
+			<port name="1" index="28" dcTo="dut" otherPortIndex="-1" vlan="1" isAvailable="false"/>
+		</aas>
+		<aas2>
+			<port index="1" dcTo="switch" otherPortIndex="1" vlan="110" isAvailable="true"/>
+			<port index="2" dcTo="switch" otherPortIndex="1" vlan="111" isAvailable="true"/>
+			<port index="3" dcTo="dut" otherPortIndex="3" vlan="1" isAvailable="true"/>
+			<port index="4" dcTo="dut" otherPortIndex="4" vlan="1" isAvailable="true"/>
+			<port index="5" dcTo="dut" otherPortIndex="5" vlan="1" isAvailable="true"/>
+			<port index="6" dcTo="dut" otherPortIndex="-1" vlan="1" isAvailable="false"/>
+			<port index="7" dcTo="dut" otherPortIndex="7" vlan="1" isAvailable="true"/>
+			<port index="8" dcTo="dut" otherPortIndex="-1" vlan="1" isAvailable="false"/>
+			<port index="9" dcTo="dut" otherPortIndex="7" vlan="1" isAvailable="false"/>
+			<port index="10" dcTo="dut" otherPortIndex="-1" vlan="1" isAvailable="false"/>
+			<port index="11" dcTo="dut" otherPortIndex="-1" vlan="1" isAvailable="false"/>
+			<port index="12" dcTo="dut" otherPortIndex="-1" vlan="1" isAvailable="false"/>
+			<port index="13" dcTo="dut" otherPortIndex="7" vlan="1" isAvailable="false"/>
+			<port index="14" dcTo="dut" otherPortIndex="-1" vlan="1" isAvailable="false"/>
+			<port index="15" dcTo="dut" otherPortIndex="-1" vlan="1" isAvailable="false"/>
+			<port index="16" dcTo="dut" otherPortIndex="-1" vlan="1" isAvailable="false"/>
+			<port index="17" dcTo="dut" otherPortIndex="-1" vlan="1" isAvailable="false"/>
+			<port index="18" dcTo="dut" otherPortIndex="-1" vlan="1" isAvailable="false"/>
+			<port index="19" dcTo="dut" otherPortIndex="-1" vlan="1" isAvailable="false"/>
+			<port index="20" dcTo="dut" otherPortIndex="-1" vlan="1" isAvailable="false"/>
+			<port index="21" dcTo="dut" otherPortIndex="-1" vlan="1" isAvailable="false"/>
+			<port index="22" dcTo="dut" otherPortIndex="-1" vlan="1" isAvailable="false"/>
+			<port index="23" dcTo="dut" otherPortIndex="-1" vlan="1" isAvailable="false"/>
+			<port index="24" dcTo="dut" otherPortIndex="-1" vlan="1" isAvailable="false"/>
+			<port index="25" dcTo="dut" otherPortIndex="7" vlan="1" isAvailable="false"/>
+			<port index="26" dcTo="dut" otherPortIndex="-1" vlan="1" isAvailable="false"/>
+			<port index="27" dcTo="dut" otherPortIndex="-1" vlan="1" isAvailable="false"/>
+			<port index="28" dcTo="dut" otherPortIndex="-1" vlan="1" isAvailable="false"/>
+		</aas2>
+	</devices>
+	
+	<servers>
+		<server index="1" dcTo="switch" otherPortIndex="3" vlan="150" designation="server"/>
+		<server index="2" dcTo="switch" otherPortIndex="4" vlan="150" designation="server"/>
+		<server index="3" dcTo="switch" otherPortIndex="5" vlan="150" designation="server"/>
+		<server index="4" dcTo="switch" otherPortIndex="6" vlan="150" designation="server"/>
+		<server index="5" dcTo="switch" otherPortIndex="3" vlan="150" designation="client"/>
+		<server index="6" dcTo="switch" otherPortIndex="4" vlan="150" designation="client"/>
+	</servers>
+</connectivity>

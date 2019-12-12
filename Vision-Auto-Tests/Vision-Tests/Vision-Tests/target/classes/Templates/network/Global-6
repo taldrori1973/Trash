@@ -1,0 +1,4 @@
+classes modify network create SG6 1 -s 0 -f 167.0.0.0 -t 194.255.255.254 -m ipRange
+classes modify network create SG6 2 -a 66.249.93.99 -s 32 -f 66.249.93.99 -t 66.249.93.99 -m ipMask
+classes modify network create SG7 1 -s 0 -f 198.0.0.0 -t 206.224.255.254 -m ipRange
+dp policies-config table create Global-6 -sn SG6 -dn SG7 -di twoway

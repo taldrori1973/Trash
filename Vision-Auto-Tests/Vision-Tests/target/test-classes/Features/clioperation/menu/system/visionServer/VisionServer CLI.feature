@@ -1,0 +1,98 @@
+@CLI_Positive @TC106040
+
+Feature: Vision Server Services CLI Tests
+
+  @SID_1
+  Scenario: system vision-server help
+    Then CLI Operations - Run Root Session command "yes|restore_radware_user_password" timeout 15
+    Then REST Login with activation with user "radware" and password "radware"
+    When CLI Operations - Run Radware Session help command "system vision-server ?"
+    Then CLI Operations - Verify that output contains regex ".*Starts/stops the APSolute Vision server..*"
+    Then CLI Operations - Verify that output contains regex ".*start.*Starts the APSolute Vision server..*"
+    Then CLI Operations - Verify that output contains regex ".*status.*Shows the status of the APSolute Vision server..*"
+    Then CLI Operations - Verify that output contains regex ".*stop.*Stops the APSolute Vision server..*"
+
+  @SID_2
+  Scenario: system vision-server start help
+    When CLI Operations - Run Radware Session help command "system vision-server start ?"
+    Then CLI Operations - Verify that output contains regex "Usage: system vision-server start.*"
+    Then CLI Operations - Verify that output contains regex "Starts the APSolute Vision server..*"
+
+  @SID_4
+  Scenario: system vision-server status help
+    When CLI Operations - Run Radware Session help command "system vision-server status ?"
+    Then CLI Operations - Verify that output contains regex "Usage: system vision-server status.*"
+    Then CLI Operations - Verify that output contains regex "Shows the status of the APSolute Vision server..*"
+
+  @SID_5
+  Scenario: system vision-server stop help
+    When CLI Operations - Run Radware Session help command "system vision-server stop ?"
+    Then CLI Operations - Verify that output contains regex "Usage: system vision-server stop.*"
+    Then CLI Operations - Verify that output contains regex "Stops the APSolute Vision server..*"
+
+  @SID_6
+  Scenario: system vision-server stop
+#    When CLI Operations - Run Radware Session command "system vision-server start" timeout 1000
+    When CLI Operations - Run Radware Session command "system vision-server stop" timeout 1000
+    Then CLI Operations - Verify that output contains regex "shutting down reporting module service.*"
+    Then CLI Operations - Verify that output contains regex "Stopping APSolute Vision Collectors Server.*\[  OK  \].*"
+    Then CLI Operations - Verify that output contains regex "Stopping APSolute Vision Application Server.*\[  OK  \].*"
+    Then CLI Operations - Verify that output contains regex "Stopping Configuration Microservices Server.*\[  OK  \].*"
+
+    Then CLI Operations - Verify that output contains regex "Stopping DPM.*\[  OK  \].*"
+    Then CLI Operations - Verify that output contains regex "Stopping td-agent.*\[  OK  \].*"
+    Then CLI Operations - Verify that output contains regex "Stopping Local License Server.*\[  OK  \].*"
+
+  @SID_7
+  Scenario: system vision-server status stopped
+    When CLI Operations - Run Radware Session command "system vision-server status"
+    Then CLI Operations - Verify that output contains regex "APSolute Vision Reporter is stopped."
+    Then CLI Operations - Verify that output contains regex "APSolute Vision AMQP Service is stopped."
+    Then CLI Operations - Verify that output contains regex "DPM is not running.*"
+    Then CLI Operations - Verify that output contains regex "Configuration server is stopped..*"
+    Then CLI Operations - Verify that output contains regex "Collector service is stopped..*"
+    Then CLI Operations - Verify that output contains regex "New Reporter service is stopped..*"
+    Then CLI Operations - Verify that output contains regex "Alerts service is stopped..*"
+    Then CLI Operations - Verify that output contains regex "Scheduler service is stopped..*"
+    Then CLI Operations - Verify that output contains regex "Configuration Synchronization service is stopped..*"
+    Then CLI Operations - Verify that output contains regex "Tor feed service is stopped..*"
+    Then CLI Operations - Verify that output contains regex "Radware vDirect is not running.*"
+    Then CLI Operations - Verify that output contains regex "VRM SSL Inspection collector service is stopped..*"
+    Then CLI Operations - Verify that output contains regex "VRM SSL Inspection visualization service is stopped..*"
+    Then CLI Operations - Verify that output contains regex "VRM reporting engine is stopped..*"
+    Then CLI Operations - Verify that output contains regex "td-agent is not running..*"
+    Then CLI Operations - Verify that output contains regex "Local License Server is stopped..*"
+
+  @SID_8
+  Scenario: system vision-server start
+    When CLI Operations - Run Radware Session command "system vision-server start" timeout 1000
+    Then CLI Operations - Verify that output contains regex "Reloading httpd.*"
+    Then CLI Operations - Verify that output contains regex "Starting Apsolute Vision Reporter Service.*\[  OK  \].*"
+    Then CLI Operations - Verify that output contains regex "Starting Configuration Microservices Server.*\[  OK  \].*"
+    Then CLI Operations - Verify that output contains regex "Starting APSolute Vision Application Server.*\[  OK  \].*"
+    Then CLI Operations - Verify that output contains regex "Starting APSolute Vision Collectors Server.*\[  OK  \].*"
+    Then CLI Operations - Verify that output contains regex "Starting DPM.*"
+    Then CLI Operations - Verify that output contains regex "starting reporting engine service.*"
+
+  @SID_9
+  Scenario: system vision-server status started
+    When CLI Operations - Run Radware Session command "system vision-server status" timeout 60
+    Then CLI Operations - Verify that output contains regex "APSolute Vision Reporter is running..*"
+    Then CLI Operations - Verify that output contains regex "AMQP service is running..*"
+    Then CLI Operations - Verify that output contains regex "Configuration server is running..*"
+    Then CLI Operations - Verify that output contains regex "Collector service is running..*"
+    Then CLI Operations - Verify that output contains regex "New Reporter service is running..*"
+    Then CLI Operations - Verify that output contains regex "Alerts service is running..*"
+    Then CLI Operations - Verify that output contains regex "Scheduler service is running..*"
+    Then CLI Operations - Verify that output contains regex "Configuration Synchronization service is running..*"
+    Then CLI Operations - Verify that output contains regex "Tor feed service is running..*"
+    Then CLI Operations - Verify that output contains regex "Radware vDirect is running.*"
+    Then CLI Operations - Verify that output contains regex "VRM SSL Inspection collector service is.*"
+    Then CLI Operations - Verify that output contains regex "VRM SSL Inspection visualization service is.*"
+    Then CLI Operations - Verify that output contains regex "VRM reporting engine is running..*"
+
+
+
+
+
+

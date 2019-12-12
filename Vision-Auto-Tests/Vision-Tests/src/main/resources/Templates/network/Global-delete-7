@@ -1,0 +1,3 @@
+classes modify network create SG7 1 -s 0 -f 198.0.0.0 -t 206.224.255.254 -m ipRange
+classes modify network create SG8 1 -s 0 -f 206.225.0.0 -t 208.255.255.254 -m ipRange
+dp policies-config table create Global-delete-7 -sn SG7 -dn SG8 -di twoway

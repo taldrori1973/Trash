@@ -1,0 +1,539 @@
+[
+  {
+    "line": 3,
+    "elements": [
+      {
+        "before": [
+          {
+            "result": {
+              "duration": 526623800,
+              "status": "passed"
+            },
+            "match": {
+              "location": "BddHooks.beforeScenario(Scenario)"
+            }
+          }
+        ],
+        "line": 6,
+        "name": "install VRM license in case it was removed",
+        "description": "",
+        "id": "cloud-waf-api;install-vrm-license-in-case-it-was-removed",
+        "after": [
+          {
+            "result": {
+              "duration": 1526279600,
+              "status": "passed"
+            },
+            "match": {
+              "location": "BddHooks.afterScenario()"
+            }
+          }
+        ],
+        "type": "scenario",
+        "keyword": "Scenario",
+        "steps": [
+          {
+            "output": [
+              "15:42:04: Init VisionCli",
+              "15:42:04: Init RadwareServerCli",
+              "15:42:04: Init VisionServerHA",
+              "15:42:04: Init RootServerCli",
+              "15:42:06: Init MySqlSO",
+              "15:42:06: Init MysqlClientCli",
+              "15:42:13: ********************root radware",
+              "15:42:15: Init VisionCli",
+              "15:42:15: Init VisionLab",
+              "15:42:15: Init Lab"
+            ],
+            "result": {
+              "duration": 12121488500,
+              "status": "passed"
+            },
+            "line": 7,
+            "name": "CLI Operations - Run Root Session command \"yes|restore_radware_user_password\" timeout 15",
+            "match": {
+              "arguments": [
+                {
+                  "val": "yes|restore_radware_user_password",
+                  "offset": 43
+                },
+                {
+                  "val": "15",
+                  "offset": 86
+                }
+              ],
+              "location": "ConsoleOperation.runRootCommand(String,int)"
+            },
+            "keyword": "Then "
+          },
+          {
+            "result": {
+              "duration": 472641300,
+              "status": "passed"
+            },
+            "line": 8,
+            "name": "REST Login with user \"radware\" and password \"radware\"",
+            "match": {
+              "arguments": [
+                {
+                  "val": "radware",
+                  "offset": 22
+                },
+                {
+                  "val": "radware",
+                  "offset": 45
+                }
+              ],
+              "location": "BasicRestOperationsSteps.restLoginWithUserAndPassword(String,String)"
+            },
+            "keyword": "Then "
+          },
+          {
+            "result": {
+              "duration": 3700636599,
+              "status": "passed"
+            },
+            "line": 9,
+            "name": "REST Vision Install License Request \"vision-AVA-Max-attack-capacity\"",
+            "match": {
+              "arguments": [
+                {
+                  "val": "vision-AVA-Max-attack-capacity",
+                  "offset": 37
+                },
+                {},
+                {}
+              ],
+              "location": "LicenseSteps.installLicenses(String,String,String)"
+            },
+            "keyword": "Then "
+          }
+        ],
+        "tags": [
+          {
+            "line": 5,
+            "name": "@SID_1"
+          }
+        ]
+      },
+      {
+        "comments": [
+          {
+            "line": 10,
+            "value": "#    Then REST Vision Install License Request \"vision-reporting-module-ADC\""
+          }
+        ],
+        "before": [
+          {
+            "result": {
+              "duration": 45369500,
+              "status": "passed"
+            },
+            "match": {
+              "location": "BddHooks.beforeScenario(Scenario)"
+            }
+          }
+        ],
+        "line": 13,
+        "name": "/collector/device/config",
+        "description": "",
+        "id": "cloud-waf-api;/collector/device/config",
+        "after": [
+          {
+            "result": {
+              "duration": 1572679299,
+              "status": "passed"
+            },
+            "match": {
+              "location": "BddHooks.afterScenario()"
+            }
+          }
+        ],
+        "type": "scenario",
+        "keyword": "Scenario",
+        "steps": [
+          {
+            "result": {
+              "duration": 2115385601,
+              "status": "passed"
+            },
+            "line": 14,
+            "name": "CLI Run remote linux Command \"echo \"Cleared\" \u003e \"/home/radware/config?noauth\"\" on \"GENERIC_LINUX_SERVER\"",
+            "match": {
+              "arguments": [
+                {
+                  "val": "echo \"Cleared\" \u003e \"/home/radware/config?noauth\"",
+                  "offset": 30
+                },
+                {
+                  "val": "GENERIC_LINUX_SERVER",
+                  "offset": 82
+                },
+                {}
+              ],
+              "location": "RemoteSshCommandsTests.runCLICommand(String,SUTEntryType,Integer)"
+            },
+            "keyword": "When "
+          },
+          {
+            "result": {
+              "duration": 222604101,
+              "status": "passed"
+            },
+            "line": 15,
+            "name": "CLI Run remote linux Command \"cat /home/radware/config\\?noauth |grep \"Cleared\" |wc -l\" on \"GENERIC_LINUX_SERVER\"",
+            "match": {
+              "arguments": [
+                {
+                  "val": "cat /home/radware/config\\?noauth |grep \"Cleared\" |wc -l",
+                  "offset": 30
+                },
+                {
+                  "val": "GENERIC_LINUX_SERVER",
+                  "offset": 91
+                },
+                {}
+              ],
+              "location": "RemoteSshCommandsTests.runCLICommand(String,SUTEntryType,Integer)"
+            },
+            "keyword": "When "
+          },
+          {
+            "output": [
+              "15:42:23: \\b1\\b is contained"
+            ],
+            "result": {
+              "duration": 2657499,
+              "status": "passed"
+            },
+            "line": 16,
+            "name": "CLI Operations - Verify that output contains regex \"\\b1\\b\"",
+            "match": {
+              "arguments": [
+                {
+                  "val": "\\b1\\b",
+                  "offset": 52
+                },
+                {}
+              ],
+              "location": "ConsoleOperation.verifyLastOutputByRegex(String,String)"
+            },
+            "keyword": "Then "
+          },
+          {
+            "result": {
+              "duration": 514286001,
+              "status": "passed"
+            },
+            "line": 17,
+            "name": "CLI Run remote linux Command \"curl -X GET -k -O https://172.17.164.101/mgmt/collector/device/config?noauth\" on \"GENERIC_LINUX_SERVER\"",
+            "match": {
+              "arguments": [
+                {
+                  "val": "curl -X GET -k -O https://172.17.164.101/mgmt/collector/device/config?noauth",
+                  "offset": 30
+                },
+                {
+                  "val": "GENERIC_LINUX_SERVER",
+                  "offset": 112
+                },
+                {}
+              ],
+              "location": "RemoteSshCommandsTests.runCLICommand(String,SUTEntryType,Integer)"
+            },
+            "keyword": "When "
+          },
+          {
+            "result": {
+              "duration": 223281900,
+              "status": "passed"
+            },
+            "line": 18,
+            "name": "CLI Run remote linux Command \"cat /home/radware/config\\?noauth |grep \u0027\\\"deviceIp\\\":\\\"172.16.22.50\\\"\u0027 |wc -l\" on \"GENERIC_LINUX_SERVER\"",
+            "match": {
+              "arguments": [
+                {
+                  "val": "cat /home/radware/config\\?noauth |grep \u0027\\\"deviceIp\\\":\\\"172.16.22.50\\\"\u0027 |wc -l",
+                  "offset": 30
+                },
+                {
+                  "val": "GENERIC_LINUX_SERVER",
+                  "offset": 113
+                },
+                {}
+              ],
+              "location": "RemoteSshCommandsTests.runCLICommand(String,SUTEntryType,Integer)"
+            },
+            "keyword": "When "
+          },
+          {
+            "output": [
+              "15:42:24: [1]{1} is contained"
+            ],
+            "result": {
+              "duration": 840500,
+              "status": "passed"
+            },
+            "line": 19,
+            "name": "CLI Operations - Verify that output contains regex \"[1]{1}\"",
+            "match": {
+              "arguments": [
+                {
+                  "val": "[1]{1}",
+                  "offset": 52
+                },
+                {}
+              ],
+              "location": "ConsoleOperation.verifyLastOutputByRegex(String,String)"
+            },
+            "keyword": "Then "
+          },
+          {
+            "result": {
+              "duration": 225952000,
+              "status": "passed"
+            },
+            "line": 20,
+            "name": "CLI Run remote linux Command \"cat /home/radware/config\\?noauth |grep \u0027\\\"monitored\\\":true\u0027 |wc -l\" on \"GENERIC_LINUX_SERVER\"",
+            "match": {
+              "arguments": [
+                {
+                  "val": "cat /home/radware/config\\?noauth |grep \u0027\\\"monitored\\\":true\u0027 |wc -l",
+                  "offset": 30
+                },
+                {
+                  "val": "GENERIC_LINUX_SERVER",
+                  "offset": 102
+                },
+                {}
+              ],
+              "location": "RemoteSshCommandsTests.runCLICommand(String,SUTEntryType,Integer)"
+            },
+            "keyword": "When "
+          },
+          {
+            "output": [
+              "15:42:24: \\b1\\b is contained"
+            ],
+            "result": {
+              "duration": 397400,
+              "status": "passed"
+            },
+            "line": 21,
+            "name": "CLI Operations - Verify that output contains regex \"\\b1\\b\"",
+            "match": {
+              "arguments": [
+                {
+                  "val": "\\b1\\b",
+                  "offset": 52
+                },
+                {}
+              ],
+              "location": "ConsoleOperation.verifyLastOutputByRegex(String,String)"
+            },
+            "keyword": "Then "
+          }
+        ],
+        "tags": [
+          {
+            "line": 12,
+            "name": "@SID_2"
+          }
+        ]
+      },
+      {
+        "before": [
+          {
+            "result": {
+              "duration": 17579100,
+              "status": "passed"
+            },
+            "match": {
+              "location": "BddHooks.beforeScenario(Scenario)"
+            }
+          }
+        ],
+        "line": 24,
+        "name": "/collector/device/devicesview",
+        "description": "",
+        "id": "cloud-waf-api;/collector/device/devicesview",
+        "after": [
+          {
+            "result": {
+              "duration": 1527328300,
+              "status": "passed"
+            },
+            "match": {
+              "location": "BddHooks.afterScenario()"
+            }
+          }
+        ],
+        "type": "scenario",
+        "keyword": "Scenario",
+        "steps": [
+          {
+            "result": {
+              "duration": 223762201,
+              "status": "passed"
+            },
+            "line": 25,
+            "name": "CLI Run remote linux Command \"echo \"Cleared\" \u003e \"/home/radware/devicesview?noauth\"\" on \"GENERIC_LINUX_SERVER\"",
+            "match": {
+              "arguments": [
+                {
+                  "val": "echo \"Cleared\" \u003e \"/home/radware/devicesview?noauth\"",
+                  "offset": 30
+                },
+                {
+                  "val": "GENERIC_LINUX_SERVER",
+                  "offset": 87
+                },
+                {}
+              ],
+              "location": "RemoteSshCommandsTests.runCLICommand(String,SUTEntryType,Integer)"
+            },
+            "keyword": "When "
+          },
+          {
+            "result": {
+              "duration": 223072100,
+              "status": "passed"
+            },
+            "line": 26,
+            "name": "CLI Run remote linux Command \"cat /home/radware/devicesview\\?noauth |grep \"Cleared\" |wc -l\" on \"GENERIC_LINUX_SERVER\"",
+            "match": {
+              "arguments": [
+                {
+                  "val": "cat /home/radware/devicesview\\?noauth |grep \"Cleared\" |wc -l",
+                  "offset": 30
+                },
+                {
+                  "val": "GENERIC_LINUX_SERVER",
+                  "offset": 96
+                },
+                {}
+              ],
+              "location": "RemoteSshCommandsTests.runCLICommand(String,SUTEntryType,Integer)"
+            },
+            "keyword": "When "
+          },
+          {
+            "output": [
+              "15:42:26: \\b1\\b is contained"
+            ],
+            "result": {
+              "duration": 1069800,
+              "status": "passed"
+            },
+            "line": 27,
+            "name": "CLI Operations - Verify that output contains regex \"\\b1\\b\"",
+            "match": {
+              "arguments": [
+                {
+                  "val": "\\b1\\b",
+                  "offset": 52
+                },
+                {}
+              ],
+              "location": "ConsoleOperation.verifyLastOutputByRegex(String,String)"
+            },
+            "keyword": "Then "
+          },
+          {
+            "result": {
+              "duration": 290756501,
+              "status": "passed"
+            },
+            "line": 28,
+            "name": "CLI Run remote linux Command \"curl -X GET -k -O https://172.17.164.101/mgmt/collector/device/devicesview?noauth\" on \"GENERIC_LINUX_SERVER\"",
+            "match": {
+              "arguments": [
+                {
+                  "val": "curl -X GET -k -O https://172.17.164.101/mgmt/collector/device/devicesview?noauth",
+                  "offset": 30
+                },
+                {
+                  "val": "GENERIC_LINUX_SERVER",
+                  "offset": 117
+                },
+                {}
+              ],
+              "location": "RemoteSshCommandsTests.runCLICommand(String,SUTEntryType,Integer)"
+            },
+            "keyword": "When "
+          },
+          {
+            "result": {
+              "duration": 222940100,
+              "status": "passed"
+            },
+            "line": 29,
+            "name": "CLI Run remote linux Command \"cat /home/radware/devicesview\\?noauth |grep \u0027\\\"deviceIp\\\":\\\"172.16.22.50\\\",\\\"portName\\\":\\\"5\\\",\\\"portDirection\\\":\\\"2\\\"\u0027 |wc -l\" on \"GENERIC_LINUX_SERVER\"",
+            "match": {
+              "arguments": [
+                {
+                  "val": "cat /home/radware/devicesview\\?noauth |grep \u0027\\\"deviceIp\\\":\\\"172.16.22.50\\\",\\\"portName\\\":\\\"5\\\",\\\"portDirection\\\":\\\"2\\\"\u0027 |wc -l",
+                  "offset": 30
+                },
+                {
+                  "val": "GENERIC_LINUX_SERVER",
+                  "offset": 161
+                },
+                {}
+              ],
+              "location": "RemoteSshCommandsTests.runCLICommand(String,SUTEntryType,Integer)"
+            },
+            "keyword": "When "
+          },
+          {
+            "output": [
+              "15:42:27: \\b1\\b is contained"
+            ],
+            "result": {
+              "duration": 683401,
+              "status": "passed"
+            },
+            "line": 30,
+            "name": "CLI Operations - Verify that output contains regex \"\\b1\\b\"",
+            "match": {
+              "arguments": [
+                {
+                  "val": "\\b1\\b",
+                  "offset": 52
+                },
+                {}
+              ],
+              "location": "ConsoleOperation.verifyLastOutputByRegex(String,String)"
+            },
+            "keyword": "Then "
+          }
+        ],
+        "tags": [
+          {
+            "line": 23,
+            "name": "@SID_3"
+          }
+        ]
+      }
+    ],
+    "name": "Cloud WAF API",
+    "description": "",
+    "id": "cloud-waf-api",
+    "keyword": "Feature",
+    "uri": "Cloud_WAF_API/CWAF_API.feature",
+    "tags": [
+      {
+        "line": 1,
+        "name": "@VRM"
+      },
+      {
+        "line": 1,
+        "name": "@TC106041"
+      },
+      {
+        "line": 2,
+        "name": "@run"
+      }
+    ]
+  }
+]
