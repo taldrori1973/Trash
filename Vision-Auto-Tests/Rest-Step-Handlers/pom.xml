@@ -12,5 +12,12 @@
     <artifactId>Rest-Step-Handlers</artifactId>
     <name>Rest-Step-Handlers</name>
 
+    <dependencies>
+        <dependency>
+            <groupId>com.radware.vision.automation</groupId>
+            <artifactId>Rest-Infra</artifactId>
+            <version>${revision}</version>
+        </dependency>
+    </dependencies>
 
 </project>

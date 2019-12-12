@@ -18,10 +18,6 @@
     <repositories>
 
 
-
-
-
-
     </repositories>
 
     <distributionManagement>
@@ -41,6 +37,12 @@
     </pluginRepositories>
 
     <dependencies>
+
+        <dependency>
+            <groupId>com.radware.vision.automation</groupId>
+            <artifactId>Rest-Step-Handlers</artifactId>
+            <version>${revision}</version>
+        </dependency>
         <dependency>
             <groupId>radwareDefensePro</groupId>
             <artifactId>radwareDefensePro</artifactId>
@@ -82,42 +84,42 @@
             <artifactId>commons-lang</artifactId>
             <version>RELEASE</version>
         </dependency>
-<!--        <dependency>-->
-<!--            <groupId>org.jsystemtest</groupId>-->
-<!--            <artifactId>jsystemAgent</artifactId>-->
-<!--            <version>${jsystem.version}</version>-->
-<!--        </dependency>-->
-<!--        <dependency>-->
-<!--            <groupId>org.jsystemtest</groupId>-->
-<!--            <artifactId>jsystem-maven-plugin</artifactId>-->
-<!--            <version>${jsystem.version}</version>-->
-<!--            <exclusions>-->
-<!--                <exclusion>-->
-<!--                    <artifactId>asm-commons</artifactId>-->
-<!--                    <groupId>asm</groupId>-->
-<!--                </exclusion>-->
-<!--                <exclusion>-->
-<!--                    <artifactId>asm</artifactId>-->
-<!--                    <groupId>asm</groupId>-->
-<!--                </exclusion>-->
-<!--                <exclusion>-->
-<!--                    <artifactId>asm-tree</artifactId>-->
-<!--                    <groupId>asm</groupId>-->
-<!--                </exclusion>-->
-<!--                <exclusion>-->
-<!--                    <artifactId>hamcrest-core</artifactId>-->
-<!--                    <groupId>org.hamcrest</groupId>-->
-<!--                </exclusion>-->
-<!--                <exclusion>-->
-<!--                    <groupId>org.jsystemtest</groupId>-->
-<!--                    <artifactId>*</artifactId>-->
-<!--                </exclusion>-->
-<!--                <exclusion>-->
-<!--                    <groupId>org.apache.maven</groupId>-->
-<!--                    <artifactId>*</artifactId>-->
-<!--                </exclusion>-->
-<!--            </exclusions>-->
-<!--        </dependency>-->
+        <!--        <dependency>-->
+        <!--            <groupId>org.jsystemtest</groupId>-->
+        <!--            <artifactId>jsystemAgent</artifactId>-->
+        <!--            <version>${jsystem.version}</version>-->
+        <!--        </dependency>-->
+        <!--        <dependency>-->
+        <!--            <groupId>org.jsystemtest</groupId>-->
+        <!--            <artifactId>jsystem-maven-plugin</artifactId>-->
+        <!--            <version>${jsystem.version}</version>-->
+        <!--            <exclusions>-->
+        <!--                <exclusion>-->
+        <!--                    <artifactId>asm-commons</artifactId>-->
+        <!--                    <groupId>asm</groupId>-->
+        <!--                </exclusion>-->
+        <!--                <exclusion>-->
+        <!--                    <artifactId>asm</artifactId>-->
+        <!--                    <groupId>asm</groupId>-->
+        <!--                </exclusion>-->
+        <!--                <exclusion>-->
+        <!--                    <artifactId>asm-tree</artifactId>-->
+        <!--                    <groupId>asm</groupId>-->
+        <!--                </exclusion>-->
+        <!--                <exclusion>-->
+        <!--                    <artifactId>hamcrest-core</artifactId>-->
+        <!--                    <groupId>org.hamcrest</groupId>-->
+        <!--                </exclusion>-->
+        <!--                <exclusion>-->
+        <!--                    <groupId>org.jsystemtest</groupId>-->
+        <!--                    <artifactId>*</artifactId>-->
+        <!--                </exclusion>-->
+        <!--                <exclusion>-->
+        <!--                    <groupId>org.apache.maven</groupId>-->
+        <!--                    <artifactId>*</artifactId>-->
+        <!--                </exclusion>-->
+        <!--            </exclusions>-->
+        <!--        </dependency>-->
         <dependency>
             <groupId>com.radware.automation.defensepro.infra.utils</groupId>
             <artifactId>radwareGeneric</artifactId>
@@ -141,35 +143,35 @@
                 </configuration>
             </plugin>
 
-<!--            <plugin>-->
-<!--                <groupId>org.jsystemtest</groupId>-->
-<!--                <artifactId>jsystem-maven-plugin</artifactId>-->
-<!--                <version>${jsystem.version}</version>-->
-<!--                <dependencies>-->
-<!--                    <dependency>-->
-<!--                        <groupId>org.jsystemtest</groupId>-->
-<!--                        <artifactId>jsystemCommon</artifactId>-->
-<!--                        <version>${jsystem.version}</version>-->
-<!--                        <exclusions>-->
-<!--                            <exclusion>-->
-<!--                                <groupId>*</groupId>-->
-<!--                                <artifactId>*</artifactId>-->
-<!--                            </exclusion>-->
-<!--                        </exclusions>-->
-<!--                    </dependency>-->
-<!--                    <dependency>-->
-<!--                        <groupId>com.radware.vision.automation.webui</groupId>-->
-<!--                        <artifactId>webui-tests</artifactId>-->
-<!--                        <version>${project.version}</version>-->
-<!--                        <scope>runtime</scope>-->
-<!--                    </dependency>-->
-<!--                    <dependency>-->
-<!--                        <groupId>javax.mail</groupId>-->
-<!--                        <artifactId>mail</artifactId>-->
-<!--                        <version>1.4.4</version>-->
-<!--                    </dependency>-->
-<!--                </dependencies>-->
-<!--            </plugin>-->
+            <!--            <plugin>-->
+            <!--                <groupId>org.jsystemtest</groupId>-->
+            <!--                <artifactId>jsystem-maven-plugin</artifactId>-->
+            <!--                <version>${jsystem.version}</version>-->
+            <!--                <dependencies>-->
+            <!--                    <dependency>-->
+            <!--                        <groupId>org.jsystemtest</groupId>-->
+            <!--                        <artifactId>jsystemCommon</artifactId>-->
+            <!--                        <version>${jsystem.version}</version>-->
+            <!--                        <exclusions>-->
+            <!--                            <exclusion>-->
+            <!--                                <groupId>*</groupId>-->
+            <!--                                <artifactId>*</artifactId>-->
+            <!--                            </exclusion>-->
+            <!--                        </exclusions>-->
+            <!--                    </dependency>-->
+            <!--                    <dependency>-->
+            <!--                        <groupId>com.radware.vision.automation.webui</groupId>-->
+            <!--                        <artifactId>webui-tests</artifactId>-->
+            <!--                        <version>${project.version}</version>-->
+            <!--                        <scope>runtime</scope>-->
+            <!--                    </dependency>-->
+            <!--                    <dependency>-->
+            <!--                        <groupId>javax.mail</groupId>-->
+            <!--                        <artifactId>mail</artifactId>-->
+            <!--                        <version>1.4.4</version>-->
+            <!--                    </dependency>-->
+            <!--                </dependencies>-->
+            <!--            </plugin>-->
             <plugin>
                 <artifactId>maven-clean-plugin</artifactId>
                 <version>2.5</version>
