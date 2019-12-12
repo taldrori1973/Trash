@@ -13,7 +13,7 @@
     <name>Vision-Auto-Infra</name>
 
     <modules>
-        <module>rest-infra</module>
+        <module>Rest-Infra</module>
         <module>Webui-Infra</module>
     </modules>
 
