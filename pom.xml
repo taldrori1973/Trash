@@ -18,6 +18,8 @@
     <properties>
         <VISION_VERSION>4.50.00</VISION_VERSION>
         <revision>${VISION_VERSION}-SNAPSHOT</revision>
+        <maven.compiler.source>1.8</maven.compiler.source>
+        <maven.compiler.target>1.8</maven.compiler.target>
     </properties>
 
     <repositories>
