@@ -8,10 +8,9 @@
         <version>${revision}</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
-    <packaging>pom</packaging>
     <artifactId>Vision-Auto-Tests</artifactId>
     <name>Vision-Auto-Tests</name>
-
+    <packaging>pom</packaging>
     <modules>
         <module>Vision-Tests</module>
         <module>Webui-Step-Handlers</module>
