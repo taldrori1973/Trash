@@ -3,4 +3,6 @@
 .metadata
 .settings
 *.iml
-
+.classpath
+.project
+target
