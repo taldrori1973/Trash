@@ -1,2 +1,0 @@
-classes modify network create SG8 1 -s 0 -f 206.225.0.0 -t 208.255.255.254 -m ipRange
-dp server-protection protected-servers create SERVER-delete-08 -dst SG8

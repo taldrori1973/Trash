@@ -1,3 +1,0 @@
-classes modify network create SG9 1 -s 0 -f 209.0.0.0 -t 209.235.4.191 -m ipRange
-classes modify network create SG9 2 -s 0 -f 209.235.4.224 -t 209.255.255.254 -m ipRange
-dp server-protection protected-servers create SERVER-09 -dst SG9
