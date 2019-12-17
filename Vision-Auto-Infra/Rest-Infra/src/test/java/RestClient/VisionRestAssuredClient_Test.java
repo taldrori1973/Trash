@@ -2,17 +2,15 @@ package RestClient;
 
 
 import controllers.restAssured.client.VisionRestAssuredClient;
-
-import static io.restassured.RestAssured.*;
-import static io.restassured.matcher.RestAssuredMatchers.*;
-import static org.hamcrest.Matchers.*;
-
 import io.restassured.RestAssured;
 import io.restassured.parsing.Parser;
 import io.restassured.response.Response;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 import restInterface.RestClient;
+
+import static io.restassured.RestAssured.given;
+import static org.hamcrest.Matchers.is;
 
 public class VisionRestAssuredClient_Test {
 
@@ -51,6 +49,24 @@ public class VisionRestAssuredClient_Test {
     public void restAssuredWorkOnSys_adminClient() {
         Response response = given().basePath("/mgmt/system/user/info?showpolicies=true").when().get().then().extract().response();
         response.then().assertThat().body("username", is("sys_admin"));
+    }
+
+    @Test(priority = 5)
+    public void switchBackToRadwareClient() {
+        this.radwareClient.switchTo();
+        Response response = given().basePath("/mgmt/system/user/info?showpolicies=true").when().get().then().extract().response();
+        response.then().assertThat().body("username", is("radware"));
+    }
+
+
+
+    @Test(priority = 6)
+    public void testLogout(){
+        assert this.sys_adminClient.isConnected();
+
+        this.sys_adminClient.logout();
+
+        assert !this.sys_adminClient.isConnected();
     }
 
 

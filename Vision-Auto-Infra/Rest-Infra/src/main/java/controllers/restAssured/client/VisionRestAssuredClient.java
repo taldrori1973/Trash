@@ -1,12 +1,8 @@
 package controllers.restAssured.client;
 
 import io.restassured.RestAssured;
-import io.restassured.filter.Filter;
-import io.restassured.filter.cookie.CookieFilter;
-import io.restassured.http.Cookie;
-import io.restassured.http.Cookies;
+import io.restassured.http.ContentType;
 import io.restassured.response.Response;
-import restInterface.RestClient;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -17,6 +13,7 @@ public class VisionRestAssuredClient extends RestAssuredClient {
 
     private static final String LOGIN_PATH = "/mgmt/system/user/login";
     private static final String LOGOUT_PATH = "/mgmt/system/user/logout";
+    private static final String TEST_PATH = "/mgmt/system/user/info?showpolicies=true";
     private static final int ON_SUCCESS_STATUS_CODE = 200;
 
 
@@ -57,12 +54,10 @@ public class VisionRestAssuredClient extends RestAssuredClient {
 
     public int login() {
         Response response = RestAssured.
-                given().body(this.authenticationRequestBody).baseUri(this.baseUri).port(this.connectionPort).basePath(LOGIN_PATH).
+                given().filter(this.sessionFilter).body(this.authenticationRequestBody).basePath(LOGIN_PATH).
                 when().post().
                 then().statusCode(ON_SUCCESS_STATUS_CODE).extract().response();
-
-        this.cookies = response.detailedCookies();
-        this.requestSpecification.replaceCookies(this.cookies);
+       this.requestSpecification.filter(this.sessionFilter);
         switchTo();
         return response.getStatusCode();
     }
@@ -70,16 +65,16 @@ public class VisionRestAssuredClient extends RestAssuredClient {
     @Override
     public boolean isConnected() {
         return RestAssured.
-                given().cookies(this.cookies).baseUri(this.baseUri).port(this.connectionPort).
+                given().baseUri(this.baseUri).port(this.connectionPort).basePath(TEST_PATH).
                 when().get().
-                then().statusCode(ON_SUCCESS_STATUS_CODE).extract().statusCode() == ON_SUCCESS_STATUS_CODE;
+                then().extract().statusCode() == ON_SUCCESS_STATUS_CODE;
     }
 
 
     @Override
     public int logout() {
         int response = RestAssured.
-                given().cookies(this.cookies).baseUri(this.baseUri).port(this.connectionPort).basePath(LOGOUT_PATH).
+                given().baseUri(this.baseUri).port(this.connectionPort).basePath(LOGOUT_PATH).
                 when().post().
                 then().statusCode(ON_SUCCESS_STATUS_CODE).extract().statusCode();
 
@@ -88,24 +83,15 @@ public class VisionRestAssuredClient extends RestAssuredClient {
     }
 
     public static void main(String[] args) {
-        RestClient visionClient = new VisionRestAssuredClient("https://172.17.192.100", "radware", "radware");
-        visionClient.login();
-        Response response = RestAssured.given().basePath("/mgmt/system/config/item/licenseinfo").when().get().then().extract().response();
 
-        RestClient client2 = new VisionRestAssuredClient("https://172.17.192.100", "sys_admin", "radware");
-        client2.login();
-        response = RestAssured.given().basePath("/mgmt/system/config/item/licenseinfo").when().get().then().extract().response();
+        Map<String,String> map=new HashMap<>();
+        map.put("username","radware");
+        map.put("password","radware");
 
-        visionClient.switchTo();
-        response = RestAssured.given().basePath("/mgmt/system/config/item/licenseinfo").when().get().then().extract().response();
+        Response login_response = RestAssured.given().relaxedHTTPSValidation().body(map).contentType(ContentType.JSON).post("https://172.17.192.100/mgmt/system/user/login").then().extract().response();
+        Response check_response = RestAssured.given().relaxedHTTPSValidation().get("https://172.17.192.100").then().extract().response();
 
-        boolean isConnected = client2.isConnected();
 
-        int isLoggedOut = client2.logout();
-        isConnected = client2.isConnected();
-        response = RestAssured.given().basePath("/mgmt/system/config/item/licenseinfo").when().get().then().extract().response();
-        client2.switchTo();
-        response = RestAssured.given().basePath("/mgmt/system/config/item/licenseinfo").when().get().then().extract().response();
 
 
     }
