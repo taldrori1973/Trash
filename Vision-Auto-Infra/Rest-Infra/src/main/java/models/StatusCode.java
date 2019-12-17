@@ -1,5 +1,10 @@
 package models;
 
+import org.omg.CORBA.UNKNOWN;
+
+import java.util.HashMap;
+import java.util.Map;
+
 public enum StatusCode {
     OK(200, "OK"),
     CREATED(201, "Created"),
@@ -36,14 +41,25 @@ public enum StatusCode {
     BAD_GATEWAY(502, "Bad Gateway"),
     SERVICE_UNAVAILABLE(503, "Service Unavailable"),
     GATEWAY_TIMEOUT(504, "Gateway Timeout"),
-    HTTP_VERSION_NOT_SUPPORTED(505, "HTTP Version Not Supported");
+    HTTP_VERSION_NOT_SUPPORTED(505, "HTTP Version Not Supported"),
+    UNKNOWN(0, "Unknown Status Code");
 
+    private static final Map<Integer, StatusCode> BY_STATUS_CODE = new HashMap<>();
     private final int statusCode;
     private final String reasonPhrase;
+
+
+    static {
+        for (StatusCode sc : values()) BY_STATUS_CODE.put(sc.statusCode, sc);
+    }
 
     StatusCode(int statusCode, String reasonPhrase) {
         this.statusCode = statusCode;
         this.reasonPhrase = reasonPhrase;
+    }
+
+    public static StatusCode getStatusCode(int statusCode) {
+        return  BY_STATUS_CODE.getOrDefault(statusCode, UNKNOWN);
     }
 
     public int getStatusCode() {

@@ -2,7 +2,6 @@ package models;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
-import org.apache.http.entity.ContentType;
 
 import java.util.List;
 import java.util.Map;
