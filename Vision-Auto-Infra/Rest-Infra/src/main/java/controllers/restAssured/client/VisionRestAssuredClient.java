@@ -1,11 +1,10 @@
 package controllers.restAssured.client;
 
 import io.restassured.RestAssured;
-import io.restassured.http.ContentType;
 import io.restassured.path.json.JsonPath;
 import io.restassured.response.Response;
-import models.SessionInfoOptions;
-import models.VisionSessionInfoOptions;
+import models.utils.SessionInfoOptions;
+import models.utils.VisionSessionInfoOptions;
 import restInterface.RestClient;
 
 import java.util.HashMap;
@@ -96,6 +95,7 @@ public class VisionRestAssuredClient extends RestAssuredClient {
         } catch (AssertionError error) {
             return Optional.empty();
         }
+
         JsonPath jsonPath=response.jsonPath();
 
         Object fieldValue = jsonPath.get(infoOption.getFieldName());

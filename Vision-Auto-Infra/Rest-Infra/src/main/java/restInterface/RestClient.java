@@ -1,7 +1,6 @@
 package restInterface;
 
-import controllers.restAssured.client.VisionRestAssuredClient;
-import models.SessionInfoOptions;
+import models.utils.SessionInfoOptions;
 
 import java.util.Optional;
 
