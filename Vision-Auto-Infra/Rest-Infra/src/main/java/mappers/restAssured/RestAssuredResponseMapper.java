@@ -1,8 +1,6 @@
 package mappers.restAssured;
 
 import com.fasterxml.jackson.databind.JsonNode;
-import com.jayway.jsonpath.InvalidPathException;
-import com.jayway.jsonpath.JsonPath;
 import io.restassured.http.Header;
 import io.restassured.response.Response;
 import io.restassured.response.ResponseBody;
@@ -11,8 +9,10 @@ import models.ContentType;
 import models.RestResponse;
 import models.StatusCode;
 
-
-import java.util.*;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Optional;
 
 public class RestAssuredResponseMapper {
 
@@ -54,7 +54,6 @@ public class RestAssuredResponseMapper {
 
         String bodyAsString = body.asString();
         Optional<JsonNode> bodyAsJsonNode;
-        Optional<JsonPath> bodyAsJsonPath;
 
         try {
             bodyAsJsonNode = Optional.of(body.as(JsonNode.class));
@@ -62,12 +61,8 @@ public class RestAssuredResponseMapper {
             bodyAsJsonNode = Optional.empty();
         }
 
-        try {
-            bodyAsJsonPath = Optional.of(JsonPath.compile(bodyAsString));
-        } catch (IllegalArgumentException | InvalidPathException e) {
-            bodyAsJsonPath = Optional.empty();
-        }
-        return new Body(bodyAsString, bodyAsJsonPath, bodyAsJsonNode);
+
+        return new Body(bodyAsString, bodyAsJsonNode);
     }
 
     private static StatusCode getStatusCode(Response response) {
