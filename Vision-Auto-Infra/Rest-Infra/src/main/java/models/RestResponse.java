@@ -21,6 +21,11 @@ public class RestResponse {
     private String sessionId;
     private long time;
 
+    /**
+     *
+     * @param timeUnit
+     * @return the time in @timeUnit , and -1 if the @timeUnit=-1
+     */
     public long getTimeIn(TimeUnit timeUnit) {
         if (Objects.isNull(timeUnit)) return -1;
         if (this.time != -1 && timeUnit != java.util.concurrent.TimeUnit.MILLISECONDS) {
