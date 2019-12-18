@@ -53,12 +53,12 @@ public class VisionRestAssuredClient_Test {
         response.then().assertThat().body("username", is("sys_admin"));
     }
 
-    @Test(priority = 5)
-    public void switchBackToRadwareClient() {
-        this.radwareClient.switchTo();
-        Response response = given().basePath("/mgmt/system/user/info?showpolicies=true").when().get().then().extract().response();
-        response.then().assertThat().body("username", is("radware"));
-    }
+//    @Test(priority = 5)
+//    public void switchBackToRadwareClient() {
+//        this.radwareClient.switchTo();
+//        Response response = given().basePath("/mgmt/system/user/info?showpolicies=true").when().get().then().extract().response();
+//        response.then().assertThat().body("username", is("radware"));
+//    }
 
 
     @Test(priority = 6)
