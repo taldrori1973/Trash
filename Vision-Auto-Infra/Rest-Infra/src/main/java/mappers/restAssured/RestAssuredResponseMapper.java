@@ -32,7 +32,7 @@ public class RestAssuredResponseMapper {
         long time = response.getTime();
 
 
-        return new RestResponse(statusCode, statusLine, body, headers, cookies, contentType, sessionId, time, new ArrayList<>());
+        return new RestResponse(statusCode, statusLine, body, headers, cookies, contentType, sessionId, time);
     }
 
     private static ContentType getContentType(Response response) {
