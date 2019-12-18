@@ -1,12 +1,13 @@
 package restInterface;
 
+import models.RestResponse;
 import models.utils.SessionInfoOptions;
 
 import java.util.Optional;
 
 public interface RestClient {
 
-    int login();
+    RestResponse login();
 
     boolean isConnected();
 
@@ -16,7 +17,7 @@ public interface RestClient {
 
     Optional<String> getSessionInfoBy(SessionInfoOptions option);
 
-    int logout();
+    RestResponse logout();
 
 
 }

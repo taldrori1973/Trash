@@ -3,6 +3,9 @@ package controllers.restAssured.client;
 import io.restassured.RestAssured;
 import io.restassured.path.json.JsonPath;
 import io.restassured.response.Response;
+import mappers.restAssured.RestAssuredResponseMapper;
+import models.RestResponse;
+import models.StatusCode;
 import models.utils.SessionInfoOptions;
 import models.utils.VisionSessionInfoOptions;
 import restInterface.RestClient;
@@ -18,7 +21,7 @@ public class VisionRestAssuredClient extends RestAssuredClient {
     private static final String LOGIN_PATH = "/mgmt/system/user/login";
     private static final String LOGOUT_PATH = "/mgmt/system/user/logout";
     private static final String INFO_PATH = "/mgmt/system/user/info?showpolicies=true";
-    private static final int ON_SUCCESS_STATUS_CODE = 200;
+    private static final StatusCode ON_SUCCESS_STATUS_CODE = StatusCode.OK;
 
 
     private static final String userName_fieldName = "username";
@@ -57,14 +60,19 @@ public class VisionRestAssuredClient extends RestAssuredClient {
 
 
     @Override
-    public int login() {
+    public RestResponse login() {
         Response response = RestAssured.
                 given().filter(this.sessionFilter).body(this.authenticationRequestBody).basePath(LOGIN_PATH).
                 when().post().
-                then().statusCode(ON_SUCCESS_STATUS_CODE).extract().response();
+                then().extract().response();
+
         this.requestSpecification.filter(this.sessionFilter);
-        switchTo();
-        return response.getStatusCode();
+
+        RestResponse restResponse = RestAssuredResponseMapper.map(response);
+
+        if (restResponse.getStatusCode().equals(ON_SUCCESS_STATUS_CODE)) switchTo();
+
+        return restResponse;
     }
 
     @Override
@@ -72,7 +80,7 @@ public class VisionRestAssuredClient extends RestAssuredClient {
         return RestAssured.
                 given().baseUri(this.baseUri).port(this.connectionPort).basePath(INFO_PATH).
                 when().get().
-                then().extract().statusCode() == ON_SUCCESS_STATUS_CODE;
+                then().extract().statusCode() == ON_SUCCESS_STATUS_CODE.getStatusCode();
     }
 
     @Override
@@ -90,28 +98,28 @@ public class VisionRestAssuredClient extends RestAssuredClient {
             response = RestAssured.
                     given().basePath(INFO_PATH).
                     when().get().
-                    then().assertThat().statusCode(ON_SUCCESS_STATUS_CODE).
+                    then().assertThat().statusCode(ON_SUCCESS_STATUS_CODE.getStatusCode()).
                     extract().response();
         } catch (AssertionError error) {
             return Optional.empty();
         }
 
-        JsonPath jsonPath=response.jsonPath();
+        JsonPath jsonPath = response.jsonPath();
 
         Object fieldValue = jsonPath.get(infoOption.getFieldName());
-        if(Objects.isNull(fieldValue)) return Optional.empty();
+        if (Objects.isNull(fieldValue)) return Optional.empty();
         return Optional.of(fieldValue.toString());
     }
 
     @Override
-    public int logout() {
-        int response = RestAssured.
+    public RestResponse logout() {
+        Response response = RestAssured.
                 given().baseUri(this.baseUri).port(this.connectionPort).basePath(LOGOUT_PATH).
                 when().post().
-                then().statusCode(ON_SUCCESS_STATUS_CODE).extract().statusCode();
+                then().extract().response();
 
-
-        return response;
+        return RestAssuredResponseMapper.map(response);
+        
     }
 
 

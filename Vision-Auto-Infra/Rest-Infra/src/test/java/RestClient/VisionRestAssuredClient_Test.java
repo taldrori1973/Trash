@@ -5,6 +5,8 @@ import controllers.restAssured.client.VisionRestAssuredClient;
 import io.restassured.RestAssured;
 import io.restassured.parsing.Parser;
 import io.restassured.response.Response;
+import models.RestResponse;
+import models.StatusCode;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 import restInterface.RestClient;
@@ -27,8 +29,8 @@ public class VisionRestAssuredClient_Test {
 
     @Test(priority = 1)
     public void radwareClientLoginReturnsOk() {
-        int result = this.radwareClient.login();
-        assert result == 200;
+        RestResponse result = this.radwareClient.login();
+        assert result.getStatusCode() == StatusCode.OK;
     }
 
     @Test(priority = 2)
@@ -40,8 +42,8 @@ public class VisionRestAssuredClient_Test {
 
     @Test(priority = 3)
     public void sys_adminClientLoginReturnsOk() {
-        int result = this.sys_adminClient.login();
-        assert result == 200;
+        RestResponse result = this.sys_adminClient.login();
+        assert result.getStatusCode() == StatusCode.OK;
     }
 
 
@@ -59,18 +61,16 @@ public class VisionRestAssuredClient_Test {
     }
 
 
-
     @Test(priority = 6)
-    public void testLogout(){
+    public void testLogout() {
         assert this.sys_adminClient.isConnected();
 
-        this.sys_adminClient.logout();
+        RestResponse result = this.sys_adminClient.logout();
+
+        assert result.getStatusCode() == StatusCode.OK;
 
         assert !this.sys_adminClient.isConnected();
     }
-
-
-
 
 
 }

@@ -16,6 +16,9 @@ import java.util.*;
 
 public class RestAssuredResponseMapper {
 
+    private RestAssuredResponseMapper() {
+
+    }
 
     public static RestResponse map(Response response) {
 
@@ -34,9 +37,7 @@ public class RestAssuredResponseMapper {
 
     private static ContentType getContentType(Response response) {
         String contentType = response.getContentType();
-//        io.restassured.http.ContentType
-        return null;
-//        org.apache.http.entity.ContentType
+        return ContentType.fromContentType(contentType);
     }
 
     private static Map<String, String> getHeaders(Response response) {
