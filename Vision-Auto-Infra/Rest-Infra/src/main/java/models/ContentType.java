@@ -16,7 +16,6 @@
 
 package models;
 
-import io.restassured.internal.http.ContentTypeExtractor;
 import org.apache.commons.lang3.StringUtils;
 
 import java.nio.charset.Charset;
@@ -107,11 +106,16 @@ public enum ContentType {
         this.ctStrings = contentTypes;
     }
 
+
+    private static String getContentTypeWithoutCharset(String contentType) {
+        return StringUtils.trim(StringUtils.substringBefore(contentType, ";"));
+    }
+
     public static ContentType fromContentType(String contentType) {
         if (contentType == null) {
             return null;
         }
-        contentType = ContentTypeExtractor.getContentTypeWithoutCharset(contentType.toLowerCase());
+        contentType = getContentTypeWithoutCharset(contentType.toLowerCase());
         final ContentType foundContentType;
         if (contains(XML.ctStrings, contentType) || endsWithIgnoreCase(contentType, PLUS_XML)) {
             foundContentType = XML;
