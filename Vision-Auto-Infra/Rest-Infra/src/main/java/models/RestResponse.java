@@ -5,6 +5,8 @@ import lombok.Data;
 
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
+import java.util.concurrent.TimeUnit;
 
 @Data
 @AllArgsConstructor
@@ -18,5 +20,12 @@ public class RestResponse {
     private ContentType contentType;
     private String sessionId;
     private long time;
-    private List<String> errors;
+
+    public long getTimeIn(TimeUnit timeUnit) {
+        if (Objects.isNull(timeUnit)) return -1;
+        if (this.time != -1 && timeUnit != java.util.concurrent.TimeUnit.MILLISECONDS) {
+            this.time = timeUnit.convert(this.time, java.util.concurrent.TimeUnit.MILLISECONDS);
+        }
+        return time;
+    }
 }
