@@ -2,7 +2,10 @@ package controllers.restAssured;
 
 import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
+import io.restassured.http.Method;
+import io.restassured.response.Response;
 import io.restassured.specification.RequestSpecification;
+import mappers.restAssured.RestAssuredResponseMapper;
 import models.RestRequestSpecification;
 import models.RestResponse;
 import restInterface.RestApi;
@@ -37,8 +40,9 @@ public class RestAssuredApi implements RestApi {
                 if (!Objects.isNull(requestSpecification.getBody()))
                     request = request.body(requestSpecification.getBody().getBodyAsString());
         }
+        Response response = request.when().request(Method.valueOf(requestSpecification.getMethod().name())).then().extract().response();
 
+        return RestAssuredResponseMapper.map(response);
 
-        return null;
     }
 }
