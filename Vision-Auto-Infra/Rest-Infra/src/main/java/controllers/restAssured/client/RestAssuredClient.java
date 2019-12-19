@@ -28,6 +28,8 @@ public abstract class RestAssuredClient implements RestClient {
                 setPort(this.connectionPort).
                 build();
 
+        RestAssured.baseURI = this.baseUri;
+        RestAssured.port = this.connectionPort;
         RestAssured.requestSpecification = this.requestSpecification;
         RestAssured.registerParser("application/octet-stream", Parser.JSON);
 
@@ -36,6 +38,8 @@ public abstract class RestAssuredClient implements RestClient {
 
     @Override
     public void switchTo() {
+        RestAssured.baseURI = this.baseUri;
+        RestAssured.port = this.connectionPort;
         RestAssured.requestSpecification = this.requestSpecification;
     }
 }
