@@ -1,4 +1,4 @@
-package mappers.restAssured;
+package mappers;
 
 import java.util.Map;
 
