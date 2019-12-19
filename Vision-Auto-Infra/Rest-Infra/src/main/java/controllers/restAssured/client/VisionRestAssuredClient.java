@@ -1,6 +1,7 @@
 package controllers.restAssured.client;
 
 import io.restassured.RestAssured;
+import io.restassured.http.ContentType;
 import io.restassured.path.json.JsonPath;
 import io.restassured.response.Response;
 import mappers.restAssured.RestAssuredResponseMapper;
@@ -8,7 +9,6 @@ import models.RestResponse;
 import models.StatusCode;
 import models.utils.SessionInfoOptions;
 import models.utils.VisionSessionInfoOptions;
-import restInterface.RestClient;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -111,6 +111,34 @@ public class VisionRestAssuredClient extends RestAssuredClient {
         return Optional.of(fieldValue.toString());
     }
 
+    public static void main(String[] args) {
+
+
+        Response request = RestAssured.
+                given().log().all().contentType(ContentType.JSON).relaxedHTTPSValidation().params("username", "radware", "password", "radware").
+                when().post("https://172.17.192.100" + LOGIN_PATH);
+//        Map<String, String> map = new HashMap<>();
+//        map.put("username", "radware");
+//        map.put("password", "radware");
+//        RestClient restClient = new VisionRestAssuredClient("https://172.17.192.100", "radware", "radware");
+//        boolean isConnected = restClient.isConnected();
+//        restClient.login();
+//        Optional<String> userName = restClient.getUserName();
+//        Optional<String> userName2 = restClient.getSessionInfoBy(VisionSessionInfoOptions.USERNAME);
+//        Optional<String> GLOBAL_LANDING_PAGE = restClient.getSessionInfoBy(VisionSessionInfoOptions.GLOBAL_LANDING_PAGE);
+//        Optional<String> LAST_LOGIN = restClient.getSessionInfoBy(VisionSessionInfoOptions.LAST_LOGIN);
+//        Optional<String> LOCALE = restClient.getSessionInfoBy(VisionSessionInfoOptions.LOCALE);
+//        Optional<String> LOGICAL_GROUP_ROLES = restClient.getSessionInfoBy(VisionSessionInfoOptions.LOGICAL_GROUP_ROLES);
+//        Optional<String> NETWORK_POLICIES = restClient.getSessionInfoBy(VisionSessionInfoOptions.NETWORK_POLICIES);
+//        Optional<String> ROLES = restClient.getSessionInfoBy(VisionSessionInfoOptions.ROLES);
+//        Optional<String> WARNINGS = restClient.getSessionInfoBy(VisionSessionInfoOptions.WARNINGS);
+
+//        Response login_response = RestAssured.given().relaxedHTTPSValidation().body(map).contentType(ContentType.JSON).post("https://172.17.192.100/mgmt/system/user/login").then().extract().response();
+//        Response check_response = RestAssured.given().relaxedHTTPSValidation().get("https://172.17.192.100").then().extract().response();
+
+
+    }
+
     @Override
     public RestResponse logout() {
         Response response = RestAssured.
@@ -119,31 +147,6 @@ public class VisionRestAssuredClient extends RestAssuredClient {
                 then().extract().response();
 
         return RestAssuredResponseMapper.map(response);
-        
-    }
-
-
-    public static void main(String[] args) {
-
-        Map<String, String> map = new HashMap<>();
-        map.put("username", "radware");
-        map.put("password", "radware");
-        RestClient restClient = new VisionRestAssuredClient("https://172.17.192.100", "radware", "radware");
-        boolean isConnected = restClient.isConnected();
-        restClient.login();
-        Optional<String> userName = restClient.getUserName();
-        Optional<String> userName2 = restClient.getSessionInfoBy(VisionSessionInfoOptions.USERNAME);
-        Optional<String> GLOBAL_LANDING_PAGE = restClient.getSessionInfoBy(VisionSessionInfoOptions.GLOBAL_LANDING_PAGE);
-        Optional<String> LAST_LOGIN = restClient.getSessionInfoBy(VisionSessionInfoOptions.LAST_LOGIN);
-        Optional<String> LOCALE = restClient.getSessionInfoBy(VisionSessionInfoOptions.LOCALE);
-        Optional<String> LOGICAL_GROUP_ROLES = restClient.getSessionInfoBy(VisionSessionInfoOptions.LOGICAL_GROUP_ROLES);
-        Optional<String> NETWORK_POLICIES = restClient.getSessionInfoBy(VisionSessionInfoOptions.NETWORK_POLICIES);
-        Optional<String> ROLES = restClient.getSessionInfoBy(VisionSessionInfoOptions.ROLES);
-        Optional<String> WARNINGS = restClient.getSessionInfoBy(VisionSessionInfoOptions.WARNINGS);
-
-//        Response login_response = RestAssured.given().relaxedHTTPSValidation().body(map).contentType(ContentType.JSON).post("https://172.17.192.100/mgmt/system/user/login").then().extract().response();
-//        Response check_response = RestAssured.given().relaxedHTTPSValidation().get("https://172.17.192.100").then().extract().response();
-
 
     }
 }
