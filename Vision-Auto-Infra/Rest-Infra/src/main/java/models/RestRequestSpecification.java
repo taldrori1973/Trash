@@ -49,7 +49,7 @@ public class RestRequestSpecification {
 
     public void setBasePath(String basePath) {
         if (Objects.isNull(basePath)) this.basePath = "";
-        this.basePath = basePath;
+        else this.basePath = basePath;
     }
 
     public void addPathParams(String firstParameterName, Object firstParameterValue, Object... parameterNameValuePairs) throws IllegalArgumentException {

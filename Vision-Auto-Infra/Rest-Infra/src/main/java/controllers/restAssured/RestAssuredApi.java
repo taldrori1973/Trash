@@ -28,7 +28,7 @@ public class RestAssuredApi implements RestApi {
         if (!Objects.isNull(requestSpecification.getContentType()))
             request = request.contentType(ContentType.fromContentType(requestSpecification.getContentType().toString()));
         if (!Objects.isNull(requestSpecification.getAccept()))
-            request = request.accept(ContentType.fromContentType(requestSpecification.getAccept().getAcceptHeader()));
+            request = request.accept(requestSpecification.getAccept().getAcceptHeader());
 
 
         switch (requestSpecification.getMethod()) {

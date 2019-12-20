@@ -57,7 +57,7 @@ public class RestAssuredResponseMapper {
 
         try {
             bodyAsJsonNode = Optional.of(body.as(JsonNode.class));
-        } catch (IllegalStateException e) {
+        } catch (Exception e) {
             bodyAsJsonNode = Optional.empty();
         }
 
