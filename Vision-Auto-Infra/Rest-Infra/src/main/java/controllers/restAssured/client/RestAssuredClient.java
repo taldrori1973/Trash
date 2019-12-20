@@ -40,6 +40,7 @@ public abstract class RestAssuredClient implements RestClient {
     public void switchTo() {
         RestAssured.baseURI = this.baseUri;
         RestAssured.port = this.connectionPort;
+        RestAssured.sessionId = this.sessionFilter.getSessionId();
         RestAssured.requestSpecification = this.requestSpecification;
     }
 }

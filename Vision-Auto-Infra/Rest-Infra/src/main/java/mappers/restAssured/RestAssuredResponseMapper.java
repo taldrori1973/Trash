@@ -1,6 +1,7 @@
 package mappers.restAssured;
 
 import com.fasterxml.jackson.databind.JsonNode;
+import io.restassured.RestAssured;
 import io.restassured.http.Header;
 import io.restassured.response.Response;
 import io.restassured.response.ResponseBody;
@@ -9,10 +10,7 @@ import models.ContentType;
 import models.RestResponse;
 import models.StatusCode;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Optional;
+import java.util.*;
 
 public class RestAssuredResponseMapper {
 
@@ -28,11 +26,17 @@ public class RestAssuredResponseMapper {
         Map<String, String> headers = getHeaders(response);
         Map<String, String> cookies = response.getCookies();
         ContentType contentType = getContentType(response);
-        String sessionId = response.getSessionId();
+        String sessionId = getSessionId(response);
         long time = response.getTime();
 
 
         return new RestResponse(statusCode, statusLine, body, headers, cookies, contentType, sessionId, time);
+    }
+
+    private static String getSessionId(Response response) {
+        String sessionId = response.getSessionId();
+        if (Objects.isNull(sessionId)) sessionId = RestAssured.sessionId;
+        return sessionId;
     }
 
     private static ContentType getContentType(Response response) {
