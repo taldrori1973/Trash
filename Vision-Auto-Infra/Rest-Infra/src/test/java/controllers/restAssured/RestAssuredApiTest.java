@@ -1,14 +1,21 @@
 package controllers.restAssured;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.jayway.jsonpath.DocumentContext;
+import com.jayway.jsonpath.JsonPath;
 import controllers.restAssured.client.VisionRestAssuredClient;
 import models.*;
+import net.minidev.json.JSONArray;
 import org.testng.annotations.Test;
 import restInterface.RestApi;
 import restInterface.RestClient;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import static org.testng.Assert.*;
 
@@ -24,6 +31,7 @@ public class RestAssuredApiTest {
     String newRulesTable_props = "props";
     String newRulesTable_props_value = "rsIDSNewRulesName";
 
+    String licenseString = "vision-reporting-module-AMS-AkGmi3NA";
 
     @Test
     public void testGetWithSuccessfulResponse() {
@@ -160,6 +168,80 @@ public class RestAssuredApiTest {
         assertFalse(body.getBodyAsJsonNode().isPresent());
         assertEquals(body.getBodyAsString(), "");
 
+
+    }
+
+    @Test
+    public void test_Post_Delete() throws JsonProcessingException {
+        String taskName = "test";
+        String basePath = "/mgmt/system/config/itemlist/scheduledtask/";
+
+//        Connect to Vision
+        RestClient restClient = new VisionRestAssuredClient(baseUri, "radware", "radware");
+        RestResponse loginResponse = restClient.login();
+        assertEquals(loginResponse.getStatusCode(), StatusCode.OK);
+
+//        Check if the task already exist
+        RestRequestSpecification request = new RestRequestSpecification(Method.GET);
+        request.setBasePath(basePath);
+
+        RestApi restApi = new RestAssuredApi();
+        RestResponse response = restApi.sendRequest(request);
+
+        JsonPath jsonPath = JsonPath.compile("$..[?(@.name==\"" + taskName + "\")].ormID");
+        DocumentContext root = JsonPath.parse(response.getBody().getBodyAsString());
+        JSONArray ormIdArr = root.read(jsonPath);
+
+//        if Exist Delete the task
+        String deletePath = basePath + "{ormID}";
+        if (ormIdArr.size() > 0) {
+            request = new RestRequestSpecification(Method.DELETE);
+            request.setBasePath(deletePath);
+            request.addPathParams("ormID", ormIdArr.get(0));
+
+            response = restApi.sendRequest(request);
+
+            assertEquals(response.getStatusCode(), StatusCode.OK);
+        }
+
+
+//        add new task with name : test
+
+        Map<String, Object> time = new HashMap<>();
+        time.put("runAlways", true);
+        time.put("frequency", "DAILY");
+        time.put("timeZoneGMT", "Etc/GMT-2");
+        time.put("hour", 14);
+        time.put("minute", 45);
+        time.put("second", 22);
+
+        Map<String, Object> additionalParams = new HashMap<>();
+        additionalParams.put("confPassPhrasep", "radware");
+
+        Map<String, Object> parameters = new HashMap<>();
+
+        Map<String, Object> body = new HashMap<>();
+        body.put("name", taskName);
+        body.put("taskType", "VisionBackupTask");
+        body.put("isScheduled", true);
+        body.put("backupDestination", "VISION_SERVER");
+        body.put("allowDuringAttack", false);
+        body.put("requireDeviceLock", true);
+        body.put("time", time);
+        body.put("additionalParams", additionalParams);
+        body.put("parameters", parameters);
+
+        ObjectMapper objectMapper = new ObjectMapper();
+        String bodyAsString = objectMapper.writeValueAsString(body);
+
+
+        request = new RestRequestSpecification(Method.POST);
+        request.setBasePath(basePath);
+        request.setBody(bodyAsString);
+
+        response = restApi.sendRequest(request);
+
+        assertEquals(response.getStatusCode(), StatusCode.OK);
 
 
     }
