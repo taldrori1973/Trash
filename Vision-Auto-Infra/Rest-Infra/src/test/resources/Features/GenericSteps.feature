@@ -12,7 +12,10 @@ Feature: Generic Steps
       | props | rsIDSNewRulesName |
     And Request Accept JSON
     And Request Content Type JSON
-
+    And Request Headers
+      |  |  |
+    And Request Cookies
+      |  |  |
     When Send Request
     Then Validate That Response Status Code Is OK
 

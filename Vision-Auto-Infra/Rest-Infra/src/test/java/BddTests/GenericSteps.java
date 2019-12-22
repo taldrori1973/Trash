@@ -41,10 +41,20 @@ public class GenericSteps {
     }
 
     @And("Request Query Params")
-    public void requestQueryParams(Map<String, String> pathParams) {
-        this.restRequestSpecification.setQueryParams(pathParams);
+    public void requestQueryParams(Map<String, String> queryParams) {
+        this.restRequestSpecification.setQueryParams(queryParams);
     }
 
+
+    @And("Request Headers")
+    public void requestHeaders(Map<String, String> headers) {
+        this.restRequestSpecification.setHeaders(headers);
+    }
+
+    @And("Request Cookies")
+    public void requestCookies(Map<String, String> cookies) {
+        this.restRequestSpecification.setCookies(cookies);
+    }
 
     @And("Request Accept {}")
     public void requestAccept(ContentType contentType) {
