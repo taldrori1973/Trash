@@ -3,7 +3,7 @@ package models;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.ToString;
-import mappers.MapUtils;
+import utils.MapUtils;
 
 import java.util.HashMap;
 import java.util.Map;
