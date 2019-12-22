@@ -44,7 +44,7 @@ public class RestAssuredApiTest {
         requestSpecification.setContentType(ContentType.JSON);
         requestSpecification.addHeaders("Host", "172.17.192.100", "Connection", "keep-alive");
         requestSpecification.addCookies("JSESSIONID", loginResponse.getSessionId());
-        RestApi restApi = new RestAssuredApi();
+        RestApi restApi = RestConnectionsFactory.getRestApi();
         RestResponse response = restApi.sendRequest(requestSpecification);
 
         assertEquals(response.getStatusCode(), StatusCode.OK);
@@ -65,7 +65,7 @@ public class RestAssuredApiTest {
 
     @Test
     public void testGetWithQueryParameters() {
-        RestApi restApi = new RestAssuredApi();
+        RestApi restApi = RestConnectionsFactory.getRestApi();
         RestResponse response;
         RestClient restClient = RestConnectionsFactory.getVisionConnection(baseUri, "radware", "radware");
         RestResponse loginResponse = restClient.login();
@@ -89,7 +89,7 @@ public class RestAssuredApiTest {
 
     @Test
     public void testGetWithPathParameters() {
-        RestApi restApi = new RestAssuredApi();
+        RestApi restApi = RestConnectionsFactory.getRestApi();
         RestResponse response;
 
         RestClient restClient = RestConnectionsFactory.getVisionConnection(baseUri, "radware", "radware");
@@ -138,7 +138,7 @@ public class RestAssuredApiTest {
         requestSpecification.setBasePath(license_info + "a");
         requestSpecification.setContentType(ContentType.JSON);
 
-        RestApi restApi = new RestAssuredApi();
+        RestApi restApi = RestConnectionsFactory.getRestApi();
         RestResponse response = restApi.sendRequest(requestSpecification);
 
         assertEquals(response.getStatusCode(), StatusCode.INTERNAL_SERVER_ERROR);
@@ -155,7 +155,7 @@ public class RestAssuredApiTest {
         requestSpecification.setBasePath(license_info);
 //        requestSpecification.setContentType(ContentType.JSON);
 
-        RestApi restApi = new RestAssuredApi();
+        RestApi restApi = RestConnectionsFactory.getRestApi();
         RestResponse response = restApi.sendRequest(requestSpecification);
 
         assertEquals(response.getStatusCode(), StatusCode.OK);
@@ -184,7 +184,7 @@ public class RestAssuredApiTest {
         RestRequestSpecification request = new RestRequestSpecification(Method.GET);
         request.setBasePath(basePath);
 
-        RestApi restApi = new RestAssuredApi();
+        RestApi restApi = RestConnectionsFactory.getRestApi();
         RestResponse response = restApi.sendRequest(request);
 
         JsonPath jsonPath = JsonPath.compile("$..[?(@.name==\"" + taskName + "\")].ormID");

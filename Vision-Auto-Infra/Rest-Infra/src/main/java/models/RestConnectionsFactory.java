@@ -1,6 +1,8 @@
 package models;
 
+import controllers.restAssured.RestAssuredApi;
 import controllers.restAssured.client.VisionRestAssuredClient;
+import restInterface.RestApi;
 import restInterface.RestClient;
 
 public class RestConnectionsFactory {
@@ -18,5 +20,8 @@ public class RestConnectionsFactory {
         return new VisionRestAssuredClient(baseUri, connectionPort, username, password, license);
     }
 
+    public static RestApi getRestApi() {
+        return RestAssuredApi.get_instance();
+    }
 
 }

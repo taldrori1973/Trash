@@ -14,6 +14,17 @@ import java.util.Objects;
 
 public class RestAssuredApi implements RestApi {
 
+
+    private static RestApi _instance = new RestAssuredApi();
+
+    private RestAssuredApi() {
+
+    }
+
+    public static RestApi get_instance() {
+        return _instance;
+    }
+
     @Override
     public RestResponse sendRequest(RestRequestSpecification requestSpecification) {
 
