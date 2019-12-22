@@ -78,11 +78,11 @@ public class RestAssuredApiTest {
         response = restApi.sendRequest(request);
         assertNull(response.getBody().getBodyAsJsonNode().get().get("networkpolicies"));
 
-        request.addQueryParams(this.userInfoQuery, true);
+        request.addQueryParams(this.userInfoQuery, "true");
         response = restApi.sendRequest(request);
         assertNotNull(response.getBody().getBodyAsJsonNode().get().get("networkpolicies"));
 
-        request.addQueryParams(this.userInfoQuery, false);
+        request.addQueryParams(this.userInfoQuery, "false");
         response = restApi.sendRequest(request);
         assertNull(response.getBody().getBodyAsJsonNode().get().get("networkpolicies"));
 
@@ -104,7 +104,7 @@ public class RestAssuredApiTest {
         response = restApi.sendRequest(request);
         assertEquals(response.getStatusCode(), StatusCode.OK);
 
-        request.addQueryParams(newRulesTable_Count, 5);
+        request.addQueryParams(newRulesTable_Count, "5");
         response = restApi.sendRequest(request);
         assertEquals(response.getStatusCode(), StatusCode.OK);
         assertEquals(response.getBody().getBodyAsJsonNode().get().get("rsIDSNewRulesTable").size(), 5);
@@ -197,7 +197,7 @@ public class RestAssuredApiTest {
         if (ormIdArr.size() > 0) {
             request = new RestRequestSpecification(Method.DELETE);
             request.setBasePath(deletePath);
-            request.addPathParams("ormID", ormIdArr.get(0));
+            request.addPathParams("ormID", ormIdArr.get(0).toString());
 
             response = restApi.sendRequest(request);
 

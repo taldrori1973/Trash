@@ -21,13 +21,13 @@ public class RestRequestSpecification {
 
     private Method method;
     private String basePath;
-    private Map<String, Object> pathParams;
-    private Map<String, Object> queryParams;
+    private Map<String, String> pathParams;
+    private Map<String, String> queryParams;
 
     private ContentType accept;
     private ContentType contentType;
-    private Map<String, Object> headers;
-    private Map<String, Object> cookies;
+    private Map<String, String> headers;
+    private Map<String, String> cookies;
     private Body body;
 
     public RestRequestSpecification(Method method) {
@@ -52,7 +52,12 @@ public class RestRequestSpecification {
         else this.basePath = basePath;
     }
 
-    public void addPathParams(String firstParameterName, Object firstParameterValue, Object... parameterNameValuePairs) throws IllegalArgumentException {
+
+    public void setPathParams(Map<String, String> pathParams) {
+        this.pathParams = pathParams;
+    }
+
+    public void addPathParams(String firstParameterName, String firstParameterValue, String... parameterNameValuePairs) throws IllegalArgumentException {
         addParams(this.pathParams, firstParameterName, firstParameterValue, parameterNameValuePairs);
     }
 
@@ -64,7 +69,12 @@ public class RestRequestSpecification {
         clearParams(this.pathParams);
     }
 
-    public void addQueryParams(String firstParameterName, Object firstParameterValue, Object... parameterNameValuePairs) {
+
+    public void setQueryParams(Map<String, String> queryParams) {
+        this.queryParams = queryParams;
+    }
+
+    public void addQueryParams(String firstParameterName, String firstParameterValue, String... parameterNameValuePairs) {
         addParams(this.queryParams, firstParameterName, firstParameterValue, parameterNameValuePairs);
     }
 
@@ -76,7 +86,8 @@ public class RestRequestSpecification {
         clearParams(this.pathParams);
     }
 
-    private void addParams(Map<String, Object> params, String firstParameterName, Object firstParameterValue, Object[] parameterNameValuePairs) {
+
+    private void addParams(Map<String, String> params, String firstParameterName, String firstParameterValue, String[] parameterNameValuePairs) {
         Objects.requireNonNull(firstParameterName);
         Objects.requireNonNull(firstParameterValue);
         params.put(firstParameterName, firstParameterValue);
@@ -85,26 +96,29 @@ public class RestRequestSpecification {
         }
     }
 
-    private void removeParams(Map<String, Object> params, String[] names) {
+    private void removeParams(Map<String, String> params, String[] names) {
         Objects.requireNonNull(names);
         for (String name : names) {
             params.remove(name);
         }
     }
 
-    private void clearParams(Map<String, Object> params) {
+    private void clearParams(Map<String, String> params) {
         params.clear();
     }
+
 
     public void setAccept(ContentType accept) {
         this.accept = accept;
     }
 
+
     public void setContentType(ContentType contentType) {
         this.contentType = contentType;
     }
 
-    public void addHeaders(String firstHeaderName, Object firstHeaderValue, Object... headerNameValuePairs) {
+
+    public void addHeaders(String firstHeaderName, String firstHeaderValue, String... headerNameValuePairs) {
         addParams(this.headers, firstHeaderName, firstHeaderValue, headerNameValuePairs);
     }
 
@@ -116,7 +130,8 @@ public class RestRequestSpecification {
         clearParams(this.headers);
     }
 
-    public void addCookies(String firstCookieName, Object firstCookieValue, Object... cookieNameValuePairs) {
+
+    public void addCookies(String firstCookieName, String firstCookieValue, String... cookieNameValuePairs) {
         addParams(this.cookies, firstCookieName, firstCookieValue, cookieNameValuePairs);
     }
 
@@ -127,6 +142,7 @@ public class RestRequestSpecification {
     public void clearCookies() {
         clearParams(this.cookies);
     }
+
 
     public void setBody(String body) {
         this.body = new Body(body);
