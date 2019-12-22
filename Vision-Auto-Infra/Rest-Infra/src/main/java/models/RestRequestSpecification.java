@@ -117,6 +117,9 @@ public class RestRequestSpecification {
         this.contentType = contentType;
     }
 
+    public void setHeaders(Map<String, String> headers) {
+        this.headers = headers;
+    }
 
     public void addHeaders(String firstHeaderName, String firstHeaderValue, String... headerNameValuePairs) {
         addParams(this.headers, firstHeaderName, firstHeaderValue, headerNameValuePairs);
@@ -130,6 +133,9 @@ public class RestRequestSpecification {
         clearParams(this.headers);
     }
 
+    public void setCookies(Map<String, String> cookies) {
+        this.cookies = cookies;
+    }
 
     public void addCookies(String firstCookieName, String firstCookieValue, String... cookieNameValuePairs) {
         addParams(this.cookies, firstCookieName, firstCookieValue, cookieNameValuePairs);
