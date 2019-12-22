@@ -1,4 +1,4 @@
-package models;
+package mappers;
 
 import controllers.restAssured.RestAssuredApi;
 import controllers.restAssured.client.VisionRestAssuredClient;

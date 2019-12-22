@@ -4,7 +4,7 @@ package RestClient;
 import io.restassured.RestAssured;
 import io.restassured.parsing.Parser;
 import io.restassured.response.Response;
-import models.RestFactory;
+import mappers.RestFactory;
 import models.RestResponse;
 import models.StatusCode;
 import org.testng.annotations.BeforeClass;

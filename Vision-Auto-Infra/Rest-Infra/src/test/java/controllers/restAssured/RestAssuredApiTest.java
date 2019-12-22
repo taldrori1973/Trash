@@ -5,6 +5,7 @@ import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.jayway.jsonpath.DocumentContext;
 import com.jayway.jsonpath.JsonPath;
+import mappers.RestFactory;
 import models.*;
 import net.minidev.json.JSONArray;
 import org.testng.annotations.Test;
