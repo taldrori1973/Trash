@@ -4,7 +4,7 @@ Feature: Generic Steps
   Scenario: Send Get Request
     Given Login to Vision With username "radware" and password "radware"
     Given New GET Request Specification
-    And Request Base Path "mgmt/device/byip/{deviceIp}/config/rsIDSNewRulesTablea"
+    And Request Base Path "mgmt/device/byip/{deviceIp}/config/rsIDSNewRulesTable"
     And Request Path Parameters
       | deviceIp | 172.16.22.51 |
     And Request Query Params
