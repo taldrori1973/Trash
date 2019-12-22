@@ -5,7 +5,6 @@ import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.jayway.jsonpath.DocumentContext;
 import com.jayway.jsonpath.JsonPath;
-import controllers.restAssured.client.VisionRestAssuredClient;
 import models.*;
 import net.minidev.json.JSONArray;
 import org.testng.annotations.Test;
@@ -35,7 +34,7 @@ public class RestAssuredApiTest {
 
     @Test
     public void testGetWithSuccessfulResponse() {
-        RestClient restClient = new VisionRestAssuredClient(baseUri, "radware", "radware");
+        RestClient restClient = RestConnectionsFactory.getVisionConnection(baseUri, "radware", "radware");
         RestResponse loginResponse = restClient.login();
         assertEquals(loginResponse.getStatusCode(), StatusCode.OK);
 
@@ -68,7 +67,7 @@ public class RestAssuredApiTest {
     public void testGetWithQueryParameters() {
         RestApi restApi = new RestAssuredApi();
         RestResponse response;
-        RestClient restClient = new VisionRestAssuredClient(baseUri, "radware", "radware");
+        RestClient restClient = RestConnectionsFactory.getVisionConnection(baseUri, "radware", "radware");
         RestResponse loginResponse = restClient.login();
         assertEquals(loginResponse.getStatusCode(), StatusCode.OK);
 
@@ -93,7 +92,7 @@ public class RestAssuredApiTest {
         RestApi restApi = new RestAssuredApi();
         RestResponse response;
 
-        RestClient restClient = new VisionRestAssuredClient(baseUri, "radware", "radware");
+        RestClient restClient = RestConnectionsFactory.getVisionConnection(baseUri, "radware", "radware");
         RestResponse loginResponse = restClient.login();
         assertEquals(loginResponse.getStatusCode(), StatusCode.OK);
 
@@ -130,7 +129,7 @@ public class RestAssuredApiTest {
     @Test
     public void testGetWithFailureResponse() {
 
-        RestClient restClient = new VisionRestAssuredClient(baseUri, "radware", "radware");
+        RestClient restClient = RestConnectionsFactory.getVisionConnection(baseUri, "radware", "radware");
         RestResponse loginResponse = restClient.login();
         assert loginResponse.getStatusCode().getStatusCode() == 200;
 
@@ -147,7 +146,7 @@ public class RestAssuredApiTest {
 
     @Test
     public void test_Head_With_Successful_Response() {
-        RestClient restClient = new VisionRestAssuredClient(baseUri, "radware", "radware");
+        RestClient restClient = RestConnectionsFactory.getVisionConnection(baseUri, "radware", "radware");
         RestResponse loginResponse = restClient.login();
         assert loginResponse.getStatusCode().getStatusCode() == 200;
 
@@ -177,7 +176,7 @@ public class RestAssuredApiTest {
         String basePath = "/mgmt/system/config/itemlist/scheduledtask/";
 
 //        Connect to Vision
-        RestClient restClient = new VisionRestAssuredClient(baseUri, "radware", "radware");
+        RestClient restClient = RestConnectionsFactory.getVisionConnection(baseUri, "radware", "radware");
         RestResponse loginResponse = restClient.login();
         assertEquals(loginResponse.getStatusCode(), StatusCode.OK);
 
