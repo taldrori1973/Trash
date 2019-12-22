@@ -5,7 +5,7 @@ import controllers.restAssured.client.VisionRestAssuredClient;
 import restInterface.RestApi;
 import restInterface.RestClient;
 
-public class RestConnectionsFactory {
+public class RestFactory {
 
 
     public static RestClient getVisionConnection(String baseUri, String username, String password) {

@@ -4,7 +4,7 @@ package RestClient;
 import io.restassured.RestAssured;
 import io.restassured.parsing.Parser;
 import io.restassured.response.Response;
-import models.RestConnectionsFactory;
+import models.RestFactory;
 import models.RestResponse;
 import models.StatusCode;
 import org.testng.annotations.BeforeClass;
@@ -23,8 +23,8 @@ public class VisionRestAssuredClient_Test {
     @BeforeClass
     public void setUp() {
         RestAssured.registerParser("application/octet-stream", Parser.JSON);
-        radwareClient = RestConnectionsFactory.getVisionConnection(baseUrl, "radware", "radware");
-        sys_adminClient = RestConnectionsFactory.getVisionConnection(baseUrl, "sys_admin", "radware");
+        radwareClient = RestFactory.getVisionConnection(baseUrl, "radware", "radware");
+        sys_adminClient = RestFactory.getVisionConnection(baseUrl, "sys_admin", "radware");
     }
 
     @Test(priority = 1)
