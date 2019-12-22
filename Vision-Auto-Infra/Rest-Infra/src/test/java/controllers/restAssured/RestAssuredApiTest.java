@@ -5,7 +5,7 @@ import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.jayway.jsonpath.DocumentContext;
 import com.jayway.jsonpath.JsonPath;
-import mappers.RestFactory;
+import mappers.RestFrameworkFactory;
 import models.*;
 import net.minidev.json.JSONArray;
 import org.testng.annotations.Test;
@@ -35,7 +35,7 @@ public class RestAssuredApiTest {
 
     @Test
     public void testGetWithSuccessfulResponse() {
-        RestClient restClient = RestFactory.getVisionConnection(baseUri, "radware", "radware");
+        RestClient restClient = RestFrameworkFactory.getVisionConnection(baseUri, "radware", "radware");
         RestResponse loginResponse = restClient.login();
         assertEquals(loginResponse.getStatusCode(), StatusCode.OK);
 
@@ -45,7 +45,7 @@ public class RestAssuredApiTest {
         requestSpecification.setContentType(ContentType.JSON);
         requestSpecification.addHeaders("Host", "172.17.192.100", "Connection", "keep-alive");
         requestSpecification.addCookies("JSESSIONID", loginResponse.getSessionId());
-        RestApi restApi = RestFactory.getRestApi();
+        RestApi restApi = RestFrameworkFactory.getRestApi();
         RestResponse response = restApi.sendRequest(requestSpecification);
 
         assertEquals(response.getStatusCode(), StatusCode.OK);
@@ -66,9 +66,9 @@ public class RestAssuredApiTest {
 
     @Test
     public void testGetWithQueryParameters() {
-        RestApi restApi = RestFactory.getRestApi();
+        RestApi restApi = RestFrameworkFactory.getRestApi();
         RestResponse response;
-        RestClient restClient = RestFactory.getVisionConnection(baseUri, "radware", "radware");
+        RestClient restClient = RestFrameworkFactory.getVisionConnection(baseUri, "radware", "radware");
         RestResponse loginResponse = restClient.login();
         assertEquals(loginResponse.getStatusCode(), StatusCode.OK);
 
@@ -90,10 +90,10 @@ public class RestAssuredApiTest {
 
     @Test
     public void testGetWithPathParameters() {
-        RestApi restApi = RestFactory.getRestApi();
+        RestApi restApi = RestFrameworkFactory.getRestApi();
         RestResponse response;
 
-        RestClient restClient = RestFactory.getVisionConnection(baseUri, "radware", "radware");
+        RestClient restClient = RestFrameworkFactory.getVisionConnection(baseUri, "radware", "radware");
         RestResponse loginResponse = restClient.login();
         assertEquals(loginResponse.getStatusCode(), StatusCode.OK);
 
@@ -130,7 +130,7 @@ public class RestAssuredApiTest {
     @Test
     public void testGetWithFailureResponse() {
 
-        RestClient restClient = RestFactory.getVisionConnection(baseUri, "radware", "radware");
+        RestClient restClient = RestFrameworkFactory.getVisionConnection(baseUri, "radware", "radware");
         RestResponse loginResponse = restClient.login();
         assert loginResponse.getStatusCode().getStatusCode() == 200;
 
@@ -139,7 +139,7 @@ public class RestAssuredApiTest {
         requestSpecification.setBasePath(license_info + "a");
         requestSpecification.setContentType(ContentType.JSON);
 
-        RestApi restApi = RestFactory.getRestApi();
+        RestApi restApi = RestFrameworkFactory.getRestApi();
         RestResponse response = restApi.sendRequest(requestSpecification);
 
         assertEquals(response.getStatusCode(), StatusCode.INTERNAL_SERVER_ERROR);
@@ -147,7 +147,7 @@ public class RestAssuredApiTest {
 
     @Test
     public void test_Head_With_Successful_Response() {
-        RestClient restClient = RestFactory.getVisionConnection(baseUri, "radware", "radware");
+        RestClient restClient = RestFrameworkFactory.getVisionConnection(baseUri, "radware", "radware");
         RestResponse loginResponse = restClient.login();
         assert loginResponse.getStatusCode().getStatusCode() == 200;
 
@@ -156,7 +156,7 @@ public class RestAssuredApiTest {
         requestSpecification.setBasePath(license_info);
 //        requestSpecification.setContentType(ContentType.JSON);
 
-        RestApi restApi = RestFactory.getRestApi();
+        RestApi restApi = RestFrameworkFactory.getRestApi();
         RestResponse response = restApi.sendRequest(requestSpecification);
 
         assertEquals(response.getStatusCode(), StatusCode.OK);
@@ -177,7 +177,7 @@ public class RestAssuredApiTest {
         String basePath = "/mgmt/system/config/itemlist/scheduledtask/";
 
 //        Connect to Vision
-        RestClient restClient = RestFactory.getVisionConnection(baseUri, "radware", "radware");
+        RestClient restClient = RestFrameworkFactory.getVisionConnection(baseUri, "radware", "radware");
         RestResponse loginResponse = restClient.login();
         assertEquals(loginResponse.getStatusCode(), StatusCode.OK);
 
@@ -185,7 +185,7 @@ public class RestAssuredApiTest {
         RestRequestSpecification request = new RestRequestSpecification(Method.GET);
         request.setBasePath(basePath);
 
-        RestApi restApi = RestFactory.getRestApi();
+        RestApi restApi = RestFrameworkFactory.getRestApi();
         RestResponse response = restApi.sendRequest(request);
 
         JsonPath jsonPath = JsonPath.compile("$..[?(@.name==\"" + taskName + "\")].ormID");
