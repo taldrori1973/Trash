@@ -19,6 +19,7 @@ public class RestAssuredApi implements RestApi {
 
 
         RequestSpecification request = RestAssured.given().
+
                 basePath(requestSpecification.getBasePath()).
                 pathParams(requestSpecification.getPathParams()).
                 queryParams(requestSpecification.getQueryParams()).
@@ -41,7 +42,9 @@ public class RestAssuredApi implements RestApi {
                 if (!Objects.isNull(requestSpecification.getBody()))
                     request = request.body(requestSpecification.getBody().getBodyAsString());
         }
-        Response response = request.when().request(Method.valueOf(requestSpecification.getMethod().name())).then().extract().response();
+        Response response = request.
+                when().log().all().request(Method.valueOf(requestSpecification.getMethod().name())).
+                then().log().ifError().extract().response();
 
         return RestAssuredResponseMapper.map(response);
 
