@@ -18,6 +18,12 @@
             <artifactId>Rest-Infra</artifactId>
             <version>${revision}</version>
         </dependency>
+
+        <dependency>
+            <groupId>com.radware.vision.automation.tools</groupId>
+            <artifactId>bdd-tools</artifactId>
+            <version>${artifact-type}-1.0-SNAPSHOT</version>
+        </dependency>
     </dependencies>
 
 </project>
