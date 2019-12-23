@@ -1,6 +1,7 @@
 package controllers.restAssured.client;
 
 import io.restassured.RestAssured;
+import io.restassured.http.ContentType;
 import io.restassured.response.Response;
 import mappers.restAssured.RestAssuredResponseMapper;
 import models.RestResponse;
@@ -11,17 +12,17 @@ import java.util.Map;
 import java.util.Objects;
 
 public class VisionRestAssuredClient extends RestAssuredClient {
-    private static final int DEFAULT_PORT = 443;
+    private final static int VISION_DEFAULT_PORT = 443;
 
-    private static final String LOGIN_PATH = "/mgmt/system/user/login";
-    private static final String LOGOUT_PATH = "/mgmt/system/user/logout";
-    private static final String INFO_PATH = "/mgmt/system/user/info?showpolicies=true";
-    private static final StatusCode ON_SUCCESS_STATUS_CODE = StatusCode.OK;
+    private final String LOGIN_PATH = "/mgmt/system/user/login";
+    private final String LOGOUT_PATH = "/mgmt/system/user/logout";
+    private final String INFO_PATH = "/mgmt/system/user/info?showpolicies=true";
+    private final StatusCode ON_SUCCESS_STATUS_CODE = StatusCode.OK;
 
 
-    private static final String userName_fieldName = "username";
-    private static final String password_fieldName = "password";
-    private static final String license_fieldName = "license";
+    private final String userName_fieldName = "username";
+    private final String password_fieldName = "password";
+    private final String license_fieldName = "license";
 
 
     private String username;
@@ -32,7 +33,7 @@ public class VisionRestAssuredClient extends RestAssuredClient {
 
 
     public VisionRestAssuredClient(String baseUri, String username, String password) {
-        this(baseUri, DEFAULT_PORT, username, password);
+        this(baseUri, VISION_DEFAULT_PORT, username, password);
     }
 
     public VisionRestAssuredClient(String baseUri, int connectionPort, String username, String password) {
@@ -57,7 +58,7 @@ public class VisionRestAssuredClient extends RestAssuredClient {
     @Override
     public RestResponse login() {
         Response response = RestAssured.
-                given().filter(this.sessionFilter).body(this.authenticationRequestBody).basePath(LOGIN_PATH).
+                given().filter(this.sessionFilter).contentType(ContentType.JSON).baseUri(this.baseUri).port(this.connectionPort).body(this.authenticationRequestBody).basePath(LOGIN_PATH).
                 when().post().
                 then().extract().response();
 
@@ -71,11 +72,14 @@ public class VisionRestAssuredClient extends RestAssuredClient {
     }
 
     @Override
-    public boolean isConnected() {
-        return RestAssured.
+    public boolean isLoggedIn() {
+        Response response = RestAssured.
                 given().sessionId(this.sessionId).baseUri(this.baseUri).port(this.connectionPort).basePath(INFO_PATH).
                 when().get().
-                then().extract().statusCode() == ON_SUCCESS_STATUS_CODE.getStatusCode();
+                then().extract().response();
+
+        return response.statusCode() == ON_SUCCESS_STATUS_CODE.getStatusCode() && response.body().jsonPath().get(userName_fieldName).equals(this.username);
+
     }
 
     public static void main(String[] args) {
@@ -85,7 +89,7 @@ public class VisionRestAssuredClient extends RestAssuredClient {
     @Override
     public RestResponse logout() {
         Response response = RestAssured.
-                given().baseUri(this.baseUri).port(this.connectionPort).basePath(LOGOUT_PATH).
+                given().sessionId(this.sessionId).baseUri(this.baseUri).port(this.connectionPort).basePath(LOGOUT_PATH).
                 when().post().
                 then().extract().response();
 

@@ -11,6 +11,7 @@ import io.restassured.specification.RequestSpecification;
 import restInterface.RestClient;
 
 public abstract class RestAssuredClient implements RestClient {
+    public static RestClient currentClient;
 
     protected final String baseUri;
     protected final int connectionPort;
@@ -31,9 +32,6 @@ public abstract class RestAssuredClient implements RestClient {
                 setPort(this.connectionPort).
                 build();
 
-        RestAssured.baseURI = this.baseUri;
-        RestAssured.port = this.connectionPort;
-        RestAssured.requestSpecification = this.requestSpecification;
         RestAssured.registerParser("application/octet-stream", Parser.JSON);
 
         RestAssured.config = RestAssured.config.sslConfig(SSLConfig.sslConfig().relaxedHTTPSValidation().allowAllHostnames());
@@ -45,5 +43,6 @@ public abstract class RestAssuredClient implements RestClient {
         RestAssured.port = this.connectionPort;
         RestAssured.sessionId = this.sessionId;
         RestAssured.requestSpecification = this.requestSpecification;
+        currentClient = this;
     }
 }

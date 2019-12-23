@@ -12,17 +12,18 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class VDirectRestAssuredClient extends RestAssuredClient {
-    private static final int DEFAULT_PORT = 2189;
-    private static final String SESSION_COOKIE_NAME = "vdirectsession";
+    private static final int VDIRECT_DEFAULT_PORT = 2189;
+    private final String SESSION_COOKIE_NAME = "vdirectsession";
 
-    private static final String LOGIN_PATH = "/api/session";
-    private static final String LOGOUT_PATH = "/api/session";
-    private static final String INFO_PATH = "/api/session";
-    private static final StatusCode ON_SUCCESS_STATUS_CODE = StatusCode.OK;
+    private final String LOGIN_PATH = "/api/session";
+    private final String LOGOUT_PATH = "/api/session";
+    private final String INFO_PATH = "/api/session";
+    private final StatusCode ON_SUCCESS_STATUS_CODE = StatusCode.OK;
 
 
-    private static final String userName_fieldName = "user";
-    private static final String password_fieldName = "password";
+    private final String userName_fieldName = "user";
+    private final String userName_fieldName_in_response = "userName";
+    private final String password_fieldName = "password";
 
 
     private String username;
@@ -32,7 +33,7 @@ public class VDirectRestAssuredClient extends RestAssuredClient {
 
 
     public VDirectRestAssuredClient(String baseUri, String username, String password) {
-        this(baseUri, DEFAULT_PORT, username, password);
+        this(baseUri, VDIRECT_DEFAULT_PORT, username, password);
     }
 
     public VDirectRestAssuredClient(String baseUri, int connectionPort, String username, String password) {
@@ -59,7 +60,7 @@ public class VDirectRestAssuredClient extends RestAssuredClient {
     public RestResponse login() {
 
         Response response = RestAssured.
-                given().contentType(ContentType.URLENC).filter(this.cookieFilter).formParams(this.authenticationRequestBody).basePath(LOGIN_PATH).
+                given().contentType(ContentType.URLENC).filter(this.cookieFilter).baseUri(this.baseUri).port(this.connectionPort).formParams(this.authenticationRequestBody).basePath(LOGIN_PATH).
                 when().post().
                 then().extract().response();
 
@@ -73,17 +74,20 @@ public class VDirectRestAssuredClient extends RestAssuredClient {
     }
 
     @Override
-    public boolean isConnected() {
-        return RestAssured.
-                given().baseUri(this.baseUri).port(this.connectionPort).basePath(INFO_PATH).
+    public boolean isLoggedIn() {
+        Response response = RestAssured.
+                given().sessionId(this.sessionId).baseUri(this.baseUri).port(this.connectionPort).basePath(INFO_PATH).
                 when().get().
-                then().extract().statusCode() == ON_SUCCESS_STATUS_CODE.getStatusCode();
+                then().extract().response();
+
+        return response.statusCode() == ON_SUCCESS_STATUS_CODE.getStatusCode() && response.body().jsonPath().get(userName_fieldName_in_response).equals(this.username);
+
     }
 
     @Override
     public RestResponse logout() {
         Response response = RestAssured.
-                given().baseUri(this.baseUri).port(this.connectionPort).basePath(LOGOUT_PATH).
+                given().sessionId(this.sessionId).baseUri(this.baseUri).port(this.connectionPort).basePath(LOGOUT_PATH).
                 when().delete().
                 then().extract().response();
 

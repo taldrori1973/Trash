@@ -41,38 +41,68 @@ public class VisionRestAssuredClient_Test {
         response.then().assertThat().body("username", is("radware"));
     }
 
-
     @Test(priority = 3)
+    public void restAssuredIsRadwareClientLoggedIn() {
+        radwareClient.isLoggedIn();
+    }
+
+
+    @Test(priority = 4)
     public void sys_adminClientLoginReturnsOk() {
         RestResponse result = this.sys_adminClient.login();
         assert result.getStatusCode() == StatusCode.OK;
     }
 
 
-    @Test(priority = 4)
+    @Test(priority = 5)
     public void restAssuredWorkOnSys_adminClient() {
         Response response = given().basePath("/mgmt/system/user/info?showpolicies=true").when().get().then().extract().response();
         response.then().assertThat().body("username", is("sys_admin"));
     }
 
-//    @Test(priority = 5)
+    @Test(priority = 6)
+    public void restAssuredIsRadwareClientLoggedInAfterSys_Admin() {
+        radwareClient.isLoggedIn();
+    }
+
+    @Test(priority = 7)
+    public void isRestAssuredStillOnSysAdminAfterIsLogInCheck() {
+        Response response = given().basePath("/mgmt/system/user/info?showpolicies=true").when().get().then().extract().response();
+        response.then().assertThat().body("username", is("sys_admin"));
+    }
+
+    @Test(priority = 8)
+    public void vDirectClientLoginReturnsOk() {
+//        RestResponse result = this.vDirect.login();
+//        assert result.getStatusCode() == StatusCode.OK;
+        Response response = given().basePath("/api/session").when().get().then().extract().response();
+        response.then().assertThat().body("userName", is("radware"));
+        assert vDirect.isLoggedIn();
+
+        sys_adminClient.switchTo();
+        assert vDirect.isLoggedIn();
+
+    }
+
+
+//    @Test(priority = 6)
 //    public void switchBackToRadwareClient() {
 //        this.radwareClient.switchTo();
 //        Response response = given().basePath("/mgmt/system/user/info?showpolicies=true").when().get().then().extract().response();
 //        response.then().assertThat().body("username", is("radware"));
 //    }
 
-
-    @Test(priority = 6)
-    public void testLogout() {
-        assert this.sys_adminClient.isConnected();
-
-        RestResponse result = this.sys_adminClient.logout();
-
-        assert result.getStatusCode() == StatusCode.OK;
-
-        assert !this.sys_adminClient.isConnected();
-    }
+//
+//    @Test(priority = 7)
+//    public void testLogout() {
+//        assert this.sys_adminClient.isLoggedIn();
+//
+//        RestResponse result = this.sys_adminClient.logout();
+//
+//        assert result.getStatusCode() == StatusCode.OK;
+//
+//        assert !this.sys_adminClient.isLoggedIn();
+//    }
 
 
 }

@@ -6,7 +6,7 @@ public interface RestClient {
 
     RestResponse login();
 
-    boolean isConnected();
+    boolean isLoggedIn();
 
     void switchTo();
 

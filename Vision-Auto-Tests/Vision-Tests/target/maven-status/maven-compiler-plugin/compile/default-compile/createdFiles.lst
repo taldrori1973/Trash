@@ -6,6 +6,7 @@ com\radware\vision\tests\rbac\RBACTestBase.class
 com\radware\vision\tests\generalsettings\devicedriver\DeviceDriversTests.class
 com\radware\vision\tests\GeneralOperations\GeneralOperationsTests$1.class
 com\radware\vision\bddtests\alteon\securitymonitoring\dashboardview\SslInspectionSteps.class
+com\radware\vision\rest\bddtests\GenericSteps.class
 com\radware\vision\tests\dp\serverprotection\ServerProtectionTest.class
 com\radware\vision\tests\rbac\configuration\applicationdelivery\RBACAlteonFiltersTableActionTests.class
 com\radware\vision\tests\rbac\navigationRBAC\RBACDefenseProNavigationTests.class
@@ -131,6 +132,7 @@ com\radware\vision\bddtests\clioperation\menu\net\physicalInterface\NetPhysicalI
 com\radware\vision\tests\rbac\DefensePro\configuration\setup\RBACDefenseProReportingSettingsTableActionTests.class
 com\radware\vision\bddtests\visionsettings\system\deviceResources\DeviceResourcesSteps.class
 com\radware\vision\tests\rbac\DefensePro\monitoring\operationalStatus\RBACDefenseProResourceUtilizationTableActionTests.class
+com\radware\vision\rest\bddtests\JsonPathBodyValidator.class
 com\radware\vision\bddtests\basicoperations\BasicOperationsSteps.class
 com\radware\vision\bddtests\scheduledtasks\ValidateTaskTests.class
 com\radware\vision\tests\scheduledtasks\GetAttackDescFromSiteTask.class
