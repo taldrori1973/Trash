@@ -22,7 +22,6 @@ public class GenericSteps {
     public void loginToVisionWithUsernameAndPassword(String username, String password) {
         this.restClient = RestFrameworkFactory.getVisionConnection("https://172.17.192.100", username, password);
         assert this.restClient.login().getStatusCode() == StatusCode.OK;
-
     }
 
     @Given("New {} Request Specification")

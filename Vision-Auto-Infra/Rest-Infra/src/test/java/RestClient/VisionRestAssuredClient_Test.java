@@ -19,12 +19,14 @@ public class VisionRestAssuredClient_Test {
     String baseUrl = "https://172.17.192.100";
     RestClient radwareClient;
     RestClient sys_adminClient;
+    RestClient vDirect;
 
     @BeforeClass
     public void setUp() {
         RestAssured.registerParser("application/octet-stream", Parser.JSON);
         radwareClient = RestFrameworkFactory.getVisionConnection(baseUrl, "radware", "radware");
         sys_adminClient = RestFrameworkFactory.getVisionConnection(baseUrl, "sys_admin", "radware");
+        vDirect = RestFrameworkFactory.getVDirectConnection(baseUrl, "radware", "radware");
     }
 
     @Test(priority = 1)
