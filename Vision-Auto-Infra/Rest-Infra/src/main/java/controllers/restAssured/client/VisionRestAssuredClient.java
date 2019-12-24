@@ -5,29 +5,17 @@ import io.restassured.http.ContentType;
 import io.restassured.response.Response;
 import mappers.restAssured.RestAssuredResponseMapper;
 import models.RestResponse;
-import models.StatusCode;
 
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
 
+import static models.config.DevicesConstants.*;
+
 public class VisionRestAssuredClient extends RestAssuredClient {
-    private final static int VISION_DEFAULT_PORT = 443;
-
-    private final String LOGIN_PATH = "/mgmt/system/user/login";
-    private final String LOGOUT_PATH = "/mgmt/system/user/logout";
-    private final String INFO_PATH = "/mgmt/system/user/info?showpolicies=true";
-    private final StatusCode ON_SUCCESS_STATUS_CODE = StatusCode.OK;
-
-
-    private final String userName_fieldName = "username";
-    private final String password_fieldName = "password";
-    private final String license_fieldName = "license";
-
-
-    private String username;
-    private String password;
-    private String license;
+    protected String username;
+    protected String password;
+    protected String license;
 
     private Map<String, String> authenticationRequestBody;
 
@@ -48,17 +36,17 @@ public class VisionRestAssuredClient extends RestAssuredClient {
         this.license = license;
 
         this.authenticationRequestBody = new HashMap<>();
-        this.authenticationRequestBody.put(userName_fieldName, username);
-        this.authenticationRequestBody.put(password_fieldName, password);
+        this.authenticationRequestBody.put(VISION_USERNAME_FIELD_NAME, username);
+        this.authenticationRequestBody.put(VISION_PASSWORD_FIELD_NAME, password);
 
-        if (!Objects.isNull(license)) this.authenticationRequestBody.put(license_fieldName, license);
+        if (!Objects.isNull(license)) this.authenticationRequestBody.put(VISION_LICENSE_FIELD_NAME, license);
     }
 
 
     @Override
     public RestResponse login() {
         Response response = RestAssured.
-                given().filter(this.sessionFilter).contentType(ContentType.JSON).baseUri(this.baseUri).port(this.connectionPort).body(this.authenticationRequestBody).basePath(LOGIN_PATH).
+                given().filter(this.sessionFilter).contentType(ContentType.JSON).baseUri(this.baseUri).port(VISION_DEFAULT_PORT).body(this.authenticationRequestBody).basePath(VISION_LOGIN_PATH).
                 when().post().
                 then().extract().response();
 
@@ -66,7 +54,7 @@ public class VisionRestAssuredClient extends RestAssuredClient {
         this.sessionId = response.sessionId();
         RestResponse restResponse = RestAssuredResponseMapper.map(response);
 
-        if (restResponse.getStatusCode().equals(ON_SUCCESS_STATUS_CODE)) switchTo();
+        if (restResponse.getStatusCode().equals(VISION_ON_SUCCESS_STATUS_CODE)) switchTo();
 
         return restResponse;
     }
@@ -74,22 +62,18 @@ public class VisionRestAssuredClient extends RestAssuredClient {
     @Override
     public boolean isLoggedIn() {
         Response response = RestAssured.
-                given().sessionId(this.sessionId).baseUri(this.baseUri).port(this.connectionPort).basePath(INFO_PATH).
+                given().sessionId(this.sessionId).baseUri(this.baseUri).port(VISION_DEFAULT_PORT).basePath(VISION_INFO_PATH).
                 when().get().
                 then().extract().response();
 
-        return response.statusCode() == ON_SUCCESS_STATUS_CODE.getStatusCode() && response.body().jsonPath().get(userName_fieldName).equals(this.username);
-
-    }
-
-    public static void main(String[] args) {
+        return response.statusCode() == VISION_ON_SUCCESS_STATUS_CODE.getStatusCode() && response.body().jsonPath().get(VISION_USERNAME_FIELD_NAME).equals(this.username);
 
     }
 
     @Override
     public RestResponse logout() {
         Response response = RestAssured.
-                given().sessionId(this.sessionId).baseUri(this.baseUri).port(this.connectionPort).basePath(LOGOUT_PATH).
+                given().sessionId(this.sessionId).baseUri(this.baseUri).port(VISION_DEFAULT_PORT).basePath(VISION_LOGOUT_PATH).
                 when().post().
                 then().extract().response();
 

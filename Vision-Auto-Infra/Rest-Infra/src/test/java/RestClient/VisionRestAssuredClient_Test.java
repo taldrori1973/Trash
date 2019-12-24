@@ -1,10 +1,10 @@
 package RestClient;
 
 
+import controllers.RestClientsManagement;
 import io.restassured.RestAssured;
 import io.restassured.parsing.Parser;
 import io.restassured.response.Response;
-import mappers.RestFrameworkFactory;
 import models.RestResponse;
 import models.StatusCode;
 import org.testng.annotations.BeforeClass;
@@ -24,9 +24,9 @@ public class VisionRestAssuredClient_Test {
     @BeforeClass
     public void setUp() {
         RestAssured.registerParser("application/octet-stream", Parser.JSON);
-        radwareClient = RestFrameworkFactory.getVisionConnection(baseUrl, "radware", "radware");
-        sys_adminClient = RestFrameworkFactory.getVisionConnection(baseUrl, "sys_admin", "radware");
-        vDirect = RestFrameworkFactory.getVDirectConnection(baseUrl, "radware", "radware");
+        radwareClient = RestClientsManagement.getVisionConnection(baseUrl, "radware", "radware");
+        sys_adminClient = RestClientsManagement.getVisionConnection(baseUrl, "sys_admin", "radware");
+        vDirect = RestClientsManagement.getVDirectConnection(baseUrl, "radware", "radware");
     }
 
     @Test(priority = 1)
@@ -73,8 +73,9 @@ public class VisionRestAssuredClient_Test {
 
     @Test(priority = 8)
     public void vDirectClientLoginReturnsOk() {
-//        RestResponse result = this.vDirect.login();
-//        assert result.getStatusCode() == StatusCode.OK;
+        RestResponse result = this.vDirect.login();
+        assert result.getStatusCode() == StatusCode.OK;
+        RestResponse result2 = vDirect.logout();
         Response response = given().basePath("/api/session").when().get().then().extract().response();
         response.then().assertThat().body("userName", is("radware"));
         assert vDirect.isLoggedIn();
