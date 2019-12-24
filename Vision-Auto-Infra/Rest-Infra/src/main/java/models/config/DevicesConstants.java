@@ -20,4 +20,13 @@ public interface DevicesConstants {
     String V_DIRECT_INFO_PATH = "/api/session";
     StatusCode V_DIRECT_ON_SUCCESS_STATUS_CODE = StatusCode.OK;
     String V_DIRECT_USERNAME_FIELD_NAME_IN_RESPONSE = "userName";
+
+
+    //    ALTEON
+    int ALTEON_DEFAULT_PORT = 443;
+    String ALTEON_SESSION_DETAILS_PATH = "/config/sessiondetails";
+    StatusCode ALTEON_ON_SUCCESS_STATUS_CODE = StatusCode.OK;
+    String ALTEON_LOGOUT_PATH = "/config/logout";
+
+
 }

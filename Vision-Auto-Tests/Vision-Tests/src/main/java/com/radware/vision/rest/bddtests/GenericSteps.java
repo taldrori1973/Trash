@@ -1,11 +1,11 @@
 package com.radware.vision.rest.bddtests;
 
 
+import controllers.RestClientsManagement;
 import cucumber.api.java.en.And;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
-import mappers.RestFrameworkFactory;
 import models.*;
 import restInterface.RestApi;
 import restInterface.RestClient;
@@ -22,7 +22,7 @@ public class GenericSteps {
 
     @Given("^Login to Vision With username \"([^\"]*)\" and password \"([^\"]*)\"$")
     public void loginToVisionWithUsernameAndPassword(String username, String password) {
-        this.restClient = RestFrameworkFactory.getVisionConnection("https://172.17.192.100", username, password);
+        this.restClient = RestClientsManagement.getVisionConnection("https://172.17.192.100", username, password);
         assert this.restClient.login().getStatusCode() == StatusCode.OK;
     }
 
@@ -67,7 +67,7 @@ public class GenericSteps {
 
     @When("Send Request")
     public void sendRequest() {
-        this.restApi = RestFrameworkFactory.getRestApi();
+        this.restApi = RestClientsManagement.getRestApi();
         this.response = restApi.sendRequest(this.restRequestSpecification);
     }
 
