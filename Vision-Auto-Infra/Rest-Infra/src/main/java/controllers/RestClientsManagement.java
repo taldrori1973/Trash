@@ -1,6 +1,7 @@
 package controllers;
 
 import controllers.restAssured.client.BasicAuth.AlteonRestAssuredClient;
+import controllers.restAssured.client.BasicAuth.AppWallRestAssuredClient;
 import controllers.restAssured.client.SessionBased.OnVisionVDirectRestAssuredClient;
 import controllers.restAssured.client.SessionBased.VisionRestAssuredClient;
 import restInterface.client.RestClient;
@@ -17,12 +18,16 @@ public class RestClientsManagement {
         return new VisionRestAssuredClient(baseUri, username, password);
     }
 
-    public static RestClient getVDirectConnection(String baseUri, String username, String password) {
+    public static RestClient getOnVisionVDirectConnection(String baseUri, String username, String password) {
         return new OnVisionVDirectRestAssuredClient(baseUri, username, password);
     }
 
     public static RestClient getAlteonConnection(String baseUri, String username, String password) {
         return new AlteonRestAssuredClient(baseUri, username, password);
+    }
+
+    public static RestClient getAppWallConnection(String baseUri, String username, String password) {
+        return new AppWallRestAssuredClient(baseUri, username, password);
     }
 
     public static Optional<RestClient> getCurrentConnection() {
