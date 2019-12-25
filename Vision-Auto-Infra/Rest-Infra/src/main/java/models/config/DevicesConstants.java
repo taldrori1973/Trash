@@ -26,19 +26,13 @@ public interface DevicesConstants {
     int ALTEON_DEFAULT_PORT = 443;
     String ALTEON_SESSION_DETAILS_PATH = "/config/sessiondetails";
     StatusCode ALTEON_ON_SUCCESS_STATUS_CODE = StatusCode.OK;
-    String ALTEON_LOGOUT_PATH = "/config/logout";
 
     //    APPWALL
     int APPWALL_DEFAULT_PORT = 443;
-    String APPWALL_LOGIN_PATH = "/appwall-api/v3/authentication/login";
-    String APPWALL_LOGOUT_PATH = "/appwall-api/v3/authentication/logout";
     String APPWALL_USER_INFO_PATH = "/v2/config/aw/Users/{Login_Name}";
     String APPWALL_USER_INFO_PATH_PARAMETER = "Login_Name";
 
 
     StatusCode APPWALL_ON_SUCCESS_STATUS_CODE = StatusCode.OK;
-    String APPWALL_USERNAME_FIELD_NAME = "userName";
-    String APPWALL_PASSWORD_FIELD_NAME = "password";
-    String APPWALL_JWT_COOKIE_NAME = "vantage_auth";
 
 }
