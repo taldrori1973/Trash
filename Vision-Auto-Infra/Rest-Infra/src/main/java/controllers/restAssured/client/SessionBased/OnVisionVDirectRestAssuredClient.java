@@ -1,4 +1,4 @@
-package controllers.restAssured.client;
+package controllers.restAssured.client.SessionBased;
 
 import io.restassured.RestAssured;
 import io.restassured.response.Response;

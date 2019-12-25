@@ -1,5 +1,6 @@
-package controllers.restAssured.client;
+package controllers.restAssured.client.SessionBased;
 
+import controllers.RestClientsManagement;
 import io.restassured.RestAssured;
 import io.restassured.builder.RequestSpecBuilder;
 import io.restassured.config.SSLConfig;
@@ -8,24 +9,28 @@ import io.restassured.filter.session.SessionFilter;
 import io.restassured.http.ContentType;
 import io.restassured.parsing.Parser;
 import io.restassured.specification.RequestSpecification;
-import restInterface.client.RestClient;
+import restInterface.client.SessionBasedRestClient;
 
-public abstract class RestAssuredClient implements RestClient {
-    public static RestClient currentClient;
+public abstract class RestAssuredSessionBasedRestClient implements SessionBasedRestClient {
 
     protected final String baseUri;
     protected final int connectionPort;
+    protected final String username;
+    protected final String password;
+
     protected RequestSpecification requestSpecification;
     protected SessionFilter sessionFilter;
     protected CookieFilter cookieFilter;
     protected String sessionId;
 
-    public RestAssuredClient(String baseUri, int connectionPort) {
+    public RestAssuredSessionBasedRestClient(String baseUri, int connectionPort, String username, String password) {
         this.baseUri = baseUri;
         this.connectionPort = connectionPort;
+        this.username = username;
+        this.password = password;
+
         this.sessionFilter = new SessionFilter();
         this.cookieFilter = new CookieFilter();
-
         this.requestSpecification = new RequestSpecBuilder().
                 setContentType(ContentType.JSON).
                 setBaseUri(this.baseUri).
@@ -43,6 +48,6 @@ public abstract class RestAssuredClient implements RestClient {
         RestAssured.port = this.connectionPort;
         RestAssured.sessionId = this.sessionId;
         RestAssured.requestSpecification = this.requestSpecification;
-        currentClient = this;
+        RestClientsManagement.setCurrentConnection(this);
     }
 }

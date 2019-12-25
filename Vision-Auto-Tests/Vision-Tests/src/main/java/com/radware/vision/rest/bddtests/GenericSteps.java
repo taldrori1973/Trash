@@ -8,7 +8,7 @@ import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
 import models.*;
 import restInterface.RestApi;
-import restInterface.RestClient;
+import restInterface.client.RestClient;
 
 import java.util.List;
 import java.util.Map;

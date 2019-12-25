@@ -1,16 +1,17 @@
 package controllers;
 
-import controllers.restAssured.client.AlteonRestAssuredClient;
-import controllers.restAssured.client.OnVisionVDirectRestAssuredClient;
-import controllers.restAssured.client.RestAssuredClient;
-import controllers.restAssured.client.VisionRestAssuredClient;
-import restInterface.RestClient;
+import controllers.restAssured.client.BasicAuth.AlteonRestAssuredClient;
+import controllers.restAssured.client.SessionBased.OnVisionVDirectRestAssuredClient;
+import controllers.restAssured.client.SessionBased.VisionRestAssuredClient;
+import restInterface.client.RestClient;
 
 import java.util.Objects;
 import java.util.Optional;
 
 public class RestClientsManagement {
 
+
+    private static RestClient currentConnection;
 
     public static RestClient getVisionConnection(String baseUri, String username, String password) {
         return new VisionRestAssuredClient(baseUri, username, password);
@@ -25,8 +26,11 @@ public class RestClientsManagement {
     }
 
     public static Optional<RestClient> getCurrentConnection() {
-        if (Objects.isNull(RestAssuredClient.currentClient)) return Optional.empty();
-        return Optional.of(RestAssuredClient.currentClient);
+        if (Objects.isNull(currentConnection)) return Optional.empty();
+        return Optional.of(currentConnection);
     }
 
+    public static void setCurrentConnection(RestClient currentConnection) {
+        RestClientsManagement.currentConnection = currentConnection;
+    }
 }

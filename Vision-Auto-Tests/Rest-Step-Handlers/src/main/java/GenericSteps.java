@@ -5,7 +5,7 @@
 //import controllers.RestFrameworkFactory;
 //import models.*;
 //import restInterface.RestApi;
-//import restInterface.RestClient;
+//import restInterface.client.RestClient;
 //
 //import java.util.Map;
 //

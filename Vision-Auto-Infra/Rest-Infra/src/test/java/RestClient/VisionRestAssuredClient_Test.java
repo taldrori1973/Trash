@@ -9,7 +9,7 @@ import models.RestResponse;
 import models.StatusCode;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
-import restInterface.RestClient;
+import restInterface.client.RestClient;
 
 import static io.restassured.RestAssured.given;
 import static org.hamcrest.Matchers.is;

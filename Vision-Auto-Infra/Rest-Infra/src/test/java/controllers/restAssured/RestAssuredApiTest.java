@@ -10,7 +10,7 @@
 //import net.minidev.json.JSONArray;
 //import org.testng.annotations.Test;
 //import restInterface.RestApi;
-//import restInterface.RestClient;
+//import restInterface.client.RestClient;
 //
 //import java.util.ArrayList;
 //import java.util.HashMap;

@@ -1,36 +1,38 @@
-package controllers.restAssured.client;
+package controllers.restAssured.client.BasicAuth;
 
+import controllers.RestClientsManagement;
 import io.restassured.RestAssured;
 import io.restassured.builder.RequestSpecBuilder;
 import io.restassured.config.SSLConfig;
-import io.restassured.filter.cookie.CookieFilter;
-import io.restassured.filter.session.SessionFilter;
 import io.restassured.http.ContentType;
 import io.restassured.parsing.Parser;
 import io.restassured.specification.RequestSpecification;
-import restInterface.client.RestClient;
+import restInterface.client.BasicAuthBasedRestClient;
 
-public abstract class RestAssuredClient implements RestClient {
-    public static RestClient currentClient;
+public abstract class RestAssuredBasicAuthBasedRestClient implements BasicAuthBasedRestClient {
+
 
     protected final String baseUri;
     protected final int connectionPort;
-    protected RequestSpecification requestSpecification;
-    protected SessionFilter sessionFilter;
-    protected CookieFilter cookieFilter;
-    protected String sessionId;
+    protected final String username;
+    protected final String password;
 
-    public RestAssuredClient(String baseUri, int connectionPort) {
+    protected RequestSpecification requestSpecification;
+
+
+    public RestAssuredBasicAuthBasedRestClient(String baseUri, int connectionPort, String username, String password) {
         this.baseUri = baseUri;
         this.connectionPort = connectionPort;
-        this.sessionFilter = new SessionFilter();
-        this.cookieFilter = new CookieFilter();
+        this.username = username;
+        this.password = password;
 
         this.requestSpecification = new RequestSpecBuilder().
                 setContentType(ContentType.JSON).
                 setBaseUri(this.baseUri).
                 setPort(this.connectionPort).
                 build();
+
+        this.requestSpecification.auth().basic(this.username, this.password);
 
         RestAssured.registerParser("application/octet-stream", Parser.JSON);
 
@@ -41,8 +43,7 @@ public abstract class RestAssuredClient implements RestClient {
     public void switchTo() {
         RestAssured.baseURI = this.baseUri;
         RestAssured.port = this.connectionPort;
-        RestAssured.sessionId = this.sessionId;
         RestAssured.requestSpecification = this.requestSpecification;
-        currentClient = this;
+        RestClientsManagement.setCurrentConnection(this);
     }
 }

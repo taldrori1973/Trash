@@ -1,4 +1,4 @@
-package controllers.restAssured.client;
+package controllers.restAssured.client.SessionBased;
 
 import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
@@ -12,9 +12,8 @@ import java.util.Objects;
 
 import static models.config.DevicesConstants.*;
 
-public class VisionRestAssuredClient extends RestAssuredClient {
-    protected String username;
-    protected String password;
+public class VisionRestAssuredClient extends RestAssuredSessionBasedRestClient {
+
     protected String license;
 
     private Map<String, String> authenticationRequestBody;
@@ -29,10 +28,8 @@ public class VisionRestAssuredClient extends RestAssuredClient {
     }
 
     public VisionRestAssuredClient(String baseUri, int connectionPort, String username, String password, String license) {
-        super(baseUri, connectionPort);
+        super(baseUri, connectionPort, username, password);
 
-        this.username = username;
-        this.password = password;
         this.license = license;
 
         this.authenticationRequestBody = new HashMap<>();

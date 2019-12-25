@@ -1,14 +1,12 @@
-package restInterface;
+package restInterface.client;
 
 import models.RestResponse;
 
-public interface RestClient {
+public interface SessionBasedRestClient extends RestClient {
 
     RestResponse login();
 
     boolean isLoggedIn();
-
-    void switchTo();
 
     RestResponse logout();
 
