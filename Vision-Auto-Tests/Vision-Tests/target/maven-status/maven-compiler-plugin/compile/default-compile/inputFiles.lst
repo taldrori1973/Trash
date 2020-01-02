@@ -141,7 +141,6 @@ C:\GIT\APSoluteVisionAutomation\Vision-Auto-Tests\Vision-Tests\src\main\java\com
 C:\GIT\APSoluteVisionAutomation\Vision-Auto-Tests\Vision-Tests\src\main\java\com\radware\vision\bddtests\visionsettings\dashboards\Dashboards.java
 C:\GIT\APSoluteVisionAutomation\Vision-Auto-Tests\Vision-Tests\src\main\java\com\radware\vision\tests\Alteon\Configuration\network\physicalPorts\PortSettingsTests.java
 C:\GIT\APSoluteVisionAutomation\Vision-Auto-Tests\Vision-Tests\src\main\java\com\radware\vision\tests\usermanagement\cliaccesslist\CliAccessListTests.java
-C:\GIT\APSoluteVisionAutomation\Vision-Auto-Tests\Vision-Tests\src\main\java\com\radware\vision\rest\bddtests\JsonPathBodyValidator.java
 C:\GIT\APSoluteVisionAutomation\Vision-Auto-Tests\Vision-Tests\src\main\java\com\radware\vision\tests\rbac\configuration\network\RBACAlteonHighAvailabilityTableActionTests.java
 C:\GIT\APSoluteVisionAutomation\Vision-Auto-Tests\Vision-Tests\src\main\java\com\radware\vision\tests\defensepro\CLISYNprotections.java
 C:\GIT\APSoluteVisionAutomation\Vision-Auto-Tests\Vision-Tests\src\main\java\com\radware\vision\bddtests\clioperation\LLS\LLSSteps.java
@@ -231,7 +230,6 @@ C:\GIT\APSoluteVisionAutomation\Vision-Auto-Tests\Vision-Tests\src\main\java\com
 C:\GIT\APSoluteVisionAutomation\Vision-Auto-Tests\Vision-Tests\src\main\java\com\radware\vision\bddtests\topologytree\TopologyTreeSteps.java
 C:\GIT\APSoluteVisionAutomation\Vision-Auto-Tests\Vision-Tests\src\main\java\com\radware\vision\bddtests\clioperation\scheduledtasks\DDoSAttackersFeedCliTests.java
 C:\GIT\APSoluteVisionAutomation\Vision-Auto-Tests\Vision-Tests\src\main\java\com\radware\vision\bddtests\clioperation\menu\net\nat\NetNatNegativeSteps.java
-C:\GIT\APSoluteVisionAutomation\Vision-Auto-Tests\Vision-Tests\src\main\java\com\radware\vision\rest\bddtests\GenericSteps.java
 C:\GIT\APSoluteVisionAutomation\Vision-Auto-Tests\Vision-Tests\src\main\java\com\radware\vision\tests\scheduledtasks\DeviceRebootTask.java
 C:\GIT\APSoluteVisionAutomation\Vision-Auto-Tests\Vision-Tests\src\main\java\com\radware\vision\bddtests\visionsettings\VisionSettingsBase.java
 C:\GIT\APSoluteVisionAutomation\Vision-Auto-Tests\Vision-Tests\src\main\java\com\radware\vision\tests\Alteon\Configuration\network\layer2\spanningTree\spanningTreeGroup\SpanningTreeGroupTests.java
