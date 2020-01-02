@@ -1,6 +1,6 @@
 package controllers.restAssured.client.SessionBased;
 
-import controllers.RestClientsManagement;
+import controllers.restAssured.client.RestAssuredClientSwitcher;
 import io.restassured.RestAssured;
 import io.restassured.builder.RequestSpecBuilder;
 import io.restassured.config.SSLConfig;
@@ -44,10 +44,6 @@ public abstract class RestAssuredSessionBasedRestClient implements SessionBasedR
 
     @Override
     public void switchTo() {
-        RestAssured.baseURI = this.baseUri;
-        RestAssured.port = this.connectionPort;
-        RestAssured.sessionId = this.sessionId;
-        RestAssured.requestSpecification = this.requestSpecification;
-        RestClientsManagement.setCurrentConnection(this);
+        RestAssuredClientSwitcher.switchTo(this.baseUri, this.connectionPort, this.sessionId, this.requestSpecification, this);
     }
 }

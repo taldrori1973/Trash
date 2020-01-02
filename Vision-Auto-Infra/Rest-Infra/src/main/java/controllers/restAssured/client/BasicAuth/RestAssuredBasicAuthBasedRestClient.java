@@ -1,6 +1,6 @@
 package controllers.restAssured.client.BasicAuth;
 
-import controllers.RestClientsManagement;
+import controllers.restAssured.client.RestAssuredClientSwitcher;
 import io.restassured.RestAssured;
 import io.restassured.builder.RequestSpecBuilder;
 import io.restassured.config.SSLConfig;
@@ -41,9 +41,6 @@ public abstract class RestAssuredBasicAuthBasedRestClient implements BasicAuthBa
 
     @Override
     public void switchTo() {
-        RestAssured.baseURI = this.baseUri;
-        RestAssured.port = this.connectionPort;
-        RestAssured.requestSpecification = this.requestSpecification;
-        RestClientsManagement.setCurrentConnection(this);
+        RestAssuredClientSwitcher.switchTo(this.baseUri, this.connectionPort, null, this.requestSpecification, this);
     }
 }
