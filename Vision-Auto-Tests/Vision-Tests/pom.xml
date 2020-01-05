@@ -59,9 +59,9 @@
             </exclusions>
         </dependency>
         <dependency>
-            <groupId>com.radware.vision.automation.webui</groupId>
-            <artifactId>webui-infra</artifactId>
-            <version>${artifact-type}-${revision}</version>
+            <groupId>com.radware.vision.automation</groupId>
+            <artifactId>Webui-Step-Handlers</artifactId>
+            <version>${revision}</version>
             <exclusions>
                 <exclusion>
                     <groupId>com</groupId>

@@ -105,4 +105,9 @@ public class GenericSteps {
     public void validateThatResponseBodyContains(List<JsonPathBodyValidator> validators) {
         System.out.println(validators);
     }
+
+    @Given("^That Current Vision is LoggedIn$")
+    public void thatCurrentVisionIsLoggedIn() {
+
+    }
 }
