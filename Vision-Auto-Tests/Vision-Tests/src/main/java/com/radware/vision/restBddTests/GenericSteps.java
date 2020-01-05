@@ -1,4 +1,4 @@
-package com.radware.vision.rest.bddtests;
+package com.radware.vision.restBddTests;
 
 
 import cucumber.api.java.en.And;
@@ -18,11 +18,6 @@ public class GenericSteps {
     private RestApi restApi;
     private RestResponse response;
 
-//    @Given("^Login to Vision With username \"([^\"]*)\" and password \"([^\"]*)\"$")
-//    public void loginToVisionWithUsernameAndPassword(String username, String password) {
-//        this.restClient = RestClientsManagement.getVisionConnection("https://172.17.192.100", username, password);
-//        assert this.restClient.login().getStatusCode() == StatusCode.OK;
-//    }
 
     @Given("^New ([^\"]*) Request Specification with Base Path \"([^\"]*)\"$")
     public void newRequestSpecification(Method method, String basePath) {
@@ -106,8 +101,4 @@ public class GenericSteps {
         System.out.println(validators);
     }
 
-    @Given("^That Current Vision is LoggedIn$")
-    public void thatCurrentVisionIsLoggedIn() {
-
-    }
 }

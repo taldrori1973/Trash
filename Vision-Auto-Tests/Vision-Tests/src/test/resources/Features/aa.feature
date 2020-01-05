@@ -13,3 +13,4 @@ Feature: aa
       | httpsPassword |       |
       | httpsPassword |       |
 
+    Given REST Login with activation with user "<any>" and password "<any>"

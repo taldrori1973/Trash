@@ -1,4 +1,4 @@
-package com.radware.vision.rest.bddtests;
+package com.radware.vision.restBddTests;
 
 //import com.jayway.jsonpath.JsonPath;
 
