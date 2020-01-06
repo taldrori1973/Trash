@@ -38,4 +38,12 @@ public class RestClientsManagement {
     public static void setCurrentConnection(RestClient currentConnection) {
         RestClientsManagement.currentConnection = currentConnection;
     }
+
+    public static RestClient getVisionConnection(String baseUri, Integer connectionPort, String username, String password) {
+        return new VisionRestAssuredClient(baseUri, connectionPort, username, password);
+    }
+
+    public static RestClient getVisionConnection(String baseUri, Integer connectionPort, String username, String password, String license) {
+        return new VisionRestAssuredClient(baseUri, connectionPort, username, password, license);
+    }
 }
