@@ -28,4 +28,8 @@ public class RestClientsStepsHandler {
         }
 
     }
+
+    public static RestStepResult genericVisionLogIn(String baseUri, Integer port, String username, String password, String licenseKey) {
+        return null;
+    }
 }

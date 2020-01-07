@@ -18,8 +18,8 @@ Feature: Generic Steps
 #    Given That Current Vision HA is Logged In
 
 #    General Vision
+    Given That Vision with IP "172.17.192.100" and Port 443 is Logged In With Username "radware" and Password "radware"
 #    Given That Vision with IP "172.17.192.100" and Port 443 is Logged In With Username "radware" and Password "radware" With Activation
-#    Given That Vision with IP "172.17.192.100" and Port 443 is Logged In With Username "radware" and Password "radware"
 
 #    Alteon Or Appwall From SUT
 #    Given That Device Alteon With SUT Number 11 is Logged In

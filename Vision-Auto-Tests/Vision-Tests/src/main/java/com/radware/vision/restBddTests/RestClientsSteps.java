@@ -1,8 +1,6 @@
 package com.radware.vision.restBddTests;
 
 
-import com.radware.automation.tools.basetest.BaseTestUtils;
-import com.radware.automation.tools.basetest.Reporter;
 import com.radware.vision.RestStepResult;
 import com.radware.vision.automation.tools.sutsystemobjects.devicesinfo.enums.SUTDeviceType;
 import com.radware.vision.bddtests.BddRestTestBase;
@@ -14,7 +12,11 @@ import cucumber.api.java.en.Given;
 import testhandlers.vision.system.generalSettings.LicenseManagementHandler;
 import testhandlers.vision.system.generalSettings.enums.LicenseKeys;
 
+import static com.radware.automation.tools.basetest.BaseTestUtils.report;
+import static com.radware.automation.tools.basetest.Reporter.FAIL;
 import static java.util.Objects.isNull;
+import static org.apache.commons.lang3.StringUtils.isBlank;
+import static org.apache.commons.lang3.StringUtils.isEmpty;
 
 public class RestClientsSteps extends BddRestTestBase {
 
@@ -31,7 +33,7 @@ public class RestClientsSteps extends BddRestTestBase {
 
 
         if (isNull(username) ^ isNull(password))
-            BaseTestUtils.report("Username and Password both should be given or no one of them.", Reporter.FAIL);
+            report("Username and Password both should be given or no one of them.", FAIL);
         try {
             if (!isNull(activation))
                 if (isNull(isHA)) {
@@ -53,12 +55,46 @@ public class RestClientsSteps extends BddRestTestBase {
         RestStepResult result = RestClientsStepsHandler.currentVisionLogIn(baseUri, username, password, licenseKey);
 
         if (result.getStatus().equals(RestStepResult.Status.FAILED))
-            BaseTestUtils.report(result.getErrorMessage(), Reporter.FAIL);
+            report(result.getErrorMessage(), FAIL);
     }
 
 
-    @Given("^That Vision with IP \"([^\"]*)\" and Port (\\d+) is Logged In With Username \"([^\"]*)\" and Password \"([^\"]*)\"(?: With (Activation))?$")
-    public void thatVisionWithIPAndPortIsLoggedInWithUsernameAndPassword(String ip, Integer port, String username, String password) throws Throwable {
+    @Given("^That Vision with IP \"([^\"]*)\"(?: and Port (\\d+))?(?: and Protocol \"([^\"]*)\")? is Logged In With Username \"([^\"]*)\" and Password \"([^\"]*)\"(?: With (Activation))?$")
+    public void thatVisionWithIPAndPortIsLoggedInWithUsernameAndPassword(String ip, Integer port, String protocol, String username, String password, String activation) throws Throwable {
+
+        String licenseKey = null;
+        RadwareServerCli radwareServerCli = null;
+
+        if (isNull(ip) || isEmpty(ip) || isBlank(ip)) {
+            report("Should Provide legal Ip", FAIL);
+        }
+        if (isNull(username) || isEmpty(username) || isBlank(username) ||
+                isNull(password) || isEmpty(password) || isBlank(password)) {
+            report("Should Provide legal username and password", FAIL);
+        }
+
+        if (isNull(protocol)) protocol = "HTTPS";
+        String baseUri = UriUtils.buildUrlFromProtocolAndIp(protocol, ip);
+
+        try {
+            if (!isNull(activation)) {
+                radwareServerCli = (RadwareServerCli) getRestTestBase().getRadwareServerCli().clone();
+
+                radwareServerCli.setHost(ip);
+                radwareServerCli.setUser(username);
+                radwareServerCli.setPassword(password);
+
+                licenseKey = LicenseManagementHandler.generateLicense(radwareServerCli, LicenseKeys.VISION_ACTIVATION.getLicenseKeys());
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+
+        RestStepResult result = RestClientsStepsHandler.genericVisionLogIn(baseUri, port, username, password, licenseKey);
+
+        if (result.getStatus().equals(RestStepResult.Status.FAILED))
+            report(result.getErrorMessage(), FAIL);
 
 
     }
