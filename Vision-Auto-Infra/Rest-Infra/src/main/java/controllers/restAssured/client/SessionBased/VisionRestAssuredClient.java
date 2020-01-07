@@ -58,6 +58,7 @@ public class VisionRestAssuredClient extends RestAssuredSessionBasedRestClient {
 
     @Override
     public boolean isLoggedIn() {
+        if (Objects.isNull(sessionId)) return false;
         Response response = RestAssured.
                 given().sessionId(this.sessionId).baseUri(this.baseUri).port(VISION_DEFAULT_PORT).basePath(VISION_INFO_PATH).
                 when().get().
