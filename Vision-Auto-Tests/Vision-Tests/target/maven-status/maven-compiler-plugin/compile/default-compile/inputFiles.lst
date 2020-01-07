@@ -36,6 +36,7 @@ C:\GIT\APSoluteVisionAutomation\Vision-Auto-Tests\Vision-Tests\src\main\java\com
 C:\GIT\APSoluteVisionAutomation\Vision-Auto-Tests\Vision-Tests\src\main\java\com\radware\vision\bddtests\clioperation\menu\system\snmp\SnmpSteps.java
 C:\GIT\APSoluteVisionAutomation\Vision-Auto-Tests\Vision-Tests\src\main\java\com\radware\vision\tests\Alteon\Configuration\System\Snmp\SnmpV3\TargetAddressesTests.java
 C:\GIT\APSoluteVisionAutomation\Vision-Auto-Tests\Vision-Tests\src\main\java\com\radware\vision\bddtests\BddUITestBase.java
+C:\GIT\APSoluteVisionAutomation\Vision-Auto-Tests\Vision-Tests\src\main\java\com\radware\vision\restBddTests\GenericSteps.java
 C:\GIT\APSoluteVisionAutomation\Vision-Auto-Tests\Vision-Tests\src\main\java\com\radware\vision\bddtests\GenericSteps.java
 C:\GIT\APSoluteVisionAutomation\Vision-Auto-Tests\Vision-Tests\src\main\java\com\radware\vision\tests\Alteon\Configuration\network\layer2\portTrunking\StaticTrunkGroupsTests.java
 C:\GIT\APSoluteVisionAutomation\Vision-Auto-Tests\Vision-Tests\src\main\java\com\radware\vision\bddtests\clioperation\menu\system\snmp\SnmpWalk.java
@@ -73,6 +74,7 @@ C:\GIT\APSoluteVisionAutomation\Vision-Auto-Tests\Vision-Tests\src\main\java\com
 C:\GIT\APSoluteVisionAutomation\Vision-Auto-Tests\Vision-Tests\src\main\java\com\radware\vision\tests\alerts\AlertsNegativeTests.java
 C:\GIT\APSoluteVisionAutomation\Vision-Auto-Tests\Vision-Tests\src\main\java\com\radware\vision\bddtests\BddCliTestBase.java
 C:\GIT\APSoluteVisionAutomation\Vision-Auto-Tests\Vision-Tests\src\main\java\com\radware\vision\bddtests\clioperation\GeneralSteps.java
+C:\GIT\APSoluteVisionAutomation\Vision-Auto-Tests\Vision-Tests\src\main\java\com\radware\vision\restBddTests\JsonPathBodyValidator.java
 C:\GIT\APSoluteVisionAutomation\Vision-Auto-Tests\Vision-Tests\src\main\java\com\radware\vision\base\WebUITestBase.java
 C:\GIT\APSoluteVisionAutomation\Vision-Auto-Tests\Vision-Tests\src\main\java\com\radware\vision\tests\generalsettings\devicedriver\DeviceDriversTests.java
 C:\GIT\APSoluteVisionAutomation\Vision-Auto-Tests\Vision-Tests\src\main\java\com\radware\vision\tests\dp\EnableAllProtectionTest.java
@@ -177,6 +179,7 @@ C:\GIT\APSoluteVisionAutomation\Vision-Auto-Tests\Vision-Tests\src\main\java\com
 C:\GIT\APSoluteVisionAutomation\Vision-Auto-Tests\Vision-Tests\src\main\java\com\radware\vision\tests\rbac\DefensePro\configuration\setup\RBACDefenseProAdvancedParametersTableActionTests.java
 C:\GIT\APSoluteVisionAutomation\Vision-Auto-Tests\Vision-Tests\src\main\java\com\radware\vision\tests\alerts\AlertsTests.java
 C:\GIT\APSoluteVisionAutomation\Vision-Auto-Tests\Vision-Tests\src\main\java\com\radware\vision\bddtests\BddHooks.java
+C:\GIT\APSoluteVisionAutomation\Vision-Auto-Tests\Vision-Tests\src\main\java\com\radware\vision\restBddTests\RestClientsSteps.java
 C:\GIT\APSoluteVisionAutomation\Vision-Auto-Tests\Vision-Tests\src\main\java\com\radware\vision\tests\scheduledtasks\validateTasksTests\ValidateTasksTests.java
 C:\GIT\APSoluteVisionAutomation\Vision-Auto-Tests\Vision-Tests\src\main\java\com\radware\vision\bddtests\tcpdump\TcpdumpTests.java
 C:\GIT\APSoluteVisionAutomation\Vision-Auto-Tests\Vision-Tests\src\main\java\com\radware\vision\bddtests\clioperation\system\upgrade\UpgradeSteps.java

@@ -4,14 +4,14 @@ package com.radware.vision.restBddTests;
 import com.radware.automation.tools.basetest.BaseTestUtils;
 import com.radware.automation.tools.basetest.Reporter;
 import com.radware.vision.automation.tools.sutsystemobjects.devicesinfo.enums.SUTDeviceType;
+import com.radware.vision.bddtests.BddRestTestBase;
 import cucumber.api.java.en.Given;
 import testhandlers.vision.system.generalSettings.LicenseManagementHandler;
 import testhandlers.vision.system.generalSettings.enums.LicenseKeys;
 
-import static com.radware.vision.base.WebUITestBase.getRestTestBase;
 import static java.util.Objects.isNull;
 
-public class RestClientsSteps {
+public class RestClientsSteps extends BddRestTestBase {
 
 
     @Given("^That Current Vision(:? HA)? is Logged In(?: With Username \"([^\"]*)\" and Password \"([^\"]*)\")?(?: With (Activation))?$")
