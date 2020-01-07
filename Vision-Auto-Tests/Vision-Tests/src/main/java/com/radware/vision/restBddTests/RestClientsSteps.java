@@ -9,6 +9,7 @@ import com.radware.vision.bddtests.BddRestTestBase;
 import com.radware.vision.restBddTests.utils.SutManager;
 import com.radware.vision.restTestHandler.Auth.RestClientsStepsHandler;
 import com.radware.vision.utils.UriUtils;
+import com.radware.vision.vision_project_cli.RadwareServerCli;
 import cucumber.api.java.en.Given;
 import testhandlers.vision.system.generalSettings.LicenseManagementHandler;
 import testhandlers.vision.system.generalSettings.enums.LicenseKeys;
@@ -21,7 +22,8 @@ public class RestClientsSteps extends BddRestTestBase {
     @Given("^That Current Vision(:? HA)? is Logged In(?: With Username \"([^\"]*)\" and Password \"([^\"]*)\")?(?: With (Activation))?$")
     public void thatCurrentVisionIsLoggedIn(String isHA, String username, String password, String activation) throws Exception {
 
-        String licenseKey;
+        String licenseKey = null;
+        RadwareServerCli radwareServerCli = null;
 
         String baseUri = isNull(isHA) ?
                 UriUtils.buildUrlFromProtocolAndIp(SutManager.getCurrentVisionRestProtocol(), SutManager.getCurrentVisionIp()) :
@@ -32,7 +34,13 @@ public class RestClientsSteps extends BddRestTestBase {
             BaseTestUtils.report("Username and Password both should be given or no one of them.", Reporter.FAIL);
         try {
             if (!isNull(activation))
-                licenseKey = LicenseManagementHandler.generateLicense(getRestTestBase().getRadwareServerCli(), LicenseKeys.VISION_ACTIVATION.getLicenseKeys());
+                if (isNull(isHA)) {
+                    radwareServerCli = getRestTestBase().getRadwareServerCli();
+                } else {
+                    radwareServerCli = (RadwareServerCli) getRestTestBase().getRadwareServerCli().clone();
+                    radwareServerCli.setHost(SutManager.getCurrentVisionHAIp());
+                }
+            licenseKey = LicenseManagementHandler.generateLicense(radwareServerCli, LicenseKeys.VISION_ACTIVATION.getLicenseKeys());
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -42,17 +50,12 @@ public class RestClientsSteps extends BddRestTestBase {
             password = SutManager.getCurrentVisionRestUserPassword();
         }
 
-        RestStepResult result = RestClientsStepsHandler.currentVisionLogIn(baseUri, username, password, activation);
+        RestStepResult result = RestClientsStepsHandler.currentVisionLogIn(baseUri, username, password, licenseKey);
 
         if (result.getStatus().equals(RestStepResult.Status.FAILED))
             BaseTestUtils.report(result.getErrorMessage(), Reporter.FAIL);
     }
 
-
-    @Given("^That Current Vision HA is Logged In(?: With Username \"([^\"]*)\" and Password \"([^\"]*)\")?$")
-    public void thatCurrentVisionHAIsLoggedIn() {
-
-    }
 
     @Given("^That Vision with IP \"([^\"]*)\" and Port (\\d+) is Logged In With Username \"([^\"]*)\" and Password \"([^\"]*)\"(?: With (Activation))?$")
     public void thatVisionWithIPAndPortIsLoggedInWithUsernameAndPassword(String ip, Integer port, String username, String password) throws Throwable {

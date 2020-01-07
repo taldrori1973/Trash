@@ -18,7 +18,7 @@
             <visionServerHA>
                 <class>com.radware.vision.vision_project_cli.VisionServerHA</class>
                 <Host_1>172.17.164.101</Host_1>
-                <Host_2>172.17.164.145</Host_2>
+                <Host_2>172.17.192.100</Host_2>
                 <connectOnInit>false</connectOnInit>
             </visionServerHA>
             <visionRoot>
