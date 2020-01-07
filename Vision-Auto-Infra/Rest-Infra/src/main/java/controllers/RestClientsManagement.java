@@ -22,6 +22,15 @@ public class RestClientsManagement {
         return new OnVisionVDirectRestAssuredClient(baseUri, username, password);
     }
 
+
+    public static RestClient getVisionConnection(String baseUri, Integer connectionPort, String username, String password) {
+        return new VisionRestAssuredClient(baseUri, connectionPort, username, password);
+    }
+
+    public static RestClient getVisionConnection(String baseUri, Integer connectionPort, String username, String password, String license) {
+        return new VisionRestAssuredClient(baseUri, connectionPort, username, password, license);
+    }
+
     public static RestClient getAlteonConnection(String baseUri, String username, String password) {
         return new AlteonRestAssuredClient(baseUri, username, password);
     }
