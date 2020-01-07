@@ -10,9 +10,15 @@ import restInterface.client.SessionBasedRestClient;
 public class RestClientsStepsHandler {
 
     public static RestStepResult currentVisionLogIn(String baseUri, String username, String password, String licenseKey) {
+
+        return genericVisionLogIn(baseUri, null, username, password, licenseKey);
+    }
+
+    public static RestStepResult genericVisionLogIn(String baseUri, Integer port, String username, String password, String licenseKey) {
+
         RestResponse response;
 
-        SessionBasedRestClient connection = RestClientsFactory.getVisionConnection(baseUri, null, username, password, licenseKey);
+        SessionBasedRestClient connection = RestClientsFactory.getVisionConnection(baseUri, port, username, password, licenseKey);
 
         if (!connection.isLoggedIn()) {//then login
 
@@ -27,9 +33,5 @@ public class RestClientsStepsHandler {
             return new RestStepResult(RestStepResult.Status.SUCCESS, "Ready to use");
         }
 
-    }
-
-    public static RestStepResult genericVisionLogIn(String baseUri, Integer port, String username, String password, String licenseKey) {
-        return null;
     }
 }
