@@ -58,6 +58,7 @@ C:\GIT\APSoluteVisionAutomation\Vision-Auto-Tests\Vision-Tests\src\main\java\com
 C:\GIT\APSoluteVisionAutomation\Vision-Auto-Tests\Vision-Tests\src\main\java\com\radware\vision\tests\RemoteSsh\RemoteServerCommands.java
 C:\GIT\APSoluteVisionAutomation\Vision-Auto-Tests\Vision-Tests\src\main\java\com\radware\vision\tests\GeneralOperations\ByLabelOperations.java
 C:\GIT\APSoluteVisionAutomation\Vision-Auto-Tests\Vision-Tests\src\main\java\com\radware\vision\tests\rbac\Monitoring\System\RBACAlteonSystemTableActionTests.java
+C:\GIT\APSoluteVisionAutomation\Vision-Auto-Tests\Vision-Tests\src\main\java\com\radware\vision\restBddTests\utils\UriUtils.java
 C:\GIT\APSoluteVisionAutomation\Vision-Auto-Tests\Vision-Tests\src\main\java\com\radware\vision\tests\Alteon\Configuration\network\layer2\portTrunking\LACPGroupTests.java
 C:\GIT\APSoluteVisionAutomation\Vision-Auto-Tests\Vision-Tests\src\main\java\com\radware\vision\tests\rbac\DefensePro\monitoring\operationalStatus\RBACDefenseProResourceUtilizationTableActionTests.java
 C:\GIT\APSoluteVisionAutomation\Vision-Auto-Tests\Vision-Tests\src\main\java\com\radware\vision\bddtests\vmoperations\KVMSnapShotThread.java
@@ -155,6 +156,7 @@ C:\GIT\APSoluteVisionAutomation\Vision-Auto-Tests\Vision-Tests\src\main\java\com
 C:\GIT\APSoluteVisionAutomation\Vision-Auto-Tests\Vision-Tests\src\main\java\com\radware\vision\tests\rbac\DefensePro\configuration\accessControl\RBACDefenseProACLPolicyTableActionTests.java
 C:\GIT\APSoluteVisionAutomation\Vision-Auto-Tests\Vision-Tests\src\main\java\com\radware\vision\tests\localization\alteon\AlteonLocalizationTests.java
 C:\GIT\APSoluteVisionAutomation\Vision-Auto-Tests\Vision-Tests\src\main\java\com\radware\vision\bddtests\remotessh\AttacksSteps.java
+C:\GIT\APSoluteVisionAutomation\Vision-Auto-Tests\Vision-Tests\src\main\java\com\radware\vision\restBddTests\utils\SutUtils.java
 C:\GIT\APSoluteVisionAutomation\Vision-Auto-Tests\Vision-Tests\src\main\java\com\radware\vision\tests\localization\dp\DPLocalizationTests.java
 C:\GIT\APSoluteVisionAutomation\Vision-Auto-Tests\Vision-Tests\src\main\java\com\radware\vision\tests\visionsettings\system\generalsettings\GeneralSettings.java
 C:\GIT\APSoluteVisionAutomation\Vision-Auto-Tests\Vision-Tests\src\main\java\com\radware\vision\tests\rbac\DefensePro\configuration\networkProtection\RBACDefenseProSignatureProtectionTableActionTests.java

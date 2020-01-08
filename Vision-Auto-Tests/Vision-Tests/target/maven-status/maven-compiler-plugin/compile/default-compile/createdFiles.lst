@@ -157,6 +157,7 @@ com\radware\vision\bddtests\clioperation\menu\system\snmp\SnmpWalk.class
 com\radware\vision\tests\rbac\navigationRBAC\RBACAlteonNavigationTests.class
 com\radware\vision\bddtests\BddRestTestBase.class
 com\radware\vision\tests\BasicOperations\BasicOperations.class
+com\radware\vision\restBddTests\utils\SutUtils.class
 com\radware\vision\tests\rbac\configuration\applicationdelivery\RBACAlteonAppDeliveryBaseTableActionTests.class
 com\radware\vision\bddtests\dp\networkprotection\DpNTestBase.class
 com\radware\vision\tests\Alteon\Configuration\applicationdelivery\serverresources\realservers\RealServersTests.class
@@ -205,6 +206,7 @@ com\radware\vision\tests\topologytree\TopologyTree.class
 com\radware\vision\bddtests\basicoperations\BasicValidationsTests$TableValues.class
 com\radware\vision\base\WebUITestBase$1.class
 com\radware\vision\bddtests\clioperation\menu\net\nat\NetNatSteps.class
+com\radware\vision\restBddTests\utils\UriUtils.class
 com\radware\vision\bddtests\rest\device\byip\config\action\DeviceOperationsSteps.class
 com\radware\vision\tests\rbac\configuration\applicationdelivery\RBACAlteonAdvancedTableActionTests.class
 com\radware\vision\tests\visionsettings\VisionSettingsBase.class
