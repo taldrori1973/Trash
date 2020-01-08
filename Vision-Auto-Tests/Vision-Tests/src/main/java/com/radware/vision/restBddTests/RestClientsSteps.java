@@ -4,9 +4,9 @@ package com.radware.vision.restBddTests;
 import com.radware.vision.RestStepResult;
 import com.radware.vision.automation.tools.sutsystemobjects.devicesinfo.enums.SUTDeviceType;
 import com.radware.vision.bddtests.BddRestTestBase;
-import com.radware.vision.restBddTests.utils.SutManager;
+import com.radware.vision.restBddTests.utils.SutUtils;
+import com.radware.vision.restBddTests.utils.UriUtils;
 import com.radware.vision.restTestHandler.Auth.RestClientsStepsHandler;
-import com.radware.vision.utils.UriUtils;
 import com.radware.vision.vision_project_cli.RadwareServerCli;
 import cucumber.api.java.en.Given;
 import testhandlers.vision.system.generalSettings.LicenseManagementHandler;
@@ -28,8 +28,8 @@ public class RestClientsSteps extends BddRestTestBase {
         RadwareServerCli radwareServerCli = null;
 
         String baseUri = isNull(isHA) ?
-                UriUtils.buildUrlFromProtocolAndIp(SutManager.getCurrentVisionRestProtocol(), SutManager.getCurrentVisionIp()) :
-                UriUtils.buildUrlFromProtocolAndIp(SutManager.getCurrentVisionRestProtocol(), SutManager.getCurrentVisionHAIp());
+                UriUtils.buildUrlFromProtocolAndIp(SutUtils.getCurrentVisionRestProtocol(), SutUtils.getCurrentVisionIp()) :
+                UriUtils.buildUrlFromProtocolAndIp(SutUtils.getCurrentVisionRestProtocol(), SutUtils.getCurrentVisionHAIp());
 
 
         if (isNull(username) ^ isNull(password))
@@ -40,7 +40,7 @@ public class RestClientsSteps extends BddRestTestBase {
                     radwareServerCli = getRestTestBase().getRadwareServerCli();
                 } else {
                     radwareServerCli = (RadwareServerCli) getRestTestBase().getRadwareServerCli().clone();
-                    radwareServerCli.setHost(SutManager.getCurrentVisionHAIp());
+                    radwareServerCli.setHost(SutUtils.getCurrentVisionHAIp());
                 }
             licenseKey = LicenseManagementHandler.generateLicense(radwareServerCli, LicenseKeys.VISION_ACTIVATION.getLicenseKeys());
         } catch (Exception e) {
@@ -48,14 +48,14 @@ public class RestClientsSteps extends BddRestTestBase {
         }
 
         if (isNull(username)) {
-            username = SutManager.getCurrentVisionRestUserName();
-            password = SutManager.getCurrentVisionRestUserPassword();
+            username = SutUtils.getCurrentVisionRestUserName();
+            password = SutUtils.getCurrentVisionRestUserPassword();
         }
 
         RestStepResult result = RestClientsStepsHandler.currentVisionLogIn(baseUri, username, password, licenseKey);
 
         if (result.getStatus().equals(RestStepResult.Status.FAILED))
-            report(result.getErrorMessage(), FAIL);
+            report(result.getMessage(), FAIL);
     }
 
 
@@ -94,13 +94,34 @@ public class RestClientsSteps extends BddRestTestBase {
         RestStepResult result = RestClientsStepsHandler.genericVisionLogIn(baseUri, port, username, password, licenseKey);
 
         if (result.getStatus().equals(RestStepResult.Status.FAILED))
-            report(result.getErrorMessage(), FAIL);
+            report(result.getMessage(), FAIL);
 
 
     }
 
     @Given("^That Device (Alteon|AppWall) With SUT Number (\\d+) is Logged In$")
-    public void thatDeviceAlteonAppWallWithSUTNumberNumberIsLoggedIn(SUTDeviceType sutDeviceType, Integer deviceNumber) {
+    public void thatDeviceAlteonAppWallWithSUTNumberNumberIsLoggedIn(SUTDeviceType sutDeviceType, Integer deviceNumber) throws Exception {
+        if (isNull(sutDeviceType) || (!sutDeviceType.equals(SUTDeviceType.Alteon) && !sutDeviceType.equals(SUTDeviceType.AppWall))) {
+            report("The Device Type should be Alteon Or AppWall", FAIL);
+        }
+
+        if (isNull(deviceNumber)) report("No device number was provided", FAIL);
+
+        String baseUri = UriUtils.buildUrlFromProtocolAndIp("https", SutUtils.getDeviceIp(sutDeviceType, deviceNumber));
+        String username = SutUtils.getDeviceUserName(sutDeviceType, deviceNumber);
+        String password = SutUtils.getDevicePassword(sutDeviceType, deviceNumber);
+
+
+        RestStepResult result = RestClientsStepsHandler.alteonAppWallLogin(sutDeviceType.getDeviceType(), baseUri, null, username, password);
+
+        if (result.getStatus().equals(RestStepResult.Status.FAILED))
+            report(result.getMessage(), FAIL);
+    }
+
+
+    @Given("^That Device (Alteon|AppWall) with IP \"([^\"]*)\"(?: and Port (\\d+))?(?: and Protocol \"([^\"]*)\")? is Logged In With Username \"([^\"]*)\" and Password \"([^\"]*)\"$")
+    public void thatDeviceAlteonAppWallWithIPAndPortAndProtocolIsLoggedInWithUsernameAndPassword(SUTDeviceType sutDeviceType, String ip, Integer port, String protocol, String username, String password) throws Throwable {
+
 
     }
 
@@ -109,6 +130,5 @@ public class RestClientsSteps extends BddRestTestBase {
 
 
     }
-
 
 }

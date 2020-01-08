@@ -31,12 +31,16 @@ public class RestClientsManagement {
         return new VisionRestAssuredClient(baseUri, connectionPort, username, password, license);
     }
 
-    public static RestClient getAlteonConnection(String baseUri, String username, String password) {
-        return new AlteonRestAssuredClient(baseUri, username, password);
+    public static RestClient getAlteonConnection(String baseUri, Integer connectionPort, String username, String password) {
+        if (Objects.isNull(connectionPort))
+            return new AlteonRestAssuredClient(baseUri, username, password);
+        return new AlteonRestAssuredClient(baseUri, connectionPort, username, password);
     }
 
-    public static RestClient getAppWallConnection(String baseUri, String username, String password) {
-        return new AppWallRestAssuredClient(baseUri, username, password);
+    public static RestClient getAppWallConnection(String baseUri, Integer connectionPort, String username, String password) {
+        if (Objects.isNull(connectionPort))
+            return new AppWallRestAssuredClient(baseUri, username, password);
+        return new AppWallRestAssuredClient(baseUri, connectionPort, username, password);
     }
 
     public static Optional<RestClient> getCurrentConnection() {

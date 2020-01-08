@@ -1,5 +1,9 @@
 package controllers.restAssured.client.BasicAuth;
 
+import io.restassured.response.Response;
+import mappers.restAssured.RestAssuredResponseMapper;
+import models.RestResponse;
+
 import static io.restassured.RestAssured.given;
 import static models.config.DevicesConstants.*;
 
@@ -15,9 +19,11 @@ public class AppWallRestAssuredClient extends RestAssuredBasicAuthBasedRestClien
     }
 
     @Override
-    public boolean isConnected() {
-        return given().spec(this.requestSpecification).basePath(APPWALL_USER_INFO_PATH).pathParams(APPWALL_USER_INFO_PATH_PARAMETER, this.username).
+    public RestResponse checkConnection() {
+        Response response = given().spec(this.requestSpecification).basePath(APPWALL_USER_INFO_PATH).pathParams(APPWALL_USER_INFO_PATH_PARAMETER, this.username).
                 when().get().
-                then().extract().response().getStatusCode() == APPWALL_ON_SUCCESS_STATUS_CODE.getStatusCode();
+                then().extract().response();
+
+        return RestAssuredResponseMapper.map(response);
     }
 }

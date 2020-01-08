@@ -1,4 +1,4 @@
-package com.radware.vision.utils;
+package com.radware.vision.restBddTests.utils;
 
 public class UriUtils {
 

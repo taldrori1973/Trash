@@ -9,12 +9,12 @@ import models.StatusCode;
 @AllArgsConstructor
 public class RestStepResult {
     private Status status;
-    private String errorMessage;
+    private String message;
 
 
     public RestStepResult(RestResponse response, StatusCode expectedStatusCode) {
         this.status = response.getStatusCode().equals(expectedStatusCode) ? Status.SUCCESS : Status.FAILED;
-        this.errorMessage = response.getStatusLine();
+        this.message = response.getStatusLine();
     }
 
     public enum Status {

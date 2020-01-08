@@ -1,12 +1,15 @@
 package com.radware.vision.restBddTests.utils;
 
+import com.radware.vision.automation.tools.sutsystemobjects.devicesinfo.DeviceInfo;
+import com.radware.vision.automation.tools.sutsystemobjects.devicesinfo.enums.SUTDeviceType;
 import com.radware.vision.base.WebUITestBase;
+import com.radware.vision.infra.testhandlers.BaseHandler;
 
 import static java.util.Objects.isNull;
 import static org.apache.commons.lang3.StringUtils.isBlank;
 import static org.apache.commons.lang3.StringUtils.isEmpty;
 
-public class SutManager {
+public class SutUtils {
 
     public static String getCurrentVisionRestProtocol() {
         String restProtocol = WebUITestBase.getRestTestBase().getVisionlab().visionServer.getRestProtocol();
@@ -44,5 +47,21 @@ public class SutManager {
             throw new NoSuchFieldException("Can't read HA Host Name from SUT file under visionCli/visionServer/visionServerHA/Host_2");
         }
         return ip;
+    }
+
+
+    public static String getDeviceIp(SUTDeviceType sutDeviceType, int deviceNumber) throws Exception {
+        DeviceInfo deviceInfo = BaseHandler.devicesManager.getDeviceInfo(sutDeviceType, deviceNumber);
+        return deviceInfo.getDeviceIp();
+    }
+
+    public static String getDeviceUserName(SUTDeviceType sutDeviceType, int deviceNumber) throws Exception {
+        DeviceInfo deviceInfo = BaseHandler.devicesManager.getDeviceInfo(sutDeviceType, deviceNumber);
+        return deviceInfo.getUsername();
+    }
+
+    public static String getDevicePassword(SUTDeviceType sutDeviceType, int deviceNumber) throws Exception {
+        DeviceInfo deviceInfo = BaseHandler.devicesManager.getDeviceInfo(sutDeviceType, deviceNumber);
+        return deviceInfo.getPassword();
     }
 }

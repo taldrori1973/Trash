@@ -4,7 +4,9 @@ import com.radware.vision.RestClientsFactory;
 import com.radware.vision.RestStepResult;
 import controllers.RestClientsManagement;
 import models.RestResponse;
+import models.StatusCode;
 import models.config.DevicesConstants;
+import restInterface.client.BasicAuthBasedRestClient;
 import restInterface.client.SessionBasedRestClient;
 
 public class RestClientsStepsHandler {
@@ -33,5 +35,33 @@ public class RestClientsStepsHandler {
             return new RestStepResult(RestStepResult.Status.SUCCESS, "Ready to use");
         }
 
+    }
+
+    public static RestStepResult alteonAppWallLogin(String deviceType, String baseUri, Integer port, String username, String password) {
+        RestResponse response;
+        StatusCode onSuccessStatusCode;
+        BasicAuthBasedRestClient connection;
+
+        switch (deviceType.toLowerCase()) {
+            case "alteon":
+                connection = RestClientsFactory.getAlteonConnection(baseUri, port, username, password);
+                onSuccessStatusCode = DevicesConstants.ALTEON_ON_SUCCESS_STATUS_CODE;
+                break;
+            case "appwall":
+                connection = RestClientsFactory.getAppWallConnection(baseUri, port, username, password);
+                onSuccessStatusCode = DevicesConstants.APPWALL_ON_SUCCESS_STATUS_CODE;
+                break;
+            default:
+                throw new IllegalArgumentException("Device type should be Alteon or AppWall");
+        }
+
+        response = connection.checkConnection();
+
+        if (!response.getStatusCode().equals(onSuccessStatusCode)) {
+            return new RestStepResult(response, onSuccessStatusCode);
+        }
+
+        connection.switchTo();
+        return new RestStepResult(RestStepResult.Status.SUCCESS, "Ready to use");
     }
 }

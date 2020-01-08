@@ -18,16 +18,19 @@ Feature: Generic Steps
 #    Given That Current Vision HA is Logged In
 
 #    General Vision
-    Given That Vision with IP "172.17.192.200" is Logged In With Username "radware" and Password "radware"
-    Given That Vision with IP "172.17.192.200" is Logged In With Username "radware" and Password "radware" With Activation
-    Given That Vision with IP "172.17.192.100" and Port 443 is Logged In With Username "radware" and Password "radware"
-    Given That Vision with IP "172.17.192.100" and Port 443 is Logged In With Username "radware" and Password "radware" With Activation
-    Given That Vision with IP "172.17.192.100" and Protocol "https" is Logged In With Username "<string>" and Password "<string>"
-    Given That Vision with IP "172.17.192.100" and Protocol "https" is Logged In With Username "<string>" and Password "<string>" With Activation
-    Given That Vision with IP "172.17.192.100" and Port 443 and Protocol "https" is Logged In With Username "<string>" and Password "<string>"
-    Given That Vision with IP "172.17.192.100" and Port 443 and Protocol "https" is Logged In With Username "<string>" and Password "<string>" With Activation
+#    Given That Vision with IP "172.17.192.200" is Logged In With Username "radware" and Password "radware"
+#    Given That Vision with IP "172.17.192.200" is Logged In With Username "radware" and Password "radware" With Activation
+#    Given That Vision with IP "172.17.192.100" and Port 443 is Logged In With Username "radware" and Password "radware"
+#    Given That Vision with IP "172.17.192.100" and Port 443 is Logged In With Username "radware" and Password "radware" With Activation
+#    Given That Vision with IP "172.17.192.100" and Protocol "https" is Logged In With Username "<string>" and Password "<string>"
+#    Given That Vision with IP "172.17.192.100" and Protocol "https" is Logged In With Username "<string>" and Password "<string>" With Activation
+#    Given That Vision with IP "172.17.192.100" and Port 443 and Protocol "https" is Logged In With Username "<string>" and Password "<string>"
+#    Given That Vision with IP "172.17.192.100" and Port 443 and Protocol "https" is Logged In With Username "<string>" and Password "<string>" With Activation
+
 #    Alteon Or Appwall From SUT
-#    Given That Device Alteon With SUT Number 11 is Logged In
+    Given That Device Alteon With SUT Number 14 is Logged In
+#    Given That Device Alteon with IP "172.17.192.100" and Port 443 and Protocol "https" is Logged In With Username "admin" and Password "admin"
+
 #    Given That Device AppWall With SUT Number 11 is Logged In
 
 #    On Vision VDirect

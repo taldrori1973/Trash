@@ -366,7 +366,7 @@
             <deviceName>Alteon_172.17.164.17</deviceName>
             <deviceIp>172.17.164.17</deviceIp>
             <username>admin</username>
-            <password>Mayaev8*</password>
+            <password>shimon1!$4</password>
             <readCommunity>public</readCommunity>
             <writeCommunity>private</writeCommunity>
         </alteonDevices>
@@ -375,7 +375,7 @@
             <deviceName>Alteon_172.17.164.18</deviceName>
             <deviceIp>172.17.164.18</deviceIp>
             <username>admin</username>
-            <password>Mayaev8*</password>
+            <password>shimon1!$4</password>
             <readCommunity>public</readCommunity>
             <writeCommunity>private</writeCommunity>
         </alteonDevices>
