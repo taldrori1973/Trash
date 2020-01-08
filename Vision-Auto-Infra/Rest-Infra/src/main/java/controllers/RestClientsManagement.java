@@ -6,8 +6,9 @@ import controllers.restAssured.client.SessionBased.OnVisionVDirectRestAssuredCli
 import controllers.restAssured.client.SessionBased.VisionRestAssuredClient;
 import restInterface.client.RestClient;
 
-import java.util.Objects;
 import java.util.Optional;
+
+import static java.util.Objects.isNull;
 
 public class RestClientsManagement {
 
@@ -18,8 +19,10 @@ public class RestClientsManagement {
         return new VisionRestAssuredClient(baseUri, username, password);
     }
 
-    public static RestClient getOnVisionVDirectConnection(String baseUri, String username, String password) {
-        return new OnVisionVDirectRestAssuredClient(baseUri, username, password);
+    public static RestClient getOnVisionVDirectConnection(String baseUri, Integer connectionPort, String username, String password) {
+        if (isNull(connectionPort)) return new OnVisionVDirectRestAssuredClient(baseUri, username, password);
+
+        return new OnVisionVDirectRestAssuredClient(baseUri, connectionPort, username, password);
     }
 
 
@@ -32,19 +35,19 @@ public class RestClientsManagement {
     }
 
     public static RestClient getAlteonConnection(String baseUri, Integer connectionPort, String username, String password) {
-        if (Objects.isNull(connectionPort))
+        if (isNull(connectionPort))
             return new AlteonRestAssuredClient(baseUri, username, password);
         return new AlteonRestAssuredClient(baseUri, connectionPort, username, password);
     }
 
     public static RestClient getAppWallConnection(String baseUri, Integer connectionPort, String username, String password) {
-        if (Objects.isNull(connectionPort))
+        if (isNull(connectionPort))
             return new AppWallRestAssuredClient(baseUri, username, password);
         return new AppWallRestAssuredClient(baseUri, connectionPort, username, password);
     }
 
     public static Optional<RestClient> getCurrentConnection() {
-        if (Objects.isNull(currentConnection)) return Optional.empty();
+        if (isNull(currentConnection)) return Optional.empty();
         return Optional.of(currentConnection);
     }
 

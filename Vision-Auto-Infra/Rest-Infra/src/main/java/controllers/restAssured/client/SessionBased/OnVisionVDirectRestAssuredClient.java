@@ -8,7 +8,11 @@ import static models.config.DevicesConstants.*;
 public class OnVisionVDirectRestAssuredClient extends VisionRestAssuredClient {
 
     public OnVisionVDirectRestAssuredClient(String baseUri, String username, String password) {
-        super(baseUri, V_DIRECT_DEFAULT_PORT, username, password);
+        this(baseUri, V_DIRECT_DEFAULT_PORT, username, password);
+    }
+
+    public OnVisionVDirectRestAssuredClient(String baseUri, int port, String username, String password) {
+        super(baseUri, port, username, password);
     }
 
     @Override

@@ -21,7 +21,7 @@ import static org.apache.commons.lang3.StringUtils.isEmpty;
 public class RestClientsSteps extends BddRestTestBase {
 
 
-    @Given("^That Current Vision(:? HA)? is Logged In(?: With Username \"([^\"]*)\" and Password \"([^\"]*)\")?(?: With (Activation))?$")
+    @Given("^That Current Vision(?: (HA))? is Logged In(?: With Username \"([^\"]*)\" and Password \"([^\"]*)\")?(?: With (Activation))?$")
     public void thatCurrentVisionIsLoggedIn(String isHA, String username, String password, String activation) throws Exception {
 
         String licenseKey = null;
@@ -144,9 +144,22 @@ public class RestClientsSteps extends BddRestTestBase {
 
     }
 
-    @Given("^That Current On Vision VDirect is Logged In(?: With Username \"([^\"]*)\" and Password \"([^\"]*)\")?$")
-    public void thatCurrentOnVisionVDirectIsLoggedInWithUsernameAndPassword(String username, String password) {
+    @Given("^That Current On-Vision VDirect(?: with Port (\\d+))?(?: and with protocol \"([^\"]*)\")? is Logged In(?: With Username \"([^\"]*)\" and Password \"([^\"]*)\")?$")
+    public void thatCurrentOnVisionVDirectIsLoggedInWithUsernameAndPassword(Integer port, String protocol, String username, String password) throws NoSuchFieldException {
 
+        if (isNull(username) ^ isNull(password)) {
+            report("Username and Password both should be given or no one of them.", FAIL);
+        }
+
+        if (isNull(protocol)) protocol = SutUtils.getCurrentVisionRestProtocol();
+        String baseUri = UriUtils.buildUrlFromProtocolAndIp(protocol, SutUtils.getCurrentVisionIp());
+        if (isNull(username)) {
+            username = SutUtils.getCurrentVisionRestUserName();
+            password = SutUtils.getCurrentVisionRestUserPassword();
+        }
+        RestStepResult result = RestClientsStepsHandler.onVisionVDirectLogin(baseUri, port, username, password);
+        if (result.getStatus().equals(RestStepResult.Status.FAILED))
+            report(result.getMessage(), FAIL);
 
     }
 

@@ -12,8 +12,8 @@ import static java.util.Objects.isNull;
 
 public class RestClientsFactory {
 
-    private static final String VISION_KEY_TEMPLATE = "%s_%d_%s_%b";//{baseUri}_{connectionPort}_{username}_{isHaveLicense}
-    private static final String ALTEON_APPWALL_KEY_TEMPLATE = "%s_%d_%s";//{baseUri}_{connectionPort}_{username}
+    private static final String LICENSE_BASED_KEY_TEMPLATE = "%s_%d_%s_%b";//{baseUri}_{connectionPort}_{username}_{isHaveLicense}
+    private static final String KEY_TEMPLATE = "%s_%d_%s";//{baseUri}_{connectionPort}_{username}
     private static Map<String, SessionBasedRestClient> visionRestClients;
     private static Map<String, SessionBasedRestClient> onVisionVDirectRestClients;
     private static Map<String, BasicAuthBasedRestClient> alteonRestClients;
@@ -31,7 +31,7 @@ public class RestClientsFactory {
 
         connectionPort = !isNull(connectionPort) ? connectionPort : DevicesConstants.VISION_DEFAULT_PORT;
 
-        String key = String.format(VISION_KEY_TEMPLATE, baseUri, connectionPort, username, !isNull(license));
+        String key = String.format(LICENSE_BASED_KEY_TEMPLATE, baseUri, connectionPort, username, !isNull(license));
 
         if (isNull(license)) {
             if (!visionRestClients.containsKey(key))
@@ -45,13 +45,17 @@ public class RestClientsFactory {
     }
 
 
-    public static SessionBasedRestClient getOnVisionVDirectConnection(String baseUri, Integer connectionPort, String username, String password, String license) {
-        return onVisionVDirectRestClients.get("");
+    public static SessionBasedRestClient getOnVisionVDirectConnection(String baseUri, Integer connectionPort, String username, String password) {
+        String key = defaultKeyBuilder(baseUri, connectionPort, username);
+        if (!onVisionVDirectRestClients.containsKey(key)) {
+            onVisionVDirectRestClients.put(key, (SessionBasedRestClient) RestClientsManagement.getOnVisionVDirectConnection(baseUri, connectionPort, username, password));
+        }
+        return onVisionVDirectRestClients.get(key);
     }
 
     public static BasicAuthBasedRestClient getAlteonConnection(String baseUri, Integer connectionPort, String username, String password) {
 
-        String key = alteon_appwall_buildKey(baseUri, connectionPort, username, password);
+        String key = defaultKeyBuilder(baseUri, connectionPort, username);
 
         if (!alteonRestClients.containsKey(key)) {
             alteonRestClients.put(key, (BasicAuthBasedRestClient) RestClientsManagement.getAlteonConnection(baseUri, connectionPort, username, password));
@@ -60,7 +64,7 @@ public class RestClientsFactory {
     }
 
     public static BasicAuthBasedRestClient getAppWallConnection(String baseUri, Integer connectionPort, String username, String password) {
-        String key = alteon_appwall_buildKey(baseUri, connectionPort, username, password);
+        String key = defaultKeyBuilder(baseUri, connectionPort, username);
 
         if (!appWallRestClients.containsKey(key)) {
             appWallRestClients.put(key, (BasicAuthBasedRestClient) RestClientsManagement.getAppWallConnection(baseUri, connectionPort, username, password));
@@ -68,9 +72,9 @@ public class RestClientsFactory {
         return appWallRestClients.get(key);
     }
 
-    private static String alteon_appwall_buildKey(String baseUri, Integer connectionPort, String username, String password) {
+    private static String defaultKeyBuilder(String baseUri, Integer connectionPort, String username) {
 
-        return String.format(ALTEON_APPWALL_KEY_TEMPLATE, baseUri, !isNull(connectionPort) ? connectionPort : 0, username);
+        return String.format(KEY_TEMPLATE, baseUri, !isNull(connectionPort) ? connectionPort : 0, username);
 
     }
 
