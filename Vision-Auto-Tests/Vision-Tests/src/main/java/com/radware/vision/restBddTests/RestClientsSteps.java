@@ -121,7 +121,26 @@ public class RestClientsSteps extends BddRestTestBase {
 
     @Given("^That Device (Alteon|AppWall) with IP \"([^\"]*)\"(?: and Port (\\d+))?(?: and Protocol \"([^\"]*)\")? is Logged In With Username \"([^\"]*)\" and Password \"([^\"]*)\"$")
     public void thatDeviceAlteonAppWallWithIPAndPortAndProtocolIsLoggedInWithUsernameAndPassword(SUTDeviceType sutDeviceType, String ip, Integer port, String protocol, String username, String password) throws Throwable {
+        if (isNull(sutDeviceType) || (!sutDeviceType.equals(SUTDeviceType.Alteon) && !sutDeviceType.equals(SUTDeviceType.AppWall))) {
+            report("The Device Type should be Alteon Or AppWall", FAIL);
+        }
+        if (isNull(ip) || isEmpty(ip) || isBlank(ip)) {
+            report("Should Provide legal Ip", FAIL);
+        }
+        if (isNull(username) || isEmpty(username) || isBlank(username) ||
+                isNull(password) || isEmpty(password) || isBlank(password)) {
+            report("Should Provide legal username and password", FAIL);
+        }
 
+        if (isNull(protocol)) protocol = "HTTPS";
+
+        String baseUri = UriUtils.buildUrlFromProtocolAndIp(protocol, ip);
+
+
+        RestStepResult result = RestClientsStepsHandler.alteonAppWallLogin(sutDeviceType.getDeviceType(), baseUri, port, username, password);
+
+        if (result.getStatus().equals(RestStepResult.Status.FAILED))
+            report(result.getMessage(), FAIL);
 
     }
 

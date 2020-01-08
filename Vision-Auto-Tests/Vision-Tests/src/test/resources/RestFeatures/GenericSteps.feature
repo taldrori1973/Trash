@@ -28,8 +28,8 @@ Feature: Generic Steps
 #    Given That Vision with IP "172.17.192.100" and Port 443 and Protocol "https" is Logged In With Username "<string>" and Password "<string>" With Activation
 
 #    Alteon Or Appwall From SUT
-    Given That Device Alteon With SUT Number 14 is Logged In
-#    Given That Device Alteon with IP "172.17.192.100" and Port 443 and Protocol "https" is Logged In With Username "admin" and Password "admin"
+#    Given That Device Alteon With SUT Number 14 is Logged In
+#    Given That Device Alteon with IP "172.17.164.17" and Port 443 and Protocol "https" is Logged In With Username "admin" and Password "shimon1!$4"
 
 #    Given That Device AppWall With SUT Number 11 is Logged In
 

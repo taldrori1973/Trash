@@ -69,7 +69,8 @@ public class RestClientsFactory {
     }
 
     private static String alteon_appwall_buildKey(String baseUri, Integer connectionPort, String username, String password) {
-        return String.format(ALTEON_APPWALL_KEY_TEMPLATE, baseUri, !isNull(connectionPort) ? connectionPort : "defaultPort", username);
+
+        return String.format(ALTEON_APPWALL_KEY_TEMPLATE, baseUri, !isNull(connectionPort) ? connectionPort : 0, username);
 
     }
 

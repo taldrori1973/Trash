@@ -21,9 +21,9 @@ public class AlteonRestAssuredClient extends RestAssuredBasicAuthBasedRestClient
     @Override
     public RestResponse checkConnection() {
 
-        Response reponse = given().spec(this.requestSpecification).basePath(ALTEON_SESSION_DETAILS_PATH).
+        Response response = given().spec(this.requestSpecification).basePath(ALTEON_SESSION_DETAILS_PATH).
                 when().get().
                 then().extract().response();
-        return RestAssuredResponseMapper.map(reponse);
+        return RestAssuredResponseMapper.map(response);
     }
 }
