@@ -1,9 +1,13 @@
 package com.radware.vision.restBddTests;
 
 
+import com.jayway.jsonpath.DocumentContext;
+import com.jayway.jsonpath.JsonPath;
+import controllers.RestApiManagement;
 import cucumber.api.java.en.And;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
+import cucumber.api.java.en.When;
 import models.*;
 import restInterface.RestApi;
 import restInterface.client.RestClient;
@@ -13,9 +17,7 @@ import java.util.Map;
 
 public class GenericSteps {
 
-    private RestClient restClient;
     private RestRequestSpecification restRequestSpecification;
-    private RestApi restApi;
     private RestResponse response;
 
 
@@ -58,11 +60,11 @@ public class GenericSteps {
 
     }
 
-//    @When("Send Request")
-//    public void sendRequest() {
-//        this.restApi = RestClientsManagement.getRestApi();
-//        this.response = restApi.sendRequest(this.restRequestSpecification);
-//    }
+    @When("Send Request")
+    public void sendRequest() {
+        RestApi restApi = RestApiManagement.getRestApi();
+        this.response = restApi.sendRequest(this.restRequestSpecification);
+    }
 
 
     @Then("Validate That Response Status Code Is ([^\"]*)")
@@ -98,7 +100,12 @@ public class GenericSteps {
 
     @Then("^Validate That Response Body Contains$")
     public void validateThatResponseBodyContains(List<JsonPathBodyValidator> validators) {
-        System.out.println(validators);
+        String body = this.response.getBody().getBodyAsString();
+        DocumentContext dc = JsonPath.parse(body);
+
+        for (JsonPathBodyValidator validator : validators) {
+            assert dc.read(validator.getJsonPath()).equals(validator.getExpectedValue());
+        }
     }
 
 }

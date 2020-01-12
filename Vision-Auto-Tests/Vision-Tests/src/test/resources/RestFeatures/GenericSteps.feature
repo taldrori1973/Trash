@@ -1,6 +1,6 @@
-@rest100
-@rest200
-@rest
+#@rest100
+#@rest200
+#@rest
 Feature: Generic Steps
 
   Scenario: Send Get Request
