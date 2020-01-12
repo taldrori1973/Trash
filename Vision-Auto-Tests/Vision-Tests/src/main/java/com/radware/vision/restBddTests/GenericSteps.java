@@ -60,6 +60,11 @@ public class GenericSteps {
 
     }
 
+    @And("^The Request Body Is$")
+    public void theRequestBodyIs() {
+
+    }
+
     @When("Send Request with the Given Specification")
     public void sendRequest() {
         RestApi restApi = RestApiManagement.getRestApi();
@@ -78,12 +83,12 @@ public class GenericSteps {
         assert response.getStatusLine().equals(statusLine);
     }
 
-    @Then("^Validate That Response Headers Is$")
+    @Then("^Validate That Response Headers Are$")
     public void validateThatResponseHeadersIs(Map<String, String> headers) {
         assert response.getHeaders().equals(headers);
     }
 
-    @Then("^Validate That Response Cookies Is$")
+    @Then("^Validate That Response Cookies Are$")
     public void validateThatResponseCookiesIs(Map<String, String> cookies) {
         assert response.getCookies().equals(cookies);
     }
@@ -93,10 +98,6 @@ public class GenericSteps {
         assert this.response.getContentType().equals(contentType);
     }
 
-    @Then("^Validate That Response Session Id Equals Client Session Id$")
-    public void validateThatResponseSessionIdEqualsClientSessionId() {
-
-    }
 
     @Then("^Validate That Response Body Contains$")
     public void validateThatResponseBodyContains(List<JsonPathBodyValidator> validators) {
