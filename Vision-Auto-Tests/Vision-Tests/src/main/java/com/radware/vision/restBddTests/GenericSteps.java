@@ -27,40 +27,40 @@ public class GenericSteps {
         this.restRequestSpecification.setBasePath(basePath);
     }
 
-    @And("Request Path Parameters")
+    @And("The Request Path Parameters Are")
     public void requestPathParameters(Map<String, String> pathParams) {
         this.restRequestSpecification.setPathParams(pathParams);
     }
 
-    @And("Request Query Params")
+    @And("The Request Query Parameters Are")
     public void requestQueryParams(Map<String, String> queryParams) {
         this.restRequestSpecification.setQueryParams(queryParams);
     }
 
 
-    @And("Request Headers")
+    @And("The Request Headers Are")
     public void requestHeaders(Map<String, String> headers) {
         this.restRequestSpecification.setHeaders(headers);
     }
 
-    @And("Request Cookies")
+    @And("The Request Cookies Are")
     public void requestCookies(Map<String, String> cookies) {
         this.restRequestSpecification.setCookies(cookies);
     }
 
-    @And("Request Accept ([^\"]*)")
+    @And("The Request Accept ([^\"]*)")
     public void requestAccept(ContentType contentType) {
         this.restRequestSpecification.setAccept(contentType);
     }
 
-    @And("Request Content Type ([^\"]*)")
+    @And("The Request Content Type Is ([^\"]*)")
     public void requestContentType(ContentType contentType) {
 
         this.restRequestSpecification.setContentType(contentType);
 
     }
 
-    @When("Send Request")
+    @When("Send Request with the Given Specification")
     public void sendRequest() {
         RestApi restApi = RestApiManagement.getRestApi();
         this.response = restApi.sendRequest(this.restRequestSpecification);
