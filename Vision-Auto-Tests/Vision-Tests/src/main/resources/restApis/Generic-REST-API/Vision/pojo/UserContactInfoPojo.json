@@ -1,0 +1,23 @@
+[
+  {
+    "name": "phoneNumber",
+    "description": "",
+    "required": true,
+    "schema": "string",
+    "default": null
+  },
+  {
+    "name": "address",
+    "description": "",
+    "required": true,
+    "schema": "string",
+    "default": null
+  },
+  {
+    "name": "organisation",
+    "description": "",
+    "required": true,
+    "schema": "string",
+    "default": null
+  }
+]

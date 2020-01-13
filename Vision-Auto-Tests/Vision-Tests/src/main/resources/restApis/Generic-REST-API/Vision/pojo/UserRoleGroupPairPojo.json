@@ -1,0 +1,16 @@
+[
+  {
+    "name": "groupName",
+    "description": "",
+    "required": true,
+    "schema": "string",
+    "default": null
+  },
+  {
+    "name": "roleName",
+    "description": "",
+    "required": true,
+    "schema": "string",
+    "default": null
+  }
+]

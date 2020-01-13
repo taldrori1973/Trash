@@ -19,7 +19,15 @@ Feature: Demo
       | cookie key | value |
       | cookie key | value |
     And The Request Body Is
-      |  |  |
+      | key | string |
+      | object.key | string |
+      | object.key.key | string |
+      |key | boolean |
+
+    {key string,
+  {}
+  {}
+  key boolean}
     When Send Request with the Given Specification
 
     Then Validate That Response Status Code Is OK

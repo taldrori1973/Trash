@@ -88,7 +88,16 @@
       "basePath": "/mgmt/system/config/itemlist/user",
       "produces": "application/json",
       "consumes": "application/json",
-      "pathParameters": []
+      "pathParameters": [],
+      "bodyParameters": [
+        {
+          "name": "requestBody",
+          "description": "application/json",
+          "required": true,
+          "schema": "UserPojo",
+          "default": null
+        }
+      ]
     }
   ]
 }
