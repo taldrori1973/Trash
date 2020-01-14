@@ -1,0 +1,37 @@
+[
+  {
+    "name": "userLocale",
+    "description": "",
+    "required": true,
+    "schema": "string",
+    "default": null
+  },
+  {
+    "name": "ormID",
+    "description": "",
+    "required": true,
+    "schema": "string",
+    "default": null
+  },
+  {
+    "name": "name",
+    "description": "",
+    "required": true,
+    "schema": "string",
+    "default": null
+  },
+  {
+    "name": "description",
+    "description": "",
+    "required": false,
+    "schema": "string",
+    "default": null
+  },
+  {
+    "name": "globalLandingPage",
+    "description": "",
+    "required": true,
+    "schema": "string",
+    "default": null
+  }
+]

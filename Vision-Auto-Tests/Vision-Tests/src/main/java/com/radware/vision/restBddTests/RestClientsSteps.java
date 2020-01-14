@@ -6,7 +6,7 @@ import com.radware.vision.automation.tools.sutsystemobjects.devicesinfo.enums.SU
 import com.radware.vision.bddtests.BddRestTestBase;
 import com.radware.vision.restBddTests.utils.SutUtils;
 import com.radware.vision.restBddTests.utils.UriUtils;
-import com.radware.vision.restTestHandler.Auth.RestClientsStepsHandler;
+import com.radware.vision.restTestHandler.RestClientsStepsHandler;
 import com.radware.vision.vision_project_cli.RadwareServerCli;
 import cucumber.api.java.en.Given;
 import testhandlers.vision.system.generalSettings.LicenseManagementHandler;

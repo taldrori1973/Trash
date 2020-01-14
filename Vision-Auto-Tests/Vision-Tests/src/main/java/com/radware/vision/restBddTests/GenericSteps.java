@@ -3,6 +3,8 @@ package com.radware.vision.restBddTests;
 
 import com.jayway.jsonpath.DocumentContext;
 import com.jayway.jsonpath.JsonPath;
+import com.radware.vision.requestsRepository.controllers.RequestsFilesRepository;
+import com.radware.vision.restTestHandler.GenericStepsHandler;
 import controllers.RestApiManagement;
 import cucumber.api.java.en.And;
 import cucumber.api.java.en.Given;
@@ -10,7 +12,6 @@ import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
 import models.*;
 import restInterface.RestApi;
-import restInterface.client.RestClient;
 
 import java.util.List;
 import java.util.Map;
@@ -19,6 +20,7 @@ public class GenericSteps {
 
     private RestRequestSpecification restRequestSpecification;
     private RestResponse response;
+    private GenericStepsHandler genericStepsHandler;
 
 
     @Given("^New ([^\"]*) Request Specification with Base Path \"([^\"]*)\"$")
@@ -109,4 +111,13 @@ public class GenericSteps {
         }
     }
 
+    @Given("^New Request Specification from File \"([^\"]*)\" with label \"([^\"]*)\"$")
+    public void newRequestSpecificationFromFileWithLabel(String filePath, String requestLabel) {
+        if (filePath.startsWith("/")) filePath = filePath.substring(1);
+        if (!filePath.endsWith(".json")) filePath = filePath + ".json";
+
+        this.restRequestSpecification = GenericStepsHandler.createNewRestRequestSpecification(filePath, requestLabel);
+
+
+    }
 }

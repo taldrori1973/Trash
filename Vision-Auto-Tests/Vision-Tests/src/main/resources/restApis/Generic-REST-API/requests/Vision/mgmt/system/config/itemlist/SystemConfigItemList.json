@@ -1,0 +1,103 @@
+{
+  "deviceName": "Vision",
+  "fileName": "SystemConfigItemList",
+  "basePath": "/mgmt/system/config/itemlist",
+  "api": [
+    {
+      "label": "Download Policy Templates from Server",
+      "method": "GET",
+      "basePath": "/mgmt/system/config/itemlist/alltemplates",
+      "produces": "application/json",
+      "description": "Retrieves DefensePro configuration templates from the APSolute Vision server.",
+      "pathParameters": []
+    },
+    {
+      "label": "Get Alert Rule",
+      "method": "GET",
+      "basePath": "/mgmt/system/config/itemlist/alertrule/{id}",
+      "produces": "application/json",
+      "description": "Gets a specific Alert Rule",
+      "pathParameters": [
+        {
+          "name": "id",
+          "required": true,
+          "schema": "string",
+          "description": "Item ID (ormID) retrieved from the APSolute Vision server."
+        }
+      ]
+    },
+    {
+      "label": "Update Alert Rule",
+      "description": "Updates an existing Alert Rule",
+      "method": "PUT",
+      "basePath": "/mgmt/system/config/itemlist/alertrule/{id}",
+      "produces": "application/json",
+      "consumes": "application/json",
+      "pathParameters": [
+        {
+          "name": "id",
+          "required": true,
+          "schema": "string",
+          "description": "Item ID (ormID) retrieved from the APSolute Vision server."
+        }
+      ]
+    },
+    {
+      "label": "Get Local User",
+      "method": "GET",
+      "basePath": "/mgmt/system/config/itemlist/user/{id}",
+      "produces": "application/json",
+      "description": "Gets a specific local user.",
+      "pathParameters": [
+        {
+          "name": "id",
+          "required": true,
+          "schema": "string",
+          "description": "Item ID (ormID) retrieved from the APSolute Vision server."
+        }
+      ]
+    },
+    {
+      "label": "Get Local Users",
+      "method": "GET",
+      "basePath": "/mgmt/system/config/itemlist/user",
+      "produces": "application/json",
+      "description": "Gets all local users.",
+      "pathParameters": []
+    },
+    {
+      "label": "Update Local User",
+      "description": "Updates an existing local user",
+      "method": "PUT",
+      "basePath": "/mgmt/system/config/itemlist/user/{id}",
+      "produces": "application/json",
+      "consumes": "application/json",
+      "pathParameters": [
+        {
+          "name": "id",
+          "required": true,
+          "schema": "string",
+          "description": "Item ID (ormID) retrieved from the APSolute Vision server."
+        }
+      ]
+    },
+    {
+      "label": "Create Local User",
+      "description": "Creates a new local user",
+      "method": "POST",
+      "basePath": "/mgmt/system/config/itemlist/user",
+      "produces": "application/json",
+      "consumes": "application/json",
+      "pathParameters": [],
+      "bodyParameters": [
+        {
+          "name": "requestBody",
+          "description": "application/json",
+          "required": true,
+          "schema": "UserPojo",
+          "defaultValue": ""
+        }
+      ]
+    }
+  ]
+}
