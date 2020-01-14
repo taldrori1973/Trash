@@ -32,10 +32,22 @@ Feature: Demo
 #
 #    Then Validate That Response Status Code Is OK
 
+#
+#  Scenario: Get Local Users
+#    Given That Current Vision is Logged In
+#    Given New Request Specification from File "/Vision/mgmt/system/config/itemlist/SystemConfigItemList" with label "Get Local Users"
+#    When Send Request with the Given Specification
+#    Then Validate That Response Status Code Is OK
 
-  Scenario: Create Local User
+  Scenario: Get Local User
     Given That Current Vision is Logged In
-    Given New Request Specification from File "/Vision/mgmt/system/config/itemlist/SystemConfigItemList" with label "Get Local Users"
+    And Create Following RUNTIME Parameters by Sending Request Specification from File "Vision/mgmt/system/config/itemlist/SystemConfigItemList" with label "Get Local Users"
+#      | label | jsonPath                      |
+      | ormID | $[?(@.name=='radware')].ormID |
+
+    Given New Request Specification from File "/Vision/mgmt/system/config/itemlist/SystemConfigItemList" with label "Get Local User"
+    And The Request Path Parameters Are
+      | id | ${ormID} |
     When Send Request with the Given Specification
     Then Validate That Response Status Code Is OK
 

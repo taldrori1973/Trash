@@ -3,7 +3,8 @@ package com.radware.vision.restBddTests;
 
 import com.jayway.jsonpath.DocumentContext;
 import com.jayway.jsonpath.JsonPath;
-import com.radware.vision.requestsRepository.controllers.RequestsFilesRepository;
+import com.radware.automation.tools.basetest.BaseTestUtils;
+import com.radware.automation.tools.basetest.Reporter;
 import com.radware.vision.restTestHandler.GenericStepsHandler;
 import controllers.RestApiManagement;
 import cucumber.api.java.en.And;
@@ -13,14 +14,27 @@ import cucumber.api.java.en.When;
 import models.*;
 import restInterface.RestApi;
 
+import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
+import static com.radware.automation.tools.basetest.BaseTestUtils.report;
+import static com.radware.automation.tools.basetest.Reporter.FAIL;
 
 public class GenericSteps {
 
     private RestRequestSpecification restRequestSpecification;
     private RestResponse response;
-    private GenericStepsHandler genericStepsHandler;
+    private Map<String, String> runTimeParameters;
+    private Pattern runTimeValuesPattern = Pattern.compile("\\$\\{(.*)\\}");
+
+    public GenericSteps() {
+        this.runTimeParameters = new HashMap<>();
+
+    }
 
 
     @Given("^New ([^\"]*) Request Specification with Base Path \"([^\"]*)\"$")
@@ -31,7 +45,17 @@ public class GenericSteps {
 
     @And("The Request Path Parameters Are")
     public void requestPathParameters(Map<String, String> pathParams) {
-        this.restRequestSpecification.setPathParams(pathParams);
+        Map<String, String> pathParamsCopy = new HashMap<>(pathParams);
+
+        for (String key : pathParams.keySet()) {
+            Matcher matcher = runTimeValuesPattern.matcher(pathParams.get(key));
+            if (matcher.matches()) {
+                String variable = matcher.group(1);
+                if (!runTimeParameters.containsKey(variable)) report("The Variable " + variable + "is not exist", FAIL);
+                pathParamsCopy.put(key, runTimeParameters.get(variable));
+            }
+        }
+        this.restRequestSpecification.setPathParams(pathParamsCopy);
     }
 
     @And("The Request Query Parameters Are")
@@ -119,5 +143,20 @@ public class GenericSteps {
         this.restRequestSpecification = GenericStepsHandler.createNewRestRequestSpecification(filePath, requestLabel);
 
 
+    }
+
+    @And("^Create Following RUNTIME Parameters by Sending Request Specification from File \"([^\"]*)\" with label \"([^\"]*)\"$")
+    public void createFollowingRUNTIMEParametersBySendingRequestSpecificationFromFileWithLabel(String filePath, String requestLabel, Map<String, String> labelByJsonPath) throws Throwable {
+        if (filePath.startsWith("/")) filePath = filePath.substring(1);
+        if (!filePath.endsWith(".json")) filePath = filePath + ".json";
+
+        this.restRequestSpecification = GenericStepsHandler.createNewRestRequestSpecification(filePath, requestLabel);
+        this.sendRequest();
+        String responseBody = this.response.getBody().getBodyAsString();
+        DocumentContext jsonPath = JsonPath.parse(responseBody);
+        for (String label : labelByJsonPath.keySet()) {
+            List<String> ormIds = jsonPath.read(labelByJsonPath.get(label));
+            runTimeParameters.put(label, ormIds.get(0));
+        }
     }
 }
