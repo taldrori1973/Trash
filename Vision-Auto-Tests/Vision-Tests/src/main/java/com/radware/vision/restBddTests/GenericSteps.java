@@ -12,12 +12,12 @@ import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
 import models.*;
+import net.minidev.json.JSONArray;
+import net.minidev.json.JSONObject;
+import org.junit.internal.runners.statements.Fail;
 import restInterface.RestApi;
 
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -155,8 +155,21 @@ public class GenericSteps {
         String responseBody = this.response.getBody().getBodyAsString();
         DocumentContext jsonPath = JsonPath.parse(responseBody);
         for (String label : labelByJsonPath.keySet()) {
-            List<String> ormIds = jsonPath.read(labelByJsonPath.get(label));
-            runTimeParameters.put(label, ormIds.get(0));
+            Object object = jsonPath.read(labelByJsonPath.get(label));
+            if (object == null)
+                runTimeParameters.put(label, null);
+
+            else if (object instanceof JSONArray) {
+                Object value = null;
+                List<Object> objects = ((List<Object>) object);
+                if (objects.isEmpty()) report("Empty Array was returned", FAIL);
+
+                value = objects.get(0);
+                runTimeParameters.put(label, String.valueOf(value));
+            } else {
+                runTimeParameters.put(label, String.valueOf(object));
+            }
+
         }
     }
 }
