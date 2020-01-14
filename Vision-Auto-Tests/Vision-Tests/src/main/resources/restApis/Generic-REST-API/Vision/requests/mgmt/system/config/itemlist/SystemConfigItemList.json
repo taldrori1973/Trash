@@ -1,6 +1,6 @@
 {
-  "device": "Vision",
-  "name": "SystemConfigItemList",
+  "deviceName": "Vision",
+  "fileName": "SystemConfigItemList",
   "basePath": "/mgmt/system/config/itemlist",
   "api": [
     {
@@ -95,7 +95,7 @@
           "description": "application/json",
           "required": true,
           "schema": "UserPojo",
-          "default": null
+          "defaultValue": ""
         }
       ]
     }
