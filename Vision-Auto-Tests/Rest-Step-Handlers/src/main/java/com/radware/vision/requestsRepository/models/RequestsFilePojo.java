@@ -1,4 +1,4 @@
-package com.radware.vision.requestsRepository;
+package com.radware.vision.requestsRepository.models;
 
 import lombok.Data;
 
