@@ -3,12 +3,15 @@ package com.radware.vision.restTestHandler;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.node.JsonNodeFactory;
 import com.fasterxml.jackson.databind.node.ObjectNode;
+import com.jayway.jsonpath.Configuration;
 import com.jayway.jsonpath.DocumentContext;
 import com.jayway.jsonpath.JsonPath;
+import com.jayway.jsonpath.Option;
 import com.radware.vision.requestsRepository.controllers.RequestsFilesRepository;
 import com.radware.vision.requestsRepository.models.RequestPojo;
 import com.radware.vision.requestsRepository.models.RequestsFilePojo;
 import com.radware.vision.utils.BodyEntry;
+import com.radware.vision.utils.JsonPathUtils;
 import models.ContentType;
 import models.Method;
 import models.RestRequestSpecification;
@@ -17,6 +20,9 @@ import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
+
+import static com.radware.vision.utils.JsonPathUtils.isPathExist;
+import static java.lang.String.format;
 
 public class GenericStepsHandler {
 
@@ -27,9 +33,9 @@ public class GenericStepsHandler {
         List<RequestPojo> requestsPojo = requestsFilePojo.getApi().stream().filter(request -> request.getLabel().equals(requestLabel)).collect(Collectors.toList());
 
         if (requestsPojo.size() > 1)
-            throw new IllegalStateException(String.format("There are %d occurrences of %s label in the file %s", requestsPojo.size(), requestLabel, filePath));
+            throw new IllegalStateException(format("There are %d occurrences of %s label in the file %s", requestsPojo.size(), requestLabel, filePath));
         if (requestsPojo.size() == 0)
-            throw new IllegalArgumentException(String.format("The Label %s not exist in file %s", requestLabel, filePath));
+            throw new IllegalArgumentException(format("The Label %s not exist in file %s", requestLabel, filePath));
 
         RequestPojo requestPojo = requestsPojo.stream().findFirst().get();
 
@@ -48,27 +54,64 @@ public class GenericStepsHandler {
 
     }
 
-    public static void createBody(List<BodyEntry> bodyEntries) {
+    public static void createBody(List<BodyEntry> bodyEntries, String type) {
+        checkIndices(bodyEntries);
+        Pattern arrayPattern = Pattern.compile("(.*)\\[(\\d+)\\]");
 
-        DocumentContext documentContext = JsonPath.parse("{}");
+        String rootJson = type.equals("Object") ? "{}" : "[]";
+        DocumentContext documentContext = JsonPath.parse(rootJson);
+
         for (BodyEntry entry : bodyEntries) {
+
             List<String> pathTokens = Arrays.asList(entry.getJsonPath().split("\\."));
-            String join = String.join(".", pathTokens.subList(0, pathTokens.size() - 1));
-            String path = join.equals("") ? "$" : "$." + join;
-            String key = !pathTokens.isEmpty() ? pathTokens.get(pathTokens.size() - 1) : entry.getJsonPath();
-            documentContext.put(path, key, entry.getValue());
+/*            each token can be as one of the following:
+              1. attribute for example : "name" , the attribute will be added with value = Object
+              2. attribute[i] for example: addresses[0], the addressees will be added as attribute , and the value will be Array ,
+                 then if the address[0] is not exist it will be created as Object
+              3. [i] for example : [0] ,at this case will add new Object for the array which already created on entry 0.
+*/
+            String path = "$";
+            for (int i = 0; i < pathTokens.size(); i++) {
+                String token = pathTokens.get(i);
+
+                Matcher matcher = arrayPattern.matcher(token);//matcher for array entry
+                if (matcher.matches()) {//this is an array entry
+                    String arrayName = matcher.group(1);
+                    int entryIndex = Integer.parseInt(matcher.group(2));
+
+                    if (!arrayName.equals("")) {
+                        if (!isPathExist(format("%s.%s", path, arrayName), documentContext)) {
+                            documentContext.put(path, arrayName, new ArrayList<>());
+                            path = path + "." + arrayName;
+                        }
+                    }
+
+                    //the array is without attribute name for example "$.[i]" or "$.[i].name"
+
+                    if (!isPathExist(format("%s[%d]", path, entryIndex), documentContext)) {
+
+                        if (pathTokens.size() - 1 == i)//this is last element
+                            documentContext.add(path, entry.getValue());
+
+                        else documentContext.add(path, new LinkedHashMap<>());
+                    } else {//the path is exist , update the value
+                        if (pathTokens.size() - 1 == i)//this is last element
+                            documentContext.set(format("%s[%d]", path, entryIndex), entry.getValue());
+                    }
+                    path = format("%s[%d]", path, entryIndex);
+
+
+                }
+
+
+            }
+
         }
-//        Map<String, Object> root = new HashMap<>();
-//        Pattern arrayPattern= Pattern.compile("(.*)\\[(\\d+)\\]");
-//
-//        for (BodyEntry entry : bodyEntries) {
-//            List<String> pathTokens = Arrays.asList(entry.getJsonPath().split("\\."));
-//            createBodyRecursive(root,pathTokens,entry.getValue(),arrayPattern);
-//            if (pathTokens.size() == 1) root.put(pathTokens.get(0), entry.getValue());
-////            for(String token:pathTokens){
-////                if()
-////            }
-//        }
+
+    }
+
+    private static void checkIndices(List<BodyEntry> bodyEntries) {
+
     }
 
     private static void createBodyRecursive(Map<String, Object> map, List<String> pathTokens, String value, Pattern arrayPattern) {

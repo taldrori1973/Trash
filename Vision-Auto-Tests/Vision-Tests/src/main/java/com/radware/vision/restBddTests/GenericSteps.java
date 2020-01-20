@@ -89,9 +89,9 @@ public class GenericSteps {
 
     }
 
-    @And("^The Request Body Is$")
-    public void theRequestBodyIs(List<BodyEntry> bodyEntries) {
-        GenericStepsHandler.createBody(bodyEntries);
+    @And("^The Request Body is the following (Object|Array)$")
+    public void theRequestBodyIs(String type, List<BodyEntry> bodyEntries) {
+        GenericStepsHandler.createBody(bodyEntries,type);
     }
 
     @When("Send Request with the Given Specification")

@@ -50,8 +50,12 @@ Feature: Demo
 #      | id | ${ormID} |
 #    When Send Request with the Given Specification
 #    Then Validate That Response Status Code Is OK
-    Given The Request Body Is
+    Given The Request Body is the following Object
       | jsonPath                                                     | value                   |
+#      | [0]                                                          | value                   |
+#      | [0].name                                                     | value                   |
+#      | [0]                                                          | value 2                 |
+      | att[0]                                                       | value 2                 |
       | name                                                         | test                    |
       | password                                                     |                         |
       | requireDeviceLock                                            | true                    |
