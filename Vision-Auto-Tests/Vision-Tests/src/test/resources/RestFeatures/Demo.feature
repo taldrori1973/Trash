@@ -39,7 +39,7 @@ Feature: Demo
 #    When Send Request with the Given Specification
 #    Then Validate That Response Status Code Is OK
 
-  Scenario: Get Local User
+#  Scenario: Get Local User
 #    Given That Current Vision is Logged In
 #    And Create Following RUNTIME Parameters by Sending Request Specification from File "Vision/mgmt/system/config/itemlist/SystemConfigItemList" with label "Get Local Users"
 ##      | label | jsonPath                      |
@@ -54,7 +54,7 @@ Feature: Demo
 
   Scenario: Create Local User
     Given That Current Vision is Logged In
-    Given New Request Specification from File "Vision/mgmt/system/config/itemlist/SystemConfigItemList.json" with label "Create Local User"
+    Given New Request Specification from File "Vision/mgmt/system/config/itemlist/SystemConfigItemList" with label "Create Local User"
     Given The Request Body is the following Object
       | jsonPath                                                     | value                   |
       | name                                                         | cucumber                |
@@ -69,6 +69,9 @@ Feature: Demo
       | networkPolicies[1].networkProtectionRuleId.rsIDSNewRulesName | Maxim30                 |
       | roleGroupPairList[0].groupName                               | VA_DPs_Version_8_site   |
       | roleGroupPairList[0].roleName                                | CONFIG                  |
+
+    When Send Request with the Given Specification
+    Then Validate That Response Status Code Is OK
 
 
 

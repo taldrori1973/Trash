@@ -97,43 +97,7 @@
           "schema": "UserPojo",
           "defaultValue": ""
         }
-      ],
-      "bodyPlaceHolder": {
-        "name": "test",
-        "password": "",
-        "requireDeviceLock": true,
-        "userSettings": {
-          "userLocale": "en_US"
-        },
-        "parameters": {
-          "roleGroupPairList": [
-            {
-              "groupName": "VA_DPs_Version_8_site",
-              "roleName": "CONFIG"
-            }
-          ]
-        },
-        "networkPolicies": [
-          {
-            "networkProtectionRuleId": {
-              "deviceId": "DefensePro_172.16.22.55",
-              "rsIDSNewRulesName": "BDOS"
-            }
-          },
-          {
-            "networkProtectionRuleId": {
-              "deviceId": "DefensePro_172.16.22.55",
-              "rsIDSNewRulesName": "Maxim30"
-            }
-          }
-        ],
-        "roleGroupPairList": [
-          {
-            "groupName": "VA_DPs_Version_8_site",
-            "roleName": "CONFIG"
-          }
-        ]
-      }
+      ]
     }
   ]
 }
