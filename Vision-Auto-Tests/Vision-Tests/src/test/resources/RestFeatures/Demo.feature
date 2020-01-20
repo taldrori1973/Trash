@@ -50,13 +50,14 @@ Feature: Demo
 #      | id | ${ormID} |
 #    When Send Request with the Given Specification
 #    Then Validate That Response Status Code Is OK
+
+
+  Scenario: Create Local User
+    Given That Current Vision is Logged In
+    Given New Request Specification from File "Vision/mgmt/system/config/itemlist/SystemConfigItemList.json" with label "Create Local User"
     Given The Request Body is the following Object
       | jsonPath                                                     | value                   |
-#      | [0]                                                          | value                   |
-#      | [0].name                                                     | value                   |
-#      | [0]                                                          | value 2                 |
-      | att[0]                                                       | value 2                 |
-      | name                                                         | test                    |
+      | name                                                         | cucumber                |
       | password                                                     |                         |
       | requireDeviceLock                                            | true                    |
       | userSettings.userLocale                                      | en_US                   |

@@ -1,17 +1,11 @@
 package com.radware.vision.restTestHandler;
 
-import com.fasterxml.jackson.databind.JsonNode;
-import com.fasterxml.jackson.databind.node.JsonNodeFactory;
-import com.fasterxml.jackson.databind.node.ObjectNode;
-import com.jayway.jsonpath.Configuration;
 import com.jayway.jsonpath.DocumentContext;
 import com.jayway.jsonpath.JsonPath;
-import com.jayway.jsonpath.Option;
 import com.radware.vision.requestsRepository.controllers.RequestsFilesRepository;
 import com.radware.vision.requestsRepository.models.RequestPojo;
 import com.radware.vision.requestsRepository.models.RequestsFilePojo;
 import com.radware.vision.utils.BodyEntry;
-import com.radware.vision.utils.JsonPathUtils;
 import models.ContentType;
 import models.Method;
 import models.RestRequestSpecification;
@@ -54,7 +48,7 @@ public class GenericStepsHandler {
 
     }
 
-    public static void createBody(List<BodyEntry> bodyEntries, String type) {
+    public static String createBody(List<BodyEntry> bodyEntries, String type) {
         checkIndices(bodyEntries);
         Pattern arrayPattern = Pattern.compile("(.*)\\[(\\d+)\\]");
 
@@ -82,8 +76,8 @@ public class GenericStepsHandler {
                     if (!arrayName.equals("")) {
                         if (!isPathExist(format("%s.%s", path, arrayName), documentContext)) {
                             documentContext.put(path, arrayName, new ArrayList<>());
-                            path = path + "." + arrayName;
                         }
+                        path = path + "." + arrayName;
                     }
 
                     //the array is without attribute name for example "$.[i]" or "$.[i].name"
@@ -101,20 +95,27 @@ public class GenericStepsHandler {
                     path = format("%s[%d]", path, entryIndex);
 
 
+                } else {//not array
+                    if (pathTokens.size() - 1 == i)//this is last element
+                        documentContext.put(path, token, entry.getValue());
+                    else {
+                        if (!isPathExist(format("%s.%s", path, token), documentContext))
+                            documentContext.put(path, token, new LinkedHashMap<>());
+                    }
+                    path = format("%s.%s", path, token);
                 }
-
-
             }
-
         }
 
+        return documentContext.jsonString();
     }
 
     private static void checkIndices(List<BodyEntry> bodyEntries) {
 
     }
 
-    private static void createBodyRecursive(Map<String, Object> map, List<String> pathTokens, String value, Pattern arrayPattern) {
+    private static void createBodyRecursive(Map<String, Object> map, List<String> pathTokens, String
+            value, Pattern arrayPattern) {
         if (pathTokens.size() == 0) return;
 
 
