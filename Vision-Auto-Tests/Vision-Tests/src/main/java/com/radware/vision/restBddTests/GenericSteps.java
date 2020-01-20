@@ -5,7 +5,9 @@ import com.jayway.jsonpath.DocumentContext;
 import com.jayway.jsonpath.JsonPath;
 import com.radware.automation.tools.basetest.BaseTestUtils;
 import com.radware.automation.tools.basetest.Reporter;
+import com.radware.vision.RequestBody;
 import com.radware.vision.restTestHandler.GenericStepsHandler;
+import com.radware.vision.utils.BodyEntry;
 import controllers.RestApiManagement;
 import cucumber.api.java.en.And;
 import cucumber.api.java.en.Given;
@@ -30,6 +32,7 @@ public class GenericSteps {
     private RestResponse response;
     private Map<String, String> runTimeParameters;
     private Pattern runTimeValuesPattern = Pattern.compile("\\$\\{(.*)\\}");
+    private RequestBody requestBody;
 
     public GenericSteps() {
         this.runTimeParameters = new HashMap<>();
@@ -87,8 +90,8 @@ public class GenericSteps {
     }
 
     @And("^The Request Body Is$")
-    public void theRequestBodyIs() {
-
+    public void theRequestBodyIs(List<BodyEntry> bodyEntries) {
+        GenericStepsHandler.createBody(bodyEntries);
     }
 
     @When("Send Request with the Given Specification")
@@ -141,7 +144,7 @@ public class GenericSteps {
         if (!filePath.endsWith(".json")) filePath = filePath + ".json";
 
         this.restRequestSpecification = GenericStepsHandler.createNewRestRequestSpecification(filePath, requestLabel);
-
+        this.requestBody = new RequestBody(filePath, requestLabel);
 
     }
 
