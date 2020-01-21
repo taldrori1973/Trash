@@ -65,8 +65,8 @@ Feature: Demo
       | parameters.roleGroupPairList[0].roleName                     | CONFIG                  |
       | networkPolicies[0].networkProtectionRuleId.deviceId          | DefensePro_172.16.22.55 |
       | networkPolicies[0].networkProtectionRuleId.rsIDSNewRulesName | BDOS                    |
-      | networkPolicies[1].networkProtectionRuleId.deviceId          | DefensePro_172.16.22.55 |
-      | networkPolicies[1].networkProtectionRuleId.rsIDSNewRulesName | Maxim30                 |
+      | networkPolicies[2].networkProtectionRuleId.deviceId          | DefensePro_172.16.22.55 |
+      | networkPolicies[2].networkProtectionRuleId.rsIDSNewRulesName | Maxim30                 |
       | roleGroupPairList[0].groupName                               | VA_DPs_Version_8_site   |
       | roleGroupPairList[0].roleName                                | CONFIG                  |
 

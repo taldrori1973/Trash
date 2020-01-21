@@ -142,6 +142,19 @@ public class GenericStepsHandler {
 
         }
 
+//        validate that each array indices are begin from 0 and not have any gaps
+        for (String key : indicesMap.keySet()) {
+            Set<Integer> indices = indicesMap.get(key);
+            int i = 0;
+            for (Integer index : indices) {
+                if (index != i)
+                    throw new IllegalArgumentException(String.format("The Indices of each array in the Json Path must start from 0 and without any Gaps.\n" +
+                            "for the Array %s , the following indices provided %s", key, indices));
+
+                i++;
+            }
+        }
+
     }
 
 
