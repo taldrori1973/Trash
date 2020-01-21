@@ -121,7 +121,8 @@ public class GenericSteps {
 
     @And("^The Request Body is the following (Object|Array)$")
     public void theRequestBodyIs(String type, List<BodyEntry> bodyEntries) {
-        String body = GenericStepsHandler.createBody(bodyEntries, type);
+        List<BodyEntry> bodyEntriesCopy = StepsParametersUtils.setRunTimeValuesOfBodyEntries(bodyEntries, runTimeParameters, runTimeValuesPattern);
+        String body = GenericStepsHandler.createBody(bodyEntriesCopy, type);
         this.restRequestSpecification.setBody(body);
     }
 

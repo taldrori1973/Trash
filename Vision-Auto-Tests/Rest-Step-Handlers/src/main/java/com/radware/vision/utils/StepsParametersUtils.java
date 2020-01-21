@@ -1,6 +1,8 @@
 package com.radware.vision.utils;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -20,5 +22,19 @@ public class StepsParametersUtils {
             }
         }
         return parametersMapCopy;
+    }
+
+    public static List<BodyEntry> setRunTimeValuesOfBodyEntries(final List<BodyEntry> bodyEntries, final Map<String, String> runTimeParameters, final Pattern runTimeValuesPattern) {
+        List<BodyEntry> bodyEntryCopy = new ArrayList<>(bodyEntries);
+        for (BodyEntry entry : bodyEntryCopy) {
+            Matcher matcher = runTimeValuesPattern.matcher(entry.getValue());
+            if (matcher.matches()) {
+                String variable = matcher.group(1);
+                if (!runTimeParameters.containsKey(variable)) report("The Variable " + variable + "is not exist", FAIL);
+                entry.setValue(runTimeParameters.get(variable));
+            }
+        }
+        return bodyEntryCopy;
+
     }
 }
