@@ -6,6 +6,7 @@ import com.jayway.jsonpath.JsonPath;
 import com.radware.vision.RestStepResult;
 import com.radware.vision.restTestHandler.GenericStepsHandler;
 import com.radware.vision.utils.BodyEntry;
+import com.radware.vision.utils.StepsParametersUtils;
 import controllers.RestApiManagement;
 import cucumber.api.java.en.And;
 import cucumber.api.java.en.Given;
@@ -18,12 +19,11 @@ import restInterface.RestApi;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import static com.radware.automation.tools.basetest.BaseTestUtils.report;
 import static com.radware.automation.tools.basetest.Reporter.FAIL;
-import static com.radware.vision.RestStepResult.Status.*;
+import static com.radware.vision.RestStepResult.Status.FAILED;
 
 public class GenericSteps {
 
@@ -84,33 +84,27 @@ public class GenericSteps {
 
     @And("The Request Path Parameters Are")
     public void requestPathParameters(Map<String, String> pathParams) {
-        Map<String, String> pathParamsCopy = new HashMap<>(pathParams);
-
-        for (String key : pathParams.keySet()) {
-            Matcher matcher = runTimeValuesPattern.matcher(pathParams.get(key));
-            if (matcher.matches()) {
-                String variable = matcher.group(1);
-                if (!runTimeParameters.containsKey(variable)) report("The Variable " + variable + "is not exist", FAIL);
-                pathParamsCopy.put(key, runTimeParameters.get(variable));
-            }
-        }
+        Map<String, String> pathParamsCopy = StepsParametersUtils.setRunTimeValues(pathParams, runTimeParameters, runTimeValuesPattern);
         this.restRequestSpecification.setPathParams(pathParamsCopy);
     }
 
     @And("The Request Query Parameters Are")
     public void requestQueryParams(Map<String, String> queryParams) {
-        this.restRequestSpecification.setQueryParams(queryParams);
+        Map<String, String> queryParamsCopy = StepsParametersUtils.setRunTimeValues(queryParams, runTimeParameters, runTimeValuesPattern);
+        this.restRequestSpecification.setQueryParams(queryParamsCopy);
     }
 
 
     @And("The Request Headers Are")
     public void requestHeaders(Map<String, String> headers) {
-        this.restRequestSpecification.setHeaders(headers);
+        Map<String, String> headersCopy = StepsParametersUtils.setRunTimeValues(headers, runTimeParameters, runTimeValuesPattern);
+        this.restRequestSpecification.setHeaders(headersCopy);
     }
 
     @And("The Request Cookies Are")
     public void requestCookies(Map<String, String> cookies) {
-        this.restRequestSpecification.setCookies(cookies);
+        Map<String, String> cookiesCopy = StepsParametersUtils.setRunTimeValues(cookies, runTimeParameters, runTimeValuesPattern);
+        this.restRequestSpecification.setCookies(cookiesCopy);
     }
 
     @And("The Request Accept ([^\"]*)")
