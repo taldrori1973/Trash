@@ -2,6 +2,9 @@ package com.radware.vision.restTestHandler;
 
 import com.jayway.jsonpath.DocumentContext;
 import com.jayway.jsonpath.JsonPath;
+import com.jayway.jsonpath.Option;
+import com.jayway.jsonpath.PathNotFoundException;
+import com.radware.vision.RestStepResult;
 import com.radware.vision.requestsRepository.controllers.RequestsFilesRepository;
 import com.radware.vision.requestsRepository.models.RequestPojo;
 import com.radware.vision.requestsRepository.models.RequestsFilePojo;
@@ -15,6 +18,8 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 
+import static com.radware.vision.RestStepResult.*;
+import static com.radware.vision.RestStepResult.Status.*;
 import static com.radware.vision.utils.JsonPathUtils.isPathExist;
 import static java.lang.String.format;
 
@@ -131,5 +136,27 @@ public class GenericStepsHandler {
 //
 //            }
         }
+    }
+
+    public static RestStepResult validateBody(List<BodyEntry> bodyEntries, DocumentContext documentContext) {
+        documentContext.configuration().addOptions(Option.SUPPRESS_EXCEPTIONS);
+        List<String> errors = new ArrayList<>();
+        for (BodyEntry bodyEntry : bodyEntries) {
+            Object readResult;
+            String value = null;
+            try {
+                readResult = documentContext.read(bodyEntry.getJsonPath());
+                value = readResult.toString();
+            } catch (PathNotFoundException e) {
+                errors.add(e.getMessage());
+            }
+
+            if (value != null && !value.equals(bodyEntry.getValue()))
+                errors.add(String.format("For Json Path \"%s\" actual value \"%s\" is not equal to the expected value \"%s\"", bodyEntry.getJsonPath(), value, bodyEntry.getValue()));
+
+        }
+
+        if (errors.isEmpty()) return new RestStepResult(SUCCESS, "The Test Passed");
+        return new RestStepResult(FAILED, String.format("Test Failed with the following errors :\n[%s]", String.join("\n", errors)));
     }
 }

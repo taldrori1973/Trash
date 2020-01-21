@@ -57,7 +57,7 @@ Feature: Demo
     Given New Request Specification from File "Vision/mgmt/system/config/itemlist/SystemConfigItemList" with label "Create Local User"
     Given The Request Body is the following Object
       | jsonPath                                                     | value                   |
-      | name                                                         | cucumber                |
+      | name                                                         | cucumber3               |
       | password                                                     |                         |
       | requireDeviceLock                                            | true                    |
       | userSettings.userLocale                                      | en_US                   |
@@ -72,6 +72,11 @@ Feature: Demo
 
     When Send Request with the Given Specification
     Then Validate That Response Status Code Is OK
+    Then Validate That Response Body Contains
+      | jsonPath  | value |
+      | $.status1 | ok    |
+      | $.status  | ok    |
+      | $         | ok    |
 
 
 
