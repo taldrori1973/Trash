@@ -18,8 +18,8 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 
-import static com.radware.vision.RestStepResult.*;
-import static com.radware.vision.RestStepResult.Status.*;
+import static com.radware.vision.RestStepResult.Status.FAILED;
+import static com.radware.vision.RestStepResult.Status.SUCCESS;
 import static com.radware.vision.utils.JsonPathUtils.isPathExist;
 import static java.lang.String.format;
 
@@ -54,7 +54,7 @@ public class GenericStepsHandler {
     }
 
     public static String createBody(List<BodyEntry> bodyEntries, String type) {
-        checkIndices(bodyEntries);
+        validateEntries(bodyEntries);
         Pattern arrayPattern = Pattern.compile("(.*)\\[(\\d+)\\]");
 
         String rootJson = type.equals("Object") ? "{}" : "[]";
@@ -115,28 +115,35 @@ public class GenericStepsHandler {
         return documentContext.jsonString();
     }
 
-    private static void checkIndices(List<BodyEntry> bodyEntries) {
+    private static void validateEntries(List<BodyEntry> bodyEntries) {
+        Pattern arrayPattern = Pattern.compile("(.*)\\[(\\d+)\\]");
+        Map<String, Set<Integer>> indicesMap = new HashMap<>();
+        for (BodyEntry bodyEntry : bodyEntries) {
 
-    }
+            if (bodyEntry.getJsonPath().startsWith("$.")) bodyEntry.setJsonPath(bodyEntry.getJsonPath().substring(2));
+            else if (bodyEntry.getJsonPath().startsWith("$"))
+                bodyEntry.setJsonPath(bodyEntry.getJsonPath().substring(1));
 
-    private static void createBodyRecursive(Map<String, Object> map, List<String> pathTokens, String
-            value, Pattern arrayPattern) {
-        if (pathTokens.size() == 0) return;
+            //validate that the array entries numbers are not
+            String[] pathTokens = bodyEntry.getJsonPath().split("\\.");
+            for (String token : pathTokens) {
+                Matcher matcher = arrayPattern.matcher(token);
+                if (matcher.matches()) {
+                    String arrayName = matcher.group(1);
+                    int index = Integer.parseInt(matcher.group(2));
+                    Set<Integer> currentArrayIndices;
+                    if (indicesMap.containsKey(arrayName)) currentArrayIndices = indicesMap.get(arrayName);
+                    else currentArrayIndices = new TreeSet<>();
 
-
-        if (pathTokens.size() == 1) map.put(pathTokens.get(0), value);
-
-        else {
-            Matcher matcher = arrayPattern.matcher(pathTokens.get(0));
-            if (matcher.matches()) {
-                String key = matcher.group(1);
-                if (map.containsKey(key)) ;
+                    currentArrayIndices.add(index);
+                    indicesMap.put(arrayName, currentArrayIndices);
+                }
             }
-//            else{
-//
-//            }
+
         }
+
     }
+
 
     public static RestStepResult validateBody(List<BodyEntry> bodyEntries, DocumentContext documentContext) {
         documentContext.configuration().addOptions(Option.SUPPRESS_EXCEPTIONS);
