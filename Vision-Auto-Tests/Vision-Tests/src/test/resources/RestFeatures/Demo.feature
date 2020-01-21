@@ -73,10 +73,8 @@ Feature: Demo
     When Send Request with the Given Specification
     Then Validate That Response Status Code Is OK
     Then Validate That Response Body Contains
-      | jsonPath  | value |
-      | $.status1 | ok    |
-      | $.status  | ok    |
-      | $         | ok    |
+      | jsonPath | value |
+      | $.status | ok    |
 
 
 
