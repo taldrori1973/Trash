@@ -177,10 +177,11 @@ public class GenericSteps {
 
     @Then("^Validate That Response Body Contains$")
     public void validateThatResponseBodyContains(List<BodyEntry> bodyEntries) {
+        List<BodyEntry> bodyEntriesCopy = StepsParametersUtils.setRunTimeValuesOfBodyEntries(bodyEntries, runTimeParameters, runTimeValuesPattern);
         String body = this.response.getBody().getBodyAsString();
         DocumentContext documentContext = JsonPath.parse(body);
 
-        RestStepResult result = GenericStepsHandler.validateBody(bodyEntries, documentContext);
+        RestStepResult result = GenericStepsHandler.validateBody(bodyEntriesCopy, documentContext);
         if (result.getStatus().equals(FAILED)) report(result.getMessage(), FAIL);
 
     }
