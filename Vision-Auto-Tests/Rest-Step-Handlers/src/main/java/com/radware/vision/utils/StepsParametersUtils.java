@@ -28,12 +28,14 @@ public class StepsParametersUtils {
 
     public static List<BodyEntry> setRunTimeValuesOfBodyEntries(final List<BodyEntry> bodyEntries, final Map<String, String> runTimeParameters, final Pattern runTimeValuesPattern) {
         List<BodyEntry> bodyEntryCopy = new ArrayList<>(bodyEntries);
-        for (BodyEntry entry : bodyEntryCopy) {
+        for (BodyEntry entry : bodyEntryCopy) {//entry like |jsonPath|"${id}" or ${id}|
             Matcher matcher = runTimeValuesPattern.matcher(entry.getValue());
             if (matcher.matches()) {
                 String variable = matcher.group(1);
                 if (!runTimeParameters.containsKey(variable)) report("The Variable " + variable + "is not exist", FAIL);
-                entry.setValue(runTimeParameters.get(variable));
+                String value = runTimeParameters.get(variable);
+
+                entry.setValue(entry.getValue().replaceAll(String.format("\\$\\{%s\\}", variable), value));
             }
         }
         return bodyEntryCopy;

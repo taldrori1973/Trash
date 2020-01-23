@@ -30,7 +30,7 @@ public class GenericSteps {
     private RestRequestSpecification restRequestSpecification;
     private RestResponse response;
     private Map<String, String> runTimeParameters;
-    private static Pattern runTimeValuesPattern = Pattern.compile("\\$\\{(.*)\\}");
+    private static Pattern runTimeValuesPattern = Pattern.compile("\"?\\$\\{(.*)\\}\"?");
 
     public GenericSteps() {
         this.runTimeParameters = new HashMap<>();
