@@ -1,7 +1,8 @@
 @rest100
+@TC113068
 Feature: Demo
 
-
+  @SID_1
   Scenario: Delete User Before Creating it
     Given That Current Vision is Logged In
 
@@ -15,6 +16,7 @@ Feature: Demo
 
     When Send Request with the Given Specification
 
+  @SID_2
   Scenario: Create Local User
     Given That Current Vision is Logged In
 
