@@ -71,7 +71,10 @@ public class GenericSteps {
             else if (object instanceof JSONArray) {
                 Object value = null;
                 List<Object> objects = ((List<Object>) object);
-                if (objects.isEmpty()) report("Empty Array was returned", FAIL);
+                if (objects.isEmpty()) {
+                    runTimeParameters.put(label, null);
+                    return;
+                }
 
                 value = objects.get(0);
                 runTimeParameters.put(label, String.valueOf(value));
