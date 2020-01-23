@@ -98,6 +98,28 @@
           "defaultValue": ""
         }
       ]
+    },
+    {
+      "label": "Delete an Item from the Server",
+      "description": "Deletes an APSolute Vision item from the list.\nSupported item types:\n\"user\" - APSolute Vision local user. \"deviceconfigurationfiles\" - Device configuration file downloaded and stored on APSolute Vision. \"alltemplates\" - DefensePro configuration templates downloaded and stored on APSolute Vision.\n",
+      "method": "DELETE",
+      "basePath": "/mgmt/system/config/itemlist/{item}/{id}",
+      "produces": "application/json",
+      "pathParameters": [
+        {
+          "name": "item",
+          "required": true,
+          "schema": "string",
+          "description": "Supported item types:\n\"user\" - APSolute Vision local user. \"deviceconfigurationfiles\" - Device configuration file downloaded and stored on APSolute Vision. \"alltemplates\" - DefensePro configuration templates downloaded and stored on APSolute Vision.\n"
+        },
+        {
+          "name": "id",
+          "required": true,
+          "schema": "string",
+          "description": "Item ID (ormID) retrieved from the APSolute Vision server."
+        }
+      ],
+      "bodyParameters": []
     }
   ]
 }

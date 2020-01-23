@@ -2,9 +2,22 @@
 Feature: Demo
 
 
+  Scenario: Delete User Before Creating it
+    Given That Current Vision is Logged In
+
+    Given Create Following RUNTIME Parameters by Sending Request Specification from File "Vision/mgmt/system/config/itemlist/SystemConfigItemList" with label "Get Local Users"
+      | ormID | $[?(@.name=='cucumber')].ormID |
+
+
+
   Scenario: Create Local User
     Given That Current Vision is Logged In
+
+    Given Create Following RUNTIME Parameters by Sending Request Specification from File "Vision/mgmt/system/config/itemlist/SystemConfigItemList" with label "Get Local Users"
+      | ormID | $[?(@.name=='cucumber')].ormID |
+
     Given New Request Specification from File "Vision/mgmt/system/config/itemlist/SystemConfigItemList" with label "Create Local User"
+
     Given The Request Body is the following Object
       | jsonPath                                                       | value                     |
       | $.name                                                         | "cucumber10"              |
