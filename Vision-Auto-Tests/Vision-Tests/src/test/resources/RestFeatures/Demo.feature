@@ -8,19 +8,21 @@ Feature: Demo
     Given Create Following RUNTIME Parameters by Sending Request Specification from File "Vision/mgmt/system/config/itemlist/SystemConfigItemList" with label "Get Local Users"
       | ormID | $[?(@.name=='cucumber')].ormID |
 
+    Given New Request Specification from File "Vision/mgmt/system/config/itemlist/SystemConfigItemList" with label "Delete an Item from the Server"
+    And The Request Path Parameters Are
+      | item | user     |
+      | id   | ${ormID} |
 
+    When Send Request with the Given Specification
 
   Scenario: Create Local User
     Given That Current Vision is Logged In
-
-    Given Create Following RUNTIME Parameters by Sending Request Specification from File "Vision/mgmt/system/config/itemlist/SystemConfigItemList" with label "Get Local Users"
-      | ormID | $[?(@.name=='cucumber')].ormID |
 
     Given New Request Specification from File "Vision/mgmt/system/config/itemlist/SystemConfigItemList" with label "Create Local User"
 
     Given The Request Body is the following Object
       | jsonPath                                                       | value                     |
-      | $.name                                                         | "cucumber10"              |
+      | $.name                                                         | "cucumber"                |
       | $.password                                                     | ""                        |
       | $.requireDeviceLock                                            | true                      |
       | $.userSettings.userLocale                                      | "en_US"                   |
@@ -34,6 +36,7 @@ Feature: Demo
       | $.roleGroupPairList[0].roleName                                | "CONFIG"                  |
 
     When Send Request with the Given Specification
+
     Then Validate That Response Status Code Is OK
     Then Validate That Response Body Contains
       | jsonPath | value |
