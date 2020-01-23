@@ -1,5 +1,7 @@
 package com.radware.vision.utils;
 
+import org.apache.commons.lang.math.NumberUtils;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -36,5 +38,14 @@ public class StepsParametersUtils {
         }
         return bodyEntryCopy;
 
+    }
+
+    public static Object valueOf(String value) {
+        if (value.startsWith("\"") && value.endsWith("\"")) return value.substring(1, value.length() - 1);
+        if (value.equalsIgnoreCase("null")) return null;
+        if (value.equalsIgnoreCase("true") || value.equalsIgnoreCase("false")) return Boolean.valueOf(value);
+        if (NumberUtils.isNumber(value)) return NumberUtils.createNumber(value);
+        throw new IllegalArgumentException(String.format("The value %s data type is not supported , the supported data types are: %s",
+                value, "String , for example:\"value\"\nnull\nboolean\nnumber"));
     }
 }
