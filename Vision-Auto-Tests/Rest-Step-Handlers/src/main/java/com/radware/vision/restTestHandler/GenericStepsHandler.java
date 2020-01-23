@@ -9,6 +9,7 @@ import com.radware.vision.requestsRepository.controllers.RequestsFilesRepository
 import com.radware.vision.requestsRepository.models.RequestPojo;
 import com.radware.vision.requestsRepository.models.RequestsFilePojo;
 import com.radware.vision.utils.BodyEntry;
+import com.radware.vision.utils.StepsParametersUtils;
 import models.ContentType;
 import models.Method;
 import models.RestRequestSpecification;
@@ -90,19 +91,19 @@ public class GenericStepsHandler {
                     if (!isPathExist(format("%s[%d]", path, entryIndex), documentContext)) {
 
                         if (pathTokens.size() - 1 == i)//this is last element
-                            documentContext.add(path, entry.getValue());
+                            documentContext.add(path, StepsParametersUtils.valueOf(entry.getValue()));
 
                         else documentContext.add(path, new LinkedHashMap<>());
                     } else {//the path is exist , update the value
                         if (pathTokens.size() - 1 == i)//this is last element
-                            documentContext.set(format("%s[%d]", path, entryIndex), entry.getValue());
+                            documentContext.set(format("%s[%d]", path, entryIndex), StepsParametersUtils.valueOf(entry.getValue()));
                     }
                     path = format("%s[%d]", path, entryIndex);
 
 
                 } else {//not array
                     if (pathTokens.size() - 1 == i)//this is last element
-                        documentContext.put(path, token, entry.getValue());
+                        documentContext.put(path, token, StepsParametersUtils.valueOf(entry.getValue()));
                     else {
                         if (!isPathExist(format("%s.%s", path, token), documentContext))
                             documentContext.put(path, token, new LinkedHashMap<>());
@@ -163,16 +164,16 @@ public class GenericStepsHandler {
         List<String> errors = new ArrayList<>();
         for (BodyEntry bodyEntry : bodyEntries) {
             Object readResult;
-            String value = null;
+            Object value = null;
             try {
                 readResult = documentContext.read(bodyEntry.getJsonPath());
-                value = readResult.toString();
+                value = readResult;
             } catch (PathNotFoundException e) {
                 errors.add(e.getMessage());
             }
 
-            if (value != null && !value.equals(bodyEntry.getValue()))
-                errors.add(String.format("For Json Path \"%s\" actual value \"%s\" is not equal to the expected value \"%s\"", bodyEntry.getJsonPath(), value, bodyEntry.getValue()));
+            if (value != null && !value.equals(StepsParametersUtils.valueOf(bodyEntry.getValue())))
+                errors.add(String.format("For Json Path \"%s\" actual value \"%s\" is not equal to the expected value \"%s\"", bodyEntry.getJsonPath(), value, StepsParametersUtils.valueOf(bodyEntry.getValue())));
 
         }
 
