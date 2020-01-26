@@ -18,7 +18,17 @@
 
 
     <repositories>
-
+        <repository>
+            <id>common-artifactory</id>
+            <name>artifactory-snapshots</name>
+            <url>http://bldartifactory:8081/artifactory/list/auto-common-infra-snapshot/</url>
+            <snapshots>
+                <enabled>true</enabled>
+            </snapshots>
+            <releases>
+                <enabled>false</enabled>
+            </releases>
+        </repository>
     </repositories>
     <dependencies>
         <dependency>
