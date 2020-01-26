@@ -18,12 +18,12 @@
 
     <distributionManagement>
         <repository>
-            <id>central</id>
+            <id>bld-artifactory</id>
             <name>bldartifactory-releases</name>
             <url>http://bldartifactory:8081/artifactory/auto-common-infra-release</url>
         </repository>
         <snapshotRepository>
-            <id>snapshots</id>
+            <id>bld-artifactory</id>
             <name>bldartifactory-snapshots</name>
             <url>http://bldartifactory:8081/artifactory/auto-common-infra-release</url>
         </snapshotRepository>
