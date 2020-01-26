@@ -16,14 +16,18 @@
         <rest-assured-version>4.1.2</rest-assured-version>
     </properties>
 
-
-    <repositories>
+    <distributionManagement>
         <repository>
-            <id>common-artifactory</id>
-            <name>artifactory-release</name>
-            <url>http://bldartifactory:8081/artifactory/list/auto-common-infra-release/</url>
+            <id>central</id>
+            <name>bldartifactory-releases</name>
+            <url>http://bldartifactory:8081/artifactory/auto-common-infra-release</url>
         </repository>
-    </repositories>
+        <snapshotRepository>
+            <id>snapshots</id>
+            <name>bldartifactory-snapshots</name>
+            <url>http://bldartifactory:8081/artifactory/auto-common-infra-release</url>
+        </snapshotRepository>
+    </distributionManagement>
     <dependencies>
         <dependency>
             <groupId>io.rest-assured</groupId>
