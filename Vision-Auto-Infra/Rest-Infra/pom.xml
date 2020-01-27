@@ -15,7 +15,6 @@
     <properties>
         <rest-assured-version>4.1.2</rest-assured-version>
     </properties>
-
     <repositories>
         <repository>
             <id>maven2</id>
