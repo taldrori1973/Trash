@@ -16,18 +16,12 @@
         <rest-assured-version>4.1.2</rest-assured-version>
     </properties>
 
-    <distributionManagement>
+    <repositories>
         <repository>
-            <id>bld-artifactory</id>
-            <name>bldartifactory-releases</name>
-            <url>http://bldartifactory:8081/artifactory/auto-common-infra-release</url>
+            <id>rest-assured</id>
+            <url>https://repo1.maven.org/maven2/io/rest-assured/rest-assured/</url>
         </repository>
-        <snapshotRepository>
-            <id>bld-artifactory</id>
-            <name>bldartifactory-snapshots</name>
-            <url>http://bldartifactory:8081/artifactory/auto-common-infra-release</url>
-        </snapshotRepository>
-    </distributionManagement>
+    </repositories>
     <dependencies>
         <dependency>
             <groupId>io.rest-assured</groupId>
