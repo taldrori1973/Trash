@@ -18,6 +18,8 @@
     <properties>
         <VISION_VERSION>4.50.00</VISION_VERSION>
         <revision>${VISION_VERSION}-SNAPSHOT</revision>
+        <selenium.version>3.11.0</selenium.version>
+        <jsystem.version>6.1.09</jsystem.version>
         <maven.compiler.source>1.8</maven.compiler.source>
         <maven.compiler.target>1.8</maven.compiler.target>
     </properties>
