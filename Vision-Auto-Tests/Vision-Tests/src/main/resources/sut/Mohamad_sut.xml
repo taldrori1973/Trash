@@ -40,11 +40,10 @@
             <visionSetup>
                 <class>com.radware.vision.vision_project_cli.VisionSetup</class>
                 <!--<setupMode>Fresh Install| Upgrade</setupMode>-->
-<!--                <setupMode>Upgrade</setupMode>-->
-                <setupMode>Fresh Install</setupMode>
-                <snapshot>4.30-release</snapshot>
+                <setupMode>Upgrade</setupMode>
+                <snapshot>clean-with actovation license</snapshot>
                 <!--<vmPrefix>This field is relevant for fresh installed VM</vmPrefix>-->
-                <vmPrefix>Vision-4.30-172.17.192.100</vmPrefix>
+                <vmPrefix>Vision-4.40.00.VMware_1248_prod-192.100</vmPrefix>
             </visionSetup>
         </visionServer>
         <linuxFileServer>
