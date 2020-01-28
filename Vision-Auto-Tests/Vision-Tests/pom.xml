@@ -164,9 +164,9 @@
                         </exclusions>
                     </dependency>
                     <dependency>
-                        <groupId>com.radware.vision.automation.webui</groupId>
-                        <artifactId>webui-tests</artifactId>
-                        <version>${project.version}</version>
+                        <groupId>com.radware.vision.automation</groupId>
+                        <artifactId>Vision-Tests</artifactId>
+                        <version>${parent.version}</version>
                         <scope>runtime</scope>
                     </dependency>
                     <dependency>
@@ -299,7 +299,7 @@
                 <version>2.6</version>
                 <executions>
                     <execution>
-                        <id>copy-resources-webui-tests</id>
+                        <id>copy-resources-Vision-Tests</id>
                         <!-- here the phase you need -->
                         <phase>validate</phase>
                         <goals>
@@ -326,7 +326,7 @@
                 <version>2.6</version>
                 <executions>
                     <execution>
-                        <id>copy-resources-webui-infra</id>
+                        <id>copy-resources-Webui-Step-Handlers</id>
                         <!-- here the phase you need -->
                         <phase>validate</phase>
                         <goals>
@@ -336,7 +336,7 @@
                             <outputDirectory>${project.basedir}/target/classes/inputfiles</outputDirectory>
                             <resources>
                                 <resource>
-                                    <directory>${project.basedir}/../webui-infra/src/main/resources/inputfiles/
+                                    <directory>${project.basedir}/../Webui-Step-Handlers/src/main/resources/inputfiles/
                                     </directory>
                                     <includes>
                                         <include>**/*.txt</include>
@@ -375,7 +375,7 @@
                 <directory>src/main/resources</directory>
                 <filtering>true</filtering>
                 <includes>
-                    <include>webui-tests-pom.properties</include>
+                    <include>vision-tests-pom.properties</include>
                 </includes>
             </resource>
 
@@ -384,7 +384,7 @@
                 <directory>src/main/resources</directory>
                 <filtering>false</filtering>
                 <excludes>
-                    <exclude>webui-tests-pom.properties</exclude>
+                    <exclude>vision-tests-pom.properties</exclude>
                 </excludes>
             </resource>
 

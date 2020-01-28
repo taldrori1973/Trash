@@ -58,7 +58,7 @@ public class freshInstallThread extends Thread {
     public String readVisionVersionFromPomFile() {
         Properties properties = new Properties();
 
-        InputStream inputStream = getClass().getClassLoader().getResourceAsStream("webui-tests-pom.properties");
+        InputStream inputStream = getClass().getClassLoader().getResourceAsStream("vision-tests-pom.properties");
 
         if (inputStream != null) {
             try {
