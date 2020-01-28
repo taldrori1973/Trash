@@ -1,4 +1,4 @@
-@rest100
+#@rest100
 @TC113068
 Feature: Demo
 
