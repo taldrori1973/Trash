@@ -1,6 +1,6 @@
 @nightly
   @TC106417
-  @rest100
+@rest100
 Feature:Vision Setup
 
 
