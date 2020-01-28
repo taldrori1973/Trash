@@ -13,7 +13,6 @@
     <artifactId>Vision-Tests</artifactId>
 
     <properties>
-        <Version>4.50</Version>
     </properties>
 
     <repositories>
@@ -89,42 +88,42 @@
             <artifactId>commons-lang</artifactId>
             <version>RELEASE</version>
         </dependency>
-        <dependency>
-            <groupId>org.jsystemtest</groupId>
-            <artifactId>jsystemAgent</artifactId>
-            <version>${jsystem.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>org.jsystemtest</groupId>
-            <artifactId>jsystem-maven-plugin</artifactId>
-            <version>${jsystem.version}</version>
-            <exclusions>
-                <exclusion>
-                    <artifactId>asm-commons</artifactId>
-                    <groupId>asm</groupId>
-                </exclusion>
-                <exclusion>
-                    <artifactId>asm</artifactId>
-                    <groupId>asm</groupId>
-                </exclusion>
-                <exclusion>
-                    <artifactId>asm-tree</artifactId>
-                    <groupId>asm</groupId>
-                </exclusion>
-                <exclusion>
-                    <artifactId>hamcrest-core</artifactId>
-                    <groupId>org.hamcrest</groupId>
-                </exclusion>
-                <exclusion>
-                    <groupId>org.jsystemtest</groupId>
-                    <artifactId>*</artifactId>
-                </exclusion>
-                <exclusion>
-                    <groupId>org.apache.maven</groupId>
-                    <artifactId>*</artifactId>
-                </exclusion>
-            </exclusions>
-        </dependency>
+        <!--        <dependency>-->
+        <!--            <groupId>org.jsystemtest</groupId>-->
+        <!--            <artifactId>jsystemAgent</artifactId>-->
+        <!--            <version>${jsystem.version}</version>-->
+        <!--        </dependency>-->
+        <!--        <dependency>-->
+        <!--            <groupId>org.jsystemtest</groupId>-->
+        <!--            <artifactId>jsystem-maven-plugin</artifactId>-->
+        <!--            <version>${jsystem.version}</version>-->
+        <!--            <exclusions>-->
+        <!--                <exclusion>-->
+        <!--                    <artifactId>asm-commons</artifactId>-->
+        <!--                    <groupId>asm</groupId>-->
+        <!--                </exclusion>-->
+        <!--                <exclusion>-->
+        <!--                    <artifactId>asm</artifactId>-->
+        <!--                    <groupId>asm</groupId>-->
+        <!--                </exclusion>-->
+        <!--                <exclusion>-->
+        <!--                    <artifactId>asm-tree</artifactId>-->
+        <!--                    <groupId>asm</groupId>-->
+        <!--                </exclusion>-->
+        <!--                <exclusion>-->
+        <!--                    <artifactId>hamcrest-core</artifactId>-->
+        <!--                    <groupId>org.hamcrest</groupId>-->
+        <!--                </exclusion>-->
+        <!--                <exclusion>-->
+        <!--                    <groupId>org.jsystemtest</groupId>-->
+        <!--                    <artifactId>*</artifactId>-->
+        <!--                </exclusion>-->
+        <!--                <exclusion>-->
+        <!--                    <groupId>org.apache.maven</groupId>-->
+        <!--                    <artifactId>*</artifactId>-->
+        <!--                </exclusion>-->
+        <!--            </exclusions>-->
+        <!--        </dependency>-->
         <dependency>
             <groupId>com.radware.automation.defensepro.infra.utils</groupId>
             <artifactId>radwareGeneric</artifactId>
@@ -148,248 +147,248 @@
                 </configuration>
             </plugin>
 
-            <plugin>
-                <groupId>org.jsystemtest</groupId>
-                <artifactId>jsystem-maven-plugin</artifactId>
-                <version>${jsystem.version}</version>
-                <dependencies>
-                    <dependency>
-                        <groupId>org.jsystemtest</groupId>
-                        <artifactId>jsystemCommon</artifactId>
-                        <version>${jsystem.version}</version>
-                        <exclusions>
-                            <exclusion>
-                                <groupId>*</groupId>
-                                <artifactId>*</artifactId>
-                            </exclusion>
-                        </exclusions>
-                    </dependency>
-                    <dependency>
-                        <groupId>com.radware.vision.automation.webui</groupId>
-                        <artifactId>webui-tests</artifactId>
-                        <version>${project.version}</version>
-                        <scope>runtime</scope>
-                    </dependency>
-                    <dependency>
-                        <groupId>javax.mail</groupId>
-                        <artifactId>mail</artifactId>
-                        <version>1.4.4</version>
-                    </dependency>
-                </dependencies>
-            </plugin>
-            <plugin>
-                <artifactId>maven-clean-plugin</artifactId>
-                <version>2.5</version>
-                <executions>
-                    <execution>
-                        <id>auto-clean</id>
-                        <phase>clean</phase>
-                        <goals>
-                            <goal>clean</goal>
-                        </goals>
-                        <configuration>
-                            <filesets>
-                                <fileset>
-                                    <directory>${basedir}/lib</directory>
-                                    <includes>
-                                        <include>**/*</include>
-                                    </includes>
-                                    <followSymlinks>false</followSymlinks>
-                                </fileset>
-                                <fileset>
-                                    <directory>lib</directory>
-                                    <includes>
-                                        <include>**/*.*</include>
-                                    </includes>
-                                </fileset>
-                            </filesets>
-                            <failOnError>false</failOnError>
-                        </configuration>
-                    </execution>
-                </executions>
-            </plugin>
+            <!--            <plugin>-->
+            <!--                <groupId>org.jsystemtest</groupId>-->
+            <!--                <artifactId>jsystem-maven-plugin</artifactId>-->
+            <!--                <version>${jsystem.version}</version>-->
+            <!--                <dependencies>-->
+            <!--                    <dependency>-->
+            <!--                        <groupId>org.jsystemtest</groupId>-->
+            <!--                        <artifactId>jsystemCommon</artifactId>-->
+            <!--                        <version>${jsystem.version}</version>-->
+            <!--                        <exclusions>-->
+            <!--                            <exclusion>-->
+            <!--                                <groupId>*</groupId>-->
+            <!--                                <artifactId>*</artifactId>-->
+            <!--                            </exclusion>-->
+            <!--                        </exclusions>-->
+            <!--                    </dependency>-->
+            <!--                    <dependency>-->
+            <!--                        <groupId>com.radware.vision.automation.webui</groupId>-->
+            <!--                        <artifactId>webui-tests</artifactId>-->
+            <!--                        <version>${project.version}</version>-->
+            <!--                        <scope>runtime</scope>-->
+            <!--                    </dependency>-->
+            <!--                    <dependency>-->
+            <!--                        <groupId>javax.mail</groupId>-->
+            <!--                        <artifactId>mail</artifactId>-->
+            <!--                        <version>1.4.4</version>-->
+            <!--                    </dependency>-->
+            <!--                </dependencies>-->
+            <!--            </plugin>-->
+            <!--            <plugin>-->
+            <!--                <artifactId>maven-clean-plugin</artifactId>-->
+            <!--                <version>2.5</version>-->
+            <!--                <executions>-->
+            <!--                    <execution>-->
+            <!--                        <id>auto-clean</id>-->
+            <!--                        <phase>clean</phase>-->
+            <!--                        <goals>-->
+            <!--                            <goal>clean</goal>-->
+            <!--                        </goals>-->
+            <!--                        <configuration>-->
+            <!--                            <filesets>-->
+            <!--                                <fileset>-->
+            <!--                                    <directory>${basedir}/lib</directory>-->
+            <!--                                    <includes>-->
+            <!--                                        <include>**/*</include>-->
+            <!--                                    </includes>-->
+            <!--                                    <followSymlinks>false</followSymlinks>-->
+            <!--                                </fileset>-->
+            <!--                                <fileset>-->
+            <!--                                    <directory>lib</directory>-->
+            <!--                                    <includes>-->
+            <!--                                        <include>**/*.*</include>-->
+            <!--                                    </includes>-->
+            <!--                                </fileset>-->
+            <!--                            </filesets>-->
+            <!--                            <failOnError>false</failOnError>-->
+            <!--                        </configuration>-->
+            <!--                    </execution>-->
+            <!--                </executions>-->
+            <!--            </plugin>-->
 
-            <plugin>
-                <artifactId>maven-dependency-plugin</artifactId>
-                <executions>
-                    <execution>
-                        <phase>install</phase>
-                        <goals>
-                            <goal>copy-dependencies</goal>
-                        </goals>
-                        <configuration>
-                            <outputDirectory>${project.basedir}/lib</outputDirectory>
-                        </configuration>
-                    </execution>
-                </executions>
-            </plugin>
+            <!--            <plugin>-->
+            <!--                <artifactId>maven-dependency-plugin</artifactId>-->
+            <!--                <executions>-->
+            <!--                    <execution>-->
+            <!--                        <phase>install</phase>-->
+            <!--                        <goals>-->
+            <!--                            <goal>copy-dependencies</goal>-->
+            <!--                        </goals>-->
+            <!--                        <configuration>-->
+            <!--                            <outputDirectory>${project.basedir}/lib</outputDirectory>-->
+            <!--                        </configuration>-->
+            <!--                    </execution>-->
+            <!--                </executions>-->
+            <!--            </plugin>-->
 
 
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-source-plugin</artifactId>
-                <version>2.2</version>
-                <executions>
-                    <execution>
-                        <id>attach-sources</id>
-                        <goals>
-                            <goal>jar</goal>
-                        </goals>
-                    </execution>
-                </executions>
-            </plugin>
+            <!--            <plugin>-->
+            <!--                <groupId>org.apache.maven.plugins</groupId>-->
+            <!--                <artifactId>maven-source-plugin</artifactId>-->
+            <!--                <version>2.2</version>-->
+            <!--                <executions>-->
+            <!--                    <execution>-->
+            <!--                        <id>attach-sources</id>-->
+            <!--                        <goals>-->
+            <!--                            <goal>jar</goal>-->
+            <!--                        </goals>-->
+            <!--                    </execution>-->
+            <!--                </executions>-->
+            <!--            </plugin>-->
 
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-antrun-plugin</artifactId>
-                <executions>
-                    <execution>
-                        <id>create-empty-directory</id>
-                        <phase>process-classes</phase>
-                        <goals>
-                            <goal>run</goal>
-                        </goals>
-                        <configuration>
-                            <tasks>
-                                <mkdir dir="${basedir}/target/classes/clientdevicedrivers"/>
-                            </tasks>
-                        </configuration>
-                    </execution>
-                </executions>
-            </plugin>
+            <!--            <plugin>-->
+            <!--                <groupId>org.apache.maven.plugins</groupId>-->
+            <!--                <artifactId>maven-antrun-plugin</artifactId>-->
+            <!--                <executions>-->
+            <!--                    <execution>-->
+            <!--                        <id>create-empty-directory</id>-->
+            <!--                        <phase>process-classes</phase>-->
+            <!--                        <goals>-->
+            <!--                            <goal>run</goal>-->
+            <!--                        </goals>-->
+            <!--                        <configuration>-->
+            <!--                            <tasks>-->
+            <!--                                <mkdir dir="${basedir}/target/classes/clientdevicedrivers"/>-->
+            <!--                            </tasks>-->
+            <!--                        </configuration>-->
+            <!--                    </execution>-->
+            <!--                </executions>-->
+            <!--            </plugin>-->
 
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-dependency-plugin</artifactId>
-                <executions>
-                    <execution>
-                        <id>unpack</id>
-                        <phase>install</phase>
-                        <goals>
-                            <goal>unpack</goal>
-                        </goals>
-                        <configuration>
-                            <artifactItems>
-                                <artifactItem>
-                                    <groupId>com.radware.automation</groupId>
-                                    <artifactId>automation-web-elements-infra</artifactId>
-                                    <version>ALTDPVISION-${artifact-type}-SNAPSHOT</version>
-                                    <type>jar</type>
-                                    <overWrite>false</overWrite>
-                                    <outputDirectory>${project.basedir}\target\classes</outputDirectory>
-                                    <includes>**/*.js</includes>
-                                </artifactItem>
-                                <artifactItem>
-                                    <groupId>com.radware.automation</groupId>
-                                    <artifactId>automation-web-driver-infra</artifactId>
-                                    <version>master-${artifact-type}-SNAPSHOT</version>
-                                    <type>jar</type>
-                                    <overWrite>false</overWrite>
-                                    <outputDirectory>${project.basedir}\target\classes</outputDirectory>
-                                    <includes>**/*driver*</includes>
-                                </artifactItem>
-                            </artifactItems>
-                        </configuration>
-                    </execution>
-                </executions>
-            </plugin>
+            <!--            <plugin>-->
+            <!--                <groupId>org.apache.maven.plugins</groupId>-->
+            <!--                <artifactId>maven-dependency-plugin</artifactId>-->
+            <!--                <executions>-->
+            <!--                    <execution>-->
+            <!--                        <id>unpack</id>-->
+            <!--                        <phase>install</phase>-->
+            <!--                        <goals>-->
+            <!--                            <goal>unpack</goal>-->
+            <!--                        </goals>-->
+            <!--                        <configuration>-->
+            <!--                            <artifactItems>-->
+            <!--                                <artifactItem>-->
+            <!--                                    <groupId>com.radware.automation</groupId>-->
+            <!--                                    <artifactId>automation-web-elements-infra</artifactId>-->
+            <!--                                    <version>ALTDPVISION-${artifact-type}-SNAPSHOT</version>-->
+            <!--                                    <type>jar</type>-->
+            <!--                                    <overWrite>false</overWrite>-->
+            <!--                                    <outputDirectory>${project.basedir}\target\classes</outputDirectory>-->
+            <!--                                    <includes>**/*.js</includes>-->
+            <!--                                </artifactItem>-->
+            <!--                                <artifactItem>-->
+            <!--                                    <groupId>com.radware.automation</groupId>-->
+            <!--                                    <artifactId>automation-web-driver-infra</artifactId>-->
+            <!--                                    <version>master-${artifact-type}-SNAPSHOT</version>-->
+            <!--                                    <type>jar</type>-->
+            <!--                                    <overWrite>false</overWrite>-->
+            <!--                                    <outputDirectory>${project.basedir}\target\classes</outputDirectory>-->
+            <!--                                    <includes>**/*driver*</includes>-->
+            <!--                                </artifactItem>-->
+            <!--                            </artifactItems>-->
+            <!--                        </configuration>-->
+            <!--                    </execution>-->
+            <!--                </executions>-->
+            <!--            </plugin>-->
 
             <!--Copy resource files to output folders-->
-            <plugin>
-                <artifactId>maven-resources-plugin</artifactId>
-                <version>2.6</version>
-                <executions>
-                    <execution>
-                        <id>copy-resources-webui-tests</id>
-                        <!-- here the phase you need -->
-                        <phase>validate</phase>
-                        <goals>
-                            <goal>copy-resources</goal>
-                        </goals>
-                        <configuration>
-                            <!-- <outputDirectory>${project.basedir}/target/classes/</outputDirectory> -->
-                            <outputDirectory>${basedir}</outputDirectory>
-                            <resources>
-                                <resource>
-                                    <directory>src/main/resources/global/</directory>
-                                    <includes>
-                                        <include>**/*.properties</include>
-                                    </includes>
-                                </resource>
-                            </resources>
-                        </configuration>
-                    </execution>
-                </executions>
-            </plugin>
+            <!--            <plugin>-->
+            <!--                <artifactId>maven-resources-plugin</artifactId>-->
+            <!--                <version>2.6</version>-->
+            <!--                <executions>-->
+            <!--                    <execution>-->
+            <!--                        <id>copy-resources-webui-tests</id>-->
+            <!--                        &lt;!&ndash; here the phase you need &ndash;&gt;-->
+            <!--                        <phase>validate</phase>-->
+            <!--                        <goals>-->
+            <!--                            <goal>copy-resources</goal>-->
+            <!--                        </goals>-->
+            <!--                        <configuration>-->
+            <!--                            &lt;!&ndash; <outputDirectory>${project.basedir}/target/classes/</outputDirectory> &ndash;&gt;-->
+            <!--                            <outputDirectory>${basedir}</outputDirectory>-->
+            <!--                            <resources>-->
+            <!--                                <resource>-->
+            <!--                                    <directory>src/main/resources/global/</directory>-->
+            <!--                                    <includes>-->
+            <!--                                        <include>**/*.properties</include>-->
+            <!--                                    </includes>-->
+            <!--                                </resource>-->
+            <!--                            </resources>-->
+            <!--                        </configuration>-->
+            <!--                    </execution>-->
+            <!--                </executions>-->
+            <!--            </plugin>-->
 
-            <plugin>
-                <artifactId>maven-resources-plugin</artifactId>
-                <version>2.6</version>
-                <executions>
-                    <execution>
-                        <id>copy-resources-webui-infra</id>
-                        <!-- here the phase you need -->
-                        <phase>validate</phase>
-                        <goals>
-                            <goal>copy-resources</goal>
-                        </goals>
-                        <configuration>
-                            <outputDirectory>${project.basedir}/target/classes/inputfiles</outputDirectory>
-                            <resources>
-                                <resource>
-                                    <directory>${project.basedir}/../webui-infra/src/main/resources/inputfiles/
-                                    </directory>
-                                    <includes>
-                                        <include>**/*.txt</include>
-                                    </includes>
-                                </resource>
-                            </resources>
-                        </configuration>
-                    </execution>
-                    <execution>
-                        <id>copy-resources-dummy-vision-version-hierarchy</id>
-                        <!-- here the phase you need -->
-                        <phase>validate</phase>
-                        <goals>
-                            <goal>copy-resources</goal>
-                        </goals>
-                        <configuration>
-                            <outputDirectory>${project.basedir}/target/classes/clientdevicedrivers/server
-                            </outputDirectory>
-                            <resources>
-                                <resource>
-                                    <directory>${project.basedir}/src/main/resources/clientdevicedrivers/server
-                                    </directory>
-                                    <includes>
-                                        <include>**/*</include>
-                                    </includes>
-                                </resource>
-                            </resources>
-                        </configuration>
-                    </execution>
-                </executions>
-            </plugin>
+            <!--            <plugin>-->
+            <!--                <artifactId>maven-resources-plugin</artifactId>-->
+            <!--                <version>2.6</version>-->
+            <!--                <executions>-->
+            <!--                    <execution>-->
+            <!--                        <id>copy-resources-webui-infra</id>-->
+            <!--                        &lt;!&ndash; here the phase you need &ndash;&gt;-->
+            <!--                        <phase>validate</phase>-->
+            <!--                        <goals>-->
+            <!--                            <goal>copy-resources</goal>-->
+            <!--                        </goals>-->
+            <!--                        <configuration>-->
+            <!--                            <outputDirectory>${project.basedir}/target/classes/inputfiles</outputDirectory>-->
+            <!--                            <resources>-->
+            <!--                                <resource>-->
+            <!--                                    <directory>${project.basedir}/../webui-infra/src/main/resources/inputfiles/-->
+            <!--                                    </directory>-->
+            <!--                                    <includes>-->
+            <!--                                        <include>**/*.txt</include>-->
+            <!--                                    </includes>-->
+            <!--                                </resource>-->
+            <!--                            </resources>-->
+            <!--                        </configuration>-->
+            <!--                    </execution>-->
+            <!--                    <execution>-->
+            <!--                        <id>copy-resources-dummy-vision-version-hierarchy</id>-->
+            <!--                        &lt;!&ndash; here the phase you need &ndash;&gt;-->
+            <!--                        <phase>validate</phase>-->
+            <!--                        <goals>-->
+            <!--                            <goal>copy-resources</goal>-->
+            <!--                        </goals>-->
+            <!--                        <configuration>-->
+            <!--                            <outputDirectory>${project.basedir}/target/classes/clientdevicedrivers/server-->
+            <!--                            </outputDirectory>-->
+            <!--                            <resources>-->
+            <!--                                <resource>-->
+            <!--                                    <directory>${project.basedir}/src/main/resources/clientdevicedrivers/server-->
+            <!--                                    </directory>-->
+            <!--                                    <includes>-->
+            <!--                                        <include>**/*</include>-->
+            <!--                                    </includes>-->
+            <!--                                </resource>-->
+            <!--                            </resources>-->
+            <!--                        </configuration>-->
+            <!--                    </execution>-->
+            <!--                </executions>-->
+            <!--            </plugin>-->
         </plugins>
-        <resources>
-            <!-- include main.properties -->
-            <resource>
-                <directory>src/main/resources</directory>
-                <filtering>true</filtering>
-                <includes>
-                    <include>webui-tests-pom.properties</include>
-                </includes>
-            </resource>
+        <!--        <resources>-->
+        <!--            &lt;!&ndash; include main.properties &ndash;&gt;-->
+        <!--            <resource>-->
+        <!--                <directory>src/main/resources</directory>-->
+        <!--                <filtering>true</filtering>-->
+        <!--                <includes>-->
+        <!--                    <include>webui-tests-pom.properties</include>-->
+        <!--                </includes>-->
+        <!--            </resource>-->
 
-            <!-- exclude everything else from filtering -->
-            <resource>
-                <directory>src/main/resources</directory>
-                <filtering>false</filtering>
-                <excludes>
-                    <exclude>webui-tests-pom.properties</exclude>
-                </excludes>
-            </resource>
+        <!--            &lt;!&ndash; exclude everything else from filtering &ndash;&gt;-->
+        <!--            <resource>-->
+        <!--                <directory>src/main/resources</directory>-->
+        <!--                <filtering>false</filtering>-->
+        <!--                <excludes>-->
+        <!--                    <exclude>webui-tests-pom.properties</exclude>-->
+        <!--                </excludes>-->
+        <!--            </resource>-->
 
-        </resources>
+        <!--        </resources>-->
     </build>
 
     <profiles>
