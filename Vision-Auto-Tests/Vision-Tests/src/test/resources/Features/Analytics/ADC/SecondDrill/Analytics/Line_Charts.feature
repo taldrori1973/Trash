@@ -23,11 +23,7 @@ Feature: Second Drill - Validate General Charts
   @SID_4
   Scenario: Login and move to ADC application dashboard
     When UI Login with user "sys_admin" and password "radware"
-    Then UI Open Upper Bar Item "ADC"
-    Then UI Open "Reports" Tab
-    Then UI Open "Dashboards" Tab
-    Then UI Open "Application Dashboard" Sub Tab
-
+    When UI Navigate to "Application Dashboard" page via homePage
   @SID_5
   Scenario: Navigate to Virtual Service
     Then Sleep "3"

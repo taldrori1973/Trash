@@ -130,19 +130,28 @@ public class TopologyTreeHandler {
         deviceProperties.setType(elementType);
         BasicOperationsHandler.delay(0.5);
         deviceProperties.setElementName(deviceName);
-        deviceProperties.mSnmp().setManagementIp(managementIP);
-        deviceProperties.mWebAccess().setUserName(properties.get("httpUserName"));
-        deviceProperties.mWebAccess().setPassword(properties.get("httpPassword"));
         if (elementType != SUTDeviceType.AppWall) {
             if (properties != null) {
                 deviceProperties.mSnmp().setSnmpV2ReadCommunity(properties.get("snmpReadCommunity"));
                 deviceProperties.mSnmp().setSnmpV2WriteCommunity(properties.get("snmpWriteCommunity"));
             }
-        }
-            deviceProperties.mEventNotification().setRegisterVisionServerForDeviceEvents(registerForDeviceEvents);
-            if (registerForDeviceEvents) {
-                deviceProperties.mEventNotification().setVisionServerIp(visionServerIP);
+            if (elementType.equals(SUTDeviceType.DefensePro)) {
+                deviceProperties.mWebAccess().setUserName(properties.get("httpUserNameDefensePro"));
+                deviceProperties.mWebAccess().setPassword(properties.get("httpPasswordDefensePro"));
             }
+
+            deviceProperties.mSnmp().setManagementIp(managementIP);
+//            deviceProperties.mEventNotification().setRegisterVisionServerForDeviceEvents(registerForDeviceEvents);
+//            if (registerForDeviceEvents) {
+//                deviceProperties.mEventNotification().setVisionServerIp(visionServerIP);
+//            }
+        } else {
+            deviceProperties.mWebAccess().setManagementIp(managementIP);
+        }
+        deviceProperties.mEventNotification().setRegisterVisionServerForDeviceEvents(registerForDeviceEvents);
+        if (registerForDeviceEvents) {
+            deviceProperties.mEventNotification().setVisionServerIp(visionServerIP);
+        }
 
         waitForNonSynchronizedState(deviceProperties);
     }

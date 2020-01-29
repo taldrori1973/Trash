@@ -24,8 +24,7 @@ Feature: VRM Alerts Criteria
   @SID_3 @HTTPS_FLOOD
   Scenario: VRM - Login to VRM "Alerts" tab
     Given UI Login with user "sys_admin" and password "radware"
-    And UI Open Upper Bar Item "AMS"
-    And UI Open "Alerts" Tab
+    Then UI Navigate to "AMS Alerts" page via homePage
 
       ###################    CREATE All ALERT Types   ######################################################
 
@@ -357,8 +356,8 @@ Feature: VRM Alerts Criteria
 #    Given CLI simulate 1 attacks of type "rest_traffic_filter" on "DefensePro" 11
     Then REST Delete ES index "alert"
     And CLI simulate 1 attacks of type "VRM_attacks" on "DefensePro" 10 and wait 210 seconds
-    Then UI Open "Forensics" Tab
-    Then UI Open "Alerts" Tab
+    Then UI Navigate to "AMS Forensics" page via homePage
+    Then UI Navigate to "AMS Alerts" page via homePage
 
   @SID_50
   Scenario: modify one attack's rate value to 2TB
@@ -887,8 +886,7 @@ Feature: VRM Alerts Criteria
 
   @SID_136
   Scenario: Verify alert table sorting in modal popup
-    Then UI Open Upper Bar Item "AMS"
-    Then UI Open "Alerts" Tab
+    Then UI Navigate to "AMS Alerts" page via homePage
     Then UI "Check" all the Toggle Alerts
     Then UI "Uncheck" all the Toggle Alerts
     Then UI "Check" Toggle Alerts with name "Alert Destination IPv4"

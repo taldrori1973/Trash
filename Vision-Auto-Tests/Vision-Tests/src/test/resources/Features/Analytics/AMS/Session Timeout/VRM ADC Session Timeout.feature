@@ -18,9 +18,7 @@ Feature: VRM ADC Session Timeout
     Then REST Login with user "radware" and password "radware"
     Then REST Vision Install License Request "vision-reporting-module-ADC"
     Given UI Login with user "sys_admin" and password "radware"
-    And UI Open Upper Bar Item "ADC"
-    And UI Open "Reports" Tab
-
+    Given UI Navigate to "ADC Reports" page via homePage
   @SID_3
   Scenario: Sleep to let configuration timeout expire
     * Sleep "130"
@@ -35,15 +33,18 @@ Feature: VRM ADC Session Timeout
 
   @SID_5
   Scenario: VRM validate ADC dashboard availability while configuration session expired
-    Then UI Open "Dashboards" Tab
-    Then UI Open "Application Dashboard" Sub Tab
+#    Then UI Open "Dashboards" Tab
+#    Then UI Open "Application Dashboard" Sub Tab
+    Given UI Navigate to "Application Dashboard" page via homePage
     Then UI Do Operation "Select" item "Application Selection"
     Then UI Select scope from dashboard and Save Filter device type "Alteon"
       | Rejith_32326515:80 |
     Then UI Validate Pie Chart data "VIRTUAL SERVICES"
       | label    | data |
       | Shutdown | 1    |
-    Then UI Open "Configurations" Tab
+#    Then UI Open "Configurations" Tab
+    Given UI Navigate to "HOME" page via homePage
+
 #    Then UI logout and close browser
 
   @SID_6
@@ -60,8 +61,9 @@ Feature: VRM ADC Session Timeout
   @SID_7
   Scenario: VRM - Login to ADC "Dashboard" tab
     Given UI Login with user "sys_admin" and password "radware"
-    And UI Open Upper Bar Item "ADC"
-    And UI Open "Dashboards" Tab
+#    And UI Open Upper Bar Item "ADC"
+#    And UI Open "Dashboards" Tab
+    Given UI Navigate to "ANALYTICS ADC" page via homePage
 
   @SID_8
   Scenario: Sleep to let configuration timeout expire
@@ -69,9 +71,11 @@ Feature: VRM ADC Session Timeout
 
   @SID_9
   Scenario: VRM validate ADC inavailability while monitoring session expired
-    Then UI Open "Reports" Tab negative
-    Then UI Open "Dashboards" Tab negative
-    Then UI Open "Configurations" Tab
+#    Then UI Open "ADC Reports" Tab negative
+    Given UI Navigate to "ADC Reports" page via homePage
+#    Then UI Open "Dashboards" Tab negative
+    Given UI Navigate to "ANALYTICS ADC" page via homePage
+    Given UI Navigate to "HOME" page via homePage
     Then UI logout and close browser
 
   @SID_10

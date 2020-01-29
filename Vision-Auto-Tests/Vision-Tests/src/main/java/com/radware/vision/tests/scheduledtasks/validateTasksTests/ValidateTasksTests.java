@@ -345,7 +345,7 @@ public class ValidateTasksTests extends WebUITestBase {
 
     @Test
     @TestProperties(name = "Verify ADC Create User Task", paramsInclude = {"taskName", "userId", "deviceName", "deviceIp"})
-    public void verifyAdcCreateUser() {
+    public void verifyAdcCreateUser() throws Exception {
         ValidateTasksHandler.wait4TaskFinished(taskName, restTestBase.getVisionRestClient());
         try {
             if (!LocalUsersHandler.checkIfUserExist(userId, getDeviceName())) {
@@ -360,7 +360,7 @@ public class ValidateTasksTests extends WebUITestBase {
 
     @Test
     @TestProperties(name = "Verify ADC Create User Task", paramsInclude = {"taskName", "userId", "deviceName", "deviceIp"})
-    public void verifyAdcDeleteUser() {
+    public void verifyAdcDeleteUser() throws Exception {
         ValidateTasksHandler.wait4TaskFinished(taskName, restTestBase.getVisionRestClient());
         try {
             if (LocalUsersHandler.checkIfUserExist(userId, getDeviceName())) {

@@ -22,14 +22,7 @@ Feature: ADC dashboard Second Drill - SSL
     Then REST Login with user "sys_admin" and password "radware"
     Then REST Vision Install License Request "vision-reporting-module-ADC"
     Then UI Login with user "sys_admin" and password "radware"
-    Then UI Open Upper Bar Item "ADC"
-    Then UI Open "Dashboards" Tab
-    Then UI Open "Application Dashboard" Sub Tab
-    Then UI Open "Configurations" Tab
-    Then UI Open Upper Bar Item "ADC"
-    Then UI Open "Dashboards" Tab
-    Then UI Open "Application Dashboard" Sub Tab
-
+    When UI Navigate to "Application Dashboard" page via homePage
 
 
   @SID_5

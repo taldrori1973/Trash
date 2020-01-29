@@ -10,6 +10,7 @@ import com.radware.automation.react.widgets.impl.enums.WebElementType;
 import com.radware.automation.tools.basetest.BaseTestUtils;
 import com.radware.automation.tools.basetest.Reporter;
 import com.radware.automation.tools.utils.InvokeUtils;
+import com.radware.automation.tools.utils.PropertiesFilesUtils;
 import com.radware.automation.webui.VisionDebugIdsManager;
 import com.radware.automation.webui.WebUIUtils;
 import com.radware.automation.webui.utils.WebUIStrings;
@@ -30,9 +31,8 @@ import com.radware.automation.webui.widgets.impl.WebUITextField;
 import com.radware.vision.automation.tools.exceptions.misc.NoSuchOperationException;
 import com.radware.vision.automation.tools.exceptions.selenium.TargetWebElementNotFoundException;
 import com.radware.vision.automation.tools.sutsystemobjects.devicesinfo.enums.SUTDeviceType;
-import com.radware.vision.infra.testhandlers.vrm.ForensicsHandler;
+import com.radware.vision.infra.base.pages.navigation.HomePage;
 import com.radware.vision.infra.testhandlers.vrm.VRMBaseUtilies;
-import com.radware.vision.infra.testhandlers.vrm.VRMHandler;
 import com.radware.vision.vision_project_cli.MysqlClientCli;
 import com.radware.vision.vision_project_cli.RadwareServerCli;
 import com.radware.vision.vision_project_cli.RootServerCli;
@@ -599,13 +599,12 @@ public class BasicOperationsHandler {
         try {
             //Makes sure browser is maximized or the user name will not be seem.
             WebUIDriver.getDriver().manage().window().maximize();
-            //TODO - to be used when Vision will be React application
-//            VisionDebugIdsManager.setLabel("User Details");
-//            webElement = WebUIUtils.fluentWaitDisplayedEnabled(
-//                    ComponentLocatorFactory.getEqualLocatorByDbgId(VisionDebugIdsManager.getDataDebugId()).getBy(),
-//                    WebUIUtils.DEFAULT_LOGIN_WAIT_TIME, false);
 
-            webElement = WebUIUtils.fluentWaitDisplayedEnabled(new ComponentLocator(How.ID, WebUIStringsVision.getUserName()).getBy(), WebUIUtils.DEFAULT_LOGIN_WAIT_TIME, false);
+            VisionDebugIdsManager.setTab("HomePage");
+            VisionDebugIdsManager.setLabel("loggedInUsername");
+            WebUIUtils.sleep(3);
+            webElement = WebUIUtils.fluentWait(ComponentLocatorFactory.getLocatorByDbgId(VisionDebugIdsManager.getDataDebugId()).getBy());
+//            webElement = WebUIUtils.fluentWaitDisplayedEnabled(new ComponentLocator(How.ID, WebUIStringsVision.getUserName()).getBy(), WebUIUtils.DEFAULT_LOGIN_WAIT_TIME, false);
             if (webElement != null) {
                 //TODO find a better way to validate login page was rendered successfully
                 Thread.sleep(7000);
@@ -620,7 +619,8 @@ public class BasicOperationsHandler {
     public static boolean isLoggedOut(long waitTimeout) {
         if (!isLoggedIn)
             return true;
-        ComponentLocator locator = new ComponentLocator(How.ID, WebUIStringsVision.getVisionLoginIcon());
+//        ComponentLocator locator = new ComponentLocator(How.ID, WebUIStringsVision.getVisionLoginIcon());
+        ComponentLocator locator = ComponentLocatorFactory.getLocatorByXpathDbgId("button_");
         try {
             WebElement loginIcon = WebUIUtils.fluentWaitDisplayed(locator.getBy(), waitTimeout, false);
             if (loginIcon != null) {
@@ -651,7 +651,7 @@ public class BasicOperationsHandler {
     }
 
     public static void settings() {
-        WebUIUpperBar.select(UpperBarItems.VisionSettings);
+        navigateFromHomePage("HOME");
         WebUIBasePage.closeAllYellowMessages();
 
         //Verify the click
@@ -1029,6 +1029,25 @@ public class BasicOperationsHandler {
                 VRMBaseUtilies.expandViews(true);
                 break;
         }
+
+    }
+
+    public static void navigateFromHomePage(String pageName) {
+        try {
+            closeAllPopups();
+            HomePage.navigateFromHomePage(PropertiesFilesUtils.mapAllPropertyFiles("Navigations").get(pageName));
+        } catch (Exception e) {
+            BaseTestUtils.report(e.getMessage(), Reporter.FAIL);
+        }
+    }
+
+    private static void closeAllPopups() {
+        ComponentLocator locator = ComponentLocatorFactory.getLocatorByClass("ant-modal-close");
+        if ((WebUIUtils.fluentWait(locator.getBy(), WebUIUtils.SHORT_WAIT_TIME)) != null && WebUIUtils.fluentWait(locator.getBy(), WebUIUtils.SHORT_WAIT_TIME).isDisplayed())
+            try
+            {
+                WebUIUtils.fluentWaitClick(locator.getBy(), WebUIUtils.SHORT_WAIT_TIME,  false).click();
+            }catch (ElementNotInteractableException ignore){}
 
     }
 }

@@ -42,7 +42,7 @@ public class OperatorToolboxHandler extends BaseTasksHandler {
     public static class AdcCreateUser {
 
 
-        public static void addAdcCreateUserTask(HashMap<String, String> taskProperties) {
+        public static void addAdcCreateUserTask(HashMap<String, String> taskProperties) throws Exception {
             beforeAddTask(taskProperties);
             taskEntity.getConfigurationTemplate().selectScript(ToolboxActionsEnum.ADC_CREATE_USERS);
             setAdcScriptParams(taskProperties);
@@ -76,7 +76,7 @@ public class OperatorToolboxHandler extends BaseTasksHandler {
     public static class AdcDeleteUser {
 
 
-        public static void addAdcDeleteUserTask(HashMap<String, String> taskProperties) {
+        public static void addAdcDeleteUserTask(HashMap<String, String> taskProperties) throws Exception {
             beforeAddTask(taskProperties);
             taskEntity.getConfigurationTemplate().selectScript(ToolboxActionsEnum.ADC_DELETE_USERS);
             switchToParameterTab();

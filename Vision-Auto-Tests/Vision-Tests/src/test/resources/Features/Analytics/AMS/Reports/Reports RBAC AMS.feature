@@ -11,8 +11,8 @@ Feature: VRM AMS Reports RBAC
   @SID_2
   Scenario: Login as admin and create six types of reports
     Given UI Login with user "sys_admin" and password "radware"
-    When UI Open Upper Bar Item "AMS"
-    When UI Open "Reports" Tab
+    And UI Navigate to "AMS Reports" page via homePage
+
     Given UI "Create" Report With Name "Analytics_AllDevAllPol"
       | reportType | DefensePro Analytics Dashboard |
     Given UI "Create" Report With Name "Baseline_AllDevAllPol"

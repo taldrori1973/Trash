@@ -3,7 +3,7 @@ Feature: Traffic Throughput and PPS Widgets
 # pre-requisites: simulator that will include 30 ports and will contain fields with various types of data units. e.g. K, M, G, T, P, E
   # select simulator 50.50.101.22 for these tests
   @SID_1
-  Scenario: Login and go to ADC dashboards
+  Scenario: Login
     Then REST Login with user "sys_admin" and password "radware"
     Then REST Vision Install License Request "vision-reporting-module-ADC"
     Then UI Login with user "sys_admin" and password "radware"
@@ -12,130 +12,122 @@ Feature: Traffic Throughput and PPS Widgets
     Then UI Open "Application Dashboard" Sub Tab
     Then UI Open "Configurations" Tab
     Then UI Open Upper Bar Item "ADC"
-
-  @SID_2
-  Scenario: Go to ADC network dashboard of one ADC
-    Then Sleep "90"
     Then UI Open "Dashboards" Tab
     Then UI Open "Network and System Dashboard" Sub Tab
     Then UI click Table row by keyValue or Index with elementLabel "Devices table" findBy columnName "Device Name" findBy cellValue "Alteon_50.50.101.22"
     Then UI Click Button "NetworkTab"
 
-  @SID_3
-  Scenario: Validate default data(15 minutes) - transmit packets
+  @SID_2
+  Scenario: Validate default data(15 minutes) - transmit and receive
 
   # validation of PPS transmit widget
     #    Then UI Validate Line Chart data "NETWORK-TRAFFIC-WIDGET-PACKETS-TRANSMIT" with Label "port_01"
 #      | value | count | offset |
-#      | 996999.0   | 17    | 15     |
+#      | 996999.0   | 30    | 1      |
 #    Then UI Validate Line Chart data "NETWORK-TRAFFIC-WIDGET-PACKETS-TRANSMIT" with Label "port_02"
 #      | value | count | offset |
-#      | 26.0   | 17    | 15     |
+#      | 26.0   | 30    | 1      |
 #    Then UI Validate Line Chart data "NETWORK-TRAFFIC-WIDGET-PACKETS-TRANSMIT" with Label "port_03"
 #      | value | count | offset |
-#      | 36.0   | 17    | 15     |
+#      | 36.0   | 30    | 1      |
 #    Then UI Validate Line Chart data "NETWORK-TRAFFIC-WIDGET-PACKETS-TRANSMIT" with Label "port_04"
 #      | value | count | offset |
-#      | 46.0   | 17    | 15     |
+#      | 46.0   | 30    | 1      |
 #    Then UI Validate Line Chart data "NETWORK-TRAFFIC-WIDGET-PACKETS-TRANSMIT" with Label "port_05"
 #      | value | count | offset |
-#      | 56.0   | 17    | 15     |
+#      | 56.0   | 30    | 1      |
 #    Then UI Validate Line Chart data "NETWORK-TRAFFIC-WIDGET-PACKETS-TRANSMIT" with Label "port_6"
 #      | value | count | offset |
-#      | 66.0   | 17    | 15     |
+#      | 66.0   | 30    | 1      |
 #    Then UI Validate Line Chart data "NETWORK-TRAFFIC-WIDGET-PACKETS-TRANSMIT" with Label "port_7"
 #      | value | count | offset |
-#      | 76.0   | 17    | 15     |
+#      | 76.0   | 30    | 1      |
 #    Then UI Validate Line Chart data "NETWORK-TRAFFIC-WIDGET-PACKETS-TRANSMIT" with Label "port_8"
 #      | value | count | offset |
-#      | 86.0   | 17    | 15     |
+#      | 86.0   | 30    | 1      |
 
     Then UI Validate Line Chart data "NETWORK-TRAFFIC-WIDGET-PACKETS-TRANSMIT" with Label "port_01"
       | value    | count | offset |
-      | 996999.0 | 17    | 15     |
+      | 996999.0 | 30    | 1      |
     Then UI Validate Line Chart data "NETWORK-TRAFFIC-WIDGET-PACKETS-TRANSMIT" with Label "port_02"
       | value | count | offset |
-      | 26.0  | 17    | 15     |
+      | 26.0  | 30    | 1      |
     Then UI Validate Line Chart data "NETWORK-TRAFFIC-WIDGET-PACKETS-TRANSMIT" with Label "port_03"
       | value | count | offset |
-      | 36.0  | 17    | 15     |
+      | 36.0  | 30    | 1      |
     Then UI Validate Line Chart data "NETWORK-TRAFFIC-WIDGET-PACKETS-TRANSMIT" with Label "port_04"
       | value | count | offset |
-      | 46.0  | 17    | 15     |
+      | 46.0  | 30    | 1      |
     Then UI Validate Line Chart data "NETWORK-TRAFFIC-WIDGET-PACKETS-TRANSMIT" with Label "port_05"
       | value | count | offset |
-      | 56.0  | 17    | 15     |
-    Then UI Validate Line Chart data "NETWORK-TRAFFIC-WIDGET-PACKETS-TRANSMIT" with Label "port_06"
+      | 56.0  | 30    | 1      |
+    Then UI Validate Line Chart data "NETWORK-TRAFFIC-WIDGET-PACKETS-TRANSMIT" with Label "port_16"
       | value | count | offset |
-      | 66.0  | 17    | 15     |
-    Then UI Validate Line Chart data "NETWORK-TRAFFIC-WIDGET-PACKETS-TRANSMIT" with Label "port_07"
+      | 166.0 | 30    | 1      |
+    Then UI Validate Line Chart data "NETWORK-TRAFFIC-WIDGET-PACKETS-TRANSMIT" with Label "port_17"
       | value | count | offset |
-      | 76.0  | 17    | 15     |
-    Then UI Validate Line Chart data "NETWORK-TRAFFIC-WIDGET-PACKETS-TRANSMIT" with Label "port_08"
+      | 176.0 | 30    | 1      |
+    Then UI Validate Line Chart data "NETWORK-TRAFFIC-WIDGET-PACKETS-TRANSMIT" with Label "port_18"
       | value | count | offset |
-      | 86.0  | 17    | 15     |
+      | 186.0 | 30    | 1      |
 
     Then UI validate dataSets of lineChart "NETWORK-TRAFFIC-WIDGET-PACKETS-TRANSMIT" with size "8"
 
-  @SID_4
-  Scenario: Validate default data(15 minutes) - transmit bw
   # ============================================== #
     # = validation of throughput transmit widget =
     # ============================================
     #    Then UI Validate Line Chart data "NETWORK-TRAFFIC-WIDGET-THROUGHPUT-TRANSMIT" with Label "port_01"
 #      | value | count | offset |
-#      | 12.0   | 17    | 15     |
+#      | 12.0   | 30    | 1      |
 #    Then UI Validate Line Chart data "NETWORK-TRAFFIC-WIDGET-THROUGHPUT-TRANSMIT" with Label "port_02"
 #      | value | count | offset |
-#      | 22.0   | 17    | 15     |
+#      | 22.0   | 30    | 1      |
 #    Then UI Validate Line Chart data "NETWORK-TRAFFIC-WIDGET-THROUGHPUT-TRANSMIT" with Label "port_03"
 #      | value | count | offset |
-#      | 32.0   | 17    | 15     |
+#      | 32.0   | 30    | 1      |
 #    Then UI Validate Line Chart data "NETWORK-TRAFFIC-WIDGET-THROUGHPUT-TRANSMIT" with Label "port_04"
 #      | value | count | offset |
-#      | 42.0   | 17    | 15     |
+#      | 42.0   | 30    | 1      |
 #    Then UI Validate Line Chart data "NETWORK-TRAFFIC-WIDGET-THROUGHPUT-TRANSMIT" with Label "port_05"
 #      | value | count | offset |
-#      | 52.0   | 17    | 15     |
+#      | 52.0   | 30    | 1      |
 #    Then UI Validate Line Chart data "NETWORK-TRAFFIC-WIDGET-THROUGHPUT-TRANSMIT" with Label "port_6"
 #      | value | count | offset |
-#      | 62.0   | 17    | 15     |
+#      | 62.0   | 30    | 1      |
 #    Then UI Validate Line Chart data "NETWORK-TRAFFIC-WIDGET-THROUGHPUT-TRANSMIT" with Label "port_7"
 #      | value | count | offset |
-#      | 72.0   | 17    | 15     |
+#      | 72.0   | 30    | 1      |
 #    Then UI Validate Line Chart data "NETWORK-TRAFFIC-WIDGET-THROUGHPUT-TRANSMIT" with Label "port_8"
 #      | value | count | offset |
-#      | 82.0   | 17    | 15     |
+#      | 82.0   | 30    | 1      |
 
     Then UI Validate Line Chart data "NETWORK-TRAFFIC-WIDGET-THROUGHPUT-TRANSMIT" with Label "port_01"
       | value | count | offset |
-      | 12.0  | 17    | 15     |
+      | 12.0  | 30    | 1      |
     Then UI Validate Line Chart data "NETWORK-TRAFFIC-WIDGET-THROUGHPUT-TRANSMIT" with Label "port_02"
       | value | count | offset |
-      | 22.0  | 17    | 15     |
+      | 22.0  | 30    | 1      |
     Then UI Validate Line Chart data "NETWORK-TRAFFIC-WIDGET-THROUGHPUT-TRANSMIT" with Label "port_03"
       | value | count | offset |
-      | 32.0  | 17    | 15     |
+      | 32.0  | 30    | 1      |
     Then UI Validate Line Chart data "NETWORK-TRAFFIC-WIDGET-THROUGHPUT-TRANSMIT" with Label "port_04"
       | value | count | offset |
-      | 42.0  | 17    | 15     |
+      | 42.0  | 30    | 1      |
     Then UI Validate Line Chart data "NETWORK-TRAFFIC-WIDGET-THROUGHPUT-TRANSMIT" with Label "port_05"
       | value | count | offset |
-      | 52.0  | 17    | 15     |
-    Then UI Validate Line Chart data "NETWORK-TRAFFIC-WIDGET-THROUGHPUT-TRANSMIT" with Label "port_06"
+      | 52.0  | 30    | 1      |
+    Then UI Validate Line Chart data "NETWORK-TRAFFIC-WIDGET-THROUGHPUT-TRANSMIT" with Label "port_16"
       | value | count | offset |
-      |  62.0 | 17    | 15     |
-    Then UI Validate Line Chart data "NETWORK-TRAFFIC-WIDGET-THROUGHPUT-TRANSMIT" with Label "port_07"
+      | 162.0 | 30    | 1      |
+    Then UI Validate Line Chart data "NETWORK-TRAFFIC-WIDGET-THROUGHPUT-TRANSMIT" with Label "port_17"
       | value | count | offset |
-      |  72.0 | 17    | 15     |
-    Then UI Validate Line Chart data "NETWORK-TRAFFIC-WIDGET-THROUGHPUT-TRANSMIT" with Label "port_08"
+      | 172.0 | 30    | 1      |
+    Then UI Validate Line Chart data "NETWORK-TRAFFIC-WIDGET-THROUGHPUT-TRANSMIT" with Label "port_18"
       | value | count | offset |
-      |  82.0 | 17    | 15     |
+      | 182.0 | 30    | 1      |
 
     Then UI validate dataSets of lineChart "NETWORK-TRAFFIC-WIDGET-THROUGHPUT-TRANSMIT" with size "8"
 
-  @SID_5
-  Scenario: Validate default data(15 minutes) - receive bw
     # ============================================== #
     # = validation of throughput received widget =
     # ============================================
@@ -145,119 +137,117 @@ Feature: Traffic Throughput and PPS Widgets
     Then UI Validate Switch button "trafficPackets receiveButton" with params "" isSelected "true"
     #    Then UI Validate Line Chart data "NETWORK-TRAFFIC-WIDGET-THROUGHPUT-RECEIVED" with Label "port_01"
 #      | value | count | offset |
-#      | 11.0   | 17    | 15     |
+#      | 11.0   | 30    | 1      |
 #    Then UI Validate Line Chart data "NETWORK-TRAFFIC-WIDGET-THROUGHPUT-RECEIVED" with Label "port_02"
 #      | value | count | offset |
-#      | 21.0   | 17    | 15     |
+#      | 21.0   | 30    | 1      |
 #    Then UI Validate Line Chart data "NETWORK-TRAFFIC-WIDGET-THROUGHPUT-RECEIVED" with Label "port_03"
 #      | value | count | offset |
-#      | 31.0   | 17    | 15     |
+#      | 31.0   | 30    | 1      |
 #    Then UI Validate Line Chart data "NETWORK-TRAFFIC-WIDGET-THROUGHPUT-RECEIVED" with Label "port_04"
 #      | value | count | offset |
-#      | 41.0   | 17    | 15     |
+#      | 41.0   | 30    | 1      |
 #    Then UI Validate Line Chart data "NETWORK-TRAFFIC-WIDGET-THROUGHPUT-RECEIVED" with Label "port_05"
 #      | value | count | offset |
-#      | 51.0   | 17    | 15     |
+#      | 51.0   | 30    | 1      |
 #    Then UI Validate Line Chart data "NETWORK-TRAFFIC-WIDGET-THROUGHPUT-RECEIVED" with Label "port_6"
 #      | value | count | offset |
-#      | 61.0   | 17    | 15     |
+#      | 61.0   | 30    | 1      |
 #    Then UI Validate Line Chart data "NETWORK-TRAFFIC-WIDGET-THROUGHPUT-RECEIVED" with Label "port_7"
 #      | value | count | offset |
-#      | 71.0   | 17    | 15     |
+#      | 71.0   | 30    | 1      |
 #    Then UI Validate Line Chart data "NETWORK-TRAFFIC-WIDGET-THROUGHPUT-RECEIVED" with Label "port_8"
 #      | value | count | offset |
-#      | 81.0   | 17    | 15     |
+#      | 81.0   | 30    | 1      |
 
     Then UI Validate Line Chart data "NETWORK-TRAFFIC-WIDGET-THROUGHPUT-RECEIVED" with Label "port_01"
       | value | count | offset |
-      | 11.0  | 17    | 15     |
+      | 11.0  | 30    | 1      |
     Then UI Validate Line Chart data "NETWORK-TRAFFIC-WIDGET-THROUGHPUT-RECEIVED" with Label "port_02"
       | value | count | offset |
-      | 21.0  | 17    | 15     |
+      | 21.0  | 30    | 1      |
     Then UI Validate Line Chart data "NETWORK-TRAFFIC-WIDGET-THROUGHPUT-RECEIVED" with Label "port_03"
       | value | count | offset |
-      | 31.0  | 17    | 15     |
+      | 31.0  | 30    | 1      |
     Then UI Validate Line Chart data "NETWORK-TRAFFIC-WIDGET-THROUGHPUT-RECEIVED" with Label "port_04"
       | value | count | offset |
-      | 41.0  | 17    | 15     |
+      | 41.0  | 30    | 1      |
     Then UI Validate Line Chart data "NETWORK-TRAFFIC-WIDGET-THROUGHPUT-RECEIVED" with Label "port_05"
       | value | count | offset |
-      | 51.0  | 17    | 15     |
-    Then UI Validate Line Chart data "NETWORK-TRAFFIC-WIDGET-THROUGHPUT-RECEIVED" with Label "port_06"
+      | 51.0  | 30    | 1      |
+    Then UI Validate Line Chart data "NETWORK-TRAFFIC-WIDGET-THROUGHPUT-RECEIVED" with Label "port_16"
       | value | count | offset |
-      |  61.0 | 17    | 15     |
-    Then UI Validate Line Chart data "NETWORK-TRAFFIC-WIDGET-THROUGHPUT-RECEIVED" with Label "port_07"
+      | 161.0 | 30    | 1      |
+    Then UI Validate Line Chart data "NETWORK-TRAFFIC-WIDGET-THROUGHPUT-RECEIVED" with Label "port_17"
       | value | count | offset |
-      |  71.0 | 17    | 15     |
-    Then UI Validate Line Chart data "NETWORK-TRAFFIC-WIDGET-THROUGHPUT-RECEIVED" with Label "port_08"
+      | 171.0 | 30    | 1      |
+    Then UI Validate Line Chart data "NETWORK-TRAFFIC-WIDGET-THROUGHPUT-RECEIVED" with Label "port_18"
       | value | count | offset |
-      |  81.0 | 17    | 15     |
+      | 181.0 | 30    | 1      |
 
     Then UI validate dataSets of lineChart "NETWORK-TRAFFIC-WIDGET-THROUGHPUT-RECEIVED" with size "8"
 
-  @SID_6
-  Scenario: Validate default data(15 minutes) - receive packets
     # ============================================== #
     # = validation of PPS received widget =
     # ============================================
 
     #    Then UI Validate Line Chart data "NETWORK-TRAFFIC-WIDGET-PACKETS-RECEIVED" with Label "port_01"
 #      | value | count | offset |
-#      | 9.9999998430674944E17   | 17    | 15     |
+#      | 9.9999998430674944E17   | 30    | 1      |
 #    Then UI Validate Line Chart data "NETWORK-TRAFFIC-WIDGET-PACKETS-RECEIVED" with Label "port_02"
 #      | value | count | offset |
-#      | 25.0   | 17    | 15     |
+#      | 25.0   | 30    | 1      |
 #    Then UI Validate Line Chart data "NETWORK-TRAFFIC-WIDGET-PACKETS-RECEIVED" with Label "port_03"
 #      | value | count | offset |
-#      | 35.0   | 17    | 15     |
+#      | 35.0   | 30    | 1      |
 #    Then UI Validate Line Chart data "NETWORK-TRAFFIC-WIDGET-PACKETS-RECEIVED" with Label "port_04"
 #      | value | count | offset |
-#      | 45.0   | 17    | 15     |
+#      | 45.0   | 30    | 1      |
 #    Then UI Validate Line Chart data "NETWORK-TRAFFIC-WIDGET-PACKETS-RECEIVED" with Label "port_05"
 #      | value | count | offset |
-#      | 55.0   | 17    | 15     |
+#      | 55.0   | 30    | 1      |
 #    Then UI Validate Line Chart data "NETWORK-TRAFFIC-WIDGET-PACKETS-RECEIVED" with Label "port_6"
 #      | value | count | offset |
-#      | 65.0   | 17    | 15     |
+#      | 65.0   | 30    | 1      |
 #    Then UI Validate Line Chart data "NETWORK-TRAFFIC-WIDGET-PACKETS-RECEIVED" with Label "port_7"
 #      | value | count | offset |
-#      | 75.0   | 17    | 15     |
+#      | 75.0   | 30    | 1      |
 #    Then UI Validate Line Chart data "NETWORK-TRAFFIC-WIDGET-PACKETS-RECEIVED" with Label "port_8"
 #      | value | count | offset |
-#      | 85.0   | 17    | 15     |
+#      | 85.0   | 30    | 1      |
 
     Then UI Validate Line Chart data "NETWORK-TRAFFIC-WIDGET-PACKETS-RECEIVED" with Label "port_01"
       | value                 | count | offset |
-      | 9.9999998430674944E17 | 17    | 15     |
+      | 9.9999998430674944E17 | 30    | 1      |
     Then UI Validate Line Chart data "NETWORK-TRAFFIC-WIDGET-PACKETS-RECEIVED" with Label "port_02"
       | value | count | offset |
-      | 25.0  | 17    | 15     |
+      | 25.0  | 30    | 1      |
     Then UI Validate Line Chart data "NETWORK-TRAFFIC-WIDGET-PACKETS-RECEIVED" with Label "port_03"
       | value | count | offset |
-      | 35.0  | 17    | 15     |
+      | 35.0  | 30    | 1      |
     Then UI Validate Line Chart data "NETWORK-TRAFFIC-WIDGET-PACKETS-RECEIVED" with Label "port_04"
       | value | count | offset |
-      | 45.0  | 17    | 15     |
+      | 45.0  | 30    | 1      |
     Then UI Validate Line Chart data "NETWORK-TRAFFIC-WIDGET-PACKETS-RECEIVED" with Label "port_05"
       | value | count | offset |
-      | 55.0  | 17    | 15     |
-    Then UI Validate Line Chart data "NETWORK-TRAFFIC-WIDGET-PACKETS-RECEIVED" with Label "port_06"
+      | 55.0  | 30    | 1      |
+    Then UI Validate Line Chart data "NETWORK-TRAFFIC-WIDGET-PACKETS-RECEIVED" with Label "port_16"
       | value | count | offset |
-      |  65.0 | 17    | 15     |
-    Then UI Validate Line Chart data "NETWORK-TRAFFIC-WIDGET-PACKETS-RECEIVED" with Label "port_07"
+      | 165.0 | 30    | 1      |
+    Then UI Validate Line Chart data "NETWORK-TRAFFIC-WIDGET-PACKETS-RECEIVED" with Label "port_17"
       | value | count | offset |
-      |  75.0 | 17    | 15     |
-    Then UI Validate Line Chart data "NETWORK-TRAFFIC-WIDGET-PACKETS-RECEIVED" with Label "port_08"
+      | 175.0 | 30    | 1      |
+    Then UI Validate Line Chart data "NETWORK-TRAFFIC-WIDGET-PACKETS-RECEIVED" with Label "port_18"
       | value | count | offset |
-      |  85.0 | 17    | 15     |
+      | 185.0 | 30    | 1      |
 
     Then UI validate dataSets of lineChart "NETWORK-TRAFFIC-WIDGET-PACKETS-RECEIVED" with size "8"
 #    Then UI Validate Line Chart rate time with "30s" for "NETWORK-TRAFFIC-WIDGET-PACKETS-RECEIVED" chart
 
 
     # this step validates the transmit first since it's the default selection - use device 50.50.101.22 for these tests
-  @SID_7
-  Scenario: Validate data by user ports selection - transmit packets
+  @SID_3
+  Scenario: Validate data by user ports selection - transmit and receive
     Then UI Click List item by selector id "Ports List" with label "port_01" checkUncheck state "false"
     Then UI Click List item by selector id "Ports List" with label "port_05" checkUncheck state "false"
     Then UI Click List item by selector id "Ports List" with label "port_19" checkUncheck state "true"
@@ -271,103 +261,99 @@ Feature: Traffic Throughput and PPS Widgets
   # validation of PPS transmit widget
 #    Then UI Validate Line Chart data "NETWORK-TRAFFIC-WIDGET-PACKETS-TRANSMIT" with Label "port_02"
 #      | value | count | offset |
-#      | 26.0   | 17    | 15     |
+#      | 26.0   | 30    | 1      |
 #    Then UI Validate Line Chart data "NETWORK-TRAFFIC-WIDGET-PACKETS-TRANSMIT" with Label "port_03"
 #      | value | count | offset |
-#      | 36.0   | 17    | 15     |
+#      | 36.0   | 30    | 1      |
 #    Then UI Validate Line Chart data "NETWORK-TRAFFIC-WIDGET-PACKETS-TRANSMIT" with Label "port_04"
 #      | value | count | offset |
-#      | 46.0   | 17    | 15     |
+#      | 46.0   | 30    | 1      |
 #    Then UI Validate Line Chart data "NETWORK-TRAFFIC-WIDGET-PACKETS-TRANSMIT" with Label "port_6"
 #      | value | count | offset |
-#      | 66.0   | 17    | 15     |
+#      | 66.0   | 30    | 1      |
 #    Then UI Validate Line Chart data "NETWORK-TRAFFIC-WIDGET-PACKETS-TRANSMIT" with Label "port_7"
 #      | value | count | offset |
-#      | 76.0   | 17    | 15     |
+#      | 76.0   | 30    | 1      |
 #    Then UI Validate Line Chart data "NETWORK-TRAFFIC-WIDGET-PACKETS-TRANSMIT" with Label "port_8"
 #      | value | count | offset |
-#      | 86.0   | 17    | 15     |
+#      | 86.0   | 30    | 1      |
 #    Then UI Validate Line Chart data "NETWORK-TRAFFIC-WIDGET-PACKETS-TRANSMIT" with Label "port_19"
 #      | value | count | offset |
-#      | 196.0   | 17    | 15     |
+#      | 196.0   | 30    | 1      |
 
     Then UI Validate Line Chart data "NETWORK-TRAFFIC-WIDGET-PACKETS-TRANSMIT" with Label "port_02"
       | value | count | offset |
-      | 26.0  | 17    | 15     |
+      | 26.0  | 30    | 1      |
     Then UI Validate Line Chart data "NETWORK-TRAFFIC-WIDGET-PACKETS-TRANSMIT" with Label "port_03"
       | value | count | offset |
-      | 36.0  | 17    | 15     |
+      | 36.0  | 30    | 1      |
     Then UI Validate Line Chart data "NETWORK-TRAFFIC-WIDGET-PACKETS-TRANSMIT" with Label "port_04"
       | value | count | offset |
-      | 46.0  | 17    | 15     |
-    Then UI Validate Line Chart data "NETWORK-TRAFFIC-WIDGET-PACKETS-TRANSMIT" with Label "port_06"
+      | 46.0  | 30    | 1      |
+    Then UI Validate Line Chart data "NETWORK-TRAFFIC-WIDGET-PACKETS-TRANSMIT" with Label "port_16"
       | value | count | offset |
-      |  66.0 | 17    | 15     |
-    Then UI Validate Line Chart data "NETWORK-TRAFFIC-WIDGET-PACKETS-TRANSMIT" with Label "port_07"
+      | 166.0 | 30    | 1      |
+    Then UI Validate Line Chart data "NETWORK-TRAFFIC-WIDGET-PACKETS-TRANSMIT" with Label "port_17"
       | value | count | offset |
-      |  76.0 | 17    | 15     |
-    Then UI Validate Line Chart data "NETWORK-TRAFFIC-WIDGET-PACKETS-TRANSMIT" with Label "port_08"
+      | 176.0 | 30    | 1      |
+    Then UI Validate Line Chart data "NETWORK-TRAFFIC-WIDGET-PACKETS-TRANSMIT" with Label "port_18"
       | value | count | offset |
-      |  86.0 | 17    | 15     |
+      | 186.0 | 30    | 1      |
     Then UI Validate Line Chart data "NETWORK-TRAFFIC-WIDGET-PACKETS-TRANSMIT" with Label "port_19"
       | value | count | offset |
-      | 196.0 | 17    | 15     |
+      | 196.0 | 30    | 1      |
 
     Then UI validate dataSets of lineChart "NETWORK-TRAFFIC-WIDGET-PACKETS-TRANSMIT" with size "7"
 
-  @SID_8
-  Scenario: Validate data by user ports selection - transmit bw
   # ============================================== #
     # = validation of throughput transmit widget =
     # ============================================
 #    Then UI Validate Line Chart data "NETWORK-TRAFFIC-WIDGET-THROUGHPUT-TRANSMIT" with Label "port_02"
 #      | value | count | offset |
-#      | 22.0   | 17    | 15     |
+#      | 22.0   | 30    | 1      |
 #    Then UI Validate Line Chart data "NETWORK-TRAFFIC-WIDGET-THROUGHPUT-TRANSMIT" with Label "port_03"
 #      | value | count | offset |
-#      | 32.0   | 17    | 15     |
+#      | 32.0   | 30    | 1      |
 #    Then UI Validate Line Chart data "NETWORK-TRAFFIC-WIDGET-THROUGHPUT-TRANSMIT" with Label "port_04"
 #      | value | count | offset |
-#      | 42.0   | 17    | 15     |
+#      | 42.0   | 30    | 1      |
 #    Then UI Validate Line Chart data "NETWORK-TRAFFIC-WIDGET-THROUGHPUT-TRANSMIT" with Label "port_6"
 #      | value | count | offset |
-#      | 62.0   | 17    | 15     |
+#      | 62.0   | 30    | 1      |
 #    Then UI Validate Line Chart data "NETWORK-TRAFFIC-WIDGET-THROUGHPUT-TRANSMIT" with Label "port_7"
 #      | value | count | offset |
-#      | 72.0   | 17    | 15     |
+#      | 72.0   | 30    | 1      |
 #    Then UI Validate Line Chart data "NETWORK-TRAFFIC-WIDGET-THROUGHPUT-TRANSMIT" with Label "port_8"
 #      | value | count | offset |
-#      | 82.0   | 17    | 15     |
+#      | 82.0   | 30    | 1      |
 #    Then UI Validate Line Chart data "NETWORK-TRAFFIC-WIDGET-THROUGHPUT-TRANSMIT" with Label "port_19"
 #      | value | count | offset |
-#      | 192.0   | 17    | 15     |
+#      | 192.0   | 30    | 1      |
 
     Then UI Validate Line Chart data "NETWORK-TRAFFIC-WIDGET-THROUGHPUT-TRANSMIT" with Label "port_02"
       | value | count | offset |
-      | 22.0  | 17    | 15     |
+      | 22.0  | 30    | 1      |
     Then UI Validate Line Chart data "NETWORK-TRAFFIC-WIDGET-THROUGHPUT-TRANSMIT" with Label "port_03"
       | value | count | offset |
-      | 32.0  | 17    | 15     |
+      | 32.0  | 30    | 1      |
     Then UI Validate Line Chart data "NETWORK-TRAFFIC-WIDGET-THROUGHPUT-TRANSMIT" with Label "port_04"
       | value | count | offset |
-      | 42.0  | 17    | 15     |
-    Then UI Validate Line Chart data "NETWORK-TRAFFIC-WIDGET-THROUGHPUT-TRANSMIT" with Label "port_06"
+      | 42.0  | 30    | 1      |
+    Then UI Validate Line Chart data "NETWORK-TRAFFIC-WIDGET-THROUGHPUT-TRANSMIT" with Label "port_16"
       | value | count | offset |
-      |  62.0 | 17    | 15     |
-    Then UI Validate Line Chart data "NETWORK-TRAFFIC-WIDGET-THROUGHPUT-TRANSMIT" with Label "port_07"
+      | 162.0 | 30    | 1      |
+    Then UI Validate Line Chart data "NETWORK-TRAFFIC-WIDGET-THROUGHPUT-TRANSMIT" with Label "port_17"
       | value | count | offset |
-      |  72.0 | 17    | 15     |
-    Then UI Validate Line Chart data "NETWORK-TRAFFIC-WIDGET-THROUGHPUT-TRANSMIT" with Label "port_08"
+      | 172.0 | 30    | 1      |
+    Then UI Validate Line Chart data "NETWORK-TRAFFIC-WIDGET-THROUGHPUT-TRANSMIT" with Label "port_18"
       | value | count | offset |
-      |  82.0 | 17    | 15     |
-    Then UI Validate Line Chart data "NETWORK-TRAFFIC-WIDGET-THROUGHPUT-TRANSMIT" with Label "port_19"
-      | value | count | offset |
-      | 192.0 | 17    | 15     |
+      | 182.0 | 30    | 1      |
+#    Then UI Validate Line Chart data "NETWORK-TRAFFIC-WIDGET-THROUGHPUT-TRANSMIT" with Label "port_19"
+#      | value | count | offset |
+#      | 192.0   | 30    | 1      |
 
     Then UI validate dataSets of lineChart "NETWORK-TRAFFIC-WIDGET-THROUGHPUT-TRANSMIT" with size "7"
 
-  @SID_9
-  Scenario: Validate data by user ports selection - received bw
     # ============================================== #
     # = validation of throughput received widget =
     # ============================================
@@ -377,106 +363,104 @@ Feature: Traffic Throughput and PPS Widgets
 
 #    Then UI Validate Line Chart data "NETWORK-TRAFFIC-WIDGET-THROUGHPUT-RECEIVED" with Label "port_02"
 #      | value | count | offset |
-#      | 21.0   | 17    | 15     |
+#      | 21.0   | 30    | 1      |
 #    Then UI Validate Line Chart data "NETWORK-TRAFFIC-WIDGET-THROUGHPUT-RECEIVED" with Label "port_03"
 #      | value | count | offset |
-#      | 31.0   | 17    | 15     |
+#      | 31.0   | 30    | 1      |
 #    Then UI Validate Line Chart data "NETWORK-TRAFFIC-WIDGET-THROUGHPUT-RECEIVED" with Label "port_04"
 #      | value | count | offset |
-#      | 41.0   | 17    | 15     |
+#      | 41.0   | 30    | 1      |
 #    Then UI Validate Line Chart data "NETWORK-TRAFFIC-WIDGET-THROUGHPUT-RECEIVED" with Label "port_6"
 #      | value | count | offset |
-#      | 61.0   | 17    | 15     |
+#      | 61.0   | 30    | 1      |
 #    Then UI Validate Line Chart data "NETWORK-TRAFFIC-WIDGET-THROUGHPUT-RECEIVED" with Label "port_7"
 #      | value | count | offset |
-#      | 71.0   | 17    | 15     |
+#      | 71.0   | 30    | 1      |
 #    Then UI Validate Line Chart data "NETWORK-TRAFFIC-WIDGET-THROUGHPUT-RECEIVED" with Label "port_8"
 #      | value | count | offset |
-#      | 81.0   | 17    | 15     |
+#      | 81.0   | 30    | 1      |
 #    Then UI Validate Line Chart data "NETWORK-TRAFFIC-WIDGET-THROUGHPUT-RECEIVED" with Label "port_19"
 #      | value | count | offset |
-#      | 191.0   | 17    | 15     |
+#      | 191.0   | 30    | 1      |
 
     Then UI Validate Line Chart data "NETWORK-TRAFFIC-WIDGET-THROUGHPUT-RECEIVED" with Label "port_02"
       | value | count | offset |
-      | 21.0  | 17    | 15     |
+      | 21.0  | 30    | 1      |
     Then UI Validate Line Chart data "NETWORK-TRAFFIC-WIDGET-THROUGHPUT-RECEIVED" with Label "port_03"
       | value | count | offset |
-      | 31.0  | 17    | 15     |
+      | 31.0  | 30    | 1      |
     Then UI Validate Line Chart data "NETWORK-TRAFFIC-WIDGET-THROUGHPUT-RECEIVED" with Label "port_04"
       | value | count | offset |
-      | 41.0  | 17    | 15     |
-    Then UI Validate Line Chart data "NETWORK-TRAFFIC-WIDGET-THROUGHPUT-RECEIVED" with Label "port_06"
+      | 41.0  | 30    | 1      |
+    Then UI Validate Line Chart data "NETWORK-TRAFFIC-WIDGET-THROUGHPUT-RECEIVED" with Label "port_16"
       | value | count | offset |
-      |  61.0 | 17    | 15     |
-    Then UI Validate Line Chart data "NETWORK-TRAFFIC-WIDGET-THROUGHPUT-RECEIVED" with Label "port_07"
+      | 161.0 | 30    | 1      |
+    Then UI Validate Line Chart data "NETWORK-TRAFFIC-WIDGET-THROUGHPUT-RECEIVED" with Label "port_17"
       | value | count | offset |
-      |  71.0 | 17    | 15     |
-    Then UI Validate Line Chart data "NETWORK-TRAFFIC-WIDGET-THROUGHPUT-RECEIVED" with Label "port_08"
+      | 171.0 | 30    | 1      |
+    Then UI Validate Line Chart data "NETWORK-TRAFFIC-WIDGET-THROUGHPUT-RECEIVED" with Label "port_18"
       | value | count | offset |
-      |  81.0 | 17    | 15     |
+      | 181.0 | 30    | 1      |
     Then UI Validate Line Chart data "NETWORK-TRAFFIC-WIDGET-THROUGHPUT-RECEIVED" with Label "port_19"
       | value | count | offset |
-      | 191.0 | 17    | 15     |
+      | 191.0 | 30    | 1      |
 
     Then UI validate dataSets of lineChart "NETWORK-TRAFFIC-WIDGET-THROUGHPUT-RECEIVED" with size "7"
 
-  @SID_10
-  Scenario: Validate data by user ports selection - received packets
     # ============================================== #
     # = validation of PPS received widget =
     # ============================================
 
 #    Then UI Validate Line Chart data "NETWORK-TRAFFIC-WIDGET-PACKETS-RECEIVED" with Label "port_02"
 #      | value | count | offset |
-#      | 25.0   | 17    | 15     |
+#      | 25.0   | 30    | 1      |
 #    Then UI Validate Line Chart data "NETWORK-TRAFFIC-WIDGET-PACKETS-RECEIVED" with Label "port_03"
 #      | value | count | offset |
-#      | 35.0   | 17    | 15     |
+#      | 35.0   | 30    | 1      |
 #    Then UI Validate Line Chart data "NETWORK-TRAFFIC-WIDGET-PACKETS-RECEIVED" with Label "port_04"
 #      | value | count | offset |
-#      | 45.0   | 17    | 15     |
+#      | 45.0   | 30    | 1      |
 #    Then UI Validate Line Chart data "NETWORK-TRAFFIC-WIDGET-PACKETS-RECEIVED" with Label "port_6"
 #      | value | count | offset |
-#      | 65.0   | 17    | 15     |
+#      | 65.0   | 30    | 1      |
 #    Then UI Validate Line Chart data "NETWORK-TRAFFIC-WIDGET-PACKETS-RECEIVED" with Label "port_7"
 #      | value | count | offset |
-#      | 75.0   | 17    | 15     |
+#      | 75.0   | 30    | 1      |
 #    Then UI Validate Line Chart data "NETWORK-TRAFFIC-WIDGET-PACKETS-RECEIVED" with Label "port_8"
 #      | value | count | offset |
-#      | 85.0   | 17    | 15     |
+#      | 85.0   | 30    | 1      |
 #    Then UI Validate Line Chart data "NETWORK-TRAFFIC-WIDGET-PACKETS-RECEIVED" with Label "port_19"
 #      | value | count | offset |
-#      | 195.0   | 17    | 15     |
+#      | 195.0   | 30    | 1      |
 
     Then UI Validate Line Chart data "NETWORK-TRAFFIC-WIDGET-PACKETS-RECEIVED" with Label "port_02"
       | value | count | offset |
-      | 25.0  | 17    | 15     |
+      | 25.0  | 30    | 1      |
     Then UI Validate Line Chart data "NETWORK-TRAFFIC-WIDGET-PACKETS-RECEIVED" with Label "port_03"
       | value | count | offset |
-      | 35.0  | 17    | 15     |
+      | 35.0  | 30    | 1      |
     Then UI Validate Line Chart data "NETWORK-TRAFFIC-WIDGET-PACKETS-RECEIVED" with Label "port_04"
       | value | count | offset |
-      | 45.0  | 17    | 15     |
-    Then UI Validate Line Chart data "NETWORK-TRAFFIC-WIDGET-PACKETS-RECEIVED" with Label "port_06"
+      | 45.0  | 30    | 1      |
+    Then UI Validate Line Chart data "NETWORK-TRAFFIC-WIDGET-PACKETS-RECEIVED" with Label "port_16"
       | value | count | offset |
-      |  65.0 | 17    | 15     |
-    Then UI Validate Line Chart data "NETWORK-TRAFFIC-WIDGET-PACKETS-RECEIVED" with Label "port_07"
+      | 165.0 | 30    | 1      |
+    Then UI Validate Line Chart data "NETWORK-TRAFFIC-WIDGET-PACKETS-RECEIVED" with Label "port_17"
       | value | count | offset |
-      |  75.0 | 17    | 15     |
-    Then UI Validate Line Chart data "NETWORK-TRAFFIC-WIDGET-PACKETS-RECEIVED" with Label "port_08"
+      | 175.0 | 30    | 1      |
+    Then UI Validate Line Chart data "NETWORK-TRAFFIC-WIDGET-PACKETS-RECEIVED" with Label "port_18"
       | value | count | offset |
-      |  85.0 | 17    | 15     |
+      | 185.0 | 30    | 1      |
     Then UI Validate Line Chart data "NETWORK-TRAFFIC-WIDGET-PACKETS-RECEIVED" with Label "port_19"
       | value | count | offset |
-      | 195.0 | 17    | 15     |
+      | 195.0 | 30    | 1      |
 
     Then UI validate dataSets of lineChart "NETWORK-TRAFFIC-WIDGET-PACKETS-RECEIVED" with size "7"
 
     Then UI Do Operation "Select" item "trafficThroughput transmitButton"
     Then UI Do Operation "Select" item "trafficPackets receiveButton"
 
-  @SID_11
+  @SID_4
   Scenario: Validate user selection persistence in refresh
     * Sleep "30"
     Then UI Validate Switch button "trafficThroughput transmitButton" with params "" isSelected "true"
@@ -488,8 +472,8 @@ Feature: Traffic Throughput and PPS Widgets
     Then UI validate dataSets of lineChart "NETWORK-TRAFFIC-WIDGET-THROUGHPUT-TRANSMIT" with size "7"
     Then UI validate dataSets of lineChart "NETWORK-TRAFFIC-WIDGET-THROUGHPUT-RECEIVED" with size "7"
 
-  @SID_12
-  Scenario: Validate data by various time selections - quick range transmit packets
+  @SID_5
+  Scenario: Validate data by various time selections - quick range
     Then UI Do Operation "Select" item "trafficThroughput transmitButton"
     Then UI Do Operation "Select" item "trafficPackets transmitButton"
     Then UI Do Operation "Select" item "Global Time Filter"
@@ -498,208 +482,202 @@ Feature: Traffic Throughput and PPS Widgets
   # validation of PPS transmit widget
 #    Then UI Validate Line Chart data "NETWORK-TRAFFIC-WIDGET-PACKETS-TRANSMIT" with Label "port_02"
 #      | value | count | offset |
-#      | 26.0   | 32    | 30     |
+#      | 26.0   | 60    | 1      |
 #    Then UI Validate Line Chart data "NETWORK-TRAFFIC-WIDGET-PACKETS-TRANSMIT" with Label "port_03"
 #      | value | count | offset |
-#      | 36.0   | 32    | 30     |
+#      | 36.0   | 60    | 1      |
 #    Then UI Validate Line Chart data "NETWORK-TRAFFIC-WIDGET-PACKETS-TRANSMIT" with Label "port_04"
 #      | value | count | offset |
-#      | 46.0   | 32    | 30     |
+#      | 46.0   | 60    | 1      |
 #    Then UI Validate Line Chart data "NETWORK-TRAFFIC-WIDGET-PACKETS-TRANSMIT" with Label "port_6"
 #      | value | count | offset |
-#      | 66.0   | 32    | 30     |
+#      | 66.0   | 60    | 1      |
 #    Then UI Validate Line Chart data "NETWORK-TRAFFIC-WIDGET-PACKETS-TRANSMIT" with Label "port_7"
 #      | value | count | offset |
-#      | 76.0   | 32    | 30     |
+#      | 76.0   | 60    | 1      |
 #    Then UI Validate Line Chart data "NETWORK-TRAFFIC-WIDGET-PACKETS-TRANSMIT" with Label "port_8"
 #      | value | count | offset |
-#      | 86.0   | 32    | 30     |
+#      | 86.0   | 60    | 1      |
 #    Then UI Validate Line Chart data "NETWORK-TRAFFIC-WIDGET-PACKETS-TRANSMIT" with Label "port_19"
 #      | value | count | offset |
-#      | 196.0   | 32    | 30     |
+#      | 196.0   | 60    | 1      |
 
     Then UI Validate Line Chart data "NETWORK-TRAFFIC-WIDGET-PACKETS-TRANSMIT" with Label "port_02"
       | value | count | offset |
-      | 26.0  | 32    | 30     |
+      | 26.0  | 60    | 1      |
     Then UI Validate Line Chart data "NETWORK-TRAFFIC-WIDGET-PACKETS-TRANSMIT" with Label "port_03"
       | value | count | offset |
-      | 36.0  | 32    | 30     |
+      | 36.0  | 60    | 1      |
     Then UI Validate Line Chart data "NETWORK-TRAFFIC-WIDGET-PACKETS-TRANSMIT" with Label "port_04"
       | value | count | offset |
-      | 46.0  | 32    | 30     |
-    Then UI Validate Line Chart data "NETWORK-TRAFFIC-WIDGET-PACKETS-TRANSMIT" with Label "port_06"
+      | 46.0  | 60    | 1      |
+    Then UI Validate Line Chart data "NETWORK-TRAFFIC-WIDGET-PACKETS-TRANSMIT" with Label "port_16"
       | value | count | offset |
-      |  66.0 | 32    | 30     |
-    Then UI Validate Line Chart data "NETWORK-TRAFFIC-WIDGET-PACKETS-TRANSMIT" with Label "port_07"
+      | 166.0 | 60    | 1      |
+    Then UI Validate Line Chart data "NETWORK-TRAFFIC-WIDGET-PACKETS-TRANSMIT" with Label "port_17"
       | value | count | offset |
-      |  76.0 | 32    | 30     |
-    Then UI Validate Line Chart data "NETWORK-TRAFFIC-WIDGET-PACKETS-TRANSMIT" with Label "port_08"
+      | 176.0 | 60    | 1      |
+    Then UI Validate Line Chart data "NETWORK-TRAFFIC-WIDGET-PACKETS-TRANSMIT" with Label "port_18"
       | value | count | offset |
-      |  86.0 | 32    | 30     |
+      | 186.0 | 60    | 1      |
     Then UI Validate Line Chart data "NETWORK-TRAFFIC-WIDGET-PACKETS-TRANSMIT" with Label "port_19"
       | value | count | offset |
-      | 196.0 | 32    | 30     |
+      | 196.0 | 60    | 1      |
 
     Then UI validate dataSets of lineChart "NETWORK-TRAFFIC-WIDGET-PACKETS-TRANSMIT" with size "7"
 
-  @SID_13
-  Scenario: Validate data by various time selections - quick range transmit bw
   # ============================================== #
     # = validation of throughput transmit widget =
     # ============================================
 #    Then UI Validate Line Chart data "NETWORK-TRAFFIC-WIDGET-THROUGHPUT-TRANSMIT" with Label "port_02"
 #      | value | count | offset |
-#      | 22.0   | 32    | 30     |
+#      | 22.0   | 60    | 1      |
 #    Then UI Validate Line Chart data "NETWORK-TRAFFIC-WIDGET-THROUGHPUT-TRANSMIT" with Label "port_03"
 #      | value | count | offset |
-#      | 32.0   | 32    | 30     |
+#      | 32.0   | 60    | 1      |
 #    Then UI Validate Line Chart data "NETWORK-TRAFFIC-WIDGET-THROUGHPUT-TRANSMIT" with Label "port_04"
 #      | value | count | offset |
-#      | 42.0   | 32    | 30     |
+#      | 42.0   | 60    | 1      |
 #    Then UI Validate Line Chart data "NETWORK-TRAFFIC-WIDGET-THROUGHPUT-TRANSMIT" with Label "port_6"
 #      | value | count | offset |
-#      | 62.0   | 32    | 30     |
+#      | 62.0   | 60    | 1      |
 #    Then UI Validate Line Chart data "NETWORK-TRAFFIC-WIDGET-THROUGHPUT-TRANSMIT" with Label "port_7"
 #      | value | count | offset |
-#      | 72.0   | 32    | 30     |
+#      | 72.0   | 60    | 1      |
 #    Then UI Validate Line Chart data "NETWORK-TRAFFIC-WIDGET-THROUGHPUT-TRANSMIT" with Label "port_8"
 #      | value | count | offset |
-#      | 82.0   | 32    | 30     |
+#      | 82.0   | 60    | 1      |
 #    Then UI Validate Line Chart data "NETWORK-TRAFFIC-WIDGET-THROUGHPUT-TRANSMIT" with Label "port_19"
 #      | value | count | offset |
-#      | 192.0   | 32    | 30     |
+#      | 192.0   | 60    | 1      |
 
     Then UI Validate Line Chart data "NETWORK-TRAFFIC-WIDGET-THROUGHPUT-TRANSMIT" with Label "port_02"
       | value | count | offset |
-      | 22.0  | 32    | 30     |
+      | 22.0  | 60    | 1      |
     Then UI Validate Line Chart data "NETWORK-TRAFFIC-WIDGET-THROUGHPUT-TRANSMIT" with Label "port_03"
       | value | count | offset |
-      | 32.0  | 32    | 30     |
+      | 32.0  | 60    | 1      |
     Then UI Validate Line Chart data "NETWORK-TRAFFIC-WIDGET-THROUGHPUT-TRANSMIT" with Label "port_04"
       | value | count | offset |
-      | 42.0  | 32    | 30     |
-    Then UI Validate Line Chart data "NETWORK-TRAFFIC-WIDGET-THROUGHPUT-TRANSMIT" with Label "port_06"
+      | 42.0  | 60    | 1      |
+    Then UI Validate Line Chart data "NETWORK-TRAFFIC-WIDGET-THROUGHPUT-TRANSMIT" with Label "port_16"
       | value | count | offset |
-      |  62.0 | 32    | 30     |
-    Then UI Validate Line Chart data "NETWORK-TRAFFIC-WIDGET-THROUGHPUT-TRANSMIT" with Label "port_07"
+      | 162.0 | 60    | 1      |
+    Then UI Validate Line Chart data "NETWORK-TRAFFIC-WIDGET-THROUGHPUT-TRANSMIT" with Label "port_17"
       | value | count | offset |
-      |  72.0 | 32    | 30     |
-    Then UI Validate Line Chart data "NETWORK-TRAFFIC-WIDGET-THROUGHPUT-TRANSMIT" with Label "port_08"
+      | 172.0 | 60    | 1      |
+    Then UI Validate Line Chart data "NETWORK-TRAFFIC-WIDGET-THROUGHPUT-TRANSMIT" with Label "port_18"
       | value | count | offset |
-      |  82.0 | 32    | 30     |
+      | 182.0 | 60    | 1      |
     Then UI Validate Line Chart data "NETWORK-TRAFFIC-WIDGET-THROUGHPUT-TRANSMIT" with Label "port_19"
       | value | count | offset |
-      | 192.0 | 32    | 30     |
+      | 192.0 | 60    | 1      |
 
     Then UI validate dataSets of lineChart "NETWORK-TRAFFIC-WIDGET-THROUGHPUT-TRANSMIT" with size "7"
 
     Then UI Do Operation "Select" item "trafficPackets receiveButton"
     Then UI Do Operation "Select" item "trafficThroughput receiveButton"
 
-  @SID_14
-  Scenario: Validate data by various time selections - quick range received bw
+
     # ============================================== #
     # = validation of throughput received widget =
     # ============================================
 
 #    Then UI Validate Line Chart data "NETWORK-TRAFFIC-WIDGET-THROUGHPUT-RECEIVED" with Label "port_02"
 #      | value | count | offset |
-#      | 21.0   | 32    | 30     |
+#      | 21.0   | 60    | 1      |
 #    Then UI Validate Line Chart data "NETWORK-TRAFFIC-WIDGET-THROUGHPUT-RECEIVED" with Label "port_03"
 #      | value | count | offset |
-#      | 31.0   | 32    | 30     |
+#      | 31.0   | 60    | 1      |
 #    Then UI Validate Line Chart data "NETWORK-TRAFFIC-WIDGET-THROUGHPUT-RECEIVED" with Label "port_04"
 #      | value | count | offset |
-#      | 41.0   | 32    | 30     |
+#      | 41.0   | 60    | 1      |
 #    Then UI Validate Line Chart data "NETWORK-TRAFFIC-WIDGET-THROUGHPUT-RECEIVED" with Label "port_6"
 #      | value | count | offset |
-#      | 61.0   | 32    | 30     |
+#      | 61.0   | 60    | 1      |
 #    Then UI Validate Line Chart data "NETWORK-TRAFFIC-WIDGET-THROUGHPUT-RECEIVED" with Label "port_7"
 #      | value | count | offset |
-#      | 71.0   | 32    | 30     |
+#      | 71.0   | 60    | 1      |
 #    Then UI Validate Line Chart data "NETWORK-TRAFFIC-WIDGET-THROUGHPUT-RECEIVED" with Label "port_8"
 #      | value | count | offset |
-#      | 81.0   | 32    | 30     |
+#      | 81.0   | 60    | 1      |
 #    Then UI Validate Line Chart data "NETWORK-TRAFFIC-WIDGET-THROUGHPUT-RECEIVED" with Label "port_19"
 #      | value | count | offset |
-#      | 191.0   | 32    | 30     |
+#      | 191.0   | 60    | 1      |
 
     Then UI Validate Line Chart data "NETWORK-TRAFFIC-WIDGET-THROUGHPUT-RECEIVED" with Label "port_02"
       | value | count | offset |
-      | 21.0  | 32    | 30     |
+      | 21.0  | 60    | 1      |
     Then UI Validate Line Chart data "NETWORK-TRAFFIC-WIDGET-THROUGHPUT-RECEIVED" with Label "port_03"
       | value | count | offset |
-      | 31.0  | 32    | 30     |
+      | 31.0  | 60    | 1      |
     Then UI Validate Line Chart data "NETWORK-TRAFFIC-WIDGET-THROUGHPUT-RECEIVED" with Label "port_04"
       | value | count | offset |
-      | 41.0  | 32    | 30     |
-    Then UI Validate Line Chart data "NETWORK-TRAFFIC-WIDGET-THROUGHPUT-RECEIVED" with Label "port_06"
+      | 41.0  | 60    | 1      |
+    Then UI Validate Line Chart data "NETWORK-TRAFFIC-WIDGET-THROUGHPUT-RECEIVED" with Label "port_16"
       | value | count | offset |
-      |  61.0 | 32    | 30     |
-    Then UI Validate Line Chart data "NETWORK-TRAFFIC-WIDGET-THROUGHPUT-RECEIVED" with Label "port_07"
+      | 161.0 | 60    | 1      |
+    Then UI Validate Line Chart data "NETWORK-TRAFFIC-WIDGET-THROUGHPUT-RECEIVED" with Label "port_17"
       | value | count | offset |
-      |  71.0 | 32    | 30     |
-    Then UI Validate Line Chart data "NETWORK-TRAFFIC-WIDGET-THROUGHPUT-RECEIVED" with Label "port_08"
+      | 171.0 | 60    | 1      |
+    Then UI Validate Line Chart data "NETWORK-TRAFFIC-WIDGET-THROUGHPUT-RECEIVED" with Label "port_18"
       | value | count | offset |
-      |  81.0 | 32    | 30     |
+      | 181.0 | 60    | 1      |
     Then UI Validate Line Chart data "NETWORK-TRAFFIC-WIDGET-THROUGHPUT-RECEIVED" with Label "port_19"
       | value | count | offset |
-      | 191.0 | 32    | 30     |
+      | 191.0 | 60    | 1      |
 
     Then UI validate dataSets of lineChart "NETWORK-TRAFFIC-WIDGET-THROUGHPUT-RECEIVED" with size "7"
 
-  @SID_15
-  Scenario: Validate data by various time selections - quick range received packets
     # ============================================== #
     # = validation of PPS received widget =
     # ============================================
 
 #    Then UI Validate Line Chart data "NETWORK-TRAFFIC-WIDGET-PACKETS-RECEIVED" with Label "port_02"
 #      | value | count | offset |
-#      | 25.0   | 32    | 30     |
+#      | 25.0   | 60    | 1      |
 #    Then UI Validate Line Chart data "NETWORK-TRAFFIC-WIDGET-PACKETS-RECEIVED" with Label "port_03"
 #      | value | count | offset |
-#      | 35.0   | 32    | 30     |
+#      | 35.0   | 60    | 1      |
 #    Then UI Validate Line Chart data "NETWORK-TRAFFIC-WIDGET-PACKETS-RECEIVED" with Label "port_04"
 #      | value | count | offset |
-#      | 45.0   | 32    | 30     |
+#      | 45.0   | 60    | 1      |
 #    Then UI Validate Line Chart data "NETWORK-TRAFFIC-WIDGET-PACKETS-RECEIVED" with Label "port_6"
 #      | value | count | offset |
-#      | 65.0   | 32    | 30     |
+#      | 65.0   | 60    | 1      |
 #    Then UI Validate Line Chart data "NETWORK-TRAFFIC-WIDGET-PACKETS-RECEIVED" with Label "port_7"
 #      | value | count | offset |
-#      | 75.0   | 32    | 30     |
+#      | 75.0   | 60    | 1      |
 #    Then UI Validate Line Chart data "NETWORK-TRAFFIC-WIDGET-PACKETS-RECEIVED" with Label "port_8"
 #      | value | count | offset |
-#      | 85.0   | 32    | 30     |
+#      | 85.0   | 60    | 1      |
 #    Then UI Validate Line Chart data "NETWORK-TRAFFIC-WIDGET-PACKETS-RECEIVED" with Label "port_19"
 #      | value | count | offset |
-#      | 195.0   | 32    | 30     |
+#      | 195.0   | 60    | 1      |
 
     Then UI Validate Line Chart data "NETWORK-TRAFFIC-WIDGET-PACKETS-RECEIVED" with Label "port_02"
       | value | count | offset |
-      | 25.0  | 32    | 30     |
+      | 25.0  | 60    | 1      |
     Then UI Validate Line Chart data "NETWORK-TRAFFIC-WIDGET-PACKETS-RECEIVED" with Label "port_03"
       | value | count | offset |
-      | 35.0  | 32    | 30     |
+      | 35.0  | 60    | 1      |
     Then UI Validate Line Chart data "NETWORK-TRAFFIC-WIDGET-PACKETS-RECEIVED" with Label "port_04"
       | value | count | offset |
-      | 45.0  | 32    | 30     |
-    Then UI Validate Line Chart data "NETWORK-TRAFFIC-WIDGET-PACKETS-RECEIVED" with Label "port_06"
+      | 45.0  | 60    | 1      |
+    Then UI Validate Line Chart data "NETWORK-TRAFFIC-WIDGET-PACKETS-RECEIVED" with Label "port_16"
       | value | count | offset |
-      |  65.0 | 32    | 30     |
-    Then UI Validate Line Chart data "NETWORK-TRAFFIC-WIDGET-PACKETS-RECEIVED" with Label "port_07"
+      | 165.0 | 60    | 1      |
+    Then UI Validate Line Chart data "NETWORK-TRAFFIC-WIDGET-PACKETS-RECEIVED" with Label "port_17"
       | value | count | offset |
-      |  75.0 | 32    | 30     |
-    Then UI Validate Line Chart data "NETWORK-TRAFFIC-WIDGET-PACKETS-RECEIVED" with Label "port_08"
+      | 175.0 | 60    | 1      |
+    Then UI Validate Line Chart data "NETWORK-TRAFFIC-WIDGET-PACKETS-RECEIVED" with Label "port_18"
       | value | count | offset |
-      |  85.0 | 32    | 30     |
+      | 185.0 | 60    | 1      |
     Then UI Validate Line Chart data "NETWORK-TRAFFIC-WIDGET-PACKETS-RECEIVED" with Label "port_19"
       | value | count | offset |
-      | 195.0 | 32    | 30     |
+      | 195.0 | 60    | 1      |
 
-  @SID_15
-  Scenario: Validate data by various time selections - 1H transmit packets
+
     Then UI Do Operation "Select" item "Global Time Filter"
     Then UI Do Operation "Select" item "Global Time Filter.Quick Range" with value "1H"
     Then UI Do Operation "Select" item "trafficPackets transmitButton"
@@ -730,30 +708,28 @@ Feature: Traffic Throughput and PPS Widgets
 
     Then UI Validate Line Chart data "NETWORK-TRAFFIC-WIDGET-PACKETS-TRANSMIT" with Label "port_02"
       | value | count | offset |
-      | 26.0  | 64    | 60     |
+      | 26.0  | 120   | 1      |
     Then UI Validate Line Chart data "NETWORK-TRAFFIC-WIDGET-PACKETS-TRANSMIT" with Label "port_03"
       | value | count | offset |
-      | 36.0  | 64    | 60     |
+      | 36.0  | 120   | 1      |
     Then UI Validate Line Chart data "NETWORK-TRAFFIC-WIDGET-PACKETS-TRANSMIT" with Label "port_04"
       | value | count | offset |
-      | 46.0  | 64    | 60     |
-    Then UI Validate Line Chart data "NETWORK-TRAFFIC-WIDGET-PACKETS-TRANSMIT" with Label "port_06"
+      | 46.0  | 120   | 1      |
+    Then UI Validate Line Chart data "NETWORK-TRAFFIC-WIDGET-PACKETS-TRANSMIT" with Label "port_16"
       | value | count | offset |
-      |  66.0 | 64    | 60     |
-    Then UI Validate Line Chart data "NETWORK-TRAFFIC-WIDGET-PACKETS-TRANSMIT" with Label "port_07"
+      | 166.0 | 120   | 1      |
+    Then UI Validate Line Chart data "NETWORK-TRAFFIC-WIDGET-PACKETS-TRANSMIT" with Label "port_17"
       | value | count | offset |
-      |  76.0 | 64    | 60     |
-    Then UI Validate Line Chart data "NETWORK-TRAFFIC-WIDGET-PACKETS-TRANSMIT" with Label "port_08"
+      | 176.0 | 120   | 1      |
+    Then UI Validate Line Chart data "NETWORK-TRAFFIC-WIDGET-PACKETS-TRANSMIT" with Label "port_18"
       | value | count | offset |
-      |  86.0 | 64    | 60     |
+      | 186.0 | 120   | 1      |
     Then UI Validate Line Chart data "NETWORK-TRAFFIC-WIDGET-PACKETS-TRANSMIT" with Label "port_19"
       | value | count | offset |
-      | 196.0 | 64    | 60     |
+      | 196.0 | 120   | 1      |
 
     Then UI validate dataSets of lineChart "NETWORK-TRAFFIC-WIDGET-PACKETS-TRANSMIT" with size "7"
 
-  @SID_16
-  Scenario: Validate data by various time selections - 1H transmit bw
   # ============================================== #
     # = validation of throughput transmit widget =
     # ============================================
@@ -781,30 +757,28 @@ Feature: Traffic Throughput and PPS Widgets
 
     Then UI Validate Line Chart data "NETWORK-TRAFFIC-WIDGET-THROUGHPUT-TRANSMIT" with Label "port_02"
       | value | count | offset |
-      | 22.0  | 64    | 60     |
+      | 22.0  | 120   | 1      |
     Then UI Validate Line Chart data "NETWORK-TRAFFIC-WIDGET-THROUGHPUT-TRANSMIT" with Label "port_03"
       | value | count | offset |
-      | 32.0  | 64    | 60     |
+      | 32.0  | 120   | 1      |
     Then UI Validate Line Chart data "NETWORK-TRAFFIC-WIDGET-THROUGHPUT-TRANSMIT" with Label "port_04"
       | value | count | offset |
-      | 42.0  | 64    | 60     |
-    Then UI Validate Line Chart data "NETWORK-TRAFFIC-WIDGET-THROUGHPUT-TRANSMIT" with Label "port_06"
+      | 42.0  | 120   | 1      |
+    Then UI Validate Line Chart data "NETWORK-TRAFFIC-WIDGET-THROUGHPUT-TRANSMIT" with Label "port_16"
       | value | count | offset |
-      |  62.0 | 64    | 60     |
-    Then UI Validate Line Chart data "NETWORK-TRAFFIC-WIDGET-THROUGHPUT-TRANSMIT" with Label "port_07"
+      | 162.0 | 120   | 1      |
+    Then UI Validate Line Chart data "NETWORK-TRAFFIC-WIDGET-THROUGHPUT-TRANSMIT" with Label "port_17"
       | value | count | offset |
-      |  72.0 | 64    | 60     |
-    Then UI Validate Line Chart data "NETWORK-TRAFFIC-WIDGET-THROUGHPUT-TRANSMIT" with Label "port_08"
+      | 172.0 | 120   | 1      |
+    Then UI Validate Line Chart data "NETWORK-TRAFFIC-WIDGET-THROUGHPUT-TRANSMIT" with Label "port_18"
       | value | count | offset |
-      |  82.0 | 64    | 60     |
+      | 182.0 | 120   | 1      |
     Then UI Validate Line Chart data "NETWORK-TRAFFIC-WIDGET-THROUGHPUT-TRANSMIT" with Label "port_19"
       | value | count | offset |
-      | 192.0 | 64    | 60     |
+      | 192.0 | 120   | 1      |
 
     Then UI validate dataSets of lineChart "NETWORK-TRAFFIC-WIDGET-THROUGHPUT-TRANSMIT" with size "7"
 
-  @SID_17
-  Scenario: Validate data by various time selections - 1H received bw
     Then UI Do Operation "Select" item "trafficThroughput receiveButton"
     Then UI Do Operation "Select" item "trafficPackets receiveButton"
     # ============================================== #
@@ -835,30 +809,28 @@ Feature: Traffic Throughput and PPS Widgets
 
     Then UI Validate Line Chart data "NETWORK-TRAFFIC-WIDGET-THROUGHPUT-RECEIVED" with Label "port_02"
       | value | count | offset |
-      | 21.0  | 64    | 60     |
+      | 21.0  | 120   | 1      |
     Then UI Validate Line Chart data "NETWORK-TRAFFIC-WIDGET-THROUGHPUT-RECEIVED" with Label "port_03"
       | value | count | offset |
-      | 31.0  | 64    | 60     |
+      | 31.0  | 120   | 1      |
     Then UI Validate Line Chart data "NETWORK-TRAFFIC-WIDGET-THROUGHPUT-RECEIVED" with Label "port_04"
       | value | count | offset |
-      | 41.0  | 64    | 60     |
-    Then UI Validate Line Chart data "NETWORK-TRAFFIC-WIDGET-THROUGHPUT-RECEIVED" with Label "port_06"
+      | 41.0  | 120   | 1      |
+    Then UI Validate Line Chart data "NETWORK-TRAFFIC-WIDGET-THROUGHPUT-RECEIVED" with Label "port_16"
       | value | count | offset |
-      |  61.0 | 64    | 60     |
-    Then UI Validate Line Chart data "NETWORK-TRAFFIC-WIDGET-THROUGHPUT-RECEIVED" with Label "port_07"
+      | 161.0 | 120   | 1      |
+    Then UI Validate Line Chart data "NETWORK-TRAFFIC-WIDGET-THROUGHPUT-RECEIVED" with Label "port_17"
       | value | count | offset |
-      |  71.0 | 64    | 60     |
-    Then UI Validate Line Chart data "NETWORK-TRAFFIC-WIDGET-THROUGHPUT-RECEIVED" with Label "port_08"
+      | 171.0 | 120   | 1      |
+    Then UI Validate Line Chart data "NETWORK-TRAFFIC-WIDGET-THROUGHPUT-RECEIVED" with Label "port_18"
       | value | count | offset |
-      |  81.0 | 64    | 60     |
+      | 181.0 | 120   | 1      |
     Then UI Validate Line Chart data "NETWORK-TRAFFIC-WIDGET-THROUGHPUT-RECEIVED" with Label "port_19"
       | value | count | offset |
-      | 191.0 | 64    | 60     |
+      | 191.0 | 120   | 1      |
 
     Then UI validate dataSets of lineChart "NETWORK-TRAFFIC-WIDGET-THROUGHPUT-RECEIVED" with size "7"
 
-  @SID_18
-  Scenario: Validate data by various time selections - 1H received packets
     # ============================================== #
     # = validation of PPS received widget =
     # ============================================
@@ -887,29 +859,28 @@ Feature: Traffic Throughput and PPS Widgets
 
     Then UI Validate Line Chart data "NETWORK-TRAFFIC-WIDGET-PACKETS-RECEIVED" with Label "port_02"
       | value | count | offset |
-      | 25.0  | 64    | 60     |
+      | 25.0  | 120   | 1      |
     Then UI Validate Line Chart data "NETWORK-TRAFFIC-WIDGET-PACKETS-RECEIVED" with Label "port_03"
       | value | count | offset |
-      | 35.0  | 64    | 60     |
+      | 35.0  | 120   | 1      |
     Then UI Validate Line Chart data "NETWORK-TRAFFIC-WIDGET-PACKETS-RECEIVED" with Label "port_04"
       | value | count | offset |
-      | 45.0  | 64    | 60     |
-    Then UI Validate Line Chart data "NETWORK-TRAFFIC-WIDGET-PACKETS-RECEIVED" with Label "port_06"
+      | 45.0  | 120   | 1      |
+    Then UI Validate Line Chart data "NETWORK-TRAFFIC-WIDGET-PACKETS-RECEIVED" with Label "port_16"
       | value | count | offset |
-      |  65.0 | 64    | 60     |
-    Then UI Validate Line Chart data "NETWORK-TRAFFIC-WIDGET-PACKETS-RECEIVED" with Label "port_07"
+      | 165.0 | 120   | 1      |
+    Then UI Validate Line Chart data "NETWORK-TRAFFIC-WIDGET-PACKETS-RECEIVED" with Label "port_17"
       | value | count | offset |
-      |  75.0 | 64    | 60     |
-    Then UI Validate Line Chart data "NETWORK-TRAFFIC-WIDGET-PACKETS-RECEIVED" with Label "port_08"
+      | 175.0 | 120   | 1      |
+    Then UI Validate Line Chart data "NETWORK-TRAFFIC-WIDGET-PACKETS-RECEIVED" with Label "port_18"
       | value | count | offset |
-      |  85.0 | 64    | 60     |
+      | 185.0 | 120   | 1      |
     Then UI Validate Line Chart data "NETWORK-TRAFFIC-WIDGET-PACKETS-RECEIVED" with Label "port_19"
       | value | count | offset |
-      | 195.0 | 64    | 60     |
+      | 195.0 | 120   | 1      |
 
-  @SID_19
+  @SID_6
   Scenario: Cleanup
-    Then UI Open "Configurations" Tab
     Then UI logout and close browser
 
 

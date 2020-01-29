@@ -18,9 +18,7 @@ Feature: VRM DNS baselines
   Scenario: login and select device
     Given UI Login with user "sys_admin" and password "radware"
     Then REST Vision Install License Request "vision-AVA-Max-attack-capacity"
-    When UI Open Upper Bar Item "AMS"
-    When UI Open "Dashboards" Tab
-    Then UI Open "DP DNS Baseline" Sub Tab
+    Then UI Navigate to "  DefensePro Behavioral Protections Dashboard" page via homePage
     Then Sleep "1"
     And UI Do Operation "Select" item "Global Time Filter"
     Then Sleep "1"

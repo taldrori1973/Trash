@@ -12,9 +12,7 @@ Feature: VRM AMS dashboard Accessibility
   Scenario: Login to main dashboard
     Given UI Login with user "sys_admin" and password "radware"
     * REST Vision Install License Request "vision-AVA-Max-attack-capacity"
-    And UI Open Upper Bar Item "AMS"
-    Then UI Open "Dashboards" Tab
-    Then UI Open "DP Monitoring Dashboard" Sub Tab
+    And UI Navigate to "DefensePro Monitoring Dashboard" page via homePage
 
   @SID_3
   Scenario: validate Accessibility font size
@@ -124,8 +122,7 @@ Feature: VRM AMS dashboard Accessibility
 
   @SID_15
   Scenario: validate Accessibility patterns analytics
-    Then UI Open "Dashboards" Tab
-    When UI Open "DP Analytics" Sub Tab
+    Given UI Navigate to "DefensePro Analytics Dashboard" page via homePage
     Then UI Validate Pie Chart data "Attacks by Threat Category"
       | label         | shapeType | colors                   |
       | BehavioralDOS | plus      | rgba(70, 91, 108, 0.7)   |
@@ -133,12 +130,10 @@ Feature: VRM AMS dashboard Accessibility
 
   @SID_16
   Scenario: Go back to vision
-    Then UI Open "Configurations" Tab
+    And UI Navigate to "HOME" page via homePage
   @SID_17
   Scenario: TC105648 validate Accessibility patterns baselines
-    And UI Open Upper Bar Item "AMS"
-    Then UI Open "Dashboards" Tab
-    Then UI Open "DP BDoS Baseline" Sub Tab
+    When UI Navigate to "DefensePro Behavioral Protections Dashboard" page via homePage
     And UI Do Operation "Select" item "Global Time Filter"
     And UI Do Operation "Select" item "Global Time Filter.Quick Range" with value "2m"
     And UI Do Operation "Select" item "Device Selection"
@@ -173,13 +168,11 @@ Feature: VRM AMS dashboard Accessibility
       | attribute | value                    |
       | shapeType | plus                     |
       | color     | rgba(141, 190, 214, 0.1) |
-    Then UI Open "Configurations" Tab
+    And UI Navigate to "Home" page via homePage
 
   @SID_18
   Scenario: validate Accessibility clear settings
-    And UI Open Upper Bar Item "AMS"
-    Then UI Open "Dashboards" Tab
-    Then UI Open "DP Monitoring Dashboard" Sub Tab
+    And UI Navigate to "DefensePro Monitoring Dashboard" page via homePage
     Given UI Click Button "Accessibility Open Menu"
     Then UI Click Button "Accessibility Clear" with value "Quit Accessibility"
     Then UI Click Button "Accessibility Close"

@@ -1,9 +1,7 @@
 @TC108155
 Feature: ActivationLicense_TimeBased
-
   @SID_1
   Scenario: validate the user can see his activation license base time in setting Manager license page
-    Then REST Vision Install License Request "vision-AVA-Max-attack-capacity"
     * REST Vision Install License Request "vision-activation" from date "-4M" to date "+4M"
     Given UI Login with user "radware" and password "radware"
     When UI Go To Vision
@@ -14,27 +12,25 @@ Feature: ActivationLicense_TimeBased
     And UI logout and close browser
 
   @SID_2
-  Scenario: Verify that during the grace period of 30 days the user is be able to continue using Vision seamlessly
-    * REST Vision Install License Request "vision-activation" from date "-4M" to date "+20d"
-    Given UI Login with user "radware" and password "radware"
-    Then UI Validate Popup Dialog Box, have value "The system is under a license violation:" with text Type "CAPTION"
-    Then UI Validate Text field by id "gwt-debug-Dialog_Box_Message" CONTAINS "vision-activation license will expire within 21 days"
-    Then UI Click Button by Attribute: "type" and value: "checkbox" negative
-    Then UI Click Button by id "gwt-debug-Dialog_Box_Confirm"
+    Scenario: Verify that during the grace period of 30 days the user is be able to continue using Vision seamlessly
+      * REST Vision Install License Request "vision-activation" from date "-4M" to date "+20d"
+      Given UI Login with user "radware" and password "radware"
+      Then UI Validate Popup Dialog Box, have value "The system is under a license violation:" with text Type "CAPTION"
+      Then UI Click Button by id "gwt-uid-6"
+      Then UI Click Button by id "gwt-debug-Dialog_Box_Confirm"
+    Then UI Validate Text field by id "gwt-debug-Global_license_alert" CONTAINS "License expires in 21 days"
 
   @SID_3
   Scenario: Verify that during the grace period of 30 days the user is be able to continue using Vision seamlessly and go to forensics
-    Then REST Vision Install License Request "vision-AVA-Max-attack-capacity"
-    And UI Open Upper Bar Item "AMS" negative
-    And UI Open "Forensics" Tab negative
+    And UI Navigate to "AMS Forensics" page via homePage
     Given UI "Create" Forensics With Name "Wizard_test"
       | Output  | Action,Attack ID,Start Time,Threat Category,Radware ID,Device IP Address,Attack Name,Duration,Packets,Mbits,Policy Name,Risk |
     Then UI Validate Element Existence By Label "Views.Expand" if Exists "true" with value "Wizard_test"
     And UI logout and close browser
 
   @SID_4
-  Scenario: When the grace period has expired -
-    * REST Vision Install License Request vision-activation with expired date
+    Scenario: When the grace period has expired -
+      * REST Vision Install License Request vision-activation with expired date
 
 
 

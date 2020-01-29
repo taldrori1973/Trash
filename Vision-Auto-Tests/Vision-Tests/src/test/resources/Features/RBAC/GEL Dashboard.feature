@@ -23,14 +23,6 @@ Feature: GEL Dashboard RBAC
     Then UI Logout
     Then CLI Clear vision logs
 
-  @SID_5
-  Scenario: verify lls service start
-    Given CLI Run remote linux Command "mysql -prad123 vision_ng -e "update lls_server set min_required_ram='16';"" on "ROOT_SERVER_CLI"
-    Then CLI LLS Service Start,with timeout 780
-    When CLI Operations - Run Radware Session command "system lls service status"
-    Then CLI Operations - Verify that output contains regex ".*Local License Server is running.*"
-
-
   @SID_3
   Scenario Outline:GEL Dashboard RBAC
     When UI Login with user "<userName>" and password "radware"

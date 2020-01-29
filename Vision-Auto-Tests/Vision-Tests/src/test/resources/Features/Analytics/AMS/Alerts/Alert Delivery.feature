@@ -28,10 +28,9 @@ Feature: VRM Alerts Delivery
     And UI Set Text Field "SMTP Server Address" To "172.17.164.10"
     And UI Set Text Field "SMTP Port" To "251"
     And UI Click Button "Submit"
-    And UI Open Upper Bar Item "AMS"
-    And UI Open "Alerts" Tab
+    And UI Navigate to "AMS Alerts" page via homePage
 
-  
+
   @SID_3
   Scenario: Create Alert Delivery
     When UI "Create" Alerts With Name "Alert Delivery"

@@ -32,8 +32,7 @@ Feature:  Report Delivery Wizard
     And UI Set Text Field "SMTP Server Address" To "172.17.164.10"
     And UI Set Text Field "SMTP Port" To "25"
     And UI Click Button "Submit"
-    And UI Open Upper Bar Item "AMS"
-    And UI Open "Reports" Tab
+    And UI Navigate to "AMS Reports" page via homePage
 
 
   @SID_5

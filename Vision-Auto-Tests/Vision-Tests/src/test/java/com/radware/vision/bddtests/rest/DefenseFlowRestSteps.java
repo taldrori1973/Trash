@@ -5,7 +5,6 @@ import com.radware.automation.tools.basetest.Reporter;
 import com.radware.restcore.utils.enums.HTTPStatusCodes;
 import com.radware.restcore.utils.enums.HttpMethodEnum;
 import com.radware.vision.infra.testresthandlers.DefenseFlowRestHandler;
-import com.radware.vision.vision_handlers.NewVmHandler;
 import cucumber.api.java.en.Then;
 
 import static com.radware.vision.infra.testhandlers.BaseHandler.restTestBase;
@@ -30,20 +29,4 @@ public class DefenseFlowRestSteps {
             restPoDF(HttpMethodEnum.POST, nameofPo, bodyField, null);
         }
     }
-
-    @Then("^REST DELETE (\\d+) DefenseFlow PO url params \"([^\"]*)\"$")
-    public void deletePo(int number, String poPrefix) {
-        for (int i = 1; i <= number; i++) {
-            String nameofPo = poPrefix + "_" + i;
-            DefenseFlowRestHandler.deletePo(HttpMethodEnum.DELETE, nameofPo, null, null);
-        }
-    }
-
-    @Then("^REST DELETE DefenseFlow PO url params \"([^\"]*)\"$")
-    public void deletePo(String nameOfPo) {
-        DefenseFlowRestHandler.deletePo(HttpMethodEnum.DELETE, nameOfPo, null, null);
-
-    }
-
-
 }

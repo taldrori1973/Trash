@@ -14,8 +14,7 @@ Feature: VRM Alerts RBAC
   Scenario: VRM - Login to VRM Alerts Tab
     Given UI Login with user "sys_admin" and password "radware"
     Then REST Vision Install License Request "vision-AVA-Max-attack-capacity"
-    And UI Open Upper Bar Item "AMS"
-    And UI Open "Alerts" Tab
+    And UI Navigate to "AMS Alerts" page via homePage
 
   @SID_3
   Scenario: Create alerts as sys_admin
@@ -43,35 +42,33 @@ Feature: VRM Alerts RBAC
       | Criteria   | Event Criteria:Action,Operator:Equals,Value:[Proxy,Forward]; |
       | Schedule   | checkBox:Trigger,alertsPerHour:60                            |
 
-    Then UI Open "Configurations" Tab
+    Then UI Navigate to "HOME" page via homePage
     Then UI logout and close browser
 
   @SID_4
   Scenario: Login as sec_mon_all_pol and verify alert permissions
     Given UI Login with user "sec_mon_all_pol" and password "radware"
-    And UI Open Upper Bar Item "AMS"
-    And UI Open "Alerts" Tab
+    And UI Navigate to "AMS Alerts" page via homePage
     Then UI Validate Element Existence By Label "Toggle Alerts" if Exists "false" with value "Alert All All"
     Then UI Validate Element Existence By Label "Toggle Alerts" if Exists "true" with value "Alert DP.10 All"
     Then UI Validate Element Existence By Label "Toggle Alerts" if Exists "false" with value "Alert DP.11 All"
     Then UI Validate Element Existence By Label "Toggle Alerts" if Exists "true" with value "Alert DP.10 Policy14 Policy15"
     Then UI Validate Element Existence By Label "Toggle Alerts" if Exists "true" with value "Alert_DP.10_Policy14"
 
-    Then UI Open "Configurations" Tab
+    Then UI Navigate to "HOME" page via homePage
     Then UI logout and close browser
 
   @SID_5
   Scenario: Login as sec_mon_Policy14 and verify alert permissions
     Given UI Login with user "sec_mon_Policy14" and password "radware"
-    And UI Open Upper Bar Item "AMS"
-    And UI Open "Alerts" Tab
+    And UI Navigate to "AMS Alerts" page via homePage
     Then UI Validate Element Existence By Label "Toggle Alerts" if Exists "false" with value "Alert All All"
     Then UI Validate Element Existence By Label "Toggle Alerts" if Exists "false" with value "Alert DP.10 All"
     Then UI Validate Element Existence By Label "Toggle Alerts" if Exists "false" with value "Alert DP.11 All"
     Then UI Validate Element Existence By Label "Toggle Alerts" if Exists "false" with value "Alert DP.10 Policy14 Policy15"
     Then UI Validate Element Existence By Label "Toggle Alerts" if Exists "true" with value "Alert_DP.10_Policy14"
 
-    Then UI Open "Configurations" Tab
+    Then UI Navigate to "HOME" page via homePage
     Then UI logout and close browser
 
   @SID_6

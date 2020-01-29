@@ -15,10 +15,4 @@ public class DefenseFlowRestHandler {
         return result;
     }
 
-    public static void deletePo(HttpMethodEnum method,String urlField, String bodyField, String expectedResult){
-        VisionRestApiHandler visionRestApiHandler = new VisionRestApiHandler();
-        visionRestApiHandler.handleRequest(BaseHandler.restTestBase.getVisionRestClient(), method,
-                "DefenseFlow->Delete PO", urlField, bodyField, expectedResult);
-    }
-
 }

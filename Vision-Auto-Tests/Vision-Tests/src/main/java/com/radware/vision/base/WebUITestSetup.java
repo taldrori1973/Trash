@@ -24,12 +24,13 @@ public class WebUITestSetup extends WebUITestBase {
         webUtils.setConnection(new VisionConnectionAuthentication());
         webUtils.setUp();
 //      "automationFlag" reveals session storage elements and time filter
-        String debugFlag = "?automationFlag=true";
+        String debugFlag = "/?automationFlag=true";
 //        if (BaseTestUtils.isDebugMode())
 ////          add source logs
 //            debugFlag = debugFlag.concat("&ed");
         String visionServerIp = getVisionServerIp();
-        webUtils.logIn(visionServerIp + debugFlag);
+        WebUIUtils.getDriver().get("https://" + visionServerIp + debugFlag);
+//        webUtils.logIn(visionServerIp + debugFlag);
 
         try {
             BaseTestUtils.report("WebUI setUp", Reporter.PASS_NOR_FAIL);

@@ -16,9 +16,7 @@ Feature: Baselines Widget Settings
   Scenario: Login into VRM and select device and policy
     Given UI Login with user "sys_admin" and password "radware"
     * REST Vision Install License Request "vision-AVA-Max-attack-capacity"
-    When UI Open Upper Bar Item "AMS"
-    When UI Open "Dashboards" Tab
-    Then UI Open "DP BDoS Baseline" Sub Tab
+    Then UI Navigate to "  DefensePro Behavioral Protections Dashboard" page via homePage
     And UI Do Operation "Select" item "Global Time Filter"
     And UI Do Operation "Select" item "Global Time Filter.Quick Range" with value "2m"
     And UI Do Operation "Select" item "Device Selection"

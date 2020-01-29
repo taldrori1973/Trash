@@ -20,11 +20,10 @@ Feature: Vision Upgrade current -2
     Then CLI Operations - Run Root Session command "yes|restore_radware_user_password" timeout 15
     # fill partitions to max
     Then CLI copy "/home/radware/Scripts/fill_my_disk.sh" from "GENERIC_LINUX_SERVER" to "ROOT_SERVER_CLI" "/"
-    Then CLI Run remote linux Command "/fill_my_disk.sh /opt/radware 84" on "ROOT_SERVER_CLI"
-    Then CLI Run remote linux Command "/fill_my_disk.sh / 84" on "ROOT_SERVER_CLI"
+    Then CLI Run remote linux Command "/fill_my_disk.sh /opt/radware 88" on "ROOT_SERVER_CLI"
+    Then CLI Run remote linux Command "/fill_my_disk.sh / 88" on "ROOT_SERVER_CLI"
 
     # delete ADC analytics license if exists
-    Then CLI Run remote linux Command "echo "Before " $(mysql -prad123 vision -e "show create table traffic_utilizations\G" |grep "(PARTITION p" |awk -F"p" '{print$2}'|awk '{printf$1}') >  /opt/radware/sql_partition.txt" on "ROOT_SERVER_CLI"
     Then CLI Run remote linux Command "mysql -prad123 vision_ng -e "delete from vision_license where license_str like '%reporting-module-ADC%';"" on "ROOT_SERVER_CLI"
     Then CLI Clear vision logs
  #for testing AVA Attack Capacity Grace Period with the following scenario:
@@ -76,38 +75,35 @@ Feature: Vision Upgrade current -2
     Then CLI Run remote linux Command "/copyUpgradeLog.sh" on "ROOT_SERVER_CLI"
 
     Then CLI Check if logs contains
-      | logType | expression                                                             | isExpected   |
-      | UPGRADE | fatal                                                                  | NOT_EXPECTED |
-    # | UPGRADE | error                                                                  | NOT_EXPECTED |
-      | UPGRADE | fail to\|failed to                                                     | NOT_EXPECTED |
-      | UPGRADE | The upgrade of APSolute Vision server has completed successfully       | EXPECTED     |
-      | UPGRADE | Vision Reporter upgrade finished                                       | EXPECTED     |
-      | UPGRADE | Successfully upgraded from AVR                                         | EXPECTED     |
-      | UPGRADE | Upgrading vDirect services ended                                       | EXPECTED     |
-      | UPGRADE | APSolute Vision ELASTICSEARCH upgrade finished                         | EXPECTED     |
-      | UPGRADE | APSolute Vision AMQP upgrade finished                                  | EXPECTED     |
-      | UPGRADE | APSolute Vision Appwall upgrade finished                               | EXPECTED     |
-      | UPGRADE | APSolute Vision Workflows upgrade finished                             | EXPECTED     |
-      | UPGRADE | APSolute Vision Databse upgrade finished                               | EXPECTED     |
-      | UPGRADE | APSolute Vision CLI upgrade finished                                   | EXPECTED     |
-      | UPGRADE | APSolute Vision Web upgrade finished                                   | EXPECTED     |
-      | UPGRADE | APSolute Vision DP upgrade finished                                    | EXPECTED     |
-      | UPGRADE | APSolute Vision Configuration upgrade finished                         | EXPECTED     |
-      | UPGRADE | APSolute Vision Device upgrade finished                                | EXPECTED     |
-      | UPGRADE | APSolute Vision Online upgrade finished                                | EXPECTED     |
-      | UPGRADE | APSolute Vision WEB upgrade finished                                   | EXPECTED     |
-      | UPGRADE | APSolute Vision Application upgrade finished                           | EXPECTED     |
-      | UPGRADE | APSolute Vision System upgrade finished                                | EXPECTED     |
-      | UPGRADE | APSolute Vision OS upgrade finished                                    | EXPECTED     |
-      | UPGRADE | ERROR                                                                  | NOT_EXPECTED |
-      | UPGRADE | error: package MySQL-                                                  | IGNORE       |
-      | UPGRADE | inflating:                                                             | IGNORE       |
-      | UPGRADE | *.png                                                                  | IGNORE       |
-      | UPGRADE | *.svg                                                                  | IGNORE       |
-      | LLS     | fatal\| error\|fail                                                    | NOT_EXPECTED |
-      | LLS     | Installation ended                                                     | EXPECTED     |
-      | UPGRADE | /opt/radware/storage/www/webui/vision-dashboards/public/static/media/* | IGNORE       |
-
+      | logType | expression                                                       | isExpected   |
+      | UPGRADE | fatal                                                            | NOT_EXPECTED |
+    # | UPGRADE | error                                                            | NOT_EXPECTED      |
+      | UPGRADE | fail to\|failed to                                               | NOT_EXPECTED |
+      | UPGRADE | The upgrade of APSolute Vision server has completed successfully | EXPECTED     |
+      | UPGRADE | Vision Reporter upgrade finished                                 | EXPECTED     |
+      | UPGRADE | Successfully upgraded from AVR                                   | EXPECTED     |
+      | UPGRADE | Upgrading vDirect services ended                                 | EXPECTED     |
+      | UPGRADE | APSolute Vision ELASTICSEARCH upgrade finished                   | EXPECTED     |
+      | UPGRADE | APSolute Vision AMQP upgrade finished                            | EXPECTED     |
+      | UPGRADE | APSolute Vision Appwall upgrade finished                         | EXPECTED     |
+      | UPGRADE | APSolute Vision Workflows upgrade finished                       | EXPECTED     |
+      | UPGRADE | APSolute Vision Databse upgrade finished                         | EXPECTED     |
+      | UPGRADE | APSolute Vision CLI upgrade finished                             | EXPECTED     |
+      | UPGRADE | APSolute Vision Web upgrade finished                             | EXPECTED     |
+      | UPGRADE | APSolute Vision DP upgrade finished                              | EXPECTED     |
+      | UPGRADE | APSolute Vision Configuration upgrade finished                   | EXPECTED     |
+      | UPGRADE | APSolute Vision Device upgrade finished                          | EXPECTED     |
+      | UPGRADE | APSolute Vision Online upgrade finished                          | EXPECTED     |
+      | UPGRADE | APSolute Vision WEB upgrade finished                             | EXPECTED     |
+      | UPGRADE | APSolute Vision Application upgrade finished                     | EXPECTED     |
+      | UPGRADE | APSolute Vision System upgrade finished                          | EXPECTED     |
+      | UPGRADE | APSolute Vision OS upgrade finished                              | EXPECTED     |
+      | UPGRADE | ERROR                                                            | NOT_EXPECTED |
+      | UPGRADE | error: package MySQL-                                            | IGNORE       |
+      | UPGRADE | ic_logi_error.png                                                | IGNORE       |
+      | UPGRADE | tree-error.png                                                   | IGNORE       |
+      | LLS     | fatal\| error\|fail                                              | NOT_EXPECTED |
+      | LLS     | Installation ended                                               | EXPECTED     |
 
   @SID_9
   Scenario: Check firewall settings
@@ -226,12 +222,9 @@ Feature: Vision Upgrade current -2
 
   @SID_21
   Scenario: Visit device subscription page
-#    Then REST Request "GET" for "Device Subscriptions->Table"
-#       | type                 | value |
-#       | Returned status code | 200   |
-
-    Then CLI Run linux Command "result=`curl -ks -X "POST" "https://localhost/mgmt/system/user/login" -H "Content-Type: application/json" -d $"{\"username\": \"radware\",\"password\": \"radware\"}"`; jsession=`echo $result | tr "," "\n"|grep -i jsession|tr -d '"' | cut -d: -f2`; curl -ks -o null -XGET -H "Cookie: JSESSIONID=$jsession" https://localhost/mgmt/system/config/itemlist/devicesubscriptions -w 'RESP_CODE:%{response_code}\n'" on "ROOT_SERVER_CLI" and validate result EQUALS "RESP_CODE:200" with timeOut 300 with runCommand delay 90
-    Then CLI Operations - Verify that output contains regex "RESP_CODE:200"
+    Then REST Request "GET" for "Device Subscriptions->Table"
+      | type                 | value |
+      | Returned status code | 200   |
 
   @SID_22
   Scenario: Delete fake devices from tree
@@ -258,9 +251,9 @@ Feature: Vision Upgrade current -2
 
   @SID_26
   Scenario: Validate LLS service is up
-    Then CLI Run linux Command "curl -ks -o null -XGET http://localhost4:7070/api/1.0/hostids -w 'RESP_CODE:%{response_code}\n'" on "ROOT_SERVER_CLI" and validate result EQUALS "RESP_CODE:200" with timeOut 300
+    Then CLI Run remote linux Command "curl -ks -o null -XGET http://localhost4:7070/api/1.0/hostids -w 'RESP_CODE:%{response_code}\n'" on "ROOT_SERVER_CLI"
     Then CLI Operations - Verify that output contains regex "RESP_CODE:200"
-    Then CLI Run linux Command "curl -ks -o null -XGET http://localhost6:7070/api/1.0/hostids -w 'RESP_CODE:%{response_code}\n'" on "ROOT_SERVER_CLI" and validate result EQUALS "RESP_CODE:200" with timeOut 300
+    Then CLI Run remote linux Command "curl -ks -o null -XGET http://localhost6:7070/api/1.0/hostids -w 'RESP_CODE:%{response_code}\n'" on "ROOT_SERVER_CLI"
     Then CLI Operations - Verify that output contains regex "RESP_CODE:200"
       #rollback to the original values
     Given CLI Run remote linux Command "mysql -prad123 vision_ng -e "update lls_server set min_required_ram='24';"" on "ROOT_SERVER_CLI"
@@ -301,9 +294,3 @@ Feature: Vision Upgrade current -2
   @SID_32
   Scenario: Verify number of tables in vision_ng schema
     Then CLI Run linux Command "mysql -prad123 -NB -e "select count(*) from INFORMATION_SCHEMA.TABLES WHERE TABLE_SCHEMA='vision_ng';"" on "ROOT_SERVER_CLI" and validate result EQUALS "166"
-
-  @SID_33
-  Scenario: Validate increased MySql partitioning number
-    Then CLI Run remote linux Command "echo "After " $(mysql -prad123 vision -e "show create table traffic_utilizations\G" |grep "(PARTITION \`p" |awk -F"p" '{print$2}'|awk -F"\`" '{print$1}') >>  /opt/radware/sql_partition.txt" on "ROOT_SERVER_CLI"
-    Then CLI Run remote linux Command "cat /opt/radware/sql_partition.txt" on "ROOT_SERVER_CLI"
-    Then CLI Run linux Command "echo $(cat /opt/radware/sql_partition.txt |grep "After"|awk '{print$2}')-$(cat /opt/radware/sql_partition.txt |grep "Before"|awk '{print$2}')|bc" on "ROOT_SERVER_CLI" and validate result GT "0"

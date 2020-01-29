@@ -39,7 +39,7 @@ public class OperatorToolBoxTests extends ScheduledTasksTestBase {
             "taskRunAlways", "taskSchedWeekdays", "taskSchedStartDate", "taskSchedStartTime", "taskSchedEndDate", "taskSchedEndTime", "deviceDestinations", "groupDestinations",
             "taskSchedRunTime", "runOnceDate", "taskSchedMinutes", "executeDeltaTime", "enableUser", "userId", "userName", "userRoles",
             "password", "confirmPassword", "adminPassword", "confirmAdminPassword", "certificateManagement", "apply", "save"})
-    public void addAdcCreateUserTaskTest() {
+    public void addAdcCreateUserTaskTest() throws Exception {
 
         HashMap<String, String> taskPorperties = new HashMap<String, String>(50);
         taskPorperties.putAll(setBaseProperties());
@@ -70,7 +70,7 @@ public class OperatorToolBoxTests extends ScheduledTasksTestBase {
     @TestProperties(name = "ADC Delete User Task", paramsInclude = {"taskEnabled", "taskName", "taskDescription", "taskSchedRunInterval",
             "taskRunAlways", "taskSchedWeekdays", "taskSchedStartDate", "taskSchedStartTime", "taskSchedEndDate", "taskSchedEndTime", "deviceDestinations", "groupDestinations",
             "taskSchedRunTime", "runOnceDate", "taskSchedMinutes", "executeDeltaTime", "userId", "apply", "save"})
-    public void addAdcDeleteUserTaskTest() {
+    public void addAdcDeleteUserTaskTest() throws Exception {
 
         HashMap<String, String> taskPorperties = new HashMap<String, String>(50);
         taskPorperties.putAll(setBaseProperties());

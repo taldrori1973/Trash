@@ -27,10 +27,7 @@ Feature: AMS DefenseFlow Attacks Dashboard
   @SID_3 @Sanity
   Scenario: VRM - Login to AMS DefenseFlow Analytics Dashboard
     Given UI Login with user "sys_admin" and password "radware"
-    And UI Open Upper Bar Item "AMS"
-    Then Sleep "7"
-    When UI Open "Dashboards" Tab
-    Then UI Open "DefenseFlow Analytics Dashboard" Sub Tab
+    And UI Navigate to "DefenseFlow Analytics Dashboard" page via homePage
     Then UI Do Operation "Select" item "Global Time Filter"
     Then UI Do Operation "Select" item "Global Time Filter.Quick Range" with value "3H"
 
@@ -492,85 +489,66 @@ Feature: AMS DefenseFlow Attacks Dashboard
     * CLI Clear vision logs
 
 
-#  @SID_25
-#  Scenario: Run DF simulator for DDos Attack Volume per Day
-#    When CLI Run remote linux Command on "GENERIC_LINUX_SERVER"
-#      | "/home/radware/DF_Attacks_new/curl_DF_attacks-auto_PO_100_2D_Before.sh " |
-#      | #visionIP                                                 |
-#      | " Terminated"                                             |
-#    When CLI Run remote linux Command on "GENERIC_LINUX_SERVER"
-#      | "/home/radware/DF_Attacks_new/curl_DF_attacks-auto_PO_100_3D_Before.sh " |
-#      | #visionIP                                                 |
-#      | " Terminated"                                             |
-#
-#    When CLI Run remote linux Command on "GENERIC_LINUX_SERVER"
-#      | "/home/radware/DF_Attacks_new/curl_DF_attacks-auto_PO_100_5D_Before.sh " |
-#      | #visionIP                                                 |
-#      | " Terminated"                                             |
-#    When CLI Run remote linux Command on "GENERIC_LINUX_SERVER"
-#      | "/home/radware/DF_Attacks_new/curl_DF_attacks-auto_PO_300_3D_Before.sh " |
-#      | #visionIP                                                 |
-#      | " Terminated"                                             |
-#    When CLI Run remote linux Command on "GENERIC_LINUX_SERVER"
-#      | "/home/radware/DF_Attacks_new/curl_DF_attacks-auto_PO_300_4D_Before.sh " |
-#      | #visionIP                                                 |
-#      | " Terminated"                                             |
-#
-#  @SID_26
-#  Scenario: select range
-#    Then UI Do Operation "Select" item "Global Time Filter"
-#    When UI select time range from "-16d" to "-1d"
-#
-#  @SID_27
-#  Scenario: select 3 POs
-#    When UI Do Operation "Select" item "Protected Objects"
-#    Then UI Select scope from dashboard and Save Filter device type "defenseflow"
-#      | PO_100 |
-#      | PO_200 |
-#      | PO_300 |
-#
-#  @SID_28
-#  Scenario: Validate DDos Attack Volume per Day (bits) - All POs
-#    Then UI Validate Line Chart data "DDoS Attack Volume per Period" with LabelTime
-#      | value        | countOffset | time |
-#      | 319366469000 | 10          | -5d  |
-#      | 319366469000 | 10          | -4d  |
-#      | 638732938000 | 10          | -3d  |
-#      | 319366469000 | 10          | -2d  |
-#
-#  @SID_34
-#  Scenario: Validate DDos Attack Activations per Day - ALL of POs
-#    Then UI Validate Line Chart data "DDoS Attack Activations per Period" with LabelTime
-#      | value | countOffset | time |
-#      | 158   | 2           | -5d  |
-#      | 158   | 2           | -4d  |
-#      | 316   | 2           | -3d  |
-#      | 158   | 2           | -2d  |
-#
-#
-#  @SID_29
-#  Scenario: select two POs
-#    When UI Do Operation "Select" item "Protected Objects"
-#    Then UI Select scope from dashboard and Save Filter device type "defenseflow"
-#      | PO_100 |
-#      | PO_200 |
-#
-#  @SID_30
-#  Scenario: Validate DDos Attack Volume per Day - part of POs
-#    Then UI Validate Line Chart data "DDoS Attack Volume per Period" with LabelTime
-#      | value        | countOffset | time |
-#      | 319366469000 | 10          | -5d  |
-#      | 319366469000 | 10          | -3d  |
-#      | 319366469000 | 10          | -2d  |
-#
-#  @SID_35
-#  Scenario: Validate DDos Attack Activations per Day - part of POs
-#    Then UI Validate Line Chart data "DDoS Attack Activations per Period" with LabelTime
-#      | value | countOffset | time |
-#      | 158   | 2           | -5d  |
-#      | 158   | 2           | -3d  |
-#      | 158   | 2           | -2d  |
+  @SID_25
+  Scenario: Run DF simulator for DDos Attack Volume per Day
+    When CLI Run remote linux Command on "GENERIC_LINUX_SERVER"
+      | "/home/radware/curl_DF_attacks-auto_PO_100_2D_Before.sh " |
+      | #visionIP                                                 |
+      | " Terminated"                                             |
+    When CLI Run remote linux Command on "GENERIC_LINUX_SERVER"
+      | "/home/radware/curl_DF_attacks-auto_PO_100_3D_Before.sh " |
+      | #visionIP                                                 |
+      | " Terminated"                                             |
 
+    When CLI Run remote linux Command on "GENERIC_LINUX_SERVER"
+      | "/home/radware/curl_DF_attacks-auto_PO_100_5D_Before.sh " |
+      | #visionIP                                                 |
+      | " Terminated"                                             |
+    When CLI Run remote linux Command on "GENERIC_LINUX_SERVER"
+      | "/home/radware/curl_DF_attacks-auto_PO_300_3D_Before.sh " |
+      | #visionIP                                                 |
+      | " Terminated"                                             |
+    When CLI Run remote linux Command on "GENERIC_LINUX_SERVER"
+      | "/home/radware/curl_DF_attacks-auto_PO_300_4D_Before.sh " |
+      | #visionIP                                                 |
+      | " Terminated"                                             |
+
+  @SID_26
+  Scenario: select range
+    Then UI Do Operation "Select" item "Global Time Filter"
+    When UI select time range from "-16d" to "-1d"
+
+  @SID_27
+  Scenario: select 3 POs
+    When UI Do Operation "Select" item "Protected Objects"
+    Then UI Select scope from dashboard and Save Filter device type "defenseflow"
+      | PO_100 |
+      | PO_200 |
+      | PO_300 |
+
+  @SID_28
+  Scenario: Validate DDos Attack Volume per Day (bits) - All POs
+    Then UI Validate Line Chart data "Attack Volume per Day" with LabelTime
+      | value        | countOffset | time |
+      | 319366469000 | 10          | -5d  |
+      | 319366469000 | 10          | -4d  |
+      | 638732938000 | 10          | -3d  |
+      | 319366469000 | 10          | -2d  |
+
+  @SID_29
+  Scenario: select two POs
+    When UI Do Operation "Select" item "Protected Objects"
+    Then UI Select scope from dashboard and Save Filter device type "defenseflow"
+      | PO_100 |
+      | PO_200 |
+
+  @SID_30
+  Scenario: Validate DDos Attack Activations per Day - part of POs
+    Then UI Validate Line Chart data "Attack Volume per Day" with LabelTime
+      | value        | countOffset | time |
+      | 319366469000 | 10          | -5d  |
+      | 319366469000 | 10          | -3d  |
+      | 319366469000 | 10          | -2d  |
 
   @SID_32
   Scenario: Search for bad logs
@@ -582,5 +560,5 @@ Feature: AMS DefenseFlow Attacks Dashboard
 
   @SID_33
   Scenario: Cleanup
-    When UI Open "Configurations" Tab
+    And UI Navigate to "HOME" page via homePage
     Then UI logout and close browser

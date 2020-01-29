@@ -21,11 +21,11 @@ public class DPConfigurationTemplatesHandler extends BaseTasksHandler {
     public static String networkPoliciesDualListId = "networkPolicies";
     public static String serverPoliciesDualListId = "serverPolicies";
 
-    public static void deleteTask(String columnName, String taskName) {
+    public static void deleteTask(String columnName, String taskName) throws Exception {
         deleteBaseTask(columnName, taskName);
     }
 
-    public static void addTask(HashMap<String, String> taskProperties) {
+    public static void addTask(HashMap<String, String> taskProperties) throws Exception {
         beforeAddTask(taskProperties);
         List<String> deviceDestinationsList = new ArrayList<String>();
 
@@ -82,7 +82,7 @@ public class DPConfigurationTemplatesHandler extends BaseTasksHandler {
         afterAddTask(taskProperties);
     }
 
-    public static void editTask(HashMap<String, String> taskProperties) {
+    public static void editTask(HashMap<String, String> taskProperties) throws Exception {
         beforeEditTask(taskProperties);
         List<String> deviceDestinationsList = new ArrayList<String>();
 

@@ -25,10 +25,10 @@ Feature: DPM Analytics Main Page
     Then CLI Operations - Run Root Session command "yes|restore_radware_user_password" timeout 15
     Then REST Vision Install License Request "vision-reporting-module-ADC"
     Then UI Login with user "ADC_Administrator_auto_fake" and password "radware"
-    Then UI Open Upper Bar Item "ADC"
-    Then UI Open "Reports" Tab
-    Then UI Open "Dashboards" Tab
-    Then UI Open "Application Dashboard" Sub Tab
+
+    Then UI Navigate to "ADC Reports" page via homePage
+
+    Then UI Navigate to "Application Dashboard" page via homePage
 
   @Sanity @SID_5
   Scenario: DPM - Validate device's amount and status

@@ -7,8 +7,7 @@ Feature: AMS Report Schedule Wizard
     Given UI Login with user "sys_admin" and password "radware"
     * REST Vision Install License Request "vision-AVA-Max-attack-capacity"
     Then CLI copy "/home/radware/Scripts/get_scheduled_report_value.sh" from "GENERIC_LINUX_SERVER" to "ROOT_SERVER_CLI" "/"
-    When UI Open Upper Bar Item "AMS"
-    When UI Open "Reports" Tab
+    And UI Navigate to "AMS Reports" page via homePage
     Then UI Validate Element Existence By Label "Add New" if Exists "true"
 
   # "Scheduling Month"
@@ -72,7 +71,7 @@ Feature: AMS Report Schedule Wizard
   @SID_6
   Scenario: validate Scheduling Once
     Then CLI Run remote linux Command "/get_scheduled_report_value.sh OnceScheduleReport" on "ROOT_SERVER_CLI"
-    Then CLI Operations - Verify that output contains regex "0 59 23 (\d{1,2}) (\d{1,2}) \? 2020"
+    Then CLI Operations - Verify that output contains regex "0 59 23 (\d{1,2}) (\d{1,2}) \? 2019"
 
   @SID_7
   Scenario: TC102002 - Add new Report Scheduling Hour

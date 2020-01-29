@@ -27,7 +27,7 @@ Feature: Connectivity Proxy Server Parameters Functionality
 
   @SID_4
   Scenario: Proxy validate UI fields
-    Then UI Open Upper Bar Item "Refresh"
+    Then UI Click Button "toolbarRefresh"
     Then REST get Connectivity Parameters "proxyServerAddress"
     Then UI Validate Text field "IP Address" EQUALS ""
     Then REST get Connectivity Parameters "proxyServerPort"

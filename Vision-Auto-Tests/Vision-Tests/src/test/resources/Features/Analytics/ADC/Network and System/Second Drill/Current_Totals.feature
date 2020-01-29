@@ -22,12 +22,9 @@ Feature: ADC dashboard Current Totals Widget
     Then UI Add "Alteon" with index 22 on "Alteons_for_DPM-Fakes" site
     Then UI Wait For Device To Show Up In The Topology Tree "Alteon" device with index 21 with timeout 300
     Then UI Wait For Device To Show Up In The Topology Tree "Alteon" device with index 22 with timeout 300
-    * Sleep "100"
 
-    Then UI Open Upper Bar Item "ADC"
-    Then UI Open "Reports" Tab
-    Then UI Open "Dashboards" Tab
-    Then UI Open "System & Network Dashboard" Sub Tab
+
+    When UI Navigate to "System and Network Dashboard" page via homePage
     Then UI click Table row by keyValue or Index with elementLabel "Devices table" findBy columnName "Device Name" findBy cellValue "Alteon_50.50.101.31"
     Then UI Click Button "NetworkTab"
     * Sleep "3"
@@ -54,16 +51,12 @@ Feature: ADC dashboard Current Totals Widget
 
   @SID_8
   Scenario: Validation: data correctness and exact 1 Gbps presentation
-    Then UI Open "Configurations" Tab
+    When UI Navigate to "HOME" page via homePage
     Then UI logout and close browser
     Then UI Login with user "sys_admin" and password "radware"
-    Then UI Open Upper Bar Item "ADC"
-    Then UI Open "Dashboards" Tab
-    Then UI Open "Application Dashboard" Sub Tab
-    Then UI Open "Configurations" Tab
-    Then UI Open Upper Bar Item "ADC"
-    Then UI Open "Dashboards" Tab
-    Then UI Open "Network and System Dashboard" Sub Tab
+    When UI Navigate to "Application Dashboard" page via homePage
+    When UI Navigate to "HOME" page via homePage
+    When UI Navigate to "System and Network Dashboard" page via homePage
     Then UI click Table row by keyValue or Index with elementLabel "Devices table" findBy columnName "Device Name" findBy cellValue "Alteon_50.50.101.32"
     Then UI Click Button "NetworkTab"
 
@@ -82,8 +75,8 @@ Feature: ADC dashboard Current Totals Widget
 
   @SID_11
   Scenario: CleanUp
+    Then REST Delete Device By IP "50.50.101.31"
     Then REST Delete "Alteon" device with index 21 from topology tree
     Then REST Delete "Alteon" device with index 22 from topology tree
-#    Then REST Delete Device By IP "50.50.101.31"
-#    Then REST Delete Device By IP "50.50.101.32"
+    Then REST Delete Device By IP "50.50.101.32"
     Then UI logout and close browser

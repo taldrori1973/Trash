@@ -14,6 +14,7 @@ import com.radware.vision.automation.tools.sutsystemobjects.devicesinfo.DeviceIn
 import com.radware.vision.automation.tools.sutsystemobjects.devicesinfo.enums.SUTDeviceType;
 import com.radware.vision.base.WebUITestSetup;
 import com.radware.vision.bddtests.BddUITestBase;
+import com.radware.vision.infra.base.pages.navigation.HomePage;
 import com.radware.vision.infra.base.pages.navigation.WebUIVisionBasePage;
 import com.radware.vision.infra.enums.*;
 import com.radware.vision.infra.testhandlers.baseoperations.BasicOperationsByNameIdHandler;
@@ -78,19 +79,17 @@ public class BasicOperationsSteps extends BddUITestBase {
 
     @Given("^UI Navigate to page via menu \"(.*)\"$")
     public void navigateToMenu(String path) {
-//        WebUIUtils.getDriver().get("http://172.17.173.100:3000");
         WebUIVisionBasePage.navigateToPageMenu(path);
     }
 
-    @Given("^UI Navigate to \"(.*)\" page via homePage$")
-    public void navigateFromHomePage(String pageName) {
-        try {
-            WebUIUtils.getDriver().get("http://172.17.173.100:3000");
-            WebUIVisionBasePage.navigateFromHomePage(pageName);
-        } catch (Exception e) {
-            BaseTestUtils.report(e.getMessage(), Reporter.FAIL);
-        }
+    @Given("^Browser$")
+    public void browser() {
+        WebUIUtils.getDriver().get("http://localhost:3003");
+    }
 
+    @Given("^UI Navigate to \"(.*)\" page via home[p|P]age$")
+    public void navigateFromHomePage(String pageName) {
+        BasicOperationsHandler.navigateFromHomePage(pageName);
     }
 
     /**
@@ -111,10 +110,10 @@ public class BasicOperationsSteps extends BddUITestBase {
      *                 Do Login with userName and password and if the user had loggedIn with another userName it Do logout, after that login with the userName
      */
     @Given("^UI Login with user \"(.*)\" and password \"(.*)\"( negative)?$")
-    public void login(String username, String password, String negative) {
+    public void login(String username, String password, String negative) throws Exception {
         if (isLoggedIn) {
             if (BasicOperationsHandler.isLoggedInWithUser(username)) {
-                BasicOperationsHandler.openTab("Configurations");
+                HomePage.navigateFromHomePage("HOME");
             } else {
                 logout();
             }
@@ -149,6 +148,7 @@ public class BasicOperationsSteps extends BddUITestBase {
     public static void loginToServer(String username, String password, VisionRestClient visionRestClient) throws Exception {
         WebUITestSetup webUITestSetup = new WebUITestSetup();
         webUITestSetup.setup();
+//        WebUIUtils.getDriver().get("http://localhost:3003/"); // temporary
         BasicOperationsHandler.login(username, password);
         VisionWebUIUtils.loggedinUser = username;
         visionRestClient.login(username, password, "", 1);
@@ -177,7 +177,12 @@ public class BasicOperationsSteps extends BddUITestBase {
         } finally {
             if (!isLoggedOut(WebUIUtils.DEFAULT_LOGIN_WAIT_TIME)) {
                 BaseTestUtils.report("Logout Operation failed, no \"log In\" button found", Reporter.FAIL);
-            } else isLoggedIn = false;
+            }
+            else
+                {
+                    isLoggedIn = false;
+                    VisionDebugIdsManager.setTab("LoginPage");
+                }
         }
     }
 

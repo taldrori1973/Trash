@@ -12,7 +12,7 @@ public class UpdateGeoLocationFeedTestSteps extends BddUITestBase {
     }
 
     @Then("^UI Add New 'Update GEO Location Feed' Task with Name \"([^\"]*)\" , Schedule Run Daily at Time \"((?:[01]\\d|2[0123]):(?:[012345]\\d):(?:[012345]\\d))\" , and the Target Device List are:$")
-    public void uiAddNewUpdateGEOLocationFeedTaskWithNameScheduleRunDailyAtTimeAndTheTargetDeviceListAre(String taskName, String time, List<String> devices) {
+    public void uiAddNewUpdateGEOLocationFeedTaskWithNameScheduleRunDailyAtTimeAndTheTargetDeviceListAre(String taskName, String time, List<String> devices) throws Exception {
         UpdateGeoLocationFeedTestHandler.addNewTask(taskName,time,devices);
 
     }

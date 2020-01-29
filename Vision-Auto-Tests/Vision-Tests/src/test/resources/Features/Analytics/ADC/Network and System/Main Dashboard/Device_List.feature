@@ -36,14 +36,14 @@ Feature: System And Network - Device List
   Scenario Outline: Setup 3 - UI Edit and Submit New Devices To Update Status at Topology Tree
     Then UI Click Edit device Then Submit to Refresh with IP "<Device IP>" from topology tree "<Tree>"
     Examples:
-      | Device IP     | Tree                |
-      | 50.50.101.30  | Sites and Devices   |
-      | 50.50.101.31  | Sites and Devices   |
-      | 50.50.101.32  | Sites and Devices   |
-      | 50.50.101.33  | Physical Containers |
-      | 50.50.32.1    | Sites and Devices   |
-      | 50.50.101.254 | Sites and Devices   |
-      | 50.50.101.34  | Sites and Devices   |
+      | Device IP            | Tree                |
+      | 50.50.101.30         | Sites and Devices   |
+      | 50.50.101.31         | Sites and Devices   |
+      | 50.50.101.32         | Sites and Devices   |
+      | 50.50.101.33         | Physical Containers |
+      | 50.50.32.1           | Sites and Devices   |
+      | 50.50.101.254        | Sites and Devices   |
+      | 50.50.101.34         | Sites and Devices   |
 
   @SID_5
   Scenario: Setup 4 - Sleep Then Make Some Devices Down
@@ -53,8 +53,8 @@ Feature: System And Network - Device List
     Then REST Update a scalar "snmpV2ReadCommunity" value of Request "Device Tree->Update SNMPv2 Read Community" on the device Ip "50.50.101.30" with the new scalar value "public1"
     Then REST Update a scalar "snmpV2ReadCommunity" value of Request "Device Tree->Update SNMPv2 Read Community" on the device Ip "50.50.101.31" with the new scalar value "public1"
     Then REST Update a scalar "snmpV2ReadCommunity" value of Request "Device Tree->Update SNMPv2 Read Community" on the device Ip "50.50.101.32" with the new scalar value "public1"
-#    Then REST Update a scalar "snmpV2ReadCommunity" value of Request "Device Tree->Update SNMPv2 Read Community" on the device Ip "172.17.164.17" with the new scalar value "public1"
-#    Then REST Update a scalar "snmpV2ReadCommunity" value of Request "Device Tree->Update SNMPv2 Read Community" on the device Ip "172.17.154.190" with the new scalar value "public1"
+    Then REST Update a scalar "snmpV2ReadCommunity" value of Request "Device Tree->Update SNMPv2 Read Community" on the device Ip "172.17.164.17" with the new scalar value "public1"
+    Then REST Update a scalar "snmpV2ReadCommunity" value of Request "Device Tree->Update SNMPv2 Read Community" on the device Ip "172.17.154.190" with the new scalar value "public1"
 
     Then Browser Refresh Page
 
@@ -63,12 +63,12 @@ Feature: System And Network - Device List
   Scenario Outline: Setup 5 - UI Edit and Submit Down Devices To Update Status at Topology Tree
     Then UI Click Edit device Then Submit to Refresh with IP "<Device IP>" from topology tree "Sites and Devices"
     Examples:
-      | Device IP    |
-      | 50.50.101.30 |
-      | 50.50.101.31 |
-      | 50.50.101.32 |
-#      | 172.17.164.17  |
-#      | 172.17.154.190 |
+      | Device IP      |
+      | 50.50.101.30   |
+      | 50.50.101.31   |
+      | 50.50.101.32   |
+      | 172.17.164.17  |
+      | 172.17.154.190 |
 
   @SID_7
   Scenario: Navigation
@@ -96,55 +96,55 @@ Feature: System And Network - Device List
 
       #ToDo check color
     Then UI Validate Table record values by columns with elementLabel "Device List.Table" findBy columnName "Management IP" findBy cellValue "50.50.101.30"
-      | columnName               | value               |
-      | Status                   | Down                |
-      | Device Name              | Alteon_50.50.101.30 |
-      | Management IP            | 50.50.101.30        |
-      | Form Factor              | Standalone          |
-      | Version                  | 32.2.1.0            |
-      | Platform                 | 6024VL              |
-      | High Availability Status | NONE                |
-      | CurrentThroughput (bps)  |                     |
-      | CPU Usage                |                     |
+      | columnName              | value       |
+      | Status                  | Down          |
+      | Device Name             | Alteon_50.50.101.30 |
+      | Management IP           | 50.50.101.30|
+      | Form Factor             | Standalone  |
+      | Version                 | 32.2.1.0    |
+      | Platform                | 6024VL      |
+      | High Availability Status| NONE        |
+      | CurrentThroughput (bps) |              |
+      | CPU Usage               |             |
 
     #Management IP= 50.50.101.31
     Then UI Validate Table record values by columns with elementLabel "Device List.Table" findBy columnName "Management IP" findBy cellValue "50.50.101.31"
-      | columnName               | value               |
-      | Status                   | Down                |
-      | Device Name              | Alteon_50.50.101.31 |
-      | Management IP            | 50.50.101.31        |
-      | Form Factor              | VA                  |
-      | Version                  | 32.2.1.0            |
-      | Platform                 | VA                  |
-      | High Availability Status | BACKUP              |
-      | CurrentThroughput (bps)  |                     |
-      | CPU Usage                |                     |
+      | columnName              | value       |
+      | Status                  | Down        |
+      | Device Name             | Alteon_50.50.101.31 |
+      | Management IP           | 50.50.101.31|
+      | Form Factor             | VA          |
+      | Version                 | 32.2.1.0    |
+      | Platform                | VA          |
+      | High Availability Status| BACKUP      |
+      | CurrentThroughput (bps) |             |
+      | CPU Usage               |             |
 
     #Management IP= 50.50.101.32
     Then UI Validate Table record values by columns with elementLabel "Device List.Table" findBy columnName "Management IP" findBy cellValue "50.50.101.32"
-      | columnName               | value               |
-      | Status                   | Down                |
-      | Device Name              | Alteon_50.50.101.32 |
-      | Management IP            | 50.50.101.32        |
-      | Form Factor              | VADC                |
-      | Version                  | 32.2.1.0            |
-      | Platform                 | 8420 SL             |
-      | High Availability Status | ACTIVE              |
-      | CurrentThroughput (bps)  |                     |
-      | CPU Usage                |                     |
+      | columnName              | value       |
+      | Status                  | Down        |
+      | Device Name             | Alteon_50.50.101.32 |
+      | Management IP           | 50.50.101.32|
+      | Form Factor             | VADC        |
+      | Version                 | 32.2.1.0    |
+      | Platform                | 8420 SL     |
+      | High Availability Status| ACTIVE      |
+      | CurrentThroughput (bps) |             |
+      | CPU Usage               |             |
 
     #Management IP= 50.50.101.33
     Then UI Validate Table record values by columns with elementLabel "Device List.Table" findBy columnName "Management IP" findBy cellValue "50.50.101.33"
-      | columnName               | value               |
-      | Status                   | Up                  |
-      | Device Name              | Alteon_50.50.101.33 |
-      | Management IP            | 50.50.101.33        |
-      | Form Factor              | VX                  |
-      | Version                  | 32.2.1.0            |
-      | Platform                 | 5208 EL             |
-      | High Availability Status | DISABLED            |
-      | CurrentThroughput (bps)  | 141.6 K             |
-      | CPU Usage                | 1%                  |
+      | columnName              | value       |
+      | Status                  | Up          |
+      | Device Name             | Alteon_50.50.101.33 |
+      | Management IP           | 50.50.101.33|
+      | Form Factor             | VX          |
+      | Version                 | 32.2.1.0    |
+      | Platform                | 5208 EL     |
+      | High Availability Status| DISABLED    |
+      | CurrentThroughput (bps) | 141.6 K     |
+      | CPU Usage               | 1%          |
 
 
     # =================================== Table Sorting ================================
@@ -155,7 +155,7 @@ Feature: System And Network - Device List
   Scenario:  Validate Default Sorting
     Then UI Validate Table "Devices table" is Sorted by
       | columnName | order     | compareMethod |
-      | Status     | Ascending | SYSTEM_STATUS |
+      | Status     | Ascending | SYSTEM_STATUS  |
   #Second Click on Status column, The Reversed Status Order is : Admin Down , UP, Shutdown Warning, Down
 
   #------------------------By Status----------------------
@@ -170,8 +170,8 @@ Feature: System And Network - Device List
   Scenario: Validate Sorting by Status in Descending Order
     When UI Click Button "Sort By" with value "deviceStatus"
     Then UI Validate Table "Devices table" is Sorted by
-      | columnName | order      | compareMethod |
-      | Status     | Descending | SYSTEM_STATUS |
+      | columnName      | order      | compareMethod |
+      | Status     | Descending  | SYSTEM_STATUS  |
 
   @SID_13
   Scenario: Validate Sorting by Default after Disable The Sorting by Current Status
@@ -179,7 +179,7 @@ Feature: System And Network - Device List
   # Validate Default Sorting
     Then UI Validate Table "Devices table" is Sorted by
       | columnName | order     | compareMethod |
-      | Status     | Ascending | SYSTEM_STATUS |
+      | Status     | Ascending | SYSTEM_STATUS  |
 
   #------------------------By Device Name----------------------
 
@@ -188,16 +188,16 @@ Feature: System And Network - Device List
   Scenario: Validate Sorting by Device Name in Ascending Order
     When UI Click Button "Sort By" with value "deviceName"
     Then UI Validate Table "Devices table" is Sorted by
-      | columnName  | order     | compareMethod |
-      | Device Name | Ascending | ALPHABETICAL  |
+      | columnName      | order     | compareMethod  |
+      | Device Name     | Ascending | ALPHABETICAL   |
 
   #Second Click on Current Throughput column
   @SID_15
   Scenario: Validate Sorting by Device Name in Descending Order
     When UI Click Button "Sort By" with value "deviceName"
     Then UI Validate Table "Devices table" is Sorted by
-      | columnName  | order      | compareMethod |
-      | Device Name | Descending | ALPHABETICAL  |
+      | columnName      | order      | compareMethod  |
+      | Device Name     | Descending | ALPHABETICAL   |
 
 
   #Third Click on Current Throughput column
@@ -207,7 +207,7 @@ Feature: System And Network - Device List
   # Validate Default Sorting
     Then UI Validate Table "Devices table" is Sorted by
       | columnName | order     | compareMethod |
-      | Status     | Ascending | SYSTEM_STATUS |
+      | Status     | Ascending | SYSTEM_STATUS  |
 
   #------------------------By Managment IP----------------------
 
@@ -216,16 +216,16 @@ Feature: System And Network - Device List
   Scenario: Validate Sorting by Device IP in Ascending Order
     When UI Click Button "Sort By" with value "deviceIP"
     Then UI Validate Table "Devices table" is Sorted by
-      | columnName    | order     | compareMethod |
-      | Management IP | Ascending | IPORVERSIONS  |
+      | columnName      | order     | compareMethod  |
+      | Management IP    | Ascending | IPORVERSIONS |
 
   #Second Click on Current Throughput column
   @SID_17
   Scenario: Validate Sorting by Device IP in Descending Order
     When UI Click Button "Sort By" with value "deviceIP"
     Then UI Validate Table "Devices table" is Sorted by
-      | columnName    | order      | compareMethod |
-      | Management IP | Descending | IPORVERSIONS  |
+      | columnName      | order      | compareMethod  |
+      | Management IP    | Descending | IPORVERSIONS |
 
 
   #Third Click on Current Throughput column
@@ -235,7 +235,7 @@ Feature: System And Network - Device List
   # Validate Default Sorting
     Then UI Validate Table "Devices table" is Sorted by
       | columnName | order     | compareMethod |
-      | Status     | Ascending | SYSTEM_STATUS |
+      | Status     | Ascending | SYSTEM_STATUS  |
 
   #------------------------By Form Factory----------------------
 
@@ -244,16 +244,16 @@ Feature: System And Network - Device List
   Scenario: Validate Sorting by Form Factor in Ascending Order
     When UI Click Button "Sort By" with value "formFactor"
     Then UI Validate Table "Devices table" is Sorted by
-      | columnName  | order     | compareMethod |
-      | Form Factor | Ascending | ALPHABETICAL  |
+      | columnName      | order     | compareMethod  |
+      | Form Factor     | Ascending | ALPHABETICAL |
 
   #Second Click on Current Throughput column
   @SID_20
   Scenario: Validate Sorting by Form Factor in Descending Order
     When UI Click Button "Sort By" with value "formFactor"
     Then UI Validate Table "Devices table" is Sorted by
-      | columnName  | order      | compareMethod |
-      | Form Factor | Descending | ALPHABETICAL  |
+      | columnName      | order      | compareMethod  |
+      | Form Factor     | Descending | ALPHABETICAL |
 
 
   #Third Click on Current Throughput column
@@ -263,7 +263,7 @@ Feature: System And Network - Device List
   # Validate Default Sorting
     Then UI Validate Table "Devices table" is Sorted by
       | columnName | order     | compareMethod |
-      | Status     | Ascending | SYSTEM_STATUS |
+      | Status     | Ascending | SYSTEM_STATUS  |
 
   #------------------------By Version----------------------
 
@@ -272,16 +272,16 @@ Feature: System And Network - Device List
   Scenario: Validate Sorting by Version in Ascending Order
     When UI Click Button "Sort By" with value "softwareVersion"
     Then UI Validate Table "Devices table" is Sorted by
-      | columnName | order     | compareMethod |
-      | Version    | Ascending | IPORVERSIONS  |
+      | columnName      | order     | compareMethod  |
+      | Version         | Ascending | IPORVERSIONS |
 
   #Second Click on Current Throughput column
   @SID_23
   Scenario: Validate Sorting by Version in Descending Order
     When UI Click Button "Sort By" with value "softwareVersion"
     Then UI Validate Table "Devices table" is Sorted by
-      | columnName | order      | compareMethod |
-      | Version    | Descending | IPORVERSIONS  |
+      | columnName      | order      | compareMethod  |
+      | Version         | Descending | IPORVERSIONS |
 
   @SID_24
   Scenario: Validate Sorting by Default after Disable The Sorting by Version
@@ -289,80 +289,84 @@ Feature: System And Network - Device List
   # Validate Default Sorting
     Then UI Validate Table "Devices table" is Sorted by
       | columnName | order     | compareMethod |
-      | Status     | Ascending | SYSTEM_STATUS |
+      | Status     | Ascending | SYSTEM_STATUS  |
 
   #Third Click on Current Throughput column
   @SID_25
   Scenario: Validate Table record tooltip values
     Then UI Validate Table record tooltip values with elementLabel "Device List.Table" findBy columnName "Status" findBy cellValue "Up"
-      | columnName | value |
-      | Status     | Up    |
+      | columnName        | value         |
+      | Status            | Up            |
 
     Then UI Validate Table record tooltip values with elementLabel "Device List.Table" findBy columnName "Status" findBy cellValue "Down"
-      | columnName | value |
-      | Status     | Down  |
+      | columnName        | value         |
+      | Status            | Down          |
 
     Then UI Validate Table record tooltip values with elementLabel "Device List.Table" findBy columnName "Device Name" findBy cellValue "Alteon_50.50.101.30"
-      | columnName  | value               |
-      | Device Name | Alteon_50.50.101.30 |
+      | columnName        | value         |
+      | Device Name       | Alteon_50.50.101.30   |
 
     Then UI Validate Table record tooltip values with elementLabel "Device List.Table" findBy columnName "Management IP" findBy cellValue "50.50.101.21"
-      | columnName    | value        |
-      | Management IP | 50.50.101.21 |
+      | columnName        | value         |
+      | Management IP     | 50.50.101.21  |
 
     Then UI Validate Table record tooltip values with elementLabel "Device List.Table" findBy columnName "Form Factor" findBy cellValue "VADC"
-      | columnName  | value |
-      | Form Factor | VADC  |
+      | columnName        | value         |
+      | Form Factor       | VADC          |
 
     Then UI Validate Table record tooltip values with elementLabel "Device List.Table" findBy columnName "Version" findBy cellValue "32.2.1.0"
-      | columnName | value    |
-      | Version    | 32.2.1.0 |
+      | columnName        | value         |
+      | Version           | 32.2.1.0        |
 
     Then UI Validate Table record tooltip values with elementLabel "Device List.Table" findBy columnName "Platform" findBy cellValue "8420 SL"
-      | columnName | value   |
-      | Platform   | 8420 SL |
+      | columnName        | value         |
+      | Platform          | 8420 SL       |
 
     Then UI Validate Table record tooltip values with elementLabel "Device List.Table" findBy columnName "High Availability Status" findBy cellValue "DISABLED"
-      | columnName               | value    |
+      | columnName        | value         |
       | High Availability Status | DISABLED |
 
     Then UI Validate Table record tooltip values with elementLabel "Device List.Table" findBy columnName "CurrentThroughput (bps)" findBy cellValue "8.63 M"
-      | columnName              | value  |
-      | CurrentThroughput (bps) | 8.63 M |
+      | columnName                | value     |
+      | CurrentThroughput (bps)  | 8.63 M    |
 
     Then UI Validate Table record tooltip values with elementLabel "Device List.Table" findBy columnName "CPU Usage" findBy cellValue "77%"
-      | columnName | value |
-      | CPU usage  | 77%   |
+      | columnName        | value         |
+      | CPU usage         | 77%           |
+
 
 
   @SID_26
   Scenario: validate search table
     Then UI Validate search in table "Devices table" in searchLabel "searchLabel" with text "AC"
       | columnName    | Value          |
-#      | Management IP | 172.17.154.200 |
-#      | Management IP | 172.17.164.17  |
-#      | Management IP | 172.17.154.190 |
+      | Management IP | 172.17.154.200 |
+      | Management IP | 172.17.164.17  |
+      | Management IP | 172.17.154.190 |
       | Management IP | 50.50.101.32   |
       | Management IP | 50.50.101.31   |
-    Then UI Validate "Device List.Table" Table rows count equal to 2 with offset 0
+    Then UI Validate "Device List.Table" Table rows count equal to 5 with offset 0
 
     Then UI Validate search in table "Devices table" in searchLabel "searchLabel" with text "ac ACT"
       | columnName    | Value          |
-#      | Management IP | 172.17.154.200 |
-#      | Management IP | 172.17.154.190 |
+      | Management IP | 172.17.154.200 |
+      | Management IP | 172.17.154.190 |
       | Management IP | 50.50.101.32   |
-    Then UI Validate "Device List.Table" Table rows count equal to 1 with offset 0
+    Then UI Validate "Device List.Table" Table rows count equal to 3 with offset 0
 
     Then UI Validate search in table "Devices table" in searchLabel "searchLabel" with text "ac ACT ST"
       | columnName    | Value          |
-#      | Management IP | 172.17.154.200 |
-#      | Management IP | 172.17.154.190 |
-    Then UI Validate "Device List.Table" Table rows count equal to 0 with offset 0
+      | Management IP | 172.17.154.200 |
+      | Management IP | 172.17.154.190 |
+    Then UI Validate "Device List.Table" Table rows count equal to 2 with offset 0
 
-#    Then UI Validate search in table "Devices table" in searchLabel "searchLabel" with text "ac ACT ST 19"
-#      | columnName    | Value          |
-#      | Management IP | 172.17.154.190 |
-#    Then UI Validate "Device List.Table" Table rows count equal to 1 with offset 0
+    Then UI Validate search in table "Devices table" in searchLabel "searchLabel" with text "ac ACT ST 19"
+      | columnName    | Value          |
+      | Management IP | 172.17.154.190 |
+    Then UI Validate "Device List.Table" Table rows count equal to 1 with offset 0
+
+
+
 
 
   @SID_27
@@ -377,12 +381,12 @@ Feature: System And Network - Device List
     Then REST Delete Device By IP "50.50.32.1"
     Then REST Delete Device By IP "50.50.101.254"
 
-#    Then REST Update a scalar "snmpV2ReadCommunity" value of Request "Device Tree->Update SNMPv2 Read Community" on the device Ip "172.17.164.17" with the new scalar value "public"
-#    Then REST Update a scalar "snmpV2ReadCommunity" value of Request "Device Tree->Update SNMPv2 Read Community" on the device Ip "172.17.154.190" with the new scalar value "public"
+    Then REST Update a scalar "snmpV2ReadCommunity" value of Request "Device Tree->Update SNMPv2 Read Community" on the device Ip "172.17.164.17" with the new scalar value "public"
+    Then REST Update a scalar "snmpV2ReadCommunity" value of Request "Device Tree->Update SNMPv2 Read Community" on the device Ip "172.17.154.190" with the new scalar value "public"
 
 
-#    Then UI Click Edit device Then Submit to Refresh with IP "172.17.164.17" from topology tree "Sites and Devices"
-#    Then UI Click Edit device Then Submit to Refresh with IP "172.17.154.190" from topology tree "Sites and Devices"
+    Then UI Click Edit device Then Submit to Refresh with IP "172.17.164.17" from topology tree "Sites and Devices"
+    Then UI Click Edit device Then Submit to Refresh with IP "172.17.154.190" from topology tree "Sites and Devices"
 
     Then Browser Refresh Page
     Then UI Click Web element with id "gwt-debug-Global_Refresh"

@@ -2,6 +2,7 @@
 @TC107944
 
 Feature: create AMS Report New Form
+
   @SID_1
   Scenario: Login and navigate to the AMS Reports Wizard
     Then CLI Operations - Run Root Session command "yes|restore_radware_user_password" timeout 15
@@ -13,8 +14,7 @@ Feature: create AMS Report New Form
     Given UI Login with user "sys_admin" and password "radware"
     # to overcome license delayed reply
     Then Sleep "5"
-    When UI Open Upper Bar Item "AMS"
-    When UI Open "Reports" Tab
+    And UI Navigate to "AMS Reports" page via homePage
     Then UI Validate Element Existence By Label "Add New" if Exists "true"
 
   @SID_2

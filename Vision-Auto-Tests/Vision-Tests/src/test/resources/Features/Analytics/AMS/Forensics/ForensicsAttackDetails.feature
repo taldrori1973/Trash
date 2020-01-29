@@ -25,8 +25,7 @@ Feature: Forensic Attack details Tests
   Scenario: VRM - Login to VRM "Wizard" Test
     Given UI Login with user "sys_admin" and password "radware"
     * REST Vision Install License Request "vision-AVA-Max-attack-capacity"
-    And UI Open Upper Bar Item "AMS"
-    And UI Open "Forensics" Tab
+    And UI Navigate to "AMS Forensics" page via homePage
 
   @SID_4
   Scenario: VRM - Add New Forensics Report Attack details1
@@ -268,11 +267,11 @@ Feature: Forensic Attack details Tests
 
   @SID_28
   Scenario: Validate downloaded capture file
-    Then Delete downloaded file with name "attack_800-1525623158_packets.pcap"
+    Then Delete downloaded file with name "attack_800-1525623158_packets.cap"
     When UI click Table row by keyValue or Index with elementLabel "Report.Table" findBy columnName "Attack ID" findBy cellValue "800-1525623158"
     And UI Click Button "Report.Attack Details.DownloadPCAP"
     Then Validate downloaded file size with name "attack_800-1525623158_packets.cap" equal to 304
-    Then Delete downloaded file with name "attack_800-1525623158_packets.pcap"
+    Then Delete downloaded file with name "attack_800-1525623158_packets.cap"
     When UI Click Button "Report.Attack Details.Close"
     And UI logout and close browser
 
@@ -282,8 +281,7 @@ Feature: Forensic Attack details Tests
   @SID_29
   Scenario: VRM - Login to VRM "Wizard" Test
     Given UI Login with user "sys_admin" and password "radware"
-    And UI Open Upper Bar Item "AMS"
-    And UI Open "Forensics" Tab
+    And UI Navigate to "AMS Forensics" page via homePage
 
   @SID_30
   Scenario: New attack and create forensics view
@@ -331,7 +329,7 @@ Feature: Forensic Attack details Tests
     Then UI Text of "Report.Attack Details.Detail.Real-Time Signature.Value/s" with extension "1" equal to "123456"
 
   @SID_33
-  Scenario: close attack details
+  Scenario: close attack details details
     Then UI Click Button "Report.Attack Details.Close"
 
   @SID_34
@@ -400,15 +398,8 @@ Feature: Forensic Attack details Tests
     Then UI Text of "Report.Attack Details.Detail" with extension "HTTP Auth. List" equal to "0"
 
   @SID_39
-  Scenario: close attack details and narrow down the list
+  Scenario: close attack details details
     Then UI Click Button "Report.Attack Details.Close"
-    When UI "Edit" Forensics With Name "Attack_Details"
-      | Criteria  | Event Criteria:Threat Category,Operator:Not Equals,Value:[Behavioral DoS, Bandwidth Management];   |
-
-#    When UI Click Button "Views.Expand" with value "Attack_Details"
-    And UI Click Button "Views.Generate Now" with value "Attack_Details"
-    And UI Click Button "Views.report" with value "Attack_Details"
-
 
   @SID_40
   Scenario: Enter to 45-1426496290 details
@@ -715,22 +706,18 @@ Feature: Forensic Attack details Tests
       | Phyisical Port         | MNG-1      |
       | VLAN Tag               | N/A        |
       | Protocol               | UDP        |
-    Then UI Click Button "Report.Attack Details.Close"
 
-#  @SID_63
-#  Scenario: Generate attacks of type HTTPS, GEO, malicious
+#  Scenario: Generate attack of type HTTPS
 #    And CLI simulate 1 attacks of type "https_new2" on "DefensePro" 10
-#    And CLI simulate 1 attacks of type "ErtFeed_GeoFeed" on "DefensePro" 10
 #
-#  @SID_64
-#  Scenario: VRM - Create and generate forensic report for HTTPS Flood and GEO
-#    When UI "Create" Forensics With Name "HTTPS_Flood"
-#      | Criteria | Event Criteria:Threat Category,Operator:Equals,Value:[HTTPS Flood,Malicious IP Address,Geolocation]; |
-#      | Output   | Start Time,Attack ID, Action, Attack Name                                                            |
-#    When UI Click Button "Views.Expand" with value "HTTPS_Flood"
-#    And UI Click Button "Views.Generate Now" with value "HTTPS_Flood"
-#    And UI Click Button "Views.report" with value "HTTPS_Flood"
-#  @SID_65
+#  Scenario: VRM - Create and generate forensic report for HTTPS Flood attack
+#    When UI "Create" Forensics With Name "HTTPS Flood"
+#      | Criteria | Event Criteria:Threat Category,Operator:Equals,Value:[HTTPS Flood]; |
+#      | Output   | Start Time,Attack ID, Action, Attack Name                           |
+#    When UI Click Button "Views.Expand" with value "Attack Details1"
+#    And UI Click Button "Views.Generate Now" with value "Attack Details1"
+#    And UI Click Button "Views.report" with value "Attack Details1"
+#
 #  Scenario: Enter to HTTPS 78-1536381752 details
 #    When UI Click Button "Report.Attack Details.Close"
 #    Given UI click Table row by keyValue or Index with elementLabel "Report.Table" findBy columnName "Attack ID" findBy cellValue "78-1536381752"
@@ -757,22 +744,7 @@ Feature: Forensic Attack details Tests
 #    Then UI Text of "Report.Attack Details.Detail" with extension "Status" equal to "Occurred"
 #    Then UI Text of "Report.Attack Details.Detail" with extension "VLAN Tag" equal to "N/A"
 
-#  @SID_66
-#    Scenario: Enter to GeoFeed 1371141-505529 details
-#    When UI Click Button "Report.Attack Details.Close"
-#    Given UI click Table row by keyValue or Index with elementLabel "Report.Table" findBy columnName "Attack ID" findBy cellValue "1371141-505529"
-#    Then UI Text of "Report.Attack Details.Detail" with extension "Action" equal to "Drop"
-#
-#  @SID_67
-#    Scenario: Enter to ErtFeed 1370141-505529 details
-#    When UI Click Button "Report.Attack Details.Close"
-#    Given UI click Table row by keyValue or Index with elementLabel "Report.Table" findBy columnName "Attack ID" findBy cellValue "1370141-505529"
-#    Then UI Text of "Report.Attack Details.Detail" with extension "Action" equal to "Drop"
-#
-#    When UI Click Button "Report.Attack Details.Close"
-
-
-  @SID_68
+  @SID_63
   Scenario: Cleanup
     Given UI logout and close browser
     * CLI Check if logs contains

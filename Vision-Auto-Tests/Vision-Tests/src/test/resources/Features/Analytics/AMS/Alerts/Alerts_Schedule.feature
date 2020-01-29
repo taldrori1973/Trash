@@ -18,8 +18,8 @@ Feature: VRM Alerts Schedule
   Scenario: VRM - Login to VRM "Wizard" Test
     Given UI Login with user "sys_admin" and password "radware"
     * REST Vision Install License Request "vision-AVA-Max-attack-capacity"
-    And UI Open Upper Bar Item "AMS"
-    And UI Open "Alerts" Tab
+    And UI Navigate to "AMS Alerts" page via homePage
+
 
   @SID_4
   Scenario: Create Alert schedule every minute

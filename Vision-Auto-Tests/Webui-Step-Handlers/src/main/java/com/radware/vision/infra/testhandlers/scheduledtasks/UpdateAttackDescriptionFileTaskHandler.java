@@ -20,7 +20,7 @@ public class UpdateAttackDescriptionFileTaskHandler extends BaseTasksHandler {
     }
 
 
-    public static void addUpdateAttackDescriptionFileTask(String taskName, String taskDescription, boolean taskEnabled) {
+    public static void addUpdateAttackDescriptionFileTask(String taskName, String taskDescription, boolean taskEnabled) throws Exception {
 
         String columnName = "Name";
 
@@ -37,7 +37,7 @@ public class UpdateAttackDescriptionFileTaskHandler extends BaseTasksHandler {
         afterAddTask(taskProperties);
     }
 
-    public static void addTaskWithoutVerify(String taskName, String taskDescription, boolean taskEnabled) {
+    public static void addTaskWithoutVerify(String taskName, String taskDescription, boolean taskEnabled) throws Exception {
 
         String columnName = "Name";
 

@@ -13,13 +13,11 @@ Feature: IPv6 OTB Alteon
     Then CLI copy "/home/radware/Scripts/upload_DD.sh" from "GENERIC_LINUX_SERVER" to "ROOT_SERVER_CLI" "/opt/radware/storage"
     Then CLI copy "/home/radware/Scripts/Alteon-32.2.1.0-DD-1.00-110.jar" from "GENERIC_LINUX_SERVER" to "ROOT_SERVER_CLI" "/opt/radware/storage"
     Then CLI copy "/home/radware/Scripts/Alteon-32.4.0.0-DD-1.00-396.jar" from "GENERIC_LINUX_SERVER" to "ROOT_SERVER_CLI" "/opt/radware/storage"
-    Then CLI copy "/home/radware/Scripts/Alteon-32.6.0.0-DD-1.00-131.jar" from "GENERIC_LINUX_SERVER" to "ROOT_SERVER_CLI" "/opt/radware/storage"
 
   @SID_2
   Scenario: Upload Driver to vision
     Then CLI Run remote linux Command "/opt/radware/storage/upload_DD.sh /opt/radware/storage/Alteon-32.2.1.0-DD-1.00-110.jar" on "ROOT_SERVER_CLI" with timeOut 240
     Then CLI Run remote linux Command "/opt/radware/storage/upload_DD.sh /opt/radware/storage/Alteon-32.4.0.0-DD-1.00-396.jar" on "ROOT_SERVER_CLI" with timeOut 240
-    Then CLI Run remote linux Command "/opt/radware/storage/upload_DD.sh /opt/radware/storage/Alteon-32.6.0.0-DD-1.00-131.jar" on "ROOT_SERVER_CLI" with timeOut 240
     Then Sleep "90"
 
   @SID_3
@@ -52,7 +50,6 @@ Feature: IPv6 OTB Alteon
       | logType | expression                     | isExpected   |
       | VDIRECT | fatal                          | NOT_EXPECTED |
       | VDIRECT | error                          | NOT_EXPECTED |
-      | VDIRECT | 50.50.                         | IGNORE       |
       | VDIRECT | Could not update server report | IGNORE       |
 
   @SID_7
@@ -111,9 +108,7 @@ Feature: IPv6 OTB Alteon
       | VDIRECT | fatal                          | NOT_EXPECTED |
       | VDIRECT | error                          | NOT_EXPECTED |
       | VDIRECT | Could not update server report | IGNORE       |
-      | VDIRECT | connection error to 50.50.     | IGNORE       |
-      | VDIRECT | name=Alteon_50.50.             | IGNORE       |
-      | VDIRECT | 5000:0:0:0:50:50:101:21        | IGNORE       |
+
 
   @SID_12
   Scenario: Run ADC Delete Users
@@ -150,4 +145,3 @@ Feature: IPv6 OTB Alteon
       | VDIRECT | error                          | NOT_EXPECTED |
       | VDIRECT | fatal                          | NOT_EXPECTED |
       | VDIRECT | Could not update server report | IGNORE       |
-      | VDIRECT | 50.50.                         | IGNORE       |

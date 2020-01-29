@@ -8,8 +8,7 @@ Feature: Report Wizard edit and update - new form
     * REST Vision Install License Request "vision-AVA-Max-attack-capacity"
 #    When UI Add "DefensePro" with index 10 on "Default" site
     Then Sleep "5"
-    When UI Open Upper Bar Item "AMS"
-    When UI Open "Reports" Tab
+    And UI Navigate to "AMS Reports" page via homePage
     Then UI Validate Element Existence By Label "Add New" if Exists "true"
 
   @SID_2

@@ -24,10 +24,14 @@ public class AttacksSteps extends BddCliTestBase {
     @Given("^CLI simulate (\\d+) attacks of type \"(.*)\" on \"(.*)\" (\\d+)(?: with loopDelay (\\d+))?(?: and wait (\\d+) seconds)?( with attack ID)?$")
     public void runSimulatorFromDevice(int numOfAttacks, String fileName, SUTDeviceType deviceType, int deviceIndex, Integer ld, Integer waitTimeout, String withAttackId) {
         try {
-
-            int loopDelay = ld != null ? ld : 1000;
-            int wait = waitTimeout != null ? waitTimeout : 0;
-
+            int loopDelay = 1000;
+            int wait = 0;
+            if (ld != null) {
+                loopDelay = ld;
+            }
+            if (waitTimeout != null) {
+                wait = waitTimeout;
+            }
             String commandToExecute = getCommandToexecute(deviceType, deviceIndex, numOfAttacks, loopDelay, fileName, withAttackId != null);
             CliOperations.runCommand(getRestTestBase().getGenericLinuxServer(), commandToExecute, 30 * 1000, false, true, false);
 
@@ -70,7 +74,7 @@ public class AttacksSteps extends BddCliTestBase {
         try {
             String visionIP = restTestBase.getRootServerCli().getHost();
             // fetch the last two octets
-            visionIP = visionIP.substring(visionIP.indexOf(".", visionIP.indexOf(".") + 1) + 1);
+            visionIP = visionIP.substring(visionIP.indexOf(".", visionIP.indexOf(".") + 1) + 1, visionIP.length());
             String commandToExecute = "/home/radware/run-kill_all_DP_attacks.sh stop " + visionIP;
             InvokeUtils.invokeCommand(commandToExecute, restTestBase.getGenericLinuxServer());
 
@@ -87,25 +91,23 @@ public class AttacksSteps extends BddCliTestBase {
         String commandToExecute = "";
         try {
             deviceIp = devicesManager.getDeviceInfo(deviceType, deviceIndex).getDeviceIp();
-            String deviceIpPrefix = deviceIp.substring(0, deviceIp.indexOf(".", deviceIp.indexOf(".") + 1));
-            String VisionIpPrefix = visionIP.substring(0, visionIP.indexOf(".", visionIP.indexOf(".") + 1));
-            commandToExecute = "sudo /home/radware/getInterfaceByIP.sh " + deviceIpPrefix;
+            commandToExecute = "sudo /home/radware/getInterfaceByIP.sh " + deviceIp.substring(0, deviceIp.indexOf(".", deviceIp.indexOf(".") + 1));
             if (deviceIp.startsWith(fakeIpPrefix)) {
-                visionIP = visionIP.replace(VisionIpPrefix, fakeIpPrefix);
+                visionIP = visionIP.replace(visionIP.substring(0, visionIP.indexOf(".", visionIP.indexOf(".") + 1)), fakeIpPrefix);
             } else {
-                commandToExecute = String.format("ifconfig | grep \"inet addr:%s\" | wc -l", deviceIpPrefix);
+                commandToExecute = String.format("ifconfig | grep \"inet addr:%s\" | wc -l", deviceIp.substring(0, deviceIp.indexOf(".", deviceIp.indexOf(".") + 1)));
                 CliOperations.runCommand(getRestTestBase().getRootServerCli(), commandToExecute);
                 String isDeviceInterfaceExistInVision = CliOperations.lastRow;
                 if (isDeviceInterfaceExistInVision.equals("0"))
-                    commandToExecute = "sudo /home/radware/getInterfaceByIP.sh " + VisionIpPrefix;
+                    commandToExecute = "sudo /home/radware/getInterfaceByIP.sh " + visionIP.substring(0, visionIP.indexOf(".", visionIP.indexOf(".") + 1));
                 else {
-                    commandToExecute = String.format("ifconfig | grep \"inet addr:%s\" | wc -l", deviceIpPrefix);
+                    commandToExecute = String.format("ifconfig | grep \"inet addr:%s\" | wc -l", deviceIp.substring(0, deviceIp.indexOf(".", deviceIp.indexOf(".") + 1)));
                     CliOperations.runCommand(getRestTestBase().getGenericLinuxServer(), commandToExecute);
                     isDeviceInterfaceExistInVision = CliOperations.lastRow;
                     if (!isDeviceInterfaceExistInVision.equals("0")) {
-                        visionIP = visionIP.replace(VisionIpPrefix, deviceIpPrefix);
+                        visionIP = visionIP.replace(visionIP.substring(0, visionIP.indexOf(".", visionIP.indexOf(".") + 1)), deviceIp.substring(0, deviceIp.indexOf(".", deviceIp.indexOf(".") + 1)));
                     }
-                    commandToExecute = "sudo /home/radware/getInterfaceByIP.sh " + deviceIpPrefix;
+                    commandToExecute = "sudo /home/radware/getInterfaceByIP.sh " + deviceIp.substring(0, deviceIp.indexOf(".", deviceIp.indexOf(".") + 1));
                 }
             }
 

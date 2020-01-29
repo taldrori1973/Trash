@@ -46,9 +46,7 @@ Feature: Geolocation DP Monitoring Dashboard and Map - Protection Policies - Und
   @SID_5
   Scenario: Navigate to Second Drill
     Then CLI simulate 1 attacks of type "DynamicBlock" on "DefensePro" 11 and wait 45 seconds
-    Then UI Open Upper Bar Item "AMS"
-    Then UI Open "Dashboards" Tab
-    Then UI Open "DP Monitoring Dashboard" Sub Tab
+    And UI Navigate to "DefensePro Monitoring Dashboard" page via homePage
     Then  UI click Table row by keyValue or Index with elementLabel "Protection Policies.Table" findBy index 0
 
   @SID_6

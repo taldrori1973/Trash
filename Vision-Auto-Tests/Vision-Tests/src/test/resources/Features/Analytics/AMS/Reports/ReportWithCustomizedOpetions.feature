@@ -11,8 +11,7 @@ Feature: Report With Customized Options
   @SID_2
   Scenario: Login and Navigate to Reports
     Given UI Login with user "radware" and password "radware"
-    When UI Open Upper Bar Item "AMS"
-    When UI Open "Reports" Tab
+    And UI Navigate to "AMS Reports" page via homePage
     Then UI Validate Element Existence By Label "Add New" if Exists "true"
 
   @SID_3
@@ -31,7 +30,7 @@ Feature: Report With Customized Options
     And UI Click Button "Add New"
     And UI Click Button "Customized Options"
     And Upload file "invalidSizePngReportLogo.png"
-    Then UI Validate Text field "Logo Size Message" CONTAINS "The graphic file that you selected is invalid. Select a 100×100-pixel .png file and try again."
+    Then UI Validate Text field "Logo Size Message" CONTAINS "Please upload proper image with exact size : 100 x 100"
 
   @SID_5
   Scenario: Delete report and close browser

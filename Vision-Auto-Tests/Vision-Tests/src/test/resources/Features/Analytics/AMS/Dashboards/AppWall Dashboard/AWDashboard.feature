@@ -48,9 +48,7 @@ Feature: VRM AppWall dashboard
 
   @SID_5 @Sanity
   Scenario: Go TO AW dashboard
-    And UI Open Upper Bar Item "AMS"
-    When UI Open "Dashboards" Tab
-    Then UI Open "AppWall Dashboard" Sub Tab
+    And UI Navigate to "AppWall Dashboard" page via homePage
     Then Sleep "5"
     Then UI Validate Element Existence By Label "Top Sources Widget" if Exists "true"
 
@@ -396,12 +394,4 @@ Feature: VRM AppWall dashboard
       | TOMCAT2     | HeapDumpOnOutOfMemoryError                              | IGNORE       |
       | MAINTENANCE | redirect the virtual ErrorPages path the real path      | IGNORE       |
       | TOMCAT2     | authentication.okta.jwt                                 | IGNORE       |
-      | TOMCAT      | average response time                                   | IGNORE       |
-      | TOMCAT      | -----task                                               | IGNORE       |
-      | TOMCAT      | monitored number of devices                             | IGNORE       |
-      | TOMCAT      | got valid samples from                                  | IGNORE       |
-      | TOMCAT      | responsive devices in the last minute                   | IGNORE       |
-
-
-
 

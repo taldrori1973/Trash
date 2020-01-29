@@ -846,7 +846,6 @@ Feature: DP ANALYTICS
     And UI Open Upper Bar Item "AMS"
     And UI Open "Dashboards" Tab
     And UI Open "DP Analytics" Sub Tab
-    Then Sleep "7"
     And UI Do Operation "Select" item "Global Time Filter"
     And UI Do Operation "Select" item "Global Time Filter.Quick Range" with value "3H"
 

@@ -5,8 +5,7 @@ Feature: DPM - Design Report Wizard
   Scenario: Login and navigate to the Reports WizardRamat HaHayal, Tel Aviv-Yafo
     * REST Vision Install License Request "vision-reporting-module-ADC"
     Given UI Login with user "sys_admin" and password "radware"
-    When UI Open Upper Bar Item "ADC"
-    When UI Open "Reports" Tab
+    When UI Navigate to "ADC Reports" page via homePage
     Then UI Validate Element Existence By Label "Add New" if Exists "true"
 
   @SID_2
