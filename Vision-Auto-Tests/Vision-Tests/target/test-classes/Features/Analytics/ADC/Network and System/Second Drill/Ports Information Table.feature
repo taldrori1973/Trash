@@ -1,4 +1,3 @@
-
 @TC106799
 Feature: ADC network ports Information Table
 
@@ -11,10 +10,7 @@ Feature: ADC network ports Information Table
 
     Then UI Login with user "sys_admin" and password "radware"
     Then REST Vision Install License Request "vision-reporting-module-ADC"
-    Then UI Open Upper Bar Item "ADC"
-    Then UI Open "Reports" Tab
-    Then UI Open "Dashboards" Tab
-    Then UI Open "Network and System Dashboard" Sub Tab
+    When UI Navigate to "System and Network Dashboard" page via homePage
     Then UI click Table row by keyValue or Index with elementLabel "Devices table" findBy columnName "Device Name" findBy cellValue "Alteon_50.50.101.22"
     Then UI Click Button "NetworkTab"
     Then UI Click Button "accessibility button" with value ""

@@ -12,8 +12,7 @@ Feature: DPM - ADC Reports RBAC
   Scenario: ADC - Login as admin and create two types of reports
     * REST Vision Install License Request "vision-reporting-module-ADC"
     Given UI Login with user "sys_admin" and password "radware"
-    When UI Open Upper Bar Item "ADC"
-    When UI Open "Reports" Tab
+    When UI Navigate to "ADC Reports" page via homePage
     Then UI "Create" DPMReport With Name "App_Rejith_32326515:80"
       | reportType | Application Dashboard      |
       | devices    | virts:[Rejith_32326515:80] |
@@ -35,8 +34,7 @@ Feature: DPM - ADC Reports RBAC
   @SID_3
   Scenario: ADC - Verify permissions for user with ALL:ALL permission
     Given UI Login with user "sys_admin" and password "radware"
-    Then UI Open Upper Bar Item "ADC"
-    Then UI Open "Reports" Tab
+    When UI Navigate to "ADC Reports" page via homePage
     Then UI Validate VRM Report Existence by Name "App_Rejith_32326515:80" if Exists "true"
     Then UI Validate VRM Report Existence by Name "Device_50.50.101.11" if Exists "true"
     And UI logout and close browser
@@ -44,8 +42,7 @@ Feature: DPM - ADC Reports RBAC
   @SID_4
   Scenario: ADC - verify App access for user with no DEVICE permission
     Given UI Login with user "Device_Admin_50.50.101.21" and password "radware"
-    Then UI Open Upper Bar Item "ADC"
-    Then UI Open "Reports" Tab
+    When UI Navigate to "ADC Reports" page via homePage
     Then UI Validate VRM Report Existence by Name "App_Rejith_32326515:80" if Exists "false"
     #50.50.101.21 has "Rejith_32326515:80" so user should see the report
 

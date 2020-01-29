@@ -25,7 +25,7 @@ Feature: IPv6 CLI - IP DNS ROUTE
 
   @SID_6
   Scenario: Set primary DNS server back to IPv4
-    Given CLI Operations - Run Radware Session command "net dns set primary 10.221.1.47"
+    Given CLI Operations - Run Radware Session command "net dns set primary 176.200.120.150"
     Given CLI Operations - Run Radware Session command "net dns set tertiary 200a:0000:0000:0000:1001:1001:1001:1001"
 
 

@@ -19,9 +19,7 @@ Feature: DP Monitoring Dashboard - Protection Policies - Peace Time
   Scenario: Login and navigate to VRM
     Given UI Login with user "sys_admin" and password "radware"
     * REST Vision Install License Request "vision-AVA-Max-attack-capacity"
-    And UI Open Upper Bar Item "AMS"
-    And UI Open "Dashboards" Tab
-    When UI Open "DP Monitoring Dashboard" Sub Tab
+    And UI Navigate to "DefensePro Monitoring Dashboard" page via homePage
 
   @SID_4
   Scenario: Validate first peace time policy - just traffic
@@ -270,9 +268,7 @@ Feature: DP Monitoring Dashboard - Protection Policies - Peace Time
   @SID_18
   Scenario: Login and navigate to VRM
     Given UI Login with user "sys_admin" and password "radware"
-    And UI Open Upper Bar Item "AMS"
-    And UI Open "Dashboards" Tab
-    When UI Open "DP Monitoring Dashboard" Sub Tab
+    And UI Navigate to "DefensePro Monitoring Dashboard" page via homePage
 
   @SID_19
     Scenario: Validate terminated 23 hrs attack existence for peace time
@@ -310,17 +306,17 @@ Feature: DP Monitoring Dashboard - Protection Policies - Peace Time
     Then UI Validate "Protection Policies.Events Table" Table rows count equal to 1
     When UI Click Button "Protection Policies.GO BACK"
 
-#  @SID_22
-#    Scenario: DE41619 (Not a defect) Validate GENERAL POLICY 23 hrs attack existence for peace time
-#      Given UI click Table row by keyValue or Index with elementLabel "Protection Policies.Table" findBy index 0
-#      Then UI Validate Table record values by columns with elementLabel "Protection Policies.Protections Table" findBy index 0
-#        | columnName      | value       |
-#        | Protection Name | Anomalies   |
-#      Then UI click Table row by keyValue or Index with elementLabel "Protection Policies.Protections Table" findBy index 0
-#      Then UI Validate "Protection Policies.Events Table" Table rows count equal to 1
-#      Then UI Validate Table record values by columns with elementLabel "Protection Policies.Events Table" findBy index 0
-#        | columnName  | value                    |
-#        | Attack Name | Incorrect IPv4 checksum  |
+  @SID_22
+    Scenario: DE41619 Validate GENERAL POLICY 23 hrs attack existence for peace time
+      Given UI click Table row by keyValue or Index with elementLabel "Protection Policies.Table" findBy index 0
+      Then UI Validate Table record values by columns with elementLabel "Protection Policies.Protections Table" findBy index 0
+        | columnName      | value       |
+        | Protection Name | Anomalies   |
+      Then UI click Table row by keyValue or Index with elementLabel "Protection Policies.Events Table" findBy index 0
+      Then UI Validate "Protection Policies.Events Table" Table rows count equal to 1
+      Then UI Validate Table record values by columns with elementLabel "Protection Policies.Events Table" findBy index 0
+        | columnName  | value                    |
+        | Attack Name | Incorrect IPv4 checksum  |
 
   @SID_23
   Scenario: Cleanup

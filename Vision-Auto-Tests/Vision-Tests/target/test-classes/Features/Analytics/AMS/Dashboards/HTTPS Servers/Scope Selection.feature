@@ -12,9 +12,7 @@ Feature: HTTPS Scope Selection - Per Server selection
   @SID_1
   Scenario: Login
     Given UI Login with user "sys_admin" and password "radware" negative
-    Given UI Open Upper Bar Item "AMS"
-    Given UI Open "Dashboards" Tab
-    Given UI Open "HTTPS Flood Dashboard" Sub Tab
+    And UI Navigate to "HTTPS Flood Dashboard" page via homePage
 
   @SID_2
   Scenario: Validate All Servers are Available at Server Selection List

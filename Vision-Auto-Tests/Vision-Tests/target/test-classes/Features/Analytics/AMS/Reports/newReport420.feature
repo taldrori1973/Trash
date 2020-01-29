@@ -3,16 +3,7 @@ Feature: new report
 
   Scenario: login
     Given UI Login with user "radware" and password "radware"
-    When UI Open Upper Bar Item "AMS"
-    When UI Open "Reports" Tab
-    And CLI simulate 1 attacks of type "rest_dos" on "DefensePro" 10
-    And CLI simulate 1 attacks of type "rest_anomalies" on "DefensePro" 10 and wait 22 seconds
-  Given CLI simulate 0 attacks of type "rest_traffic_diff_Policy15out" on "DefensePro" 10 with loopDelay 15000
-  Given CLI simulate 0 attacks of type "rest_traffic_diff_Policy15out" on "DefensePro" 11 with loopDelay 15000
-  Given CLI simulate 0 attacks of type "rest_traffic_diff_Policy15out" on "DefensePro" 20 with loopDelay 15000
-  Given CLI simulate 0 attacks of type "rest_traffic_diff_Policy15out" on "DefensePro" 21 with loopDelay 15000 and wait 120 seconds
-
-
+    And UI Navigate to "AMS Reports" page via homePage
 
   Scenario: validate error message without report name
     When UI Click Button "Add New"

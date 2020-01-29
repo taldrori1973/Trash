@@ -22,18 +22,13 @@ Feature: Create DP v3 user using vdirect template
   Scenario: Verify no errors in vdirect log
     Then Sleep "70"
     Then CLI Check if logs contains
-      | logType | expression                     | isExpected   |
+      | logType | expression                                                   | isExpected   |
 #      | VDIRECT | Configuration template DefensePro_Snmp_User_Delete.vm merged | EXPECTED     |
-      | VDIRECT | fatal                          | NOT_EXPECTED |
-      | VDIRECT | error                          | NOT_EXPECTED |
-      | VDIRECT | SSH connection error to 50.50. | IGNORE       |
-      | VDIRECT | ip=50.50.                      | IGNORE       |
-      | VDIRECT | 172.17.154.190                 | IGNORE       |
-      | VDIRECT | Could not update server report | IGNORE       |
-      | VDIRECT | 172.17.154.200                 | IGNORE       |
-      | VDIRECT | 172.17.160.1                   | IGNORE       |
-
-
+      | VDIRECT | fatal                                                        | NOT_EXPECTED |
+      | VDIRECT | error                                                        | NOT_EXPECTED |
+      | VDIRECT | SSH connection error to 50.50.                               | IGNORE       |
+      | VDIRECT | ip=50.50.                                                    | IGNORE       |
+      | VDIRECT | Could not update server report                               | IGNORE       |
     Then CLI Run linux Command "grep "Configuration template DefensePro_Snmp_User_Delete.vm merged" /opt/radware/storage/vdirect/server/logs/application/vdirect.log |wc -l" on "ROOT_SERVER_CLI" and validate result GTE "1"
 
   @SID_4
@@ -49,15 +44,11 @@ Feature: Create DP v3 user using vdirect template
   Scenario: Verify no errors in vdirect log
     Then Sleep "70"
     Then CLI Check if logs contains
-      | logType | expression                     | isExpected   |
-      | VDIRECT | fatal                          | NOT_EXPECTED |
-      | VDIRECT | error                          | NOT_EXPECTED |
+      | logType | expression                                                   | isExpected   |
+      | VDIRECT | fatal                                                        | NOT_EXPECTED |
+      | VDIRECT | error                                                        | NOT_EXPECTED |
 #      | VDIRECT | Configuration template DefensePro_Snmp_User_Create.vm merged | EXPECTED     |
-      | VDIRECT | SSH connection error to 50.50. | IGNORE       |
-      | VDIRECT | 172.17.154.190                 | IGNORE       |
-      | VDIRECT | 172.17.154.200                 | IGNORE       |
-      | VDIRECT | 172.17.160.1                   | IGNORE       |
-
+      | VDIRECT | SSH connection error to 50.50.                               | IGNORE       |
     Then CLI Run linux Command "grep "Configuration template DefensePro_Snmp_User_Create.vm merged" /opt/radware/storage/vdirect/server/logs/application/vdirect.log |wc -l" on "ROOT_SERVER_CLI" and validate result GTE "1"
 
 
@@ -86,15 +77,11 @@ Feature: Create DP v3 user using vdirect template
   Scenario: Verify no errors in vdirect log
     Then Sleep "70"
     Then CLI Check if logs contains
-      | logType | expression                     | isExpected   |
-      | VDIRECT | fatal                          | NOT_EXPECTED |
-      | VDIRECT | error                          | NOT_EXPECTED |
+      | logType | expression                                                   | isExpected   |
+      | VDIRECT | fatal                                                        | NOT_EXPECTED |
+      | VDIRECT | error                                                        | NOT_EXPECTED |
 #      | VDIRECT | Configuration template DefensePro_Snmp_User_Delete.vm merged | EXPECTED     |
-      | VDIRECT | Could not update server report | IGNORE       |
-      | VDIRECT | SSH connection error to 50.50. | IGNORE       |
-      | VDIRECT | 172.17.154.190                 | IGNORE       |
-      | VDIRECT | 172.17.154.200                 | IGNORE       |
-      | VDIRECT | 172.17.160.1                   | IGNORE       |
-
+      | VDIRECT | Could not update server report                               | IGNORE       |
+      | VDIRECT | SSH connection error to 50.50.                               | IGNORE       |
     Then CLI Run linux Command "grep "Configuration template DefensePro_Snmp_User_Delete.vm merged" /opt/radware/storage/vdirect/server/logs/application/vdirect.log |wc -l" on "ROOT_SERVER_CLI" and validate result GTE "1"
 

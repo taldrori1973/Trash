@@ -8,8 +8,8 @@
                 <class>com.radware.vision.vision_project_cli.RadwareServerCli</class>
                 <user>radware</user>
                 <password>radware</password>
-                <host>172.17.164.137</host>
-                <dnsServerIp>10.221.1.47</dnsServerIp>
+                <host>172.17.163.60</host>
+                <dnsServerIp>176.200.120.150</dnsServerIp>
                 <addedPrompts>[new.prompt],to continue the upgrade help process., [Y/n],Please type the sftp server
                     password:,Please type the ftp server password:,Is this ok [y/N]:
                 </addedPrompts>
@@ -17,20 +17,20 @@
             </visionRadware>
             <visionServerHA>
                 <class>com.radware.vision.vision_project_cli.VisionServerHA</class>
-                <Host_1>172.17.164.137</Host_1>
+                <Host_1>172.17.163.60</Host_1>
                 <Host_2>172.17.164.145</Host_2>
                 <connectOnInit>false</connectOnInit>
             </visionServerHA>
             <visionRoot>
                 <class>com.radware.vision.vision_project_cli.RootServerCli</class>
-                <host>172.17.164.137</host>
+                <host>172.17.163.60</host>
                 <user>root</user>
                 <password>radware</password>
                 <connectOnInit>false</connectOnInit>
             </visionRoot>
             <visionMySql>
                 <class>com.radware.vision.vision_project_cli.MySqlSO</class>
-                <host>172.17.164.137</host>
+                <host>172.17.163.60</host>
                 <port>3306</port>
                 <user>root</user>
                 <password>rad123</password>
@@ -75,7 +75,7 @@
             <class>systemobjects.VisionServer</class>
             <user>radware</user>
             <password>radware</password>
-            <host>172.17.164.137</host>
+            <host>172.17.163.60</host>
             <restProtocol>HTTPS</restProtocol>
             <connectOnInit>false</connectOnInit>
         </visionServer>
@@ -95,8 +95,8 @@
             <resourcePool>RP1</resourcePool>
             <networkName>Management 172.17</networkName>
             <dataStores>Automation Main Datastore</dataStores>
-            <vmName1>VisionAuto-VRM-Upgrade-172.17.164.137</vmName1>
-            <vmName2>VisionAuto-VRM-Upgrade-172.17.164.137</vmName2>
+            <vmName1>VisionAuto-VRM-Upgrade-172.17.163.60</vmName1>
+            <vmName2>VisionAuto-VRM-Upgrade-172.17.163.60</vmName2>
         </visionVMs>
     </visionLab>
     <visionRadwareFirstTime>
@@ -105,12 +105,12 @@
         <user>radware</user>
         <password>radware</password>
         <connectOnInit>false</connectOnInit>
-        <host>172.17.164.137</host>
-        <dnsServerIp>10.221.1.47</dnsServerIp>
-        <ip>172.17.164.137</ip>
+        <host>172.17.163.60</host>
+        <dnsServerIp>176.200.120.150</dnsServerIp>
+        <ip>172.17.163.60</ip>
         <netMask>255.255.0.0</netMask>
         <gateway>172.17.1.1</gateway>
-        <primaryDns>10.221.1.47</primaryDns>
+        <primaryDns>176.200.120.150</primaryDns>
         <physicalManagement>G1</physicalManagement>
     </visionRadwareFirstTime>
 
@@ -491,7 +491,7 @@
                     <useTelInputStream>true</useTelInputStream>
                     <password>admin</password>
                     <user>admin</user>
-                    <host edit="enable">172.17.164.137</host>
+                    <host edit="enable">172.17.163.60</host>
                     <connectOnInit>false</connectOnInit>
                     <useBuffer>true</useBuffer>
                     <dump>true</dump>
@@ -512,7 +512,7 @@
                     <useTelInputStream>true</useTelInputStream>
                     <user>admin</user>
                     <password>admin</password>
-                    <host edit="enable">172.17.164.137</host>
+                    <host edit="enable">172.17.163.60</host>
                     <protocol>ssh</protocol>
                     <dump>true</dump>
                     <connectOnInit>false</connectOnInit>
@@ -528,7 +528,7 @@
                     <useTelInputStream>true</useTelInputStream>
                     <password>admin</password>
                     <user>admin</user>
-                    <host edit="enable">172.17.164.137</host>
+                    <host edit="enable">172.17.163.60</host>
                     <connectOnInit>false</connectOnInit>
                     <useBuffer>true</useBuffer>
                     <dump>true</dump>
@@ -549,7 +549,7 @@
                     <useTelInputStream>true</useTelInputStream>
                     <user>admin</user>
                     <password>admin</password>
-                    <host edit="enable">172.17.164.137</host>
+                    <host edit="enable">172.17.163.60</host>
                     <protocol>ssh</protocol>
                     <dump>true</dump>
                     <connectOnInit>false</connectOnInit>

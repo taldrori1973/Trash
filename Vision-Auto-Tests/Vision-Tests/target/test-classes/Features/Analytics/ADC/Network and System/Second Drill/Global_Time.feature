@@ -1,5 +1,4 @@
-
-  @TC106846
+@TC106846
 Feature: ADC Network Global Time
 
   @Shay_Global
@@ -7,10 +6,10 @@ Feature: ADC Network Global Time
   Scenario: Login to ADC network tab and stop auto-refresh
     Then UI Login with user "sys_admin" and password "radware"
     Then REST Vision Install License Request "vision-reporting-module-ADC"
-    Then UI Open Upper Bar Item "ADC"
+    When UI Navigate to "ANALYTICS ADC" page via homePage
     Then Sleep "30"
-    Then UI Open "Dashboards" Tab
-    Then UI Open "Network and System Dashboard" Sub Tab
+    When UI Navigate to "System and Network Dashboard" page via homePage
+
     Then UI click Table row by keyValue or Index with elementLabel "Devices table" findBy columnName "Device Name" findBy cellValue "Alteon_50.50.101.22"
     Then UI Click Button "NetworkTab"
     Then UI Click Button "accessibility button" with value ""
@@ -76,6 +75,7 @@ Feature: ADC Network Global Time
     When UI Click Button "Global Time Filter.Quick Range" with value "3M"
     Then UI Validate Text field "Global Time Component" CONTAINS "3M"
     Then UI validate max time frame in line chart "NETWORK-TRAFFIC-WIDGET-PACKETS-TRANSMIT" equals to "3M" with offset "2"
+
   @Shay_Global
   @SID_11
   Scenario: validate time range
@@ -87,8 +87,7 @@ Feature: ADC Network Global Time
 
   @SID_12
   Scenario: validate disabled apply button
-    Then UI Open "Dashboards" Tab
-    Then UI Open "Network and System Dashboard" Sub Tab
+    When UI Navigate to "System and Network Dashboard" page via homePage
     Then UI click Table row by keyValue or Index with elementLabel "Devices table" findBy columnName "Device Name" findBy cellValue "Alteon_50.50.101.22"
     Then UI Click Button "NetworkTab"
     Given UI Click Button "Global Time Filter"

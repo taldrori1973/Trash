@@ -21,9 +21,7 @@ Feature: AMS DefenseFlow Traffic Dashboard
   @SID_3
   Scenario: VRM - Login to AMS DefenseFlow Analytics Dashboard
     Given UI Login with user "sys_admin" and password "radware"
-    And UI Open Upper Bar Item "AMS"
-    When UI Open "Dashboards" Tab
-    Then UI Open "DefenseFlow Analytics Dashboard" Sub Tab
+    And UI Navigate to "DefenseFlow Analytics Dashboard" page via homePage
 #    Then UI Do Operation "Select" item "Global Time Filter"
 #    Then UI Do Operation "Select" item "Global Time Filter.Quick Range" with value "2m"
 
@@ -150,5 +148,5 @@ Feature: AMS DefenseFlow Traffic Dashboard
 
   @SID_10
   Scenario: Cleanup
-    When UI Open "Configurations" Tab
+    And UI Navigate to "HOME" page via homePage
     Then UI logout and close browser

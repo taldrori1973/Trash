@@ -15,8 +15,7 @@ Feature: VRM Alerts Severity
     Given UI Login with user "sys_admin" and password "radware"
     * REST Vision Install License Request "vision-AVA-Max-attack-capacity"
     Then UI clear All Alerts with TimeOut 5
-    And UI Open Upper Bar Item "AMS"
-    And UI Open "Alerts" Tab
+    And UI Navigate to "AMS Alerts" page via homePage
 
   @SID_3
   Scenario: Create Alert Severities
@@ -51,8 +50,8 @@ Feature: VRM Alerts Severity
 
   @SID_5
   Scenario: refresh Alerts View
-    And UI Open "Reports" Tab
-    And UI Open "Alerts" Tab
+    And UI Navigate to "AMS Reports" page via homePage
+    And UI Navigate to "AMS Alerts" page via homePage
 
   @SID_6
   Scenario: VRM Validate Severity Alert Minor
@@ -100,7 +99,7 @@ Feature: VRM Alerts Severity
 
   @SID_11
   Scenario: go back to vision
-    Then UI Open "Configurations" Tab
+    And UI Navigate to "HOME" page via homePage
 
   @SID_12
   Scenario: VRM Validate Alert browser details severity Warning

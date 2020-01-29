@@ -24,9 +24,7 @@ Feature: HTTPS Flood Report
   @SID_4
   Scenario:Login and Navigate to HTTPS Flood Dashboard
     Given UI Login with user "sys_admin" and password "radware"
-    When UI Open Upper Bar Item "AMS"
-    When UI Open "Dashboards" Tab
-    When UI Open "Reports" Tab
+    And UI Navigate to "AMS Reports" page via homePage
     Then UI Validate Element Existence By Label "Add New" if Exists "true"
 
 

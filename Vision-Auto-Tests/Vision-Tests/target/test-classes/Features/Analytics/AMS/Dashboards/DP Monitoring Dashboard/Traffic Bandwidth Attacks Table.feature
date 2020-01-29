@@ -20,9 +20,7 @@ Feature: AMS Monitoring Dashboard - Attacks table
   Scenario: Login and navigate to VRM
     Given UI Login with user "sys_admin" and password "radware"
     Then REST Vision Install License Request "vision-AVA-Max-attack-capacity"
-    And UI Open Upper Bar Item "AMS"
-    And UI Open "Dashboards" Tab
-    When UI Open "DP Monitoring Dashboard" Sub Tab
+    Then UI Navigate to "DefensePro Monitoring Dashboard" page via homePage
 
 
   @SID_4
@@ -48,9 +46,8 @@ Feature: AMS Monitoring Dashboard - Attacks table
   Scenario: Kill Attacks and sleep
     * CLI kill all simulator attacks on current vision
     * Sleep "90"
-    And UI Open "Reports" Tab
-    And UI Open "Dashboards" Tab
-    And UI Open "DP Monitoring Dashboard" Sub Tab
+    And UI Navigate to "DefensePro Monitoring Dashboard" page via homePage
+
 
   @SID_6
   Scenario: Validate table attacks with no attacks.

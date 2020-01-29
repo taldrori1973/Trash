@@ -1,4 +1,4 @@
-@TC111695 @Test1
+@TC111695
 Feature: CLI System database Status
 
   @SID_1
@@ -21,14 +21,14 @@ Feature: CLI System database Status
   @SID_4
   Scenario: System database Stop
     When CLI Operations - Run Radware Session command "system database stop"
-    Then CLI Operations - Verify that output contains regex ".*Shutting down MariaDB.*.*\[  OK  \]"
+    Then CLI Operations - Verify that output contains regex "Shutting down MariaDB.*\[  OK  \]"
     Then CLI Operations - Verify that output contains regex ".*Database was stopped.*"
     Then CLI Operations - Verify that output contains regex ".*Stopping elasticsearch:.*\[  OK  \].*"
 
   @SID_5
   Scenario: System database Status - verify stopped
     When CLI Operations - Run Radware Session command "system database status"
-    Then CLI Operations - Verify that output contains regex ".*MariaDB is not running.*\[FAILED\].*"
+    Then CLI Operations - Verify that output contains regex "MariaDB is not running.*\[FAILED\].*"
 
   @SID_6
   Scenario: System database Stop
@@ -55,7 +55,7 @@ Feature: CLI System database Status
   @SID_10
   Scenario: System database Status - verify running
     When CLI Operations - Run Radware Session command "system database status"
-    Then CLI Operations - Verify that output contains regex ".*MariaDB running.*"
+    Then CLI Operations - Verify that output contains regex "MariaDB running.*"
 
   @SID_11
   Scenario: Verify databases are started

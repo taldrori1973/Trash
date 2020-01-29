@@ -21,9 +21,7 @@ Feature: HTTPS Server Dashboard
   Scenario:Login and Navigate to HTTPS Server Dashboard
     Given UI Login with user "sys_admin" and password "radware"
     Then REST Vision Install License Request "vision-AVA-Max-attack-capacity"
-    When UI Open Upper Bar Item "AMS"
-    When UI Open "Dashboards" Tab
-    Then UI Open "HTTPS Flood Dashboard" Sub Tab
+    And UI Navigate to "HTTPS Flood Dashboard" page via homePage
     Given Rest Add Policy "pol1" To DP "172.16.22.51" if Not Exist
     And Rest Add new Rule "https_servers_automation" in Profile "ProfileHttpsflood" to Policy "pol1" to DP "172.16.22.51"
 #    When UI Click Button "Widgets Selection"
@@ -220,7 +218,7 @@ Feature: HTTPS Server Dashboard
 #    When UI Click Button "Time Range 24H" with value "24H"
 #    Then UI Validate Line Chart data "Requests per Second" with Label "Legitimate Traffic"
 #      | value | count | offset |
-#      | null  | 58    | 50     |
+#      | null  | 24    | 1      |
 #
 #  @SID_22
 #  Scenario: Validate Https Flood baseline graph 12H
@@ -228,7 +226,7 @@ Feature: HTTPS Server Dashboard
 #    When UI Click Button "Time Range 12H" with value "12H"
 #    Then UI Validate Line Chart data "Requests per Second" with Label "Legitimate Traffic"
 #      | value | count | offset |
-#      | null  | 58    | 50     |
+#      | null  | 12    | 1      |
 #
 #  @SID_23
 #  Scenario: Validate Https Flood baseline graph 6H
@@ -236,7 +234,7 @@ Feature: HTTPS Server Dashboard
 #    When UI Click Button "Time Range 6H" with value "6H"
 #    Then UI Validate Line Chart data "Requests per Second" with Label "Legitimate Traffic"
 #      | value | count | offset |
-#      | null  | 58    | 50     |
+#      | null  | 6     | 1      |
 #
 #  @SID_24
 #  Scenario: Validate Https Flood baseline graph 3H
@@ -244,7 +242,7 @@ Feature: HTTPS Server Dashboard
 #    When UI Click Button "Time Range 3H" with value "3H"
 #    Then UI Validate Line Chart data "Requests per Second" with Label "Legitimate Traffic"
 #      | value | count | offset |
-#      | null  | 58    | 50     |
+#      | null  | 3     | 1      |
 #
 #  @SID_25
 #  Scenario: Validate Https Flood baseline graph 1H
@@ -710,12 +708,12 @@ Feature: HTTPS Server Dashboard
   @SID_61
   Scenario: Validate Https Flood distributed size graph data - Under Attack - After Change
     Then UI Validate Line Chart data "Request-Size Distribution" with Label "Under Attack"
-      | value      | count | index | valueOffset |
-      | 0          | 46    | 0     | 0           |
-      | 0.23451911 | 1     | 1     | 0           |
-      | 0.214519   | 1     | 2     | 0           |
-      | 0.81       | 1     | 4     | 0           |
-      | 0.5        | 1     | 49    | 0           |
+      | value      | count | index | offset |
+      | 0          | 46    | 0     | 0      |
+      | 0.23451911 | 1     | 1     | 0      |
+      | 0.214519   | 1     | 2     | 0      |
+      | 0.81       | 1     | 4     | 0      |
+      | 0.5        | 1     | 49    | 0      |
 
   @SID_62
   Scenario: Logout

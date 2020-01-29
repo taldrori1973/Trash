@@ -24,10 +24,8 @@ Feature: ADC Application Second Drill - Global Tests
   @SID_4 @Sanity
   Scenario: Login
     When UI Login with user "sys_admin" and password "radware"
-    Then UI Open Upper Bar Item "ADC"
-    When UI Open "Reports" Tab
-    Then UI Open "Dashboards" Tab
-    Then UI Open "Application Dashboard" Sub Tab
+    And UI Navigate to "ADC Reports" page via homePage
+    And UI Navigate to "Application Dashboard" page via homePage
 
   @SID_5 @Sanity
   Scenario: Navigate to Virtual Service

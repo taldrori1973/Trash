@@ -19,9 +19,7 @@ Feature: DP Monitoring Dashboard - Protection Policies - Under Attack
   Scenario: Login and navigate to VRM
     Given UI Login with user "sys_admin" and password "radware"
     * REST Vision Install License Request "vision-AVA-Max-attack-capacity"
-    And UI Open Upper Bar Item "AMS"
-    And UI Open "Dashboards" Tab
-    When UI Open "DP Monitoring Dashboard" Sub Tab
+    And UI Navigate to "DefensePro Monitoring Dashboard" page via homePage
 
   @SID_4
   Scenario: Validate first peace time policy - just traffic

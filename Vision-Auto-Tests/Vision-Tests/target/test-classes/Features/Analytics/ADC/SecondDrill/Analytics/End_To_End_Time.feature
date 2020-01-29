@@ -23,10 +23,8 @@ Feature: DPM Second Drill - Validate End to End Time Section
   @SID_4
   Scenario: Login and go to DPM dashboard
     When UI Login with user "sys_admin" and password "radware"
-    Then UI Open Upper Bar Item "ADC"
-    Then UI Open "Reports" Tab
-    Then UI Open "Dashboards" Tab
-    Then UI Open "Application Dashboard" Sub Tab
+    Then UI Navigate to "ADC Reports" page via homePage
+    Then UI Navigate to "Application Dashboard" page via homePage
 
   @SID_5
   Scenario: Navigate to Virtual Service
@@ -76,13 +74,13 @@ Feature: DPM Second Drill - Validate End to End Time Section
       | attribute       | value   |
       | backgroundColor | #F1BEBE |
     Then UI Validate Line Chart attributes "End-To-End Time" with Label "Server RTT"
-      | attribute      | value   |
+      | attribute       | value   |
       | backgroundColor | #9BB1C8 |
     Then UI Validate Line Chart attributes "End-To-End Time" with Label "App Response Time"
-      | attribute      | value   |
+      | attribute       | value   |
       | backgroundColor | #8FCBD7 |
     Then UI Validate Line Chart attributes "End-To-End Time" with Label "Response Transfer Time"
-      | attribute      | value   |
+      | attribute       | value   |
       | backgroundColor | #4E6D8D |
 
   @SID_10

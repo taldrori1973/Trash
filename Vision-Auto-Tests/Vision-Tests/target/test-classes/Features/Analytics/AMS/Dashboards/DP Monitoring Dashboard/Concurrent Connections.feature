@@ -20,9 +20,7 @@ Feature: AMS dashboard CONCURRENT CONNECTIONS
   Scenario: VRM - Validate Dashboards "Concurrent Connections" Chart data for only DP version 8 machines
     Given UI Login with user "sys_admin" and password "radware"
     * REST Vision Install License Request "vision-AVA-Max-attack-capacity"
-    And UI Open Upper Bar Item "AMS"
-    When UI Open "Dashboards" Tab
-    And UI Open "DP Monitoring Dashboard" Sub Tab
+    And UI Navigate to "DefensePro Monitoring Dashboard" page via homePage
     And UI Do Operation "Select" item "Global Time Filter"
     And UI Do Operation "Select" item "Global Time Filter.Quick Range" with value "1m"
     Then UI Validate Line Chart data "Concurrent Connections" with Label "Concurrent Connections"

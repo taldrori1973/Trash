@@ -10,7 +10,7 @@ Feature: Scheduled task Backup Alteon
   Scenario: Login and go to scheduler screen
     Given UI Login with user "sys_admin" and password "radware"
     Then UI Go To Vision
-    When UI Open scheduler window
+    And UI Navigate to "SCHEDULER" page via homePage
 
   @SID_3
   Scenario: Create new task of export Alteon configuration

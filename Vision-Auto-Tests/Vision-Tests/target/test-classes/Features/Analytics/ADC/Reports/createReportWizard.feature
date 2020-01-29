@@ -6,8 +6,7 @@ Feature: DPM - Report Wizard Creation
   Scenario: Login and navigate to the Reports Wizard
     * REST Vision Install License Request "vision-reporting-module-ADC"
     Given UI Login with user "sys_admin" and password "radware"
-    When UI Open Upper Bar Item "ADC"
-    When UI Open "Reports" Tab
+    When UI Navigate to "ADC Reports" page via homePage
 
 
   @SID_2

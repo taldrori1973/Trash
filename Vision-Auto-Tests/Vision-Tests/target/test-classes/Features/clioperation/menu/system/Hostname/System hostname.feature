@@ -4,7 +4,6 @@ Feature: CLI System Hostname
   @SID_1
   Scenario: System hostname set cancel
     Then CLI Operations - Run Root Session command "yes|restore_radware_user_password" timeout 15
-    Then Sleep "5"
     Then REST Login with activation with user "radware" and password "radware"
     When CLI Operations - Run Radware Session command "system hostname set myserver.auto"
     When CLI Operations - Run Radware Session command "n"

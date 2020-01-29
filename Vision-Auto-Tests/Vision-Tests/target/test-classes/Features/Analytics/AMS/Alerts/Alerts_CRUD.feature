@@ -14,9 +14,7 @@ Feature: VRM Alerts CRUD
   Scenario: VRM - Login to VRM "Alerts" tab
     Given UI Login with user "sys_admin" and password "radware"
     * REST Vision Install License Request "vision-AVA-Max-attack-capacity"
-    And UI Open Upper Bar Item "AMS"
-    Then Sleep "5"
-    And UI Open "Alerts" Tab
+    And UI Navigate to "AMS Alerts" page via homePage
 
   @SID_3
   Scenario: Create Alert basic
@@ -54,8 +52,8 @@ Feature: VRM Alerts CRUD
 
   @SID_8
   Scenario: validate results for edit Alert fields
-    And UI Open "Reports" Tab
-    And UI Open "Alerts" Tab
+    And UI Navigate to "AMS Reports" page via homePage
+    And UI Navigate to "AMS Alerts" page via homePage
     Then UI "Uncheck" all the Toggle Alerts
     Then UI "Check" Toggle Alerts with name "Alert_Src_Port"
     Then UI Validate "Report.Table" Table rows count equal to 1

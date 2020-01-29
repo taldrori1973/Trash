@@ -2,7 +2,6 @@
 
 Feature: Alert Settings - Email Reporting Configuration
 
-  
   @SID_1
   Scenario: Email setup requirements and clear logs
     Then CLI Operations - Run Root Session command "yes|restore_radware_user_password" timeout 15
@@ -11,7 +10,6 @@ Feature: Alert Settings - Email Reporting Configuration
     Then CLI Operations - Run Root Session command "mysql -prad123 vision_ng -e "delete from alrt_fltr_to_ids where device_id=(select fk_alerts_mail_filter from alertsmailnotifiersettings);""
     Then CLI Clear vision logs
 
-  
   @SID_2
   Scenario: login and go to email page
     Given UI Login with user "sys_admin" and password "radware"
@@ -22,7 +20,6 @@ Feature: Alert Settings - Email Reporting Configuration
     Then UI Navigate to page "System->General Settings->Alert Settings->Alert Browser"
     When UI Do Operation "select" item "Email Reporting Configuration"
 
-  
   @SID_3
   Scenario: set basic Email Parameters
     Then UI Set Checkbox "Enable Detailed Auditing of APSolute Vision Activity" To "false"
@@ -54,7 +51,6 @@ Feature: Alert Settings - Email Reporting Configuration
     Then UI Set Checkbox "Device Throughput License Exceeded Errors" To "true"
     Then UI Click Button "Submit"
 
-  
   @SID_4
   Scenario: Validate basic UI Email Parameters
     Then UI validate Checkbox by label "Enable" if Selected "true"
@@ -86,7 +82,6 @@ Feature: Alert Settings - Email Reporting Configuration
 #    Then UI Set Checkbox "Enable" To "false"
 #    Then UI Click Button "Submit"
 
-  
   @SID_5
   Scenario: test Email filter by devices Alteon negative
     Then CLI Run remote linux Command "echo "cleared" $(date) > /var/spool/mail/alertuser" on "GENERIC_LINUX_SERVER"
@@ -98,7 +93,7 @@ Feature: Alert Settings - Email Reporting Configuration
     Then CLI Run linux Command "cat /var/spool/mail/alertuser |wc -l" on "GENERIC_LINUX_SERVER" and validate result EQUALS "1"
     Then CLI Run remote linux Command "/bin/cp /var/spool/mail/alertuser /tmp/alertuser" on "GENERIC_LINUX_SERVER"
 
-  
+
   @SID_6
   Scenario: test Email filter by devices Alteon
     Then UI DualList Move deviceIndex 12 deviceType "Alteon" DualList Items to "RIGHT" , dual list id "gwt-debug-alertsMailNotifierSettings.alertsMailNotifierFilter.deviceOrmIds"
@@ -107,10 +102,9 @@ Feature: Alert Settings - Email Reporting Configuration
     When REST Lock Action on "Alteon" 12
     Then REST Unlock Action on "Alteon" 12
     Then Sleep "35"
-    Then CLI Run linux Command "cat /var/spool/mail/alertuser |grep "INFO"|grep "Alteon" |awk '{print$10}'|head -1" on "GENERIC_LINUX_SERVER" and validate result EQUALS "50.50.101.21"
-    Then CLI Run linux Command "cat /var/spool/mail/alertuser |grep "INFO"|grep "Alteon" |awk '{print$12}'|head -1" on "GENERIC_LINUX_SERVER" and validate result EQUALS "Alteon_50.50.101.21"
+    Then CLI Run linux Command "cat /var/spool/mail/alertuser |grep "INFO"|awk '{print$10}'|head -1" on "GENERIC_LINUX_SERVER" and validate result EQUALS "50.50.101.21"
+    Then CLI Run linux Command "cat /var/spool/mail/alertuser |grep "INFO"|awk '{print$12}'|head -1" on "GENERIC_LINUX_SERVER" and validate result EQUALS "Alteon_50.50.101.21"
 
-  
   @SID_7
   Scenario: test Email filter by devices DefensePro
     Then UI DualList Move deviceIndex 11 deviceType "DefensePro" DualList Items to "RIGHT" , dual list id "gwt-debug-alertsMailNotifierSettings.alertsMailNotifierFilter.deviceOrmIds"
@@ -124,39 +118,33 @@ Feature: Alert Settings - Email Reporting Configuration
     Then CLI Run linux Command "cat /var/spool/mail/alertuser |grep "INFO"|awk '{print$12}'|head -1" on "GENERIC_LINUX_SERVER" and validate result EQUALS "DefensePro_172.16.22.51"
     Then CLI Run remote linux Command "/bin/cp /var/spool/mail/alertuser /tmp/alertuser_step7" on "GENERIC_LINUX_SERVER"
 
-  
   @SID_8
   Scenario: Verify recieved mail TO
     Then CLI Run linux Command "grep "X-Original-To: automation.email@alert.local" /var/spool/mail/alertuser |wc -l" on "GENERIC_LINUX_SERVER" and validate result GTE "2"
 
-  
   @SID_9
   Scenario: Verify recieved mail count
     Then CLI Run linux Command "grep "Message-ID" /var/spool/mail/alertuser |wc -l" on "GENERIC_LINUX_SERVER" and validate result GTE "2"
 
-  
   @SID_10
   Scenario: Verify recieved mail BODY
     Then CLI Run linux Command "cat /var/spool/mail/alertuser |grep "DefensePro_172.16.22.51, 172.16.22.51 unlocked by user sys_admin"|wc -l" on "GENERIC_LINUX_SERVER" and validate result GTE "1"
     Then CLI Run linux Command "cat /var/spool/mail/alertuser |grep "DefensePro_172.16.22.51, 172.16.22.51 locked by user sys_admin"|wc -l" on "GENERIC_LINUX_SERVER" and validate result GTE "1"
 
-  
   @SID_11
   Scenario: Verify recieved mail FROM
     Then CLI Run linux Command "cat /var/spool/mail/alertuser |grep "From\: "|head -1" on "GENERIC_LINUX_SERVER" and validate result EQUALS "From: Automation system <user@automation.local>"
 
-  
+
   @SID_12
   Scenario: Verify recieved mail SUBJECT
     Then CLI Run linux Command "cat /var/spool/mail/alertuser |grep "Subject\: "|head -1" on "GENERIC_LINUX_SERVER" and validate result EQUALS "Subject: This is automated test"
     Then CLI Run remote linux Command "/bin/cp /var/spool/mail/alertuser /tmp/alertuser_step12" on "GENERIC_LINUX_SERVER"
 
-  
   @SID_13
   Scenario: Verify recieved mail USER
     Then CLI Run linux Command "cat /var/spool/mail/alertuser |grep "From "|awk '{print$2}'|head -1" on "GENERIC_LINUX_SERVER" and validate result EQUALS "user@automation.local"
 
-  
   @SID_14
   Scenario: test Email filter by severity
     Then UI Set Checkbox "Critical" To "false"
@@ -178,7 +166,6 @@ Feature: Alert Settings - Email Reporting Configuration
     Then UI Set Checkbox "Warning" To "true"
     Then UI Click Button "Submit"
 
-  
   @SID_15
   Scenario: test Email filter by severity negative
     Then UI Set Checkbox "Critical" To "true"
@@ -192,7 +179,7 @@ Feature: Alert Settings - Email Reporting Configuration
     Then CLI Run linux Command "grep -i "INFO" /var/spool/mail/alertuser |wc -l" on "GENERIC_LINUX_SERVER" and validate result EQUALS "0"
     Then UI Set Checkbox "Information" To "true"
 
-  
+
   @SID_16
   Scenario: test Email filter by detailed vision activity ON
     Then UI Set Checkbox "Enable Detailed Auditing of APSolute Vision Activity" To "true"
@@ -205,7 +192,6 @@ Feature: Alert Settings - Email Reporting Configuration
     Then CLI Run linux Command "grep -i "User radware has changed the Device Lock Timeout to 12" /var/spool/mail/alertuser |wc -l" on "GENERIC_LINUX_SERVER" and validate result GTE "1"
     Then CLI Run remote linux Command "/bin/cp /var/spool/mail/alertuser /tmp/alertuser_step16" on "GENERIC_LINUX_SERVER"
 
-  
   @SID_17
   Scenario: test Email filter by detailed vision activity OFF
     Then UI Set Checkbox "Enable Detailed Auditing of APSolute Vision Activity" To "true"
@@ -218,7 +204,6 @@ Feature: Alert Settings - Email Reporting Configuration
     Then CLI Run linux Command "grep -i "User radware has changed the Device Lock Timeout to 11" /var/spool/mail/alertuser |wc -l" on "GENERIC_LINUX_SERVER" and validate result EQUALS "0"
     Then CLI Run remote linux Command "/bin/cp /var/spool/mail/alertuser /tmp/alertuser_step16" on "GENERIC_LINUX_SERVER"
 
-  
   @SID_18
   Scenario: test Email filter by detailed device configuration OFF
     Then UI Set Checkbox "Enable Detailed APSolute Vision Auditing of Device Configuration Changes" To "false"
@@ -231,7 +216,6 @@ Feature: Alert Settings - Email Reporting Configuration
     Then CLI Run linux Command "grep -i "User sys_admin set value to scalar sysLocation (Location): Undetailed" /var/spool/mail/alertuser |wc -l" on "GENERIC_LINUX_SERVER" and validate result EQUALS "0"
     Then CLI Run remote linux Command "/bin/cp /var/spool/mail/alertuser /tmp/alertuser_step17" on "GENERIC_LINUX_SERVER"
 
-  
   @SID_19
   Scenario: test Email filter by detailed device configuration ON
     Then UI Set Checkbox "Enable Detailed APSolute Vision Auditing of Device Configuration Changes" To "true"
@@ -243,7 +227,6 @@ Feature: Alert Settings - Email Reporting Configuration
     Then REST Unlock Action on "DefensePro" 11
     Then CLI Run remote linux Command "/bin/cp /var/spool/mail/alertuser /tmp/alertuser_step18" on "GENERIC_LINUX_SERVER"
 
-  
   @SID_20
   Scenario: Number of alerts per email
     Then UI Select "6" from Vision dropdown "Alerts per Email"
@@ -261,7 +244,6 @@ Feature: Alert Settings - Email Reporting Configuration
     Then CLI Run linux Command "grep -i "Subject: " /var/spool/mail/alertuser |wc -l" on "GENERIC_LINUX_SERVER" and validate result LTE "5"
     Then CLI Run remote linux Command "/bin/cp /var/spool/mail/alertuser /tmp/alertuser_step19" on "GENERIC_LINUX_SERVER"
 
-  
   @SID_21
   Scenario: test Email filter by module Device Health Errors
     Then UI Set Checkbox "Device Security" To "false"
@@ -288,9 +270,8 @@ Feature: Alert Settings - Email Reporting Configuration
     Then CLI Run linux Command "grep -i "DEVICE_HEALTH_ERRORS" /var/spool/mail/alertuser |wc -l" on "GENERIC_LINUX_SERVER" and validate result GTE "1"
     Then CLI Run remote linux Command "/bin/cp /var/spool/mail/alertuser /tmp/alertuser_step20" on "GENERIC_LINUX_SERVER"
 
-    
   @SID_22
-  Scenario: test Email filter by module Device Health Error
+  Scenario: test Email filter by module Device Health Errors
     Then CLI Run remote linux Command "echo "cleared" $(date) > /var/spool/mail/alertuser" on "GENERIC_LINUX_SERVER"
 #    Then UI Set Checkbox "Device Security" To "true"
 #    Then UI Set Checkbox "Vision General" To "true"

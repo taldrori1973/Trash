@@ -3,11 +3,8 @@ Feature: DF Scope Selection
 
   @SID_1
   Scenario: VRM - Login to VRM "Wizard" Test
-    * REST Vision Install License Request "vision-AVA-Max-attack-capacity"
     Given UI Login with user "sys_admin" and password "radware"
-    And UI Open Upper Bar Item "AMS"
-    And UI Open "Dashboards" Tab
-    And UI Open "DefenseFlow Analytics Dashboard" Sub Tab
+    And UI Navigate to "DefenseFlow Analytics Dashboard" page via homePage
     And UI Do Operation "Select" item "Protected Objects"
 
   @SID_2

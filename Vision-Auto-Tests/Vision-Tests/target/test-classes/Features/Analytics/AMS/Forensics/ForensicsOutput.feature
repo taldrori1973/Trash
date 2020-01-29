@@ -3,7 +3,6 @@ Feature: Forensics Output
 
   @SID_1
   Scenario: Clean system data
-    When CLI Operations - Run Root Session command "yes|restore_radware_user_password" timeout 15
     * CLI kill all simulator attacks on current vision
     * REST Delete ES index "dp-attack-raw-*"
     * REST Delete ES index "forensics-*"
@@ -21,8 +20,7 @@ Feature: Forensics Output
   Scenario: VRM - Loging to VRM "Wizard" Test
     Given UI Login with user "sys_admin" and password "radware"
     * REST Vision Install License Request "vision-AVA-Max-attack-capacity"
-    And UI Open Upper Bar Item "AMS"
-    And UI Open "Forensics" Tab
+    Then UI Navigate to "AMS Forensics" page via homepage
 
   @SID_4
   Scenario: VRM - edit dynamic values in DB

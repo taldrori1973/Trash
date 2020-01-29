@@ -30,9 +30,7 @@ Feature: Actionable Black And White List
   @SID_5
   Scenario: login and go to attack dashboard
     Given UI Login with user "sys_admin" and password "radware"
-    And UI Open Upper Bar Item "AMS"
-    And UI Open "Dashboards" Tab
-    And UI Open "DP Monitoring Dashboard" Sub Tab
+    And UI Navigate to "DefensePro Monitoring Dashboard" page via homePage
 
   @SID_6
   Scenario: open attack actionable menu

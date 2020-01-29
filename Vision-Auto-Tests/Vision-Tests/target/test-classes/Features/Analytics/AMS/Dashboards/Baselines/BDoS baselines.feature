@@ -28,9 +28,7 @@ Feature: VRM BDoS baselines
   Scenario: Login into VRM and select device
     Given UI Login with user "sys_admin" and password "radware"
     Then REST Vision Install License Request "vision-AVA-Max-attack-capacity"
-    And UI Open Upper Bar Item "AMS"
-    When UI Open "Dashboards" Tab
-    Then UI Open "DP BDoS Baseline" Sub Tab
+    And UI Navigate to "DefensePro Behavioral Protections Dashboard" page via homePage
     Then Sleep "1"
     And UI Do Operation "Select" item "Global Time Filter"
     Then Sleep "1"
@@ -2611,7 +2609,7 @@ Feature: VRM BDoS baselines
     Then UI Validate Line Chart data "BDoS-IGMP" with Label "Total Traffic"
       | value | count | offset |
       | 5550  | 13    | 6      |
-    And UI Open "Configurations" Tab
+    And UI Navigate to "HOME" page via homePage
     And UI Logout
 
   #   END IGMP BASIC
@@ -2619,9 +2617,7 @@ Feature: VRM BDoS baselines
   @SID_76
   Scenario: BDoS baseline RBAC
     Given UI Login with user "sec_admin_allDPs_pol_1_policy" and password "radware"
-    When UI Open Upper Bar Item "AMS"
-    When UI Open "Dashboards" Tab
-    Then UI Open "DP BDoS Baseline" Sub Tab
+    And UI Navigate to "DefensePro Behavioral Protections Dashboard" page via homePage
     When UI Do Operation "Select" item "Global Time Filter"
     When UI Do Operation "Select" item "Global Time Filter.Quick Range" with value "2m"
     And UI Do Operation "Select" item "Device Selection"
@@ -2733,17 +2729,20 @@ Feature: VRM BDoS baselines
     Then UI Validate Line Chart data "BDoS-TCP SYN" with Label "Suspected Edge"
       | value | count | offset |
       | 464   | 13    | 6      |
-    And UI Open "Configurations" Tab
+    And UI Navigate to "HOME" page via homePage
     And UI logout and close browser
 
 
   @SID_77
   Scenario: BDoS baseline TCP-SYN RBAC negative
     Given UI Login with user "sec_admin_DP50_policy1" and password "radware"
-    When UI Open Upper Bar Item "AMS"
+#     When UI Open Upper Bar Item "AMS"
+#    Then UI Validate Session Storage "BDoS-TCP SYN" exists "false"
+#    When UI Open "Dashboards" Tab
+#    Then UI Open "DP BDoS Baseline" Sub Tab
+    And UI Navigate to "ANALYTICS AMS" page via homePage
     Then UI Validate Session Storage "BDoS-TCP SYN" exists "false"
-    When UI Open "Dashboards" Tab
-    Then UI Open "DP BDoS Baseline" Sub Tab
+    And UI Navigate to "DefensePro Behavioral Protections Dashboard" page via homePage
     And UI Do Operation "Select" item "Global Time Filter"
     And UI Do Operation "Select" item "Global Time Filter.Quick Range" with value "2m"
     # Then UI Validate Session Storage "BDoS-TCP SYN" exists "false"
@@ -2755,15 +2754,13 @@ Feature: VRM BDoS baselines
       | value | count | offset |
       | null  | 31    | 31     |
     # Then UI Validate Session Storage "BDoS-TCP SYN" exists "true"
-    And UI Open "Configurations" Tab
+    And UI Navigate to "HOME" page via homePage
     And UI logout and close browser
 
   @SID_78
   Scenario: baselines clear all widgets
     Given UI Login with user "sys_admin" and password "radware"
-    When UI Open Upper Bar Item "AMS"
-    When UI Open "Dashboards" Tab
-    Then UI Open "DP BDoS Baseline" Sub Tab
+    And UI Navigate to "DefensePro Behavioral Protections Dashboard" page via homePage
     And UI Do Operation "Select" item "Device Selection"
     Then UI VRM Select device from dashboard and Save Filter
       | index | ports | policies |
@@ -2857,7 +2854,7 @@ Feature: VRM BDoS baselines
     Then UI Do Operation "Select" item "BDoS-UDP-1 Outbound"
     Then UI Do Operation "Select" item "BDoS-UDP-1 pps"
 
-    Then UI Open "Configurations" Tab
+    And UI Navigate to "HOME" page via homePage
     Then UI logout and close browser
 
   @SID_81

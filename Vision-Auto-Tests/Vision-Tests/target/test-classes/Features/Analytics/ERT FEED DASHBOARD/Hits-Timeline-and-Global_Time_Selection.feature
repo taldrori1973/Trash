@@ -28,7 +28,7 @@ Feature: EAAF Hits Timeline, Summary Hits and Global Time Selection
   Scenario: Login and navigate to EAAF dashboard
     Given UI Login with user "sys_admin" and password "radware"
     * REST Vision Install License Request "vision-AVA-Max-attack-capacity"
-    When UI Open Upper Bar Item "EAAF Dashboard"
+    And UI Navigate to "EAAF Dashboard" page via homePage
   @SID_4
   Scenario: EAAF Hits Timeline - verify data for 15 minutes
     And UI Do Operation "Select" item "Global Time Filter"
@@ -166,5 +166,5 @@ Feature: EAAF Hits Timeline, Summary Hits and Global Time Selection
     Then UI Validate number range between minValue 625 and maxValue 625 in label "Yearly Hits value"
   @SID_14
   Scenario: Cleanup
-    Then UI Open "Configurations" Tab
+    Then UI Navigate to "HOME" page via homePage
     Then UI logout and close browser

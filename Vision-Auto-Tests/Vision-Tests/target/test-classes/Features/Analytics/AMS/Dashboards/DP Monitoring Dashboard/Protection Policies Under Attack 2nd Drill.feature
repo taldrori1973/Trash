@@ -18,9 +18,7 @@ Feature: DP Monitoring Dashboard - Protection Policies - Under Attack 2nd Drill
   Scenario: Login and navigate to VRM
     Given UI Login with user "sys_admin" and password "radware"
     * REST Vision Install License Request "vision-AVA-Max-attack-capacity"
-    And UI Open Upper Bar Item "AMS"
-    And UI Open "Dashboards" Tab
-    When UI Open "DP Monitoring Dashboard" Sub Tab
+    And UI Navigate to "DefensePro Monitoring Dashboard" page via homePage
 
 
   @SID_4
@@ -225,10 +223,8 @@ Feature: DP Monitoring Dashboard - Protection Policies - Under Attack 2nd Drill
   Scenario: Validate Attack Rate and Drop Rate Aggregation
     Given CLI kill all simulator attacks on current vision
     And REST Delete ES index "dp-*"
-    And CLI simulate 10 attacks of type "rest_black_ip46" on "DefensePro" 10 and wait 45 seconds
-    And UI Open "Reports" Tab
-    And UI Open "Dashboards" Tab
-    When UI Open "DP Monitoring Dashboard" Sub Tab
+    And CLI simulate 1 attacks of type "rest_black_ip46" on "DefensePro" 10 and wait 45 seconds
+    And UI Navigate to "DefensePro Monitoring Dashboard" page via homePage
     And  UI click Table row by keyValue or Index with elementLabel "Protection Policies.Table" findBy index 0
     Then UI Validate Table record values by columns with elementLabel "Protection Policies.Protections Table" findBy index 0
       | columnName      | value       |
@@ -244,9 +240,8 @@ Feature: DP Monitoring Dashboard - Protection Policies - Under Attack 2nd Drill
       | columnName    | value        |
       | Policy Name   | Black_IPV4   |
       | Attack Name   | Black List   |
-#     | Total Packets | 68,589       |
-# Total packets and volume are dynamic, not the way to validate it
-#     | Volume        | 55.94 MBytes |
+      | Total Packets | 68,589       |
+      | Volume        | 55.94 MBytes |
 
   @SID_16
   Scenario: Protection Policies Cleanup

@@ -18,7 +18,8 @@ Feature: EAAF Widget - Top IP Statistics
     * REST Vision Install License Request "vision-AVA-Max-attack-capacity"
 #    Given UI Login with user "sys_admin" and password "radware"
     Given UI Login with user "sys_admin" and password "radware"
-    When UI Open Upper Bar Item "EAAF Dashboard"
+#    When UI Open Upper Bar Item "EAAF Dashboard"
+    When UI Navigate to "EAAF Dashboard" page via homePage
 #this scenario verifies two things: Default selection of "Events" TAB and data correctness of that TAB
   @SID_4
   Scenario: Validate Top Malicious IP Addresses Widget - Events
@@ -311,5 +312,6 @@ Feature: EAAF Widget - Top IP Statistics
     Then UI Validate elements "TOTAL IP Events value" with params "" are sorting Descending by "BIT_BYTE_UNITS"
   @SID_32
   Scenario: Cleanup
-    Then UI Open "Configurations" Tab
+#    Then UI Open "Configurations" Tab
+    When UI Navigate to "HOME" page via homePage
     Then UI logout and close browser
