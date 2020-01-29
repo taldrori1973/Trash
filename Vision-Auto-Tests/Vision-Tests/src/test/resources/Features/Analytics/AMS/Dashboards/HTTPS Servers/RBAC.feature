@@ -21,7 +21,6 @@ Feature: HTTPS Flood Dashboard - RBAC
       | deviceIp     | policyName |
       | 172.16.22.50 | pol1       |
       | 172.16.22.51 | pol1       |
-
     Then UI Logout
 
   @SID_3
@@ -37,4 +36,16 @@ Feature: HTTPS Flood Dashboard - RBAC
       | 172.16.22.51 | pol1       |
     Then REST Login with user "sec_admin_DP51_pol1" and password "radware"
     Then REST Generic API Request "PUT" for "User Preferences->Landing Page" Body params "" Expected result "ok"
+    Given UI Logout
+
+  @SID_4
+  Scenario: HTTPS RBAC with scope "all" user
+    When UI Login with user "Vision_Reporter_user" and password "radware"
+    When UI Open Upper Bar Item "AMS"
+    When UI Open "Dashboards" Tab
+    Then UI Open "HTTPS Flood Dashboard" Sub Tab
+    Then HTTPS Scope Selection Validate RBAC with Devices IPs "172.16.22.50,172.16.22.51" and the Following Policies and Page Size 50
+      | deviceIp     | policyName |
+      | 172.16.22.50 | pol1       |
+      | 172.16.22.51 | pol1       |
     Then UI logout and close browser

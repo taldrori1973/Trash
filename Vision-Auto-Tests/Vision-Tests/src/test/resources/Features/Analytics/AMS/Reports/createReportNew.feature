@@ -5,11 +5,14 @@ Feature: create AMS Report New Form
   @SID_1
   Scenario: Login and navigate to the AMS Reports Wizard
     Then CLI Operations - Run Root Session command "yes|restore_radware_user_password" timeout 15
-    * REST Vision Install License Request "vision-AVA-Max-attack-capacity"
+    Then REST Vision Install License Request "vision-AVA-Max-attack-capacity"
+    Then CLI Run remote linux Command "mysql -prad123 vision_ng -e "select license_str,is_expired+0 from vision_license;"" on "ROOT_SERVER_CLI"
     Then REST Request "PUT" for "Connectivity->Inactivity Timeout for Configuration"
       | type | value                                 |
       | body | sessionInactivTimeoutConfiguration=60 |
     Given UI Login with user "sys_admin" and password "radware"
+    # to overcome license delayed reply
+    Then Sleep "5"
     When UI Open Upper Bar Item "AMS"
     When UI Open "Reports" Tab
     Then UI Validate Element Existence By Label "Add New" if Exists "true"
@@ -180,13 +183,13 @@ Feature: create AMS Report New Form
     Then UI Validate Text field "Error Title" EQUALS "Unable to submit form"
     Then UI Validate Text field "Error Message" EQUALS "To submit, you must fill in all marked fields*"
     Then UI Click Button "Error Ok"
-    Then UI Click Button "Close Message"
+#    Then UI Click Button "Close Message"
     Then UI Click Button "Close"
 
   @SID_24
   Scenario: AMS Reports - Validate Search Filter Via Text Of Element
     When UI Click Button "Add New"
-    When UI Click Button "Template"
+    When UI Click Button "Select Template"
     When UI Click Button "DefensePro Analytics Template"
     Then UI Validate Search With Label: "Widget Select" and param: "Top Attacks by Duration" in Search Label "Widget Filter Default" if this elements exist take label text
     Then UI Click Button "Widget Close"
@@ -196,7 +199,7 @@ Feature: create AMS Report New Form
   @SID_25
   Scenario: AMS Reports - Validate Search Filter With Expected Elements
     When UI Click Button "Add New"
-    When UI Click Button "Template"
+    When UI Click Button "Select Template"
     When UI Click Button "DefensePro Analytics Template"
     Then UI Validate Search The Text "Top Attacks by" in Search Label "Widget Filter Default" if this elements exist
       | label         | param                    |
@@ -210,7 +213,7 @@ Feature: create AMS Report New Form
   @SID_26
   Scenario: AMS Reports - Validate Search Filter With Expected Elements Number
     When UI Click Button "Add New"
-    When UI Click Button "Template"
+    When UI Click Button "Select Template"
     When UI Click Button "DefensePro Analytics Template"
     Then UI Validate Search Numbering With text: "Top Attacks by" And Element Label: "Widget Select" In Search Label "Widget Filter Default" If this equal to 3
     Then UI Click Button "Widget Close"
@@ -237,16 +240,16 @@ Feature: create AMS Report New Form
     Given UI "Create" Report With Name "aaaa"
       | reportType | DefensePro Behavioral Protections Dashboard |
       | Design     | Delete:[ALL], Add:[ALL]                     |
-    Then UI Click Button "Widgets Selection Cancel"
-    Then UI Click Button "Cancel"
+#    Then UI Click Button "Widgets Selection Cancel"
+#    Then UI Click Button "Cancel"
 
   @SID_30
   Scenario: Create DefensePro Analytics Dashboard Report with all the widgets
     Given UI "Create" Report With Name "DeleteAllReport"
       | reportType | DefensePro Analytics Dashboard                           |
       | Design     | Delete:[ALL], Add:[Top Attacks,Top Attacks by Bandwidth] |
-    Then UI Click Button "Widgets Selection Cancel"
-    Then UI Click Button "Cancel"
+#    Then UI Click Button "Widgets Selection Cancel"
+#    Then UI Click Button "Cancel"
 
 #  @SID_31
 #  Scenario: AMS Reports - Save widgets after click on Cancel button

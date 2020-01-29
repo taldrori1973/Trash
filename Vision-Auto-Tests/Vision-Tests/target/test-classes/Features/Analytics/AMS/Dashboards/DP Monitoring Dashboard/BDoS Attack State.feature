@@ -1,4 +1,4 @@
-@TC108795
+@TC108795 @Test1
 Feature: AMS BDoS Attack State
 
   @SID_1
@@ -22,7 +22,7 @@ Feature: AMS BDoS Attack State
   @SID_4
   Scenario: validate BDoS State attack 60-1514816419
     Then UI click Table row by keyValue or Index with elementLabel "Protection Policies.Events Table" findBy columnName "Attack ID" findBy cellValue "60-1514816419"
-    Then UI Validate Text field "Characteristics.State" EQUALS "State:Burst-Attack Signature Blocking"
+    Then UI Validate Text field "Characteristics.State" EQUALS "State:Burst Attack Signature Blocking"
     Then UI Click Button "Protection Policies.GO BACK" with value "<< GO BACK"
   @SID_5
   Scenario: validate BDoS State attack 61-1514816419

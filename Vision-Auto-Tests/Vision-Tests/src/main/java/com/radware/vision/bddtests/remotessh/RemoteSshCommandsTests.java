@@ -1,5 +1,6 @@
 package com.radware.vision.bddtests.remotessh;
 
+import com.aqua.sysobj.conn.CliConnectionImpl;
 import com.radware.automation.tools.basetest.BaseTestUtils;
 import com.radware.automation.tools.basetest.Reporter;
 import com.radware.automation.tools.cli.LinuxFileServer;
@@ -52,14 +53,10 @@ public class RemoteSshCommandsTests extends BddCliTestBase {
     public void cliRunRemoteLinuxCommandOn(SUTEntryType sutEntryType, Integer sleep, String waitForPrompt,Integer withTimeout, List<String> commandParts) throws Exception {
         String commandToExecute = getExecuteCommand(commandParts);
         boolean waitForPromptBoolean = waitForPrompt == null || Boolean.parseBoolean(waitForPrompt);
-        if (sutEntryType.name().equalsIgnoreCase("GENERIC_LINUX_SERVER"))
-        {
-            getSUTEntryType(sutEntryType).setUser("root");
-            getSUTEntryType(sutEntryType).connect();
-        }
+        CliConnectionImpl cli = getSUTEntryType(sutEntryType);
         withTimeout = withTimeout == null ? 60*1000 : withTimeout;
         try {
-            InvokeUtils.invokeCommand(null, commandToExecute, getSUTEntryType(sutEntryType), withTimeout, true, false, waitForPromptBoolean, null, true);
+            InvokeUtils.invokeCommand(null, commandToExecute, cli, withTimeout, true, false, waitForPromptBoolean, null, true);
             if (sleep != null)
                 Thread.sleep(sleep * 1000);
         } catch (Exception e) {
@@ -208,13 +205,14 @@ public class RemoteSshCommandsTests extends BddCliTestBase {
         CliOperations.runCommand(getRestTestBase().getRootServerCli(), "chmod +x /root/fetch_num_of_real_alteons_apps.sh");
         CliOperations.runCommand(getRestTestBase().getRootServerCli(), "/root/fetch_num_of_real_alteons_apps.sh");
         String numOfApps = CliOperations.lastRow;
-        runCLICommandAndValidateBiggerOrEqualResult("mysql -prad123 vision_ng -e \"select count(*) from dpm_virtual_services\" | grep -v + | tail -1", ROOT_SERVER_CLI, EqualsOrContains.GTE, numOfApps, "", null);
+        runCLICommandAndValidateBiggerOrEqualResult("mysql -prad123 vision_ng -e \"select count(*) from dpm_virtual_services\" | grep -v + | tail -1", ROOT_SERVER_CLI, EqualsOrContains.GTE, numOfApps, "", null, null);
 
     }
 
-    @When("^CLI Run linux Command \"(.*)\" on \"(.*)\" and validate result (EQUALS|CONTAINS|GT|GTE|LT|LTE) \"(.*)\"( in any line)?(?: with timeOut (\\d+))?$")
-    public void runCLICommandAndValidateBiggerOrEqualResult(String commandToExecute, SUTEntryType sutEntryType, EqualsOrContains equalsOrContains, String expectedResult, String inAnyLine, Integer iDelay) {
+    @When("^CLI Run linux Command \"(.*)\" on \"(.*)\" and validate result (EQUALS|NOT_EQUALS|CONTAINS|GT|GTE|LT|LTE) \"(.*)\"( in any line)?(?: with timeOut (\\d+))?(?: with runCommand delay (\\d+))?$")
+    public void runCLICommandAndValidateBiggerOrEqualResult(String commandToExecute, SUTEntryType sutEntryType, EqualsOrContains equalsOrContains, String expectedResult, String inAnyLine, Integer iDelay, Integer defaultTimeOut) {
         try {
+            defaultTimeOut = defaultTimeOut != null ? defaultTimeOut * 1000 : CliOperations.DEFAULT_TIME_OUT;
             boolean bTestSuccess = false;
             int iNumberOfDelayTimes = 1;
             int iactualResult;
@@ -224,7 +222,7 @@ public class RemoteSshCommandsTests extends BddCliTestBase {
             }
 
             do {
-                CliOperations.runCommand(getSUTEntryTypeByServerCliBase(sutEntryType), commandToExecute);
+                CliOperations.runCommand(getSUTEntryTypeByServerCliBase(sutEntryType), commandToExecute, defaultTimeOut);
                 String actualResult = CliOperations.lastRow.trim();
 
                 if (inAnyLine != null && !inAnyLine.isEmpty()) {
@@ -244,6 +242,13 @@ public class RemoteSshCommandsTests extends BddCliTestBase {
                         if (!actualResult.trim().equals(expectedResult)) {
                             if (iNumberOfDelayTimes == 0)
                                 BaseTestUtils.report("Actual \"" + actualResult + "\" is not equal to \"" + expectedResult + "\"", Reporter.FAIL);
+                        } else
+                            bTestSuccess = true;
+                        break;
+                    case NOT_EQUALS:
+                        if (actualResult.trim().equals(expectedResult)) {
+                            if (iNumberOfDelayTimes == 0)
+                                BaseTestUtils.report("Actual \"" + actualResult + "\" is equal to \"" + expectedResult + "\" although it shouldn't be", Reporter.FAIL);
                         } else
                             bTestSuccess = true;
                         break;
@@ -399,5 +404,16 @@ public class RemoteSshCommandsTests extends BddCliTestBase {
     public void cliUnZIPLocalReportZIPFileToCSVFiles() {
         runCLICommand("cp /opt/radware/mgt-server/third-party/tomcat/bin/VRM_report_*.zip /opt/radware/storage/maintenance/", ROOT_SERVER_CLI, null);
         runCLICommand("unzip -o -d /opt/radware/mgt-server/third-party/tomcat/bin/ /opt/radware/mgt-server/third-party/tomcat/bin/VRM_report_*.zip", ROOT_SERVER_CLI, null);
+    }
+
+    @Then("^CLI Run remote linux Command \"(.*)\" on \"(.*)\" and wait for \"(.*)\" till timeout \"(\\d+)\" min$")
+    public void cliCommandWithRetryTillTimeOut(String commandToExecute, SUTEntryType sutEntryType, String value, int timeOut ) {
+//        do{
+//            runCLICommandAndValidateBiggerOrEqualResult(commandToExecute, sutEntryType, EqualsOrContains.EQUALS, value, String inAnyLine, Integer iDelay);
+//        }
+//
+//
+//         CliOperations.verifyLastOutputByRegex(value);
+
     }
 }

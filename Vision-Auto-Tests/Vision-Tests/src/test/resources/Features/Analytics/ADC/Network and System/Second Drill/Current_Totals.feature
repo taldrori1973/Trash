@@ -22,7 +22,7 @@ Feature: ADC dashboard Current Totals Widget
     Then UI Add "Alteon" with index 22 on "Alteons_for_DPM-Fakes" site
     Then UI Wait For Device To Show Up In The Topology Tree "Alteon" device with index 21 with timeout 300
     Then UI Wait For Device To Show Up In The Topology Tree "Alteon" device with index 22 with timeout 300
-
+    * Sleep "100"
 
     Then UI Open Upper Bar Item "ADC"
     Then UI Open "Reports" Tab
@@ -82,8 +82,8 @@ Feature: ADC dashboard Current Totals Widget
 
   @SID_11
   Scenario: CleanUp
-    Then REST Delete Device By IP "50.50.101.31"
     Then REST Delete "Alteon" device with index 21 from topology tree
     Then REST Delete "Alteon" device with index 22 from topology tree
-    Then REST Delete Device By IP "50.50.101.32"
+#    Then REST Delete Device By IP "50.50.101.31"
+#    Then REST Delete Device By IP "50.50.101.32"
     Then UI logout and close browser

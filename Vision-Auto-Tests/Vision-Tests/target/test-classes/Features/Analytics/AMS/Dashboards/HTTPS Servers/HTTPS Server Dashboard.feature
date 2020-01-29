@@ -214,64 +214,64 @@ Feature: HTTPS Server Dashboard
       | value   | count | offset |
       | 17500.0 | 2     | 1      |
 
-  @SID_21
-  Scenario: Validate Https Flood baseline graph 24H
-    When UI Click Button "Time Picker"
-    When UI Click Button "Time Range 24H" with value "24H"
-    Then UI Validate Line Chart data "Requests per Second" with Label "Legitimate Traffic"
-      | value | count | offset |
-      | null  | 24    | 1      |
-
-  @SID_22
-  Scenario: Validate Https Flood baseline graph 12H
-    When UI Click Button "Time Picker"
-    When UI Click Button "Time Range 12H" with value "12H"
-    Then UI Validate Line Chart data "Requests per Second" with Label "Legitimate Traffic"
-      | value | count | offset |
-      | null  | 12    | 1      |
-
-  @SID_23
-  Scenario: Validate Https Flood baseline graph 6H
-    When UI Click Button "Time Picker"
-    When UI Click Button "Time Range 6H" with value "6H"
-    Then UI Validate Line Chart data "Requests per Second" with Label "Legitimate Traffic"
-      | value | count | offset |
-      | null  | 6     | 1      |
-
-  @SID_24
-  Scenario: Validate Https Flood baseline graph 3H
-    When UI Click Button "Time Picker"
-    When UI Click Button "Time Range 3H" with value "3H"
-    Then UI Validate Line Chart data "Requests per Second" with Label "Legitimate Traffic"
-      | value | count | offset |
-      | null  | 3     | 1      |
-
-  @SID_25
-  Scenario: Validate Https Flood baseline graph 1H
-    When UI Click Button "Time Picker"
-    When UI Click Button "Time Range 1H" with value "1H"
-    Then UI Validate Line Chart data "Requests per Second" with Label "Legitimate Traffic"
-      | value   | count | offset |
-      | null    | 238   | 1      |
-      | 17500.0 | 2     | 1      |
-
-  @SID_26
-  Scenario: Validate Https Flood baseline graph 30m
-    When UI Click Button "Time Picker"
-    When UI Click Button "Time Range 30m" with value "30m"
-    Then UI Validate Line Chart data "Requests per Second" with Label "Legitimate Traffic"
-      | value   | count | offset |
-      | null    | 118   | 1      |
-      | 17500.0 | 2     | 1      |
-
-  @SID_27
-  Scenario: Validate Https Flood baseline graph 15m
-    When UI Click Button "Time Picker"
-    When UI Click Button "Time Range 15m" with value "15m"
-    Then UI Validate Line Chart data "Requests per Second" with Label "Legitimate Traffic"
-      | value   | count | offset |
-      | null    | 57    | 1      |
-      | 17500.0 | 2     | 1      |
+#  @SID_21
+#  Scenario: Validate Https Flood baseline graph 24H
+#    When UI Click Button "Time Picker"
+#    When UI Click Button "Time Range 24H" with value "24H"
+#    Then UI Validate Line Chart data "Requests per Second" with Label "Legitimate Traffic"
+#      | value | count | offset |
+#      | null  | 58    | 50     |
+#
+#  @SID_22
+#  Scenario: Validate Https Flood baseline graph 12H
+#    When UI Click Button "Time Picker"
+#    When UI Click Button "Time Range 12H" with value "12H"
+#    Then UI Validate Line Chart data "Requests per Second" with Label "Legitimate Traffic"
+#      | value | count | offset |
+#      | null  | 58    | 50     |
+#
+#  @SID_23
+#  Scenario: Validate Https Flood baseline graph 6H
+#    When UI Click Button "Time Picker"
+#    When UI Click Button "Time Range 6H" with value "6H"
+#    Then UI Validate Line Chart data "Requests per Second" with Label "Legitimate Traffic"
+#      | value | count | offset |
+#      | null  | 58    | 50     |
+#
+#  @SID_24
+#  Scenario: Validate Https Flood baseline graph 3H
+#    When UI Click Button "Time Picker"
+#    When UI Click Button "Time Range 3H" with value "3H"
+#    Then UI Validate Line Chart data "Requests per Second" with Label "Legitimate Traffic"
+#      | value | count | offset |
+#      | null  | 58    | 50     |
+#
+#  @SID_25
+#  Scenario: Validate Https Flood baseline graph 1H
+#    When UI Click Button "Time Picker"
+#    When UI Click Button "Time Range 1H" with value "1H"
+#    Then UI Validate Line Chart data "Requests per Second" with Label "Legitimate Traffic"
+#      | value   | count | offset |
+#      | null    | 238   | 1      |
+#      | 17500.0 | 2     | 1      |
+#
+#  @SID_26
+#  Scenario: Validate Https Flood baseline graph 30m
+#    When UI Click Button "Time Picker"
+#    When UI Click Button "Time Range 30m" with value "30m"
+#    Then UI Validate Line Chart data "Requests per Second" with Label "Legitimate Traffic"
+#      | value   | count | offset |
+#      | null    | 118   | 1      |
+#      | 17500.0 | 2     | 1      |
+#
+#  @SID_27
+#  Scenario: Validate Https Flood baseline graph 15m
+#    When UI Click Button "Time Picker"
+#    When UI Click Button "Time Range 15m" with value "15m"
+#    Then UI Validate Line Chart data "Requests per Second" with Label "Legitimate Traffic"
+#      | value   | count | offset |
+#      | null    | 57    | 1      |
+#      | 17500.0 | 2     | 1      |
 
   @SID_28
   Scenario: Validate Https Flood baseline graph Transitory Baseline styling
@@ -710,12 +710,12 @@ Feature: HTTPS Server Dashboard
   @SID_61
   Scenario: Validate Https Flood distributed size graph data - Under Attack - After Change
     Then UI Validate Line Chart data "Request-Size Distribution" with Label "Under Attack"
-      | value      | count | index | offset |
-      | 0          | 46    | 0     | 0      |
-      | 0.23451911 | 1     | 1     | 0      |
-      | 0.214519   | 1     | 2     | 0      |
-      | 0.81       | 1     | 4     | 0      |
-      | 0.5        | 1     | 49    | 0      |
+      | value      | count | index | valueOffset |
+      | 0          | 46    | 0     | 0           |
+      | 0.23451911 | 1     | 1     | 0           |
+      | 0.214519   | 1     | 2     | 0           |
+      | 0.81       | 1     | 4     | 0           |
+      | 0.5        | 1     | 49    | 0           |
 
   @SID_62
   Scenario: Logout

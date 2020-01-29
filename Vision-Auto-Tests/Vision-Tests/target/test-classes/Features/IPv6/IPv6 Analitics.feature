@@ -14,13 +14,15 @@ Feature: IPv6 Analytics test
     Then CLI Operations - Run Radware Session command "y"
 
     Then CLI Operations - Run Radware Session command " net ip set 5000::172:17:164:111 64 G2"
-    Then CLI Run remote linux Command "ping6 -c 3 5000::50:50:101:21 > /opt/radware/TC110176_SID2.txt" on "ROOT_SERVER_CLI"
+    Then CLI Operations - Run Radware Session command " net ip get"
+    Then Sleep "2"
+    Then CLI Run remote linux Command "ping6 -c 3 5000::50:50:101:21" on "ROOT_SERVER_CLI"
     Then REST Add "Alteon" Device To topology Tree with Name "Alteon_5000::50:50:101:21" and Management IP "5000::50:50:101:21" into site "Alteons_for_DPM-Fakes"
       | attribute     | value |
       | visionMgtPort | G2    |
     Then Browser Refresh Page
     Then UI Click Web element with id "gwt-debug-Global_Refresh"
-    Then Sleep "180"
+    Then Sleep "240"
 
   @SID_3
   Scenario: Go to ADC network dashboard and enter device details
@@ -39,11 +41,8 @@ Feature: IPv6 Analytics test
 
 
     Then UI Validate Line Chart data "THROUGHPUT" with LabelTime
-      | value     | count | countOffset |
-      | 9045000.0 | 4    | 1           |
-
-
-
+      | value      | count | countOffset |
+      | 9045000000 | 4     | 2           |
 
 #    Given UI Click Button "Global Time Filter"
 #    When UI Click Button "Global Time Filter.Quick Range" with value "1m"

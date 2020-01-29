@@ -105,6 +105,8 @@ public class LLSHandler {
         CliOperations.runCommand(restTestBase.getRadwareServerCli(), "y");
         BaseTestUtils.reporter.startLevel("LLS Install started," + mode + "mode");
         waitForInstallation(null, timeout, "Local License Server is running");
+        CliOperations.runCommand(restTestBase.getRadwareServerCli(), INSTALL_LOGS, 3 * 60 * 1000);
+        BaseTestUtils.reporter.report(CliOperations.lastOutput, Reporter.PASS_NOR_FAIL);
     }
 
     public static void waitForInstallation(ServerCliBase serverCliBase, long timeout, String expected) throws Exception {

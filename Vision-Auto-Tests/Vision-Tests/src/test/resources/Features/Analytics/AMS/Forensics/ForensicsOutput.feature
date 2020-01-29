@@ -3,6 +3,7 @@ Feature: Forensics Output
 
   @SID_1
   Scenario: Clean system data
+    When CLI Operations - Run Root Session command "yes|restore_radware_user_password" timeout 15
     * CLI kill all simulator attacks on current vision
     * REST Delete ES index "dp-attack-raw-*"
     * REST Delete ES index "forensics-*"

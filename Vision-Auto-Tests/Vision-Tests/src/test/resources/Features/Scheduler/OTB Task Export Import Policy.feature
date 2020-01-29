@@ -41,9 +41,11 @@ Feature: Task OTB DefensePro Export-Import policy
 
   @SID_7
   Scenario: Check logs for errors
+    Then UI logout and close browser
     * CLI Check if logs contains
       | logType | expression                     | isExpected   |
       | VDIRECT | fatal                          | NOT_EXPECTED |
       | VDIRECT | error                          | NOT_EXPECTED |
       | VDIRECT | Could not update server report | IGNORE       |
       | VDIRECT | FAILED 172.17.154.190          | IGNORE       |
+      | VDIRECT | 50.50.                         | IGNORE       |

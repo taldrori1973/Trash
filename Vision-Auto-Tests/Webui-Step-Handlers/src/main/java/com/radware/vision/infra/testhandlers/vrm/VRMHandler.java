@@ -258,7 +258,7 @@ public class VRMHandler {
             if ((!isLabelExist(chart, label)) && !entry.exist) {
                 return;
             }
-
+            entry.value = entry.valueOffset == null ? entry.value : getDataValue(data, entry.value, entry.valueOffset);
             long valueAppearances = StreamSupport.stream(data.spliterator(), false)
                     .map(s -> String.valueOf(s))
                     .filter(s -> s.equals(entry.value))
@@ -292,6 +292,13 @@ public class VRMHandler {
             }
         });
         reportErrors();
+    }
+
+    private String getDataValue(JSONArray data, String value, Double valueOffset) {
+        for (Object arrayValue : data)
+            if ((Double.valueOf(arrayValue.toString()) >= Double.valueOf(value) - valueOffset) && (Double.valueOf(arrayValue.toString()) <= Double.valueOf(value) + valueOffset))
+                return arrayValue.toString();
+            return value;
     }
 
     /**
@@ -1254,6 +1261,7 @@ public class VRMHandler {
         Integer min;
         Boolean exist;
         Integer index;
+        Double valueOffset;
 
         @Override
         public String toString() {
@@ -1263,6 +1271,7 @@ public class VRMHandler {
                     ", offset=" + offset +
                     ", exist=" + exist +
                     ", index=" + index +
+                    ", valueOffset=" + valueOffset +
                     '}';
         }
     }

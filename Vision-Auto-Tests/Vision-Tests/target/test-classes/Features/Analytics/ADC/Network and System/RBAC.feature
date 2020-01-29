@@ -2,11 +2,11 @@
 @Functional @Analytics_ADC
 Feature: RBAC - ADC System and Network Dashboard
 
-  @SID_2
+  @SID_1
   Scenario: Set cli authentication TACACS
     When CLI Operations - Run Radware Session command "system user authentication-mode set TACACS+"
 
-  @SID_3
+  @SID_2
   Scenario Outline: Validate ADC RBAC
     When UI Login with user "<User Name>" and password "<Password>"
     Then UI Validate user rbac with "<Operation>" and "<Access>"
@@ -29,7 +29,6 @@ Feature: RBAC - ADC System and Network Dashboard
       | Vision_Reporter_user               | radware  | ADC       | yes    |
       | sys_admin                          | radware  | ADC       | yes    |
 
-
-  @SID_4
-  Scenario: Logout
+  @SID_3
+  Scenario: Close browser
     Then UI close browser

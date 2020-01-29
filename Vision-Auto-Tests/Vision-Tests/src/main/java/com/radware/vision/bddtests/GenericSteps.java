@@ -20,6 +20,7 @@ import com.radware.vision.infra.testhandlers.baseoperations.clickoperations.Clic
 import com.radware.vision.infra.testhandlers.vrm.VRMHandler;
 import com.radware.vision.infra.testhandlers.vrm.VRMReportsHandler;
 import com.radware.vision.infra.utils.ReportsUtils;
+import cucumber.api.java.en.And;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
@@ -205,8 +206,10 @@ public class GenericSteps extends BddUITestBase {
             try {
                 VRMHandler.scroll("Table_Attack Details");
             } catch (Exception e) {
+                BaseTestUtils.report(e.getMessage(), Reporter.FAIL);
             }
-            ReportsUtils.reportAndTakeScreenShot(String.join(" : ", label + "-" + params, "Actual is \"" + actualValue + "\" but is not equal to \"" + expectedValue + "\""), Reporter.FAIL);
+            ReportsUtils.reportAndTakeScreenShot(String.join(" : ", label + "-" + params,
+                    "Actual: \"" + actualValue + "\" Expected: \"" + expectedValue + "\""), Reporter.FAIL);
         }
     }
 
@@ -231,7 +234,7 @@ public class GenericSteps extends BddUITestBase {
             BaseTestUtils.report(errorMessage, Reporter.FAIL);
             throw new TargetWebElementNotFoundException(errorMessage);
         }
-        expectedValue.replaceAll(" ", "");
+        expectedValue = expectedValue.replaceAll(" ", "");
         List<String> expectedValueList = Arrays.asList(expectedValue.replaceAll(" ", "").split(","));
         List<String> actualValuesList = Arrays.asList(actualValue.substring(actualValue.indexOf(prefix) + prefix.length()).split(prefix));
         for (int i = 0; i < actualValuesList.size(); i++) {
@@ -356,7 +359,7 @@ public class GenericSteps extends BddUITestBase {
 
     @Then("^UI Table Validate Value Existence in Table \"(.*)\" with Column Name \"(.*)\" and Value \"(.*)\" if Exists \"(true|false)\"$")
     public void uiValidateElementWithLabelIsNotExist(String label, String columnName, String value, String existence) throws Throwable {
-        tableHandler.validateValueExistenceAtTableByColumn(label, columnName, value, Boolean.valueOf(existence));
+        tableHandler.validateValueExistenceAtTableByColumn(label, columnName, value, Boolean.parseBoolean(existence));
     }
 
     @Then("^UI Click Button \"([^\"]*)\"(?: with value \"([^\"]*)\")? Under Parent \"([^\"]*)\"(?: with value \"([^\"]*)\")?$")
@@ -382,8 +385,13 @@ public class GenericSteps extends BddUITestBase {
 
     }
 
+    @And("^UI Click Button by Attribute: \"([^\"]*)\" and value: \"([^\"]*)\"( negative)?$")
+    public void uiClickButtonByAttribute(String attribute, String value, String negative) {
+        WebUIUtils.fluentWait(ComponentLocatorFactory.getCssLocatorByAttribute(attribute, value).getBy()).click();
+    }
 
-    private class ElementAttribute {
+
+    private static class ElementAttribute {
         String name;
         String value;
     }

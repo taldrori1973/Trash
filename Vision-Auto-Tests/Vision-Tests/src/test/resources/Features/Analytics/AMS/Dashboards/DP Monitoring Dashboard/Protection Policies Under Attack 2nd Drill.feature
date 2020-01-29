@@ -225,7 +225,7 @@ Feature: DP Monitoring Dashboard - Protection Policies - Under Attack 2nd Drill
   Scenario: Validate Attack Rate and Drop Rate Aggregation
     Given CLI kill all simulator attacks on current vision
     And REST Delete ES index "dp-*"
-    And CLI simulate 1 attacks of type "rest_black_ip46" on "DefensePro" 10 and wait 45 seconds
+    And CLI simulate 10 attacks of type "rest_black_ip46" on "DefensePro" 10 and wait 45 seconds
     And UI Open "Reports" Tab
     And UI Open "Dashboards" Tab
     When UI Open "DP Monitoring Dashboard" Sub Tab
@@ -244,8 +244,9 @@ Feature: DP Monitoring Dashboard - Protection Policies - Under Attack 2nd Drill
       | columnName    | value        |
       | Policy Name   | Black_IPV4   |
       | Attack Name   | Black List   |
-      | Total Packets | 68,589       |
-      | Volume        | 55.94 MBytes |
+#     | Total Packets | 68,589       |
+# Total packets and volume are dynamic, not the way to validate it
+#     | Volume        | 55.94 MBytes |
 
   @SID_16
   Scenario: Protection Policies Cleanup

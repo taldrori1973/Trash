@@ -396,4 +396,12 @@ Feature: VRM AppWall dashboard
       | TOMCAT2     | HeapDumpOnOutOfMemoryError                              | IGNORE       |
       | MAINTENANCE | redirect the virtual ErrorPages path the real path      | IGNORE       |
       | TOMCAT2     | authentication.okta.jwt                                 | IGNORE       |
+      | TOMCAT      | average response time                                   | IGNORE       |
+      | TOMCAT      | -----task                                               | IGNORE       |
+      | TOMCAT      | monitored number of devices                             | IGNORE       |
+      | TOMCAT      | got valid samples from                                  | IGNORE       |
+      | TOMCAT      | responsive devices in the last minute                   | IGNORE       |
+
+
+
 

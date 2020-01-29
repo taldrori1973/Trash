@@ -1,5 +1,4 @@
 @VRM @TC106041
-  @run
 Feature: Cloud WAF API
 
   @SID_1

@@ -4,7 +4,7 @@ Feature: GEL-License
 
   @SID_1
   Scenario:  Activate Gel-License for 8 Months, and Verify Activation license Exist in license page
-    Given CLI Run linux Command "iptables -L -n |grep -w tcp | grep -w "dpt:7070"" on "ROOT_SERVER_CLI" and validate result CONTAINS "ACCEPT"
+#    Given CLI Run linux Command "iptables -L -n |grep -w tcp | grep -w "dpt:7070"" on "ROOT_SERVER_CLI" and validate result CONTAINS "ACCEPT"
     * REST Vision DELETE License Request "vision-reporting-module-ADC"
     * REST Vision Install License Request "vision-GEL" from date "-4M" to date "+4M"
     Given UI Login with user "radware" and password "radware"
@@ -27,7 +27,7 @@ Feature: GEL-License
     Given UI Login with user "radware" and password "radware"
     Then UI Validate Popup Dialog Box, have value "The system is under a license violation:" with text Type "CAPTION"
     Then UI Validate Text field by id "gwt-debug-Dialog_Box_Message" CONTAINS "vision-GEL license will expire within 21 days. Contact Radware Support to purchase a new license."
-    Then UI Click Button by id "gwt-uid-10"
+    Then UI Click Button by Attribute: "type" and value: "checkbox" negative
     Then UI Click Button by id "gwt-debug-Dialog_Box_Confirm"
 
 
@@ -44,7 +44,7 @@ Feature: GEL-License
     Given UI Login with user "radware" and password "radware"
     Then UI Validate Popup Dialog Box, have value "The system is under a license violation:" with text Type "CAPTION"
     Then UI Validate Text field by id "gwt-debug-Dialog_Box_Message" CONTAINS "vision-GEL license will expire within 2 days"
-    Then UI Click Button by id "gwt-uid-10"
+    Then UI Click Button by Attribute: "type" and value: "checkbox" negative
     Then UI Click Button by id "gwt-debug-Dialog_Box_Confirm"
 
 

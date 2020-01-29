@@ -4,6 +4,7 @@ Feature: CLI System Database Maintenance
   @SID_1
   Scenario: system database maintenance menu
     Then CLI Operations - Run Root Session command "yes|restore_radware_user_password" timeout 15
+    Then Sleep "10"
     Then REST Login with activation with user "radware" and password "radware"
     When CLI Operations - Run Radware Session command "system database maintenance ?"
     Then CLI Operations - Verify that output contains regex ".*check.*Checks whether the database needs optimization.*"

@@ -272,12 +272,14 @@ com\radware\vision\infra\base\pages\toolbox\advanced\OperatorToolbox.class
 com\radware\vision\infra\utils\WebUIStringsDp.class
 com\radware\vision\infra\base\pages\system\usermanagement\UserSettings.class
 com\radware\vision\infra\testhandlers\system\generalsettings\display\DisplayHandler.class
+com\radware\vision\infra\envobjects\VisionCli.class
 com\radware\vision\infra\utils\ReportsUtils.class
 com\radware\vision\infra\testhandlers\scheduledtasks\enums\TaskRunIntervalType.class
 com\radware\vision\infra\testhandlers\rbac\enums\DeviceDriversTableActions.class
 com\radware\vision\infra\testhandlers\scheduledtasks\UpdateGeoLocationFeedTestHandler.class
 com\radware\vision\infra\testhandlers\dptemplates\enums\PolicyPortGroup.class
 com\radware\vision\infra\base\pages\alerts\Alerts.class
+com\radware\vision\infra\envobjects\visionObject.class
 com\radware\vision\infra\base\pages\configuration\system\managementports\ManagementPorts$GatewayHealthCheck.class
 com\radware\vision\infra\utils\labeloperations\LabelOperationsUtils$1.class
 com\radware\vision\infra\enums\WebElementType.class
@@ -385,6 +387,7 @@ com\radware\vision\infra\testhandlers\vrm\AMSAlertsHandlers.class
 com\radware\vision\infra\base\pages\dashboards\securitycontrolcenter\SecurityControlCenter.class
 com\radware\vision\infra\enums\DpTemplateFileType.class
 com\radware\vision\infra\testhandlers\DPM\CurrentConnectionsComparator.class
+com\radware\vision\infra\envobjects\VisionLab.class
 com\radware\vision\infra\testhandlers\rbac\defensePro\configuration\accessControl\RBACDefenseProBWMTableActionHandler.class
 com\radware\vision\infra\testhandlers\scheduledtasks\VisionReporterBackupTaskHandler.class
 com\radware\vision\infra\testhandlers\baseoperations\FileOperationsHandler.class

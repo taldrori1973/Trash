@@ -30,6 +30,7 @@ Feature: OTB Workflow - Add, Update and Delete
     When UI Click Button by id "gwt-debug-WorkFlow_Tab"
     Then  Upload file "notZip.txt" to "New Workflow"
     Then UI Validate Text field with Class "ant-message-custom-content ant-message-error" "Equals" To "Error reading file. Invalid file type. Upload only valid ZIP files"
+    Then Sleep "6"
 
   @SID_5
   Scenario: Update WF with wrong format (not zip file)
@@ -37,11 +38,11 @@ Feature: OTB Workflow - Add, Update and Delete
     When UI Click Button "card action" with value "calculator"
     Then  Upload file "notZip.txt" to "Update" for element "calculator"
     Then UI Validate Text field with Class "ant-message-custom-content ant-message-error" "Equals" To "Error reading file. Invalid file type. Upload only valid ZIP files"
+    Then Sleep "10"
 
 
   @SID_6
   Scenario: Upload existing workflow
-    When Sleep "10"
     When UI Click Button by id "gwt-debug-WorkFlow_Tab"
     Then  Upload file "calculator.zip" to "New Workflow"
     Then UI Validate Text field with Class "ant-message-custom-content ant-message-error" "Equals" To "A workflow named calculator already exists"
@@ -118,7 +119,7 @@ Feature: OTB Workflow - Add, Update and Delete
 
   @SID_14
   Scenario: Logout
-    Then UI Logout
+    Then UI logout and close browser
 
 
   

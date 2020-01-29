@@ -79,7 +79,7 @@ Feature: DP Monitoring Dashboard - Protection Policies - Under Attack 3rd Drill
     ##Bdos - Per attack card
   @SID_11
   Scenario: Validate per attack card data - BDOS
-    Then UI Validate Text field "Characteristics.State" EQUALS "State:Blocking"
+    Then UI Validate Text field "Characteristics.State" EQUALS "State:Real-Time Signature Blocking"
     Then UI Text of "Characteristics.Real-Time Signature.Operator" with extension "1" equal to "OR"
     Then UI Text of "Characteristics.Real-Time Signature.Parameter" with extension "1" equal to "sequence-number"
     Then UI Text of "Characteristics.Real-Time Signature.Value/s" with extension "1" equal to "123456"
@@ -334,7 +334,7 @@ Feature: DP Monitoring Dashboard - Protection Policies - Under Attack 3rd Drill
 
   @SID_35
   Scenario: Validate per attack card data - DNS Flood
-    Then UI Validate Text field "Characteristics.State" EQUALS "State:Real-Time Signature Blocking"
+    Then UI Validate Text field "Characteristics.State" EQUALS "State:Real-Time Signature Rate-Limit"
     Then UI Text of "Characteristics.Real-Time Signature.Outer Value" with extension "0" equal to "["
     Then UI Text of "Characteristics.Real-Time Signature.Operator" with extension "1" equal to "OR"
     Then UI Text of "Characteristics.Real-Time Signature.Parameter" with extension "1" equal to "dns-subdomain"
@@ -1464,56 +1464,56 @@ Feature: DP Monitoring Dashboard - Protection Policies - Under Attack 3rd Drill
   Scenario: Validate Https Response Bandwidth graph Transitory Baseline
     Then UI Validate Line Chart data "Response Bandwidth" with Label "Transitory Baseline"
       | value      | count | offset |
-      | null       | 57    | 1      |
+      | null       | 57    | 2      |
       | 10070.6284 | 2     | 1      |
 
   @SID_151
   Scenario: Validate Https Response Bandwidth graph Transitory Attack Edge
     Then UI Validate Line Chart data "Response Bandwidth" with Label "Transitory Attack Edge"
       | value              | count | offset |
-      | null               | 57    | 1      |
+      | null               | 57    | 2      |
       | 15120.576985000002 | 2     | 1      |
 
   @SID_152
   Scenario: Validate Https Response Bandwidth graph Real-Time Traffic
     Then UI Validate Line Chart data "Response Bandwidth" with Label "Real-Time Traffic"
       | value  | count | offset |
-      | null   | 57    | 1      |
+      | null   | 57    | 2      |
       | 6379.5 | 2     | 1      |
 
   @SID_153
   Scenario: Validate Https Response Bandwidth graph Long Trend Baseline data
     Then UI Validate Line Chart data "Response Bandwidth" with Label "Long-Term Trend Baseline"
       | value    | count | offset |
-      | null     | 57    | 1      |
+      | null     | 57    | 2      |
       | 140.9568 | 2     | 1      |
 
   @SID_154
   Scenario: Validate Https Response Bandwidth graph Long-Term Trend Attack Edge
     Then UI Validate Line Chart data "Response Bandwidth" with Label "Long-Term Trend Attack Edge"
       | value     | count | offset |
-      | null      | 57    | 1      |
+      | null      | 57    | 2      |
       | 240.82397 | 2     | 1      |
 
   @SID_155
   Scenario: Validate Https Average Response Size graph Long-Term Trend Baseline
     Then UI Validate Line Chart data "Average Response Size" with Label "Long-Term Trend Baseline"
       | value              | count | offset |
-      | null               | 57    | 1      |
+      | null               | 57    | 2      |
       | 370.47839999999997 | 2     | 1      |
 
   @SID_156
   Scenario: Validate Https Average Response Size graph Long-Term Trend Attack Edge
     Then UI Validate Line Chart data "Average Response Size" with Label "Long-Term Trend Attack Edge"
       | value       | count | offset |
-      | null        | 57    | 1      |
+      | null        | 57    | 2      |
       | 5620.761985 | 2     | 1      |
 
   @SID_157
   Scenario: Validate Https Average Response Size graph Real-Time Traffic
     Then UI Validate Line Chart data "Average Response Size" with Label "Real-Time Traffic"
       | value  | count | offset |
-      | null   | 57    | 1      |
+      | null   | 57    | 2      |
       | 6129.5 | 2     | 1      |
 
   @SID_158
@@ -1726,7 +1726,7 @@ Feature: DP Monitoring Dashboard - Protection Policies - Under Attack 3rd Drill
     Then UI Open "DP Monitoring Dashboard" Sub Tab
     And UI click Table row by keyValue or Index with elementLabel "Protection Policies.Table" findBy columnName "Policy Name" findBy cellValue "BDOS"
     Then UI click Table row by keyValue or Index with elementLabel "Protection Policies.Protections Table" findBy columnName "Protection Name" findBy cellValue "Behavioral DoS"
-    Then UI Validate Table record values by columns with elementLabel "Protection Policies.Events Table" findBy columnName "Category" findBy cellValue "Behavioral DoS"
+    Then UI Validate Table record values by columns with elementLabel "Protection Policies.Events Table" findBy columnName "Attack Categories" findBy cellValue "Behavioral DoS"
     Then UI click Table row by keyValue or Index with elementLabel "Protection Policies.Events Table" findBy index 0
 
   @SID_115
@@ -1767,8 +1767,8 @@ Feature: DP Monitoring Dashboard - Protection Policies - Under Attack 3rd Drill
   Scenario: Validate baseline Total Traffic data - burst
     Then UI Validate Line Chart data "BDoS-TCP SYN ACK" with Label "Total Traffic"
       | value | count | offset |
-      | 5182  | 7     | 2      |
-      | 1727  | 7     | 2      |
+      | 5182  | 7     | 3      |
+      | 1727  | 7     | 3      |
 
   @SID_120
   Scenario: Validate baseline Total Traffic styling - burst

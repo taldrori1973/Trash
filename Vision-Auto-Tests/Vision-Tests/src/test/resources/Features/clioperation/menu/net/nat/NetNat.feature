@@ -1,4 +1,4 @@
-@CLI_Positive @TC106023
+@CLI_Positive @TC106023 @Test1
 
 Feature: Net Nat CLI Tests
 

@@ -1,6 +1,6 @@
 @VRM @TC109954
 Feature: RBAC for actionable
-
+  
   @SID_1
   Scenario: Clean system data before "Protection Policies" test
     Then CLI Operations - Run Root Session command "yes|restore_radware_user_password" timeout 15
@@ -12,7 +12,7 @@ Feature: RBAC for actionable
       | body | sessionInactivTimeoutConfiguration=60 |
     * CLI Clear vision logs
 
-
+  
   @SID_2
   Scenario: run attacks
     Given CLI simulate 1000 attacks of type "rest_traffic_diff_Policy15out" on "DefensePro" 20 with loopDelay 15000

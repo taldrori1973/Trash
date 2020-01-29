@@ -18,8 +18,8 @@ Feature: Vision Upgrade current -1
   Scenario: Fill partitions to max limit
     Then CLI Operations - Run Root Session command "yes|restore_radware_user_password" timeout 15
     Then CLI copy "/home/radware/Scripts/fill_my_disk.sh" from "GENERIC_LINUX_SERVER" to "ROOT_SERVER_CLI" "/"
-    Then CLI Run remote linux Command "/fill_my_disk.sh /opt/radware 88" on "ROOT_SERVER_CLI"
-    Then CLI Run remote linux Command "/fill_my_disk.sh / 88" on "ROOT_SERVER_CLI"
+    Then CLI Run remote linux Command "/fill_my_disk.sh /opt/radware 84" on "ROOT_SERVER_CLI"
+    Then CLI Run remote linux Command "/fill_my_disk.sh / 84" on "ROOT_SERVER_CLI"
 
   @SID_4
   Scenario: Do any pre-upgrade changes
@@ -30,7 +30,7 @@ Feature: Vision Upgrade current -1
   @SID_5
   Scenario: Change TED configuration
     Then CLI Run remote linux Command "cat /opt/radware/storage/ted/config/ted.cfg" on "ROOT_SERVER_CLI"
-    Then CLI Run remote linux Command "sed -i 's/"elasticRetentionInDays":.*,/"elasticRetentionInDays":8,/g' /opt/radware/storage/ted/config/ted.cfg" on "ROOT_SERVER_CLI"
+#    Then CLI Run remote linux Command "sed -i 's/"elasticRetentionInDays":.*,/"elasticRetentionInDays":8,/g' /opt/radware/storage/ted/config/ted.cfg" on "ROOT_SERVER_CLI"
     Then CLI Run remote linux Command "sed -i 's/"elasticRetentionMaxPercent":.*,/"elasticRetentionMaxPercent":74,/g' /opt/radware/storage/ted/config/ted.cfg" on "ROOT_SERVER_CLI"
     Then CLI Run remote linux Command "cat /opt/radware/storage/ted/config/ted.cfg" on "ROOT_SERVER_CLI"
 
@@ -73,10 +73,13 @@ Feature: Vision Upgrade current -1
       | UPGRADE | APSolute Vision TED upgrade finished                             | EXPECTED     |
       | UPGRADE | ERROR                                                            | NOT_EXPECTED |
       | UPGRADE | error: package MySQL-                                            | IGNORE       |
-      | UPGRADE | ic_logi_error.png                                                | IGNORE       |
-      | UPGRADE | tree-error.png                                                   | IGNORE       |
+      | UPGRADE | *.svg                                                            | IGNORE       |
+      | UPGRADE | *.png                                                            | IGNORE       |
+      | UPGRADE | inflating:                                                       | IGNORE       |
       | LLS     | fatal\| error\|fail                                              | NOT_EXPECTED |
     # | LLS     | Installation ended                                               | EXPECTED     |
+      | UPGRADE | /opt/radware/storage/www/webui/vision-dashboards/public/static/media/* | IGNORE |
+
 
   @SID_13
   Scenario: Check firewall settings
@@ -182,9 +185,12 @@ Feature: Vision Upgrade current -1
 
   @SID_24
   Scenario: Visit device subscription page
-    Then REST Request "GET" for "Device Subscriptions->Table"
-      | type                 | value |
-      | Returned status code | 200   |
+#    Then REST Request "GET" for "Device Subscriptions->Table"
+#       | type                 | value |
+#       | Returned status code | 200   |
+
+    Then CLI Run linux Command "result=`curl -ks -X "POST" "https://localhost/mgmt/system/user/login" -H "Content-Type: application/json" -d $"{\"username\": \"radware\",\"password\": \"radware\"}"`; jsession=`echo $result | tr "," "\n"|grep -i jsession|tr -d '"' | cut -d: -f2`; curl -ks -o null -XGET -H "Cookie: JSESSIONID=$jsession" https://localhost/mgmt/system/config/itemlist/devicesubscriptions -w 'RESP_CODE:%{response_code}\n'" on "ROOT_SERVER_CLI" and validate result EQUALS "RESP_CODE:200" with timeOut 300 with runCommand delay 90
+    Then CLI Operations - Verify that output contains regex "RESP_CODE:200"
 
   @SID_25
   Scenario: Delete fake devices from tree
@@ -211,9 +217,9 @@ Feature: Vision Upgrade current -1
 
   @SID_29
   Scenario: Validate LLS service is up
-    Then CLI Run remote linux Command "curl -ks -o null -XGET http://localhost4:7070/api/1.0/hostids -w 'RESP_CODE:%{response_code}\n'" on "ROOT_SERVER_CLI"
+    Then CLI Run linux Command "curl -ks -o null -XGET http://localhost4:7070/api/1.0/hostids -w 'RESP_CODE:%{response_code}\n'" on "ROOT_SERVER_CLI" and validate result EQUALS "RESP_CODE:200" with timeOut 300
     Then CLI Operations - Verify that output contains regex "RESP_CODE:200"
-    Then CLI Run remote linux Command "curl -ks -o null -XGET http://localhost6:7070/api/1.0/hostids -w 'RESP_CODE:%{response_code}\n'" on "ROOT_SERVER_CLI"
+    Then CLI Run linux Command "curl -ks -o null -XGET http://localhost6:7070/api/1.0/hostids -w 'RESP_CODE:%{response_code}\n'" on "ROOT_SERVER_CLI" and validate result EQUALS "RESP_CODE:200" with timeOut 300
     Then CLI Operations - Verify that output contains regex "RESP_CODE:200"
       #rollback to the original values
     Given CLI Run remote linux Command "mysql -prad123 vision_ng -e "update lls_server set min_required_ram='24';"" on "ROOT_SERVER_CLI"
@@ -224,8 +230,9 @@ Feature: Vision Upgrade current -1
 
   @SID_31
   Scenario: Validate increased MySql partitioning number
-    Then CLI Run remote linux Command "echo "After " $(mysql -prad123 vision -e "show create table traffic_utilizations\G" |grep "(PARTITION p" |awk -F"p" '{print$2}'|awk '{print$1}') >>  /opt/radware/sql_partition.txt" on "ROOT_SERVER_CLI"
-    Then CLI Run linux Command "echo $(cat /opt/radware/sql_partition.txt |grep "After"|awk '{print$2}')-$(cat /opt/radware/sql_partition.txt |grep "Before"|awk '{print$2}')|bc" on "ROOT_SERVER_CLI" and validate result EQUALS "-110"
+    Then CLI Run remote linux Command "echo "After " $(mysql -prad123 vision -e "show create table traffic_utilizations\G" |grep "(PARTITION \`p" |awk -F"p" '{print$2}'|awk -F"\`" '{print$1}') >>  /opt/radware/sql_partition.txt" on "ROOT_SERVER_CLI"
+    Then CLI Run remote linux Command "cat /opt/radware/sql_partition.txt" on "ROOT_SERVER_CLI"
+    Then CLI Run linux Command "echo $(cat /opt/radware/sql_partition.txt |grep "After"|awk '{print$2}')-$(cat /opt/radware/sql_partition.txt |grep "Before"|awk '{print$2}')|bc" on "ROOT_SERVER_CLI" and validate result GT "0"
 
   @SID_32
   Scenario: Validate IPv6 Hostname in /etc/hosts
@@ -254,7 +261,7 @@ Feature: Vision Upgrade current -1
 
   @SID_35
   Scenario: Verify TED configuration
-    Then CLI Run linux Command "cat /opt/radware/storage/ted/config/ted.cfg |awk -F"elasticRetentionInDays\":" '{print$2}'|awk -F"," '{print$1}'" on "ROOT_SERVER_CLI" and validate result EQUALS "8"
+#    Then CLI Run linux Command "cat /opt/radware/storage/ted/config/ted.cfg |awk -F"elasticRetentionInDays\":" '{print$2}'|awk -F"," '{print$1}'" on "ROOT_SERVER_CLI" and validate result EQUALS "8"
     Then CLI Run linux Command "cat /opt/radware/storage/ted/config/ted.cfg |awk -F"elasticRetentionMaxPercent\":" '{print$2}'|awk -F"," '{print$1}'" on "ROOT_SERVER_CLI" and validate result EQUALS "74"
 
   @SID_36

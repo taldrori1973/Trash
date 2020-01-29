@@ -16,6 +16,8 @@ Feature: IPv6 Scheduled task Backup Alteon
     Then CLI copy "/home/radware/Scripts/upload_DD.sh" from "GENERIC_LINUX_SERVER" to "ROOT_SERVER_CLI" "/opt/radware/storage"
     Then CLI copy "/home/radware/Scripts/Alteon-32.2.1.0-DD-1.00-110.jar" from "GENERIC_LINUX_SERVER" to "ROOT_SERVER_CLI" "/opt/radware/storage"
     Then CLI Run remote linux Command "/opt/radware/storage/upload_DD.sh /opt/radware/storage/Alteon-32.2.1.0-DD-1.00-110.jar" on "ROOT_SERVER_CLI" with timeOut 240
+    Then CLI Run remote linux Command "service iptables restart" on "ROOT_SERVER_CLI"
+    # This is to WA DE52911
     Then Sleep "90"
 
   @SID_3

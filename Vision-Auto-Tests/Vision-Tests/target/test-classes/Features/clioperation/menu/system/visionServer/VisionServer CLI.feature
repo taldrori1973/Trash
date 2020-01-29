@@ -4,8 +4,8 @@ Feature: Vision Server Services CLI Tests
 
   @SID_1
   Scenario: system vision-server help
-    Then CLI Operations - Run Root Session command "yes|restore_radware_user_password" timeout 15
-    Then REST Login with activation with user "radware" and password "radware"
+#    Then CLI Operations - Run Root Session command "yes|restore_radware_user_password" timeout 15
+#    Then REST Login with activation with user "radware" and password "radware"
     When CLI Operations - Run Radware Session help command "system vision-server ?"
     Then CLI Operations - Verify that output contains regex ".*Starts/stops the APSolute Vision server..*"
     Then CLI Operations - Verify that output contains regex ".*start.*Starts the APSolute Vision server..*"

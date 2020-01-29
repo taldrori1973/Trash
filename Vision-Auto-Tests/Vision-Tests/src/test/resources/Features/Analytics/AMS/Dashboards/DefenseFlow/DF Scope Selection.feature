@@ -3,6 +3,7 @@ Feature: DF Scope Selection
 
   @SID_1
   Scenario: VRM - Login to VRM "Wizard" Test
+    * REST Vision Install License Request "vision-AVA-Max-attack-capacity"
     Given UI Login with user "sys_admin" and password "radware"
     And UI Open Upper Bar Item "AMS"
     And UI Open "Dashboards" Tab

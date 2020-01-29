@@ -241,7 +241,7 @@ Feature: Forensics Delivery
     Then Sleep "3"
     # validate csv number of rows, columns order, values
     Then CLI Run remote linux Command "unzip -o /home/radware/ftp/FTP_export*.zip -d /home/radware/ftp/" on "GENERIC_LINUX_SERVER"
-    Then CLI Run linux Command "cat /home/radware/ftp/FTP_export*.csv |wc -l" on "GENERIC_LINUX_SERVER" and validate result EQUALS "3"
+    Then CLI Run linux Command "cat /home/radware/ftp/FTP_export*.csv |wc -l" on "GENERIC_LINUX_SERVER" and validate result EQUALS "2"
     Then CLI Run linux Command "cat /home/radware/ftp/FTP_export*.csv |grep "S.No,Start Time,End Time,Device IP,Threat Category,Attack Name,Policy Name,Action,Attack ID,Source IP,Source Port,Destination IP,Destination Port,Direction,Protocol,Radware ID,Duration,Packets,Mbits,Physical Port,Risk" |wc -l" on "GENERIC_LINUX_SERVER" and validate result EQUALS "1"
     Then CLI Run linux Command "cat /home/radware/ftp/FTP_export*.csv |head -1|awk -F "," '{printf $1}';echo" on "GENERIC_LINUX_SERVER" and validate result EQUALS "S.No"
     Then CLI Run linux Command "cat /home/radware/ftp/FTP_export*.csv |head -1|awk -F "," '{printf $2}';echo" on "GENERIC_LINUX_SERVER" and validate result EQUALS "Start Time"
@@ -265,7 +265,7 @@ Feature: Forensics Delivery
     Then CLI Run linux Command "cat /home/radware/ftp/FTP_export*.csv |head -1|awk -F "," '{printf $20}';echo" on "GENERIC_LINUX_SERVER" and validate result EQUALS "Physical Port"
     Then CLI Run linux Command "cat /home/radware/ftp/FTP_export*.csv |head -1|awk -F "," '{printf $21}';echo" on "GENERIC_LINUX_SERVER" and validate result EQUALS "Risk"
 
-    Then CLI Run linux Command "cat /home/radware/ftp/FTP_export*.csv |grep -oP "1,(\d{2})/(\d{2})/201(\d{1}) (\d{2}):(\d{2}):(\d{2}),(\d{2})/(\d{2})/201(\d{1}) (\d{2}):(\d{2}):(\d{2}),172.16.22.50,Intrusions,tim,BDOS,Drop,7716-1402580209,192.85.1.77,1055,1.1.1.9,80,In,TCP,300000,(\d{2}),4,0.00,1,Low" |wc -l" on "GENERIC_LINUX_SERVER" and validate result EQUALS "1"
+    Then CLI Run linux Command "cat /home/radware/ftp/FTP_export*.csv |grep -oP "1,(\d{2})/(\d{2})/202(\d{1}) (\d{2}):(\d{2}):(\d{2}),(\d{2})/(\d{2})/202(\d{1}) (\d{2}):(\d{2}):(\d{2}),172.16.22.50,Intrusions,tim,BDOS,Drop,7716-1402580209,192.85.1.77,1055,1.1.1.9,80,In,TCP,300000,(\d{2}),4,0.00,1,Low" |wc -l" on "GENERIC_LINUX_SERVER" and validate result EQUALS "1"
     Then CLI Run linux Command "cat /home/radware/ftp/FTP_export*.csv |head -2|tail -1|awk -F "," '{printf $1}';echo" on "GENERIC_LINUX_SERVER" and validate result EQUALS "1"
     Then CLI Run linux Command "cat /home/radware/ftp/FTP_export*.csv |head -2|tail -1|awk -F "," '{printf $4}';echo" on "GENERIC_LINUX_SERVER" and validate result EQUALS "172.16.22.50"
     Then CLI Run linux Command "cat /home/radware/ftp/FTP_export*.csv |head -2|tail -1|awk -F "," '{printf $5}';echo" on "GENERIC_LINUX_SERVER" and validate result EQUALS "Intrusions"
@@ -306,7 +306,7 @@ Feature: Forensics Delivery
     Then UI Open "Forensics" Tab
     Then UI Generate and Validate Forensics With Name "FTP_export" with Timeout of 300 Seconds
     Then CLI Run remote linux Command "unzip -o /home/radware/ftp/FTP_export*.zip -d /home/radware/ftp/" on "GENERIC_LINUX_SERVER"
-    Then CLI Run linux Command "cat /home/radware/ftp/FTP_export*.csv |wc -l" on "GENERIC_LINUX_SERVER" and validate result EQUALS "3"
+    Then CLI Run linux Command "cat /home/radware/ftp/FTP_export*.csv |wc -l" on "GENERIC_LINUX_SERVER" and validate result EQUALS "2"
 
   @SID_19
     Scenario: validate username digits in FTP
@@ -326,7 +326,7 @@ Feature: Forensics Delivery
 #      remote linuc wc -l
 #      remote linux del file
 
-  @SID_19
+  @SID_20
     Scenario: Cleanup
     Given UI logout and close browser
     * CLI Check if logs contains

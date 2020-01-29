@@ -1,18 +1,30 @@
 @TC108222
+
+
 Feature: AMS HTTPS System Aggregation
 
   @SID_1
   Scenario: Get necessary scripts
     Then CLI copy "/home/radware/Scripts/leave_two_documents_https.sh" from "GENERIC_LINUX_SERVER" to "ROOT_SERVER_CLI" "/"
     Then CLI copy "/home/radware/Scripts/get_ES_key_value_https.sh" from "GENERIC_LINUX_SERVER" to "ROOT_SERVER_CLI" "/"
+    Then CLI copy "/home/radware/Scripts/HTTPS_Reindex_rt_prevHour.sh" from "GENERIC_LINUX_SERVER" to "ROOT_SERVER_CLI" "/"
     Then CLI Clear vision logs
 
   @SID_2
   Scenario: Configure two documents in index adc-system-hourly with known values
   # in this scenario we run a shell file thatr delete all documents and leave only two documens
   # each document will set a different value every field in order verify that the aggigation performs an everage calulation
-    Given CLI simulate 2 attacks of type "HTTPS" on "DefensePro" 10 with loopDelay 5000 and wait 65 seconds
-    When CLI Run remote linux Command "/leave_two_documents_https.sh dp-https-rt 172.16.22.50 Outbound BaselineOutbound" on "ROOT_SERVER_CLI"
+    And REST Delete ES index "dp-https-rt*"
+    Given CLI simulate 2 attacks of type "HTTPS" on "DefensePro" 10 with loopDelay 5000 and wait 90 seconds
+
+    * CLI Run remote linux Command on "ROOT_SERVER_CLI" and wait for prompt "True"
+      | "/leave_two_documents_https.sh dp-https-rt 172.16.22.50 Outbound BaselineOutbound" |
+
+    * CLI Run remote linux Command on "ROOT_SERVER_CLI" and wait for prompt "True"
+      | "/HTTPS_Reindex_rt_prevHour.sh" |
+
+
+    #* CLI Run remote linux Command "/HTTPS_Reindex_rt_prevHour.sh" on "ROOT_SERVER_CLI"
     * Sleep "30"
 
   @SID_3

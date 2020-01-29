@@ -15,16 +15,16 @@ public class freshInstallThread extends Thread {
 
     private NewVmHandler vmHandler;
     private String build = "";
-    VisionVMs visionVMs;
-    String vmName;
-    String vCenterUser;
-    String vCenterPassword;
-    String hostip ;
-    String vCenterURL;
-    String networkName;
-    String resourcePool;
-    String dataStores;
-    String version;
+    private VisionVMs visionVMs;
+    private String vmName;
+    private String vCenterUser;
+    private String vCenterPassword;
+    private String hostip ;
+    private String vCenterURL;
+    private String networkName;
+    private String resourcePool;
+    private String dataStores;
+    private String version;
 
     freshInstallThread(String machine, String cli, String vmName){
         vmHandler = new NewVmHandler(machine,cli);

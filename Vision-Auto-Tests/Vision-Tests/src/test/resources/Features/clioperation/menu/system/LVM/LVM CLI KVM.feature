@@ -7,7 +7,7 @@ Feature: LVM CLI KVM
 
   @SID_2
   Scenario: Stop docker service
-    When CLI Run remote linux Command "service docker stop" on "ROOT_SERVER_CLI" with timeOut 90
+#    When CLI Run remote linux Command "service docker stop" on "ROOT_SERVER_CLI" with timeOut 90
     # Since docker created a disk can seen with lsblk
     # Stopping docker to verify the command run even if the docker disk is missing
 
@@ -29,7 +29,8 @@ Feature: LVM CLI KVM
     Then CLI Operations - Run Root Session command "service mysql stop" timeout 30
     Then CLI Operations - Run Root Session command "service elasticsearch stop" timeout 30
     Then CLI Operations - Run Root Session command "reboot"
-    Then Sleep "240"
+    Then Sleep "720"
+#    Then CLI wait to vision services up for 360 seconds
     Then CLI Connect Root
 
   @SID_7
@@ -38,6 +39,7 @@ Feature: LVM CLI KVM
 
   @SID_8
   Scenario: Verify services are running
+    Then Sleep "60"
     Then CLI Run linux Command "service mgtsrv status" on "ROOT_SERVER_CLI" and validate result CONTAINS "APSolute Vision Reporter is running" in any line with timeOut 15
     Then CLI Run linux Command "service mgtsrv status" on "ROOT_SERVER_CLI" and validate result CONTAINS "AMQP service is running" in any line with timeOut 15
     Then CLI Run linux Command "service mgtsrv status" on "ROOT_SERVER_CLI" and validate result CONTAINS "Configuration server is running" in any line with timeOut 15

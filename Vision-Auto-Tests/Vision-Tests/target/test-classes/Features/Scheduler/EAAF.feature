@@ -142,7 +142,9 @@ Feature: ERT Active Attackers Feed for DP
   Scenario: Schedule ERT Active Attackers Feed for DefensePro task - 12 Hours
     When UI Open scheduler window
     Then UI Add Attackers feed task with name "testFeed" interval "12 Hours" destination devices indexes "10,11" with default params
+
     Then Run command "mysql -prad123 quartz -BNe "select from_unixtime(NEXT_FIRE_TIME/1000) from qrtz_triggers where JOB_NAME like'ERTActiveDDoSFeedTask%';"" and validate task time close to 12
+    Then CLI Run linux Command "mysql -prad123 quartz -BNe "select NEXT_FIRE_TIME,PREV_FIRE_TIME from qrtz_triggers where JOB_NAME like'ERTActiveDDoSFeedTask%';" | awk '{print ($1-$2)/1000/3600}'"" on "ROOT_SERVER_CLI" and validate result EQUALS "12"
     Then CLI Run linux Command "mysql -prad123 quartz -BNe "select REPEAT_INTERVAL from qrtz_simple_triggers where TRIGGER_NAME like 'trigger_ERTActiveDDoSFeedTask%';"" on "ROOT_SERVER_CLI" and validate result EQUALS "43200000"
 
   @SID_26
@@ -181,7 +183,8 @@ Feature: ERT Active Attackers Feed for DP
   Scenario: Schedule ERT Active Attackers Feed for DefensePro task - daily
     When UI Open scheduler window
     Then UI Add Attackers feed task with name "testFeedDaily" interval "Daily" destination devices indexes "10,11" with default params
-    Then Run command "mysql -prad123 quartz -BNe "select from_unixtime(NEXT_FIRE_TIME/1000) from qrtz_triggers where JOB_NAME like'ERTActiveDDoSFeedTask%';"" and validate task time close to 24
+#    Then Run command "mysql -prad123 quartz -BNe "select from_unixtime(NEXT_FIRE_TIME/1000) from qrtz_triggers where JOB_NAME like'ERTActiveDDoSFeedTask%';"" and validate task time close to 24
+    Then CLI Run linux Command "mysql -prad123 quartz -BNe "select NEXT_FIRE_TIME,PREV_FIRE_TIME from qrtz_triggers where JOB_NAME like'ERTActiveDDoSFeedTask%';" | awk '{print ($1-$2)/1000/3600}'"" on "ROOT_SERVER_CLI" and validate result EQUALS "24"
     Then CLI Run linux Command "mysql -prad123 quartz -BNe "select REPEAT_INTERVAL from qrtz_simple_triggers where TRIGGER_NAME like 'trigger_ERTActiveDDoSFeedTask%';"" on "ROOT_SERVER_CLI" and validate result EQUALS "86400000"
 
   @SID_34

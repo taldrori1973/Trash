@@ -48,7 +48,7 @@ Feature: Forensics Edit Definition
       | Criteria              | Event Criteria:Action,Operator:Equals,Value:[Forward];   |
       | Output                | Start Time,Action,Attack ID,Risk                         |
       | Schedule              | Run Every:Daily, On Time:10:00 AM                        |
-      | Delivery              | Email:[automation.vision1@radware.com],Subject:mySubject |
+      | Share                 | Email:[automation.vision1@radware.com],Subject:mySubject |
 
 #  @SID_7
 #  Scenario: Validate forensics definition edit all fields

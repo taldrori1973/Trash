@@ -31,7 +31,7 @@ Feature: Report With Customized Options
     And UI Click Button "Add New"
     And UI Click Button "Customized Options"
     And Upload file "invalidSizePngReportLogo.png"
-    Then UI Validate Text field "Logo Size Message" CONTAINS "Please upload proper image with exact size : 100 x 100"
+    Then UI Validate Text field "Logo Size Message" CONTAINS "The graphic file that you selected is invalid. Select a 100×100-pixel .png file and try again."
 
   @SID_5
   Scenario: Delete report and close browser
