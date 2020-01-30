@@ -1,3 +1,0 @@
-scenarios\WebUIAuto_Scenario.xml
-scenarios\localization_main.xml
-scenarios\Vision Settings\System\General Settings\GeneralSettings_Main.xml

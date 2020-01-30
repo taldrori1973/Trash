@@ -1,4 +1,0 @@
-com\radware\bddtests\RunVisionBddTests.class
-com\radware\vision\bddtests\rest\DefenseFlowRestSteps.class
-com\radware\vision\bddtests\BrowserTabsSteps.class
-com\radware\vision\bddtests\rest\DefenseProRESTSteps.class

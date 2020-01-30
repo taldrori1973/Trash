@@ -1,2 +1,0 @@
-classes modify network create SG5 1 -s 0 -f 155.0.0.0 -t 166.255.255.254 -m ipRange
-dp server-protection protected-servers create SERVER-05 -dst SG5
