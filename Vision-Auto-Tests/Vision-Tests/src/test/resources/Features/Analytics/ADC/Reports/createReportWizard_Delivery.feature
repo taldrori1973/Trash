@@ -5,8 +5,7 @@ Feature:  DPM - Report Delivery Wizard
   Scenario: Login and navigate to the Reports Wizard
     * REST Vision Install License Request "vision-reporting-module-ADC"
     Given UI Login with user "sys_admin" and password "radware"
-    When UI Open Upper Bar Item "ADC"
-    When UI Open "Reports" Tab
+    Then UI Navigate to "ADC Reports" page via homePage
     Then UI Validate Element Existence By Label "Add New" if Exists "true"
 
   @SID_2
