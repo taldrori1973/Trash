@@ -6,8 +6,10 @@ import com.radware.automation.webui.WebUIUtils;
 import com.radware.automation.webui.widgets.ComponentLocatorFactory;
 import com.radware.vision.automation.tools.exceptions.selenium.TargetWebElementNotFoundException;
 import com.radware.vision.infra.testhandlers.baseoperations.BasicOperationsHandler;
+
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
+
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -33,7 +35,7 @@ public class HomePage {
         for (String item : path) {
             openItem(item);
         }
-        VisionDebugIdsManager.setLabel(path.isEmpty() ? "" : path.get(path.size() - 1).trim());
+        VisionDebugIdsManager.setLabel(path.isEmpty() ? "" : path.get(path.size()-1).trim());
         if (getTitledItem(WebUIUtils.fluentWait(ComponentLocatorFactory.getLocatorByDbgId(VisionDebugIdsManager.getDataDebugId()).getBy())) == null) //if the element is the navigator
             VisionDebugIdsManager.setTab(getHomePagePath(path.get(path.size() - 1).trim()));
     }
@@ -47,9 +49,10 @@ public class HomePage {
     }
 
     private static String getHomePagePath(String tab) {
-        switch (tab.toLowerCase()) {
-            case "adc reports":
-            case "ams reports":
+        switch (tab.toLowerCase())
+        {
+            case "adc reports" :
+            case "ams reports" :
                 return "Reports";
         }
         return tab;
@@ -73,7 +76,7 @@ public class HomePage {
         if (itemElement != null) {
             WebElement titledItem = getTitledItem(itemElement);
             if (titledItem == null || titledItem.getAttribute("aria-expanded").equalsIgnoreCase("false"))
-                BasicOperationsHandler.clickButton(item, "");
+                    BasicOperationsHandler.clickButton(item, "");
         } else throw new Exception("The element of " + item + " isn't found");
     }
 
@@ -88,16 +91,18 @@ public class HomePage {
 
     public static String validateExistNavigator(String pathText) throws Exception {
         expandMenu(pathText);
-        for (String item : path) {
+        for (String item : path)
+        {
             VisionDebugIdsManager.setLabel(item);
             WebElement itemElement = WebUIUtils.fluentWait(ComponentLocatorFactory.getLocatorByDbgId(VisionDebugIdsManager.getDataDebugId()).getBy(), WebUIUtils.SHORT_WAIT_TIME);
-            if (itemElement == null) {
+            if (itemElement == null)
+            {
                 navigateFromHomePage("HOME");
                 return "The Navigator " + item + " should be exist, But it doesn't";
             }
             WebElement titledItem = getTitledItem(itemElement);
             if (titledItem == null || titledItem.getAttribute("aria-expanded").equalsIgnoreCase("false"))
-                itemElement.click();
+            itemElement.click();
         }
         navigateFromHomePage("HOME");
         return "";

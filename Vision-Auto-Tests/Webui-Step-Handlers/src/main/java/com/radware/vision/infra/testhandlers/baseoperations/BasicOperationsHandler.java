@@ -620,10 +620,10 @@ public class BasicOperationsHandler {
         if (!isLoggedIn)
             return true;
 //        ComponentLocator locator = new ComponentLocator(How.ID, WebUIStringsVision.getVisionLoginIcon());
-        ComponentLocator locator = ComponentLocatorFactory.getLocatorByXpathDbgId("button_");
+        ComponentLocator locator = new ComponentLocator(How.XPATH, "//*[@data-debug-id='card-header_']");
         try {
-            WebElement loginIcon = WebUIUtils.fluentWaitDisplayed(locator.getBy(), waitTimeout, false);
-            if (loginIcon != null) {
+            WebElement headerElement = WebUIUtils.fluentWaitDisplayed(locator.getBy(), waitTimeout, false);
+            if (headerElement != null) {
                 return true;
             } else {
                 return false;

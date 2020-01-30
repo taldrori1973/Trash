@@ -15,16 +15,16 @@ public class freshInstallThread extends Thread {
 
     private NewVmHandler vmHandler;
     private String build = "";
-    private VisionVMs visionVMs;
-    private String vmName;
-    private String vCenterUser;
-    private String vCenterPassword;
-    private String hostip ;
-    private String vCenterURL;
-    private String networkName;
-    private String resourcePool;
-    private String dataStores;
-    private String version;
+    VisionVMs visionVMs;
+    String vmName;
+    String vCenterUser;
+    String vCenterPassword;
+    String hostip ;
+    String vCenterURL;
+    String networkName;
+    String resourcePool;
+    String dataStores;
+    String version;
 
     freshInstallThread(String machine, String cli, String vmName){
         vmHandler = new NewVmHandler(machine,cli);
@@ -58,7 +58,7 @@ public class freshInstallThread extends Thread {
     public String readVisionVersionFromPomFile() {
         Properties properties = new Properties();
 
-        InputStream inputStream = getClass().getClassLoader().getResourceAsStream("vision-tests-pom.properties");
+        InputStream inputStream = getClass().getClassLoader().getResourceAsStream("webui-tests-pom.properties");
 
         if (inputStream != null) {
             try {

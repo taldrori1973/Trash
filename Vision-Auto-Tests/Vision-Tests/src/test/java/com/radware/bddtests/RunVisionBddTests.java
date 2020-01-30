@@ -9,8 +9,8 @@ import org.junit.runner.RunWith;
  */
 @RunWith(Cucumber.class)
 @CucumberOptions(format = {"pretty", "html:target/cucumber", "json:target/cucumber.json"},
-        glue = {"com.radware.vision.bddtests", "com.radware.vision.restBddTests"},
-        features = {"src/test/resources/Features", "src/test/resources/RestFeatures"},
+        glue = {"com.radware.vision.bddtests"},
+        features = {"src/test/resources/Features"},
         strict = true,
         tags = {"@Functional"})
 public class RunVisionBddTests {
