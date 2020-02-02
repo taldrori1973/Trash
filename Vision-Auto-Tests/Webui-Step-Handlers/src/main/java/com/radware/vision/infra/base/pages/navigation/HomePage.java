@@ -113,7 +113,9 @@ public class HomePage {
             List<WebElement> elements = webElement.findElements(By.tagName("div"));
             if (!Objects.isNull(elements) && !elements.isEmpty()) {
                 WebElement elementToTest = elements.get(0);
-                return !elementToTest.isEnabled();
+                String isDisabled = elementToTest.getAttribute("disabled");
+                if (isDisabled == null) return false;
+                return Boolean.parseBoolean(isDisabled);
             } else throw new Exception("no sub elements was found for " + tab);
         } else throw new Exception("The element of " + tab + " isn't found");
     }

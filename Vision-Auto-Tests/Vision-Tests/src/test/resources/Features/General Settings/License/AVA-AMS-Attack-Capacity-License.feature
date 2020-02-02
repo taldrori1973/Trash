@@ -96,7 +96,7 @@ Feature: US62031 APSolute Vision Analytics - AMS - Attack Capacity License
     #    Validate NO AppWall Dashboard Navigation
 #    When UI Open "Dashboards" Tab
 #    Then UI Validate Element Existence By Label "AppWall Dashboard" if Exists "false"
-    When UI Navigate to "ANALYTICS AMS" page via homePage
+#    When UI Navigate to "ANALYTICS AMS" page via homePage
     Then Validate Navigation to "AppWall Dashboard" is disabled
 
 #    Validate Reports Navigation
