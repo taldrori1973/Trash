@@ -9,4 +9,4 @@ target
 /Vision-Auto-Tests/Vision-Tests/lib/
 /Vision-Auto-Tests/Vision-Tests/target/
 /Vision-Auto-Tests/Webui-Step-Handlers/target/
-/Vision-Auto-Tests/Vision-Tests/jsystem.properties
+#/Vision-Auto-Tests/Vision-Tests/jsystem.properties
