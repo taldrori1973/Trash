@@ -31,21 +31,21 @@ import com.radware.automation.webui.widgets.impl.WebUITextField;
 import com.radware.vision.automation.tools.exceptions.misc.NoSuchOperationException;
 import com.radware.vision.automation.tools.exceptions.selenium.TargetWebElementNotFoundException;
 import com.radware.vision.automation.tools.sutsystemobjects.devicesinfo.enums.SUTDeviceType;
-import com.radware.vision.infra.base.pages.navigation.HomePage;
-import com.radware.vision.infra.testhandlers.vrm.VRMBaseUtilies;
-import com.radware.vision.vision_project_cli.MysqlClientCli;
-import com.radware.vision.vision_project_cli.RadwareServerCli;
-import com.radware.vision.vision_project_cli.RootServerCli;
-import com.radware.vision.vision_project_cli.menu.Menu;
 import com.radware.vision.infra.base.pages.VisionServerInfoPane;
 import com.radware.vision.infra.base.pages.VisionWebUILogin;
+import com.radware.vision.infra.base.pages.navigation.HomePage;
 import com.radware.vision.infra.base.pages.navigation.WebUIUpperBar;
 import com.radware.vision.infra.base.pages.navigation.WebUIVisionBasePage;
 import com.radware.vision.infra.enums.EqualsOrContains;
 import com.radware.vision.infra.enums.UpperBarItems;
 import com.radware.vision.infra.testhandlers.BaseHandler;
 import com.radware.vision.infra.testhandlers.baseoperations.enums.Operation;
+import com.radware.vision.infra.testhandlers.vrm.VRMBaseUtilies;
 import com.radware.vision.infra.utils.*;
+import com.radware.vision.vision_project_cli.MysqlClientCli;
+import com.radware.vision.vision_project_cli.RadwareServerCli;
+import com.radware.vision.vision_project_cli.RootServerCli;
+import com.radware.vision.vision_project_cli.menu.Menu;
 import junit.framework.SystemTestCase;
 import org.openqa.selenium.*;
 import org.openqa.selenium.interactions.Actions;
@@ -428,11 +428,7 @@ public class BasicOperationsHandler {
 
     public static boolean isElementExists(String LabelName, boolean isExists, String param) {
         WebElement element = isItemAvailableById(LabelName, param);
-        if (element != null && isExists || element == null && !isExists) {
-            return true;
-        } else {
-            return false;
-        }
+        return element != null && isExists || element == null && !isExists;
     }
 
     public static void isElementSelected(String LabelName, boolean isSelected, String param) {
@@ -623,11 +619,7 @@ public class BasicOperationsHandler {
         ComponentLocator locator = new ComponentLocator(How.XPATH, "//*[@data-debug-id='card-header_']");
         try {
             WebElement headerElement = WebUIUtils.fluentWaitDisplayed(locator.getBy(), waitTimeout, false);
-            if (headerElement != null) {
-                return true;
-            } else {
-                return false;
-            }
+            return headerElement != null;
         } catch (Exception e) {
             return false;
         }
@@ -1049,6 +1041,11 @@ public class BasicOperationsHandler {
                 WebUIUtils.fluentWaitClick(locator.getBy(), WebUIUtils.SHORT_WAIT_TIME,  false).click();
             }catch (ElementNotInteractableException ignore){}
 
+    }
+
+    public static boolean isNavigationDisabled(String tab) throws Exception {
+        closeAllPopups();
+        return HomePage.isNavigationDisabled(tab);
     }
 }
 

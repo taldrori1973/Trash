@@ -28,7 +28,6 @@ Feature: US62031 APSolute Vision Analytics - AMS - Attack Capacity License
 
   @TC110252-Rest
   @SID_3
-  @run
   Scenario: Validate First Day of Grace Period
     When Set Server Last Upgrade Time to 0 Days Back From Now
 
@@ -49,18 +48,18 @@ Feature: US62031 APSolute Vision Analytics - AMS - Attack Capacity License
 
 
   @SID_4
+    @run
   Scenario:UI Validate First Day of Grace Period
-    When UI Open Upper Bar Item "AMS"
-    Then UI Open "Dashboards" Tab
-    Then UI Open "DP Monitoring Dashboard" Sub Tab
+    Given UI Navigate to "DefensePro Monitoring Dashboard" page via homePage
+
 
 #    Validate Message
     Then UI Validate Text field with Class "ant-notification-notice-message" "Equals" To "Insufficient Attack-Capacity License"
     Then UI Validate Text field with Class "ant-notification-notice-description" "Equals" To "License Violation: The attack capacity required by devices managed by APSolute Vision exceeds the value permitted by the APSolute Vision Analytics - AMS license. Contact Radware Technical Support to purchase another license with more capacity within 30 days. After 30 days, the system will only support the attack capacity corresponding to the license. If there is no APSolute Vision Analytics - AMS license, AVA will be unavailable."
+    Then UI Click Button by Class "ant-notification-notice-close"
 
 #    Validate Device List
-    When UI Click Button by Class "ant-notification-notice-close"
-    And UI Click Button "Device Selection"
+    When UI Click Button "Device Selection"
 
     Then UI Validate the attribute "class" Of Label "Device Selection.Device List Item" With Params "172.16.22.50" is "NOT CONTAINS" to "list-row-disabled"
     Then UI Validate the attribute "class" Of Label "Device Selection.Device List Item" With Params "172.16.22.51" is "NOT CONTAINS" to "list-row-disabled"
@@ -71,33 +70,34 @@ Feature: US62031 APSolute Vision Analytics - AMS - Attack Capacity License
     Then UI Validate Element Existence By Label "Device Selection.Device Insufficient License" if Exists "false" with value "172.16.22.55"
 
 #    Validate DefensePro Behavioral Protections Dashboard Navigation
-    When UI Open "Dashboards" Tab
-    When UI Open "DP BDoS Baseline" Sub Tab
-    When UI Click Button by Class "ant-notification-notice-close"
+
+    When UI Navigate to "DefensePro Behavioral Protections Dashboard" page via homePage
+    Then UI Click Button by Class "ant-notification-notice-close"
     Then UI Validate Text field "Title" EQUALS "DefensePro Dashboard"
 
 #    Validate DefensePro Analytics Dashboard Navigation
-    When UI Open "Dashboards" Tab
-    When UI Open "DP Analytics" Sub Tab
-    When UI Click Button by Class "ant-notification-notice-close"
+
+    When UI Navigate to "DefensePro Analytics Dashboard" page via homePage
+    Then UI Click Button by Class "ant-notification-notice-close"
     Then UI Validate Text field "Title" EQUALS "DefensePro Analytics Dashboard"
 
 #    Validate HTTPS Flood Dashboard Navigation
-    When UI Open "Dashboards" Tab
-    When UI Open "HTTPS Flood Dashboard" Sub Tab
-    When UI Click Button by Class "ant-notification-notice-close"
+
+    When UI Navigate to "HTTPS Flood Dashboard" page via homePage
+    Then UI Click Button by Class "ant-notification-notice-close"
     Then UI Validate Text field "header HTTPS" EQUALS "HTTPS Flood Dashboard"
 
   #    Validate DefenseFlow Analytics Dashboard Navigation
-    When UI Open "Dashboards" Tab
-    When UI Open "DefenseFlow Analytics Dashboard" Sub Tab
-    When UI Click Button by Class "ant-notification-notice-close"
+
+    When UI Navigate to "DefenseFlow Analytics Dashboard" page via homePage
+    Then UI Click Button by Class "ant-notification-notice-close"
     Then UI Validate Text field "Header" EQUALS "DefenseFlow Analytics Dashboard"
 
     #    Validate NO AppWall Dashboard Navigation
-    When UI Open "Dashboards" Tab
-    Then UI Validate Element Existence By Label "AppWall Dashboard" if Exists "false"
-
+#    When UI Open "Dashboards" Tab
+#    Then UI Validate Element Existence By Label "AppWall Dashboard" if Exists "false"
+    When UI Navigate to "ANALYTICS AMS" page via homePage
+    Then Validate Navigation to "AppWall Dashboard" is disabled
 
 #    Validate Reports Navigation
     Given UI Open "Reports" Tab

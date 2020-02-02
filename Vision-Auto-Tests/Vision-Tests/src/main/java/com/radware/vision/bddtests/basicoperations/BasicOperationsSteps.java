@@ -37,7 +37,8 @@ import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
 
-import static com.radware.vision.infra.testhandlers.baseoperations.BasicOperationsHandler.*;
+import static com.radware.vision.infra.testhandlers.baseoperations.BasicOperationsHandler.isLoggedIn;
+import static com.radware.vision.infra.testhandlers.baseoperations.BasicOperationsHandler.isLoggedOut;
 
 /**
  * Created by AviH on 30-Nov-17.
@@ -177,12 +178,10 @@ public class BasicOperationsSteps extends BddUITestBase {
         } finally {
             if (!isLoggedOut(WebUIUtils.DEFAULT_LOGIN_WAIT_TIME)) {
                 BaseTestUtils.report("Logout Operation failed, no \"log In\" button found", Reporter.FAIL);
+            } else {
+                isLoggedIn = false;
+                VisionDebugIdsManager.setTab("LoginPage");
             }
-            else
-                {
-                    isLoggedIn = false;
-                    VisionDebugIdsManager.setTab("LoginPage");
-                }
         }
     }
 
@@ -553,6 +552,12 @@ public class BasicOperationsSteps extends BddUITestBase {
     @When("^set Tab \"([^\"]*)\"$")
     public void setTab(String tabName) {
         VisionDebugIdsManager.setTab(tabName);
+    }
+
+    @Then("^Validate Navigation to \"([^\"]*)\" is disabled$")
+    public void validateNavigationToIsDisabled(String tab) throws Throwable {
+        boolean isDisabled = BasicOperationsHandler.isNavigationDisabled(tab);
+        assert isDisabled;
     }
 
     static public class TableEntry {

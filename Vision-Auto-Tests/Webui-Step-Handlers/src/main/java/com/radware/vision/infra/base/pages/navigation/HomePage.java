@@ -6,16 +6,11 @@ import com.radware.automation.webui.WebUIUtils;
 import com.radware.automation.webui.widgets.ComponentLocatorFactory;
 import com.radware.vision.automation.tools.exceptions.selenium.TargetWebElementNotFoundException;
 import com.radware.vision.infra.testhandlers.baseoperations.BasicOperationsHandler;
-
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 
-
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public class HomePage {
 
@@ -35,7 +30,7 @@ public class HomePage {
         for (String item : path) {
             openItem(item);
         }
-        VisionDebugIdsManager.setLabel(path.isEmpty() ? "" : path.get(path.size()-1).trim());
+        VisionDebugIdsManager.setLabel(path.isEmpty() ? "" : path.get(path.size() - 1).trim());
         if (getTitledItem(WebUIUtils.fluentWait(ComponentLocatorFactory.getLocatorByDbgId(VisionDebugIdsManager.getDataDebugId()).getBy())) == null) //if the element is the navigator
             VisionDebugIdsManager.setTab(getHomePagePath(path.get(path.size() - 1).trim()));
     }
@@ -49,10 +44,9 @@ public class HomePage {
     }
 
     private static String getHomePagePath(String tab) {
-        switch (tab.toLowerCase())
-        {
-            case "adc reports" :
-            case "ams reports" :
+        switch (tab.toLowerCase()) {
+            case "adc reports":
+            case "ams reports":
                 return "Reports";
         }
         return tab;
@@ -76,7 +70,7 @@ public class HomePage {
         if (itemElement != null) {
             WebElement titledItem = getTitledItem(itemElement);
             if (titledItem == null || titledItem.getAttribute("aria-expanded").equalsIgnoreCase("false"))
-                    BasicOperationsHandler.clickButton(item, "");
+                BasicOperationsHandler.clickButton(item, "");
         } else throw new Exception("The element of " + item + " isn't found");
     }
 
@@ -91,20 +85,36 @@ public class HomePage {
 
     public static String validateExistNavigator(String pathText) throws Exception {
         expandMenu(pathText);
-        for (String item : path)
-        {
+        for (String item : path) {
             VisionDebugIdsManager.setLabel(item);
             WebElement itemElement = WebUIUtils.fluentWait(ComponentLocatorFactory.getLocatorByDbgId(VisionDebugIdsManager.getDataDebugId()).getBy(), WebUIUtils.SHORT_WAIT_TIME);
-            if (itemElement == null)
-            {
+            if (itemElement == null) {
                 navigateFromHomePage("HOME");
                 return "The Navigator " + item + " should be exist, But it doesn't";
             }
             WebElement titledItem = getTitledItem(itemElement);
             if (titledItem == null || titledItem.getAttribute("aria-expanded").equalsIgnoreCase("false"))
-            itemElement.click();
+                itemElement.click();
         }
         navigateFromHomePage("HOME");
         return "";
+    }
+
+    public static boolean isNavigationDisabled(String tab) throws Exception {
+
+        expandMenu(tab);
+        if (path.size() > 1)
+            for (int i = 0; i < path.size() - 1; i++) openItem(path.get(i));
+
+        tab = path.get(path.size() - 1);
+        VisionDebugIdsManager.setLabel(tab);
+        WebElement webElement = WebUIUtils.fluentWait(ComponentLocatorFactory.getLocatorByDbgId(VisionDebugIdsManager.getDataDebugId()).getBy());
+        if (!Objects.isNull(webElement)) {
+            List<WebElement> elements = webElement.findElements(By.tagName("div"));
+            if (!Objects.isNull(elements) && !elements.isEmpty()) {
+                WebElement elementToTest = elements.get(0);
+                return !elementToTest.isEnabled();
+            } else throw new Exception("no sub elements was found for " + tab);
+        } else throw new Exception("The element of " + tab + " isn't found");
     }
 }
