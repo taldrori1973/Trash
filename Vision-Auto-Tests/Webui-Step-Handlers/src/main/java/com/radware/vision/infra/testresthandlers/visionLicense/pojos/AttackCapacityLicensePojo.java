@@ -64,6 +64,9 @@ public class AttackCapacityLicensePojo {
     private boolean neededConfirmation;
 
     private boolean isInGracePeriod;
+    private boolean licenseAvailable;
+
+
 
     public long getLastCalculationDate() {
         return lastCalculationDate;
@@ -177,5 +180,11 @@ public class AttackCapacityLicensePojo {
         this.neededConfirmation = neededConfirmation;
     }
 
+    public boolean isLicenseAvailable() {
+        return licenseAvailable;
+    }
 
+    public void setLicenseAvailable(boolean licenseAvailable) {
+        this.licenseAvailable = licenseAvailable;
+    }
 }

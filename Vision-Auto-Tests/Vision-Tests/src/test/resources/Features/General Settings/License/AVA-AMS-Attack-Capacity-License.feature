@@ -1,9 +1,10 @@
-#By Mohamadi
+#By MohamadI
 @TC110252
 Feature: US62031 APSolute Vision Analytics - AMS - Attack Capacity License
 
   @TC110252-Rest
   @SID_1
+
   Scenario: Setup - Restore Server Status as After Upgrade without AVA License
     Given REST Vision DELETE License Request "vision-AVA-6-Gbps-attack-capacity"
     And REST Vision DELETE License Request "vision-AVA-20-Gbps-attack-capacity"
@@ -20,12 +21,14 @@ Feature: US62031 APSolute Vision Analytics - AMS - Attack Capacity License
     Then Service Vision restart and Wait 1 Minute
 
   @SID_2
+  @run
   Scenario: Login
     Then UI Login with user "sys_admin" and password "radware"
 
 
   @TC110252-Rest
   @SID_3
+  @run
   Scenario: Validate First Day of Grace Period
     When Set Server Last Upgrade Time to 0 Days Back From Now
 
@@ -43,7 +46,6 @@ Feature: US62031 APSolute Vision Analytics - AMS - Attack Capacity License
     And Validate DefenseFlow is Licensed by Attack Capacity License
     And Validate License "AVA_APPWALL_LICENSE" Parameters
       | valid | false |
-
 
 
   @SID_4
@@ -115,6 +117,7 @@ Feature: US62031 APSolute Vision Analytics - AMS - Attack Capacity License
 #    Validate Alerts Navigation
     When UI Open "Alerts" Tab
     Then UI Validate Element Existence By Label "Add New" if Exists "true"
+
   @TC110252-Rest
   @SID_5
   Scenario: Validate Grace Period of day 29
@@ -135,6 +138,7 @@ Feature: US62031 APSolute Vision Analytics - AMS - Attack Capacity License
     And Validate DefenseFlow is Licensed by Attack Capacity License
     And Validate License "AVA_APPWALL_LICENSE" Parameters
       | valid | false |
+
   @SID_6
   Scenario: UI Validate Grace Period of day 29
     Then UI Open "Configurations" Tab
@@ -203,6 +207,7 @@ Feature: US62031 APSolute Vision Analytics - AMS - Attack Capacity License
 #    Validate Alerts Navigation
     When UI Open "Alerts" Tab
     Then UI Validate Element Existence By Label "Add New" if Exists "true"
+
   @TC110252-Rest
   @SID_7
   Scenario: Validate Grace Period of day 2
@@ -223,6 +228,7 @@ Feature: US62031 APSolute Vision Analytics - AMS - Attack Capacity License
     And Validate DefenseFlow is Licensed by Attack Capacity License
     And Validate License "AVA_APPWALL_LICENSE" Parameters
       | valid | false |
+
   @SID_8
   Scenario: UI Validate Grace Period of day 2
     Then UI Open "Configurations" Tab
@@ -291,6 +297,7 @@ Feature: US62031 APSolute Vision Analytics - AMS - Attack Capacity License
 #    Validate Alerts Navigation
     When UI Open "Alerts" Tab
     Then UI Validate Element Existence By Label "Add New" if Exists "true"
+
   @TC110252-Rest
   @SID_9
   Scenario: Validate in Grace Period of Last Day
@@ -310,6 +317,7 @@ Feature: US62031 APSolute Vision Analytics - AMS - Attack Capacity License
     And Validate DefenseFlow is Licensed by Attack Capacity License
     And Validate License "AVA_APPWALL_LICENSE" Parameters
       | valid | false |
+
   @SID_10
   Scenario: UI Validate in Grace Period of Last Day
     Then UI Open "Configurations" Tab
@@ -467,7 +475,7 @@ Feature: US62031 APSolute Vision Analytics - AMS - Attack Capacity License
 #-----------------------New License--------------------------------------------
   @TC110252-Rest
   @SID_13
-  
+
 
   Scenario: Validate License of 6 Gbps When All Devices Are with Capacity of 6 Gbps
     Given REST Vision Install License Request "vision-AVA-6-Gbps-attack-capacity"
@@ -490,7 +498,7 @@ Feature: US62031 APSolute Vision Analytics - AMS - Attack Capacity License
       | valid | false |
 
   @SID_14
-  
+
 
   Scenario: UI Validate License of 6 Gbps When All Devices Are with Capacity of 6 Gbps
     Then UI Open "Configurations" Tab
@@ -915,6 +923,8 @@ Feature: US62031 APSolute Vision Analytics - AMS - Attack Capacity License
 #    Validate Alerts Navigation
     When UI Open "Alerts" Tab
     Then UI Validate Element Existence By Label "Add New" if Exists "true"
+
   @SID_22
+  @run
   Scenario: Logout
     Then UI logout and close browser
