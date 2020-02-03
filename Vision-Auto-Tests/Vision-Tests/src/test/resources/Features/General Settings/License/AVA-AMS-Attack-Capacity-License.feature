@@ -755,10 +755,8 @@ Feature: US62031 APSolute Vision Analytics - AMS - Attack Capacity License
 
   @SID_20
   Scenario: UI Validate Max License
-    Then UI Open "Configurations" Tab
-    When UI Open Upper Bar Item "AMS"
-    Then UI Open "Dashboards" Tab
-    Then UI Open "DP Monitoring Dashboard" Sub Tab
+    Given UI Navigate to "HOME" page via homePage
+    Given UI Navigate to "DefensePro Monitoring Dashboard" page via homePage
 
 
 #    Validate Device List
@@ -772,32 +770,34 @@ Feature: US62031 APSolute Vision Analytics - AMS - Attack Capacity License
     Then UI Validate Element Existence By Label "Device Selection.Device Insufficient License" if Exists "false" with value "172.16.22.51"
     Then UI Validate Element Existence By Label "Device Selection.Device Insufficient License" if Exists "false" with value "172.16.22.55"
 
-#    Validate DefensePro Behavioral Protections Dashboard Navigation
-    When UI Open "Dashboards" Tab
-    When UI Open "DP BDoS Baseline" Sub Tab
+
+ #    Validate DefensePro Behavioral Protections Dashboard Navigation
+    When UI Navigate to "DefensePro Behavioral Protections Dashboard" page via homePage
+    Then UI Click Button by Class "ant-notification-notice-close"
     Then UI Validate Text field "Title" EQUALS "DefensePro Dashboard"
 
 #    Validate DefensePro Analytics Dashboard Navigation
-    When UI Open "Dashboards" Tab
-    When UI Open "DP Analytics" Sub Tab
+    When UI Navigate to "DefensePro Analytics Dashboard" page via homePage
+    Then UI Click Button by Class "ant-notification-notice-close"
     Then UI Validate Text field "Title" EQUALS "DefensePro Analytics Dashboard"
 
 #    Validate HTTPS Flood Dashboard Navigation
-    When UI Open "Dashboards" Tab
-    When UI Open "HTTPS Flood Dashboard" Sub Tab
+    When UI Navigate to "HTTPS Flood Dashboard" page via homePage
+    Then UI Click Button by Class "ant-notification-notice-close"
     Then UI Validate Text field "header HTTPS" EQUALS "HTTPS Flood Dashboard"
-   #    Validate DefenseFlow Analytics Dashboard Navigation
-    When UI Open "Dashboards" Tab
-    When UI Open "DefenseFlow Analytics Dashboard" Sub Tab
+
+
+     #    Validate DefenseFlow Analytics Dashboard Navigation
+    When UI Navigate to "DefenseFlow Analytics Dashboard" page via homePage
+    Then UI Click Button by Class "ant-notification-notice-close"
     Then UI Validate Text field "Header" EQUALS "DefenseFlow Analytics Dashboard"
 
-   #    Validate NO AppWall Dashboard Navigation
-    When UI Open "Dashboards" Tab
-    Then UI Validate Element Existence By Label "AppWall Dashboard" if Exists "false"
+    #    Validate NO AppWall Dashboard Navigation
+    Then Validate Navigation to "AppWall Dashboard" is disabled
 
 
 #    Validate Reports Navigation
-    Given UI Open "Reports" Tab
+    When UI Navigate to "AMS Reports" page via homePage
     When UI Click Button "Add New"
     Then UI Click Button "Template" with value ""
     And UI Validate Element Existence By Label "DefensePro Analytics Template" if Exists "true"
@@ -808,12 +808,18 @@ Feature: US62031 APSolute Vision Analytics - AMS - Attack Capacity License
 
 
 #    Validate Forensics Navigation
-    When UI Open "Forensics" Tab
-    Then UI Validate Element Existence By Label "Add" if Exists "true"
+    When UI Navigate to "AMS Forensics" page via homePage
+    And UI Click Button "Add"
+    Then UI Validate Element EnableDisable status By Label "Select Product" and Value "defensepro" is Enabled "true"
+    Then UI Validate Element EnableDisable status By Label "Select Product" and Value "defenseflow" is Enabled "true"
+    Then UI Validate Element EnableDisable status By Label "Select Product" and Value "appwall" is Enabled "false"
 
 #    Validate Alerts Navigation
-    When UI Open "Alerts" Tab
-    Then UI Validate Element Existence By Label "Add New" if Exists "true"
+    When UI Navigate to "AMS Alerts" page via homePage
+    And UI Click Button "Add New"
+    Then UI Validate Element EnableDisable status By Label "Select Product" and Value "defensepro" is Enabled "true"
+    Then UI Validate Element EnableDisable status By Label "Select Product" and Value "defenseflow" is Enabled "true"
+    Then UI Validate Element EnableDisable status By Label "Select Product" and Value "appwall" is Enabled "false"
 
   @TC110252-Rest
   @SID_21
@@ -846,10 +852,8 @@ Feature: US62031 APSolute Vision Analytics - AMS - Attack Capacity License
     And Validate License "AVA_APPWALL_LICENSE" Parameters
       | valid | true |
 
-    Then UI Open "Configurations" Tab
-    When UI Open Upper Bar Item "AMS"
-    Then UI Open "Dashboards" Tab
-    Then UI Open "DP Monitoring Dashboard" Sub Tab
+    Given UI Navigate to "HOME" page via homePage
+    Given UI Navigate to "DefensePro Monitoring Dashboard" page via homePage
 
 
 #    Validate Device List
@@ -863,44 +867,56 @@ Feature: US62031 APSolute Vision Analytics - AMS - Attack Capacity License
     Then UI Validate Element Existence By Label "Device Selection.Device Insufficient License" if Exists "false" with value "172.16.22.51"
     Then UI Validate Element Existence By Label "Device Selection.Device Insufficient License" if Exists "false" with value "172.16.22.55"
 
-#    Validate DefensePro Behavioral Protections Dashboard Navigation
-    When UI Open "Dashboards" Tab
-    When UI Open "DP BDoS Baseline" Sub Tab
+ #    Validate DefensePro Behavioral Protections Dashboard Navigation
+    When UI Navigate to "DefensePro Behavioral Protections Dashboard" page via homePage
+    Then UI Click Button by Class "ant-notification-notice-close"
     Then UI Validate Text field "Title" EQUALS "DefensePro Dashboard"
 
 #    Validate DefensePro Analytics Dashboard Navigation
-    When UI Open "Dashboards" Tab
-    When UI Open "DP Analytics" Sub Tab
+    When UI Navigate to "DefensePro Analytics Dashboard" page via homePage
+    Then UI Click Button by Class "ant-notification-notice-close"
     Then UI Validate Text field "Title" EQUALS "DefensePro Analytics Dashboard"
 
 #    Validate HTTPS Flood Dashboard Navigation
-    When UI Open "Dashboards" Tab
-    When UI Open "HTTPS Flood Dashboard" Sub Tab
+    When UI Navigate to "HTTPS Flood Dashboard" page via homePage
+    Then UI Click Button by Class "ant-notification-notice-close"
     Then UI Validate Text field "header HTTPS" EQUALS "HTTPS Flood Dashboard"
 
+
      #    Validate DefenseFlow Analytics Dashboard Navigation
-    When UI Open "Dashboards" Tab
-    When UI Open "DefenseFlow Analytics Dashboard" Sub Tab
-    When UI Click Button by Class "ant-notification-notice-close"
+    When UI Navigate to "DefenseFlow Analytics Dashboard" page via homePage
+    Then UI Click Button by Class "ant-notification-notice-close"
     Then UI Validate Text field "Header" EQUALS "DefenseFlow Analytics Dashboard"
 
    #    Validate AppWall Dashboard Navigation
-    When UI Open "Dashboards" Tab
-    When UI Open "AppWall Dashboard" Sub Tab
-    When UI Click Button by Class "ant-notification-notice-close"
+    When UI Navigate to "AppWall Dashboard" page via homePage
+    Then UI Click Button by Class "ant-notification-notice-close"
     Then UI Validate Text field "Title" EQUALS "AppWall Dashboard"
 
 #    Validate Reports Navigation
-    When UI Open "Reports" Tab
-    Then UI Validate Element Existence By Label "Add New" if Exists "true"
+    When UI Navigate to "AMS Reports" page via homePage
+    When UI Click Button "Add New"
+    Then UI Click Button "Template" with value ""
+    And UI Validate Element Existence By Label "DefensePro Analytics Template" if Exists "true"
+    And UI Validate Element Existence By Label "DefensePro Behavioral Protections Template" if Exists "true"
+    And UI Validate Element Existence By Label "HTTPS Flood Template" if Exists "true"
+    And UI Validate Element Existence By Label "DefenseFlow Analytics Template" if Exists "true"
+    And UI Validate Element Existence By Label "AppWall Template" if Exists "true"
+
 
 #    Validate Forensics Navigation
-    When UI Open "Forensics" Tab
-    Then UI Validate Element Existence By Label "Add" if Exists "true"
+    When UI Navigate to "AMS Forensics" page via homePage
+    And UI Click Button "Add"
+    Then UI Validate Element EnableDisable status By Label "Select Product" and Value "defensepro" is Enabled "true"
+    Then UI Validate Element EnableDisable status By Label "Select Product" and Value "defenseflow" is Enabled "true"
+    Then UI Validate Element EnableDisable status By Label "Select Product" and Value "appwall" is Enabled "true"
 
 #    Validate Alerts Navigation
-    When UI Open "Alerts" Tab
-    Then UI Validate Element Existence By Label "Add New" if Exists "true"
+    When UI Navigate to "AMS Alerts" page via homePage
+    And UI Click Button "Add New"
+    Then UI Validate Element EnableDisable status By Label "Select Product" and Value "defensepro" is Enabled "true"
+    Then UI Validate Element EnableDisable status By Label "Select Product" and Value "defenseflow" is Enabled "true"
+    Then UI Validate Element EnableDisable status By Label "Select Product" and Value "appwall" is Enabled "true"
 
   @SID_22
   @run
