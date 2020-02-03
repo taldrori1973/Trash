@@ -48,7 +48,7 @@ Feature: US62031 APSolute Vision Analytics - AMS - Attack Capacity License
 
 
   @SID_4
-    @run
+  @run
   Scenario:UI Validate First Day of Grace Period
     Given UI Navigate to "DefensePro Monitoring Dashboard" page via homePage
 
@@ -110,13 +110,17 @@ Feature: US62031 APSolute Vision Analytics - AMS - Attack Capacity License
 
 #    Validate Forensics Navigation
     When UI Navigate to "AMS Forensics" page via homePage
-
-    Then UI Validate Element Existence By Label "Add" if Exists "true"
+    And UI Click Button "Add"
+    Then UI Validate Element EnableDisable status By Label "Select Product" and Value "defensepro" is Enabled "true"
+    And UI Validate Element EnableDisable status By Label "Select Product" and Value "defenseflow" is Enabled "true"
+    And UI Validate Element EnableDisable status By Label "Select Product" and Value "appwall" is Enabled "false"
 
 #    Validate Alerts Navigation
     When UI Navigate to "AMS Alerts" page via homePage
-
-    Then UI Validate Element Existence By Label "Add New" if Exists "true"
+    And UI Click Button "Add New"
+    Then UI Validate Element EnableDisable status By Label "Select Product" and Value "defensepro" is Enabled "true"
+    And UI Validate Element EnableDisable status By Label "Select Product" and Value "defenseflow" is Enabled "true"
+    And UI Validate Element EnableDisable status By Label "Select Product" and Value "appwall" is Enabled "false"
 
   @TC110252-Rest
   @SID_5
