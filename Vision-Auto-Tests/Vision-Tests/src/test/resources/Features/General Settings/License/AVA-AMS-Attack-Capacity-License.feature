@@ -28,6 +28,7 @@ Feature: US62031 APSolute Vision Analytics - AMS - Attack Capacity License
 
   @TC110252-Rest
   @SID_3
+
   Scenario: Validate First Day of Grace Period
     When Set Server Last Upgrade Time to 0 Days Back From Now
 
@@ -112,15 +113,15 @@ Feature: US62031 APSolute Vision Analytics - AMS - Attack Capacity License
     When UI Navigate to "AMS Forensics" page via homePage
     And UI Click Button "Add"
     Then UI Validate Element EnableDisable status By Label "Select Product" and Value "defensepro" is Enabled "true"
-    And UI Validate Element EnableDisable status By Label "Select Product" and Value "defenseflow" is Enabled "true"
-    And UI Validate Element EnableDisable status By Label "Select Product" and Value "appwall" is Enabled "false"
+    Then UI Validate Element EnableDisable status By Label "Select Product" and Value "defenseflow" is Enabled "true"
+    Then UI Validate Element EnableDisable status By Label "Select Product" and Value "appwall" is Enabled "false"
 
 #    Validate Alerts Navigation
     When UI Navigate to "AMS Alerts" page via homePage
     And UI Click Button "Add New"
     Then UI Validate Element EnableDisable status By Label "Select Product" and Value "defensepro" is Enabled "true"
-    And UI Validate Element EnableDisable status By Label "Select Product" and Value "defenseflow" is Enabled "true"
-    And UI Validate Element EnableDisable status By Label "Select Product" and Value "appwall" is Enabled "false"
+    Then UI Validate Element EnableDisable status By Label "Select Product" and Value "defenseflow" is Enabled "true"
+    Then UI Validate Element EnableDisable status By Label "Select Product" and Value "appwall" is Enabled "false"
 
   @TC110252-Rest
   @SID_5
@@ -145,16 +146,18 @@ Feature: US62031 APSolute Vision Analytics - AMS - Attack Capacity License
 
   @SID_6
   Scenario: UI Validate Grace Period of day 29
-    Then UI Open "Configurations" Tab
-    When UI Open Upper Bar Item "AMS"
-    Then UI Open "Dashboards" Tab
-    Then UI Open "DP Monitoring Dashboard" Sub Tab
 
+    Given UI Navigate to "HOME" page via homePage
+    Given UI Navigate to "DefensePro Monitoring Dashboard" page via homePage
+
+
+#    Validate Message
     Then UI Validate Text field with Class "ant-notification-notice-message" "Equals" To "Insufficient Attack-Capacity License"
-    Then UI Validate Text field with Class "ant-notification-notice-description" "Equals" To "The attack capacity required by devices managed by APSolute Vision exceeds the permitted value by the APSolute Vision Analytics - AMS license. Contact Radware Technical Support to purchase another license with more capacity within 29 days. In 29 days, the system will only support the attack capacity corresponding to the license. If there is no APSolute Vision Analytics - AMS license, AVA will be unavailable."
+    Then UI Validate Text field with Class "ant-notification-notice-description" "Equals" To "License Violation: The attack capacity required by devices managed by APSolute Vision exceeds the permitted value by the APSolute Vision Analytics - AMS license. Contact Radware Technical Support to purchase another license with more capacity within 29 days. In 29 days, the system will only support the attack capacity corresponding to the license. If there is no APSolute Vision Analytics - AMS license, AVA will be unavailable."
+    Then UI Click Button by Class "ant-notification-notice-close"
 
-    When UI Click Button by Class "ant-notification-notice-close"
-    And UI Click Button "Device Selection"
+#    Validate Device List
+    When UI Click Button "Device Selection"
 
     Then UI Validate the attribute "class" Of Label "Device Selection.Device List Item" With Params "172.16.22.50" is "NOT CONTAINS" to "list-row-disabled"
     Then UI Validate the attribute "class" Of Label "Device Selection.Device List Item" With Params "172.16.22.51" is "NOT CONTAINS" to "list-row-disabled"
@@ -164,37 +167,36 @@ Feature: US62031 APSolute Vision Analytics - AMS - Attack Capacity License
     Then UI Validate Element Existence By Label "Device Selection.Device Insufficient License" if Exists "false" with value "172.16.22.51"
     Then UI Validate Element Existence By Label "Device Selection.Device Insufficient License" if Exists "false" with value "172.16.22.55"
 
-    #    Validate DefensePro Behavioral Protections Dashboard Navigation
-    When UI Open "Dashboards" Tab
-    When UI Open "DP BDoS Baseline" Sub Tab
-    When UI Click Button by Class "ant-notification-notice-close"
+#    Validate DefensePro Behavioral Protections Dashboard Navigation
+
+    When UI Navigate to "DefensePro Behavioral Protections Dashboard" page via homePage
+    Then UI Click Button by Class "ant-notification-notice-close"
     Then UI Validate Text field "Title" EQUALS "DefensePro Dashboard"
 
 #    Validate DefensePro Analytics Dashboard Navigation
-    When UI Open "Dashboards" Tab
-    When UI Open "DP Analytics" Sub Tab
-    When UI Click Button by Class "ant-notification-notice-close"
+
+    When UI Navigate to "DefensePro Analytics Dashboard" page via homePage
+    Then UI Click Button by Class "ant-notification-notice-close"
     Then UI Validate Text field "Title" EQUALS "DefensePro Analytics Dashboard"
 
 #    Validate HTTPS Flood Dashboard Navigation
-    When UI Open "Dashboards" Tab
-    When UI Open "HTTPS Flood Dashboard" Sub Tab
-    When UI Click Button by Class "ant-notification-notice-close"
+
+    When UI Navigate to "HTTPS Flood Dashboard" page via homePage
+    Then UI Click Button by Class "ant-notification-notice-close"
     Then UI Validate Text field "header HTTPS" EQUALS "HTTPS Flood Dashboard"
 
-     #    Validate DefenseFlow Analytics Dashboard Navigation
-    When UI Open "Dashboards" Tab
-    When UI Open "DefenseFlow Analytics Dashboard" Sub Tab
-    When UI Click Button by Class "ant-notification-notice-close"
+  #    Validate DefenseFlow Analytics Dashboard Navigation
+
+    When UI Navigate to "DefenseFlow Analytics Dashboard" page via homePage
+    Then UI Click Button by Class "ant-notification-notice-close"
     Then UI Validate Text field "Header" EQUALS "DefenseFlow Analytics Dashboard"
 
     #    Validate NO AppWall Dashboard Navigation
-    When UI Open "Dashboards" Tab
-    Then UI Validate Element Existence By Label "AppWall Dashboard" if Exists "false"
 
+    Then Validate Navigation to "AppWall Dashboard" is disabled
 
 #    Validate Reports Navigation
-    Given UI Open "Reports" Tab
+    When UI Navigate to "AMS Reports" page via homePage
     When UI Click Button "Add New"
     Then UI Click Button "Template" with value ""
     And UI Validate Element Existence By Label "DefensePro Analytics Template" if Exists "true"
@@ -205,12 +207,18 @@ Feature: US62031 APSolute Vision Analytics - AMS - Attack Capacity License
 
 
 #    Validate Forensics Navigation
-    When UI Open "Forensics" Tab
-    Then UI Validate Element Existence By Label "Add" if Exists "true"
+    When UI Navigate to "AMS Forensics" page via homePage
+    And UI Click Button "Add"
+    Then UI Validate Element EnableDisable status By Label "Select Product" and Value "defensepro" is Enabled "true"
+    Then UI Validate Element EnableDisable status By Label "Select Product" and Value "defenseflow" is Enabled "true"
+    Then UI Validate Element EnableDisable status By Label "Select Product" and Value "appwall" is Enabled "false"
 
 #    Validate Alerts Navigation
-    When UI Open "Alerts" Tab
-    Then UI Validate Element Existence By Label "Add New" if Exists "true"
+    When UI Navigate to "AMS Alerts" page via homePage
+    And UI Click Button "Add New"
+    Then UI Validate Element EnableDisable status By Label "Select Product" and Value "defensepro" is Enabled "true"
+    Then UI Validate Element EnableDisable status By Label "Select Product" and Value "defenseflow" is Enabled "true"
+    Then UI Validate Element EnableDisable status By Label "Select Product" and Value "appwall" is Enabled "false"
 
   @TC110252-Rest
   @SID_7
@@ -235,16 +243,17 @@ Feature: US62031 APSolute Vision Analytics - AMS - Attack Capacity License
 
   @SID_8
   Scenario: UI Validate Grace Period of day 2
-    Then UI Open "Configurations" Tab
-    When UI Open Upper Bar Item "AMS"
-    Then UI Open "Dashboards" Tab
-    Then UI Open "DP Monitoring Dashboard" Sub Tab
+    Given UI Navigate to "HOME" page via homePage
+    Given UI Navigate to "DefensePro Monitoring Dashboard" page via homePage
 
+
+#    Validate Message
     Then UI Validate Text field with Class "ant-notification-notice-message" "Equals" To "Insufficient Attack-Capacity License"
-    Then UI Validate Text field with Class "ant-notification-notice-description" "Equals" To "The attack capacity required by devices managed by APSolute Vision exceeds the permitted value by the APSolute Vision Analytics - AMS license. Contact Radware Technical Support to purchase another license with more capacity within 2 days. In 2 days, the system will only support the attack capacity corresponding to the license. If there is no APSolute Vision Analytics - AMS license, AVA will be unavailable."
+    Then UI Validate Text field with Class "ant-notification-notice-description" "Equals" To "License Violation: The attack capacity required by devices managed by APSolute Vision exceeds the permitted value by the APSolute Vision Analytics - AMS license. Contact Radware Technical Support to purchase another license with more capacity within 2 days. In 2 days, the system will only support the attack capacity corresponding to the license. If there is no APSolute Vision Analytics - AMS license, AVA will be unavailable."
+    Then UI Click Button by Class "ant-notification-notice-close"
 
-    When UI Click Button by Class "ant-notification-notice-close"
-    And UI Click Button "Device Selection"
+#    Validate Device List
+    When UI Click Button "Device Selection"
 
     Then UI Validate the attribute "class" Of Label "Device Selection.Device List Item" With Params "172.16.22.50" is "NOT CONTAINS" to "list-row-disabled"
     Then UI Validate the attribute "class" Of Label "Device Selection.Device List Item" With Params "172.16.22.51" is "NOT CONTAINS" to "list-row-disabled"
@@ -254,37 +263,36 @@ Feature: US62031 APSolute Vision Analytics - AMS - Attack Capacity License
     Then UI Validate Element Existence By Label "Device Selection.Device Insufficient License" if Exists "false" with value "172.16.22.51"
     Then UI Validate Element Existence By Label "Device Selection.Device Insufficient License" if Exists "false" with value "172.16.22.55"
 
-    #    Validate DefensePro Behavioral Protections Dashboard Navigation
-    When UI Open "Dashboards" Tab
-    When UI Open "DP BDoS Baseline" Sub Tab
-    When UI Click Button by Class "ant-notification-notice-close"
+#    Validate DefensePro Behavioral Protections Dashboard Navigation
+
+    When UI Navigate to "DefensePro Behavioral Protections Dashboard" page via homePage
+    Then UI Click Button by Class "ant-notification-notice-close"
     Then UI Validate Text field "Title" EQUALS "DefensePro Dashboard"
 
 #    Validate DefensePro Analytics Dashboard Navigation
-    When UI Open "Dashboards" Tab
-    When UI Open "DP Analytics" Sub Tab
-    When UI Click Button by Class "ant-notification-notice-close"
+
+    When UI Navigate to "DefensePro Analytics Dashboard" page via homePage
+    Then UI Click Button by Class "ant-notification-notice-close"
     Then UI Validate Text field "Title" EQUALS "DefensePro Analytics Dashboard"
 
 #    Validate HTTPS Flood Dashboard Navigation
-    When UI Open "Dashboards" Tab
-    When UI Open "HTTPS Flood Dashboard" Sub Tab
-    When UI Click Button by Class "ant-notification-notice-close"
+
+    When UI Navigate to "HTTPS Flood Dashboard" page via homePage
+    Then UI Click Button by Class "ant-notification-notice-close"
     Then UI Validate Text field "header HTTPS" EQUALS "HTTPS Flood Dashboard"
 
-     #    Validate DefenseFlow Analytics Dashboard Navigation
-    When UI Open "Dashboards" Tab
-    When UI Open "DefenseFlow Analytics Dashboard" Sub Tab
-    When UI Click Button by Class "ant-notification-notice-close"
+  #    Validate DefenseFlow Analytics Dashboard Navigation
+
+    When UI Navigate to "DefenseFlow Analytics Dashboard" page via homePage
+    Then UI Click Button by Class "ant-notification-notice-close"
     Then UI Validate Text field "Header" EQUALS "DefenseFlow Analytics Dashboard"
 
-  #    Validate NO AppWall Dashboard Navigation
-    When UI Open "Dashboards" Tab
-    Then UI Validate Element Existence By Label "AppWall Dashboard" if Exists "false"
+    #    Validate NO AppWall Dashboard Navigation
 
+    Then Validate Navigation to "AppWall Dashboard" is disabled
 
 #    Validate Reports Navigation
-    Given UI Open "Reports" Tab
+    When UI Navigate to "AMS Reports" page via homePage
     When UI Click Button "Add New"
     Then UI Click Button "Template" with value ""
     And UI Validate Element Existence By Label "DefensePro Analytics Template" if Exists "true"
@@ -295,12 +303,18 @@ Feature: US62031 APSolute Vision Analytics - AMS - Attack Capacity License
 
 
 #    Validate Forensics Navigation
-    When UI Open "Forensics" Tab
-    Then UI Validate Element Existence By Label "Add" if Exists "true"
+    When UI Navigate to "AMS Forensics" page via homePage
+    And UI Click Button "Add"
+    Then UI Validate Element EnableDisable status By Label "Select Product" and Value "defensepro" is Enabled "true"
+    Then UI Validate Element EnableDisable status By Label "Select Product" and Value "defenseflow" is Enabled "true"
+    Then UI Validate Element EnableDisable status By Label "Select Product" and Value "appwall" is Enabled "false"
 
 #    Validate Alerts Navigation
-    When UI Open "Alerts" Tab
-    Then UI Validate Element Existence By Label "Add New" if Exists "true"
+    When UI Navigate to "AMS Alerts" page via homePage
+    And UI Click Button "Add New"
+    Then UI Validate Element EnableDisable status By Label "Select Product" and Value "defensepro" is Enabled "true"
+    Then UI Validate Element EnableDisable status By Label "Select Product" and Value "defenseflow" is Enabled "true"
+    Then UI Validate Element EnableDisable status By Label "Select Product" and Value "appwall" is Enabled "false"
 
   @TC110252-Rest
   @SID_9
