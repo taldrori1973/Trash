@@ -587,23 +587,19 @@ Feature: US62031 APSolute Vision Analytics - AMS - Attack Capacity License
     Then UI Validate Element Existence By Label "Device Selection.Device Insufficient License" if Exists "false" with value "172.16.22.55"
     #    Validate DefensePro Behavioral Protections Dashboard Navigation
     When UI Navigate to "DefensePro Behavioral Protections Dashboard" page via homePage
-    Then UI Click Button by Class "ant-notification-notice-close"
     Then UI Validate Text field "Title" EQUALS "DefensePro Dashboard"
 
 #    Validate DefensePro Analytics Dashboard Navigation
     When UI Navigate to "DefensePro Analytics Dashboard" page via homePage
-    Then UI Click Button by Class "ant-notification-notice-close"
     Then UI Validate Text field "Title" EQUALS "DefensePro Analytics Dashboard"
 
 #    Validate HTTPS Flood Dashboard Navigation
     When UI Navigate to "HTTPS Flood Dashboard" page via homePage
-    Then UI Click Button by Class "ant-notification-notice-close"
     Then UI Validate Text field "header HTTPS" EQUALS "HTTPS Flood Dashboard"
 
 
      #    Validate DefenseFlow Analytics Dashboard Navigation
     When UI Navigate to "DefenseFlow Analytics Dashboard" page via homePage
-    Then UI Click Button by Class "ant-notification-notice-close"
     Then UI Validate Text field "Header" EQUALS "DefenseFlow Analytics Dashboard"
 
     #    Validate NO AppWall Dashboard Navigation
@@ -773,23 +769,19 @@ Feature: US62031 APSolute Vision Analytics - AMS - Attack Capacity License
 
  #    Validate DefensePro Behavioral Protections Dashboard Navigation
     When UI Navigate to "DefensePro Behavioral Protections Dashboard" page via homePage
-    Then UI Click Button by Class "ant-notification-notice-close"
     Then UI Validate Text field "Title" EQUALS "DefensePro Dashboard"
 
 #    Validate DefensePro Analytics Dashboard Navigation
     When UI Navigate to "DefensePro Analytics Dashboard" page via homePage
-    Then UI Click Button by Class "ant-notification-notice-close"
     Then UI Validate Text field "Title" EQUALS "DefensePro Analytics Dashboard"
 
 #    Validate HTTPS Flood Dashboard Navigation
     When UI Navigate to "HTTPS Flood Dashboard" page via homePage
-    Then UI Click Button by Class "ant-notification-notice-close"
     Then UI Validate Text field "header HTTPS" EQUALS "HTTPS Flood Dashboard"
 
 
      #    Validate DefenseFlow Analytics Dashboard Navigation
     When UI Navigate to "DefenseFlow Analytics Dashboard" page via homePage
-    Then UI Click Button by Class "ant-notification-notice-close"
     Then UI Validate Text field "Header" EQUALS "DefenseFlow Analytics Dashboard"
 
     #    Validate NO AppWall Dashboard Navigation
