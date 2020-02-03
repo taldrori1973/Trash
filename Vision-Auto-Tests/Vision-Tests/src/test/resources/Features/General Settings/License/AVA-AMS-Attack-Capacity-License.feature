@@ -49,7 +49,7 @@ Feature: US62031 APSolute Vision Analytics - AMS - Attack Capacity License
 
 
   @SID_4
-  @run
+
   Scenario:UI Validate First Day of Grace Period
     Given UI Navigate to "DefensePro Monitoring Dashboard" page via homePage
 
@@ -318,6 +318,7 @@ Feature: US62031 APSolute Vision Analytics - AMS - Attack Capacity License
 
   @TC110252-Rest
   @SID_9
+    @run
   Scenario: Validate in Grace Period of Last Day
     When Set Server Last Upgrade Time to 29 Days Back From Now
 
@@ -337,6 +338,7 @@ Feature: US62031 APSolute Vision Analytics - AMS - Attack Capacity License
       | valid | false |
 
   @SID_10
+    @run
   Scenario: UI Validate in Grace Period of Last Day
     Given UI Navigate to "HOME" page via homePage
     Given UI Navigate to "DefensePro Monitoring Dashboard" page via homePage
@@ -413,6 +415,7 @@ Feature: US62031 APSolute Vision Analytics - AMS - Attack Capacity License
 
 #------------------------------------License Expired-----------------------------------------
   @SID_11
+  @run
   @TC110252-Rest
   Scenario: Validate Grace Period Expiration
     When Set Server Last Upgrade Time to 30 Days Back From Now
@@ -434,67 +437,17 @@ Feature: US62031 APSolute Vision Analytics - AMS - Attack Capacity License
 
   @SID_12
   Scenario: UI Validate Grace Period Expiration
-    Then UI Open "Configurations" Tab
-    When UI Open Upper Bar Item "AMS"
-    Then UI Open "Dashboards" Tab
-    Then UI Open "DP Monitoring Dashboard" Sub Tab
-#    Scope Selection
-    Then UI Validate Text field with Class "ant-notification-notice-message" "Equals" To "Insufficient Attack-Capacity License"
-    Then UI Validate Text field with Class "ant-notification-notice-description" "Equals" To "Insufficient License"
+    Given UI Navigate to "HOME" page via homePage
+    Then Validate Navigation to "DefensePro Monitoring Dashboard" is disabled
+    Then Validate Navigation to "DefensePro Behavioral Protections Dashboard" is disabled
+    Then Validate Navigation to "DefensePro Analytics Dashboard" is disabled
+    Then Validate Navigation to "HTTPS Flood Dashboard" is disabled
+    Then Validate Navigation to "DefenseFlow Analytics Dashboard" is disabled
+    Then Validate Navigation to "AppWall Dashboard" is disabled
+    Then Validate Navigation to "AMS Reports" is disabled
+    Then Validate Navigation to "AMS Forensics" is disabled
+    Then Validate Navigation to "AMS Alerts" is disabled
 
-    When UI Click Button by Class "ant-notification-notice-close"
-    And UI Click Button "Device Selection"
-
-    Then UI Validate the attribute "class" Of Label "Device Selection.Device List Item" With Params "172.16.22.50" is "CONTAINS" to "list-row-disabled"
-    Then UI Validate the attribute "class" Of Label "Device Selection.Device List Item" With Params "172.16.22.51" is "CONTAINS" to "list-row-disabled"
-    Then UI Validate the attribute "class" Of Label "Device Selection.Device List Item" With Params "172.16.22.55" is "CONTAINS" to "list-row-disabled"
-
-    Then UI Validate Element Existence By Label "Device Selection.Device Insufficient License" if Exists "true" with value "172.16.22.50"
-    Then UI Validate Element Existence By Label "Device Selection.Device Insufficient License" if Exists "true" with value "172.16.22.51"
-    Then UI Validate Element Existence By Label "Device Selection.Device Insufficient License" if Exists "true" with value "172.16.22.55"
-
-#    Validate Tabs
-    Then UI Open "Dashboards" Tab
-    Then UI Open "Dashboards" Tab
-    Then UI Validate Element Existence By Label "DP Monitoring Dashboard" if Exists "false"
-
-
-      #    Validate DefensePro Behavioral Protections Dashboard Navigation
-    Then UI Validate Element Existence By Label "DP BDoS Baseline" if Exists "false"
-
-
-
-#    Validate DefensePro Analytics Dashboard Navigation
-    Then UI Validate Element Existence By Label "DP Analytics" if Exists "false"
-
-#    Validate HTTPS Flood Dashboard Navigation
-    Then UI Validate Element Existence By Label "HTTPS Flood Dashboard" if Exists "false"
-
-
-#    Validate DefenseFlow Analytics Dashboard Navigation
-    Then UI Validate Element Existence By Label "DefenseFlow Analytics Dashboard" if Exists "false"
-
-
-#    Validate AppWall Dashboard Navigation
-    Then UI Validate Element Existence By Label "AppWall Dashboard" if Exists "false"
-
-
-
-#    Validate Reports Navigation
-    When UI Open "Reports" Tab negative
-    Then UI Validate Text field by id "gwt-debug-Dialog_Box_Caption" EQUALS "Functionality Restricted Due to Limited License"
-    Then UI Validate Text field by id "gwt-debug-Dialog_Box_Message" EQUALS "The functionality that you have requested requires a license."
-    Then UI Click Button by id "gwt-debug-Dialog_Box_Close"
-#    Validate Forensics Navigation
-    When UI Open "Forensics" Tab negative
-    Then UI Validate Text field by id "gwt-debug-Dialog_Box_Caption" EQUALS "Functionality Restricted Due to Limited License"
-    Then UI Validate Text field by id "gwt-debug-Dialog_Box_Message" EQUALS "The functionality that you have requested requires a license."
-    Then UI Click Button by id "gwt-debug-Dialog_Box_Close"
-#    Validate Alerts Navigation
-    When UI Open "Alerts" Tab negative
-    Then UI Validate Text field by id "gwt-debug-Dialog_Box_Caption" EQUALS "Functionality Restricted Due to Limited License"
-    Then UI Validate Text field by id "gwt-debug-Dialog_Box_Message" EQUALS "The functionality that you have requested requires a license."
-    Then UI Click Button by id "gwt-debug-Dialog_Box_Close"
 
 #-----------------------New License--------------------------------------------
   @TC110252-Rest
