@@ -94,13 +94,11 @@ Feature: US62031 APSolute Vision Analytics - AMS - Attack Capacity License
     Then UI Validate Text field "Header" EQUALS "DefenseFlow Analytics Dashboard"
 
     #    Validate NO AppWall Dashboard Navigation
-#    When UI Open "Dashboards" Tab
-#    Then UI Validate Element Existence By Label "AppWall Dashboard" if Exists "false"
-#    When UI Navigate to "ANALYTICS AMS" page via homePage
+
     Then Validate Navigation to "AppWall Dashboard" is disabled
 
 #    Validate Reports Navigation
-    Given UI Open "Reports" Tab
+    When UI Navigate to "AMS Reports" page via homePage
     When UI Click Button "Add New"
     Then UI Click Button "Template" with value ""
     And UI Validate Element Existence By Label "DefensePro Analytics Template" if Exists "true"
@@ -111,11 +109,13 @@ Feature: US62031 APSolute Vision Analytics - AMS - Attack Capacity License
 
 
 #    Validate Forensics Navigation
-    When UI Open "Forensics" Tab
+    When UI Navigate to "AMS Forensics" page via homePage
+
     Then UI Validate Element Existence By Label "Add" if Exists "true"
 
 #    Validate Alerts Navigation
-    When UI Open "Alerts" Tab
+    When UI Navigate to "AMS Alerts" page via homePage
+
     Then UI Validate Element Existence By Label "Add New" if Exists "true"
 
   @TC110252-Rest
