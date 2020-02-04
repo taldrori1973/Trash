@@ -5,22 +5,19 @@ Feature: AMS DefenseFlow Activations Dashboard
   Scenario: VRM - Login to AMS DefenseFlow Analytics Dashboard
     Given UI Login with user "radware" and password "radware"
     * REST Vision Install License Request "vision-AVA-Max-attack-capacity"
-    And UI Open Upper Bar Item "AMS"
-    Then Sleep "7"
-    When UI Open "Dashboards" Tab
-    Then UI Open "DefenseFlow Analytics Dashboard" Sub Tab
+    And UI Navigate to "DefenseFlow Analytics Dashboard" page via homePage
 
   @SID_2
   Scenario: Validate DDos Attack Volume per Day (bits) - All POs
-    Then UI Validate Line Chart data "DDoS Peak Attack per Selected Period" with LabelTime
+    Then UI Validate Line Chart data "DDoS Peak Attack per Period" with LabelTime
       | value         | countOffset | time |
       | 1231371200000 | 100         | -0d  |
 
   @SID_3
   Scenario: Validate DDos Attack Activations per Day - ALL of POs
-    Then UI Validate Line Chart data "DDoS Attack Activations per Selected Period" with LabelTime
+    Then UI Validate Line Chart data "DDoS Attack Activations per Period" with LabelTime
       | value | countOffset | time |
-      | 16    | 0           | -0d  |
+      | 17    | 0           | -0d  |
 
   @SID_4
   Scenario: Validate Top 10 Attacks by duration
@@ -219,13 +216,13 @@ Feature: AMS DefenseFlow Activations Dashboard
 
   @SID_11
   Scenario: Validate DDoS Peak Attack per Selected Period - 3 PO's
-    Then UI Validate Line Chart data "DDoS Peak Attack per Selected Period" with LabelTime
+    Then UI Validate Line Chart data "DDoS Peak Attack per Period" with LabelTime
       | value        | countOffset | time |
       | 511371200000 | 100         | -0d  |
 
   @SID_12
   Scenario: Validate DDoS Attack Activations per Selected Period - 3 PO's
-    Then UI Validate Line Chart data "DDoS Attack Activations per Selected Period" with LabelTime
+    Then UI Validate Line Chart data "DDoS Attack Activations per Period" with LabelTime
       | value | countOffset | time |
       | 3     | 0           | -0d  |
 
