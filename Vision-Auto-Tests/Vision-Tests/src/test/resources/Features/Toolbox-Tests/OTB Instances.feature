@@ -4,7 +4,7 @@ Feature: OTB Workflow - Instances
   @SID_1
   Scenario: Navigate to OTB WF page
     Given UI Login with user "radware" and password "radware"
-    And UI Navigate to "TOOLBOX" page via homePage
+    And UI Navigate to "AUTOMATION" page via homePage
     When set Tab "Automation.Toolbox"
     When UI Click Button by id "gwt-debug-WorkFlow_Tab"
 
