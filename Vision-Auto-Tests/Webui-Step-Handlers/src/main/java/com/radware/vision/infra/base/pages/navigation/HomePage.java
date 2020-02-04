@@ -48,8 +48,6 @@ public class HomePage {
             case "adc reports":
             case "ams reports":
                 return "Reports";
-            case "AUTOMATION":
-                return "Automation.Toolbox";
         }
         return tab;
     }
