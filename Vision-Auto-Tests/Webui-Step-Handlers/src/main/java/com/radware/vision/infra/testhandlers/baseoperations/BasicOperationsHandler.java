@@ -9,6 +9,7 @@ import com.radware.automation.react.widgets.impl.enums.OnOffStatus;
 import com.radware.automation.react.widgets.impl.enums.WebElementType;
 import com.radware.automation.tools.basetest.BaseTestUtils;
 import com.radware.automation.tools.basetest.Reporter;
+import com.radware.automation.tools.utils.FileUtils;
 import com.radware.automation.tools.utils.InvokeUtils;
 import com.radware.automation.tools.utils.PropertiesFilesUtils;
 import com.radware.automation.webui.VisionDebugIdsManager;
@@ -979,8 +980,9 @@ public class BasicOperationsHandler {
     public static void uploadFileToVision(String name, String label, String param) throws IOException {
         WebElement elem;
         Properties properties = new Properties();        //function to upload file from project
-        properties.load(new FileInputStream("jsystem.properties"));
-        String basePath = properties.getProperty("resources.src");
+//        properties.load(new FileInputStream("jsystem.properties"));
+//        String basePath = properties.getProperty("resources.src");
+        String basePath = FileUtils.getAbsoluteProjectPath()+ "src" + File.separator + "main" + File.separator + "resources" + File.separator;
         String uploadFilePath = basePath  + File.separator + "uploadedFiles" + (System.getProperty("os.name").contains("Windows")? "\\":"/") + name;
         BaseTestUtils.report("Path of Uploaded file is: " + uploadFilePath, Reporter.PASS_NOR_FAIL);
         BaseTestUtils.report("The label is: " + label, Reporter.PASS_NOR_FAIL);
@@ -1007,7 +1009,7 @@ public class BasicOperationsHandler {
                 BasicOperationsHandler.clickButton(label, "");
                 break;
             case "Reports":
-                openTab(label);
+             //   openTab(label);
                 clickButton("Add New", "");
                 clickButton("Template","");
                 BasicOperationsHandler.clickButton("DefensePro Behavioral Protections Template", "");
@@ -1016,7 +1018,7 @@ public class BasicOperationsHandler {
                 break;
             case "Forensics":
             case "Alerts":
-                openTab(label);
+               // openTab(label);
                 clickButton("Add New", "");
                 VRMBaseUtilies.expandViews(true);
                 break;
