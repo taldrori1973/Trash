@@ -111,32 +111,32 @@ Feature: AMS DefenseFlow Activations Dashboard
 
 
   @SID_7
-  Scenario: change Time range to 24H
+  Scenario: change Time range to 12H
     Then UI Do Operation "Select" item "Global Time Filter"
-    Then UI Do Operation "Select" item "Global Time Filter.Quick Range" with value "24H"
+    Then UI Do Operation "Select" item "Global Time Filter.Quick Range" with value "12H"
 
-#  Scenario: Validate Top 10 Attacks by duration
-#    Then UI Validate Text field "Top 10 duration name" with params "0" CONTAINS "PO_1"
-#    Then UI Validate Text field "Top 10 duration IP" with params "0" CONTAINS "50.50.0.0/16"
-##    Then UI Validate Text field "Top 10 duration value" with params "0" EQUALS "2752:32:51"
-#    Then UI Validate Text field "Top 10 duration name" with params "1" CONTAINS "PO_101"
-#    Then UI Validate Text field "Top 10 duration IP" with params "1" CONTAINS "- 70.70.0.0/16"
-#    Then UI Validate Text field "Top 10 duration name" with params "2" CONTAINS "PO_10"
-#    Then UI Validate Text field "Top 10 duration IP" with params "2" CONTAINS "40.40.0.0/32"
-#    Then UI Validate Text field "Top 10 duration name" with params "3" CONTAINS "PO_102"
-#    Then UI Validate Text field "Top 10 duration IP" with params "3" CONTAINS "70.71.0.0/16"
-#    Then UI Validate Text field "Top 10 duration name" with params "4" CONTAINS "PO_103"
-#    Then UI Validate Text field "Top 10 duration IP" with params "4" CONTAINS "70.72.0.0/32"
-#    Then UI Validate Text field "Top 10 duration name" with params "5" CONTAINS "PO_104"
-#    Then UI Validate Text field "Top 10 duration IP" with params "5" CONTAINS "70.74.0.0/32"
-#    Then UI Validate Text field "Top 10 duration name" with params "6" CONTAINS "PO_105"
-#    Then UI Validate Text field "Top 10 duration IP" with params "6" CONTAINS "70.75.0.0/32"
-#    Then UI Validate Text field "Top 10 duration name" with params "7" CONTAINS "PO_106"
-#    Then UI Validate Text field "Top 10 duration IP" with params "7" CONTAINS "70.76.0.0/32"
-#    Then UI Validate Text field "Top 10 duration name" with params "8" CONTAINS "PO_107"
-#    Then UI Validate Text field "Top 10 duration IP" with params "8" CONTAINS "70.77.0.0/32"
-#    Then UI Validate Text field "Top 10 duration name" with params "9" CONTAINS "PO_108"
-#    Then UI Validate Text field "Top 10 duration IP" with params "9" CONTAINS "70.78.0.0/32"
+  Scenario: Validate Top 10 Attacks by duration
+    Then UI Validate Text field "Top 10 duration name" with params "0" CONTAINS "PO_1"
+    Then UI Validate Text field "Top 10 duration IP" with params "0" CONTAINS "50.50.0.0/16"
+#    Then UI Validate Text field "Top 10 duration value" with params "0" EQUALS "2752:32:51"
+    Then UI Validate Text field "Top 10 duration name" with params "1" CONTAINS "PO_101"
+    Then UI Validate Text field "Top 10 duration IP" with params "1" CONTAINS "- 70.70.0.0/16"
+    Then UI Validate Text field "Top 10 duration name" with params "2" CONTAINS "PO_10"
+    Then UI Validate Text field "Top 10 duration IP" with params "2" CONTAINS "40.40.0.0/32"
+    Then UI Validate Text field "Top 10 duration name" with params "3" CONTAINS "PO_102"
+    Then UI Validate Text field "Top 10 duration IP" with params "3" CONTAINS "70.71.0.0/16"
+    Then UI Validate Text field "Top 10 duration name" with params "4" CONTAINS "PO_103"
+    Then UI Validate Text field "Top 10 duration IP" with params "4" CONTAINS "70.72.0.0/32"
+    Then UI Validate Text field "Top 10 duration name" with params "5" CONTAINS "PO_104"
+    Then UI Validate Text field "Top 10 duration IP" with params "5" CONTAINS "70.74.0.0/32"
+    Then UI Validate Text field "Top 10 duration name" with params "6" CONTAINS "PO_105"
+    Then UI Validate Text field "Top 10 duration IP" with params "6" CONTAINS "70.75.0.0/32"
+    Then UI Validate Text field "Top 10 duration name" with params "7" CONTAINS "PO_106"
+    Then UI Validate Text field "Top 10 duration IP" with params "7" CONTAINS "70.76.0.0/32"
+    Then UI Validate Text field "Top 10 duration name" with params "8" CONTAINS "PO_107"
+    Then UI Validate Text field "Top 10 duration IP" with params "8" CONTAINS "70.77.0.0/32"
+    Then UI Validate Text field "Top 10 duration name" with params "9" CONTAINS "PO_108"
+    Then UI Validate Text field "Top 10 duration IP" with params "9" CONTAINS "70.78.0.0/32"
 
   @SID_8
   Scenario: Validate Top 10 Attacks by Rate(Gbps)
