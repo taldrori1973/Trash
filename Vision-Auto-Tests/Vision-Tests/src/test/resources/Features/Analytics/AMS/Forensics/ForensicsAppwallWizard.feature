@@ -1,9 +1,8 @@
 @AWForensics @TC113209
 Feature: Forensic Wizard
 
-
   @SID_1
-  Scenario: Clean system data before Top Attacks test
+  Scenario: Clean system data before Forensics Appwall Test
     * CLI kill all simulator attacks on current vision
     * REST Delete ES index "appwall-v2-attack-raw*"
     Then REST Request "PUT" for "Connectivity->Inactivity Timeout for Configuration"
@@ -11,20 +10,26 @@ Feature: Forensic Wizard
       | body | sessionInactivTimeoutConfiguration=60 |
     * CLI Clear vision logs
 
+  @SID_3 @Sanity
+  Scenario: Login and navigate to forensics
+    Given UI Login with user "radware" and password "radware"
+    * REST Vision Install License Request "vision-AVA-Max-attack-capacity"
+    Then REST Add "AppWall" Device To topology Tree with Name "Appwall_SA_172.17.164.30" and Management IP "172.17.164.30" into site "AW_site"
+      | attribute     | value    |
+      | httpPassword  | 1qaz!QAZ |
+      | httpsPassword | 1qaz!QAZ |
+      | httpsUsername | user1    |
+      | httpUsername  | user1    |
+      | visionMgtPort | G1       |
+    And UI Navigate to "AMS Forensics" page via homePage
+
   @SID_2
   Scenario: Run AW attacks
-    #Then CLI Run remote linux Command "/root/appwallAttacks/2serversAttack_AW.txt" on "GENERIC_LINUX_SERVER"
-    ##TODO confirm 172.17.164.30 is the correct ip to be using here
     When CLI Run remote linux Command on "GENERIC_LINUX_SERVER"
       | "/home/radware/AW_Attacks/sendAW_Attacks.sh "                     |
       | #visionIP                                                         |
       | " 172.17.164.30 5 "/home/radware/AW_Attacks/AppwallAttackTypes/"" |
-
-  @SID_3 @Sanity
-  Scenario: Login and navigate to forensic
-    Given UI Login with user "radware" and password "radware"
-    * REST Vision Install License Request "vision-AVA-Max-attack-capacity"
-    And UI Navigate to "AMS Forensics" page via homePage
+    And Sleep "20"
 
   @SID_4 @Sanity
   Scenario: create forensic definition Wizard_test
