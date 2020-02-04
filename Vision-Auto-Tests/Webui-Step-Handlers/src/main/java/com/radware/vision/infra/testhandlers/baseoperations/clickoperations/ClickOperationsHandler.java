@@ -179,10 +179,11 @@ public class ClickOperationsHandler {
             BaseTestUtils.report("Failed to get the Text from element with ID: " + elementSelector + " it may not be visible", Reporter.FAIL);
         }
     }
+
     public static void validateTextFieldElementByClass(String elementSelector, String expectedText, EqualsOrContains validationType, int cutCharsNumber) {
         try {
 //            WebElement element = WebUIUtils.fluentWaitDisplayed(new ComponentLocator(How.CLASS_NAME, elementSelector).getBy(), WebUIUtils.DEFAULT_WAIT_TIME, false);
-            WebElement element =  WebUIUtils.fluentWaitDisplayed(new ComponentLocator(How.XPATH, "//*[@class='" + elementSelector+ "']").getBy(), WebUIUtils.DEFAULT_WAIT_TIME, false);
+            WebElement element = WebUIUtils.fluentWaitDisplayed(new ComponentLocator(How.XPATH, "//*[@class='" + elementSelector + "']").getBy(), WebUIUtils.DEFAULT_WAIT_TIME, false);
             validateTextField(element, elementSelector, expectedText, validationType, cutCharsNumber);
         } catch (Exception e) {
             BaseTestUtils.report("Failed to get the Text from element with Class: " + elementSelector + " it may not be visible", Reporter.FAIL);
@@ -218,8 +219,7 @@ public class ClickOperationsHandler {
                         }
                         break;
                     case MatchRegex:
-                        if (!actualText.matches(expectedText))
-                        {
+                        if (!actualText.matches(expectedText)) {
                             BaseTestUtils.report("TextField Validation Failed. Expected Text is:" + expectedText + " Actual Text is:" + actualText, Reporter.FAIL);
                         }
                         break;
@@ -251,19 +251,22 @@ public class ClickOperationsHandler {
                     if (!contains) return new ValidateText(false, actualText);
                 case EQUALS:
                     if (!finalExpectedText.equals(actualText))
-                        return new ValidateText(false, actualText);;
+                        return new ValidateText(false, actualText);
+                    ;
             }
         }
         return new ValidateText(true, actualText);
     }
 
 
-    public static class ValidateText
-    {
+    public static class ValidateText {
         public boolean isExpected;
         public String actualText;
-        ValidateText(){}
-        ValidateText(boolean isExpected, String actualText){
+
+        ValidateText() {
+        }
+
+        ValidateText(boolean isExpected, String actualText) {
             this.isExpected = isExpected;
             this.actualText = actualText;
         }
@@ -362,8 +365,9 @@ public class ClickOperationsHandler {
         else return true;
     }
 
-    public static void validateElementEnableDisableStatusByLabel(String label, Boolean expectedIsEnabled) {
+    public static void validateElementEnableDisableStatusByLabel(String label, String value, Boolean expectedIsEnabled) {
         VisionDebugIdsManager.setLabel(label);
+        if (value != null) VisionDebugIdsManager.setParams(value);
         ComponentLocator locator = ComponentLocatorFactory.getLocatorByDbgId(VisionDebugIdsManager.getDataDebugId());
         Boolean actualIsEnabled = WebUIUtils.isItemEnabled(locator);
         if (actualIsEnabled != expectedIsEnabled) {
@@ -450,7 +454,7 @@ public class ClickOperationsHandler {
                 }
             }
         } catch (Exception e) {
-          BaseTestUtils.report(e.getMessage(), Reporter.FAIL);
+            BaseTestUtils.report(e.getMessage(), Reporter.FAIL);
         }
     }
 

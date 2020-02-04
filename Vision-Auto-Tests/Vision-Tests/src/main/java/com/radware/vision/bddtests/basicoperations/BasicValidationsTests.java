@@ -52,9 +52,9 @@ public class BasicValidationsTests extends BddUITestBase {
      * @param label
      * @param isEnabled
      */
-    @Then("^UI Validate Element EnableDisable status By Label \"(.*)\" is Enabled \"(true|false)\"$")
-    public void validateElementEnableDisableStatus(String label, Boolean isEnabled) {
-        ClickOperationsHandler.validateElementEnableDisableStatusByLabel(label, isEnabled);
+    @Then("^UI Validate Element EnableDisable status By Label \"([^\"]*)\"(?: and Value \"([^\"]*)\") is Enabled \"(true|false)\"$")
+    public void validateElementEnableDisableStatus(String label, String value, Boolean isEnabled) {
+        ClickOperationsHandler.validateElementEnableDisableStatusByLabel(label, value, isEnabled);
     }
 
     /**
