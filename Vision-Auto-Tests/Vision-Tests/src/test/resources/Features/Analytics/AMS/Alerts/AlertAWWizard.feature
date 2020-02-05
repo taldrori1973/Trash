@@ -1,7 +1,6 @@
 @VRM_Alerts @TC113210 @AWALERTS
 Feature: VRM AW Alerts
 
-
   @SID_1
   Scenario: Clean system data
     * CLI kill all simulator attacks on current vision
@@ -15,6 +14,14 @@ Feature: VRM AW Alerts
   @SID_2
   Scenario: VRM - enabling emailing and go to VRM Alerts Tab
     Given UI Login with user "radware" and password "radware"
+    Then REST Add "AppWall" Device To topology Tree with Name "Appwall_SA_172.17.164.30" and Management IP "172.17.164.30" into site "AW_site"
+      | attribute     | value    |
+      | httpPassword  | 1qaz!QAZ |
+      | httpsPassword | 1qaz!QAZ |
+      | httpsUsername | user1    |
+      | httpUsername  | user1    |
+      | visionMgtPort | G1       |
+
     * REST Vision Install License Request "vision-AVA-Max-attack-capacity"
     And UI Go To Vision
     Then UI Navigate to page "System->General Settings->Alert Settings->Alert Browser"
@@ -36,19 +43,18 @@ Feature: VRM AW Alerts
     When UI "Create" Alerts With Name "Alert Delivery"
       | Product | Appwall |
       | Basic Info | Description:Alert Delivery Description,Impact: Our network is down,Remedy: Please protect real quick!,Severity:Critical     |
-      | Criteria | Event Criteria:Action,Operator:Not Equals,Value:[Drop]; |
+      | Criteria   | Event Criteria:Action,Operator:Not Equals,Value:[Forward];     |
       | Schedule   | checkBox:Trigger,alertsPerHour:1                                                                                            |
-      | Share      | Email:[automation.vision1@alert.local, automation.vision2@alert.local],Subject:Alert Delivery Subj,Body:Alert Delivery Body |
+      | Share      | Email:[automation.vision1@alert.local, automation.vision2@alert.local, jason.forish@radware.com],Subject:Alert Delivery Subj,Body:Alert Delivery Body |
 
   @SID_4
   Scenario: Run DP simulator VRM_Alert_Severity
     Then CLI Run remote linux Command "echo "cleared" $(date) > /var/spool/mail/alertuser" on "GENERIC_LINUX_SERVER"
-    #Then CLI Run remote linux Command "/root/appwallAttacks/2serversAttack_AW.txt" on "GENERIC_LINUX_SERVER"
-    ##TODO confirm 172.17.164.30 is the correct ip to be using here
     When CLI Run remote linux Command on "GENERIC_LINUX_SERVER"
       | "/home/radware/AW_Attacks/sendAW_Attacks.sh "                     |
       | #visionIP                                                         |
       | " 172.17.164.30 5 "/home/radware/AW_Attacks/AppwallAttackTypes/"" |
+    And Sleep "60"
 
   @SID_5
   Scenario: Verify Alert Email Delivery Subject
