@@ -29,6 +29,7 @@ Feature: AW Scope Selection
     Given add 200 applications with prefix name "radware_app" to appWall ip:"172.17.164.30" with timeout 300
     Given add 150 applications with prefix name "radware_application" to appWall ip:"172.17.164.30" with timeout 300
     Given add 50 applications with prefix name "application" to appWall ip:"172.17.164.30" with timeout 300
+    And Sleep "45"
     And UI Navigate to "AppWall Dashboard" page via homePage
     And Sleep "5"
     And UI Do Operation "Select" item "Applications"
