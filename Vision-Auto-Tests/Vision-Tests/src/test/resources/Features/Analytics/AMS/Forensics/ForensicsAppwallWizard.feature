@@ -10,7 +10,7 @@ Feature: Forensic Wizard
       | body | sessionInactivTimeoutConfiguration=60 |
     * CLI Clear vision logs
 
-  @SID_3 @Sanity
+  @SID_2 @Sanity
   Scenario: Login and navigate to forensics
     Given UI Login with user "radware" and password "radware"
     * REST Vision Install License Request "vision-AVA-Max-attack-capacity"
@@ -23,7 +23,7 @@ Feature: Forensic Wizard
       | visionMgtPort | G1       |
     And UI Navigate to "AMS Forensics" page via homePage
 
-  @SID_2
+  @SID_3
   Scenario: Run AW attacks
     When CLI Run remote linux Command on "GENERIC_LINUX_SERVER"
       | "/home/radware/AW_Attacks/sendAW_Attacks.sh "                     |
