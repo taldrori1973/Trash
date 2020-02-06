@@ -33,6 +33,7 @@ public class UpgradeSteps extends BddCliTestBase {
             VisionServer.upgradeServerFile(getRestTestBase().getRadwareServerCli(), getRestTestBase().getRootServerCli()
                     , version, build, null, isAPM());
             validateVisionServerServicesUP();
+            CliOperations.runCommand(getRestTestBase().getRootServerCli(), "\"yes|restore_radware_user_password\"", 15 * 1000);
         } catch (Exception e) {
             BaseTestUtils.report(e.getMessage(), Reporter.FAIL);
         }
