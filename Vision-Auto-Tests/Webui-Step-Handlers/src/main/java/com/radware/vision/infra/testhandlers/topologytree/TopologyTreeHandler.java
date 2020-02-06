@@ -732,6 +732,7 @@ public class TopologyTreeHandler {
 
             if (!ClickOperationsHandler.checkIfElementAttributeContains(device, "id", "Default")) {
                 ClickOperationsHandler.clickWebElement(device);
+                if (!device.getAttribute("class").equals("siteIcon"))
                 openDeviceInfoPane();
                 return;
             }

@@ -1129,6 +1129,7 @@ public class VRMBaseUtilies {
                 if (!name.trim().equals("unselected"))
                     BasicOperationsHandler.uploadFileToVision(name, null, null);
             }
+            BasicOperationsHandler.clickButton("Customized Options");
         }
     }
 
