@@ -477,7 +477,7 @@ public class RBACHandler extends RBACHandlerBase {
 //                    WebUIUpperBar.selectNoVerify(UpperBarItems.ToolBox);
                 try
                 {
-                    HomePage.navigateFromHomePage(PropertiesFilesUtils.mapAllPropertyFiles("Navigations").get("TOOLBOX"));
+                    HomePage.navigateFromHomePage(PropertiesFilesUtils.mapAllPropertyFiles("Navigations").get("AUTOMATION"));
                 }catch (Exception e )
                 {
                     errorMessage = e.getMessage();
@@ -502,7 +502,7 @@ public class RBACHandler extends RBACHandlerBase {
 //                    WebUIUpperBar.selectNoVerify(UpperBarItems.ToolBox);
                 try
                 {
-                    HomePage.navigateFromHomePage(PropertiesFilesUtils.mapAllPropertyFiles("Navigations").get("TOOLBOX"));
+                    HomePage.navigateFromHomePage(PropertiesFilesUtils.mapAllPropertyFiles("Navigations").get("AUTOMATION"));
                 }catch (Exception e )
                 {
                     errorMessage = e.getMessage();
@@ -528,7 +528,7 @@ public class RBACHandler extends RBACHandlerBase {
 //                    WebUIUpperBar.selectNoVerify(UpperBarItems.ToolBox);
                 try
                 {
-                    HomePage.navigateFromHomePage(PropertiesFilesUtils.mapAllPropertyFiles("Navigations").get("TOOLBOX"));
+                    HomePage.navigateFromHomePage(PropertiesFilesUtils.mapAllPropertyFiles("Navigations").get("AUTOMATION"));
                 }catch (Exception e )
                 {
                     errorMessage = e.getMessage();
@@ -557,7 +557,7 @@ public class RBACHandler extends RBACHandlerBase {
 //                    WebUIUpperBar.selectNoVerify(UpperBarItems.ToolBox);
                 try
                 {
-                    HomePage.navigateFromHomePage(PropertiesFilesUtils.mapAllPropertyFiles("Navigations").get("TOOLBOX"));
+                    HomePage.navigateFromHomePage(PropertiesFilesUtils.mapAllPropertyFiles("Navigations").get("AUTOMATION"));
                 }catch (Exception e )
                 {
                     errorMessage = e.getMessage();
@@ -620,17 +620,23 @@ public class RBACHandler extends RBACHandlerBase {
 
 
             case "SECURITY CONTROL CENTER":
-                if (existsAndEnabled = checkIfItemEnabled(locator = new ComponentLocator(How.ID, UpperBarItems.TOOLTIP.getMenuIds()))) {
-                    ClickOperationsHandler.clickWebElement(locator);
-                    if (existsAndEnabled = checkIfItemEnabled(new ComponentLocator(How.ID, UpperBarItems.security_control_center.getMenuIds()))) {
-                        errorMessage = "security control center exists and enabled";
-                    } else errorMessage = "security control center icon does not exist or enabled";
-
-                } else errorMessage = "Tooltip icon is not enabled";
+//                if (existsAndEnabled = checkIfItemEnabled(locator = new ComponentLocator(How.ID, UpperBarItems.TOOLTIP.getMenuIds()))) {
+//                    ClickOperationsHandler.clickWebElement(locator);
+//                    if (existsAndEnabled = checkIfItemEnabled(new ComponentLocator(How.ID, UpperBarItems.security_control_center.getMenuIds()))) {
+//                        errorMessage = "security control center exists and enabled";
+//                    } else errorMessage = "security control center icon does not exist or enabled";
+//
+//                } else errorMessage = "Tooltip icon is not enabled";
+//                break;
+                errorMessage = HomePage.validateExistNavigator(PropertiesFilesUtils.mapAllPropertyFiles("Navigations").get("Security Control Center"));
+                existsAndEnabled = errorMessage.equals("");
+                if (existsAndEnabled)
+                    errorMessage="The Navigator " + operation + " shouldn't be exist, But it exists";;
                 break;
 
             case "APP SLA DASHBOARD":
-                WebUIUpperBar.selectNoVerify(UpperBarItems.VisionSettings);
+//                WebUIUpperBar.selectNoVerify(UpperBarItems.VisionSettings);
+                HomePage.navigateFromHomePage(PropertiesFilesUtils.mapAllPropertyFiles("Navigations").get("VISION SETTINGS"));
                 locator = new ComponentLocator(How.ID, VisionSettingsSubMenu.DASHBOARDS.getElementId());
                 if (existsAndEnabled = checkIfItemEnabled(locator)) {
                     ClickOperationsHandler.clickWebElement(locator);
