@@ -13,7 +13,7 @@ Feature: VRM AW Alerts
 
   @SID_2
   Scenario: VRM - enabling emailing and go to VRM Alerts Tab
-    Given UI Login with user "sys_admin" and password "radware"
+    Given UI Login with user "radware" and password "radware"
     Then REST Add "AppWall" Device To topology Tree with Name "Appwall_SA_172.17.164.30" and Management IP "172.17.164.30" into site "AW_site"
       | attribute     | value    |
       | httpPassword  | 1qaz!QAZ |
