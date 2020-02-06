@@ -41,9 +41,7 @@ Feature: HTTPS Flood Dashboard - RBAC
   @SID_4
   Scenario: HTTPS RBAC with scope "all" user
     When UI Login with user "Vision_Reporter_user" and password "radware"
-    When UI Open Upper Bar Item "AMS"
-    When UI Open "Dashboards" Tab
-    Then UI Open "HTTPS Flood Dashboard" Sub Tab
+    Then UI Navigate to "HTTPS Flood Dashboard" page via homePage
     Then HTTPS Scope Selection Validate RBAC with Devices IPs "172.16.22.50,172.16.22.51" and the Following Policies and Page Size 50
       | deviceIp     | policyName |
       | 172.16.22.50 | pol1       |
