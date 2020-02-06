@@ -12,8 +12,9 @@ Feature: Forensic Wizard
 
   @SID_2 @Sanity
   Scenario: Login and navigate to forensics
-    Given UI Login with user "radware" and password "radware"
+    Given UI Login with user "sys_admin" and password "radware"
     * REST Vision Install License Request "vision-AVA-Max-attack-capacity"
+    * REST Vision Install License Request "vision-AVA-AppWall"
     Then REST Add "AppWall" Device To topology Tree with Name "Appwall_SA_172.17.164.30" and Management IP "172.17.164.30" into site "AW_site"
       | attribute     | value    |
       | httpPassword  | 1qaz!QAZ |
