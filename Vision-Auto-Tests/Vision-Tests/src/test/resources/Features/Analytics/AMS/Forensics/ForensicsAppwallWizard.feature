@@ -30,7 +30,7 @@ Feature: Forensic Wizard
       | "/home/radware/AW_Attacks/sendAW_Attacks.sh "                     |
       | #visionIP                                                         |
       | " 172.17.164.30 5 "/home/radware/AW_Attacks/AppwallAttackTypes/"" |
-    And Sleep "20"
+    And Sleep "60"
 
   @SID_4 @Sanity
   Scenario: create forensic definition Wizard_test
