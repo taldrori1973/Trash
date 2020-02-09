@@ -50,6 +50,7 @@ public class HomePage {
                 return "Reports";
             case "AUTOMATION":
                 return "Automation.Toolbox";
+            case "HOME":return "HomePage";
         }
         return tab;
     }
