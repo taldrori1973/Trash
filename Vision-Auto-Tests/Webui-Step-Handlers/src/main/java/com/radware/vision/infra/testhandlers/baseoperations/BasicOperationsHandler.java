@@ -1009,7 +1009,7 @@ public class BasicOperationsHandler {
                 BasicOperationsHandler.clickButton(label, "");
                 break;
             case "Reports":
-                openTab(label);
+             //   openTab(label);
                 clickButton("Add New", "");
                 clickButton("Template","");
                 BasicOperationsHandler.clickButton("DefensePro Behavioral Protections Template", "");
@@ -1018,7 +1018,7 @@ public class BasicOperationsHandler {
                 break;
             case "Forensics":
             case "Alerts":
-                openTab(label);
+               // openTab(label);
                 clickButton("Add New", "");
                 VRMBaseUtilies.expandViews(true);
                 break;

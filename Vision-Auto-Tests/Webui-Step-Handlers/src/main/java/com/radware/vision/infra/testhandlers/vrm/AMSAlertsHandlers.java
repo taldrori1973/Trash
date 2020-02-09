@@ -95,6 +95,7 @@ public class AMSAlertsHandlers extends ForensicsHandler {
             BasicOperationsHandler.clickButton("Add New", "");
             expandViews(true);
             selectBasicInfo(alertsName, map);
+            selectProductNew(map);
             selectDevices(map);
             selectCriteria(map);
             selectSchedule(map);

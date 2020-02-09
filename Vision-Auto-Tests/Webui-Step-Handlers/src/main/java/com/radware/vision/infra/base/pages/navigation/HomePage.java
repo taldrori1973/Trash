@@ -48,6 +48,9 @@ public class HomePage {
             case "adc reports":
             case "ams reports":
                 return "Reports";
+            case "automation":
+                return "Automation.Toolbox";
+            case "home":return "HomePage";
         }
         return tab;
     }

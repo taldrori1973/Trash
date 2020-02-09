@@ -12,13 +12,14 @@ Feature: Show Deleted Policies
       | index |
       | 10    |
     Then Sleep "120"
-    Given UI Login with user "sys_admin" and password "radware"
-    When UI Open Upper Bar Item "AMS"
+
+
 
 
   @SID_2
   Scenario: check policy appears in dashboard devices list
-    And UI Navigate to "DefensePro Monitoring Dashboard" page via homePage
+    Given UI Login with user "sys_admin" and password "radware"
+    Then UI Navigate to "DefensePro Monitoring Dashboard" page via homePage
     Then UI Click Button "Device Selection"
     When UI Select device from dashboard
       | index |
@@ -31,7 +32,7 @@ Feature: Show Deleted Policies
 
   @SID_3
   Scenario: check policy appears in Reports devices list
-    And UI Navigate to "DefensePro Monitoring Dashboard" page via homePage
+    Then UI Navigate to "AMS Reports" page via homePage
     Then UI open devices list of "Reports"
     When UI Select device from dashboard
       | index |
@@ -40,10 +41,10 @@ Feature: Show Deleted Policies
       | index | policies      | isExist |
       | 10    | DeletePolTest | true    |
 
+
   @SID_4
   Scenario: check policy appears in Alerts devices list
-    When UI Open "Dashboards" Tab
-    And UI Open "DP Monitoring Dashboard" Sub Tab
+    Then UI Navigate to "AMS Alerts" page via homePage
     Then UI open devices list of "Alerts"
     When UI Select device from dashboard
       | index |
@@ -55,6 +56,7 @@ Feature: Show Deleted Policies
 
   @SID_5
   Scenario: check policy appears in Forensics devices list
+    Then UI Navigate to "AMS Forensics" page via homePage
     Then UI open devices list of "Forensics"
     When UI Select device from dashboard
       | index |
@@ -81,13 +83,12 @@ Feature: Show Deleted Policies
   @SID_8
   Scenario: Login
     Given UI Login with user "sys_admin" and password "radware"
-    When UI Open Upper Bar Item "AMS"
+
 
 
   @SID_9
   Scenario: check policy NOT appears in dashboard devices list
-    When UI Open "Dashboards" Tab
-    And UI Open "DP Monitoring Dashboard" Sub Tab
+    Then UI Navigate to "DefensePro Monitoring Dashboard" page via homePage
     Then UI Click Button "Device Selection"
     When UI Select device from dashboard
       | index |
@@ -106,8 +107,7 @@ Feature: Show Deleted Policies
 
   @SID_10
   Scenario: check policy NOT appears in Reports devices list
-    When UI Open "Dashboards" Tab
-    And UI Open "DP Monitoring Dashboard" Sub Tab
+    Then UI Navigate to "AMS Reports" page via homePage
     Then UI open devices list of "Reports"
     When UI Select device from dashboard
       | index |
@@ -124,8 +124,7 @@ Feature: Show Deleted Policies
 
   @SID_11
   Scenario: check policy NOT appears in Alerts devices list
-    When UI Open "Dashboards" Tab
-    And UI Open "DP Monitoring Dashboard" Sub Tab
+    Then UI Navigate to "AMS Alerts" page via homePage
     Then UI open devices list of "Alerts"
     When UI Select device from dashboard
       | index |
@@ -142,6 +141,7 @@ Feature: Show Deleted Policies
 
   @SID_12
   Scenario: check policy NOT appears in Forensics devices list
+    Then UI Navigate to "AMS Forensics" page via homePage
     Then UI open devices list of "Forensics"
     When UI Select device from dashboard
       | index |
