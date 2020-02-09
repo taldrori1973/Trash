@@ -13,6 +13,7 @@ import com.radware.vision.vision_handlers.system.upgrade.visionserver.VisionServ
 import com.radware.vision.vision_project_cli.RadwareServerCli;
 import com.radware.vision.vision_project_cli.RootServerCli;
 import com.radware.vision.vision_project_cli.menu.Menu;
+import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
 
@@ -55,9 +56,9 @@ public class UpgradeSteps extends BddCliTestBase {
             String targetIP = restTestBase.getVisionServer().getHost();
             String build = System.getenv("BUILD");//get build from portal
             if (build == null || build.equals("") || build.equals("0")) build = "";//Latest Build
-            UpgradeThread sourceMachineThread = new UpgradeThread(sourceIP, null, build,isAPM());
+            UpgradeThread sourceMachineThread = new UpgradeThread(sourceIP, null, build, isAPM());
             sourceMachineThread.start();
-            UpgradeThread targetMachineThread = new UpgradeThread(targetIP, null, build,isAPM());
+            UpgradeThread targetMachineThread = new UpgradeThread(targetIP, null, build, isAPM());
             targetMachineThread.start();
             while (true) {
                 if (!sourceMachineThread.isAlive() && !targetMachineThread.isAlive())
@@ -89,7 +90,7 @@ public class UpgradeSteps extends BddCliTestBase {
             RadwareServerCli serverCli = restTestBase.getRadwareServerCli();
             serverCli.disconnect();
             serverCli.connect();
-            boolean isVisionUp = waitForVisionServerServicesToStartHA(serverCli, 20 * 60 * 1000);
+            boolean isVisionUp = waitForVisionServerServicesToStartHA(serverCli, 40 * 60 * 1000);
             if (!isVisionUp)
                 BaseTestUtils.report("Not all services are up till timeout.", Reporter.FAIL);
         } catch (Exception e) {
@@ -123,7 +124,7 @@ public class UpgradeSteps extends BddCliTestBase {
      *
      * @param versionNumber - Desired vision version
      * @param buildNumber   - Desired build number (null or "" will use latest successful build)
-     * @param isApm - True if server is APM else false
+     * @param isApm         - True if server is APM else false
      */
     private void upgradeToNonSupportedVersion(String versionNumber, String buildNumber, boolean isApm) {
         VisionDeployment visionDeployment;
@@ -146,10 +147,14 @@ public class UpgradeSteps extends BddCliTestBase {
             InvokeUtils.invokeCommand(null, changeMinorVersion, rootServerCli, GlobalProperties.THIRTY_SECONDS, false, false, true);
             BaseTestUtils.report("Setting Server property file to version: " + String.format("%s.%s.%s", notSupportedVersion[0], notSupportedVersion[1], notSupportedVersion[2]), Reporter.PASS_NOR_FAIL);
             VisionServer.downloadUpgradeFile(rootServerCli, fileLocation);
+            String upgradePassword = "";
+            radwareServerCli.setUpgradePassword(upgradePassword);
+            radwareServerCli.setBeginningTheAPSoluteVisionUpgradeProcessEndsCommand(false);
+
+            long responseTimeOut = 10 * 60 * 1000;
             /* Run the system upgrade command */
-            InvokeUtils.invokeCommand(null, Menu.system().upgrade().full().build() + " " + fileName + " ", radwareServerCli, GlobalProperties.THIRTY_SECONDS, false, false, true);
-            InvokeUtils.invokeCommand(null, "", radwareServerCli, GlobalProperties.THIRTY_SECONDS, false, false, true);
-            InvokeUtils.invokeCommand(null, "Y", radwareServerCli, 10 * 60 * 1000, false, false, true);
+            InvokeUtils.invokeCommand(null, Menu.system().upgrade().full().build() + " " + fileName,
+                    radwareServerCli, responseTimeOut, false, false, true);
             ArrayList<String> output = radwareServerCli.getCmdOutput();
             String errorMessage = String.format("Upgrade from source version \\d+.\\d+.\\d+.\\d+ to version %s is not supported.", versionNumber);
             Pattern pattern = Pattern.compile(errorMessage);
@@ -175,5 +180,44 @@ public class UpgradeSteps extends BddCliTestBase {
                 BaseTestUtils.report(e.getMessage(), Reporter.FAIL);
             }
         }
+    }
+
+    @Given("^Upgrade to future version$")
+    public void upgradeToFutureVersion() {
+        VMOperationsSteps vmOperationsSteps;
+        try {
+            vmOperationsSteps = new VMOperationsSteps();
+            String version = vmOperationsSteps.readVisionVersionFromPomFile();
+            String build = "";
+            build = BaseTestUtils.getRuntimeProperty("BUILD", build);
+            if (build == null || build.equals("") || build.equals("0")) build = "";//Latest Build
+
+            upgradeToTheNextBuild(version, build, isAPM());
+        } catch (Exception e) {
+            BaseTestUtils.report(e.getMessage(), Reporter.FAIL);
+        }
+
+    }
+
+    private void upgradeToTheNextBuild(String version, String build, boolean isApm) throws Exception {
+        VisionDeployment visionDeployment;
+        VisionDeployType deployType = isApm ? VisionDeployType.UPGRADE_APM : VisionDeployType.UPGRADE;
+
+        visionDeployment = new VisionDeployment(deployType, version, build);
+
+        VMOperationsSteps vmOperationsSteps = new VMOperationsSteps();
+        UpgradeSteps upgradeSteps = new UpgradeSteps();
+        String buildUnderTest = visionDeployment.getBuild();
+        if (vmOperationsSteps.isSetupNeeded()) {
+            BaseTestUtils.report("Upgrading to latest build: " + buildUnderTest,
+                    Reporter.PASS_NOR_FAIL);
+            upgradeSteps.UpgradeVisionServer(version, buildUnderTest);
+            BaseTestUtils.report("Server is ready for future upgrade", Reporter.PASS_NOR_FAIL);
+        }
+        visionDeployment = new VisionDeployment(deployType, version, "");
+        String nextBuild = visionDeployment.getBuild();
+        BaseTestUtils.report(String.format("Going to upgrade from build %s to %s", buildUnderTest, nextBuild),
+                Reporter.PASS_NOR_FAIL);
+        upgradeSteps.UpgradeVisionServer(version, visionDeployment.getBuild());
     }
 }

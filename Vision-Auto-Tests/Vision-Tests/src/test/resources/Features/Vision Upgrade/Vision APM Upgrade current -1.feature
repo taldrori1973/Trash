@@ -13,8 +13,8 @@ Feature: Vision APM Upgrade current -1
   Scenario: Fill partitions to max limit
     Then CLI copy "/home/radware/Scripts/fill_my_disk.sh" from "GENERIC_LINUX_SERVER" to "ROOT_SERVER_CLI" "/"
     Then CLI copy "/home/radware/Scripts/copyUpgradeLog.sh" from "GENERIC_LINUX_SERVER" to "ROOT_SERVER_CLI" "/"
-    Then CLI Run remote linux Command "/fill_my_disk.sh /opt/radware 88" on "ROOT_SERVER_CLI"
-    Then CLI Run remote linux Command "/fill_my_disk.sh / 88" on "ROOT_SERVER_CLI"
+    Then CLI Run remote linux Command "/fill_my_disk.sh /opt/radware 78" on "ROOT_SERVER_CLI"
+    Then CLI Run remote linux Command "/fill_my_disk.sh / 78" on "ROOT_SERVER_CLI"
 
   @SID_3
   Scenario: Do any pre-upgrade changes
@@ -36,37 +36,42 @@ Feature: Vision APM Upgrade current -1
     Then CLI Run remote linux Command "/copyUpgradeLog.sh" on "ROOT_SERVER_CLI"
 
     Then CLI Check if logs contains
-      | logType | expression                                                       | isExpected   |
-      | UPGRADE | fatal                                                            | NOT_EXPECTED |
+      | logType | expression                                                             | isExpected   |
+      | UPGRADE | fatal                                                                  | NOT_EXPECTED |
     # | UPGRADE | error                                                            | NOT_EXPECTED      |
-      | UPGRADE | fail to\|failed to                                               | NOT_EXPECTED |
-      | UPGRADE | The upgrade of APSolute Vision server has completed successfully | EXPECTED     |
-      | UPGRADE | Vision Reporter upgrade finished                                 | EXPECTED     |
-      | UPGRADE | Successfully upgraded from AVR                                   | EXPECTED     |
-      | UPGRADE | Upgrading vDirect services ended                                 | EXPECTED     |
-      | UPGRADE | APSolute Vision ELASTICSEARCH upgrade finished                   | EXPECTED     |
-      | UPGRADE | APSolute Vision AMQP upgrade finished                            | EXPECTED     |
-      | UPGRADE | APSolute Vision Appwall upgrade finished                         | EXPECTED     |
-      | UPGRADE | APSolute Vision Workflows upgrade finished                       | EXPECTED     |
-      | UPGRADE | APSolute Vision Databse upgrade finished                         | EXPECTED     |
-      | UPGRADE | APSolute Vision CLI upgrade finished                             | EXPECTED     |
-      | UPGRADE | APSolute Vision Web upgrade finished                             | EXPECTED     |
-      | UPGRADE | APSolute Vision DP upgrade finished                              | EXPECTED     |
-      | UPGRADE | APSolute Vision Configuration upgrade finished                   | EXPECTED     |
-      | UPGRADE | APSolute Vision Device upgrade finished                          | EXPECTED     |
-      | UPGRADE | APSolute Vision Online upgrade finished                          | EXPECTED     |
-      | UPGRADE | APSolute Vision WEB upgrade finished                             | EXPECTED     |
-      | UPGRADE | APSolute Vision Application upgrade finished                     | EXPECTED     |
-      | UPGRADE | APSolute Vision System upgrade finished                          | EXPECTED     |
-      | UPGRADE | APSolute Vision OS upgrade finished                              | EXPECTED     |
-      | UPGRADE | ERROR                                                            | NOT_EXPECTED |
-      | UPGRADE | error: package MySQL-                                            | IGNORE       |
-      | UPGRADE | ic_logi_error.png                                                | IGNORE       |
-      | UPGRADE | tree-error.png                                                   | IGNORE       |
-      | LLS     | fatal\| error\|fail                                              | NOT_EXPECTED |
-      | LLS     | Installation ended                                               | EXPECTED     |
-      | LLS     | Setup complete!                                                  | EXPECTED     |
-      | UPGRADE | Failed to parse /etc/cgconfig.conf                               | IGNORE       |
+      | UPGRADE | fail to\|failed to                                                     | NOT_EXPECTED |
+      | UPGRADE | The upgrade of APSolute Vision server has completed successfully       | EXPECTED     |
+      | UPGRADE | Vision Reporter upgrade finished                                       | EXPECTED     |
+      | UPGRADE | Successfully upgraded from AVR                                         | EXPECTED     |
+      | UPGRADE | Upgrading vDirect services ended                                       | EXPECTED     |
+      | UPGRADE | APSolute Vision ELASTICSEARCH upgrade finished                         | EXPECTED     |
+      | UPGRADE | APSolute Vision AMQP upgrade finished                                  | EXPECTED     |
+      | UPGRADE | APSolute Vision Appwall upgrade finished                               | EXPECTED     |
+      | UPGRADE | APSolute Vision Workflows upgrade finished                             | EXPECTED     |
+      | UPGRADE | APSolute Vision Databse upgrade finished                               | EXPECTED     |
+      | UPGRADE | APSolute Vision CLI upgrade finished                                   | EXPECTED     |
+      | UPGRADE | APSolute Vision Web upgrade finished                                   | EXPECTED     |
+      | UPGRADE | APSolute Vision DP upgrade finished                                    | EXPECTED     |
+      | UPGRADE | APSolute Vision Configuration upgrade finished                         | EXPECTED     |
+      | UPGRADE | APSolute Vision Device upgrade finished                                | EXPECTED     |
+      | UPGRADE | APSolute Vision Online upgrade finished                                | EXPECTED     |
+      | UPGRADE | APSolute Vision WEB upgrade finished                                   | EXPECTED     |
+      | UPGRADE | APSolute Vision Application upgrade finished                           | EXPECTED     |
+      | UPGRADE | APSolute Vision System upgrade finished                                | EXPECTED     |
+      | UPGRADE | APSolute Vision OS upgrade finished                                    | EXPECTED     |
+      | UPGRADE | ERROR                                                                  | NOT_EXPECTED |
+      | UPGRADE | error: package MySQL-                                                  | IGNORE       |
+      | UPGRADE | *.svg                                                                  | IGNORE       |
+      | UPGRADE | *.png                                                                  | IGNORE       |
+      | UPGRADE | inflating:                                                             | IGNORE       |
+      | LLS     | fatal\| error\|fail                                                    | NOT_EXPECTED |
+      | LLS     | Installation ended                                                     | EXPECTED     |
+      | LLS     | Setup complete!                                                        | EXPECTED     |
+      | UPGRADE | Failed to parse /etc/cgconfig.conf                                     | IGNORE       |
+      | UPGRADE | error loading /etc/cgconfig.conf: Cgroup mounting failed               | IGNORE       |
+      | UPGRADE | Error: cannot mount cpuset to /cgroup/cpuset: Device or resource busy  | IGNORE       |
+      | UPGRADE | /opt/radware/storage/www/webui/vision-dashboards/public/static/media/* | IGNORE       |
+
 
 
   @SID_6
@@ -128,11 +133,6 @@ Feature: Vision APM Upgrade current -1
     Then REST get Basic Parameters "lastUpgradeStatus"
     Then UI Validate Text field "Upgrade Status" EQUALS "OK"
 
-  @SID_10
-  Scenario: validate APM container is up and relevant services are running in it
-    Then CLI Run linux Command "service vz status" on "ROOT_SERVER_CLI" and validate result EQUALS "OpenVZ is running..."
-    Then CLI Run linux Command "vzctl exec 101 SPSERVER_INSTANCE=rad /usr/share/sharepath/server/sbin/spserver-initd.sh --action=status | grep "is running..." | wc -l" on "ROOT_SERVER_CLI" and validate result EQUALS "6"
-
   @SID_11
   Scenario: Validate TED status
     Then CLI Run linux Command "echo $(mysql -prad123 vision_ng -N -B -e "select count(*) from vision_license where license_str like '%reporting-module-ADC%';")-$(netstat -nlt |grep 5140|wc -l)|bc" on "ROOT_SERVER_CLI" and validate result EQUALS "0"
@@ -171,9 +171,12 @@ Feature: Vision APM Upgrade current -1
 
   @SID_18
   Scenario: Visit device subscription page
-    Then REST Request "GET" for "Device Subscriptions->Table"
-      | type                 | value |
-      | Returned status code | 200   |
+#    Then REST Request "GET" for "Device Subscriptions->Table"
+#       | type                 | value |
+#       | Returned status code | 200   |
+
+    Then CLI Run linux Command "result=`curl -ks -X "POST" "https://localhost/mgmt/system/user/login" -H "Content-Type: application/json" -d $"{\"username\": \"radware\",\"password\": \"radware\"}"`; jsession=`echo $result | tr "," "\n"|grep -i jsession|tr -d '"' | cut -d: -f2`; curl -ks -o null -XGET -H "Cookie: JSESSIONID=$jsession" https://localhost/mgmt/system/config/itemlist/devicesubscriptions -w 'RESP_CODE:%{response_code}\n'" on "ROOT_SERVER_CLI" and validate result EQUALS "RESP_CODE:200" with timeOut 300 with runCommand delay 90
+    Then CLI Operations - Verify that output contains regex "RESP_CODE:200"
 
   @SID_19
   Scenario: Delete fake devices from tree
@@ -187,6 +190,7 @@ Feature: Vision APM Upgrade current -1
 
   @SID_21
   Scenario: Validate MySql version
+    Then CLI Run remote linux Command "cat /opt/radware/sql_partition.txt" on "ROOT_SERVER_CLI"
     Then CLI Run linux Command "mysql -prad123 --version|awk '{print$5}'" on "ROOT_SERVER_CLI" and validate result EQUALS "10.4.6-MariaDB,"
 
   @SID_22
@@ -200,9 +204,9 @@ Feature: Vision APM Upgrade current -1
 
   @SID_23
   Scenario: Validate LLS service is up
-    Then CLI Run remote linux Command "curl -ks -o null -XGET http://localhost4:7070/api/1.0/hostids -w 'RESP_CODE:%{response_code}\n'" on "ROOT_SERVER_CLI"
+    Then CLI Run linux Command "curl -ks -o null -XGET http://localhost4:7070/api/1.0/hostids -w 'RESP_CODE:%{response_code}\n'" on "ROOT_SERVER_CLI" and validate result EQUALS "RESP_CODE:200" with timeOut 300
     Then CLI Operations - Verify that output contains regex "RESP_CODE:200"
-    Then CLI Run remote linux Command "curl -ks -o null -XGET http://localhost6:7070/api/1.0/hostids -w 'RESP_CODE:%{response_code}\n'" on "ROOT_SERVER_CLI"
+    Then CLI Run linux Command "curl -ks -o null -XGET http://localhost6:7070/api/1.0/hostids -w 'RESP_CODE:%{response_code}\n'" on "ROOT_SERVER_CLI" and validate result EQUALS "RESP_CODE:200" with timeOut 300
     Then CLI Operations - Verify that output contains regex "RESP_CODE:200"
       #rollback to the original values
     Given CLI Run remote linux Command "mysql -prad123 vision_ng -e "update lls_server set min_required_ram='32';"" on "ROOT_SERVER_CLI"
@@ -215,7 +219,8 @@ Feature: Vision APM Upgrade current -1
   @SID_25
   Scenario: Validate increased MySql partitioning number
     Then CLI Run remote linux Command "echo "After " $(mysql -prad123 vision -e "show create table traffic_utilizations\G" |grep "(PARTITION \`p" |awk -F"p" '{print$2}'|awk -F"\`" '{print$1}') >>  /opt/radware/sql_partition.txt" on "ROOT_SERVER_CLI"
-    Then CLI Run linux Command "echo $(cat /opt/radware/sql_partition.txt |grep "After"|awk '{print$2}')-$(cat /opt/radware/sql_partition.txt |grep "Before"|awk '{print$2}')|bc" on "ROOT_SERVER_CLI" and validate result EQUALS "-110"
+    Then CLI Run remote linux Command "cat /opt/radware/sql_partition.txt" on "ROOT_SERVER_CLI"
+    Then CLI Run linux Command "echo $(cat /opt/radware/sql_partition.txt |grep "After"|awk '{print$2}')-$(cat /opt/radware/sql_partition.txt |grep "Before"|awk '{print$2}')|bc" on "ROOT_SERVER_CLI" and validate result GT "0"
 
   @SID_26
   Scenario: Validate IPv6 Hostname in /etc/hosts
@@ -234,3 +239,23 @@ Feature: Vision APM Upgrade current -1
   @SID_29
   Scenario: Verify number of tables in vision_ng schema
     Then CLI Run linux Command "mysql -prad123 -NB -e "select count(*) from INFORMATION_SCHEMA.TABLES WHERE TABLE_SCHEMA='vision_ng';"" on "ROOT_SERVER_CLI" and validate result EQUALS "166"
+
+  @SID_10
+  Scenario: validate APM container is up and relevant services are running in it
+    Then CLI Run linux Command "service vz status" on "ROOT_SERVER_CLI" and validate result EQUALS "OpenVZ is running..."
+    Then CLI Run linux Command "vzctl exec 101 SPSERVER_INSTANCE=rad /usr/share/sharepath/server/sbin/spserver-initd.sh --action=status | grep "is running..." | wc -l" on "ROOT_SERVER_CLI" and validate result EQUALS "6"
+
+  @SID_30
+  Scenario: Verify services are running
+    Then CLI Run linux Command "service mgtsrv status" on "ROOT_SERVER_CLI" and validate result CONTAINS "APSolute Vision Reporter is running" in any line with timeOut 15
+    Then CLI Run linux Command "service mgtsrv status" on "ROOT_SERVER_CLI" and validate result CONTAINS "AMQP service is running" in any line with timeOut 15
+    Then CLI Run linux Command "service mgtsrv status" on "ROOT_SERVER_CLI" and validate result CONTAINS "Configuration server is running" in any line with timeOut 15
+    Then CLI Run linux Command "service mgtsrv status" on "ROOT_SERVER_CLI" and validate result CONTAINS "Collector service is running" in any line with timeOut 15
+    Then CLI Run linux Command "service mgtsrv status" on "ROOT_SERVER_CLI" and validate result CONTAINS "New Reporter service is running" in any line with timeOut 15
+    Then CLI Run linux Command "service mgtsrv status" on "ROOT_SERVER_CLI" and validate result CONTAINS "Alerts service is running" in any line with timeOut 15
+    Then CLI Run linux Command "service mgtsrv status" on "ROOT_SERVER_CLI" and validate result CONTAINS "Scheduler service is running" in any line with timeOut 15
+    Then CLI Run linux Command "service mgtsrv status" on "ROOT_SERVER_CLI" and validate result CONTAINS "Configuration Synchronization service is running" in any line with timeOut 15
+    Then CLI Run linux Command "service mgtsrv status" on "ROOT_SERVER_CLI" and validate result CONTAINS "Tor feed service is running" in any line with timeOut 15
+    Then CLI Run linux Command "service mgtsrv status" on "ROOT_SERVER_CLI" and validate result CONTAINS "Radware vDirect is running" in any line with timeOut 15
+    Then CLI Run linux Command "service mgtsrv status" on "ROOT_SERVER_CLI" and validate result CONTAINS "VRM reporting engine is running" in any line with timeOut 15
+    Then CLI Run linux Command "service mgtsrv status" on "ROOT_SERVER_CLI" and validate result CONTAINS "td-agent is running" in any line with timeOut 15
