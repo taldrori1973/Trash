@@ -89,28 +89,15 @@ Feature: US58313 APSolute Vision Analytics - AppWall - License
     Then UI Click Button by Class "ant-notification-notice-close"
     Then UI Validate Text field "Title" EQUALS "AppWall"
 
-    Then UI Open "Dashboards" Tab
-    Then UI Validate Element Existence By Label "DP Monitoring Dashboard" if Exists "false"
-
-
-      #    Validate DefensePro Behavioral Protections Dashboard Navigation
-    Then UI Validate Element Existence By Label "DP BDoS Baseline" if Exists "false"
-
-
-
-#    Validate DefensePro Analytics Dashboard Navigation
-    Then UI Validate Element Existence By Label "DP Analytics" if Exists "false"
-
-#    Validate HTTPS Flood Dashboard Navigation
-    Then UI Validate Element Existence By Label "HTTPS Flood Dashboard" if Exists "false"
-
-
-#    Validate DefenseFlow Analytics Dashboard Navigation
-    Then UI Validate Element Existence By Label "DefenseFlow Analytics Dashboard" if Exists "false"
+    Then Validate Navigation to "DefensePro Monitoring Dashboard" is disabled
+    Then Validate Navigation to "DefensePro Behavioral Protections Dashboard" is disabled
+    Then Validate Navigation to "DefensePro Analytics Dashboard" is disabled
+    Then Validate Navigation to "HTTPS Flood Dashboard" is disabled
+    Then Validate Navigation to "DefenseFlow Analytics Dashboard" is disabled
 
 
     #    Validate Reports Navigation
-    Given UI Open "Reports" Tab
+    When UI Navigate to "AMS Reports" page via homePage
     When UI Click Button "Add New"
     Then UI Click Button "Template" with value ""
     And UI Validate Element Existence By Label "AppWall Template" if Exists "true"
