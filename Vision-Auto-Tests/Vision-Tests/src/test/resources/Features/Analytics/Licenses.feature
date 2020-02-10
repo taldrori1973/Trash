@@ -20,13 +20,14 @@ Feature: ADC License Validation
 
   @SID_10
   Scenario: Add ADC License and validate no error message
-    Then REST Vision Install License Request "vision-reporting-module-ADC"
-    When UI Login with user "sys_admin" and password "radware"
-
-
-
+    Given REST Vision Install License Request "vision-reporting-module-ADC"
+    Given UI Login with user "sys_admin" and password "radware"
+    Then UI Navigate to "Application Dashboard" page via homePage
+    Then UI Navigate to "System and Network Dashboard" page via homePage
+    Then UI Navigate to "ADC Reports" page via homePage
+    Then UI Logout
 
   @SID_13
   Scenario: Logout
-    * UI logout and close browser
+    * UI close browser
 
