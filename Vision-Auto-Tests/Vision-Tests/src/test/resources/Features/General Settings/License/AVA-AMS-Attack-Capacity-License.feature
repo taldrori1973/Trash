@@ -68,25 +68,25 @@ Feature: US62031 APSolute Vision Analytics - AMS - Attack Capacity License
 
     When UI Navigate to "DefensePro Behavioral Protections Dashboard" page via homePage
     Then UI Click Button by Class "ant-notification-notice-close"
-    Then UI Validate Text field "Title" EQUALS "DefensePro Dashboard"
+    Then UI Validate Text field "Title" EQUALS "DefensePro Behavioral Protections"
 
 #    Validate DefensePro Analytics Dashboard Navigation
 
     When UI Navigate to "DefensePro Analytics Dashboard" page via homePage
     Then UI Click Button by Class "ant-notification-notice-close"
-    Then UI Validate Text field "Title" EQUALS "DefensePro Analytics Dashboard"
+    Then UI Validate Text field "Title" EQUALS "DefensePro Analytics"
 
 #    Validate HTTPS Flood Dashboard Navigation
 
     When UI Navigate to "HTTPS Flood Dashboard" page via homePage
     Then UI Click Button by Class "ant-notification-notice-close"
-    Then UI Validate Text field "header HTTPS" EQUALS "HTTPS Flood Dashboard"
+    Then UI Validate Text field "header HTTPS" EQUALS "HTTPS Flood"
 
   #    Validate DefenseFlow Analytics Dashboard Navigation
 
     When UI Navigate to "DefenseFlow Analytics Dashboard" page via homePage
     Then UI Click Button by Class "ant-notification-notice-close"
-    Then UI Validate Text field "Header" EQUALS "DefenseFlow Analytics Dashboard"
+    Then UI Validate Text field "Header" EQUALS "DefenseFlow Analytics"
 
     #    Validate NO AppWall Dashboard Navigation
 
@@ -166,25 +166,25 @@ Feature: US62031 APSolute Vision Analytics - AMS - Attack Capacity License
 
     When UI Navigate to "DefensePro Behavioral Protections Dashboard" page via homePage
     Then UI Click Button by Class "ant-notification-notice-close"
-    Then UI Validate Text field "Title" EQUALS "DefensePro Dashboard"
+    Then UI Validate Text field "Title" EQUALS "DefensePro Behavioral Protections"
 
 #    Validate DefensePro Analytics Dashboard Navigation
 
     When UI Navigate to "DefensePro Analytics Dashboard" page via homePage
     Then UI Click Button by Class "ant-notification-notice-close"
-    Then UI Validate Text field "Title" EQUALS "DefensePro Analytics Dashboard"
+    Then UI Validate Text field "Title" EQUALS "DefensePro Analytics"
 
 #    Validate HTTPS Flood Dashboard Navigation
 
     When UI Navigate to "HTTPS Flood Dashboard" page via homePage
     Then UI Click Button by Class "ant-notification-notice-close"
-    Then UI Validate Text field "header HTTPS" EQUALS "HTTPS Flood Dashboard"
+    Then UI Validate Text field "header HTTPS" EQUALS "HTTPS Flood"
 
   #    Validate DefenseFlow Analytics Dashboard Navigation
 
     When UI Navigate to "DefenseFlow Analytics Dashboard" page via homePage
     Then UI Click Button by Class "ant-notification-notice-close"
-    Then UI Validate Text field "Header" EQUALS "DefenseFlow Analytics Dashboard"
+    Then UI Validate Text field "Header" EQUALS "DefenseFlow Analytics"
 
     #    Validate NO AppWall Dashboard Navigation
 
@@ -264,25 +264,25 @@ Feature: US62031 APSolute Vision Analytics - AMS - Attack Capacity License
 
     When UI Navigate to "DefensePro Behavioral Protections Dashboard" page via homePage
     Then UI Click Button by Class "ant-notification-notice-close"
-    Then UI Validate Text field "Title" EQUALS "DefensePro Dashboard"
+    Then UI Validate Text field "Title" EQUALS "DefensePro Behavioral Protections"
 
 #    Validate DefensePro Analytics Dashboard Navigation
 
     When UI Navigate to "DefensePro Analytics Dashboard" page via homePage
     Then UI Click Button by Class "ant-notification-notice-close"
-    Then UI Validate Text field "Title" EQUALS "DefensePro Analytics Dashboard"
+    Then UI Validate Text field "Title" EQUALS "DefensePro Analytics"
 
 #    Validate HTTPS Flood Dashboard Navigation
 
     When UI Navigate to "HTTPS Flood Dashboard" page via homePage
     Then UI Click Button by Class "ant-notification-notice-close"
-    Then UI Validate Text field "header HTTPS" EQUALS "HTTPS Flood Dashboard"
+    Then UI Validate Text field "header HTTPS" EQUALS "HTTPS Flood"
 
   #    Validate DefenseFlow Analytics Dashboard Navigation
 
     When UI Navigate to "DefenseFlow Analytics Dashboard" page via homePage
     Then UI Click Button by Class "ant-notification-notice-close"
-    Then UI Validate Text field "Header" EQUALS "DefenseFlow Analytics Dashboard"
+    Then UI Validate Text field "Header" EQUALS "DefenseFlow Analytics"
 
     #    Validate NO AppWall Dashboard Navigation
 
@@ -363,25 +363,25 @@ Feature: US62031 APSolute Vision Analytics - AMS - Attack Capacity License
 
     When UI Navigate to "DefensePro Behavioral Protections Dashboard" page via homePage
     Then UI Click Button by Class "ant-notification-notice-close"
-    Then UI Validate Text field "Title" EQUALS "DefensePro Dashboard"
+    Then UI Validate Text field "Title" EQUALS "DefensePro Behavioral Protections"
 
 #    Validate DefensePro Analytics Dashboard Navigation
 
     When UI Navigate to "DefensePro Analytics Dashboard" page via homePage
     Then UI Click Button by Class "ant-notification-notice-close"
-    Then UI Validate Text field "Title" EQUALS "DefensePro Analytics Dashboard"
+    Then UI Validate Text field "Title" EQUALS "DefensePro Analytics"
 
 #    Validate HTTPS Flood Dashboard Navigation
 
     When UI Navigate to "HTTPS Flood Dashboard" page via homePage
     Then UI Click Button by Class "ant-notification-notice-close"
-    Then UI Validate Text field "header HTTPS" EQUALS "HTTPS Flood Dashboard"
+    Then UI Validate Text field "header HTTPS" EQUALS "HTTPS Flood"
 
   #    Validate DefenseFlow Analytics Dashboard Navigation
 
     When UI Navigate to "DefenseFlow Analytics Dashboard" page via homePage
     Then UI Click Button by Class "ant-notification-notice-close"
-    Then UI Validate Text field "Header" EQUALS "DefenseFlow Analytics Dashboard"
+    Then UI Validate Text field "Header" EQUALS "DefenseFlow Analytics"
 
     #    Validate NO AppWall Dashboard Navigation
 
@@ -502,23 +502,23 @@ Feature: US62031 APSolute Vision Analytics - AMS - Attack Capacity License
         #    Validate DefensePro Behavioral Protections Dashboard Navigation
     When UI Navigate to "DefensePro Behavioral Protections Dashboard" page via homePage
     Then UI Click Button by Class "ant-notification-notice-close"
-    Then UI Validate Text field "Title" EQUALS "DefensePro Dashboard"
+    Then UI Validate Text field "Title" EQUALS "DefensePro Behavioral Protections"
 
 #    Validate DefensePro Analytics Dashboard Navigation
     When UI Navigate to "DefensePro Analytics Dashboard" page via homePage
     Then UI Click Button by Class "ant-notification-notice-close"
-    Then UI Validate Text field "Title" EQUALS "DefensePro Analytics Dashboard"
+    Then UI Validate Text field "Title" EQUALS "DefensePro Analytics"
 
 #    Validate HTTPS Flood Dashboard Navigation
     When UI Navigate to "HTTPS Flood Dashboard" page via homePage
     Then UI Click Button by Class "ant-notification-notice-close"
-    Then UI Validate Text field "header HTTPS" EQUALS "HTTPS Flood Dashboard"
+    Then UI Validate Text field "header HTTPS" EQUALS "HTTPS Flood"
 
 
      #    Validate DefenseFlow Analytics Dashboard Navigation
     When UI Navigate to "DefenseFlow Analytics Dashboard" page via homePage
     Then UI Click Button by Class "ant-notification-notice-close"
-    Then UI Validate Text field "Header" EQUALS "DefenseFlow Analytics Dashboard"
+    Then UI Validate Text field "Header" EQUALS "DefenseFlow Analytics"
 
     #    Validate NO AppWall Dashboard Navigation
     Then Validate Navigation to "AppWall Dashboard" is disabled
@@ -592,20 +592,20 @@ Feature: US62031 APSolute Vision Analytics - AMS - Attack Capacity License
     Then UI Validate Element Existence By Label "Device Selection.Device Insufficient License" if Exists "false" with value "172.16.22.55"
     #    Validate DefensePro Behavioral Protections Dashboard Navigation
     When UI Navigate to "DefensePro Behavioral Protections Dashboard" page via homePage
-    Then UI Validate Text field "Title" EQUALS "DefensePro Dashboard"
+    Then UI Validate Text field "Title" EQUALS "DefensePro Behavioral Protections"
 
 #    Validate DefensePro Analytics Dashboard Navigation
     When UI Navigate to "DefensePro Analytics Dashboard" page via homePage
-    Then UI Validate Text field "Title" EQUALS "DefensePro Analytics Dashboard"
+    Then UI Validate Text field "Title" EQUALS "DefensePro Analytics"
 
 #    Validate HTTPS Flood Dashboard Navigation
     When UI Navigate to "HTTPS Flood Dashboard" page via homePage
-    Then UI Validate Text field "header HTTPS" EQUALS "HTTPS Flood Dashboard"
+    Then UI Validate Text field "header HTTPS" EQUALS "HTTPS Flood"
 
 
      #    Validate DefenseFlow Analytics Dashboard Navigation
     When UI Navigate to "DefenseFlow Analytics Dashboard" page via homePage
-    Then UI Validate Text field "Header" EQUALS "DefenseFlow Analytics Dashboard"
+    Then UI Validate Text field "Header" EQUALS "DefenseFlow Analytics"
 
     #    Validate NO AppWall Dashboard Navigation
     Then Validate Navigation to "AppWall Dashboard" is disabled
@@ -685,23 +685,23 @@ Feature: US62031 APSolute Vision Analytics - AMS - Attack Capacity License
  #    Validate DefensePro Behavioral Protections Dashboard Navigation
     When UI Navigate to "DefensePro Behavioral Protections Dashboard" page via homePage
     Then UI Click Button by Class "ant-notification-notice-close"
-    Then UI Validate Text field "Title" EQUALS "DefensePro Dashboard"
+    Then UI Validate Text field "Title" EQUALS "DefensePro Behavioral Protections"
 
 #    Validate DefensePro Analytics Dashboard Navigation
     When UI Navigate to "DefensePro Analytics Dashboard" page via homePage
     Then UI Click Button by Class "ant-notification-notice-close"
-    Then UI Validate Text field "Title" EQUALS "DefensePro Analytics Dashboard"
+    Then UI Validate Text field "Title" EQUALS "DefensePro Analytics"
 
 #    Validate HTTPS Flood Dashboard Navigation
     When UI Navigate to "HTTPS Flood Dashboard" page via homePage
     Then UI Click Button by Class "ant-notification-notice-close"
-    Then UI Validate Text field "header HTTPS" EQUALS "HTTPS Flood Dashboard"
+    Then UI Validate Text field "header HTTPS" EQUALS "HTTPS Flood"
 
 
      #    Validate DefenseFlow Analytics Dashboard Navigation
     When UI Navigate to "DefenseFlow Analytics Dashboard" page via homePage
     Then UI Click Button by Class "ant-notification-notice-close"
-    Then UI Validate Text field "Header" EQUALS "DefenseFlow Analytics Dashboard"
+    Then UI Validate Text field "Header" EQUALS "DefenseFlow Analytics"
 
     #    Validate NO AppWall Dashboard Navigation
     Then Validate Navigation to "AppWall Dashboard" is disabled
@@ -778,20 +778,20 @@ Feature: US62031 APSolute Vision Analytics - AMS - Attack Capacity License
 
  #    Validate DefensePro Behavioral Protections Dashboard Navigation
     When UI Navigate to "DefensePro Behavioral Protections Dashboard" page via homePage
-    Then UI Validate Text field "Title" EQUALS "DefensePro Dashboard"
+    Then UI Validate Text field "Title" EQUALS "DefensePro Behavioral Protections"
 
 #    Validate DefensePro Analytics Dashboard Navigation
     When UI Navigate to "DefensePro Analytics Dashboard" page via homePage
-    Then UI Validate Text field "Title" EQUALS "DefensePro Analytics Dashboard"
+    Then UI Validate Text field "Title" EQUALS "DefensePro Analytics"
 
 #    Validate HTTPS Flood Dashboard Navigation
     When UI Navigate to "HTTPS Flood Dashboard" page via homePage
-    Then UI Validate Text field "header HTTPS" EQUALS "HTTPS Flood Dashboard"
+    Then UI Validate Text field "header HTTPS" EQUALS "HTTPS Flood"
 
 
      #    Validate DefenseFlow Analytics Dashboard Navigation
     When UI Navigate to "DefenseFlow Analytics Dashboard" page via homePage
-    Then UI Validate Text field "Header" EQUALS "DefenseFlow Analytics Dashboard"
+    Then UI Validate Text field "Header" EQUALS "DefenseFlow Analytics"
 
     #    Validate NO AppWall Dashboard Navigation
     Then Validate Navigation to "AppWall Dashboard" is disabled
@@ -873,28 +873,28 @@ Feature: US62031 APSolute Vision Analytics - AMS - Attack Capacity License
  #    Validate DefensePro Behavioral Protections Dashboard Navigation
     When UI Navigate to "DefensePro Behavioral Protections Dashboard" page via homePage
     Then UI Click Button by Class "ant-notification-notice-close"
-    Then UI Validate Text field "Title" EQUALS "DefensePro Dashboard"
+    Then UI Validate Text field "Title" EQUALS "DefensePro Behavioral Protections"
 
 #    Validate DefensePro Analytics Dashboard Navigation
     When UI Navigate to "DefensePro Analytics Dashboard" page via homePage
     Then UI Click Button by Class "ant-notification-notice-close"
-    Then UI Validate Text field "Title" EQUALS "DefensePro Analytics Dashboard"
+    Then UI Validate Text field "Title" EQUALS "DefensePro Analytics"
 
 #    Validate HTTPS Flood Dashboard Navigation
     When UI Navigate to "HTTPS Flood Dashboard" page via homePage
     Then UI Click Button by Class "ant-notification-notice-close"
-    Then UI Validate Text field "header HTTPS" EQUALS "HTTPS Flood Dashboard"
+    Then UI Validate Text field "header HTTPS" EQUALS "HTTPS Flood"
 
 
      #    Validate DefenseFlow Analytics Dashboard Navigation
     When UI Navigate to "DefenseFlow Analytics Dashboard" page via homePage
     Then UI Click Button by Class "ant-notification-notice-close"
-    Then UI Validate Text field "Header" EQUALS "DefenseFlow Analytics Dashboard"
+    Then UI Validate Text field "Header" EQUALS "DefenseFlow Analytics"
 
    #    Validate AppWall Dashboard Navigation
     When UI Navigate to "AppWall Dashboard" page via homePage
     Then UI Click Button by Class "ant-notification-notice-close"
-    Then UI Validate Text field "Title" EQUALS "AppWall Dashboard"
+    Then UI Validate Text field "Title" EQUALS "AppWall"
 
 #    Validate Reports Navigation
     When UI Navigate to "AMS Reports" page via homePage
