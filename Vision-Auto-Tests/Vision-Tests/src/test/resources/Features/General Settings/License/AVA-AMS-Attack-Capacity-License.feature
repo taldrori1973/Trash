@@ -1,10 +1,11 @@
 #By MohamadI
 @TC110252
+
 Feature: US62031 APSolute Vision Analytics - AMS - Attack Capacity License
 
   @TC110252-Rest
   @SID_1
-  @run
+
   Scenario: Setup - Restore Server Status as After Upgrade without AVA License
     Given REST Vision DELETE License Request "vision-AVA-6-Gbps-attack-capacity"
     And REST Vision DELETE License Request "vision-AVA-20-Gbps-attack-capacity"
@@ -316,7 +317,7 @@ Feature: US62031 APSolute Vision Analytics - AMS - Attack Capacity License
 
   @TC110252-Rest
   @SID_9
-    @run
+  
   Scenario: Validate in Grace Period of Last Day
     When Set Server Last Upgrade Time to 29 Days Back From Now
 
@@ -336,7 +337,7 @@ Feature: US62031 APSolute Vision Analytics - AMS - Attack Capacity License
       | valid | false |
 
   @SID_10
-    @run
+  
   Scenario: UI Validate in Grace Period of Last Day
     Given UI Login with user "sys_admin" and password "radware"
     Given UI Navigate to "HOME" page via homePage
@@ -415,7 +416,7 @@ Feature: US62031 APSolute Vision Analytics - AMS - Attack Capacity License
 
 #------------------------------------License Expired-----------------------------------------
   @SID_11
-  @run
+
   @TC110252-Rest
   Scenario: Validate Grace Period Expiration
     When Set Server Last Upgrade Time to 30 Days Back From Now
@@ -924,6 +925,6 @@ Feature: US62031 APSolute Vision Analytics - AMS - Attack Capacity License
     Then UI Logout
 
   @SID_22
-  @run
+
   Scenario: close browser
     Then UI close browser

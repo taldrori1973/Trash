@@ -103,14 +103,14 @@ public class HomePage {
         return "";
     }
 
-    public static boolean isNavigationDisabled(String tab) throws Exception {
+    public static boolean isNavigationDisabled(String path) throws Exception {
 
-        expandMenu(tab);
-        if (path.size() > 1)
-            for (int i = 0; i < path.size() - 1; i++) openItem(path.get(i));
+        expandMenu(path);
+        if (HomePage.path.size() > 1)
+            for (int i = 0; i < HomePage.path.size() - 1; i++) openItem(HomePage.path.get(i));
 
-        tab = path.get(path.size() - 1);
-        VisionDebugIdsManager.setLabel(tab);
+        path = HomePage.path.get(HomePage.path.size() - 1);
+        VisionDebugIdsManager.setLabel(path);
         WebElement webElement = WebUIUtils.fluentWait(ComponentLocatorFactory.getLocatorByDbgId(VisionDebugIdsManager.getDataDebugId()).getBy());
         if (!Objects.isNull(webElement)) {
             List<WebElement> elements = webElement.findElements(By.tagName("div"));
@@ -119,7 +119,7 @@ public class HomePage {
                 String isDisabled = elementToTest.getAttribute("disabled");
                 if (isDisabled == null) return false;
                 return Boolean.parseBoolean(isDisabled);
-            } else throw new Exception("no sub elements was found for " + tab);
-        } else throw new Exception("The element of " + tab + " isn't found");
+            } else throw new Exception("no sub elements was found for " + path);
+        } else throw new Exception("The element of " + path + " isn't found");
     }
 }
