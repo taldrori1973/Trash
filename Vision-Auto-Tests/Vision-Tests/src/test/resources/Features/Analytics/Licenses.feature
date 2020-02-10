@@ -22,20 +22,7 @@ Feature: ADC License Validation
     When UI Login with user "sys_admin" and password "radware"
 
 
-  @SID_11
-  Scenario: Add ADC license and validate no error message for Application Dashboard
-    Given UI Open "Configurations" Tab
-    When UI Open Upper Bar Item "ADC"
-    And UI Open "Dashboards" Tab
-    And UI Open "Application Dashboard" Sub Tab
 
-  @SID_12
-  Scenario: Add ADC license and validate no error message for Network and System Dashboard
-    Given UI Open "Configurations" Tab
-    When UI Open Upper Bar Item "ADC"
-    And UI Open "Dashboards" Tab
-    And UI Open "Network and System Dashboard" Sub Tab
-    Given UI Open "Configurations" Tab
 
   @SID_13
   Scenario: Logout
