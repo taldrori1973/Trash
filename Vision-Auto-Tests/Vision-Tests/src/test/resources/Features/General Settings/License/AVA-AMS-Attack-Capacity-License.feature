@@ -87,7 +87,7 @@ Feature: US62031 APSolute Vision Analytics - AMS - Attack Capacity License
 
     When UI Navigate to "DefenseFlow Analytics Dashboard" page via homePage
     Then UI Click Button by Class "ant-notification-notice-close"
-    Then UI Validate Text field "Header" EQUALS "DefenseFlow Analytics"
+    Then UI Validate Text field "Title" EQUALS "DefenseFlow Analytics"
 
     #    Validate NO AppWall Dashboard Navigation
 
@@ -185,7 +185,7 @@ Feature: US62031 APSolute Vision Analytics - AMS - Attack Capacity License
 
     When UI Navigate to "DefenseFlow Analytics Dashboard" page via homePage
     Then UI Click Button by Class "ant-notification-notice-close"
-    Then UI Validate Text field "Header" EQUALS "DefenseFlow Analytics"
+    Then UI Validate Text field "Title" EQUALS "DefenseFlow Analytics"
 
     #    Validate NO AppWall Dashboard Navigation
 
@@ -283,7 +283,7 @@ Feature: US62031 APSolute Vision Analytics - AMS - Attack Capacity License
 
     When UI Navigate to "DefenseFlow Analytics Dashboard" page via homePage
     Then UI Click Button by Class "ant-notification-notice-close"
-    Then UI Validate Text field "Header" EQUALS "DefenseFlow Analytics"
+    Then UI Validate Text field "Title" EQUALS "DefenseFlow Analytics"
 
     #    Validate NO AppWall Dashboard Navigation
 
@@ -382,7 +382,7 @@ Feature: US62031 APSolute Vision Analytics - AMS - Attack Capacity License
 
     When UI Navigate to "DefenseFlow Analytics Dashboard" page via homePage
     Then UI Click Button by Class "ant-notification-notice-close"
-    Then UI Validate Text field "Header" EQUALS "DefenseFlow Analytics"
+    Then UI Validate Text field "Title" EQUALS "DefenseFlow Analytics"
 
     #    Validate NO AppWall Dashboard Navigation
 
@@ -519,7 +519,7 @@ Feature: US62031 APSolute Vision Analytics - AMS - Attack Capacity License
      #    Validate DefenseFlow Analytics Dashboard Navigation
     When UI Navigate to "DefenseFlow Analytics Dashboard" page via homePage
     Then UI Click Button by Class "ant-notification-notice-close"
-    Then UI Validate Text field "Header" EQUALS "DefenseFlow Analytics"
+    Then UI Validate Text field "Title" EQUALS "DefenseFlow Analytics"
 
     #    Validate NO AppWall Dashboard Navigation
     Then Validate Navigation to "AppWall Dashboard" is disabled
@@ -606,7 +606,7 @@ Feature: US62031 APSolute Vision Analytics - AMS - Attack Capacity License
 
      #    Validate DefenseFlow Analytics Dashboard Navigation
     When UI Navigate to "DefenseFlow Analytics Dashboard" page via homePage
-    Then UI Validate Text field "Header" EQUALS "DefenseFlow Analytics"
+    Then UI Validate Text field "Title" EQUALS "DefenseFlow Analytics"
 
     #    Validate NO AppWall Dashboard Navigation
     Then Validate Navigation to "AppWall Dashboard" is disabled
@@ -702,7 +702,7 @@ Feature: US62031 APSolute Vision Analytics - AMS - Attack Capacity License
      #    Validate DefenseFlow Analytics Dashboard Navigation
     When UI Navigate to "DefenseFlow Analytics Dashboard" page via homePage
     Then UI Click Button by Class "ant-notification-notice-close"
-    Then UI Validate Text field "Header" EQUALS "DefenseFlow Analytics"
+    Then UI Validate Text field "Title" EQUALS "DefenseFlow Analytics"
 
     #    Validate NO AppWall Dashboard Navigation
     Then Validate Navigation to "AppWall Dashboard" is disabled
@@ -792,7 +792,7 @@ Feature: US62031 APSolute Vision Analytics - AMS - Attack Capacity License
 
      #    Validate DefenseFlow Analytics Dashboard Navigation
     When UI Navigate to "DefenseFlow Analytics Dashboard" page via homePage
-    Then UI Validate Text field "Header" EQUALS "DefenseFlow Analytics"
+    Then UI Validate Text field "Title" EQUALS "DefenseFlow Analytics"
 
     #    Validate NO AppWall Dashboard Navigation
     Then Validate Navigation to "AppWall Dashboard" is disabled
@@ -890,7 +890,7 @@ Feature: US62031 APSolute Vision Analytics - AMS - Attack Capacity License
      #    Validate DefenseFlow Analytics Dashboard Navigation
     When UI Navigate to "DefenseFlow Analytics Dashboard" page via homePage
     Then UI Click Button by Class "ant-notification-notice-close"
-    Then UI Validate Text field "Header" EQUALS "DefenseFlow Analytics"
+    Then UI Validate Text field "Title" EQUALS "DefenseFlow Analytics"
 
    #    Validate AppWall Dashboard Navigation
     When UI Navigate to "AppWall Dashboard" page via homePage
