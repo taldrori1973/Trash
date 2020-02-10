@@ -14,6 +14,9 @@ Feature: VRM AW Alerts
   @SID_2
   Scenario: VRM - enabling emailing and go to VRM Alerts Tab
     Given UI Login with user "radware" and password "radware"
+    * REST Vision Install License Request "vision-AVA-Max-attack-capacity"
+    * REST Vision Install License Request "vision-AVA-AppWall"
+    And Sleep "120"
     Then REST Add "AppWall" Device To topology Tree with Name "Appwall_SA_172.17.164.30" and Management IP "172.17.164.30" into site "AW_site"
       | attribute     | value    |
       | httpPassword  | 1qaz!QAZ |
@@ -22,9 +25,6 @@ Feature: VRM AW Alerts
       | httpUsername  | user1    |
       | visionMgtPort | G1       |
 
-    * REST Vision Install License Request "vision-AVA-Max-attack-capacity"
-    * REST Vision Install License Request "vision-AVA-AppWall"
-    And Sleep "60"
     And UI Go To Vision
     Then UI Navigate to page "System->General Settings->Alert Settings->Alert Browser"
     Then UI Do Operation "select" item "Email Reporting Configuration"

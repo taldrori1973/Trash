@@ -1,10 +1,11 @@
 #By MohamadI
 @TC110252
+
 Feature: US62031 APSolute Vision Analytics - AMS - Attack Capacity License
 
   @TC110252-Rest
   @SID_1
-  @run
+
   Scenario: Setup - Restore Server Status as After Upgrade without AVA License
     Given REST Vision DELETE License Request "vision-AVA-6-Gbps-attack-capacity"
     And REST Vision DELETE License Request "vision-AVA-20-Gbps-attack-capacity"
@@ -19,12 +20,6 @@ Feature: US62031 APSolute Vision Analytics - AMS - Attack Capacity License
     When Set AVA_Grace_Period_Status to In Grace Period
 
     Then Service Vision restart and Wait 1 Minute
-
-  @SID_2
-  @run
-  Scenario: Login
-    Then UI Login with user "sys_admin" and password "radware"
-
 
   @TC110252-Rest
   @SID_3
@@ -49,8 +44,8 @@ Feature: US62031 APSolute Vision Analytics - AMS - Attack Capacity License
 
 
   @SID_4
-
   Scenario:UI Validate First Day of Grace Period
+    Given UI Login with user "sys_admin" and password "radware"
     Given UI Navigate to "DefensePro Monitoring Dashboard" page via homePage
 
 
@@ -74,25 +69,25 @@ Feature: US62031 APSolute Vision Analytics - AMS - Attack Capacity License
 
     When UI Navigate to "DefensePro Behavioral Protections Dashboard" page via homePage
     Then UI Click Button by Class "ant-notification-notice-close"
-    Then UI Validate Text field "Title" EQUALS "DefensePro Dashboard"
+    Then UI Validate Text field "Title" EQUALS "DefensePro Behavioral Protections"
 
 #    Validate DefensePro Analytics Dashboard Navigation
 
     When UI Navigate to "DefensePro Analytics Dashboard" page via homePage
     Then UI Click Button by Class "ant-notification-notice-close"
-    Then UI Validate Text field "Title" EQUALS "DefensePro Analytics Dashboard"
+    Then UI Validate Text field "Title" EQUALS "DefensePro Analytics"
 
 #    Validate HTTPS Flood Dashboard Navigation
 
     When UI Navigate to "HTTPS Flood Dashboard" page via homePage
     Then UI Click Button by Class "ant-notification-notice-close"
-    Then UI Validate Text field "header HTTPS" EQUALS "HTTPS Flood Dashboard"
+    Then UI Validate Text field "header HTTPS" EQUALS "HTTPS Flood"
 
   #    Validate DefenseFlow Analytics Dashboard Navigation
 
     When UI Navigate to "DefenseFlow Analytics Dashboard" page via homePage
     Then UI Click Button by Class "ant-notification-notice-close"
-    Then UI Validate Text field "Header" EQUALS "DefenseFlow Analytics Dashboard"
+    Then UI Validate Text field "Header" EQUALS "DefenseFlow Analytics"
 
     #    Validate NO AppWall Dashboard Navigation
 
@@ -123,6 +118,7 @@ Feature: US62031 APSolute Vision Analytics - AMS - Attack Capacity License
     Then UI Validate Element EnableDisable status By Label "Select Product" and Value "defenseflow" is Enabled "true"
     Then UI Validate Element EnableDisable status By Label "Select Product" and Value "appwall" is Enabled "false"
 
+    Then UI Logout
   @TC110252-Rest
   @SID_5
   Scenario: Validate Grace Period of day 29
@@ -146,7 +142,7 @@ Feature: US62031 APSolute Vision Analytics - AMS - Attack Capacity License
 
   @SID_6
   Scenario: UI Validate Grace Period of day 29
-
+    Given UI Login with user "sys_admin" and password "radware"
     Given UI Navigate to "HOME" page via homePage
     Given UI Navigate to "DefensePro Monitoring Dashboard" page via homePage
 
@@ -171,25 +167,25 @@ Feature: US62031 APSolute Vision Analytics - AMS - Attack Capacity License
 
     When UI Navigate to "DefensePro Behavioral Protections Dashboard" page via homePage
     Then UI Click Button by Class "ant-notification-notice-close"
-    Then UI Validate Text field "Title" EQUALS "DefensePro Dashboard"
+    Then UI Validate Text field "Title" EQUALS "DefensePro Behavioral Protections"
 
 #    Validate DefensePro Analytics Dashboard Navigation
 
     When UI Navigate to "DefensePro Analytics Dashboard" page via homePage
     Then UI Click Button by Class "ant-notification-notice-close"
-    Then UI Validate Text field "Title" EQUALS "DefensePro Analytics Dashboard"
+    Then UI Validate Text field "Title" EQUALS "DefensePro Analytics"
 
 #    Validate HTTPS Flood Dashboard Navigation
 
     When UI Navigate to "HTTPS Flood Dashboard" page via homePage
     Then UI Click Button by Class "ant-notification-notice-close"
-    Then UI Validate Text field "header HTTPS" EQUALS "HTTPS Flood Dashboard"
+    Then UI Validate Text field "header HTTPS" EQUALS "HTTPS Flood"
 
   #    Validate DefenseFlow Analytics Dashboard Navigation
 
     When UI Navigate to "DefenseFlow Analytics Dashboard" page via homePage
     Then UI Click Button by Class "ant-notification-notice-close"
-    Then UI Validate Text field "Header" EQUALS "DefenseFlow Analytics Dashboard"
+    Then UI Validate Text field "Header" EQUALS "DefenseFlow Analytics"
 
     #    Validate NO AppWall Dashboard Navigation
 
@@ -219,6 +215,7 @@ Feature: US62031 APSolute Vision Analytics - AMS - Attack Capacity License
     Then UI Validate Element EnableDisable status By Label "Select Product" and Value "defensepro" is Enabled "true"
     Then UI Validate Element EnableDisable status By Label "Select Product" and Value "defenseflow" is Enabled "true"
     Then UI Validate Element EnableDisable status By Label "Select Product" and Value "appwall" is Enabled "false"
+    Then UI Logout
 
   @TC110252-Rest
   @SID_7
@@ -243,6 +240,7 @@ Feature: US62031 APSolute Vision Analytics - AMS - Attack Capacity License
 
   @SID_8
   Scenario: UI Validate Grace Period of day 2
+    Given UI Login with user "sys_admin" and password "radware"
     Given UI Navigate to "HOME" page via homePage
     Given UI Navigate to "DefensePro Monitoring Dashboard" page via homePage
 
@@ -267,25 +265,25 @@ Feature: US62031 APSolute Vision Analytics - AMS - Attack Capacity License
 
     When UI Navigate to "DefensePro Behavioral Protections Dashboard" page via homePage
     Then UI Click Button by Class "ant-notification-notice-close"
-    Then UI Validate Text field "Title" EQUALS "DefensePro Dashboard"
+    Then UI Validate Text field "Title" EQUALS "DefensePro Behavioral Protections"
 
 #    Validate DefensePro Analytics Dashboard Navigation
 
     When UI Navigate to "DefensePro Analytics Dashboard" page via homePage
     Then UI Click Button by Class "ant-notification-notice-close"
-    Then UI Validate Text field "Title" EQUALS "DefensePro Analytics Dashboard"
+    Then UI Validate Text field "Title" EQUALS "DefensePro Analytics"
 
 #    Validate HTTPS Flood Dashboard Navigation
 
     When UI Navigate to "HTTPS Flood Dashboard" page via homePage
     Then UI Click Button by Class "ant-notification-notice-close"
-    Then UI Validate Text field "header HTTPS" EQUALS "HTTPS Flood Dashboard"
+    Then UI Validate Text field "header HTTPS" EQUALS "HTTPS Flood"
 
   #    Validate DefenseFlow Analytics Dashboard Navigation
 
     When UI Navigate to "DefenseFlow Analytics Dashboard" page via homePage
     Then UI Click Button by Class "ant-notification-notice-close"
-    Then UI Validate Text field "Header" EQUALS "DefenseFlow Analytics Dashboard"
+    Then UI Validate Text field "Header" EQUALS "DefenseFlow Analytics"
 
     #    Validate NO AppWall Dashboard Navigation
 
@@ -315,10 +313,11 @@ Feature: US62031 APSolute Vision Analytics - AMS - Attack Capacity License
     Then UI Validate Element EnableDisable status By Label "Select Product" and Value "defensepro" is Enabled "true"
     Then UI Validate Element EnableDisable status By Label "Select Product" and Value "defenseflow" is Enabled "true"
     Then UI Validate Element EnableDisable status By Label "Select Product" and Value "appwall" is Enabled "false"
+    Then UI Logout
 
   @TC110252-Rest
   @SID_9
-    @run
+  
   Scenario: Validate in Grace Period of Last Day
     When Set Server Last Upgrade Time to 29 Days Back From Now
 
@@ -338,8 +337,9 @@ Feature: US62031 APSolute Vision Analytics - AMS - Attack Capacity License
       | valid | false |
 
   @SID_10
-    @run
+  
   Scenario: UI Validate in Grace Period of Last Day
+    Given UI Login with user "sys_admin" and password "radware"
     Given UI Navigate to "HOME" page via homePage
     Given UI Navigate to "DefensePro Monitoring Dashboard" page via homePage
 
@@ -364,25 +364,25 @@ Feature: US62031 APSolute Vision Analytics - AMS - Attack Capacity License
 
     When UI Navigate to "DefensePro Behavioral Protections Dashboard" page via homePage
     Then UI Click Button by Class "ant-notification-notice-close"
-    Then UI Validate Text field "Title" EQUALS "DefensePro Dashboard"
+    Then UI Validate Text field "Title" EQUALS "DefensePro Behavioral Protections"
 
 #    Validate DefensePro Analytics Dashboard Navigation
 
     When UI Navigate to "DefensePro Analytics Dashboard" page via homePage
     Then UI Click Button by Class "ant-notification-notice-close"
-    Then UI Validate Text field "Title" EQUALS "DefensePro Analytics Dashboard"
+    Then UI Validate Text field "Title" EQUALS "DefensePro Analytics"
 
 #    Validate HTTPS Flood Dashboard Navigation
 
     When UI Navigate to "HTTPS Flood Dashboard" page via homePage
     Then UI Click Button by Class "ant-notification-notice-close"
-    Then UI Validate Text field "header HTTPS" EQUALS "HTTPS Flood Dashboard"
+    Then UI Validate Text field "header HTTPS" EQUALS "HTTPS Flood"
 
   #    Validate DefenseFlow Analytics Dashboard Navigation
 
     When UI Navigate to "DefenseFlow Analytics Dashboard" page via homePage
     Then UI Click Button by Class "ant-notification-notice-close"
-    Then UI Validate Text field "Header" EQUALS "DefenseFlow Analytics Dashboard"
+    Then UI Validate Text field "Header" EQUALS "DefenseFlow Analytics"
 
     #    Validate NO AppWall Dashboard Navigation
 
@@ -412,10 +412,11 @@ Feature: US62031 APSolute Vision Analytics - AMS - Attack Capacity License
     Then UI Validate Element EnableDisable status By Label "Select Product" and Value "defensepro" is Enabled "true"
     Then UI Validate Element EnableDisable status By Label "Select Product" and Value "defenseflow" is Enabled "true"
     Then UI Validate Element EnableDisable status By Label "Select Product" and Value "appwall" is Enabled "false"
+    Then UI Logout
 
 #------------------------------------License Expired-----------------------------------------
   @SID_11
-  @run
+
   @TC110252-Rest
   Scenario: Validate Grace Period Expiration
     When Set Server Last Upgrade Time to 30 Days Back From Now
@@ -438,6 +439,7 @@ Feature: US62031 APSolute Vision Analytics - AMS - Attack Capacity License
   @SID_12
   @run
   Scenario: UI Validate Grace Period Expiration
+    Given UI Login with user "sys_admin" and password "radware"
     Given UI Navigate to "HOME" page via homePage
     Then Validate Navigation to "DefensePro Monitoring Dashboard" is disabled
     Then Validate Navigation to "DefensePro Behavioral Protections Dashboard" is disabled
@@ -448,6 +450,7 @@ Feature: US62031 APSolute Vision Analytics - AMS - Attack Capacity License
     Then Validate Navigation to "AMS Reports" is disabled
     Then Validate Navigation to "AMS Forensics" is disabled
     Then Validate Navigation to "AMS Alerts" is disabled
+    Then UI Logout
 
 
 #-----------------------New License--------------------------------------------
@@ -479,6 +482,7 @@ Feature: US62031 APSolute Vision Analytics - AMS - Attack Capacity License
 
 
   Scenario: UI Validate License of 6 Gbps When All Devices Are with Capacity of 6 Gbps
+    Given UI Login with user "sys_admin" and password "radware"
     Given UI Navigate to "HOME" page via homePage
     Given UI Navigate to "DefensePro Monitoring Dashboard" page via homePage
 
@@ -499,23 +503,23 @@ Feature: US62031 APSolute Vision Analytics - AMS - Attack Capacity License
         #    Validate DefensePro Behavioral Protections Dashboard Navigation
     When UI Navigate to "DefensePro Behavioral Protections Dashboard" page via homePage
     Then UI Click Button by Class "ant-notification-notice-close"
-    Then UI Validate Text field "Title" EQUALS "DefensePro Dashboard"
+    Then UI Validate Text field "Title" EQUALS "DefensePro Behavioral Protections"
 
 #    Validate DefensePro Analytics Dashboard Navigation
     When UI Navigate to "DefensePro Analytics Dashboard" page via homePage
     Then UI Click Button by Class "ant-notification-notice-close"
-    Then UI Validate Text field "Title" EQUALS "DefensePro Analytics Dashboard"
+    Then UI Validate Text field "Title" EQUALS "DefensePro Analytics"
 
 #    Validate HTTPS Flood Dashboard Navigation
     When UI Navigate to "HTTPS Flood Dashboard" page via homePage
     Then UI Click Button by Class "ant-notification-notice-close"
-    Then UI Validate Text field "header HTTPS" EQUALS "HTTPS Flood Dashboard"
+    Then UI Validate Text field "header HTTPS" EQUALS "HTTPS Flood"
 
 
      #    Validate DefenseFlow Analytics Dashboard Navigation
     When UI Navigate to "DefenseFlow Analytics Dashboard" page via homePage
     Then UI Click Button by Class "ant-notification-notice-close"
-    Then UI Validate Text field "Header" EQUALS "DefenseFlow Analytics Dashboard"
+    Then UI Validate Text field "Header" EQUALS "DefenseFlow Analytics"
 
     #    Validate NO AppWall Dashboard Navigation
     Then Validate Navigation to "AppWall Dashboard" is disabled
@@ -545,6 +549,7 @@ Feature: US62031 APSolute Vision Analytics - AMS - Attack Capacity License
     Then UI Validate Element EnableDisable status By Label "Select Product" and Value "defensepro" is Enabled "true"
     Then UI Validate Element EnableDisable status By Label "Select Product" and Value "defenseflow" is Enabled "true"
     Then UI Validate Element EnableDisable status By Label "Select Product" and Value "appwall" is Enabled "false"
+    Then UI Logout
 
   @TC110252-Rest
   @SID_15
@@ -571,6 +576,7 @@ Feature: US62031 APSolute Vision Analytics - AMS - Attack Capacity License
 
   @SID_16
   Scenario: UI Validate License of 20 Gbps When All Devices Are with Capacity of 6 Gbps
+    Given UI Login with user "sys_admin" and password "radware"
     Given UI Navigate to "HOME" page via homePage
     Given UI Navigate to "DefensePro Monitoring Dashboard" page via homePage
 
@@ -587,20 +593,20 @@ Feature: US62031 APSolute Vision Analytics - AMS - Attack Capacity License
     Then UI Validate Element Existence By Label "Device Selection.Device Insufficient License" if Exists "false" with value "172.16.22.55"
     #    Validate DefensePro Behavioral Protections Dashboard Navigation
     When UI Navigate to "DefensePro Behavioral Protections Dashboard" page via homePage
-    Then UI Validate Text field "Title" EQUALS "DefensePro Dashboard"
+    Then UI Validate Text field "Title" EQUALS "DefensePro Behavioral Protections"
 
 #    Validate DefensePro Analytics Dashboard Navigation
     When UI Navigate to "DefensePro Analytics Dashboard" page via homePage
-    Then UI Validate Text field "Title" EQUALS "DefensePro Analytics Dashboard"
+    Then UI Validate Text field "Title" EQUALS "DefensePro Analytics"
 
 #    Validate HTTPS Flood Dashboard Navigation
     When UI Navigate to "HTTPS Flood Dashboard" page via homePage
-    Then UI Validate Text field "header HTTPS" EQUALS "HTTPS Flood Dashboard"
+    Then UI Validate Text field "header HTTPS" EQUALS "HTTPS Flood"
 
 
      #    Validate DefenseFlow Analytics Dashboard Navigation
     When UI Navigate to "DefenseFlow Analytics Dashboard" page via homePage
-    Then UI Validate Text field "Header" EQUALS "DefenseFlow Analytics Dashboard"
+    Then UI Validate Text field "Header" EQUALS "DefenseFlow Analytics"
 
     #    Validate NO AppWall Dashboard Navigation
     Then Validate Navigation to "AppWall Dashboard" is disabled
@@ -630,6 +636,7 @@ Feature: US62031 APSolute Vision Analytics - AMS - Attack Capacity License
     Then UI Validate Element EnableDisable status By Label "Select Product" and Value "defensepro" is Enabled "true"
     Then UI Validate Element EnableDisable status By Label "Select Product" and Value "defenseflow" is Enabled "true"
     Then UI Validate Element EnableDisable status By Label "Select Product" and Value "appwall" is Enabled "false"
+    Then UI Logout
 
   @TC110252-Rest
   @SID_17
@@ -656,6 +663,7 @@ Feature: US62031 APSolute Vision Analytics - AMS - Attack Capacity License
 
   @SID_18
   Scenario: UI Validate License of 20 Gbps When First Device Capacity is 60 Gbps
+    Given UI Login with user "sys_admin" and password "radware"
     Given UI Navigate to "HOME" page via homePage
     Given UI Navigate to "DefensePro Monitoring Dashboard" page via homePage
 
@@ -678,23 +686,23 @@ Feature: US62031 APSolute Vision Analytics - AMS - Attack Capacity License
  #    Validate DefensePro Behavioral Protections Dashboard Navigation
     When UI Navigate to "DefensePro Behavioral Protections Dashboard" page via homePage
     Then UI Click Button by Class "ant-notification-notice-close"
-    Then UI Validate Text field "Title" EQUALS "DefensePro Dashboard"
+    Then UI Validate Text field "Title" EQUALS "DefensePro Behavioral Protections"
 
 #    Validate DefensePro Analytics Dashboard Navigation
     When UI Navigate to "DefensePro Analytics Dashboard" page via homePage
     Then UI Click Button by Class "ant-notification-notice-close"
-    Then UI Validate Text field "Title" EQUALS "DefensePro Analytics Dashboard"
+    Then UI Validate Text field "Title" EQUALS "DefensePro Analytics"
 
 #    Validate HTTPS Flood Dashboard Navigation
     When UI Navigate to "HTTPS Flood Dashboard" page via homePage
     Then UI Click Button by Class "ant-notification-notice-close"
-    Then UI Validate Text field "header HTTPS" EQUALS "HTTPS Flood Dashboard"
+    Then UI Validate Text field "header HTTPS" EQUALS "HTTPS Flood"
 
 
      #    Validate DefenseFlow Analytics Dashboard Navigation
     When UI Navigate to "DefenseFlow Analytics Dashboard" page via homePage
     Then UI Click Button by Class "ant-notification-notice-close"
-    Then UI Validate Text field "Header" EQUALS "DefenseFlow Analytics Dashboard"
+    Then UI Validate Text field "Header" EQUALS "DefenseFlow Analytics"
 
     #    Validate NO AppWall Dashboard Navigation
     Then Validate Navigation to "AppWall Dashboard" is disabled
@@ -724,6 +732,7 @@ Feature: US62031 APSolute Vision Analytics - AMS - Attack Capacity License
     Then UI Validate Element EnableDisable status By Label "Select Product" and Value "defensepro" is Enabled "true"
     Then UI Validate Element EnableDisable status By Label "Select Product" and Value "defenseflow" is Enabled "true"
     Then UI Validate Element EnableDisable status By Label "Select Product" and Value "appwall" is Enabled "false"
+    Then UI Logout
 
   @TC110252-Rest
   @SID_19
@@ -751,6 +760,7 @@ Feature: US62031 APSolute Vision Analytics - AMS - Attack Capacity License
 
   @SID_20
   Scenario: UI Validate Max License
+    Given UI Login with user "sys_admin" and password "radware"
     Given UI Navigate to "HOME" page via homePage
     Given UI Navigate to "DefensePro Monitoring Dashboard" page via homePage
 
@@ -769,20 +779,20 @@ Feature: US62031 APSolute Vision Analytics - AMS - Attack Capacity License
 
  #    Validate DefensePro Behavioral Protections Dashboard Navigation
     When UI Navigate to "DefensePro Behavioral Protections Dashboard" page via homePage
-    Then UI Validate Text field "Title" EQUALS "DefensePro Dashboard"
+    Then UI Validate Text field "Title" EQUALS "DefensePro Behavioral Protections"
 
 #    Validate DefensePro Analytics Dashboard Navigation
     When UI Navigate to "DefensePro Analytics Dashboard" page via homePage
-    Then UI Validate Text field "Title" EQUALS "DefensePro Analytics Dashboard"
+    Then UI Validate Text field "Title" EQUALS "DefensePro Analytics"
 
 #    Validate HTTPS Flood Dashboard Navigation
     When UI Navigate to "HTTPS Flood Dashboard" page via homePage
-    Then UI Validate Text field "header HTTPS" EQUALS "HTTPS Flood Dashboard"
+    Then UI Validate Text field "header HTTPS" EQUALS "HTTPS Flood"
 
 
      #    Validate DefenseFlow Analytics Dashboard Navigation
     When UI Navigate to "DefenseFlow Analytics Dashboard" page via homePage
-    Then UI Validate Text field "Header" EQUALS "DefenseFlow Analytics Dashboard"
+    Then UI Validate Text field "Header" EQUALS "DefenseFlow Analytics"
 
     #    Validate NO AppWall Dashboard Navigation
     Then Validate Navigation to "AppWall Dashboard" is disabled
@@ -812,6 +822,7 @@ Feature: US62031 APSolute Vision Analytics - AMS - Attack Capacity License
     Then UI Validate Element EnableDisable status By Label "Select Product" and Value "defensepro" is Enabled "true"
     Then UI Validate Element EnableDisable status By Label "Select Product" and Value "defenseflow" is Enabled "true"
     Then UI Validate Element EnableDisable status By Label "Select Product" and Value "appwall" is Enabled "false"
+    Then UI Logout
 
   @TC110252-Rest
   @SID_21
@@ -844,6 +855,7 @@ Feature: US62031 APSolute Vision Analytics - AMS - Attack Capacity License
     And Validate License "AVA_APPWALL_LICENSE" Parameters
       | valid | true |
 
+    Given UI Login with user "sys_admin" and password "radware"
     Given UI Navigate to "HOME" page via homePage
     Given UI Navigate to "DefensePro Monitoring Dashboard" page via homePage
 
@@ -862,28 +874,28 @@ Feature: US62031 APSolute Vision Analytics - AMS - Attack Capacity License
  #    Validate DefensePro Behavioral Protections Dashboard Navigation
     When UI Navigate to "DefensePro Behavioral Protections Dashboard" page via homePage
     Then UI Click Button by Class "ant-notification-notice-close"
-    Then UI Validate Text field "Title" EQUALS "DefensePro Dashboard"
+    Then UI Validate Text field "Title" EQUALS "DefensePro Behavioral Protections"
 
 #    Validate DefensePro Analytics Dashboard Navigation
     When UI Navigate to "DefensePro Analytics Dashboard" page via homePage
     Then UI Click Button by Class "ant-notification-notice-close"
-    Then UI Validate Text field "Title" EQUALS "DefensePro Analytics Dashboard"
+    Then UI Validate Text field "Title" EQUALS "DefensePro Analytics"
 
 #    Validate HTTPS Flood Dashboard Navigation
     When UI Navigate to "HTTPS Flood Dashboard" page via homePage
     Then UI Click Button by Class "ant-notification-notice-close"
-    Then UI Validate Text field "header HTTPS" EQUALS "HTTPS Flood Dashboard"
+    Then UI Validate Text field "header HTTPS" EQUALS "HTTPS Flood"
 
 
      #    Validate DefenseFlow Analytics Dashboard Navigation
     When UI Navigate to "DefenseFlow Analytics Dashboard" page via homePage
     Then UI Click Button by Class "ant-notification-notice-close"
-    Then UI Validate Text field "Header" EQUALS "DefenseFlow Analytics Dashboard"
+    Then UI Validate Text field "Header" EQUALS "DefenseFlow Analytics"
 
    #    Validate AppWall Dashboard Navigation
     When UI Navigate to "AppWall Dashboard" page via homePage
     Then UI Click Button by Class "ant-notification-notice-close"
-    Then UI Validate Text field "Title" EQUALS "AppWall Dashboard"
+    Then UI Validate Text field "Title" EQUALS "AppWall"
 
 #    Validate Reports Navigation
     When UI Navigate to "AMS Reports" page via homePage
@@ -909,8 +921,10 @@ Feature: US62031 APSolute Vision Analytics - AMS - Attack Capacity License
     Then UI Validate Element EnableDisable status By Label "Select Product" and Value "defensepro" is Enabled "true"
     Then UI Validate Element EnableDisable status By Label "Select Product" and Value "defenseflow" is Enabled "true"
     Then UI Validate Element EnableDisable status By Label "Select Product" and Value "appwall" is Enabled "true"
+    Then REST Vision DELETE License Request "vision-demo"
+    Then UI Logout
 
   @SID_22
-  @run
-  Scenario: Logout
-    Then UI logout and close browser
+
+  Scenario: close browser
+    Then UI close browser

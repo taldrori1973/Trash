@@ -1045,9 +1045,9 @@ public class BasicOperationsHandler {
 
     }
 
-    public static boolean isNavigationDisabled(String tab) throws Exception {
+    public static boolean isNavigationDisabled(String pageName) throws Exception {
         closeAllPopups();
-        return HomePage.isNavigationDisabled(tab);
+        return HomePage.isNavigationDisabled(PropertiesFilesUtils.mapAllPropertyFiles("Navigations").get(pageName));
     }
 }
 
