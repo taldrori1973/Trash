@@ -45,26 +45,12 @@ Feature: US58313 APSolute Vision Analytics - AppWall - License
   @SID_6
   Scenario: UI Validate No AVA-AppWall License When Legacy AMS License Installed
     Given REST Vision Install License Request "vision-reporting-module-AMS"
-    Then UI Open "Configurations" Tab
-    When UI Open Upper Bar Item "AMS"
-    Then UI Open "Dashboards" Tab
-    Then UI Validate Element Existence By Label "AppWall Dashboard" if Exists "false"
-
-#    Validate Reports Navigation
-    When UI Open "Reports" Tab negative
-    Then UI Validate Text field by id "gwt-debug-Dialog_Box_Caption" EQUALS "Functionality Restricted Due to Limited License"
-    Then UI Validate Text field by id "gwt-debug-Dialog_Box_Message" EQUALS "The functionality that you have requested requires a license."
-    Then UI Click Button by id "gwt-debug-Dialog_Box_Close"
-#    Validate Forensics Navigation
-    When UI Open "Forensics" Tab negative
-    Then UI Validate Text field by id "gwt-debug-Dialog_Box_Caption" EQUALS "Functionality Restricted Due to Limited License"
-    Then UI Validate Text field by id "gwt-debug-Dialog_Box_Message" EQUALS "The functionality that you have requested requires a license."
-    Then UI Click Button by id "gwt-debug-Dialog_Box_Close"
-#    Validate Alerts Navigation
-    When UI Open "Alerts" Tab negative
-    Then UI Validate Text field by id "gwt-debug-Dialog_Box_Caption" EQUALS "Functionality Restricted Due to Limited License"
-    Then UI Validate Text field by id "gwt-debug-Dialog_Box_Message" EQUALS "The functionality that you have requested requires a license."
-    Then UI Click Button by id "gwt-debug-Dialog_Box_Close"
+    Given UI Login with user "sys_admin" and password "radware"
+    Then Validate Navigation to "AppWall Dashboard" is disabled
+    Then Validate Navigation to "AMS Reports" is disabled
+    Then Validate Navigation to "AMS Forensics" is disabled
+    Then Validate Navigation to "AMS Alerts" is disabled
+    Then UI Logout
 
 
   @SID_7
@@ -76,24 +62,12 @@ Feature: US58313 APSolute Vision Analytics - AppWall - License
   @SID_8
   Scenario:UI Validate No AVA-AppWall License When AVA-AMS-Attack-Capacity License Installed
     Given REST Vision Install License Request "vision-AVA-Max-attack-capacity"
-    Then UI Open "Configurations" Tab
-    When UI Open Upper Bar Item "AMS"
-    Then UI Open "Dashboards" Tab
-    Then UI Validate Element Existence By Label "AppWall Dashboard" if Exists "false"
-#    Validate Reports Navigation
-    Given UI Open "Reports" Tab
-    When UI Click Button "Add New"
-    Then UI Click Button "Template" with value ""
-    And UI Validate Element Existence By Label "AppWall Template" if Exists "false"
-
-
-#    Validate Forensics Navigation
-    When UI Open "Forensics" Tab
-    Then UI Validate Element Existence By Label "Add" if Exists "true"
-
-#    Validate Alerts Navigation
-    When UI Open "Alerts" Tab
-    Then UI Validate Element Existence By Label "Add New" if Exists "true"
+    Given UI Login with user "sys_admin" and password "radware"
+    Then Validate Navigation to "AppWall Dashboard" is disabled
+    Then Validate Navigation to "AMS Reports" is disabled
+    Then Validate Navigation to "AMS Forensics" is disabled
+    Then Validate Navigation to "AMS Alerts" is disabled
+    Then UI Logout
 
 
   @SID_9
