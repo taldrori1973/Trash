@@ -82,12 +82,12 @@ Feature: US58313 APSolute Vision Analytics - AppWall - License
   Scenario: UI Validate AVA-AppWall License is Valid When No AVA-AMS-Attack-Capacity License Installed
     Given REST Vision DELETE License Request "vision-AVA-Max-attack-capacity"
     And REST Vision Install License Request "vision-AVA-AppWall"
-    When UI Open "Configurations" Tab
-    And UI Open Upper Bar Item "AMS"
-    And UI Open "Dashboards" Tab
-    And UI Open "AppWall Dashboard" Sub Tab
-    Then UI Validate Text field "Title" EQUALS "AppWall Dashboard"
+    Given UI Login with user "sys_admin" and password "radware"
 
+   #    Validate AppWall Dashboard Navigation
+    When UI Navigate to "AppWall Dashboard" page via homePage
+    Then UI Click Button by Class "ant-notification-notice-close"
+    Then UI Validate Text field "Title" EQUALS "AppWall"
 
     Then UI Open "Dashboards" Tab
     Then UI Validate Element Existence By Label "DP Monitoring Dashboard" if Exists "false"
@@ -118,6 +118,7 @@ Feature: US58313 APSolute Vision Analytics - AppWall - License
     And UI Validate Element Existence By Label "DefensePro Behavioral Protections Template" if Exists "false"
     And UI Validate Element Existence By Label "HTTPS Flood Template" if Exists "false"
     And UI Validate Element Existence By Label "DefenseFlow Analytics Template" if Exists "false"
+    Then UI Logout
 
 
   @SID_11
