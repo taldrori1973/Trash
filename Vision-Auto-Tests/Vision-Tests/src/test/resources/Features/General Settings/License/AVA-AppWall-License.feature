@@ -133,51 +133,35 @@ Feature: US58313 APSolute Vision Analytics - AppWall - License
   Scenario: UI Validate AVA-AppWall License is Valid When Both AVA-AppWall License AND AVA-AMS-Attack-Capacity License Installed
     Given REST Vision Install License Request "vision-AVA-Max-attack-capacity"
     Given REST Vision Install License Request "vision-AVA-AppWall"
-    When UI Open "Configurations" Tab
-    And UI Open Upper Bar Item "AMS"
-    And UI Open "Dashboards" Tab
-    And UI Open "AppWall Dashboard" Sub Tab
-    Then UI Validate Text field "Title" EQUALS "AppWall Dashboard"
+    Given UI Login with user "sys_admin" and password "radware"
+   #    Validate AppWall Dashboard Navigation
+    When UI Navigate to "AppWall Dashboard" page via homePage
+    Then UI Validate Text field "Title" EQUALS "AppWall"
 
-
-    Then UI Open "Dashboards" Tab
-    Then UI Validate Element Existence By Label "DP Monitoring Dashboard" if Exists "true"
-
-
-      #    Validate DefensePro Behavioral Protections Dashboard Navigation
-    Then UI Validate Element Existence By Label "DP BDoS Baseline" if Exists "true"
-
-
-
-#    Validate DefensePro Analytics Dashboard Navigation
-    Then UI Validate Element Existence By Label "DP Analytics" if Exists "true"
-
-#    Validate HTTPS Flood Dashboard Navigation
-    Then UI Validate Element Existence By Label "HTTPS Flood Dashboard" if Exists "true"
-
-
-#    Validate DefenseFlow Analytics Dashboard Navigation
-    Then UI Validate Element Existence By Label "DefenseFlow Analytics Dashboard" if Exists "true"
-
-
-
-     #    Validate Reports Navigation
-    Given UI Open "Reports" Tab
+#    Validate Reports Navigation
+    When UI Navigate to "AMS Reports" page via homePage
     When UI Click Button "Add New"
     Then UI Click Button "Template" with value ""
-    And UI Validate Element Existence By Label "AppWall Template" if Exists "true"
     And UI Validate Element Existence By Label "DefensePro Analytics Template" if Exists "true"
     And UI Validate Element Existence By Label "DefensePro Behavioral Protections Template" if Exists "true"
     And UI Validate Element Existence By Label "HTTPS Flood Template" if Exists "true"
     And UI Validate Element Existence By Label "DefenseFlow Analytics Template" if Exists "true"
+    And UI Validate Element Existence By Label "AppWall Template" if Exists "true"
+
+
 #    Validate Forensics Navigation
-    When UI Open "Forensics" Tab
-    Then UI Validate Element Existence By Label "Add" if Exists "true"
+    When UI Navigate to "AMS Forensics" page via homePage
+    And UI Click Button "Add"
+    Then UI Validate Element EnableDisable status By Label "Select Product" and Value "defensepro" is Enabled "true"
+    Then UI Validate Element EnableDisable status By Label "Select Product" and Value "defenseflow" is Enabled "true"
+    Then UI Validate Element EnableDisable status By Label "Select Product" and Value "appwall" is Enabled "true"
 
 #    Validate Alerts Navigation
-    When UI Open "Alerts" Tab
-    Then UI Validate Element Existence By Label "Add New" if Exists "true"
-
+    When UI Navigate to "AMS Alerts" page via homePage
+    And UI Click Button "Add New"
+    Then UI Validate Element EnableDisable status By Label "Select Product" and Value "defensepro" is Enabled "true"
+    Then UI Validate Element EnableDisable status By Label "Select Product" and Value "defenseflow" is Enabled "true"
+    Then UI Validate Element EnableDisable status By Label "Select Product" and Value "appwall" is Enabled "true"
 
   @SID_22
   Scenario: Logout

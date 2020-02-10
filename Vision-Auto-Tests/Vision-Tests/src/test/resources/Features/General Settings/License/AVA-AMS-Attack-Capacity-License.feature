@@ -1,6 +1,6 @@
 #By MohamadI
 @TC110252
-
+@run
 Feature: US62031 APSolute Vision Analytics - AMS - Attack Capacity License
 
   @TC110252-Rest
