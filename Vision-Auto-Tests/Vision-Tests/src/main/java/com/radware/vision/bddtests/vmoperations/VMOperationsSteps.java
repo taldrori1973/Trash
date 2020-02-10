@@ -209,7 +209,6 @@ public class VMOperationsSteps extends BddUITestBase {
             if (!firstMachine.isAlive() && !secondMachine.isAlive())
                 break;
         }
-        return;
     }
 
     private void prefreshInstall() {
@@ -221,7 +220,6 @@ public class VMOperationsSteps extends BddUITestBase {
         List<List<String>> row = Arrays.asList(columnName, value);
         DataTable dataTable = DataTable.create(row, Locale.getDefault(), "VmMachinePrefix");
         newVmSteps.StopMachine(dataTable);
-        return;
     }
 
     @Then("^Fresh Install In Parallel$")
@@ -344,7 +342,7 @@ public class VMOperationsSteps extends BddUITestBase {
         return properties.getProperty("vision-version");
     }
 
-    private boolean isSetupNeeded() {
+    public boolean isSetupNeeded() {
         boolean isSetupNeeded;
         String version = readVisionVersionFromPomFile();
 //        String versionPrefix = version.substring(0, 4);//example : 4.10.00 --> 4.10

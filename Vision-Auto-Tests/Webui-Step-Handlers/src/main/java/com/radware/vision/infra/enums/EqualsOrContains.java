@@ -5,6 +5,7 @@ package com.radware.vision.infra.enums;
  */
 public enum EqualsOrContains {
     EQUALS("equals"),
+    NOT_EQUALS("not_equals"),
     CONTAINS("contains"),
     MatchRegex("MatchRegex"),
     GT(">"),
