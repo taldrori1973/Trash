@@ -214,6 +214,7 @@ Feature: US62031 APSolute Vision Analytics - AMS - Attack Capacity License
     Then UI Validate Element EnableDisable status By Label "Select Product" and Value "defensepro" is Enabled "true"
     Then UI Validate Element EnableDisable status By Label "Select Product" and Value "defenseflow" is Enabled "true"
     Then UI Validate Element EnableDisable status By Label "Select Product" and Value "appwall" is Enabled "false"
+    Then UI Logout
 
   @TC110252-Rest
   @SID_7
@@ -311,6 +312,7 @@ Feature: US62031 APSolute Vision Analytics - AMS - Attack Capacity License
     Then UI Validate Element EnableDisable status By Label "Select Product" and Value "defensepro" is Enabled "true"
     Then UI Validate Element EnableDisable status By Label "Select Product" and Value "defenseflow" is Enabled "true"
     Then UI Validate Element EnableDisable status By Label "Select Product" and Value "appwall" is Enabled "false"
+    Then UI Logout
 
   @TC110252-Rest
   @SID_9
@@ -409,6 +411,7 @@ Feature: US62031 APSolute Vision Analytics - AMS - Attack Capacity License
     Then UI Validate Element EnableDisable status By Label "Select Product" and Value "defensepro" is Enabled "true"
     Then UI Validate Element EnableDisable status By Label "Select Product" and Value "defenseflow" is Enabled "true"
     Then UI Validate Element EnableDisable status By Label "Select Product" and Value "appwall" is Enabled "false"
+    Then UI Logout
 
 #------------------------------------License Expired-----------------------------------------
   @SID_11
@@ -446,6 +449,7 @@ Feature: US62031 APSolute Vision Analytics - AMS - Attack Capacity License
     Then Validate Navigation to "AMS Reports" is disabled
     Then Validate Navigation to "AMS Forensics" is disabled
     Then Validate Navigation to "AMS Alerts" is disabled
+    Then UI Logout
 
 
 #-----------------------New License--------------------------------------------
@@ -544,6 +548,7 @@ Feature: US62031 APSolute Vision Analytics - AMS - Attack Capacity License
     Then UI Validate Element EnableDisable status By Label "Select Product" and Value "defensepro" is Enabled "true"
     Then UI Validate Element EnableDisable status By Label "Select Product" and Value "defenseflow" is Enabled "true"
     Then UI Validate Element EnableDisable status By Label "Select Product" and Value "appwall" is Enabled "false"
+    Then UI Logout
 
   @TC110252-Rest
   @SID_15
@@ -630,6 +635,7 @@ Feature: US62031 APSolute Vision Analytics - AMS - Attack Capacity License
     Then UI Validate Element EnableDisable status By Label "Select Product" and Value "defensepro" is Enabled "true"
     Then UI Validate Element EnableDisable status By Label "Select Product" and Value "defenseflow" is Enabled "true"
     Then UI Validate Element EnableDisable status By Label "Select Product" and Value "appwall" is Enabled "false"
+    Then UI Logout
 
   @TC110252-Rest
   @SID_17
@@ -725,6 +731,7 @@ Feature: US62031 APSolute Vision Analytics - AMS - Attack Capacity License
     Then UI Validate Element EnableDisable status By Label "Select Product" and Value "defensepro" is Enabled "true"
     Then UI Validate Element EnableDisable status By Label "Select Product" and Value "defenseflow" is Enabled "true"
     Then UI Validate Element EnableDisable status By Label "Select Product" and Value "appwall" is Enabled "false"
+    Then UI Logout
 
   @TC110252-Rest
   @SID_19
@@ -814,6 +821,7 @@ Feature: US62031 APSolute Vision Analytics - AMS - Attack Capacity License
     Then UI Validate Element EnableDisable status By Label "Select Product" and Value "defensepro" is Enabled "true"
     Then UI Validate Element EnableDisable status By Label "Select Product" and Value "defenseflow" is Enabled "true"
     Then UI Validate Element EnableDisable status By Label "Select Product" and Value "appwall" is Enabled "false"
+    Then UI Logout
 
   @TC110252-Rest
   @SID_21
@@ -912,8 +920,10 @@ Feature: US62031 APSolute Vision Analytics - AMS - Attack Capacity License
     Then UI Validate Element EnableDisable status By Label "Select Product" and Value "defensepro" is Enabled "true"
     Then UI Validate Element EnableDisable status By Label "Select Product" and Value "defenseflow" is Enabled "true"
     Then UI Validate Element EnableDisable status By Label "Select Product" and Value "appwall" is Enabled "true"
+    Then REST Vision DELETE License Request "vision-demo"
+    Then UI Logout
 
   @SID_22
   @run
-  Scenario: Logout
-    Then UI logout and close browser
+  Scenario: close browser
+    Then UI close browser
