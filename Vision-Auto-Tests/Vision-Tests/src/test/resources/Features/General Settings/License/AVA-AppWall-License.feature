@@ -1,8 +1,9 @@
 #By Mohamadi
 @TC111827
 Feature: US58313 APSolute Vision Analytics - AppWall - License
+
   @SID_1
-    Scenario: Setup - Remove all AMS Licenses
+  Scenario: Setup - Remove all AMS Licenses
     Given REST Vision DELETE License Request "vision-AVA-6-Gbps-attack-capacity"
     And REST Vision DELETE License Request "vision-AVA-20-Gbps-attack-capacity"
     And REST Vision DELETE License Request "vision-AVA-60-Gbps-attack-capacity"
@@ -17,7 +18,6 @@ Feature: US58313 APSolute Vision Analytics - AppWall - License
     Then UI Login with user "sys_admin" and password "radware"
 
 
-
   @SID_3
   Scenario:Validate No AVA-AppWall License
     Given REST Vision DELETE License Request "vision-AVA-AppWall"
@@ -27,25 +27,12 @@ Feature: US58313 APSolute Vision Analytics - AppWall - License
   @SID_4
   Scenario:UI Validate No AVA-AppWall License
     Given REST Vision DELETE License Request "vision-AVA-AppWall"
-    When UI Open Upper Bar Item "AMS"
-    Then UI Open "Dashboards" Tab
-    Then UI Validate Element Existence By Label "AppWall Dashboard" if Exists "false"
-
-#    Validate Reports Navigation
-    When UI Open "Reports" Tab negative
-    Then UI Validate Text field by id "gwt-debug-Dialog_Box_Caption" EQUALS "Functionality Restricted Due to Limited License"
-    Then UI Validate Text field by id "gwt-debug-Dialog_Box_Message" EQUALS "The functionality that you have requested requires a license."
-    Then UI Click Button by id "gwt-debug-Dialog_Box_Close"
-#    Validate Forensics Navigation
-    When UI Open "Forensics" Tab negative
-    Then UI Validate Text field by id "gwt-debug-Dialog_Box_Caption" EQUALS "Functionality Restricted Due to Limited License"
-    Then UI Validate Text field by id "gwt-debug-Dialog_Box_Message" EQUALS "The functionality that you have requested requires a license."
-    Then UI Click Button by id "gwt-debug-Dialog_Box_Close"
-#    Validate Alerts Navigation
-    When UI Open "Alerts" Tab negative
-    Then UI Validate Text field by id "gwt-debug-Dialog_Box_Caption" EQUALS "Functionality Restricted Due to Limited License"
-    Then UI Validate Text field by id "gwt-debug-Dialog_Box_Message" EQUALS "The functionality that you have requested requires a license."
-    Then UI Click Button by id "gwt-debug-Dialog_Box_Close"
+    Given UI Login with user "sys_admin" and password "radware"
+    Then Validate Navigation to "AppWall Dashboard" is disabled
+    Then Validate Navigation to "AMS Reports" is disabled
+    Then Validate Navigation to "AMS Forensics" is disabled
+    Then Validate Navigation to "AMS Alerts" is disabled
+    Then UI Logout
 
 
 
@@ -109,7 +96,6 @@ Feature: US58313 APSolute Vision Analytics - AppWall - License
     Then UI Validate Element Existence By Label "Add New" if Exists "true"
 
 
-
   @SID_9
   Scenario:Validate AVA-AppWall License is Valid When No AVA-AMS-Attack-Capacity License Installed
     Given REST Vision DELETE License Request "vision-AVA-Max-attack-capacity"
@@ -158,9 +144,6 @@ Feature: US58313 APSolute Vision Analytics - AppWall - License
     And UI Validate Element Existence By Label "DefensePro Behavioral Protections Template" if Exists "false"
     And UI Validate Element Existence By Label "HTTPS Flood Template" if Exists "false"
     And UI Validate Element Existence By Label "DefenseFlow Analytics Template" if Exists "false"
-
-
-
 
 
   @SID_11
