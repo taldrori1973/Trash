@@ -2,10 +2,6 @@
 @License_validation
 Feature: ADC License Validation
 
-  @SID_1
-  Scenario: Login UI
-    When UI Login with user "sys_admin" and password "radware"
-
 
   @SID_7
   Scenario: Remove ADC license and validate error message
