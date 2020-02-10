@@ -81,7 +81,7 @@ Feature: US62031 APSolute Vision Analytics - AMS - Attack Capacity License
 
     When UI Navigate to "HTTPS Flood Dashboard" page via homePage
     Then UI Click Button by Class "ant-notification-notice-close"
-    Then UI Validate Text field "header HTTPS" EQUALS "HTTPS Flood"
+    Then UI Validate Text field "Title" EQUALS "HTTPS Flood"
 
   #    Validate DefenseFlow Analytics Dashboard Navigation
 
@@ -179,7 +179,7 @@ Feature: US62031 APSolute Vision Analytics - AMS - Attack Capacity License
 
     When UI Navigate to "HTTPS Flood Dashboard" page via homePage
     Then UI Click Button by Class "ant-notification-notice-close"
-    Then UI Validate Text field "header HTTPS" EQUALS "HTTPS Flood"
+    Then UI Validate Text field "Title" EQUALS "HTTPS Flood"
 
   #    Validate DefenseFlow Analytics Dashboard Navigation
 
@@ -277,7 +277,7 @@ Feature: US62031 APSolute Vision Analytics - AMS - Attack Capacity License
 
     When UI Navigate to "HTTPS Flood Dashboard" page via homePage
     Then UI Click Button by Class "ant-notification-notice-close"
-    Then UI Validate Text field "header HTTPS" EQUALS "HTTPS Flood"
+    Then UI Validate Text field "Title" EQUALS "HTTPS Flood"
 
   #    Validate DefenseFlow Analytics Dashboard Navigation
 
@@ -376,7 +376,7 @@ Feature: US62031 APSolute Vision Analytics - AMS - Attack Capacity License
 
     When UI Navigate to "HTTPS Flood Dashboard" page via homePage
     Then UI Click Button by Class "ant-notification-notice-close"
-    Then UI Validate Text field "header HTTPS" EQUALS "HTTPS Flood"
+    Then UI Validate Text field "Title" EQUALS "HTTPS Flood"
 
   #    Validate DefenseFlow Analytics Dashboard Navigation
 
@@ -513,7 +513,7 @@ Feature: US62031 APSolute Vision Analytics - AMS - Attack Capacity License
 #    Validate HTTPS Flood Dashboard Navigation
     When UI Navigate to "HTTPS Flood Dashboard" page via homePage
     Then UI Click Button by Class "ant-notification-notice-close"
-    Then UI Validate Text field "header HTTPS" EQUALS "HTTPS Flood"
+    Then UI Validate Text field "Title" EQUALS "HTTPS Flood"
 
 
      #    Validate DefenseFlow Analytics Dashboard Navigation
@@ -601,7 +601,7 @@ Feature: US62031 APSolute Vision Analytics - AMS - Attack Capacity License
 
 #    Validate HTTPS Flood Dashboard Navigation
     When UI Navigate to "HTTPS Flood Dashboard" page via homePage
-    Then UI Validate Text field "header HTTPS" EQUALS "HTTPS Flood"
+    Then UI Validate Text field "Title" EQUALS "HTTPS Flood"
 
 
      #    Validate DefenseFlow Analytics Dashboard Navigation
@@ -696,7 +696,7 @@ Feature: US62031 APSolute Vision Analytics - AMS - Attack Capacity License
 #    Validate HTTPS Flood Dashboard Navigation
     When UI Navigate to "HTTPS Flood Dashboard" page via homePage
     Then UI Click Button by Class "ant-notification-notice-close"
-    Then UI Validate Text field "header HTTPS" EQUALS "HTTPS Flood"
+    Then UI Validate Text field "Title" EQUALS "HTTPS Flood"
 
 
      #    Validate DefenseFlow Analytics Dashboard Navigation
@@ -787,7 +787,7 @@ Feature: US62031 APSolute Vision Analytics - AMS - Attack Capacity License
 
 #    Validate HTTPS Flood Dashboard Navigation
     When UI Navigate to "HTTPS Flood Dashboard" page via homePage
-    Then UI Validate Text field "header HTTPS" EQUALS "HTTPS Flood"
+    Then UI Validate Text field "Title" EQUALS "HTTPS Flood"
 
 
      #    Validate DefenseFlow Analytics Dashboard Navigation
@@ -884,7 +884,7 @@ Feature: US62031 APSolute Vision Analytics - AMS - Attack Capacity License
 #    Validate HTTPS Flood Dashboard Navigation
     When UI Navigate to "HTTPS Flood Dashboard" page via homePage
     Then UI Click Button by Class "ant-notification-notice-close"
-    Then UI Validate Text field "header HTTPS" EQUALS "HTTPS Flood"
+    Then UI Validate Text field "Title" EQUALS "HTTPS Flood"
 
 
      #    Validate DefenseFlow Analytics Dashboard Navigation
