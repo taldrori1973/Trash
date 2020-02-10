@@ -19,8 +19,7 @@ Feature: Forensic Wizard
   Scenario: Login and navigate to forensic
     Given UI Login with user "sys_admin" and password "radware"
     * REST Vision Install License Request "vision-AVA-Max-attack-capacity"
-    And UI Open Upper Bar Item "AMS"
-    And UI Open "Forensics" Tab
+    Then UI Navigate to "AMS Forensics" page via homePage
 
   @SID_4 @Sanity
   Scenario: create forensic definition Wizard_test

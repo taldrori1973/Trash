@@ -20,7 +20,7 @@ import java.util.List;
 
 public class DDosFeedTaskHandler extends BaseTasksHandler {
 
-    public static void addDDosFeedTask(String taskName, String taskDescription, String taskSchedRunInterval, boolean taskRunAlways, boolean taskEnabled, String deviceDestinations, TaskType taskType, String groupDestinations, boolean updateDuringAttack) {
+    public static void addDDosFeedTask(String taskName, String taskDescription, String taskSchedRunInterval, boolean taskRunAlways, boolean taskEnabled, String deviceDestinations, TaskType taskType, String groupDestinations, boolean updateDuringAttack) throws Exception {
 
         String columnName = "Name";
 
@@ -50,7 +50,7 @@ public class DDosFeedTaskHandler extends BaseTasksHandler {
         afterAddTask(taskProperties);
     }
 
-    public static void addDDosFeedTaskWithoutVerify(String taskName, String taskDescription, String taskSchedRunInterval, boolean taskRunAlways, boolean taskEnabled, String deviceDestinations, TaskType taskType, String groupDestinations, boolean updateDuringAttack) {
+    public static void addDDosFeedTaskWithoutVerify(String taskName, String taskDescription, String taskSchedRunInterval, boolean taskRunAlways, boolean taskEnabled, String deviceDestinations, TaskType taskType, String groupDestinations, boolean updateDuringAttack) throws Exception {
 
         String columnName = "Name";
 

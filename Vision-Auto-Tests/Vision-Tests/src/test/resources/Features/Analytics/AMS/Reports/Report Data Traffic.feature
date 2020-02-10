@@ -26,8 +26,7 @@ Feature: VRM AMS Report Data Traffic
   Scenario: Login to VRM AMS reports tab
     Given UI Login with user "sys_admin" and password "radware"
     * REST Vision Install License Request "vision-AVA-Max-attack-capacity"
-    And UI Open Upper Bar Item "AMS"
-    And UI Open "Reports" Tab
+    And UI Navigate to "AMS Reports" page via homePage
 
       #############################  TRAFFIC AND CONNECTIONS   ########################################################################
 

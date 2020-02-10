@@ -1767,8 +1767,8 @@ Feature: DP Monitoring Dashboard - Protection Policies - Under Attack 3rd Drill
   Scenario: Validate baseline Total Traffic data - burst
     Then UI Validate Line Chart data "BDoS-TCP SYN ACK" with Label "Total Traffic"
       | value | count | offset |
-      | 5182  | 7     | 3      |
-      | 1727  | 7     | 3      |
+      | 5182  | 7     | 2      |
+      | 1727  | 7     | 2      |
 
   @SID_120
   Scenario: Validate baseline Total Traffic styling - burst

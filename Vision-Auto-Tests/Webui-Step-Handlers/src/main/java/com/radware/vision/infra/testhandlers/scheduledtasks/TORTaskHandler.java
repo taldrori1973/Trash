@@ -27,7 +27,7 @@ public class TORTaskHandler extends BaseTasksHandler {
     }
 
 
-    public static void addTORTask(String taskName, String taskDescription, boolean taskEnabled) {
+    public static void addTORTask(String taskName, String taskDescription, boolean taskEnabled) throws Exception {
 
         String columnName = "Name";
 
@@ -41,7 +41,7 @@ public class TORTaskHandler extends BaseTasksHandler {
         afterAddTask(taskProperties);
     }
 
-    public static void addTORTaskWithoutVerify(String taskName, String taskDescription, boolean taskEnabled) {
+    public static void addTORTaskWithoutVerify(String taskName, String taskDescription, boolean taskEnabled) throws Exception {
 
         String columnName = "Name";
 

@@ -1,6 +1,7 @@
 package com.radware.vision.infra.testhandlers.rbac;
 
 
+import com.radware.automation.tools.utils.PropertiesFilesUtils;
 import com.radware.automation.tools.utils.ReflectionUtils;
 import com.radware.automation.tools.utils.ValidationUtils;
 import com.radware.automation.webui.WebUIUtils;
@@ -9,6 +10,7 @@ import com.radware.automation.webui.widgets.ComponentLocator;
 import com.radware.automation.webui.widgets.ComponentLocatorFactory;
 import com.radware.automation.webui.widgets.impl.WebUIComponent;
 import com.radware.vision.infra.base.pages.dptemplates.DpTemplates;
+import com.radware.vision.infra.base.pages.navigation.HomePage;
 import com.radware.vision.infra.base.pages.navigation.WebUIUpperBar;
 import com.radware.vision.infra.base.pages.navigation.WebUIVisionBasePage;
 import com.radware.vision.infra.base.pages.system.usermanagement.localusers.User;
@@ -190,7 +192,7 @@ public class RBACHandler extends RBACHandlerBase {
     }
 
 
-    public static boolean verifyTaskRowInvisible(String columnName, String columnValue) {
+    public static boolean verifyTaskRowInvisible(String columnName, String columnValue) throws Exception {
         boolean valid = BaseTasksHandler.validateTaskCreation(columnName, columnValue);
         return valid;
     }
@@ -377,48 +379,64 @@ public class RBACHandler extends RBACHandlerBase {
 
 
             case "AVR":
-                locator = new ComponentLocator(How.ID, UpperBarItems.TOOLTIP.getMenuIds());
-                if (existsAndEnabled = checkIfItemEnabled(locator)) {
-                    WebUIUpperBar.selectNoVerify(UpperBarItems.TOOLTIP);
-                    locator = new ComponentLocator(How.ID, UpperBarItems.AVR.getMenuIds());
-                    if (existsAndEnabled = checkIfItemEnabled(locator)) {
-                        WebUIUpperBar.selectNoVerify(UpperBarItems.AVR);
-                    } else errorMessage = "Avr does not exist or enabled";
-                } else errorMessage = "Tooltip is does not exist or enabled";
+//                locator = new ComponentLocator(How.ID, UpperBarItems.TOOLTIP.getMenuIds());
+//                if (existsAndEnabled = checkIfItemEnabled(locator)) {
+//                    WebUIUpperBar.selectNoVerify(UpperBarItems.TOOLTIP);
+//                    locator = new ComponentLocator(How.ID, UpperBarItems.AVR.getMenuIds());
+//                    if (existsAndEnabled = checkIfItemEnabled(locator)) {
+//                        WebUIUpperBar.selectNoVerify(UpperBarItems.AVR);
+//                    } else errorMessage = "Avr does not exist or enabled";
+//                } else errorMessage = "Tooltip is does not exist or enabled";
+                errorMessage = HomePage.validateExistNavigator(PropertiesFilesUtils.mapAllPropertyFiles("Navigations").get(operation));
+                existsAndEnabled = errorMessage.equals("");
+                if (existsAndEnabled)
+                    errorMessage="The Navigator " + operation + " shouldn't be exist, But it exists";;
                 break;
 
             case "GEL DASHBOARD":
-                locator = new ComponentLocator(How.ID, UpperBarItems.TOOLTIP.getMenuIds());
-                if (existsAndEnabled = checkIfItemEnabled(locator)) {
-                    WebUIUpperBar.selectNoVerify(UpperBarItems.TOOLTIP);
-                    locator = new ComponentLocator(How.ID, UpperBarItems.GEL_Dashboard.getMenuIds());
-                    if (existsAndEnabled = checkIfItemEnabled(locator)) {
-                        WebUIUpperBar.selectNoVerify(UpperBarItems.GEL_Dashboard);
-                    } else errorMessage = "GEL Dashboard does not exist or enabled";
-                } else errorMessage = "Tooltip is does not exist or enabled";
+//                locator = new ComponentLocator(How.ID, UpperBarItems.TOOLTIP.getMenuIds());
+//                if (existsAndEnabled = checkIfItemEnabled(locator)) {
+//                    WebUIUpperBar.selectNoVerify(UpperBarItems.TOOLTIP);
+//                    locator = new ComponentLocator(How.ID, UpperBarItems.GEL_Dashboard.getMenuIds());
+//                    if (existsAndEnabled = checkIfItemEnabled(locator)) {
+//                        WebUIUpperBar.selectNoVerify(UpperBarItems.GEL_Dashboard);
+//                    } else errorMessage = "GEL Dashboard does not exist or enabled";
+//                } else errorMessage = "Tooltip is does not exist or enabled";
+                errorMessage = HomePage.validateExistNavigator(PropertiesFilesUtils.mapAllPropertyFiles("Navigations").get(operation));
+                existsAndEnabled = errorMessage.equals("");
+                if (existsAndEnabled)
+                    errorMessage="The Navigator " + operation + " shouldn't be exist, But it exists";
                 break;
 
             case "APM":
-                locator = new ComponentLocator(How.ID, UpperBarItems.TOOLTIP.getMenuIds());
-                if (existsAndEnabled = checkIfItemEnabled(locator)) {
-                    WebUIUpperBar.selectNoVerify(UpperBarItems.TOOLTIP);
-                    locator = new ComponentLocator(How.ID, UpperBarItems.APM.getMenuIds());
-                    if (existsAndEnabled = checkIfItemEnabled(locator)) {
-                        WebUIUpperBar.selectNoVerify(UpperBarItems.APM);
-                    } else errorMessage = "Apm does not exist or enabled";
-                } else errorMessage = "Tooltip is does not exist or enabled";
+//                locator = new ComponentLocator(How.ID, UpperBarItems.TOOLTIP.getMenuIds());
+//                if (existsAndEnabled = checkIfItemEnabled(locator)) {
+//                    WebUIUpperBar.selectNoVerify(UpperBarItems.TOOLTIP);
+//                    locator = new ComponentLocator(How.ID, UpperBarItems.APM.getMenuIds());
+//                    if (existsAndEnabled = checkIfItemEnabled(locator)) {
+//                        WebUIUpperBar.selectNoVerify(UpperBarItems.APM);
+//                    } else errorMessage = "Apm does not exist or enabled";
+//                } else errorMessage = "Tooltip is does not exist or enabled";
+                errorMessage = HomePage.validateExistNavigator(PropertiesFilesUtils.mapAllPropertyFiles("Navigations").get(operation));
+                existsAndEnabled = errorMessage.equals("");
+                if (existsAndEnabled)
+                    errorMessage="The Navigator " + operation + " shouldn't be exist, But it exists";
                 break;
 
 
             case "DPM":
-                locator = new ComponentLocator(How.ID, UpperBarItems.TOOLTIP.getMenuIds());
-                if (existsAndEnabled = checkIfItemEnabled(locator)) {
-                    WebUIUpperBar.selectNoVerify(UpperBarItems.TOOLTIP);
-                    locator = new ComponentLocator(How.ID, UpperBarItems.DPM.getMenuIds());
-                    if (existsAndEnabled = checkIfItemEnabled(locator)) {
-                        errorMessage = "Dpm exists and enabled";
-                    } else errorMessage = "Dpm does not exist or enabled";
-                } else errorMessage = "Tooltip is does not exist or enabled";
+//                locator = new ComponentLocator(How.ID, UpperBarItems.TOOLTIP.getMenuIds());
+//                if (existsAndEnabled = checkIfItemEnabled(locator)) {
+//                    WebUIUpperBar.selectNoVerify(UpperBarItems.TOOLTIP);
+//                    locator = new ComponentLocator(How.ID, UpperBarItems.DPM.getMenuIds());
+//                    if (existsAndEnabled = checkIfItemEnabled(locator)) {
+//                        errorMessage = "Dpm exists and enabled";
+//                    } else errorMessage = "Dpm does not exist or enabled";
+//                } else errorMessage = "Tooltip is does not exist or enabled";
+                errorMessage = HomePage.validateExistNavigator(PropertiesFilesUtils.mapAllPropertyFiles("Navigations").get(operation));
+                existsAndEnabled = errorMessage.equals("");
+                if (existsAndEnabled)
+                    errorMessage="The Navigator " + operation + " shouldn't be exist, But it exists";
 
                 break;
 
@@ -431,24 +449,40 @@ public class RBACHandler extends RBACHandlerBase {
                 break;
 
             case "SCHEDULER":
-                locator = new ComponentLocator(How.ID, UpperBarItems.ScheduledTaskTab.getMenuIds());
-                if (existsAndEnabled = checkIfItemEnabled(locator))
-                    errorMessage = "scheduler icon exists and enabled";
-                else
-                    errorMessage = "scheduler icon does not exist or enabled";
+//                locator = new ComponentLocator(How.ID, UpperBarItems.ScheduledTaskTab.getMenuIds());
+//                if (existsAndEnabled = checkIfItemEnabled(locator))
+//                    errorMessage = "scheduler icon exists and enabled";
+//                else
+//                    errorMessage = "scheduler icon does not exist or enabled";
+                errorMessage = HomePage.validateExistNavigator(PropertiesFilesUtils.mapAllPropertyFiles("Navigations").get(operation));
+                existsAndEnabled = errorMessage.equals("");
+                if (existsAndEnabled)
+                    errorMessage="The Navigator " + operation + " shouldn't be exist, But it exists";
                 break;
             case "TOOLBOX":
-                locator = new ComponentLocator(How.ID, UpperBarItems.ToolBox.getMenuIds());
-                if (existsAndEnabled = checkIfItemEnabled(locator))
-                    errorMessage = "Toolbox icon exists and enabled";
-                else
-                    errorMessage = "Toolbox icon does not exist or enabled";
+//                locator = new ComponentLocator(How.ID, UpperBarItems.ToolBox.getMenuIds());
+//                if (existsAndEnabled = checkIfItemEnabled(locator))
+//                    errorMessage = "Toolbox icon exists and enabled";
+//                else
+//                    errorMessage = "Toolbox icon does not exist or enabled";
+//                break;
+                errorMessage = HomePage.validateExistNavigator(PropertiesFilesUtils.mapAllPropertyFiles("Navigations").get(operation));
+                existsAndEnabled = errorMessage.equals("");
+                if (existsAndEnabled)
+                    errorMessage="The Navigator " + operation + " shouldn't be exist, But it exists";
                 break;
-
             case "OPERATOR TOOLBOX":
-                locator = new ComponentLocator(How.ID, UpperBarItems.ToolBox.getMenuIds());
-                if (existsAndEnabled = checkIfItemEnabled(locator)) {
-                    WebUIUpperBar.selectNoVerify(UpperBarItems.ToolBox);
+//                locator = new ComponentLocator(How.ID, UpperBarItems.ToolBox.getMenuIds());
+//                if (existsAndEnabled = checkIfItemEnabled(locator)) {
+//                    WebUIUpperBar.selectNoVerify(UpperBarItems.ToolBox);
+                try
+                {
+                    HomePage.navigateFromHomePage(PropertiesFilesUtils.mapAllPropertyFiles("Navigations").get("AUTOMATION"));
+                }catch (Exception e )
+                {
+                    errorMessage = e.getMessage();
+                }
+                if (errorMessage.equals("")){
                     locator = new ComponentLocator(How.ID, UpperBarItems.ToolBox_Advanced.getMenuIds());
                     if (existsAndEnabled = checkIfItemEnabled(locator)) {
                         ClickOperationsHandler.clickWebElement(locator);
@@ -462,10 +496,18 @@ public class RBACHandler extends RBACHandlerBase {
                 break;
 
             case "APPSHAPE IS VISIBLE":
-                locator = new ComponentLocator(How.ID, UpperBarItems.ToolBox.getMenuIds());
-
-                if (existsAndEnabled = checkIfItemEnabled(locator)) {
-                    WebUIUpperBar.selectNoVerify(UpperBarItems.ToolBox);
+//                locator = new ComponentLocator(How.ID, UpperBarItems.ToolBox.getMenuIds());
+//
+//                if (existsAndEnabled = checkIfItemEnabled(locator)) {
+//                    WebUIUpperBar.selectNoVerify(UpperBarItems.ToolBox);
+                try
+                {
+                    HomePage.navigateFromHomePage(PropertiesFilesUtils.mapAllPropertyFiles("Navigations").get("AUTOMATION"));
+                }catch (Exception e )
+                {
+                    errorMessage = e.getMessage();
+                }
+                if (errorMessage.equals("")){
                     locator = new ComponentLocator(How.ID, UpperBarItems.ToolBox_Advanced.getMenuIds());
                     if (existsAndEnabled = checkIfItemEnabled(locator)) {
                         WebUIUpperBar.selectNoVerify(UpperBarItems.ToolBox_Advanced);
@@ -480,10 +522,18 @@ public class RBACHandler extends RBACHandlerBase {
                 break;
 
             case "LOAD NEW APPSHAPE":
-                locator = new ComponentLocator(How.ID, UpperBarItems.ToolBox.getMenuIds());
-
-                if (existsAndEnabled = checkIfItemEnabled(locator)) {
-                    WebUIUpperBar.selectNoVerify(UpperBarItems.ToolBox);
+//                locator = new ComponentLocator(How.ID, UpperBarItems.ToolBox.getMenuIds());
+//
+//                if (existsAndEnabled = checkIfItemEnabled(locator)) {
+//                    WebUIUpperBar.selectNoVerify(UpperBarItems.ToolBox);
+                try
+                {
+                    HomePage.navigateFromHomePage(PropertiesFilesUtils.mapAllPropertyFiles("Navigations").get("AUTOMATION"));
+                }catch (Exception e )
+                {
+                    errorMessage = e.getMessage();
+                }
+                if (errorMessage.equals("")){
                     locator = new ComponentLocator(How.ID, UpperBarItems.ToolBox_Advanced.getMenuIds());
                     if (existsAndEnabled = checkIfItemEnabled(locator)) {
                         WebUIUpperBar.selectNoVerify(UpperBarItems.ToolBox_Advanced);
@@ -501,10 +551,18 @@ public class RBACHandler extends RBACHandlerBase {
 
                 break;
             case "DP TEMPLATES":
-                locator = new ComponentLocator(How.ID, UpperBarItems.ToolBox.getMenuIds());
-
-                if (existsAndEnabled = checkIfItemEnabled(locator)) {
-                    WebUIUpperBar.selectNoVerify(UpperBarItems.ToolBox);
+//                locator = new ComponentLocator(How.ID, UpperBarItems.ToolBox.getMenuIds());
+//
+//                if (existsAndEnabled = checkIfItemEnabled(locator)) {
+//                    WebUIUpperBar.selectNoVerify(UpperBarItems.ToolBox);
+                try
+                {
+                    HomePage.navigateFromHomePage(PropertiesFilesUtils.mapAllPropertyFiles("Navigations").get("AUTOMATION"));
+                }catch (Exception e )
+                {
+                    errorMessage = e.getMessage();
+                }
+                if (errorMessage.equals("")){
                     locator = new ComponentLocator(How.ID, UpperBarItems.ToolBox_Advanced.getMenuIds());
                     if (existsAndEnabled = checkIfItemEnabled(locator)) {
                         WebUIUpperBar.selectNoVerify(UpperBarItems.ToolBox_Advanced);
@@ -525,6 +583,7 @@ public class RBACHandler extends RBACHandlerBase {
 
             case "PHYSICAL TAB":
                 //if the tree does not exists there is no need to check others
+                HomePage.navigateFromHomePage("HOME");
                 if (existsAndEnabled = checkIfItemEnabled(new ComponentLocator(How.ID, TreeSelection.TreeSelectionMenu.TREE_SELECTION_MENU.getId()))) {
                     new TreeSelection().openTreeSelectionMenu();
                     if (existsAndEnabled = checkIfItemEnabled(new ComponentLocator(How.ID, TreeSelection.TreeSelectionMenu.PHYSICAL_CONTAINERS.getId())))
@@ -561,17 +620,23 @@ public class RBACHandler extends RBACHandlerBase {
 
 
             case "SECURITY CONTROL CENTER":
-                if (existsAndEnabled = checkIfItemEnabled(locator = new ComponentLocator(How.ID, UpperBarItems.TOOLTIP.getMenuIds()))) {
-                    ClickOperationsHandler.clickWebElement(locator);
-                    if (existsAndEnabled = checkIfItemEnabled(new ComponentLocator(How.ID, UpperBarItems.security_control_center.getMenuIds()))) {
-                        errorMessage = "security control center exists and enabled";
-                    } else errorMessage = "security control center icon does not exist or enabled";
-
-                } else errorMessage = "Tooltip icon is not enabled";
+//                if (existsAndEnabled = checkIfItemEnabled(locator = new ComponentLocator(How.ID, UpperBarItems.TOOLTIP.getMenuIds()))) {
+//                    ClickOperationsHandler.clickWebElement(locator);
+//                    if (existsAndEnabled = checkIfItemEnabled(new ComponentLocator(How.ID, UpperBarItems.security_control_center.getMenuIds()))) {
+//                        errorMessage = "security control center exists and enabled";
+//                    } else errorMessage = "security control center icon does not exist or enabled";
+//
+//                } else errorMessage = "Tooltip icon is not enabled";
+//                break;
+                errorMessage = HomePage.validateExistNavigator(PropertiesFilesUtils.mapAllPropertyFiles("Navigations").get("Security Control Center"));
+                existsAndEnabled = errorMessage.equals("");
+                if (existsAndEnabled)
+                    errorMessage="The Navigator " + operation + " shouldn't be exist, But it exists";;
                 break;
 
             case "APP SLA DASHBOARD":
-                WebUIUpperBar.selectNoVerify(UpperBarItems.VisionSettings);
+//                WebUIUpperBar.selectNoVerify(UpperBarItems.VisionSettings);
+                HomePage.navigateFromHomePage(PropertiesFilesUtils.mapAllPropertyFiles("Navigations").get("VISION SETTINGS"));
                 locator = new ComponentLocator(How.ID, VisionSettingsSubMenu.DASHBOARDS.getElementId());
                 if (existsAndEnabled = checkIfItemEnabled(locator)) {
                     ClickOperationsHandler.clickWebElement(locator);
@@ -590,34 +655,44 @@ public class RBACHandler extends RBACHandlerBase {
 
 
             case "AMS":
-                locator = new ComponentLocator(How.ID, UpperBarItems.ANALYTICS.getMenuIds());
-                if (existsAndEnabled = checkIfItemEnabled(locator)) {
-                    if (existsAndEnabled = (WebUIUtils.fluentWaitClick(locator.getBy(), WebUIUtils.SHORT_WAIT_TIME, false)) != null) {
-                        locator = new ComponentLocator(How.ID, UpperBarItems.AMS.getMenuIds());
-                        if (existsAndEnabled = checkIfItemEnabled(locator)) {
-                            if (existsAndEnabled = (WebUIUtils.fluentWaitClick(locator.getBy(), WebUIUtils.SHORT_WAIT_TIME, false) != null)) {
-                            } else errorMessage = "Could not click on AMS";
-
-                        } else errorMessage = "AMS Tab does not exist";
-                    } else errorMessage = "Could not click on analytics";
-                } else errorMessage = "Analytics Tab does not exist";
-
-                WebUIUtils.fluentWaitClick(ComponentLocatorFactory.getEqualLocatorByDbgId("vrm-screen-content_configurations").getBy(),
-                        WebUIUtils.SHORT_WAIT_TIME, false);
-
+//                locator = new ComponentLocator(How.ID, UpperBarItems.ANALYTICS.getMenuIds());
+//                if (existsAndEnabled = checkIfItemEnabled(locator)) {
+//                    if (existsAndEnabled = (WebUIUtils.fluentWaitClick(locator.getBy(), WebUIUtils.SHORT_WAIT_TIME, false)) != null) {
+//                        locator = new ComponentLocator(How.ID, UpperBarItems.AMS.getMenuIds());
+//                        if (existsAndEnabled = checkIfItemEnabled(locator)) {
+//                            if (existsAndEnabled = (WebUIUtils.fluentWaitClick(locator.getBy(), WebUIUtils.SHORT_WAIT_TIME, false) != null)) {
+//                            } else errorMessage = "Could not click on AMS";
+//
+//                        } else errorMessage = "AMS Tab does not exist";
+//                    } else errorMessage = "Could not click on analytics";
+//                } else errorMessage = "Analytics Tab does not exist";
+//
+//                WebUIUtils.fluentWaitClick(ComponentLocatorFactory.getEqualLocatorByDbgId("vrm-screen-content_configurations").getBy(),
+//                        WebUIUtils.SHORT_WAIT_TIME, false);
+//
+//                break;
+                errorMessage = HomePage.validateExistNavigator("ANALYTICS AMS");
+                existsAndEnabled = errorMessage.equals("");
+                if (existsAndEnabled)
+                    errorMessage="The Navigator " + operation + " shouldn't be exist, But it exists";
                 break;
 
             case "ADC":
-                locator = new ComponentLocator(How.ID, UpperBarItems.ANALYTICS.getMenuIds());
-                if (existsAndEnabled = checkIfItemEnabled(locator)) {
-                    if (existsAndEnabled = (WebUIUtils.fluentWaitClick(locator.getBy(), WebUIUtils.SHORT_WAIT_TIME, false)) != null) {
-                        locator = new ComponentLocator(How.ID, UpperBarItems.ADC.getMenuIds());
-                        if (existsAndEnabled = checkIfItemEnabled(locator)) {
-                        } else errorMessage = "Could not click on New DPM";
-                    } else errorMessage = "Could not click on analytics";
-                } else errorMessage = "Analytics Tab does not exist";
-
-
+//                locator = new ComponentLocator(How.ID, UpperBarItems.ANALYTICS.getMenuIds());
+//                if (existsAndEnabled = checkIfItemEnabled(locator)) {
+//                    if (existsAndEnabled = (WebUIUtils.fluentWaitClick(locator.getBy(), WebUIUtils.SHORT_WAIT_TIME, false)) != null) {
+//                        locator = new ComponentLocator(How.ID, UpperBarItems.ADC.getMenuIds());
+//                        if (existsAndEnabled = checkIfItemEnabled(locator)) {
+//                        } else errorMessage = "Could not click on New DPM";
+//                    } else errorMessage = "Could not click on analytics";
+//                } else errorMessage = "Analytics Tab does not exist";
+//
+//
+//                break;
+                errorMessage = HomePage.validateExistNavigator("ANALYTICS ADC");
+                existsAndEnabled = errorMessage.equals("");
+                if (existsAndEnabled)
+                    errorMessage="The Navigator " + operation + " shouldn't be exist, But it exists";
                 break;
             default:
                 return "";

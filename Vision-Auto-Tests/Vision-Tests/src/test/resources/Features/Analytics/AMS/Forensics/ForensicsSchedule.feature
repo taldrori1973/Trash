@@ -19,8 +19,7 @@ Feature: Forensics Schedule
   Scenario: VRM - Loging to VRM "Wizard" Test
     Then REST Vision Install License Request "vision-AVA-Max-attack-capacity"
     Given UI Login with user "sys_admin" and password "radware"
-    And UI Open Upper Bar Item "AMS"
-    And UI Open "Forensics" Tab
+    Then UI Navigate to "AMS Forensics" page via homepage
 
   @SID_3
   Scenario: VRM - Add New Forensics view Daily schedule
@@ -33,8 +32,8 @@ Feature: Forensics Schedule
     Then UI Validate the attribute "Class" Of Label "Schedule Run Every" With Params "Daily" is "CONTAINS" to "selected"
     Then UI Validate Text field "Scheduling At Time" CONTAINS "10:00"
     Then UI Click Button "Close" with value ""
-    And UI Open "Reports" Tab
-    And UI Open "Forensics" Tab
+    Then UI Navigate to "AMS Reports" page via homePage
+    Then UI Navigate to "AMS Forensics" page via homepage
 
 
   @SID_4
@@ -91,8 +90,8 @@ Feature: Forensics Schedule
   @SID_12
   Scenario: VRM Forensic schedule - sleep to let report generation
     And Sleep "240"
-    And UI Open "Reports" Tab
-    And UI Open "Forensics" Tab
+    Then UI Navigate to "AMS Reports" page via homePage
+    Then UI Navigate to "AMS Forensics" page via homepage
 
   @SID_13
   Scenario: VRM Forensic schedule - validate report once was generated

@@ -25,9 +25,7 @@ Feature: TED Functionality
   @SID_2
   Scenario: Navigate to TED Tab
     #Given CLI simulate 2 attacks of type "1Hit" on "Alteon" 31 with loopDelay 15000 and wait 40 seconds
-    Then UI Open Upper Bar Item "ADC"
-    Then UI Open "Dashboards" Tab
-    Then UI Open "Application Dashboard" Sub Tab
+    And UI Navigate to "Application Dashboard" page via homePage
     Then Sleep "3"
     Then UI click Table row by keyValue or Index with elementLabel "virts table" findBy columnName "Application Name" findBy cellValue "1:80"
     Then UI Click Button "TED Tab"
@@ -41,7 +39,8 @@ Feature: TED Functionality
   @SID_4
   Scenario: After Sending events - verify no data appears until refresh and refresh maintains filter bar value
     #Then CLI Run remote linux Command "python3 /root/cef/cef_messages_dir.py -a 1 -i "10.25.49.196" -p "5140" -dir "/root/cef_events/automation/fieldsummarybadgevalues" -t" on "GENERIC_LINUX_SERVER"
-    Then CLI Run remote linux Command "python3 /home/radware/TED/cef/cef_messages_dir.py -a 1 -i "172.17.164.101" -p "5140" -dir "/home/radware/TED/automation/fieldsummarybadgevalues" -t" on "GENERIC_LINUX_SERVER"
+    When CLI Send Traffic Events file "fieldsummarybadgevalues"
+#    Then CLI Run remote linux Command "python3 /home/radware/TED/cef/cef_messages_dir.py -a 1 -i "172.17.164.101" -p "5140" -dir "/home/radware/TED/automation/fieldsummarybadgevalues" -t" on "GENERIC_LINUX_SERVER"
     And Sleep "20"
     Then UI Validate "tedEvent Table" Table rows count equal to 0
     Then UI Set Text field with id "tedFilterBarInput" with "range=7d"
@@ -157,7 +156,8 @@ Feature: TED Functionality
   @SID_11
     Scenario: Malformed cef message request
     * REST Delete ES index "alteon*"
-    Then CLI Run remote linux Command "python3 /home/radware/TED/cef/cef_messages_dir.py -a 1 -i "172.17.164.101" -p "5140" -dir "/home/radware/TED/automation/unifiedTrafficEventUpdates" -t" on "GENERIC_LINUX_SERVER"
+    When CLI Send Traffic Events file "unifiedTrafficEventUpdates"
+#    Then CLI Run remote linux Command "python3 /home/radware/TED/cef/cef_messages_dir.py -a 1 -i "172.17.164.101" -p "5140" -dir "/home/radware/TED/automation/unifiedTrafficEventUpdates" -t" on "GENERIC_LINUX_SERVER"
     And Sleep "20"
     Then UI Click Button by id "tedFilterBarButtonRefresh"
     Then UI Validate "tedEvent Table" Table rows count equal to 3

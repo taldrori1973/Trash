@@ -6,8 +6,8 @@ Feature: Report Template Selection
   Scenario: login and go to AMS reports
     Given UI Login with user "sys_admin" and password "radware"
     * REST Vision Install License Request "vision-AVA-Max-attack-capacity"
-    When UI Open Upper Bar Item "AMS"
-    When UI Open "Reports" Tab
+    And UI Navigate to "AMS Reports" page via homePage
+
 
   @SID_2
   Scenario: DefensePro Analytics Dashboard D&D 3 widgets

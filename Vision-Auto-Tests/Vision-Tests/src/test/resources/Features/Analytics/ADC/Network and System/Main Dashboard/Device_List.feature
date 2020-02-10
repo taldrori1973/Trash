@@ -53,8 +53,8 @@ Feature: System And Network - Device List
     Then REST Update a scalar "snmpV2ReadCommunity" value of Request "Device Tree->Update SNMPv2 Read Community" on the device Ip "50.50.101.30" with the new scalar value "public1"
     Then REST Update a scalar "snmpV2ReadCommunity" value of Request "Device Tree->Update SNMPv2 Read Community" on the device Ip "50.50.101.31" with the new scalar value "public1"
     Then REST Update a scalar "snmpV2ReadCommunity" value of Request "Device Tree->Update SNMPv2 Read Community" on the device Ip "50.50.101.32" with the new scalar value "public1"
-#    Then REST Update a scalar "snmpV2ReadCommunity" value of Request "Device Tree->Update SNMPv2 Read Community" on the device Ip "172.17.164.17" with the new scalar value "public1"
-#    Then REST Update a scalar "snmpV2ReadCommunity" value of Request "Device Tree->Update SNMPv2 Read Community" on the device Ip "172.17.154.190" with the new scalar value "public1"
+    Then REST Update a scalar "snmpV2ReadCommunity" value of Request "Device Tree->Update SNMPv2 Read Community" on the device Ip "172.17.164.17" with the new scalar value "public1"
+    Then REST Update a scalar "snmpV2ReadCommunity" value of Request "Device Tree->Update SNMPv2 Read Community" on the device Ip "172.17.154.190" with the new scalar value "public1"
 
     Then Browser Refresh Page
 
@@ -63,12 +63,12 @@ Feature: System And Network - Device List
   Scenario Outline: Setup 5 - UI Edit and Submit Down Devices To Update Status at Topology Tree
     Then UI Click Edit device Then Submit to Refresh with IP "<Device IP>" from topology tree "Sites and Devices"
     Examples:
-      | Device IP    |
-      | 50.50.101.30 |
-      | 50.50.101.31 |
-      | 50.50.101.32 |
-#      | 172.17.164.17  |
-#      | 172.17.154.190 |
+      | Device IP      |
+      | 50.50.101.30   |
+      | 50.50.101.31   |
+      | 50.50.101.32   |
+      | 172.17.164.17  |
+      | 172.17.154.190 |
 
   @SID_7
   Scenario: Navigation
@@ -339,30 +339,30 @@ Feature: System And Network - Device List
   Scenario: validate search table
     Then UI Validate search in table "Devices table" in searchLabel "searchLabel" with text "AC"
       | columnName    | Value          |
-#      | Management IP | 172.17.154.200 |
-#      | Management IP | 172.17.164.17  |
-#      | Management IP | 172.17.154.190 |
+      | Management IP | 172.17.154.200 |
+      | Management IP | 172.17.164.17  |
+      | Management IP | 172.17.154.190 |
       | Management IP | 50.50.101.32   |
       | Management IP | 50.50.101.31   |
-    Then UI Validate "Device List.Table" Table rows count equal to 2 with offset 0
+    Then UI Validate "Device List.Table" Table rows count equal to 5 with offset 0
 
     Then UI Validate search in table "Devices table" in searchLabel "searchLabel" with text "ac ACT"
       | columnName    | Value          |
-#      | Management IP | 172.17.154.200 |
-#      | Management IP | 172.17.154.190 |
+      | Management IP | 172.17.154.200 |
+      | Management IP | 172.17.154.190 |
       | Management IP | 50.50.101.32   |
-    Then UI Validate "Device List.Table" Table rows count equal to 1 with offset 0
+    Then UI Validate "Device List.Table" Table rows count equal to 3 with offset 0
 
     Then UI Validate search in table "Devices table" in searchLabel "searchLabel" with text "ac ACT ST"
       | columnName    | Value          |
-#      | Management IP | 172.17.154.200 |
-#      | Management IP | 172.17.154.190 |
-    Then UI Validate "Device List.Table" Table rows count equal to 0 with offset 0
+      | Management IP | 172.17.154.200 |
+      | Management IP | 172.17.154.190 |
+    Then UI Validate "Device List.Table" Table rows count equal to 2 with offset 0
 
-#    Then UI Validate search in table "Devices table" in searchLabel "searchLabel" with text "ac ACT ST 19"
-#      | columnName    | Value          |
-#      | Management IP | 172.17.154.190 |
-#    Then UI Validate "Device List.Table" Table rows count equal to 1 with offset 0
+    Then UI Validate search in table "Devices table" in searchLabel "searchLabel" with text "ac ACT ST 19"
+      | columnName    | Value          |
+      | Management IP | 172.17.154.190 |
+    Then UI Validate "Device List.Table" Table rows count equal to 1 with offset 0
 
 
   @SID_27
@@ -377,12 +377,12 @@ Feature: System And Network - Device List
     Then REST Delete Device By IP "50.50.32.1"
     Then REST Delete Device By IP "50.50.101.254"
 
-#    Then REST Update a scalar "snmpV2ReadCommunity" value of Request "Device Tree->Update SNMPv2 Read Community" on the device Ip "172.17.164.17" with the new scalar value "public"
-#    Then REST Update a scalar "snmpV2ReadCommunity" value of Request "Device Tree->Update SNMPv2 Read Community" on the device Ip "172.17.154.190" with the new scalar value "public"
+    Then REST Update a scalar "snmpV2ReadCommunity" value of Request "Device Tree->Update SNMPv2 Read Community" on the device Ip "172.17.164.17" with the new scalar value "public"
+    Then REST Update a scalar "snmpV2ReadCommunity" value of Request "Device Tree->Update SNMPv2 Read Community" on the device Ip "172.17.154.190" with the new scalar value "public"
 
 
-#    Then UI Click Edit device Then Submit to Refresh with IP "172.17.164.17" from topology tree "Sites and Devices"
-#    Then UI Click Edit device Then Submit to Refresh with IP "172.17.154.190" from topology tree "Sites and Devices"
+    Then UI Click Edit device Then Submit to Refresh with IP "172.17.164.17" from topology tree "Sites and Devices"
+    Then UI Click Edit device Then Submit to Refresh with IP "172.17.154.190" from topology tree "Sites and Devices"
 
     Then Browser Refresh Page
     Then UI Click Web element with id "gwt-debug-Global_Refresh"

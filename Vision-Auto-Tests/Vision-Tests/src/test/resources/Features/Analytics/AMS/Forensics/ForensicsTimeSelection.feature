@@ -15,8 +15,7 @@ Feature: Forensic Time Selection
   Scenario: Login and go to forensics
     Given UI Login with user "sys_admin" and password "radware"
     * REST Vision Install License Request "vision-AVA-Max-attack-capacity"
-    And UI Open Upper Bar Item "AMS"
-    And UI Open "Forensics" Tab
+    Then UI Navigate to "AMS Forensics" page via homepage
 
    ######################   QUICK ONE DAY   #######################################################
 
@@ -42,8 +41,8 @@ Feature: Forensic Time Selection
 
 
     When UI Delete "Forensic Time" and Approve
-    And UI Open "Reports" Tab
-    And UI Open "Forensics" Tab
+    Then UI Navigate to "AMS Reports" page via homePage
+    Then UI Navigate to "AMS Forensics" page via homepage
 
    ######################   RELATIVE HOURS   #####################################################
 

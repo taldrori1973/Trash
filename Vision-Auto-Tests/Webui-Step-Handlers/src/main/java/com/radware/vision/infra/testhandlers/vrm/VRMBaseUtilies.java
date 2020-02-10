@@ -134,7 +134,7 @@ public class VRMBaseUtilies {
                     List<VRMHandler.DpApplicationFilter> devicesEntries = new ArrayList<>();
                     if (map.get("projectObjects") != null || map.get("webApplications") != null) {
                         String type = map.get("projectObjects") != null ? "projectObjects" : map.get("webApplications") != null ? "webApplications" : "";
-                        String[] devices = !map.get(type).matches("(All|all|)") ? map.get(type).split(",") : new String[0];
+                        String [] devices = !map.get(type).matches("(All|all|)") ? map.get(type).split(",") : new String[0];
                         for (String appName : devices) {
                             devicesEntries.add(new VRMHandler.DpApplicationFilter(appName));
                         }
@@ -143,7 +143,7 @@ public class VRMBaseUtilies {
                     } else {
                         devicesEntries.add(new VRMHandler.DpApplicationFilter("All"));
                     }
-                    vrmHandler.selectApplications(devicesEntries, map.get("reportType").toLowerCase().startsWith("defenseflow") ? "defenseflow" : "appwall", false);
+                    vrmHandler.selectApplications(devicesEntries, map.get("reportType").toLowerCase().startsWith("defenseflow")? "defenseflow" : "appwall", false);
                     return;
                 }
                 case "defensepro behavioral protections dashboard":
@@ -234,6 +234,18 @@ public class VRMBaseUtilies {
             devicesEntries.add(deviceEntry);
         }
         return devicesEntries;
+    }
+
+    protected void selectProductNew(Map<String, String> map) throws TargetWebElementNotFoundException {
+        if (map.containsKey("Product")) {
+            String productSelection = map.get("Product");
+            if (productSelection.equals("Appwall") || productSelection.equals("DefenseFlow") || productSelection.equals("DefensePro")) {
+                BasicOperationsHandler.clickButton(productSelection);
+            }
+            else {
+                BaseTestUtils.report("The Product definition should be Appwall, or DefenseFlow or DefensePro: " + productSelection, Reporter.FAIL);
+            }
+        }
     }
 
     protected void selectTimeDefinitions(Map<String, String> map) throws TargetWebElementNotFoundException, DropdownItemNotFoundException, DropdownNotOpenedException {
@@ -755,7 +767,7 @@ public class VRMBaseUtilies {
 
     protected void editDevices(Map<String, String> map) throws Exception {
 
-        if (map.containsKey("devices") || map.containsKey("webApplications") || map.containsKey("projectObjects")) {
+        if (map.containsKey("devices")) {
             selectDevices(map);
         }
     }
@@ -1117,6 +1129,7 @@ public class VRMBaseUtilies {
                 if (!name.trim().equals("unselected"))
                     BasicOperationsHandler.uploadFileToVision(name, null, null);
             }
+            BasicOperationsHandler.clickButton("Customized Options");
         }
     }
 
@@ -1246,9 +1259,6 @@ public class VRMBaseUtilies {
                         break;
                     case "HTML":
                         ExportText = "html";
-                        break;
-                    case "CSV_WITH_DETAILS":
-                        ExportText = "csv_with_details";
                         break;
                 }
                 BasicOperationsHandler.clickButton("Report Format", ExportText);

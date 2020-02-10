@@ -49,7 +49,8 @@ Feature: AppWall Reports
     Then UI Navigate to page "System->General Settings->Alert Settings->Alert Browser"
     Then UI Do Operation "select" item "Email Reporting Configuration"
     Then UI Set Checkbox "Enable" To "true"
-    Then UI Set Text Field "SMTP User Name" To "QAutomation@radware.com"
+    Then UI Set Text Field "SMTP User Name" To "qa_test@Radware.com"
+    Then UI Set Text Field "From Header" To "Automation system"
     Then UI Set Checkbox "Enable" To "false"
     Then UI Click Button "Submit"
     And UI Navigate to page "System->General Settings->APSolute Vision Analytics Settings->Email Reporting Configurations"
@@ -61,7 +62,7 @@ Feature: AppWall Reports
   @SID_6
   Scenario: Navigate AMS Report
     Then REST Vision Install License Request "vision-AVA-Max-attack-capacity"
-    Then REST Add "AppWall" Device To topology Tree with Name "Appwall_SA_172.17.164.30" and Management IP "172.17.164.30" into site "Default"
+    Then REST Add "AppWall" Device To topology Tree with Name "Appwall_SA_172.17.164.30" and Management IP "172.17.164.30" into site "AW_site"
       | attribute     | value    |
       | httpPassword  | 1qaz!QAZ |
       | httpsPassword | 1qaz!QAZ |
@@ -69,9 +70,8 @@ Feature: AppWall Reports
       | httpUsername  | user1    |
       | visionMgtPort | G1       |
     Given REST Vision Install License Request "vision-AVA-AppWall"
-    When UI Open Upper Bar Item "AMS"
-    When UI Open "Dashboards" Tab
-    When UI Open "Reports" Tab
+    And Browser Refresh Page
+    And UI Navigate to "AMS Reports" page via homePage
     Then UI Validate Element Existence By Label "Add New" if Exists "true"
 
   # =============================================Overall===========================================================
@@ -120,18 +120,16 @@ Feature: AppWall Reports
       | reportType      | AppWall Dashboard                                                                            |
       | webApplications | All                                                                                          |
       | Share           | Email:[automation.vision1@radware.com, also@report.local],Subject:report delivery Subject AW |
-    Then CLI Run remote linux Command "echo "cleared" $(date) > /var/spool/mail/radware" on "GENERIC_LINUX_SERVER"
-    Then CLI Run remote linux Command "echo "cleared" $(date) > /var/spool/mail/reportuser" on "GENERIC_LINUX_SERVER"
     Then UI Generate and Validate Report With Name "deliveryAW" with Timeout of 100 Seconds
 
   @SID_12
   Scenario: Validate Report Email Recieved Content
     Then CLI Run remote linux Command "cat /var/spool/mail/reportuser > /tmp/reportdelivery.log" on "GENERIC_LINUX_SERVER"
-    Then CLI Run linux Command "cat /var/spool/mail/reportuser|tr -d "="|tr -d "\n"|grep -o "Subject: report delivery Subject AW" |wc -l" on "GENERIC_LINUX_SERVER" and validate result EQUALS "1"
-    Then CLI Run linux Command "cat /var/spool/mail/radware|tr -d "="|tr -d "\n"|grep -o "Subject: report delivery Subject AW" |wc -l" on "GENERIC_LINUX_SERVER" and validate result EQUALS "1"
+    Then CLI Run linux Command "cat /var/spool/mail/reportuser|tr -d "="|tr -d "\n"|grep -o "Subject: report delivery Subject" |wc -l" on "GENERIC_LINUX_SERVER" and validate result EQUALS "1"
+    Then CLI Run linux Command "cat /var/spool/mail/radware|tr -d "="|tr -d "\n"|grep -o "Subject: report delivery Subject" |wc -l" on "GENERIC_LINUX_SERVER" and validate result EQUALS "1"
 
-    Then CLI Run linux Command "grep "From: APSolute Vision <QAutomation@radware.com>" /var/spool/mail/reportuser |wc -l" on "GENERIC_LINUX_SERVER" and validate result EQUALS "1"
-    Then CLI Run linux Command "grep "From: APSolute Vision <QAutomation@radware.com>" /var/spool/mail/radware |wc -l" on "GENERIC_LINUX_SERVER" and validate result EQUALS "1"
+    Then CLI Run linux Command "grep "From: Automation system <qa_test@Radware.com>" /var/spool/mail/reportuser |wc -l" on "GENERIC_LINUX_SERVER" and validate result EQUALS "1"
+    Then CLI Run linux Command "grep "From: Automation system <qa_test@Radware.com>" /var/spool/mail/radware |wc -l" on "GENERIC_LINUX_SERVER" and validate result EQUALS "1"
 
     Then CLI Run linux Command "grep "X-Original-To: also@report.local" /var/spool/mail/reportuser |wc -l" on "GENERIC_LINUX_SERVER" and validate result EQUALS "1"
     Then CLI Run linux Command "grep "X-Original-To: automation.vision1@radware.com" /var/spool/mail/radware |wc -l" on "GENERIC_LINUX_SERVER" and validate result EQUALS "1"
@@ -211,9 +209,7 @@ Feature: AppWall Reports
     When UI Open "Configurations" Tab
     When UI logout and close browser
     Given UI Login with user "sec_mon" and password "radware"
-    When UI Open Upper Bar Item "AMS"
-    When UI Open "Dashboards" Tab
-    When UI Open "Reports" Tab
+    And UI Navigate to "AMS Reports" page via homePage
     Then UI Validate Element Existence By Label "Title" if Exists "false" with value "2DaysBeforeReport"
 
   @SID_19

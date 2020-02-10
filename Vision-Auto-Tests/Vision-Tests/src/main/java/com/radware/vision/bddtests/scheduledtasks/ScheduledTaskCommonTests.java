@@ -26,7 +26,7 @@ public class ScheduledTaskCommonTests extends BddUITestBase {
      *
      */
     @Given("^UI Open scheduler window$")
-    public void openSchedulerWindow() {
+    public void openSchedulerWindow() throws Exception {
         BaseTasksHandler.openScheduler(true);
     }
 
@@ -34,13 +34,13 @@ public class ScheduledTaskCommonTests extends BddUITestBase {
      *
      */
     @Then("^UI Close scheduler window$")
-    public void closeSchedulerWindow() {
+    public void closeSchedulerWindow() throws Exception {
         BaseTasksHandler.openScheduler(false);
     }
 
 
     @When("^UI Delete task with name \"(.*)\"$")
-    public void deleteTaskByName(String taskName) {
+    public void deleteTaskByName(String taskName) throws Exception {
         BaseTasksHandler.deleteBaseTask("Name", taskName);
     }
 
@@ -79,7 +79,7 @@ public class ScheduledTaskCommonTests extends BddUITestBase {
     }
 
     @Then("^UI Run task with name \"(.*)\"$")
-    public void runTask(String taskName) {
+    public void runTask(String taskName) throws Exception {
 
         try {
             BaseTasksHandler.runNowBaseTask("Name", taskName, new ArrayList<>(), getVisionRestClient());

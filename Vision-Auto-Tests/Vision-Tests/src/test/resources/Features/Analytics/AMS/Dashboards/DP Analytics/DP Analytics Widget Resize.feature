@@ -4,9 +4,8 @@ Feature: DP ANALYTICS Look and Feel
 @SID_1
 Scenario: Login
 When UI Login with user "sys_admin" and password "radware"
-And UI Open Upper Bar Item "AMS"
-And UI Open "Dashboards" Tab
-And UI Open "DP Analytics" Sub Tab
+And UI Navigate to "DefensePro Analytics Dashboard" page via homePage
+
 And UI Do Operation "Select" item "Global Time Filter"
 And UI Do Operation "Select" item "Global Time Filter.Quick Range" with value "3H"
 #TODO - move all below scenarios to automated after R&D will define the widget location

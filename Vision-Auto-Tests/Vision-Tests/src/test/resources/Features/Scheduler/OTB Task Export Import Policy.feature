@@ -27,7 +27,7 @@ Feature: Task OTB DefensePro Export-Import policy
   Scenario: Go to scheduler and run the task
     # Make sure a policy named BDOS with DNS and BDOS profiles exist in DP index 10
     # Import into DP index 11
-    When UI Open scheduler window
+    And UI Navigate to "SCHEDULER" page via homePage
     Then UI Run task with name "OTB_auto_task"
     
   @SID_5
@@ -41,11 +41,9 @@ Feature: Task OTB DefensePro Export-Import policy
 
   @SID_7
   Scenario: Check logs for errors
-    Then UI logout and close browser
     * CLI Check if logs contains
       | logType | expression                     | isExpected   |
       | VDIRECT | fatal                          | NOT_EXPECTED |
       | VDIRECT | error                          | NOT_EXPECTED |
       | VDIRECT | Could not update server report | IGNORE       |
       | VDIRECT | FAILED 172.17.154.190          | IGNORE       |
-      | VDIRECT | 50.50.                         | IGNORE       |

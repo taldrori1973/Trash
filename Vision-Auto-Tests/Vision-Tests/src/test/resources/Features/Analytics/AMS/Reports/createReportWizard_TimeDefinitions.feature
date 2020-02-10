@@ -29,9 +29,7 @@ Feature: Report Wizard_Time_Definitions
   @SID_4
   Scenario: Login and navigate to the Reports Wizard
     Given UI Login with user "sys_admin" and password "radware"
-#    When UI "Create" "DefensePro" with index 10 on "Default" site
-    When UI Open Upper Bar Item "AMS"
-    When UI Open "Reports" Tab
+    And UI Navigate to "AMS Reports" page via homePage
     Then UI Validate Element Existence By Label "Add New" if Exists "true"
 
 

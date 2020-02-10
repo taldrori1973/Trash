@@ -25,8 +25,7 @@ Feature: VRM AMS Report Data BDoS baselines
   @SID_4
   Scenario: Login to VRM AMS reports tab
     Given UI Login with user "sys_admin" and password "radware"
-    And UI Open Upper Bar Item "AMS"
-    And UI Open "Reports" Tab
+    And UI Navigate to "AMS Reports" page via homePage
 
   @SID_5
   Scenario: Create Report of BDOS baselines IPv4 bps Inbound
@@ -38,8 +37,8 @@ Feature: VRM AMS Report Data BDoS baselines
 
   @SID_6
   Scenario: Generate the report "BDOS baselines IPv4 bps Inbound"
-    And UI Open "Alerts" Tab
-    And UI Open "Reports" Tab
+    And UI Navigate to "AMS Alerts" page via homePage
+    And UI Navigate to "AMS Reports" page via homePage
     Then UI Generate and Validate Report With Name "BDOS baselines IPv4 bps Inbound" with Timeout of 300 Seconds
     Then Sleep "10"
 
@@ -233,8 +232,8 @@ Feature: VRM AMS Report Data BDoS baselines
 
   @SID_37
   Scenario: Generate the report "BDOS baselines IPv6 PPS Outbound"
-    And UI Open "Alerts" Tab
-    And UI Open "Reports" Tab
+    And UI Navigate to "AMS Alerts" page via homePage
+    And UI Navigate to "AMS Reports" page via homePage
     Then UI Generate and Validate Report With Name "BDOS baselines IPv6 PPS Outbound" with Timeout of 300 Seconds
 
   @SID_38
@@ -314,6 +313,6 @@ Feature: VRM AMS Report Data BDoS baselines
       | JBOSS       | fatal        | NOT_EXPECTED |
       | TOMCAT      | fatal        | NOT_EXPECTED |
       | TOMCAT2     | fatal        | NOT_EXPECTED |
-    Then UI Open "Configurations" Tab
+    Then UI Navigate to "HOME" page via homePage
     * UI logout and close browser
     * CLI kill all simulator attacks on current vision

@@ -452,6 +452,7 @@ public class ForensicsHandler extends VRMBaseUtilies {
             BasicOperationsHandler.clickButton("Add", "");
             selectBasicInfo(forensicsName, map);
             expandViews(true);
+            selectProductNew(map);
             selectDevices(map);
             selectTimeDefinitionsNew(map);
             selectCriteria(map);

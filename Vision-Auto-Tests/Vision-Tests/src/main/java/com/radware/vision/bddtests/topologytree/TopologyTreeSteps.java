@@ -40,10 +40,10 @@ public class TopologyTreeSteps extends BddUITestBase {
     public TopologyTreeSteps() throws Exception {
     }
 
-    @When("^UI Add( physical)? \"(.*)\" with index (\\d+) on \"(.*)\" site( register)?(?: expected status \"(.*)\")?$")
-    public void addNewDevice(String treeTabType, String elementType, int index, String parent, String registerDevice, ImConstants$DeviceStatusEnumPojo expectedStatus) throws Exception {
+    @When("^UI Add( physical)? \"(.*)\" with index (\\d+) on \"(.*)\" site( unregister)?(?: expected status \"(.*)\")?$")
+    public void addNewDevice(String treeTabType, String elementType, int index, String parent, String unregister, ImConstants$DeviceStatusEnumPojo expectedStatus) throws Exception {
         try {
-            boolean register = registerDevice != null;
+            boolean register = unregister == null;
             TopologyTreeTabs topologyTreeTab = (treeTabType != null) ? TopologyTreeTabs.PhysicalContainers : TopologyTreeTabs.SitesAndClusters;
             SUTDeviceType sutDeviceType = SUTDeviceType.valueOf(elementType);
             DeviceInfo deviceInfo = devicesManager.getDeviceInfo(sutDeviceType, index);
@@ -51,8 +51,8 @@ public class TopologyTreeSteps extends BddUITestBase {
             HashMap<String, String> deviceProperties = new HashMap<String, String>();
             deviceProperties.put("snmpReadCommunity", deviceInfo.getReadCommunity());
             deviceProperties.put("snmpWriteCommunity", deviceInfo.getWriteCommunity());
-            deviceProperties.put("httpUserName", deviceInfo.getUsername());
-            deviceProperties.put("httpPassword", deviceInfo.getPassword());
+            deviceProperties.put("httpUserNameDefensePro", deviceInfo.getUsername());
+            deviceProperties.put("httpPasswordDefensePro", deviceInfo.getPassword());
 
             TopologyTreeHandler.addNewDevice(sutDeviceType, deviceInfo.getDeviceName(), parent, deviceInfo.getDeviceIp(), visionServerIP, register, deviceProperties, topologyTreeTab);
 
@@ -627,8 +627,8 @@ public class TopologyTreeSteps extends BddUITestBase {
             HashMap<String, String> deviceProperties = new HashMap<String, String>();
             deviceProperties.put("snmpReadCommunity", deviceInfo.getReadCommunity());
             deviceProperties.put("snmpWriteCommunity", deviceInfo.getWriteCommunity());
-            deviceProperties.put("httpUserName", deviceInfo.getUsername());
-            deviceProperties.put("httpPassword", deviceInfo.getPassword());
+            deviceProperties.put("httpUserNameDefensePro", deviceInfo.getUsername());
+            deviceProperties.put("httpPasswordDefensePro", deviceInfo.getPassword());
 
             TopologyTreeHandler.addNewDevice(sutDeviceType, deviceInfo.getDeviceName(), site, deviceInfo.getDeviceIp(), visionServerIP, register, deviceProperties, topologyTreeTab);
 

@@ -406,14 +406,23 @@ public class RemoteSshCommandsTests extends BddCliTestBase {
         runCLICommand("unzip -o -d /opt/radware/mgt-server/third-party/tomcat/bin/ /opt/radware/mgt-server/third-party/tomcat/bin/VRM_report_*.zip", ROOT_SERVER_CLI, null);
     }
 
-    @Then("^CLI Run remote linux Command \"(.*)\" on \"(.*)\" and wait for \"(.*)\" till timeout \"(\\d+)\" min$")
-    public void cliCommandWithRetryTillTimeOut(String commandToExecute, SUTEntryType sutEntryType, String value, int timeOut ) {
-//        do{
-//            runCLICommandAndValidateBiggerOrEqualResult(commandToExecute, sutEntryType, EqualsOrContains.EQUALS, value, String inAnyLine, Integer iDelay);
-//        }
-//
-//
-//         CliOperations.verifyLastOutputByRegex(value);
+    @When("^CLI Send Traffic Events file \"(.*)\"$")
+    public void runTrafficEventFile(String filename) {
+        String commandToExecute = "";
+        try {
+            String serverIp = restTestBase.getRootServerCli().getHost();
+            commandToExecute = String.format("python3 /home/radware/TED/cef/cef_messages_dir.py -a 1 -i \"%s\" -p \"5140\" -dir \"/home/radware/TED/automation/%s\" -t", serverIp, filename);
+//            String commandToExecute = "python3 /home/radware/TED/cef/cef_messages_dir.py -a 1 -i \"172.17.164.101\" -p \"5140\" -dir \"/home/radware/TED/automation/fieldsummarybadgevalues\" -t";
 
+            int timeOut = 30;
+            CliOperations.runCommand(getSUTEntryTypeByServerCliBase(GENERIC_LINUX_SERVER),
+                    commandToExecute, timeOut * 1000);
+
+        } catch (Exception e) {
+            BaseTestUtils.report("Failed to execute command: " + commandToExecute + ", on " +
+                    GENERIC_LINUX_SERVER + "\n" + parseExceptionBody(e), Reporter.FAIL);
+        }
     }
+
+
 }

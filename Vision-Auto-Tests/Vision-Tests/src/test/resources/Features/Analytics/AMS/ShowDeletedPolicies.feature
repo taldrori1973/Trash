@@ -12,58 +12,58 @@ Feature: Show Deleted Policies
       | index |
       | 10    |
     Then Sleep "120"
-    Given UI Login with user "sys_admin" and password "radware"
-    When UI Open Upper Bar Item "AMS"
+
+
 
 
   @SID_2
   Scenario: check policy appears in dashboard devices list
-    When UI Open "Dashboards" Tab
-    And UI Open "DP Monitoring Dashboard" Sub Tab
+    Given UI Login with user "sys_admin" and password "radware"
+    Then UI Navigate to "DefensePro Monitoring Dashboard" page via homePage
     Then UI Click Button "Device Selection"
     When UI Select device from dashboard
       | index |
       | 10    |
     Then UI validate if policy is Exist
-      | index | policies | isExist|
-      | 10    | DeletePolTest  | true   |
+      | index | policies      | isExist |
+      | 10    | DeletePolTest | true    |
     Then UI Click Button "Device Selection.Cancel"
 
 
   @SID_3
   Scenario: check policy appears in Reports devices list
-    When UI Open "Dashboards" Tab
-    And UI Open "DP Monitoring Dashboard" Sub Tab
+    Then UI Navigate to "AMS Reports" page via homePage
     Then UI open devices list of "Reports"
     When UI Select device from dashboard
       | index |
       | 10    |
     Then UI validate if policy is Exist
-      | index | policies | isExist|
-      | 10   | DeletePolTest  | true   |
+      | index | policies      | isExist |
+      | 10    | DeletePolTest | true    |
+
 
   @SID_4
   Scenario: check policy appears in Alerts devices list
-    When UI Open "Dashboards" Tab
-    And UI Open "DP Monitoring Dashboard" Sub Tab
+    Then UI Navigate to "AMS Alerts" page via homePage
     Then UI open devices list of "Alerts"
     When UI Select device from dashboard
       | index |
       | 10    |
     Then UI validate if policy is Exist
-      | index | policies | isExist|
-      | 10    | DeletePolTest  | true   |
+      | index | policies      | isExist |
+      | 10    | DeletePolTest | true    |
 
 
   @SID_5
   Scenario: check policy appears in Forensics devices list
+    Then UI Navigate to "AMS Forensics" page via homePage
     Then UI open devices list of "Forensics"
     When UI Select device from dashboard
       | index |
       | 10    |
     Then UI validate if policy is Exist
-      | index | policies | isExist|
-      | 10    | DeletePolTest  | true   |
+      | index | policies      | isExist |
+      | 10    | DeletePolTest | true    |
 
 
   @SID_6
@@ -83,80 +83,78 @@ Feature: Show Deleted Policies
   @SID_8
   Scenario: Login
     Given UI Login with user "sys_admin" and password "radware"
-    When UI Open Upper Bar Item "AMS"
+
 
 
   @SID_9
   Scenario: check policy NOT appears in dashboard devices list
-    When UI Open "Dashboards" Tab
-    And UI Open "DP Monitoring Dashboard" Sub Tab
+    Then UI Navigate to "DefensePro Monitoring Dashboard" page via homePage
     Then UI Click Button "Device Selection"
     When UI Select device from dashboard
       | index |
       | 10    |
     Then UI validate if policy is Exist
-      | index | policies | isExist|
-      | 10    | DeletePolTest  | false   |
+      | index | policies      | isExist |
+      | 10    | DeletePolTest | false   |
 #    When UI Click Button "Show Deleted Policies" with value "172.16.22.55"
     When UI Click Button "Show Deleted Policies" with params
       | index |
       | 10    |
     Then UI validate if policy is Exist
-      | index | policies | isExist|
-      | 10    | DeletePolTest  | true   |
+      | index | policies      | isExist |
+      | 10    | DeletePolTest | true    |
     Then UI Click Button "Device Selection.Cancel"
 
   @SID_10
   Scenario: check policy NOT appears in Reports devices list
-    When UI Open "Dashboards" Tab
-    And UI Open "DP Monitoring Dashboard" Sub Tab
+    Then UI Navigate to "AMS Reports" page via homePage
     Then UI open devices list of "Reports"
     When UI Select device from dashboard
       | index |
       | 10    |
     Then UI validate if policy is Exist
-      | index | policies | isExist|
-      | 10    | DeletePolTest  | false   |
+      | index | policies      | isExist |
+      | 10    | DeletePolTest | false   |
     When UI Click Button "Show Deleted Policies" with params
       | index |
       | 10    |
     Then UI validate if policy is Exist
-      | index | policies | isExist|
-      | 10    | DeletePolTest  | true   |
+      | index | policies      | isExist |
+      | 10    | DeletePolTest | true    |
 
   @SID_11
   Scenario: check policy NOT appears in Alerts devices list
-    When UI Open "Dashboards" Tab
-    And UI Open "DP Monitoring Dashboard" Sub Tab
+    Then UI Navigate to "AMS Alerts" page via homePage
     Then UI open devices list of "Alerts"
     When UI Select device from dashboard
       | index |
       | 10    |
     Then UI validate if policy is Exist
-      | index | policies | isExist|
-      | 10    | DeletePolTest  | false   |
+      | index | policies      | isExist |
+      | 10    | DeletePolTest | false   |
     When UI Click Button "Show Deleted Policies" with params
       | index |
       | 10    |
     Then UI validate if policy is Exist
-      | index | policies | isExist|
-      | 10    | DeletePolTest  | true   |
+      | index | policies      | isExist |
+      | 10    | DeletePolTest | true    |
 
   @SID_12
   Scenario: check policy NOT appears in Forensics devices list
+    Then UI Navigate to "AMS Forensics" page via homePage
     Then UI open devices list of "Forensics"
     When UI Select device from dashboard
       | index |
       | 10    |
     Then UI validate if policy is Exist
-      | index | policies | isExist|
-      | 10    | DeletePolTest  | false   |
+      | index | policies      | isExist |
+      | 10    | DeletePolTest | false   |
     When UI Click Button "Show Deleted Policies" with params
       | index |
       | 10    |
     Then UI validate if policy is Exist
-      | index | policies | isExist|
-      | 10    | DeletePolTest  | true   |
+      | index | policies      | isExist |
+      | 10    | DeletePolTest | true    |
 
   @SID_13
   Scenario: Logout and close browser

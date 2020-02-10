@@ -19,8 +19,7 @@ Feature: Forensics Edit Definition
   Scenario: VRM - Login to VRM "Wizard" Test
     Given UI Login with user "sys_admin" and password "radware"
     Then REST Vision Install License Request "vision-AVA-Max-attack-capacity"
-    And UI Open Upper Bar Item "AMS"
-    And UI Open "Forensics" Tab
+    Then UI Navigate to "AMS Forensics" page via homepage
 
   @SID_4
   Scenario: forensics create basic report
@@ -48,7 +47,7 @@ Feature: Forensics Edit Definition
       | Criteria              | Event Criteria:Action,Operator:Equals,Value:[Forward];   |
       | Output                | Start Time,Action,Attack ID,Risk                         |
       | Schedule              | Run Every:Daily, On Time:10:00 AM                        |
-      | Share                 | Email:[automation.vision1@radware.com],Subject:mySubject |
+      | Delivery              | Email:[automation.vision1@radware.com],Subject:mySubject |
 
 #  @SID_7
 #  Scenario: Validate forensics definition edit all fields

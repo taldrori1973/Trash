@@ -21,9 +21,7 @@ Feature: AMS main dashboard Traffic Bandwidth
     Given UI Login with user "sys_admin" and password "radware"
     Then REST Vision Install License Request "vision-AVA-Max-attack-capacity"
     Then Sleep "2"
-    And UI Open Upper Bar Item "AMS"
-    And UI Open "Dashboards" Tab
-    When UI Open "DP Monitoring Dashboard" Sub Tab
+    And UI Navigate to "DefensePro Monitoring Dashboard" page via homePage
 
   @Dev_Sanity @SID_4
   Scenario: VRM - Validate Dashboards "Traffic Bandwidth" Widget data for only DP version 8 machines
@@ -375,9 +373,7 @@ Feature: AMS main dashboard Traffic Bandwidth
     And CLI simulate 5 attacks of type "rest_traffic_diff_Policy15out" on "DefensePro" 10 with loopDelay 15000 and wait 200 seconds
     And CLI simulate 5 attacks of type "rest_traffic_diff_Policy15out" on "DefensePro" 10 with loopDelay 15000 and wait 85 seconds
     Given UI Login with user "sys_admin" and password "radware"
-    And UI Open Upper Bar Item "AMS"
-    And UI Open "Dashboards" Tab
-    When UI Open "DP Monitoring Dashboard" Sub Tab
+    And UI Navigate to "DefensePro Monitoring Dashboard" page via homePage
     Then UI Click Button "Accessibility Open Menu"
     Then UI Click Button "Accessibility Close"
     Then UI Validate Line Chart data "Traffic Bandwidth" with Label "Received"

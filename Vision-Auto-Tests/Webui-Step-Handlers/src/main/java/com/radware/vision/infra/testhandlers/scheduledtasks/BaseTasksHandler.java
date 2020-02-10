@@ -9,6 +9,7 @@ import com.radware.jsonparsers.impl.JsonArrayUtils;
 import com.radware.jsonparsers.impl.JsonUtils;
 import com.radware.jsonparsers.impl.ScheduledTaskJsonImpl;
 import com.radware.restcore.VisionRestClient;
+import com.radware.vision.infra.base.pages.navigation.HomePage;
 import com.radware.vision.pojomodel.helpers.constants.ImConstants$CurrentTaskStatusPojo;
 import com.radware.vision.pojomodel.helpers.constants.ImConstants$DeviceStatusEnumPojo;
 import com.radware.vision.pojomodel.helpers.constants.ImConstants$ScheduledTaskExecutionStatusEnumPojo;
@@ -112,7 +113,7 @@ public class BaseTasksHandler {
         }
     }
 
-    public static void deleteBaseTask(String columnName, String taskName) {
+    public static void deleteBaseTask(String columnName, String taskName) throws Exception {
         openScheduler(true);
         ScheduledTasks scheduledTasks = new ScheduledTasks();
         scheduledTasks.deleteTask(columnName, taskName);
@@ -121,7 +122,7 @@ public class BaseTasksHandler {
         WebUIVisionBasePage.cancel(false);
     }
 
-    public static void deleteAllTasks(String taskRowsToDelete) {
+    public static void deleteAllTasks(String taskRowsToDelete) throws Exception {
         openScheduler(true);
         ScheduledTasks scheduledTasks = new ScheduledTasks();
         List<String> rowsToDeleteTemp = new ArrayList<String>();
@@ -137,7 +138,7 @@ public class BaseTasksHandler {
         }
     }
 
-    public static void deleteAllTasksOfColumnValue(String columnName, String columnValue) throws InterruptedException {
+    public static void deleteAllTasksOfColumnValue(String columnName, String columnValue) throws Exception {
         openScheduler(true);
         ScheduledTasks scheduledTasks = new ScheduledTasks();
         WebUITable taskTable = scheduledTasks.getTaskTable();
@@ -149,13 +150,13 @@ public class BaseTasksHandler {
 
     }
 
-    public static void selectTask(String columnName, String taskName) {
+    public static void selectTask(String columnName, String taskName) throws Exception {
         openScheduler(true);
         ScheduledTasks scheduledTasks = new ScheduledTasks();
         scheduledTasks.selectTaskByName(columnName, taskName);
     }
 
-    public static boolean runNowBaseTask(String columnName, String taskName, List<String> deviceNameList, VisionRestClient visionRestClient) {
+    public static boolean runNowBaseTask(String columnName, String taskName, List<String> deviceNameList, VisionRestClient visionRestClient) throws Exception {
         if (executeTasks.contains(taskName)) {
             return wait4TaskFinished(taskName, visionRestClient);
         } else {
@@ -176,13 +177,13 @@ public class BaseTasksHandler {
         }
     }
 
-    public static boolean validateTaskCreationMain(String columnName, String taskName) {
+    public static boolean validateTaskCreationMain(String columnName, String taskName) throws Exception {
         boolean result = validateTaskCreation(columnName, taskName);
         WebUIVisionBasePage.cancel(false);
         return result;
     }
 
-    public static boolean validateTaskCreation(String columnName, String taskName) {
+    public static boolean validateTaskCreation(String columnName, String taskName) throws Exception {
         openScheduler(true);
         ScheduledTasks scheduledTasks = new ScheduledTasks();
         WebUITable table = scheduledTasks.getTaskTable();
@@ -200,38 +201,39 @@ public class BaseTasksHandler {
         return TimeUtils.getHumanReadableDate(time);
     }
 
-    protected static void validateTaskCreation(HashMap<String, String> taskProperties) {
+    protected static void validateTaskCreation(HashMap<String, String> taskProperties) throws Exception {
         if (!validateTaskCreation(taskProperties.get("columnName"), taskProperties.get("taskName").trim())) {
             BaseTestUtils.report("Task was not found: " + taskProperties.get("taskName") + "\n.", Reporter.FAIL);
         }
         WebUIVisionBasePage.cancel(false);
     }
 
-    protected static void beforeAddTask(HashMap<String, String> taskProperties) {
+    protected static void beforeAddTask(HashMap<String, String> taskProperties) throws Exception {
         openScheduler(true);
         ScheduledTasks scheduledTasks = new ScheduledTasks();
         taskEntity = scheduledTasks.addTask();
         taskEntity.setTaskType(TaskType.valueOf(taskProperties.get("taskType")));
     }
 
-    protected static void addTask(HashMap<String, String> taskProperties) {
+    protected static void addTask(HashMap<String, String> taskProperties) throws Exception {
         ScheduledTasks scheduledTasks = new ScheduledTasks();
         taskEntity = scheduledTasks.addTask();
         taskEntity.setTaskType(TaskType.valueOf(taskProperties.get("taskType")));
     }
 
-    public static void openScheduler(boolean clickToOpen) {
-        BasicOperationsHandler.scheduler(clickToOpen);
+    public static void openScheduler(boolean clickToOpen) throws Exception {
+//        BasicOperationsHandler.scheduler(clickToOpen);
+        HomePage.navigateFromHomePage("SCHEDULER");
     }
 
-    protected static void beforeEditTask(HashMap<String, String> taskProperties) {
+    protected static void beforeEditTask(HashMap<String, String> taskProperties) throws Exception {
         openScheduler(true);
         ScheduledTasks scheduledTasks = new ScheduledTasks();
         taskEntity = scheduledTasks.editTask(taskProperties.get("columnName"), taskProperties.get("taskName"));
         setBaseTask(taskProperties);
     }
 
-    protected static void afterAddTask(HashMap<String, String> taskProperties) {
+    protected static void afterAddTask(HashMap<String, String> taskProperties) throws Exception {
         setBaseTask(taskProperties);
         WebUIVisionBasePage.submit(WebUIStringsVision.getSubmitAddScheduledTasksModule());
         closeSchedulerIfOpen();
@@ -268,7 +270,7 @@ public class BaseTasksHandler {
         return cal.getTime();
     }
 
-    public static boolean wait4TaskFinished(String taskName, VisionRestClient visionRestClient) {
+    public static boolean wait4TaskFinished(String taskName, VisionRestClient visionRestClient) throws Exception {
         JSONObject scheduledTask;
         BasicOperationsHandler.delay(2);
         waitForTaskProperty(Arrays.asList(ImConstants$CurrentTaskStatusPojo.WAITING.toString(), ""), taskName, "status", visionRestClient);
@@ -295,7 +297,7 @@ public class BaseTasksHandler {
         }
     }
 
-    public static boolean wait4TaskStatus(String taskName, ImConstants$ScheduledTaskExecutionStatusEnumPojo status, VisionRestClient visionRestClient) {
+    public static boolean wait4TaskStatus(String taskName, ImConstants$ScheduledTaskExecutionStatusEnumPojo status, VisionRestClient visionRestClient) throws Exception {
         JSONObject scheduledTask;
         BasicOperationsHandler.delay(2);
         waitForTaskProperty(Arrays.asList(ImConstants$CurrentTaskStatusPojo.WAITING.toString(), ""), taskName, "status", visionRestClient);

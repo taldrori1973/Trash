@@ -1,4 +1,4 @@
- @TC108167
+@TC108167
 Feature: ADC System Dashboard
 
   @SID_1
@@ -12,10 +12,9 @@ Feature: ADC System Dashboard
 
   @SID_2
   Scenario: Go into system dashboard
-    Then UI Open Upper Bar Item "ADC"
+    When UI Navigate to "ANALYTICS ADC" page via homePage
     Then Sleep "30"
-    Then UI Open "Dashboards" Tab
-    Then UI Open "Network and System Dashboard" Sub Tab
+    When UI Navigate to "System and Network Dashboard" page via homePage
     Then UI click Table row by keyValue or Index with elementLabel "Devices table" findBy columnName "Device Name" findBy cellValue "Alteon_50.50.101.22"
 
   @SID_3
@@ -24,12 +23,12 @@ Feature: ADC System Dashboard
     When UI Click Button "Global Time Filter.Quick Range" with value "2m"
     Then UI Validate Line Chart data "THROUGHPUT" with LabelTime
       | value     | count | countOffset |
-      | 9045000000.0 | 4    | 1           |
+      | 9045000.0 | 4     | 1           |
     Given UI Click Button "Global Time Filter"
     When UI Click Button "Global Time Filter.Quick Range" with value "1m"
     Then UI Validate Line Chart data "THROUGHPUT" with LabelTime
       | value     | count | countOffset |
-      | 9045000000.0 | 2    | 1           |
+      | 9045000.0 | 2     | 1           |
 
   @SID_4
   Scenario: Validate CPS widget
@@ -37,12 +36,12 @@ Feature: ADC System Dashboard
     When UI Click Button "Global Time Filter.Quick Range" with value "2m"
     Then UI Validate Line Chart data "CPS" with LabelTime
       | value | count | countOffset |
-      | 40.0  | 4    | 1           |
+      | 40.0  | 4     | 1           |
     Given UI Click Button "Global Time Filter"
     When UI Click Button "Global Time Filter.Quick Range" with value "1m"
     Then UI Validate Line Chart data "CPS" with LabelTime
       | value | count | countOffset |
-      | 40.0  | 2    | 1           |
+      | 40.0  | 2     | 1           |
 
   @SID_5
   Scenario: Validate CPU Usage
@@ -50,24 +49,24 @@ Feature: ADC System Dashboard
     When UI Click Button "Global Time Filter.Quick Range" with value "2m"
     Then UI Validate StackBar Timedata with widget "CPUUSAGE"
       | value | count | countOffset | label          |
-      | 99.0  | 4    | 1           | Average SP CPU |
+      | 99.0  | 4     | 1           | Average SP CPU |
     Then UI Validate StackBar Timedata with widget "CPUUSAGE"
       | value | count | countOffset | label  |
-      | 9.0   | 4    | 1           | MP CPU |
+      | 9.0   | 4     | 1           | MP CPU |
     Then UI Validate StackBar Timedata with widget "CPUUSAGE"
       | value | count | countOffset | label          |
-      | 33.0  | 4    | 1           | Highest SP CPU |
+      | 33.0  | 4     | 1           | Highest SP CPU |
     Given UI Click Button "Global Time Filter"
     When UI Click Button "Global Time Filter.Quick Range" with value "1m"
     Then UI Validate StackBar Timedata with widget "CPUUSAGE"
       | value | count | countOffset | label          |
-      | 99.0  | 2    | 1           | Average SP CPU |
+      | 99.0  | 2     | 1           | Average SP CPU |
     Then UI Validate StackBar Timedata with widget "CPUUSAGE"
       | value | count | countOffset | label  |
-      | 9.0   | 2    | 1           | MP CPU |
+      | 9.0   | 2     | 1           | MP CPU |
     Then UI Validate StackBar Timedata with widget "CPUUSAGE"
       | value | count | countOffset | label          |
-      | 33.0  | 2    | 1           | Highest SP CPU |
+      | 33.0  | 2     | 1           | Highest SP CPU |
 
   @SID_6
   Scenario: Validate Memory usage
@@ -75,18 +74,18 @@ Feature: ADC System Dashboard
     When UI Click Button "Global Time Filter.Quick Range" with value "2m"
     Then UI Validate StackBar Timedata with widget "MEMORYUSAGE"
       | value | count | countOffset | label          |
-      | 0.0   | 4    | 1           | Average SP Mem |
+      | 0.0   | 4     | 1           | Average SP Mem |
     Then UI Validate StackBar Timedata with widget "MEMORYUSAGE"
       | value | count | countOffset | label          |
-      | 40.0  | 4    | 1           | Highest SP Mem |
+      | 40.0  | 4     | 1           | Highest SP Mem |
     Given UI Click Button "Global Time Filter"
     When UI Click Button "Global Time Filter.Quick Range" with value "1m"
     Then UI Validate StackBar Timedata with widget "MEMORYUSAGE"
       | value | count | countOffset | label          |
-      | 0.0   | 2    | 1           | Average SP Mem |
+      | 0.0   | 2     | 1           | Average SP Mem |
     Then UI Validate StackBar Timedata with widget "MEMORYUSAGE"
       | value | count | countOffset | label          |
-      | 40.0  | 2    | 1           | Highest SP Mem |
+      | 40.0  | 2     | 1           | Highest SP Mem |
 
   @SID_7
   Scenario: validate current charts

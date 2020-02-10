@@ -11,6 +11,8 @@ import com.radware.automation.webui.widgets.ComponentLocatorFactory;
 import com.radware.automation.webui.widgets.impl.WebUICheckbox;
 import com.radware.automation.webui.widgets.impl.WebUIComponent;
 import com.radware.vision.automation.tools.exceptions.selenium.TargetWebElementNotFoundException;
+import com.radware.vision.automation.tools.exceptions.web.DropdownItemNotFoundException;
+import com.radware.vision.automation.tools.exceptions.web.DropdownNotOpenedException;
 import com.radware.vision.automation.tools.sutsystemobjects.devicesinfo.enums.SUTDeviceType;
 import com.radware.vision.vision_project_cli.RootServerCli;
 import com.radware.vision.infra.testhandlers.EmailHandler;
@@ -23,12 +25,12 @@ import com.radware.vision.infra.utils.WebUIStringsVision;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-import org.openqa.selenium.*;
+import org.openqa.selenium.By;
 import org.openqa.selenium.NoSuchElementException;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.How;
-import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.FluentWait;
-import java.time.Duration;
+import org.w3c.tidy.Report;
+
 import java.time.Instant;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
@@ -672,29 +674,29 @@ public class VRMReportsHandler extends VRMBaseUtilies {
                 errorMessage.append(validateSelectPolicy((JSONArray) devices, map));
                 break;
             }
-            case "webApplications":
             case "projectObjects": {
-                errorMessage.append(validateSelectPOsOrApps(map, actualDevicesJsonArray));
+                errorMessage.append(validateSelectPOs(map, actualDevicesJsonArray));
                 break;
             }
-
+            case "webApplications": {
+                break;
+            }
             default:
                 break;
         }
         return errorMessage;
     }
 
-    private StringBuilder validateSelectPOsOrApps(Map<String, String> map, JSONArray actualDevicesJsonArray) {
-        String type = map.get("reportType").toLowerCase().startsWith("appwall") ? "webApplications" : "projectObjects";
+    private StringBuilder validateSelectPOs(Map<String, String> map, JSONArray actualDevicesJsonArray) {
         ArrayList<String> selectedApplication = new ArrayList<>();
-        for (Object appOrPoValues : actualDevicesJsonArray) {
-            if (((JSONObject) appOrPoValues).get("selected").equals(true))
-                selectedApplication.add(((JSONObject) appOrPoValues).get("name").toString());
+        for (Object poValues : actualDevicesJsonArray) {
+            if (((JSONObject) poValues).get("selected").equals(true))
+                selectedApplication.add(((JSONObject) poValues).get("name").toString());
         }
         StringBuilder errorMessage = new StringBuilder();
-        for (String appOrPoName : map.get(type).split(",")) {
-            if (!selectedApplication.contains(appOrPoName.trim()))
-                errorMessage.append(type + " '").append(appOrPoName).append("' isn't selected").append("\n");
+        for (String poName : map.get("projectObjects").split(",")) {
+            if (!selectedApplication.contains(poName.trim()))
+                errorMessage.append("PO '").append(poName).append("' isn't selected").append("\n");
         }
 //        if (errorMessage.length() != 0) BaseTestUtils.report(String.valueOf(errorMessage), Reporter.FAIL);
         return errorMessage;
@@ -843,28 +845,13 @@ public class VRMReportsHandler extends VRMBaseUtilies {
 
             //   ValidateExpand();
 
-            WebElement submitButton = BasicOperationsHandler.clickButton("Submit", "");
-            WebUIUtils.sleep(1);
-            if (isElementDisplayed(submitButton))
-            {
-                ((WebElement)(new FluentWait(WebUIUtils.getDriver())).withTimeout(Duration.ofMillis(WebUIUtils.DEFAULT_WAIT_TIME)).pollingEvery(Duration.ofSeconds(2)).
-                        ignoring(StaleElementReferenceException.class, WebDriverException.class).until(ExpectedConditions.elementToBeClickable(submitButton))).click();
-            }
+            BasicOperationsHandler.clickButton("Submit", "");
         } catch (Exception e) {
             BasicOperationsHandler.clickButton("Cancel");
             BaseTestUtils.report("cause " + e.getMessage(), Reporter.FAIL);
         }
     }
 
-    private boolean isElementDisplayed(WebElement submitButton) {
-        try
-        {
-            return submitButton.isDisplayed();
-        }catch (StaleElementReferenceException e)
-        {
-            return false;
-        }
-    }
 
     private void Design(String reportName, Map<String, String> map) throws TargetWebElementNotFoundException {
 //        BasicOperationsHandler.setTextField("Report Name", reportName);
@@ -1168,7 +1155,7 @@ public class VRMReportsHandler extends VRMBaseUtilies {
     protected List<String> getViewsList(int maxValue) throws TargetWebElementNotFoundException {
         List<String> snapshotsName = new ArrayList<>();
         snapshotsName.clear();
-        for (int i = 0; i < maxValue+1; i++) {
+        for (int i = 0; i < maxValue + 1; i++) {
             generateView("validateMaxViews");
             WebElement iGenerationElement = WebUIUtils.fluentWaitMultipleDisplayed(ComponentLocatorFactory.getLocatorByDbgId("VRM_Reports_Log_preview_time_validateMaxViews").getBy(), WebUIUtils.DEFAULT_WAIT_TIME, false).get(0);
             snapshotsName.add(i, iGenerationElement.getText());

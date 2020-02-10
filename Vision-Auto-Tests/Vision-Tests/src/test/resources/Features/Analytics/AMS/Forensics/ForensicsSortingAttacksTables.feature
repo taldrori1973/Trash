@@ -22,8 +22,7 @@ Feature: Sorting Attacks Tables
   Scenario: VRM - Login and go to forensic tab
     Given UI Login with user "sys_admin" and password "radware"
     * REST Vision Install License Request "vision-AVA-Max-attack-capacity"
-    And UI Open Upper Bar Item "AMS"
-    And UI Open "Forensics" Tab
+    Then UI Navigate to "AMS Forensics" page via homepage
 
   @SID_4
   Scenario: VRM - Create and generate forensic tables

@@ -9,7 +9,9 @@ import com.radware.automation.react.widgets.impl.enums.OnOffStatus;
 import com.radware.automation.react.widgets.impl.enums.WebElementType;
 import com.radware.automation.tools.basetest.BaseTestUtils;
 import com.radware.automation.tools.basetest.Reporter;
+import com.radware.automation.tools.utils.FileUtils;
 import com.radware.automation.tools.utils.InvokeUtils;
+import com.radware.automation.tools.utils.PropertiesFilesUtils;
 import com.radware.automation.webui.VisionDebugIdsManager;
 import com.radware.automation.webui.WebUIUtils;
 import com.radware.automation.webui.utils.WebUIStrings;
@@ -30,22 +32,21 @@ import com.radware.automation.webui.widgets.impl.WebUITextField;
 import com.radware.vision.automation.tools.exceptions.misc.NoSuchOperationException;
 import com.radware.vision.automation.tools.exceptions.selenium.TargetWebElementNotFoundException;
 import com.radware.vision.automation.tools.sutsystemobjects.devicesinfo.enums.SUTDeviceType;
-import com.radware.vision.infra.testhandlers.vrm.ForensicsHandler;
-import com.radware.vision.infra.testhandlers.vrm.VRMBaseUtilies;
-import com.radware.vision.infra.testhandlers.vrm.VRMHandler;
-import com.radware.vision.vision_project_cli.MysqlClientCli;
-import com.radware.vision.vision_project_cli.RadwareServerCli;
-import com.radware.vision.vision_project_cli.RootServerCli;
-import com.radware.vision.vision_project_cli.menu.Menu;
 import com.radware.vision.infra.base.pages.VisionServerInfoPane;
 import com.radware.vision.infra.base.pages.VisionWebUILogin;
+import com.radware.vision.infra.base.pages.navigation.HomePage;
 import com.radware.vision.infra.base.pages.navigation.WebUIUpperBar;
 import com.radware.vision.infra.base.pages.navigation.WebUIVisionBasePage;
 import com.radware.vision.infra.enums.EqualsOrContains;
 import com.radware.vision.infra.enums.UpperBarItems;
 import com.radware.vision.infra.testhandlers.BaseHandler;
 import com.radware.vision.infra.testhandlers.baseoperations.enums.Operation;
+import com.radware.vision.infra.testhandlers.vrm.VRMBaseUtilies;
 import com.radware.vision.infra.utils.*;
+import com.radware.vision.vision_project_cli.MysqlClientCli;
+import com.radware.vision.vision_project_cli.RadwareServerCli;
+import com.radware.vision.vision_project_cli.RootServerCli;
+import com.radware.vision.vision_project_cli.menu.Menu;
 import junit.framework.SystemTestCase;
 import org.openqa.selenium.*;
 import org.openqa.selenium.interactions.Actions;
@@ -428,11 +429,7 @@ public class BasicOperationsHandler {
 
     public static boolean isElementExists(String LabelName, boolean isExists, String param) {
         WebElement element = isItemAvailableById(LabelName, param);
-        if (element != null && isExists || element == null && !isExists) {
-            return true;
-        } else {
-            return false;
-        }
+        return element != null && isExists || element == null && !isExists;
     }
 
     public static void isElementSelected(String LabelName, boolean isSelected, String param) {
@@ -599,13 +596,12 @@ public class BasicOperationsHandler {
         try {
             //Makes sure browser is maximized or the user name will not be seem.
             WebUIDriver.getDriver().manage().window().maximize();
-            //TODO - to be used when Vision will be React application
-//            VisionDebugIdsManager.setLabel("User Details");
-//            webElement = WebUIUtils.fluentWaitDisplayedEnabled(
-//                    ComponentLocatorFactory.getEqualLocatorByDbgId(VisionDebugIdsManager.getDataDebugId()).getBy(),
-//                    WebUIUtils.DEFAULT_LOGIN_WAIT_TIME, false);
 
-            webElement = WebUIUtils.fluentWaitDisplayedEnabled(new ComponentLocator(How.ID, WebUIStringsVision.getUserName()).getBy(), WebUIUtils.DEFAULT_LOGIN_WAIT_TIME, false);
+            VisionDebugIdsManager.setTab("HomePage");
+            VisionDebugIdsManager.setLabel("loggedInUsername");
+            WebUIUtils.sleep(3);
+            webElement = WebUIUtils.fluentWait(ComponentLocatorFactory.getLocatorByDbgId(VisionDebugIdsManager.getDataDebugId()).getBy());
+//            webElement = WebUIUtils.fluentWaitDisplayedEnabled(new ComponentLocator(How.ID, WebUIStringsVision.getUserName()).getBy(), WebUIUtils.DEFAULT_LOGIN_WAIT_TIME, false);
             if (webElement != null) {
                 //TODO find a better way to validate login page was rendered successfully
                 Thread.sleep(7000);
@@ -620,14 +616,11 @@ public class BasicOperationsHandler {
     public static boolean isLoggedOut(long waitTimeout) {
         if (!isLoggedIn)
             return true;
-        ComponentLocator locator = new ComponentLocator(How.ID, WebUIStringsVision.getVisionLoginIcon());
+//        ComponentLocator locator = new ComponentLocator(How.ID, WebUIStringsVision.getVisionLoginIcon());
+        ComponentLocator locator = new ComponentLocator(How.XPATH, "//*[@data-debug-id='card-header_']");
         try {
-            WebElement loginIcon = WebUIUtils.fluentWaitDisplayed(locator.getBy(), waitTimeout, false);
-            if (loginIcon != null) {
-                return true;
-            } else {
-                return false;
-            }
+            WebElement headerElement = WebUIUtils.fluentWaitDisplayed(locator.getBy(), waitTimeout, false);
+            return headerElement != null;
         } catch (Exception e) {
             return false;
         }
@@ -651,7 +644,7 @@ public class BasicOperationsHandler {
     }
 
     public static void settings() {
-        WebUIUpperBar.select(UpperBarItems.VisionSettings);
+        navigateFromHomePage("HOME");
         WebUIBasePage.closeAllYellowMessages();
 
         //Verify the click
@@ -987,8 +980,9 @@ public class BasicOperationsHandler {
     public static void uploadFileToVision(String name, String label, String param) throws IOException {
         WebElement elem;
         Properties properties = new Properties();        //function to upload file from project
-        properties.load(new FileInputStream("jsystem.properties"));
-        String basePath = properties.getProperty("resources.src");
+//        properties.load(new FileInputStream("jsystem.properties"));
+//        String basePath = properties.getProperty("resources.src");
+        String basePath = FileUtils.getAbsoluteProjectPath()+ "src" + File.separator + "main" + File.separator + "resources" + File.separator;
         String uploadFilePath = basePath  + File.separator + "uploadedFiles" + (System.getProperty("os.name").contains("Windows")? "\\":"/") + name;
         BaseTestUtils.report("Path of Uploaded file is: " + uploadFilePath, Reporter.PASS_NOR_FAIL);
         BaseTestUtils.report("The label is: " + label, Reporter.PASS_NOR_FAIL);
@@ -1015,7 +1009,7 @@ public class BasicOperationsHandler {
                 BasicOperationsHandler.clickButton(label, "");
                 break;
             case "Reports":
-                openTab(label);
+             //   openTab(label);
                 clickButton("Add New", "");
                 clickButton("Template","");
                 BasicOperationsHandler.clickButton("DefensePro Behavioral Protections Template", "");
@@ -1024,12 +1018,36 @@ public class BasicOperationsHandler {
                 break;
             case "Forensics":
             case "Alerts":
-                openTab(label);
+               // openTab(label);
                 clickButton("Add New", "");
                 VRMBaseUtilies.expandViews(true);
                 break;
         }
 
+    }
+
+    public static void navigateFromHomePage(String pageName) {
+        try {
+            closeAllPopups();
+            HomePage.navigateFromHomePage(PropertiesFilesUtils.mapAllPropertyFiles("Navigations").get(pageName));
+        } catch (Exception e) {
+            BaseTestUtils.report(e.getMessage(), Reporter.FAIL);
+        }
+    }
+
+    private static void closeAllPopups() {
+        ComponentLocator locator = ComponentLocatorFactory.getLocatorByClass("ant-modal-close");
+        if ((WebUIUtils.fluentWait(locator.getBy(), WebUIUtils.SHORT_WAIT_TIME)) != null && WebUIUtils.fluentWait(locator.getBy(), WebUIUtils.SHORT_WAIT_TIME).isDisplayed())
+            try
+            {
+                WebUIUtils.fluentWaitClick(locator.getBy(), WebUIUtils.SHORT_WAIT_TIME,  false).click();
+            }catch (ElementNotInteractableException ignore){}
+
+    }
+
+    public static boolean isNavigationDisabled(String tab) throws Exception {
+        closeAllPopups();
+        return HomePage.isNavigationDisabled(tab);
     }
 }
 

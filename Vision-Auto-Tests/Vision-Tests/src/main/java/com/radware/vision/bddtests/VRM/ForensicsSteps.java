@@ -1,6 +1,9 @@
 package com.radware.vision.bddtests.VRM;
 
 
+import com.radware.vision.automation.tools.exceptions.selenium.TargetWebElementNotFoundException;
+import com.radware.vision.automation.tools.exceptions.web.DropdownItemNotFoundException;
+import com.radware.vision.automation.tools.exceptions.web.DropdownNotOpenedException;
 import com.radware.vision.bddtests.BddUITestBase;
 import com.radware.vision.infra.testhandlers.vrm.ForensicsHandler;
 import com.radware.vision.infra.testhandlers.vrm.enums.vrmActions;
@@ -81,7 +84,7 @@ public class ForensicsSteps extends BddUITestBase {
         forensicsHandler.uiValidateMaxGenerateView(maxValue);
     }
 
-    @Then("^UI Generate( and Validate)? Forensics With Name \"([^\"]*)\" with Timeout of (\\d+) Seconds$")
+    @Then("^UI Generate (and Validate )?Forensics With Name \"([^\"]*)\" with Timeout of (\\d+) Seconds$")
     public void uiGenerateAndValidateReportWithNameWithTimeoutOfSeconds(String Validate,String reportName ,int timeout) throws Exception {
         Map<String,String> map=new HashMap<>();
         map.put("validation",Validate);

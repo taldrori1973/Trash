@@ -15,7 +15,7 @@ import java.util.List;
 
 public class UpdateGeoLocationFeedTestHandler extends BaseTasksHandler {
 
-    public static void addNewTask(String taskName, String run_time, List<String> devices) {
+    public static void addNewTask(String taskName, String run_time, List<String> devices) throws Exception {
         String columnName = "Name";
         String taskDisc = "Update Geo Location Feed Test";
         String deviceDestinations=String.join(",",devices);

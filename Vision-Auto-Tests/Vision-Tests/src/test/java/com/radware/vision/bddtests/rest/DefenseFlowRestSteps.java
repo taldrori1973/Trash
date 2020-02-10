@@ -5,7 +5,6 @@ import com.radware.automation.tools.basetest.Reporter;
 import com.radware.restcore.utils.enums.HTTPStatusCodes;
 import com.radware.restcore.utils.enums.HttpMethodEnum;
 import com.radware.vision.infra.testresthandlers.DefenseFlowRestHandler;
-import com.radware.vision.vision_handlers.NewVmHandler;
 import cucumber.api.java.en.Then;
 
 import static com.radware.vision.infra.testhandlers.BaseHandler.restTestBase;

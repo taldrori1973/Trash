@@ -53,7 +53,7 @@ public class ValidateTasksHandler extends BaseTasksHandler {
     public static List<String> errorMessages = new ArrayList<String>();
 
 
-    public static boolean validateDPConfigurationTemplatesTask(HashMap<String, String> testProperties, VisionRestClient visionRestClient) {
+    public static boolean validateDPConfigurationTemplatesTask(HashMap<String, String> testProperties, VisionRestClient visionRestClient) throws Exception {
         boolean networkPoliciesSent = true;
         boolean serverPoliciesSent = true;
         List<String> deviceNameList = Arrays.asList(testProperties.get("deviceName").split(","));
@@ -241,7 +241,7 @@ public class ValidateTasksHandler extends BaseTasksHandler {
         return "(.)+(" + expectedFileName + ")(.)*";
     }
 
-    public static boolean validateDeviceRebootTask(HashMap<String, String> testProperties, VisionRestClient visionRestClient) {
+    public static boolean validateDeviceRebootTask(HashMap<String, String> testProperties, VisionRestClient visionRestClient) throws Exception {
         List<String> deviceNameList = Arrays.asList(testProperties.get("deviceName").split(","));
         BaseTasksHandler.wait4TaskFinished(testProperties.get("taskName"), visionRestClient);
         for (String deviceName : deviceNameList) {
@@ -260,7 +260,7 @@ public class ValidateTasksHandler extends BaseTasksHandler {
         } else return false;
     }
 
-    public static boolean validateUpdateFraudSecuritySignatures(String taskName, String alertMessage, VisionRestClient visionRestClient) {
+    public static boolean validateUpdateFraudSecuritySignatures(String taskName, String alertMessage, VisionRestClient visionRestClient) throws Exception {
 
         List<String> allAlerts = Arrays.asList(alertMessage.split("\\|"));
         wait4TaskFinished(taskName, visionRestClient);
@@ -273,7 +273,7 @@ public class ValidateTasksHandler extends BaseTasksHandler {
         return false;
     }
 
-    public static boolean validateERTActiveDDosFeed(String taskName, ImConstants$ScheduledTaskExecutionStatusEnumPojo status, String alertMessage, VisionRestClient visionRestClient) {
+    public static boolean validateERTActiveDDosFeed(String taskName, ImConstants$ScheduledTaskExecutionStatusEnumPojo status, String alertMessage, VisionRestClient visionRestClient) throws Exception {
         wait4TaskStatus(taskName, status, visionRestClient);
         BasicOperationsHandler.delay(10);
         if (AlertsHandler.validateAlert("Message", alertMessage)) {

@@ -1,4 +1,4 @@
-@TC108795 @Test1
+@TC108795
 Feature: AMS BDoS Attack State
 
   @SID_1
@@ -13,9 +13,7 @@ Feature: AMS BDoS Attack State
   Scenario: Login and enter attacks table
     Given UI Login with user "sys_admin" and password "radware"
     Then REST Vision Install License Request "vision-AVA-Max-attack-capacity"
-    And UI Open Upper Bar Item "AMS"
-    Then UI Open "Dashboards" Tab
-    Then UI Open "DP Monitoring Dashboard" Sub Tab
+    And UI Navigate to "DefensePro Monitoring Dashboard" page via homePage
     Then UI click Table row by keyValue or Index with elementLabel "Protection Policies.Table" findBy columnName "Policy Name" findBy cellValue "pol_1"
     Then UI click Table row by keyValue or Index with elementLabel "Protection Policies.Protections Table" findBy columnName "Protection Name" findBy cellValue "Behavioral DoS"
 

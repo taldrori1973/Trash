@@ -842,11 +842,8 @@ Feature: DP ANALYTICS
 
   @SID_58
   Scenario: Login
-    When UI Login with user "sys_admin" and password "radware"
-    And UI Open Upper Bar Item "AMS"
-    And UI Open "Dashboards" Tab
-    And UI Open "DP Analytics" Sub Tab
-    Then Sleep "7"
+    Given UI Login with user "sys_admin" and password "radware"
+    And UI Navigate to "DefensePro Analytics Dashboard" page via homePage
     And UI Do Operation "Select" item "Global Time Filter"
     And UI Do Operation "Select" item "Global Time Filter.Quick Range" with value "3H"
 

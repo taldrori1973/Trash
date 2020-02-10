@@ -19,12 +19,14 @@ Feature: DP Monitoring Dashboard - Protection Policies - Under Attack
   Scenario: Login and navigate to VRM
     Given UI Login with user "sys_admin" and password "radware"
     * REST Vision Install License Request "vision-AVA-Max-attack-capacity"
-    And UI Open Upper Bar Item "AMS"
-    And UI Open "Dashboards" Tab
-    When UI Open "DP Monitoring Dashboard" Sub Tab
+    And UI Navigate to "DefensePro Monitoring Dashboard" page via homePage
 
   @SID_4
   Scenario: Validate first peace time policy - just traffic
+    When UI Do Operation "Select" item "Device Selection"
+    And UI VRM Select device from dashboard and Save Filter
+      | index | ports | policies |
+      | 10    |       |          |
     Then UI Validate Table record values by columns with elementLabel "Protection Policies.Table" findBy index 0
       | columnName            | value                   |
       | Site                  | RealDPs_Version_8_site  |
@@ -38,7 +40,11 @@ Feature: DP Monitoring Dashboard - Protection Policies - Under Attack
 
   @SID_5
   Scenario: Validate last peace time policy - just traffic
-    Then UI Validate Table record values by columns with elementLabel "Protection Policies.Table" findBy index 37
+    When UI Do Operation "Select" item "Device Selection"
+    And UI VRM Select device from dashboard and Save Filter
+      | index | ports | policies |
+      | 11    |       |          |
+    Then UI Validate Table record values by columns with elementLabel "Protection Policies.Table" findBy index 18
       | columnName            | value                   |
       | Site                  | RealDPs_Version_8_site  |
       | Device                | DefensePro_172.16.22.51 |
@@ -51,13 +57,16 @@ Feature: DP Monitoring Dashboard - Protection Policies - Under Attack
 
   @SID_6
   Scenario: Run DP simulator PCAPs for "Protection Policies" - traffic and attacks
-    # Given CLI kill all simulator attacks on current vision
     Given CLI simulate 1000 attacks of type "rest_dos" on "DefensePro" 20
     And CLI simulate 1000 attacks of type "ongoing_Protect_4_1" on "DefensePro" 10
     And CLI simulate 1000 attacks of type "rest_ascan_ongoing" on "DefensePro" 11 and wait 100 seconds
 
   @SID_7
   Scenario: Validate first under attack policy - traffic and attacks
+    When UI Do Operation "Select" item "Device Selection"
+    And UI VRM Select device from dashboard and Save Filter
+      | index | ports | policies |
+      | 10    |       |          |
     Then UI Validate Table record values by columns with elementLabel "Protection Policies.Table" findBy index 0
       | columnName            | value                   |
       | Site                  | RealDPs_Version_8_site  |
@@ -71,6 +80,10 @@ Feature: DP Monitoring Dashboard - Protection Policies - Under Attack
 
   @SID_8
   Scenario: Validate last under attack policy - - traffic and attacks
+    When UI Do Operation "Select" item "Device Selection"
+    And UI VRM Select device from dashboard and Save Filter
+      | index | ports | policies |
+      | 10    |       |          |
     Then UI Validate Table record values by columns with elementLabel "Protection Policies.Table" findBy index 3
       | columnName            | value                    |
       | Site                  | RealDPs_Version_8_site   |
@@ -83,7 +96,11 @@ Feature: DP Monitoring Dashboard - Protection Policies - Under Attack
 
   @SID_9
   Scenario: Validate first peace time policy - traffic and attacks
-    Then UI Validate Table record values by columns with elementLabel "Protection Policies.Table" findBy index 5
+    When UI Do Operation "Select" item "Device Selection"
+    And UI VRM Select device from dashboard and Save Filter
+      | index | ports | policies |
+      | 10    |       |          |
+    Then UI Validate Table record values by columns with elementLabel "Protection Policies.Table" findBy index 4
       | columnName            | value                   |
       | Site                  | RealDPs_Version_8_site  |
       | Device                | DefensePro_172.16.22.50 |
@@ -96,7 +113,11 @@ Feature: DP Monitoring Dashboard - Protection Policies - Under Attack
 
   @SID_10
   Scenario: Validate last peace time policy - traffic and attacks
-    Then UI Validate Table record values by columns with elementLabel "Protection Policies.Table" findBy index 43
+    When UI Do Operation "Select" item "Device Selection"
+    And UI VRM Select device from dashboard and Save Filter
+      | index | ports | policies |
+      | 11    |       |          |
+    Then UI Validate Table record values by columns with elementLabel "Protection Policies.Table" findBy index 19
       | columnName            | value                   |
       | Site                  | RealDPs_Version_8_site  |
       | Device                | DefensePro_172.16.22.51 |
@@ -170,9 +191,7 @@ Feature: DP Monitoring Dashboard - Protection Policies - Under Attack
 
   @SID_14
   Scenario: Validate global policy for second device - traffic and attacks
-    # Then UI Validate Table record values by columns with elementLabel "Protection Policies.Table" findBy index 5
     Then UI Validate Table record values by columns with elementLabel "Protection Policies.Table" findBy columnName "Attack Categories" findBy cellValue "Anomalies"
-
       | columnName            | value                   |
       | Site                  | RealDPs_Version_8_site  |
       | Device                | DefensePro_172.16.22.51 |

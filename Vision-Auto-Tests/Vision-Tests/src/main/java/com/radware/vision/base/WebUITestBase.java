@@ -24,7 +24,6 @@ import com.radware.automation.webui.UIUtils;
 import com.radware.automation.webui.WebUIUtils;
 import com.radware.automation.webui.events.PopupEventHandler;
 import com.radware.automation.webui.events.ReportWebDriverEventListener;
-import com.radware.automation.webui.utils.VisionUtils;
 import com.radware.automation.webui.utils.navtree.VisionNavigationXmlParser;
 import com.radware.automation.webui.utils.popup.MessageIdsIgnore;
 import com.radware.automation.webui.webdriver.WebUIDriver;
@@ -42,6 +41,7 @@ import com.radware.vision.automation.tools.sutsystemobjects.devicesinfo.DevicesM
 import com.radware.vision.pojomodel.helpers.constants.ImConstants$DeviceStatusEnumPojo;
 import com.radware.vision.vision_project_cli.MysqlClientCli;
 import com.radware.vision.vision_project_cli.menu.Menu;
+import com.radware.vision.vision_tests.CliTests;
 import com.radware.vision.infra.enums.DeviceDriverType;
 import com.radware.vision.infra.testhandlers.BaseHandler;
 import com.radware.vision.infra.testhandlers.baseoperations.BasicOperationsHandler;
@@ -73,6 +73,7 @@ public abstract class WebUITestBase extends SystemTestCase4 {
     // For Results Reporting
     public static CentralReportingResultsManager resultsManager = new CentralReportingResultsManager();
     protected static RallyTestReporter rallyTestReporter;
+    protected static String reportAutomationMode;
     protected static DevicesManager devicesManager;
     private static String fileSeperator;
     private static String deviceTypeCurrent;
@@ -190,6 +191,7 @@ public abstract class WebUITestBase extends SystemTestCase4 {
                 // Set SMB timeouts
                 System.setProperty("jcifs.smb.client.responseTimeout", "120000"); // default: 30000 millisec.
                 System.setProperty("jcifs.smb.client.soTimeout", "140000"); // default: 35000 millisec.
+//                AasVisionEnums.UtilitiesStrings.BROWSER_TYPE = BaseTestUtils.getRuntimeProperty(RuntimePropertiesEnum.BROWSER_TYPE.name(), RuntimePropertiesEnum.BROWSER_TYPE.getDefaultValue());
 
                 rallyTestReporter = new RallyTestReporter();
                 rallyTestReporter.init(restTestBase.getRootServerCli().getVersionNumebr(), "WebUI", restTestBase.getRootServerCli().getBuildNumber());
@@ -213,7 +215,7 @@ public abstract class WebUITestBase extends SystemTestCase4 {
 
             }
         } catch (Exception e) {
-            throw new IllegalStateException(e.getMessage() + "\n" + Arrays.toString(e.getStackTrace()));
+            throw new IllegalStateException(e.getMessage() + "\n" + e.getStackTrace());
         }
 
         setDeviceName(deviceName);
@@ -234,7 +236,7 @@ public abstract class WebUITestBase extends SystemTestCase4 {
 
 
     @After
-    public void testClosure() {
+    public void testClosure() throws Exception {
         if (!WebUIUtils.isDriverQuit) {
             try {
                 WebUIUtils.setIsTriggerPopupSearchEvent(false);
@@ -260,12 +262,16 @@ public abstract class WebUITestBase extends SystemTestCase4 {
                 if (BaseTestUtils.getBooleanRuntimeProperty(RuntimePropertiesEnum.ADD_AUTO_RESULT.name(), RuntimePropertiesEnum.ADD_AUTO_RESULT.getDefaultValue())) {
                     ReportResultEntity report = new ReportResultEntity().withtestID(targetTestId).withName(this.getName()).withDescription(getFailCause()).withStatus(this.isPassAccordingToFlags()).withUID(UUID.randomUUID().toString());
                     resultsManager.addResult(report);
+//                    if (targetTestId != null) {
+//                        publishResults(Integer.parseInt(targetTestId));
+//                    }
                 }
 
+//                rallyTestReporter.updateTestResult(ScenarioHelpers.getRunnerTest(this), qcTestId, isPass(), getFailCause());
             } catch (Exception e) {
                 BaseTestUtils.report(" Test after method " + e.getMessage(), Reporter.FAIL);
             } finally {
-                ((ReportWebDriverEventListener) Objects.requireNonNull(WebUIDriver.getListenerManager().getWebUIDriverEventListener())).clearLastPopupEventList();
+                ((ReportWebDriverEventListener) WebUIDriver.getListenerManager().getWebUIDriverEventListener()).clearLastPopupEventList();
                 WebUIUtils.isDevicePropertiesDialogCancel = false;
                 WebUIUtils.isFindExceptionOccur = true;
                 WebUIUtils.generateAndReportScreenshot();
@@ -285,8 +291,8 @@ public abstract class WebUITestBase extends SystemTestCase4 {
             }
             InvokeUtils.invokeCommand(null, clearString, restTestBase.getRadwareServerCli(), 2 * 2000, true, true, true, null, true, true);
             InvokeUtils.invokeCommand(null, clearString, restTestBase.getRootServerCli(), 2 * 2000, true, true, true, null, true, true);
-            BaseTestUtils.reporter.stopLevel();
-            BaseTestUtils.reporter.startLevel("Begining to Finish the test(After).");
+            CliTests.report.stopLevel();
+            CliTests.report.startLevel("Begining to Finish the test(After).");
 
             if (doTheVisionLabRestart) {
                 InvokeUtils.invokeCommand(null, "", restTestBase.getRadwareServerCli(), 6000, true);
@@ -311,7 +317,7 @@ public abstract class WebUITestBase extends SystemTestCase4 {
             if (restTestBase.getRootServerCli() != null) {
                 restTestBase.getRootServerCli().cleanCliBuffer();
             }
-            BaseTestUtils.reporter.stopLevel();
+            CliTests.report.stopLevel();
         }
     }
 
@@ -320,7 +326,7 @@ public abstract class WebUITestBase extends SystemTestCase4 {
         for (ReportResultEntity result : resultsManager.getAllResults().values()) {
             results.append(result.toString());
         }
-        RestTestBase.automationTestReporter.updateTestResult(resultsManager.getUpToDateAggResult(), results.toString(), targetTestCaseID);
+        restTestBase.automationTestReporter.updateTestResult(resultsManager.getUpToDateAggResult(), results.toString(), targetTestCaseID);
     }
 
     public void publishBddResults() {
@@ -488,7 +494,7 @@ public abstract class WebUITestBase extends SystemTestCase4 {
 
     public void setDeviceType(VisionRestClient visionRestClient, String deviceName) {
         try {
-            deviceTypeCurrent = DeviceUtils.getDeviceType(visionRestClient, deviceName);
+            this.deviceTypeCurrent = DeviceUtils.getDeviceType(visionRestClient, deviceName);
         } catch (Exception e) {
             deviceTypeCurrent = "";
         }
@@ -535,7 +541,7 @@ public abstract class WebUITestBase extends SystemTestCase4 {
 
         String visionHost = restTestBase.getRadwareServerCli().getHost();
         if (navigationParsers.containsKey(visionHost)) {
-            VisionUtils.navParser = navigationParsers.get(visionHost);
+            WebUIUtils.visionUtils.navParser = navigationParsers.get(visionHost);
         } else {
 
             String url = VisionUrlPath.mgmt().system().config().dd().screen("navigation.xml").build();
@@ -549,7 +555,7 @@ public abstract class WebUITestBase extends SystemTestCase4 {
 
 
             WebUIUtils.visionUtils.setDeviceIpIfNew(null);
-            navigationParsers.put(visionHost, VisionUtils.navParser);
+            navigationParsers.put(visionHost, WebUIUtils.visionUtils.navParser);
         }
 
         WebUIUtils.selectedDeviceDriverId = WebUIUtils.VISION_DEVICE_DRIVER_ID;
@@ -560,13 +566,13 @@ public abstract class WebUITestBase extends SystemTestCase4 {
     public void updateNavigationParser(String deviceIp) throws Exception {
         if (deviceIp != null) {
             if (navigationParsers.containsKey(WebUIUtils.selectedDeviceDriverId)) {
-                VisionUtils.navParser = navigationParsers.get(WebUIUtils.selectedDeviceDriverId);
+                WebUIUtils.visionUtils.navParser = navigationParsers.get(WebUIUtils.selectedDeviceDriverId);
             } else if (isDeviceManagedByVision) {
                 getNavigationXml(deviceIp, "client", "navigation.xml");
                 getNavigationXml(deviceIp, "server", "version_hierarchy.xml");
 
                 WebUIUtils.visionUtils.setDeviceIpIfNew(null);
-                navigationParsers.put(WebUIUtils.selectedDeviceDriverId, VisionUtils.navParser);
+                navigationParsers.put(WebUIUtils.selectedDeviceDriverId, WebUIUtils.visionUtils.navParser);
             }
         }
     }
@@ -579,12 +585,12 @@ public abstract class WebUITestBase extends SystemTestCase4 {
         if (FileUtils.isFileExist(filePath)) {
             FileUtils.deleteFile(WebUIUtils.deviceDriversBaseDirectory_VisionServer + File.separator + navigationPath, navigationFile);
         }
-        FileUtils.writeToFile(filePath, result);
+        File file = FileUtils.writeToFile(filePath, result);
     }
 
     private void setGenerateScreenshotAfterWebFindOperation() {
         try {
-            WebUIDriver.setListenerScreenshotAfterFind(Boolean.parseBoolean(System.getProperty("generateScreenshotAfterWebFindOperation")));
+            WebUIDriver.setListenerScreenshotAfterFind(Boolean.valueOf(System.getProperty("generateScreenshotAfterWebFindOperation")));
         } catch (Exception e) {
 //            Ignore
         }
@@ -592,7 +598,7 @@ public abstract class WebUITestBase extends SystemTestCase4 {
 
     private void setGenerateScreenshotAfterWebClickOperation() {
         try {
-            WebUIDriver.setListenerScreenshotAfterClick(Boolean.parseBoolean(System.getProperty("generateScreenshotAfterWebClickOperation")));
+            WebUIDriver.setListenerScreenshotAfterClick(Boolean.valueOf(System.getProperty("generateScreenshotAfterWebClickOperation")));
         } catch (Exception e) {
 //            Ignore
         }

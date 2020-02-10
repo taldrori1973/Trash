@@ -24,8 +24,8 @@ Feature: VRM AMS Report Data Traffic
   @SID_4
   Scenario: Login to VRM AMS reports tab
     Given UI Login with user "sys_admin" and password "radware"
-    And UI Open Upper Bar Item "AMS"
-    And UI Open "Reports" Tab
+    And UI Navigate to "AMS Reports" page via homePage
+
 
       #############################  TRAFFIC AND CONNECTIONS   ########################################################################
 
