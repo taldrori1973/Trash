@@ -105,6 +105,20 @@ Feature: US58313 APSolute Vision Analytics - AppWall - License
     And UI Validate Element Existence By Label "DefensePro Behavioral Protections Template" if Exists "false"
     And UI Validate Element Existence By Label "HTTPS Flood Template" if Exists "false"
     And UI Validate Element Existence By Label "DefenseFlow Analytics Template" if Exists "false"
+
+    #    Validate Forensics Navigation
+    When UI Navigate to "AMS Forensics" page via homePage
+    And UI Click Button "Add"
+    Then UI Validate Element EnableDisable status By Label "Select Product" and Value "defensepro" is Enabled "false"
+    Then UI Validate Element EnableDisable status By Label "Select Product" and Value "defenseflow" is Enabled "false"
+    Then UI Validate Element EnableDisable status By Label "Select Product" and Value "appwall" is Enabled "true"
+
+#    Validate Alerts Navigation
+    When UI Navigate to "AMS Alerts" page via homePage
+    And UI Click Button "Add New"
+    Then UI Validate Element EnableDisable status By Label "Select Product" and Value "defensepro" is Enabled "false"
+    Then UI Validate Element EnableDisable status By Label "Select Product" and Value "defenseflow" is Enabled "false"
+    Then UI Validate Element EnableDisable status By Label "Select Product" and Value "appwall" is Enabled "true"
     Then UI Logout
 
 
