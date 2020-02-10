@@ -138,6 +138,27 @@ Feature: US58313 APSolute Vision Analytics - AppWall - License
     When UI Navigate to "AppWall Dashboard" page via homePage
     Then UI Validate Text field "Title" EQUALS "AppWall"
 
+    Given UI Navigate to "DefensePro Monitoring Dashboard" page via homePage
+    Then UI Validate Text field "Title" EQUALS "DefensePro Monitoring"
+
+
+ #    Validate DefensePro Behavioral Protections Dashboard Navigation
+    When UI Navigate to "DefensePro Behavioral Protections Dashboard" page via homePage
+    Then UI Validate Text field "Title" EQUALS "DefensePro Behavioral Protections"
+
+#    Validate DefensePro Analytics Dashboard Navigation
+    When UI Navigate to "DefensePro Analytics Dashboard" page via homePage
+    Then UI Validate Text field "Title" EQUALS "DefensePro Analytics"
+
+#    Validate HTTPS Flood Dashboard Navigation
+    When UI Navigate to "HTTPS Flood Dashboard" page via homePage
+    Then UI Validate Text field "Title" EQUALS "HTTPS Flood"
+
+
+     #    Validate DefenseFlow Analytics Dashboard Navigation
+    When UI Navigate to "DefenseFlow Analytics Dashboard" page via homePage
+    Then UI Validate Text field "Title" EQUALS "DefenseFlow Analytics"
+
 #    Validate Reports Navigation
     When UI Navigate to "AMS Reports" page via homePage
     When UI Click Button "Add New"
