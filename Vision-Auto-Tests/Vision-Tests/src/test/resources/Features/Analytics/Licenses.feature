@@ -7,55 +7,6 @@ Feature: VRM License validation
   Scenario: Login UI
     When UI Login with user "sys_admin" and password "radware"
 
-#   The Following Scenarios , are deprecated , because was covered under AVA Max Attack Capacity and AVA Appwall Licenses
-
-
-#  @SID_2
-#  Scenario: Remove AMS license and validate error message Analytics
-#    Given REST Vision DELETE License Request "vision-reporting-module-AMS"
-#    Given REST Vision DELETE License Request "vision-AVA"
-#    And UI Open Upper Bar Item "AMS"
-#    And UI Open "Dashboards" Tab
-#    And UI Open "DP Analytics" Sub Tab negative
-#    Then UI Validate Popup Dialog Box, have value "Functionality Restricted Due to Limited License" with text Type "CAPTION"
-#    Given UI Open "Configurations" Tab
-#
-#  @SID_3
-#  Scenario: Remove AMS license and validate error message Baseline
-#    And UI Open Upper Bar Item "AMS"
-#    And UI Open "Dashboards" Tab
-#    And UI Open "DP DNS Baseline" Sub Tab negative
-#    Then UI Validate Popup Dialog Box, have value "Functionality Restricted Due to Limited License" with text Type "CAPTION"
-#    Given UI Open "Configurations" Tab
-#
-#  @SID_4
-#  Scenario: Remove AMS license and validate error message Alerts
-#    And UI Open Upper Bar Item "AMS"
-#    And UI Open "Alerts" Tab negative
-#    Then UI Validate Popup Dialog Box, have value "Functionality Restricted Due to Limited License" with text Type "CAPTION"
-#    Given UI Open "Configurations" Tab
-#
-#  @SID_5
-#  Scenario: Remove AMS license and validate error message Forensic
-#    And UI Open Upper Bar Item "AMS"
-#    And UI Open "Forensics" Tab negative
-#    Then UI Validate Popup Dialog Box, have value "Functionality Restricted Due to Limited License" with text Type "CAPTION"
-#    Given UI Open "Configurations" Tab
-#
-#  @SID_6
-#  Scenario: Add AMS License and validate no error message
-#    Given UI Open "Configurations" Tab
-#    When REST Vision Install License Request "vision-AVA-Max-attack-capacity"
-#    And UI Open Upper Bar Item "AMS"
-#    And UI Open "Forensics" Tab
-#    And UI Open "Alerts" Tab
-#    And UI Open "Dashboards" Tab
-#    And UI Open "DP Analytics" Sub Tab
-#    And UI Open "Dashboards" Tab
-#    And UI Open "DP Monitoring Dashboard" Sub Tab
-#    And UI Open "Dashboards" Tab
-#    Then UI Open "DP BDoS Baseline" Sub Tab
-#    Then UI Open "Configurations" Tab
 
   @SID_7
   Scenario: Remove ADC license and validate error message
