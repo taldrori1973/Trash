@@ -20,12 +20,6 @@ Feature: US62031 APSolute Vision Analytics - AMS - Attack Capacity License
 
     Then Service Vision restart and Wait 1 Minute
 
-  @SID_2
-  @run
-  Scenario: Login
-    Then UI Login with user "sys_admin" and password "radware"
-
-
   @TC110252-Rest
   @SID_3
 
@@ -49,8 +43,8 @@ Feature: US62031 APSolute Vision Analytics - AMS - Attack Capacity License
 
 
   @SID_4
-
   Scenario:UI Validate First Day of Grace Period
+    Given UI Login with user "sys_admin" and password "radware"
     Given UI Navigate to "DefensePro Monitoring Dashboard" page via homePage
 
 
@@ -123,6 +117,7 @@ Feature: US62031 APSolute Vision Analytics - AMS - Attack Capacity License
     Then UI Validate Element EnableDisable status By Label "Select Product" and Value "defenseflow" is Enabled "true"
     Then UI Validate Element EnableDisable status By Label "Select Product" and Value "appwall" is Enabled "false"
 
+    Then UI Logout
   @TC110252-Rest
   @SID_5
   Scenario: Validate Grace Period of day 29
@@ -146,7 +141,7 @@ Feature: US62031 APSolute Vision Analytics - AMS - Attack Capacity License
 
   @SID_6
   Scenario: UI Validate Grace Period of day 29
-
+    Given UI Login with user "sys_admin" and password "radware"
     Given UI Navigate to "HOME" page via homePage
     Given UI Navigate to "DefensePro Monitoring Dashboard" page via homePage
 
@@ -243,6 +238,7 @@ Feature: US62031 APSolute Vision Analytics - AMS - Attack Capacity License
 
   @SID_8
   Scenario: UI Validate Grace Period of day 2
+    Given UI Login with user "sys_admin" and password "radware"
     Given UI Navigate to "HOME" page via homePage
     Given UI Navigate to "DefensePro Monitoring Dashboard" page via homePage
 
@@ -340,6 +336,7 @@ Feature: US62031 APSolute Vision Analytics - AMS - Attack Capacity License
   @SID_10
     @run
   Scenario: UI Validate in Grace Period of Last Day
+    Given UI Login with user "sys_admin" and password "radware"
     Given UI Navigate to "HOME" page via homePage
     Given UI Navigate to "DefensePro Monitoring Dashboard" page via homePage
 
@@ -438,6 +435,7 @@ Feature: US62031 APSolute Vision Analytics - AMS - Attack Capacity License
   @SID_12
   @run
   Scenario: UI Validate Grace Period Expiration
+    Given UI Login with user "sys_admin" and password "radware"
     Given UI Navigate to "HOME" page via homePage
     Then Validate Navigation to "DefensePro Monitoring Dashboard" is disabled
     Then Validate Navigation to "DefensePro Behavioral Protections Dashboard" is disabled
@@ -479,6 +477,7 @@ Feature: US62031 APSolute Vision Analytics - AMS - Attack Capacity License
 
 
   Scenario: UI Validate License of 6 Gbps When All Devices Are with Capacity of 6 Gbps
+    Given UI Login with user "sys_admin" and password "radware"
     Given UI Navigate to "HOME" page via homePage
     Given UI Navigate to "DefensePro Monitoring Dashboard" page via homePage
 
@@ -571,6 +570,7 @@ Feature: US62031 APSolute Vision Analytics - AMS - Attack Capacity License
 
   @SID_16
   Scenario: UI Validate License of 20 Gbps When All Devices Are with Capacity of 6 Gbps
+    Given UI Login with user "sys_admin" and password "radware"
     Given UI Navigate to "HOME" page via homePage
     Given UI Navigate to "DefensePro Monitoring Dashboard" page via homePage
 
@@ -656,6 +656,7 @@ Feature: US62031 APSolute Vision Analytics - AMS - Attack Capacity License
 
   @SID_18
   Scenario: UI Validate License of 20 Gbps When First Device Capacity is 60 Gbps
+    Given UI Login with user "sys_admin" and password "radware"
     Given UI Navigate to "HOME" page via homePage
     Given UI Navigate to "DefensePro Monitoring Dashboard" page via homePage
 
@@ -751,6 +752,7 @@ Feature: US62031 APSolute Vision Analytics - AMS - Attack Capacity License
 
   @SID_20
   Scenario: UI Validate Max License
+    Given UI Login with user "sys_admin" and password "radware"
     Given UI Navigate to "HOME" page via homePage
     Given UI Navigate to "DefensePro Monitoring Dashboard" page via homePage
 
@@ -844,6 +846,7 @@ Feature: US62031 APSolute Vision Analytics - AMS - Attack Capacity License
     And Validate License "AVA_APPWALL_LICENSE" Parameters
       | valid | true |
 
+    Given UI Login with user "sys_admin" and password "radware"
     Given UI Navigate to "HOME" page via homePage
     Given UI Navigate to "DefensePro Monitoring Dashboard" page via homePage
 
