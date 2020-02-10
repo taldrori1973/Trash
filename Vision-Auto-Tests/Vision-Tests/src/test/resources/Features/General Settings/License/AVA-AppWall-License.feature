@@ -13,10 +13,6 @@ Feature: US58313 APSolute Vision Analytics - AppWall - License
     And REST Vision DELETE License Request "vision-reporting-module-AMS"
 
 
-  @SID_2
-  Scenario: Login
-    Then UI Login with user "sys_admin" and password "radware"
-
 
   @SID_3
   Scenario:Validate No AVA-AppWall License
@@ -183,7 +179,7 @@ Feature: US58313 APSolute Vision Analytics - AppWall - License
     Then UI Validate Element EnableDisable status By Label "Select Product" and Value "defensepro" is Enabled "true"
     Then UI Validate Element EnableDisable status By Label "Select Product" and Value "defenseflow" is Enabled "true"
     Then UI Validate Element EnableDisable status By Label "Select Product" and Value "appwall" is Enabled "true"
-
+    Then UI logout
   @SID_22
-  Scenario: Logout
-    Then UI logout and close browser
+  Scenario: close browser
+    Then UI close browser
