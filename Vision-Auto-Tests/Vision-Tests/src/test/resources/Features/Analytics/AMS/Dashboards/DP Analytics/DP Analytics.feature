@@ -29,9 +29,7 @@ Feature: DP ANALYTICS
   Scenario: Login and add widgets
     When UI Login with user "sys_admin" and password "radware"
     * REST Vision Install License Request "vision-AVA-Max-attack-capacity"
-    And UI Open Upper Bar Item "AMS"
-    And UI Open "Dashboards" Tab
-    And UI Open "DP Analytics" Sub Tab
+    Then UI Navigate to "DefensePro Analytics Dashboard" page via homePage
     And UI Do Operation "Select" item "Global Time Filter"
     And UI Do Operation "Select" item "Global Time Filter.Quick Range" with value "3H"
     And UI VRM Select Widgets
@@ -317,9 +315,7 @@ Feature: DP ANALYTICS
   @SID_22
   Scenario: Login
     When UI Login with user "sys_admin" and password "radware"
-    And UI Open Upper Bar Item "AMS"
-    And UI Open "Dashboards" Tab
-    And UI Open "DP Analytics" Sub Tab
+    Then UI Navigate to "DefensePro Analytics Dashboard" page via homePage
     And UI Do Operation "Select" item "Global Time Filter"
     And UI Do Operation "Select" item "Global Time Filter.Quick Range" with value "3H"
 
@@ -457,9 +453,7 @@ Feature: DP ANALYTICS
   @SID_31
   Scenario: Login
     When UI Login with user "sys_admin" and password "radware"
-    And UI Open Upper Bar Item "AMS"
-    And UI Open "Dashboards" Tab
-    And UI Open "DP Analytics" Sub Tab
+    Then UI Navigate to "DefensePro Analytics Dashboard" page via homePage
     And UI Do Operation "Select" item "Global Time Filter"
     And UI Do Operation "Select" item "Global Time Filter.Quick Range" with value "3H"
 
@@ -575,9 +569,7 @@ Feature: DP ANALYTICS
   @SID_40
   Scenario: Login
     When UI Login with user "sys_admin" and password "radware"
-    And UI Open Upper Bar Item "AMS"
-    And UI Open "Dashboards" Tab
-    And UI Open "DP Analytics" Sub Tab
+    Then UI Navigate to "DefensePro Analytics Dashboard" page via homePage
     And UI Do Operation "Select" item "Global Time Filter"
     And UI Do Operation "Select" item "Global Time Filter.Quick Range" with value "3H"
 
@@ -708,9 +700,7 @@ Feature: DP ANALYTICS
   @SID_49
   Scenario: Login
     When UI Login with user "sys_admin" and password "radware"
-    And UI Open Upper Bar Item "AMS"
-    And UI Open "Dashboards" Tab
-    And UI Open "DP Analytics" Sub Tab
+    Then UI Navigate to "DefensePro Analytics Dashboard" page via homePage
     And UI Do Operation "Select" item "Global Time Filter"
     And UI Do Operation "Select" item "Global Time Filter.Quick Range" with value "3H"
 
@@ -843,9 +833,7 @@ Feature: DP ANALYTICS
   @SID_58
   Scenario: Login
     When UI Login with user "sys_admin" and password "radware"
-    And UI Open Upper Bar Item "AMS"
-    And UI Open "Dashboards" Tab
-    And UI Open "DP Analytics" Sub Tab
+    Then UI Navigate to "DefensePro Analytics Dashboard" page via homePage
     And UI Do Operation "Select" item "Global Time Filter"
     And UI Do Operation "Select" item "Global Time Filter.Quick Range" with value "3H"
 
@@ -974,9 +962,7 @@ Feature: DP ANALYTICS
   @SID_67
   Scenario: Login
     When UI Login with user "sys_admin" and password "radware"
-    And UI Open Upper Bar Item "AMS"
-    And UI Open "Dashboards" Tab
-    And UI Open "DP Analytics" Sub Tab
+    Then UI Navigate to "DefensePro Analytics Dashboard" page via homePage
     And UI Do Operation "Select" item "Global Time Filter"
     And UI Do Operation "Select" item "Global Time Filter.Quick Range" with value "3H"
 
@@ -1098,9 +1084,7 @@ Feature: DP ANALYTICS
   @SID_76
   Scenario: Login
     When UI Login with user "sys_admin" and password "radware"
-    And UI Open Upper Bar Item "AMS"
-    And UI Open "Dashboards" Tab
-    And UI Open "DP Analytics" Sub Tab
+    Then UI Navigate to "DefensePro Analytics Dashboard" page via homePage
     And UI Do Operation "Select" item "Global Time Filter"
     And UI Do Operation "Select" item "Global Time Filter.Quick Range" with value "3H"
     And UI VRM Select Widgets
@@ -1263,9 +1247,7 @@ Feature: DP ANALYTICS
   @SID_85
   Scenario: Login
     When UI Login with user "sys_admin" and password "radware"
-    And UI Open Upper Bar Item "AMS"
-    And UI Open "Dashboards" Tab
-    And UI Open "DP Analytics" Sub Tab
+    Then UI Navigate to "DefensePro Analytics Dashboard" page via homePage
     And UI Do Operation "Select" item "Global Time Filter"
     And UI Do Operation "Select" item "Global Time Filter.Quick Range" with value "3H"
 
@@ -1420,9 +1402,7 @@ Feature: DP ANALYTICS
   @SID_94
   Scenario: Login
     When UI Login with user "sys_admin" and password "radware"
-    And UI Open Upper Bar Item "AMS"
-    And UI Open "Dashboards" Tab
-    And UI Open "DP Analytics" Sub Tab
+    Then UI Navigate to "DefensePro Analytics Dashboard" page via homePage
     And UI Do Operation "Select" item "Global Time Filter"
     And UI Do Operation "Select" item "Global Time Filter.Quick Range" with value "3H"
 
@@ -1535,9 +1515,7 @@ Feature: DP ANALYTICS
   @SID_103
   Scenario: Login
     When UI Login with user "sys_admin" and password "radware"
-    And UI Open Upper Bar Item "AMS"
-    And UI Open "Dashboards" Tab
-    And UI Open "DP Analytics" Sub Tab
+    Then UI Navigate to "DefensePro Analytics Dashboard" page via homePage
     And UI Do Operation "Select" item "Global Time Filter"
     And UI Do Operation "Select" item "Global Time Filter.Quick Range" with value "3H"
 
@@ -1635,9 +1613,7 @@ Feature: DP ANALYTICS
   @SID_112
   Scenario: Login
     When UI Login with user "sys_admin" and password "radware"
-    And UI Open Upper Bar Item "AMS"
-    And UI Open "Dashboards" Tab
-    And UI Open "DP Analytics" Sub Tab
+    Then UI Navigate to "DefensePro Analytics Dashboard" page via homePage
     And UI Do Operation "Select" item "Global Time Filter"
     And UI Do Operation "Select" item "Global Time Filter.Quick Range" with value "3H"
     And UI VRM Select Widgets
@@ -1711,9 +1687,7 @@ Feature: DP ANALYTICS
   @SID_119
   Scenario: Login
     When UI Login with user "sys_admin" and password "radware"
-    And UI Open Upper Bar Item "AMS"
-    And UI Open "Dashboards" Tab
-    And UI Open "DP Analytics" Sub Tab
+    Then UI Navigate to "DefensePro Analytics Dashboard" page via homePage
     And UI Do Operation "Select" item "Global Time Filter"
     And UI Do Operation "Select" item "Global Time Filter.Quick Range" with value "3H"
 
@@ -1803,9 +1777,7 @@ Feature: DP ANALYTICS
     * CLI simulate 1 attacks of type "rest_anomalies" on "DefensePro" 10
     * CLI simulate 1 attacks of type "rest_intrusion" on "DefensePro" 10 and wait 30 seconds
     Given UI Login with user "sys_admin" and password "radware"
-    When UI Open Upper Bar Item "AMS"
-    Then UI Open "Dashboards" Tab
-    Then UI Open "DP Analytics" Sub Tab
+    Then UI Navigate to "DefensePro Analytics Dashboard" page via homePage
     Then Sleep "5"
     Then UI Do Operation "Select" item "Device Selection"
     And UI VRM Select device from dashboard and Save Filter

@@ -22,9 +22,7 @@ Scenario: Run DP simulator PCAPs for Attacks by Protection Policy  widget
 @SID_3
 Scenario: Login
 When UI Login with user "sys_admin" and password "radware"
-And UI Open Upper Bar Item "AMS"
-And UI Open "Dashboards" Tab
-And UI Open "DP Analytics" Sub Tab
+  Then UI Navigate to "DefensePro Analytics Dashboard" page via homePage
 And UI Do Operation "Select" item "Global Time Filter"
 And UI Do Operation "Select" item "Global Time Filter.Quick Range" with value "3H"
 
@@ -60,7 +58,7 @@ When UI VRM Select device from dashboard
 | index |
 Then UI Text of "Device Selection.Available Devices header" contains "Devices3/3"
 Then UI VRM Total Available Device's 3
-Then UI Open "Configurations" Tab
+  Then UI Navigate to "HOME" page via homePage
 * UI Logout
 
     ### see DE39973 WNBF
@@ -97,9 +95,7 @@ Then UI Open "Configurations" Tab
 @SID_5
 Scenario:Analytics RBAC sec_mon_DP50_policy1 user
 Given UI Login with user "sec_mon_DP50_policy1" and password "radware"
-When UI Open Upper Bar Item "AMS"
-And UI Open "Dashboards" Tab
-And UI Open "DP Analytics" Sub Tab
+  Then UI Navigate to "DefensePro Analytics Dashboard" page via homePage
 And Sleep "3"
 And UI Do Operation "Select" item "Global Time Filter"
 And UI Do Operation "Select" item "Global Time Filter.Quick Range" with value "3H"
@@ -129,9 +125,7 @@ Then UI Open "Configurations" Tab
 @SID_6
 Scenario: Analytics RBAC sec_mon_DP50_policy1 user search options
 Given UI Login with user "sec_mon_DP50_policy1" and password "radware"
-When UI Open Upper Bar Item "AMS"
-And UI Open "Dashboards" Tab
-And UI Open "DP Analytics" Sub Tab
+  Then UI Navigate to "DefensePro Analytics Dashboard" page via homePage
 And Sleep "3"
 And UI Do Operation "Select" item "Global Time Filter"
 And UI Do Operation "Select" item "Global Time Filter.Quick Range" with value "3H"
@@ -156,9 +150,7 @@ Then UI Open "Configurations" Tab
 @SID_7
 Scenario:Analytics RBAC sec_mon_all_pol user
 Given UI Login with user "sec_mon_all_pol" and password "radware"
-When UI Open Upper Bar Item "AMS"
-And UI Open "Dashboards" Tab
-And UI Open "DP Analytics" Sub Tab
+  Then UI Navigate to "DefensePro Analytics Dashboard" page via homePage
 And UI Do Operation "Select" item "Global Time Filter"
 And UI Do Operation "Select" item "Global Time Filter.Quick Range" with value "3H"
 And Sleep "3"
@@ -190,15 +182,13 @@ When UI VRM Select device from dashboard
 | index |
 Then UI Text of "Device Selection.Available Devices header" contains "Devices1/1"
 Then UI VRM Total Available Device's 1
-Then UI Open "Configurations" Tab
+  Then UI Navigate to "HOME" page via homePage
 Then UI Logout
 
 @SID_8
 Scenario:Analytics RBAC sec_admin_all_pol user
 Given UI Login with user "sec_admin_all_pol" and password "radware"
-When UI Open Upper Bar Item "AMS"
-And UI Open "Dashboards" Tab
-And UI Open "DP Analytics" Sub Tab
+  Then UI Navigate to "DefensePro Analytics Dashboard" page via homePage
 And UI Do Operation "Select" item "Global Time Filter"
 And UI Do Operation "Select" item "Global Time Filter.Quick Range" with value "3H"
 And Sleep "3"
@@ -230,15 +220,13 @@ When UI VRM Select device from dashboard
 | index |
 Then UI Text of "Device Selection.Available Devices header" contains "Devices1/1"
 Then UI VRM Total Available Device's 1
-Then UI Open "Configurations" Tab
+  Then UI Navigate to "HOME" page via homePage
 Then UI Logout
 
 @SID_9
 Scenario: Analytics RBAC sec_mon_BDOS user
 Given UI Login with user "sec_mon_BDOS" and password "radware"
-When UI Open Upper Bar Item "AMS"
-And UI Open "Dashboards" Tab
-And UI Open "DP Analytics" Sub Tab
+  Then UI Navigate to "DefensePro Analytics Dashboard" page via homePage
 And UI Do Operation "Select" item "Global Time Filter"
 And UI Do Operation "Select" item "Global Time Filter.Quick Range" with value "3H"
 And Sleep "3"
@@ -263,15 +251,13 @@ When UI VRM Select device from dashboard
 | index |
 Then UI Text of "Device Selection.Available Devices header" contains "Devices1/1"
 Then UI VRM Total Available Device's 1
-Then UI Open "Configurations" Tab
+  Then UI Navigate to "HOME" page via homePage
 Then UI Logout
 
 @SID_10
 Scenario: Analytics RBAC sec_admin_all_pol_51 user
 Given UI Login with user "sec_admin_all_pol_51" and password "radware"
-When UI Open Upper Bar Item "AMS"
-And UI Open "Dashboards" Tab
-And UI Open "DP Analytics" Sub Tab
+  Then UI Navigate to "DefensePro Analytics Dashboard" page via homePage
 And UI Do Operation "Select" item "Global Time Filter"
 And UI Do Operation "Select" item "Global Time Filter.Quick Range" with value "3H"
 And Sleep "3"
@@ -303,15 +289,13 @@ When UI VRM Select device from dashboard
 | index |
 Then UI Text of "Device Selection.Available Devices header" contains "Devices1/1"
 Then UI VRM Total Available Device's 1
-Then UI Open "Configurations" Tab
+  Then UI Navigate to "HOME" page via homePage
 Then UI Logout
 
 @SID_11
 Scenario: Analytics RBAC sec_mon_DP50_POL_IPV6 user
 Given UI Login with user "sec_mon_DP50_POL_IPV6" and password "radware"
-When UI Open Upper Bar Item "AMS"
-And UI Open "Dashboards" Tab
-And UI Open "DP Analytics" Sub Tab
+  Then UI Navigate to "DefensePro Analytics Dashboard" page via homePage
 And UI Do Operation "Select" item "Global Time Filter"
 And UI Do Operation "Select" item "Global Time Filter.Quick Range" with value "3H"
 And Sleep "3"
@@ -334,15 +318,13 @@ When UI VRM Select device from dashboard
 | index |
 Then UI Text of "Device Selection.Available Devices header" contains "Devices1/1"
 Then UI VRM Total Available Device's 1
-Then UI Open "Configurations" Tab
+  Then UI Navigate to "HOME" page via homePage
 Then UI Logout
 
 @SID_12
 Scenario: Analytics RBAC sec_admin_DP50_policy1 user
 Given UI Login with user "sec_admin_DP50_policy1" and password "radware"
-When UI Open Upper Bar Item "AMS"
-And UI Open "Dashboards" Tab
-And UI Open "DP Analytics" Sub Tab
+  Then UI Navigate to "DefensePro Analytics Dashboard" page via homePage
 And UI Do Operation "Select" item "Global Time Filter"
 And UI Do Operation "Select" item "Global Time Filter.Quick Range" with value "3H"
 And Sleep "3"
@@ -365,7 +347,7 @@ When UI VRM Select device from dashboard
 | index |
 Then UI Text of "Device Selection.Available Devices header" contains "Devices1/1"
 Then UI VRM Total Available Device's 1
-Then UI Open "Configurations" Tab
+  Then UI Navigate to "HOME" page via homePage
 Then UI Logout
 
 @SID_13
