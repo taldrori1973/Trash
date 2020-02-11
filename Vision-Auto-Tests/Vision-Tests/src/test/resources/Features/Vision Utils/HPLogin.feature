@@ -31,7 +31,8 @@ Feature: HPLogin
   Scenario: Legal username and password with Enter
     When UI Set Text Field "usernameInput" To "sys_admin" enter Key false
     When UI Set Text Field "passwordInput" To "radware" enter Key true
-    Then UI Validate Text field "logedInUsername" EQUALS "sys_admin"
+    When UI Click Button "loginButton"
+    Then UI Validate Text field "loggedInUsername" EQUALS "sys_admin"
     When UI Logout
 
   @SID_6

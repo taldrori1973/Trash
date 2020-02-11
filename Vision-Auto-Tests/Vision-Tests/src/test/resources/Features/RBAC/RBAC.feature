@@ -67,6 +67,9 @@ Feature: RBAC
     Then UI Add "Alteon" with index 2 on "Default" site nowait
     Then UI Add "AppWall" with index 0 on "Default" site nowait
     Then UI Add "LinkProof" with index 0 on "Default" site nowait
+    Then UI Navigate to page "System->User Management->User Management Settings"
+    Then UI Select "Local" from Vision dropdown "Authentication Mode"
+    Then UI Click Button "Submit"
     * UI Logout
 
   @SID_6
@@ -88,7 +91,7 @@ Feature: RBAC
       | ANALYTICS ADC                               | yes      |
       | ANALYTICS AMS                               | no       |
       | Alert browser                               | yes      |
-      | Scheduler                                   | no       |
+      | SCHEDULER                                   | no       |
       | Toolbox                                     | yes      |
       | operator toolbox                            | yes      |
       | Appshapes                                   | yes      |
@@ -112,7 +115,7 @@ Feature: RBAC
       | vDirect                                     | yes      |
       | GEL Dashboard                               | yes      |
       | EAAF Dashboard                              | no       |
-      | DEVICES CONFIGURATION                      | yes      |
+      | DEVICES CONFIGURATIONS                      | yes      |
       | VISION SETTINGS                             | yes      |
     * UI Logout
 
@@ -135,7 +138,7 @@ Feature: RBAC
       | ANALYTICS ADC                               | yes      |
       | ANALYTICS AMS                               | no       |
       | Alert browser                               | yes      |
-      | Scheduler                                   | no       |
+      | SCHEDULER                                   | no       |
       | Toolbox                                     | yes      |
       | operator toolbox                            | yes      |
       | Appshapes                                   | yes      |
@@ -159,7 +162,7 @@ Feature: RBAC
       | vDirect                                     | yes      |
       | GEL Dashboard                               | yes      |
       | EAAF Dashboard                              | no       |
-      | DEVICES CONFIGURATION                      | yes      |
+      | DEVICES CONFIGURATIONS                      | yes      |
       | VISION SETTINGS                             | yes      |
     * UI Logout
 
@@ -182,7 +185,7 @@ Feature: RBAC
       | ANALYTICS ADC                               | yes      |
       | ANALYTICS AMS                               | no       |
       | Alert browser                               | yes      |
-      | Scheduler                                   | no       |
+      | SCHEDULER                                   | no       |
       | Toolbox                                     | yes      |
       | operator toolbox                            | no       |
       | Appshapes                                   | no       |
@@ -195,7 +198,7 @@ Feature: RBAC
       | Security Control Center                     | no       |
       | app sla dashboard                           | yes      |
       | DefensePro Behavioral Protections Dashboard | no       |
-      | HTTPS\ Flood\ Dashboard                     | no       |
+      | HTTPS Flood Dashboard                       | no       |
       | DefensePro Analytics Dashboard              | no       |
       | DefensePro Monitoring Dashboard             | no       |
       | DefenseFlow Analytics Dashboard             | no       |
@@ -206,7 +209,7 @@ Feature: RBAC
       | vDirect                                     | yes      |
       | GEL Dashboard                               | yes      |
       | EAAF Dashboard                              | no       |
-      | DEVICES CONFIGURATION                      | yes      |
+      | DEVICES CONFIGURATIONS                      | yes      |
       | VISION SETTINGS                             | no       |
     * UI Logout
 
@@ -229,7 +232,7 @@ Feature: RBAC
       | ANALYTICS ADC                               | yes      |
       | ANALYTICS AMS                               | yes      |
       | Alert browser                               | yes      |
-      | Scheduler                                   | yes      |
+      | SCHEDULER                                   | yes      |
       | Toolbox                                     | yes      |
       | operator toolbox                            | yes      |
       | Appshapes                                   | yes      |
@@ -253,7 +256,7 @@ Feature: RBAC
       | vDirect                                     | yes      |
       | GEL Dashboard                               | yes      |
       | EAAF Dashboard                              | yes      |
-      | DEVICES CONFIGURATION                      | yes      |
+      | DEVICES CONFIGURATIONS                      | yes      |
       | VISION SETTINGS                             | yes      |
     * UI Logout
 
@@ -276,7 +279,7 @@ Feature: RBAC
       | ANALYTICS ADC                               | no       |
       | ANALYTICS AMS                               | no       |
       | Alert browser                               | yes      |
-      | Scheduler                                   | no       |
+      | SCHEDULER                                   | no       |
       | Toolbox                                     | yes      |
       | operator toolbox                            | no       |
       | Appshapes                                   | no       |
@@ -300,7 +303,7 @@ Feature: RBAC
       | vDirect                                     | yes      |
       | GEL Dashboard                               | yes      |
       | EAAF Dashboard                              | no       |
-      | DEVICES CONFIGURATION                      | no       |
+      | DEVICES CONFIGURATIONS                      | no       |
       | VISION SETTINGS                             | yes      |
     * UI Logout
 
@@ -323,7 +326,7 @@ Feature: RBAC
       | ANALYTICS ADC                               | yes      |
       | ANALYTICS AMS                               | yes      |
       | Alert browser                               | yes      |
-      | Scheduler                                   | yes      |
+      | SCHEDULER                                   | yes      |
       | Toolbox                                     | yes      |
       | operator toolbox                            | yes      |
       | Appshapes                                   | yes      |
@@ -347,7 +350,7 @@ Feature: RBAC
       | vDirect                                     | yes      |
       | GEL Dashboard                               | yes      |
       | EAAF Dashboard                              | yes      |
-      | DEVICES CONFIGURATION                      | yes      |
+      | DEVICES CONFIGURATIONS                      | yes      |
       | VISION SETTINGS                             | no       |
     * UI Logout
 
@@ -370,7 +373,7 @@ Feature: RBAC
       | ANALYTICS ADC                               | yes      |
       | ANALYTICS AMS                               | yes      |
       | Alert browser                               | yes      |
-      | Scheduler                                   | yes      |
+      | SCHEDULER                                   | yes      |
       | Toolbox                                     | yes      |
       | operator toolbox                            | no       |
       | Appshapes                                   | no       |
@@ -394,7 +397,7 @@ Feature: RBAC
       | vDirect                                     | yes      |
       | GEL Dashboard                               | yes      |
       | EAAF Dashboard                              | yes      |
-      | DEVICES CONFIGURATION                      | yes      |
+      | DEVICES CONFIGURATIONS                      | yes      |
       | VISION SETTINGS                             | no       |
     * UI Logout
 
@@ -417,7 +420,7 @@ Feature: RBAC
       | ANALYTICS ADC                               | yes      |
       | ANALYTICS AMS                               | yes      |
       | Alert browser                               | yes      |
-      | Scheduler                                   | yes      |
+      | SCHEDULER                                   | yes      |
       | Toolbox                                     | yes      |
       | operator toolbox                            | no       |
       | Appshapes                                   | no       |
@@ -441,7 +444,7 @@ Feature: RBAC
       | vDirect                                     | yes      |
       | GEL Dashboard                               | yes      |
       | EAAF Dashboard                              | yes      |
-      | DEVICES CONFIGURATION                      | yes      |
+      | DEVICES CONFIGURATIONS                      | yes      |
       | VISION SETTINGS                             | no       |
     * UI Logout
 
@@ -464,7 +467,7 @@ Feature: RBAC
       | ANALYTICS ADC                               | yes      |
       | ANALYTICS AMS                               | yes      |
       | Alert browser                               | no       |
-      | Scheduler                                   | no       |
+      | SCHEDULER                                   | no       |
       | Toolbox                                     | yes      |
       | operator toolbox                            | no       |
       | Appshapes                                   | no       |
@@ -488,7 +491,7 @@ Feature: RBAC
       | vDirect                                     | yes      |
       | GEL Dashboard                               | yes      |
       | EAAF Dashboard                              | yes      |
-      | DEVICES CONFIGURATION                      | yes      |
+      | DEVICES CONFIGURATIONS                      | yes      |
       | VISION SETTINGS                             | no       |
     * UI Logout
 
@@ -511,7 +514,7 @@ Feature: RBAC
       | ANALYTICS ADC                               | no       |
       | ANALYTICS AMS                               | no       |
       | Alert browser                               | yes      |
-      | Scheduler                                   | no       |
+      | SCHEDULER                                   | no       |
       | Toolbox                                     | yes      |
       | operator toolbox                            | no       |
       | Appshapes                                   | no       |
@@ -535,7 +538,7 @@ Feature: RBAC
       | vDirect                                     | yes      |
       | GEL Dashboard                               | yes      |
       | EAAF Dashboard                              | no       |
-      | DEVICES CONFIGURATION                      | no       |
+      | DEVICES CONFIGURATIONS                      | no       |
       | VISION SETTINGS                             | no       |
     * UI Logout
 
@@ -558,7 +561,7 @@ Feature: RBAC
       | ANALYTICS ADC                               | no       |
       | ANALYTICS AMS                               | yes      |
       | Alert browser                               | yes      |
-      | Scheduler                                   | yes      |
+      | SCHEDULER                                   | yes      |
       | Toolbox                                     | yes      |
       | operator toolbox                            | yes      |
       | Appshapes                                   | no       |
@@ -582,7 +585,7 @@ Feature: RBAC
       | vDirect                                     | yes      |
       | GEL Dashboard                               | yes      |
       | EAAF Dashboard                              | yes      |
-      | DEVICES CONFIGURATION                      | yes      |
+      | DEVICES CONFIGURATIONS                      | yes      |
       | VISION SETTINGS                             | yes      |
     * UI Logout
 
@@ -605,7 +608,7 @@ Feature: RBAC
       | ANALYTICS ADC                               | no       |
       | ANALYTICS AMS                               | yes      |
       | Alert browser                               | no       |
-      | Scheduler                                   | no       |
+      | SCHEDULER                                   | no       |
       | Toolbox                                     | no       |
       | operator toolbox                            | no       |
       | Appshapes                                   | no       |
@@ -629,7 +632,7 @@ Feature: RBAC
       | vDirect                                     | no       |
       | GEL Dashboard                               | no       |
       | EAAF Dashboard                              | yes      |
-      | DEVICES CONFIGURATION                      | no       |
+      | DEVICES CONFIGURATIONS                      | no       |
       | VISION SETTINGS                             | no       |
     * UI Logout
 
@@ -652,7 +655,7 @@ Feature: RBAC
       | ANALYTICS ADC                               | no       |
       | ANALYTICS AMS                               | no       |
       | Alert browser                               | no       |
-      | Scheduler                                   | no       |
+      | SCHEDULER                                   | no       |
       | Toolbox                                     | no       |
       | operator toolbox                            | no       |
       | Appshapes                                   | no       |
@@ -676,7 +679,7 @@ Feature: RBAC
       | vDirect                                     | no       |
       | GEL Dashboard                               | no       |
       | EAAF Dashboard                              | no       |
-      | DEVICES CONFIGURATION                      | no       |
+      | DEVICES CONFIGURATIONS                      | no       |
       | VISION SETTINGS                             | yes      |
     * UI Logout
 
@@ -699,7 +702,7 @@ Feature: RBAC
       | ANALYTICS ADC                               | yes      |
       | ANALYTICS AMS                               | yes      |
       | Alert browser                               | yes      |
-      | Scheduler                                   | yes      |
+      | SCHEDULER                                   | yes      |
       | Toolbox                                     | yes      |
       | operator toolbox                            | yes      |
       | Appshapes                                   | yes      |
@@ -723,7 +726,7 @@ Feature: RBAC
       | vDirect                                     | yes      |
       | GEL Dashboard                               | yes      |
       | EAAF Dashboard                              | yes      |
-      | DEVICES CONFIGURATION                      | yes      |
+      | DEVICES CONFIGURATIONS                      | yes      |
       | VISION SETTINGS                             | yes      |
     * UI Logout
 
@@ -746,7 +749,7 @@ Feature: RBAC
       | ANALYTICS ADC                               | yes      |
       | ANALYTICS AMS                               | yes      |
       | Alert browser                               | no       |
-      | Scheduler                                   | no       |
+      | SCHEDULER                                   | no       |
       | Toolbox                                     | no       |
       | operator toolbox                            | no       |
       | Appshapes                                   | no       |
@@ -770,7 +773,7 @@ Feature: RBAC
       | vDirect                                     | no       |
       | GEL Dashboard                               | no       |
       | EAAF Dashboard                              | yes      |
-      | DEVICES CONFIGURATION                      | no       |
+      | DEVICES CONFIGURATIONS                      | no       |
       | VISION SETTINGS                             | no       |
     * UI Logout
 
@@ -789,7 +792,7 @@ Feature: RBAC
       | ANALYTICS AMS                     | yes      |
       | VISION SETTINGS - DEVICE RESOURCE | yes      |
       | ALERT BROWSER                     | yes      |
-      | Scheduler                         | yes      |
+      | SCHEDULER                         | yes      |
       | operator toolbox                  | yes      |
       | load new Appshape                 | yes      |
       | DP templates                      | yes      |

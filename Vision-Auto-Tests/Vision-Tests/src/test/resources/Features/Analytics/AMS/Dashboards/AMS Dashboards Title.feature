@@ -3,9 +3,11 @@ Feature: AMS Dashboards Title
 
   @SID_1
   Scenario: VRM - Login to VRM "Wizard" Test
+    * REST Login with user "radware" and password "radware"
+    * REST Vision Install License Request "vision-AVA-AppWall"
+    * REST Vision Install License Request "vision-AVA-Max-attack-capacity"
     Given UI Login with user "radware" and password "radware"
-    And REST Vision Install License Request "vision-AVA-AppWall"
-    And REST Vision Install License Request "vision-AVA-Max-attack-capacity"
+
 
   @SID_2
   Scenario: Validate Title Of DefensePro Behavioral Protections Dashboard

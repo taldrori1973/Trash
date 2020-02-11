@@ -1,6 +1,6 @@
 #By MohamadI
 @TC110252
-
+@run
 Feature: US62031 APSolute Vision Analytics - AMS - Attack Capacity License
 
   @TC110252-Rest
@@ -149,7 +149,7 @@ Feature: US62031 APSolute Vision Analytics - AMS - Attack Capacity License
 
 #    Validate Message
     Then UI Validate Text field with Class "ant-notification-notice-message" "Equals" To "Insufficient Attack-Capacity License"
-    Then UI Validate Text field with Class "ant-notification-notice-description" "Equals" To "License Violation: The attack capacity required by devices managed by APSolute Vision exceeds the permitted value by the APSolute Vision Analytics - AMS license. Contact Radware Technical Support to purchase another license with more capacity within 29 days. In 29 days, the system will only support the attack capacity corresponding to the license. If there is no APSolute Vision Analytics - AMS license, AVA will be unavailable."
+    Then UI Validate Text field with Class "ant-notification-notice-description" "Equals" To "The attack capacity required by devices managed by APSolute Vision exceeds the permitted value by the APSolute Vision Analytics - AMS license. Contact Radware Technical Support to purchase another license with more capacity within 29 days. In 29 days, the system will only support the attack capacity corresponding to the license. If there is no APSolute Vision Analytics - AMS license, AVA will be unavailable."
     Then UI Click Button by Class "ant-notification-notice-close"
 
 #    Validate Device List
@@ -247,7 +247,7 @@ Feature: US62031 APSolute Vision Analytics - AMS - Attack Capacity License
 
 #    Validate Message
     Then UI Validate Text field with Class "ant-notification-notice-message" "Equals" To "Insufficient Attack-Capacity License"
-    Then UI Validate Text field with Class "ant-notification-notice-description" "Equals" To "License Violation: The attack capacity required by devices managed by APSolute Vision exceeds the permitted value by the APSolute Vision Analytics - AMS license. Contact Radware Technical Support to purchase another license with more capacity within 2 days. In 2 days, the system will only support the attack capacity corresponding to the license. If there is no APSolute Vision Analytics - AMS license, AVA will be unavailable."
+    Then UI Validate Text field with Class "ant-notification-notice-description" "Equals" To "The attack capacity required by devices managed by APSolute Vision exceeds the permitted value by the APSolute Vision Analytics - AMS license. Contact Radware Technical Support to purchase another license with more capacity within 2 days. In 2 days, the system will only support the attack capacity corresponding to the license. If there is no APSolute Vision Analytics - AMS license, AVA will be unavailable."
     Then UI Click Button by Class "ant-notification-notice-close"
 
 #    Validate Device List
@@ -346,7 +346,7 @@ Feature: US62031 APSolute Vision Analytics - AMS - Attack Capacity License
 
 #    Validate Message
     Then UI Validate Text field with Class "ant-notification-notice-message" "Equals" To "Insufficient Attack-Capacity License"
-    Then UI Validate Text field with Class "ant-notification-notice-description" "Equals" To "License Violation: APSolute Vision Analytics - AMS license will expire within 1 day. Renew the license using the Radware customer portal, or contact Radware Technical Support to purchase a license."
+    Then UI Validate Text field with Class "ant-notification-notice-description" "Equals" To "APSolute Vision Analytics - AMS license will expire within 1 day. Renew the license using the Radware customer portal, or contact Radware Technical Support to purchase a license."
     Then UI Click Button by Class "ant-notification-notice-close"
 
 #    Validate Device List

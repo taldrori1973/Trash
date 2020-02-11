@@ -11,8 +11,8 @@ Feature: Design Report Wizard
 
   @SID_2
   Scenario: Login and navigate to the Reports WizardRamat HaHayal, Tel Aviv-Yafo
-    Given UI Login with user "sys_admin" and password "radware"
     * REST Vision Install License Request "vision-AVA-Max-attack-capacity"
+    Given UI Login with user "sys_admin" and password "radware"
     And UI Navigate to "AMS Reports" page via homePage
     Then UI Validate Element Existence By Label "Add New" if Exists "true"
 
