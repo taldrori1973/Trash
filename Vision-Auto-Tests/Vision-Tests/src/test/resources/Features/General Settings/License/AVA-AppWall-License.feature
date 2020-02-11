@@ -176,7 +176,7 @@ Feature: US58313 APSolute Vision Analytics - AppWall - License
     Then UI Validate Element EnableDisable status By Label "Select Product" and Value "defensepro" is Enabled "true"
     Then UI Validate Element EnableDisable status By Label "Select Product" and Value "defenseflow" is Enabled "true"
     Then UI Validate Element EnableDisable status By Label "Select Product" and Value "appwall" is Enabled "true"
-    Then UI logout
+    Then UI Logout
   @SID_22
   Scenario: close browser
     Then UI close browser
