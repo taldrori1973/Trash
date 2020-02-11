@@ -195,7 +195,7 @@ Feature: RBAC
       | Security Control Center                     | no       |
       | app sla dashboard                           | yes      |
       | DefensePro Behavioral Protections Dashboard | no       |
-      | HTTPS\ Flood\ Dashboard                     | no       |
+      | HTTPS Flood Dashboard                       | no       |
       | DefensePro Analytics Dashboard              | no       |
       | DefensePro Monitoring Dashboard             | no       |
       | DefenseFlow Analytics Dashboard             | no       |
