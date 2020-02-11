@@ -81,8 +81,7 @@ Feature: AMS actionable edit Threshold
 
   @SID_12
   Scenario:  Navigate to DP dashboard
-    And UI Open "Dashboards" Tab
-    And UI Open "DP Monitoring Dashboard" Sub Tab
+    Then UI Navigate to "DefensePro Monitoring Dashboard" page via homePage
 
   @SID_13
   Scenario: Entering to the under attack policy 3nd drill
