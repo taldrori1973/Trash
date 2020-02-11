@@ -236,6 +236,18 @@ public class VRMBaseUtilies {
         return devicesEntries;
     }
 
+    protected void selectProductNew(Map<String, String> map) throws TargetWebElementNotFoundException {
+        if (map.containsKey("Product")) {
+            String productSelection = map.get("Product");
+            if (productSelection.equals("Appwall") || productSelection.equals("DefenseFlow") || productSelection.equals("DefensePro")) {
+                BasicOperationsHandler.clickButton(productSelection);
+            }
+            else {
+                BaseTestUtils.report("The Product definition should be Appwall, or DefenseFlow or DefensePro: " + productSelection, Reporter.FAIL);
+            }
+        }
+    }
+
     protected void selectTimeDefinitions(Map<String, String> map) throws TargetWebElementNotFoundException, DropdownItemNotFoundException, DropdownNotOpenedException {
         if (map.containsKey("Time Definitions.Date")) {
             JSONObject timeDefinitionJSONObject = new JSONObject(map.get("Time Definitions.Date"));
@@ -1117,6 +1129,7 @@ public class VRMBaseUtilies {
                 if (!name.trim().equals("unselected"))
                     BasicOperationsHandler.uploadFileToVision(name, null, null);
             }
+            BasicOperationsHandler.clickButton("Customized Options");
         }
     }
 

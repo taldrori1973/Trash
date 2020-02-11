@@ -722,7 +722,7 @@ public class TopologyTreeHandler {
 
         openSitesAndClusters();
         expandAllSitesClusters();
-        if (WebUIUtils.fluentWaitGetText(By.id(WebUIStrings.getDefaultDeviceTreeNodeString()), WebUIUtils.SHORT_WAIT_TIME, false).contains("0")) {
+        if (WebUIUtils.fluentWaitGetText(By.id(WebUIStrings.getDefaultDeviceTreeNodeString()), WebUIUtils.SHORT_WAIT_TIME, false).contains("0/0")) {
             BaseTestUtils.report("Could not click random device from tree, there is no device managed by vision in sites and devices", Reporter.FAIL);
             return;
         }
@@ -732,6 +732,7 @@ public class TopologyTreeHandler {
 
             if (!ClickOperationsHandler.checkIfElementAttributeContains(device, "id", "Default")) {
                 ClickOperationsHandler.clickWebElement(device);
+                if (!device.getAttribute("class").equals("siteIcon"))
                 openDeviceInfoPane();
                 return;
             }
@@ -752,7 +753,7 @@ public class TopologyTreeHandler {
         expandAllSitesClusters();
 
         //if there is no devices managed , no need to continue
-        if (WebUIUtils.fluentWaitGetText(By.id(WebUIStrings.getDefaultDeviceTreeNodeString()), WebUIUtils.SHORT_WAIT_TIME, false).contains("0")) {
+        if (WebUIUtils.fluentWaitGetText(By.id(WebUIStrings.getDefaultDeviceTreeNodeString()), WebUIUtils.SHORT_WAIT_TIME, false).contains("0/0")) {
             return false;
         }
 
