@@ -15,6 +15,7 @@ Feature: Forensic Wizard
     Given UI Login with user "radware" and password "radware"
     * REST Vision Install License Request "vision-AVA-Max-attack-capacity"
     * REST Vision Install License Request "vision-AVA-AppWall"
+    And Sleep "120"
     Then REST Add "AppWall" Device To topology Tree with Name "Appwall_SA_172.17.164.30" and Management IP "172.17.164.30" into site "AW_site"
       | attribute     | value    |
       | httpPassword  | 1qaz!QAZ |
@@ -30,7 +31,7 @@ Feature: Forensic Wizard
       | "/home/radware/AW_Attacks/sendAW_Attacks.sh "                     |
       | #visionIP                                                         |
       | " 172.17.164.30 5 "/home/radware/AW_Attacks/AppwallAttackTypes/"" |
-    And Sleep "60"
+    And Sleep "120"
 
   @SID_4 @Sanity
   Scenario: create forensic definition Wizard_test
