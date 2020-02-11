@@ -55,7 +55,7 @@ public class GeneralSteps extends BddCliTestBase {
                         o.logType.equals(selection.logType)).collect(Collectors.toList());
 
                 for (SearchLog ignore : myIgnored)
-                    checkForErrors = checkForErrors.concat(commandToSkip + " " + ignore.expression);
+                    checkForErrors = checkForErrors.concat(String.format("%s \"%s\"",commandToSkip,ignore.expression));
 
                 searchExpressionInLog(selection, checkForErrors);
             });
