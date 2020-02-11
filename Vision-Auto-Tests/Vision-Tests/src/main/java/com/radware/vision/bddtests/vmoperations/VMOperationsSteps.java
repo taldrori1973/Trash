@@ -11,6 +11,7 @@ import com.radware.vision.automation.tools.sutsystemobjects.VisionVMs;
 import com.radware.vision.bddtests.BddUITestBase;
 import com.radware.vision.bddtests.clioperation.connections.NewVmSteps;
 import com.radware.vision.bddtests.clioperation.system.upgrade.UpgradeSteps;
+import com.radware.vision.bddtests.defenseFlow.defenseFlowDevice;
 import com.radware.vision.bddtests.rest.BasicRestOperationsSteps;
 import com.radware.vision.infra.testhandlers.cli.CliOperations;
 import com.radware.vision.utils.RegexUtils;
@@ -87,6 +88,20 @@ public class VMOperationsSteps extends BddUITestBase {
             restTestBase.getRootServerCli().init();
         }
     }
+    @When("^Revert DefenseFlow to snapshot$")
+    public void DfenseFlowRevertToSnapshot() throws Exception {
+        try {
+            defenseFlowDevice DF = (defenseFlowDevice) system.getSystemObject("defenseFlowDevice");
+            EsxiInfo esxiInfo = new EsxiInfo(DF.getvCenterURL(), DF.getvCenterUserName(), DF.getvCenterPassword(), DF.getResourcePool());
+            BaseTestUtils.report("Reverting Defense Flow to snapshot " + DF.getSnapshot(), Reporter.PASS_NOR_FAIL);
+            VMSnapshotOperations.newInstance().switchToSnapshot(new VmNameTargetVm(esxiInfo, DF.vmName), DF.snapshot, true);
+            Thread.sleep(2 * 60 * 1000);
+            BaseTestUtils.report("DefenseFlow Revert done.", Reporter.PASS_NOR_FAIL);
+        }catch (Exception e){
+
+        }
+    }
+
 
     //    private boolean waitForServerConnection(long timeout, CliConnectionImpl connection) throws InterruptedException {
 //        long startTime = System.currentTimeMillis();
