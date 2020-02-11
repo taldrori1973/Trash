@@ -161,7 +161,6 @@ Feature: LLS_GEL_freshInstall
   @SID_30
   Scenario: Login and navigate to GEL Dashboard
     Given UI Login with user "radware" and password "radware"
-    When UI Open Upper Bar Item "GEL Dashboard"
     And UI Navigate to "GEL Dashboard" page via homePage
 
   @SID_31
