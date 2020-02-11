@@ -67,6 +67,9 @@ Feature: RBAC
     Then UI Add "Alteon" with index 2 on "Default" site nowait
     Then UI Add "AppWall" with index 0 on "Default" site nowait
     Then UI Add "LinkProof" with index 0 on "Default" site nowait
+    Then UI Navigate to page "System->User Management->User Management Settings"
+    Then UI Select "Local" from Vision dropdown "Authentication Mode"
+    Then UI Click Button "Submit"
     * UI Logout
 
   @SID_6
