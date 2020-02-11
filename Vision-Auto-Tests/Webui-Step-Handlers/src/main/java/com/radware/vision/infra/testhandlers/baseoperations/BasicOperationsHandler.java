@@ -646,7 +646,10 @@ public class BasicOperationsHandler {
     public static void settings() {
         navigateFromHomePage("HOME");
         WebUIBasePage.closeAllYellowMessages();
-
+    try
+    {
+        WebUIUtils.fluentWait(ComponentLocatorFactory.getLocatorById("gwt-debug-System").getBy()).click();
+    }catch (Exception ignore){}
         //Verify the click
         if (!new VisionServerInfoPane().getDeviceName().equals("APSolute Vision")) {
             ReportsUtils.reportAndTakeScreenShot("Failed To Go To Vision ", Reporter.FAIL);
