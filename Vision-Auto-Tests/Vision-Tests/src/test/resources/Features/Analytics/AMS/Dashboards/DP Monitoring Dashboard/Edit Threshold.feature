@@ -26,8 +26,9 @@ Feature: AMS actionable edit Threshold
 
   @SID_4
   Scenario: login
-    Given UI Login with user "sys_admin" and password "radware"
     Then REST Vision Install License Request "vision-AVA-Max-attack-capacity"
+    Given UI Login with user "sys_admin" and password "radware"
+
 
   @SID_5
   Scenario:  Navigate to DP dashboard
@@ -51,13 +52,13 @@ Feature: AMS actionable edit Threshold
     Then UI Click Button "Dismiss"
 
   @SID_8
-  Scenario: Validate BDOS Bandwidth
+  Scenario: Validate BDOS Bandwidth , BDOS
     #must wait until Profile table updated
     Then Sleep "10"
     Then Rest Validate BDOS Table DP: ip "172.16.22.50" Profile:"AAA" ,Inbound:"1234", Outbound:"123"
 
   @SID_9
-  Scenario: Edit Bandwidth Fill, BDOS
+  Scenario: Edit Bandwidth Fill
     When UI Click Button "Edit Bandwidth"
 #    Then fill device: "DefensePro_172.16.22.50", Edit Treshold
     Then UI Set Text Field "BDOS Profile Name" To "AAA" enter Key false
@@ -80,11 +81,11 @@ Feature: AMS actionable edit Threshold
       | VDIRECT | Configuration template adjust_profile_v2.vm merged | EXPECTED   |
 
   @SID_12
-  Scenario:  Navigate to DP dashboard
+  Scenario:  Navigate to DP Monitoring dashboard
     Then UI Navigate to "DefensePro Monitoring Dashboard" page via homePage
 
   @SID_13
-  Scenario: Entering to the under attack policy 3nd drill
+  Scenario: Enter to the under attack policy 3nd drill
     Given UI click Table row by keyValue or Index with elementLabel "Protection Policies.Table" findBy index 0
     And UI click Table row by keyValue or Index with elementLabel "Protection Policies.Protections Table" findBy columnName "Protection Name" findBy cellValue "DNS Flood"
     And UI click Table row by keyValue or Index with elementLabel "Protection Policies.Events Table" findBy index 0
@@ -105,14 +106,14 @@ Feature: AMS actionable edit Threshold
     Then Rest Validate DNS Table DP: ip "172.16.22.50" Profile:"DNFp" ,QueryRate:"1234", MaxQPS:"5678"
 
   @SID_16
-  Scenario: Validate Vdirect logs
+  Scenario: Validate Vdirect log
     * CLI Check if logs contains
       | logType | expression                                         | isExpected |
       | VDIRECT | Updating DNS profile DNFp                          | EXPECTED   |
       | VDIRECT | Configuration template adjust_profile_v2.vm merged | EXPECTED   |
 
   @SID_17
-  Scenario: Edit Bandwidth Fill, DNS
+  Scenario: Edit DNS Bandwidth Fill
     When UI Click Button "Edit Bandwidth"
     Then UI Set Text Field "DNS Profile Name" To "DNFp" enter Key false
     Then UI Set Text Field BY Character "Expected DNS Query Rate" To "100000"
@@ -121,7 +122,7 @@ Feature: AMS actionable edit Threshold
     Then UI Click Button "Dismiss"
 
   @SID_18
-  Scenario: Validate DNS Bandwidth
+  Scenario: Validate Bandwidth DNS
     #must wait until Profile table updated
     Then Sleep "5"
     Then Rest Validate DNS Table DP: ip "172.16.22.50" Profile:"DNFp" ,QueryRate:"100000", MaxQPS:"110000"
