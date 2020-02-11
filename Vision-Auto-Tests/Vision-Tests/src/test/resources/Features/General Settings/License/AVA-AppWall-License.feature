@@ -60,9 +60,6 @@ Feature: US58313 APSolute Vision Analytics - AppWall - License
     Given REST Vision Install License Request "vision-AVA-Max-attack-capacity"
     Given UI Login with user "sys_admin" and password "radware"
     Then Validate Navigation to "AppWall Dashboard" is disabled
-    Then Validate Navigation to "AMS Reports" is disabled
-    Then Validate Navigation to "AMS Forensics" is disabled
-    Then Validate Navigation to "AMS Alerts" is disabled
     Then UI Logout
 
 
