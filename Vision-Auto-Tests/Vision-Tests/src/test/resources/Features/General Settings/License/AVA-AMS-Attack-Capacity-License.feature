@@ -1,10 +1,11 @@
 #By MohamadI
 @TC110252
+@run
 Feature: US62031 APSolute Vision Analytics - AMS - Attack Capacity License
 
   @TC110252-Rest
   @SID_1
-  @run
+
   Scenario: Setup - Restore Server Status as After Upgrade without AVA License
     Given REST Vision DELETE License Request "vision-AVA-6-Gbps-attack-capacity"
     And REST Vision DELETE License Request "vision-AVA-20-Gbps-attack-capacity"
@@ -80,13 +81,13 @@ Feature: US62031 APSolute Vision Analytics - AMS - Attack Capacity License
 
     When UI Navigate to "HTTPS Flood Dashboard" page via homePage
     Then UI Click Button by Class "ant-notification-notice-close"
-    Then UI Validate Text field "header HTTPS" EQUALS "HTTPS Flood"
+    Then UI Validate Text field "Title" EQUALS "HTTPS Flood"
 
   #    Validate DefenseFlow Analytics Dashboard Navigation
 
     When UI Navigate to "DefenseFlow Analytics Dashboard" page via homePage
     Then UI Click Button by Class "ant-notification-notice-close"
-    Then UI Validate Text field "Header" EQUALS "DefenseFlow Analytics"
+    Then UI Validate Text field "Title" EQUALS "DefenseFlow Analytics"
 
     #    Validate NO AppWall Dashboard Navigation
 
@@ -148,7 +149,7 @@ Feature: US62031 APSolute Vision Analytics - AMS - Attack Capacity License
 
 #    Validate Message
     Then UI Validate Text field with Class "ant-notification-notice-message" "Equals" To "Insufficient Attack-Capacity License"
-    Then UI Validate Text field with Class "ant-notification-notice-description" "Equals" To "License Violation: The attack capacity required by devices managed by APSolute Vision exceeds the permitted value by the APSolute Vision Analytics - AMS license. Contact Radware Technical Support to purchase another license with more capacity within 29 days. In 29 days, the system will only support the attack capacity corresponding to the license. If there is no APSolute Vision Analytics - AMS license, AVA will be unavailable."
+    Then UI Validate Text field with Class "ant-notification-notice-description" "Equals" To "The attack capacity required by devices managed by APSolute Vision exceeds the permitted value by the APSolute Vision Analytics - AMS license. Contact Radware Technical Support to purchase another license with more capacity within 29 days. In 29 days, the system will only support the attack capacity corresponding to the license. If there is no APSolute Vision Analytics - AMS license, AVA will be unavailable."
     Then UI Click Button by Class "ant-notification-notice-close"
 
 #    Validate Device List
@@ -178,13 +179,13 @@ Feature: US62031 APSolute Vision Analytics - AMS - Attack Capacity License
 
     When UI Navigate to "HTTPS Flood Dashboard" page via homePage
     Then UI Click Button by Class "ant-notification-notice-close"
-    Then UI Validate Text field "header HTTPS" EQUALS "HTTPS Flood"
+    Then UI Validate Text field "Title" EQUALS "HTTPS Flood"
 
   #    Validate DefenseFlow Analytics Dashboard Navigation
 
     When UI Navigate to "DefenseFlow Analytics Dashboard" page via homePage
     Then UI Click Button by Class "ant-notification-notice-close"
-    Then UI Validate Text field "Header" EQUALS "DefenseFlow Analytics"
+    Then UI Validate Text field "Title" EQUALS "DefenseFlow Analytics"
 
     #    Validate NO AppWall Dashboard Navigation
 
@@ -246,7 +247,7 @@ Feature: US62031 APSolute Vision Analytics - AMS - Attack Capacity License
 
 #    Validate Message
     Then UI Validate Text field with Class "ant-notification-notice-message" "Equals" To "Insufficient Attack-Capacity License"
-    Then UI Validate Text field with Class "ant-notification-notice-description" "Equals" To "License Violation: The attack capacity required by devices managed by APSolute Vision exceeds the permitted value by the APSolute Vision Analytics - AMS license. Contact Radware Technical Support to purchase another license with more capacity within 2 days. In 2 days, the system will only support the attack capacity corresponding to the license. If there is no APSolute Vision Analytics - AMS license, AVA will be unavailable."
+    Then UI Validate Text field with Class "ant-notification-notice-description" "Equals" To "The attack capacity required by devices managed by APSolute Vision exceeds the permitted value by the APSolute Vision Analytics - AMS license. Contact Radware Technical Support to purchase another license with more capacity within 2 days. In 2 days, the system will only support the attack capacity corresponding to the license. If there is no APSolute Vision Analytics - AMS license, AVA will be unavailable."
     Then UI Click Button by Class "ant-notification-notice-close"
 
 #    Validate Device List
@@ -276,13 +277,13 @@ Feature: US62031 APSolute Vision Analytics - AMS - Attack Capacity License
 
     When UI Navigate to "HTTPS Flood Dashboard" page via homePage
     Then UI Click Button by Class "ant-notification-notice-close"
-    Then UI Validate Text field "header HTTPS" EQUALS "HTTPS Flood"
+    Then UI Validate Text field "Title" EQUALS "HTTPS Flood"
 
   #    Validate DefenseFlow Analytics Dashboard Navigation
 
     When UI Navigate to "DefenseFlow Analytics Dashboard" page via homePage
     Then UI Click Button by Class "ant-notification-notice-close"
-    Then UI Validate Text field "Header" EQUALS "DefenseFlow Analytics"
+    Then UI Validate Text field "Title" EQUALS "DefenseFlow Analytics"
 
     #    Validate NO AppWall Dashboard Navigation
 
@@ -316,7 +317,7 @@ Feature: US62031 APSolute Vision Analytics - AMS - Attack Capacity License
 
   @TC110252-Rest
   @SID_9
-    @run
+  
   Scenario: Validate in Grace Period of Last Day
     When Set Server Last Upgrade Time to 29 Days Back From Now
 
@@ -336,7 +337,7 @@ Feature: US62031 APSolute Vision Analytics - AMS - Attack Capacity License
       | valid | false |
 
   @SID_10
-    @run
+  
   Scenario: UI Validate in Grace Period of Last Day
     Given UI Login with user "sys_admin" and password "radware"
     Given UI Navigate to "HOME" page via homePage
@@ -345,7 +346,7 @@ Feature: US62031 APSolute Vision Analytics - AMS - Attack Capacity License
 
 #    Validate Message
     Then UI Validate Text field with Class "ant-notification-notice-message" "Equals" To "Insufficient Attack-Capacity License"
-    Then UI Validate Text field with Class "ant-notification-notice-description" "Equals" To "License Violation: APSolute Vision Analytics - AMS license will expire within 1 day. Renew the license using the Radware customer portal, or contact Radware Technical Support to purchase a license."
+    Then UI Validate Text field with Class "ant-notification-notice-description" "Equals" To "APSolute Vision Analytics - AMS license will expire within 1 day. Renew the license using the Radware customer portal, or contact Radware Technical Support to purchase a license."
     Then UI Click Button by Class "ant-notification-notice-close"
 
 #    Validate Device List
@@ -375,13 +376,13 @@ Feature: US62031 APSolute Vision Analytics - AMS - Attack Capacity License
 
     When UI Navigate to "HTTPS Flood Dashboard" page via homePage
     Then UI Click Button by Class "ant-notification-notice-close"
-    Then UI Validate Text field "header HTTPS" EQUALS "HTTPS Flood"
+    Then UI Validate Text field "Title" EQUALS "HTTPS Flood"
 
   #    Validate DefenseFlow Analytics Dashboard Navigation
 
     When UI Navigate to "DefenseFlow Analytics Dashboard" page via homePage
     Then UI Click Button by Class "ant-notification-notice-close"
-    Then UI Validate Text field "Header" EQUALS "DefenseFlow Analytics"
+    Then UI Validate Text field "Title" EQUALS "DefenseFlow Analytics"
 
     #    Validate NO AppWall Dashboard Navigation
 
@@ -415,7 +416,7 @@ Feature: US62031 APSolute Vision Analytics - AMS - Attack Capacity License
 
 #------------------------------------License Expired-----------------------------------------
   @SID_11
-  @run
+
   @TC110252-Rest
   Scenario: Validate Grace Period Expiration
     When Set Server Last Upgrade Time to 30 Days Back From Now
@@ -512,13 +513,13 @@ Feature: US62031 APSolute Vision Analytics - AMS - Attack Capacity License
 #    Validate HTTPS Flood Dashboard Navigation
     When UI Navigate to "HTTPS Flood Dashboard" page via homePage
     Then UI Click Button by Class "ant-notification-notice-close"
-    Then UI Validate Text field "header HTTPS" EQUALS "HTTPS Flood"
+    Then UI Validate Text field "Title" EQUALS "HTTPS Flood"
 
 
      #    Validate DefenseFlow Analytics Dashboard Navigation
     When UI Navigate to "DefenseFlow Analytics Dashboard" page via homePage
     Then UI Click Button by Class "ant-notification-notice-close"
-    Then UI Validate Text field "Header" EQUALS "DefenseFlow Analytics"
+    Then UI Validate Text field "Title" EQUALS "DefenseFlow Analytics"
 
     #    Validate NO AppWall Dashboard Navigation
     Then Validate Navigation to "AppWall Dashboard" is disabled
@@ -600,12 +601,12 @@ Feature: US62031 APSolute Vision Analytics - AMS - Attack Capacity License
 
 #    Validate HTTPS Flood Dashboard Navigation
     When UI Navigate to "HTTPS Flood Dashboard" page via homePage
-    Then UI Validate Text field "header HTTPS" EQUALS "HTTPS Flood"
+    Then UI Validate Text field "Title" EQUALS "HTTPS Flood"
 
 
      #    Validate DefenseFlow Analytics Dashboard Navigation
     When UI Navigate to "DefenseFlow Analytics Dashboard" page via homePage
-    Then UI Validate Text field "Header" EQUALS "DefenseFlow Analytics"
+    Then UI Validate Text field "Title" EQUALS "DefenseFlow Analytics"
 
     #    Validate NO AppWall Dashboard Navigation
     Then Validate Navigation to "AppWall Dashboard" is disabled
@@ -695,13 +696,13 @@ Feature: US62031 APSolute Vision Analytics - AMS - Attack Capacity License
 #    Validate HTTPS Flood Dashboard Navigation
     When UI Navigate to "HTTPS Flood Dashboard" page via homePage
     Then UI Click Button by Class "ant-notification-notice-close"
-    Then UI Validate Text field "header HTTPS" EQUALS "HTTPS Flood"
+    Then UI Validate Text field "Title" EQUALS "HTTPS Flood"
 
 
      #    Validate DefenseFlow Analytics Dashboard Navigation
     When UI Navigate to "DefenseFlow Analytics Dashboard" page via homePage
     Then UI Click Button by Class "ant-notification-notice-close"
-    Then UI Validate Text field "Header" EQUALS "DefenseFlow Analytics"
+    Then UI Validate Text field "Title" EQUALS "DefenseFlow Analytics"
 
     #    Validate NO AppWall Dashboard Navigation
     Then Validate Navigation to "AppWall Dashboard" is disabled
@@ -786,12 +787,12 @@ Feature: US62031 APSolute Vision Analytics - AMS - Attack Capacity License
 
 #    Validate HTTPS Flood Dashboard Navigation
     When UI Navigate to "HTTPS Flood Dashboard" page via homePage
-    Then UI Validate Text field "header HTTPS" EQUALS "HTTPS Flood"
+    Then UI Validate Text field "Title" EQUALS "HTTPS Flood"
 
 
      #    Validate DefenseFlow Analytics Dashboard Navigation
     When UI Navigate to "DefenseFlow Analytics Dashboard" page via homePage
-    Then UI Validate Text field "Header" EQUALS "DefenseFlow Analytics"
+    Then UI Validate Text field "Title" EQUALS "DefenseFlow Analytics"
 
     #    Validate NO AppWall Dashboard Navigation
     Then Validate Navigation to "AppWall Dashboard" is disabled
@@ -883,13 +884,13 @@ Feature: US62031 APSolute Vision Analytics - AMS - Attack Capacity License
 #    Validate HTTPS Flood Dashboard Navigation
     When UI Navigate to "HTTPS Flood Dashboard" page via homePage
     Then UI Click Button by Class "ant-notification-notice-close"
-    Then UI Validate Text field "header HTTPS" EQUALS "HTTPS Flood"
+    Then UI Validate Text field "Title" EQUALS "HTTPS Flood"
 
 
      #    Validate DefenseFlow Analytics Dashboard Navigation
     When UI Navigate to "DefenseFlow Analytics Dashboard" page via homePage
     Then UI Click Button by Class "ant-notification-notice-close"
-    Then UI Validate Text field "Header" EQUALS "DefenseFlow Analytics"
+    Then UI Validate Text field "Title" EQUALS "DefenseFlow Analytics"
 
    #    Validate AppWall Dashboard Navigation
     When UI Navigate to "AppWall Dashboard" page via homePage
@@ -924,6 +925,6 @@ Feature: US62031 APSolute Vision Analytics - AMS - Attack Capacity License
     Then UI Logout
 
   @SID_22
-  @run
+
   Scenario: close browser
     Then UI close browser
