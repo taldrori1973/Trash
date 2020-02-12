@@ -4,7 +4,7 @@ Feature: OTB Workflow - Add, Update and Delete
   @SID_1
   Scenario: Navigate to OTB WF page
     Given UI Login with user "radware" and password "radware"
-    And UI Navigate to "AUTOMATION" page via homePage
+    Then UI Navigate to "AUTOMATION" page via homePage
     When set Tab "Automation.Toolbox"
     When UI Click Button by id "gwt-debug-WorkFlow_Tab"
 
@@ -69,7 +69,7 @@ Feature: OTB Workflow - Add, Update and Delete
   Scenario Outline: RBAC - add,delete,update Workflow Templates Available for Administrator Roles
     Given UI Login with user "<userName>" and password "radware"
     Given UI Go To Vision
-    When UI Open Upper Bar Item "Toolbox"
+    Then UI Navigate to "AUTOMATION" page via homePage
     When set Tab "Automation.Toolbox"
     When UI Click Button by id "gwt-debug-WorkFlow_Tab"
     Then UI Validate Element Existence By Label "New Workflow" if Exists "true"
@@ -90,7 +90,7 @@ Feature: OTB Workflow - Add, Update and Delete
   @SID_11
   Scenario Outline: RBAC - validate that NOT Adminstrator Roles can't Add,upload,delete WF
     Given UI Login with user "<userName>" and password "radware"
-    When UI Open Upper Bar Item "Toolbox"
+    Then UI Navigate to "AUTOMATION" page via homePage
     When set Tab "Automation.Toolbox"
     When UI Click Button by id "gwt-debug-WorkFlow_Tab"
     Then UI Validate Element Existence By Label "New Workflow" if Exists "false"
@@ -104,7 +104,7 @@ Feature: OTB Workflow - Add, Update and Delete
   @SID_12
   Scenario: Delete WorkFlow
     Given UI Login with user "radware" and password "radware"
-    When UI Open Upper Bar Item "Toolbox"
+    Then UI Navigate to "AUTOMATION" page via homePage
     When set Tab "Automation.Toolbox"
     When UI Click Button by id "gwt-debug-WorkFlow_Tab"
     When UI Click Button "card action" with value "calculator"
