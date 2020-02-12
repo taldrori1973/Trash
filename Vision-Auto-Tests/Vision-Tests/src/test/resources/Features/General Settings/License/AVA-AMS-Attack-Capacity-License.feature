@@ -13,6 +13,7 @@ Feature: US62031 APSolute Vision Analytics - AMS - Attack Capacity License
     And REST Vision DELETE License Request "vision-AVA-400-Gbps-attack-capacity"
     And REST Vision DELETE License Request "vision-AVA-Max-attack-capacity"
     And REST Vision DELETE License Request "vision-AVA-AppWall"
+    And REST Vision DELETE License Request "vision-demo"
 
     And REST Vision Install License Request "vision-reporting-module-AMS"
 
