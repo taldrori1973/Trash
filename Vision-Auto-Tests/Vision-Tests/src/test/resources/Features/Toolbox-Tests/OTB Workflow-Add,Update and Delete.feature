@@ -1,6 +1,7 @@
 @TC110731
 Feature: OTB Workflow - Add, Update and Delete
 
+
   @SID_1
   Scenario: Navigate to OTB WF page
     Given UI Login with user "radware" and password "radware"
@@ -13,6 +14,7 @@ Feature: OTB Workflow - Add, Update and Delete
 #    Then UI Validate Element Existence By Label "New Workflow" if Exists "true"
 #    Then  Upload file "notZip.txt" to "New Workflow"
 #    Then UI Validate Text field with Class "ant-message-custom-content ant-message-error" "Equals" To "Error reading file. Invalid file type. Upload only valid ZIP files"
+
 
   @SID_2
   Scenario: Upload new workflow
@@ -101,8 +103,9 @@ Feature: OTB Workflow - Add, Update and Delete
       | userName           |
       | Device_Viewer_user |
 
+
   @SID_12
-  Scenario: Delete WorkFlow
+  Scenario: Delete WorkFlow and validate that success message appears
     Given UI Login with user "radware" and password "radware"
     Then UI Navigate to "AUTOMATION" page via homePage
     When set Tab "Automation.Toolbox"
@@ -111,9 +114,7 @@ Feature: OTB Workflow - Add, Update and Delete
     When UI Click Button "delete Workflow" with value "calculator"
     Then UI Validate Element Existence By Label "Delete Submit" if Exists "true"
     Then UI Click Button "Delete Submit"
-
-  @SID_13
-  Scenario: Validate success message appear after delete
+    Then Sleep "3"
     Then UI Validate Text field with Class "ant-message-custom-content ant-message-success" "Equals" To "Workflow calculator was deleted successfully"
 
   @SID_14
