@@ -32,6 +32,7 @@ Feature: HPLogin
     When UI Set Text Field "usernameInput" To "sys_admin" enter Key false
     When UI Set Text Field "passwordInput" To "radware" enter Key true
     When UI Click Button "loginButton"
+    When Sleep "10"
     Then UI Validate Text field "loggedInUsername" EQUALS "sys_admin"
     When UI Logout
 
@@ -56,6 +57,7 @@ Feature: HPLogin
     Then UI Text of "cardHeader" with extension "" contains "The installation does not have an activation license. Please provide it."
     * REST Vision Install License Request "vision-activation"
     When UI Click Button "loginButton"
+    When Sleep "10"
     Then UI Validate Text field "logedInUsername" EQUALS "sys_admin"
 
   Scenario: logout
