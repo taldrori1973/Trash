@@ -23,12 +23,12 @@ Feature: ADC System Dashboard
     When UI Click Button "Global Time Filter.Quick Range" with value "2m"
     Then UI Validate Line Chart data "THROUGHPUT" with LabelTime
       | value     | count | countOffset |
-      | 9045000.0 | 4     | 1           |
+      | 9045000000.0 | 4     | 1           |
     Given UI Click Button "Global Time Filter"
     When UI Click Button "Global Time Filter.Quick Range" with value "1m"
     Then UI Validate Line Chart data "THROUGHPUT" with LabelTime
       | value     | count | countOffset |
-      | 9045000.0 | 2     | 1           |
+      | 9045000000.0 | 2     | 1           |
 
   @SID_4
   Scenario: Validate CPS widget

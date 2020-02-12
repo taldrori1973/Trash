@@ -6,6 +6,7 @@ Feature: ADC License Validation
   @SID_7
   Scenario: Remove ADC license and validate error message
     Given REST Vision DELETE License Request "vision-reporting-module-ADC"
+    And REST Vision DELETE License Request "vision-demo"
     Given UI Login with user "sys_admin" and password "radware"
     Then Validate Navigation to "Application Dashboard" is disabled
     Then Validate Navigation to "System and Network Dashboard" is disabled
@@ -17,6 +18,7 @@ Feature: ADC License Validation
   @SID_10
   Scenario: Add ADC License and validate no error message
     Given REST Vision Install License Request "vision-reporting-module-ADC"
+    And REST Vision DELETE License Request "vision-demo"
     Given UI Login with user "sys_admin" and password "radware"
     Then UI Navigate to "Application Dashboard" page via homePage
     Then UI Navigate to "System and Network Dashboard" page via homePage

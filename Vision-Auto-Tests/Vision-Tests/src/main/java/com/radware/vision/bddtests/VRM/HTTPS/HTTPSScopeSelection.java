@@ -341,7 +341,7 @@ public class HTTPSScopeSelection extends BddUITestBase {
 
         for (String serverName : serversNames) {
             List<Server> filteredServers =
-                    allServers.stream().filter(server -> server.serverName.contains(serverName)).collect(Collectors.toList());
+                    allServers.stream().filter(server -> server.serverName.toLowerCase().contains(serverName.toLowerCase())).collect(Collectors.toList());
             GenericSteps.uiSetTextFieldByCharacterTo(filter, null, serverName, false);
             validateNumberOfServers(filteredServers.size(), listSize);
         }
@@ -349,7 +349,7 @@ public class HTTPSScopeSelection extends BddUITestBase {
 
         for (String serverIp : serversIPs) {
             List<Server> filteredServers =
-                    allServers.stream().filter(server -> server.serverIp.contains(serverIp)).collect(Collectors.toList());
+                    allServers.stream().filter(server -> server.serverIp.toLowerCase().contains(serverIp.toLowerCase())).collect(Collectors.toList());
             GenericSteps.uiSetTextFieldByCharacterTo(filter, null, serverIp, false);
             validateNumberOfServers(filteredServers.size(), listSize);
         }

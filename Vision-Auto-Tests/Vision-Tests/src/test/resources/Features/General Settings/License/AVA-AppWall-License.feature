@@ -11,6 +11,7 @@ Feature: US58313 APSolute Vision Analytics - AppWall - License
     And REST Vision DELETE License Request "vision-AVA-Max-attack-capacity"
     And REST Vision DELETE License Request "vision-AVA-AppWall"
     And REST Vision DELETE License Request "vision-reporting-module-AMS"
+    And REST Vision DELETE License Request "vision-demo"
 
 
 
