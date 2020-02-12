@@ -15,7 +15,6 @@ Feature: Forensic Wizard
     Given UI Login with user "radware" and password "radware"
     * REST Vision Install License Request "vision-AVA-Max-attack-capacity"
     * REST Vision Install License Request "vision-AVA-AppWall"
-    And Sleep "120"
     Then REST Add "AppWall" Device To topology Tree with Name "Appwall_SA_172.17.164.30" and Management IP "172.17.164.30" into site "AW_site"
       | attribute     | value    |
       | httpPassword  | 1qaz!QAZ |
@@ -23,6 +22,7 @@ Feature: Forensic Wizard
       | httpsUsername | user1    |
       | httpUsername  | user1    |
       | visionMgtPort | G1       |
+    And Sleep "120"
     And UI Navigate to "AMS Forensics" page via homePage
 
   @SID_3

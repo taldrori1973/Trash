@@ -161,7 +161,7 @@ public class GenericSteps extends BddUITestBase {
     }
 
     @When("^UI Set Text Field BY Character \"([^\"]*)\"(?: and params \"([^\"]*)\")? To \"([^\"]*)\"(?: enter Key (true|false))?$")
-    public void uiSetTextFieldByCharacterTo(String label, String params, String value, boolean enterKey) throws TargetWebElementNotFoundException {
+    public static void uiSetTextFieldByCharacterTo(String label, String params, String value, boolean enterKey) throws TargetWebElementNotFoundException {
         BasicOperationsHandler.setTextField(label, params, "", enterKey);
         TextField textField = WebUIVisionBasePage.getCurrentPage().getContainer().getTextField(VisionDebugIdsManager.getDataDebugId());
         ((WebUITextField) textField).sendKeysByCharacter(value);
