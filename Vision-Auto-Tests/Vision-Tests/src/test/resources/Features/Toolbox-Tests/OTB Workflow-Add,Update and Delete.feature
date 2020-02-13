@@ -117,6 +117,11 @@ Feature: OTB Workflow - Add, Update and Delete
     Then Sleep "3"
     Then UI Validate Text field with Class "ant-message-custom-content ant-message-success" "Equals" To "Workflow calculator was deleted successfully"
 
+
+#  @SID_13
+#  Scenario: validate that success message appears
+#    Then UI Validate Text field with Class "ant-message-custom-content ant-message-success" "Equals" To "Workflow calculator was deleted successfully"
+#
   @SID_14
   Scenario: Logout
     Then UI Logout
