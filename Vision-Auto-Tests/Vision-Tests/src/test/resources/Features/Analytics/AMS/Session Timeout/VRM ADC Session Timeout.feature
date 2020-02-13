@@ -42,10 +42,7 @@ Feature: VRM ADC Session Timeout
     Then UI Validate Pie Chart data "VIRTUAL SERVICES"
       | label    | data |
       | Shutdown | 1    |
-#    Then UI Open "Configurations" Tab
-    Given UI Navigate to "HOME" page via homePage
 
-#    Then UI logout and close browser
 
   @SID_6
   Scenario: Navigate to Vision Connectivity and set values
