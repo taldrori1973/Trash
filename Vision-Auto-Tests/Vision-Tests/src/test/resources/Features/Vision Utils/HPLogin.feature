@@ -49,6 +49,7 @@ Feature: HPLogin
     When UI Login with user "sys_admin" and password "radware"
     When UI Logout
     * REST Vision DELETE License Request "vision-activation"
+    * REST Vision DELETE License Request "vision-demo"
     When UI Set Text Field "usernameInput" To "sys_admin" enter Key false
     When UI Set Text Field "passwordInput" To "radware" enter Key false
     When UI Click Button "loginButton"
