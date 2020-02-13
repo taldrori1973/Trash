@@ -96,7 +96,7 @@ Feature: Backup and Restore
 
   @SID_16
   Scenario: Restore validation AMS forensic definition
-    Then UI Open "Forensics" Tab
+    And UI Navigate to "AMS Forensics" page via homePage
     Then UI "Validate" Forensics With Name "Forensic backup restore"
       | Time Definitions.Date | Quick:This Month                                                                                                                                                                                                                             |
       | Criteria              | Event Criteria:Attack ID,Operator:Not Equals,Value:123; Event Criteria:Attack ID,Operator:Not Equals,Value:1234;                                                                                                                             |
