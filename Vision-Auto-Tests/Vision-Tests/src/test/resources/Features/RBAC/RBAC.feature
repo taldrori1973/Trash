@@ -410,7 +410,7 @@ Feature: RBAC
       | lock device                                 | yes      |
       | supports alteon                             | yes      |
       | supports linkproof                          | yes      |
-      | supports defensepro                         | yes      |
+      | supports defensepro                         | no       |
       | supports AppWall                            | yes      |
       | security monitoring perspective             | no       |
       | vision settings device resources            | yes      |
@@ -454,7 +454,7 @@ Feature: RBAC
     Then UI Validate user rbac
       | operations                                  | accesses |
       | add/edit device                             | no       |
-      | lock device                                 | no       |
+      | lock device                                 | yes      |
       | supports alteon                             | yes      |
       | supports linkproof                          | yes      |
       | supports defensepro                         | yes      |
@@ -737,10 +737,10 @@ Feature: RBAC
       | operations                                  | accesses |
       | add/edit device                             | no       |
       | lock device                                 | no       |
-      | supports alteon                             | yes      |
-      | supports linkproof                          | yes      |
-      | supports defensepro                         | yes      |
-      | supports AppWall                            | yes      |
+      | supports alteon                             | no       |
+      | supports linkproof                          | no       |
+      | supports defensepro                         | no       |
+      | supports AppWall                            | no       |
       | security monitoring perspective             | no       |
       | vision settings device resources            | no       |
       | AVR                                         | yes      |
