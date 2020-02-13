@@ -1,5 +1,5 @@
 
-@VRM_Report @TC106239
+@VRM_Report @TC106239 @Test12
 Feature: VRM AMS Report Data Traffic
 
   @SID_1
@@ -40,8 +40,8 @@ Feature: VRM AMS Report Data Traffic
 
   @SID_6
   Scenario: Generate the report "Traffic Report"
-    And UI Open "Alerts" Tab
-    And UI Open "Reports" Tab
+    Then UI Navigate to "AMS Alerts" page via homePage
+    Then UI Navigate to "AMS Reports" page via homePage
     And UI Generate and Validate Report With Name "Traffic Report" with Timeout of 300 Seconds
 
   @SID_7
@@ -137,8 +137,8 @@ Feature: VRM AMS Report Data Traffic
 
   @SID_19
   Scenario: Generate the report "Policy14 bps Report"
-    And UI Open "Alerts" Tab
-    And UI Open "Reports" Tab
+    Then UI Navigate to "AMS Alerts" page via homePage
+    Then UI Navigate to "AMS Reports" page via homePage
     And UI Click Button "Title" with value "Policy14 bps Report"
     And UI Click Button "Generate Now" with value "Policy14 bps Report"
     Then Sleep "60"
@@ -248,8 +248,8 @@ Feature: VRM AMS Report Data Traffic
 
   @SID_32
   Scenario: Generate the report "Policy15 PPS Out Report"
-    And UI Open "Alerts" Tab
-    And UI Open "Reports" Tab
+    Then UI Navigate to "AMS Alerts" page via homePage
+    Then UI Navigate to "AMS Reports" page via homePage
     And UI Click Button "Title" with value "Policy15 PPS Out Report"
     And UI Click Button "Generate Now" with value "Policy15 PPS Out Report"
     Then Sleep "60"
