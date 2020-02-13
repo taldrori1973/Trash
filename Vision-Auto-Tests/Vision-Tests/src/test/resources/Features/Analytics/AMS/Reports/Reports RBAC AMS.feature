@@ -44,8 +44,7 @@ Feature: VRM AMS Reports RBAC
   @SID_3
   Scenario: Verify permissions for user with ALL:ALL permission
     Given UI Login with user "sys_admin" and password "radware"
-    When UI Open Upper Bar Item "AMS"
-    When UI Open "Reports" Tab
+    Then UI Navigate to "AMS Reports" page via homePage
     Then UI Validate VRM Report Existence by Name "Analytics_AllDevAllPol" if Exists "true"
     Then UI Validate VRM Report Existence by Name "Analytics_Dev10Policy14" if Exists "true"
     Then UI Validate VRM Report Existence by Name "Analytics_Dev10AllPol" if Exists "true"
@@ -59,8 +58,7 @@ Feature: VRM AMS Reports RBAC
   @SID_4
   Scenario: verify permissions for user with DEVICE:ALL permission
     Given UI Login with user "sec_mon_all_pol" and password "radware"
-    When UI Open Upper Bar Item "AMS"
-    When UI Open "Reports" Tab
+    Then UI Navigate to "AMS Reports" page via homePage
     Then UI Validate VRM Report Existence by Name "Analytics_AllDevAllPol" if Exists "false"
     Then UI Validate VRM Report Existence by Name "Analytics_Dev10Policy14" if Exists "true"
     Then UI Validate VRM Report Existence by Name "Analytics_Dev10AllPol" if Exists "true"
@@ -74,8 +72,7 @@ Feature: VRM AMS Reports RBAC
   @SID_5
   Scenario: Verify permissions for user with DEVICE:POLICY permission
     Given UI Login with user "sec_mon_Policy14" and password "radware"
-    When UI Open Upper Bar Item "AMS"
-    When UI Open "Reports" Tab
+    Then UI Navigate to "AMS Reports" page via homePage
     Then UI Validate VRM Report Existence by Name "Analytics_AllDevAllPol" if Exists "false"
     Then UI Validate VRM Report Existence by Name "Analytics_Dev10Policy14" if Exists "true"
     Then UI Validate VRM Report Existence by Name "Analytics_Dev10AllPol" if Exists "false"
@@ -89,8 +86,7 @@ Feature: VRM AMS Reports RBAC
   @SID_6
   Scenario: Verify permissions for user with ALL:POLICY permission
     Given UI Login with user "sec_admin_allDPs_pol_1_policy" and password "radware"
-    When UI Open Upper Bar Item "AMS"
-    When UI Open "Reports" Tab
+    Then UI Navigate to "AMS Reports" page via homePage
     Then UI Validate VRM Report Existence by Name "Analytics_AllDevAllPol" if Exists "false"
     Then UI Validate VRM Report Existence by Name "Analytics_Dev10Policy14" if Exists "false"
     Then UI Validate VRM Report Existence by Name "Analytics_Dev10AllPol" if Exists "false"
