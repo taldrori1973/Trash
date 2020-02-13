@@ -38,13 +38,13 @@
                 <type>MySql</type>
             </visionMySql>
             <visionSetup>
-            <class>com.radware.vision.vision_project_cli.VisionSetup</class>
-            <!--<setupMode>Fresh Install| Upgrade</setupMode>-->
-            <setupMode>Upgrade</setupMode>
-            <snapshot>4.30-GA</snapshot>
-            <!--<vmPrefix>This field is relevant for fresh installed VM</vmPrefix>-->
-            <vmPrefix>VisionAuto-VRM-Upgrade</vmPrefix>
-        </visionSetup>
+                <class>com.radware.vision.vision_project_cli.VisionSetup</class>
+                <!--<setupMode>Fresh Install| Upgrade</setupMode>-->
+                <setupMode>Upgrade</setupMode>
+                <snapshot>4.30-GA</snapshot>
+                <!--<vmPrefix>This field is relevant for fresh installed VM</vmPrefix>-->
+                <vmPrefix>VisionAuto-VRM-Upgrade</vmPrefix>
+            </visionSetup>
 
         </visionServer>
         <linuxFileServer>
@@ -115,6 +115,21 @@
         <physicalManagement>G1</physicalManagement>
         <vmName></vmName>
     </visionRadwareFirstTime>
+
+    <defenseFlowDevice>
+        <class>com.radware.vision.bddtests.defenseFlow.defenseFlowDevice</class>
+        <vmName>DefenseFlow_172.17.164.61</vmName>
+        <deviceIp>172.17.164.61</deviceIp>
+        <snapshot>3.6.0.0</snapshot>
+        <username>radware</username>
+        <password>radware</password>
+        <vCenterURL>https://10.205.172.220/sdk</vCenterURL>
+        <vCenterIP>10.205.172.220</vCenterIP>
+        <vCenterUserName>root</vCenterUserName>
+        <vCenterPassword>radware</vCenterPassword>
+        <resourcePool>RP1</resourcePool>
+    </defenseFlowDevice>
+
 
     <devices>
         <class>com.radware.vision.automation.tools.sutsystemobjects.devicesinfo.Devices</class>
