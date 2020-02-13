@@ -6,6 +6,7 @@ import com.radware.automation.webui.utils.draganddrop.WebUIDragAndDrop;
 import com.radware.automation.webui.widgets.ComponentLocator;
 import com.radware.automation.webui.widgets.impl.*;
 import com.radware.automation.webui.widgets.impl.table.WebUITable;
+import com.radware.vision.infra.base.pages.navigation.HomePage;
 import com.radware.vision.infra.base.pages.navigation.WebUIUpperBar;
 import com.radware.vision.infra.base.pages.toolbox.advanced.OperatorToolbox;
 import com.radware.vision.infra.enums.*;
@@ -756,7 +757,10 @@ public class ToolboxHandler {
 
 
     public static void navigateToToolbox() {
-        WebUIUpperBar.select(UpperBarItems.ToolBox);
+        try
+        {
+            HomePage.navigateFromHomePage("AUTOMATION");
+        }catch (Exception ignore){}
     }
 
     public static void selectCategoryFromAdvanced(ToolboxGroupsEnum groupName) {

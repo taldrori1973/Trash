@@ -1,4 +1,4 @@
-@TC111534 @Test12
+@TC111534
 Feature: DefenseFlow operation - export configuration
 
   @SID_1
