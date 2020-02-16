@@ -1,4 +1,4 @@
-@AWForensics @TC113209
+@AWForensics @TC113210
 Feature: Forensic Wizard
 
   @SID_1
@@ -37,7 +37,7 @@ Feature: Forensic Wizard
   Scenario: create forensic definition Wizard_test
     Given UI "Create" Forensics With Name "Wizard_test"
       | Product | Appwall |
-      | Criteria | Event Criteria:Action,Operator:Not Equals,Value:[Drop]; |
+      | Criteria | Event Criteria:Action,Operator:Not Equals,Value:[Modified]; |
       | Output  | Date and Time, Device IP, Source IP, Destination IP Address, Source Port, Cluster Manager IP, Web Application Name, Action, Attack Name, Device Host Name, Directory, Module, Severity, Violation Category, Transaction ID, Tunnel, User Name |
       | Time Definitions.Date | Quick:1D |
       | Format | Select: CSV |
@@ -58,7 +58,7 @@ Feature: Forensic Wizard
   Scenario: VRM - Forensic wizard test Validate Table
     Then UI Validate Table record values by columns with elementLabel "Report.Table" findBy index 0
       | columnName | value |
-      | Action     | Blocked  |
+      | Device Host Name     | appwall  |
 
   @SID_8
   Scenario: VRM - Validate Forensic "Wizard" Delete Wizard
