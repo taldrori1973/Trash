@@ -61,7 +61,7 @@ Feature: VRM ADC Session Timeout
 
   @SID_9
   Scenario: VRM validate ADC inavailability while monitoring session expired
-    Then UI Text of "cardHeader" equal to "APSolute Vision Login"
+    Then UI Text of "LoginPage.cardHeader" equal to "APSolute Vision Login"
 ##    Then UI Open "ADC Reports" Tab negative
 #    Given UI Navigate to "ADC Reports" page via homePage
 ##    Then UI Open "Dashboards" Tab negative
