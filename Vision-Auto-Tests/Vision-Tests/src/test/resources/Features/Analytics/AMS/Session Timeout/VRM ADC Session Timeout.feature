@@ -44,6 +44,7 @@ Feature: VRM ADC Session Timeout
 
   @SID_6
   Scenario: Navigate to Vision Connectivity and set values
+    Given UI Login with user "sys_admin" and password "radware"
     Then UI Go To Vision
     Then UI Navigate to page "System->General Settings->Connectivity"
     When UI Do Operation "select" item "Inactivity Timeouts"
