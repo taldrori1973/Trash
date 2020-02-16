@@ -33,8 +33,6 @@ Feature: VRM ADC Session Timeout
 
   @SID_5
   Scenario: VRM validate ADC dashboard availability while configuration session expired
-#    Then UI Open "Dashboards" Tab
-#    Then UI Open "Application Dashboard" Sub Tab
     Given UI Navigate to "Application Dashboard" page via homePage
     Then UI Do Operation "Select" item "Application Selection"
     Then UI Select scope from dashboard and Save Filter device type "Alteon"
@@ -46,21 +44,16 @@ Feature: VRM ADC Session Timeout
 
   @SID_6
   Scenario: Navigate to Vision Connectivity and set values
-    Given UI Login with user "sys_admin" and password "radware"
     Then UI Go To Vision
     Then UI Navigate to page "System->General Settings->Connectivity"
     When UI Do Operation "select" item "Inactivity Timeouts"
     Then UI Set Text Field "Inactivity Timeout for Configuration and Monitoring Perspectives" To "1"
     Then UI Set Text Field "Inactivity Timeout for Security Monitoring Perspective, APM, and DPM" To "2"
     Then UI Click Button "Submit"
-    Then UI Logout
 
   @SID_7
   Scenario: VRM - Login to ADC "Dashboard" tab
-    Given UI Login with user "sys_admin" and password "radware"
-#    And UI Open Upper Bar Item "ADC"
-#    And UI Open "Dashboards" Tab
-    Given UI Navigate to "ANALYTICS ADC" page via homePage
+    Given UI Navigate to "Application Dashboard" page via homePage
 
   @SID_8
   Scenario: Sleep to let configuration timeout expire
