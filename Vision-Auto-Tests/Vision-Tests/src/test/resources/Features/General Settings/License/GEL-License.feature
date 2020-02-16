@@ -4,7 +4,7 @@ Feature: GEL-License
 
   @SID_1
   Scenario:  Activate Gel-License for 8 Months, and Verify Activation license Exist in license page
-    Given CLI Run linux Command "iptables -L -n |grep -w tcp | grep -w "dpt:7070"" on "ROOT_SERVER_CLI" and validate result CONTAINS "ACCEPT"
+#    Given CLI Run linux Command "iptables -L -n |grep -w tcp | grep -w "dpt:7070"" on "ROOT_SERVER_CLI" and validate result CONTAINS "ACCEPT"
     * REST Vision DELETE License Request "vision-reporting-module-ADC"
     * REST Vision Install License Request "vision-GEL" from date "-4M" to date "+4M"
     Given UI Login with user "radware" and password "radware"
@@ -68,15 +68,16 @@ Feature: GEL-License
     Then UI Validate Element Existence By Label "Add New" if Exists "true"
     Then UI logout and close browser
 
-
   @SID_10
   Scenario: Remove ADC license and validate error message
     * REST Vision DELETE License Request "vision-reporting-module-ADC"
     * REST Vision DELETE License Request "vision-GEL"
     Given UI Login with user "radware" and password "radware"
-    * UI Navigate to "ADC Reports" page via homePage
-    * UI Validate Popup Dialog Box, have value "Functionality Restricted Due to Limited License" with text Type "CAPTION"
-    * UI Navigate to "DEVICES CONFIGURATIONS" page via homePage
+    Then Validate Navigation to "Application Dashboard" is disabled
+    Then Validate Navigation to "System and Network Dashboard" is disabled
+    Then Validate Navigation to "ADC Reports" is disabled
+
+
   @SID_9
   Scenario: Logout
     Then UI logout and close browser
