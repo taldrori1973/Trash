@@ -7,11 +7,11 @@
         <password>radware</password>
         <connectOnInit>false</connectOnInit>
         <host>172.16.100.254</host>
-        <dnsServerIp>176.200.120.150</dnsServerIp>
+        <dnsServerIp>10.221.1.47</dnsServerIp>
         <ip>10.205.191.42</ip>
         <netMask>255.255.0.0</netMask>
         <gateway>10.205.1.1</gateway>
-        <primaryDns>176.200.120.150</primaryDns>
+        <primaryDns>10.221.1.47</primaryDns>
         <physicalManagement>G3</physicalManagement>
     </visionRadwareFirstTime>
     <visionCli>
@@ -23,7 +23,7 @@
                 <user>radware</user>
                 <password>radware</password>
                 <host>10.205.191.42</host>
-                <dnsServerIp>176.200.120.150</dnsServerIp>
+                <dnsServerIp>10.221.1.47</dnsServerIp>
                 <addedPrompts>[new.prompt],to continue the upgrade help process., [Y/n],Please type the sftp server
                     password:,Please type the ftp server password:
                 </addedPrompts>
@@ -119,11 +119,11 @@
     <!--<password>radware</password>-->
     <!--<connectOnInit>false</connectOnInit>-->
     <!--<host>10.205.191.42</host>-->
-    <!--<dnsServerIp>176.200.120.150</dnsServerIp>-->
+    <!--<dnsServerIp>10.221.1.47</dnsServerIp>-->
     <!--<newIp>10.205.191.42</newIp>-->
     <!--<netMask>255.255.0.0</netMask>-->
     <!--<gateway>172.17.1.1</gateway>-->
-    <!--<primaryDns>176.200.120.150</primaryDns>-->
+    <!--<primaryDns>10.221.1.47</primaryDns>-->
     <!--<physicalManagement>G1</physicalManagement>-->
     <!--</visionRadwareFirstTime>-->
 

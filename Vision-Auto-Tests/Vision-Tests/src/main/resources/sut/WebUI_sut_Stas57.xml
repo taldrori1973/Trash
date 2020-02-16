@@ -16,7 +16,7 @@
             <user>radware</user>
             <password>radware</password>
             <host>172.17.178.57</host>
-            <dnsServerIp>176.200.120.150</dnsServerIp>
+            <dnsServerIp>10.221.1.47</dnsServerIp>
             <connectOnInit>true</connectOnInit>
             <addedPrompts>[new.prompt],to continue the upgrade help process., [Y/n],Please type the sftp server
                 password:,Please type the ftp server password:,This action will reset radware user password to default. Continue?(y/n):
@@ -54,11 +54,11 @@
         <password>radware</password>
         <connectOnInit>false</connectOnInit>
         <host>172.17.178.57</host>
-        <dnsServerIp>176.200.120.150</dnsServerIp>
+        <dnsServerIp>10.221.1.47</dnsServerIp>
         <ip>172.17.178.57</ip>
         <netMask>255.255.0.0</netMask>
         <gateway>172.17.1.1</gateway>
-        <primaryDns>176.200.120.150</primaryDns>
+        <primaryDns>10.221.1.47</primaryDns>
         <physicalManagement>G1</physicalManagement>
     </visionRadwareFirstTime>
 
