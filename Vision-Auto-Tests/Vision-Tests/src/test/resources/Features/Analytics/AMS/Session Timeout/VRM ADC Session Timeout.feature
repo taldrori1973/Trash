@@ -1,5 +1,5 @@
 @DP_Analytics @TC106014
-
+@run
 Feature: VRM ADC Session Timeout
 
   @SID_1
@@ -61,7 +61,7 @@ Feature: VRM ADC Session Timeout
 
   @SID_9
   Scenario: VRM validate ADC inavailability while monitoring session expired
-    Then UI Text of "cardHeader" equal to "APSolute Vision Login"
+    Then UI Text of "LoginPage.cardHeader" equal to "APSolute Vision Login"
 ##    Then UI Open "ADC Reports" Tab negative
 #    Given UI Navigate to "ADC Reports" page via homePage
 ##    Then UI Open "Dashboards" Tab negative
@@ -71,7 +71,7 @@ Feature: VRM ADC Session Timeout
 
   @SID_10
   Scenario: Cleanup and revert values
-#    Given UI Login with user "sys_admin" and password "radware"
+    Given UI Login with user "sys_admin" and password "radware"
     Then UI Go To Vision
     Then UI Navigate to page "System->General Settings->Connectivity"
     When UI Do Operation "select" item "Inactivity Timeouts"
