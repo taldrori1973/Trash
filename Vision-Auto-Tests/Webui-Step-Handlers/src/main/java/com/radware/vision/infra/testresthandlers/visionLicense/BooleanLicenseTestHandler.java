@@ -63,7 +63,10 @@ public class BooleanLicenseTestHandler extends VisionLicenseTestHandler {
     public static enum BooleanLicenseTypes {
         VRM_AMS_LICENSE("vrmAmsLicense"),
         AVA_APPWALL_LICENSE("avaAppWallLicense"),
-        VRM_ADC_LICENSE("vrmAdcLicense");
+        VRM_ADC_LICENSE("vrmAdcLicense"),
+        DPM_LICENSE("dpmLicense"),
+        AVR_LICENSE("avrLicense"),
+        APM_LICENSE("apmLicense");
 
         private String licenseName;
 
