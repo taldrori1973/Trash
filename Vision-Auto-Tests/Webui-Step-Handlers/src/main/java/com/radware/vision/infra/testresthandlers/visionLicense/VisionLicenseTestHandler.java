@@ -101,6 +101,15 @@ public abstract class VisionLicenseTestHandler {
             case VRM_ADC_LICENSE:
                 visionLicenseTestHandler = new BooleanLicenseTestHandler(BooleanLicenseTestHandler.BooleanLicenseTypes.VRM_ADC_LICENSE);
                 break;
+            case AVR_LICENSE:
+                visionLicenseTestHandler = new BooleanLicenseTestHandler(BooleanLicenseTestHandler.BooleanLicenseTypes.AVR_LICENSE);
+                break;
+            case DPM_LICENSE:
+                visionLicenseTestHandler = new BooleanLicenseTestHandler(BooleanLicenseTestHandler.BooleanLicenseTypes.DPM_LICENSE);
+                break;
+            case APM_LICENSE:
+                visionLicenseTestHandler = new BooleanLicenseTestHandler(BooleanLicenseTestHandler.BooleanLicenseTypes.APM_LICENSE);
+                break;
 
             default:
                 throw new IllegalStateException("Unexpected value: " + licenseType);
@@ -112,7 +121,10 @@ public abstract class VisionLicenseTestHandler {
         VRM_AMS_LICENSE("vrmAmsLicense"),
         AVA_APPWALL_LICENSE("avaAppWallLicense"),
         VRM_ADC_LICENSE("vrmAdcLicense"),
-        ATTACK_CAPACITY_LICENSE("attackCapacityLicense");
+        ATTACK_CAPACITY_LICENSE("attackCapacityLicense"),
+        DPM_LICENSE("dpmLicense"),
+        AVR_LICENSE("avrLicense"),
+        APM_LICENSE("apmLicense");
 
         private String licenseType;
 

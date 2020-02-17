@@ -18,7 +18,7 @@ Feature: VRM DNS baselines
   Scenario: login and select device
     Given UI Login with user "sys_admin" and password "radware"
     Then REST Vision Install License Request "vision-AVA-Max-attack-capacity"
-    Then UI Navigate to "  DefensePro Behavioral Protections Dashboard" page via homePage
+    Then UI Navigate to "DefensePro Behavioral Protections Dashboard" page via homePage
     Then Sleep "1"
     And UI Do Operation "Select" item "Global Time Filter"
     Then Sleep "1"
@@ -1157,8 +1157,7 @@ Feature: VRM DNS baselines
   @SID_31
   Scenario: DNS baseline RBAC data
     Given UI Login with user "sec_admin_allDPs_pol_1_policy" and password "radware"
-    When UI Open Upper Bar Item "AMS"
-    When UI Open "Dashboards" Tab
+    Then UI Navigate to "DefensePro Behavioral Protections Dashboard" page via homePage
     Then UI Open "DP DNS Baseline" Sub Tab
     When UI Do Operation "Select" item "Global Time Filter"
     When UI Do Operation "Select" item "Global Time Filter.Quick Range" with value "2m"
@@ -1257,8 +1256,7 @@ Feature: VRM DNS baselines
   @SID_33
   Scenario: DNS baseline RBAC negative
     Given UI Login with user "sec_admin_DP50_policy1" and password "radware"
-    When UI Open Upper Bar Item "AMS"
-    When UI Open "Dashboards" Tab
+    Then UI Navigate to "DefensePro Behavioral Protections Dashboard" page via homePage
     Then UI Open "DP DNS Baseline" Sub Tab
     # Then UI Validate Session Storage "DNS-A" exists "false"
     # Then UI Validate Session Storage "DNS-TXT" exists "false"
@@ -1274,8 +1272,7 @@ Feature: VRM DNS baselines
   @SID_34
   Scenario: DNS baselines clear all widgets
     Given UI Login with user "sys_admin" and password "radware"
-    When UI Open Upper Bar Item "AMS"
-    When UI Open "Dashboards" Tab
+    Then UI Navigate to "DefensePro Behavioral Protections Dashboard" page via homePage
     Then UI Open "DP DNS Baseline" Sub Tab
     Then UI Do Operation "Select" item "Global Time Filter"
     Then UI Do Operation "Select" item "Global Time Filter.Quick Range" with value "2m"
