@@ -23,7 +23,7 @@ Feature: EAAF Hits Timeline, Summary Hits and Global Time Selection
     Then CLI Run remote linux Command "/EAAF_attacksTimeSpreadingScript.sh" on "ROOT_SERVER_CLI" with timeOut 1800
     # run the script of attacks data time update according to current system time.Scenario:
     # NOTE: this script can be stopped at the end of this test file but it's not mandatory
-    Then CLI Run remote linux Command "/EAAF_KeepAttacksTimesUpToDate.sh &" on "ROOT_SERVER_CLI"
+    Then CLI Run remote linux Command "/EAAF_KeepAttacksTimesUpToDate.sh" on "ROOT_SERVER_CLI"
   @SID_3
   Scenario: Login and navigate to EAAF dashboard
     Given UI Login with user "sys_admin" and password "radware"
