@@ -10,11 +10,6 @@ Feature: VRM AppWall dashboard
   @SID_2 @Sanity
   Scenario: login
     Given UI Login with user "sys_admin" and password "radware"
-    * CLI Clear vision logs
-
-  @SID_3 @Sanity
-  Scenario: configure the AW in vision
-#    Then REST Delete Device By IP "172.17.154.194"
     Then REST Add "AppWall" Device To topology Tree with Name "Appwall_SA_172.17.164.30" and Management IP "172.17.164.30" into site "AW_site"
       | attribute     | value    |
       | httpPassword  | 1qaz!QAZ |
@@ -22,6 +17,22 @@ Feature: VRM AppWall dashboard
       | httpsUsername | user1    |
       | httpUsername  | user1    |
       | visionMgtPort | G1       |
+    * CLI Clear vision logs
+
+  @SID_3 @Sanity
+  Scenario: configure the AW in vision
+    * REST Delete ES index "aw-web-application"
+    * REST Delete Device By IP "172.17.164.30"
+    * Browser Refresh Page
+    And Sleep "10"
+    Then REST Add "AppWall" Device To topology Tree with Name "Appwall_SA_172.17.164.30" and Management IP "172.17.164.30" into site "AW_site"
+      | attribute     | value    |
+      | httpPassword  | 1qaz!QAZ |
+      | httpsPassword | 1qaz!QAZ |
+      | httpsUsername | user1    |
+      | httpUsername  | user1    |
+      | visionMgtPort | G1       |
+    And Sleep "10"
 
   @SID_4
   Scenario:run AW attacks
@@ -243,7 +254,7 @@ Feature: VRM AppWall dashboard
   Scenario: select all Applications
     When UI Do Operation "Select" item "Applications"
     Then UI Select scope from dashboard and Save Filter device type "appwall"
-      | All  |
+      | All |
 
   @SID_33
   Scenario: Change time selection and verify no attack

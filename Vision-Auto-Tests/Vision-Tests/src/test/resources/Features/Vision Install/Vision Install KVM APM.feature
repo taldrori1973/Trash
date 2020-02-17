@@ -1,5 +1,4 @@
 @TC109638
-@nadiyaTest
 Feature: Vision Install KVM APM
 
   @SID_1

@@ -4,7 +4,7 @@ Feature: toolbox-workFlow
   @SID_1
   Scenario: Go To Workflows
     Given UI Login with user "sys_admin" and password "radware"
-    And UI Navigate to "TOOLBOX" page via homePage
+    Then UI Navigate to "AUTOMATION" page via homePage
     When set Tab "Automation.Toolbox"
 #    When UI Click Button by id "gwt-debug-Global_ToolBox"
 #    When UI Navigate to "Automation.Toolbox" page via homePage
