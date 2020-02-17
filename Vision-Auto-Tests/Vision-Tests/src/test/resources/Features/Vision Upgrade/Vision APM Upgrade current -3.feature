@@ -11,7 +11,8 @@ Feature: Vision APM Upgrade current -3
   Scenario: Fill partitions to max limit
     Then CLI Operations - Run Root Session command "yes|restore_radware_user_password" timeout 15
     Then CLI copy "/home/radware/Scripts/fill_my_disk.sh" from "GENERIC_LINUX_SERVER" to "ROOT_SERVER_CLI" "/"
-#    Then CLI copy "/home/radware/Scripts/copyUpgradeLog.sh" from "GENERIC_LINUX_SERVER" to "ROOT_SERVER_CLI" "/"
+    Then CLI copy "/home/radware/Scripts/copyUpgradeLog.sh" from "GENERIC_LINUX_SERVER" to "ROOT_SERVER_CLI" "/"
+    Then CLI copy "/home/radware/Scripts/ssh-copy-id.exp" from "GENERIC_LINUX_SERVER" to "ROOT_SERVER_CLI" "/"
     Then CLI Run remote linux Command "/fill_my_disk.sh /opt/radware 78" on "ROOT_SERVER_CLI"
     Then CLI Run remote linux Command "/fill_my_disk.sh / 78" on "ROOT_SERVER_CLI"
 
@@ -40,7 +41,7 @@ Feature: Vision APM Upgrade current -3
   @SID_5
   Scenario: Check upgrade logs
     # Saving upgrade log to Generic server /home/radware/UpgradeLogs/
-#    Then CLI Run remote linux Command "/copyUpgradeLog.sh" on "ROOT_SERVER_CLI"
+    Then CLI Run remote linux Command "/copyUpgradeLog.sh" on "ROOT_SERVER_CLI"
 
     Then CLI Check if logs contains
       | logType | expression                                                             | isExpected   |
