@@ -1,5 +1,5 @@
-@AWForensics @TC113210
-Feature: Forensic Wizard
+@AWForensics @TC113209
+Feature: Appwall Forensic Wizard
 
   @SID_1
   Scenario: Clean system data before Forensics Appwall Test
