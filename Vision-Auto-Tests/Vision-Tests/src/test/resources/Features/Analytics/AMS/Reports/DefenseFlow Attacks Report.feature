@@ -69,18 +69,17 @@ Feature: DefenseFlow Attacks Reports
   @SID_7
   Scenario: Edit report
     When UI "Edit" Report With Name "OverallDFReport"
-      | reportType            | DefenseFlow Analytics Dashboard                                    |
-      | projectObjects        | PO_300                                                             |
-      | Customized Options    | addLogo:unselected                                                 |
-      | Time Definitions.Date | Quick:15m                                                          |
-      | Share                 | Email:[DF_attack@report.local],Subject:DefenseFlow Attack report   |
-      | Format                | Select: CSV                                                        |
+      | reportType            | DefenseFlow Analytics Dashboard                                  |
+      | projectObjects        | PO_300                                                           |
+      | Customized Options    | addLogo:unselected                                               |
+      | Time Definitions.Date | Quick:15m                                                        |
+      | Share                 | Email:[DF_attack@report.local],Subject:DefenseFlow Attack report |
+      | Format                | Select: CSV                                                      |
 
 
   @SID_8
   Scenario: Clear SMTP server log files
     Then CLI Run remote linux Command "echo "cleared" $(date) > /var/spool/mail/reportuser" on "GENERIC_LINUX_SERVER"
-    Then CLI Run remote linux Command "rm -f /home/radware/attachments/TC111798/*" on "GENERIC_LINUX_SERVER"
 
   @SID_9
   Scenario: Generate Report
@@ -95,9 +94,7 @@ Feature: DefenseFlow Attacks Reports
   @SID_11
   Scenario: Validate Report Email recieved content
     Then CLI Run remote linux Command "cat /var/spool/mail/reportuser > /tmp/reportdelivery.log" on "GENERIC_LINUX_SERVER"
-    Then CLI Run remote linux Command "ripmime -i /var/mail/reportuser -d /home/radware/attachments/TC111798" on "GENERIC_LINUX_SERVER"
-    Then CLI Run remote linux Command "unzip /home/radware/attachments/TC111798/VRM_report_*.zip" on "GENERIC_LINUX_SERVER"
-
+    Then CLI Run linux Command "grep "X-Original-To: DF_attack@report.local" /var/spool/mail/reportuser |wc -l" on "GENERIC_LINUX_SERVER" and validate result EQUALS "1"
 
 
   @SID_12
@@ -214,23 +211,6 @@ Feature: DefenseFlow Attacks Reports
       | " 1WeakBeforeReport"                             |
 
   @SID_23
-  Scenario: Validate content of CSV file
-
-#  @SID_19
-#  Scenario: validate time selection -Relative- report
-#    Given UI "Create" Report With Name "2DaysBeforeReport"
-#      | reportType            | DefenseFlow Analytics Dashboard       |
-#      | Design                | Add:[Traffic Bandwidth, Traffic Rate] |
-#      | Time Definitions.Date | Relative:[Days,2]                     |
-#      | Format                | Select: CSV                           |
-#    Then UI "Validate" Report With Name "2DaysBeforeReport"
-#      | reportType            | DefenseFlow Analytics Dashboard           |
-#      | Design                | Widgets:[Traffic Bandwidth, Traffic Rate] |
-#      | Time Definitions.Date | Relative:[Days,2]                         |
-#      | Format                | Select: CSV                               |
-#    Then UI Generate and Validate Report With Name "2DaysBeforeReport" with Timeout of 100 Seconds
-
-  @SID_24
   Scenario: logout
     When UI Navigate to "HOME" page via homePage
     And UI Go To Vision
@@ -239,39 +219,40 @@ Feature: DefenseFlow Attacks Reports
     Then UI Click Button "Submit"
     When UI logout and close browser
 
-  @SID_25
+  @SID_24
   Scenario: login with sec_mon user
     Given UI Login with user "sec_mon" and password "radware"
     And UI Navigate to "AMS Reports" page via homePage
     Then UI Validate Element Existence By Label "Title" if Exists "false" with value "2DaysBeforeReport"
     Then UI Validate Element Existence By Label "Title" if Exists "false" with value "100DaysBeforeReport"
 
-  @SID_26
+  @SID_25
   Scenario: non-admin user can't select DF in report
     When UI Click Button "Add New"
     And UI Click Button "Template" with value ""
     Then UI Validate Element Existence By Label "Template" if Exists "false" with value "DefenseFlow Analytics Dashboard"
     And UI Click Button "Cancel"
 
-  @SID_27
+  @SID_26
   Scenario: non-admin user can't navigate to DF dashboard
-    When UI Navigate to "ANALYTICS AMS" page via homePage
-    Then UI Validate Element Existence By Label "ANALYTICS.AMS.DASHBOARDS.DefenseFlow Analytics" if Exists "false"
+    Then UI Validate user rbac
+      | operations                      | accesses |
+      | DefenseFlow Analytics Dashboard | no       |
 
-  @SID_28
+  @SID_27
   Scenario: can't see the admins report
     Then REST Validate existence reports
       | reportName          | isExist |
       | 2DaysBeforeReport   | false   |
       | 100DaysBeforeReport | false   |
 
-  @SID_29
+  @SID_28
   Scenario: Get POs by Security_Monitor_user user by rest
     Then REST Request "POST" for "DefenseFlow->getPOs"
       | type                 | value |
-      | Returned status code | 404   |
+      | Returned status code | 403   |
 
-  @SID_30
+  @SID_29
   Scenario: Search for bad logs
     * CLI kill all simulator attacks on current vision
     * CLI Check if logs contains
@@ -279,7 +260,7 @@ Feature: DefenseFlow Attacks Reports
       | ALL     | fatal      | NOT_EXPECTED |
       | ALL     | error      | NOT_EXPECTED |
 
-  @SID_31
+  @SID_30
   Scenario: Cleanup
     When UI Open "Configurations" Tab
     Then UI logout and close browser
