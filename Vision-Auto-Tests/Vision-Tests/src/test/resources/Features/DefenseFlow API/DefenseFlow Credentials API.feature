@@ -1,5 +1,6 @@
 @TC106932
 Feature: DefenseFlow Credentials API
+
   @SID_1
   Scenario: Clear logs
     Given CLI Clear vision logs
@@ -25,6 +26,7 @@ Feature: DefenseFlow Credentials API
   @SID_5
   Scenario: Verify config-sync is using the new username
     Then Sleep "120"
+    Then CLI Operations - Run Root Session command "clear"
     Then CLI Run linux Command "cat /opt/radware/storage/maintenance/logs/config.sync.log |grep "/rest/ha/view/registration-active"|tail -1|awk -F"Authentication failed for " '{print$2}'|awk -F"\"" '{print$1}'" on "ROOT_SERVER_CLI" and validate result EQUALS "username userN"
 
   @SID_6
