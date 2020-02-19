@@ -43,13 +43,13 @@ Feature: DefenseFlow Activations Reports CSV
   Scenario: VRM report validate CSV file DDoS_Attack Activations per Selected Period.csv
     Then CLI Run linux Command "cat /opt/radware/mgt-server/third-party/tomcat/bin/DDoS_Attack*.csv |wc -l" on "ROOT_SERVER_CLI" and validate result EQUALS "2"
     Then CLI Run linux Command "cat /opt/radware/mgt-server/third-party/tomcat/bin/DDoS_Attack*.csv|head -1|tail -1|grep updateTime,distinct_count|wc -l " on "ROOT_SERVER_CLI" and validate result EQUALS "1"
-    Then CLI Run linux Command "cat /opt/radware/mgt-server/third-party/tomcat/bin/DDoS_Attack*.csv|head -2|tail -1|grep 1581811200000,14|wc -l " on "ROOT_SERVER_CLI" and validate result EQUALS "1"
+    Then CLI Run linux Command "cat /opt/radware/mgt-server/third-party/tomcat/bin/DDoS_Attack*.csv|head -2|tail -1|grep 14|wc -l" on "ROOT_SERVER_CLI" and validate result EQUALS "1"
 
   @SID_8
   Scenario: VRM report validate CSV file DDoS_Peak Attack per Selected Period
     Then CLI Run linux Command "cat /opt/radware/mgt-server/third-party/tomcat/bin/"DDoS_Peak Attack per Selected Period.csv" |wc -l" on "ROOT_SERVER_CLI" and validate result EQUALS "2"
     Then CLI Run linux Command "cat /opt/radware/mgt-server/third-party/tomcat/bin/"DDoS_Peak Attack per Selected Period.csv"|head -1|tail -1|grep maxBandwidthBps,updateTime,activationId,protectedObjectName,destinationNetwork|wc -l " on "ROOT_SERVER_CLI" and validate result EQUALS "1"
-    Then CLI Run linux Command "cat /opt/radware/mgt-server/third-party/tomcat/bin/"DDoS_Peak Attack per Selected Period.csv"|head -2|tail -1|grep 1231371200000,1581811200000,14,PO_115,80.75.0.0/32|wc -l " on "ROOT_SERVER_CLI" and validate result EQUALS "1"
+    Then CLI Run linux Command "cat /opt/radware/mgt-server/third-party/tomcat/bin/"DDoS_Peak Attack per Selected Period.csv"|head -2|tail -1|grep 1231371200000,.*,14,PO_115,80.75.0.0/32|wc -l " on "ROOT_SERVER_CLI" and validate result EQUALS "1"
 
   @SID_9
   Scenario: VRM report validate CSV file Top_10 Attacks by Duration
