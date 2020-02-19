@@ -13,24 +13,25 @@ Feature: OTB Alteon Enable Disable Real
   Scenario: Create operational enabled real server
     Then REST Unlock Action on "Alteon" 14
     Then REST Lock Action on "Alteon" 14
-    Then REST Request "POST" for "Edit Alteon->Real Server->Create"
-      | type                 | value   |
-      | IpAddr               | 2.2.2.2 |
-      | body                 | State3  |
-      | Index                | 10      |
-      | LLBType              | 0       |
-      | SecType              | 1       |
-      | IpVer                | 1       |
-      | MaxConns             | 0       |
-      | Weight               | 1       |
-      | TimeOut              | 10      |
-      | PingInterval         | 0       |
-      | FailRetry            | 0       |
-      | SuccRetry            | 0       |
-      | ExcludeStr           | 2       |
-      | Cookie               | 2       |
-      | Submac               | 2       |
-      | Returned status code | 200     |
+#    Then REST Request "POST" for "Edit Alteon->Real Server->Create"
+    Then REST Generic API Request "POST" for "Edit Alteon->Real Server->Create" Expected result "ok"
+#      | type                 | value   |
+#      | IpAddr               | 2.2.2.2 |
+#      | body                 | State3  |
+#      | Index                | 10      |
+#      | LLBType              | 0       |
+#      | SecType              | 1       |
+#      | IpVer                | 1       |
+#      | MaxConns             | 0       |
+#      | Weight               | 1       |
+#      | TimeOut              | 10      |
+#      | PingInterval         | 0       |
+#      | FailRetry            | 0       |
+#      | SuccRetry            | 0       |
+#      | ExcludeStr           | 2       |
+#      | Cookie               | 2       |
+#      | Submac               | 2       |
+#      | Returned status code | 200     |
 
   @SID_3
   Scenario: Run ADC Disable Real server operation
@@ -56,9 +57,9 @@ Feature: OTB Alteon Enable Disable Real
   @SID_5
   Scenario: Verify real server state Enabled in Alteon configuration
     Then REST Request "GET" for "Edit Alteon->Monitoring->Servers Resources->Real Server State"
-      | type                 | value     |
-      | result               | Status: 2 |
-      | Returned status code | 200       |
+      | type                 | value       |
+      | result               | "Status": 2 |
+      | Returned status code | 200         |
 
   @SID_6
   Scenario: Verify alert success message
@@ -96,9 +97,9 @@ Feature: OTB Alteon Enable Disable Real
   @SID_10
   Scenario: Verify real server state Disabled in Alteon configuration
     Then REST Request "GET" for "Edit Alteon->Monitoring->Servers Resources->Real Server State"
-      | type                 | value     |
-      | result               | Status: 1 |
-      | Returned status code | 200       |
+      | type                 | value       |
+      | result               | "Status": 2 |
+      | Returned status code | 200         |
 
   @SID_11
   Scenario: Verify alert success message
