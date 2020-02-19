@@ -11,7 +11,8 @@ Feature: VRM AW Alerts
   @SID_2
   Scenario: VRM - enabling emailing and go to VRM Alerts Tab
     Given UI Login with user "radware" and password "radware"
-
+    * REST Vision Install License Request "vision-AVA-Max-attack-capacity"
+    * REST Vision Install License Request "vision-reporting-module-AMS"
     And UI Go To Vision
     Then UI Navigate to page "System->General Settings->Alert Settings->Alert Browser"
     Then UI Do Operation "select" item "Email Reporting Configuration"
@@ -40,7 +41,7 @@ Feature: VRM AW Alerts
   Scenario: Run DP simulator VRM_Alert_Severity
     Then CLI Run remote linux Command "echo "cleared" $(date) > /var/spool/mail/alertuser" on "GENERIC_LINUX_SERVER"
     When CLI Run remote linux Command on "GENERIC_LINUX_SERVER"
-      | "/home/radware/curl_DF_attacks-auto_PO_100.sh "                     |
+      | "/home/radware/curl_DF_attacks-auto_PO_101.sh "                     |
       | #visionIP |
       | " Terminated" |
     And Sleep "60"

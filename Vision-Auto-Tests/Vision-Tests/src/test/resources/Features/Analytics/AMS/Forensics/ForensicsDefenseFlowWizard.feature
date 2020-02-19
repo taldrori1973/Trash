@@ -1,7 +1,7 @@
 @DFForensics @TC113513
 Feature: Defense Flow Forensic Wizard
 
-  @SID_1
+  @SID_1 @Sanity
   Scenario: Clean system data before Forensics Appwall Test
     * CLI kill all simulator attacks on current vision
     * REST Delete ES index "dfforensics*"
@@ -15,12 +15,14 @@ Feature: Defense Flow Forensic Wizard
   @SID_2 @Sanity
   Scenario: Login and navigate to forensics
     Given UI Login with user "radware" and password "radware"
+    * REST Vision Install License Request "vision-AVA-Max-attack-capacity"
+    * REST Vision Install License Request "vision-reporting-module-AMS"
     And UI Navigate to "AMS Forensics" page via homePage
 
   @SID_3 @Sanity
   Scenario: Run AW attacks
     When CLI Run remote linux Command on "GENERIC_LINUX_SERVER"
-      | "/home/radware/curl_DF_attacks-auto_PO_100.sh "                     |
+      | "/home/radware/curl_DF_attacks-auto_PO_101.sh "                     |
       | #visionIP |
       | " Terminated" |
 
