@@ -94,20 +94,20 @@ Feature: AMS Report Schedule Wizard
   @SID_9
   Scenario: Sleep and verify daily report were generated
     When Sleep "430"
-    Then UI Open "Alerts" Tab
-    Then UI Open "Reports" Tab
+    Then UI Navigate to "AMS Alerts" page via homePage
+    Then UI Navigate to "AMS Reports" page via homePage
     Then UI Click Button "Reports List Item" with value "DayScheduleReport"
     Then UI Validate Element Existence By Label "Log Preview" if Exists "true" with value "DayScheduleReport"
   @SID_10
   Scenario: Sleep and verify monthly report were generated
-    Then UI Open "Alerts" Tab
-    Then UI Open "Reports" Tab
+    Then UI Navigate to "AMS Alerts" page via homePage
+    Then UI Navigate to "AMS Reports" page via homePage
     Then UI Click Button "Reports List Item" with value "MonthScheduleReport"
     Then UI Validate Element Existence By Label "Log Preview" if Exists "true" with value "MonthScheduleReport"
   @SID_11
   Scenario: Sleep and verify weekly report were generated
-    Then UI Open "Alerts" Tab
-    Then UI Open "Reports" Tab
+    Then UI Navigate to "AMS Alerts" page via homePage
+    Then UI Navigate to "AMS Reports" page via homePage
     Then UI Click Button "Reports List Item" with value "WeekScheduleReport"
     Then UI Validate Element Existence By Label "Log Preview" if Exists "true" with value "WeekScheduleReport"
 #  @SID_12
