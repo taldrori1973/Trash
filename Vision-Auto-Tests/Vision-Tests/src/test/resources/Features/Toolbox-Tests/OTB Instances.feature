@@ -106,9 +106,8 @@ Feature: OTB Workflow - Instances
   @SID_13
   Scenario: Delete WorkFlow
     Given UI Login with user "radware" and password "radware"
-    When UI Open Upper Bar Item "Toolbox"
+    And UI Navigate to "AUTOMATION" page via homePage
     When set Tab "Automation.Toolbox"
-    When UI Click Button by id "gwt-debug-WorkFlow_Tab"
     When UI Click Button "card action" with value "calculator"
     When UI Click Button "delete Workflow" with value "calculator"
     Then UI Validate Element Existence By Label "Delete Submit" if Exists "true"
