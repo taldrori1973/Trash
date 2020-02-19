@@ -19,20 +19,9 @@ Feature: AMS Report Wizard Creation
     Given UI "Validate" Report With Name "createReport1"
       | reportType            | DefensePro Analytics Dashboard |
 
-#    When UI Click Button "Edit" with value "createReport1"
-#    When UI Click Button "Next" with value ""
-#    When UI Click Button "Back" with value ""
-#    Then UI Validate Element Existence By Label "Selection Widget" if Exists "true" with value ""
-
-
-
-#  Scenario: TC105712 Create Maximum 50 allowed Reports templates
-#    * REST Vision Install License Request "vision-AVA-Max-attack-capacity"
-#    * UI Validate max generate Report Template is 50
-
-  @SID_4
-  Scenario: VRM AMS Report validate max 10 generations in view
-    Then UI Validate max generate Report is 10
+#  @SID_4
+#  Scenario: VRM AMS Report validate max 10 generations in view
+#    Then UI Validate max generate Report is 10
 
   @SID_5
   Scenario: Cleanup

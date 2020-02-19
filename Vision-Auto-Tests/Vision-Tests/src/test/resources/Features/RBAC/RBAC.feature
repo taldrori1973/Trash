@@ -115,7 +115,7 @@ Feature: RBAC
       | vDirect                                     | yes      |
       | GEL Dashboard                               | yes      |
       | EAAF Dashboard                              | no       |
-      | DEVICES CONFIGURATIONS                      | yes      |
+      #| DEVICES CONFIGURATIONS                      | yes      |
       | VISION SETTINGS                             | yes      |
     * UI Logout
 
@@ -162,7 +162,7 @@ Feature: RBAC
       | vDirect                                     | yes      |
       | GEL Dashboard                               | yes      |
       | EAAF Dashboard                              | no       |
-      | DEVICES CONFIGURATIONS                      | yes      |
+      #| DEVICES CONFIGURATIONS                      | yes      |
       | VISION SETTINGS                             | yes      |
     * UI Logout
 
@@ -209,7 +209,7 @@ Feature: RBAC
       | vDirect                                     | yes      |
       | GEL Dashboard                               | yes      |
       | EAAF Dashboard                              | no       |
-      | DEVICES CONFIGURATIONS                      | yes      |
+      #| DEVICES CONFIGURATIONS                      | yes      |
       | VISION SETTINGS                             | no       |
     * UI Logout
 
@@ -256,7 +256,7 @@ Feature: RBAC
       | vDirect                                     | yes      |
       | GEL Dashboard                               | yes      |
       | EAAF Dashboard                              | yes      |
-      | DEVICES CONFIGURATIONS                      | yes      |
+      #| DEVICES CONFIGURATIONS                      | yes      |
       | VISION SETTINGS                             | yes      |
     * UI Logout
 
@@ -303,7 +303,7 @@ Feature: RBAC
       | vDirect                                     | yes      |
       | GEL Dashboard                               | yes      |
       | EAAF Dashboard                              | no       |
-      | DEVICES CONFIGURATIONS                      | no       |
+      #| DEVICES CONFIGURATIONS                      | no       |
       | VISION SETTINGS                             | yes      |
     * UI Logout
 
@@ -350,7 +350,7 @@ Feature: RBAC
       | vDirect                                     | yes      |
       | GEL Dashboard                               | yes      |
       | EAAF Dashboard                              | yes      |
-      | DEVICES CONFIGURATIONS                      | yes      |
+      #| DEVICES CONFIGURATIONS                      | yes      |
       | VISION SETTINGS                             | no       |
     * UI Logout
 
@@ -397,7 +397,7 @@ Feature: RBAC
       | vDirect                                     | yes      |
       | GEL Dashboard                               | yes      |
       | EAAF Dashboard                              | yes      |
-      | DEVICES CONFIGURATIONS                      | yes      |
+      #| DEVICES CONFIGURATIONS                      | yes      |
       | VISION SETTINGS                             | no       |
     * UI Logout
 
@@ -444,7 +444,7 @@ Feature: RBAC
       | vDirect                                     | yes      |
       | GEL Dashboard                               | yes      |
       | EAAF Dashboard                              | yes      |
-      | DEVICES CONFIGURATIONS                      | yes      |
+      #| DEVICES CONFIGURATIONS                      | yes      |
       | VISION SETTINGS                             | no       |
     * UI Logout
 
@@ -491,7 +491,7 @@ Feature: RBAC
       | vDirect                                     | yes      |
       | GEL Dashboard                               | yes      |
       | EAAF Dashboard                              | yes      |
-      | DEVICES CONFIGURATIONS                      | yes      |
+      #| DEVICES CONFIGURATIONS                      | yes      |
       | VISION SETTINGS                             | no       |
     * UI Logout
 
@@ -538,7 +538,7 @@ Feature: RBAC
       | vDirect                                     | yes      |
       | GEL Dashboard                               | yes      |
       | EAAF Dashboard                              | no       |
-      | DEVICES CONFIGURATIONS                      | no       |
+      #| DEVICES CONFIGURATIONS                      | no       |
       | VISION SETTINGS                             | no       |
     * UI Logout
 
@@ -585,7 +585,7 @@ Feature: RBAC
       | vDirect                                     | yes      |
       | GEL Dashboard                               | yes      |
       | EAAF Dashboard                              | yes      |
-      | DEVICES CONFIGURATIONS                      | yes      |
+      #| DEVICES CONFIGURATIONS                      | yes      |
       | VISION SETTINGS                             | yes      |
     * UI Logout
 
@@ -632,7 +632,7 @@ Feature: RBAC
       | vDirect                                     | no       |
       | GEL Dashboard                               | no       |
       | EAAF Dashboard                              | yes      |
-      | DEVICES CONFIGURATIONS                      | no       |
+      #| DEVICES CONFIGURATIONS                      | no       |
       | VISION SETTINGS                             | no       |
     * UI Logout
 
@@ -679,7 +679,7 @@ Feature: RBAC
       | vDirect                                     | no       |
       | GEL Dashboard                               | no       |
       | EAAF Dashboard                              | no       |
-      | DEVICES CONFIGURATIONS                      | no       |
+      #| DEVICES CONFIGURATIONS                      | no       |
       | VISION SETTINGS                             | yes      |
     * UI Logout
 
@@ -726,7 +726,7 @@ Feature: RBAC
       | vDirect                                     | yes      |
       | GEL Dashboard                               | yes      |
       | EAAF Dashboard                              | yes      |
-      | DEVICES CONFIGURATIONS                      | yes      |
+      #| DEVICES CONFIGURATIONS                      | yes      |
       | VISION SETTINGS                             | yes      |
     * UI Logout
 
@@ -773,7 +773,7 @@ Feature: RBAC
       | vDirect                                     | no       |
       | GEL Dashboard                               | no       |
       | EAAF Dashboard                              | yes      |
-      | DEVICES CONFIGURATIONS                      | no       |
+      #| DEVICES CONFIGURATIONS                      | no       |
       | VISION SETTINGS                             | no       |
     * UI Logout
 
