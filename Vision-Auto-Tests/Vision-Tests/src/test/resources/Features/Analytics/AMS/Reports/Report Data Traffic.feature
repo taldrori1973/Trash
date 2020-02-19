@@ -1,5 +1,5 @@
 
-@VRM_Report @TC106239 @Test12
+@VRM_Report @TC106239
 Feature: VRM AMS Report Data Traffic
 
   @SID_1
