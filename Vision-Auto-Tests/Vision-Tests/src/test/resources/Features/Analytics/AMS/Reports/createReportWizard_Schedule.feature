@@ -71,7 +71,7 @@ Feature: AMS Report Schedule Wizard
   @SID_6
   Scenario: validate Scheduling Once
     Then CLI Run remote linux Command "/get_scheduled_report_value.sh OnceScheduleReport" on "ROOT_SERVER_CLI"
-    Then CLI Operations - Verify that output contains regex "0 59 23 (\d{1,2}) (\d{1,2}) \? 2019"
+    Then CLI Operations - Verify that output contains regex "0 59 23 (\d{1,2}) (\d{1,2}) \? 2020"
 
   @SID_7
   Scenario: TC102002 - Add new Report Scheduling Hour
