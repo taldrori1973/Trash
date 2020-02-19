@@ -1,6 +1,5 @@
 #By MohamadI
 @TC110252
-@run
 Feature: US62031 APSolute Vision Analytics - AMS - Attack Capacity License
 
   @TC110252-Rest
@@ -438,7 +437,6 @@ Feature: US62031 APSolute Vision Analytics - AMS - Attack Capacity License
       | valid | false |
 
   @SID_12
-  @run
   Scenario: UI Validate Grace Period Expiration
     Given UI Login with user "sys_admin" and password "radware"
     Given UI Navigate to "HOME" page via homePage

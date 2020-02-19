@@ -556,6 +556,7 @@ public class BasicOperationsSteps extends BddUITestBase {
 
     @Then("^Validate Navigation to \"([^\"]*)\" is disabled$")
     public void validateNavigationToIsDisabled(String tab) throws Throwable {
+        Thread.sleep(10 * 1000);
         boolean isDisabled = BasicOperationsHandler.isNavigationDisabled(tab);
         assert isDisabled;
     }

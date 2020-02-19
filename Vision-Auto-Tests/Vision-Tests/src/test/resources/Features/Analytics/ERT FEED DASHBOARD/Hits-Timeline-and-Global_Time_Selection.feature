@@ -12,7 +12,7 @@ Feature: EAAF Hits Timeline, Summary Hits and Global Time Selection
   @SID_2
   Scenario: Run DP simulator PCAPs for EAAF widgets and arrange the data for automation needs
     # run EAAF attacks PCAP - this PCAP is the ONLY RELEVANT PCAP FOR THIS TEST FILE
-    * CLI simulate 1 attacks of type "IP_FEED_Modified" on "DefensePro" 10
+    * CLI simulate 1 attacks of type "IP_FEED_Modified" on "DefensePro" 10 and wait 100 seconds
     # run NON EAAF attacks PCAP - this made in order to check whether system distinguish between EAAF and NON EAAF attacks
     * CLI simulate 1 attacks of type "VRM_attacks" on "DefensePro" 10 and wait 100 seconds
     # copy script that arrange the attacks times according to time ranges we have to check (15m, 30m, 1H, 1D, etc.)
@@ -23,7 +23,7 @@ Feature: EAAF Hits Timeline, Summary Hits and Global Time Selection
     Then CLI Run remote linux Command "/EAAF_attacksTimeSpreadingScript.sh" on "ROOT_SERVER_CLI" with timeOut 1800
     # run the script of attacks data time update according to current system time.Scenario:
     # NOTE: this script can be stopped at the end of this test file but it's not mandatory
-    Then CLI Run remote linux Command "/EAAF_KeepAttacksTimesUpToDate.sh &" on "ROOT_SERVER_CLI"
+    Then CLI Run remote linux Command "/EAAF_KeepAttacksTimesUpToDate.sh" on "ROOT_SERVER_CLI"
   @SID_3
   Scenario: Login and navigate to EAAF dashboard
     Given UI Login with user "sys_admin" and password "radware"
