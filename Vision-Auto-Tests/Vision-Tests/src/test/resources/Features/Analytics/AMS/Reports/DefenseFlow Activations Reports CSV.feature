@@ -16,6 +16,7 @@ Feature: DefenseFlow Activations Reports CSV
 
   @SID_3
   Scenario:Login
+    Then REST Vision Install License Request "vision-AVA-Max-attack-capacity"
     Given UI Login with user "sys_admin" and password "radware"
 
 

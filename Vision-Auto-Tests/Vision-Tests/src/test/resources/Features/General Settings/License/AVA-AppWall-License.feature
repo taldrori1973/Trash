@@ -80,7 +80,6 @@ Feature: US58313 APSolute Vision Analytics - AppWall - License
 
    #    Validate AppWall Dashboard Navigation
     When UI Navigate to "AppWall Dashboard" page via homePage
-    Then UI Click Button by Class "ant-notification-notice-close"
     Then UI Validate Text field "Title" EQUALS "AppWall"
 
     Then Validate Navigation to "DefensePro Monitoring Dashboard" is disabled
