@@ -16,6 +16,7 @@ Feature: VRM AW Alerts
     Given UI Login with user "radware" and password "radware"
     * REST Vision Install License Request "vision-AVA-Max-attack-capacity"
     * REST Vision Install License Request "vision-AVA-AppWall"
+    * REST Vision Install License Request "vision-reporting-module-AMS"
     And Sleep "120"
     Then REST Add "AppWall" Device To topology Tree with Name "Appwall_SA_172.17.164.30" and Management IP "172.17.164.30" into site "AW_site"
       | attribute     | value    |
