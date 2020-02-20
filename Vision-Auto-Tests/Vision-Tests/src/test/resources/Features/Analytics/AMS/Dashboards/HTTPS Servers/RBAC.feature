@@ -41,6 +41,6 @@ Feature: HTTPS Flood Dashboard - RBAC
     Then UI Navigate to "HTTPS Flood Dashboard" page via homePage
     Then HTTPS Scope Selection Validate RBAC with Devices IPs "172.16.22.50,172.16.22.51" and the Following Policies and Page Size 50
       | deviceIp     | policyName |
-      | 172.16.22.50 | pol1       |
-      | 172.16.22.51 | pol1       |
+      | 172.16.22.50 | all       |
+      | 172.16.22.51 | all       |
     Then UI logout and close browser

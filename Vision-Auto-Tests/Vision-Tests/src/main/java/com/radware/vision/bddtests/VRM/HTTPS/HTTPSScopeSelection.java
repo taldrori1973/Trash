@@ -161,7 +161,7 @@ public class HTTPSScopeSelection extends BddUITestBase {
             for (Policy policy : policies) {
                 expectedServersList.addAll(expectedServersListClone.stream()
                         .filter(s ->
-                                s.deviceIp.equals(policy.deviceIp) && s.policyName.equals(policy.policyName))
+                                s.deviceIp.equals(policy.deviceIp) && (policy.policyName.equalsIgnoreCase("all") || s.policyName.equals(policy.policyName)))
                         .collect(Collectors.toList()));
             }
         }
