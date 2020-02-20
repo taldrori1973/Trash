@@ -3,12 +3,12 @@
 Feature: DefenseFlow Credentials API
 
   @SID_1
-  @run
+    @run2
   Scenario: Clear logs
     Given CLI Clear vision logs
 
   @SID_2
-  @run
+  @run2
   Scenario: Change DF credentials
     Then REST Request "POST" for "DefenseFlow->Change HTTPS Credentials"
       | type                 | value               |
@@ -22,7 +22,7 @@ Feature: DefenseFlow Credentials API
     Then CLI Run linux Command "mysql -prad123 vision_ng -e "select https_username,https_password from device_access where https_port='9101'\G" |head -3 |tail -1" on "ROOT_SERVER_CLI" and validate result EQUALS "https_password: passN"
 
   @SID_4
-  @run
+  @run2
   Scenario: Setting config sync to active
     Then CLI Operations - Run Radware Session command "system config-sync interval set 1"
     Then CLI Operations - Run Radware Session command "system config-sync mode set active"
@@ -31,7 +31,7 @@ Feature: DefenseFlow Credentials API
   Scenario: Verify config-sync is using the new username
     Then Sleep "120"
     Then CLI Operations - Run Root Session command "clear"
-    Then CLI Run linux Command "cat /opt/radware/storage/maintenance/logs/config.sync.log |grep "/rest/ha/view/registration-active"|tail -1|awk -F"Authentication failed for " '{print$2}'|awk -F"\"" '{print$1}'" on "ROOT_SERVER_CLI" and validate result EQUALS "username userN" with runCommand delay 60
+    Then CLI Run linux Command "cat /opt/radware/storage/maintenance/logs/config.sync.log | grep "username"|tail -1|awk -F"password" '{print$1}'|awk -F"username " '{print$2}'" on "ROOT_SERVER_CLI" and validate result EQUALS "userN" with runCommand delay 60
 
   @SID_6
   Scenario: Change DF credentials
