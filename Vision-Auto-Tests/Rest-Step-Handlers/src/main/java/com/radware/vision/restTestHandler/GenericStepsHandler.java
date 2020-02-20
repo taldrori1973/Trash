@@ -171,6 +171,10 @@ public class GenericStepsHandler {
             } catch (PathNotFoundException e) {
                 errors.add(e.getMessage());
             }
+            if (value instanceof List && ((List) value).size() == 1)
+                value = ((List) value).get(0);
+            else
+                errors.add("this validation supporting just with one value per each data table row");
 
             if (value != null && !value.equals(StepsParametersUtils.valueOf(bodyEntry.getValue())))
                 errors.add(String.format("For Json Path \"%s\" actual value \"%s\" is not equal to the expected value \"%s\"", bodyEntry.getJsonPath(), value, StepsParametersUtils.valueOf(bodyEntry.getValue())));

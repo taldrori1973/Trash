@@ -12,6 +12,14 @@
       "pathParameters": []
     },
     {
+      "label": "Get Alerts",
+      "method": "GET",
+      "basePath": "/mgmt/system/config/itemlist/alert",
+      "produces": "application/json",
+      "description": "Retrieves APSolute Vision alerts (alerts from the APSolute Vision Alert Browser).Caution:  The  command  can  retrieve  alerts  only  from  the  newest  10,000  alerts  that  match  the  filtercriteria.  The  filter  criteria  and  the  rate  at  which  you  run  this  command  must  be  sufficiently  refinedand frequent so that the response contains fewer than 10,000 alerts.",
+      "pathParameters": []
+    },
+    {
       "label": "Get Alert Rule",
       "method": "GET",
       "basePath": "/mgmt/system/config/itemlist/alertrule/{id}",
