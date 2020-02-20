@@ -3,6 +3,8 @@ Feature: DF Scope Selection
 
   @SID_1
   Scenario: VRM - Login to VRM "Wizard" Test
+    * REST Login with user "sys_admin" and password "radware"
+    * REST Vision Install License Request "vision-AVA-Max-attack-capacity"
     Given UI Login with user "sys_admin" and password "radware"
     And UI Navigate to "DefenseFlow Analytics Dashboard" page via homePage
     And UI Do Operation "Select" item "Protected Objects"
