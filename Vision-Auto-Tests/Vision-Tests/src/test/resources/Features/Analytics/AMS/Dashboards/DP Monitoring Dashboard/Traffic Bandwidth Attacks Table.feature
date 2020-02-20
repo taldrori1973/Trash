@@ -49,7 +49,7 @@ Feature: AMS Monitoring Dashboard - Attacks table
     And UI Navigate to "DefensePro Monitoring Dashboard" page via homePage
 
 
-  @SID_6
+  @SID_8
   Scenario: Validate table attacks with no attacks.
     Then UI Select Time From: 57 To: 59 Time, in Line Chart data "Traffic Bandwidth"
     Then Sleep "5"
