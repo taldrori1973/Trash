@@ -301,7 +301,7 @@ Feature: RBAC
       | AMS Forensics                               | no       |
       | AMS Alerts                                  | no       |
       | vDirect                                     | yes      |
-      | GEL Dashboard                               | yes      |
+      | GEL Dashboard                               | no       |
       | EAAF Dashboard                              | no       |
       #| DEVICES CONFIGURATIONS                      | no       |
       | VISION SETTINGS                             | yes      |
@@ -536,7 +536,7 @@ Feature: RBAC
       | AMS Forensics                               | no       |
       | AMS Alerts                                  | no       |
       | vDirect                                     | yes      |
-      | GEL Dashboard                               | yes      |
+      | GEL Dashboard                               | no       |
       | EAAF Dashboard                              | no       |
       #| DEVICES CONFIGURATIONS                      | no       |
       | VISION SETTINGS                             | no       |
