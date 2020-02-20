@@ -11,6 +11,7 @@ Feature: HTTPS Flood Report
 
   @SID_2
   Scenario: Update Policies
+    Then REST Vision Install License Request "vision-AVA-Max-attack-capacity"
     Given REST Login with user "radware" and password "radware"
     Then REST Update Policies for All DPs
 
