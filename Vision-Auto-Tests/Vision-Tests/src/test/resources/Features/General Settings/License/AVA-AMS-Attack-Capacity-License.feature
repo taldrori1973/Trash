@@ -893,7 +893,6 @@ Feature: US62031 APSolute Vision Analytics - AMS - Attack Capacity License
 
    #    Validate AppWall Dashboard Navigation
     When UI Navigate to "AppWall Dashboard" page via homePage
-    Then UI Click Button by Class "ant-notification-notice-close"
     Then UI Validate Text field "Title" EQUALS "AppWall"
 
 #    Validate Reports Navigation
