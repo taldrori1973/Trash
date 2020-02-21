@@ -23,7 +23,7 @@ Feature: Appwall Forensic Wizard
       | httpsUsername | user1    |
       | httpUsername  | user1    |
       | visionMgtPort | G1       |
-    And Sleep "120"
+    Then Browser Refresh Page
     And UI Navigate to "AMS Forensics" page via homePage
 
   @SID_3
