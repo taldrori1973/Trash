@@ -21,6 +21,10 @@ Feature: TED Functionality
       | httpsPassword | admin   |
       | httpsUsername | admin   |
     Then Sleep "120"
+    Then REST Add "Alteon" Device To topology Tree with Name "TED Automation3" and Management IP "10.25.49.160" into site "Default"
+      | attribute     | value   |
+      | httpsPassword | admin   |
+      | httpsUsername | admin   |
 
   @SID_2
   Scenario: Navigate to TED Tab
@@ -154,6 +158,14 @@ Feature: TED Functionality
     Then UI Validate "tedEvent Table" Table rows count equal to 2
 
   @SID_11
+  Scenario: Running 32.6.0.0 traffic
+    Then CLI Run remote linux Command "curl 'http://10.25.49.162/' -H 'Connection: keep-alive' -H 'Pragma: no-cache' -H 'Cache-Control: no-cache' -H 'Upgrade-Insecure-Requests: 1' -H 'User-Agent: Mozilla/5.0 (Windows NT 6.1; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/76.0.3809.100 Safari/537.36' -H 'Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3' -H 'Accept-Encoding: gzip, deflate' -H 'Accept-Language: en-GB,en;q=0.9,en-US;q=0.8,he;q=0.7' --compressed --insecure" on "GENERIC_LINUX_SERVER"
+    And Sleep "20"
+    Then UI Set Text field with id "tedFilterBarInput" with ""
+    Then UI Click Button by id "tedFilterBarButtonRefresh"
+    Then UI Validate "tedEvent Table" Table rows count equal to 3
+
+  @SID_12
     Scenario: Malformed cef message request
     * REST Delete ES index "alteon*"
     When CLI Send Traffic Events file "unifiedTrafficEventUpdates"
@@ -162,10 +174,11 @@ Feature: TED Functionality
     Then UI Click Button by id "tedFilterBarButtonRefresh"
     Then UI Validate "tedEvent Table" Table rows count equal to 3
 
-  @SID_12
+  @SID_13
   Scenario: Cleanup
     Then REST Delete Device By IP "10.25.49.130"
     Then REST Delete Device By IP "10.25.49.135"
+    Then REST Delete Device By IP "10.25.49.160"
     Then UI logout and close browser
     * CLI Check if logs contains
       | logType | expression | isExpected   |
