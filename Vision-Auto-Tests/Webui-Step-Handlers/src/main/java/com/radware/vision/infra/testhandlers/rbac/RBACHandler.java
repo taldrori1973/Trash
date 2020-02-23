@@ -379,14 +379,11 @@ public class RBACHandler extends RBACHandlerBase {
                 break;
 
             case "SCHEDULER":
-            case "DPM":
-            case "AVR":
             case "APM":
             case "VISION SETTINGS":
             case "DEVICES CONFIGURATION":
             case "GEL DASHBOARD":
             case"SECURITY CONTROL CENTER":
-            case "VDIRECT":
             case "AMS ALERTS":
             case "AMS FORENSICS":
             case "AMS REPORTS":
@@ -408,6 +405,17 @@ public class RBACHandler extends RBACHandlerBase {
             case "TOOLBOX":
                 errorMessage = HomePage.validateExistNavigator(PropertiesFilesUtils.mapAllPropertyFiles("Navigations").get("AUTOMATION"));
                 existsAndEnabled = errorMessage.equals("");
+                if (existsAndEnabled)
+                    errorMessage="The Navigator " + operation + " shouldn't be exist, But it exists";
+                break;
+
+            case "AVR":
+            case "DPM":
+            case "VDIRECT":
+                errorMessage = HomePage.validateExistNavigator(PropertiesFilesUtils.mapAllPropertyFiles("Navigations").get(operationWithoutUpperCase));
+                existsAndEnabled = errorMessage.equals("");
+                if (access.equalsIgnoreCase("yes"))
+                    WebUIUtils.getDriver().switchTo().window(new ArrayList<String>(WebUIUtils.getDriver().getWindowHandles()).get(0));
                 if (existsAndEnabled)
                     errorMessage="The Navigator " + operation + " shouldn't be exist, But it exists";
                 break;
