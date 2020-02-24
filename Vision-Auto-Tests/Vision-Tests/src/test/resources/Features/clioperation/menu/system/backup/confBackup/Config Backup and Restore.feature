@@ -3,6 +3,9 @@ Feature: Backup and Restore
 
   @SID_1
   Scenario: Pre upgrade changes
+    * CLI Clear vision logs
+    Given Upgrade in Parallel,backup&Restore setup
+    Given validate vision server services is UP
     # TED Configuration
     Then CLI Run remote linux Command on Vision 2 "sed -i 's/\"elasticRetentionInDays\":.*,/\"elasticRetentionInDays\":8,/g' /opt/radware/storage/ted/config/ted.cfg" on "ROOT_SERVER_CLI"
     Then CLI Run remote linux Command on Vision 2 "sed -i 's/\"elasticRetentionMaxPercent\":.*,/\"elasticRetentionMaxPercent\":74,/g' /opt/radware/storage/ted/config/ted.cfg" on "ROOT_SERVER_CLI"
@@ -46,7 +49,7 @@ Feature: Backup and Restore
 
   @SID_9
   Scenario: Restore validation number of devices
-    Then CLI Run linux Command "mysql -prad123 vision_ng -e "select count(*) from  site_tree_elem_abs where DTYPE='Device'" | grep -v + | grep -v count" on "ROOT_SERVER_CLI" and validate result EQUALS "17"
+    Then CLI Run linux Command "mysql -prad123 vision_ng -e "select count(*) from  site_tree_elem_abs where DTYPE='Device'" | grep -v + | grep -v count" on "ROOT_SERVER_CLI" and validate result EQUALS "11"
 
   @SID_10
   Scenario: Check logs for errors

@@ -50,14 +50,14 @@ Feature: new report
 
   Scenario: VRM Reports - Time Selection - Absolute
     Given UI "Create" Report With Name "new"
-      | Time Definitions.Date | Absolute:[27.02.1971 01:00:00, +1d] |
+      | Time Definitions.Date | Absolute:[27.02.1971 01:00:00, +0d] |
     Then UI "Validate" Report With Name "new"
-      | Time Definitions.Date | Absolute:[27.02.1971 01:00:00, +1d] |
+      | Time Definitions.Date | Absolute:[27.02.1971 01:00:00, +0d] |
 
 
   Scenario: VRM Reports - Time Selection - Absolute - To date less than from date - Negative Test
     Given UI "Create" Report With Name "new"
-      | Time Definitions.Date | Absolute:[Today, -1d] |
+      | Time Definitions.Date | Absolute:[Today, +0d] |
     Then UI Validate Text field "Error Title" EQUALS "Unable to submit form"
     Then UI Validate Text field "Error Message" EQUALS "To submit, you must fill in all marked fields*"
     When UI Click Button "Error Ok"

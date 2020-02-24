@@ -38,7 +38,7 @@ Feature: Forensics Output
   @SID_5
   Scenario: VRM - Create Forensics Report all output columns
     Given UI "Create" Forensics With Name "All Output Fields"
-      | Time Definitions.Date | Absolute:[01.08.2018 01:00:00, +1d] |
+      | Time Definitions.Date | Absolute:[01.08.2018 01:00:00, +0d] |
       | Criteria              | Event Criteria:Attack ID,Operator:Equals,Value:78-1526381752;                                                                                                                                                                                |
       | Output                | Action,Attack ID,Start Time,Source IP Address,Source Port,Destination IP Address,Destination Port,Direction,Protocol,Threat Category,Radware ID,Device IP Address,Attack Name,End Time,Duration,Packets,Mbits,Physical Port,Policy Name,Risk |
     Then UI Generate and Validate Forensics With Name "All Output Fields" with Timeout of 300 Seconds

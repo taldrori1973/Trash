@@ -232,8 +232,8 @@ Feature: RBAC
       | DPM                                         | yes      |
       | ANALYTICS ADC                               | yes      |
       | ANALYTICS AMS                               | yes      |
-      | DefensePro Behavioral Protections Dashboard | no       |
-      | HTTPS Flood Dashboard                       | no       |
+      | DefensePro Behavioral Protections Dashboard | yes       |
+      | HTTPS Flood Dashboard                       | yes       |
       | DefensePro Analytics Dashboard              | yes      |
       | DefensePro Monitoring Dashboard             | yes      |
       | DefenseFlow Analytics Dashboard             | yes      |

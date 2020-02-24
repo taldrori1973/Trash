@@ -23,7 +23,7 @@ Feature: create AMS Report New Form
       | reportType            | DefensePro Analytics Dashboard                                                                  |
       | Design                | Add:[Traffic Bandwidth,Connections Rate,Top Attack Sources,Top Scanners,Top Attack Destination] |
       | devices               | index:10,ports:[1],policies:[BDOS]                                                              |
-      | Time Definitions.Date | Absolute:[27.02.1971 01:00:00, +1d]                                                             |
+      | Time Definitions.Date | Absolute:[27.02.1971 01:00:00, +0d]                                                             |
       | Format                | Select: HTML                                                                                    |
 
   @SID_3
@@ -32,7 +32,7 @@ Feature: create AMS Report New Form
       | reportType            | DefensePro Analytics Dashboard                                                                      |
       | Design                | Widgets:[Top Attack Sources,Top Scanners,Traffic Bandwidth,Top Attack Destination,Connections Rate] |
       | devices               | index:10,ports:[1],policies:[BDOS]                                                                  |
-      | Time Definitions.Date | Absolute:[27.02.1971 01:00:00, +1d]                                                                 |
+      | Time Definitions.Date | Absolute:[27.02.1971 01:00:00, +0d]                                                                 |
       | Format                | Select: HTML                                                                                        |
 
   @SID_4
@@ -46,7 +46,7 @@ Feature: create AMS Report New Form
       | reportType            | DefensePro Analytics Dashboard                                                                      |
       | Design                | Widgets:[Top Attack Sources,Top Scanners,Traffic Bandwidth,Top Attack Destination,Connections Rate] |
       | devices               | index:10,ports:[1],policies:[BDOS]                                                                  |
-      | Time Definitions.Date | Absolute:[27.02.1971 01:00:00, +1d]                                                                 |
+      | Time Definitions.Date | Absolute:[27.02.1971 01:00:00, +0d]                                                                 |
       | Format                | Select: PDF                                                                                         |
 
   @SID_6
@@ -59,7 +59,7 @@ Feature: create AMS Report New Form
       | reportType            | DefensePro Behavioral Protections Dashboard                                                                                                                    |
       | Design                | {"Add":[{"BDoS-TCP SYN":["pps","IPv6"]},"BDoS-TCP SYN ACK",{"BDoS-TCP FIN ACK":["pps","IPv6","Outbound"]},{"BDoS-UDP":["pps","IPv6","Outbound"]},"BDoS-ICMP"]} |
       | devices               | index:10,ports:[1],policies:[BDOS]                                                                                                                             |
-      | Time Definitions.Date | Absolute:[27.02.1971 01:00:00, +1d]                                                                                                                            |
+      | Time Definitions.Date | Absolute:[27.02.1971 01:00:00, +0d]                                                                                                                            |
       | Format                | Select: CSV                                                                                                                                                    |
 
   @SID_8
@@ -68,7 +68,7 @@ Feature: create AMS Report New Form
       | reportType            | DefensePro Behavioral Protections Dashboard                                 |
       | Design                | Widgets:[BDoS-TCP SYN,BDoS-TCP SYN ACK,BDoS-TCP FIN ACK,BDoS-UDP,BDoS-ICMP] |
       | devices               | index:10,ports:[1],policies:[BDOS]                                          |
-      | Time Definitions.Date | Absolute:[27.02.1971 01:00:00, +1d]                                         |
+      | Time Definitions.Date | Absolute:[27.02.1971 01:00:00, +0d]                                         |
       | Format                | Select: CSV                                                                 |
 
   @SID_9
@@ -82,7 +82,7 @@ Feature: create AMS Report New Form
       | reportType            | DefensePro Behavioral Protections Dashboard                                 |
       | Design                | Widgets:[BDoS-TCP SYN,BDoS-TCP SYN ACK,BDoS-TCP FIN ACK,BDoS-UDP,BDoS-ICMP] |
       | devices               | index:10,ports:[1],policies:[BDOS]                                          |
-      | Time Definitions.Date | Absolute:[27.02.1971 01:00:00, +1d]                                         |
+      | Time Definitions.Date | Absolute:[27.02.1971 01:00:00, +0d]                                         |
       | Format                | Select: PDF                                                                 |
 
   @SID_11
@@ -97,7 +97,7 @@ Feature: create AMS Report New Form
       | reportType            | DefensePro Behavioral Protections Dashboard |
       | Design                | Widgets:[BDoS-TCP SYN,BDoS-TCP SYN ACK]     |
       | devices               | index:10,ports:[1],policies:[BDOS]          |
-      | Time Definitions.Date | Absolute:[27.02.1971 01:00:00, +1d]         |
+      | Time Definitions.Date | Absolute:[27.02.1971 01:00:00, +0d]         |
       | Format                | Select: PDF                                 |
 
   @SID_13
@@ -171,9 +171,9 @@ Feature: create AMS Report New Form
   @SID_22
   Scenario: VRM Reports - Time Selection - Absolute
     Given UI "Create" Report With Name "new"
-      | Time Definitions.Date | Absolute:[27.02.1971 01:00:00, +1d] |
+      | Time Definitions.Date | Absolute:[27.02.1971 01:00:00, +0d] |
     Then UI "Validate" Report With Name "new"
-      | Time Definitions.Date | Absolute:[27.02.1971 01:00:00, +1d] |
+      | Time Definitions.Date | Absolute:[27.02.1971 01:00:00, +0d] |
 
   @SID_23
   Scenario: VRM Reports - Time Selection - Absolute - To date less than from date - Negative Test

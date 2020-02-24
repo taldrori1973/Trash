@@ -463,6 +463,7 @@ public class ForensicsHandler extends VRMBaseUtilies {
             BasicOperationsHandler.clickButton("Submit", "");
         } catch (Exception e) {
             BasicOperationsHandler.clickButton("Cancel");
+            BaseTestUtils.report("cause " + e.getMessage(), Reporter.FAIL);
         }
     }
 

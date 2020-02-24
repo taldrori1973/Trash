@@ -43,7 +43,7 @@ Feature: Forensics 10K
   @SID_7
   Scenario: create forensic definition
     When UI "Create" Forensics With Name "Forensic_10K"
-      | Time Definitions.Date | Absolute:[27.02.2017 01:00:00, +1d] |
+      | Time Definitions.Date | Absolute:[27.02.2017 01:00:00, +0d] |
 
   @SID_8
   Scenario: generate forensic report
