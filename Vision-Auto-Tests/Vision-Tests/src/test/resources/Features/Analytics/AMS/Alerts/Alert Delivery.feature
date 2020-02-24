@@ -79,7 +79,6 @@ Feature: VRM Alerts Delivery
 
   @SID_12
   Scenario: VRM - go to vision and disable emailing
-    Then UI Open "Configurations" Tab
     And UI Go To Vision
     And UI Navigate to page "System->General Settings->APSolute Vision Analytics Settings->Email Reporting Configurations"
     And UI Set Checkbox "Enable" To "false"

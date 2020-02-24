@@ -648,6 +648,7 @@ public class BasicOperationsHandler {
         WebUIBasePage.closeAllYellowMessages();
     try
     {
+        HomePage.navigateFromHomePage(PropertiesFilesUtils.mapAllPropertyFiles("Navigations").get("VISION SETTINGS"));
         WebUIUtils.fluentWait(ComponentLocatorFactory.getLocatorById("gwt-debug-System").getBy()).click();
     }catch (Exception ignore){}
         //Verify the click
