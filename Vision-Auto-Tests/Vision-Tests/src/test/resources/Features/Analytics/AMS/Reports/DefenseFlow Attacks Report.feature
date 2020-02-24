@@ -193,13 +193,13 @@ Feature: DefenseFlow Attacks Reports
       | reportType            | DefenseFlow Analytics Dashboard                                              |
       | projectObjects        | PO_200,PO_100                                                                |
       | Design                | Add:[Top Attacks by Duration,Top Attack Destination,Top Attacks by Protocol] |
-      | Time Definitions.Date | Absolute:[27.02.1971 01:00:00, -101d]                                        |
+      | Time Definitions.Date | Absolute:[27.02.1971 01:00:00, +0d]                                        |
       | Format                | Select: CSV                                                                  |
     Then UI "Validate" Report With Name "100DaysBeforeReport"
       | reportType            | DefenseFlow Analytics Dashboard                                                  |
       | projectObjects        | PO_200,PO_100                                                                    |
       | Design                | Widgets:[Top Attacks by Duration,Top Attack Destination,Top Attacks by Protocol] |
-      | Time Definitions.Date | Absolute:[27.02.1971 01:00:00, -101d]                                            |
+      | Time Definitions.Date | Absolute:[27.02.1971 01:00:00, +0d]                                            |
       | Format                | Select: CSV                                                                      |
     Then UI Generate and Validate Report With Name "100DaysBeforeReport" with Timeout of 100 Seconds
 

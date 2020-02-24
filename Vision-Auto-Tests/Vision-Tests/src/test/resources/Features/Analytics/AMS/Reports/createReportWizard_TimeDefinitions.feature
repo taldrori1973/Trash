@@ -310,13 +310,13 @@ Feature: Report Wizard_Time_Definitions
     Given UI "Create" Report With Name "testReport_Absolute"
       | reportType            | DefensePro Behavioral Protections Dashboard |
       | devices               | index:10                                    |
-      | Time Definitions.Date | Absolute:[27.02.1971 01:00:00, +1d]         |
+      | Time Definitions.Date | Absolute:[27.02.1971 01:00:00, +0d]         |
     Then Sleep "3"
     Then UI "Validate" Report With Name "testReport_Absolute"
       | reportType            | DefensePro Behavioral Protections Dashboard |
       | devices               | index:10                                    |
 #    Time validation is from now, It is not stable validation.
-#      | Time Definitions.Date | Absolute:[27.02.1971 01:00:00, +1d]         |
+#      | Time Definitions.Date | Absolute:[27.02.1971 01:00:00, +0d]         |
 
 
   @SID_17
