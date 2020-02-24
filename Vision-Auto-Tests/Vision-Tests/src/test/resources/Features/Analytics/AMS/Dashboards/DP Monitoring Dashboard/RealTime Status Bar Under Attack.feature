@@ -15,9 +15,7 @@ Feature: VRM Real Time Status Bar Under Attack
   @SID_2
   Scenario: Under attack basic occurred
     Given UI Login with user "sys_admin" and password "radware"
-    And UI Open Upper Bar Item "AMS"
-    And UI Open "Dashboards" Tab
-    And UI Open "DP Monitoring Dashboard" Sub Tab
+    When UI Navigate to "DefensePro Monitoring Dashboard" page via homePage
     Then UI Validate Element Existence By Label "Under Attack" if Exists "true"
     And Sleep "300"
     Then UI Validate Element Existence By Label "Peace Time" if Exists "true"
@@ -33,9 +31,7 @@ Feature: VRM Real Time Status Bar Under Attack
     Given CLI simulate 20 attacks of type "vrm_bdos" on "DefensePro" 10
   # Attack on BDOS policy physical port 1 for 8 minutes
     Given UI Login with user "sys_admin" and password "radware"
-    And UI Open Upper Bar Item "AMS"
-    And UI Open "Dashboards" Tab
-    And UI Open "DP Monitoring Dashboard" Sub Tab
+    When UI Navigate to "DefensePro Monitoring Dashboard" page via homePage
     And Sleep "60"
     Then UI Validate Element Existence By Label "Under Attack" if Exists "true"
     Then UI Validate Text field "Under Attack text" EQUALS "UNDER ATTACK"
@@ -44,9 +40,7 @@ Feature: VRM Real Time Status Bar Under Attack
   @SID_4
   Scenario: Under_attack_filter_device
     Given UI Login with user "sys_admin" and password "radware"
-    And UI Open Upper Bar Item "AMS"
-    And UI Open "Dashboards" Tab
-    And UI Open "DP Monitoring Dashboard" Sub Tab
+    When UI Navigate to "DefensePro Monitoring Dashboard" page via homePage
     And UI Do Operation "Select" item "Device Selection"
     And UI VRM Select device from dashboard and Save Filter
       | index | ports | policies |
@@ -66,9 +60,7 @@ Feature: VRM Real Time Status Bar Under Attack
   @SID_5
   Scenario: Under_attack_filter_port
     Given UI Login with user "sys_admin" and password "radware"
-    And UI Open Upper Bar Item "AMS"
-    And UI Open "Dashboards" Tab
-    And UI Open "DP Monitoring Dashboard" Sub Tab
+    When UI Navigate to "DefensePro Monitoring Dashboard" page via homePage
     And UI Do Operation "Select" item "Device Selection"
     And UI VRM Select device from dashboard and Save Filter
       | index | ports | policies |
@@ -86,9 +78,7 @@ Feature: VRM Real Time Status Bar Under Attack
   @SID_6
   Scenario: Under_attack_filter_policy
     Given UI Login with user "sys_admin" and password "radware"
-    And UI Open Upper Bar Item "AMS"
-    And UI Open "Dashboards" Tab
-    And UI Open "DP Monitoring Dashboard" Sub Tab
+    When UI Navigate to "DefensePro Monitoring Dashboard" page via homePage
     And UI Do Operation "Select" item "Device Selection"
     And UI VRM Select device from dashboard and Save Filter
       | index | ports | policies |
@@ -112,16 +102,12 @@ Feature: VRM Real Time Status Bar Under Attack
   @SID_7
   Scenario: Under_attack_RBAC_device
     Given UI Login with user "sec_admin_all_pol" and password "radware"
-    And UI Open Upper Bar Item "AMS"
-    And UI Open "Dashboards" Tab
-    And UI Open "DP Monitoring Dashboard" Sub Tab
+    When UI Navigate to "DefensePro Monitoring Dashboard" page via homePage
     Then UI Validate Element Existence By Label "Under Attack" if Exists "true"
     Then UI Validate Element Existence By Label "Peace Time" if Exists "false"
     And UI Logout
     Given UI Login with user "sec_admin_all_pol_51" and password "radware"
-    And UI Open Upper Bar Item "AMS"
-    And UI Open "Dashboards" Tab
-    And UI Open "DP Monitoring Dashboard" Sub Tab
+    When UI Navigate to "DefensePro Monitoring Dashboard" page via homePage
     Then UI Validate Element Existence By Label "Under Attack" if Exists "false"
     Then UI Validate Element Existence By Label "Peace Time" if Exists "true"
     And UI Logout
@@ -130,18 +116,14 @@ Feature: VRM Real Time Status Bar Under Attack
   Scenario: Under_attack_RBAC_policy sec_admin
     Then UI Login with user "sec_admin" and password "radware"
     # user has permission for Policy15 only
-    Then UI Open Upper Bar Item "AMS"
-    Then UI Open "Dashboards" Tab
-    Then UI Open "DP Monitoring Dashboard" Sub Tab
+    When UI Navigate to "DefensePro Monitoring Dashboard" page via homePage
     Then UI Validate Element Existence By Label "Under Attack" if Exists "false"
     Then UI Logout
   @SID_9
   Scenario: Under_attack_RBAC_policy sec_mon_BDOS
     Then UI Login with user "sec_mon_BDOS" and password "radware"
     # user has permission for BDOS only
-    Then UI Open Upper Bar Item "AMS"
-    Then UI Open "Dashboards" Tab
-    Then UI Open "DP Monitoring Dashboard" Sub Tab
+    When UI Navigate to "DefensePro Monitoring Dashboard" page via homePage
     Then UI Validate Element Existence By Label "Under Attack" if Exists "true"
     Then UI Logout
 
@@ -150,9 +132,7 @@ Feature: VRM Real Time Status Bar Under Attack
     Given CLI kill all simulator attacks on current vision
     Given CLI simulate 1 attacks of type "rest_bdos_term_only" on "DefensePro" 10 and wait 300 seconds
     Given UI Login with user "sys_admin" and password "radware"
-    And UI Open Upper Bar Item "AMS"
-    And UI Open "Dashboards" Tab
-    And UI Open "DP Monitoring Dashboard" Sub Tab
+    When UI Navigate to "DefensePro Monitoring Dashboard" page via homePage
     Then UI Validate Element Existence By Label "Under Attack" if Exists "false"
     Then UI Validate Element Existence By Label "Peace Time" if Exists "true"
     And UI Logout
@@ -161,9 +141,7 @@ Feature: VRM Real Time Status Bar Under Attack
   Scenario: Under attack DP 7
     Given CLI simulate 4 attacks of type "rest_anomalies" on "DefensePro" 20 with loopDelay 15000 and wait 40 seconds with attack ID
     Given UI Login with user "sys_admin" and password "radware"
-    And UI Open Upper Bar Item "AMS"
-    And UI Open "Dashboards" Tab
-    And UI Open "DP Monitoring Dashboard" Sub Tab
+    When UI Navigate to "DefensePro Monitoring Dashboard" page via homePage
     Then UI Validate Element Existence By Label "Under Attack" if Exists "false"
     Then UI Validate Element Existence By Label "Peace Time" if Exists "true"
 

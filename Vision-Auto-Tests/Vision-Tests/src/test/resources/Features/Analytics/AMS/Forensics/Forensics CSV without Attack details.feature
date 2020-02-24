@@ -24,8 +24,7 @@ Feature: Forensics CSV without Attack details
   @SID_3
   Scenario: login and go to forensic tab
     Given UI Login with user "sys_admin" and password "radware"
-    And UI Open Upper Bar Item "AMS"
-    And UI Open "Forensics" Tab
+    And UI Navigate to "AMS Forensics" page via homePage
 
   @SID_4
   Scenario: Create Forensics Report csv_without_details
