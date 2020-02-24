@@ -106,7 +106,7 @@ Feature: RBAC
       | supports defensepro                         | no       |
       | supports AppWall                            | no       |
       | security monitoring perspective             | yes      |
-      | vision settings device resources            | yes      |
+      #| vision settings device resources            | yes      |
       | Alert browser                               | yes      |
       | SCHEDULER                                   | no       |
       | Toolbox                                     | yes      |
@@ -157,7 +157,7 @@ Feature: RBAC
       | supports defensepro                         | no       |
       | supports AppWall                            | no       |
       | security monitoring perspective             | yes      |
-      | vision settings device resources            | yes      |
+      #| vision settings device resources            | yes      |
       | Alert browser                               | yes      |
       | SCHEDULER                                   | no       |
       | Toolbox                                     | yes      |
@@ -206,7 +206,7 @@ Feature: RBAC
       | supports defensepro                         | no       |
       | supports AppWall                            | no       |
       | security monitoring perspective             | no       |
-      | vision settings device resources            | yes      |
+      #| vision settings device resources            | yes      |
       | Alert browser                               | yes      |
       | SCHEDULER                                   | no       |
       | Toolbox                                     | yes      |
@@ -255,7 +255,7 @@ Feature: RBAC
       | supports defensepro                         | yes      |
       | supports AppWall                            | yes      |
       | security monitoring perspective             | yes      |
-      | vision settings device resources            | yes      |
+      #| vision settings device resources            | yes      |
       | Alert browser                               | yes      |
       | SCHEDULER                                   | yes      |
       | Toolbox                                     | yes      |
@@ -304,7 +304,7 @@ Feature: RBAC
       | supports defensepro                         | no       |
       | supports AppWall                            | no       |
       | security monitoring perspective             | no       |
-      | vision settings device resources            | yes      |
+      #| vision settings device resources            | yes      |
       | Alert browser                               | yes      |
       | SCHEDULER                                   | no       |
       | Toolbox                                     | yes      |
@@ -353,7 +353,7 @@ Feature: RBAC
       | supports defensepro                         | yes      |
       | supports AppWall                            | yes      |
       | security monitoring perspective             | yes      |
-      | vision settings device resources            | yes      |
+      #| vision settings device resources            | yes      |
       | Alert browser                               | yes      |
       | SCHEDULER                                   | yes      |
       | Toolbox                                     | yes      |
@@ -402,7 +402,7 @@ Feature: RBAC
       | supports defensepro                         | yes      |
       | supports AppWall                            | yes      |
       | security monitoring perspective             | yes      |
-      | vision settings device resources            | yes      |
+      #| vision settings device resources            | yes      |
       | Alert browser                               | yes      |
       | SCHEDULER                                   | yes      |
       | Toolbox                                     | yes      |
@@ -451,7 +451,7 @@ Feature: RBAC
       | supports defensepro                         | no       |
       | supports AppWall                            | yes      |
       | security monitoring perspective             | no       |
-      | vision settings device resources            | yes      |
+      #| vision settings device resources            | yes      |
       | Alert browser                               | yes      |
       | SCHEDULER                                   | yes      |
       | Toolbox                                     | yes      |
@@ -500,7 +500,7 @@ Feature: RBAC
       | supports defensepro                         | yes      |
       | supports AppWall                            | yes      |
       | security monitoring perspective             | yes      |
-      | vision settings device resources            | yes      |
+      #| vision settings device resources            | yes      |
       | Alert browser                               | no       |
       | SCHEDULER                                   | no       |
       | Toolbox                                     | yes      |
@@ -549,7 +549,7 @@ Feature: RBAC
       | supports defensepro                         | no       |
       | supports AppWall                            | no       |
       | security monitoring perspective             | no       |
-      | vision settings device resources            | no       |
+      #| vision settings device resources            | no       |
       | Alert browser                               | yes      |
       | SCHEDULER                                   | no       |
       | Toolbox                                     | yes      |
@@ -598,7 +598,7 @@ Feature: RBAC
       | supports defensepro                         | yes      |
       | supports AppWall                            | yes      |
       | security monitoring perspective             | yes      |
-      | vision settings device resources            | yes      |
+      #| vision settings device resources            | yes      |
       | Alert browser                               | yes      |
       | SCHEDULER                                   | yes      |
       | Toolbox                                     | yes      |
@@ -647,7 +647,7 @@ Feature: RBAC
       | supports defensepro                         | yes      |
       | supports AppWall                            | yes      |
       | security monitoring perspective             | yes      |
-      | vision settings device resources            | no       |
+      #| vision settings device resources            | no       |
       | Alert browser                               | no       |
       | SCHEDULER                                   | no       |
       | Toolbox                                     | no       |
@@ -696,7 +696,7 @@ Feature: RBAC
       | supports defensepro                         | no       |
       | supports AppWall                            | no       |
       | security monitoring perspective             | no       |
-      | vision settings device resources            | no       |
+      #| vision settings device resources            | no       |
       | Alert browser                               | no       |
       | SCHEDULER                                   | no       |
       | Toolbox                                     | no       |
@@ -745,7 +745,7 @@ Feature: RBAC
       | supports defensepro                         | yes      |
       | supports AppWall                            | yes      |
       | security monitoring perspective             | yes      |
-      | vision settings device resources            | yes      |
+      #| vision settings device resources            | yes      |
       | Alert browser                               | yes      |
       | SCHEDULER                                   | yes      |
       | Toolbox                                     | yes      |
@@ -794,7 +794,7 @@ Feature: RBAC
       | supports defensepro                         | no       |
       | supports AppWall                            | no       |
       | security monitoring perspective             | no       |
-      | vision settings device resources            | no       |
+      #| vision settings device resources            | no       |
       | Alert browser                               | no       |
       | SCHEDULER                                   | no       |
       | Toolbox                                     | no       |
