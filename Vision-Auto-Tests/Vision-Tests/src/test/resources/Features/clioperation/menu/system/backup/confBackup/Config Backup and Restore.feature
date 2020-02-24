@@ -3,6 +3,8 @@ Feature: Backup and Restore
 
   @SID_1
   Scenario: Pre upgrade changes
+    Given Upgrade in Parallel,backup&Restore setup
+    Given validate vision server services is UP
     # TED Configuration
     Then CLI Run remote linux Command on Vision 2 "sed -i 's/\"elasticRetentionInDays\":.*,/\"elasticRetentionInDays\":8,/g' /opt/radware/storage/ted/config/ted.cfg" on "ROOT_SERVER_CLI"
     Then CLI Run remote linux Command on Vision 2 "sed -i 's/\"elasticRetentionMaxPercent\":.*,/\"elasticRetentionMaxPercent\":74,/g' /opt/radware/storage/ted/config/ted.cfg" on "ROOT_SERVER_CLI"
