@@ -29,7 +29,7 @@ Feature: DefensePro Network Policy Import to Device
 
   @SID_5
   Scenario: Import network policy to DefensePro
-    When UI Open Upper Bar Item "Toolbox"
+    And UI Navigate to "SCHEDULER" page via homePage
     Then UI Click Button by id "gwt-debug-ToolBox_ADVANCED"
     Then UI Click Button by id "gwt-debug-NetworkProtectionNode-content"
     Then UI Set Text field with id "gwt-debug-name_SearchControl" with "auto"
