@@ -219,7 +219,7 @@ Feature: RBAC
       | AppWall Dashboard operations                | no       |
       | alteon operations                           | no       |
       | Security Control Center                     | no       |
-#      | app sla dashboard                           | yes      |
+      | app sla dashboard                           | yes      |
     * UI Logout
 
   @SID_9
@@ -366,7 +366,7 @@ Feature: RBAC
       | AppWall Dashboard operations                | yes      |
       | alteon operations                           | yes      |
       | Security Control Center                     | no       |
-#      | app sla dashboard                           | yes      |
+      | app sla dashboard                           | yes      |
     * UI Logout
 
   @SID_12
@@ -415,7 +415,7 @@ Feature: RBAC
       | AppWall Dashboard operations                | yes      |
       | alteon operations                           | no       |
       | Security Control Center                     | no       |
-#      | app sla dashboard                           | yes      |
+      | app sla dashboard                           | yes      |
     * UI Logout
 
   @SID_13
@@ -464,7 +464,7 @@ Feature: RBAC
       | AppWall Dashboard operations                | yes      |
       | alteon operations                           | no       |
       | Security Control Center                     | no       |
-#      | app sla dashboard                           | yes      |
+      | app sla dashboard                           | yes      |
     * UI Logout
 
   @SID_14
@@ -513,7 +513,7 @@ Feature: RBAC
       | AppWall Dashboard operations                | no       |
       | alteon operations                           | no       |
       | Security Control Center                     | no       |
-#      | app sla dashboard                           | yes      |
+      | app sla dashboard                           | yes      |
     * UI Logout
 
   @SID_15
@@ -562,7 +562,7 @@ Feature: RBAC
       | AppWall Dashboard operations                | no       |
       | alteon operations                           | no       |
       | Security Control Center                     | no       |
-#      | app sla dashboard                           | no       |
+      | app sla dashboard                           | no       |
     * UI Logout
 
   @SID_16
@@ -660,7 +660,7 @@ Feature: RBAC
       | AppWall Dashboard operations                | no       |
       | alteon operations                           | no       |
       | Security Control Center                     | no       |
-#      | app sla dashboard                           | no       |
+      | app sla dashboard                           | no       |
     * UI Logout
 
   @SID_18
@@ -807,7 +807,7 @@ Feature: RBAC
       | AppWall Dashboard operations                | no       |
       | alteon operations                           | no       |
       | Security Control Center                     | no       |
-#      | app sla dashboard                           | yes      |
+      | app sla dashboard                           | yes      |
     * UI Logout
 
   @SID_21
