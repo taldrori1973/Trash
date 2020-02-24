@@ -415,7 +415,13 @@ public class RBACHandler extends RBACHandlerBase {
                 errorMessage = HomePage.validateExistNavigator(PropertiesFilesUtils.mapAllPropertyFiles("Navigations").get(operationWithoutUpperCase));
                 existsAndEnabled = errorMessage.equals("");
                 if (access.equalsIgnoreCase("yes"))
+                {
+                    try
+                    {
+                        WebUIUtils.getDriver().switchTo().window(new ArrayList<String>(WebUIUtils.getDriver().getWindowHandles()).get(1)).close();
+                    }catch (Exception ignore){}
                     WebUIUtils.getDriver().switchTo().window(new ArrayList<String>(WebUIUtils.getDriver().getWindowHandles()).get(0));
+                }
                 if (existsAndEnabled)
                     errorMessage="The Navigator " + operation + " shouldn't be exist, But it exists";
                 break;
