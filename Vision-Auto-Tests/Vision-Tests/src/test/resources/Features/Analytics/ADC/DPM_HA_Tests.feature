@@ -5,9 +5,7 @@ Feature: DPM HA Tests
   Scenario: Login
     * REST Vision Install License Request "vision-reporting-module-ADC"
     Given UI Login with user "sys_admin" and password "radware"
-    And UI Open Upper Bar Item "ADC"
-    And UI Open "Dashboards" Tab
-    And UI Open "Application Dashboard" Sub Tab
+    Then UI Navigate to "Application Dashboard" page via homePage
 
   @SID_2
   Scenario: Validate virtual services table only for active machine

@@ -9,9 +9,7 @@ Feature: DPM System And Network dashboard - Refreshing
     Then Sleep "2"
     Then Browser Switch to Tab Number 2
     Then Sleep "2"
-    Then UI Open Upper Bar Item "ADC"
-    Then UI Open "Dashboards" Tab
-    Then UI Open "Network and System Dashboard" Sub Tab
+    When UI Navigate to "System and Network Dashboard" page via homePage
     Then UI Text of "Title" equal to "System & Network Dashboard"
 
 
