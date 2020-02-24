@@ -4,8 +4,8 @@ Feature: Defense Flow Forensic Wizard
   @SID_1 @Sanity
   Scenario: Clean system data before Forensics Appwall Test
     * CLI kill all simulator attacks on current vision
-    * REST Delete ES index "dfforensics*"
-    * REST Delete ES index "df-attack-raw*"
+#    * REST Delete ES index "dfforensics*"
+#    * REST Delete ES index "df-attack-raw*"
 
     Then REST Request "PUT" for "Connectivity->Inactivity Timeout for Configuration"
       | type | value                                 |
