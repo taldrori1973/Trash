@@ -28,6 +28,9 @@ Feature: ADC dashboard Current Totals Widget
     Then UI click Table row by keyValue or Index with elementLabel "Devices table" findBy columnName "Device Name" findBy cellValue "Alteon_50.50.101.31"
     Then UI Click Button "NetworkTab"
     * Sleep "3"
+    When UI Navigate to "System and Network Dashboard" page via homePage
+    Then UI click Table row by keyValue or Index with elementLabel "Devices table" findBy columnName "Device Name" findBy cellValue "Alteon_50.50.101.31"
+    Then UI Click Button "NetworkTab"
 
   @SID_4
   Scenario: Validation: data correctness and exact 1 Kbps presentation
