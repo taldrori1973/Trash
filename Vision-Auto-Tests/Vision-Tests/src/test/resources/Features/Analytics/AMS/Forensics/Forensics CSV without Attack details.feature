@@ -8,8 +8,6 @@ Feature: Forensics CSV without Attack details
     * CLI Clear vision logs
     * REST Delete ES index "dp-*"
     * REST Vision Install License Request "vision-AVA-Max-attack-capacity"
-#    * REST Delete ES index "forensics-definition"
-#    * REST Delete ES index "dpforensics-1"
 
   @SID_2
   Scenario: Run DP simulator for BDOS, DNS, ASCAN, Syn, HTTPs, burst
@@ -26,7 +24,8 @@ Feature: Forensics CSV without Attack details
   @SID_3
   Scenario: login and go to forensic tab
     Given UI Login with user "sys_admin" and password "radware"
-    Then UI Navigate to "AMS Forensics" page via homepage
+    And UI Open Upper Bar Item "AMS"
+    And UI Open "Forensics" Tab
 
   @SID_4
   Scenario: Create Forensics Report csv_without_details
