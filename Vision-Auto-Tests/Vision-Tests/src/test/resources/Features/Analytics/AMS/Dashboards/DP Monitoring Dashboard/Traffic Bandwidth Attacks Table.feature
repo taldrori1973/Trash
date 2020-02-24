@@ -46,6 +46,7 @@ Feature: AMS Monitoring Dashboard - Attacks table
   Scenario: Kill Attacks and sleep
     * CLI kill all simulator attacks on current vision
     * Sleep "90"
+    And UI Navigate to "AMS Reports" page via homePage
     And UI Navigate to "DefensePro Monitoring Dashboard" page via homePage
 
 

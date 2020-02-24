@@ -1,6 +1,7 @@
 @VRM_Report @TC106005
 Feature: Forensic Time Selection
 
+
   @SID_1
   Scenario: Clean DB and generate attacks
     When CLI kill all simulator attacks on current vision
@@ -10,6 +11,7 @@ Feature: Forensic Time Selection
     When CLI Clear vision logs
     And CLI simulate 1 attacks of type "rest_dos" on "DefensePro" 10
     And CLI simulate 1 attacks of type "rest_anomalies" on "DefensePro" 10 and wait 22 seconds
+
 
   @SID_2
   Scenario: Login and go to forensics
@@ -264,6 +266,7 @@ Feature: Forensic Time Selection
 
    ######################   ABSOLUTE   ###################################################
 
+
   @SID_13
   Scenario: Forensic Time Absolute
     # move start time to 27/02/1971
@@ -271,7 +274,7 @@ Feature: Forensic Time Selection
     When UI "Create" Forensics With Name "Forensic Time"
       | devices               | index:10                           |
       | Output                | Attack ID, Start Time              |
-      | Time Definitions.Date | Absolute:[27.02.1971 01:00:00, +1d] |
+      | Time Definitions.Date | Absolute:[27.02.1971 01:00:00, +0d] |
     Then UI Generate and Validate Forensics With Name "Forensic Time" with Timeout of 300 Seconds
     And UI Click Button "Views.report" with value "Forensic Time"
     Then UI Validate "Report.Table" Table rows count equal to 2
@@ -281,6 +284,7 @@ Feature: Forensic Time Selection
     When UI Delete "Forensic Time" and Approve
 
    ######################   QUICK TODAY   ########################################################
+
 
   @SID_14
   Scenario: Forensic Quick Range Today
