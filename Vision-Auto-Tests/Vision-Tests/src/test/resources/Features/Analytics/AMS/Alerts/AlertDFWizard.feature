@@ -5,6 +5,7 @@ Feature: VRM AW Alerts
   Scenario: Clean system data
     * CLI kill all simulator attacks on current vision
     Then CLI Run remote linux Command "echo "cleared" $(date) > /var/spool/mail/alertuser" on "GENERIC_LINUX_SERVER"
+    Then CLI Run remote linux Command "/opt/radware/mgt-server/bin/collectors_service.sh restart" on "ROOT_SERVER_CLI" with timeOut 720
     * CLI Clear vision logs
 
 

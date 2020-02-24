@@ -118,8 +118,7 @@ Feature: create AMS Report New Form
   @SID_15
   Scenario: login
     Given UI Login with user "sys_admin" and password "radware"
-    When UI Open Upper Bar Item "AMS"
-    When UI Open "Reports" Tab
+    And UI Navigate to "AMS Reports" page via homePage
 
   @SID_16
   Scenario: validate error message without report name
@@ -183,7 +182,6 @@ Feature: create AMS Report New Form
     Then UI Validate Text field "Error Title" EQUALS "Unable to submit form"
     Then UI Validate Text field "Error Message" EQUALS "To submit, you must fill in all marked fields*"
     Then UI Click Button "Error Ok"
-#    Then UI Click Button "Close Message"
     Then UI Click Button "Close"
 
   @SID_24
@@ -240,27 +238,14 @@ Feature: create AMS Report New Form
     Given UI "Create" Report With Name "aaaa"
       | reportType | DefensePro Behavioral Protections Dashboard |
       | Design     | Delete:[ALL], Add:[ALL]                     |
-#    Then UI Click Button "Widgets Selection Cancel"
-#    Then UI Click Button "Cancel"
 
   @SID_30
   Scenario: Create DefensePro Analytics Dashboard Report with all the widgets
     Given UI "Create" Report With Name "DeleteAllReport"
       | reportType | DefensePro Analytics Dashboard                           |
       | Design     | Delete:[ALL], Add:[Top Attacks,Top Attacks by Bandwidth] |
-#    Then UI Click Button "Widgets Selection Cancel"
-#    Then UI Click Button "Cancel"
 
-#  @SID_31
-#  Scenario: AMS Reports - Save widgets after click on Cancel button
-#    Given UI Validate Reports Design Drag and Drop
-#      | reportType | DefensePro Analytics Dashboard                          |
-#      | Design     | Add:[Top Attack Sources,Top Scanners,Traffic Bandwidth] |
-#    Then UI Click Button "Widgets Selection Cancel"
-#    Then UI Validate Text field "Confirm Save Title" EQUALS "Cancel"
-#    Then UI Validate Text field "Confirm Save Message" EQUALS "Cancel"
-
-  @SID_32
+  @SID_31
   Scenario: Report Form Header with name
     When UI Click Button "Add New"
     When UI Set Text Field "Wizard Report Name" To "name"
@@ -269,7 +254,7 @@ Feature: create AMS Report New Form
     Then UI Validate Text field "Name Of Collapsed" EQUALS "name"
     When UI Click Button "Cancel"
 
-  @SID_33
+  @SID_32
   Scenario: Report Form Header without name
     When UI Click Button "Add New"
     And UI Click Button "Arrow Toggle"
@@ -277,7 +262,7 @@ Feature: create AMS Report New Form
     Then UI validate arrow with label "Title Template" and params "" if "COLLAPSED"
     When UI Click Button "Cancel"
 
-  @SID_34
+  @SID_33
   Scenario: Cleanup
     Given UI logout and close browser
     * CLI Check if logs contains
