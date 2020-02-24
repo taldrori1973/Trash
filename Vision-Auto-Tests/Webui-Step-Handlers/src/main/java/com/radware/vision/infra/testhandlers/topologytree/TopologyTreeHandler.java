@@ -24,6 +24,7 @@ import com.radware.vision.infra.utils.MouseUtils;
 import com.radware.vision.infra.utils.ReportsUtils;
 import com.radware.vision.infra.utils.WebUIStringsVision;
 import org.openqa.selenium.By;
+import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.StaleElementReferenceException;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.How;
@@ -762,8 +763,9 @@ public class TopologyTreeHandler {
 
         Iterator<WebElement> itr = devices.iterator();
         WebElement currentSiteInTree;
-        while (itr.hasNext()) {
-            currentSiteInTree = itr.next();
+        int i=0;
+        while (i < devices.size()){
+            currentSiteInTree = devices.get(i);
             try {
                 if (!ClickOperationsHandler.checkIfElementAttributeContains(currentSiteInTree, "id", "Default")) {
                     setDeviceName(currentSiteInTree.getText());
@@ -775,9 +777,9 @@ public class TopologyTreeHandler {
                         return true;
                     }
                 }
-            } catch (StaleElementReferenceException e) {
-
-                itr = WebUIUtils.fluentWaitMultiple(By.xpath(xpathDevicePrefix)).iterator();
+                i++;
+            } catch (StaleElementReferenceException| NoSuchElementException e) {
+                devices = WebUIUtils.fluentWaitMultiple(By.xpath(xpathDevicePrefix));
             }
         }
 
