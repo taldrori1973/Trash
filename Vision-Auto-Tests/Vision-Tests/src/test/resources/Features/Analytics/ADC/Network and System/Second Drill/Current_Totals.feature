@@ -81,7 +81,5 @@ Feature: ADC dashboard Current Totals Widget
   @SID_11
   Scenario: CleanUp
     Then REST Delete Device By IP "50.50.101.31"
-    Then REST Delete "Alteon" device with index 21 from topology tree
-    Then REST Delete "Alteon" device with index 22 from topology tree
     Then REST Delete Device By IP "50.50.101.32"
     Then UI logout and close browser
