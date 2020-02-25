@@ -41,7 +41,7 @@ Feature: Backup and Restore
     * REST Login with activation with user "radware" and password "radware"
     * REST Vision Install License Request "vision-AVA-Max-attack-capacity"
     * REST Vision Install License Request "vision-reporting-module-ADC"
-    * REST Vision Install License Request "RTUMAX"
+    * REST Vision Install License Request "vision-RTUMAX"
 
 
   @SID_8
