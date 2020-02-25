@@ -36,6 +36,7 @@ public class UpgradeSteps extends BddCliTestBase {
             validateVisionServerServicesUP();
             CliOperations.runCommand(getRestTestBase().getRootServerCli(), "\"yes|restore_radware_user_password\"", 15 * 1000);
         } catch (Exception e) {
+            BaseTestUtils.report("Setup Failed changing server to OFFLINE", Reporter.FAIL);
             BaseTestUtils.report(e.getMessage(), Reporter.FAIL);
         }
     }
