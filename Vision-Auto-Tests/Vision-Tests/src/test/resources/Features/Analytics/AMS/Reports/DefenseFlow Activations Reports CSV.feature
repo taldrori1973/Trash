@@ -1,5 +1,340 @@
 @TC113494
 Feature: DefenseFlow Activations Reports CSV
+
+  @SID_13
+  Scenario: revert DefenseFlow to snapshot
+    Then Revert DefenseFlow to snapshot
+    * CLI kill all simulator attacks on current vision
+    * REST Vision Install License Request "vision-AVA-Max-attack-capacity"
+    * REST Delete ES index "df-attack*"
+    * CLI Clear vision logs
+
+  @SID_14
+  Scenario: Start Attack PO_101
+    Given That Current Vision is Logged In
+    Given New Request Specification from File "DefenseFlow/ExternalAttackDetection" with label "Attack Start"
+    Given The Request Body is the following Object
+      | jsonPath                             | value                                   |
+      | $.attackVolume.packetsPerSecond      | 1087000000                              |
+      | $.attackVolume.bytesPerSecond        | 13921400000                             |
+      | $.protectedObjectName                | "PO_101"                                |
+      | $.externalAttackId                   | "85e6777f-75f4-4515-be96-1bb9e6997a102" |
+      | $.networksDetails.networks[0].ip     | "70.71.0.0"                             |
+      | $.networksDetails.networks[0].prefix | "32"                                    |
+      | $.protocol                           | "UDP"                                   |
+      | $.sourcePort                         | 80                                      |
+      | $.destinationPort                    | 80                                      |
+      | $.sourceNetworks.networks[0].ip      | "70.71.0.0"                             |
+      | $.sourceNetworks.networks[0].prefix  | "32"                                    |
+    When Send Request with the Given Specification
+    Then Validate That Response Status Code Is OK
+    Then Validate That Response Body Contains
+      | jsonPath | value |
+      | $.status | "ok"  |
+
+  @SID_15
+  Scenario: Start Attack PO_102
+    Given That Current Vision is Logged In
+    Given New Request Specification from File "DefenseFlow/ExternalAttackDetection" with label "Attack Start"
+    Given The Request Body is the following Object
+      | jsonPath                             | value                                   |
+      | $.attackVolume.packetsPerSecond      | 2087000000                              |
+      | $.attackVolume.bytesPerSecond        | 23921400000                             |
+      | $.protectedObjectName                | "PO_102"                                |
+      | $.externalAttackId                   | "85e6777f-75f4-4515-be96-1bb9e6997a102" |
+      | $.networksDetails.networks[0].ip     | "70.72.0.0"                             |
+      | $.networksDetails.networks[0].prefix | "32"                                    |
+      | $.protocol                           | "UDP"                                   |
+      | $.sourcePort                         | 80                                      |
+      | $.destinationPort                    | 80                                      |
+      | $.sourceNetworks.networks[0].ip      | "70.72.0.0"                             |
+      | $.sourceNetworks.networks[0].prefix  | "32"                                    |
+    When Send Request with the Given Specification
+    Then Validate That Response Status Code Is OK
+    Then Validate That Response Body Contains
+      | jsonPath | value |
+      | $.status | "ok"  |
+
+  @SID_16
+  Scenario: Start Attack PO_103
+    Given That Current Vision is Logged In
+    Given New Request Specification from File "DefenseFlow/ExternalAttackDetection" with label "Attack Start"
+    Given The Request Body is the following Object
+      | jsonPath                             | value                                   |
+      | $.attackVolume.packetsPerSecond      | 3087000000                              |
+      | $.attackVolume.bytesPerSecond        | 33921400000                             |
+      | $.protectedObjectName                | "PO_103"                                |
+      | $.externalAttackId                   | "85e6777f-75f4-4515-be96-1bb9e6997a103" |
+      | $.networksDetails.networks[0].ip     | "70.73.0.0"                             |
+      | $.networksDetails.networks[0].prefix | "32"                                    |
+      | $.protocol                           | "UDP"                                   |
+      | $.sourcePort                         | 80                                      |
+      | $.destinationPort                    | 80                                      |
+      | $.sourceNetworks.networks[0].ip      | "70.73.0.0"                             |
+      | $.sourceNetworks.networks[0].prefix  | "32"                                    |
+    When Send Request with the Given Specification
+    Then Validate That Response Status Code Is OK
+    Then Validate That Response Body Contains
+      | jsonPath | value |
+      | $.status | "ok"  |
+
+  @SID_17
+  Scenario: Start Attack PO_104
+    Given That Current Vision is Logged In
+    Given New Request Specification from File "DefenseFlow/ExternalAttackDetection" with label "Attack Start"
+    Given The Request Body is the following Object
+      | jsonPath                             | value                                   |
+      | $.attackVolume.packetsPerSecond      | 4087000000                              |
+      | $.attackVolume.bytesPerSecond        | 43921400000                             |
+      | $.protectedObjectName                | "PO_104"                                |
+      | $.externalAttackId                   | "85e6777f-75f4-4515-be96-1bb9e6997a104" |
+      | $.networksDetails.networks[0].ip     | "70.74.0.0"                             |
+      | $.networksDetails.networks[0].prefix | "32"                                    |
+      | $.protocol                           | "UDP"                                   |
+      | $.sourcePort                         | 80                                      |
+      | $.destinationPort                    | 80                                      |
+      | $.sourceNetworks.networks[0].ip      | "70.74.0.0"                             |
+      | $.sourceNetworks.networks[0].prefix  | "32"                                    |
+    When Send Request with the Given Specification
+    Then Validate That Response Status Code Is OK
+    Then Validate That Response Body Contains
+      | jsonPath | value |
+      | $.status | "ok"  |
+
+  @SID_18
+  Scenario: Start Attack PO_105
+    Given That Current Vision is Logged In
+    Given New Request Specification from File "DefenseFlow/ExternalAttackDetection" with label "Attack Start"
+    Given The Request Body is the following Object
+      | jsonPath                             | value                                   |
+      | $.attackVolume.packetsPerSecond      | 5087000000                              |
+      | $.attackVolume.bytesPerSecond        | 53921400000                             |
+      | $.protectedObjectName                | "PO_105"                                |
+      | $.externalAttackId                   | "85e6777f-75f4-4515-be96-1bb9e6997a105" |
+      | $.networksDetails.networks[0].ip     | "70.75.0.0"                             |
+      | $.networksDetails.networks[0].prefix | "32"                                    |
+      | $.protocol                           | "UDP"                                   |
+      | $.sourcePort                         | 80                                      |
+      | $.destinationPort                    | 80                                      |
+      | $.sourceNetworks.networks[0].ip      | "70.75.0.0"                             |
+      | $.sourceNetworks.networks[0].prefix  | "32"                                    |
+    When Send Request with the Given Specification
+    Then Validate That Response Status Code Is OK
+    Then Validate That Response Body Contains
+      | jsonPath | value |
+      | $.status | "ok"  |
+
+  @SID_19
+  Scenario: Start Attack PO_106
+    Given That Current Vision is Logged In
+    Given New Request Specification from File "DefenseFlow/ExternalAttackDetection" with label "Attack Start"
+    Given The Request Body is the following Object
+      | jsonPath                             | value                                   |
+      | $.attackVolume.packetsPerSecond      | 6087000000                              |
+      | $.attackVolume.bytesPerSecond        | 63921400000                             |
+      | $.protectedObjectName                | "PO_106"                                |
+      | $.externalAttackId                   | "85e6777f-75f4-4515-be96-1bb9e6997a106" |
+      | $.networksDetails.networks[0].ip     | "70.76.0.0"                             |
+      | $.networksDetails.networks[0].prefix | "32"                                    |
+      | $.protocol                           | "UDP"                                   |
+      | $.sourcePort                         | 80                                      |
+      | $.destinationPort                    | 80                                      |
+      | $.sourceNetworks.networks[0].ip      | "70.76.0.0"                             |
+      | $.sourceNetworks.networks[0].prefix  | "32"                                    |
+    When Send Request with the Given Specification
+    Then Validate That Response Status Code Is OK
+    Then Validate That Response Body Contains
+      | jsonPath | value |
+      | $.status | "ok"  |
+
+  @SID_20
+  Scenario: Start Attack PO_107
+    Given That Current Vision is Logged In
+    Given New Request Specification from File "DefenseFlow/ExternalAttackDetection" with label "Attack Start"
+    Given The Request Body is the following Object
+      | jsonPath                             | value                                   |
+      | $.attackVolume.packetsPerSecond      | 7087000000                              |
+      | $.attackVolume.bytesPerSecond        | 73921400000                             |
+      | $.protectedObjectName                | "PO_107"                                |
+      | $.externalAttackId                   | "85e6777f-75f4-4515-be96-1bb9e6997a107" |
+      | $.networksDetails.networks[0].ip     | "70.77.0.0"                             |
+      | $.networksDetails.networks[0].prefix | "32"                                    |
+      | $.protocol                           | "UDP"                                   |
+      | $.sourcePort                         | 80                                      |
+      | $.destinationPort                    | 80                                      |
+      | $.sourceNetworks.networks[0].ip      | "70.77.0.0"                             |
+      | $.sourceNetworks.networks[0].prefix  | "32"                                    |
+    When Send Request with the Given Specification
+    Then Validate That Response Status Code Is OK
+    Then Validate That Response Body Contains
+      | jsonPath | value |
+      | $.status | "ok"  |
+
+  @SID_21
+  Scenario: Start Attack PO_108
+    Given That Current Vision is Logged In
+    Given New Request Specification from File "DefenseFlow/ExternalAttackDetection" with label "Attack Start"
+    Given The Request Body is the following Object
+      | jsonPath                             | value                                   |
+      | $.attackVolume.packetsPerSecond      | 8087000000                              |
+      | $.attackVolume.bytesPerSecond        | 83921400000                             |
+      | $.protectedObjectName                | "PO_108"                                |
+      | $.externalAttackId                   | "85e6777f-75f4-4515-be96-1bb9e6997a108" |
+      | $.networksDetails.networks[0].ip     | "70.78.0.0"                             |
+      | $.networksDetails.networks[0].prefix | "32"                                    |
+      | $.protocol                           | "UDP"                                   |
+      | $.sourcePort                         | 80                                      |
+      | $.destinationPort                    | 80                                      |
+      | $.sourceNetworks.networks[0].ip      | "70.78.0.0"                             |
+      | $.sourceNetworks.networks[0].prefix  | "32"                                    |
+    When Send Request with the Given Specification
+    Then Validate That Response Status Code Is OK
+    Then Validate That Response Body Contains
+      | jsonPath | value |
+      | $.status | "ok"  |
+
+  @SID_22
+  Scenario: Start Attack PO_109
+    Given That Current Vision is Logged In
+    Given New Request Specification from File "DefenseFlow/ExternalAttackDetection" with label "Attack Start"
+    Given The Request Body is the following Object
+      | jsonPath                             | value                                   |
+      | $.attackVolume.packetsPerSecond      | 9087000000                              |
+      | $.attackVolume.bytesPerSecond        | 93921400000                             |
+      | $.protectedObjectName                | "PO_109"                                |
+      | $.externalAttackId                   | "85e6777f-75f4-4515-be96-1bb9e6997a109" |
+      | $.networksDetails.networks[0].ip     | "70.79.0.0"                             |
+      | $.networksDetails.networks[0].prefix | "32"                                    |
+      | $.protocol                           | "UDP"                                   |
+      | $.sourcePort                         | 80                                      |
+      | $.destinationPort                    | 80                                      |
+      | $.sourceNetworks.networks[0].ip      | "70.79.0.0"                             |
+      | $.sourceNetworks.networks[0].prefix  | "32"                                    |
+    When Send Request with the Given Specification
+    Then Validate That Response Status Code Is OK
+    Then Validate That Response Body Contains
+      | jsonPath | value |
+      | $.status | "ok"  |
+
+  @SID_23
+  Scenario: Start Attack PO_111
+    Given That Current Vision is Logged In
+    Given New Request Specification from File "DefenseFlow/ExternalAttackDetection" with label "Attack Start"
+    Given The Request Body is the following Object
+      | jsonPath                             | value                                   |
+      | $.attackVolume.packetsPerSecond      | 11087000000                             |
+      | $.attackVolume.bytesPerSecond        | 113921400000                            |
+      | $.protectedObjectName                | "PO_111"                                |
+      | $.externalAttackId                   | "85e6777f-75f4-4515-be96-1bb9e6997a111" |
+      | $.networksDetails.networks[0].ip     | "80.71.0.0"                             |
+      | $.networksDetails.networks[0].prefix | "32"                                    |
+      | $.protocol                           | "UDP"                                   |
+      | $.sourcePort                         | 80                                      |
+      | $.destinationPort                    | 80                                      |
+      | $.sourceNetworks.networks[0].ip      | "80.71.0.0"                             |
+      | $.sourceNetworks.networks[0].prefix  | "32"                                    |
+    When Send Request with the Given Specification
+    Then Validate That Response Status Code Is OK
+    Then Validate That Response Body Contains
+      | jsonPath | value |
+      | $.status | "ok"  |
+
+  @SID_24
+  Scenario: Start Attack PO_112
+    Given That Current Vision is Logged In
+    Given New Request Specification from File "DefenseFlow/ExternalAttackDetection" with label "Attack Start"
+    Given The Request Body is the following Object
+      | jsonPath                             | value                                   |
+      | $.attackVolume.packetsPerSecond      | 12087000000                             |
+      | $.attackVolume.bytesPerSecond        | 123921400000                            |
+      | $.protectedObjectName                | "PO_112"                                |
+      | $.externalAttackId                   | "85e6777f-75f4-4515-be96-1bb9e6997a112" |
+      | $.networksDetails.networks[0].ip     | "80.72.0.0"                             |
+      | $.networksDetails.networks[0].prefix | "32"                                    |
+      | $.protocol                           | "UDP"                                   |
+      | $.sourcePort                         | 80                                      |
+      | $.destinationPort                    | 80                                      |
+      | $.sourceNetworks.networks[0].ip      | "80.72.0.0"                             |
+      | $.sourceNetworks.networks[0].prefix  | "32"                                    |
+    When Send Request with the Given Specification
+    Then Validate That Response Status Code Is OK
+    Then Validate That Response Body Contains
+      | jsonPath | value |
+      | $.status | "ok"  |
+
+  @SID_25
+  Scenario: Start Attack PO_113
+    Given That Current Vision is Logged In
+    Given New Request Specification from File "DefenseFlow/ExternalAttackDetection" with label "Attack Start"
+    Given The Request Body is the following Object
+      | jsonPath                             | value                                   |
+      | $.attackVolume.packetsPerSecond      | 13087000000                             |
+      | $.attackVolume.bytesPerSecond        | 133921400000                            |
+      | $.protectedObjectName                | "PO_113"                                |
+      | $.externalAttackId                   | "85e6777f-75f4-4515-be96-1bb9e6997a113" |
+      | $.networksDetails.networks[0].ip     | "80.73.0.0"                             |
+      | $.networksDetails.networks[0].prefix | "32"                                    |
+      | $.protocol                           | "UDP"                                   |
+      | $.sourcePort                         | 80                                      |
+      | $.destinationPort                    | 80                                      |
+      | $.sourceNetworks.networks[0].ip      | "80.73.0.0"                             |
+      | $.sourceNetworks.networks[0].prefix  | "32"                                    |
+    When Send Request with the Given Specification
+    Then Validate That Response Status Code Is OK
+    Then Validate That Response Body Contains
+      | jsonPath | value |
+      | $.status | "ok"  |
+
+  @SID_26
+  Scenario: Start Attack PO_114
+    Given That Current Vision is Logged In
+    Given New Request Specification from File "DefenseFlow/ExternalAttackDetection" with label "Attack Start"
+    Given The Request Body is the following Object
+      | jsonPath                             | value                                   |
+      | $.attackVolume.packetsPerSecond      | 14087000000                             |
+      | $.attackVolume.bytesPerSecond        | 143921400000                            |
+      | $.protectedObjectName                | "PO_114"                                |
+      | $.externalAttackId                   | "85e6777f-75f4-4515-be96-1bb9e6997a114" |
+      | $.networksDetails.networks[0].ip     | "80.74.0.0"                             |
+      | $.networksDetails.networks[0].prefix | "32"                                    |
+      | $.protocol                           | "UDP"                                   |
+      | $.sourcePort                         | 80                                      |
+      | $.destinationPort                    | 80                                      |
+      | $.sourceNetworks.networks[0].ip      | "80.74.0.0"                             |
+      | $.sourceNetworks.networks[0].prefix  | "32"                                    |
+    When Send Request with the Given Specification
+    Then Validate That Response Status Code Is OK
+    Then Validate That Response Body Contains
+      | jsonPath | value |
+      | $.status | "ok"  |
+
+  @SID_27
+  Scenario: Start Attack PO_115
+    Given That Current Vision is Logged In
+    Given New Request Specification from File "DefenseFlow/ExternalAttackDetection" with label "Attack Start"
+    Given The Request Body is the following Object
+      | jsonPath                             | value                                   |
+      | $.attackVolume.packetsPerSecond      | 15087000000                             |
+      | $.attackVolume.bytesPerSecond        | 153921400000                            |
+      | $.protectedObjectName                | "PO_115"                                |
+      | $.externalAttackId                   | "85e6777f-75f4-4515-be96-1bb9e6997a115" |
+      | $.networksDetails.networks[0].ip     | "80.75.0.0"                             |
+      | $.networksDetails.networks[0].prefix | "32"                                    |
+      | $.protocol                           | "UDP"                                   |
+      | $.sourcePort                         | 80                                      |
+      | $.destinationPort                    | 80                                      |
+      | $.sourceNetworks.networks[0].ip      | "80.75.0.0"                             |
+      | $.sourceNetworks.networks[0].prefix  | "32"                                    |
+    When Send Request with the Given Specification
+    Then Validate That Response Status Code Is OK
+    Then Validate That Response Body Contains
+      | jsonPath | value |
+      | $.status | "ok"  |
+
+  @SID_28
+  Scenario: waiting to fetch Data from DefenseFlow
+    Then Sleep "300"
+
   @SID_1
   Scenario: keep reports copy on file system
     Then CLI Run remote linux Command "sed -i 's/vrm.scheduled.reports.delete.after.delivery=.*$/vrm.scheduled.reports.delete.after.delivery=false/g' /opt/radware/mgt-server/third-party/tomcat/conf/reporter.properties" on "ROOT_SERVER_CLI"
@@ -87,6 +422,7 @@ Feature: DefenseFlow Activations Reports CSV
     Then CLI Run linux Command "cat /opt/radware/mgt-server/third-party/tomcat/bin/"Top_10 Attacks by Rate (Mpps).csv"|head -10|tail -1|grep 1,6087000000,6,PO_106,70.76.0.0/32|wc -l " on "ROOT_SERVER_CLI" and validate result EQUALS "1"
     Then CLI Run linux Command "cat /opt/radware/mgt-server/third-party/tomcat/bin/"Top_10 Attacks by Rate (Mpps).csv"|head -11|tail -1|grep 1,5087000000,5,PO_105,70.75.0.0/32|wc -l " on "ROOT_SERVER_CLI" and validate result EQUALS "1"
 
+  @SID_12
   Scenario: Cleanup
     Given UI logout and close browser
     * CLI Check if logs contains

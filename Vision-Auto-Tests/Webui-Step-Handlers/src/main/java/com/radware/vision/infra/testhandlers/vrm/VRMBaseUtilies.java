@@ -1260,6 +1260,9 @@ public class VRMBaseUtilies {
                     case "HTML":
                         ExportText = "html";
                         break;
+                    case "CSV_WITH_DETAILS":
+                        ExportText = "csv_with_details";
+                        break;
                 }
                 BasicOperationsHandler.clickButton("Report Format", ExportText);
             } else {
