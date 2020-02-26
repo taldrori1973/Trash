@@ -55,6 +55,7 @@ Feature: Forensics Delivery
     Given UI Login with user "sys_admin" and password "radware"
     Then UI Navigate to "AMS Forensics" page via homepage
     Then UI Generate and Validate Forensics With Name "Email Validate" with Timeout of 300 Seconds
+    Then Sleep "5"
 
   @SID_6
   Scenario: validate Forensics Report email no ftp format HTML

@@ -24,13 +24,7 @@ Feature: VRM ADC Application dashboard 3rd Drill
   @SID_4
   Scenario: Login
     When UI Login with user "sys_admin" and password "radware"
-    Then UI Open Upper Bar Item "ADC"
-    Then UI Open "Dashboards" Tab
-    Then UI Open "Application Dashboard" Sub Tab
-    Then UI Open "Configurations" Tab
-    Then UI Open Upper Bar Item "ADC"
-    Then UI Open "Dashboards" Tab
-    Then UI Open "Application Dashboard" Sub Tab
+    Then UI Navigate to "Application Dashboard" page via homePage
 
 
   @SID_5
@@ -66,7 +60,7 @@ Feature: VRM ADC Application dashboard 3rd Drill
       | 59    | 30    | 2      |
 
   @SID_8
-  Scenario: Validate Conetent Rule Expand Row Connections per Second widget
+  Scenario: Validate Content Rule Expand Row Connections per Second widget
     Then UI Validate Line Chart data "CONTENT RULE EXPAND ROW CPS" with Label "1"
       | value | count | offset |
       | 31    | 30    | 2      |
@@ -84,7 +78,7 @@ Feature: VRM ADC Application dashboard 3rd Drill
       | 61    | 30    | 2      |
 
   @SID_9
-  Scenario: Validate Conetent Rule Expand Row Concurrent Connections widget
+  Scenario: Validate Content Rule Expand Row Concurrent Connections widget
     Then UI Validate Line Chart data "CONTENT RULE EXPAND ROW CONCURRENT CONNECTIONS" with Label "1"
       | value | count | offset |
       | 32    | 30    | 2      |
@@ -102,7 +96,7 @@ Feature: VRM ADC Application dashboard 3rd Drill
       | 62    | 30    | 2      |
 
   @SID_10
-  Scenario: Validate Validate Conetent Rule Expand Row Current texts
+  Scenario: Validate Validate Content Rule Expand Row Current texts
     Then UI Text of "Throughput current" with extension "2-Rejith_32326515:80" equal to "Current 259"
     Then UI Text of "cps current" with extension "2-Rejith_32326515:80" equal to "Current 270"
     Then UI Text of "Concurrent Connections current" with extension "2-Rejith_32326515:80" equal to "Current 272"
@@ -114,7 +108,7 @@ Feature: VRM ADC Application dashboard 3rd Drill
     Then UI Click Button "filter by" with value "Rejith_32326515:80-legend-list-item-Real1-filter"
 
   @SID_12
-  Scenario: Validate Conetent Rule Expand Row THROUGHPUT widget
+  Scenario: Validate Content Rule Expand Row THROUGHPUT widget
     Then UI Validate Line Chart data "CONTENT RULE EXPAND ROW THROUGHPUT" with Label "1"
       | value | count | offset |
       | 29    | 30    | 2      |
@@ -129,7 +123,7 @@ Feature: VRM ADC Application dashboard 3rd Drill
       | 59    | 30    | 2      |
 
   @SID_13
-  Scenario: Validate Conetent Rule Expand Row Connections per Second widget
+  Scenario: Validate Content Rule Expand Row Connections per Second widget
     Then UI Validate Line Chart data "CONTENT RULE EXPAND ROW CPS" with Label "1"
       | value | count | offset |
       | 31    | 30    | 2      |
@@ -144,7 +138,7 @@ Feature: VRM ADC Application dashboard 3rd Drill
       | 61    | 30    | 2      |
 
   @SID_14
-  Scenario: Validate Conetent Rule Expand Row Concurrent Connections widget
+  Scenario: Validate Content Rule Expand Row Concurrent Connections widget
     Then UI Validate Line Chart data "CONTENT RULE EXPAND ROW CONCURRENT CONNECTIONS" with Label "1"
       | value | count | offset |
       | 32    | 30    | 2      |
@@ -159,7 +153,7 @@ Feature: VRM ADC Application dashboard 3rd Drill
       | 62    | 30    | 2      |
 
   @SID_15
-  Scenario: Validate Validate Conetent Rule Expand Row Current texts after filter.
+  Scenario: Validate Content Rule Expand Row Current texts after filter.
     Then UI Text of "Throughput current" with extension "2-Rejith_32326515:80" equal to "Current 171"
     Then UI Text of "cps current" with extension "2-Rejith_32326515:80" equal to "Current 177"
     Then UI Text of "Concurrent Connections current" with extension "2-Rejith_32326515:80" equal to "Current 180"

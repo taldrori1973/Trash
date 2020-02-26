@@ -72,6 +72,7 @@ Feature: System And Network - Device List
 
   @SID_7
   Scenario: Navigation
+    Then UI Navigate to "Application Dashboard" page via homePage
     Then UI Open Upper Bar Item "ADC"
     Then UI Open "Dashboards" Tab
     And UI Open "Network and System Dashboard" Sub Tab
