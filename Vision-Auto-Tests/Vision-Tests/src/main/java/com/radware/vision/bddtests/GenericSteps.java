@@ -20,6 +20,7 @@ import com.radware.vision.infra.testhandlers.baseoperations.clickoperations.Clic
 import com.radware.vision.infra.testhandlers.vrm.VRMHandler;
 import com.radware.vision.infra.testhandlers.vrm.VRMReportsHandler;
 import com.radware.vision.infra.utils.ReportsUtils;
+import cucumber.api.java.en.And;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
@@ -380,6 +381,11 @@ public class GenericSteps extends BddUITestBase {
             BaseTestUtils.report(e.getMessage(), Reporter.FAIL);
         }
 
+    }
+
+    @And("^UI Click Button by Attribute: \"([^\"]*)\" and value: \"([^\"]*)\"( negative)?$")
+    public void uiClickButtonByAttribute(String attribute, String value, String negative) {
+        WebUIUtils.fluentWait(ComponentLocatorFactory.getCssLocatorByAttribute(attribute, value).getBy()).click();
     }
 
 
