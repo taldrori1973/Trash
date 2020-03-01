@@ -66,8 +66,7 @@ Feature: VRM Alerts Delivery
   
   @SID_9
   Scenario: Verify Alert Email Delivery Sender
-    Then CLI Run linux Command "grep "From: Automation system <qa_test@Radware.com>" /var/spool/mail/alertuser |wc -l" on "GENERIC_LINUX_SERVER" and validate result EQUALS "2"
-    Then CLI Run linux Command "grep "From: " /var/spool/mail/alertuser" on "GENERIC_LINUX_SERVER" and validate result EQUALS "0"
+    Then CLI Run linux Command "grep "From: APSolute Vision <qa_test@Radware.com>" /var/spool/mail/alertuser |wc -l" on "GENERIC_LINUX_SERVER" and validate result EQUALS "2"
   
   @SID_10
   Scenario: Verify Alert Email Delivery recipient
