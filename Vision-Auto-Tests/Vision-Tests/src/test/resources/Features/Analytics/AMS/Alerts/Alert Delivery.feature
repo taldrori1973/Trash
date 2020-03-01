@@ -30,7 +30,7 @@ Feature: VRM Alerts Delivery
     And UI Click Button "Submit"
     And UI Navigate to "AMS Alerts" page via homePage
 
-
+  
   @SID_3
   Scenario: Create Alert Delivery
     When UI "Create" Alerts With Name "Alert Delivery"
@@ -62,10 +62,11 @@ Feature: VRM Alerts Delivery
   @SID_8
   Scenario: Verify Alert Email Delivery Impact
     Then CLI Run linux Command "cat /var/spool/mail/alertuser|tr -d "="|tr -d "\n"|grep -o "<td>Impact</td>    <td>Our network is down</td>" |wc -l" on "GENERIC_LINUX_SERVER" and validate result EQUALS "2"
+
   
   @SID_9
   Scenario: Verify Alert Email Delivery Sender
-    Then CLI Run linux Command "grep "From: APSolute Vision <qa_test@Radware.com>" /var/spool/mail/alertuser |wc -l" on "GENERIC_LINUX_SERVER" and validate result EQUALS "2"
+    Then CLI Run linux Command "grep "From: Automation system <qa_test@Radware.com>" /var/spool/mail/alertuser |wc -l" on "GENERIC_LINUX_SERVER" and validate result EQUALS "2"
   
   @SID_10
   Scenario: Verify Alert Email Delivery recipient
