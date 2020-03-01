@@ -118,7 +118,7 @@ Feature: AMS DefenseFlow Attacks Dashboard
 
   @SID_6
   Scenario: Validate TOP Attacks Bandwidth - All POs
-    Then UI Validate StackBar data with widget "Top Attacks by Bandwidth"
+    Then UI Validate StackBar data with widget "Top Attacks by Rate"
       | label  | value     | legendName                 |
       | PO_100 | 46853020  | DOSS-NTP-monlist-flood     |
       | PO_200 | 33339620  | DOSS-NTP-monlist-flood     |
@@ -346,7 +346,7 @@ Feature: AMS DefenseFlow Attacks Dashboard
 
   @SID_15
   Scenario: Validate Attacks Bandwidth - part of POs
-    Then UI Validate StackBar data with widget "Top Attacks by Bandwidth"
+    Then UI Validate StackBar data with widget "Top Attacks by Rate"
       | label  | value     | legendName                 | exist |
       | PO_100 | 46853020  | DOSS-NTP-monlist-flood     | true  |
       | PO_200 | 33339620  | DOSS-NTP-monlist-flood     | true  |
