@@ -76,7 +76,7 @@ public class ToolboxHandler {
     }
 
     public static void deleteActionFromGroup(ToolboxActionsEnum actionName, ToolboxGroupsEnum actionParentGroupName) throws Exception {
-        navigateToToolbox();
+//        navigateToToolbox();
         if (!checkIfActionExistsUnderGroup(actionName, actionParentGroupName)) {
             throw new Exception("\"" + actionName.getActionName() + "\" Action does not exist under " + "\"" + actionParentGroupName.toString() + "\" Group");
         }
@@ -99,7 +99,7 @@ public class ToolboxHandler {
     }
 
     public static void runActionFromGroup(ToolboxActionsEnum actionName, ToolboxGroupsEnum actionParentGroupName) throws Exception {
-        navigateToToolbox();
+//        navigateToToolbox();
         if (!checkIfActionExistsUnderGroup(actionName, actionParentGroupName)) {
             throw new Exception("\"" + actionName.getActionName() + "\" Action does not exist under " + "\"" + actionParentGroupName.toString() + "\" Group");
         }
@@ -118,7 +118,7 @@ public class ToolboxHandler {
     }
 
     public static void runWithParams(ToolboxActionsEnum actionName, ToolboxGroupsEnum actionParentGroupName) throws Exception {
-        navigateToToolbox();
+//        navigateToToolbox();
         if (!checkIfActionExistsUnderGroup(actionName, actionParentGroupName)) {
             throw new Exception("\"" + actionName.getActionName() + "\" Action does not exist under " + "\"" + actionParentGroupName.toString() + "\" Group");
         }
@@ -134,7 +134,7 @@ public class ToolboxHandler {
     /*compare the copied output after running the script
     with the output we get by click on "shoe previous result button"*/
     public static void showPreviousResultAndCompare(ToolboxActionsEnum actionName, ToolboxGroupsEnum actionParentGroupName, String result) throws Exception {
-        navigateToToolbox();
+//        navigateToToolbox();
         if (!checkIfActionExistsUnderGroup(actionName, actionParentGroupName)) {
             throw new Exception("\"" + actionName.getActionName() + "\" Action does not exist under " + "\"" + actionParentGroupName.toString() + "\" Group");
         }
@@ -171,7 +171,7 @@ public class ToolboxHandler {
     }
 
     public static void scheduleActionFromGroup(ToolboxActionsEnum actionName, ToolboxGroupsEnum actionParentGroupName) throws Exception {
-        navigateToToolbox();
+//        navigateToToolbox();
         if (!checkIfActionExistsUnderGroup(actionName, actionParentGroupName)) {
             throw new Exception("\"" + actionName.getActionName() + "\" Action does not exist under " + "\"" + actionParentGroupName.toString() + "\" Group");
         }

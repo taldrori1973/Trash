@@ -27,7 +27,6 @@ Feature: Defense Flow Forensic Wizard
       | #visionIP |
       | " Terminated" |
 
-
   @SID_4 @Sanity
   Scenario: create forensic definition Wizard_test
     Given UI "Create" Forensics With Name "Wizard_test"
@@ -35,21 +34,32 @@ Feature: Defense Flow Forensic Wizard
       | Output  | Start Time, End Time, Attack Name, Action, Attack ID, Policy Name, Source IP Address, Source Port, Max pps, Max bps |
       | Time Definitions.Date | Quick:1D |
       | Format | Select: CSV |
-      | Share  | FTP:checked, FTP.Location:172.17.164.10, FTP.Path:/home/radware/ftp/, FTP.Username:radware, FTP.Password:radware                                                                                                                               |
-    And Sleep "120"
+      | Share  | FTP:checked, FTP.Location:172.17.164.10, FTP.Path:/home/radware/ftp/, FTP.Username:radware, FTP.Password:radware |
 
   @SID_5 @Sanity
+  Scenario: create forensic definition Second_view
+    Given UI "Create" Forensics With Name "Criteria_View"
+      | Product | DefenseFlow |
+      | Criteria | Event Criteria:Attack Name,Operator:Equals,Value:network flood IPv6 UDP; |
+      | Output  | Start Time, End Time, Attack Name, Action, Attack ID, Policy Name, Source IP Address, Source Port, Max pps, Max bps |
+      | Time Definitions.Date | Quick:1D |
+      | Format | Select: CSV |
+      | Share  | FTP:checked, FTP.Location:172.17.164.10, FTP.Path:/home/radware/ftp/, FTP.Username:radware, FTP.Password:radware |
+
+  @SID_6 @Sanity
   Scenario: Forensic wizard test Validate ForensicsView
     When UI Click Button "Views.Expand" with value "Wizard_test"
     Then UI Validate Element Existence By Label "Views.Generate Now" if Exists "true" with value "Wizard_test"
 
 
-  @SID_6 @Sanity
+  @SID_7 @Sanity
   Scenario: Forensic wizard test Generate Now
     When UI Click Button "Views.Generate Now" with value "Wizard_test"
+    And Sleep "120"
     When UI Click Button "Views.report" with value "Wizard_test"
 
-  @SID_7
+
+  @SID_8
   Scenario: VRM - Forensic wizard test Validate Table
     Then UI Validate Table record values by columns with elementLabel "Report.Table" findBy index 0
       | columnName | value |
@@ -58,7 +68,7 @@ Feature: Defense Flow Forensic Wizard
     Then UI Text of "Report.Attack Details.Detail" with extension "Action" equal to "Drop"
     Then UI Click Button "Report.Attack Details.Close"
 
-  @SID_8
+  @SID_9
   Scenario: VRM - Validate Forensic "Wizard" Delete Wizard
     When UI Delete "Wizard_test" and Cancel
     Then UI Validate Element Existence By Label "Views" if Exists "true" with value "Wizard_test"
@@ -66,7 +76,34 @@ Feature: Defense Flow Forensic Wizard
     And Sleep "1"
     Then UI Validate Element Existence By Label "Views" if Exists "false" with value "Wizard_test"
 
-  @SID_9
+  @SID_10 @Sanity
+  Scenario: Forensic wizard test Validate ForensicsView
+    When UI Click Button "Views.Expand" with value "Criteria_View"
+    Then UI Validate Element Existence By Label "Views.Generate Now" if Exists "true" with value "Criteria_View"
+
+  @SID_11 @Sanity
+  Scenario: Forensic wizard test Generate Now
+    When UI Click Button "Views.Generate Now" with value "Criteria_View"
+    When UI Click Button "Views.report" with value "Criteria_View"
+
+  @SID_12
+  Scenario: VRM - Forensic wizard test Validate Table
+    Then UI Validate Table record values by columns with elementLabel "Report.Table" findBy index 0
+      | columnName | value |
+      | Attack Name     | network flood IPv6 UDP  |
+    Then UI click Table row by keyValue or Index with elementLabel "Report.Table" findBy index 0
+    Then UI Text of "Report.Attack Details.Detail" with extension "Action" equal to "Drop"
+    Then UI Click Button "Report.Attack Details.Close"
+
+  @SID_13
+  Scenario: VRM - Validate Forensic "Wizard" Delete Wizard
+    When UI Delete "Criteria_View" and Cancel
+    Then UI Validate Element Existence By Label "Views" if Exists "true" with value "Criteria_View"
+    When UI Delete "Criteria_View" and Approve
+    And Sleep "1"
+    Then UI Validate Element Existence By Label "Views" if Exists "false" with value "Criteria_View"
+
+  @SID_14
   Scenario: Logout
     When UI logout and close browser
     Then CLI Check if logs contains

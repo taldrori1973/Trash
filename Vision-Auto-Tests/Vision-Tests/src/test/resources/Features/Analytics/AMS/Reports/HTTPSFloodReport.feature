@@ -152,9 +152,11 @@ Feature: HTTPS Flood Report
       | table2    | timeStamp,shortTermBaseline.attackEdge,longTermBaseline.attackEdge,shortTermBaseline.requestsBaseline,longTermBaseline.requestsBaseline |
 
     Then CSV Validate "table1" Table Size Equals to 1
+    And Sleep "3"
     Then CSV Validate "table2" Table Size Equals to 1
 
     Then CSV Validate Row Number 0 at "table1" Table Equals to "\d{13},25060.0,17500.0" Regex
+    And Sleep "3"
     Then CSV Validate Row Number 0 at "table2" Table Equals to "\d{13},21641.0,7002.258,17200.0,5075.3" Regex
 
   @SID_16
