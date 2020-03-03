@@ -23,12 +23,13 @@ Feature: LVM CLI VMware
     Then CLI Operations - Run Root Session command "service mysql stop" timeout 30
     Then CLI Operations - Run Root Session command "service elasticsearch stop" timeout 30
     Then CLI Operations - Run Root Session command "reboot"
-    Then Sleep "360"
+    Then Sleep "720"
     Then CLI Connect Root
 
   @SID_6
   Scenario: verify storage partition size
     When CLI Run linux Command "df -P /opt/radware/storage |tail -1|awk '{print$2}'" on "ROOT_SERVER_CLI" and validate result GTE "230000000"
+
   @SID_7
   Scenario: Verify services are running
     Then CLI Run linux Command "service mgtsrv status" on "ROOT_SERVER_CLI" and validate result CONTAINS "APSolute Vision Reporter is running" in any line with timeOut 15
