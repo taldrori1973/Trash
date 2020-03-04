@@ -224,7 +224,7 @@ Feature: Vision Upgrade current +1
 
   @SID_25
   Scenario: Validate LLS version
-    Then CLI Run linux Command "cat /opt/radware/storage/llsinstall/license-server-*/version.txt" on "ROOT_SERVER_CLI" and validate result EQUALS "2.2.0-6"
+    Then CLI Run linux Command "cat /opt/radware/storage/llsinstall/license-server-*/version.txt" on "ROOT_SERVER_CLI" and validate result EQUALS "2.3.0-1"
 
   @SID_26
   Scenario: Validate IPv6 Hostname in /etc/hosts

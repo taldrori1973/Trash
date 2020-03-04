@@ -137,18 +137,8 @@ Feature: Forensics Delivery
     Then CLI Operations - Verify that output contains regex "(\d{2})"
 
     Then CLI Run remote linux Command "awk -F "</th><th>" '{printf $18}' /var/spool/mail/forensicuser;echo" on "GENERIC_LINUX_SERVER"
-    Then CLI Operations - Verify that output contains regex "Packets"
-    Then CLI Run remote linux Command "awk -F "</td><td>" '{printf $18}' /var/spool/mail/forensicuser;echo" on "GENERIC_LINUX_SERVER"
-    Then CLI Operations - Verify that output contains regex "\b4\b"
-
-    Then CLI Run remote linux Command "awk -F "</th><th>" '{printf $19}' /var/spool/mail/forensicuser;echo" on "GENERIC_LINUX_SERVER"
-    Then CLI Operations - Verify that output contains regex "Mbits"
-    Then CLI Run remote linux Command "awk -F "</td><td>" '{printf $19}' /var/spool/mail/forensicuser;echo" on "GENERIC_LINUX_SERVER"
-    Then CLI Operations - Verify that output contains regex "\b0\b"
-
-    Then CLI Run remote linux Command "awk -F "</th><th>" '{printf $20}' /var/spool/mail/forensicuser;echo" on "GENERIC_LINUX_SERVER"
     Then CLI Operations - Verify that output contains regex "Physical Port"
-    Then CLI Run remote linux Command "awk -F "</td><td>" '{printf $20}' /var/spool/mail/forensicuser;echo" on "GENERIC_LINUX_SERVER"
+    Then CLI Run remote linux Command "awk -F "</td><td>" '{printf $18}' /var/spool/mail/forensicuser;echo" on "GENERIC_LINUX_SERVER"
     Then CLI Operations - Verify that output contains regex "\b1\b"
 
     Then CLI Run remote linux Command "grep -oP '(?<=<th>)[^</th>]*' /var/spool/mail/forensicuser | tail -1" on "GENERIC_LINUX_SERVER"
@@ -238,7 +228,7 @@ Feature: Forensics Delivery
     # validate csv number of rows, columns order, values
     Then CLI Run remote linux Command "unzip -o /home/radware/ftp/FTP_export*.zip -d /home/radware/ftp/" on "GENERIC_LINUX_SERVER"
     Then CLI Run linux Command "cat /home/radware/ftp/FTP_export*.csv |wc -l" on "GENERIC_LINUX_SERVER" and validate result EQUALS "2"
-    Then CLI Run linux Command "cat /home/radware/ftp/FTP_export*.csv |grep "S.No,Start Time,End Time,Device IP,Threat Category,Attack Name,Policy Name,Action,Attack ID,Source IP,Source Port,Destination IP,Destination Port,Direction,Protocol,Radware ID,Duration,Packets,Mbits,Physical Port,Risk" |wc -l" on "GENERIC_LINUX_SERVER" and validate result EQUALS "1"
+    Then CLI Run linux Command "cat /home/radware/ftp/FTP_export*.csv |grep "S.No,Start Time,End Time,Device IP,Threat Category,Attack Name,Policy Name,Action,Attack ID,Source IP,Source Port,Destination IP,Destination Port,Direction,Protocol,Radware ID,Duration,Physical Port,Risk" |wc -l" on "GENERIC_LINUX_SERVER" and validate result EQUALS "1"
     Then CLI Run linux Command "cat /home/radware/ftp/FTP_export*.csv |head -1|awk -F "," '{printf $1}';echo" on "GENERIC_LINUX_SERVER" and validate result EQUALS "S.No"
     Then CLI Run linux Command "cat /home/radware/ftp/FTP_export*.csv |head -1|awk -F "," '{printf $2}';echo" on "GENERIC_LINUX_SERVER" and validate result EQUALS "Start Time"
     Then CLI Run linux Command "cat /home/radware/ftp/FTP_export*.csv |head -1|awk -F "," '{printf $3}';echo" on "GENERIC_LINUX_SERVER" and validate result EQUALS "End Time"
@@ -256,12 +246,10 @@ Feature: Forensics Delivery
     Then CLI Run linux Command "cat /home/radware/ftp/FTP_export*.csv |head -1|awk -F "," '{printf $15}';echo" on "GENERIC_LINUX_SERVER" and validate result EQUALS "Protocol"
     Then CLI Run linux Command "cat /home/radware/ftp/FTP_export*.csv |head -1|awk -F "," '{printf $16}';echo" on "GENERIC_LINUX_SERVER" and validate result EQUALS "Radware ID"
     Then CLI Run linux Command "cat /home/radware/ftp/FTP_export*.csv |head -1|awk -F "," '{printf $17}';echo" on "GENERIC_LINUX_SERVER" and validate result EQUALS "Duration"
-    Then CLI Run linux Command "cat /home/radware/ftp/FTP_export*.csv |head -1|awk -F "," '{printf $18}';echo" on "GENERIC_LINUX_SERVER" and validate result EQUALS "Packets"
-    Then CLI Run linux Command "cat /home/radware/ftp/FTP_export*.csv |head -1|awk -F "," '{printf $19}';echo" on "GENERIC_LINUX_SERVER" and validate result EQUALS "Mbits"
-    Then CLI Run linux Command "cat /home/radware/ftp/FTP_export*.csv |head -1|awk -F "," '{printf $20}';echo" on "GENERIC_LINUX_SERVER" and validate result EQUALS "Physical Port"
-    Then CLI Run linux Command "cat /home/radware/ftp/FTP_export*.csv |head -1|awk -F "," '{printf $21}';echo" on "GENERIC_LINUX_SERVER" and validate result EQUALS "Risk"
+    Then CLI Run linux Command "cat /home/radware/ftp/FTP_export*.csv |head -1|awk -F "," '{printf $18}';echo" on "GENERIC_LINUX_SERVER" and validate result EQUALS "Physical Port"
+    Then CLI Run linux Command "cat /home/radware/ftp/FTP_export*.csv |head -1|awk -F "," '{printf $19}';echo" on "GENERIC_LINUX_SERVER" and validate result EQUALS "Risk"
 
-    Then CLI Run linux Command "cat /home/radware/ftp/FTP_export*.csv |grep -oP "1,(\d{2})/(\d{2})/202(\d{1}) (\d{2}):(\d{2}):(\d{2}),(\d{2})/(\d{2})/202(\d{1}) (\d{2}):(\d{2}):(\d{2}),172.16.22.50,Intrusions,tim,BDOS,Drop,7716-1402580209,192.85.1.77,1055,1.1.1.9,80,In,TCP,300000,(\d{2}),4,0.00,1,Low" |wc -l" on "GENERIC_LINUX_SERVER" and validate result EQUALS "1"
+    Then CLI Run linux Command "cat /home/radware/ftp/FTP_export*.csv |grep -oP "1,(\d{2})/(\d{2})/202(\d{1}) (\d{2}):(\d{2}):(\d{2}),(\d{2})/(\d{2})/202(\d{1}) (\d{2}):(\d{2}):(\d{2}),172.16.22.50,Intrusions,tim,BDOS,Drop,7716-1402580209,192.85.1.77,1055,1.1.1.9,80,In,TCP,300000,(\d{2}),1,Low" |wc -l" on "GENERIC_LINUX_SERVER" and validate result EQUALS "1"
     Then CLI Run linux Command "cat /home/radware/ftp/FTP_export*.csv |head -2|tail -1|awk -F "," '{printf $1}';echo" on "GENERIC_LINUX_SERVER" and validate result EQUALS "1"
     Then CLI Run linux Command "cat /home/radware/ftp/FTP_export*.csv |head -2|tail -1|awk -F "," '{printf $4}';echo" on "GENERIC_LINUX_SERVER" and validate result EQUALS "172.16.22.50"
     Then CLI Run linux Command "cat /home/radware/ftp/FTP_export*.csv |head -2|tail -1|awk -F "," '{printf $5}';echo" on "GENERIC_LINUX_SERVER" and validate result EQUALS "Intrusions"
@@ -276,10 +264,8 @@ Feature: Forensics Delivery
     Then CLI Run linux Command "cat /home/radware/ftp/FTP_export*.csv |head -2|tail -1|awk -F "," '{printf $14}';echo" on "GENERIC_LINUX_SERVER" and validate result EQUALS "In"
     Then CLI Run linux Command "cat /home/radware/ftp/FTP_export*.csv |head -2|tail -1|awk -F "," '{printf $15}';echo" on "GENERIC_LINUX_SERVER" and validate result EQUALS "TCP"
     Then CLI Run linux Command "cat /home/radware/ftp/FTP_export*.csv |head -2|tail -1|awk -F "," '{printf $16}';echo" on "GENERIC_LINUX_SERVER" and validate result EQUALS "300000"
-    Then CLI Run linux Command "cat /home/radware/ftp/FTP_export*.csv |head -2|tail -1|awk -F "," '{printf $18}';echo" on "GENERIC_LINUX_SERVER" and validate result EQUALS "4"
-    Then CLI Run linux Command "cat /home/radware/ftp/FTP_export*.csv |head -2|tail -1|awk -F "," '{printf $19}';echo" on "GENERIC_LINUX_SERVER" and validate result EQUALS "0.00"
-    Then CLI Run linux Command "cat /home/radware/ftp/FTP_export*.csv |head -2|tail -1|awk -F "," '{printf $20}';echo" on "GENERIC_LINUX_SERVER" and validate result EQUALS "1"
-    Then CLI Run linux Command "cat /home/radware/ftp/FTP_export*.csv |head -2|tail -1|awk -F "," '{printf $21}';echo" on "GENERIC_LINUX_SERVER" and validate result EQUALS "Low"
+    Then CLI Run linux Command "cat /home/radware/ftp/FTP_export*.csv |head -2|tail -1|awk -F "," '{printf $18}';echo" on "GENERIC_LINUX_SERVER" and validate result EQUALS "1"
+    Then CLI Run linux Command "cat /home/radware/ftp/FTP_export*.csv |head -2|tail -1|awk -F "," '{printf $19}';echo" on "GENERIC_LINUX_SERVER" and validate result EQUALS "Low"
 
     Then CLI Run remote linux Command "cp /home/radware/ftp/FTP_export*.csv /tmp/" on "GENERIC_LINUX_SERVER"
 

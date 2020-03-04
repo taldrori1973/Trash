@@ -196,11 +196,11 @@ Feature: Forensic Attack details Tests
     * UI Click Button "Report.Clear Refine"
 
   @SID_21
-  Scenario: Validate attack details refine by Mbits
+  Scenario: Validate attack details refine by Mbps
     When UI click Table row by keyValue or Index with elementLabel "Report.Table" findBy columnName "Attack ID" findBy cellValue "800-1525623158"
     And UI Click Button "Report.Attack Details.Refine View"
     And UI Select Multi items from dropdown "Report.Attack Details.Refine.Dropdown" apply
-      | Mbits |
+      | Mbps |
     Then UI Validate "Report.Table" Table rows count equal to 1
     * UI Click Button "Report.Clear Refine"
 
@@ -307,8 +307,8 @@ Feature: Forensic Attack details Tests
     Then UI Text of "Report.Attack Details.Detail" with extension "Direction" equal to "In"
 
     Then UI Text of "Report.Attack Details.Detail" with extension "Attack Name" equal to "network flood IPv4 TCP-SYN-ACK"
-    Then UI Text of "Report.Attack Details.Detail" with extension "Mbits" equal to "157.25"
-    Then UI Text of "Report.Attack Details.Detail" with extension "Packets" equal to "161491"
+    Then UI Text of "Report.Attack Details.Detail" with extension "Mbps" equal to "157.25"
+    Then UI Text of "Report.Attack Details.Detail" with extension "pps" equal to "161491"
     Then UI Text of "Report.Attack Details.Detail" with extension "Physical Port" equal to "1"
     Then UI Text of "Report.Attack Details.Detail" with extension "Protocol" equal to "TCP"
     Then UI Text of "Report.Attack Details.Detail" with extension "Radware ID" equal to "78"
@@ -347,8 +347,8 @@ Feature: Forensic Attack details Tests
     Then UI Text of "Report.Attack Details.Detail" with extension "Direction" equal to "In"
     Then UI Validate Element Existence By Label "Report.Attack Details.Detail" if Exists "true" with value "Duration"
     Then UI Text of "Report.Attack Details.Detail" with extension "Attack Name" equal to "f1"
-    Then UI Text of "Report.Attack Details.Detail" with extension "Mbits" equal to "11.17"
-    Then UI Text of "Report.Attack Details.Detail" with extension "Packets" equal to "18770"
+    Then UI Text of "Report.Attack Details.Detail" with extension "Mbps" equal to "11.17"
+    Then UI Text of "Report.Attack Details.Detail" with extension "pps" equal to "18770"
     Then UI Text of "Report.Attack Details.Detail" with extension "Physical Port" equal to "MNG-1"
     Then UI Text of "Report.Attack Details.Detail" with extension "Protocol" equal to "UDP"
     Then UI Text of "Report.Attack Details.Detail" with extension "Radware ID" equal to "700000"
@@ -378,8 +378,8 @@ Feature: Forensic Attack details Tests
     Then UI Text of "Report.Attack Details.Detail" with extension "Direction" equal to "Unknown"
 
     Then UI Text of "Report.Attack Details.Detail" with extension "Attack Name" equal to "SYN Flood HTTP"
-    Then UI Text of "Report.Attack Details.Detail" with extension "Mbits" equal to "102.49"
-    Then UI Text of "Report.Attack Details.Detail" with extension "Packets" equal to "223890"
+    Then UI Text of "Report.Attack Details.Detail" with extension "Mbps" equal to "102.49"
+    Then UI Text of "Report.Attack Details.Detail" with extension "pps" equal to "223890"
     Then UI Text of "Report.Attack Details.Detail" with extension "Physical Port" equal to "Multiple"
     Then UI Text of "Report.Attack Details.Detail" with extension "Protocol" equal to "TCP"
     Then UI Text of "Report.Attack Details.Detail" with extension "Radware ID" equal to "200000"
@@ -416,8 +416,8 @@ Feature: Forensic Attack details Tests
     Then UI Text of "Report.Attack Details.Detail" with extension "Direction" equal to "In"
 
     Then UI Text of "Report.Attack Details.Detail" with extension "Attack Name" equal to "pkt_rate_lmt_9"
-    Then UI Text of "Report.Attack Details.Detail" with extension "Mbits" equal to "0"
-    Then UI Text of "Report.Attack Details.Detail" with extension "Packets" equal to "1296"
+    Then UI Text of "Report.Attack Details.Detail" with extension "Mbps" equal to "0"
+    Then UI Text of "Report.Attack Details.Detail" with extension "pps" equal to "1296"
     Then UI Text of "Report.Attack Details.Detail" with extension "Physical Port" equal to "3"
     Then UI Text of "Report.Attack Details.Detail" with extension "Protocol" equal to "TCP"
     Then UI Text of "Report.Attack Details.Detail" with extension "Radware ID" equal to "600006"
@@ -454,8 +454,8 @@ Feature: Forensic Attack details Tests
     Then UI Text of "Report.Attack Details.Detail" with extension "Direction" equal to "In"
     Then UI Validate Element Existence By Label "Report.Attack Details.Detail" if Exists "true" with value "Duration"
     Then UI Text of "Report.Attack Details.Detail" with extension "Attack Name" equal to "sign_seets3"
-    Then UI Text of "Report.Attack Details.Detail" with extension "Mbits" equal to "0"
-    Then UI Text of "Report.Attack Details.Detail" with extension "Packets" equal to "1"
+    Then UI Text of "Report.Attack Details.Detail" with extension "Mbps" equal to "0"
+    Then UI Text of "Report.Attack Details.Detail" with extension "pps" equal to "1"
     Then UI Text of "Report.Attack Details.Detail" with extension "Physical Port" equal to "MNG-1"
     Then UI Text of "Report.Attack Details.Detail" with extension "Protocol" equal to "TCP"
     Then UI Text of "Report.Attack Details.Detail" with extension "Radware ID" equal to "320029"
@@ -484,8 +484,8 @@ Feature: Forensic Attack details Tests
     Then UI Text of "Report.Attack Details.Detail" with extension "Device IP Address" equal to "172.16.22.50"
     Then UI Text of "Report.Attack Details.Detail" with extension "Direction" equal to "Out"
     Then UI Text of "Report.Attack Details.Detail" with extension "Attack Name" equal to "Brute Force Web"
-    Then UI Text of "Report.Attack Details.Detail" with extension "Mbits" equal to "82.14"
-    Then UI Text of "Report.Attack Details.Detail" with extension "Packets" equal to "179244"
+    Then UI Text of "Report.Attack Details.Detail" with extension "Mbps" equal to "82.14"
+    Then UI Text of "Report.Attack Details.Detail" with extension "pps" equal to "179244"
     Then UI Text of "Report.Attack Details.Detail" with extension "Physical Port" equal to "4"
     Then UI Text of "Report.Attack Details.Detail" with extension "Protocol" equal to "TCP"
     Then UI Text of "Report.Attack Details.Detail" with extension "Radware ID" equal to "400"
@@ -517,8 +517,8 @@ Feature: Forensic Attack details Tests
     Then UI Text of "Report.Attack Details.Detail" with extension "Direction" equal to "Unknown"
 
     Then UI Text of "Report.Attack Details.Detail" with extension "Attack Name" equal to "TCP Scan (vertical)"
-    Then UI Text of "Report.Attack Details.Detail" with extension "Mbits" equal to "9.33"
-    Then UI Text of "Report.Attack Details.Detail" with extension "Packets" equal to "9867"
+    Then UI Text of "Report.Attack Details.Detail" with extension "Mbps" equal to "9.33"
+    Then UI Text of "Report.Attack Details.Detail" with extension "pps" equal to "9867"
     Then UI Text of "Report.Attack Details.Detail" with extension "Physical Port" equal to "0"
     Then UI Text of "Report.Attack Details.Detail" with extension "Protocol" equal to "TCP"
     Then UI Text of "Report.Attack Details.Detail" with extension "Radware ID" equal to "350"
@@ -583,7 +583,7 @@ Feature: Forensic Attack details Tests
     Then UI Text of "Report.Attack Details.Detail" with extension "Direction" equal to "Unknown"
     Then UI Validate Element Existence By Label "Report.Attack Details.Detail" if Exists "true" with value "Duration"
     Then UI Text of "Report.Attack Details.Detail" with extension "Attack Name" equal to "DNS flood IPv4 DNS-A"
-    Then UI Text of "Report.Attack Details.Detail" with extension "Mbits" equal to "0"
+    Then UI Text of "Report.Attack Details.Detail" with extension "Mbps" equal to "0"
 
     Then UI Text of "Report.Attack Details.Detail" with extension "Physical Port" equal to "0"
     Then UI Text of "Report.Attack Details.Detail" with extension "Protocol" equal to "UDP"
@@ -632,8 +632,8 @@ Feature: Forensic Attack details Tests
     Then UI Text of "Report.Attack Details.Detail" with extension "Direction" equal to "Unknown"
     Then UI Validate Element Existence By Label "Report.Attack Details.Detail" if Exists "true" with value "Duration"
     Then UI Text of "Report.Attack Details.Detail" with extension "Attack Name" equal to "Incorrect IPv4 checksum"
-    Then UI Text of "Report.Attack Details.Detail" with extension "Mbits" equal to "0"
-    Then UI Text of "Report.Attack Details.Detail" with extension "Packets" equal to "1"
+    Then UI Text of "Report.Attack Details.Detail" with extension "Mbps" equal to "0"
+    Then UI Text of "Report.Attack Details.Detail" with extension "pps" equal to "1"
     Then UI Text of "Report.Attack Details.Detail" with extension "Physical Port" equal to "0"
     Then UI Text of "Report.Attack Details.Detail" with extension "Protocol" equal to "IP"
     Then UI Text of "Report.Attack Details.Detail" with extension "Radware ID" equal to "103"
@@ -676,8 +676,8 @@ Feature: Forensic Attack details Tests
     Then UI Text of "Report.Attack Details.Detail" with extension "Direction" equal to "In"
     Then UI Validate Element Existence By Label "Report.Attack Details.Detail" if Exists "true" with value "Duration"
     Then UI Text of "Report.Attack Details.Detail" with extension "Attack Name" equal to "Black List"
-    Then UI Text of "Report.Attack Details.Detail" with extension "Mbits" equal to "12618.09"
-    Then UI Text of "Report.Attack Details.Detail" with extension "Packets" equal to "12920902"
+    Then UI Text of "Report.Attack Details.Detail" with extension "Mbps" equal to "12618.09"
+    Then UI Text of "Report.Attack Details.Detail" with extension "pps" equal to "12920902"
     Then UI Text of "Report.Attack Details.Detail" with extension "Physical Port" equal to "T-1"
     Then UI Text of "Report.Attack Details.Detail" with extension "Protocol" equal to "IP"
     Then UI Text of "Report.Attack Details.Detail" with extension "Radware ID" equal to "8"
@@ -732,8 +732,8 @@ Feature: Forensic Attack details Tests
 #    Then UI Text of "Report.Attack Details.Detail" with extension "Direction" equal to "In"
 #    Then UI Validate Element Existence By Label "Report.Attack Details.Detail" if Exists "true" with value "Duration"
 #    Then UI Text of "Report.Attack Details.Detail" with extension "Attack Name" equal to "Black List"
-#    Then UI Text of "Report.Attack Details.Detail" with extension "Mbits" equal to "12618.09"
-#    Then UI Text of "Report.Attack Details.Detail" with extension "Packets" equal to "12920902"
+#    Then UI Text of "Report.Attack Details.Detail" with extension "Mbps" equal to "12618.09"
+#    Then UI Text of "Report.Attack Details.Detail" with extension "pps" equal to "12920902"
 #    Then UI Text of "Report.Attack Details.Detail" with extension "Physical Port" equal to "T-1"
 #    Then UI Text of "Report.Attack Details.Detail" with extension "Protocol" equal to "IP"
 #    Then UI Text of "Report.Attack Details.Detail" with extension "Radware ID" equal to "8"
