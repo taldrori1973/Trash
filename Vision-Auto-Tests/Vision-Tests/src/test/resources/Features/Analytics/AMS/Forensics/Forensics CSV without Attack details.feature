@@ -30,7 +30,7 @@ Feature: Forensics CSV without Attack details
   Scenario: Create Forensics Report csv_without_details
     When UI "Create" Forensics With Name "csv_without_details"
       | Share  | FTP:checked, FTP.Location:172.17.164.10, FTP.Path:/home/radware/ftp/, FTP.Username:radware, FTP.Password:radware                                                                                                                               |
-      | Output | Action,Attack ID,Start Time,Source IP Address,Source Port,Destination IP Address,Destination Port,Direction,Protocol,Threat Category,Radware ID,Device IP Address,Attack Name,End Time,Duration,Packets,Mbits,Physical Port,,Risk, Policy Name |
+      | Output | Action,Attack ID,Start Time,Source IP Address,Source Port,Destination IP Address,Destination Port,Direction,Protocol,Threat Category,Radware ID,Device IP Address,Attack Name,End Time,Duration,pps,Mbps,Physical Port,,Risk, Policy Name |
       | Format | Select: CSV                                                                                                                                                                                                                                    |
 
   @SID_5
