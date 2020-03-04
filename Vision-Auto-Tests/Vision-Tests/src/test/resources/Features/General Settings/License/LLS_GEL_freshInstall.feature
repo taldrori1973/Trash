@@ -168,7 +168,7 @@ Feature: LLS_GEL_freshInstall
     When UI Click Button "Activate License"
     Then UI Set Text Field "Activation ID" To "653b-fc33-8c2b-4b36-8190-0cd8-e4a1-8a16"
     Then UI Click Button "Activate button"
-    Then Sleep "5"
+    Then Sleep "10"
     Then UI Validate Element Existence By Label "Entitlement Card" if Exists "true"
 
   @SID_32
