@@ -53,6 +53,7 @@ Feature: Appwall Forensic Wizard
   @SID_6 @Sanity
   Scenario: Forensic wizard test Generate Now
     When UI Click Button "Views.Generate Now" with value "Wizard_test"
+    And Sleep "30"
     When UI Click Button "Views.report" with value "Wizard_test"
 
   @SID_7
