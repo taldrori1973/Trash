@@ -7,10 +7,10 @@ Feature: TED Functionality
     Then CLI Clear vision logs
     When CLI Operations - Run Radware Session command "net firewall open-port set 5140 open"
     When CLI Operations - Run Radware Session command "net firewall open-port set 9200 open"
-    #Then CLI Operations - Run Root Session command "/etc/init.d/iptables restart"
 
     Then UI Login with user "radware" and password "radware"
     Then REST Vision Install License Request "vision-reporting-module-ADC"
+    Then Browser Refresh Page
     Then REST Add "Alteon" Device To topology Tree with Name "TED Automation" and Management IP "10.25.49.130" into site "Default"
       | attribute     | value   |
       | httpsPassword | admin   |
