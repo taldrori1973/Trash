@@ -12,8 +12,7 @@ Feature: Elasticsearch watchdog
 
   @SID_3
   Scenario: verify watchdog starts elasticsearch
-    When Sleep "185"
-    Then CLI Run linux Command "service elasticsearch status|awk '{print$4,$5}'" on "ROOT_SERVER_CLI" and validate result EQUALS "is running..."
+    Then CLI Run linux Command "service elasticsearch status|awk '{print$4,$5}'" on "ROOT_SERVER_CLI" and validate result EQUALS "is running..." with timeOut 240
 
   @SID_4
   Scenario: verify watchdog logs
@@ -27,5 +26,4 @@ Feature: Elasticsearch watchdog
 
   @SID_6
   Scenario: verify watchdog starts elasticsearch
-    When Sleep "185"
-    Then CLI Run linux Command "service elasticsearch status|awk '{print$4,$5}'" on "ROOT_SERVER_CLI" and validate result EQUALS "is running..."
+    Then CLI Run linux Command "service elasticsearch status|awk '{print$4,$5}'" on "ROOT_SERVER_CLI" and validate result EQUALS "is running..." with timeOut 240
