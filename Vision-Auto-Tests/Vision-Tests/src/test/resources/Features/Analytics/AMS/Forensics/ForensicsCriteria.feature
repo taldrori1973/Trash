@@ -463,103 +463,103 @@ Feature: Forensic Criteria Tests
     And UI Click Button "Views.report" with value "Criteria_10_Conditions"
     Then UI Validate "Report.Table" Table rows count equal to 8
 
-  @SID_36
-  Scenario: modify one attack's rate value to over 2TB
-    Then CLI Run remote linux Command "curl -XPOST "localhost:9200/dp-attack-raw-*/_update_by_query/?conflicts=proceed" -d '{"query":{"bool": {"must": [{"match": {"attackIpsId": "7839-1402580209"}}]}},"script": {"inline": "ctx._source.averageAttackPacketRatePps ='3000000000L'; ctx._source.averageAttackRateBps = '2001000000000L'"}}'" on "ROOT_SERVER_CLI"
-
-  @SID_37
-  Scenario: VRM - Forensics Report criteria - PPS greater than Kilo
-    When UI "Create" Forensics With Name "PPS greater than K"
-      | Criteria | Event Criteria:Attack Rate in pps,Operator:Greater than,RateValue:2,Unit:K; |
-      | Output   | Start Time,Action,Attack ID,Threat Category,Attack Name,Risk                |
-    And UI Navigate to "AMS Reports" page via homePage
-    And UI Navigate to "AMS Forensics" page via homePage
-    When UI Generate and Validate Forensics With Name "PPS greater than K" with Timeout of 300 Seconds
-    And UI Click Button "Views.report" with value "PPS greater than K"
-    Then UI Validate "Report.Table" Table rows count equal to 10
-
-  @SID_38
-  Scenario: VRM - Forensics Report criteria - PPS greater than Mega
-    When UI "Create" Forensics With Name "PPS greater than M"
-      | Criteria | Event Criteria:Attack Rate in pps,Operator:Greater than,RateValue:2,Unit:M; |
-      | Output   | Start Time,Action,Attack ID,Threat Category,Attack Name,Risk                |
-    And UI Navigate to "AMS Reports" page via homePage
-    And UI Navigate to "AMS Forensics" page via homePage
-    When UI Generate and Validate Forensics With Name "PPS greater than M" with Timeout of 300 Seconds
-    And UI Click Button "Views.report" with value "PPS greater than M"
-    Then UI Validate "Report.Table" Table rows count equal to 3
-
-  @SID_39
-  Scenario: VRM - Forensics Report criteria - PPS greater than Giga
-    When UI "Create" Forensics With Name "PPS greater than G"
-      | Criteria | Event Criteria:Attack Rate in pps,Operator:Greater than,RateValue:2,Unit:G; |
-      | Output   | Start Time,Action,Attack ID,Threat Category,Attack Name,Risk                |
-    And UI Navigate to "AMS Reports" page via homePage
-    And UI Navigate to "AMS Forensics" page via homePage
-    When UI Generate and Validate Forensics With Name "PPS greater than G" with Timeout of 300 Seconds
-    And UI Click Button "Views.report" with value "PPS greater than G"
-    Then UI Validate "Report.Table" Table rows count equal to 1
-
-  @SID_40
-  Scenario: modify one attack's rate value to over 2TB
-    Then CLI Run remote linux Command "curl -XPOST "localhost:9200/dp-attack-raw-*/_update_by_query/?conflicts=proceed" -d '{"query":{"bool": {"must": [{"match": {"attackIpsId": "7839-1402580209"}}]}},"script": {"inline": "ctx._source.averageAttackPacketRatePps ='2001000000000L'; ctx._source.averageAttackRateBps = '2001000000000L'"}}'" on "ROOT_SERVER_CLI"
-
-  @SID_41
-  Scenario: VRM - Forensics Report criteria - PPS greater than Tera
-    When UI "Create" Forensics With Name "PPS greater than T"
-      | Criteria | Event Criteria:Attack Rate in pps,Operator:Greater than,RateValue:2,Unit:T; |
-      | Output   | Start Time,Action,Attack ID,Threat Category,Attack Name,Risk                |
-    And UI Navigate to "AMS Reports" page via homePage
-    And UI Navigate to "AMS Forensics" page via homePage
-    When UI Generate and Validate Forensics With Name "PPS greater than T" with Timeout of 300 Seconds
-    And UI Click Button "Views.report" with value "PPS greater than T"
-    Then UI Validate "Report.Table" Table rows count equal to 1
-
-  @SID_42
-  Scenario: VRM - Forensics Report criteria - bps greater than Kilo
-    When UI "Create" Forensics With Name "bps greater than K"
-      | Criteria | Event Criteria:Attack Rate in bps,Operator:Greater than,RateValue:3900,Unit:K; |
-      | Output   | Start Time,Action,Attack ID,Threat Category,Attack Name,Risk                   |
-    And UI Navigate to "AMS Reports" page via homePage
-    And UI Navigate to "AMS Forensics" page via homePage
-    When UI Generate and Validate Forensics With Name "bps greater than K" with Timeout of 300 Seconds
-    And UI Click Button "Views.report" with value "bps greater than K"
-    Then CLI Run remote linux Command "curl -XPOST localhost:9200/dp-attack-raw-*/_search -d '{"query":{"bool":{"must":[{"match_all":{}}]}},"from":0,"size":1000}' > /opt/radware/storage/bps.txt" on "ROOT_SERVER_CLI"
-    Then UI Validate "Report.Table" Table rows count equal to 9
-
-  @SID_43
-  Scenario: VRM - Forensics Report criteria - bps greater than Mega
-    When UI "Create" Forensics With Name "bps greater than M"
-      | Criteria | Event Criteria:Attack Rate in bps,Operator:Greater than,RateValue:2,Unit:M; |
-      | Output   | Start Time,Action,Attack ID,Threat Category,Attack Name,Risk                |
-    And UI Navigate to "AMS Reports" page via homePage
-    And UI Navigate to "AMS Forensics" page via homePage
-    When UI Generate and Validate Forensics With Name "bps greater than M" with Timeout of 300 Seconds
-    And UI Click Button "Views.report" with value "bps greater than M"
-    Then UI Validate "Report.Table" Table rows count equal to 10
-
-  @SID_44
-  Scenario: VRM - Forensics Report criteria - bps greater than Giga
-    When UI "Create" Forensics With Name "bps greater than G"
-      | Criteria | Event Criteria:Attack Rate in bps,Operator:Greater than,RateValue:2,Unit:G; |
-      | Output   | Start Time,Action,Attack ID,Threat Category,Attack Name,Risk                |
-    And UI Navigate to "AMS Reports" page via homePage
-    And UI Navigate to "AMS Forensics" page via homePage
-    When UI Generate and Validate Forensics With Name "bps greater than G" with Timeout of 300 Seconds
-    And UI Click Button "Views.report" with value "bps greater than G"
-    Then UI Validate "Report.Table" Table rows count equal to 3
-
-
-  @SID_45
-  Scenario: VRM - Forensics Report criteria - bps greater than Tera
-    When UI "Create" Forensics With Name "bps greater than T"
-      | Criteria | Event Criteria:Attack Rate in bps,Operator:Greater than,RateValue:2,Unit:T; |
-      | Output   | Start Time,Action,Attack ID,Threat Category,Attack Name,Risk                |
-    And UI Navigate to "AMS Reports" page via homePage
-    And UI Navigate to "AMS Forensics" page via homePage
-    When UI Generate and Validate Forensics With Name "bps greater than T" with Timeout of 300 Seconds
-    And UI Click Button "Views.report" with value "bps greater than T"
-    Then UI Validate "Report.Table" Table rows count equal to 1
+#  @SID_36
+#  Scenario: modify one attack's rate value to over 2TB
+#    Then CLI Run remote linux Command "curl -XPOST "localhost:9200/dp-attack-raw-*/_update_by_query/?conflicts=proceed" -d '{"query":{"bool": {"must": [{"match": {"attackIpsId": "7839-1402580209"}}]}},"script": {"inline": "ctx._source.averageAttackPacketRatePps ='3000000000L'; ctx._source.averageAttackRateBps = '2001000000000L'"}}'" on "ROOT_SERVER_CLI"
+#
+#  @SID_37
+#  Scenario: VRM - Forensics Report criteria - PPS greater than Kilo
+#    When UI "Create" Forensics With Name "PPS greater than K"
+#      | Criteria | Event Criteria:Attack Rate in pps,Operator:Greater than,RateValue:2,Unit:K; |
+#      | Output   | Start Time,Action,Attack ID,Threat Category,Attack Name,Risk                |
+#    And UI Navigate to "AMS Reports" page via homePage
+#    And UI Navigate to "AMS Forensics" page via homePage
+#    When UI Generate and Validate Forensics With Name "PPS greater than K" with Timeout of 300 Seconds
+#    And UI Click Button "Views.report" with value "PPS greater than K"
+#    Then UI Validate "Report.Table" Table rows count equal to 10
+#
+#  @SID_38
+#  Scenario: VRM - Forensics Report criteria - PPS greater than Mega
+#    When UI "Create" Forensics With Name "PPS greater than M"
+#      | Criteria | Event Criteria:Attack Rate in pps,Operator:Greater than,RateValue:2,Unit:M; |
+#      | Output   | Start Time,Action,Attack ID,Threat Category,Attack Name,Risk                |
+#    And UI Navigate to "AMS Reports" page via homePage
+#    And UI Navigate to "AMS Forensics" page via homePage
+#    When UI Generate and Validate Forensics With Name "PPS greater than M" with Timeout of 300 Seconds
+#    And UI Click Button "Views.report" with value "PPS greater than M"
+#    Then UI Validate "Report.Table" Table rows count equal to 3
+#
+#  @SID_39
+#  Scenario: VRM - Forensics Report criteria - PPS greater than Giga
+#    When UI "Create" Forensics With Name "PPS greater than G"
+#      | Criteria | Event Criteria:Attack Rate in pps,Operator:Greater than,RateValue:2,Unit:G; |
+#      | Output   | Start Time,Action,Attack ID,Threat Category,Attack Name,Risk                |
+#    And UI Navigate to "AMS Reports" page via homePage
+#    And UI Navigate to "AMS Forensics" page via homePage
+#    When UI Generate and Validate Forensics With Name "PPS greater than G" with Timeout of 300 Seconds
+#    And UI Click Button "Views.report" with value "PPS greater than G"
+#    Then UI Validate "Report.Table" Table rows count equal to 1
+#
+#  @SID_40
+#  Scenario: modify one attack's rate value to over 2TB
+#    Then CLI Run remote linux Command "curl -XPOST "localhost:9200/dp-attack-raw-*/_update_by_query/?conflicts=proceed" -d '{"query":{"bool": {"must": [{"match": {"attackIpsId": "7839-1402580209"}}]}},"script": {"inline": "ctx._source.averageAttackPacketRatePps ='2001000000000L'; ctx._source.averageAttackRateBps = '2001000000000L'"}}'" on "ROOT_SERVER_CLI"
+#
+#  @SID_41
+#  Scenario: VRM - Forensics Report criteria - PPS greater than Tera
+#    When UI "Create" Forensics With Name "PPS greater than T"
+#      | Criteria | Event Criteria:Attack Rate in pps,Operator:Greater than,RateValue:2,Unit:T; |
+#      | Output   | Start Time,Action,Attack ID,Threat Category,Attack Name,Risk                |
+#    And UI Navigate to "AMS Reports" page via homePage
+#    And UI Navigate to "AMS Forensics" page via homePage
+#    When UI Generate and Validate Forensics With Name "PPS greater than T" with Timeout of 300 Seconds
+#    And UI Click Button "Views.report" with value "PPS greater than T"
+#    Then UI Validate "Report.Table" Table rows count equal to 1
+#
+#  @SID_42
+#  Scenario: VRM - Forensics Report criteria - bps greater than Kilo
+#    When UI "Create" Forensics With Name "bps greater than K"
+#      | Criteria | Event Criteria:Attack Rate in bps,Operator:Greater than,RateValue:3900,Unit:K; |
+#      | Output   | Start Time,Action,Attack ID,Threat Category,Attack Name,Risk                   |
+#    And UI Navigate to "AMS Reports" page via homePage
+#    And UI Navigate to "AMS Forensics" page via homePage
+#    When UI Generate and Validate Forensics With Name "bps greater than K" with Timeout of 300 Seconds
+#    And UI Click Button "Views.report" with value "bps greater than K"
+#    Then CLI Run remote linux Command "curl -XPOST localhost:9200/dp-attack-raw-*/_search -d '{"query":{"bool":{"must":[{"match_all":{}}]}},"from":0,"size":1000}' > /opt/radware/storage/bps.txt" on "ROOT_SERVER_CLI"
+#    Then UI Validate "Report.Table" Table rows count equal to 9
+#
+#  @SID_43
+#  Scenario: VRM - Forensics Report criteria - bps greater than Mega
+#    When UI "Create" Forensics With Name "bps greater than M"
+#      | Criteria | Event Criteria:Attack Rate in bps,Operator:Greater than,RateValue:2,Unit:M; |
+#      | Output   | Start Time,Action,Attack ID,Threat Category,Attack Name,Risk                |
+#    And UI Navigate to "AMS Reports" page via homePage
+#    And UI Navigate to "AMS Forensics" page via homePage
+#    When UI Generate and Validate Forensics With Name "bps greater than M" with Timeout of 300 Seconds
+#    And UI Click Button "Views.report" with value "bps greater than M"
+#    Then UI Validate "Report.Table" Table rows count equal to 10
+#
+#  @SID_44
+#  Scenario: VRM - Forensics Report criteria - bps greater than Giga
+#    When UI "Create" Forensics With Name "bps greater than G"
+#      | Criteria | Event Criteria:Attack Rate in bps,Operator:Greater than,RateValue:2,Unit:G; |
+#      | Output   | Start Time,Action,Attack ID,Threat Category,Attack Name,Risk                |
+#    And UI Navigate to "AMS Reports" page via homePage
+#    And UI Navigate to "AMS Forensics" page via homePage
+#    When UI Generate and Validate Forensics With Name "bps greater than G" with Timeout of 300 Seconds
+#    And UI Click Button "Views.report" with value "bps greater than G"
+#    Then UI Validate "Report.Table" Table rows count equal to 3
+#
+#
+#  @SID_45
+#  Scenario: VRM - Forensics Report criteria - bps greater than Tera
+#    When UI "Create" Forensics With Name "bps greater than T"
+#      | Criteria | Event Criteria:Attack Rate in bps,Operator:Greater than,RateValue:2,Unit:T; |
+#      | Output   | Start Time,Action,Attack ID,Threat Category,Attack Name,Risk                |
+#    And UI Navigate to "AMS Reports" page via homePage
+#    And UI Navigate to "AMS Forensics" page via homePage
+#    When UI Generate and Validate Forensics With Name "bps greater than T" with Timeout of 300 Seconds
+#    And UI Click Button "Views.report" with value "bps greater than T"
+#    Then UI Validate "Report.Table" Table rows count equal to 1
 
   @SID_46
   Scenario: Cleanup
