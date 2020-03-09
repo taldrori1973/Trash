@@ -38,9 +38,9 @@ Feature: Defense Flow Forensic Wizard
 
   @SID_5 @Sanity
   Scenario: create forensic definition Second_view
-    Given UI "Create" Forensics With Name "Criteria_View"
+    Given UI "Create" Forensics With Name "Source_Address"
       | Product | DefenseFlow |
-      | Criteria | Event Criteria:Attack Name,Operator:Equals,Value:network flood IPv6 UDP; |
+      | Criteria | Event Criteria:Source IP,Operator:Equals,IPType:IPv4,IPValue:100.100.100.103; |
       | Output  | Start Time, End Time, Attack Name, Action, Attack ID, Policy Name, Source IP Address, Source Port, Max pps, Max bps |
       | Time Definitions.Date | Quick:1D |
       | Format | Select: CSV |
@@ -50,7 +50,6 @@ Feature: Defense Flow Forensic Wizard
   Scenario: Forensic wizard test Validate ForensicsView
     When UI Click Button "Views.Expand" with value "Wizard_test"
     Then UI Validate Element Existence By Label "Views.Generate Now" if Exists "true" with value "Wizard_test"
-
 
   @SID_7 @Sanity
   Scenario: Forensic wizard test Generate Now
@@ -78,32 +77,40 @@ Feature: Defense Flow Forensic Wizard
 
   @SID_10 @Sanity
   Scenario: Forensic wizard test Validate ForensicsView
-    When UI Click Button "Views.Expand" with value "Criteria_View"
-    Then UI Validate Element Existence By Label "Views.Generate Now" if Exists "true" with value "Criteria_View"
+    When UI Click Button "Views.Expand" with value "Source_Address"
+    Then UI Validate Element Existence By Label "Views.Generate Now" if Exists "true" with value "Source_Address"
 
   @SID_11 @Sanity
   Scenario: Forensic wizard test Generate Now
-    When UI Click Button "Views.Generate Now" with value "Criteria_View"
-    When UI Click Button "Views.report" with value "Criteria_View"
+    When UI Click Button "Views.Generate Now" with value "Source_Address"
+    When UI Click Button "Views.report" with value "Source_Address"
 
   @SID_12
   Scenario: VRM - Forensic wizard test Validate Table
     Then UI Validate Table record values by columns with elementLabel "Report.Table" findBy index 0
       | columnName | value |
-      | Attack Name     | network flood IPv6 UDP  |
+      | Source IP Address     | 100.100.100.103  |
     Then UI click Table row by keyValue or Index with elementLabel "Report.Table" findBy index 0
     Then UI Text of "Report.Attack Details.Detail" with extension "Action" equal to "Drop"
     Then UI Click Button "Report.Attack Details.Close"
 
   @SID_13
-  Scenario: VRM - Validate Forensic "Wizard" Delete Wizard
-    When UI Delete "Criteria_View" and Cancel
-    Then UI Validate Element Existence By Label "Views" if Exists "true" with value "Criteria_View"
-    When UI Delete "Criteria_View" and Approve
-    And Sleep "1"
-    Then UI Validate Element Existence By Label "Views" if Exists "false" with value "Criteria_View"
-
+  Scenario: Validate attack details refine by Action
+    When UI click Table row by keyValue or Index with elementLabel "Report.Table" findBy columnName "Attack Name" findBy cellValue "HTTP (recv.pps)"
+    And UI Click Button "Report.Attack Details.Refine View"
+    And UI Select Multi items from dropdown "Report.Attack Details.Refine.Dropdown" apply
+      | Attack Name |
+    Then UI Validate "Report.Table" Table rows count equal to 8
+    * UI Click Button "Report.Clear Refine"
   @SID_14
+  Scenario: VRM - Validate Forensic "Wizard" Delete Wizard
+    When UI Delete "Source_Address" and Cancel
+    Then UI Validate Element Existence By Label "Views" if Exists "true" with value "Source_Address"
+    When UI Delete "Source_Address" and Approve
+    And Sleep "1"
+    Then UI Validate Element Existence By Label "Views" if Exists "false" with value "Source_Address"
+
+  @SID_15
   Scenario: Logout
     When UI logout and close browser
     Then CLI Check if logs contains
