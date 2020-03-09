@@ -10,6 +10,7 @@ Feature: AMS DefenseFlow Traffic Dashboard
       | type | value                                 |
       | body | sessionInactivTimeoutConfiguration=60 |
     * CLI Clear vision logs
+    * REST Vision Install License Request "vision-AVA-Max-attack-capacity"
 
   @SID_2
   Scenario: Generate DefenseFlow traffic events
