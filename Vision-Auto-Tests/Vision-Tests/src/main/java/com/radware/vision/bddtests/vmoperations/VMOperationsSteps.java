@@ -88,6 +88,7 @@ public class VMOperationsSteps extends BddUITestBase {
             restTestBase.getRootServerCli().init();
         }
     }
+
     @When("^Revert DefenseFlow to snapshot$")
     public void DfenseFlowRevertToSnapshot() throws Exception {
         try {
@@ -97,7 +98,7 @@ public class VMOperationsSteps extends BddUITestBase {
             VMSnapshotOperations.newInstance().switchToSnapshot(new VmNameTargetVm(esxiInfo, DF.vmName), DF.snapshot, true);
             Thread.sleep(10 * 60 * 1000);
             BaseTestUtils.report("DefenseFlow Revert done.", Reporter.PASS_NOR_FAIL);
-        }catch (Exception e){
+        } catch (Exception e) {
 
         }
     }
@@ -133,7 +134,7 @@ public class VMOperationsSteps extends BddUITestBase {
         CliOperations.runCommand(visionRadwareFirstTime, "virsh start " + vmName, DEFAULT_KVM_CLI_TIMEOUT);
         Thread.sleep(60 * 1000);
         BaseTestUtils.report("Reverting to snapshot.", Reporter.PASS_NOR_FAIL);
-        CliOperations.runCommand(visionRadwareFirstTime, "virsh snapshot-revert --domain " + vmName + " --snapshotname " + snapshotName, 3 * 60 * 1000);
+        CliOperations.runCommand(visionRadwareFirstTime, "virsh snapshot-revert --domain " + vmName + " --snapshotname " + snapshotName, 15 * 60 * 1000);
         BaseTestUtils.report("Starting server after revert.", Reporter.PASS_NOR_FAIL);
         CliOperations.runCommand(visionRadwareFirstTime, "virsh start " + vmName, DEFAULT_KVM_CLI_TIMEOUT);
         String error = ".*Domain not found.*";
@@ -164,13 +165,13 @@ public class VMOperationsSteps extends BddUITestBase {
                 VisionRadwareFirstTime visionRadwareFirstTime = (VisionRadwareFirstTime) system.getSystemObject("visionRadwareFirstTime");
                 if (setupMode == null) throw new NullPointerException("Can't find \"setupMode\" at SUT File");
                 String snapshot = getVisionSetupAttributeFromSUT("snapshot");
-                if ((snapshot == null || snapshot.equals("")) && setupMode.toLowerCase().contains("upgrade") ) {
+                if ((snapshot == null || snapshot.equals("")) && setupMode.toLowerCase().contains("upgrade")) {
                     BaseTestUtils.report("Could not find snapshot in SUT file performing internal upgrade", Reporter.PASS);
                     return;
                 }
                 switch (setupMode.toLowerCase()) {
                     case "kvm_upgrade_inparallel":
-                        revert_kvm_upgrade_InParallel(snapshot,visionRadwareFirstTime);
+                        revert_kvm_upgrade_InParallel(snapshot, visionRadwareFirstTime);
                         break;
 
                     case "upgrade_inparallel":
@@ -198,7 +199,7 @@ public class VMOperationsSteps extends BddUITestBase {
                     case "physical":
                         break;
                 }
-                if(setupMode.toLowerCase().contains("upgrade")){
+                if (setupMode.toLowerCase().contains("upgrade")) {
                     afterUpgrade();
                 }
 
@@ -214,7 +215,7 @@ public class VMOperationsSteps extends BddUITestBase {
         updateVersionVar();
     }
 
-    private void revert_kvm_upgrade_InParallel(String snapshot,VisionRadwareFirstTime visionRadwareFirstTime) throws Exception {
+    private void revert_kvm_upgrade_InParallel(String snapshot, VisionRadwareFirstTime visionRadwareFirstTime) throws Exception {
         KVMSnapShotThread firstMachine = new KVMSnapShotThread(snapshot, visionRadwareFirstTime);
         firstMachine.start();
         visionRadwareFirstTime = (VisionRadwareFirstTime) system.getSystemObject("visionRadwareFirstTime2");
