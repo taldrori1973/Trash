@@ -100,7 +100,7 @@ Feature: Defense Flow Forensic Wizard
     And UI Click Button "Report.Attack Details.Refine View"
     And UI Select Multi items from dropdown "Report.Attack Details.Refine.Dropdown" apply
       | Attack Name |
-    Then UI Validate "Report.Table" Table rows count equal to 8
+    Then UI Validate "Report.Table" Table rows count equal to 3
     * UI Click Button "Report.Clear Refine"
   @SID_14
   Scenario: VRM - Validate Forensic "Wizard" Delete Wizard
