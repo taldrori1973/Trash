@@ -93,16 +93,16 @@ Feature:  Report AMS analytics CSV Validations
 
   @SID_12
   Scenario:VRM report validate CSV file TOP ATTACKS content
-    Then CLI Run linux Command "cat /opt/radware/mgt-server/third-party/tomcat/bin/Top_Attacks.csv|head -2|tail -1|grep -oP "\"Incorrect IPv4 checksum\",\"Packet Anomalies\",(\d{13}),2" |wc -l" on "ROOT_SERVER_CLI" and validate result EQUALS "1"
+    Then CLI Run linux Command "cat /opt/radware/mgt-server/third-party/tomcat/bin/Top_Attacks.csv|head -2|tail -1|grep -oP "\"Incorrect IPv4 checksum\",\"Packet Anomalies\",$(date +"%B %d %Y [0-9][0-9]:[0-9][0-9]"),2" |wc -l" on "ROOT_SERVER_CLI" and validate result EQUALS "1"
     Then CLI Run linux Command "cat /opt/radware/mgt-server/third-party/tomcat/bin/Top_Attacks.csv|head -2|tail -1|awk -F "," '{printf $1}';echo" on "ROOT_SERVER_CLI" and validate result EQUALS ""Incorrect IPv4 checksum""
     Then CLI Run linux Command "cat /opt/radware/mgt-server/third-party/tomcat/bin/Top_Attacks.csv|head -2|tail -1|awk -F "," '{printf $2}';echo" on "ROOT_SERVER_CLI" and validate result EQUALS ""Packet Anomalies""
-    Then CLI Run linux Command "cat /opt/radware/mgt-server/third-party/tomcat/bin/Top_Attacks.csv|head -2|tail -1|awk -F "," '{printf $3}'|grep -oP "(\d{13})"|wc -l" on "ROOT_SERVER_CLI" and validate result EQUALS "1"
+    Then CLI Run linux Command "cat /opt/radware/mgt-server/third-party/tomcat/bin/Top_Attacks.csv|head -2|tail -1|awk -F "," '{printf $3}'|grep $(date +"%d")|wc -l" on "ROOT_SERVER_CLI" and validate result EQUALS "1"
     Then CLI Run linux Command "cat /opt/radware/mgt-server/third-party/tomcat/bin/Top_Attacks.csv|head -2|tail -1|awk -F "," '{printf $4}';echo" on "ROOT_SERVER_CLI" and validate result EQUALS "2"
 
-    Then CLI Run linux Command "cat /opt/radware/mgt-server/third-party/tomcat/bin/Top_Attacks.csv|head -3|tail -1|grep -oP "DOSS-Anomaly-TCP-SYN-RST,BDOS,(\d{13}),1" | wc -l" on "ROOT_SERVER_CLI" and validate result EQUALS "1"
+    Then CLI Run linux Command "cat /opt/radware/mgt-server/third-party/tomcat/bin/Top_Attacks.csv|head -3|tail -1|grep -oP "DOSS-Anomaly-TCP-SYN-RST,BDOS,$(date +"%B %d %Y [0-9][0-9]:[0-9][0-9]"),1" | wc -l" on "ROOT_SERVER_CLI" and validate result EQUALS "1"
     Then CLI Run linux Command "cat /opt/radware/mgt-server/third-party/tomcat/bin/Top_Attacks.csv|head -3|tail -1|awk -F "," '{printf $1}';echo" on "ROOT_SERVER_CLI" and validate result EQUALS "DOSS-Anomaly-TCP-SYN-RST"
     Then CLI Run linux Command "cat /opt/radware/mgt-server/third-party/tomcat/bin/Top_Attacks.csv|head -3|tail -1|awk -F "," '{printf $2}';echo" on "ROOT_SERVER_CLI" and validate result EQUALS "BDOS"
-    Then CLI Run linux Command "cat /opt/radware/mgt-server/third-party/tomcat/bin/Top_Attacks.csv|head -3|tail -1|awk -F "," '{printf $3}'|grep -oP "(\d{13})"|wc -l" on "ROOT_SERVER_CLI" and validate result EQUALS "1"
+    Then CLI Run linux Command "cat /opt/radware/mgt-server/third-party/tomcat/bin/Top_Attacks.csv|head -3|tail -1|awk -F "," '{printf $3}'|grep $(date +"%d")|wc -l" on "ROOT_SERVER_CLI" and validate result EQUALS "1"
     Then CLI Run linux Command "cat /opt/radware/mgt-server/third-party/tomcat/bin/Top_Attacks.csv|head -3|tail -1|awk -F "," '{printf $4}';echo" on "ROOT_SERVER_CLI" and validate result EQUALS "1"
 
     ############################################       ATTACKS BY THREAT CATEGORY       ######################################################################
@@ -117,18 +117,18 @@ Feature:  Report AMS analytics CSV Validations
 
   @SID_15
   Scenario: VRM report validate CSV file ATTACKS BY THREAT CATEGORY content
-    Then CLI Run linux Command "cat /opt/radware/mgt-server/third-party/tomcat/bin/Attacks_by\ Threat\ Category.csv|head -2 |tail -1|grep -oP "\"Incorrect IPv4 checksum\",\"Packet Anomalies\",(\d{13}),2,Anomalies" |wc -l" on "ROOT_SERVER_CLI" and validate result EQUALS "1"
+    Then CLI Run linux Command "cat /opt/radware/mgt-server/third-party/tomcat/bin/Attacks_by\ Threat\ Category.csv|head -2 |tail -1|grep -oP "\"Incorrect IPv4 checksum\",\"Packet Anomalies\",$(date +"%B %d %Y [0-9][0-9]:[0-9][0-9]"),2,Anomalies" |wc -l" on "ROOT_SERVER_CLI" and validate result EQUALS "1"
     Then CLI Run linux Command "cat /opt/radware/mgt-server/third-party/tomcat/bin/Attacks_by\ Threat\ Category.csv|head -2|tail -1|awk -F "," '{printf $1}';echo" on "ROOT_SERVER_CLI" and validate result EQUALS ""Incorrect IPv4 checksum""
     Then CLI Run linux Command "cat /opt/radware/mgt-server/third-party/tomcat/bin/Attacks_by\ Threat\ Category.csv|head -2|tail -1|awk -F "," '{printf $2}';echo" on "ROOT_SERVER_CLI" and validate result EQUALS ""Packet Anomalies""
-    Then CLI Run linux Command "cat /opt/radware/mgt-server/third-party/tomcat/bin/Attacks_by\ Threat\ Category.csv|head -2|tail -1|awk -F "," '{printf $3}' |grep -oP "(\d{13})"|wc -l" on "ROOT_SERVER_CLI" and validate result EQUALS "1"
+    Then CLI Run linux Command "cat /opt/radware/mgt-server/third-party/tomcat/bin/Attacks_by\ Threat\ Category.csv|head -2|tail -1|awk -F "," '{printf $3}' |grep $(date +"%d")|wc -l" on "ROOT_SERVER_CLI" and validate result EQUALS "1"
     Then CLI Run linux Command "cat /opt/radware/mgt-server/third-party/tomcat/bin/Attacks_by\ Threat\ Category.csv|head -2|tail -1|awk -F "," '{printf $4}';echo" on "ROOT_SERVER_CLI" and validate result EQUALS "2"
     Then CLI Run linux Command "cat /opt/radware/mgt-server/third-party/tomcat/bin/Attacks_by\ Threat\ Category.csv|head -2|tail -1|awk -F "," '{printf $5}';echo" on "ROOT_SERVER_CLI" and validate result EQUALS "Anomalies"
 
 
-    Then CLI Run linux Command "cat /opt/radware/mgt-server/third-party/tomcat/bin/Attacks_by\ Threat\ Category.csv|head -4 |tail -1|grep -oP "DOSS-Anomaly-TCP-SYN-RST,BDOS,(\d{13}),1,DOSShield"|wc -l" on "ROOT_SERVER_CLI" and validate result EQUALS "1"
+    Then CLI Run linux Command "cat /opt/radware/mgt-server/third-party/tomcat/bin/Attacks_by\ Threat\ Category.csv|head -4 |tail -1|grep -oP "DOSS-Anomaly-TCP-SYN-RST,BDOS,$(date +"%B %d %Y [0-9][0-9]:[0-9][0-9]"),1,DOSShield"|wc -l" on "ROOT_SERVER_CLI" and validate result EQUALS "1"
     Then CLI Run linux Command "cat /opt/radware/mgt-server/third-party/tomcat/bin/Attacks_by\ Threat\ Category.csv|head -4|tail -1|awk -F "," '{printf $1}';echo" on "ROOT_SERVER_CLI" and validate result EQUALS "DOSS-Anomaly-TCP-SYN-RST"
     Then CLI Run linux Command "cat /opt/radware/mgt-server/third-party/tomcat/bin/Attacks_by\ Threat\ Category.csv|head -4|tail -1|awk -F "," '{printf $2}';echo" on "ROOT_SERVER_CLI" and validate result EQUALS "BDOS"
-    Then CLI Run linux Command "cat /opt/radware/mgt-server/third-party/tomcat/bin/Attacks_by\ Threat\ Category.csv|head -4|tail -1|awk -F "," '{printf $3}' |grep -oP "(\d{13})"|wc -l" on "ROOT_SERVER_CLI" and validate result EQUALS "1"
+    Then CLI Run linux Command "cat /opt/radware/mgt-server/third-party/tomcat/bin/Attacks_by\ Threat\ Category.csv|head -4|tail -1|awk -F "," '{printf $3}' |grep $(date +"%d")|wc -l" on "ROOT_SERVER_CLI" and validate result EQUALS "1"
     Then CLI Run linux Command "cat /opt/radware/mgt-server/third-party/tomcat/bin/Attacks_by\ Threat\ Category.csv|head -4|tail -1|awk -F "," '{printf $4}';echo" on "ROOT_SERVER_CLI" and validate result EQUALS "1"
     Then CLI Run linux Command "cat /opt/radware/mgt-server/third-party/tomcat/bin/Attacks_by\ Threat\ Category.csv|head -4|tail -1|awk -F "," '{printf $5}';echo" on "ROOT_SERVER_CLI" and validate result EQUALS "DOSShield"
 
@@ -177,8 +177,8 @@ Feature:  Report AMS analytics CSV Validations
 
   @SID_24
   Scenario: VRM report validate CSV file ATTACK CATEGORIES BY BANDWIDTH content
-    Then CLI Run linux Command "cat "/opt/radware/mgt-server/third-party/tomcat/bin/Attack_Categories by Bandwidth.csv"|head -2 |tail -1|grep -oP "\"Packet Anomalies\",(\d{13}),Anomalies,0"|wc -l" on "ROOT_SERVER_CLI" and validate result EQUALS "1"
-    Then CLI Run linux Command "cat "/opt/radware/mgt-server/third-party/tomcat/bin/Attack_Categories by Bandwidth.csv"|head -3 |tail -1|grep -oP "BDOS,(\d{13}),DOSShield,56641"|wc -l" on "ROOT_SERVER_CLI" and validate result EQUALS "1"
+    Then CLI Run linux Command "cat "/opt/radware/mgt-server/third-party/tomcat/bin/Attack_Categories by Bandwidth.csv"|head -2 |tail -1|grep -oP "\"Packet Anomalies\",$(date +"%B %d %Y [0-9][0-9]:[0-9][0-9]"),Anomalies,0"|wc -l" on "ROOT_SERVER_CLI" and validate result EQUALS "1"
+    Then CLI Run linux Command "cat "/opt/radware/mgt-server/third-party/tomcat/bin/Attack_Categories by Bandwidth.csv"|head -3 |tail -1|grep -oP "BDOS,$(date +"%B %d %Y [0-9][0-9]:[0-9][0-9]"),DOSShield,56641"|wc -l" on "ROOT_SERVER_CLI" and validate result EQUALS "1"
 
 
     ############################################       ATTACK BY MITIGATION ACTION       ####################################################################
@@ -193,8 +193,8 @@ Feature:  Report AMS analytics CSV Validations
 
   @SID_27
   Scenario: VRM report validate CSV file ATTACK BY MITIGATION ACTION content
-    Then CLI Run linux Command "cat "/opt/radware/mgt-server/third-party/tomcat/bin/Attacks_by Mitigation Action.csv"|head -2 |tail -1|grep -oP "\"Incorrect IPv4 checksum\",Drop,\"Packet Anomalies\",(\d{13}),2" |wc -l" on "ROOT_SERVER_CLI" and validate result EQUALS "1"
-    Then CLI Run linux Command "cat "/opt/radware/mgt-server/third-party/tomcat/bin/Attacks_by Mitigation Action.csv"|head -4 |tail -1|grep -oP "DOSS-Anomaly-TCP-SYN-RST,Drop,BDOS,(\d{13}),1"|wc -l" on "ROOT_SERVER_CLI" and validate result EQUALS "1"
+    Then CLI Run linux Command "cat "/opt/radware/mgt-server/third-party/tomcat/bin/Attacks_by Mitigation Action.csv"|head -2 |tail -1|grep -oP "\"Incorrect IPv4 checksum\",Drop,\"Packet Anomalies\",$(date +"%B %d %Y [0-9][0-9]:[0-9][0-9]"),2" |wc -l" on "ROOT_SERVER_CLI" and validate result EQUALS "1"
+    Then CLI Run linux Command "cat "/opt/radware/mgt-server/third-party/tomcat/bin/Attacks_by Mitigation Action.csv"|head -4 |tail -1|grep -oP "DOSS-Anomaly-TCP-SYN-RST,Drop,BDOS,$(date +"%B %d %Y [0-9][0-9]:[0-9][0-9]"),1"|wc -l" on "ROOT_SERVER_CLI" and validate result EQUALS "1"
 
 
     ############################################       ATTACKS BY PROTECTION POLICY       ####################################################################
@@ -214,16 +214,16 @@ Feature:  Report AMS analytics CSV Validations
 
   @SID_30
   Scenario: VRM report validate CSV file ATTACKS BY PROTECTION POLICY content
-    Then CLI Run linux Command "cat /opt/radware/mgt-server/third-party/tomcat/bin/Attacks_by\ Protection\ Policy.csv|head -2|tail -1|grep -oP "\"Incorrect IPv4 checksum\",\"Packet Anomalies\",(\d{13}),2" |wc -l" on "ROOT_SERVER_CLI" and validate result EQUALS "1"
+    Then CLI Run linux Command "cat /opt/radware/mgt-server/third-party/tomcat/bin/Attacks_by\ Protection\ Policy.csv|head -2|tail -1|grep -oP "\"Incorrect IPv4 checksum\",\"Packet Anomalies\",$(date +"%B %d %Y [0-9][0-9]:[0-9][0-9]"),2" |wc -l" on "ROOT_SERVER_CLI" and validate result EQUALS "1"
     Then CLI Run linux Command "cat /opt/radware/mgt-server/third-party/tomcat/bin/Attacks_by\ Protection\ Policy.csv|head -2|tail -1|awk -F "," '{printf $1}';echo" on "ROOT_SERVER_CLI" and validate result EQUALS ""Incorrect IPv4 checksum""
     Then CLI Run linux Command "cat /opt/radware/mgt-server/third-party/tomcat/bin/Attacks_by\ Protection\ Policy.csv|head -2|tail -1|awk -F "," '{printf $2}';echo" on "ROOT_SERVER_CLI" and validate result EQUALS ""Packet Anomalies""
-    Then CLI Run linux Command "cat /opt/radware/mgt-server/third-party/tomcat/bin/Attacks_by\ Protection\ Policy.csv|head -2|tail -1|awk -F "," '{printf $3}' |grep -oP "(\d{13})"|wc -l" on "ROOT_SERVER_CLI" and validate result EQUALS "1"
+    Then CLI Run linux Command "cat /opt/radware/mgt-server/third-party/tomcat/bin/Attacks_by\ Protection\ Policy.csv|head -2|tail -1|awk -F "," '{printf $3}' |grep $(date +"%d")|wc -l" on "ROOT_SERVER_CLI" and validate result EQUALS "1"
     Then CLI Run linux Command "cat /opt/radware/mgt-server/third-party/tomcat/bin/Attacks_by\ Protection\ Policy.csv|head -2|tail -1|awk -F "," '{printf $4}';echo" on "ROOT_SERVER_CLI" and validate result EQUALS "2"
 
 
     Then CLI Run linux Command "cat /opt/radware/mgt-server/third-party/tomcat/bin/Attacks_by\ Protection\ Policy.csv|head -3|tail -1|awk -F "," '{printf $1}';echo" on "ROOT_SERVER_CLI" and validate result EQUALS "DOSS-Anomaly-TCP-SYN-RST"
     Then CLI Run linux Command "cat /opt/radware/mgt-server/third-party/tomcat/bin/Attacks_by\ Protection\ Policy.csv|head -3|tail -1|awk -F "," '{printf $2}';echo" on "ROOT_SERVER_CLI" and validate result EQUALS "BDOS"
-    Then CLI Run linux Command "cat /opt/radware/mgt-server/third-party/tomcat/bin/Attacks_by\ Protection\ Policy.csv|head -3|tail -1|awk -F "," '{printf $3}' |grep -oP "(\d{13})"|wc -l" on "ROOT_SERVER_CLI" and validate result EQUALS "1"
+    Then CLI Run linux Command "cat /opt/radware/mgt-server/third-party/tomcat/bin/Attacks_by\ Protection\ Policy.csv|head -3|tail -1|awk -F "," '{printf $3}' |grep $(date +"%d")|wc -l" on "ROOT_SERVER_CLI" and validate result EQUALS "1"
     Then CLI Run linux Command "cat /opt/radware/mgt-server/third-party/tomcat/bin/Attacks_by\ Protection\ Policy.csv|head -3|tail -1|awk -F "," '{printf $4}';echo" on "ROOT_SERVER_CLI" and validate result EQUALS "1"
 
     ############################################       CRITICAK ATTACKS BY MITIGATION ACTION      #############################################################
@@ -261,8 +261,8 @@ Feature:  Report AMS analytics CSV Validations
 
   @SID_37
   Scenario: VRM report validate CSV file TOP ATTACKS BY BANDWIDTH content
-    Then CLI Run linux Command "cat /opt/radware/mgt-server/third-party/tomcat/bin/Top_Attacks\ by\ Bandwidth.csv|head -2|tail -1|grep -oP "\"Incorrect IPv4 checksum\",\"Packet Anomalies\",(\d{13}),0,2" |wc -l" on "ROOT_SERVER_CLI" and validate result EQUALS "1"
-    Then CLI Run linux Command "cat /opt/radware/mgt-server/third-party/tomcat/bin/Top_Attacks\ by\ Bandwidth.csv|head -3|tail -1|grep -oP "DOSS-Anomaly-TCP-SYN-RST,BDOS,(\d{13}),56641,58469"|wc -l" on "ROOT_SERVER_CLI" and validate result EQUALS "1"
+    Then CLI Run linux Command "cat /opt/radware/mgt-server/third-party/tomcat/bin/Top_Attacks\ by\ Bandwidth.csv|head -2|tail -1|grep -oP "\"Incorrect IPv4 checksum\",\"Packet Anomalies\",$(date +"%B %d %Y [0-9][0-9]:[0-9][0-9]"),0,2" |wc -l" on "ROOT_SERVER_CLI" and validate result EQUALS "1"
+    Then CLI Run linux Command "cat /opt/radware/mgt-server/third-party/tomcat/bin/Top_Attacks\ by\ Bandwidth.csv|head -3|tail -1|grep -oP "DOSS-Anomaly-TCP-SYN-RST,BDOS,$(date +"%B %d %Y [0-9][0-9]:[0-9][0-9]"),56641,58469"|wc -l" on "ROOT_SERVER_CLI" and validate result EQUALS "1"
 
 
       ############################################       TOP ATTACKS BY PROTOCOL      ########################################################################
@@ -277,8 +277,8 @@ Feature:  Report AMS analytics CSV Validations
 
   @SID_40
   Scenario: VRM report validate CSV file TOP ATTACKS BY PROTOCOL content
-    Then CLI Run linux Command "cat "/opt/radware/mgt-server/third-party/tomcat/bin/Top_Attacks by Protocol.csv"|head -2|tail -1|grep -oP "\"Incorrect IPv4 checksum\",\"Packet Anomalies\",IP,(\d{13}),2" |wc -l" on "ROOT_SERVER_CLI" and validate result EQUALS "1"
-    Then CLI Run linux Command "cat "/opt/radware/mgt-server/third-party/tomcat/bin/Top_Attacks by Protocol.csv"|head -4|tail -1|grep -oP "DOSS-Anomaly-TCP-SYN-RST,BDOS,TCP,(\d{13}),1"|wc -l" on "ROOT_SERVER_CLI" and validate result EQUALS "1"
+    Then CLI Run linux Command "cat "/opt/radware/mgt-server/third-party/tomcat/bin/Top_Attacks by Protocol.csv"|head -2|tail -1|grep -oP "\"Incorrect IPv4 checksum\",\"Packet Anomalies\",IP,$(date +"%B %d %Y [0-9][0-9]:[0-9][0-9]"),2" |wc -l" on "ROOT_SERVER_CLI" and validate result EQUALS "1"
+    Then CLI Run linux Command "cat "/opt/radware/mgt-server/third-party/tomcat/bin/Top_Attacks by Protocol.csv"|head -4|tail -1|grep -oP "DOSS-Anomaly-TCP-SYN-RST,BDOS,TCP,$(date +"%B %d %Y [0-9][0-9]:[0-9][0-9]"),1"|wc -l" on "ROOT_SERVER_CLI" and validate result EQUALS "1"
 
 
       ############################################       TOP SCANNERS      ##################################################################################

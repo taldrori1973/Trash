@@ -21,7 +21,7 @@ Feature: VRM AMS Report Data BDoS baselines
     Given CLI simulate 4 attacks of type "baselines_pol_1" on "DefensePro" 10 with loopDelay 15000 and wait 60 seconds
     Then CLI Run remote linux Command "rm -f /opt/radware/mgt-server/third-party/tomcat/bin/VRM_report_*.zip" on "ROOT_SERVER_CLI"
 
-
+  
   @SID_4
   Scenario: Login to VRM AMS reports tab
     Given UI Login with user "sys_admin" and password "radware"
@@ -81,7 +81,7 @@ Feature: VRM AMS Report Data BDoS baselines
 
   @SID_10
   Scenario: VRM report validate CSV file BDoS-ICMP IPv4/bps/In content
-    Then CLI Run linux Command "cat /opt/radware/mgt-server/third-party/tomcat/bin/BDoS-ICMP.csv |head -2|tail -1|grep -oP "172.16.22.50,92,pol_1,{},icmp,false,true,bps,(\d{13}),,,45600,In,1040" |wc -l" on "ROOT_SERVER_CLI" and validate result EQUALS "1"
+    Then CLI Run linux Command "cat /opt/radware/mgt-server/third-party/tomcat/bin/BDoS-ICMP.csv |head -2|tail -1|grep -oP "172.16.22.50,92,pol_1,{},icmp,false,true,bps,$(date +"%B %d %Y [0-9][0-9]:[0-9][0-9]"),,,45600,In,1040" |wc -l" on "ROOT_SERVER_CLI" and validate result EQUALS "1"
     Then CLI Run linux Command "cat /opt/radware/mgt-server/third-party/tomcat/bin/BDoS-ICMP.csv |head -2|tail -1|awk -F"," '{print $1}'" on "ROOT_SERVER_CLI" and validate result EQUALS "172.16.22.50"
     Then CLI Run linux Command "cat /opt/radware/mgt-server/third-party/tomcat/bin/BDoS-ICMP.csv |head -2|tail -1|awk -F"," '{print $2}'" on "ROOT_SERVER_CLI" and validate result EQUALS "92"
     Then CLI Run linux Command "cat /opt/radware/mgt-server/third-party/tomcat/bin/BDoS-ICMP.csv |head -2|tail -1|awk -F"," '{print $3}'" on "ROOT_SERVER_CLI" and validate result EQUALS "pol_1"
@@ -94,8 +94,8 @@ Feature: VRM AMS Report Data BDoS baselines
     Then CLI Run linux Command "cat /opt/radware/mgt-server/third-party/tomcat/bin/BDoS-ICMP.csv |head -2|tail -1|awk -F"," '{print $13}'" on "ROOT_SERVER_CLI" and validate result EQUALS "In"
     Then CLI Run linux Command "cat /opt/radware/mgt-server/third-party/tomcat/bin/BDoS-ICMP.csv |head -2|tail -1|awk -F"," '{print $14}'" on "ROOT_SERVER_CLI" and validate result EQUALS "1040"
 
-    Then CLI Run linux Command "cat /opt/radware/mgt-server/third-party/tomcat/bin/BDoS-ICMP.csv |head -8|tail -1|grep -oP "(\d{13}),172.16.22.50,323.81723,pol_1,{},icmp,false,,true,bps,In,182.09581" |wc -l" on "ROOT_SERVER_CLI" and validate result EQUALS "1"
-    Then CLI Run linux Command "cat /opt/radware/mgt-server/third-party/tomcat/bin/BDoS-ICMP.csv |head -8|tail -1|awk -F "," '{print $1}' |grep -oP "(\d{13})"|wc -l" on "ROOT_SERVER_CLI" and validate result EQUALS "1"
+    Then CLI Run linux Command "cat /opt/radware/mgt-server/third-party/tomcat/bin/BDoS-ICMP.csv |head -8|tail -1|grep -oP "$(date +"%B %d %Y [0-9][0-9]:[0-9][0-9]"),172.16.22.50,323.81723,pol_1,{},icmp,false,,true,bps,In,182.09581" |wc -l" on "ROOT_SERVER_CLI" and validate result EQUALS "1"
+    Then CLI Run linux Command "cat /opt/radware/mgt-server/third-party/tomcat/bin/BDoS-ICMP.csv |head -8|tail -1|awk -F "," '{print $1}' |grep -oP "$(date +"%B %d %Y [0-9][0-9]:[0-9][0-9]")"|wc -l" on "ROOT_SERVER_CLI" and validate result EQUALS "1"
 
   @SID_11
   Scenario: VRM report validate CSV file BDoS-UDP_Fragmented IPv4/bps/In number of lines
@@ -108,9 +108,9 @@ Feature: VRM AMS Report Data BDoS baselines
 
   @SID_13
   Scenario: VRM report validate CSV file BDoS-UDP_Fragmented IPv4/bps/In content
-    Then CLI Run linux Command "cat /opt/radware/mgt-server/third-party/tomcat/bin/BDoS-UDP_Fragmented.csv |head -2|tail -1|grep -oP "172.16.22.50,768,pol_1,{},udp-frag,false,true,bps,(\d{13}),,,45120,In,46960" |wc -l" on "ROOT_SERVER_CLI" and validate result EQUALS "1"
-    Then CLI Run linux Command "cat /opt/radware/mgt-server/third-party/tomcat/bin/BDoS-UDP_Fragmented.csv |head -8|tail -1|grep -oP "(\d{13}),172.16.22.50,1402.1698,pol_1,{},udp-frag,false,,true,bps,In,1037.7218" |wc -l" on "ROOT_SERVER_CLI" and validate result EQUALS "1"
-    Then CLI Run linux Command "cat /opt/radware/mgt-server/third-party/tomcat/bin/BDoS-UDP_Fragmented.csv |head -8|tail -1|awk -F "," '{print $1}' |grep -oP "(\d{13})"|wc -l" on "ROOT_SERVER_CLI" and validate result EQUALS "1"
+    Then CLI Run linux Command "cat /opt/radware/mgt-server/third-party/tomcat/bin/BDoS-UDP_Fragmented.csv |head -2|tail -1|grep -oP "172.16.22.50,768,pol_1,{},udp-frag,false,true,bps,$(date +"%B %d %Y [0-9][0-9]:[0-9][0-9]"),,,45120,In,46960" |wc -l" on "ROOT_SERVER_CLI" and validate result EQUALS "1"
+    Then CLI Run linux Command "cat /opt/radware/mgt-server/third-party/tomcat/bin/BDoS-UDP_Fragmented.csv |head -8|tail -1|grep -oP "$(date +"%B %d %Y [0-9][0-9]:[0-9][0-9]"),172.16.22.50,1402.1698,pol_1,{},udp-frag,false,,true,bps,In,1037.7218" |wc -l" on "ROOT_SERVER_CLI" and validate result EQUALS "1"
+    Then CLI Run linux Command "cat /opt/radware/mgt-server/third-party/tomcat/bin/BDoS-UDP_Fragmented.csv |head -8|tail -1|awk -F "," '{print $1}' |grep -oP "$(date +"%B %d %Y [0-9][0-9]:[0-9][0-9]")"|wc -l" on "ROOT_SERVER_CLI" and validate result EQUALS "1"
 
   @SID_14
   Scenario: VRM report validate CSV file BDoS-UDP IPv4/bps/In number of lines
@@ -123,9 +123,9 @@ Feature: VRM AMS Report Data BDoS baselines
 
   @SID_16
   Scenario: VRM report validate CSV file BDoS-UDP IPv4/bps/In content
-    Then CLI Run linux Command "cat /opt/radware/mgt-server/third-party/tomcat/bin/BDoS-UDP.csv |head -2|tail -1|grep -oP "172.16.22.50,2048,pol_1,{},udp,false,true,bps,(\d{13}),,,45280,In,66480" |wc -l" on "ROOT_SERVER_CLI" and validate result EQUALS "1"
-    Then CLI Run linux Command "cat /opt/radware/mgt-server/third-party/tomcat/bin/BDoS-UDP.csv |head -8|tail -1|grep -oP "(\d{13}),172.16.22.50,3238.1724,pol_1,{},udp,false,,true,bps,In,2575.2234" |wc -l" on "ROOT_SERVER_CLI" and validate result EQUALS "1"
-    Then CLI Run linux Command "cat /opt/radware/mgt-server/third-party/tomcat/bin/BDoS-UDP.csv |head -8|tail -1|awk -F "," '{print $1}' |grep -oP "(\d{13})"|wc -l" on "ROOT_SERVER_CLI" and validate result EQUALS "1"
+    Then CLI Run linux Command "cat /opt/radware/mgt-server/third-party/tomcat/bin/BDoS-UDP.csv |head -2|tail -1|grep -oP "172.16.22.50,2048,pol_1,{},udp,false,true,bps,$(date +"%B %d %Y [0-9][0-9]:[0-9][0-9]"),,,45280,In,66480" |wc -l" on "ROOT_SERVER_CLI" and validate result EQUALS "1"
+    Then CLI Run linux Command "cat /opt/radware/mgt-server/third-party/tomcat/bin/BDoS-UDP.csv |head -8|tail -1|grep -oP "$(date +"%B %d %Y [0-9][0-9]:[0-9][0-9]"),172.16.22.50,3238.1724,pol_1,{},udp,false,,true,bps,In,2575.2234" |wc -l" on "ROOT_SERVER_CLI" and validate result EQUALS "1"
+    Then CLI Run linux Command "cat /opt/radware/mgt-server/third-party/tomcat/bin/BDoS-UDP.csv |head -8|tail -1|awk -F "," '{print $1}' |grep -oP "$(date +"%B %d %Y [0-9][0-9]:[0-9][0-9]")"|wc -l" on "ROOT_SERVER_CLI" and validate result EQUALS "1"
 
   @SID_17
   Scenario: VRM report validate CSV file BDoS-TCP_SYN IPv4/bps/In number of lines
@@ -138,9 +138,9 @@ Feature: VRM AMS Report Data BDoS baselines
 
   @SID_19
   Scenario: VRM report validate CSV file BDoS-TCP_SYN IPv4/bps/In content
-    Then CLI Run linux Command "cat /opt/radware/mgt-server/third-party/tomcat/bin/BDoS-TCP_SYN.csv |head -2|tail -1|grep -oP "172.16.22.50,322,pol_1,{},tcp-syn,true,true,bps,(\d{13}),,,44800,In,46640" |wc -l" on "ROOT_SERVER_CLI" and validate result EQUALS "1"
-    Then CLI Run linux Command "cat /opt/radware/mgt-server/third-party/tomcat/bin/BDoS-TCP_SYN.csv |head -8|tail -1|grep -oP "(\d{13}),172.16.22.50,628.17206,pol_1,{},tcp-syn,true,,true,bps,In,464.89935" |wc -l" on "ROOT_SERVER_CLI" and validate result EQUALS "1"
-    Then CLI Run linux Command "cat /opt/radware/mgt-server/third-party/tomcat/bin/BDoS-TCP_SYN.csv |head -8|tail -1|awk -F "," '{print $1}' |grep -oP "(\d{13})"|wc -l" on "ROOT_SERVER_CLI" and validate result EQUALS "1"
+    Then CLI Run linux Command "cat /opt/radware/mgt-server/third-party/tomcat/bin/BDoS-TCP_SYN.csv |head -2|tail -1|grep -oP "172.16.22.50,322,pol_1,{},tcp-syn,true,true,bps,$(date +"%B %d %Y [0-9][0-9]:[0-9][0-9]"),,,44800,In,46640" |wc -l" on "ROOT_SERVER_CLI" and validate result EQUALS "1"
+    Then CLI Run linux Command "cat /opt/radware/mgt-server/third-party/tomcat/bin/BDoS-TCP_SYN.csv |head -8|tail -1|grep -oP "$(date +"%B %d %Y [0-9][0-9]:[0-9][0-9]"),172.16.22.50,628.17206,pol_1,{},tcp-syn,true,,true,bps,In,464.89935" |wc -l" on "ROOT_SERVER_CLI" and validate result EQUALS "1"
+    Then CLI Run linux Command "cat /opt/radware/mgt-server/third-party/tomcat/bin/BDoS-TCP_SYN.csv |head -8|tail -1|awk -F "," '{print $1}' |grep -oP "$(date +"%B %d %Y [0-9][0-9]:[0-9][0-9]")"|wc -l" on "ROOT_SERVER_CLI" and validate result EQUALS "1"
 
   @SID_20
   Scenario: VRM report validate CSV file BDoS-TCP_SYN ACK IPv4/bps/In number of lines
@@ -153,9 +153,9 @@ Feature: VRM AMS Report Data BDoS baselines
 
   @SID_22
   Scenario: VRM report validate CSV file BDoS-TCP_SYN ACK IPv4/bps/In content
-    Then CLI Run linux Command "cat /opt/radware/mgt-server/third-party/tomcat/bin/BDoS-TCP_SYN\ ACK.csv |head -2|tail -1|grep -oP "172.16.22.50,322,pol_1,{},tcp-syn-ack,true,true,bps,(\d{13}),,,44000,In,66680" |wc -l" on "ROOT_SERVER_CLI" and validate result EQUALS "1"
-    Then CLI Run linux Command "cat /opt/radware/mgt-server/third-party/tomcat/bin/BDoS-TCP_SYN\ ACK.csv |head -8|tail -1|grep -oP "(\d{13}),172.16.22.50,628.17206,pol_1,{},tcp-syn-ack,true,,true,bps,In,464.89935" |wc -l" on "ROOT_SERVER_CLI" and validate result EQUALS "1"
-    Then CLI Run linux Command "cat /opt/radware/mgt-server/third-party/tomcat/bin/BDoS-TCP_SYN\ ACK.csv |head -8|tail -1|awk -F "," '{print $1}' |grep -oP "(\d{13})"|wc -l" on "ROOT_SERVER_CLI" and validate result EQUALS "1"
+    Then CLI Run linux Command "cat /opt/radware/mgt-server/third-party/tomcat/bin/BDoS-TCP_SYN\ ACK.csv |head -2|tail -1|grep -oP "172.16.22.50,322,pol_1,{},tcp-syn-ack,true,true,bps,$(date +"%B %d %Y [0-9][0-9]:[0-9][0-9]"),,,44000,In,66680" |wc -l" on "ROOT_SERVER_CLI" and validate result EQUALS "1"
+    Then CLI Run linux Command "cat /opt/radware/mgt-server/third-party/tomcat/bin/BDoS-TCP_SYN\ ACK.csv |head -8|tail -1|grep -oP "$(date +"%B %d %Y [0-9][0-9]:[0-9][0-9]"),172.16.22.50,628.17206,pol_1,{},tcp-syn-ack,true,,true,bps,In,464.89935" |wc -l" on "ROOT_SERVER_CLI" and validate result EQUALS "1"
+    Then CLI Run linux Command "cat /opt/radware/mgt-server/third-party/tomcat/bin/BDoS-TCP_SYN\ ACK.csv |head -8|tail -1|awk -F "," '{print $1}' |grep -oP "$(date +"%B %d %Y [0-9][0-9]:[0-9][0-9]")"|wc -l" on "ROOT_SERVER_CLI" and validate result EQUALS "1"
 
   @SID_23
   Scenario: VRM report validate CSV file BDoS-TCP_RST IPv4/bps/In number of lines
@@ -168,9 +168,9 @@ Feature: VRM AMS Report Data BDoS baselines
 
   @SID_25
   Scenario: VRM report validate CSV file BDoS-TCP_RST IPv4/bps/In content
-    Then CLI Run linux Command "cat /opt/radware/mgt-server/third-party/tomcat/bin/BDoS-TCP_RST.csv |head -2|tail -1|grep -oP "172.16.22.50,645,pol_1,{},tcp-rst,true,true,bps,(\d{13}),,,44640,In,46480" |wc -l" on "ROOT_SERVER_CLI" and validate result EQUALS "1"
-    Then CLI Run linux Command "cat /opt/radware/mgt-server/third-party/tomcat/bin/BDoS-TCP_RST.csv |head -8|tail -1|grep -oP "(\d{13}),172.16.22.50,1256.3441,pol_1,{},tcp-rst,true,,true,bps,In,929.7987" |wc -l" on "ROOT_SERVER_CLI" and validate result EQUALS "1"
-    Then CLI Run linux Command "cat /opt/radware/mgt-server/third-party/tomcat/bin/BDoS-TCP_RST.csv |head -8|tail -1|awk -F "," '{print $1}' |grep -oP "(\d{13})"|wc -l" on "ROOT_SERVER_CLI" and validate result EQUALS "1"
+    Then CLI Run linux Command "cat /opt/radware/mgt-server/third-party/tomcat/bin/BDoS-TCP_RST.csv |head -2|tail -1|grep -oP "172.16.22.50,645,pol_1,{},tcp-rst,true,true,bps,$(date +"%B %d %Y [0-9][0-9]:[0-9][0-9]"),,,44640,In,46480" |wc -l" on "ROOT_SERVER_CLI" and validate result EQUALS "1"
+    Then CLI Run linux Command "cat /opt/radware/mgt-server/third-party/tomcat/bin/BDoS-TCP_RST.csv |head -8|tail -1|grep -oP "$(date +"%B %d %Y [0-9][0-9]:[0-9][0-9]"),172.16.22.50,1256.3441,pol_1,{},tcp-rst,true,,true,bps,In,929.7987" |wc -l" on "ROOT_SERVER_CLI" and validate result EQUALS "1"
+    Then CLI Run linux Command "cat /opt/radware/mgt-server/third-party/tomcat/bin/BDoS-TCP_RST.csv |head -8|tail -1|awk -F "," '{print $1}' |grep -oP "$(date +"%B %d %Y [0-9][0-9]:[0-9][0-9]")"|wc -l" on "ROOT_SERVER_CLI" and validate result EQUALS "1"
 
   @SID_26
   Scenario: VRM report validate CSV file BDoS-TCP_Fragmented IPv4/bps/In number of lines
@@ -183,9 +183,9 @@ Feature: VRM AMS Report Data BDoS baselines
 
   @SID_28
   Scenario: VRM report validate CSV file BDoS-TCP_Fragmented IPv4/bps/In content
-    Then CLI Run linux Command "cat /opt/radware/mgt-server/third-party/tomcat/bin/BDoS-TCP_Fragmented.csv |head -2|tail -1|grep -oP "172.16.22.50,161,pol_1,{},tcp-frag,true,true,bps,(\d{13}),,,43840,In,45760" |wc -l" on "ROOT_SERVER_CLI" and validate result EQUALS "1"
-    Then CLI Run linux Command "cat /opt/radware/mgt-server/third-party/tomcat/bin/BDoS-TCP_Fragmented.csv |head -8|tail -1|grep -oP "(\d{13}),172.16.22.50,314.08603,pol_1,{},tcp-frag,true,,true,bps,In,232.44968" |wc -l" on "ROOT_SERVER_CLI" and validate result EQUALS "1"
-    Then CLI Run linux Command "cat /opt/radware/mgt-server/third-party/tomcat/bin/BDoS-TCP_Fragmented.csv |head -8|tail -1|awk -F "," '{print $1}' |grep -oP "(\d{13})"|wc -l" on "ROOT_SERVER_CLI" and validate result EQUALS "1"
+    Then CLI Run linux Command "cat /opt/radware/mgt-server/third-party/tomcat/bin/BDoS-TCP_Fragmented.csv |head -2|tail -1|grep -oP "172.16.22.50,161,pol_1,{},tcp-frag,true,true,bps,$(date +"%B %d %Y [0-9][0-9]:[0-9][0-9]"),,,43840,In,45760" |wc -l" on "ROOT_SERVER_CLI" and validate result EQUALS "1"
+    Then CLI Run linux Command "cat /opt/radware/mgt-server/third-party/tomcat/bin/BDoS-TCP_Fragmented.csv |head -8|tail -1|grep -oP "$(date +"%B %d %Y [0-9][0-9]:[0-9][0-9]"),172.16.22.50,314.08603,pol_1,{},tcp-frag,true,,true,bps,In,232.44968" |wc -l" on "ROOT_SERVER_CLI" and validate result EQUALS "1"
+    Then CLI Run linux Command "cat /opt/radware/mgt-server/third-party/tomcat/bin/BDoS-TCP_Fragmented.csv |head -8|tail -1|awk -F "," '{print $1}' |grep -oP "$(date +"%B %d %Y [0-9][0-9]:[0-9][0-9]")"|wc -l" on "ROOT_SERVER_CLI" and validate result EQUALS "1"
 
   @SID_29
   Scenario: VRM report validate CSV file BDoS-TCP_FIN ACK IPv4/bps/In number of lines
@@ -198,9 +198,9 @@ Feature: VRM AMS Report Data BDoS baselines
 
   @SID_31
   Scenario: VRM report validate CSV file BDoS-TCP_FIN ACK IPv4/bps/In content
-    Then CLI Run linux Command "cat /opt/radware/mgt-server/third-party/tomcat/bin/BDoS-TCP_FIN\ ACK.csv |head -2|tail -1|grep -oP "172.16.22.50,322,pol_1,{},tcp-ack-fin,true,true,bps,(\d{13}),,,44160,In,46000" |wc -l" on "ROOT_SERVER_CLI" and validate result EQUALS "1"
-    Then CLI Run linux Command "cat /opt/radware/mgt-server/third-party/tomcat/bin/BDoS-TCP_FIN\ ACK.csv |head -8|tail -1|grep -oP "(\d{13}),172.16.22.50,628.17206,pol_1,{},tcp-ack-fin,true,,true,bps,In,464.89935" |wc -l" on "ROOT_SERVER_CLI" and validate result EQUALS "1"
-    Then CLI Run linux Command "cat /opt/radware/mgt-server/third-party/tomcat/bin/BDoS-TCP_FIN\ ACK.csv |head -8|tail -1|awk -F "," '{print $1}' |grep -oP "(\d{13})"|wc -l" on "ROOT_SERVER_CLI" and validate result EQUALS "1"
+    Then CLI Run linux Command "cat /opt/radware/mgt-server/third-party/tomcat/bin/BDoS-TCP_FIN\ ACK.csv |head -2|tail -1|grep -oP "172.16.22.50,322,pol_1,{},tcp-ack-fin,true,true,bps,$(date +"%B %d %Y [0-9][0-9]:[0-9][0-9]"),,,44160,In,46000" |wc -l" on "ROOT_SERVER_CLI" and validate result EQUALS "1"
+    Then CLI Run linux Command "cat /opt/radware/mgt-server/third-party/tomcat/bin/BDoS-TCP_FIN\ ACK.csv |head -8|tail -1|grep -oP "$(date +"%B %d %Y [0-9][0-9]:[0-9][0-9]"),172.16.22.50,628.17206,pol_1,{},tcp-ack-fin,true,,true,bps,In,464.89935" |wc -l" on "ROOT_SERVER_CLI" and validate result EQUALS "1"
+    Then CLI Run linux Command "cat /opt/radware/mgt-server/third-party/tomcat/bin/BDoS-TCP_FIN\ ACK.csv |head -8|tail -1|awk -F "," '{print $1}' |grep -oP "$(date +"%B %d %Y [0-9][0-9]:[0-9][0-9]")"|wc -l" on "ROOT_SERVER_CLI" and validate result EQUALS "1"
 
   @SID_32
   Scenario: VRM report validate CSV file BDoS-IGMP IPv4/bps/In number of lines
@@ -213,9 +213,9 @@ Feature: VRM AMS Report Data BDoS baselines
 
   @SID_34
   Scenario: VRM report validate CSV file BDoS-IGMP IPv4/bps/In content
-    Then CLI Run linux Command "cat /opt/radware/mgt-server/third-party/tomcat/bin/BDoS-IGMP.csv |head -2|tail -1|grep -oP "172.16.22.50,92,pol_1,{},igmp,false,true,bps,(\d{13}),,,44960,In,46800" |wc -l" on "ROOT_SERVER_CLI" and validate result EQUALS "1"
-    Then CLI Run linux Command "cat /opt/radware/mgt-server/third-party/tomcat/bin/BDoS-IGMP.csv |head -8|tail -1|grep -oP "(\d{13}),172.16.22.50,323.81723,pol_1,{},igmp,false,,true,bps,In,182.09581" |wc -l" on "ROOT_SERVER_CLI" and validate result EQUALS "1"
-    Then CLI Run linux Command "cat /opt/radware/mgt-server/third-party/tomcat/bin/BDoS-IGMP.csv |head -8|tail -1|awk -F "," '{print $1}' |grep -oP "(\d{13})"|wc -l" on "ROOT_SERVER_CLI" and validate result EQUALS "1"
+    Then CLI Run linux Command "cat /opt/radware/mgt-server/third-party/tomcat/bin/BDoS-IGMP.csv |head -2|tail -1|grep -oP "172.16.22.50,92,pol_1,{},igmp,false,true,bps,$(date +"%B %d %Y [0-9][0-9]:[0-9][0-9]"),,,44960,In,46800" |wc -l" on "ROOT_SERVER_CLI" and validate result EQUALS "1"
+    Then CLI Run linux Command "cat /opt/radware/mgt-server/third-party/tomcat/bin/BDoS-IGMP.csv |head -8|tail -1|grep -oP "$(date +"%B %d %Y [0-9][0-9]:[0-9][0-9]"),172.16.22.50,323.81723,pol_1,{},igmp,false,,true,bps,In,182.09581" |wc -l" on "ROOT_SERVER_CLI" and validate result EQUALS "1"
+    Then CLI Run linux Command "cat /opt/radware/mgt-server/third-party/tomcat/bin/BDoS-IGMP.csv |head -8|tail -1|awk -F "," '{print $1}' |grep -oP "$(date +"%B %d %Y [0-9][0-9]:[0-9][0-9]")"|wc -l" on "ROOT_SERVER_CLI" and validate result EQUALS "1"
 
   @SID_35
   Scenario: Create Report of BDOS baselines IPv6 PPS Outbound
@@ -226,24 +226,30 @@ Feature: VRM AMS Report Data BDoS baselines
       | Format                | Select: CSV                                                                                                                                                                                                                                                                                                                                                                                                              |
       | Time Definitions.Date | Relative:[Hours,1]                                                                                                                                                                                                                                                                                                                                                                                                       |
 
+
+    
   @SID_36
   Scenario: Delete old zip files on file system
     Then CLI Run remote linux Command "rm -f /opt/radware/mgt-server/third-party/tomcat/bin/VRM_report_*.zip" on "ROOT_SERVER_CLI"
 
+  
   @SID_37
   Scenario: Generate the report "BDOS baselines IPv6 PPS Outbound"
     And UI Navigate to "AMS Alerts" page via homePage
     And UI Navigate to "AMS Reports" page via homePage
     Then UI Generate and Validate Report With Name "BDOS baselines IPv6 PPS Outbound" with Timeout of 300 Seconds
 
+  
   @SID_38
   Scenario: VRM report unzip local CSV file
     Then CLI Run remote linux Command "unzip -o -d /opt/radware/mgt-server/third-party/tomcat/bin/ /opt/radware/mgt-server/third-party/tomcat/bin/VRM_report_*.zip" on "ROOT_SERVER_CLI"
 
+  
   @SID_39
   Scenario: VRM report validate CSV file BDoS-TCP_SYN ACK IPv6/PPS/Out number of lines
     Then CLI Run linux Command "cat /opt/radware/mgt-server/third-party/tomcat/bin/BDoS-TCP_SYN\ ACK.csv |wc -l" on "ROOT_SERVER_CLI" and validate result EQUALS "11"
 
+  
   @SID_40
   Scenario: VRM report validate CSV file BDoS-TCP_SYN ACK IPv6/PPS/Out headers
     Then CLI Run linux Command "cat /opt/radware/mgt-server/third-party/tomcat/bin/BDoS-TCP_SYN\ ACK.csv |head -1|grep "deviceIp,normal,policyName,enrichmentContainer,protection,isTcp,isIpv4,units,timeStamp,fast,id,partial,direction,full" |wc -l" on "ROOT_SERVER_CLI" and validate result EQUALS "1"
@@ -276,33 +282,35 @@ Feature: VRM AMS Report Data BDoS baselines
     Then CLI Run linux Command "cat /opt/radware/mgt-server/third-party/tomcat/bin/BDoS-TCP_SYN\ ACK.csv |head -7|tail -1|awk -F"," '{print $11}'" on "ROOT_SERVER_CLI" and validate result EQUALS "direction"
     Then CLI Run linux Command "cat /opt/radware/mgt-server/third-party/tomcat/bin/BDoS-TCP_SYN\ ACK.csv |head -7|tail -1|awk -F"," '{print $12}'" on "ROOT_SERVER_CLI" and validate result EQUALS "suspectedEdge"
 
+
+  
   @SID_41
-  Scenario: VRM report validate CSV file BDoS-TCP_SYN ACK IPv6/PPS/Out content
-    Then CLI Run linux Command "cat /opt/radware/mgt-server/third-party/tomcat/bin/BDoS-TCP_SYN\ ACK.csv |head -2|tail -1|grep -oP "172.16.22.50,650,pol_1,{},tcp-syn-ack,false,false,pps,(\d{13}),,,3750,Out,4950" |wc -l" on "ROOT_SERVER_CLI" and validate result EQUALS "1"
+  Scenario: VRM report validate CSV file BDoS-TCP_SYN ACK IPv6/bPS/Out content
+    Then CLI Run linux Command "cat /opt/radware/mgt-server/third-party/tomcat/bin/BDoS-TCP_SYN\ ACK.csv |head -2|tail -1|grep -oP "172.16.22.50,322,pol_1,{},tcp-syn-ack,true,true,bps,$(date +"%B %d %Y [0-9][0-9]:[0-9][0-9]"),,,44000,In,66680"|wc -l" on "ROOT_SERVER_CLI" and validate result EQUALS "1"
     Then CLI Run linux Command "cat /opt/radware/mgt-server/third-party/tomcat/bin/BDoS-TCP_SYN\ ACK.csv |head -2|tail -1|awk -F"," '{print $1}'" on "ROOT_SERVER_CLI" and validate result EQUALS "172.16.22.50"
-    Then CLI Run linux Command "cat /opt/radware/mgt-server/third-party/tomcat/bin/BDoS-TCP_SYN\ ACK.csv |head -2|tail -1|awk -F"," '{print $2}'" on "ROOT_SERVER_CLI" and validate result EQUALS "650"
+    Then CLI Run linux Command "cat /opt/radware/mgt-server/third-party/tomcat/bin/BDoS-TCP_SYN\ ACK.csv |head -2|tail -1|awk -F"," '{print $2}'" on "ROOT_SERVER_CLI" and validate result EQUALS "322"
     Then CLI Run linux Command "cat /opt/radware/mgt-server/third-party/tomcat/bin/BDoS-TCP_SYN\ ACK.csv |head -2|tail -1|awk -F"," '{print $3}'" on "ROOT_SERVER_CLI" and validate result EQUALS "pol_1"
     Then CLI Run linux Command "cat /opt/radware/mgt-server/third-party/tomcat/bin/BDoS-TCP_SYN\ ACK.csv |head -2|tail -1|awk -F"," '{print $4}'" on "ROOT_SERVER_CLI" and validate result EQUALS "{}"
     Then CLI Run linux Command "cat /opt/radware/mgt-server/third-party/tomcat/bin/BDoS-TCP_SYN\ ACK.csv |head -2|tail -1|awk -F"," '{print $5}'" on "ROOT_SERVER_CLI" and validate result EQUALS "tcp-syn-ack"
     Then CLI Run linux Command "cat /opt/radware/mgt-server/third-party/tomcat/bin/BDoS-TCP_SYN\ ACK.csv |head -2|tail -1|awk -F"," '{print $6}'" on "ROOT_SERVER_CLI" and validate result EQUALS "true"
-    Then CLI Run linux Command "cat /opt/radware/mgt-server/third-party/tomcat/bin/BDoS-TCP_SYN\ ACK.csv |head -2|tail -1|awk -F"," '{print $7}'" on "ROOT_SERVER_CLI" and validate result EQUALS "false"
-    Then CLI Run linux Command "cat /opt/radware/mgt-server/third-party/tomcat/bin/BDoS-TCP_SYN\ ACK.csv |head -2|tail -1|awk -F"," '{print $8}'" on "ROOT_SERVER_CLI" and validate result EQUALS "pps"
-    Then CLI Run linux Command "cat /opt/radware/mgt-server/third-party/tomcat/bin/BDoS-TCP_SYN\ ACK.csv |head -2|tail -1|awk -F"," '{print $12}'" on "ROOT_SERVER_CLI" and validate result EQUALS "3750"
-    Then CLI Run linux Command "cat /opt/radware/mgt-server/third-party/tomcat/bin/BDoS-TCP_SYN\ ACK.csv |head -2|tail -1|awk -F"," '{print $13}'" on "ROOT_SERVER_CLI" and validate result EQUALS "Out"
-    Then CLI Run linux Command "cat /opt/radware/mgt-server/third-party/tomcat/bin/BDoS-TCP_SYN\ ACK.csv |head -2|tail -1|awk -F"," '{print $14}'" on "ROOT_SERVER_CLI" and validate result EQUALS "4950"
+    Then CLI Run linux Command "cat /opt/radware/mgt-server/third-party/tomcat/bin/BDoS-TCP_SYN\ ACK.csv |head -2|tail -1|awk -F"," '{print $7}'" on "ROOT_SERVER_CLI" and validate result EQUALS "true"
+    Then CLI Run linux Command "cat /opt/radware/mgt-server/third-party/tomcat/bin/BDoS-TCP_SYN\ ACK.csv |head -2|tail -1|awk -F"," '{print $8}'" on "ROOT_SERVER_CLI" and validate result EQUALS "bps"
+    Then CLI Run linux Command "cat /opt/radware/mgt-server/third-party/tomcat/bin/BDoS-TCP_SYN\ ACK.csv |head -2|tail -1|awk -F"," '{print $12}'" on "ROOT_SERVER_CLI" and validate result EQUALS "44000"
+    Then CLI Run linux Command "cat /opt/radware/mgt-server/third-party/tomcat/bin/BDoS-TCP_SYN\ ACK.csv |head -2|tail -1|awk -F"," '{print $13}'" on "ROOT_SERVER_CLI" and validate result EQUALS "In"
+    Then CLI Run linux Command "cat /opt/radware/mgt-server/third-party/tomcat/bin/BDoS-TCP_SYN\ ACK.csv |head -2|tail -1|awk -F"," '{print $14}'" on "ROOT_SERVER_CLI" and validate result EQUALS "66680"
 
-    Then CLI Run linux Command "cat /opt/radware/mgt-server/third-party/tomcat/bin/BDoS-TCP_SYN\ ACK.csv |head -8|tail -1|grep -oP "(\d{13}),172.16.22.50,275000.0,pol_1,{},tcp-syn-ack,true,,false,pps,Out,270000.0" |wc -l" on "ROOT_SERVER_CLI" and validate result EQUALS "1"
-    Then CLI Run linux Command "cat /opt/radware/mgt-server/third-party/tomcat/bin/BDoS-TCP_SYN\ ACK.csv |head -8|tail -1|awk -F"," '{print $1}' |grep -oP "(\d{13})"|wc -l" on "ROOT_SERVER_CLI" and validate result EQUALS "1"
+    Then CLI Run linux Command "cat /opt/radware/mgt-server/third-party/tomcat/bin/BDoS-TCP_SYN\ ACK.csv |head -8|tail -1|grep -oP "$(date +"%B %d %Y [0-9][0-9]:[0-9][0-9]"),172.16.22.50,628.17206,pol_1,{},tcp-syn-ack,true,,true,bps,In,464.89935" |wc -l" on "ROOT_SERVER_CLI" and validate result EQUALS "1"
+    Then CLI Run linux Command "cat /opt/radware/mgt-server/third-party/tomcat/bin/BDoS-TCP_SYN\ ACK.csv |head -8|tail -1|awk -F"," '{print $1}' |grep -oP "$(date +"%B %d %Y [0-9][0-9]:[0-9][0-9]")"|wc -l" on "ROOT_SERVER_CLI" and validate result EQUALS "1"
     Then CLI Run linux Command "cat /opt/radware/mgt-server/third-party/tomcat/bin/BDoS-TCP_SYN\ ACK.csv |head -8|tail -1|awk -F"," '{print $2}'" on "ROOT_SERVER_CLI" and validate result EQUALS "172.16.22.50"
-    Then CLI Run linux Command "cat /opt/radware/mgt-server/third-party/tomcat/bin/BDoS-TCP_SYN\ ACK.csv |head -8|tail -1|awk -F"," '{print $3}'" on "ROOT_SERVER_CLI" and validate result EQUALS "275000.0"
+    Then CLI Run linux Command "cat /opt/radware/mgt-server/third-party/tomcat/bin/BDoS-TCP_SYN\ ACK.csv |head -8|tail -1|awk -F"," '{print $3}'" on "ROOT_SERVER_CLI" and validate result EQUALS "628"
     Then CLI Run linux Command "cat /opt/radware/mgt-server/third-party/tomcat/bin/BDoS-TCP_SYN\ ACK.csv |head -8|tail -1|awk -F"," '{print $4}'" on "ROOT_SERVER_CLI" and validate result EQUALS "pol_1"
     Then CLI Run linux Command "cat /opt/radware/mgt-server/third-party/tomcat/bin/BDoS-TCP_SYN\ ACK.csv |head -8|tail -1|awk -F"," '{print $5}'" on "ROOT_SERVER_CLI" and validate result EQUALS "{}"
     Then CLI Run linux Command "cat /opt/radware/mgt-server/third-party/tomcat/bin/BDoS-TCP_SYN\ ACK.csv |head -8|tail -1|awk -F"," '{print $6}'" on "ROOT_SERVER_CLI" and validate result EQUALS "tcp-syn-ack"
     Then CLI Run linux Command "cat /opt/radware/mgt-server/third-party/tomcat/bin/BDoS-TCP_SYN\ ACK.csv |head -8|tail -1|awk -F"," '{print $7}'" on "ROOT_SERVER_CLI" and validate result EQUALS "true"
-    Then CLI Run linux Command "cat /opt/radware/mgt-server/third-party/tomcat/bin/BDoS-TCP_SYN\ ACK.csv |head -8|tail -1|awk -F"," '{print $9}'" on "ROOT_SERVER_CLI" and validate result EQUALS "false"
-    Then CLI Run linux Command "cat /opt/radware/mgt-server/third-party/tomcat/bin/BDoS-TCP_SYN\ ACK.csv |head -8|tail -1|awk -F"," '{print $10}'" on "ROOT_SERVER_CLI" and validate result EQUALS "pps"
-    Then CLI Run linux Command "cat /opt/radware/mgt-server/third-party/tomcat/bin/BDoS-TCP_SYN\ ACK.csv |head -8|tail -1|awk -F"," '{print $11}'" on "ROOT_SERVER_CLI" and validate result EQUALS "Out"
-    Then CLI Run linux Command "cat /opt/radware/mgt-server/third-party/tomcat/bin/BDoS-TCP_SYN\ ACK.csv |head -8|tail -1|awk -F"," '{print $12}'" on "ROOT_SERVER_CLI" and validate result EQUALS "270000.0"
+    Then CLI Run linux Command "cat /opt/radware/mgt-server/third-party/tomcat/bin/BDoS-TCP_SYN\ ACK.csv |head -8|tail -1|awk -F"," '{print $9}'" on "ROOT_SERVER_CLI" and validate result EQUALS "true"
+    Then CLI Run linux Command "cat /opt/radware/mgt-server/third-party/tomcat/bin/BDoS-TCP_SYN\ ACK.csv |head -8|tail -1|awk -F"," '{print $10}'" on "ROOT_SERVER_CLI" and validate result EQUALS "bps"
+    Then CLI Run linux Command "cat /opt/radware/mgt-server/third-party/tomcat/bin/BDoS-TCP_SYN\ ACK.csv |head -8|tail -1|awk -F"," '{print $11}'" on "ROOT_SERVER_CLI" and validate result EQUALS "In"
+    Then CLI Run linux Command "cat /opt/radware/mgt-server/third-party/tomcat/bin/BDoS-TCP_SYN\ ACK.csv |head -8|tail -1|awk -F"," '{print $12}'" on "ROOT_SERVER_CLI" and validate result EQUALS "464"
 
   @SID_42
   Scenario: cleanup and check logs

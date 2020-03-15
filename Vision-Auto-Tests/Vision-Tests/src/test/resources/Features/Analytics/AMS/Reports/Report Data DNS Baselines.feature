@@ -66,8 +66,8 @@ Feature: VRM AMS Report Data DNS baselines
 
   @SID_10
   Scenario: VRM report validate CSV file DNS-NAPTR IPv4 content
-    Then CLI Run linux Command "cat /opt/radware/mgt-server/third-party/tomcat/bin/DNS-NAPTR*.csv |head -2|tail -1|grep -oP "(\d{13}),172.16.22.50,260,pol_1,{},dns-naptr,,true,qps,4800,In,4440" |wc -l" on "ROOT_SERVER_CLI" and validate result EQUALS "1"
-    Then CLI Run linux Command "cat /opt/radware/mgt-server/third-party/tomcat/bin/DNS-NAPTR*.csv |head -2|tail -1|awk -F"," '{print $1}' |grep -oP "(\d{13})"|wc -l" on "ROOT_SERVER_CLI" and validate result EQUALS "1"
+    Then CLI Run linux Command "cat /opt/radware/mgt-server/third-party/tomcat/bin/DNS-NAPTR*.csv |head -2|tail -1|grep -oP "$(date +"%B %d %Y [0-9][0-9]:[0-9][0-9]"),172.16.22.50,260,pol_1,{},dns-naptr,,true,qps,4800,In,4440" |wc -l" on "ROOT_SERVER_CLI" and validate result EQUALS "1"
+    Then CLI Run linux Command "cat /opt/radware/mgt-server/third-party/tomcat/bin/DNS-NAPTR*.csv |head -2|tail -1|awk -F"," '{print $1}' |grep -oP "$(date +"%B %d %Y [0-9][0-9]:[0-9][0-9]")"|wc -l" on "ROOT_SERVER_CLI" and validate result EQUALS "1"
     Then CLI Run linux Command "cat /opt/radware/mgt-server/third-party/tomcat/bin/DNS-NAPTR*.csv |head -2|tail -1|awk -F"," '{print $2}'" on "ROOT_SERVER_CLI" and validate result EQUALS "172.16.22.50"
     Then CLI Run linux Command "cat /opt/radware/mgt-server/third-party/tomcat/bin/DNS-NAPTR*.csv |head -2|tail -1|awk -F"," '{print $3}'" on "ROOT_SERVER_CLI" and validate result EQUALS "260"
     Then CLI Run linux Command "cat /opt/radware/mgt-server/third-party/tomcat/bin/DNS-NAPTR*.csv |head -2|tail -1|awk -F"," '{print $4}'" on "ROOT_SERVER_CLI" and validate result EQUALS "pol_1"
@@ -79,7 +79,7 @@ Feature: VRM AMS Report Data DNS baselines
     Then CLI Run linux Command "cat /opt/radware/mgt-server/third-party/tomcat/bin/DNS-NAPTR*.csv |head -2|tail -1|awk -F"," '{print $11}'" on "ROOT_SERVER_CLI" and validate result EQUALS "In"
     Then CLI Run linux Command "cat /opt/radware/mgt-server/third-party/tomcat/bin/DNS-NAPTR*.csv |head -2|tail -1|awk -F"," '{print $12}'" on "ROOT_SERVER_CLI" and validate result EQUALS "4440"
 
-    Then CLI Run linux Command "cat /opt/radware/mgt-server/third-party/tomcat/bin/DNS-NAPTR*.csv |head -8|tail -1|grep -oP "0.0,172.16.22.50,0.0,pol_1,{},dns-naptr,true,qps,(\d{13}),189.73666,,In,184.80421" |wc -l" on "ROOT_SERVER_CLI" and validate result EQUALS "1"
+    Then CLI Run linux Command "cat /opt/radware/mgt-server/third-party/tomcat/bin/DNS-NAPTR*.csv |head -8|tail -1|grep -oP "0.0,172.16.22.50,0.0,pol_1,{},dns-naptr,true,qps,$(date +"%B %d %Y [0-9][0-9]:[0-9][0-9]"),189.73666,,In,184.80421" |wc -l" on "ROOT_SERVER_CLI" and validate result EQUALS "1"
     Then CLI Run linux Command "cat /opt/radware/mgt-server/third-party/tomcat/bin/DNS-NAPTR*.csv |head -8|tail -1|awk -F"," '{print $1}'" on "ROOT_SERVER_CLI" and validate result EQUALS "0.0"
     Then CLI Run linux Command "cat /opt/radware/mgt-server/third-party/tomcat/bin/DNS-NAPTR*.csv |head -8|tail -1|awk -F"," '{print $2}'" on "ROOT_SERVER_CLI" and validate result EQUALS "172.16.22.50"
     Then CLI Run linux Command "cat /opt/radware/mgt-server/third-party/tomcat/bin/DNS-NAPTR*.csv |head -8|tail -1|awk -F"," '{print $3}'" on "ROOT_SERVER_CLI" and validate result EQUALS "0.0"
@@ -129,8 +129,8 @@ Feature: VRM AMS Report Data DNS baselines
 
   @SID_13
   Scenario: VRM report validate CSV file DNS-TXT IPv4 content
-    Then CLI Run linux Command "cat /opt/radware/mgt-server/third-party/tomcat/bin/DNS-TXT.csv |head -2|tail -1|grep -oP "(\d{13}),172.16.22.50,720,pol_1,{},dns-text,,true,qps,4720,In,4360" |wc -l" on "ROOT_SERVER_CLI" and validate result EQUALS "1"
-    Then CLI Run linux Command "cat /opt/radware/mgt-server/third-party/tomcat/bin/DNS-TXT.csv |head -2|tail -1|awk -F"," '{print $1}' |grep -oP "(\d{13})"|wc -l" on "ROOT_SERVER_CLI" and validate result EQUALS "1"
+    Then CLI Run linux Command "cat /opt/radware/mgt-server/third-party/tomcat/bin/DNS-TXT.csv |head -2|tail -1|grep -oP "$(date +"%B %d %Y [0-9][0-9]:[0-9][0-9]"),172.16.22.50,720,pol_1,{},dns-text,,true,qps,4720,In,4360" |wc -l" on "ROOT_SERVER_CLI" and validate result EQUALS "1"
+    Then CLI Run linux Command "cat /opt/radware/mgt-server/third-party/tomcat/bin/DNS-TXT.csv |head -2|tail -1|awk -F"," '{print $1}' |grep -oP "$(date +"%B %d %Y [0-9][0-9]:[0-9][0-9]")"|wc -l" on "ROOT_SERVER_CLI" and validate result EQUALS "1"
     Then CLI Run linux Command "cat /opt/radware/mgt-server/third-party/tomcat/bin/DNS-TXT.csv |head -2|tail -1|awk -F"," '{print $2}'" on "ROOT_SERVER_CLI" and validate result EQUALS "172.16.22.50"
     Then CLI Run linux Command "cat /opt/radware/mgt-server/third-party/tomcat/bin/DNS-TXT.csv |head -2|tail -1|awk -F"," '{print $3}'" on "ROOT_SERVER_CLI" and validate result EQUALS "720"
     Then CLI Run linux Command "cat /opt/radware/mgt-server/third-party/tomcat/bin/DNS-TXT.csv |head -2|tail -1|awk -F"," '{print $4}'" on "ROOT_SERVER_CLI" and validate result EQUALS "pol_1"
@@ -142,7 +142,7 @@ Feature: VRM AMS Report Data DNS baselines
     Then CLI Run linux Command "cat /opt/radware/mgt-server/third-party/tomcat/bin/DNS-TXT.csv |head -2|tail -1|awk -F"," '{print $11}'" on "ROOT_SERVER_CLI" and validate result EQUALS "In"
     Then CLI Run linux Command "cat /opt/radware/mgt-server/third-party/tomcat/bin/DNS-TXT.csv |head -2|tail -1|awk -F"," '{print $12}'" on "ROOT_SERVER_CLI" and validate result EQUALS "4360"
 
-    Then CLI Run linux Command "cat /opt/radware/mgt-server/third-party/tomcat/bin/DNS-TXT.csv |head -8|tail -1|grep -oP "0.0,172.16.22.50,0.0,pol_1,{},dns-text,true,qps,(\d{13}),758.94666,,In,739.21686" |wc -l" on "ROOT_SERVER_CLI" and validate result EQUALS "1"
+    Then CLI Run linux Command "cat /opt/radware/mgt-server/third-party/tomcat/bin/DNS-TXT.csv |head -8|tail -1|grep -oP "0.0,172.16.22.50,0.0,pol_1,{},dns-text,true,qps,$(date +"%B %d %Y [0-9][0-9]:[0-9][0-9]"),758.94666,,In,739.21686" |wc -l" on "ROOT_SERVER_CLI" and validate result EQUALS "1"
     Then CLI Run linux Command "cat /opt/radware/mgt-server/third-party/tomcat/bin/DNS-TXT.csv |head -8|tail -1|awk -F"," '{print $1}'" on "ROOT_SERVER_CLI" and validate result EQUALS "0.0"
     Then CLI Run linux Command "cat /opt/radware/mgt-server/third-party/tomcat/bin/DNS-TXT.csv |head -8|tail -1|awk -F"," '{print $2}'" on "ROOT_SERVER_CLI" and validate result EQUALS "172.16.22.50"
     Then CLI Run linux Command "cat /opt/radware/mgt-server/third-party/tomcat/bin/DNS-TXT.csv |head -8|tail -1|awk -F"," '{print $3}'" on "ROOT_SERVER_CLI" and validate result EQUALS "0.0"
@@ -151,7 +151,7 @@ Feature: VRM AMS Report Data DNS baselines
     Then CLI Run linux Command "cat /opt/radware/mgt-server/third-party/tomcat/bin/DNS-TXT.csv |head -8|tail -1|awk -F"," '{print $6}'" on "ROOT_SERVER_CLI" and validate result EQUALS "dns-text"
     Then CLI Run linux Command "cat /opt/radware/mgt-server/third-party/tomcat/bin/DNS-TXT.csv |head -8|tail -1|awk -F"," '{print $7}'" on "ROOT_SERVER_CLI" and validate result EQUALS "true"
     Then CLI Run linux Command "cat /opt/radware/mgt-server/third-party/tomcat/bin/DNS-TXT.csv |head -8|tail -1|awk -F"," '{print $8}'" on "ROOT_SERVER_CLI" and validate result EQUALS "qps"
-    Then CLI Run linux Command "cat /opt/radware/mgt-server/third-party/tomcat/bin/DNS-TXT.csv |head -8|tail -1|awk -F"," '{print $9}' |grep -oP "(\d{13})"|wc -l" on "ROOT_SERVER_CLI" and validate result EQUALS "1"
+    Then CLI Run linux Command "cat /opt/radware/mgt-server/third-party/tomcat/bin/DNS-TXT.csv |head -8|tail -1|awk -F"," '{print $9}' |grep -oP "$(date +"%B %d %Y [0-9][0-9]:[0-9][0-9]")"|wc -l" on "ROOT_SERVER_CLI" and validate result EQUALS "1"
     Then CLI Run linux Command "cat /opt/radware/mgt-server/third-party/tomcat/bin/DNS-TXT.csv |head -8|tail -1|awk -F"," '{print $10}'" on "ROOT_SERVER_CLI" and validate result EQUALS "758.94666"
     Then CLI Run linux Command "cat /opt/radware/mgt-server/third-party/tomcat/bin/DNS-TXT.csv |head -8|tail -1|awk -F"," '{print $12}'" on "ROOT_SERVER_CLI" and validate result EQUALS "In"
     Then CLI Run linux Command "cat /opt/radware/mgt-server/third-party/tomcat/bin/DNS-TXT.csv |head -8|tail -1|awk -F"," '{print $13}'" on "ROOT_SERVER_CLI" and validate result EQUALS "739.21686"
@@ -167,10 +167,10 @@ Feature: VRM AMS Report Data DNS baselines
 
   @SID_16
   Scenario: VRM report validate CSV file DNS-SRV IPv4 content
-    Then CLI Run linux Command "cat /opt/radware/mgt-server/third-party/tomcat/bin/DNS-SRV*.csv |head -2|tail -1|grep -oP "(\d{13}),172.16.22.50,270,pol_1,{},dns-srv,,true,qps,4840,In,4480" |wc -l" on "ROOT_SERVER_CLI" and validate result EQUALS "1"
-    Then CLI Run linux Command "cat /opt/radware/mgt-server/third-party/tomcat/bin/DNS-SRV*.csv |head -2|tail -1|awk -F"," '{print $1}' |grep -oP "(\d{13})"|wc -l" on "ROOT_SERVER_CLI" and validate result EQUALS "1"
+    Then CLI Run linux Command "cat /opt/radware/mgt-server/third-party/tomcat/bin/DNS-SRV*.csv |head -2|tail -1|grep -oP "$(date +"%B %d %Y [0-9][0-9]:[0-9][0-9]"),172.16.22.50,270,pol_1,{},dns-srv,,true,qps,4840,In,4480" |wc -l" on "ROOT_SERVER_CLI" and validate result EQUALS "1"
+    Then CLI Run linux Command "cat /opt/radware/mgt-server/third-party/tomcat/bin/DNS-SRV*.csv |head -2|tail -1|awk -F"," '{print $1}' |grep -oP "$(date +"%B %d %Y [0-9][0-9]:[0-9][0-9]")"|wc -l" on "ROOT_SERVER_CLI" and validate result EQUALS "1"
 
-    Then CLI Run linux Command "cat /opt/radware/mgt-server/third-party/tomcat/bin/DNS-SRV*.csv |head -8|tail -1|grep -oP "0.0,172.16.22.50,0.0,pol_1,{},dns-srv,true,qps,(\d{13}),189.73666,,In,184.80421" |wc -l" on "ROOT_SERVER_CLI" and validate result EQUALS "1"
+    Then CLI Run linux Command "cat /opt/radware/mgt-server/third-party/tomcat/bin/DNS-SRV*.csv |head -8|tail -1|grep -oP "0.0,172.16.22.50,0.0,pol_1,{},dns-srv,true,qps,$(date +"%B %d %Y [0-9][0-9]:[0-9][0-9]"),189.73666,,In,184.80421" |wc -l" on "ROOT_SERVER_CLI" and validate result EQUALS "1"
 
   @SID_17
   Scenario: VRM report validate CSV file DNS-SOA IPv4 number of lines
@@ -183,10 +183,10 @@ Feature: VRM AMS Report Data DNS baselines
 
   @SID_19
   Scenario: VRM report validate CSV file DNS-SOA IPv4 content
-    Then CLI Run linux Command "cat /opt/radware/mgt-server/third-party/tomcat/bin/DNS-SOA.csv |head -2|tail -1|grep -oP "(\d{13}),172.16.22.50,250,pol_1,{},dns-soa,,true,qps,4760,In,4400" |wc -l" on "ROOT_SERVER_CLI" and validate result EQUALS "1"
-    Then CLI Run linux Command "cat /opt/radware/mgt-server/third-party/tomcat/bin/DNS-SOA.csv |head -2|tail -1|awk -F"," '{print $1}' |grep -oP "(\d{13})"|wc -l" on "ROOT_SERVER_CLI" and validate result EQUALS "1"
+    Then CLI Run linux Command "cat /opt/radware/mgt-server/third-party/tomcat/bin/DNS-SOA.csv |head -2|tail -1|grep -oP "$(date +"%B %d %Y [0-9][0-9]:[0-9][0-9]"),172.16.22.50,250,pol_1,{},dns-soa,,true,qps,4760,In,4400" |wc -l" on "ROOT_SERVER_CLI" and validate result EQUALS "1"
+    Then CLI Run linux Command "cat /opt/radware/mgt-server/third-party/tomcat/bin/DNS-SOA.csv |head -2|tail -1|awk -F"," '{print $1}' |grep -oP "$(date +"%B %d %Y [0-9][0-9]:[0-9][0-9]")"|wc -l" on "ROOT_SERVER_CLI" and validate result EQUALS "1"
 
-    Then CLI Run linux Command "cat /opt/radware/mgt-server/third-party/tomcat/bin/DNS-SOA.csv |head -8|tail -1|grep -oP "0.0,172.16.22.50,0.0,pol_1,{},dns-soa,true,qps,(\d{13}),189.73666,,In,184.80421" |wc -l" on "ROOT_SERVER_CLI" and validate result EQUALS "1"
+    Then CLI Run linux Command "cat /opt/radware/mgt-server/third-party/tomcat/bin/DNS-SOA.csv |head -8|tail -1|grep -oP "0.0,172.16.22.50,0.0,pol_1,{},dns-soa,true,qps,$(date +"%B %d %Y [0-9][0-9]:[0-9][0-9]"),189.73666,,In,184.80421" |wc -l" on "ROOT_SERVER_CLI" and validate result EQUALS "1"
 
   @SID_20
   Scenario: VRM report validate CSV file DNS-PTR IPv4 number of lines
@@ -199,10 +199,10 @@ Feature: VRM AMS Report Data DNS baselines
 
   @SID_22
   Scenario: VRM report validate CSV file DNS-PTR IPv4 content
-    Then CLI Run linux Command "cat /opt/radware/mgt-server/third-party/tomcat/bin/DNS-PTR*.csv |head -2|tail -1|grep -oP "(\d{13}),172.16.22.50,3600,pol_1,{},dns-ptr,,true,qps,4640,In,4280" |wc -l" on "ROOT_SERVER_CLI" and validate result EQUALS "1"
-    Then CLI Run linux Command "cat /opt/radware/mgt-server/third-party/tomcat/bin/DNS-PTR*.csv |head -2|tail -1|awk -F"," '{print $1}' |grep -oP "(\d{13})"|wc -l" on "ROOT_SERVER_CLI" and validate result EQUALS "1"
+    Then CLI Run linux Command "cat /opt/radware/mgt-server/third-party/tomcat/bin/DNS-PTR*.csv |head -2|tail -1|grep -oP "$(date +"%B %d %Y [0-9][0-9]:[0-9][0-9]"),172.16.22.50,3600,pol_1,{},dns-ptr,,true,qps,4640,In,4280" |wc -l" on "ROOT_SERVER_CLI" and validate result EQUALS "1"
+    Then CLI Run linux Command "cat /opt/radware/mgt-server/third-party/tomcat/bin/DNS-PTR*.csv |head -2|tail -1|awk -F"," '{print $1}' |grep -oP "$(date +"%B %d %Y [0-9][0-9]:[0-9][0-9]")"|wc -l" on "ROOT_SERVER_CLI" and validate result EQUALS "1"
 
-    Then CLI Run linux Command "cat /opt/radware/mgt-server/third-party/tomcat/bin/DNS-PTR*.csv |head -8|tail -1|grep -oP "0.0,172.16.22.50,0.0,pol_1,{},dns-ptr,true,qps,(\d{13}),4024.9224,,In,3806.5366" |wc -l" on "ROOT_SERVER_CLI" and validate result EQUALS "1"
+    Then CLI Run linux Command "cat /opt/radware/mgt-server/third-party/tomcat/bin/DNS-PTR*.csv |head -8|tail -1|grep -oP "0.0,172.16.22.50,0.0,pol_1,{},dns-ptr,true,qps,$(date +"%B %d %Y [0-9][0-9]:[0-9][0-9]"),4024.9224,,In,3806.5366" |wc -l" on "ROOT_SERVER_CLI" and validate result EQUALS "1"
 
   @SID_23
   Scenario: VRM report validate CSV file DNS-Other IPv4 number of lines
@@ -215,10 +215,10 @@ Feature: VRM AMS Report Data DNS baselines
 
   @SID_25
   Scenario: VRM report validate CSV file DNS-Other IPv4 content
-    Then CLI Run linux Command "cat /opt/radware/mgt-server/third-party/tomcat/bin/DNS-Other*.csv |head -2|tail -1|grep -oP "(\d{13}),172.16.22.50,280,pol_1,{},dns-other,,true,qps,4880,In,4520" |wc -l" on "ROOT_SERVER_CLI" and validate result EQUALS "1"
-    Then CLI Run linux Command "cat /opt/radware/mgt-server/third-party/tomcat/bin/DNS-Other*.csv |head -2|tail -1|awk -F"," '{print $1}' |grep -oP "(\d{13})"|wc -l" on "ROOT_SERVER_CLI" and validate result EQUALS "1"
+    Then CLI Run linux Command "cat /opt/radware/mgt-server/third-party/tomcat/bin/DNS-Other*.csv |head -2|tail -1|grep -oP "$(date +"%B %d %Y [0-9][0-9]:[0-9][0-9]"),172.16.22.50,280,pol_1,{},dns-other,,true,qps,4880,In,4520" |wc -l" on "ROOT_SERVER_CLI" and validate result EQUALS "1"
+    Then CLI Run linux Command "cat /opt/radware/mgt-server/third-party/tomcat/bin/DNS-Other*.csv |head -2|tail -1|awk -F"," '{print $1}' |grep -oP "$(date +"%B %d %Y [0-9][0-9]:[0-9][0-9]")"|wc -l" on "ROOT_SERVER_CLI" and validate result EQUALS "1"
 
-    Then CLI Run linux Command "cat /opt/radware/mgt-server/third-party/tomcat/bin/DNS-Other*.csv |head -8|tail -1|grep -oP "0.0,172.16.22.50,0.0,pol_1,{},dns-other,true,qps,(\d{13}),189.73666,,In,184.80421" |wc -l" on "ROOT_SERVER_CLI" and validate result EQUALS "1"
+    Then CLI Run linux Command "cat /opt/radware/mgt-server/third-party/tomcat/bin/DNS-Other*.csv |head -8|tail -1|grep -oP "0.0,172.16.22.50,0.0,pol_1,{},dns-other,true,qps,$(date +"%B %d %Y [0-9][0-9]:[0-9][0-9]"),189.73666,,In,184.80421" |wc -l" on "ROOT_SERVER_CLI" and validate result EQUALS "1"
 
   @SID_26
   Scenario: VRM report validate CSV file DNS-MX IPv4 number of lines
@@ -231,10 +231,10 @@ Feature: VRM AMS Report Data DNS baselines
 
   @SID_28
   Scenario: VRM report validate CSV file DNS-MX IPv4 content
-    Then CLI Run linux Command "cat /opt/radware/mgt-server/third-party/tomcat/bin/DNS-MX*.csv |head -2|tail -1|grep -oP "(\d{13}),172.16.22.50,3600,pol_1,{},dns-mx,,true,qps,4600,In,4240" |wc -l" on "ROOT_SERVER_CLI" and validate result EQUALS "1"
-    Then CLI Run linux Command "cat /opt/radware/mgt-server/third-party/tomcat/bin/DNS-MX*.csv |head -2|tail -1|awk -F"," '{print $1}' |grep -oP "(\d{13})"|wc -l" on "ROOT_SERVER_CLI" and validate result EQUALS "1"
+    Then CLI Run linux Command "cat /opt/radware/mgt-server/third-party/tomcat/bin/DNS-MX*.csv |head -2|tail -1|grep -oP "$(date +"%B %d %Y [0-9][0-9]:[0-9][0-9]"),172.16.22.50,3600,pol_1,{},dns-mx,,true,qps,4600,In,4240" |wc -l" on "ROOT_SERVER_CLI" and validate result EQUALS "1"
+    Then CLI Run linux Command "cat /opt/radware/mgt-server/third-party/tomcat/bin/DNS-MX*.csv |head -2|tail -1|awk -F"," '{print $1}' |grep -oP "$(date +"%B %d %Y [0-9][0-9]:[0-9][0-9]")"|wc -l" on "ROOT_SERVER_CLI" and validate result EQUALS "1"
 
-    Then CLI Run linux Command "cat /opt/radware/mgt-server/third-party/tomcat/bin/DNS-MX*.csv |head -8|tail -1|grep -oP "0.0,172.16.22.50,0.0,pol_1,{},dns-mx,true,qps,(\d{13}),4024.9224,,In,3806.5366" |wc -l" on "ROOT_SERVER_CLI" and validate result EQUALS "1"
+    Then CLI Run linux Command "cat /opt/radware/mgt-server/third-party/tomcat/bin/DNS-MX*.csv |head -8|tail -1|grep -oP "0.0,172.16.22.50,0.0,pol_1,{},dns-mx,true,qps,$(date +"%B %d %Y [0-9][0-9]:[0-9][0-9]"),4024.9224,,In,3806.5366" |wc -l" on "ROOT_SERVER_CLI" and validate result EQUALS "1"
 
   @SID_29
   Scenario: VRM report validate CSV file DNS-A IPv4 number of lines
@@ -247,10 +247,10 @@ Feature: VRM AMS Report Data DNS baselines
 
   @SID_31
   Scenario: VRM report validate CSV file DNS-A IPv4 content
-    Then CLI Run linux Command "cat /opt/radware/mgt-server/third-party/tomcat/bin/DNS-A.csv |head -2|tail -1|grep -oP "(\d{13}),172.16.22.50,6750,pol_1,{},dns-a,,true,qps,4560,In,4200" |wc -l" on "ROOT_SERVER_CLI" and validate result EQUALS "1"
-    Then CLI Run linux Command "cat /opt/radware/mgt-server/third-party/tomcat/bin/DNS-A.csv |head -2|tail -1|awk -F"," '{print $1}' |grep -oP "(\d{13})"|wc -l" on "ROOT_SERVER_CLI" and validate result EQUALS "1"
+    Then CLI Run linux Command "cat /opt/radware/mgt-server/third-party/tomcat/bin/DNS-A.csv |head -2|tail -1|grep -oP "$(date +"%B %d %Y [0-9][0-9]:[0-9][0-9]"),172.16.22.50,6750,pol_1,{},dns-a,,true,qps,4560,In,4200" |wc -l" on "ROOT_SERVER_CLI" and validate result EQUALS "1"
+    Then CLI Run linux Command "cat /opt/radware/mgt-server/third-party/tomcat/bin/DNS-A.csv |head -2|tail -1|awk -F"," '{print $1}' |grep -oP "$(date +"%B %d %Y [0-9][0-9]:[0-9][0-9]")"|wc -l" on "ROOT_SERVER_CLI" and validate result EQUALS "1"
 
-    Then CLI Run linux Command "cat /opt/radware/mgt-server/third-party/tomcat/bin/DNS-A.csv |head -8|tail -1|grep -oP "0.0,172.16.22.50,0.0,pol_1,{},dns-a,true,qps,(\d{13}),7794.2285,,In,7253.347" |wc -l" on "ROOT_SERVER_CLI" and validate result EQUALS "1"
+    Then CLI Run linux Command "cat /opt/radware/mgt-server/third-party/tomcat/bin/DNS-A.csv |head -8|tail -1|grep -oP "0.0,172.16.22.50,0.0,pol_1,{},dns-a,true,qps,$(date +"%B %d %Y [0-9][0-9]:[0-9][0-9]"),7794.2285,,In,7253.347" |wc -l" on "ROOT_SERVER_CLI" and validate result EQUALS "1"
 
   @SID_32
   Scenario: VRM report validate CSV file DNS-AAAA IPv4 number of lines
@@ -263,10 +263,10 @@ Feature: VRM AMS Report Data DNS baselines
 
   @SID_34
   Scenario: VRM report validate CSV file DNS-AAAA IPv4 content
-    Then CLI Run linux Command "cat /opt/radware/mgt-server/third-party/tomcat/bin/DNS-AAAA*.csv |head -2|tail -1|grep -oP "(\d{13}),172.16.22.50,1350,pol_1,{},dns-aaaa,,true,qps,4680,In,4320" |wc -l" on "ROOT_SERVER_CLI" and validate result EQUALS "1"
-    Then CLI Run linux Command "cat /opt/radware/mgt-server/third-party/tomcat/bin/DNS-AAAA*.csv |head -2|tail -1|awk -F"," '{print $1}' |grep -oP "(\d{13})"|wc -l" on "ROOT_SERVER_CLI" and validate result EQUALS "1"
+    Then CLI Run linux Command "cat /opt/radware/mgt-server/third-party/tomcat/bin/DNS-AAAA*.csv |head -2|tail -1|grep -oP "$(date +"%B %d %Y [0-9][0-9]:[0-9][0-9]"),172.16.22.50,1350,pol_1,{},dns-aaaa,,true,qps,4680,In,4320" |wc -l" on "ROOT_SERVER_CLI" and validate result EQUALS "1"
+    Then CLI Run linux Command "cat /opt/radware/mgt-server/third-party/tomcat/bin/DNS-AAAA*.csv |head -2|tail -1|awk -F"," '{print $1}' |grep -oP "$(date +"%B %d %Y [0-9][0-9]:[0-9][0-9]")"|wc -l" on "ROOT_SERVER_CLI" and validate result EQUALS "1"
 
-    Then CLI Run linux Command "cat /opt/radware/mgt-server/third-party/tomcat/bin/DNS-AAAA*.csv |head -8|tail -1|grep -oP "0.0,172.16.22.50,0.0,pol_1,{},dns-aaaa,true,qps,(\d{13}),1423.0249,,In,1386.0316" |wc -l" on "ROOT_SERVER_CLI" and validate result EQUALS "1"
+    Then CLI Run linux Command "cat /opt/radware/mgt-server/third-party/tomcat/bin/DNS-AAAA*.csv |head -8|tail -1|grep -oP "0.0,172.16.22.50,0.0,pol_1,{},dns-aaaa,true,qps,$(date +"%B %d %Y [0-9][0-9]:[0-9][0-9]"),1423.0249,,In,1386.0316" |wc -l" on "ROOT_SERVER_CLI" and validate result EQUALS "1"
 
 
        ######################    DNS Baselines IPv6    #################################################
@@ -305,8 +305,8 @@ Feature: VRM AMS Report Data DNS baselines
 
   @SID_41
   Scenario: VRM report validate CSV file DNS-NAPTR IPv6 content
-    Then CLI Run linux Command "cat /opt/radware/mgt-server/third-party/tomcat/bin/DNS-NAPTR*.csv |head -2|tail -1|grep -oP "(\d{13}),172.16.22.50,260,pol_1,{},dns-naptr,,false,qps,4800,In,4440" |wc -l" on "ROOT_SERVER_CLI" and validate result EQUALS "1"
-    Then CLI Run linux Command "cat /opt/radware/mgt-server/third-party/tomcat/bin/DNS-NAPTR*.csv |head -2|tail -1|awk -F"," '{print $1}' |grep -oP "(\d{13})"|wc -l" on "ROOT_SERVER_CLI" and validate result EQUALS "1"
+    Then CLI Run linux Command "cat /opt/radware/mgt-server/third-party/tomcat/bin/DNS-NAPTR*.csv |head -2|tail -1|grep -oP "$(date +"%B %d %Y [0-9][0-9]:[0-9][0-9]"),172.16.22.50,260,pol_1,{},dns-naptr,,false,qps,4800,In,4440" |wc -l" on "ROOT_SERVER_CLI" and validate result EQUALS "1"
+    Then CLI Run linux Command "cat /opt/radware/mgt-server/third-party/tomcat/bin/DNS-NAPTR*.csv |head -2|tail -1|awk -F"," '{print $1}' |grep -oP "$(date +"%B %d %Y [0-9][0-9]:[0-9][0-9]")"|wc -l" on "ROOT_SERVER_CLI" and validate result EQUALS "1"
     Then CLI Run linux Command "cat /opt/radware/mgt-server/third-party/tomcat/bin/DNS-NAPTR*.csv |head -2|tail -1|awk -F"," '{print $2}'" on "ROOT_SERVER_CLI" and validate result EQUALS "172.16.22.50"
     Then CLI Run linux Command "cat /opt/radware/mgt-server/third-party/tomcat/bin/DNS-NAPTR*.csv |head -2|tail -1|awk -F"," '{print $3}'" on "ROOT_SERVER_CLI" and validate result EQUALS "260"
     Then CLI Run linux Command "cat /opt/radware/mgt-server/third-party/tomcat/bin/DNS-NAPTR*.csv |head -2|tail -1|awk -F"," '{print $4}'" on "ROOT_SERVER_CLI" and validate result EQUALS "pol_1"
@@ -318,7 +318,7 @@ Feature: VRM AMS Report Data DNS baselines
     Then CLI Run linux Command "cat /opt/radware/mgt-server/third-party/tomcat/bin/DNS-NAPTR*.csv |head -2|tail -1|awk -F"," '{print $11}'" on "ROOT_SERVER_CLI" and validate result EQUALS "In"
     Then CLI Run linux Command "cat /opt/radware/mgt-server/third-party/tomcat/bin/DNS-NAPTR*.csv |head -2|tail -1|awk -F"," '{print $12}'" on "ROOT_SERVER_CLI" and validate result EQUALS "4440"
 
-    Then CLI Run linux Command "cat /opt/radware/mgt-server/third-party/tomcat/bin/DNS-NAPTR*.csv |head -8|tail -1|grep -oP "0.0,172.16.22.50,0.0,pol_1,{},dns-naptr,false,qps,(\d{13}),189.73666,,In,184.80421" |wc -l" on "ROOT_SERVER_CLI" and validate result EQUALS "1"
+    Then CLI Run linux Command "cat /opt/radware/mgt-server/third-party/tomcat/bin/DNS-NAPTR*.csv |head -8|tail -1|grep -oP "0.0,172.16.22.50,0.0,pol_1,{},dns-naptr,false,qps,$(date +"%B %d %Y [0-9][0-9]:[0-9][0-9]"),189.73666,,In,184.80421" |wc -l" on "ROOT_SERVER_CLI" and validate result EQUALS "1"
     Then CLI Run linux Command "cat /opt/radware/mgt-server/third-party/tomcat/bin/DNS-NAPTR*.csv |head -8|tail -1|awk -F"," '{print $1}'" on "ROOT_SERVER_CLI" and validate result EQUALS "0.0"
     Then CLI Run linux Command "cat /opt/radware/mgt-server/third-party/tomcat/bin/DNS-NAPTR*.csv |head -8|tail -1|awk -F"," '{print $2}'" on "ROOT_SERVER_CLI" and validate result EQUALS "172.16.22.50"
     Then CLI Run linux Command "cat /opt/radware/mgt-server/third-party/tomcat/bin/DNS-NAPTR*.csv |head -8|tail -1|awk -F"," '{print $3}'" on "ROOT_SERVER_CLI" and validate result EQUALS "0.0"
@@ -368,8 +368,8 @@ Feature: VRM AMS Report Data DNS baselines
 
   @SID_44
   Scenario: VRM report validate CSV file DNS-TXT IPv6 content
-    Then CLI Run linux Command "cat /opt/radware/mgt-server/third-party/tomcat/bin/DNS-TXT.csv |head -2|tail -1|grep -oP "(\d{13}),172.16.22.50,720,pol_1,{},dns-text,,true,qps,4720,In,4360" |wc -l" on "ROOT_SERVER_CLI" and validate result EQUALS "1"
-    Then CLI Run linux Command "cat /opt/radware/mgt-server/third-party/tomcat/bin/DNS-TXT.csv |head -2|tail -1|awk -F"," '{print $1}' |grep -oP "(\d{13})"|wc -l" on "ROOT_SERVER_CLI" and validate result EQUALS "1"
+    Then CLI Run linux Command "cat /opt/radware/mgt-server/third-party/tomcat/bin/DNS-TXT.csv |head -2|tail -1|grep -oP "$(date +"%B %d %Y [0-9][0-9]:[0-9][0-9]"),172.16.22.50,720,pol_1,{},dns-text,,true,qps,4720,In,4360" |wc -l" on "ROOT_SERVER_CLI" and validate result EQUALS "1"
+    Then CLI Run linux Command "cat /opt/radware/mgt-server/third-party/tomcat/bin/DNS-TXT.csv |head -2|tail -1|awk -F"," '{print $1}' |grep -oP "$(date +"%B %d %Y [0-9][0-9]:[0-9][0-9]")"|wc -l" on "ROOT_SERVER_CLI" and validate result EQUALS "1"
     Then CLI Run linux Command "cat /opt/radware/mgt-server/third-party/tomcat/bin/DNS-TXT.csv |head -2|tail -1|awk -F"," '{print $2}'" on "ROOT_SERVER_CLI" and validate result EQUALS "172.16.22.50"
     Then CLI Run linux Command "cat /opt/radware/mgt-server/third-party/tomcat/bin/DNS-TXT.csv |head -2|tail -1|awk -F"," '{print $3}'" on "ROOT_SERVER_CLI" and validate result EQUALS "720"
     Then CLI Run linux Command "cat /opt/radware/mgt-server/third-party/tomcat/bin/DNS-TXT.csv |head -2|tail -1|awk -F"," '{print $4}'" on "ROOT_SERVER_CLI" and validate result EQUALS "pol_1"
@@ -383,7 +383,7 @@ Feature: VRM AMS Report Data DNS baselines
     Then CLI Run linux Command "cat /opt/radware/mgt-server/third-party/tomcat/bin/DNS-TXT.csv |head -2|tail -1|awk -F"," '{print $11}'" on "ROOT_SERVER_CLI" and validate result EQUALS "In"
     Then CLI Run linux Command "cat /opt/radware/mgt-server/third-party/tomcat/bin/DNS-TXT.csv |head -2|tail -1|awk -F"," '{print $12}'" on "ROOT_SERVER_CLI" and validate result EQUALS "4360"
 
-    Then CLI Run linux Command "cat /opt/radware/mgt-server/third-party/tomcat/bin/DNS-TXT.csv |head -8|tail -1|grep -oP "0.0,172.16.22.50,0.0,pol_1,{},dns-text,true,qps,(\d{13}),758.94666,,In,739.21686" |wc -l" on "ROOT_SERVER_CLI" and validate result EQUALS "1"
+    Then CLI Run linux Command "cat /opt/radware/mgt-server/third-party/tomcat/bin/DNS-TXT.csv |head -8|tail -1|grep -oP "0.0,172.16.22.50,0.0,pol_1,{},dns-text,true,qps,$(date +"%B %d %Y [0-9][0-9]:[0-9][0-9]"),758.94666,,In,739.21686" |wc -l" on "ROOT_SERVER_CLI" and validate result EQUALS "1"
     Then CLI Run linux Command "cat /opt/radware/mgt-server/third-party/tomcat/bin/DNS-TXT.csv |head -8|tail -1|awk -F"," '{print $1}'" on "ROOT_SERVER_CLI" and validate result EQUALS "0.0"
     Then CLI Run linux Command "cat /opt/radware/mgt-server/third-party/tomcat/bin/DNS-TXT.csv |head -8|tail -1|awk -F"," '{print $2}'" on "ROOT_SERVER_CLI" and validate result EQUALS "172.16.22.50"
     Then CLI Run linux Command "cat /opt/radware/mgt-server/third-party/tomcat/bin/DNS-TXT.csv |head -8|tail -1|awk -F"," '{print $3}'" on "ROOT_SERVER_CLI" and validate result EQUALS "0.0"
@@ -392,7 +392,7 @@ Feature: VRM AMS Report Data DNS baselines
     Then CLI Run linux Command "cat /opt/radware/mgt-server/third-party/tomcat/bin/DNS-TXT.csv |head -8|tail -1|awk -F"," '{print $6}'" on "ROOT_SERVER_CLI" and validate result EQUALS "dns-text"
     Then CLI Run linux Command "cat /opt/radware/mgt-server/third-party/tomcat/bin/DNS-TXT.csv |head -8|tail -1|awk -F"," '{print $7}'" on "ROOT_SERVER_CLI" and validate result EQUALS "false"
     Then CLI Run linux Command "cat /opt/radware/mgt-server/third-party/tomcat/bin/DNS-TXT.csv |head -8|tail -1|awk -F"," '{print $8}'" on "ROOT_SERVER_CLI" and validate result EQUALS "qps"
-    Then CLI Run linux Command "cat /opt/radware/mgt-server/third-party/tomcat/bin/DNS-TXT.csv |head -8|tail -1|awk -F"," '{print $9}' |grep -oP "(\d{13})"|wc -l" on "ROOT_SERVER_CLI" and validate result EQUALS "1"
+    Then CLI Run linux Command "cat /opt/radware/mgt-server/third-party/tomcat/bin/DNS-TXT.csv |head -8|tail -1|awk -F"," '{print $9}' |grep -oP "$(date +"%B %d %Y [0-9][0-9]:[0-9][0-9]")"|wc -l" on "ROOT_SERVER_CLI" and validate result EQUALS "1"
     Then CLI Run linux Command "cat /opt/radware/mgt-server/third-party/tomcat/bin/DNS-TXT.csv |head -8|tail -1|awk -F"," '{print $10}'" on "ROOT_SERVER_CLI" and validate result EQUALS "758.94666"
     Then CLI Run remote linux Command "cat /opt/radware/mgt-server/third-party/tomcat/bin/DNS-TXT.csv |head -8|tail -1|awk -F"," '{print $11}'" on "ROOT_SERVER_CLI"
     Then CLI Operations - Verify that output contains regex "^$"
@@ -410,10 +410,10 @@ Feature: VRM AMS Report Data DNS baselines
 
   @SID_47
   Scenario: VRM report validate CSV file DNS-SRV IPv6 content
-    Then CLI Run linux Command "cat /opt/radware/mgt-server/third-party/tomcat/bin/DNS-SRV*.csv |head -2|tail -1|grep -oP "(\d{13}),172.16.22.50,270,pol_1,{},dns-srv,,false,qps,4840,In,4480" |wc -l" on "ROOT_SERVER_CLI" and validate result EQUALS "1"
-    Then CLI Run linux Command "cat /opt/radware/mgt-server/third-party/tomcat/bin/DNS-SRV*.csv |head -2|tail -1|awk -F"," '{print $1}' |grep -oP "(\d{13})"|wc -l" on "ROOT_SERVER_CLI" and validate result EQUALS "1"
+    Then CLI Run linux Command "cat /opt/radware/mgt-server/third-party/tomcat/bin/DNS-SRV*.csv |head -2|tail -1|grep -oP "$(date +"%B %d %Y [0-9][0-9]:[0-9][0-9]"),172.16.22.50,270,pol_1,{},dns-srv,,false,qps,4840,In,4480" |wc -l" on "ROOT_SERVER_CLI" and validate result EQUALS "1"
+    Then CLI Run linux Command "cat /opt/radware/mgt-server/third-party/tomcat/bin/DNS-SRV*.csv |head -2|tail -1|awk -F"," '{print $1}' |grep -oP "$(date +"%B %d %Y [0-9][0-9]:[0-9][0-9]")"|wc -l" on "ROOT_SERVER_CLI" and validate result EQUALS "1"
 
-    Then CLI Run linux Command "cat /opt/radware/mgt-server/third-party/tomcat/bin/DNS-SRV*.csv |head -8|tail -1|grep -oP "0.0,172.16.22.50,0.0,pol_1,{},dns-srv,false,qps,(\d{13}),189.73666,,In,184.80421" |wc -l" on "ROOT_SERVER_CLI" and validate result EQUALS "1"
+    Then CLI Run linux Command "cat /opt/radware/mgt-server/third-party/tomcat/bin/DNS-SRV*.csv |head -8|tail -1|grep -oP "0.0,172.16.22.50,0.0,pol_1,{},dns-srv,false,qps,$(date +"%B %d %Y [0-9][0-9]:[0-9][0-9]"),189.73666,,In,184.80421" |wc -l" on "ROOT_SERVER_CLI" and validate result EQUALS "1"
 
   @SID_48
   Scenario: VRM report validate CSV file DNS-SOA IPv6 number of lines
@@ -426,10 +426,10 @@ Feature: VRM AMS Report Data DNS baselines
 
   @SID_50
   Scenario: VRM report validate CSV file DNS-SOA IPv6 content
-    Then CLI Run linux Command "cat /opt/radware/mgt-server/third-party/tomcat/bin/DNS-SOA.csv |head -2|tail -1|grep -oP "(\d{13}),172.16.22.50,250,pol_1,{},dns-soa,,false,qps,4760,In,4400" |wc -l" on "ROOT_SERVER_CLI" and validate result EQUALS "1"
-    Then CLI Run linux Command "cat /opt/radware/mgt-server/third-party/tomcat/bin/DNS-SOA.csv |head -2|tail -1|awk -F"," '{print $1}' |grep -oP "(\d{13})"|wc -l" on "ROOT_SERVER_CLI" and validate result EQUALS "1"
+    Then CLI Run linux Command "cat /opt/radware/mgt-server/third-party/tomcat/bin/DNS-SOA.csv |head -2|tail -1|grep -oP "$(date +"%B %d %Y [0-9][0-9]:[0-9][0-9]"),172.16.22.50,250,pol_1,{},dns-soa,,false,qps,4760,In,4400" |wc -l" on "ROOT_SERVER_CLI" and validate result EQUALS "1"
+    Then CLI Run linux Command "cat /opt/radware/mgt-server/third-party/tomcat/bin/DNS-SOA.csv |head -2|tail -1|awk -F"," '{print $1}' |grep -oP "$(date +"%B %d %Y [0-9][0-9]:[0-9][0-9]")"|wc -l" on "ROOT_SERVER_CLI" and validate result EQUALS "1"
 
-    Then CLI Run linux Command "cat /opt/radware/mgt-server/third-party/tomcat/bin/DNS-SOA.csv |head -8|tail -1|grep -oP "0.0,172.16.22.50,0.0,pol_1,{},dns-soa,false,qps,(\d{13}),189.73666,,In,184.80421" |wc -l" on "ROOT_SERVER_CLI" and validate result EQUALS "1"
+    Then CLI Run linux Command "cat /opt/radware/mgt-server/third-party/tomcat/bin/DNS-SOA.csv |head -8|tail -1|grep -oP "0.0,172.16.22.50,0.0,pol_1,{},dns-soa,false,qps,$(date +"%B %d %Y [0-9][0-9]:[0-9][0-9]"),189.73666,,In,184.80421" |wc -l" on "ROOT_SERVER_CLI" and validate result EQUALS "1"
 
   @SID_51
   Scenario: VRM report validate CSV file DNS-PTR IPv6 number of lines
@@ -442,10 +442,10 @@ Feature: VRM AMS Report Data DNS baselines
 
   @SID_53
   Scenario: VRM report validate CSV file DNS-PTR IPv6 content
-    Then CLI Run linux Command "cat /opt/radware/mgt-server/third-party/tomcat/bin/DNS-PTR*.csv |head -2|tail -1|grep -oP "(\d{13}),172.16.22.50,3600,pol_1,{},dns-ptr,,true,qps,4640,In,4280" |wc -l" on "ROOT_SERVER_CLI" and validate result EQUALS "1"
-    Then CLI Run linux Command "cat /opt/radware/mgt-server/third-party/tomcat/bin/DNS-PTR*.csv |head -2|tail -1|awk -F"," '{print $1}' |grep -oP "(\d{13})"|wc -l" on "ROOT_SERVER_CLI" and validate result EQUALS "1"
+    Then CLI Run linux Command "cat /opt/radware/mgt-server/third-party/tomcat/bin/DNS-PTR*.csv |head -2|tail -1|grep -oP "$(date +"%B %d %Y [0-9][0-9]:[0-9][0-9]"),172.16.22.50,3600,pol_1,{},dns-ptr,,true,qps,4640,In,4280" |wc -l" on "ROOT_SERVER_CLI" and validate result EQUALS "1"
+    Then CLI Run linux Command "cat /opt/radware/mgt-server/third-party/tomcat/bin/DNS-PTR*.csv |head -2|tail -1|awk -F"," '{print $1}' |grep -oP "$(date +"%B %d %Y [0-9][0-9]:[0-9][0-9]")"|wc -l" on "ROOT_SERVER_CLI" and validate result EQUALS "1"
 
-    Then CLI Run linux Command "cat /opt/radware/mgt-server/third-party/tomcat/bin/DNS-PTR*.csv |head -8|tail -1|grep -oP "0.0,172.16.22.50,0.0,pol_1,{},dns-ptr,false,qps,(\d{13}),4024.9224,,In,3806.5366" |wc -l" on "ROOT_SERVER_CLI" and validate result EQUALS "1"
+    Then CLI Run linux Command "cat /opt/radware/mgt-server/third-party/tomcat/bin/DNS-PTR*.csv |head -8|tail -1|grep -oP "0.0,172.16.22.50,0.0,pol_1,{},dns-ptr,false,qps,$(date +"%B %d %Y [0-9][0-9]:[0-9][0-9]"),4024.9224,,In,3806.5366" |wc -l" on "ROOT_SERVER_CLI" and validate result EQUALS "1"
 
   @SID_54
   Scenario: VRM report validate CSV file DNS-Other IPv6 number of lines
@@ -458,10 +458,10 @@ Feature: VRM AMS Report Data DNS baselines
 
   @SID_56
   Scenario: VRM report validate CSV file DNS-Other IPv6 content
-    Then CLI Run linux Command "cat /opt/radware/mgt-server/third-party/tomcat/bin/DNS-Other*.csv |head -2|tail -1|grep -oP "(\d{13}),172.16.22.50,280,pol_1,{},dns-other,,false,qps,4880,In,4520" |wc -l" on "ROOT_SERVER_CLI" and validate result EQUALS "1"
-    Then CLI Run linux Command "cat /opt/radware/mgt-server/third-party/tomcat/bin/DNS-Other*.csv |head -2|tail -1|awk -F"," '{print $1}' |grep -oP "(\d{13})"|wc -l" on "ROOT_SERVER_CLI" and validate result EQUALS "1"
+    Then CLI Run linux Command "cat /opt/radware/mgt-server/third-party/tomcat/bin/DNS-Other*.csv |head -2|tail -1|grep -oP "$(date +"%B %d %Y [0-9][0-9]:[0-9][0-9]"),172.16.22.50,280,pol_1,{},dns-other,,false,qps,4880,In,4520" |wc -l" on "ROOT_SERVER_CLI" and validate result EQUALS "1"
+    Then CLI Run linux Command "cat /opt/radware/mgt-server/third-party/tomcat/bin/DNS-Other*.csv |head -2|tail -1|awk -F"," '{print $1}' |grep -oP "$(date +"%B %d %Y [0-9][0-9]:[0-9][0-9]")"|wc -l" on "ROOT_SERVER_CLI" and validate result EQUALS "1"
 
-    Then CLI Run linux Command "cat /opt/radware/mgt-server/third-party/tomcat/bin/DNS-Other*.csv |head -8|tail -1|grep -oP "0.0,172.16.22.50,0.0,pol_1,{},dns-other,false,qps,(\d{13}),189.73666,,In,184.80421" |wc -l" on "ROOT_SERVER_CLI" and validate result EQUALS "1"
+    Then CLI Run linux Command "cat /opt/radware/mgt-server/third-party/tomcat/bin/DNS-Other*.csv |head -8|tail -1|grep -oP "0.0,172.16.22.50,0.0,pol_1,{},dns-other,false,qps,$(date +"%B %d %Y [0-9][0-9]:[0-9][0-9]"),189.73666,,In,184.80421" |wc -l" on "ROOT_SERVER_CLI" and validate result EQUALS "1"
 
   @SID_57
   Scenario: VRM report validate CSV file DNS-MX IPv6 number of lines
@@ -474,10 +474,10 @@ Feature: VRM AMS Report Data DNS baselines
 
   @SID_59
   Scenario: VRM report validate CSV file DNS-MX IPv6 content
-    Then CLI Run linux Command "cat /opt/radware/mgt-server/third-party/tomcat/bin/DNS-MX*.csv |head -2|tail -1|grep -oP "(\d{13}),172.16.22.50,3600,pol_1,{},dns-mx,,false,qps,4600,In,4240" |wc -l" on "ROOT_SERVER_CLI" and validate result EQUALS "1"
-    Then CLI Run linux Command "cat /opt/radware/mgt-server/third-party/tomcat/bin/DNS-MX*.csv |head -2|tail -1|awk -F"," '{print $1}' |grep -oP "(\d{13})"|wc -l" on "ROOT_SERVER_CLI" and validate result EQUALS "1"
+    Then CLI Run linux Command "cat /opt/radware/mgt-server/third-party/tomcat/bin/DNS-MX*.csv |head -2|tail -1|grep -oP "$(date +"%B %d %Y [0-9][0-9]:[0-9][0-9]"),172.16.22.50,3600,pol_1,{},dns-mx,,false,qps,4600,In,4240" |wc -l" on "ROOT_SERVER_CLI" and validate result EQUALS "1"
+    Then CLI Run linux Command "cat /opt/radware/mgt-server/third-party/tomcat/bin/DNS-MX*.csv |head -2|tail -1|awk -F"," '{print $1}' |grep -oP "$(date +"%B %d %Y [0-9][0-9]:[0-9][0-9]")"|wc -l" on "ROOT_SERVER_CLI" and validate result EQUALS "1"
 
-    Then CLI Run linux Command "cat /opt/radware/mgt-server/third-party/tomcat/bin/DNS-MX*.csv |head -8|tail -1|grep -oP "0.0,172.16.22.50,0.0,pol_1,{},dns-mx,false,qps,(\d{13}),4024.9224,,In,3806.5366" |wc -l" on "ROOT_SERVER_CLI" and validate result EQUALS "1"
+    Then CLI Run linux Command "cat /opt/radware/mgt-server/third-party/tomcat/bin/DNS-MX*.csv |head -8|tail -1|grep -oP "0.0,172.16.22.50,0.0,pol_1,{},dns-mx,false,qps,$(date +"%B %d %Y [0-9][0-9]:[0-9][0-9]"),4024.9224,,In,3806.5366" |wc -l" on "ROOT_SERVER_CLI" and validate result EQUALS "1"
 
   @SID_60
   Scenario: VRM report validate CSV file DNS-A IPv6 number of lines
@@ -490,10 +490,10 @@ Feature: VRM AMS Report Data DNS baselines
 
   @SID_62
   Scenario: VRM report validate CSV file DNS-A IPv6 content
-    Then CLI Run linux Command "cat /opt/radware/mgt-server/third-party/tomcat/bin/DNS-A.csv |head -2|tail -1|grep -oP "(\d{13}),172.16.22.50,6750,pol_1,{},dns-a,,false,qps,4560,In,4200" |wc -l" on "ROOT_SERVER_CLI" and validate result EQUALS "1"
-    Then CLI Run linux Command "cat /opt/radware/mgt-server/third-party/tomcat/bin/DNS-A.csv |head -2|tail -1|awk -F"," '{print $1}' |grep -oP "(\d{13})"|wc -l" on "ROOT_SERVER_CLI" and validate result EQUALS "1"
+    Then CLI Run linux Command "cat /opt/radware/mgt-server/third-party/tomcat/bin/DNS-A.csv |head -2|tail -1|grep -oP "$(date +"%B %d %Y [0-9][0-9]:[0-9][0-9]"),172.16.22.50,6750,pol_1,{},dns-a,,false,qps,4560,In,4200" |wc -l" on "ROOT_SERVER_CLI" and validate result EQUALS "1"
+    Then CLI Run linux Command "cat /opt/radware/mgt-server/third-party/tomcat/bin/DNS-A.csv |head -2|tail -1|awk -F"," '{print $1}' |grep -oP "$(date +"%B %d %Y [0-9][0-9]:[0-9][0-9]")"|wc -l" on "ROOT_SERVER_CLI" and validate result EQUALS "1"
 
-    Then CLI Run linux Command "cat /opt/radware/mgt-server/third-party/tomcat/bin/DNS-A.csv |head -8|tail -1|grep -oP "0.0,172.16.22.50,0.0,pol_1,{},dns-a,false,qps,(\d{13}),7794.2285,,In,7253.347" |wc -l" on "ROOT_SERVER_CLI" and validate result EQUALS "1"
+    Then CLI Run linux Command "cat /opt/radware/mgt-server/third-party/tomcat/bin/DNS-A.csv |head -8|tail -1|grep -oP "0.0,172.16.22.50,0.0,pol_1,{},dns-a,false,qps,$(date +"%B %d %Y [0-9][0-9]:[0-9][0-9]"),7794.2285,,In,7253.347" |wc -l" on "ROOT_SERVER_CLI" and validate result EQUALS "1"
 
   @SID_63
   Scenario: VRM report validate CSV file DNS-AAAA IPv6 number of lines
@@ -506,10 +506,10 @@ Feature: VRM AMS Report Data DNS baselines
 
   @SID_65
   Scenario: VRM report validate CSV file DNS-AAAA IPv6 content
-    Then CLI Run linux Command "cat /opt/radware/mgt-server/third-party/tomcat/bin/DNS-AAAA*.csv |head -2|tail -1|grep -oP "(\d{13}),172.16.22.50,1350,pol_1,{},dns-aaaa,,false,qps,4680,In,4320" |wc -l" on "ROOT_SERVER_CLI" and validate result EQUALS "1"
-    Then CLI Run linux Command "cat /opt/radware/mgt-server/third-party/tomcat/bin/DNS-AAAA*.csv |head -2|tail -1|awk -F"," '{print $1}' |grep -oP "(\d{13})"|wc -l" on "ROOT_SERVER_CLI" and validate result EQUALS "1"
+    Then CLI Run linux Command "cat /opt/radware/mgt-server/third-party/tomcat/bin/DNS-AAAA*.csv |head -2|tail -1|grep -oP "$(date +"%B %d %Y [0-9][0-9]:[0-9][0-9]"),172.16.22.50,1350,pol_1,{},dns-aaaa,,false,qps,4680,In,4320" |wc -l" on "ROOT_SERVER_CLI" and validate result EQUALS "1"
+    Then CLI Run linux Command "cat /opt/radware/mgt-server/third-party/tomcat/bin/DNS-AAAA*.csv |head -2|tail -1|awk -F"," '{print $1}' |grep -oP "$(date +"%B %d %Y [0-9][0-9]:[0-9][0-9]")"|wc -l" on "ROOT_SERVER_CLI" and validate result EQUALS "1"
 
-    Then CLI Run linux Command "cat /opt/radware/mgt-server/third-party/tomcat/bin/DNS-AAAA*.csv |head -8|tail -1|grep -oP "0.0,172.16.22.50,0.0,pol_1,{},dns-aaaa,false,qps,(\d{13}),1423.0249,,In,1386.0316" |wc -l" on "ROOT_SERVER_CLI" and validate result EQUALS "1"
+    Then CLI Run linux Command "cat /opt/radware/mgt-server/third-party/tomcat/bin/DNS-AAAA*.csv |head -8|tail -1|grep -oP "0.0,172.16.22.50,0.0,pol_1,{},dns-aaaa,false,qps,$(date +"%B %d %Y [0-9][0-9]:[0-9][0-9]"),1423.0249,,In,1386.0316" |wc -l" on "ROOT_SERVER_CLI" and validate result EQUALS "1"
 
   @SID_66
   Scenario: cleanup and check logs
