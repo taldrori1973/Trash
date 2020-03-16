@@ -23,7 +23,6 @@ Feature: DPM Second Drill - Validate End to End Time Section
   @SID_4
   Scenario: Login and go to DPM dashboard
     When UI Login with user "sys_admin" and password "radware"
-    Then UI Navigate to "ADC Reports" page via homePage
     Then UI Navigate to "Application Dashboard" page via homePage
 
   @SID_5
