@@ -3,10 +3,12 @@ Feature: CLI System Hostname
 
   @SID_1
   Scenario: System hostname set cancel
-    Then CLI Operations - Run Root Session command "yes|restore_radware_user_password" timeout 15
-    Then REST Login with activation with user "radware" and password "radware"
-    When CLI Operations - Run Radware Session command "system hostname set myserver.auto"
-    When CLI Operations - Run Radware Session command "n"
+    When CLI Operations - Run Root Session command "yes|restore_radware_user_password" timeout 15
+    #wait after reset password
+    And Sleep "3"
+    And REST Login with activation with user "radware" and password "radware"
+    And CLI Operations - Run Radware Session command "system hostname set myserver.auto"
+    And CLI Operations - Run Radware Session command "n"
     Then CLI Operations - Verify that output contains regex "Updating the hostname cancelled."
 
   @SID_2
