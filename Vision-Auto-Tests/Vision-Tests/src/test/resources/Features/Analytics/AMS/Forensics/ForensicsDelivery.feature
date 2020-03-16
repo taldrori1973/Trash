@@ -30,13 +30,13 @@ Feature: Forensics Delivery
 
   @SID_3
   Scenario: validate Forensics Report empty delivery
-    When UI "Create" Forensics With Name "Email Validate"
+    Given UI "Create" Forensics With Name "Email Validate"
       | Share    | Email:[automation.vision1@forensic.local],Subject:Forensic Email Validate                                     |
       | Output   | Action,Attack ID,Start Time,Source IP Address,Source Port,Destination IP Address,Destination Port,Direction,Protocol,Threat Category,Radware ID,Device IP Address,Attack Name,End Time,Duration,Packets,Mbits,Physical Port,Policy Name,Risk |
       | Format   | Select: HTML |
 
-    Then CLI Run remote linux Command "echo "cleared" $(date) > /var/spool/mail/forensicuser" on "GENERIC_LINUX_SERVER"
-    Then UI Generate and Validate Forensics With Name "Email Validate" with Timeout of 300 Seconds
+    When CLI Run remote linux Command "echo "cleared" $(date) > /var/spool/mail/forensicuser" on "GENERIC_LINUX_SERVER"
+    When UI Generate and Validate Forensics With Name "Email Validate" with Timeout of 300 Seconds
 
     Then CLI Run linux Command "grep "From qa_test@radware.com" /var/spool/mail/forensicuser |wc -l" on "GENERIC_LINUX_SERVER" and validate result EQUALS "1"
     Then CLI Run linux Command "grep "X-Original-To: automation.vision1@forensic.local" /var/spool/mail/forensicuser |wc -l" on "GENERIC_LINUX_SERVER" and validate result EQUALS "1"
@@ -55,6 +55,8 @@ Feature: Forensics Delivery
     Given UI Login with user "sys_admin" and password "radware"
     Then UI Navigate to "AMS Forensics" page via homepage
     Then UI Generate and Validate Forensics With Name "Email Validate" with Timeout of 300 Seconds
+    #For debug use to have the ability to view what was generated
+    Then UI Click Button "Views.report" with value "Email Validate"
     Then Sleep "5"
 
   @SID_6
