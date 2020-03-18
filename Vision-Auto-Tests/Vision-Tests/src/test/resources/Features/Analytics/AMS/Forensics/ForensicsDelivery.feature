@@ -30,13 +30,13 @@ Feature: Forensics Delivery
 
   @SID_3
   Scenario: validate Forensics Report empty delivery
-    When UI "Create" Forensics With Name "Email Validate"
+    Given UI "Create" Forensics With Name "Email Validate"
       | Share    | Email:[automation.vision1@forensic.local],Subject:Forensic Email Validate                                     |
       | Output   | Action,Attack ID,Start Time,Source IP Address,Source Port,Destination IP Address,Destination Port,Direction,Protocol,Threat Category,Radware ID,Device IP Address,Attack Name,End Time,Duration,Packets,Mbits,Physical Port,Policy Name,Risk |
       | Format   | Select: HTML |
 
-    Then CLI Run remote linux Command "echo "cleared" $(date) > /var/spool/mail/forensicuser" on "GENERIC_LINUX_SERVER"
-    Then UI Generate and Validate Forensics With Name "Email Validate" with Timeout of 300 Seconds
+    When CLI Run remote linux Command "echo "cleared" $(date) > /var/spool/mail/forensicuser" on "GENERIC_LINUX_SERVER"
+    When UI Generate and Validate Forensics With Name "Email Validate" with Timeout of 300 Seconds
 
     Then CLI Run linux Command "grep "From qa_test@radware.com" /var/spool/mail/forensicuser |wc -l" on "GENERIC_LINUX_SERVER" and validate result EQUALS "1"
     Then CLI Run linux Command "grep "X-Original-To: automation.vision1@forensic.local" /var/spool/mail/forensicuser |wc -l" on "GENERIC_LINUX_SERVER" and validate result EQUALS "1"
@@ -55,13 +55,17 @@ Feature: Forensics Delivery
     Given UI Login with user "sys_admin" and password "radware"
     Then UI Navigate to "AMS Forensics" page via homepage
     Then UI Generate and Validate Forensics With Name "Email Validate" with Timeout of 300 Seconds
+    #For debug use to have the ability to view what was generated
+    Then UI Click Button "Views.report" with value "Email Validate"
     Then Sleep "5"
 
   @SID_6
   Scenario: validate Forensics Report email no ftp format HTML
     Then CLI Run remote linux Command "cat /var/spool/mail/forensicuser > /tmp/forensicmail" on "GENERIC_LINUX_SERVER"
 
-    Then CLI Run linux Command "ll /tmp" on "GENERIC_LINUX_SERVER" and validate result CONTAINS "forensicmail" in any line with timeOut 20
+    Then CLI Run linux Command "ll /var/spool/mail/" on "GENERIC_LINUX_SERVER" and validate result CONTAINS "forensicuser" in any line with timeOut 30
+    Then CLI Run linux Command "ll /tmp/" on "GENERIC_LINUX_SERVER" and validate result CONTAINS "forensicmail" in any line with timeOut 30
+
 
     Then CLI Run remote linux Command "awk -F "</th><th>" '{printf $2}' /var/spool/mail/forensicuser;echo" on "GENERIC_LINUX_SERVER"
     Then CLI Operations - Verify that output contains regex "Start Time"

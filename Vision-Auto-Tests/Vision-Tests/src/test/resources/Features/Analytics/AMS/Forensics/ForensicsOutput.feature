@@ -17,7 +17,7 @@ Feature: Forensics Output
     And CLI simulate 1 attacks of type "rest_black_ip46" on "DefensePro" 11 and wait 30 seconds
 
   @SID_3
-  Scenario: VRM - Loging to VRM "Wizard" Test
+  Scenario: VRM - Login to VRM "Wizard" Test
     Given UI Login with user "sys_admin" and password "radware"
     * REST Vision Install License Request "vision-AVA-Max-attack-capacity"
     Then UI Navigate to "AMS Forensics" page via homepage

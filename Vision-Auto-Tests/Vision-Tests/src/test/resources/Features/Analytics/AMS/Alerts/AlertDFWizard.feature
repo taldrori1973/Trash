@@ -11,7 +11,7 @@ Feature: VRM AW Alerts
 
   @SID_2
   Scenario: VRM - enabling emailing and go to VRM Alerts Tab
-    Given UI Login with user "radware" and password "radware"
+    Given UI Login with user "sys_admin" and password "radware"
     * REST Vision Install License Request "vision-AVA-Max-attack-capacity"
     * REST Vision Install License Request "vision-reporting-module-AMS"
     And UI Go To Vision
@@ -35,14 +35,15 @@ Feature: VRM AW Alerts
       | Product | DefenseFlow |
       | Basic Info | Description:Alert Delivery Description,Impact: Our network is down,Remedy: Please protect real quick!,Severity:Critical     |
       | Criteria   | Event Criteria:Action,Operator:Not Equals,Value:[Forward];     |
-      | Schedule   | checkBox:Trigger,alertsPerHour:1                                                                                            |
-      | Share      | Email:[automation.vision1@alert.local, automation.vision2@alert.local, jason.forish@radware.com],Subject:Alert Delivery Subj,Body:Alert Delivery Body |
+      | Schedule   | checkBox:Trigger,alertsPerHour:10                                                                                           |
+      | Share      | Email:[automation.vision1@alert.local, automation.vision2@alert.local],Subject:Alert Delivery Subj,Body:Alert Delivery Body |
+    And Sleep "120"
 
   @SID_4
   Scenario: Run DP simulator VRM_Alert_Severity
     Then CLI Run remote linux Command "echo "cleared" $(date) > /var/spool/mail/alertuser" on "GENERIC_LINUX_SERVER"
     When CLI Run remote linux Command on "GENERIC_LINUX_SERVER"
-      | "/home/radware/curl_DF_attacks-auto_PO_101.sh "                     |
+      | "/home/radware/curl_DF_alert_PO_101.sh "                     |
       | #visionIP |
       | " Terminated" |
     And Sleep "60"
@@ -71,7 +72,7 @@ Feature: VRM AW Alerts
 
   @SID_10
   Scenario: Verify Alert Email Delivery attack details
-    Then CLI Run linux Command "grep -o -e "2000::0001" -e "<td>80</td>" -e "SYN Flood HTTP" -e "policy1" -e "TCP" -e "Unknown" /var/spool/mail/alertuser |wc -l" on "GENERIC_LINUX_SERVER" and validate result EQUALS "352"
+    Then CLI Run linux Command "grep -o -e "2000::0001" -e "<td>80</td>" -e "SYN Flood HTTP" -e "policy1" -e "TCP" -e "Unknown" /var/spool/mail/alertuser |wc -l" on "GENERIC_LINUX_SERVER" and validate result EQUALS "16"
 
   @SID_11
   Scenario: VRM - go to vision and disable emailing
