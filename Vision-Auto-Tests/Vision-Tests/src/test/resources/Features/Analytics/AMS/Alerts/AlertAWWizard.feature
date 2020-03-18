@@ -8,6 +8,7 @@ Feature: VRM AW Alerts
     * REST Delete ES index "alert"
     * REST Delete ES index "appwall-v2-attack-raw*"
     Then CLI Run remote linux Command "echo "cleared" $(date) > /var/spool/mail/alertuser" on "GENERIC_LINUX_SERVER"
+    And Sleep "5"
     * CLI Clear vision logs
 
 
