@@ -270,14 +270,14 @@ public class TableHandler {
     }
 
     public void uiValidateTableIsSorted(String tableLabel, List<SortingDataSet> cells) throws Exception {
-        setTable(tableLabel, true);
+        setTable(tableLabel, false);
         if (table == null) ReportsUtils.reportAndTakeScreenShot("failed to construct table", Reporter.FAIL);
         int listsSize = cells.size();
         if (listsSize == 0)
             ReportsUtils.reportAndTakeScreenShot("the number of sortingColumns is 0", Reporter.FAIL);
         List<SortableColumn> sortableColumns = new ArrayList<>();
         for (SortingDataSet sortingDataSet : cells) {
-            List<String> columnData = table.getColumn(sortingDataSet.getColumnName()).columnValues;
+            List<String> columnData = table.getColumnData(sortingDataSet.getColumnName());
             sortableColumns.add(new SortableColumn(columnData, sortingDataSet));
         }
         TableSortingHandler tableSortingHandler = new TableSortingHandler(sortableColumns);
