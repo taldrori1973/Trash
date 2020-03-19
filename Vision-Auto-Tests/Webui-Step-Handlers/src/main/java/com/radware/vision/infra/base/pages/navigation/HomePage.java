@@ -123,9 +123,11 @@ public class HomePage {
                 navigateFromHomePage("HOME");
                 return "The Navigator " + item + " should be exist, But it doesn't";
             }
-            WebElement titledItem = getTitledItem(itemElement);
-            if (titledItem == null || titledItem.getAttribute("aria-expanded").equalsIgnoreCase("false"))
-                itemElement.click();
+            if(itemElement.findElement(By.xpath("./..")).getAttribute("class").contains("sub-menu-children")){
+                if (itemElement.findElement(By.xpath("./../..")).getAttribute("class").contains("sub-menu-collapsed")){
+                    BasicOperationsHandler.clickButton(item, "");
+                }
+            }
         }
         navigateFromHomePage("HOME");
         return "";
