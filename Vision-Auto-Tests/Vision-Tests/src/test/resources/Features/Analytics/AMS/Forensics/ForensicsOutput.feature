@@ -15,11 +15,13 @@ Feature: Forensics Output
   @SID_2
   Scenario: Run DP simulator
     And CLI simulate 1 attacks of type "rest_black_ip46" on "DefensePro" 11 and wait 30 seconds
+#    Given CLI simulate 20 attacks of type "DNS_States" on "DefensePro" 11 with loopDelay 15000 and wait 40 seconds
 
   @SID_3
   Scenario: VRM - Login to VRM "Wizard" Test
-    Given UI Login with user "sys_admin" and password "radware"
+    Given UI Login with user "radware" and password "radware"
     * REST Vision Install License Request "vision-AVA-Max-attack-capacity"
+    Then UI Navigate to "DefensePro Monitoring Dashboard" page via homePage
     Then UI Navigate to "AMS Forensics" page via homepage
 
   @SID_4
@@ -37,6 +39,7 @@ Feature: Forensics Output
     When CLI Run remote linux Command "curl -XPOST localhost:9200/dp-attack-raw-*/_update_by_query/?refresh -d '{"query": {"match": {"attackIpsId": "78-1526381752"}},"script": {"source": "ctx._source.duration = '15000'"}}'" on "ROOT_SERVER_CLI"
   @SID_5
   Scenario: VRM - Create Forensics Report all output columns
+
     Given UI "Create" Forensics With Name "All Output Fields"
       | Time Definitions.Date | Absolute:[01.08.2018 01:00:00, +0d] |
       | Criteria              | Event Criteria:Attack ID,Operator:Equals,Value:78-1526381752;                                                                                                                                                                                |
