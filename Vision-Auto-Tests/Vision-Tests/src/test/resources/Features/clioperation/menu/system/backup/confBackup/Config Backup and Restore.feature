@@ -60,7 +60,7 @@ Feature: Backup and Restore
       | BACKUP  | fatal                     | NOT_EXPECTED |
       | BACKUP  | error                     | NOT_EXPECTED |
       | BACKUP  | fail                      | NOT_EXPECTED |
-      | BACKUP  | :-1:                      | NOT_EXPECTED |
+#      | BACKUP  | :-1:                      | NOT_EXPECTED |
       | BACKUP  | index_not_found_exception | IGNORE       |
       | BACKUP  | \"failed\":0              | IGNORE       |
       | BACKUP  | RESTORING HOSTNAME        | IGNORE       |
@@ -137,14 +137,14 @@ Feature: Backup and Restore
   Scenario: Restore validation fluentd listening port
     Then CLI Run linux Command "cat /etc/td-agent/td-agent.conf |grep "port"|awk '{print $NF}'" on "ROOT_SERVER_CLI" and validate result EQUALS "51400"
 
-  @SID_22
-  Scenario: Restore validation iptables configuration
-    Then CLI Run linux Command "iptables -L |grep "ACCEPT"|grep "51400"" on "ROOT_SERVER_CLI" and validate result CONTAINS "tcp spts:1024:65535 dpt:51400 state NEW"
-
-  @SID_23
-  Scenario: Restore validation ip6tables configuration
-    Then CLI Run linux Command "ip6tables -L |grep "ACCEPT"|grep "51400"" on "ROOT_SERVER_CLI" and validate result CONTAINS "tcp spts:1024:65535 dpt:51400 state NEW"
-    Then CLI Run linux Command "ip6tables -L -n | grep -w "REJECT     all"" on "ROOT_SERVER_CLI" and validate result CONTAINS "reject-with icmp6-adm-prohibited"
+#  @SID_22
+#  Scenario: Restore validation iptables configuration
+#    Then CLI Run linux Command "iptables -L |grep "ACCEPT"|grep "51400"" on "ROOT_SERVER_CLI" and validate result CONTAINS "tcp spts:1024:65535 dpt:51400 state NEW"
+#
+#  @SID_23
+#  Scenario: Restore validation ip6tables configuration
+#    Then CLI Run linux Command "ip6tables -L |grep "ACCEPT"|grep "51400"" on "ROOT_SERVER_CLI" and validate result CONTAINS "tcp spts:1024:65535 dpt:51400 state NEW"
+#    Then CLI Run linux Command "ip6tables -L -n | grep -w "REJECT     all"" on "ROOT_SERVER_CLI" and validate result CONTAINS "reject-with icmp6-adm-prohibited"
 
   @SID_24
   Scenario: Restore validation td-agent service
