@@ -13,7 +13,7 @@ Feature: Forensic Wizard
 
   @SID_2
   Scenario: Run DP simulator PCAPs for Top Attacks test
-    Given CLI simulate 1 attacks of type "rest_anomalies" on "DefensePro" 10
+    Given CLI simulate 1 attacks of type "rest_anomalies" on "DefensePro" 10 and wait 30 seconds
 
   @SID_3 @Sanity
   Scenario: Login and navigate to forensic
