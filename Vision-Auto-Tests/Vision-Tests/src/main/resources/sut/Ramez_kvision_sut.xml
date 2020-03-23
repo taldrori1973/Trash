@@ -26,7 +26,7 @@
                 <host>172.19.103.203</host>
                 <user>root</user>
                 <password>radware</password>
-                <connectOnInit>true</connectOnInit>
+                <connectOnInit>false</connectOnInit>
             </visionRoot>
             <visionMySql>
                 <class>com.radware.vision.vision_project_cli.MySqlSO</class>
