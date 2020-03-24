@@ -1,7 +1,8 @@
-@VRM_Report @TC105999
+@VRM_Report @TC105999 
 
 Feature: Forensic Criteria Tests
 
+  
   @SID_1
   Scenario: Clean system data
     * CLI kill all simulator attacks on current vision
@@ -13,6 +14,7 @@ Feature: Forensic Criteria Tests
       | body | sessionInactivTimeoutConfiguration=60 |
     * CLI Clear vision logs
 
+  
   @SID_2
   Scenario: Run DP simulator
     Given CLI simulate 1 attacks of type "VRM_attacks" on "DefensePro" 10
@@ -20,6 +22,9 @@ Feature: Forensic Criteria Tests
     And CLI simulate 1 attacks of type "vrm_bdos" on "DefensePro" 21 with attack ID
     And CLI simulate 2 attacks of type "https_new2" on "DefensePro" 11 with loopDelay 15000 and wait 230 seconds
 
+    Given CLI simulate 1 attacks of type "pps_traps" on "DefensePro" 10
+
+  
   @SID_3
    Scenario: VRM - Login to VRM Forensic and do data manipulation
     Given UI Login with user "sys_admin" and password "radware"
@@ -352,6 +357,7 @@ Feature: Forensic Criteria Tests
     And UI Navigate to "AMS Reports" page via homePage
     And UI Navigate to "AMS Forensics" page via homePage
 
+  
   @SID_30
   Scenario: VRM - Add New Forensics Report criteria - Threat Category - multiple Not Equals
     When UI "Create" Forensics With Name "Multiple Not Category Criteria"
@@ -363,6 +369,28 @@ Feature: Forensic Criteria Tests
     And UI Navigate to "AMS Reports" page via homePage
     And UI Navigate to "AMS Forensics" page via homePage
 
+  
+  @SID_47
+  Scenario: VRM - Add New Forensics Report criteria - Threat Category - Equals Connection PPS
+    When UI "Create" Forensics With Name "Category Criteria"
+      | Criteria | Event Criteria:Threat Category,Operator:Equals,Value:[Connection PPS]; |
+      | Output   | Start Time,Attack ID, Threat Category                       |
+    When UI Generate and Validate Forensics With Name "Category Criteria" with Timeout of 300 Seconds
+    And UI Click Button "Views.report" with value "Category Criteria"
+    Then UI Validate "Report.Table" Table rows count equal to 1
+    And UI Navigate to "AMS Reports" page via homePage
+    And UI Navigate to "AMS Forensics" page via homePage
+
+  @SID_48
+  Scenario: VRM - Add New Forensics Report criteria - Threat Category - Not Equals Connection PPS
+    When UI "Create" Forensics With Name "Category Criteria"
+      | Criteria | Event Criteria:Threat Category,Operator:Not Equals,Value:[Connection PPS]; |
+      | Output   | Start Time,Attack ID, Threat Category                       |
+    When UI Generate and Validate Forensics With Name "Category Criteria" with Timeout of 300 Seconds
+    And UI Click Button "Views.report" with value "Category Criteria"
+    Then UI Validate "Report.Table" Table rows count equal to 36
+    And UI Navigate to "AMS Reports" page via homePage
+    And UI Navigate to "AMS Forensics" page via homePage
 
 # 11 ##################################################################################################################
 
