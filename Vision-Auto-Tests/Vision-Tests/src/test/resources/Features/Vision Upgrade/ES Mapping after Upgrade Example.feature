@@ -1,4 +1,3 @@
-@run200
 Feature: This is an example how to add tests for new changes in an elastic search index mapping
 #This Feature File should run on Servers for Upgrade Only
 #Getting the number of mapping attributes :

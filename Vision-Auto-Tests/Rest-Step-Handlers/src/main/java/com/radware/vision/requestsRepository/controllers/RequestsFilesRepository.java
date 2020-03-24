@@ -3,10 +3,8 @@ package com.radware.vision.requestsRepository.controllers;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.radware.vision.requestsRepository.models.RequestsFilePojo;
 
-import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
-import java.net.URL;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -16,7 +14,6 @@ public class RequestsFilesRepository {
 
     private final Map<String, RequestsFilePojo> requests_files_repository;
 
-//    private final List<File> requests_files;
 
     private static RequestsFilesRepository _instance = new RequestsFilesRepository();
 
@@ -43,29 +40,5 @@ public class RequestsFilesRepository {
         }
 
     }
-
-//    private File getRequestFile(String filePath) {
-//        URL restApiResource = RequestsFilesRepository.class.getResource(REQUESTS_FILES_PATH_PREFIX + filePath);
-//        return new File(restApiResource.getPath());
-//    }
-//
-//    private void getAllRequestsFiles() {
-//
-//        URL restApiResource = RequestsFilesRepository.class.getResource(REQUESTS_FILES_PATH_PREFIX);
-//
-//        File rootDirectory = new File(restApiResource.getPath());
-//
-//        listFiles(rootDirectory);
-//    }
-
-//    private void listFiles(File rootDirectory) {
-//        File[] list = rootDirectory.listFiles((dir, name) -> dir.isDirectory() || (dir.isFile() && name.toLowerCase().endsWith(".json")));
-//        if (list != null) {
-//            for (File file : list) {
-//                if (file.isFile()) requests_files.add(file);
-//                else if (file.isDirectory()) listFiles(file);
-//            }
-//        }
-//    }
 
 }
