@@ -9,6 +9,6 @@ public class RequestsFilePojo {
 
     private String deviceName;
     private String fileName;
-    private String basePath;
+    private String description;
     private List<RequestPojo> api;
 }

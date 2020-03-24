@@ -1,5 +1,4 @@
 @DP_Analytics @TC106014
-@run
 Feature: VRM ADC Session Timeout
 
   @SID_1

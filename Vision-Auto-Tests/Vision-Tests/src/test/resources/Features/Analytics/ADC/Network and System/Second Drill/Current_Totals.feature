@@ -1,5 +1,4 @@
 @TC106773
-  @run2
 Feature: ADC dashboard Current Totals Widget
 # pre-requisites: simulator that will include 30 ports and will contain fields with various types of data units. e.g. K, M, G, T
 

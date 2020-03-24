@@ -1,15 +1,14 @@
 {
-  "deviceName": "DefenseFlow",
+  "deviceName": "Vision",
   "fileName": "ExternalAttackDetection",
-  "basePath": "/mgmt/device/df/config/action",
+  "description": "External Attack Detection",
   "api": [
     {
       "label": "Attack Start",
       "method": "POST",
       "basePath": "/mgmt/device/df/config/action/attackstart",
       "produces": "application/json",
-      "description": "Start DF attack ",
-      "pathParameters": []
+      "description": "Start DF attack "
     }
   ]
 }

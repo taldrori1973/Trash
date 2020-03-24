@@ -11,7 +11,5 @@ public class RequestPojo {
     private String basePath;
     private String produces;
     private String consumes;
-    private List<FieldPojo> pathParameters;
-    private List<FieldPojo> bodyParameters;
 
 }
