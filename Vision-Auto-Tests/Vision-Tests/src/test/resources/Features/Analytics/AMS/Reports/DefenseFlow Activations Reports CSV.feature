@@ -12,7 +12,7 @@ Feature: DefenseFlow Activations Reports CSV
   @SID_14
   Scenario: Start Attack PO_101
     Given That Current Vision is Logged In
-    Given New Request Specification from File "DefenseFlow/ExternalAttackDetection" with label "Attack Start"
+    Given New Request Specification from File "Vision/ExternalAttackDetection" with label "Attack Start"
     Given The Request Body is the following Object
       | jsonPath                             | value                                   |
       | $.attackVolume.packetsPerSecond      | 1087000000                              |
@@ -35,7 +35,7 @@ Feature: DefenseFlow Activations Reports CSV
   @SID_15
   Scenario: Start Attack PO_102
     Given That Current Vision is Logged In
-    Given New Request Specification from File "DefenseFlow/ExternalAttackDetection" with label "Attack Start"
+    Given New Request Specification from File "Vision/ExternalAttackDetection" with label "Attack Start"
     Given The Request Body is the following Object
       | jsonPath                             | value                                   |
       | $.attackVolume.packetsPerSecond      | 2087000000                              |
@@ -58,7 +58,7 @@ Feature: DefenseFlow Activations Reports CSV
   @SID_16
   Scenario: Start Attack PO_103
     Given That Current Vision is Logged In
-    Given New Request Specification from File "DefenseFlow/ExternalAttackDetection" with label "Attack Start"
+    Given New Request Specification from File "Vision/ExternalAttackDetection" with label "Attack Start"
     Given The Request Body is the following Object
       | jsonPath                             | value                                   |
       | $.attackVolume.packetsPerSecond      | 3087000000                              |
@@ -81,7 +81,7 @@ Feature: DefenseFlow Activations Reports CSV
   @SID_17
   Scenario: Start Attack PO_104
     Given That Current Vision is Logged In
-    Given New Request Specification from File "DefenseFlow/ExternalAttackDetection" with label "Attack Start"
+    Given New Request Specification from File "Vision/ExternalAttackDetection" with label "Attack Start"
     Given The Request Body is the following Object
       | jsonPath                             | value                                   |
       | $.attackVolume.packetsPerSecond      | 4087000000                              |
@@ -104,7 +104,7 @@ Feature: DefenseFlow Activations Reports CSV
   @SID_18
   Scenario: Start Attack PO_105
     Given That Current Vision is Logged In
-    Given New Request Specification from File "DefenseFlow/ExternalAttackDetection" with label "Attack Start"
+    Given New Request Specification from File "Vision/ExternalAttackDetection" with label "Attack Start"
     Given The Request Body is the following Object
       | jsonPath                             | value                                   |
       | $.attackVolume.packetsPerSecond      | 5087000000                              |
@@ -127,7 +127,7 @@ Feature: DefenseFlow Activations Reports CSV
   @SID_19
   Scenario: Start Attack PO_106
     Given That Current Vision is Logged In
-    Given New Request Specification from File "DefenseFlow/ExternalAttackDetection" with label "Attack Start"
+    Given New Request Specification from File "Vision/ExternalAttackDetection" with label "Attack Start"
     Given The Request Body is the following Object
       | jsonPath                             | value                                   |
       | $.attackVolume.packetsPerSecond      | 6087000000                              |
@@ -150,7 +150,7 @@ Feature: DefenseFlow Activations Reports CSV
   @SID_20
   Scenario: Start Attack PO_107
     Given That Current Vision is Logged In
-    Given New Request Specification from File "DefenseFlow/ExternalAttackDetection" with label "Attack Start"
+    Given New Request Specification from File "Vision/ExternalAttackDetection" with label "Attack Start"
     Given The Request Body is the following Object
       | jsonPath                             | value                                   |
       | $.attackVolume.packetsPerSecond      | 7087000000                              |
@@ -173,7 +173,7 @@ Feature: DefenseFlow Activations Reports CSV
   @SID_21
   Scenario: Start Attack PO_108
     Given That Current Vision is Logged In
-    Given New Request Specification from File "DefenseFlow/ExternalAttackDetection" with label "Attack Start"
+    Given New Request Specification from File "Vision/ExternalAttackDetection" with label "Attack Start"
     Given The Request Body is the following Object
       | jsonPath                             | value                                   |
       | $.attackVolume.packetsPerSecond      | 8087000000                              |
@@ -196,7 +196,7 @@ Feature: DefenseFlow Activations Reports CSV
   @SID_22
   Scenario: Start Attack PO_109
     Given That Current Vision is Logged In
-    Given New Request Specification from File "DefenseFlow/ExternalAttackDetection" with label "Attack Start"
+    Given New Request Specification from File "Vision/ExternalAttackDetection" with label "Attack Start"
     Given The Request Body is the following Object
       | jsonPath                             | value                                   |
       | $.attackVolume.packetsPerSecond      | 9087000000                              |
@@ -219,7 +219,7 @@ Feature: DefenseFlow Activations Reports CSV
   @SID_23
   Scenario: Start Attack PO_111
     Given That Current Vision is Logged In
-    Given New Request Specification from File "DefenseFlow/ExternalAttackDetection" with label "Attack Start"
+    Given New Request Specification from File "Vision/ExternalAttackDetection" with label "Attack Start"
     Given The Request Body is the following Object
       | jsonPath                             | value                                   |
       | $.attackVolume.packetsPerSecond      | 11087000000                             |
@@ -242,7 +242,7 @@ Feature: DefenseFlow Activations Reports CSV
   @SID_24
   Scenario: Start Attack PO_112
     Given That Current Vision is Logged In
-    Given New Request Specification from File "DefenseFlow/ExternalAttackDetection" with label "Attack Start"
+    Given New Request Specification from File "Vision/ExternalAttackDetection" with label "Attack Start"
     Given The Request Body is the following Object
       | jsonPath                             | value                                   |
       | $.attackVolume.packetsPerSecond      | 12087000000                             |
@@ -265,7 +265,7 @@ Feature: DefenseFlow Activations Reports CSV
   @SID_25
   Scenario: Start Attack PO_113
     Given That Current Vision is Logged In
-    Given New Request Specification from File "DefenseFlow/ExternalAttackDetection" with label "Attack Start"
+    Given New Request Specification from File "Vision/ExternalAttackDetection" with label "Attack Start"
     Given The Request Body is the following Object
       | jsonPath                             | value                                   |
       | $.attackVolume.packetsPerSecond      | 13087000000                             |
@@ -288,7 +288,7 @@ Feature: DefenseFlow Activations Reports CSV
   @SID_26
   Scenario: Start Attack PO_114
     Given That Current Vision is Logged In
-    Given New Request Specification from File "DefenseFlow/ExternalAttackDetection" with label "Attack Start"
+    Given New Request Specification from File "Vision/ExternalAttackDetection" with label "Attack Start"
     Given The Request Body is the following Object
       | jsonPath                             | value                                   |
       | $.attackVolume.packetsPerSecond      | 14087000000                             |
@@ -311,7 +311,7 @@ Feature: DefenseFlow Activations Reports CSV
   @SID_27
   Scenario: Start Attack PO_115
     Given That Current Vision is Logged In
-    Given New Request Specification from File "DefenseFlow/ExternalAttackDetection" with label "Attack Start"
+    Given New Request Specification from File "Vision/ExternalAttackDetection" with label "Attack Start"
     Given The Request Body is the following Object
       | jsonPath                             | value                                   |
       | $.attackVolume.packetsPerSecond      | 15087000000                             |
