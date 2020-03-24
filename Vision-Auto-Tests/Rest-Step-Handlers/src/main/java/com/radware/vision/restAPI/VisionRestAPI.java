@@ -1,6 +1,5 @@
 package com.radware.vision.restAPI;
 
-import com.radware.vision.RestClientsFactory;
 import com.radware.vision.RestStepResult;
 import com.radware.vision.restTestHandler.GenericStepsHandler;
 import com.radware.vision.restTestHandler.RestClientsStepsHandler;
