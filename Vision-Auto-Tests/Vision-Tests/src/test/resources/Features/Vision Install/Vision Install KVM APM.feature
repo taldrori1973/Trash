@@ -4,6 +4,7 @@ Feature: Vision Install KVM APM
   @SID_1
   Scenario: Fresh Install APM on KVM
     Given Prerequisite for Setup force
+    Then Sleep "30"
     Then Upgrade or Fresh Install Vision
 
   @SID_2
