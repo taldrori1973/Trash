@@ -5,13 +5,14 @@ import com.radware.vision.restTestHandler.GenericStepsHandler;
 import com.radware.vision.restTestHandler.RestClientsStepsHandler;
 import controllers.RestApiManagement;
 import lombok.Data;
+import lombok.Getter;
 import models.RestRequestSpecification;
 import models.RestResponse;
 import restInterface.RestApi;
 
 import java.net.ConnectException;
 
-@Data
+@Getter
 public class VisionRestAPI {
 
     private static RestApi restApi = RestApiManagement.getRestApi();
