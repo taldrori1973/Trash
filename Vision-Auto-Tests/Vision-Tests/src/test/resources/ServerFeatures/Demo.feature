@@ -1,7 +1,10 @@
 #@rest100
 @TC113068
-  @run
 Feature: Demo
+
+  @run
+  Scenario: Rest As Tool
+    Then Send request
 
   @SID_4
   Scenario: Delete User Before Creating it

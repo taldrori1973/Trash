@@ -2,6 +2,8 @@
 
 Feature: VRM Alerts Criteria
 
+
+  
   @SID_1 @HTTPS_FLOOD
   Scenario: Clean system data
     Then CLI kill all simulator attacks on current vision
@@ -10,6 +12,7 @@ Feature: VRM Alerts Criteria
     Then REST Delete ES index "dp-*"
     Then CLI Clear vision logs
 
+  
   @SID_2
   Scenario: increase inactivity timeout to maximum
     Given UI Login with user "sys_admin" and password "radware"
@@ -21,6 +24,7 @@ Feature: VRM Alerts Criteria
     Then UI Click Button "Submit"
     Then UI Logout
 
+  
   @SID_3 @HTTPS_FLOOD
   Scenario: VRM - Login to VRM "Alerts" tab
     Given UI Login with user "sys_admin" and password "radware"
@@ -350,23 +354,36 @@ Feature: VRM Alerts Criteria
     Then CLI Run remote linux Command "cp /opt/radware/mgt-server/third-party/tomcat/logs/catalina.out /opt/radware/storage/maintenance/catalina.out1" on "ROOT_SERVER_CLI"
     Then CLI Run remote linux Command "curl -XGET localhost:9200/rt-alert-def-vrm/_search?pretty -d '{"query":{"bool":{"must":[{"wildcard":{"name":"*"}}]}},"from":0,"size":50}' > /opt/radware/storage/maintenance/alerts_id.txt" on "ROOT_SERVER_CLI"
 
+  
+  @SID_144
+  Scenario: Create Alerts Criteria Category  - Equal Connection PPS
+    When UI "Create" Alerts With Name "Alert_Category connection PPS"
+      | Basic Info | Description:Category                                                   |
+      | Criteria   | Event Criteria:Threat Category,Operator:Equals,Value:[Connection PPS]; |
+      | Schedule   | checkBox:Trigger,alertsPerHour:60     |
 
+  
   @SID_49 @HTTPS_FLOOD
     Scenario: Clear alert browser and Run DP simulator
 #    Given CLI simulate 1 attacks of type "rest_traffic_filter" on "DefensePro" 11
     Then REST Delete ES index "alert"
     And CLI simulate 1 attacks of type "VRM_attacks" on "DefensePro" 10 and wait 210 seconds
+    Given CLI simulate 1 attacks of type "pps_traps" on "DefensePro" 10 and wait 210 seconds
     Then UI Navigate to "AMS Forensics" page via homePage
     Then UI Navigate to "AMS Alerts" page via homePage
 
+  
   @SID_50
   Scenario: modify one attack's rate value to 2TB
     Then CLI Run remote linux Command "now=`date +%s%3N`; curl -XPOST "localhost:9200/dp-attack-raw-*/_update_by_query/?conflicts=proceed" -d '{"query":{"bool": {"must": [{"match": {"attackIpsId": "7839-1402580209"}}]}},"script": {"inline": "ctx._source.averageAttackPacketRatePps ='2001000000000L'; ctx._source.averageAttackRateBps = '2001000000000L'; ctx._source.endTime = '$now'L"}}'" on "ROOT_SERVER_CLI"
     * Sleep "60"
     Then CLI Run remote linux Command "cp /opt/radware/mgt-server/third-party/tomcat/logs/catalina.out /opt/radware/storage/maintenance/catalina.out2" on "ROOT_SERVER_CLI"
 
-   ###################    VALIDATE ALERTS   ######################################################
 
+
+
+
+   ###################    VALIDATE ALERTS   ######################################################
   @SID_51
   Scenario: VRM Validate Alert criteria Action proxy FWD Challenge
     Then UI "Check" all the Toggle Alerts
@@ -676,6 +693,15 @@ Feature: VRM Alerts Criteria
     Then UI "Check" Toggle Alerts with name "pps greater than T"
     Then UI Validate "Report.Table" Table rows count equal to 1
 
+
+  @SID_145
+  Scenario: VRM Validate Alert criteria Action proxy FWD Challenge
+    Then UI "Check" all the Toggle Alerts
+    When UI "Uncheck" all the Toggle Alerts
+    Then UI "Check" Toggle Alerts with name "Alert_Category connection PPS"
+    Then UI Validate "Report.Table" Table rows count equal to 1
+
+
   ######################  VALIDATING IN ALERT TABLE THE NUMBER OF ATTACKS TRIGGERING EACH ALERT   ###############################################
 
   @SID_94
@@ -883,6 +909,14 @@ Feature: VRM Alerts Criteria
   @SID_135
   Scenario: VRM Validate Alert browser details pps greater than Tera
     Then CLI Run linux Command "curl -XPOST -s -d'{"query":{"bool":{"must":[{"wildcard":{"message":"M_30000: Vision Analytics Alerts \nAlert Name: pps greater than T \n*Attacks Count: 1 \n"}}]}},"from":0,"size":10}' localhost:9200/alert/_search |grep "ANALYTICS_ALERTS" |wc -l" on "ROOT_SERVER_CLI" and validate result EQUALS "1"
+
+
+  @SID_146
+  Scenario: VRM Validate Alert browser details Alert_Action Challenge
+    Then CLI Run remote linux Command "curl -XPOST -s -d'{"query":{"bool":{"must":[{"wildcard":{"message":"M_30000: Vision Analytics Alerts \nAlert Name: Alert_Category connection PPS \nSeverity: MINOR \nDescription: Category \nImpact: N/A \nRemedy: N/A \nDevice IP: 172.16.22.50 \n*Attacks Count: 1 \n"}}]}},"from":0,"size":100}' localhost:9200/alert/_search?pretty |grep "ANALYTICS_ALERTS" |wc -l" on "ROOT_SERVER_CLI"
+    Then CLI Operations - Verify that output contains regex "\b1\b"
+
+
 
   @SID_136
   Scenario: Verify alert table sorting in modal popup
