@@ -1,38 +1,28 @@
 {
   "deviceName": "Vision",
   "fileName": "SystemConfigItemList",
-  "basePath": "/mgmt/system/config/itemlist",
+  "description": "General System Configuration Item List",
   "api": [
     {
       "label": "Download Policy Templates from Server",
       "method": "GET",
       "basePath": "/mgmt/system/config/itemlist/alltemplates",
       "produces": "application/json",
-      "description": "Retrieves DefensePro configuration templates from the APSolute Vision server.",
-      "pathParameters": []
+      "description": "Retrieves DefensePro configuration templates from the APSolute Vision server."
     },
     {
       "label": "Get Alerts",
       "method": "GET",
       "basePath": "/mgmt/system/config/itemlist/alert",
       "produces": "application/json",
-      "description": "Retrieves APSolute Vision alerts (alerts from the APSolute Vision Alert Browser).Caution:  The  command  can  retrieve  alerts  only  from  the  newest  10,000  alerts  that  match  the  filtercriteria.  The  filter  criteria  and  the  rate  at  which  you  run  this  command  must  be  sufficiently  refinedand frequent so that the response contains fewer than 10,000 alerts.",
-      "pathParameters": []
+      "description": "Retrieves APSolute Vision alerts (alerts from the APSolute Vision Alert Browser).Caution:  The  command  can  retrieve  alerts  only  from  the  newest  10,000  alerts  that  match  the  filtercriteria.  The  filter  criteria  and  the  rate  at  which  you  run  this  command  must  be  sufficiently  refinedand frequent so that the response contains fewer than 10,000 alerts."
     },
     {
       "label": "Get Alert Rule",
       "method": "GET",
       "basePath": "/mgmt/system/config/itemlist/alertrule/{id}",
       "produces": "application/json",
-      "description": "Gets a specific Alert Rule",
-      "pathParameters": [
-        {
-          "name": "id",
-          "required": true,
-          "schema": "string",
-          "description": "Item ID (ormID) retrieved from the APSolute Vision server."
-        }
-      ]
+      "description": "Gets a specific Alert Rule"
     },
     {
       "label": "Update Alert Rule",
@@ -40,38 +30,21 @@
       "method": "PUT",
       "basePath": "/mgmt/system/config/itemlist/alertrule/{id}",
       "produces": "application/json",
-      "consumes": "application/json",
-      "pathParameters": [
-        {
-          "name": "id",
-          "required": true,
-          "schema": "string",
-          "description": "Item ID (ormID) retrieved from the APSolute Vision server."
-        }
-      ]
+      "consumes": "application/json"
     },
     {
       "label": "Get Local User",
       "method": "GET",
       "basePath": "/mgmt/system/config/itemlist/user/{id}",
       "produces": "application/json",
-      "description": "Gets a specific local user.",
-      "pathParameters": [
-        {
-          "name": "id",
-          "required": true,
-          "schema": "string",
-          "description": "Item ID (ormID) retrieved from the APSolute Vision server."
-        }
-      ]
+      "description": "Gets a specific local user."
     },
     {
       "label": "Get Local Users",
       "method": "GET",
       "basePath": "/mgmt/system/config/itemlist/user",
       "produces": "application/json",
-      "description": "Gets all local users.",
-      "pathParameters": []
+      "description": "Gets all local users."
     },
     {
       "label": "Update Local User",
@@ -79,15 +52,7 @@
       "method": "PUT",
       "basePath": "/mgmt/system/config/itemlist/user/{id}",
       "produces": "application/json",
-      "consumes": "application/json",
-      "pathParameters": [
-        {
-          "name": "id",
-          "required": true,
-          "schema": "string",
-          "description": "Item ID (ormID) retrieved from the APSolute Vision server."
-        }
-      ]
+      "consumes": "application/json"
     },
     {
       "label": "Create Local User",
@@ -95,39 +60,14 @@
       "method": "POST",
       "basePath": "/mgmt/system/config/itemlist/user",
       "produces": "application/json",
-      "consumes": "application/json",
-      "pathParameters": [],
-      "bodyParameters": [
-        {
-          "name": "requestBody",
-          "description": "application/json",
-          "required": true,
-          "schema": "UserPojo",
-          "defaultValue": ""
-        }
-      ]
+      "consumes": "application/json"
     },
     {
       "label": "Delete an Item from the Server",
       "description": "Deletes an APSolute Vision item from the list.\nSupported item types:\n\"user\" - APSolute Vision local user. \"deviceconfigurationfiles\" - Device configuration file downloaded and stored on APSolute Vision. \"alltemplates\" - DefensePro configuration templates downloaded and stored on APSolute Vision.\n",
       "method": "DELETE",
       "basePath": "/mgmt/system/config/itemlist/{item}/{id}",
-      "produces": "application/json",
-      "pathParameters": [
-        {
-          "name": "item",
-          "required": true,
-          "schema": "string",
-          "description": "Supported item types:\n\"user\" - APSolute Vision local user. \"deviceconfigurationfiles\" - Device configuration file downloaded and stored on APSolute Vision. \"alltemplates\" - DefensePro configuration templates downloaded and stored on APSolute Vision.\n"
-        },
-        {
-          "name": "id",
-          "required": true,
-          "schema": "string",
-          "description": "Item ID (ormID) retrieved from the APSolute Vision server."
-        }
-      ],
-      "bodyParameters": []
+      "produces": "application/json"
     }
   ]
 }
