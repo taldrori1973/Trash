@@ -113,7 +113,6 @@
         <gateway>172.17.1.1</gateway>
         <primaryDns>10.221.1.47</primaryDns>
         <physicalManagement>G1</physicalManagement>
-        <vmName></vmName>
     </visionRadwareFirstTime>
 
     <defenseFlowDevice>
@@ -243,8 +242,8 @@
         </defenseProDevices>
         <defenseProDevices index="20">
             <class>com.radware.vision.automation.tools.sutsystemobjects.devicesinfo.DeviceInfo</class>
-            <deviceName>DefensePro_50.50.7.1</deviceName>
-            <deviceIp>50.50.7.1</deviceIp>
+            <deviceName>DefensePro_50.50.7.11</deviceName>
+            <deviceIp>50.50.7.11</deviceIp>
             <username>radware</username>
             <password>radware</password>
             <readCommunity>public</readCommunity>
@@ -253,8 +252,8 @@
         </defenseProDevices>
         <defenseProDevices index="21">
             <class>com.radware.vision.automation.tools.sutsystemobjects.devicesinfo.DeviceInfo</class>
-            <deviceName>DefensePro_50.50.7.2</deviceName>
-            <deviceIp>50.50.7.2</deviceIp>
+            <deviceName>DefensePro_50.50.7.12</deviceName>
+            <deviceIp>50.50.7.12</deviceIp>
             <username>radware</username>
             <password>radware</password>
             <readCommunity>public</readCommunity>
