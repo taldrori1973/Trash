@@ -411,14 +411,14 @@ Feature: VRM Alerts Criteria
     Then UI "Check" all the Toggle Alerts
     When UI "Uncheck" all the Toggle Alerts
     Then UI "Check" Toggle Alerts with name "Alert_Action Bypass"
-    Then UI Validate "Report.Table" Table rows count equal to 0
+    Then UI Validate "Report.Table" Table rows count equal to 32
 
   @SID_55
   Scenario: VRM Validate Alert criteria Action negative
     Then UI "Check" all the Toggle Alerts
     When UI "Uncheck" all the Toggle Alerts
     Then UI "Check" Toggle Alerts with name "Alert_Action_negative"
-    Then UI Validate "Report.Table" Table rows count equal to 1
+    Then UI Validate "Report.Table" Table rows count equal to 2
     Then CLI Run remote linux Command "cp /opt/radware/mgt-server/third-party/tomcat/logs/catalina.out /opt/radware/storage/maintenance/catalina.out4" on "ROOT_SERVER_CLI"
 
   @SID_56
@@ -543,7 +543,7 @@ Feature: VRM Alerts Criteria
     Then UI "Check" all the Toggle Alerts
     When UI "Uncheck" all the Toggle Alerts
     Then UI "Check" Toggle Alerts with name "Alert_Src_IP"
-    Then UI Validate "Report.Table" Table rows count equal to 1
+    Then UI Validate "Report.Table" Table rows count equal to 2
 
   @SID_73
   Scenario: VRM Validate Alert criteria Src_IP Negative
@@ -557,7 +557,7 @@ Feature: VRM Alerts Criteria
     Then UI "Check" all the Toggle Alerts
     When UI "Uncheck" all the Toggle Alerts
     Then UI "Check" Toggle Alerts with name "Alert_Src_Port"
-    Then UI Validate "Report.Table" Table rows count equal to 1
+    Then UI Validate "Report.Table" Table rows count equal to 2
     Then CLI Run remote linux Command "cp /opt/radware/mgt-server/third-party/tomcat/logs/catalina.out /opt/radware/storage/maintenance/catalina.out10" on "ROOT_SERVER_CLI"
 
   @SID_75
@@ -695,7 +695,7 @@ Feature: VRM Alerts Criteria
 
 
   @SID_145
-  Scenario: VRM Validate Alert criteria Action proxy FWD Challenge
+  Scenario: VRM Validate Alert Alert_Category connection PPS
     Then UI "Check" all the Toggle Alerts
     When UI "Uncheck" all the Toggle Alerts
     Then UI "Check" Toggle Alerts with name "Alert_Category connection PPS"
@@ -912,7 +912,7 @@ Feature: VRM Alerts Criteria
 
 
   @SID_146
-  Scenario: VRM Validate Alert browser details Alert_Action Challenge
+  Scenario: VRM Validate Alert browser details Alert_Category connection PPS
     Then CLI Run remote linux Command "curl -XPOST -s -d'{"query":{"bool":{"must":[{"wildcard":{"message":"M_30000: Vision Analytics Alerts \nAlert Name: Alert_Category connection PPS \nSeverity: MINOR \nDescription: Category \nImpact: N/A \nRemedy: N/A \nDevice IP: 172.16.22.50 \n*Attacks Count: 1 \n"}}]}},"from":0,"size":100}' localhost:9200/alert/_search?pretty |grep "ANALYTICS_ALERTS" |wc -l" on "ROOT_SERVER_CLI"
     Then CLI Operations - Verify that output contains regex "\b1\b"
 
