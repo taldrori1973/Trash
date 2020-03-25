@@ -1190,10 +1190,12 @@ public class VRMHandler {
                         index = i;
                 }
                 if (index == -1 || index == legends.length()) {
-                    addErrorMessage("No label with date " + expectedTime);
+                    scrollAndTakeScreenshot(chart);
+                    addErrorMessage("No label with date " + expectedTime.format(inputFormatter));
                 } else {
                     if (!((entry.value >= (Double.valueOf(data.get(index).toString())) - entry.offset) && (entry.value <= (Double.valueOf(data.get(index).toString())) + entry.offset))) {
                         addErrorMessage("In the label " + expectedTime + " The EXPECTED value is " + entry.value + " but the ACTUAL is " + data.get(index) + " with offset " + entry.offset);
+                        scrollAndTakeScreenshot(chart);
                     }
                 }
             }
