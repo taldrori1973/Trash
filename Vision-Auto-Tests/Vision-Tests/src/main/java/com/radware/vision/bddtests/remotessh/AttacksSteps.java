@@ -95,9 +95,7 @@ public class AttacksSteps extends BddCliTestBase {
             if (deviceIp.startsWith(fakeIpPrefix)) {
                 visionIP = visionIP.replace(visionIP.substring(0, visionIP.indexOf(".", visionIP.indexOf(".") + 1)), fakeIpPrefix);
             } else {
-                commandToExecute = String.format("ifconfig | grep \"inet addr:%s\" | wc -l", deviceIp.substring(0, deviceIp.indexOf(".", deviceIp.indexOf(".") + 1)));
-                CliOperations.runCommand(getRestTestBase().getRootServerCli(), commandToExecute);
-                String isDeviceInterfaceExistInVision = CliOperations.lastRow;
+                String isDeviceInterfaceExistInVision = "0";
                 if (isDeviceInterfaceExistInVision.equals("0"))
                     commandToExecute = "sudo /home/radware/getInterfaceByIP.sh " + visionIP.substring(0, visionIP.indexOf(".", visionIP.indexOf(".") + 1));
                 else {
