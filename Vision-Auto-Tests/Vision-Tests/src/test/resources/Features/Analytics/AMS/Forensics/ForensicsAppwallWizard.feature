@@ -8,6 +8,7 @@ Feature: Appwall Forensic Wizard
     Then REST Request "PUT" for "Connectivity->Inactivity Timeout for Configuration"
       | type | value                                 |
       | body | sessionInactivTimeoutConfiguration=60 |
+    And Sleep "5"
     * CLI Clear vision logs
 
   @SID_2 @Sanity
