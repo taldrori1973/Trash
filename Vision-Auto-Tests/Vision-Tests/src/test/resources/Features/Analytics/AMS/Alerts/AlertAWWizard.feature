@@ -57,7 +57,7 @@ Feature: VRM AW Alerts
     When CLI Run remote linux Command on "GENERIC_LINUX_SERVER"
       | "/home/radware/AW_Attacks/sendAW_Attacks.sh "                     |
       | #visionIP                                                         |
-      | " 172.17.164.30 1 "/home/radware/AW_Attacks/AppwallAttackTypes/"" |
+      | " 172.17.164.30 1 "/home/radware/AW_Attacks/AWAlertTest/"" |
     And Sleep "95"
 
   @SID_5
@@ -84,7 +84,7 @@ Feature: VRM AW Alerts
 
   @SID_10
   Scenario: Verify Alert Email Delivery attack details
-    Then CLI Run linux Command "grep -o -e "2000::0001" -e "<td>80</td>" -e "SYN Flood HTTP" -e "policy1" -e "TCP" -e "Unknown" /var/spool/mail/alertuser |wc -l" on "GENERIC_LINUX_SERVER" and validate result EQUALS "60"
+    Then CLI Run linux Command "grep -o -e "2000::0001" -e "<td>80</td>" -e "SYN Flood HTTP" -e "policy1" -e "TCP" -e "Unknown" /var/spool/mail/alertuser |wc -l" on "GENERIC_LINUX_SERVER" and validate result EQUALS "4"
 
   @SID_11
   Scenario: VRM - go to vision and disable emailing
