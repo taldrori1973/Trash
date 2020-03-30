@@ -2,17 +2,13 @@ package com.radware.vision.tools.rest;
 
 import com.radware.vision.restAPI.GenericVisionRestAPI;
 import com.radware.vision.restBddTests.utils.UriUtils;
-import controllers.RestApiManagement;
-import jdk.nashorn.internal.runtime.URIUtils;
 import lombok.Getter;
 import models.RestRequestSpecification;
 import models.RestResponse;
-import restInterface.RestApi;
 
 import static com.radware.vision.restBddTests.utils.SutUtils.*;
 
 public class CurrentVisionRestAPI {
-    private static RestApi restApi = RestApiManagement.getRestApi();
 
     @Getter
     private RestRequestSpecification restRequestSpecification;
