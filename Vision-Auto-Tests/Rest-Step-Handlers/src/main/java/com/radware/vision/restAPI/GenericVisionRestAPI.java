@@ -13,7 +13,7 @@ import restInterface.RestApi;
 import java.net.ConnectException;
 
 @Getter
-public class VisionRestAPI {
+public class GenericVisionRestAPI {
 
     private static RestApi restApi = RestApiManagement.getRestApi();
     private RestRequestSpecification restRequestSpecification;
@@ -33,7 +33,7 @@ public class VisionRestAPI {
      *                             for example for user the SystemConfigItemList file under vision folder the value should be Vision/SystemConfigItemList.json
      * @param requestLabel         :request label under the file
      */
-    public VisionRestAPI(String visionIp, Integer port, String username, String password, String licenseKey, String requestFilePath, String requestLabel) {
+    public GenericVisionRestAPI(String visionIp, Integer port, String username, String password, String licenseKey, String requestFilePath, String requestLabel) {
         this.baseUri = String.format("https://%s", visionIp);
         this.port = port;
         this.username = username;
