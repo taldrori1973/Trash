@@ -19,7 +19,7 @@ public class LicenseManagementHandler {
     public static String generateVisionActivationLicenseKey(String macAddress) throws Exception {
         String licenseKey;
         String licensePrefix = VisionLicenses.ACTIVATION.getLicensePrefixPattern();
-        licenseKey = licensePrefix + ReflectionUtils.invokePrivateMethod("generateLicenseString", macAddress, licensePrefix);
+        licenseKey = licensePrefix +"-"+ ReflectionUtils.invokePrivateMethod("generateLicenseString", macAddress, licensePrefix);
         return licenseKey;
     }
 
