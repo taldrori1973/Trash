@@ -15,7 +15,7 @@ Feature: ConnectionPPS
 
   @SID_3
   Scenario: VRM - Validate Dashboards "Concurrent Connections" Chart data for only DP version 8 machines
-    Given UI Login with user "radware" and password "radware"
+    Given UI Login with user "sys_admin" and password "radware"
     * REST Vision Install License Request "vision-AVA-Max-attack-capacity"
     And UI Navigate to "DefensePro Monitoring Dashboard" page via homePage
     And UI Do Operation "Select" item "Global Time Filter"
