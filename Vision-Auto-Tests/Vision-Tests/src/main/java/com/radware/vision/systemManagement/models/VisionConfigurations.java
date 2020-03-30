@@ -5,6 +5,7 @@ import com.radware.vision.RestStepResult;
 import com.radware.vision.restBddTests.utils.SutUtils;
 import com.radware.vision.restBddTests.utils.UriUtils;
 import com.radware.vision.systemManagement.controllers.VisionConfigurationsController;
+import com.radware.vision.tools.LicenseManagementHandler;
 import models.RestResponse;
 import models.StatusCode;
 import restInterface.client.SessionBasedRestClient;
@@ -51,13 +52,15 @@ public class VisionConfigurations {
                 if (visionMac == null)
                     throw new NoSuchFieldException("The Login returns 402 Payment Required and no \"Vision-MAC\" key was found in the response header.");
                 else {//send new login request with activation Key
-
+                    licenseKey = LicenseManagementHandler.generateVisionActivationLicenseKey(visionMac);
+                    connection = RestClientsFactory.getVisionConnection(baseUri, null, username, password, licenseKey);
+                    loginResult = connection.login();
                 }
             } else if (!loginResult.getStatusCode().equals(StatusCode.OK)) {
                 throw new RuntimeException(String.format("the Login Fails because of the following error: %s", loginResult.getBody().getBodyAsString()));
             }
 //                    else throw exception
-        } catch (NoSuchFieldException e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
