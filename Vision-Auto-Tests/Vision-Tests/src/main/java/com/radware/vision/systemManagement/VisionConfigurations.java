@@ -2,6 +2,7 @@ package com.radware.vision.systemManagement;
 
 import com.radware.vision.RestClientsFactory;
 import com.radware.vision.systemManagement.controllers.VisionConfigurationsController;
+import com.radware.vision.systemManagement.models.VisionConfigurationsModel;
 import com.radware.vision.tools.LicenseManagementHandler;
 import models.RestResponse;
 import models.StatusCode;
@@ -13,17 +14,32 @@ import static com.radware.vision.restBddTests.utils.UriUtils.buildUrlFromProtoco
 public class VisionConfigurations {
 
     private VisionConfigurationsController visionConfigurationsController = new VisionConfigurationsController();
-
-    private String macAddress;
-    private String activeServerMacAddress;
-    private String hostname;
-    private String defenseFlowId;
-    private String hardwarePlatform;
-    private String version;
-    private String build;
+    private VisionConfigurationsModel visionConfigurationsModel;
 
     public VisionConfigurations() {
         enableConnection();
+        this.visionConfigurationsModel = visionConfigurationsController.getVisionConfigurationsByRest();
+    }
+
+
+    public String getMacAddress() {
+        return this.visionConfigurationsModel.getMacAddress();
+    }
+
+    public String getDefenseFlowId() {
+        return this.visionConfigurationsModel.getDefenseFlowId();
+    }
+
+    public String getHardwarePlatform() {
+        return this.visionConfigurationsModel.getHardwarePlatform();
+    }
+
+    public String getVersion() {
+        return this.visionConfigurationsModel.getVersion();
+    }
+
+    public String getBuild() {
+        return this.visionConfigurationsModel.getBuild();
     }
 
     private void enableConnection() {
