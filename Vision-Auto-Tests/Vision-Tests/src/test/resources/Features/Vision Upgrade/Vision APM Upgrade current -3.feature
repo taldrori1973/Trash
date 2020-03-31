@@ -1,4 +1,4 @@
-@TC109892 @nadiyaTest
+@TC109892
 Feature: Vision APM Upgrade current -3
 
   @SID_1
@@ -132,7 +132,6 @@ Feature: Vision APM Upgrade current -3
 #    Given REST Login with activation with user "sys_admin" and password "radware"
     Then UI Login with user "sys_admin" and password "radware"
     Then CLI Operations - Run Root Session command "yes|restore_radware_user_password" timeout 15
-    Then REST Vision Install License Request "vision-AVA-Max-attack-capacity"
 
   @SID_9
   Scenario: Validate AVA Attack Capacity Grace Period License
