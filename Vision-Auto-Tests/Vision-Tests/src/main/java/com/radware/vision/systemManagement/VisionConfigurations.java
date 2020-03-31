@@ -13,38 +13,37 @@ import static com.radware.vision.restBddTests.utils.UriUtils.buildUrlFromProtoco
 
 public class VisionConfigurations {
 
-    private VisionConfigurationsController visionConfigurationsController = new VisionConfigurationsController();
-    private VisionConfigurationsModel visionConfigurationsModel;
+    private static VisionConfigurationsController visionConfigurationsController = new VisionConfigurationsController();
+    private static VisionConfigurationsModel visionConfigurationsModel;
 
     public VisionConfigurations() {
         enableConnection();
-        this.visionConfigurationsModel = visionConfigurationsController.getVisionConfigurationsByRest();
+        visionConfigurationsModel = visionConfigurationsController.getVisionConfigurationsByRest();
     }
 
 
-    public String getMacAddress() {
-        return this.visionConfigurationsModel.getMacAddress();
+    public static String getMacAddress() {
+        return visionConfigurationsModel.getMacAddress();
     }
 
-    public String getDefenseFlowId() {
-        return this.visionConfigurationsModel.getDefenseFlowId();
+    public static String getDefenseFlowId() {
+        return visionConfigurationsModel.getDefenseFlowId();
     }
 
-    public String getHardwarePlatform() {
-        return this.visionConfigurationsModel.getHardwarePlatform();
+    public static String getHardwarePlatform() {
+        return visionConfigurationsModel.getHardwarePlatform();
     }
 
-    public String getVersion() {
-        return this.visionConfigurationsModel.getVersion();
+    public static String getVersion() {
+        return visionConfigurationsModel.getVersion();
     }
 
     public String getBuild() {
-        return this.visionConfigurationsModel.getBuild();
+        return visionConfigurationsModel.getBuild();
     }
 
     private void enableConnection() {
-        RestResponse response;
-        String baseUri = null;
+        String baseUri;
         try {
             String visionMac = null;
             baseUri = buildUrlFromProtocolAndIp(getCurrentVisionRestProtocol(), getCurrentVisionIp());
