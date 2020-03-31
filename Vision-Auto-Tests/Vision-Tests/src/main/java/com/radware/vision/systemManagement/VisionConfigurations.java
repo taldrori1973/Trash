@@ -1,4 +1,4 @@
-package com.radware.vision.systemManagement.models;
+package com.radware.vision.systemManagement;
 
 import com.radware.vision.RestClientsFactory;
 import com.radware.vision.systemManagement.controllers.VisionConfigurationsController;

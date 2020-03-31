@@ -2,7 +2,7 @@ package com.radware.vision.restBddTests;
 
 import com.radware.vision.bddtests.BddRestTestBase;
 import com.radware.vision.restAPI.GenericVisionRestAPI;
-import com.radware.vision.systemManagement.models.VisionConfigurations;
+import com.radware.vision.systemManagement.VisionConfigurations;
 import com.radware.vision.tools.rest.CurrentVisionRestAPI;
 import cucumber.api.java.en.Then;
 import models.RestResponse;
