@@ -38,7 +38,7 @@ public class VisionConfigurations {
         return visionConfigurationsModel.getVersion();
     }
 
-    public String getBuild() {
+    public static String getBuild() {
         return visionConfigurationsModel.getBuild();
     }
 

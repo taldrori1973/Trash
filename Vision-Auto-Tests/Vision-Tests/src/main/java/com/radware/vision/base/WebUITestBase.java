@@ -39,6 +39,7 @@ import com.radware.utils.DeviceUtils;
 import com.radware.utils.TreeUtils;
 import com.radware.vision.automation.tools.sutsystemobjects.devicesinfo.DevicesManager;
 import com.radware.vision.pojomodel.helpers.constants.ImConstants$DeviceStatusEnumPojo;
+import com.radware.vision.systemManagement.VisionConfigurations;
 import com.radware.vision.vision_project_cli.MysqlClientCli;
 import com.radware.vision.vision_project_cli.menu.Menu;
 import com.radware.vision.vision_tests.CliTests;
@@ -230,6 +231,7 @@ public abstract class WebUITestBase extends SystemTestCase4 {
             restTestBase.init();
             BaseHandler.restTestBase = restTestBase;
             BaseHandler.devicesManager = devicesManager;
+            VisionConfigurations visionConfigurations = new VisionConfigurations();
         }
 
     }
@@ -363,12 +365,12 @@ public abstract class WebUITestBase extends SystemTestCase4 {
         if (testCaseId != null && IgnoreList.getInstance().getIgnoreList().containsKey(testCaseId.toString()))
             status = "Failed";
 
-            if (BddReporterManager.getAutoStepId() != null) {
+        if (BddReporterManager.getAutoStepId() != null) {
             setVisionBuildAndVersion();
-                RadAutoDB.getInstance().autoStepTbl.updateStepResult(BddReporterManager.getAutoStepId(), status);
-                if (status.equals("Failed"))
-                    RadAutoDB.getInstance().autoStepFailReasonTbl.createStepFailReason(BddReporterManager.getAutoStepId(), "Error", BddReporterManager.getAllResult(), "", "", "");
-            }
+            RadAutoDB.getInstance().autoStepTbl.updateStepResult(BddReporterManager.getAutoStepId(), status);
+            if (status.equals("Failed"))
+                RadAutoDB.getInstance().autoStepFailReasonTbl.createStepFailReason(BddReporterManager.getAutoStepId(), "Error", BddReporterManager.getAllResult(), "", "", "");
+        }
     }
 
     private boolean ignoredMessageIds(String msg) {

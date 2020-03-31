@@ -14,8 +14,9 @@ public class Demo extends BddRestTestBase {
 //
 //        RestResponse response = genericVisionRestAPI.sendRequest();
 //        System.out.println();
-
-        VisionConfigurations visionConfigurations=new VisionConfigurations();
+//
+//        VisionConfigurations visionConfigurations = new VisionConfigurations();
+        VisionConfigurations.getBuild();
 
     }
 }
