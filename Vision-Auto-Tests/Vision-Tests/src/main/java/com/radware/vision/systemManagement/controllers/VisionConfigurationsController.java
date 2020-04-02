@@ -29,8 +29,8 @@ public class VisionConfigurationsController {
 
             String[] versionAndBuild = body.get("serverSoftwareVersion").asText().split(" ");
             if (versionAndBuild.length != 2) {
-                visionConfigurationsModel.setVersion(null);
-                visionConfigurationsModel.setBuild(null);
+                visionConfigurationsModel.setVersion("0.00.00");
+                visionConfigurationsModel.setBuild("0");
                 throw new IllegalStateException(String.format("\"serverSoftwareVersion\" field returns unexpected value, maybe build or version are missing. "));
             }
 
