@@ -10,6 +10,7 @@ import com.radware.automation.webui.widgets.ComponentLocatorFactory;
 import com.radware.automation.webui.widgets.api.Widget;
 import com.radware.automation.webui.widgets.impl.table.WebUITable;
 import com.radware.restcore.VisionRestClient;
+import com.radware.vision.automation.AutoUtils.Operators.OperatorsEnum;
 import com.radware.vision.automation.tools.sutsystemobjects.devicesinfo.DeviceInfo;
 import com.radware.vision.automation.tools.sutsystemobjects.devicesinfo.enums.SUTDeviceType;
 import com.radware.vision.base.WebUITestSetup;
@@ -263,16 +264,16 @@ public class BasicOperationsSteps extends BddUITestBase {
     @Given("^UI Validate Text field with Class \"(.*)\" \"(Equals|Contains)\" To \"(.*)\"(?: cut Characters Number (\\S+))?$")
     public void validateTextToElementWithClass(String elementClass, String compareMethod, String expectedText, String cutCharsNumber) {
         cutCharsNumber = cutCharsNumber == null ? "0" : cutCharsNumber;
-        EqualsOrContains equalsOrContains;
+        OperatorsEnum operatorsEnum;
         switch (compareMethod) {
             case "Contains":
-                equalsOrContains = EqualsOrContains.CONTAINS;
+                operatorsEnum = OperatorsEnum.CONTAINS;
                 break;
             case "Equals":
             default:
-                equalsOrContains = EqualsOrContains.EQUALS;
+                operatorsEnum = OperatorsEnum.EQUALS;
         }
-        ClickOperationsHandler.validateTextFieldElementByClass(elementClass, expectedText, equalsOrContains, Integer.parseInt(cutCharsNumber));
+        ClickOperationsHandler.validateTextFieldElementByClass(elementClass, expectedText, operatorsEnum, Integer.parseInt(cutCharsNumber));
     }
 
     /**

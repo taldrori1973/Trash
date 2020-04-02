@@ -12,7 +12,7 @@ import com.radware.jsonparsers.impl.JsonUtils;
 import com.radware.vision.automation.tools.sutsystemobjects.devicesinfo.enums.SUTDeviceType;
 import com.radware.vision.bddtests.BddUITestBase;
 import com.radware.vision.infra.enums.DeviceDriverType;
-import com.radware.vision.infra.enums.EqualsOrContains;
+import com.radware.vision.automation.AutoUtils.Operators.OperatorsEnum;
 import com.radware.vision.infra.enums.FindByType;
 import com.radware.vision.infra.enums.PopupDialogBoxTexts;
 import com.radware.vision.infra.testhandlers.DPM.VirtsTableHandler;
@@ -83,22 +83,22 @@ public class BasicValidationsTests extends BddUITestBase {
     /**
      * @param selectorValue
      * @param expectedText
-     * @param equalsOrContains
+     * @param operatorsEnum
      * @param cutCharsNumber   - will be cut from the right side of the String
      */
 
     @Then("^UI Validate Text field \"([^\"]*)\"(?: with params \"([^\"]*)\")? (EQUALS|CONTAINS|MatchRegex) \"(.*)\"(?: cut Characters Number (\\S+))?$")
-    public void validateTextFieldElement(String selectorValue, String params, EqualsOrContains equalsOrContains, String expectedText, String cutCharsNumber) {
+    public void validateTextFieldElement(String selectorValue, String params, OperatorsEnum operatorsEnum, String expectedText, String cutCharsNumber) {
         cutCharsNumber = cutCharsNumber == null ? "0" : cutCharsNumber;
         expectedText = expectedText.equals("") ? getRetrievedParamValue() : expectedText;
-        ClickOperationsHandler.validateTextFieldElementByLabel(selectorValue, params, expectedText, equalsOrContains, Integer.valueOf(cutCharsNumber));
+        ClickOperationsHandler.validateTextFieldElementByLabel(selectorValue, params, expectedText, operatorsEnum, Integer.valueOf(cutCharsNumber));
     }
 
     @Then("^UI Validate Text field by id \"([^\"]*)\" (EQUALS|CONTAINS) \"(.*)\"(?: cut Characters Number (\\S+))?$")
-    public void validateTextFieldElementbyId(String selectorValue, EqualsOrContains equalsOrContains, String expectedText, String cutCharsNumber) {
+    public void validateTextFieldElementbyId(String selectorValue, OperatorsEnum operatorsEnum, String expectedText, String cutCharsNumber) {
         cutCharsNumber = cutCharsNumber == null ? "0" : cutCharsNumber;
         expectedText = expectedText.equals("") ? getRetrievedParamValue() : expectedText;
-        ClickOperationsHandler.validateTextFieldElementById(selectorValue, expectedText, equalsOrContains, Integer.valueOf(cutCharsNumber));
+        ClickOperationsHandler.validateTextFieldElementById(selectorValue, expectedText, operatorsEnum, Integer.valueOf(cutCharsNumber));
     }
 
     /**

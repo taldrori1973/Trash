@@ -5,7 +5,7 @@ import com.radware.automation.tools.basetest.Reporter;
 import com.radware.automation.webui.VisionDebugIdsManager;
 import com.radware.automation.webui.WebUIUtils;
 import com.radware.automation.webui.widgets.ComponentLocator;
-import com.radware.vision.infra.enums.EqualsOrContains;
+import com.radware.vision.automation.AutoUtils.Operators.OperatorsEnum;
 import com.radware.vision.infra.enums.UpperBarItems;
 import com.radware.vision.infra.enums.WebElementType;
 import com.radware.vision.infra.testhandlers.baseoperations.BasicOperationsHandler;
@@ -92,7 +92,7 @@ public class WebUIUpperBar {
 
 
                         if (!item.equals(UpperBarItems.DPM)) {
-                            verifyElementXpath = GeneralUtils.buildGenericXpath(WebElementType.Id, verifyId, EqualsOrContains.EQUALS);
+                            verifyElementXpath = GeneralUtils.buildGenericXpath(WebElementType.Id, verifyId, OperatorsEnum.EQUALS);
                         } else {
                             GeneralUtils.switchToTab(1);
                             verifyElementXpath = verifyId;

@@ -33,7 +33,7 @@ import static com.radware.vision.infra.utils.ReportsUtils.addErrorMessage;
 
 public class TableHandler {
     AbstractTable table;
-    String REACT_TABLE_OLD = "list-wrapper";
+//    String REACT_TABLE_OLD = "list-wrapper";
     String REACT_GRID = "genericTableWrapper";
     String Simple_Table = "groups-and-content-rule-expand-row-legends";
     public final String BASIC_TABLE = "vrm-generic-table";
@@ -124,12 +124,9 @@ public class TableHandler {
         VisionDebugIdsManager.setParams("");
         WebElement tableElement = WebUIUtils.fluentWait(ComponentLocatorFactory.getLocatorByDbgId(VisionDebugIdsManager.getDataDebugId()).getBy(), WebUIUtils.DEFAULT_WAIT_TIME);
         if (tableElement != null) {
-            if (tableElement.getAttribute("class").contains(REACT_GRID)) {
-                return true;
-            }
+            return tableElement.getAttribute("class").contains(REACT_GRID);
         } else
             return VisionDebugIdsManager.getDataDebugId().contains(REACT_GRID);
-        return false;
     }
 
     public void setTable(String label, boolean withReadAllTable) throws Exception {
@@ -229,13 +226,13 @@ public class TableHandler {
             ReportsUtils.reportAndTakeScreenShot("Failed due to an incorrect input data: columnName is " + columnName + " value is " + value, Reporter.FAIL);
         }
         if (rowIndexFound >= 0) {
-            BaseTestUtils.report("Specified value was Found in the Table: row index found in is " + String.valueOf(rowIndexFound), Reporter.PASS);
+            BaseTestUtils.report("Specified value was Found in the Table: row index found in is " + rowIndexFound, Reporter.PASS);
         } else {
             ReportsUtils.reportAndTakeScreenShot("Specified value was NOT found in the Table: columnName = " + columnName + " value = " + value, Reporter.FAIL);
         }
     }
 
-    public void validateValueExistenceAtTableByColumn(String label, String columnName, String value, boolean expectedExistance) throws Exception {
+    public void validateValueExistenceAtTableByColumn(String label, String columnName, String value, boolean expectedExistence) throws Exception {
         setTable(label, true);
         int rowIndexFound = -1;
         if (columnName != null && value != null) {
@@ -243,10 +240,10 @@ public class TableHandler {
         } else {
             ReportsUtils.reportAndTakeScreenShot("Failed due to an incorrect input data: columnName is " + columnName + " value is " + value, Reporter.FAIL);
         }
-        if (rowIndexFound >= 0 && expectedExistance || rowIndexFound < 0 && !expectedExistance) {
-            BaseTestUtils.report("Specified value Existence Verified in the Table: row index is " + String.valueOf(rowIndexFound), Reporter.PASS);
+        if (rowIndexFound >= 0 && expectedExistence || rowIndexFound < 0 && !expectedExistence) {
+            BaseTestUtils.report("Specified value Existence Verified in the Table: row index is " + rowIndexFound, Reporter.PASS);
         } else {
-            ReportsUtils.reportAndTakeScreenShot("Specified value Existence Not Verified in the Table: columnName = " + columnName + " value = " + value + " ,Expected: " + expectedExistance, Reporter.FAIL);
+            ReportsUtils.reportAndTakeScreenShot("Specified value Existence Not Verified in the Table: columnName = " + columnName + " value = " + value + " ,Expected: " + expectedExistence, Reporter.FAIL);
         }
     }
 
@@ -309,14 +306,14 @@ public class TableHandler {
     public void uiValidateRowsIsBetweenDates(String tableName, String first, String second) throws Exception {
         setTable(tableName, true);
         DateTimeFormatter inputFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'");
-        LocalDateTime from = LocalDateTime.parse((CharSequence) first, inputFormatter);
-        LocalDateTime to = LocalDateTime.parse((CharSequence) second, inputFormatter);
+        LocalDateTime from = LocalDateTime.parse(first, inputFormatter);
+        LocalDateTime to = LocalDateTime.parse(second, inputFormatter);
         LocalDateTime fromGMT = from.plusHours(2);
         LocalDateTime toGMT = to.plusHours(2);
         AbstractColumn startTimeColumn = table.getColumn("Start Time");
         DateTimeFormatter inputFormatter2 = DateTimeFormatter.ofPattern("dd.MM.yyyy HH:mm:ss");
         for (String rowdate : startTimeColumn.columnValues) {
-            LocalDateTime rowdateTime = LocalDateTime.parse((CharSequence) rowdate, inputFormatter2);
+            LocalDateTime rowdateTime = LocalDateTime.parse(rowdate, inputFormatter2);
             if (!rowdateTime.isBefore(toGMT))
                 BaseTestUtils.report("The row is after the end time", Reporter.FAIL);
             if (!rowdateTime.isAfter(fromGMT))
