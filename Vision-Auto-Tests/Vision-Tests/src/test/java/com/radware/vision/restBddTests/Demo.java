@@ -1,18 +1,17 @@
 package com.radware.vision.restBddTests;
 
-import com.radware.vision.restAPI.VisionRestAPI;
+import com.radware.vision.bddtests.BddRestTestBase;
+import com.radware.vision.restAPI.GenericVisionRestAPI;
+import com.radware.vision.tools.rest.CurrentVisionRestAPI;
 import cucumber.api.java.en.Then;
 import models.RestResponse;
 
-public class Demo {
+public class Demo extends BddRestTestBase {
     @Then("^Send request$")
-    public void sendRequest() {
-        VisionRestAPI visionRestAPI = new VisionRestAPI("172.17.192.100", null,
-                "radware", "radware", null,
-                "Vision/SystemConfigItemList.json", "Get Local Users"
-        );
+    public void sendRequest() throws NoSuchFieldException {
+        CurrentVisionRestAPI genericVisionRestAPI = new CurrentVisionRestAPI("Vision/SystemConfigItemList.json", "Get Local Users");
 
-        RestResponse response = visionRestAPI.sendRequest();
+        RestResponse response = genericVisionRestAPI.sendRequest();
         System.out.println();
 
     }

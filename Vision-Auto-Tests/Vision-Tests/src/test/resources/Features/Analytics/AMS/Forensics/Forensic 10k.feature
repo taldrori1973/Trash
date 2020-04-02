@@ -48,6 +48,7 @@ Feature: Forensics 10K
   @SID_8
   Scenario: generate forensic report
     Then UI Generate and Validate Forensics With Name "Forensic_10K" with Timeout of 300 Seconds
+    Then Sleep "30"
 
   @SID_9
   Scenario: validate number of records in forensic table
