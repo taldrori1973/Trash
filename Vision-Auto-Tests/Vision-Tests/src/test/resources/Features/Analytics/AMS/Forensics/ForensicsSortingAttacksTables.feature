@@ -36,6 +36,7 @@ Feature: Sorting Attacks Tables
       | Output                | Device IP Address,Direction,Packets,Policy Name                       |
     And UI Click Button "Views.Expand" with value "First Output Fields"
     And UI Click Button "Views.Generate Now" with value "First Output Fields"
+    And Sleep "30"
     And UI Click Button "Views.report" with value "First Output Fields"
 
   @SID_5

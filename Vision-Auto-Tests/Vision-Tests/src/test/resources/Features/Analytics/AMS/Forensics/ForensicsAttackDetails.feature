@@ -32,6 +32,7 @@ Feature: Forensic Attack details Tests
     When UI "Create" Forensics With Name "Attack Details1"
       | Output | Action,Attack ID,Threat Category,Duration |
     Then UI Generate and Validate Forensics With Name "Attack Details1" with Timeout of 180 Seconds
+    And Sleep "30"
     And UI Click Button "Views.report" with value "Attack Details1"
 
  ######################################################### Refine ########################################################################
@@ -293,6 +294,7 @@ Feature: Forensic Attack details Tests
   Scenario: VRM - open forensic "Attack details" table
     When UI Click Button "Views.Expand" with value "Attack_Details"
     And UI Click Button "Views.Generate Now" with value "Attack_Details"
+    And Sleep "30"
     And UI Click Button "Views.report" with value "Attack_Details"
     Then UI click Table row by keyValue or Index with elementLabel "Report.Table" findBy columnName "Attack ID" findBy cellValue "7839-1402580209"
 
@@ -659,6 +661,7 @@ Feature: Forensic Attack details Tests
     Then UI Click Button "Criteria.Any"
     Then UI Click Button "Submit" with value "Submit"
     Then UI Generate and Validate Forensics With Name "Attack ACL" with Timeout of 180 Seconds
+    And Sleep "30"
     And UI Click Button "Views.report" with value "Attack ACL"
 
   @SID_59
