@@ -28,8 +28,11 @@ public class VisionConfigurationsController {
             visionConfigurationsModel.setMacAddress(body.get("macAddress").asText());
 
             String[] versionAndBuild = body.get("serverSoftwareVersion").asText().split(" ");
-            if (versionAndBuild.length != 2)
+            if (versionAndBuild.length != 2) {
+                visionConfigurationsModel.setVersion(null);
+                visionConfigurationsModel.setBuild(null);
                 throw new IllegalStateException(String.format("\"serverSoftwareVersion\" field returns unexpected value, maybe build or version are missing. "));
+            }
 
             visionConfigurationsModel.setVersion(versionAndBuild[0]);
             visionConfigurationsModel.setBuild(versionAndBuild[1]);
