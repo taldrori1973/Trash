@@ -42,7 +42,7 @@ Feature: Forensic Attack details Tests
     And UI Click Button "Report.Attack Details.Refine View"
     And UI Select Multi items from dropdown "Report.Attack Details.Refine.Dropdown" apply
       | Action |
-    Then UI Validate "Report.Table" Table rows count equal to 26
+    Then UI Validate "Report.Table" Table rows count EQUALS to 26
     * UI Click Button "Report.Clear Refine"
 
   @SID_6
@@ -51,7 +51,7 @@ Feature: Forensic Attack details Tests
     And UI Click Button "Report.Attack Details.Refine View"
     And UI Select Multi items from dropdown "Report.Attack Details.Refine.Dropdown" apply
       | Attack ID |
-    Then UI Validate "Report.Table" Table rows count equal to 1
+    Then UI Validate "Report.Table" Table rows count EQUALS to 1
     * UI Click Button "Report.Clear Refine"
 
   @SID_7
@@ -61,7 +61,7 @@ Feature: Forensic Attack details Tests
     And UI Select Multi items from dropdown "Report.Attack Details.Refine.Dropdown" apply
       | Start Time |
     #  move to manual because refine by time is not absolute
-      # Then UI Validate "Report.Table" Table rows count equal to 1
+      # Then UI Validate "Report.Table" Table rows count EQUALS to 1
     * UI Click Button "Report.Clear Refine"
 
   @SID_8
@@ -70,7 +70,7 @@ Feature: Forensic Attack details Tests
     And UI Click Button "Report.Attack Details.Refine View"
     And UI Select Multi items from dropdown "Report.Attack Details.Refine.Dropdown" apply
       | Source IP Address |
-    Then UI Validate "Report.Table" Table rows count equal to 4
+    Then UI Validate "Report.Table" Table rows count EQUALS to 4
 
     Then UI Validate Table record values by columns with elementLabel "Report.Table" findBy columnName "Attack ID" findBy cellValue "803-1525623158"
       | columnName | value |
@@ -93,7 +93,7 @@ Feature: Forensic Attack details Tests
     And UI Click Button "Report.Attack Details.Refine View"
     And UI Select Multi items from dropdown "Report.Attack Details.Refine.Dropdown" apply
       | Source Port |
-    Then UI Validate "Report.Table" Table rows count equal to 8
+    Then UI Validate "Report.Table" Table rows count EQUALS to 8
     * UI Click Button "Report.Clear Refine"
 
   @SID_10
@@ -102,7 +102,7 @@ Feature: Forensic Attack details Tests
     And UI Click Button "Report.Attack Details.Refine View"
     And UI Select Multi items from dropdown "Report.Attack Details.Refine.Dropdown" apply
       | Destination IP Address |
-    Then UI Validate "Report.Table" Table rows count equal to 4
+    Then UI Validate "Report.Table" Table rows count EQUALS to 4
     * UI Click Button "Report.Clear Refine"
 
   @SID_11
@@ -111,7 +111,7 @@ Feature: Forensic Attack details Tests
     And UI Click Button "Report.Attack Details.Refine View"
     And UI Select Multi items from dropdown "Report.Attack Details.Refine.Dropdown" apply
       | Destination Port |
-    Then UI Validate "Report.Table" Table rows count equal to 2
+    Then UI Validate "Report.Table" Table rows count EQUALS to 2
     * UI Click Button "Report.Clear Refine"
 
   @SID_12
@@ -120,7 +120,7 @@ Feature: Forensic Attack details Tests
     And UI Click Button "Report.Attack Details.Refine View"
     And UI Select Multi items from dropdown "Report.Attack Details.Refine.Dropdown" apply
       | Direction |
-    Then UI Validate "Report.Table" Table rows count equal to 3
+    Then UI Validate "Report.Table" Table rows count EQUALS to 3
     * UI Click Button "Report.Clear Refine"
 
   @SID_13
@@ -129,7 +129,7 @@ Feature: Forensic Attack details Tests
     And UI Click Button "Report.Attack Details.Refine View"
     And UI Select Multi items from dropdown "Report.Attack Details.Refine.Dropdown" apply
       | Protocol |
-    Then UI Validate "Report.Table" Table rows count equal to 19
+    Then UI Validate "Report.Table" Table rows count EQUALS to 19
     * UI Click Button "Report.Clear Refine"
 
   @SID_14
@@ -138,7 +138,7 @@ Feature: Forensic Attack details Tests
     And UI Click Button "Report.Attack Details.Refine View"
     And UI Select Multi items from dropdown "Report.Attack Details.Refine.Dropdown" apply
       | Threat Category |
-    Then UI Validate "Report.Table" Table rows count equal to 6
+    Then UI Validate "Report.Table" Table rows count EQUALS to 6
     * UI Click Button "Report.Clear Refine"
 
   @SID_15
@@ -147,7 +147,7 @@ Feature: Forensic Attack details Tests
     And UI Click Button "Report.Attack Details.Refine View"
     And UI Select Multi items from dropdown "Report.Attack Details.Refine.Dropdown" apply
       | Radware ID |
-    Then UI Validate "Report.Table" Table rows count equal to 1
+    Then UI Validate "Report.Table" Table rows count EQUALS to 1
     * UI Click Button "Report.Clear Refine"
 
   @SID_16
@@ -156,7 +156,7 @@ Feature: Forensic Attack details Tests
     And UI Click Button "Report.Attack Details.Refine View"
     And UI Select Multi items from dropdown "Report.Attack Details.Refine.Dropdown" apply
       | Attack Name |
-    Then UI Validate "Report.Table" Table rows count equal to 1
+    Then UI Validate "Report.Table" Table rows count EQUALS to 1
     * UI Click Button "Report.Clear Refine"
 
   @SID_17
@@ -165,7 +165,7 @@ Feature: Forensic Attack details Tests
     And UI Click Button "Report.Attack Details.Refine View"
     And UI Select Multi items from dropdown "Report.Attack Details.Refine.Dropdown" apply
       | Device IP Address |
-    Then UI Validate "Report.Table" Table rows count equal to 35
+    Then UI Validate "Report.Table" Table rows count EQUALS to 35
     * UI Click Button "Report.Clear Refine"
 
   @SID_18
@@ -174,7 +174,7 @@ Feature: Forensic Attack details Tests
     And UI Click Button "Report.Attack Details.Refine View"
     And UI Select Multi items from dropdown "Report.Attack Details.Refine.Dropdown" apply
       | End Time |
-    Then UI Validate "Report.Table" Table rows count equal to 1
+    Then UI Validate "Report.Table" Table rows count EQUALS to 1
     * UI Click Button "Report.Clear Refine"
 
   @SID_19
@@ -183,7 +183,7 @@ Feature: Forensic Attack details Tests
     And UI Click Button "Report.Attack Details.Refine View"
     And UI Select Multi items from dropdown "Report.Attack Details.Refine.Dropdown" apply
       | Duration |
-    Then UI Validate "Report.Table" Table rows count equal to 3 with offset 2
+    Then UI Validate "Report.Table" Table rows count EQUALS to 3 with offset 2
     * UI Click Button "Report.Clear Refine"
 
   @SID_20
@@ -192,7 +192,7 @@ Feature: Forensic Attack details Tests
     And UI Click Button "Report.Attack Details.Refine View"
     And UI Select Multi items from dropdown "Report.Attack Details.Refine.Dropdown" apply
       | Packets |
-    Then UI Validate "Report.Table" Table rows count equal to 1
+    Then UI Validate "Report.Table" Table rows count EQUALS to 1
     * UI Click Button "Report.Clear Refine"
 
   @SID_21
@@ -201,7 +201,7 @@ Feature: Forensic Attack details Tests
     And UI Click Button "Report.Attack Details.Refine View"
     And UI Select Multi items from dropdown "Report.Attack Details.Refine.Dropdown" apply
       | Mbps |
-    Then UI Validate "Report.Table" Table rows count equal to 1
+    Then UI Validate "Report.Table" Table rows count EQUALS to 1
     * UI Click Button "Report.Clear Refine"
 
   @SID_22
@@ -210,7 +210,7 @@ Feature: Forensic Attack details Tests
     And UI Click Button "Report.Attack Details.Refine View"
     And UI Select Multi items from dropdown "Report.Attack Details.Refine.Dropdown" apply
       | Physical Port |
-    Then UI Validate "Report.Table" Table rows count equal to 2
+    Then UI Validate "Report.Table" Table rows count EQUALS to 2
     * UI Click Button "Report.Clear Refine"
 
   @SID_23
@@ -219,7 +219,7 @@ Feature: Forensic Attack details Tests
     And UI Click Button "Report.Attack Details.Refine View"
     And UI Select Multi items from dropdown "Report.Attack Details.Refine.Dropdown" apply
       | Policy Name |
-    Then UI Validate "Report.Table" Table rows count equal to 2
+    Then UI Validate "Report.Table" Table rows count EQUALS to 2
     * UI Click Button "Report.Clear Refine"
 
   @SID_24
@@ -228,7 +228,7 @@ Feature: Forensic Attack details Tests
     And UI Click Button "Report.Attack Details.Refine View"
     And UI Select Multi items from dropdown "Report.Attack Details.Refine.Dropdown" apply
       | Risk |
-    Then UI Validate "Report.Table" Table rows count equal to 10
+    Then UI Validate "Report.Table" Table rows count EQUALS to 10
     * UI Click Button "Report.Clear Refine"
 
   @SID_25
@@ -237,7 +237,7 @@ Feature: Forensic Attack details Tests
     And UI Click Button "Report.Attack Details.Refine View"
     And UI Select Multi items from dropdown "Report.Attack Details.Refine.Dropdown" apply
       | VLAN Tag |
-    Then UI Validate "Report.Table" Table rows count equal to 33
+    Then UI Validate "Report.Table" Table rows count EQUALS to 33
     * UI Click Button "Report.Clear Refine"
 
   @SID_26
@@ -247,7 +247,7 @@ Feature: Forensic Attack details Tests
     And UI Select Multi items from dropdown "Report.Attack Details.Refine.Dropdown" apply
       | VLAN Tag |
       | Risk     |
-    Then UI Validate "Report.Table" Table rows count equal to 10
+    Then UI Validate "Report.Table" Table rows count EQUALS to 10
     * UI Click Button "Report.Clear Refine"
 
   @SID_27
@@ -260,7 +260,7 @@ Feature: Forensic Attack details Tests
       | Device IP Address |
       | Duration          |
       | Risk              |
-    Then UI Validate "Report.Table" Table rows count equal to 1
+    Then UI Validate "Report.Table" Table rows count EQUALS to 1
     * UI Click Button "Report.Clear Refine"
 
 ##################################################### Attack PCAP file ####################################################################

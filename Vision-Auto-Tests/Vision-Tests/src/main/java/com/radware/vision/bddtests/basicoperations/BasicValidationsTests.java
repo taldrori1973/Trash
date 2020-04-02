@@ -173,9 +173,9 @@ public class BasicValidationsTests extends BddUITestBase {
      * @param count        - total rows count
      * @param offset       - optional offset to count parameter
      */
-    @Then("^UI Validate \"(.*)\" Table rows count equal to (\\d+)(?: with offset (\\d+))?$")
-    public void validateTableRowsCount(String elementLabel, int count, Integer offset) {
-        tableHandler.validateTableRowsCount(elementLabel, count, offset);
+    @Then("^UI Validate \"(.*)\" Table rows count (EQUALS|NOT_EQUALS|CONTAINS|GT|GTE|LT|LTE) to (\\d+)(?: with offset (\\d+))?$")
+    public void validateTableRowsCount(String elementLabel, OperatorsEnum operatorsEnum, int count, Integer offset) {
+        tableHandler.validateTableRowsCount(elementLabel, count, operatorsEnum, offset);
     }
 
     @Then("^UI validate Table row by keyValue with elementLabel \"([^\"]*)\" findBy columnName \"([^\"]*)\" findBy cellValue \"([^\"]*)\"( negative)?$")

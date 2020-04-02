@@ -215,9 +215,8 @@ public class RemoteSshCommandsTests extends BddCliTestBase {
     public void runCLICommandAndValidateBiggerOrEqualResult(String commandToExecute, SUTEntryType sutEntryType, OperatorsEnum operatorsEnum, String expectedResult, String inAnyLine, Integer iDelay, Integer defaultTimeOut) {
         try {
             defaultTimeOut = defaultTimeOut != null ? defaultTimeOut * 1000 : CliOperations.DEFAULT_TIME_OUT;
-            boolean bTestSuccess = false;
+            boolean bTestSuccess;
             int iNumberOfDelayTimes = 1;
-            int iactualResult;
 
             if (iDelay != null && iDelay > 15) {
                 iNumberOfDelayTimes = iDelay / 15;
@@ -232,7 +231,7 @@ public class RemoteSshCommandsTests extends BddCliTestBase {
                 }
 
                 iNumberOfDelayTimes--;
-                bTestSuccess = compareResults(expectedResult, actualResult, operatorsEnum);
+                bTestSuccess = compareResults(expectedResult, actualResult, operatorsEnum, null);
 
                 if (!(iNumberOfDelayTimes == 0 || bTestSuccess))
                     sleep(15 * 1000);

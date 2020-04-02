@@ -14,7 +14,7 @@ Feature: DPM HA Tests
       | index | ports | policies |
       | 14    |       |          |
       | 15    |       |          |
-    Then UI Validate "virts table" Table rows count equal to 5
+    Then UI Validate "virts table" Table rows count EQUALS to 5
     Then UI Validate Table record values by columns with elementLabel "virts table" findBy columnName "Virtual Service Name" findBy cellValue "virtualserver3:80"
       | columnName | value |
       | Protocol   | http  |
@@ -59,7 +59,7 @@ Feature: DPM HA Tests
     And REST Put Scalar on "Alteon" 14 values "haOperSwitchBackup=2"
     And REST Unlock Action on "Alteon" 14
     And Sleep "30"
-    Then UI Validate "virts table" Table rows count equal to 5
+    Then UI Validate "virts table" Table rows count EQUALS to 5
     Then UI Validate Table record values by columns with elementLabel "virts table" findBy columnName "Virtual Service Name" findBy cellValue "virtualserver3:80"
       | columnName | value |
       | Protocol   | http  |

@@ -13,6 +13,7 @@ Feature: Defense Flow Forensic Wizard
       | body | sessionInactivTimeoutConfiguration=60 |
     * CLI Clear vision logs
 
+
   @SID_2 @Sanity
   Scenario: Login and navigate to forensics
     Given UI Login with user "radware" and password "radware"
@@ -100,7 +101,7 @@ Feature: Defense Flow Forensic Wizard
     And UI Click Button "Report.Attack Details.Refine View"
     And UI Select Multi items from dropdown "Report.Attack Details.Refine.Dropdown" apply
       | Attack Name |
-    Then UI Validate "Report.Table" Table rows count equal to 3
+    Then UI Validate "Report.Table" Table rows count EQUALS to 3
     * UI Click Button "Report.Clear Refine"
   @SID_14
   Scenario: VRM - Validate Forensic "Wizard" Delete Wizard
@@ -109,6 +110,33 @@ Feature: Defense Flow Forensic Wizard
     When UI Delete "Source_Address" and Approve
     And Sleep "1"
     Then UI Validate Element Existence By Label "Views" if Exists "false" with value "Source_Address"
+
+#    ------------------- Ahlam - Add test for Connection PPS  -----------------
+
+  @SID_16
+  Scenario: create forensic definition Second_view
+    Given UI "Create" Forensics With Name "Category_ConnectionPPS"
+      | Product | DefenseFlow |
+      | Criteria | Event Criteria:Threat Category,Operator:Equals,Value:[Connection PPS]; |
+      | Output  | Start Time, End Time, Attack Name, Action, Attack ID, Policy Name, Source IP Address, Source Port, Max pps, Max bps |
+      | Time Definitions.Date | Quick:1D |
+      | Format | Select: CSV |
+      | Share  | FTP:checked, FTP.Location:172.17.164.10, FTP.Path:/home/radware/ftp/, FTP.Username:radware, FTP.Password:radware |
+
+
+  @SID_17
+  Scenario: Forensic wizard test Validate ForensicsView
+    When UI Click Button "Views.Expand" with value "Category_ConnectionPPS"
+    Then UI Validate Element Existence By Label "Views.Generate Now" if Exists "true" with value "Category_ConnectionPPS"
+
+
+  @SID_18
+  Scenario: Forensic wizard test Generate Now
+    When UI Click Button "Views.Generate Now" with value "Category_ConnectionPPS"
+    And Sleep "120"
+    When UI Click Button "Views.report" with value "Category_ConnectionPPS"
+    Then UI Validate "Report.Table" Table rows count EQUALS to 1
+
 
   @SID_15
   Scenario: Logout
