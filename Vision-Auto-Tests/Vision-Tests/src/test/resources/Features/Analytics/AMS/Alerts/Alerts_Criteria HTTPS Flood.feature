@@ -42,14 +42,14 @@ Feature: VRM Alerts Criteria HTTPS Flood
     Then UI "Check" all the Toggle Alerts
     When UI "Uncheck" all the Toggle Alerts
     Then UI "Check" Toggle Alerts with name "Threat Category HTTPS Flood Any Time Schedule"
-    Then UI Validate "Report.Table" Table rows count equal to 2
+    Then UI Validate "Report.Table" Table rows count EQUALS to 2
 
   @SID_7
   Scenario: VRM Validate Alert Threat Category HTTPS Flood Custom Schedule
     Then UI "Check" all the Toggle Alerts
     When UI "Uncheck" all the Toggle Alerts
     Then UI "Check" Toggle Alerts with name "Threat Category HTTPS Flood Custom Schedule"
-    Then UI Validate "Report.Table" Table rows count equal to 1
+    Then UI Validate "Report.Table" Table rows count EQUALS to 1
 
   @SID_8
   Scenario: VRM Validate Alert browser for HTTPS Flood Any Schedule

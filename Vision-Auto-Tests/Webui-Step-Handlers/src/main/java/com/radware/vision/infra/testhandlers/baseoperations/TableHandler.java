@@ -15,6 +15,8 @@ import com.radware.automation.webui.widgets.api.table.AbstractColumn;
 import com.radware.automation.webui.widgets.api.table.AbstractTable;
 import com.radware.automation.webui.widgets.impl.table.BasicTable;
 import com.radware.automation.webui.widgets.impl.table.WebUITable;
+import com.radware.vision.automation.AutoUtils.Operators.Comparator;
+import com.radware.vision.automation.AutoUtils.Operators.OperatorsEnum;
 import com.radware.vision.infra.testhandlers.baseoperations.sortingFolder.SortableColumn;
 import com.radware.vision.infra.testhandlers.baseoperations.sortingFolder.SortingDataSet;
 import com.radware.vision.infra.testhandlers.baseoperations.sortingFolder.TableSortingHandler;
@@ -28,6 +30,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static com.radware.automation.webui.UIUtils.sleep;
+import static com.radware.vision.automation.AutoUtils.Operators.Comparator.compareResults;
 import static com.radware.vision.infra.testhandlers.baseoperations.BasicOperationsHandler.setTextField;
 import static com.radware.vision.infra.utils.ReportsUtils.addErrorMessage;
 
@@ -80,7 +83,7 @@ public class TableHandler {
     }
 
 
-    public void validateTableRowsCount(String elementLabel, int count, Integer offset) {
+    public void validateTableRowsCount(String elementLabel, int count, OperatorsEnum operatorsEnum, Integer offset) {
         try {
             int actualRowsCount;
             if (!isReactTable(elementLabel)) {
@@ -90,10 +93,7 @@ public class TableHandler {
                 actualRowsCount = getReactGridRowCount();
             }
             boolean isValid;
-            if (offset == null || offset == 0)
-                isValid = actualRowsCount == count;
-            else
-                isValid = (count >= (actualRowsCount - offset) && count <= (actualRowsCount + offset));
+            isValid = compareResults(String.valueOf(count), String.valueOf(actualRowsCount), operatorsEnum,offset);
             if (isValid) {
                 BaseTestUtils.report("Table Rows count = " + count, Reporter.PASS);
             } else {

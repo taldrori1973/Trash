@@ -116,7 +116,7 @@ Feature: DPM Analytics Main Page
 
   @SID_10
   Scenario: Validate table row amount - default view
-    Then UI Validate "virts table" Table rows count equal to 10
+    Then UI Validate "virts table" Table rows count EQUALS to 10
 
   @SID_11
   Scenario: Validate table row content - default view

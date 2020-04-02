@@ -199,7 +199,7 @@ Feature: LLS_GEL_freshInstall
 #    Then UI Click Button "Entitlement Card"
     Then UI validate Table row by keyValue with elementLabel "instances table" findBy columnName "Instance Name" findBy cellValue "172.17.141.18"
     Then UI validate Table row by keyValue with elementLabel "instances table" findBy columnName "Instance Name" findBy cellValue "172.17.141.17"
-    Then UI Validate "instances table" Table rows count equal to 2
+    Then UI Validate "instances table" Table rows count EQUALS to 2
 
   @SID_35
   Scenario: validate entitlement license card updated
@@ -214,7 +214,7 @@ Feature: LLS_GEL_freshInstall
     Then UI click Table row by keyValue or Index with elementLabel "instances table" findBy columnName "Instance Name" findBy cellValue "172.17.141.18"
     Then UI Click Button "deallocate"
     Then UI Click Button "Activate button"
-    Then UI Validate "instances table" Table rows count equal to 1
+    Then UI Validate "instances table" Table rows count EQUALS to 1
     Then UI validate Table row by keyValue with elementLabel "instances table" findBy columnName "Instance Name" findBy cellValue "172.17.141.17"
 
   @SID_37
@@ -232,7 +232,7 @@ Feature: LLS_GEL_freshInstall
   Scenario: validate instance added to table
 #    Then UI Click Button "Entitlement Card"
     Then UI validate Table row by keyValue with elementLabel "instances table" findBy columnName "Instance Name" findBy cellValue "172.17.141.18"
-    Then UI Validate "instances table" Table rows count equal to 2
+    Then UI Validate "instances table" Table rows count EQUALS to 2
 
   @SID_39
   Scenario: Deallocate instance, and validate instances table is updated
@@ -240,7 +240,7 @@ Feature: LLS_GEL_freshInstall
     Then UI click Table row by keyValue or Index with elementLabel "instances table" findBy columnName "Instance Name" findBy cellValue "172.17.141.18"
     Then UI Click Button "deallocate"
     Then UI Click Button "Activate button"
-    Then UI Validate "instances table" Table rows count equal to 1
+    Then UI Validate "instances table" Table rows count EQUALS to 1
 
   @SID_40
   Scenario: Deallocate instance, and validate instances table is updated
@@ -248,7 +248,7 @@ Feature: LLS_GEL_freshInstall
     Then UI click Table row by keyValue or Index with elementLabel "instances table" findBy columnName "Instance Name" findBy cellValue "172.17.141.17"
     Then UI Click Button "deallocate"
     Then UI Click Button "Activate button"
-    Then UI Validate "instances table" Table rows count equal to 0
+    Then UI Validate "instances table" Table rows count EQUALS to 0
 
   @SID_41
   Scenario: validate license activated in the Peer machine.

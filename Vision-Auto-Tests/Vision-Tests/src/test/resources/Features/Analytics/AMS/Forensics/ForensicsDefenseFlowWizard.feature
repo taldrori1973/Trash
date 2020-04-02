@@ -101,7 +101,7 @@ Feature: Defense Flow Forensic Wizard
     And UI Click Button "Report.Attack Details.Refine View"
     And UI Select Multi items from dropdown "Report.Attack Details.Refine.Dropdown" apply
       | Attack Name |
-    Then UI Validate "Report.Table" Table rows count equal to 3
+    Then UI Validate "Report.Table" Table rows count EQUALS to 3
     * UI Click Button "Report.Clear Refine"
   @SID_14
   Scenario: VRM - Validate Forensic "Wizard" Delete Wizard
@@ -135,7 +135,7 @@ Feature: Defense Flow Forensic Wizard
     When UI Click Button "Views.Generate Now" with value "Category_ConnectionPPS"
     And Sleep "120"
     When UI Click Button "Views.report" with value "Category_ConnectionPPS"
-    Then UI Validate "Report.Table" Table rows count equal to 1
+    Then UI Validate "Report.Table" Table rows count EQUALS to 1
 
 
   @SID_15

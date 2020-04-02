@@ -31,7 +31,7 @@ Feature: Forensic Time Selection
       | Time Definitions.Date | Quick:1D              |
     Then UI Generate and Validate Forensics With Name "Forensic Time" with Timeout of 300 Seconds
     Then UI Click Button "Views.report" with value "Forensic Time"
-    Then UI Validate "Report.Table" Table rows count equal to 2
+    Then UI Validate "Report.Table" Table rows count EQUALS to 2
     Then UI Validate Table record values by columns with elementLabel "Report.Table" findBy columnName "Attack ID" findBy cellValue "4-1402580209"
       | columnName  | value        |
       | Attack ID   | 4-1402580209 |
@@ -58,7 +58,7 @@ Feature: Forensic Time Selection
       | Time Definitions.Date | Relative:[Hours,24]   |
     Then UI Generate and Validate Forensics With Name "Forensic Time" with Timeout of 300 Seconds
     Then UI Click Button "Views.report" with value "Forensic Time"
-    Then UI Validate "Report.Table" Table rows count equal to 2
+    Then UI Validate "Report.Table" Table rows count EQUALS to 2
     Then UI Validate Table record values by columns with elementLabel "Report.Table" findBy columnName "Attack ID" findBy cellValue "4-1402580209"
       | columnName  | value        |
       | Attack ID   | 4-1402580209 |
@@ -93,7 +93,7 @@ Feature: Forensic Time Selection
       | Time Definitions.Date | Quick:Yesterday       |
     Then UI Generate and Validate Forensics With Name "Forensic Time" with Timeout of 300 Seconds
     Then UI Click Button "Views.report" with value "Forensic Time"
-    Then UI Validate "Report.Table" Table rows count equal to 1
+    Then UI Validate "Report.Table" Table rows count EQUALS to 1
     Then UI Validate Table record values by columns with elementLabel "Report.Table" findBy columnName "Attack ID" findBy cellValue "4-1402580209"
       | columnName  | value      |
       | Attack ID | 4-1402580209 |
@@ -115,7 +115,7 @@ Feature: Forensic Time Selection
       | Time Definitions.Date | Quick:1W              |
     Then UI Generate and Validate Forensics With Name "Forensic Time" with Timeout of 300 Seconds
     Then UI Click Button "Views.report" with value "Forensic Time"
-    Then UI Validate "Report.Table" Table rows count equal to 2
+    Then UI Validate "Report.Table" Table rows count EQUALS to 2
     Then UI Validate Table record values by columns with elementLabel "Report.Table" findBy columnName "Attack ID" findBy cellValue "4-1402580209"
       | columnName  | value        |
       | Attack ID   | 4-1402580209 |
@@ -138,7 +138,7 @@ Feature: Forensic Time Selection
       | Time Definitions.Date | Relative:[Days,7]     |
     Then UI Generate and Validate Forensics With Name "Forensic Time" with Timeout of 300 Seconds
     Then UI Click Button "Views.report" with value "Forensic Time"
-    Then UI Validate "Report.Table" Table rows count equal to 2
+    Then UI Validate "Report.Table" Table rows count EQUALS to 2
     Then UI Validate Table record values by columns with elementLabel "Report.Table" findBy columnName "Attack ID" findBy cellValue "4-1402580209"
       | columnName  | value        |
       | Attack ID   | 4-1402580209 |
@@ -161,7 +161,7 @@ Feature: Forensic Time Selection
       | Time Definitions.Date | Quick:1M              |
     Then UI Generate and Validate Forensics With Name "Forensic Time" with Timeout of 300 Seconds
     Then UI Click Button "Views.report" with value "Forensic Time"
-    Then UI Validate "Report.Table" Table rows count equal to 2
+    Then UI Validate "Report.Table" Table rows count EQUALS to 2
     Then UI Validate Table record values by columns with elementLabel "Report.Table" findBy columnName "Attack ID" findBy cellValue "4-1402580209"
       | columnName  | value        |
       | Attack ID   | 4-1402580209 |
@@ -184,7 +184,7 @@ Feature: Forensic Time Selection
       | Time Definitions.Date | Relative:[Weeks,5]    |
     Then UI Generate and Validate Forensics With Name "Forensic Time" with Timeout of 300 Seconds
     Then UI Click Button "Views.report" with value "Forensic Time"
-    Then UI Validate "Report.Table" Table rows count equal to 2
+    Then UI Validate "Report.Table" Table rows count EQUALS to 2
     Then UI Validate Table record values by columns with elementLabel "Report.Table" findBy columnName "Attack ID" findBy cellValue "4-1402580209"
       | columnName  | value        |
       | Attack ID   | 4-1402580209 |
@@ -207,7 +207,7 @@ Feature: Forensic Time Selection
       | Time Definitions.Date | Quick:3M              |
     Then UI Generate and Validate Forensics With Name "Forensic Time" with Timeout of 300 Seconds
     Then UI Click Button "Views.report" with value "Forensic Time"
-    Then UI Validate "Report.Table" Table rows count equal to 2
+    Then UI Validate "Report.Table" Table rows count EQUALS to 2
     Then UI Validate Table record values by columns with elementLabel "Report.Table" findBy columnName "Attack ID" findBy cellValue "4-1402580209"
       | columnName  | value        |
       | Attack ID   | 4-1402580209 |
@@ -230,7 +230,7 @@ Feature: Forensic Time Selection
       | Time Definitions.Date | Quick:1Y              |
     Then UI Generate and Validate Forensics With Name "Forensic Time" with Timeout of 300 Seconds
     Then UI Click Button "Views.report" with value "Forensic Time"
-    Then UI Validate "Report.Table" Table rows count equal to 2
+    Then UI Validate "Report.Table" Table rows count EQUALS to 2
     Then UI Validate Table record values by columns with elementLabel "Report.Table" findBy columnName "Attack ID" findBy cellValue "4-1402580209"
       | columnName  | value        |
       | Attack ID   | 4-1402580209 |
@@ -253,7 +253,7 @@ Feature: Forensic Time Selection
       | Time Definitions.Date | Relative:[Months,12]  |
     Then UI Generate and Validate Forensics With Name "Forensic Time" with Timeout of 300 Seconds
     Then UI Click Button "Views.report" with value "Forensic Time"
-    Then UI Validate "Report.Table" Table rows count equal to 2
+    Then UI Validate "Report.Table" Table rows count EQUALS to 2
     Then UI Validate Table record values by columns with elementLabel "Report.Table" findBy columnName "Attack ID" findBy cellValue "4-1402580209"
       | columnName  | value        |
       | Attack ID   | 4-1402580209 |
@@ -277,7 +277,7 @@ Feature: Forensic Time Selection
       | Time Definitions.Date | Absolute:[27.02.1971 01:00:00, +0d] |
     Then UI Generate and Validate Forensics With Name "Forensic Time" with Timeout of 300 Seconds
     And UI Click Button "Views.report" with value "Forensic Time"
-    Then UI Validate "Report.Table" Table rows count equal to 2
+    Then UI Validate "Report.Table" Table rows count EQUALS to 2
     Then UI Validate Table record values by columns with elementLabel "Report.Table" findBy columnName "Attack ID" findBy cellValue "4-1402580209"
       | columnName  | value        |
       | Attack ID   | 4-1402580209 |
@@ -298,7 +298,7 @@ Feature: Forensic Time Selection
 
     Then UI Generate and Validate Forensics With Name "Forensic Time" with Timeout of 300 Seconds
     And UI Click Button "Views.report" with value "Forensic Time"
-    Then UI Validate "Report.Table" Table rows count equal to 2
+    Then UI Validate "Report.Table" Table rows count EQUALS to 2
     Then UI Validate Table record values by columns with elementLabel "Report.Table" findBy columnName "Attack ID" findBy cellValue "7706-1402580209"
       | columnName  | value           |
       | Attack ID   | 7706-1402580209 |
@@ -321,7 +321,7 @@ Feature: Forensic Time Selection
 
     Then UI Generate and Validate Forensics With Name "Forensic Time" with Timeout of 300 Seconds
     And UI Click Button "Views.report" with value "Forensic Time"
-    Then UI Validate "Report.Table" Table rows count equal to 2
+    Then UI Validate "Report.Table" Table rows count EQUALS to 2
     Then UI Validate Table record values by columns with elementLabel "Report.Table" findBy columnName "Attack ID" findBy cellValue "7706-1402580209"
       | columnName  | value           |
       | Attack ID   | 7706-1402580209 |
