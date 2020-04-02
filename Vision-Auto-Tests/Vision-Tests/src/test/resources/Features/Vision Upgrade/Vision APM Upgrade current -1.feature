@@ -21,7 +21,7 @@ Feature: Vision APM Upgrade current -1
   Scenario: Do any pre-upgrade changes
     Then CLI Operations - Run Root Session command "yes|restore_radware_user_password" timeout 15
     # extract MySql create partition number
-    Then CLI Run remote linux Command "echo "Before " $(mysql -prad123 vision -e "show create table traffic_utilizations\G" |grep "(PARTITION p" |awk -F"p" '{print$2}'|awk '{printf$1}') >  /opt/radware/sql_partition.txt" on "ROOT_SERVER_CLI"
+    Then CLI Run remote linux Command "echo "before " $(mysql -prad123 vision -e "show create table traffic_utilizations\G" |grep "(PARTITION p" |awk -F"p" '{print$2}'|awk '{printf$1}') >  /opt/radware/sql_partition.txt" on "ROOT_SERVER_CLI"
 #    Then CLI Run remote linux Command "dos2unix /etc/td-agent/td-agent.conf" on "ROOT_SERVER_CLI"
     Then CLI Run remote linux Command "sed -i 's/port .*$/port 51400/g' /etc/td-agent/td-agent.conf" on "ROOT_SERVER_CLI"
 
@@ -219,9 +219,9 @@ Feature: Vision APM Upgrade current -1
 
   @SID_25
   Scenario: Validate increased MySql partitioning number
-    Then CLI Run remote linux Command "echo "After " $(mysql -prad123 vision -e "show create table traffic_utilizations\G" |grep "(PARTITION \`p" |awk -F"p" '{print$2}'|awk -F"\`" '{print$1}') >>  /opt/radware/sql_partition.txt" on "ROOT_SERVER_CLI"
+    Then CLI Run remote linux Command "echo "after " $(mysql -prad123 vision -e "show create table traffic_utilizations\G" |grep "(PARTITION \`p" |awk -F"p" '{print$2}'|awk -F"\`" '{print$1}') >>  /opt/radware/sql_partition.txt" on "ROOT_SERVER_CLI"
     Then CLI Run remote linux Command "cat /opt/radware/sql_partition.txt" on "ROOT_SERVER_CLI"
-    Then CLI Run linux Command "echo $(cat /opt/radware/sql_partition.txt |grep "After"|awk '{print$2}')-$(cat /opt/radware/sql_partition.txt |grep "Before"|awk '{print$2}')|bc" on "ROOT_SERVER_CLI" and validate result GT "0"
+    Then CLI Run linux Command "echo $(cat /opt/radware/sql_partition.txt |grep "after"|awk '{print$2}')-$(cat /opt/radware/sql_partition.txt |grep "before"|awk '{print$2}'|wc -l)+1|bc" on "ROOT_SERVER_CLI" and validate result GT "0"
 
   @SID_26
   Scenario: Validate IPv6 Hostname in /etc/hosts
