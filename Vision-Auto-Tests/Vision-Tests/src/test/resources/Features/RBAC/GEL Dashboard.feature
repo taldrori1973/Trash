@@ -3,6 +3,7 @@ Feature: GEL Dashboard RBAC
 
   @SID_1
   Scenario: login as radware and configure TACACS server parameters
+    Then CLI Operations - Run Root Session command "yes|restore_radware_user_password" timeout 15
     Given UI Login with user "radware" and password "radware"
     Then UI Go To Vision
     Then UI Navigate to page "System->General Settings->Authentication Protocols->TACACS+ Settings"
