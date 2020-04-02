@@ -222,6 +222,7 @@ public class RemoteSshCommandsTests extends BddCliTestBase {
             }
 
             do {
+                getSUTEntryTypeByServerCliBase(sutEntryType).connect();
                 CliOperations.runCommand(getSUTEntryTypeByServerCliBase(sutEntryType), commandToExecute, defaultTimeOut);
                 String actualResult = CliOperations.lastRow.trim();
 
