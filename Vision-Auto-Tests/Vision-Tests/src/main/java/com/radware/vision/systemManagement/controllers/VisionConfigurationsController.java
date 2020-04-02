@@ -35,9 +35,11 @@ public class VisionConfigurationsController {
             visionConfigurationsModel.setBuild(versionAndBuild[1]);
 
 
-        } catch (NoSuchFieldException | UnsupportedOperationException | IllegalStateException e) {
+        } catch (NoSuchFieldException | UnsupportedOperationException e) {
             e.printStackTrace();
             throw new RuntimeException(e.getMessage());
+        } catch (IllegalStateException e) {
+            e.printStackTrace();
         }
 
 
