@@ -5,7 +5,7 @@ import com.radware.automation.webui.WebUIUtils;
 import com.radware.automation.webui.widgets.ComponentLocator;
 import com.radware.automation.webui.widgets.impl.table.WebUITable;
 import com.radware.vision.infra.base.pages.navigation.WebUIVisionBasePage;
-import com.radware.vision.infra.enums.EqualsOrContains;
+import com.radware.vision.automation.AutoUtils.Operators.OperatorsEnum;
 import com.radware.vision.infra.enums.WebElementType;
 import com.radware.vision.infra.enums.enumsutils.Element;
 import com.radware.vision.infra.testhandlers.baseoperations.clickoperations.ClickOperationsHandler;
@@ -25,7 +25,7 @@ public class AppShapes extends WebUIVisionBasePage {
     }
 
     public void clickOnAppShapes() {
-        ComponentLocator appShapesTreeNode = new ComponentLocator(How.XPATH, GeneralUtils.buildGenericXpath(WebElementType.Id, AppShapesTree.APPSHAPES.getElementId(), EqualsOrContains.EQUALS));
+        ComponentLocator appShapesTreeNode = new ComponentLocator(How.XPATH, GeneralUtils.buildGenericXpath(WebElementType.Id, AppShapesTree.APPSHAPES.getElementId(), OperatorsEnum.EQUALS));
         WebElement appShapesNode;
         if ((appShapesNode = WebUIUtils.fluentWait(appShapesTreeNode.getBy(), WebUIUtils.DEFAULT_WAIT_TIME)) == null) {
             ReportsUtils.reportAndTakeScreenShot("AppShapes does not exist in current page, please make to navigate to the right page", Reporter.FAIL);

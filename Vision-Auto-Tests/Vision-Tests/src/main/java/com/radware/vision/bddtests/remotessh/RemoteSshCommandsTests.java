@@ -6,10 +6,11 @@ import com.radware.automation.tools.basetest.Reporter;
 import com.radware.automation.tools.cli.LinuxFileServer;
 import com.radware.automation.tools.cli.ServerCliBase;
 import com.radware.automation.tools.utils.InvokeUtils;
+import com.radware.vision.automation.AutoUtils.Operators.Comparator;
 import com.radware.vision.bddtests.BddCliTestBase;
 import com.radware.vision.bddtests.basicoperations.BasicOperationsSteps;
 import com.radware.vision.bddtests.clioperation.FileSteps;
-import com.radware.vision.infra.enums.EqualsOrContains;
+import com.radware.vision.automation.AutoUtils.Operators.OperatorsEnum;
 import com.radware.vision.infra.testhandlers.cli.CliOperations;
 import com.radware.vision.vision_project_cli.RootServerCli;
 import cucumber.api.java.en.Then;
@@ -19,6 +20,7 @@ import testutils.RemoteProcessExecutor;
 
 import java.util.List;
 
+import static com.radware.vision.automation.AutoUtils.Operators.Comparator.compareResults;
 import static enums.SUTEntryType.GENERIC_LINUX_SERVER;
 import static enums.SUTEntryType.ROOT_SERVER_CLI;
 
@@ -205,12 +207,12 @@ public class RemoteSshCommandsTests extends BddCliTestBase {
         CliOperations.runCommand(getRestTestBase().getRootServerCli(), "chmod +x /root/fetch_num_of_real_alteons_apps.sh");
         CliOperations.runCommand(getRestTestBase().getRootServerCli(), "/root/fetch_num_of_real_alteons_apps.sh");
         String numOfApps = CliOperations.lastRow;
-        runCLICommandAndValidateBiggerOrEqualResult("mysql -prad123 vision_ng -e \"select count(*) from dpm_virtual_services\" | grep -v + | tail -1", ROOT_SERVER_CLI, EqualsOrContains.GTE, numOfApps, "", null, null);
+        runCLICommandAndValidateBiggerOrEqualResult("mysql -prad123 vision_ng -e \"select count(*) from dpm_virtual_services\" | grep -v + | tail -1", ROOT_SERVER_CLI, OperatorsEnum.GTE, numOfApps, "", null, null);
 
     }
 
     @When("^CLI Run linux Command \"(.*)\" on \"(.*)\" and validate result (EQUALS|NOT_EQUALS|CONTAINS|GT|GTE|LT|LTE) \"(.*)\"( in any line)?(?: with timeOut (\\d+))?(?: with runCommand delay (\\d+))?$")
-    public void runCLICommandAndValidateBiggerOrEqualResult(String commandToExecute, SUTEntryType sutEntryType, EqualsOrContains equalsOrContains, String expectedResult, String inAnyLine, Integer iDelay, Integer defaultTimeOut) {
+    public void runCLICommandAndValidateBiggerOrEqualResult(String commandToExecute, SUTEntryType sutEntryType, OperatorsEnum operatorsEnum, String expectedResult, String inAnyLine, Integer iDelay, Integer defaultTimeOut) {
         try {
             defaultTimeOut = defaultTimeOut != null ? defaultTimeOut * 1000 : CliOperations.DEFAULT_TIME_OUT;
             boolean bTestSuccess = false;
@@ -230,65 +232,13 @@ public class RemoteSshCommandsTests extends BddCliTestBase {
                 }
 
                 iNumberOfDelayTimes--;
-                switch (equalsOrContains) {
-                    case CONTAINS:
-                        if (!actualResult.contains(expectedResult)) {
-                            if (iNumberOfDelayTimes == 0)
-                                BaseTestUtils.report("Actual \"" + actualResult + "\" does not contain \"" + expectedResult + "\"", Reporter.FAIL);
-                        } else
-                            bTestSuccess = true;
-                        break;
-                    case EQUALS:
-                        if (!actualResult.trim().equals(expectedResult)) {
-                            if (iNumberOfDelayTimes == 0)
-                                BaseTestUtils.report("Actual \"" + actualResult + "\" is not equal to \"" + expectedResult + "\"", Reporter.FAIL);
-                        } else
-                            bTestSuccess = true;
-                        break;
-                    case NOT_EQUALS:
-                        if (actualResult.trim().equals(expectedResult)) {
-                            if (iNumberOfDelayTimes == 0)
-                                BaseTestUtils.report("Actual \"" + actualResult + "\" is equal to \"" + expectedResult + "\" although it shouldn't be", Reporter.FAIL);
-                        } else
-                            bTestSuccess = true;
-                        break;
-                    case GT:
-                        iactualResult = Integer.valueOf(actualResult.trim());
-                        if (!(iactualResult > Integer.valueOf(expectedResult))) {
-                            if (iNumberOfDelayTimes == 0)
-                                BaseTestUtils.report("Actual \"" + actualResult + "\" is not greater than \"" + expectedResult + "\"", Reporter.FAIL);
-                        } else
-                            bTestSuccess = true;
-                        break;
-                    case GTE:
-                        iactualResult = Integer.valueOf(actualResult.trim());
-                        if (!(iactualResult >= Integer.valueOf(expectedResult))) {
-                            if (iNumberOfDelayTimes == 0)
-                                BaseTestUtils.report("Actual \"" + actualResult + "\" is not equal or greater than \"" + expectedResult + "\"", Reporter.FAIL);
-                        } else
-                            bTestSuccess = true;
-                        break;
-                    case LT:
-                        iactualResult = Integer.valueOf(actualResult.trim());
-                        if (!(iactualResult < Integer.valueOf(expectedResult))) {
-                            if (iNumberOfDelayTimes == 0)
-                                BaseTestUtils.report("Actual \"" + actualResult + "\" is not less than \"" + expectedResult + "\"", Reporter.FAIL);
-                        } else
-                            bTestSuccess = true;
-                        break;
-                    case LTE:
-                        iactualResult = Integer.valueOf(actualResult.trim());
-                        if (!(iactualResult <= Integer.valueOf(expectedResult))) {
-                            if (iNumberOfDelayTimes == 0)
-                                BaseTestUtils.report("Actual \"" + actualResult + "\" is not equal or less than \"" + expectedResult + "\"", Reporter.FAIL);
-                        } else
-                            bTestSuccess = true;
-                        break;
-                }
+                bTestSuccess = compareResults(expectedResult, actualResult, operatorsEnum);
 
                 if (!(iNumberOfDelayTimes == 0 || bTestSuccess))
                     sleep(15 * 1000);
-            } while (iNumberOfDelayTimes > 0 && bTestSuccess == false);
+            } while (iNumberOfDelayTimes > 0 && !bTestSuccess);
+            if (!bTestSuccess)
+                BaseTestUtils.report(Comparator.failureMessage, Reporter.FAIL);
 
         } catch (Exception e) {
             BaseTestUtils.report("Failed to execute command: " + commandToExecute + ", on " + sutEntryType + "\n" + parseExceptionBody(e), Reporter.FAIL);
@@ -296,7 +246,7 @@ public class RemoteSshCommandsTests extends BddCliTestBase {
     }
 
     @When("^CLI Run remote \"(root|radware)\" Command \"(.*)\" on \"(.*)\" and validate result (EQUALS|CONTAINS|GT|GTE|LT|LTE) \"(.*)\"$")
-    public void runCLICommandAndValidateBiggerOrEqualResultWithServerCli(String serverCli, String commandToExecute, String sutEntryType, EqualsOrContains equalsOrContains, String expectedResult) throws Exception {
+    public void runCLICommandAndValidateBiggerOrEqualResultWithServerCli(String serverCli, String commandToExecute, String sutEntryType, OperatorsEnum operatorsEnum, String expectedResult) throws Exception {
         LinuxFileServer runServerCli = new LinuxFileServer();
         if (serverCli.equals("root")) {
             runServerCli = new LinuxFileServer(getSUTEntryTypeByServerCliBase(SUTEntryType.getConstant(sutEntryType)).getHost(), "root", "radware");
@@ -311,7 +261,7 @@ public class RemoteSshCommandsTests extends BddCliTestBase {
             CliOperations.runCommand(runServerCli, commandToExecute);
             String actualResult = CliOperations.lastRow;
             int iactualResult;
-            switch (equalsOrContains) {
+            switch (operatorsEnum) {
                 case CONTAINS:
                     if (!actualResult.contains(expectedResult))
                         BaseTestUtils.report("Actual is \"" + actualResult + "\" but its not contain string \"" + expectedResult + "\"", Reporter.FAIL);

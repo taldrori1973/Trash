@@ -6,7 +6,7 @@ import com.radware.automation.webui.events.ReportWebDriverEventListener;
 import com.radware.automation.webui.webdriver.WebUIDriver;
 import com.radware.automation.webui.widgets.api.popups.PopupContent;
 import com.radware.vision.infra.base.pages.navigation.WebUIVisionBasePage;
-import com.radware.vision.infra.enums.EqualsOrContains;
+import com.radware.vision.automation.AutoUtils.Operators.OperatorsEnum;
 import com.radware.vision.infra.enums.WebElementType;
 import com.radware.vision.infra.testhandlers.baseoperations.BasicOperationsHandler;
 import org.openqa.selenium.By;
@@ -71,15 +71,15 @@ public class GeneralUtils {
     /**
      * @param webElementType   type of element looking for
      * @param value            the value of that element
-     * @param equalsOrContains equals or contains
+     * @param operatorsEnum equals or contains
      * @return xpath
      */
-    public static String buildGenericXpath(WebElementType webElementType, String value, EqualsOrContains equalsOrContains) {
+    public static String buildGenericXpath(WebElementType webElementType, String value, OperatorsEnum operatorsEnum) {
 
         if (webElementType != WebElementType.XPATH) {
 
             StringBuilder stringBuilder = new StringBuilder("//*");
-            if (equalsOrContains == EqualsOrContains.CONTAINS) {
+            if (operatorsEnum == OperatorsEnum.CONTAINS) {
                 stringBuilder.append("[contains(@")
                         .append(webElementType.getAttributeValue())
                         .append(",")
