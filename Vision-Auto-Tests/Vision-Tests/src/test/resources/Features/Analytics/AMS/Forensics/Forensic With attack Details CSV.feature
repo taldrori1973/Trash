@@ -29,7 +29,7 @@ Feature: Forensics CSV with Attack details
   Scenario: Clear FTP server logs and generate the report
     Then CLI Run remote linux Command "rm -f /home/radware/ftp/csv_with_details*.zip /home/radware/ftp/csv_with_details*.csv" on "GENERIC_LINUX_SERVER"
     Then UI Generate and Validate Forensics With Name "csv_with_details" with Timeout of 300 Seconds
-    Then Sleep "5"
+    Then Sleep "30"
 
   @SID_6
   Scenario: Unzip CSV file

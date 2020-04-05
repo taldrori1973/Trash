@@ -52,6 +52,7 @@ Feature: Defense Flow Forensic Wizard
     When UI Click Button "Views.Expand" with value "Wizard_test"
     Then UI Validate Element Existence By Label "Views.Generate Now" if Exists "true" with value "Wizard_test"
 
+
   @SID_7 @Sanity
   Scenario: Forensic wizard test Generate Now
     When UI Click Button "Views.Generate Now" with value "Wizard_test"

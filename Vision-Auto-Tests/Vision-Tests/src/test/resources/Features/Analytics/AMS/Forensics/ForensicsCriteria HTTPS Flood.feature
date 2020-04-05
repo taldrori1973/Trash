@@ -28,6 +28,7 @@ Feature: Forensic Criteria HTTPS Flood Tests
     When UI "Create" Forensics With Name "Threat Category HTTPS Flood"
       | Criteria | Event Criteria:Threat Category,Operator:Equals,Value:[HTTPS Flood]; |
     When UI Generate and Validate Forensics With Name "Threat Category HTTPS Flood" with Timeout of 300 Seconds
+    And Sleep "30"
     Then UI Click Button "Views.report" with value "Threat Category HTTPS Flood"
     Then UI Validate "Report.Table" Table rows count EQUALS to 1
     Then UI Validate Table record values by columns with elementLabel "Report.Table" findBy index 0
