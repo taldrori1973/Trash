@@ -24,7 +24,7 @@ Feature: VRM Real Time Status Bar Alerts
   @SID_3
   Scenario: Operational alerts table
     Then UI Click Button "Health Error Count" with value "2 Errors"
-    Then UI Validate "Alerts Table" Table rows count equal to 2
+    Then UI Validate "Alerts Table" Table rows count EQUALS to 2
 
   @SID_4
   Scenario: Operational alerts table sort
@@ -49,7 +49,7 @@ Feature: VRM Real Time Status Bar Alerts
     When UI Navigate to "DefensePro Monitoring Dashboard" page via homePage
     Then UI Text of "Health Error Count" equal to "1 Errors"
     Then UI Click Button "Health Error Count" with value "1 Errors"
-    Then UI Validate "Alerts Table" Table rows count equal to 1
+    Then UI Validate "Alerts Table" Table rows count EQUALS to 1
     Then UI Validate Table record values by columns with elementLabel "Alerts Table" findBy index 0
       | columnName  | value                   |
       | Device Name | DefensePro_172.16.22.50 |
@@ -69,7 +69,7 @@ Feature: VRM Real Time Status Bar Alerts
     Then Sleep "2"
     Then UI Text of "Health Error Count" equal to "1 Errors"
     Then UI Click Button "Health Error Count" with value "1 Errors"
-    Then UI Validate "Alerts Table" Table rows count equal to 1
+    Then UI Validate "Alerts Table" Table rows count EQUALS to 1
     Then UI Validate Table record values by columns with elementLabel "Alerts Table" findBy index 0
       | columnName  | value                   |
       | Device Name | DefensePro_172.16.22.50 |
@@ -115,7 +115,7 @@ Feature: VRM Real Time Status Bar Alerts
     When UI Navigate to "DefensePro Monitoring Dashboard" page via homePage
     Then UI Text of "Health Error Count" equal to "57 Errors"
     Then UI Click Button "Health Error Count" with value "57 Errors"
-    Then UI Validate "Alerts Table" Table rows count equal to 50
+    Then UI Validate "Alerts Table" Table rows count EQUALS to 50
     Then UI Click Button "Close Alert Table" with value "Close"
   # And UI Open "Configurations" Tab
   # And UI Logout
@@ -170,7 +170,7 @@ Feature: VRM Real Time Status Bar Alerts
     When UI Navigate to "DefensePro Monitoring Dashboard" page via homePage
     And Sleep "4"
     Then UI Click Button "Utilization Throughput Status" with value "1 Errors"
-    Then UI Validate "Alerts Table" Table rows count equal to 1
+    Then UI Validate "Alerts Table" Table rows count EQUALS to 1
     Then UI Validate Table record values by columns with elementLabel "Alerts Table" findBy index 0
       | columnName  | value                                                                       |
       | Device Name | DefensePro_172.16.22.51                                                     |
@@ -205,7 +205,7 @@ Feature: VRM Real Time Status Bar Alerts
     When UI Navigate to "DefensePro Monitoring Dashboard" page via homePage
     And Sleep "2"
     Then UI Click Button "Utilization Throughput Status" with value "1 Errors"
-    Then UI Validate "Alerts Table" Table rows count equal to 1
+    Then UI Validate "Alerts Table" Table rows count EQUALS to 1
     Then UI Validate Table record values by columns with elementLabel "Alerts Table" findBy index 0
       | columnName  | value                                                                                                                                                                                        |
       | Device Name | DefensePro_172.16.22.50                                                                                                                                                                      |

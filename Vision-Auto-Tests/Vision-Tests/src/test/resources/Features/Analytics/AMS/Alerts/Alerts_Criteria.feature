@@ -389,14 +389,14 @@ Feature: VRM Alerts Criteria
     Then UI "Check" all the Toggle Alerts
     When UI "Uncheck" all the Toggle Alerts
     Then UI "Check" Toggle Alerts with name "Alert_Action proxy FWD Chlng"
-    Then UI Validate "Report.Table" Table rows count equal to 1
+    Then UI Validate "Report.Table" Table rows count EQUALS to 1
 
   @SID_52
   Scenario: VRM Validate Alert criteria Action Challenge
     Then UI "Check" all the Toggle Alerts
     When UI "Uncheck" all the Toggle Alerts
     Then UI "Check" Toggle Alerts with name "Alert_Action Challenge"
-    Then UI Validate "Report.Table" Table rows count equal to 1
+    Then UI Validate "Report.Table" Table rows count EQUALS to 1
     Then CLI Run remote linux Command "cp /opt/radware/mgt-server/third-party/tomcat/logs/catalina.out /opt/radware/storage/maintenance/catalina.out3" on "ROOT_SERVER_CLI"
 
   @SID_53
@@ -404,21 +404,21 @@ Feature: VRM Alerts Criteria
     Then UI "Check" all the Toggle Alerts
     When UI "Uncheck" all the Toggle Alerts
     Then UI "Check" Toggle Alerts with name "Alert_Action Drop"
-    Then UI Validate "Report.Table" Table rows count equal to 1
+    Then UI Validate "Report.Table" Table rows count EQUALS to 1
 
   @SID_54
   Scenario: VRM Validate Alert criteria Action Bypass
     Then UI "Check" all the Toggle Alerts
     When UI "Uncheck" all the Toggle Alerts
     Then UI "Check" Toggle Alerts with name "Alert_Action Bypass"
-    Then UI Validate "Report.Table" Table rows count equal to 32
+    Then UI Validate "Report.Table" Table rows count EQUALS to 32
 
   @SID_55
   Scenario: VRM Validate Alert criteria Action negative
     Then UI "Check" all the Toggle Alerts
     When UI "Uncheck" all the Toggle Alerts
     Then UI "Check" Toggle Alerts with name "Alert_Action_negative"
-    Then UI Validate "Report.Table" Table rows count equal to 2
+    Then UI Validate "Report.Table" Table rows count EQUALS to 2
     Then CLI Run remote linux Command "cp /opt/radware/mgt-server/third-party/tomcat/logs/catalina.out /opt/radware/storage/maintenance/catalina.out4" on "ROOT_SERVER_CLI"
 
   @SID_56
@@ -426,14 +426,14 @@ Feature: VRM Alerts Criteria
     Then UI "Check" all the Toggle Alerts
     When UI "Uncheck" all the Toggle Alerts
     Then UI "Check" Toggle Alerts with name "Alert Attack Name"
-    Then UI Validate "Report.Table" Table rows count equal to 1
+    Then UI Validate "Report.Table" Table rows count EQUALS to 1
 
   @SID_57
   Scenario: VRM Validate Alert criteria Attack Name Negative
     Then UI "Check" all the Toggle Alerts
     When UI "Uncheck" all the Toggle Alerts
     Then UI "Check" Toggle Alerts with name "Alert Attack Name Negative"
-    Then UI Validate "Report.Table" Table rows count equal to 1
+    Then UI Validate "Report.Table" Table rows count EQUALS to 1
     Then CLI Run remote linux Command "cp /opt/radware/mgt-server/third-party/tomcat/logs/catalina.out /opt/radware/storage/maintenance/catalina.out5" on "ROOT_SERVER_CLI"
 
   @SID_58
@@ -441,21 +441,21 @@ Feature: VRM Alerts Criteria
     Then UI "Check" all the Toggle Alerts
     When UI "Uncheck" all the Toggle Alerts
     Then UI "Check" Toggle Alerts with name "Alert Destination IPv4"
-    Then UI Validate "Report.Table" Table rows count equal to 1
+    Then UI Validate "Report.Table" Table rows count EQUALS to 1
 
   @SID_59
   Scenario: VRM Validate Alert criteria Destination IPv4 Negative
     Then UI "Check" all the Toggle Alerts
     When UI "Uncheck" all the Toggle Alerts
     Then UI "Check" Toggle Alerts with name "Alert Destination IPv4 Negative"
-    Then UI Validate "Report.Table" Table rows count equal to 1
+    Then UI Validate "Report.Table" Table rows count EQUALS to 1
 
   @SID_60
   Scenario: VRM Validate Alert criteria Destination IPv6
     Then UI "Check" all the Toggle Alerts
     When UI "Uncheck" all the Toggle Alerts
     Then UI "Check" Toggle Alerts with name "Alert Destination IPv6"
-    Then UI Validate "Report.Table" Table rows count equal to 1
+    Then UI Validate "Report.Table" Table rows count EQUALS to 1
     Then CLI Run remote linux Command "cp /opt/radware/mgt-server/third-party/tomcat/logs/catalina.out /opt/radware/storage/maintenance/catalina.out6" on "ROOT_SERVER_CLI"
 
   @SID_61
@@ -463,21 +463,21 @@ Feature: VRM Alerts Criteria
     Then UI "Check" all the Toggle Alerts
     When UI "Uncheck" all the Toggle Alerts
     Then UI "Check" Toggle Alerts with name "Alert DST port range"
-    Then UI Validate "Report.Table" Table rows count equal to 1
+    Then UI Validate "Report.Table" Table rows count EQUALS to 1
 
   @SID_62
   Scenario: VRM Validate Alert criteria DST-port range Negative
     Then UI "Check" all the Toggle Alerts
     When UI "Uncheck" all the Toggle Alerts
     Then UI "Check" Toggle Alerts with name "Alert DST-port range Negative"
-    Then UI Validate "Report.Table" Table rows count equal to 1
+    Then UI Validate "Report.Table" Table rows count EQUALS to 1
 
   @SID_63
   Scenario: VRM Validate Alert criteria DST_port
     Then UI "Check" all the Toggle Alerts
     When UI "Uncheck" all the Toggle Alerts
     Then UI "Check" Toggle Alerts with name "Alert_DST_port"
-    Then UI Validate "Report.Table" Table rows count equal to 1
+    Then UI Validate "Report.Table" Table rows count EQUALS to 1
     Then CLI Run remote linux Command "cp /opt/radware/mgt-server/third-party/tomcat/logs/catalina.out /opt/radware/storage/maintenance/catalina.out7" on "ROOT_SERVER_CLI"
 
   @SID_64
@@ -485,21 +485,21 @@ Feature: VRM Alerts Criteria
     Then UI "Check" all the Toggle Alerts
     When UI "Uncheck" all the Toggle Alerts
     Then UI "Check" Toggle Alerts with name "Alert_Direction"
-    Then UI Validate "Report.Table" Table rows count equal to 1
+    Then UI Validate "Report.Table" Table rows count EQUALS to 1
 
   @SID_65
   Scenario: VRM Validate Alert criteria Direction Negative
     Then UI "Check" all the Toggle Alerts
     When UI "Uncheck" all the Toggle Alerts
     Then UI "Check" Toggle Alerts with name "Alert_Direction Negative"
-    Then UI Validate "Report.Table" Table rows count equal to 1
+    Then UI Validate "Report.Table" Table rows count EQUALS to 1
 
   @SID_66
   Scenario: VRM Validate Alert criteria Duration
     Then UI "Check" all the Toggle Alerts
     When UI "Uncheck" all the Toggle Alerts
     Then UI "Check" Toggle Alerts with name "Alert_Duration"
-    Then UI Validate "Report.Table" Table rows count equal to 1
+    Then UI Validate "Report.Table" Table rows count EQUALS to 1
     Then CLI Run remote linux Command "cp /opt/radware/mgt-server/third-party/tomcat/logs/catalina.out /opt/radware/storage/maintenance/catalina.out8" on "ROOT_SERVER_CLI"
 
   @SID_67
@@ -507,21 +507,21 @@ Feature: VRM Alerts Criteria
     Then UI "Check" all the Toggle Alerts
     When UI "Uncheck" all the Toggle Alerts
     Then UI "Check" Toggle Alerts with name "Alert_Duration Negative"
-    Then UI Validate "Report.Table" Table rows count equal to 1
+    Then UI Validate "Report.Table" Table rows count EQUALS to 1
 
   @SID_68
   Scenario: VRM Validate Alert criteria Protocol
     Then UI "Check" all the Toggle Alerts
     When UI "Uncheck" all the Toggle Alerts
     Then UI "Check" Toggle Alerts with name "Alert_Protocol"
-    Then UI Validate "Report.Table" Table rows count equal to 1
+    Then UI Validate "Report.Table" Table rows count EQUALS to 1
 
   @SID_69
   Scenario: VRM Validate Alert criteria Protocol Negative
     Then UI "Check" all the Toggle Alerts
     When UI "Uncheck" all the Toggle Alerts
     Then UI "Check" Toggle Alerts with name "Alert_Protocol Negative"
-    Then UI Validate "Report.Table" Table rows count equal to 1
+    Then UI Validate "Report.Table" Table rows count EQUALS to 1
     Then CLI Run remote linux Command "cp /opt/radware/mgt-server/third-party/tomcat/logs/catalina.out /opt/radware/storage/maintenance/catalina.out9" on "ROOT_SERVER_CLI"
 
   @SID_70
@@ -529,35 +529,35 @@ Feature: VRM Alerts Criteria
     Then UI "Check" all the Toggle Alerts
     When UI "Uncheck" all the Toggle Alerts
     Then UI "Check" Toggle Alerts with name "Alert_Risk"
-    Then UI Validate "Report.Table" Table rows count equal to 1
+    Then UI Validate "Report.Table" Table rows count EQUALS to 1
 
   @SID_71
   Scenario: VRM Validate Alert criteria Risk Negative
     Then UI "Check" all the Toggle Alerts
     When UI "Uncheck" all the Toggle Alerts
     Then UI "Check" Toggle Alerts with name "Alert_Risk Negative"
-    Then UI Validate "Report.Table" Table rows count equal to 1
+    Then UI Validate "Report.Table" Table rows count EQUALS to 1
 
   @SID_72
   Scenario: VRM Validate Alert criteria Src_IP
     Then UI "Check" all the Toggle Alerts
     When UI "Uncheck" all the Toggle Alerts
     Then UI "Check" Toggle Alerts with name "Alert_Src_IP"
-    Then UI Validate "Report.Table" Table rows count equal to 2
+    Then UI Validate "Report.Table" Table rows count EQUALS to 2
 
   @SID_73
   Scenario: VRM Validate Alert criteria Src_IP Negative
     Then UI "Check" all the Toggle Alerts
     When UI "Uncheck" all the Toggle Alerts
     Then UI "Check" Toggle Alerts with name "Alert_Src_IP Negative"
-    Then UI Validate "Report.Table" Table rows count equal to 1
+    Then UI Validate "Report.Table" Table rows count EQUALS to 1
 
   @SID_74
   Scenario: VRM Validate Alert criteria Src_Port
     Then UI "Check" all the Toggle Alerts
     When UI "Uncheck" all the Toggle Alerts
     Then UI "Check" Toggle Alerts with name "Alert_Src_Port"
-    Then UI Validate "Report.Table" Table rows count equal to 2
+    Then UI Validate "Report.Table" Table rows count EQUALS to 2
     Then CLI Run remote linux Command "cp /opt/radware/mgt-server/third-party/tomcat/logs/catalina.out /opt/radware/storage/maintenance/catalina.out10" on "ROOT_SERVER_CLI"
 
   @SID_75
@@ -565,28 +565,28 @@ Feature: VRM Alerts Criteria
     Then UI "Check" all the Toggle Alerts
     When UI "Uncheck" all the Toggle Alerts
     Then UI "Check" Toggle Alerts with name "Alert_Src_Port Negative"
-    Then UI Validate "Report.Table" Table rows count equal to 1
+    Then UI Validate "Report.Table" Table rows count EQUALS to 1
 
   @SID_76
   Scenario: VRM Validate Alert criteria Category
     Then UI "Check" all the Toggle Alerts
     When UI "Uncheck" all the Toggle Alerts
     Then UI "Check" Toggle Alerts with name "Alert_Category"
-    Then UI Validate "Report.Table" Table rows count equal to 1
+    Then UI Validate "Report.Table" Table rows count EQUALS to 1
 
   @SID_77
   Scenario: VRM Validate Alert criteria Category Negative
     Then UI "Check" all the Toggle Alerts
     When UI "Uncheck" all the Toggle Alerts
     Then UI "Check" Toggle Alerts with name "Alert_Category Negative"
-    Then UI Validate "Report.Table" Table rows count equal to 1
+    Then UI Validate "Report.Table" Table rows count EQUALS to 1
 
   @SID_78
   Scenario: VRM Validate Alert criteria non-selected DP
     Then UI "Check" all the Toggle Alerts
     When UI "Uncheck" all the Toggle Alerts
     Then UI "Check" Toggle Alerts with name "non-selected DP"
-    Then UI Validate "Report.Table" Table rows count equal to 0
+    Then UI Validate "Report.Table" Table rows count EQUALS to 0
     Then CLI Run remote linux Command "cp /opt/radware/mgt-server/third-party/tomcat/logs/catalina.out /opt/radware/storage/maintenance/catalina.out11" on "ROOT_SERVER_CLI"
 
   @SID_79
@@ -594,28 +594,28 @@ Feature: VRM Alerts Criteria
     Then UI "Check" all the Toggle Alerts
     When UI "Uncheck" all the Toggle Alerts
     Then UI "Check" Toggle Alerts with name "selected policy"
-    Then UI Validate "Report.Table" Table rows count equal to 1
+    Then UI Validate "Report.Table" Table rows count EQUALS to 1
 
   @SID_80
   Scenario: VRM Validate Alert criteria physical port
     Then UI "Check" all the Toggle Alerts
     When UI "Uncheck" all the Toggle Alerts
     Then UI "Check" Toggle Alerts with name "physical port"
-    Then UI Validate "Report.Table" Table rows count equal to 1
+    Then UI Validate "Report.Table" Table rows count EQUALS to 1
 
   @SID_81
   Scenario: VRM Validate Alert criteria physical port and policy
     Then UI "Check" all the Toggle Alerts
     When UI "Uncheck" all the Toggle Alerts
     Then UI "Check" Toggle Alerts with name "physical port and policy"
-    Then UI Validate "Report.Table" Table rows count equal to 1
+    Then UI Validate "Report.Table" Table rows count EQUALS to 1
 
   @SID_82
   Scenario: VRM Validate Alert criteria physical port and policy Negative
     Then UI "Check" all the Toggle Alerts
     When UI "Uncheck" all the Toggle Alerts
     Then UI "Check" Toggle Alerts with name "physical port and policy Negative"
-    Then UI Validate "Report.Table" Table rows count equal to 0
+    Then UI Validate "Report.Table" Table rows count EQUALS to 0
     Then CLI Run remote linux Command "cp /opt/radware/mgt-server/third-party/tomcat/logs/catalina.out /opt/radware/storage/maintenance/catalina.out12" on "ROOT_SERVER_CLI"
 
   @SID_83
@@ -623,41 +623,41 @@ Feature: VRM Alerts Criteria
     Then UI "Check" all the Toggle Alerts
     When UI "Uncheck" all the Toggle Alerts
     Then UI "Check" Toggle Alerts with name "ALL Conditions"
-    Then UI Validate "Report.Table" Table rows count equal to 1
+    Then UI Validate "Report.Table" Table rows count EQUALS to 1
 
   @SID_84
   Scenario: VRM Validate Alert criteria Any Condition
     Then UI "Check" all the Toggle Alerts
     When UI "Uncheck" all the Toggle Alerts
     Then UI "Check" Toggle Alerts with name "Any Condition"
-    Then UI Validate "Report.Table" Table rows count equal to 1
+    Then UI Validate "Report.Table" Table rows count EQUALS to 1
 
   @SID_85
   Scenario: VRM Validate Alert criteria Custom Expression
     Then UI "Check" all the Toggle Alerts
     When UI "Uncheck" all the Toggle Alerts
     Then UI "Check" Toggle Alerts with name "Custom Expression"
-    Then UI Validate "Report.Table" Table rows count equal to 1
+    Then UI Validate "Report.Table" Table rows count EQUALS to 1
 
   @SID_86
   Scenario: VRM Validate Alert criteria bps greater than Kilo
     Then UI "Check" all the Toggle Alerts
     When UI "Uncheck" all the Toggle Alerts
     Then UI "Check" Toggle Alerts with name "bps greater than K"
-    Then UI Validate "Report.Table" Table rows count equal to 1
+    Then UI Validate "Report.Table" Table rows count EQUALS to 1
 
   @SID_87
   Scenario: VRM Validate Alert criteria bps greater than Mega
     Then UI "Check" all the Toggle Alerts
     When UI "Uncheck" all the Toggle Alerts
     Then UI "Check" Toggle Alerts with name "bps greater than M"
-    Then UI Validate "Report.Table" Table rows count equal to 1
+    Then UI Validate "Report.Table" Table rows count EQUALS to 1
   @SID_88
   Scenario: VRM Validate Alert criteria bps greater than Giga
     Then UI "Check" all the Toggle Alerts
     When UI "Uncheck" all the Toggle Alerts
     Then UI "Check" Toggle Alerts with name "bps greater than G"
-    Then UI Validate "Report.Table" Table rows count equal to 1
+    Then UI Validate "Report.Table" Table rows count EQUALS to 1
     Then CLI Run remote linux Command "cp /opt/radware/mgt-server/third-party/tomcat/logs/catalina.out /opt/radware/storage/maintenance/catalina.out13" on "ROOT_SERVER_CLI"
 
   @SID_89
@@ -665,33 +665,33 @@ Feature: VRM Alerts Criteria
     Then UI "Check" all the Toggle Alerts
     When UI "Uncheck" all the Toggle Alerts
     Then UI "Check" Toggle Alerts with name "bps greater than T"
-    Then UI Validate "Report.Table" Table rows count equal to 1
+    Then UI Validate "Report.Table" Table rows count EQUALS to 1
 
   @SID_90
   Scenario: VRM Validate Alert criteria pps greater than Kilo
     Then UI "Check" all the Toggle Alerts
     When UI "Uncheck" all the Toggle Alerts
     Then UI "Check" Toggle Alerts with name "pps greater than K"
-    Then UI Validate "Report.Table" Table rows count equal to 1
+    Then UI Validate "Report.Table" Table rows count EQUALS to 1
 
   @SID_91
   Scenario: VRM Validate Alert criteria pps greater than Mega
     Then UI "Check" all the Toggle Alerts
     When UI "Uncheck" all the Toggle Alerts
     Then UI "Check" Toggle Alerts with name "pps greater than M"
-    Then UI Validate "Report.Table" Table rows count equal to 1
+    Then UI Validate "Report.Table" Table rows count EQUALS to 1
   @SID_92
   Scenario: VRM Validate Alert criteria pps greater than Giga
     Then UI "Check" all the Toggle Alerts
     When UI "Uncheck" all the Toggle Alerts
     Then UI "Check" Toggle Alerts with name "pps greater than G"
-    Then UI Validate "Report.Table" Table rows count equal to 1
+    Then UI Validate "Report.Table" Table rows count EQUALS to 1
   @SID_93
   Scenario: VRM Validate Alert criteria pps greater than Tera
     Then UI "Check" all the Toggle Alerts
     When UI "Uncheck" all the Toggle Alerts
     Then UI "Check" Toggle Alerts with name "pps greater than T"
-    Then UI Validate "Report.Table" Table rows count equal to 1
+    Then UI Validate "Report.Table" Table rows count EQUALS to 1
 
 
   @SID_145
@@ -699,7 +699,7 @@ Feature: VRM Alerts Criteria
     Then UI "Check" all the Toggle Alerts
     When UI "Uncheck" all the Toggle Alerts
     Then UI "Check" Toggle Alerts with name "Alert_Category connection PPS"
-    Then UI Validate "Report.Table" Table rows count equal to 1
+    Then UI Validate "Report.Table" Table rows count EQUALS to 1
 
 
   ######################  VALIDATING IN ALERT TABLE THE NUMBER OF ATTACKS TRIGGERING EACH ALERT   ###############################################
@@ -973,14 +973,14 @@ Feature: VRM Alerts Criteria
     Then UI "Check" all the Toggle Alerts
     When UI "Uncheck" all the Toggle Alerts
     Then UI "Check" Toggle Alerts with name "Threat Category HTTPS Flood Any Time Schedule"
-    Then UI Validate "Report.Table" Table rows count equal to 1
+    Then UI Validate "Report.Table" Table rows count EQUALS to 1
 
   @SID_140 @HTTPS_FLOOD
   Scenario: VRM Validate Alert Threat Category HTTPS Flood Custom Schedule
     Then UI "Check" all the Toggle Alerts
     When UI "Uncheck" all the Toggle Alerts
     Then UI "Check" Toggle Alerts with name "Threat Category HTTPS Flood Custom Schedule"
-    Then UI Validate "Report.Table" Table rows count equal to 1
+    Then UI Validate "Report.Table" Table rows count EQUALS to 1
 
   @SID_141 @HTTPS_FLOOD
   Scenario: VRM Validate Alert browser for HTTPS Flood Any Schedule

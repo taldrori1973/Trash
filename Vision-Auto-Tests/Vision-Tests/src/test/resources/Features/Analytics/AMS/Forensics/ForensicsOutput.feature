@@ -45,6 +45,7 @@ Feature: Forensics Output
       | Criteria              | Event Criteria:Attack ID,Operator:Equals,Value:78-1526381752;                                                                                                                                                                                |
       | Output                | Action,Attack ID,Start Time,Source IP Address,Source Port,Destination IP Address,Destination Port,Direction,Protocol,Threat Category,Radware ID,Device IP Address,Attack Name,End Time,Duration,Packets,Mbits,Physical Port,Policy Name,Risk |
     Then UI Generate and Validate Forensics With Name "All Output Fields" with Timeout of 300 Seconds
+    And Sleep "30"
     Then UI Click Button "Views.report" with value "All Output Fields"
   @SID_6
   Scenario: VRM - Validate Forensics output Action

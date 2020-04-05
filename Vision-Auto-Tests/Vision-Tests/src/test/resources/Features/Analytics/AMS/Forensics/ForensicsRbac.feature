@@ -60,10 +60,10 @@ Feature: Forensics RBAC
     | | |
     When UI Click Button "Views" with value "Only Device 10"
     And UI Click Button "Views.Generate Now" with value "Only Device 10"
-    And Sleep "5"
+    And Sleep "30"
     And UI Click Button "Views.report" with value "Only Device 10"
     And Sleep "3"
-    Then UI Validate "Report.Table" Table rows count equal to 2
+    Then UI Validate "Report.Table" Table rows count EQUALS to 2
     Then UI Validate Table record values by columns with elementLabel "Report.Table" findBy index 0
       | columnName | value   |
       | Direction  | Unknown |
@@ -104,8 +104,9 @@ Feature: Forensics RBAC
       | | |
     When UI Click Button "Views" with value "Only Policy14"
     And UI Click Button "Views.Generate Now" with value "Only Policy14"
+    And Sleep "30"
     And UI Click Button "Views.report" with value "Only Policy14"
-    Then UI Validate "Report.Table" Table rows count equal to 1
+    Then UI Validate "Report.Table" Table rows count EQUALS to 1
     Then UI Validate Table record values by columns with elementLabel "Report.Table" findBy index 0
       | columnName  | value    |
       | Policy Name | Policy14 |

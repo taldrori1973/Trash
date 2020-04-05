@@ -56,7 +56,7 @@ Feature: VRM Alerts CRUD
     And UI Navigate to "AMS Alerts" page via homePage
     Then UI "Uncheck" all the Toggle Alerts
     Then UI "Check" Toggle Alerts with name "Alert_Src_Port"
-    Then UI Validate "Report.Table" Table rows count equal to 1
+    Then UI Validate "Report.Table" Table rows count EQUALS to 1
     Then UI Validate Table record values by columns with elementLabel "Report.Table" findBy index 0
       | columnName | value   |
       | Severity   | WARNING |
@@ -64,7 +64,7 @@ Feature: VRM Alerts CRUD
   @SID_9
   Scenario: validate Alert details table
     Then UI click Table row by keyValue or Index with elementLabel "Report.Table" findBy index 0
-    Then UI Validate "Alert details" Table rows count equal to 5
+    Then UI Validate "Alert details" Table rows count EQUALS to 5
     Then UI Validate Table record values by columns with elementLabel "Alert details" findBy columnName "Threat Category" findBy cellValue "DNS Flood"
       | columnName       | value                |
       | Attack Name      | DNS flood IPv4 DNS-B |
@@ -83,7 +83,7 @@ Feature: VRM Alerts CRUD
     Then UI "Check" all the Toggle Alerts
     Then UI "Uncheck" all the Toggle Alerts
     Then UI "Check" Toggle Alerts with name "To-be-Disabled"
-    Then UI Validate "Report.Table" Table rows count equal to 0
+    Then UI Validate "Report.Table" Table rows count EQUALS to 0
 
   @SID_11
   Scenario: validate Delete Alert

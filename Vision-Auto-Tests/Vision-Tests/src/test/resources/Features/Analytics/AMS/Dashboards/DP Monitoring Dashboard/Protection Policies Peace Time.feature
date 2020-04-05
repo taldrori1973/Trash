@@ -274,12 +274,12 @@ Feature: DP Monitoring Dashboard - Protection Policies - Peace Time
     Scenario: Validate terminated 23 hrs attack existence for peace time
       Given UI click Table row by keyValue or Index with elementLabel "Protection Policies.Table" findBy columnName "Policy Name" findBy cellValue "Policy14"
       When UI click Table row by keyValue or Index with elementLabel "Protection Policies.Protections Table" findBy columnName "Protection Name" findBy cellValue "Anti-Scanning"
-      Then UI Validate "Protection Policies.Events Table" Table rows count equal to 1
+      Then UI Validate "Protection Policies.Events Table" Table rows count EQUALS to 1
       Then UI Validate Table record values by columns with elementLabel "Protection Policies.Events Table" findBy index 0
         | columnName  | value               |
         | Attack Name | TCP Scan (vertical) |
       Then UI Click Switch button "Protection Policies.Protections Table.Switch Button" and set the status to "ON"
-      Then UI Validate "Protection Policies.Events Table" Table rows count equal to 2
+      Then UI Validate "Protection Policies.Events Table" Table rows count EQUALS to 2
       Then UI Validate Table record values by columns with elementLabel "Protection Policies.Events Table" findBy index 0
       | columnName  | value    |
       | Policy Name | Policy14 |
@@ -292,7 +292,7 @@ Feature: DP Monitoring Dashboard - Protection Policies - Peace Time
     Scenario: validate occurred 23 hrs attack existence for peace time
     Given UI click Table row by keyValue or Index with elementLabel "Protection Policies.Table" findBy columnName "Policy Name" findBy cellValue "Policy14"
     When UI click Table row by keyValue or Index with elementLabel "Protection Policies.Protections Table" findBy columnName "Protection Name" findBy cellValue "Intrusions"
-    Then UI Validate "Protection Policies.Events Table" Table rows count equal to 1
+    Then UI Validate "Protection Policies.Events Table" Table rows count EQUALS to 1
     Then UI Validate Table record values by columns with elementLabel "Protection Policies.Events Table" findBy index 0
       | columnName    | value    |
       | Attack Name   | tim      |
@@ -303,7 +303,7 @@ Feature: DP Monitoring Dashboard - Protection Policies - Peace Time
   Scenario: validate older than 24 hrs attack not in list
     Given UI click Table row by keyValue or Index with elementLabel "Protection Policies.Table" findBy columnName "Policy Name" findBy cellValue "Policy14"
     When UI click Table row by keyValue or Index with elementLabel "Protection Policies.Protections Table" findBy columnName "Protection Name" findBy cellValue "Intrusions"
-    Then UI Validate "Protection Policies.Events Table" Table rows count equal to 1
+    Then UI Validate "Protection Policies.Events Table" Table rows count EQUALS to 1
     When UI Click Button "Protection Policies.GO BACK"
 
   @SID_22
@@ -313,7 +313,7 @@ Feature: DP Monitoring Dashboard - Protection Policies - Peace Time
         | columnName      | value       |
         | Protection Name | Anomalies   |
       Then UI click Table row by keyValue or Index with elementLabel "Protection Policies.Events Table" findBy index 0
-      Then UI Validate "Protection Policies.Events Table" Table rows count equal to 1
+      Then UI Validate "Protection Policies.Events Table" Table rows count EQUALS to 1
       Then UI Validate Table record values by columns with elementLabel "Protection Policies.Events Table" findBy index 0
         | columnName  | value                    |
         | Attack Name | Incorrect IPv4 checksum  |

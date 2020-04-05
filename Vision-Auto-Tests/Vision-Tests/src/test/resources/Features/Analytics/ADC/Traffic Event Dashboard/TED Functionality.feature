@@ -37,7 +37,7 @@ Feature: TED Functionality
   @SID_3
   Scenario: validate filter bar is empty and no data exists in the tedEvents Table
     Then UI Validate Text field by id "tedFilterBarInput" EQUALS ""
-    Then UI Validate "tedEvent Table" Table rows count equal to 0
+    Then UI Validate "tedEvent Table" Table rows count EQUALS to 0
   #TODO validate the correct "No Data Available" image appears in the table
 
   @SID_4
@@ -46,20 +46,20 @@ Feature: TED Functionality
     When CLI Send Traffic Events file "fieldsummarybadgevalues"
 #    Then CLI Run remote linux Command "python3 /home/radware/TED/cef/cef_messages_dir.py -a 1 -i "172.17.164.101" -p "5140" -dir "/home/radware/TED/automation/fieldsummarybadgevalues" -t" on "GENERIC_LINUX_SERVER"
     And Sleep "20"
-    Then UI Validate "tedEvent Table" Table rows count equal to 0
+    Then UI Validate "tedEvent Table" Table rows count EQUALS to 0
     Then UI Set Text field with id "tedFilterBarInput" with "range=7d"
     Then UI Click Button by id "tedFilterBarButtonRefresh"
-    Then UI Validate "tedEvent Table" Table rows count equal to 8
+    Then UI Validate "tedEvent Table" Table rows count EQUALS to 8
     Then UI Validate Text field by id "tedFilterBarInput" EQUALS "range=7d"
 
   @SID_5
   Scenario: Fields Summary -> TedTopAnalyticsSummaryStateBadge value and table displays max 5 results (table offset by 1)
     Then UI Validate Text field by id "tedTopAnalyticsSummaryStateBadge" EQUALS "7"
     Then UI Click Button by id "tedTopAnalyticsSummaryStateBadge"
-    Then UI Validate "tedEvent stateTable" Table rows count equal to 6
+    Then UI Validate "tedEvent stateTable" Table rows count EQUALS to 6
     Then UI click Table row by keyValue or Index with elementLabel "tedEvent stateTable" findBy columnName "Value" findBy cellValue "Sent to client"
     Then UI Validate Text field by id "tedFilterBarInput" EQUALS "range=7d AND outcome:"Sent to client""
-    Then UI Validate "tedEvent stateTable" Table rows count equal to 2
+    Then UI Validate "tedEvent stateTable" Table rows count EQUALS to 2
     Then UI Click Button by id "tedTopAnalyticsSummaryStateBadge"
     Then UI Set Text field with id "tedFilterBarInput" with "range=7d"
     Then UI Click Button by id "tedFilterBarButtonRefresh"
@@ -134,10 +134,10 @@ Feature: TED Functionality
     Then UI Set Text field with id "tedFilterBarInput" with "range=7d"
     Then UI Click Button by id "tedFilterBarButtonRefresh"
     Then UI Click Button by id "tedTopAnalyticsSummaryQueryBadge"
-    Then UI Validate "tedEvent queryTable" Table rows count equal to 3
+    Then UI Validate "tedEvent queryTable" Table rows count EQUALS to 3
     Then UI click Table row by keyValue or Index with elementLabel "tedEvent queryTable" findBy columnName "Value" findBy cellValue "?Hello%20World"
     Then UI Validate Text field by id "tedFilterBarInput" EQUALS "range=7d AND rdwrAltQuery:"?Hello%20World""
-    Then UI Validate "tedEvent queryTable" Table rows count equal to 2
+    Then UI Validate "tedEvent queryTable" Table rows count EQUALS to 2
     Then UI Click Button by id "tedTopAnalyticsSummaryQueryBadge"
 
   @SID_9
@@ -147,7 +147,7 @@ Feature: TED Functionality
     And Sleep "20"
     Then UI Set Text field with id "tedFilterBarInput" with ""
     Then UI Click Button by id "tedFilterBarButtonRefresh"
-    Then UI Validate "tedEvent Table" Table rows count equal to 1
+    Then UI Validate "tedEvent Table" Table rows count EQUALS to 1
 
   @SID_10
     Scenario: Running 34.2.2 traffic
@@ -155,7 +155,7 @@ Feature: TED Functionality
     And Sleep "20"
     Then UI Set Text field with id "tedFilterBarInput" with ""
     Then UI Click Button by id "tedFilterBarButtonRefresh"
-    Then UI Validate "tedEvent Table" Table rows count equal to 2
+    Then UI Validate "tedEvent Table" Table rows count EQUALS to 2
 
   @SID_11
   Scenario: Running 32.6.0.0 traffic
@@ -163,7 +163,7 @@ Feature: TED Functionality
     And Sleep "20"
     Then UI Set Text field with id "tedFilterBarInput" with ""
     Then UI Click Button by id "tedFilterBarButtonRefresh"
-    Then UI Validate "tedEvent Table" Table rows count equal to 3
+    Then UI Validate "tedEvent Table" Table rows count EQUALS to 3
 
   @SID_12
     Scenario: Malformed cef message request
@@ -172,7 +172,7 @@ Feature: TED Functionality
 #    Then CLI Run remote linux Command "python3 /home/radware/TED/cef/cef_messages_dir.py -a 1 -i "172.17.164.101" -p "5140" -dir "/home/radware/TED/automation/unifiedTrafficEventUpdates" -t" on "GENERIC_LINUX_SERVER"
     And Sleep "20"
     Then UI Click Button by id "tedFilterBarButtonRefresh"
-    Then UI Validate "tedEvent Table" Table rows count equal to 3
+    Then UI Validate "tedEvent Table" Table rows count EQUALS to 3
 
   @SID_13
   Scenario: Cleanup

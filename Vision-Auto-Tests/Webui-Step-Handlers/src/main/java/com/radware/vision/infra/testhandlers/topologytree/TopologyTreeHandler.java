@@ -10,6 +10,7 @@ import com.radware.automation.webui.widgets.ComponentLocator;
 import com.radware.automation.webui.widgets.api.popups.PopupContent;
 import com.radware.automation.webui.widgets.impl.WebUIComponent;
 import com.radware.automation.webui.widgets.impl.WebUIWidget;
+import com.radware.vision.automation.AutoUtils.Operators.OperatorsEnum;
 import com.radware.vision.automation.tools.sutsystemobjects.devicesinfo.DeviceInfo;
 import com.radware.vision.automation.tools.sutsystemobjects.devicesinfo.enums.SUTDeviceType;
 import com.radware.vision.infra.base.pages.VisionServerInfoPane;
@@ -578,7 +579,7 @@ public class TopologyTreeHandler {
         long milliSecondsTowait = secondsToWait * 1000;
         while (System.currentTimeMillis() - startTime < milliSecondsTowait) {
             expandTree(deviceType);
-            if (ClickOperationsHandler.checkIfElementExistAndDisplayed(GeneralUtils.buildGenericXpath(WebElementType.Id, WebUIStrings.getDeviceTreeNode(deviceName), EqualsOrContains.EQUALS)))
+            if (ClickOperationsHandler.checkIfElementExistAndDisplayed(GeneralUtils.buildGenericXpath(WebElementType.Id, WebUIStrings.getDeviceTreeNode(deviceName), OperatorsEnum.EQUALS)))
                 return true;
             BasicOperationsHandler.delay(5);
 
@@ -727,7 +728,7 @@ public class TopologyTreeHandler {
             BaseTestUtils.report("Could not click random device from tree, there is no device managed by vision in sites and devices", Reporter.FAIL);
             return;
         }
-        String xpathDevicePrefix = GeneralUtils.buildGenericXpath(WebElementType.Id, WebUIStrings.getDeviceTreeNodeString(), EqualsOrContains.CONTAINS);
+        String xpathDevicePrefix = GeneralUtils.buildGenericXpath(WebElementType.Id, WebUIStrings.getDeviceTreeNodeString(), OperatorsEnum.CONTAINS);
         List<WebElement> devices = WebUIUtils.fluentWaitMultiple(By.xpath(xpathDevicePrefix));
         for (WebElement device : devices) {
 
@@ -758,7 +759,7 @@ public class TopologyTreeHandler {
             return false;
         }
 
-        String xpathDevicePrefix = GeneralUtils.buildGenericXpath(WebElementType.Id, WebUIStrings.getDeviceTreeNodeString(), EqualsOrContains.CONTAINS);
+        String xpathDevicePrefix = GeneralUtils.buildGenericXpath(WebElementType.Id, WebUIStrings.getDeviceTreeNodeString(), OperatorsEnum.CONTAINS);
         List<WebElement> devices = WebUIUtils.fluentWaitMultiple(By.xpath(xpathDevicePrefix));
 
         Iterator<WebElement> itr = devices.iterator();
