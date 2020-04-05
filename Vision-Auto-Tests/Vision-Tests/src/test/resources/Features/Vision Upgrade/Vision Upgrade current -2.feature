@@ -12,7 +12,6 @@ Feature: Vision Upgrade current -2
 
   @SID_2
   Scenario: change fluentd listening port
-#    Then CLI Run remote linux Command "dos2unix /etc/td-agent/td-agent.conf" on "ROOT_SERVER_CLI"
     Then CLI Run remote linux Command "sed -i 's/port .*$/port 51400/g' /etc/td-agent/td-agent.conf" on "ROOT_SERVER_CLI"
 
 
@@ -46,7 +45,6 @@ Feature: Vision Upgrade current -2
       | Attacks Number | Attack Name  | Device Type | Device Index | Wait Time |
       | 1              | DynamicBlock | DefensePro  | 11           | 45        |
 
-
    ######################################################################################
   @SID_5
   Scenario: Upgrade vision from release -2
@@ -58,10 +56,6 @@ Feature: Vision Upgrade current -2
     Examples:
       | Migration Task               | Wait Time |
       | DPAttackSamplesMigrationTask | 120       |
-#      | BDoSBaseLineRatesMigrationTask | 120       |
-#      | DFAttackMigrationTask          | 120       |
-#      | DPAttackDurationMigrationTask  | 120       |
-
 
   @SID_7
   Scenario Outline:ES Indices New Mappings Validation After Upgrade
@@ -69,7 +63,6 @@ Feature: Vision Upgrade current -2
     Examples:
       | Index Name Prefix | Week Slice | Expected Number of Mapping Attributes |
       | dp-sampled-data-* | 2          | 14                                    |
-
 
   @SID_8
   Scenario: Check upgrade logs
@@ -140,8 +133,6 @@ Feature: Vision Upgrade current -2
   Scenario: Check firewall6 settings
     Then CLI Run linux Command "ip6tables -L -n |tail -1|awk -F" " '{print $1,$2}'" on "ROOT_SERVER_CLI" and validate result EQUALS "REJECT all"
     Then CLI Run linux Command "ip6tables -L -n |grep tcp|grep dpt:5604" on "ROOT_SERVER_CLI" and validate result CONTAINS "ACCEPT"
-    #    Skipping following step till it is developed
-#    Then CLI Run linux Command "ip6tables -L -n |grep tcp|grep dpt:9200" on "ROOT_SERVER_CLI" and validate result CONTAINS "ACCEPT"
     Then CLI Run linux Command "ip6tables -L -n |grep tcp|grep dpt:1443" on "ROOT_SERVER_CLI" and validate result CONTAINS "ACCEPT"
     Then CLI Run linux Command "ip6tables -L -n |grep tcp|grep dpt:5672" on "ROOT_SERVER_CLI" and validate result CONTAINS "ACCEPT"
     Then CLI Run linux Command "ip6tables -L -n |grep tcp|grep dpt:5671" on "ROOT_SERVER_CLI" and validate result CONTAINS "ACCEPT"
@@ -160,24 +151,22 @@ Feature: Vision Upgrade current -2
 
   @SID_11
   Scenario: Login with activation
-#    Given REST Login with activation with user "sys_admin" and password "radware"
     Then UI Login with user "sys_admin" and password "radware"
     Then CLI Operations - Run Root Session command "yes|restore_radware_user_password" timeout 15
 
   @SID_12
   Scenario: Validate AVA Attack Capacity Grace Period License
     Then Validate License "ATTACK_CAPACITY_LICENSE" Parameters
-      | allowedAttackCapacityGbps         | 0                                                                                                                                                                                                                                                                                                                                                                                                                                                 |
-      | requiredDevicesAttackCapacityGbps | 18                                                                                                                                                                                                                                                                                                                                                                                                                                                |
-      | licensedDefenseProDeviceIpsList   | [172.16.22.50,172.16.22.51,172.16.22.55]                                                                                                                                                                                                                                                                                                                                                                                                          |
-      | hasDemoLicense                    | false                                                                                                                                                                                                                                                                                                                                                                                                                                             |
-      | attackCapacityMaxLicenseExist     | false                                                                                                                                                                                                                                                                                                                                                                                                                                             |
-      | licenseViolated                   | true                                                                                                                                                                                                                                                                                                                                                                                                                                              |
-      | inGracePeriod                     | true                                                                                                                                                                                                                                                                                                                                                                                                                                              |
-      | message                           | License Violation: The attack capacity required by devices managed by APSolute Vision exceeds the value permitted by the APSolute Vision Analytics - AMS license. Contact Radware Technical Support to purchase another license with more capacity within 30 days. After 30 days, the system will only support the attack capacity corresponding to the license. If there is no APSolute Vision Analytics - AMS license, AVA will be unavailable. |
-      | timeToExpiration                  | 30                                                                                                                                                                                                                                                                                                                                                                                                                                                |
-
-    And Validate DefenseFlow is Licensed by Attack Capacity License
+      | allowedAttackCapacityGbps         | 0                    |
+      | requiredDevicesAttackCapacityGbps | 18                   |
+      | licensedDefenseProDeviceIpsList   | []                   |
+      | hasDemoLicense                    | false                |
+      | attackCapacityMaxLicenseExist     | false                |
+      | licenseViolated                   | true                 |
+      | inGracePeriod                     | false                |
+      | message                           | Insufficient License |
+      | timeToExpiration                  | -1                   |
+    And Validate DefenseFlow is NOT Licensed by Attack Capacity License
 
   @SID_13
   Scenario: Navigate to general settings page
@@ -227,10 +216,6 @@ Feature: Vision Upgrade current -2
 
   @SID_21
   Scenario: Visit device subscription page
-#    Then REST Request "GET" for "Device Subscriptions->Table"
-#       | type                 | value |
-#       | Returned status code | 200   |
-
     Then CLI Run linux Command "result=`curl -ks -X "POST" "https://localhost/mgmt/system/user/login" -H "Content-Type: application/json" -d $"{\"username\": \"radware\",\"password\": \"radware\"}"`; jsession=`echo $result | tr "," "\n"|grep -i jsession|tr -d '"' | cut -d: -f2`; curl -ks -o null -XGET -H "Cookie: JSESSIONID=$jsession" https://localhost/mgmt/system/config/itemlist/devicesubscriptions -w 'RESP_CODE:%{response_code}\n'" on "ROOT_SERVER_CLI" and validate result EQUALS "RESP_CODE:200" with timeOut 300 with runCommand delay 90
     Then CLI Operations - Verify that output contains regex "RESP_CODE:200"
 
