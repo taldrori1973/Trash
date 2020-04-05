@@ -262,7 +262,7 @@ Feature: Vision Upgrade current -1
 
   @SID_35
   Scenario: Verify TED configuration
-    Then CLI Run linux Command "cat /opt/radware/storage/ted/config/ted.cfg |awk -F"elasticRetentionMaxPercent\":" '{print$2}'|awk -F"," '{print$1}'" on "ROOT_SERVER_CLI" and validate result EQUALS "75"
+    Then CLI Run linux Command "cat /opt/radware/storage/ted/config/ted.cfg |awk -F"elasticRetentionMaxPercent\":" '{print$2}'|awk -F"," '{print$1}'" on "ROOT_SERVER_CLI" and validate result EQUALS "74"
 
   @SID_36
   Scenario: Verify number of tables in vision schema
