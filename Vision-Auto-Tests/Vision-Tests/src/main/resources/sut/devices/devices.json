@@ -68,10 +68,10 @@
         }
       },
       {
-        "id": "Alteon_50.50.101.11",
-        "setId": "Alteon_Set_Simulators",
+        "id": "Alteon_172.16.101.103",
+        "setId": "Alteon_Set_2",
         "configurations": {
-          "name": "Alteon_50.50.101.11",
+          "name": "Alteon_172.16.101.103",
           "parentOrmID": null,
           "type": "Alteon",
           "deviceSetup": {
@@ -84,7 +84,7 @@
               "httpsPassword": "admin",
               "httpsUsername": "admin",
               "httpUsername": "admin",
-              "managementIp": "50.50.101.11",
+              "managementIp": "172.16.101.103",
               "registerDeviceEvents": true,
               "snmpV1ReadCommunity": "public",
               "snmpV1WriteCommunity": "private",
@@ -95,7 +95,7 @@
               "snmpVersion": "SNMP_V2",
               "verifyHttpCredentials": true,
               "verifyHttpsCredentials": true,
-              "visionMgtPort": "G2"
+              "visionMgtPort": "G1"
             }
           }
         }
