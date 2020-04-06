@@ -106,19 +106,19 @@
     ],
     "appWalls": [
       {
-        "deviceId": "DefensePro_172.16.22.50",
+        "deviceId": "AppWall_172.17.164.30",
         "configurations": {
-          "name": "5.5.5.5",
-          "parentOrmID": "2c912402634578df0163457ccbad001a",
+          "name": "AppWall_172.17.164.30",
+          "parentOrmID": null,
           "type": "AppWall",
           "deviceSetup": {
             "deviceAccess": {
               "exclusivelyReceiveDeviceEvents": false,
-              "httpPassword": "kavado",
-              "httpsPassword": "kavado",
-              "httpsUsername": "admin",
-              "httpUsername": "admin",
-              "managementIp": "5.5.5.5",
+              "httpPassword": "1qaz!QAZ",
+              "httpsPassword": "1qaz!QAZ",
+              "httpsUsername": "user1",
+              "httpUsername": "user1",
+              "managementIp": "172.17.164.30",
               "registerDeviceEvents": true,
               "snmpV2ReadCommunity": "public",
               "snmpV2WriteCommunity": "private",
@@ -127,7 +127,7 @@
               "snmpVersion": "SNMP_V2",
               "verifyHttpCredentials": true,
               "verifyHttpsCredentials": true,
-              "visionMgtPort": "G2"
+              "visionMgtPort": "G1"
             }
           }
         }`
