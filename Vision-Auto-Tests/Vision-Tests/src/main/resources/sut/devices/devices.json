@@ -142,7 +142,7 @@
         "netmask": "",
         "gateway": "",
         "firstDNS": "",
-        "secondDNS": ""
+        "secondDNS": "",
         "dnsPrefix": ""
       }
     ]
