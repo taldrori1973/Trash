@@ -2,8 +2,8 @@
   "treeDevices": {
     "alteons": [
       {
-        "id": "Alteon_172.16.100.103",
-        "setId": "Alteon_Set_1",
+        "deviceId": "Alteon_172.16.100.103",
+        "deviceSetId": "Alteon_Set_1",
         "configurations": {
           "name": "Alteon_172.16.100.103",
           "parentOrmID": null,
@@ -37,8 +37,8 @@
     ],
     "linkProofs": [
       {
-        "id": "LinkProof NG_172.17.154.190",
-        "setId": "LinkProof_Set_1",
+        "deviceId": "LinkProof NG_172.17.154.190",
+        "deviceSetId": "LinkProof_Set_1",
         "configurations": {
           "name": "LinkProof NG_172.17.154.190",
           "parentOrmID": null,
