@@ -132,6 +132,39 @@
             }
           }
         }
+      },
+      {
+        "deviceId": "Alteon_50.50.101.22",
+        "deviceSetId": "Alteon_Set_Simulators",
+        "configurations": {
+          "name": "Alteon_50.50.101.22",
+          "parentOrmID": null,
+          "type": "Alteon",
+          "deviceSetup": {
+            "deviceAccess": {
+              "cliPassword": "admin",
+              "cliPort": 22,
+              "cliUsername": "admin",
+              "exclusivelyReceiveDeviceEvents": false,
+              "httpPassword": "admin",
+              "httpsPassword": "admin",
+              "httpsUsername": "admin",
+              "httpUsername": "admin",
+              "managementIp": "50.50.101.22",
+              "registerDeviceEvents": true,
+              "snmpV1ReadCommunity": "public",
+              "snmpV1WriteCommunity": "private",
+              "snmpV2ReadCommunity": "public",
+              "snmpV2WriteCommunity": "private",
+              "snmpV3AuthenticationProtocol": "SHA",
+              "snmpV3PrivacyProtocol": "DES",
+              "snmpVersion": "SNMP_V2",
+              "verifyHttpCredentials": true,
+              "verifyHttpsCredentials": true,
+              "visionMgtPort": "G2"
+            }
+          }
+        }
       }
     ],
     "linkProofs": [
