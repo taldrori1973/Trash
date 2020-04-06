@@ -135,6 +135,16 @@
     ]
   },
   "nonTreeDevices": {
-    "defenseFlows": []
+    "defenseFlows": [
+      {
+        "id": "",
+        "ip": "",
+        "netmask": "",
+        "gateway": "",
+        "firstDNS": "",
+        "secondDNS": ""
+        "dnsPrefix": ""
+      }
+    ]
   }
 }
