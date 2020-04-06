@@ -130,10 +130,12 @@
               "visionMgtPort": "G1"
             }
           }
-        }`
+        }
+        `
       }
     ]
   },
   "nonTreeDevices": {
+    "defenseFlows": []
   }
 }
