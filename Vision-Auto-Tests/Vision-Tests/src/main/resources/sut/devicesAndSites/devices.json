@@ -276,7 +276,7 @@
           "type": "DefensePro",
           "deviceSetup": {
             "deviceAccess": {
-              "cliPassword": "radware",
+              "cliPassword": "radware1",
               "cliPort": 22,
               "cliUsername": "radware",
               "exclusivelyReceiveDeviceEvents": false,
@@ -290,9 +290,9 @@
               "snmpV1WriteCommunity": "public",
               "snmpV2ReadCommunity": "public",
               "snmpV2WriteCommunity": "public",
-              "snmpV3AuthenticationPassword": "sha",
+              "snmpV3AuthenticationPassword": "radware",
               "snmpV3AuthenticationProtocol": "SHA",
-              "snmpV3PrivacyPassword": "des",
+              "snmpV3PrivacyPassword": "radware",
               "snmpV3PrivacyProtocol": "DES",
               "snmpV3Username": "radware",
               "snmpVersion": "SNMP_V3",
