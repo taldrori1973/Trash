@@ -200,6 +200,39 @@
             }
           }
         }
+      },
+      {
+        "deviceId": "LinkProof NG_172.17.154.200",
+        "deviceSetId": "LinkProof_Set_2",
+        "configurations": {
+          "name": "LinkProof NG_172.17.154.200",
+          "parentOrmID": null,
+          "type": "LinkProof",
+          "deviceSetup": {
+            "deviceAccess": {
+              "cliPassword": "admin1",
+              "cliPort": 22,
+              "cliUsername": "admin",
+              "exclusivelyReceiveDeviceEvents": false,
+              "httpPassword": "admin1",
+              "httpsPassword": "admin1",
+              "httpsUsername": "admin",
+              "httpUsername": "admin",
+              "managementIp": "172.17.154.200",
+              "registerDeviceEvents": true,
+              "snmpV1ReadCommunity": "public",
+              "snmpV1WriteCommunity": "private",
+              "snmpV2ReadCommunity": "public",
+              "snmpV2WriteCommunity": "private",
+              "snmpV3AuthenticationProtocol": "SHA",
+              "snmpV3PrivacyProtocol": "DES",
+              "snmpVersion": "SNMP_V2",
+              "verifyHttpCredentials": true,
+              "verifyHttpsCredentials": true,
+              "visionMgtPort": "G1"
+            }
+          }
+        }
       }
     ],
     "defensePros": [
