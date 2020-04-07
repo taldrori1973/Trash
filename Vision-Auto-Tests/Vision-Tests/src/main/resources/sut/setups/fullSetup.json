@@ -61,15 +61,15 @@
     },
     {
       "deviceId": "DefensePro_172.16.22.50",
-      "parentSite": "VA_LP_site"
+      "parentSite": "RealDPs_Version_8_site"
     },
     {
       "deviceId": "DefensePro_172.16.22.51",
-      "parentSite": "VA_LP_site"
+      "parentSite": "RealDPs_Version_8_site"
     },
     {
       "deviceId": "DefensePro_172.16.22.55",
-      "parentSite": "VA_LP_site"
+      "parentSite": "VA_DPs_Version_8_site"
     }
   ]
 }
