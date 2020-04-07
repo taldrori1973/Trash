@@ -20,8 +20,7 @@ Feature: Vision APM Upgrade current -3
   Scenario: Do any pre-upgrade changes
     Then CLI Operations - Run Root Session command "yes|restore_radware_user_password" timeout 15
     Then CLI Run remote linux Command "echo "Before " $(mysql -prad123 vision -e "show create table traffic_utilizations\G" |grep "(PARTITION p" |awk -F"p" '{print$2}'|awk '{printf$1}') >  /opt/radware/sql_partition.txt" on "ROOT_SERVER_CLI"
-
-       #for testing AVA Attack Capacity Grace Period with the following scenario:
+      #for testing AVA Attack Capacity Grace Period with the following scenario:
       # if before upgrade the server not have the Legacy "vision-reporting-module-AMS" license and never installs the new AVA License so after upgrade No  Grace Period will be given:
     Given REST Vision DELETE License Request "vision-AVA-6-Gbps-attack-capacity"
     And REST Vision DELETE License Request "vision-AVA-20-Gbps-attack-capacity"
@@ -46,7 +45,6 @@ Feature: Vision APM Upgrade current -3
     Then CLI Check if logs contains
       | logType | expression                                                             | isExpected   |
       | UPGRADE | fatal                                                                  | NOT_EXPECTED |
-    # | UPGRADE | error                                                            | NOT_EXPECTED      |
       | UPGRADE | fail to\|failed to                                                     | NOT_EXPECTED |
       | UPGRADE | The upgrade of APSolute Vision server has completed successfully       | EXPECTED     |
       | UPGRADE | Vision Reporter upgrade finished                                       | EXPECTED     |
@@ -128,24 +126,22 @@ Feature: Vision APM Upgrade current -3
 
   @SID_8
   Scenario: Login with activation
-#    Given REST Login with activation with user "sys_admin" and password "radware"
     Then UI Login with user "sys_admin" and password "radware"
     Then CLI Operations - Run Root Session command "yes|restore_radware_user_password" timeout 15
 
   @SID_9
   Scenario: Validate AVA Attack Capacity Grace Period License
     Then Validate License "ATTACK_CAPACITY_LICENSE" Parameters
-      | allowedAttackCapacityGbps         | 0                                                                                                                                                                                                                                                                                                                                                                                                                                                 |
-      | requiredDevicesAttackCapacityGbps | 18                                                                                                                                                                                                                                                                                                                                                                                                                                                |
-      | licensedDefenseProDeviceIpsList   | [172.16.22.50,172.16.22.51,172.16.22.55]                                                                                                                                                                                                                                                                                                                                                                                                          |
-      | hasDemoLicense                    | false                                                                                                                                                                                                                                                                                                                                                                                                                                             |
-      | attackCapacityMaxLicenseExist     | false                                                                                                                                                                                                                                                                                                                                                                                                                                             |
-      | licenseViolated                   | true                                                                                                                                                                                                                                                                                                                                                                                                                                              |
-      | inGracePeriod                     | true                                                                                                                                                                                                                                                                                                                                                                                                                                              |
-      | message                           | License Violation: The attack capacity required by devices managed by APSolute Vision exceeds the value permitted by the APSolute Vision Analytics - AMS license. Contact Radware Technical Support to purchase another license with more capacity within 30 days. After 30 days, the system will only support the attack capacity corresponding to the license. If there is no APSolute Vision Analytics - AMS license, AVA will be unavailable. |
-      | timeToExpiration                  | 30                                                                                                                                                                                                                                                                                                                                                                                                                                                |
-
-    And Validate DefenseFlow is Licensed by Attack Capacity License
+      | allowedAttackCapacityGbps         | 0                    |
+      | requiredDevicesAttackCapacityGbps | 18                   |
+      | licensedDefenseProDeviceIpsList   | []                   |
+      | hasDemoLicense                    | false                |
+      | attackCapacityMaxLicenseExist     | false                |
+      | licenseViolated                   | true                 |
+      | inGracePeriod                     | false                |
+      | message                           | Insufficient License |
+      | timeToExpiration                  | -1                   |
+    And Validate DefenseFlow is NOT Licensed by Attack Capacity License
 
   @SID_10
   Scenario: Navigate to general settings page
