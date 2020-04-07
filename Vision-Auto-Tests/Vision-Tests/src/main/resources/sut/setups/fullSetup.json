@@ -1,0 +1,44 @@
+{
+  "setupId": "full_setup_number_1",
+  "sites": [
+    {
+      "parent": "Default",
+      "name": "Alteon_for_DPM"
+    },
+    {
+      "parent": "Default",
+      "name": "Alteons_for_DPM-Fakes"
+    },
+    {
+      "parent": "Default",
+      "name": "AW_site"
+    },
+    {
+      "parent": "Default",
+      "name": "FakeDPs_Old_Version_site"
+    },
+    {
+      "parent": "Default",
+      "name": "RealDPs_Version_8_site"
+    },
+    {
+      "parent": "Default",
+      "name": "VA_DPs_Version_8_site"
+    },
+    {
+      "parent": "Default",
+      "name": "VA_LP_site"
+    }
+  ],
+  "devices": [
+    {
+      "deviceId": "Alteon_172.16.100.103",
+      "parentSite": "Alteon_for_DPM"
+    },
+    {
+      "deviceId": "Alteon_172.16.101.103",
+      "parentSite": "Alteon_for_DPM"
+    },
+
+  ]
+}
