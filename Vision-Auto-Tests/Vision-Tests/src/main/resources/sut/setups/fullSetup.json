@@ -70,6 +70,10 @@
     {
       "deviceId": "DefensePro_172.16.22.55",
       "parentSite": "VA_DPs_Version_8_site"
+    },
+    {
+      "deviceId": "AppWall_172.17.164.30",
+      "parentSite": "AW_site"
     }
   ]
 }
