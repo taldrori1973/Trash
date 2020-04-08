@@ -72,7 +72,6 @@ Feature: Vision APM Upgrade current -1
       | UPGRADE | /opt/radware/storage/www/webui/vision-dashboards/public/static/media/* | IGNORE       |
 
 
-
   @SID_6
   Scenario: Check firewall settings
     Then CLI Run linux Command "iptables -L -n |tail -1|awk -F" " '{print $1,$2}'" on "ROOT_SERVER_CLI" and validate result EQUALS "REJECT all"
@@ -161,7 +160,7 @@ Feature: Vision APM Upgrade current -1
   Scenario: Upload Driver to vision
     Then CLI Run remote linux Command "/opt/radware/storage/upload_DD.sh /opt/radware/storage/Alteon-32.2.1.0-DD-1.00-110.jar" on "ROOT_SERVER_CLI" with timeOut 240
     Then CLI Run remote linux Command "/opt/radware/storage/upload_DD.sh /opt/radware/storage/Alteon-32.4.0.0-DD-1.00-396.jar" on "ROOT_SERVER_CLI" with timeOut 240
-#    Then Sleep "120"
+
 
   @SID_17
   Scenario: Validate fluentd configuration
@@ -214,7 +213,7 @@ Feature: Vision APM Upgrade current -1
   Scenario: Validate Changed MySql partitioning number
     Then CLI Run remote linux Command "echo "after " $(mysql -prad123 vision -e "show create table traffic_utilizations\G" |grep "(PARTITION \`p" |awk -F"p" '{print$2}'|awk -F"\`" '{print$1}') >>  /opt/radware/sql_partition.txt" on "ROOT_SERVER_CLI"
     Then CLI Run remote linux Command "cat /opt/radware/sql_partition.txt" on "ROOT_SERVER_CLI"
-    Then CLI Run linux Command "echo $(cat /opt/radware/sql_partition.txt |grep "after"|awk '{print$2}')-$(cat /opt/radware/sql_partition.txt |grep "before"|awk '{print$2}'|wc -l)+1|bc" on "ROOT_SERVER_CLI" and validate result NOT_EQUALS "0"
+    Then CLI Run linux Command "echo $(cat /opt/radware/sql_partition.txt |grep "after"|awk '{print$2}')-$(cat /opt/radware/sql_partition.txt |grep "before"|awk '{print$2}')|bc" on "ROOT_SERVER_CLI" and validate result NOT_EQUALS "0"
 
   @SID_26
   Scenario: Validate IPv6 Hostname in /etc/hosts
