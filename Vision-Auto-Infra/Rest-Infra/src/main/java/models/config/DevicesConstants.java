@@ -31,8 +31,15 @@ public interface DevicesConstants {
     int APPWALL_DEFAULT_PORT = 443;
     String APPWALL_USER_INFO_PATH = "/v2/config/aw/Users/{Login_Name}";
     String APPWALL_USER_INFO_PATH_PARAMETER = "Login_Name";
-
-
     StatusCode APPWALL_ON_SUCCESS_STATUS_CODE = StatusCode.OK;
 
+
+    //VISION
+    int DEFENSE_FLOW_DEFAULT_PORT = 9101;
+    String DEFENSE_FLOW_LOGIN_PATH = "/rest/v2/authentication/login";
+    String DEFENSE_FLOW_LOGOUT_PATH = "/rest/v2/authentication/logout";
+    String DEFENSE_FLOW_VALIDATE_PATH = "/rest/v2/authentication/validat";
+    StatusCode DEFENSE_FLOW_ON_SUCCESS_STATUS_CODE = StatusCode.OK;
+    String DEFENSE_FLOW_USERNAME_FIELD_NAME = "user";
+    String DEFENSE_FLOW_PASSWORD_FIELD_NAME = "password";
 }
