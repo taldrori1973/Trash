@@ -80,5 +80,6 @@ public class DefenseFlowRestAssuredClient extends RestAssuredSessionBasedRestCli
         RestResponse login = defenseFlowRestAssuredClient.login();
         boolean validate = defenseFlowRestAssuredClient.isLoggedIn();
         RestResponse logout = defenseFlowRestAssuredClient.logout();
+        System.out.println();
     }
 }
