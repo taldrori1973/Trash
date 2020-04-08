@@ -38,7 +38,7 @@ public interface DevicesConstants {
     int DEFENSE_FLOW_DEFAULT_PORT = 9101;
     String DEFENSE_FLOW_LOGIN_PATH = "/rest/v2/authentication/login";
     String DEFENSE_FLOW_LOGOUT_PATH = "/rest/v2/authentication/logout";
-    String DEFENSE_FLOW_VALIDATE_PATH = "/rest/v2/authentication/validat";
+    String DEFENSE_FLOW_VALIDATE_PATH = "/rest/v2/authentication/validate";
     StatusCode DEFENSE_FLOW_ON_SUCCESS_STATUS_CODE = StatusCode.OK;
     String DEFENSE_FLOW_USERNAME_FIELD_NAME = "user";
     String DEFENSE_FLOW_PASSWORD_FIELD_NAME = "password";
