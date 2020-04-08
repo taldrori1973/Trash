@@ -40,10 +40,11 @@ public class DefenseFlowRestAssuredClient extends RestAssuredSessionBasedRestCli
                 when().post().
                 then().extract().response();
 
-        this.sessionId = response.getBody().jsonPath().get("token");
+        this.sessionId = response.getBody().jsonPath().get(DEFENSE_FLOW_LOGIN_RESPONSE_FIELD_NAME);
+        this.requestSpecification.headers(DEFENSE_FLOW_HEADER_AUTH_FIELD_NAME, sessionId);
         RestResponse restResponse = RestAssuredResponseMapper.map(response);
 
-        if (restResponse.getStatusCode().equals(VISION_ON_SUCCESS_STATUS_CODE)) switchTo();
+        if (restResponse.getStatusCode().equals(DEFENSE_FLOW_ON_SUCCESS_STATUS_CODE)) switchTo();
 
         return restResponse;
     }
