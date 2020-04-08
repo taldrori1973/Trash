@@ -165,7 +165,7 @@ public class RestClientsSteps extends BddRestTestBase {
     }
 
 
-    @Given("^That Defense Flow Device from SUT File is Logged In(?: With Username \"([^\"]*)\" and Password \"([^\"]*)\")$")
+    @Given("^That Defense Flow Device from SUT File is Logged In(?: With Username \"([^\"]*)\" and Password \"([^\"]*)\")?$")
     public void thatDeviceAlteonAppWallWithIPAndPortAndProtocolIsLoggedInWithUsernameAndPassword(String username, String password) throws Exception {
 //        Should be Change to get the data from SUT Utils
         defenseFlowDevice DF = (defenseFlowDevice) system.getSystemObject("defenseFlowDevice");
