@@ -163,4 +163,8 @@ public class RestClientsSteps extends BddRestTestBase {
 
     }
 
+
+    @Given("^That Defense Flow Device from SUT File is Logged In(?: With Username \"([^\"]*)\" and Password \"([^\"]*)\")$")
+    public void thatDeviceAlteonAppWallWithIPAndPortAndProtocolIsLoggedInWithUsernameAndPassword(String username, String password) {
+    }
 }
