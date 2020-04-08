@@ -53,11 +53,12 @@ public class DefenseFlowRestAssuredClient extends RestAssuredSessionBasedRestCli
     public boolean isLoggedIn() {
         if (Objects.isNull(sessionId)) return false;
         Response response = RestAssured.
-                given().sessionId(this.sessionId).baseUri(this.baseUri).port(VISION_DEFAULT_PORT).basePath(VISION_INFO_PATH).
+                given().headers(DEFENSE_FLOW_HEADER_AUTH_FIELD_NAME, sessionId).
+                baseUri(this.baseUri).port(DEFENSE_FLOW_DEFAULT_PORT).basePath(DEFENSE_FLOW_VALIDATE_PATH).
                 when().get().
                 then().log().all().extract().response();
 
-        return response.statusCode() == VISION_ON_SUCCESS_STATUS_CODE.getStatusCode() && response.body().jsonPath().get(VISION_USERNAME_FIELD_NAME).equals(this.username);
+        return response.statusCode() == DEFENSE_FLOW_ON_SUCCESS_STATUS_CODE.getStatusCode();
 
     }
 
