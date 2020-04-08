@@ -65,9 +65,10 @@ public class DefenseFlowRestAssuredClient extends RestAssuredSessionBasedRestCli
     @Override
     public RestResponse logout() {
         Response response = RestAssured.
-                given().sessionId(this.sessionId).baseUri(this.baseUri).port(VISION_DEFAULT_PORT).basePath(VISION_LOGOUT_PATH).
-                when().post().
-                then().extract().response();
+                given().headers(DEFENSE_FLOW_HEADER_AUTH_FIELD_NAME, sessionId)
+                .baseUri(this.baseUri).port(DEFENSE_FLOW_DEFAULT_PORT).basePath(DEFENSE_FLOW_LOGOUT_PATH).
+                        when().delete().
+                        then().extract().response();
 
         return RestAssuredResponseMapper.map(response);
 
@@ -76,6 +77,8 @@ public class DefenseFlowRestAssuredClient extends RestAssuredSessionBasedRestCli
 
     public static void main(String[] args) {
         DefenseFlowRestAssuredClient defenseFlowRestAssuredClient = new DefenseFlowRestAssuredClient("https://172.17.160.151", "radware", "radware");
-        defenseFlowRestAssuredClient.login();
+        RestResponse login = defenseFlowRestAssuredClient.login();
+        boolean validate = defenseFlowRestAssuredClient.isLoggedIn();
+        RestResponse logout = defenseFlowRestAssuredClient.logout();
     }
 }
