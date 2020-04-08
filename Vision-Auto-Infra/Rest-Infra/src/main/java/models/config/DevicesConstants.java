@@ -42,4 +42,6 @@ public interface DevicesConstants {
     StatusCode DEFENSE_FLOW_ON_SUCCESS_STATUS_CODE = StatusCode.OK;
     String DEFENSE_FLOW_USERNAME_FIELD_NAME = "user";
     String DEFENSE_FLOW_PASSWORD_FIELD_NAME = "password";
+    String DEFENSE_FLOW_LOGIN_RESPONSE_FIELD_NAME = "token";
+    String DEFENSE_FLOW_HEADER_AUTH_FIELD_NAME = "dfctoken";
 }
