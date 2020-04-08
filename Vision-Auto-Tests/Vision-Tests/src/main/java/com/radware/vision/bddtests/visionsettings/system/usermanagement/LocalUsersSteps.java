@@ -23,14 +23,14 @@ public class LocalUsersSteps {
      * @param scope
      * @throws Throwable
      */
-    @When("^UI Create New User With User Name \"([^\"]*)\" ,Role \"([^\"]*)\" ,Scope \"([^\"]*)\"$")
-    public void createNewUser(String userName, String role, String scope) throws Throwable {
+    @When("^UI Create New User With User Name \"([^\"]*)\" ,Role \"([^\"]*)\" ,Scope \"([^\"]*)\" ,Password \"([^\"]*)\"$")
+    public void createNewUser(String userName, String role, String scope, String pass) throws Throwable {
 
         if (scope.equals("[ALL]")) {
             scope = "";
         }
         String roleAndScope = role + "," + scope;
-        LocalUsersHandler.addUser(userName, "", "", "", "", roleAndScope, "", "");
+        LocalUsersHandler.addUser(userName, "", "", "", "", roleAndScope, "", pass);
     }
     @When("^UI Delete User With User Name \"([^\"]*)\"$")
     public void deleteUser(String userName) {
