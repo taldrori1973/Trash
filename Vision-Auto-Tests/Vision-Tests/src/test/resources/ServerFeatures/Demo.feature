@@ -49,12 +49,6 @@ Feature: Demo
 
   Scenario: DefenseFlow
     Given That Defense Flow Device from SUT File is Logged In
-    Given New GET Request Specification with Base Path "/rest/v2/configure/vision-active"
-    When Send Request with the Given Specification
-    Then Validate That Response Status Code Is OK
-    And Validate That Response Body Contains
-      | jsonPath | value         |
-      | $.active | 172.16.144.10 |
 
 
 
