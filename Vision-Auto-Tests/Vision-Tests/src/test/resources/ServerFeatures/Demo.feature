@@ -2,27 +2,26 @@
 @TC113068
 Feature: Demo
 
-  @run
-  Scenario: Rest As Tool
-    Then Send request
 
-  @SID_4
-  Scenario: Delete User Before Creating it
+
+  @SID_5
+  Scenario: Create Local User
+
     Given That Current Vision is Logged In
 
     Given Create Following RUNTIME Parameters by Sending Request Specification from File "Vision/SystemConfigItemList" with label "Get Local Users"
       | ormID | $[?(@.name=='cucumber')].ormID |
 
     Given New Request Specification from File "Vision/SystemConfigItemList" with label "Delete an Item from the Server"
+
     And The Request Path Parameters Are
       | item | user     |
       | id   | ${ormID} |
 
     When Send Request with the Given Specification
 
-  @SID_5
-  Scenario: Create Local User
-    Given That Current Vision is Logged In
+
+
 
     Given New Request Specification from File "Vision/SystemConfigItemList" with label "Create Local User"
 
