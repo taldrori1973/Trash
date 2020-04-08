@@ -33,7 +33,6 @@ Feature: Vision Upgrade current -1
   @SID_5
   Scenario: Change TED configuration
     Then CLI Run remote linux Command "cat /opt/radware/storage/ted/config/ted.cfg" on "ROOT_SERVER_CLI"
-#    Then CLI Run remote linux Command "sed -i 's/"elasticRetentionInDays":.*,/"elasticRetentionInDays":8,/g' /opt/radware/storage/ted/config/ted.cfg" on "ROOT_SERVER_CLI"
     Then CLI Run remote linux Command "sed -i 's/"elasticRetentionMaxPercent":.*,/"elasticRetentionMaxPercent":74,/g' /opt/radware/storage/ted/config/ted.cfg" on "ROOT_SERVER_CLI"
     Then CLI Run remote linux Command "cat /opt/radware/storage/ted/config/ted.cfg" on "ROOT_SERVER_CLI"
 
@@ -225,10 +224,10 @@ Feature: Vision Upgrade current -1
     Then CLI Run linux Command "cat /opt/radware/storage/llsinstall/license-server-*/version.txt" on "ROOT_SERVER_CLI" and validate result EQUALS "2.3.0-1"
 
   @SID_31
-  Scenario: Validate increased MySql partitioning number
+  Scenario: Validate Changed MySql partitioning number
     Then CLI Run remote linux Command "echo "After " $(mysql -prad123 vision -e "show create table traffic_utilizations\G" |grep "(PARTITION \`p" |awk -F"p" '{print$2}'|awk -F"\`" '{print$1}') >>  /opt/radware/sql_partition.txt" on "ROOT_SERVER_CLI"
     Then CLI Run remote linux Command "cat /opt/radware/sql_partition.txt" on "ROOT_SERVER_CLI"
-    Then CLI Run linux Command "echo $(cat /opt/radware/sql_partition.txt |grep "After"|awk '{print$2}')-$(cat /opt/radware/sql_partition.txt |grep "Before"|awk '{print$2}')|bc" on "ROOT_SERVER_CLI" and validate result GT "0"
+    Then CLI Run linux Command "echo $(cat /opt/radware/sql_partition.txt |grep "After"|awk '{print$2}')-$(cat /opt/radware/sql_partition.txt |grep "Before"|awk '{print$2}')|bc" on "ROOT_SERVER_CLI" and validate result NOT_EQUALS "0"
 
   @SID_32
   Scenario: Validate IPv6 Hostname in /etc/hosts
