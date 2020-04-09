@@ -27,6 +27,7 @@ import com.radware.vision.infra.testhandlers.vrm.enums.vrmActions;
 import com.radware.vision.infra.utils.ReportsUtils;
 import com.radware.vision.infra.utils.TimeUtils;
 import com.radware.vision.infra.utils.json.CustomizedJsonManager;
+import gherkin.lexer.Tr;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import org.openqa.selenium.JavascriptExecutor;
@@ -1165,11 +1166,13 @@ public class VRMBaseUtilies {
                     for (String entry : widgetMap.keySet()) {
                         entry = entry.trim();
                         try {
-                            ArrayList<String> widgetOptions = (ArrayList<String>) widgetMap.get(entry);
+                            ArrayList<Object> widgetOptions = (ArrayList) widgetMap.get(entry);
                             ComponentLocator optionLocator = new ComponentLocator(How.XPATH, "//*[@data-debug-id='dd-list_draggable-item_" + entry + "']//div[@data-debug-id='expand-icon-down']");
                             WebUIComponent webUIComponent = new WebUIComponent(optionLocator);
                             ((JavascriptExecutor) WebUIUtils.getDriver()).executeScript("arguments[0].click();", webUIComponent.getWebElement());
-                            for (String option : widgetOptions) {
+                            for (Object option : widgetOptions) {
+                                if (option.getClass().getName().equalsIgnoreCase("java.util.HashMap"))
+                                    BasicOperationsHandler.setTextField("Widget Option", ((Map) option).keySet().toArray()[0].toString(), ((Map) option).get(((Map) option).keySet().toArray()[0]).toString(), true);
                                 BasicOperationsHandler.clickButton("Widget Option", option + "_" + entry);
                             }
                             widgetsList.add(entry);

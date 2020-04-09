@@ -588,4 +588,14 @@ public class BasicOperationsSteps extends BddUITestBase {
     public void uiOpenDeviceSelection(String label) throws Exception {
         BasicOperationsHandler.openDeviceList(label);
     }
+
+    @Then("^UI Validate that number of elements of label \"([^\"]*)\" with value \"([^\"]*)\" is \"([^\"]*)\"$")
+    public void uiValidateThatNumberOfElementsOfLabelWithValueIs(String label, String value, int count) throws Throwable {
+        VisionDebugIdsManager.setLabel(label);
+        VisionDebugIdsManager.setParams(value!=null ? value : "");
+        int actualcount = WebUIUtils.fluentWaitMultiple(ComponentLocatorFactory.getLocatorByXpathDbgId(VisionDebugIdsManager.getDataDebugId()).getBy()).size();
+        if (count != actualcount)
+            BaseTestUtils.report("The expected count of Label " + label + "with value " + value + "is " + count + "But the Actual is " + actualcount, Reporter.FAIL);
+    }
+
 }
