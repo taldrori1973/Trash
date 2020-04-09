@@ -43,7 +43,7 @@ Feature: AttackRateInAlerts&Forensics
     And UI Navigate to "AMS Forensics" page via homePage
     And UI Click Button "Views.Expand" with value "PPS greater than K"
     And UI Click Button "Views.report" with value "PPS greater than K"
-    Then UI Validate "Report.Table" Table rows count equal to 10
+    Then UI Validate "Report.Table" Table rows count EQUALS to 10
 
   @SID_6
   Scenario: VRM - Forensics Report criteria - PPS greater than Mega
@@ -54,7 +54,7 @@ Feature: AttackRateInAlerts&Forensics
     And UI Navigate to "AMS Forensics" page via homePage
     When UI Generate and Validate Forensics With Name "PPS greater than M" with Timeout of 300 Seconds
     And UI Click Button "Views.report" with value "PPS greater than M"
-    Then UI Validate "Report.Table" Table rows count equal to 3
+    Then UI Validate "Report.Table" Table rows count EQUALS to 3
 
   @SID_7
   Scenario: VRM - Forensics Report criteria - PPS greater than Giga
@@ -65,7 +65,7 @@ Feature: AttackRateInAlerts&Forensics
     And UI Navigate to "AMS Forensics" page via homePage
     When UI Generate and Validate Forensics With Name "PPS greater than G" with Timeout of 300 Seconds
     And UI Click Button "Views.report" with value "PPS greater than G"
-    Then UI Validate "Report.Table" Table rows count equal to 1
+    Then UI Validate "Report.Table" Table rows count EQUALS to 1
 
   @SID_8
   Scenario: modify one attack's rate value to over 2TB
@@ -80,7 +80,7 @@ Feature: AttackRateInAlerts&Forensics
     And UI Navigate to "AMS Forensics" page via homePage
     When UI Generate and Validate Forensics With Name "PPS greater than T" with Timeout of 300 Seconds
     And UI Click Button "Views.report" with value "PPS greater than T"
-    Then UI Validate "Report.Table" Table rows count equal to 1
+    Then UI Validate "Report.Table" Table rows count EQUALS to 1
 
   @SID_10
   Scenario: VRM - Forensics Report criteria - bps greater than Kilo
@@ -92,7 +92,7 @@ Feature: AttackRateInAlerts&Forensics
     When UI Generate and Validate Forensics With Name "bps greater than K" with Timeout of 300 Seconds
     And UI Click Button "Views.report" with value "bps greater than K"
     Then CLI Run remote linux Command "curl -XPOST localhost:9200/dp-attack-raw-*/_search -d '{"query":{"bool":{"must":[{"match_all":{}}]}},"from":0,"size":1000}' > /opt/radware/storage/bps.txt" on "ROOT_SERVER_CLI"
-    Then UI Validate "Report.Table" Table rows count equal to 9
+    Then UI Validate "Report.Table" Table rows count EQUALS to 9
 
   @SID_11
   Scenario: VRM - Forensics Report criteria - bps greater than Mega
@@ -103,7 +103,7 @@ Feature: AttackRateInAlerts&Forensics
     And UI Navigate to "AMS Forensics" page via homePage
     When UI Generate and Validate Forensics With Name "bps greater than M" with Timeout of 300 Seconds
     And UI Click Button "Views.report" with value "bps greater than M"
-    Then UI Validate "Report.Table" Table rows count equal to 10
+    Then UI Validate "Report.Table" Table rows count EQUALS to 10
 
   @SID_12
   Scenario: VRM - Forensics Report criteria - bps greater than Giga
@@ -114,7 +114,7 @@ Feature: AttackRateInAlerts&Forensics
     And UI Navigate to "AMS Forensics" page via homePage
     When UI Generate and Validate Forensics With Name "bps greater than G" with Timeout of 300 Seconds
     And UI Click Button "Views.report" with value "bps greater than G"
-    Then UI Validate "Report.Table" Table rows count equal to 3
+    Then UI Validate "Report.Table" Table rows count EQUALS to 3
 
 
   @SID_13
@@ -126,7 +126,7 @@ Feature: AttackRateInAlerts&Forensics
     And UI Navigate to "AMS Forensics" page via homePage
     When UI Generate and Validate Forensics With Name "bps greater than T" with Timeout of 300 Seconds
     And UI Click Button "Views.report" with value "bps greater than T"
-    Then UI Validate "Report.Table" Table rows count equal to 1
+    Then UI Validate "Report.Table" Table rows count EQUALS to 1
 
   ######################################################################################################################
 
@@ -217,21 +217,21 @@ Feature: AttackRateInAlerts&Forensics
     Then UI "Check" all the Toggle Alerts
     When UI "Uncheck" all the Toggle Alerts
     Then UI "Check" Toggle Alerts with name "bps greater than K"
-    Then UI Validate "Report.Table" Table rows count equal to 1
+    Then UI Validate "Report.Table" Table rows count EQUALS to 1
 
   @SID_26
   Scenario: VRM Validate Alert criteria bps greater than Mega
     Then UI "Check" all the Toggle Alerts
     When UI "Uncheck" all the Toggle Alerts
     Then UI "Check" Toggle Alerts with name "bps greater than M"
-    Then UI Validate "Report.Table" Table rows count equal to 1
+    Then UI Validate "Report.Table" Table rows count EQUALS to 1
 
   @SID_27
   Scenario: VRM Validate Alert criteria pps greater than Tera
     Then UI "Check" all the Toggle Alerts
     When UI "Uncheck" all the Toggle Alerts
     Then UI "Check" Toggle Alerts with name "pps greater than T"
-    Then UI Validate "Report.Table" Table rows count equal to 1
+    Then UI Validate "Report.Table" Table rows count EQUALS to 1
 
 
   @SID_28
