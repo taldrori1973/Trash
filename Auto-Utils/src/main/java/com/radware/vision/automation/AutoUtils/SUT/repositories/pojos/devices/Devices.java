@@ -1,8 +1,8 @@
-package com.radware.vision.automation.AutoUtils.SUT.repositories.pojos;
+package com.radware.vision.automation.AutoUtils.SUT.repositories.pojos.devices;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.radware.vision.automation.AutoUtils.SUT.repositories.pojos.setup.Setup;
 import lombok.Data;
 
 import java.io.File;
@@ -19,6 +19,8 @@ public class Devices {
         try {
             File file = new File("C:\\GIT\\APSoluteVisionAutomation\\Auto-Utils\\src\\main\\java\\com\\radware\\vision\\automation\\AutoUtils\\SUT\\repositories\\pojos\\devices.json");
             Devices devices = objectMapper.readValue(file, Devices.class);
+            File file2 = new File("C:\\GIT\\APSoluteVisionAutomation\\Auto-Utils\\src\\main\\java\\com\\radware\\vision\\automation\\AutoUtils\\SUT\\repositories\\pojos\\fullSetup.json");
+            Setup setup = objectMapper.readValue(file2, Setup.class);
             System.out.println(devices);
         } catch (JsonProcessingException e) {
             e.printStackTrace();
