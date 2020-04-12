@@ -132,6 +132,7 @@ Feature: AttackRateInAlerts&Forensics
 
   @SID_15
   Scenario: Clean system data
+    Then UI logout and close browser
     Then CLI kill all simulator attacks on current vision
     Then REST Delete ES index "rt-alert-def-vrm"
     Then REST Delete ES index "alert"
@@ -236,6 +237,7 @@ Feature: AttackRateInAlerts&Forensics
 
   @SID_28
   Scenario: Clean system data
+    Then UI logout and close browser
     Then CLI kill all simulator attacks on current vision
     Then REST Delete ES index "rt-alert-def-vrm"
     Then REST Delete ES index "alert"
