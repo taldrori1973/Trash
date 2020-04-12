@@ -17,7 +17,7 @@ public class Devices {
     public static void main(String[] args) {
         ObjectMapper objectMapper = new ObjectMapper();
         try {
-            File file = new File("/devices.json");
+            File file = new File("C:\\GIT\\APSoluteVisionAutomation\\Auto-Utils\\src\\main\\java\\com\\radware\\vision\\automation\\AutoUtils\\SUT\\repositories\\pojos\\devices.json");
             Devices devices = objectMapper.readValue(file, Devices.class);
             System.out.println(devices);
         } catch (JsonProcessingException e) {
