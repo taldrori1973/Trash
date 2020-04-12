@@ -1,0 +1,79 @@
+{
+  "setupId": "fullSetup",
+  "sites": [
+    {
+      "parent": "Default",
+      "name": "Alteon_for_DPM"
+    },
+    {
+      "parent": "Default",
+      "name": "Alteons_for_DPM-Fakes"
+    },
+    {
+      "parent": "Default",
+      "name": "AW_site"
+    },
+    {
+      "parent": "Default",
+      "name": "FakeDPs_Old_Version_site"
+    },
+    {
+      "parent": "Default",
+      "name": "RealDPs_Version_8_site"
+    },
+    {
+      "parent": "Default",
+      "name": "VA_DPs_Version_8_site"
+    },
+    {
+      "parent": "Default",
+      "name": "VA_LP_site"
+    }
+  ],
+  "devices": [
+    {
+      "deviceId": "Alteon_172.16.100.103",
+      "parentSite": "Alteon_for_DPM"
+    },
+    {
+      "deviceId": "Alteon_172.16.101.103",
+      "parentSite": "Alteon_for_DPM"
+    },
+    {
+      "deviceId": "Alteon_50.50.101.11",
+      "parentSite": "Alteons_for_DPM-Fakes"
+    },
+    {
+      "deviceId": "Alteon_50.50.101.21",
+      "parentSite": "Alteons_for_DPM-Fakes"
+    },
+    {
+      "deviceId": "Alteon_50.50.101.22",
+      "parentSite": "Alteons_for_DPM-Fakes"
+    },
+    {
+      "deviceId": "LinkProof NG_172.17.154.190",
+      "parentSite": "VA_LP_site"
+    },
+    {
+      "deviceId": "LinkProof NG_172.17.154.200",
+      "parentSite": "VA_LP_site"
+    },
+    {
+      "deviceId": "DefensePro_172.16.22.50",
+      "parentSite": "RealDPs_Version_8_site"
+    },
+    {
+      "deviceId": "DefensePro_172.16.22.51",
+      "parentSite": "RealDPs_Version_8_site"
+    },
+    {
+      "deviceId": "DefensePro_172.16.22.55",
+      "parentSite": "VA_DPs_Version_8_site"
+    },
+    {
+      "deviceId": "AppWall_172.17.164.30",
+      "parentSite": "AW_site"
+    }
+  ]
+}
