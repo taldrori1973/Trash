@@ -69,7 +69,7 @@
       },
       {
         "deviceId": "Alteon_50.50.101.11",
-        "deviceSetId": "Alteon_Set_Simulators",
+        "deviceSetId": "Alteon_Set_Simulators_1",
         "configurations": {
           "name": "Alteon_50.50.101.11",
           "parentOrmID": null,
@@ -102,7 +102,7 @@
       },
       {
         "deviceId": "Alteon_50.50.101.21",
-        "deviceSetId": "Alteon_Set_Simulators",
+        "deviceSetId": "Alteon_Set_Simulators_2",
         "configurations": {
           "name": "Alteon_50.50.101.21",
           "parentOrmID": null,
@@ -135,7 +135,7 @@
       },
       {
         "deviceId": "Alteon_50.50.101.22",
-        "deviceSetId": "Alteon_Set_Simulators",
+        "deviceSetId": "Alteon_Set_Simulators_3",
         "configurations": {
           "name": "Alteon_50.50.101.22",
           "parentOrmID": null,
@@ -238,6 +238,7 @@
     "defensePros": [
       {
         "deviceId": "DefensePro_172.16.22.50",
+        "deviceSetId": "DefensePro_Set_1",
         "configurations": {
           "name": "DefensePro_172.16.22.50",
           "parentOrmID": null,
@@ -270,6 +271,7 @@
       },
       {
         "deviceId": "DefensePro_172.16.22.51",
+        "deviceSetId": "DefensePro_Set_2",
         "configurations": {
           "name": "DefensePro_172.16.22.51",
           "parentOrmID": null,
@@ -307,6 +309,7 @@
       },
       {
         "deviceId": "DefensePro_172.16.22.55",
+        "deviceSetId": "DefensePro_Set_3",
         "configurations": {
           "name": "DefensePro_172.16.22.55",
           "parentOrmID": null,
@@ -341,6 +344,7 @@
     "appWalls": [
       {
         "deviceId": "AppWall_172.17.164.30",
+        "deviceSetId": "AppWall_Set_1",
         "configurations": {
           "name": "AppWall_172.17.164.30",
           "parentOrmID": null,
