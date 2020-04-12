@@ -1,4 +1,4 @@
-package com.radware.vision.automation.AutoUtils.SUT;
+package com.radware.vision.automation.AutoUtils.SUT.enums;
 
 public enum DeviceType {
 
