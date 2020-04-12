@@ -16,7 +16,7 @@ public class DevicesRepository {
             case ALTEON:
                 return devices.getTreeDevices().getAlteons();
             case LINK_PROOF:
-                return devices.getTreeDevices().getLinkProofs()
+                return devices.getTreeDevices().getLinkProofs();
             case DEFENSE_PRO:
                 return devices.getTreeDevices().getDefensePros();
             case APPWALL:
