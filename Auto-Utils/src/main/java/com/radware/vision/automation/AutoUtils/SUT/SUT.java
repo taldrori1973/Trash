@@ -67,7 +67,7 @@ public class SUT {
             if (matcher.matches())
                 return matcher.group(2);//return sut name
 
-            throw new IllegalFormatException(format("The sut vm option %s not matches the following pattern \"key=value\"", sutVmOption));
+            throw new IllegalArgumentException(format("The sut vm option %s not matches the following pattern \"key=value\"", sutVmOption));
         } catch (NoSuchFieldException e) {
             e.printStackTrace();
         }
