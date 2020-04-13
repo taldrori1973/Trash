@@ -11,7 +11,7 @@ public class SUT {
     private SUT() {
     }
 
-    public static public static SUT getInstance() {
+    public static SUT getInstance() {
         return instance;
     }
 }
