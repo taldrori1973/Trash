@@ -62,10 +62,12 @@ public class SUT {
 
             else sutVmOption = firstSut.get();
 
-            Pattern pattern = Pattern.compile("([^=]*)=([^=]*)");
+            Pattern pattern = Pattern.compile("([^=]*)=([^=]+)");
             Matcher matcher = pattern.matcher(sutVmOption);
             if (matcher.matches())
                 return matcher.group(2);//return sut name
+
+            throw new IllegalFormatException(format("The sut vm option %s not matches the following pattern \"key=value\"", sutVmOption));
         } catch (NoSuchFieldException e) {
             e.printStackTrace();
         }
