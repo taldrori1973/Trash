@@ -6,12 +6,12 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.lang.management.ManagementFactory;
 import java.lang.management.RuntimeMXBean;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Properties;
+import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+
+import static java.lang.String.format;
+import static java.util.Objects.isNull;
 
 @Data
 public class SUT {
@@ -42,15 +42,33 @@ public class SUT {
 //        Map<String, String> sutPaths = getSutProperties(sutArgument);
 
 
-        List<String> vmOptions = runtimeMXBean.getInputArguments();
     }
 
     private String getSUTFileName(Properties properties) {
-        String sutVmOption = properties.get(SUT_VM_OPTION_KEY_PROPERTY).toString();
-        Pattern pattern = Pattern.compile("([^=]*)=([^=]*)");
-        Matcher matcher = pattern.matcher(sutVmOption);
-        if (matcher.matches())
-            return matcher.group(2);
+        try {
+            String sutVmOption = null;//for example "-DSUT=example_sut.json"
+
+            String sutVmOptionKey = properties.getProperty(SUT_VM_OPTION_KEY_PROPERTY);//get the key of sut file in vm options for example : "-DSUT"
+
+            if (isNull(sutVmOptionKey))
+                throw new NoSuchFieldException(format("The Property %s not found at environment/application.properties file", SUT_VM_OPTION_KEY_PROPERTY));
+
+            List<String> vmOptions = runtimeMXBean.getInputArguments();//get vm options
+
+            Optional<String> firstSut = vmOptions.stream().filter(vmOption -> vmOption.startsWith(sutVmOptionKey)).findFirst();//get first option which start with the value of sutVmOptionKey
+
+            if (!firstSut.isPresent())
+                throw new NoSuchFieldException(format("No VM Option Was found which start with \"%s\"", sutVmOptionKey));
+
+            else sutVmOption = firstSut.get();
+
+            Pattern pattern = Pattern.compile("([^=]*)=([^=]*)");
+            Matcher matcher = pattern.matcher(sutVmOption);
+            if (matcher.matches())
+                return matcher.group(2);//return sut name
+        } catch (NoSuchFieldException e) {
+            e.printStackTrace();
+        }
 
         return null;
 
