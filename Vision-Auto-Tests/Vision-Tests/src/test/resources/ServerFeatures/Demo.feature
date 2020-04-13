@@ -4,6 +4,7 @@ Feature: Demo
 
 
   @SID_5
+  @run
   Scenario: Create Local User
 
     Given That Current Vision is Logged In
