@@ -1,7 +1,10 @@
 package com.radware.vision.automation.AutoUtils.SUT;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.radware.vision.automation.AutoUtils.SUT.repositories.pojos.devices.Devices;
 import lombok.Data;
 
+import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.lang.management.ManagementFactory;
@@ -25,6 +28,7 @@ public class SUT {
     private static final String SUT_FILES_PATH_PROPERTY = " SUT.path";
     private static final String SUT_SETUPS_FILES_PATH_PROPERTY = "SUT.setups.path";
     private static final String SUT_DEVICES_FILES_PATH_PROPERTY = "SUT.devices.path";
+    private static final String DEVICES_FILE_NAME = "devices.json";
 
 
     private static RuntimeMXBean runtimeMXBean = ManagementFactory.getRuntimeMXBean();
@@ -32,15 +36,20 @@ public class SUT {
 
 
     private SUT() {
+        try {
+            ObjectMapper objectMapper = new ObjectMapper();
+            Properties properties = loadApplicationProperties();//load environment/application.properties file from resources
 
-        Properties properties = loadApplicationProperties();//load environment/application.properties file from resources
 
+            String sutFileName = getSUTFileName(properties);
 
-        String sutFileName = getSUTFileName(properties);
-        String sutFileName1 = properties.getProperty("SUT.vmOptions.key");//returns the "-DSUT" as the key of the sut in vm options
+            Devices devices = objectMapper.readValue(
+                    new File(Objects.requireNonNull(getClass().getClassLoader().getResource(properties.getProperty(SUT_DEVICES_FILES_PATH_PROPERTY) + "/" + DEVICES_FILE_NAME)).getPath()),
+                    Devices.class);
 
-//        Map<String, String> sutPaths = getSutProperties(sutArgument);
-
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
 
     }
 
