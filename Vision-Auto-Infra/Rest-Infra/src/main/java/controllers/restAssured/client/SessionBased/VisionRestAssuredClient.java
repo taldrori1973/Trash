@@ -43,7 +43,7 @@ public class VisionRestAssuredClient extends RestAssuredSessionBasedRestClient {
     @Override
     public RestResponse login() {
         Response response = RestAssured.
-                given().filter(this.sessionFilter).contentType(ContentType.JSON).baseUri(this.baseUri).port(VISION_DEFAULT_PORT).body(this.authenticationRequestBody).basePath(VISION_LOGIN_PATH).
+                given().filter(this.sessionFilter).contentType(ContentType.JSON).baseUri(this.baseUri).port(this.connectionPort).body(this.authenticationRequestBody).basePath(VISION_LOGIN_PATH).
                 when().post().
                 then().extract().response();
 
@@ -60,7 +60,7 @@ public class VisionRestAssuredClient extends RestAssuredSessionBasedRestClient {
     public boolean isLoggedIn() {
         if (Objects.isNull(sessionId)) return false;
         Response response = RestAssured.
-                given().sessionId(this.sessionId).baseUri(this.baseUri).port(VISION_DEFAULT_PORT).basePath(VISION_INFO_PATH).
+                given().sessionId(this.sessionId).baseUri(this.baseUri).port(this.connectionPort).basePath(VISION_INFO_PATH).
                 when().get().
                 then().log().all().extract().response();
 
@@ -71,7 +71,7 @@ public class VisionRestAssuredClient extends RestAssuredSessionBasedRestClient {
     @Override
     public RestResponse logout() {
         Response response = RestAssured.
-                given().sessionId(this.sessionId).baseUri(this.baseUri).port(VISION_DEFAULT_PORT).basePath(VISION_LOGOUT_PATH).
+                given().sessionId(this.sessionId).baseUri(this.baseUri).port(this.connectionPort).basePath(VISION_LOGOUT_PATH).
                 when().post().
                 then().extract().response();
 
