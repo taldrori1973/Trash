@@ -1,6 +1,7 @@
 package com.radware.vision.automation.AutoUtils.SUT;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.radware.vision.automation.AutoUtils.SUT.dtos.DeviceDto;
 import com.radware.vision.automation.AutoUtils.SUT.dtos.SutDto;
 import com.radware.vision.automation.AutoUtils.SUT.repositories.pojos.devices.Devices;
 import com.radware.vision.automation.AutoUtils.SUT.repositories.pojos.setup.Setup;
@@ -139,5 +140,8 @@ public class SUTDaoImpl {
         return this.sutDto.getSites();
     }
 
+    public List<DeviceDto> getVisionSetupTreeDevices() {
+        return this.sutDto.getTreeDevices();
+    }
 
 }
