@@ -31,4 +31,8 @@ public class SetupRepository {
         return setup.getSites();
     }
 
+    public boolean isDeviceExistById(String deviceId) {
+        Optional<Device> filtered = this.setup.getDevices().stream().filter(device -> device.getDeviceId().equals(deviceId)).findFirst();
+        return filtered.isPresent();
+    }
 }
