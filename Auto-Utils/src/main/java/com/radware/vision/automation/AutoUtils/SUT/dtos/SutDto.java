@@ -8,6 +8,7 @@ import com.radware.vision.automation.AutoUtils.SUT.repositories.pojos.setup.Setu
 import com.radware.vision.automation.AutoUtils.SUT.repositories.pojos.setup.Site;
 import com.radware.vision.automation.AutoUtils.SUT.repositories.pojos.sut.SUTPojo;
 import com.radware.vision.automation.AutoUtils.SUT.repositories.pojos.sut.VisionConfiguration;
+import lombok.Getter;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.TypeToken;
 
@@ -17,10 +18,16 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 public class SutDto {
+    @Getter
     private String setupId;
+    @Getter
     private VisionConfiguration visionConfiguration;
+    @Getter
     private List<Site> sites;
+    @Getter
     private List<DeviceDto> treeDevices;
+
+
     private ModelMapper modelMapper;
     private DevicesRepository devicesRepository;
     private SetupRepository setupRepository;
@@ -45,6 +52,6 @@ public class SutDto {
         this.treeDevices.forEach(deviceDto -> {
             deviceDto.setParentSite(setupRepository.findDeviceById(deviceDto.getDeviceId()).get().getParentSite());
         });
-        System.out.println();
+
     }
 }

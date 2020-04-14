@@ -4,7 +4,9 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.radware.vision.automation.AutoUtils.SUT.dtos.SutDto;
 import com.radware.vision.automation.AutoUtils.SUT.repositories.pojos.devices.Devices;
 import com.radware.vision.automation.AutoUtils.SUT.repositories.pojos.setup.Setup;
+import com.radware.vision.automation.AutoUtils.SUT.repositories.pojos.setup.Site;
 import com.radware.vision.automation.AutoUtils.SUT.repositories.pojos.sut.SUTPojo;
+import com.radware.vision.automation.AutoUtils.SUT.repositories.pojos.sut.VisionConfiguration;
 
 import java.io.File;
 import java.io.IOException;
@@ -123,4 +125,19 @@ public class SUTDaoImpl {
     public static SUTDaoImpl getInstance() {
         return instance;
     }
+
+    //    Interface Impl
+    public String getSetupId() {
+        return this.sutDto.getSetupId();
+    }
+
+    public VisionConfiguration getVisionConfiguration() {
+        return this.sutDto.getVisionConfiguration();
+    }
+
+    public List<Site> getVisionSetupSites() {
+        return this.sutDto.getSites();
+    }
+
+
 }
