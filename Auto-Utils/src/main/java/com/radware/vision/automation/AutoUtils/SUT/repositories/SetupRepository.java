@@ -11,6 +11,10 @@ public class SetupRepository {
 
     private Setup setup;
 
+    public SetupRepository(Setup setup) {
+        this.setup = setup;
+    }
+
     public Optional<Site> findSiteByName(String siteName) {
         return setup.getSites().stream().filter(site -> site.getName().equals(siteName)).findAny();
     }
