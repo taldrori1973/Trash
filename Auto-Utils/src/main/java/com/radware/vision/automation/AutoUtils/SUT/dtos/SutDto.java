@@ -10,11 +10,13 @@ import com.radware.vision.automation.AutoUtils.SUT.repositories.pojos.sut.Vision
 import java.util.List;
 
 public class SutDto {
-    private VisionConfiguration visionConfiguration;
     private String setupId;
+    private VisionConfiguration visionConfiguration;
     private List<Site> sites;
     private List<Device> treeDevices;
 
     public SutDto(Devices allDevices, SUTPojo sutPojo, Setup setup) {
+        this.setupId = setup.getSetupId();
+        
     }
 }

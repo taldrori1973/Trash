@@ -4,7 +4,7 @@ import lombok.Data;
 
 @Data
 public class SUTPojo {
-    private String setup;
+    private String setupFile;
     private VisionConfiguration visionConfiguration;
 
 }

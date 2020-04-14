@@ -1,5 +1,5 @@
 {
-  "setup": "fullSetup.json",
+  "setupFile": "fullSetup.json",
   "visionConfiguration": {
     "hostIp": "172.17.192.100",
     "userName": "radware",
