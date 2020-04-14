@@ -1,10 +1,8 @@
 package com.radware.vision.automation.AutoUtils.SUT;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.radware.vision.automation.AutoUtils.SUT.repositories.pojos.devices.Devices;
 import lombok.Data;
 
-import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.lang.management.ManagementFactory;
@@ -43,14 +41,16 @@ public class SUT {
 
             String sutFileName = getSUTFileName(properties);
 
-            Devices devices = objectMapper.readValue(
-                    new File(Objects.requireNonNull(getClass().getClassLoader().getResource(properties.getProperty(SUT_DEVICES_FILES_PATH_PROPERTY) + "/" + DEVICES_FILE_NAME)).getPath()),
-                    Devices.class);
+
 
         } catch (IOException e) {
             e.printStackTrace();
         }
 
+    }
+
+    private String getResourcesPath(String name) {
+        return Objects.requireNonNull(getClass().getClassLoader().getResource(name)).getPath();
     }
 
     private String getSUTFileName(Properties properties) {
