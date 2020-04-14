@@ -15,10 +15,6 @@
     },
     {
       "parent": "Default",
-      "name": "FakeDPs_Old_Version_site"
-    },
-    {
-      "parent": "Default",
       "name": "RealDPs_Version_8_site"
     },
     {
