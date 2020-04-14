@@ -54,7 +54,7 @@ public class SUTDaoImpl {
             );
 
             Setup setup = objectMapper.readValue(
-                    new File(getResourcesPath(format("%s/%s", properties.getProperty(SUT_SETUPS_FILES_PATH_PROPERTY), sutPojo.getSetup()))), Setup.class
+                    new File(getResourcesPath(format("%s/%s", properties.getProperty(SUT_SETUPS_FILES_PATH_PROPERTY), sutPojo.getSetupFile()))), Setup.class
             );
 
             this.sutDto = new SutDto(allDevices, sutPojo, setup);
