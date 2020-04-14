@@ -27,7 +27,7 @@ public class SUT {
 //    SUT.devices.path=\\sut\\devices
 
     private static final String SUT_VM_OPTION_KEY_PROPERTY = "SUT.vmOptions.key";
-    private static final String SUT_FILES_PATH_PROPERTY = " SUT.path";
+    private static final String SUT_FILES_PATH_PROPERTY = "SUT.path";
     private static final String SUT_SETUPS_FILES_PATH_PROPERTY = "SUT.setups.path";
     private static final String SUT_DEVICES_FILES_PATH_PROPERTY = "SUT.devices.path";
     private static final String DEVICES_FILE_NAME = "devices.json";
