@@ -14,6 +14,7 @@ import org.modelmapper.TypeToken;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class SutDto {
     private String setupId;
@@ -35,11 +36,12 @@ public class SutDto {
         this.visionConfiguration = modelMapper.map(sutPojo.getVisionConfiguration(), VisionConfiguration.class);
         this.sites = setup.getSites();
 
-        devicesRepository.findAllDevices().stream().filter(device -> setupRepository.isDeviceExistById(device.getDeviceId()));
+        currentSutDevices = devicesRepository.findAllDevices().stream().filter(device -> setupRepository.isDeviceExistById(device.getDeviceId())).collect(Collectors.toList());
+
         Type listType = new TypeToken<List<DeviceDto>>() {
         }.getType();
 
-        this.treeDevices = modelMapper.map(devicesRepository.findAllDevices(), listType);
+        this.treeDevices = modelMapper.map(currentSutDevices, listType);
         this.treeDevices.forEach(deviceDto -> {
             deviceDto.setParentSite(setupRepository.findDeviceById(deviceDto.getDeviceId()).get().getParentSite());
         });
