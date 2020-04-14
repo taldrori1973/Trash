@@ -2,9 +2,10 @@
 @TC113068
 Feature: Demo
 
-
-  @SID_5
   @run
+  Scenario: Demo
+    Then SUT Test
+  @SID_5
   Scenario: Create Local User
 
     Given That Current Vision is Logged In

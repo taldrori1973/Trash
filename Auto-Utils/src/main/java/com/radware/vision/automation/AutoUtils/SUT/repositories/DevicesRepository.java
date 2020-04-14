@@ -4,6 +4,7 @@ import com.radware.vision.automation.AutoUtils.SUT.enums.DeviceType;
 import com.radware.vision.automation.AutoUtils.SUT.repositories.pojos.devices.Device;
 import com.radware.vision.automation.AutoUtils.SUT.repositories.pojos.devices.Devices;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
@@ -11,6 +12,10 @@ import java.util.Optional;
 public class DevicesRepository {
 
     private Devices devices;
+
+    public DevicesRepository(Devices allDevices) {
+        this.devices = allDevices;
+    }
 
     public Optional<Device> findDeviceById(String deviceId) {
 
@@ -47,5 +52,15 @@ public class DevicesRepository {
         }
     }
 
+
+    public List<Device> findAllDevices() {
+
+        List<Device> allDevices = new ArrayList<>();
+        allDevices.addAll(devices.getTreeDevices().getAlteons());
+        allDevices.addAll(devices.getTreeDevices().getLinkProofs());
+        allDevices.addAll(devices.getTreeDevices().getDefensePros());
+        allDevices.addAll(devices.getTreeDevices().getAppWalls());
+        return allDevices;
+    }
 
 }

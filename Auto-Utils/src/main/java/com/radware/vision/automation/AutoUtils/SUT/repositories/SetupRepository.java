@@ -11,6 +11,10 @@ public class SetupRepository {
 
     private Setup setup;
 
+    public SetupRepository(Setup setup) {
+        this.setup = setup;
+    }
+
     public Optional<Site> findSiteByName(String siteName) {
         return setup.getSites().stream().filter(site -> site.getName().equals(siteName)).findAny();
     }
@@ -27,4 +31,8 @@ public class SetupRepository {
         return setup.getSites();
     }
 
+    public boolean isDeviceExistById(String deviceId) {
+        Optional<Device> filtered = this.setup.getDevices().stream().filter(device -> device.getDeviceId().equals(deviceId)).findFirst();
+        return filtered.isPresent();
+    }
 }

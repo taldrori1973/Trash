@@ -15,10 +15,6 @@
     },
     {
       "parent": "Default",
-      "name": "FakeDPs_Old_Version_site"
-    },
-    {
-      "parent": "Default",
       "name": "RealDPs_Version_8_site"
     },
     {
@@ -45,10 +41,6 @@
     },
     {
       "deviceId": "Alteon_50.50.101.21",
-      "parentSite": "Alteons_for_DPM-Fakes"
-    },
-    {
-      "deviceId": "Alteon_50.50.101.22",
       "parentSite": "Alteons_for_DPM-Fakes"
     },
     {
