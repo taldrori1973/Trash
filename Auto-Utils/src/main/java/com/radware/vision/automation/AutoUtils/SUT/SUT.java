@@ -45,15 +45,15 @@ public class SUT {
 
             String sutFileName = getSUTFileName(properties);
             Devices allDevices = objectMapper.readValue(
-                    new File(getResourcesPath(format("%s/%s", SUT_DEVICES_FILES_PATH_PROPERTY, DEVICES_FILE_NAME))), Devices.class
+                    new File(getResourcesPath(format("%s/%s", properties.getProperty(SUT_DEVICES_FILES_PATH_PROPERTY), DEVICES_FILE_NAME))), Devices.class
             );
 
             SUTPojo sutPojo = objectMapper.readValue(
-                    new File(getResourcesPath(format("%s/%s", SUT_FILES_PATH_PROPERTY, sutFileName))), SUTPojo.class
+                    new File(getResourcesPath(format("%s/%s", properties.getProperty(SUT_FILES_PATH_PROPERTY), sutFileName))), SUTPojo.class
             );
 
             Setup setup = objectMapper.readValue(
-                    new File(getResourcesPath(format("%s/%s", SUT_SETUPS_FILES_PATH_PROPERTY, sutPojo.getSetup()))), Setup.class
+                    new File(getResourcesPath(format("%s/%s", properties.getProperty(SUT_SETUPS_FILES_PATH_PROPERTY), sutPojo.getSetup()))), Setup.class
             );
 
         } catch (IOException e) {
