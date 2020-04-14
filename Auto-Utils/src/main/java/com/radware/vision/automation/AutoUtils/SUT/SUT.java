@@ -2,6 +2,7 @@ package com.radware.vision.automation.AutoUtils.SUT;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.radware.vision.automation.AutoUtils.SUT.repositories.pojos.devices.Devices;
+import com.radware.vision.automation.AutoUtils.SUT.repositories.pojos.setup.Setup;
 import com.radware.vision.automation.AutoUtils.SUT.repositories.pojos.sut.SUTPojo;
 import lombok.Data;
 
@@ -49,6 +50,10 @@ public class SUT {
 
             SUTPojo sutPojo = objectMapper.readValue(
                     new File(getResourcesPath(format("%s/%s", SUT_FILES_PATH_PROPERTY, sutFileName))), SUTPojo.class
+            );
+
+            Setup setup = objectMapper.readValue(
+                    new File(getResourcesPath(format("%s/%s", SUT_SETUPS_FILES_PATH_PROPERTY, sutPojo.getSetup()))), Setup.class
             );
 
         } catch (IOException e) {
