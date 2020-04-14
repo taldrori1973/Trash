@@ -1,6 +1,7 @@
 package com.radware.vision.automation.AutoUtils.SUT;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.radware.vision.automation.AutoUtils.SUT.dtos.SutDto;
 import com.radware.vision.automation.AutoUtils.SUT.repositories.pojos.devices.Devices;
 import com.radware.vision.automation.AutoUtils.SUT.repositories.pojos.setup.Setup;
 import com.radware.vision.automation.AutoUtils.SUT.repositories.pojos.sut.SUTPojo;
@@ -35,6 +36,7 @@ public class SUTDaoImpl {
     private static RuntimeMXBean runtimeMXBean = ManagementFactory.getRuntimeMXBean();
     private static final SUTDaoImpl instance = new SUTDaoImpl();
 
+    private SutDto sutDto;
 
     private SUTDaoImpl() {
         try {
@@ -55,6 +57,7 @@ public class SUTDaoImpl {
                     new File(getResourcesPath(format("%s/%s", properties.getProperty(SUT_SETUPS_FILES_PATH_PROPERTY), sutPojo.getSetup()))), Setup.class
             );
 
+            this.sutDto = new SutDto(allDevices, sutPojo, setup);
         } catch (IOException e) {
             e.printStackTrace();
         }
