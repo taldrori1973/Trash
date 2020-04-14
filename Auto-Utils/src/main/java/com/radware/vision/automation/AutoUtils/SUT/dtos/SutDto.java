@@ -7,7 +7,9 @@ import com.radware.vision.automation.AutoUtils.SUT.repositories.pojos.setup.Site
 import com.radware.vision.automation.AutoUtils.SUT.repositories.pojos.sut.SUTPojo;
 import com.radware.vision.automation.AutoUtils.SUT.repositories.pojos.sut.VisionConfiguration;
 import org.modelmapper.ModelMapper;
+import org.modelmapper.TypeToken;
 
+import java.lang.reflect.Type;
 import java.util.List;
 
 public class SutDto {
@@ -24,6 +26,10 @@ public class SutDto {
         this.setupId = setup.getSetupId();
         this.visionConfiguration = modelMapper.map(sutPojo.getVisionConfiguration(), VisionConfiguration.class);
         this.sites = setup.getSites();
-        this.treeDevices = devicesRepository.findAllDevices();
+        Type listType = new TypeToken<List<DeviceDto>>() {
+        }.getType();
+
+        this.treeDevices = modelMapper.map(devicesRepository.findAllDevices(), listType);
+        this.treeDevices = modelMapper.map(setup.getDevices(), listType);
     }
 }
