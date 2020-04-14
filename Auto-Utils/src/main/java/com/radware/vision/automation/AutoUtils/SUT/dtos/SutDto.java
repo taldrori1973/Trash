@@ -17,6 +17,6 @@ public class SutDto {
 
     public SutDto(Devices allDevices, SUTPojo sutPojo, Setup setup) {
         this.setupId = setup.getSetupId();
-        
+
     }
 }
