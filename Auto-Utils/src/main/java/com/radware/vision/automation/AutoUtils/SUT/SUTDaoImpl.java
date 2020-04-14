@@ -4,7 +4,6 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.radware.vision.automation.AutoUtils.SUT.repositories.pojos.devices.Devices;
 import com.radware.vision.automation.AutoUtils.SUT.repositories.pojos.setup.Setup;
 import com.radware.vision.automation.AutoUtils.SUT.repositories.pojos.sut.SUTPojo;
-import lombok.Data;
 
 import java.io.File;
 import java.io.IOException;
@@ -18,13 +17,13 @@ import java.util.regex.Pattern;
 import static java.lang.String.format;
 import static java.util.Objects.isNull;
 
-@Data
-public class SUT {
 
-//    SUT.vmOptions.key=-DSUT
-//    SUT.path=\\sut
-//    SUT.setups.path=\\sut\\setups
-//    SUT.devices.path=\\sut\\devices
+public class SUTDaoImpl {
+
+//    SUTDaoImpl.vmOptions.key=-DSUT
+//    SUTDaoImpl.path=\\sut
+//    SUTDaoImpl.setups.path=\\sut\\setups
+//    SUTDaoImpl.devices.path=\\sut\\devices
 
     private static final String SUT_VM_OPTION_KEY_PROPERTY = "SUT.vmOptions.key";
     private static final String SUT_FILES_PATH_PROPERTY = "SUT.path";
@@ -34,10 +33,10 @@ public class SUT {
 
 
     private static RuntimeMXBean runtimeMXBean = ManagementFactory.getRuntimeMXBean();
-    private static final SUT instance = new SUT();
+    private static final SUTDaoImpl instance = new SUTDaoImpl();
 
 
-    private SUT() {
+    private SUTDaoImpl() {
         try {
             ObjectMapper objectMapper = new ObjectMapper();
             Properties properties = loadApplicationProperties();//load environment/application.properties file from resources
@@ -117,7 +116,7 @@ public class SUT {
         return properties;
     }
 
-    public static SUT getInstance() {
+    public static SUTDaoImpl getInstance() {
         return instance;
     }
 }
