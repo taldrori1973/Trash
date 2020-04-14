@@ -22,7 +22,7 @@ public class SutDto {
 
     public SutDto(Devices allDevices, SUTPojo sutPojo, Setup setup) {
         this.modelMapper = new ModelMapper();
-        this.devicesRepository = new DevicesRepository();
+        this.devicesRepository = new DevicesRepository(allDevices);
         this.setupId = setup.getSetupId();
         this.visionConfiguration = modelMapper.map(sutPojo.getVisionConfiguration(), VisionConfiguration.class);
         this.sites = setup.getSites();
@@ -31,5 +31,6 @@ public class SutDto {
 
         this.treeDevices = modelMapper.map(devicesRepository.findAllDevices(), listType);
         this.treeDevices = modelMapper.map(setup.getDevices(), listType);
+        System.out.println();
     }
 }

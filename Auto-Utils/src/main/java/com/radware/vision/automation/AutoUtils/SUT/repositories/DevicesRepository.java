@@ -13,6 +13,10 @@ public class DevicesRepository {
 
     private Devices devices;
 
+    public DevicesRepository(Devices allDevices) {
+        this.devices = allDevices;
+    }
+
     public Optional<Device> findDeviceById(String deviceId) {
 
         Optional<Device> deviceFound = devices.getTreeDevices().getAppWalls().stream().filter(device -> deviceId.equals(device.getDeviceId())).findFirst();
