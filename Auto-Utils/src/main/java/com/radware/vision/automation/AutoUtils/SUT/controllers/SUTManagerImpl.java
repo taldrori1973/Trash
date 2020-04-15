@@ -33,7 +33,7 @@ public class SUTManagerImpl implements SUTManager {
     private static final String SUT_FILES_PATH_PROPERTY = "SUT.path";
     private static final String SUT_SETUPS_FILES_PATH_PROPERTY = "SUT.setups.path";
     private static final String SUT_DEVICES_FILES_PATH_PROPERTY = "SUT.devices.path";
-    private static final String DEVICES_FILE_NAME = "treeDeviceNodes.json";
+    private static final String DEVICES_FILE_NAME = "devices.json";
 
 
     private ApplicationPropertiesUtils applicationPropertiesUtils;
@@ -46,8 +46,8 @@ public class SUTManagerImpl implements SUTManager {
         this.applicationPropertiesUtils = new ApplicationPropertiesUtils("environment/application.properties");
         this.runtimeVMOptions = new RuntimeVMOptions();
 
-        String sutFileName = getSUTFileName();
 
+        String sutFileName = getSUTFileName();
         Devices allDevices = loadJsonFile(SUT_DEVICES_FILES_PATH_PROPERTY, DEVICES_FILE_NAME, Devices.class);
 
         SUTPojo sutPojo = loadJsonFile(SUT_FILES_PATH_PROPERTY, sutFileName, SUTPojo.class);
