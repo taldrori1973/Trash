@@ -22,7 +22,7 @@ import static java.lang.String.format;
 import static java.util.Objects.isNull;
 
 
-public class SUTManagerImpl {
+public class SUTManagerImpl implements SUTManager {
 
 //    SUTManagerImpl.vmOptions.key=-DSUT
 //    SUTManagerImpl.path=\\sut

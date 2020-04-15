@@ -37,7 +37,6 @@ import com.radware.restcore.VisionRestClient;
 import com.radware.urlbuilder.vision.VisionUrlPath;
 import com.radware.utils.DeviceUtils;
 import com.radware.utils.TreeUtils;
-import com.radware.vision.automation.AutoUtils.SUT.SUTDaoImpl;
 import com.radware.vision.automation.tools.sutsystemobjects.devicesinfo.DevicesManager;
 import com.radware.vision.infra.enums.DeviceDriverType;
 import com.radware.vision.infra.testhandlers.BaseHandler;
@@ -225,7 +224,6 @@ public abstract class WebUITestBase extends SystemTestCase4 {
 
     public void coreInit() throws Exception {
         if (!isRestInit) {
-            SUTDaoImpl.getInstance();
             isRestInit = true;
 
             devicesManager = DevicesManager.getInstance("devices");
