@@ -19,4 +19,8 @@ public class RuntimeVMOptions {
     public String getValueByKey(String key) {
         return this.vmOptions.get(key);
     }
+
+    public String getSUTFileName(String sutKey) {
+        return this.getValueByKey(sutKey);
+    }
 }

@@ -81,6 +81,17 @@ public class SUTManagerImpl implements SUTManager {
 
     private String getSUTFileName(Properties properties) {
         try {
+            String sutVmOptionsKey = this.applicationPropertiesUtils.getProperty(SUT_VM_OPTION_KEY_PROPERTY);
+            if (isNull(sutVmOptionsKey) || sutVmOptionsKey.isEmpty()) {
+                throw new NoSuchFieldException(format("The Property %s not found at environment/application.properties file", SUT_VM_OPTION_KEY_PROPERTY));
+            }
+
+            String sutFileName = this.runtimeVMOptions.getSUTFileName(sutVmOptionsKey);
+
+            if (isNull(sutFileName) || sutFileName.isEmpty()) {
+                throw new NoSuchFieldException(format("The Property %s not found at environment/application.properties file", SUT_VM_OPTION_KEY_PROPERTY));
+
+            }
             String sutVmOption = null;//for example "-DSUT=example_sut.json"
 
             String sutVmOptionKey = properties.getProperty(SUT_VM_OPTION_KEY_PROPERTY);//get the key of sut file in vm options for example : "-DSUT"
