@@ -3,6 +3,10 @@
   "visionConfiguration": {
     "hostIp": "172.17.192.100",
     "userName": "radware",
-    "password": "radware"
+    "password": "radware",
+    "restConnection": {
+      "defaultPort": 80,
+      "defaultProtocol": "http"
+    }
   }
 }
