@@ -13,7 +13,7 @@ public class SutUtils {
 
     public static String getCurrentVisionRestProtocol() {
         String restProtocol = WebUITestBase.getRestTestBase().getVisionlab().visionServer.getRestProtocol();
-        if (isNull(restProtocol) || isEmpty(restProtocol) || isBlank(restProtocol)) return "HTTPS";
+        if (isNull(restProtocol) || isEmpty(restProtocol) || isBlank(restProtocol)) return "HTTP";
         return restProtocol;
     }
 

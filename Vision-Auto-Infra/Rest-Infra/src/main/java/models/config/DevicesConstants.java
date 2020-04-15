@@ -6,7 +6,7 @@ public interface DevicesConstants {
 
 
     //VISION
-    int VISION_DEFAULT_PORT = 443;
+    int VISION_DEFAULT_PORT =80;
     String VISION_LOGIN_PATH = "/mgmt/system/user/login";
     String VISION_LOGOUT_PATH = "/mgmt/system/user/logout";
     String VISION_INFO_PATH = "/mgmt/system/user/info?showpolicies=true";

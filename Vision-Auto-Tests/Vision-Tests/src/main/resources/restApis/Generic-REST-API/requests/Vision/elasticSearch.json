@@ -1,0 +1,36 @@
+{
+  "deviceName": "Vision",
+  "fileName": "elasticSearch",
+  "description": "elasticsearch",
+  "api": [
+    {
+      "label": "Delete Index",
+      "method": "DELETE",
+      "basePath": "/new-es/{indexName}",
+      "produces": "application/json",
+      "description": "delete index "
+    },
+    {
+      "label": "Delete doucument by query ",
+      "method": "DELETE",
+      "basePath": "/new-es/%{indexName}/_delete_by_query?pretty=true",
+      "produces": "application/json",
+      "description": "delete document by query "
+    },
+    {
+      "label": "Get Index",
+      "method": "GET",
+      "basePath": "/new-es/{indexName}",
+      "produces": "application/json",
+      "description": "get index "
+    },
+    {
+      "label": "Get Index",
+      "method": "GET",
+      "basePath": "/new-es/{indexName}",
+      "produces": "application/json",
+      "description": "get index "
+    }
+  ]
+}
+
