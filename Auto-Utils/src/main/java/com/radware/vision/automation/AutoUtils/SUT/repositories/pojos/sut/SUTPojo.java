@@ -6,6 +6,5 @@ import lombok.Data;
 public class SUTPojo {
     private String setupFile;
     private VisionConfiguration visionConfiguration;
-    private RestConnection restConnection;
 
 }

@@ -8,5 +8,6 @@ public class VisionConfiguration {
     private String hostIp;
     private String userName;
     private String password;
+    private RestConnection restConnection;
 
 }
