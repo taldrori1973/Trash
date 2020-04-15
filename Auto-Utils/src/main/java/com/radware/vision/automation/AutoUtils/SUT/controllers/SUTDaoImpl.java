@@ -1,0 +1,147 @@
+package com.radware.vision.automation.AutoUtils.SUT.controllers;
+
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.radware.vision.automation.AutoUtils.SUT.dtos.DeviceDto;
+import com.radware.vision.automation.AutoUtils.SUT.dtos.SutDto;
+import com.radware.vision.automation.AutoUtils.SUT.repositories.pojos.devices.Devices;
+import com.radware.vision.automation.AutoUtils.SUT.repositories.pojos.setup.Setup;
+import com.radware.vision.automation.AutoUtils.SUT.repositories.pojos.setup.Site;
+import com.radware.vision.automation.AutoUtils.SUT.repositories.pojos.sut.SUTPojo;
+import com.radware.vision.automation.AutoUtils.SUT.repositories.pojos.sut.VisionConfiguration;
+
+import java.io.File;
+import java.io.IOException;
+import java.io.InputStream;
+import java.lang.management.ManagementFactory;
+import java.lang.management.RuntimeMXBean;
+import java.util.*;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
+import static java.lang.String.format;
+import static java.util.Objects.isNull;
+
+
+public class SUTDaoImpl {
+
+//    SUTDaoImpl.vmOptions.key=-DSUT
+//    SUTDaoImpl.path=\\sut
+//    SUTDaoImpl.setups.path=\\sut\\setups
+//    SUTDaoImpl.treeDeviceNodes.path=\\sut\\treeDeviceNodes
+
+    private static final String SUT_VM_OPTION_KEY_PROPERTY = "SUT.vmOptions.key";
+    private static final String SUT_FILES_PATH_PROPERTY = "SUT.path";
+    private static final String SUT_SETUPS_FILES_PATH_PROPERTY = "SUT.setups.path";
+    private static final String SUT_DEVICES_FILES_PATH_PROPERTY = "SUT.devices.path";
+    private static final String DEVICES_FILE_NAME = "treeDeviceNodes.json";
+
+
+    private static RuntimeMXBean runtimeMXBean = ManagementFactory.getRuntimeMXBean();
+    private static final SUTDaoImpl instance = new SUTDaoImpl();
+
+    private SutDto sutDto;
+
+    private SUTDaoImpl() {
+        try {
+            ObjectMapper objectMapper = new ObjectMapper();
+            Properties properties = loadApplicationProperties();//load environment/application.properties file from resources
+
+
+            String sutFileName = getSUTFileName(properties);
+            Devices allDevices = objectMapper.readValue(
+                    new File(getResourcesPath(format("%s/%s", properties.getProperty(SUT_DEVICES_FILES_PATH_PROPERTY), DEVICES_FILE_NAME))), Devices.class
+            );
+
+            SUTPojo sutPojo = objectMapper.readValue(
+                    new File(getResourcesPath(format("%s/%s", properties.getProperty(SUT_FILES_PATH_PROPERTY), sutFileName))), SUTPojo.class
+            );
+
+            Setup setup = objectMapper.readValue(
+                    new File(getResourcesPath(format("%s/%s", properties.getProperty(SUT_SETUPS_FILES_PATH_PROPERTY), sutPojo.getSetupFile()))), Setup.class
+            );
+
+
+            this.sutDto = new SutDto(allDevices, sutPojo, setup);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+    }
+
+    private String getResourcesPath(String name) {
+        return Objects.requireNonNull(getClass().getClassLoader().getResource(name)).getPath();
+    }
+
+    private String getSUTFileName(Properties properties) {
+        try {
+            String sutVmOption = null;//for example "-DSUT=example_sut.json"
+
+            String sutVmOptionKey = properties.getProperty(SUT_VM_OPTION_KEY_PROPERTY);//get the key of sut file in vm options for example : "-DSUT"
+
+            if (isNull(sutVmOptionKey))
+                throw new NoSuchFieldException(format("The Property %s not found at environment/application.properties file", SUT_VM_OPTION_KEY_PROPERTY));
+
+            List<String> vmOptions = runtimeMXBean.getInputArguments();//get vm options
+
+            Optional<String> firstSut = vmOptions.stream().filter(vmOption -> vmOption.startsWith(sutVmOptionKey)).findFirst();//get first option which start with the value of sutVmOptionKey
+
+            if (!firstSut.isPresent())
+                throw new NoSuchFieldException(format("No VM Option Was found which start with \"%s\"", sutVmOptionKey));
+
+            else sutVmOption = firstSut.get();
+
+            Pattern pattern = Pattern.compile("([^=]*)=([^=]+)");
+            Matcher matcher = pattern.matcher(sutVmOption);
+            if (matcher.matches())
+                return matcher.group(2);//return sut name
+
+            throw new IllegalArgumentException(format("The sut vm option %s not matches the following pattern \"key=value\"", sutVmOption));
+        } catch (NoSuchFieldException e) {
+            e.printStackTrace();
+        }
+
+        return null;
+
+    }
+
+
+    private Map<String, String> getSutPaths(String sutArgument) {
+        Map<String, String> pathsMap = new HashMap<>();
+        return pathsMap;
+    }
+
+    private Properties loadApplicationProperties() {
+        Properties properties = new Properties();
+
+        try (InputStream inputStream = getClass().getClassLoader().getResourceAsStream("environment/application.properties")) {
+            properties.load(inputStream);
+
+        } catch (IOException e) {
+            System.err.println(e.getMessage());
+            e.printStackTrace();
+        }
+        return properties;
+    }
+
+    public static SUTDaoImpl getInstance() {
+        return instance;
+    }
+
+    //    Interface Impl
+    public String getSetupId() {
+        return this.sutDto.getSetupId();
+    }
+
+    public VisionConfiguration getVisionConfiguration() {
+        return this.sutDto.getVisionConfiguration();
+    }
+
+    public List<Site> getVisionSetupSites() {
+        return this.sutDto.getSites();
+    }
+
+    public List<DeviceDto> getVisionSetupTreeDevices() {
+        return this.sutDto.getTreeDevices();
+    }
+
+}
