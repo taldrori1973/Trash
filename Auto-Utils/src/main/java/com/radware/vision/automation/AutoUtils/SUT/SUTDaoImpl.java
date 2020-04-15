@@ -27,13 +27,13 @@ public class SUTDaoImpl {
 //    SUTDaoImpl.vmOptions.key=-DSUT
 //    SUTDaoImpl.path=\\sut
 //    SUTDaoImpl.setups.path=\\sut\\setups
-//    SUTDaoImpl.devices.path=\\sut\\devices
+//    SUTDaoImpl.treeDeviceNodes.path=\\sut\\treeDeviceNodes
 
     private static final String SUT_VM_OPTION_KEY_PROPERTY = "SUT.vmOptions.key";
     private static final String SUT_FILES_PATH_PROPERTY = "SUT.path";
     private static final String SUT_SETUPS_FILES_PATH_PROPERTY = "SUT.setups.path";
     private static final String SUT_DEVICES_FILES_PATH_PROPERTY = "SUT.devices.path";
-    private static final String DEVICES_FILE_NAME = "devices.json";
+    private static final String DEVICES_FILE_NAME = "treeDeviceNodes.json";
 
 
     private static RuntimeMXBean runtimeMXBean = ManagementFactory.getRuntimeMXBean();
