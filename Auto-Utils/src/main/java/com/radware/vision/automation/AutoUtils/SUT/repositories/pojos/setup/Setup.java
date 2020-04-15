@@ -9,6 +9,7 @@ import java.util.List;
 public class Setup {
 
     private String setupId;
+    private Tree tree;
     private List<Site> sites;
     private List<Device> devices;
 
