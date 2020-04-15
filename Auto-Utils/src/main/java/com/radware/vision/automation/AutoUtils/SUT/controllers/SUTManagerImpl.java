@@ -13,8 +13,6 @@ import com.radware.vision.automation.AutoUtils.SUT.utils.RuntimeVMOptions;
 
 import java.io.File;
 import java.io.IOException;
-import java.lang.management.ManagementFactory;
-import java.lang.management.RuntimeMXBean;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
@@ -42,7 +40,6 @@ public class SUTManagerImpl implements SUTManager {
     private static final String DEVICES_FILE_NAME = "treeDeviceNodes.json";
 
 
-    private static RuntimeMXBean runtimeMXBean = ManagementFactory.getRuntimeMXBean();
     private ApplicationPropertiesUtils applicationPropertiesUtils;
     private RuntimeVMOptions runtimeVMOptions;
 
