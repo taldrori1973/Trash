@@ -7,5 +7,5 @@ import java.util.List;
 @Data
 public class Tree {
     private List<Site> sites;
-    private List<TreeDeviceNode> treeDeviceNodes;
+    private List<TreeDeviceNode> devices;
 }
