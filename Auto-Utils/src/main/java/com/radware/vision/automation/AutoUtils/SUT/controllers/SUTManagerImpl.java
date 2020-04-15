@@ -8,27 +8,33 @@ import com.radware.vision.automation.AutoUtils.SUT.repositories.pojos.setup.Setu
 import com.radware.vision.automation.AutoUtils.SUT.repositories.pojos.setup.Site;
 import com.radware.vision.automation.AutoUtils.SUT.repositories.pojos.sut.SUTPojo;
 import com.radware.vision.automation.AutoUtils.SUT.repositories.pojos.sut.VisionConfiguration;
+import com.radware.vision.automation.AutoUtils.SUT.utils.ApplicationPropertiesUtils;
+import com.radware.vision.automation.AutoUtils.SUT.utils.RuntimeVMOptions;
 
 import java.io.File;
 import java.io.IOException;
-import java.io.InputStream;
 import java.lang.management.ManagementFactory;
 import java.lang.management.RuntimeMXBean;
-import java.util.*;
+import java.util.List;
+import java.util.Objects;
+import java.util.Optional;
+import java.util.Properties;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import static java.lang.String.format;
 import static java.util.Objects.isNull;
 
+/**
+ * By Muhamad Igbaria (mohamadi) April 2020
+ */
 
 public class SUTManagerImpl implements SUTManager {
 
-//    SUTManagerImpl.vmOptions.key=-DSUT
-//    SUTManagerImpl.path=\\sut
-//    SUTManagerImpl.setups.path=\\sut\\setups
-//    SUTManagerImpl.treeDeviceNodes.path=\\sut\\treeDeviceNodes
+    //    Singleton Instance
+    private static final SUTManager instance = new SUTManagerImpl();
 
+    //    Constants
     private static final String SUT_VM_OPTION_KEY_PROPERTY = "SUT.vmOptions.key";
     private static final String SUT_FILES_PATH_PROPERTY = "SUT.path";
     private static final String SUT_SETUPS_FILES_PATH_PROPERTY = "SUT.setups.path";
@@ -37,27 +43,31 @@ public class SUTManagerImpl implements SUTManager {
 
 
     private static RuntimeMXBean runtimeMXBean = ManagementFactory.getRuntimeMXBean();
-    private static final SUTManagerImpl instance = new SUTManagerImpl();
+    private ApplicationPropertiesUtils applicationPropertiesUtils;
+    private RuntimeVMOptions runtimeVMOptions;
 
     private SutDto sutDto;
 
     private SUTManagerImpl() {
+
+        this.applicationPropertiesUtils = new ApplicationPropertiesUtils("environment/application.properties");
+        this.runtimeVMOptions = new RuntimeVMOptions();
+
         try {
             ObjectMapper objectMapper = new ObjectMapper();
-            Properties properties = loadApplicationProperties();//load environment/application.properties file from resources
 
 
             String sutFileName = getSUTFileName(properties);
             Devices allDevices = objectMapper.readValue(
-                    new File(getResourcesPath(format("%s/%s", properties.getProperty(SUT_DEVICES_FILES_PATH_PROPERTY), DEVICES_FILE_NAME))), Devices.class
+                    new File(getResourcesPath(format("%s/%s", applicationPropertiesUtils.getProperty(SUT_DEVICES_FILES_PATH_PROPERTY), DEVICES_FILE_NAME))), Devices.class
             );
 
             SUTPojo sutPojo = objectMapper.readValue(
-                    new File(getResourcesPath(format("%s/%s", properties.getProperty(SUT_FILES_PATH_PROPERTY), sutFileName))), SUTPojo.class
+                    new File(getResourcesPath(format("%s/%s", applicationPropertiesUtils.getProperty(SUT_FILES_PATH_PROPERTY), sutFileName))), SUTPojo.class
             );
 
             Setup setup = objectMapper.readValue(
-                    new File(getResourcesPath(format("%s/%s", properties.getProperty(SUT_SETUPS_FILES_PATH_PROPERTY), sutPojo.getSetupFile()))), Setup.class
+                    new File(getResourcesPath(format("%s/%s", applicationPropertiesUtils.getProperty(SUT_SETUPS_FILES_PATH_PROPERTY), sutPojo.getSetupFile()))), Setup.class
             );
 
 
@@ -105,25 +115,7 @@ public class SUTManagerImpl implements SUTManager {
     }
 
 
-    private Map<String, String> getSutPaths(String sutArgument) {
-        Map<String, String> pathsMap = new HashMap<>();
-        return pathsMap;
-    }
-
-    private Properties loadApplicationProperties() {
-        Properties properties = new Properties();
-
-        try (InputStream inputStream = getClass().getClassLoader().getResourceAsStream("environment/application.properties")) {
-            properties.load(inputStream);
-
-        } catch (IOException e) {
-            System.err.println(e.getMessage());
-            e.printStackTrace();
-        }
-        return properties;
-    }
-
-    public static SUTManagerImpl getInstance() {
+    public static SUTManager getInstance() {
         return instance;
     }
 
