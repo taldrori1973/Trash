@@ -15,10 +15,6 @@ import java.io.File;
 import java.io.IOException;
 import java.util.List;
 import java.util.Objects;
-import java.util.Optional;
-import java.util.Properties;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 import static java.lang.String.format;
 import static java.util.Objects.isNull;
@@ -54,7 +50,7 @@ public class SUTManagerImpl implements SUTManager {
             ObjectMapper objectMapper = new ObjectMapper();
 
 
-            String sutFileName = getSUTFileName(properties);
+            String sutFileName = getSUTFileName();
             Devices allDevices = objectMapper.readValue(
                     new File(getResourcesPath(format("%s/%s", applicationPropertiesUtils.getProperty(SUT_DEVICES_FILES_PATH_PROPERTY), DEVICES_FILE_NAME))), Devices.class
             );
@@ -67,7 +63,6 @@ public class SUTManagerImpl implements SUTManager {
                     new File(getResourcesPath(format("%s/%s", applicationPropertiesUtils.getProperty(SUT_SETUPS_FILES_PATH_PROPERTY), sutPojo.getSetupFile()))), Setup.class
             );
 
-
             this.sutDto = new SutDto(allDevices, sutPojo, setup);
         } catch (IOException e) {
             e.printStackTrace();
@@ -75,57 +70,6 @@ public class SUTManagerImpl implements SUTManager {
 
     }
 
-    private String getResourcesPath(String name) {
-        return Objects.requireNonNull(getClass().getClassLoader().getResource(name)).getPath();
-    }
-
-    private String getSUTFileName(Properties properties) {
-        try {
-            String sutVmOptionsKey = this.applicationPropertiesUtils.getProperty(SUT_VM_OPTION_KEY_PROPERTY);
-            if (isNull(sutVmOptionsKey) || sutVmOptionsKey.isEmpty()) {
-                throw new NoSuchFieldException(format("The Property %s not found at environment/application.properties file", SUT_VM_OPTION_KEY_PROPERTY));
-            }
-
-            String sutFileName = this.runtimeVMOptions.getSUTFileName(sutVmOptionsKey);
-
-            if (isNull(sutFileName) || sutFileName.isEmpty()) {
-                throw new NoSuchFieldException(format("The Property %s not found at environment/application.properties file", SUT_VM_OPTION_KEY_PROPERTY));
-
-            }
-            String sutVmOption = null;//for example "-DSUT=example_sut.json"
-
-            String sutVmOptionKey = properties.getProperty(SUT_VM_OPTION_KEY_PROPERTY);//get the key of sut file in vm options for example : "-DSUT"
-
-            if (isNull(sutVmOptionKey))
-                throw new NoSuchFieldException(format("The Property %s not found at environment/application.properties file", SUT_VM_OPTION_KEY_PROPERTY));
-
-            List<String> vmOptions = runtimeMXBean.getInputArguments();//get vm options
-
-            Optional<String> firstSut = vmOptions.stream().filter(vmOption -> vmOption.startsWith(sutVmOptionKey)).findFirst();//get first option which start with the value of sutVmOptionKey
-
-            if (!firstSut.isPresent())
-                throw new NoSuchFieldException(format("No VM Option Was found which start with \"%s\"", sutVmOptionKey));
-
-            else sutVmOption = firstSut.get();
-
-            Pattern pattern = Pattern.compile("([^=]*)=([^=]+)");
-            Matcher matcher = pattern.matcher(sutVmOption);
-            if (matcher.matches())
-                return matcher.group(2);//return sut name
-
-            throw new IllegalArgumentException(format("The sut vm option %s not matches the following pattern \"key=value\"", sutVmOption));
-        } catch (NoSuchFieldException e) {
-            e.printStackTrace();
-        }
-
-        return null;
-
-    }
-
-
-    public static SUTManager getInstance() {
-        return instance;
-    }
 
     //    Interface Impl
     public String getSetupId() {
@@ -144,4 +88,33 @@ public class SUTManagerImpl implements SUTManager {
         return this.sutDto.getTreeDevices();
     }
 
+    private String getResourcesPath(String name) {
+        return Objects.requireNonNull(getClass().getClassLoader().getResource(name)).getPath();
+    }
+
+    private String getSUTFileName() {
+        try {
+            String sutVmOptionsKey = this.applicationPropertiesUtils.getProperty(SUT_VM_OPTION_KEY_PROPERTY);
+            if (isNull(sutVmOptionsKey) || sutVmOptionsKey.isEmpty()) {
+                throw new NoSuchFieldException(format("The Property %s not found at environment/application.properties file", SUT_VM_OPTION_KEY_PROPERTY));
+            }
+
+            String sutFileName = this.runtimeVMOptions.getSUTFileName(sutVmOptionsKey);
+
+            if (isNull(sutFileName) || sutFileName.isEmpty()) {
+                throw new IllegalArgumentException(format("The sut file name is null or empty , validate that the vm option contains \"%s={filename}\" ", sutVmOptionsKey));
+            }
+            return sutFileName;
+
+        } catch (NoSuchFieldException e) {
+            e.printStackTrace();
+        }
+
+        return null;
+
+    }
+
+    public static SUTManager getInstance() {
+        return instance;
+    }
 }
