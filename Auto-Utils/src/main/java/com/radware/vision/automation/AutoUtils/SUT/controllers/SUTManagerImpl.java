@@ -22,12 +22,12 @@ import static java.lang.String.format;
 import static java.util.Objects.isNull;
 
 
-public class SUTDaoImpl {
+public class SUTManagerImpl {
 
-//    SUTDaoImpl.vmOptions.key=-DSUT
-//    SUTDaoImpl.path=\\sut
-//    SUTDaoImpl.setups.path=\\sut\\setups
-//    SUTDaoImpl.treeDeviceNodes.path=\\sut\\treeDeviceNodes
+//    SUTManagerImpl.vmOptions.key=-DSUT
+//    SUTManagerImpl.path=\\sut
+//    SUTManagerImpl.setups.path=\\sut\\setups
+//    SUTManagerImpl.treeDeviceNodes.path=\\sut\\treeDeviceNodes
 
     private static final String SUT_VM_OPTION_KEY_PROPERTY = "SUT.vmOptions.key";
     private static final String SUT_FILES_PATH_PROPERTY = "SUT.path";
@@ -37,11 +37,11 @@ public class SUTDaoImpl {
 
 
     private static RuntimeMXBean runtimeMXBean = ManagementFactory.getRuntimeMXBean();
-    private static final SUTDaoImpl instance = new SUTDaoImpl();
+    private static final SUTManagerImpl instance = new SUTManagerImpl();
 
     private SutDto sutDto;
 
-    private SUTDaoImpl() {
+    private SUTManagerImpl() {
         try {
             ObjectMapper objectMapper = new ObjectMapper();
             Properties properties = loadApplicationProperties();//load environment/application.properties file from resources
@@ -123,7 +123,7 @@ public class SUTDaoImpl {
         return properties;
     }
 
-    public static SUTDaoImpl getInstance() {
+    public static SUTManagerImpl getInstance() {
         return instance;
     }
 
