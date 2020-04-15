@@ -20,11 +20,11 @@ public class SetupDao {
     }
 
     public Optional<TreeDeviceNode> findDeviceById(String deviceId) {
-        return setup.getTree().getTreeDeviceNodes().stream().filter(treeDeviceNode -> treeDeviceNode.getDeviceId().equals(deviceId)).findAny();
+        return setup.getTree().getDevices().stream().filter(treeDeviceNode -> treeDeviceNode.getDeviceId().equals(deviceId)).findAny();
     }
 
     public List<TreeDeviceNode> findAllDevices() {
-        return setup.getTree().getTreeDeviceNodes();
+        return setup.getTree().getDevices();
     }
 
     public List<Site> findAllSites() {
@@ -32,7 +32,7 @@ public class SetupDao {
     }
 
     public boolean isDeviceExistById(String deviceId) {
-        Optional<TreeDeviceNode> filtered = this.setup.getTree().getTreeDeviceNodes().stream().filter(treeDeviceNode -> treeDeviceNode.getDeviceId().equals(deviceId)).findFirst();
+        Optional<TreeDeviceNode> filtered = this.setup.getTree().getDevices().stream().filter(treeDeviceNode -> treeDeviceNode.getDeviceId().equals(deviceId)).findFirst();
         return filtered.isPresent();
     }
 }
