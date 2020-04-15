@@ -51,13 +51,15 @@ public class SUTManagerImpl implements SUTManager {
 
 
             String sutFileName = getSUTFileName();
-            Devices allDevices = objectMapper.readValue(
-                    new File(getResourcesPath(format("%s/%s", applicationPropertiesUtils.getProperty(SUT_DEVICES_FILES_PATH_PROPERTY), DEVICES_FILE_NAME))), Devices.class
-            );
+            Devices allDevices = loadJsonFile(SUT_DEVICES_FILES_PATH_PROPERTY, DEVICES_FILE_NAME, Devices.class);
+//            Devices allDevices = objectMapper.readValue(
+//                    new File(getResourcesPath(format("%s/%s", applicationPropertiesUtils.getProperty(SUT_DEVICES_FILES_PATH_PROPERTY), DEVICES_FILE_NAME))), Devices.class
+//            );
 
-            SUTPojo sutPojo = objectMapper.readValue(
-                    new File(getResourcesPath(format("%s/%s", applicationPropertiesUtils.getProperty(SUT_FILES_PATH_PROPERTY), sutFileName))), SUTPojo.class
-            );
+            SUTPojo sutPojo = loadJsonFile(SUT_FILES_PATH_PROPERTY, sutFileName, SUTPojo.class);
+//            SUTPojo sutPojo = objectMapper.readValue(
+//                    new File(getResourcesPath(format("%s/%s", applicationPropertiesUtils.getProperty(SUT_FILES_PATH_PROPERTY), sutFileName))), SUTPojo.class
+//            );
 
             Setup setup = objectMapper.readValue(
                     new File(getResourcesPath(format("%s/%s", applicationPropertiesUtils.getProperty(SUT_SETUPS_FILES_PATH_PROPERTY), sutPojo.getSetupFile()))), Setup.class
@@ -70,6 +72,19 @@ public class SUTManagerImpl implements SUTManager {
 
     }
 
+    private <POJO> POJO loadJsonFile(String filePath, String fileName, Class<POJO> type) {
+        ObjectMapper objectMapper = new ObjectMapper();
+        POJO pojo = null;
+        try {
+            pojo = objectMapper.readValue(
+                    new File(getResourcesPath(format("%s/%s", applicationPropertiesUtils.getProperty(filePath), fileName))), type
+            );
+        } catch (IOException e) {
+            System.err.println(e.getMessage());
+            e.printStackTrace();
+        }
+        return pojo;
+    }
 
     //    Interface Impl
     public String getSetupId() {
