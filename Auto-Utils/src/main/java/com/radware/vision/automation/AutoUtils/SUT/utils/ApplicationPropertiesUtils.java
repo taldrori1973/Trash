@@ -10,6 +10,7 @@ public class ApplicationPropertiesUtils {
     private Properties properties;
 
     public ApplicationPropertiesUtils(String propertiesFilePath) {
+        this.properties = new Properties();
         try (InputStream inputStream = getClass().getClassLoader().getResourceAsStream(propertiesFilePath)) {
             this.properties.load(inputStream);
 
