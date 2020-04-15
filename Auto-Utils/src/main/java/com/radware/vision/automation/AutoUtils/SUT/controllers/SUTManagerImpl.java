@@ -46,8 +46,8 @@ public class SUTManagerImpl implements SUTManager {
         this.applicationPropertiesUtils = new ApplicationPropertiesUtils("environment/application.properties");
         this.runtimeVMOptions = new RuntimeVMOptions();
 
-
         String sutFileName = getSUTFileName();
+
         Devices allDevices = loadJsonFile(SUT_DEVICES_FILES_PATH_PROPERTY, DEVICES_FILE_NAME, Devices.class);
 
         SUTPojo sutPojo = loadJsonFile(SUT_FILES_PATH_PROPERTY, sutFileName, SUTPojo.class);
