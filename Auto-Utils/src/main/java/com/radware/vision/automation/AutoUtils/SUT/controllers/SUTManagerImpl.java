@@ -46,29 +46,16 @@ public class SUTManagerImpl implements SUTManager {
         this.applicationPropertiesUtils = new ApplicationPropertiesUtils("environment/application.properties");
         this.runtimeVMOptions = new RuntimeVMOptions();
 
-        try {
-            ObjectMapper objectMapper = new ObjectMapper();
+
+        String sutFileName = getSUTFileName();
+        Devices allDevices = loadJsonFile(SUT_DEVICES_FILES_PATH_PROPERTY, DEVICES_FILE_NAME, Devices.class);
+
+        SUTPojo sutPojo = loadJsonFile(SUT_FILES_PATH_PROPERTY, sutFileName, SUTPojo.class);
+
+        Setup setup = loadJsonFile(SUT_SETUPS_FILES_PATH_PROPERTY, sutPojo.getSetupFile(), Setup.class);
 
 
-            String sutFileName = getSUTFileName();
-            Devices allDevices = loadJsonFile(SUT_DEVICES_FILES_PATH_PROPERTY, DEVICES_FILE_NAME, Devices.class);
-//            Devices allDevices = objectMapper.readValue(
-//                    new File(getResourcesPath(format("%s/%s", applicationPropertiesUtils.getProperty(SUT_DEVICES_FILES_PATH_PROPERTY), DEVICES_FILE_NAME))), Devices.class
-//            );
-
-            SUTPojo sutPojo = loadJsonFile(SUT_FILES_PATH_PROPERTY, sutFileName, SUTPojo.class);
-//            SUTPojo sutPojo = objectMapper.readValue(
-//                    new File(getResourcesPath(format("%s/%s", applicationPropertiesUtils.getProperty(SUT_FILES_PATH_PROPERTY), sutFileName))), SUTPojo.class
-//            );
-
-            Setup setup = objectMapper.readValue(
-                    new File(getResourcesPath(format("%s/%s", applicationPropertiesUtils.getProperty(SUT_SETUPS_FILES_PATH_PROPERTY), sutPojo.getSetupFile()))), Setup.class
-            );
-
-            this.sutDto = new SutDto(allDevices, sutPojo, setup);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        this.sutDto = new SutDto(allDevices, sutPojo, setup);
 
     }
 
