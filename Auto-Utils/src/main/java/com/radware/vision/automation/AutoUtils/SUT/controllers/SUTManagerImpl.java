@@ -56,7 +56,7 @@ public class SUTManagerImpl implements SUTManager {
 
         Setup setup = loadJsonFile(SUT_SETUPS_FILES_PATH_PROPERTY, sutPojo.getSetupFile(), Setup.class);
 
-
+        this.sutService = new SutService(allDevices, sutPojo, setup);
         this.sutDto = new SutDto(allDevices, sutPojo, setup);
 
     }
