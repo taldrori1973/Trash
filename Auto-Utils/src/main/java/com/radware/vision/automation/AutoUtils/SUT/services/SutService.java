@@ -5,7 +5,7 @@ import com.radware.vision.automation.AutoUtils.SUT.repositories.pojos.setup.Setu
 import com.radware.vision.automation.AutoUtils.SUT.repositories.pojos.sut.SUTPojo;
 
 public class SutService {
-    public SutService(Devices allDevices, SUTPojo sutPojo, Setup setup) {
+    public SutService(Devices devicesPojo, SUTPojo sutPojo, Setup setupPojo) {
 
     }
 }
