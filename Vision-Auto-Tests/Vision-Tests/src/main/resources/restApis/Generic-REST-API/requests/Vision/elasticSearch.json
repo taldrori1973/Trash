@@ -11,9 +11,9 @@
       "description": "delete index "
     },
     {
-      "label": "Delete doucument by query ",
-      "method": "DELETE",
-      "basePath": "/new-es/%{indexName}/_delete_by_query?pretty=true",
+      "label": "Delete doucument by query",
+      "method": "POST",
+      "basePath": "/new-es/{indexName}/_delete_by_query?pretty=true",
       "produces": "application/json",
       "description": "delete document by query "
     },
@@ -25,11 +25,11 @@
       "description": "get index "
     },
     {
-      "label": "Get Index",
-      "method": "GET",
-      "basePath": "/new-es/{indexName}",
+      "label": "Search  index by query",
+      "method": "POST",
+      "basePath": "/new-es/{indexName}/_search/",
       "produces": "application/json",
-      "description": "get index "
+      "description": "search index by query"
     }
   ]
 }
