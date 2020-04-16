@@ -8,6 +8,7 @@ import com.radware.vision.automation.AutoUtils.SUT.repositories.pojos.setup.Setu
 import com.radware.vision.automation.AutoUtils.SUT.repositories.pojos.setup.Site;
 import com.radware.vision.automation.AutoUtils.SUT.repositories.pojos.sut.SUTPojo;
 import com.radware.vision.automation.AutoUtils.SUT.repositories.pojos.sut.VisionConfiguration;
+import com.radware.vision.automation.AutoUtils.SUT.services.SutService;
 import com.radware.vision.automation.AutoUtils.SUT.utils.ApplicationPropertiesUtils;
 import com.radware.vision.automation.AutoUtils.SUT.utils.RuntimeVMOptions;
 
@@ -39,6 +40,7 @@ public class SUTManagerImpl implements SUTManager {
     private ApplicationPropertiesUtils applicationPropertiesUtils;
     private RuntimeVMOptions runtimeVMOptions;
 
+    private SutService sutService;
     private SutDto sutDto;
 
     private SUTManagerImpl() {
