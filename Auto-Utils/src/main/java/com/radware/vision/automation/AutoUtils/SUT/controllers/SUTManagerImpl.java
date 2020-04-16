@@ -74,21 +74,28 @@ public class SUTManagerImpl implements SUTManager {
     }
 
     //    Interface Impl
+    @Override
     public String getSetupId() {
         return this.sutDto.getSetupId();
     }
 
+    @Override
     public VisionConfiguration getVisionConfiguration() {
         return this.sutDto.getVisionConfiguration();
     }
 
+    @Override
     public List<Site> getVisionSetupSites() {
         return this.sutDto.getSites();
     }
 
+    @Override
     public List<DeviceDto> getVisionSetupTreeDevices() {
         return this.sutDto.getTreeDevices();
     }
+
+
+    //Utilities
 
     private String getResourcesPath(String name) {
         return Objects.requireNonNull(getClass().getClassLoader().getResource(name)).getPath();
