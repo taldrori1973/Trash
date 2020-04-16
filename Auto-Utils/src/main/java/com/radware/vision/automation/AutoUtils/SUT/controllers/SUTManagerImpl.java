@@ -50,14 +50,14 @@ public class SUTManagerImpl implements SUTManager {
 
 
         String sutFileName = getSUTFileName();
-        Devices allDevices = loadJsonFile(SUT_DEVICES_FILES_PATH_PROPERTY, DEVICES_FILE_NAME, Devices.class);
+        Devices devicesPojo = loadJsonFile(SUT_DEVICES_FILES_PATH_PROPERTY, DEVICES_FILE_NAME, Devices.class);
 
         SUTPojo sutPojo = loadJsonFile(SUT_FILES_PATH_PROPERTY, sutFileName, SUTPojo.class);
 
-        Setup setup = loadJsonFile(SUT_SETUPS_FILES_PATH_PROPERTY, sutPojo.getSetupFile(), Setup.class);
+        Setup setupPojo = loadJsonFile(SUT_SETUPS_FILES_PATH_PROPERTY, sutPojo.getSetupFile(), Setup.class);
 
-        this.sutService = new SutService(allDevices, sutPojo, setup);
-        this.sutDto = new SutDto(allDevices, sutPojo, setup);
+        this.sutService = new SutService(devicesPojo, sutPojo, setupPojo);
+        this.sutDto = new SutDto(devicesPojo, sutPojo, setupPojo);
 
     }
 
