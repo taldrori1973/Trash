@@ -76,15 +76,17 @@ public class SUTManagerImpl implements SUTManager {
     }
 
     //    Interface Impl
+
     @Override
     public String getSetupId() {
-        return this.sutDto.getSetupId();
+        return this.sutService.getSetupId();
     }
 
     @Override
     public VisionConfiguration getVisionConfiguration() {
         return this.sutDto.getVisionConfiguration();
     }
+
 
     @Override
     public List<Site> getVisionSetupSites() {

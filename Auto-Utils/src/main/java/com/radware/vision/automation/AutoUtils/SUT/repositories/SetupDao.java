@@ -35,4 +35,8 @@ public class SetupDao {
         Optional<TreeDeviceNode> filtered = this.setup.getTree().getDevices().stream().filter(treeDeviceNode -> treeDeviceNode.getDeviceId().equals(deviceId)).findFirst();
         return filtered.isPresent();
     }
+
+    public String getSetupId() {
+        return this.setup.getSetupId();
+    }
 }

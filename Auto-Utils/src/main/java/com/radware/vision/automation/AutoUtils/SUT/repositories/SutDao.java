@@ -10,4 +10,7 @@ public class SutDao {
         this.sutPojo = sutPojo;
     }
 
+    public String getSutId() {
+        return this.sutPojo.getSetupFile();
+    }
 }

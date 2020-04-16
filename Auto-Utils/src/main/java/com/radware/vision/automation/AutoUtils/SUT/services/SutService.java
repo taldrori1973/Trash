@@ -19,4 +19,8 @@ public class SutService {
         this.setupDao = new SetupDao(setupPojo);
         this.sutDao = new SutDao(sutPojo);
     }
+
+    public String getSetupId() {
+        return setupDao.getSetupId();
+    }
 }
