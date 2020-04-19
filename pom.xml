@@ -13,6 +13,7 @@
     <modules>
         <module>Vision-Auto-Tests</module>
         <module>Vision-Auto-Infra</module>
+        <module>Auto-Utils</module>
     </modules>
 
     <properties>

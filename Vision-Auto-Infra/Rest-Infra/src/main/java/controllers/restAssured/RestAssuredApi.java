@@ -47,7 +47,8 @@ public class RestAssuredApi implements RestApi {
             case POST:
             case PUT:
             case PATCH:
-                request = request.body(requestSpecification.getBody().getBodyAsString());
+                if (requestSpecification.getBody() != null)
+                    request = request.body(requestSpecification.getBody().getBodyAsString());
                 break;
             case DELETE:
                 if (!Objects.isNull(requestSpecification.getBody()))

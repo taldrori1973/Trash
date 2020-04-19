@@ -22,6 +22,8 @@ Feature: Vision Upgrade current +1
 
   @SID_4
   Scenario: Do any pre-upgrade changes
+    Given REST Login with activation with user "sys_admin" and password "radware"
+    Then REST Vision DELETE License Request "vision-reporting-module-ADC"
     # extract MySql create partition number
     Then CLI Run remote linux Command "echo "Before " $(mysql -prad123 vision -e "show create table traffic_utilizations\G" |grep "(PARTITION p" |awk -F"p" '{print$2}'|awk '{printf$1}') >  /opt/radware/sql_partition.txt" on "ROOT_SERVER_CLI"
     Then CLI Run remote linux Command "iptables -L -n" on "ROOT_SERVER_CLI"
@@ -30,7 +32,6 @@ Feature: Vision Upgrade current +1
   @SID_5
   Scenario: Change TED configuration
     Then CLI Run remote linux Command "cat /opt/radware/storage/ted/config/ted.cfg" on "ROOT_SERVER_CLI"
-#    Then CLI Run remote linux Command "sed -i 's/"elasticRetentionInDays":.*,/"elasticRetentionInDays":8,/g' /opt/radware/storage/ted/config/ted.cfg" on "ROOT_SERVER_CLI"
     Then CLI Run remote linux Command "sed -i 's/"elasticRetentionMaxPercent":.*,/"elasticRetentionMaxPercent":74,/g' /opt/radware/storage/ted/config/ted.cfg" on "ROOT_SERVER_CLI"
     Then CLI Run remote linux Command "cat /opt/radware/storage/ted/config/ted.cfg" on "ROOT_SERVER_CLI"
 
@@ -45,39 +46,37 @@ Feature: Vision Upgrade current +1
     Then CLI Run remote linux Command "/copyUpgradeLog.sh" on "ROOT_SERVER_CLI"
 
     Then CLI Check if logs contains
-      | logType | expression                                                       | isExpected   |
-      | UPGRADE | fatal                                                            | NOT_EXPECTED |
-    # | UPGRADE | error                                                            | NOT_EXPECTED      |
-      | UPGRADE | fail to\|failed to                                               | NOT_EXPECTED |
-      | UPGRADE | The upgrade of APSolute Vision server has completed successfully | EXPECTED     |
-      | UPGRADE | Vision Reporter upgrade finished                                 | EXPECTED     |
-      | UPGRADE | Successfully upgraded from AVR                                   | EXPECTED     |
-      | UPGRADE | Upgrading vDirect services ended                                 | EXPECTED     |
-      | UPGRADE | APSolute Vision ELASTICSEARCH upgrade finished                   | EXPECTED     |
-      | UPGRADE | APSolute Vision AMQP upgrade finished                            | EXPECTED     |
-      | UPGRADE | APSolute Vision Appwall upgrade finished                         | EXPECTED     |
-      | UPGRADE | APSolute Vision Workflows upgrade finished                       | EXPECTED     |
-      | UPGRADE | APSolute Vision Databse upgrade finished                         | EXPECTED     |
-      | UPGRADE | APSolute Vision CLI upgrade finished                             | EXPECTED     |
-      | UPGRADE | APSolute Vision Web upgrade finished                             | EXPECTED     |
-      | UPGRADE | APSolute Vision DP upgrade finished                              | EXPECTED     |
-      | UPGRADE | APSolute Vision Configuration upgrade finished                   | EXPECTED     |
-      | UPGRADE | APSolute Vision Device upgrade finished                          | EXPECTED     |
-      | UPGRADE | APSolute Vision Online upgrade finished                          | EXPECTED     |
-      | UPGRADE | APSolute Vision WEB upgrade finished                             | EXPECTED     |
-      | UPGRADE | APSolute Vision Application upgrade finished                     | EXPECTED     |
-      | UPGRADE | APSolute Vision System upgrade finished                          | EXPECTED     |
-      | UPGRADE | APSolute Vision OS upgrade finished                              | EXPECTED     |
-      | UPGRADE | APSolute Vision FluentD upgrade finished                         | EXPECTED     |
-      | UPGRADE | APSolute Vision TED upgrade finished                             | EXPECTED     |
-      | UPGRADE | ERROR                                                            | NOT_EXPECTED |
-      | UPGRADE | error: package MySQL-                                            | IGNORE       |
-      | UPGRADE | *.png                                                            | IGNORE       |
-      | UPGRADE | *.svg                                                            | IGNORE       |
-      | UPGRADE | inflating:                                                       | IGNORE       |
-      | LLS     | fatal\| error\|fail                                              | NOT_EXPECTED |
-    # | LLS     | Installation ended                                               | EXPECTED     |
-      | UPGRADE | /opt/radware/storage/www/webui/vision-dashboards/public/static/media/* | IGNORE |
+      | logType | expression                                                             | isExpected   |
+      | UPGRADE | fatal                                                                  | NOT_EXPECTED |
+      | UPGRADE | fail to\|failed to                                                     | NOT_EXPECTED |
+      | UPGRADE | The upgrade of APSolute Vision server has completed successfully       | EXPECTED     |
+      | UPGRADE | Vision Reporter upgrade finished                                       | EXPECTED     |
+      | UPGRADE | Successfully upgraded from AVR                                         | EXPECTED     |
+      | UPGRADE | Upgrading vDirect services ended                                       | EXPECTED     |
+      | UPGRADE | APSolute Vision ELASTICSEARCH upgrade finished                         | EXPECTED     |
+      | UPGRADE | APSolute Vision AMQP upgrade finished                                  | EXPECTED     |
+      | UPGRADE | APSolute Vision Appwall upgrade finished                               | EXPECTED     |
+      | UPGRADE | APSolute Vision Workflows upgrade finished                             | EXPECTED     |
+      | UPGRADE | APSolute Vision Databse upgrade finished                               | EXPECTED     |
+      | UPGRADE | APSolute Vision CLI upgrade finished                                   | EXPECTED     |
+      | UPGRADE | APSolute Vision Web upgrade finished                                   | EXPECTED     |
+      | UPGRADE | APSolute Vision DP upgrade finished                                    | EXPECTED     |
+      | UPGRADE | APSolute Vision Configuration upgrade finished                         | EXPECTED     |
+      | UPGRADE | APSolute Vision Device upgrade finished                                | EXPECTED     |
+      | UPGRADE | APSolute Vision Online upgrade finished                                | EXPECTED     |
+      | UPGRADE | APSolute Vision WEB upgrade finished                                   | EXPECTED     |
+      | UPGRADE | APSolute Vision Application upgrade finished                           | EXPECTED     |
+      | UPGRADE | APSolute Vision System upgrade finished                                | EXPECTED     |
+      | UPGRADE | APSolute Vision OS upgrade finished                                    | EXPECTED     |
+      | UPGRADE | APSolute Vision FluentD upgrade finished                               | EXPECTED     |
+      | UPGRADE | APSolute Vision TED upgrade finished                                   | EXPECTED     |
+      | UPGRADE | ERROR                                                                  | NOT_EXPECTED |
+      | UPGRADE | error: package MySQL-                                                  | IGNORE       |
+      | UPGRADE | *.png                                                                  | IGNORE       |
+      | UPGRADE | *.svg                                                                  | IGNORE       |
+      | UPGRADE | inflating:                                                             | IGNORE       |
+      | LLS     | fatal\| error\|fail                                                    | NOT_EXPECTED |
+      | UPGRADE | /opt/radware/storage/www/webui/vision-dashboards/public/static/media/* | IGNORE       |
 
 
   @SID_8
@@ -130,8 +129,7 @@ Feature: Vision Upgrade current +1
     Then CLI Run linux Command "ip6tables -L -n |grep "dpt:161" |wc -l" on "ROOT_SERVER_CLI" and validate result EQUALS "0"
 
   @SID_10
-  Scenario: Login with activation
-#    Given REST Login with activation with user "sys_admin" and password "radware"
+  Scenario: Login
     Then UI Login with user "sys_admin" and password "radware"
     Then CLI Operations - Run Root Session command "yes|restore_radware_user_password" timeout 15
     Then REST Vision Install License Request "vision-reporting-module-ADC"
@@ -183,10 +181,6 @@ Feature: Vision Upgrade current +1
 
   @SID_19
   Scenario: Visit device subscription page
-#    Then REST Request "GET" for "Device Subscriptions->Table"
-#      | type                 | value |
-#      | Returned status code | 200   |
-
     Then CLI Run linux Command "result=`curl -ks -X "POST" "https://localhost/mgmt/system/user/login" -H "Content-Type: application/json" -d $"{\"username\": \"radware\",\"password\": \"radware\"}"`; jsession=`echo $result | tr "," "\n"|grep -i jsession|tr -d '"' | cut -d: -f2`; curl -ks -o null -XGET -H "Cookie: JSESSIONID=$jsession" https://localhost/mgmt/system/config/itemlist/devicesubscriptions -w 'RESP_CODE:%{response_code}\n'" on "ROOT_SERVER_CLI" and validate result EQUALS "RESP_CODE:200" with timeOut 300 with runCommand delay 90
     Then CLI Operations - Verify that output contains regex "RESP_CODE:200"
 
@@ -253,7 +247,6 @@ Feature: Vision Upgrade current +1
 
   @SID_29
   Scenario: Verify TED configuration
-#    Then CLI Run linux Command "cat /opt/radware/storage/ted/config/ted.cfg |awk -F"elasticRetentionInDays\":" '{print$2}'|awk -F"," '{print$1}'" on "ROOT_SERVER_CLI" and validate result EQUALS "8"
     Then CLI Run linux Command "cat /opt/radware/storage/ted/config/ted.cfg |awk -F"elasticRetentionMaxPercent\":" '{print$2}'|awk -F"," '{print$1}'" on "ROOT_SERVER_CLI" and validate result EQUALS "74"
 
   @SID_30

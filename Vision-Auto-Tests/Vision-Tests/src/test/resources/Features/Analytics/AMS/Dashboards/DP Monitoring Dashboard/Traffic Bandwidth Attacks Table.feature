@@ -29,7 +29,7 @@ Feature: AMS Monitoring Dashboard - Attacks table
 #    And UI Do Operation "Select" item "Global Time Filter.Quick Range" with value "2m"
     Then UI Select Time From: 30 To: 57 Time, in Line Chart data "Traffic Bandwidth"
     Then Sleep "5"
-#    Then UI Validate "Traffic Bandwidth Attacks table" Table rows count equal to 32
+#    Then UI Validate "Traffic Bandwidth Attacks table" Table rows count EQUALS to 32
     Then UI Validate Table "Traffic Bandwidth Attacks table" rows is between index:30 and index:57 in "Traffic Bandwidth" Chart
 
     ###32
@@ -54,7 +54,7 @@ Feature: AMS Monitoring Dashboard - Attacks table
   Scenario: Validate table attacks with no attacks.
     Then UI Select Time From: 57 To: 59 Time, in Line Chart data "Traffic Bandwidth"
     Then Sleep "5"
-    Then UI Validate "Traffic Bandwidth Attacks table" Table rows count equal to 0
+    Then UI Validate "Traffic Bandwidth Attacks table" Table rows count EQUALS to 0
     Then UI Click Button "Attacks OK"
 
   @SID_7

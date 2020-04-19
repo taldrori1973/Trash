@@ -20,7 +20,6 @@ Feature: Vision APM Upgrade current +1
     Then CLI Operations - Run Root Session command "yes|restore_radware_user_password" timeout 15
     # extract MySql create partition number
     Then CLI Run remote linux Command "echo "Before " $(mysql -prad123 vision -e "show create table traffic_utilizations\G" |grep "(PARTITION p" |awk -F"p" '{print$2}'|awk '{printf$1}') >  /opt/radware/sql_partition.txt" on "ROOT_SERVER_CLI"
-#    Then CLI Run remote linux Command "dos2unix /etc/td-agent/td-agent.conf" on "ROOT_SERVER_CLI"
     Then CLI Run remote linux Command "sed -i 's/port .*$/port 51400/g' /etc/td-agent/td-agent.conf" on "ROOT_SERVER_CLI"
 
     ######################################################################################
@@ -37,7 +36,6 @@ Feature: Vision APM Upgrade current +1
     Then CLI Check if logs contains
       | logType | expression                                                             | isExpected   |
       | UPGRADE | fatal                                                                  | NOT_EXPECTED |
-    # | UPGRADE | error                                                            | NOT_EXPECTED      |
       | UPGRADE | fail to\|failed to                                                     | NOT_EXPECTED |
       | UPGRADE | The upgrade of APSolute Vision server has completed successfully       | EXPECTED     |
       | UPGRADE | Vision Reporter upgrade finished                                       | EXPECTED     |
@@ -120,7 +118,6 @@ Feature: Vision APM Upgrade current +1
 
   @SID_8
   Scenario: Login with activation
-#    Given REST Login with activation with user "sys_admin" and password "radware"
     Then UI Login with user "sys_admin" and password "radware"
     Then CLI Operations - Run Root Session command "yes|restore_radware_user_password" timeout 15
 
@@ -162,7 +159,7 @@ Feature: Vision APM Upgrade current +1
   Scenario: Upload Driver to vision
     Then CLI Run remote linux Command "/opt/radware/storage/upload_DD.sh /opt/radware/storage/Alteon-32.2.1.0-DD-1.00-110.jar" on "ROOT_SERVER_CLI" with timeOut 240
     Then CLI Run remote linux Command "/opt/radware/storage/upload_DD.sh /opt/radware/storage/Alteon-32.4.0.0-DD-1.00-396.jar" on "ROOT_SERVER_CLI" with timeOut 240
-#    Then Sleep "120"
+
 
   @SID_16
   Scenario: Validate fluentd configuration
@@ -170,10 +167,6 @@ Feature: Vision APM Upgrade current +1
 
   @SID_17
   Scenario: Visit device subscription page
-#    Then REST Request "GET" for "Device Subscriptions->Table"
-#       | type                 | value |
-#       | Returned status code | 200   |
-
     Then CLI Run linux Command "result=`curl -ks -X "POST" "https://localhost/mgmt/system/user/login" -H "Content-Type: application/json" -d $"{\"username\": \"radware\",\"password\": \"radware\"}"`; jsession=`echo $result | tr "," "\n"|grep -i jsession|tr -d '"' | cut -d: -f2`; curl -ks -o null -XGET -H "Cookie: JSESSIONID=$jsession" https://localhost/mgmt/system/config/itemlist/devicesubscriptions -w 'RESP_CODE:%{response_code}\n'" on "ROOT_SERVER_CLI" and validate result EQUALS "RESP_CODE:200" with timeOut 300 with runCommand delay 90
     Then CLI Operations - Verify that output contains regex "RESP_CODE:200"
 

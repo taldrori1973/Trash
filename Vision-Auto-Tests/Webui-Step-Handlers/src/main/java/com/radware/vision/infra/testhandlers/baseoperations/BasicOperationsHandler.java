@@ -37,7 +37,7 @@ import com.radware.vision.infra.base.pages.VisionWebUILogin;
 import com.radware.vision.infra.base.pages.navigation.HomePage;
 import com.radware.vision.infra.base.pages.navigation.WebUIUpperBar;
 import com.radware.vision.infra.base.pages.navigation.WebUIVisionBasePage;
-import com.radware.vision.infra.enums.EqualsOrContains;
+import com.radware.vision.automation.AutoUtils.Operators.OperatorsEnum;
 import com.radware.vision.infra.enums.UpperBarItems;
 import com.radware.vision.infra.testhandlers.BaseHandler;
 import com.radware.vision.infra.testhandlers.baseoperations.enums.Operation;
@@ -209,7 +209,7 @@ public class BasicOperationsHandler {
 
     public static void setCheckboxById(String elementId, boolean selectCheckbox) {
         try {
-            if (!checkIfElementExistAndDisplayed(GeneralUtils.buildGenericXpath(com.radware.vision.infra.enums.WebElementType.Id, elementId, EqualsOrContains.EQUALS))) {
+            if (!checkIfElementExistAndDisplayed(GeneralUtils.buildGenericXpath(com.radware.vision.infra.enums.WebElementType.Id, elementId, OperatorsEnum.EQUALS))) {
                 throw new Exception("Element not found");
             }
             WebUICheckbox checkbox = new WebUICheckbox(new ComponentLocator(How.ID, elementId));

@@ -43,8 +43,9 @@ Feature: Forensic Criteria Tests
       | Criteria | Event Criteria:Action,Operator:Equals,Value:[Drop]; |
       | Output   | Start Time,Attack ID, Action                        |
     When UI Generate and Validate Forensics With Name "Action Criteria" with Timeout of 180 Seconds
+    And Sleep "30"
     And UI Click Button "Views.report" with value "Action Criteria"
-    Then UI Validate "Report.Table" Table rows count equal to 27
+    Then UI Validate "Report.Table" Table rows count EQUALS to 27
     Then UI Validate Table record values by columns with elementLabel "Report.Table" findBy index 0
       | columnName | value |
       | Action     | Drop  |
@@ -57,8 +58,9 @@ Feature: Forensic Criteria Tests
       | Criteria | Event Criteria:Action,Operator:Not Equals,Value:[Drop]; |
       | Output   | Start Time,Attack ID, Action                            |
     When UI Generate and Validate Forensics With Name "Not Action Criteria" with Timeout of 180 Seconds
+    And Sleep "30"
     And UI Click Button "Views.report" with value "Not Action Criteria"
-    Then UI Validate "Report.Table" Table rows count equal to 9
+    Then UI Validate "Report.Table" Table rows count EQUALS to 9
     And UI Navigate to "AMS Reports" page via homePage
     And UI Navigate to "AMS Forensics" page via homePage
 
@@ -68,8 +70,9 @@ Feature: Forensic Criteria Tests
       | Criteria | Event Criteria:Attack Name,Operator:Equals,Value:Incorrect IPv4 checksum; |
       | Output   | Attack ID, Attack Name                                                    |
     When UI Generate and Validate Forensics With Name "Attack name Criteria" with Timeout of 180 Seconds
+    And Sleep "30"
     And UI Click Button "Views.report" with value "Attack name Criteria"
-    Then UI Validate "Report.Table" Table rows count equal to 4
+    Then UI Validate "Report.Table" Table rows count EQUALS to 4
     Then UI Validate Table record values by columns with elementLabel "Report.Table" findBy index 0
       | columnName  | value                   |
       | Attack Name | Incorrect IPv4 checksum |
@@ -82,8 +85,9 @@ Feature: Forensic Criteria Tests
       | Criteria | Event Criteria:Attack Name,Operator:Not Equals,Value:Incorrect IPv4 checksum; |
       | Output   | Start Time,Attack ID, Attack Name                                             |
     When UI Generate and Validate Forensics With Name "Not Attack name Criteria" with Timeout of 180 Seconds
+    And Sleep "30"
     And UI Click Button "Views.report" with value "Not Attack name Criteria"
-    Then UI Validate "Report.Table" Table rows count equal to 32
+    Then UI Validate "Report.Table" Table rows count EQUALS to 32
     And UI Navigate to "AMS Reports" page via homePage
     And UI Navigate to "AMS Forensics" page via homePage
 
@@ -93,8 +97,9 @@ Feature: Forensic Criteria Tests
       | Criteria | Event Criteria:Attack ID,Operator:Equals,Value:136-1414505529; |
       | Output   | Start Time,Attack ID                                           |
     When UI Generate and Validate Forensics With Name "Attack ID Criteria" with Timeout of 180 Seconds
+    And Sleep "30"
     And UI Click Button "Views.report" with value "Attack ID Criteria"
-    Then UI Validate "Report.Table" Table rows count equal to 1
+    Then UI Validate "Report.Table" Table rows count EQUALS to 1
     And UI Navigate to "AMS Reports" page via homePage
     And UI Navigate to "AMS Forensics" page via homePage
 
@@ -104,8 +109,9 @@ Feature: Forensic Criteria Tests
       | Criteria | Event Criteria:Attack ID,Operator:Not Equals,Value:136-1414505529; |
       | Output   | Start Time,Attack ID                                               |
     When UI Generate and Validate Forensics With Name "Not Attack ID Criteria" with Timeout of 180 Seconds
+    And Sleep "30"
     And UI Click Button "Views.report" with value "Not Attack ID Criteria"
-    Then UI Validate "Report.Table" Table rows count equal to 36
+    Then UI Validate "Report.Table" Table rows count EQUALS to 36
     And UI Navigate to "AMS Reports" page via homePage
     And UI Navigate to "AMS Forensics" page via homePage
 
@@ -116,8 +122,9 @@ Feature: Forensic Criteria Tests
       | Criteria | Event Criteria:Destination IP,Operator:Equals,IPType:IPv4,IPValue:1.1.1.1; |
       | Output   | Start Time,Attack ID                                                       |
     When UI Generate and Validate Forensics With Name "Destination IP Criteria" with Timeout of 180 Seconds
+    And Sleep "30"
     And UI Click Button "Views.report" with value "Destination IP Criteria"
-    Then UI Validate "Report.Table" Table rows count equal to 2
+    Then UI Validate "Report.Table" Table rows count EQUALS to 2
     And UI Navigate to "AMS Reports" page via homePage
     And UI Navigate to "AMS Forensics" page via homePage
 
@@ -128,8 +135,9 @@ Feature: Forensic Criteria Tests
       | Criteria | Event Criteria:Destination IP,Operator:Not Equals,IPType:IPv4,IPValue:1.1.1.1; |
       | Output   | Start Time,Attack ID                                                           |
     When UI Generate and Validate Forensics With Name "Not Destination IP Criteria" with Timeout of 180 Seconds
+    And Sleep "30"
     And UI Click Button "Views.report" with value "Not Destination IP Criteria"
-    Then UI Validate "Report.Table" Table rows count equal to 35
+    Then UI Validate "Report.Table" Table rows count EQUALS to 35
     And UI Navigate to "AMS Reports" page via homePage
     And UI Navigate to "AMS Forensics" page via homePage
 
@@ -139,8 +147,9 @@ Feature: Forensic Criteria Tests
       | Criteria | Event Criteria:Destination Port,Operator:Equals,portType:Port Range,portFrom:52,portTo:53; |
       | Output   | Start Time,Attack ID                                                                       |
     When UI Generate and Validate Forensics With Name "Destination port range Criteria" with Timeout of 180 Seconds
+    And Sleep "30"
     And UI Click Button "Views.report" with value "Destination port range Criteria"
-    Then UI Validate "Report.Table" Table rows count equal to 2
+    Then UI Validate "Report.Table" Table rows count EQUALS to 2
     And UI Navigate to "AMS Reports" page via homePage
     And UI Navigate to "AMS Forensics" page via homePage
 
@@ -151,8 +160,9 @@ Feature: Forensic Criteria Tests
       | Criteria | Event Criteria:Destination Port,Operator:Not Equals,portType:Port Range,portFrom:52,portTo:53; |
       | Output   | Start Time,Attack ID                                                                           |
     When UI Generate and Validate Forensics With Name "Not Destination port range Criteria" with Timeout of 180 Seconds
+    And Sleep "30"
     And UI Click Button "Views.report" with value "Not Destination port range Criteria"
-    Then UI Validate "Report.Table" Table rows count equal to 35
+    Then UI Validate "Report.Table" Table rows count EQUALS to 35
     And UI Navigate to "AMS Reports" page via homePage
     And UI Navigate to "AMS Forensics" page via homePage
 
@@ -162,8 +172,9 @@ Feature: Forensic Criteria Tests
       | Criteria | Event Criteria:Destination Port,Operator:Equals,portType:Port,portValue:80; |
       | Output   | Start Time,Attack ID                                                        |
     When UI Generate and Validate Forensics With Name "Destination Port Criteria" with Timeout of 180 Seconds
+    And Sleep "30"
     And UI Click Button "Views.report" with value "Destination Port Criteria"
-    Then UI Validate "Report.Table" Table rows count equal to 8
+    Then UI Validate "Report.Table" Table rows count EQUALS to 8
     And UI Navigate to "AMS Reports" page via homePage
     And UI Navigate to "AMS Forensics" page via homePage
 
@@ -173,8 +184,9 @@ Feature: Forensic Criteria Tests
       | Criteria | Event Criteria:Destination Port,Operator:Not Equals,portType:Port,portValue:80; |
       | Output   | Start Time,Attack ID                                                            |
     When UI Generate and Validate Forensics With Name "Not Destination Port Criteria" with Timeout of 180 Seconds
+    And Sleep "30"
     And UI Click Button "Views.report" with value "Not Destination Port Criteria"
-    Then UI Validate "Report.Table" Table rows count equal to 29
+    Then UI Validate "Report.Table" Table rows count EQUALS to 29
     And UI Navigate to "AMS Reports" page via homePage
     And UI Navigate to "AMS Forensics" page via homePage
 
@@ -185,8 +197,9 @@ Feature: Forensic Criteria Tests
       | Criteria | Event Criteria:Direction,Operator:Equals,Value:[Inbound]; |
       | Output   | Start Time,Attack ID, Direction                           |
     When UI Generate and Validate Forensics With Name "Direction Criteria" with Timeout of 180 Seconds
+    And Sleep "30"
     And UI Click Button "Views.report" with value "Direction Criteria"
-    Then UI Validate "Report.Table" Table rows count equal to 16
+    Then UI Validate "Report.Table" Table rows count EQUALS to 16
     Then UI Validate Table record values by columns with elementLabel "Report.Table" findBy index 0
       | columnName | value |
       | Direction  | In    |
@@ -199,8 +212,9 @@ Feature: Forensic Criteria Tests
       | Criteria | Event Criteria:Direction,Operator:Not Equals,Value:[Inbound]; |
       | Output   | Start Time,Attack ID, Direction                               |
     When UI Generate and Validate Forensics With Name "Not Direction Criteria" with Timeout of 180 Seconds
+    And Sleep "30"
     And UI Click Button "Views.report" with value "Not Direction Criteria"
-    Then UI Validate "Report.Table" Table rows count equal to 21
+    Then UI Validate "Report.Table" Table rows count EQUALS to 21
     And UI Navigate to "AMS Reports" page via homePage
     And UI Navigate to "AMS Forensics" page via homePage
 
@@ -210,8 +224,9 @@ Feature: Forensic Criteria Tests
       | Criteria | Event Criteria:Duration,Operator:Equals,Value:[Less than 1 min]; |
       | Output   | Start Time,Attack ID, Duration                                   |
     When UI Generate and Validate Forensics With Name "Duration Criteria" with Timeout of 180 Seconds
+    And Sleep "30"
     And UI Click Button "Views.report" with value "Duration Criteria"
-    Then UI Validate "Report.Table" Table rows count equal to 34
+    Then UI Validate "Report.Table" Table rows count EQUALS to 34
     And UI Navigate to "AMS Reports" page via homePage
     And UI Navigate to "AMS Forensics" page via homePage
 
@@ -221,8 +236,9 @@ Feature: Forensic Criteria Tests
       | Criteria | Event Criteria:Duration,Operator:Not Equals,Value:[Less than 1 min]; |
       | Output   | Start Time,Attack ID, Duration                                       |
     When UI Generate and Validate Forensics With Name "Not Duration Criteria" with Timeout of 180 Seconds
+    And Sleep "30"
     And UI Click Button "Views.report" with value "Not Duration Criteria"
-    Then UI Validate "Report.Table" Table rows count equal to 3
+    Then UI Validate "Report.Table" Table rows count EQUALS to 3
     And UI Navigate to "AMS Reports" page via homePage
     And UI Navigate to "AMS Forensics" page via homePage
 
@@ -235,8 +251,9 @@ Feature: Forensic Criteria Tests
       | Criteria | Event Criteria:Protocol,Operator:Equals,Value:[IP]; |
       | Output   | Start Time,Attack ID, Protocol                      |
     When UI Generate and Validate Forensics With Name "Protocol Criteria" with Timeout of 180 Seconds
+    And Sleep "30"
     And UI Click Button "Views.report" with value "Protocol Criteria"
-    Then UI Validate "Report.Table" Table rows count equal to 11
+    Then UI Validate "Report.Table" Table rows count EQUALS to 11
     Then UI Validate Table record values by columns with elementLabel "Report.Table" findBy index 0
       | columnName | value |
       | Protocol   | IP    |
@@ -255,8 +272,9 @@ Feature: Forensic Criteria Tests
       | Criteria | Event Criteria:Protocol,Operator:Not Equals,Value:[IP]; |
       | Output   | Start Time,Attack ID, Protocol                          |
     When UI Generate and Validate Forensics With Name "Not Protocol Criteria" with Timeout of 180 Seconds
+    And Sleep "30"
     And UI Click Button "Views.report" with value "Not Protocol Criteria"
-    Then UI Validate "Report.Table" Table rows count equal to 26
+    Then UI Validate "Report.Table" Table rows count EQUALS to 26
     And UI Navigate to "AMS Reports" page via homePage
     And UI Navigate to "AMS Forensics" page via homePage
 
@@ -267,8 +285,9 @@ Feature: Forensic Criteria Tests
       | Criteria | Event Criteria:Risk,Operator:Equals,Value:[Low]; |
       | Output   | Start Time,Attack ID, Risk                       |
     When UI Generate and Validate Forensics With Name "Risk Criteria" with Timeout of 180 Seconds
+    And Sleep "30"
     And UI Click Button "Views.report" with value "Risk Criteria"
-    Then UI Validate "Report.Table" Table rows count equal to 11
+    Then UI Validate "Report.Table" Table rows count EQUALS to 11
     Then UI Validate Table record values by columns with elementLabel "Report.Table" findBy index 0
       | columnName | value |
       | Risk       | Low   |
@@ -281,8 +300,9 @@ Feature: Forensic Criteria Tests
       | Criteria | Event Criteria:Risk,Operator:Not Equals,Value:[Low]; |
       | Output   | Start Time,Attack ID, Risk                           |
     When UI Generate and Validate Forensics With Name "Not Risk Criteria" with Timeout of 180 Seconds
+    And Sleep "30"
     And UI Click Button "Views.report" with value "Not Risk Criteria"
-    Then UI Validate "Report.Table" Table rows count equal to 26
+    Then UI Validate "Report.Table" Table rows count EQUALS to 26
     And UI Navigate to "AMS Reports" page via homePage
     And UI Navigate to "AMS Forensics" page via homePage
 
@@ -293,8 +313,9 @@ Feature: Forensic Criteria Tests
       | Criteria | Event Criteria:Source IP,Operator:Equals,IPType:IPv4,IPValue:0.0.0.0; |
       | Output   | Start Time,Attack ID                                                  |
     When UI Generate and Validate Forensics With Name "Source IP Criteria" with Timeout of 180 Seconds
+    And Sleep "30"
     And UI Click Button "Views.report" with value "Source IP Criteria"
-    Then UI Validate "Report.Table" Table rows count equal to 6
+    Then UI Validate "Report.Table" Table rows count EQUALS to 6
     And UI Navigate to "AMS Reports" page via homePage
     And UI Navigate to "AMS Forensics" page via homePage
 
@@ -305,8 +326,9 @@ Feature: Forensic Criteria Tests
       | Criteria | Event Criteria:Source IP,Operator:Not Equals,IPType:IPv4,IPValue:0.0.0.0; |
       | Output   | Start Time,Attack ID                                                      |
     When UI Generate and Validate Forensics With Name "Not Source IP Criteria" with Timeout of 180 Seconds
+    And Sleep "30"
     And UI Click Button "Views.report" with value "Not Source IP Criteria"
-    Then UI Validate "Report.Table" Table rows count equal to 30
+    Then UI Validate "Report.Table" Table rows count EQUALS to 30
     And UI Navigate to "AMS Reports" page via homePage
     And UI Navigate to "AMS Forensics" page via homePage
 
@@ -317,8 +339,9 @@ Feature: Forensic Criteria Tests
       | Criteria | Event Criteria:Source Port,Operator:Equals,portType:Port,portValue:0; |
       | Output   | Start Time,Attack ID                                                  |
     When UI Generate and Validate Forensics With Name "Source Port Criteria" with Timeout of 180 Seconds
+    And Sleep "30"
     And UI Click Button "Views.report" with value "Source Port Criteria"
-    Then UI Validate "Report.Table" Table rows count equal to 17
+    Then UI Validate "Report.Table" Table rows count EQUALS to 17
     And UI Navigate to "AMS Reports" page via homePage
     And UI Navigate to "AMS Forensics" page via homePage
 
@@ -329,8 +352,9 @@ Feature: Forensic Criteria Tests
       | Criteria | Event Criteria:Source Port,Operator:Not Equals,portType:Port,portValue:0; |
       | Output   | Start Time,Attack ID                                                      |
     When UI Generate and Validate Forensics With Name "Not Source Port Criteria" with Timeout of 300 Seconds
+    And Sleep "30"
     And UI Click Button "Views.report" with value "Not Source Port Criteria"
-    Then UI Validate "Report.Table" Table rows count equal to 20
+    Then UI Validate "Report.Table" Table rows count EQUALS to 20
     And UI Navigate to "AMS Reports" page via homePage
     And UI Navigate to "AMS Forensics" page via homePage
 
@@ -341,8 +365,9 @@ Feature: Forensic Criteria Tests
       | Criteria | Event Criteria:Threat Category,Operator:Equals,Value:[ACL]; |
       | Output   | Start Time,Attack ID, Threat Category                       |
     When UI Generate and Validate Forensics With Name "Category Criteria" with Timeout of 300 Seconds
+    And Sleep "30"
     And UI Click Button "Views.report" with value "Category Criteria"
-    Then UI Validate "Report.Table" Table rows count equal to 3
+    Then UI Validate "Report.Table" Table rows count EQUALS to 3
     And UI Navigate to "AMS Reports" page via homePage
     And UI Navigate to "AMS Forensics" page via homePage
 
@@ -352,8 +377,9 @@ Feature: Forensic Criteria Tests
       | Criteria | Event Criteria:Threat Category,Operator:Not Equals,Value:[ACL]; |
       | Output   | Start Time,Attack ID, Threat Category                           |
     When UI Generate and Validate Forensics With Name "Not Category Criteria" with Timeout of 300 Seconds
+    And Sleep "30"
     And UI Click Button "Views.report" with value "Not Category Criteria"
-    Then UI Validate "Report.Table" Table rows count equal to 34
+    Then UI Validate "Report.Table" Table rows count EQUALS to 34
     And UI Navigate to "AMS Reports" page via homePage
     And UI Navigate to "AMS Forensics" page via homePage
 
@@ -364,8 +390,9 @@ Feature: Forensic Criteria Tests
       | Criteria | Event Criteria:Threat Category,Operator:Not Equals,Value:[ACL,Anti Scanning,Behavioral DoS,DoS,HTTP Flood,Intrusions,Cracking Protection,SYN Flood,Anomalies,Stateful ACL,DNS Flood,Bandwidth Management,Traffic Filters]; |
       | Output   | Start Time,Attack ID, Threat Category                                                                                                                                                                                      |
     When UI Generate and Validate Forensics With Name "Multiple Not Category Criteria" with Timeout of 300 Seconds
+    And Sleep "30"
     And UI Click Button "Views.report" with value "Multiple Not Category Criteria"
-    Then UI Validate "Report.Table" Table rows count equal to 37
+    Then UI Validate "Report.Table" Table rows count EQUALS to 37
     And UI Navigate to "AMS Reports" page via homePage
     And UI Navigate to "AMS Forensics" page via homePage
 
@@ -376,8 +403,9 @@ Feature: Forensic Criteria Tests
       | Criteria | Event Criteria:Threat Category,Operator:Equals,Value:[Connection PPS]; |
       | Output   | Start Time,Attack ID, Threat Category                       |
     When UI Generate and Validate Forensics With Name "Category Criteria" with Timeout of 300 Seconds
+    And Sleep "30"
     And UI Click Button "Views.report" with value "Category Criteria"
-    Then UI Validate "Report.Table" Table rows count equal to 1
+    Then UI Validate "Report.Table" Table rows count EQUALS to 1
     And UI Navigate to "AMS Reports" page via homePage
     And UI Navigate to "AMS Forensics" page via homePage
 
@@ -387,8 +415,9 @@ Feature: Forensic Criteria Tests
       | Criteria | Event Criteria:Threat Category,Operator:Not Equals,Value:[Connection PPS]; |
       | Output   | Start Time,Attack ID, Threat Category                       |
     When UI Generate and Validate Forensics With Name "Category Criteria" with Timeout of 300 Seconds
+    And Sleep "30"
     And UI Click Button "Views.report" with value "Category Criteria"
-    Then UI Validate "Report.Table" Table rows count equal to 36
+    Then UI Validate "Report.Table" Table rows count EQUALS to 36
     And UI Navigate to "AMS Reports" page via homePage
     And UI Navigate to "AMS Forensics" page via homePage
 
@@ -404,8 +433,9 @@ Feature: Forensic Criteria Tests
     And UI Navigate to "AMS Reports" page via homePage
     And UI Navigate to "AMS Forensics" page via homePage
     When UI Generate and Validate Forensics With Name "Criteria_AND" with Timeout of 300 Seconds
+    And Sleep "30"
     And UI Click Button "Views.report" with value "Criteria_AND"
-    Then UI Validate "Report.Table" Table rows count equal to 6
+    Then UI Validate "Report.Table" Table rows count EQUALS to 6
     Then UI Validate Table record values by columns with elementLabel "Report.Table" findBy columnName "Attack ID" findBy cellValue "803-1525623158"
       | columnName | value |
       | Direction  | Out   |
@@ -455,8 +485,9 @@ Feature: Forensic Criteria Tests
     And UI Navigate to "AMS Reports" page via homePage
     And UI Navigate to "AMS Forensics" page via homePage
     When UI Generate and Validate Forensics With Name "Criteria_OR" with Timeout of 300 Seconds
+    And Sleep "30"
     And UI Click Button "Views.report" with value "Criteria_OR"
-    Then UI Validate "Report.Table" Table rows count equal to 34
+    Then UI Validate "Report.Table" Table rows count EQUALS to 34
     And UI Navigate to "AMS Reports" page via homePage
     And UI Navigate to "AMS Forensics" page via homePage
 
@@ -475,8 +506,9 @@ Feature: Forensic Criteria Tests
     And UI Navigate to "AMS Reports" page via homePage
     And UI Navigate to "AMS Forensics" page via homePage
     When UI Generate and Validate Forensics With Name "Criteria_Custom" with Timeout of 300 Seconds
+    And Sleep "30"
     And UI Click Button "Views.report" with value "Criteria_Custom"
-    Then UI Validate "Report.Table" Table rows count equal to 30
+    Then UI Validate "Report.Table" Table rows count EQUALS to 30
     And UI Navigate to "AMS Reports" page via homePage
     And UI Navigate to "AMS Forensics" page via homePage
 
@@ -488,8 +520,9 @@ Feature: Forensic Criteria Tests
     And UI Navigate to "AMS Reports" page via homePage
     And UI Navigate to "AMS Forensics" page via homePage
     When UI Generate and Validate Forensics With Name "Criteria_10_Conditions" with Timeout of 300 Seconds
+    And Sleep "30"
     And UI Click Button "Views.report" with value "Criteria_10_Conditions"
-    Then UI Validate "Report.Table" Table rows count equal to 9
+    Then UI Validate "Report.Table" Table rows count EQUALS to 9
 
 #  @SID_36
 #  Scenario: modify one attack's rate value to over 2TB
@@ -504,7 +537,7 @@ Feature: Forensic Criteria Tests
 #    And UI Navigate to "AMS Forensics" page via homePage
 #    When UI Generate and Validate Forensics With Name "PPS greater than K" with Timeout of 300 Seconds
 #    And UI Click Button "Views.report" with value "PPS greater than K"
-#    Then UI Validate "Report.Table" Table rows count equal to 10
+#    Then UI Validate "Report.Table" Table rows count EQUALS to 10
 #
 #  @SID_38
 #  Scenario: VRM - Forensics Report criteria - PPS greater than Mega
@@ -515,7 +548,7 @@ Feature: Forensic Criteria Tests
 #    And UI Navigate to "AMS Forensics" page via homePage
 #    When UI Generate and Validate Forensics With Name "PPS greater than M" with Timeout of 300 Seconds
 #    And UI Click Button "Views.report" with value "PPS greater than M"
-#    Then UI Validate "Report.Table" Table rows count equal to 3
+#    Then UI Validate "Report.Table" Table rows count EQUALS to 3
 #
 #  @SID_39
 #  Scenario: VRM - Forensics Report criteria - PPS greater than Giga
@@ -526,7 +559,7 @@ Feature: Forensic Criteria Tests
 #    And UI Navigate to "AMS Forensics" page via homePage
 #    When UI Generate and Validate Forensics With Name "PPS greater than G" with Timeout of 300 Seconds
 #    And UI Click Button "Views.report" with value "PPS greater than G"
-#    Then UI Validate "Report.Table" Table rows count equal to 1
+#    Then UI Validate "Report.Table" Table rows count EQUALS to 1
 #
 #  @SID_40
 #  Scenario: modify one attack's rate value to over 2TB
@@ -541,7 +574,7 @@ Feature: Forensic Criteria Tests
 #    And UI Navigate to "AMS Forensics" page via homePage
 #    When UI Generate and Validate Forensics With Name "PPS greater than T" with Timeout of 300 Seconds
 #    And UI Click Button "Views.report" with value "PPS greater than T"
-#    Then UI Validate "Report.Table" Table rows count equal to 1
+#    Then UI Validate "Report.Table" Table rows count EQUALS to 1
 #
 #  @SID_42
 #  Scenario: VRM - Forensics Report criteria - bps greater than Kilo
@@ -553,7 +586,7 @@ Feature: Forensic Criteria Tests
 #    When UI Generate and Validate Forensics With Name "bps greater than K" with Timeout of 300 Seconds
 #    And UI Click Button "Views.report" with value "bps greater than K"
 #    Then CLI Run remote linux Command "curl -XPOST localhost:9200/dp-attack-raw-*/_search -d '{"query":{"bool":{"must":[{"match_all":{}}]}},"from":0,"size":1000}' > /opt/radware/storage/bps.txt" on "ROOT_SERVER_CLI"
-#    Then UI Validate "Report.Table" Table rows count equal to 9
+#    Then UI Validate "Report.Table" Table rows count EQUALS to 9
 #
 #  @SID_43
 #  Scenario: VRM - Forensics Report criteria - bps greater than Mega
@@ -564,7 +597,7 @@ Feature: Forensic Criteria Tests
 #    And UI Navigate to "AMS Forensics" page via homePage
 #    When UI Generate and Validate Forensics With Name "bps greater than M" with Timeout of 300 Seconds
 #    And UI Click Button "Views.report" with value "bps greater than M"
-#    Then UI Validate "Report.Table" Table rows count equal to 10
+#    Then UI Validate "Report.Table" Table rows count EQUALS to 10
 #
 #  @SID_44
 #  Scenario: VRM - Forensics Report criteria - bps greater than Giga
@@ -575,7 +608,7 @@ Feature: Forensic Criteria Tests
 #    And UI Navigate to "AMS Forensics" page via homePage
 #    When UI Generate and Validate Forensics With Name "bps greater than G" with Timeout of 300 Seconds
 #    And UI Click Button "Views.report" with value "bps greater than G"
-#    Then UI Validate "Report.Table" Table rows count equal to 3
+#    Then UI Validate "Report.Table" Table rows count EQUALS to 3
 #
 #
 #  @SID_45
@@ -587,7 +620,7 @@ Feature: Forensic Criteria Tests
 #    And UI Navigate to "AMS Forensics" page via homePage
 #    When UI Generate and Validate Forensics With Name "bps greater than T" with Timeout of 300 Seconds
 #    And UI Click Button "Views.report" with value "bps greater than T"
-#    Then UI Validate "Report.Table" Table rows count equal to 1
+#    Then UI Validate "Report.Table" Table rows count EQUALS to 1
 
   @SID_46
   Scenario: Cleanup

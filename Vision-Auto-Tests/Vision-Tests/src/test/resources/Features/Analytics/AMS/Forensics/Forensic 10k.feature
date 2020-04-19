@@ -54,7 +54,7 @@ Feature: Forensics 10K
   Scenario: validate number of records in forensic table
     And UI Click Button "Views.report" with value "Forensic_10K"
     Then Sleep "15"
-    * UI Validate "Report.Table" Table rows count equal to 10000
+    * UI Validate "Report.Table" Table rows count EQUALS to 10000
 
   @SID_10
   Scenario: validate existence of "export" button

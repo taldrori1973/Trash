@@ -74,6 +74,7 @@ public class VMOperationsSteps extends BddUITestBase {
             VMSnapshotOperations.newInstance().switchToSnapshot(new VmNameTargetVm(esxiInfo, vmName), snapshot, true);
             BaseTestUtils.report("Revert done", Reporter.PASS_NOR_FAIL);
             Thread.sleep(6 * 60 * 1000);
+            CliOperations.runCommand(getRestTestBase().getRootServerCli(), "\"yes|restore_radware_user_password\"", 15 * 1000);
             if (VisionServer.waitForVisionServerServicesToStartHA(restTestBase.getRadwareServerCli(), 45 * 60 * 1000))
                 BaseTestUtils.report("All services up", Reporter.PASS);
             else {
@@ -149,6 +150,7 @@ public class VMOperationsSteps extends BddUITestBase {
             BaseTestUtils.report("Server is not running. status is: " + CliOperations.lastOutput, Reporter.FAIL);
 
         Thread.sleep(6 * 60 * 1000);
+        CliOperations.runCommand(getRestTestBase().getRootServerCli(), "\"yes|restore_radware_user_password\"", 15 * 1000);
         if (VisionServer.waitForVisionServerServicesToStartHA(restTestBase.getRadwareServerCli(), 45 * 60 * 1000))
             BaseTestUtils.report("All services up", Reporter.PASS);
         else {

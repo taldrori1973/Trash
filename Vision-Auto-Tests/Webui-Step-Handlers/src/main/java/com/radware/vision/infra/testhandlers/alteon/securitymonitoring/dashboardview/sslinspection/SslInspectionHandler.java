@@ -3,7 +3,7 @@ package com.radware.vision.infra.testhandlers.alteon.securitymonitoring.dashboar
 import com.radware.automation.tools.basetest.Reporter;
 import com.radware.automation.webui.widgets.ComponentLocator;
 import com.radware.vision.automation.tools.exceptions.selenium.TargetWebElementNotFoundException;
-import com.radware.vision.infra.enums.EqualsOrContains;
+import com.radware.vision.automation.AutoUtils.Operators.OperatorsEnum;
 import com.radware.vision.infra.enums.WebElementType;
 import com.radware.vision.infra.testhandlers.alteon.securitymonitoring.dashboardview.sslinspection.enums.DeleteOrLeaveIt;
 import com.radware.vision.infra.testhandlers.alteon.securitymonitoring.dashboardview.sslinspection.enums.SslInspectionTabs;
@@ -24,7 +24,7 @@ public class SslInspectionHandler {
 
     public static boolean verifyIfTabClicked(SslInspectionTabs tab) {
 
-        String tabXpath = GeneralUtils.buildGenericXpath(WebElementType.Data_Debug_Id, tab.getDataDebugId(), EqualsOrContains.EQUALS);
+        String tabXpath = GeneralUtils.buildGenericXpath(WebElementType.Data_Debug_Id, tab.getDataDebugId(), OperatorsEnum.EQUALS);
         if (!ClickOperationsHandler.checkIfElementAttributeContains(new ComponentLocator(How.XPATH, tabXpath), "class", "active")) {
             ReportsUtils.reportAndTakeScreenShot(tab.getTabName() + " Is Not Clicked", Reporter.FAIL);
             return false;
