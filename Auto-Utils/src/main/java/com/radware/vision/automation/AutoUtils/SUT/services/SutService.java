@@ -1,6 +1,5 @@
 package com.radware.vision.automation.AutoUtils.SUT.services;
 
-import com.radware.vision.automation.AutoUtils.SUT.dtos.DeviceDto;
 import com.radware.vision.automation.AutoUtils.SUT.dtos.VisionConfigurationDto;
 import com.radware.vision.automation.AutoUtils.SUT.repositories.daos.DevicesDao;
 import com.radware.vision.automation.AutoUtils.SUT.repositories.daos.SetupDao;
@@ -37,7 +36,7 @@ public class SutService {
         return visionConfigurationDto;
     }
 
-    public List<DeviceDto> getVisionSetupTreeDevices() {
+    public List<String> getVisionSetupTreeSites() {
         return null;
     }
 }
