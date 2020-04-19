@@ -4,6 +4,10 @@ import java.lang.management.ManagementFactory;
 import java.lang.management.RuntimeMXBean;
 import java.util.Map;
 
+/**
+ * Muhamad Igbaria (MohamadI)
+ * This is a utility class for getting the runtime VM Options
+ */
 public class RuntimeVMOptions {
 
     private RuntimeMXBean runtimeMXBean;
