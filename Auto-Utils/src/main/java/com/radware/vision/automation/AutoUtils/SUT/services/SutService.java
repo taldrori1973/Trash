@@ -1,5 +1,6 @@
 package com.radware.vision.automation.AutoUtils.SUT.services;
 
+import com.radware.vision.automation.AutoUtils.SUT.dtos.DeviceDto;
 import com.radware.vision.automation.AutoUtils.SUT.dtos.VisionConfigurationDto;
 import com.radware.vision.automation.AutoUtils.SUT.repositories.daos.DevicesDao;
 import com.radware.vision.automation.AutoUtils.SUT.repositories.daos.SetupDao;
@@ -41,5 +42,9 @@ public class SutService {
     public List<String> getVisionSetupTreeSites() {
         List<Site> allSites = this.setupDao.findAllSites();
         return allSites.stream().map(Site::getName).collect(Collectors.toList());
+    }
+
+    public List<DeviceDto> getVisionSetupTreeDevices() {
+        return null;
     }
 }

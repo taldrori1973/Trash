@@ -228,6 +228,7 @@ public abstract class WebUITestBase extends SystemTestCase4 {
         if (!isRestInit) {
             SUTManager instance = SUTManagerImpl.getInstance();
             instance.getVisionConfigurations();
+            instance.getVisionSetupTreeSites();
             isRestInit = true;
 
             devicesManager = DevicesManager.getInstance("devices");

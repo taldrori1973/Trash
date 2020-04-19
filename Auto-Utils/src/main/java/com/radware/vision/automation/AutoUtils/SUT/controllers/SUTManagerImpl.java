@@ -1,5 +1,6 @@
 package com.radware.vision.automation.AutoUtils.SUT.controllers;
 
+import com.radware.vision.automation.AutoUtils.SUT.dtos.DeviceDto;
 import com.radware.vision.automation.AutoUtils.SUT.dtos.VisionConfigurationDto;
 import com.radware.vision.automation.AutoUtils.SUT.services.SutService;
 
@@ -39,6 +40,11 @@ public class SUTManagerImpl implements SUTManager {
     @Override
     public List<String> getVisionSetupTreeSites() {
         return this.sutService.getVisionSetupTreeSites();
+    }
+
+    @Override
+    public List<DeviceDto> getVisionSetupTreeDevices() {
+        return this.sutService.getVisionSetupTreeDevices();
     }
 
 }
