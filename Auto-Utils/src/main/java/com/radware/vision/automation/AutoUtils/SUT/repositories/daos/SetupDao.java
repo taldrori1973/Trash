@@ -7,13 +7,14 @@ import com.radware.vision.automation.AutoUtils.utils.ApplicationPropertiesUtils;
 import com.radware.vision.automation.AutoUtils.utils.JsonUtilities;
 
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 
 public class SetupDao {
 
     private static final String SUT_SETUPS_FILES_PATH_PROPERTY = "SUT.setups.path";
 
-    private static SetupDao _instance = new SetupDao();
+    private static SetupDao _instance;
 
 
     private Setup setup;
@@ -25,7 +26,10 @@ public class SetupDao {
         );
     }
 
-    public static SetupDao get_instance() {
+    public static SetupDao get_instance(String setupFileName) {
+        if (Objects.isNull(_instance)) {
+            _instance = new SetupDao(setupFileName);
+        }
         return _instance;
     }
 
