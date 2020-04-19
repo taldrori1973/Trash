@@ -1,7 +1,7 @@
 package com.radware.vision.automation.AutoUtils.SUT.dtos;
 
-import com.radware.vision.automation.AutoUtils.SUT.repositories.DevicesDao;
-import com.radware.vision.automation.AutoUtils.SUT.repositories.SetupDao;
+import com.radware.vision.automation.AutoUtils.SUT.repositories.daos.DevicesDao;
+import com.radware.vision.automation.AutoUtils.SUT.repositories.daos.SetupDao;
 import com.radware.vision.automation.AutoUtils.SUT.repositories.pojos.devices.Device;
 import com.radware.vision.automation.AutoUtils.SUT.repositories.pojos.devices.Devices;
 import com.radware.vision.automation.AutoUtils.SUT.repositories.pojos.setup.Setup;
