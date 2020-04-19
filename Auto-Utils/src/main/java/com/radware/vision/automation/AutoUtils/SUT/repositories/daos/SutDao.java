@@ -13,11 +13,11 @@ public class SutDao {
     private static final String SUT_VM_OPTION_KEY_PROPERTY = "SUT.vmOptions.key";
     private static final String SUT_FILES_PATH_PROPERTY = "SUT.path";
 
+    private static SutDao _instance = new SutDao();
 
     private ApplicationPropertiesUtils applicationPropertiesUtils;
     private RuntimeVMOptions runtimeVMOptions;
 
-    private static SutDao _instance = new SutDao();
     private SUTPojo sutPojo;
 
 

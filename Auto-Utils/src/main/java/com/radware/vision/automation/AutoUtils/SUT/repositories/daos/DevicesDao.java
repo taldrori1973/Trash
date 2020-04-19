@@ -3,6 +3,8 @@ package com.radware.vision.automation.AutoUtils.SUT.repositories.daos;
 import com.radware.vision.automation.AutoUtils.SUT.enums.DeviceType;
 import com.radware.vision.automation.AutoUtils.SUT.repositories.pojos.devices.Device;
 import com.radware.vision.automation.AutoUtils.SUT.repositories.pojos.devices.Devices;
+import com.radware.vision.automation.AutoUtils.utils.ApplicationPropertiesUtils;
+import com.radware.vision.automation.AutoUtils.utils.JsonUtilities;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -11,12 +13,29 @@ import java.util.Optional;
 
 public class DevicesDao {
 
+    private static final String SUT_DEVICES_FILES_PATH_PROPERTY = "SUT.devices.path";
+    private static final String DEVICES_FILE_NAME = "devices.json";
+
+    private static DevicesDao _instance = new DevicesDao();
     private Devices devices;
 
-    public DevicesDao(Devices allDevices) {
-        this.devices = allDevices;
+
+    public DevicesDao() {
+        ApplicationPropertiesUtils applicationPropertiesUtils = new ApplicationPropertiesUtils();
+
+        this.devices = JsonUtilities.loadJsonFile(
+                String.format("%s/%s", applicationPropertiesUtils.getProperty(SUT_DEVICES_FILES_PATH_PROPERTY), DEVICES_FILE_NAME), Devices.class
+        );
+
+
     }
 
+    public static DevicesDao get_instance() {
+        return _instance;
+    }
+
+
+    //    DAO
     public Optional<Device> findDeviceById(String deviceId) {
 
         Optional<Device> deviceFound = devices.getTreeDevices().getAppWalls().stream().filter(device -> deviceId.equals(device.getDeviceId())).findFirst();
