@@ -1,4 +1,4 @@
-package com.radware.vision.automation.AutoUtils.SUT.utils;
+package com.radware.vision.automation.AutoUtils.utils;
 
 import java.io.IOException;
 import java.io.InputStream;

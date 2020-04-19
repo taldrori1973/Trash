@@ -1,4 +1,4 @@
-package com.radware.vision.automation.AutoUtils.SUT.repositories;
+package com.radware.vision.automation.AutoUtils.SUT.repositories.daos;
 
 import com.radware.vision.automation.AutoUtils.SUT.enums.DeviceType;
 import com.radware.vision.automation.AutoUtils.SUT.repositories.pojos.devices.Device;
