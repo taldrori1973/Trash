@@ -3,6 +3,7 @@ package com.radware.vision.automation.AutoUtils.utils;
 import java.lang.management.ManagementFactory;
 import java.lang.management.RuntimeMXBean;
 import java.util.Map;
+import java.util.Objects;
 
 /**
  * Muhamad Igbaria (MohamadI)
@@ -26,5 +27,9 @@ public class RuntimeVMOptions {
 
     public String getSUTFileName(String sutKey) {
         return this.getValueByKey(sutKey);
+    }
+
+    public String getResourcesPath(String name) {
+        return Objects.requireNonNull(getClass().getClassLoader().getResource(name)).getPath();
     }
 }

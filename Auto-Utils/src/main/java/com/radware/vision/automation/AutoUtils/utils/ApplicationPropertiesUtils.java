@@ -13,6 +13,9 @@ public class ApplicationPropertiesUtils {
 
     private Properties properties;
 
+    /**
+     * @param propertiesFilePath the file should be under the runner module resources folder
+     */
     public ApplicationPropertiesUtils(String propertiesFilePath) {
         this.properties = new Properties();
         try (InputStream inputStream = getClass().getClassLoader().getResourceAsStream(propertiesFilePath)) {

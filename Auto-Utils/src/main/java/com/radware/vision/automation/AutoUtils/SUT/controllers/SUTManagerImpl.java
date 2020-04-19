@@ -1,21 +1,14 @@
 package com.radware.vision.automation.AutoUtils.SUT.controllers;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.radware.vision.automation.AutoUtils.SUT.dtos.DeviceDto;
 import com.radware.vision.automation.AutoUtils.SUT.dtos.SutDto;
-import com.radware.vision.automation.AutoUtils.SUT.repositories.pojos.devices.Devices;
-import com.radware.vision.automation.AutoUtils.SUT.repositories.pojos.setup.Setup;
 import com.radware.vision.automation.AutoUtils.SUT.repositories.pojos.setup.Site;
-import com.radware.vision.automation.AutoUtils.SUT.repositories.pojos.sut.SUTPojo;
 import com.radware.vision.automation.AutoUtils.SUT.repositories.pojos.sut.VisionConfiguration;
 import com.radware.vision.automation.AutoUtils.SUT.services.SutService;
 import com.radware.vision.automation.AutoUtils.utils.ApplicationPropertiesUtils;
 import com.radware.vision.automation.AutoUtils.utils.RuntimeVMOptions;
 
-import java.io.File;
-import java.io.IOException;
 import java.util.List;
-import java.util.Objects;
 
 import static java.lang.String.format;
 import static java.util.Objects.isNull;
@@ -49,31 +42,31 @@ public class SUTManagerImpl implements SUTManager {
         this.runtimeVMOptions = new RuntimeVMOptions();
 
 
-        String sutFileName = getSUTFileName();
-        Devices devicesPojo = loadJsonFile(SUT_DEVICES_FILES_PATH_PROPERTY, DEVICES_FILE_NAME, Devices.class);
-
-        SUTPojo sutPojo = loadJsonFile(SUT_FILES_PATH_PROPERTY, sutFileName, SUTPojo.class);
-
-        Setup setupPojo = loadJsonFile(SUT_SETUPS_FILES_PATH_PROPERTY, sutPojo.getSetupFile(), Setup.class);
-
-        this.sutService = new SutService(devicesPojo, sutPojo, setupPojo);
-        this.sutDto = new SutDto(devicesPojo, sutPojo, setupPojo);
+//        String sutFileName = getSUTFileName();
+//        Devices devicesPojo = loadJsonFile(SUT_DEVICES_FILES_PATH_PROPERTY, DEVICES_FILE_NAME, Devices.class);
+//
+//        SUTPojo sutPojo = loadJsonFile(SUT_FILES_PATH_PROPERTY, sutFileName, SUTPojo.class);
+//
+//        Setup setupPojo = loadJsonFile(SUT_SETUPS_FILES_PATH_PROPERTY, sutPojo.getSetupFile(), Setup.class);
+//
+//        this.sutService = new SutService(devicesPojo, sutPojo, setupPojo);
+//        this.sutDto = new SutDto(devicesPojo, sutPojo, setupPojo);
 
     }
 
-    private <POJO> POJO loadJsonFile(String filePath, String fileName, Class<POJO> type) {
-        ObjectMapper objectMapper = new ObjectMapper();
-        POJO pojo = null;
-        try {
-            pojo = objectMapper.readValue(
-                    new File(getResourcesPath(format("%s/%s", applicationPropertiesUtils.getProperty(filePath), fileName))), type
-            );
-        } catch (IOException e) {
-            System.err.println(e.getMessage());
-            e.printStackTrace();
-        }
-        return pojo;
-    }
+//    private <POJO> POJO loadJsonFile(String filePath, String fileName, Class<POJO> type) {
+//        ObjectMapper objectMapper = new ObjectMapper();
+//        POJO pojo = null;
+//        try {
+//            pojo = objectMapper.readValue(
+//                    new File(getResourcesPath(format("%s/%s", applicationPropertiesUtils.getProperty(filePath), fileName))), type
+//            );
+//        } catch (IOException e) {
+//            System.err.println(e.getMessage());
+//            e.printStackTrace();
+//        }
+//        return pojo;
+//    }
 
     //    Interface Impl
 
@@ -101,9 +94,9 @@ public class SUTManagerImpl implements SUTManager {
 
     //Utilities
 
-    private String getResourcesPath(String name) {
-        return Objects.requireNonNull(getClass().getClassLoader().getResource(name)).getPath();
-    }
+//    private String getResourcesPath(String name) {
+//        return Objects.requireNonNull(getClass().getClassLoader().getResource(name)).getPath();
+//    }
 
     private String getSUTFileName() {
         try {
