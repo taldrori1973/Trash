@@ -33,7 +33,7 @@ public class SUTManagerImpl implements SUTManager {
 
     @Override
     public String getSetupId() {
-        return null;
+        return this.sutService.getSetupId();
     }
 
     @Override

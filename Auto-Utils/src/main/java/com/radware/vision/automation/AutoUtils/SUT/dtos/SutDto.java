@@ -2,8 +2,8 @@ package com.radware.vision.automation.AutoUtils.SUT.dtos;
 
 import com.radware.vision.automation.AutoUtils.SUT.repositories.daos.DevicesDao;
 import com.radware.vision.automation.AutoUtils.SUT.repositories.daos.SetupDao;
-import com.radware.vision.automation.AutoUtils.SUT.repositories.pojos.devices.Devices;
-import com.radware.vision.automation.AutoUtils.SUT.repositories.pojos.setup.Setup;
+import com.radware.vision.automation.AutoUtils.SUT.repositories.pojos.devices.DevicesPojo;
+import com.radware.vision.automation.AutoUtils.SUT.repositories.pojos.setup.SetupPojo;
 import com.radware.vision.automation.AutoUtils.SUT.repositories.pojos.setup.Site;
 import com.radware.vision.automation.AutoUtils.SUT.repositories.pojos.sut.SUTPojo;
 import com.radware.vision.automation.AutoUtils.SUT.repositories.pojos.sut.VisionConfiguration;
@@ -27,7 +27,7 @@ public class SutDto {
     private DevicesDao devicesDao;
     private SetupDao setupRepository;
 
-    public SutDto(Devices allDevices, SUTPojo sutPojo, Setup setup) {
+    public SutDto(DevicesPojo allDevices, SUTPojo sutPojo, SetupPojo setup) {
 //        List<Device> currentSutDevices = new ArrayList<>();
 //
 //        this.modelMapper = new ModelMapper();

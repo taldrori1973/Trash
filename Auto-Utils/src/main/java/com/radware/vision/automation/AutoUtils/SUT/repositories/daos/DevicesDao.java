@@ -2,7 +2,7 @@ package com.radware.vision.automation.AutoUtils.SUT.repositories.daos;
 
 import com.radware.vision.automation.AutoUtils.SUT.enums.DeviceType;
 import com.radware.vision.automation.AutoUtils.SUT.repositories.pojos.devices.Device;
-import com.radware.vision.automation.AutoUtils.SUT.repositories.pojos.devices.Devices;
+import com.radware.vision.automation.AutoUtils.SUT.repositories.pojos.devices.DevicesPojo;
 import com.radware.vision.automation.AutoUtils.utils.ApplicationPropertiesUtils;
 import com.radware.vision.automation.AutoUtils.utils.JsonUtilities;
 import com.radware.vision.automation.AutoUtils.utils.RuntimeVMOptions;
@@ -18,7 +18,7 @@ public class DevicesDao {
     private static final String DEVICES_FILE_NAME = "devices.json";
 
     private static DevicesDao _instance = new DevicesDao();
-    private Devices devices;
+    private DevicesPojo devices;
 
 
     public DevicesDao() {
@@ -28,7 +28,7 @@ public class DevicesDao {
                 runtimeVMOptions.getResourcesPath(
                         String.format("%s/%s", applicationPropertiesUtils.getProperty(SUT_DEVICES_FILES_PATH_PROPERTY), DEVICES_FILE_NAME)
                 ),
-                Devices.class
+                DevicesPojo.class
         );
 
 
