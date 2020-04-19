@@ -9,11 +9,11 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
-public class DevicesRepository {
+public class DevicesDao {
 
     private Devices devices;
 
-    public DevicesRepository(Devices allDevices) {
+    public DevicesDao(Devices allDevices) {
         this.devices = allDevices;
     }
 

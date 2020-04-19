@@ -1,7 +1,7 @@
 package com.radware.vision.automation.AutoUtils.SUT.dtos;
 
-import com.radware.vision.automation.AutoUtils.SUT.repositories.DevicesRepository;
-import com.radware.vision.automation.AutoUtils.SUT.repositories.SetupRepository;
+import com.radware.vision.automation.AutoUtils.SUT.repositories.DevicesDao;
+import com.radware.vision.automation.AutoUtils.SUT.repositories.SetupDao;
 import com.radware.vision.automation.AutoUtils.SUT.repositories.pojos.devices.Device;
 import com.radware.vision.automation.AutoUtils.SUT.repositories.pojos.devices.Devices;
 import com.radware.vision.automation.AutoUtils.SUT.repositories.pojos.setup.Setup;
@@ -29,21 +29,21 @@ public class SutDto {
 
 
     private ModelMapper modelMapper;
-    private DevicesRepository devicesRepository;
-    private SetupRepository setupRepository;
+    private DevicesDao devicesDao;
+    private SetupDao setupRepository;
 
     public SutDto(Devices allDevices, SUTPojo sutPojo, Setup setup) {
         List<Device> currentSutDevices = new ArrayList<>();
 
         this.modelMapper = new ModelMapper();
-        this.devicesRepository = new DevicesRepository(allDevices);
-        this.setupRepository = new SetupRepository(setup);
+        this.devicesDao = new DevicesDao(allDevices);
+        this.setupRepository = new SetupDao(setup);
 
         this.setupId = setup.getSetupId();
         this.visionConfiguration = modelMapper.map(sutPojo.getVisionConfiguration(), VisionConfiguration.class);
-        this.sites = setup.getSites();
+        this.sites = setup.getTree().getSites();
 
-        currentSutDevices = devicesRepository.findAllDevices().stream().filter(device -> setupRepository.isDeviceExistById(device.getDeviceId())).collect(Collectors.toList());
+        currentSutDevices = devicesDao.findAllDevices().stream().filter(device -> setupRepository.isDeviceExistById(device.getDeviceId())).collect(Collectors.toList());
 
         Type listType = new TypeToken<List<DeviceDto>>() {
         }.getType();
