@@ -26,18 +26,12 @@ public class SutDao {
         this.runtimeVMOptions = new RuntimeVMOptions();
 
         String sutFilePath = runtimeVMOptions.getResourcesPath(
-                String.format("%s/%s", applicationPropertiesUtils.getProperty(SUT_FILES_PATH_PROPERTY), getSUTFileName())
-        );
+                String.format("%s/%s", applicationPropertiesUtils.getProperty(SUT_FILES_PATH_PROPERTY), getSUTFileName()));
         this.sutPojo = JsonUtilities.loadJsonFile(sutFilePath, SUTPojo.class);
     }
 
     public static SutDao get_instance() {
         return _instance;
-    }
-
-
-    public String getSutId() {
-        return this.sutPojo.getSetupFile();
     }
 
 
@@ -62,5 +56,11 @@ public class SutDao {
 
         return null;
 
+    }
+
+
+    //    DAO
+    public String getSetupId() {
+        return this.sutPojo.getSetupFile();
     }
 }
