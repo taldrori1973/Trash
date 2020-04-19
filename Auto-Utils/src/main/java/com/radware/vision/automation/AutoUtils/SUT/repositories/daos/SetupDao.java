@@ -63,4 +63,9 @@ public class SetupDao {
     public String getSetupId() {
         return this.setupPojo.getSetupId();
     }
+
+    public String getDeviceParentSite(String deviceId) {
+        Optional<TreeDeviceNode> device = this.findDeviceById(deviceId);
+        return device.map(TreeDeviceNode::getParentSite).orElse(null);
+    }
 }

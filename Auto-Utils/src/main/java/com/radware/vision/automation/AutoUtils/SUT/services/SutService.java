@@ -10,7 +10,9 @@ import com.radware.vision.automation.AutoUtils.SUT.repositories.pojos.setup.Site
 import com.radware.vision.automation.AutoUtils.SUT.repositories.pojos.setup.TreeDeviceNode;
 import com.radware.vision.automation.AutoUtils.SUT.repositories.pojos.sut.VisionConfiguration;
 import org.modelmapper.ModelMapper;
+import org.modelmapper.TypeToken;
 
+import java.lang.reflect.Type;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -47,12 +49,19 @@ public class SutService {
     }
 
     public List<DeviceDto> getVisionSetupTreeDevices() {
+        List<DeviceDto> deviceDtos;
         List<Device> allDevices = this.devicesDao.findAllDevices();
         List<TreeDeviceNode> allSetupDevices = this.setupDao.findAllDevices();
 
 //        find the current setup devices
         List<Device> setupDevices = allDevices.stream().filter(device -> this.setupDao.isDeviceExistById(device.getDeviceId())).collect(Collectors.toList());
 
+        Type listType = new TypeToken<List<DeviceDto>>() {
+        }.getType();
+
+        deviceDtos = modelMapper.map(setupDevices, listType);
+
+        this.setupDao.getDeviceParentSite();
         return null;
     }
 }
