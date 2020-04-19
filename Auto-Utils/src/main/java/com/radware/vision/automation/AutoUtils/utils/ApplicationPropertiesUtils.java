@@ -10,15 +10,13 @@ import java.util.Properties;
  */
 public class ApplicationPropertiesUtils {
 
+    private static final String applicationPropertiesFile = "environment/application.properties";
 
     private Properties properties;
 
-    /**
-     * @param propertiesFilePath the file should be under the runner module resources folder
-     */
-    public ApplicationPropertiesUtils(String propertiesFilePath) {
+    public ApplicationPropertiesUtils() {
         this.properties = new Properties();
-        try (InputStream inputStream = getClass().getClassLoader().getResourceAsStream(propertiesFilePath)) {
+        try (InputStream inputStream = getClass().getClassLoader().getResourceAsStream(applicationPropertiesFile)) {
             this.properties.load(inputStream);
 
         } catch (IOException e) {

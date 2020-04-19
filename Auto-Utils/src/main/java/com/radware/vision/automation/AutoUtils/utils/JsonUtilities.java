@@ -9,7 +9,7 @@ import java.io.IOException;
 public class JsonUtilities {
 
 
-    public <POJO> POJO loadJsonFile(String filePath, Class<POJO> type) {
+    public static <POJO> POJO loadJsonFile(String filePath, Class<POJO> type) {
         ObjectMapper objectMapper = new ObjectMapper();
         POJO pojo = null;
         try {
