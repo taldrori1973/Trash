@@ -25,7 +25,7 @@
       "description": "get index "
     },
     {
-      "label": "Search  index by query",
+      "label": "Search index by query",
       "method": "POST",
       "basePath": "/new-es/{indexName}/_search/",
       "produces": "application/json",
