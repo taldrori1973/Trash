@@ -50,6 +50,8 @@ public class SutService {
         List<Device> allDevices = this.devicesDao.findAllDevices();
         List<TreeDeviceNode> allSetupDevices = this.setupDao.findAllDevices();
 
+//        find the current setup devices
+        List<Device> setupDevices = allDevices.stream().filter(device -> this.setupDao.isDeviceExistById(device.getDeviceId())).collect(Collectors.toList());
 
         return null;
     }
