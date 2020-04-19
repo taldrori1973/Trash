@@ -124,7 +124,7 @@ Feature: LLS_GEL_freshInstall
     Then REST Login with activation with user "radware" and password "radware"
     Then REST Add "Alteon" Device To topology Tree with Name "172.17.141.17" and Management IP "172.17.141.17" into site "Default"
       | attribute | value |
-    Then REST Add "Alteon" Device To topology Tree with Name "172.17.141.18" and Management IP "172.17.141.18" into site "Default"
+    Then REST Add "Alteon" Device To topology Tree with Name "172.17.164.18" and Management IP "172.17.164.18" into site "Default"
       | attribute | value |
 
   @SID_17
@@ -176,7 +176,7 @@ Feature: LLS_GEL_freshInstall
     Then UI Click Button "Entitlement Card"
     Then UI Click Button "Allocate"
     Then UI Click Button "Instance Select"
-    Then UI Click Button "Instance" with value "172.17.141.18_/_172.17.141.18"
+    Then UI Click Button "Instance" with value "172.17.164.18_/_172.17.164.18"
     Then UI Click Button "Select Throughput"
     Then UI Click Button "Throughput" with value "25_Mbps"
     Then UI Click Button "addon"
@@ -197,7 +197,7 @@ Feature: LLS_GEL_freshInstall
   @SID_34
   Scenario: validate instance added to table
 #    Then UI Click Button "Entitlement Card"
-    Then UI validate Table row by keyValue with elementLabel "instances table" findBy columnName "Instance Name" findBy cellValue "172.17.141.18"
+    Then UI validate Table row by keyValue with elementLabel "instances table" findBy columnName "Instance Name" findBy cellValue "172.17.164.18"
     Then UI validate Table row by keyValue with elementLabel "instances table" findBy columnName "Instance Name" findBy cellValue "172.17.141.17"
     Then UI Validate "instances table" Table rows count equal to 2
 
@@ -211,7 +211,7 @@ Feature: LLS_GEL_freshInstall
   @SID_36
   Scenario: Deallocate instance, and validate instances table is updated
     Then UI Click Button "Entitlement Card"
-    Then UI click Table row by keyValue or Index with elementLabel "instances table" findBy columnName "Instance Name" findBy cellValue "172.17.141.18"
+    Then UI click Table row by keyValue or Index with elementLabel "instances table" findBy columnName "Instance Name" findBy cellValue "172.17.164.18"
     Then UI Click Button "deallocate"
     Then UI Click Button "Activate button"
     Then UI Validate "instances table" Table rows count equal to 1
@@ -222,7 +222,7 @@ Feature: LLS_GEL_freshInstall
     Then UI Click Button "Entitlement Card"
     Then UI Click Button "Allocate"
     Then UI Click Button "Instance Select"
-    Then UI Click Button "Instance" with value "172.17.141.18_/_172.17.141.18"
+    Then UI Click Button "Instance" with value "172.17.164.18_/_172.17.164.18"
     Then UI Click Button "Select Throughput"
     Then UI Click Button "Throughput" with value "25_Mbps"
     Then UI Click Button "addon"
@@ -231,13 +231,13 @@ Feature: LLS_GEL_freshInstall
   @SID_38
   Scenario: validate instance added to table
 #    Then UI Click Button "Entitlement Card"
-    Then UI validate Table row by keyValue with elementLabel "instances table" findBy columnName "Instance Name" findBy cellValue "172.17.141.18"
+    Then UI validate Table row by keyValue with elementLabel "instances table" findBy columnName "Instance Name" findBy cellValue "172.17.164.18"
     Then UI Validate "instances table" Table rows count equal to 2
 
   @SID_39
   Scenario: Deallocate instance, and validate instances table is updated
     Then UI Click Button "Entitlement Card"
-    Then UI click Table row by keyValue or Index with elementLabel "instances table" findBy columnName "Instance Name" findBy cellValue "172.17.141.18"
+    Then UI click Table row by keyValue or Index with elementLabel "instances table" findBy columnName "Instance Name" findBy cellValue "172.17.164.18"
     Then UI Click Button "deallocate"
     Then UI Click Button "Activate button"
     Then UI Validate "instances table" Table rows count equal to 1
