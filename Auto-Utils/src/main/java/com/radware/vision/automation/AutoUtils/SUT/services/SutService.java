@@ -61,7 +61,11 @@ public class SutService {
 
         deviceDtos = modelMapper.map(setupDevices, listType);
 
-        this.setupDao.getDeviceParentSite();
-        return null;
+//        set deviceDto Prent Site
+
+        deviceDtos.forEach(deviceDto -> deviceDto.setParentSite(this.setupDao.getDeviceParentSite(deviceDto.getDeviceId())));
+
+
+        return deviceDtos;
     }
 }
