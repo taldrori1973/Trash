@@ -4,10 +4,12 @@ import com.radware.vision.automation.AutoUtils.SUT.dtos.VisionConfigurationDto;
 import com.radware.vision.automation.AutoUtils.SUT.repositories.daos.DevicesDao;
 import com.radware.vision.automation.AutoUtils.SUT.repositories.daos.SetupDao;
 import com.radware.vision.automation.AutoUtils.SUT.repositories.daos.SutDao;
+import com.radware.vision.automation.AutoUtils.SUT.repositories.pojos.setup.Site;
 import com.radware.vision.automation.AutoUtils.SUT.repositories.pojos.sut.VisionConfiguration;
 import org.modelmapper.ModelMapper;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 
 public class SutService {
@@ -37,6 +39,7 @@ public class SutService {
     }
 
     public List<String> getVisionSetupTreeSites() {
-        return null;
+        List<Site> allSites = this.setupDao.findAllSites();
+        return allSites.stream().map(Site::getName).collect(Collectors.toList());
     }
 }
