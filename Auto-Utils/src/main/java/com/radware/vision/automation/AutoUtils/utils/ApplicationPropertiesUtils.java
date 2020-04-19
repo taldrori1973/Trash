@@ -10,7 +10,7 @@ import java.util.Properties;
  */
 public class ApplicationPropertiesUtils {
 
-    private static final String applicationPropertiesFile = "environment/application.properties";
+    public static final String applicationPropertiesFile = "environment/application.properties";
 
     private Properties properties;
 
