@@ -18,12 +18,12 @@ public class SetupDao {
     private static SetupDao _instance;
 
 
-    private SetupPojo setup;
+    private SetupPojo setupPojo;
 
     public SetupDao(String setupFileName) {
         ApplicationPropertiesUtils applicationPropertiesUtils = new ApplicationPropertiesUtils();
         RuntimeVMOptions runtimeVMOptions = new RuntimeVMOptions();
-        this.setup = JsonUtilities.loadJsonFile(
+        this.setupPojo = JsonUtilities.loadJsonFile(
                 runtimeVMOptions.getResourcesPath(
                         String.format("%s/%s", applicationPropertiesUtils.getProperty(SUT_SETUPS_FILES_PATH_PROPERTY), setupFileName)
                 ), SetupPojo.class
@@ -40,27 +40,27 @@ public class SetupDao {
 
     //    DAO
     public Optional<Site> findSiteByName(String siteName) {
-        return setup.getTree().getSites().stream().filter(site -> site.getName().equals(siteName)).findAny();
+        return setupPojo.getTree().getSites().stream().filter(site -> site.getName().equals(siteName)).findAny();
     }
 
     public Optional<TreeDeviceNode> findDeviceById(String deviceId) {
-        return setup.getTree().getDevices().stream().filter(treeDeviceNode -> treeDeviceNode.getDeviceId().equals(deviceId)).findAny();
+        return setupPojo.getTree().getDevices().stream().filter(treeDeviceNode -> treeDeviceNode.getDeviceId().equals(deviceId)).findAny();
     }
 
     public List<TreeDeviceNode> findAllDevices() {
-        return setup.getTree().getDevices();
+        return setupPojo.getTree().getDevices();
     }
 
     public List<Site> findAllSites() {
-        return setup.getTree().getSites();
+        return setupPojo.getTree().getSites();
     }
 
     public boolean isDeviceExistById(String deviceId) {
-        Optional<TreeDeviceNode> filtered = this.setup.getTree().getDevices().stream().filter(treeDeviceNode -> treeDeviceNode.getDeviceId().equals(deviceId)).findFirst();
+        Optional<TreeDeviceNode> filtered = this.setupPojo.getTree().getDevices().stream().filter(treeDeviceNode -> treeDeviceNode.getDeviceId().equals(deviceId)).findFirst();
         return filtered.isPresent();
     }
 
     public String getSetupId() {
-        return this.setup.getSetupId();
+        return this.setupPojo.getSetupId();
     }
 }

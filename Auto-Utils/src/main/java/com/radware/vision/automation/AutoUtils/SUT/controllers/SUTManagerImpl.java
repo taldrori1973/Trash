@@ -24,9 +24,6 @@ public class SUTManagerImpl implements SUTManager {
         this.sutService = new SutService();
     }
 
-
-    //Utilities
-
     public static SUTManager getInstance() {
         return instance;
     }

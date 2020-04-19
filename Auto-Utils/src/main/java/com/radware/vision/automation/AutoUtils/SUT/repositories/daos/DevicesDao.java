@@ -18,13 +18,13 @@ public class DevicesDao {
     private static final String DEVICES_FILE_NAME = "devices.json";
 
     private static DevicesDao _instance = new DevicesDao();
-    private DevicesPojo devices;
+    private DevicesPojo devicesPojo;
 
 
     public DevicesDao() {
         ApplicationPropertiesUtils applicationPropertiesUtils = new ApplicationPropertiesUtils();
         RuntimeVMOptions runtimeVMOptions = new RuntimeVMOptions();
-        this.devices = JsonUtilities.loadJsonFile(
+        this.devicesPojo = JsonUtilities.loadJsonFile(
                 runtimeVMOptions.getResourcesPath(
                         String.format("%s/%s", applicationPropertiesUtils.getProperty(SUT_DEVICES_FILES_PATH_PROPERTY), DEVICES_FILE_NAME)
                 ),
@@ -42,20 +42,20 @@ public class DevicesDao {
     //    DAO
     public Optional<Device> findDeviceById(String deviceId) {
 
-        Optional<Device> deviceFound = devices.getTreeDevices().getAppWalls().stream().filter(device -> deviceId.equals(device.getDeviceId())).findFirst();
+        Optional<Device> deviceFound = devicesPojo.getTreeDevices().getAppWalls().stream().filter(device -> deviceId.equals(device.getDeviceId())).findFirst();
         if (deviceFound.isPresent()) return deviceFound;
 
-        deviceFound = devices.getTreeDevices().getDefensePros().stream().filter(device -> deviceId.equals(device.getDeviceId())).findFirst();
+        deviceFound = devicesPojo.getTreeDevices().getDefensePros().stream().filter(device -> deviceId.equals(device.getDeviceId())).findFirst();
         if (deviceFound.isPresent()) return deviceFound;
 
 
-        deviceFound = devices.getTreeDevices().getLinkProofs().stream().filter(device -> deviceId.equals(device.getDeviceId())).findFirst();
+        deviceFound = devicesPojo.getTreeDevices().getLinkProofs().stream().filter(device -> deviceId.equals(device.getDeviceId())).findFirst();
         if (deviceFound.isPresent()) return deviceFound;
 
-        deviceFound = devices.getTreeDevices().getAlteons().stream().filter(device -> deviceId.equals(device.getDeviceId())).findFirst();
+        deviceFound = devicesPojo.getTreeDevices().getAlteons().stream().filter(device -> deviceId.equals(device.getDeviceId())).findFirst();
         if (deviceFound.isPresent()) return deviceFound;
 
-        deviceFound = devices.getNonTreeDevices().getDefenseFlows().stream().filter(device -> deviceId.equals(device.getDeviceId())).findFirst();
+        deviceFound = devicesPojo.getNonTreeDevices().getDefenseFlows().stream().filter(device -> deviceId.equals(device.getDeviceId())).findFirst();
         return deviceFound;
 
     }
@@ -63,13 +63,13 @@ public class DevicesDao {
     public List<Device> findDevicesByType(DeviceType deviceType) {
         switch (deviceType) {
             case ALTEON:
-                return devices.getTreeDevices().getAlteons();
+                return devicesPojo.getTreeDevices().getAlteons();
             case LINK_PROOF:
-                return devices.getTreeDevices().getLinkProofs();
+                return devicesPojo.getTreeDevices().getLinkProofs();
             case DEFENSE_PRO:
-                return devices.getTreeDevices().getDefensePros();
+                return devicesPojo.getTreeDevices().getDefensePros();
             case APPWALL:
-                return devices.getTreeDevices().getAppWalls();
+                return devicesPojo.getTreeDevices().getAppWalls();
             default:
                 return Collections.EMPTY_LIST;
         }
@@ -79,10 +79,10 @@ public class DevicesDao {
     public List<Device> findAllDevices() {
 
         List<Device> allDevices = new ArrayList<>();
-        allDevices.addAll(devices.getTreeDevices().getAlteons());
-        allDevices.addAll(devices.getTreeDevices().getLinkProofs());
-        allDevices.addAll(devices.getTreeDevices().getDefensePros());
-        allDevices.addAll(devices.getTreeDevices().getAppWalls());
+        allDevices.addAll(devicesPojo.getTreeDevices().getAlteons());
+        allDevices.addAll(devicesPojo.getTreeDevices().getLinkProofs());
+        allDevices.addAll(devicesPojo.getTreeDevices().getDefensePros());
+        allDevices.addAll(devicesPojo.getTreeDevices().getAppWalls());
         return allDevices;
     }
 
