@@ -21,29 +21,7 @@ public class SUTManagerImpl implements SUTManager {
 
 
     private SUTManagerImpl() {
-
-
-    }
-
-    @Override
-    public String getSetupId() {
-        return this.sutService.getSetupId();
-    }
-
-    @Override
-    public VisionConfiguration getVisionConfiguration() {
-        return this.sutDto.getVisionConfiguration();
-    }
-
-
-    @Override
-    public List<Site> getVisionSetupSites() {
-        return this.sutDto.getSites();
-    }
-
-    @Override
-    public List<DeviceDto> getVisionSetupTreeDevices() {
-        return this.sutDto.getTreeDevices();
+        this.sutService = new SutService();
     }
 
 
@@ -51,5 +29,25 @@ public class SUTManagerImpl implements SUTManager {
 
     public static SUTManager getInstance() {
         return instance;
+    }
+
+    @Override
+    public String getSetupId() {
+        return null;
+    }
+
+    @Override
+    public VisionConfiguration getVisionConfiguration() {
+        return null;
+    }
+
+    @Override
+    public List<Site> getVisionSetupSites() {
+        return null;
+    }
+
+    @Override
+    public List<DeviceDto> getVisionSetupTreeDevices() {
+        return null;
     }
 }

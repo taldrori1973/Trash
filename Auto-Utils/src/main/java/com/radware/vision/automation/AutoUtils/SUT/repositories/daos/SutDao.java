@@ -60,7 +60,7 @@ public class SutDao {
 
 
     //    DAO
-    public String getSetupId() {
+    public String getSetupFileName() {
         return this.sutPojo.getSetupFile();
     }
 }
