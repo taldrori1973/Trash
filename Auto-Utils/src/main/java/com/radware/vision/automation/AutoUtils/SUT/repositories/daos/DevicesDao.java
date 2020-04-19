@@ -19,7 +19,7 @@ public class DevicesDao {
 
     private static DevicesDao _instance = new DevicesDao();
     private DevicesPojo devicesPojo;
-
+    private List<Device> allDevices;
 
     public DevicesDao() {
         ApplicationPropertiesUtils applicationPropertiesUtils = new ApplicationPropertiesUtils();
@@ -31,7 +31,17 @@ public class DevicesDao {
                 DevicesPojo.class
         );
 
+        loadAllDevices();
 
+
+    }
+
+    private void loadAllDevices() {
+        this.allDevices = new ArrayList<>();
+        allDevices.addAll(devicesPojo.getTreeDevices().getAlteons());
+        allDevices.addAll(devicesPojo.getTreeDevices().getLinkProofs());
+        allDevices.addAll(devicesPojo.getTreeDevices().getDefensePros());
+        allDevices.addAll(devicesPojo.getTreeDevices().getAppWalls());
     }
 
     public static DevicesDao get_instance() {
@@ -42,21 +52,7 @@ public class DevicesDao {
     //    DAO
     public Optional<Device> findDeviceById(String deviceId) {
 
-        Optional<Device> deviceFound = devicesPojo.getTreeDevices().getAppWalls().stream().filter(device -> deviceId.equals(device.getDeviceId())).findFirst();
-        if (deviceFound.isPresent()) return deviceFound;
-
-        deviceFound = devicesPojo.getTreeDevices().getDefensePros().stream().filter(device -> deviceId.equals(device.getDeviceId())).findFirst();
-        if (deviceFound.isPresent()) return deviceFound;
-
-
-        deviceFound = devicesPojo.getTreeDevices().getLinkProofs().stream().filter(device -> deviceId.equals(device.getDeviceId())).findFirst();
-        if (deviceFound.isPresent()) return deviceFound;
-
-        deviceFound = devicesPojo.getTreeDevices().getAlteons().stream().filter(device -> deviceId.equals(device.getDeviceId())).findFirst();
-        if (deviceFound.isPresent()) return deviceFound;
-
-        deviceFound = devicesPojo.getNonTreeDevices().getDefenseFlows().stream().filter(device -> deviceId.equals(device.getDeviceId())).findFirst();
-        return deviceFound;
+        return findAllDevices().stream().filter(device -> deviceId.equals(device.getDeviceId())).findFirst();
 
     }
 
@@ -78,12 +74,7 @@ public class DevicesDao {
 
     public List<Device> findAllDevices() {
 
-        List<Device> allDevices = new ArrayList<>();
-        allDevices.addAll(devicesPojo.getTreeDevices().getAlteons());
-        allDevices.addAll(devicesPojo.getTreeDevices().getLinkProofs());
-        allDevices.addAll(devicesPojo.getTreeDevices().getDefensePros());
-        allDevices.addAll(devicesPojo.getTreeDevices().getAppWalls());
-        return allDevices;
+        return this.allDevices;
     }
 
 }
