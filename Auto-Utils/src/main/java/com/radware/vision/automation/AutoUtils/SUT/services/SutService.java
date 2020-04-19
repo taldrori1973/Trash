@@ -5,7 +5,9 @@ import com.radware.vision.automation.AutoUtils.SUT.dtos.VisionConfigurationDto;
 import com.radware.vision.automation.AutoUtils.SUT.repositories.daos.DevicesDao;
 import com.radware.vision.automation.AutoUtils.SUT.repositories.daos.SetupDao;
 import com.radware.vision.automation.AutoUtils.SUT.repositories.daos.SutDao;
+import com.radware.vision.automation.AutoUtils.SUT.repositories.pojos.devices.Device;
 import com.radware.vision.automation.AutoUtils.SUT.repositories.pojos.setup.Site;
+import com.radware.vision.automation.AutoUtils.SUT.repositories.pojos.setup.TreeDeviceNode;
 import com.radware.vision.automation.AutoUtils.SUT.repositories.pojos.sut.VisionConfiguration;
 import org.modelmapper.ModelMapper;
 
@@ -45,6 +47,10 @@ public class SutService {
     }
 
     public List<DeviceDto> getVisionSetupTreeDevices() {
+        List<Device> allDevices = this.devicesDao.findAllDevices();
+        List<TreeDeviceNode> allSetupDevices = this.setupDao.findAllDevices();
+
+
         return null;
     }
 }
