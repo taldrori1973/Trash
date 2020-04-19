@@ -5,6 +5,7 @@ import com.radware.vision.automation.AutoUtils.SUT.repositories.pojos.setup.Site
 import com.radware.vision.automation.AutoUtils.SUT.repositories.pojos.setup.TreeDeviceNode;
 import com.radware.vision.automation.AutoUtils.utils.ApplicationPropertiesUtils;
 import com.radware.vision.automation.AutoUtils.utils.JsonUtilities;
+import com.radware.vision.automation.AutoUtils.utils.RuntimeVMOptions;
 
 import java.util.List;
 import java.util.Objects;
@@ -21,8 +22,11 @@ public class SetupDao {
 
     public SetupDao(String setupFileName) {
         ApplicationPropertiesUtils applicationPropertiesUtils = new ApplicationPropertiesUtils();
+        RuntimeVMOptions runtimeVMOptions = new RuntimeVMOptions();
         this.setup = JsonUtilities.loadJsonFile(
-                String.format("%s/%s", applicationPropertiesUtils.getProperty(SUT_SETUPS_FILES_PATH_PROPERTY), setupFileName), Setup.class
+                runtimeVMOptions.getResourcesPath(
+                        String.format("%s/%s", applicationPropertiesUtils.getProperty(SUT_SETUPS_FILES_PATH_PROPERTY), setupFileName)
+                ), Setup.class
         );
     }
 

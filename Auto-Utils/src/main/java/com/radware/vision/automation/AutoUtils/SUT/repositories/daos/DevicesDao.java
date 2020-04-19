@@ -5,6 +5,7 @@ import com.radware.vision.automation.AutoUtils.SUT.repositories.pojos.devices.De
 import com.radware.vision.automation.AutoUtils.SUT.repositories.pojos.devices.Devices;
 import com.radware.vision.automation.AutoUtils.utils.ApplicationPropertiesUtils;
 import com.radware.vision.automation.AutoUtils.utils.JsonUtilities;
+import com.radware.vision.automation.AutoUtils.utils.RuntimeVMOptions;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -22,9 +23,12 @@ public class DevicesDao {
 
     public DevicesDao() {
         ApplicationPropertiesUtils applicationPropertiesUtils = new ApplicationPropertiesUtils();
-
+        RuntimeVMOptions runtimeVMOptions = new RuntimeVMOptions();
         this.devices = JsonUtilities.loadJsonFile(
-                String.format("%s/%s", applicationPropertiesUtils.getProperty(SUT_DEVICES_FILES_PATH_PROPERTY), DEVICES_FILE_NAME), Devices.class
+                runtimeVMOptions.getResourcesPath(
+                        String.format("%s/%s", applicationPropertiesUtils.getProperty(SUT_DEVICES_FILES_PATH_PROPERTY), DEVICES_FILE_NAME)
+                ),
+                Devices.class
         );
 
 
