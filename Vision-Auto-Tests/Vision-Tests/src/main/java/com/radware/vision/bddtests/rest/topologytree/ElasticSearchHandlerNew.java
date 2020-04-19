@@ -1,4 +1,5 @@
 package com.radware.vision.bddtests.rest.topologytree;
+
 import com.jayway.jsonpath.DocumentContext;
 import com.jayway.jsonpath.JsonPath;
 import com.radware.automation.tools.basetest.BaseTestUtils;
@@ -37,7 +38,6 @@ public class ElasticSearchHandlerNew {
         } catch (NoSuchFieldException e) {
             e.printStackTrace();
         }
-
     }
 
     public static void deleteESIndex(String index) {
@@ -55,6 +55,22 @@ public class ElasticSearchHandlerNew {
             currentVisionRestAPI.getRestRequestSpecification().setPathParams(hash_map_param);
             RestResponse restResponse = currentVisionRestAPI.sendRequest();
             restResponse.getStatusCode().equals(StatusCode.OK);
+        } catch (NoSuchFieldException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public static void searchESIndexByQuery(String index, String query, String response) {
+        try {
+            CurrentVisionRestAPI currentVisionRestAPI = new CurrentVisionRestAPI("Vision/elasticSearch.json", "Search index by query");
+            HashMap<String, String> hash_map_param = new HashMap<>();
+            hash_map_param.put("indexName", index);
+            currentVisionRestAPI.getRestRequestSpecification().setPathParams(hash_map_param);
+            currentVisionRestAPI.getRestRequestSpecification().setBody(query);
+            RestResponse restResponse = currentVisionRestAPI.sendRequest();
+            if (!restResponse.getBody().getBodyAsString().contains(response)) {
+                BaseTestUtils.reporter.report("The expected response NOT found", Reporter.FAIL);
+            }
         } catch (NoSuchFieldException e) {
             e.printStackTrace();
         }
@@ -94,7 +110,7 @@ public class ElasticSearchHandlerNew {
     }
 
     public static boolean isIndexContainsKeyValue(String indexName, String attribute, String value) {
-        String body =String.format("{\\\n" +
+        String body = String.format("{\\\n" +
                 "    \"_source\": [\\\n" +
                 "        columnName=%s\\\n" +
                 "    ],\\\n" +
@@ -119,11 +135,11 @@ public class ElasticSearchHandlerNew {
                 "            }\\\n" +
                 "        }\\\n" +
                 "    }\\\n" +
-                "}",attribute,attribute,value,attribute);
+                "}", attribute, attribute, value, attribute);
 
         CurrentVisionRestAPI currentVisionRestAPI = null;
         try {
-            currentVisionRestAPI = new CurrentVisionRestAPI("Vision/elasticSearch.json", "Search  index by query");
+            currentVisionRestAPI = new CurrentVisionRestAPI("Vision/elasticSearch.json", "Search index by query");
         } catch (NoSuchFieldException e) {
             e.printStackTrace();
         }
@@ -132,7 +148,7 @@ public class ElasticSearchHandlerNew {
         currentVisionRestAPI.getRestRequestSpecification().setPathParams(hash_map_param);
         currentVisionRestAPI.getRestRequestSpecification().setBody(body);
         RestResponse restResponse = currentVisionRestAPI.sendRequest();
-        if(restResponse.getBody().getBodyAsString().contains("\"hits\":{\"total\":0")) return false;
+        if (restResponse.getBody().getBodyAsString().contains("\"hits\":{\"total\":0")) return false;
         return true;
     }
 
