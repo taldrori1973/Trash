@@ -19,6 +19,13 @@ public class ElasticSearchSteps extends BddRestTestBase {
         ElasticSearchHandlerNew.deleteESIndex(index);
     }
 
+
+    @Given("^REST Search ES index \"(.*)\" with query\"(.*)\" and validate response conatin \"(.*)\"$")
+    public void searchESIndex(String index, String query,String response ) {
+        ElasticSearchHandlerNew.searchESIndexByQuery(index,query,response);
+    }
+
+
     /**
      * @param indexName    - if the index name without week number so you should enter the full name , but if there is a week number for example:
      *                     dp-attack-raw-1294 , so you should enter the index name as following:dp-attack-raw-* .
