@@ -35,7 +35,7 @@ public class SUTManagerImpl implements SUTManager {
 
     @Override
     public VisionConfigurationDto getVisionConfigurations() {
-        return null;
+        return this.sutService.getVisionConfigurations();
     }
 
 
