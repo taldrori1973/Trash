@@ -1,19 +1,14 @@
 package com.radware.vision.automation.AutoUtils.SUT.dtos;
 
 import com.radware.vision.automation.AutoUtils.SUT.repositories.pojos.setup.Site;
-import com.radware.vision.automation.AutoUtils.SUT.repositories.pojos.sut.VisionConfiguration;
-import lombok.Getter;
+import lombok.Data;
 
 import java.util.List;
 
+@Data
 public class SutDto {
-    @Getter
-    private String setupId;
-    @Getter
-    private VisionConfiguration visionConfiguration;
-    @Getter
+    private VisionConfigurationDto visionConfiguration;
     private List<Site> sites;
-    @Getter
     private List<DeviceDto> treeDevices;
 
 }
