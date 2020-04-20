@@ -9,22 +9,52 @@ import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 
 public class ElasticSearchSteps extends BddRestTestBase {
+    /**
+     *
+     * @param data - the data query you want to delete
+     * @param index - the index name
+     */
     @Given("^REST Delete ES document with data \"(.*)\" from index \"(.*)\"$")
     public void deleteESDocument(String data, String index) {
         ElasticSearchHandlerNew.deleteESDocument(data, index);
     }
 
+    /**
+     *
+     * @param index - index name
+     */
     @Given("^REST Delete ES index \"(.*)\"$")
     public void deleteESIndex(String index) {
         ElasticSearchHandlerNew.deleteESIndex(index);
     }
 
 
-    @Given("^REST Search ES index \"(.*)\" with query\"(.*)\" and validate response conatin \"(.*)\"$")
+    /**
+     *
+     * @param index - index name
+     * @param query - query for search
+     * @param response - desired response
+     */
+    @Given("^REST Search ES index \"(.*)\" with query \"(.*)\" and validate response contain \"(.*)\"$")
     public void searchESIndex(String index, String query,String response ) {
         ElasticSearchHandlerNew.searchESIndexByQuery(index,query,response);
     }
 
+    /**
+     *
+     * @param index - index name
+     * @param body
+     * @param response
+     */
+    @Given("^REST Update ES index \"(.*)\" with query \"(.*)\" body(?: and validate response contains \"(.*)\")?$")
+    public void updateESIndex(String index, String body,String response ) {
+        ElasticSearchHandlerNew.updateESIndexByQuery(index,body,response);
+    }
+//
+//    @Given("^REST Update ES index \"(.*)\" with query \"(.*)\" and validate response conatin \"(.*)\"$")
+//    public void updateESIndex(String index, String query,String response ) {
+//        ElasticSearchHandlerNew.updateESIndexByQuery(index,query,response);
+//    }
 
     /**
      * @param indexName    - if the index name without week number so you should enter the full name , but if there is a week number for example:
