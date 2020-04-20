@@ -76,6 +76,22 @@ public class ElasticSearchHandlerNew {
         }
     }
 
+    public static void updateESIndexByQuery(String index, String query, String response) {
+        try {
+            CurrentVisionRestAPI currentVisionRestAPI = new CurrentVisionRestAPI("Vision/elasticSearch.json", "Search index by query");
+            HashMap<String, String> hash_map_param = new HashMap<>();
+            hash_map_param.put("indexName", index);
+            currentVisionRestAPI.getRestRequestSpecification().setPathParams(hash_map_param);
+            currentVisionRestAPI.getRestRequestSpecification().setBody(query);
+            RestResponse restResponse = currentVisionRestAPI.sendRequest();
+            if (response!=null &&!restResponse.getBody().getBodyAsString().contains(response)) {
+                BaseTestUtils.reporter.report("The expected response NOT found", Reporter.FAIL);
+            }
+        } catch (NoSuchFieldException e) {
+            e.printStackTrace();
+        }
+    }
+
     public static JSONObject getIndex(String ip, String indexName) throws NoSuchFieldException {
         CurrentVisionRestAPI currentVisionRestAPI = new CurrentVisionRestAPI("Vision/elasticSearch.json", "Get Index");
         HashMap<String, String> hash_map_param = new HashMap<>();
