@@ -92,6 +92,7 @@ public class BasicOperationsSteps extends BddUITestBase {
     @Given("^UI Navigate to \"(.*)\" page via home[p|P]age$")
     public void navigateFromHomePage(String pageName) {
         BasicOperationsHandler.navigateFromHomePage(pageName);
+        WebUIUtils.sleep(10);
     }
 
     /**

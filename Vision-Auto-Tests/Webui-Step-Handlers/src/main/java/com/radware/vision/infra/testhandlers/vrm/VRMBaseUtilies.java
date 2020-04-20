@@ -30,6 +30,7 @@ import com.radware.vision.infra.utils.json.CustomizedJsonManager;
 import gherkin.lexer.Tr;
 import org.json.JSONArray;
 import org.json.JSONObject;
+import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.How;
@@ -1172,7 +1173,13 @@ public class VRMBaseUtilies {
                             ((JavascriptExecutor) WebUIUtils.getDriver()).executeScript("arguments[0].click();", webUIComponent.getWebElement());
                             for (Object option : widgetOptions) {
                                 if (option.getClass().getName().equalsIgnoreCase("java.util.HashMap"))
-                                    BasicOperationsHandler.setTextField("Widget Option", ((Map) option).keySet().toArray()[0].toString(), ((Map) option).get(((Map) option).keySet().toArray()[0]).toString(), true);
+                                {
+                                    VisionDebugIdsManager.setLabel("Widget Option");
+                                    VisionDebugIdsManager.setParams(((Map) option).keySet().toArray()[0].toString());
+                                    WebElement wb = WebUIUtils.fluentWait(ComponentLocatorFactory.getLocatorByXpathDbgId(VisionDebugIdsManager.getDataDebugId()).getBy());
+                                    ((JavascriptExecutor) WebUIUtils.getDriver()).executeScript("arguments[0].value='" + ((Map) option).get(((Map) option).keySet().toArray()[0]).toString()  + "';", wb.findElement(By.xpath("./input")));
+                                }
+                                else
                                 BasicOperationsHandler.clickButton("Widget Option", option + "_" + entry);
                             }
                             widgetsList.add(entry);
