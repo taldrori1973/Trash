@@ -30,6 +30,13 @@
       "basePath": "/new-es/{indexName}/_search/",
       "produces": "application/json",
       "description": "search index by query"
+    },
+    {
+      "label": "Update index by query",
+      "method": "POST",
+      "basePath": "/new-es/{indexName}/_update_by_query/?conflicts=proceed&refresh",
+      "produces": "application/json",
+      "description": "update index by query"
     }
   ]
 }
