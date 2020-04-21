@@ -5,6 +5,6 @@ import lombok.Data;
 @Data
 public class SUTPojo {
     private String setupFile;
-    private VisionConfiguration visionConfiguration;
+    private ClientConfiguration clientConfiguration;
 
 }

@@ -1,6 +1,6 @@
 package com.radware.vision.restBddTests.utils;
 
-import com.radware.vision.automation.AutoUtils.SUT.dtos.VisionConfigurationDto;
+import com.radware.vision.automation.AutoUtils.SUT.dtos.ClientConfigurationDto;
 import com.radware.vision.automation.tools.sutsystemobjects.devicesinfo.DeviceInfo;
 import com.radware.vision.automation.tools.sutsystemobjects.devicesinfo.enums.SUTDeviceType;
 import com.radware.vision.base.TestBase;
@@ -13,7 +13,7 @@ import static org.apache.commons.lang3.StringUtils.isEmpty;
 
 public class SutUtils {
 
-    private static VisionConfigurationDto visionSutConfigurations = TestBase.getSutManager().getVisionConfigurations();
+    private static ClientConfigurationDto visionSutConfigurations = TestBase.getSutManager().getClientConfigurations();
 
     public static String getCurrentVisionRestProtocol() {
         String restProtocol = visionSutConfigurations.getRestConnectionDefaultProtocol();

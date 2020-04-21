@@ -1,6 +1,6 @@
 {
   "setupFile": "fullSetup.json",
-  "visionConfiguration": {
+  "clientConfiguration": {
     "hostIp": "172.17.192.100",
     "userName": "radware",
     "password": "radware",

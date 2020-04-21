@@ -3,7 +3,7 @@ package com.radware.vision.automation.AutoUtils.SUT.dtos;
 import lombok.Data;
 
 @Data
-public class VisionConfigurationDto {
+public class ClientConfigurationDto {
 
     private String hostIp;
     private String userName;

@@ -7,7 +7,7 @@ import java.util.List;
 
 @Data
 public class SutDto {
-    private VisionConfigurationDto visionConfiguration;
+    private ClientConfigurationDto clientConfiguration;
     private List<Site> sites;
     private List<DeviceDto> treeDevices;
 

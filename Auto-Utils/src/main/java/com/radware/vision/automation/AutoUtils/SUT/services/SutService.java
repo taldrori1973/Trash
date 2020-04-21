@@ -1,14 +1,14 @@
 package com.radware.vision.automation.AutoUtils.SUT.services;
 
+import com.radware.vision.automation.AutoUtils.SUT.dtos.ClientConfigurationDto;
 import com.radware.vision.automation.AutoUtils.SUT.dtos.DeviceDto;
-import com.radware.vision.automation.AutoUtils.SUT.dtos.VisionConfigurationDto;
 import com.radware.vision.automation.AutoUtils.SUT.repositories.daos.DevicesDao;
 import com.radware.vision.automation.AutoUtils.SUT.repositories.daos.SetupDao;
 import com.radware.vision.automation.AutoUtils.SUT.repositories.daos.SutDao;
 import com.radware.vision.automation.AutoUtils.SUT.repositories.pojos.devices.Device;
 import com.radware.vision.automation.AutoUtils.SUT.repositories.pojos.setup.Site;
 import com.radware.vision.automation.AutoUtils.SUT.repositories.pojos.setup.TreeDeviceNode;
-import com.radware.vision.automation.AutoUtils.SUT.repositories.pojos.sut.VisionConfiguration;
+import com.radware.vision.automation.AutoUtils.SUT.repositories.pojos.sut.ClientConfiguration;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.TypeToken;
 
@@ -37,10 +37,9 @@ public class SutService {
         return setupDao.getSetupId();
     }
 
-    public VisionConfigurationDto getVisionConfigurations() {
-        VisionConfiguration visionConfiguration = this.sutDao.findVisionConfiguration();
-        VisionConfigurationDto visionConfigurationDto = modelMapper.map(visionConfiguration, VisionConfigurationDto.class);
-        return visionConfigurationDto;
+    public ClientConfigurationDto getVisionConfigurations() {
+        ClientConfiguration clientConfiguration = this.sutDao.findClientConfiguration();
+        return modelMapper.map(clientConfiguration, ClientConfigurationDto.class);
     }
 
     public List<String> getVisionSetupTreeSites() {
