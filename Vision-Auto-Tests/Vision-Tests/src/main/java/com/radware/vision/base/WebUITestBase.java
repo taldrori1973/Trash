@@ -53,7 +53,6 @@ import com.radware.vision.vision_tests.CliTests;
 import cucumber.runtime.junit.FeatureRunner;
 import enums.SUTEntryType;
 import jsystem.framework.ParameterProperties;
-import junit.framework.SystemTestCase4;
 import org.junit.After;
 import org.junit.Before;
 import testhandlers.Device;
@@ -63,7 +62,7 @@ import java.io.IOException;
 import java.nio.file.NoSuchFileException;
 import java.util.*;
 
-public abstract class WebUITestBase extends SystemTestCase4 {
+public abstract class WebUITestBase extends TestBase {
     protected boolean doTheVisionLabRestart = false;
     public static String retrievedParamValue = "";
     public static RestTestBase restTestBase;
