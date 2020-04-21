@@ -471,4 +471,4 @@ Feature: RBAC Menu
 
   @SID_22
   Scenario:Clean up (clean configurations caused by this feature)
-   Given CLI cleanup without server Ip the vision
+ ?
