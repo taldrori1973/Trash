@@ -5,6 +5,7 @@ import com.radware.vision.automation.AutoUtils.SUT.dtos.DeviceDto;
 import com.radware.vision.automation.AutoUtils.SUT.services.SutService;
 
 import java.util.List;
+import java.util.Optional;
 
 /**
  * By Muhamad Igbaria (mohamadi) April 2020
@@ -45,6 +46,11 @@ public class SUTManagerImpl implements SUTManager {
     @Override
     public List<DeviceDto> getVisionSetupTreeDevices() {
         return this.sutService.getVisionSetupTreeDevices();
+    }
+
+    @Override
+    public Optional<DeviceDto> getDeviceBySetId(String setId) {
+        return this.sutService.getDeviceBySetId(setId);
     }
 
 }

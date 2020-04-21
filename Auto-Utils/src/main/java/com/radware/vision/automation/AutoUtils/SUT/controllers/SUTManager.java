@@ -4,6 +4,7 @@ import com.radware.vision.automation.AutoUtils.SUT.dtos.ClientConfigurationDto;
 import com.radware.vision.automation.AutoUtils.SUT.dtos.DeviceDto;
 
 import java.util.List;
+import java.util.Optional;
 
 public interface SUTManager {
 
@@ -14,4 +15,6 @@ public interface SUTManager {
     List<String> getVisionSetupTreeSites();
 
     List<DeviceDto> getVisionSetupTreeDevices();
+
+    Optional<DeviceDto> getDeviceBySetId(String setId);
 }

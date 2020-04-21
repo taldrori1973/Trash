@@ -14,6 +14,7 @@ import org.modelmapper.TypeToken;
 
 import java.lang.reflect.Type;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 
@@ -66,5 +67,11 @@ public class SutService {
 
 
         return deviceDtos;
+    }
+
+    public Optional<DeviceDto> getDeviceBySetId(String setId) {
+        List<DeviceDto> visionSetupTreeDevices = getVisionSetupTreeDevices();
+        return visionSetupTreeDevices.stream().filter(deviceDto -> deviceDto.getDeviceSetId().equals(setId)).findAny();
+
     }
 }
