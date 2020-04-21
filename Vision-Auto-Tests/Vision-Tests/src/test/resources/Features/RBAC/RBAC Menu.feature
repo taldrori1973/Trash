@@ -1,8 +1,8 @@
 @Functional @TC114371
 Feature: RBAC Menu
 
-  @SID_1
-  Scenario: Rbac Setup
+#  @SID_1
+#  Scenario: Rbac Setup
 #    Given REST Login with user "radware" and password "radware"
 #    And REST Delete "DefensePro" device with index 2 from topology tree
 #    And REST Delete "Alteon" device with index 1 from topology tree
@@ -94,7 +94,6 @@ Feature: RBAC Menu
       | vDirect                                     | yes      |
       | GEL Dashboard                               | yes      |
       | EAAF Dashboard                              | no       |
-      #| DEVICES CONFIGURATIONS                      | yes      |
       | VISION SETTINGS                             | yes      |
 
 
@@ -122,7 +121,6 @@ Feature: RBAC Menu
       | vDirect                                     | yes      |
       | GEL Dashboard                               | yes      |
       | EAAF Dashboard                              | no       |
-      #| DEVICES CONFIGURATIONS                      | yes      |
       | VISION SETTINGS                             | yes      |
 
 
@@ -151,7 +149,6 @@ Feature: RBAC Menu
       | vDirect                                     | no       |
       | GEL Dashboard                               | yes      |
       | EAAF Dashboard                              | no       |
-      #| DEVICES CONFIGURATIONS                      | yes      |
       | VISION SETTINGS                             |yes       |
 
     * UI Logout
@@ -178,7 +175,6 @@ Feature: RBAC Menu
       | vDirect                                     | yes      |
       | GEL Dashboard                               | yes      |
       | EAAF Dashboard                              | yes      |
-      #| DEVICES CONFIGURATIONS                      | yes      |
       | VISION SETTINGS                             | yes      |
 
     * UI Logout
@@ -205,7 +201,6 @@ Feature: RBAC Menu
       | vDirect                                     | yes      |
       | GEL Dashboard                               | no       |
       | EAAF Dashboard                              | no       |
-      #| DEVICES CONFIGURATIONS                      | no       |
       | VISION SETTINGS                             | yes      |
 
     * UI Logout
@@ -232,7 +227,6 @@ Feature: RBAC Menu
       | vDirect                                     | yes      |
       | GEL Dashboard                               | yes      |
       | EAAF Dashboard                              | yes      |
-      #| DEVICES CONFIGURATIONS                      | yes      |
       | VISION SETTINGS                             | yes       |
 
     * UI Logout
@@ -259,7 +253,6 @@ Feature: RBAC Menu
       | vDirect                                     | no       |
       | GEL Dashboard                               | yes      |
       | EAAF Dashboard                              | yes      |
-      #| DEVICES CONFIGURATIONS                      | yes      |
       | VISION SETTINGS                             | yes       |
 
     * UI Logout
@@ -286,7 +279,6 @@ Feature: RBAC Menu
       | vDirect                                     | no       |
       | GEL Dashboard                               | yes      |
       | EAAF Dashboard                              | yes      |
-      #| DEVICES CONFIGURATIONS                      | yes      |
       | VISION SETTINGS                             | yes       |
 
     * UI Logout
@@ -314,7 +306,6 @@ Feature: RBAC Menu
       | vDirect                                     | no      |
       | GEL Dashboard                               | yes      |
       | EAAF Dashboard                              | yes      |
-      #| DEVICES CONFIGURATIONS                      | yes      |
       | VISION SETTINGS                             | yes       |
 
     * UI Logout
@@ -343,14 +334,13 @@ Feature: RBAC Menu
       | vDirect                                     | no      |
       | GEL Dashboard                               | no       |
       | EAAF Dashboard                              | no       |
-      #| DEVICES CONFIGURATIONS                      | no       |
       | VISION SETTINGS                             | yes       |
 
     * UI Logout
 
   @SID_16
   Scenario: Security Administrator
-    When UI Login with user "security_admin " and password "Radware1234!@#$"
+    When UI Login with user "security_admin" and password "Radware1234!@#$"
     Then UI Validate user rbac
       | operations                                  | accesses |
       | AVR                                         | yes      |
@@ -363,14 +353,13 @@ Feature: RBAC Menu
       | DefensePro Analytics Dashboard              | yes      |
       | DefensePro Monitoring Dashboard             | yes      |
       | DefenseFlow Analytics Dashboard             | no      |
-      | AppWall Dashboard                           | no       |
+      | AppWall Dashboard                           | yes       |
       | AMS Reports                                 | yes      |
       | AMS Forensics                               | yes      |
       | AMS Alerts                                  | yes      |
       | vDirect                                     | no       |
       | GEL Dashboard                               | no       |
       | EAAF Dashboard                              | yes      |
-      #| DEVICES CONFIGURATIONS                      | yes      |
       | VISION SETTINGS                             | yes      |
 
     * UI Logout
@@ -397,7 +386,6 @@ Feature: RBAC Menu
       | vDirect                                     | no       |
       | GEL Dashboard                               | no       |
       | EAAF Dashboard                              | yes      |
-      #| DEVICES CONFIGURATIONS                      | no       |
       | VISION SETTINGS                             | yes       |
 
     * UI Logout
@@ -424,7 +412,6 @@ Feature: RBAC Menu
       | vDirect                                     | no       |
       | GEL Dashboard                               | no       |
       | EAAF Dashboard                              | no       |
-      #| DEVICES CONFIGURATIONS                      | no       |
       | VISION SETTINGS                             | yes      |
 
     * UI Logout
@@ -451,7 +438,6 @@ Feature: RBAC Menu
       | vDirect                                     | yes      |
       | GEL Dashboard                               | yes      |
       | EAAF Dashboard                              | yes      |
-      #| DEVICES CONFIGURATIONS                      | yes      |
       | VISION SETTINGS                             | yes      |
 
     * UI Logout
@@ -478,39 +464,11 @@ Feature: RBAC Menu
       | vDirect                                     | no       |
       | GEL Dashboard                               | yes      |
       | EAAF Dashboard                              | yes      |
-      #| DEVICES CONFIGURATIONS                      | no       |
       | VISION SETTINGS                             | yes       |
 
     * UI Logout
 
-  @SID_21
-  Scenario: System User
-    When REST Login with user "system_user" and password "Radware1234!@#$"
-    Then REST Validate user rbac
-      | operations                        | accesses |
-      | add/edit device                   | yes      |
-      | lock device                       | yes      |
-      | CONFIGURATION PERSPECTIVE         | yes      |
-      | MONITORING PERSPECTIVE            | yes      |
-      | SECURITY MONITORING PERSPECTIVE   | yes      |
-      | DPM                               | no       |
-      | ANALYTICS ADC                     | yes      |
-      | ANALYTICS AMS                     | yes      |
-      | VISION SETTINGS - DEVICE RESOURCE | yes      |
-      | ALERT BROWSER                     | yes      |
-      | SCHEDULER                         | yes      |
-      | operator toolbox                  | yes      |
-      | load new Appshape                 | yes      |
-      | DP templates                      | yes      |
-      | physical tab                      | yes      |
-      | dp operations                     | yes      |
-      | AppWall Dashboard operations      | yes      |
-      | alteon operations                 | yes      |
-      | Security Control Center           | yes      |
-
-    * UI Login with user "system_user" and password "Radware1234!@#$" negative
-    Then UI logout and close browser
 
   @SID_22
   Scenario:Clean up (clean configurations caused by this feature)
-#    Given CLI cleanup without server Ip the vision
+   Given CLI cleanup without server Ip the vision
