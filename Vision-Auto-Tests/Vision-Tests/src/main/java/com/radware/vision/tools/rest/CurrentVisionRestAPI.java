@@ -1,5 +1,6 @@
 package com.radware.vision.tools.rest;
 
+import com.radware.vision.base.TestBase;
 import com.radware.vision.restAPI.GenericVisionRestAPI;
 import com.radware.vision.restBddTests.utils.UriUtils;
 import lombok.Getter;
@@ -15,10 +16,10 @@ public class CurrentVisionRestAPI {
     private GenericVisionRestAPI genericVisionRestAPI;
 
     public CurrentVisionRestAPI(String requestFilePath, String requestLabel) throws NoSuchFieldException {
-        this(requestFilePath,requestLabel,80);
+        this(requestFilePath, requestLabel, Integer.parseInt(TestBase.getSutManager().getVisionConfigurations().getRestConnectionDefaultPort()));
     }
 
-    public CurrentVisionRestAPI(String requestFilePath, String requestLabel,Integer port) throws NoSuchFieldException {
+    public CurrentVisionRestAPI(String requestFilePath, String requestLabel, Integer port) throws NoSuchFieldException {
         String baseUri = UriUtils.buildUrlFromProtocolAndIp(getCurrentVisionRestProtocol(), getCurrentVisionIp());
         String username = getCurrentVisionRestUserName();
         String password = getCurrentVisionRestUserPassword();

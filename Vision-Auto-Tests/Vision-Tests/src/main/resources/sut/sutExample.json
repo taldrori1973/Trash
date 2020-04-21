@@ -5,8 +5,8 @@
     "userName": "radware",
     "password": "radware",
     "restConnection": {
-      "defaultPort": 80,
-      "defaultProtocol": "http"
+      "defaultPort": 443,
+      "defaultProtocol": "https"
     }
   }
 }

@@ -1,5 +1,8 @@
 package com.radware.vision.restBddTests;
 
+import com.radware.vision.automation.AutoUtils.SUT.controllers.SUTManager;
+import com.radware.vision.automation.AutoUtils.SUT.dtos.VisionConfigurationDto;
+import com.radware.vision.base.TestBase;
 import com.radware.vision.bddtests.BddRestTestBase;
 import com.radware.vision.systemManagement.VisionConfigurations;
 import cucumber.api.java.en.Then;
@@ -13,12 +16,15 @@ public class Demo extends BddRestTestBase {
 //        System.out.println();
 //
 //        VisionConfigurations visionConfigurations = new VisionConfigurations();
-        VisionConfigurations.getBuild();
+//        VisionConfigurations.getBuild();
 
     }
 
     @Then("^SUT Test$")
     public void sutTest() {
+        SUTManager sutManager = TestBase.getSutManager();
+        VisionConfigurationDto visionConfigurations = sutManager.getVisionConfigurations();
+        VisionConfigurations visionConfigurations1 = TestBase.getVisionConfigurations();
 //        SUTDaoImpl sut = VisionConfigurations.getSUT();
 //        String setupId = sut.getSetupId();
 //        VisionConfiguration visionConfiguration = sut.getVisionConfiguration();

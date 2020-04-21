@@ -37,16 +37,12 @@ import com.radware.restcore.VisionRestClient;
 import com.radware.urlbuilder.vision.VisionUrlPath;
 import com.radware.utils.DeviceUtils;
 import com.radware.utils.TreeUtils;
-import com.radware.vision.automation.AutoUtils.SUT.controllers.SUTManager;
-import com.radware.vision.automation.AutoUtils.SUT.controllers.SUTManagerImpl;
 import com.radware.vision.automation.tools.sutsystemobjects.devicesinfo.DevicesManager;
 import com.radware.vision.infra.enums.DeviceDriverType;
-import com.radware.vision.infra.testhandlers.BaseHandler;
 import com.radware.vision.infra.testhandlers.baseoperations.BasicOperationsHandler;
 import com.radware.vision.infra.utils.VisionWebUIUtils;
 import com.radware.vision.infra.utils.threadutils.ThreadsStatusMonitor;
 import com.radware.vision.pojomodel.helpers.constants.ImConstants$DeviceStatusEnumPojo;
-import com.radware.vision.systemManagement.VisionConfigurations;
 import com.radware.vision.vision_project_cli.MysqlClientCli;
 import com.radware.vision.vision_project_cli.menu.Menu;
 import com.radware.vision.vision_tests.CliTests;
@@ -225,17 +221,17 @@ public abstract class WebUITestBase extends TestBase {
 
     public void coreInit() throws Exception {
         if (!isRestInit) {
-            SUTManager instance = SUTManagerImpl.getInstance();
-            instance.getVisionConfigurations();
-            instance.getVisionSetupTreeSites();
-            isRestInit = true;
-
-            devicesManager = DevicesManager.getInstance("devices");
-            restTestBase = new RestTestBase();
-            restTestBase.init();
-            BaseHandler.restTestBase = restTestBase;
-            BaseHandler.devicesManager = devicesManager;
-            VisionConfigurations visionConfigurations = new VisionConfigurations();
+//            SUTManager instance = SUTManagerImpl.getInstance();
+//            instance.getVisionConfigurations();
+//            instance.getVisionSetupTreeSites();
+//            isRestInit = true;
+//
+//            devicesManager = DevicesManager.getInstance("devices");
+//            restTestBase = new RestTestBase();
+//            restTestBase.init();
+//            BaseHandler.restTestBase = restTestBase;
+//            BaseHandler.devicesManager = devicesManager;
+//            VisionConfigurations visionConfigurations = new VisionConfigurations();
         }
 
     }

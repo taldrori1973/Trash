@@ -4,9 +4,9 @@ import com.radware.automation.tools.basetest.BaseTestUtils;
 import com.radware.automation.tools.basetest.Reporter;
 import com.radware.automation.tools.utils.InvokeUtils;
 import com.radware.vision.automation.tools.sutsystemobjects.devicesinfo.enums.SUTDeviceType;
+import com.radware.vision.base.TestBase;
 import com.radware.vision.bddtests.BddCliTestBase;
 import com.radware.vision.infra.testhandlers.cli.CliOperations;
-import com.radware.vision.systemManagement.VisionConfigurations;
 import cucumber.api.java.en.Given;
 
 public class AttacksSteps extends BddCliTestBase {
@@ -89,7 +89,7 @@ public class AttacksSteps extends BddCliTestBase {
         String deviceIp;
         String visionIP = restTestBase.getRootServerCli().getHost();
         String interFace;
-        String macAdress= VisionConfigurations.getMacAddress();
+        String macAdress = TestBase.getVisionConfigurations().getVisionConfigurationsModel().getMacAddress();
         String commandToExecute = "";
         try {
             deviceIp = devicesManager.getDeviceInfo(deviceType, deviceIndex).getDeviceIp();
@@ -117,9 +117,9 @@ public class AttacksSteps extends BddCliTestBase {
             CliOperations.runCommand(getRestTestBase().getGenericLinuxServer(), commandToExecute);
             interFace = CliOperations.lastRow;
             if (withAttackId) {
-                commandToExecute = String.format("sudo perl sendfile.pl -i %s -d %s -si %s -s %d -ld %d -ai 1 -f %s.pcap -dm %s &", interFace, visionIP, deviceIp, numOfAttacks, loopDelay, fileName,macAdress);
+                commandToExecute = String.format("sudo perl sendfile.pl -i %s -d %s -si %s -s %d -ld %d -ai 1 -f %s.pcap -dm %s &", interFace, visionIP, deviceIp, numOfAttacks, loopDelay, fileName, macAdress);
             } else {
-                commandToExecute = String.format("sudo perl sendfile.pl -i %s -d %s -si %s -s %d -ld %d -f %s.pcap -dm %s &", interFace, visionIP, deviceIp, numOfAttacks, loopDelay, fileName,macAdress);
+                commandToExecute = String.format("sudo perl sendfile.pl -i %s -d %s -si %s -s %d -ld %d -f %s.pcap -dm %s &", interFace, visionIP, deviceIp, numOfAttacks, loopDelay, fileName, macAdress);
             }
             //for the next generations
             restTestBase.getGenericLinuxServer().connect();

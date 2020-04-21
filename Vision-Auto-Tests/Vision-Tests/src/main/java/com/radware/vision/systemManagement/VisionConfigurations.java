@@ -1,6 +1,8 @@
 package com.radware.vision.systemManagement;
 
 import com.radware.vision.RestClientsFactory;
+import com.radware.vision.automation.AutoUtils.SUT.controllers.SUTManager;
+import com.radware.vision.base.TestBase;
 import com.radware.vision.systemManagement.controllers.VisionConfigurationsController;
 import com.radware.vision.systemManagement.models.VisionConfigurationsModel;
 import com.radware.vision.tools.LicenseManagementHandler;
@@ -15,6 +17,7 @@ public class VisionConfigurations {
 
     private VisionConfigurationsController visionConfigurationsController = new VisionConfigurationsController();
     private VisionConfigurationsModel visionConfigurationsModel;
+    private SUTManager sutManager = TestBase.getSutManager();
 
     public VisionConfigurations() {
         validateRestConnection();
@@ -35,7 +38,7 @@ public class VisionConfigurations {
             String licenseKey = null;
 
 //          send Login Request
-            SessionBasedRestClient connection = RestClientsFactory.getVisionConnection(baseUri, null, username, password, licenseKey);
+            SessionBasedRestClient connection = RestClientsFactory.getVisionConnection(baseUri, getCurrentVisionRestPort(), username, password, licenseKey);
             RestResponse loginResult = connection.login();
 
 //          if fail : check if it's because the license
