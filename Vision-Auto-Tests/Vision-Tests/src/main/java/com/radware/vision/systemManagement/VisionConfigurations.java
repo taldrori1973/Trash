@@ -1,10 +1,8 @@
 package com.radware.vision.systemManagement;
 
 import com.radware.vision.RestClientsFactory;
-import com.radware.vision.automation.AutoUtils.SUT.controllers.SUTManager;
-import com.radware.vision.base.TestBase;
 import com.radware.vision.systemManagement.controllers.VisionConfigurationsController;
-import com.radware.vision.systemManagement.models.VisionConfigurationsModel;
+import com.radware.vision.systemManagement.models.ManagementInfo;
 import com.radware.vision.tools.LicenseManagementHandler;
 import models.RestResponse;
 import models.StatusCode;
@@ -16,16 +14,15 @@ import static com.radware.vision.restBddTests.utils.UriUtils.buildUrlFromProtoco
 public class VisionConfigurations {
 
     private VisionConfigurationsController visionConfigurationsController = new VisionConfigurationsController();
-    private VisionConfigurationsModel visionConfigurationsModel;
-    private SUTManager sutManager = TestBase.getSutManager();
+    private ManagementInfo managementInfo;
 
     public VisionConfigurations() {
         validateRestConnection();
-        this.visionConfigurationsModel = visionConfigurationsController.getVisionConfigurationsByRest();
+        this.managementInfo = visionConfigurationsController.getVisionConfigurationsByRest();
     }
 
-    public VisionConfigurationsModel getVisionConfigurationsModel() {
-        return visionConfigurationsModel;
+    public ManagementInfo getManagementInfo() {
+        return managementInfo;
     }
 
     private void validateRestConnection() {

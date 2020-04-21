@@ -5,7 +5,7 @@ import lombok.NoArgsConstructor;
 
 @NoArgsConstructor
 @Data
-public class VisionConfigurationsModel {
+public class ManagementInfo {
 
     private String macAddress;
     private String activeServerMacAddress;

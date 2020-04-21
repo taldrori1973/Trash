@@ -89,7 +89,7 @@ public class AttacksSteps extends BddCliTestBase {
         String deviceIp;
         String visionIP = restTestBase.getRootServerCli().getHost();
         String interFace;
-        String macAdress = TestBase.getVisionConfigurations().getVisionConfigurationsModel().getMacAddress();
+        String macAdress = TestBase.getVisionConfigurations().getManagementInfo().getMacAddress();
         String commandToExecute = "";
         try {
             deviceIp = devicesManager.getDeviceInfo(deviceType, deviceIndex).getDeviceIp();
