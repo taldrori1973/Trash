@@ -4,7 +4,7 @@ import com.radware.vision.automation.AutoUtils.SUT.repositories.pojos.sut.SUTPoj
 import com.radware.vision.automation.AutoUtils.SUT.repositories.pojos.sut.VisionConfiguration;
 import com.radware.vision.automation.AutoUtils.utils.ApplicationPropertiesUtils;
 import com.radware.vision.automation.AutoUtils.utils.JsonUtilities;
-import com.radware.vision.automation.AutoUtils.utils.RuntimeVMOptions;
+import com.radware.vision.automation.AutoUtils.utils.SystemProperties;
 
 import static java.lang.String.format;
 import static java.util.Objects.isNull;
@@ -17,16 +17,16 @@ public class SutDao {
     private static SutDao _instance = new SutDao();
 
     private ApplicationPropertiesUtils applicationPropertiesUtils;
-    private RuntimeVMOptions runtimeVMOptions;
+    private SystemProperties systemProperties;
 
     private SUTPojo sutPojo;
 
 
     public SutDao() {
         this.applicationPropertiesUtils = new ApplicationPropertiesUtils();
-        this.runtimeVMOptions = new RuntimeVMOptions();
+        this.systemProperties = new SystemProperties();
 
-        String sutFilePath = runtimeVMOptions.getResourcesPath(
+        String sutFilePath = systemProperties.getResourcesPath(
                 String.format("%s/%s", applicationPropertiesUtils.getProperty(SUT_FILES_PATH_PROPERTY), getSUTFileName()));
         this.sutPojo = JsonUtilities.loadJsonFile(sutFilePath, SUTPojo.class);
     }
@@ -44,7 +44,7 @@ public class SutDao {
                 throw new NoSuchFieldException(format("The Property %s not found at %s file", SUT_VM_OPTION_KEY_PROPERTY, ApplicationPropertiesUtils.applicationPropertiesFile));
             }
 
-            String sutFileName = this.runtimeVMOptions.getSUTFileName(sutVmOptionsKey);
+            String sutFileName = this.systemProperties.getSUTFileName(sutVmOptionsKey);
 
             if (isNull(sutFileName) || sutFileName.isEmpty()) {
                 throw new IllegalArgumentException(format("The sut file name is null or empty , validate that the vm option contains \"%s={filename}\" ", sutVmOptionsKey));

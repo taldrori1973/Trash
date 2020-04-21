@@ -17,7 +17,7 @@ public class VisionConfigurations {
     private static VisionConfigurationsModel visionConfigurationsModel;
 
     public VisionConfigurations() {
-        enableConnection();
+        validateRestConnection();
         visionConfigurationsModel = visionConfigurationsController.getVisionConfigurationsByRest();
     }
 
@@ -42,7 +42,7 @@ public class VisionConfigurations {
         return visionConfigurationsModel.getBuild();
     }
 
-    private void enableConnection() {
+    private void validateRestConnection() {
         String baseUri;
         try {
             String visionMac = null;

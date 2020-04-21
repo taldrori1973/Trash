@@ -9,14 +9,14 @@ import java.util.Objects;
  * Muhamad Igbaria (MohamadI)
  * This is a utility class for getting the runtime VM Options
  */
-public class RuntimeVMOptions {
+public class SystemProperties {
 
     private RuntimeMXBean runtimeMXBean;
 
     private Map<String, String> vmOptions;
 
 
-    public RuntimeVMOptions() {
+    public SystemProperties() {
         this.runtimeMXBean = ManagementFactory.getRuntimeMXBean();
         this.vmOptions = runtimeMXBean.getSystemProperties();
     }
