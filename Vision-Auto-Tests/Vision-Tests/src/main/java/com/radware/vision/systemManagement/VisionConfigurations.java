@@ -18,7 +18,7 @@ public class VisionConfigurations {
 
     public VisionConfigurations() {
         validateRestConnection();
-        this.managementInfo = visionConfigurationsController.getVisionConfigurationsByRest();
+        this.managementInfo = visionConfigurationsController.getVisionManagementInfoByRest();
     }
 
     public ManagementInfo getManagementInfo() {

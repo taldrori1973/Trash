@@ -8,7 +8,7 @@ import models.StatusCode;
 
 public class VisionConfigurationsController {
 
-    public ManagementInfo getVisionConfigurationsByRest() {
+    public ManagementInfo getVisionManagementInfoByRest() {
         ManagementInfo managementInfo = new ManagementInfo();
         try {
             CurrentVisionRestAPI currentVisionRestAPI = new CurrentVisionRestAPI("Vision/SystemManagement.json", "Get Management Info");
