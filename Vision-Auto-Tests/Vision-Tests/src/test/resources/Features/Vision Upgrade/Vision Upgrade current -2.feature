@@ -34,9 +34,9 @@ Feature: Vision Upgrade current -2
     And REST Vision DELETE License Request "vision-AVA-60-Gbps-attack-capacity"
     And REST Vision DELETE License Request "vision-AVA-400-Gbps-attack-capacity"
     And REST Vision DELETE License Request "vision-AVA-Max-attack-capacity"
-
     And REST Vision Install License Request "vision-reporting-module-AMS"
     And Set AVA_Grace_Period_Status to Not Set
+    And Set Server Last Upgrade Time to 30 Days Back From Now
 
   @SID_4
   Scenario Outline:ES Index Validation before Upgrade
