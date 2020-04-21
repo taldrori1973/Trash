@@ -13,33 +13,16 @@ import static com.radware.vision.restBddTests.utils.UriUtils.buildUrlFromProtoco
 
 public class VisionConfigurations {
 
-    private static VisionConfigurationsController visionConfigurationsController = new VisionConfigurationsController();
-    private static VisionConfigurationsModel visionConfigurationsModel;
+    private VisionConfigurationsController visionConfigurationsController = new VisionConfigurationsController();
+    private VisionConfigurationsModel visionConfigurationsModel;
 
     public VisionConfigurations() {
         validateRestConnection();
-        visionConfigurationsModel = visionConfigurationsController.getVisionConfigurationsByRest();
+        this.visionConfigurationsModel = visionConfigurationsController.getVisionConfigurationsByRest();
     }
 
-
-    public static String getMacAddress() {
-        return visionConfigurationsModel.getMacAddress();
-    }
-
-    public static String getDefenseFlowId() {
-        return visionConfigurationsModel.getDefenseFlowId();
-    }
-
-    public static String getHardwarePlatform() {
-        return visionConfigurationsModel.getHardwarePlatform();
-    }
-
-    public static String getVersion() {
-        return visionConfigurationsModel.getVersion();
-    }
-
-    public static String getBuild() {
-        return visionConfigurationsModel.getBuild();
+    public VisionConfigurationsModel getVisionConfigurationsModel() {
+        return visionConfigurationsModel;
     }
 
     private void validateRestConnection() {
