@@ -9,13 +9,11 @@ import com.radware.vision.automation.AutoUtils.SUT.controllers.SUTManagerImpl;
 import com.radware.vision.automation.AutoUtils.SUT.dtos.ClientConfigurationDto;
 import com.radware.vision.systemManagement.VisionConfigurations;
 import com.radware.vision.systemManagement.models.ManagementInfo;
-import org.junit.Assert;
 
 public abstract class TestBase extends JSystemReporter4Bdd {
 
     protected static SUTManager sutManager;
     protected static VisionConfigurations visionConfigurations;
-//    protected static Report report = new Report();
 
     protected static ManagementInfo managementInfo;
     protected static ClientConfigurationDto clientConfigurations;
@@ -35,10 +33,5 @@ public abstract class TestBase extends JSystemReporter4Bdd {
         return sutManager;
     }
 
-    public static class Report {
 
-        public void report(String msg) {
-            Assert.fail(msg);
-        }
-    }
 }
