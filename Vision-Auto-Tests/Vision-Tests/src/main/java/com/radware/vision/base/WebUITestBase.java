@@ -543,7 +543,7 @@ public abstract class WebUITestBase extends TestBase {
 
     public void updateVisionNavigationXml() throws Exception {
 
-        String visionHost = restTestBase.getRadwareServerCli().getHost();
+        String visionHost = clientConfigurations.getHostIp();
         if (navigationParsers.containsKey(visionHost)) {
             WebUIUtils.visionUtils.navParser = navigationParsers.get(visionHost);
         } else {

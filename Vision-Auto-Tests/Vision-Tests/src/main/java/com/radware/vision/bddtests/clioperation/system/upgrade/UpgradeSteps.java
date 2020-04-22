@@ -55,7 +55,7 @@ public class UpgradeSteps extends BddCliTestBase {
     public void UpgradeVisionToLatestBuildTwoMachines() {
         try {
             String sourceIP = restTestBase.getVisionServerHA().getHost_2();
-            String targetIP = restTestBase.getVisionServer().getHost();
+            String targetIP = clientConfigurations.getHostIp();
             String build = System.getenv("BUILD");//get build from portal
             if (build == null || build.equals("") || build.equals("0")) build = "";//Latest Build
             UpgradeThread sourceMachineThread = new UpgradeThread(sourceIP, null, build, isAPM());

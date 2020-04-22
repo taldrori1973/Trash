@@ -55,7 +55,7 @@ public class LLSSteps {
     @When("^CLI Set host2 config sync peer$")
     public void setConfigSyncPeer() {
         try {
-            String mainIP = restTestBase.getRootServerCli().getHost();
+            String mainIP = clientConfigurations.getHostIp();
             String backup = restTestBase.getVisionServerHA().getHost_2();
             RadwareServerCli backupServerCli = new RadwareServerCli(backup, restTestBase.getRadwareServerCli().getUser(), restTestBase.getRadwareServerCli().getPassword());
             backupServerCli.init();
