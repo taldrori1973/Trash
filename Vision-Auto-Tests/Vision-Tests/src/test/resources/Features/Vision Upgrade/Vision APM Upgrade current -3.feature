@@ -27,9 +27,9 @@ Feature: Vision APM Upgrade current -3
     And REST Vision DELETE License Request "vision-AVA-60-Gbps-attack-capacity"
     And REST Vision DELETE License Request "vision-AVA-400-Gbps-attack-capacity"
     And REST Vision DELETE License Request "vision-AVA-Max-attack-capacity"
-
     And REST Vision Install License Request "vision-reporting-module-AMS"
     And Set AVA_Grace_Period_Status to Not Set
+    And Set Server Last Upgrade Time to 30 Days Back From Now
 
 
     ######################################################################################
@@ -131,17 +131,17 @@ Feature: Vision APM Upgrade current -3
 
   @SID_9
   Scenario: Validate AVA Attack Capacity Grace Period License
-    Then Validate License "ATTACK_CAPACITY_LICENSE" Parameters
-      | allowedAttackCapacityGbps         | 0                    |
-      | requiredDevicesAttackCapacityGbps | 18                   |
-      | licensedDefenseProDeviceIpsList   | []                   |
-      | hasDemoLicense                    | false                |
-      | attackCapacityMaxLicenseExist     | false                |
-      | licenseViolated                   | true                 |
-      | inGracePeriod                     | false                |
-      | message                           | Insufficient License |
-      | timeToExpiration                  | -1                   |
-    And Validate DefenseFlow is NOT Licensed by Attack Capacity License
+#    Then Validate License "ATTACK_CAPACITY_LICENSE" Parameters
+#      | allowedAttackCapacityGbps         | 0                    |
+#      | requiredDevicesAttackCapacityGbps | 18                   |
+#      | licensedDefenseProDeviceIpsList   | []                   |
+#      | hasDemoLicense                    | false                |
+#      | attackCapacityMaxLicenseExist     | false                |
+#      | licenseViolated                   | true                 |
+#      | inGracePeriod                     | false                |
+#      | message                           | Insufficient License |
+#      | timeToExpiration                  | -1                   |
+#    And Validate DefenseFlow is NOT Licensed by Attack Capacity License
 
   @SID_10
   Scenario: Navigate to general settings page

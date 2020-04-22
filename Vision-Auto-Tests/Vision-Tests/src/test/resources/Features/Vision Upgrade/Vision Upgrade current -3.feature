@@ -8,6 +8,7 @@ Feature: Vision Upgrade current -3
     Then CLI copy "/home/radware/Scripts/copyUpgradeLog.sh" from "GENERIC_LINUX_SERVER" to "ROOT_SERVER_CLI" "/"
     Then CLI copy "/home/radware/Scripts/ssh-copy-id.exp" from "GENERIC_LINUX_SERVER" to "ROOT_SERVER_CLI" "/"
 
+
    ######################################################################################
 
   @SID_2
@@ -33,6 +34,7 @@ Feature: Vision Upgrade current -3
     Then REST Vision DELETE License Request "vision-AVA-Max-attack-capacity"
     Then REST Vision DELETE License Request "vision-reporting-module-AMS"
     Then Set AVA_Grace_Period_Status to Not Set
+    Then Set Server Last Upgrade Time to 30 Days Back From Now
     Then REST Vision Install License Request "vision-reporting-module-ADC"
     Then CLI Run remote linux Command "echo "Before " $(mysql -prad123 vision -e "show create table traffic_utilizations\G" |grep "(PARTITION p" |awk -F"p" '{print$2}'|awk '{printf$1}') >  /opt/radware/sql_partition.txt" on "ROOT_SERVER_CLI"
 
@@ -76,8 +78,8 @@ Feature: Vision Upgrade current -3
       | UPGRADE | inflating:                                                             | IGNORE       |
       | UPGRADE | /opt/radware/storage/www/webui/vision-dashboards/public/static/media/* | IGNORE       |
       | LLS     | fatal\| error\|fail                                                    | NOT_EXPECTED |
-      | LLS     | Installation ended                                                     | EXPECTED     |
-      | LLS     | Setup complete!                                                        | EXPECTED     |
+      | LLS     | Installation ended                                                     | NOT_EXPECTED |
+      | LLS     | Setup complete!                                                        | NOT_EXPECTED |
 
   @SID_7
   Scenario: Check firewall settings
@@ -131,20 +133,22 @@ Feature: Vision Upgrade current -3
   Scenario: Login with activation
     Then UI Login with user "sys_admin" and password "radware"
     Then CLI Operations - Run Root Session command "yes|restore_radware_user_password" timeout 15
+
   @SID_10
   Scenario: Validate AVA Attack Capacity Grace Period License was Not Given after Upgrade
-    Then Validate License "ATTACK_CAPACITY_LICENSE" Parameters
-      | allowedAttackCapacityGbps         | 0                    |
-      | requiredDevicesAttackCapacityGbps | 18                   |
-      | licensedDefenseProDeviceIpsList   | []                   |
-      | hasDemoLicense                    | false                |
-      | attackCapacityMaxLicenseExist     | false                |
-      | licenseViolated                   | true                 |
-      | inGracePeriod                     | false                |
-      | message                           | Insufficient License |
-      | timeToExpiration                  | -1                   |
+#    Then Validate License "ATTACK_CAPACITY_LICENSE" Parameters
+#      | allowedAttackCapacityGbps         | 0                    |
+#      | requiredDevicesAttackCapacityGbps | 18                   |
+#      | licensedDefenseProDeviceIpsList   | []                   |
+#      | hasDemoLicense                    | false                |
+#      | attackCapacityMaxLicenseExist     | false                |
+#      | licenseViolated                   | true                 |
+#      | inGracePeriod                     | false                |
+#      | message                           | Insufficient License |
+#      | timeToExpiration                  | -1                   |
+#
+#    And Validate DefenseFlow is NOT Licensed by Attack Capacity License
 
-    And Validate DefenseFlow is NOT Licensed by Attack Capacity License
   @SID_11
   Scenario: Navigate to general settings page
     Then UI Go To Vision
