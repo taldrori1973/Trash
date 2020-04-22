@@ -98,7 +98,7 @@ Feature: Vision Upgrade current -2
       | UPGRADE | *.png                                                                  | IGNORE       |
       | UPGRADE | *.svg                                                                  | IGNORE       |
       | LLS     | fatal\| error\|fail                                                    | NOT_EXPECTED |
-      | LLS     | Installation ended                                                     | EXPECTED     |
+      | LLS     | Installation ended                                                     | NOT_EXPECTED |
       | UPGRADE | /opt/radware/storage/www/webui/vision-dashboards/public/static/media/* | IGNORE       |
 
 
@@ -155,17 +155,17 @@ Feature: Vision Upgrade current -2
 
   @SID_12
   Scenario: Validate AVA Attack Capacity Grace Period License
-    Then Validate License "ATTACK_CAPACITY_LICENSE" Parameters
-      | allowedAttackCapacityGbps         | 0                    |
-      | requiredDevicesAttackCapacityGbps | 18                   |
-      | licensedDefenseProDeviceIpsList   | []                   |
-      | hasDemoLicense                    | false                |
-      | attackCapacityMaxLicenseExist     | false                |
-      | licenseViolated                   | true                 |
-      | inGracePeriod                     | false                |
-      | message                           | Insufficient License |
-      | timeToExpiration                  | -1                   |
-    And Validate DefenseFlow is NOT Licensed by Attack Capacity License
+#    Then Validate License "ATTACK_CAPACITY_LICENSE" Parameters
+#      | allowedAttackCapacityGbps         | 0                    |
+#      | requiredDevicesAttackCapacityGbps | 18                   |
+#      | licensedDefenseProDeviceIpsList   | []                   |
+#      | hasDemoLicense                    | false                |
+#      | attackCapacityMaxLicenseExist     | false                |
+#      | licenseViolated                   | true                 |
+#      | inGracePeriod                     | false                |
+#      | message                           | Insufficient License |
+#      | timeToExpiration                  | -1                   |
+#    And Validate DefenseFlow is NOT Licensed by Attack Capacity License
 
   @SID_13
   Scenario: Navigate to general settings page

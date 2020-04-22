@@ -78,8 +78,8 @@ Feature: Vision Upgrade current -3
       | UPGRADE | inflating:                                                             | IGNORE       |
       | UPGRADE | /opt/radware/storage/www/webui/vision-dashboards/public/static/media/* | IGNORE       |
       | LLS     | fatal\| error\|fail                                                    | NOT_EXPECTED |
-      | LLS     | Installation ended                                                     | EXPECTED     |
-      | LLS     | Setup complete!                                                        | EXPECTED     |
+      | LLS     | Installation ended                                                     | NOT_EXPECTED |
+      | LLS     | Setup complete!                                                        | NOT_EXPECTED |
 
   @SID_7
   Scenario: Check firewall settings
@@ -133,20 +133,22 @@ Feature: Vision Upgrade current -3
   Scenario: Login with activation
     Then UI Login with user "sys_admin" and password "radware"
     Then CLI Operations - Run Root Session command "yes|restore_radware_user_password" timeout 15
+
   @SID_10
   Scenario: Validate AVA Attack Capacity Grace Period License was Not Given after Upgrade
-    Then Validate License "ATTACK_CAPACITY_LICENSE" Parameters
-      | allowedAttackCapacityGbps         | 0                    |
-      | requiredDevicesAttackCapacityGbps | 18                   |
-      | licensedDefenseProDeviceIpsList   | []                   |
-      | hasDemoLicense                    | false                |
-      | attackCapacityMaxLicenseExist     | false                |
-      | licenseViolated                   | true                 |
-      | inGracePeriod                     | false                |
-      | message                           | Insufficient License |
-      | timeToExpiration                  | -1                   |
+#    Then Validate License "ATTACK_CAPACITY_LICENSE" Parameters
+#      | allowedAttackCapacityGbps         | 0                    |
+#      | requiredDevicesAttackCapacityGbps | 18                   |
+#      | licensedDefenseProDeviceIpsList   | []                   |
+#      | hasDemoLicense                    | false                |
+#      | attackCapacityMaxLicenseExist     | false                |
+#      | licenseViolated                   | true                 |
+#      | inGracePeriod                     | false                |
+#      | message                           | Insufficient License |
+#      | timeToExpiration                  | -1                   |
+#
+#    And Validate DefenseFlow is NOT Licensed by Attack Capacity License
 
-    And Validate DefenseFlow is NOT Licensed by Attack Capacity License
   @SID_11
   Scenario: Navigate to general settings page
     Then UI Go To Vision
