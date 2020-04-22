@@ -3,18 +3,19 @@ package com.radware.vision.base;
 
  */
 
+import com.radware.automation.bdd.reporter.JSystemReporter4Bdd;
 import com.radware.vision.automation.AutoUtils.SUT.controllers.SUTManager;
 import com.radware.vision.automation.AutoUtils.SUT.controllers.SUTManagerImpl;
 import com.radware.vision.automation.AutoUtils.SUT.dtos.ClientConfigurationDto;
 import com.radware.vision.systemManagement.VisionConfigurations;
 import com.radware.vision.systemManagement.models.ManagementInfo;
-import junit.framework.SystemTestCase4;
+import org.junit.Assert;
 
-public abstract class TestBase extends SystemTestCase4 {
+public abstract class TestBase extends JSystemReporter4Bdd {
 
     protected static SUTManager sutManager;
     protected static VisionConfigurations visionConfigurations;
-
+//    protected static Report report = new Report();
 
     protected static ManagementInfo managementInfo;
     protected static ClientConfigurationDto clientConfigurations;
@@ -32,5 +33,12 @@ public abstract class TestBase extends SystemTestCase4 {
 
     public static SUTManager getSutManager() {
         return sutManager;
+    }
+
+    public static class Report {
+
+        public void report(String msg) {
+            Assert.fail(msg);
+        }
     }
 }
