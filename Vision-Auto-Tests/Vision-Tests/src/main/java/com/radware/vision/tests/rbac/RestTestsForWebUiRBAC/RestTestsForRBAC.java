@@ -1,11 +1,11 @@
 package com.radware.vision.tests.rbac.RestTestsForWebUiRBAC;
 
-import basejunit.RestTestBase;
+import com.radware.automation.tools.basetest.Reporter;
 import com.radware.utils.device.DeviceTableUtils;
+import com.radware.vision.base.TestBase;
 import com.radware.vision.base.WebUITestBase;
 import jsystem.framework.ParameterProperties;
 import jsystem.framework.TestProperties;
-import com.radware.automation.tools.basetest.Reporter;
 import org.junit.Test;
 
 /**
@@ -25,7 +25,7 @@ public class RestTestsForRBAC extends WebUITestBase {
             DeviceTableUtils.createTableRow(getVisionRestClient(), deviceIp, tableName, names, values);
 
         } catch (Exception e) {
-            RestTestBase.report.report("Device: " + deviceIp + " " + "createTableRow may not have been executed properly.", e.toString(), Reporter.FAIL);
+            TestBase.report.report("Device: " + deviceIp + " " + "createTableRow may not have been executed properly.", e.toString(), Reporter.FAIL);
         }
     }
 

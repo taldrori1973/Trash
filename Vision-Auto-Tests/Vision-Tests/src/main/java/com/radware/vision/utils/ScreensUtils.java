@@ -1,10 +1,10 @@
 package com.radware.vision.utils;
 
-import basejunit.RestTestBase;
 import com.radware.automation.tools.basetest.Reporter;
+import com.radware.automation.tools.utils.FileUtils;
 import com.radware.restcore.VisionRestClient;
 import com.radware.utils.vision.VisionUtils;
-import com.radware.automation.tools.utils.FileUtils;
+import com.radware.vision.base.TestBase;
 import org.apache.commons.io.IOUtils;
 
 import java.io.IOException;
@@ -84,7 +84,7 @@ public class ScreensUtils {
                 currentDriverContent = currentDriverContent.replaceAll("[^\\x00-\\x7F]", "");
                 FileUtils.writeToFile(filePath, currentDriverContent);
             } catch (Exception e) {
-                RestTestBase.report.report(e.getMessage() + "\n" + e.getCause() + "\n" + Arrays.asList(e.getStackTrace()) + "\n" + e.getClass().getCanonicalName(), Reporter.PASS);
+                TestBase.report.report(e.getMessage() + "\n" + e.getCause() + "\n" + Arrays.asList(e.getStackTrace()) + "\n" + e.getClass().getCanonicalName(), Reporter.PASS);
                 continue;
             }
         }
