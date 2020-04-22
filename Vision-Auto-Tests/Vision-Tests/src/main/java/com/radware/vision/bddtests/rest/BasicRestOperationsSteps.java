@@ -475,7 +475,7 @@ public class BasicRestOperationsSteps extends BddRestTestBase {
 
     @Given("^add (\\d+) applications with prefix name \"([^\"]*)\" to appWall ip:\"([^\"]*)\" with timeout (\\d+)$")
     public void addApplicationsToAWDashboard(int loop, String appPrefix, String appWallIp, int timeout) throws Exception {
-        RootServerCli rootServerCli = new RootServerCli(restTestBase.getRootServerCli().getHost(), restTestBase.getRootServerCli().getUser(), restTestBase.getRootServerCli().getPassword());
+        RootServerCli rootServerCli = new RootServerCli(clientConfigurations.getHostIp(), restTestBase.getRootServerCli().getUser(), restTestBase.getRootServerCli().getPassword());
         rootServerCli.init();
         rootServerCli.connect();
         String commandToExecute = "for i in {1.." + loop + "}; do curl -XPOST localhost:9200/aw-web-application/aw-web-application?pretty -H \"Content-Type: application/json\" -d '{\"enrichmentContainer\": { },\"timeStamp\": \"1569429855341\",\"id\": \"" + appWallIp + "%My_Application-'$i'\",\"deviceIp\": \"" + appWallIp + "\",\"webApplication\":\"" + appPrefix + "-'$i'\"}'; done";

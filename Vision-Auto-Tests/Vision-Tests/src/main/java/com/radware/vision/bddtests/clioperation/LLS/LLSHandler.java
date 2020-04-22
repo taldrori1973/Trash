@@ -3,7 +3,10 @@ package com.radware.vision.bddtests.clioperation.LLS;
 import com.radware.automation.tools.basetest.BaseTestUtils;
 import com.radware.automation.tools.basetest.Reporter;
 import com.radware.automation.tools.cli.ServerCliBase;
+import com.radware.vision.automation.AutoUtils.SUT.dtos.ClientConfigurationDto;
+import com.radware.vision.base.TestBase;
 import com.radware.vision.infra.testhandlers.cli.CliOperations;
+import com.radware.vision.systemManagement.models.ManagementInfo;
 import com.radware.vision.vision_handlers.system.ConfigSync;
 import com.radware.vision.vision_project_cli.RadwareServerCli;
 
@@ -20,9 +23,12 @@ public class LLSHandler {
     public static final String BACkUP_INSTALL = "system lls install backup -peer-host ";
     public static final String MAIN_INSTALL = "system lls install main -peer-host ";
 
+    private static ManagementInfo managementInfo = TestBase.getVisionConfigurations().getManagementInfo();
+    private static ClientConfigurationDto clientConfigurations = TestBase.getSutManager().getClientConfigurations();
+
     public static void HAbackupInstall(String mode, int timeout) throws Exception {
 
-        String mainIP = restTestBase.getRootServerCli().getHost();
+        String mainIP = clientConfigurations.getHostIp();
         String backupIP = restTestBase.getVisionServerHA().getHost_2();
         RadwareServerCli backupServerCli = new RadwareServerCli(backupIP, restTestBase.getRadwareServerCli().getUser(), restTestBase.getRadwareServerCli().getPassword());
         backupServerCli.init();
@@ -53,7 +59,7 @@ public class LLSHandler {
 //                CliOperations.verifyLastOutputByRegex(expected);
                 CliOperations.verifyLastOutputByRegexWithOutputWithoutFail(".*LLS HA role: " + type, CliOperations.lastOutput);
                 CliOperations.verifyLastOutputByRegexWithOutputWithoutFail(".*\"main\" : \"http://" + mainIP + ":7070\"", CliOperations.lastOutput);
-                CliOperations.verifyLastOutputByRegexWithOutputWithoutFail(".*\"backup\" : \"http://"+backupIP+":7070\"", CliOperations.lastOutput);
+                CliOperations.verifyLastOutputByRegexWithOutputWithoutFail(".*\"backup\" : \"http://" + backupIP + ":7070\"", CliOperations.lastOutput);
                 CliOperations.verifyLastOutputByRegexWithOutputWithoutFail(".*Auto Configuration successful*", CliOperations.lastOutput);
                 return;
             } catch (Exception e) {
@@ -68,7 +74,7 @@ public class LLSHandler {
 
     public static void HAMainInstall(String mode, int timeout) throws Exception {
 
-        String mainIP = restTestBase.getRootServerCli().getHost();
+        String mainIP = clientConfigurations.getHostIp();
         String backup = restTestBase.getVisionServerHA().getHost_2();
         RadwareServerCli backupServerCli = new RadwareServerCli(backup, restTestBase.getRadwareServerCli().getUser(), restTestBase.getRadwareServerCli().getPassword());
         backupServerCli.init();
@@ -177,16 +183,15 @@ public class LLSHandler {
     }
 
 
-
     public static void validateURLHA(String type, long timeout) throws Exception {
 
-        String mainIP = restTestBase.getRootServerCli().getHost();
+        String mainIP = clientConfigurations.getHostIp();
         String backupIP = restTestBase.getVisionServerHA().getHost_2();
         RadwareServerCli serverCli;
-        if (type.equalsIgnoreCase("main")){
+        if (type.equalsIgnoreCase("main")) {
             serverCli = new RadwareServerCli(mainIP, restTestBase.getRadwareServerCli().getUser(), restTestBase.getRadwareServerCli().getPassword());
 
-        }else {
+        } else {
             serverCli = new RadwareServerCli(backupIP, restTestBase.getRadwareServerCli().getUser(), restTestBase.getRadwareServerCli().getPassword());
 
         }
@@ -198,7 +203,7 @@ public class LLSHandler {
     public static void validateURLStandalone(long timeout) throws Exception {
         long startTime = System.currentTimeMillis();
         timeout *= 1000;
-        String mainIP = restTestBase.getRootServerCli().getHost();
+        String mainIP = clientConfigurations.getHostIp();
         while (System.currentTimeMillis() - startTime < timeout) {
             try {
                 CliOperations.runCommand(getRestTestBase().getRadwareServerCli(), INSTALL_LOGS, 3 * 60 * 1000);

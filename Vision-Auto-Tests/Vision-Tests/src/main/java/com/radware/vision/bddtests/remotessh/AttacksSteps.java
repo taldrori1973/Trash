@@ -55,7 +55,7 @@ public class AttacksSteps extends BddCliTestBase {
 
             String fakeIpPrefix = "50.50";
             String deviceIp = devicesManager.getDeviceInfo(deviceType, deviceIndex).getDeviceIp();
-            String visionIP = restTestBase.getRootServerCli().getHost();
+            String visionIP = clientConfigurations.getHostIp();
             if (deviceIp.startsWith(fakeIpPrefix)) {
                 visionIP = visionIP.replace(visionIP.substring(0, visionIP.indexOf(".", visionIP.indexOf(".") + 1)), fakeIpPrefix);
             }
@@ -73,7 +73,7 @@ public class AttacksSteps extends BddCliTestBase {
     @Given("^CLI kill all simulator attacks on current vision")
     public void killAllAttacksOnVision() {
         try {
-            String visionIP = restTestBase.getRootServerCli().getHost();
+            String visionIP = clientConfigurations.getHostIp();
             // fetch the last two octets
             visionIP = visionIP.substring(visionIP.indexOf(".", visionIP.indexOf(".") + 1) + 1, visionIP.length());
             String commandToExecute = "/home/radware/run-kill_all_DP_attacks.sh stop " + visionIP;
@@ -87,7 +87,7 @@ public class AttacksSteps extends BddCliTestBase {
     private String getCommandToexecute(SUTDeviceType deviceType, int deviceIndex, int numOfAttacks, Integer loopDelay, String fileName, boolean withAttackId) {
         String fakeIpPrefix = "50.50";
         String deviceIp;
-        String visionIP = restTestBase.getRootServerCli().getHost();
+        String visionIP = clientConfigurations.getHostIp();
         String interFace;
         String macAdress = TestBase.getVisionConfigurations().getManagementInfo().getMacAddress();
         String commandToExecute = "";

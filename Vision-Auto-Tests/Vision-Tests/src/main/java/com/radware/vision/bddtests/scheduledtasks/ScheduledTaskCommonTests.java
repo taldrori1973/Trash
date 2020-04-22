@@ -2,12 +2,12 @@ package com.radware.vision.bddtests.scheduledtasks;
 
 import com.radware.automation.tools.basetest.BaseTestUtils;
 import com.radware.automation.tools.basetest.Reporter;
-import com.radware.vision.pojomodel.helpers.constants.ImConstants$ScheduledTaskExecutionStatusEnumPojo;
-import com.radware.vision.vision_project_cli.RootServerCli;
 import com.radware.vision.bddtests.BddUITestBase;
 import com.radware.vision.infra.testhandlers.cli.CliOperations;
 import com.radware.vision.infra.testhandlers.scheduledtasks.BaseTasksHandler;
 import com.radware.vision.infra.testhandlers.scheduledtasks.DDosFeedTaskHandler;
+import com.radware.vision.pojomodel.helpers.constants.ImConstants$ScheduledTaskExecutionStatusEnumPojo;
+import com.radware.vision.vision_project_cli.RootServerCli;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
@@ -96,7 +96,7 @@ public class ScheduledTaskCommonTests extends BddUITestBase {
 
     @When("^Run command \"(.*)\" and validate task time close to (\\d+)$")
     public void validateTime(String command , int expectedTime)throws Exception{
-        RootServerCli rootServerCli = new RootServerCli(restTestBase.getRootServerCli().getHost(), restTestBase.getRootServerCli().getUser(), restTestBase.getRootServerCli().getPassword());
+        RootServerCli rootServerCli = new RootServerCli(clientConfigurations.getHostIp(), restTestBase.getRootServerCli().getUser(), restTestBase.getRootServerCli().getPassword());
         rootServerCli.init();
         CliOperations.runCommand(rootServerCli, command);
         String output = rootServerCli.getCmdOutput().get(1).split("\\.")[0];

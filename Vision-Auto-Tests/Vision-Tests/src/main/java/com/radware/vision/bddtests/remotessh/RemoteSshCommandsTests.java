@@ -7,10 +7,10 @@ import com.radware.automation.tools.cli.LinuxFileServer;
 import com.radware.automation.tools.cli.ServerCliBase;
 import com.radware.automation.tools.utils.InvokeUtils;
 import com.radware.vision.automation.AutoUtils.Operators.Comparator;
+import com.radware.vision.automation.AutoUtils.Operators.OperatorsEnum;
 import com.radware.vision.bddtests.BddCliTestBase;
 import com.radware.vision.bddtests.basicoperations.BasicOperationsSteps;
 import com.radware.vision.bddtests.clioperation.FileSteps;
-import com.radware.vision.automation.AutoUtils.Operators.OperatorsEnum;
 import com.radware.vision.infra.testhandlers.cli.CliOperations;
 import com.radware.vision.vision_project_cli.RootServerCli;
 import cucumber.api.java.en.Then;
@@ -359,7 +359,7 @@ public class RemoteSshCommandsTests extends BddCliTestBase {
     public void runTrafficEventFile(String filename) {
         String commandToExecute = "";
         try {
-            String serverIp = restTestBase.getRootServerCli().getHost();
+            String serverIp = clientConfigurations.getHostIp();
             commandToExecute = String.format("python3 /home/radware/TED/cef/cef_messages_dir.py -a 1 -i \"%s\" -p \"5140\" -dir \"/home/radware/TED/automation/%s\" -t", serverIp, filename);
 //            String commandToExecute = "python3 /home/radware/TED/cef/cef_messages_dir.py -a 1 -i \"172.17.164.101\" -p \"5140\" -dir \"/home/radware/TED/automation/fieldsummarybadgevalues\" -t";
 

@@ -2,13 +2,13 @@ package com.radware.vision.bddtests.scheduledtasks;
 
 import com.radware.automation.tools.basetest.BaseTestUtils;
 import com.radware.automation.tools.basetest.Reporter;
+import com.radware.vision.automation.tools.sutsystemobjects.devicesinfo.DeviceInfo;
 import com.radware.vision.automation.tools.sutsystemobjects.devicesinfo.enums.SUTDeviceType;
 import com.radware.vision.bddtests.BddUITestBase;
 import com.radware.vision.infra.testhandlers.cli.CliOperations;
 import com.radware.vision.infra.testhandlers.scheduledtasks.TORTaskHandler;
 import cucumber.api.java.en.When;
 import enums.SUTEntryType;
-import com.radware.vision.automation.tools.sutsystemobjects.devicesinfo.DeviceInfo;
 
 import java.util.List;
 
@@ -66,7 +66,7 @@ public class TORTests extends BddUITestBase {
         String md5sumDeclaredbyMIS = CliOperations.lastRow;
         CliOperations.runCommand(getRestTestBase().getRootServerCli(), "mysql -N -u root -prad123 vision_ng -e \"select feed_response from tor_feed\" | grep -oP '(?<=Ids\":\\[\").[^\"]*'");
         String validMac = CliOperations.lastRow;
-        String visionIP = restTestBase.getRootServerCli().getHost();
+        String visionIP = clientConfigurations.getHostIp();
         String commandToExecute = "sudo /home/radware/reputationFeed.sh " + visionIP + " " + validMac + " | grep -oP '(?<=actual file md5sum: ).*'";
 //        CliOperations.runCommand(getRestTestBase().getGenericLinuxServer(),"sudo /home/radware/reputationFeed.sh 172.17.164.104 0003b2a3db00 | grep -oP '(?<=actual file md5sum: ).*'");
         CliOperations.runCommand(getRestTestBase().getGenericLinuxServer(),commandToExecute);
@@ -83,7 +83,7 @@ public class TORTests extends BddUITestBase {
     @When("^Run TOR request simulation script \"(.*)\" at scriptPath \"(.*)\" on (GENERIC_LINUX_SERVER|ROOT_SERVER_CLI|LINUX_FILE_SERVER|RADWARE_SERVER_CLI) to current SUT for Alteon (\\d+)")
     public void runTORRequestScript(String scriptName, String scriptPath, SUTEntryType sutEntryType, int alteonIndex) {
         try {
-        String visionIP = restTestBase.getRootServerCli().getHost();
+            String visionIP = clientConfigurations.getHostIp();
         DeviceInfo deviceInfo = devicesManager.getDeviceInfo(SUTDeviceType.Alteon,alteonIndex);                 //getDeviceInfo(Alteon, alteonIndex);
         String mac_Address = deviceInfo.getMacAddress().replaceAll(":","");
         String commandToExecute = scriptPath + scriptName + " " + visionIP + " " + mac_Address;

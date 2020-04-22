@@ -2,7 +2,10 @@ package com.radware.vision.bddtests.clioperation.LLS;
 
 import com.radware.automation.tools.basetest.BaseTestUtils;
 import com.radware.automation.tools.basetest.Reporter;
+import com.radware.vision.automation.AutoUtils.SUT.dtos.ClientConfigurationDto;
+import com.radware.vision.base.TestBase;
 import com.radware.vision.enums.ConfigSyncMode;
+import com.radware.vision.systemManagement.models.ManagementInfo;
 import com.radware.vision.vision_handlers.system.ConfigSync;
 import com.radware.vision.vision_project_cli.RadwareServerCli;
 import cucumber.api.java.en.Given;
@@ -11,6 +14,10 @@ import cucumber.api.java.en.When;
 import static com.radware.vision.base.WebUITestBase.restTestBase;
 
 public class LLSSteps {
+
+
+    protected static ManagementInfo managementInfo = TestBase.getVisionConfigurations().getManagementInfo();
+    protected static ClientConfigurationDto clientConfigurations = TestBase.getSutManager().getClientConfigurations();
 
     @Given("^CLI LLS standalone install, \"(FNO|offline|UAT)\" mode, timeout (\\d+)$")
     public void standbyInstall(String mode, int timeout) {

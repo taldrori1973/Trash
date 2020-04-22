@@ -196,8 +196,8 @@ public abstract class WebUITestBase extends TestBase {
                 rallyTestReporter = new RallyTestReporter();
                 rallyTestReporter.init(managementInfo.getVersion(), "WebUI", managementInfo.getBuild());
 
-                restOperationsUsername = restTestBase.getVisionServer().getRestUsername();
-                restOperationsPassword = restTestBase.getVisionServer().getRestPassword();
+                restOperationsUsername = clientConfigurations.getUserName();
+                restOperationsPassword = clientConfigurations.getPassword();
                 getVisionRestClient().setSessionUsername(restOperationsUsername);
                 getVisionRestClient().setSessionPassword(restOperationsPassword);
                 getVisionRestClient().getHttpSession(1).setEnableAutomaticLogin(true);
