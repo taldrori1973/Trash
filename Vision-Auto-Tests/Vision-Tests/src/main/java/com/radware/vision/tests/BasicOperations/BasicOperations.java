@@ -13,13 +13,13 @@ import com.radware.automation.webui.webpages.GeneralEnums;
 import com.radware.jsonparsers.impl.JsonUtils;
 import com.radware.restcommands.RestCommands;
 import com.radware.restcore.utils.enums.ExpectedHttpCodes;
-import com.radware.vision.vision_project_cli.RadwareServerCli;
-import com.radware.vision.vision_project_cli.RootServerCli;
 import com.radware.vision.base.WebUITestBase;
 import com.radware.vision.bddtests.basicoperations.BasicOperationsSteps;
 import com.radware.vision.infra.base.pages.system.usermanagement.localusers.UserEntry;
 import com.radware.vision.infra.testhandlers.baseoperations.BasicOperationsHandler;
 import com.radware.vision.infra.testhandlers.system.usermanagement.localusers.LocalUsersHandler;
+import com.radware.vision.vision_project_cli.RadwareServerCli;
+import com.radware.vision.vision_project_cli.RootServerCli;
 import jsystem.framework.ParameterProperties;
 import jsystem.framework.RunProperties;
 import jsystem.framework.TestProperties;
@@ -720,7 +720,7 @@ public class BasicOperations extends WebUITestBase {
             SystemTestCase.report.saveFile(randomFileName, ByteStreams.toByteArray(inputStream));
 
             String imageSource = randomFileName;
-            SystemTestCase.report.reportHtml(time + " Screenshot. Login", "<img src=" + imageSource + " alt=screenshot width=1280 height=848>", true);
+            report.reportHtml(time + " Screenshot. Login", "<img src=" + imageSource + " alt=screenshot width=1280 height=848>", true);
         } catch (IOException e) {
         }
     }

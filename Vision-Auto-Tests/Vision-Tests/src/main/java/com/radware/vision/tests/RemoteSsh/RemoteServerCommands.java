@@ -1,10 +1,9 @@
 package com.radware.vision.tests.RemoteSsh;
 
-import com.radware.vision.base.WebUITestBase;
-import jsystem.framework.TestProperties;
-import com.radware.vision.infra.utils.RemoteProcessExecutor;
 import com.radware.automation.tools.basetest.Reporter;
-import junit.framework.SystemTestCase4;
+import com.radware.vision.base.WebUITestBase;
+import com.radware.vision.infra.utils.RemoteProcessExecutor;
+import jsystem.framework.TestProperties;
 import org.junit.Test;
 
 /**
@@ -25,7 +24,7 @@ public class RemoteServerCommands extends WebUITestBase {
             remoteProcessExecutor.execScript(scriptPath, scriptName);
         }
         catch(Exception e) {
-            SystemTestCase4.report.report("Failed to run script: " + scriptPath + "/" + scriptName + "\n" + parseExceptionBody(e) , Reporter.WARNING);
+            report.report("Failed to run script: " + scriptPath + "/" + scriptName + "\n" + parseExceptionBody(e), Reporter.WARNING);
         }
     }
 
