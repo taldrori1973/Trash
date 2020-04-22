@@ -31,8 +31,8 @@ public class NetSteps extends BddCliTestBase {
         try {
 
             setVisionBuildAndVersion();
-            String buildNumber = getVisionConfigurations().getManagementInfo().getBuild();
-            String versionNumebr = getVisionConfigurations().getManagementInfo().getVersion();
+            String buildNumber = managementInfo.getBuild();
+            String versionNumebr = managementInfo.getVersion();
 
             Dns.setDnsPrimaryFromSut(restTestBase.getRadwareServerCli());
             Dns.getDnsPrimary(restTestBase.getRadwareServerCli());

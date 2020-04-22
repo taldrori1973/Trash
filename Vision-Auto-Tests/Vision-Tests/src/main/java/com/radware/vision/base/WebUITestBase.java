@@ -37,12 +37,14 @@ import com.radware.restcore.VisionRestClient;
 import com.radware.urlbuilder.vision.VisionUrlPath;
 import com.radware.utils.DeviceUtils;
 import com.radware.utils.TreeUtils;
+import com.radware.vision.automation.AutoUtils.SUT.dtos.ClientConfigurationDto;
 import com.radware.vision.automation.tools.sutsystemobjects.devicesinfo.DevicesManager;
 import com.radware.vision.infra.enums.DeviceDriverType;
 import com.radware.vision.infra.testhandlers.baseoperations.BasicOperationsHandler;
 import com.radware.vision.infra.utils.VisionWebUIUtils;
 import com.radware.vision.infra.utils.threadutils.ThreadsStatusMonitor;
 import com.radware.vision.pojomodel.helpers.constants.ImConstants$DeviceStatusEnumPojo;
+import com.radware.vision.systemManagement.models.ManagementInfo;
 import com.radware.vision.vision_project_cli.MysqlClientCli;
 import com.radware.vision.vision_project_cli.menu.Menu;
 import com.radware.vision.vision_tests.CliTests;
@@ -93,6 +95,10 @@ public abstract class WebUITestBase extends TestBase {
     private DeviceDriverType deviceDriverType = DeviceDriverType.VISION;
     private String qcTestId;
     private String deviceName;
+
+    //    New
+    protected static ManagementInfo managementInfo = getVisionConfigurations().getManagementInfo();
+    protected static ClientConfigurationDto sutManager = getSutManager().getClientConfigurations();
 
     public static VisionRestClient getVisionRestClient() {
         return restTestBase != null ? restTestBase.getVisionRestClient() : new VisionRestClient(null, null, null);
@@ -192,7 +198,7 @@ public abstract class WebUITestBase extends TestBase {
 //                AasVisionEnums.UtilitiesStrings.BROWSER_TYPE = BaseTestUtils.getRuntimeProperty(RuntimePropertiesEnum.BROWSER_TYPE.name(), RuntimePropertiesEnum.BROWSER_TYPE.getDefaultValue());
 
                 rallyTestReporter = new RallyTestReporter();
-                rallyTestReporter.init(getVisionConfigurations().getManagementInfo().getVersion(), "WebUI", getVisionConfigurations().getManagementInfo().getBuild());
+                rallyTestReporter.init(managementInfo.getVersion(), "WebUI", managementInfo.getBuild());
 
                 restOperationsUsername = restTestBase.getVisionServer().getRestUsername();
                 restOperationsPassword = restTestBase.getVisionServer().getRestPassword();
@@ -207,8 +213,8 @@ public abstract class WebUITestBase extends TestBase {
                 The code below used to send the version, build and mode to RunnerFeature class in order to create Before Feature and After Feature in cucumber
                 this code will run once , at the begin of the test .
                  */
-                FeatureRunner.update_version_build_mode(getVisionConfigurations().getManagementInfo().getVersion(),
-                        getVisionConfigurations().getManagementInfo().getBuild(),
+                FeatureRunner.update_version_build_mode(managementInfo.getVersion(),
+                        managementInfo.getBuild(),
                         mode);
 
             }
@@ -340,7 +346,7 @@ public abstract class WebUITestBase extends TestBase {
             else
                 restTestBase.automationTestReporter.updateTestResult(BddReporterManager.isResultPass(), BddReporterManager.getAllResult(), testId);
         }
-        BaseTestUtils.report("Scenario Result for testId: " + testId + "\n vision Version: " + getVisionConfigurations().getManagementInfo().getVersion() + "\n build number: " + getVisionConfigurations().getManagementInfo().getBuild(), Reporter.PASS_NOR_FAIL);
+        BaseTestUtils.report("Scenario Result for testId: " + testId + "\n vision Version: " + managementInfo.getVersion() + "\n build number: " + managementInfo.getBuild(), Reporter.PASS_NOR_FAIL);
     }
 
     public void setVisionBuildAndVersion() {
@@ -349,8 +355,8 @@ public abstract class WebUITestBase extends TestBase {
             restTestBase.getRootServerCli().connect();
             restTestBase.getRootServerCli().getVersionAndBuildFromSever();
             restTestBase.initReporter();
-            FeatureRunner.update_version_build_mode(getVisionConfigurations().getManagementInfo().getVersion(),
-                    getVisionConfigurations().getManagementInfo().getBuild(),
+            FeatureRunner.update_version_build_mode(managementInfo.getVersion(),
+                    managementInfo.getBuild(),
                     BddReporterManager.getRunMode());
         } catch (Exception e) {
             BaseTestUtils.report("publish BDD results Failure!!! ", Reporter.PASS_NOR_FAIL);
