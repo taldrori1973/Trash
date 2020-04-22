@@ -13,22 +13,22 @@ import static org.apache.commons.lang3.StringUtils.isEmpty;
 
 public class SutUtils {
 
-    private static ClientConfigurationDto visionSutConfigurations = TestBase.getSutManager().getClientConfigurations();
+    private static ClientConfigurationDto clientConfigurations = TestBase.getSutManager().getClientConfigurations();
 
     public static String getCurrentVisionRestProtocol() {
-        String restProtocol = visionSutConfigurations.getRestConnectionDefaultProtocol();
+        String restProtocol = clientConfigurations.getRestConnectionDefaultProtocol();
         if (isNull(restProtocol) || isEmpty(restProtocol) || isBlank(restProtocol)) return "HTTP";
         return restProtocol;
     }
 
     public static Integer getCurrentVisionRestPort() {
-        Integer restPort = Integer.parseInt(visionSutConfigurations.getRestConnectionDefaultPort());
+        Integer restPort = Integer.parseInt(clientConfigurations.getRestConnectionDefaultPort());
         if (restPort == 0) return 80;
         return restPort;
     }
 
     public static String getCurrentVisionIp() throws NoSuchFieldException {
-        String ip = visionSutConfigurations.getHostIp();
+        String ip = clientConfigurations.getHostIp();
         if (isNull(ip) || isEmpty(ip) || isBlank(ip)) {
             throw new NoSuchFieldException("Can't read Host Name from SUT file under visionLab/visionServer/host");
         }
@@ -36,17 +36,17 @@ public class SutUtils {
     }
 
     public static String getCurrentVisionRestUserName() throws NoSuchFieldException {
-        String userName = visionSutConfigurations.getUserName();
+        String userName = clientConfigurations.getUserName();
         if (isNull(userName) || isEmpty(userName) || isBlank(userName)) {
-            throw new NoSuchFieldException("Can't read User Name from SUT file under " + WebUITestBase.getRestTestBase().getVisionServer().getXPath());
+            throw new NoSuchFieldException("Can't read User Name from SUT file");
         }
         return userName;
     }
 
     public static String getCurrentVisionRestUserPassword() throws NoSuchFieldException {
-        String password = visionSutConfigurations.getPassword();
+        String password = clientConfigurations.getPassword();
         if (isNull(password) || isEmpty(password) || isBlank(password)) {
-            throw new NoSuchFieldException("Can't read User Password from SUT file under" + WebUITestBase.getRestTestBase().getVisionServer().getXPath());
+            throw new NoSuchFieldException("Can't read User Password from SUT file");
         }
         return password;
     }

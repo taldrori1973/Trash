@@ -109,7 +109,7 @@ public abstract class WebUITestBase extends TestBase {
     }
 
     public static String getConnectionUsername() {
-        return restTestBase.getVisionServer().getUser();
+        return clientConfigurations.getUserName();
     }
 
     public static boolean getOutputVisionThreadUtilization() {
