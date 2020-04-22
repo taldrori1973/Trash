@@ -37,14 +37,12 @@ import com.radware.restcore.VisionRestClient;
 import com.radware.urlbuilder.vision.VisionUrlPath;
 import com.radware.utils.DeviceUtils;
 import com.radware.utils.TreeUtils;
-import com.radware.vision.automation.AutoUtils.SUT.dtos.ClientConfigurationDto;
 import com.radware.vision.automation.tools.sutsystemobjects.devicesinfo.DevicesManager;
 import com.radware.vision.infra.enums.DeviceDriverType;
 import com.radware.vision.infra.testhandlers.baseoperations.BasicOperationsHandler;
 import com.radware.vision.infra.utils.VisionWebUIUtils;
 import com.radware.vision.infra.utils.threadutils.ThreadsStatusMonitor;
 import com.radware.vision.pojomodel.helpers.constants.ImConstants$DeviceStatusEnumPojo;
-import com.radware.vision.systemManagement.models.ManagementInfo;
 import com.radware.vision.vision_project_cli.MysqlClientCli;
 import com.radware.vision.vision_project_cli.menu.Menu;
 import com.radware.vision.vision_tests.CliTests;
@@ -97,8 +95,6 @@ public abstract class WebUITestBase extends TestBase {
     private String deviceName;
 
     //    New
-    protected static ManagementInfo managementInfo = getVisionConfigurations().getManagementInfo();
-    protected static ClientConfigurationDto sutManager = getSutManager().getClientConfigurations();
 
     public static VisionRestClient getVisionRestClient() {
         return restTestBase != null ? restTestBase.getVisionRestClient() : new VisionRestClient(null, null, null);
@@ -465,7 +461,7 @@ public abstract class WebUITestBase extends TestBase {
     }
 
     public String getVisionServerIp() {
-        return restTestBase.getVisionServer().getHost();
+        return clientConfigurations.getHostIp();
     }
 
     public String getQcTestId() {
