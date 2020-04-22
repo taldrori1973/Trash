@@ -363,7 +363,6 @@ public class VMOperationsSteps extends BddUITestBase {
         String version = readVisionVersionFromPomFile();
 //        String versionPrefix = version.substring(0, 4);//example : 4.10.00 --> 4.10
         String build = System.getenv("BUILD");//get build from portal
-        restTestBase.getRootServerCli().getVersionNumebr();
         if (build == null || build.equals("") || build.equals("0"))
             try {
                 BaseTestUtils.report("No build was supplied. Going for latest", Reporter.PASS);

@@ -2,11 +2,11 @@ package com.radware.vision.bddtests.clioperation.menu.net;
 
 import com.radware.automation.tools.basetest.BaseTestUtils;
 import com.radware.automation.tools.basetest.Reporter;
+import com.radware.vision.bddtests.BddCliTestBase;
 import com.radware.vision.vision_handlers.net.Dns;
 import com.radware.vision.vision_handlers.net.Ip;
 import com.radware.vision.vision_handlers.net.Route;
 import com.radware.vision.vision_handlers.system.Version;
-import com.radware.vision.bddtests.BddCliTestBase;
 import cucumber.api.java.en.Then;
 
 public class NetSteps extends BddCliTestBase {
@@ -20,7 +20,7 @@ public class NetSteps extends BddCliTestBase {
      * Get the route table
      * Verify gateWay and interface
      * Sets a new net route. (net route set net [Net IP] [Netmask] [Gateway IP] [G1|G2|G3])
-     *
+     * <p>
      * Verify timeZone
      *
      * @throws Exception
@@ -31,8 +31,8 @@ public class NetSteps extends BddCliTestBase {
         try {
 
             setVisionBuildAndVersion();
-            String buildNumber = restTestBase.getRootServerCli().getBuildNumber();
-            String versionNumebr = restTestBase.getRootServerCli().getVersionNumebr();
+            String buildNumber = getVisionConfigurations().getManagementInfo().getBuild();
+            String versionNumebr = getVisionConfigurations().getManagementInfo().getVersion();
 
             Dns.setDnsPrimaryFromSut(restTestBase.getRadwareServerCli());
             Dns.getDnsPrimary(restTestBase.getRadwareServerCli());

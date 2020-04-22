@@ -10,8 +10,8 @@ import junit.framework.SystemTestCase4;
 
 public abstract class TestBase extends SystemTestCase4 {
 
-    private static SUTManager sutManager;
-    private static VisionConfigurations visionConfigurations;
+    protected static SUTManager sutManager;
+    protected static VisionConfigurations visionConfigurations;
 
     static {
         sutManager = SUTManagerImpl.getInstance();

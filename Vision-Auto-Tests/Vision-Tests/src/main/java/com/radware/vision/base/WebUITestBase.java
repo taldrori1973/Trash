@@ -192,7 +192,7 @@ public abstract class WebUITestBase extends TestBase {
 //                AasVisionEnums.UtilitiesStrings.BROWSER_TYPE = BaseTestUtils.getRuntimeProperty(RuntimePropertiesEnum.BROWSER_TYPE.name(), RuntimePropertiesEnum.BROWSER_TYPE.getDefaultValue());
 
                 rallyTestReporter = new RallyTestReporter();
-                rallyTestReporter.init(restTestBase.getRootServerCli().getVersionNumebr(), "WebUI", restTestBase.getRootServerCli().getBuildNumber());
+                rallyTestReporter.init(getVisionConfigurations().getManagementInfo().getVersion(), "WebUI", getVisionConfigurations().getManagementInfo().getBuild());
 
                 restOperationsUsername = restTestBase.getVisionServer().getRestUsername();
                 restOperationsPassword = restTestBase.getVisionServer().getRestPassword();
@@ -207,8 +207,8 @@ public abstract class WebUITestBase extends TestBase {
                 The code below used to send the version, build and mode to RunnerFeature class in order to create Before Feature and After Feature in cucumber
                 this code will run once , at the begin of the test .
                  */
-                FeatureRunner.update_version_build_mode(restTestBase.getRootServerCli().getVersionNumebr(),
-                        restTestBase.getRootServerCli().getBuildNumber(),
+                FeatureRunner.update_version_build_mode(getVisionConfigurations().getManagementInfo().getVersion(),
+                        getVisionConfigurations().getManagementInfo().getBuild(),
                         mode);
 
             }
@@ -340,7 +340,7 @@ public abstract class WebUITestBase extends TestBase {
             else
                 restTestBase.automationTestReporter.updateTestResult(BddReporterManager.isResultPass(), BddReporterManager.getAllResult(), testId);
         }
-        BaseTestUtils.report("Scenario Result for testId: " + testId + "\n vision Version: " + restTestBase.getRootServerCli().getVersionNumebr() + "\n build number: " + restTestBase.getRootServerCli().getBuildNumber(), Reporter.PASS_NOR_FAIL);
+        BaseTestUtils.report("Scenario Result for testId: " + testId + "\n vision Version: " + getVisionConfigurations().getManagementInfo().getVersion() + "\n build number: " + getVisionConfigurations().getManagementInfo().getBuild(), Reporter.PASS_NOR_FAIL);
     }
 
     public void setVisionBuildAndVersion() {
@@ -349,8 +349,8 @@ public abstract class WebUITestBase extends TestBase {
             restTestBase.getRootServerCli().connect();
             restTestBase.getRootServerCli().getVersionAndBuildFromSever();
             restTestBase.initReporter();
-            FeatureRunner.update_version_build_mode(restTestBase.getRootServerCli().getVersionNumebr(),
-                    restTestBase.getRootServerCli().getBuildNumber(),
+            FeatureRunner.update_version_build_mode(getVisionConfigurations().getManagementInfo().getVersion(),
+                    getVisionConfigurations().getManagementInfo().getBuild(),
                     BddReporterManager.getRunMode());
         } catch (Exception e) {
             BaseTestUtils.report("publish BDD results Failure!!! ", Reporter.PASS_NOR_FAIL);
