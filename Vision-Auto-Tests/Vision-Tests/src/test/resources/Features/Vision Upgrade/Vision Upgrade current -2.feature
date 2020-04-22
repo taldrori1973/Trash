@@ -98,7 +98,7 @@ Feature: Vision Upgrade current -2
       | UPGRADE | *.png                                                                  | IGNORE       |
       | UPGRADE | *.svg                                                                  | IGNORE       |
       | LLS     | fatal\| error\|fail                                                    | NOT_EXPECTED |
-      | LLS     | Installation ended                                                     | NOT_EXPECTED |
+      | LLS     | Installation ended                                                     | EXPECTED     |
       | UPGRADE | /opt/radware/storage/www/webui/vision-dashboards/public/static/media/* | IGNORE       |
 
 
