@@ -16,7 +16,7 @@ public class GeneralSettings extends VisionSettingsBase {
     @TestProperties(name = "Basic Parameters", paramsInclude = {})
     public void clickBasicParameters() {
         if(!clickMenu(subMenuOption, "basicParameters")) {
-            report.report("Failed to click 'Basic Parameters' menu option.");
+            BaseTestUtils.report("Failed to click 'Basic Parameters' menu option.");
         }
     }
 
@@ -24,7 +24,7 @@ public class GeneralSettings extends VisionSettingsBase {
     @TestProperties(name = "Connectivity", paramsInclude = {})
     public void clickConnectivity() {
         if(!clickMenu(subMenuOption, "connectivity")) {
-            report.report("Failed to click 'Connectivity' menu option.");
+            BaseTestUtils.report("Failed to click 'Connectivity' menu option.");
         }
     }
 
@@ -32,7 +32,7 @@ public class GeneralSettings extends VisionSettingsBase {
     @TestProperties(name = "Alert Settings", paramsInclude = {})
     public void clickAlertSettings() {
         if(!clickMenu(subMenuOption, "alertsettings")) {
-            report.report("Failed to click 'Alert Settings' menu option.");
+            BaseTestUtils.report("Failed to click 'Alert Settings' menu option.");
         }
     }
 
@@ -40,7 +40,7 @@ public class GeneralSettings extends VisionSettingsBase {
     @TestProperties(name = "Monitoring", paramsInclude = {})
     public void clickMonitoring() {
         if(!clickMenu(subMenuOption, "monitoring")) {
-            report.report("Failed to click 'Monitoring' menu option.");
+            BaseTestUtils.report("Failed to click 'Monitoring' menu option.");
         }
     }
 
@@ -48,7 +48,7 @@ public class GeneralSettings extends VisionSettingsBase {
     @TestProperties(name = "Server Alarm", paramsInclude = {})
     public void clickServerAlarm() {
         if(!clickMenu(subMenuOption, "warningThresholds")) {
-            report.report("Failed to click 'Server Alarm' menu option.");
+            BaseTestUtils.report("Failed to click 'Server Alarm' menu option.");
         }
     }
 
@@ -56,7 +56,7 @@ public class GeneralSettings extends VisionSettingsBase {
     @TestProperties(name = "Authentication Protocols", paramsInclude = {})
     public void clickAuthenticationProtocols() {
         if(!clickMenu(subMenuOption, "authenticationProtocols")) {
-            report.report("Failed to click 'Authentication Protocols' menu option.");
+            BaseTestUtils.report("Failed to click 'Authentication Protocols' menu option.");
         }
     }
 
@@ -64,7 +64,7 @@ public class GeneralSettings extends VisionSettingsBase {
     @TestProperties(name = "Device Drivers", paramsInclude = {})
     public void clickDeviceDrivers() {
         if(!clickMenu(subMenuOption, "deviceDrivers")) {
-            report.report("Failed to click 'Device Drivers' menu option.");
+            BaseTestUtils.report("Failed to click 'Device Drivers' menu option.");
         }
     }
 
@@ -72,7 +72,7 @@ public class GeneralSettings extends VisionSettingsBase {
     @TestProperties(name = "APSolute Vision Reporter", paramsInclude = {})
     public void clickAPSoluteVisionReporter() {
         if(!clickMenu(subMenuOption, "eiqConfig")) {
-            report.report("Failed to click 'APsolute Vision Reporter' menu option.");
+            BaseTestUtils.report("Failed to click 'APsolute Vision Reporter' menu option.");
         }
     }
 
@@ -80,7 +80,7 @@ public class GeneralSettings extends VisionSettingsBase {
     @TestProperties(name = "License Management", paramsInclude = {})
     public void clickLicenseManagement() {
         if(!clickMenu(subMenuOption, "licenseManagement")) {
-            report.report("Failed to click 'License Management' menu option.");
+            BaseTestUtils.report("Failed to click 'License Management' menu option.");
         }
     }
 
@@ -88,7 +88,7 @@ public class GeneralSettings extends VisionSettingsBase {
     @TestProperties(name = "APM Settings", paramsInclude = {})
     public void clickAPMSettings() {
         if(!clickMenu(subMenuOption, "apmSettings")) {
-            report.report("Failed to click 'APM Settings' menu option.");
+            BaseTestUtils.report("Failed to click 'APM Settings' menu option.");
         }
     }
 
@@ -96,7 +96,7 @@ public class GeneralSettings extends VisionSettingsBase {
     @TestProperties(name = "DefensePipe Settings", paramsInclude = {})
     public void clickDefensePipeSettings() {
         if(!clickMenu(subMenuOption, "defensePipeSettings")) {
-            report.report("Failed to click 'DefensePipe Settings' menu option.");
+            BaseTestUtils.report("Failed to click 'DefensePipe Settings' menu option.");
         }
     }
 
@@ -104,7 +104,7 @@ public class GeneralSettings extends VisionSettingsBase {
     @TestProperties(name = "Advanced", paramsInclude = {})
     public void clickAdvanced() {
         if(!clickMenu(subMenuOption, "advanced")) {
-            report.report("Failed to click 'Advanced' menu option.");
+            BaseTestUtils.report("Failed to click 'Advanced' menu option.");
         }
     }
 
@@ -112,7 +112,7 @@ public class GeneralSettings extends VisionSettingsBase {
     @TestProperties(name = "Display", paramsInclude = {})
     public void clickDisplay() {
         if(!clickMenu(subMenuOption, "display")) {
-            report.report("Failed to click 'Display' menu option.");
+            BaseTestUtils.report("Failed to click 'Display' menu option.");
         }
     }
 
@@ -120,7 +120,7 @@ public class GeneralSettings extends VisionSettingsBase {
     @TestProperties(name = "Maintenance Files", paramsInclude = {})
     public void clickMaintenanceFiles() {
         if(!clickMenu(subMenuOption, "maintenance")) {
-            report.report("Failed to click 'Maintenance Files' menu option.");
+            BaseTestUtils.report("Failed to click 'Maintenance Files' menu option.");
         }
     }
 
@@ -128,7 +128,7 @@ public class GeneralSettings extends VisionSettingsBase {
     @TestProperties(name = "AppWall Filter", paramsInclude = {})
     public void clickAppWallFilter() {
         if(!clickMenu(subMenuOption, "AppWallFilter")) {
-            report.report("Failed to click 'AppWall Filter' menu option.");
+            BaseTestUtils.report("Failed to click 'AppWall Filter' menu option.");
         }
     }
 }

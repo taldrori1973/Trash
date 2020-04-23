@@ -38,10 +38,10 @@ public class RBACDefenseProAdvancedParametersTableActionTests extends RBACTestBa
             testProperties.put("outOfPathTableAction", outOfPathTableAction.getTableAction().toString());
 
             if (!(RBACDefenseProAdvancedParametersTableActionHandler.verifyOutOfPathTableAction(testProperties))) {
-                report.report("The specified Table action is in an incorrect state: " + outOfPathTableAction.getTableAction() + "\n.", Reporter.FAIL);
+                BaseTestUtils.report("The specified Table action is in an incorrect state: " + outOfPathTableAction.getTableAction() + "\n.", Reporter.FAIL);
             }
         } catch (Exception e) {
-            report.report("verify OutOfPath Disabled Table Action failed: " + outOfPathTableAction.getTableAction() + "\n." + parseExceptionBody(e),
+            BaseTestUtils.report("verify OutOfPath Disabled Table Action failed: " + outOfPathTableAction.getTableAction() + "\n." + parseExceptionBody(e),
                     Reporter.FAIL);
         }
     }
@@ -54,10 +54,10 @@ public class RBACDefenseProAdvancedParametersTableActionTests extends RBACTestBa
             testProperties.put("eventSchedulerTableAction", eventSchedulerTableAction.getTableAction().toString());
 
             if (!(RBACDefenseProAdvancedParametersTableActionHandler.verifyEventSchedulerTableAction(testProperties))) {
-                report.report("The specified Table action is in an incorrect state: " + eventSchedulerTableAction.getTableAction() + "\n.", Reporter.FAIL);
+                BaseTestUtils.report("The specified Table action is in an incorrect state: " + eventSchedulerTableAction.getTableAction() + "\n.", Reporter.FAIL);
             }
         } catch (Exception e) {
-            report.report("verify EventScheduler Disabled Table Action failed: " + eventSchedulerTableAction.getTableAction() + "\n." + parseExceptionBody(e),
+            BaseTestUtils.report("verify EventScheduler Disabled Table Action failed: " + eventSchedulerTableAction.getTableAction() + "\n." + parseExceptionBody(e),
                     Reporter.FAIL);
         }
     }

@@ -1,12 +1,12 @@
 package com.radware.vision.tests.GeneralOperations;
 
 import com.radware.automation.tools.basetest.Reporter;
+import com.radware.automation.tools.utils.StringUtils;
 import com.radware.vision.base.WebUITestBase;
 import com.radware.vision.infra.tablepagesnavigation.NavigateTable;
 import jsystem.framework.ParameterProperties;
 import jsystem.framework.TestProperties;
 import org.junit.Test;
-import com.radware.automation.tools.utils.StringUtils;
 /**
  * Created by stanislava on 9/9/2015.
  */
@@ -21,13 +21,13 @@ public class GeneralValidationTests extends WebUITestBase {
 
             if (getPageNumber() != null && !getPageNumber().equals("")) {
                 if (NavigateTable.getCurrentPage() != pageNumber) {
-                    report.report("Page number validation has Failed : " + getPageNumber(), Reporter.FAIL);
+                    BaseTestUtils.report("Page number validation has Failed : " + getPageNumber(), Reporter.FAIL);
                 }
             } else {
-                report.report("Incorrect page number provided : " + getPageNumber(), Reporter.FAIL);
+                BaseTestUtils.report("Incorrect page number provided : " + getPageNumber(), Reporter.FAIL);
             }
         } catch (Exception e) {
-            report.report("Failed to click on the specified table : " + getPageNumber(), Reporter.FAIL);
+            BaseTestUtils.report("Failed to click on the specified table : " + getPageNumber(), Reporter.FAIL);
         }
     }
 

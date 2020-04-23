@@ -1,10 +1,10 @@
 package com.radware.vision.tests.rbac.DefensePro.configuration.networkProtection;
 
+import com.radware.automation.tools.basetest.Reporter;
 import com.radware.vision.infra.testhandlers.rbac.defensePro.configuration.networkProtection.RBACDefenseProConnectionPPSLimitProfilesTableActionHandler;
 import com.radware.vision.infra.testhandlers.rbac.enums.BaseTableActions;
 import com.radware.vision.tests.rbac.RBACTestBase;
 import jsystem.framework.TestProperties;
-import com.radware.automation.tools.basetest.Reporter;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -33,10 +33,10 @@ public class RBACDefenseProConnectionPPSLimitProfilesTableActionTests extends RB
             testProperties.put("connectionPPSLimitProfilesTableAction", connectionPPSLimitProfilesTableAction.getTableAction().toString());
 
             if (!(RBACDefenseProConnectionPPSLimitProfilesTableActionHandler.verifyConnectionPPSLimitProfilesTableAction(testProperties))) {
-                report.report("The specified Table action is in an incorrect state: " + connectionPPSLimitProfilesTableAction.getTableAction() + "\n.", Reporter.FAIL);
+                BaseTestUtils.report("The specified Table action is in an incorrect state: " + connectionPPSLimitProfilesTableAction.getTableAction() + "\n.", Reporter.FAIL);
             }
         } catch (Exception e) {
-            report.report("verify ConnectionPPSLimitProfiles Disabled Table Action failed: " + connectionPPSLimitProfilesTableAction.getTableAction() + "\n." + parseExceptionBody(e),
+            BaseTestUtils.report("verify ConnectionPPSLimitProfiles Disabled Table Action failed: " + connectionPPSLimitProfilesTableAction.getTableAction() + "\n." + parseExceptionBody(e),
                     Reporter.FAIL);
         }
     }
@@ -49,10 +49,10 @@ public class RBACDefenseProConnectionPPSLimitProfilesTableActionTests extends RB
             testProperties.put("connectionPPSLimitProtectionsTableAction", connectionPPSLimitProtectionsTableAction.getTableAction().toString());
 
             if (!(RBACDefenseProConnectionPPSLimitProfilesTableActionHandler.verifyConnectionPPSLimitProtectionsTableAction(testProperties))) {
-                report.report("The specified Table action is in an incorrect state: " + connectionPPSLimitProtectionsTableAction.getTableAction() + "\n.", Reporter.FAIL);
+                BaseTestUtils.report("The specified Table action is in an incorrect state: " + connectionPPSLimitProtectionsTableAction.getTableAction() + "\n.", Reporter.FAIL);
             }
         } catch (Exception e) {
-            report.report("verify ConnectionPPSLimitProtections Disabled Table Action failed: " + connectionPPSLimitProtectionsTableAction.getTableAction() + "\n." + parseExceptionBody(e),
+            BaseTestUtils.report("verify ConnectionPPSLimitProtections Disabled Table Action failed: " + connectionPPSLimitProtectionsTableAction.getTableAction() + "\n." + parseExceptionBody(e),
                     Reporter.FAIL);
         }
     }

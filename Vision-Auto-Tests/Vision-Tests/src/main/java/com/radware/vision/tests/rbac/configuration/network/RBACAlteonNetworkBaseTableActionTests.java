@@ -36,10 +36,10 @@ public class RBACAlteonNetworkBaseTableActionTests extends RBACTestBase {
             testProperties.put("managementNetwork", managementNetwork.getNetwork().toString());
 
             if (!(RBACAlteonNetworkBaseTableActionHandler.verifyProxyIPTableAction(testProperties))) {
-                report.report("The specified Table action is in an incorrect state: " + proxyIPTableAction.getTableAction() + "\n.", Reporter.FAIL);
+                BaseTestUtils.report("The specified Table action is in an incorrect state: " + proxyIPTableAction.getTableAction() + "\n.", Reporter.FAIL);
             }
         } catch (Exception e) {
-            report.report("verify ProxyIP Disabled Table Action failed: " + proxyIPTableAction.getTableAction() + "\n." + parseExceptionBody(e),
+            BaseTestUtils.report("verify ProxyIP Disabled Table Action failed: " + proxyIPTableAction.getTableAction() + "\n." + parseExceptionBody(e),
                     Reporter.FAIL);
         }
     }

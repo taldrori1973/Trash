@@ -65,12 +65,12 @@ public class ByLabelOperations extends WebUITestBase {
 				}
 			}
 			if(treeMenu == null) {
-				report.report("Failed to Click on Vision Navigation Tree for label: " + fieldLabel + "\n" , Reporter.FAIL);
+				BaseTestUtils.report("Failed to Click on Vision Navigation Tree for label: " + fieldLabel + "\n", Reporter.FAIL);
 			}else {
 				treeMenu.click();
 			}
 		} catch (Exception e) {
-			report.report("Failed to Click on Vision Navigation Tree for label: " + fieldLabel + "\n" + parseExceptionBody(e), Reporter.FAIL);
+			BaseTestUtils.report("Failed to Click on Vision Navigation Tree for label: " + fieldLabel + "\n" + parseExceptionBody(e), Reporter.FAIL);
 		}
 	}
 
@@ -98,7 +98,7 @@ public class ByLabelOperations extends WebUITestBase {
 	public void setDualList() {
 		List<Widget> widgets = basicOperationsByNameIdHandler.findWidgetByNameId(WebUIUtils.VISION_DEVICE_DRIVER_ID, WebWidgetType.DualList, fieldLabel, FindByType.BY_NAME);
 		if (widgets.isEmpty()) {
-			report.report("Failed to Set Field type: " + fieldType + " for Field label: " + fieldLabel + ", it may not be visible", Reporter.FAIL);
+			BaseTestUtils.report("Failed to Set Field type: " + fieldType + " for Field label: " + fieldLabel + ", it may not be visible", Reporter.FAIL);
 		}
 		for (Widget widget : widgets) {
 			WebUIDualList dualList = (WebUIDualList) widget;
@@ -131,7 +131,7 @@ public class ByLabelOperations extends WebUITestBase {
 			ComponentLocator treeLocation = new ComponentLocator(How.XPATH, xpathLocator);
 			WebUIUtils.fluentWaitClick(treeLocation.getBy(), WebUIUtils.SHORT_WAIT_TIME, false);
 		} catch (Exception e) {
-			report.report("Failed to Click on Device Navigation Tree for label: " + fieldLabel + ", \n" + parseExceptionBody(e), Reporter.FAIL);
+			BaseTestUtils.report("Failed to Click on Device Navigation Tree for label: " + fieldLabel + ", \n" + parseExceptionBody(e), Reporter.FAIL);
 		}
 	}
 
@@ -163,7 +163,7 @@ public class ByLabelOperations extends WebUITestBase {
 			WebElement submitBtn = WebUIUtils.fluentWaitDisplayed(buttonLocation.getBy(), WebUIUtils.SHORT_WAIT_TIME, false);
 			submitBtn.click();
 		} catch (Exception e) {
-			report.report("Failed to click on Submit" + "\n" + parseExceptionBody(e), Reporter.FAIL);
+			BaseTestUtils.report("Failed to click on Submit" + "\n" + parseExceptionBody(e), Reporter.FAIL);
 		}
 	}
 
@@ -176,7 +176,7 @@ public class ByLabelOperations extends WebUITestBase {
 			WebElement submitBtn = WebUIUtils.fluentWaitDisplayed(buttonLocation.getBy(), WebUIUtils.SHORT_WAIT_TIME, false);
 			submitBtn.click();
 		} catch (Exception e) {
-			report.report("Failed to click on Cancel" + "\n" + parseExceptionBody(e), Reporter.FAIL);
+			BaseTestUtils.report("Failed to click on Cancel" + "\n" + parseExceptionBody(e), Reporter.FAIL);
 		}
 	}
 
@@ -189,7 +189,7 @@ public class ByLabelOperations extends WebUITestBase {
 			WebElement button = WebUIUtils.fluentWaitDisplayed(buttonLocation.getBy(), WebUIUtils.SHORT_WAIT_TIME, false);
 			button.click();
 		} catch (Exception e) {
-			report.report("Failed to click on Button " + popupButtonLabel + parseExceptionBody(e), Reporter.FAIL);
+			BaseTestUtils.report("Failed to click on Button " + popupButtonLabel + parseExceptionBody(e), Reporter.FAIL);
 		}
 	}
 
@@ -197,7 +197,7 @@ public class ByLabelOperations extends WebUITestBase {
 		try {
 			List<Widget> widgets = basicOperationsByNameIdHandler.findWidgetByNameId(deviceDriverId, WebWidgetType.Table, fieldLabel, FindByType.BY_NAME);
 			if (widgets.isEmpty()) {
-				report.report("Failed to get Table for label: " + fieldLabel + ", it may not be visible", Reporter.FAIL);
+				BaseTestUtils.report("Failed to get Table for label: " + fieldLabel + ", it may not be visible", Reporter.FAIL);
 			}
 			// Remove Alerts Table
 			Iterator<Widget> iter = widgets.iterator();
@@ -244,7 +244,7 @@ public class ByLabelOperations extends WebUITestBase {
 				}
 			}
 		} catch (Exception e) {
-			report.report("Failed to get Table for label: " + fieldLabel + " \n" + parseExceptionBody(e), Reporter.FAIL);
+			BaseTestUtils.report("Failed to get Table for label: " + fieldLabel + " \n" + parseExceptionBody(e), Reporter.FAIL);
 		}
 
 	}
@@ -254,7 +254,7 @@ public class ByLabelOperations extends WebUITestBase {
 			WebWidgetType widgetType = WebWidgetType.valueOf(fieldType.name());
 			List<Widget> widgets = basicOperationsByNameIdHandler.findWidgetByNameId(deviceDriverId, widgetType, fieldLabel, FindByType.BY_NAME);
 			if (widgets.isEmpty()) {
-				report.report("Failed to Get Field type: " + fieldType + " for Field label: " +  fieldLabel + ", it may not be visible", Reporter.FAIL);
+				BaseTestUtils.report("Failed to Get Field type: " + fieldType + " for Field label: " + fieldLabel + ", it may not be visible", Reporter.FAIL);
 			}
 			for (Widget widget : widgets) {
 				if (widget == null || (widget != null && !widget.find(true, true))) {
@@ -288,7 +288,7 @@ public class ByLabelOperations extends WebUITestBase {
 				}
 			}
 		} catch(Exception e) {
-			report.report("Failed to Set Field type: " + fieldType + " for Field label: " +  fieldLabel + " \n" + parseExceptionBody(e), Reporter.FAIL);
+			BaseTestUtils.report("Failed to Set Field type: " + fieldType + " for Field label: " + fieldLabel + " \n" + parseExceptionBody(e), Reporter.FAIL);
 		}
 		return null;
 	}
@@ -298,7 +298,7 @@ public class ByLabelOperations extends WebUITestBase {
 			WebWidgetType widgetType = WebWidgetType.valueOf(fieldType.name());
 			List<Widget> widgets = basicOperationsByNameIdHandler.findWidgetByNameId(deviceDriverId, widgetType, fieldLabelId, findByType);
 			if (widgets.isEmpty()) {
-				report.report("Failed to Set Field type: " + fieldType + " for Field label: " +  fieldLabelId + ", it may not be visible", Reporter.FAIL);
+				BaseTestUtils.report("Failed to Set Field type: " + fieldType + " for Field label: " + fieldLabelId + ", it may not be visible", Reporter.FAIL);
 			}
 			for (Widget widget : widgets) {
 				switch (fieldType) {
@@ -347,7 +347,7 @@ public class ByLabelOperations extends WebUITestBase {
 				}
 			}
 		} catch(Exception e) {
-			report.report("Failed to Set Field type: " + fieldType + " for Field label: " +  fieldLabelId + " \n" + parseExceptionBody(e), Reporter.FAIL);
+			BaseTestUtils.report("Failed to Set Field type: " + fieldType + " for Field label: " + fieldLabelId + " \n" + parseExceptionBody(e), Reporter.FAIL);
 		}
 	}
 

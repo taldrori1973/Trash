@@ -1,12 +1,6 @@
 package com.radware.vision.tests.dp;
 
 import com.radware.automation.tools.basetest.Reporter;
-import jsystem.framework.TestProperties;
-
-import org.junit.Test;
-import org.openqa.selenium.By;
-import org.openqa.selenium.WebDriver;
-
 import com.radware.automation.webui.webpages.dp.configuration.setup.networking.basic.Basic;
 import com.radware.automation.webui.webpages.dp.configuration.setup.scuritysettings.bdosprotection.BDoSProtection;
 import com.radware.automation.webui.webpages.dp.configuration.setup.scuritysettings.dnsfloodprotection.DNSFloodProtection;
@@ -23,6 +17,10 @@ import com.radware.vision.infra.enums.DeviceState;
 import com.radware.vision.infra.enums.TopologyTreeTabs;
 import com.radware.vision.infra.testhandlers.baseoperations.BasicOperationsHandler;
 import com.radware.vision.infra.testhandlers.deviceoperations.DeviceOperationsHandler;
+import jsystem.framework.TestProperties;
+import org.junit.Test;
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
 
 public class EnableAllProtectionTest extends DpTestBase {
 
@@ -173,10 +171,10 @@ public class EnableAllProtectionTest extends DpTestBase {
 			VisionServerInfoPane infopane = new VisionServerInfoPane();
 			String currentyLockedBy = infopane.getDeviceLockedBy();
 			if(!(currentyLockedBy.equals(WebUITestBase.getConnectionUsername()))) {
-				report.report("Device: " + getDeviceName() + " is locked by: " + currentyLockedBy + ", and not by " + WebUITestBase.getConnectionUsername(), Reporter.FAIL);
+                BaseTestUtils.report("Device: " + getDeviceName() + " is locked by: " + currentyLockedBy + ", and not by " + WebUITestBase.getConnectionUsername(), Reporter.FAIL);
 			}
 		} catch (Exception e) {
-			report.report("Topology Element may not have been found :", Reporter.FAIL);
+            BaseTestUtils.report("Topology Element may not have been found :", Reporter.FAIL);
 		}
 	}
 

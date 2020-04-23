@@ -6,8 +6,8 @@ import com.radware.automation.webui.WebUIUtils;
 import com.radware.automation.webui.widgets.ComponentLocator;
 import com.radware.automation.webui.widgets.impl.WebUICheckbox;
 import com.radware.automation.webui.widgets.impl.WebUIRadioGroup;
-import com.radware.vision.base.WebUITestBase;
 import com.radware.vision.automation.AutoUtils.Operators.OperatorsEnum;
+import com.radware.vision.base.WebUITestBase;
 import com.radware.vision.infra.enums.FindByType;
 import com.radware.vision.infra.testhandlers.baseoperations.BasicOperationsByNameIdHandler;
 import com.radware.vision.infra.testhandlers.baseoperations.clickoperations.ClickOperationsHandler;
@@ -52,10 +52,10 @@ public class ValidateOperationsTests extends WebUITestBase {
         try {
             String actualText = WebUIUtils.fluentWaitDisplayed(new ComponentLocator(How.ID, elementId).getBy(), WebUIUtils.DEFAULT_WAIT_TIME, false).getAttribute("title");
             if (!actualText.equals(expectedText)) {
-                report.report("Tooltip Validation Failed. Expected Tooltip Text is: " + expectedText + " Actual Tooltip Text is:" + actualText, Reporter.FAIL);
+                BaseTestUtils.report("Tooltip Validation Failed. Expected Tooltip Text is: " + expectedText + " Actual Tooltip Text is:" + actualText, Reporter.FAIL);
             }
         } catch (Exception e) {
-            report.report("Failed to get the Text from element with ID: " + elementId + " it may not be visible", Reporter.FAIL);
+            BaseTestUtils.report("Failed to get the Text from element with ID: " + elementId + " it may not be visible", Reporter.FAIL);
         }
     }
 
@@ -65,10 +65,10 @@ public class ValidateOperationsTests extends WebUITestBase {
         try {
             WebElement element = WebUIUtils.fluentWaitDisplayed(new ComponentLocator(How.ID, elementId).getBy(), WebUIUtils.DEFAULT_WAIT_TIME, false);
             if (!((element.getAttribute("readonly") == null && isWebElementStatusEnabled) || (element.getAttribute("readonly") != null && !isWebElementStatusEnabled))) {
-                report.report("WebElement status Validation is Failed. Expected status is: Enabled =  " + isWebElementStatusEnabled + " Actual status is: enabled = " + element.isEnabled(), Reporter.FAIL);
+                BaseTestUtils.report("WebElement status Validation is Failed. Expected status is: Enabled =  " + isWebElementStatusEnabled + " Actual status is: enabled = " + element.isEnabled(), Reporter.FAIL);
             }
         } catch (Exception e) {
-            report.report("Failed to get the Text from element with ID: " + elementId + " it may not be visible", Reporter.FAIL);
+            BaseTestUtils.report("Failed to get the Text from element with ID: " + elementId + " it may not be visible", Reporter.FAIL);
         }
     }
 
@@ -78,10 +78,10 @@ public class ValidateOperationsTests extends WebUITestBase {
         try {
             String actualSelectedTextOption = WebUIUtils.fluentWaitDisplayed(new ComponentLocator(How.ID, elementId).getBy(), WebUIUtils.DEFAULT_WAIT_TIME, false).getAttribute("value");
             if (!actualSelectedTextOption.equals(expectedDropdownTextOption)) {
-                report.report("DropDown Selection Validation Failed.\n Expected Text is: " + expectedDropdownTextOption + "\n Actual Text is:" + actualSelectedTextOption, Reporter.FAIL);
+                BaseTestUtils.report("DropDown Selection Validation Failed.\n Expected Text is: " + expectedDropdownTextOption + "\n Actual Text is:" + actualSelectedTextOption, Reporter.FAIL);
             }
         } catch (Exception e) {
-            report.report("Failed to validate Dropdown selection : " + expectedDropdownTextOption + " from element: " + elementId + "\n" + parseExceptionBody(e), Reporter.FAIL);
+            BaseTestUtils.report("Failed to validate Dropdown selection : " + expectedDropdownTextOption + " from element: " + elementId + "\n" + parseExceptionBody(e), Reporter.FAIL);
         }
     }
 
@@ -95,11 +95,11 @@ public class ValidateOperationsTests extends WebUITestBase {
                 WebUICheckbox checkbox = new WebUICheckbox(locator);
                 checkbox.setWebElement(element);
                 if (!((checkbox.isChecked() && expectedCheckboxSelection) || (!checkbox.isChecked() && !expectedCheckboxSelection))) {
-                    report.report("CheckBox Validation Failed. \n Expected status is checked = : " + expectedDropdownTextOption + "\n Actual status is: checked = " + checkbox.isChecked(), Reporter.FAIL);
+                    BaseTestUtils.report("CheckBox Validation Failed. \n Expected status is checked = : " + expectedDropdownTextOption + "\n Actual status is: checked = " + checkbox.isChecked(), Reporter.FAIL);
                 }
             }
         } catch (Exception e) {
-            report.report("Failed to validate CheckBox status: " + expectedCheckboxSelection + " from element: " + elementId + "\n" + parseExceptionBody(e), Reporter.FAIL);
+            BaseTestUtils.report("Failed to validate CheckBox status: " + expectedCheckboxSelection + " from element: " + elementId + "\n" + parseExceptionBody(e), Reporter.FAIL);
         }
     }
 
@@ -112,11 +112,11 @@ public class ValidateOperationsTests extends WebUITestBase {
                 WebUIRadioGroup radio = new WebUIRadioGroup(new ComponentLocator(How.ID, elementId));
                 radio.setWebElement(element);
                 if (!((radio.isSelected() && expectedRadioStatus) || (!radio.isSelected() && !expectedRadioStatus))) {
-                    report.report("Radio button Validation Failed. \n Expected status is : " + expectedRadioStatus + "\n Actual status is: " + radio.isSelected(), Reporter.FAIL);
+                    BaseTestUtils.report("Radio button Validation Failed. \n Expected status is : " + expectedRadioStatus + "\n Actual status is: " + radio.isSelected(), Reporter.FAIL);
                 }
             }
         } catch (Exception e) {
-            report.report("Failed to validate Radio button status: " + expectedRadioStatus + " from element: " + elementId + "\n" + parseExceptionBody(e), Reporter.FAIL);
+            BaseTestUtils.report("Failed to validate Radio button status: " + expectedRadioStatus + " from element: " + elementId + "\n" + parseExceptionBody(e), Reporter.FAIL);
         }
     }
 
@@ -127,10 +127,10 @@ public class ValidateOperationsTests extends WebUITestBase {
         try {
             int actualRowAmount = basicOperationsByNameIdHandler.getRowsAmountByKeyValue(getDeviceDriverType().getDDType(), elementId, columnKey, columnValue , findByType);
             if(actualRowAmount != expectedRecordsNumber){
-                report.report("Records number by KeyValue validation has Failed : actualRowAmount = " + actualRowAmount + " expectedRecordsNumber: " + expectedRecordsNumber, Reporter.FAIL);
+                BaseTestUtils.report("Records number by KeyValue validation has Failed : actualRowAmount = " + actualRowAmount + " expectedRecordsNumber: " + expectedRecordsNumber, Reporter.FAIL);
             }
         } catch (Exception e) {
-            report.report("Records number by KeyValue validation has Failed : ", Reporter.FAIL);
+            BaseTestUtils.report("Records number by KeyValue validation has Failed : ", Reporter.FAIL);
         }
     }
 
@@ -140,10 +140,10 @@ public class ValidateOperationsTests extends WebUITestBase {
         try {
             int actualRowAmount = basicOperationsByNameIdHandler.getRowsAmountPerPage(getDeviceDriverType().getDDType(), elementId, findByType);
             if(actualRowAmount != expectedRecordsNumber){
-                report.report("Records number by KeyValue validation has Failed : actualRowAmount = " + actualRowAmount + " expectedRecordsNumber: " + expectedRecordsNumber, Reporter.FAIL);
+                BaseTestUtils.report("Records number by KeyValue validation has Failed : actualRowAmount = " + actualRowAmount + " expectedRecordsNumber: " + expectedRecordsNumber, Reporter.FAIL);
             }
         } catch (Exception e) {
-            report.report("Records number by KeyValue validation has Failed : ", Reporter.FAIL);
+            BaseTestUtils.report("Records number by KeyValue validation has Failed : ", Reporter.FAIL);
         }
     }
 

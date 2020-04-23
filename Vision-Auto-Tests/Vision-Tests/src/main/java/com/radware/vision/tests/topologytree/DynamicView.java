@@ -26,10 +26,10 @@ public class DynamicView extends WebUITestBase {
             DynamicViewHandler.topologyTreeTab = TopologyTreeTabs.SitesAndClusters;
             DynamicViewHandler dynamicViewHandler = new DynamicViewHandler();
             if (!dynamicViewHandler.setDynamicViewSitesAndClusters(filterByStatus, filterByName, filterByIp, filterByType)) {
-                report.report("Dynamic view filtered incorrectly: ", Reporter.FAIL);
+                BaseTestUtils.report("Dynamic view filtered incorrectly: ", Reporter.FAIL);
             }
         } catch (Exception e) {
-            report.report("The dynamic view may not be fully functional :" + parseExceptionBody(e), Reporter.FAIL);
+            BaseTestUtils.report("The dynamic view may not be fully functional :" + parseExceptionBody(e), Reporter.FAIL);
         }
     }
 
@@ -40,10 +40,10 @@ public class DynamicView extends WebUITestBase {
             DynamicViewHandler.topologyTreeTab = TopologyTreeTabs.PhysicalContainers;
             DynamicViewHandler dynamicViewHandler = new DynamicViewHandler();
             if (!dynamicViewHandler.setDynamicViewPhysicalContainers(filterByStatus, filterByName, filterByIp)) {
-                report.report("Dynamic view filtered incorrectly: ", Reporter.FAIL);
+                BaseTestUtils.report("Dynamic view filtered incorrectly: ", Reporter.FAIL);
             }
         } catch (Exception e) {
-            report.report("The dynamic view may not be fully functional :" + parseExceptionBody(e), Reporter.FAIL);
+            BaseTestUtils.report("The dynamic view may not be fully functional :" + parseExceptionBody(e), Reporter.FAIL);
         }
     }
 

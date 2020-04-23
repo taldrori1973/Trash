@@ -1,15 +1,15 @@
 package com.radware.vision.tests.alerts;
 
 import com.radware.automation.tools.basetest.BaseTestUtils;
+import com.radware.automation.tools.basetest.Reporter;
+import com.radware.automation.tools.utils.FileUtils;
 import com.radware.vision.base.WebUITestBase;
 import com.radware.vision.infra.enums.AlertsTableColumns;
 import com.radware.vision.infra.enums.RaisedTimeUnits;
 import com.radware.vision.infra.testhandlers.alerts.AlertsHandler;
 import com.radware.vision.infra.testhandlers.alerts.AlertsValidationHandler;
-import com.radware.automation.tools.utils.FileUtils;
 import jsystem.framework.ParameterProperties;
 import jsystem.framework.TestProperties;
-import com.radware.automation.tools.basetest.Reporter;
 import org.apache.commons.lang.StringUtils;
 import org.junit.Test;
 
@@ -48,7 +48,7 @@ public class AlertsTests extends WebUITestBase {
             FileUtils.copyFile(getRootServerCliCredentials(), fileName);
             FileUtils.executeScript(getRootServerCliCredentials(), fileName, scriptArguments);
         } catch (Exception e) {
-            report.report("copyFile operation may have been executed incorrectly :" + parseExceptionBody(e), Reporter.FAIL);
+            BaseTestUtils.report("copyFile operation may have been executed incorrectly :" + parseExceptionBody(e), Reporter.FAIL);
         }
     }
 
@@ -57,10 +57,10 @@ public class AlertsTests extends WebUITestBase {
     public void clearAlert() {
         try {
             if (!(AlertsHandler.clearAlert(listOfRowIndexes))) {
-                report.report("Clear alerts:" + listOfRowIndexes + " " + "Not all alerts were cleared", Reporter.FAIL);
+                BaseTestUtils.report("Clear alerts:" + listOfRowIndexes + " " + "Not all alerts were cleared", Reporter.FAIL);
             }
         } catch (Exception e) {
-            report.report("Clear alerts:" + listOfRowIndexes + " " + "failed with the following error:\n" + e.getMessage() + "\n" + e.getCause(), Reporter.FAIL);
+            BaseTestUtils.report("Clear alerts:" + listOfRowIndexes + " " + "failed with the following error:\n" + e.getMessage() + "\n" + e.getCause(), Reporter.FAIL);
         }
     }
 
@@ -69,10 +69,10 @@ public class AlertsTests extends WebUITestBase {
     public void ackAlert() {
         try {
             if (!(AlertsHandler.ackAlert(listOfRowIndexes))) {
-                report.report("Ack alerts:" + listOfRowIndexes + " " + "Not all alerts were acknowledged", Reporter.FAIL);
+                BaseTestUtils.report("Ack alerts:" + listOfRowIndexes + " " + "Not all alerts were acknowledged", Reporter.FAIL);
             }
         } catch (Exception e) {
-            report.report("Ack alerts:" + listOfRowIndexes + " " + "failed with the following error:\n" + e.getMessage() + "\n" + e.getCause(), Reporter.FAIL);
+            BaseTestUtils.report("Ack alerts:" + listOfRowIndexes + " " + "failed with the following error:\n" + e.getMessage() + "\n" + e.getCause(), Reporter.FAIL);
         }
     }
 
@@ -81,10 +81,10 @@ public class AlertsTests extends WebUITestBase {
     public void unackAlert() {
         try {
             if (!(AlertsHandler.unackAlert(listOfRowIndexes))) {
-                report.report("Unack alerts:" + listOfRowIndexes + " " + "Not all alerts were unacknowledged", Reporter.FAIL);
+                BaseTestUtils.report("Unack alerts:" + listOfRowIndexes + " " + "Not all alerts were unacknowledged", Reporter.FAIL);
             }
         } catch (Exception e) {
-            report.report("Unack alerts:" + listOfRowIndexes + " " + "failed with the following error:\n" + e.getMessage() + "\n" + e.getCause(), Reporter.FAIL);
+            BaseTestUtils.report("Unack alerts:" + listOfRowIndexes + " " + "failed with the following error:\n" + e.getMessage() + "\n" + e.getCause(), Reporter.FAIL);
         }
     }
 
@@ -94,7 +94,7 @@ public class AlertsTests extends WebUITestBase {
         try {
             AlertsHandler.editAlert(rowNumber);
         } catch (Exception e) {
-            report.report("View alerts:" + rowNumber + " " + "failed with the following error:\n" + e.getMessage() + "\n" + e.getCause(), Reporter.FAIL);
+            BaseTestUtils.report("View alerts:" + rowNumber + " " + "failed with the following error:\n" + e.getMessage() + "\n" + e.getCause(), Reporter.FAIL);
         }
     }
 
@@ -104,7 +104,7 @@ public class AlertsTests extends WebUITestBase {
         try {
             AlertsHandler.autoRefreshOn(true);
         } catch (Exception e) {
-            report.report("auto Refresh Alerts On:" + " " + "failed with the following error:\n" + e.getMessage() + "\n" + e.getCause(), Reporter.FAIL);
+            BaseTestUtils.report("auto Refresh Alerts On:" + " " + "failed with the following error:\n" + e.getMessage() + "\n" + e.getCause(), Reporter.FAIL);
         }
     }
 
@@ -113,12 +113,12 @@ public class AlertsTests extends WebUITestBase {
     public void acknowledgeAllAlerts() {
         try {
             if (!AlertsHandler.ackAllAlerts()) {
-                report.report("acknowledgeAllAlerts validation has failed " + " " + "some alerts might have remained uncleared:\n", Reporter.FAIL);
+                BaseTestUtils.report("acknowledgeAllAlerts validation has failed " + " " + "some alerts might have remained uncleared:\n", Reporter.FAIL);
             } else {
-                report.report("acknowledgeAllAlerts validation is Successful: " + "\n.", Reporter.PASS);
+                BaseTestUtils.report("acknowledgeAllAlerts validation is Successful: " + "\n.", Reporter.PASS);
             }
         } catch (Exception e) {
-            report.report("acknowledge All Alerts:" + " " + "failed with the following error:\n" + e.getMessage() + "\n" + e.getCause(), Reporter.FAIL);
+            BaseTestUtils.report("acknowledge All Alerts:" + " " + "failed with the following error:\n" + e.getMessage() + "\n" + e.getCause(), Reporter.FAIL);
         }
     }
 
@@ -127,12 +127,12 @@ public class AlertsTests extends WebUITestBase {
     public void clearAllAlerts() {
         try {
             if (!AlertsHandler.clearAllAlerts(timeout)) {
-                report.report("clearAllAlerts validation has failed " + " " + "some alerts might have remained uncleared:\n", Reporter.FAIL);
+                BaseTestUtils.report("clearAllAlerts validation has failed " + " " + "some alerts might have remained uncleared:\n", Reporter.FAIL);
             } else {
-                report.report("clearAllAlerts validation is Successful: " + "\n.", Reporter.PASS);
+                BaseTestUtils.report("clearAllAlerts validation is Successful: " + "\n.", Reporter.PASS);
             }
         } catch (Exception e) {
-            report.report("clear All Alerts:" + " " + "failed with the following error:\n" + e.getMessage() + "\n" + e.getCause(), Reporter.FAIL);
+            BaseTestUtils.report("clear All Alerts:" + " " + "failed with the following error:\n" + e.getMessage() + "\n" + e.getCause(), Reporter.FAIL);
         }
     }
 
@@ -143,7 +143,7 @@ public class AlertsTests extends WebUITestBase {
         try {
             AlertsHandler.autoRefreshOff();
         } catch (Exception e) {
-            report.report("auto Refresh Alerts Off:" + " " + "failed with the following error:\n" + e.getMessage() + "\n" + e.getCause(), Reporter.FAIL);
+            BaseTestUtils.report("auto Refresh Alerts Off:" + " " + "failed with the following error:\n" + e.getMessage() + "\n" + e.getCause(), Reporter.FAIL);
         }
     }
 
@@ -209,10 +209,10 @@ public class AlertsTests extends WebUITestBase {
     public void verifyExistingAlert() {
         try {
             if (!(AlertsHandler.validateAlert(columnName, columnValue))) {
-                report.report("Verify non existing Task: " + columnValue + "\n.", Reporter.FAIL);
+                BaseTestUtils.report("Verify non existing Task: " + columnValue + "\n.", Reporter.FAIL);
             }
         } catch (Exception e) {
-            report.report("Verify non existing Task: " + "\n." + parseExceptionBody(e), Reporter.FAIL);
+            BaseTestUtils.report("Verify non existing Task: " + "\n." + parseExceptionBody(e), Reporter.FAIL);
         }
     }
 
@@ -223,10 +223,10 @@ public class AlertsTests extends WebUITestBase {
         try {
             String result = (AlertsHandler.validateRaisedTimeFilter(raisedTimeUnit.getTimeUnits(), raisedTimeValue, getRestTestBase().getRootServerCli()));
             if (!result.isEmpty()) {
-                report.report("Alert: " + result + "\n.", Reporter.FAIL);
+                BaseTestUtils.report("Alert: " + result + "\n.", Reporter.FAIL);
             }
         } catch (Exception e) {
-            report.report("Verify RaisedTimeFilter: " + "\n." + parseExceptionBody(e), Reporter.FAIL);
+            BaseTestUtils.report("Verify RaisedTimeFilter: " + "\n." + parseExceptionBody(e), Reporter.FAIL);
         }
     }
 
@@ -235,10 +235,10 @@ public class AlertsTests extends WebUITestBase {
     public void validateSelectAllDevicesFilter() {
         try {
             if (!(AlertsHandler.validateSelectAllDevices())) {
-                report.report("SelectAllDevices validation Has failed " + "\n.", Reporter.FAIL);
+                BaseTestUtils.report("SelectAllDevices validation Has failed " + "\n.", Reporter.FAIL);
             }
         } catch (Exception e) {
-            report.report("Verify SelectAllDevices: " + "\n." + parseExceptionBody(e), Reporter.FAIL);
+            BaseTestUtils.report("Verify SelectAllDevices: " + "\n." + parseExceptionBody(e), Reporter.FAIL);
         }
     }
 
@@ -251,7 +251,7 @@ public class AlertsTests extends WebUITestBase {
                 this.rowNumber = Integer.valueOf(rowNumber);
             }
         } catch (NumberFormatException e) {
-            report.report("Error in setRowNumber " + rowNumber, Reporter.PASS);
+            BaseTestUtils.report("Error in setRowNumber " + rowNumber, Reporter.PASS);
         }
     }
 

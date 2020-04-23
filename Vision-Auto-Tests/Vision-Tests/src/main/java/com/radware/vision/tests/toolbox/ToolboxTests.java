@@ -1,5 +1,6 @@
 package com.radware.vision.tests.toolbox;
 
+import com.radware.automation.tools.basetest.Reporter;
 import com.radware.vision.base.WebUITestBase;
 import com.radware.vision.infra.enums.DualListSides;
 import com.radware.vision.infra.enums.ToolboxActionsEnum;
@@ -8,7 +9,6 @@ import com.radware.vision.infra.enums.WebWidgetType;
 import com.radware.vision.infra.testhandlers.toolbox.ToolboxHandler;
 import jsystem.framework.ParameterProperties;
 import jsystem.framework.TestProperties;
-import com.radware.automation.tools.basetest.Reporter;
 import org.junit.Test;
 
 /**
@@ -39,7 +39,7 @@ public class ToolboxTests extends WebUITestBase {
         try {
             ToolboxHandler.resizeGroupAndVerify(groupName,xOffset,yOffset);
         }catch (Exception e){
-            report.report(e.getMessage(), Reporter.FAIL);
+            BaseTestUtils.report(e.getMessage(), Reporter.FAIL);
         }
     }
 
@@ -49,7 +49,7 @@ public class ToolboxTests extends WebUITestBase {
         try {
             ToolboxHandler.dragAndDropGroupAndVerify(groupName,xOffset,yOffset);
         }catch (Exception e){
-            report.report(e.getMessage(), Reporter.FAIL);
+            BaseTestUtils.report(e.getMessage(), Reporter.FAIL);
         }
     }
 
@@ -59,7 +59,7 @@ public class ToolboxTests extends WebUITestBase {
         try {
             ToolboxHandler.restoreDashboardDefaultViewAndVerify();
         }catch (Exception e){
-            report.report(e.getMessage(), Reporter.FAIL);
+            BaseTestUtils.report(e.getMessage(), Reporter.FAIL);
         }
     }
     /**
@@ -76,13 +76,13 @@ public class ToolboxTests extends WebUITestBase {
             ToolboxHandler.dragAndDropActionToGroup(actionName,groupName,actionParentGroupName);
             boolean isExist = ToolboxHandler.checkIfActionExistsUnderGroup(actionName,groupName);
             if(isExist){
-                report.report("\"" + actionName.getActionName() + "\" Action exist under " + "\"" + groupName.toString() + "\" Group",Reporter.PASS);
+                BaseTestUtils.report("\"" + actionName.getActionName() + "\" Action exist under " + "\"" + groupName.toString() + "\" Group",Reporter.PASS);
             }
             else {
-                report.report("\"" + actionName.getActionName() + "\" Action not exist under " + " \"" + groupName.toString() + "\" Group",Reporter.FAIL);
+                BaseTestUtils.report("\"" + actionName.getActionName() + "\" Action not exist under " + " \"" + groupName.toString() + "\" Group",Reporter.FAIL);
             }
         }catch (Exception e){
-            report.report(e.getMessage(), Reporter.FAIL);
+            BaseTestUtils.report(e.getMessage(), Reporter.FAIL);
         }
     }
 
@@ -93,13 +93,13 @@ public class ToolboxTests extends WebUITestBase {
             ToolboxHandler.dragAndDropActionToGroup(actionName,groupName,ToolboxGroupsEnum.FAVORITES);
             boolean isExist = ToolboxHandler.checkIfActionExistsUnderGroup(actionName,groupName);
             if(isExist){
-                report.report("\"" + actionName.getActionName() + "\" Action was copied from Favorites to " + "\"" + groupName.toString() + "\" Group",Reporter.FAIL);
+                BaseTestUtils.report("\"" + actionName.getActionName() + "\" Action was copied from Favorites to " + "\"" + groupName.toString() + "\" Group",Reporter.FAIL);
             }
             else {
-                report.report("\"" + actionName.getActionName() + "\" Action was not copied from Favorites to " + " \"" + groupName.toString() + "\" Group",Reporter.PASS);
+                BaseTestUtils.report("\"" + actionName.getActionName() + "\" Action was not copied from Favorites to " + " \"" + groupName.toString() + "\" Group",Reporter.PASS);
             }
         }catch (Exception e){
-            report.report(e.getMessage(), Reporter.FAIL);
+            BaseTestUtils.report(e.getMessage(), Reporter.FAIL);
         }
     }
 
@@ -110,13 +110,13 @@ public class ToolboxTests extends WebUITestBase {
             ToolboxHandler.dragAndDropActionToGroup(actionName,ToolboxGroupsEnum.RECENTLY_USED,actionParentGroupName);
             boolean isExist = ToolboxHandler.checkIfActionExistsUnderGroup(actionName,ToolboxGroupsEnum.RECENTLY_USED);
             if(isExist){
-                report.report("\"" + actionName.getActionName() + "\" Action was copied from group to " + "\"" + ToolboxGroupsEnum.RECENTLY_USED + "\" Group",Reporter.FAIL);
+                BaseTestUtils.report("\"" + actionName.getActionName() + "\" Action was copied from group to " + "\"" + ToolboxGroupsEnum.RECENTLY_USED + "\" Group",Reporter.FAIL);
             }
             else {
-                report.report("\"" + actionName.getActionName() + "\" Action was not copied from group to " + " \"" + ToolboxGroupsEnum.RECENTLY_USED + "\" Group",Reporter.PASS);
+                BaseTestUtils.report("\"" + actionName.getActionName() + "\" Action was not copied from group to " + " \"" + ToolboxGroupsEnum.RECENTLY_USED + "\" Group",Reporter.PASS);
             }
         }catch (Exception e){
-            report.report(e.getMessage(), Reporter.FAIL);
+            BaseTestUtils.report(e.getMessage(), Reporter.FAIL);
         }
     }
 
@@ -127,13 +127,13 @@ public class ToolboxTests extends WebUITestBase {
             ToolboxHandler.addActionToGroup(actionName,groupName);
             boolean isExist = ToolboxHandler.checkIfActionExistsUnderGroup(actionName,groupName);
             if(isExist){
-                report.report("\"" + actionName.getActionName() + "\" Action exist under " + "\"" + groupName.toString() + "\" Group",Reporter.PASS);
+                BaseTestUtils.report("\"" + actionName.getActionName() + "\" Action exist under " + "\"" + groupName.toString() + "\" Group",Reporter.PASS);
             }
             else {
-                report.report("\"" + actionName.getActionName() + "\" Action not exist under " + " \"" + groupName.toString() + "\" Group",Reporter.FAIL);
+                BaseTestUtils.report("\"" + actionName.getActionName() + "\" Action not exist under " + " \"" + groupName.toString() + "\" Group",Reporter.FAIL);
             }
         }catch (Exception e){
-            report.report(e.getMessage(), Reporter.FAIL);
+            BaseTestUtils.report(e.getMessage(), Reporter.FAIL);
         }
     }
 
@@ -144,13 +144,13 @@ public class ToolboxTests extends WebUITestBase {
             ToolboxHandler.deleteActionFromGroup(actionName, actionParentGroupName);
             boolean isExist = ToolboxHandler.checkIfActionExistsUnderGroup(actionName,actionParentGroupName);
             if(isExist){
-                report.report("\"" + actionName.getActionName() + "\" Action exist under " + "\"" + actionParentGroupName.toString() + "\" Group",Reporter.FAIL);
+                BaseTestUtils.report("\"" + actionName.getActionName() + "\" Action exist under " + "\"" + actionParentGroupName.toString() + "\" Group",Reporter.FAIL);
             }
             else {
-                report.report("\"" + actionName.getActionName() + "\" Action not exist under " + " \"" + actionParentGroupName.toString() + "\" Group",Reporter.PASS);
+                BaseTestUtils.report("\"" + actionName.getActionName() + "\" Action not exist under " + " \"" + actionParentGroupName.toString() + "\" Group",Reporter.PASS);
             }
         }catch (Exception e){
-            report.report(e.getMessage(), Reporter.FAIL);
+            BaseTestUtils.report(e.getMessage(), Reporter.FAIL);
         }
     }
 
@@ -161,7 +161,7 @@ public class ToolboxTests extends WebUITestBase {
             ToolboxHandler.scheduleActionFromGroup(actionName, actionParentGroupName);
 
         }catch (Exception e){
-            report.report(e.getMessage(), Reporter.FAIL);
+            BaseTestUtils.report(e.getMessage(), Reporter.FAIL);
         }
     }
 
@@ -172,7 +172,7 @@ public class ToolboxTests extends WebUITestBase {
             ToolboxHandler.moveToolboxDualListItems(dualListSide,dualListItems,dualListID);
 
         }catch (Exception e){
-            report.report(e.getMessage(), Reporter.FAIL);
+            BaseTestUtils.report(e.getMessage(), Reporter.FAIL);
         }
     }
 
@@ -183,7 +183,7 @@ public class ToolboxTests extends WebUITestBase {
         try {
             ToolboxHandler.runActionFromGroup(actionName, actionParentGroupName);
         }catch (Exception e){
-            report.report(e.getMessage(), Reporter.FAIL);
+            BaseTestUtils.report(e.getMessage(), Reporter.FAIL);
         }
     }
 
@@ -193,7 +193,7 @@ public class ToolboxTests extends WebUITestBase {
         try {
             ToolboxHandler.runWithParams(actionName, actionParentGroupName);
         }catch (Exception e){
-            report.report(e.getMessage(), Reporter.FAIL);
+            BaseTestUtils.report(e.getMessage(), Reporter.FAIL);
         }
     }
 
@@ -203,7 +203,7 @@ public class ToolboxTests extends WebUITestBase {
         try {
             ToolboxHandler.checkAllGroupsExistsAndDisplayed();
         }catch (Exception e){
-            report.report(e.getMessage(), Reporter.FAIL);
+            BaseTestUtils.report(e.getMessage(), Reporter.FAIL);
         }
     }
 
@@ -213,7 +213,7 @@ public class ToolboxTests extends WebUITestBase {
         try {
             ToolboxHandler.checkAllGroupsIconsExistsAndDisplayed();
         }catch (Exception e){
-            report.report(e.getMessage(), Reporter.FAIL);
+            BaseTestUtils.report(e.getMessage(), Reporter.FAIL);
         }
     }
 
@@ -224,7 +224,7 @@ public class ToolboxTests extends WebUITestBase {
         try {
             ToolboxHandler.deleteAllActionInGroup(groupName);
         }catch (Exception e){
-            report.report(e.getMessage(), Reporter.FAIL);
+            BaseTestUtils.report(e.getMessage(), Reporter.FAIL);
         }
     }
 
@@ -238,7 +238,7 @@ public class ToolboxTests extends WebUITestBase {
         try {
             ToolboxHandler.showPreviousResultAndCompare(actionName,groupName,runResult);
         }catch (Exception e){
-            report.report(e.getMessage(), Reporter.FAIL);
+            BaseTestUtils.report(e.getMessage(), Reporter.FAIL);
         }
     }
 
@@ -248,13 +248,13 @@ public class ToolboxTests extends WebUITestBase {
         try {
             boolean isExist = ToolboxHandler.checkIfActionExistsUnderGroup(actionName,actionParentGroupName);
             if(isExist){
-                report.report("\"" + actionName.getActionName() + "\" Action exist under " + "\"" + actionParentGroupName.toString() + "\" Group",Reporter.PASS);
+                BaseTestUtils.report("\"" + actionName.getActionName() + "\" Action exist under " + "\"" + actionParentGroupName.toString() + "\" Group",Reporter.PASS);
             }
             else {
-                report.report("\"" + actionName.getActionName() + "\" Action not exist under " + " \"" + actionParentGroupName.toString() + "\" Group",Reporter.FAIL);
+                BaseTestUtils.report("\"" + actionName.getActionName() + "\" Action not exist under " + " \"" + actionParentGroupName.toString() + "\" Group",Reporter.FAIL);
             }
         }catch (Exception e){
-            report.report(e.getMessage(), Reporter.FAIL);
+            BaseTestUtils.report(e.getMessage(), Reporter.FAIL);
         }
     }
 
@@ -263,13 +263,13 @@ public class ToolboxTests extends WebUITestBase {
     public void verifyThatGroupIsScrollable() {
         try {
             if(ToolboxHandler.isScrollable(groupName)){
-                report.report(groupName.toString() + " group is scrollable",Reporter.PASS);
+                BaseTestUtils.report(groupName.toString() + " group is scrollable",Reporter.PASS);
             }
             else{
-                report.report(groupName.toString() + " group is not scrollable",Reporter.FAIL);
+                BaseTestUtils.report(groupName.toString() + " group is not scrollable",Reporter.FAIL);
             }
         }catch (Exception e){
-            report.report(e.getMessage(), Reporter.FAIL);
+            BaseTestUtils.report(e.getMessage(), Reporter.FAIL);
         }
     }
 
@@ -279,7 +279,7 @@ public class ToolboxTests extends WebUITestBase {
         try {
             ToolboxHandler.waitForOutputPopupAndClose(timeout);
         }catch (Exception e){
-            report.report(e.getMessage(), Reporter.FAIL);
+            BaseTestUtils.report(e.getMessage(), Reporter.FAIL);
         }
     }
 
@@ -289,7 +289,7 @@ public class ToolboxTests extends WebUITestBase {
         try {
             ToolboxHandler.copyScriptOutputAndCheckValidity(timeout);
         }catch (Exception e){
-            report.report(e.getMessage(), Reporter.FAIL);
+            BaseTestUtils.report(e.getMessage(), Reporter.FAIL);
         }
     }
 
@@ -299,7 +299,7 @@ public class ToolboxTests extends WebUITestBase {
         try {
             ToolboxHandler.copyAndSaveScriptOutput(runPropertyName,timeout);
         }catch (Exception e){
-            report.report(e.getMessage(), Reporter.FAIL);
+            BaseTestUtils.report(e.getMessage(), Reporter.FAIL);
         }
     }
 
@@ -309,7 +309,7 @@ public class ToolboxTests extends WebUITestBase {
         try {
             ToolboxHandler.setScriptParameter(elementId,value,selectCheckbox,widgetType);
         }catch (Exception e){
-            report.report(e.getMessage(), Reporter.FAIL);
+            BaseTestUtils.report(e.getMessage(), Reporter.FAIL);
         }
     }
 
@@ -320,13 +320,13 @@ public class ToolboxTests extends WebUITestBase {
             ToolboxHandler.showOrHideGroup(groupName,show);
             boolean isExists = ToolboxHandler.checkIfGroupExists(groupName);
             if(show && !isExists){
-                report.report(groupName.toString() + " group not shown", Reporter.FAIL);
+                BaseTestUtils.report(groupName.toString() + " group not shown", Reporter.FAIL);
             }
             else if(!show && isExists){
-                report.report(groupName.toString() + " group shown", Reporter.FAIL);
+                BaseTestUtils.report(groupName.toString() + " group shown", Reporter.FAIL);
             }
         }catch (Exception e){
-            report.report(e.getMessage(), Reporter.FAIL);
+            BaseTestUtils.report(e.getMessage(), Reporter.FAIL);
         }
     }
 
@@ -336,11 +336,11 @@ public class ToolboxTests extends WebUITestBase {
         try {
             boolean isExists = ToolboxHandler.checkIfGroupExists(groupName);
             if(!isExists){
-                report.report(groupName.toString() + " group not shown in the OTB", Reporter.FAIL);
+                BaseTestUtils.report(groupName.toString() + " group not shown in the OTB", Reporter.FAIL);
             }
 
         }catch (Exception e){
-            report.report(e.getMessage(), Reporter.FAIL);
+            BaseTestUtils.report(e.getMessage(), Reporter.FAIL);
         }
     }
 
@@ -350,7 +350,7 @@ public class ToolboxTests extends WebUITestBase {
         try {
             ToolboxHandler.selectCategoryFromAdvanced(groupName);
         }catch (Exception e){
-            report.report(e.getMessage(), Reporter.FAIL);
+            BaseTestUtils.report(e.getMessage(), Reporter.FAIL);
         }
     }
 

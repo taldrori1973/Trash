@@ -1,12 +1,12 @@
 package com.radware.vision.tests.rbac.navigationRBAC;
 
+import com.radware.automation.tools.basetest.Reporter;
 import com.radware.vision.infra.testhandlers.rbac.navigationRBAC.RBACDefenseProNavigationHandler;
 import com.radware.vision.infra.testhandlers.rbac.navigationRBAC.enums.DefenseProConfigurationSubMenuItems;
 import com.radware.vision.infra.testhandlers.rbac.navigationRBAC.enums.DefenseProMonitoringSubMenuItems;
 import com.radware.vision.infra.testhandlers.rbac.navigationRBAC.enums.DefenseProSecurityMonitoringSubMenuItems;
 import com.radware.vision.tests.rbac.RBACTestBase;
 import jsystem.framework.TestProperties;
-import com.radware.automation.tools.basetest.Reporter;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -30,10 +30,10 @@ public class RBACDefenseProNavigationTests extends RBACTestBase {
     public void verifyDefenseProConfigurationSubMenuExistence() {
         try {
             if ((!RBACDefenseProNavigationHandler.verifyDefenseProConfigurationSubMenuExistence(defenseProConfigurationSubMenuItem.getSubMenu(), getDeviceName(), parentTree.getTopologyTreeTab()))) {
-                report.report("Verify DefenseProConfigurationSubMenu: " + " was not " + expectedResult + " as expected." + "\n", Reporter.FAIL);
+                BaseTestUtils.report("Verify DefenseProConfigurationSubMenu: " + " was not " + expectedResult + " as expected." + "\n", Reporter.FAIL);
             }
         } catch (Exception e) {
-            report.report("Verify DefenseProConfigurationSubMenu Existence: " + "\n." + parseExceptionBody(e), Reporter.FAIL);
+            BaseTestUtils.report("Verify DefenseProConfigurationSubMenu Existence: " + "\n." + parseExceptionBody(e), Reporter.FAIL);
         }
     }
 
@@ -43,10 +43,10 @@ public class RBACDefenseProNavigationTests extends RBACTestBase {
     public void verifyDefenseProMonitoringSubMenuExistence() {
         try {
             if ((!RBACDefenseProNavigationHandler.verifyDefenseProMonitoringSubMenuExistence(defenseProMonitoringSubMenuItem.getSubMenu(), getDeviceName(), parentTree.getTopologyTreeTab()))) {
-                report.report("Verify DefenseProMonitoringSubMenu: " + " was not " + expectedResult + " as expected." + "\n", Reporter.FAIL);
+                BaseTestUtils.report("Verify DefenseProMonitoringSubMenu: " + " was not " + expectedResult + " as expected." + "\n", Reporter.FAIL);
             }
         } catch (Exception e) {
-            report.report("Verify DefenseProMonitoringSubMenu Existence: " + "\n." + parseExceptionBody(e), Reporter.FAIL);
+            BaseTestUtils.report("Verify DefenseProMonitoringSubMenu Existence: " + "\n." + parseExceptionBody(e), Reporter.FAIL);
         }
     }
 
@@ -56,10 +56,10 @@ public class RBACDefenseProNavigationTests extends RBACTestBase {
     public void verifyDefenseProSecurityMonitoringSubMenuExistence() {
         try {
             if ((!RBACDefenseProNavigationHandler.verifyDefenseProSecurityMonitoringSubMenuExistence(defenseProSecurityMonitoringSubMenuItem.getSubMenu(), getDeviceName(), parentTree.getTopologyTreeTab()))) {
-                report.report("Verify DefenseProSecurityMonitoringSubMenu: " + " was not " + expectedResult + " as expected." + "\n", Reporter.FAIL);
+                BaseTestUtils.report("Verify DefenseProSecurityMonitoringSubMenu: " + " was not " + expectedResult + " as expected." + "\n", Reporter.FAIL);
             }
         } catch (Exception e) {
-            report.report("Verify DefenseProSecurityMonitoringSubMenu Existence: " + "\n." + parseExceptionBody(e), Reporter.FAIL);
+            BaseTestUtils.report("Verify DefenseProSecurityMonitoringSubMenu Existence: " + "\n." + parseExceptionBody(e), Reporter.FAIL);
         }
     }
 

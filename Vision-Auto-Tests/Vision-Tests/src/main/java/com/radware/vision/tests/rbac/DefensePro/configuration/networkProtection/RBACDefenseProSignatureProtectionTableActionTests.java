@@ -1,5 +1,6 @@
 package com.radware.vision.tests.rbac.DefensePro.configuration.networkProtection;
 
+import com.radware.automation.tools.basetest.Reporter;
 import com.radware.vision.infra.testhandlers.rbac.defensePro.configuration.networkProtection.RBACDefenseProSignatureProtectionTableActionHandler;
 import com.radware.vision.infra.testhandlers.rbac.enums.BaseTableActions;
 import com.radware.vision.infra.testhandlers.rbac.enums.EditTableActions;
@@ -7,7 +8,6 @@ import com.radware.vision.infra.testhandlers.rbac.enums.QuarantineActionsTableAc
 import com.radware.vision.infra.testhandlers.rbac.enums.ViewBaseTableActions;
 import com.radware.vision.tests.rbac.RBACTestBase;
 import jsystem.framework.TestProperties;
-import com.radware.automation.tools.basetest.Reporter;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -40,10 +40,10 @@ public class RBACDefenseProSignatureProtectionTableActionTests extends RBACTestB
             testProperties.put("profilesTableAction", profilesTableAction.getTableAction().toString());
 
             if (!(RBACDefenseProSignatureProtectionTableActionHandler.verifyProfilesTableAction(testProperties))) {
-                report.report("The specified Table action is in an incorrect state: " + profilesTableAction.getTableAction() + "\n.", Reporter.FAIL);
+                BaseTestUtils.report("The specified Table action is in an incorrect state: " + profilesTableAction.getTableAction() + "\n.", Reporter.FAIL);
             }
         } catch (Exception e) {
-            report.report("verify Profiles Disabled Table Action failed: " + profilesTableAction.getTableAction() + "\n." + parseExceptionBody(e),
+            BaseTestUtils.report("verify Profiles Disabled Table Action failed: " + profilesTableAction.getTableAction() + "\n." + parseExceptionBody(e),
                     Reporter.FAIL);
         }
     }
@@ -56,10 +56,10 @@ public class RBACDefenseProSignatureProtectionTableActionTests extends RBACTestB
             testProperties.put("signaturesTableAction", signaturesTableAction.getTableAction().toString());
 
             if (!(RBACDefenseProSignatureProtectionTableActionHandler.verifySignaturesTableAction(testProperties))) {
-                report.report("The specified Table action is in an incorrect state: " + signaturesTableAction.getTableAction() + "\n.", Reporter.FAIL);
+                BaseTestUtils.report("The specified Table action is in an incorrect state: " + signaturesTableAction.getTableAction() + "\n.", Reporter.FAIL);
             }
         } catch (Exception e) {
-            report.report("verify Signatures Disabled Table Action failed: " + signaturesTableAction.getTableAction() + "\n." + parseExceptionBody(e),
+            BaseTestUtils.report("verify Signatures Disabled Table Action failed: " + signaturesTableAction.getTableAction() + "\n." + parseExceptionBody(e),
                     Reporter.FAIL);
         }
     }
@@ -72,10 +72,10 @@ public class RBACDefenseProSignatureProtectionTableActionTests extends RBACTestB
             testProperties.put("attributesTableAction", attributesTableAction.getTableAction().toString());
 
             if (!(RBACDefenseProSignatureProtectionTableActionHandler.verifyAttributesTableAction(testProperties))) {
-                report.report("The specified Table action is in an incorrect state: " + attributesTableAction.getTableAction() + "\n.", Reporter.FAIL);
+                BaseTestUtils.report("The specified Table action is in an incorrect state: " + attributesTableAction.getTableAction() + "\n.", Reporter.FAIL);
             }
         } catch (Exception e) {
-            report.report("verify Attributes Disabled Table Action failed: " + attributesTableAction.getTableAction() + "\n." + parseExceptionBody(e),
+            BaseTestUtils.report("verify Attributes Disabled Table Action failed: " + attributesTableAction.getTableAction() + "\n." + parseExceptionBody(e),
                     Reporter.FAIL);
         }
     }
@@ -88,10 +88,10 @@ public class RBACDefenseProSignatureProtectionTableActionTests extends RBACTestB
             testProperties.put("attributeTypePropertiesTableAction", attributeTypePropertiesTableAction.getTableAction().toString());
 
             if (!(RBACDefenseProSignatureProtectionTableActionHandler.verifyAttributeTypePropertiesTableAction(testProperties))) {
-                report.report("The specified Table action is in an incorrect state: " + attributeTypePropertiesTableAction.getTableAction() + "\n.", Reporter.FAIL);
+                BaseTestUtils.report("The specified Table action is in an incorrect state: " + attributeTypePropertiesTableAction.getTableAction() + "\n.", Reporter.FAIL);
             }
         } catch (Exception e) {
-            report.report("verify AttributeTypeProperties Disabled Table Action failed: " + attributeTypePropertiesTableAction.getTableAction() + "\n." + parseExceptionBody(e),
+            BaseTestUtils.report("verify AttributeTypeProperties Disabled Table Action failed: " + attributeTypePropertiesTableAction.getTableAction() + "\n." + parseExceptionBody(e),
                     Reporter.FAIL);
         }
     }
@@ -104,10 +104,10 @@ public class RBACDefenseProSignatureProtectionTableActionTests extends RBACTestB
             testProperties.put("quarantineActionsTableAction", quarantineActionsTableAction.getTableAction().toString());
 
             if (!(RBACDefenseProSignatureProtectionTableActionHandler.verifyQuarantineActionsTableAction(testProperties))) {
-                report.report("The specified Table action is in an incorrect state: " + quarantineActionsTableAction.getTableAction() + "\n.", Reporter.FAIL);
+                BaseTestUtils.report("The specified Table action is in an incorrect state: " + quarantineActionsTableAction.getTableAction() + "\n.", Reporter.FAIL);
             }
         } catch (Exception e) {
-            report.report("verify QuarantineActions Disabled Table Action failed: " + quarantineActionsTableAction.getTableAction() + "\n." + parseExceptionBody(e),
+            BaseTestUtils.report("verify QuarantineActions Disabled Table Action failed: " + quarantineActionsTableAction.getTableAction() + "\n." + parseExceptionBody(e),
                     Reporter.FAIL);
         }
     }
@@ -120,10 +120,10 @@ public class RBACDefenseProSignatureProtectionTableActionTests extends RBACTestB
             testProperties.put("quarantinedSourcesTableAction", quarantinedSourcesTableAction.getTableAction().toString());
 
             if (!(RBACDefenseProSignatureProtectionTableActionHandler.verifyQuarantinedSourcesTableAction(testProperties))) {
-                report.report("The specified Table action is in an incorrect state: " + quarantinedSourcesTableAction.getTableAction() + "\n.", Reporter.FAIL);
+                BaseTestUtils.report("The specified Table action is in an incorrect state: " + quarantinedSourcesTableAction.getTableAction() + "\n.", Reporter.FAIL);
             }
         } catch (Exception e) {
-            report.report("verify QuarantinedSources Disabled Table Action failed: " + quarantinedSourcesTableAction.getTableAction() + "\n." + parseExceptionBody(e),
+            BaseTestUtils.report("verify QuarantinedSources Disabled Table Action failed: " + quarantinedSourcesTableAction.getTableAction() + "\n." + parseExceptionBody(e),
                     Reporter.FAIL);
         }
     }

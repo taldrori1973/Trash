@@ -84,7 +84,7 @@ public class ScreensUtils {
                 currentDriverContent = currentDriverContent.replaceAll("[^\\x00-\\x7F]", "");
                 FileUtils.writeToFile(filePath, currentDriverContent);
             } catch (Exception e) {
-                TestBase.report.report(e.getMessage() + "\n" + e.getCause() + "\n" + Arrays.asList(e.getStackTrace()) + "\n" + e.getClass().getCanonicalName(), Reporter.PASS);
+                TestBase.BaseTestUtils.report(e.getMessage() + "\n" + e.getCause() + "\n" + Arrays.asList(e.getStackTrace()) + "\n" + e.getClass().getCanonicalName(), Reporter.PASS);
                 continue;
             }
         }

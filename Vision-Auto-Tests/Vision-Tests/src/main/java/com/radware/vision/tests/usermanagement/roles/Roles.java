@@ -1,14 +1,12 @@
 package com.radware.vision.tests.usermanagement.roles;
 
-import java.util.Arrays;
-
 import com.radware.automation.tools.basetest.Reporter;
-import jsystem.framework.TestProperties;
-
-import org.junit.Test;
-
 import com.radware.vision.base.WebUITestBase;
 import com.radware.vision.infra.testhandlers.system.usermanagement.roles.RolesHandler;
+import jsystem.framework.TestProperties;
+import org.junit.Test;
+
+import java.util.Arrays;
 
 public class Roles extends WebUITestBase {
 	
@@ -19,11 +17,11 @@ public class Roles extends WebUITestBase {
 	public void testVerifyExistingRoles() {
 		try {
 			if(!RolesHandler.verifyExistingRoles(Arrays.asList(getRolesToFind().split(",")))) {
-				report.report("Expected roles were not found in general roles list: " + rolesToFind + "\n", Reporter.FAIL);
+				BaseTestUtils.report("Expected roles were not found in general roles list: " + rolesToFind + "\n", Reporter.FAIL);
 			}
 		}
 		catch(Exception e) {
-			report.report("Failed to retrieve current roles." + e.getMessage() + "\n" + e.getCause(), Reporter.FAIL);
+			BaseTestUtils.report("Failed to retrieve current roles." + e.getMessage() + "\n" + e.getCause(), Reporter.FAIL);
 		}
 	}
 	

@@ -32,10 +32,10 @@ public class RBACAlteonNetworkTableActionTests extends RBACTestBase {
             testProperties.put("physicalPortsTableAction", physicalPortsTableAction.getTableAction().toString());
 
             if (!(RBACAlteonNetworkTableActionHandler.verifyPhysicalPortsTableAction(testProperties))) {
-                report.report("The specified Table action is in an incorrect state: " + physicalPortsTableAction.getTableAction() + "\n.", Reporter.FAIL);
+                BaseTestUtils.report("The specified Table action is in an incorrect state: " + physicalPortsTableAction.getTableAction() + "\n.", Reporter.FAIL);
             }
         } catch (Exception e) {
-            report.report("verify PhysicalPorts Disabled Table Action failed: " + physicalPortsTableAction.getTableAction() + "\n." + parseExceptionBody(e),
+            BaseTestUtils.report("verify PhysicalPorts Disabled Table Action failed: " + physicalPortsTableAction.getTableAction() + "\n." + parseExceptionBody(e),
                     Reporter.FAIL);
         }
     }
@@ -48,10 +48,10 @@ public class RBACAlteonNetworkTableActionTests extends RBACTestBase {
             testProperties.put("vrrpVirtualRoutersTableAction", vrrpVirtualRoutersTableAction.getTableAction().toString());
 
             if (!(RBACAlteonNetworkTableActionHandler.verifyVRRPVirtualRoutersTableAction(testProperties))) {
-                report.report("The specified Table action is in an incorrect state: " + vrrpVirtualRoutersTableAction.getTableAction() + "\n.", Reporter.FAIL);
+                BaseTestUtils.report("The specified Table action is in an incorrect state: " + vrrpVirtualRoutersTableAction.getTableAction() + "\n.", Reporter.FAIL);
             }
         } catch (Exception e) {
-            report.report("verify VRRPVirtualRouters Disabled Table Action failed: " + vrrpVirtualRoutersTableAction.getTableAction() + "\n." + parseExceptionBody(e),
+            BaseTestUtils.report("verify VRRPVirtualRouters Disabled Table Action failed: " + vrrpVirtualRoutersTableAction.getTableAction() + "\n." + parseExceptionBody(e),
                     Reporter.FAIL);
         }
     }

@@ -31,10 +31,10 @@ public class RBACDefenseProSessionTableTableActionTests extends RBACTestBase {
             testProperties.put("sessionTableFiltersTableAction", sessionTableFiltersTableAction.getTableAction().toString());
 
             if (!(RBACDefenseProSessionTableTableActionHandler.verifySessionTableFiltersTableAction(testProperties))) {
-                report.report("The specified Table action is in an incorrect state: " + sessionTableFiltersTableAction.getTableAction() + "\n.", Reporter.FAIL);
+                BaseTestUtils.report("The specified Table action is in an incorrect state: " + sessionTableFiltersTableAction.getTableAction() + "\n.", Reporter.FAIL);
             }
         } catch (Exception e) {
-            report.report("verify SessionTableFilters Disabled Table Action failed: " + sessionTableFiltersTableAction.getTableAction() + "\n." + parseExceptionBody(e),
+            BaseTestUtils.report("verify SessionTableFilters Disabled Table Action failed: " + sessionTableFiltersTableAction.getTableAction() + "\n." + parseExceptionBody(e),
                     Reporter.FAIL);
         }
     }

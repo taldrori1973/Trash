@@ -1,8 +1,8 @@
 package com.radware.vision.tests.GeneralOperations.DeviceOperations;
 
 import com.radware.automation.tools.basetest.Reporter;
-import com.radware.automation.webui.utils.WebUIStrings;
 import com.radware.automation.webui.WebUIUtils;
+import com.radware.automation.webui.utils.WebUIStrings;
 import com.radware.automation.webui.webpages.WebUIBasePage;
 import com.radware.automation.webui.widgets.ComponentLocator;
 import com.radware.vision.base.WebUITestBase;
@@ -32,10 +32,10 @@ public class DeviceOperationsTests extends WebUITestBase {
             if (!deviceState.toString().equals("") && deviceState != null) {
                 DeviceOperationsHandler.atomicLockUnlockDevice(deviceState.getDeviceState());
             } else {
-                report.report("Failed to click on the specified button : " + deviceState.toString(), Reporter.FAIL);
+                BaseTestUtils.report("Failed to click on the specified button : " + deviceState.toString(), Reporter.FAIL);
             }
         } catch (Exception e) {
-            report.report("Failed to click on the specified button : " + deviceState.toString(), Reporter.FAIL);
+            BaseTestUtils.report("Failed to click on the specified button : " + deviceState.toString(), Reporter.FAIL);
         }
     }
 
@@ -50,10 +50,10 @@ public class DeviceOperationsTests extends WebUITestBase {
                 WebUIBasePage.silentPopupclose();
 
             } else {
-                report.report("Failed to click on the specified button : " + operationToPerform.toString(), Reporter.FAIL);
+                BaseTestUtils.report("Failed to click on the specified button : " + operationToPerform.toString(), Reporter.FAIL);
             }
         } catch (Exception e) {
-            report.report("Failed to click on the specified button : " + operationToPerform.toString(), Reporter.FAIL);
+            BaseTestUtils.report("Failed to click on the specified button : " + operationToPerform.toString(), Reporter.FAIL);
         }
     }
 
@@ -67,10 +67,10 @@ public class DeviceOperationsTests extends WebUITestBase {
             if (!deviceControlBarOperation.getDeviceControlBarOperation().equals("")) {
                 WebUIUtils.fluentWaitDisplayed(new ComponentLocator(How.ID, deviceControlBarOperation.getDeviceControlBarOperation()).getBy(), WebUIUtils.DEFAULT_WAIT_TIME, false).click();
             } else {
-                report.report("No button selection is made : " + deviceControlBarOperation.getDeviceControlBarOperation(), Reporter.FAIL);
+                BaseTestUtils.report("No button selection is made : " + deviceControlBarOperation.getDeviceControlBarOperation(), Reporter.FAIL);
             }
         } catch (Exception e) {
-            report.report("Failed to click on the specified button : " + deviceControlBarOperation.getDeviceControlBarOperation(), Reporter.FAIL);
+            BaseTestUtils.report("Failed to click on the specified button : " + deviceControlBarOperation.getDeviceControlBarOperation(), Reporter.FAIL);
         }
     }
 

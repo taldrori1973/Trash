@@ -1,5 +1,7 @@
 package com.radware.vision.tests.Alteon.Configuration.System.Snmp.SnmpV3;
 
+import com.radware.automation.tools.basetest.Reporter;
+import com.radware.automation.tools.utils.StringUtils;
 import com.radware.automation.webui.WebUIUtils;
 import com.radware.vision.base.WebUITestBase;
 import com.radware.vision.infra.enums.DeviceState;
@@ -10,9 +12,8 @@ import com.radware.vision.infra.testhandlers.rbac.enums.EditTableActions;
 import com.radware.vision.infra.testhandlers.rbac.enums.ManagementNetworks;
 import jsystem.framework.ParameterProperties;
 import jsystem.framework.TestProperties;
-import com.radware.automation.tools.basetest.Reporter;
 import org.junit.Test;
-import com.radware.automation.tools.utils.StringUtils;
+
 import java.io.IOException;
 import java.util.HashMap;
 
@@ -47,7 +48,7 @@ public class NotifyTagsTests extends WebUITestBase {
             testProperties.put("Tag", Tag);
             SnmpV3TableActionHandler.addNotify(testProperties);
         } catch (Exception e) {
-            report.report("Failed with the following error:\n" +parseExceptionBody(e), Reporter.FAIL);
+            BaseTestUtils.report("Failed with the following error:\n" + parseExceptionBody(e), Reporter.FAIL);
         }
 
     }
@@ -61,7 +62,7 @@ public class NotifyTagsTests extends WebUITestBase {
             testProperties.put("TagName", TagName);
             SnmpV3TableActionHandler.delNotify(testProperties);
         } catch (Exception e) {
-            report.report("Failed with the following error:\n" +parseExceptionBody(e), Reporter.FAIL);
+            BaseTestUtils.report("Failed with the following error:\n" + parseExceptionBody(e), Reporter.FAIL);
         }
 
     }
@@ -76,7 +77,7 @@ public class NotifyTagsTests extends WebUITestBase {
             testProperties.put("RowNumber", getRowNumber());
             SnmpV3TableActionHandler.viewNotify(testProperties);
         } catch (Exception e) {
-            report.report("Failed with the following error:\n" +parseExceptionBody(e), Reporter.FAIL);
+            BaseTestUtils.report("Failed with the following error:\n" + parseExceptionBody(e), Reporter.FAIL);
         }
 
     }
@@ -93,7 +94,7 @@ public class NotifyTagsTests extends WebUITestBase {
             testProperties.put("Tag", Tag);
             SnmpV3TableActionHandler.duplicateNotify(testProperties);
         } catch (Exception e) {
-            report.report("Failed with the following error:\n" +parseExceptionBody(e), Reporter.FAIL);
+            BaseTestUtils.report("Failed with the following error:\n" + parseExceptionBody(e), Reporter.FAIL);
         }
 
     }

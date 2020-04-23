@@ -68,7 +68,7 @@ public class DefenseProConfigurationTemplatesTask extends ScheduledTasksTestBase
 
             DPConfigurationTemplatesHandler.addTask(taskPorperties);
         } catch (Exception e) {
-            report.report("Failed to create task: " + taskName + parseExceptionBody(e), Reporter.FAIL);
+            BaseTestUtils.report("Failed to create task: " + taskName + parseExceptionBody(e), Reporter.FAIL);
         }
     }
 
@@ -105,7 +105,7 @@ public class DefenseProConfigurationTemplatesTask extends ScheduledTasksTestBase
 
             DPConfigurationTemplatesHandler.editTask(taskPorperties);
         } catch (Exception e) {
-            report.report("Failed to edit task: " + taskName + parseExceptionBody(e), Reporter.FAIL);
+            BaseTestUtils.report("Failed to edit task: " + taskName + parseExceptionBody(e), Reporter.FAIL);
         }
     }
 

@@ -1,11 +1,15 @@
 package com.radware.vision.tests.GeneralOperations;
 
 import com.radware.automation.tools.basetest.Reporter;
-import com.radware.automation.webui.events.PopupEventHandler;
+import com.radware.automation.tools.utils.StringUtils;
 import com.radware.automation.webui.WebUIUtils;
+import com.radware.automation.webui.events.PopupEventHandler;
 import com.radware.automation.webui.webpages.WebUIPage;
 import com.radware.automation.webui.widgets.api.Widget;
-import com.radware.automation.webui.widgets.impl.*;
+import com.radware.automation.webui.widgets.impl.WebUICheckbox;
+import com.radware.automation.webui.widgets.impl.WebUIDropdown;
+import com.radware.automation.webui.widgets.impl.WebUIDualList;
+import com.radware.automation.webui.widgets.impl.WebUIRadioGroup;
 import com.radware.automation.webui.widgets.impl.table.WebUITable;
 import com.radware.vision.base.WebUITestBase;
 import com.radware.vision.infra.enums.CheckboxStateEnum;
@@ -17,7 +21,7 @@ import jsystem.framework.ParameterProperties;
 import jsystem.framework.TestProperties;
 import org.junit.Test;
 import org.openqa.selenium.WebElement;
-import com.radware.automation.tools.utils.StringUtils;
+
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Arrays;
@@ -68,13 +72,13 @@ public class ByLabelValidations extends WebUITestBase {
 			if (restTestBase.getGlobalParamsMap().get(getPopupContentKey()) != null) {
 				String actualContent = restTestBase.getGlobalParamsMap().get(getPopupContentKey());
 				if (!actualContent.equals(expectedValue)) {
-					report.report("Popup Validation Failed. Expected Content is: " + expectedValue + ", Actual Content is:" + actualContent, Reporter.FAIL);
+                    BaseTestUtils.report("Popup Validation Failed. Expected Content is: " + expectedValue + ", Actual Content is:" + actualContent, Reporter.FAIL);
 				}
 			} else {
-				report.report("Failed to Validate Popup Content, it may not be visible", Reporter.FAIL);
+                BaseTestUtils.report("Failed to Validate Popup Content, it may not be visible", Reporter.FAIL);
 			}
 		} catch (Exception e) {
-			report.report("Failed to Validate Popup Content, it may not be visible" + "\n" + parseExceptionBody(e), Reporter.FAIL);
+            BaseTestUtils.report("Failed to Validate Popup Content, it may not be visible" + "\n" + parseExceptionBody(e), Reporter.FAIL);
 		}finally {
 			closePopupDialog();
 		}
@@ -90,13 +94,13 @@ public class ByLabelValidations extends WebUITestBase {
 			if (isPopup) {
 				String actualType = WebUIPage.getPopup().getType().toString();
 				if (!actualType.equals(expectedValue)) {
-					report.report("Popup Validation Failed. Expected Type is: " + expectedValue + ", Actual Type is:" + actualType, Reporter.FAIL);
+                    BaseTestUtils.report("Popup Validation Failed. Expected Type is: " + expectedValue + ", Actual Type is:" + actualType, Reporter.FAIL);
 				}
 			} else {
-				report.report("Failed to Validate Popup Type, it may not be visible", Reporter.FAIL);
+                BaseTestUtils.report("Failed to Validate Popup Type, it may not be visible", Reporter.FAIL);
 			}
 		} catch (Exception e) {
-			report.report("Failed to Validate Popup Type, it may not be visible" + "\n" + parseExceptionBody(e), Reporter.FAIL);
+            BaseTestUtils.report("Failed to Validate Popup Type, it may not be visible" + "\n" + parseExceptionBody(e), Reporter.FAIL);
 		}
 	}
 
@@ -106,7 +110,7 @@ public class ByLabelValidations extends WebUITestBase {
         boolean isValid = true;
         List<Widget> widgets = basicOperationsByNameIdHandler.findWidgetByNameId(WebUIUtils.VISION_DEVICE_DRIVER_ID, WebWidgetType.DualList, fieldLabel, FindByType.BY_NAME);
         if (widgets.isEmpty()) {
-            report.report("Failed to find Field type: " + fieldType + " for Field label: " + fieldLabel + ", it may not be visible", Reporter.FAIL);
+            BaseTestUtils.report("Failed to find Field type: " + fieldType + " for Field label: " + fieldLabel + ", it may not be visible", Reporter.FAIL);
         }
         for (Widget widget : widgets) {
             WebUIDualList dualList = (WebUIDualList) widget;
@@ -129,7 +133,7 @@ public class ByLabelValidations extends WebUITestBase {
             }
         }
         if (!isValid) {
-            report.report("Failed to Validate Field type: " + fieldType + " for Field label: " + fieldLabel + ", it may not contain all listed items", Reporter.FAIL);
+            BaseTestUtils.report("Failed to Validate Field type: " + fieldType + " for Field label: " + fieldLabel + ", it may not contain all listed items", Reporter.FAIL);
         }
     }
 
@@ -137,7 +141,7 @@ public class ByLabelValidations extends WebUITestBase {
 		try {
 			List<Widget> widgets = basicOperationsByNameIdHandler.findWidgetByNameId(deviceDriverId, fieldType, fieldLabel, FindByType.BY_NAME);
 			if (widgets.isEmpty()) {
-				report.report("Failed to get the Field type: " + fieldType + " for Field label: " +  fieldLabel + ", it may not be visible", Reporter.FAIL);
+                BaseTestUtils.report("Failed to get the Field type: " + fieldType + " for Field label: " + fieldLabel + ", it may not be visible", Reporter.FAIL);
 			}
 			for (Widget widget : widgets) {
 				WebElement webElement = WebUIUtils.fluentWaitDisplayed(widget.getLocator().getBy(), WebUIUtils.SHORT_WAIT_TIME, false);
@@ -148,7 +152,7 @@ public class ByLabelValidations extends WebUITestBase {
 					case Text:
 						String actualText = widget.getAttribute("value");
 						if (!actualText.equals(expectedValue)) {
-							report.report("TextField Validation Failed. Expected Text is: " + expectedValue + ", Actual Text is:" + actualText, Reporter.FAIL);
+                            BaseTestUtils.report("TextField Validation Failed. Expected Text is: " + expectedValue + ", Actual Text is:" + actualText, Reporter.FAIL);
 						}
 						break;
 					case Checkbox:
@@ -156,7 +160,7 @@ public class ByLabelValidations extends WebUITestBase {
 						boolean expectedSelection = checkboxState.equals(CheckboxStateEnum.Check) ? true : false;
 						if (!((checkbox.isChecked() && expectedSelection) || (!checkbox.isChecked() && !expectedSelection))) {
 							String actualSelection = checkbox.isChecked() ? "True" : "False";
-							report.report("CheckBox Validation Failed. Expected status: " + expectedSelection + " Actual status is: " + actualSelection, Reporter.FAIL);
+                            BaseTestUtils.report("CheckBox Validation Failed. Expected status: " + expectedSelection + " Actual status is: " + actualSelection, Reporter.FAIL);
 						}
 						break;
 					case Dropdown:
@@ -164,20 +168,20 @@ public class ByLabelValidations extends WebUITestBase {
 						dropdown.setWebElement(webElement);
 						String actualDropdown = dropdown.getAttribute("value");
 						if (!actualDropdown.equals(expectedValue)) {
-							report.report("Dropdown Validation Failed. Expected Text is: " + expectedValue + ", Actual Text is:" + actualDropdown, Reporter.FAIL);
+                            BaseTestUtils.report("Dropdown Validation Failed. Expected Text is: " + expectedValue + ", Actual Text is:" + actualDropdown, Reporter.FAIL);
 						}
 						break;
 					case RadioButton:
 						WebUIRadioGroup radioGroup = (WebUIRadioGroup) widget;
 						String actualValue = radioGroup.getValue();
 						if (!actualValue.equals(expectedValue)) {
-							report.report("RadioButton Validation Failed. Expected Text is: " + expectedValue + ", Actual Text is:" + actualValue, Reporter.FAIL);
+                            BaseTestUtils.report("RadioButton Validation Failed. Expected Text is: " + expectedValue + ", Actual Text is:" + actualValue, Reporter.FAIL);
 						}
 						break;
 				}
 			}
 		} catch (Exception e) {
-			report.report("Failed to get the Field type: " + fieldType + " for Field label: " +  fieldLabel + "\n" + parseExceptionBody(e), Reporter.FAIL);
+            BaseTestUtils.report("Failed to get the Field type: " + fieldType + " for Field label: " + fieldLabel + "\n" + parseExceptionBody(e), Reporter.FAIL);
 		}
 	}
 
@@ -188,7 +192,7 @@ public class ByLabelValidations extends WebUITestBase {
 			String result = restTestBase.globalParamsMap.get(firstGlobalParamName) + restTestBase.globalParamsMap.get(secondGlobalParamName);
 			restTestBase.globalParamsMap.put(resultGlobalParamName, result);
 		} catch (Exception e) {
-			report.report("Error in Joint Params " + e.getMessage(), Reporter.FAIL);
+            BaseTestUtils.report("Error in Joint Params " + e.getMessage(), Reporter.FAIL);
 		}
 	}
 
@@ -203,7 +207,7 @@ public class ByLabelValidations extends WebUITestBase {
 					if (!first.equals(second)) {
 						String errMsg = String.format("Error in Param Checker, First: %s are NOT Equal to Second: %s",
 								restTestBase.globalParamsMap.get(firstGlobalParamName), restTestBase.globalParamsMap.get(secondGlobalParamName));
-						report.report(errMsg, Reporter.FAIL);
+                        BaseTestUtils.report(errMsg, Reporter.FAIL);
 					}
 					break;
 			}
@@ -215,26 +219,26 @@ public class ByLabelValidations extends WebUITestBase {
 					if (!(firstNum > secondNum)) {
 						String errMsg = String.format("Error in Param Checker, First: %s are NOT Greater Than Second: %s",
 								restTestBase.globalParamsMap.get(firstGlobalParamName), restTestBase.globalParamsMap.get(secondGlobalParamName));
-						report.report(errMsg, Reporter.FAIL);
+                        BaseTestUtils.report(errMsg, Reporter.FAIL);
 					}
 					break;
 				case LT:
 					if (!(firstNum < secondNum)) {
 						String errMsg = String.format("Error in Param Checker, First: %s are NOT Greater Than Second: %s",
 								restTestBase.globalParamsMap.get(firstGlobalParamName), restTestBase.globalParamsMap.get(secondGlobalParamName));
-						report.report(errMsg, Reporter.FAIL);
+                        BaseTestUtils.report(errMsg, Reporter.FAIL);
 					}
 					break;
 				case Diff:
 					if (Math.abs(firstNum - secondNum) > timeDiff) {
 						String errMsg = String.format("Error in Param Checker, First No: %s are Different Than Second No: %s",
 								restTestBase.globalParamsMap.get(firstGlobalParamName), restTestBase.globalParamsMap.get(secondGlobalParamName));
-						report.report(errMsg, Reporter.FAIL);
+                        BaseTestUtils.report(errMsg, Reporter.FAIL);
 					}
 					break;
 			}
 		} catch (Exception e) {
-			report.report("Error in Param Checker " + e.getMessage(), Reporter.FAIL);
+            BaseTestUtils.report("Error in Param Checker " + e.getMessage(), Reporter.FAIL);
 		}
 	}
 
@@ -249,33 +253,33 @@ public class ByLabelValidations extends WebUITestBase {
 					if (firstTime != secondTime) {
 						String errMsg = String.format("Error in Time Checker, First Time: %s are NOT Equal to Second Time: %s",
 								restTestBase.globalParamsMap.get(firstGlobalParamName), restTestBase.globalParamsMap.get(secondGlobalParamName));
-						report.report(errMsg, Reporter.FAIL);
+                        BaseTestUtils.report(errMsg, Reporter.FAIL);
 					}
 					break;
 				case GT:
 					if (!(firstTime > secondTime)) {
 						String errMsg = String.format("Error in Time Checker, First Time: %s are NOT Greater Than Second Time: %s",
 								restTestBase.globalParamsMap.get(firstGlobalParamName), restTestBase.globalParamsMap.get(secondGlobalParamName));
-						report.report(errMsg, Reporter.FAIL);
+                        BaseTestUtils.report(errMsg, Reporter.FAIL);
 					}
 					break;
 				case LT:
 					if (!(firstTime < secondTime)) {
 						String errMsg = String.format("Error in Time Checker, First Time: %s are NOT Greater Than Second Time: %s",
 								restTestBase.globalParamsMap.get(firstGlobalParamName), restTestBase.globalParamsMap.get(secondGlobalParamName));
-						report.report(errMsg, Reporter.FAIL);
+                        BaseTestUtils.report(errMsg, Reporter.FAIL);
 					}
 					break;
 				case Diff:
 					if (Math.abs(firstTime - secondTime) > timeDiff) {
 						String errMsg = String.format("Error in Time Checker, First Time: %s are Different Than Second Time: %s",
 								restTestBase.globalParamsMap.get(firstGlobalParamName), restTestBase.globalParamsMap.get(secondGlobalParamName));
-						report.report(errMsg, Reporter.FAIL);
+                        BaseTestUtils.report(errMsg, Reporter.FAIL);
 					}
 					break;
 			}
 		} catch (Exception e) {
-			report.report("Error in Time Checker " + e.getMessage(), Reporter.FAIL);
+            BaseTestUtils.report("Error in Time Checker " + e.getMessage(), Reporter.FAIL);
 		}
 	}
 
@@ -283,7 +287,7 @@ public class ByLabelValidations extends WebUITestBase {
 	@TestProperties(name = "validate Vision Table Record", paramsInclude = {"qcTestId", "fieldLabel", "rowKey", "rowValue"})
 	public void validateVisionTableRecord() {
 		if(!validateTableRecord(WebUIUtils.VISION_DEVICE_DRIVER_ID, fieldLabel, rowKey, rowValue)){
-			report.report("No such record in this table: " + fieldLabel + ", it may not be visible", Reporter.FAIL);
+            BaseTestUtils.report("No such record in this table: " + fieldLabel + ", it may not be visible", Reporter.FAIL);
 		}
 	}
 
@@ -291,7 +295,7 @@ public class ByLabelValidations extends WebUITestBase {
 	@TestProperties(name = "validate Device Table Record", paramsInclude = {"qcTestId", "fieldLabel", "rowKey", "rowValue", "deviceName"})
 	public void validateDeviceTableRecord() {
 		if(!validateTableRecord(WebUIUtils.selectedDeviceDriverId, fieldLabel, rowKey, rowValue)){
-			report.report("No such record in this table: " + fieldLabel + ", it may not be visible", Reporter.FAIL);
+            BaseTestUtils.report("No such record in this table: " + fieldLabel + ", it may not be visible", Reporter.FAIL);
 		}
 	}
 
@@ -300,7 +304,7 @@ public class ByLabelValidations extends WebUITestBase {
 		try {
 			List<Widget> widgets = basicOperationsByNameIdHandler.findWidgetByNameId(deviceDriverId, WebWidgetType.Table, fieldLabel, FindByType.BY_NAME);
 			if (widgets.isEmpty()) {
-				report.report("Failed to get Table for label: " + fieldLabel + ", it may not be visible", Reporter.FAIL);
+                BaseTestUtils.report("Failed to get Table for label: " + fieldLabel + ", it may not be visible", Reporter.FAIL);
 			}
 			outerloop:
 			for (Widget widget : widgets) {
@@ -312,7 +316,7 @@ public class ByLabelValidations extends WebUITestBase {
 
 			}
 		} catch (Exception e) {
-			report.report("Failed to get Table for label: " + fieldLabel + " \n" + parseExceptionBody(e), Reporter.FAIL);
+            BaseTestUtils.report("Failed to get Table for label: " + fieldLabel + " \n" + parseExceptionBody(e), Reporter.FAIL);
 		}
 		if(result == -1) {
 			return false;
@@ -328,7 +332,7 @@ public class ByLabelValidations extends WebUITestBase {
 			Date date = format.parse(dateValue);
 			return date.getTime() / 1000;
 		} catch (ParseException e) {
-			report.report("Error in Getting Time " + e.getMessage(), Reporter.FAIL);
+            BaseTestUtils.report("Error in Getting Time " + e.getMessage(), Reporter.FAIL);
 			return 0;
 		}
 	}

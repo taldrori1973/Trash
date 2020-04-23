@@ -22,10 +22,10 @@ public class GlobalParametersTests extends WebUITestBase {
 
         GlobalParametersHandler.updateLocation(location, getDeviceName());
         if (GlobalParametersHandler.getLocation(getDeviceName()).equals(location)) {
-            report.report("location set to : " + location, Reporter.PASS);
+            BaseTestUtils.report("location set to : " + location, Reporter.PASS);
         } else {
 
-            report.report("Failed to set location to " + location, Reporter.FAIL);
+            BaseTestUtils.report("Failed to set location to " + location, Reporter.FAIL);
         }
     }
 

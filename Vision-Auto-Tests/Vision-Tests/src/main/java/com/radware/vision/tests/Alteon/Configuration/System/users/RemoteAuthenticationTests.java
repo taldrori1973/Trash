@@ -1,12 +1,12 @@
 package com.radware.vision.tests.Alteon.Configuration.System.users;
 
+import com.radware.automation.tools.basetest.Reporter;
 import com.radware.automation.webui.webpages.GeneralEnums;
 import com.radware.vision.infra.testhandlers.alteon.configuration.system.Users.RemoteAuthenticationHandler;
 import com.radware.vision.infra.testhandlers.rbac.enums.BaseTableActions;
 import com.radware.vision.tests.Alteon.AlteonTestBase;
 import jsystem.framework.ParameterProperties;
 import jsystem.framework.TestProperties;
-import com.radware.automation.tools.basetest.Reporter;
 import org.junit.Test;
 
 import java.util.HashMap;
@@ -102,7 +102,7 @@ public class RemoteAuthenticationTests extends AlteonTestBase {
             RemoteAuthenticationHandler.DefinitionRemoteAuthenticationTACACS(testProperties, TACState);
 
         } catch (Exception e) {
-            report.report(parseExceptionBody(e), Reporter.FAIL);
+            BaseTestUtils.report(parseExceptionBody(e), Reporter.FAIL);
         }
     }
 

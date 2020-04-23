@@ -21,14 +21,14 @@ public class SslInspectionSteps {
 
     @When("^UI SSl Inspection Reports Settings, Delete And Confirm Report With Report Title \"(.*)\"$")
     public void deleteReportAndConfirm(String reportTitle) {
-        SslInspectionHandler.ReportsSettings.clickOnDeleteReport(reportTitle);
+        SslInspectionHandler.ReportsSettings.clickOnDeleteBaseTestUtils.reportTitle);
         SslInspectionHandler.ReportsSettings.clickOnYesDeleteOrLeaveIt(reportTitle, DeleteOrLeaveIt.YES_DELETE_IT);
 
     }
 
     @When("^UI SSl Inspection Reports Settings, Delete And Leave Report With Report Title \"(.*)\"$")
     public void deleteReportAndLeaveIt(String reportTitle) {
-        SslInspectionHandler.ReportsSettings.clickOnDeleteReport(reportTitle);
+        SslInspectionHandler.ReportsSettings.clickOnDeleteBaseTestUtils.reportTitle);
         SslInspectionHandler.ReportsSettings.clickOnYesDeleteOrLeaveIt(reportTitle, DeleteOrLeaveIt.LEAVE_IT);
 
     }
@@ -55,13 +55,13 @@ public class SslInspectionSteps {
 
     @Given("^UI SSl Inspection Reports Settings, Enable Report With Report Title \"(.*)\"$")
     public void enableReport(String reportTitle) {
-        SslInspectionHandler.ReportsSettings.enableDisableReport(reportTitle, EnableDisableEnum.ENABLE);
+        SslInspectionHandler.ReportsSettings.enableDisableBaseTestUtils.reportTitle, EnableDisableEnum.ENABLE);
 
     }
 
     @Given("^UI SSl Inspection Reports Settings, Disable Report With Report Title \"(.*)\"$")
     public void disableReport(String reportTitle) {
-        SslInspectionHandler.ReportsSettings.enableDisableReport(reportTitle, EnableDisableEnum.DISABLE);
+        SslInspectionHandler.ReportsSettings.enableDisableBaseTestUtils.reportTitle, EnableDisableEnum.DISABLE);
 
     }
 }

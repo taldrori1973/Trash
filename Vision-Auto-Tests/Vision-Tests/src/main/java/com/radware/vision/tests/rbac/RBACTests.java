@@ -43,10 +43,10 @@ public class RBACTests extends RBACTestBase {
         try {
             RBACHandlerBase.expectedResultRBAC = expectedResult;
             if (!(RBACHandler.verifyTreeNodeInvisible(treeElement))) {
-                report.report("Topology tree element is in an incorrect state (exist/not exist): " + treeElement + "\n.", Reporter.FAIL);
+                BaseTestUtils.report("Topology tree element is in an incorrect state (exist/not exist): " + treeElement + "\n.", Reporter.FAIL);
             }
         } catch (Exception e) {
-            report.report("Verify existing topology tree element failed: " + treeElement + "\n." + parseExceptionBody(e), Reporter.FAIL);
+            BaseTestUtils.report("Verify existing topology tree element failed: " + treeElement + "\n." + parseExceptionBody(e), Reporter.FAIL);
         }
     }
 
@@ -56,10 +56,10 @@ public class RBACTests extends RBACTestBase {
         try {
             RBACHandlerBase.expectedResultRBAC = expectedResult;
             if (!(RBACHandler.IsUpperBarItemExist(upperBarItem))) {
-                report.report("Upper Bar Item is in an incorrect state (exist/not exist): " + String.valueOf(upperBarItem) + "\n.", Reporter.FAIL);
+                BaseTestUtils.report("Upper Bar Item is in an incorrect state (exist/not exist): " + String.valueOf(upperBarItem) + "\n.", Reporter.FAIL);
             }
         } catch (Exception e) {
-            report.report("Verify existing Upper Bar Item failed: " + String.valueOf(upperBarItem) + "\n." + parseExceptionBody(e), Reporter.FAIL);
+            BaseTestUtils.report("Verify existing Upper Bar Item failed: " + String.valueOf(upperBarItem) + "\n." + parseExceptionBody(e), Reporter.FAIL);
         }
     }
 
@@ -69,10 +69,10 @@ public class RBACTests extends RBACTestBase {
         try {
             RBACHandlerBase.expectedResultRBAC = expectedResult;
             if (!(RBACHandler.verifyDeviceDriverLinkInvisible(deviceDriverAction))) {
-                report.report("Device Driver Link: " + String.valueOf(deviceDriverAction) + "\n.", Reporter.FAIL);
+                BaseTestUtils.report("Device Driver Link: " + String.valueOf(deviceDriverAction) + "\n.", Reporter.FAIL);
             }
         } catch (Exception e) {
-            report.report("Device Driver operation failed: " + String.valueOf(deviceDriverAction) + "\n." + parseExceptionBody(e), Reporter.FAIL);
+            BaseTestUtils.report("Device Driver operation failed: " + String.valueOf(deviceDriverAction) + "\n." + parseExceptionBody(e), Reporter.FAIL);
         }
     }
 
@@ -82,10 +82,10 @@ public class RBACTests extends RBACTestBase {
         try {
             RBACHandlerBase.expectedResultRBAC = expectedResult;
             if (!(RBACHandler.verifyDeviceControlBarItemExistence(deviceControlBarItem))) {
-                report.report("Device Control Bar Item Existence test has failed: " + String.valueOf(deviceControlBarItem) + "\n.", Reporter.FAIL);
+                BaseTestUtils.report("Device Control Bar Item Existence test has failed: " + String.valueOf(deviceControlBarItem) + "\n.", Reporter.FAIL);
             }
         } catch (Exception e) {
-            report.report("Device Control Bar Item Existence test has failed: " + String.valueOf(deviceControlBarItem) + "\n." + parseExceptionBody(e), Reporter.FAIL);
+            BaseTestUtils.report("Device Control Bar Item Existence test has failed: " + String.valueOf(deviceControlBarItem) + "\n." + parseExceptionBody(e), Reporter.FAIL);
         }
     }
 
@@ -97,10 +97,10 @@ public class RBACTests extends RBACTestBase {
         try {
             RBACHandlerBase.expectedResultRBAC = expectedResult;
             if (!(RBACHandler.verifyDeviceControlBarItemEnabled(deviceControlBarItem, getDeviceName(), parentTree))) {
-                report.report("Device Control Bar Item Enabled test has Failed: " + String.valueOf(deviceControlBarItem) + "\n.", Reporter.FAIL);
+                BaseTestUtils.report("Device Control Bar Item Enabled test has Failed: " + String.valueOf(deviceControlBarItem) + "\n.", Reporter.FAIL);
             }
         } catch (Exception e) {
-            report.report("Device Control Bar Item Enabled test has Failed: " + String.valueOf(deviceControlBarItem) + "\n." + parseExceptionBody(e), Reporter.FAIL);
+            BaseTestUtils.report("Device Control Bar Item Enabled test has Failed: " + String.valueOf(deviceControlBarItem) + "\n." + parseExceptionBody(e), Reporter.FAIL);
         }
     }
 
@@ -111,10 +111,10 @@ public class RBACTests extends RBACTestBase {
             RBACHandlerBase.expectedResultRBAC = expectedResult;
             columnName = "Name";
             if ((RBACHandler.verifyTaskRowInvisible(columnName, taskName))) {
-                report.report("Task: " + taskName + "\n.", Reporter.FAIL);
+                BaseTestUtils.report("Task: " + taskName + "\n.", Reporter.FAIL);
             }
         } catch (Exception e) {
-            report.report("Verify non existing Task: " + "\n." + parseExceptionBody(e), Reporter.FAIL);
+            BaseTestUtils.report("Verify non existing Task: " + "\n." + parseExceptionBody(e), Reporter.FAIL);
         }
     }
 
@@ -124,10 +124,10 @@ public class RBACTests extends RBACTestBase {
         try {
             RBACHandlerBase.expectedResultRBAC = expectedResult;
             if (!(RBACHandler.verifyAlertRow(columnName, columnValue))) {
-                report.report("The specified : " + deviceType + "\n.", Reporter.FAIL);
+                BaseTestUtils.report("The specified : " + deviceType + "\n.", Reporter.FAIL);
             }
         } catch (Exception e) {
-            report.report("Verify non existing Task: " + "\n." + parseExceptionBody(e), Reporter.FAIL);
+            BaseTestUtils.report("Verify non existing Task: " + "\n." + parseExceptionBody(e), Reporter.FAIL);
         }
     }
 
@@ -149,10 +149,10 @@ public class RBACTests extends RBACTestBase {
         try {
             RBACHandlerBase.expectedResultRBAC = expectedResult;
             if ((!RBACHandler.verifyDisabledTopologyTreeOperation(topologyTreeOperation))) {
-                report.report("Tree Operation: " + String.valueOf(topologyTreeOperation) + " was not " + expectedResult + " as expected." + "\n", Reporter.FAIL);
+                BaseTestUtils.report("Tree Operation: " + String.valueOf(topologyTreeOperation) + " was not " + expectedResult + " as expected." + "\n", Reporter.FAIL);
             }
         } catch (Exception e) {
-            report.report("Verify Disabled Tree Operations: " + "\n." + parseExceptionBody(e), Reporter.FAIL);
+            BaseTestUtils.report("Verify Disabled Tree Operations: " + "\n." + parseExceptionBody(e), Reporter.FAIL);
         }
     }
 
@@ -161,10 +161,10 @@ public class RBACTests extends RBACTestBase {
     public void verifyExistingTreeOperation() {
         try {
             if ((!RBACHandler.verifyExistingTopologyTreeOperation(topologyTreeOperation, expectedResult))) {
-                report.report("Tree Operation: " + String.valueOf(topologyTreeOperation) + " was not " + expectedResult + " as expected." + "\n", Reporter.FAIL);
+                BaseTestUtils.report("Tree Operation: " + String.valueOf(topologyTreeOperation) + " was not " + expectedResult + " as expected." + "\n", Reporter.FAIL);
             }
         } catch (Exception e) {
-            report.report("Verify Existing Tree Operations: " + "\n." + parseExceptionBody(e), Reporter.FAIL);
+            BaseTestUtils.report("Verify Existing Tree Operations: " + "\n." + parseExceptionBody(e), Reporter.FAIL);
         }
     }
 
@@ -173,10 +173,10 @@ public class RBACTests extends RBACTestBase {
     public void verifyLockUnlockOperation() {
         try {
             if ((!MultipleUseHandlers.verifyLockUnlockOperation(expectedResult, getDeviceName(), parentTree.getTopologyTreeTab()))) {
-                report.report("Device Operation: " + String.valueOf(deviceState) + " was not " + expectedResult + " as expected." + "\n", Reporter.FAIL);
+                BaseTestUtils.report("Device Operation: " + String.valueOf(deviceState) + " was not " + expectedResult + " as expected." + "\n", Reporter.FAIL);
             }
         } catch (Exception e) {
-            report.report("Verify Device Lock-Unlock Operations: " + "\n." + parseExceptionBody(e), Reporter.FAIL);
+            BaseTestUtils.report("Verify Device Lock-Unlock Operations: " + "\n." + parseExceptionBody(e), Reporter.FAIL);
         }
     }
 
@@ -186,10 +186,10 @@ public class RBACTests extends RBACTestBase {
         try {
             RBACHandlerBase.expectedResultRBAC = expectedResult;
             if ((!RBACHandler.verifyRoleScope(userRole))) {
-                report.report("Verify Scope: " + String.valueOf(userRole) + " was not " + expectedResult + " as expected." + "\n", Reporter.FAIL);
+                BaseTestUtils.report("Verify Scope: " + String.valueOf(userRole) + " was not " + expectedResult + " as expected." + "\n", Reporter.FAIL);
             }
         } catch (Exception e) {
-            report.report("Verify Scope All Required: " + "\n." + parseExceptionBody(e), Reporter.FAIL);
+            BaseTestUtils.report("Verify Scope All Required: " + "\n." + parseExceptionBody(e), Reporter.FAIL);
         }
     }
 
@@ -199,10 +199,10 @@ public class RBACTests extends RBACTestBase {
         try {
             RBACHandlerBase.expectedResultRBAC = expectedResult;
             if ((!RBACHandler.verifyPhysicalTabExistence())) {
-                report.report("Verify PhysicalTab: " + " was not " + expectedResult + " as expected." + "\n", Reporter.FAIL);
+                BaseTestUtils.report("Verify PhysicalTab: " + " was not " + expectedResult + " as expected." + "\n", Reporter.FAIL);
             }
         } catch (Exception e) {
-            report.report("Verify PhysicalTab Existence: " + "\n." + parseExceptionBody(e), Reporter.FAIL);
+            BaseTestUtils.report("Verify PhysicalTab Existence: " + "\n." + parseExceptionBody(e), Reporter.FAIL);
         }
     }
 
@@ -212,10 +212,10 @@ public class RBACTests extends RBACTestBase {
         try {
             RBACHandlerBase.expectedResultRBAC = expectedResult;
             if ((!RBACHandler.verifyDeviceSettingsSubMenuExistence(deviceSettingsSubMenu.getSubMenu(), getDeviceName()))) {
-                report.report("Verify DeviceSettingsSubMenu: " + " was not " + expectedResult + " as expected." + "\n", Reporter.FAIL);
+                BaseTestUtils.report("Verify DeviceSettingsSubMenu: " + " was not " + expectedResult + " as expected." + "\n", Reporter.FAIL);
             }
         } catch (Exception e) {
-            report.report("Verify DeviceSettingsSubMenu Existence: " + "\n." + parseExceptionBody(e), Reporter.FAIL);
+            BaseTestUtils.report("Verify DeviceSettingsSubMenu Existence: " + "\n." + parseExceptionBody(e), Reporter.FAIL);
         }
     }
 
@@ -225,10 +225,10 @@ public class RBACTests extends RBACTestBase {
         try {
             RBACHandlerBase.expectedResultRBAC = expectedResult;
             if ((!RBACHandler.verifyVisionSettingsSubMenuExistence(visionSettingsSubMenu.getElementName()))) {
-                report.report("Verify VisionSettingsSubMenu: " + " was not " + expectedResult + " as expected." + "\n", Reporter.FAIL);
+                BaseTestUtils.report("Verify VisionSettingsSubMenu: " + " was not " + expectedResult + " as expected." + "\n", Reporter.FAIL);
             }
         } catch (Exception e) {
-            report.report("Verify VisionSettingsSubMenu Existence: " + "\n." + parseExceptionBody(e), Reporter.FAIL);
+            BaseTestUtils.report("Verify VisionSettingsSubMenu Existence: " + "\n." + parseExceptionBody(e), Reporter.FAIL);
         }
     }
 
@@ -242,14 +242,14 @@ public class RBACTests extends RBACTestBase {
                 ComponentLocator locator = new ComponentLocator(How.ID, "gwt-debug-".concat(visionTableID.getVisionTableID()));
                 WebElement element = WebUIUtils.fluentWaitPresence(locator.getBy(), WebUIUtils.DEFAULT_WAIT_TIME, false);
                 if ((element == null) && expectedResult || (element != null && !expectedResult)) {
-                    report.report("Existance Validation has Failed : " + "gwt-debug-".concat(visionTableID.getVisionTableID()), Reporter.FAIL);
+                    BaseTestUtils.report("Existance Validation has Failed : " + "gwt-debug-".concat(visionTableID.getVisionTableID()), Reporter.FAIL);
                 }
 
             } else {
-                report.report("Existance Validation has Failed : " + "gwt-debug-".concat(visionTableID.getVisionTableID()), Reporter.FAIL);
+                BaseTestUtils.report("Existance Validation has Failed : " + "gwt-debug-".concat(visionTableID.getVisionTableID()), Reporter.FAIL);
             }
         } catch (Exception e) {
-            report.report("Existance Validation has Failed : " + "gwt-debug-".concat(visionTableID.getVisionTableID()), Reporter.FAIL);
+            BaseTestUtils.report("Existance Validation has Failed : " + "gwt-debug-".concat(visionTableID.getVisionTableID()), Reporter.FAIL);
         } finally {
             WebUIUtils.isTriggerPopupSearchEvent4FreeTest = true;
         }

@@ -1,12 +1,14 @@
 package com.radware.vision.tests.scheduledtasks;
 
+import com.radware.automation.tools.basetest.Reporter;
 import com.radware.vision.infra.testhandlers.scheduledtasks.GetAttackDescFromSiteTaskHandler;
 import com.radware.vision.infra.testhandlers.scheduledtasks.enums.TaskType;
 import jsystem.framework.TestProperties;
-import com.radware.automation.tools.basetest.Reporter;;
 import org.junit.Test;
 
 import java.util.HashMap;
+
+;
 
 public class GetAttackDescFromSiteTask extends ScheduledTasksTestBase {
     public TaskType taskType = TaskType.UPDATE_ATTACK_DESCRIPTION_FILE;
@@ -27,7 +29,7 @@ public class GetAttackDescFromSiteTask extends ScheduledTasksTestBase {
 
             GetAttackDescFromSiteTaskHandler.addTask(taskPorperties);
         } catch (Exception e) {
-            report.report("Failed to create task: " + taskName + parseExceptionBody(e), Reporter.FAIL);
+            BaseTestUtils.report("Failed to create task: " + taskName + parseExceptionBody(e), Reporter.FAIL);
         }
     }
 
@@ -42,7 +44,7 @@ public class GetAttackDescFromSiteTask extends ScheduledTasksTestBase {
             taskPorperties.put("columnName", columnName);
             GetAttackDescFromSiteTaskHandler.editTask(taskPorperties);
         } catch (Exception e) {
-            report.report("Failed to edit task: " + taskName + parseExceptionBody(e), Reporter.FAIL);
+            BaseTestUtils.report("Failed to edit task: " + taskName + parseExceptionBody(e), Reporter.FAIL);
         }
     }
 

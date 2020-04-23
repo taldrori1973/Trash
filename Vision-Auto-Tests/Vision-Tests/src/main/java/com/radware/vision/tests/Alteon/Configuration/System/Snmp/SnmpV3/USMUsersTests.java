@@ -1,5 +1,7 @@
 package com.radware.vision.tests.Alteon.Configuration.System.Snmp.SnmpV3;
 
+import com.radware.automation.tools.basetest.Reporter;
+import com.radware.automation.tools.utils.StringUtils;
 import com.radware.automation.webui.WebUIUtils;
 import com.radware.automation.webui.webpages.configuration.system.snmp.SnmpEnums;
 import com.radware.vision.base.WebUITestBase;
@@ -11,9 +13,8 @@ import com.radware.vision.infra.testhandlers.rbac.enums.EditTableActions;
 import com.radware.vision.infra.testhandlers.rbac.enums.ManagementNetworks;
 import jsystem.framework.ParameterProperties;
 import jsystem.framework.TestProperties;
-import com.radware.automation.tools.basetest.Reporter;
 import org.junit.Test;
-import com.radware.automation.tools.utils.StringUtils;
+
 import java.io.IOException;
 import java.util.HashMap;
 
@@ -57,7 +58,7 @@ public class USMUsersTests extends WebUITestBase {
             testProperties.put("confPrivacyPassword", confPrivacyPassword);
             SnmpV3TableActionHandler.addUSMUsers(testProperties);
         } catch (Exception e) {
-            report.report("Failed with the following error:\n" +parseExceptionBody(e), Reporter.FAIL);
+            BaseTestUtils.report("Failed with the following error:\n" + parseExceptionBody(e), Reporter.FAIL);
         }
 
     }
@@ -71,7 +72,7 @@ public class USMUsersTests extends WebUITestBase {
             testProperties.put("userName", userName);
             SnmpV3TableActionHandler.delUSMUsers(testProperties);
         } catch (Exception e) {
-            report.report("Failed with the following error:\n" +parseExceptionBody(e), Reporter.FAIL);
+            BaseTestUtils.report("Failed with the following error:\n" + parseExceptionBody(e), Reporter.FAIL);
         }
 
     }
@@ -87,7 +88,7 @@ public class USMUsersTests extends WebUITestBase {
 
             SnmpV3TableActionHandler.viewUSMUsers(testProperties);
         } catch (Exception e) {
-            report.report("Failed with the following error:\n" +parseExceptionBody(e), Reporter.FAIL);
+            BaseTestUtils.report("Failed with the following error:\n" + parseExceptionBody(e), Reporter.FAIL);
         }
 
     }
@@ -110,7 +111,7 @@ public class USMUsersTests extends WebUITestBase {
             testProperties.put("confPrivacyPassword", confPrivacyPassword);
             SnmpV3TableActionHandler.duplicateUSMUsers(testProperties);
         } catch (Exception e) {
-            report.report("Failed with the following error:\n" +parseExceptionBody(e), Reporter.FAIL);
+            BaseTestUtils.report("Failed with the following error:\n" + parseExceptionBody(e), Reporter.FAIL);
         }
 
     }

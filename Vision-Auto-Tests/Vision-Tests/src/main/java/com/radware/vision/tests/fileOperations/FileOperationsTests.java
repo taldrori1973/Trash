@@ -1,8 +1,8 @@
 package com.radware.vision.tests.fileOperations;
 
 import com.radware.automation.tools.basetest.Reporter;
-import com.radware.vision.base.WebUITestBase;
 import com.radware.automation.tools.utils.FileUtils;
+import com.radware.vision.base.WebUITestBase;
 import jsystem.framework.ParameterProperties;
 import jsystem.framework.TestProperties;
 import org.junit.Test;
@@ -25,10 +25,10 @@ public class FileOperationsTests extends WebUITestBase {
     public void findFileByPartialName() {
         try {
             if(FileUtils.findFileByPartialName(filePath, fileName, Long.parseLong(findTimeOut)*1000).equals("")){
-                report.report("Test has failed finding: " + fileName + " " + "file!", Reporter.FAIL);
+                BaseTestUtils.report("Test has failed finding: " + fileName + " " + "file!", Reporter.FAIL);
             }
         } catch (Exception e) {
-            report.report("Test has failed finding: " + fileName + " " + "failed with the following error:\n" + e.getMessage() + "\n" + e.getCause(), Reporter.FAIL);
+            BaseTestUtils.report("Test has failed finding: " + fileName + " " + "failed with the following error:\n" + e.getMessage() + "\n" + e.getCause(), Reporter.FAIL);
         }
     }
     @Test
@@ -38,18 +38,18 @@ public class FileOperationsTests extends WebUITestBase {
             fileName = filePath + File.separator + fileName;
             String actualContent = FileUtils.getFileContent(fileName);
             if (actualContent == null) {
-                report.report("Test has failed finding: " + fileName, Reporter.FAIL);
+                BaseTestUtils.report("Test has failed finding: " + fileName, Reporter.FAIL);
             } else {
                 actualContent = actualContent.replace("\r\n", " ");
                 actualContent = actualContent.replace("\n\r", " ");
                 actualContent = actualContent.replace("\n", " ");
                 actualContent = actualContent.replace("\r", " ");
                 if (!actualContent.equals(expectedValue)) {
-                    report.report("Server File Validation Failed. Expected Content is: " + expectedValue + ", Actual Content is:" + actualContent, Reporter.FAIL);
+                    BaseTestUtils.report("Server File Validation Failed. Expected Content is: " + expectedValue + ", Actual Content is:" + actualContent, Reporter.FAIL);
                 }
             }
         } catch (Exception e) {
-            report.report("Test has failed finding: " + fileName + " " + "failed with the following error:\n" + e.getMessage() + "\n" + e.getCause(), Reporter.FAIL);
+            BaseTestUtils.report("Test has failed finding: " + fileName + " " + "failed with the following error:\n" + e.getMessage() + "\n" + e.getCause(), Reporter.FAIL);
         }
     }
 
@@ -58,10 +58,10 @@ public class FileOperationsTests extends WebUITestBase {
     public void findServerFileByPartialName() {
         try {
             if (FileUtils.findServerFileByPartialName(getLinuxServerCredential(), serverFilePath, fileName) == null) {
-                report.report("Test has failed finding: " + fileName, Reporter.FAIL);
+                BaseTestUtils.report("Test has failed finding: " + fileName, Reporter.FAIL);
             }
         } catch (Exception e) {
-            report.report("Test has failed finding: " + fileName + " " + "failed with the following error:\n" + e.getMessage() + "\n" + e.getCause(), Reporter.FAIL);
+            BaseTestUtils.report("Test has failed finding: " + fileName + " " + "failed with the following error:\n" + e.getMessage() + "\n" + e.getCause(), Reporter.FAIL);
         }
     }
 
@@ -71,16 +71,16 @@ public class FileOperationsTests extends WebUITestBase {
         try {
             String actualContent = FileUtils.getServerFileContent(getLinuxServerCredential(), serverFilePath, fileName);
             if (actualContent == null) {
-                report.report("Test has failed finding: " + fileName, Reporter.FAIL);
+                BaseTestUtils.report("Test has failed finding: " + fileName, Reporter.FAIL);
             } else {
                 actualContent = actualContent.replace("\r", " ");
                 actualContent = actualContent.replace("\n\r", " ");
                 if (!actualContent.equals(expectedValue)) {
-                    report.report("Server File Validation Failed. Expected Content is: " + expectedValue + ", Actual Content is:" + actualContent, Reporter.FAIL);
+                    BaseTestUtils.report("Server File Validation Failed. Expected Content is: " + expectedValue + ", Actual Content is:" + actualContent, Reporter.FAIL);
                 }
             }
         } catch (Exception e) {
-            report.report("Test has failed finding: " + fileName + " " + "failed with the following error:\n" + e.getMessage() + "\n" + e.getCause(), Reporter.FAIL);
+            BaseTestUtils.report("Test has failed finding: " + fileName + " " + "failed with the following error:\n" + e.getMessage() + "\n" + e.getCause(), Reporter.FAIL);
         }
     }
 
@@ -90,7 +90,7 @@ public class FileOperationsTests extends WebUITestBase {
         try {
             FileUtils.deleteFile(filePath, fileName);
         } catch (Exception e) {
-            report.report("Test has failed finding: " + fileName + " " + "failed with the following error:\n" + e.getMessage() + "\n" + e.getCause(), Reporter.FAIL);
+            BaseTestUtils.report("Test has failed finding: " + fileName + " " + "failed with the following error:\n" + e.getMessage() + "\n" + e.getCause(), Reporter.FAIL);
         }
     }
 
@@ -100,7 +100,7 @@ public class FileOperationsTests extends WebUITestBase {
         try {
             FileUtils.deleteDirContent(filePath);
         } catch (Exception e) {
-            report.report("Test has failed finding: " + filePath + " " + "failed with the following error:\n" + e.getMessage() + "\n" + e.getCause(), Reporter.FAIL);
+            BaseTestUtils.report("Test has failed finding: " + filePath + " " + "failed with the following error:\n" + e.getMessage() + "\n" + e.getCause(), Reporter.FAIL);
         }
     }
 

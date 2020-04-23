@@ -1,14 +1,14 @@
 package com.radware.vision.tests.alerts;
 
+import com.radware.automation.tools.basetest.Reporter;
+import com.radware.automation.webui.WebUIUtils;
 import com.radware.automation.webui.events.ReportWebDriverEventListener;
 import com.radware.automation.webui.webdriver.WebUIDriver;
-import com.radware.automation.webui.WebUIUtils;
 import com.radware.automation.webui.widgets.api.popups.PopupContent;
 import com.radware.vision.base.WebUITestBase;
 import com.radware.vision.infra.testhandlers.alerts.AlertsNegativeHandler;
 import com.radware.vision.infra.testhandlers.baseoperations.BasicOperationsHandler;
 import jsystem.framework.TestProperties;
-import com.radware.automation.tools.basetest.Reporter;
 import org.junit.Test;
 
 import java.util.List;
@@ -27,13 +27,13 @@ public class AlertsNegativeTests extends WebUITestBase {
             List<PopupContent> popupErrors = ((ReportWebDriverEventListener) WebUIDriver.getListenerManager().getWebUIDriverEventListener()).getLastPopupEvent();
             int popupSize = popupErrors.size();
             if (popupSize > 0) {
-                report.report("Warning is presented upon an incorrect <severity> setup: " + "\n.", Reporter.PASS);
+                BaseTestUtils.report("Warning is presented upon an incorrect <severity> setup: " + "\n.", Reporter.PASS);
                 ((ReportWebDriverEventListener) WebUIDriver.getListenerManager().getWebUIDriverEventListener()).clearLastPopupEventList();
             } else {
-                report.report("No Warning is presented upon an incorrect <severity> setup: At least one option must be selected!" + "\n.", Reporter.FAIL);
+                BaseTestUtils.report("No Warning is presented upon an incorrect <severity> setup: At least one option must be selected!" + "\n.", Reporter.FAIL);
             }
         } catch (Exception e) {
-            report.report("At least one severity check box must remain <checked>: " + "failed with the following error:\n" + e.getMessage() + "\n" + e.getCause(), Reporter.FAIL);
+            BaseTestUtils.report("At least one severity check box must remain <checked>: " + "failed with the following error:\n" + e.getMessage() + "\n" + e.getCause(), Reporter.FAIL);
         }
     }
 
@@ -45,13 +45,13 @@ public class AlertsNegativeTests extends WebUITestBase {
             List<PopupContent> popupErrors = ((ReportWebDriverEventListener) WebUIDriver.getListenerManager().getWebUIDriverEventListener()).getLastPopupEvent();
             int popupSize = popupErrors.size();
             if (popupSize > 0) {
-                report.report("Warning is presented upon an incorrect <module> setup: " + "\n.", Reporter.PASS);
+                BaseTestUtils.report("Warning is presented upon an incorrect <module> setup: " + "\n.", Reporter.PASS);
                 ((ReportWebDriverEventListener) WebUIDriver.getListenerManager().getWebUIDriverEventListener()).clearLastPopupEventList();
             } else {
-                report.report("No Warning is presented upon an incorrect <module> setup: At least one option must be selected!" + "\n.", Reporter.FAIL);
+                BaseTestUtils.report("No Warning is presented upon an incorrect <module> setup: At least one option must be selected!" + "\n.", Reporter.FAIL);
             }
         } catch (Exception e) {
-            report.report("At least one <module> check box must remain checked: " + "failed with the following error:\n" + e.getMessage() + "\n" + e.getCause(), Reporter.FAIL);
+            BaseTestUtils.report("At least one <module> check box must remain checked: " + "failed with the following error:\n" + e.getMessage() + "\n" + e.getCause(), Reporter.FAIL);
         }
     }
 
@@ -63,13 +63,13 @@ public class AlertsNegativeTests extends WebUITestBase {
             List<PopupContent> popupErrors = ((ReportWebDriverEventListener) WebUIDriver.getListenerManager().getWebUIDriverEventListener()).getLastPopupEvent();
             int popupSize = popupErrors.size();
             if (popupSize > 0) {
-                report.report("Warning is presented upon an incorrect deviceType setup: " + "\n.", Reporter.PASS);
+                BaseTestUtils.report("Warning is presented upon an incorrect deviceType setup: " + "\n.", Reporter.PASS);
                 ((ReportWebDriverEventListener) WebUIDriver.getListenerManager().getWebUIDriverEventListener()).clearLastPopupEventList();
             } else {
-                report.report("No Warning is presented upon an incorrect deviceType setup: At least one option must be selected!" + "\n.", Reporter.FAIL);
+                BaseTestUtils.report("No Warning is presented upon an incorrect deviceType setup: At least one option must be selected!" + "\n.", Reporter.FAIL);
             }
         } catch (Exception e) {
-            report.report("At least one deviceType check box must remain checked: " + "failed with the following error:\n" + e.getMessage() + "\n" + e.getCause(), Reporter.FAIL);
+            BaseTestUtils.report("At least one deviceType check box must remain checked: " + "failed with the following error:\n" + e.getMessage() + "\n" + e.getCause(), Reporter.FAIL);
         }
         finally {
             WebUIUtils.getDriver().close();

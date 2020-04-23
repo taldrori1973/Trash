@@ -32,10 +32,10 @@ public class RBACDefenseProNetworkingBaseTableActionTests extends RBACTestBase {
             testProperties.put("mplsRDTableAction", mplsRDTableAction.getTableAction().toString());
 
             if (!(RBACDefenseProNetworkingBaseTableActionHandler.verifyMplsRDTableAction(testProperties))) {
-                report.report("The specified Table action is in an incorrect state: " + mplsRDTableAction.getTableAction() + "\n.", Reporter.FAIL);
+                BaseTestUtils.report("The specified Table action is in an incorrect state: " + mplsRDTableAction.getTableAction() + "\n.", Reporter.FAIL);
             }
         } catch (Exception e) {
-            report.report("verify MplsRD Disabled Table Action failed: " + mplsRDTableAction.getTableAction() + "\n." + parseExceptionBody(e),
+            BaseTestUtils.report("verify MplsRD Disabled Table Action failed: " + mplsRDTableAction.getTableAction() + "\n." + parseExceptionBody(e),
                     Reporter.FAIL);
         }
     }

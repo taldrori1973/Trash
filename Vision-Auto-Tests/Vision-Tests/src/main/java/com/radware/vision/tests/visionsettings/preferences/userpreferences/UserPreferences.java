@@ -15,7 +15,7 @@ public class UserPreferences extends VisionSettingsBase {
     @TestProperties(name = "User Password Settings", paramsInclude = {})
     public void clickUserPasswordSettings() {
         if(!clickMenu(subMenuOption, "userPasswordSettings")) {
-            report.report("Failed to click 'User Password Settings' menu option.");
+            BaseTestUtils.report("Failed to click 'User Password Settings' menu option.");
         }
     }
 
@@ -23,7 +23,7 @@ public class UserPreferences extends VisionSettingsBase {
     @TestProperties(name = "Display", paramsInclude = {})
     public void clickDisplay() {
         if(!clickMenu(subMenuOption, "languageAndDisplay")) {
-            report.report("Failed to click 'Display' menu option.");
+            BaseTestUtils.report("Failed to click 'Display' menu option.");
         }
     }
 }

@@ -34,10 +34,10 @@ public class RBACAlteonSecurityBaseTableActionTests extends RBACTestBase {
             testProperties.put("portProtectionTableAction", portProtectionTableAction.getTableAction().toString());
 
             if (!(RBACAlteonSecurityBaselTableActionHandler.verifyPortProtectionTableAction(testProperties))) {
-                report.report("The specified Table action is in an incorrect state: " + portProtectionTableAction.getTableAction() + "\n.", Reporter.FAIL);
+                BaseTestUtils.report("The specified Table action is in an incorrect state: " + portProtectionTableAction.getTableAction() + "\n.", Reporter.FAIL);
             }
         } catch (Exception e) {
-            report.report("verify PortProtection Disabled Table Action failed: " + portProtectionTableAction.getTableAction() + "\n." + parseExceptionBody(e),
+            BaseTestUtils.report("verify PortProtection Disabled Table Action failed: " + portProtectionTableAction.getTableAction() + "\n." + parseExceptionBody(e),
                     Reporter.FAIL);
         }
     }
@@ -50,10 +50,10 @@ public class RBACAlteonSecurityBaseTableActionTests extends RBACTestBase {
             testProperties.put("udpBlastTableAction", udpBlastTableAction.getTableAction().toString());
 
             if (!(RBACAlteonSecurityBaselTableActionHandler.verifyUDPBlastTableAction(testProperties))) {
-                report.report("The specified Table action is in an incorrect state: " + udpBlastTableAction.getTableAction() + "\n.", Reporter.FAIL);
+                BaseTestUtils.report("The specified Table action is in an incorrect state: " + udpBlastTableAction.getTableAction() + "\n.", Reporter.FAIL);
             }
         } catch (Exception e) {
-            report.report("verify UDPBlast Disabled Table Action failed: " + udpBlastTableAction.getTableAction() + "\n." + parseExceptionBody(e),
+            BaseTestUtils.report("verify UDPBlast Disabled Table Action failed: " + udpBlastTableAction.getTableAction() + "\n." + parseExceptionBody(e),
                     Reporter.FAIL);
         }
     }

@@ -494,7 +494,7 @@ public class BasicOperationsSteps extends BddUITestBase {
         try {
             List<Widget> widgets = basicOperationsByNameIdHandler.findWidgetByNameId(WebUIUtils.VISION_DEVICE_DRIVER_ID, WebWidgetType.Table, tableElement, FindByType.BY_NAME);
             if (widgets.isEmpty()) {
-                report.report("Failed to get Table for label: " + columnName + ", it may not be visible", Reporter.FAIL);
+                BaseTestUtils.report("Failed to get Table for label: " + columnName + ", it may not be visible", Reporter.FAIL);
             }
             for (Widget widget : widgets) {
                 if (widget == null || !widget.find(true, true) || !widget.getRawId().equals(tableElement)) {
@@ -521,7 +521,7 @@ public class BasicOperationsSteps extends BddUITestBase {
 
             }
         } catch (Exception e) {
-            report.report("Failed to get Table for label: " + columnName + " \n" + parseExceptionBody(e), Reporter.FAIL);
+            BaseTestUtils.report("Failed to get Table for label: " + columnName + " \n" + parseExceptionBody(e), Reporter.FAIL);
         }
     }
 

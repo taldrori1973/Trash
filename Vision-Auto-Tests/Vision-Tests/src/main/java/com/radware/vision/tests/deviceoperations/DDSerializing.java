@@ -27,7 +27,7 @@ public class DDSerializing extends WebUITestBase {
     @TestProperties(name = "DDSerializing", paramsInclude = {"deviceDriverIdList", "rootPath", "simultaneousXMLFilesOperation"})
     public void ddSerializing() {
         try {
-            report.report("DD files location and hierarchy example: " + "\\JSystem\\DeviceDrivers\\DefensePro-1.00.00-DD-1.00-24\\client");
+            BaseTestUtils.report("DD files location and hierarchy example: " + "\\JSystem\\DeviceDrivers\\DefensePro-1.00.00-DD-1.00-24\\client");
             SerializeDeviceDriver serializeDeviceDriver = new SerializeDeviceDriver();
             try {
                 serializeDeviceDriver.setSerializeThreadPoolSize(Integer.parseInt(getSimultaneousXMLFilesOperation()));
@@ -40,10 +40,10 @@ public class DDSerializing extends WebUITestBase {
                 }
 
                 serializeDeviceDriver.serializingDD(deviceDriverId, rootPath);
-                report.report("Finished Serializing DD  " + deviceDriverId, Reporter.PASS);
+                BaseTestUtils.report("Finished Serializing DD  " + deviceDriverId, Reporter.PASS);
             }
         } catch (IOException e) {
-            report.report(e.getMessage(), Reporter.FAIL);
+            BaseTestUtils.report(e.getMessage(), Reporter.FAIL);
         }
     }
 

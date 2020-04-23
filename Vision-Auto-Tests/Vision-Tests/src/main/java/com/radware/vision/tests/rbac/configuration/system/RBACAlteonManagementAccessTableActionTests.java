@@ -56,10 +56,10 @@ public class RBACAlteonManagementAccessTableActionTests extends RBACTestBase {
             testProperties.put("externalMonitoringTableAction", externalMonitoringTableAction.getTableAction().toString());
 
             if (!(RBACAlteonManagementAccessTableActionHandler.verifyExternalMonitoringTableAction(testProperties))) {
-                report.report("The specified Table action is in an incorrect state: " + externalMonitoringTableAction.getTableAction() + "\n.", Reporter.FAIL);
+                BaseTestUtils.report("The specified Table action is in an incorrect state: " + externalMonitoringTableAction.getTableAction() + "\n.", Reporter.FAIL);
             }
         } catch (Exception e) {
-            report.report("verify External Monitoring Disabled Table Action failed: " + externalMonitoringTableAction.getTableAction() + "\n." + parseExceptionBody(e),
+            BaseTestUtils.report("verify External Monitoring Disabled Table Action failed: " + externalMonitoringTableAction.getTableAction() + "\n." + parseExceptionBody(e),
                     Reporter.FAIL);
         }
     }
@@ -73,10 +73,10 @@ public class RBACAlteonManagementAccessTableActionTests extends RBACTestBase {
             testProperties.put("dataPortAccessActions", dataPortAccessActions.getTableAction().toString());
 
             if (!(RBACAlteonManagementAccessTableActionHandler.verifyDataPortAccessTableAction(testProperties))) {
-                report.report("The specified Table action is in an incorrect state: " + dataPortAccessActions.getTableAction() + "\n.", Reporter.FAIL);
+                BaseTestUtils.report("The specified Table action is in an incorrect state: " + dataPortAccessActions.getTableAction() + "\n.", Reporter.FAIL);
             }
         } catch (Exception e) {
-            report.report("verify Data Port Access Disabled Table Action failed: " + dataPortAccessActions.getTableAction() + "\n." + parseExceptionBody(e),
+            BaseTestUtils.report("verify Data Port Access Disabled Table Action failed: " + dataPortAccessActions.getTableAction() + "\n." + parseExceptionBody(e),
                     Reporter.FAIL);
         }
     }
@@ -90,10 +90,10 @@ public class RBACAlteonManagementAccessTableActionTests extends RBACTestBase {
             testProperties.put("managementNetwork", managementNetwork.getNetwork().toString());
 
             if (!(RBACAlteonManagementAccessTableActionHandler.verifyAllowedProtocolPerNetworkTableAction(testProperties))) {
-                report.report("The specified Table action is in an incorrect state: " + allowedProtocolPerNetworkActions.getTableAction() + "\n.", Reporter.FAIL);
+                BaseTestUtils.report("The specified Table action is in an incorrect state: " + allowedProtocolPerNetworkActions.getTableAction() + "\n.", Reporter.FAIL);
             }
         } catch (Exception e) {
-            report.report("verify AllowedProtocolPerNetwork Disabled Table Action failed: " + allowedProtocolPerNetworkActions.getTableAction() + "\n." + parseExceptionBody(e),
+            BaseTestUtils.report("verify AllowedProtocolPerNetwork Disabled Table Action failed: " + allowedProtocolPerNetworkActions.getTableAction() + "\n." + parseExceptionBody(e),
                     Reporter.FAIL);
         }
     }

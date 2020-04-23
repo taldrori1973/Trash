@@ -34,10 +34,10 @@ public class RBACAlteonUsersTableActionTests extends RBACTestBase {
             testProperties.put("localUsersTableAction", localUsersTableAction.getTableAction().toString());
 
             if (!(RBACAlteonUsersTableActionHandler.verifyLocalUsersTableAction(testProperties))) {
-                report.report("The specified Table action is in an incorrect state: " + localUsersTableAction.getTableAction() + "\n.", Reporter.FAIL);
+                BaseTestUtils.report("The specified Table action is in an incorrect state: " + localUsersTableAction.getTableAction() + "\n.", Reporter.FAIL);
             }
         } catch (Exception e) {
-            report.report("verify Local Users Disabled Table Action failed: " + localUsersTableAction.getTableAction() + "\n." + parseExceptionBody(e),
+            BaseTestUtils.report("verify Local Users Disabled Table Action failed: " + localUsersTableAction.getTableAction() + "\n." + parseExceptionBody(e),
                     Reporter.FAIL);
         }
     }

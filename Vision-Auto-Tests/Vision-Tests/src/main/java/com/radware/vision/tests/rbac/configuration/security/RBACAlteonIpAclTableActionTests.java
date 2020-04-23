@@ -33,10 +33,10 @@ public class RBACAlteonIpAclTableActionTests extends RBACTestBase {
             testProperties.put("blockedSourceAddressesTableAction", blockedSourceAddressesTableAction.getTableAction().toString());
 
             if (!(RBACAlteonIpAclTableActionHandler.verifyBlockedSourceAddressesTableAction(testProperties))) {
-                report.report("The specified Table action is in an incorrect state: " + blockedSourceAddressesTableAction.getTableAction() + "\n.", Reporter.FAIL);
+                BaseTestUtils.report("The specified Table action is in an incorrect state: " + blockedSourceAddressesTableAction.getTableAction() + "\n.", Reporter.FAIL);
             }
         } catch (Exception e) {
-            report.report("verify BlockedSourceAddresses Disabled Table Action failed: " + blockedSourceAddressesTableAction.getTableAction() + "\n." + parseExceptionBody(e),
+            BaseTestUtils.report("verify BlockedSourceAddresses Disabled Table Action failed: " + blockedSourceAddressesTableAction.getTableAction() + "\n." + parseExceptionBody(e),
                     Reporter.FAIL);
         }
     }
@@ -49,10 +49,10 @@ public class RBACAlteonIpAclTableActionTests extends RBACTestBase {
             testProperties.put("blockedDestinationAddressesTableAction", blockedDestinationAddressesTableAction.getTableAction().toString());
 
             if (!(RBACAlteonIpAclTableActionHandler.verifyBlockedDestinationAddressesTableAction(testProperties))) {
-                report.report("The specified Table action is in an incorrect state: " + blockedDestinationAddressesTableAction.getTableAction() + "\n.", Reporter.FAIL);
+                BaseTestUtils.report("The specified Table action is in an incorrect state: " + blockedDestinationAddressesTableAction.getTableAction() + "\n.", Reporter.FAIL);
             }
         } catch (Exception e) {
-            report.report("verify BlockedDestinationAddresses Disabled Table Action failed: " + blockedDestinationAddressesTableAction.getTableAction() + "\n." + parseExceptionBody(e),
+            BaseTestUtils.report("verify BlockedDestinationAddresses Disabled Table Action failed: " + blockedDestinationAddressesTableAction.getTableAction() + "\n." + parseExceptionBody(e),
                     Reporter.FAIL);
         }
     }

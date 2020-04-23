@@ -37,10 +37,10 @@ public class RBACDefenseProClassesBaseTableActionTests extends RBACTestBase {
             testProperties.put("networksTableAction", networksTableAction.getTableAction().toString());
 
             if (!(RBACDefenseProClassesBaseTableActionHandler.verifyNetworksTableAction(testProperties))) {
-                report.report("The specified Table action is in an incorrect state: " + networksTableAction.getTableAction() + "\n.", Reporter.FAIL);
+                BaseTestUtils.report("The specified Table action is in an incorrect state: " + networksTableAction.getTableAction() + "\n.", Reporter.FAIL);
             }
         } catch (Exception e) {
-            report.report("verify Networks Disabled Table Action failed: " + networksTableAction.getTableAction() + "\n." + parseExceptionBody(e),
+            BaseTestUtils.report("verify Networks Disabled Table Action failed: " + networksTableAction.getTableAction() + "\n." + parseExceptionBody(e),
                     Reporter.FAIL);
         }
     }
@@ -53,10 +53,10 @@ public class RBACDefenseProClassesBaseTableActionTests extends RBACTestBase {
             testProperties.put("physicalPortsTableAction", physicalPortsTableAction.getTableAction().toString());
 
             if (!(RBACDefenseProClassesBaseTableActionHandler.verifyPhysicalPortsTableAction(testProperties))) {
-                report.report("The specified Table action is in an incorrect state: " + physicalPortsTableAction.getTableAction() + "\n.", Reporter.FAIL);
+                BaseTestUtils.report("The specified Table action is in an incorrect state: " + physicalPortsTableAction.getTableAction() + "\n.", Reporter.FAIL);
             }
         } catch (Exception e) {
-            report.report("verify PhysicalPorts Disabled Table Action failed: " + physicalPortsTableAction.getTableAction() + "\n." + parseExceptionBody(e),
+            BaseTestUtils.report("verify PhysicalPorts Disabled Table Action failed: " + physicalPortsTableAction.getTableAction() + "\n." + parseExceptionBody(e),
                     Reporter.FAIL);
         }
     }
@@ -69,10 +69,10 @@ public class RBACDefenseProClassesBaseTableActionTests extends RBACTestBase {
             testProperties.put("vlanTagsTableAction", vlanTagsTableAction.getTableAction().toString());
 
             if (!(RBACDefenseProClassesBaseTableActionHandler.verifyVLANTagsTableAction(testProperties))) {
-                report.report("The specified Table action is in an incorrect state: " + vlanTagsTableAction.getTableAction() + "\n.", Reporter.FAIL);
+                BaseTestUtils.report("The specified Table action is in an incorrect state: " + vlanTagsTableAction.getTableAction() + "\n.", Reporter.FAIL);
             }
         } catch (Exception e) {
-            report.report("verify VLANTags Disabled Table Action failed: " + vlanTagsTableAction.getTableAction() + "\n." + parseExceptionBody(e),
+            BaseTestUtils.report("verify VLANTags Disabled Table Action failed: " + vlanTagsTableAction.getTableAction() + "\n." + parseExceptionBody(e),
                     Reporter.FAIL);
         }
     }
@@ -85,10 +85,10 @@ public class RBACDefenseProClassesBaseTableActionTests extends RBACTestBase {
             testProperties.put("applicationsTableAction", applicationsTableAction.getTableAction().toString());
 
             if (!(RBACDefenseProClassesBaseTableActionHandler.verifyApplicationsTableAction(testProperties))) {
-                report.report("The specified Table action is in an incorrect state: " + applicationsTableAction.getTableAction() + "\n.", Reporter.FAIL);
+                BaseTestUtils.report("The specified Table action is in an incorrect state: " + applicationsTableAction.getTableAction() + "\n.", Reporter.FAIL);
             }
         } catch (Exception e) {
-            report.report("verify Applications Disabled Table Action failed: " + applicationsTableAction.getTableAction() + "\n." + parseExceptionBody(e),
+            BaseTestUtils.report("verify Applications Disabled Table Action failed: " + applicationsTableAction.getTableAction() + "\n." + parseExceptionBody(e),
                     Reporter.FAIL);
         }
     }
@@ -101,10 +101,10 @@ public class RBACDefenseProClassesBaseTableActionTests extends RBACTestBase {
             testProperties.put("macAddressesTableAction", macAddressesTableAction.getTableAction().toString());
 
             if (!(RBACDefenseProClassesBaseTableActionHandler.verifyMACAddressesTableAction(testProperties))) {
-                report.report("The specified Table action is in an incorrect state: " + macAddressesTableAction.getTableAction() + "\n.", Reporter.FAIL);
+                BaseTestUtils.report("The specified Table action is in an incorrect state: " + macAddressesTableAction.getTableAction() + "\n.", Reporter.FAIL);
             }
         } catch (Exception e) {
-            report.report("verify MACAddresses Disabled Table Action failed: " + macAddressesTableAction.getTableAction() + "\n." + parseExceptionBody(e),
+            BaseTestUtils.report("verify MACAddresses Disabled Table Action failed: " + macAddressesTableAction.getTableAction() + "\n." + parseExceptionBody(e),
                     Reporter.FAIL);
         }
     }

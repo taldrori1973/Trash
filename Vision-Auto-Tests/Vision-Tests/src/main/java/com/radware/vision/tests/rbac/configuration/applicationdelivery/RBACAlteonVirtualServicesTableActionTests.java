@@ -43,10 +43,10 @@ public class RBACAlteonVirtualServicesTableActionTests extends RBACTestBase {
             testProperties.put("realServersTableAction", realServersTableAction.getTableAction().toString());
 
             if (!(RBACAlteonVirtualServicesTableActionHandler.verifyRealServersTableAction(testProperties))) {
-                report.report("The specified Table action is in an incorrect state: " + realServersTableAction.getTableAction() + "\n.", Reporter.FAIL);
+                BaseTestUtils.report("The specified Table action is in an incorrect state: " + realServersTableAction.getTableAction() + "\n.", Reporter.FAIL);
             }
         } catch (Exception e) {
-            report.report("verify RealServers Disabled Table Action failed: " + realServersTableAction.getTableAction() + "\n." + parseExceptionBody(e),
+            BaseTestUtils.report("verify RealServers Disabled Table Action failed: " + realServersTableAction.getTableAction() + "\n." + parseExceptionBody(e),
                     Reporter.FAIL);
         }
     }
@@ -59,10 +59,10 @@ public class RBACAlteonVirtualServicesTableActionTests extends RBACTestBase {
             testProperties.put("serverGroupsTableAction", serverGroupsTableAction.getTableAction().toString());
 
             if (!(RBACAlteonVirtualServicesTableActionHandler.verifyServerGroupsTableAction(testProperties))) {
-                report.report("The specified Table action is in an incorrect state: " + serverGroupsTableAction.getTableAction() + "\n.", Reporter.FAIL);
+                BaseTestUtils.report("The specified Table action is in an incorrect state: " + serverGroupsTableAction.getTableAction() + "\n.", Reporter.FAIL);
             }
         } catch (Exception e) {
-            report.report("verify ServerGroups Disabled Table Action failed: " + serverGroupsTableAction.getTableAction() + "\n." + parseExceptionBody(e),
+            BaseTestUtils.report("verify ServerGroups Disabled Table Action failed: " + serverGroupsTableAction.getTableAction() + "\n." + parseExceptionBody(e),
                     Reporter.FAIL);
         }
     }
@@ -75,10 +75,10 @@ public class RBACAlteonVirtualServicesTableActionTests extends RBACTestBase {
             testProperties.put("virtualServersTableAction", virtualServersTableAction.getTableAction().toString());
 
             if (!(RBACAlteonVirtualServicesTableActionHandler.verifyVirtualServersTableAction(testProperties))) {
-                report.report("The specified Table action is in an incorrect state: " + virtualServersTableAction.getTableAction() + "\n.", Reporter.FAIL);
+                BaseTestUtils.report("The specified Table action is in an incorrect state: " + virtualServersTableAction.getTableAction() + "\n.", Reporter.FAIL);
             }
         } catch (Exception e) {
-            report.report("verify VirtualServers Disabled Table Action failed: " + virtualServersTableAction.getTableAction() + "\n." + parseExceptionBody(e),
+            BaseTestUtils.report("verify VirtualServers Disabled Table Action failed: " + virtualServersTableAction.getTableAction() + "\n." + parseExceptionBody(e),
                     Reporter.FAIL);
         }
     }
@@ -91,10 +91,10 @@ public class RBACAlteonVirtualServicesTableActionTests extends RBACTestBase {
             testProperties.put("virtualServicesOfSelectedVirtualServerTableAction", virtualServicesOfSelectedVirtualServerTableAction.getTableAction().toString());
 
             if (!(RBACAlteonVirtualServicesTableActionHandler.verifyVirtualServicesOfSelectedVirtualServerTableAction(testProperties))) {
-                report.report("The specified Table action is in an incorrect state: " + virtualServicesOfSelectedVirtualServerTableAction.getTableAction() + "\n.", Reporter.FAIL);
+                BaseTestUtils.report("The specified Table action is in an incorrect state: " + virtualServicesOfSelectedVirtualServerTableAction.getTableAction() + "\n.", Reporter.FAIL);
             }
         } catch (Exception e) {
-            report.report("verify VirtualServicesOfSelectedVirtualServer Disabled Table Action failed: " + virtualServicesOfSelectedVirtualServerTableAction.getTableAction() + "\n." + parseExceptionBody(e),
+            BaseTestUtils.report("verify VirtualServicesOfSelectedVirtualServer Disabled Table Action failed: " + virtualServicesOfSelectedVirtualServerTableAction.getTableAction() + "\n." + parseExceptionBody(e),
                     Reporter.FAIL);
         }
     }
@@ -107,10 +107,10 @@ public class RBACAlteonVirtualServicesTableActionTests extends RBACTestBase {
             testProperties.put("contentBasedRulesOfSelectedVirtualServiceTableAction", contentBasedRulesOfSelectedVirtualServiceTableAction.getTableAction().toString());
 
             if (!(RBACAlteonVirtualServicesTableActionHandler.verifyContentBasedRulesOfSelectedVirtualServiceTableAction(testProperties))) {
-                report.report("The specified Table action is in an incorrect state: " + contentBasedRulesOfSelectedVirtualServiceTableAction.getTableAction() + "\n.", Reporter.FAIL);
+                BaseTestUtils.report("The specified Table action is in an incorrect state: " + contentBasedRulesOfSelectedVirtualServiceTableAction.getTableAction() + "\n.", Reporter.FAIL);
             }
         } catch (Exception e) {
-            report.report("verify ContentBasedRulesOfSelectedVirtualService Disabled Table Action failed: " + contentBasedRulesOfSelectedVirtualServiceTableAction.getTableAction() + "\n." + parseExceptionBody(e),
+            BaseTestUtils.report("verify ContentBasedRulesOfSelectedVirtualService Disabled Table Action failed: " + contentBasedRulesOfSelectedVirtualServiceTableAction.getTableAction() + "\n." + parseExceptionBody(e),
                     Reporter.FAIL);
         }
     }
@@ -124,10 +124,10 @@ public class RBACAlteonVirtualServicesTableActionTests extends RBACTestBase {
             testProperties.put("contentClassesTableAction", contentClassesTableAction.getTableAction().toString());
 
             if (!(RBACAlteonVirtualServicesTableActionHandler.verifyContentClassesTableAction(testProperties))) {
-                report.report("The specified Table action is in an incorrect state: " + contentClassesTableAction.getTableAction() + "\n.", Reporter.FAIL);
+                BaseTestUtils.report("The specified Table action is in an incorrect state: " + contentClassesTableAction.getTableAction() + "\n.", Reporter.FAIL);
             }
         } catch (Exception e) {
-            report.report("verify ContentClasses Disabled Table Action failed: " + contentClassesTableAction.getTableAction() + "\n." + parseExceptionBody(e),
+            BaseTestUtils.report("verify ContentClasses Disabled Table Action failed: " + contentClassesTableAction.getTableAction() + "\n." + parseExceptionBody(e),
                     Reporter.FAIL);
         }
     }
@@ -140,10 +140,10 @@ public class RBACAlteonVirtualServicesTableActionTests extends RBACTestBase {
             testProperties.put("httpMethodsTableAction", httpMethodsTableAction.getTableAction().toString());
 
             if (!(RBACAlteonVirtualServicesTableActionHandler.verifyHTTPMethodsTableAction(testProperties))) {
-                report.report("The specified Table action is in an incorrect state: " + httpMethodsTableAction.getTableAction() + "\n.", Reporter.FAIL);
+                BaseTestUtils.report("The specified Table action is in an incorrect state: " + httpMethodsTableAction.getTableAction() + "\n.", Reporter.FAIL);
             }
         } catch (Exception e) {
-            report.report("verify HTTPMethods Disabled Table Action failed: " + httpMethodsTableAction.getTableAction() + "\n." + parseExceptionBody(e),
+            BaseTestUtils.report("verify HTTPMethods Disabled Table Action failed: " + httpMethodsTableAction.getTableAction() + "\n." + parseExceptionBody(e),
                     Reporter.FAIL);
         }
     }
@@ -156,10 +156,10 @@ public class RBACAlteonVirtualServicesTableActionTests extends RBACTestBase {
             testProperties.put("healthCheckTableAction", healthCheckTableAction.getTableAction().toString());
 
             if (!(RBACAlteonVirtualServicesTableActionHandler.verifyHealthCheckTableAction(testProperties))) {
-                report.report("The specified Table action is in an incorrect state: " + healthCheckTableAction.getTableAction() + "\n.", Reporter.FAIL);
+                BaseTestUtils.report("The specified Table action is in an incorrect state: " + healthCheckTableAction.getTableAction() + "\n.", Reporter.FAIL);
             }
         } catch (Exception e) {
-            report.report("verify HealthCheck Disabled Table Action failed: " + healthCheckTableAction.getTableAction() + "\n." + parseExceptionBody(e),
+            BaseTestUtils.report("verify HealthCheck Disabled Table Action failed: " + healthCheckTableAction.getTableAction() + "\n." + parseExceptionBody(e),
                     Reporter.FAIL);
         }
     }
@@ -172,10 +172,10 @@ public class RBACAlteonVirtualServicesTableActionTests extends RBACTestBase {
             testProperties.put("appShapeTableAction", appShapeTableAction.getTableAction().toString());
 
             if (!(RBACAlteonVirtualServicesTableActionHandler.verifyAppShapeTableAction(testProperties))) {
-                report.report("The specified Table action is in an incorrect state: " + appShapeTableAction.getTableAction() + "\n.", Reporter.FAIL);
+                BaseTestUtils.report("The specified Table action is in an incorrect state: " + appShapeTableAction.getTableAction() + "\n.", Reporter.FAIL);
             }
         } catch (Exception e) {
-            report.report("verify AppShape Disabled Table Action failed: " + appShapeTableAction.getTableAction() + "\n." + parseExceptionBody(e),
+            BaseTestUtils.report("verify AppShape Disabled Table Action failed: " + appShapeTableAction.getTableAction() + "\n." + parseExceptionBody(e),
                     Reporter.FAIL);
         }
     }

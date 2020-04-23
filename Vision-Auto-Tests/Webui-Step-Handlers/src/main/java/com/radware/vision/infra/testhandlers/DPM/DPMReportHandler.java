@@ -42,7 +42,7 @@ public class DPMReportHandler extends VRMReportsHandler {
     }
 
 //    protected void validateVRMBase(RootServerCli rootServerCli, String reportName, Map<String, String> map) {
-//        super.validateGeneratedReport(reportName,map);
+//        super.validateGeneratedBaseTestUtils.reportName,map);
 //    }
 //
 

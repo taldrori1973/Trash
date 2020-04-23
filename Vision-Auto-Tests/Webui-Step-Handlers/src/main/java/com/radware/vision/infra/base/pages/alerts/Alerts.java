@@ -24,8 +24,6 @@ import org.openqa.selenium.support.How;
 
 import java.util.*;
 
-import static junit.framework.SystemTestCase.report;
-
 public class Alerts extends WebUIVisionBasePage {
     public static String TimeAndDateFormat = "dd.MM.yyyy HH:mm:ss";
     public final String[] ALERT_FIELDS = new String[]{"Date And Time", "Ack", "Message"};
@@ -413,7 +411,7 @@ public class Alerts extends WebUIVisionBasePage {
             } while (value == null && count++ < 5);
             alert.put(field, value);
         }
-        report.report("Alert:", alert.toString(), Reporter.PASS);
+        BaseTestUtils.report("Alert:", alert.toString(), Reporter.PASS);
         return alert;
     }
 

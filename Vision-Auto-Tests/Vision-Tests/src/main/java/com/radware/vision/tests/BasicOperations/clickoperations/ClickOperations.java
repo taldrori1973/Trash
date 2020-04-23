@@ -10,9 +10,9 @@ import com.radware.automation.webui.widgets.impl.WebUIDropdown;
 import com.radware.automation.webui.widgets.impl.WebUIDualList;
 import com.radware.automation.webui.widgets.impl.WebUIRadioGroup;
 import com.radware.automation.webui.widgets.impl.table.WebUITable;
+import com.radware.vision.automation.AutoUtils.Operators.OperatorsEnum;
 import com.radware.vision.base.WebUITestBase;
 import com.radware.vision.infra.enums.DualListSides;
-import com.radware.vision.automation.AutoUtils.Operators.OperatorsEnum;
 import com.radware.vision.infra.enums.FindByType;
 import com.radware.vision.infra.enums.WebElementType;
 import com.radware.vision.infra.testhandlers.baseoperations.clickoperations.ClickOperationsHandler;
@@ -96,7 +96,7 @@ public class ClickOperations extends WebUITestBase {
                 dropdown.selectOptionByIndex(dropdownItemIndex - 1);
             }
         } catch (Exception e) {
-            report.report("Failed to select item: " + dropdownOptionText + " from element: " + elementId, Reporter.FAIL);
+            BaseTestUtils.report("Failed to select item: " + dropdownOptionText + " from element: " + elementId, Reporter.FAIL);
         }
     }
 
@@ -111,7 +111,7 @@ public class ClickOperations extends WebUITestBase {
                 element.click();
             }
         } catch (Exception e) {
-            report.report("Failed to find item by text: " + elementText, Reporter.FAIL);
+            BaseTestUtils.report("Failed to find item by text: " + elementText, Reporter.FAIL);
         }
     }
 
@@ -131,7 +131,7 @@ public class ClickOperations extends WebUITestBase {
                 }
             }
         } catch (Exception e) {
-            report.report("Failed to set the CheckBox selection: " + elementId, Reporter.FAIL);
+            BaseTestUtils.report("Failed to set the CheckBox selection: " + elementId, Reporter.FAIL);
         }
     }
 
@@ -155,11 +155,11 @@ public class ClickOperations extends WebUITestBase {
                 if (radioGroupOptions.contains(radioGroupItemText)) {
                     radio.selectOption(radioGroupItemText);
                 } else {
-                    report.report("Failed to set Radio button : " + radioGroupItemText + " you have provided is out of range " + elementId + "\n", Reporter.FAIL);
+                    BaseTestUtils.report("Failed to set Radio button : " + radioGroupItemText + " you have provided is out of range " + elementId + "\n", Reporter.FAIL);
                 }
             }
         } catch (Exception e) {
-            report.report("Failed to set Radio button : " + radioGroupItemText + " from element: " + elementId + "\n" + parseExceptionBody(e), Reporter.FAIL);
+            BaseTestUtils.report("Failed to set Radio button : " + radioGroupItemText + " from element: " + elementId + "\n" + parseExceptionBody(e), Reporter.FAIL);
         }
     }
 
@@ -173,7 +173,7 @@ public class ClickOperations extends WebUITestBase {
             table.analyzeTable("div");
             table.clickOnRow(rowNumberToSelect - 1);
         } catch (Exception e) {
-            report.report("Failed to find item by text: " + elementText, Reporter.FAIL);
+            BaseTestUtils.report("Failed to find item by text: " + elementText, Reporter.FAIL);
         } finally {
             WebUIUtils.setIsTriggerPopupSearchEvent(true);
         }
@@ -205,7 +205,7 @@ public class ClickOperations extends WebUITestBase {
             }
 
         } catch (Exception e) {
-            report.report("Failed to find item by text: " + elementText, Reporter.FAIL);
+            BaseTestUtils.report("Failed to find item by text: " + elementText, Reporter.FAIL);
         }
     }
 

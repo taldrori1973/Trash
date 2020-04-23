@@ -1,10 +1,10 @@
 package com.radware.vision.tests.GeneralOperations.UpperToolbar;
 
+import com.radware.automation.tools.basetest.Reporter;
 import com.radware.vision.base.WebUITestBase;
 import com.radware.vision.infra.base.pages.navigation.WebUIUpperBar;
 import com.radware.vision.infra.enums.UpperBarItems;
 import jsystem.framework.TestProperties;
-import com.radware.automation.tools.basetest.Reporter;
 import org.junit.Test;
 
 /**
@@ -34,10 +34,10 @@ public class UpperBarOperations extends WebUITestBase {
                 else
                     WebUIUpperBar.unSelect(upperBarItems);
             } else {
-                report.report("Failed to click on the specified button : " + upperBarItems.toString(), Reporter.FAIL);
+                BaseTestUtils.report("Failed to click on the specified button : " + upperBarItems.toString(), Reporter.FAIL);
             }
         } catch (Exception e) {
-            report.report("Failed to click on the specified button : " + upperBarItems.toString(), Reporter.FAIL);
+            BaseTestUtils.report("Failed to click on the specified button : " + upperBarItems.toString(), Reporter.FAIL);
         }
     }
 

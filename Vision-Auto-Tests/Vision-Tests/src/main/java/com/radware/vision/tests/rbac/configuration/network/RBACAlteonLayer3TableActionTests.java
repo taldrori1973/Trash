@@ -56,10 +56,10 @@ public class RBACAlteonLayer3TableActionTests extends RBACTestBase {
             testProperties.put("ipInterfacesTableAction", ipInterfacesTableAction.getTableAction().toString());
 
             if (!(RBACAlteonLayer3TableActionHandler.verifyIPInterfacesTableAction(testProperties))) {
-                report.report("The specified Table action is in an incorrect state: " + ipInterfacesTableAction.getTableAction() + "\n.", Reporter.FAIL);
+                BaseTestUtils.report("The specified Table action is in an incorrect state: " + ipInterfacesTableAction.getTableAction() + "\n.", Reporter.FAIL);
             }
         } catch (Exception e) {
-            report.report("verify IPInterfaces Disabled Table Action failed: " + ipInterfacesTableAction.getTableAction() + "\n." + parseExceptionBody(e),
+            BaseTestUtils.report("verify IPInterfaces Disabled Table Action failed: " + ipInterfacesTableAction.getTableAction() + "\n." + parseExceptionBody(e),
                     Reporter.FAIL);
         }
     }
@@ -72,10 +72,10 @@ public class RBACAlteonLayer3TableActionTests extends RBACTestBase {
             testProperties.put("gatewaysTableAction", gatewaysTableAction.getTableAction().toString());
 
             if (!(RBACAlteonLayer3TableActionHandler.verifyGatewaysTableAction(testProperties))) {
-                report.report("The specified Table action is in an incorrect state: " + gatewaysTableAction.getTableAction() + "\n.", Reporter.FAIL);
+                BaseTestUtils.report("The specified Table action is in an incorrect state: " + gatewaysTableAction.getTableAction() + "\n.", Reporter.FAIL);
             }
         } catch (Exception e) {
-            report.report("verify Gateways Disabled Table Action failed: " + gatewaysTableAction.getTableAction() + "\n." + parseExceptionBody(e),
+            BaseTestUtils.report("verify Gateways Disabled Table Action failed: " + gatewaysTableAction.getTableAction() + "\n." + parseExceptionBody(e),
                     Reporter.FAIL);
         }
     }
@@ -89,10 +89,10 @@ public class RBACAlteonLayer3TableActionTests extends RBACTestBase {
             testProperties.put("managementNetwork", managementNetwork.getNetwork().toString());
 
             if (!(RBACAlteonLayer3TableActionHandler.verifyStaticRoutesTableAction(testProperties))) {
-                report.report("The specified Table action is in an incorrect state: " + staticRoutesTableAction.getTableAction() + "\n.", Reporter.FAIL);
+                BaseTestUtils.report("The specified Table action is in an incorrect state: " + staticRoutesTableAction.getTableAction() + "\n.", Reporter.FAIL);
             }
         } catch (Exception e) {
-            report.report("verify StaticRoutes Disabled Table Action failed: " + staticRoutesTableAction.getTableAction() + "\n." + parseExceptionBody(e),
+            BaseTestUtils.report("verify StaticRoutes Disabled Table Action failed: " + staticRoutesTableAction.getTableAction() + "\n." + parseExceptionBody(e),
                     Reporter.FAIL);
         }
     }
@@ -105,10 +105,10 @@ public class RBACAlteonLayer3TableActionTests extends RBACTestBase {
             testProperties.put("peersTableAction", peersTableAction.getTableAction().toString());
 
             if (!(RBACAlteonLayer3TableActionHandler.verifyPeersTableAction(testProperties))) {
-                report.report("The specified Table action is in an incorrect state: " + peersTableAction.getTableAction() + "\n.", Reporter.FAIL);
+                BaseTestUtils.report("The specified Table action is in an incorrect state: " + peersTableAction.getTableAction() + "\n.", Reporter.FAIL);
             }
         } catch (Exception e) {
-            report.report("verify Peers Disabled Table Action failed: " + peersTableAction.getTableAction() + "\n." + parseExceptionBody(e),
+            BaseTestUtils.report("verify Peers Disabled Table Action failed: " + peersTableAction.getTableAction() + "\n." + parseExceptionBody(e),
                     Reporter.FAIL);
         }
     }
@@ -121,10 +121,10 @@ public class RBACAlteonLayer3TableActionTests extends RBACTestBase {
             testProperties.put("aggregationsTableAction", aggregationsTableAction.getTableAction().toString());
 
             if (!(RBACAlteonLayer3TableActionHandler.verifyAggregationsTableAction(testProperties))) {
-                report.report("The specified Table action is in an incorrect state: " + aggregationsTableAction.getTableAction() + "\n.", Reporter.FAIL);
+                BaseTestUtils.report("The specified Table action is in an incorrect state: " + aggregationsTableAction.getTableAction() + "\n.", Reporter.FAIL);
             }
         } catch (Exception e) {
-            report.report("verify Aggregations Disabled Table Action failed: " + aggregationsTableAction.getTableAction() + "\n." + parseExceptionBody(e),
+            BaseTestUtils.report("verify Aggregations Disabled Table Action failed: " + aggregationsTableAction.getTableAction() + "\n." + parseExceptionBody(e),
                     Reporter.FAIL);
         }
     }
@@ -138,10 +138,10 @@ public class RBACAlteonLayer3TableActionTests extends RBACTestBase {
             testProperties.put("ospfAreasTableAction", ospfAreasTableAction.getTableAction().toString());
 
             if (!(RBACAlteonLayer3TableActionHandler.verifyOSPFAreasTableAction(testProperties))) {
-                report.report("The specified Table action is in an incorrect state: " + ospfAreasTableAction.getTableAction() + "\n.", Reporter.FAIL);
+                BaseTestUtils.report("The specified Table action is in an incorrect state: " + ospfAreasTableAction.getTableAction() + "\n.", Reporter.FAIL);
             }
         } catch (Exception e) {
-            report.report("verify OSPFAreas Disabled Table Action failed: " + ospfAreasTableAction.getTableAction() + "\n." + parseExceptionBody(e),
+            BaseTestUtils.report("verify OSPFAreas Disabled Table Action failed: " + ospfAreasTableAction.getTableAction() + "\n." + parseExceptionBody(e),
                     Reporter.FAIL);
         }
     }
@@ -154,10 +154,10 @@ public class RBACAlteonLayer3TableActionTests extends RBACTestBase {
             testProperties.put("ospfInterfacesTableAction", ospfInterfacesTableAction.getTableAction().toString());
 
             if (!(RBACAlteonLayer3TableActionHandler.verifyOSPFInterfacesTableAction(testProperties))) {
-                report.report("The specified Table action is in an incorrect state: " + ospfInterfacesTableAction.getTableAction() + "\n.", Reporter.FAIL);
+                BaseTestUtils.report("The specified Table action is in an incorrect state: " + ospfInterfacesTableAction.getTableAction() + "\n.", Reporter.FAIL);
             }
         } catch (Exception e) {
-            report.report("verify OSPFInterfaces Disabled Table Action failed: " + ospfInterfacesTableAction.getTableAction() + "\n." + parseExceptionBody(e),
+            BaseTestUtils.report("verify OSPFInterfaces Disabled Table Action failed: " + ospfInterfacesTableAction.getTableAction() + "\n." + parseExceptionBody(e),
                     Reporter.FAIL);
         }
     }
@@ -170,10 +170,10 @@ public class RBACAlteonLayer3TableActionTests extends RBACTestBase {
             testProperties.put("ospfHostsTableAction", ospfHostsTableAction.getTableAction().toString());
 
             if (!(RBACAlteonLayer3TableActionHandler.verifyOSPFHostsTableAction(testProperties))) {
-                report.report("The specified Table action is in an incorrect state: " + ospfHostsTableAction.getTableAction() + "\n.", Reporter.FAIL);
+                BaseTestUtils.report("The specified Table action is in an incorrect state: " + ospfHostsTableAction.getTableAction() + "\n.", Reporter.FAIL);
             }
         } catch (Exception e) {
-            report.report("verify OSPFHosts Disabled Table Action failed: " + ospfHostsTableAction.getTableAction() + "\n." + parseExceptionBody(e),
+            BaseTestUtils.report("verify OSPFHosts Disabled Table Action failed: " + ospfHostsTableAction.getTableAction() + "\n." + parseExceptionBody(e),
                     Reporter.FAIL);
         }
     }
@@ -186,10 +186,10 @@ public class RBACAlteonLayer3TableActionTests extends RBACTestBase {
             testProperties.put("ospfVirtualLinksTableAction", ospfVirtualLinksTableAction.getTableAction().toString());
 
             if (!(RBACAlteonLayer3TableActionHandler.verifyOSPFVirtualLinksTableAction(testProperties))) {
-                report.report("The specified Table action is in an incorrect state: " + ospfVirtualLinksTableAction.getTableAction() + "\n.", Reporter.FAIL);
+                BaseTestUtils.report("The specified Table action is in an incorrect state: " + ospfVirtualLinksTableAction.getTableAction() + "\n.", Reporter.FAIL);
             }
         } catch (Exception e) {
-            report.report("verify OSPFVirtualLinks Disabled Table Action failed: " + ospfVirtualLinksTableAction.getTableAction() + "\n." + parseExceptionBody(e),
+            BaseTestUtils.report("verify OSPFVirtualLinks Disabled Table Action failed: " + ospfVirtualLinksTableAction.getTableAction() + "\n." + parseExceptionBody(e),
                     Reporter.FAIL);
         }
     }
@@ -202,10 +202,10 @@ public class RBACAlteonLayer3TableActionTests extends RBACTestBase {
             testProperties.put("ospfSummaryRangesTableAction", ospfSummaryRangesTableAction.getTableAction().toString());
 
             if (!(RBACAlteonLayer3TableActionHandler.verifyOSPFSummeryRangesTableAction(testProperties))) {
-                report.report("The specified Table action is in an incorrect state: " + ospfSummaryRangesTableAction.getTableAction() + "\n.", Reporter.FAIL);
+                BaseTestUtils.report("The specified Table action is in an incorrect state: " + ospfSummaryRangesTableAction.getTableAction() + "\n.", Reporter.FAIL);
             }
         } catch (Exception e) {
-            report.report("verify OSPFSummaryRanges Disabled Table Action failed: " + ospfSummaryRangesTableAction.getTableAction() + "\n." + parseExceptionBody(e),
+            BaseTestUtils.report("verify OSPFSummaryRanges Disabled Table Action failed: " + ospfSummaryRangesTableAction.getTableAction() + "\n." + parseExceptionBody(e),
                     Reporter.FAIL);
         }
     }
@@ -218,10 +218,10 @@ public class RBACAlteonLayer3TableActionTests extends RBACTestBase {
             testProperties.put("ospfMD5KeyTableAction", ospfMD5KeyTableAction.getTableAction().toString());
 
             if (!(RBACAlteonLayer3TableActionHandler.verifyOSPFMD5KeyTableAction(testProperties))) {
-                report.report("The specified Table action is in an incorrect state: " + ospfMD5KeyTableAction.getTableAction() + "\n.", Reporter.FAIL);
+                BaseTestUtils.report("The specified Table action is in an incorrect state: " + ospfMD5KeyTableAction.getTableAction() + "\n.", Reporter.FAIL);
             }
         } catch (Exception e) {
-            report.report("verify OSPFMD5Key Disabled Table Action failed: " + ospfMD5KeyTableAction.getTableAction() + "\n." + parseExceptionBody(e),
+            BaseTestUtils.report("verify OSPFMD5Key Disabled Table Action failed: " + ospfMD5KeyTableAction.getTableAction() + "\n." + parseExceptionBody(e),
                     Reporter.FAIL);
         }
     }
@@ -236,10 +236,10 @@ public class RBACAlteonLayer3TableActionTests extends RBACTestBase {
             testProperties.put("ospfV3AreasTableAction", ospfV3AreasTableAction.getTableAction());
 
             if (!(RBACAlteonLayer3TableActionHandler.verifyOSPFV3AreasTableAction(testProperties))) {
-                report.report("The specified Table action is in an incorrect state: " + ospfV3AreasTableAction.getTableAction() + "\n.", Reporter.FAIL);
+                BaseTestUtils.report("The specified Table action is in an incorrect state: " + ospfV3AreasTableAction.getTableAction() + "\n.", Reporter.FAIL);
             }
         } catch (Exception e) {
-            report.report("verify OSPFv3Areas Disabled Table Action failed: " + ospfV3AreasTableAction.getTableAction() + "\n." + parseExceptionBody(e),
+            BaseTestUtils.report("verify OSPFv3Areas Disabled Table Action failed: " + ospfV3AreasTableAction.getTableAction() + "\n." + parseExceptionBody(e),
                     Reporter.FAIL);
         }
     }
@@ -252,10 +252,10 @@ public class RBACAlteonLayer3TableActionTests extends RBACTestBase {
             testProperties.put("ospfV3InterfacesTableAction", ospfV3InterfacesTableAction.getTableAction().toString());
 
             if (!(RBACAlteonLayer3TableActionHandler.verifyOSPFV3InterfacesTableAction(testProperties))) {
-                report.report("The specified Table action is in an incorrect state: " + ospfV3InterfacesTableAction.getTableAction() + "\n.", Reporter.FAIL);
+                BaseTestUtils.report("The specified Table action is in an incorrect state: " + ospfV3InterfacesTableAction.getTableAction() + "\n.", Reporter.FAIL);
             }
         } catch (Exception e) {
-            report.report("verify OSPFv3Interfaces Disabled Table Action failed: " + ospfV3InterfacesTableAction.getTableAction() + "\n." + parseExceptionBody(e),
+            BaseTestUtils.report("verify OSPFv3Interfaces Disabled Table Action failed: " + ospfV3InterfacesTableAction.getTableAction() + "\n." + parseExceptionBody(e),
                     Reporter.FAIL);
         }
     }
@@ -268,10 +268,10 @@ public class RBACAlteonLayer3TableActionTests extends RBACTestBase {
             testProperties.put("ospfV3HostsTableAction", ospfV3HostsTableAction.getTableAction().toString());
 
             if (!(RBACAlteonLayer3TableActionHandler.verifyOSPFV3HostsTableAction(testProperties))) {
-                report.report("The specified Table action is in an incorrect state: " + ospfV3HostsTableAction.getTableAction() + "\n.", Reporter.FAIL);
+                BaseTestUtils.report("The specified Table action is in an incorrect state: " + ospfV3HostsTableAction.getTableAction() + "\n.", Reporter.FAIL);
             }
         } catch (Exception e) {
-            report.report("verify OSPFv3Hosts Disabled Table Action failed: " + ospfV3HostsTableAction.getTableAction() + "\n." + parseExceptionBody(e),
+            BaseTestUtils.report("verify OSPFv3Hosts Disabled Table Action failed: " + ospfV3HostsTableAction.getTableAction() + "\n." + parseExceptionBody(e),
                     Reporter.FAIL);
         }
     }
@@ -284,10 +284,10 @@ public class RBACAlteonLayer3TableActionTests extends RBACTestBase {
             testProperties.put("ospfV3VirtualLinksTableAction", ospfV3VirtualLinksTableAction.getTableAction().toString());
 
             if (!(RBACAlteonLayer3TableActionHandler.verifyOSPFV3VirtualLinksTableAction(testProperties))) {
-                report.report("The specified Table action is in an incorrect state: " + ospfV3VirtualLinksTableAction.getTableAction() + "\n.", Reporter.FAIL);
+                BaseTestUtils.report("The specified Table action is in an incorrect state: " + ospfV3VirtualLinksTableAction.getTableAction() + "\n.", Reporter.FAIL);
             }
         } catch (Exception e) {
-            report.report("verify OSPFv3VirtualLinks Disabled Table Action failed: " + ospfV3VirtualLinksTableAction.getTableAction() + "\n." + parseExceptionBody(e),
+            BaseTestUtils.report("verify OSPFv3VirtualLinks Disabled Table Action failed: " + ospfV3VirtualLinksTableAction.getTableAction() + "\n." + parseExceptionBody(e),
                     Reporter.FAIL);
         }
     }
@@ -300,10 +300,10 @@ public class RBACAlteonLayer3TableActionTests extends RBACTestBase {
             testProperties.put("ospfV3SummaryRangesTableAction", ospfV3SummaryRangesTableAction.getTableAction().toString());
 
             if (!(RBACAlteonLayer3TableActionHandler.verifyOSPFV3SummeryRangesTableAction(testProperties))) {
-                report.report("The specified Table action is in an incorrect state: " + ospfV3SummaryRangesTableAction.getTableAction() + "\n.", Reporter.FAIL);
+                BaseTestUtils.report("The specified Table action is in an incorrect state: " + ospfV3SummaryRangesTableAction.getTableAction() + "\n.", Reporter.FAIL);
             }
         } catch (Exception e) {
-            report.report("verify OSPFSv3ummaryRanges Disabled Table Action failed: " + ospfV3SummaryRangesTableAction.getTableAction() + "\n." + parseExceptionBody(e),
+            BaseTestUtils.report("verify OSPFSv3ummaryRanges Disabled Table Action failed: " + ospfV3SummaryRangesTableAction.getTableAction() + "\n." + parseExceptionBody(e),
                     Reporter.FAIL);
         }
     }
@@ -317,10 +317,10 @@ public class RBACAlteonLayer3TableActionTests extends RBACTestBase {
             testProperties.put("ripInterfacesTableAction", ripInterfacesTableAction.getTableAction().toString());
 
             if (!(RBACAlteonLayer3TableActionHandler.verifyRIPInterfacesTableAction(testProperties))) {
-                report.report("The specified Table action is in an incorrect state: " + ripInterfacesTableAction.getTableAction() + "\n.", Reporter.FAIL);
+                BaseTestUtils.report("The specified Table action is in an incorrect state: " + ripInterfacesTableAction.getTableAction() + "\n.", Reporter.FAIL);
             }
         } catch (Exception e) {
-            report.report("verify RIPInterfaces Disabled Table Action failed: " + ripInterfacesTableAction.getTableAction() + "\n." + parseExceptionBody(e),
+            BaseTestUtils.report("verify RIPInterfaces Disabled Table Action failed: " + ripInterfacesTableAction.getTableAction() + "\n." + parseExceptionBody(e),
                     Reporter.FAIL);
         }
     }
@@ -333,10 +333,10 @@ public class RBACAlteonLayer3TableActionTests extends RBACTestBase {
             testProperties.put("networkFiltersTableAction", networkFiltersTableAction.getTableAction().toString());
 
             if (!(RBACAlteonLayer3TableActionHandler.verifyNetworkFiltersTableAction(testProperties))) {
-                report.report("The specified Table action is in an incorrect state: " + networkFiltersTableAction.getTableAction() + "\n.", Reporter.FAIL);
+                BaseTestUtils.report("The specified Table action is in an incorrect state: " + networkFiltersTableAction.getTableAction() + "\n.", Reporter.FAIL);
             }
         } catch (Exception e) {
-            report.report("verify NetworkFilters Disabled Table Action failed: " + networkFiltersTableAction.getTableAction() + "\n." + parseExceptionBody(e),
+            BaseTestUtils.report("verify NetworkFilters Disabled Table Action failed: " + networkFiltersTableAction.getTableAction() + "\n." + parseExceptionBody(e),
                     Reporter.FAIL);
         }
     }
@@ -349,10 +349,10 @@ public class RBACAlteonLayer3TableActionTests extends RBACTestBase {
             testProperties.put("routeMapsTableAction", routeMapsTableAction.getTableAction().toString());
 
             if (!(RBACAlteonLayer3TableActionHandler.verifyRouteMapsTableAction(testProperties))) {
-                report.report("The specified Table action is in an incorrect state: " + routeMapsTableAction.getTableAction() + "\n.", Reporter.FAIL);
+                BaseTestUtils.report("The specified Table action is in an incorrect state: " + routeMapsTableAction.getTableAction() + "\n.", Reporter.FAIL);
             }
         } catch (Exception e) {
-            report.report("verify RouteMaps Disabled Table Action failed: " + routeMapsTableAction.getTableAction() + "\n." + parseExceptionBody(e),
+            BaseTestUtils.report("verify RouteMaps Disabled Table Action failed: " + routeMapsTableAction.getTableAction() + "\n." + parseExceptionBody(e),
                     Reporter.FAIL);
         }
     }
@@ -365,10 +365,10 @@ public class RBACAlteonLayer3TableActionTests extends RBACTestBase {
             testProperties.put("staticARPTableAction", staticARPTableAction.getTableAction().toString());
 
             if (!(RBACAlteonLayer3TableActionHandler.verifyStaticARPTableAction(testProperties))) {
-                report.report("The specified Table action is in an incorrect state: " + staticARPTableAction.getTableAction() + "\n.", Reporter.FAIL);
+                BaseTestUtils.report("The specified Table action is in an incorrect state: " + staticARPTableAction.getTableAction() + "\n.", Reporter.FAIL);
             }
         } catch (Exception e) {
-            report.report("verify StaticARP Disabled Table Action failed: " + staticARPTableAction.getTableAction() + "\n." + parseExceptionBody(e),
+            BaseTestUtils.report("verify StaticARP Disabled Table Action failed: " + staticARPTableAction.getTableAction() + "\n." + parseExceptionBody(e),
                     Reporter.FAIL);
         }
     }

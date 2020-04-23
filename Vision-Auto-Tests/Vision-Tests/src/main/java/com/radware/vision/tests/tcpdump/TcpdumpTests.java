@@ -1,12 +1,12 @@
 package com.radware.vision.tests.tcpdump;
 
+import com.radware.automation.tools.basetest.Reporter;
 import com.radware.automation.tools.utils.StringUtils;
 import com.radware.restcore.utils.enums.HttpMethodEnum;
 import com.radware.vision.base.WebUITestBase;
 import com.radware.vision.infra.utils.tcpdump.TcpdumpUtils;
 import jsystem.framework.ParameterProperties;
 import jsystem.framework.TestProperties;
-import com.radware.automation.tools.basetest.Reporter;
 import org.junit.Test;
 /**
  * Created by AviH on 11/04/2016.
@@ -31,7 +31,7 @@ public class TcpdumpTests extends WebUITestBase {
         try {
             TcpdumpUtils.runTcpdumpInterval(tcpdumpCommand, timeInterval, timeIntervalThreshold, getRestTestBase().getRootServerCli());
         } catch (Exception e) {
-            report.report("Tcpdump interval validation: " + parseExceptionBody(e), Reporter.FAIL);
+            BaseTestUtils.report("Tcpdump interval validation: " + parseExceptionBody(e), Reporter.FAIL);
         }
     }
 
@@ -41,7 +41,7 @@ public class TcpdumpTests extends WebUITestBase {
         try {
             TcpdumpUtils.validateTcpdumpVisionDeviceEventsInterval(basicTcpDumpTimeout.concat(tcpDumpDelayedCommand), timeInterval, timeIntervalThreshold, getRestTestBase().getRootServerCli(), getVisionRestClient(), deviceIp, requestType, urlBasic, body);
         } catch (Exception e) {
-            report.report("Tcpdump interval validation: " + parseExceptionBody(e), Reporter.FAIL);
+            BaseTestUtils.report("Tcpdump interval validation: " + parseExceptionBody(e), Reporter.FAIL);
         }
     }
 
@@ -51,7 +51,7 @@ public class TcpdumpTests extends WebUITestBase {
         try {
             TcpdumpUtils.validateTcpdumpVisionDeviceEventsCount(basicTcpDumpTimeout.concat(tcpDumpDelayedCommand), getRestTestBase().getRootServerCli(), getVisionRestClient(), deviceIp, requestType, urlBasic, body, expectedValues, expectedTextCount);
         } catch (Exception e) {
-            report.report("Tcpdump interval validation: " + parseExceptionBody(e), Reporter.FAIL);
+            BaseTestUtils.report("Tcpdump interval validation: " + parseExceptionBody(e), Reporter.FAIL);
         }
     }
 
@@ -61,7 +61,7 @@ public class TcpdumpTests extends WebUITestBase {
         try {
             TcpdumpUtils.runTcpdumpValues(tcpdumpCommand, expectedValues.split(","), getRestTestBase().getRootServerCli());
         } catch (Exception e) {
-            report.report("Tcpdump values validation: " + parseExceptionBody(e), Reporter.FAIL);
+            BaseTestUtils.report("Tcpdump values validation: " + parseExceptionBody(e), Reporter.FAIL);
         }
     }
 
@@ -71,7 +71,7 @@ public class TcpdumpTests extends WebUITestBase {
         try {
             TcpdumpUtils.validateVisionDeviceEvent(basicTcpDumpTimeout.concat(tcpDumpDelayedCommand), expectedValues.split(","), getRestTestBase().getRootServerCli(), getRestTestBase().getVisionRestClient(), deviceIp, requestType, urlBasic, body);
         } catch (Exception e) {
-            report.report("Tcpdump values validation: " + parseExceptionBody(e), Reporter.FAIL);
+            BaseTestUtils.report("Tcpdump values validation: " + parseExceptionBody(e), Reporter.FAIL);
         }
     }
 

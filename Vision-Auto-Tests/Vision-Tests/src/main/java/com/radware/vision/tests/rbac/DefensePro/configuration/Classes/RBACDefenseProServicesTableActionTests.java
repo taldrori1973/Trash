@@ -37,10 +37,10 @@ public class RBACDefenseProServicesTableActionTests extends RBACTestBase {
             testProperties.put("basicFiltersTableAction", basicFiltersTableAction.getTableAction().toString());
 
             if (!(RBACDefenseProServicesTableActionHandler.verifyBasicFiltersTableAction(testProperties))) {
-                report.report("The specified Table action is in an incorrect state: " + basicFiltersTableAction.getTableAction() + "\n.", Reporter.FAIL);
+                BaseTestUtils.report("The specified Table action is in an incorrect state: " + basicFiltersTableAction.getTableAction() + "\n.", Reporter.FAIL);
             }
         } catch (Exception e) {
-            report.report("verify BasicFilters Disabled Table Action failed: " + basicFiltersTableAction.getTableAction() + "\n." + parseExceptionBody(e),
+            BaseTestUtils.report("verify BasicFilters Disabled Table Action failed: " + basicFiltersTableAction.getTableAction() + "\n." + parseExceptionBody(e),
                     Reporter.FAIL);
         }
     }
@@ -53,10 +53,10 @@ public class RBACDefenseProServicesTableActionTests extends RBACTestBase {
             testProperties.put("orGroupsTableAction", orGroupsTableAction.getTableAction().toString());
 
             if (!(RBACDefenseProServicesTableActionHandler.verifyORGroupsTableAction(testProperties))) {
-                report.report("The specified Table action is in an incorrect state: " + orGroupsTableAction.getTableAction() + "\n.", Reporter.FAIL);
+                BaseTestUtils.report("The specified Table action is in an incorrect state: " + orGroupsTableAction.getTableAction() + "\n.", Reporter.FAIL);
             }
         } catch (Exception e) {
-            report.report("verify ORGroups Disabled Table Action failed: " + orGroupsTableAction.getTableAction() + "\n." + parseExceptionBody(e),
+            BaseTestUtils.report("verify ORGroups Disabled Table Action failed: " + orGroupsTableAction.getTableAction() + "\n." + parseExceptionBody(e),
                     Reporter.FAIL);
         }
     }
@@ -69,10 +69,10 @@ public class RBACDefenseProServicesTableActionTests extends RBACTestBase {
             testProperties.put("andGroupsTableAction", andGroupsTableAction.getTableAction().toString());
 
             if (!(RBACDefenseProServicesTableActionHandler.verifyANDGroupsTableAction(testProperties))) {
-                report.report("The specified Table action is in an incorrect state: " + andGroupsTableAction.getTableAction() + "\n.", Reporter.FAIL);
+                BaseTestUtils.report("The specified Table action is in an incorrect state: " + andGroupsTableAction.getTableAction() + "\n.", Reporter.FAIL);
             }
         } catch (Exception e) {
-            report.report("verify ANDGroups Disabled Table Action failed: " + andGroupsTableAction.getTableAction() + "\n." + parseExceptionBody(e),
+            BaseTestUtils.report("verify ANDGroups Disabled Table Action failed: " + andGroupsTableAction.getTableAction() + "\n." + parseExceptionBody(e),
                     Reporter.FAIL);
         }
     }

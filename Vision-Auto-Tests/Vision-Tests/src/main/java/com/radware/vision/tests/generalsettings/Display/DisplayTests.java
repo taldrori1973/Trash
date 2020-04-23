@@ -21,7 +21,7 @@ public class DisplayTests extends WebUITestBase {
         try {
             DisplayHandler.updateLanguage(language);
         } catch (Exception e) {
-            report.report("Set language operation may have been executed incorrectly :" + parseExceptionBody(e), Reporter.FAIL);
+            BaseTestUtils.report("Set language operation may have been executed incorrectly :" + parseExceptionBody(e), Reporter.FAIL);
         }
     }
 
@@ -32,26 +32,26 @@ public class DisplayTests extends WebUITestBase {
             String message = "";
             DisplayHandler.updateTimeFormat(timeFormat);
             if (DisplayHandler.getTimeFormat().equals(timeFormat.getFormat())) {
-                report.report("Drop down selected value have been set to " + timeFormat);
+                BaseTestUtils.report("Drop down selected value have been set to " + timeFormat);
             } else {
                 message = "drop down value did not changed\n";
             }
             if (BasicOperationsHandler.getVisionClientTime().matches(timeFormat.getPatternOfTimeFormat())) {
-                report.report("time format changed to the new " + timeFormat);
+                BaseTestUtils.report("time format changed to the new " + timeFormat);
 
             } else {
                 message += "date format did not changed";
             }
 
             if (message.isEmpty()) {
-                report.report("Test succeeded", Reporter.PASS);
+                BaseTestUtils.report("Test succeeded", Reporter.PASS);
             } else {
                 throw new Exception(message);
             }
             BasicOperationsHandler.getVisionClientTime();
 
         } catch (Exception e) {
-            report.report("Set time format operation may have been executed incorrectly :" + parseExceptionBody(e), Reporter.FAIL);
+            BaseTestUtils.report("Set time format operation may have been executed incorrectly :" + parseExceptionBody(e), Reporter.FAIL);
         }
 
     }

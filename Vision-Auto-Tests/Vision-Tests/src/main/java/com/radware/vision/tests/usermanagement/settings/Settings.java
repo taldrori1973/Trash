@@ -28,7 +28,7 @@ public class Settings extends WebUITestBase {
                     isUsersMustChangePasswordAtFirstLogin());
 			SettingsHandler.fillSettings(userMgmtSettingsEntry);
 		} catch (Exception e) {
-			report.report("Failed to update user settings." + e.getMessage() + "\n" + e.getCause(), Reporter.FAIL);
+			BaseTestUtils.report("Failed to update user settings." + e.getMessage() + "\n" + e.getCause(), Reporter.FAIL);
 		}
 	}
 	
@@ -42,11 +42,11 @@ public class Settings extends WebUITestBase {
                     isUsersMustChangePasswordAtFirstLogin());
 			UserMgmtSettingsEntryHandler retrievedUserMgmtSettings = SettingsHandler.getUserMgmtSettings();
 			if(!(retrievedUserMgmtSettings.equals(userMgmtSettingsEntry))) {
-				report.report("User management Settings were not updated correctly.\n" + "Expected: " + userMgmtSettingsEntry.toString() + "\nActual: " + retrievedUserMgmtSettings.toString(), Reporter.FAIL);
+				BaseTestUtils.report("User management Settings were not updated correctly.\n" + "Expected: " + userMgmtSettingsEntry.toString() + "\nActual: " + retrievedUserMgmtSettings.toString(), Reporter.FAIL);
 			}
 			
 		} catch (Exception e) {
-			report.report("Verification of User Settings failed." + e.getMessage() + "\n" + e.getCause(), Reporter.FAIL);
+			BaseTestUtils.report("Verification of User Settings failed." + e.getMessage() + "\n" + e.getCause(), Reporter.FAIL);
 		}
 	}
 	

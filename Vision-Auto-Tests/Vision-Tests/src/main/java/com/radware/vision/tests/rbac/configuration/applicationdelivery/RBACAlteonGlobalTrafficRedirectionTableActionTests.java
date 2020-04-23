@@ -39,10 +39,10 @@ public class RBACAlteonGlobalTrafficRedirectionTableActionTests extends RBACTest
             testProperties.put("remoteSitesTableAction", remoteSitesTableAction.getTableAction().toString());
 
             if (!(RBACAlteonGlobalTrafficRedirectionTableActionHandler.verifyRemoteSitesTableAction(testProperties))) {
-                report.report("The specified Table action is in an incorrect state: " + remoteSitesTableAction.getTableAction() + "\n.", Reporter.FAIL);
+                BaseTestUtils.report("The specified Table action is in an incorrect state: " + remoteSitesTableAction.getTableAction() + "\n.", Reporter.FAIL);
             }
         } catch (Exception e) {
-            report.report("verify RemoteSites Disabled Table Action failed: " + remoteSitesTableAction.getTableAction() + "\n." + parseExceptionBody(e),
+            BaseTestUtils.report("verify RemoteSites Disabled Table Action failed: " + remoteSitesTableAction.getTableAction() + "\n." + parseExceptionBody(e),
                     Reporter.FAIL);
         }
     }
@@ -55,10 +55,10 @@ public class RBACAlteonGlobalTrafficRedirectionTableActionTests extends RBACTest
             testProperties.put("siteSelectionRulesTableAction", siteSelectionRulesTableAction.getTableAction().toString());
 
             if (!(RBACAlteonGlobalTrafficRedirectionTableActionHandler.verifySiteSelectionRulesTableAction(testProperties))) {
-                report.report("The specified Table action is in an incorrect state: " + siteSelectionRulesTableAction.getTableAction() + "\n.", Reporter.FAIL);
+                BaseTestUtils.report("The specified Table action is in an incorrect state: " + siteSelectionRulesTableAction.getTableAction() + "\n.", Reporter.FAIL);
             }
         } catch (Exception e) {
-            report.report("verify SiteSelectionRules Disabled Table Action failed: " + siteSelectionRulesTableAction.getTableAction() + "\n." + parseExceptionBody(e),
+            BaseTestUtils.report("verify SiteSelectionRules Disabled Table Action failed: " + siteSelectionRulesTableAction.getTableAction() + "\n." + parseExceptionBody(e),
                     Reporter.FAIL);
         }
     }
@@ -71,10 +71,10 @@ public class RBACAlteonGlobalTrafficRedirectionTableActionTests extends RBACTest
             testProperties.put("networksTableAction", networksTableAction.getTableAction().toString());
 
             if (!(RBACAlteonGlobalTrafficRedirectionTableActionHandler.verifyNetworksTableAction(testProperties))) {
-                report.report("The specified Table action is in an incorrect state: " + networksTableAction.getTableAction() + "\n.", Reporter.FAIL);
+                BaseTestUtils.report("The specified Table action is in an incorrect state: " + networksTableAction.getTableAction() + "\n.", Reporter.FAIL);
             }
         } catch (Exception e) {
-            report.report("verify Networks Disabled Table Action failed: " + networksTableAction.getTableAction() + "\n." + parseExceptionBody(e),
+            BaseTestUtils.report("verify Networks Disabled Table Action failed: " + networksTableAction.getTableAction() + "\n." + parseExceptionBody(e),
                     Reporter.FAIL);
         }
     }
@@ -87,10 +87,10 @@ public class RBACAlteonGlobalTrafficRedirectionTableActionTests extends RBACTest
             testProperties.put("dnsSECTableAction", dnsSECTableAction.getTableAction().toString());
 
             if (!(RBACAlteonGlobalTrafficRedirectionTableActionHandler.verifyDNSSECTableAction(testProperties))) {
-                report.report("The specified Table action is in an incorrect state: " + dnsSECTableAction.getTableAction() + "\n.", Reporter.FAIL);
+                BaseTestUtils.report("The specified Table action is in an incorrect state: " + dnsSECTableAction.getTableAction() + "\n.", Reporter.FAIL);
             }
         } catch (Exception e) {
-            report.report("verify DNSSEC Disabled Table Action failed: " + dnsSECTableAction.getTableAction() + "\n." + parseExceptionBody(e),
+            BaseTestUtils.report("verify DNSSEC Disabled Table Action failed: " + dnsSECTableAction.getTableAction() + "\n." + parseExceptionBody(e),
                     Reporter.FAIL);
         }
     }
@@ -103,10 +103,10 @@ public class RBACAlteonGlobalTrafficRedirectionTableActionTests extends RBACTest
             testProperties.put("keyRepositoryTableAction", keyRepositoryTableAction.getTableAction().toString());
 
             if (!(RBACAlteonGlobalTrafficRedirectionTableActionHandler.verifyKeyRepositoryTableAction(testProperties))) {
-                report.report("The specified Table action is in an incorrect state: " + keyRepositoryTableAction.getTableAction() + "\n.", Reporter.FAIL);
+                BaseTestUtils.report("The specified Table action is in an incorrect state: " + keyRepositoryTableAction.getTableAction() + "\n.", Reporter.FAIL);
             }
         } catch (Exception e) {
-            report.report("verify RemoteSites Disabled Table Action failed: " + keyRepositoryTableAction.getTableAction() + "\n." + parseExceptionBody(e),
+            BaseTestUtils.report("verify RemoteSites Disabled Table Action failed: " + keyRepositoryTableAction.getTableAction() + "\n." + parseExceptionBody(e),
                     Reporter.FAIL);
         }
     }
@@ -119,10 +119,10 @@ public class RBACAlteonGlobalTrafficRedirectionTableActionTests extends RBACTest
             testProperties.put("zoneToKeyAssociationTableAction", zoneToKeyAssociationTableAction.getTableAction().toString());
 
             if (!(RBACAlteonGlobalTrafficRedirectionTableActionHandler.verifyZoneToKeyAssociationTableAction(testProperties))) {
-                report.report("The specified Table action is in an incorrect state: " + zoneToKeyAssociationTableAction.getTableAction() + "\n.", Reporter.FAIL);
+                BaseTestUtils.report("The specified Table action is in an incorrect state: " + zoneToKeyAssociationTableAction.getTableAction() + "\n.", Reporter.FAIL);
             }
         } catch (Exception e) {
-            report.report("verify ZoneToKeyAssociation Disabled Table Action failed: " + zoneToKeyAssociationTableAction.getTableAction() + "\n." + parseExceptionBody(e),
+            BaseTestUtils.report("verify ZoneToKeyAssociation Disabled Table Action failed: " + zoneToKeyAssociationTableAction.getTableAction() + "\n." + parseExceptionBody(e),
                     Reporter.FAIL);
         }
     }

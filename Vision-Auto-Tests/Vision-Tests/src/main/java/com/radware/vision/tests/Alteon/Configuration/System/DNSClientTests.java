@@ -1,5 +1,6 @@
 package com.radware.vision.tests.Alteon.Configuration.System;
 
+import com.radware.automation.tools.basetest.Reporter;
 import com.radware.automation.webui.webpages.GeneralEnums;
 import com.radware.vision.infra.testhandlers.alteon.configuration.system.DNSClientHandler;
 import com.radware.vision.infra.testhandlers.rbac.enums.BaseTableActions;
@@ -7,7 +8,6 @@ import com.radware.vision.infra.testhandlers.rbac.enums.EditTableActions;
 import com.radware.vision.infra.testhandlers.rbac.enums.ManagementNetworks;
 import com.radware.vision.tests.Alteon.AlteonTestBase;
 import jsystem.framework.TestProperties;
-import com.radware.automation.tools.basetest.Reporter;
 import org.junit.Test;
 
 import java.io.IOException;
@@ -40,7 +40,7 @@ public class DNSClientTests extends AlteonTestBase {
             testProperties.put("defaultDomainName",defaultDomainName);
             DNSClientHandler.setDNSClientSettings(testProperties);
         } catch (Exception e) {
-            report.report(parseExceptionBody(e), Reporter.FAIL);
+            BaseTestUtils.report(parseExceptionBody(e), Reporter.FAIL);
         }
 
     }

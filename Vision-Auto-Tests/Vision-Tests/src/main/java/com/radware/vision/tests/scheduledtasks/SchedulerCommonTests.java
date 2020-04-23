@@ -18,12 +18,12 @@ public class SchedulerCommonTests extends ScheduledTasksTestBase {
         try {
             columnName = "Name";
             if (BaseTasksHandler.validateTaskCreation(columnName, taskName)) {
-                report.report("Task appear in the Scheduler task table", Reporter.PASS);
+                BaseTestUtils.report("Task appear in the Scheduler task table", Reporter.PASS);
             } else {
-                report.report("Task not appear in the Scheduler task table", Reporter.FAIL);
+                BaseTestUtils.report("Task not appear in the Scheduler task table", Reporter.FAIL);
             }
         } catch (Exception e) {
-            report.report(parseExceptionBody(e), Reporter.FAIL);
+            BaseTestUtils.report(parseExceptionBody(e), Reporter.FAIL);
         }
     }
 
@@ -34,7 +34,7 @@ public class SchedulerCommonTests extends ScheduledTasksTestBase {
             columnName = "Name";
             BaseTasksHandler.deleteBaseTask(columnName, taskName);
         } catch (Exception e) {
-            report.report("Failed to create task: " + taskName + parseExceptionBody(e), Reporter.FAIL);
+            BaseTestUtils.report("Failed to create task: " + taskName + parseExceptionBody(e), Reporter.FAIL);
         }
     }
 
@@ -44,7 +44,7 @@ public class SchedulerCommonTests extends ScheduledTasksTestBase {
         try {
             BaseTasksHandler.deleteAllTasks(taskRowsToDelete);
         } catch (Exception e) {
-            report.report("Failed to create task: " + taskName + parseExceptionBody(e), Reporter.FAIL);
+            BaseTestUtils.report("Failed to create task: " + taskName + parseExceptionBody(e), Reporter.FAIL);
         }
     }
 
@@ -54,7 +54,7 @@ public class SchedulerCommonTests extends ScheduledTasksTestBase {
         try {
             DeviceBackupsHandler.deleteDeviceBackups();
         } catch (Exception e) {
-            report.report("Failed to delete all devices backups: " + parseExceptionBody(e), Reporter.FAIL);
+            BaseTestUtils.report("Failed to delete all devices backups: " + parseExceptionBody(e), Reporter.FAIL);
         }
     }
 

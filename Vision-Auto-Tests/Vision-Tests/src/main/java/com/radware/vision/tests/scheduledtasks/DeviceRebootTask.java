@@ -32,7 +32,7 @@ public class DeviceRebootTask extends ScheduledTasksTestBase {
             taskPorperties.put("groupDestinations", groupDestinations);
             DeviceRebootTaskHandler.addTask(taskPorperties);
         } catch (Exception e) {
-            report.report("Failed to create task: " + taskName + parseExceptionBody(e), Reporter.FAIL);
+            BaseTestUtils.report("Failed to create task: " + taskName + parseExceptionBody(e), Reporter.FAIL);
         }
     }
 
@@ -51,7 +51,7 @@ public class DeviceRebootTask extends ScheduledTasksTestBase {
 
             DeviceRebootTaskHandler.editTask(taskPorperties);
         } catch (Exception e) {
-            report.report("Failed to edit task: " + taskName + parseExceptionBody(e), Reporter.FAIL);
+            BaseTestUtils.report("Failed to edit task: " + taskName + parseExceptionBody(e), Reporter.FAIL);
         }
     }
 

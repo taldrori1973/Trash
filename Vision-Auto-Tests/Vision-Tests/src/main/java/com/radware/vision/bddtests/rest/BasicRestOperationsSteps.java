@@ -227,10 +227,10 @@ public class BasicRestOperationsSteps extends BddRestTestBase {
             expectedValue = expectedValue == null ? "" : expectedValue;
             retrievedParamValue = BasicParametersHandler.getBasicParameterByKey(getVisionRestClient(), BasicParametersKeys.getBasicParametersKeysEnum(paramToRetrieve));
             if (!expectedValue.equals("") && !expectedValue.equals(getRetrievedParamValue())) {
-                TestBase.report.report("The retrievedParamValue: " + paramToRetrieve + " " + " is not as expected." + expectedValue, Reporter.FAIL);
+                TestBase.BaseTestUtils.report("The retrievedParamValue: " + paramToRetrieve + " " + " is not as expected." + expectedValue, Reporter.FAIL);
             }
         } catch (Exception e) {
-            TestBase.report.report("GET following basicParameter: " + paramToRetrieve + " " + " request may not have been executed properly.", parseExceptionBody(e), Reporter.FAIL);
+            TestBase.BaseTestUtils.report("GET following basicParameter: " + paramToRetrieve + " " + " request may not have been executed properly.", parseExceptionBody(e), Reporter.FAIL);
         }
     }
 
@@ -244,10 +244,10 @@ public class BasicRestOperationsSteps extends BddRestTestBase {
             expectedValue = expectedValue == null ? "" : expectedValue;
             retrievedParamValue = ConnectivityHandler.getConnectivityParameterByKey(getVisionRestClient(), ConnectivityKeys.getConnectivityKeysEnum(paramToRetrieve));
             if (!expectedValue.equals("") && !expectedValue.equals(retrievedParamValue)) {
-                TestBase.report.report("The retrievedParam: " + paramToRetrieve + " " + " is not as expected." + expectedValue + ", the retrievedParamValue is: " + retrievedParamValue, Reporter.FAIL);
+                TestBase.BaseTestUtils.report("The retrievedParam: " + paramToRetrieve + " " + " is not as expected." + expectedValue + ", the retrievedParamValue is: " + retrievedParamValue, Reporter.FAIL);
             }
         } catch (Exception e) {
-            TestBase.report.report("GET following connectivity parameter: " + paramToRetrieve + " " + " request may not have been executed properly.", parseExceptionBody(e), Reporter.FAIL);
+            TestBase.BaseTestUtils.report("GET following connectivity parameter: " + paramToRetrieve + " " + " request may not have been executed properly.", parseExceptionBody(e), Reporter.FAIL);
         }
     }
 
@@ -261,10 +261,10 @@ public class BasicRestOperationsSteps extends BddRestTestBase {
             expectedValue = expectedValue == null ? "" : expectedValue;
             retrievedParamValue = MonitoringHandler.getMonitoringByKey(getVisionRestClient(), MonitoringKeys.getMonitoringKeysEnum(paramToRetrieve));
             if (!expectedValue.equals("") && !expectedValue.equals(retrievedParamValue)) {
-                TestBase.report.report("The retrievedParam: " + paramToRetrieve + " " + " is not as expected." + expectedValue + ", the retrievedParamValue is: " + retrievedParamValue, Reporter.FAIL);
+                TestBase.BaseTestUtils.report("The retrievedParam: " + paramToRetrieve + " " + " is not as expected." + expectedValue + ", the retrievedParamValue is: " + retrievedParamValue, Reporter.FAIL);
             }
         } catch (Exception e) {
-            TestBase.report.report("GET following Monitoring parameter: " + paramToRetrieve + " " + " request may not have been executed properly.", parseExceptionBody(e), Reporter.FAIL);
+            TestBase.BaseTestUtils.report("GET following Monitoring parameter: " + paramToRetrieve + " " + " request may not have been executed properly.", parseExceptionBody(e), Reporter.FAIL);
         }
     }
 
@@ -278,10 +278,10 @@ public class BasicRestOperationsSteps extends BddRestTestBase {
             expectedValue = expectedValue == null ? "" : expectedValue;
             retrievedParamValue = APSoluteVisionReporterHandler.getAPSoluteVisionReporterByKey(getVisionRestClient(), APSoluteVisionReporterKeys.getAPSoluteVisionReporterKeysEnum(paramToRetrieve));
             if (!expectedValue.equals("") && !expectedValue.equals(retrievedParamValue)) {
-                TestBase.report.report("The retrievedParam: " + paramToRetrieve + " " + " is not as expected." + expectedValue + ", the retrievedParamValue is: " + retrievedParamValue, Reporter.FAIL);
+                TestBase.BaseTestUtils.report("The retrievedParam: " + paramToRetrieve + " " + " is not as expected." + expectedValue + ", the retrievedParamValue is: " + retrievedParamValue, Reporter.FAIL);
             }
         } catch (Exception e) {
-            TestBase.report.report("GET following APSolute Vision Reporter parameter: " + paramToRetrieve + " " + " request may not have been executed properly.", parseExceptionBody(e), Reporter.FAIL);
+            TestBase.BaseTestUtils.report("GET following APSolute Vision Reporter parameter: " + paramToRetrieve + " " + " request may not have been executed properly.", parseExceptionBody(e), Reporter.FAIL);
         }
     }
 
@@ -294,10 +294,10 @@ public class BasicRestOperationsSteps extends BddRestTestBase {
         try {
             retrievedParamValue = AuthenticationProtocolsHandler.getRadiusSettingsByKey(getVisionRestClient(), RadiusSettingsKeys.getRadiusSettingsKeysEnum(paramToRetrieve));
             if (!expectedValue.equals("") && !expectedValue.equals(retrievedParamValue)) {
-                TestBase.report.report("The retrievedParamValue: " + retrievedParamValue + " " + " is not as expected." + expectedValue, Reporter.FAIL);
+                TestBase.BaseTestUtils.report("The retrievedParamValue: " + retrievedParamValue + " " + " is not as expected." + expectedValue, Reporter.FAIL);
             }
         } catch (Exception e) {
-            TestBase.report.report("GET following RadiusSettings: " + paramToRetrieve + " " + " request may not have been executed properly.", parseExceptionBody(e), Reporter.FAIL);
+            TestBase.BaseTestUtils.report("GET following RadiusSettings: " + paramToRetrieve + " " + " request may not have been executed properly.", parseExceptionBody(e), Reporter.FAIL);
         }
     }
 
@@ -310,10 +310,10 @@ public class BasicRestOperationsSteps extends BddRestTestBase {
         try {
             retrievedParamValue = UserManagementSettingsHandler.getUserManagementSettingsByKey(getVisionRestClient(), UserManagementSettingsKeys.getUserManagementSettingsKeysEnum(paramToRetrieve));
             if (!expectedValue.equals("") && !expectedValue.equals(retrievedParamValue)) {
-                TestBase.report.report("The retrievedParamValue: " + retrievedParamValue + " " + " is not as expected." + expectedValue, Reporter.FAIL);
+                TestBase.BaseTestUtils.report("The retrievedParamValue: " + retrievedParamValue + " " + " is not as expected." + expectedValue, Reporter.FAIL);
             }
         } catch (Exception e) {
-            TestBase.report.report("GET following Parameter: " + paramToRetrieve + " " + " request may not have been executed properly.", parseExceptionBody(e), Reporter.FAIL);
+            TestBase.BaseTestUtils.report("GET following Parameter: " + paramToRetrieve + " " + " request may not have been executed properly.", parseExceptionBody(e), Reporter.FAIL);
         }
     }
 
@@ -326,10 +326,10 @@ public class BasicRestOperationsSteps extends BddRestTestBase {
         try {
             retrievedParamValue = AuthenticationProtocolsHandler.getTacacsSettingsByKey(getVisionRestClient(), TacacsSettingsKeys.getTacacsSettingsKeysEnum(paramToRetrieve));
             if (!expectedValue.equals("") && !expectedValue.equals(retrievedParamValue)) {
-                TestBase.report.report("The retrievedParamValue: " + retrievedParamValue + " " + " is not as expected." + expectedValue, Reporter.FAIL);
+                TestBase.BaseTestUtils.report("The retrievedParamValue: " + retrievedParamValue + " " + " is not as expected." + expectedValue, Reporter.FAIL);
             }
         } catch (Exception e) {
-            TestBase.report.report("GET following basicParameter: " + paramToRetrieve + " " + " request may not have been executed properly.", parseExceptionBody(e), Reporter.FAIL);
+            TestBase.BaseTestUtils.report("GET following basicParameter: " + paramToRetrieve + " " + " request may not have been executed properly.", parseExceptionBody(e), Reporter.FAIL);
         }
     }
 

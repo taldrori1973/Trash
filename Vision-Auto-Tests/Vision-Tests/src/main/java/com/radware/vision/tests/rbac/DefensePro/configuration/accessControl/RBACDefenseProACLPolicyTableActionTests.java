@@ -1,11 +1,11 @@
 package com.radware.vision.tests.rbac.DefensePro.configuration.accessControl;
 
+import com.radware.automation.tools.basetest.Reporter;
 import com.radware.vision.infra.testhandlers.rbac.defensePro.configuration.accessControl.RBACDefenseProACLPolicyTableActionHandler;
 import com.radware.vision.infra.testhandlers.rbac.enums.BaseTableActions;
 import com.radware.vision.infra.testhandlers.rbac.enums.ViewTableActions;
 import com.radware.vision.tests.rbac.RBACTestBase;
 import jsystem.framework.TestProperties;
-import com.radware.automation.tools.basetest.Reporter;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -34,10 +34,10 @@ public class RBACDefenseProACLPolicyTableActionTests extends RBACTestBase {
             testProperties.put("modifyPolicyTableAction", modifyPolicyTableAction.getTableAction().toString());
 
             if (!(RBACDefenseProACLPolicyTableActionHandler.verifyModifyPolicyTableAction(testProperties))) {
-                report.report("The specified Table action is in an incorrect state: " + modifyPolicyTableAction.getTableAction() + "\n.", Reporter.FAIL);
+                BaseTestUtils.report("The specified Table action is in an incorrect state: " + modifyPolicyTableAction.getTableAction() + "\n.", Reporter.FAIL);
             }
         } catch (Exception e) {
-            report.report("verify ModifyPolicy Disabled Table Action failed: " + modifyPolicyTableAction.getTableAction() + "\n." + parseExceptionBody(e),
+            BaseTestUtils.report("verify ModifyPolicy Disabled Table Action failed: " + modifyPolicyTableAction.getTableAction() + "\n." + parseExceptionBody(e),
                     Reporter.FAIL);
         }
     }
@@ -50,10 +50,10 @@ public class RBACDefenseProACLPolicyTableActionTests extends RBACTestBase {
             testProperties.put("activePolicyTableAction", activePolicyTableAction.getTableAction().toString());
 
             if (!(RBACDefenseProACLPolicyTableActionHandler.verifyActivePolicyTableAction(testProperties))) {
-                report.report("The specified Table action is in an incorrect state: " + activePolicyTableAction.getTableAction() + "\n.", Reporter.FAIL);
+                BaseTestUtils.report("The specified Table action is in an incorrect state: " + activePolicyTableAction.getTableAction() + "\n.", Reporter.FAIL);
             }
         } catch (Exception e) {
-            report.report("verify ActivePolicy Disabled Table Action failed: " + activePolicyTableAction.getTableAction() + "\n." + parseExceptionBody(e),
+            BaseTestUtils.report("verify ActivePolicy Disabled Table Action failed: " + activePolicyTableAction.getTableAction() + "\n." + parseExceptionBody(e),
                     Reporter.FAIL);
         }
     }

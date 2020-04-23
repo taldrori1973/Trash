@@ -3,8 +3,6 @@ package com.radware.vision.tests.scheduledtasks.validateTasksTests;
 import com.radware.automation.tools.basetest.Reporter;
 import com.radware.automation.tools.utils.InvokeUtils;
 import com.radware.automation.webui.widgets.impl.table.WebUITable;
-import com.radware.vision.vision_handlers.system.ConfBackup;
-import com.radware.vision.vision_handlers.system.ReporterBackup;
 import com.radware.vision.base.WebUITestBase;
 import com.radware.vision.infra.base.pages.scheduledtasks.ScheduledTasks;
 import com.radware.vision.infra.enums.TopologyTreeTabs;
@@ -14,6 +12,8 @@ import com.radware.vision.infra.testhandlers.scheduledtasks.BaseTasksHandler;
 import com.radware.vision.infra.testhandlers.scheduledtasks.enums.BackupDestinations;
 import com.radware.vision.infra.testhandlers.scheduledtasks.validateScheduledTasks.ValidateTasksHandler;
 import com.radware.vision.infra.utils.TimeUtils;
+import com.radware.vision.vision_handlers.system.ConfBackup;
+import com.radware.vision.vision_handlers.system.ReporterBackup;
 import jsystem.framework.ParameterProperties;
 import jsystem.framework.TestProperties;
 import org.junit.After;
@@ -76,7 +76,7 @@ public class ValidateTasksTests extends WebUITestBase {
     public void checkIfTaskRanInScheduledTime() {
         try {
             if (taskName == null || taskSchedRunTime == null) {
-                report.report("please insert values for the test parameters", Reporter.FAIL);
+                BaseTestUtils.report("please insert values for the test parameters", Reporter.FAIL);
             }
 
 
@@ -91,7 +91,7 @@ public class ValidateTasksTests extends WebUITestBase {
                 int rowNumber = tasksTable.getRowIndex("Name", taskName, true);
                 if (rowNumber == -1) {
                     BasicOperationsHandler.takeScreenShot();
-                    report.report("Task with name " + taskName + " does not exist", Reporter.FAIL);
+                    BaseTestUtils.report("Task with name " + taskName + " does not exist", Reporter.FAIL);
                 } else {
                     int colIndex = tasksTable.getColIndex("Last Execution Date");
                     String lastExecDateTimeAsString = tasksTable.getCellValue(rowNumber, colIndex);
@@ -100,11 +100,11 @@ public class ValidateTasksTests extends WebUITestBase {
                         LocalTime lastExecutionTime = LocalTime.parse(lastExecTimeAsString);
 
                         if (lastExecutionTime.isAfter(taskScheduledRunTime) || !lastExecutionTime.isBefore(taskScheduledRunTime) && !lastExecutionTime.isAfter(taskScheduledRunTime)) {
-                            report.report("Task scheduled time is : " + taskScheduledRunTime + " --- Last execution date is : " + lastExecutionTime, Reporter.PASS);
+                            BaseTestUtils.report("Task scheduled time is : " + taskScheduledRunTime + " --- Last execution date is : " + lastExecutionTime, Reporter.PASS);
                             return;
                         } else {
                             BasicOperationsHandler.takeScreenShot();
-                            report.report("something wrong with task execution", Reporter.FAIL);
+                            BaseTestUtils.report("something wrong with task execution", Reporter.FAIL);
 
                         }
 
@@ -119,10 +119,10 @@ public class ValidateTasksTests extends WebUITestBase {
                 timeout -= 10000;
             } while (timeout > 0);
             BasicOperationsHandler.takeScreenShot();
-            report.report("time ended and task still not executed yet", Reporter.FAIL);
+            BaseTestUtils.report("time ended and task still not executed yet", Reporter.FAIL);
 
         } catch (Exception e) {
-            report.report(e.getMessage(), Reporter.FAIL);
+            BaseTestUtils.report(e.getMessage(), Reporter.FAIL);
 
         }
 
@@ -139,7 +139,7 @@ public class ValidateTasksTests extends WebUITestBase {
 
             }
         } catch (Exception e) {
-            report.report("Failed to remove Security Signature files for device: " + deviceIp + "\n." + parseExceptionBody(e), Reporter.FAIL);
+            BaseTestUtils.report("Failed to remove Security Signature files for device: " + deviceIp + "\n." + parseExceptionBody(e), Reporter.FAIL);
         }
     }
 
@@ -156,10 +156,10 @@ public class ValidateTasksTests extends WebUITestBase {
             testProperties.put("policyColumnName", "Policy Name");
             testProperties.put("serverColumnName", "Server Name");
             if (!ValidateTasksHandler.validateDPConfigurationTemplatesTask(testProperties, getVisionRestClient())) {
-                report.report("Verify DeviceConfiguration Backup failed: " + "\n.", Reporter.FAIL);
+                BaseTestUtils.report("Verify DeviceConfiguration Backup failed: " + "\n.", Reporter.FAIL);
             }
         } catch (Exception e) {
-            report.report("Verify DeviceConfiguration Backup failed: " + "\n." + parseExceptionBody(e), Reporter.FAIL);
+            BaseTestUtils.report("Verify DeviceConfiguration Backup failed: " + "\n." + parseExceptionBody(e), Reporter.FAIL);
         }
     }
 
@@ -179,10 +179,10 @@ public class ValidateTasksTests extends WebUITestBase {
     public void verifyDeviceConfigurationBackupTest() {
         try {
             if (!ValidateTasksHandler.validateDeviceConfigurationBackupTask(taskName, getDeviceName(), timePeriodToVerify, filePath, fileName, getVisionRestClient(), restTestBase.getLinuxServerCredential(getRestTestBase().getLinuxFileServer()))) {
-                report.report("Verify DeviceConfiguration Backup failed: " + "\n." + ValidateTasksHandler.errorMessages.toString(), Reporter.FAIL);
+                BaseTestUtils.report("Verify DeviceConfiguration Backup failed: " + "\n." + ValidateTasksHandler.errorMessages.toString(), Reporter.FAIL);
             }
         } catch (Exception e) {
-            report.report("Verify DeviceConfiguration Backup failed: " + "\n." + parseExceptionBody(e), Reporter.FAIL);
+            BaseTestUtils.report("Verify DeviceConfiguration Backup failed: " + "\n." + parseExceptionBody(e), Reporter.FAIL);
         } finally {
             ValidateTasksHandler.errorMessages.clear();
         }
@@ -200,10 +200,10 @@ public class ValidateTasksTests extends WebUITestBase {
             testProperties.put("parentTree", parentTree.getTopologyTreeTab());
 
             if (!ValidateTasksHandler.validateDeviceRebootTask(testProperties, getVisionRestClient())) {
-                report.report("Verify DeviceConfiguration Backup failed: " + "\n." + ValidateTasksHandler.errorMessages.toString(), Reporter.FAIL);
+                BaseTestUtils.report("Verify DeviceConfiguration Backup failed: " + "\n." + ValidateTasksHandler.errorMessages.toString(), Reporter.FAIL);
             }
         } catch (Exception e) {
-            report.report("Verify Device reboot failed: " + "\n." + parseExceptionBody(e), Reporter.FAIL);
+            BaseTestUtils.report("Verify Device reboot failed: " + "\n." + parseExceptionBody(e), Reporter.FAIL);
         } finally {
             ValidateTasksHandler.errorMessages.clear();
         }
@@ -217,7 +217,7 @@ public class ValidateTasksTests extends WebUITestBase {
             BasicOperationsHandler.delay(10);
             if (destination.equals(BackupDestinations.EXTERNAL_LOCATION)) {
                 if (!ValidateTasksHandler.executeFileExistenceVerifyScript(getRestTestBase().getLinuxFileServer(), filePath, fileName)) {
-                    report.report("the file : ".concat(fileName).concat("does not exist ") + "\n.", Reporter.FAIL);
+                    BaseTestUtils.report("the file : ".concat(fileName).concat("does not exist ") + "\n.", Reporter.FAIL);
                 }
             } else if (destination.equals(BackupDestinations.VISION_SERVER)) {
                 //in the cli it shows only the first 6 letters of the task name
@@ -226,11 +226,11 @@ public class ValidateTasksTests extends WebUITestBase {
                 }
                 ConfBackup.confBackupList(getRestTestBase().getRadwareServerCli(), taskName.split(" "));
                 if (!ValidateTasksHandler.executeFileExistenceVerifyScript(getRestTestBase().getRootServerCli(), visionBackupFilePath, visionBackupFilePrefix.concat(taskName))) {
-                    report.report("The config file does not exist in the vision file system");
+                    BaseTestUtils.report("The config file does not exist in the vision file system");
                 }
             }
         } catch (Exception e) {
-            report.report("Verify APsoluteVisionConfigurationBackup failed: " + "\n." + parseExceptionBody(e), Reporter.FAIL);
+            BaseTestUtils.report("Verify APsoluteVisionConfigurationBackup failed: " + "\n." + parseExceptionBody(e), Reporter.FAIL);
         }
     }
 
@@ -242,7 +242,7 @@ public class ValidateTasksTests extends WebUITestBase {
             BasicOperationsHandler.delay(10);
             if (destination.equals(BackupDestinations.EXTERNAL_LOCATION)) {
                 if (!ValidateTasksHandler.executeFileExistenceVerifyScript(getRestTestBase().getLinuxFileServer(), filePath, fileName)) {
-                    report.report("the file : ".concat(fileName).concat("does not exist ") + "\n.", Reporter.FAIL);
+                    BaseTestUtils.report("the file : ".concat(fileName).concat("does not exist ") + "\n.", Reporter.FAIL);
                 }
             } else if (destination.equals(BackupDestinations.VISION_SERVER)) {
                 //in the cli it shows only the first 6 letters of the task name
@@ -251,11 +251,11 @@ public class ValidateTasksTests extends WebUITestBase {
                 }
                 ReporterBackup.VerifyBackupInListAsRegex(taskName, getRestTestBase().getRadwareServerCli());
                 if (!ValidateTasksHandler.executeFileExistenceVerifyScript(getRestTestBase().getRootServerCli(), visionBackupFilePath, visionReporterBackupPrefix.concat(taskName))) {
-                    report.report("The config file does not exist in the vision file system");
+                    BaseTestUtils.report("The config file does not exist in the vision file system");
                 }
             }
         } catch (Exception e) {
-            report.report("Verify APsoluteVisionConfigurationBackup failed: " + "\n." + parseExceptionBody(e), Reporter.FAIL);
+            BaseTestUtils.report("Verify APsoluteVisionConfigurationBackup failed: " + "\n." + parseExceptionBody(e), Reporter.FAIL);
         }
     }
 
@@ -274,10 +274,10 @@ public class ValidateTasksTests extends WebUITestBase {
             testProperties.put("timePeriodToVerifyLastSignatureUpdate", timePeriodToVerifyLastSignatureUpdate);
 
             if (!ValidateTasksHandler.validateUpdateRSASecuritySignatureTask(testProperties, getVisionRestClient())) {
-                report.report("Verify UpdateRSASecuritySignature failed: " + "\n.", Reporter.FAIL);
+                BaseTestUtils.report("Verify UpdateRSASecuritySignature failed: " + "\n.", Reporter.FAIL);
             }
         } catch (Exception e) {
-            report.report("Verify UpdateRSASecuritySignature failed: " + "\n." + parseExceptionBody(e), Reporter.FAIL);
+            BaseTestUtils.report("Verify UpdateRSASecuritySignature failed: " + "\n." + parseExceptionBody(e), Reporter.FAIL);
         }
     }
 
@@ -293,10 +293,10 @@ public class ValidateTasksTests extends WebUITestBase {
 
         if (!ValidateTasksHandler.validateUpdateFraudSecuritySignatures(taskName, expectedAlertMessage, restTestBase.getVisionRestClient())) {
 
-            report.report("the alerts message was not found ".concat(expectedAlertMessage), Reporter.FAIL);
+            BaseTestUtils.report("the alerts message was not found ".concat(expectedAlertMessage), Reporter.FAIL);
         } else {
 
-            report.report("Update Fraud Security Signatures Validation Succeeded", Reporter.PASS);
+            BaseTestUtils.report("Update Fraud Security Signatures Validation Succeeded", Reporter.PASS);
         }
 
     }
@@ -315,10 +315,10 @@ public class ValidateTasksTests extends WebUITestBase {
             testProperties.put("defaultFileName", defaultFileName);
 
             if (!ValidateTasksHandler.validateUpdateSecuritySignatureFileTask(testProperties, getVisionRestClient())) {
-                report.report("Verify UpdateSecuritySignatureFile failed: " + "\n.", Reporter.FAIL);
+                BaseTestUtils.report("Verify UpdateSecuritySignatureFile failed: " + "\n.", Reporter.FAIL);
             }
         } catch (Exception e) {
-            report.report("Verify UpdateSecuritySignatureFile failed: " + "\n." + parseExceptionBody(e), Reporter.FAIL);
+            BaseTestUtils.report("Verify UpdateSecuritySignatureFile failed: " + "\n." + parseExceptionBody(e), Reporter.FAIL);
         }
     }
 
@@ -333,10 +333,10 @@ public class ValidateTasksTests extends WebUITestBase {
             // testProperties.put("deviceIp", deviceIp);
 
             if (!ValidateTasksHandler.validateUpdateAttackDescriptionFileTask(testProperties, getVisionRestClient(), expectedAlertMessage)) {
-                report.report("Verify Update Attack Description File failed: ".concat(ValidateTasksHandler.errorMessages.toString()) + "\n.", Reporter.FAIL);
+                BaseTestUtils.report("Verify Update Attack Description File failed: ".concat(ValidateTasksHandler.errorMessages.toString()) + "\n.", Reporter.FAIL);
             }
         } catch (Exception e) {
-            report.report("Verify UpdateAttachDescriptionFile failed: " + "\n." + parseExceptionBody(e), Reporter.FAIL);
+            BaseTestUtils.report("Verify UpdateAttachDescriptionFile failed: " + "\n." + parseExceptionBody(e), Reporter.FAIL);
         } finally {
             ValidateTasksHandler.errorMessages.clear();
         }
@@ -353,7 +353,7 @@ public class ValidateTasksTests extends WebUITestBase {
                 throw new Exception("use with id " + userId + " does not exists");
             }
         } catch (Exception e) {
-            report.report(e.getMessage(), Reporter.FAIL);
+            BaseTestUtils.report(e.getMessage(), Reporter.FAIL);
         }
     }
 
@@ -368,7 +368,7 @@ public class ValidateTasksTests extends WebUITestBase {
                 throw new Exception("use with id " + userId + " does exists");
             }
         } catch (Exception e) {
-            report.report(e.getMessage(), Reporter.FAIL);
+            BaseTestUtils.report(e.getMessage(), Reporter.FAIL);
         }
     }
 

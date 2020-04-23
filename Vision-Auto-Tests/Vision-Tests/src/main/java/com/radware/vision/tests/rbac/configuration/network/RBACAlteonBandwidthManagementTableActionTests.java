@@ -37,10 +37,10 @@ public class RBACAlteonBandwidthManagementTableActionTests extends RBACTestBase 
             testProperties.put("trafficPoliciesTableAction", trafficPoliciesTableAction.getTableAction().toString());
 
             if (!(RBACAlteonBandwidthManagementTableActionHandler.verifyTrafficPoliciesTableAction(testProperties))) {
-                report.report("The specified Table action is in an incorrect state: " + trafficPoliciesTableAction.getTableAction() + "\n.", Reporter.FAIL);
+                BaseTestUtils.report("The specified Table action is in an incorrect state: " + trafficPoliciesTableAction.getTableAction() + "\n.", Reporter.FAIL);
             }
         } catch (Exception e) {
-            report.report("verify TrafficPolicies Disabled Table Action failed: " + trafficPoliciesTableAction.getTableAction() + "\n." + parseExceptionBody(e),
+            BaseTestUtils.report("verify TrafficPolicies Disabled Table Action failed: " + trafficPoliciesTableAction.getTableAction() + "\n." + parseExceptionBody(e),
                     Reporter.FAIL);
         }
     }
@@ -53,10 +53,10 @@ public class RBACAlteonBandwidthManagementTableActionTests extends RBACTestBase 
             testProperties.put("trafficContractsTableAction", trafficContractsTableAction.getTableAction().toString());
 
             if (!(RBACAlteonBandwidthManagementTableActionHandler.verifyTrafficContractsTableAction(testProperties))) {
-                report.report("The specified Table action is in an incorrect state: " + trafficContractsTableAction.getTableAction() + "\n.", Reporter.FAIL);
+                BaseTestUtils.report("The specified Table action is in an incorrect state: " + trafficContractsTableAction.getTableAction() + "\n.", Reporter.FAIL);
             }
         } catch (Exception e) {
-            report.report("verify TrafficContracts Disabled Table Action failed: " + trafficContractsTableAction.getTableAction() + "\n." + parseExceptionBody(e),
+            BaseTestUtils.report("verify TrafficContracts Disabled Table Action failed: " + trafficContractsTableAction.getTableAction() + "\n." + parseExceptionBody(e),
                     Reporter.FAIL);
         }
     }
@@ -69,10 +69,10 @@ public class RBACAlteonBandwidthManagementTableActionTests extends RBACTestBase 
             testProperties.put("contractGroupsTableAction", contractGroupsTableAction.getTableAction().toString());
 
             if (!(RBACAlteonBandwidthManagementTableActionHandler.verifyContractGroupsTableAction(testProperties))) {
-                report.report("The specified Table action is in an incorrect state: " + contractGroupsTableAction.getTableAction() + "\n.", Reporter.FAIL);
+                BaseTestUtils.report("The specified Table action is in an incorrect state: " + contractGroupsTableAction.getTableAction() + "\n.", Reporter.FAIL);
             }
         } catch (Exception e) {
-            report.report("verify ContractGroups Disabled Table Action failed: " + contractGroupsTableAction.getTableAction() + "\n." + parseExceptionBody(e),
+            BaseTestUtils.report("verify ContractGroups Disabled Table Action failed: " + contractGroupsTableAction.getTableAction() + "\n." + parseExceptionBody(e),
                     Reporter.FAIL);
         }
     }

@@ -1,5 +1,7 @@
 package com.radware.vision.tests.Alteon.Configuration.System.Snmp.SnmpV3;
 
+import com.radware.automation.tools.basetest.Reporter;
+import com.radware.automation.tools.utils.StringUtils;
 import com.radware.automation.webui.WebUIUtils;
 import com.radware.automation.webui.webpages.configuration.system.snmp.SnmpEnums;
 import com.radware.vision.base.WebUITestBase;
@@ -11,9 +13,8 @@ import com.radware.vision.infra.testhandlers.rbac.enums.EditTableActions;
 import com.radware.vision.infra.testhandlers.rbac.enums.ManagementNetworks;
 import jsystem.framework.ParameterProperties;
 import jsystem.framework.TestProperties;
-import com.radware.automation.tools.basetest.Reporter;
 import org.junit.Test;
-import com.radware.automation.tools.utils.StringUtils;
+
 import java.io.IOException;
 import java.util.HashMap;
 
@@ -61,7 +62,7 @@ public class TargetParametersTests extends WebUITestBase {
 
             SnmpV3TableActionHandler.addTargetParameters(testProperties);
         } catch (Exception e) {
-            report.report("Failed with the following error:\n" +parseExceptionBody(e), Reporter.FAIL);
+            BaseTestUtils.report("Failed with the following error:\n" + parseExceptionBody(e), Reporter.FAIL);
         }
 
     }
@@ -75,7 +76,7 @@ public class TargetParametersTests extends WebUITestBase {
             testProperties.put("rowNumber", rowNumber.toString());
             SnmpV3TableActionHandler.delTargetParameters(testProperties);
         } catch (Exception e) {
-            report.report("Failed with the following error:\n" +parseExceptionBody(e), Reporter.FAIL);
+            BaseTestUtils.report("Failed with the following error:\n" + parseExceptionBody(e), Reporter.FAIL);
         }
 
     }
@@ -91,7 +92,7 @@ public class TargetParametersTests extends WebUITestBase {
             testProperties.put("rowNumber", rowNumber.toString());
             SnmpV3TableActionHandler.viewTargetParameters(testProperties);
         } catch (Exception e) {
-            report.report("Failed with the following error:\n" +parseExceptionBody(e), Reporter.FAIL);
+            BaseTestUtils.report("Failed with the following error:\n" + parseExceptionBody(e), Reporter.FAIL);
         }
 
     }
@@ -112,7 +113,7 @@ public class TargetParametersTests extends WebUITestBase {
             testProperties.put("targetParametersSecurityLevel", targetParametersSecurityLevel.toString());
             SnmpV3TableActionHandler.duplicateTargetParameters(testProperties);
         } catch (Exception e) {
-            report.report("Failed with the following error:\n" +parseExceptionBody(e), Reporter.FAIL);
+            BaseTestUtils.report("Failed with the following error:\n" + parseExceptionBody(e), Reporter.FAIL);
         }
 
     }

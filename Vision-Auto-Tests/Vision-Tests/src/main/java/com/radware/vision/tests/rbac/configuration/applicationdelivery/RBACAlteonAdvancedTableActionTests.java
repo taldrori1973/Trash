@@ -34,10 +34,10 @@ public class RBACAlteonAdvancedTableActionTests extends RBACTestBase {
             testProperties.put("inboundLinkLBTableAction", inboundLinkLBTableAction.getTableAction().toString());
 
             if (!(RBACAlteonAdvancedTableActionHandler.verifyInboundLinkLBTableAction(testProperties))) {
-                report.report("The specified Table action is in an incorrect state: " + inboundLinkLBTableAction.getTableAction() + "\n.", Reporter.FAIL);
+                BaseTestUtils.report("The specified Table action is in an incorrect state: " + inboundLinkLBTableAction.getTableAction() + "\n.", Reporter.FAIL);
             }
         } catch (Exception e) {
-            report.report("verify InboundLinkLB Disabled Table Action failed: " + inboundLinkLBTableAction.getTableAction() + "\n." + parseExceptionBody(e),
+            BaseTestUtils.report("verify InboundLinkLB Disabled Table Action failed: " + inboundLinkLBTableAction.getTableAction() + "\n." + parseExceptionBody(e),
                     Reporter.FAIL);
         }
     }
@@ -50,10 +50,10 @@ public class RBACAlteonAdvancedTableActionTests extends RBACTestBase {
             testProperties.put("workloadManagerTableAction", workloadManagerTableAction.getTableAction().toString());
 
             if (!(RBACAlteonAdvancedTableActionHandler.verifyWorkloadManagerTableAction(testProperties))) {
-                report.report("The specified Table action is in an incorrect state: " + workloadManagerTableAction.getTableAction() + "\n.", Reporter.FAIL);
+                BaseTestUtils.report("The specified Table action is in an incorrect state: " + workloadManagerTableAction.getTableAction() + "\n.", Reporter.FAIL);
             }
         } catch (Exception e) {
-            report.report("verify WorkloadManager Disabled Table Action failed: " + workloadManagerTableAction.getTableAction() + "\n." + parseExceptionBody(e),
+            BaseTestUtils.report("verify WorkloadManager Disabled Table Action failed: " + workloadManagerTableAction.getTableAction() + "\n." + parseExceptionBody(e),
                     Reporter.FAIL);
         }
     }
@@ -66,10 +66,10 @@ public class RBACAlteonAdvancedTableActionTests extends RBACTestBase {
             testProperties.put("serverInitiatedConnectionsTableAction", serverInitiatedConnectionsTableAction.getTableAction().toString());
 
             if (!(RBACAlteonAdvancedTableActionHandler.verifyServerInitiatedConnectionsTableAction(testProperties))) {
-                report.report("The specified Table action is in an incorrect state: " + serverInitiatedConnectionsTableAction.getTableAction() + "\n.", Reporter.FAIL);
+                BaseTestUtils.report("The specified Table action is in an incorrect state: " + serverInitiatedConnectionsTableAction.getTableAction() + "\n.", Reporter.FAIL);
             }
         } catch (Exception e) {
-            report.report("verify ServerInitiatedConnections Disabled Table Action failed: " + serverInitiatedConnectionsTableAction.getTableAction() + "\n." + parseExceptionBody(e),
+            BaseTestUtils.report("verify ServerInitiatedConnections Disabled Table Action failed: " + serverInitiatedConnectionsTableAction.getTableAction() + "\n." + parseExceptionBody(e),
                     Reporter.FAIL);
         }
     }

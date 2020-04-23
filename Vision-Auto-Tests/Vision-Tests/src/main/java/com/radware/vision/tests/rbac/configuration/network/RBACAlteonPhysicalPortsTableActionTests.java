@@ -39,7 +39,7 @@ public class RBACAlteonPhysicalPortsTableActionTests extends RBACTestBase {
                 BaseTestUtils.report("The specified Table action is in an incorrect state: " + portSettingsTableAction.getTableAction() + "\n.", Reporter.FAIL);
             }
         } catch (Exception e) {
-            report.report("verify PortSettings Disabled Table Action failed: " + portSettingsTableAction.getTableAction() + "\n." + parseExceptionBody(e),
+            BaseTestUtils.report("verify PortSettings Disabled Table Action failed: " + portSettingsTableAction.getTableAction() + "\n." + parseExceptionBody(e),
                     Reporter.FAIL);
         }
     }
@@ -52,10 +52,10 @@ public class RBACAlteonPhysicalPortsTableActionTests extends RBACTestBase {
             testProperties.put("portMirroringTableAction", portMirroringTableAction.getTableAction().toString());
 
             if (!(RBACAlteonPhysicalPortsTableActionHandler.verifyPortMirroringTableAction(testProperties))) {
-                report.report("The specified Table action is in an incorrect state: " + portMirroringTableAction.getTableAction() + "\n.", Reporter.FAIL);
+                BaseTestUtils.report("The specified Table action is in an incorrect state: " + portMirroringTableAction.getTableAction() + "\n.", Reporter.FAIL);
             }
         } catch (Exception e) {
-            report.report("verify PortMirroring Disabled Table Action failed: " + portMirroringTableAction.getTableAction() + "\n." + parseExceptionBody(e),
+            BaseTestUtils.report("verify PortMirroring Disabled Table Action failed: " + portMirroringTableAction.getTableAction() + "\n." + parseExceptionBody(e),
                     Reporter.FAIL);
         }
     }

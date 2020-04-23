@@ -1,16 +1,14 @@
 package com.radware.vision.tests.usermanagement.userstaticstics;
 
-import java.awt.AWTException;
-import java.util.Date;
-
 import com.radware.automation.tools.basetest.Reporter;
-import jsystem.framework.ParameterProperties;
-import jsystem.framework.TestProperties;
-
-import org.junit.Test;
-
 import com.radware.vision.base.WebUITestBase;
 import com.radware.vision.infra.testhandlers.system.usermanagement.userstatistics.UsersStatisticsHandler;
+import jsystem.framework.ParameterProperties;
+import jsystem.framework.TestProperties;
+import org.junit.Test;
+
+import java.awt.*;
+import java.util.Date;
 
 public class UsersStatistics extends WebUITestBase {
 	public String userName;
@@ -32,7 +30,7 @@ public class UsersStatistics extends WebUITestBase {
 			UsersStatisticsHandler.filterUserStatistics(userName, statisticsDate, numSuccessfulLogins, numFailedLogins, numPasswordChanges, numLockOuts, loginDateAndTime);
 		}
 		catch(Exception e){
-			report.report("Device Driver related operation may have been executed incorrectly :" + parseExceptionBody(e), Reporter.FAIL);
+			BaseTestUtils.report("Device Driver related operation may have been executed incorrectly :" + parseExceptionBody(e), Reporter.FAIL);
 		}
 	}
 

@@ -117,7 +117,7 @@ public class TemplatesTests extends RBACTestBase {
             TemplatesHandler.createNetworkProtectionPolicy(policyProperties);
 
         } catch (Exception e) {
-            report.report("Create NetworkProtection Policy may have been executed incorrectly :" + parseExceptionBody(e), Reporter.FAIL);
+            BaseTestUtils.report("Create NetworkProtection Policy may have been executed incorrectly :" + parseExceptionBody(e), Reporter.FAIL);
         }
     }
 
@@ -151,7 +151,7 @@ public class TemplatesTests extends RBACTestBase {
             TemplatesHandler.createServerProtectionPolicy(policyProperties);
 
         } catch (Exception e) {
-            report.report("Create ServerProtection Policy may have been executed incorrectly :" + parseExceptionBody(e), Reporter.FAIL);
+            BaseTestUtils.report("Create ServerProtection Policy may have been executed incorrectly :" + parseExceptionBody(e), Reporter.FAIL);
         }
     }
 
@@ -162,7 +162,7 @@ public class TemplatesTests extends RBACTestBase {
         try {
             TemplatesHandler.uploadFileToServer(fileName, fileType);
         } catch (Exception e) {
-            report.report("Templates related operation may have been executed incorrectly :" + parseExceptionBody(e), Reporter.FAIL);
+            BaseTestUtils.report("Templates related operation may have been executed incorrectly :" + parseExceptionBody(e), Reporter.FAIL);
         }
     }
 
@@ -173,7 +173,7 @@ public class TemplatesTests extends RBACTestBase {
             columnName = "File Name";
             TemplatesHandler.deleteTemplate(columnName, fileNamesList);
         } catch (Exception e) {
-            report.report("Templates related operation may have been executed incorrectly :" + parseExceptionBody(e), Reporter.FAIL);
+            BaseTestUtils.report("Templates related operation may have been executed incorrectly :" + parseExceptionBody(e), Reporter.FAIL);
         }
     }
 
@@ -183,7 +183,7 @@ public class TemplatesTests extends RBACTestBase {
         try {
             TemplatesHandler.deleteAllTemplates();
         } catch (Exception e) {
-            report.report("Templates related operation may have been executed incorrectly :" + parseExceptionBody(e), Reporter.FAIL);
+            BaseTestUtils.report("Templates related operation may have been executed incorrectly :" + parseExceptionBody(e), Reporter.FAIL);
         }
     }
 
@@ -200,7 +200,7 @@ public class TemplatesTests extends RBACTestBase {
             templateProperties.put("deviceState", deviceState.getDeviceState());
             TemplatesHandler.deleteNetworkProtectionPolicies(templateProperties);
         } catch (Exception e) {
-            report.report("Delete NetworkProtectionPolicy operation may have been executed incorrectly :" + parseExceptionBody(e), Reporter.FAIL);
+            BaseTestUtils.report("Delete NetworkProtectionPolicy operation may have been executed incorrectly :" + parseExceptionBody(e), Reporter.FAIL);
         }
     }
 
@@ -217,7 +217,7 @@ public class TemplatesTests extends RBACTestBase {
             templateProperties.put("deviceState", deviceState.getDeviceState());
             TemplatesHandler.deleteServerProtectionPolicies(templateProperties);
         } catch (Exception e) {
-            report.report("Delete ServerProtectionPolicy operation may have been executed incorrectly :" + parseExceptionBody(e), Reporter.FAIL);
+            BaseTestUtils.report("Delete ServerProtectionPolicy operation may have been executed incorrectly :" + parseExceptionBody(e), Reporter.FAIL);
         }
     }
 
@@ -228,10 +228,10 @@ public class TemplatesTests extends RBACTestBase {
             RBACHandlerBase.expectedResultRBAC = expectedResult;
             columnName = "File Name";
             if (!TemplatesHandler.validateTemplateModule(columnName, fileNamesList)) {
-                report.report("The result was NOT as expected: ", Reporter.FAIL);
+                BaseTestUtils.report("The result was NOT as expected: ", Reporter.FAIL);
             }
         } catch (Exception e) {
-            report.report("The validate Template Existence has failed :" + parseExceptionBody(e), Reporter.FAIL);
+            BaseTestUtils.report("The validate Template Existence has failed :" + parseExceptionBody(e), Reporter.FAIL);
         }
     }
 
@@ -249,11 +249,11 @@ public class TemplatesTests extends RBACTestBase {
             templateProperties.put("deviceName", getDeviceName());
             templateProperties.put("parentTree", parentTree.getTopologyTreeTab());
             if (!TemplatesHandler.validateNetworkProtectionTemplate(templateProperties)) {
-                report.report("The result was NOT as expected: ", Reporter.FAIL);
+                BaseTestUtils.report("The result was NOT as expected: ", Reporter.FAIL);
 
             }
         } catch (Exception e) {
-            report.report("The validateNetwork  Template Existence has failed :" + parseExceptionBody(e), Reporter.FAIL);
+            BaseTestUtils.report("The validateNetwork  Template Existence has failed :" + parseExceptionBody(e), Reporter.FAIL);
         }
     }
 
@@ -270,10 +270,10 @@ public class TemplatesTests extends RBACTestBase {
             templateProperties.put("deviceState", deviceState.getDeviceState());
             templateProperties.put("parentTree", parentTree.getTopologyTreeTab());
             if (!TemplatesHandler.validateServerProtectionTemplate(templateProperties)) {
-                report.report("The result was NOT as expected: ", Reporter.FAIL);
+                BaseTestUtils.report("The result was NOT as expected: ", Reporter.FAIL);
             }
         } catch (Exception e) {
-            report.report("The validate Server Template Existence has failed :" + parseExceptionBody(e), Reporter.FAIL);
+            BaseTestUtils.report("The validate Server Template Existence has failed :" + parseExceptionBody(e), Reporter.FAIL);
         }
     }
 
@@ -294,7 +294,7 @@ public class TemplatesTests extends RBACTestBase {
 
             TemplatesHandler.sendToDevices(templateProperties);
         } catch (Exception e) {
-            report.report("Templates related operation may have been executed incorrectly :" + parseExceptionBody(e), Reporter.FAIL);
+            BaseTestUtils.report("Templates related operation may have been executed incorrectly :" + parseExceptionBody(e), Reporter.FAIL);
         }
     }
 
@@ -305,7 +305,7 @@ public class TemplatesTests extends RBACTestBase {
             columnName = "File Name";
             TemplatesHandler.downloadSelectedFile(columnName, fileName);
         } catch (Exception e) {
-            report.report("Templates related operation may have been executed incorrectly :" + parseExceptionBody(e), Reporter.FAIL);
+            BaseTestUtils.report("Templates related operation may have been executed incorrectly :" + parseExceptionBody(e), Reporter.FAIL);
         }
     }
 
@@ -324,7 +324,7 @@ public class TemplatesTests extends RBACTestBase {
 
             TemplatesHandler.exportNetworkPolicies(templateProperties);
         } catch (Exception e) {
-            report.report("Export NetworkPolicy have failed: " + parseExceptionBody(e), Reporter.FAIL);
+            BaseTestUtils.report("Export NetworkPolicy have failed: " + parseExceptionBody(e), Reporter.FAIL);
         }
     }
 
@@ -343,7 +343,7 @@ public class TemplatesTests extends RBACTestBase {
 
             TemplatesHandler.exportServerPolicies(templateProperties);
         } catch (Exception e) {
-            report.report("Export ServerPolicy have failed: " + parseExceptionBody(e), Reporter.FAIL);
+            BaseTestUtils.report("Export ServerPolicy have failed: " + parseExceptionBody(e), Reporter.FAIL);
         }
     }
 
@@ -353,10 +353,10 @@ public class TemplatesTests extends RBACTestBase {
         try {
             RBACHandlerBase.expectedResultRBAC = true;
             if (!TemplatesHandler.searchConfigurationsTemplatesTable(valueToSearch, searchColumnName)) {
-                report.report("the search operation: " + " was NOT successful", Reporter.FAIL);
+                BaseTestUtils.report("the search operation: " + " was NOT successful", Reporter.FAIL);
             }
         } catch (Exception e) {
-            report.report("Templates related operation may have been executed incorrectly :" + parseExceptionBody(e), Reporter.FAIL);
+            BaseTestUtils.report("Templates related operation may have been executed incorrectly :" + parseExceptionBody(e), Reporter.FAIL);
         }
     }
 
@@ -366,10 +366,10 @@ public class TemplatesTests extends RBACTestBase {
         try {
             RBACHandlerBase.expectedResultRBAC = expectedResult;
             if (!TemplatesHandler.validatePolicyDownload(fileName, policyDownloadDestinationPath, partial)) {
-                report.report("the specified file : " + fileName + " was NOT found", Reporter.FAIL);
+                BaseTestUtils.report("the specified file : " + fileName + " was NOT found", Reporter.FAIL);
             }
         } catch (Exception e) {
-            report.report("Templates related operation may have been executed incorrectly :" + parseExceptionBody(e), Reporter.FAIL);
+            BaseTestUtils.report("Templates related operation may have been executed incorrectly :" + parseExceptionBody(e), Reporter.FAIL);
         }
     }
 

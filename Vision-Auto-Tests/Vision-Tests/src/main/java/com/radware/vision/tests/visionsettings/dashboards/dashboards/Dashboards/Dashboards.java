@@ -13,7 +13,7 @@ public class Dashboards extends VisionSettingsBase {
     @TestProperties(name = "Application SLA Dashboard", paramsInclude = {})
     public void clickApplicationSLADashboard() {
         if(!clickMenu("gwt-debug-TopicsNode_sc-dashboard-content")) {
-            report.report("Failed to click 'Application SLA Dashboard' menu option.");
+            BaseTestUtils.report("Failed to click 'Application SLA Dashboard' menu option.");
         }
     }
 
@@ -21,7 +21,7 @@ public class Dashboards extends VisionSettingsBase {
     @TestProperties(name = "Security Control Center", paramsInclude = {})
     public void clickSecurityControlCenter() {
         if(!clickMenu("gwt-debug-TopicsNode_SecurityControlCenter-content")) {
-            report.report("Failed to click 'Security Control Center' menu option.");
+            BaseTestUtils.report("Failed to click 'Security Control Center' menu option.");
         }
     }
 }

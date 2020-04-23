@@ -7,7 +7,6 @@ import com.radware.automation.tools.basetest.RuntimePropertiesEnum;
 import com.radware.automation.tools.centralreporting.entities.ReportResultEntity;
 import com.radware.automation.tools.utils.InvokeUtils;
 import com.radware.vision.enums.YesNo;
-
 import com.radware.vision.vision_project_cli.menu.Menu;
 import com.radware.vision.vision_tests.CliTests;
 
@@ -100,7 +99,7 @@ public class CliNegative extends BddCliTestBase {
         if (!existingList.isEmpty()) {
             report.startLevel("Errors : find some of the strings");
             for (String string : existingList) {
-                report.report(string);
+                BaseTestUtils.report(string);
             }
             report.stopLevel();
             BaseTestUtils.report("There were : " + existingList.size() + "bad items", Reporter.FAIL);
@@ -189,7 +188,7 @@ public class CliNegative extends BddCliTestBase {
                     boolean isPossitiveRootCheck, String seconedPartOfCommand, GoodErrorsList goodErrorsList, String commandRadware,
                     boolean isPossitiveRadwareCheck) throws Exception {
 
-        report.report("About to begin the run for negative tests cli.");
+        BaseTestUtils.report("About to begin the run for negative tests cli.");
 
         Properties prop = new Properties();
         prop.load(getClass().getClassLoader().getResourceAsStream("badInput.properties"));
@@ -262,7 +261,7 @@ public class CliNegative extends BddCliTestBase {
         if (!errorsList.isEmpty()) {
             report.startLevel("The wrong errors list for the negative tests");
             for (String string : errorsList) {
-                report.report(string);
+                BaseTestUtils.report(string);
             }
             BaseTestUtils.report("There Is " + errorsList.size() + " Errors", Reporter.FAIL);
             report.stopLevel();

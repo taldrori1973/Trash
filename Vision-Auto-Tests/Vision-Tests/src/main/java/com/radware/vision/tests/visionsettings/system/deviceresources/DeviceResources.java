@@ -15,7 +15,7 @@ public class DeviceResources extends VisionSettingsBase {
     @TestProperties(name = "Click Device Backups", paramsInclude = {})
     public void clickDeviceBackups() {
        if(!clickMenu(subMenuOption, "deviceBackups")) {
-           report.report("Failed to click 'Device Backups' menu option.");
+           BaseTestUtils.report("Failed to click 'Device Backups' menu option.");
        }
     }
 }

@@ -1,5 +1,7 @@
 package com.radware.vision.tests.Alteon.Configuration.System.Snmp;
 
+import com.radware.automation.tools.basetest.Reporter;
+import com.radware.automation.tools.utils.StringUtils;
 import com.radware.automation.webui.webpages.GeneralEnums;
 import com.radware.automation.webui.webpages.configuration.system.snmp.SnmpEnums;
 import com.radware.vision.infra.testhandlers.alteon.configuration.system.Snmp.SnmpHandler;
@@ -9,9 +11,8 @@ import com.radware.vision.infra.testhandlers.rbac.enums.ManagementNetworks;
 import com.radware.vision.tests.Alteon.AlteonTestBase;
 import jsystem.framework.ParameterProperties;
 import jsystem.framework.TestProperties;
-import com.radware.automation.tools.basetest.Reporter;
 import org.junit.Test;
-import com.radware.automation.tools.utils.StringUtils;
+
 import java.io.IOException;
 import java.util.HashMap;
 
@@ -63,7 +64,7 @@ public class SnmpTests extends AlteonTestBase {
             testProperties.put("authenticationFailureTraps", authenticationFailureTraps.toString());
             SnmpHandler.setSNMPSettings(testProperties);
         } catch (Exception e) {
-            report.report("Failed with the following error:\n" +parseExceptionBody(e), Reporter.FAIL);
+            BaseTestUtils.report("Failed with the following error:\n" + parseExceptionBody(e), Reporter.FAIL);
         }
 
     }

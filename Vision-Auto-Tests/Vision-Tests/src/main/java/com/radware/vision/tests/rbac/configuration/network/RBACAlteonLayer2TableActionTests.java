@@ -40,10 +40,10 @@ public class RBACAlteonLayer2TableActionTests extends RBACTestBase {
             testProperties.put("spanningTreeGroupTableAction", spanningTreeGroupTableAction.getTableAction().toString());
 
             if (!(RBACAlteonLayer2TableActionHandler.verifySpanningTreeGroupTableAction(testProperties))) {
-                report.report("The specified Table action is in an incorrect state: " + spanningTreeGroupTableAction.getTableAction() + "\n.", Reporter.FAIL);
+                BaseTestUtils.report("The specified Table action is in an incorrect state: " + spanningTreeGroupTableAction.getTableAction() + "\n.", Reporter.FAIL);
             }
         } catch (Exception e) {
-            report.report("verify SpanningTreeGroup Disabled Table Action failed: " + spanningTreeGroupTableAction.getTableAction() + "\n." + parseExceptionBody(e),
+            BaseTestUtils.report("verify SpanningTreeGroup Disabled Table Action failed: " + spanningTreeGroupTableAction.getTableAction() + "\n." + parseExceptionBody(e),
                     Reporter.FAIL);
         }
     }
@@ -56,10 +56,10 @@ public class RBACAlteonLayer2TableActionTests extends RBACTestBase {
             testProperties.put("staticTrunkGroupsTableAction", staticTrunkGroupsTableAction.getTableAction().toString());
 
             if (!(RBACAlteonLayer2TableActionHandler.verifyStaticTrunkGroupsTableAction(testProperties))) {
-                report.report("The specified Table action is in an incorrect state: " + staticTrunkGroupsTableAction.getTableAction() + "\n.", Reporter.FAIL);
+                BaseTestUtils.report("The specified Table action is in an incorrect state: " + staticTrunkGroupsTableAction.getTableAction() + "\n.", Reporter.FAIL);
             }
         } catch (Exception e) {
-            report.report("verify StaticTrunkGroups Disabled Table Action failed: " + staticTrunkGroupsTableAction.getTableAction() + "\n." + parseExceptionBody(e),
+            BaseTestUtils.report("verify StaticTrunkGroups Disabled Table Action failed: " + staticTrunkGroupsTableAction.getTableAction() + "\n." + parseExceptionBody(e),
                     Reporter.FAIL);
         }
     }
@@ -72,10 +72,10 @@ public class RBACAlteonLayer2TableActionTests extends RBACTestBase {
             testProperties.put("lacpGroupTableAction", lacpGroupTableAction.getTableAction().toString());
 
             if (!(RBACAlteonLayer2TableActionHandler.verifyLACPGroupTableAction(testProperties))) {
-                report.report("The specified Table action is in an incorrect state: " + lacpGroupTableAction.getTableAction() + "\n.", Reporter.FAIL);
+                BaseTestUtils.report("The specified Table action is in an incorrect state: " + lacpGroupTableAction.getTableAction() + "\n.", Reporter.FAIL);
             }
         } catch (Exception e) {
-            report.report("verify LACPGroup Disabled Table Action failed: " + lacpGroupTableAction.getTableAction() + "\n." + parseExceptionBody(e),
+            BaseTestUtils.report("verify LACPGroup Disabled Table Action failed: " + lacpGroupTableAction.getTableAction() + "\n." + parseExceptionBody(e),
                     Reporter.FAIL);
         }
     }
@@ -88,10 +88,10 @@ public class RBACAlteonLayer2TableActionTests extends RBACTestBase {
             testProperties.put("portTeamsTableAction", portTeamsTableAction.getTableAction().toString());
 
             if (!(RBACAlteonLayer2TableActionHandler.verifyPortTeamsTableAction(testProperties))) {
-                report.report("The specified Table action is in an incorrect state: " + portTeamsTableAction.getTableAction() + "\n.", Reporter.FAIL);
+                BaseTestUtils.report("The specified Table action is in an incorrect state: " + portTeamsTableAction.getTableAction() + "\n.", Reporter.FAIL);
             }
         } catch (Exception e) {
-            report.report("verify PortTeams Disabled Table Action failed: " + portTeamsTableAction.getTableAction() + "\n." + parseExceptionBody(e),
+            BaseTestUtils.report("verify PortTeams Disabled Table Action failed: " + portTeamsTableAction.getTableAction() + "\n." + parseExceptionBody(e),
                     Reporter.FAIL);
         }
     }
@@ -104,10 +104,10 @@ public class RBACAlteonLayer2TableActionTests extends RBACTestBase {
             testProperties.put("vlanTableAction", vlanTableAction.getTableAction().toString());
 
             if (!(RBACAlteonLayer2TableActionHandler.verifyVLANTableAction(testProperties))) {
-                report.report("The specified Table action is in an incorrect state: " + vlanTableAction.getTableAction() + "\n.", Reporter.FAIL);
+                BaseTestUtils.report("The specified Table action is in an incorrect state: " + vlanTableAction.getTableAction() + "\n.", Reporter.FAIL);
             }
         } catch (Exception e) {
-            report.report("verify VLAN Disabled Table Action failed: " + vlanTableAction.getTableAction() + "\n." + parseExceptionBody(e),
+            BaseTestUtils.report("verify VLAN Disabled Table Action failed: " + vlanTableAction.getTableAction() + "\n." + parseExceptionBody(e),
                     Reporter.FAIL);
         }
     }

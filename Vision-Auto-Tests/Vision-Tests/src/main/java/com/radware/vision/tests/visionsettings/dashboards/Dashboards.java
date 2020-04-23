@@ -15,7 +15,7 @@ public class Dashboards extends VisionSettingsBase {
     @TestProperties(name = "Dashboards", paramsInclude = {})
     public void clickDashboards() {
         if(!clickMenu("gwt-debug-TopicsStack_am.dashboards.tab")) {
-            report.report("Failed to click 'Dashboards' menu option.");
+            BaseTestUtils.report("Failed to click 'Dashboards' menu option.");
         }
     }
 }

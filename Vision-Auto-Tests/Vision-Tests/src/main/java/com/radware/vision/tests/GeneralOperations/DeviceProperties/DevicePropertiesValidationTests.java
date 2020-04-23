@@ -22,13 +22,13 @@ public class DevicePropertiesValidationTests extends WebUITestBase {
             VisionServerInfoPane visionServerInfoPane = new VisionServerInfoPane();
             if (visionServerInfoPane.isLabelExists(deviceInfoPaneProperties.getDeviceInfoPaneProperties())) {
                 if (!visionServerInfoPane.getInfoPanePropertyVersion(deviceInfoPaneProperties.getDeviceInfoPaneProperties()).equals(expectedResult)) {
-                    report.report("Device Operation validation has failed: " + " was not " + expectedResult + " as expected." + "\n", Reporter.FAIL);
+                    BaseTestUtils.report("Device Operation validation has failed: " + " was not " + expectedResult + " as expected." + "\n", Reporter.FAIL);
                 }
             } else {
-                report.report("No such property is found: " + deviceInfoPaneProperties.getDeviceInfoPaneProperties() + "\n", Reporter.FAIL);
+                BaseTestUtils.report("No such property is found: " + deviceInfoPaneProperties.getDeviceInfoPaneProperties() + "\n", Reporter.FAIL);
             }
         } catch (Exception e) {
-            report.report("Device Property validation has failed : " + "expected is: " + expectedResult + " actual is: " + deviceInfoPaneProperties.getDeviceInfoPaneProperties(), Reporter.FAIL);
+            BaseTestUtils.report("Device Property validation has failed : " + "expected is: " + expectedResult + " actual is: " + deviceInfoPaneProperties.getDeviceInfoPaneProperties(), Reporter.FAIL);
         }
     }
 

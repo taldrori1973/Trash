@@ -1,14 +1,14 @@
 package com.radware.vision.tests.Alteon.Configuration.System.LoggingAlerts;
 
+import com.radware.automation.tools.basetest.Reporter;
+import com.radware.automation.tools.utils.StringUtils;
 import com.radware.automation.webui.webpages.configuration.system.loggingAndAlerts.LoggingAlertsEnums;
 import com.radware.automation.webui.webpages.configuration.system.loggingAndAlerts.LoggingAlertsEnums.*;
 import com.radware.vision.infra.testhandlers.alteon.configuration.system.LoggingAlertsHandler;
 import com.radware.vision.infra.testhandlers.rbac.enums.ManagementNetworks;
 import com.radware.vision.tests.Alteon.AlteonTestBase;
 import jsystem.framework.TestProperties;
-import com.radware.automation.tools.basetest.Reporter;
 import org.junit.Test;
-import com.radware.automation.tools.utils.StringUtils;
 /**
  * Created by alexeys on 5/31/2015.
  */
@@ -200,7 +200,7 @@ public class LoggingAlertsTests extends AlteonTestBase {
             LoggingAlertsHandler.editLicenseAlertThresholds(testProperties);
             LoggingAlertsHandler.editCpuUtilizationAlert(testProperties);
         } catch (Exception e) {
-            report.report(parseExceptionBody(e), Reporter.FAIL);
+            BaseTestUtils.report(parseExceptionBody(e), Reporter.FAIL);
         }
 
     }

@@ -15,7 +15,7 @@ public class ApmSettings extends VisionSettingsBase {
     @TestProperties(name = "APM Enable Devices", paramsInclude = {})
     public void clickAPMEnableDevices() {
         if(!clickMenu(subMenuOption, "apmInstances")) {
-            report.report("Failed to click 'APM Enable Devices' menu option.");
+            BaseTestUtils.report("Failed to click 'APM Enable Devices' menu option.");
         }
     }
 }

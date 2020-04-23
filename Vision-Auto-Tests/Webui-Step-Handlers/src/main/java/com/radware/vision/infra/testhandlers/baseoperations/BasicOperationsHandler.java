@@ -29,6 +29,7 @@ import com.radware.automation.webui.widgets.api.Widget;
 import com.radware.automation.webui.widgets.impl.WebUICheckbox;
 import com.radware.automation.webui.widgets.impl.WebUIComponent;
 import com.radware.automation.webui.widgets.impl.WebUITextField;
+import com.radware.vision.automation.AutoUtils.Operators.OperatorsEnum;
 import com.radware.vision.automation.tools.exceptions.misc.NoSuchOperationException;
 import com.radware.vision.automation.tools.exceptions.selenium.TargetWebElementNotFoundException;
 import com.radware.vision.automation.tools.sutsystemobjects.devicesinfo.enums.SUTDeviceType;
@@ -37,7 +38,6 @@ import com.radware.vision.infra.base.pages.VisionWebUILogin;
 import com.radware.vision.infra.base.pages.navigation.HomePage;
 import com.radware.vision.infra.base.pages.navigation.WebUIUpperBar;
 import com.radware.vision.infra.base.pages.navigation.WebUIVisionBasePage;
-import com.radware.vision.automation.AutoUtils.Operators.OperatorsEnum;
 import com.radware.vision.infra.enums.UpperBarItems;
 import com.radware.vision.infra.testhandlers.BaseHandler;
 import com.radware.vision.infra.testhandlers.baseoperations.enums.Operation;
@@ -54,7 +54,10 @@ import org.openqa.selenium.support.How;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
-import java.io.*;
+import java.io.ByteArrayInputStream;
+import java.io.File;
+import java.io.IOException;
+import java.io.InputStream;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
@@ -790,7 +793,7 @@ public class BasicOperationsHandler {
         SystemTestCase.report.saveFile(randomFileName, ByteStreams.toByteArray(inputStream));
 
         String imageSource = randomFileName;
-        SystemTestCase.report.reportHtml(time + " Screenshot. ", "<img src=" + imageSource + " alt=screenshot width=1280 height=848>", true);
+        SystemTestCase.BaseTestUtils.reportHtml(time + " Screenshot. ", "<img src=" + imageSource + " alt=screenshot width=1280 height=848>", true);
     }
 
     public static void setIsLoggedIn(boolean isLoggedIn) {

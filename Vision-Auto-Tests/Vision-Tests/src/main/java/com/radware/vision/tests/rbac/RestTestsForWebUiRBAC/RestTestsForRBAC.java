@@ -25,7 +25,7 @@ public class RestTestsForRBAC extends WebUITestBase {
             DeviceTableUtils.createTableRow(getVisionRestClient(), deviceIp, tableName, names, values);
 
         } catch (Exception e) {
-            TestBase.report.report("Device: " + deviceIp + " " + "createTableRow may not have been executed properly.", e.toString(), Reporter.FAIL);
+            TestBase.BaseTestUtils.report("Device: " + deviceIp + " " + "createTableRow may not have been executed properly.", e.toString(), Reporter.FAIL);
         }
     }
 

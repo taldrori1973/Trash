@@ -13,7 +13,7 @@ public class Preferences extends VisionSettingsBase {
     @TestProperties(name = "User Preferences", paramsInclude = {})
     public void clickUserPreferences() {
         if(!clickMenu("gwt-debug-TopicsStack_am.preferences.tab")) {
-            report.report("Failed to click 'User Preferences' menu option.");
+            BaseTestUtils.report("Failed to click 'User Preferences' menu option.");
         }
     }
 

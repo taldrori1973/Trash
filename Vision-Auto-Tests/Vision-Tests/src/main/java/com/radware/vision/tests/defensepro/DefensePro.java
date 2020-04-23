@@ -1,13 +1,11 @@
 package com.radware.vision.tests.defensepro;
 
-import com.radware.vision.infra.testhandlers.DefencePro.enums.DPHaDeviceStatus;
-import jsystem.framework.TestProperties;
 import com.radware.automation.tools.basetest.Reporter;
-
-import org.junit.Test;
-
 import com.radware.vision.base.WebUITestBase;
 import com.radware.vision.infra.testhandlers.DefencePro.DPClusterManageHandler;
+import com.radware.vision.infra.testhandlers.DefencePro.enums.DPHaDeviceStatus;
+import jsystem.framework.TestProperties;
+import org.junit.Test;
 
 public class DefensePro extends WebUITestBase {
 	
@@ -22,7 +20,7 @@ public class DefensePro extends WebUITestBase {
 		try {
 			DPClusterManageHandler.dpClusterSwitchover(getDeviceName());
 		} catch (Exception e) {
-			report.report("Failed to switchover between DP Cluster members: " + getDeviceName() + parseExceptionBody(e), Reporter.FAIL);
+            BaseTestUtils.report("Failed to switchover between DP Cluster members: " + getDeviceName() + parseExceptionBody(e), Reporter.FAIL);
 		}
 	}
 	
@@ -32,7 +30,7 @@ public class DefensePro extends WebUITestBase {
 		try {
 			DPClusterManageHandler.dpClusterUpdatePolicies(getDeviceName());
 		} catch (Exception e) {
-			report.report("Failed to update policies between DP Cluster members: " + getDeviceName() + parseExceptionBody(e), Reporter.FAIL);
+            BaseTestUtils.report("Failed to update policies between DP Cluster members: " + getDeviceName() + parseExceptionBody(e), Reporter.FAIL);
 		}
 	}
 	
@@ -42,7 +40,7 @@ public class DefensePro extends WebUITestBase {
 		try {
 			DPClusterManageHandler.dpClusterSync(getDeviceName());
 		} catch (Exception e) {
-			report.report("Failed to synchronize between DP Cluster members: " + getDeviceName() + parseExceptionBody(e), Reporter.FAIL);
+            BaseTestUtils.report("Failed to synchronize between DP Cluster members: " + getDeviceName() + parseExceptionBody(e), Reporter.FAIL);
 		}
 	}
 
@@ -51,11 +49,11 @@ public class DefensePro extends WebUITestBase {
     public void verifyDPHaStatus() {
         try {
             if (!DPClusterManageHandler.verifyDeviceHaStatus(getDeviceName(), dpHaDeviceStatus)) {
-                report.report("Device: " + getDeviceName() + " " + "has different status than: " + dpHaDeviceStatus.getStatus(), Reporter.FAIL);
+                BaseTestUtils.report("Device: " + getDeviceName() + " " + "has different status than: " + dpHaDeviceStatus.getStatus(), Reporter.FAIL);
             }
         }
         catch (Exception e) {
-            report.report("Failed to switchover between DP Cluster members: " + getDeviceName() + parseExceptionBody(e), Reporter.FAIL);
+            BaseTestUtils.report("Failed to switchover between DP Cluster members: " + getDeviceName() + parseExceptionBody(e), Reporter.FAIL);
         }
     }
 
@@ -64,10 +62,10 @@ public class DefensePro extends WebUITestBase {
 	public void verifyClusterPrimaryDevice() throws Exception {
 		try {
 			if(!DPClusterManageHandler.isPrimaryDpDeviceMember(getDeviceName(), primaryClusterMember)) {
-				report.report("Primary DP member was not found: " + primaryClusterMember + "\n" , Reporter.FAIL);
+                BaseTestUtils.report("Primary DP member was not found: " + primaryClusterMember + "\n", Reporter.FAIL);
 			}
 		} catch (Exception e) {
-			report.report("Primary DP member was not found: " + primaryClusterMember + "\n" + parseExceptionBody(e), Reporter.FAIL);
+            BaseTestUtils.report("Primary DP member was not found: " + primaryClusterMember + "\n" + parseExceptionBody(e), Reporter.FAIL);
 		}
 	}
 	
@@ -76,10 +74,10 @@ public class DefensePro extends WebUITestBase {
 	public void verifyClusterSecondaryDevice() throws Exception {
 		try {
 			if(!DPClusterManageHandler.isSecondaryDpDeviceMember(getDeviceName(), secondaryClusterMember)) {
-				report.report("Secondary DP member was not found: " + secondaryClusterMember + "\n" , Reporter.FAIL);
+                BaseTestUtils.report("Secondary DP member was not found: " + secondaryClusterMember + "\n", Reporter.FAIL);
 			}
 		} catch (Exception e) {
-			report.report("Secondary DP member was not found: " + secondaryClusterMember + "\n" + parseExceptionBody(e), Reporter.FAIL);
+            BaseTestUtils.report("Secondary DP member was not found: " + secondaryClusterMember + "\n" + parseExceptionBody(e), Reporter.FAIL);
 		}
 	}
 

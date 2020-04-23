@@ -56,11 +56,11 @@ public class VisionLocalizationTests extends WebUITestBase{
             result = parser.testPageTexts();
             if (result.length() != 0) {
                 String msgPrefix = verboseMode ? "The following elements were tested for translation: " : "Those labels are not translated correctly: ";
-                report.report(msgPrefix + "\n" + result.toString(), !verboseMode ? Reporter.FAIL : Reporter.PASS);
+                BaseTestUtils.report(msgPrefix + "\n" + result.toString(), !verboseMode ? Reporter.FAIL : Reporter.PASS);
             }
 
         } catch (Exception e) {
-            report.report("Page labels validation has Failed :" + result.toString() + parseExceptionBody(e), Reporter.FAIL);
+            BaseTestUtils.report("Page labels validation has Failed :" + result.toString() + parseExceptionBody(e), Reporter.FAIL);
         }
     }
 
@@ -78,11 +78,11 @@ public class VisionLocalizationTests extends WebUITestBase{
             result = localizationNavigationParsing.navigateSystemMenu(ids);
 
             if (result.length() != 0) {
-                report.report("Those texts are not translated correctly:" + result.toString(), Reporter.FAIL);
+                BaseTestUtils.report("Those texts are not translated correctly:" + result.toString(), Reporter.FAIL);
             }
 
         } catch (Exception e) {
-            report.report("Page labels validation has Failed :" + result.toString() + parseExceptionBody(e), Reporter.FAIL);
+            BaseTestUtils.report("Page labels validation has Failed :" + result.toString() + parseExceptionBody(e), Reporter.FAIL);
         }
     }
 
@@ -97,11 +97,11 @@ public class VisionLocalizationTests extends WebUITestBase{
             result = parser.testPageTexts();
             if (result.length() != 0) {
                 String msgPrefix = verboseMode ? "The following elements were tested for translation: " : "Those labels are not translated correctly: ";
-                report.report(msgPrefix + "\n" + result.toString(), !verboseMode ? Reporter.FAIL : Reporter.PASS);
+                BaseTestUtils.report(msgPrefix + "\n" + result.toString(), !verboseMode ? Reporter.FAIL : Reporter.PASS);
             }
 
         } catch (Exception e) {
-            report.report("Page labels validation has Failed :" + result.toString() + parseExceptionBody(e), Reporter.FAIL);
+            BaseTestUtils.report("Page labels validation has Failed :" + result.toString() + parseExceptionBody(e), Reporter.FAIL);
         }
     }
 
@@ -117,15 +117,15 @@ public class VisionLocalizationTests extends WebUITestBase{
             if (!deviceOperation.getDeviceOperationId().equals("")) {
                 result = parser.testElementTexts(deviceOperation);
             } else {
-                report.report("Element labels validation has Failed : no Operation was selected" + result.toString(), Reporter.FAIL);
+                BaseTestUtils.report("Element labels validation has Failed : no Operation was selected" + result.toString(), Reporter.FAIL);
             }
             if (result.length() != 0) {
                 String msgPrefix = verboseMode ? "The following element was tested for translation: " : "Those labels are not translated correctly: ";
-                report.report(msgPrefix + "\n" + result.toString(), !verboseMode ? Reporter.FAIL : Reporter.PASS);
+                BaseTestUtils.report(msgPrefix + "\n" + result.toString(), !verboseMode ? Reporter.FAIL : Reporter.PASS);
             }
 
         } catch (Exception e) {
-            report.report("Element labels validation has Failed :" + result.toString() + parseExceptionBody(e), Reporter.FAIL);
+            BaseTestUtils.report("Element labels validation has Failed :" + result.toString() + parseExceptionBody(e), Reporter.FAIL);
         }
     }
 
@@ -142,11 +142,11 @@ public class VisionLocalizationTests extends WebUITestBase{
             result = devicePropertiesParsing.testDeviceProperties(propsList, null, ignoredDropDownElementIds == null ? "" : ignoredDropDownElementIds, ignoredElementItems == null ? "" : ignoredElementItems, verboseMode);
             if (result.length() != 0) {
                 String msgPrefix = verboseMode ? "The following elements were tested for translation: " : "Those labels are not translated correctly: ";
-                report.report(msgPrefix + "\n" + result.toString(), !verboseMode ? Reporter.FAIL : Reporter.PASS);
+                BaseTestUtils.report(msgPrefix + "\n" + result.toString(), !verboseMode ? Reporter.FAIL : Reporter.PASS);
             }
 
         } catch (Exception e) {
-            report.report("deviceProperties validation has Failed :" + result.toString() + parseExceptionBody(e), Reporter.FAIL);
+            BaseTestUtils.report("deviceProperties validation has Failed :" + result.toString() + parseExceptionBody(e), Reporter.FAIL);
         }
     }
 

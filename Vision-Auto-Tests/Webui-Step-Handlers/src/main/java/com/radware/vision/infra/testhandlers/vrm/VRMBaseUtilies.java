@@ -19,14 +19,14 @@ import com.radware.vision.automation.tools.exceptions.web.DropdownItemNotFoundEx
 import com.radware.vision.automation.tools.exceptions.web.DropdownNotOpenedException;
 import com.radware.vision.automation.tools.sutsystemobjects.devicesinfo.DeviceInfo;
 import com.radware.vision.automation.tools.sutsystemobjects.devicesinfo.enums.SUTDeviceType;
-import com.radware.vision.vision_project_cli.RadwareServerCli;
-import com.radware.vision.vision_project_cli.RootServerCli;
 import com.radware.vision.infra.testhandlers.baseoperations.BasicOperationsHandler;
 import com.radware.vision.infra.testhandlers.cli.CliOperations;
 import com.radware.vision.infra.testhandlers.vrm.enums.vrmActions;
 import com.radware.vision.infra.utils.ReportsUtils;
 import com.radware.vision.infra.utils.TimeUtils;
 import com.radware.vision.infra.utils.json.CustomizedJsonManager;
+import com.radware.vision.vision_project_cli.RadwareServerCli;
+import com.radware.vision.vision_project_cli.RootServerCli;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import org.openqa.selenium.JavascriptExecutor;
@@ -1320,13 +1320,13 @@ public class VRMBaseUtilies {
     }
 
     private WebElement getGenerateReportButton(String reportName, WebElement reportContainer) throws TargetWebElementNotFoundException {
-        if (reportContainer == null) BaseTestUtils.report(reportName + " Report Container not found", Reporter.FAIL);
+        if (reportContainer == null) BaseTestUtils.BaseTestUtils.reportName + " Report Container not found", Reporter.FAIL);
 
         if (!BasicOperationsHandler.isElementContainsClass("Reports List Item", reportName, "selected"))
             BasicOperationsHandler.clickButton("Reports List Item", reportName);
 
         WebElement generateButton = BasicOperationsHandler.isItemAvailableById("Generate Now", reportName);
-        if (generateButton == null) BaseTestUtils.report(reportName + " Generate Button not found", Reporter.FAIL);
+        if (generateButton == null) BaseTestUtils.BaseTestUtils.reportName + " Generate Button not found", Reporter.FAIL);
         return generateButton;
     }
 

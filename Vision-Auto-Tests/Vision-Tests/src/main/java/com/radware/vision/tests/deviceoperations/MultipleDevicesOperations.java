@@ -39,10 +39,10 @@ public class MultipleDevicesOperations extends WebUITestBase {
             VisionServerInfoPane infopane = new VisionServerInfoPane();
             String currentyLockedBy = infopane.getDeviceLockedBy();
             if (!(currentyLockedBy.equals(WebUITestBase.getConnectionUsername()))) {
-                report.report("Device: " + deviceNameGroup + " are locked by: " + currentyLockedBy + ", and not by " + WebUITestBase.getConnectionUsername(), Reporter.FAIL);
+                BaseTestUtils.report("Device: " + deviceNameGroup + " are locked by: " + currentyLockedBy + ", and not by " + WebUITestBase.getConnectionUsername(), Reporter.FAIL);
             }
         } catch (Exception e) {
-            report.report("Topology Element may not have been found :", Reporter.FAIL);
+            BaseTestUtils.report("Topology Element may not have been found :", Reporter.FAIL);
         }
     }
 
@@ -55,10 +55,10 @@ public class MultipleDevicesOperations extends WebUITestBase {
             VisionServerInfoPane infopane = new VisionServerInfoPane();
             String currentyLockedBy = infopane.getDeviceLockedBy();
             if (!(currentyLockedBy.equals(WebUITestBase.getConnectionUsername()))) {
-                report.report("Device: " + deviceNameGroup + " are locked by: " + currentyLockedBy + ", and not by " + WebUITestBase.getConnectionUsername(), Reporter.FAIL);
+                BaseTestUtils.report("Device: " + deviceNameGroup + " are locked by: " + currentyLockedBy + ", and not by " + WebUITestBase.getConnectionUsername(), Reporter.FAIL);
             }
         } catch (Exception e) {
-            report.report("Topology Element may not have been found :", Reporter.FAIL);
+            BaseTestUtils.report("Topology Element may not have been found :", Reporter.FAIL);
         }
     }
 
@@ -71,10 +71,10 @@ public class MultipleDevicesOperations extends WebUITestBase {
             VisionServerInfoPane infopane = new VisionServerInfoPane();
             String currentyLockedBy = infopane.getDeviceLockedBy();
             if (!(currentyLockedBy.equals(WebUITestBase.getConnectionUsername()))) {
-                report.report("Device: " + deviceNameGroup + " are locked by: " + currentyLockedBy + ", and not by " + WebUITestBase.getConnectionUsername(), Reporter.FAIL);
+                BaseTestUtils.report("Device: " + deviceNameGroup + " are locked by: " + currentyLockedBy + ", and not by " + WebUITestBase.getConnectionUsername(), Reporter.FAIL);
             }
         } catch (Exception e) {
-            report.report("Topology Element may not have been found :", Reporter.FAIL);
+            BaseTestUtils.report("Topology Element may not have been found :", Reporter.FAIL);
         }
     }
 
@@ -87,10 +87,10 @@ public class MultipleDevicesOperations extends WebUITestBase {
             VisionServerInfoPane infopane = new VisionServerInfoPane();
             String currentyLockedBy = infopane.getDeviceLockedBy();
             if (!(currentyLockedBy.equals(WebUITestBase.getConnectionUsername()))) {
-                report.report("Device: " + deviceNameGroup + " are locked by: " + currentyLockedBy + ", and not by " + WebUITestBase.getConnectionUsername(), Reporter.FAIL);
+                BaseTestUtils.report("Device: " + deviceNameGroup + " are locked by: " + currentyLockedBy + ", and not by " + WebUITestBase.getConnectionUsername(), Reporter.FAIL);
             }
         } catch (Exception e) {
-            report.report("Topology Element may not have been found :", Reporter.FAIL);
+            BaseTestUtils.report("Topology Element may not have been found :", Reporter.FAIL);
         }
     }
 

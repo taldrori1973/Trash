@@ -133,7 +133,7 @@ public class BasicOperations extends WebUITestBase {
         try {
             BasicOperationsHandler.takeScreenShot();
         } catch (IOException e) {
-            report.report(e.getMessage(), Reporter.FAIL);
+            BaseTestUtils.report(e.getMessage(), Reporter.FAIL);
         }
     }
 
@@ -165,13 +165,13 @@ public class BasicOperations extends WebUITestBase {
             restTestBase.setIgnoreRestResponseValidation(ignoreRestResponseValidation);
             restTestBase.getVisionRestClient().login(username, password, "", 1);
         } catch (Exception e) {
-            report.report("Failed to login with: " + username + "@" + password + ".\n" + e.getMessage() + "\n" + e.getCause(), Reporter.FAIL);
+            BaseTestUtils.report("Failed to login with: " + username + "@" + password + ".\n" + e.getMessage() + "\n" + e.getCause(), Reporter.FAIL);
         }
     }
 
     private boolean validateConnectedSession() {
         browserSessionId = WebUIUtils.getDriver().manage().getCookieNamed("JSESSIONID").getValue();
-        report.report("Browser Session Id = " + browserSessionId);
+        BaseTestUtils.report("Browser Session Id = " + browserSessionId);
         try {
             restTestBase.getVisionRestClient().login(username, password, null, 1);
             restTestBase.getVisionRestClient().setIgnoreResponseCodeValidation(true);
@@ -185,7 +185,7 @@ public class BasicOperations extends WebUITestBase {
                     break;
             }
             while (System.currentTimeMillis() - startTime < 30 * 1000);
-            report.report(JsonUtils.prettifyJson(result));
+            BaseTestUtils.report(JsonUtils.prettifyJson(result));
             JSONArray jsonArray = new JSONArray(result);
             for (int i = 1; i < jsonArray.length(); i++) {
                 JSONObject jsonObj = (JSONObject) jsonArray.get(i);
@@ -211,11 +211,11 @@ public class BasicOperations extends WebUITestBase {
     public void negativeLogin() {
         try {
             if (BasicOperationsHandler.negativeLogin(username, password, Double.valueOf(loginTimeout))) {
-                report.report("Login with username:" + username + " " + "Password: " + password + " Must NOT be allowed:\n", Reporter.FAIL);
+                BaseTestUtils.report("Login with username:" + username + " " + "Password: " + password + " Must NOT be allowed:\n", Reporter.FAIL);
             }
             validateConnectedSession();
         } catch (Exception e) {
-            report.report("Login with username:" + username + " " + "Password: " + password + " failed with the following error:\n" + parseExceptionBody(e), Reporter.FAIL);
+            BaseTestUtils.report("Login with username:" + username + " " + "Password: " + password + " failed with the following error:\n" + parseExceptionBody(e), Reporter.FAIL);
         } finally {
             ((VisionConnectionAuthentication) webUtils.getConnection()).setDefaultPage("");
         }
@@ -242,7 +242,7 @@ public class BasicOperations extends WebUITestBase {
         try {
             BasicOperationsHandler.closeBrowser();
         } catch (Exception e) {
-            report.report("Failed to close browser. Further Web Client tests may fail." + parseExceptionBody(e), Reporter.FAIL);
+            BaseTestUtils.report("Failed to close browser. Further Web Client tests may fail." + parseExceptionBody(e), Reporter.FAIL);
         }
     }
 
@@ -253,7 +253,7 @@ public class BasicOperations extends WebUITestBase {
         try {
             BasicOperationsHandler.refresh();
         } catch (Exception e) {
-            report.report("Refresh Page failed with the following error:\n" + parseExceptionBody(e), Reporter.FAIL);
+            BaseTestUtils.report("Refresh Page failed with the following error:\n" + parseExceptionBody(e), Reporter.FAIL);
         }
     }
 
@@ -263,7 +263,7 @@ public class BasicOperations extends WebUITestBase {
         try {
             BasicOperationsHandler.refreshBrowserPage();
         } catch (Exception e) {
-            report.report("Refresh Browser Page failed with the following error:\n" + parseExceptionBody(e), Reporter.PASS);
+            BaseTestUtils.report("Refresh Browser Page failed with the following error:\n" + parseExceptionBody(e), Reporter.PASS);
         }
     }
 
@@ -274,7 +274,7 @@ public class BasicOperations extends WebUITestBase {
         try {
             BasicOperationsHandler.scheduler(true);
         } catch (Exception e) {
-            report.report("Scheduler Page failed with the following error:\n" + parseExceptionBody(e), Reporter.FAIL);
+            BaseTestUtils.report("Scheduler Page failed with the following error:\n" + parseExceptionBody(e), Reporter.FAIL);
         }
     }
 
@@ -285,7 +285,7 @@ public class BasicOperations extends WebUITestBase {
         try {
             BasicOperationsHandler.delay(timeOut);
         } catch (Exception e) {
-            report.report("Timeout operation has failed :\n" + parseExceptionBody(e), Reporter.FAIL);
+            BaseTestUtils.report("Timeout operation has failed :\n" + parseExceptionBody(e), Reporter.FAIL);
         }
     }
 
@@ -301,7 +301,7 @@ public class BasicOperations extends WebUITestBase {
         try {
             BasicOperationsHandler.restartVisionServerServices(WebUITestBase.getRestTestBase().getRadwareServerCli());
         } catch (Exception e) {
-            report.report("Failed to restart the Vision Server services." + parseExceptionBody(e), Reporter.FAIL);
+            BaseTestUtils.report("Failed to restart the Vision Server services." + parseExceptionBody(e), Reporter.FAIL);
         }
     }
 
@@ -311,7 +311,7 @@ public class BasicOperations extends WebUITestBase {
         try {
             BasicOperationsHandler.setWaitAfterClick(Long.valueOf(waitAfterClick));
         } catch (Exception e) {
-            report.report("Failed to set click timeout. No affect on further testing." + parseExceptionBody(e), Reporter.PASS);
+            BaseTestUtils.report("Failed to set click timeout. No affect on further testing." + parseExceptionBody(e), Reporter.PASS);
         }
     }
 
@@ -330,7 +330,7 @@ public class BasicOperations extends WebUITestBase {
                 LocalUsersHandler.addUser(WebUITestBase.restOperationsUsername, WebUITestBase.restOperationsPassword, "", "", "", "Administrator,", null, null);
             }
         } catch (Exception e) {
-            report.report("Add Rest user (" + WebUITestBase.restOperationsUsername + "@" + WebUITestBase.restOperationsPassword + ")" + " " + "failed. Further tests might fail.", Reporter.WARNING);
+            BaseTestUtils.report("Add Rest user (" + WebUITestBase.restOperationsUsername + "@" + WebUITestBase.restOperationsPassword + ")" + " " + "failed. Further tests might fail.", Reporter.WARNING);
         }
     }
 
@@ -340,7 +340,7 @@ public class BasicOperations extends WebUITestBase {
         try {
             BasicOperationsHandler.runVisionServerDebugMode(getRestTestBase().getRootServerCli());
         } catch (Exception e) {
-            report.report("Failed to start Vision Server in Debug Mode. Debugging will not be available", Reporter.FAIL);
+            BaseTestUtils.report("Failed to start Vision Server in Debug Mode. Debugging will not be available", Reporter.FAIL);
         }
     }
 
@@ -358,7 +358,7 @@ public class BasicOperations extends WebUITestBase {
         try {
             InvokeUtils.invokeCommand(visionServerCommand, getRestTestBase().getRadwareServerCli());
         } catch (Exception e) {
-            report.report("Failed to execute command: " + visionServerCommand + "\n" + parseExceptionBody(e), Reporter.FAIL);
+            BaseTestUtils.report("Failed to execute command: " + visionServerCommand + "\n" + parseExceptionBody(e), Reporter.FAIL);
         }
     }
 
@@ -368,7 +368,7 @@ public class BasicOperations extends WebUITestBase {
         try {
             InvokeUtils.invokeCommand(rootServerCommand, getRestTestBase().getRootServerCli());
         } catch (Exception e) {
-            report.report("Failed to execute command: " + rootServerCommand + "\n" + parseExceptionBody(e), Reporter.FAIL);
+            BaseTestUtils.report("Failed to execute command: " + rootServerCommand + "\n" + parseExceptionBody(e), Reporter.FAIL);
         }
     }
 
@@ -378,10 +378,10 @@ public class BasicOperations extends WebUITestBase {
         try {
             String sqlCommandResult = BasicOperationsHandler.setMysqlGlobalVariable(getRestTestBase().getRootServerCli(), getRestTestBase().getMysqlServer(), mysqlGlobalVariable, mysqlGlobalVariableValue);
             if (sqlCommandResult.contains("ERROR")) {
-                report.report("Failed to set global variable: " + mysqlGlobalVariable + ", with value:" + mysqlGlobalVariableValue + "\n", Reporter.FAIL);
+                BaseTestUtils.report("Failed to set global variable: " + mysqlGlobalVariable + ", with value:" + mysqlGlobalVariableValue + "\n", Reporter.FAIL);
             }
         } catch (Exception e) {
-            report.report("Failed to execute command: " + visionServerCommand + "\n" + parseExceptionBody(e), Reporter.FAIL);
+            BaseTestUtils.report("Failed to execute command: " + visionServerCommand + "\n" + parseExceptionBody(e), Reporter.FAIL);
         }
     }
 
@@ -391,7 +391,7 @@ public class BasicOperations extends WebUITestBase {
         try {
             BasicOperationsHandler.appendMyCnfFile(getRestTestBase().getRootServerCli(), mysqlGlobalVariable, mysqlGlobalVariableValue);
         } catch (Exception e) {
-            report.report("Failed modify the /etc/my.cnf file with attribute: " + mysqlGlobalVariable + "=" + mysqlGlobalVariableValue + "\n" + parseExceptionBody(e), Reporter.FAIL);
+            BaseTestUtils.report("Failed modify the /etc/my.cnf file with attribute: " + mysqlGlobalVariable + "=" + mysqlGlobalVariableValue + "\n" + parseExceptionBody(e), Reporter.FAIL);
         }
     }
 
@@ -439,7 +439,7 @@ public class BasicOperations extends WebUITestBase {
                 WebUIUtils.isTriggerPopupSearchEvent4FreeTest = false;
             }
         } catch (Exception e) {
-            report.report("Auto Close Popup failed with the following error:\n" + parseExceptionBody(e), Reporter.PASS);
+            BaseTestUtils.report("Auto Close Popup failed with the following error:\n" + parseExceptionBody(e), Reporter.PASS);
         }
     }
 
@@ -478,7 +478,7 @@ public class BasicOperations extends WebUITestBase {
             String dateString = hours + ":" + minutes + ":" + seconds;
             RunProperties.getInstance().setRunProperty("currentTimePlus", dateString);
         } catch (Exception e) {
-            report.report(e.getMessage(), Reporter.FAIL);
+            BaseTestUtils.report(e.getMessage(), Reporter.FAIL);
         }
     }
 
@@ -720,7 +720,7 @@ public class BasicOperations extends WebUITestBase {
             SystemTestCase.report.saveFile(randomFileName, ByteStreams.toByteArray(inputStream));
 
             String imageSource = randomFileName;
-            report.reportHtml(time + " Screenshot. Login", "<img src=" + imageSource + " alt=screenshot width=1280 height=848>", true);
+            BaseTestUtils.reportHtml(time + " Screenshot. Login", "<img src=" + imageSource + " alt=screenshot width=1280 height=848>", true);
         } catch (IOException e) {
         }
     }

@@ -1,11 +1,11 @@
 package com.radware.vision.tests.rbac.DefensePro.configuration.networkProtection;
 
+import com.radware.automation.tools.basetest.Reporter;
 import com.radware.vision.infra.testhandlers.rbac.defensePro.configuration.networkProtection.RBACDefenseProSYNProtectionProfilesTableActionHandler;
 import com.radware.vision.infra.testhandlers.rbac.enums.BaseTableActions;
 import com.radware.vision.infra.testhandlers.rbac.enums.EditTableActions;
 import com.radware.vision.tests.rbac.RBACTestBase;
 import jsystem.framework.TestProperties;
-import com.radware.automation.tools.basetest.Reporter;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -36,10 +36,10 @@ public class RBACDefenseProSYNProtectionProfilesTableActionTests extends RBACTes
             testProperties.put("synProtectionProfilesTableAction", synProtectionProfilesTableAction.getTableAction().toString());
 
             if (!(RBACDefenseProSYNProtectionProfilesTableActionHandler.verifySYNProtectionProfilesTableAction(testProperties))) {
-                report.report("The specified Table action is in an incorrect state: " + synProtectionProfilesTableAction.getTableAction() + "\n.", Reporter.FAIL);
+                BaseTestUtils.report("The specified Table action is in an incorrect state: " + synProtectionProfilesTableAction.getTableAction() + "\n.", Reporter.FAIL);
             }
         } catch (Exception e) {
-            report.report("verify SYNProtectionProfiles Disabled Table Action failed: " + synProtectionProfilesTableAction.getTableAction() + "\n." + parseExceptionBody(e),
+            BaseTestUtils.report("verify SYNProtectionProfiles Disabled Table Action failed: " + synProtectionProfilesTableAction.getTableAction() + "\n." + parseExceptionBody(e),
                     Reporter.FAIL);
         }
     }
@@ -52,10 +52,10 @@ public class RBACDefenseProSYNProtectionProfilesTableActionTests extends RBACTes
             testProperties.put("synProtectionsTableAction", synProtectionsTableAction.getTableAction().toString());
 
             if (!(RBACDefenseProSYNProtectionProfilesTableActionHandler.verifySYNProtectionsTableAction(testProperties))) {
-                report.report("The specified Table action is in an incorrect state: " + synProtectionsTableAction.getTableAction() + "\n.", Reporter.FAIL);
+                BaseTestUtils.report("The specified Table action is in an incorrect state: " + synProtectionsTableAction.getTableAction() + "\n.", Reporter.FAIL);
             }
         } catch (Exception e) {
-            report.report("verify SYNProtections Disabled Table Action failed: " + synProtectionsTableAction.getTableAction() + "\n." + parseExceptionBody(e),
+            BaseTestUtils.report("verify SYNProtections Disabled Table Action failed: " + synProtectionsTableAction.getTableAction() + "\n." + parseExceptionBody(e),
                     Reporter.FAIL);
         }
     }
@@ -68,10 +68,10 @@ public class RBACDefenseProSYNProtectionProfilesTableActionTests extends RBACTes
             testProperties.put("profilesParametersTableAction", profilesParametersTableAction.getTableAction().toString());
 
             if (!(RBACDefenseProSYNProtectionProfilesTableActionHandler.verifyProfilesParametersTableAction(testProperties))) {
-                report.report("The specified Table action is in an incorrect state: " + profilesParametersTableAction.getTableAction() + "\n.", Reporter.FAIL);
+                BaseTestUtils.report("The specified Table action is in an incorrect state: " + profilesParametersTableAction.getTableAction() + "\n.", Reporter.FAIL);
             }
         } catch (Exception e) {
-            report.report("verify ProfilesParameters Disabled Table Action failed: " + profilesParametersTableAction.getTableAction() + "\n." + parseExceptionBody(e),
+            BaseTestUtils.report("verify ProfilesParameters Disabled Table Action failed: " + profilesParametersTableAction.getTableAction() + "\n." + parseExceptionBody(e),
                     Reporter.FAIL);
         }
     }
@@ -84,10 +84,10 @@ public class RBACDefenseProSYNProtectionProfilesTableActionTests extends RBACTes
             testProperties.put("sslMitigationPoliciesTableAction", sslMitigationPoliciesTableAction.getTableAction().toString());
 
             if (!(RBACDefenseProSYNProtectionProfilesTableActionHandler.verifySSLMitigationPoliciesTableAction(testProperties))) {
-                report.report("The specified Table action is in an incorrect state: " + sslMitigationPoliciesTableAction.getTableAction() + "\n.", Reporter.FAIL);
+                BaseTestUtils.report("The specified Table action is in an incorrect state: " + sslMitigationPoliciesTableAction.getTableAction() + "\n.", Reporter.FAIL);
             }
         } catch (Exception e) {
-            report.report("verify SSLMitigationPolicies Disabled Table Action failed: " + sslMitigationPoliciesTableAction.getTableAction() + "\n." + parseExceptionBody(e),
+            BaseTestUtils.report("verify SSLMitigationPolicies Disabled Table Action failed: " + sslMitigationPoliciesTableAction.getTableAction() + "\n." + parseExceptionBody(e),
                     Reporter.FAIL);
         }
     }

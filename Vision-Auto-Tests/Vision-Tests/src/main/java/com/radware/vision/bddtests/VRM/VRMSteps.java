@@ -1,6 +1,5 @@
 package com.radware.vision.bddtests.VRM;
 
-import com.radware.vision.automation.tools.exceptions.selenium.TargetWebElementNotFoundException;
 import com.radware.vision.automation.tools.sutsystemobjects.devicesinfo.enums.SUTDeviceType;
 import com.radware.vision.infra.testhandlers.alteon.securitymonitoring.dashboardview.sslinspection.enums.QuickRange;
 import com.radware.vision.infra.testhandlers.vrm.VRMHandler;
@@ -37,7 +36,7 @@ public class VRMSteps {
 
     @Then("^UI Validate VRM Report Existence by Name \"(.*)\" if Exists \"(true|false)\"$")
     public void validateVRMReportExistenceByName(String reportName, boolean isExists) {
-        vrmReportsHandler.validateVRMReport(reportName, isExists);
+        vrmReportsHandler.validateVRMBaseTestUtils.reportName, isExists);
     }
 
     @Then("^UI validate Quick Range between Starting Date \"([^\"]*)\" End Date \"([^\"]*)\" with QuickRange \"([^\"]*)\"(?: with time Format \"([^\"]*)\")?(?: by error threshold in minutes \"([^\"]*)\")?$")

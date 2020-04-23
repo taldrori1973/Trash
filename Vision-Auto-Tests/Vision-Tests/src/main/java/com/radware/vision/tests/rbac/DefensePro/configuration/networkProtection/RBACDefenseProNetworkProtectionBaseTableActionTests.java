@@ -1,11 +1,11 @@
 package com.radware.vision.tests.rbac.DefensePro.configuration.networkProtection;
 
+import com.radware.automation.tools.basetest.Reporter;
 import com.radware.vision.infra.testhandlers.rbac.defensePro.configuration.networkProtection.RBACDefenseProNetworkProtectionBaseTableActionHandler;
 import com.radware.vision.infra.testhandlers.rbac.enums.BaseTableActions;
 import com.radware.vision.infra.testhandlers.rbac.enums.ExportBaseTableActions;
 import com.radware.vision.tests.rbac.RBACTestBase;
 import jsystem.framework.TestProperties;
-import com.radware.automation.tools.basetest.Reporter;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -36,10 +36,10 @@ public class RBACDefenseProNetworkProtectionBaseTableActionTests extends RBACTes
             testProperties.put("networkProtectionPoliciesTableAction", networkProtectionPoliciesTableAction.getTableAction().toString());
 
             if (!(RBACDefenseProNetworkProtectionBaseTableActionHandler.verifyNetworkProtectionPoliciesTableAction(testProperties))) {
-                report.report("The specified Table action is in an incorrect state: " + networkProtectionPoliciesTableAction.getTableAction() + "\n.", Reporter.FAIL);
+                BaseTestUtils.report("The specified Table action is in an incorrect state: " + networkProtectionPoliciesTableAction.getTableAction() + "\n.", Reporter.FAIL);
             }
         } catch (Exception e) {
-            report.report("verify NetworkProtectionPolicies Disabled Table Action failed: " + networkProtectionPoliciesTableAction.getTableAction() + "\n." + parseExceptionBody(e),
+            BaseTestUtils.report("verify NetworkProtectionPolicies Disabled Table Action failed: " + networkProtectionPoliciesTableAction.getTableAction() + "\n." + parseExceptionBody(e),
                     Reporter.FAIL);
         }
     }
@@ -52,10 +52,10 @@ public class RBACDefenseProNetworkProtectionBaseTableActionTests extends RBACTes
             testProperties.put("bdosProfilesTableAction", bdosProfilesTableAction.getTableAction().toString());
 
             if (!(RBACDefenseProNetworkProtectionBaseTableActionHandler.verifyBDoSProfilesTableAction(testProperties))) {
-                report.report("The specified Table action is in an incorrect state: " + bdosProfilesTableAction.getTableAction() + "\n.", Reporter.FAIL);
+                BaseTestUtils.report("The specified Table action is in an incorrect state: " + bdosProfilesTableAction.getTableAction() + "\n.", Reporter.FAIL);
             }
         } catch (Exception e) {
-            report.report("verify BDoSProfiles Disabled Table Action failed: " + bdosProfilesTableAction.getTableAction() + "\n." + parseExceptionBody(e),
+            BaseTestUtils.report("verify BDoSProfiles Disabled Table Action failed: " + bdosProfilesTableAction.getTableAction() + "\n." + parseExceptionBody(e),
                     Reporter.FAIL);
         }
     }
@@ -68,10 +68,10 @@ public class RBACDefenseProNetworkProtectionBaseTableActionTests extends RBACTes
             testProperties.put("outOfStateProtectionProfilesTableAction", outOfStateProtectionProfilesTableAction.getTableAction().toString());
 
             if (!(RBACDefenseProNetworkProtectionBaseTableActionHandler.verifyOutOfStateProtectionProfilesTableAction(testProperties))) {
-                report.report("The specified Table action is in an incorrect state: " + outOfStateProtectionProfilesTableAction.getTableAction() + "\n.", Reporter.FAIL);
+                BaseTestUtils.report("The specified Table action is in an incorrect state: " + outOfStateProtectionProfilesTableAction.getTableAction() + "\n.", Reporter.FAIL);
             }
         } catch (Exception e) {
-            report.report("verify OutOfStateProtectionProfiles Disabled Table Action failed: " + outOfStateProtectionProfilesTableAction.getTableAction() + "\n." + parseExceptionBody(e),
+            BaseTestUtils.report("verify OutOfStateProtectionProfiles Disabled Table Action failed: " + outOfStateProtectionProfilesTableAction.getTableAction() + "\n." + parseExceptionBody(e),
                     Reporter.FAIL);
         }
     }
@@ -84,10 +84,10 @@ public class RBACDefenseProNetworkProtectionBaseTableActionTests extends RBACTes
             testProperties.put("dnsProtectionProfilesTableAction", dnsProtectionProfilesTableAction.getTableAction().toString());
 
             if (!(RBACDefenseProNetworkProtectionBaseTableActionHandler.verifyDNSProtectionProfilesTableAction(testProperties))) {
-                report.report("The specified Table action is in an incorrect state: " + dnsProtectionProfilesTableAction.getTableAction() + "\n.", Reporter.FAIL);
+                BaseTestUtils.report("The specified Table action is in an incorrect state: " + dnsProtectionProfilesTableAction.getTableAction() + "\n.", Reporter.FAIL);
             }
         } catch (Exception e) {
-            report.report("verify DNSProtectionProfiles Disabled Table Action failed: " + dnsProtectionProfilesTableAction.getTableAction() + "\n." + parseExceptionBody(e),
+            BaseTestUtils.report("verify DNSProtectionProfiles Disabled Table Action failed: " + dnsProtectionProfilesTableAction.getTableAction() + "\n." + parseExceptionBody(e),
                     Reporter.FAIL);
         }
     }

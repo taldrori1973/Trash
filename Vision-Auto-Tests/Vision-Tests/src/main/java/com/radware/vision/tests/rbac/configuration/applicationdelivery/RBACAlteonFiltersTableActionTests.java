@@ -36,10 +36,10 @@ public class RBACAlteonFiltersTableActionTests extends RBACTestBase {
             testProperties.put("filtersTableAction", filtersTableAction.getTableAction().toString());
 
             if (!(RBACAlteonFiltersTableActionHandler.verifyFiltersTableAction(testProperties))) {
-                report.report("The specified Table action is in an incorrect state: " + filtersTableAction.getTableAction() + "\n.", Reporter.FAIL);
+                BaseTestUtils.report("The specified Table action is in an incorrect state: " + filtersTableAction.getTableAction() + "\n.", Reporter.FAIL);
             }
         } catch (Exception e) {
-            report.report("verify Filters Disabled Table Action failed: " + filtersTableAction.getTableAction() + "\n." + parseExceptionBody(e),
+            BaseTestUtils.report("verify Filters Disabled Table Action failed: " + filtersTableAction.getTableAction() + "\n." + parseExceptionBody(e),
                     Reporter.FAIL);
         }
     }
@@ -52,10 +52,10 @@ public class RBACAlteonFiltersTableActionTests extends RBACTestBase {
             testProperties.put("patternMatchingGroupTableAction", patternMatchingGroupTableAction.getTableAction().toString());
 
             if (!(RBACAlteonFiltersTableActionHandler.verifyPatternMatchingGroupTableAction(testProperties))) {
-                report.report("The specified Table action is in an incorrect state: " + patternMatchingGroupTableAction.getTableAction() + "\n.", Reporter.FAIL);
+                BaseTestUtils.report("The specified Table action is in an incorrect state: " + patternMatchingGroupTableAction.getTableAction() + "\n.", Reporter.FAIL);
             }
         } catch (Exception e) {
-            report.report("verify PatternMatchingGroup Disabled Table Action failed: " + patternMatchingGroupTableAction.getTableAction() + "\n." + parseExceptionBody(e),
+            BaseTestUtils.report("verify PatternMatchingGroup Disabled Table Action failed: " + patternMatchingGroupTableAction.getTableAction() + "\n." + parseExceptionBody(e),
                     Reporter.FAIL);
         }
     }

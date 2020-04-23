@@ -42,10 +42,10 @@ public class RBACAlteonHighAvailabilityTableActionTests extends RBACTestBase {
             testProperties.put("virtualRoutersTableAction", virtualRoutersTableAction.getTableAction().toString());
 
             if (!(RBACAlteonHighAvailabilityTableActionHandler.verifyVirtualRoutersTableAction(testProperties))) {
-                report.report("The specified Table action is in an incorrect state: " + virtualRoutersTableAction.getTableAction() + "\n.", Reporter.FAIL);
+                BaseTestUtils.report("The specified Table action is in an incorrect state: " + virtualRoutersTableAction.getTableAction() + "\n.", Reporter.FAIL);
             }
         } catch (Exception e) {
-            report.report("verify VirtualRouters Disabled Table Action failed: " + virtualRoutersTableAction.getTableAction() + "\n." + parseExceptionBody(e),
+            BaseTestUtils.report("verify VirtualRouters Disabled Table Action failed: " + virtualRoutersTableAction.getTableAction() + "\n." + parseExceptionBody(e),
                     Reporter.FAIL);
         }
     }
@@ -58,10 +58,10 @@ public class RBACAlteonHighAvailabilityTableActionTests extends RBACTestBase {
             testProperties.put("serviceBasedTableAction", serviceBasedTableAction.getTableAction().toString());
 
             if (!(RBACAlteonHighAvailabilityTableActionHandler.verifyServiceBasedTableAction(testProperties))) {
-                report.report("The specified Table action is in an incorrect state: " + serviceBasedTableAction.getTableAction() + "\n.", Reporter.FAIL);
+                BaseTestUtils.report("The specified Table action is in an incorrect state: " + serviceBasedTableAction.getTableAction() + "\n.", Reporter.FAIL);
             }
         } catch (Exception e) {
-            report.report("verify VirtualRouterGroups Disabled Table Action failed: " + serviceBasedTableAction.getTableAction() + "\n." + parseExceptionBody(e),
+            BaseTestUtils.report("verify VirtualRouterGroups Disabled Table Action failed: " + serviceBasedTableAction.getTableAction() + "\n." + parseExceptionBody(e),
                     Reporter.FAIL);
         }
     }
@@ -74,10 +74,10 @@ public class RBACAlteonHighAvailabilityTableActionTests extends RBACTestBase {
             testProperties.put("vrrpAuthenticationTableAction", vrrpAuthenticationTableAction.getTableAction().toString());
 
             if (!(RBACAlteonHighAvailabilityTableActionHandler.verifyVRRPAuthenticationTableAction(testProperties))) {
-                report.report("The specified Table action is in an incorrect state: " + vrrpAuthenticationTableAction.getTableAction() + "\n.", Reporter.FAIL);
+                BaseTestUtils.report("The specified Table action is in an incorrect state: " + vrrpAuthenticationTableAction.getTableAction() + "\n.", Reporter.FAIL);
             }
         } catch (Exception e) {
-            report.report("verify VRRPAuthentication Disabled Table Action failed: " + vrrpAuthenticationTableAction.getTableAction() + "\n." + parseExceptionBody(e),
+            BaseTestUtils.report("verify VRRPAuthentication Disabled Table Action failed: " + vrrpAuthenticationTableAction.getTableAction() + "\n." + parseExceptionBody(e),
                     Reporter.FAIL);
         }
     }
@@ -90,10 +90,10 @@ public class RBACAlteonHighAvailabilityTableActionTests extends RBACTestBase {
             testProperties.put("syncTableAction", syncTableAction.getTableAction().toString());
 
             if (!(RBACAlteonHighAvailabilityTableActionHandler.verifySyncTableAction(testProperties))) {
-                report.report("The specified Table action is in an incorrect state: " + syncTableAction.getTableAction() + "\n.", Reporter.FAIL);
+                BaseTestUtils.report("The specified Table action is in an incorrect state: " + syncTableAction.getTableAction() + "\n.", Reporter.FAIL);
             }
         } catch (Exception e) {
-            report.report("verify Sync Disabled Table Action failed: " + syncTableAction.getTableAction() + "\n." + parseExceptionBody(e),
+            BaseTestUtils.report("verify Sync Disabled Table Action failed: " + syncTableAction.getTableAction() + "\n." + parseExceptionBody(e),
                     Reporter.FAIL);
         }
     }
@@ -106,10 +106,10 @@ public class RBACAlteonHighAvailabilityTableActionTests extends RBACTestBase {
             testProperties.put("peerTrafficForwardingTableAction", peerTrafficForwardingTableAction.getTableAction().toString());
 
             if (!(RBACAlteonHighAvailabilityTableActionHandler.verifyPeerTrafficForwardingTableAction(testProperties))) {
-                report.report("The specified Table action is in an incorrect state: " + peerTrafficForwardingTableAction.getTableAction() + "\n.", Reporter.FAIL);
+                BaseTestUtils.report("The specified Table action is in an incorrect state: " + peerTrafficForwardingTableAction.getTableAction() + "\n.", Reporter.FAIL);
             }
         } catch (Exception e) {
-            report.report("verify PeerTrafficForwarding Disabled Table Action failed: " + peerTrafficForwardingTableAction.getTableAction() + "\n." + parseExceptionBody(e),
+            BaseTestUtils.report("verify PeerTrafficForwarding Disabled Table Action failed: " + peerTrafficForwardingTableAction.getTableAction() + "\n." + parseExceptionBody(e),
                     Reporter.FAIL);
         }
     }
@@ -122,10 +122,10 @@ public class RBACAlteonHighAvailabilityTableActionTests extends RBACTestBase {
             testProperties.put("portProcessingTableAction", portProcessingTableAction.getTableAction().toString());
 
             if (!(RBACAlteonHighAvailabilityTableActionHandler.verifyPortProcessingTableAction(testProperties))) {
-                report.report("The specified Table action is in an incorrect state: " + portProcessingTableAction.getTableAction() + "\n.", Reporter.FAIL);
+                BaseTestUtils.report("The specified Table action is in an incorrect state: " + portProcessingTableAction.getTableAction() + "\n.", Reporter.FAIL);
             }
         } catch (Exception e) {
-            report.report("verify PortProcessing Disabled Table Action failed: " + portProcessingTableAction.getTableAction() + "\n." + parseExceptionBody(e),
+            BaseTestUtils.report("verify PortProcessing Disabled Table Action failed: " + portProcessingTableAction.getTableAction() + "\n." + parseExceptionBody(e),
                     Reporter.FAIL);
         }
     }

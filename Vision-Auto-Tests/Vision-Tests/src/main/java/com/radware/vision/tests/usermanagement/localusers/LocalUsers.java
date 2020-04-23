@@ -37,7 +37,7 @@ public class LocalUsers extends WebUITestBase {
         try {
             LocalUsersHandler.addUser(username, fullName, address, organisation, phoneNumber, permissions, newNetworkPolicies, password);
         } catch (Exception e) {
-            report.report("Adding user:" + username + " " + "failed with the following error:\n" + e.getMessage() + "\n" + e.getCause(), Reporter.FAIL);
+            BaseTestUtils.report("Adding user:" + username + " " + "failed with the following error:\n" + e.getMessage() + "\n" + e.getCause(), Reporter.FAIL);
         }
     }
 
@@ -47,7 +47,7 @@ public class LocalUsers extends WebUITestBase {
         try {
             LocalUsersHandler.editUser(username, fullName, address, organisation, phoneNumber, permissions, permissionToDelete, networkPoliciesToRemove, networkPoliciesToAdd);
         } catch (Exception e) {
-            report.report("Edit user:" + username + " " + "failed with the following error:\n" + e.getMessage() + "\n" + e.getCause(), Reporter.FAIL);
+            BaseTestUtils.report("Edit user:" + username + " " + "failed with the following error:\n" + e.getMessage() + "\n" + e.getCause(), Reporter.FAIL);
         }
     }
 
@@ -57,7 +57,7 @@ public class LocalUsers extends WebUITestBase {
         try {
             LocalUsersHandler.enableUser(username);
         } catch (Exception e) {
-            report.report("Enable user:" + username + " " + "failed with the following error:\n" + e.getMessage() + "\n" + e.getCause(), Reporter.FAIL);
+            BaseTestUtils.report("Enable user:" + username + " " + "failed with the following error:\n" + e.getMessage() + "\n" + e.getCause(), Reporter.FAIL);
         }
     }
 
@@ -67,7 +67,7 @@ public class LocalUsers extends WebUITestBase {
         try {
             LocalUsersHandler.revokeUser(username);
         } catch (Exception e) {
-            report.report("Revoke user:" + username + " " + "failed with the following error:\n" + e.getMessage() + "\n" + e.getCause(), Reporter.FAIL);
+            BaseTestUtils.report("Revoke user:" + username + " " + "failed with the following error:\n" + e.getMessage() + "\n" + e.getCause(), Reporter.FAIL);
         }
     }
 
@@ -77,7 +77,7 @@ public class LocalUsers extends WebUITestBase {
         try {
             LocalUsersHandler.unlockUser(username);
         } catch (Exception e) {
-            report.report("Unlock user:" + username + " " + "failed with the following error:\n" + e.getMessage() + "\n" + e.getCause(), Reporter.FAIL);
+            BaseTestUtils.report("Unlock user:" + username + " " + "failed with the following error:\n" + e.getMessage() + "\n" + e.getCause(), Reporter.FAIL);
         }
     }
 
@@ -87,7 +87,7 @@ public class LocalUsers extends WebUITestBase {
         try {
             LocalUsersHandler.resetUserPwd(username);
         } catch (Exception e) {
-            report.report("reset User Password:" + username + " " + "failed with the following error:\n" + e.getMessage() + "\n" + e.getCause(), Reporter.FAIL);
+            BaseTestUtils.report("reset User Password:" + username + " " + "failed with the following error:\n" + e.getMessage() + "\n" + e.getCause(), Reporter.FAIL);
         }
     }
 
@@ -97,7 +97,7 @@ public class LocalUsers extends WebUITestBase {
         try {
             LocalUsersHandler.deleteUser(username);
         } catch (Exception e) {
-            report.report("Deleting user:" + username + " " + "failed with the following error:\n" + e.getMessage() + "\n" + e.getCause(), Reporter.FAIL);
+            BaseTestUtils.report("Deleting user:" + username + " " + "failed with the following error:\n" + e.getMessage() + "\n" + e.getCause(), Reporter.FAIL);
         }
     }
 
@@ -107,10 +107,10 @@ public class LocalUsers extends WebUITestBase {
         try {
             UserEntry expUserEntry = new UserEntry(username, new PermissionEntry(role, scope));
             if (!LocalUsersHandler.isUserExists(expUserEntry)) {
-                report.report("User: " + username + " with properties: \n" + expUserEntry.toString() + "\n was not found in the current users list: \n" + LocalUsersHandler.usersListAsText(), Reporter.FAIL);
+                BaseTestUtils.report("User: " + username + " with properties: \n" + expUserEntry.toString() + "\n was not found in the current users list: \n" + LocalUsersHandler.usersListAsText(), Reporter.FAIL);
             }
         } catch (Exception e) {
-            report.report("Verifying user:" + username + " " + "failed with the following error:\n" + e.getMessage() + "\n" + e.getCause(), Reporter.FAIL);
+            BaseTestUtils.report("Verifying user:" + username + " " + "failed with the following error:\n" + e.getMessage() + "\n" + e.getCause(), Reporter.FAIL);
         }
     }
 
@@ -122,7 +122,7 @@ public class LocalUsers extends WebUITestBase {
             AuthorizedNetworkPoliciesHandler.addRemoveAuthorizedNetworkPolicies(username, newNetworkPolicies, removeNetworkPolicies);
 
         } catch (Exception e) {
-            report.report("Verifying user:" + username + " " + "failed with the following error:\n" + e.getMessage() + "\n" + e.getCause(), Reporter.FAIL);
+            BaseTestUtils.report("Verifying user:" + username + " " + "failed with the following error:\n" + e.getMessage() + "\n" + e.getCause(), Reporter.FAIL);
         }
     }
 
@@ -131,10 +131,10 @@ public class LocalUsers extends WebUITestBase {
     public void validateNetworkPoliciesForSecurityMonitoring() {
         try {
             if (!AuthorizedNetworkPoliciesHandler.validateAuthorizedNetworkPolicies(username)) {
-                report.report("Displayed Network Policies List is incorrect: \n", Reporter.FAIL);
+                BaseTestUtils.report("Displayed Network Policies List is incorrect: \n", Reporter.FAIL);
             }
         } catch (Exception e) {
-            report.report("Verifying user:" + username + " " + "failed with the following error:\n" + e.getMessage() + "\n" + e.getCause(), Reporter.FAIL);
+            BaseTestUtils.report("Verifying user:" + username + " " + "failed with the following error:\n" + e.getMessage() + "\n" + e.getCause(), Reporter.FAIL);
         }
     }
 

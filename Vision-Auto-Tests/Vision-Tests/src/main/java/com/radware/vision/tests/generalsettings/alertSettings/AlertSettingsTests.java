@@ -23,7 +23,7 @@ public class AlertSettingsTests extends WebUITestBase {
         try {
             AlertSettingsHandler.setRefreshInterval(refreshInterval);
         } catch (Exception e) {
-            report.report("Set <refreshInterval>:" + refreshInterval + " " + "failed with the following error:\n" + e.getMessage() + "\n" + e.getCause(), Reporter.FAIL);
+            BaseTestUtils.report("Set <refreshInterval>:" + refreshInterval + " " + "failed with the following error:\n" + e.getMessage() + "\n" + e.getCause(), Reporter.FAIL);
         }
     }
 
@@ -33,7 +33,7 @@ public class AlertSettingsTests extends WebUITestBase {
         try {
             AlertSettingsHandler.setLastCriticalAlertNumber(LastCriticalAlertNumber);
         } catch (Exception e) {
-            report.report("Set <LastCriticalAlertNumber>:" + LastCriticalAlertNumber + " " + "failed with the following error:\n" + e.getMessage() + "\n" + e.getCause(), Reporter.FAIL);
+            BaseTestUtils.report("Set <LastCriticalAlertNumber>:" + LastCriticalAlertNumber + " " + "failed with the following error:\n" + e.getMessage() + "\n" + e.getCause(), Reporter.FAIL);
         }
     }
 
@@ -43,10 +43,10 @@ public class AlertSettingsTests extends WebUITestBase {
     public void validateLastCriticalAlertNumber() {
         try {
             if (!AlertsValidationHandler.validateCriticalAlerts(getVisionRestClient())) {
-                report.report("LastCriticalAlertNumber validation has failed: " + "\n.", Reporter.FAIL);
+                BaseTestUtils.report("LastCriticalAlertNumber validation has failed: " + "\n.", Reporter.FAIL);
             }
         } catch (Exception e) {
-            report.report("Validate <LastCriticalAlertNumber>:" + " " + "failed with the following error:\n" + e.getMessage() + "\n" + e.getCause(), Reporter.FAIL);
+            BaseTestUtils.report("Validate <LastCriticalAlertNumber>:" + " " + "failed with the following error:\n" + e.getMessage() + "\n" + e.getCause(), Reporter.FAIL);
         }
     }
 
@@ -56,10 +56,10 @@ public class AlertSettingsTests extends WebUITestBase {
         try {
             long actualRefreshTime = AlertsValidationHandler.validateRefreshInterval(getVisionRestClient(), com.radware.vision.pojomodel.helpers.constants.ImConstants$VisionMgtPortEnumPojo.G1);
             if (!(actualRefreshTime < (Integer.parseInt(refreshInterval) + 2) && actualRefreshTime > (Integer.parseInt(refreshInterval) - 2))) {
-                report.report("RefreshInterval validation has failed: " + "\n", Reporter.FAIL);
+                BaseTestUtils.report("RefreshInterval validation has failed: " + "\n", Reporter.FAIL);
             }
         } catch (Exception e) {
-            report.report("Validate <RefreshInterval>:" + " " + "failed with the following error:\n" + e.getMessage() + "\n" + e.getCause(), Reporter.FAIL);
+            BaseTestUtils.report("Validate <RefreshInterval>:" + " " + "failed with the following error:\n" + e.getMessage() + "\n" + e.getCause(), Reporter.FAIL);
         }
         Device.deleteDeviceById(getVisionRestClient(), "refreshIntervalTestDevice");
     }

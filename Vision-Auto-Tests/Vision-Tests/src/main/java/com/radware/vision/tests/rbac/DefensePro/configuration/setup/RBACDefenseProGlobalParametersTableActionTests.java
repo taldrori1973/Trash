@@ -35,10 +35,10 @@ public class RBACDefenseProGlobalParametersTableActionTests extends RBACTestBase
             testProperties.put("certificatesTableAction", certificatesTableAction.getTableAction().toString());
 
             if (!(RBACDefenseProGlobalParametersTableActionHandler.verifyCertificatesTableAction(testProperties))) {
-                report.report("The specified Table action is in an incorrect state: " + certificatesTableAction.getTableAction() + "\n.", Reporter.FAIL);
+                BaseTestUtils.report("The specified Table action is in an incorrect state: " + certificatesTableAction.getTableAction() + "\n.", Reporter.FAIL);
             }
         } catch (Exception e) {
-            report.report("verify Certificates Disabled Table Action failed: " + certificatesTableAction.getTableAction() + "\n." + parseExceptionBody(e),
+            BaseTestUtils.report("verify Certificates Disabled Table Action failed: " + certificatesTableAction.getTableAction() + "\n." + parseExceptionBody(e),
                     Reporter.FAIL);
         }
     }

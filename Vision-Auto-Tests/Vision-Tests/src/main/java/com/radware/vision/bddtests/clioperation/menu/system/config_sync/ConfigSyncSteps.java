@@ -2,6 +2,7 @@ package com.radware.vision.bddtests.clioperation.menu.system.config_sync;
 
 import com.radware.automation.tools.basetest.BaseTestUtils;
 import com.radware.automation.tools.basetest.Reporter;
+import com.radware.vision.bddtests.BddCliTestBase;
 import com.radware.vision.enums.ConfigSyncMode;
 import com.radware.vision.enums.LastConfiguration;
 import com.radware.vision.enums.YesNo;
@@ -9,7 +10,6 @@ import com.radware.vision.vision_handlers.system.ConfigSync;
 import com.radware.vision.vision_handlers.system.VisionServer;
 import com.radware.vision.vision_project_cli.HaManager;
 import com.radware.vision.vision_project_cli.VisionServerHA;
-import com.radware.vision.bddtests.BddCliTestBase;
 import cucumber.api.java.en.Given;
 import jsystem.framework.RunProperties;
 
@@ -45,7 +45,7 @@ public class ConfigSyncSteps extends BddCliTestBase {
         try {
             int returnedValue = ConfigSync.getInterval(restTestBase.getRadwareServerCli());
             if (returnedValue == interval) {
-                report.report("Interval is equal to " + interval + " as expected ", Reporter.PASS);
+                BaseTestUtils.report("Interval is equal to " + interval + " as expected ", Reporter.PASS);
 
             } else {
 
@@ -66,9 +66,9 @@ public class ConfigSyncSteps extends BddCliTestBase {
 
             ConfigSync.setInterval(restTestBase.getRadwareServerCli(), interval + "");
             if (ConfigSync.verifyIntervalSet(restTestBase.getRadwareServerCli(), interval + "")) {
-                report.report("Verify Interval Set Succeeded", Reporter.PASS);
+                BaseTestUtils.report("Verify Interval Set Succeeded", Reporter.PASS);
             } else {
-                report.report("", Reporter.FAIL);
+                BaseTestUtils.report("", Reporter.FAIL);
             }
 
         } catch (Exception e) {

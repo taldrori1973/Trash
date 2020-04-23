@@ -48,10 +48,10 @@ public class RBACAlteonApplicationServicesTableActionTests extends RBACTestBase 
             testProperties.put("httpCachingPolicyTableAction", httpCachingPolicyTableAction.getTableAction().toString());
 
             if (!(RBACAlteonApplicationServicesTableActionHandler.verifyHTTPCachingPolicyTableAction(testProperties))) {
-                report.report("The specified Table action is in an incorrect state: " + httpCachingPolicyTableAction.getTableAction() + "\n.", Reporter.FAIL);
+                BaseTestUtils.report("The specified Table action is in an incorrect state: " + httpCachingPolicyTableAction.getTableAction() + "\n.", Reporter.FAIL);
             }
         } catch (Exception e) {
-            report.report("verify HttpCachingPolicy Disabled Table Action failed: " + httpCachingPolicyTableAction.getTableAction() + "\n." + parseExceptionBody(e),
+            BaseTestUtils.report("verify HttpCachingPolicy Disabled Table Action failed: " + httpCachingPolicyTableAction.getTableAction() + "\n." + parseExceptionBody(e),
                     Reporter.FAIL);
         }
     }
@@ -64,10 +64,10 @@ public class RBACAlteonApplicationServicesTableActionTests extends RBACTestBase 
             testProperties.put("httpCachingURLRuleListsTableAction", httpCachingURLRuleListsTableAction.getTableAction().toString());
 
             if (!(RBACAlteonApplicationServicesTableActionHandler.verifyHTTPCachingURLRuleListsTableAction(testProperties))) {
-                report.report("The specified Table action is in an incorrect state: " + httpCachingURLRuleListsTableAction.getTableAction() + "\n.", Reporter.FAIL);
+                BaseTestUtils.report("The specified Table action is in an incorrect state: " + httpCachingURLRuleListsTableAction.getTableAction() + "\n.", Reporter.FAIL);
             }
         } catch (Exception e) {
-            report.report("verify HttpCachingURLRuleLists Disabled Table Action failed: " + httpCachingURLRuleListsTableAction.getTableAction() + "\n." + parseExceptionBody(e),
+            BaseTestUtils.report("verify HttpCachingURLRuleLists Disabled Table Action failed: " + httpCachingURLRuleListsTableAction.getTableAction() + "\n." + parseExceptionBody(e),
                     Reporter.FAIL);
         }
     }
@@ -80,10 +80,10 @@ public class RBACAlteonApplicationServicesTableActionTests extends RBACTestBase 
             testProperties.put("httpCompressionPolicyTableAction", httpCompressionPolicyTableAction.getTableAction().toString());
 
             if (!(RBACAlteonApplicationServicesTableActionHandler.verifyHTTPCompressionPolicyTableAction(testProperties))) {
-                report.report("The specified Table action is in an incorrect state: " + httpCompressionPolicyTableAction.getTableAction() + "\n.", Reporter.FAIL);
+                BaseTestUtils.report("The specified Table action is in an incorrect state: " + httpCompressionPolicyTableAction.getTableAction() + "\n.", Reporter.FAIL);
             }
         } catch (Exception e) {
-            report.report("verify HttpCompressionPolicy Disabled Table Action failed: " + httpCompressionPolicyTableAction.getTableAction() + "\n." + parseExceptionBody(e),
+            BaseTestUtils.report("verify HttpCompressionPolicy Disabled Table Action failed: " + httpCompressionPolicyTableAction.getTableAction() + "\n." + parseExceptionBody(e),
                     Reporter.FAIL);
         }
     }
@@ -96,10 +96,10 @@ public class RBACAlteonApplicationServicesTableActionTests extends RBACTestBase 
             testProperties.put("httpCompressionURLExceptionsRuleListsTableAction", httpCompressionURLExceptionsRuleListsTableAction.getTableAction().toString());
 
             if (!(RBACAlteonApplicationServicesTableActionHandler.verifyHTTPCompressionURLExceptionsRuleListTableAction(testProperties))) {
-                report.report("The specified Table action is in an incorrect state: " + httpCompressionURLExceptionsRuleListsTableAction.getTableAction() + "\n.", Reporter.FAIL);
+                BaseTestUtils.report("The specified Table action is in an incorrect state: " + httpCompressionURLExceptionsRuleListsTableAction.getTableAction() + "\n.", Reporter.FAIL);
             }
         } catch (Exception e) {
-            report.report("verify HttpCompressionURLExceptionsRuleLists Disabled Table Action failed: " + httpCompressionURLExceptionsRuleListsTableAction.getTableAction() + "\n." + parseExceptionBody(e),
+            BaseTestUtils.report("verify HttpCompressionURLExceptionsRuleLists Disabled Table Action failed: " + httpCompressionURLExceptionsRuleListsTableAction.getTableAction() + "\n." + parseExceptionBody(e),
                     Reporter.FAIL);
         }
     }
@@ -112,10 +112,10 @@ public class RBACAlteonApplicationServicesTableActionTests extends RBACTestBase 
             testProperties.put("httpCompressionBrowserExceptionsRuleListTableAction", httpCompressionBrowserExceptionsRuleListTableAction.getTableAction().toString());
 
             if (!(RBACAlteonApplicationServicesTableActionHandler.verifyHTTPCompressionBrowserExceptionsRuleListTableAction(testProperties))) {
-                report.report("The specified Table action is in an incorrect state: " + httpCompressionBrowserExceptionsRuleListTableAction.getTableAction() + "\n.", Reporter.FAIL);
+                BaseTestUtils.report("The specified Table action is in an incorrect state: " + httpCompressionBrowserExceptionsRuleListTableAction.getTableAction() + "\n.", Reporter.FAIL);
             }
         } catch (Exception e) {
-            report.report("verify HttpCompressionBrowserExceptionsRuleList Disabled Table Action failed: " + httpCompressionBrowserExceptionsRuleListTableAction.getTableAction() + "\n." + parseExceptionBody(e),
+            BaseTestUtils.report("verify HttpCompressionBrowserExceptionsRuleList Disabled Table Action failed: " + httpCompressionBrowserExceptionsRuleListTableAction.getTableAction() + "\n." + parseExceptionBody(e),
                     Reporter.FAIL);
         }
     }
@@ -128,10 +128,10 @@ public class RBACAlteonApplicationServicesTableActionTests extends RBACTestBase 
             testProperties.put("httpContentModificationRuleListTableAction", httpContentModificationRuleListTableAction.getTableAction().toString());
 
             if (!(RBACAlteonApplicationServicesTableActionHandler.verifyHttpContentModificationRuleListTableAction(testProperties))) {
-                report.report("The specified Table action is in an incorrect state: " + httpContentModificationRuleListTableAction.getTableAction() + "\n.", Reporter.FAIL);
+                BaseTestUtils.report("The specified Table action is in an incorrect state: " + httpContentModificationRuleListTableAction.getTableAction() + "\n.", Reporter.FAIL);
             }
         } catch (Exception e) {
-            report.report("verify HttpContentModificationRuleList Disabled Table Action failed: " + httpContentModificationRuleListTableAction.getTableAction() + "\n." + parseExceptionBody(e),
+            BaseTestUtils.report("verify HttpContentModificationRuleList Disabled Table Action failed: " + httpContentModificationRuleListTableAction.getTableAction() + "\n." + parseExceptionBody(e),
                     Reporter.FAIL);
         }
     }
@@ -145,10 +145,10 @@ public class RBACAlteonApplicationServicesTableActionTests extends RBACTestBase 
             testProperties.put("sslCertificateGroupsTableAction", sslCertificateGroupsTableAction.getTableAction().toString());
 
             if (!(RBACAlteonApplicationServicesTableActionHandler.verifySSLCertificateGroupsTableAction(testProperties))) {
-                report.report("The specified Table action is in an incorrect state: " + sslCertificateGroupsTableAction.getTableAction() + "\n.", Reporter.FAIL);
+                BaseTestUtils.report("The specified Table action is in an incorrect state: " + sslCertificateGroupsTableAction.getTableAction() + "\n.", Reporter.FAIL);
             }
         } catch (Exception e) {
-            report.report("verify SSLCertificateGroups Disabled Table Action failed: " + sslCertificateGroupsTableAction.getTableAction() + "\n." + parseExceptionBody(e),
+            BaseTestUtils.report("verify SSLCertificateGroups Disabled Table Action failed: " + sslCertificateGroupsTableAction.getTableAction() + "\n." + parseExceptionBody(e),
                     Reporter.FAIL);
         }
     }
@@ -161,10 +161,10 @@ public class RBACAlteonApplicationServicesTableActionTests extends RBACTestBase 
             testProperties.put("sslCertificateRepositoryTableAction", sslCertificateRepositoryTableAction.getTableAction().toString());
 
             if (!(RBACAlteonApplicationServicesTableActionHandler.verifySSLCertificateRepositoryTableAction(testProperties))) {
-                report.report("The specified Table action is in an incorrect state: " + sslCertificateRepositoryTableAction.getTableAction() + "\n.", Reporter.FAIL);
+                BaseTestUtils.report("The specified Table action is in an incorrect state: " + sslCertificateRepositoryTableAction.getTableAction() + "\n.", Reporter.FAIL);
             }
         } catch (Exception e) {
-            report.report("verify SSLCertificateRepository Disabled Table Action failed: " + sslCertificateRepositoryTableAction.getTableAction() + "\n." + parseExceptionBody(e),
+            BaseTestUtils.report("verify SSLCertificateRepository Disabled Table Action failed: " + sslCertificateRepositoryTableAction.getTableAction() + "\n." + parseExceptionBody(e),
                     Reporter.FAIL);
         }
     }
@@ -177,10 +177,10 @@ public class RBACAlteonApplicationServicesTableActionTests extends RBACTestBase 
             testProperties.put("sslPolicyClientAuthenticationPolicyTableAction", sslPolicyClientAuthenticationPolicyTableAction.getTableAction().toString());
 
             if (!(RBACAlteonApplicationServicesTableActionHandler.verifySSLPolicyClientAuthenticationPolicyTableAction(testProperties))) {
-                report.report("The specified Table action is in an incorrect state: " + sslPolicyClientAuthenticationPolicyTableAction.getTableAction() + "\n.", Reporter.FAIL);
+                BaseTestUtils.report("The specified Table action is in an incorrect state: " + sslPolicyClientAuthenticationPolicyTableAction.getTableAction() + "\n.", Reporter.FAIL);
             }
         } catch (Exception e) {
-            report.report("verify SSLClientAuthenticationPolicy Disabled Table Action failed: " + sslPolicyClientAuthenticationPolicyTableAction.getTableAction() + "\n." + parseExceptionBody(e),
+            BaseTestUtils.report("verify SSLClientAuthenticationPolicy Disabled Table Action failed: " + sslPolicyClientAuthenticationPolicyTableAction.getTableAction() + "\n." + parseExceptionBody(e),
                     Reporter.FAIL);
         }
     }
@@ -194,10 +194,10 @@ public class RBACAlteonApplicationServicesTableActionTests extends RBACTestBase 
             testProperties.put("sipMediaPortalNATTableAction", sipMediaPortalNATTableAction.getTableAction().toString());
 
             if (!(RBACAlteonApplicationServicesTableActionHandler.verifySIPMediaPortalNATTableAction(testProperties))) {
-                report.report("The specified Table action is in an incorrect state: " + sipMediaPortalNATTableAction.getTableAction() + "\n.", Reporter.FAIL);
+                BaseTestUtils.report("The specified Table action is in an incorrect state: " + sipMediaPortalNATTableAction.getTableAction() + "\n.", Reporter.FAIL);
             }
         } catch (Exception e) {
-            report.report("verify SIPMediaPortalNAT Disabled Table Action failed: " + sipMediaPortalNATTableAction.getTableAction() + "\n." + parseExceptionBody(e),
+            BaseTestUtils.report("verify SIPMediaPortalNAT Disabled Table Action failed: " + sipMediaPortalNATTableAction.getTableAction() + "\n." + parseExceptionBody(e),
                     Reporter.FAIL);
         }
     }
@@ -210,10 +210,10 @@ public class RBACAlteonApplicationServicesTableActionTests extends RBACTestBase 
             testProperties.put("sipFlexiRulesTableAction", sipFlexiRulesTableAction.getTableAction().toString());
 
             if (!(RBACAlteonApplicationServicesTableActionHandler.verifySIPFlexiRulesTableAction(testProperties))) {
-                report.report("The specified Table action is in an incorrect state: " + sipFlexiRulesTableAction.getTableAction() + "\n.", Reporter.FAIL);
+                BaseTestUtils.report("The specified Table action is in an incorrect state: " + sipFlexiRulesTableAction.getTableAction() + "\n.", Reporter.FAIL);
             }
         } catch (Exception e) {
-            report.report("verify SIPFlexiRules Disabled Table Action failed: " + sipFlexiRulesTableAction.getTableAction() + "\n." + parseExceptionBody(e),
+            BaseTestUtils.report("verify SIPFlexiRules Disabled Table Action failed: " + sipFlexiRulesTableAction.getTableAction() + "\n." + parseExceptionBody(e),
                     Reporter.FAIL);
         }
     }

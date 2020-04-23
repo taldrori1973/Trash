@@ -15,7 +15,7 @@ public class AlertSettings extends VisionSettingsBase {
     @TestProperties(name = "Alert Browser", paramsInclude = {})
     public void clickAlertBrowser() {
         if(!clickMenu(subMenuOption, "alertBrowser")) {
-            report.report("Failed to click 'Alert Browser' menu option.");
+            BaseTestUtils.report("Failed to click 'Alert Browser' menu option.");
         }
     }
 
@@ -23,7 +23,7 @@ public class AlertSettings extends VisionSettingsBase {
     @TestProperties(name = "Security Alerts", paramsInclude = {})
     public void clickSecurityAlerts() {
         if(!clickMenu(subMenuOption, "securityalertbrowser")) {
-            report.report("Failed to click 'Security Alerts' menu option.");
+            BaseTestUtils.report("Failed to click 'Security Alerts' menu option.");
         }
     }
 

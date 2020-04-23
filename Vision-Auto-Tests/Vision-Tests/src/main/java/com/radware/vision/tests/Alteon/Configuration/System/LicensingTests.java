@@ -1,9 +1,9 @@
 package com.radware.vision.tests.Alteon.Configuration.System;
 
+import com.radware.automation.tools.basetest.Reporter;
 import com.radware.vision.infra.testhandlers.alteon.configuration.system.LicensingHandler;
 import com.radware.vision.tests.Alteon.AlteonTestBase;
 import jsystem.framework.TestProperties;
-import com.radware.automation.tools.basetest.Reporter;
 import org.junit.Test;
 
 import java.io.IOException;
@@ -24,7 +24,7 @@ public class LicensingTests extends AlteonTestBase {
             testProperties.put("licenseString", licenseString);
             LicensingHandler.setLicenseString(testProperties);
         } catch (Exception e) {
-            report.report(parseExceptionBody(e), Reporter.FAIL);
+            BaseTestUtils.report(parseExceptionBody(e), Reporter.FAIL);
         }
     }
 
@@ -35,7 +35,7 @@ public class LicensingTests extends AlteonTestBase {
         try {
             LicensingHandler.viewFeatureLicenses(testProperties);
         } catch (Exception e) {
-            report.report(parseExceptionBody(e), Reporter.FAIL);
+            BaseTestUtils.report(parseExceptionBody(e), Reporter.FAIL);
         }
     }
 
@@ -45,7 +45,7 @@ public class LicensingTests extends AlteonTestBase {
         try {
             LicensingHandler.viewCapacityLicenses(testProperties);
         } catch (Exception e) {
-            report.report(parseExceptionBody(e), Reporter.FAIL);
+            BaseTestUtils.report(parseExceptionBody(e), Reporter.FAIL);
         }
     }
 
@@ -55,7 +55,7 @@ public class LicensingTests extends AlteonTestBase {
         try {
             LicensingHandler.viewLastInstalledLicenseStrings(testProperties);
         } catch (Exception e) {
-            report.report(parseExceptionBody(e), Reporter.FAIL);
+            BaseTestUtils.report(parseExceptionBody(e), Reporter.FAIL);
         }
     }
 

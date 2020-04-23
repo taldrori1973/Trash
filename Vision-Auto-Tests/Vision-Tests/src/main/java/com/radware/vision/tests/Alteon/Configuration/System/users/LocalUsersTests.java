@@ -1,12 +1,12 @@
 package com.radware.vision.tests.Alteon.Configuration.System.users;
 
+import com.radware.automation.tools.basetest.Reporter;
 import com.radware.automation.webui.webpages.GeneralEnums;
 import com.radware.automation.webui.webpages.configuration.system.users.localUsers.LocalUsersEnumsAlteon;
 import com.radware.vision.infra.testhandlers.alteon.configuration.system.Users.LocalUsersHandler;
 import com.radware.vision.tests.Alteon.AlteonTestBase;
 import jsystem.framework.ParameterProperties;
 import jsystem.framework.TestProperties;
-import com.radware.automation.tools.basetest.Reporter;
 import org.junit.Test;
 
 import java.io.IOException;
@@ -32,10 +32,10 @@ public class LocalUsersTests extends AlteonTestBase {
     public void verifyUserExistence() throws IOException {
         try {
             if (!LocalUsersHandler.checkIfUserExist(userId, getDeviceName())) {
-                report.report("the user not exist", Reporter.FAIL);
+                BaseTestUtils.report("the user not exist", Reporter.FAIL);
             }
         } catch (Exception e) {
-            report.report(parseExceptionBody(e), Reporter.FAIL);
+            BaseTestUtils.report(parseExceptionBody(e), Reporter.FAIL);
         }
     }
 
@@ -55,7 +55,7 @@ public class LocalUsersTests extends AlteonTestBase {
             LocalUsersHandler.addLocalUser(testProperties, userState);
 //            String username, String fullName, String address, String organisation, String phoneNumber, String permissions, String networkPolicies
         } catch (Exception e) {
-            report.report(parseExceptionBody(e), Reporter.FAIL);
+            BaseTestUtils.report(parseExceptionBody(e), Reporter.FAIL);
         }
     }
 
@@ -75,7 +75,7 @@ public class LocalUsersTests extends AlteonTestBase {
             testProperties.put("fallback", fallback.toString());
             LocalUsersHandler.addLocalUser(testProperties, userState);
         } catch (Exception e) {
-            report.report(parseExceptionBody(e), Reporter.FAIL);
+            BaseTestUtils.report(parseExceptionBody(e), Reporter.FAIL);
         }
     }
 
@@ -94,7 +94,7 @@ public class LocalUsersTests extends AlteonTestBase {
             testProperties.put("fallback", fallback.toString());
             LocalUsersHandler.duplicateLocalUser(testProperties, userState, rowNumber);
         } catch (Exception e) {
-            report.report(parseExceptionBody(e), Reporter.FAIL);
+            BaseTestUtils.report(parseExceptionBody(e), Reporter.FAIL);
         }
     }
 
@@ -105,7 +105,7 @@ public class LocalUsersTests extends AlteonTestBase {
         try {
             LocalUsersHandler.deleteLocalUser(testProperties, userId);
         } catch (Exception e) {
-            report.report(parseExceptionBody(e), Reporter.FAIL);
+            BaseTestUtils.report(parseExceptionBody(e), Reporter.FAIL);
         }
     }
 

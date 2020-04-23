@@ -4,7 +4,6 @@ import com.radware.vision.automation.AutoUtils.SUT.controllers.SUTManager;
 import com.radware.vision.base.TestBase;
 import com.radware.vision.bddtests.BddRestTestBase;
 import cucumber.api.java.en.Then;
-import jsystem.framework.report.Reporter;
 
 public class Demo extends BddRestTestBase {
     @Then("^Send request$")
@@ -22,7 +21,7 @@ public class Demo extends BddRestTestBase {
     @Then("^SUT Test$")
     public void sutTest() {
         SUTManager sutManager = TestBase.getSutManager();
-        report.report("aaa", Reporter.FAIL);
+        BaseTestUtils.report("aaa", Reporter.FAIL);
 
 //        SUTDaoImpl sut = VisionConfigurations.getSUT();
 //        String setupId = sut.getSetupId();

@@ -1,12 +1,12 @@
 package com.radware.vision.tests.GeneralOperations.TopologyTree;
 
+import com.radware.automation.tools.basetest.Reporter;
 import com.radware.automation.webui.WebUIUtils;
 import com.radware.automation.webui.widgets.ComponentLocator;
 import com.radware.vision.base.WebUITestBase;
 import com.radware.vision.infra.enums.TopologyTreeButtons;
 import com.radware.vision.infra.testhandlers.topologytree.TopologyTreeHandler;
 import jsystem.framework.TestProperties;
-import com.radware.automation.tools.basetest.Reporter;
 import org.junit.Test;
 import org.openqa.selenium.support.How;
 
@@ -27,10 +27,10 @@ public class TopologyTreeOperations extends WebUITestBase {
                 ComponentLocator locator = new ComponentLocator(How.ID, topologyTreeButton.getTreeButton());
                 WebUIUtils.fluentWaitClick(locator.getBy(), WebUIUtils.DEFAULT_WAIT_TIME, false);
             } else {
-                report.report("Failed to click on the specified button : " + topologyTreeButton.toString(), Reporter.FAIL);
+                BaseTestUtils.report("Failed to click on the specified button : " + topologyTreeButton.toString(), Reporter.FAIL);
             }
         } catch (Exception e) {
-            report.report("Failed to click on the specified button : " + topologyTreeButton.toString(), Reporter.FAIL);
+            BaseTestUtils.report("Failed to click on the specified button : " + topologyTreeButton.toString(), Reporter.FAIL);
         }
         finally {
             WebUIUtils.isTriggerPopupSearchEvent4FreeTest = true;
@@ -46,10 +46,10 @@ public class TopologyTreeOperations extends WebUITestBase {
                 TopologyTreeHandler.findTreeElement(topologyTreeItemName);
                 WebUITestBase.selectDeviceVersion(topologyTreeItemName);
             } else {
-                report.report("Failed to click on the tree element : " + topologyTreeItemName, Reporter.FAIL);
+                BaseTestUtils.report("Failed to click on the tree element : " + topologyTreeItemName, Reporter.FAIL);
             }
         } catch (Exception e) {
-            report.report("Failed to click on the tree element : " + topologyTreeItemName, Reporter.FAIL);
+            BaseTestUtils.report("Failed to click on the tree element : " + topologyTreeItemName, Reporter.FAIL);
         }
     }
 

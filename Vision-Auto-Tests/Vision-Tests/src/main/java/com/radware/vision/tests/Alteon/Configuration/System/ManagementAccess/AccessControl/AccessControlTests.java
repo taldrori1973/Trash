@@ -1,5 +1,7 @@
 package com.radware.vision.tests.Alteon.Configuration.System.ManagementAccess.AccessControl;
 
+import com.radware.automation.tools.basetest.Reporter;
+import com.radware.automation.tools.utils.StringUtils;
 import com.radware.automation.webui.webpages.GeneralEnums;
 import com.radware.automation.webui.webpages.configuration.system.managementAccess.ManagementAccessEnums;
 import com.radware.vision.infra.testhandlers.alteon.configuration.system.managementaccess.AlteonAccessControlTableActionHandler;
@@ -9,9 +11,8 @@ import com.radware.vision.infra.testhandlers.rbac.enums.ManagementNetworks;
 import com.radware.vision.tests.Alteon.AlteonTestBase;
 import jsystem.framework.ParameterProperties;
 import jsystem.framework.TestProperties;
-import com.radware.automation.tools.basetest.Reporter;
 import org.junit.Test;
-import com.radware.automation.tools.utils.StringUtils;
+
 import java.io.IOException;
 import java.util.HashMap;
 
@@ -57,7 +58,7 @@ public class AccessControlTests extends AlteonTestBase {
             AlteonAccessControlTableActionHandler.setAccessControlRateLimitSettings(testProperties);
 
         } catch (Exception e) {
-            report.report("Failed with the following error:\n" +parseExceptionBody(e), Reporter.FAIL);
+            BaseTestUtils.report("Failed with the following error:\n" + parseExceptionBody(e), Reporter.FAIL);
         }
     }
 
@@ -69,7 +70,7 @@ public class AccessControlTests extends AlteonTestBase {
             testProperties.put("Rollover", Rollover.toString());
             AlteonAccessControlTableActionHandler.setRolloverDataPortAccessForManagementTraffic(testProperties);
         } catch (Exception e) {
-            report.report("Failed with the following error:\n" + parseExceptionBody(e), Reporter.FAIL);
+            BaseTestUtils.report("Failed with the following error:\n" + parseExceptionBody(e), Reporter.FAIL);
         }
     }
 
@@ -82,7 +83,7 @@ public class AccessControlTests extends AlteonTestBase {
             AlteonAccessControlTableActionHandler.editPortAccessStateDataPortAccessForManagementTraffic(testProperties);
 
         } catch (Exception e) {
-            report.report("Failed with the following error:\n" +parseExceptionBody(e), Reporter.FAIL);
+            BaseTestUtils.report("Failed with the following error:\n" + parseExceptionBody(e), Reporter.FAIL);
         }
     }
 
@@ -101,7 +102,7 @@ public class AccessControlTests extends AlteonTestBase {
             AlteonAccessControlTableActionHandler.addIPV4ManagementNetworks(testProperties);
 
         } catch (Exception e) {
-            report.report("Failed with the following error:\n" +parseExceptionBody(e), Reporter.FAIL);
+            BaseTestUtils.report("Failed with the following error:\n" + parseExceptionBody(e), Reporter.FAIL);
         }
     }
 
@@ -121,7 +122,7 @@ public class AccessControlTests extends AlteonTestBase {
             AlteonAccessControlTableActionHandler.editIPV4ManagementNetworks(testProperties);
 
         } catch (Exception e) {
-            report.report("Failed with the following error:\n" +parseExceptionBody(e), Reporter.FAIL);
+            BaseTestUtils.report("Failed with the following error:\n" + parseExceptionBody(e), Reporter.FAIL);
         }
     }
 
@@ -134,7 +135,7 @@ public class AccessControlTests extends AlteonTestBase {
             AlteonAccessControlTableActionHandler.delIPV4ManagementNetworks(testProperties);
 
         } catch (Exception e) {
-            report.report("Failed with the following error:\n" +parseExceptionBody(e), Reporter.FAIL);
+            BaseTestUtils.report("Failed with the following error:\n" + parseExceptionBody(e), Reporter.FAIL);
         }
     }
 
@@ -154,7 +155,7 @@ public class AccessControlTests extends AlteonTestBase {
             AlteonAccessControlTableActionHandler.addIPV6ManagementNetworks(testProperties);
 
         } catch (Exception e) {
-            report.report("Failed with the following error:\n" +parseExceptionBody(e), Reporter.FAIL);
+            BaseTestUtils.report("Failed with the following error:\n" + parseExceptionBody(e), Reporter.FAIL);
         }
     }
 
@@ -174,7 +175,7 @@ public class AccessControlTests extends AlteonTestBase {
 
             AlteonAccessControlTableActionHandler.editIPV6ManagementNetworks(testProperties);
         } catch (Exception e) {
-            report.report("Failed with the following error:\n" +parseExceptionBody(e), Reporter.FAIL);
+            BaseTestUtils.report("Failed with the following error:\n" + parseExceptionBody(e), Reporter.FAIL);
         }
     }
 
@@ -189,7 +190,7 @@ public class AccessControlTests extends AlteonTestBase {
             AlteonAccessControlTableActionHandler.delIPV6ManagementNetworks(testProperties);
 
         } catch (Exception e) {
-            report.report("Failed with the following error:\n" +parseExceptionBody(e), Reporter.FAIL);
+            BaseTestUtils.report("Failed with the following error:\n" + parseExceptionBody(e), Reporter.FAIL);
         }
     }
 

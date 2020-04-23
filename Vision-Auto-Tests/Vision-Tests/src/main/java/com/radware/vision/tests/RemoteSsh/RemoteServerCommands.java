@@ -24,7 +24,7 @@ public class RemoteServerCommands extends WebUITestBase {
             remoteProcessExecutor.execScript(scriptPath, scriptName);
         }
         catch(Exception e) {
-            report.report("Failed to run script: " + scriptPath + "/" + scriptName + "\n" + parseExceptionBody(e), Reporter.WARNING);
+            BaseTestUtils.report("Failed to run script: " + scriptPath + "/" + scriptName + "\n" + parseExceptionBody(e), Reporter.WARNING);
         }
     }
 

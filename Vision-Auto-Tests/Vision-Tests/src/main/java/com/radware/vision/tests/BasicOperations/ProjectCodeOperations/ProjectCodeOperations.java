@@ -89,10 +89,10 @@ public class ProjectCodeOperations extends SystemTestCase4 {
             Runtime.getRuntime().exec("cmd /c start mkdir " + targetFolder + "\\" + "src\\main\\resources").waitFor();
             // Copy jar files
             Runtime.getRuntime().exec(xcopyCommand + sourceFolder + "\\" + "lib" + " " + targetFolder + "\\" + "lib" + " " + "/E /Y /I").waitFor();
-            report.report("All files from: " + sourceFolder + " were successfully copied to: " + targetFolder, Reporter.PASS);
+            BaseTestUtils.report("All files from: " + sourceFolder + " were successfully copied to: " + targetFolder, Reporter.PASS);
         }
         catch(Exception e) {
-            report.report("Failed in copying project files." + e.getMessage(), Reporter.FAIL);
+            BaseTestUtils.report("Failed in copying project files." + e.getMessage(), Reporter.FAIL);
         }
 
     }

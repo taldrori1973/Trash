@@ -35,10 +35,10 @@ public class RBACAlteonAppDeliveryBaseTableActionTests extends RBACTestBase {
             testProperties.put("basePortProcessingTableAction", basePortProcessingTableAction.getTableAction().toString());
 
             if (!(RBACAlteonApplicationDeliveryBaseTableActionHandler.verifyPortProcessingTableAction(testProperties))) {
-                report.report("The specified Table action is in an incorrect state: " + basePortProcessingTableAction.getTableAction() + "\n.", Reporter.FAIL);
+                BaseTestUtils.report("The specified Table action is in an incorrect state: " + basePortProcessingTableAction.getTableAction() + "\n.", Reporter.FAIL);
             }
         } catch (Exception e) {
-            report.report("verify BasePortProcessing Disabled Table Action failed: " + basePortProcessingTableAction.getTableAction() + "\n." + parseExceptionBody(e),
+            BaseTestUtils.report("verify BasePortProcessing Disabled Table Action failed: " + basePortProcessingTableAction.getTableAction() + "\n." + parseExceptionBody(e),
                     Reporter.FAIL);
         }
     }
@@ -51,10 +51,10 @@ public class RBACAlteonAppDeliveryBaseTableActionTests extends RBACTestBase {
             testProperties.put("baseNetworkClassesTableAction", baseNetworkClassesTableAction.getTableAction().toString());
 
             if (!(RBACAlteonApplicationDeliveryBaseTableActionHandler.verifyNetworkClassesTableAction(testProperties))) {
-                report.report("The specified Table action is in an incorrect state: " + baseNetworkClassesTableAction.getTableAction() + "\n.", Reporter.FAIL);
+                BaseTestUtils.report("The specified Table action is in an incorrect state: " + baseNetworkClassesTableAction.getTableAction() + "\n.", Reporter.FAIL);
             }
         } catch (Exception e) {
-            report.report("verify BaseNetworkClasses Disabled Table Action failed: " + baseNetworkClassesTableAction.getTableAction() + "\n." + parseExceptionBody(e),
+            BaseTestUtils.report("verify BaseNetworkClasses Disabled Table Action failed: " + baseNetworkClassesTableAction.getTableAction() + "\n." + parseExceptionBody(e),
                     Reporter.FAIL);
         }
     }
@@ -67,10 +67,10 @@ public class RBACAlteonAppDeliveryBaseTableActionTests extends RBACTestBase {
             testProperties.put("baseDataClassesTableAction", baseDataClassesTableAction.getTableAction().toString());
 
             if (!(RBACAlteonApplicationDeliveryBaseTableActionHandler.verifyDataClassesTableAction(testProperties))) {
-                report.report("The specified Table action is in an incorrect state: " + baseDataClassesTableAction.getTableAction() + "\n.", Reporter.FAIL);
+                BaseTestUtils.report("The specified Table action is in an incorrect state: " + baseDataClassesTableAction.getTableAction() + "\n.", Reporter.FAIL);
             }
         } catch (Exception e) {
-            report.report("verify BaseDataClasses Disabled Table Action failed: " + baseDataClassesTableAction.getTableAction() + "\n." + parseExceptionBody(e),
+            BaseTestUtils.report("verify BaseDataClasses Disabled Table Action failed: " + baseDataClassesTableAction.getTableAction() + "\n." + parseExceptionBody(e),
                     Reporter.FAIL);
         }
     }

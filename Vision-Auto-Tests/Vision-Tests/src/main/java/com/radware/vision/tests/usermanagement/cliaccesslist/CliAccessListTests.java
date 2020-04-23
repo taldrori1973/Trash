@@ -1,12 +1,10 @@
 package com.radware.vision.tests.usermanagement.cliaccesslist;
 
 import com.radware.automation.tools.basetest.Reporter;
-import jsystem.framework.TestProperties;
-
-import org.junit.Test;
-
 import com.radware.vision.base.WebUITestBase;
 import com.radware.vision.infra.testhandlers.system.usermanagement.cliaccesslist.CliAccessListHandler;
+import jsystem.framework.TestProperties;
+import org.junit.Test;
 
 public class CliAccessListTests extends WebUITestBase{
 	String userName;
@@ -18,7 +16,7 @@ public class CliAccessListTests extends WebUITestBase{
 			CliAccessListHandler.addUser(userName);
 		}
 		catch(Exception e) {
-			report.report("Add user:" + userName + " " + "failed with the following error:\n" + e.getMessage() + "\n" + e.getCause(), Reporter.FAIL);
+			BaseTestUtils.report("Add user:" + userName + " " + "failed with the following error:\n" + e.getMessage() + "\n" + e.getCause(), Reporter.FAIL);
 		}
 	}
 	
@@ -29,7 +27,7 @@ public class CliAccessListTests extends WebUITestBase{
 			CliAccessListHandler.viewUser(userName);
 		}
 		catch(Exception e) {
-			report.report("View user:" + userName + " " + "failed with the following error:\n" + e.getMessage() + "\n" + e.getCause(), Reporter.FAIL);
+			BaseTestUtils.report("View user:" + userName + " " + "failed with the following error:\n" + e.getMessage() + "\n" + e.getCause(), Reporter.FAIL);
 		}
 	}
 	
@@ -40,7 +38,7 @@ public class CliAccessListTests extends WebUITestBase{
 			CliAccessListHandler.deleteUser(userName);
 		}
 		catch(Exception e) {
-			report.report("Delete user:" + userName + " " + "failed with the following error:\n" + e.getMessage() + "\n" + e.getCause(), Reporter.FAIL);
+			BaseTestUtils.report("Delete user:" + userName + " " + "failed with the following error:\n" + e.getMessage() + "\n" + e.getCause(), Reporter.FAIL);
 		}
 	}
 	public String getUserName() {

@@ -26,7 +26,7 @@ public class RadiusSettingsTests extends WebUITestBase {
     public void updateRadiusSettings() {
 
         if (ipAddress == null || sharedSecret == null || confirmSharedSecret == null) {
-            report.report("one or more of the following fields equal to null : ip address , shared secret , confirm shared secret");
+            BaseTestUtils.report("one or more of the following fields equal to null : ip address , shared secret , confirm shared secret");
         }
 
         try {
@@ -47,14 +47,14 @@ public class RadiusSettingsTests extends WebUITestBase {
                 if (ipAddress.equals(pageContainer.getIpv4TextFieldById("primaryRadiusIP").getValue()) &&
                         port != null ? port.equals(pageContainer.getDropdown("Port").getValue()) : true) {
                     BasicOperationsHandler.takeScreenShot();
-                    report.report("Test succeeded", Reporter.PASS);
+                    BaseTestUtils.report("Test succeeded", Reporter.PASS);
                 } else {
                     BasicOperationsHandler.takeScreenShot();
-                    report.report("Failed to set some /all values", Reporter.FAIL);
+                    BaseTestUtils.report("Failed to set some /all values", Reporter.FAIL);
                 }
             }
         } catch (Exception e) {
-            report.report(e.getMessage());
+            BaseTestUtils.report(e.getMessage());
         }
     }
 

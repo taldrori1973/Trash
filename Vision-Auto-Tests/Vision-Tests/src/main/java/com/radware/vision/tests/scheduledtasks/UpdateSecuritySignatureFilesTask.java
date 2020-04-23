@@ -36,7 +36,7 @@ public class UpdateSecuritySignatureFilesTask extends ScheduledTasksTestBase {
                 taskSchedRunTime = UpdateFraudSecuritySignaturesTaskHandler.taskEntity.getSchedule().getTime();
             }
         } catch (Exception e) {
-            report.report("Failed to create task: " + taskName + parseExceptionBody(e), Reporter.FAIL);
+            BaseTestUtils.report("Failed to create task: " + taskName + parseExceptionBody(e), Reporter.FAIL);
         }
     }
 
@@ -54,7 +54,7 @@ public class UpdateSecuritySignatureFilesTask extends ScheduledTasksTestBase {
             taskPorperties.put("groupDestinations", groupDestinations);
             UpdateSecuritySignatureFilesHandler.editTask(taskPorperties);
         } catch (Exception e) {
-            report.report("Failed to edit task: " + taskName + parseExceptionBody(e), Reporter.FAIL);
+            BaseTestUtils.report("Failed to edit task: " + taskName + parseExceptionBody(e), Reporter.FAIL);
         }
     }
 

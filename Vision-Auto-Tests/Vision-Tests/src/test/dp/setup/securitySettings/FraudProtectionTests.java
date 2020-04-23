@@ -26,7 +26,7 @@ public class FraudProtectionTests extends WebUITestBase {
             setTestPropertiesBase();
             FraudProtectionHandler.resetRSASignaturesLastUpdateField(testProperties);
         } catch (Exception e) {
-            report.report("export resetRSASignaturesLastUpdate Field operation may have been executed incorrectly :" + parseExceptionBody(e), Reporter.FAIL);
+            BaseTestUtils.report("export resetRSASignaturesLastUpdate Field operation may have been executed incorrectly :" + parseExceptionBody(e), Reporter.FAIL);
         }
     }
 

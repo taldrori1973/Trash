@@ -1,5 +1,6 @@
 package com.radware.vision.tests.Alteon.Configuration.System.Snmp.SnmpV3;
 
+import com.radware.automation.tools.basetest.Reporter;
 import com.radware.automation.webui.WebUIUtils;
 import com.radware.automation.webui.webpages.configuration.system.snmp.SnmpEnums;
 import com.radware.vision.base.WebUITestBase;
@@ -11,7 +12,6 @@ import com.radware.vision.infra.testhandlers.rbac.enums.EditTableActions;
 import com.radware.vision.infra.testhandlers.rbac.enums.ManagementNetworks;
 import jsystem.framework.ParameterProperties;
 import jsystem.framework.TestProperties;
-import com.radware.automation.tools.basetest.Reporter;
 import org.junit.Test;
 
 import java.io.IOException;
@@ -58,7 +58,7 @@ public class GroupsTests extends WebUITestBase {
             testProperties.put("groupNameRow", getGroupNameRow());
             SnmpV3TableActionHandler.addGroup(testProperties);
         } catch (Exception e) {
-            report.report("Failed with the following error:\n" +parseExceptionBody(e), Reporter.FAIL);
+            BaseTestUtils.report("Failed with the following error:\n" + parseExceptionBody(e), Reporter.FAIL);
         }
 
     }
@@ -72,7 +72,7 @@ public class GroupsTests extends WebUITestBase {
             testProperties.put("rowNumber", getRowNumber());
             SnmpV3TableActionHandler.delGroup(testProperties);
         } catch (Exception e) {
-            report.report("Failed with the following error:\n" +parseExceptionBody(e), Reporter.FAIL);
+            BaseTestUtils.report("Failed with the following error:\n" + parseExceptionBody(e), Reporter.FAIL);
         }
 
     }
@@ -88,7 +88,7 @@ public class GroupsTests extends WebUITestBase {
             testProperties.put("rowNumber", getRowNumber());
             SnmpV3TableActionHandler.viewGroup(testProperties);
         } catch (Exception e) {
-            report.report("Failed with the following error:\n" +parseExceptionBody(e), Reporter.FAIL);
+            BaseTestUtils.report("Failed with the following error:\n" + parseExceptionBody(e), Reporter.FAIL);
         }
 
     }
@@ -108,7 +108,7 @@ public class GroupsTests extends WebUITestBase {
             testProperties.put("groupNameRow", getGroupNameRow());
             SnmpV3TableActionHandler.duplicateGroup(testProperties);
         } catch (Exception e) {
-            report.report("Failed with the following error:\n" +parseExceptionBody(e), Reporter.FAIL);
+            BaseTestUtils.report("Failed with the following error:\n" + parseExceptionBody(e), Reporter.FAIL);
         }
 
     }

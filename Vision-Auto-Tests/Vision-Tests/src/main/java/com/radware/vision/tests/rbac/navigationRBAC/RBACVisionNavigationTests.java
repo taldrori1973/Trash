@@ -1,12 +1,12 @@
 package com.radware.vision.tests.rbac.navigationRBAC;
 
+import com.radware.automation.tools.basetest.Reporter;
 import com.radware.vision.infra.testhandlers.rbac.RBACHandlerBase;
 import com.radware.vision.infra.testhandlers.rbac.navigationRBAC.RBACVisionNavigationHandler;
 import com.radware.vision.infra.testhandlers.rbac.navigationRBAC.enums.PreferencesSubMenuItems;
 import com.radware.vision.infra.testhandlers.rbac.navigationRBAC.enums.SystemSubMenuItems;
 import com.radware.vision.tests.rbac.RBACTestBase;
 import jsystem.framework.TestProperties;
-import com.radware.automation.tools.basetest.Reporter;
 import org.junit.Test;
 
 /**
@@ -23,10 +23,10 @@ public class RBACVisionNavigationTests extends RBACTestBase {
         try {
             RBACHandlerBase.expectedResultRBAC = expectedResult;
             if ((!RBACVisionNavigationHandler.verifyVisionSystemSubMenuExistence(systemSubMenuItem.getElementId()))) {
-                report.report("Verify VisionSystemSubMenu: " + " was not " + expectedResult + " as expected." + "\n", Reporter.FAIL);
+                BaseTestUtils.report("Verify VisionSystemSubMenu: " + " was not " + expectedResult + " as expected." + "\n", Reporter.FAIL);
             }
         } catch (Exception e) {
-            report.report("Verify VisionSystemSubMenu Existence: " + "\n." + parseExceptionBody(e), Reporter.FAIL);
+            BaseTestUtils.report("Verify VisionSystemSubMenu Existence: " + "\n." + parseExceptionBody(e), Reporter.FAIL);
         }
     }
 
@@ -36,10 +36,10 @@ public class RBACVisionNavigationTests extends RBACTestBase {
         try {
             RBACHandlerBase.expectedResultRBAC = expectedResult;
             if ((!RBACVisionNavigationHandler.verifyVisionPreferencesSubMenuExistence(preferencesSubMenuItem.getSubMenu()))) {
-                report.report("Verify VisionPreferencesSubMenu: " + " was not " + expectedResult + " as expected." + "\n", Reporter.FAIL);
+                BaseTestUtils.report("Verify VisionPreferencesSubMenu: " + " was not " + expectedResult + " as expected." + "\n", Reporter.FAIL);
             }
         } catch (Exception e) {
-            report.report("Verify VisionPreferencesSubMenu Existence: " + "\n." + parseExceptionBody(e), Reporter.FAIL);
+            BaseTestUtils.report("Verify VisionPreferencesSubMenu Existence: " + "\n." + parseExceptionBody(e), Reporter.FAIL);
         }
     }
 

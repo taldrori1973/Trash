@@ -21,9 +21,9 @@ public class MonitoringTests extends WebUITestBase {
 
         MonitoringHandler.setPollingIntervalForReports(pollingIntervalForReports);
         if (MonitoringHandler.getPollingIntervalForReports().equals(pollingIntervalForReports)) {
-            report.report("setting polling interval for reports to: " + pollingIntervalForReports + " has succeeded", Reporter.PASS);
+            BaseTestUtils.report("setting polling interval for reports to: " + pollingIntervalForReports + " has succeeded", Reporter.PASS);
         } else {
-            report.report("setting polling interval for reports to: " + pollingIntervalForReports + " has failed", Reporter.FAIL);
+            BaseTestUtils.report("setting polling interval for reports to: " + pollingIntervalForReports + " has failed", Reporter.FAIL);
         }
 
     }

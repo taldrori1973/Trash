@@ -11,10 +11,7 @@ import com.radware.automation.webui.widgets.ComponentLocatorFactory;
 import com.radware.automation.webui.widgets.impl.WebUICheckbox;
 import com.radware.automation.webui.widgets.impl.WebUIComponent;
 import com.radware.vision.automation.tools.exceptions.selenium.TargetWebElementNotFoundException;
-import com.radware.vision.automation.tools.exceptions.web.DropdownItemNotFoundException;
-import com.radware.vision.automation.tools.exceptions.web.DropdownNotOpenedException;
 import com.radware.vision.automation.tools.sutsystemobjects.devicesinfo.enums.SUTDeviceType;
-import com.radware.vision.vision_project_cli.RootServerCli;
 import com.radware.vision.infra.testhandlers.EmailHandler;
 import com.radware.vision.infra.testhandlers.alteon.securitymonitoring.dashboardview.sslinspection.enums.QuickRange;
 import com.radware.vision.infra.testhandlers.baseoperations.BasicOperationsHandler;
@@ -22,6 +19,7 @@ import com.radware.vision.infra.testhandlers.vrm.enums.vrmActions;
 import com.radware.vision.infra.testresthandlers.ElasticSearchHandler;
 import com.radware.vision.infra.utils.TimeUtils;
 import com.radware.vision.infra.utils.WebUIStringsVision;
+import com.radware.vision.vision_project_cli.RootServerCli;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -29,7 +27,6 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.How;
-import org.w3c.tidy.Report;
 
 import java.time.Instant;
 import java.time.LocalDateTime;
@@ -98,7 +95,7 @@ public class VRMReportsHandler extends VRMBaseUtilies {
     }
 
     public void validateReportTimePeriod(String reportName, QuickRange timePeriod) throws TargetWebElementNotFoundException {
-        generateNewReport(reportName);
+        generateNewBaseTestUtils.reportName);
         vrmReportsDateUtils.setStartEndTime(timePeriod);
         Long timePeriodFinal = vrmReportsDateUtils.getEndTimeActual() - vrmReportsDateUtils.getStartTimeActual();
         Long timePeriodExpected = vrmReportsDateUtils.getEndTimeExpected() - vrmReportsDateUtils.getStartTimeExpected();
@@ -304,7 +301,7 @@ public class VRMReportsHandler extends VRMBaseUtilies {
     protected void validateGeneratedReport(String reportName, Map<String, String> map) {
         //TODO
 //        validateGeneratedReportSchedule(map);
-//        generateNewReport(reportName);
+//        generateNewBaseTestUtils.reportName);
 //        BasicOperationsHandler.clickButton("Log Preview", 60,reportName);
 //        validateGeneratedReportDevices(map);
 //        validateGeneratedReportTimeDefinitions(map);
@@ -803,7 +800,7 @@ public class VRMReportsHandler extends VRMBaseUtilies {
 
     protected void createVRMBase(String reportName, Map<String, String> map) throws Exception {
         try {
-            enterToCreatingReport(reportName, map.getOrDefault("reportType", null));
+            enterToCreatingBaseTestUtils.reportName, map.getOrDefault("reportType", null));
             selectDevices(map);
             BasicOperationsHandler.clickButton("Next", "");
             selectTimeDefinitions(map);

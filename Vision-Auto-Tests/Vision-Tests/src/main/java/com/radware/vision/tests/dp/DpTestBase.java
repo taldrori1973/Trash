@@ -3,9 +3,9 @@
     import com.radware.automation.tools.basetest.Reporter;
     import com.radware.automation.webui.WebUIUtils;
     import com.radware.insite.model.helpers.constants.ImConstants;
-    import com.radware.vision.pojomodel.helpers.constants.ImConstants$DeviceStatusEnumPojo;
     import com.radware.vision.base.WebUITestBase;
     import com.radware.vision.infra.utils.DpWebUIUtils;
+    import com.radware.vision.pojomodel.helpers.constants.ImConstants$DeviceStatusEnumPojo;
     import jsystem.framework.ParameterProperties;
     import org.junit.Before;
     import testhandlers.Device;
@@ -31,10 +31,10 @@
             getVisionRestClient().mgmtCommands.deviceOperationsCommands.lockCommand(deviceIp);
             getVisionRestClient().mgmtCommands.deviceOperationsCommands.deviceUpdatePolicies(deviceIp);
 			if(!Device.waitForDeviceStatus(getVisionRestClient(), getDeviceName(), ImConstants$DeviceStatusEnumPojo.OK, 60 * 1000)) {
-				report.report("Device: " + getDeviceName() + " " + "did not reach required status: " + ImConstants.DeviceStatusEnum.OK.name(), Reporter.PASS);
+                BaseTestUtils.report("Device: " + getDeviceName() + " " + "did not reach required status: " + ImConstants.DeviceStatusEnum.OK.name(), Reporter.PASS);
 			}
 		} catch (Exception e) {
-			report.report("Failed to wait for status of device: " + getDeviceName() + parseExceptionBody(e), Reporter.PASS);
+            BaseTestUtils.report("Failed to wait for status of device: " + getDeviceName() + parseExceptionBody(e), Reporter.PASS);
 		}
         finally {
             getVisionRestClient().mgmtCommands.deviceOperationsCommands.unlockCommand(deviceIp);

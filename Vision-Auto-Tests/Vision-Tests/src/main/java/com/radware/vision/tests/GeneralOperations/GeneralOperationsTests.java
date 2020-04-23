@@ -1,6 +1,8 @@
 package com.radware.vision.tests.GeneralOperations;
 
 import com.radware.automation.tools.basetest.Reporter;
+import com.radware.automation.tools.utils.FileUtils;
+import com.radware.automation.tools.utils.StringUtils;
 import com.radware.automation.webui.WebUIUtils;
 import com.radware.automation.webui.widgets.ComponentLocator;
 import com.radware.automation.webui.widgets.impl.table.WebUITable;
@@ -12,13 +14,11 @@ import com.radware.vision.infra.enums.VisionTableIDs;
 import com.radware.vision.infra.tablepagesnavigation.NavigateTable;
 import com.radware.vision.infra.testhandlers.baseoperations.BasicOperationsByNameIdHandler;
 import com.radware.vision.infra.testhandlers.rbac.enums.CommonTableActions;
-import com.radware.automation.tools.utils.FileUtils;
 import jsystem.framework.ParameterProperties;
 import jsystem.framework.TestProperties;
 import org.junit.Test;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.How;
-import com.radware.automation.tools.utils.StringUtils;
 /**
  * Created by stanislava on 9/9/2015.
  */
@@ -56,10 +56,10 @@ public class GeneralOperationsTests extends WebUITestBase {
                 WebUIUtils.fluentWaitClick(locator.getBy(), WebUIUtils.DEFAULT_WAIT_TIME, false);
 
             } else {
-                report.report("Incorrect ID is provided : " + "gwt-debug-".concat(visionTableID.getVisionTableID()).concat(tableAction.getTableAction()), Reporter.FAIL);
+                BaseTestUtils.report("Incorrect ID is provided : " + "gwt-debug-".concat(visionTableID.getVisionTableID()).concat(tableAction.getTableAction()), Reporter.FAIL);
             }
         } catch (Exception e) {
-            report.report("Failed to click on the specified table : " + "gwt-debug-".concat(visionTableID.getVisionTableID()).concat(tableAction.getTableAction()), Reporter.FAIL);
+            BaseTestUtils.report("Failed to click on the specified table : " + "gwt-debug-".concat(visionTableID.getVisionTableID()).concat(tableAction.getTableAction()), Reporter.FAIL);
         }
         finally {
             WebUIUtils.isTriggerPopupSearchEvent4FreeTest = true;
@@ -78,10 +78,10 @@ public class GeneralOperationsTests extends WebUITestBase {
                 table.setRawId(visionTableID.getVisionTableID());
                 table.clickRowByKeyValue(columnName, columnValue);
             } else {
-                report.report("Incorrect table ID is provided : " + visionTableID.getVisionTableID(), Reporter.FAIL);
+                BaseTestUtils.report("Incorrect table ID is provided : " + visionTableID.getVisionTableID(), Reporter.FAIL);
             }
         } catch (Exception e) {
-            report.report("Failed to click on the specified table : " + visionTableID.getVisionTableID(), Reporter.FAIL);
+            BaseTestUtils.report("Failed to click on the specified table : " + visionTableID.getVisionTableID(), Reporter.FAIL);
         }
     }
 
@@ -91,7 +91,7 @@ public class GeneralOperationsTests extends WebUITestBase {
         try{
             basicOperationsByNameIdHandler.selectTableRecord(WebUIUtils.selectedDeviceDriverId, deviceFieldLabel, columnName, columnValue, findTableType);
         } catch (Exception e) {
-            report.report("Failed to click on the specified table : " + getDeviceFieldLabel(), Reporter.FAIL);
+            BaseTestUtils.report("Failed to click on the specified table : " + getDeviceFieldLabel(), Reporter.FAIL);
         }
     }
 
@@ -101,7 +101,7 @@ public class GeneralOperationsTests extends WebUITestBase {
         try{
             basicOperationsByNameIdHandler.selectTableRecordByIndex(WebUIUtils.selectedDeviceDriverId, deviceFieldLabel, rowIndex);
             } catch (Exception e) {
-            report.report("Failed to find Table's row by text: " + rowIndex, Reporter.FAIL);
+            BaseTestUtils.report("Failed to find Table's row by text: " + rowIndex, Reporter.FAIL);
         }
     }
 
@@ -128,10 +128,10 @@ public class GeneralOperationsTests extends WebUITestBase {
             } else if (getPageNumber() != null && !getPageNumber().equals("")) {
                 NavigateTable.specificPage(getPageNumber());
             } else {
-                report.report("Incorrect table ID is provided : " + visionTableID.getVisionTableID(), Reporter.FAIL);
+                BaseTestUtils.report("Incorrect table ID is provided : " + visionTableID.getVisionTableID(), Reporter.FAIL);
             }
         } catch (Exception e) {
-            report.report("Failed to click on the specified table : " + visionTableID.getVisionTableID(), Reporter.FAIL);
+            BaseTestUtils.report("Failed to click on the specified table : " + visionTableID.getVisionTableID(), Reporter.FAIL);
         }
     }
 
@@ -146,7 +146,7 @@ public class GeneralOperationsTests extends WebUITestBase {
             String filePath = normalizePath(fileDownloadPath, fileName);
             importOperation.importFromClient(filePath, ifClickImport);
         } catch (Exception e) {
-            report.report("Failed to click on the specified table : " + visionTableID.getVisionTableID(), Reporter.FAIL);
+            BaseTestUtils.report("Failed to click on the specified table : " + visionTableID.getVisionTableID(), Reporter.FAIL);
         }
     }
 

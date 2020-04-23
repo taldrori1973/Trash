@@ -43,10 +43,10 @@ public class RBACAlteonSnmpTableActionTests extends RBACTestBase {
             testProperties.put("snmpUsmUsersTableAction", snmpUsmUsersTableAction.getTableAction().toString());
 
             if (!(RBACAlteonSNMPv3TableActionHandler.verifySnmpUSMUsersTableAction(testProperties))) {
-                report.report("The specified Table action is in an incorrect state: " + snmpUsmUsersTableAction.getTableAction() + "\n.", Reporter.FAIL);
+                BaseTestUtils.report("The specified Table action is in an incorrect state: " + snmpUsmUsersTableAction.getTableAction() + "\n.", Reporter.FAIL);
             }
         } catch (Exception e) {
-            report.report("verify SnmpUSMUsers Disabled Table Action failed: " + snmpUsmUsersTableAction.getTableAction() + "\n." + parseExceptionBody(e),
+            BaseTestUtils.report("verify SnmpUSMUsers Disabled Table Action failed: " + snmpUsmUsersTableAction.getTableAction() + "\n." + parseExceptionBody(e),
                     Reporter.FAIL);
         }
     }
@@ -59,10 +59,10 @@ public class RBACAlteonSnmpTableActionTests extends RBACTestBase {
             testProperties.put("snmpViewTreesTableAction", snmpViewTreesTableAction.getTableAction().toString());
 
             if (!(RBACAlteonSNMPv3TableActionHandler.verifySnmpViewTreesTableAction(testProperties))) {
-                report.report("The specified Table action is in an incorrect state: " + snmpViewTreesTableAction.getTableAction() + "\n.", Reporter.FAIL);
+                BaseTestUtils.report("The specified Table action is in an incorrect state: " + snmpViewTreesTableAction.getTableAction() + "\n.", Reporter.FAIL);
             }
         } catch (Exception e) {
-            report.report("verify ViewTrees Disabled Table Action failed: " + snmpViewTreesTableAction.getTableAction() + "\n." + parseExceptionBody(e),
+            BaseTestUtils.report("verify ViewTrees Disabled Table Action failed: " + snmpViewTreesTableAction.getTableAction() + "\n." + parseExceptionBody(e),
                     Reporter.FAIL);
         }
     }
@@ -75,10 +75,10 @@ public class RBACAlteonSnmpTableActionTests extends RBACTestBase {
             testProperties.put("snmpGroupsTableAction", snmpGroupsTableAction.getTableAction().toString());
 
             if (!(RBACAlteonSNMPv3TableActionHandler.verifySnmpGroupsTableAction(testProperties))) {
-                report.report("The specified Table action is in an incorrect state: " + snmpGroupsTableAction.getTableAction() + "\n.", Reporter.FAIL);
+                BaseTestUtils.report("The specified Table action is in an incorrect state: " + snmpGroupsTableAction.getTableAction() + "\n.", Reporter.FAIL);
             }
         } catch (Exception e) {
-            report.report("verify Groups Disabled Table Action failed: " + snmpGroupsTableAction.getTableAction() + "\n." + parseExceptionBody(e),
+            BaseTestUtils.report("verify Groups Disabled Table Action failed: " + snmpGroupsTableAction.getTableAction() + "\n." + parseExceptionBody(e),
                     Reporter.FAIL);
         }
     }
@@ -91,10 +91,10 @@ public class RBACAlteonSnmpTableActionTests extends RBACTestBase {
             testProperties.put("snmpAccessTableAction", snmpAccessTableAction.getTableAction().toString());
 
             if (!(RBACAlteonSNMPv3TableActionHandler.verifySnmpAccessTableAction(testProperties))) {
-                report.report("The specified Table action is in an incorrect state: " + snmpAccessTableAction.getTableAction() + "\n.", Reporter.FAIL);
+                BaseTestUtils.report("The specified Table action is in an incorrect state: " + snmpAccessTableAction.getTableAction() + "\n.", Reporter.FAIL);
             }
         } catch (Exception e) {
-            report.report("verify Access Disabled Table Action failed: " + snmpAccessTableAction.getTableAction() + "\n." + parseExceptionBody(e),
+            BaseTestUtils.report("verify Access Disabled Table Action failed: " + snmpAccessTableAction.getTableAction() + "\n." + parseExceptionBody(e),
                     Reporter.FAIL);
         }
     }
@@ -107,10 +107,10 @@ public class RBACAlteonSnmpTableActionTests extends RBACTestBase {
             testProperties.put("snmpCommunitiesTableAction", snmpCommunitiesTableAction.getTableAction().toString());
 
             if (!(RBACAlteonSNMPv3TableActionHandler.verifySnmpCommunitiesTableAction(testProperties))) {
-                report.report("The specified Table action is in an incorrect state: " + snmpCommunitiesTableAction.getTableAction() + "\n.", Reporter.FAIL);
+                BaseTestUtils.report("The specified Table action is in an incorrect state: " + snmpCommunitiesTableAction.getTableAction() + "\n.", Reporter.FAIL);
             }
         } catch (Exception e) {
-            report.report("verify Communities Disabled Table Action failed: " + snmpCommunitiesTableAction.getTableAction() + "\n." + parseExceptionBody(e),
+            BaseTestUtils.report("verify Communities Disabled Table Action failed: " + snmpCommunitiesTableAction.getTableAction() + "\n." + parseExceptionBody(e),
                     Reporter.FAIL);
         }
     }
@@ -123,10 +123,10 @@ public class RBACAlteonSnmpTableActionTests extends RBACTestBase {
             testProperties.put("snmpTargetParametersTableAction", snmpTargetParametersTableAction.getTableAction().toString());
 
             if (!(RBACAlteonSNMPv3TableActionHandler.verifySnmpTargetParametersTableAction(testProperties))) {
-                report.report("The specified Table action is in an incorrect state: " + snmpTargetParametersTableAction.getTableAction() + "\n.", Reporter.FAIL);
+                BaseTestUtils.report("The specified Table action is in an incorrect state: " + snmpTargetParametersTableAction.getTableAction() + "\n.", Reporter.FAIL);
             }
         } catch (Exception e) {
-            report.report("verify TargetParameters Disabled Table Action failed: " + snmpTargetParametersTableAction.getTableAction() + "\n." + parseExceptionBody(e),
+            BaseTestUtils.report("verify TargetParameters Disabled Table Action failed: " + snmpTargetParametersTableAction.getTableAction() + "\n." + parseExceptionBody(e),
                     Reporter.FAIL);
         }
     }
@@ -139,10 +139,10 @@ public class RBACAlteonSnmpTableActionTests extends RBACTestBase {
             testProperties.put("snmpTargetAddressesTableAction", snmpTargetAddressesTableAction.getTableAction().toString());
 
             if (!(RBACAlteonSNMPv3TableActionHandler.verifySnmpTargetAddressesTableAction(testProperties))) {
-                report.report("The specified Table action is in an incorrect state: " + snmpTargetAddressesTableAction.getTableAction() + "\n.", Reporter.FAIL);
+                BaseTestUtils.report("The specified Table action is in an incorrect state: " + snmpTargetAddressesTableAction.getTableAction() + "\n.", Reporter.FAIL);
             }
         } catch (Exception e) {
-            report.report("verify TargetAddresses Disabled Table Action failed: " + snmpTargetAddressesTableAction.getTableAction() + "\n." + parseExceptionBody(e),
+            BaseTestUtils.report("verify TargetAddresses Disabled Table Action failed: " + snmpTargetAddressesTableAction.getTableAction() + "\n." + parseExceptionBody(e),
                     Reporter.FAIL);
         }
     }
@@ -155,10 +155,10 @@ public class RBACAlteonSnmpTableActionTests extends RBACTestBase {
             testProperties.put("snmpNotifyTagsTableAction", snmpNotifyTagsTableAction.getTableAction().toString());
 
             if (!(RBACAlteonSNMPv3TableActionHandler.verifySnmpNotifyTagsTableAction(testProperties))) {
-                report.report("The specified Table action is in an incorrect state: " + snmpNotifyTagsTableAction.getTableAction() + "\n.", Reporter.FAIL);
+                BaseTestUtils.report("The specified Table action is in an incorrect state: " + snmpNotifyTagsTableAction.getTableAction() + "\n.", Reporter.FAIL);
             }
         } catch (Exception e) {
-            report.report("verify NotifyTags Disabled Table Action failed: " + snmpNotifyTagsTableAction.getTableAction() + "\n." + parseExceptionBody(e),
+            BaseTestUtils.report("verify NotifyTags Disabled Table Action failed: " + snmpNotifyTagsTableAction.getTableAction() + "\n." + parseExceptionBody(e),
                     Reporter.FAIL);
         }
     }

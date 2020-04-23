@@ -43,11 +43,11 @@ public class AlteonLocalizationTests extends WebUITestBase {
             result = localizationNavigationParsing.navigateSystemMenu(ids);
 
             if (result.length() != 0) {
-                report.report("Those texts are not translated correctly:" + result.toString(), Reporter.FAIL);
+                BaseTestUtils.report("Those texts are not translated correctly:" + result.toString(), Reporter.FAIL);
             }
 
         } catch (Exception e) {
-            report.report("Page labels validation has Failed :" + result.toString() + parseExceptionBody(e), Reporter.FAIL);
+            BaseTestUtils.report("Page labels validation has Failed :" + result.toString() + parseExceptionBody(e), Reporter.FAIL);
         }
     }
 

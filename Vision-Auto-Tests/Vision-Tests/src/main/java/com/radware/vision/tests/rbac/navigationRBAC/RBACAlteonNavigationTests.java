@@ -1,11 +1,11 @@
 package com.radware.vision.tests.rbac.navigationRBAC;
 
+import com.radware.automation.tools.basetest.Reporter;
 import com.radware.vision.infra.testhandlers.rbac.navigationRBAC.RBACAlteonNavigationHandler;
 import com.radware.vision.infra.testhandlers.rbac.navigationRBAC.enums.AlteonConfigurationSubMenuItems;
 import com.radware.vision.infra.testhandlers.rbac.navigationRBAC.enums.AlteonMonitoringSubMenuItems;
 import com.radware.vision.tests.rbac.RBACTestBase;
 import jsystem.framework.TestProperties;
-import com.radware.automation.tools.basetest.Reporter;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -27,10 +27,10 @@ public class RBACAlteonNavigationTests extends RBACTestBase {
     public void verifyAlteonConfigurationSubMenuExistence() {
         try {
             if ((!RBACAlteonNavigationHandler.verifyAlteonConfigurationSubMenuExistence(configurationSubMenuItem.getSubMenu(), getDeviceName(), parentTree.getTopologyTreeTab()))) {
-                report.report("Verify AlteonConfigurationSubMenu: " + " was not " + expectedResult + " as expected." + "\n", Reporter.FAIL);
+                BaseTestUtils.report("Verify AlteonConfigurationSubMenu: " + " was not " + expectedResult + " as expected." + "\n", Reporter.FAIL);
             }
         } catch (Exception e) {
-            report.report("Verify AlteonConfigurationSubMenu Existence: " + "\n." + parseExceptionBody(e), Reporter.FAIL);
+            BaseTestUtils.report("Verify AlteonConfigurationSubMenu Existence: " + "\n." + parseExceptionBody(e), Reporter.FAIL);
         }
     }
 
@@ -40,10 +40,10 @@ public class RBACAlteonNavigationTests extends RBACTestBase {
     public void verifyAlteonMonitoringSubMenuExistence() {
         try {
             if ((!RBACAlteonNavigationHandler.verifyAlteonMonitoringSubMenuExistence(monitoringSubMenuItem.getSubMenu(), getDeviceName(), parentTree.getTopologyTreeTab()))) {
-                report.report("Verify AlteonMonitoringSubMenu: " + " was not " + expectedResult + " as expected." + "\n", Reporter.FAIL);
+                BaseTestUtils.report("Verify AlteonMonitoringSubMenu: " + " was not " + expectedResult + " as expected." + "\n", Reporter.FAIL);
             }
         } catch (Exception e) {
-            report.report("Verify AlteonMonitoringSubMenu Existence: " + "\n." + parseExceptionBody(e), Reporter.FAIL);
+            BaseTestUtils.report("Verify AlteonMonitoringSubMenu Existence: " + "\n." + parseExceptionBody(e), Reporter.FAIL);
         }
     }
 

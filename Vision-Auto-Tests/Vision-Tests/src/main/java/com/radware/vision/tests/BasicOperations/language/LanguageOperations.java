@@ -36,7 +36,7 @@ public class LanguageOperations extends WebUITestBase {
             List<WebElement> languageDropdownList = WebUIUtils.fluentWaitMultiple(locator.getBy(), WebUIUtils.DEFAULT_WAIT_TIME, false, languageMenuBar);
             languageDropdownList.get(language.ordinal()).click();
          } catch(Exception e) {
-            report.report("Failed to switch language: " + parseExceptionBody(e), Reporter.FAIL);
+            BaseTestUtils.report("Failed to switch language: " + parseExceptionBody(e), Reporter.FAIL);
         }
     }
 
@@ -46,7 +46,7 @@ public class LanguageOperations extends WebUITestBase {
         try {
             setLocalizationProperties();
         } catch (Exception e) {
-            report.report("Failed to switch language: " + parseExceptionBody(e), Reporter.FAIL);
+            BaseTestUtils.report("Failed to switch language: " + parseExceptionBody(e), Reporter.FAIL);
         }
     }
 

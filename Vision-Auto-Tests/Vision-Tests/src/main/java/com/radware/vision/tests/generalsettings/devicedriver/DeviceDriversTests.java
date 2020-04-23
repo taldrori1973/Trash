@@ -1,14 +1,12 @@
 package com.radware.vision.tests.generalsettings.devicedriver;
 
-import java.awt.AWTException;
-
 import com.radware.automation.tools.basetest.Reporter;
-import jsystem.framework.TestProperties;
-
-import org.junit.Test;
-
 import com.radware.vision.base.WebUITestBase;
 import com.radware.vision.infra.testhandlers.system.generalsettings.devicedriver.DeviceDriverHandler;
+import jsystem.framework.TestProperties;
+import org.junit.Test;
+
+import java.awt.*;
 
 public class DeviceDriversTests  extends WebUITestBase{
 
@@ -26,7 +24,7 @@ public class DeviceDriversTests  extends WebUITestBase{
 			DeviceDriverHandler.updateDeviceDriver(fileName, columnValue, columnName);
 		}
 		catch(Exception e){
-			report.report("Device Driver related operation may have been executed incorrectly :" + parseExceptionBody(e), Reporter.FAIL);
+            BaseTestUtils.report("Device Driver related operation may have been executed incorrectly :" + parseExceptionBody(e), Reporter.FAIL);
 		}
 	}
 	@Test
@@ -36,7 +34,7 @@ public class DeviceDriversTests  extends WebUITestBase{
 			DeviceDriverHandler.updateToLatestDriver(columnValue, columnName);
 		}
 		catch(Exception e){
-			report.report("Device Driver related operation may have been executed incorrectly :" + parseExceptionBody(e), Reporter.FAIL);
+            BaseTestUtils.report("Device Driver related operation may have been executed incorrectly :" + parseExceptionBody(e), Reporter.FAIL);
 		}
 	}
 	@Test
@@ -46,7 +44,7 @@ public class DeviceDriversTests  extends WebUITestBase{
 			DeviceDriverHandler.revertToBaselineDriver(columnValue, columnName);
 		}
 		catch(Exception e){
-			report.report("Device Driver related operation may have been executed incorrectly :" + parseExceptionBody(e), Reporter.FAIL);
+            BaseTestUtils.report("Device Driver related operation may have been executed incorrectly :" + parseExceptionBody(e), Reporter.FAIL);
 		}
 	}
 	@Test
@@ -56,7 +54,7 @@ public class DeviceDriversTests  extends WebUITestBase{
 			DeviceDriverHandler.uploadDeviceDriver(fileName);
 		}
 		catch(Exception e){
-			report.report("Device Driver related operation may have been executed incorrectly :" + parseExceptionBody(e), Reporter.FAIL);
+            BaseTestUtils.report("Device Driver related operation may have been executed incorrectly :" + parseExceptionBody(e), Reporter.FAIL);
 		}
 	}
 	@Test
@@ -66,7 +64,7 @@ public class DeviceDriversTests  extends WebUITestBase{
 			DeviceDriverHandler.updateAllDriversToLatest();
 		}
 		catch(Exception e){
-			report.report("Device Driver related operation may have been executed incorrectly :" + parseExceptionBody(e), Reporter.FAIL);
+            BaseTestUtils.report("Device Driver related operation may have been executed incorrectly :" + parseExceptionBody(e), Reporter.FAIL);
 		}
 	}
 

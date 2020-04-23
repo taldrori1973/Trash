@@ -1,6 +1,5 @@
 package com.radware.vision.infra.testresthandlers;
 
-import com.google.gson.JsonArray;
 import com.radware.automation.tools.basetest.BaseTestUtils;
 import com.radware.automation.tools.basetest.Reporter;
 import com.radware.restcore.GenericRestClient;
@@ -125,8 +124,8 @@ public class BasicRestOperationsHandler {
 
             for (ExistenceReport expectedReport : expectedReports)
             {
-                if (!expectedReport.isExist.equals(actualReportsName.contains(expectedReport.reportName)))
-                    ReportsUtils.addErrorMessage("'" + expectedReport.reportName + "' report " + (expectedReport.isExist.equals(true)?"should":"shouldn't") + " be exist, but the Actual is not");
+                if (!expectedReport.isExist.equals(actualReportsName.contains(expectedBaseTestUtils.reportName)))
+                    ReportsUtils.addErrorMessage("'" + expectedBaseTestUtils.reportName + "' report " + (expectedReport.isExist.equals(true)?"should":"shouldn't") + " be exist, but the Actual is not");
             }
             reportErrors();
         }

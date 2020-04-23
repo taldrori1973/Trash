@@ -58,7 +58,7 @@ public class DPOperationsTests extends RBACTestBase {
             printYellowMessage();
         } catch (Exception e) {
             WebUIUtils.generateAndReportScreenshot();
-            report.report("import configuration File operation may have been executed incorrectly :" + parseExceptionBody(e), Reporter.FAIL);
+            BaseTestUtils.report("import configuration File operation may have been executed incorrectly :" + parseExceptionBody(e), Reporter.FAIL);
         }
     }
 
@@ -75,11 +75,11 @@ public class DPOperationsTests extends RBACTestBase {
 
             if (!DPOperationsHandler.exportConfigurationFile(testProperties)) {
                 WebUIUtils.generateAndReportScreenshot();
-                report.report("export configuration File operation may have been executed incorrectly :", Reporter.FAIL);
+                BaseTestUtils.report("export configuration File operation may have been executed incorrectly :", Reporter.FAIL);
             }
         } catch (Exception e) {
             WebUIUtils.generateAndReportScreenshot();
-            report.report("export configuration File operation may have been executed incorrectly :" + parseExceptionBody(e), Reporter.FAIL);
+            BaseTestUtils.report("export configuration File operation may have been executed incorrectly :" + parseExceptionBody(e), Reporter.FAIL);
         }
     }
 
@@ -94,11 +94,11 @@ public class DPOperationsTests extends RBACTestBase {
             //CliConnectionImpl cli = WebUITestBase.getRestTestBase().getRootServerCli();
             if (!DPOperationsHandler.exportLogSupportFile(testProperties, WebUITestBase.getRestTestBase().getRadwareServerCli())) {
                 WebUIUtils.generateAndReportScreenshot();
-                report.report("export LogSupport File operation may have been executed incorrectly :", Reporter.FAIL);
+                BaseTestUtils.report("export LogSupport File operation may have been executed incorrectly :", Reporter.FAIL);
             }
         } catch (Exception e) {
             WebUIUtils.generateAndReportScreenshot();
-            report.report("export LogSupport File operation may have been executed incorrectly :" + parseExceptionBody(e), Reporter.FAIL);
+            BaseTestUtils.report("export LogSupport File operation may have been executed incorrectly :" + parseExceptionBody(e), Reporter.FAIL);
         }
     }
 
@@ -112,11 +112,11 @@ public class DPOperationsTests extends RBACTestBase {
 
             if (!DPOperationsHandler.exportTechnicalSupportFile(testProperties, WebUITestBase.getRestTestBase().getRadwareServerCli())) {
                 WebUIUtils.generateAndReportScreenshot();
-                report.report("export TechnicalSupport File operation may have been executed incorrectly :", Reporter.FAIL);
+                BaseTestUtils.report("export TechnicalSupport File operation may have been executed incorrectly :", Reporter.FAIL);
             }
         } catch (Exception e) {
             WebUIUtils.generateAndReportScreenshot();
-            report.report("export TechnicalSupport File operation may have been executed incorrectly :" + parseExceptionBody(e), Reporter.FAIL);
+            BaseTestUtils.report("export TechnicalSupport File operation may have been executed incorrectly :" + parseExceptionBody(e), Reporter.FAIL);
         }
     }
 
@@ -134,12 +134,12 @@ public class DPOperationsTests extends RBACTestBase {
 
             if (!DPOperationsHandler.updateSecuritySignatures(getVisionRestClient(), testProperties)) {
                 WebUIUtils.generateAndReportScreenshot();
-                report.report("update Security Signatures operation may have been executed incorrectly :", Reporter.FAIL);
+                BaseTestUtils.report("update Security Signatures operation may have been executed incorrectly :", Reporter.FAIL);
             }
             printYellowMessage();
         } catch (Exception e) {
             WebUIUtils.generateAndReportScreenshot();
-            report.report("update Security Signatures operation may have been executed incorrectly :" + parseExceptionBody(e), Reporter.FAIL);
+            BaseTestUtils.report("update Security Signatures operation may have been executed incorrectly :" + parseExceptionBody(e), Reporter.FAIL);
         }
     }
 

@@ -6,7 +6,6 @@ import com.radware.automation.webui.WebUIUtils;
 import com.radware.automation.webui.webpages.WebUIScreen;
 import com.radware.utils.DeviceUtils;
 import com.radware.utils.device.DeviceScalarUtils;
-import com.radware.vision.pojomodel.helpers.constants.ImConstants$DeviceStatusEnumPojo;
 import com.radware.vision.base.WebUITestBase;
 import com.radware.vision.infra.base.pages.VisionServerInfoPane;
 import com.radware.vision.infra.enums.DeviceState;
@@ -15,6 +14,7 @@ import com.radware.vision.infra.enums.RevertApplyMenuItems;
 import com.radware.vision.infra.enums.TopologyTreeTabs;
 import com.radware.vision.infra.testhandlers.baseoperations.BasicOperationsHandler;
 import com.radware.vision.infra.testhandlers.deviceoperations.DeviceOperationsHandler;
+import com.radware.vision.pojomodel.helpers.constants.ImConstants$DeviceStatusEnumPojo;
 import jsystem.framework.ParameterProperties;
 import jsystem.framework.TestProperties;
 import org.junit.Before;
@@ -63,11 +63,11 @@ public class DeviceOperationsTest extends WebUITestBase {
                 VisionServerInfoPane infopane = new VisionServerInfoPane();
                 String currentyLockedBy = infopane.getDeviceLockedBy();
                 if (!(currentyLockedBy.equals(WebUITestBase.webUtils.loggedinUser))) {
-                    report.report("Device: " + getDeviceName() + " is locked by: " + currentyLockedBy + ", and not by " + WebUITestBase.getConnectionUsername(), Reporter.FAIL);
+                    BaseTestUtils.report("Device: " + getDeviceName() + " is locked by: " + currentyLockedBy + ", and not by " + WebUITestBase.getConnectionUsername(), Reporter.FAIL);
                 }
             }
         } catch (Exception e) {
-            report.report("Topology Element may not have been found :", Reporter.FAIL);
+            BaseTestUtils.report("Topology Element may not have been found :", Reporter.FAIL);
         }
     }
 
@@ -81,11 +81,11 @@ public class DeviceOperationsTest extends WebUITestBase {
                 VisionServerInfoPane infopane = new VisionServerInfoPane();
                 String currentlyLockedBy = infopane.getDeviceLockedBy();
                 if (!(currentlyLockedBy.equals(""))) {
-                    report.report("Device: " + getDeviceName() + " is locked by: " + currentlyLockedBy + ", instead of 'unlocked' state.", Reporter.FAIL);
+                    BaseTestUtils.report("Device: " + getDeviceName() + " is locked by: " + currentlyLockedBy + ", instead of 'unlocked' state.", Reporter.FAIL);
                 }
             }
         } catch (Exception e) {
-            report.report("Topology Element may not have been found :", Reporter.FAIL);
+            BaseTestUtils.report("Topology Element may not have been found :", Reporter.FAIL);
         }
     }
 
@@ -97,7 +97,7 @@ public class DeviceOperationsTest extends WebUITestBase {
             DeviceOperationsHandler.applyAction(getDeviceName(), String.valueOf(parentTree), String.valueOf(state));
 
         } catch (Exception e) {
-            report.report("Topology Element may not have been found :", Reporter.FAIL);
+            BaseTestUtils.report("Topology Element may not have been found :", Reporter.FAIL);
         }
     }
 
@@ -109,7 +109,7 @@ public class DeviceOperationsTest extends WebUITestBase {
             DeviceOperationsHandler.saveAction(getDeviceName(), String.valueOf(parentTree), String.valueOf(state));
 
         } catch (Exception e) {
-            report.report("Topology Element may not have been found :", Reporter.FAIL);
+            BaseTestUtils.report("Topology Element may not have been found :", Reporter.FAIL);
         }
     }
 
@@ -121,7 +121,7 @@ public class DeviceOperationsTest extends WebUITestBase {
             DeviceOperationsHandler.revertAction(revertApplyMenuItem, getDeviceName(), String.valueOf(parentTree), String.valueOf(state), getDeviceName());
 
         } catch (Exception e) {
-            report.report("Topology Element may not have been found :", Reporter.FAIL);
+            BaseTestUtils.report("Topology Element may not have been found :", Reporter.FAIL);
         }
     }
 
@@ -132,7 +132,7 @@ public class DeviceOperationsTest extends WebUITestBase {
             DeviceState state = DeviceState.Lock;
             DeviceOperationsHandler.syncAction(getDeviceName(), String.valueOf(parentTree), String.valueOf(state));
         } catch (Exception e) {
-            report.report("Topology Element may not have been found :", Reporter.FAIL);
+            BaseTestUtils.report("Topology Element may not have been found :", Reporter.FAIL);
         }
     }
 
@@ -141,10 +141,10 @@ public class DeviceOperationsTest extends WebUITestBase {
     public void alteonSaveDump() throws Exception {
         try {
             if (!DeviceOperationsHandler.alteonSaveDump(getDeviceName(), fileDownloadPath, messageToValidate, privateKeys)) {
-                report.report("The following message : " + messageToValidate + " is not found in the dump file!", Reporter.FAIL);
+                BaseTestUtils.report("The following message : " + messageToValidate + " is not found in the dump file!", Reporter.FAIL);
             }
         } catch (Exception e) {
-            report.report("alteon Save Dump may not have been executed correctly :", Reporter.FAIL);
+            BaseTestUtils.report("alteon Save Dump may not have been executed correctly :", Reporter.FAIL);
         }
     }
 
@@ -167,7 +167,7 @@ public class DeviceOperationsTest extends WebUITestBase {
 
             DeviceOperationsHandler.importAlteonOperation(properties, getVisionRestClient());
         } catch (Exception e) {
-            report.report("import DeviceCfg operation has been executed incorrectly :", Reporter.FAIL);
+            BaseTestUtils.report("import DeviceCfg operation has been executed incorrectly :", Reporter.FAIL);
         }
     }
 
@@ -191,7 +191,7 @@ public class DeviceOperationsTest extends WebUITestBase {
             DeviceOperationsHandler.exportAlteonOperation(properties, getVisionRestClient());
 
         } catch (Exception e) {
-            report.report("export DeviceCfg operation has been executed incorrectly :", Reporter.FAIL);
+            BaseTestUtils.report("export DeviceCfg operation has been executed incorrectly :", Reporter.FAIL);
         }
     }
 
@@ -202,7 +202,7 @@ public class DeviceOperationsTest extends WebUITestBase {
             DeviceOperationsHandler.lockUnlockDevice(getDeviceName(), TopologyTreeTabs.SitesAndClusters.getTopologyTreeTab(), DeviceState.Lock.getDeviceState(), true);
             DeviceScalarUtils.putScalar(getVisionRestClient(), DeviceUtils.getDeviceIp(getVisionRestClient(), getDeviceName()), scalarPropsValues);
         } catch (Exception e) {
-            report.report("Set Scalar failed with the following error:\n" + parseExceptionBody(e), Reporter.FAIL);
+            BaseTestUtils.report("Set Scalar failed with the following error:\n" + parseExceptionBody(e), Reporter.FAIL);
         }
     }
 
@@ -212,7 +212,7 @@ public class DeviceOperationsTest extends WebUITestBase {
         try {
             DeviceScalarUtils.getScalar(getVisionRestClient(), deviceIp, scalarProps, expectedValues, false);
         } catch (Exception e) {
-            report.report("Get Scalar failed with the following error:\n" + parseExceptionBody(e), Reporter.FAIL);
+            BaseTestUtils.report("Get Scalar failed with the following error:\n" + parseExceptionBody(e), Reporter.FAIL);
         }
     }
 
@@ -228,7 +228,7 @@ public class DeviceOperationsTest extends WebUITestBase {
             }
 
         } catch (Exception e) {
-            report.report("Wait For Device Status Failed " + getDeviceName(), Reporter.FAIL);
+            BaseTestUtils.report("Wait For Device Status Failed " + getDeviceName(), Reporter.FAIL);
         }
     }
 

@@ -9,8 +9,6 @@ import com.radware.automation.webui.utils.WebUIStrings;
 import com.radware.automation.webui.widgets.ComponentLocator;
 import com.radware.insite.model.helpers.constants.ImConstants.SnmpV3AuthenticationProtocolEnum;
 import com.radware.vision.automation.tools.sutsystemobjects.devicesinfo.enums.SUTDeviceType;
-import com.radware.vision.pojomodel.device.DevicePojo;
-import com.radware.vision.vision_project_cli.RootServerCli;
 import com.radware.vision.base.WebUITestBase;
 import com.radware.vision.infra.base.pages.topologytree.DeviceProperties;
 import com.radware.vision.infra.base.pages.topologytree.StandardDeviceProperties;
@@ -21,6 +19,8 @@ import com.radware.vision.infra.enums.TopologyTreeTabs;
 import com.radware.vision.infra.testhandlers.DefencePro.DPClusterManageHandler;
 import com.radware.vision.infra.testhandlers.baseoperations.BasicOperationsHandler;
 import com.radware.vision.infra.testhandlers.topologytree.TopologyTreeHandler;
+import com.radware.vision.pojomodel.device.DevicePojo;
+import com.radware.vision.vision_project_cli.RootServerCli;
 import jsystem.framework.ParameterProperties;
 import jsystem.framework.TestProperties;
 import org.junit.After;
@@ -124,7 +124,7 @@ public class TopologyTree extends WebUITestBase {
         try {
             TopologyTreeHandler.addNewSite(siteName, parent);
         } catch (Exception e) {
-            report.report("Topology Element may not have been found :" + parseExceptionBody(e), Reporter.FAIL);
+            BaseTestUtils.report("Topology Element may not have been found :" + parseExceptionBody(e), Reporter.FAIL);
         }
     }
 
@@ -147,7 +147,7 @@ public class TopologyTree extends WebUITestBase {
             // TODO must remove after solving the issue "DE34463"
             WebUIUtils.getDriver().navigate().refresh();
         } catch (Exception e) {
-            report.report("Topology Element may not have been found :" + parseExceptionBody(e), Reporter.FAIL);
+            BaseTestUtils.report("Topology Element may not have been found :" + parseExceptionBody(e), Reporter.FAIL);
         }
     }
 
@@ -163,7 +163,7 @@ public class TopologyTree extends WebUITestBase {
                             getDeviceName().concat(String.valueOf(i)), parent,
                             baseIP.concat(String.valueOf(i)), visionServerIP, registerVisionServer);
                 } catch (Exception e) {
-                    report.report("Topology Element failed to be created:" + getDeviceName() + "\n" + parseExceptionBody(e), Reporter.PASS);
+                    BaseTestUtils.report("Topology Element failed to be created:" + getDeviceName() + "\n" + parseExceptionBody(e), Reporter.PASS);
                 }
                 DeviceProperties.cancelDialog();
             }
@@ -172,10 +172,10 @@ public class TopologyTree extends WebUITestBase {
 //			deviceFromGet = DeviceUtils.getDeviceByID(getVisionRestClient(), DeviceUtils.getDeviceOrmid(getVisionRestClient(), deviceName));
 //			String compareResult = compareDeviceValues(deviceFromGet);
 //			if (!compareResult.equals("")) {
-//				report.report("Device: " + getDeviceNameWithOutType() + " was not updated correctly. " + "Non matching properties: " + compareResult, Reporter.FAIL);
+//				BaseTestUtils.report("Device: " + getDeviceNameWithOutType() + " was not updated correctly. " + "Non matching properties: " + compareResult, Reporter.FAIL);
 //			}
         } catch (Exception e) {
-            report.report("Topology Element may not have been found :" + parseExceptionBody(e), Reporter.FAIL);
+            BaseTestUtils.report("Topology Element may not have been found :" + parseExceptionBody(e), Reporter.FAIL);
         }
     }
 
@@ -196,10 +196,10 @@ public class TopologyTree extends WebUITestBase {
 //			deviceFromGet = DeviceUtils.getDeviceByID(getVisionRestClient(), DeviceUtils.getDeviceOrmid(getVisionRestClient(), getDeviceNameWithOutType()));
 //			String compareResult = compareDeviceValues(deviceFromGet);
 //			if (!compareResult.equals("")) {
-//				report.report("Device: " + getDeviceNameWithOutType() + " was not updated correctly. " + "Non matching properties: " + compareResult, Reporter.FAIL);
+//				BaseTestUtils.report("Device: " + getDeviceNameWithOutType() + " was not updated correctly. " + "Non matching properties: " + compareResult, Reporter.FAIL);
 //			}
         } catch (Exception e) {
-            report.report("Topology Element may not have been found :" + parseExceptionBody(e), Reporter.FAIL);
+            BaseTestUtils.report("Topology Element may not have been found :" + parseExceptionBody(e), Reporter.FAIL);
         }
     }
 
@@ -237,7 +237,7 @@ public class TopologyTree extends WebUITestBase {
             }
 
         } catch (Exception e) {
-            report.report("Topology Element may not have been found :" + parseExceptionBody(e), Reporter.FAIL);
+            BaseTestUtils.report("Topology Element may not have been found :" + parseExceptionBody(e), Reporter.FAIL);
         }
     }
 
@@ -249,11 +249,11 @@ public class TopologyTree extends WebUITestBase {
                 try {
                     Device.deleteDeviceByName(getVisionRestClient(), getDeviceName() + i);
                 } catch (Exception e1) {
-                    report.report("Could not delete elements: " + getDeviceName() + i + "\n" + parseExceptionBody(e1), Reporter.FAIL);
+                    BaseTestUtils.report("Could not delete elements: " + getDeviceName() + i + "\n" + parseExceptionBody(e1), Reporter.FAIL);
                 }
             }
         } catch (Exception e) {
-            report.report("Could not delete all elements." + parseExceptionBody(e), Reporter.FAIL);
+            BaseTestUtils.report("Could not delete all elements." + parseExceptionBody(e), Reporter.FAIL);
         }
     }
 
@@ -266,11 +266,11 @@ public class TopologyTree extends WebUITestBase {
                 try {
                     TopologyTreeHandler.deleteDevice(currentDevice);
                 } catch (Exception e1) {
-                    report.report("Could not delete elements: " + currentDevice + "\n" + parseExceptionBody(e1), Reporter.FAIL);
+                    BaseTestUtils.report("Could not delete elements: " + currentDevice + "\n" + parseExceptionBody(e1), Reporter.FAIL);
                 }
             }
         } catch (Exception e) {
-            report.report("Could not delete all elements." + parseExceptionBody(e), Reporter.FAIL);
+            BaseTestUtils.report("Could not delete all elements." + parseExceptionBody(e), Reporter.FAIL);
         }
     }
 
@@ -283,7 +283,7 @@ public class TopologyTree extends WebUITestBase {
                 Tree.deleteSiteByName(getVisionRestClient(), currentSite);
             }
         } catch (Exception e) {
-            report.report("Could not delete all sites." + parseExceptionBody(e), Reporter.FAIL);
+            BaseTestUtils.report("Could not delete all sites." + parseExceptionBody(e), Reporter.FAIL);
         }
     }
 
@@ -295,11 +295,11 @@ public class TopologyTree extends WebUITestBase {
                 try {
                     Tree.deleteSiteByName(getVisionRestClient(), siteName + i);
                 } catch (Exception deleteException) {
-                    report.report("Could not delete site: " + siteName + 1 + parseExceptionBody(deleteException), Reporter.PASS);
+                    BaseTestUtils.report("Could not delete site: " + siteName + 1 + parseExceptionBody(deleteException), Reporter.PASS);
                 }
             }
         } catch (Exception e) {
-            report.report("Could not delete all sites." + parseExceptionBody(e), Reporter.FAIL);
+            BaseTestUtils.report("Could not delete all sites." + parseExceptionBody(e), Reporter.FAIL);
         }
     }
 
@@ -309,7 +309,7 @@ public class TopologyTree extends WebUITestBase {
         try {
             TopologyTreeHandler.deleteDevice(elementName);
         } catch (Exception e) {
-            report.report("Topology Element may not have been found :" + parseExceptionBody(e), Reporter.FAIL);
+            BaseTestUtils.report("Topology Element may not have been found :" + parseExceptionBody(e), Reporter.FAIL);
         }
     }
 
@@ -348,7 +348,7 @@ public class TopologyTree extends WebUITestBase {
             TopologyTreeHandler.editAppWall(deviceProperties);
 
         } catch (Exception e) {
-            report.report(
+            BaseTestUtils.report(
                     "Topology Element may not have been found: \n" + "Error: " + e.getCause() + parseExceptionBody(e),
                     Reporter.FAIL);
         }
@@ -398,10 +398,10 @@ public class TopologyTree extends WebUITestBase {
 //			deviceFromGet = DeviceUtils.getDeviceByID(getVisionRestClient(), DeviceUtils.getDeviceOrmid(getVisionRestClient(), getDeviceNameWithOutType()));
 //			compareResult = compareDeviceValues(deviceFromGet);
 //			if (!compareResult.equals("")) {
-//				report.report("Device: " + getDeviceNameWithOutType() + " was not updated correctly. " + "Non matching properties: " + compareResult, Reporter.FAIL);
+//				BaseTestUtils.report("Device: " + getDeviceNameWithOutType() + " was not updated correctly. " + "Non matching properties: " + compareResult, Reporter.FAIL);
 //			}
         } catch (Exception e) {
-            report.report(
+            BaseTestUtils.report(
                     "Topology Element may not have been found: \n" + "Error: " + e.getCause() + parseExceptionBody(e),
                     Reporter.FAIL);
         }
@@ -449,10 +449,10 @@ public class TopologyTree extends WebUITestBase {
 //			deviceFromGet = DeviceUtils.getDeviceByID(getVisionRestClient(), DeviceUtils.getDeviceOrmid(getVisionRestClient(), getDeviceNameWithOutType()));
 //			compareResult = compareDeviceValues(deviceFromGet);
 //			if (!compareResult.equals("")) {
-//				report.report("Device: " + getDeviceNameWithOutType() + " was not updated correctly. " + "Non matching properties: " + compareResult, Reporter.FAIL);
+//				BaseTestUtils.report("Device: " + getDeviceNameWithOutType() + " was not updated correctly. " + "Non matching properties: " + compareResult, Reporter.FAIL);
 //			}
         } catch (Exception e) {
-            report.report(
+            BaseTestUtils.report(
                     "Topology Element may not have been found: \n" + "\n" + "Error: " + e.getCause() + parseExceptionBody(e),
                     Reporter.FAIL);
         }
@@ -497,10 +497,10 @@ public class TopologyTree extends WebUITestBase {
 //			deviceFromGet = DeviceUtils.getDeviceByID(getVisionRestClient(), DeviceUtils.getDeviceOrmid(getVisionRestClient(), deviceName));
 //			compareResult = compareDeviceValues(deviceFromGet);
 //			if (!compareResult.equals("")) {
-//				report.report("Device: " + getDeviceNameWithOutType() + " was not updated correctly. " + "Non matching properties: " + compareResult, Reporter.FAIL);
+//				BaseTestUtils.report("Device: " + getDeviceNameWithOutType() + " was not updated correctly. " + "Non matching properties: " + compareResult, Reporter.FAIL);
 //			}
         } catch (Exception e) {
-            report.report("Topology Element may not have been found: " + "\n" + "Error: " + e.getCause() + parseExceptionBody(e),
+            BaseTestUtils.report("Topology Element may not have been found: " + "\n" + "Error: " + e.getCause() + parseExceptionBody(e),
                     Reporter.FAIL);
         }
     }
@@ -511,7 +511,7 @@ public class TopologyTree extends WebUITestBase {
         try {
             TopologyTreeHandler.findTreeElement(getDeviceName());
         } catch (Exception e) {
-            report.report("Topology Tree may not have been open properly:\n" + parseExceptionBody(e), Reporter.FAIL);
+            BaseTestUtils.report("Topology Tree may not have been open properly:\n" + parseExceptionBody(e), Reporter.FAIL);
         }
     }
 
@@ -521,12 +521,12 @@ public class TopologyTree extends WebUITestBase {
         try {
             WebElement node = WebUIUtils.fluentWaitDisplayed(new ComponentLocator(How.ID, WebUIStrings.getDeviceTreeNode(getDeviceName())).getBy(), WebUIUtils.SHORT_WAIT_TIME, false);
             if (node != null) {
-                report.report("Topology Tree was found:\n", Reporter.PASS);
+                BaseTestUtils.report("Topology Tree was found:\n", Reporter.PASS);
             } else {
-                report.report("Topology Tree was not found:\n", Reporter.FAIL);
+                BaseTestUtils.report("Topology Tree was not found:\n", Reporter.FAIL);
             }
         } catch (Exception e) {
-            report.report("Topology Tree may not have been open properly:\n" + parseExceptionBody(e), Reporter.FAIL);
+            BaseTestUtils.report("Topology Tree may not have been open properly:\n" + parseExceptionBody(e), Reporter.FAIL);
         }
     }
 
@@ -541,7 +541,7 @@ public class TopologyTree extends WebUITestBase {
             }
 
         } catch (Exception e) {
-            report.report("Topology Element may not have been found :" + parseExceptionBody(e), Reporter.FAIL);
+            BaseTestUtils.report("Topology Element may not have been found :" + parseExceptionBody(e), Reporter.FAIL);
         }
     }
 
@@ -551,7 +551,7 @@ public class TopologyTree extends WebUITestBase {
         try {
             TopologyTreeHandler.expandAll();
         } catch (Exception e) {
-            report.report("Expand all failed with the following error:\n" + parseExceptionBody(e), Reporter.FAIL);
+            BaseTestUtils.report("Expand all failed with the following error:\n" + parseExceptionBody(e), Reporter.FAIL);
         }
     }
 
@@ -562,7 +562,7 @@ public class TopologyTree extends WebUITestBase {
             List<String> treeNodes = Arrays.asList(getMultiSelectionItems().split(","));
             TopologyTreeHandler.multiSelection(treeNodes);
         } catch (Exception e) {
-            report.report("Expand all failed with the following error:\n" + parseExceptionBody(e), Reporter.FAIL);
+            BaseTestUtils.report("Expand all failed with the following error:\n" + parseExceptionBody(e), Reporter.FAIL);
         }
     }
 
@@ -572,7 +572,7 @@ public class TopologyTree extends WebUITestBase {
         try {
             TopologyTreeHandler.expandAllPhysical();
         } catch (Exception e) {
-            report.report("ExpandAll Physical Containers may not have been open properly:\n" + parseExceptionBody(e), Reporter.FAIL);
+            BaseTestUtils.report("ExpandAll Physical Containers may not have been open properly:\n" + parseExceptionBody(e), Reporter.FAIL);
         }
     }
 
@@ -582,7 +582,7 @@ public class TopologyTree extends WebUITestBase {
         try {
             TopologyTreeHandler.expandAllSitesClusters();
         } catch (Exception e) {
-            report.report("ExpandAll Sites & Clusters may not have been open properly:\n" + parseExceptionBody(e), Reporter.FAIL);
+            BaseTestUtils.report("ExpandAll Sites & Clusters may not have been open properly:\n" + parseExceptionBody(e), Reporter.FAIL);
         }
     }
 
@@ -592,7 +592,7 @@ public class TopologyTree extends WebUITestBase {
         try {
             TopologyTreeHandler.expandAllLogicalGroups();
         } catch (Exception e) {
-            report.report("ExpandAll LogicalGroups may not have been open properly:\n" + parseExceptionBody(e), Reporter.FAIL);
+            BaseTestUtils.report("ExpandAll LogicalGroups may not have been open properly:\n" + parseExceptionBody(e), Reporter.FAIL);
         }
     }
 
@@ -602,7 +602,7 @@ public class TopologyTree extends WebUITestBase {
         try {
             TopologyTreeHandler.openDeviceSitesClusters(getDeviceName());
         } catch (Exception e) {
-            report.report("Could not open device proprties for: " + getDeviceName() + "\n." + parseExceptionBody(e), Reporter.FAIL);
+            BaseTestUtils.report("Could not open device proprties for: " + getDeviceName() + "\n." + parseExceptionBody(e), Reporter.FAIL);
         }
     }
 
@@ -612,7 +612,7 @@ public class TopologyTree extends WebUITestBase {
         try {
             TopologyTreeHandler.openDevicePhysical(getDeviceName());
         } catch (Exception e) {
-            report.report("Could not open device proprties for: " + getDeviceName() + "\n." + parseExceptionBody(e), Reporter.FAIL);
+            BaseTestUtils.report("Could not open device proprties for: " + getDeviceName() + "\n." + parseExceptionBody(e), Reporter.FAIL);
         }
     }
 
@@ -622,7 +622,7 @@ public class TopologyTree extends WebUITestBase {
         try {
             TopologyTreeHandler.openPhysicalContainers();
         } catch (Exception e) {
-            report.report("Topology Tree may not have been open properly:\n" + parseExceptionBody(e), Reporter.FAIL);
+            BaseTestUtils.report("Topology Tree may not have been open properly:\n" + parseExceptionBody(e), Reporter.FAIL);
         }
     }
 
@@ -632,7 +632,7 @@ public class TopologyTree extends WebUITestBase {
         try {
             TopologyTreeHandler.openSitesAndClusters();
         } catch (Exception e) {
-            report.report("Topology Tree may not have been open properly:\n" + parseExceptionBody(e), Reporter.FAIL);
+            BaseTestUtils.report("Topology Tree may not have been open properly:\n" + parseExceptionBody(e), Reporter.FAIL);
         }
     }
 
@@ -642,7 +642,7 @@ public class TopologyTree extends WebUITestBase {
         try {
             TopologyTreeHandler.openGroups();
         } catch (Exception e) {
-            report.report("Logical Groups may not have been open properly:\n" + parseExceptionBody(e), Reporter.FAIL);
+            BaseTestUtils.report("Logical Groups may not have been open properly:\n" + parseExceptionBody(e), Reporter.FAIL);
         }
     }
 
@@ -666,13 +666,13 @@ public class TopologyTree extends WebUITestBase {
             String deviceStatus = TopologyTreeHandler.getDeviceStatusSites(getDeviceName());
             if (getExpectedDeviceStatus() == DeviceStatusEnum.UP_OR_MAINTENANCE) {
                 if (!((deviceStatus.equals(DeviceStatusEnum.UP.getStatus())) || (deviceStatus.equals(DeviceStatusEnum.MAINTENANCE.getStatus())))) {
-                    report.report("Device " + getDeviceName() + " " + "did not reach status: " + getExpectedDeviceStatus() + ". " + "\nCurrent status: " + deviceStatus, Reporter.FAIL);
+                    BaseTestUtils.report("Device " + getDeviceName() + " " + "did not reach status: " + getExpectedDeviceStatus() + ". " + "\nCurrent status: " + deviceStatus, Reporter.FAIL);
                 }
             } else if (!(deviceStatus.equals(getExpectedDeviceStatus().getStatus()))) {
-                report.report("Device " + getDeviceName() + " " + "did not reach status: " + getExpectedDeviceStatus() + ". " + "\nCurrent status: " + deviceStatus, Reporter.FAIL);
+                BaseTestUtils.report("Device " + getDeviceName() + " " + "did not reach status: " + getExpectedDeviceStatus() + ". " + "\nCurrent status: " + deviceStatus, Reporter.FAIL);
             }
         } catch (Exception e) {
-            report.report("Topology Tree may not have been open properly:\n" + parseExceptionBody(e), Reporter.FAIL);
+            BaseTestUtils.report("Topology Tree may not have been open properly:\n" + parseExceptionBody(e), Reporter.FAIL);
         }
     }
 
@@ -684,13 +684,13 @@ public class TopologyTree extends WebUITestBase {
             String deviceStatus = TopologyTreeHandler.getDeviceStatusPhysical(getDeviceName());
             if (getExpectedDeviceStatus() == DeviceStatusEnum.UP_OR_MAINTENANCE) {
                 if (!((deviceStatus.equals(DeviceStatusEnum.UP.getStatus())) || (deviceStatus.equals(DeviceStatusEnum.MAINTENANCE.getStatus())))) {
-                    report.report("Device " + getDeviceName() + " " + "did not reach status: " + getExpectedDeviceStatus() + ". " + "\nCurrent status: " + deviceStatus, Reporter.FAIL);
+                    BaseTestUtils.report("Device " + getDeviceName() + " " + "did not reach status: " + getExpectedDeviceStatus() + ". " + "\nCurrent status: " + deviceStatus, Reporter.FAIL);
                 }
             } else if (!(deviceStatus.equals(getExpectedDeviceStatus().getStatus()))) {
-                report.report("Device " + getDeviceName() + " " + "did not reach status: " + getExpectedDeviceStatus() + ". " + "\nCurrent status: " + deviceStatus, Reporter.FAIL);
+                BaseTestUtils.report("Device " + getDeviceName() + " " + "did not reach status: " + getExpectedDeviceStatus() + ". " + "\nCurrent status: " + deviceStatus, Reporter.FAIL);
             }
         } catch (Exception e) {
-            report.report("Topology Tree may not have been open properly:\n" + parseExceptionBody(e), Reporter.FAIL);
+            BaseTestUtils.report("Topology Tree may not have been open properly:\n" + parseExceptionBody(e), Reporter.FAIL);
         }
     }
 
@@ -737,10 +737,10 @@ public class TopologyTree extends WebUITestBase {
             BasicOperationsHandler.delay(15);
             String existingVadcs = checkVadcDevices(new ArrayList<String>(Arrays.asList(managedDeviceName)));
             if (!existingVadcs.equals("")) {
-                report.report("Device: " + getDeviceName() + " was not created correctly. ", Reporter.FAIL);
+                BaseTestUtils.report("Device: " + getDeviceName() + " was not created correctly. ", Reporter.FAIL);
             }
         } catch (Exception e) {
-            report.report("Topology Element may not have been found :" + parseExceptionBody(e), Reporter.FAIL);
+            BaseTestUtils.report("Topology Element may not have been found :" + parseExceptionBody(e), Reporter.FAIL);
         }
     }
 
@@ -797,10 +797,10 @@ public class TopologyTree extends WebUITestBase {
             String existingVadcs = checkVadcDevices(new ArrayList<String>(deviceNames));
 
             if (!existingVadcs.equals("")) {
-                report.report("Failed with the following errors: " + existingVadcs, Reporter.FAIL);
+                BaseTestUtils.report("Failed with the following errors: " + existingVadcs, Reporter.FAIL);
             }
         } catch (Exception e) {
-            report.report("Topology Element may not have been found :" + parseExceptionBody(e), Reporter.FAIL);
+            BaseTestUtils.report("Topology Element may not have been found :" + parseExceptionBody(e), Reporter.FAIL);
         }
     }
 
@@ -811,7 +811,7 @@ public class TopologyTree extends WebUITestBase {
 //            List<String> targetDevices = new ArrayList<String>(Arrays.asList(containedDPDevices.split(",")));
 //            DPClusterManageHandler.createDPCluster(targetDevices, clusterName, primaryDevice, associatedMgmtPort);
         } catch (Exception e) {
-            report.report("Failed to create DP Cluster: " + parseExceptionBody(e), Reporter.FAIL);
+            BaseTestUtils.report("Failed to create DP Cluster: " + parseExceptionBody(e), Reporter.FAIL);
         }
     }
 
@@ -821,7 +821,7 @@ public class TopologyTree extends WebUITestBase {
         try {
             DPClusterManageHandler.breakDPCluster(clusterName);
         } catch (Exception e) {
-            report.report("Failed to break DP Cluster: " + parseExceptionBody(e), Reporter.FAIL);
+            BaseTestUtils.report("Failed to break DP Cluster: " + parseExceptionBody(e), Reporter.FAIL);
         }
     }
 
@@ -831,7 +831,7 @@ public class TopologyTree extends WebUITestBase {
         try {
             TopologyTreeHandler.addNewGroup(deviceType4Group, groupName, multiSelectionItems);
         } catch (Exception e) {
-            report.report("Failed to Add New Logical Group: " + parseExceptionBody(e), Reporter.FAIL);
+            BaseTestUtils.report("Failed to Add New Logical Group: " + parseExceptionBody(e), Reporter.FAIL);
         }
     }
 
@@ -841,7 +841,7 @@ public class TopologyTree extends WebUITestBase {
         try {
             TopologyTreeHandler.editGroup(groupName, multiSelectionItems);
         } catch (Exception e) {
-            report.report("Failed to Edit Logical Group: " + parseExceptionBody(e), Reporter.FAIL);
+            BaseTestUtils.report("Failed to Edit Logical Group: " + parseExceptionBody(e), Reporter.FAIL);
         }
     }
 
@@ -851,7 +851,7 @@ public class TopologyTree extends WebUITestBase {
         try {
             TopologyTreeHandler.deleteGroup(groupName);
         } catch (Exception e) {
-            report.report("Failed to Delete Logical Group: " + parseExceptionBody(e), Reporter.FAIL);
+            BaseTestUtils.report("Failed to Delete Logical Group: " + parseExceptionBody(e), Reporter.FAIL);
         }
     }
 

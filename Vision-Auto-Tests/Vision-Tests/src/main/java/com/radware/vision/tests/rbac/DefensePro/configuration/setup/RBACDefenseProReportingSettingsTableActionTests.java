@@ -39,10 +39,10 @@ public class RBACDefenseProReportingSettingsTableActionTests extends RBACTestBas
             testProperties.put("syslogTableAction", syslogTableAction.getTableAction().toString());
 
             if (!(RBACDefenseProReportingSettingsTableActionHandler.verifySyslogTableAction(testProperties))) {
-                report.report("The specified Table action is in an incorrect state: " + syslogTableAction.getTableAction() + "\n.", Reporter.FAIL);
+                BaseTestUtils.report("The specified Table action is in an incorrect state: " + syslogTableAction.getTableAction() + "\n.", Reporter.FAIL);
             }
         } catch (Exception e) {
-            report.report("verify Syslog Disabled Table Action failed: " + syslogTableAction.getTableAction() + "\n." + parseExceptionBody(e),
+            BaseTestUtils.report("verify Syslog Disabled Table Action failed: " + syslogTableAction.getTableAction() + "\n." + parseExceptionBody(e),
                     Reporter.FAIL);
         }
     }
@@ -55,10 +55,10 @@ public class RBACDefenseProReportingSettingsTableActionTests extends RBACTestBas
             testProperties.put("signalingTableAction", signalingTableAction.getTableAction().toString());
 
             if (!(RBACDefenseProReportingSettingsTableActionHandler.verifySignalingTableAction(testProperties))) {
-                report.report("The specified Table action is in an incorrect state: " + signalingTableAction.getTableAction() + "\n.", Reporter.FAIL);
+                BaseTestUtils.report("The specified Table action is in an incorrect state: " + signalingTableAction.getTableAction() + "\n.", Reporter.FAIL);
             }
         } catch (Exception e) {
-            report.report("verify Signaling Disabled Table Action failed: " + signalingTableAction.getTableAction() + "\n." + parseExceptionBody(e),
+            BaseTestUtils.report("verify Signaling Disabled Table Action failed: " + signalingTableAction.getTableAction() + "\n." + parseExceptionBody(e),
                     Reporter.FAIL);
         }
     }
@@ -71,10 +71,10 @@ public class RBACDefenseProReportingSettingsTableActionTests extends RBACTestBas
             testProperties.put("dataReportingDestinationsTableAction", dataReportingDestinationsTableAction.getTableAction().toString());
 
             if (!(RBACDefenseProReportingSettingsTableActionHandler.verifyDataReportingDestinationsTableAction(testProperties))) {
-                report.report("The specified Table action is in an incorrect state: " + dataReportingDestinationsTableAction.getTableAction() + "\n.", Reporter.FAIL);
+                BaseTestUtils.report("The specified Table action is in an incorrect state: " + dataReportingDestinationsTableAction.getTableAction() + "\n.", Reporter.FAIL);
             }
         } catch (Exception e) {
-            report.report("verify DataReportingDestinations Disabled Table Action failed: " + dataReportingDestinationsTableAction.getTableAction() + "\n." + parseExceptionBody(e),
+            BaseTestUtils.report("verify DataReportingDestinations Disabled Table Action failed: " + dataReportingDestinationsTableAction.getTableAction() + "\n." + parseExceptionBody(e),
                     Reporter.FAIL);
         }
     }

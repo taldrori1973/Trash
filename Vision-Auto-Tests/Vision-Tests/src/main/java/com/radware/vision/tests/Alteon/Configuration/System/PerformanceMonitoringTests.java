@@ -1,11 +1,11 @@
 package com.radware.vision.tests.Alteon.Configuration.System;
 
+import com.radware.automation.tools.basetest.Reporter;
 import com.radware.automation.webui.webpages.GeneralEnums;
 import com.radware.vision.infra.testhandlers.alteon.configuration.system.PerformanceMonitoringHandler;
 import com.radware.vision.tests.Alteon.AlteonTestBase;
 import jsystem.framework.ParameterProperties;
 import jsystem.framework.TestProperties;
-import com.radware.automation.tools.basetest.Reporter;
 import org.junit.Test;
 
 import java.io.IOException;
@@ -26,7 +26,7 @@ public class PerformanceMonitoringTests extends AlteonTestBase {
             testProperties.put("port", port);
             PerformanceMonitoringHandler.setPerformanceMonitoringsettings(testProperties, state);
         } catch (Exception e) {
-            report.report(parseExceptionBody(e), Reporter.FAIL);
+            BaseTestUtils.report(parseExceptionBody(e), Reporter.FAIL);
         }
     }
 

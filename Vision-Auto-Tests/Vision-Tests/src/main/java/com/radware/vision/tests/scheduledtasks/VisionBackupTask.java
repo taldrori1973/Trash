@@ -45,7 +45,7 @@ public class VisionBackupTask extends TasksDestination {
 
             VisionBackupTaskHandler.addTask(taskPorperties, backupDestination);
         } catch (Exception e) {
-            report.report("Failed to create task: " + taskName + parseExceptionBody(e), Reporter.FAIL);
+            BaseTestUtils.report("Failed to create task: " + taskName + parseExceptionBody(e), Reporter.FAIL);
         }
     }
 
@@ -85,7 +85,7 @@ public class VisionBackupTask extends TasksDestination {
 
             VisionBackupTaskHandler.addTask(taskPorperties, backupDestination);
         } catch (Exception e) {
-            report.report("Failed to create task: " + taskName + parseExceptionBody(e), Reporter.FAIL);
+            BaseTestUtils.report("Failed to create task: " + taskName + parseExceptionBody(e), Reporter.FAIL);
         }
     }
 
@@ -108,7 +108,7 @@ public class VisionBackupTask extends TasksDestination {
 
             VisionBackupTaskHandler.editTask(taskPorperties);
         } catch (Exception e) {
-            report.report("Failed to edit task: " + taskName + parseExceptionBody(e), Reporter.FAIL);
+            BaseTestUtils.report("Failed to edit task: " + taskName + parseExceptionBody(e), Reporter.FAIL);
         }
     }
 

@@ -17,10 +17,10 @@ public class DeviceOperationsValidationTests extends WebUITestBase {
     public void validateLockUnlockOperation() {
         try {
             if (!MultipleUseHandlers.verifyLockUnlockOperation(expectedResult, "", "")) {
-                report.report("Device Operation validation has failed: " + " was not " + expectedResult + " as expected." + "\n", Reporter.FAIL);
+                BaseTestUtils.report("Device Operation validation has failed: " + " was not " + expectedResult + " as expected." + "\n", Reporter.FAIL);
             }
         } catch (Exception e) {
-            report.report("Device Operation validation has failed : " + expectedResult, Reporter.FAIL);
+            BaseTestUtils.report("Device Operation validation has failed : " + expectedResult, Reporter.FAIL);
         }
     }
 

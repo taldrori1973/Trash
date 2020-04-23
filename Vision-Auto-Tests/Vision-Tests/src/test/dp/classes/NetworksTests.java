@@ -51,7 +51,7 @@ public class NetworksTests extends DpTestBase {
                 (entryType.toString() != null ? entryType.toString() : ""), (ipVersion.toString() != null ? ipVersion.toString() : ""), (networkAddress != null ? networkAddress : ""),
                 (mask != null ? mask : ""), (fromIP != null ? fromIP : ""), (toIP != null ? toIP : "")}));
         if (!entities.contains(expectedNetworkGroupItem)) {
-            report.report("Expected: \n" + expectedNetworkGroupItem.toString() + "\n" + "Actual items: \n" + outputNetworkClassItems(entities), Reporter.FAIL);
+            BaseTestUtils.report("Expected: \n" + expectedNetworkGroupItem.toString() + "\n" + "Actual items: \n" + outputNetworkClassItems(entities), Reporter.FAIL);
         }
     }
 
@@ -114,7 +114,7 @@ public class NetworksTests extends DpTestBase {
                     (mask != null ? mask : ""), (fromIP != null ? fromIP : ""), (toIP != null ? toIP : "")}));
             List<WebUIRowValues> networkGroupItems = networkInnerTable.getNetworkGroupItems();
             if (!networkGroupItems.contains(expectedNetworkGroupItem)) {
-                report.report("Expected: \n" + expectedNetworkGroupItem.toString() + "\n" + "Actual items: \n" + outputNetworkClassItems(networkGroupItems), Reporter.FAIL);
+                BaseTestUtils.report("Expected: \n" + expectedNetworkGroupItem.toString() + "\n" + "Actual items: \n" + outputNetworkClassItems(networkGroupItems), Reporter.FAIL);
             }
         }
 

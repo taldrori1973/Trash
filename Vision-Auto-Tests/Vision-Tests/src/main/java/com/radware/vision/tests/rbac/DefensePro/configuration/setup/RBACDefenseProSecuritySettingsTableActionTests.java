@@ -42,10 +42,10 @@ public class RBACDefenseProSecuritySettingsTableActionTests extends RBACTestBase
             testProperties.put("bdosFootprintBypassTableAction", bdosFootprintBypassTableAction.getTableAction().toString());
 
             if (!(RBACDefenseProSecuritySettingsTableActionHandler.verifyBDoSFootprintBypassTableAction(testProperties))) {
-                report.report("The specified Table action is in an incorrect state: " + bdosFootprintBypassTableAction.getTableAction() + "\n.", Reporter.FAIL);
+                BaseTestUtils.report("The specified Table action is in an incorrect state: " + bdosFootprintBypassTableAction.getTableAction() + "\n.", Reporter.FAIL);
             }
         } catch (Exception e) {
-            report.report("verify BDoSFootprintBypass Disabled Table Action failed: " + bdosFootprintBypassTableAction.getTableAction() + "\n." + parseExceptionBody(e),
+            BaseTestUtils.report("verify BDoSFootprintBypass Disabled Table Action failed: " + bdosFootprintBypassTableAction.getTableAction() + "\n." + parseExceptionBody(e),
                     Reporter.FAIL);
         }
     }
@@ -58,10 +58,10 @@ public class RBACDefenseProSecuritySettingsTableActionTests extends RBACTestBase
             testProperties.put("bdosEarlyBlockingTableAction", bdosEarlyBlockingTableAction.getTableAction().toString());
 
             if (!(RBACDefenseProSecuritySettingsTableActionHandler.verifyBDoSEarlyBlockingTableAction(testProperties))) {
-                report.report("The specified Table action is in an incorrect state: " + bdosEarlyBlockingTableAction.getTableAction() + "\n.", Reporter.FAIL);
+                BaseTestUtils.report("The specified Table action is in an incorrect state: " + bdosEarlyBlockingTableAction.getTableAction() + "\n.", Reporter.FAIL);
             }
         } catch (Exception e) {
-            report.report("verify BDoSEarlyBlocking Disabled Table Action failed: " + bdosEarlyBlockingTableAction.getTableAction() + "\n." + parseExceptionBody(e),
+            BaseTestUtils.report("verify BDoSEarlyBlocking Disabled Table Action failed: " + bdosEarlyBlockingTableAction.getTableAction() + "\n." + parseExceptionBody(e),
                     Reporter.FAIL);
         }
     }
@@ -74,10 +74,10 @@ public class RBACDefenseProSecuritySettingsTableActionTests extends RBACTestBase
             testProperties.put("bdosPacketHeaderSelectionTableAction", bdosPacketHeaderSelectionTableAction.getTableAction().toString());
 
             if (!(RBACDefenseProSecuritySettingsTableActionHandler.verifyBDoSPacketHeaderSelectionTableAction(testProperties))) {
-                report.report("The specified Table action is in an incorrect state: " + bdosPacketHeaderSelectionTableAction.getTableAction() + "\n.", Reporter.FAIL);
+                BaseTestUtils.report("The specified Table action is in an incorrect state: " + bdosPacketHeaderSelectionTableAction.getTableAction() + "\n.", Reporter.FAIL);
             }
         } catch (Exception e) {
-            report.report("verify BDoSPacketHeaderSelection Disabled Table Action failed: " + bdosPacketHeaderSelectionTableAction.getTableAction() + "\n." + parseExceptionBody(e),
+            BaseTestUtils.report("verify BDoSPacketHeaderSelection Disabled Table Action failed: " + bdosPacketHeaderSelectionTableAction.getTableAction() + "\n." + parseExceptionBody(e),
                     Reporter.FAIL);
         }
     }
@@ -90,10 +90,10 @@ public class RBACDefenseProSecuritySettingsTableActionTests extends RBACTestBase
             testProperties.put("dnsFootprintBypassTableAction", dnsFootprintBypassTableAction.getTableAction().toString());
 
             if (!(RBACDefenseProSecuritySettingsTableActionHandler.verifyDNSFootprintBypassTableAction(testProperties))) {
-                report.report("The specified Table action is in an incorrect state: " + dnsFootprintBypassTableAction.getTableAction() + "\n.", Reporter.FAIL);
+                BaseTestUtils.report("The specified Table action is in an incorrect state: " + dnsFootprintBypassTableAction.getTableAction() + "\n.", Reporter.FAIL);
             }
         } catch (Exception e) {
-            report.report("verify DNSFootprintBypass Disabled Table Action failed: " + dnsFootprintBypassTableAction.getTableAction() + "\n." + parseExceptionBody(e),
+            BaseTestUtils.report("verify DNSFootprintBypass Disabled Table Action failed: " + dnsFootprintBypassTableAction.getTableAction() + "\n." + parseExceptionBody(e),
                     Reporter.FAIL);
         }
     }
@@ -106,10 +106,10 @@ public class RBACDefenseProSecuritySettingsTableActionTests extends RBACTestBase
             testProperties.put("dnsEarlyBlockingTableAction", dnsEarlyBlockingTableAction.getTableAction().toString());
 
             if (!(RBACDefenseProSecuritySettingsTableActionHandler.verifyDNSEarlyBlockingTableAction(testProperties))) {
-                report.report("The specified Table action is in an incorrect state: " + dnsEarlyBlockingTableAction.getTableAction() + "\n.", Reporter.FAIL);
+                BaseTestUtils.report("The specified Table action is in an incorrect state: " + dnsEarlyBlockingTableAction.getTableAction() + "\n.", Reporter.FAIL);
             }
         } catch (Exception e) {
-            report.report("verify DNSEarlyBlocking Disabled Table Action failed: " + dnsEarlyBlockingTableAction.getTableAction() + "\n." + parseExceptionBody(e),
+            BaseTestUtils.report("verify DNSEarlyBlocking Disabled Table Action failed: " + dnsEarlyBlockingTableAction.getTableAction() + "\n." + parseExceptionBody(e),
                     Reporter.FAIL);
         }
     }
@@ -122,10 +122,10 @@ public class RBACDefenseProSecuritySettingsTableActionTests extends RBACTestBase
             testProperties.put("dnsPacketHeaderSelectionTableAction", dnsPacketHeaderSelectionTableAction.getTableAction().toString());
 
             if (!(RBACDefenseProSecuritySettingsTableActionHandler.verifyDNSPacketHeaderSelectionTableAction(testProperties))) {
-                report.report("The specified Table action is in an incorrect state: " + dnsPacketHeaderSelectionTableAction.getTableAction() + "\n.", Reporter.FAIL);
+                BaseTestUtils.report("The specified Table action is in an incorrect state: " + dnsPacketHeaderSelectionTableAction.getTableAction() + "\n.", Reporter.FAIL);
             }
         } catch (Exception e) {
-            report.report("verify DNSPacketHeaderSelection Disabled Table Action failed: " + dnsPacketHeaderSelectionTableAction.getTableAction() + "\n." + parseExceptionBody(e),
+            BaseTestUtils.report("verify DNSPacketHeaderSelection Disabled Table Action failed: " + dnsPacketHeaderSelectionTableAction.getTableAction() + "\n." + parseExceptionBody(e),
                     Reporter.FAIL);
         }
     }
@@ -138,10 +138,10 @@ public class RBACDefenseProSecuritySettingsTableActionTests extends RBACTestBase
             testProperties.put("sslParametersTableAction", sslParametersTableAction.getTableAction().toString());
 
             if (!(RBACDefenseProSecuritySettingsTableActionHandler.verifySSLParametersTableAction(testProperties))) {
-                report.report("The specified Table action is in an incorrect state: " + sslParametersTableAction.getTableAction() + "\n.", Reporter.FAIL);
+                BaseTestUtils.report("The specified Table action is in an incorrect state: " + sslParametersTableAction.getTableAction() + "\n.", Reporter.FAIL);
             }
         } catch (Exception e) {
-            report.report("verify SSLParameters Disabled Table Action failed: " + sslParametersTableAction.getTableAction() + "\n." + parseExceptionBody(e),
+            BaseTestUtils.report("verify SSLParameters Disabled Table Action failed: " + sslParametersTableAction.getTableAction() + "\n." + parseExceptionBody(e),
                     Reporter.FAIL);
         }
     }
@@ -154,10 +154,10 @@ public class RBACDefenseProSecuritySettingsTableActionTests extends RBACTestBase
             testProperties.put("packetAnomalyTableAction", packetAnomalyTableAction.getTableAction().toString());
 
             if (!(RBACDefenseProSecuritySettingsTableActionHandler.verifyPacketAnomalyTableAction(testProperties))) {
-                report.report("The specified Table action is in an incorrect state: " + packetAnomalyTableAction.getTableAction() + "\n.", Reporter.FAIL);
+                BaseTestUtils.report("The specified Table action is in an incorrect state: " + packetAnomalyTableAction.getTableAction() + "\n.", Reporter.FAIL);
             }
         } catch (Exception e) {
-            report.report("verify PacketAnomaly Disabled Table Action failed: " + packetAnomalyTableAction.getTableAction() + "\n." + parseExceptionBody(e),
+            BaseTestUtils.report("verify PacketAnomaly Disabled Table Action failed: " + packetAnomalyTableAction.getTableAction() + "\n." + parseExceptionBody(e),
                     Reporter.FAIL);
         }
     }
