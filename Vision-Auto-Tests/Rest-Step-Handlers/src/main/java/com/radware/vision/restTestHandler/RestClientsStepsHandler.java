@@ -7,6 +7,7 @@ import models.RestResponse;
 import models.StatusCode;
 import models.config.DevicesConstants;
 import restInterface.client.BasicAuthBasedRestClient;
+import restInterface.client.NoAuthRestClient;
 import restInterface.client.SessionBasedRestClient;
 
 public class RestClientsStepsHandler {
@@ -102,5 +103,12 @@ public class RestClientsStepsHandler {
                 connection.switchTo();//the connection already loggedIn , should make it as current rest connection
             return new RestStepResult(RestStepResult.Status.SUCCESS, "Ready to use");
         }
+    }
+
+    public static void switchToNoAuthClient(String baseUri, Integer port) {
+        NoAuthRestClient connection = RestClientsFactory.getNoAuthConnection(baseUri, port);
+        if (RestClientsManagement.getCurrentConnection().isPresent() &&
+                !RestClientsManagement.getCurrentConnection().get().equals(connection))
+            connection.switchTo();//the connection already loggedIn , should make it as current rest connection
     }
 }

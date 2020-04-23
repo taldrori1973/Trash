@@ -2,6 +2,7 @@ package controllers;
 
 import controllers.restAssured.client.BasicAuth.AlteonRestAssuredClient;
 import controllers.restAssured.client.BasicAuth.AppWallRestAssuredClient;
+import controllers.restAssured.client.RestAssuredNoAuthClient;
 import controllers.restAssured.client.SessionBased.DefenseFlowRestAssuredClient;
 import controllers.restAssured.client.SessionBased.OnVisionVDirectRestAssuredClient;
 import controllers.restAssured.client.SessionBased.VisionRestAssuredClient;
@@ -51,6 +52,10 @@ public class RestClientsManagement {
         if (isNull(connectionPort))
             return new DefenseFlowRestAssuredClient(baseUri, username, password);
         return new DefenseFlowRestAssuredClient(baseUri, connectionPort, username, password);
+    }
+
+    public static RestClient getNoAuthConnection(String baseUri, Integer connectionPort) {
+        return new RestAssuredNoAuthClient(baseUri, connectionPort);
     }
 
     public static Optional<RestClient> getCurrentConnection() {

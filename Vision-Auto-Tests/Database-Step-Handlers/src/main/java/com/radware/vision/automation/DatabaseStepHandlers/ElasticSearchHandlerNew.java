@@ -1,103 +1,84 @@
-package com.radware.vision.bddtests.rest.topologytree;
+package com.radware.vision.automation.DatabaseStepHandlers;
 
-import com.jayway.jsonpath.DocumentContext;
 import com.jayway.jsonpath.JsonPath;
 import com.radware.automation.tools.basetest.BaseTestUtils;
 import com.radware.automation.tools.basetest.Reporter;
-import com.radware.vision.tools.rest.CurrentVisionRestAPI;
+import com.radware.vision.restAPI.ElasticsearchRestAPI;
 import models.RestResponse;
 import models.StatusCode;
 import org.json.JSONObject;
-import org.w3c.tidy.Report;
-
 import java.util.*;
-import java.util.regex.Matcher;
+import com.jayway.jsonpath.DocumentContext;
 import java.util.regex.Pattern;
+import java.util.regex.Matcher;
 
 public class ElasticSearchHandlerNew {
 
     public static void deleteESDocument(String data, String index) {
-//        try {
-//            String[] arrayData = data.split(":");
-//            String fieldName = arrayData[0].replace("\"", "").replaceAll("\\s+", "");
-//            String value = arrayData[1].replace("\"", "").replaceAll("\\s+", "");
-//            ElasticSearchInfra e = new ElasticSearchInfra();
-//            e.deleteIndexDocument(index, fieldName, value);
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//        }
-
         try {
-            CurrentVisionRestAPI currentVisionRestAPI = new CurrentVisionRestAPI("Vision/elasticSearch.json", "Delete doucument by query");
+            ElasticsearchRestAPI esRestApi = createEsRestConnection("Vision/elasticSearch.json", "Delete doucument by query");
             HashMap<String, String> hash_map_param = new HashMap<String, String>();
             hash_map_param.put("indexName", index);
-            currentVisionRestAPI.getRestRequestSpecification().setPathParams(hash_map_param);
-            currentVisionRestAPI.getRestRequestSpecification().setBody(String.format("{\"query\":{\"match\":{%s}}}", data));
-            RestResponse restResponse = currentVisionRestAPI.sendRequest();
-            restResponse.getStatusCode().equals(StatusCode.OK);
-        } catch (NoSuchFieldException e) {
+            esRestApi.getRestRequestSpecification().setPathParams(hash_map_param);
+            esRestApi.getRestRequestSpecification().setBody(String.format("{\"query\":{\"match\":{%s}}}", data));
+            RestResponse restResponse = esRestApi.sendRequest();
+            if (!restResponse.getStatusCode().equals(StatusCode.OK)) {
+                BaseTestUtils.report("can't delete index: " + index, Reporter.FAIL);
+            }
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
 
     public static void deleteESIndex(String index) {
-//        try {
-//            ElasticSearchInfra e = new ElasticSearchInfra();
-//            e.deleteIndex(index);
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//        }
-
         try {
-            CurrentVisionRestAPI currentVisionRestAPI = new CurrentVisionRestAPI("Vision/elasticSearch.json", "Delete Index");
+            ElasticsearchRestAPI esRestApi = createEsRestConnection("Vision/elasticSearch.json", "Delete Index");
             HashMap<String, String> hash_map_param = new HashMap<>();
             hash_map_param.put("indexName", index);
-            currentVisionRestAPI.getRestRequestSpecification().setPathParams(hash_map_param);
-            RestResponse restResponse = currentVisionRestAPI.sendRequest();
-            restResponse.getStatusCode().equals(StatusCode.OK);
-        } catch (NoSuchFieldException e) {
+            esRestApi.getRestRequestSpecification().setPathParams(hash_map_param);
+            RestResponse restResponse = esRestApi.sendRequest();
+            if (!restResponse.getStatusCode().equals(StatusCode.OK)) {
+                BaseTestUtils.report("can't delete index: " + index, Reporter.FAIL);
+            }
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
 
     public static void searchESIndexByQuery(String index, String query, String response) {
         try {
-            CurrentVisionRestAPI currentVisionRestAPI = new CurrentVisionRestAPI("Vision/elasticSearch.json", "Search index by query");
+            ElasticsearchRestAPI esRestApi = createEsRestConnection("Vision/elasticSearch.json", "Search index by query");
             HashMap<String, String> hash_map_param = new HashMap<>();
             hash_map_param.put("indexName", index);
-            currentVisionRestAPI.getRestRequestSpecification().setPathParams(hash_map_param);
-            currentVisionRestAPI.getRestRequestSpecification().setBody(query);
-            RestResponse restResponse = currentVisionRestAPI.sendRequest();
+            esRestApi.getRestRequestSpecification().setPathParams(hash_map_param);
+            esRestApi.getRestRequestSpecification().setBody(query);
+            RestResponse restResponse = esRestApi.sendRequest();
             if (!restResponse.getBody().getBodyAsString().contains(response)) {
                 BaseTestUtils.reporter.report("The expected response NOT found", Reporter.FAIL);
             }
-        } catch (NoSuchFieldException e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
 
     public static void updateESIndexByQuery(String index, String query, String response) {
-        try {
-            CurrentVisionRestAPI currentVisionRestAPI = new CurrentVisionRestAPI("Vision/elasticSearch.json", "Search index by query");
+            ElasticsearchRestAPI esRestApi = createEsRestConnection("Vision/elasticSearch.json", "Update index by query");
             HashMap<String, String> hash_map_param = new HashMap<>();
             hash_map_param.put("indexName", index);
-            currentVisionRestAPI.getRestRequestSpecification().setPathParams(hash_map_param);
-            currentVisionRestAPI.getRestRequestSpecification().setBody(query);
-            RestResponse restResponse = currentVisionRestAPI.sendRequest();
+            esRestApi.getRestRequestSpecification().setPathParams(hash_map_param);
+            esRestApi.getRestRequestSpecification().setBody(query);
+            RestResponse restResponse = esRestApi.sendRequest();
             if (response!=null &&!restResponse.getBody().getBodyAsString().contains(response)) {
                 BaseTestUtils.reporter.report("The expected response NOT found", Reporter.FAIL);
             }
-        } catch (NoSuchFieldException e) {
-            e.printStackTrace();
-        }
     }
 
     public static JSONObject getIndex(String ip, String indexName) throws NoSuchFieldException {
-        CurrentVisionRestAPI currentVisionRestAPI = new CurrentVisionRestAPI("Vision/elasticSearch.json", "Get Index");
+        ElasticsearchRestAPI esRestApi = createEsRestConnection("Vision/elasticSearch.json", "Get Index");
         HashMap<String, String> hash_map_param = new HashMap<>();
         hash_map_param.put("indexName", indexName);
-        currentVisionRestAPI.getRestRequestSpecification().setPathParams(hash_map_param);
-        RestResponse restResponse = currentVisionRestAPI.sendRequest();//
+        esRestApi.getRestRequestSpecification().setPathParams(hash_map_param);
+        RestResponse restResponse = esRestApi.sendRequest();//
         restResponse.getBody().getBodyAsString();
         return new JSONObject(restResponse.getBody().getBodyAsString());
     }
@@ -153,17 +134,12 @@ public class ElasticSearchHandlerNew {
                 "    }\\\n" +
                 "}", attribute, attribute, value, attribute);
 
-        CurrentVisionRestAPI currentVisionRestAPI = null;
-        try {
-            currentVisionRestAPI = new CurrentVisionRestAPI("Vision/elasticSearch.json", "Search index by query");
-        } catch (NoSuchFieldException e) {
-            e.printStackTrace();
-        }
+        ElasticsearchRestAPI esRestApi = createEsRestConnection("Vision/elasticSearch.json", "Search index by query");
         HashMap<String, String> hash_map_param = new HashMap<>();
         hash_map_param.put("indexName", indexName);
-        currentVisionRestAPI.getRestRequestSpecification().setPathParams(hash_map_param);
-        currentVisionRestAPI.getRestRequestSpecification().setBody(body);
-        RestResponse restResponse = currentVisionRestAPI.sendRequest();
+        esRestApi.getRestRequestSpecification().setPathParams(hash_map_param);
+        esRestApi.getRestRequestSpecification().setBody(body);
+        RestResponse restResponse = esRestApi.sendRequest();
         if (restResponse.getBody().getBodyAsString().contains("\"hits\":{\"total\":0")) return false;
         return true;
     }
@@ -256,5 +232,8 @@ public class ElasticSearchHandlerNew {
         return new ArrayList<>(allPrefixes).get(0) + requiredSlice;
     }
 
+    public static ElasticsearchRestAPI createEsRestConnection(String requestFilePath, String requestLabel) {
+        return new ElasticsearchRestAPI("http://172.17.178.117", 9200, requestFilePath, requestLabel);
+    }
 
 }

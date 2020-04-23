@@ -3,6 +3,7 @@ package com.radware.vision;
 import controllers.RestClientsManagement;
 import models.config.DevicesConstants;
 import restInterface.client.BasicAuthBasedRestClient;
+import restInterface.client.NoAuthRestClient;
 import restInterface.client.SessionBasedRestClient;
 
 import java.util.HashMap;
@@ -14,11 +15,13 @@ public class RestClientsFactory {
 
     private static final String LICENSE_BASED_KEY_TEMPLATE = "%s_%d_%s_%b";//{baseUri}_{connectionPort}_{username}_{isHaveLicense}
     private static final String KEY_TEMPLATE = "%s_%d_%s";//{baseUri}_{connectionPort}_{username}
+    private static final String KEY_TEMPLATE_NO_AUTH = "%s_%d";//{baseUri}_{connectionPort}
     private static Map<String, SessionBasedRestClient> visionRestClients;
     private static Map<String, SessionBasedRestClient> onVisionVDirectRestClients;
     private static Map<String, BasicAuthBasedRestClient> alteonRestClients;
     private static Map<String, BasicAuthBasedRestClient> appWallRestClients;
     private static Map<String, SessionBasedRestClient> defenseFlowRestClients;
+    private static Map<String, NoAuthRestClient> noAuthRestClients;
 
     static {
         visionRestClients = new HashMap<>();
@@ -26,6 +29,7 @@ public class RestClientsFactory {
         alteonRestClients = new HashMap<>();
         appWallRestClients = new HashMap<>();
         defenseFlowRestClients = new HashMap<>();
+        noAuthRestClients = new HashMap<>();
     }
 
     public static SessionBasedRestClient getVisionConnection(String baseUri, Integer connectionPort, String username, String password, String license) {
@@ -61,6 +65,14 @@ public class RestClientsFactory {
             defenseFlowRestClients.put(key, (SessionBasedRestClient) RestClientsManagement.getDefenseFlowConnection(baseUri, connectionPort, username, password));
         }
         return defenseFlowRestClients.get(key);
+    }
+
+    public static NoAuthRestClient getNoAuthConnection(String baseUri, Integer connectionPort) {
+        String key = String.format(KEY_TEMPLATE_NO_AUTH, baseUri, !isNull(connectionPort) ? connectionPort : 0);
+        if (!noAuthRestClients.containsKey(key)) {
+            noAuthRestClients.put(key, (NoAuthRestClient) RestClientsManagement.getNoAuthConnection(baseUri, connectionPort));
+        }
+        return noAuthRestClients.get(key);
     }
 
     public static BasicAuthBasedRestClient getAlteonConnection(String baseUri, Integer connectionPort, String username, String password) {
