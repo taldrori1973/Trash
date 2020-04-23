@@ -78,8 +78,8 @@ Feature: Vision Upgrade current -3
       | UPGRADE | inflating:                                                             | IGNORE       |
       | UPGRADE | /opt/radware/storage/www/webui/vision-dashboards/public/static/media/* | IGNORE       |
       | LLS     | fatal\| error\|fail                                                    | NOT_EXPECTED |
-      | LLS     | Installation ended                                                     | EXPECTED     |
-      | LLS     | Setup complete!                                                        | EXPECTED     |
+      | LLS     | Installation ended                                                     | NOT_EXPECTED |
+      | LLS     | Setup complete!                                                        | NOT_EXPECTED |
 
   @SID_7
   Scenario: Check firewall settings
