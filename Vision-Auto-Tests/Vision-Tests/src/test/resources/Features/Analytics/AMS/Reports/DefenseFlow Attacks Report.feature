@@ -11,6 +11,12 @@ Feature: DefenseFlow Attacks Reports
     * REST Delete ES index "vrm-scheduled-report-result-*"
     * CLI Clear vision logs
 
+  @SID_31
+  Scenario: Change DF managment IP to IP of Generic Linux
+    When CLI Operations - Run Radware Session command "system df management-ip set 172.17.164.10"
+    When CLI Operations - Run Radware Session command "system df management-ip get"
+    Then CLI Operations - Verify that output contains regex "DefenseFlow Management IP Address: 172.17.164.10"
+
   @SID_2
   Scenario: Run DF simulator
     When CLI Run remote linux Command on "GENERIC_LINUX_SERVER"
