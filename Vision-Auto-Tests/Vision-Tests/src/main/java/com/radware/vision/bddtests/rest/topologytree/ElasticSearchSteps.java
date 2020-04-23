@@ -6,6 +6,7 @@ import com.radware.vision.bddtests.BddRestTestBase;
 import com.radware.vision.bddtests.remotessh.AttacksSteps;
 import com.radware.vision.infra.testresthandlers.ElasticSearchHandler;
 import cucumber.api.java.en.Given;
+import com.radware.vision.automation.DatabaseStepHandlers.ElasticSearchHandlerNew;
 import cucumber.api.java.en.Then;
 
 public class ElasticSearchSteps extends BddRestTestBase {
