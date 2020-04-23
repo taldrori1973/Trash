@@ -95,7 +95,7 @@ public class VRMReportsHandler extends VRMBaseUtilies {
     }
 
     public void validateReportTimePeriod(String reportName, QuickRange timePeriod) throws TargetWebElementNotFoundException {
-        generateNewBaseTestUtils.reportName);
+        generateNewReport(reportName);
         vrmReportsDateUtils.setStartEndTime(timePeriod);
         Long timePeriodFinal = vrmReportsDateUtils.getEndTimeActual() - vrmReportsDateUtils.getStartTimeActual();
         Long timePeriodExpected = vrmReportsDateUtils.getEndTimeExpected() - vrmReportsDateUtils.getStartTimeExpected();
@@ -800,7 +800,7 @@ public class VRMReportsHandler extends VRMBaseUtilies {
 
     protected void createVRMBase(String reportName, Map<String, String> map) throws Exception {
         try {
-            enterToCreatingBaseTestUtils.reportName, map.getOrDefault("reportType", null));
+            enterToCreatingReport(reportName, map.getOrDefault("reportType", null));
             selectDevices(map);
             BasicOperationsHandler.clickButton("Next", "");
             selectTimeDefinitions(map);
