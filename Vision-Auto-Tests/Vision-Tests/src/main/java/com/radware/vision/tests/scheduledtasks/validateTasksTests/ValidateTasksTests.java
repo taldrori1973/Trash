@@ -1,5 +1,6 @@
 package com.radware.vision.tests.scheduledtasks.validateTasksTests;
 
+import com.radware.automation.tools.basetest.BaseTestUtils;
 import com.radware.automation.tools.basetest.Reporter;
 import com.radware.automation.tools.utils.InvokeUtils;
 import com.radware.automation.webui.widgets.impl.table.WebUITable;
@@ -226,7 +227,7 @@ public class ValidateTasksTests extends WebUITestBase {
                 }
                 ConfBackup.confBackupList(getRestTestBase().getRadwareServerCli(), taskName.split(" "));
                 if (!ValidateTasksHandler.executeFileExistenceVerifyScript(getRestTestBase().getRootServerCli(), visionBackupFilePath, visionBackupFilePrefix.concat(taskName))) {
-                    BaseTestUtils.report("The config file does not exist in the vision file system");
+                    BaseTestUtils.reporter.report("The config file does not exist in the vision file system");
                 }
             }
         } catch (Exception e) {

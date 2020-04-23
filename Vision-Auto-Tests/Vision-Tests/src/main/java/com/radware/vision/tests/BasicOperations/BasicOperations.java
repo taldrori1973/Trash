@@ -170,7 +170,7 @@ public class BasicOperations extends WebUITestBase {
 
     private boolean validateConnectedSession() {
         browserSessionId = WebUIUtils.getDriver().manage().getCookieNamed("JSESSIONID").getValue();
-        BaseTestUtils.report("Browser Session Id = " + browserSessionId);
+        BaseTestUtils.reporter.report("Browser Session Id = " + browserSessionId);
         try {
             restTestBase.getVisionRestClient().login(username, password, null, 1);
             restTestBase.getVisionRestClient().setIgnoreResponseCodeValidation(true);
@@ -184,7 +184,7 @@ public class BasicOperations extends WebUITestBase {
                     break;
             }
             while (System.currentTimeMillis() - startTime < 30 * 1000);
-            BaseTestUtils.report(JsonUtils.prettifyJson(result));
+            BaseTestUtils.reporter.report(JsonUtils.prettifyJson(result));
             JSONArray jsonArray = new JSONArray(result);
             for (int i = 1; i < jsonArray.length(); i++) {
                 JSONObject jsonObj = (JSONObject) jsonArray.get(i);
