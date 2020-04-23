@@ -15,6 +15,7 @@
         <module>Vision-Tests</module>
         <module>Webui-Step-Handlers</module>
         <module>Rest-Step-Handlers</module>
+        <module>Database-Step-Handlers</module>
 
     </modules>
 </project>
