@@ -134,7 +134,7 @@ public class VRMBaseUtilies {
                     List<VRMHandler.DpApplicationFilter> devicesEntries = new ArrayList<>();
                     if (map.get("projectObjects") != null || map.get("webApplications") != null) {
                         String type = map.get("projectObjects") != null ? "projectObjects" : map.get("webApplications") != null ? "webApplications" : "";
-                        String [] devices = !map.get(type).matches("(All|all|)") ? map.get(type).split(",") : new String[0];
+                        String[] devices = !map.get(type).matches("(All|all|)") ? map.get(type).split(",") : new String[0];
                         for (String appName : devices) {
                             devicesEntries.add(new VRMHandler.DpApplicationFilter(appName));
                         }
@@ -143,7 +143,7 @@ public class VRMBaseUtilies {
                     } else {
                         devicesEntries.add(new VRMHandler.DpApplicationFilter("All"));
                     }
-                    vrmHandler.selectApplications(devicesEntries, map.get("reportType").toLowerCase().startsWith("defenseflow")? "defenseflow" : "appwall", false);
+                    vrmHandler.selectApplications(devicesEntries, map.get("reportType").toLowerCase().startsWith("defenseflow") ? "defenseflow" : "appwall", false);
                     return;
                 }
                 case "defensepro behavioral protections dashboard":
@@ -241,8 +241,7 @@ public class VRMBaseUtilies {
             String productSelection = map.get("Product");
             if (productSelection.equals("Appwall") || productSelection.equals("DefenseFlow") || productSelection.equals("DefensePro")) {
                 BasicOperationsHandler.clickButton(productSelection);
-            }
-            else {
+            } else {
                 BaseTestUtils.report("The Product definition should be Appwall, or DefenseFlow or DefensePro: " + productSelection, Reporter.FAIL);
             }
         }
@@ -1320,13 +1319,14 @@ public class VRMBaseUtilies {
     }
 
     private WebElement getGenerateReportButton(String reportName, WebElement reportContainer) throws TargetWebElementNotFoundException {
-        if (reportContainer == null) BaseTestUtils.BaseTestUtils.reportName + " Report Container not found", Reporter.FAIL);
+        if (reportContainer == null) BaseTestUtils.report(reportName + " Report Container not found", Reporter.FAIL);
 
         if (!BasicOperationsHandler.isElementContainsClass("Reports List Item", reportName, "selected"))
             BasicOperationsHandler.clickButton("Reports List Item", reportName);
 
         WebElement generateButton = BasicOperationsHandler.isItemAvailableById("Generate Now", reportName);
-        if (generateButton == null) BaseTestUtils.BaseTestUtils.reportName + " Generate Button not found", Reporter.FAIL);
+        if (generateButton == null) BaseTestUtils.report(reportName + " Generate Button not found", Reporter.FAIL)
+        ;
         return generateButton;
     }
 
