@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <parent>
+        <artifactId>Vision-Auto-Tests</artifactId>
+        <groupId>com.radware.vision.automation</groupId>
+        <version>4.60.00-SNAPSHOT</version>
+    </parent>
+    <modelVersion>4.0.0</modelVersion>
+
+    <artifactId>Database-Step-Handlers</artifactId>
+ <dependencies>
+<!--     <dependency>-->
+<!--         <groupId>com.radware.vision.automation</groupId>-->
+<!--         <artifactId>Rest-Step-Handlers</artifactId>-->
+<!--     </dependency>-->
+
+     <dependency>
+         <groupId>com.radware.vision.automation</groupId>
+         <artifactId>Rest-Step-Handlers</artifactId>
+         <version>${revision}</version>
+     </dependency>
+ </dependencies>
+
+</project>
