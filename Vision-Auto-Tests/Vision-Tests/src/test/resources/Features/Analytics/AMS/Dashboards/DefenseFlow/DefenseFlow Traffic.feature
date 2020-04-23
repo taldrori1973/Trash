@@ -155,13 +155,6 @@ Feature: AMS DefenseFlow Traffic Dashboard
       | ALL     | error      | NOT_EXPECTED |
 
 
-  @SID_13
-  Scenario: Change DF managment IP to default
-    When CLI Operations - Run Radware Session command "system df management-ip set 172.17.164.60"
-    When CLI Operations - Run Radware Session command "system df management-ip get"
-    Then CLI Operations - Verify that output contains regex "DefenseFlow Management IP Address: 172.17.164.60"
-
-
   @SID_11
   Scenario: Cleanup
     And UI Navigate to "HOME" page via homePage
