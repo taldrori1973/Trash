@@ -1,7 +1,7 @@
 package com.radware.vision.infra.base.pages.defensepro.dpOperations;
 
-import basejunit.RestTestBase;
 import com.radware.automation.tools.basetest.Reporter;
+import com.radware.automation.tools.utils.FileUtils;
 import com.radware.automation.webui.utils.WebUIStrings;
 import com.radware.automation.webui.widgets.ComponentLocator;
 import com.radware.automation.webui.widgets.impl.WebUICheckbox;
@@ -13,7 +13,6 @@ import com.radware.vision.infra.base.pages.system.deviceresources.DeviceResource
 import com.radware.vision.infra.base.pages.system.deviceresources.devicebackups.DeviceBackups;
 import com.radware.vision.infra.enums.ExportPolicyDownloadTo;
 import com.radware.vision.infra.testhandlers.baseoperations.BasicOperationsHandler;
-import com.radware.automation.tools.utils.FileUtils;
 import org.openqa.selenium.support.How;
 
 import java.nio.file.NoSuchFileException;
@@ -90,7 +89,7 @@ public class ExportConfigurationFile extends DpOperationsBase {
         } else if (uploadFrom.equals(ExportPolicyDownloadTo.Server.toString())) {
             fileNameToValidate = (exportToServer(fileName, includePrivateKeys)).concat(".txt");
         }
-        RestTestBase.report.report("Export file: " + fileNameToValidate, Reporter.PASS);
+        BaseTestUtils.report("Export file: " + fileNameToValidate, Reporter.PASS);
         return fileNameToValidate;
     }
 

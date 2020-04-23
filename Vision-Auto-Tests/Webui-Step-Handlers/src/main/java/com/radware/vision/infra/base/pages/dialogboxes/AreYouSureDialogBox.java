@@ -1,9 +1,8 @@
 package com.radware.vision.infra.base.pages.dialogboxes;
 
-import basejunit.RestTestBase;
 import com.radware.automation.tools.basetest.Reporter;
-import com.radware.automation.webui.utils.WebUIStrings;
 import com.radware.automation.webui.WebUIUtils;
+import com.radware.automation.webui.utils.WebUIStrings;
 import com.radware.automation.webui.widgets.ComponentLocator;
 import com.radware.automation.webui.widgets.impl.WebUIButton;
 import com.radware.automation.webui.widgets.impl.WebUIComponent;
@@ -24,7 +23,7 @@ public class AreYouSureDialogBox {
             ComponentLocator dialogBoxLocator = new ComponentLocator(How.CLASS_NAME, "DialogBox");
             dialogBox = new WebUIWidget(new WebUIComponent(dialogBoxLocator));
         } catch (Exception e) {
-            RestTestBase.report.report("no Dialog Box found", Reporter.FAIL);
+            BaseTestUtils.report("no Dialog Box found", Reporter.FAIL);
         }
     }
 
@@ -36,7 +35,7 @@ public class AreYouSureDialogBox {
             yesButton = new WebUIButton(dialogBox.findInner(yesButtonLocator));
             yesButton.click();
         } catch (Exception e) {
-            RestTestBase.report.report("no Button found", Reporter.FAIL);
+            BaseTestUtils.report("no Button found", Reporter.FAIL);
         }
         finally {
             WebUIUtils.setIsTriggerPopupSearchEvent(true);
@@ -49,7 +48,7 @@ public class AreYouSureDialogBox {
             noButton = new WebUIButton(dialogBox.findInner(noButtonLocator));
             noButton.click();
         } catch (Exception e) {
-            RestTestBase.report.report("no Button found", Reporter.FAIL);
+            BaseTestUtils.report("no Button found", Reporter.FAIL);
         }
     }
 
@@ -59,7 +58,7 @@ public class AreYouSureDialogBox {
             closeButton = new WebUIButton(dialogBox.findInner(noButtonLocator));
             closeButton.click();
         } catch (Exception e) {
-            RestTestBase.report.report("no Button found", Reporter.FAIL);
+            BaseTestUtils.report("no Button found", Reporter.FAIL);
         }
     }
 

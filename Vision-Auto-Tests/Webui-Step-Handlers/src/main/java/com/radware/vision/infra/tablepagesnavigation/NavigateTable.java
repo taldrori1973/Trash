@@ -1,6 +1,6 @@
 package com.radware.vision.infra.tablepagesnavigation;
 
-import basejunit.RestTestBase;
+import com.radware.automation.tools.basetest.BaseTestUtils;
 import com.radware.automation.tools.basetest.Reporter;
 import com.radware.automation.webui.WebUIUtils;
 import com.radware.automation.webui.widgets.ComponentLocator;
@@ -21,7 +21,7 @@ public class NavigateTable {
         try {
             WebUIUtils.fluentWaitJSExecutor("arguments[0].click();", WebUIUtils.SHORT_WAIT_TIME, false, locator);
         } catch (Exception e) {
-            RestTestBase.report.report(WebUIStringsVision.getNextPageButton() + "looks to be Disabled: " + e.getMessage() + "\n.", Reporter.FAIL);
+            BaseTestUtils.report(WebUIStringsVision.getNextPageButton() + "looks to be Disabled: " + e.getMessage() + "\n.", Reporter.FAIL);
         }
     }
 
@@ -30,7 +30,7 @@ public class NavigateTable {
         try {
             WebUIUtils.fluentWaitClick(locator.getBy(), WebUIUtils.DEFAULT_WAIT_TIME, false);
         } catch (Exception e) {
-            RestTestBase.report.report(WebUIStringsVision.getPrevPageButton() + "looks to be Disabled: " + e.getMessage() + "\n.", Reporter.FAIL);
+            BaseTestUtils.report(WebUIStringsVision.getPrevPageButton() + "looks to be Disabled: " + e.getMessage() + "\n.", Reporter.FAIL);
         }
     }
 
@@ -42,7 +42,7 @@ public class NavigateTable {
             textbox.sendKeys(pageNum);
             textbox.sendKeys(Keys.ENTER);
         } catch (Exception e) {
-            RestTestBase.report.report(locator.getLocatorValue() + "looks to be Disabled: " + e.getMessage() + "\n.", Reporter.FAIL);
+            BaseTestUtils.report(locator.getLocatorValue() + "looks to be Disabled: " + e.getMessage() + "\n.", Reporter.FAIL);
         }
     }
 
@@ -51,7 +51,7 @@ public class NavigateTable {
         try {
             WebUIUtils.fluentWaitClick(locator.getBy(), WebUIUtils.DEFAULT_WAIT_TIME, false);
         } catch (Exception e) {
-            RestTestBase.report.report(WebUIStringsVision.getFirstPageButton() + "looks to be Disabled: " + e.getMessage() + "\n.", Reporter.FAIL);
+            BaseTestUtils.report(WebUIStringsVision.getFirstPageButton() + "looks to be Disabled: " + e.getMessage() + "\n.", Reporter.FAIL);
         }
     }
 
@@ -60,7 +60,7 @@ public class NavigateTable {
         try {
             WebUIUtils.fluentWaitClick(locator.getBy(), WebUIUtils.DEFAULT_WAIT_TIME, false);
         } catch (Exception e) {
-            RestTestBase.report.report(WebUIStringsVision.getLastPageButton() + "looks to be Disabled: " + e.getMessage() + "\n.", Reporter.FAIL);
+            BaseTestUtils.report(WebUIStringsVision.getLastPageButton() + "looks to be Disabled: " + e.getMessage() + "\n.", Reporter.FAIL);
         }
     }
 

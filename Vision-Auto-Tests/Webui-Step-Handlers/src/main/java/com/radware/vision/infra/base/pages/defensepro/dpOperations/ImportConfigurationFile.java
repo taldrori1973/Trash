@@ -1,9 +1,9 @@
 package com.radware.vision.infra.base.pages.defensepro.dpOperations;
 
-import basejunit.RestTestBase;
 import com.radware.automation.tools.basetest.Reporter;
-import com.radware.automation.webui.utils.WebUIStrings;
+import com.radware.automation.tools.utils.FileUtils;
 import com.radware.automation.webui.WebUIUtils;
+import com.radware.automation.webui.utils.WebUIStrings;
 import com.radware.automation.webui.widgets.ComponentLocator;
 import com.radware.automation.webui.widgets.impl.WebUIComponent;
 import com.radware.automation.webui.widgets.impl.WebUIDropdown;
@@ -12,7 +12,6 @@ import com.radware.vision.infra.base.pages.devicecontrolbar.ImportOperation;
 import com.radware.vision.infra.enums.ExportPolicyDownloadTo;
 import com.radware.vision.infra.testhandlers.DefencePro.dpOperations.DPOperationsHandler;
 import com.radware.vision.infra.testhandlers.baseoperations.BasicOperationsHandler;
-import com.radware.automation.tools.utils.FileUtils;
 import com.radware.vision.infra.utils.WebUIStringsVision;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
@@ -44,16 +43,16 @@ public class ImportConfigurationFile extends DpOperationsBase {
                 fileNameToUse = fileNameToUse.concat(fileName);
             }
             if (!FileUtils.isFileExist(fileNameToUse)) {
-                RestTestBase.report.report("No such file: " + fileNameToUse, Reporter.FAIL);
+                BaseTestUtils.report("No such file: " + fileNameToUse, Reporter.FAIL);
                 throw new RuntimeException("No such file: " + fileNameToUse);
             } else {
-                RestTestBase.report.report("Upload file: " + fileNameToUse, Reporter.PASS);
+                BaseTestUtils.report("Upload file: " + fileNameToUse, Reporter.PASS);
             }
             importOperation.importFromClient(fileNameToUse, true);//uploadFromClient(fileNameToUse);
             BasicOperationsHandler.delay(30);
             FileUtils.deleteFile(filePath, deviceName.concat("_config"));
         } else if (uploadFrom.equals(ExportPolicyDownloadTo.Server.toString())) {
-            RestTestBase.report.report("Upload file: " + fileName, Reporter.PASS);
+            BaseTestUtils.report("Upload file: " + fileName, Reporter.PASS);
             uploadFromServer(fileName);
         }
         clickButton(WebUIStringsVision.getDialogBoxClose());

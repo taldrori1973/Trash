@@ -1,6 +1,6 @@
 package com.radware.vision.infra.testhandlers.alerts;
 
-import basejunit.RestTestBase;
+import com.radware.automation.tools.basetest.BaseTestUtils;
 import com.radware.automation.tools.basetest.Reporter;
 import com.radware.automation.webui.widgets.impl.table.WebUITable;
 import com.radware.restcore.VisionRestClient;
@@ -105,7 +105,7 @@ public class AlertsValidationHandler {
             properties.put("sshPort", "22");
             properties.put("deviceType", String.valueOf(DeviceType.Alteon));
         } catch (Exception e) {
-            RestTestBase.report.report("Test " + " failed with the following error:\n" + e.getMessage(), Reporter.FAIL);
+            BaseTestUtils.report("Test " + " failed with the following error:\n" + e.getMessage(), Reporter.FAIL);
         }
         return properties;
     }

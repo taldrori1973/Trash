@@ -1,6 +1,5 @@
 package com.radware.vision.infra.testhandlers.DefencePro.dpOperations;
 
-import basejunit.RestTestBase;
 import com.radware.automation.tools.basetest.BaseTestUtils;
 import com.radware.automation.tools.basetest.Reporter;
 import com.radware.automation.tools.utils.FileUtils;
@@ -14,7 +13,6 @@ import com.radware.automation.webui.webpages.WebUIBasePage;
 import com.radware.restcore.VisionRestClient;
 import com.radware.utils.DeviceUtils;
 import com.radware.utils.device.DeviceScalarUtils;
-import com.radware.vision.vision_project_cli.RadwareServerCli;
 import com.radware.vision.infra.base.pages.defensepro.dpOperations.DpOperationsBase;
 import com.radware.vision.infra.base.pages.defensepro.dpOperations.ExportConfigurationFile;
 import com.radware.vision.infra.base.pages.defensepro.dpOperations.ImportConfigurationFile;
@@ -27,6 +25,7 @@ import com.radware.vision.infra.testhandlers.deviceoperations.DeviceOperationsHa
 import com.radware.vision.infra.testhandlers.rbac.RBACHandlerBase;
 import com.radware.vision.infra.testhandlers.scheduledtasks.validateScheduledTasks.ValidateTasksHandler;
 import com.radware.vision.infra.testhandlers.system.deviceResources.devicebackups.DeviceBackupsHandler;
+import com.radware.vision.vision_project_cli.RadwareServerCli;
 
 import java.nio.file.NoSuchFileException;
 import java.text.SimpleDateFormat;
@@ -203,7 +202,7 @@ public class DPOperationsHandler extends RBACHandlerBase {
         } else if ("false".equals(privateKey)) {
             return !fileContent.contains(startKey) && !fileContent.contains(endKey);
         } else {
-            RestTestBase.report.report("private Key is not as expected! ", Reporter.FAIL);
+            BaseTestUtils.report("private Key is not as expected! ", Reporter.FAIL);
             return false;
         }
     }

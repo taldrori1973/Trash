@@ -3,7 +3,6 @@ package com.radware.vision.infra.utils.threadutils;
 import com.aqua.sysobj.conn.CliConnectionImpl;
 import com.radware.automation.tools.basetest.Reporter;
 import com.radware.automation.tools.utils.InvokeUtils;
-import junit.framework.SystemTestCase4;
 
 import java.util.TimerTask;
 
@@ -30,7 +29,7 @@ public class ThreadsStatusMonitor extends TimerTask {
             String currentThreadCountResult = parseResponse(targetConnection.getTestAgainstObject().toString());
             InvokeUtils.invokeCommand(null, maxThreads, targetConnection, 4000, true, false);
             String maxThreadsResult = parseResponse(targetConnection.getTestAgainstObject().toString());
-            SystemTestCase4.report.report("Threads Utilization = " + ((Integer.valueOf(currentThreadsBusyResult) * 100) / Integer.valueOf(maxThreadsResult)) + "\n" +
+            BaseTestUtils.report("Threads Utilization = " + ((Integer.valueOf(currentThreadsBusyResult) * 100) / Integer.valueOf(maxThreadsResult)) + "\n" +
                     "Threads Count: " + currentThreadCountResult, Reporter.PASS);
         } catch (Exception e) {
             e.printStackTrace();

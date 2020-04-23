@@ -1,6 +1,7 @@
 package com.radware.vision.infra.base.pages.alerts;
 
 import com.aqua.sysobj.conn.CliConnection;
+import com.radware.automation.tools.basetest.BaseTestUtils;
 import com.radware.automation.tools.basetest.Reporter;
 import com.radware.automation.tools.utils.InvokeUtils;
 import com.radware.automation.webui.WebUIUtils;
@@ -8,7 +9,6 @@ import com.radware.automation.webui.widgets.ComponentLocator;
 import com.radware.automation.webui.widgets.impl.WebUIComponent;
 import com.radware.automation.webui.widgets.impl.table.WebUIRow;
 import com.radware.automation.webui.widgets.impl.table.WebUITable;
-import com.radware.vision.vision_project_cli.RootServerCli;
 import com.radware.vision.infra.base.pages.dialogboxes.AreYouSureDialogBox;
 import com.radware.vision.infra.base.pages.navigation.WebUIVisionBasePage;
 import com.radware.vision.infra.enums.RaisedTimeUnits;
@@ -18,7 +18,7 @@ import com.radware.vision.infra.testhandlers.topologytree.TopologyTreeHandler;
 import com.radware.vision.infra.utils.TimeUtils;
 import com.radware.vision.infra.utils.WebUIStringsVision;
 import com.radware.vision.infra.validationutils.ValidateAlertsTable;
-import junit.framework.SystemTestCase4;
+import com.radware.vision.vision_project_cli.RootServerCli;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.How;
 
@@ -64,10 +64,10 @@ public class Alerts extends WebUIVisionBasePage {
         }
     }
 
-    public boolean isAlertsTableOpen(){
+    public boolean isAlertsTableOpen() {
         ComponentLocator locator = new ComponentLocator(How.ID, WebUIStringsVision.getAlertsTab());
         WebElement element = WebUIUtils.fluentWaitDisplayed(locator.getBy(), WebUIUtils.DEFAULT_WAIT_TIME, false);
-        if(element != null){
+        if (element != null) {
             return true;
         }
         return false;
@@ -259,7 +259,7 @@ public class Alerts extends WebUIVisionBasePage {
         for (String rowIndex : rowIndices) {
             int currentRowIndex = Integer.parseInt(rowIndex) - 1;
             if (currentRowIndex > allTableRows.size()) {
-                SystemTestCase4.report.report("++++ Row: " + currentRowIndex + " larger than current table count: " + allTableRows.size() + ". row selection was skipped." + Reporter.PASS);
+                BaseTestUtils.reporter.report("++++ Row: " + currentRowIndex + " larger than current table count: " + allTableRows.size() + ". row selection was skipped." + Reporter.PASS);
                 elements.add(allTableRows.get(allTableRows.size() / 2));
             } else {
                 elements.add(allTableRows.get(currentRowIndex));
