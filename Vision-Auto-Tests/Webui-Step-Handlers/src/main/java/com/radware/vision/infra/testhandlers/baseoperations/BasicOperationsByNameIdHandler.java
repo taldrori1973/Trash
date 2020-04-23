@@ -13,7 +13,6 @@ import com.radware.automation.webui.widgets.impl.table.WebUITable;
 import com.radware.vision.infra.base.pages.navigation.WebUIVisionBasePage;
 import com.radware.vision.infra.enums.FindByType;
 import com.radware.vision.infra.enums.WebWidgetType;
-import junit.framework.SystemTestCase;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.How;
 
@@ -194,7 +193,7 @@ public class BasicOperationsByNameIdHandler extends WebUIBasePage {
 		try {
 			List<Widget> widgets = findWidgetByNameId(deviceDriverId, WebWidgetType.Table, fieldLabel, FindByType.BY_NAME);
 			if (widgets.isEmpty()) {
-				SystemTestCase.BaseTestUtils.report("Failed to get Table for label: " + fieldLabel + ", it may not be visible", Reporter.FAIL);
+				BaseTestUtils.report("Failed to get Table for label: " + fieldLabel + ", it may not be visible", Reporter.FAIL);
 			}
 			outerloop:
 			for (Widget widget : widgets) {
@@ -212,7 +211,7 @@ public class BasicOperationsByNameIdHandler extends WebUIBasePage {
 
 			}
 		} catch (Exception e) {
-			SystemTestCase.BaseTestUtils.report("Failed to get Table for label: " + fieldLabel + " \n" + parseExceptionBody(e), Reporter.FAIL);
+			BaseTestUtils.report("Failed to get Table for label: " + fieldLabel + " \n" + parseExceptionBody(e), Reporter.FAIL);
 		}
 	}
 
