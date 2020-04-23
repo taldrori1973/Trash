@@ -12,12 +12,19 @@ Feature: AMS DefenseFlow Traffic Dashboard
     * CLI Clear vision logs
     * REST Vision Install License Request "vision-AVA-Max-attack-capacity"
 
+
+  @SID_12
+  Scenario: Change DF managment IP to IP of Generic Linux
+    When CLI Operations - Run Radware Session command "system df management-ip set 172.17.164.10"
+    When CLI Operations - Run Radware Session command "system df management-ip get"
+    Then CLI Operations - Verify that output contains regex "DefenseFlow Management IP Address: 172.17.164.10"
+
   @SID_2
   Scenario: Generate DefenseFlow traffic events
     When CLI Run remote linux Command on "GENERIC_LINUX_SERVER" and wait 120 seconds and wait for prompt "False"
       | "nohup /home/radware/curl_DF_traffic_auto.sh " |
       | #visionIP                                |
-      | " PO_300 20"                             |
+      | " PO_101 20"                             |
 
   @SID_3
   Scenario: VRM - Login to AMS DefenseFlow Analytics Dashboard
@@ -147,7 +154,15 @@ Feature: AMS DefenseFlow Traffic Dashboard
       | ALL     | fatal      | NOT_EXPECTED |
       | ALL     | error      | NOT_EXPECTED |
 
-  @SID_10
+
+  @SID_13
+  Scenario: Change DF managment IP to default
+    When CLI Operations - Run Radware Session command "system df management-ip set 172.17.164.60"
+    When CLI Operations - Run Radware Session command "system df management-ip get"
+    Then CLI Operations - Verify that output contains regex "DefenseFlow Management IP Address: 172.17.164.60"
+
+
+  @SID_11
   Scenario: Cleanup
     And UI Navigate to "HOME" page via homePage
     Then UI logout and close browser

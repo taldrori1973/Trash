@@ -8,6 +8,13 @@ Feature: AMS DefenseFlow Attacks Dashboard
     * REST Delete ES index "df-attack*"
     * CLI Clear vision logs
 
+  @SID_34
+  Scenario: Change DF managment IP to IP of Generic Linux
+    When CLI Operations - Run Radware Session command "system df management-ip set 172.17.164.10"
+    When CLI Operations - Run Radware Session command "system df management-ip get"
+    Then CLI Operations - Verify that output contains regex "DefenseFlow Management IP Address: 172.17.164.10"
+
+
   @SID_2 @Sanity
   Scenario: Run DF simulator
     When CLI Run remote linux Command on "GENERIC_LINUX_SERVER"
@@ -557,6 +564,13 @@ Feature: AMS DefenseFlow Attacks Dashboard
       | logType | expression | isExpected   |
       | ALL     | fatal      | NOT_EXPECTED |
       | ALL     | error      | NOT_EXPECTED |
+
+  @SID_34
+  Scenario: Change DF managment IP to default
+    When CLI Operations - Run Radware Session command "system df management-ip set 172.17.164.60"
+    When CLI Operations - Run Radware Session command "system df management-ip get"
+    Then CLI Operations - Verify that output contains regex "DefenseFlow Management IP Address: 172.17.164.60"
+
 
   @SID_33
   Scenario: Cleanup
