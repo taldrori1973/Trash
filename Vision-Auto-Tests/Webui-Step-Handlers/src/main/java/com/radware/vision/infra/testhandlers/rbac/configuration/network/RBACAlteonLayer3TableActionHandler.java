@@ -1,6 +1,6 @@
 package com.radware.vision.infra.testhandlers.rbac.configuration.network;
 
-import basejunit.RestTestBase;
+import com.radware.automation.tools.basetest.Reporter;
 import com.radware.automation.webui.webpages.configuration.network.layer3.dynamicRouting.bgp.aggregations.Aggregations;
 import com.radware.automation.webui.webpages.configuration.network.layer3.dynamicRouting.bgp.peers.Peers;
 import com.radware.automation.webui.webpages.configuration.network.layer3.dynamicRouting.networkFilters.NetworkFilters;
@@ -20,7 +20,6 @@ import com.radware.automation.webui.widgets.impl.table.WebUITable;
 import com.radware.vision.infra.testhandlers.rbac.RBACHandlerBase;
 import com.radware.vision.infra.testhandlers.rbac.enums.ManagementNetworks;
 import com.radware.vision.infra.utils.DeviceVisionWebUIUtils;
-import com.radware.automation.tools.basetest.Reporter;
 
 import java.util.HashMap;
 
@@ -62,7 +61,7 @@ public class RBACAlteonLayer3TableActionHandler extends RBACHandlerBase {
         } else if (testProperties.get("managementNetwork").equalsIgnoreCase(ManagementNetworks.IPV6.getNetwork())) {
             table = staticRoutes.getTableIpV6();
         } else {
-            RestTestBase.report.report("incorrect network Type was provided: " + testProperties.get("managementNetwork") + "\n.", Reporter.FAIL);
+            BaseTestUtils.report("incorrect network Type was provided: " + testProperties.get("managementNetwork") + "\n.", Reporter.FAIL);
         }
 
         clickOnRowIfRequired(table, testProperties);
@@ -292,7 +291,7 @@ public class RBACAlteonLayer3TableActionHandler extends RBACHandlerBase {
             proxyIp.mProxyIpv6().openTab();
             table = proxyIp.mProxyIpv6().getTableIpV6();
         } else {
-            RestTestBase.report.report("incorrect network Type was provided: " + testProperties.get("managementNetwork") + "\n.", Reporter.FAIL);
+            BaseTestUtils.report("incorrect network Type was provided: " + testProperties.get("managementNetwork") + "\n.", Reporter.FAIL);
         }
         clickOnRowIfRequired(table, testProperties);
         boolean result = table.isTableActionDisabled(testProperties.get("proxyIPTableAction"), expectedResultRBAC);

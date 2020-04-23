@@ -1,12 +1,11 @@
 package com.radware.vision.infra.testhandlers.rbac.configuration.network;
 
-import basejunit.RestTestBase;
+import com.radware.automation.tools.basetest.Reporter;
 import com.radware.automation.webui.webpages.configuration.network.proxyIp.ProxyIp;
 import com.radware.automation.webui.widgets.impl.table.WebUITable;
 import com.radware.vision.infra.testhandlers.rbac.RBACHandlerBase;
 import com.radware.vision.infra.testhandlers.rbac.enums.ManagementNetworks;
 import com.radware.vision.infra.utils.DeviceVisionWebUIUtils;
-import com.radware.automation.tools.basetest.Reporter;
 
 import java.util.HashMap;
 
@@ -29,7 +28,7 @@ public class RBACAlteonNetworkBaseTableActionHandler extends RBACHandlerBase {
             proxyIp.mProxyIpv6().openTab();
             table = proxyIp.mProxyIpv6().getTableIpV6();
         } else {
-            RestTestBase.report.report("incorrect network Type was provided: " + testProperties.get("managementNetwork") + "\n.", Reporter.FAIL);
+            BaseTestUtils.report("incorrect network Type was provided: " + testProperties.get("managementNetwork") + "\n.", Reporter.FAIL);
         }
 
         if (table.getRowsNumber() > 0 && Boolean.valueOf(testProperties.get("clickOnRow"))) {

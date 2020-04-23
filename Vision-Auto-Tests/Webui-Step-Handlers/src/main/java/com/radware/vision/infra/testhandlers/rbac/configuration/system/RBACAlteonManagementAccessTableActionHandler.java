@@ -1,6 +1,5 @@
 package com.radware.vision.infra.testhandlers.rbac.configuration.system;
 
-import basejunit.RestTestBase;
 import com.radware.automation.tools.basetest.Reporter;
 import com.radware.automation.webui.webpages.configuration.system.managementAccess.accessControls.AccessControl;
 import com.radware.automation.webui.webpages.configuration.system.managementAccess.managementPorts.ManagementPorts;
@@ -53,7 +52,7 @@ public class RBACAlteonManagementAccessTableActionHandler extends RBACHandlerBas
         } else if ((testProperties.get("managementNetwork")).equalsIgnoreCase(ManagementNetworks.IPV6.toString())) {
             table = accessControl.mAllowedProtocolsPerNetwork().getTableIpV6();
         } else {
-            RestTestBase.report.report("incorrect Management network was provided: " + testProperties.get("managementNetwork") + "\n.", Reporter.FAIL);
+            BaseTestUtils.report("incorrect Management network was provided: " + testProperties.get("managementNetwork") + "\n.", Reporter.FAIL);
         }
 
         clickOnRowIfRequired(table, testProperties);
