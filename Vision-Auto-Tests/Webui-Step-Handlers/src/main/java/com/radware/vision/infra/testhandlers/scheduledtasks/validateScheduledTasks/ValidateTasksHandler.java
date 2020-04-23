@@ -17,8 +17,6 @@ import com.radware.restcore.VisionRestClient;
 import com.radware.utils.DeviceUtils;
 import com.radware.utils.scheduler.ScheduledTasksUtils;
 import com.radware.utils.scheduler.Utils;
-import com.radware.vision.pojomodel.helpers.constants.ImConstants$ScheduledTaskExecutionStatusEnumPojo;
-import com.radware.vision.vision_project_cli.RootServerCli;
 import com.radware.vision.infra.base.pages.VisionServerInfoPane;
 import com.radware.vision.infra.base.pages.VisionServerMenuPane;
 import com.radware.vision.infra.base.pages.system.deviceresources.devicebackups.DeviceBackups;
@@ -32,7 +30,8 @@ import com.radware.vision.infra.testhandlers.scheduledtasks.enums.BackupDestinat
 import com.radware.vision.infra.testhandlers.topologytree.TopologyTreeHandler;
 import com.radware.vision.infra.utils.DeviceVisionWebUIUtils;
 import com.radware.vision.infra.utils.TimeUtils;
-import junit.framework.SystemTestCase4;
+import com.radware.vision.pojomodel.helpers.constants.ImConstants$ScheduledTaskExecutionStatusEnumPojo;
+import com.radware.vision.vision_project_cli.RootServerCli;
 import org.apache.commons.httpclient.HttpClient;
 import org.apache.commons.httpclient.methods.GetMethod;
 import testhandlers.vision.config.itemlist.scheduler.tasks.enums.ScheduledTaskTypes;
@@ -602,13 +601,13 @@ public class ValidateTasksHandler extends BaseTasksHandler {
                 InvokeUtils.invokeCommand(rootServerCommand, rootServerCli);
                 String result = (rootServerCli.getTestAgainstObject() != null) ? rootServerCli.getTestAgainstObject().toString() : "";
                 if (result.toLowerCase().contains("ok")) {
-                    SystemTestCase4.report.report("File deleted", Reporter.PASS);
+                    BaseTestUtils.report("File deleted", Reporter.PASS);
                     return;
                 } else if (result.contains("Access failed: Failure (/cm:/db_f.bin)")) {
-                    SystemTestCase4.report.report("Maybe the file does not exist : " + result, Reporter.WARNING);
+                    BaseTestUtils.report("Maybe the file does not exist : " + result, Reporter.WARNING);
                     return;
                 } else if (i == tryCount - 1) {
-                    SystemTestCase4.report.report(result, Reporter.WARNING);
+                    BaseTestUtils.report(result, Reporter.WARNING);
                 }
 
             } catch (Exception e) {

@@ -12,13 +12,15 @@ import com.radware.vision.automation.AutoUtils.Operators.OperatorsEnum;
 import com.radware.vision.infra.base.pages.alerts.AlertFilter;
 import com.radware.vision.infra.base.pages.alerts.Alerts;
 import com.radware.vision.infra.base.pages.navigation.WebUIVisionBasePage;
-import com.radware.vision.infra.enums.*;
+import com.radware.vision.infra.enums.AlertsTableColumns;
+import com.radware.vision.infra.enums.DualListTypeEnum;
+import com.radware.vision.infra.enums.RaisedTimeUnits;
+import com.radware.vision.infra.enums.WebElementType;
 import com.radware.vision.infra.testhandlers.alerts.AlertsUtils.AcknowledgementSetter;
 import com.radware.vision.infra.testhandlers.baseoperations.BasicOperationsHandler;
 import com.radware.vision.infra.testhandlers.baseoperations.clickoperations.ClickOperationsHandler;
 import com.radware.vision.infra.utils.GeneralUtils;
 import com.radware.vision.infra.utils.WebUIStringsVision;
-import junit.framework.SystemTestCase4;
 
 import java.util.*;
 
@@ -108,8 +110,8 @@ public class AlertsHandler {
 //        alerts.submitAlertAction();
     }
 
-    public static boolean ackUnackAlert(String ackState, String rowIndexes){
-        switch (ackState){
+    public static boolean ackUnackAlert(String ackState, String rowIndexes) {
+        switch (ackState) {
             case "acknowledge":
                 return ackAlert(rowIndexes);
             case "unacknowledge":
@@ -133,7 +135,7 @@ public class AlertsHandler {
     private static boolean innerAckUnackAlerts(HashMap<String, String> filterProperties, String rowIndexes, boolean ack) {
         int row = Integer.parseInt(rowIndexes);
         Alerts alerts = new Alerts();
-        if(!alerts.isAlertsTableOpen()) {
+        if (!alerts.isAlertsTableOpen()) {
             alerts.alertsMaximize();
         }
         int origAlertsNum = alerts.getAlertsNumber();
@@ -157,7 +159,7 @@ public class AlertsHandler {
         filterProperties.put("raisedTimeValue", "2");
         AlertsHandler.filterAlerts(filterProperties);
 
-        if(!alerts.isAlertsTableOpen()) {
+        if (!alerts.isAlertsTableOpen()) {
             alerts.alertsMaximize();
         }
         final Map<String, Map<String, String>> allAlert = alerts.getAllAlertData(20);
@@ -182,20 +184,20 @@ public class AlertsHandler {
     }
 
     public static void autoRefreshOnOff(boolean isOn) {
-        if(isOn){
+        if (isOn) {
             autoRefreshOn(true);
-        }else{
+        } else {
             autoRefreshOff(true);
         }
     }
 
     public static void autoRefreshOn(boolean isMinimize) {
         Alerts alerts = new Alerts();
-        if(!alerts.isAlertsTableOpen()) {
+        if (!alerts.isAlertsTableOpen()) {
             alerts.alertsMaximize();
         }
         alerts.autoRefreshAlertsOn();
-        if(isMinimize){
+        if (isMinimize) {
             alerts.alertsMinimize();
         }
     }
@@ -206,11 +208,11 @@ public class AlertsHandler {
 
     public static void autoRefreshOff(boolean isMinimize) {
         Alerts alerts = new Alerts();
-        if(!alerts.isAlertsTableOpen()) {
+        if (!alerts.isAlertsTableOpen()) {
             alerts.alertsMaximize();
         }
         alerts.autoRefreshAlertsOff();
-        if(isMinimize){
+        if (isMinimize) {
             alerts.alertsMinimize();
         }
     }
@@ -219,7 +221,7 @@ public class AlertsHandler {
         autoRefreshOff(false);
     }
 
-    public static void validateAlertsFilter(VisionRestClient visionReSTClient, HashMap<String, String> filterProperties){
+    public static void validateAlertsFilter(VisionRestClient visionReSTClient, HashMap<String, String> filterProperties) {
         try {
             if (filterProperties.get("ackUnackStatusList") != null && !filterProperties.get("ackUnackStatusList").equals("")) {
                 filterProperties.put("ackUnackStatusList", filterProperties.get("ackUnackStatusList").replaceAll("true", "acknowledged"));
@@ -261,7 +263,7 @@ public class AlertsHandler {
         }
     }
 
-    public static void setFilterToAck(){
+    public static void setFilterToAck() {
         HashMap<String, String> filterProperties = new HashMap<>();
         filterProperties.put("ackUnackStatusList", "Acknowledged");
         AlertsHandler.filterAlerts(filterProperties);
@@ -269,7 +271,7 @@ public class AlertsHandler {
 
     public static void filterAlerts(HashMap<String, String> filterProperties) {
         Alerts alerts = new Alerts();
-        if(!alerts.isAlertsTableOpen()) {
+        if (!alerts.isAlertsTableOpen()) {
             alerts.alertsMaximize();
         }
         alerts.filterAlertsClick();
@@ -294,24 +296,24 @@ public class AlertsHandler {
         return true;
     }
 
-    public static boolean validateAlertContentByKeyValue(String key, String value, boolean closeAlertsTable, List<Table.TableDataSets> keyValueList){
-           WebUITable table = setupAlertTable();
-           int rowToValidateIndex = table.getRowIndex(key, value, true);
-           if (rowToValidateIndex == -1) {
-               BaseTestUtils.report("Relevant Alert was not found by key: " + key + " value: " + value, BaseTestUtils.PASS_NOR_FAIL);
-               return false;
-           }
-           boolean result = table.validateTableRowContent(keyValueList, rowToValidateIndex);
-            Alerts alerts = new Alerts();
-            if(closeAlertsTable){
-                alerts.alertsMinimize();
-            }
-            return result;
+    public static boolean validateAlertContentByKeyValue(String key, String value, boolean closeAlertsTable, List<Table.TableDataSets> keyValueList) {
+        WebUITable table = setupAlertTable();
+        int rowToValidateIndex = table.getRowIndex(key, value, true);
+        if (rowToValidateIndex == -1) {
+            BaseTestUtils.report("Relevant Alert was not found by key: " + key + " value: " + value, BaseTestUtils.PASS_NOR_FAIL);
+            return false;
+        }
+        boolean result = table.validateTableRowContent(keyValueList, rowToValidateIndex);
+        Alerts alerts = new Alerts();
+        if (closeAlertsTable) {
+            alerts.alertsMinimize();
+        }
+        return result;
     }
 
-    public static WebUITable setupAlertTable(){
+    public static WebUITable setupAlertTable() {
         Alerts alerts = new Alerts();
-        if(!alerts.isAlertsTableOpen()){
+        if (!alerts.isAlertsTableOpen()) {
             alerts.alertsMaximize();
         }
         alerts.autoRefreshAlertsOff();
@@ -320,13 +322,12 @@ public class AlertsHandler {
     }
 
 
-
-    public static boolean validateAlertPropertyByOtherProperty(boolean isCloseModule, List<TableKeyValueByKeyValueExpectedDataSet> tableProperties){
+    public static boolean validateAlertPropertyByOtherProperty(boolean isCloseModule, List<TableKeyValueByKeyValueExpectedDataSet> tableProperties) {
         TableKeyValueByKeyValueExpectedDataSet properties = tableProperties.get(0);
         WebUITable table = setupAlertTable();
         boolean result = table.validateRowPropertyByOtherProperty(properties.columnNameBy, properties.valueBy, properties.columnNameExpected, properties.valueExpected);
         Alerts alerts = new Alerts();
-        if(isCloseModule){
+        if (isCloseModule) {
             alerts.alertsMinimize();
         }
         return result;
@@ -449,7 +450,7 @@ public class AlertsHandler {
             return true;
         } else {
             String msg = String.format("origAlertsNum: %d, currentAlertsNumber: %d", origAlertsNum, alerts.getAlertsNumber());
-            SystemTestCase4.report.report(msg);
+            BaseTestUtils.reporter.report(msg);
             return false;
         }
     }
