@@ -36,7 +36,7 @@ public class VRMSteps {
 
     @Then("^UI Validate VRM Report Existence by Name \"(.*)\" if Exists \"(true|false)\"$")
     public void validateVRMReportExistenceByName(String reportName, boolean isExists) {
-        vrmReportsHandler.validateVRMBaseTestUtils.reportName, isExists);
+        vrmReportsHandler.validateVRMReport(reportName, isExists);
     }
 
     @Then("^UI validate Quick Range between Starting Date \"([^\"]*)\" End Date \"([^\"]*)\" with QuickRange \"([^\"]*)\"(?: with time Format \"([^\"]*)\")?(?: by error threshold in minutes \"([^\"]*)\")?$")
