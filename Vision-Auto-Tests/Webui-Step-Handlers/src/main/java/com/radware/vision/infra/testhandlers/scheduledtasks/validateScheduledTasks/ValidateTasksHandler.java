@@ -1,6 +1,7 @@
 package com.radware.vision.infra.testhandlers.scheduledtasks.validateScheduledTasks;
 
 import com.aqua.sysobj.conn.CliConnectionImpl;
+import com.radware.automation.tools.basetest.BaseTestUtils;
 import com.radware.automation.tools.basetest.Reporter;
 import com.radware.automation.tools.utils.ExecuteShellCommands;
 import com.radware.automation.tools.utils.InvokeUtils;

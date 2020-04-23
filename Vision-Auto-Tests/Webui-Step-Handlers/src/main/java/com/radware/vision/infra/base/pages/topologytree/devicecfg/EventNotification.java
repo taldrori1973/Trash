@@ -1,5 +1,6 @@
 package com.radware.vision.infra.base.pages.topologytree.devicecfg;
 
+import com.radware.automation.tools.basetest.BaseTestUtils;
 import com.radware.automation.tools.basetest.Reporter;
 import com.radware.automation.webui.widgets.impl.WebUICheckbox;
 import com.radware.automation.webui.widgets.impl.WebUIDropdown;

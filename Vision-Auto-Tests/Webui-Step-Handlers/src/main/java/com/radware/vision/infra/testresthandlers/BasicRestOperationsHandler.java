@@ -124,7 +124,7 @@ public class BasicRestOperationsHandler {
 
             for (ExistenceReport expectedReport : expectedReports)
             {
-                if (!expectedReport.isExist.equals(actualReportsName.contains(expectedBaseTestUtils.reportName)))
+                if (!expectedReport.isExist.equals(actualReportsName.contains(expectedReport.reportName)))
                     ReportsUtils.addErrorMessage("'" + expectedReport.reportName + "' report " + (expectedReport.isExist.equals(true)?"should":"shouldn't") + " be exist, but the Actual is not");
             }
             reportErrors();
