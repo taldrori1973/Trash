@@ -1,5 +1,6 @@
 package com.radware.vision.infra.testhandlers.rbac.configuration.network;
 
+import com.radware.automation.tools.basetest.BaseTestUtils;
 import com.radware.automation.tools.basetest.Reporter;
 import com.radware.automation.webui.webpages.configuration.network.proxyIp.ProxyIp;
 import com.radware.automation.webui.widgets.impl.table.WebUITable;

@@ -47,7 +47,6 @@ import com.radware.vision.vision_project_cli.MysqlClientCli;
 import com.radware.vision.vision_project_cli.RadwareServerCli;
 import com.radware.vision.vision_project_cli.RootServerCli;
 import com.radware.vision.vision_project_cli.menu.Menu;
-import junit.framework.SystemTestCase;
 import org.openqa.selenium.*;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.How;
@@ -650,11 +649,11 @@ public class BasicOperationsHandler {
     public static void settings() {
         navigateFromHomePage("HOME");
         WebUIBasePage.closeAllYellowMessages();
-    try
-    {
-        HomePage.navigateFromHomePage(PropertiesFilesUtils.mapAllPropertyFiles("Navigations").get("VISION SETTINGS"));
-        WebUIUtils.fluentWait(ComponentLocatorFactory.getLocatorById("gwt-debug-System").getBy()).click();
-    }catch (Exception ignore){}
+        try {
+            HomePage.navigateFromHomePage(PropertiesFilesUtils.mapAllPropertyFiles("Navigations").get("VISION SETTINGS"));
+            WebUIUtils.fluentWait(ComponentLocatorFactory.getLocatorById("gwt-debug-System").getBy()).click();
+        } catch (Exception ignore) {
+        }
         //Verify the click
         if (!new VisionServerInfoPane().getDeviceName().equals("APSolute Vision")) {
             ReportsUtils.reportAndTakeScreenShot("Failed To Go To Vision ", Reporter.FAIL);
@@ -790,10 +789,10 @@ public class BasicOperationsHandler {
         randomFileName += ".png";
         inputStream = ImageCompression.compressFile(inputStream);
 
-        SystemTestCase.report.saveFile(randomFileName, ByteStreams.toByteArray(inputStream));
+        BaseTestUtils.reporter.saveFile(randomFileName, ByteStreams.toByteArray(inputStream));
 
         String imageSource = randomFileName;
-        SystemTestCase.BaseTestUtils.reportHtml(time + " Screenshot. ", "<img src=" + imageSource + " alt=screenshot width=1280 height=848>", true);
+        BaseTestUtils.reporter.reportHtml(time + " Screenshot. ", "<img src=" + imageSource + " alt=screenshot width=1280 height=848>", true);
     }
 
     public static void setIsLoggedIn(boolean isLoggedIn) {
@@ -990,18 +989,17 @@ public class BasicOperationsHandler {
         Properties properties = new Properties();        //function to upload file from project
 //        properties.load(new FileInputStream("jsystem.properties"));
 //        String basePath = properties.getProperty("resources.src");
-        String basePath = FileUtils.getAbsoluteProjectPath()+ "src" + File.separator + "main" + File.separator + "resources" + File.separator;
-        String uploadFilePath = basePath  + File.separator + "uploadedFiles" + (System.getProperty("os.name").contains("Windows")? "\\":"/") + name;
+        String basePath = FileUtils.getAbsoluteProjectPath() + "src" + File.separator + "main" + File.separator + "resources" + File.separator;
+        String uploadFilePath = basePath + File.separator + "uploadedFiles" + (System.getProperty("os.name").contains("Windows") ? "\\" : "/") + name;
         BaseTestUtils.report("Path of Uploaded file is: " + uploadFilePath, Reporter.PASS_NOR_FAIL);
         BaseTestUtils.report("The label is: " + label, Reporter.PASS_NOR_FAIL);
-        if(label!= null){
+        if (label != null) {
             VisionDebugIdsManager.setLabel(label);
             VisionDebugIdsManager.setParams(param);
             String debugId = VisionDebugIdsManager.getDataDebugId();
             BaseTestUtils.report("The debug id is: " + debugId, Reporter.PASS_NOR_FAIL);
-            elem = WebUIUtils.fluentWait(new ComponentLocator(How.XPATH,"//*[contains(@data-debug-id,'" + debugId +"')]/..//input[@type='file']").getBy(),WebUIUtils.SHORT_WAIT_TIME, false);
-        }
-        else {
+            elem = WebUIUtils.fluentWait(new ComponentLocator(How.XPATH, "//*[contains(@data-debug-id,'" + debugId + "')]/..//input[@type='file']").getBy(), WebUIUtils.SHORT_WAIT_TIME, false);
+        } else {
             elem = WebUIDriver.getDriver().findElement(By.xpath("//input[@type='file']"));
         }
         elem.sendKeys(uploadFilePath);
@@ -1011,22 +1009,22 @@ public class BasicOperationsHandler {
 
     public static void openDeviceList(String label) throws Exception {
 
-        switch(label){
+        switch (label) {
             case "Devices":
-                label="Device Selection";
+                label = "Device Selection";
                 BasicOperationsHandler.clickButton(label, "");
                 break;
             case "Reports":
-             //   openTab(label);
+                //   openTab(label);
                 clickButton("Add New", "");
-                clickButton("Template","");
+                clickButton("Template", "");
                 BasicOperationsHandler.clickButton("DefensePro Behavioral Protections Template", "");
                 clickButton("Widget Apply");
                 VRMBaseUtilies.expandViews(true);
                 break;
             case "Forensics":
             case "Alerts":
-               // openTab(label);
+                // openTab(label);
                 clickButton("Add New", "");
                 VRMBaseUtilies.expandViews(true);
                 break;
@@ -1046,10 +1044,10 @@ public class BasicOperationsHandler {
     private static void closeAllPopups() {
         ComponentLocator locator = ComponentLocatorFactory.getLocatorByClass("ant-modal-close");
         if ((WebUIUtils.fluentWait(locator.getBy(), WebUIUtils.SHORT_WAIT_TIME)) != null && WebUIUtils.fluentWait(locator.getBy(), WebUIUtils.SHORT_WAIT_TIME).isDisplayed())
-            try
-            {
-                WebUIUtils.fluentWaitClick(locator.getBy(), WebUIUtils.SHORT_WAIT_TIME,  false).click();
-            }catch (ElementNotInteractableException ignore){}
+            try {
+                WebUIUtils.fluentWaitClick(locator.getBy(), WebUIUtils.SHORT_WAIT_TIME, false).click();
+            } catch (ElementNotInteractableException ignore) {
+            }
 
     }
 

@@ -23,7 +23,6 @@ import com.radware.vision.vision_project_cli.RootServerCli;
 import jsystem.framework.ParameterProperties;
 import jsystem.framework.RunProperties;
 import jsystem.framework.TestProperties;
-import junit.framework.SystemTestCase;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import org.junit.Test;
@@ -717,7 +716,7 @@ public class BasicOperations extends WebUITestBase {
             String randomFileName = UUID.randomUUID().toString();
             randomFileName += ".png";
             inputStream = ImageCompression.compressFile(inputStream);
-            SystemTestCase.report.saveFile(randomFileName, ByteStreams.toByteArray(inputStream));
+            BaseTestUtils.reporter.saveFile(randomFileName, ByteStreams.toByteArray(inputStream));
 
             String imageSource = randomFileName;
             BaseTestUtils.reportHtml(time + " Screenshot. Login", "<img src=" + imageSource + " alt=screenshot width=1280 height=848>", true);
