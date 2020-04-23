@@ -11,6 +11,12 @@ Feature: DefenseFlow Traffic Reports
     * REST Delete ES index "vrm-scheduled-report-result-*"
     * CLI Clear vision logs
 
+  @SID_13
+  Scenario: Change DF managment IP to IP of Generic Linux
+    When CLI Operations - Run Radware Session command "system df management-ip set 172.17.164.10"
+    When CLI Operations - Run Radware Session command "system df management-ip get"
+    Then CLI Operations - Verify that output contains regex "DefenseFlow Management IP Address: 172.17.164.10"
+
   @SID_2
   Scenario: Email configuration
     Given UI Login with user "sys_admin" and password "radware"
@@ -87,7 +93,7 @@ Feature: DefenseFlow Traffic Reports
       | ALL     | fatal      | NOT_EXPECTED |
       | ALL     | error      | NOT_EXPECTED |
 
-  @SID_11
+  @SID_12
   Scenario: Cleanup
     When UI Open "Configurations" Tab
     Then UI logout and close browser
