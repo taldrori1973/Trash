@@ -6,6 +6,7 @@ import com.radware.automation.tools.basetest.Reporter;
 import com.radware.automation.tools.cli.LinuxFileServer;
 import com.radware.automation.tools.cli.ServerCliBase;
 import com.radware.automation.tools.utils.InvokeUtils;
+import com.radware.automation.webui.UIUtils;
 import com.radware.vision.automation.AutoUtils.Operators.Comparator;
 import com.radware.vision.automation.AutoUtils.Operators.OperatorsEnum;
 import com.radware.vision.bddtests.BddCliTestBase;
@@ -234,7 +235,7 @@ public class RemoteSshCommandsTests extends BddCliTestBase {
                 bTestSuccess = compareResults(expectedResult, actualResult, operatorsEnum, null);
 
                 if (!(iNumberOfDelayTimes == 0 || bTestSuccess))
-                    sleep(15 * 1000);
+                    UIUtils.sleep(15 * 1000);
             } while (iNumberOfDelayTimes > 0 && !bTestSuccess);
             if (!bTestSuccess)
                 BaseTestUtils.report(Comparator.failureMessage, Reporter.FAIL);
