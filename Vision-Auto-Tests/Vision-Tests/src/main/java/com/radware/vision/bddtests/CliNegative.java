@@ -99,7 +99,7 @@ public class CliNegative extends BddCliTestBase {
         if (!existingList.isEmpty()) {
             report.startLevel("Errors : find some of the strings");
             for (String string : existingList) {
-                BaseTestUtils.report(string);
+                BaseTestUtils.reporter.report(string);
             }
             report.stopLevel();
             BaseTestUtils.report("There were : " + existingList.size() + "bad items", Reporter.FAIL);
@@ -261,7 +261,7 @@ public class CliNegative extends BddCliTestBase {
         if (!errorsList.isEmpty()) {
             report.startLevel("The wrong errors list for the negative tests");
             for (String string : errorsList) {
-                BaseTestUtils.report(string);
+                BaseTestUtils.reporter.report(string);
             }
             BaseTestUtils.report("There Is " + errorsList.size() + " Errors", Reporter.FAIL);
             report.stopLevel();

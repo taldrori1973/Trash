@@ -38,7 +38,7 @@ public class DisplayTests extends WebUITestBase {
                 message = "drop down value did not changed\n";
             }
             if (BasicOperationsHandler.getVisionClientTime().matches(timeFormat.getPatternOfTimeFormat())) {
-                BaseTestUtils.report("time format changed to the new " + timeFormat);
+                BaseTestUtils.reporter.report("time format changed to the new " + timeFormat);
 
             } else {
                 message += "date format did not changed";

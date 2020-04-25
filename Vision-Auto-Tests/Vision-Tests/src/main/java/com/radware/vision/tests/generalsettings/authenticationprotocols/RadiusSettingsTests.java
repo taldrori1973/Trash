@@ -55,7 +55,7 @@ public class RadiusSettingsTests extends WebUITestBase {
                 }
             }
         } catch (Exception e) {
-            BaseTestUtils.report(e.getMessage());
+            BaseTestUtils.reporter.report(e.getMessage());
         }
     }
 
