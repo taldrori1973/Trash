@@ -3,14 +3,13 @@ package com.radware.vision.base;
 
  */
 
-import com.radware.automation.bdd.reporter.JSystemReporter4Bdd;
 import com.radware.vision.automation.AutoUtils.SUT.controllers.SUTManager;
 import com.radware.vision.automation.AutoUtils.SUT.controllers.SUTManagerImpl;
 import com.radware.vision.automation.AutoUtils.SUT.dtos.ClientConfigurationDto;
 import com.radware.vision.systemManagement.VisionConfigurations;
 import com.radware.vision.systemManagement.models.ManagementInfo;
 
-public abstract class TestBase extends JSystemReporter4Bdd {
+public abstract class TestBase {
 
     protected static SUTManager sutManager;
     protected static VisionConfigurations visionConfigurations;

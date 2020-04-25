@@ -133,7 +133,7 @@ public class CliNegative extends BddCliTestBase {
             doTheVisionLabRestart = true;
             BaseTestUtils.report("Timeout/Unexpected error !!!", Reporter.FAIL);
         } finally {
-            report.stopLevel();
+            reporter.stopLevel();
         }
     }
 
@@ -159,7 +159,7 @@ public class CliNegative extends BddCliTestBase {
                 BaseTestUtils.report("Error, couldn't find the correct error message", Reporter.FAIL);
             }
         } finally {
-            report.stopLevel();
+            reporter.stopLevel();
         }
     }
 
