@@ -1,5 +1,6 @@
 package com.radware.vision.tests.visionsettings.system.deviceresources;
 
+import com.radware.automation.tools.basetest.BaseTestUtils;
 import com.radware.vision.tests.visionsettings.VisionSettingsBase;
 import jsystem.framework.TestProperties;
 import org.junit.Test;
@@ -15,7 +16,7 @@ public class DeviceResources extends VisionSettingsBase {
     @TestProperties(name = "Click Device Backups", paramsInclude = {})
     public void clickDeviceBackups() {
        if(!clickMenu(subMenuOption, "deviceBackups")) {
-           BaseTestUtils.report("Failed to click 'Device Backups' menu option.");
+           BaseTestUtils.reporter.report("Failed to click 'Device Backups' menu option.");
        }
     }
 }

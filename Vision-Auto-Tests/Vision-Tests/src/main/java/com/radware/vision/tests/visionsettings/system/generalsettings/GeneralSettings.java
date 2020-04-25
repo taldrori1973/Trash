@@ -49,7 +49,7 @@ public class GeneralSettings extends VisionSettingsBase {
     @TestProperties(name = "Server Alarm", paramsInclude = {})
     public void clickServerAlarm() {
         if(!clickMenu(subMenuOption, "warningThresholds")) {
-            BaseTestUtils.report("Failed to click 'Server Alarm' menu option.");
+            BaseTestUtils.reporter.report("Failed to click 'Server Alarm' menu option.");
         }
     }
 
@@ -57,7 +57,7 @@ public class GeneralSettings extends VisionSettingsBase {
     @TestProperties(name = "Authentication Protocols", paramsInclude = {})
     public void clickAuthenticationProtocols() {
         if(!clickMenu(subMenuOption, "authenticationProtocols")) {
-            BaseTestUtils.report("Failed to click 'Authentication Protocols' menu option.");
+            BaseTestUtils.reporter.report("Failed to click 'Authentication Protocols' menu option.");
         }
     }
 
@@ -65,7 +65,7 @@ public class GeneralSettings extends VisionSettingsBase {
     @TestProperties(name = "Device Drivers", paramsInclude = {})
     public void clickDeviceDrivers() {
         if(!clickMenu(subMenuOption, "deviceDrivers")) {
-            BaseTestUtils.report("Failed to click 'Device Drivers' menu option.");
+            BaseTestUtils.reporter.report("Failed to click 'Device Drivers' menu option.");
         }
     }
 
@@ -89,7 +89,7 @@ public class GeneralSettings extends VisionSettingsBase {
     @TestProperties(name = "APM Settings", paramsInclude = {})
     public void clickAPMSettings() {
         if(!clickMenu(subMenuOption, "apmSettings")) {
-            BaseTestUtils.report("Failed to click 'APM Settings' menu option.");
+            BaseTestUtils.reporter.report("Failed to click 'APM Settings' menu option.");
         }
     }
 
@@ -97,7 +97,7 @@ public class GeneralSettings extends VisionSettingsBase {
     @TestProperties(name = "DefensePipe Settings", paramsInclude = {})
     public void clickDefensePipeSettings() {
         if(!clickMenu(subMenuOption, "defensePipeSettings")) {
-            BaseTestUtils.report("Failed to click 'DefensePipe Settings' menu option.");
+            BaseTestUtils.reporter.report("Failed to click 'DefensePipe Settings' menu option.");
         }
     }
 
@@ -113,7 +113,7 @@ public class GeneralSettings extends VisionSettingsBase {
     @TestProperties(name = "Display", paramsInclude = {})
     public void clickDisplay() {
         if(!clickMenu(subMenuOption, "display")) {
-            BaseTestUtils.report("Failed to click 'Display' menu option.");
+            BaseTestUtils.reporter.report("Failed to click 'Display' menu option.");
         }
     }
 
@@ -121,7 +121,7 @@ public class GeneralSettings extends VisionSettingsBase {
     @TestProperties(name = "Maintenance Files", paramsInclude = {})
     public void clickMaintenanceFiles() {
         if(!clickMenu(subMenuOption, "maintenance")) {
-            BaseTestUtils.report("Failed to click 'Maintenance Files' menu option.");
+            BaseTestUtils.reporter.report("Failed to click 'Maintenance Files' menu option.");
         }
     }
 

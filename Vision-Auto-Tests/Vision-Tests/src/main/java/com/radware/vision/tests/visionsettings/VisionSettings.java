@@ -31,7 +31,7 @@ public class VisionSettings extends VisionSettingsBase {
     @TestProperties(name = "Preferences", paramsInclude = {})
     public void clickPreferences() {
         if(!clickMenu("gwt-debug-Preferences")) {
-            BaseTestUtils.report("Failed to click 'Preferences' menu option.");
+            BaseTestUtils.reporter.report("Failed to click 'Preferences' menu option.");
         }
     }
 

@@ -27,7 +27,7 @@ public class RadiusSettingsTests extends WebUITestBase {
     public void updateRadiusSettings() {
 
         if (ipAddress == null || sharedSecret == null || confirmSharedSecret == null) {
-            BaseTestUtils.report("one or more of the following fields equal to null : ip address , shared secret , confirm shared secret");
+            BaseTestUtils.reporter.report("one or more of the following fields equal to null : ip address , shared secret , confirm shared secret");
         }
 
         try {

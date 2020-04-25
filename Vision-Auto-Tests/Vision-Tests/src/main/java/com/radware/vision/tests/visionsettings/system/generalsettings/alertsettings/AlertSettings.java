@@ -1,5 +1,6 @@
 package com.radware.vision.tests.visionsettings.system.generalsettings.alertsettings;
 
+import com.radware.automation.tools.basetest.BaseTestUtils;
 import com.radware.vision.tests.visionsettings.VisionSettingsBase;
 import jsystem.framework.TestProperties;
 import org.junit.Test;
@@ -15,7 +16,7 @@ public class AlertSettings extends VisionSettingsBase {
     @TestProperties(name = "Alert Browser", paramsInclude = {})
     public void clickAlertBrowser() {
         if(!clickMenu(subMenuOption, "alertBrowser")) {
-            BaseTestUtils.report("Failed to click 'Alert Browser' menu option.");
+            BaseTestUtils.reporter.report("Failed to click 'Alert Browser' menu option.");
         }
     }
 
@@ -23,7 +24,7 @@ public class AlertSettings extends VisionSettingsBase {
     @TestProperties(name = "Security Alerts", paramsInclude = {})
     public void clickSecurityAlerts() {
         if(!clickMenu(subMenuOption, "securityalertbrowser")) {
-            BaseTestUtils.report("Failed to click 'Security Alerts' menu option.");
+            BaseTestUtils.reporter.report("Failed to click 'Security Alerts' menu option.");
         }
     }
 

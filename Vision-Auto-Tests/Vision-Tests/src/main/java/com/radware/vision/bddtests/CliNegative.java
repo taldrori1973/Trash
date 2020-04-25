@@ -188,7 +188,7 @@ public class CliNegative extends BddCliTestBase {
                     boolean isPossitiveRootCheck, String seconedPartOfCommand, GoodErrorsList goodErrorsList, String commandRadware,
                     boolean isPossitiveRadwareCheck) throws Exception {
 
-        BaseTestUtils.report("About to begin the run for negative tests cli.");
+        BaseTestUtils.reporter.report("About to begin the run for negative tests cli.");
 
         Properties prop = new Properties();
         prop.load(getClass().getClassLoader().getResourceAsStream("badInput.properties"));

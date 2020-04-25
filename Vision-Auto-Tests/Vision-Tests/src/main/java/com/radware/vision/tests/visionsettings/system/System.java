@@ -1,5 +1,6 @@
 package com.radware.vision.tests.visionsettings.system;
 
+import com.radware.automation.tools.basetest.BaseTestUtils;
 import com.radware.vision.tests.visionsettings.VisionSettingsBase;
 import jsystem.framework.TestProperties;
 import org.junit.Test;
@@ -15,7 +16,7 @@ public class System extends VisionSettingsBase {
     @TestProperties(name = "General Settings", paramsInclude = {})
     public void clickGeneralSettings() {
         if(!clickMenu("gwt-debug-TopicsStack_am.system.generalSettings")) {
-            BaseTestUtils.report("Failed to click 'General Settings' menu option.");
+            BaseTestUtils.reporter.report("Failed to click 'General Settings' menu option.");
         }
     }
 
@@ -23,7 +24,7 @@ public class System extends VisionSettingsBase {
     @TestProperties(name = "User Management", paramsInclude = {})
     public void clickUserManagement() {
         if(!clickMenu("gwt-debug-TopicsStack_am.system.tree.userManagement")) {
-            BaseTestUtils.report("Failed to click 'User Management' menu option.");
+            BaseTestUtils.reporter.report("Failed to click 'User Management' menu option.");
         }
     }
 
@@ -31,7 +32,7 @@ public class System extends VisionSettingsBase {
     @TestProperties(name = "Device Resources", paramsInclude = {})
     public void clickDeviceResources() {
         if(!clickMenu("gwt-debug-TopicsStack_am.system.tree.additional")) {
-            BaseTestUtils.report("Failed to click 'Device Resources' menu option.");
+            BaseTestUtils.reporter.report("Failed to click 'Device Resources' menu option.");
         }
     }
 }

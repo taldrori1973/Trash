@@ -1,5 +1,6 @@
 package com.radware.vision.tests.visionsettings.system.generalsettings.apmsettings;
 
+import com.radware.automation.tools.basetest.BaseTestUtils;
 import com.radware.vision.tests.visionsettings.VisionSettingsBase;
 import jsystem.framework.TestProperties;
 import org.junit.Test;
@@ -15,7 +16,7 @@ public class ApmSettings extends VisionSettingsBase {
     @TestProperties(name = "APM Enable Devices", paramsInclude = {})
     public void clickAPMEnableDevices() {
         if(!clickMenu(subMenuOption, "apmInstances")) {
-            BaseTestUtils.report("Failed to click 'APM Enable Devices' menu option.");
+            BaseTestUtils.reporter.report("Failed to click 'APM Enable Devices' menu option.");
         }
     }
 }

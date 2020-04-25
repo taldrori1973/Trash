@@ -1,5 +1,6 @@
 package com.radware.vision.tests.visionsettings.preferences;
 
+import com.radware.automation.tools.basetest.BaseTestUtils;
 import com.radware.vision.tests.visionsettings.VisionSettingsBase;
 import jsystem.framework.TestProperties;
 import org.junit.Test;
@@ -13,7 +14,7 @@ public class Preferences extends VisionSettingsBase {
     @TestProperties(name = "User Preferences", paramsInclude = {})
     public void clickUserPreferences() {
         if(!clickMenu("gwt-debug-TopicsStack_am.preferences.tab")) {
-            BaseTestUtils.report("Failed to click 'User Preferences' menu option.");
+            BaseTestUtils.reporter.report("Failed to click 'User Preferences' menu option.");
         }
     }
 
