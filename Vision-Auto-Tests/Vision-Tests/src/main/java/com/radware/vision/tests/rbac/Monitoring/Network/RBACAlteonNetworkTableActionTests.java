@@ -1,5 +1,6 @@
 package com.radware.vision.tests.rbac.Monitoring.Network;
 
+import com.radware.automation.tools.basetest.BaseTestUtils;
 import com.radware.automation.tools.basetest.Reporter;
 import com.radware.vision.infra.testhandlers.rbac.Monitoring.network.RBACAlteonNetworkTableActionHandler;
 import com.radware.vision.infra.testhandlers.rbac.enums.ViewTableActions;

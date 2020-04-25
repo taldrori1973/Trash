@@ -1,5 +1,6 @@
 package com.radware.vision.tests.fileOperations;
 
+import com.radware.automation.tools.basetest.BaseTestUtils;
 import com.radware.automation.tools.basetest.Reporter;
 import com.radware.automation.tools.utils.FileUtils;
 import com.radware.vision.base.WebUITestBase;
