@@ -13,13 +13,10 @@ import com.radware.automation.bdd.reporter.JSystemReporter4Bdd;
 import com.radware.automation.tools.basetest.BaseTestUtils;
 import com.radware.automation.tools.basetest.Reporter;
 import com.radware.automation.tools.basetest.RuntimePropertiesEnum;
-import com.radware.automation.tools.centralreporting.entities.ReportResultEntity;
-import com.radware.automation.tools.centralreporting.manager.CentralReportingResultsManager;
 import com.radware.automation.tools.cli.ServerCliBase;
 import com.radware.automation.tools.reports.RallyTestReporter;
 import com.radware.automation.tools.utils.FileUtils;
 import com.radware.automation.tools.utils.InvokeUtils;
-import com.radware.automation.tools.utils.LinuxServerCredential;
 import com.radware.automation.webui.UIUtils;
 import com.radware.automation.webui.WebUIUtils;
 import com.radware.automation.webui.events.PopupEventHandler;
@@ -41,9 +38,7 @@ import com.radware.vision.automation.tools.sutsystemobjects.devicesinfo.DevicesM
 import com.radware.vision.infra.enums.DeviceDriverType;
 import com.radware.vision.infra.testhandlers.baseoperations.BasicOperationsHandler;
 import com.radware.vision.infra.utils.VisionWebUIUtils;
-import com.radware.vision.infra.utils.threadutils.ThreadsStatusMonitor;
 import com.radware.vision.pojomodel.helpers.constants.ImConstants$DeviceStatusEnumPojo;
-import com.radware.vision.vision_project_cli.MysqlClientCli;
 import com.radware.vision.vision_project_cli.menu.Menu;
 import com.radware.vision.vision_tests.CliTests;
 import cucumber.runtime.junit.FeatureRunner;
@@ -56,7 +51,10 @@ import testhandlers.Device;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.NoSuchFileException;
-import java.util.*;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 public abstract class WebUITestBase extends TestBase {
     protected boolean doTheVisionLabRestart = false;
@@ -65,36 +63,19 @@ public abstract class WebUITestBase extends TestBase {
     public static VisionWebUIUtils webUtils;
     public static String restOperationsUsername;
     public static String restOperationsPassword;
-    public static boolean globalRestartVisionServerInNoResponse = false;
     private static Boolean isDeviceManagedByVision = false;
 
     // For Results Reporting
-    public static CentralReportingResultsManager resultsManager = new CentralReportingResultsManager();
     protected static RallyTestReporter rallyTestReporter;
-    protected static String reportAutomationMode;
     protected static DevicesManager devicesManager;
-    private static String fileSeperator;
-    private static String deviceTypeCurrent;
-    private static boolean globalIsSeleniumRemoteOperation = false;
-    private static Timer timer = new Timer();
     private static Map<String, String> deviceDriverNamesMap = new HashMap<String, String>();
     private static Map<String, VisionNavigationXmlParser> navigationParsers = new HashMap<String, VisionNavigationXmlParser>();
     private static boolean isUIInit = false;
-    static boolean isRestInit = false;
-    private static boolean outputVisionThreadUtilization = false;
-    private static int visionThreadUtilizationReportIntervals = 5;
     public String browserSessionId;
-    protected String targetTestId;
-    protected String testCaseId = "0";
-    protected boolean closeAllOpenedDialogsRequired = false;
-    private String globalRemoteSeleniumServerHubIp = "10.205.191.170";
-    private String globalRemoteSeleniumServerHubPort = "4444";
     private String popupContentKey = "popupContent";
     private DeviceDriverType deviceDriverType = DeviceDriverType.VISION;
-    private String qcTestId;
     private String deviceName;
 
-    //    New
 
     public static VisionRestClient getVisionRestClient() {
         return restTestBase != null ? restTestBase.getVisionRestClient() : new VisionRestClient(null, null, null);
@@ -104,29 +85,6 @@ public abstract class WebUITestBase extends TestBase {
         return restTestBase;
     }
 
-    public static MysqlClientCli getMysqlServerCli() {
-        return restTestBase.getMysqlServer();
-    }
-
-    public static String getConnectionUsername() {
-        return clientConfigurations.getUserName();
-    }
-
-    public static boolean getOutputVisionThreadUtilization() {
-        return outputVisionThreadUtilization;
-    }
-
-    public static void setOutputVisionThreadUtilization(boolean outputVisionThreadUtilization) {
-        WebUITestBase.outputVisionThreadUtilization = outputVisionThreadUtilization;
-    }
-
-    public static int getVisionThreadUtilizationReportIntervals() {
-        return visionThreadUtilizationReportIntervals;
-    }
-
-    public static void setVisionThreadUtilizationReportIntervals(int visionThreadUtilizationReportIntervals) {
-        WebUITestBase.visionThreadUtilizationReportIntervals = visionThreadUtilizationReportIntervals;
-    }
 
     public static void selectDeviceVersion(String deviceName) {
         try {
@@ -160,11 +118,9 @@ public abstract class WebUITestBase extends TestBase {
         return DeviceDriverName.substring(DeviceDriverName.indexOf("-", 0) + 1, DeviceDriverName.lastIndexOf("DD") - 1);
     }
 
-    public static String getDeviceTypeCurrent() {
-        return deviceTypeCurrent;
-    }
 
     public static boolean getGlobalIsSeleniumRemoteOperation() {
+        boolean globalIsSeleniumRemoteOperation = false;
         return globalIsSeleniumRemoteOperation;
     }
 
@@ -187,7 +143,7 @@ public abstract class WebUITestBase extends TestBase {
 
                 UIUtils.visionModeForTable = true;
 
-                fileSeperator = System.getProperty("file.separator");
+                String fileSeperator = System.getProperty("file.separator");
                 // Set SMB timeouts
                 System.setProperty("jcifs.smb.client.responseTimeout", "120000"); // default: 30000 millisec.
                 System.setProperty("jcifs.smb.client.soTimeout", "140000"); // default: 35000 millisec.
@@ -222,6 +178,7 @@ public abstract class WebUITestBase extends TestBase {
     }
 
     public void coreInit() throws Exception {
+        boolean isRestInit = false;
         if (!isRestInit) {
 //            SUTManager instance = SUTManagerImpl.getInstance();
 //            instance.getVisionConfigurations();
@@ -325,25 +282,6 @@ public abstract class WebUITestBase extends TestBase {
         }
     }
 
-    public void publishResults(int targetTestCaseID) {
-        StringBuilder results = new StringBuilder();
-        for (ReportResultEntity result : resultsManager.getAllResults().values()) {
-            results.append(result.toString());
-        }
-        restTestBase.automationTestReporter.updateTestResult(resultsManager.getUpToDateAggResult(), results.toString(), targetTestCaseID);
-    }
-
-    public void publishBddResults() {
-        int testId = BddReporterManager.getTestCaseId();
-        if (testId > 0) {
-            setVisionBuildAndVersion();
-            if (IgnoreList.getInstance().getIgnoreList().containsKey("TC" + testId))
-                restTestBase.automationTestReporter.updateTestResult(false, BddReporterManager.getAllResult(), testId);
-            else
-                restTestBase.automationTestReporter.updateTestResult(BddReporterManager.isResultPass(), BddReporterManager.getAllResult(), testId);
-        }
-        BaseTestUtils.report("Scenario Result for testId: " + testId + "\n vision Version: " + managementInfo.getVersion() + "\n build number: " + managementInfo.getBuild(), Reporter.PASS_NOR_FAIL);
-    }
 
     public void setVisionBuildAndVersion() {
         try {
@@ -382,16 +320,6 @@ public abstract class WebUITestBase extends TestBase {
         return false;
     }
 
-    protected void startTimedTask() {
-        if (getOutputVisionThreadUtilization()) {
-            timer.schedule(new ThreadsStatusMonitor(getRestTestBase().getRootServerCli()), 0, visionThreadUtilizationReportIntervals * 1000);
-        }
-    }
-
-    protected void stopTimedTask() {
-        timer.cancel();
-        timer.purge();
-    }
 
     public String buildRemoteSeleniumUrl() {
         return "http://" + getGlobalRemoteSeleniumServerHubIp() + ":" + getGlobalRemoteSeleniumServerHubPort() + "/wd/hub";
@@ -452,57 +380,23 @@ public abstract class WebUITestBase extends TestBase {
         return exceptionBody.toString();
     }
 
-    public LinuxServerCredential getLinuxServerCredential() {
-        return restTestBase.getLinuxServerCredential();
-    }
-
-    public LinuxServerCredential getRootServerCliCredentials() {
-        return restTestBase.getRootServerCliCredentials();
-    }
 
     public String getVisionServerIp() {
         return clientConfigurations.getHostIp();
     }
 
-    public String getQcTestId() {
-        return qcTestId;
-    }
-
-    public void setQcTestId(String qcTestId) {
-        this.qcTestId = qcTestId;
-    }
 
     public String getGlobalRemoteSeleniumServerHubIp() {
+        String globalRemoteSeleniumServerHubIp = "10.205.191.170";
         return globalRemoteSeleniumServerHubIp;
     }
 
-    public void setGlobalRemoteSeleniumServerHubIp(String globalRemoteSeleniumServerHubIp) {
-        this.globalRemoteSeleniumServerHubIp = globalRemoteSeleniumServerHubIp;
-    }
 
     public String getGlobalRemoteSeleniumServerHubPort() {
+        String globalRemoteSeleniumServerHubPort = "4444";
         return globalRemoteSeleniumServerHubPort;
     }
 
-    public void setGlobalRemoteSeleniumServerHubPort(String globalRemoteSeleniumServerHubPort) {
-        this.globalRemoteSeleniumServerHubPort = globalRemoteSeleniumServerHubPort;
-    }
-
-    public boolean getCloseAllOpenedDialogsRequired() {
-        return closeAllOpenedDialogsRequired;
-    }
-
-    public void setCloseAllOpenedDialogsRequired(boolean closeAllOpenedDialogsRequired) {
-        this.closeAllOpenedDialogsRequired = closeAllOpenedDialogsRequired;
-    }
-
-    public void setDeviceType(VisionRestClient visionRestClient, String deviceName) {
-        try {
-            this.deviceTypeCurrent = DeviceUtils.getDeviceType(visionRestClient, deviceName);
-        } catch (Exception e) {
-            deviceTypeCurrent = "";
-        }
-    }
 
     public String getDeviceName() {
         return deviceName;
@@ -647,27 +541,9 @@ public abstract class WebUITestBase extends TestBase {
         return cli;
     }
 
-    public String getTestCaseId() {
-        return testCaseId;
-    }
-
-    public void setTestCaseId(String testCaseId) {
-        this.testCaseId = testCaseId;
-    }
-
-    public String getTargetTestId() {
-        return targetTestId;
-    }
-
-    public void setTargetTestId(String targetTestId) {
-        this.targetTestId = targetTestId;
-    }
 
     public static String getRetrievedParamValue() {
         return retrievedParamValue;
     }
 
-    public static void setRetrievedParamValue(String retrievedParamValue) {
-        WebUITestBase.retrievedParamValue = retrievedParamValue;
-    }
 }
