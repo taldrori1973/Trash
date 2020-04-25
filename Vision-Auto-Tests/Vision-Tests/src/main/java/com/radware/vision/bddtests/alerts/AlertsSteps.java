@@ -16,7 +16,6 @@ import com.radware.vision.infra.testhandlers.system.generalsettings.alertSetting
 import com.radware.vision.infra.utils.ReportsUtils;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
-import jsystem.framework.TestProperties;
 
 import java.util.HashMap;
 import java.util.List;
@@ -177,7 +176,6 @@ public class AlertsSteps extends WebUITestBase {
         }
     }
 
-    @TestProperties(name = "acknowledge All Alerts", paramsInclude = {"qcTestId"})
     @Then("^UI acknowledge All Alerts$")
     public void acknowledgeAllAlerts() {
         try {

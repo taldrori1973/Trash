@@ -6,13 +6,13 @@ import com.radware.automation.webui.utils.draganddrop.WebUIDragAndDrop;
 import com.radware.automation.webui.widgets.ComponentLocator;
 import com.radware.automation.webui.widgets.impl.*;
 import com.radware.automation.webui.widgets.impl.table.WebUITable;
+import com.radware.vision.automation.AutoUtils.utils.SystemProperties;
 import com.radware.vision.infra.base.pages.navigation.HomePage;
 import com.radware.vision.infra.base.pages.toolbox.advanced.OperatorToolbox;
 import com.radware.vision.infra.enums.DualListSides;
 import com.radware.vision.infra.enums.ToolboxActionsEnum;
 import com.radware.vision.infra.enums.ToolboxGroupsEnum;
 import com.radware.vision.infra.enums.WebWidgetType;
-import jsystem.framework.RunProperties;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Point;
 import org.openqa.selenium.WebElement;
@@ -552,7 +552,7 @@ public class ToolboxHandler {
         Toolkit toolkit = Toolkit.getDefaultToolkit();
         Clipboard clipboard = toolkit.getSystemClipboard();
         String result = (String) clipboard.getData(DataFlavor.stringFlavor);
-        RunProperties.getInstance().setRunProperty(varName, result);
+        SystemProperties.get_instance().setRunTimeProperty(varName, result);
 
         //close output popup
         String closeBtnXpath = generateOutputPopupCloseBtnXpath();
