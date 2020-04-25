@@ -1,12 +1,11 @@
 package com.radware.vision.tests.topologytree;
 
-import com.radware.vision.base.WebUITestBase;
 import com.radware.vision.infra.testhandlers.baseoperations.BasicOperationsHandler;
 import com.radware.vision.infra.testhandlers.topologytree.TopologyTreeHandler;
 
 import java.util.List;
 
-public class TopologyTree extends WebUITestBase {
+public class TopologyTree {
 
     public String checkVadcDevices(List<String> devicesNames) {
 
