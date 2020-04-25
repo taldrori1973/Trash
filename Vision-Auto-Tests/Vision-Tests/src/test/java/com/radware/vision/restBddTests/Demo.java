@@ -1,5 +1,7 @@
 package com.radware.vision.restBddTests;
 
+import com.radware.automation.tools.basetest.BaseTestUtils;
+import com.radware.automation.tools.basetest.Reporter;
 import com.radware.vision.automation.AutoUtils.SUT.controllers.SUTManager;
 import com.radware.vision.base.TestBase;
 import com.radware.vision.bddtests.BddRestTestBase;

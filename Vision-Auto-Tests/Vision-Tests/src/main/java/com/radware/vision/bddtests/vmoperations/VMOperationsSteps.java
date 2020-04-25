@@ -11,7 +11,6 @@ import com.radware.vision.automation.tools.sutsystemobjects.VisionVMs;
 import com.radware.vision.bddtests.BddUITestBase;
 import com.radware.vision.bddtests.clioperation.connections.NewVmSteps;
 import com.radware.vision.bddtests.clioperation.system.upgrade.UpgradeSteps;
-import com.radware.vision.bddtests.defenseFlow.defenseFlowDevice;
 import com.radware.vision.bddtests.rest.BasicRestOperationsSteps;
 import com.radware.vision.infra.testhandlers.cli.CliOperations;
 import com.radware.vision.utils.RegexUtils;
@@ -91,16 +90,16 @@ public class VMOperationsSteps extends BddUITestBase {
 
     @When("^Revert DefenseFlow to snapshot$")
     public void DfenseFlowRevertToSnapshot() throws Exception {
-        try {
-            defenseFlowDevice DF = (defenseFlowDevice) system.getSystemObject("defenseFlowDevice");
-            EsxiInfo esxiInfo = new EsxiInfo(DF.getvCenterURL(), DF.getvCenterUserName(), DF.getvCenterPassword(), DF.getResourcePool());
-            BaseTestUtils.report("Reverting Defense Flow to snapshot " + DF.getSnapshot(), Reporter.PASS_NOR_FAIL);
-            VMSnapshotOperations.newInstance().switchToSnapshot(new VmNameTargetVm(esxiInfo, DF.vmName), DF.snapshot, true);
-            Thread.sleep(10 * 60 * 1000);
-            BaseTestUtils.report("DefenseFlow Revert done.", Reporter.PASS_NOR_FAIL);
-        } catch (Exception e) {
-
-        }
+//        try {
+//            defenseFlowDevice DF = (defenseFlowDevice) system.getSystemObject("defenseFlowDevice");
+//            EsxiInfo esxiInfo = new EsxiInfo(DF.getvCenterURL(), DF.getvCenterUserName(), DF.getvCenterPassword(), DF.getResourcePool());
+//            BaseTestUtils.report("Reverting Defense Flow to snapshot " + DF.getSnapshot(), Reporter.PASS_NOR_FAIL);
+//            VMSnapshotOperations.newInstance().switchToSnapshot(new VmNameTargetVm(esxiInfo, DF.vmName), DF.snapshot, true);
+//            Thread.sleep(10 * 60 * 1000);
+//            BaseTestUtils.report("DefenseFlow Revert done.", Reporter.PASS_NOR_FAIL);
+//        } catch (Exception e) {
+//
+//        }
     }
 
 
@@ -159,55 +158,55 @@ public class VMOperationsSteps extends BddUITestBase {
 
     @Then("^Prerequisite for Setup(\\s+force)?$")
     public void prerequisiteForSetup(String force) {
-        if (force != null || isSetupNeeded()) {
-            try {
-                String setupMode = getVisionSetupAttributeFromSUT("setupMode");
-                VisionRadwareFirstTime visionRadwareFirstTime = (VisionRadwareFirstTime) system.getSystemObject("visionRadwareFirstTime");
-                if (setupMode == null) throw new NullPointerException("Can't find \"setupMode\" at SUT File");
-                String snapshot = getVisionSetupAttributeFromSUT("snapshot");
-                if ((snapshot == null || snapshot.equals("")) && setupMode.toLowerCase().contains("upgrade")) {
-                    BaseTestUtils.report("Could not find snapshot in SUT file performing internal upgrade", Reporter.PASS);
-                    return;
-                }
-                switch (setupMode.toLowerCase()) {
-                    case "kvm_upgrade_inparallel":
-                        revert_kvm_upgrade_InParallel(snapshot, visionRadwareFirstTime);
-                        break;
-
-                    case "upgrade_inparallel":
-                        revertSnapshot(1);
-                        revertSnapshot(2);
-                        break;
-
-                    case "kvm_upgrade":
-                        revertKvmSnapshot(snapshot, visionRadwareFirstTime);
-                        break;
-
-                    case "upgrade":
-                        revertSnapshot(1);
-                        break;
-
-                    case "fresh install_inparallel":
-                    case "fresh install":
-                        prefreshInstall();
-                        break;
-
-                    case "kvm_fresh install":
-                        deleteKvm();
-                        break;
-
-                    case "physical":
-                        break;
-                }
-                if (setupMode.toLowerCase().contains("upgrade")) {
-                    afterUpgrade();
-                }
-
-            } catch (Exception e) {
-                e.printStackTrace();
-                BaseTestUtils.report(e.getMessage() + " ", Reporter.FAIL);
-            }
-        }
+//        if (force != null || isSetupNeeded()) {
+//            try {
+//                String setupMode = getVisionSetupAttributeFromSUT("setupMode");
+//                VisionRadwareFirstTime visionRadwareFirstTime = (VisionRadwareFirstTime) system.getSystemObject("visionRadwareFirstTime");
+//                if (setupMode == null) throw new NullPointerException("Can't find \"setupMode\" at SUT File");
+//                String snapshot = getVisionSetupAttributeFromSUT("snapshot");
+//                if ((snapshot == null || snapshot.equals("")) && setupMode.toLowerCase().contains("upgrade")) {
+//                    BaseTestUtils.report("Could not find snapshot in SUT file performing internal upgrade", Reporter.PASS);
+//                    return;
+//                }
+//                switch (setupMode.toLowerCase()) {
+//                    case "kvm_upgrade_inparallel":
+//                        revert_kvm_upgrade_InParallel(snapshot, visionRadwareFirstTime);
+//                        break;
+//
+//                    case "upgrade_inparallel":
+//                        revertSnapshot(1);
+//                        revertSnapshot(2);
+//                        break;
+//
+//                    case "kvm_upgrade":
+//                        revertKvmSnapshot(snapshot, visionRadwareFirstTime);
+//                        break;
+//
+//                    case "upgrade":
+//                        revertSnapshot(1);
+//                        break;
+//
+//                    case "fresh install_inparallel":
+//                    case "fresh install":
+//                        prefreshInstall();
+//                        break;
+//
+//                    case "kvm_fresh install":
+//                        deleteKvm();
+//                        break;
+//
+//                    case "physical":
+//                        break;
+//                }
+//                if (setupMode.toLowerCase().contains("upgrade")) {
+//                    afterUpgrade();
+//                }
+//
+//            } catch (Exception e) {
+//                e.printStackTrace();
+//                BaseTestUtils.report(e.getMessage() + " ", Reporter.FAIL);
+//            }
+//        }
     }
 
     private void afterUpgrade() throws Exception {
@@ -216,15 +215,15 @@ public class VMOperationsSteps extends BddUITestBase {
     }
 
     private void revert_kvm_upgrade_InParallel(String snapshot, VisionRadwareFirstTime visionRadwareFirstTime) throws Exception {
-        KVMSnapShotThread firstMachine = new KVMSnapShotThread(snapshot, visionRadwareFirstTime);
-        firstMachine.start();
-        visionRadwareFirstTime = (VisionRadwareFirstTime) system.getSystemObject("visionRadwareFirstTime2");
-        KVMSnapShotThread secondMachine = new KVMSnapShotThread(snapshot, visionRadwareFirstTime);
-        secondMachine.start();
-        while (true) {
-            if (!firstMachine.isAlive() && !secondMachine.isAlive())
-                break;
-        }
+//        KVMSnapShotThread firstMachine = new KVMSnapShotThread(snapshot, visionRadwareFirstTime);
+//        firstMachine.start();
+//        visionRadwareFirstTime = (VisionRadwareFirstTime) system.getSystemObject("visionRadwareFirstTime2");
+//        KVMSnapShotThread secondMachine = new KVMSnapShotThread(snapshot, visionRadwareFirstTime);
+//        secondMachine.start();
+//        while (true) {
+//            if (!firstMachine.isAlive() && !secondMachine.isAlive())
+//                break;
+//        }
     }
 
     private void prefreshInstall() {
