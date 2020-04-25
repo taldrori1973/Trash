@@ -13,6 +13,8 @@ import com.radware.vision.vision_tests.CliTests;
 import java.io.IOException;
 import java.util.*;
 
+import static com.radware.automation.tools.basetest.BaseTestUtils.reporter;
+
 public class CliNegative extends BddCliTestBase {
     protected Properties prop = new Properties();
 
@@ -97,11 +99,11 @@ public class CliNegative extends BddCliTestBase {
             }
         }
         if (!existingList.isEmpty()) {
-            report.startLevel("Errors : find some of the strings");
+            reporter.startLevel("Errors : find some of the strings");
             for (String string : existingList) {
-                BaseTestUtils.reporter.report(string);
+                reporter.report(string);
             }
-            report.stopLevel();
+            reporter.stopLevel();
             BaseTestUtils.report("There were : " + existingList.size() + "bad items", Reporter.FAIL);
         }
     }
@@ -188,7 +190,7 @@ public class CliNegative extends BddCliTestBase {
                     boolean isPossitiveRootCheck, String seconedPartOfCommand, GoodErrorsList goodErrorsList, String commandRadware,
                     boolean isPossitiveRadwareCheck) throws Exception {
 
-        BaseTestUtils.reporter.report("About to begin the run for negative tests cli.");
+        reporter.report("About to begin the run for negative tests cli.");
 
         Properties prop = new Properties();
         prop.load(getClass().getClassLoader().getResourceAsStream("badInput.properties"));
@@ -261,7 +263,7 @@ public class CliNegative extends BddCliTestBase {
         if (!errorsList.isEmpty()) {
             report.startLevel("The wrong errors list for the negative tests");
             for (String string : errorsList) {
-                BaseTestUtils.reporter.report(string);
+                reporter.report(string);
             }
             BaseTestUtils.report("There Is " + errorsList.size() + " Errors", Reporter.FAIL);
             report.stopLevel();
