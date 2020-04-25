@@ -1,5 +1,6 @@
 package com.radware.vision.tests.rbac.configuration.network;
 
+import com.radware.automation.tools.basetest.BaseTestUtils;
 import com.radware.automation.tools.basetest.Reporter;
 import com.radware.vision.infra.testhandlers.rbac.configuration.network.RBACAlteonHighAvailabilityTableActionHandler;
 import com.radware.vision.infra.testhandlers.rbac.enums.BaseTableActions;
