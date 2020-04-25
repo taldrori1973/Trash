@@ -102,7 +102,7 @@ public class RestClientsSteps extends BddRestTestBase {
     @Given("^That Device (Alteon|AppWall) With SUT Number (\\d+) is Logged In$")
     public void thatDeviceAlteonAppWallWithSUTNumberNumberIsLoggedIn(SUTDeviceType sutDeviceType, Integer deviceNumber) throws Exception {
         if (isNull(sutDeviceType) || (!sutDeviceType.equals(SUTDeviceType.Alteon) && !sutDeviceType.equals(SUTDeviceType.AppWall))) {
-            report("The Device Type should be Alteon Or AppWall", FAIL);
+            BaseTestUtils.report("The Device Type should be Alteon Or AppWall", FAIL);
         }
 
         if (isNull(deviceNumber)) BaseTestUtils.report("No device number was provided", FAIL);
@@ -125,11 +125,11 @@ public class RestClientsSteps extends BddRestTestBase {
             BaseTestUtils.report("The Device Type should be Alteon Or AppWall", FAIL);
         }
         if (isNull(ip) || isEmpty(ip) || isBlank(ip)) {
-            report("Should Provide legal Ip", FAIL);
+            BaseTestUtils.report("Should Provide legal Ip", FAIL);
         }
         if (isNull(username) || isEmpty(username) || isBlank(username) ||
                 isNull(password) || isEmpty(password) || isBlank(password)) {
-            report("Should Provide legal username and password", FAIL);
+            BaseTestUtils.report("Should Provide legal username and password", FAIL);
         }
 
         if (isNull(protocol)) protocol = "HTTPS";
@@ -140,7 +140,7 @@ public class RestClientsSteps extends BddRestTestBase {
         RestStepResult result = RestClientsStepsHandler.alteonAppWallLogin(sutDeviceType.getDeviceType(), baseUri, port, username, password);
 
         if (result.getStatus().equals(RestStepResult.Status.FAILED))
-            report(result.getMessage(), FAIL);
+            BaseTestUtils.report(result.getMessage(), FAIL);
 
     }
 
@@ -148,7 +148,7 @@ public class RestClientsSteps extends BddRestTestBase {
     public void thatCurrentOnVisionVDirectIsLoggedInWithUsernameAndPassword(Integer port, String protocol, String username, String password) throws NoSuchFieldException {
 
         if (isNull(username) ^ isNull(password)) {
-            report("Username and Password both should be given or no one of them.", FAIL);
+            BaseTestUtils.report("Username and Password both should be given or no one of them.", FAIL);
         }
 
         if (isNull(protocol)) protocol = SutUtils.getCurrentVisionRestProtocol();
@@ -159,7 +159,7 @@ public class RestClientsSteps extends BddRestTestBase {
         }
         RestStepResult result = RestClientsStepsHandler.onVisionVDirectLogin(baseUri, port, username, password);
         if (result.getStatus().equals(RestStepResult.Status.FAILED))
-            report(result.getMessage(), FAIL);
+            BaseTestUtils.report(result.getMessage(), FAIL);
 
     }
 
