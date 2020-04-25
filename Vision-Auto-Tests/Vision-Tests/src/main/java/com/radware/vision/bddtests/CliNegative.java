@@ -133,7 +133,7 @@ public class CliNegative extends BddCliTestBase {
             doTheVisionLabRestart = true;
             BaseTestUtils.report("Timeout/Unexpected error !!!", Reporter.FAIL);
         } finally {
-            reporter.stopLevel();
+            BaseTestUtils.reporter.stopLevel();
         }
     }
 
@@ -261,14 +261,14 @@ public class CliNegative extends BddCliTestBase {
         }
 
         if (!errorsList.isEmpty()) {
-            report.startLevel("The wrong errors list for the negative tests");
+            BaseTestUtils.reporter.startLevel("The wrong errors list for the negative tests");
             for (String string : errorsList) {
-                reporter.report(string);
+                BaseTestUtils.reporter.report(string);
             }
             BaseTestUtils.report("There Is " + errorsList.size() + " Errors", Reporter.FAIL);
-            report.stopLevel();
+            BaseTestUtils.reporter.stopLevel();
         }
-        report.stopLevel();
+        BaseTestUtils.reporter.stopLevel();
 
     }
 

@@ -1,6 +1,7 @@
 package com.radware.vision.restBddTests;
 
 
+import com.radware.automation.tools.basetest.BaseTestUtils;
 import com.radware.vision.RestStepResult;
 import com.radware.vision.automation.tools.sutsystemobjects.devicesinfo.enums.SUTDeviceType;
 import com.radware.vision.bddtests.BddRestTestBase;
@@ -12,6 +13,7 @@ import cucumber.api.java.en.Given;
 import testhandlers.vision.system.generalSettings.LicenseManagementHandler;
 import testhandlers.vision.system.generalSettings.enums.LicenseKeys;
 
+import static com.radware.automation.tools.basetest.Reporter.FAIL;
 import static java.util.Objects.isNull;
 import static org.apache.commons.lang3.StringUtils.isBlank;
 import static org.apache.commons.lang3.StringUtils.isEmpty;
@@ -31,7 +33,7 @@ public class RestClientsSteps extends BddRestTestBase {
 
 
         if (isNull(username) ^ isNull(password))
-            report("Username and Password both should be given or no one of them.", FAIL);
+            BaseTestUtils.report("Username and Password both should be given or no one of them.", FAIL);
         try {
             if (!isNull(activation))
                 if (isNull(isHA)) {
@@ -53,7 +55,7 @@ public class RestClientsSteps extends BddRestTestBase {
         RestStepResult result = RestClientsStepsHandler.currentVisionLogIn(baseUri, username, password, licenseKey);
 
         if (result.getStatus().equals(RestStepResult.Status.FAILED))
-            report(result.getMessage(), FAIL);
+            BaseTestUtils.report(result.getMessage(), FAIL);
     }
 
 
@@ -64,11 +66,11 @@ public class RestClientsSteps extends BddRestTestBase {
         RadwareServerCli radwareServerCli = null;
 
         if (isNull(ip) || isEmpty(ip) || isBlank(ip)) {
-            report("Should Provide legal Ip", FAIL);
+            BaseTestUtils.report("Should Provide legal Ip", FAIL);
         }
         if (isNull(username) || isEmpty(username) || isBlank(username) ||
                 isNull(password) || isEmpty(password) || isBlank(password)) {
-            report("Should Provide legal username and password", FAIL);
+            BaseTestUtils.report("Should Provide legal username and password", FAIL);
         }
 
         if (isNull(protocol)) protocol = "HTTPS";
@@ -92,7 +94,7 @@ public class RestClientsSteps extends BddRestTestBase {
         RestStepResult result = RestClientsStepsHandler.genericVisionLogIn(baseUri, port, username, password, licenseKey);
 
         if (result.getStatus().equals(RestStepResult.Status.FAILED))
-            report(result.getMessage(), FAIL);
+            BaseTestUtils.report(result.getMessage(), FAIL);
 
 
     }
@@ -103,7 +105,7 @@ public class RestClientsSteps extends BddRestTestBase {
             report("The Device Type should be Alteon Or AppWall", FAIL);
         }
 
-        if (isNull(deviceNumber)) report("No device number was provided", FAIL);
+        if (isNull(deviceNumber)) BaseTestUtils.report("No device number was provided", FAIL);
 
         String baseUri = UriUtils.buildUrlFromProtocolAndIp("https", SutUtils.getDeviceIp(sutDeviceType, deviceNumber));
         String username = SutUtils.getDeviceUserName(sutDeviceType, deviceNumber);
@@ -113,14 +115,14 @@ public class RestClientsSteps extends BddRestTestBase {
         RestStepResult result = RestClientsStepsHandler.alteonAppWallLogin(sutDeviceType.getDeviceType(), baseUri, null, username, password);
 
         if (result.getStatus().equals(RestStepResult.Status.FAILED))
-            report(result.getMessage(), FAIL);
+            BaseTestUtils.report(result.getMessage(), FAIL);
     }
 
 
     @Given("^That Device (Alteon|AppWall) with IP \"([^\"]*)\"(?: and Port (\\d+))?(?: and Protocol \"([^\"]*)\")? is Logged In With Username \"([^\"]*)\" and Password \"([^\"]*)\"$")
     public void thatDeviceAlteonAppWallWithIPAndPortAndProtocolIsLoggedInWithUsernameAndPassword(SUTDeviceType sutDeviceType, String ip, Integer port, String protocol, String username, String password) throws Throwable {
         if (isNull(sutDeviceType) || (!sutDeviceType.equals(SUTDeviceType.Alteon) && !sutDeviceType.equals(SUTDeviceType.AppWall))) {
-            report("The Device Type should be Alteon Or AppWall", FAIL);
+            BaseTestUtils.report("The Device Type should be Alteon Or AppWall", FAIL);
         }
         if (isNull(ip) || isEmpty(ip) || isBlank(ip)) {
             report("Should Provide legal Ip", FAIL);
