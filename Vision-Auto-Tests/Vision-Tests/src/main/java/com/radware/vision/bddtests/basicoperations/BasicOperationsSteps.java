@@ -11,6 +11,7 @@ import com.radware.automation.webui.widgets.api.Widget;
 import com.radware.automation.webui.widgets.impl.table.WebUITable;
 import com.radware.restcore.VisionRestClient;
 import com.radware.vision.automation.AutoUtils.Operators.OperatorsEnum;
+import com.radware.vision.automation.AutoUtils.utils.SystemProperties;
 import com.radware.vision.automation.tools.sutsystemobjects.devicesinfo.DeviceInfo;
 import com.radware.vision.automation.tools.sutsystemobjects.devicesinfo.enums.SUTDeviceType;
 import com.radware.vision.base.WebUITestSetup;
@@ -27,7 +28,6 @@ import com.radware.vision.infra.utils.VisionWebUIUtils;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
-import jsystem.framework.RunProperties;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebElement;
@@ -351,13 +351,14 @@ public class BasicOperationsSteps extends BddUITestBase {
     @Then("^UI set Current Time Plus Seconds \"(.*)\"$")
     public void setCurrentTimePlusSeconds(long secondsToAdd) {
         try {
+            SystemProperties systemProperties=new SystemProperties();
             LocalTime currentTime = LocalTime.now();
             currentTime = currentTime.plusSeconds(secondsToAdd);
             String hours = Integer.toString(currentTime.getHour());
             String minutes = Integer.toString(currentTime.getMinute());
             String seconds = Integer.toString(currentTime.getSecond());
             String dateString = hours + ":" + minutes + ":" + seconds;
-            RunProperties.getInstance().setRunProperty("currentTimePlus", dateString);
+            systemProperties.setRunTimeProperty("currentTimePlus", dateString);
         } catch (Exception e) {
             BaseTestUtils.report(e.getMessage(), Reporter.FAIL);
         }

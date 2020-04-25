@@ -36,4 +36,8 @@ public class SystemProperties {
     public boolean containsKey(String inputText) {
         return this.vmOptions.containsKey(inputText);
     }
+
+    public void setRunTimeProperty(String key, String value) {
+        this.vmOptions.put(key, value);
+    }
 }
