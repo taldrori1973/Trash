@@ -119,10 +119,6 @@ public abstract class WebUITestBase extends TestBase {
     }
 
 
-    public static boolean getGlobalIsSeleniumRemoteOperation() {
-        boolean globalIsSeleniumRemoteOperation = false;
-        return globalIsSeleniumRemoteOperation;
-    }
 
     @Before
     public void uiInit() throws Exception {
@@ -321,9 +317,6 @@ public abstract class WebUITestBase extends TestBase {
     }
 
 
-    public String buildRemoteSeleniumUrl() {
-        return "http://" + getGlobalRemoteSeleniumServerHubIp() + ":" + getGlobalRemoteSeleniumServerHubPort() + "/wd/hub";
-    }
 
     public void closePopupDialog() {
         // Try to close any popup message that is left open

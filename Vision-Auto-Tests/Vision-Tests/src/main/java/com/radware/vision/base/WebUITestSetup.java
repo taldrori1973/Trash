@@ -2,6 +2,7 @@ package com.radware.vision.base;
 
 import com.radware.automation.tools.basetest.BaseTestUtils;
 import com.radware.automation.tools.basetest.Reporter;
+import com.radware.automation.webui.UIUtils;
 import com.radware.automation.webui.WebUIUtils;
 import com.radware.automation.webui.connection.VisionConnectionAuthentication;
 import com.radware.automation.webui.utils.VisionUtils;
@@ -15,13 +16,8 @@ public class WebUITestSetup extends WebUITestBase {
     }
 
     public void setup() throws Exception {
-        if (WebUITestBase.getGlobalIsSeleniumRemoteOperation()) {
-            if (getGlobalRemoteSeleniumServerHubIp() != null && getGlobalRemoteSeleniumServerHubPort() != null) {
-                WebUIUtils.setRemoteDriver(buildRemoteSeleniumUrl());
-            }
-        }
         webUtils = new VisionWebUIUtils();
-        webUtils.setConnection(new VisionConnectionAuthentication());
+        UIUtils.setConnection(new VisionConnectionAuthentication());
         webUtils.setUp();
 //      "automationFlag" reveals session storage elements and time filter
         String debugFlag = "/?automationFlag=true";
@@ -34,7 +30,7 @@ public class WebUITestSetup extends WebUITestBase {
 
         try {
             BaseTestUtils.report("WebUI setUp", Reporter.PASS_NOR_FAIL);
-        } catch (NullPointerException e) {
+        } catch (NullPointerException ignored) {
         }
 
         WebUIUtils.visionUtils = new VisionUtils();
