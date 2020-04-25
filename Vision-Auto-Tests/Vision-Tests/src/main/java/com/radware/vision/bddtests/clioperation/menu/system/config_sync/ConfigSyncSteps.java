@@ -2,6 +2,7 @@ package com.radware.vision.bddtests.clioperation.menu.system.config_sync;
 
 import com.radware.automation.tools.basetest.BaseTestUtils;
 import com.radware.automation.tools.basetest.Reporter;
+import com.radware.vision.automation.AutoUtils.utils.SystemProperties;
 import com.radware.vision.bddtests.BddCliTestBase;
 import com.radware.vision.enums.ConfigSyncMode;
 import com.radware.vision.enums.LastConfiguration;
@@ -165,6 +166,7 @@ public class ConfigSyncSteps extends BddCliTestBase {
     @Given("^CLI set config-sync peer(?: chosen Peer \"(.*)\")?$")
     public void setConfigSyncPeerTest(String chosenPeer) {
 
+        SystemProperties systemProperties=new SystemProperties();
 
         try {
             if (chosenPeer == null) {

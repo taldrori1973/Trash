@@ -11,14 +11,19 @@ import java.util.Objects;
  */
 public class SystemProperties {
 
+    private static SystemProperties _instance = new SystemProperties();
     private RuntimeMXBean runtimeMXBean;
 
     private Map<String, String> vmOptions;
 
 
-    public SystemProperties() {
+    private SystemProperties() {
         this.runtimeMXBean = ManagementFactory.getRuntimeMXBean();
         this.vmOptions = runtimeMXBean.getSystemProperties();
+    }
+
+    public static SystemProperties get_instance() {
+        return _instance;
     }
 
     public String getValueByKey(String key) {
