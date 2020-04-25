@@ -32,4 +32,8 @@ public class SystemProperties {
     public String getResourcesPath(String name) {
         return Objects.requireNonNull(getClass().getClassLoader().getResource(name)).getPath();
     }
+
+    public boolean containsKey(String inputText) {
+        return this.vmOptions.containsKey(inputText);
+    }
 }

@@ -14,13 +14,13 @@ import com.radware.automation.webui.widgets.impl.WebUIDropdown;
 import com.radware.automation.webui.widgets.impl.WebUIDualList;
 import com.radware.automation.webui.widgets.impl.WebUIDualListScripts;
 import com.radware.vision.automation.AutoUtils.Operators.OperatorsEnum;
+import com.radware.vision.automation.AutoUtils.utils.SystemProperties;
 import com.radware.vision.infra.enums.DualListSides;
 import com.radware.vision.infra.enums.VisionTableIDs;
 import com.radware.vision.infra.enums.WebElementType;
 import com.radware.vision.infra.testhandlers.baseoperations.BasicOperationsHandler;
 import com.radware.vision.infra.utils.GeneralUtils;
 import com.radware.vision.infra.utils.ReportsUtils;
-import jsystem.framework.RunProperties;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.How;
@@ -122,8 +122,9 @@ public class ClickOperationsHandler {
 
     public static void setTextToElement(WebElementType elementType, String elementId, String inputText, boolean enterKey) {
         try {
-            if (RunProperties.getInstance().getRunProperties().containsKey(inputText)) {
-                inputText = RunProperties.getInstance().getRunProperties().getProperty(inputText);
+            SystemProperties systemProperties = new SystemProperties();
+            if (systemProperties.containsKey(inputText)) {
+                inputText = systemProperties.getValueByKey(inputText);
             }
             WebUIUtils.setIsTriggerPopupSearchEvent(true);
             switch (elementType) {

@@ -987,8 +987,7 @@ public class BasicOperationsHandler {
     public static void uploadFileToVision(String name, String label, String param) throws IOException {
         WebElement elem;
         Properties properties = new Properties();        //function to upload file from project
-//        properties.load(new FileInputStream("jsystem.properties"));
-//        String basePath = properties.getProperty("resources.src");
+
         String basePath = FileUtils.getAbsoluteProjectPath() + "src" + File.separator + "main" + File.separator + "resources" + File.separator;
         String uploadFilePath = basePath + File.separator + "uploadedFiles" + (System.getProperty("os.name").contains("Windows") ? "\\" : "/") + name;
         BaseTestUtils.report("Path of Uploaded file is: " + uploadFilePath, Reporter.PASS_NOR_FAIL);
