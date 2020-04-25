@@ -1,5 +1,6 @@
 package com.radware.vision.tests.visionsettings;
 
+import com.radware.automation.tools.basetest.BaseTestUtils;
 import jsystem.framework.TestProperties;
 import org.junit.Test;
 

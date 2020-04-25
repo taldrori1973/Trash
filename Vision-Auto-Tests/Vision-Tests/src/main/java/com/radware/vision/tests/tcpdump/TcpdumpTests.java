@@ -1,5 +1,6 @@
 package com.radware.vision.tests.tcpdump;
 
+import com.radware.automation.tools.basetest.BaseTestUtils;
 import com.radware.automation.tools.basetest.Reporter;
 import com.radware.automation.tools.utils.StringUtils;
 import com.radware.restcore.utils.enums.HttpMethodEnum;

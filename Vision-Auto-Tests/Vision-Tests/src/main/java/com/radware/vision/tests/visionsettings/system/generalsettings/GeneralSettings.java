@@ -17,7 +17,7 @@ public class GeneralSettings extends VisionSettingsBase {
     @TestProperties(name = "Basic Parameters", paramsInclude = {})
     public void clickBasicParameters() {
         if(!clickMenu(subMenuOption, "basicParameters")) {
-            BaseTestUtils.report("Failed to click 'Basic Parameters' menu option.");
+            BaseTestUtils.reporter.report("Failed to click 'Basic Parameters' menu option.");
         }
     }
 
@@ -25,7 +25,7 @@ public class GeneralSettings extends VisionSettingsBase {
     @TestProperties(name = "Connectivity", paramsInclude = {})
     public void clickConnectivity() {
         if(!clickMenu(subMenuOption, "connectivity")) {
-            BaseTestUtils.report("Failed to click 'Connectivity' menu option.");
+            BaseTestUtils.reporter.report("Failed to click 'Connectivity' menu option.");
         }
     }
 
