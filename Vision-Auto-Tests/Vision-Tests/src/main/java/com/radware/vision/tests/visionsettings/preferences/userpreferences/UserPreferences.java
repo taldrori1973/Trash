@@ -1,5 +1,6 @@
 package com.radware.vision.tests.visionsettings.preferences.userpreferences;
 
+import com.radware.automation.tools.basetest.BaseTestUtils;
 import com.radware.vision.tests.visionsettings.VisionSettingsBase;
 import jsystem.framework.TestProperties;
 import org.junit.Test;
@@ -15,7 +16,7 @@ public class UserPreferences extends VisionSettingsBase {
     @TestProperties(name = "User Password Settings", paramsInclude = {})
     public void clickUserPasswordSettings() {
         if(!clickMenu(subMenuOption, "userPasswordSettings")) {
-            BaseTestUtils.report("Failed to click 'User Password Settings' menu option.");
+            BaseTestUtils.reporter.report("Failed to click 'User Password Settings' menu option.");
         }
     }
 
@@ -23,7 +24,7 @@ public class UserPreferences extends VisionSettingsBase {
     @TestProperties(name = "Display", paramsInclude = {})
     public void clickDisplay() {
         if(!clickMenu(subMenuOption, "languageAndDisplay")) {
-            BaseTestUtils.report("Failed to click 'Display' menu option.");
+            BaseTestUtils.reporter.report("Failed to click 'Display' menu option.");
         }
     }
 }

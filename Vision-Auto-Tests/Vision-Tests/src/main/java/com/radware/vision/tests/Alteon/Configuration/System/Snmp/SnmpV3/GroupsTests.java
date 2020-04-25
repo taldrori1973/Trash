@@ -1,5 +1,6 @@
 package com.radware.vision.tests.Alteon.Configuration.System.Snmp.SnmpV3;
 
+import com.radware.automation.tools.basetest.BaseTestUtils;
 import com.radware.automation.tools.basetest.Reporter;
 import com.radware.automation.webui.WebUIUtils;
 import com.radware.automation.webui.webpages.configuration.system.snmp.SnmpEnums;

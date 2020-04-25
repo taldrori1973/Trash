@@ -252,11 +252,11 @@ public class ValidateTasksTests extends WebUITestBase {
                 }
                 ReporterBackup.VerifyBackupInListAsRegex(taskName, getRestTestBase().getRadwareServerCli());
                 if (!ValidateTasksHandler.executeFileExistenceVerifyScript(getRestTestBase().getRootServerCli(), visionBackupFilePath, visionReporterBackupPrefix.concat(taskName))) {
-                    BaseTestUtils.report("The config file does not exist in the vision file system");
+                    BaseTestUtils.reporter.report("The config file does not exist in the vision file system");
                 }
             }
         } catch (Exception e) {
-            BaseTestUtils.report("Verify APsoluteVisionConfigurationBackup failed: " + "\n." + parseExceptionBody(e), Reporter.FAIL);
+            BaseTestUtils.reporter.report("Verify APsoluteVisionConfigurationBackup failed: " + "\n." + parseExceptionBody(e), Reporter.FAIL);
         }
     }
 
