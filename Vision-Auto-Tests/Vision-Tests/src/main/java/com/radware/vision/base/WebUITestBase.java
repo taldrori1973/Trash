@@ -43,7 +43,6 @@ import com.radware.vision.vision_project_cli.menu.Menu;
 import com.radware.vision.vision_tests.CliTests;
 import cucumber.runtime.junit.FeatureRunner;
 import enums.SUTEntryType;
-import jsystem.framework.ParameterProperties;
 import org.junit.After;
 import org.junit.Before;
 import testhandlers.Device;
@@ -65,16 +64,15 @@ public abstract class WebUITestBase extends TestBase {
     public static String restOperationsPassword;
     private static Boolean isDeviceManagedByVision = false;
 
-    // For Results Reporting
-    protected static RallyTestReporter rallyTestReporter;
     protected static DevicesManager devicesManager;
     private static Map<String, String> deviceDriverNamesMap = new HashMap<String, String>();
     private static Map<String, VisionNavigationXmlParser> navigationParsers = new HashMap<String, VisionNavigationXmlParser>();
     private static boolean isUIInit = false;
-    public String browserSessionId;
+    String browserSessionId;
     private String popupContentKey = "popupContent";
     private DeviceDriverType deviceDriverType = DeviceDriverType.VISION;
     private String deviceName;
+    private static boolean isRestInit = false;
 
 
     public static VisionRestClient getVisionRestClient() {
@@ -144,7 +142,8 @@ public abstract class WebUITestBase extends TestBase {
                 System.setProperty("jcifs.smb.client.soTimeout", "140000"); // default: 35000 millisec.
 //                AasVisionEnums.UtilitiesStrings.BROWSER_TYPE = BaseTestUtils.getRuntimeProperty(RuntimePropertiesEnum.BROWSER_TYPE.name(), RuntimePropertiesEnum.BROWSER_TYPE.getDefaultValue());
 
-                rallyTestReporter = new RallyTestReporter();
+                // For Results Reporting
+                RallyTestReporter rallyTestReporter = new RallyTestReporter();
                 rallyTestReporter.init(managementInfo.getVersion(), "WebUI", managementInfo.getBuild());
 
                 restOperationsUsername = clientConfigurations.getUserName();
@@ -173,26 +172,22 @@ public abstract class WebUITestBase extends TestBase {
     }
 
     public void coreInit() throws Exception {
-        boolean isRestInit = false;
         if (!isRestInit) {
-//            SUTManager instance = SUTManagerImpl.getInstance();
-//            instance.getVisionConfigurations();
-//            instance.getVisionSetupTreeSites();
-//            isRestInit = true;
+
+            isRestInit = true;
 //
 //            devicesManager = DevicesManager.getInstance("devices");
 //            restTestBase = new RestTestBase();
 //            restTestBase.init();
 //            BaseHandler.restTestBase = restTestBase;
 //            BaseHandler.devicesManager = devicesManager;
-//            VisionConfigurations visionConfigurations = new VisionConfigurations();
         }
 
     }
 
 
     @After
-    public void testClosure() throws Exception {
+    public void testClosure() {
         if (!WebUIUtils.isDriverQuit) {
             try {
                 WebUIUtils.setIsTriggerPopupSearchEvent(false);
@@ -405,7 +400,6 @@ public abstract class WebUITestBase extends TestBase {
         return deviceDriverType;
     }
 
-    @ParameterProperties(description = "Please, specify the Device Driver Type!")
     public void setDeviceDriverType(DeviceDriverType deviceDriverType) {
         this.deviceDriverType = deviceDriverType;
     }
