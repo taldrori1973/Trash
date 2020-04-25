@@ -24,7 +24,7 @@ public class SutDao {
 
     public SutDao() {
         this.applicationPropertiesUtils = new ApplicationPropertiesUtils();
-        this.systemProperties = new SystemProperties();
+        this.systemProperties = SystemProperties.get_instance();
 
         String sutFilePath = systemProperties.getResourcesPath(
                 String.format("%s/%s", applicationPropertiesUtils.getProperty(SUT_FILES_PATH_PROPERTY), getSUTFileName()));

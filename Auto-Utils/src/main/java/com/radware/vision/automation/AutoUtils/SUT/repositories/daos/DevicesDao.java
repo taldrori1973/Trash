@@ -23,7 +23,7 @@ public class DevicesDao {
 
     public DevicesDao() {
         ApplicationPropertiesUtils applicationPropertiesUtils = new ApplicationPropertiesUtils();
-        SystemProperties systemProperties = new SystemProperties();
+        SystemProperties systemProperties =SystemProperties.get_instance();
         this.devicesPojo = JsonUtilities.loadJsonFile(
                 systemProperties.getResourcesPath(
                         String.format("%s/%s", applicationPropertiesUtils.getProperty(SUT_DEVICES_FILES_PATH_PROPERTY), DEVICES_FILE_NAME)
