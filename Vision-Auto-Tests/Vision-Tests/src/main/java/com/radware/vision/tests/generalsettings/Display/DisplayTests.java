@@ -33,7 +33,7 @@ public class DisplayTests extends WebUITestBase {
             String message = "";
             DisplayHandler.updateTimeFormat(timeFormat);
             if (DisplayHandler.getTimeFormat().equals(timeFormat.getFormat())) {
-                BaseTestUtils.report("Drop down selected value have been set to " + timeFormat);
+                BaseTestUtils.reporter.report("Drop down selected value have been set to " + timeFormat);
             } else {
                 message = "drop down value did not changed\n";
             }

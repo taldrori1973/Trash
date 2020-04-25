@@ -1,5 +1,6 @@
 package com.radware.vision.tests.dptemplates;
 
+import com.radware.automation.tools.basetest.BaseTestUtils;
 import com.radware.automation.tools.basetest.Reporter;
 import com.radware.vision.infra.enums.*;
 import com.radware.vision.infra.testhandlers.dptemplates.TemplatesHandler;
