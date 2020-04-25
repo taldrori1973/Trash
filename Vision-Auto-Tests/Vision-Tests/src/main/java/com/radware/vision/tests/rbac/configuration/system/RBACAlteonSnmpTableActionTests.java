@@ -1,5 +1,6 @@
 package com.radware.vision.tests.rbac.configuration.system;
 
+import com.radware.automation.tools.basetest.BaseTestUtils;
 import com.radware.automation.tools.basetest.Reporter;
 import com.radware.vision.infra.testhandlers.rbac.configuration.system.snmp.RBACAlteonSNMPv3TableActionHandler;
 import com.radware.vision.infra.testhandlers.rbac.enums.BaseTableActions;

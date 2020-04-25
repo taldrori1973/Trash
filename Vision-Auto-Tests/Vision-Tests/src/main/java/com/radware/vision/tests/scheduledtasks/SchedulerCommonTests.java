@@ -1,5 +1,6 @@
 package com.radware.vision.tests.scheduledtasks;
 
+import com.radware.automation.tools.basetest.BaseTestUtils;
 import com.radware.automation.tools.basetest.Reporter;
 import com.radware.vision.infra.testhandlers.scheduledtasks.BaseTasksHandler;
 import com.radware.vision.infra.testhandlers.system.deviceResources.devicebackups.DeviceBackupsHandler;

@@ -1,5 +1,6 @@
 package com.radware.vision.tests.visionsettings.dashboards;
 
+import com.radware.automation.tools.basetest.BaseTestUtils;
 import com.radware.vision.tests.visionsettings.VisionSettingsBase;
 import jsystem.framework.TestProperties;
 import org.junit.Test;
@@ -15,7 +16,7 @@ public class Dashboards extends VisionSettingsBase {
     @TestProperties(name = "Dashboards", paramsInclude = {})
     public void clickDashboards() {
         if(!clickMenu("gwt-debug-TopicsStack_am.dashboards.tab")) {
-            BaseTestUtils.report("Failed to click 'Dashboards' menu option.");
+            BaseTestUtils.reporter.report("Failed to click 'Dashboards' menu option.");
         }
     }
 }
