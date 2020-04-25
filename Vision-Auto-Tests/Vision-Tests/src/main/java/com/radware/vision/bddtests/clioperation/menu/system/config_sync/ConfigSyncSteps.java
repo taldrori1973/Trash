@@ -12,16 +12,13 @@ import com.radware.vision.vision_handlers.system.VisionServer;
 import com.radware.vision.vision_project_cli.HaManager;
 import com.radware.vision.vision_project_cli.VisionServerHA;
 import cucumber.api.java.en.Given;
-import jsystem.framework.RunProperties;
 
 public class ConfigSyncSteps extends BddCliTestBase {
 
     private String peer;
 
 
-
-
-   @Given("^CLI set target vision \"(active|standby|disabled)\"$")
+    @Given("^CLI set target vision \"(active|standby|disabled)\"$")
     public void setTargetVision(String mode) {
 
         try {
@@ -92,7 +89,7 @@ public class ConfigSyncSteps extends BddCliTestBase {
                 throw new Exception("there is no mode called: " + mode + " please enter active, standby or disabled mode!");
             }
 
-            if (configSyncMode==null) {
+            if (configSyncMode == null) {
                 throw new Exception("Please specify expected mode");
             }
             String returnedValue = ConfigSync.getMode(restTestBase.getRadwareServerCli());
@@ -166,8 +163,6 @@ public class ConfigSyncSteps extends BddCliTestBase {
     @Given("^CLI set config-sync peer(?: chosen Peer \"(.*)\")?$")
     public void setConfigSyncPeerTest(String chosenPeer) {
 
-        SystemProperties systemProperties=SystemProperties.get_instance();
-
         try {
             if (chosenPeer == null) {
                 VisionServerHA visionServerHA = restTestBase.getVisionServerHA();
@@ -182,7 +177,7 @@ public class ConfigSyncSteps extends BddCliTestBase {
                 peer = chosenPeer;
 
             }
-            RunProperties.getInstance().setRunProperty("peer", peer);
+            SystemProperties.get_instance().setRunTimeProperty("peer", peer);
             ConfigSync.setPeer(restTestBase.getRadwareServerCli(), peer);
             if (!ConfigSync.verifyPeerSet(restTestBase.getRadwareServerCli(), peer)) {
                 throw new Exception("couldn't set peer to " + peer);
@@ -203,7 +198,7 @@ public class ConfigSyncSteps extends BddCliTestBase {
     public void verifyGetConfigSyncPeerTest(String peer) {
         try {
 
-            if (peer==null) {
+            if (peer == null) {
                 throw new Exception("Please specify expected peer");
             }
             String returnedValue = ConfigSync.getPeer(restTestBase.getRadwareServerCli());
@@ -228,14 +223,14 @@ public class ConfigSyncSteps extends BddCliTestBase {
 
 
     @Given("^CLI Verify that the Redundancy settings are displayed interval (\\d+) mode \"(.*)\" peer \"(.*)\" last configuration \"(.*)\"$")
-    public void configSyncStatus(int interval, String mode, String peer, String lastConfig ) {
+    public void configSyncStatus(int interval, String mode, String peer, String lastConfig) {
         LastConfiguration lastConfiguration;
         ConfigSyncMode configSyncMode;
         try {
-            configSyncMode=ConfigSyncMode.getConstant(mode);
-            lastConfiguration=LastConfiguration.getConstant(lastConfig);
+            configSyncMode = ConfigSyncMode.getConstant(mode);
+            lastConfiguration = LastConfiguration.getConstant(lastConfig);
 
-            ConfigSync.verifyStatus(interval, configSyncMode, peer, restTestBase.getRadwareServerCli(),lastConfiguration);
+            ConfigSync.verifyStatus(interval, configSyncMode, peer, restTestBase.getRadwareServerCli(), lastConfiguration);
         } catch (Exception e) {
             BaseTestUtils.report(e.getMessage(), Reporter.FAIL);
         }
@@ -252,7 +247,7 @@ public class ConfigSyncSteps extends BddCliTestBase {
             HaManager haManager = restTestBase.getHaManager();
             if (VisionServer.isVisionServerRunningHA(haManager.getRadwareSessionByMode(ConfigSyncMode.ACTIVE)) &&
                     VisionServer.isVisionServerRunningHA(haManager.getRadwareSessionByMode(ConfigSyncMode.STANDBY))
-                    )
+            )
 
 
                 BaseTestUtils.report("Test passed ", Reporter.PASS);
@@ -285,8 +280,6 @@ public class ConfigSyncSteps extends BddCliTestBase {
     }
 
 
-
-
     @Given("^CLI manual sync$")
     public void manualSync() {
 
@@ -315,7 +308,7 @@ public class ConfigSyncSteps extends BddCliTestBase {
     public void waitForConfigurationSync() {
         try {
 
-           int interval = ConfigSync.getInterval(restTestBase.getRadwareServerCli());
+            int interval = ConfigSync.getInterval(restTestBase.getRadwareServerCli());
 
             long timeElapsed = ConfigSync.getTimeBetweenStatusAndRadware(restTestBase.getRadwareServerCli());
 
@@ -477,8 +470,8 @@ public class ConfigSyncSteps extends BddCliTestBase {
     }
 
 
-// peer get
-    public String getPeer(){
+    // peer get
+    public String getPeer() {
         return peer;
     }
 
