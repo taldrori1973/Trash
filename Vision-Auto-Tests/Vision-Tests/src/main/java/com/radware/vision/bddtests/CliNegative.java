@@ -4,14 +4,16 @@ package com.radware.vision.bddtests;
 import com.radware.automation.tools.basetest.BaseTestUtils;
 import com.radware.automation.tools.basetest.Reporter;
 import com.radware.automation.tools.basetest.RuntimePropertiesEnum;
-import com.radware.automation.tools.centralreporting.entities.ReportResultEntity;
 import com.radware.automation.tools.utils.InvokeUtils;
 import com.radware.vision.enums.YesNo;
 import com.radware.vision.vision_project_cli.menu.Menu;
 import com.radware.vision.vision_tests.CliTests;
 
 import java.io.IOException;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import java.util.Properties;
 
 import static com.radware.automation.tools.basetest.BaseTestUtils.reporter;
 
@@ -50,8 +52,8 @@ public class CliNegative extends BddCliTestBase {
             }
 
             if (BaseTestUtils.getBooleanRuntimeProperty(RuntimePropertiesEnum.ADD_AUTO_RESULT.name(), RuntimePropertiesEnum.ADD_AUTO_RESULT.getDefaultValue())) {
-                ReportResultEntity report = new ReportResultEntity().withtestID("").withName(this.getName()).withDescription(getFailCause()).withStatus(this.isPassAccordingToFlags()).withUID(UUID.randomUUID().toString());
-                resultsManager.addResult(report);
+//                ReportResultEntity report = new ReportResultEntity().withtestID("").withName(this.getName()).withDescription(getFailCause()).withStatus(this.isPassAccordingToFlags()).withUID(UUID.randomUUID().toString());
+//                resultsManager.addResult(report);
             }
 
         } catch (Exception e) {

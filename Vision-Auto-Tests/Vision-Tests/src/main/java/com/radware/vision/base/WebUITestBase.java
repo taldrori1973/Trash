@@ -256,7 +256,7 @@ public abstract class WebUITestBase extends TestBase {
                         for (PopupContent popupError : popupErrors) {
                             if (popupError.getType().equals(PopupType.ERROR) &&
                                     !ignoredMessageIds(popupError.getContent())) {
-                                BaseTestUtils.report("Test :" + getName() + " " + "failed due to the following error popup dialogs: \n" + popupErrorsToString(popupError), Reporter.FAIL);
+                                BaseTestUtils.report("Test failed due to the following error popup dialogs: \n" + popupErrorsToString(popupError), Reporter.FAIL);
                             }
                         }
                     }
@@ -264,8 +264,8 @@ public abstract class WebUITestBase extends TestBase {
                 }
 
                 if (BaseTestUtils.getBooleanRuntimeProperty(RuntimePropertiesEnum.ADD_AUTO_RESULT.name(), RuntimePropertiesEnum.ADD_AUTO_RESULT.getDefaultValue())) {
-                    ReportResultEntity report = new ReportResultEntity().withtestID(targetTestId).withName(this.getName()).withDescription(getFailCause()).withStatus(this.isPassAccordingToFlags()).withUID(UUID.randomUUID().toString());
-                    resultsManager.addResult(report);
+//                    ReportResultEntity report = new ReportResultEntity().withtestID(targetTestId).withName(this.getName()).withDescription(getFailCause()).withStatus(this.isPassAccordingToFlags()).withUID(UUID.randomUUID().toString());
+//                    resultsManager.addResult(report);
 //                    if (targetTestId != null) {
 //                        publishResults(Integer.parseInt(targetTestId));
 //                    }
@@ -308,8 +308,8 @@ public abstract class WebUITestBase extends TestBase {
             }
 
             if (BaseTestUtils.getBooleanRuntimeProperty(RuntimePropertiesEnum.ADD_AUTO_RESULT.name(), RuntimePropertiesEnum.ADD_AUTO_RESULT.getDefaultValue())) {
-                ReportResultEntity report = new ReportResultEntity().withtestID("").withName(this.getName()).withDescription(getFailCause()).withStatus(this.isPassAccordingToFlags()).withUID(UUID.randomUUID().toString());
-                resultsManager.addResult(report);
+//                ReportResultEntity report = new ReportResultEntity().withtestID("").withName(this.getName()).withDescription(getFailCause()).withStatus(this.isPassAccordingToFlags()).withUID(UUID.randomUUID().toString());
+//                resultsManager.addResult(report);
             }
 
         } catch (Exception e) {
