@@ -119,7 +119,6 @@ public abstract class WebUITestBase extends TestBase {
     }
 
 
-
     @Before
     public void uiInit() throws Exception {
         try {
@@ -317,7 +316,6 @@ public abstract class WebUITestBase extends TestBase {
     }
 
 
-
     public void closePopupDialog() {
         // Try to close any popup message that is left open
         if (WebUIDriver.getListenerManager().getWebUIDriverEventListener() != null) {
@@ -376,18 +374,6 @@ public abstract class WebUITestBase extends TestBase {
 
     public String getVisionServerIp() {
         return clientConfigurations.getHostIp();
-    }
-
-
-    public String getGlobalRemoteSeleniumServerHubIp() {
-        String globalRemoteSeleniumServerHubIp = "10.205.191.170";
-        return globalRemoteSeleniumServerHubIp;
-    }
-
-
-    public String getGlobalRemoteSeleniumServerHubPort() {
-        String globalRemoteSeleniumServerHubPort = "4444";
-        return globalRemoteSeleniumServerHubPort;
     }
 
 
