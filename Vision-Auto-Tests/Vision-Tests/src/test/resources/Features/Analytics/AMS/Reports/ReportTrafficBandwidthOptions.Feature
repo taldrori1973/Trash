@@ -1,17 +1,14 @@
+@TC114570
 Feature : ReportTrafficBandwidthOptions
 
-  Scenario: run attacks
-    Then CLI kill all simulator attacks on current vision
-    Then CLI Clear vision logs
-    Then REST Delete ES index "dp-*"
-    Given CLI simulate 4 attacks of type "baselines_pol_1" on "DefensePro" 10 with loopDelay 15000 and wait 60 seconds
-
+  @SID_1
   Scenario: Login to VRM AMS reports tab
-    Given UI Login with user "radware" and password "radware"
+    Given UI Login with user "sys_admin" and password "radware"
     * REST Vision Install License Request "vision-AVA-Max-attack-capacity"
     And UI Navigate to "AMS Reports" page via homePage
 
 
+  @SID_2
   Scenario: validate that the default selection is inbound and pps
     When UI Click Button "Add New"
     When UI Click Button "Template" with value ""
@@ -25,7 +22,18 @@ Feature : ReportTrafficBandwidthOptions
     When UI Click Button "Cancel"
 
 
-
-  Scenario: Create Report of DNS baselines IPv6
+  @SID_3
+  Scenario: Create Report with trtaffic Bandwidth Options
     Given UI "Create" Report With Name "trafficBandwidth"
-      | Design     | {"Add":[{"Traffic Bandwidth":["Outbound","pps",{"50_Traffic Bandwidth":"7"}]}]} |
+      | Design     | {"Add":[{"Traffic Bandwidth":["Outbound","pps",{"trafficbandwidthScroll":"7"}]}]} |
+
+    Then UI "Validate" Report With Name "trafficBandwidth"
+      | Design     | {"Add":[{"Traffic Bandwidth"]} |
+
+    @SID_4
+    Scenario: validate the traffic bandwidth options
+    Then UI validate togglesData in report "trafficBandwidth" with widget "Traffic Bandwidth"
+      | text     | value    | selected |
+      | custom   | 7        | true     |
+      | pps      | pps      | true     |
+      | Outbound | Outbound | true     |
