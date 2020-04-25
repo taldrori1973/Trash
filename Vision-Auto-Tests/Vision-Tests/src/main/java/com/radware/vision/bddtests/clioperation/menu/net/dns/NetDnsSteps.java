@@ -2,8 +2,8 @@ package com.radware.vision.bddtests.clioperation.menu.net.dns;
 
 import com.radware.automation.tools.basetest.BaseTestUtils;
 import com.radware.automation.tools.basetest.Reporter;
-import com.radware.vision.vision_handlers.net.Dns;
 import com.radware.vision.bddtests.BddCliTestBase;
+import com.radware.vision.vision_handlers.net.Dns;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;

@@ -7,6 +7,7 @@ import com.radware.vision.infra.base.pages.navigation.WebUIVisionBasePage;
 import com.radware.vision.infra.base.pages.scheduledtasks.ScheduledTasks;
 import com.radware.vision.infra.testhandlers.scheduledtasks.enums.TaskType;
 import com.radware.vision.infra.utils.WebUIStringsVision;
+
 import java.util.HashMap;
 import java.util.List;
 

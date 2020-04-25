@@ -1,15 +1,12 @@
 package com.radware.vision.tests.dp.accesscontrol.cliaccesscontrol;
 
-import org.junit.Before;
-import org.junit.Test;
-
 import com.radware.products.defensepro.DefenseProProduct;
-import com.radware.products.defensepro.defensepro.DefenseProEnums.DpPolicyAction;
 import com.radware.products.defensepro.utilities.DpRadwareTestCase;
-
 import jsystem.framework.TestProperties;
 import jsystem.framework.report.ListenerstManager;
 import junit.framework.SystemTestCase4;
+import org.junit.Before;
+import org.junit.Test;
 
 public class CliBlackList extends SystemTestCase4 {
 	private String BlackListName;

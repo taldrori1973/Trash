@@ -1,5 +1,8 @@
 package com.radware.vision.tests.defensepro;
 
+import jsystem.framework.TestProperties;
+import jsystem.framework.report.ListenerstManager;
+import junit.framework.SystemTestCase4;
 import org.junit.Test;
 
 //import com.radware.products.defensepro.DefenseProProduct;
@@ -7,10 +10,6 @@ import org.junit.Test;
 //import com.radware.products.defensepro.defensepro.DefenseProEnums.DpRisk;
 //import com.radware.products.defensepro.defensepro.DefenseProEnums.DpStatus;
 //import com.radware.products.defensepro.utilities.DpRadwareTestCase;
-
-import jsystem.framework.TestProperties;
-import jsystem.framework.report.ListenerstManager;
-import junit.framework.SystemTestCase4;
 
 public class CLISYNprotections extends SystemTestCase4{
 	

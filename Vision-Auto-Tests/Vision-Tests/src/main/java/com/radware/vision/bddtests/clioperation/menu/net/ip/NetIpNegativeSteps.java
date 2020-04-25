@@ -1,9 +1,9 @@
 package com.radware.vision.bddtests.clioperation.menu.net.ip;
 
+import com.radware.vision.bddtests.BddCliTestBase;
 import com.radware.vision.vision_handlers.net.Ip;
 import com.radware.vision.vision_project_cli.menu.Menu;
 import com.radware.vision.vision_tests.CliNegativeTests;
-import com.radware.vision.bddtests.BddCliTestBase;
 import cucumber.api.java.en.Given;
 
 import java.util.ArrayList;

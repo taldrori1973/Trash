@@ -1,16 +1,14 @@
 package com.radware.vision.tests.dp.classes.cliclasses;
 
+import com.radware.products.defensepro.DefenseProProduct;
+import com.radware.products.defensepro.utilities.DpRadwareTestCase;
 import jsystem.extensions.analyzers.tabletext.GetTableColumn;
 import jsystem.framework.TestProperties;
 import jsystem.framework.report.ListenerstManager;
 import junit.framework.SystemTestCase4;
-
 import org.apache.commons.lang.ArrayUtils;
 import org.junit.Before;
 import org.junit.Test;
-
-import com.radware.products.defensepro.DefenseProProduct;
-import com.radware.products.defensepro.utilities.DpRadwareTestCase;
 
 public class CliPhysicalPortsTests extends SystemTestCase4 {
 

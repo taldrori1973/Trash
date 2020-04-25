@@ -3,12 +3,12 @@ package com.radware.vision.bddtests.scheduledtasks;
 import com.radware.automation.tools.basetest.BaseTestUtils;
 import com.radware.automation.tools.basetest.Reporter;
 import com.radware.vision.automation.tools.sutsystemobjects.devicesinfo.enums.SUTDeviceType;
-import com.radware.vision.pojomodel.helpers.constants.ImConstants$ScheduledTaskExecutionStatusEnumPojo;
 import com.radware.vision.bddtests.BddUITestBase;
 import com.radware.vision.infra.testhandlers.scheduledtasks.DDosFeedTaskHandler;
 import com.radware.vision.infra.testhandlers.scheduledtasks.enums.TaskRunIntervalType;
 import com.radware.vision.infra.testhandlers.scheduledtasks.enums.TaskType;
 import com.radware.vision.infra.testhandlers.scheduledtasks.validateScheduledTasks.ValidateTasksHandler;
+import com.radware.vision.pojomodel.helpers.constants.ImConstants$ScheduledTaskExecutionStatusEnumPojo;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
 

@@ -1,15 +1,13 @@
 package com.radware.vision.tests.dp.networkprotection.clinetworkprotection;
 
-import org.junit.Before;
-import org.junit.Test;
-
-import jsystem.framework.TestProperties;
-import jsystem.framework.report.ListenerstManager;
 import com.radware.automation.tools.basetest.Reporter;
-import junit.framework.SystemTestCase4;
-
 import com.radware.products.defensepro.DefenseProProduct;
 import com.radware.products.defensepro.utilities.DpRadwareTestCase;
+import jsystem.framework.TestProperties;
+import jsystem.framework.report.ListenerstManager;
+import junit.framework.SystemTestCase4;
+import org.junit.Before;
+import org.junit.Test;
 
 public class CLIBDosProfile extends SystemTestCase4 {
 

@@ -4,7 +4,6 @@ import com.radware.vision.RestStepResult;
 import com.radware.vision.restTestHandler.GenericStepsHandler;
 import com.radware.vision.restTestHandler.RestClientsStepsHandler;
 import controllers.RestApiManagement;
-import lombok.Data;
 import lombok.Getter;
 import models.RestRequestSpecification;
 import models.RestResponse;

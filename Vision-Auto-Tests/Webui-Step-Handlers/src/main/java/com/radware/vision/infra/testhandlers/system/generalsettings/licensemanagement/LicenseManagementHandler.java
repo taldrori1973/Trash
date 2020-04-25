@@ -2,10 +2,10 @@ package com.radware.vision.infra.testhandlers.system.generalsettings.licensemana
 
 
 import com.radware.automation.tools.basetest.BaseTestUtils;
+import com.radware.automation.tools.basetest.Reporter;
 import com.radware.vision.infra.base.pages.system.generalsettings.licensemanagement.LicenseManagement;
 import com.radware.vision.infra.testhandlers.BaseHandler;
 import com.radware.vision.infra.utils.GeneralUtils;
-import com.radware.automation.tools.basetest.Reporter;
 
 import static testhandlers.vision.system.generalSettings.LicenseManagementHandler.generateLicense;
 

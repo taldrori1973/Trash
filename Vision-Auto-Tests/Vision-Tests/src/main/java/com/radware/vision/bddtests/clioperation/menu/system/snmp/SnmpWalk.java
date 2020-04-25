@@ -4,12 +4,12 @@ import com.radware.automation.tools.basetest.BaseTestUtils;
 import com.radware.automation.tools.basetest.Reporter;
 import com.radware.automation.tools.cli.ServerCliBase;
 import com.radware.automation.webui.VisionDebugIdsManager;
-import com.radware.vision.vision_project_cli.RadwareServerCli;
-import com.radware.vision.vision_project_cli.RootServerCli;
-import com.radware.vision.vision_tests.CliTests;
 import com.radware.vision.bddtests.BddCliTestBase;
 import com.radware.vision.bddtests.BddUITestBase;
 import com.radware.vision.infra.testhandlers.cli.CliOperations;
+import com.radware.vision.vision_project_cli.RadwareServerCli;
+import com.radware.vision.vision_project_cli.RootServerCli;
+import com.radware.vision.vision_tests.CliTests;
 import cucumber.api.java.en.When;
 import enums.SUTEntryType;
 

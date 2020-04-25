@@ -1,11 +1,10 @@
 package com.radware.vision.infra.base.pages.system.usermanagement.cliaccesslist;
 
-import org.openqa.selenium.support.How;
-
 import com.radware.automation.webui.widgets.api.TextField;
 import com.radware.automation.webui.widgets.impl.table.WebUITable;
 import com.radware.vision.infra.base.pages.navigation.WebUIVisionBasePage;
 import com.radware.vision.infra.utils.WebUIStringsVision;
+import org.openqa.selenium.support.How;
 
 public class CliAccessList extends WebUIVisionBasePage{
 	String userNameLabel =  "User Name";

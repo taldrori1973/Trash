@@ -3,7 +3,6 @@ package com.radware.vision.bddtests.clioperation.menu.system.config_sync;
 import com.radware.automation.tools.basetest.BaseTestUtils;
 import com.radware.automation.tools.basetest.Reporter;
 import com.radware.automation.tools.cli.LinuxFileServer;
-import com.radware.vision.vision_project_cli.RadwareServerCli;
 import com.radware.vision.bddtests.BddUITestBase;
 import com.radware.vision.bddtests.GenericSteps;
 import com.radware.vision.bddtests.basicoperations.BasicOperationsSteps;
@@ -12,6 +11,7 @@ import com.radware.vision.infra.testhandlers.EmailHandler;
 import com.radware.vision.infra.testhandlers.baseoperations.BasicOperationsHandler;
 import com.radware.vision.infra.testhandlers.cli.CliOperations;
 import com.radware.vision.infra.testhandlers.cli.highavailability.HAHandler;
+import com.radware.vision.vision_project_cli.RadwareServerCli;
 import cucumber.api.java.en.Then;
 import enums.SUTEntryType;
 

@@ -9,11 +9,9 @@ import com.radware.automation.webui.widgets.ComponentLocatorFactory;
 import com.radware.automation.webui.widgets.impl.WebUICheckbox;
 import com.radware.automation.webui.widgets.impl.WebUIDropdownStandard;
 import com.radware.vision.automation.tools.exceptions.selenium.TargetWebElementNotFoundException;
-import com.radware.vision.automation.tools.exceptions.web.DropdownItemNotFoundException;
-import com.radware.vision.automation.tools.exceptions.web.DropdownNotOpenedException;
-import com.radware.vision.vision_project_cli.RootServerCli;
 import com.radware.vision.infra.testhandlers.baseoperations.BasicOperationsHandler;
 import com.radware.vision.infra.testhandlers.vrm.enums.vrmActions;
+import com.radware.vision.vision_project_cli.RootServerCli;
 import org.json.JSONObject;
 import org.openqa.selenium.support.How;
 

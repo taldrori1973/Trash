@@ -1,8 +1,6 @@
 package com.radware.vision.requestsRepository.models;
 
 import lombok.Data;
-
-import java.util.List;
 @Data
 public class RequestPojo {
     private String label;

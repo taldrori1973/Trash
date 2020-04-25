@@ -1,10 +1,10 @@
 package com.radware.vision.bddtests.clioperation.menu.system.snmp;
 
 import com.radware.automation.tools.basetest.BaseTestUtils;
-import com.radware.vision.vision_handlers.system.snmp.SnmpHandler;
-import com.radware.vision.bddtests.BddCliTestBase;
-import cucumber.api.java.en.Then;
 import com.radware.automation.tools.basetest.Reporter;
+import com.radware.vision.bddtests.BddCliTestBase;
+import com.radware.vision.vision_handlers.system.snmp.SnmpHandler;
+import cucumber.api.java.en.Then;
 
 
 public class SnmpSteps extends BddCliTestBase {

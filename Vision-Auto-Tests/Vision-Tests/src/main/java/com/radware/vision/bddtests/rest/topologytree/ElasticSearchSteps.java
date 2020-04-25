@@ -1,12 +1,13 @@
 package com.radware.vision.bddtests.rest.topologytree;
+
 import com.radware.automation.tools.basetest.BaseTestUtils;
 import com.radware.automation.tools.basetest.Reporter;
+import com.radware.vision.automation.DatabaseStepHandlers.ElasticSearchHandlerNew;
 import com.radware.vision.automation.tools.sutsystemobjects.devicesinfo.enums.SUTDeviceType;
 import com.radware.vision.bddtests.BddRestTestBase;
 import com.radware.vision.bddtests.remotessh.AttacksSteps;
 import com.radware.vision.infra.testresthandlers.ElasticSearchHandler;
 import cucumber.api.java.en.Given;
-import com.radware.vision.automation.DatabaseStepHandlers.ElasticSearchHandlerNew;
 import cucumber.api.java.en.Then;
 
 public class ElasticSearchSteps extends BddRestTestBase {

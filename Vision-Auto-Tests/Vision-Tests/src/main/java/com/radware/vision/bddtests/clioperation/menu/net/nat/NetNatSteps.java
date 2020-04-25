@@ -2,11 +2,11 @@ package com.radware.vision.bddtests.clioperation.menu.net.nat;
 
 import com.radware.automation.tools.basetest.BaseTestUtils;
 import com.radware.automation.tools.basetest.Reporter;
+import com.radware.vision.bddtests.BddCliTestBase;
 import com.radware.vision.test_parameters.NetPortIp;
 import com.radware.vision.vision_handlers.net.Nat;
 import com.radware.vision.vision_handlers.net.Net;
 import com.radware.vision.vision_handlers.root.RootVerifications;
-import com.radware.vision.bddtests.BddCliTestBase;
 import cucumber.api.java.en.When;
 
 public class NetNatSteps extends BddCliTestBase {

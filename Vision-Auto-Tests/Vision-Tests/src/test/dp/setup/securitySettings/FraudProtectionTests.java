@@ -7,7 +7,6 @@ import com.radware.vision.infra.testhandlers.DefencePro.dpConfiguration.setup.se
 import jsystem.framework.TestProperties;
 import org.junit.Test;
 
-import java.awt.*;
 import java.util.HashMap;
 
 /**

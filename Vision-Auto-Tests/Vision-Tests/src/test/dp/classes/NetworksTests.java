@@ -1,7 +1,7 @@
 package com.radware.vision.tests.dp.classes;
 
-import com.radware.automation.webui.webdriver.WebUIDriver;
 import com.radware.automation.webui.WebUIUtils;
+import com.radware.automation.webui.webdriver.WebUIDriver;
 import com.radware.automation.webui.webpages.dp.configuration.classes.networks.Networks;
 import com.radware.automation.webui.webpages.dp.configuration.classes.networks.networksnonscreen.NetworkInnerTable;
 import com.radware.automation.webui.widgets.impl.table.WebUIRowValues;

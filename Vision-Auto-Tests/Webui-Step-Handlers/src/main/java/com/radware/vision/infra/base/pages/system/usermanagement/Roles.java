@@ -1,14 +1,13 @@
 package com.radware.vision.infra.base.pages.system.usermanagement;
 
-import java.util.ArrayList;
-import java.util.List;
-
+import com.radware.automation.webui.utils.WebUIStrings;
+import com.radware.automation.webui.widgets.impl.table.WebUICell;
+import com.radware.automation.webui.widgets.impl.table.WebUITable;
+import com.radware.vision.infra.base.pages.navigation.WebUIVisionBasePage;
 import org.openqa.selenium.support.How;
 
-import com.radware.automation.webui.utils.WebUIStrings;
-import com.radware.automation.webui.widgets.impl.table.WebUITable;
-import com.radware.automation.webui.widgets.impl.table.WebUICell;
-import com.radware.vision.infra.base.pages.navigation.WebUIVisionBasePage;
+import java.util.ArrayList;
+import java.util.List;
 
 public class Roles extends WebUIVisionBasePage {
 	

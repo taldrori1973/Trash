@@ -1,9 +1,9 @@
 package com.radware.vision.infra.testhandlers.system.usermanagement.roles;
 
-import java.util.List;
-
 import com.radware.vision.infra.base.pages.VisionServerMenuPane;
 import com.radware.vision.infra.base.pages.system.usermanagement.UserManagement;
+
+import java.util.List;
 
 public class RolesHandler {
 

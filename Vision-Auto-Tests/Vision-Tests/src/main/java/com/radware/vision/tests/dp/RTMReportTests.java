@@ -1,15 +1,13 @@
 package com.radware.vision.tests.dp;
 
 import com.radware.automation.tools.basetest.Reporter;
+import com.radware.automation.webui.webpages.dp.securitymonitoring.dashboardview.securitydashboard.SecurityDashboard;
 import jsystem.framework.TestProperties;
 import jsystem.framework.report.ListenerstManager;
-
 import org.junit.Test;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-
-import com.radware.automation.webui.webpages.dp.securitymonitoring.dashboardview.securitydashboard.SecurityDashboard;
 
 public class RTMReportTests extends DpTestBase {
 

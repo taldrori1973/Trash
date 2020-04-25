@@ -1,5 +1,6 @@
 package com.radware.vision.automation.DatabaseStepHandlers;
 
+import com.jayway.jsonpath.DocumentContext;
 import com.jayway.jsonpath.JsonPath;
 import com.radware.automation.tools.basetest.BaseTestUtils;
 import com.radware.automation.tools.basetest.Reporter;
@@ -7,10 +8,10 @@ import com.radware.vision.restAPI.ElasticsearchRestAPI;
 import models.RestResponse;
 import models.StatusCode;
 import org.json.JSONObject;
+
 import java.util.*;
-import com.jayway.jsonpath.DocumentContext;
-import java.util.regex.Pattern;
 import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class ElasticSearchHandlerNew {
 

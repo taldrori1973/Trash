@@ -1,11 +1,11 @@
 package com.radware.vision.infra.testhandlers;
 
 import com.radware.automation.tools.basetest.BaseTestUtils;
+import com.radware.automation.tools.basetest.Reporter;
 import com.radware.automation.tools.mailservice.MailServiceBindUtils;
 import com.radware.automation.tools.mailservice.enums.EmailStatus;
 import com.radware.automation.tools.mailservice.enums.MessagePropertyType;
 import com.radware.vision.infra.testhandlers.baseoperations.BasicOperationsHandler;
-import com.radware.automation.tools.basetest.Reporter;
 import microsoft.exchange.webservices.data.core.enumeration.service.ConflictResolutionMode;
 import microsoft.exchange.webservices.data.core.exception.service.local.ServiceLocalException;
 import microsoft.exchange.webservices.data.core.service.item.EmailMessage;

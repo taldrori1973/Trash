@@ -2,11 +2,11 @@ package com.radware.vision.bddtests.clioperation.menu.system.backup;
 
 import com.radware.automation.tools.basetest.BaseTestUtils;
 import com.radware.automation.tools.basetest.Reporter;
+import com.radware.vision.bddtests.CliNegative;
 import com.radware.vision.test_parameters.ImportExport;
 import com.radware.vision.vision_handlers.system.ConfBackup;
 import com.radware.vision.vision_project_cli.menu.Menu;
 import com.radware.vision.vision_tests.CliNegativeTests;
-import com.radware.vision.bddtests.CliNegative;
 import cucumber.api.java.en.When;
 
 import java.util.ArrayList;

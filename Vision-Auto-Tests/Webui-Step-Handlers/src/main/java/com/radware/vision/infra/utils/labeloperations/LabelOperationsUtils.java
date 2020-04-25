@@ -1,11 +1,11 @@
 package com.radware.vision.infra.utils.labeloperations;
 
 import com.aqua.sysobj.conn.CliConnectionImpl;
+import com.radware.automation.tools.utils.FileUtils;
 import com.radware.automation.tools.utils.InvokeUtils;
-import com.radware.vision.vision_project_cli.RootServerCli;
 import com.radware.vision.infra.enums.GlobalConstants;
 import com.radware.vision.infra.enums.WebWidgetType;
-import com.radware.automation.tools.utils.FileUtils;
+import com.radware.vision.vision_project_cli.RootServerCli;
 
 import java.io.BufferedReader;
 import java.io.IOException;

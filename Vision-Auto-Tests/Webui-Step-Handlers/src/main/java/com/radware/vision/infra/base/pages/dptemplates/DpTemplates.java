@@ -15,8 +15,8 @@ import org.openqa.selenium.support.How;
 
 import java.awt.*;
 import java.awt.event.KeyEvent;
-import java.util.*;
 import java.util.List;
+import java.util.*;
 
 public class DpTemplates extends WebUIVisionBasePage {
     static Map<DpConfigurationTemplatesColumns, String> templatesTableHeadersSearchLocators = new HashMap<DpConfigurationTemplatesColumns, String>();

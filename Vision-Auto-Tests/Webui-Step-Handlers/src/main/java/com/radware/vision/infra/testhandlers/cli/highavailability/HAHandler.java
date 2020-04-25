@@ -4,11 +4,11 @@ import com.radware.automation.tools.basetest.BaseTestUtils;
 import com.radware.automation.tools.basetest.Reporter;
 import com.radware.vision.enums.ConfigSyncMode;
 import com.radware.vision.enums.YesNo;
+import com.radware.vision.infra.testhandlers.BaseHandler;
 import com.radware.vision.vision_handlers.system.ConfigSync;
 import com.radware.vision.vision_project_cli.HaManager;
 import com.radware.vision.vision_project_cli.RadwareServerCli;
 import com.radware.vision.vision_project_cli.VisionServerHA;
-import com.radware.vision.infra.testhandlers.BaseHandler;
 
 public class HAHandler extends BaseHandler {
     static String peer;

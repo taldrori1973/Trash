@@ -3,10 +3,10 @@ package com.radware.vision.bddtests.clioperation;
 import com.radware.automation.tools.basetest.BaseTestUtils;
 import com.radware.automation.tools.basetest.Reporter;
 import com.radware.automation.tools.cli.ServerCliBase;
-import com.radware.vision.vision_project_cli.RadwareServerCli;
-import com.radware.vision.vision_project_cli.RootServerCli;
 import com.radware.vision.bddtests.BddCliTestBase;
 import com.radware.vision.infra.testhandlers.cli.CliOperations;
+import com.radware.vision.vision_project_cli.RadwareServerCli;
+import com.radware.vision.vision_project_cli.RootServerCli;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
 

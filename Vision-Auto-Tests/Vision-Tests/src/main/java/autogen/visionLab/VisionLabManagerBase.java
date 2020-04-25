@@ -1,6 +1,7 @@
 package autogen.visionLab;
-import systemobjects.VisionLab;
+
 import junit.framework.SystemTestCase;
+import systemobjects.VisionLab;
 /**
  * Auto generate management object.
  * Managed object class: systemobjects.VisionLab

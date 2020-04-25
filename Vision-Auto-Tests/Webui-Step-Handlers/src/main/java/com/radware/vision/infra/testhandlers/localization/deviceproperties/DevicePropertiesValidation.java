@@ -1,13 +1,13 @@
 package com.radware.vision.infra.testhandlers.localization.deviceproperties;
 
 import com.radware.automation.webui.WebUIUtils;
-import com.radware.automation.webui.widgets.ComponentLocator;
 import com.radware.automation.webui.localization.impl.DevicePropertySet;
+import com.radware.automation.webui.widgets.ComponentLocator;
 import com.radware.restcore.VisionRestClient;
 import com.radware.utils.DeviceUtils;
-import com.radware.vision.pojomodel.device.DevicePojo;
 import com.radware.vision.infra.testhandlers.baseoperations.BasicOperationsHandler;
 import com.radware.vision.infra.testhandlers.topologytree.TopologyTreeHandler;
+import com.radware.vision.pojomodel.device.DevicePojo;
 import org.openqa.selenium.support.How;
 
 import java.util.ArrayList;

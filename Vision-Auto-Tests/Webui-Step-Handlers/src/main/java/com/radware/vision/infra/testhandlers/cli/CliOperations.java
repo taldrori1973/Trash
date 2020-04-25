@@ -2,10 +2,10 @@ package com.radware.vision.infra.testhandlers.cli;
 
 
 import com.radware.automation.tools.basetest.BaseTestUtils;
+import com.radware.automation.tools.basetest.Reporter;
 import com.radware.automation.tools.cli.ServerCliBase;
 import com.radware.automation.tools.utils.InvokeUtils;
 import com.radware.vision.utils.RegexUtils;
-import com.radware.automation.tools.basetest.Reporter;
 
 import java.util.ArrayList;
 import java.util.Arrays;

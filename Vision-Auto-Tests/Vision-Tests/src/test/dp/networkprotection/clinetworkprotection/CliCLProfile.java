@@ -1,19 +1,17 @@
 package com.radware.vision.tests.dp.networkprotection.clinetworkprotection;
 
-import org.junit.Before;
-import org.junit.Test;
-
+import com.radware.automation.tools.basetest.Reporter;
 import com.radware.basics.application.RadwareCliCommand;
-import com.radware.basics.tables.RadwareTableRepository;
 import com.radware.products.defensepro.DefenseProProduct;
 import com.radware.products.defensepro.utilities.DpRadwareTestCase;
-
-import jsystem.extensions.analyzers.tabletext.TTable;
 import jsystem.extensions.analyzers.text.GetTextCounter;
 import jsystem.framework.TestProperties;
 import jsystem.framework.report.ListenerstManager;
-import com.radware.automation.tools.basetest.Reporter;;
 import junit.framework.SystemTestCase4;
+import org.junit.Before;
+import org.junit.Test;
+
+;
 
 public class CliCLProfile extends SystemTestCase4 {
 

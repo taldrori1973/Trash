@@ -2,7 +2,6 @@ package com.radware.vision.infra.testresthandlers.visionLicense;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.ObjectReader;
-import com.radware.insite.model.helpers.annotations.PersistantValue;
 import com.radware.vision.infra.testhandlers.cli.CliOperations;
 import com.radware.vision.infra.testresthandlers.visionLicense.pojos.AttackCapacityLicensePojo;
 import org.json.simple.JSONObject;

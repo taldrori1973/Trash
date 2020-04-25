@@ -10,7 +10,6 @@ import cucumber.api.java.en.When;
 import enums.SUTEntryType;
 import org.apache.commons.lang3.exception.ExceptionUtils;
 
-
 import java.util.StringJoiner;
 
 /**

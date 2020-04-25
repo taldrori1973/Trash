@@ -1,12 +1,14 @@
 package com.radware.vision.bddtests.clioperation.menu.system;
 
 import com.radware.automation.tools.basetest.BaseTestUtils;
+import com.radware.automation.tools.basetest.Reporter;
+import com.radware.vision.bddtests.BddCliTestBase;
 import com.radware.vision.vision_handlers.common.InvokeCommon;
 import com.radware.vision.vision_handlers.system.SystemGenerals;
 import com.radware.vision.vision_project_cli.menu.Menu;
-import com.radware.vision.bddtests.BddCliTestBase;
 import cucumber.api.java.en.Then;
-import com.radware.automation.tools.basetest.Reporter;;
+
+;
 
 public class SystemSteps extends BddCliTestBase {
 

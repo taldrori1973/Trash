@@ -1,8 +1,6 @@
 package com.radware.vision.bddtests.VRM;
 
 import com.radware.vision.automation.tools.exceptions.selenium.TargetWebElementNotFoundException;
-import com.radware.vision.automation.tools.exceptions.web.DropdownItemNotFoundException;
-import com.radware.vision.automation.tools.exceptions.web.DropdownNotOpenedException;
 import com.radware.vision.bddtests.BddUITestBase;
 import com.radware.vision.infra.testhandlers.vrm.VRMHandler;
 import com.radware.vision.infra.testhandlers.vrm.VRMReportsHandler;

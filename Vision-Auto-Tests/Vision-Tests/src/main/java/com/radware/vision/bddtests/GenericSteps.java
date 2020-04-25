@@ -26,7 +26,9 @@ import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
 import org.openqa.selenium.WebElement;
 
-import java.util.*;
+import java.util.Arrays;
+import java.util.List;
+import java.util.Objects;
 
 import static com.radware.vision.infra.utils.ReportsUtils.reportErrors;
 

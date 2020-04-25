@@ -2,12 +2,11 @@ package com.radware.vision.bddtests.clioperation.system.upgrade;
 
 import com.radware.automation.tools.basetest.BaseTestUtils;
 import com.radware.automation.tools.basetest.Reporter;
-import com.radware.automation.tools.utils.InvokeUtils;
+import com.radware.vision.bddtests.vmoperations.VMOperationsSteps;
 import com.radware.vision.infra.testhandlers.cli.CliOperations;
 import com.radware.vision.vision_handlers.system.upgrade.visionserver.VisionServer;
 import com.radware.vision.vision_project_cli.RadwareServerCli;
 import com.radware.vision.vision_project_cli.RootServerCli;
-import com.radware.vision.bddtests.vmoperations.VMOperationsSteps;
 
 import static com.radware.vision.base.WebUITestBase.restTestBase;
 

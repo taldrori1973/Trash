@@ -1,18 +1,16 @@
 package com.radware.vision.tests.dp.serverprotection.cliserverprotection;
 
-import org.junit.Before;
-import org.junit.Test;
-
+import com.radware.automation.tools.basetest.Reporter;
 import com.radware.products.defensepro.DefenseProProduct;
 import com.radware.products.defensepro.defensepro.DefenseProEnums.DpPolicyAction;
 import com.radware.products.defensepro.defensepro.DefenseProEnums.HTTPMitigatorProfilesTableSensitivity;
 import com.radware.products.defensepro.defensepro.DefenseProEnums.HttpChallengeMode;
 import com.radware.products.defensepro.utilities.DpRadwareTestCase;
-
 import jsystem.framework.TestProperties;
 import jsystem.framework.report.ListenerstManager;
-import com.radware.automation.tools.basetest.Reporter;
 import junit.framework.SystemTestCase4;
+import org.junit.Before;
+import org.junit.Test;
 
 public class CLIHttpFloodProfile extends SystemTestCase4 {
 

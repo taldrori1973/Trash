@@ -1,9 +1,9 @@
 package com.radware.vision.bddtests.clioperation.menu.system.backup;
 
+import com.radware.vision.bddtests.BddCliTestBase;
 import com.radware.vision.test_parameters.ImportExport;
 import com.radware.vision.test_parameters.ImportExport.ImportExportType;
 import com.radware.vision.vision_handlers.system.Backup;
-import com.radware.vision.bddtests.BddCliTestBase;
 import cucumber.api.java.en.When;
 
 public class fullBackupTests extends BddCliTestBase {

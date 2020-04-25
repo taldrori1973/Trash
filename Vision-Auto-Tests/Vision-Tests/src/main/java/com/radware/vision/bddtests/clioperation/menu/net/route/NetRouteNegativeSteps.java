@@ -1,10 +1,10 @@
 package com.radware.vision.bddtests.clioperation.menu.net.route;
 
+import com.radware.vision.bddtests.BddCliTestBase;
 import com.radware.vision.vision_handlers.common.InvokeCommon;
 import com.radware.vision.vision_handlers.root.RootVerifications;
 import com.radware.vision.vision_project_cli.menu.Menu;
 import com.radware.vision.vision_tests.CliNegativeTests;
-import com.radware.vision.bddtests.BddCliTestBase;
 import cucumber.api.java.en.When;
 
 import java.util.ArrayList;

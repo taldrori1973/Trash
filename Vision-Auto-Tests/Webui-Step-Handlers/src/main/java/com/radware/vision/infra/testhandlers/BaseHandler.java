@@ -2,6 +2,7 @@ package com.radware.vision.infra.testhandlers;
 
 import basejunit.RestTestBase;
 import com.radware.automation.tools.basetest.BaseTestUtils;
+import com.radware.automation.tools.basetest.Reporter;
 import com.radware.automation.webui.widgets.impl.table.WebUITable;
 import com.radware.restcommands.mgmtcommands.tree.DeviceCommands;
 import com.radware.vision.automation.tools.sutsystemobjects.devicesinfo.DevicesManager;
@@ -9,7 +10,6 @@ import com.radware.vision.infra.base.pages.deviceoperations.DeviceOperations;
 import com.radware.vision.infra.enums.DeviceState;
 import com.radware.vision.infra.enums.TopologyTreeTabs;
 import com.radware.vision.infra.testhandlers.topologytree.TopologyTreeHandler;
-import com.radware.automation.tools.basetest.Reporter;
 
 import java.util.HashMap;
 

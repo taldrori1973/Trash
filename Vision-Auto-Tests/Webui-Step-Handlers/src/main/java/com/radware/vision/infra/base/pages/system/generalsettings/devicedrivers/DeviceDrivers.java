@@ -1,12 +1,11 @@
 package com.radware.vision.infra.base.pages.system.generalsettings.devicedrivers;
 
-import org.openqa.selenium.support.How;
-
 import com.radware.automation.webui.widgets.ComponentLocator;
 import com.radware.automation.webui.widgets.impl.WebUIComponent;
 import com.radware.automation.webui.widgets.impl.table.WebUITable;
 import com.radware.vision.infra.base.pages.navigation.WebUIVisionBasePage;
 import com.radware.vision.infra.utils.WebUIStringsVision;
+import org.openqa.selenium.support.How;
 
 public class DeviceDrivers extends WebUIVisionBasePage{
 	String deviceDrivers = "Manage Device Drivers";

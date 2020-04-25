@@ -1,18 +1,15 @@
 package com.radware.vision.infra.base.pages.system.generalsettings.devicedrivers;
 
-import java.awt.AWTException;
-import java.awt.Robot;
-import java.awt.event.KeyEvent;
-import java.awt.Toolkit;
-import java.awt.datatransfer.StringSelection;
-
-import org.openqa.selenium.support.How;
-
 import com.radware.automation.webui.widgets.ComponentLocator;
 import com.radware.automation.webui.widgets.impl.WebUIButton;
 import com.radware.automation.webui.widgets.impl.WebUIComponent;
 import com.radware.vision.infra.base.pages.navigation.WebUIVisionBasePage;
 import com.radware.vision.infra.utils.WebUIStringsVision;
+import org.openqa.selenium.support.How;
+
+import java.awt.*;
+import java.awt.datatransfer.StringSelection;
+import java.awt.event.KeyEvent;
 
 public class UploadDeviceDriver extends WebUIVisionBasePage{
 	

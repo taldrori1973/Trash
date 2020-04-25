@@ -1,11 +1,11 @@
 package com.radware.vision.bddtests.VRM.HTTPS;
 
 import com.radware.restcore.utils.enums.HttpMethodEnum;
+import com.radware.vision.automation.AutoUtils.Operators.OperatorsEnum;
 import com.radware.vision.bddtests.BddUITestBase;
 import com.radware.vision.bddtests.GenericSteps;
 import com.radware.vision.bddtests.basicoperations.BasicValidationsTests;
 import com.radware.vision.bddtests.rest.BasicRestOperationsSteps;
-import com.radware.vision.automation.AutoUtils.Operators.OperatorsEnum;
 import com.radware.vision.infra.testhandlers.BaseHandler;
 import com.radware.vision.infra.testhandlers.baseoperations.BasicOperationsHandler;
 import com.radware.vision.infra.testhandlers.baseoperations.clickoperations.ClickOperationsHandler;
