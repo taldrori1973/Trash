@@ -1,5 +1,6 @@
 package com.radware.vision.tests.rbac.configuration.network;
 
+import com.radware.automation.tools.basetest.BaseTestUtils;
 import com.radware.automation.tools.basetest.Reporter;
 import com.radware.vision.infra.testhandlers.rbac.configuration.network.RBACAlteonLayer3TableActionHandler;
 import com.radware.vision.infra.testhandlers.rbac.enums.*;
@@ -44,7 +45,7 @@ public class RBACAlteonLayer3TableActionTests extends RBACTestBase {
     ManagementNetworks managementNetwork = ManagementNetworks.IPV4;
 
     @Before
-    public void setDeviceDriver()throws Exception{
+    public void setDeviceDriver() throws Exception {
         setAlteonTestPropertiesBase();
     }
 
