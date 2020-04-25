@@ -166,7 +166,7 @@ public class ConfigSyncSteps extends BddCliTestBase {
     @Given("^CLI set config-sync peer(?: chosen Peer \"(.*)\")?$")
     public void setConfigSyncPeerTest(String chosenPeer) {
 
-        SystemProperties systemProperties=new SystemProperties();
+        SystemProperties systemProperties=SystemProperties.get_instance();
 
         try {
             if (chosenPeer == null) {

@@ -351,7 +351,7 @@ public class BasicOperationsSteps extends BddUITestBase {
     @Then("^UI set Current Time Plus Seconds \"(.*)\"$")
     public void setCurrentTimePlusSeconds(long secondsToAdd) {
         try {
-            SystemProperties systemProperties=new SystemProperties();
+            SystemProperties systemProperties=SystemProperties.get_instance();
             LocalTime currentTime = LocalTime.now();
             currentTime = currentTime.plusSeconds(secondsToAdd);
             String hours = Integer.toString(currentTime.getHour());

@@ -469,7 +469,7 @@ public class BasicOperations extends WebUITestBase {
     @TestProperties(name = "set Current Time Plus Seconds", paramsInclude = {"seconds", "targetTestId"})
     public void setCurrentTimePlusSeconds() {
         try {
-            SystemProperties systemProperties=new SystemProperties();
+            SystemProperties systemProperties=SystemProperties.get_instance();
             LocalTime currentTime = LocalTime.now();
             currentTime = currentTime.plusSeconds(this.seconds);
             String hours = Integer.toString(currentTime.getHour());

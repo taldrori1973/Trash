@@ -122,7 +122,7 @@ public class ClickOperationsHandler {
 
     public static void setTextToElement(WebElementType elementType, String elementId, String inputText, boolean enterKey) {
         try {
-            SystemProperties systemProperties = new SystemProperties();
+            SystemProperties systemProperties = SystemProperties.get_instance();
             if (systemProperties.containsKey(inputText)) {
                 inputText = systemProperties.getValueByKey(inputText);
             }
