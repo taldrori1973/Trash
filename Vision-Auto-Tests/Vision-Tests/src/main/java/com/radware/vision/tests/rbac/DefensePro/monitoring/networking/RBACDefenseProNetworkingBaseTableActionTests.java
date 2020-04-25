@@ -1,5 +1,6 @@
 package com.radware.vision.tests.rbac.DefensePro.monitoring.networking;
 
+import com.radware.automation.tools.basetest.BaseTestUtils;
 import com.radware.automation.tools.basetest.Reporter;
 import com.radware.vision.infra.testhandlers.rbac.defensePro.monitoring.networking.RBACDefenseProNetworkingBaseTableActionHandler;
 import com.radware.vision.infra.testhandlers.rbac.enums.ViewBaseTableActions;
