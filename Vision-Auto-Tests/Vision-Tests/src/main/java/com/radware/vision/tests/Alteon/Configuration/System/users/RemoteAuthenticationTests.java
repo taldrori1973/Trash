@@ -1,5 +1,6 @@
 package com.radware.vision.tests.Alteon.Configuration.System.users;
 
+import com.radware.automation.tools.basetest.BaseTestUtils;
 import com.radware.automation.tools.basetest.Reporter;
 import com.radware.automation.webui.webpages.GeneralEnums;
 import com.radware.vision.infra.testhandlers.alteon.configuration.system.Users.RemoteAuthenticationHandler;

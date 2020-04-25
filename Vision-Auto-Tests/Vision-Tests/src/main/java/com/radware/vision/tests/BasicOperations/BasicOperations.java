@@ -719,7 +719,7 @@ public class BasicOperations extends WebUITestBase {
             BaseTestUtils.reporter.saveFile(randomFileName, ByteStreams.toByteArray(inputStream));
 
             String imageSource = randomFileName;
-            BaseTestUtils.reportHtml(time + " Screenshot. Login", "<img src=" + imageSource + " alt=screenshot width=1280 height=848>", true);
+            BaseTestUtils.reporter.reportHtml(time + " Screenshot. Login", "<img src=" + imageSource + " alt=screenshot width=1280 height=848>", true);
         } catch (IOException e) {
         }
     }
