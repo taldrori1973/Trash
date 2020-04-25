@@ -2,6 +2,7 @@ package com.radware.vision.bddtests.toolbox;
 
 import com.radware.automation.tools.basetest.BaseTestUtils;
 import com.radware.automation.tools.basetest.Reporter;
+import com.radware.vision.automation.AutoUtils.utils.SystemProperties;
 import com.radware.vision.bddtests.BddUITestBase;
 import com.radware.vision.infra.base.pages.navigation.WebUIUpperBar;
 import com.radware.vision.infra.enums.*;
@@ -12,7 +13,6 @@ import com.radware.vision.infra.testhandlers.toolbox.ToolboxHandler;
 import com.radware.vision.infra.utils.ReportsUtils;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
-import jsystem.framework.RunProperties;
 
 public class ToolboxSteps extends BddUITestBase {
 
@@ -112,7 +112,7 @@ public class ToolboxSteps extends BddUITestBase {
     public void runActionFromGroup(ToolboxActionsEnum actionName, ToolboxGroupsEnum groupName) {
         try {
             ToolboxHandler.runActionFromGroup(actionName, groupName);
-        }catch (Exception e){
+        } catch (Exception e) {
             BaseTestUtils.report(e.getMessage(), Reporter.FAIL);
         }
     }
@@ -120,14 +120,13 @@ public class ToolboxSteps extends BddUITestBase {
     @Then("^UI ToolboxTest - Check If Action Exist Under Group by actionName \"([^\"]*)\" by groupName \"([^\"]*)\"( negative)?$")
     public void checkIfActionExistUnderGroup(ToolboxActionsEnum actionName, ToolboxGroupsEnum groupName, String negativeStr) {
         try {
-            boolean isExist = ToolboxHandler.checkIfActionExistsUnderGroup(actionName,groupName);
-            if(isExist){
-                BaseTestUtils.report("\"" + actionName.getActionName() + "\" Action exist under " + "\"" + groupName.toString() + "\" Group",Reporter.PASS);
+            boolean isExist = ToolboxHandler.checkIfActionExistsUnderGroup(actionName, groupName);
+            if (isExist) {
+                BaseTestUtils.report("\"" + actionName.getActionName() + "\" Action exist under " + "\"" + groupName.toString() + "\" Group", Reporter.PASS);
+            } else {
+                BaseTestUtils.report("\"" + actionName.getActionName() + "\" Action not exist under " + " \"" + groupName.toString() + "\" Group", Reporter.FAIL);
             }
-            else {
-                BaseTestUtils.report("\"" + actionName.getActionName() + "\" Action not exist under " + " \"" + groupName.toString() + "\" Group",Reporter.FAIL);
-            }
-        }catch (Exception e){
+        } catch (Exception e) {
             BaseTestUtils.report(e.getMessage(), Reporter.FAIL);
         }
     }
@@ -136,7 +135,7 @@ public class ToolboxSteps extends BddUITestBase {
     public void deleteAllActionInGroup(ToolboxGroupsEnum groupName) {
         try {
             ToolboxHandler.deleteAllActionInGroup(groupName);
-        }catch (Exception e){
+        } catch (Exception e) {
             BaseTestUtils.report(e.getMessage(), Reporter.FAIL);
         }
     }
@@ -145,7 +144,7 @@ public class ToolboxSteps extends BddUITestBase {
     public void dragAndDropGroupAndVerify(ToolboxGroupsEnum groupName, String xOffset, String yOffset) {
         try {
             ToolboxHandler.dragAndDropGroupAndVerify(groupName, Integer.parseInt(xOffset), Integer.parseInt(yOffset));
-        }catch (Exception e){
+        } catch (Exception e) {
             BaseTestUtils.report(e.getMessage(), Reporter.FAIL);
         }
     }
@@ -154,7 +153,7 @@ public class ToolboxSteps extends BddUITestBase {
     public void resizeGroupAndVerify(ToolboxGroupsEnum groupName, String xOffset, String yOffset) {
         try {
             ToolboxHandler.resizeGroupAndVerify(groupName, Integer.parseInt(xOffset), Integer.parseInt(yOffset));
-        }catch (Exception e){
+        } catch (Exception e) {
             BaseTestUtils.report(e.getMessage(), Reporter.FAIL);
         }
     }
@@ -163,7 +162,7 @@ public class ToolboxSteps extends BddUITestBase {
     public void restoreDashboardDefaultViewAndVerify() {
         try {
             ToolboxHandler.restoreDashboardDefaultViewAndVerify();
-        }catch (Exception e){
+        } catch (Exception e) {
             BaseTestUtils.report(e.getMessage(), Reporter.FAIL);
         }
     }
@@ -172,7 +171,7 @@ public class ToolboxSteps extends BddUITestBase {
     public void checkAllGroupsDisplayed() {
         try {
             ToolboxHandler.checkAllGroupsExistsAndDisplayed();
-        }catch (Exception e){
+        } catch (Exception e) {
             BaseTestUtils.report(e.getMessage(), Reporter.FAIL);
         }
     }
@@ -181,7 +180,7 @@ public class ToolboxSteps extends BddUITestBase {
     public void checkAllGroupsIconsDisplayed() {
         try {
             ToolboxHandler.checkAllGroupsIconsExistsAndDisplayed();
-        }catch (Exception e){
+        } catch (Exception e) {
             BaseTestUtils.report(e.getMessage(), Reporter.FAIL);
         }
     }
@@ -190,14 +189,13 @@ public class ToolboxSteps extends BddUITestBase {
     public void deleteActionFromGroup(ToolboxActionsEnum actionName, ToolboxGroupsEnum actionParentGroupName) {
         try {
             ToolboxHandler.deleteActionFromGroup(actionName, actionParentGroupName);
-            boolean isExist = ToolboxHandler.checkIfActionExistsUnderGroup(actionName,actionParentGroupName);
-            if(isExist){
-                BaseTestUtils.report("\"" + actionName.getActionName() + "\" Action exist under " + "\"" + actionParentGroupName.toString() + "\" Group",Reporter.FAIL);
+            boolean isExist = ToolboxHandler.checkIfActionExistsUnderGroup(actionName, actionParentGroupName);
+            if (isExist) {
+                BaseTestUtils.report("\"" + actionName.getActionName() + "\" Action exist under " + "\"" + actionParentGroupName.toString() + "\" Group", Reporter.FAIL);
+            } else {
+                BaseTestUtils.report("\"" + actionName.getActionName() + "\" Action not exist under " + " \"" + actionParentGroupName.toString() + "\" Group", Reporter.PASS);
             }
-            else {
-                BaseTestUtils.report("\"" + actionName.getActionName() + "\" Action not exist under " + " \"" + actionParentGroupName.toString() + "\" Group",Reporter.PASS);
-            }
-        }catch (Exception e){
+        } catch (Exception e) {
             BaseTestUtils.report(e.getMessage(), Reporter.FAIL);
         }
     }
@@ -205,15 +203,14 @@ public class ToolboxSteps extends BddUITestBase {
     @Then("^UI ToolboxTest - Add Action To Group by actionName \"([^\"]*)\" with groupName \"([^\"]*)\"$")
     public void addActionToGroup(ToolboxActionsEnum actionName, ToolboxGroupsEnum groupName) {
         try {
-            ToolboxHandler.addActionToGroup(actionName,groupName);
-            boolean isExist = ToolboxHandler.checkIfActionExistsUnderGroup(actionName,groupName);
-            if(isExist){
-                BaseTestUtils.report("\"" + actionName.getActionName() + "\" Action exist under " + "\"" + groupName.toString() + "\" Group",Reporter.PASS);
+            ToolboxHandler.addActionToGroup(actionName, groupName);
+            boolean isExist = ToolboxHandler.checkIfActionExistsUnderGroup(actionName, groupName);
+            if (isExist) {
+                BaseTestUtils.report("\"" + actionName.getActionName() + "\" Action exist under " + "\"" + groupName.toString() + "\" Group", Reporter.PASS);
+            } else {
+                BaseTestUtils.report("\"" + actionName.getActionName() + "\" Action not exist under " + " \"" + groupName.toString() + "\" Group", Reporter.FAIL);
             }
-            else {
-                BaseTestUtils.report("\"" + actionName.getActionName() + "\" Action not exist under " + " \"" + groupName.toString() + "\" Group",Reporter.FAIL);
-            }
-        }catch (Exception e){
+        } catch (Exception e) {
             BaseTestUtils.report(e.getMessage(), Reporter.FAIL);
         }
     }
@@ -221,15 +218,14 @@ public class ToolboxSteps extends BddUITestBase {
     @Then("^UI ToolboxTest - dragAndDropActionToGroup by actionName \"([^\"]*)\" with groupName \"([^\"]*)\" with actionParentGroupName \"([^\"]*)\"$")
     public void dragAndDropActionToGroup(ToolboxActionsEnum actionName, ToolboxGroupsEnum groupName, ToolboxGroupsEnum actionParentGroupName) {
         try {
-            ToolboxHandler.dragAndDropActionToGroup(actionName,groupName,actionParentGroupName);
-            boolean isExist = ToolboxHandler.checkIfActionExistsUnderGroup(actionName,groupName);
-            if(isExist){
-                BaseTestUtils.report("\"" + actionName.getActionName() + "\" Action exist under " + "\"" + groupName.toString() + "\" Group",Reporter.PASS);
+            ToolboxHandler.dragAndDropActionToGroup(actionName, groupName, actionParentGroupName);
+            boolean isExist = ToolboxHandler.checkIfActionExistsUnderGroup(actionName, groupName);
+            if (isExist) {
+                BaseTestUtils.report("\"" + actionName.getActionName() + "\" Action exist under " + "\"" + groupName.toString() + "\" Group", Reporter.PASS);
+            } else {
+                BaseTestUtils.report("\"" + actionName.getActionName() + "\" Action not exist under " + " \"" + groupName.toString() + "\" Group", Reporter.FAIL);
             }
-            else {
-                BaseTestUtils.report("\"" + actionName.getActionName() + "\" Action not exist under " + " \"" + groupName.toString() + "\" Group",Reporter.FAIL);
-            }
-        }catch (Exception e){
+        } catch (Exception e) {
             BaseTestUtils.report(e.getMessage(), Reporter.FAIL);
         }
     }
@@ -238,14 +234,13 @@ public class ToolboxSteps extends BddUITestBase {
     public void dragAndDropActionFromFavoritesToGroup(ToolboxActionsEnum actionName, ToolboxGroupsEnum groupName) {
         try {
             ToolboxHandler.dragAndDropActionToGroup(actionName, groupName, ToolboxGroupsEnum.FAVORITES);
-            boolean isExist = ToolboxHandler.checkIfActionExistsUnderGroup(actionName,groupName);
-            if(isExist){
-                BaseTestUtils.report("\"" + actionName.getActionName() + "\" Action was copied from Favorites to " + "\"" + groupName.toString() + "\" Group",Reporter.FAIL);
+            boolean isExist = ToolboxHandler.checkIfActionExistsUnderGroup(actionName, groupName);
+            if (isExist) {
+                BaseTestUtils.report("\"" + actionName.getActionName() + "\" Action was copied from Favorites to " + "\"" + groupName.toString() + "\" Group", Reporter.FAIL);
+            } else {
+                BaseTestUtils.report("\"" + actionName.getActionName() + "\" Action was not copied from Favorites to " + " \"" + groupName.toString() + "\" Group", Reporter.PASS);
             }
-            else {
-                BaseTestUtils.report("\"" + actionName.getActionName() + "\" Action was not copied from Favorites to " + " \"" + groupName.toString() + "\" Group",Reporter.PASS);
-            }
-        }catch (Exception e){
+        } catch (Exception e) {
             BaseTestUtils.report(e.getMessage(), Reporter.FAIL);
         }
     }
@@ -254,14 +249,13 @@ public class ToolboxSteps extends BddUITestBase {
     public void dragAndDropActionFromGroupToRecentlyUsed(ToolboxActionsEnum actionName, ToolboxGroupsEnum actionParentGroupName) {
         try {
             ToolboxHandler.dragAndDropActionToGroup(actionName, ToolboxGroupsEnum.RECENTLY_USED, actionParentGroupName);
-            boolean isExist = ToolboxHandler.checkIfActionExistsUnderGroup(actionName,ToolboxGroupsEnum.RECENTLY_USED);
-            if(isExist){
-                BaseTestUtils.report("\"" + actionName.getActionName() + "\" Action was copied from group to " + "\"" + ToolboxGroupsEnum.RECENTLY_USED + "\" Group",Reporter.FAIL);
+            boolean isExist = ToolboxHandler.checkIfActionExistsUnderGroup(actionName, ToolboxGroupsEnum.RECENTLY_USED);
+            if (isExist) {
+                BaseTestUtils.report("\"" + actionName.getActionName() + "\" Action was copied from group to " + "\"" + ToolboxGroupsEnum.RECENTLY_USED + "\" Group", Reporter.FAIL);
+            } else {
+                BaseTestUtils.report("\"" + actionName.getActionName() + "\" Action was not copied from group to " + " \"" + ToolboxGroupsEnum.RECENTLY_USED + "\" Group", Reporter.PASS);
             }
-            else {
-                BaseTestUtils.report("\"" + actionName.getActionName() + "\" Action was not copied from group to " + " \"" + ToolboxGroupsEnum.RECENTLY_USED + "\" Group",Reporter.PASS);
-            }
-        }catch (Exception e){
+        } catch (Exception e) {
             BaseTestUtils.report(e.getMessage(), Reporter.FAIL);
         }
     }
@@ -269,13 +263,12 @@ public class ToolboxSteps extends BddUITestBase {
     @Then("^UI ToolboxTest - Verify That Group Is Scrollable by groupName \"([^\"]*)\"( negative)?$")
     public void verifyThatGroupIsScrollable(ToolboxGroupsEnum groupName, String negativeStr) {
         try {
-            if(ToolboxHandler.isScrollable(groupName)){
-                BaseTestUtils.report(groupName.toString() + " group is scrollable",Reporter.PASS);
+            if (ToolboxHandler.isScrollable(groupName)) {
+                BaseTestUtils.report(groupName.toString() + " group is scrollable", Reporter.PASS);
+            } else {
+                BaseTestUtils.report(groupName.toString() + " group is not scrollable", Reporter.FAIL);
             }
-            else{
-                BaseTestUtils.report(groupName.toString() + " group is not scrollable",Reporter.FAIL);
-            }
-        }catch (Exception e){
+        } catch (Exception e) {
             BaseTestUtils.report(e.getMessage(), Reporter.FAIL);
         }
     }
@@ -283,15 +276,14 @@ public class ToolboxSteps extends BddUITestBase {
     @Then("^UI ToolboxTest - Show Or Hide Group by groupName \"([^\"]*)\" show \"(true|false)\"$")
     public void showOrHideGroup(ToolboxGroupsEnum groupName, boolean show) {
         try {
-            ToolboxHandler.showOrHideGroup(groupName,show);
+            ToolboxHandler.showOrHideGroup(groupName, show);
             boolean isExists = ToolboxHandler.checkIfGroupExists(groupName);
-            if(show && !isExists){
+            if (show && !isExists) {
                 BaseTestUtils.report(groupName.toString() + " group not shown", Reporter.FAIL);
-            }
-            else if(!show && isExists){
+            } else if (!show && isExists) {
                 BaseTestUtils.report(groupName.toString() + " group shown", Reporter.FAIL);
             }
-        }catch (Exception e){
+        } catch (Exception e) {
             BaseTestUtils.report(e.getMessage(), Reporter.FAIL);
         }
     }
@@ -300,18 +292,17 @@ public class ToolboxSteps extends BddUITestBase {
     public void scheduleActionFromGroup(ToolboxActionsEnum actionName, ToolboxGroupsEnum actionParentGroupName) {
         try {
             ToolboxHandler.scheduleActionFromGroup(actionName, actionParentGroupName);
-            }
-        catch (Exception e){
+        } catch (Exception e) {
             BaseTestUtils.report(e.getMessage(), Reporter.FAIL);
         }
     }
 
     @Then("^UI ToolboxTest - Move Toolbox DualList Items to Side \"(LEFT|RIGHT)\" with dualListItems \"([^\"]*)\" with dualListItems \"([^\"]*)\"$")
-    public void moveToolboxDualListItems(DualListSides dualListSide, String dualListItems, String dualListID){
+    public void moveToolboxDualListItems(DualListSides dualListSide, String dualListItems, String dualListID) {
         try {
-            ToolboxHandler.moveToolboxDualListItems(dualListSide,dualListItems,dualListID);
+            ToolboxHandler.moveToolboxDualListItems(dualListSide, dualListItems, dualListID);
 
-        }catch (Exception e){
+        } catch (Exception e) {
             BaseTestUtils.report(e.getMessage(), Reporter.FAIL);
         }
     }
@@ -320,7 +311,7 @@ public class ToolboxSteps extends BddUITestBase {
     public void runWithParams(ToolboxActionsEnum actionName, ToolboxGroupsEnum actionParentGroupName) {
         try {
             ToolboxHandler.runWithParams(actionName, actionParentGroupName);
-        }catch (Exception e){
+        } catch (Exception e) {
             BaseTestUtils.report(e.getMessage(), Reporter.FAIL);
         }
     }
@@ -329,7 +320,7 @@ public class ToolboxSteps extends BddUITestBase {
     public void copyScriptOutputAndCheckValidity(int timeout) {
         try {
             ToolboxHandler.copyScriptOutputAndCheckValidity(timeout);
-        }catch (Exception e){
+        } catch (Exception e) {
             BaseTestUtils.report(e.getMessage(), Reporter.FAIL);
         }
     }
@@ -338,7 +329,7 @@ public class ToolboxSteps extends BddUITestBase {
     public void selectCategoryFromAdvanced(ToolboxGroupsEnum groupName) {
         try {
             ToolboxHandler.selectCategoryFromAdvanced(groupName);
-        }catch (Exception e){
+        } catch (Exception e) {
             BaseTestUtils.report(e.getMessage(), Reporter.FAIL);
         }
     }
@@ -347,11 +338,11 @@ public class ToolboxSteps extends BddUITestBase {
     public void checkIfGroupExists(ToolboxGroupsEnum groupName, String negativeStr) {
         try {
             boolean isExists = ToolboxHandler.checkIfGroupExists(groupName);
-            if(!isExists){
+            if (!isExists) {
                 BaseTestUtils.report(groupName.toString() + " group not shown in the OTB", Reporter.FAIL);
             }
 
-        }catch (Exception e){
+        } catch (Exception e) {
             BaseTestUtils.report(e.getMessage(), Reporter.FAIL);
         }
     }
@@ -359,8 +350,8 @@ public class ToolboxSteps extends BddUITestBase {
     @Then("^UI ToolboxTest - Copy And Save Script Output \"([^\"]*)\" with timeout (\\d+)$")
     public void copyAndSaveScriptOutput(String runPropertyName, int timeout) {
         try {
-            ToolboxHandler.copyAndSaveScriptOutput(runPropertyName,timeout);
-        }catch (Exception e){
+            ToolboxHandler.copyAndSaveScriptOutput(runPropertyName, timeout);
+        } catch (Exception e) {
             BaseTestUtils.report(e.getMessage(), Reporter.FAIL);
         }
     }
@@ -368,9 +359,10 @@ public class ToolboxSteps extends BddUITestBase {
     @Then("^UI ToolboxTest - Show Previous Result And Compare by actionName \"([^\"]*)\" with groupName \"([^\"]*)\" with property \"([^\"]*)\"$")
     public void showPreviousResultAndCompare(ToolboxActionsEnum actionName, ToolboxGroupsEnum groupName, String property) {
         try {
-            String result = RunProperties.getInstance().getRunProperty(property);
-            ToolboxHandler.showPreviousResultAndCompare(actionName,groupName, result);
-        }catch (Exception e){
+            SystemProperties systemProperties = new SystemProperties();
+            String result = systemProperties.getValueByKey(property);
+            ToolboxHandler.showPreviousResultAndCompare(actionName, groupName, result);
+        } catch (Exception e) {
             BaseTestUtils.report(e.getMessage(), Reporter.FAIL);
         }
     }

@@ -13,6 +13,7 @@ import com.radware.automation.webui.webpages.GeneralEnums;
 import com.radware.jsonparsers.impl.JsonUtils;
 import com.radware.restcommands.RestCommands;
 import com.radware.restcore.utils.enums.ExpectedHttpCodes;
+import com.radware.vision.automation.AutoUtils.utils.SystemProperties;
 import com.radware.vision.base.WebUITestBase;
 import com.radware.vision.bddtests.basicoperations.BasicOperationsSteps;
 import com.radware.vision.infra.base.pages.system.usermanagement.localusers.UserEntry;
@@ -21,7 +22,6 @@ import com.radware.vision.infra.testhandlers.system.usermanagement.localusers.Lo
 import com.radware.vision.vision_project_cli.RadwareServerCli;
 import com.radware.vision.vision_project_cli.RootServerCli;
 import jsystem.framework.ParameterProperties;
-import jsystem.framework.RunProperties;
 import jsystem.framework.TestProperties;
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -469,13 +469,14 @@ public class BasicOperations extends WebUITestBase {
     @TestProperties(name = "set Current Time Plus Seconds", paramsInclude = {"seconds", "targetTestId"})
     public void setCurrentTimePlusSeconds() {
         try {
+            SystemProperties systemProperties=new SystemProperties();
             LocalTime currentTime = LocalTime.now();
             currentTime = currentTime.plusSeconds(this.seconds);
             String hours = Integer.toString(currentTime.getHour());
             String minutes = Integer.toString(currentTime.getMinute());
             String seconds = Integer.toString(currentTime.getSecond());
             String dateString = hours + ":" + minutes + ":" + seconds;
-            RunProperties.getInstance().setRunProperty("currentTimePlus", dateString);
+            systemProperties.setRunTimeProperty("currentTimePlus", dateString);
         } catch (Exception e) {
             BaseTestUtils.report(e.getMessage(), Reporter.FAIL);
         }
