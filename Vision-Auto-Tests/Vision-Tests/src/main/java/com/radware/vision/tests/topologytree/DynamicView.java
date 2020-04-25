@@ -1,5 +1,6 @@
 package com.radware.vision.tests.topologytree;
 
+import com.radware.automation.tools.basetest.BaseTestUtils;
 import com.radware.automation.tools.basetest.Reporter;
 import com.radware.vision.base.WebUITestBase;
 import com.radware.vision.infra.enums.TopologyTreeTabs;
