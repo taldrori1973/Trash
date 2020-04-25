@@ -33,7 +33,7 @@ public class GeneralSettings extends VisionSettingsBase {
     @TestProperties(name = "Alert Settings", paramsInclude = {})
     public void clickAlertSettings() {
         if(!clickMenu(subMenuOption, "alertsettings")) {
-            BaseTestUtils.report("Failed to click 'Alert Settings' menu option.");
+            BaseTestUtils.reporter.report("Failed to click 'Alert Settings' menu option.");
         }
     }
 
@@ -41,7 +41,7 @@ public class GeneralSettings extends VisionSettingsBase {
     @TestProperties(name = "Monitoring", paramsInclude = {})
     public void clickMonitoring() {
         if(!clickMenu(subMenuOption, "monitoring")) {
-            BaseTestUtils.report("Failed to click 'Monitoring' menu option.");
+            BaseTestUtils.reporter.report("Failed to click 'Monitoring' menu option.");
         }
     }
 
@@ -73,7 +73,7 @@ public class GeneralSettings extends VisionSettingsBase {
     @TestProperties(name = "APSolute Vision Reporter", paramsInclude = {})
     public void clickAPSoluteVisionReporter() {
         if(!clickMenu(subMenuOption, "eiqConfig")) {
-            BaseTestUtils.report("Failed to click 'APsolute Vision Reporter' menu option.");
+            BaseTestUtils.reporter.report("Failed to click 'APsolute Vision Reporter' menu option.");
         }
     }
 
@@ -81,7 +81,7 @@ public class GeneralSettings extends VisionSettingsBase {
     @TestProperties(name = "License Management", paramsInclude = {})
     public void clickLicenseManagement() {
         if(!clickMenu(subMenuOption, "licenseManagement")) {
-            BaseTestUtils.report("Failed to click 'License Management' menu option.");
+            BaseTestUtils.reporter.report("Failed to click 'License Management' menu option.");
         }
     }
 
@@ -105,7 +105,7 @@ public class GeneralSettings extends VisionSettingsBase {
     @TestProperties(name = "Advanced", paramsInclude = {})
     public void clickAdvanced() {
         if(!clickMenu(subMenuOption, "advanced")) {
-            BaseTestUtils.report("Failed to click 'Advanced' menu option.");
+            BaseTestUtils.reporter.report("Failed to click 'Advanced' menu option.");
         }
     }
 
@@ -129,7 +129,7 @@ public class GeneralSettings extends VisionSettingsBase {
     @TestProperties(name = "AppWall Filter", paramsInclude = {})
     public void clickAppWallFilter() {
         if(!clickMenu(subMenuOption, "AppWallFilter")) {
-            BaseTestUtils.report("Failed to click 'AppWall Filter' menu option.");
+            BaseTestUtils.reporter.report("Failed to click 'AppWall Filter' menu option.");
         }
     }
 }

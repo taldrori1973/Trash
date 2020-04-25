@@ -15,7 +15,7 @@ public class VisionSettings extends VisionSettingsBase {
     @TestProperties(name = "System", paramsInclude = {})
     public void clickSystem() {
         if(!clickMenu("gwt-debug-System")) {
-            BaseTestUtils.report("Failed to click 'System' menu option.");
+            BaseTestUtils.reporter.report("Failed to click 'System' menu option.");
         }
     }
 
@@ -23,7 +23,7 @@ public class VisionSettings extends VisionSettingsBase {
     @TestProperties(name = "Dashboards", paramsInclude = {})
     public void clickDashboards() {
         if(!clickMenu("gwt-debug-Dashboards")) {
-            BaseTestUtils.report("Failed to click 'Dashboards' menu option.");
+            BaseTestUtils.reporter.report("Failed to click 'Dashboards' menu option.");
         }
     }
 

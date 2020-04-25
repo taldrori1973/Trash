@@ -4,7 +4,6 @@ package com.radware.vision.restBddTests;
 import com.radware.vision.RestStepResult;
 import com.radware.vision.automation.tools.sutsystemobjects.devicesinfo.enums.SUTDeviceType;
 import com.radware.vision.bddtests.BddRestTestBase;
-import com.radware.vision.bddtests.defenseFlow.defenseFlowDevice;
 import com.radware.vision.restBddTests.utils.SutUtils;
 import com.radware.vision.restBddTests.utils.UriUtils;
 import com.radware.vision.restTestHandler.RestClientsStepsHandler;
@@ -13,8 +12,6 @@ import cucumber.api.java.en.Given;
 import testhandlers.vision.system.generalSettings.LicenseManagementHandler;
 import testhandlers.vision.system.generalSettings.enums.LicenseKeys;
 
-import static com.radware.automation.tools.basetest.BaseTestUtils.report;
-import static com.radware.automation.tools.basetest.Reporter.FAIL;
 import static java.util.Objects.isNull;
 import static org.apache.commons.lang3.StringUtils.isBlank;
 import static org.apache.commons.lang3.StringUtils.isEmpty;
@@ -168,21 +165,21 @@ public class RestClientsSteps extends BddRestTestBase {
     @Given("^That Defense Flow Device from SUT File is Logged In(?: With Username \"([^\"]*)\" and Password \"([^\"]*)\")?$")
     public void thatDefenseFlowIsLoggedInWithUsernameAndPassword(String username, String password) throws Exception {
 //        Should be Change to get the data from SUT Utils
-        defenseFlowDevice DF = (defenseFlowDevice) system.getSystemObject("defenseFlowDevice");
-        if (isNull(username) ^ isNull(password)) {
-            report("Username and Password both should be given or no one of them.", FAIL);
-        }
-        if (isNull(username)) {
-            username = DF.username;
-            password = DF.password;
+//        defenseFlowDevice DF = (defenseFlowDevice) system.getSystemObject("defenseFlowDevice");
+//        if (isNull(username) ^ isNull(password)) {
+//            report("Username and Password both should be given or no one of them.", FAIL);
+//        }
+//        if (isNull(username)) {
+//            username = DF.username;
+//            password = DF.password;
+//
+//        }
 
-        }
-
-        String baseUri = UriUtils.buildUrlFromProtocolAndIp("https", DF.deviceIp);
-        Integer port = null;
-        RestStepResult result = RestClientsStepsHandler.defenseFlowLogin(baseUri, port, username, password);
-        if (result.getStatus().equals(RestStepResult.Status.FAILED))
-            report(result.getMessage(), FAIL);
+//        String baseUri = UriUtils.buildUrlFromProtocolAndIp("https", DF.deviceIp);
+//        Integer port = null;
+//        RestStepResult result = RestClientsStepsHandler.defenseFlowLogin(baseUri, port, username, password);
+//        if (result.getStatus().equals(RestStepResult.Status.FAILED))
+//            report(result.getMessage(), FAIL);
 
     }
 }

@@ -1,5 +1,6 @@
 package com.radware.vision.tests.rbac.DefensePro.configuration.Classes;
 
+import com.radware.automation.tools.basetest.BaseTestUtils;
 import com.radware.automation.tools.basetest.Reporter;
 import com.radware.vision.infra.testhandlers.rbac.defensePro.configuration.Classes.RBACDefenseProServicesTableActionHandler;
 import com.radware.vision.infra.testhandlers.rbac.enums.BaseTableActions;
