@@ -359,7 +359,7 @@ public class ToolboxSteps extends BddUITestBase {
     @Then("^UI ToolboxTest - Show Previous Result And Compare by actionName \"([^\"]*)\" with groupName \"([^\"]*)\" with property \"([^\"]*)\"$")
     public void showPreviousResultAndCompare(ToolboxActionsEnum actionName, ToolboxGroupsEnum groupName, String property) {
         try {
-            SystemProperties systemProperties = new SystemProperties();
+            SystemProperties systemProperties = SystemProperties.get_instance();
             String result = systemProperties.getValueByKey(property);
             ToolboxHandler.showPreviousResultAndCompare(actionName, groupName, result);
         } catch (Exception e) {
