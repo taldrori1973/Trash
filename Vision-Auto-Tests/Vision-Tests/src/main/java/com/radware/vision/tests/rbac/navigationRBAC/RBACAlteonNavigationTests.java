@@ -1,5 +1,6 @@
 package com.radware.vision.tests.rbac.navigationRBAC;
 
+import com.radware.automation.tools.basetest.BaseTestUtils;
 import com.radware.automation.tools.basetest.Reporter;
 import com.radware.vision.infra.testhandlers.rbac.navigationRBAC.RBACAlteonNavigationHandler;
 import com.radware.vision.infra.testhandlers.rbac.navigationRBAC.enums.AlteonConfigurationSubMenuItems;
