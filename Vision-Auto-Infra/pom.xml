@@ -15,7 +15,6 @@
         <module>Rest-Infra</module>
         <module>Webui-Infra</module>
         <module>CLI-Infra</module>
-        <module>CLI-Infra</module>
     </modules>
 
 </project>
