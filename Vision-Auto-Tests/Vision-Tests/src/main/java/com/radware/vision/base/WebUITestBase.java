@@ -148,9 +148,9 @@ public abstract class WebUITestBase extends TestBase {
 
                 restOperationsUsername = clientConfigurations.getUserName();
                 restOperationsPassword = clientConfigurations.getPassword();
-                getVisionRestClient().setSessionUsername(restOperationsUsername);
-                getVisionRestClient().setSessionPassword(restOperationsPassword);
-                getVisionRestClient().getHttpSession(1).setEnableAutomaticLogin(true);
+//                getVisionRestClient().setSessionUsername(restOperationsUsername);
+//                getVisionRestClient().setSessionPassword(restOperationsPassword);
+//                getVisionRestClient().getHttpSession(1).setEnableAutomaticLogin(true);
                 setGenerateScreenshotAfterWebClickOperation();
                 setGenerateScreenshotAfterWebFindOperation();
                 String mode = BddReporterManager.getRunMode();
