@@ -8,6 +8,7 @@ public class LinuxFileServer extends ServerCliBase {
 
 
     public LinuxFileServer() {
+        super();
     }
 
     public LinuxFileServer(String host, String user, String password) {
