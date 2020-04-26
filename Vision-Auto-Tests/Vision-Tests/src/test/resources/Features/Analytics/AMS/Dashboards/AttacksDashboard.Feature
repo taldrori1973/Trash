@@ -14,6 +14,7 @@ Feature: AttacksDashboard
 
 
   @SID_3
+    Scenario:  login
     Given UI Login with user "radware" and password "radware"
     Then REST Vision Install License Request "vision-AVA-Max-attack-capacity"
     Then Sleep "2"
