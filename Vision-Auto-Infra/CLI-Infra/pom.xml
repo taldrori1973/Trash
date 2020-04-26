@@ -13,10 +13,14 @@
 
     <dependencies>
         <dependency>
+            <groupId>org.jsystemtest</groupId>
+            <artifactId>jsystemCore</artifactId>
+            <version>${jsystem.version}</version>
+        </dependency>
+        <dependency>
             <groupId>org.jsystemtest.systemobjects</groupId>
             <artifactId>cli</artifactId>
-            <version>6.1.09</version>
-            <scope>compile</scope>
+            <version>${jsystem.version}</version>
         </dependency>
     </dependencies>
 
