@@ -47,6 +47,12 @@
             <artifactId>Auto-Utils</artifactId>
             <version>${revision}</version>
         </dependency>
+
+        <dependency>
+            <groupId>com.radware.vision.automation</groupId>
+            <artifactId>CLI-Infra</artifactId>
+            <version>${revision}</version>
+        </dependency>
         <dependency>
             <groupId>com.radware.vision.automation</groupId>
             <artifactId>Rest-Step-Handlers</artifactId>
