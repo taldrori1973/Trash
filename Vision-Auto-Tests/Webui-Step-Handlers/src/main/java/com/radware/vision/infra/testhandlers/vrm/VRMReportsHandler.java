@@ -1209,7 +1209,7 @@ public class VRMReportsHandler extends VRMBaseUtilies {
                 if (((JSONObject) b).get("text").toString().equalsIgnoreCase(entry.text)) {
                     textExist = true;
                     if (!((JSONObject) b).get("value").toString().equalsIgnoreCase(entry.value))
-                        errorMessage = ("The Expected value of " + widget + " in report " + reportName + " in option " + entry.text + " is " + entry.value + " but the actual is " + ((JSONObject) b).get("selected").toString() + "/n");
+                        errorMessage = ("The Expected value of " + widget + " in report " + reportName + " in option " + entry.text + " is " + entry.value + " but the actual is " + ((JSONObject) b).get("value").toString() + "/n");
                     if (!((JSONObject) b).get("selected").toString().equalsIgnoreCase(entry.selected.toString()))
                         errorMessage = ("The Expected value of " + widget + " in report " + reportName + " in option " + entry.selected + " is " + entry.selected + " but the actual is " + ((JSONObject) b).get("selected").toString() + "/n");
                     break;

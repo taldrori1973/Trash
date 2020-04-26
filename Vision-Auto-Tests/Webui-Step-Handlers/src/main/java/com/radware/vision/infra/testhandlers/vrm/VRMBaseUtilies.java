@@ -1178,6 +1178,7 @@ public class VRMBaseUtilies {
                                     VisionDebugIdsManager.setParams(((Map) option).keySet().toArray()[0].toString());
                                     WebElement wb = WebUIUtils.fluentWait(ComponentLocatorFactory.getLocatorByXpathDbgId(VisionDebugIdsManager.getDataDebugId()).getBy());
                                     ((JavascriptExecutor) WebUIUtils.getDriver()).executeScript("arguments[0].value='" + ((Map) option).get(((Map) option).keySet().toArray()[0]).toString()  + "';", wb.findElement(By.xpath("./input")));
+                                    wb.findElement(By.xpath("./input")).click();
                                 }
                                 else
                                 BasicOperationsHandler.clickButton("Widget Option", option + "_" + entry);
