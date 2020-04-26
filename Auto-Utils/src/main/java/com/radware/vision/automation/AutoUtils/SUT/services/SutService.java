@@ -80,7 +80,7 @@ public class SutService {
     public Optional<ServerDto> getServerById(String serverId) {
         Optional<ServerPojo> serverFromPojo = this.setupDao.findServerById(serverId);
         if (!serverFromPojo.isPresent()) return Optional.empty();
-        ServerDto serverDto = modelMapper.map(serverFromPojo, ServerDto.class);
+        ServerDto serverDto = modelMapper.map(serverFromPojo.get(), ServerDto.class);
         return Optional.of(serverDto);
     }
 }
