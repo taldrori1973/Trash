@@ -2,9 +2,13 @@ package com.radware.vision.restBddTests;
 
 import com.radware.automation.tools.basetest.BaseTestUtils;
 import com.radware.automation.tools.basetest.Reporter;
+import com.radware.automation.tools.utils.InvokeUtils;
 import com.radware.vision.automation.AutoUtils.SUT.controllers.SUTManager;
+import com.radware.vision.automation.VisionAutoInfra.CLIInfra.Servers.LinuxFileServer;
+import com.radware.vision.automation.VisionAutoInfra.CLIInfra.Servers.ServerCliBase;
 import com.radware.vision.base.TestBase;
 import com.radware.vision.bddtests.BddRestTestBase;
+import com.radware.vision.infra.testhandlers.cli.CliOperations;
 import cucumber.api.java.en.Then;
 
 public class Demo extends BddRestTestBase {
@@ -23,19 +27,22 @@ public class Demo extends BddRestTestBase {
     @Then("^SUT Test$")
     public void sutTest() {
         SUTManager sutManager = TestBase.getSutManager();
-        BaseTestUtils.report("aaa", Reporter.FAIL);
+        LinuxFileServer linuxFileServer = serversManagement.getLinuxFileServer();
+        try {
+            InvokeUtils.invokeCommand(null, "ls", linuxFileServer, 60 * 1000);
+            updateLastOutput(linuxFileServer);
+        } catch (Exception e) {
+            BaseTestUtils.report("Failed to run the command:   With the following exception: " + e.getMessage(), Reporter.FAIL);
+        }
 
-//        SUTDaoImpl sut = VisionConfigurations.getSUT();
-//        String setupId = sut.getSetupId();
-//        ClientConfiguration clientConfiguration = sut.getClientConfiguration();
-//        List<Site> visionSetupSites = sut.getVisionSetupSites();
-//        List<DeviceDto> visionSetupTreeDevices = sut.getVisionSetupTreeDevices();
-//
-//        assert setupId.equals("fullSetup");
-//        assert clientConfiguration.getHostIp().equals("172.17.192.100");
-//        assert clientConfiguration.getUserName().equals("radware");
-//        assert visionSetupSites.size() == 6;
-//        assert visionSetupTreeDevices.size() == 10;
+
+    }
+
+    private static void updateLastOutput(ServerCliBase cliBase) {
+        CliOperations.lastOutput = cliBase.getTestAgainstObject() != null ? cliBase.getTestAgainstObject().toString() : "";
+        CliOperations.resultLines = cliBase.getCmdOutput();
+        CliOperations.lastRow = cliBase.getLastRow();
+
 
     }
 }
