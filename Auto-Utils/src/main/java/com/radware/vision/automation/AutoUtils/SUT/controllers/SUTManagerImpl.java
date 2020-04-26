@@ -2,6 +2,7 @@ package com.radware.vision.automation.AutoUtils.SUT.controllers;
 
 import com.radware.vision.automation.AutoUtils.SUT.dtos.ClientConfigurationDto;
 import com.radware.vision.automation.AutoUtils.SUT.dtos.DeviceDto;
+import com.radware.vision.automation.AutoUtils.SUT.dtos.ServerDto;
 import com.radware.vision.automation.AutoUtils.SUT.services.SutService;
 
 import java.util.List;
@@ -52,5 +53,11 @@ public class SUTManagerImpl implements SUTManager {
     public Optional<DeviceDto> getDeviceBySetId(String setId) {
         return this.sutService.getDeviceBySetId(setId);
     }
+
+    @Override
+    public Optional<ServerDto> getServerById(String serverId) {
+        return this.sutService.getServerById(serverId);
+    }
+
 
 }
