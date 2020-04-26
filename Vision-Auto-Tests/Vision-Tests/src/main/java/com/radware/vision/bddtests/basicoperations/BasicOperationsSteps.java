@@ -25,6 +25,7 @@ import com.radware.vision.infra.testhandlers.baseoperations.clickoperations.Clic
 import com.radware.vision.infra.testhandlers.topologytree.TopologyTreeHandler;
 import com.radware.vision.infra.utils.TimeUtils;
 import com.radware.vision.infra.utils.VisionWebUIUtils;
+import com.radware.vision.restBddTests.RestClientsSteps;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
@@ -122,7 +123,7 @@ public class BasicOperationsSteps extends BddUITestBase {
         }
         if (!isLoggedIn) {
             try {
-                loginToServer(username, password, restTestBase.getVisionRestClient());
+                loginToServer(username, password);
             } catch (Exception e) {
                 BaseTestUtils.report("Failed to Login", e);
             }
@@ -144,16 +145,16 @@ public class BasicOperationsSteps extends BddUITestBase {
      *
      * @param username         - user name
      * @param password         - password
-     * @param visionRestClient - VisionRestClient object
      * @throws Exception - throws exception
      */
-    public static void loginToServer(String username, String password, VisionRestClient visionRestClient) throws Exception {
+    public static void loginToServer(String username, String password) throws Exception {
         WebUITestSetup webUITestSetup = new WebUITestSetup();
         webUITestSetup.setup();
 //        WebUIUtils.getDriver().get("http://localhost:3003/"); // temporary
         BasicOperationsHandler.login(username, password);
         VisionWebUIUtils.loggedinUser = username;
-        visionRestClient.login(username, password, "", 1);
+//        visionRestClient.login(username, password, "", 1);
+        RestClientsSteps.thatCurrentVisionIsLoggedIn(null,username,password,null);
     }
 
     /**
