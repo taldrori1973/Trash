@@ -1,20 +1,36 @@
 package com.radware.vision.systemManagement;
 
+import com.radware.vision.automation.AutoUtils.SUT.dtos.ServerDto;
 import com.radware.vision.automation.VisionAutoInfra.CLIInfra.Servers.ServerCliBase;
+import com.radware.vision.base.TestBase;
+
+import java.lang.reflect.Constructor;
+import java.util.Optional;
 
 public class ServersManagement {
 
-    private <SERVER extends ServerCliBase> SERVER createAndInitServer(Class type) {
-
+    private <SERVER extends ServerCliBase> SERVER createAndInitServer(ServerIds serverId, Class<SERVER> clazz) {
+        try {
+            Constructor<SERVER> constructor = clazz.getConstructor(String.class, String.class, String.class);
+            Optional<ServerDto> serverById = TestBase.getSutManager().getServerById(serverId.getServerId());
+            if (!serverById.isPresent()) return null;
+            ServerDto serverDto = serverById.get();
+            SERVER server = constructor.newInstance(serverDto.getHost(), serverDto.getUser(), serverDto.getPassword());
+            server.setConnectOnInit(serverDto.isConnectOnInit());
+            server.init();
+            return server;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
-    enum ServerTypes {
+    enum ServerIds {
         LINUX_FILE_SERVER("linuxFileServer");
 
 
         private String serverId;
 
-        ServerTypes(String serverId) {
+        ServerIds(String serverId) {
             this.serverId = serverId;
         }
 
