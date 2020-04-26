@@ -17,10 +17,6 @@
     <repositories>
 
 
-
-
-
-
     </repositories>
 
     <distributionManagement>
@@ -73,6 +69,11 @@
             <groupId>com.radware.vision.automation.tools</groupId>
             <artifactId>sut-system-objects</artifactId>
             <version>${artifact-type}-1.0-SNAPSHOT</version>
+        </dependency>
+        <dependency>
+            <groupId>com.radware.vision.automation</groupId>
+            <artifactId>CLI-Infra</artifactId>
+            <version>${revision}</version>
         </dependency>
         <dependency>
             <groupId>com.radware.vision.automation.tools</groupId>
