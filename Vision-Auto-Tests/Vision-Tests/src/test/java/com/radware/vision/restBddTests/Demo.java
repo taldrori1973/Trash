@@ -11,6 +11,8 @@ import com.radware.vision.bddtests.BddRestTestBase;
 import com.radware.vision.infra.testhandlers.cli.CliOperations;
 import cucumber.api.java.en.Then;
 
+import java.util.Optional;
+
 public class Demo extends BddRestTestBase {
     @Then("^Send request$")
     public void sendRequest() throws NoSuchFieldException {
@@ -27,8 +29,13 @@ public class Demo extends BddRestTestBase {
     @Then("^SUT Test$")
     public void sutTest() {
         SUTManager sutManager = TestBase.getSutManager();
-        LinuxFileServer linuxFileServer = serversManagement.getLinuxFileServer();
+        Optional<LinuxFileServer> linuxFileServerOpt = serversManagement.getLinuxFileServer();
+        LinuxFileServer linuxFileServer = null;
+        if (linuxFileServerOpt.isPresent()) {
+            linuxFileServer = linuxFileServerOpt.get();
+        }
         try {
+            assert linuxFileServer != null;
             InvokeUtils.invokeCommand(null, "ls", linuxFileServer, 60 * 1000);
             updateLastOutput(linuxFileServer);
         } catch (Exception e) {
