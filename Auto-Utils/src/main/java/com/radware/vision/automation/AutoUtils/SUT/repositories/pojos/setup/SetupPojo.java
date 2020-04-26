@@ -9,6 +9,6 @@ public class SetupPojo {
     private String setupId;
     private Tree tree;
     private String defenseFlowId;
-    private ServersPojo servers;
+    private ServerPojo servers;
 
 }

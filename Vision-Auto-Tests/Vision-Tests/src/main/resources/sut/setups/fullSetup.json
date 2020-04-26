@@ -71,12 +71,13 @@
     ]
   },
   "defenseFlowId": null,
-  "servers": {
-    "linuxFileServer": {
+  "servers": [
+    {
+      "serverId": "linuxFileServer",
       "host": "172.17.164.100",
       "user": "root",
       "password": "radware",
       "connectOnInit": false
     }
-  }
+  ]
 }
