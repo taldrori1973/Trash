@@ -1,5 +1,6 @@
 package com.radware.vision.automation.AutoUtils.SUT.repositories.daos;
 
+import com.radware.vision.automation.AutoUtils.SUT.repositories.pojos.setup.ServerPojo;
 import com.radware.vision.automation.AutoUtils.SUT.repositories.pojos.setup.SetupPojo;
 import com.radware.vision.automation.AutoUtils.SUT.repositories.pojos.setup.Site;
 import com.radware.vision.automation.AutoUtils.SUT.repositories.pojos.setup.TreeDeviceNode;
@@ -67,5 +68,9 @@ public class SetupDao {
     public String getDeviceParentSite(String deviceId) {
         Optional<TreeDeviceNode> device = this.findDeviceById(deviceId);
         return device.map(TreeDeviceNode::getParentSite).orElse(null);
+    }
+
+    public Optional<ServerPojo> findServerById(String serverId) {
+        return this.setupPojo.getServers().stream().filter(serverPojo -> serverPojo.getServerId().equals(serverId)).findFirst();
     }
 }
