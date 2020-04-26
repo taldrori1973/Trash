@@ -3,19 +3,20 @@
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <parent>
-        <artifactId>APSoluteVision-Automation</artifactId>
+        <artifactId>Vision-Auto-Infra</artifactId>
         <groupId>com.radware.vision.automation</groupId>
-        <version>${revision}</version>
+        <version>4.60.00-SNAPSHOT</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
-    <artifactId>Vision-Auto-Infra</artifactId>
-    <name>Vision-Auto-Infra</name>
-    <packaging>pom</packaging>
-    <modules>
-        <module>Rest-Infra</module>
-        <module>Webui-Infra</module>
-        <module>CLI-Infra</module>
-        <module>CLI-Infra</module>
-    </modules>
+
+    <artifactId>CLI-Infra</artifactId>
+
+    <dependencies>
+        <dependency>
+            <groupId>org.jsystemtest.systemobjects</groupId>
+            <artifactId>cli</artifactId>
+            <version>6.1.05</version>
+        </dependency>
+    </dependencies>
 
 </project>
