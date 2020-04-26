@@ -1,0 +1,12 @@
+{
+  "setupFile": "fullSetup.json",
+  "clientConfiguration": {
+    "hostIp": "172.17.178.117",
+    "userName": "radware",
+    "password": "radware",
+    "restConnection": {
+      "defaultPort": 443,
+      "defaultProtocol": "https"
+    }
+  }
+}
