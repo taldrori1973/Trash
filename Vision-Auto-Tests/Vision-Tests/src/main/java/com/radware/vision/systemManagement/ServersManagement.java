@@ -1,13 +1,22 @@
 package com.radware.vision.systemManagement;
 
 import com.radware.vision.automation.AutoUtils.SUT.dtos.ServerDto;
+import com.radware.vision.automation.VisionAutoInfra.CLIInfra.Servers.LinuxFileServer;
 import com.radware.vision.automation.VisionAutoInfra.CLIInfra.Servers.ServerCliBase;
 import com.radware.vision.base.TestBase;
+import lombok.Getter;
 
 import java.lang.reflect.Constructor;
 import java.util.Optional;
 
 public class ServersManagement {
+
+    @Getter
+    private LinuxFileServer linuxFileServer;
+
+    public ServersManagement() {
+        this.linuxFileServer = this.createAndInitServer(ServerIds.LINUX_FILE_SERVER, LinuxFileServer.class);
+    }
 
     private <SERVER extends ServerCliBase> SERVER createAndInitServer(ServerIds serverId, Class<SERVER> clazz) {
         try {
