@@ -74,4 +74,6 @@ public class SutService {
         return visionSetupTreeDevices.stream().filter(deviceDto -> deviceDto.getDeviceSetId().equals(setId)).findAny();
 
     }
+
+    public Optional<ServerDto>
 }
