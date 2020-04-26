@@ -4,14 +4,13 @@ import com.radware.vision.automation.AutoUtils.SUT.dtos.ServerDto;
 import com.radware.vision.automation.VisionAutoInfra.CLIInfra.Servers.LinuxFileServer;
 import com.radware.vision.automation.VisionAutoInfra.CLIInfra.Servers.ServerCliBase;
 import com.radware.vision.base.TestBase;
-import lombok.Getter;
 
 import java.lang.reflect.Constructor;
 import java.util.Optional;
 
 public class ServersManagement {
 
-    @Getter
+
     private LinuxFileServer linuxFileServer;
 
     public ServersManagement() {
@@ -32,6 +31,10 @@ public class ServersManagement {
             e.printStackTrace();
         }
         return null;
+    }
+
+    public Optional<LinuxFileServer> getLinuxFileServer() {
+        return Optional.of(linuxFileServer);
     }
 
     enum ServerIds {
