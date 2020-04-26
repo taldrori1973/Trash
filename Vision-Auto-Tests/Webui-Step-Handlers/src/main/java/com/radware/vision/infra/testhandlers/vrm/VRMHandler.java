@@ -1224,6 +1224,12 @@ public class VRMHandler {
         }
     }
 
+    public static class ToggleData {
+        String text;
+        String value;
+        Boolean selected;
+    }
+
     public static class DataSize {
         public int size;
         Integer offset;
