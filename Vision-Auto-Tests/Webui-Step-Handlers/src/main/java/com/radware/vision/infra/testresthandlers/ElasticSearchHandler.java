@@ -20,8 +20,8 @@ public class ElasticSearchHandler {
 
 
     public static Object executeESRequest(String ip, HttpMethodEnum httpMethod, String request, String urlField, String bodyFields, String expectedResult) {
-//      //        kVision RadwareRootServerCli
-        //        RadwareServerCli radwareUser = restTestBase.getRadwareServerCli();
+//       kVision
+//        RadwareServerCli radwareUser = restTestBase.getRadwareServerCli();
 //        radwareUser.disconnect();
 //        try {
 //            radwareUser.connect();
@@ -60,14 +60,14 @@ public class ElasticSearchHandler {
     }
 
     public static JSONObject getDocument(RootServerCli rootServerCli, String documentFieldName, String documentFieldValue, String indexName) {
-//        kVision RootServerCli
-        //        CliOperations.runCommand(rootServerCli, "service iptables stop");
+//       kVision
+//        CliOperations.runCommand(rootServerCli, "service iptables stop");
         HttpMethodEnum httpMethod = HttpMethodEnum.POST;
 
         JSONObject restResult = new JSONObject(ElasticSearchHandler.executeESRequest(rootServerCli.getHost(), httpMethod, "ESIndex->GetDocument", indexName, "\"" + documentFieldName + "\":" + "\"" + documentFieldValue + "\"", null).toString());
         restResult = restResult.getJSONObject("hits").getJSONArray("hits").getJSONObject(0).getJSONObject("_source");
-//        kVision RootServerCli
-        //        CliOperations.runCommand(rootServerCli, "service iptables start");
+//       kVision
+//        CliOperations.runCommand(rootServerCli, "service iptables start");
         return restResult;
     }
 

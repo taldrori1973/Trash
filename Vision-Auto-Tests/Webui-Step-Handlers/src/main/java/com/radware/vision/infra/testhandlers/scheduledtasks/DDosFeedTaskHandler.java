@@ -95,7 +95,7 @@ public class DDosFeedTaskHandler extends BaseTasksHandler {
 
     public static void verifyValidatingFeedForDefenseProInVisionLog(String dpMacAddress, RestTestBase restTestBase) {
         String lastOutputItems;
-//        kVision getRootServerCli
+//       kVision
 //        CliOperations.runCommand(restTestBase.getRootServerCli(), "logs");
 //        CliOperations.runCommand(restTestBase.getRootServerCli(), "grep \"validated the folowing ip adresses:\" vision.log");
         lastOutputItems = CliOperations.lastOutput;
@@ -106,7 +106,7 @@ public class DDosFeedTaskHandler extends BaseTasksHandler {
 
     public static void verifyRequestingFeedForDefenseProInVisionLog(String dpMacAddress, RestTestBase restTestBase) {
         String lastOutputItems;
-        //        kVision getRootServerCli
+//      kVision
 //        CliOperations.runCommand(restTestBase.getRootServerCli(), "logs");
 //        CliOperations.runCommand(restTestBase.getRootServerCli(), "grep \"Requesting feed for the following mac adresses:\" vision.log");
         lastOutputItems = CliOperations.lastOutput;
@@ -117,7 +117,7 @@ public class DDosFeedTaskHandler extends BaseTasksHandler {
 
     public static void verifyThatNoFeedRequestForDefenseProInVisionLog(String dpMacAddress, RestTestBase restTestBase) {
         String lastOutputItems;
-        //        kVision getRootServerCli
+//       kVision
 //        CliOperations.runCommand(restTestBase.getRootServerCli(), "logs");
 //        CliOperations.runCommand(restTestBase.getRootServerCli(), "grep \"Requesting feed for the following mac adresses:\" vision.log");
         lastOutputItems = CliOperations.lastOutput;

@@ -1015,7 +1015,7 @@ public class VRMHandler {
             //count the policies
             int actualPoliciesNumber = new LazyViewImpl(ComponentLocatorFactory.getEqualLocatorByDbgId("VRM_Scope_Selection_policies_DefensePro_" + deviceIp), new ComponentLocator(How.XPATH, "//label")).getViewValues().size();
             if (entry.total.equalsIgnoreCase("All")) {
-//                kVision database
+//               kVision
 //                CliOperations.runCommand(restTestBase.getRootServerCli(), String.format("mysql -u root -prad123 vision_ng -e \"select * from security_policies_view where device_ip='%s'\" | grep \"Network Protection\" | grep -v + | grep -v ALL | wc -l", deviceIp));
                 int totalDpPolicesNumber = Integer.valueOf(CliOperations.lastRow);
                 if (String.valueOf(actualPoliciesNumber).equals(totalDpPolicesNumber)) {
@@ -1415,8 +1415,8 @@ public class VRMHandler {
         InvokeUtils.invokeCommand(null, "yum install stress", rootServerCli, 3 * 60 * 1000, true);
         InvokeUtils.invokeCommand(null, "sudo yum install -y epel-release", rootServerCli, 3 * 60 * 1000, true);
         InvokeUtils.invokeCommand(null, "sudo yum install -y stress", rootServerCli, 3 * 60 * 1000, true);
-//      kVision rootserverCli
-        //        CliOperations.runCommand(rootServerCli, "free");
+//     kVision
+//        CliOperations.runCommand(rootServerCli, "free");
         int number;
         String warningRising;
         String warningFalling;
