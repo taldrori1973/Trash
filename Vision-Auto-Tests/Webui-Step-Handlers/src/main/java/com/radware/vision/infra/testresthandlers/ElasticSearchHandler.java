@@ -1,6 +1,5 @@
 package com.radware.vision.infra.testresthandlers;
 
-import basejunit.RestTestBase;
 import com.jayway.jsonpath.DocumentContext;
 import com.jayway.jsonpath.JsonPath;
 import com.radware.automation.tools.basetest.BaseTestUtils;
@@ -9,8 +8,6 @@ import com.radware.restcore.GenericRestClient;
 import com.radware.restcore.RestBasicConsts;
 import com.radware.restcore.utils.enums.HTTPStatusCodes;
 import com.radware.restcore.utils.enums.HttpMethodEnum;
-import com.radware.vision.automation.VisionAutoInfra.CLIInfra.CliOperations;
-import com.radware.vision.vision_project_cli.RadwareServerCli;
 import com.radware.vision.vision_project_cli.RootServerCli;
 import org.json.JSONObject;
 import testhandlers.GenericRestApiHandler;
@@ -19,21 +16,20 @@ import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import static com.radware.vision.infra.testhandlers.BaseHandler.restTestBase;
-
 public class ElasticSearchHandler {
 
 
     public static Object executeESRequest(String ip, HttpMethodEnum httpMethod, String request, String urlField, String bodyFields, String expectedResult) {
-        RadwareServerCli radwareUser = restTestBase.getRadwareServerCli();
-        radwareUser.disconnect();
-        try {
-            radwareUser.connect();
-        } catch (Exception e) {
-            BaseTestUtils.report("Failed to connect", e);
-        }
-
-        CliOperations.runCommand(radwareUser, "net firewall open-port set 9200 open");
+//      //        kVision RadwareRootServerCli
+        //        RadwareServerCli radwareUser = restTestBase.getRadwareServerCli();
+//        radwareUser.disconnect();
+//        try {
+//            radwareUser.connect();
+//        } catch (Exception e) {
+//            BaseTestUtils.report("Failed to connect", e);
+//        }
+//
+//        CliOperations.runCommand(radwareUser, "net firewall open-port set 9200 open");
         GenericRestClient generalRestClient = new GenericRestClient(ip, "1", RestBasicConsts.RestProtocol.CLOUD_ELASTIC_SEARCH);
         generalRestClient.setHttpSessionID(1);
         generalRestClient.setTestHttpReturnCodes(true);
@@ -64,12 +60,14 @@ public class ElasticSearchHandler {
     }
 
     public static JSONObject getDocument(RootServerCli rootServerCli, String documentFieldName, String documentFieldValue, String indexName) {
-        CliOperations.runCommand(rootServerCli, "service iptables stop");
+//        kVision RootServerCli
+        //        CliOperations.runCommand(rootServerCli, "service iptables stop");
         HttpMethodEnum httpMethod = HttpMethodEnum.POST;
 
         JSONObject restResult = new JSONObject(ElasticSearchHandler.executeESRequest(rootServerCli.getHost(), httpMethod, "ESIndex->GetDocument", indexName, "\"" + documentFieldName + "\":" + "\"" + documentFieldValue + "\"", null).toString());
         restResult = restResult.getJSONObject("hits").getJSONArray("hits").getJSONObject(0).getJSONObject("_source");
-        CliOperations.runCommand(rootServerCli, "service iptables start");
+//        kVision RootServerCli
+        //        CliOperations.runCommand(rootServerCli, "service iptables start");
         return restResult;
     }
 
@@ -193,22 +191,22 @@ public class ElasticSearchHandler {
     }
 
     public static void runMigrationTask(MigrationTask migrationTask, int seconds) throws InterruptedException {
-        RootServerCli restTestBase = new RestTestBase().getRootServerCli();
-
-        String messageToPrintInLogFile = String.format("\nThe Following Migration Task was Started by the Automation : %s\n" +
-                "Server IP : %s\n" +
-                "Version : %s\n" +
-                "Build: %s\n", migrationTask.name(), restTestBase.getHost(), restTestBase.getVersionNumebr(), restTestBase.getBuildNumber());
-
-        CliOperations.runCommand(restTestBase, "echo \"" + messageToPrintInLogFile + "\" >> /opt/radware/mgt-server/third-party/tomcat/logs/reporter.log", 0);
-
-        String restRequest = "curl -X POST --header 'Content-Type: application/json' --header 'Accept: */*'" +
-                " 'http://localhost:10080/reporter/mgmt/monitor/reporter/internal-dashboard/scheduledTasks?jobClassName=com.reporter.dp.task.attack.migration.%s'";
-
-
-        CliOperations.runCommand(restTestBase, restRequest.replace("%s", migrationTask.name()), 0);
-
-        Thread.sleep(1000 * seconds);
+//        kVision restTestBase
+//        RootServerCli restTestBase = new RestTestBase().getRootServerCli();
+//
+//        String messageToPrintInLogFile = String.format("\nThe Following Migration Task was Started by the Automation : %s\n" +
+//                "Server IP : %s\n" +
+//                "Version : %s\n" +
+//                "Build: %s\n", migrationTask.name(), restTestBase.getHost(), restTestBase.getVersionNumebr(), restTestBase.getBuildNumber());
+//        CliOperations.runCommand(restTestBase, "echo \"" + messageToPrintInLogFile + "\" >> /opt/radware/mgt-server/third-party/tomcat/logs/reporter.log", 0);
+//
+//        String restRequest = "curl -X POST --header 'Content-Type: application/json' --header 'Accept: */*'" +
+//                " 'http://localhost:10080/reporter/mgmt/monitor/reporter/internal-dashboard/scheduledTasks?jobClassName=com.reporter.dp.task.attack.migration.%s'";
+//
+//
+//        CliOperations.runCommand(restTestBase, restRequest.replace("%s", migrationTask.name()), 0);
+//
+//        Thread.sleep(1000 * seconds);
 
 
     }
@@ -217,7 +215,7 @@ public class ElasticSearchHandler {
         Object result = executeESRequest(deviceIp, HttpMethodEnum.POST, "ESIndex->IsDocumentContainsKeyValue",
                 index, String.format("columnName=%s,value=%s", attribute, value), null);
 
-        if(result.toString().contains("\"hits\":{\"total\":0")) return false;
+        if (result.toString().contains("\"hits\":{\"total\":0")) return false;
         return true;
     }
 
