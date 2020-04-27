@@ -2,7 +2,6 @@ package com.radware.vision.bddtests.clioperation.menu.net.route;
 
 import com.radware.automation.tools.basetest.BaseTestUtils;
 import com.radware.automation.tools.basetest.Reporter;
-import com.radware.vision.automation.VisionAutoInfra.CLIInfra.CliOperations;
 import com.radware.vision.bddtests.BddCliTestBase;
 import com.radware.vision.vision_handlers.common.InvokeCommon;
 import com.radware.vision.vision_handlers.net.Ip;
@@ -21,9 +20,10 @@ public class NetRouteSteps extends BddCliTestBase {
         try {
             afterMethod();
             String commandToExecute = "net route delete 8.8.8.0 255.255.255.0 172.17.1.2";
-            CliOperations.runCommand(restTestBase.getRadwareServerCli(), commandToExecute);
-            commandToExecute = "net route delete 23.23.23.23 255.255.255.0 4.4.4.2";
-            CliOperations.runCommand(restTestBase.getRadwareServerCli(), commandToExecute);
+//           kVision
+//            CliOperations.runCommand(restTestBase.getRadwareServerCli(), commandToExecute);
+//            commandToExecute = "net route delete 23.23.23.23 255.255.255.0 4.4.4.2";
+//            CliOperations.runCommand(restTestBase.getRadwareServerCli(), commandToExecute);
             String[] interfaces = new String[]{"G3", "G2"};
             for (String iface : interfaces) {
                 Ip.setNetIp("4.4.4.0", "255.255.255.0", iface, restTestBase.getRadwareServerCli());

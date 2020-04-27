@@ -4,7 +4,6 @@ package com.radware.vision.bddtests.clioperation.menu.system.visionserver;
 import com.radware.automation.tools.basetest.BaseTestUtils;
 import com.radware.automation.tools.basetest.Reporter;
 import com.radware.automation.tools.utils.InvokeUtils;
-import com.radware.vision.automation.VisionAutoInfra.CLIInfra.CliOperations;
 import com.radware.vision.bddtests.BddCliTestBase;
 import com.radware.vision.infra.testhandlers.cli.highavailability.HAHandler;
 import com.radware.vision.vision_handlers.common.InvokeCommon;
@@ -117,7 +116,8 @@ public class VisionServerSteps extends BddCliTestBase {
             int timeout = 1000;
             HAHandler.setConfigSyncMode(restTestBase.getRadwareServerCli(), "active", timeout * sec, "YES");
             String commandToExecute = "system vision-server start";
-            CliOperations.runCommand(restTestBase.getRadwareServerCli(), commandToExecute, 420*sec);
+//           kVision
+//            CliOperations.runCommand(restTestBase.getRadwareServerCli(), commandToExecute, 420*sec);
             waitForVisionServerStarted(360);
         } catch (Exception e) {
             BaseTestUtils.report(e.getMessage(), Reporter.FAIL);
@@ -130,7 +130,8 @@ public class VisionServerSteps extends BddCliTestBase {
             int timeout = 1000;
             HAHandler.setConfigSyncMode(restTestBase.getRadwareServerCli(), "disabled", timeout * sec, "YES");
             String commandToExecute = "system vision-server stop";
-            CliOperations.runCommand(restTestBase.getRadwareServerCli(), commandToExecute, 150 *sec);
+//           kVision
+//            CliOperations.runCommand(restTestBase.getRadwareServerCli(), commandToExecute, 150 *sec);
             waitForVisionServerStarted(360);
         } catch (Exception e) {
             BaseTestUtils.report(e.getMessage(), Reporter.FAIL);
