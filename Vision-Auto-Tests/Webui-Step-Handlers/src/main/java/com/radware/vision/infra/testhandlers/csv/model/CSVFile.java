@@ -3,7 +3,7 @@ package com.radware.vision.infra.testhandlers.csv.model;
 import basejunit.RestTestBase;
 import com.radware.automation.tools.basetest.BaseTestUtils;
 import com.radware.automation.tools.basetest.Reporter;
-import com.radware.vision.infra.testhandlers.cli.CliOperations;
+import com.radware.vision.automation.VisionAutoInfra.CLIInfra.CliOperations;
 
 import java.util.ArrayList;
 import java.util.Arrays;

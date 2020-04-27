@@ -1,6 +1,7 @@
 package com.radware.vision.infra.testhandlers.cli;
 
 import com.radware.automation.tools.cli.ServerCliBase;
+import com.radware.vision.automation.VisionAutoInfra.CLIInfra.CliOperations;
 
 /**
  * Created by MoaadA on 1/6/2019.

@@ -3,6 +3,7 @@ package com.radware.vision.bddtests.defensepro.dpoperation;
 import com.radware.automation.tools.basetest.BaseTestUtils;
 import com.radware.automation.tools.basetest.Reporter;
 import com.radware.automation.webui.WebUIUtils;
+import com.radware.vision.automation.VisionAutoInfra.CLIInfra.CliOperations;
 import com.radware.vision.automation.tools.sutsystemobjects.devicesinfo.DeviceInfo;
 import com.radware.vision.automation.tools.sutsystemobjects.devicesinfo.enums.SUTDeviceType;
 import com.radware.vision.bddtests.BddUITestBase;
@@ -14,7 +15,6 @@ import com.radware.vision.infra.testhandlers.DefencePro.dpOperations.DPOperation
 import com.radware.vision.infra.testhandlers.DefencePro.enums.DPHaDeviceStatus;
 import com.radware.vision.infra.testhandlers.DefencePro.enums.SignatureTypes;
 import com.radware.vision.infra.testhandlers.DefencePro.enums.UpdateFromSource;
-import com.radware.vision.infra.testhandlers.cli.CliOperations;
 import com.radware.vision.infra.testhandlers.rbac.RBACHandlerBase;
 import com.radware.vision.infra.testresthandlers.DefenseProRESTHandler;
 import cucumber.api.java.en.Then;

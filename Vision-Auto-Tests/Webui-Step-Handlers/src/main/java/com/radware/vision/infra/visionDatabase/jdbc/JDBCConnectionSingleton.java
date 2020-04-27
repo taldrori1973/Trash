@@ -4,7 +4,7 @@ import basejunit.RestTestBase;
 import com.jcraft.jsch.JSch;
 import com.jcraft.jsch.JSchException;
 import com.jcraft.jsch.Session;
-import com.radware.vision.infra.testhandlers.cli.CliOperations;
+import com.radware.vision.automation.VisionAutoInfra.CLIInfra.CliOperations;
 
 import java.sql.*;
 import java.util.HashMap;

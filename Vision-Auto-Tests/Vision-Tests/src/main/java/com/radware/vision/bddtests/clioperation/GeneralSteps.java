@@ -3,9 +3,9 @@ package com.radware.vision.bddtests.clioperation;
 import basejunit.RestTestBase;
 import com.radware.automation.tools.utils.ExecuteShellCommands;
 import com.radware.automation.tools.utils.LinuxServerCredential;
+import com.radware.vision.automation.VisionAutoInfra.CLIInfra.CliOperations;
 import com.radware.vision.bddtests.BddCliTestBase;
 import com.radware.vision.infra.testhandlers.baseoperations.BasicOperationsHandler;
-import com.radware.vision.infra.testhandlers.cli.CliOperations;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 

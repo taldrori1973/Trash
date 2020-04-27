@@ -9,7 +9,7 @@ import com.radware.restcore.GenericRestClient;
 import com.radware.restcore.RestBasicConsts;
 import com.radware.restcore.utils.enums.HTTPStatusCodes;
 import com.radware.restcore.utils.enums.HttpMethodEnum;
-import com.radware.vision.infra.testhandlers.cli.CliOperations;
+import com.radware.vision.automation.VisionAutoInfra.CLIInfra.CliOperations;
 import com.radware.vision.vision_project_cli.RadwareServerCli;
 import com.radware.vision.vision_project_cli.RootServerCli;
 import org.json.JSONObject;

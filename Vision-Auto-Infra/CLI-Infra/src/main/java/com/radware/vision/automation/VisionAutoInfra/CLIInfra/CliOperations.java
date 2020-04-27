@@ -1,4 +1,4 @@
-package com.radware.vision.infra.testhandlers.cli;
+package com.radware.vision.automation.VisionAutoInfra.CLIInfra;
 
 
 import com.radware.automation.tools.basetest.BaseTestUtils;
