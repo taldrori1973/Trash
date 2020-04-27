@@ -90,8 +90,7 @@ public class VMOperationsSteps extends BddUITestBase {
 
     @When("^Revert DefenseFlow to snapshot$")
     public void DfenseFlowRevertToSnapshot() throws Exception {
-        //        kVision
-
+//     kVision
 //        try {
 //            defenseFlowDevice DF = (defenseFlowDevice) system.getSystemObject("defenseFlowDevice");
 //            EsxiInfo esxiInfo = new EsxiInfo(DF.getvCenterURL(), DF.getvCenterUserName(), DF.getvCenterPassword(), DF.getResourcePool());
@@ -100,7 +99,6 @@ public class VMOperationsSteps extends BddUITestBase {
 //            Thread.sleep(10 * 60 * 1000);
 //            BaseTestUtils.report("DefenseFlow Revert done.", Reporter.PASS_NOR_FAIL);
 //        } catch (Exception e) {
-//
 //        }
     }
 
@@ -126,25 +124,30 @@ public class VMOperationsSteps extends BddUITestBase {
 
     public static void revertKvmSnapshot(String snapshotName, VisionRadwareFirstTime visionRadwareFirstTime) throws Exception {
         String vmName = visionRadwareFirstTime.getVmName() + visionRadwareFirstTime.getIp();
-        CliOperations.runCommand(visionRadwareFirstTime, "virsh list --all");
+//       kVision
+//        CliOperations.runCommand(visionRadwareFirstTime, "virsh list --all");
         boolean isContained = RegexUtils.isStringContainsThePattern(vmName, CliOperations.lastOutput);
         if (!isContained) {
             throw new Exception("the " + vmName + "does not exist");
         }
         int DEFAULT_KVM_CLI_TIMEOUT = 3000;
-        CliOperations.runCommand(visionRadwareFirstTime, "virsh start " + vmName, DEFAULT_KVM_CLI_TIMEOUT);
+//       kVision
+//        CliOperations.runCommand(visionRadwareFirstTime, "virsh start " + vmName, DEFAULT_KVM_CLI_TIMEOUT);
         Thread.sleep(60 * 1000);
         BaseTestUtils.report("Reverting to snapshot.", Reporter.PASS_NOR_FAIL);
-        CliOperations.runCommand(visionRadwareFirstTime, "virsh snapshot-revert --domain " + vmName + " --snapshotname " + snapshotName, 15 * 60 * 1000);
+//       kVision
+//        CliOperations.runCommand(visionRadwareFirstTime, "virsh snapshot-revert --domain " + vmName + " --snapshotname " + snapshotName, 15 * 60 * 1000);
         BaseTestUtils.report("Starting server after revert.", Reporter.PASS_NOR_FAIL);
-        CliOperations.runCommand(visionRadwareFirstTime, "virsh start " + vmName, DEFAULT_KVM_CLI_TIMEOUT);
+//       kVision
+//        CliOperations.runCommand(visionRadwareFirstTime, "virsh start " + vmName, DEFAULT_KVM_CLI_TIMEOUT);
         String error = ".*Domain not found.*";
         isContained = RegexUtils.isStringContainsThePattern(error, CliOperations.lastOutput);
         if (isContained) {
             String domain = "vision_auto_" + visionRadwareFirstTime.getIp();
             throw new Exception("error: Domain not found: no domain with matching name '" + domain + "' ");
         }
-        CliOperations.runCommand(visionRadwareFirstTime, "virsh domstate " + vmName, DEFAULT_KVM_CLI_TIMEOUT);
+//      kVision
+//        CliOperations.runCommand(visionRadwareFirstTime, "virsh domstate " + vmName, DEFAULT_KVM_CLI_TIMEOUT);
         isContained = RegexUtils.isStringContainsThePattern("running", CliOperations.lastRow);
         if (!isContained)
             BaseTestUtils.report("Server is not running. status is: " + CliOperations.lastOutput, Reporter.FAIL);
@@ -395,7 +398,8 @@ public class VMOperationsSteps extends BddUITestBase {
         String version = "";
         String build = "";
         try {
-            CliOperations.runCommand(restTestBase.getRootServerCli(), "service vision version");
+//           kVision
+//            CliOperations.runCommand(restTestBase.getRootServerCli(), "service vision version");
             String x = CliOperations.lastOutput;
             Pattern pattern = Pattern.compile("APSolute\\s+Vision\\s+(\\d+\\.\\d+\\.\\d+)\\s+\\(build\\s+(\\d+)\\)");
             Matcher matcher = pattern.matcher(x);
