@@ -40,20 +40,20 @@ public class ServersManagement {
     }
 
     public Optional<LinuxFileServer> getLinuxFileServer() {
-        return Optional.of(linuxFileServer);
+        return this.linuxFileServer != null ? Optional.of(linuxFileServer) : Optional.empty();
     }
 
     public Optional<RadwareServerCli> getRadwareServerCli() {
-        return Optional.of(radwareServerCli);
+        return this.radwareServerCli != null ? Optional.of(radwareServerCli) : Optional.empty();
     }
 
     public Optional<RootServerCli> getRootServerCLI() {
-        return Optional.of(rootServerCli);
+        return this.rootServerCli != null ? Optional.of(rootServerCli) : Optional.empty();
     }
 
     enum ServerIds {
         LINUX_FILE_SERVER("linuxFileServer"),
-        RADWARE_SERVER_CLI("RadwareServerCli"),
+        RADWARE_SERVER_CLI("radwareServerCli"),
         ROOT_SERVER_CLI("rootServerCli");
 
         private String serverId;
