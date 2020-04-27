@@ -1,5 +1,5 @@
 @TC114570
-Feature : ReportTrafficBandwidthOptions
+Feature: ReportTrafficBandwidthOptions
 
   @SID_1
   Scenario: Login to VRM AMS reports tab

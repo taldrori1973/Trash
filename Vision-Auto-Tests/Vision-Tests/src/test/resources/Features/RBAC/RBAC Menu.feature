@@ -464,11 +464,11 @@ Feature: RBAC Menu
       | vDirect                                     | no       |
       | GEL Dashboard                               | yes      |
       | EAAF Dashboard                              | yes      |
-      | VISION SETTINGS                             | yes       |
+      | VISION SETTINGS                             | yes      |
 
     * UI Logout
 
 
   @SID_22
   Scenario:Clean up (clean configurations caused by this feature)
-#   Given CLI cleanup without server Ip the vision
+   Given CLI cleanup without server Ip the vision
