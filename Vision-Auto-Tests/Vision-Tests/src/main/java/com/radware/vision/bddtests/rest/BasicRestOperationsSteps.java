@@ -103,7 +103,8 @@ public class BasicRestOperationsSteps extends BddRestTestBase {
 
 //    @Then("^REST Vision DELETE License Request \"(.*)\"$")
     public void deleteLicenses(String feature_name) {
-        CliOperations.runCommand(restTestBase.getRootServerCli(), String.format("mysql -u root -prad123 vision_ng -e \"select row_id from vision_license where license_str like '%%%s%%'\\G\" | tail -1 | awk '{print $2}'", feature_name));
+//       kVision
+//        CliOperations.runCommand(restTestBase.getRootServerCli(), String.format("mysql -u root -prad123 vision_ng -e \"select row_id from vision_license where license_str like '%%%s%%'\\G\" | tail -1 | awk '{print $2}'", feature_name));
         String licenseRawID = CliOperations.lastRow;
         //if last row contains part of the sent command, no such license exists
         if (!licenseRawID.contains("{print $2}"))
@@ -479,7 +480,8 @@ public class BasicRestOperationsSteps extends BddRestTestBase {
         rootServerCli.connect();
         String commandToExecute = "for i in {1.." + loop + "}; do curl -XPOST localhost:9200/aw-web-application/aw-web-application?pretty -H \"Content-Type: application/json\" -d '{\"enrichmentContainer\": { },\"timeStamp\": \"1569429855341\",\"id\": \"" + appWallIp + "%My_Application-'$i'\",\"deviceIp\": \"" + appWallIp + "\",\"webApplication\":\"" + appPrefix + "-'$i'\"}'; done";
         timeout *= 1000;
-        CliOperations.runCommand(rootServerCli, commandToExecute, timeout);
+//       kVision
+//        CliOperations.runCommand(rootServerCli, commandToExecute, timeout);
     }
 
     @When("^REST Logout user \"(.*)\"$")

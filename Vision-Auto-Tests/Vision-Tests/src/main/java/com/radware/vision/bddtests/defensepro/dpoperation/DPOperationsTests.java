@@ -3,7 +3,6 @@ package com.radware.vision.bddtests.defensepro.dpoperation;
 import com.radware.automation.tools.basetest.BaseTestUtils;
 import com.radware.automation.tools.basetest.Reporter;
 import com.radware.automation.webui.WebUIUtils;
-import com.radware.vision.automation.VisionAutoInfra.CLIInfra.CliOperations;
 import com.radware.vision.automation.tools.sutsystemobjects.devicesinfo.DeviceInfo;
 import com.radware.vision.automation.tools.sutsystemobjects.devicesinfo.enums.SUTDeviceType;
 import com.radware.vision.bddtests.BddUITestBase;
@@ -106,7 +105,8 @@ public class DPOperationsTests extends BddUITestBase {
 
         String deviceMac = DefenseProRESTHandler.getMacByIp(defenseProIp);
         String sqlCommand = String.format("mysql -prad123 vision_ng -e \"update hardware set platform_type='%s' where base_mac_addr='%s'\\G\"", newPlatformType, deviceMac);
-        CliOperations.runCommand(restTestBase.getRootServerCli(), sqlCommand);
+//       kVision
+//        CliOperations.runCommand(restTestBase.getRootServerCli(), sqlCommand);
 
     }
 
