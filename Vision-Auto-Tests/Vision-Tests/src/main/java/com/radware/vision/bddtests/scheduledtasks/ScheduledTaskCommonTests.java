@@ -2,7 +2,6 @@ package com.radware.vision.bddtests.scheduledtasks;
 
 import com.radware.automation.tools.basetest.BaseTestUtils;
 import com.radware.automation.tools.basetest.Reporter;
-import com.radware.vision.automation.VisionAutoInfra.CLIInfra.CliOperations;
 import com.radware.vision.bddtests.BddUITestBase;
 import com.radware.vision.infra.testhandlers.scheduledtasks.BaseTasksHandler;
 import com.radware.vision.infra.testhandlers.scheduledtasks.DDosFeedTaskHandler;
@@ -98,7 +97,8 @@ public class ScheduledTaskCommonTests extends BddUITestBase {
     public void validateTime(String command , int expectedTime)throws Exception{
         RootServerCli rootServerCli = new RootServerCli(clientConfigurations.getHostIp(), restTestBase.getRootServerCli().getUser(), restTestBase.getRootServerCli().getPassword());
         rootServerCli.init();
-        CliOperations.runCommand(rootServerCli, command);
+//       kVision
+//        CliOperations.runCommand(rootServerCli, command);
         String output = rootServerCli.getCmdOutput().get(1).split("\\.")[0];
         DateTimeFormatter inputFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
         LocalDateTime outputDate = LocalDateTime.parse(output, inputFormatter);

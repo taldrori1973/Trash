@@ -37,7 +37,8 @@ public class AttacksSteps extends BddCliTestBase {
                 wait = waitTimeout;
             }
             String commandToExecute = getCommandToexecute(deviceType, deviceIndex, numOfAttacks, loopDelay, fileName, withAttackId != null);
-            CliOperations.runCommand(getRestTestBase().getGenericLinuxServer(), commandToExecute, 30 * 1000, false, true, false);
+//           kVision
+//            CliOperations.runCommand(getRestTestBase().getGenericLinuxServer(), commandToExecute, 30 * 1000, false, true, false);
 
             Thread.sleep(wait * 1000);
         } catch (Exception e) {
@@ -108,7 +109,8 @@ public class AttacksSteps extends BddCliTestBase {
                     commandToExecute = "sudo /home/radware/getInterfaceByIP.sh " + visionIP.substring(0, visionIP.indexOf(".", visionIP.indexOf(".") + 1));
                 else {
                     commandToExecute = String.format("ifconfig | grep \"inet addr:%s\" | wc -l", deviceIp.substring(0, deviceIp.indexOf(".", deviceIp.indexOf(".") + 1)));
-                    CliOperations.runCommand(getRestTestBase().getGenericLinuxServer(), commandToExecute);
+//                   kVision
+//                    CliOperations.runCommand(getRestTestBase().getGenericLinuxServer(), commandToExecute);
                     isDeviceInterfaceExistInVision = CliOperations.lastRow;
                     if (!isDeviceInterfaceExistInVision.equals("0")) {
                         visionIP = visionIP.replace(visionIP.substring(0, visionIP.indexOf(".", visionIP.indexOf(".") + 1)), deviceIp.substring(0, deviceIp.indexOf(".", deviceIp.indexOf(".") + 1)));
@@ -119,8 +121,8 @@ public class AttacksSteps extends BddCliTestBase {
 
             //Reconnect to avoid disturbing another simulator attack!!!
             restTestBase.getGenericLinuxServer().connect();
-
-            CliOperations.runCommand(getRestTestBase().getGenericLinuxServer(), commandToExecute);
+//kVision
+//            CliOperations.runCommand(getRestTestBase().getGenericLinuxServer(), commandToExecute);
             interFace = CliOperations.lastRow;
             if (withAttackId) {
                 commandToExecute = String.format("sudo perl sendfile.pl -i %s -d %s -si %s -s %d -ld %d -ai 1 -f %s.pcap -dm %s &", interFace, visionIP, deviceIp, numOfAttacks, loopDelay, fileName, macAdress);
