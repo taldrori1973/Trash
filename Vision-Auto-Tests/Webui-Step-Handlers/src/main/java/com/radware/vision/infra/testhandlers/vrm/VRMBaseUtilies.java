@@ -14,7 +14,6 @@ import com.radware.automation.webui.widgets.ComponentLocator;
 import com.radware.automation.webui.widgets.ComponentLocatorFactory;
 import com.radware.automation.webui.widgets.impl.WebUICheckbox;
 import com.radware.automation.webui.widgets.impl.WebUIComponent;
-import com.radware.vision.automation.VisionAutoInfra.CLIInfra.CliOperations;
 import com.radware.vision.automation.tools.exceptions.selenium.TargetWebElementNotFoundException;
 import com.radware.vision.automation.tools.exceptions.web.DropdownItemNotFoundException;
 import com.radware.vision.automation.tools.exceptions.web.DropdownNotOpenedException;
@@ -980,10 +979,12 @@ public class VRMBaseUtilies {
         }
 //        CliOperations.runCommand(rootServerCli, "service iptables stop");
         String commandToExecute = "net firewall open-port 10080 open";
-        CliOperations.runCommand(radwareServerCli, commandToExecute);
+//       kVision
+//        CliOperations.runCommand(radwareServerCli, commandToExecute);
         String port = "10080";
         commandToExecute = "curl -X POST --header 'Content-Type: application/json' --header 'Accept: */*' 'http://" + host + ":" + port + "/reporter/mgmt/monitor/reporter/internal-dashboard/scheduledTasks?jobClassName=com.reporter.scheduled.report.vrm.retention.VrmScheduledReportRetentionTask'";
-        CliOperations.runCommand(rootServerCli, commandToExecute);
+//       kVision
+//        CliOperations.runCommand(rootServerCli, commandToExecute);
     }
 
     /**
