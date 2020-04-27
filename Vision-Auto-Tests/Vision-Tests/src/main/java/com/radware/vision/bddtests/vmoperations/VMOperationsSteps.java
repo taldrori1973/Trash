@@ -90,6 +90,8 @@ public class VMOperationsSteps extends BddUITestBase {
 
     @When("^Revert DefenseFlow to snapshot$")
     public void DfenseFlowRevertToSnapshot() throws Exception {
+        //        kVision
+
 //        try {
 //            defenseFlowDevice DF = (defenseFlowDevice) system.getSystemObject("defenseFlowDevice");
 //            EsxiInfo esxiInfo = new EsxiInfo(DF.getvCenterURL(), DF.getvCenterUserName(), DF.getvCenterPassword(), DF.getResourcePool());
@@ -158,6 +160,7 @@ public class VMOperationsSteps extends BddUITestBase {
 
     @Then("^Prerequisite for Setup(\\s+force)?$")
     public void prerequisiteForSetup(String force) {
+//        kVision
 //        if (force != null || isSetupNeeded()) {
 //            try {
 //                String setupMode = getVisionSetupAttributeFromSUT("setupMode");
@@ -215,6 +218,7 @@ public class VMOperationsSteps extends BddUITestBase {
     }
 
     private void revert_kvm_upgrade_InParallel(String snapshot, VisionRadwareFirstTime visionRadwareFirstTime) throws Exception {
+//        kVision
 //        KVMSnapShotThread firstMachine = new KVMSnapShotThread(snapshot, visionRadwareFirstTime);
 //        firstMachine.start();
 //        visionRadwareFirstTime = (VisionRadwareFirstTime) system.getSystemObject("visionRadwareFirstTime2");
