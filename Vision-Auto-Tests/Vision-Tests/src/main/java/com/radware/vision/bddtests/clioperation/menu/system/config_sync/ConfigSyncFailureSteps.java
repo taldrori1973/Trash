@@ -67,9 +67,11 @@ public class ConfigSyncFailureSteps extends BddUITestBase {
             HAHandler.setConfigSyncPeer(peerServerCli, restTestBase.getRadwareServerCli().getHost(), restTestBase.getVisionServerHA());
 //           system config-sync interval set 1
             HAHandler.setConfigSyncInterval(peerServerCli, interval2);
-            CliOperations.runCommand(peerServerCli, "system config-sync mail_recipients set " + mail);
+//           kVision
+//            CliOperations.runCommand(peerServerCli, "system config-sync mail_recipients set " + mail);
             int missedSyncs = 1;
-            CliOperations.runCommand(peerServerCli, "system config-sync missed_syncs set " + missedSyncs);
+//           kVision
+//            CliOperations.runCommand(peerServerCli, "system config-sync missed_syncs set " + missedSyncs);
 
             String smtpAddress = "176.200.120.120";
             configMailViaUi(smtpAddress, "APSolute Vision");
@@ -78,7 +80,8 @@ public class ConfigSyncFailureSteps extends BddUITestBase {
             HAHandler.manualSync(restTestBase.getRadwareServerCli());
             emailHandler.verifyLastUnreadEmail(null, subject, content, null, 180);
             missedSyncs = 0;
-            CliOperations.runCommand(peerServerCli, "system config-sync missed_syncs set " + missedSyncs);
+//           kVision
+//            CliOperations.runCommand(peerServerCli, "system config-sync missed_syncs set " + missedSyncs);
 
         } catch (Exception e) {
             BaseTestUtils.report(e.getMessage(), Reporter.FAIL);
@@ -109,7 +112,8 @@ public class ConfigSyncFailureSteps extends BddUITestBase {
             rootGenericLinuxServerCli.init();
 //            delete cliuser file
             String delCliuser = "rm " + mailPath;
-            CliOperations.runCommand(rootGenericLinuxServerCli, delCliuser);
+//           kVision
+//            CliOperations.runCommand(rootGenericLinuxServerCli, delCliuser);
             /* this for peer = host2*/
             String peerHost = restTestBase.getVisionServerHA().getHost_2();
             RadwareServerCli peerServerCli = new RadwareServerCli(peerHost, restTestBase.getRadwareServerCli().getUser(), restTestBase.getRadwareServerCli().getPassword());
@@ -127,9 +131,11 @@ public class ConfigSyncFailureSteps extends BddUITestBase {
             HAHandler.setConfigSyncPeer(peerServerCli, restTestBase.getRadwareServerCli().getHost(), restTestBase.getVisionServerHA());
 //            system config-sync interval set 1
             HAHandler.setConfigSyncInterval(peerServerCli, interval2);
-            CliOperations.runCommand(peerServerCli, "system config-sync mail_recipients set " + mail);
+//           kVision
+//            CliOperations.runCommand(peerServerCli, "system config-sync mail_recipients set " + mail);
             int missedSyncs = 1;
-            CliOperations.runCommand(peerServerCli, "system config-sync missed_syncs set " + missedSyncs);
+//           kVision
+//            CliOperations.runCommand(peerServerCli, "system config-sync missed_syncs set " + missedSyncs);
             String smtpAddress = "172.17.164.10";
             configMailViaUi(smtpAddress, "APSolute Vision");
 
@@ -141,7 +147,8 @@ public class ConfigSyncFailureSteps extends BddUITestBase {
             int failedCounter = 0;
             String failedException = "";
             for (int i = 0; i < 3; i++) {
-                CliOperations.runCommand(rootGenericLinuxServerCli, commandToExecuteInGenericLinux);
+//               kVision
+//                CliOperations.runCommand(rootGenericLinuxServerCli, commandToExecuteInGenericLinux);
 //                CliOperations.verifyLastOutputByRegex(content);
 //                CliOperations.verifyLastOutputByRegex(subject);
                 try {
@@ -157,14 +164,16 @@ public class ConfigSyncFailureSteps extends BddUITestBase {
 
                 if (i == 2 && failedCounter != 0) {
                     missedSyncs = 0;
-                    CliOperations.runCommand(peerServerCli, "system config-sync missed_syncs set " + missedSyncs);
+//                   kVision
+//                    CliOperations.runCommand(peerServerCli, "system config-sync missed_syncs set " + missedSyncs);
                     BaseTestUtils.report(failedException, Reporter.FAIL);
                 }
                 BasicOperationsHandler.delay(60);
             }
 //            to stop mail sending
             missedSyncs = 0;
-            CliOperations.runCommand(peerServerCli, "system config-sync missed_syncs set " + missedSyncs);
+//           kVision
+//            CliOperations.runCommand(peerServerCli, "system config-sync missed_syncs set " + missedSyncs);
 
         } catch (Exception e) {
             BaseTestUtils.report(e.getMessage(), Reporter.FAIL);
