@@ -4,7 +4,6 @@ import basejunit.RestTestBase;
 import com.jcraft.jsch.JSch;
 import com.jcraft.jsch.JSchException;
 import com.jcraft.jsch.Session;
-import com.radware.vision.automation.VisionAutoInfra.CLIInfra.CliOperations;
 
 import java.sql.*;
 import java.util.HashMap;
@@ -84,9 +83,10 @@ public class JDBCConnectionSingleton {
 
 
     private void grantAllPrivilegesToConnectDP() {
-        CliOperations.runCommand(restTestBase.getRootServerCli(),
-                "mysql -uroot -prad123 -e \"grant all on *.* to 'root'@'" + host + "' identified by 'rad123'\"");
-        privilegesGranted = true;
+//        kVision
+//          CliOperations.runCommand(restTestBase.getRootServerCli(),
+//                "mysql -uroot -prad123 -e \"grant all on *.* to 'root'@'" + host + "' identified by 'rad123'\"");
+//          privilegesGranted = true;
     }
 
     private void connectSshSession() throws JSchException {
