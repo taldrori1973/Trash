@@ -43,6 +43,14 @@ public class ServersManagement {
         return Optional.of(linuxFileServer);
     }
 
+    public Optional<RadwareServerCli> getRadwareServerCli() {
+        return Optional.of(radwareServerCli);
+    }
+
+    public Optional<RootServerCli> getRootServerCLI() {
+        return Optional.of(rootServerCli);
+    }
+
     enum ServerIds {
         LINUX_FILE_SERVER("linuxFileServer"),
         RADWARE_SERVER_CLI("RadwareServerCli"),
