@@ -3,7 +3,6 @@ package com.radware.vision.bddtests.clioperation;
 import basejunit.RestTestBase;
 import com.radware.automation.tools.utils.ExecuteShellCommands;
 import com.radware.automation.tools.utils.LinuxServerCredential;
-import com.radware.vision.automation.VisionAutoInfra.CLIInfra.CliOperations;
 import com.radware.vision.bddtests.BddCliTestBase;
 import com.radware.vision.infra.testhandlers.baseoperations.BasicOperationsHandler;
 import cucumber.api.java.en.Given;
@@ -31,7 +30,8 @@ public class GeneralSteps extends BddCliTestBase {
                 "/tmp/logs/Vision_install.log " +
                 "/var/log/td-agent/td-agent.log " +
                 "/opt/radware/storage/maintenance/logs/lls/lls_install_display.log";
-        CliOperations.runCommand(getRestTestBase().getRootServerCli(), clearAllLogs);
+//       kvision
+//        CliOperations.runCommand(getRestTestBase().getRootServerCli(), clearAllLogs);
     }
 
     /**
@@ -98,7 +98,8 @@ public class GeneralSteps extends BddCliTestBase {
     @Then("^Service Vision (restart|stop|start) and Wait (\\d+) Minute|Minutes$")
     public void serviceVisionRestartStopStart(String operation,int waitTime) {
         RestTestBase restTestBase = new RestTestBase();
-        CliOperations.runCommand(restTestBase.getRootServerCli(), "service vision " + operation, 90 * 1000);
+//       kvision
+//        CliOperations.runCommand(restTestBase.getRootServerCli(), "service vision " + operation, 90 * 1000);
         BasicOperationsHandler.delay(60*waitTime);
     }
 
