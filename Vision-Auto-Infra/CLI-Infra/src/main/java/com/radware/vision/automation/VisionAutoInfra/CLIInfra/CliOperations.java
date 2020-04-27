@@ -3,8 +3,8 @@ package com.radware.vision.automation.VisionAutoInfra.CLIInfra;
 
 import com.radware.automation.tools.basetest.BaseTestUtils;
 import com.radware.automation.tools.basetest.Reporter;
-import com.radware.automation.tools.cli.ServerCliBase;
 import com.radware.automation.tools.utils.InvokeUtils;
+import com.radware.vision.automation.VisionAutoInfra.CLIInfra.Servers.ServerCliBase;
 import com.radware.vision.utils.RegexUtils;
 
 import java.util.ArrayList;
