@@ -10,7 +10,6 @@ import com.radware.vision.systemManagement.models.ManagementInfo;
 import com.radware.vision.vision_handlers.system.ConfigSync;
 import com.radware.vision.vision_project_cli.RadwareServerCli;
 
-import static com.radware.vision.base.WebUITestBase.getRestTestBase;
 import static com.radware.vision.base.WebUITestBase.restTestBase;
 
 public class LLSHandler {
@@ -224,7 +223,8 @@ public class LLSHandler {
         String mainIP = clientConfigurations.getHostIp();
         while (System.currentTimeMillis() - startTime < timeout) {
             try {
-                CliOperations.runCommand(getRestTestBase().getRadwareServerCli(), INSTALL_LOGS, 3 * 60 * 1000);
+//               kVision
+//                CliOperations.runCommand(getRestTestBase().getRadwareServerCli(), INSTALL_LOGS, 3 * 60 * 1000);
                 CliOperations.verifyLastOutputByRegexWithOutputWithoutFail(".*\"main\" : \"http://" + mainIP + ":7070\"", CliOperations.lastOutput);
                 CliOperations.verifyLastOutputByRegexWithOutputWithoutFail(".*Auto Configuration successful*", CliOperations.lastOutput);
                 return;
@@ -233,7 +233,8 @@ public class LLSHandler {
             }
         }
         BaseTestUtils.reporter.report(CliOperations.lastOutput, Reporter.PASS_NOR_FAIL);
-        CliOperations.runCommand(restTestBase.getRadwareServerCli(), SERVICE_STATUS, 3 * 60 * 1000);
+//       kVision
+//        CliOperations.runCommand(restTestBase.getRadwareServerCli(), SERVICE_STATUS, 3 * 60 * 1000);
         BaseTestUtils.reporter.report(CliOperations.lastOutput, Reporter.PASS_NOR_FAIL);
         BaseTestUtils.reporter.report("timeout pass, The main url is not configured.", Reporter.FAIL);
     }
