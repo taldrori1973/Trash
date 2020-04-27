@@ -95,8 +95,9 @@ public class DDosFeedTaskHandler extends BaseTasksHandler {
 
     public static void verifyValidatingFeedForDefenseProInVisionLog(String dpMacAddress, RestTestBase restTestBase) {
         String lastOutputItems;
-        CliOperations.runCommand(restTestBase.getRootServerCli(), "logs");
-        CliOperations.runCommand(restTestBase.getRootServerCli(), "grep \"validated the folowing ip adresses:\" vision.log");
+//        kVision getRootServerCli
+//        CliOperations.runCommand(restTestBase.getRootServerCli(), "logs");
+//        CliOperations.runCommand(restTestBase.getRootServerCli(), "grep \"validated the folowing ip adresses:\" vision.log");
         lastOutputItems = CliOperations.lastOutput;
         if (!lastOutputItems.contains(dpMacAddress.replace(":", ""))) {
             BaseTestUtils.report("Mac address not found.", Reporter.FAIL);
@@ -105,8 +106,9 @@ public class DDosFeedTaskHandler extends BaseTasksHandler {
 
     public static void verifyRequestingFeedForDefenseProInVisionLog(String dpMacAddress, RestTestBase restTestBase) {
         String lastOutputItems;
-        CliOperations.runCommand(restTestBase.getRootServerCli(), "logs");
-        CliOperations.runCommand(restTestBase.getRootServerCli(), "grep \"Requesting feed for the following mac adresses:\" vision.log");
+        //        kVision getRootServerCli
+//        CliOperations.runCommand(restTestBase.getRootServerCli(), "logs");
+//        CliOperations.runCommand(restTestBase.getRootServerCli(), "grep \"Requesting feed for the following mac adresses:\" vision.log");
         lastOutputItems = CliOperations.lastOutput;
         if (!lastOutputItems.contains(dpMacAddress.replace(":", ""))) {
             BaseTestUtils.report("Mac address not found.", Reporter.FAIL);
@@ -115,8 +117,9 @@ public class DDosFeedTaskHandler extends BaseTasksHandler {
 
     public static void verifyThatNoFeedRequestForDefenseProInVisionLog(String dpMacAddress, RestTestBase restTestBase) {
         String lastOutputItems;
-        CliOperations.runCommand(restTestBase.getRootServerCli(), "logs");
-        CliOperations.runCommand(restTestBase.getRootServerCli(), "grep \"Requesting feed for the following mac adresses:\" vision.log");
+        //        kVision getRootServerCli
+//        CliOperations.runCommand(restTestBase.getRootServerCli(), "logs");
+//        CliOperations.runCommand(restTestBase.getRootServerCli(), "grep \"Requesting feed for the following mac adresses:\" vision.log");
         lastOutputItems = CliOperations.lastOutput;
         if (lastOutputItems.contains(dpMacAddress.replace(":", ""))) {
             BaseTestUtils.report("Feed request for this DefensePro was found", Reporter.FAIL);
