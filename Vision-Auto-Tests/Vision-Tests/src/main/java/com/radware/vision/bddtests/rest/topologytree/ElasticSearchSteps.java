@@ -74,7 +74,7 @@ public class ElasticSearchSteps extends BddRestTestBase {
      */
     @Given("^That Elasticsearch Index \"(.*)\"(?: with Week Slice (\\d+))? Already Exists or Create the Index by Simulating (\\d+) attacks of type \"(.*)\" on \"(.*)\" (\\d+)(?: with loopDelay (\\d+))?(?: and wait (\\d+) seconds)?( with attack ID)?$")
     public void isIndexExist(String indexName, Integer weekSlice, int numOfAttacks, String fileName, SUTDeviceType deviceType, int deviceIndex, Integer ld, Integer waitTimeout, String withAttackId) {
-        if (ElasticSearchHandlerNew.getIndex(restTestBase.getVisionRestClient().getDeviceIp(), indexName, "last", weekSlice) == null) {
+        if (ElasticSearchHandlerNew.getIndex(indexName, "last", weekSlice) == null) {
             AttacksSteps attacksSteps = new AttacksSteps();
             attacksSteps.runSimulatorFromDevice(numOfAttacks, fileName, deviceType, deviceIndex, ld, waitTimeout, withAttackId);
         }
@@ -122,7 +122,7 @@ public class ElasticSearchSteps extends BddRestTestBase {
                             " should be both null OR both not null.\n" + "the first argument sent is \"%s\" and the second is \"%s\"", sliceToGet, weekSlice),
                     Reporter.FAIL);
         }
-        String index = ElasticSearchHandlerNew.getIndex(restTestBase.getVisionRestClient().getDeviceIp(), indexName, sliceToGet, weekSlice);
+        String index = ElasticSearchHandlerNew.getIndex(indexName, sliceToGet, weekSlice);
 
         boolean expected = operation.equalsIgnoreCase("CONTAINS");
         boolean actual = ElasticSearchHandlerNew.isIndexContainsKeyValue(index, attribute, value);

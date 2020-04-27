@@ -17,8 +17,8 @@ public class ElasticSearchHandlerNew {
 
     public static void deleteESDocument(String data, String index) {
         try {
-            ElasticsearchRestAPI esRestApi = createEsRestConnection("Vision/elasticSearch.json", "Delete doucument by query");
-            HashMap<String, String> hash_map_param = new HashMap<String, String>();
+            ElasticsearchRestAPI esRestApi = createEsRestConnection("Vision/elasticSearch.json", "Delete document by query");
+            HashMap<String, String> hash_map_param = new HashMap<>();
             hash_map_param.put("indexName", index);
             esRestApi.getRestRequestSpecification().setPathParams(hash_map_param);
             esRestApi.getRestRequestSpecification().setBody(String.format("{\"query\":{\"match\":{%s}}}", data));
@@ -74,36 +74,37 @@ public class ElasticSearchHandlerNew {
             }
     }
 
-    public static JSONObject getIndex(String ip, String indexName) throws NoSuchFieldException {
+    public static JSONObject getIndex(String indexName) throws NoSuchFieldException {
         ElasticsearchRestAPI esRestApi = createEsRestConnection("Vision/elasticSearch.json", "Get Index");
         HashMap<String, String> hash_map_param = new HashMap<>();
         hash_map_param.put("indexName", indexName);
         esRestApi.getRestRequestSpecification().setPathParams(hash_map_param);
         RestResponse restResponse = esRestApi.sendRequest();//
-        restResponse.getBody().getBodyAsString();
         return new JSONObject(restResponse.getBody().getBodyAsString());
     }
 
     public static int getNumberOfAttributes(String ip, String indexName, Integer weekSlice) {
 
-        if (getIndex(ip, indexName, "last", weekSlice) == null)
+        if (getIndex(indexName, "last", weekSlice) == null)
             BaseTestUtils.report(String.format("Can't Find Index \"%s\"", indexName), Reporter.FAIL);
-        JSONObject root = null;
+        JSONObject root;
+        List<String> types = new ArrayList<>();
         try {
-            root = getIndex(ip, indexName);
+            root = getIndex(indexName);
+            String index = getRequiredIndex(root, "last");
+            DocumentContext jsonContext = JsonPath.parse(root.toString());
+
+            String enabledPath = "$." + index + ".mappings..[?(@.enabled==false)]";
+            if (!((List<String>) jsonContext.read(enabledPath)).isEmpty()) {
+                BaseTestUtils.report("The Index contains NOT Enabled Mapping", Reporter.FAIL);
+            }
+            String typesPath = "$." + index + ".mappings..type";
+            types = jsonContext.read(typesPath);
+
         } catch (NoSuchFieldException e) {
             BaseTestUtils.reporter.report("index" + indexName + " Not found", Reporter.FAIL);
             e.printStackTrace();
         }
-        String index = getRequiredIndex(root, "last");
-        DocumentContext jsonContext = JsonPath.parse(root.toString());
-
-        String enabledPath = "$." + index + ".mappings..[?(@.enabled==false)]";
-        if (!((List<String>) jsonContext.read(enabledPath)).isEmpty()) {
-            BaseTestUtils.report("The Index contains NOT Enabled Mapping", Reporter.FAIL);
-        }
-        String typesPath = "$." + index + ".mappings..type";
-        List<String> types = jsonContext.read(typesPath);
         return types.size();
     }
 
@@ -141,15 +142,14 @@ public class ElasticSearchHandlerNew {
         esRestApi.getRestRequestSpecification().setPathParams(hash_map_param);
         esRestApi.getRestRequestSpecification().setBody(body);
         RestResponse restResponse = esRestApi.sendRequest();
-        if (restResponse.getBody().getBodyAsString().contains("\"hits\":{\"total\":0")) return false;
-        return true;
+        return !restResponse.getBody().getBodyAsString().contains("\"hits\":{\"total\":0");
     }
 
 
-    public static String getIndex(String ip, String indexName, String sliceToGet, Integer weekSlice) {
+    public static String getIndex(String indexName, String sliceToGet, Integer weekSlice) {
         JSONObject jsonObject;
         try {
-            jsonObject = getIndex(ip, indexName);
+            jsonObject = getIndex(indexName);
         } catch (Exception e) {
             return null;
         }
