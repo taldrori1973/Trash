@@ -3,11 +3,14 @@ package com.radware.vision.bddtests.remotessh;
 import com.radware.automation.tools.basetest.BaseTestUtils;
 import com.radware.automation.tools.basetest.Reporter;
 import com.radware.automation.tools.utils.InvokeUtils;
+import com.radware.vision.automation.VisionAutoInfra.CLIInfra.Servers.LinuxFileServer;
 import com.radware.vision.automation.tools.sutsystemobjects.devicesinfo.enums.SUTDeviceType;
 import com.radware.vision.base.TestBase;
 import com.radware.vision.bddtests.BddCliTestBase;
 import com.radware.vision.infra.testhandlers.cli.CliOperations;
 import cucumber.api.java.en.Given;
+
+import java.util.Optional;
 
 public class AttacksSteps extends BddCliTestBase {
 
@@ -74,11 +77,14 @@ public class AttacksSteps extends BddCliTestBase {
     public void killAllAttacksOnVision() {
         try {
             String visionIP = clientConfigurations.getHostIp();
+            Optional<LinuxFileServer> linuxFileServerOpt = TestBase.serversManagement.getLinuxFileServer();
+            if(linuxFileServerOpt == null){
+                throw new Exception("The genericLinuxServer Not found!");
+            }
             // fetch the last two octets
             visionIP = visionIP.substring(visionIP.indexOf(".", visionIP.indexOf(".") + 1) + 1, visionIP.length());
             String commandToExecute = "/home/radware/run-kill_all_DP_attacks.sh stop " + visionIP;
-            InvokeUtils.invokeCommand(commandToExecute, restTestBase.getGenericLinuxServer());
-
+            InvokeUtils.invokeCommand(commandToExecute,linuxFileServerOpt.get());
         } catch (Exception e) {
             BaseTestUtils.report("Failed to simulate attack:", Reporter.FAIL);
         }
