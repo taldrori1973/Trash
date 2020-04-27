@@ -34,7 +34,8 @@ public class UpgradeSteps extends BddCliTestBase {
             VisionServer.upgradeServerFile(getRestTestBase().getRadwareServerCli(), getRestTestBase().getRootServerCli()
                     , version, build, null, isAPM());
             validateVisionServerServicesUP();
-            CliOperations.runCommand(getRestTestBase().getRootServerCli(), "\"yes|restore_radware_user_password\"", 15 * 1000);
+//kVision
+//            CliOperations.runCommand(getRestTestBase().getRootServerCli(), "\"yes|restore_radware_user_password\"", 15 * 1000);
         } catch (Exception e) {
             BaseTestUtils.report("Setup Failed changing server to OFFLINE", Reporter.FAIL);
             BaseTestUtils.report(e.getMessage(), Reporter.FAIL);
@@ -83,7 +84,8 @@ public class UpgradeSteps extends BddCliTestBase {
 
     private boolean isAPM() throws Exception {
         rootServerCli.connect();
-        CliOperations.runCommand(rootServerCli, "df -h | grep apm | grep /vz/private | wc -l", 5 * 60 * 1000);
+//       kVision
+//        CliOperations.runCommand(rootServerCli, "df -h | grep apm | grep /vz/private | wc -l", 5 * 60 * 1000);
         return !CliOperations.lastRow.equals("0");
     }
 
