@@ -37,8 +37,11 @@ public class AttacksSteps extends BddCliTestBase {
                 wait = waitTimeout;
             }
             String commandToExecute = getCommandToexecute(deviceType, deviceIndex, numOfAttacks, loopDelay, fileName, withAttackId != null);
-//           kVision
-//            CliOperations.runCommand(getRestTestBase().getGenericLinuxServer(), commandToExecute, 30 * 1000, false, true, false);
+            Optional<LinuxFileServer> genericLinuxServerOpt = TestBase.serversManagement.getLinuxFileServer();
+            if (!genericLinuxServerOpt.isPresent()) {
+                throw new Exception("The genericLinuxServer Not found!");
+            }
+            CliOperations.runCommand(genericLinuxServerOpt.get(), commandToExecute, 30 * 1000, false, true, false);
 
             Thread.sleep(wait * 1000);
         } catch (Exception e) {
@@ -64,7 +67,11 @@ public class AttacksSteps extends BddCliTestBase {
                 visionIP = visionIP.replace(visionIP.substring(0, visionIP.indexOf(".", visionIP.indexOf(".") + 1)), fakeIpPrefix);
             }
             String commandToExecute = "/home/radware/run-kill_all_DP_attacks.sh stop " + deviceIp + " " + visionIP;
-            InvokeUtils.invokeCommand(commandToExecute, restTestBase.getGenericLinuxServer());
+            Optional<LinuxFileServer> genericLinuxServerOpt = TestBase.serversManagement.getLinuxFileServer();
+            if (!genericLinuxServerOpt.isPresent()) {
+                throw new Exception("The genericLinuxServer Not found!");
+            }
+            InvokeUtils.invokeCommand(commandToExecute, genericLinuxServerOpt.get());
         } catch (Exception e) {
             BaseTestUtils.report("Failed to kill attack", Reporter.FAIL);
         }
@@ -78,16 +85,16 @@ public class AttacksSteps extends BddCliTestBase {
     public void killAllAttacksOnVision() {
         try {
             String visionIP = clientConfigurations.getHostIp();
-            Optional<LinuxFileServer> linuxFileServerOpt = TestBase.serversManagement.getLinuxFileServer();
-            if(linuxFileServerOpt == null){
+            Optional<LinuxFileServer> genericLinuxServerOpt = TestBase.serversManagement.getLinuxFileServer();
+            if (!genericLinuxServerOpt.isPresent()) {
                 throw new Exception("The genericLinuxServer Not found!");
             }
             // fetch the last two octets
             visionIP = visionIP.substring(visionIP.indexOf(".", visionIP.indexOf(".") + 1) + 1, visionIP.length());
             String commandToExecute = "/home/radware/run-kill_all_DP_attacks.sh stop " + visionIP;
-            InvokeUtils.invokeCommand(commandToExecute,linuxFileServerOpt.get());
+            InvokeUtils.invokeCommand(commandToExecute, genericLinuxServerOpt.get());
         } catch (Exception e) {
-            BaseTestUtils.report("Failed to simulate attack:", Reporter.FAIL);
+            BaseTestUtils.report("Failed to kill simulators, " + e.getMessage(), Reporter.FAIL);
         }
     }
 
@@ -98,7 +105,11 @@ public class AttacksSteps extends BddCliTestBase {
         String interFace;
         String macAdress = TestBase.getVisionConfigurations().getManagementInfo().getMacAddress();
         String commandToExecute = "";
+        Optional<LinuxFileServer> genericLinuxServer = TestBase.serversManagement.getLinuxFileServer();
         try {
+            if (!genericLinuxServer.isPresent()) {
+                throw new Exception("The genericLinuxServer Not found!");
+            }
             deviceIp = devicesManager.getDeviceInfo(deviceType, deviceIndex).getDeviceIp();
             commandToExecute = "sudo /home/radware/getInterfaceByIP.sh " + deviceIp.substring(0, deviceIp.indexOf(".", deviceIp.indexOf(".") + 1));
             if (deviceIp.startsWith(fakeIpPrefix)) {
@@ -109,8 +120,7 @@ public class AttacksSteps extends BddCliTestBase {
                     commandToExecute = "sudo /home/radware/getInterfaceByIP.sh " + visionIP.substring(0, visionIP.indexOf(".", visionIP.indexOf(".") + 1));
                 else {
                     commandToExecute = String.format("ifconfig | grep \"inet addr:%s\" | wc -l", deviceIp.substring(0, deviceIp.indexOf(".", deviceIp.indexOf(".") + 1)));
-//                   kVision
-//                    CliOperations.runCommand(getRestTestBase().getGenericLinuxServer(), commandToExecute);
+                    CliOperations.runCommand(genericLinuxServer.get(), commandToExecute);
                     isDeviceInterfaceExistInVision = CliOperations.lastRow;
                     if (!isDeviceInterfaceExistInVision.equals("0")) {
                         visionIP = visionIP.replace(visionIP.substring(0, visionIP.indexOf(".", visionIP.indexOf(".") + 1)), deviceIp.substring(0, deviceIp.indexOf(".", deviceIp.indexOf(".") + 1)));
@@ -120,9 +130,8 @@ public class AttacksSteps extends BddCliTestBase {
             }
 
             //Reconnect to avoid disturbing another simulator attack!!!
-            restTestBase.getGenericLinuxServer().connect();
-//kVision
-//            CliOperations.runCommand(getRestTestBase().getGenericLinuxServer(), commandToExecute);
+            genericLinuxServer.get().connect();
+            CliOperations.runCommand(genericLinuxServer.get(), commandToExecute);
             interFace = CliOperations.lastRow;
             if (withAttackId) {
                 commandToExecute = String.format("sudo perl sendfile.pl -i %s -d %s -si %s -s %d -ld %d -ai 1 -f %s.pcap -dm %s &", interFace, visionIP, deviceIp, numOfAttacks, loopDelay, fileName, macAdress);
