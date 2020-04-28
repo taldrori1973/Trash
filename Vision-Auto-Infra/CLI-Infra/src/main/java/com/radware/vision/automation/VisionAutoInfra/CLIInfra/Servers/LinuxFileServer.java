@@ -18,9 +18,9 @@ public class LinuxFileServer extends ServerCliBase {
 
     @Override
     public void init() throws Exception {
-		BaseTestUtils.reporter.startLevel("Init LinuxFileServer");
+//		BaseTestUtils.reporter.startLevel("Init LinuxFileServer");
         super.init();
-        BaseTestUtils.reporter.stopLevel();
+//        BaseTestUtils.reporter.stopLevel();
     }
 
     public void close() {
