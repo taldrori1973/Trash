@@ -71,7 +71,6 @@ Feature: Vision APM Upgrade current +1
       | UPGRADE | /opt/radware/storage/www/webui/vision-dashboards/public/static/media/* | IGNORE       |
 
 
-
   @SID_6
   Scenario: Check firewall settings
     Then CLI Run linux Command "iptables -L -n |tail -1|awk -F" " '{print $1,$2}'" on "ROOT_SERVER_CLI" and validate result EQUALS "REJECT all"
@@ -124,6 +123,7 @@ Feature: Vision APM Upgrade current +1
 
   @SID_9
   Scenario: Navigate to general settings page
+    Given UI Click Button by id "gwt-debug-DevicesTree_Node_Default"
     Then UI Go To Vision
     Then UI Navigate to page "System->General Settings->Basic Parameters"
     When UI Do Operation "select" item "Software"
