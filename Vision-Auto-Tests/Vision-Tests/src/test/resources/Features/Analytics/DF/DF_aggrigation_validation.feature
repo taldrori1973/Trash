@@ -1,6 +1,11 @@
 @TC111080
 Feature:  DF Statistics - Data Aggregation
 
+  @SID_18
+  Scenario: Change DF managment IP to IP of Generic Linux
+    When CLI Operations - Run Radware Session command "system df management-ip set 172.17.164.10"
+    When CLI Operations - Run Radware Session command "system df management-ip get"
+    Then CLI Operations - Verify that output contains regex "DefenseFlow Management IP Address: 172.17.164.10"
 
   @SID_1
   Scenario: Copy retention verification script

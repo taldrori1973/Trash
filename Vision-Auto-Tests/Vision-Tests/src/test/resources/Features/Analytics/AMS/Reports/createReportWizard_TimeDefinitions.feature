@@ -448,7 +448,7 @@ Feature: Report Wizard_Time_Definitions
 
 
     # move Anomalies start time 31 Days -> 63 Days backwards
-    # we shouldnot  find any data
+    # No data should be find
     When CLI Run remote linux Command "curl -XPOST localhost:9200/dp-attack-raw-*/_update_by_query/?pretty -d '{"query": {"match": {"attackIpsId": "4-1402580209"}},"script": {"source": "ctx._source.startTime = 'ctx._source.startTime-2678400000'"}}'" on "ROOT_SERVER_CLI"
 
     #ToDo verify data displayed in the report
