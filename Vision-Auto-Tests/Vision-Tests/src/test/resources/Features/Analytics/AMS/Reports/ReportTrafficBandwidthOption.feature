@@ -25,10 +25,10 @@ Feature: ReportTrafficBandwidthOptions
   @SID_3
   Scenario: Create Report with trtaffic Bandwidth Options
     Given UI "Create" Report With Name "trafficBandwidth"
-      | Design     | {"Add":[{"Traffic Bandwidth":["Outbound","pps",{"trafficbandwidthScroll":"7"}]}]} |
+      | Design     | {"Add":[{"Traffic Bandwidth":["Outbound","pps",{"Traffic Bandwidth_Numberpolicies":"7"}]}]} |
 
     Then UI "Validate" Report With Name "trafficBandwidth"
-      | Design     | {"Add":[{"Traffic Bandwidth"]} |
+      | Design     | Widgets:[Traffic Bandwidth]|
 
     @SID_4
     Scenario: validate the traffic bandwidth options
