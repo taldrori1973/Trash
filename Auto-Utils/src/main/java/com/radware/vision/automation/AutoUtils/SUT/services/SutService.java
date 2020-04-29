@@ -52,6 +52,7 @@ public class SutService {
     }
 
     public List<TreeDeviceManagementDto> getVisionSetupTreeDevices() {
+        ModelMapper modelMapper = new ModelMapper();//this is special model mapper
         List<TreeDeviceManagementDto> treeDeviceManagementDtos;
         List<Device> allDevices = this.devicesDao.findAllDevices();
         List<TreeDeviceNode> allSetupDevices = this.setupDao.findAllDevices();
@@ -73,12 +74,8 @@ public class SutService {
                 .addMapping(device -> device.getConfigurations().getDeviceSetup().getDeviceAccess().getHttpsPassword(), TreeDeviceManagementDto::setHttpsPassword)
                 .addMapping(device -> device.getConfigurations().getDeviceSetup().getDeviceAccess().getHttpsUsername(), TreeDeviceManagementDto::setHttpsUsername)
                 .addMapping(device -> device.getConfigurations().getDeviceSetup().getDeviceAccess().getManagementIp(), TreeDeviceManagementDto::setManagementIp);
+
         treeDeviceManagementDtos = modelMapper.map(setupDevices, listType);
-
-////        set deviceDto Prent Site
-//
-//        treeDeviceManagementDtos.forEach(treeDeviceManagementDto -> treeDeviceManagementDto.setParentSite(this.setupDao.getDeviceParentSite(treeDeviceManagementDto.getDeviceId())));
-
 
         return treeDeviceManagementDtos;
     }

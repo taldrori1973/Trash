@@ -1,11 +1,16 @@
 package com.radware.vision.restBddTests;
 
+import com.radware.automation.tools.basetest.BaseTestUtils;
+import com.radware.automation.tools.basetest.Reporter;
 import com.radware.vision.automation.AutoUtils.SUT.controllers.SUTManager;
+import com.radware.vision.automation.AutoUtils.SUT.dtos.TreeDeviceManagementDto;
 import com.radware.vision.automation.VisionAutoInfra.CLIInfra.CliOperations;
 import com.radware.vision.automation.VisionAutoInfra.CLIInfra.Servers.ServerCliBase;
 import com.radware.vision.base.TestBase;
 import com.radware.vision.bddtests.BddRestTestBase;
 import cucumber.api.java.en.Then;
+
+import java.util.Optional;
 
 public class Demo extends BddRestTestBase {
     @Then("^Send request$")
@@ -23,7 +28,14 @@ public class Demo extends BddRestTestBase {
     @Then("^SUT Test$")
     public void sutTest() {
         SUTManager sutManager = TestBase.getSutManager();
-        sutManager.getTreeDeviceManagement("Alteon_Set_1");
+        Optional<TreeDeviceManagementDto> deviceManagementOpt = sutManager.getTreeDeviceManagement("Alteon_Set_1");
+        if (!deviceManagementOpt.isPresent())
+            BaseTestUtils.report(String.format("No Device with \"%s\" Set ID was found in this setup", "Alteon_Set_1"), Reporter.FAIL);
+        TreeDeviceManagementDto deviceManagementDto = deviceManagementOpt.get();
+
+        String managementIp = deviceManagementDto.getManagementIp();
+        String deviceType = deviceManagementDto.getDeviceType();
+
 //        Optional<LinuxFileServer> linuxFileServerOpt = serversManagement.getLinuxFileServer();
 //        LinuxFileServer linuxFileServer = null;
 //        if (linuxFileServerOpt.isPresent()) {
