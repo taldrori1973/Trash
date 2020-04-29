@@ -1,9 +1,10 @@
 package com.radware.vision.infra.visionDatabase.jdbc;
 
-import basejunit.RestTestBase;
 import com.jcraft.jsch.JSch;
 import com.jcraft.jsch.JSchException;
 import com.jcraft.jsch.Session;
+import com.radware.vision.automation.AutoUtils.SUT.controllers.SUTManager;
+import com.radware.vision.automation.AutoUtils.SUT.controllers.SUTManagerImpl;
 
 import java.sql.*;
 import java.util.HashMap;
@@ -21,7 +22,7 @@ public class JDBCConnectionSingleton {
     private int localPort;
     private Session session;
     private boolean privilegesGranted;
-    private RestTestBase restTestBase;
+    private SUTManager sutManager;
     private String host;
     private Map<VisionDBSchema, Connection> openConnections;
 
@@ -29,8 +30,8 @@ public class JDBCConnectionSingleton {
 
     private JDBCConnectionSingleton() {
         super();
-        this.restTestBase = new RestTestBase();
-        this.host = restTestBase.getRootServerCli().getHost();
+        this.sutManager = SUTManagerImpl.getInstance();
+        this.host = sutManager.getClientConfigurations().getHostIp();
         this.openConnections = new HashMap();
     }
 
@@ -46,8 +47,8 @@ public class JDBCConnectionSingleton {
         }
 
         try {
-            if (!privilegesGranted) grantAllPrivilegesToConnectDP();
-            if (this.session==null ||!this.session.isConnected()) connectSshSession();
+//            if (!privilegesGranted) grantAllPrivilegesToConnectDP();
+            if (this.session == null || !this.session.isConnected()) connectSshSession();
             Connection newConnection = createSchemaConnection(schema);
             this.openConnections.put(schema, newConnection);
             return openConnections.get(schema);
