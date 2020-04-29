@@ -15,9 +15,11 @@ public interface SUTManager {
 
     List<String> getVisionSetupTreeSites();
 
-    List<DeviceDto> getVisionSetupTreeDevices();
+    String getDeviceParentSite(String deviceId);
 
-    Optional<DeviceDto> getDeviceBySetId(String setId);
+    Optional<DeviceDto> getTreeDeviceManagement(String setId);
+
+    Optional<DeviceDto> getTreeDeviceRequestPayload(String deviceId);
 
     Optional<ServerDto> getServerById(String serverId);
 }

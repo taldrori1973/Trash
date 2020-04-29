@@ -45,14 +45,20 @@ public class SUTManagerImpl implements SUTManager {
     }
 
     @Override
-    public List<DeviceDto> getVisionSetupTreeDevices() {
-        return this.sutService.getVisionSetupTreeDevices();
+    public String getDeviceParentSite(String deviceId) {
+        return null;
     }
 
     @Override
-    public Optional<DeviceDto> getDeviceBySetId(String setId) {
-        return this.sutService.getDeviceBySetId(setId);
+    public Optional<DeviceDto> getTreeDeviceManagement(String setId) {
+        return Optional.empty();
     }
+
+    @Override
+    public Optional<DeviceDto> getTreeDeviceRequestPayload(String deviceId) {
+        return Optional.empty();
+    }
+
 
     @Override
     public Optional<ServerDto> getServerById(String serverId) {
