@@ -19,7 +19,7 @@ public interface SUTManager {
 
     Optional<TreeDeviceManagementDto> getTreeDeviceManagement(String setId);
 
-    Optional<TreeDeviceManagementDto> getTreeDeviceRequestPayload(String deviceId);
+//    Optional<TreeDeviceManagementDto> getTreeDeviceRequestPayload(String deviceId);
 
     Optional<ServerDto> getServerById(String serverId);
 }
