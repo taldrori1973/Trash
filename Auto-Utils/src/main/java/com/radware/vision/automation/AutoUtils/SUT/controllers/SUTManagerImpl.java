@@ -46,7 +46,7 @@ public class SUTManagerImpl implements SUTManager {
 
     @Override
     public String getDeviceParentSite(String deviceId) {
-        return null;
+        return this.sutService.getDeviceParentSite(deviceId);
     }
 
     @Override

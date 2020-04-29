@@ -83,4 +83,9 @@ public class SutService {
         ServerDto serverDto = modelMapper.map(serverFromPojo.get(), ServerDto.class);
         return Optional.of(serverDto);
     }
+
+    public String getDeviceParentSite(String deviceId) {
+        Optional<TreeDeviceNode> deviceFromSetupOpt = this.setupDao.findDeviceById(deviceId);
+        return deviceFromSetupOpt.map(TreeDeviceNode::getParentSite).orElse(null);
+    }
 }
