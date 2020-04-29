@@ -4,7 +4,7 @@ import com.radware.vision.automation.AutoUtils.SUT.repositories.pojos.devices.De
 import lombok.Data;
 
 @Data
-public class DeviceDto {
+public class TreeDeviceManagementDto {
     private String deviceId;
     private String deviceSetId;
     private String parentSite;

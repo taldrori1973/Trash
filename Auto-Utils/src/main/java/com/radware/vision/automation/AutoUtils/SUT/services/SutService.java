@@ -1,8 +1,8 @@
 package com.radware.vision.automation.AutoUtils.SUT.services;
 
 import com.radware.vision.automation.AutoUtils.SUT.dtos.ClientConfigurationDto;
-import com.radware.vision.automation.AutoUtils.SUT.dtos.DeviceDto;
 import com.radware.vision.automation.AutoUtils.SUT.dtos.ServerDto;
+import com.radware.vision.automation.AutoUtils.SUT.dtos.TreeDeviceManagementDto;
 import com.radware.vision.automation.AutoUtils.SUT.repositories.daos.DevicesDao;
 import com.radware.vision.automation.AutoUtils.SUT.repositories.daos.SetupDao;
 import com.radware.vision.automation.AutoUtils.SUT.repositories.daos.SutDao;
@@ -50,30 +50,30 @@ public class SutService {
         return allSites.stream().map(Site::getName).collect(Collectors.toList());
     }
 
-    public List<DeviceDto> getVisionSetupTreeDevices() {
-        List<DeviceDto> deviceDtos;
+    public List<TreeDeviceManagementDto> getVisionSetupTreeDevices() {
+        List<TreeDeviceManagementDto> treeDeviceManagementDtos;
         List<Device> allDevices = this.devicesDao.findAllDevices();
         List<TreeDeviceNode> allSetupDevices = this.setupDao.findAllDevices();
 
 //        find the current setup devices
         List<Device> setupDevices = allDevices.stream().filter(device -> this.setupDao.isDeviceExistById(device.getDeviceId())).collect(Collectors.toList());
 
-        Type listType = new TypeToken<List<DeviceDto>>() {
+        Type listType = new TypeToken<List<TreeDeviceManagementDto>>() {
         }.getType();
 
-        deviceDtos = modelMapper.map(setupDevices, listType);
+        treeDeviceManagementDtos = modelMapper.map(setupDevices, listType);
 
 //        set deviceDto Prent Site
 
-        deviceDtos.forEach(deviceDto -> deviceDto.setParentSite(this.setupDao.getDeviceParentSite(deviceDto.getDeviceId())));
+        treeDeviceManagementDtos.forEach(treeDeviceManagementDto -> treeDeviceManagementDto.setParentSite(this.setupDao.getDeviceParentSite(treeDeviceManagementDto.getDeviceId())));
 
 
-        return deviceDtos;
+        return treeDeviceManagementDtos;
     }
 
-    public Optional<DeviceDto> getDeviceBySetId(String setId) {
-        List<DeviceDto> visionSetupTreeDevices = getVisionSetupTreeDevices();
-        return visionSetupTreeDevices.stream().filter(deviceDto -> deviceDto.getDeviceSetId().equals(setId)).findAny();
+    public Optional<TreeDeviceManagementDto> getDeviceBySetId(String setId) {
+        List<TreeDeviceManagementDto> visionSetupTreeDevices = getVisionSetupTreeDevices();
+        return visionSetupTreeDevices.stream().filter(treeDeviceManagementDto -> treeDeviceManagementDto.getDeviceSetId().equals(setId)).findAny();
 
     }
 

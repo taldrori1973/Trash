@@ -9,6 +9,6 @@ import java.util.List;
 public class SutDto {
     private ClientConfigurationDto clientConfiguration;
     private List<Site> sites;
-    private List<DeviceDto> treeDevices;
+    private List<TreeDeviceManagementDto> treeDevices;
 
 }
