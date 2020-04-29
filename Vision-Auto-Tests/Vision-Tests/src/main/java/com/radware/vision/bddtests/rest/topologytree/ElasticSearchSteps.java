@@ -76,7 +76,7 @@ public class ElasticSearchSteps extends BddRestTestBase {
     public void isIndexExist(String indexName, Integer weekSlice, int numOfAttacks, String fileName, SUTDeviceType deviceType, int deviceIndex, Integer ld, Integer waitTimeout, String withAttackId) {
         if (ElasticSearchHandlerNew.getIndex(indexName, "last", weekSlice) == null) {
             AttacksSteps attacksSteps = new AttacksSteps();
-            attacksSteps.runSimulatorFromDevice(numOfAttacks, fileName, deviceType, deviceIndex, ld, waitTimeout, withAttackId);
+//            attacksSteps.runSimulatorFromDevice(numOfAttacks, fileName, deviceType, deviceIndex, ld, waitTimeout, withAttackId);
         }
     }
 
