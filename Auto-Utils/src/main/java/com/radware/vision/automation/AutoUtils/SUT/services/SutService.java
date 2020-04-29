@@ -12,6 +12,7 @@ import com.radware.vision.automation.AutoUtils.SUT.repositories.pojos.setup.Site
 import com.radware.vision.automation.AutoUtils.SUT.repositories.pojos.setup.TreeDeviceNode;
 import com.radware.vision.automation.AutoUtils.SUT.repositories.pojos.sut.ClientConfiguration;
 import org.modelmapper.ModelMapper;
+import org.modelmapper.TypeMap;
 import org.modelmapper.TypeToken;
 
 import java.lang.reflect.Type;
@@ -61,11 +62,22 @@ public class SutService {
         Type listType = new TypeToken<List<TreeDeviceManagementDto>>() {
         }.getType();
 
+        TypeMap<Device, TreeDeviceManagementDto> typeMap = modelMapper.createTypeMap(Device.class, TreeDeviceManagementDto.class)
+                .addMapping(device -> device.getConfigurations().getName(), TreeDeviceManagementDto::setDeviceName)
+                .addMapping(device -> device.getConfigurations().getType(), TreeDeviceManagementDto::setDeviceType)
+                .addMapping(device -> device.getConfigurations().getDeviceSetup().getDeviceAccess().getCliPassword(), TreeDeviceManagementDto::setCliPassword)
+                .addMapping(device -> device.getConfigurations().getDeviceSetup().getDeviceAccess().getCliPort(), TreeDeviceManagementDto::setCliPort)
+                .addMapping(device -> device.getConfigurations().getDeviceSetup().getDeviceAccess().getCliUsername(), TreeDeviceManagementDto::setCliUsername)
+                .addMapping(device -> device.getConfigurations().getDeviceSetup().getDeviceAccess().getHttpPassword(), TreeDeviceManagementDto::setHttpPassword)
+                .addMapping(device -> device.getConfigurations().getDeviceSetup().getDeviceAccess().getHttpUsername(), TreeDeviceManagementDto::setHttpUsername)
+                .addMapping(device -> device.getConfigurations().getDeviceSetup().getDeviceAccess().getHttpsPassword(), TreeDeviceManagementDto::setHttpsPassword)
+                .addMapping(device -> device.getConfigurations().getDeviceSetup().getDeviceAccess().getHttpsUsername(), TreeDeviceManagementDto::setHttpsUsername)
+                .addMapping(device -> device.getConfigurations().getDeviceSetup().getDeviceAccess().getManagementIp(), TreeDeviceManagementDto::setManagementIp);
         treeDeviceManagementDtos = modelMapper.map(setupDevices, listType);
 
-//        set deviceDto Prent Site
-
-        treeDeviceManagementDtos.forEach(treeDeviceManagementDto -> treeDeviceManagementDto.setParentSite(this.setupDao.getDeviceParentSite(treeDeviceManagementDto.getDeviceId())));
+////        set deviceDto Prent Site
+//
+//        treeDeviceManagementDtos.forEach(treeDeviceManagementDto -> treeDeviceManagementDto.setParentSite(this.setupDao.getDeviceParentSite(treeDeviceManagementDto.getDeviceId())));
 
 
         return treeDeviceManagementDtos;

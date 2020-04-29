@@ -1,17 +1,11 @@
 package com.radware.vision.restBddTests;
 
-import com.radware.automation.tools.basetest.BaseTestUtils;
-import com.radware.automation.tools.basetest.Reporter;
-import com.radware.automation.tools.utils.InvokeUtils;
 import com.radware.vision.automation.AutoUtils.SUT.controllers.SUTManager;
 import com.radware.vision.automation.VisionAutoInfra.CLIInfra.CliOperations;
-import com.radware.vision.automation.VisionAutoInfra.CLIInfra.Servers.LinuxFileServer;
 import com.radware.vision.automation.VisionAutoInfra.CLIInfra.Servers.ServerCliBase;
 import com.radware.vision.base.TestBase;
 import com.radware.vision.bddtests.BddRestTestBase;
 import cucumber.api.java.en.Then;
-
-import java.util.Optional;
 
 public class Demo extends BddRestTestBase {
     @Then("^Send request$")
@@ -29,18 +23,19 @@ public class Demo extends BddRestTestBase {
     @Then("^SUT Test$")
     public void sutTest() {
         SUTManager sutManager = TestBase.getSutManager();
-        Optional<LinuxFileServer> linuxFileServerOpt = serversManagement.getLinuxFileServer();
-        LinuxFileServer linuxFileServer = null;
-        if (linuxFileServerOpt.isPresent()) {
-            linuxFileServer = linuxFileServerOpt.get();
-        }
-        try {
-            assert linuxFileServer != null;
-            InvokeUtils.invokeCommand(null, "ls", linuxFileServer, 60 * 1000);
-            updateLastOutput(linuxFileServer);
-        } catch (Exception e) {
-            BaseTestUtils.report("Failed to run the command:   With the following exception: " + e.getMessage(), Reporter.FAIL);
-        }
+        sutManager.getTreeDeviceManagement("Alteon_Set_1");
+//        Optional<LinuxFileServer> linuxFileServerOpt = serversManagement.getLinuxFileServer();
+//        LinuxFileServer linuxFileServer = null;
+//        if (linuxFileServerOpt.isPresent()) {
+//            linuxFileServer = linuxFileServerOpt.get();
+//        }
+//        try {
+//            assert linuxFileServer != null;
+//            InvokeUtils.invokeCommand(null, "ls", linuxFileServer, 60 * 1000);
+//            updateLastOutput(linuxFileServer);
+//        } catch (Exception e) {
+//            BaseTestUtils.report("Failed to run the command:   With the following exception: " + e.getMessage(), Reporter.FAIL);
+//        }
 
 
     }
