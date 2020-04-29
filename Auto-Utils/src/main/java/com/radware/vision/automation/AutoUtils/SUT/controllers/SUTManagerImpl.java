@@ -51,7 +51,7 @@ public class SUTManagerImpl implements SUTManager {
 
     @Override
     public Optional<TreeDeviceManagementDto> getTreeDeviceManagement(String setId) {
-        return Optional.empty();
+        return this.sutService.getTreeDeviceManagementBySetId(setId);
     }
 
     @Override

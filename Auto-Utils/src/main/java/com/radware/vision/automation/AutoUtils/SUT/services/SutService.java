@@ -71,7 +71,7 @@ public class SutService {
         return treeDeviceManagementDtos;
     }
 
-    public Optional<TreeDeviceManagementDto> getDeviceBySetId(String setId) {
+    public Optional<TreeDeviceManagementDto> getTreeDeviceManagementBySetId(String setId) {
         List<TreeDeviceManagementDto> visionSetupTreeDevices = getVisionSetupTreeDevices();
         return visionSetupTreeDevices.stream().filter(treeDeviceManagementDto -> treeDeviceManagementDto.getDeviceSetId().equals(setId)).findAny();
 

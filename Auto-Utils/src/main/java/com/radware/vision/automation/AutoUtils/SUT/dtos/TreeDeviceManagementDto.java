@@ -1,14 +1,21 @@
 package com.radware.vision.automation.AutoUtils.SUT.dtos;
 
-import com.radware.vision.automation.AutoUtils.SUT.repositories.pojos.devices.DeviceConfiguration;
 import lombok.Data;
 
 @Data
 public class TreeDeviceManagementDto {
     private String deviceId;
     private String deviceSetId;
-    private String parentSite;
-    private DeviceConfiguration configurations;
+    private String deviceName;
+    private String deviceType;
+    private String cliUsername;
+    private String cliPassword;
+    private String cliPort;
+    private String httpUsername;
+    private String httpPassword;
+    private String httpsUsername;
+    private String httpsPassword;
+    private String managementIp;
 
 
 }
