@@ -168,7 +168,7 @@ public abstract class WebUITestBase extends TestBase {
             throw new IllegalStateException(e.getMessage() + "\n" + e.getStackTrace());
         }
 
-        setDeviceName(deviceName);
+//        setDeviceName(deviceName);
     }
 
     public void coreInit() throws Exception {
@@ -390,7 +390,7 @@ public abstract class WebUITestBase extends TestBase {
                     }
                 }
             } else {
-                updateVisionNavigationXml();
+//                updateVisionNavigationXml();
                 isDeviceManagedByVision = false;
             }
         }
@@ -422,7 +422,7 @@ public abstract class WebUITestBase extends TestBase {
             if (FileUtils.isFileExist(filePath)) {
                 FileUtils.deleteFile(WebUIUtils.deviceDriversBaseDirectory_VisionServer + File.separator + "client", "navigation.xml");
             }
-            File file = FileUtils.writeToFile(filePath, result);
+            FileUtils.writeToFile(filePath, result);
 
 
             WebUIUtils.visionUtils.setDeviceIpIfNew(null);
