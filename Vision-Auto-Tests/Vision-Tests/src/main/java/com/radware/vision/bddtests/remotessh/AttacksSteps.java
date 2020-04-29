@@ -3,6 +3,8 @@ package com.radware.vision.bddtests.remotessh;
 import com.radware.automation.tools.basetest.BaseTestUtils;
 import com.radware.automation.tools.basetest.Reporter;
 import com.radware.automation.tools.utils.InvokeUtils;
+import com.radware.vision.automation.AutoUtils.SUT.controllers.SUTManager;
+import com.radware.vision.automation.AutoUtils.SUT.dtos.TreeDeviceManagementDto;
 import com.radware.vision.automation.VisionAutoInfra.CLIInfra.CliOperations;
 import com.radware.vision.automation.VisionAutoInfra.CLIInfra.Servers.LinuxFileServer;
 import com.radware.vision.automation.tools.sutsystemobjects.devicesinfo.enums.SUTDeviceType;
@@ -20,13 +22,12 @@ public class AttacksSteps extends BddCliTestBase {
      *
      * @param numOfAttacks - define the number of execution loops. 0 = infinite
      * @param fileName     - the input PCAP file name
-     * @param deviceType   - SUTDeviceType ENUM
-     * @param deviceIndex  - SUT device index
+     * @param deviceSetId  - the deviceSetId from the setup
      * @param ld           - OPTIONAL loop delay. delay in mSec between iterations. default 1000loop delay. delay in mSec between iterations. default 1000
      * @param waitTimeout  - OPTIONAL Delay before return default 0
      */
-    @Given("^CLI simulate (\\d+) attacks of type \"(.*)\" on \"(.*)\" (\\d+)(?: with loopDelay (\\d+))?(?: and wait (\\d+) seconds)?( with attack ID)?$")
-    public void runSimulatorFromDevice(int numOfAttacks, String fileName, SUTDeviceType deviceType, int deviceIndex, Integer ld, Integer waitTimeout, String withAttackId) {
+    @Given("^CLI simulate (\\d+) attacks of type \"(.*)\" on SetId \"(.*)\" (?: with loopDelay (\\d+))?(?: and wait (\\d+) seconds)?( with attack ID)?$")
+    public void runSimulatorFromDevice(int numOfAttacks, String fileName, String deviceSetId, Integer ld, Integer waitTimeout, String withAttackId) {
         try {
             int loopDelay = 1000;
             int wait = 0;
@@ -36,7 +37,7 @@ public class AttacksSteps extends BddCliTestBase {
             if (waitTimeout != null) {
                 wait = waitTimeout;
             }
-            String commandToExecute = getCommandToexecute(deviceType, deviceIndex, numOfAttacks, loopDelay, fileName, withAttackId != null);
+            String commandToExecute = getCommandToexecute(deviceSetId, numOfAttacks, loopDelay, fileName, withAttackId != null);
             Optional<LinuxFileServer> genericLinuxServerOpt = TestBase.serversManagement.getLinuxFileServer();
             if (!genericLinuxServerOpt.isPresent()) {
                 throw new Exception("The genericLinuxServer Not found!");
@@ -98,7 +99,7 @@ public class AttacksSteps extends BddCliTestBase {
         }
     }
 
-    private String getCommandToexecute(SUTDeviceType deviceType, int deviceIndex, int numOfAttacks, Integer loopDelay, String fileName, boolean withAttackId) {
+    private String getCommandToexecute(String deviceSetId, int numOfAttacks, Integer loopDelay, String fileName, boolean withAttackId) {
         String fakeIpPrefix = "50.50";
         String deviceIp;
         String visionIP = clientConfigurations.getHostIp();
@@ -106,11 +107,17 @@ public class AttacksSteps extends BddCliTestBase {
         String macAdress = TestBase.getVisionConfigurations().getManagementInfo().getMacAddress();
         String commandToExecute = "";
         Optional<LinuxFileServer> genericLinuxServer = TestBase.serversManagement.getLinuxFileServer();
+        SUTManager sutManager = TestBase.getSutManager();
+        Optional<TreeDeviceManagementDto> deviceOpt= sutManager.getTreeDeviceManagement(deviceSetId);
         try {
             if (!genericLinuxServer.isPresent()) {
                 throw new Exception("The genericLinuxServer Not found!");
             }
-            deviceIp = devicesManager.getDeviceInfo(deviceType, deviceIndex).getDeviceIp();
+            if (!deviceOpt.isPresent()) {
+                throw new Exception(String.format("No Device with \"%s\" Set ID was found in this setup", deviceSetId));
+            }
+
+            deviceIp = deviceOpt.get().getManagementIp();
             commandToExecute = "sudo /home/radware/getInterfaceByIP.sh " + deviceIp.substring(0, deviceIp.indexOf(".", deviceIp.indexOf(".") + 1));
             if (deviceIp.startsWith(fakeIpPrefix)) {
                 visionIP = visionIP.replace(visionIP.substring(0, visionIP.indexOf(".", visionIP.indexOf(".") + 1)), fakeIpPrefix);
@@ -139,9 +146,9 @@ public class AttacksSteps extends BddCliTestBase {
                 commandToExecute = String.format("sudo perl sendfile.pl -i %s -d %s -si %s -s %d -ld %d -f %s.pcap -dm %s &", interFace, visionIP, deviceIp, numOfAttacks, loopDelay, fileName, macAdress);
             }
             //for the next generations
-            restTestBase.getGenericLinuxServer().connect();
+            genericLinuxServer.get().connect();
         } catch (Exception e) {
-            BaseTestUtils.report("Failed to simulate attack: " + fileName, Reporter.FAIL);
+            BaseTestUtils.report("Failed to simulate attack: " + fileName +  e.getMessage(), Reporter.FAIL);
         }
         return commandToExecute;
     }
