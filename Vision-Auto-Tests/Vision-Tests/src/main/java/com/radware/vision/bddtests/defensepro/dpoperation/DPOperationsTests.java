@@ -14,7 +14,6 @@ import com.radware.vision.infra.testhandlers.DefencePro.dpOperations.DPOperation
 import com.radware.vision.infra.testhandlers.DefencePro.enums.DPHaDeviceStatus;
 import com.radware.vision.infra.testhandlers.DefencePro.enums.SignatureTypes;
 import com.radware.vision.infra.testhandlers.DefencePro.enums.UpdateFromSource;
-import com.radware.vision.infra.testhandlers.cli.CliOperations;
 import com.radware.vision.infra.testhandlers.rbac.RBACHandlerBase;
 import com.radware.vision.infra.testresthandlers.DefenseProRESTHandler;
 import cucumber.api.java.en.Then;
@@ -106,7 +105,8 @@ public class DPOperationsTests extends BddUITestBase {
 
         String deviceMac = DefenseProRESTHandler.getMacByIp(defenseProIp);
         String sqlCommand = String.format("mysql -prad123 vision_ng -e \"update hardware set platform_type='%s' where base_mac_addr='%s'\\G\"", newPlatformType, deviceMac);
-        CliOperations.runCommand(restTestBase.getRootServerCli(), sqlCommand);
+//       kVision
+//        CliOperations.runCommand(restTestBase.getRootServerCli(), sqlCommand);
 
     }
 

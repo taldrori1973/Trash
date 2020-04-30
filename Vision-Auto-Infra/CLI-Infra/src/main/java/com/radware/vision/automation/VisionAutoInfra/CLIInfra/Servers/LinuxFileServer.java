@@ -1,5 +1,6 @@
 package com.radware.vision.automation.VisionAutoInfra.CLIInfra.Servers;
 
+import com.radware.automation.tools.basetest.BaseTestUtils;
 import systemobject.terminal.Prompt;
 
 import java.util.ArrayList;
@@ -17,9 +18,9 @@ public class LinuxFileServer extends ServerCliBase {
 
     @Override
     public void init() throws Exception {
-//		report.startLevel("Initing LinuxFileServer");
+//		BaseTestUtils.reporter.startLevel("Init LinuxFileServer");
         super.init();
-//		report.stopLevel();
+//        BaseTestUtils.reporter.stopLevel();
     }
 
     public void close() {

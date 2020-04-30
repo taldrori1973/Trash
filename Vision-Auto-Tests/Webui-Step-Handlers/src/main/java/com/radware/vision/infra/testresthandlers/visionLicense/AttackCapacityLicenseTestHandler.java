@@ -2,7 +2,6 @@ package com.radware.vision.infra.testresthandlers.visionLicense;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.ObjectReader;
-import com.radware.vision.infra.testhandlers.cli.CliOperations;
 import com.radware.vision.infra.testresthandlers.visionLicense.pojos.AttackCapacityLicensePojo;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
@@ -148,15 +147,17 @@ public class AttackCapacityLicenseTestHandler extends VisionLicenseTestHandler {
         String dateStr = date.format(formatter);
 
         command = command.replace("%s", dateStr);
-        CliOperations.runCommand(restTestBase.getRootServerCli(), command);
+//       kVision
+//        CliOperations.runCommand(restTestBase.getRootServerCli(), command);
     }
 
     public static void update_last_server_upgrade_time(long daysToSubtract) {
         String currentDate = "";
-        CliOperations.runCommand(restTestBase.getRootServerCli(), "date +%F");
-        currentDate = currentDate.concat(CliOperations.lastRow);
-        CliOperations.runCommand(restTestBase.getRootServerCli(), "date +%T");
-        currentDate = currentDate.concat(" ").concat(CliOperations.lastRow);
+//      kVision
+//        CliOperations.runCommand(restTestBase.getRootServerCli(), "date +%F");
+//        currentDate = currentDate.concat(CliOperations.lastRow);
+//        CliOperations.runCommand(restTestBase.getRootServerCli(), "date +%T");
+//        currentDate = currentDate.concat(" ").concat(CliOperations.lastRow);
 
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
         LocalDateTime localDate = LocalDateTime.parse(currentDate, formatter);
@@ -167,7 +168,8 @@ public class AttackCapacityLicenseTestHandler extends VisionLicenseTestHandler {
     public static void update_grace_period_state_at_db(GracePeriodState state) {
         String command = "mysql -prad123 vision_ng -e \"update ap set ava_grace_period_state='%d'\\G\"";
         command = String.format(command, state.getValue());
-        CliOperations.runCommand(restTestBase.getRootServerCli(), command);
+//       kVision
+//        CliOperations.runCommand(restTestBase.getRootServerCli(), command);
     }
 
 

@@ -22,6 +22,18 @@
             <artifactId>cli</artifactId>
             <version>${jsystem.version}</version>
         </dependency>
+        <dependency>
+            <groupId>com.radware.vision.automation.tools</groupId>
+            <artifactId>utils</artifactId>
+            <version>DEVELOPMENT-1.0-SNAPSHOT</version>
+            <scope>compile</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.radware.vision.automation.cli</groupId>
+            <artifactId>vision-infra</artifactId>
+            <version>DEVELOPMENT-4.60.00-SNAPSHOT</version>
+            <scope>compile</scope>
+        </dependency>
     </dependencies>
 
 </project>

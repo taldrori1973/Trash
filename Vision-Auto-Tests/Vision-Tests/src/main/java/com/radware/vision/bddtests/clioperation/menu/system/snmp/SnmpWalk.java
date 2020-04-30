@@ -4,14 +4,13 @@ import com.radware.automation.tools.basetest.BaseTestUtils;
 import com.radware.automation.tools.basetest.Reporter;
 import com.radware.automation.tools.cli.ServerCliBase;
 import com.radware.automation.webui.VisionDebugIdsManager;
+import com.radware.vision.automation.VisionAutoInfra.CLIInfra.CliOperations;
 import com.radware.vision.bddtests.BddCliTestBase;
 import com.radware.vision.bddtests.BddUITestBase;
-import com.radware.vision.infra.testhandlers.cli.CliOperations;
 import com.radware.vision.vision_project_cli.RadwareServerCli;
 import com.radware.vision.vision_project_cli.RootServerCli;
 import com.radware.vision.vision_tests.CliTests;
 import cucumber.api.java.en.When;
-import enums.SUTEntryType;
 
 
 /**
@@ -63,11 +62,13 @@ public class SnmpWalk extends BddCliTestBase {
         failedCounter = 0;
         String failedException = "";
         /* 1. */
-        CliOperations.runCommand(getSUTEntryTypeByServerCliBase(SUTEntryType.getConstant(sutEntryType)), commandToExecute);
+//       kVision
+//        CliOperations.runCommand(getSUTEntryTypeByServerCliBase(SUTEntryType.getConstant(sutEntryType)), commandToExecute);
         String lastRow1 = CliOperations.lastRow;
         /* 2. */
         String rootCommand = String.format("cat /opt/radware/storage/maintenance/hw_monitoring/%s.txt", file);
-        CliOperations.runCommand(rootServerCli, rootCommand);
+//       kVision
+//        CliOperations.runCommand(rootServerCli, rootCommand);
         /* validate */
         try {
             CliOperations.verifyLastOutputByRegex(lowerCaseOIdtype);
@@ -80,7 +81,8 @@ public class SnmpWalk extends BddCliTestBase {
         if (failedCounter == 0) return;
 
         //            run from genericLinux
-        CliOperations.runCommand(getSUTEntryTypeByServerCliBase(SUTEntryType.getConstant(sutEntryType)), commandToExecute);
+//       kVision
+//        CliOperations.runCommand(getSUTEntryTypeByServerCliBase(SUTEntryType.getConstant(sutEntryType)), commandToExecute);
         String lastRaw2 = CliOperations.lastRow;
 
         if (lastRow1.equals(lastRaw2) && failedCounter > 0) {
@@ -88,10 +90,11 @@ public class SnmpWalk extends BddCliTestBase {
             /* reverse */
             int snmpWalkRuns = 10;
             for (int i = 0; i < snmpWalkRuns; i++) {
-                CliOperations.runCommand(rootServerCli, rootCommand);
+//               kVision
+//                CliOperations.runCommand(rootServerCli, rootCommand);
                 String lastOutput = CliOperations.lastOutput;
-
-                CliOperations.runCommand(getSUTEntryTypeByServerCliBase(SUTEntryType.getConstant(sutEntryType)), commandToExecute);
+//kVision
+//                CliOperations.runCommand(getSUTEntryTypeByServerCliBase(SUTEntryType.getConstant(sutEntryType)), commandToExecute);
                 String lastRow = CliOperations.lastRow;
 
                 try {
@@ -139,7 +142,8 @@ public class SnmpWalk extends BddCliTestBase {
         String sutEntryType = "genericLinuxServer";
         preCondition(radwareServerCli);
         try {
-            CliOperations.runCommand(getSUTEntryTypeByServerCliBase(SUTEntryType.getConstant(sutEntryType)), commandToExecute);
+//           kVision
+//            CliOperations.runCommand(getSUTEntryTypeByServerCliBase(SUTEntryType.getConstant(sutEntryType)), commandToExecute);
         } catch (Exception e) {
             BaseTestUtils.report("Failed to execute command: " + commandToExecute + ", on " + sutEntryType + "\n" + parseExceptionBody(e), Reporter.FAIL);
         }
@@ -148,9 +152,11 @@ public class SnmpWalk extends BddCliTestBase {
 
     private void preCondition(ServerCliBase radwareServer) {
         String startSnmp = "system snmp service start";
-        CliOperations.runCommand(radwareServer, startSnmp);
+//       kVision
+//        CliOperations.runCommand(radwareServer, startSnmp);
         String addCommunity = "system snmp community add public";
-        CliOperations.runCommand(radwareServer, addCommunity);
+//       kVision
+//        CliOperations.runCommand(radwareServer, addCommunity);
     }
 
 

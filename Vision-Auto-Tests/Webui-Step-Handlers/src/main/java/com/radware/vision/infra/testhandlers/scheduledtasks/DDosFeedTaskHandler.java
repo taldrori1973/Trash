@@ -7,9 +7,9 @@ import com.radware.automation.webui.UIUtils;
 import com.radware.automation.webui.events.ReportWebDriverEventListener;
 import com.radware.automation.webui.webdriver.WebUIDriver;
 import com.radware.automation.webui.widgets.api.popups.PopupContent;
+import com.radware.vision.automation.VisionAutoInfra.CLIInfra.CliOperations;
 import com.radware.vision.infra.base.pages.navigation.WebUIVisionBasePage;
 import com.radware.vision.infra.enums.DualListTypeEnum;
-import com.radware.vision.infra.testhandlers.cli.CliOperations;
 import com.radware.vision.infra.testhandlers.scheduledtasks.enums.DestinationType;
 import com.radware.vision.infra.testhandlers.scheduledtasks.enums.TaskType;
 import com.radware.vision.infra.utils.WebUIStringsVision;
@@ -95,8 +95,9 @@ public class DDosFeedTaskHandler extends BaseTasksHandler {
 
     public static void verifyValidatingFeedForDefenseProInVisionLog(String dpMacAddress, RestTestBase restTestBase) {
         String lastOutputItems;
-        CliOperations.runCommand(restTestBase.getRootServerCli(), "logs");
-        CliOperations.runCommand(restTestBase.getRootServerCli(), "grep \"validated the folowing ip adresses:\" vision.log");
+//       kVision
+//        CliOperations.runCommand(restTestBase.getRootServerCli(), "logs");
+//        CliOperations.runCommand(restTestBase.getRootServerCli(), "grep \"validated the folowing ip adresses:\" vision.log");
         lastOutputItems = CliOperations.lastOutput;
         if (!lastOutputItems.contains(dpMacAddress.replace(":", ""))) {
             BaseTestUtils.report("Mac address not found.", Reporter.FAIL);
@@ -105,8 +106,9 @@ public class DDosFeedTaskHandler extends BaseTasksHandler {
 
     public static void verifyRequestingFeedForDefenseProInVisionLog(String dpMacAddress, RestTestBase restTestBase) {
         String lastOutputItems;
-        CliOperations.runCommand(restTestBase.getRootServerCli(), "logs");
-        CliOperations.runCommand(restTestBase.getRootServerCli(), "grep \"Requesting feed for the following mac adresses:\" vision.log");
+//      kVision
+//        CliOperations.runCommand(restTestBase.getRootServerCli(), "logs");
+//        CliOperations.runCommand(restTestBase.getRootServerCli(), "grep \"Requesting feed for the following mac adresses:\" vision.log");
         lastOutputItems = CliOperations.lastOutput;
         if (!lastOutputItems.contains(dpMacAddress.replace(":", ""))) {
             BaseTestUtils.report("Mac address not found.", Reporter.FAIL);
@@ -115,8 +117,9 @@ public class DDosFeedTaskHandler extends BaseTasksHandler {
 
     public static void verifyThatNoFeedRequestForDefenseProInVisionLog(String dpMacAddress, RestTestBase restTestBase) {
         String lastOutputItems;
-        CliOperations.runCommand(restTestBase.getRootServerCli(), "logs");
-        CliOperations.runCommand(restTestBase.getRootServerCli(), "grep \"Requesting feed for the following mac adresses:\" vision.log");
+//       kVision
+//        CliOperations.runCommand(restTestBase.getRootServerCli(), "logs");
+//        CliOperations.runCommand(restTestBase.getRootServerCli(), "grep \"Requesting feed for the following mac adresses:\" vision.log");
         lastOutputItems = CliOperations.lastOutput;
         if (lastOutputItems.contains(dpMacAddress.replace(":", ""))) {
             BaseTestUtils.report("Feed request for this DefensePro was found", Reporter.FAIL);

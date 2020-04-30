@@ -3,11 +3,11 @@ package com.radware.vision.bddtests.clioperation.system.upgrade;
 import com.radware.automation.tools.basetest.BaseTestUtils;
 import com.radware.automation.tools.basetest.Reporter;
 import com.radware.automation.tools.utils.InvokeUtils;
+import com.radware.vision.automation.VisionAutoInfra.CLIInfra.CliOperations;
 import com.radware.vision.bddtests.BddCliTestBase;
 import com.radware.vision.bddtests.vmoperations.VMOperationsSteps;
 import com.radware.vision.enums.GlobalProperties;
 import com.radware.vision.enums.VisionDeployType;
-import com.radware.vision.infra.testhandlers.cli.CliOperations;
 import com.radware.vision.vision_handlers.system.upgrade.visionserver.VisionDeployment;
 import com.radware.vision.vision_handlers.system.upgrade.visionserver.VisionServer;
 import com.radware.vision.vision_project_cli.RadwareServerCli;
@@ -34,7 +34,8 @@ public class UpgradeSteps extends BddCliTestBase {
             VisionServer.upgradeServerFile(getRestTestBase().getRadwareServerCli(), getRestTestBase().getRootServerCli()
                     , version, build, null, isAPM());
             validateVisionServerServicesUP();
-            CliOperations.runCommand(getRestTestBase().getRootServerCli(), "\"yes|restore_radware_user_password\"", 15 * 1000);
+//kVision
+//            CliOperations.runCommand(getRestTestBase().getRootServerCli(), "\"yes|restore_radware_user_password\"", 15 * 1000);
         } catch (Exception e) {
             BaseTestUtils.report("Setup Failed changing server to OFFLINE", Reporter.FAIL);
             BaseTestUtils.report(e.getMessage(), Reporter.FAIL);
@@ -83,7 +84,8 @@ public class UpgradeSteps extends BddCliTestBase {
 
     private boolean isAPM() throws Exception {
         rootServerCli.connect();
-        CliOperations.runCommand(rootServerCli, "df -h | grep apm | grep /vz/private | wc -l", 5 * 60 * 1000);
+//       kVision
+//        CliOperations.runCommand(rootServerCli, "df -h | grep apm | grep /vz/private | wc -l", 5 * 60 * 1000);
         return !CliOperations.lastRow.equals("0");
     }
 

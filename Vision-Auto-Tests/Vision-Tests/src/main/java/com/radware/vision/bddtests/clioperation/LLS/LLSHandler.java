@@ -4,13 +4,12 @@ import com.radware.automation.tools.basetest.BaseTestUtils;
 import com.radware.automation.tools.basetest.Reporter;
 import com.radware.automation.tools.cli.ServerCliBase;
 import com.radware.vision.automation.AutoUtils.SUT.dtos.ClientConfigurationDto;
+import com.radware.vision.automation.VisionAutoInfra.CLIInfra.CliOperations;
 import com.radware.vision.base.TestBase;
-import com.radware.vision.infra.testhandlers.cli.CliOperations;
 import com.radware.vision.systemManagement.models.ManagementInfo;
 import com.radware.vision.vision_handlers.system.ConfigSync;
 import com.radware.vision.vision_project_cli.RadwareServerCli;
 
-import static com.radware.vision.base.WebUITestBase.getRestTestBase;
 import static com.radware.vision.base.WebUITestBase.restTestBase;
 
 public class LLSHandler {
@@ -38,13 +37,14 @@ public class LLSHandler {
         if (!ConfigSyncMode.equalsIgnoreCase("standby")) {
             throw new Exception("The Host2 machine is NOT standby.");
         }
-        CliOperations.runCommand(backupServerCli, "system lls service stop");
-        CliOperations.verifyLastOutputByRegex(".*Continue?.*\\(y/n\\).*");
-        CliOperations.runCommand(backupServerCli, "y", timeout);
-        String cmd = BACkUP_INSTALL + mainIP + " -cloud-sync " + mode;
-        CliOperations.runCommand(backupServerCli, cmd);
-        CliOperations.verifyLastOutputByRegex(".*Continue?.*\\(y/n\\).*");
-        CliOperations.runCommand(backupServerCli, "y", timeout);
+//       kVision
+//        CliOperations.runCommand(backupServerCli, "system lls service stop");
+//        CliOperations.verifyLastOutputByRegex(".*Continue?.*\\(y/n\\).*");
+//        CliOperations.runCommand(backupServerCli, "y", timeout);
+//        String cmd = BACkUP_INSTALL + mainIP + " -cloud-sync " + mode;
+//        CliOperations.runCommand(backupServerCli, cmd);
+//        CliOperations.verifyLastOutputByRegex(".*Continue?.*\\(y/n\\).*");
+//        CliOperations.runCommand(backupServerCli, "y", timeout);
         waitForInstallation(backupServerCli, timeout, "Local License Server is running");
         waitForInstallationInLogsHA(backupServerCli, timeout, "backup", mainIP, backupIP);
     }
@@ -55,7 +55,10 @@ public class LLSHandler {
         while (System.currentTimeMillis() - startTime < timeout) {
             try {
                 serverCliBase.connect();
-                CliOperations.runCommand(serverCliBase, INSTALL_LOGS, 3 * 60 * 1000);
+//               kVision
+//                CliOperations.runCommand(serverCliBase, INSTALL_LOGS, 3 * 60 * 1000);
+
+
 //                CliOperations.verifyLastOutputByRegex(expected);
                 CliOperations.verifyLastOutputByRegexWithOutputWithoutFail(".*LLS HA role: " + type, CliOperations.lastOutput);
                 CliOperations.verifyLastOutputByRegexWithOutputWithoutFail(".*\"main\" : \"http://" + mainIP + ":7070\"", CliOperations.lastOutput);
@@ -67,7 +70,8 @@ public class LLSHandler {
             }
         }
         BaseTestUtils.reporter.report(CliOperations.lastOutput, Reporter.PASS_NOR_FAIL);
-        CliOperations.runCommand(restTestBase.getRadwareServerCli(), SERVICE_STATUS, 3 * 60 * 1000);
+//       kVision
+//        CliOperations.runCommand(restTestBase.getRadwareServerCli(), SERVICE_STATUS, 3 * 60 * 1000);
         BaseTestUtils.reporter.report(CliOperations.lastOutput, Reporter.PASS_NOR_FAIL);
         BaseTestUtils.reporter.report("timeout pass, with no sucess, the main url or the backup url is not configured.", Reporter.FAIL);
     }
@@ -89,28 +93,30 @@ public class LLSHandler {
         if (!ConfigSyncMode.equalsIgnoreCase("active")) {
             throw new Exception("The Host1 machine is NOT active.");
         }
-        CliOperations.runCommand(mainServerCli, "system lls service stop");
-        CliOperations.verifyLastOutputByRegex(".*Continue?.*\\(y/n\\).*");
-        CliOperations.runCommand(mainServerCli, "y", timeout);
-        String cmd = MAIN_INSTALL + backup + " -cloud-sync " + mode;
-        CliOperations.runCommand(mainServerCli, cmd);
-        CliOperations.verifyLastOutputByRegex(".*Continue?.*\\(y/n\\).*");
-        CliOperations.runCommand(mainServerCli, "y", timeout);
+//       kVision
+//        CliOperations.runCommand(mainServerCli, "system lls service stop");
+//        CliOperations.verifyLastOutputByRegex(".*Continue?.*\\(y/n\\).*");
+//        CliOperations.runCommand(mainServerCli, "y", timeout);
+//        String cmd = MAIN_INSTALL + backup + " -cloud-sync " + mode;
+//        CliOperations.runCommand(mainServerCli, cmd);
+//        CliOperations.verifyLastOutputByRegex(".*Continue?.*\\(y/n\\).*");
+//        CliOperations.runCommand(mainServerCli, "y", timeout);
         waitForInstallation(null, timeout, "Local License Server is running");
         waitForInstallationInLogsHA(mainServerCli, timeout, "main", mainIP, backup);
     }
 
 
     public static void standaloneInstall(String mode, int timeout) throws Exception {
-        CliOperations.runCommand(getRestTestBase().getRadwareServerCli(), "system lls service stop");
-        CliOperations.verifyLastOutputByRegex(".*Continue?.*\\(y/n\\).*");
-        CliOperations.runCommand(getRestTestBase().getRadwareServerCli(), "y", timeout);
-        CliOperations.runCommand(getRestTestBase().getRootServerCli(), "echo 'cleared' $(date)|tee /opt/radware/storage/maintenance/logs/lls/lls_install_display.log");
-        CliOperations.runCommand(restTestBase.getRadwareServerCli(), STANDALONE_INSTALL + mode);
-        CliOperations.verifyLastOutputByRegex(".*Continue?.*\\(y/n\\).*");
-        CliOperations.runCommand(restTestBase.getRadwareServerCli(), "y");
-        BaseTestUtils.reporter.startLevel("LLS Install started," + mode + "mode");
-        waitForInstallation(null, timeout, "Local License Server is running");
+//       kVision
+//        CliOperations.runCommand(getRestTestBase().getRadwareServerCli(), "system lls service stop");
+//        CliOperations.verifyLastOutputByRegex(".*Continue?.*\\(y/n\\).*");
+//        CliOperations.runCommand(getRestTestBase().getRadwareServerCli(), "y", timeout);
+//        CliOperations.runCommand(getRestTestBase().getRootServerCli(), "echo 'cleared' $(date)|tee /opt/radware/storage/maintenance/logs/lls/lls_install_display.log");
+//        CliOperations.runCommand(restTestBase.getRadwareServerCli(), STANDALONE_INSTALL + mode);
+//        CliOperations.verifyLastOutputByRegex(".*Continue?.*\\(y/n\\).*");
+//        CliOperations.runCommand(restTestBase.getRadwareServerCli(), "y");
+//        BaseTestUtils.reporter.startLevel("LLS Install started," + mode + "mode");
+//        waitForInstallation(null, timeout, "Local License Server is running");
     }
 
     public static void waitForInstallation(ServerCliBase serverCliBase, long timeout, String expected) throws Exception {
@@ -124,7 +130,10 @@ public class LLSHandler {
                 } else {
                     radwareServerCli = serverCliBase;
                 }
-                CliOperations.runCommand(radwareServerCli, SERVICE_STATUS);
+//              kVision
+//                CliOperations.runCommand(radwareServerCli, SERVICE_STATUS);
+
+
 //                CliOperations.verifyLastOutputByRegex(expected);
                 CliOperations.verifyLastOutputByRegexWithOutputWithoutFail(expected, CliOperations.lastOutput);
                 return;
@@ -133,7 +142,8 @@ public class LLSHandler {
             }
         }
         BaseTestUtils.reporter.report(CliOperations.lastOutput, Reporter.PASS_NOR_FAIL);
-        CliOperations.runCommand(restTestBase.getRadwareServerCli(), INSTALL_LOGS, 3 * 60 * 1000);
+//      kVision
+//        CliOperations.runCommand(restTestBase.getRadwareServerCli(), INSTALL_LOGS, 3 * 60 * 1000);
         BaseTestUtils.reporter.report(CliOperations.lastOutput, Reporter.PASS_NOR_FAIL);
         BaseTestUtils.reporter.report("timeout pass,with no sucess, Local License Server is NOT running", Reporter.FAIL);
     }
@@ -149,7 +159,11 @@ public class LLSHandler {
                 } else {
                     radwareServerCli = serverCliBase;
                 }
-                CliOperations.runCommand(radwareServerCli, SERVICE_STATUS);
+
+//              kVision
+//                CliOperations.runCommand(radwareServerCli, SERVICE_STATUS);
+
+
 //                CliOperations.verifyLastOutputByRegex(expected);
                 CliOperations.verifyLastOutputByRegexWithOutputWithoutFail(entitlementID, CliOperations.lastOutput);
                 return;
@@ -164,12 +178,14 @@ public class LLSHandler {
     public static void llsServiceStart(long timeout) throws Exception {
         timeout *= 1000;
         long startTime = System.currentTimeMillis();
-        CliOperations.runCommand(restTestBase.getRadwareServerCli(), SERVICE_START_CMD);
-        CliOperations.verifyLastOutputByRegex(".*Continue?.*\\(y/n\\).*");
-        CliOperations.runCommand(restTestBase.getRadwareServerCli(), "y");
+//     kVision
+//        CliOperations.runCommand(restTestBase.getRadwareServerCli(), SERVICE_START_CMD);
+//        CliOperations.verifyLastOutputByRegex(".*Continue?.*\\(y/n\\).*");
+//        CliOperations.runCommand(restTestBase.getRadwareServerCli(), "y");
         while (System.currentTimeMillis() - startTime < timeout) {
             try {
-                CliOperations.runCommand(restTestBase.getRadwareServerCli(), SERVICE_STATUS);
+//               kVision
+//                CliOperations.runCommand(restTestBase.getRadwareServerCli(), SERVICE_STATUS);
                 CliOperations.verifyLastOutputByRegexWithOutputWithoutFail(LLS_IS_RUNNING, CliOperations.lastOutput);
                 return;
             } catch (Exception e) {
@@ -177,7 +193,8 @@ public class LLSHandler {
             }
         }
         BaseTestUtils.reporter.report(CliOperations.lastOutput, Reporter.PASS_NOR_FAIL);
-        CliOperations.runCommand(restTestBase.getRadwareServerCli(), INSTALL_LOGS, 3 * 60 * 1000);
+//       kVision
+//        CliOperations.runCommand(restTestBase.getRadwareServerCli(), INSTALL_LOGS, 3 * 60 * 1000);
         BaseTestUtils.reporter.report(CliOperations.lastOutput, Reporter.PASS_NOR_FAIL);
         BaseTestUtils.reporter.report("timeout pass with no success, LLS Service is Not running.", Reporter.FAIL);
     }
@@ -206,7 +223,8 @@ public class LLSHandler {
         String mainIP = clientConfigurations.getHostIp();
         while (System.currentTimeMillis() - startTime < timeout) {
             try {
-                CliOperations.runCommand(getRestTestBase().getRadwareServerCli(), INSTALL_LOGS, 3 * 60 * 1000);
+//               kVision
+//                CliOperations.runCommand(getRestTestBase().getRadwareServerCli(), INSTALL_LOGS, 3 * 60 * 1000);
                 CliOperations.verifyLastOutputByRegexWithOutputWithoutFail(".*\"main\" : \"http://" + mainIP + ":7070\"", CliOperations.lastOutput);
                 CliOperations.verifyLastOutputByRegexWithOutputWithoutFail(".*Auto Configuration successful*", CliOperations.lastOutput);
                 return;
@@ -215,7 +233,8 @@ public class LLSHandler {
             }
         }
         BaseTestUtils.reporter.report(CliOperations.lastOutput, Reporter.PASS_NOR_FAIL);
-        CliOperations.runCommand(restTestBase.getRadwareServerCli(), SERVICE_STATUS, 3 * 60 * 1000);
+//       kVision
+//        CliOperations.runCommand(restTestBase.getRadwareServerCli(), SERVICE_STATUS, 3 * 60 * 1000);
         BaseTestUtils.reporter.report(CliOperations.lastOutput, Reporter.PASS_NOR_FAIL);
         BaseTestUtils.reporter.report("timeout pass, The main url is not configured.", Reporter.FAIL);
     }

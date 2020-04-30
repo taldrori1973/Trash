@@ -1,8 +1,8 @@
 package com.radware.vision.automation.AutoUtils.SUT.controllers;
 
 import com.radware.vision.automation.AutoUtils.SUT.dtos.ClientConfigurationDto;
-import com.radware.vision.automation.AutoUtils.SUT.dtos.DeviceDto;
 import com.radware.vision.automation.AutoUtils.SUT.dtos.ServerDto;
+import com.radware.vision.automation.AutoUtils.SUT.dtos.TreeDeviceManagementDto;
 import com.radware.vision.automation.AutoUtils.SUT.services.SutService;
 
 import java.util.List;
@@ -45,14 +45,20 @@ public class SUTManagerImpl implements SUTManager {
     }
 
     @Override
-    public List<DeviceDto> getVisionSetupTreeDevices() {
-        return this.sutService.getVisionSetupTreeDevices();
+    public String getDeviceParentSite(String deviceId) {
+        return this.sutService.getDeviceParentSite(deviceId);
     }
 
     @Override
-    public Optional<DeviceDto> getDeviceBySetId(String setId) {
-        return this.sutService.getDeviceBySetId(setId);
+    public Optional<TreeDeviceManagementDto> getTreeDeviceManagement(String setId) {
+        return this.sutService.getTreeDeviceManagementBySetId(setId);
     }
+
+//    @Override
+//    public Optional<Object> getTreeDeviceRequestPayload(String deviceId) {
+//        return Optional.empty();
+//    }
+
 
     @Override
     public Optional<ServerDto> getServerById(String serverId) {

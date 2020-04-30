@@ -20,7 +20,6 @@ import com.radware.vision.automation.tools.exceptions.web.DropdownNotOpenedExcep
 import com.radware.vision.automation.tools.sutsystemobjects.devicesinfo.DeviceInfo;
 import com.radware.vision.automation.tools.sutsystemobjects.devicesinfo.enums.SUTDeviceType;
 import com.radware.vision.infra.testhandlers.baseoperations.BasicOperationsHandler;
-import com.radware.vision.infra.testhandlers.cli.CliOperations;
 import com.radware.vision.infra.testhandlers.vrm.enums.vrmActions;
 import com.radware.vision.infra.utils.ReportsUtils;
 import com.radware.vision.infra.utils.TimeUtils;
@@ -980,10 +979,12 @@ public class VRMBaseUtilies {
         }
 //        CliOperations.runCommand(rootServerCli, "service iptables stop");
         String commandToExecute = "net firewall open-port 10080 open";
-        CliOperations.runCommand(radwareServerCli, commandToExecute);
+//       kVision
+//        CliOperations.runCommand(radwareServerCli, commandToExecute);
         String port = "10080";
         commandToExecute = "curl -X POST --header 'Content-Type: application/json' --header 'Accept: */*' 'http://" + host + ":" + port + "/reporter/mgmt/monitor/reporter/internal-dashboard/scheduledTasks?jobClassName=com.reporter.scheduled.report.vrm.retention.VrmScheduledReportRetentionTask'";
-        CliOperations.runCommand(rootServerCli, commandToExecute);
+//       kVision
+//        CliOperations.runCommand(rootServerCli, commandToExecute);
     }
 
     /**
