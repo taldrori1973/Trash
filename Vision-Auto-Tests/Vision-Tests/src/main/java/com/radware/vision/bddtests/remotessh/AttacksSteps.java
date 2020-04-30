@@ -26,7 +26,7 @@ public class AttacksSteps extends BddCliTestBase {
      * @param ld           - OPTIONAL loop delay. delay in mSec between iterations. default 1000loop delay. delay in mSec between iterations. default 1000
      * @param waitTimeout  - OPTIONAL Delay before return default 0
      */
-    @Given("^CLI simulate (\\d+) attacks of type \"(.*)\" on SetId \"(.*)\" (?: with loopDelay (\\d+))?(?: and wait (\\d+) seconds)?( with attack ID)?$")
+    @Given("^CLI simulate (\\d+) attacks of type \"(.*)\" on SetId \"(.*)\"(?: with loopDelay (\\d+))?(?: and wait (\\d+) seconds)?( with attack ID)?$")
     public void runSimulatorFromDevice(int numOfAttacks, String fileName, String deviceSetId, Integer ld, Integer waitTimeout, String withAttackId) {
         try {
             int loopDelay = 1000;
