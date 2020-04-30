@@ -123,7 +123,8 @@ Feature: Vision APM Upgrade current +1
 
   @SID_9
   Scenario: Navigate to general settings page
-    Given UI Click Button by id "gwt-debug-DevicesTree_Node_Default"
+#    Given UI Click Button by id "gwt-debug-DevicesTree_Node_Default"
+    Then UI Navigate to "HOME" page via homePage
 #    Then UI Go To Vision
     Then UI Navigate to page "System->General Settings->Basic Parameters"
     When UI Do Operation "select" item "Software"
