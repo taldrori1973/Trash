@@ -69,6 +69,34 @@ public class TopologyTreeRestHandler {
 
     }
 
+    public static void addSiteToTopologyTree(String siteName, String site) {
+
+        VisionRestApiHandler visionRestApiHandler = new VisionRestApiHandler();
+
+
+        String parentOrmID = getParentOrmID(site);
+        if (parentOrmID == null) return;
+
+
+        String bodyParams = "";
+        bodyParams = bodyParams.concat("parentOrmID=" + parentOrmID).concat(",name=" + siteName);
+        Object result = null;
+        try {
+            result = visionRestApiHandler.handleRequest(BaseHandler.restTestBase.getVisionRestClient(), HttpMethodEnum.POST,
+                    "Device Tree->Add Site", null, bodyParams, null);
+        } catch (IllegalStateException e) {
+            if(e.getMessage().contains("Node name in the tree must be unique"))
+                return;
+            BaseTestUtils.report(String.format("Failed to add %s site.\nException Message:\n%s", siteName, e.getMessage()), 1);
+        }
+
+        if (result == null || result.toString().contains("\"status\":\"error\""))
+            BaseTestUtils.report(String.format("Failed to add %s site:\n%s", siteName, result), 1);
+
+
+
+    }
+
     private static String getParentOrmID(String site) {
         VisionRestApiHandler visionRestApiHandler = new VisionRestApiHandler();
 
