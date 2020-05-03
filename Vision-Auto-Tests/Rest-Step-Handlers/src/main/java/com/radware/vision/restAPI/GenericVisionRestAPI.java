@@ -3,6 +3,7 @@ package com.radware.vision.restAPI;
 import com.radware.vision.RestStepResult;
 import com.radware.vision.restTestHandler.GenericStepsHandler;
 import com.radware.vision.restTestHandler.RestClientsStepsHandler;
+import com.radware.vision.utils.UriUtils;
 import controllers.RestApiManagement;
 import lombok.Getter;
 import models.RestRequestSpecification;
@@ -10,6 +11,8 @@ import models.RestResponse;
 import restInterface.RestApi;
 
 import java.net.ConnectException;
+
+import static com.radware.vision.utils.SutUtils.*;
 
 @Getter
 public class GenericVisionRestAPI {
@@ -22,8 +25,16 @@ public class GenericVisionRestAPI {
     private String password;
     private String licenseKey;
 
-    public GenericVisionRestAPI(String requestFilePath, String requestLabel) {
-
+    public GenericVisionRestAPI(String requestFilePath, String requestLabel) throws NoSuchFieldException {
+        this(
+                UriUtils.buildUrlFromProtocolAndIp(getCurrentVisionRestProtocol(), getCurrentVisionIp())
+                , getCurrentVisionRestPort()
+                , getCurrentVisionRestUserName()
+                , getCurrentVisionRestUserPassword()
+                , null
+                , requestFilePath
+                , requestLabel
+        );
     }
 
     /**
