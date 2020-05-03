@@ -1,5 +1,6 @@
 package com.radware.vision.automation.AutoUtils.SUT.controllers;
 
+import com.fasterxml.jackson.databind.JsonNode;
 import com.radware.vision.automation.AutoUtils.SUT.dtos.ClientConfigurationDto;
 import com.radware.vision.automation.AutoUtils.SUT.dtos.ServerDto;
 import com.radware.vision.automation.AutoUtils.SUT.dtos.TreeDeviceManagementDto;
@@ -19,7 +20,7 @@ public interface SUTManager {
 
     Optional<TreeDeviceManagementDto> getTreeDeviceManagement(String setId);
 
-//    Optional<TreeDeviceManagementDto> getTreeDeviceRequestPayload(String deviceId);
+    Optional<JsonNode> getAddTreeDeviceRequestBodyAsJson(String deviceId);
 
     Optional<ServerDto> getServerById(String serverId);
 }
