@@ -1,8 +1,8 @@
 package com.radware.vision.systemManagement.controllers;
 
 import com.fasterxml.jackson.databind.JsonNode;
+import com.radware.vision.restAPI.GenericVisionRestAPI;
 import com.radware.vision.systemManagement.models.ManagementInfo;
-import com.radware.vision.tools.rest.CurrentVisionRestAPI;
 import models.RestResponse;
 import models.StatusCode;
 
@@ -11,7 +11,7 @@ public class VisionConfigurationsController {
     public ManagementInfo getVisionManagementInfoByRest() {
         ManagementInfo managementInfo = new ManagementInfo();
         try {
-            CurrentVisionRestAPI currentVisionRestAPI = new CurrentVisionRestAPI("Vision/SystemManagement.json", "Get Management Info");
+            GenericVisionRestAPI currentVisionRestAPI = new GenericVisionRestAPI("Vision/SystemManagement.json", "Get Management Info");
 
             RestResponse result = currentVisionRestAPI.sendRequest();
 
