@@ -25,6 +25,12 @@ public class GenericVisionRestAPI {
     private String password;
     private String licenseKey;
 
+    /**
+     * This is for Current Vision Requests , using Sut Params
+     * @param requestFilePath
+     * @param requestLabel
+     * @throws NoSuchFieldException
+     */
     public GenericVisionRestAPI(String requestFilePath, String requestLabel) throws NoSuchFieldException {
         this(
                 UriUtils.buildUrlFromProtocolAndIp(getCurrentVisionRestProtocol(), getCurrentVisionIp())
