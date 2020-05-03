@@ -1,5 +1,7 @@
 package com.radware.vision.automation.AutoUtils.SUT.services;
 
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.radware.vision.automation.AutoUtils.SUT.dtos.ClientConfigurationDto;
 import com.radware.vision.automation.AutoUtils.SUT.dtos.ServerDto;
 import com.radware.vision.automation.AutoUtils.SUT.dtos.TreeDeviceManagementDto;
@@ -7,6 +9,7 @@ import com.radware.vision.automation.AutoUtils.SUT.repositories.daos.DevicesDao;
 import com.radware.vision.automation.AutoUtils.SUT.repositories.daos.SetupDao;
 import com.radware.vision.automation.AutoUtils.SUT.repositories.daos.SutDao;
 import com.radware.vision.automation.AutoUtils.SUT.repositories.pojos.devices.Device;
+import com.radware.vision.automation.AutoUtils.SUT.repositories.pojos.devices.DeviceConfiguration;
 import com.radware.vision.automation.AutoUtils.SUT.repositories.pojos.setup.ServerPojo;
 import com.radware.vision.automation.AutoUtils.SUT.repositories.pojos.setup.Site;
 import com.radware.vision.automation.AutoUtils.SUT.repositories.pojos.setup.TreeDeviceNode;
@@ -17,6 +20,7 @@ import org.modelmapper.TypeToken;
 
 import java.lang.reflect.Type;
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
@@ -96,5 +100,16 @@ public class SutService {
     public String getDeviceParentSite(String deviceId) {
         Optional<TreeDeviceNode> deviceFromSetupOpt = this.setupDao.findDeviceById(deviceId);
         return deviceFromSetupOpt.map(TreeDeviceNode::getParentSite).orElse(null);
+    }
+
+    public Optional<JsonNode> getAddTreeDeviceRequestBodyAsJson(String deviceId) {
+        Optional<Device> deviceById = this.devicesDao.findDeviceById(deviceId);
+        if (!deviceById.isPresent()) return Optional.empty();
+        Device device = deviceById.get();
+        DeviceConfiguration configurations = device.getConfigurations();
+        ObjectMapper objectMapper = new ObjectMapper();
+        JsonNode jsonNode = objectMapper.valueToTree(configurations);
+        if (Objects.isNull(jsonNode)) return Optional.empty();
+        return Optional.of(jsonNode);
     }
 }
