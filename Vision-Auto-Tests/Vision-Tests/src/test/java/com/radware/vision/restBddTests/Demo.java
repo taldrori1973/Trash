@@ -1,5 +1,7 @@
 package com.radware.vision.restBddTests;
 
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.node.ObjectNode;
 import com.radware.automation.tools.basetest.BaseTestUtils;
 import com.radware.automation.tools.basetest.Reporter;
 import com.radware.vision.automation.AutoUtils.SUT.controllers.SUTManager;
@@ -26,16 +28,30 @@ public class Demo extends BddRestTestBase {
     }
 
     @Then("^SUT Test$")
-    public void sutTest() {
+    public void sutTest() throws Exception {
+//        get device management
         SUTManager sutManager = TestBase.getSutManager();
         Optional<TreeDeviceManagementDto> deviceManagementOpt = sutManager.getTreeDeviceManagement("Alteon_Set_1");
         if (!deviceManagementOpt.isPresent())
             BaseTestUtils.report(String.format("No Device with \"%s\" Set ID was found in this setup", "Alteon_Set_1"), Reporter.FAIL);
         TreeDeviceManagementDto deviceManagementDto = deviceManagementOpt.get();
 
-        String managementIp = deviceManagementDto.getManagementIp();
-        String deviceType = deviceManagementDto.getDeviceType();
+//      get json of the device using the deviceId from device management
+        Optional<JsonNode> alteonRequestBodyAsJson = sutManager.getAddTreeDeviceRequestBodyAsJson(deviceManagementDto.getDeviceId());
+        if (!alteonRequestBodyAsJson.isPresent()) throw new Exception("");
+        ObjectNode alteonRequestBody = (ObjectNode) alteonRequestBodyAsJson.get();
 
+//        get parentOrmId
+//          return the device parent site name
+        String deviceParentSite = sutManager.getDeviceParentSite(deviceManagementDto.getDeviceId());
+
+        // now send Rest Request to topology tree and extract the ormId of the site by site name
+
+//        lets assume that the parentOrmId is 123
+
+        alteonRequestBody.put("parentOrmID", "123");
+        String asString = alteonRequestBody.toString();
+        System.out.println(asString);
 //        Optional<LinuxFileServer> linuxFileServerOpt = serversManagement.getLinuxFileServer();
 //        LinuxFileServer linuxFileServer = null;
 //        if (linuxFileServerOpt.isPresent()) {
