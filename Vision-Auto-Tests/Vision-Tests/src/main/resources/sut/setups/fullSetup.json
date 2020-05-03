@@ -65,6 +65,14 @@
         "parentSite": "VA_DPs_Version_8_site"
       },
       {
+        "deviceId": "DefensePro_50.50.7.1",
+        "parentSite": "VA_DPs_Version_8_site"
+      },
+      {
+        "deviceId": "DefensePro_50.50.7.2",
+        "parentSite": "VA_DPs_Version_8_site"
+      },
+      {
         "deviceId": "AppWall_172.17.164.30",
         "parentSite": "AW_site"
       }
