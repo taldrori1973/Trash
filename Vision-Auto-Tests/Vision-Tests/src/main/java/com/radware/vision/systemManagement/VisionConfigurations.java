@@ -8,8 +8,8 @@ import models.RestResponse;
 import models.StatusCode;
 import restInterface.client.SessionBasedRestClient;
 
-import static com.radware.vision.restBddTests.utils.SutUtils.*;
-import static com.radware.vision.restBddTests.utils.UriUtils.buildUrlFromProtocolAndIp;
+import static com.radware.vision.utils.SutUtils.*;
+import static com.radware.vision.utils.UriUtils.buildUrlFromProtocolAndIp;
 
 public class VisionConfigurations {
 
