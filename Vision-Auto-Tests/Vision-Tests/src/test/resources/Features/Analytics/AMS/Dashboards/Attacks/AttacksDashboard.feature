@@ -24,7 +24,8 @@ Feature: AttacksDashboard
     Then REST Vision Install License Request "vision-AVA-Max-attack-capacity"
     Then Sleep "2"
     And UI Navigate to "AMS Attacks" page via homePage
-    When UI select time range from "-2m"
+#    When UI Click Button "Global Time Filter"
+#    When UI select time range from "-4m"
 
 
   @SID_5
@@ -32,19 +33,19 @@ Feature: AttacksDashboard
     When UI Click Button "inboundSwitch"
     When UI Click Button "bpsSwitch"
     Then UI Validate Line Chart data "Attacks Dashboard Traffic Widget" with Label "Received"
-      | value  | min |
-      | 729740 | 5   |
+      | value   | min |
+      | 1459480 | 5   |
 
     Then UI Validate Line Chart data "Attacks Dashboard Traffic Widget" with Label "Dropped"
-      | value  | min |
-      | 513819 | 5   |
+      | value   | min |
+      | 1027638 | 5   |
 
   @SID_6
   Scenario: validate traffic bandwidth bps+outbound
     When UI Click Button "outboundSwitch"
     Then UI Validate Line Chart data "Attacks Dashboard Traffic Widget" with Label "Received"
       | value | min |
-      | 20000 | 5   |
+      | 40000 | 5   |
 
     Then UI Validate Line Chart data "Attacks Dashboard Traffic Widget" with Label "Dropped"
       | value | min |
@@ -56,7 +57,7 @@ Feature: AttacksDashboard
     When UI Click Button "ppsSwitch"
     Then UI Validate Line Chart data "Attacks Dashboard Traffic Widget" with Label "Received"
       | value | min |
-      | 10000 | 5   |
+      | 20000 | 5   |
 
     Then UI Validate Line Chart data "Attacks Dashboard Traffic Widget" with Label "Dropped"
       | value | min |
@@ -68,12 +69,12 @@ Feature: AttacksDashboard
     When UI Click Button "inboundSwitch"
     When UI Click Button "ppsSwitch"
     Then UI Validate Line Chart data "Attacks Dashboard Traffic Widget" with Label "Received"
-      | value   | min |
-      | 5578811 | 5   |
+      | value    | min |
+      | 11157622 | 5   |
 
     Then UI Validate Line Chart data "Attacks Dashboard Traffic Widget" with Label "Dropped"
-      | value  | min |
-      | 517963 | 5   |
+      | value   | min |
+      | 1035926 | 5   |
 
 
   @SID_9
