@@ -9,21 +9,21 @@ Feature: DP ANALYTICS
     # wait until collector cache clean up
     * Sleep "15"
     * REST Delete ES index "dp-*"
-    * CLI Clear vision logs
-    * CLI Run remote linux Command "curl -X GET localhost:9200/_cat/indices?v | grep dp-attack-raw >> /opt/radware/storage/maintenance/dp-attack-before-streaming" on "ROOT_SERVER_CLI"
-    * CLI Run remote linux Command "curl -X POST localhost:9200/dp-attack-raw-*/_search -d '{"query":{"bool":{"must":[{"match_all":{}}]}},"from":0,"size":1000}' > /opt/radware/storage/maintenance/attack-raw-index-before-stream" on "ROOT_SERVER_CLI"
+#    * CLI Clear vision logs
+#    * CLI Run remote linux Command "curl -X GET localhost:9200/_cat/indices?v | grep dp-attack-raw >> /opt/radware/storage/maintenance/dp-attack-before-streaming" on "ROOT_SERVER_CLI"
+#    * CLI Run remote linux Command "curl -X POST localhost:9200/dp-attack-raw-*/_search -d '{"query":{"bool":{"must":[{"match_all":{}}]}},"from":0,"size":1000}' > /opt/radware/storage/maintenance/attack-raw-index-before-stream" on "ROOT_SERVER_CLI"
 
   @SID_2
   Scenario: Run DP simulator PCAPs for Attacks by Protection Policy  widget
-    * CLI simulate 1 attacks of type "VRM_attacks" on "DefensePro" 10
-    * CLI simulate 1 attacks of type "VRM_attacks" on "DefensePro" 11 with attack ID
-    * CLI simulate 1 attacks of type "VRM_attacks" on "DefensePro" 12 with attack ID
-    * CLI simulate 1 attacks of type "VRM_attacks" on "DefensePro" 20 with attack ID
-    * CLI simulate 1 attacks of type "VRM_attacks" on "DefensePro" 21 and wait 240 seconds with attack ID
-    * CLI Run remote linux Command "curl -X GET localhost:9200/_cat/indices?v | grep dp-attack-raw >> /opt/radware/storage/maintenance/dp-attack-after-streaming" on "ROOT_SERVER_CLI"
+        * CLI simulate 1 attacks of type "VRM_attacks" on SetId "DefensePro_Set_1"
+    * CLI simulate 1 attacks of type "VRM_attacks" on SetId "DefensePro_Set_2" with attack ID
+    * CLI simulate 1 attacks of type "VRM_attacks" on SetId "DefensePro_Set_3" with attack ID
+    * CLI simulate 1 attacks of type "VRM_attacks" on SetId "DefensePro_Set_4" with attack ID
+    * CLI simulate 1 attacks of type "VRM_attacks" on SetId "DefensePro_Set_5" and wait 240 seconds with attack ID
+#    * CLI Run remote linux Command "curl -X GET localhost:9200/_cat/indices?v | grep dp-attack-raw >> /opt/radware/storage/maintenance/dp-attack-after-streaming" on "ROOT_SERVER_CLI"
     # Wait to avoid ES issue when running curl one after another
     And Sleep "5"
-    * CLI Run remote linux Command "curl -X POST localhost:9200/dp-attack-raw-*/_search -d '{"query":{"bool":{"must":[{"match_all":{}}],"must_not":[],"should":[]}},"from":0,"size":1000}' > /opt/radware/storage/maintenance/attack-raw-index-after-stream" on "ROOT_SERVER_CLI"
+#    * CLI Run remote linux Command "curl -X POST localhost:9200/dp-attack-raw-*/_search -d '{"query":{"bool":{"must":[{"match_all":{}}],"must_not":[],"should":[]}},"from":0,"size":1000}' > /opt/radware/storage/maintenance/attack-raw-index-after-stream" on "ROOT_SERVER_CLI"
 
   @SID_3
   Scenario: Login and add widgets

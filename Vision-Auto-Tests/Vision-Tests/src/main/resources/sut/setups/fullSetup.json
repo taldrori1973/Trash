@@ -74,8 +74,8 @@
   "servers": [
     {
       "serverId": "linuxFileServer",
-      "host": "172.17.164.100",
-      "user": "root",
+      "host": "172.17.164.10",
+      "user": "radware",
       "password": "radware",
       "connectOnInit": true
     }
