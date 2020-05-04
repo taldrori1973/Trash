@@ -72,10 +72,10 @@ public class DefenseProRESTHandler {
         entries.forEach(entry -> {
             String dpIp = null;
             try {
-                if (entry.index == null) {
-                    throw new Exception("Index entry is empty please enter it!");
-                }
-                dpIp = devicesManager.getDeviceInfo(SUTDeviceType.DefensePro, entry.index).getDeviceIp();
+//                if (entry.index == null) {
+//                    throw new Exception("Index entry is empty please enter it!");
+//                }
+//                dpIp = devicesManager.getDeviceInfo(SUTDeviceType.DefensePro, entry.index).getDeviceIp();
 
             } catch (Exception e) {
                 BaseTestUtils.report(e.getMessage(), e);
@@ -108,10 +108,10 @@ public class DefenseProRESTHandler {
         entries.forEach(entry -> {
             String dpIp = null;
             try {
-                if (entry.index == null) {
-                    throw new Exception("Index entry is empty please enter it!");
-                }
-                dpIp = devicesManager.getDeviceInfo(SUTDeviceType.DefensePro, entry.index).getDeviceIp();
+//                if (entry.index == null) {
+//                    throw new Exception("Index entry is empty please enter it!");
+//                }
+//                dpIp = devicesManager.getDeviceInfo(SUTDeviceType.DefensePro, entry.index).getDeviceIp();
 
             } catch (Exception e) {
                 BaseTestUtils.report(e.getMessage(), e);
