@@ -1,4 +1,4 @@
-package com.radware.vision.devicesRestApi.topologyTree;
+package com.radware.vision.devicesRestApi;
 
 /**
  * Created by MohamadI - Muhamad Igbaria
