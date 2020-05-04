@@ -4,6 +4,8 @@ import com.jayway.jsonpath.DocumentContext;
 import com.jayway.jsonpath.JsonPath;
 import com.radware.automation.tools.basetest.BaseTestUtils;
 import com.radware.automation.tools.basetest.Reporter;
+import com.radware.vision.automation.AutoUtils.SUT.controllers.SUTManager;
+import com.radware.vision.automation.AutoUtils.SUT.controllers.SUTManagerImpl;
 import com.radware.vision.restAPI.ElasticsearchRestAPI;
 import models.RestResponse;
 import models.StatusCode;
@@ -234,7 +236,9 @@ public class ElasticSearchHandlerNew {
     }
 
     public static ElasticsearchRestAPI createEsRestConnection(String requestFilePath, String requestLabel) {
-        return new ElasticsearchRestAPI("http://172.17.178.117", 9200, requestFilePath, requestLabel);
+        SUTManager sutManager =  SUTManagerImpl.getInstance();
+        String host=sutManager.getClientConfigurations().getHostIp();
+        return new ElasticsearchRestAPI("http://"+host, 9200, requestFilePath, requestLabel);
     }
 
 }
