@@ -10,6 +10,8 @@ import com.radware.vision.automation.VisionAutoInfra.CLIInfra.CliOperations;
 import com.radware.vision.automation.VisionAutoInfra.CLIInfra.Servers.ServerCliBase;
 import com.radware.vision.base.TestBase;
 import com.radware.vision.bddtests.BddRestTestBase;
+import com.radware.vision.devicesRestApi.topologyTree.TopologyTree;
+import com.radware.vision.devicesRestApi.topologyTree.TopologyTreeImpl;
 import cucumber.api.java.en.Then;
 
 import java.util.Optional;
@@ -29,6 +31,12 @@ public class Demo extends BddRestTestBase {
 
     @Then("^SUT Test$")
     public void sutTest() throws Exception {
+        TopologyTree topologyTree=new TopologyTreeImpl();
+        String aDefault = topologyTree.getSiteOrmId("Default");
+        String aw_site = topologyTree.getSiteOrmId("AW_site");
+        String aw_si = topologyTree.getSiteOrmId("AW_si");
+
+
 //        get device management
         SUTManager sutManager = TestBase.getSutManager();
         Optional<TreeDeviceManagementDto> deviceManagementOpt = sutManager.getTreeDeviceManagement("Alteon_Set_1");

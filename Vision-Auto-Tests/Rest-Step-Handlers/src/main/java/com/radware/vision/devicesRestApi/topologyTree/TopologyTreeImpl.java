@@ -43,7 +43,7 @@ public class TopologyTreeImpl implements TopologyTree {
     @Override
     public String getSiteOrmId(String siteName) {
         try {
-            GenericVisionRestAPI request = new GenericVisionRestAPI("/Vision/SystemConfigTree.json", "Get a site by a specified name");
+            GenericVisionRestAPI request = new GenericVisionRestAPI("/Vision/SystemConfigTree.json", "Get Site by Name");
 
             Map<String, String> pathParams = new HashMap<>();
             pathParams.put("name", siteName);
@@ -51,6 +51,7 @@ public class TopologyTreeImpl implements TopologyTree {
             request.getRestRequestSpecification().setPathParams(pathParams);
 
             RestResponse restResponse = request.sendRequest();
+
             Optional<JsonNode> responseJsonNodeOpt = restResponse.getBody().getBodyAsJsonNode();
             return responseJsonNodeOpt.map(jsonNode -> jsonNode.get("ormID").asText()).orElse(null);
 
