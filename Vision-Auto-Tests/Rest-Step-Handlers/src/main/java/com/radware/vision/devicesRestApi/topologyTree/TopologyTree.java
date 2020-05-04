@@ -19,7 +19,7 @@ public interface TopologyTree {
 
     RestStepResult addSite(String siteName, String parentSiteName);
 
-    RestStepResult getSite(String siteName);
+    String getSiteOrmId(String siteName);
 
 
     RestStepResult deleteSite(String siteName);
