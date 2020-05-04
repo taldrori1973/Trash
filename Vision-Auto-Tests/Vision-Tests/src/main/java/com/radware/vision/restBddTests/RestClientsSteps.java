@@ -176,6 +176,7 @@ public class RestClientsSteps extends BddRestTestBase {
 
     @Given("^That Defense Flow Device from SUT File is Logged In(?: With Username \"([^\"]*)\" and Password \"([^\"]*)\")?$")
     public void thatDefenseFlowIsLoggedInWithUsernameAndPassword(String username, String password) throws Exception {
+//       kVision - defenseFlow
 //        Should be Change to get the data from SUT Utils
 //        defenseFlowDevice DF = (defenseFlowDevice) system.getSystemObject("defenseFlowDevice");
 //        if (isNull(username) ^ isNull(password)) {
@@ -184,9 +185,7 @@ public class RestClientsSteps extends BddRestTestBase {
 //        if (isNull(username)) {
 //            username = DF.username;
 //            password = DF.password;
-//
 //        }
-
 //        String baseUri = UriUtils.buildUrlFromProtocolAndIp("https", DF.deviceIp);
 //        Integer port = null;
 //        RestStepResult result = RestClientsStepsHandler.defenseFlowLogin(baseUri, port, username, password);
