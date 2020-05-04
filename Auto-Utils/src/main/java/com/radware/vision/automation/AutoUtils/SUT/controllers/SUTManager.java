@@ -1,5 +1,6 @@
 package com.radware.vision.automation.AutoUtils.SUT.controllers;
 
+import com.fasterxml.jackson.databind.JsonNode;
 import com.radware.vision.automation.AutoUtils.SUT.dtos.ClientConfigurationDto;
 import com.radware.vision.automation.AutoUtils.SUT.dtos.ServerDto;
 import com.radware.vision.automation.AutoUtils.SUT.dtos.TreeDeviceManagementDto;
@@ -19,7 +20,16 @@ public interface SUTManager {
 
     Optional<TreeDeviceManagementDto> getTreeDeviceManagement(String setId);
 
-//    Optional<TreeDeviceManagementDto> getTreeDeviceRequestPayload(String deviceId);
+    /**
+     *
+     * @param deviceId deviceId as on devices file
+     * @return @{@link JsonNode} Object which contains the tree of the configurations section of the device ,
+     * which is the same of the Post Request Body sent when adding new device to topology tree
+     * note: all the values was set in the devices json file ,
+     * except one value : parentOrmID , which should be set on runtime after getting the ormID of the site which the device should be added under,
+     *  to get the ormID should send Rest Request to get the topology tree and then get from the response site ormID
+     */
+    Optional<JsonNode> getAddTreeDeviceRequestBodyAsJson(String deviceId);
 
     Optional<ServerDto> getServerById(String serverId);
 }

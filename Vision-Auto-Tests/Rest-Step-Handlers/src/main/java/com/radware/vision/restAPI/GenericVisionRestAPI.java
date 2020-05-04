@@ -11,6 +11,9 @@ import restInterface.RestApi;
 
 import java.net.ConnectException;
 
+import static com.radware.vision.utils.SutUtils.*;
+import static com.radware.vision.utils.UriUtils.buildUrlFromProtocolAndIp;
+
 @Getter
 public class GenericVisionRestAPI {
 
@@ -23,7 +26,25 @@ public class GenericVisionRestAPI {
     private String licenseKey;
 
     /**
-     * @param visionIp             : the request will be sent to https://<visionIp>
+     * This is for Current Vision Requests , using Sut Params
+     * @param requestFilePath
+     * @param requestLabel
+     * @throws NoSuchFieldException
+     */
+    public GenericVisionRestAPI(String requestFilePath, String requestLabel) throws NoSuchFieldException {
+        this(
+                buildUrlFromProtocolAndIp(getCurrentVisionRestProtocol(), getCurrentVisionIp())
+                , getCurrentVisionRestPort()
+                , getCurrentVisionRestUserName()
+                , getCurrentVisionRestUserPassword()
+                , null
+                , requestFilePath
+                , requestLabel
+        );
+    }
+
+    /**
+     * @param baseUri             : the request will be sent to https://<visionIp>
      * @param port                 :nullable , default value 443
      * @param username             : login username
      * @param password             :login password

@@ -1,11 +1,8 @@
-package com.radware.vision.restBddTests.utils;
+package com.radware.vision.utils;
 
+import com.radware.vision.automation.AutoUtils.SUT.controllers.SUTManagerImpl;
 import com.radware.vision.automation.AutoUtils.SUT.dtos.ClientConfigurationDto;
-import com.radware.vision.automation.tools.sutsystemobjects.devicesinfo.DeviceInfo;
 import com.radware.vision.automation.tools.sutsystemobjects.devicesinfo.enums.SUTDeviceType;
-import com.radware.vision.base.TestBase;
-import com.radware.vision.base.WebUITestBase;
-import com.radware.vision.infra.testhandlers.BaseHandler;
 
 import static java.util.Objects.isNull;
 import static org.apache.commons.lang3.StringUtils.isBlank;
@@ -13,7 +10,7 @@ import static org.apache.commons.lang3.StringUtils.isEmpty;
 
 public class SutUtils {
 
-    private static ClientConfigurationDto clientConfigurations = TestBase.getSutManager().getClientConfigurations();
+    private static ClientConfigurationDto clientConfigurations = SUTManagerImpl.getInstance().getClientConfigurations();
 
     public static String getCurrentVisionRestProtocol() {
         String restProtocol = clientConfigurations.getRestConnectionDefaultProtocol();
@@ -52,26 +49,30 @@ public class SutUtils {
     }
 
     public static String getCurrentVisionHAIp() throws Exception {
-        String ip = WebUITestBase.getRestTestBase().getVisionServerHA().getHost_2();
-        if (isNull(ip) || isEmpty(ip) || isBlank(ip)) {
-            throw new NoSuchFieldException("Can't read HA Host Name from SUT file under visionCli/visionServer/visionServerHA/Host_2");
-        }
-        return ip;
+//        String ip = WebUITestBase.getRestTestBase().getVisionServerHA().getHost_2();
+//        if (isNull(ip) || isEmpty(ip) || isBlank(ip)) {
+//            throw new NoSuchFieldException("Can't read HA Host Name from SUT file under visionCli/visionServer/visionServerHA/Host_2");
+//        }
+//        return ip;
+        return null;
     }
 
 
     public static String getDeviceIp(SUTDeviceType sutDeviceType, int deviceNumber) throws Exception {
-        DeviceInfo deviceInfo = BaseHandler.devicesManager.getDeviceInfo(sutDeviceType, deviceNumber);
-        return deviceInfo.getDeviceIp();
+//        DeviceInfo deviceInfo = BaseHandler.devicesManager.getDeviceInfo(sutDeviceType, deviceNumber);
+//        return deviceInfo.getDeviceIp();
+        return null;
     }
 
     public static String getDeviceUserName(SUTDeviceType sutDeviceType, int deviceNumber) throws Exception {
-        DeviceInfo deviceInfo = BaseHandler.devicesManager.getDeviceInfo(sutDeviceType, deviceNumber);
-        return deviceInfo.getUsername();
+//        DeviceInfo deviceInfo = BaseHandler.devicesManager.getDeviceInfo(sutDeviceType, deviceNumber);
+//        return deviceInfo.getUsername();
+        return null;
     }
 
     public static String getDevicePassword(SUTDeviceType sutDeviceType, int deviceNumber) throws Exception {
-        DeviceInfo deviceInfo = BaseHandler.devicesManager.getDeviceInfo(sutDeviceType, deviceNumber);
-        return deviceInfo.getPassword();
+//        DeviceInfo deviceInfo = BaseHandler.devicesManager.getDeviceInfo(sutDeviceType, deviceNumber);
+//        return deviceInfo.getPassword();
+        return null;
     }
 }

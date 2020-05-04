@@ -1,5 +1,6 @@
 package com.radware.vision.automation.AutoUtils.SUT.controllers;
 
+import com.fasterxml.jackson.databind.JsonNode;
 import com.radware.vision.automation.AutoUtils.SUT.dtos.ClientConfigurationDto;
 import com.radware.vision.automation.AutoUtils.SUT.dtos.ServerDto;
 import com.radware.vision.automation.AutoUtils.SUT.dtos.TreeDeviceManagementDto;
@@ -65,5 +66,7 @@ public class SUTManagerImpl implements SUTManager {
         return this.sutService.getServerById(serverId);
     }
 
-
+    public Optional<JsonNode> getAddTreeDeviceRequestBodyAsJson(String deviceId) {
+        return this.sutService.getAddTreeDeviceRequestBodyAsJson(deviceId);
+    }
 }
