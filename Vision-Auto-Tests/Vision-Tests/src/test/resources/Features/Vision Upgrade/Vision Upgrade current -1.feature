@@ -46,7 +46,7 @@ Feature: Vision Upgrade current -1
     # Saving upgrade log to Generic server /home/radware/UpgradeLogs/
     Then Upgrade or Fresh Install Vision
 
-  @SID_12 @Amir
+  @SID_12
   Scenario: Check upgrade logs
     Then CLI Run remote linux Command "/copyUpgradeLog.sh" on "ROOT_SERVER_CLI"
 
