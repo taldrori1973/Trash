@@ -27,6 +27,7 @@ Feature: Vision Upgrade current -1
     Given REST Login with activation with user "sys_admin" and password "radware"
       # extract MySql create partition number
     Then CLI Run remote linux Command "echo "Before " $(mysql -prad123 vision -e "show create table traffic_utilizations\G" |grep "(PARTITION p" |awk -F"p" '{print$2}'|awk '{printf$1}') >  /opt/radware/sql_partition.txt" on "ROOT_SERVER_CLI"
+    Then CLI Run remote linux Command "/usr/sbin/ntpdate -u $(/bin/grep ^server  /etc/ntp.conf | awk '{print $2}')" on "ROOT_SERVER_CLI" with timeOut 120
     Then CLI Clear vision logs
 
   @SID_5
@@ -45,7 +46,7 @@ Feature: Vision Upgrade current -1
     # Saving upgrade log to Generic server /home/radware/UpgradeLogs/
     Then Upgrade or Fresh Install Vision
 
-  @SID_12
+  @SID_12 @Amir
   Scenario: Check upgrade logs
     Then CLI Run remote linux Command "/copyUpgradeLog.sh" on "ROOT_SERVER_CLI"
 
