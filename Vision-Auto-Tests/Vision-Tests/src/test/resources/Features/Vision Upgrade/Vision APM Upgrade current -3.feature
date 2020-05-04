@@ -1,4 +1,4 @@
-@TC109892 @nadiyaTest
+@TC109892
 Feature: Vision APM Upgrade current -3
 
   @SID_1
@@ -20,17 +20,16 @@ Feature: Vision APM Upgrade current -3
   Scenario: Do any pre-upgrade changes
     Then CLI Operations - Run Root Session command "yes|restore_radware_user_password" timeout 15
     Then CLI Run remote linux Command "echo "Before " $(mysql -prad123 vision -e "show create table traffic_utilizations\G" |grep "(PARTITION p" |awk -F"p" '{print$2}'|awk '{printf$1}') >  /opt/radware/sql_partition.txt" on "ROOT_SERVER_CLI"
-
-       #for testing AVA Attack Capacity Grace Period with the following scenario:
+      #for testing AVA Attack Capacity Grace Period with the following scenario:
       # if before upgrade the server not have the Legacy "vision-reporting-module-AMS" license and never installs the new AVA License so after upgrade No  Grace Period will be given:
     Given REST Vision DELETE License Request "vision-AVA-6-Gbps-attack-capacity"
     And REST Vision DELETE License Request "vision-AVA-20-Gbps-attack-capacity"
     And REST Vision DELETE License Request "vision-AVA-60-Gbps-attack-capacity"
     And REST Vision DELETE License Request "vision-AVA-400-Gbps-attack-capacity"
     And REST Vision DELETE License Request "vision-AVA-Max-attack-capacity"
-
     And REST Vision Install License Request "vision-reporting-module-AMS"
     And Set AVA_Grace_Period_Status to Not Set
+    And Set Server Last Upgrade Time to 30 Days Back From Now
 
 
     ######################################################################################
@@ -46,7 +45,6 @@ Feature: Vision APM Upgrade current -3
     Then CLI Check if logs contains
       | logType | expression                                                             | isExpected   |
       | UPGRADE | fatal                                                                  | NOT_EXPECTED |
-    # | UPGRADE | error                                                            | NOT_EXPECTED      |
       | UPGRADE | fail to\|failed to                                                     | NOT_EXPECTED |
       | UPGRADE | The upgrade of APSolute Vision server has completed successfully       | EXPECTED     |
       | UPGRADE | Vision Reporter upgrade finished                                       | EXPECTED     |
@@ -79,7 +77,6 @@ Feature: Vision APM Upgrade current -3
       | UPGRADE | error loading /etc/cgconfig.conf: Cgroup mounting failed               | IGNORE       |
       | UPGRADE | Error: cannot mount cpuset to /cgroup/cpuset: Device or resource busy  | IGNORE       |
       | UPGRADE | /opt/radware/storage/www/webui/vision-dashboards/public/static/media/* | IGNORE       |
-
 
 
   @SID_6
@@ -129,25 +126,23 @@ Feature: Vision APM Upgrade current -3
 
   @SID_8
   Scenario: Login with activation
-#    Given REST Login with activation with user "sys_admin" and password "radware"
     Then UI Login with user "sys_admin" and password "radware"
     Then CLI Operations - Run Root Session command "yes|restore_radware_user_password" timeout 15
-    Then REST Vision Install License Request "vision-AVA-Max-attack-capacity"
 
   @SID_9
   Scenario: Validate AVA Attack Capacity Grace Period License
-    Then Validate License "ATTACK_CAPACITY_LICENSE" Parameters
-      | allowedAttackCapacityGbps         | 0                                                                                                                                                                                                                                                                                                                                                                                                                                                 |
-      | requiredDevicesAttackCapacityGbps | 18                                                                                                                                                                                                                                                                                                                                                                                                                                                |
-      | licensedDefenseProDeviceIpsList   | [172.16.22.50,172.16.22.51,172.16.22.55]                                                                                                                                                                                                                                                                                                                                                                                                          |
-      | hasDemoLicense                    | false                                                                                                                                                                                                                                                                                                                                                                                                                                             |
-      | attackCapacityMaxLicenseExist     | false                                                                                                                                                                                                                                                                                                                                                                                                                                             |
-      | licenseViolated                   | true                                                                                                                                                                                                                                                                                                                                                                                                                                              |
-      | inGracePeriod                     | true                                                                                                                                                                                                                                                                                                                                                                                                                                              |
-      | message                           | License Violation: The attack capacity required by devices managed by APSolute Vision exceeds the value permitted by the APSolute Vision Analytics - AMS license. Contact Radware Technical Support to purchase another license with more capacity within 30 days. After 30 days, the system will only support the attack capacity corresponding to the license. If there is no APSolute Vision Analytics - AMS license, AVA will be unavailable. |
-      | timeToExpiration                  | 30                                                                                                                                                                                                                                                                                                                                                                                                                                                |
+#    Then Validate License "ATTACK_CAPACITY_LICENSE" Parameters
+#      | allowedAttackCapacityGbps         | 0                    |
+#      | requiredDevicesAttackCapacityGbps | 18                   |
+#      | licensedDefenseProDeviceIpsList   | []                   |
+#      | hasDemoLicense                    | false                |
+#      | attackCapacityMaxLicenseExist     | false                |
+#      | licenseViolated                   | true                 |
+#      | inGracePeriod                     | false                |
+#      | message                           | Insufficient License |
+#      | timeToExpiration                  | -1                   |
+#    And Validate DefenseFlow is NOT Licensed by Attack Capacity License
 
-    And Validate DefenseFlow is Licensed by Attack Capacity License
   @SID_10
   Scenario: Navigate to general settings page
     Then UI Go To Vision
@@ -194,11 +189,8 @@ Feature: Vision APM Upgrade current -3
 
   @SID_18
   Scenario: Visit device subscription page
-#    Then REST Request "GET" for "Device Subscriptions->Table"
-#       | type                 | value |
-#       | Returned status code | 200   |
-
-    Then CLI Run linux Command "result=`curl -ks -X "POST" "https://localhost/mgmt/system/user/login" -H "Content-Type: application/json" -d $"{\"username\": \"radware\",\"password\": \"radware\"}"`; jsession=`echo $result | tr "," "\n"|grep -i jsession|tr -d '"' | cut -d: -f2`; curl -ks -o null -XGET -H "Cookie: JSESSIONID=$jsession" https://localhost/mgmt/system/config/itemlist/devicesubscriptions -w 'RESP_CODE:%{response_code}\n'" on "ROOT_SERVER_CLI" and validate result EQUALS "RESP_CODE:200" with timeOut 300 with runCommand delay 90
+    Then CLI Connect Root
+    Then CLI Run linux Command "result=`curl -ks -X "POST" "https://localhost/mgmt/system/user/login" -H "Content-Type: application/json" -d $"{\"username\": \"radware\",\"password\": \"radware\"}"`; jsession=`echo $result | tr "," "\n"|grep -i jsession|tr -d '"' | cut -d: -f2`; curl -ks -o null -XGET -H "Cookie: JSESSIONID=$jsession" https://localhost/mgmt/system/config/itemlist/devicesubscriptions -w 'RESP_CODE:%{response_code}\n'" on "ROOT_SERVER_CLI" and validate result EQUALS "RESP_CODE:200" with timeOut 300 with runCommand delay 300
     Then CLI Operations - Verify that output contains regex "RESP_CODE:200"
 
   @SID_19
@@ -280,7 +272,7 @@ Feature: Vision APM Upgrade current -3
     Then CLI Run linux Command "service mgtsrv status" on "ROOT_SERVER_CLI" and validate result CONTAINS "td-agent is running" in any line with timeOut 15
 
   @SID_30
-  Scenario: Validate increased MySql partitioning number
+  Scenario: Validate Changed MySql partitioning number
     Then CLI Run remote linux Command "echo "After " $(mysql -prad123 vision -e "show create table traffic_utilizations\G" |grep "(PARTITION \`p" |awk -F"p" '{print$2}'|awk -F"\`" '{print$1}') >>  /opt/radware/sql_partition.txt" on "ROOT_SERVER_CLI"
     Then CLI Run remote linux Command "cat /opt/radware/sql_partition.txt" on "ROOT_SERVER_CLI"
-    Then CLI Run linux Command "echo $(cat /opt/radware/sql_partition.txt |grep "After"|awk '{print$2}')-$(cat /opt/radware/sql_partition.txt |grep "Before"|awk '{print$2}')|bc" on "ROOT_SERVER_CLI" and validate result GT "0"
+    Then CLI Run linux Command "echo $(cat /opt/radware/sql_partition.txt |grep "After"|awk '{print$2}')-$(cat /opt/radware/sql_partition.txt |grep "Before"|awk '{print$2}')|bc" on "ROOT_SERVER_CLI" and validate result NOT_EQUALS "0"

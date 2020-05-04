@@ -20,13 +20,13 @@ Feature: Vision Install KVM SA
     Given REST Login with activation with user "radware" and password "radware"
     Then UI Login with user "radware" and password "radware"
     Then Validate License "ATTACK_CAPACITY_LICENSE" Parameters
-      | allowedAttackCapacityGbps         | 0                    |
-      | requiredDevicesAttackCapacityGbps | 0                    |
-      | licensedDefenseProDeviceIpsList   | []                   |
-      | hasDemoLicense                    | false                |
-      | attackCapacityMaxLicenseExist     | false                |
-      | licenseViolated                   | false                |
-      | inGracePeriod                     | false                |
+      | allowedAttackCapacityGbps         | 0     |
+      | requiredDevicesAttackCapacityGbps | 0     |
+      | licensedDefenseProDeviceIpsList   | []    |
+      | hasDemoLicense                    | false |
+      | attackCapacityMaxLicenseExist     | false |
+      | licenseViolated                   | false |
+      | inGracePeriod                     | false |
     And Validate DefenseFlow is NOT Licensed by Attack Capacity License
     * REST Vision Install License Request "vision-reporting-module-ADC"
     * REST Vision Install License Request "vision-AVA-Max-attack-capacity"
@@ -83,8 +83,6 @@ Feature: Vision Install KVM SA
     Then CLI Run linux Command "ip6tables -L -n |grep -w tcp |grep -w "dpt:443"" on "ROOT_SERVER_CLI" and validate result CONTAINS "ACCEPT"
     Then CLI Run linux Command "ip6tables -L -n |grep -w tcp |grep -w "dpt:80"" on "ROOT_SERVER_CLI" and validate result CONTAINS "ACCEPT"
     Then CLI Run linux Command "ip6tables -L -n |grep -w tcp |grep -w "dpt:22"" on "ROOT_SERVER_CLI" and validate result CONTAINS "ACCEPT"
-#    Then CLI Run linux Command "ip6tables -L -n |grep -w icmp |grep -w 17" on "ROOT_SERVER_CLI" and validate result CONTAINS "DROP"
-#    Then CLI Run linux Command "ip6tables -L -n | grep -w DROP |grep -w icmp |grep -w 13" on "ROOT_SERVER_CLI" and validate result CONTAINS "DROP"
 
   @SID_8
   Scenario: Validate TED status
@@ -104,7 +102,8 @@ Feature: Vision Install KVM SA
   Scenario: validate available disk space
     Then CLI Run linux Command "df -hP /opt/radware/storage|tail -1|awk -F" " '{print $5}'|awk -F"%" '{print $1}'" on "ROOT_SERVER_CLI" and validate result LTE "6"
     Then CLI Run linux Command "df -hP /opt/radware|tail -1|awk -F" " '{print $5}'|awk -F"%" '{print $1}'" on "ROOT_SERVER_CLI" and validate result LTE "30"
-    Then CLI Run linux Command "df -hP /|tail -1|awk -F" " '{print $5}'|awk -F"%" '{print $1}'" on "ROOT_SERVER_CLI" and validate result LTE "40"
+    Then CLI Run remote linux Command "df -hP /|tail -1|awk '{print $5}'|grep -oP '[\d]*'" on "ROOT_SERVER_CLI"
+    Then CLI Run linux Command "echo $(df /|tail -1|awk '{print $3}')/$(df /|tail -1|awk '{print $2}')*100|bc -l|grep -oP '^\d*'" on "ROOT_SERVER_CLI" and validate result LTE "45"
 
   @SID_12
   Scenario: Validate MySql version

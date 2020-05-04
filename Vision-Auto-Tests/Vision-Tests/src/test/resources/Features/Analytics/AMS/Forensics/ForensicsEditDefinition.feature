@@ -27,8 +27,9 @@ Feature: Forensics Edit Definition
       |  |  |
     When UI Click Button "Views" with value "Test Edit"
     And UI Click Button "Views.Generate Now" with value "Test Edit"
+    And Sleep "30"
     And UI Click Button "Views.report" with value "Test Edit"
-    Then UI Validate "Report.Table" Table rows count equal to 3
+    Then UI Validate "Report.Table" Table rows count EQUALS to 3
 
   @SID_5
   Scenario: forensics definition edit forensic name
@@ -83,9 +84,9 @@ Feature: Forensics Edit Definition
       | Criteria | Event Criteria:Action,Operator:Equals,Value:[Drop]; |
     When UI Click Button "Views" with value "EDIT_1"
     And UI Click Button "Views.Generate Now" with value "EDIT_1"
-    And Sleep "4"
+    And Sleep "30"
     And UI Click Button "Views.report" with value "EDIT_1"
-    Then UI Validate "Report.Table" Table rows count equal to 1
+    Then UI Validate "Report.Table" Table rows count EQUALS to 1
 
   @SID_10
   Scenario: Validate forensics definition edit device id
@@ -93,10 +94,10 @@ Feature: Forensics Edit Definition
       | devices | index:10; |
     When UI Click Button "Views" with value "EDIT_1"
     And UI Click Button "Views.Generate Now" with value "EDIT_1"
-    And Sleep "5"
+    And Sleep "30"
     And UI Click Button "Views.report" with value "EDIT_1"
     And Sleep "3"
-    Then UI Validate "Report.Table" Table rows count equal to 2
+    Then UI Validate "Report.Table" Table rows count EQUALS to 2
 
   @SID_11
   Scenario: Validate forensics definition edit time definition
@@ -106,9 +107,9 @@ Feature: Forensics Edit Definition
       | Time Definitions.Date | Relative:[Hours,12] |
     When UI Click Button "Views" with value "EDIT_1"
     And UI Click Button "Views.Generate Now" with value "EDIT_1"
-    And Sleep "4"
+    And Sleep "30"
     And UI Click Button "Views.report" with value "EDIT_1"
-    Then UI Validate "Report.Table" Table rows count equal to 2
+    Then UI Validate "Report.Table" Table rows count EQUALS to 2
 
   @SID_12
   Scenario: Cleanup

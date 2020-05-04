@@ -4,6 +4,7 @@ package com.radware.vision.restBddTests;
 import com.radware.vision.RestStepResult;
 import com.radware.vision.automation.tools.sutsystemobjects.devicesinfo.enums.SUTDeviceType;
 import com.radware.vision.bddtests.BddRestTestBase;
+import com.radware.vision.bddtests.defenseFlow.defenseFlowDevice;
 import com.radware.vision.restBddTests.utils.SutUtils;
 import com.radware.vision.restBddTests.utils.UriUtils;
 import com.radware.vision.restTestHandler.RestClientsStepsHandler;
@@ -163,4 +164,25 @@ public class RestClientsSteps extends BddRestTestBase {
 
     }
 
+
+    @Given("^That Defense Flow Device from SUT File is Logged In(?: With Username \"([^\"]*)\" and Password \"([^\"]*)\")?$")
+    public void thatDefenseFlowIsLoggedInWithUsernameAndPassword(String username, String password) throws Exception {
+//        Should be Change to get the data from SUT Utils
+        defenseFlowDevice DF = (defenseFlowDevice) system.getSystemObject("defenseFlowDevice");
+        if (isNull(username) ^ isNull(password)) {
+            report("Username and Password both should be given or no one of them.", FAIL);
+        }
+        if (isNull(username)) {
+            username = DF.username;
+            password = DF.password;
+
+        }
+
+        String baseUri = UriUtils.buildUrlFromProtocolAndIp("https", DF.deviceIp);
+        Integer port = null;
+        RestStepResult result = RestClientsStepsHandler.defenseFlowLogin(baseUri, port, username, password);
+        if (result.getStatus().equals(RestStepResult.Status.FAILED))
+            report(result.getMessage(), FAIL);
+
+    }
 }

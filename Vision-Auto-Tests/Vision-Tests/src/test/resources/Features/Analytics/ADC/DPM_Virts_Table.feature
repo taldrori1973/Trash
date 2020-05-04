@@ -368,7 +368,7 @@ Feature: DPM Virtual Services Table
 
   @SID_4
   Scenario: Validate virtual services table by Status (default case)
-    Then UI Validate "virts table" Table rows count equal to 15
+    Then UI Validate "virts table" Table rows count EQUALS to 15
     Then UI Validate "virts table" Table sorting by "Status"
 
 
@@ -377,7 +377,7 @@ Feature: DPM Virtual Services Table
   @SID_5
   Scenario: Validate virtual services table by THROUGHPUT
     When UI Click Button "ThroughputSorting"
-    Then UI Validate "virts table" Table rows count equal to 15
+    Then UI Validate "virts table" Table rows count EQUALS to 15
     Then UI Validate "virts table" Table sorting by "Current Throughput"
 
 
@@ -386,7 +386,7 @@ Feature: DPM Virtual Services Table
   @SID_6
   Scenario: Validate virtual services table by Status (Sort Button)
     When UI Click Button "Status"
-    Then UI Validate "virts table" Table rows count equal to 15
+    Then UI Validate "virts table" Table rows count EQUALS to 15
     Then UI Validate "virts table" Table sorting by "Status"
 
 
@@ -395,7 +395,7 @@ Feature: DPM Virtual Services Table
   @SID_7
   Scenario: Validate virtual services table by SERVICE NAME
     When UI Click Button "SERVICE NAME"
-    Then UI Validate "virts table" Table rows count equal to 15
+    Then UI Validate "virts table" Table rows count EQUALS to 15
     Then UI Validate "virts table" Table sorting by "Service Name"
 
 
@@ -410,7 +410,7 @@ Feature: DPM Virtual Services Table
     When UI Set Text Field "virts table Search TextBox" To "1:80"
     And Sleep "3"
 
-    Then UI Validate "virts table" Table rows count equal to 3
+    Then UI Validate "virts table" Table rows count EQUALS to 3
 
     Then UI Validate Table record values by columns with elementLabel "virts table" findBy columnName "Application Name" findBy cellValue "1:80"
       | columnName       | value |
@@ -427,7 +427,7 @@ Feature: DPM Virtual Services Table
     When UI Set Text Field "virts table Search TextBox" To "virt"
     And Sleep "3"
 
-    Then UI Validate "virts table" Table rows count equal to 9
+    Then UI Validate "virts table" Table rows count EQUALS to 9
 
     Then UI Validate Table record tooltip values with elementLabel "virts table" findBy columnName "Application Name" findBy cellValue "virtserver1:200"
       | columnName       | value           |
@@ -470,7 +470,7 @@ Feature: DPM Virtual Services Table
     When UI Set Text Field "virts table Search TextBox" To "basic"
     And Sleep "3"
 
-    Then UI Validate "virts table" Table rows count equal to 1
+    Then UI Validate "virts table" Table rows count EQUALS to 1
     Then UI Validate Table record tooltip values with elementLabel "virts table" findBy columnName "Application Name" findBy cellValue "virtserver1:200"
       | columnName       | value           |
       | Application Name | virtserver1:200 |
@@ -479,7 +479,7 @@ Feature: DPM Virtual Services Table
     When UI Set Text Field "virts table Search TextBox" To "http"
     And Sleep "3"
 
-    Then UI Validate "virts table" Table rows count equal to 13
+    Then UI Validate "virts table" Table rows count EQUALS to 13
     Then UI Validate Table record tooltip values with elementLabel "virts table" findBy columnName "Application Name" findBy cellValue "1:80"
       | columnName       | value |
       | Application Name | 1:80  |
@@ -536,7 +536,7 @@ Feature: DPM Virtual Services Table
     When UI Set Text Field "virts table Search TextBox" To "https"
     And Sleep "3"
 
-    Then UI Validate "virts table" Table rows count equal to 5
+    Then UI Validate "virts table" Table rows count EQUALS to 5
     Then UI Validate Table record tooltip values with elementLabel "virts table" findBy columnName "Application Name" findBy cellValue "virtserver1:443"
       | columnName       | value           |
       | Application Name | virtserver1:443 |
@@ -561,7 +561,7 @@ Feature: DPM Virtual Services Table
   Scenario: Filter table By IP
     When UI Set Text Field "virts table Search TextBox" To "9.9.9"
     And Sleep "3"
-    Then UI Validate "virts table" Table rows count equal to 5
+    Then UI Validate "virts table" Table rows count EQUALS to 5
     Then UI Validate Table record tooltip values with elementLabel "virts table" findBy columnName "Application Name" findBy cellValue "virtualserver2:443"
       | columnName       | value              |
       | Application Name | virtualserver2:443 |
@@ -584,7 +584,7 @@ Feature: DPM Virtual Services Table
 
     When UI Set Text Field "virts table Search TextBox" To "9.9.9.10"
     And Sleep "3"
-    Then UI Validate "virts table" Table rows count equal to 3
+    Then UI Validate "virts table" Table rows count EQUALS to 3
     Then UI Validate Table record tooltip values with elementLabel "virts table" findBy columnName "Application Name" findBy cellValue "virtualserver3:110"
       | columnName       | value              |
       | Application Name | virtualserver3:110 |
@@ -604,12 +604,12 @@ Feature: DPM Virtual Services Table
   Scenario: Validate Sorting By Status After Filtering By Virtual Service Name
     When UI Set Text Field "virts table Search TextBox" To "1:80"
     And Sleep "3"
-    Then UI Validate "virts table" Table rows count equal to 3
+    Then UI Validate "virts table" Table rows count EQUALS to 3
     Then UI Validate "virts table" Table sorting by "Status"
 
     When UI Set Text Field "virts table Search TextBox" To "virt"
     And Sleep "3"
-    Then UI Validate "virts table" Table rows count equal to 9
+    Then UI Validate "virts table" Table rows count EQUALS to 9
     Then UI Validate "virts table" Table sorting by "Status"
 
 
@@ -617,17 +617,17 @@ Feature: DPM Virtual Services Table
   Scenario: Validate Sorting By Status After Filtering By Protocol
     When UI Set Text Field "virts table Search TextBox" To "basic"
     And Sleep "3"
-    Then UI Validate "virts table" Table rows count equal to 1
+    Then UI Validate "virts table" Table rows count EQUALS to 1
     Then UI Validate "virts table" Table sorting by "Status"
 
     When UI Set Text Field "virts table Search TextBox" To "http"
     And Sleep "3"
-    Then UI Validate "virts table" Table rows count equal to 13
+    Then UI Validate "virts table" Table rows count EQUALS to 13
     Then UI Validate "virts table" Table sorting by "Status"
 
     When UI Set Text Field "virts table Search TextBox" To "https"
     And Sleep "3"
-    Then UI Validate "virts table" Table rows count equal to 5
+    Then UI Validate "virts table" Table rows count EQUALS to 5
     Then UI Validate "virts table" Table sorting by "Status"
 
 
@@ -635,12 +635,12 @@ Feature: DPM Virtual Services Table
   Scenario: Validate Sorting By Status After Filtering By IP
     When UI Set Text Field "virts table Search TextBox" To "9.9.9"
     And Sleep "3"
-    Then UI Validate "virts table" Table rows count equal to 5
+    Then UI Validate "virts table" Table rows count EQUALS to 5
     Then UI Validate "virts table" Table sorting by "Status"
 
     When UI Set Text Field "virts table Search TextBox" To "9.9.9.10"
     And Sleep "3"
-    Then UI Validate "virts table" Table rows count equal to 3
+    Then UI Validate "virts table" Table rows count EQUALS to 3
     Then UI Validate "virts table" Table sorting by "Status"
 
 
@@ -654,29 +654,29 @@ Feature: DPM Virtual Services Table
     When UI Click Button "THROUGHPUT"
     When UI Set Text Field "virts table Search TextBox" To "1:80"
     And Sleep "3"
-    Then UI Validate "virts table" Table rows count equal to 3
+    Then UI Validate "virts table" Table rows count EQUALS to 3
     Then UI Validate "virts table" Table sorting by "Throughput"
 
     When UI Set Text Field "virts table Search TextBox" To "virt"
     And Sleep "3"
-    Then UI Validate "virts table" Table rows count equal to 9
+    Then UI Validate "virts table" Table rows count EQUALS to 9
     Then UI Validate "virts table" Table sorting by "Throughput"
 
   @SID_15
   Scenario:Validate Sorting By Throughput After Filtering By Protocol
     When UI Set Text Field "virts table Search TextBox" To "basic"
     And Sleep "3"
-    Then UI Validate "virts table" Table rows count equal to 1
+    Then UI Validate "virts table" Table rows count EQUALS to 1
     Then UI Validate "virts table" Table sorting by "Throughput"
 
     When UI Set Text Field "virts table Search TextBox" To "http"
     And Sleep "3"
-    Then UI Validate "virts table" Table rows count equal to 13
+    Then UI Validate "virts table" Table rows count EQUALS to 13
     Then UI Validate "virts table" Table sorting by "Throughput"
 
     When UI Set Text Field "virts table Search TextBox" To "https"
     And Sleep "3"
-    Then UI Validate "virts table" Table rows count equal to 5
+    Then UI Validate "virts table" Table rows count EQUALS to 5
     Then UI Validate "virts table" Table sorting by "Throughput"
 
 
@@ -684,12 +684,12 @@ Feature: DPM Virtual Services Table
   Scenario: Validate Sorting By Throughput After Filtering By IP
     When UI Set Text Field "virts table Search TextBox" To "9.9.9"
     And Sleep "3"
-    Then UI Validate "virts table" Table rows count equal to 5
+    Then UI Validate "virts table" Table rows count EQUALS to 5
     Then UI Validate "virts table" Table sorting by "Throughput"
 
     When UI Set Text Field "virts table Search TextBox" To "9.9.9.10"
     And Sleep "3"
-    Then UI Validate "virts table" Table rows count equal to 3
+    Then UI Validate "virts table" Table rows count EQUALS to 3
     Then UI Validate "virts table" Table sorting by "Throughput"
 
 
@@ -701,41 +701,41 @@ Feature: DPM Virtual Services Table
     When UI Click Button "SERVICE NAME"
     When UI Set Text Field "virts table Search TextBox" To "1:80"
     And Sleep "3"
-    Then UI Validate "virts table" Table rows count equal to 3
+    Then UI Validate "virts table" Table rows count EQUALS to 3
     Then UI Validate "virts table" Table sorting by "Service Name"
 
     When UI Set Text Field "virts table Search TextBox" To "virt"
     And Sleep "3"
-    Then UI Validate "virts table" Table rows count equal to 9
+    Then UI Validate "virts table" Table rows count EQUALS to 9
     Then UI Validate "virts table" Table sorting by "Service Name"
 
   @SID_18
   Scenario: Validate Sorting By Service Name After Filtering By Protocol
     When UI Set Text Field "virts table Search TextBox" To "basic"
     And Sleep "3"
-    Then UI Validate "virts table" Table rows count equal to 1
+    Then UI Validate "virts table" Table rows count EQUALS to 1
     Then UI Validate "virts table" Table sorting by "Service Name"
 
     When UI Set Text Field "virts table Search TextBox" To "http"
     And Sleep "3"
-    Then UI Validate "virts table" Table rows count equal to 13
+    Then UI Validate "virts table" Table rows count EQUALS to 13
     Then UI Validate "virts table" Table sorting by "Service Name"
 
     When UI Set Text Field "virts table Search TextBox" To "https"
     And Sleep "3"
-    Then UI Validate "virts table" Table rows count equal to 5
+    Then UI Validate "virts table" Table rows count EQUALS to 5
     Then UI Validate "virts table" Table sorting by "Service Name"
 
   @SID_19
   Scenario: Validate Sorting By Service Name After Filtering By IP
     When UI Set Text Field "virts table Search TextBox" To "9.9.9"
     And Sleep "3"
-    Then UI Validate "virts table" Table rows count equal to 5
+    Then UI Validate "virts table" Table rows count EQUALS to 5
     Then UI Validate "virts table" Table sorting by "Service Name"
 
     When UI Set Text Field "virts table Search TextBox" To "9.9.9.10"
     And Sleep "3"
-    Then UI Validate "virts table" Table rows count equal to 3
+    Then UI Validate "virts table" Table rows count EQUALS to 3
     Then UI Validate "virts table" Table sorting by "Service Name"
 
 
@@ -755,15 +755,15 @@ Feature: DPM Virtual Services Table
       | 11    |
       | 14    |
     When UI Click Button "Status"
-    Then UI Validate "virts table" Table rows count equal to 10
+    Then UI Validate "virts table" Table rows count EQUALS to 10
     Then UI Validate "virts table" Table sorting by "Status"
 
     When UI Click Button "THROUGHPUT"
-    Then UI Validate "virts table" Table rows count equal to 10
+    Then UI Validate "virts table" Table rows count EQUALS to 10
     Then UI Validate "virts table" Table sorting by "THROUGHPUT"
 
     When UI Click Button "SERVICE NAME"
-    Then UI Validate "virts table" Table rows count equal to 10
+    Then UI Validate "virts table" Table rows count EQUALS to 10
     Then UI Validate "virts table" Table sorting by "SERVICE NAME"
 
 
@@ -775,7 +775,7 @@ Feature: DPM Virtual Services Table
     Given UI Click Button "Status"
     When UI Set Text Field "virts table Search TextBox" To "1:80"
     And Sleep "3"
-    Then UI Validate "virts table" Table rows count equal to 1
+    Then UI Validate "virts table" Table rows count EQUALS to 1
 
 
     Then UI Validate Table record values by columns with elementLabel "virts table" findBy columnName "Application Name" findBy cellValue "virtserver1:80"
@@ -784,7 +784,7 @@ Feature: DPM Virtual Services Table
 
     When UI Set Text Field "virts table Search TextBox" To "virt"
     And Sleep "3"
-    Then UI Validate "virts table" Table rows count equal to 9
+    Then UI Validate "virts table" Table rows count EQUALS to 9
     Then UI Validate Table record tooltip values with elementLabel "virts table" findBy columnName "Application Name" findBy cellValue "virtserver1:200"
       | columnName       | value           |
       | Application Name | virtserver1:200 |
@@ -825,14 +825,14 @@ Feature: DPM Virtual Services Table
   Scenario: Filter table By Protocol After Selecting Two Devices
     When UI Set Text Field "virts table Search TextBox" To "basic"
     And Sleep "3"
-    Then UI Validate "virts table" Table rows count equal to 1
+    Then UI Validate "virts table" Table rows count EQUALS to 1
     Then UI Validate Table record tooltip values with elementLabel "virts table" findBy columnName "Application Name" findBy cellValue "virtserver1:200"
       | columnName       | value           |
       | Application Name | virtserver1:200 |
 
     When UI Set Text Field "virts table Search TextBox" To "http"
     And Sleep "3"
-    Then UI Validate "virts table" Table rows count equal to 8
+    Then UI Validate "virts table" Table rows count EQUALS to 8
     Then UI Validate Table record tooltip values with elementLabel "virts table" findBy columnName "Application Name" findBy cellValue "virtserver1:443"
       | columnName       | value           |
       | Application Name | virtserver1:443 |
@@ -867,7 +867,7 @@ Feature: DPM Virtual Services Table
 
     When UI Set Text Field "virts table Search TextBox" To "https"
     And Sleep "3"
-    Then UI Validate "virts table" Table rows count equal to 4
+    Then UI Validate "virts table" Table rows count EQUALS to 4
     Then UI Validate Table record tooltip values with elementLabel "virts table" findBy columnName "Application Name" findBy cellValue "virtserver1:443"
       | columnName       | value           |
       | Application Name | virtserver1:443 |
@@ -888,7 +888,7 @@ Feature: DPM Virtual Services Table
   Scenario: Filter table By IP After Selecting Two Devices
     When UI Set Text Field "virts table Search TextBox" To "9.9.9"
     And Sleep "3"
-    Then UI Validate "virts table" Table rows count equal to 5
+    Then UI Validate "virts table" Table rows count EQUALS to 5
     Then UI Validate Table record tooltip values with elementLabel "virts table" findBy columnName "Application Name" findBy cellValue "virtualserver2:443"
       | columnName       | value              |
       | Application Name | virtualserver2:443 |
@@ -911,7 +911,7 @@ Feature: DPM Virtual Services Table
 
     When UI Set Text Field "virts table Search TextBox" To "9.9.9.10"
     And Sleep "3"
-    Then UI Validate "virts table" Table rows count equal to 3
+    Then UI Validate "virts table" Table rows count EQUALS to 3
     Then UI Validate Table record tooltip values with elementLabel "virts table" findBy columnName "Application Name" findBy cellValue "virtualserver3:110"
       | columnName       | value              |
       | Application Name | virtualserver3:110 |
@@ -930,7 +930,7 @@ Feature: DPM Virtual Services Table
   Scenario: Validate Sorting By Status After Selecting Two Devices Filtered By Virtual Service Name
     When UI Set Text Field "virts table Search TextBox" To "1:80"
     And Sleep "3"
-    Then UI Validate "virts table" Table rows count equal to 1
+    Then UI Validate "virts table" Table rows count EQUALS to 1
     Then UI Validate "virts table" Table sorting by "Status"
 
 
@@ -938,7 +938,7 @@ Feature: DPM Virtual Services Table
   Scenario: Validate Sorting By Status After Selecting Two Devices Filtered By Protocol
     When UI Set Text Field "virts table Search TextBox" To "https"
     And Sleep "3"
-    Then UI Validate "virts table" Table rows count equal to 4
+    Then UI Validate "virts table" Table rows count EQUALS to 4
     Then UI Validate "virts table" Table sorting by "Status"
 
 
@@ -946,7 +946,7 @@ Feature: DPM Virtual Services Table
   Scenario: Validate Sorting By Status After Selecting Two Devices Filtered By IP
     When UI Set Text Field "virts table Search TextBox" To "9.9.9.10"
     And Sleep "3"
-    Then UI Validate "virts table" Table rows count equal to 3
+    Then UI Validate "virts table" Table rows count EQUALS to 3
     Then UI Validate "virts table" Table sorting by "Status"
 
   #-----------------------------Filter with Throughput sort-----------------------------
@@ -956,21 +956,21 @@ Feature: DPM Virtual Services Table
     When UI Click Button "THROUGHPUT"
     When UI Set Text Field "virts table Search TextBox" To "1:80"
     And Sleep "3"
-    Then UI Validate "virts table" Table rows count equal to 1
+    Then UI Validate "virts table" Table rows count EQUALS to 1
     Then UI Validate "virts table" Table sorting by "Throughput"
 
   @SID_28
   Scenario: Validate Sorting By Throughput After Selecting Two Devices Filtered By Protocol
     When UI Set Text Field "virts table Search TextBox" To "https"
     And Sleep "3"
-    Then UI Validate "virts table" Table rows count equal to 4
+    Then UI Validate "virts table" Table rows count EQUALS to 4
     Then UI Validate "virts table" Table sorting by "Throughput"
 
   @SID_29
   Scenario: Validate Sorting By Throughput After Selecting Two Devices Filtered By IP
     When UI Set Text Field "virts table Search TextBox" To "101.41.1.100"
     And Sleep "3"
-    Then UI Validate "virts table" Table rows count equal to 3
+    Then UI Validate "virts table" Table rows count EQUALS to 3
     Then UI Validate "virts table" Table sorting by "Throughput"
 
   #-----------------------------Filter with Service Name sort-----------------------------
@@ -980,7 +980,7 @@ Feature: DPM Virtual Services Table
     When UI Click Button "ApplicationNameSorting"
     When UI Set Text Field "virts table Search TextBox" To "1:80"
     And Sleep "3"
-    Then UI Validate "virts table" Table rows count equal to 1
+    Then UI Validate "virts table" Table rows count EQUALS to 1
     Then UI Validate "virts table" Table sorting by "Service Name"
 
 
@@ -988,7 +988,7 @@ Feature: DPM Virtual Services Table
   Scenario: Validate Sorting By Service Name After Selecting Two Devices Filtered By Protocol
     When UI Set Text Field "virts table Search TextBox" To "https"
     And Sleep "3"
-    Then UI Validate "virts table" Table rows count equal to 4
+    Then UI Validate "virts table" Table rows count EQUALS to 4
     Then UI Validate "virts table" Table sorting by "Service Name"
 
 
@@ -996,7 +996,7 @@ Feature: DPM Virtual Services Table
   Scenario: Validate Sorting By Service Name After Selecting Two Devices Filtered By IP
     When UI Set Text Field "virts table Search TextBox" To "9.9.9.10"
     And Sleep "3"
-    Then UI Validate "virts table" Table rows count equal to 3
+    Then UI Validate "virts table" Table rows count EQUALS to 3
     Then UI Validate "virts table" Table sorting by "Service Name"
 
 
@@ -1009,7 +1009,7 @@ Feature: DPM Virtual Services Table
     And UI VRM Select device from dashboard and Save Filter device type "Alteon"
       | index | virtualServices |
       | 14    | virtserver1:200 |
-    Then UI Validate "virts table" Table rows count equal to 1
+    Then UI Validate "virts table" Table rows count EQUALS to 1
     Then UI Validate Table record tooltip values with elementLabel "virts table" findBy columnName "Application Name" findBy cellValue "virtserver1:200"
       | columnName       | value           |
       | Application Name | virtserver1:200 |

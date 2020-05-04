@@ -143,4 +143,9 @@ public class ReportSteps extends BddUITestBase {
         map.put("timeout",String.valueOf(timeout));
         vrmReportsHandler.VRMReportOperation(vrmActions.GENERATE,reportName,map,restTestBase.getRootServerCli());
     }
+
+    @Then("^UI validate togglesData in report \"([^\"]*)\" with widget \"([^\"]*)\"$")
+    public void uiValidateTogglesDataInReportWithWidget(String reportName, String widget, List<VRMHandler.ToggleData> entries) throws Throwable {
+            vrmReportsHandler.uiValidateTogglesDataInReportWithWidget(reportName, widget, entries);
+    }
 }

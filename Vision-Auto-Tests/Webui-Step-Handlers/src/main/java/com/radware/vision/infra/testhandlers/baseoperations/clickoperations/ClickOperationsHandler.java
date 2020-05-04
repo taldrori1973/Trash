@@ -14,7 +14,7 @@ import com.radware.automation.webui.widgets.impl.WebUIDropdown;
 import com.radware.automation.webui.widgets.impl.WebUIDualList;
 import com.radware.automation.webui.widgets.impl.WebUIDualListScripts;
 import com.radware.vision.infra.enums.DualListSides;
-import com.radware.vision.infra.enums.EqualsOrContains;
+import com.radware.vision.automation.AutoUtils.Operators.OperatorsEnum;
 import com.radware.vision.infra.enums.VisionTableIDs;
 import com.radware.vision.infra.enums.WebElementType;
 import com.radware.vision.infra.testhandlers.baseoperations.BasicOperationsHandler;
@@ -154,7 +154,7 @@ public class ClickOperationsHandler {
         }
     }
 
-    public static void validateTextFieldElementByLabel(String elementSelector, String params, String expectedText, EqualsOrContains validationType, int cutCharsNumber) {
+    public static void validateTextFieldElementByLabel(String elementSelector, String params, String expectedText, OperatorsEnum validationType, int cutCharsNumber) {
         try {
             WebElement element = BasicOperationsHandler.isItemAvailableById(elementSelector, params);
             validateTextField(element, elementSelector, expectedText, validationType, cutCharsNumber);
@@ -163,7 +163,7 @@ public class ClickOperationsHandler {
         }
     }
 
-    public static ValidateText validateTextFieldElementByLabelWithoutReporting(String elementSelector, String params, String expectedText, EqualsOrContains validationType, String cutCharsNumber) {
+    public static ValidateText validateTextFieldElementByLabelWithoutReporting(String elementSelector, String params, String expectedText, OperatorsEnum validationType, String cutCharsNumber) {
         cutCharsNumber = cutCharsNumber == null ? "0" : cutCharsNumber;
         int cutCharsNumberInt = Integer.valueOf(cutCharsNumber);
         WebElement element = BasicOperationsHandler.isItemAvailableById(elementSelector, params);
@@ -171,7 +171,7 @@ public class ClickOperationsHandler {
 
     }
 
-    public static void validateTextFieldElementById(String elementSelector, String expectedText, EqualsOrContains validationType, int cutCharsNumber) {
+    public static void validateTextFieldElementById(String elementSelector, String expectedText, OperatorsEnum validationType, int cutCharsNumber) {
         try {
             WebElement element = WebUIUtils.fluentWaitDisplayed(new ComponentLocator(How.ID, elementSelector).getBy(), WebUIUtils.DEFAULT_WAIT_TIME, false);
             validateTextField(element, elementSelector, expectedText, validationType, cutCharsNumber);
@@ -180,7 +180,7 @@ public class ClickOperationsHandler {
         }
     }
 
-    public static void validateTextFieldElementByClass(String elementSelector, String expectedText, EqualsOrContains validationType, int cutCharsNumber) {
+    public static void validateTextFieldElementByClass(String elementSelector, String expectedText, OperatorsEnum validationType, int cutCharsNumber) {
         try {
 //            WebElement element = WebUIUtils.fluentWaitDisplayed(new ComponentLocator(How.CLASS_NAME, elementSelector).getBy(), WebUIUtils.DEFAULT_WAIT_TIME, false);
             WebElement element = WebUIUtils.fluentWaitDisplayed(new ComponentLocator(How.XPATH, "//*[@class='" + elementSelector + "']").getBy(), WebUIUtils.DEFAULT_WAIT_TIME, false);
@@ -190,7 +190,7 @@ public class ClickOperationsHandler {
         }
     }
 
-    public static void validateTextField(WebElement element, String elementSelector, String expectedText, EqualsOrContains validationType, int cutCharsNumber) {
+    public static void validateTextField(WebElement element, String elementSelector, String expectedText, OperatorsEnum validationType, int cutCharsNumber) {
         try {
             List<String> expectedTextList = expectedText != null ? Arrays.asList(expectedText.split("\\|")) : Arrays.asList("".split("\\|"));
             String actualText = element.getAttribute("value");
@@ -230,7 +230,7 @@ public class ClickOperationsHandler {
         }
     }
 
-    public static ValidateText validateTextFieldWithoutReporting(WebElement element, String elementSelector, String expectedText, EqualsOrContains validationType, int cutCharsNumber) {
+    public static ValidateText validateTextFieldWithoutReporting(WebElement element, String elementSelector, String expectedText, OperatorsEnum validationType, int cutCharsNumber) {
         List<String> expectedTextList = expectedText != null ? Arrays.asList(expectedText.split("\\|")) : Arrays.asList("".split("\\|"));
         String actualText = element.getAttribute("value");
         boolean contains = false;
@@ -274,7 +274,7 @@ public class ClickOperationsHandler {
 
     public static void selectItemFromDropdown(String elementId, String dropdownOptionText, String deviceDriverId) {
         try {
-            if (!checkIfElementExistAndDisplayed(GeneralUtils.buildGenericXpath(WebElementType.Id, elementId, EqualsOrContains.EQUALS))) {
+            if (!checkIfElementExistAndDisplayed(GeneralUtils.buildGenericXpath(WebElementType.Id, elementId, OperatorsEnum.EQUALS))) {
                 throw new Exception("Element not found");
             }
             WebElement element = WebUIUtils.fluentWaitDisplayed(new ComponentLocator(How.ID, elementId).getBy(), WebUIUtils.DEFAULT_WAIT_TIME, false);
@@ -291,9 +291,9 @@ public class ClickOperationsHandler {
         }
     }
 
-    public static boolean checkIfElementExistAndDisplayed(WebElementType webElementType, String value, EqualsOrContains equalsOrContains) {
+    public static boolean checkIfElementExistAndDisplayed(WebElementType webElementType, String value, OperatorsEnum operatorsEnum) {
 
-        ComponentLocator locator = new ComponentLocator(How.XPATH, GeneralUtils.buildGenericXpath(webElementType, value, equalsOrContains));
+        ComponentLocator locator = new ComponentLocator(How.XPATH, GeneralUtils.buildGenericXpath(webElementType, value, operatorsEnum));
 
         WebElement webElement = WebUIUtils.fluentWaitDisplayed(locator.getBy(), WebUIUtils.DEFAULT_WAIT_TIME, false);
         if (webElement != null) {
@@ -357,9 +357,9 @@ public class ClickOperationsHandler {
         else return true;
     }
 
-    public static boolean checkIfElementExists(WebElementType elementType, String elementId, EqualsOrContains equalsOrContains) {
+    public static boolean checkIfElementExists(WebElementType elementType, String elementId, OperatorsEnum operatorsEnum) {
 
-        ComponentLocator locator = new ComponentLocator(How.XPATH, GeneralUtils.buildGenericXpath(elementType, elementId, equalsOrContains));
+        ComponentLocator locator = new ComponentLocator(How.XPATH, GeneralUtils.buildGenericXpath(elementType, elementId, operatorsEnum));
         WebElement element = WebUIUtils.fluentWait(locator.getBy(), WebUIUtils.DEFAULT_WAIT_TIME, false);
         if (element == null) return false;
         else return true;

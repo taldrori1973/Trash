@@ -34,9 +34,9 @@ Feature: VRM AMS Session Timeout
     Then CLI simulate 1 attacks of type "VRM_Alert_Severity" on "DefensePro" 10 and wait 110 seconds
     Then UI "Uncheck" all the Toggle Alerts
     Then UI "Check" Toggle Alerts with name "Alert_timeout"
-    Then UI Validate "Report.Table" Table rows count equal to 1
+    Then UI Validate "Report.Table" Table rows count EQUALS to 1
     Then UI "Uncheck" Toggle Alerts with name "Alert_timeout"
-    Then UI Validate "Report.Table" Table rows count equal to 0
+    Then UI Validate "Report.Table" Table rows count EQUALS to 0
     Then UI Delete Alerts With Name "Alert_timeout"
 
   @SID_5
@@ -70,7 +70,7 @@ Feature: VRM AMS Session Timeout
     Then UI Text of "Health Error Count" equal to "1 Errors"
     Then UI Validate Element Existence By Label "Health.Warning" if Exists "true"
     Then UI Click Button "Health Error Count" with value "1 Errors"
-    Then UI Validate "Alerts Table" Table rows count equal to 1
+    Then UI Validate "Alerts Table" Table rows count EQUALS to 1
     Then UI Click Button "Close Alert Table" with value "Close"
     Then UI close browser
 

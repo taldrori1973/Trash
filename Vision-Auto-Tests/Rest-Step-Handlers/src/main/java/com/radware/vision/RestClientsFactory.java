@@ -18,12 +18,14 @@ public class RestClientsFactory {
     private static Map<String, SessionBasedRestClient> onVisionVDirectRestClients;
     private static Map<String, BasicAuthBasedRestClient> alteonRestClients;
     private static Map<String, BasicAuthBasedRestClient> appWallRestClients;
+    private static Map<String, SessionBasedRestClient> defenseFlowRestClients;
 
     static {
         visionRestClients = new HashMap<>();
         onVisionVDirectRestClients = new HashMap<>();
         alteonRestClients = new HashMap<>();
         appWallRestClients = new HashMap<>();
+        defenseFlowRestClients = new HashMap<>();
     }
 
     public static SessionBasedRestClient getVisionConnection(String baseUri, Integer connectionPort, String username, String password, String license) {
@@ -51,6 +53,14 @@ public class RestClientsFactory {
             onVisionVDirectRestClients.put(key, (SessionBasedRestClient) RestClientsManagement.getOnVisionVDirectConnection(baseUri, connectionPort, username, password));
         }
         return onVisionVDirectRestClients.get(key);
+    }
+
+    public static SessionBasedRestClient getDefenseFlowConnection(String baseUri, Integer connectionPort, String username, String password) {
+        String key = defaultKeyBuilder(baseUri, connectionPort, username);
+        if (!defenseFlowRestClients.containsKey(key)) {
+            defenseFlowRestClients.put(key, (SessionBasedRestClient) RestClientsManagement.getDefenseFlowConnection(baseUri, connectionPort, username, password));
+        }
+        return defenseFlowRestClients.get(key);
     }
 
     public static BasicAuthBasedRestClient getAlteonConnection(String baseUri, Integer connectionPort, String username, String password) {

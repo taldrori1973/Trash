@@ -13,6 +13,7 @@ Feature: Forensics Delivery
     Given UI Login with user "sys_admin" and password "radware"
     Then CLI Operations - Run Root Session command "yes|restore_radware_user_password" timeout 15
     * REST Vision Install License Request "vision-AVA-Max-attack-capacity"
+    Then UI Navigate to "HOME" page via homePage
     And UI Go To Vision
     Then UI Navigate to page "System->General Settings->Alert Settings->Alert Browser"
     Then UI Do Operation "select" item "Email Reporting Configuration"
@@ -55,6 +56,7 @@ Feature: Forensics Delivery
     Given UI Login with user "sys_admin" and password "radware"
     Then UI Navigate to "AMS Forensics" page via homepage
     Then UI Generate and Validate Forensics With Name "Email Validate" with Timeout of 300 Seconds
+    And Sleep "30"
     #For debug use to have the ability to view what was generated
     Then UI Click Button "Views.report" with value "Email Validate"
     Then Sleep "5"

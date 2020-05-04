@@ -12,7 +12,7 @@ import com.radware.automation.webui.widgets.impl.WebUIRadioGroup;
 import com.radware.automation.webui.widgets.impl.table.WebUITable;
 import com.radware.vision.base.WebUITestBase;
 import com.radware.vision.infra.enums.DualListSides;
-import com.radware.vision.infra.enums.EqualsOrContains;
+import com.radware.vision.automation.AutoUtils.Operators.OperatorsEnum;
 import com.radware.vision.infra.enums.FindByType;
 import com.radware.vision.infra.enums.WebElementType;
 import com.radware.vision.infra.testhandlers.baseoperations.clickoperations.ClickOperationsHandler;
@@ -84,7 +84,7 @@ public class ClickOperations extends WebUITestBase {
     @TestProperties(name = "Select Item From Dropdown by Index", paramsInclude = {"elementId", "dropdownItemIndex", "deviceDriverType"})
     public void selectItemFromDropdownByIndex() {
         try {
-            if (!checkIfElementExistAndDisplayed(GeneralUtils.buildGenericXpath(WebElementType.Id, elementId, EqualsOrContains.EQUALS))) {
+            if (!checkIfElementExistAndDisplayed(GeneralUtils.buildGenericXpath(WebElementType.Id, elementId, OperatorsEnum.EQUALS))) {
                 throw new Exception("Element not found");
             }
             WebElement element = WebUIUtils.fluentWaitDisplayed(new ComponentLocator(How.ID, elementId).getBy(), WebUIUtils.DEFAULT_WAIT_TIME, false);
@@ -119,7 +119,7 @@ public class ClickOperations extends WebUITestBase {
     @TestProperties(name = "Set Checkbox Selection", paramsInclude = {"elementId", "selectCheckbox"})
     public void setCheckboxSelection() {
         try {
-            if (!checkIfElementExistAndDisplayed(GeneralUtils.buildGenericXpath(WebElementType.Id, elementId, EqualsOrContains.EQUALS))) {
+            if (!checkIfElementExistAndDisplayed(GeneralUtils.buildGenericXpath(WebElementType.Id, elementId, OperatorsEnum.EQUALS))) {
                 throw new Exception("Element not found");
             }
             WebUICheckbox checkbox = new WebUICheckbox(new ComponentLocator(How.ID, elementId));
@@ -139,7 +139,7 @@ public class ClickOperations extends WebUITestBase {
     @TestProperties(name = "Set Radio Button", paramsInclude = {"elementIdForRadioGroup", "radioGroupItemText", "deviceDriverType"})
     public void setRadioButton() {
         try {
-            if (!checkIfElementExistAndDisplayed(GeneralUtils.buildGenericXpath(WebElementType.Id, elementId, EqualsOrContains.EQUALS))) {
+            if (!checkIfElementExistAndDisplayed(GeneralUtils.buildGenericXpath(WebElementType.Id, elementId, OperatorsEnum.EQUALS))) {
                 throw new Exception("Element not found");
             }
             updateWidgetsContainer(getDeviceDriverType().getDDType());

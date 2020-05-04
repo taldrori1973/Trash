@@ -80,8 +80,6 @@ Feature: Vision Install OVA APM
     Then CLI Run linux Command "ip6tables -L -n |grep -w tcp |grep -w "dpt:443"" on "ROOT_SERVER_CLI" and validate result CONTAINS "ACCEPT"
     Then CLI Run linux Command "ip6tables -L -n |grep -w tcp |grep -w "dpt:80"" on "ROOT_SERVER_CLI" and validate result CONTAINS "ACCEPT"
     Then CLI Run linux Command "ip6tables -L -n |grep -w tcp |grep -w "dpt:22"" on "ROOT_SERVER_CLI" and validate result CONTAINS "ACCEPT"
-#    Then CLI Run linux Command "ip6tables -L -n |grep -w icmp |grep -w 17" on "ROOT_SERVER_CLI" and validate result CONTAINS "DROP"
-#    Then CLI Run linux Command "ip6tables -L -n | grep -w DROP |grep -w icmp |grep -w 13" on "ROOT_SERVER_CLI" and validate result CONTAINS "DROP"
 
   @SID_7
   Scenario: Validate TED status
@@ -101,7 +99,8 @@ Feature: Vision Install OVA APM
   Scenario: validate available disk space
     Then CLI Run linux Command "df -hP /opt/radware/storage|tail -1|awk -F" " '{print $5}'|awk -F"%" '{print $1}'" on "ROOT_SERVER_CLI" and validate result LTE "6"
     Then CLI Run linux Command "df -hP /opt/radware|tail -1|awk -F" " '{print $5}'|awk -F"%" '{print $1}'" on "ROOT_SERVER_CLI" and validate result LTE "30"
-    Then CLI Run linux Command "df -hP /|tail -1|awk '{print $5}'|grep -oP '[\d]*'" on "ROOT_SERVER_CLI" and validate result LTE "40"
+    Then CLI Run remote linux Command "df -hP /|tail -1|awk '{print $5}'|grep -oP '[\d]*'" on "ROOT_SERVER_CLI"
+    Then CLI Run linux Command "echo $(df /|tail -1|awk '{print $3}')/$(df /|tail -1|awk '{print $2}')*100|bc -l|grep -oP '^\d*'" on "ROOT_SERVER_CLI" and validate result LTE "45"
     Then Sleep "2"
     Then CLI Run linux Command "df -hP /vz/private|tail -1|awk -F" " '{print $5}'|awk -F"%" '{print $1}'" on "ROOT_SERVER_CLI" and validate result LTE "15"
 
@@ -158,14 +157,3 @@ Feature: Vision Install OVA APM
     Then CLI Run linux Command "service mgtsrv status" on "ROOT_SERVER_CLI" and validate result CONTAINS "VRM reporting engine is running" in any line with timeOut 15
     Then CLI Run linux Command "service mgtsrv status" on "ROOT_SERVER_CLI" and validate result CONTAINS "td-agent is running" in any line with timeOut 15
     Then CLI Run linux Command "service vz status" on "ROOT_SERVER_CLI" and validate result EQUALS "OpenVZ is running..."
-
-
- ##################################################################################################################################
-
-#  @SID_20
-#  Scenario: Shutdown the VM
-##    Then CLI Run remote linux Command "yes | /opt/radware/box/bin/shutdown" on "ROOT_SERVER_CLI"
-#    Then CLI Run remote linux Command "service mgtsrv stop" on "ROOT_SERVER_CLI"
-#    Then CLI Run remote linux Command "service mysql stop" on "ROOT_SERVER_CLI"
-#    Then CLI Run remote linux Command "service elasticsearch stop" on "ROOT_SERVER_CLI"
-#    Then CLI Run remote linux Command "poweroff" on "ROOT_SERVER_CLI"

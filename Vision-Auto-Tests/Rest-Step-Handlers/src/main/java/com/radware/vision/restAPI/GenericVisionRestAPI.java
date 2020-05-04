@@ -33,8 +33,8 @@ public class GenericVisionRestAPI {
      *                             for example for user the SystemConfigItemList file under vision folder the value should be Vision/SystemConfigItemList.json
      * @param requestLabel         :request label under the file
      */
-    public GenericVisionRestAPI(String visionIp, Integer port, String username, String password, String licenseKey, String requestFilePath, String requestLabel) {
-        this.baseUri = String.format("https://%s", visionIp);
+    public GenericVisionRestAPI(String baseUri, Integer port, String username, String password, String licenseKey, String requestFilePath, String requestLabel) {
+        this.baseUri = baseUri;
         this.port = port;
         this.username = username;
         this.password = password;

@@ -28,7 +28,7 @@ Feature: OTB Workflow - Instances
   @SID_5
   Scenario: validate that instance added to list
     Then UI Click Button "instances" with value "calculator"
-    Then UI Validate "instances table" Table rows count equal to 1
+    Then UI Validate "instances table" Table rows count EQUALS to 1
     Then UI validate Table row by keyValue with elementLabel "instances table" findBy columnName "Name" findBy cellValue "calc10"
 
   @SID_6
