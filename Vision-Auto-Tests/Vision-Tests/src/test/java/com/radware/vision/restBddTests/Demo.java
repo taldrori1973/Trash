@@ -32,9 +32,10 @@ public class Demo extends BddRestTestBase {
     @Then("^SUT Test$")
     public void sutTest() throws Exception {
         TopologyTree topologyTree=new TopologyTreeImpl();
-        String aDefault = topologyTree.getSiteOrmId("Default");
-        String aw_site = topologyTree.getSiteOrmId("AW_site");
-        String aw_si = topologyTree.getSiteOrmId("AW_si");
+        System.out.println( topologyTree.getSiteOrmId("Default"));
+        System.out.println( topologyTree.getSiteOrmId("AW_site"));
+        System.out.println( topologyTree.getSiteOrmId("AW_si"));
+        System.out.println( topologyTree.getSiteOrmId("AW_site"));
 
 
 //        get device management

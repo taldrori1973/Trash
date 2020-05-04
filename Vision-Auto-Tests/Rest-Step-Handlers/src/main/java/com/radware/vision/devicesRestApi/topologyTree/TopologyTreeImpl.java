@@ -1,8 +1,6 @@
 package com.radware.vision.devicesRestApi.topologyTree;
 
 import com.fasterxml.jackson.databind.JsonNode;
-import com.radware.automation.tools.basetest.BaseTestUtils;
-import com.radware.automation.tools.basetest.Reporter;
 import com.radware.vision.RestStepResult;
 import com.radware.vision.restAPI.GenericVisionRestAPI;
 import models.RestResponse;
@@ -44,7 +42,7 @@ public class TopologyTreeImpl implements TopologyTree {
     }
 
     @Override
-    public String getSiteOrmId(String siteName) {
+    public String getSiteOrmId(String siteName) throws Exception {
         GenericVisionRestAPI request = new GenericVisionRestAPI("/Vision/SystemConfigTree.json", "Get Site by Name");
 
         Map<String, String> pathParams = new HashMap<>();
@@ -54,15 +52,14 @@ public class TopologyTreeImpl implements TopologyTree {
 
         RestResponse restResponse = request.sendRequest();
         if (!restResponse.getStatusCode().equals(StatusCode.OK))
-            BaseTestUtils.report(restResponse.getBody().getBodyAsString(), Reporter.FAIL);
+            throw new Exception(restResponse.getBody().getBodyAsString());
 
         Optional<JsonNode> responseJsonNodeOpt = restResponse.getBody().getBodyAsJsonNode();
 
         if (responseJsonNodeOpt.isPresent()) {
-            if (responseJsonNodeOpt.get().has("ormID")) responseJsonNodeOpt.get().get("ormID").asText();
+            if (responseJsonNodeOpt.get().has("ormID")) return responseJsonNodeOpt.get().get("ormID").asText();
         }
         return null;
-
     }
 
     @Override
