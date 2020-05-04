@@ -1,14 +1,14 @@
 {
   "deviceName": "Vision",
-  "fileName": "SystemManagement",
-  "description": "System Management",
+  "fileName": "SystemConfigTree",
+  "description": "General-SystemConfigTree",
   "api": [
     {
-      "label": "Get Management Info",
+      "label": "Get Site by Name",
       "method": "GET",
-      "basePath": "/mgmt/system/config/item/mngtinfo",
+      "basePath": "/mgmt/system/config/tree/site/byname/{name}",
       "produces": "application/json",
-      "description": "Retrieves Vision Management Info : macAddress, hostname ,defenseFlowId, defensePipeUrl, hardwarePlatform,activeServerMacAddress, serverSoftwareVersion, certificateHash"
+      "description": "Get a site by a specified name."
     }
   ]
 }
