@@ -9,6 +9,14 @@
       "basePath": "/mgmt/system/config/tree/site/byname/{name}",
       "produces": "application/json",
       "description": "Get a site by a specified name."
+    },
+    {
+      "label": "Add Device to the Server",
+      "method": "POST",
+      "basePath": "/mgmt/system/config/tree/device",
+      "produces": "application/json",
+      "consumes": "application/json",
+      "description": "Adds a device to the APSolute Vision server"
     }
   ]
 }
