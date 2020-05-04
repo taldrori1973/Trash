@@ -22,6 +22,8 @@ import com.radware.automation.webui.widgets.impl.WebUICheckbox;
 import com.radware.automation.webui.widgets.impl.WebUIComponent;
 import com.radware.automation.webui.widgets.impl.WebUITextField;
 import com.radware.jsonparsers.impl.JsonUtils;
+import com.radware.vision.automation.AutoUtils.SUT.controllers.SUTManagerImpl;
+import com.radware.vision.automation.AutoUtils.SUT.dtos.TreeDeviceManagementDto;
 import com.radware.vision.automation.VisionAutoInfra.CLIInfra.CliOperations;
 import com.radware.vision.automation.tools.exceptions.selenium.TargetWebElementNotFoundException;
 import com.radware.vision.automation.tools.exceptions.web.SessionStorageException;
@@ -820,13 +822,14 @@ public class VRMHandler {
             entries.forEach(entry -> {
                 String deviceIp = null;
                 try {
-                    if (entry.index == null) {
-                        throw new Exception("Index entry is empty please enter it!");
-                    }
-                    if (deviceType == null) {
-                        deviceIp = devicesManager.getDeviceInfo(SUTDeviceType.DefensePro, entry.index).getDeviceIp();
+                    if (entry.setId != null) {
+                        Optional<TreeDeviceManagementDto> deviceOpt= SUTManagerImpl.getInstance().getTreeDeviceManagement(entry.setId);
+                        if (!deviceOpt.isPresent()) {
+                            throw new Exception(String.format("No Device with \"%s\" Set ID found in this setup", entry.setId));
+                        }
+                        deviceIp = deviceOpt.get().getManagementIp();
                     } else {
-                        deviceIp = devicesManager.getDeviceInfo(deviceType, entry.index).getDeviceIp();
+                        throw new Exception("device setId entry is empty.");
                     }
 
                 } catch (Exception e) {
@@ -1302,7 +1305,7 @@ public class VRMHandler {
     }
 
     public static class DpDeviceFilter {
-        public Integer index;
+        public String setId;
         public String ports;
         public String policies;
         String virtualServices;
@@ -1586,13 +1589,13 @@ public class VRMHandler {
             entries.forEach(entry -> {
                 String deviceIp = null;
                 try {
-                    if (entry.index == null) {
+                    if (entry.setId == null) {
                         throw new Exception("Index entry is empty please enter it!");
                     }
                     if (deviceType == null) {
-                        deviceIp = devicesManager.getDeviceInfo(SUTDeviceType.DefensePro, entry.index).getDeviceIp();
+//                        deviceIp = devicesManager.getDeviceInfo(SUTDeviceType.DefensePro, entry.setId).getDeviceIp();
                     } else {
-                        deviceIp = devicesManager.getDeviceInfo(deviceType, entry.index).getDeviceIp();
+//                        deviceIp = devicesManager.getDeviceInfo(deviceType, entry.setId).getDeviceIp();
                     }
 
                 } catch (Exception e) {
