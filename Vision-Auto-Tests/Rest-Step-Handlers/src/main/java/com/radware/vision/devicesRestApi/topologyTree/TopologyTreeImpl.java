@@ -66,10 +66,8 @@ public class TopologyTreeImpl implements TopologyTree {
                     new RestStepResult(RestStepResult.Status.SUCCESS, restResponse.getBody().getBodyAsString()) :
                     new RestStepResult(RestStepResult.Status.FAILED, restResponse.getBody().getBodyAsString());
         } catch (Exception e) {
-            e.printStackTrace();
+            return new RestStepResult(RestStepResult.Status.FAILED, e.getMessage());
         }
-
-        return null;
     }
 
     @Override
