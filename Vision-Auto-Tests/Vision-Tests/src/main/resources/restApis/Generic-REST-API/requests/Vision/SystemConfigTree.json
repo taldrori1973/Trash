@@ -16,7 +16,6 @@
       "basePath": "/mgmt/system/config/tree/site",
       "produces": "application/json",
       "consumes": "application/json",
-
       "description": "Adds a site to the APSolute Vision server"
     },
     {

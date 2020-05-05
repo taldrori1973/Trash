@@ -18,6 +18,8 @@ public interface SUTManager {
 
     String getDeviceParentSite(String deviceId);
 
+
+    String getSiteParent(String siteName);
     Optional<TreeDeviceManagementDto> getTreeDeviceManagement(String setId);
 
     /**

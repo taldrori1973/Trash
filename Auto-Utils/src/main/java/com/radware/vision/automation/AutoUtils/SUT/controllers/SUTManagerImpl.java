@@ -51,6 +51,11 @@ public class SUTManagerImpl implements SUTManager {
     }
 
     @Override
+    public String getSiteParent(String siteName) {
+        return null;
+    }
+
+    @Override
     public Optional<TreeDeviceManagementDto> getTreeDeviceManagement(String setId) {
         return this.sutService.getTreeDeviceManagementBySetId(setId);
     }
