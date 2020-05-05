@@ -93,11 +93,29 @@ public class TopologyTreeImpl implements TopologyTree {
 
     @Override
     public RestStepResult addSite(String siteName) {
-        Map<String, String> bodyAsMap = new HashMap<>();
-        bodyAsMap.put("parentOrmID", null);
-        bodyAsMap.put("name", null);
+        try {
 
+            if (this.isSiteExist(siteName))
+                return new RestStepResult(RestStepResult.Status.SUCCESS, "Site Already Exist");
 
+            String siteParent = getSiteParent(siteName);
+
+            if (siteParent == null)
+                return new RestStepResult(RestStepResult.Status.FAILED, "Sut returns NULL Site Parent");
+
+            if (!this.isSiteExist(siteParent))
+                return new RestStepResult(RestStepResult.Status.FAILED, "Site Parent is not added to the tree yet.");
+
+            Map<String, String> bodyAsMap = new HashMap<>();
+            bodyAsMap.put("parentOrmID", null);
+            bodyAsMap.put("name", null);
+
+            this.isSiteExist()
+            GenericVisionRestAPI requestApi = new GenericVisionRestAPI(REQUESTS_FILE_PATH, "Add Site to the Server");
+            requestApi.getRestRequestSpecification().setBody(new JsonNode(bodyAsMap).toString());
+        } catch (NoSuchFieldException e) {
+            e.printStackTrace();
+        }
 
         return null;
     }
