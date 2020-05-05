@@ -11,6 +11,15 @@
       "description": "Get a site by a specified name."
     },
     {
+      "label": "Add Site to the Server",
+      "method": "POST",
+      "basePath": "/mgmt/system/config/tree/site",
+      "produces": "application/json",
+      "consumes": "application/json",
+
+      "description": "Adds a site to the APSolute Vision server"
+    },
+    {
       "label": "Add Device to the Server",
       "method": "POST",
       "basePath": "/mgmt/system/config/tree/device",

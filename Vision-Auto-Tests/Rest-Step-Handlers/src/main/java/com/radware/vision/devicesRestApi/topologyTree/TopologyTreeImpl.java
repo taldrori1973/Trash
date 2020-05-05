@@ -92,7 +92,7 @@ public class TopologyTreeImpl implements TopologyTree {
     }
 
     @Override
-    public RestStepResult addSite(String siteName, String parentSiteName) {
+    public RestStepResult addSite(String siteName) {
         return null;
     }
 

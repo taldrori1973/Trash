@@ -20,7 +20,7 @@ public interface TopologyTree {
 
 //    Sites
 
-    RestStepResult addSite(String siteName, String parentSiteName);
+    RestStepResult addSite(String siteName);
 
     String getSiteOrmId(String siteName) throws Exception;
 
