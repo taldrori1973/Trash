@@ -172,6 +172,19 @@ public class TopologyTreeImpl implements TopologyTree {
 
     @Override
     public RestStepResult deleteSite(String siteName) {
-        return null;
+        try {
+            GenericVisionRestAPI restAPI = null;
+            restAPI = new GenericVisionRestAPI(REQUESTS_FILE_PATH, "Delete Site by Name");
+            Map<String, String> map = new HashMap<>();
+            map.put("name", siteName);
+            restAPI.getRestRequestSpecification().setPathParams(map);
+            RestResponse restResponse = restAPI.sendRequest();
+
+            return new RestStepResult(
+                    restResponse.getStatusCode().equals(StatusCode.OK) ? RestStepResult.Status.SUCCESS : RestStepResult.Status.FAILED,
+                    restResponse.getBody().getBodyAsString());
+        } catch (NoSuchFieldException e) {
+            return new RestStepResult(RestStepResult.Status.FAILED, e.getMessage());
+        }
     }
 }
