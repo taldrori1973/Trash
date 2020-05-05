@@ -1,6 +1,7 @@
 package com.radware.vision.devicesRestApi.topologyTree;
 
 import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import com.radware.vision.RestStepResult;
 import com.radware.vision.automation.AutoUtils.SUT.dtos.TreeDeviceManagementDto;
@@ -109,18 +110,26 @@ public class TopologyTreeImpl implements TopologyTree {
 //            get site parent ormID
 
             String parentOrmId = this.getSiteOrmId(siteParent);
-            Map<String, String> bodyAsMap = new HashMap<>();
-            bodyAsMap.put("parentOrmID", null);
-            bodyAsMap.put("name", null);
 
-            this.isSiteExist()
+            Map<String, String> bodyAsMap = new HashMap<>();
+            bodyAsMap.put("parentOrmID", parentOrmId);
+            bodyAsMap.put("name", siteName);
+
+            ObjectMapper objectMapper = new ObjectMapper();
+            String jsonBody = objectMapper.valueToTree(bodyAsMap).toString();
+
             GenericVisionRestAPI requestApi = new GenericVisionRestAPI(REQUESTS_FILE_PATH, "Add Site to the Server");
-            requestApi.getRestRequestSpecification().setBody(new JsonNode(bodyAsMap).toString());
+            requestApi.getRestRequestSpecification().setBody(jsonBody);
+
+            RestResponse restResponse = requestApi.sendRequest();
+
+            return new RestStepResult(
+                    restResponse.getStatusCode().equals(StatusCode.OK) ? RestStepResult.Status.SUCCESS : RestStepResult.Status.FAILED,
+                    restResponse.getBody().getBodyAsString());
         } catch (Exception e) {
-            e.printStackTrace();
+            return new RestStepResult(RestStepResult.Status.FAILED, e.getMessage());
         }
 
-        return null;
     }
 
     @Override
