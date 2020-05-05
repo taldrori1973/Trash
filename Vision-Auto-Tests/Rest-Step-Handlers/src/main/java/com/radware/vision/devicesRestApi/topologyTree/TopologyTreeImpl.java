@@ -127,8 +127,7 @@ public class TopologyTreeImpl implements TopologyTree {
         request.getRestRequestSpecification().setPathParams(pathParams);
 
         RestResponse restResponse = request.sendRequest();
-        if (!restResponse.getStatusCode().equals(StatusCode.OK)) return false;
-        return true;
+        return restResponse.getStatusCode().equals(StatusCode.OK);
     }
 
     @Override
