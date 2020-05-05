@@ -9,6 +9,13 @@
       "basePath": "/mgmt/system/config/item/mngtinfo",
       "produces": "application/json",
       "description": "Retrieves Vision Management Info : macAddress, hostname ,defenseFlowId, defensePipeUrl, hardwarePlatform,activeServerMacAddress, serverSoftwareVersion, certificateHash"
+    },
+    {
+      "label": "Log Out",
+      "method": "POST",
+      "basePath": "/mgmt/system/user/logout",
+      "produces": "application/json",
+      "description": "Log Out from vision"
     }
   ]
 }
