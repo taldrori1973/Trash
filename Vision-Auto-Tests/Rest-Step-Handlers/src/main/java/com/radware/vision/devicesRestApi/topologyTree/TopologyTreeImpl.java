@@ -4,6 +4,7 @@ import com.fasterxml.jackson.databind.JsonNode;
 import com.radware.vision.RestStepResult;
 import com.radware.vision.automation.AutoUtils.SUT.controllers.SUTManager;
 import com.radware.vision.automation.AutoUtils.SUT.controllers.SUTManagerImpl;
+import com.radware.vision.automation.AutoUtils.SUT.dtos.TreeDeviceManagementDto;
 import com.radware.vision.restAPI.GenericVisionRestAPI;
 import models.RestResponse;
 import models.StatusCode;
@@ -25,6 +26,10 @@ public class TopologyTreeImpl implements TopologyTree {
 
     @Override
     public RestStepResult addDevice(String setId) {
+        RestStepResult result = null;
+        Optional<TreeDeviceManagementDto> treeDeviceManagementDtoOptional = sutManager.getTreeDeviceManagement(setId);
+        if (treeDeviceManagementDtoOptional.isPresent()) return new RestStepResult(RestStepResult.Status.FAILED,
+                String.format("The Device with Set Id \"%s\" wasn't found", setId));
         return null;
     }
 
