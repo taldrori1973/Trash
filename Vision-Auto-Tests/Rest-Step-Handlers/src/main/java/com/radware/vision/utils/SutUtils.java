@@ -73,5 +73,8 @@ public class SutUtils {
         return sutManager.getAddTreeDeviceRequestBodyAsJson(deviceId);
     }
 
+    public static String getDeviceParentSite(String deviceId){
+        return sutManager.getDeviceParentSite(deviceId);
+    }
 
 }
