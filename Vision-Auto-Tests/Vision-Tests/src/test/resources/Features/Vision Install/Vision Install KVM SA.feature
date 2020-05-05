@@ -166,5 +166,5 @@ Feature: Vision Install KVM SA
 
   @SID_21
   Scenario: Verify 32GB RAM
-    Then CLI Run linux Command "grep MemTotal /proc/meminfo | awk '{print $2 / 1024}'" on "ROOT_SERVER_CLI" and validate result EQUALS "32140.4"
+    Then CLI Run linux Command "grep MemTotal /proc/meminfo | awk '{print $2 / 1024}'" on "ROOT_SERVER_CLI" and validate result EQUALS "32140.3"
 
