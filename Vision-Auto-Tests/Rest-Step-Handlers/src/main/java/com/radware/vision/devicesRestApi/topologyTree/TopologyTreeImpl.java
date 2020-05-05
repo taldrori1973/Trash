@@ -179,6 +179,9 @@ public class TopologyTreeImpl implements TopologyTree {
             restAPI.getRestRequestSpecification().setPathParams(map);
             RestResponse restResponse = restAPI.sendRequest();
 
+            if (restResponse.getStatusCode().equals(StatusCode.INTERNAL_SERVER_ERROR) && restResponse.getBody().getBodyAsString().contains("not found"))
+                return new RestStepResult(RestStepResult.Status.SUCCESS, "Already not exist");
+
             return new RestStepResult(
                     restResponse.getStatusCode().equals(StatusCode.OK) ? RestStepResult.Status.SUCCESS : RestStepResult.Status.FAILED,
                     restResponse.getBody().getBodyAsString());
