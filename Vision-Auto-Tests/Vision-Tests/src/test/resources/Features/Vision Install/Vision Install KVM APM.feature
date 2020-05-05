@@ -168,3 +168,6 @@ Feature: Vision Install KVM APM
     Then CLI Run linux Command "service mgtsrv status" on "ROOT_SERVER_CLI" and validate result CONTAINS "VRM reporting engine is running" in any line with timeOut 15
     Then CLI Run linux Command "service vz status" on "ROOT_SERVER_CLI" and validate result EQUALS "OpenVZ is running..."
 
+  @SID_21
+  Scenario: Verify 40GB RAM on APM
+    Then CLI Run linux Command "grep MemTotal /proc/meminfo | awk '{print $2 / 1024}'" on "ROOT_SERVER_CLI" and validate result EQUALS "40087.9"
