@@ -1,6 +1,7 @@
 package com.radware.vision.devicesRestApi.topologyTree;
 
 import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.node.ObjectNode;
 import com.radware.vision.RestStepResult;
 import com.radware.vision.automation.AutoUtils.SUT.controllers.SUTManager;
 import com.radware.vision.automation.AutoUtils.SUT.controllers.SUTManagerImpl;
@@ -12,6 +13,8 @@ import models.StatusCode;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
+
+import static java.lang.String.format;
 
 /**
  * Created by MohamadI - Muhamad Igbaria
@@ -26,10 +29,33 @@ public class TopologyTreeImpl implements TopologyTree {
 
     @Override
     public RestStepResult addDevice(String setId) {
-        RestStepResult result = null;
-        Optional<TreeDeviceManagementDto> treeDeviceManagementDtoOptional = sutManager.getTreeDeviceManagement(setId);
-        if (treeDeviceManagementDtoOptional.isPresent()) return new RestStepResult(RestStepResult.Status.FAILED,
-                String.format("The Device with Set Id \"%s\" wasn't found", setId));
+        try {
+
+//            get device from sut
+            Optional<TreeDeviceManagementDto> treeDeviceManagementDtoOptional = sutManager.getTreeDeviceManagement(setId);
+            if (!treeDeviceManagementDtoOptional.isPresent()) return new RestStepResult(RestStepResult.Status.FAILED,
+                    format("The Device with Set Id \"%s\" wasn't found", setId));
+
+            TreeDeviceManagementDto deviceManagementDto = treeDeviceManagementDtoOptional.get();
+
+//            get device Request Body from SUT
+            Optional<JsonNode> requestBodyAsJsonNodeOpt = sutManager.getAddTreeDeviceRequestBodyAsJson(deviceManagementDto.getDeviceId());
+
+            if (!requestBodyAsJsonNodeOpt.isPresent())
+                return new RestStepResult(RestStepResult.Status.FAILED, "No Json Body was returned from the SUT");
+
+//          get and cast JsonNode to ObjectNod
+            ObjectNode body = (ObjectNode) requestBodyAsJsonNodeOpt.get();
+
+
+
+            GenericVisionRestAPI requestApi = new GenericVisionRestAPI(REQUESTS_FILE_PATH, "Add Device to the Server");
+
+            requestApi.getRestRequestSpecification().setBody("");
+        } catch (NoSuchFieldException e) {
+            e.printStackTrace();
+        }
+
         return null;
     }
 
