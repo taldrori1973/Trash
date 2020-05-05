@@ -106,6 +106,9 @@ public class TopologyTreeImpl implements TopologyTree {
             if (!this.isSiteExist(siteParent))
                 return new RestStepResult(RestStepResult.Status.FAILED, "Site Parent is not added to the tree yet.");
 
+//            get site parent ormID
+
+            String parentOrmId = this.getSiteOrmId(siteParent);
             Map<String, String> bodyAsMap = new HashMap<>();
             bodyAsMap.put("parentOrmID", null);
             bodyAsMap.put("name", null);
@@ -113,7 +116,7 @@ public class TopologyTreeImpl implements TopologyTree {
             this.isSiteExist()
             GenericVisionRestAPI requestApi = new GenericVisionRestAPI(REQUESTS_FILE_PATH, "Add Site to the Server");
             requestApi.getRestRequestSpecification().setBody(new JsonNode(bodyAsMap).toString());
-        } catch (NoSuchFieldException e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
 
