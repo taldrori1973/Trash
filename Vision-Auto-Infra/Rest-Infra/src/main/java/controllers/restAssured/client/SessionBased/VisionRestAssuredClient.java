@@ -62,7 +62,7 @@ public class VisionRestAssuredClient extends RestAssuredSessionBasedRestClient {
         Response response = RestAssured.
                 given().sessionId(this.sessionId).baseUri(this.baseUri).port(this.connectionPort).basePath(VISION_INFO_PATH).
                 when().get().
-                then().log().all().extract().response();
+                then().extract().response();
 
         return response.statusCode() == VISION_ON_SUCCESS_STATUS_CODE.getStatusCode() && response.body().jsonPath().get(VISION_USERNAME_FIELD_NAME).equals(this.username);
 

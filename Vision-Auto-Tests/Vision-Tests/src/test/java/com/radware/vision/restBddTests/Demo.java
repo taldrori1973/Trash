@@ -4,6 +4,7 @@ import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import com.radware.automation.tools.basetest.BaseTestUtils;
 import com.radware.automation.tools.basetest.Reporter;
+import com.radware.vision.RestStepResult;
 import com.radware.vision.automation.AutoUtils.SUT.controllers.SUTManager;
 import com.radware.vision.automation.AutoUtils.SUT.dtos.TreeDeviceManagementDto;
 import com.radware.vision.automation.VisionAutoInfra.CLIInfra.CliOperations;
@@ -32,14 +33,16 @@ public class Demo extends BddRestTestBase {
     @Then("^SUT Test$")
     public void sutTest() throws Exception {
         TopologyTree topologyTree = new TopologyTreeImpl();
-        try {
-            System.out.println(topologyTree.getSiteOrmId("Default"));
-            System.out.println(topologyTree.getSiteOrmId("AW_site"));
-            System.out.println(topologyTree.getSiteOrmId("AW_si"));
-            System.out.println(topologyTree.getSiteOrmId("AW_site"));
-        } catch (Exception e) {
-            BaseTestUtils.report(e.getMessage(), Reporter.FAIL);
-        }
+
+        RestStepResult result = topologyTree.addDevice("Alteon_Set_2");
+//        try {
+//            System.out.println(topologyTree.getSiteOrmId("Default"));
+//            System.out.println(topologyTree.getSiteOrmId("AW_site"));
+//            System.out.println(topologyTree.getSiteOrmId("AW_si"));
+//            System.out.println(topologyTree.getSiteOrmId("AW_site"));
+//        } catch (Exception e) {
+//            BaseTestUtils.report(e.getMessage(), Reporter.FAIL);
+//        }
 
 
 //        get device management
