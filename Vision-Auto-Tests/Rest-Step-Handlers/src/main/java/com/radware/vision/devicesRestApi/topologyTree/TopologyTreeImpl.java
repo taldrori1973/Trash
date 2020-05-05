@@ -23,7 +23,6 @@ import static java.lang.String.format;
  */
 public class TopologyTreeImpl implements TopologyTree {
 
-//    private static SUTManager sutManager = SUTManagerImpl.getInstance();
 
     private static String REQUESTS_FILE_PATH = "/Vision/SystemConfigTree.json";
     private static String PARENT_ORM_ID_JSON_KEY = "parentOrmID";
