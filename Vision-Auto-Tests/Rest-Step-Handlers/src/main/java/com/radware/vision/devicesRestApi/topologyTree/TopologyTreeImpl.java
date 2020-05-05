@@ -49,7 +49,7 @@ public class TopologyTreeImpl implements TopologyTree {
 
 //            get device parent ormID
 
-            String siteOrmId = this.getSiteOrmId(sutManager.getDeviceParentSite(deviceManagementDto.getDeviceId()));
+            String siteOrmId = this.getSiteOrmId(getDeviceParentSite(deviceManagementDto.getDeviceId()));
 
             body.put(PARENT_ORM_ID_JSON_KEY, siteOrmId);
 
