@@ -118,6 +118,11 @@ public class TopologyTreeImpl implements TopologyTree {
     }
 
     @Override
+    public boolean isSiteExist(String siteName) {
+        return false;
+    }
+
+    @Override
     public RestStepResult deleteSite(String siteName) {
         return null;
     }
