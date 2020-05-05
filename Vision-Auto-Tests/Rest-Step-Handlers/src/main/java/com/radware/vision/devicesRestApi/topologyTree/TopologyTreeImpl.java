@@ -49,8 +49,15 @@ public class TopologyTreeImpl implements TopologyTree {
 
 //            get device parent ormID
 
-            String siteOrmId = this.getSiteOrmId(getDeviceParentSite(deviceManagementDto.getDeviceId()));
+            String deviceParentSite = getDeviceParentSite(deviceManagementDto.getDeviceId());
+            if (deviceParentSite == null)
+                return new RestStepResult(RestStepResult.Status.FAILED, "No parent site was found for this device");
 
+            String siteOrmId = this.getSiteOrmId(deviceParentSite);
+
+            if(siteOrmId==null){//the site not added yet
+//                add the site
+            }
             body.put(PARENT_ORM_ID_JSON_KEY, siteOrmId);
 
 //            send request
