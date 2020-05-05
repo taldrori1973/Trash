@@ -173,8 +173,7 @@ public class TopologyTreeImpl implements TopologyTree {
     @Override
     public RestStepResult deleteSite(String siteName) {
         try {
-            GenericVisionRestAPI restAPI = null;
-            restAPI = new GenericVisionRestAPI(REQUESTS_FILE_PATH, "Delete Site by Name");
+            GenericVisionRestAPI restAPI = new GenericVisionRestAPI(REQUESTS_FILE_PATH, "Delete Site by Name");
             Map<String, String> map = new HashMap<>();
             map.put("name", siteName);
             restAPI.getRestRequestSpecification().setPathParams(map);
