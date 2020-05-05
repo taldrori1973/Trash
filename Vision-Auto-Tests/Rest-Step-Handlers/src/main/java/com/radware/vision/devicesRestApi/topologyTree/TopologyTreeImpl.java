@@ -55,7 +55,7 @@ public class TopologyTreeImpl implements TopologyTree {
 
             String siteOrmId = this.getSiteOrmId(deviceParentSite);
 
-            if(siteOrmId==null){//the site not added yet
+            if (siteOrmId == null) {//the site not added yet
 //                add the site
             }
             body.put(PARENT_ORM_ID_JSON_KEY, siteOrmId);
@@ -118,8 +118,17 @@ public class TopologyTreeImpl implements TopologyTree {
     }
 
     @Override
-    public boolean isSiteExist(String siteName) {
-        return false;
+    public boolean isSiteExist(String siteName) throws NoSuchFieldException {
+        GenericVisionRestAPI request = new GenericVisionRestAPI(REQUESTS_FILE_PATH, "Get Site by Name");
+
+        Map<String, String> pathParams = new HashMap<>();
+        pathParams.put("name", siteName);
+
+        request.getRestRequestSpecification().setPathParams(pathParams);
+
+        RestResponse restResponse = request.sendRequest();
+        if (!restResponse.getStatusCode().equals(StatusCode.OK)) return false;
+        return true;
     }
 
     @Override

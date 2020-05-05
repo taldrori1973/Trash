@@ -24,7 +24,7 @@ public interface TopologyTree {
 
     String getSiteOrmId(String siteName) throws Exception;
 
-    boolean isSiteExist(String siteName);
+    boolean isSiteExist(String siteName) throws NoSuchFieldException;
     RestStepResult deleteSite(String siteName);
 
 
