@@ -114,6 +114,7 @@ public class SutService {
     }
 
     public String getSiteParent(String siteName) {
-        return null;
+        Optional<Site> siteByName = this.setupDao.findSiteByName(siteName);
+        return siteByName.map(Site::getParentSite).orElse(null);
     }
 }
