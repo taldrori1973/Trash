@@ -93,6 +93,11 @@ public class TopologyTreeImpl implements TopologyTree {
 
     @Override
     public RestStepResult addSite(String siteName) {
+        Map<String, String> bodyAsMap = new HashMap<>();
+        bodyAsMap.put("parentOrmID", null);
+        bodyAsMap.put("name", null);
+
+
 
         return null;
     }
