@@ -17,6 +17,7 @@ import com.radware.vision.infra.testhandlers.cli.CliOperations;
 import com.radware.vision.utils.RegexUtils;
 import com.radware.vision.vision_handlers.NewVmHandler;
 import com.radware.vision.vision_handlers.system.VisionServer;
+import com.radware.vision.vision_project_cli.RootServerCli;
 import com.radware.vision.vision_project_cli.VisionCli;
 import com.radware.vision.vision_project_cli.VisionRadwareFirstTime;
 import cucumber.api.DataTable;
@@ -150,7 +151,10 @@ public class VMOperationsSteps extends BddUITestBase {
             BaseTestUtils.report("Server is not running. status is: " + CliOperations.lastOutput, Reporter.FAIL);
 
         Thread.sleep(6 * 60 * 1000);
-        CliOperations.runCommand(getRestTestBase().getRootServerCli(), "\"yes|restore_radware_user_password\"", 15 * 1000);
+        RootServerCli rootServerCli = new RootServerCli(visionRadwareFirstTime.getIp(),"root","radware");
+        rootServerCli.init();
+        CliOperations.runCommand(rootServerCli, "\"yes|restore_radware_user_password\"", 15 * 1000);
+//        CliOperations.runCommand(getRestTestBase().getRootServerCli(), "\"yes|restore_radware_user_password\"", 15 * 1000);
         if (VisionServer.waitForVisionServerServicesToStartHA(restTestBase.getRadwareServerCli(), 45 * 60 * 1000))
             BaseTestUtils.report("All services up", Reporter.PASS);
         else {
