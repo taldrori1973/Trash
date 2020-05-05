@@ -52,7 +52,7 @@ public class SUTManagerImpl implements SUTManager {
 
     @Override
     public String getSiteParent(String siteName) {
-        return null;
+        return this.sutService.getSiteParent(siteName);
     }
 
     @Override

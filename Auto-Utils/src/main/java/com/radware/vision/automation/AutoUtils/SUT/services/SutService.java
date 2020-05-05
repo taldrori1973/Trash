@@ -112,4 +112,8 @@ public class SutService {
         if (Objects.isNull(jsonNode)) return Optional.empty();
         return Optional.of(jsonNode);
     }
+
+    public String getSiteParent(String siteName) {
+        return null;
+    }
 }
