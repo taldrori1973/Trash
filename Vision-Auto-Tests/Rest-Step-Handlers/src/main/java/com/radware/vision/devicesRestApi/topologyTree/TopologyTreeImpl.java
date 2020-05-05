@@ -3,8 +3,6 @@ package com.radware.vision.devicesRestApi.topologyTree;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import com.radware.vision.RestStepResult;
-import com.radware.vision.automation.AutoUtils.SUT.controllers.SUTManager;
-import com.radware.vision.automation.AutoUtils.SUT.controllers.SUTManagerImpl;
 import com.radware.vision.automation.AutoUtils.SUT.dtos.TreeDeviceManagementDto;
 import com.radware.vision.restAPI.GenericVisionRestAPI;
 import models.RestResponse;
@@ -14,6 +12,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
 
+import static com.radware.vision.utils.SutUtils.*;
 import static java.lang.String.format;
 
 /**
@@ -23,7 +22,7 @@ import static java.lang.String.format;
  */
 public class TopologyTreeImpl implements TopologyTree {
 
-    private static SUTManager sutManager = SUTManagerImpl.getInstance();
+//    private static SUTManager sutManager = SUTManagerImpl.getInstance();
 
     private static String REQUESTS_FILE_PATH = "/Vision/SystemConfigTree.json";
     private static String PARENT_ORM_ID_JSON_KEY = "parentOrmID";
@@ -33,14 +32,14 @@ public class TopologyTreeImpl implements TopologyTree {
         try {
 
 //            get device from sut
-            Optional<TreeDeviceManagementDto> treeDeviceManagementDtoOptional = sutManager.getTreeDeviceManagement(setId);
+            Optional<TreeDeviceManagementDto> treeDeviceManagementDtoOptional = getDeviceManagement(setId);
             if (!treeDeviceManagementDtoOptional.isPresent()) return new RestStepResult(RestStepResult.Status.FAILED,
                     format("The Device with Set Id \"%s\" wasn't found", setId));
 
             TreeDeviceManagementDto deviceManagementDto = treeDeviceManagementDtoOptional.get();
 
 //            get device Request Body from SUT
-            Optional<JsonNode> requestBodyAsJsonNodeOpt = sutManager.getAddTreeDeviceRequestBodyAsJson(deviceManagementDto.getDeviceId());
+            Optional<JsonNode> requestBodyAsJsonNodeOpt = getDeviceRequestBodyAsJson(deviceManagementDto.getDeviceId());
 
             if (!requestBodyAsJsonNodeOpt.isPresent())
                 return new RestStepResult(RestStepResult.Status.FAILED, "No Json Body was returned from the SUT");
