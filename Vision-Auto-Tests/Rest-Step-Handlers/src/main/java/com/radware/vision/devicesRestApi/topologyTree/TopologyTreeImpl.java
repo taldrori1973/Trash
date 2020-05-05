@@ -55,7 +55,7 @@ public class TopologyTreeImpl implements TopologyTree {
 
             String siteOrmId = this.getSiteOrmId(deviceParentSite);
 
-            if (siteOrmId == null && this.isSiteExist(deviceParentSite)) {//the site not added yet
+            if (siteOrmId == null && !this.isSiteExist(deviceParentSite)) {//the site not added yet
 //                add the site
             }
             body.put(PARENT_ORM_ID_JSON_KEY, siteOrmId);
