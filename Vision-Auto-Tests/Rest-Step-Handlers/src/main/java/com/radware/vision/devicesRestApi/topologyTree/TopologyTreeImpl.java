@@ -198,7 +198,8 @@ public class TopologyTreeImpl implements TopologyTree {
         map.put("ip", deviceIp);
         restAPI.getRestRequestSpecification().setPathParams(map);
         RestResponse restResponse = restAPI.sendRequest();
-        return null;
+        if (restResponse.getStatusCode().equals(StatusCode.OK)) return restResponse.getBody().getBodyAsJsonNode();
+        return Optional.empty();
 
     }
 }
