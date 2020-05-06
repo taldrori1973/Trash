@@ -75,6 +75,13 @@
       "method": "PUT",
       "basePath": "mgmt/system/config/item/globalaaaparameters",
       "produces": "application/json"
+    },
+    {
+      "label": "User Management Connections Settings",
+      "description": "Manage Connections timeouts",
+      "method": "PUT",
+      "basePath": "mgmt/system/config/item/connectionsettings",
+      "produces": "application/json"
     }
   ]
 }
