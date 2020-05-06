@@ -161,7 +161,14 @@ public class TopologyTreeImpl implements TopologyTree {
             if (deviceDataOpt.get().has("ormID")) ormID = deviceDataOpt.get().get("ormID").asText();
             else return new RestStepResult(RestStepResult.Status.FAILED, "ormID not found to delete the device");
 
-            GenericVisionRestAPI restAPI = new GenericVisionRestAPI(REQUESTS_FILE_PATH, null);
+            GenericVisionRestAPI restAPI = new GenericVisionRestAPI(REQUESTS_FILE_PATH, "Delete Device");
+            Map<String, String> pathParams = new HashMap<>();
+            pathParams.put("ormID", ormID);
+            restAPI.getRestRequestSpecification().setPathParams(pathParams);
+            RestResponse restResponse = restAPI.sendRequest();
+            return new RestStepResult(
+                    restResponse.getStatusCode().equals(StatusCode.OK) ? RestStepResult.Status.SUCCESS : RestStepResult.Status.FAILED,
+                    restResponse.getBody().getBodyAsString());
 
         } catch (Exception e) {
             return new RestStepResult(RestStepResult.Status.FAILED, e.getMessage());
