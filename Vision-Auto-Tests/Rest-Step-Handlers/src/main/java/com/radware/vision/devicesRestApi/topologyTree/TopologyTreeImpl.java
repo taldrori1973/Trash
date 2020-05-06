@@ -3,6 +3,8 @@ package com.radware.vision.devicesRestApi.topologyTree;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ObjectNode;
+import com.jayway.jsonpath.DocumentContext;
+import com.jayway.jsonpath.JsonPath;
 import com.radware.vision.RestStepResult;
 import com.radware.vision.automation.AutoUtils.SUT.dtos.TreeDeviceManagementDto;
 import com.radware.vision.restAPI.GenericVisionRestAPI;
@@ -98,23 +100,26 @@ public class TopologyTreeImpl implements TopologyTree {
 
 
 //            get device from sut
-            Optional<TreeDeviceManagementDto> treeDeviceManagementDtoOptional = getDeviceManagement(setId);
-            if (!treeDeviceManagementDtoOptional.isPresent()) return new RestStepResult(RestStepResult.Status.FAILED,
-                    format("The Device with Set Id \"%s\" wasn't found", setId));
+        Optional<TreeDeviceManagementDto> treeDeviceManagementDtoOptional = getDeviceManagement(setId);
+        if (!treeDeviceManagementDtoOptional.isPresent()) return new RestStepResult(RestStepResult.Status.FAILED,
+                format("The Device with Set Id \"%s\" wasn't found", setId));
 
-            TreeDeviceManagementDto deviceManagementDto = treeDeviceManagementDtoOptional.get();
+        TreeDeviceManagementDto deviceManagementDto = treeDeviceManagementDtoOptional.get();
 
 //            get device Request Body from SUT
-            Optional<JsonNode> requestBodyAsJsonNodeOpt = getDeviceRequestBodyAsJson(deviceManagementDto.getDeviceId());
+        Optional<JsonNode> requestBodyAsJsonNodeOpt = getDeviceRequestBodyAsJson(deviceManagementDto.getDeviceId());
 
-            if (!requestBodyAsJsonNodeOpt.isPresent())
-                return new RestStepResult(RestStepResult.Status.FAILED, "No Json Body was returned from the SUT");
+        if (!requestBodyAsJsonNodeOpt.isPresent())
+            return new RestStepResult(RestStepResult.Status.FAILED, "No Json Body was returned from the SUT");
 
 //          get and cast JsonNode to ObjectNode because JsonNode is Immutable.
-            ObjectNode body = (ObjectNode) requestBodyAsJsonNodeOpt.get();
+        ObjectNode body = (ObjectNode) requestBodyAsJsonNodeOpt.get();
 
-            body.remove("type");
-            body.remove("parentOrmID");
+        body.remove("type");
+        body.remove("parentOrmID");
+
+        DocumentContext documentContext = JsonPath.parse(body.toString());
+
         return null;
     }
 
