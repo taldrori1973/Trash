@@ -139,11 +139,13 @@ public class TopologyTreeImpl implements TopologyTree {
             restAPI.getRestRequestSpecification().setBody(documentContext.jsonString());
             RestResponse restResponse = restAPI.sendRequest();
 
-            return null;
+            return new RestStepResult(
+                    restResponse.getStatusCode().equals(StatusCode.OK) ? RestStepResult.Status.SUCCESS : RestStepResult.Status.FAILED,
+                    restResponse.getBody().getBodyAsString());
+
         } catch (Exception e) {
-            e.printStackTrace();
+            return new RestStepResult(RestStepResult.Status.FAILED, e.getMessage());
         }
-        return null;
     }
 
     @Override
