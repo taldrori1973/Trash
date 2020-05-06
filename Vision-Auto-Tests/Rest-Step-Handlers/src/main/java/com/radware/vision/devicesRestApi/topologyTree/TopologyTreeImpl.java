@@ -194,8 +194,7 @@ public class TopologyTreeImpl implements TopologyTree {
     private Optional<JsonNode> getDeviceDataByIp(String deviceIp) {
 
         try {
-            GenericVisionRestAPI restAPI = null;
-            restAPI = new GenericVisionRestAPI(REQUESTS_FILE_PATH, "Get Device Data");
+            GenericVisionRestAPI restAPI = new GenericVisionRestAPI(REQUESTS_FILE_PATH, "Get Device Data");
             Map<String, String> map = new HashMap<>();
             map.put("ip", deviceIp);
             restAPI.getRestRequestSpecification().setPathParams(map);
