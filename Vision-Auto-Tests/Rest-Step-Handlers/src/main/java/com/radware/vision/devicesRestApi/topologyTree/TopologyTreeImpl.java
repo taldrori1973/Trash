@@ -108,6 +108,10 @@ public class TopologyTreeImpl implements TopologyTree {
 
             String ormID = null;
             if (deviceDataOpt.get().has("ormID")) ormID = deviceDataOpt.get().get("ormID").asText();
+            else return new RestStepResult(RestStepResult.Status.FAILED, "ormID not found to delete the device");
+
+            
+
         } catch (Exception e) {
             return new RestStepResult(RestStepResult.Status.FAILED, e.getMessage());
         }
