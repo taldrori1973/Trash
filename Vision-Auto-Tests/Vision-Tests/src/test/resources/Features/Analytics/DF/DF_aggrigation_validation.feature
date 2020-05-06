@@ -22,7 +22,6 @@ Feature:  DF Statistics - Data Aggregation
 
 
 
-
   @SID_2
   Scenario: Run DF aggregation
     Then CLI Run remote linux Command "curl -X POST --header 'Content-Type: application/json' --header 'Accept: */*' 'http://localhost:10080/reporter/mgmt/monitor/reporter/internal-dashboard/scheduledTasks?jobClassName=com.reporter.df.task.traffic.DFTrafficUtilizationAggregationTask'" on "ROOT_SERVER_CLI"
