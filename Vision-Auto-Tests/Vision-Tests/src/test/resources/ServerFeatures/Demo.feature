@@ -2,7 +2,9 @@
 @TC113068
 Feature: Demo
 
-
+@run
+  Scenario: Test
+    Given SUT Test
   @SID_5
   Scenario: Create Local User
 

@@ -1,7 +1,5 @@
 package com.radware.vision.restBddTests;
 
-import com.radware.automation.tools.basetest.BaseTestUtils;
-import com.radware.automation.tools.basetest.Reporter;
 import com.radware.vision.RestStepResult;
 import com.radware.vision.automation.VisionAutoInfra.CLIInfra.CliOperations;
 import com.radware.vision.automation.VisionAutoInfra.CLIInfra.Servers.ServerCliBase;
@@ -27,10 +25,10 @@ public class Demo extends BddRestTestBase {
     public void sutTest() throws Exception {
         TopologyTree topologyTree = new TopologyTreeImpl();
 
-        RestStepResult result = topologyTree.deleteSite("aaa");
-        if (result.getStatus().equals(RestStepResult.Status.FAILED))
-            BaseTestUtils.report(result.getMessage(), Reporter.FAIL);
-//        RestStepResult result = topologyTree.addDevice("Alteon_Set_2");
+//        RestStepResult result = topologyTree.deleteSite("aaa");
+//        if (result.getStatus().equals(RestStepResult.Status.FAILED))
+//            BaseTestUtils.report(result.getMessage(), Reporter.FAIL);
+        RestStepResult result = topologyTree.addDevice("Alteon_Set_2");
 //        try {
 
 //            System.out.println(topologyTree.getSiteOrmId("Default"));
