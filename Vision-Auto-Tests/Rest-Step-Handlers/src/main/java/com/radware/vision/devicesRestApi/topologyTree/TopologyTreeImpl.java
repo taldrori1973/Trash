@@ -119,7 +119,7 @@ public class TopologyTreeImpl implements TopologyTree {
         body.remove("parentOrmID");
 
         DocumentContext documentContext = JsonPath.parse(body.toString());
-
+        documentContext.set("$.deviceSetup.deviceAccess.cliPassword", "123");
         return null;
     }
 

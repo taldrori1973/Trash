@@ -24,7 +24,7 @@ public class Demo extends BddRestTestBase {
     @Then("^SUT Test$")
     public void sutTest() throws Exception {
         TopologyTree topologyTree = new TopologyTreeImpl();
-
+topologyTree.updateDevice("Alteon_Set_2");
 //        RestStepResult result = topologyTree.deleteSite("aaa");
 //        if (result.getStatus().equals(RestStepResult.Status.FAILED))
 //            BaseTestUtils.report(result.getMessage(), Reporter.FAIL);
