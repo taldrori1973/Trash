@@ -113,6 +113,8 @@ public class TopologyTreeImpl implements TopologyTree {
 //          get and cast JsonNode to ObjectNode because JsonNode is Immutable.
             ObjectNode body = (ObjectNode) requestBodyAsJsonNodeOpt.get();
 
+            body.remove("type");
+            body.remove("parentOrmID");
         return null;
     }
 
