@@ -14,6 +14,7 @@ import com.radware.automation.webui.widgets.ComponentLocatorFactory;
 import com.radware.automation.webui.widgets.api.table.AbstractColumn;
 import com.radware.automation.webui.widgets.api.table.AbstractTable;
 import com.radware.automation.webui.widgets.impl.table.BasicTable;
+import com.radware.automation.webui.widgets.impl.table.BasicTableWithPagination;
 import com.radware.automation.webui.widgets.impl.table.WebUITable;
 import com.radware.vision.automation.AutoUtils.Operators.Comparator;
 import com.radware.vision.automation.AutoUtils.Operators.OperatorsEnum;
@@ -154,6 +155,8 @@ public class TableHandler {
             String classValue = WebUIUtils.fluentWaitAttribute(tableLocator.getBy(), WebUIUtils.MAX_RENDER_WAIT_TIME, true, "class", null);
             if (classValue.contains(BASIC_TABLE) || tableSelector.contains("instances-table"))
                 table = new BasicTable(tableLocator, withReadAllTable);
+            else if (tableSelector.contains("table_attacksTable"))
+                table = new BasicTableWithPagination(tableLocator, withReadAllTable);
             else if (tableSelector.contains(REACT_GRID) || classValue.contains(REACT_GRID))
                 table = new ReactGridTable(tableLocator, withReadAllTable);
             else if (tableSelector.equals("default-eventtable"))
