@@ -3,17 +3,20 @@ package com.radware.vision.restBddTests;
 
 import com.radware.automation.tools.basetest.BaseTestUtils;
 import com.radware.vision.RestStepResult;
+import com.radware.vision.automation.AutoUtils.SUT.dtos.TreeDeviceManagementDto;
 import com.radware.vision.automation.tools.sutsystemobjects.devicesinfo.enums.SUTDeviceType;
 import com.radware.vision.bddtests.BddRestTestBase;
 import com.radware.vision.restTestHandler.RestClientsStepsHandler;
-import com.radware.vision.utils.SutUtils;
-import com.radware.vision.utils.UriUtils;
 import com.radware.vision.vision_project_cli.RadwareServerCli;
 import cucumber.api.java.en.Given;
 import testhandlers.vision.system.generalSettings.LicenseManagementHandler;
 import testhandlers.vision.system.generalSettings.enums.LicenseKeys;
 
+import java.util.Optional;
+
 import static com.radware.automation.tools.basetest.Reporter.FAIL;
+import static com.radware.vision.utils.SutUtils.*;
+import static com.radware.vision.utils.UriUtils.buildUrlFromProtocolAndIp;
 import static java.util.Objects.isNull;
 import static org.apache.commons.lang3.StringUtils.isBlank;
 import static org.apache.commons.lang3.StringUtils.isEmpty;
@@ -28,8 +31,8 @@ public class RestClientsSteps extends BddRestTestBase {
         RadwareServerCli radwareServerCli = null;
 
         String baseUri = isNull(isHA) ?
-                UriUtils.buildUrlFromProtocolAndIp(SutUtils.getCurrentVisionRestProtocol(), SutUtils.getCurrentVisionIp()) :
-                UriUtils.buildUrlFromProtocolAndIp(SutUtils.getCurrentVisionRestProtocol(), SutUtils.getCurrentVisionHAIp());
+                buildUrlFromProtocolAndIp(getCurrentVisionRestProtocol(), getCurrentVisionIp()) :
+                buildUrlFromProtocolAndIp(getCurrentVisionRestProtocol(), getCurrentVisionHAIp());
 
 
         if (isNull(username) ^ isNull(password))
@@ -40,7 +43,7 @@ public class RestClientsSteps extends BddRestTestBase {
                     radwareServerCli = getRestTestBase().getRadwareServerCli();
                 } else {
                     radwareServerCli = (RadwareServerCli) getRestTestBase().getRadwareServerCli().clone();
-                    radwareServerCli.setHost(SutUtils.getCurrentVisionHAIp());
+                    radwareServerCli.setHost(getCurrentVisionHAIp());
                 }
             licenseKey = LicenseManagementHandler.generateLicense(radwareServerCli, LicenseKeys.VISION_ACTIVATION.getLicenseKeys());
         } catch (Exception e) {
@@ -48,11 +51,11 @@ public class RestClientsSteps extends BddRestTestBase {
         }
 
         if (isNull(username)) {
-            username = SutUtils.getCurrentVisionRestUserName();
-            password = SutUtils.getCurrentVisionRestUserPassword();
+            username = getCurrentVisionRestUserName();
+            password = getCurrentVisionRestUserPassword();
         }
 
-        RestStepResult result = RestClientsStepsHandler.genericVisionLogIn(baseUri,SutUtils.getCurrentVisionRestPort(), username, password, licenseKey);
+        RestStepResult result = RestClientsStepsHandler.genericVisionLogIn(baseUri, getCurrentVisionRestPort(), username, password, licenseKey);
 
         if (result.getStatus().equals(RestStepResult.Status.FAILED))
             BaseTestUtils.report(result.getMessage(), FAIL);
@@ -74,7 +77,7 @@ public class RestClientsSteps extends BddRestTestBase {
         }
 
         if (isNull(protocol)) protocol = "HTTPS";
-        String baseUri = UriUtils.buildUrlFromProtocolAndIp(protocol, ip);
+        String baseUri = buildUrlFromProtocolAndIp(protocol, ip);
 
         try {
             if (!isNull(activation)) {
@@ -99,20 +102,27 @@ public class RestClientsSteps extends BddRestTestBase {
 
     }
 
-    @Given("^That Device (Alteon|AppWall) With SUT Number (\\d+) is Logged In$")
-    public void thatDeviceAlteonAppWallWithSUTNumberNumberIsLoggedIn(SUTDeviceType sutDeviceType, Integer deviceNumber) throws Exception {
-        if (isNull(sutDeviceType) || (!sutDeviceType.equals(SUTDeviceType.Alteon) && !sutDeviceType.equals(SUTDeviceType.AppWall))) {
+    @Given("^That Device (Alteon|AppWall) With SetId \"([^\"]*)\" is Logged In$")
+    public void thatDeviceAlteonAppWallWithSUTNumberNumberIsLoggedIn(String deviceType, String setId) throws Exception {
+        if (isNull(deviceType) || (!deviceType.equalsIgnoreCase("alteon") && !deviceType.equalsIgnoreCase("appwall"))) {
             BaseTestUtils.report("The Device Type should be Alteon Or AppWall", FAIL);
         }
 
-        if (isNull(deviceNumber)) BaseTestUtils.report("No device number was provided", FAIL);
+        if (isNull(setId)) BaseTestUtils.report("No device number was provided", FAIL);
 
-        String baseUri = UriUtils.buildUrlFromProtocolAndIp("https", SutUtils.getDeviceIp(sutDeviceType, deviceNumber));
-        String username = SutUtils.getDeviceUserName(sutDeviceType, deviceNumber);
-        String password = SutUtils.getDevicePassword(sutDeviceType, deviceNumber);
+        Optional<TreeDeviceManagementDto> deviceManagementOpt = getDeviceManagement(setId);
+
+        if (!deviceManagementOpt.isPresent())
+            BaseTestUtils.report(String.format("No device with setId \"%s\" was found", setId), FAIL);
+        TreeDeviceManagementDto deviceManagement = deviceManagementOpt.get();
 
 
-        RestStepResult result = RestClientsStepsHandler.alteonAppWallLogin(sutDeviceType.getDeviceType(), baseUri, null, username, password);
+        String baseUri = buildUrlFromProtocolAndIp("https", deviceManagement.getManagementIp());
+        String username = deviceManagement.getHttpsUsername();
+        String password = deviceManagement.getHttpsPassword();
+
+
+        RestStepResult result = RestClientsStepsHandler.alteonAppWallLogin(deviceType, baseUri, null, username, password);
 
         if (result.getStatus().equals(RestStepResult.Status.FAILED))
             BaseTestUtils.report(result.getMessage(), FAIL);
@@ -134,7 +144,7 @@ public class RestClientsSteps extends BddRestTestBase {
 
         if (isNull(protocol)) protocol = "HTTPS";
 
-        String baseUri = UriUtils.buildUrlFromProtocolAndIp(protocol, ip);
+        String baseUri = buildUrlFromProtocolAndIp(protocol, ip);
 
 
         RestStepResult result = RestClientsStepsHandler.alteonAppWallLogin(sutDeviceType.getDeviceType(), baseUri, port, username, password);
@@ -151,11 +161,11 @@ public class RestClientsSteps extends BddRestTestBase {
             BaseTestUtils.report("Username and Password both should be given or no one of them.", FAIL);
         }
 
-        if (isNull(protocol)) protocol = SutUtils.getCurrentVisionRestProtocol();
-        String baseUri = UriUtils.buildUrlFromProtocolAndIp(protocol, SutUtils.getCurrentVisionIp());
+        if (isNull(protocol)) protocol = getCurrentVisionRestProtocol();
+        String baseUri = buildUrlFromProtocolAndIp(protocol, getCurrentVisionIp());
         if (isNull(username)) {
-            username = SutUtils.getCurrentVisionRestUserName();
-            password = SutUtils.getCurrentVisionRestUserPassword();
+            username = getCurrentVisionRestUserName();
+            password = getCurrentVisionRestUserPassword();
         }
         RestStepResult result = RestClientsStepsHandler.onVisionVDirectLogin(baseUri, port, username, password);
         if (result.getStatus().equals(RestStepResult.Status.FAILED))
@@ -166,6 +176,7 @@ public class RestClientsSteps extends BddRestTestBase {
 
     @Given("^That Defense Flow Device from SUT File is Logged In(?: With Username \"([^\"]*)\" and Password \"([^\"]*)\")?$")
     public void thatDefenseFlowIsLoggedInWithUsernameAndPassword(String username, String password) throws Exception {
+//       kVision - defenseFlow
 //        Should be Change to get the data from SUT Utils
 //        defenseFlowDevice DF = (defenseFlowDevice) system.getSystemObject("defenseFlowDevice");
 //        if (isNull(username) ^ isNull(password)) {
@@ -174,9 +185,7 @@ public class RestClientsSteps extends BddRestTestBase {
 //        if (isNull(username)) {
 //            username = DF.username;
 //            password = DF.password;
-//
 //        }
-
 //        String baseUri = UriUtils.buildUrlFromProtocolAndIp("https", DF.deviceIp);
 //        Integer port = null;
 //        RestStepResult result = RestClientsStepsHandler.defenseFlowLogin(baseUri, port, username, password);

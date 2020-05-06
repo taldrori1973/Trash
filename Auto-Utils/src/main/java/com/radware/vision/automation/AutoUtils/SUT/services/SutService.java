@@ -112,4 +112,9 @@ public class SutService {
         if (Objects.isNull(jsonNode)) return Optional.empty();
         return Optional.of(jsonNode);
     }
+
+    public String getSiteParent(String siteName) {
+        Optional<Site> siteByName = this.setupDao.findSiteByName(siteName);
+        return siteByName.map(Site::getParentSite).orElse(null);
+    }
 }

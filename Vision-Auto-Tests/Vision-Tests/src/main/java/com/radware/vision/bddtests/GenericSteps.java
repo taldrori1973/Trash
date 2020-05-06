@@ -100,8 +100,8 @@ public class GenericSteps extends BddUITestBase {
         entries.forEach(entry -> {
             String param = null;
             try {
-                if (entry.index != null) {
-                    param = devicesManager.getDeviceInfo(SUTDeviceType.DefensePro, entry.index).getDeviceIp();
+//                if (entry.index != null) {
+//                    param = devicesManager.getDeviceInfo(SUTDeviceType.DefensePro, entry.index).getDeviceIp();
                     String[] params = param.split(",");
                     try {
                          BasicOperationsHandler.clickButton(label, params);
@@ -109,9 +109,9 @@ public class GenericSteps extends BddUITestBase {
                         BaseTestUtils.report("No Element with data-debug-id " + VisionDebugIdsManager.getDataDebugId(), Reporter.FAIL);
                     }
 
-                }else{
+//                }else{
                      BasicOperationsHandler.clickButton(label, param);
-                }
+//                }
 
             } catch (Exception e) {
                 BaseTestUtils.report(e.getMessage(), e);

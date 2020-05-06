@@ -25,11 +25,16 @@ import com.radware.vision.infra.testhandlers.baseoperations.clickoperations.Clic
 import com.radware.vision.infra.testhandlers.topologytree.TopologyTreeHandler;
 import com.radware.vision.infra.utils.TimeUtils;
 import com.radware.vision.infra.utils.VisionWebUIUtils;
+import com.radware.vision.restAPI.GenericVisionRestAPI;
 import com.radware.vision.restBddTests.RestClientsSteps;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
+import models.RestResponse;
+import models.StatusCode;
+import net.bytebuddy.implementation.bytecode.Throw;
 import org.openqa.selenium.By;
+import org.openqa.selenium.Cookie;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.How;
@@ -37,6 +42,7 @@ import org.openqa.selenium.support.How;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
+import java.util.HashMap;
 import java.util.List;
 
 import static com.radware.vision.infra.testhandlers.baseoperations.BasicOperationsHandler.isLoggedIn;
@@ -143,8 +149,8 @@ public class BasicOperationsSteps extends BddUITestBase {
     /**
      * UI and REST login
      *
-     * @param username         - user name
-     * @param password         - password
+     * @param username - user name
+     * @param password - password
      * @throws Exception - throws exception
      */
     public static void loginToServer(String username, String password) throws Exception {
@@ -154,7 +160,7 @@ public class BasicOperationsSteps extends BddUITestBase {
         BasicOperationsHandler.login(username, password);
         VisionWebUIUtils.loggedinUser = username;
 //        visionRestClient.login(username, password, "", 1);
-        RestClientsSteps.thatCurrentVisionIsLoggedIn(null,username,password,null);
+        RestClientsSteps.thatCurrentVisionIsLoggedIn(null, username, password, null);
     }
 
     /**
@@ -193,8 +199,25 @@ public class BasicOperationsSteps extends BddUITestBase {
     @Given("^UI Logout$")
     public void logout() {
         try {
-            logoutFromServer(restTestBase.getVisionRestClient(), VisionWebUIUtils.loggedinUser);
+//            logoutFromServer(restTestBase.getVisionRestClient(), VisionWebUIUtils.loggedinUser);
+            Cookie jsessionId = WebUIUtils.getDriver().manage().getCookieNamed("JSESSIONID");
+            if (jsessionId == null) {
+                throw new Exception("can't get the JSESSIONID.");
+            }
+            String browserSessionId = jsessionId.getValue();
+            BaseTestUtils.report("Browser Session Id = " + browserSessionId, Reporter.PASS_NOR_FAIL);
+            GenericVisionRestAPI currentVisionRestAPI = new GenericVisionRestAPI("Vision/SystemManagement.json", "Log Out");
+            HashMap<String, String> hash_map_param = new HashMap<>();
+            hash_map_param.put("JSESSIONID", browserSessionId);
+            currentVisionRestAPI.getRestRequestSpecification().setCookies(hash_map_param);
+            RestResponse restResponse = currentVisionRestAPI.sendRequest();
+            if (!restResponse.getStatusCode().equals(StatusCode.OK)) {
+                throw new Exception("Failed to Log Out");
+            }
             VisionWebUIUtils.loggedinUser = null;
+        } catch (Exception e) {
+            e.printStackTrace();
+            BaseTestUtils.report("failed to logout", Reporter.FAIL);
         } finally {
             BasicOperationsHandler.delay(1);
         }
@@ -352,7 +375,7 @@ public class BasicOperationsSteps extends BddUITestBase {
     @Then("^UI set Current Time Plus Seconds \"(.*)\"$")
     public void setCurrentTimePlusSeconds(long secondsToAdd) {
         try {
-            SystemProperties systemProperties=SystemProperties.get_instance();
+            SystemProperties systemProperties = SystemProperties.get_instance();
             LocalTime currentTime = LocalTime.now();
             currentTime = currentTime.plusSeconds(secondsToAdd);
             String hours = Integer.toString(currentTime.getHour());
