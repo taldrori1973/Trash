@@ -192,7 +192,7 @@ public class GenericSteps {
 
 
     @Given("^That Defense Flow With Ip \"([^\"]*)\" , Port (\\d+) , Username \"([^\"]*)\" and Password \"([^\"]*)\" register Vision with Ip \"([^\"]*)\"$")
-    public void thatDefenseFlowWithIpPortUsernameAndPasswordRegisterVisionWithIp(String arg0, int arg1, String arg2, String arg3, String arg4) throws Throwable {
+    public void thatDefenseFlowWithIpPortUsernameAndPasswordRegisterVisionWithIp(String defenseFlowIp, int defenseFlowPort, String defenseFlowUsername, String defenseFlowPassword, String visionIp) throws Throwable {
         // Write code here that turns the phrase above into concrete actions
         throw new PendingException();
     }
