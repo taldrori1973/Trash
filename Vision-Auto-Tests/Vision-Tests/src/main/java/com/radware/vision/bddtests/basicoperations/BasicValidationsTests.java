@@ -7,6 +7,7 @@ import com.radware.automation.webui.VisionDebugIdsManager;
 import com.radware.automation.webui.WebUIUtils;
 import com.radware.automation.webui.widgets.ComponentLocatorFactory;
 import com.radware.automation.webui.widgets.impl.table.BasicTable;
+import com.radware.automation.webui.widgets.impl.table.BasicTableWithPagination;
 import com.radware.automation.webui.widgets.impl.table.WebUITable;
 import com.radware.jsonparsers.impl.JsonUtils;
 import com.radware.vision.automation.tools.sutsystemobjects.devicesinfo.enums.SUTDeviceType;
@@ -29,6 +30,8 @@ import com.radware.vision.infra.utils.TimeUtils;
 import com.radware.vision.tests.GeneralOperations.ByLabelValidations;
 import cucumber.api.java.en.Then;
 import org.json.JSONArray;
+import org.openqa.selenium.By;
+import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebElement;
 
 import java.time.LocalDateTime;
@@ -359,9 +362,18 @@ public class BasicValidationsTests extends BddUITestBase {
 
     @Then("^UI Validate search in table \"([^\"]*)\" in searchLabel \"([^\"]*)\"(?: with params \"([^\"]*)\")? with text \"([^\"]*)\"$")
     public void uiValidateSearchInTableInSearchLabelWithParamsWithText(String tableName, String searchLabel, String searchParams, String text, List<TableValues> entries) throws Exception {
-        setTextField(searchLabel, searchParams, text,false);
+        VisionDebugIdsManager.setLabel(searchLabel);
+        VisionDebugIdsManager.setParams(searchParams);
+        WebElement searchElement = WebUIUtils.fluentWait(ComponentLocatorFactory.getLocatorByXpathDbgId(VisionDebugIdsManager.getDataDebugId()).getBy());
+        if (searchElement.findElement(By.xpath("./input")) != null)
+        {
+            searchElement.findElement(By.xpath("./input")).sendKeys(new CharSequence[]{text});
+        }else
+        {
+            setTextField(searchLabel, searchParams, text,false);
+        }
         VisionDebugIdsManager.setLabel(tableName);
-        BasicTable table = new BasicTable(ComponentLocatorFactory.getEqualLocatorByDbgId(VisionDebugIdsManager.getDataDebugId()), true);
+        BasicTable table = new BasicTableWithPagination(ComponentLocatorFactory.getEqualLocatorByDbgId(VisionDebugIdsManager.getDataDebugId()), true);
         for (TableValues entry : entries)
         {
             List<String> columnName = new ArrayList();

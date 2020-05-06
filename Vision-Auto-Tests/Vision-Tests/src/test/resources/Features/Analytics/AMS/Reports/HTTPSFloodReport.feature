@@ -1,5 +1,4 @@
 @TC108556
-
 Feature: HTTPS Flood Report
 
 #  ==========================================Setup================================================
@@ -94,8 +93,7 @@ Feature: HTTPS Flood Report
   Scenario: Create New Report with With HTML Format
     Then UI "Create" Report With Name "HTML Format"
       | reportType | HTTPS Flood                                                        |
-    # | Design     | Add:[Inbound Traffic,Outbound Traffic]                             |
-      | Design     | Add:[Inbound Traffic]                             |
+      | Design     | Add:[Inbound Traffic]                                              |
       | policy     | serverName:test,deviceName:DefensePro_172.16.22.51,policyName:pol1 |
       | Format     | Select: HTML                                                       |
     Then UI Validate Element Existence By Label "Title" if Exists "true" with value "HTML Format"
@@ -109,14 +107,12 @@ Feature: HTTPS Flood Report
   Scenario: Create New Report with With CSV Format
     Then UI "Create" Report With Name "CSV Format"
       | reportType | HTTPS Flood                                                        |
-      | Design     | Add:[Inbound Traffic]                             |
-#     | Design     | Add:[Inbound Traffic,Outbound Traffic]                             |
+      | Design     | Add:[Inbound Traffic]                                              |
       | policy     | serverName:test,deviceName:DefensePro_172.16.22.51,policyName:pol1 |
       | Format     | Select: CSV                                                        |
     Then UI Validate Element Existence By Label "Title" if Exists "true" with value "CSV Format"
     Then UI "Validate" Report With Name "CSV Format"
-      | Design                | Widgets:[Inbound Traffic]                         |
-  #   | Design                | Widgets:[Inbound Traffic,Outbound Traffic]                         |
+      | Design                | Widgets:[Inbound Traffic]                                          |
       | Time Definitions.Date | Quick:1H                                                           |
       | policy                | serverName:test,deviceName:DefensePro_172.16.22.51,policyName:pol1 |
       | Format                | Select: CSV                                                        |
@@ -155,9 +151,9 @@ Feature: HTTPS Flood Report
     And Sleep "3"
     Then CSV Validate "table2" Table Size Equals to 1
 
-    Then CSV Validate Row Number 0 at "table1" Table Equals to "\d{13},25060.0,17500.0" Regex
+    Then CSV Validate Row Number 0 at "table1" Table Equals to ".*,25060.0,17500.0" Regex
     And Sleep "3"
-    Then CSV Validate Row Number 0 at "table2" Table Equals to "\d{13},21641.0,7002.258,17200.0,5075.3" Regex
+    Then CSV Validate Row Number 0 at "table2" Table Equals to ".*,21641.0,7002.258,17200.0,5075.3" Regex
 
   @SID_16
   Scenario: Validate Inbound Traffic - Request Size Distribution
