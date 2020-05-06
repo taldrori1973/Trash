@@ -16,7 +16,7 @@ public interface TopologyTree {
 
     RestStepResult addDevice(String setId);
 
-    Optional<JsonNode> getDeviceData(String setId);
+    Optional<JsonNode> getDeviceData(String setId) throws Exception;
 
     RestStepResult updateDevice(String setId);
 

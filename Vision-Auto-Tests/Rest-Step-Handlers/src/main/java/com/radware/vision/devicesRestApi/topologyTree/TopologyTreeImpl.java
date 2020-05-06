@@ -82,7 +82,10 @@ public class TopologyTreeImpl implements TopologyTree {
     }
 
     @Override
-    public Optional<JsonNode> getDeviceData(String setId) {
+    public Optional<JsonNode> getDeviceData(String setId) throws Exception {
+
+        Optional<TreeDeviceManagementDto> deviceManagement = getDeviceManagement(setId);
+        if(!deviceManagement.isPresent()) throw new Exception(format("The Device with Set Id \"%s\" wasn't found", setId));
 
         return null;
     }
