@@ -151,11 +151,7 @@ public class VMOperationsSteps extends BddUITestBase {
             BaseTestUtils.report("Server is not running. status is: " + CliOperations.lastOutput, Reporter.FAIL);
 
         Thread.sleep(6 * 60 * 1000);
-        RootServerCli rootServerCli = new RootServerCli(visionRadwareFirstTime.getIp(),"root","radware");
-        rootServerCli.init();
-        rootServerCli.connect();
-        CliOperations.runCommand(rootServerCli, "\"yes|restore_radware_user_password\"", 15 * 1000);
-//        CliOperations.runCommand(getRestTestBase().getRootServerCli(), "\"yes|restore_radware_user_password\"", 15 * 1000);
+        CliOperations.runCommand(getRestTestBase().getRootServerCli(), "yes|restore_radware_user_password", 15 * 1000);
         if (VisionServer.waitForVisionServerServicesToStartHA(restTestBase.getRadwareServerCli(), 45 * 60 * 1000))
             BaseTestUtils.report("All services up", Reporter.PASS);
         else {
