@@ -18,6 +18,7 @@ import models.*;
 import net.minidev.json.JSONArray;
 import restInterface.RestApi;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -195,6 +196,15 @@ public class GenericSteps {
     @Given("^That Defense Flow With Ip \"([^\"]*)\" , Port (\\d+) , Username \"([^\"]*)\" and Password \"([^\"]*)\" register Vision with Ip \"([^\"]*)\"$")
     public void thatDefenseFlowWithIpPortUsernameAndPasswordRegisterVisionWithIp(String defenseFlowIp, int defenseFlowPort, String defenseFlowUsername, String defenseFlowPassword, String visionIp) throws Throwable {
         RestClientsStepsHandler.switchToNoAuthClient(UriUtils.buildUrlFromProtocolAndIp("https", defenseFlowIp), defenseFlowPort);
-        this.restRequestSpecification = GenericStepsHandler.createNewRestRequestSpecification(filePath, requestLabel);
+        newRequestSpecificationFromFileWithLabel("/DefenseFlow/VisionRequests.json", "Register DefenseFlow in Vision");
+        List<BodyEntry> bodyEntries = new ArrayList<>();
+        bodyEntries.add(new BodyEntry("$.ip", visionIp));
+        bodyEntries.add(new BodyEntry("$.user", defenseFlowUsername));
+        bodyEntries.add(new BodyEntry("$.password", defenseFlowPassword));
+        theRequestBodyIs("Object", bodyEntries);
+        sendRequest();
+        validateThatResponseCodeOK(StatusCode.OK);
+
+
     }
 }
