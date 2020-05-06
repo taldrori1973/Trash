@@ -10,6 +10,7 @@ import com.radware.automation.webui.widgets.ComponentLocatorFactory;
 import com.radware.automation.webui.widgets.api.Widget;
 import com.radware.automation.webui.widgets.impl.table.WebUITable;
 import com.radware.restcore.VisionRestClient;
+import com.radware.vision.RestClientsFactory;
 import com.radware.vision.automation.AutoUtils.Operators.OperatorsEnum;
 import com.radware.vision.automation.AutoUtils.utils.SystemProperties;
 import com.radware.vision.automation.tools.sutsystemobjects.devicesinfo.DeviceInfo;
@@ -38,6 +39,7 @@ import org.openqa.selenium.Cookie;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.How;
+import restInterface.client.SessionBasedRestClient;
 
 import java.time.LocalDateTime;
 import java.time.LocalTime;
@@ -47,6 +49,9 @@ import java.util.List;
 
 import static com.radware.vision.infra.testhandlers.baseoperations.BasicOperationsHandler.isLoggedIn;
 import static com.radware.vision.infra.testhandlers.baseoperations.BasicOperationsHandler.isLoggedOut;
+import static com.radware.vision.utils.SutUtils.*;
+import static com.radware.vision.utils.SutUtils.getCurrentVisionRestUserPassword;
+import static com.radware.vision.utils.UriUtils.buildUrlFromProtocolAndIp;
 
 /**
  * Created by AviH on 30-Nov-17.
@@ -193,31 +198,46 @@ public class BasicOperationsSteps extends BddUITestBase {
         }
     }
 
+    public static void logoutBrowser() throws Exception {
+        Cookie jsessionId = WebUIUtils.getDriver().manage().getCookieNamed("JSESSIONID");
+        if (jsessionId == null) {
+            throw new Exception("can't get the JSESSIONID.");
+        }
+        String browserSessionId = jsessionId.getValue();
+        BaseTestUtils.report("Browser Session Id = " + browserSessionId, Reporter.PASS_NOR_FAIL);
+        GenericVisionRestAPI currentVisionRestAPI = new GenericVisionRestAPI("Vision/SystemManagement.json", "Log Out");
+        HashMap<String, String> hash_map_param = new HashMap<>();
+        hash_map_param.put("JSESSIONID", browserSessionId);
+        currentVisionRestAPI.getRestRequestSpecification().setCookies(hash_map_param);
+        RestResponse restResponse = currentVisionRestAPI.sendRequest();
+        if (!restResponse.getStatusCode().equals(StatusCode.OK)) {
+            throw new Exception("Failed to Log Out");
+        }
+        VisionWebUIUtils.loggedinUser = null;
+    }
+
+    public static void logoutRestInfra() throws Exception {
+        String baseUri = buildUrlFromProtocolAndIp(getCurrentVisionRestProtocol(), getCurrentVisionIp());
+        SessionBasedRestClient connection = RestClientsFactory.getVisionConnection(baseUri, getCurrentVisionRestPort(), getCurrentVisionRestUserName(), getCurrentVisionRestUserPassword(), null);
+        if (connection.isLoggedIn()) {
+            connection.logout();
+        }
+    }
+
+
     /**
      * logout from Vision
      */
     @Given("^UI Logout$")
     public void logout() {
         try {
-//            logoutFromServer(restTestBase.getVisionRestClient(), VisionWebUIUtils.loggedinUser);
-            Cookie jsessionId = WebUIUtils.getDriver().manage().getCookieNamed("JSESSIONID");
-            if (jsessionId == null) {
-                throw new Exception("can't get the JSESSIONID.");
-            }
-            String browserSessionId = jsessionId.getValue();
-            BaseTestUtils.report("Browser Session Id = " + browserSessionId, Reporter.PASS_NOR_FAIL);
-            GenericVisionRestAPI currentVisionRestAPI = new GenericVisionRestAPI("Vision/SystemManagement.json", "Log Out");
-            HashMap<String, String> hash_map_param = new HashMap<>();
-            hash_map_param.put("JSESSIONID", browserSessionId);
-            currentVisionRestAPI.getRestRequestSpecification().setCookies(hash_map_param);
-            RestResponse restResponse = currentVisionRestAPI.sendRequest();
-            if (!restResponse.getStatusCode().equals(StatusCode.OK)) {
-                throw new Exception("Failed to Log Out");
-            }
-            VisionWebUIUtils.loggedinUser = null;
+            logoutBrowser();
+            logoutRestInfra();
+            isLoggedIn = false;
+            VisionDebugIdsManager.setTab("LoginPage");
         } catch (Exception e) {
             e.printStackTrace();
-            BaseTestUtils.report("failed to logout", Reporter.FAIL);
+            BaseTestUtils.report("failed to logout" + e.getMessage(), Reporter.FAIL);
         } finally {
             BasicOperationsHandler.delay(1);
         }
