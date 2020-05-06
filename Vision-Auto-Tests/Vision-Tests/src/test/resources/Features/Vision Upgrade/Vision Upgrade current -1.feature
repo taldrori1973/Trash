@@ -25,16 +25,19 @@ Feature: Vision Upgrade current -1
   @SID_4
   Scenario: Do any pre-upgrade changes
     Given REST Login with activation with user "sys_admin" and password "radware"
-    Then REST Vision DELETE License Request "vision-reporting-module-ADC"
-    # extract MySql create partition number
+      # extract MySql create partition number
     Then CLI Run remote linux Command "echo "Before " $(mysql -prad123 vision -e "show create table traffic_utilizations\G" |grep "(PARTITION p" |awk -F"p" '{print$2}'|awk '{printf$1}') >  /opt/radware/sql_partition.txt" on "ROOT_SERVER_CLI"
+    Then CLI Run remote linux Command "/usr/sbin/ntpdate -u $(/bin/grep ^server  /etc/ntp.conf | awk '{print $2}')" on "ROOT_SERVER_CLI" with timeOut 120
     Then CLI Clear vision logs
 
   @SID_5
   Scenario: Change TED configuration
+    Given REST Login with activation with user "sys_admin" and password "radware"
+    Then REST Vision Install License Request "vision-reporting-module-ADC"
     Then CLI Run remote linux Command "cat /opt/radware/storage/ted/config/ted.cfg" on "ROOT_SERVER_CLI"
     Then CLI Run remote linux Command "sed -i 's/"elasticRetentionMaxPercent":.*,/"elasticRetentionMaxPercent":74,/g' /opt/radware/storage/ted/config/ted.cfg" on "ROOT_SERVER_CLI"
     Then CLI Run remote linux Command "cat /opt/radware/storage/ted/config/ted.cfg" on "ROOT_SERVER_CLI"
+    Then REST Vision DELETE License Request "vision-reporting-module-ADC"
 
 
    ######################################################################################
