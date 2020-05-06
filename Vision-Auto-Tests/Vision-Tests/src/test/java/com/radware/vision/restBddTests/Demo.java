@@ -6,7 +6,11 @@ import com.radware.vision.automation.VisionAutoInfra.CLIInfra.Servers.ServerCliB
 import com.radware.vision.bddtests.BddRestTestBase;
 import com.radware.vision.devicesRestApi.topologyTree.TopologyTree;
 import com.radware.vision.devicesRestApi.topologyTree.TopologyTreeImpl;
+import com.radware.vision.utils.BodyEntry;
 import cucumber.api.java.en.Then;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class Demo extends BddRestTestBase {
     @Then("^Send request$")
@@ -24,11 +28,19 @@ public class Demo extends BddRestTestBase {
     @Then("^SUT Test$")
     public void sutTest() throws Exception {
         TopologyTree topologyTree = new TopologyTreeImpl();
-topologyTree.updateDevice("Alteon_Set_2");
+
+        RestStepResult result = topologyTree.addDevice("Alteon_Set_1");
+
+        List<BodyEntry> bodyEntries = new ArrayList<>();
+        bodyEntries.add(new BodyEntry("$.deviceSetup.deviceAccess.cliPassword", "1456"));
+        bodyEntries.add(new BodyEntry("$.deviceSetup.deviceAccess.httpUsername", "httpUsername"));
+        bodyEntries.add(new BodyEntry("$.deviceSetup.deviceAccess.snmpV2ReadCommunity", "snmpV2ReadCommunity"));
+        bodyEntries.add(new BodyEntry("$.name", "alteon"));
+
+        topologyTree.updateDevice("Alteon_Set_1", bodyEntries);
 //        RestStepResult result = topologyTree.deleteSite("aaa");
 //        if (result.getStatus().equals(RestStepResult.Status.FAILED))
 //            BaseTestUtils.report(result.getMessage(), Reporter.FAIL);
-        RestStepResult result = topologyTree.addDevice("Alteon_Set_2");
 //        try {
 
 //            System.out.println(topologyTree.getSiteOrmId("Default"));
