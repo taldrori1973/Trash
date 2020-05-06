@@ -47,10 +47,8 @@ Feature: Demo
       | $.status | "ok"  |
 
 
-  @run3
   Scenario: DefenseFlow
-#    Given That Defense Flow Device from SUT File is Logged In
-#    Given That Defense Flow With Ip "172.17.160.152" , Port 9101 , Username "defenseflow" and Password "defenseflow" register Vision with Ip "172.17.192.100"
+
     Given That Defense Flow With Ip "172.17.160.152" And Port 9101 is Connected without Authentication
     Given New Request Specification from File "/DefenseFlow/VisionRequests.json" with label "Register DefenseFlow in Vision"
     And The Request Body is the following Object
