@@ -32,6 +32,13 @@
       "produces": "application/json",
       "consumes": "application/json",
       "description": "Adds a device to the APSolute Vision server"
+    },
+    {
+      "label": "Get Device Data",
+      "method": "GET",
+      "basePath": "/mgmt/system/config/tree/device/byip/{ip}",
+      "produces": "application/json",
+      "description": "Retrieves device information, device properties, and status from the APSolute Vision server."
     }
   ]
 }
