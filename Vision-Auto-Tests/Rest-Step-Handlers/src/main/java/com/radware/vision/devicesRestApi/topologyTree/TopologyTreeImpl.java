@@ -8,10 +8,12 @@ import com.jayway.jsonpath.JsonPath;
 import com.radware.vision.RestStepResult;
 import com.radware.vision.automation.AutoUtils.SUT.dtos.TreeDeviceManagementDto;
 import com.radware.vision.restAPI.GenericVisionRestAPI;
+import com.radware.vision.utils.BodyEntry;
 import models.RestResponse;
 import models.StatusCode;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
@@ -96,44 +98,47 @@ public class TopologyTreeImpl implements TopologyTree {
     }
 
     @Override
-    public RestStepResult updateDevice(String setId) {
-    try {
+    public RestStepResult updateDevice(String setId, List<BodyEntry> bodyEntries) {
+        try {
 
 //      get device from sut
-        Optional<TreeDeviceManagementDto> treeDeviceManagementDtoOptional = getDeviceManagement(setId);
-        if (!treeDeviceManagementDtoOptional.isPresent()) return new RestStepResult(RestStepResult.Status.FAILED,
-                format("The Device with Set Id \"%s\" wasn't found", setId));
+            Optional<TreeDeviceManagementDto> treeDeviceManagementDtoOptional = getDeviceManagement(setId);
+            if (!treeDeviceManagementDtoOptional.isPresent()) return new RestStepResult(RestStepResult.Status.FAILED,
+                    format("The Device with Set Id \"%s\" wasn't found", setId));
 
-        TreeDeviceManagementDto deviceManagementDto = treeDeviceManagementDtoOptional.get();
+            TreeDeviceManagementDto deviceManagementDto = treeDeviceManagementDtoOptional.get();
 
 //      get device Request Body from SUT
-        Optional<JsonNode> requestBodyAsJsonNodeOpt = getDeviceRequestBodyAsJson(deviceManagementDto.getDeviceId());
+            Optional<JsonNode> requestBodyAsJsonNodeOpt = getDeviceRequestBodyAsJson(deviceManagementDto.getDeviceId());
 
-        if (!requestBodyAsJsonNodeOpt.isPresent())
-            return new RestStepResult(RestStepResult.Status.FAILED, "No Json Body was returned from the SUT");
+            if (!requestBodyAsJsonNodeOpt.isPresent())
+                return new RestStepResult(RestStepResult.Status.FAILED, "No Json Body was returned from the SUT");
 
 //      get and cast JsonNode to ObjectNode because JsonNode is Immutable.
-        ObjectNode body = (ObjectNode) requestBodyAsJsonNodeOpt.get();
+            ObjectNode body = (ObjectNode) requestBodyAsJsonNodeOpt.get();
 //      remove not for update fields
 
-        body.remove("type");
-        body.remove("parentOrmID");
+            body.remove("type");
+            body.remove("parentOrmID");
 //      add ormID field
-        String ormID = null;
+            String ormID = null;
 
-        Optional<JsonNode> deviceDataOpt = this.getDeviceData(setId);
-        if (!deviceDataOpt.isPresent())
-            return new RestStepResult(RestStepResult.Status.FAILED, "No Device Data Was returned");
+            Optional<JsonNode> deviceDataOpt = this.getDeviceData(setId);
+            if (!deviceDataOpt.isPresent())
+                return new RestStepResult(RestStepResult.Status.FAILED, "No Device Data Was returned");
 
-        if (deviceDataOpt.get().has("ormID")) ormID = deviceDataOpt.get().get("ormID").asText();
-        else return new RestStepResult(RestStepResult.Status.FAILED, "ormID not found to delete the device");
-        body.put("ormID", ormID);
-        DocumentContext documentContext = JsonPath.parse(body.toString());
-        documentContext.set("$.deviceSetup.deviceAccess.cliPassword", "123");
-        return null;
-    } catch (Exception e) {
-        e.printStackTrace();
-    }
+            if (deviceDataOpt.get().has("ormID")) ormID = deviceDataOpt.get().get("ormID").asText();
+            else return new RestStepResult(RestStepResult.Status.FAILED, "ormID not found to delete the device");
+
+            body.put("ormID", ormID);
+
+            DocumentContext documentContext = JsonPath.parse(body.toString());
+
+            documentContext.set("$.deviceSetup.deviceAccess.cliPassword", "123");
+            return null;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     @Override
