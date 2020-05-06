@@ -49,8 +49,5 @@ Feature: Demo
       | $.status | "ok"  |
 
 
-  Scenario: DefenseFlow
-    Given That Defense Flow Device from SUT File is Logged In
-
 
 
