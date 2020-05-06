@@ -164,7 +164,7 @@ Feature: Vision Install KVM SA
     Then CLI Run linux Command "service mgtsrv status" on "ROOT_SERVER_CLI" and validate result CONTAINS "Radware vDirect is running" in any line with timeOut 15
     Then CLI Run linux Command "service mgtsrv status" on "ROOT_SERVER_CLI" and validate result CONTAINS "VRM reporting engine is running" in any line with timeOut 15
 
-  @SID_21
-  Scenario: Verify 32GB RAM
-    Then CLI Run linux Command "grep MemTotal /proc/meminfo | awk '{print $2 / 1024}'" on "ROOT_SERVER_CLI" and validate result EQUALS "32140.3"
+#  @SID_21
+#  Scenario: Verify 32GB RAM
+#    Then CLI Run linux Command "grep MemTotal /proc/meminfo | awk '{print $2 / 1024}'" on "ROOT_SERVER_CLI" and validate result EQUALS "32140.3"
 
