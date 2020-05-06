@@ -13,7 +13,7 @@ public interface TopologyTree {
 
     RestStepResult addDevice(String setId);
 
-    RestStepResult getDevice(String setId);
+    RestStepResult getDeviceData(String setId);
 
     RestStepResult updateDevice(String setId);
 

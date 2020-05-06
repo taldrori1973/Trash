@@ -82,7 +82,7 @@ public class TopologyTreeImpl implements TopologyTree {
     }
 
     @Override
-    public RestStepResult getDevice(String setId) {
+    public RestStepResult getDeviceData(String setId) {
         return null;
     }
 
