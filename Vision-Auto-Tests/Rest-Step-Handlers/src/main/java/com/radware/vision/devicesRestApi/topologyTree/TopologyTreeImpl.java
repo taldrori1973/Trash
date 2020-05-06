@@ -101,10 +101,13 @@ public class TopologyTreeImpl implements TopologyTree {
     @Override
     public RestStepResult deleteDevice(String setId) {
 
-        Optional<TreeDeviceManagementDto> deviceManagementOpt = getDeviceManagement(setId);
-        if (!deviceManagementOpt.isPresent())
-            return new RestStepResult(RestStepResult.Status.FAILED, format("The Device with Set Id \"%s\" wasn't found", setId));
-
+        try {
+            Optional<JsonNode> deviceDataOpt = this.getDeviceData(setId);
+            if (!deviceDataOpt.isPresent())
+                return new RestStepResult(RestStepResult.Status.FAILED, "No Device Data Was returned");
+        } catch (Exception e) {
+            return new RestStepResult(RestStepResult.Status.FAILED, e.getMessage());
+        }
         return null;
     }
 
