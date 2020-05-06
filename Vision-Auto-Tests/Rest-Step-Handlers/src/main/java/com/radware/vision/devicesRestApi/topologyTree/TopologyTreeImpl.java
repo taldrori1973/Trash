@@ -189,4 +189,10 @@ public class TopologyTreeImpl implements TopologyTree {
             return new RestStepResult(RestStepResult.Status.FAILED, e.getMessage());
         }
     }
+
+
+    private Optional<JsonNode> getDeviceDataByIp(String deviceIp) {
+        return null;
+
+    }
 }
