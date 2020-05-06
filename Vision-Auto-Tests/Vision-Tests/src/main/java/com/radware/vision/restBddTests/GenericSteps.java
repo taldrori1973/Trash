@@ -4,11 +4,12 @@ package com.radware.vision.restBddTests;
 import com.jayway.jsonpath.DocumentContext;
 import com.jayway.jsonpath.JsonPath;
 import com.radware.vision.RestStepResult;
+import com.radware.vision.restBddTests.utils.UriUtils;
 import com.radware.vision.restTestHandler.GenericStepsHandler;
+import com.radware.vision.restTestHandler.RestClientsStepsHandler;
 import com.radware.vision.utils.BodyEntry;
 import com.radware.vision.utils.StepsParametersUtils;
 import controllers.RestApiManagement;
-import cucumber.api.PendingException;
 import cucumber.api.java.en.And;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
@@ -193,7 +194,7 @@ public class GenericSteps {
 
     @Given("^That Defense Flow With Ip \"([^\"]*)\" , Port (\\d+) , Username \"([^\"]*)\" and Password \"([^\"]*)\" register Vision with Ip \"([^\"]*)\"$")
     public void thatDefenseFlowWithIpPortUsernameAndPasswordRegisterVisionWithIp(String defenseFlowIp, int defenseFlowPort, String defenseFlowUsername, String defenseFlowPassword, String visionIp) throws Throwable {
-        // Write code here that turns the phrase above into concrete actions
-        throw new PendingException();
+        RestClientsStepsHandler.switchToNoAuthClient(UriUtils.buildUrlFromProtocolAndIp("https", defenseFlowIp), defenseFlowPort);
+        this.restRequestSpecification = GenericStepsHandler.createNewRestRequestSpecification(filePath, requestLabel);
     }
 }
