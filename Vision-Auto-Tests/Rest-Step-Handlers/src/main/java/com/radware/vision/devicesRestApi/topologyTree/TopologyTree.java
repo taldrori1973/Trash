@@ -1,6 +1,9 @@
 package com.radware.vision.devicesRestApi.topologyTree;
 
+import com.fasterxml.jackson.databind.JsonNode;
 import com.radware.vision.RestStepResult;
+
+import java.util.Optional;
 
 /**
  * Created by MohamadI - Muhamad Igbaria
@@ -13,7 +16,7 @@ public interface TopologyTree {
 
     RestStepResult addDevice(String setId);
 
-    RestStepResult getDeviceData(String setId);
+    Optional<JsonNode> getDeviceData(String setId);
 
     RestStepResult updateDevice(String setId);
 
