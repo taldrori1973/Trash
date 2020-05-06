@@ -95,6 +95,24 @@ public class TopologyTreeImpl implements TopologyTree {
 
     @Override
     public RestStepResult updateDevice(String setId) {
+
+
+//            get device from sut
+            Optional<TreeDeviceManagementDto> treeDeviceManagementDtoOptional = getDeviceManagement(setId);
+            if (!treeDeviceManagementDtoOptional.isPresent()) return new RestStepResult(RestStepResult.Status.FAILED,
+                    format("The Device with Set Id \"%s\" wasn't found", setId));
+
+            TreeDeviceManagementDto deviceManagementDto = treeDeviceManagementDtoOptional.get();
+
+//            get device Request Body from SUT
+            Optional<JsonNode> requestBodyAsJsonNodeOpt = getDeviceRequestBodyAsJson(deviceManagementDto.getDeviceId());
+
+            if (!requestBodyAsJsonNodeOpt.isPresent())
+                return new RestStepResult(RestStepResult.Status.FAILED, "No Json Body was returned from the SUT");
+
+//          get and cast JsonNode to ObjectNode because JsonNode is Immutable.
+            ObjectNode body = (ObjectNode) requestBodyAsJsonNodeOpt.get();
+
         return null;
     }
 
@@ -110,7 +128,7 @@ public class TopologyTreeImpl implements TopologyTree {
             if (deviceDataOpt.get().has("ormID")) ormID = deviceDataOpt.get().get("ormID").asText();
             else return new RestStepResult(RestStepResult.Status.FAILED, "ormID not found to delete the device");
 
-        GenericVisionRestAPI restAPI=new GenericVisionRestAPI(REQUESTS_FILE_PATH,null);
+            GenericVisionRestAPI restAPI = new GenericVisionRestAPI(REQUESTS_FILE_PATH, null);
 
         } catch (Exception e) {
             return new RestStepResult(RestStepResult.Status.FAILED, e.getMessage());
