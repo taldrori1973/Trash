@@ -97,6 +97,7 @@ public class TopologyTreeImpl implements TopologyTree {
 
     @Override
     public RestStepResult updateDevice(String setId) {
+    try {
 
 //      get device from sut
         Optional<TreeDeviceManagementDto> treeDeviceManagementDtoOptional = getDeviceManagement(setId);
@@ -123,6 +124,9 @@ public class TopologyTreeImpl implements TopologyTree {
         DocumentContext documentContext = JsonPath.parse(body.toString());
         documentContext.set("$.deviceSetup.deviceAccess.cliPassword", "123");
         return null;
+    } catch (Exception e) {
+        e.printStackTrace();
+    }
     }
 
     @Override
