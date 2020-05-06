@@ -135,12 +135,15 @@ public class TopologyTreeImpl implements TopologyTree {
             DocumentContext documentContext = JsonPath.parse(body.toString());
             bodyEntries.forEach(bodyEntry -> documentContext.set(bodyEntry.getJsonPath(), bodyEntry.getValue()));
 
-
+            GenericVisionRestAPI restAPI = new GenericVisionRestAPI(REQUESTS_FILE_PATH, "Update Device");
+            restAPI.getRestRequestSpecification().setBody(documentContext.toString());
+            RestResponse restResponse = restAPI.sendRequest();
 
             return null;
         } catch (Exception e) {
             e.printStackTrace();
         }
+        return null;
     }
 
     @Override
