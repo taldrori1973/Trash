@@ -134,7 +134,9 @@ public class TopologyTreeImpl implements TopologyTree {
 
             DocumentContext documentContext = JsonPath.parse(body.toString());
             bodyEntries.forEach(bodyEntry -> documentContext.set(bodyEntry.getJsonPath(), bodyEntry.getValue()));
-            documentContext.set("$.deviceSetup.deviceAccess.cliPassword", "123");
+
+
+
             return null;
         } catch (Exception e) {
             e.printStackTrace();

@@ -34,6 +34,14 @@
       "description": "Adds a device to the APSolute Vision server"
     },
     {
+      "label": "Update Device",
+      "method": "PUT",
+      "basePath": "/mgmt/system/config/tree/device",
+      "produces": "application/json",
+      "consumes": "application/json",
+      "description": "Updates a device "
+    },
+    {
       "label": "Get Device Data",
       "method": "GET",
       "basePath": "/mgmt/system/config/tree/device/byip/{ip}",
