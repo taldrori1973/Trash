@@ -120,6 +120,13 @@ public class TopologyTreeImpl implements TopologyTree {
         body.remove("parentOrmID");
 //      add ormID field
         String ormID = null;
+
+        Optional<JsonNode> deviceDataOpt = this.getDeviceData(setId);
+        if (!deviceDataOpt.isPresent())
+            return new RestStepResult(RestStepResult.Status.FAILED, "No Device Data Was returned");
+
+        if (deviceDataOpt.get().has("ormID")) ormID = deviceDataOpt.get().get("ormID").asText();
+        else return new RestStepResult(RestStepResult.Status.FAILED, "ormID not found to delete the device");
         body.put("ormID", ormID);
         DocumentContext documentContext = JsonPath.parse(body.toString());
         documentContext.set("$.deviceSetup.deviceAccess.cliPassword", "123");
