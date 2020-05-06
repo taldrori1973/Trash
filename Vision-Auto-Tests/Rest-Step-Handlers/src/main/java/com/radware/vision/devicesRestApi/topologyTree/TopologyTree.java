@@ -10,6 +10,7 @@ import com.radware.vision.RestStepResult;
 public interface TopologyTree {
 
     //    devices
+
     RestStepResult addDevice(String setId);
 
     RestStepResult getDevice(String setId);
@@ -25,7 +26,6 @@ public interface TopologyTree {
     String getSiteOrmId(String siteName) throws Exception;
 
     boolean isSiteExist(String siteName) throws NoSuchFieldException;
+
     RestStepResult deleteSite(String siteName);
-
-
 }
