@@ -38,6 +38,8 @@ public class Demo extends BddRestTestBase {
         bodyEntries.add(new BodyEntry("$.name", "alteon"));
 
         topologyTree.updateDevice("Alteon_Set_1", bodyEntries);
+
+        topologyTree.deleteDevice("Alteon_Set_1");
 //        RestStepResult result = topologyTree.deleteSite("aaa");
 //        if (result.getStatus().equals(RestStepResult.Status.FAILED))
 //            BaseTestUtils.report(result.getMessage(), Reporter.FAIL);
