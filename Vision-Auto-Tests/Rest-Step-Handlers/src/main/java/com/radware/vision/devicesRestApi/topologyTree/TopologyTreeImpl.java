@@ -98,26 +98,28 @@ public class TopologyTreeImpl implements TopologyTree {
     @Override
     public RestStepResult updateDevice(String setId) {
 
-
-//            get device from sut
+//      get device from sut
         Optional<TreeDeviceManagementDto> treeDeviceManagementDtoOptional = getDeviceManagement(setId);
         if (!treeDeviceManagementDtoOptional.isPresent()) return new RestStepResult(RestStepResult.Status.FAILED,
                 format("The Device with Set Id \"%s\" wasn't found", setId));
 
         TreeDeviceManagementDto deviceManagementDto = treeDeviceManagementDtoOptional.get();
 
-//            get device Request Body from SUT
+//      get device Request Body from SUT
         Optional<JsonNode> requestBodyAsJsonNodeOpt = getDeviceRequestBodyAsJson(deviceManagementDto.getDeviceId());
 
         if (!requestBodyAsJsonNodeOpt.isPresent())
             return new RestStepResult(RestStepResult.Status.FAILED, "No Json Body was returned from the SUT");
 
-//          get and cast JsonNode to ObjectNode because JsonNode is Immutable.
+//      get and cast JsonNode to ObjectNode because JsonNode is Immutable.
         ObjectNode body = (ObjectNode) requestBodyAsJsonNodeOpt.get();
+//      remove not for update fields
 
         body.remove("type");
         body.remove("parentOrmID");
-
+//      add ormID field
+        String ormID = null;
+        body.put("ormID", ormID);
         DocumentContext documentContext = JsonPath.parse(body.toString());
         documentContext.set("$.deviceSetup.deviceAccess.cliPassword", "123");
         return null;
