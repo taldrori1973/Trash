@@ -18,13 +18,13 @@ Feature: Vision Install OVA SA
     Given REST Login with activation with user "radware" and password "radware"
     Then UI Login with user "radware" and password "radware"
     Then Validate License "ATTACK_CAPACITY_LICENSE" Parameters
-      | allowedAttackCapacityGbps         | 0                    |
-      | requiredDevicesAttackCapacityGbps | 0                    |
-      | licensedDefenseProDeviceIpsList   | []                   |
-      | hasDemoLicense                    | false                |
-      | attackCapacityMaxLicenseExist     | false                |
-      | licenseViolated                   | false                |
-      | inGracePeriod                     | false                |
+      | allowedAttackCapacityGbps         | 0     |
+      | requiredDevicesAttackCapacityGbps | 0     |
+      | licensedDefenseProDeviceIpsList   | []    |
+      | hasDemoLicense                    | false |
+      | attackCapacityMaxLicenseExist     | false |
+      | licenseViolated                   | false |
+      | inGracePeriod                     | false |
     And Validate DefenseFlow is NOT Licensed by Attack Capacity License
     * REST Vision Install License Request "vision-reporting-module-ADC"
     * REST Vision Install License Request "vision-AVA-Max-attack-capacity"
@@ -153,4 +153,4 @@ Feature: Vision Install OVA SA
 
   @SID_19
   Scenario: Verify 32GB RAM
-    Then CLI Run linux Command "grep MemTotal /proc/meminfo | awk '{print $2 / 1024}'" on "ROOT_SERVER_CLI" and validate result EQUALS "32140.3"
+    Then CLI Run linux Command "grep MemTotal /proc/meminfo | awk '{print $2 / 1024}'" on "ROOT_SERVER_CLI" and validate result GTE "32140.3"
