@@ -145,6 +145,7 @@ public class TopologyTreeImpl implements TopologyTree {
 
         } catch (Exception e) {
             return new RestStepResult(RestStepResult.Status.FAILED, e.getMessage());
+
         }
     }
 
