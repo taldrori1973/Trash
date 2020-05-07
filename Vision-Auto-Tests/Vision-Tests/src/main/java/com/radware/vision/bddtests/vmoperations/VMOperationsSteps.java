@@ -94,7 +94,7 @@ public class VMOperationsSteps extends BddUITestBase {
     }
 
     @When("^Revert DefenseFlow to snapshot$")
-    public void DfenseFlowRevertToSnapshot() throws Exception {
+    public void DfenseFlowRevertToSnapshot() {
         try {
             defenseFlowDevice DF = (defenseFlowDevice) system.getSystemObject("defenseFlowDevice");
             EsxiInfo esxiInfo = new EsxiInfo(DF.getvCenterURL(), DF.getvCenterUserName(), DF.getvCenterPassword(), DF.getResourcePool());
@@ -103,7 +103,7 @@ public class VMOperationsSteps extends BddUITestBase {
             Thread.sleep(10 * 60 * 1000);
             BaseTestUtils.report("DefenseFlow Revert done.", Reporter.PASS_NOR_FAIL);
         } catch (Exception e) {
-
+            BaseTestUtils.report("Revert failed:\n" + e.getMessage(), Reporter.FAIL);
         }
     }
 
@@ -415,6 +415,6 @@ public class VMOperationsSteps extends BddUITestBase {
         restTestBase.getRootServerCli().setBuildNumber(build);
         //Update portal
         FeatureRunner.update_version_build_mode(version, build, BddReporterManager.getRunMode());
-        AutoDBUtils.updateTaskBuild(build.toString());
+        AutoDBUtils.updateTaskBuild(build);
     }
 }
