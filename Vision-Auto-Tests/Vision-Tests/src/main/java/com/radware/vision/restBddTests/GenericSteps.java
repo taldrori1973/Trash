@@ -24,6 +24,7 @@ import java.util.regex.Pattern;
 import static com.radware.automation.tools.basetest.BaseTestUtils.report;
 import static com.radware.automation.tools.basetest.Reporter.FAIL;
 import static com.radware.vision.RestStepResult.Status.FAILED;
+import static java.lang.String.format;
 
 public class GenericSteps {
 
@@ -139,7 +140,7 @@ public class GenericSteps {
     @Then("Validate That Response Status Code Is ([^\"]*)")
     public void validateThatResponseCodeOK(StatusCode statusCode) {
         if (response.getStatusCode() != statusCode)
-            report(String.format(
+            report(format(
                     "The actual %s value \"%s\" is not equal to the expected value \"%s\"",
                     "status code", response.getStatusCode(), statusCode), FAIL);
     }
@@ -148,7 +149,7 @@ public class GenericSteps {
     @Then("^Validate That Response Status Line Is \"([^\"]*)\"$")
     public void validateThatResponseStatusLineIs(String statusLine) {
         if (!response.getStatusLine().equals(statusLine))
-            report(String.format(
+            report(format(
                     "The actual %s value \"%s\" is not equal to the expected value \"%s\"",
                     "status line", response.getStatusLine(), statusLine), FAIL);
     }
@@ -156,7 +157,7 @@ public class GenericSteps {
     @Then("^Validate That Response Headers Are$")
     public void validateThatResponseHeadersIs(Map<String, String> headers) {
         if (!response.getHeaders().equals(headers))
-            report(String.format(
+            report(format(
                     "The actual %s values \"%s\" are not equal to the expected values \"%s\"",
                     "response headers", response.getHeaders(), headers), FAIL);
     }
@@ -164,7 +165,7 @@ public class GenericSteps {
     @Then("^Validate That Response Cookies Are$")
     public void validateThatResponseCookiesIs(Map<String, String> cookies) {
         if (!response.getCookies().equals(cookies))
-            report(String.format(
+            report(format(
                     "The actual %s values \"%s\" are not equal to the expected values \"%s\"",
                     "response cookies", response.getCookies(), cookies), FAIL);
     }
@@ -172,7 +173,7 @@ public class GenericSteps {
     @Then("^Validate That Response Content Type Is ([^\"]*)$")
     public void validateThatResponseAcceptTypeIsJSON(ContentType contentType) {
         if (!this.response.getContentType().equals(contentType))
-            report(String.format(
+            report(format(
                     "The actual %s value \"%s\" is not equal to the expected value \"%s\"",
                     "response content type", response.getContentType(), contentType), FAIL);
     }

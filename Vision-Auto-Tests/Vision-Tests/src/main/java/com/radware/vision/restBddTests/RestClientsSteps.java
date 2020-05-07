@@ -185,4 +185,9 @@ public class RestClientsSteps extends BddRestTestBase {
             report(result.getMessage(), FAIL);
 
     }
+
+    @Given("^That Defense Flow With Ip \"([^\"]*)\" And Port (\\d+) is Connected without Authentication$")
+    public void thatDefenseFlowWithIpAndPortIsConnectedWithoutAuthentication(String defenseFlowIp, int defenseFlowPort) {
+        RestClientsStepsHandler.switchToNoAuthClient(UriUtils.buildUrlFromProtocolAndIp("https", defenseFlowIp), defenseFlowPort);
+    }
 }

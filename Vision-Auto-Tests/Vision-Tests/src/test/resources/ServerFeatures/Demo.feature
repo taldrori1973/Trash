@@ -48,7 +48,16 @@ Feature: Demo
 
 
   Scenario: DefenseFlow
-    Given That Defense Flow Device from SUT File is Logged In
 
+    Given That Defense Flow With Ip "172.17.160.152" And Port 9101 is Connected without Authentication
+    Given New Request Specification from File "/DefenseFlow/VisionRequests.json" with label "Register DefenseFlow in Vision"
+    And The Request Body is the following Object
+      | jsonPath   | value            |
+      | $.ip       | "172.17.192.100" |
+      | $.user     | "defenseflow"    |
+      | $.password | "defenseflow"    |
 
+    When Send Request with the Given Specification
+
+    Then Validate That Response Status Code Is OK
 
