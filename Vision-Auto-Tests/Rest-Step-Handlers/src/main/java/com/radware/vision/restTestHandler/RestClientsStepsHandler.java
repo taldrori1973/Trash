@@ -107,8 +107,8 @@ public class RestClientsStepsHandler {
 
     public static void switchToNoAuthClient(String baseUri, Integer port) {
         NoAuthRestClient connection = RestClientsFactory.getNoAuthConnection(baseUri, port);
-        if (RestClientsManagement.getCurrentConnection().isPresent() &&
-                !RestClientsManagement.getCurrentConnection().get().equals(connection))
-            connection.switchTo();//the connection already loggedIn , should make it as current rest connection
+        if (!RestClientsManagement.getCurrentConnection().isPresent() || (RestClientsManagement.getCurrentConnection().isPresent() &&
+                !RestClientsManagement.getCurrentConnection().get().equals(connection)))
+            connection.switchTo();// should make it as current rest connection
     }
 }

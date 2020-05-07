@@ -2,7 +2,9 @@ package com.radware.vision.devicesRestApi.topologyTree;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.radware.vision.RestStepResult;
+import com.radware.vision.utils.BodyEntry;
 
+import java.util.List;
 import java.util.Optional;
 
 /**
@@ -18,7 +20,7 @@ public interface TopologyTree {
 
     Optional<JsonNode> getDeviceData(String setId) throws Exception;
 
-    RestStepResult updateDevice(String setId);
+    RestStepResult updateDevice(String setId, List<BodyEntry> bodyEntries);
 
     RestStepResult deleteDevice(String setId);
 

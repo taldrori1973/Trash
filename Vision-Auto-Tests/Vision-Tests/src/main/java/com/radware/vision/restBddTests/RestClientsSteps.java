@@ -7,6 +7,7 @@ import com.radware.vision.automation.AutoUtils.SUT.dtos.TreeDeviceManagementDto;
 import com.radware.vision.automation.tools.sutsystemobjects.devicesinfo.enums.SUTDeviceType;
 import com.radware.vision.bddtests.BddRestTestBase;
 import com.radware.vision.restTestHandler.RestClientsStepsHandler;
+import com.radware.vision.utils.UriUtils;
 import com.radware.vision.vision_project_cli.RadwareServerCli;
 import cucumber.api.java.en.Given;
 import testhandlers.vision.system.generalSettings.LicenseManagementHandler;
@@ -192,5 +193,10 @@ public class RestClientsSteps extends BddRestTestBase {
 //        if (result.getStatus().equals(RestStepResult.Status.FAILED))
 //            report(result.getMessage(), FAIL);
 
+    }
+
+    @Given("^That Defense Flow With Ip \"([^\"]*)\" And Port (\\d+) is Connected without Authentication$")
+    public void thatDefenseFlowWithIpAndPortIsConnectedWithoutAuthentication(String defenseFlowIp, int defenseFlowPort) {
+        RestClientsStepsHandler.switchToNoAuthClient(UriUtils.buildUrlFromProtocolAndIp("https", defenseFlowIp), defenseFlowPort);
     }
 }
