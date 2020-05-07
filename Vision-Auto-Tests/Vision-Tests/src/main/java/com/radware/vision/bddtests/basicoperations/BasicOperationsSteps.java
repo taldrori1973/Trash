@@ -21,6 +21,7 @@ import com.radware.vision.infra.enums.*;
 import com.radware.vision.infra.testhandlers.baseoperations.BasicOperationsByNameIdHandler;
 import com.radware.vision.infra.testhandlers.baseoperations.BasicOperationsHandler;
 import com.radware.vision.infra.testhandlers.baseoperations.clickoperations.ClickOperationsHandler;
+import com.radware.vision.infra.testhandlers.cli.CliOperations;
 import com.radware.vision.infra.testhandlers.topologytree.TopologyTreeHandler;
 import com.radware.vision.infra.utils.TimeUtils;
 import com.radware.vision.infra.utils.VisionWebUIUtils;
@@ -113,6 +114,11 @@ public class BasicOperationsSteps extends BddUITestBase {
      */
     @Given("^UI Login with user \"(.*)\" and password \"(.*)\"( negative)?$")
     public void login(String username, String password, String negative) throws Exception {
+        try {
+            CliOperations.runCommand(getRestTestBase().getRootServerCli(), "yes|restore_radware_user_password", 15 * 1000);
+        } catch (Exception e) {
+            // ignore
+        }
         if (isLoggedIn) {
             if (BasicOperationsHandler.isLoggedInWithUser(username)) {
                 HomePage.navigateFromHomePage("HOME");
@@ -592,7 +598,7 @@ public class BasicOperationsSteps extends BddUITestBase {
     @Then("^UI Validate that number of elements of label \"([^\"]*)\" with value \"([^\"]*)\" is \"([^\"]*)\"$")
     public void uiValidateThatNumberOfElementsOfLabelWithValueIs(String label, String value, int count) throws Throwable {
         VisionDebugIdsManager.setLabel(label);
-        VisionDebugIdsManager.setParams(value!=null ? value : "");
+        VisionDebugIdsManager.setParams(value != null ? value : "");
         int actualcount = WebUIUtils.fluentWaitMultiple(ComponentLocatorFactory.getLocatorByXpathDbgId(VisionDebugIdsManager.getDataDebugId()).getBy()).size();
         if (count != actualcount)
             BaseTestUtils.report("The expected count of Label " + label + "with value " + value + "is " + count + "But the Actual is " + actualcount, Reporter.FAIL);
