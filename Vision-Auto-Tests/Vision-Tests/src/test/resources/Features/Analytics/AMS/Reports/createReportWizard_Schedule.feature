@@ -62,9 +62,9 @@ Feature: AMS Report Schedule Wizard
   @SID_6
   Scenario: validate Scheduling Once
     Then UI "Validate" Report With Name "OnceScheduleReport"
-      | reportType            | DefensePro Analytics Dashboard |
-      | Time Definitions.Date | Quick:30m                      |
-      | Schedule              | Run Every:Once,On Time:+2m     |
+      | reportType            | DefensePro Analytics Dashboard  |
+      | Time Definitions.Date | Quick:30m                       |
+      | Schedule              | Run Every:Once,On Time:11:59 PM |
 #    Then CLI Run remote linux Command "/get_scheduled_report_value.sh OnceScheduleReport" on "ROOT_SERVER_CLI"
 #    Then CLI Operations - Verify that output contains regex "0 59 23 (\d{1,2}) (\d{1,2}) \? 2020"
 
