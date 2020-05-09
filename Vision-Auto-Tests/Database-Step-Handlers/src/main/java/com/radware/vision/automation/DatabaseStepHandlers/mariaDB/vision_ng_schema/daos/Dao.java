@@ -1,4 +1,4 @@
-package com.radware.vision.infra.visionDatabase.jdbc.vision_ng_schema.daos;
+package com.radware.vision.automation.DatabaseStepHandlers.mariaDB.vision_ng_schema.daos;
 
 import java.util.List;
 import java.util.Optional;

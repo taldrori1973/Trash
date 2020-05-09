@@ -1,13 +1,13 @@
 package com.radware.vision.restBddTests;
 
 import com.radware.vision.RestStepResult;
+import com.radware.vision.automation.DatabaseStepHandlers.mariaDB.vision_ng_schema.daos.VisionLicenseDao;
+import com.radware.vision.automation.DatabaseStepHandlers.mariaDB.vision_ng_schema.entities.VisionLicense;
 import com.radware.vision.automation.VisionAutoInfra.CLIInfra.CliOperations;
 import com.radware.vision.automation.VisionAutoInfra.CLIInfra.Servers.ServerCliBase;
 import com.radware.vision.bddtests.BddRestTestBase;
 import com.radware.vision.devicesRestApi.topologyTree.TopologyTree;
 import com.radware.vision.devicesRestApi.topologyTree.TopologyTreeImpl;
-import com.radware.vision.infra.visionDatabase.jdbc.vision_ng_schema.daos.VisionLicenseDao;
-import com.radware.vision.infra.visionDatabase.jdbc.vision_ng_schema.entities.VisionLicense;
 import com.radware.vision.utils.BodyEntry;
 import cucumber.api.java.en.Then;
 
