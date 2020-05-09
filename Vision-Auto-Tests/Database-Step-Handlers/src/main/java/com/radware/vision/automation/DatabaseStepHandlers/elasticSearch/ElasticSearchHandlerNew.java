@@ -1,4 +1,4 @@
-package com.radware.vision.automation.DatabaseStepHandlers;
+package com.radware.vision.automation.DatabaseStepHandlers.elasticSearch;
 
 import com.jayway.jsonpath.DocumentContext;
 import com.jayway.jsonpath.JsonPath;
