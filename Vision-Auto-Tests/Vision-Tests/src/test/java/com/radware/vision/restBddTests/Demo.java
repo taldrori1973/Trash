@@ -6,9 +6,12 @@ import com.radware.vision.automation.VisionAutoInfra.CLIInfra.Servers.ServerCliB
 import com.radware.vision.bddtests.BddRestTestBase;
 import com.radware.vision.devicesRestApi.topologyTree.TopologyTree;
 import com.radware.vision.devicesRestApi.topologyTree.TopologyTreeImpl;
+import com.radware.vision.infra.visionDatabase.jdbc.JDBCConnectionSingleton;
+import com.radware.vision.infra.visionDatabase.jdbc.VisionDBSchema;
 import com.radware.vision.utils.BodyEntry;
 import cucumber.api.java.en.Then;
 
+import java.sql.Connection;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -23,6 +26,13 @@ public class Demo extends BddRestTestBase {
 //        VisionConfigurations visionConfigurations = new VisionConfigurations();
 //        VisionConfigurations.getBuild();
 
+    }
+
+
+    @Then("^MariaDb Test$")
+    public void mariaDbTest() throws Exception {
+        JDBCConnectionSingleton jdbcConnectionSingleton=JDBCConnectionSingleton.getInstance();
+        Connection dbConnection = jdbcConnectionSingleton.getDBConnection(VisionDBSchema.VISION_NG);
     }
 
     @Then("^SUT Test$")

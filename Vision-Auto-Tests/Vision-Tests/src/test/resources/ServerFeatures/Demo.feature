@@ -2,6 +2,10 @@
 @TC113068
 Feature: Demo
 
+@run_kVision
+  Scenario: MariaDb
+    Then MariaDb Test
+
 @run
   Scenario: Test
     Given SUT Test

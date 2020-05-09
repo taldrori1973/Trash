@@ -14,10 +14,10 @@ import java.util.Properties;
 public class JDBCConnectionSingleton {
     private static final String JDBC_DRIVER = "com.mysql.jdbc.Driver";
     private static final String DB_USER_NAME = "root";
-    private static final String DB_PASSWORD = "rad123";
+    private static final String DB_PASSWORD = "radware";
     private static final String SERVER_USER_NAME = "root";
     private static final String SERVER_PASSWORD = "radware";
-    private static String DB_URL_PATTERN = "jdbc:mysql://localhost:%s/%s";
+    private static String DB_URL_PATTERN = "jdbc:mysql://%s:%s/%s";
 
     private int localPort;
     private Session session;
@@ -48,12 +48,12 @@ public class JDBCConnectionSingleton {
 
         try {
 //            if (!privilegesGranted) grantAllPrivilegesToConnectDP();
-            if (this.session == null || !this.session.isConnected()) connectSshSession();
+//            if (this.session == null || !this.session.isConnected()) connectSshSession();
             Connection newConnection = createSchemaConnection(schema);
             this.openConnections.put(schema, newConnection);
             return openConnections.get(schema);
 
-        } catch (JSchException | InstantiationException | SQLException | IllegalAccessException | ClassNotFoundException e) {
+        } catch (InstantiationException | SQLException | IllegalAccessException | ClassNotFoundException e) {
             throw new JDBCConnectionException(e.getMessage());
         }
     }
@@ -83,13 +83,6 @@ public class JDBCConnectionSingleton {
     }
 
 
-    private void grantAllPrivilegesToConnectDP() {
-//        kVision
-//          CliOperations.runCommand(restTestBase.getRootServerCli(),
-//                "mysql -uroot -prad123 -e \"grant all on *.* to 'root'@'" + host + "' identified by 'rad123'\"");
-//          privilegesGranted = true;
-    }
-
     private void connectSshSession() throws JSchException {
         Properties properties = new Properties();
         properties.put("StrictHostKeyChecking", "no");
@@ -104,7 +97,7 @@ public class JDBCConnectionSingleton {
     private Connection createSchemaConnection(VisionDBSchema schema) throws ClassNotFoundException, IllegalAccessException, InstantiationException, SQLException {
         Connection connection = null;
         Class.forName(JDBC_DRIVER).newInstance();
-        String url = String.format(DB_URL_PATTERN, localPort, schema.toString().toLowerCase());
+        String url = String.format(DB_URL_PATTERN, this.host, 3306, schema.toString().toLowerCase());
         connection = DriverManager.getConnection(url, DB_USER_NAME, DB_PASSWORD);
         return connection;
     }
