@@ -1,4 +1,4 @@
-package com.radware.vision.infra.visionDatabase.jdbc;
+package com.radware.vision.automation.DatabaseStepHandlers.mariaDB;
 
 public enum VisionDBSchema {
     JREPORT_DEFAULT_REALM,
