@@ -2,10 +2,10 @@ package com.radware.vision.bddtests.rest;
 
 import com.radware.automation.tools.basetest.BaseTestUtils;
 import com.radware.automation.tools.basetest.Reporter;
+import com.radware.vision.automation.DatabaseStepHandlers.jdbc.JDBCConnectionException;
 import com.radware.vision.bddtests.BddRestTestBase;
 import com.radware.vision.infra.models.LicenseManagement;
 import com.radware.vision.infra.utils.TimeUtils;
-import com.radware.vision.infra.visionDatabase.jdbc.JDBCConnectionException;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;

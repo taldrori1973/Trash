@@ -1,4 +1,4 @@
-package com.radware.vision.infra.visionDatabase.jdbc.vision_ng_schema.entities;
+package com.radware.vision.automation.DatabaseStepHandlers.jdbc.vision_ng_schema.entities;
 
 import java.sql.Timestamp;
 

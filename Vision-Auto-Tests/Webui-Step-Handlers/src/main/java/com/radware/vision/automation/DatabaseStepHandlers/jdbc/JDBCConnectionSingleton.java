@@ -1,4 +1,4 @@
-package com.radware.vision.infra.visionDatabase.jdbc;
+package com.radware.vision.automation.DatabaseStepHandlers.jdbc;
 
 import com.radware.vision.automation.AutoUtils.SUT.controllers.SUTManager;
 import com.radware.vision.automation.AutoUtils.SUT.controllers.SUTManagerImpl;
