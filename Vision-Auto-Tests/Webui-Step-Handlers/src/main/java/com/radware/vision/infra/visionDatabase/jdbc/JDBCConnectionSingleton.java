@@ -12,6 +12,7 @@ public class JDBCConnectionSingleton {
     private static final String DB_USER_NAME = "root";
     private static final String DB_PASSWORD = "radware";
     private static String DB_URL_PATTERN = "jdbc:mysql://%s:%s/%s";
+    private static int DB_PORT = 3306;
 
     private SUTManager sutManager;
     private String host;
@@ -67,7 +68,6 @@ public class JDBCConnectionSingleton {
                 openConnections.get(conn).close();
             }
             this.openConnections.clear();
-            this.session.disconnect();
         } catch (SQLException e) {
             e.printStackTrace();
         }
