@@ -1,27 +1,18 @@
 package com.radware.vision.infra.visionDatabase.jdbc;
 
-import com.jcraft.jsch.JSch;
-import com.jcraft.jsch.JSchException;
-import com.jcraft.jsch.Session;
 import com.radware.vision.automation.AutoUtils.SUT.controllers.SUTManager;
 import com.radware.vision.automation.AutoUtils.SUT.controllers.SUTManagerImpl;
 
 import java.sql.*;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Properties;
 
 public class JDBCConnectionSingleton {
     private static final String JDBC_DRIVER = "com.mysql.jdbc.Driver";
     private static final String DB_USER_NAME = "root";
     private static final String DB_PASSWORD = "radware";
-    private static final String SERVER_USER_NAME = "root";
-    private static final String SERVER_PASSWORD = "radware";
     private static String DB_URL_PATTERN = "jdbc:mysql://%s:%s/%s";
 
-    private int localPort;
-    private Session session;
-    private boolean privilegesGranted;
     private SUTManager sutManager;
     private String host;
     private Map<VisionDBSchema, Connection> openConnections;
@@ -82,17 +73,6 @@ public class JDBCConnectionSingleton {
         }
     }
 
-
-    private void connectSshSession() throws JSchException {
-        Properties properties = new Properties();
-        properties.put("StrictHostKeyChecking", "no");
-        JSch jsch = new JSch();
-        session = jsch.getSession(SERVER_USER_NAME, host, 22);
-        session.setPassword(SERVER_PASSWORD);
-        session.setConfig(properties);
-        session.connect();
-        localPort = session.setPortForwardingL(0, host, 3306);
-    }
 
     private Connection createSchemaConnection(VisionDBSchema schema) throws ClassNotFoundException, IllegalAccessException, InstantiationException, SQLException {
         Connection connection = null;
