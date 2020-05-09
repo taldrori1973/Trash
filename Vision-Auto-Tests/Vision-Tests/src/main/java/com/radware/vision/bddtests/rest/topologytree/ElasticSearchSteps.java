@@ -2,7 +2,7 @@ package com.radware.vision.bddtests.rest.topologytree;
 
 import com.radware.automation.tools.basetest.BaseTestUtils;
 import com.radware.automation.tools.basetest.Reporter;
-import com.radware.vision.automation.DatabaseStepHandlers.ElasticSearchHandlerNew;
+import com.radware.vision.automation.DatabaseStepHandlers.elasticSearch.ElasticSearchHandlerNew;
 import com.radware.vision.automation.tools.sutsystemobjects.devicesinfo.enums.SUTDeviceType;
 import com.radware.vision.bddtests.BddRestTestBase;
 import com.radware.vision.bddtests.remotessh.AttacksSteps;
