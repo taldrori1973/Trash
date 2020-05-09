@@ -24,7 +24,7 @@ public class JDBCConnectionSingleton {
         super();
         this.sutManager = SUTManagerImpl.getInstance();
         this.host = sutManager.getClientConfigurations().getHostIp();
-        this.openConnections = new HashMap();
+        this.openConnections = new HashMap<>();
     }
 
     public static JDBCConnectionSingleton getInstance() {
@@ -39,8 +39,6 @@ public class JDBCConnectionSingleton {
         }
 
         try {
-//            if (!privilegesGranted) grantAllPrivilegesToConnectDP();
-//            if (this.session == null || !this.session.isConnected()) connectSshSession();
             Connection newConnection = createSchemaConnection(schema);
             this.openConnections.put(schema, newConnection);
             return openConnections.get(schema);
@@ -77,7 +75,7 @@ public class JDBCConnectionSingleton {
     private Connection createSchemaConnection(VisionDBSchema schema) throws ClassNotFoundException, IllegalAccessException, InstantiationException, SQLException {
         Connection connection = null;
         Class.forName(JDBC_DRIVER).newInstance();
-        String url = String.format(DB_URL_PATTERN, this.host, 3306, schema.toString().toLowerCase());
+        String url = String.format(DB_URL_PATTERN, this.host, DB_PORT, schema.toString().toLowerCase());
         connection = DriverManager.getConnection(url, DB_USER_NAME, DB_PASSWORD);
         return connection;
     }
