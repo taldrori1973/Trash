@@ -1,4 +1,4 @@
-package com.radware.vision.automation.DatabaseStepHandlers.jdbc;
+package com.radware.vision.infra.visionDatabase.jdbc;
 
 public class JDBCConnectionException extends Exception{
 

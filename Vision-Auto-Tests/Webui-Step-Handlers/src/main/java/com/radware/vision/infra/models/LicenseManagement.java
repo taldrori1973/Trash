@@ -6,11 +6,11 @@ import com.google.gson.JsonParser;
 import com.radware.automation.tools.basetest.BaseTestUtils;
 import com.radware.automation.tools.basetest.Reporter;
 import com.radware.restcore.utils.enums.HttpMethodEnum;
-import com.radware.vision.automation.DatabaseStepHandlers.jdbc.JDBCConnectionException;
-import com.radware.vision.automation.DatabaseStepHandlers.jdbc.vision_ng_schema.daos.VisionLicenseDao;
-import com.radware.vision.automation.DatabaseStepHandlers.jdbc.vision_ng_schema.entities.VisionLicense;
 import com.radware.vision.infra.enums.VisionLicenses;
 import com.radware.vision.infra.testresthandlers.BasicRestOperationsHandler;
+import com.radware.vision.infra.visionDatabase.jdbc.JDBCConnectionException;
+import com.radware.vision.infra.visionDatabase.jdbc.vision_ng_schema.daos.VisionLicenseDao;
+import com.radware.vision.infra.visionDatabase.jdbc.vision_ng_schema.entities.VisionLicense;
 import testhandlers.vision.system.generalSettings.LicenseManagementHandler;
 
 import java.time.LocalDate;
