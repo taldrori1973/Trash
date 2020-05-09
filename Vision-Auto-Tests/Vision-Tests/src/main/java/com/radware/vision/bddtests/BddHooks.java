@@ -11,7 +11,7 @@ public class BddHooks extends WebUITestBase {
     @Before
     public void beforeScenario(Scenario scenario) {
         try {
-            BddReporterManager.initReport(scenario);
+            BddReporterManager.initReport(scenario,false);
         } catch (Exception e) {
             BaseTestUtils.report("Failed to Init", e);
         }
