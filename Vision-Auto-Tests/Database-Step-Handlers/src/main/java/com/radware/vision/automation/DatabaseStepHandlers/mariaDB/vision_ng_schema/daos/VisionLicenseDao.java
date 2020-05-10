@@ -1,8 +1,8 @@
 package com.radware.vision.automation.DatabaseStepHandlers.mariaDB.vision_ng_schema.daos;
 
-import com.radware.vision.automation.DatabaseStepHandlers.mariaDB.JDBCConnectionException;
-import com.radware.vision.automation.DatabaseStepHandlers.mariaDB.JDBCConnectionSingleton;
-import com.radware.vision.automation.DatabaseStepHandlers.mariaDB.VisionDBSchema;
+import com.radware.vision.automation.DatabaseStepHandlers.mariaDB.JDBC.JDBCConnectionException;
+import com.radware.vision.automation.DatabaseStepHandlers.mariaDB.JDBC.JDBCConnectionSingleton;
+import com.radware.vision.automation.DatabaseStepHandlers.mariaDB.JDBC.VisionDBSchema;
 import com.radware.vision.automation.DatabaseStepHandlers.mariaDB.vision_ng_schema.entities.VisionLicense;
 
 import java.sql.*;
