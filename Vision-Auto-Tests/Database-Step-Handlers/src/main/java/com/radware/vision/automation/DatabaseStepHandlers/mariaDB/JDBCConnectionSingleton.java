@@ -78,8 +78,8 @@ public class JDBCConnectionSingleton {
     private Connection createSchemaConnection(VisionDBSchema schema) throws ClassNotFoundException, IllegalAccessException, InstantiationException, SQLException {
         Connection connection = null;
         Class.forName(JDBC_DRIVER).newInstance();
-        String url = String.format(DB_URL_PATTERN, this.host, DB_PORT, schema.toString().toLowerCase());
-        connection = DriverManager.getConnection(url, DB_USER_NAME, DB_PASSWORD);
+        String url = String.format(DB_URL_PATTERN, this.host, this.port, schema.toString().toLowerCase());
+        connection = DriverManager.getConnection(url, this.userName, this.port);
         return connection;
     }
 
