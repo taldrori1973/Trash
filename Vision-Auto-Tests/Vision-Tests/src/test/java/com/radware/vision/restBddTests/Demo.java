@@ -14,7 +14,9 @@ import com.radware.vision.utils.BodyEntry;
 import cucumber.api.java.en.Then;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class Demo extends BddRestTestBase {
     @Then("^Send request$")
@@ -34,8 +36,14 @@ public class Demo extends BddRestTestBase {
     public void mariaDbTest() {
 //
 
+
+        Map<String, Object> stringObjectMap = new HashMap<>();
+        stringObjectMap.put("description", "APS2");
+        stringObjectMap.put("is_expired", "0");
+
         try {
-            String oneValue = GenericCRUD.getOneValue(VisionDBSchema.VISION_NG, "license_str", "vision_license", "description='APSolute Vision Activation License'");
+//            String oneValue = GenericCRUD.getOneValue(VisionDBSchema.VISION_NG, "license_str", "vision_license", "description='APSolute Vision Activation License'");
+            GenericCRUD.updateGroupOfValues(VisionDBSchema.VISION_NG, "vision_license", "description='APS1'", stringObjectMap);
         } catch (Exception e) {
             BaseTestUtils.report(e.getMessage(), Reporter.FAIL);
         }
