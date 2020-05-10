@@ -9,13 +9,13 @@ import java.util.Map;
 
 public class JDBCConnectionSingleton {
     private static final String JDBC_DRIVER = "com.mysql.jdbc.Driver";
-    private static final String DB_USER_NAME = "root";
-    private static final String DB_PASSWORD = "radware";
     private static String DB_URL_PATTERN = "jdbc:mysql://%s:%s/%s";
-    private static int DB_PORT = 3306;
 
     private SUTManager sutManager;
     private String host;
+    private String port;
+    private String userName;
+    private String password;
     private Map<VisionDBSchema, Connection> openConnections;
 
     private static JDBCConnectionSingleton _instance = new JDBCConnectionSingleton();
@@ -24,6 +24,9 @@ public class JDBCConnectionSingleton {
         super();
         this.sutManager = SUTManagerImpl.getInstance();
         this.host = sutManager.getClientConfigurations().getHostIp();
+        this.port = sutManager.getClientConfigurations().getSqlDbConnectionDefaultPort();
+        this.userName = sutManager.getClientConfigurations().getSqlDbConnectionUsername();
+        this.password = sutManager.getClientConfigurations().getSqlDbConnectionPassword();
         this.openConnections = new HashMap<>();
     }
 
