@@ -38,10 +38,14 @@ public class GenericCRUD {
         Connection dbConnection = jdbcConnection.getDBConnection(schema);
         Statement statement = dbConnection.createStatement();
         List<String> updateValues = new ArrayList<>();
-        values.forEach((key, value) -> updateValues.add(format("%s=%s", key, value)));
+        values.forEach((key, value) -> updateValues.add(format("%s=%s", key, valueOf(value))));
         String updateQuery = String.join(",", updateValues);
         String query = format("UPDATE %s SET %s WHERE %s;", tableName, updateQuery, where);
         int i = statement.executeUpdate(query);
 
+    }
+
+    private static String valueOf(Object value) {
+        return null;
     }
 }

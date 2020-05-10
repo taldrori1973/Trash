@@ -39,7 +39,7 @@ public class Demo extends BddRestTestBase {
 
         Map<String, Object> stringObjectMap = new HashMap<>();
         stringObjectMap.put("description", "APS2");
-        stringObjectMap.put("is_expired", "0");
+        stringObjectMap.put("is_expired", 0);
 
         try {
 //            String oneValue = GenericCRUD.getOneValue(VisionDBSchema.VISION_NG, "license_str", "vision_license", "description='APSolute Vision Activation License'");
