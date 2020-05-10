@@ -16,6 +16,13 @@
       "basePath": "/mgmt/system/user/logout",
       "produces": "application/json",
       "description": "Log Out from vision"
+    },
+    {
+      "label": "Set Authentication Mode",
+      "method": "PUT",
+      "basePath": "/mgmt/system/config/item/globalaaaparameters",
+      "produces": "application/json",
+      "description": "Set Authentication Mode"
     }
   ]
 }
