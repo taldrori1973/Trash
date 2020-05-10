@@ -6,7 +6,7 @@ import com.google.gson.JsonParser;
 import com.radware.automation.tools.basetest.BaseTestUtils;
 import com.radware.automation.tools.basetest.Reporter;
 import com.radware.restcore.utils.enums.HttpMethodEnum;
-import com.radware.vision.automation.DatabaseStepHandlers.mariaDB.JDBCConnectionException;
+import com.radware.vision.automation.DatabaseStepHandlers.mariaDB.client.JDBCConnectionException;
 import com.radware.vision.automation.DatabaseStepHandlers.mariaDB.vision_ng_schema.daos.VisionLicenseDao;
 import com.radware.vision.automation.DatabaseStepHandlers.mariaDB.vision_ng_schema.entities.VisionLicense;
 import com.radware.vision.infra.enums.VisionLicenses;
