@@ -6,6 +6,7 @@ import com.radware.vision.automation.DatabaseStepHandlers.mariaDB.client.VisionD
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.Statement;
+import java.util.Map;
 
 import static java.lang.String.format;
 
@@ -26,6 +27,14 @@ public class GenericCRUD {
         if (resultSet.getRow() == 0) throw new Exception("No rows was found with the condition you provide.");
         if (resultSet.getRow() > 1) throw new Exception("The condition you provide returns more than one row.");
         T result = (T) resultSet.getObject(1);
+
+        return result;
+    }
+    public static void updateGroupOfValues(VisionDBSchema schema, String tableName, String where , Map<String,Object> values) throws Exception {
+
+        Connection dbConnection = jdbcConnection.getDBConnection(schema);
+        Statement statement = dbConnection.createStatement();
+
 
         return result;
     }
