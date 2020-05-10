@@ -46,6 +46,9 @@ public class GenericCRUD {
     }
 
     private static String valueOf(Object value) {
-        return null;
+
+        if (String.class.equals(value.getClass()))
+            return format("'%s'", value);
+        return (String) value;
     }
 }
