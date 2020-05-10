@@ -6,6 +6,8 @@ import com.radware.vision.automation.DatabaseStepHandlers.mariaDB.client.VisionD
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 
 import static java.lang.String.format;
@@ -30,11 +32,16 @@ public class GenericCRUD {
 
         return result;
     }
-    public static void updateGroupOfValues(VisionDBSchema schema, String tableName, String where , Map<String,Object> values) throws Exception {
+
+    public static void updateGroupOfValues(VisionDBSchema schema, String tableName, String where, Map<String, Object> values) throws Exception {
 
         Connection dbConnection = jdbcConnection.getDBConnection(schema);
         Statement statement = dbConnection.createStatement();
-
+        List<String> updateValues = new ArrayList<>();
+        values.forEach((key, value) -> updateValues.add(format("%s=%s", key, value)));
+        String updateQuery = String.join(",", updateValues);
+        String query = format("UPDATE %s SET %s WHERE %s;", tableName, updateQuery, where);
+        int i = statement.executeUpdate(query);
 
         return result;
     }
