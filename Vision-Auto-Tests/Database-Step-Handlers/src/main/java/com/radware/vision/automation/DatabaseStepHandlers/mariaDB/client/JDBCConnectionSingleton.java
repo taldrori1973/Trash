@@ -1,4 +1,4 @@
-package com.radware.vision.automation.DatabaseStepHandlers.mariaDB;
+package com.radware.vision.automation.DatabaseStepHandlers.mariaDB.client;
 
 import com.radware.vision.automation.AutoUtils.SUT.controllers.SUTManager;
 import com.radware.vision.automation.AutoUtils.SUT.controllers.SUTManagerImpl;

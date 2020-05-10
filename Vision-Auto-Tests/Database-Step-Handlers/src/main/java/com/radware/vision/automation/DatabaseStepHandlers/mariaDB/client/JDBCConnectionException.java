@@ -1,4 +1,4 @@
-package com.radware.vision.automation.DatabaseStepHandlers.mariaDB;
+package com.radware.vision.automation.DatabaseStepHandlers.mariaDB.client;
 
 public class JDBCConnectionException extends Exception{
 
