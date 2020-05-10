@@ -7,6 +7,11 @@
     "restConnection": {
       "defaultPort": 443,
       "defaultProtocol": "https"
+    },
+    "sqlDbConnection": {
+      "defaultPort": 3306,
+      "username": "root",
+      "password": "radware"
     }
   }
 }
