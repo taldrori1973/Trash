@@ -18,6 +18,7 @@ public class GenericCRUD {
     private static JDBCConnectionSingleton jdbcConnection = JDBCConnectionSingleton.getInstance();
 
     public static <T> T getOneValue(VisionDBSchema schema, String columnName, String tableName, String where) throws Exception {
+
         Connection dbConnection = jdbcConnection.getDBConnection(schema);
         Statement statement = dbConnection.createStatement();
         ResultSet resultSet = statement.executeQuery(format("SELECT %s FROM %s WHERE %s;", columnName, tableName, where));

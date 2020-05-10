@@ -1,5 +1,7 @@
 package com.radware.vision.restBddTests;
 
+import com.radware.automation.tools.basetest.BaseTestUtils;
+import com.radware.automation.tools.basetest.Reporter;
 import com.radware.vision.RestStepResult;
 import com.radware.vision.automation.DatabaseStepHandlers.mariaDB.GenericCRUD;
 import com.radware.vision.automation.DatabaseStepHandlers.mariaDB.client.VisionDBSchema;
@@ -29,15 +31,15 @@ public class Demo extends BddRestTestBase {
 
 
     @Then("^MariaDb Test$")
-    public void mariaDbTest() throws Exception {
-//        JDBCConnectionSingleton jdbcConnectionSingleton=JDBCConnectionSingleton.getInstance();
-//        Connection dbConnection = jdbcConnectionSingleton.getDBConnection(VisionDBSchema.VISION_NG);
+    public void mariaDbTest() {
+//
 
-//        VisionLicenseDao visionLicenseDao=new VisionLicenseDao();
-//        List<VisionLicense> all = visionLicenseDao.getAll();
-//        System.out.println(all);
+        try {
+            String oneValue = GenericCRUD.getOneValue(VisionDBSchema.VISION_NG, "license_str", "vision_license", "description='APSolute Vision Activation License'");
+        } catch (Exception e) {
+            BaseTestUtils.report(e.getMessage(), Reporter.FAIL);
+        }
 
-        GenericCRUD.getOneValue(VisionDBSchema.VISION_NG, "license_str", "vision_license", "description='APSolute Vision Activation License'");
     }
 
     @Then("^SUT Test$")
