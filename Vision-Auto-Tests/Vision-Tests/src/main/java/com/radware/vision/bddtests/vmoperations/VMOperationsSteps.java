@@ -387,7 +387,8 @@ public class VMOperationsSteps extends BddUITestBase {
             BaseTestUtils.report("Needed Build: " + build, Reporter.PASS);
             BaseTestUtils.report("Needed Version: " + version, Reporter.PASS);
         }
-
+        //Lock the build
+        AutoDBUtils.updateTaskBuild(build);
         return isSetupNeeded;
     }
 
