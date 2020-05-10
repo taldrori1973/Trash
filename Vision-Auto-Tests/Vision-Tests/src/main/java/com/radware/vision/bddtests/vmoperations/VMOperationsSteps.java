@@ -387,7 +387,8 @@ public class VMOperationsSteps extends BddUITestBase {
             BaseTestUtils.report("Needed Build: " + build, Reporter.PASS);
             BaseTestUtils.report("Needed Version: " + version, Reporter.PASS);
         }
-
+        //Lock the build
+        AutoDBUtils.updateTaskBuild(build);
         return isSetupNeeded;
     }
 
@@ -415,6 +416,5 @@ public class VMOperationsSteps extends BddUITestBase {
         restTestBase.getRootServerCli().setBuildNumber(build);
         //Update portal
         FeatureRunner.update_version_build_mode(version, build, BddReporterManager.getRunMode());
-        AutoDBUtils.updateTaskBuild(build);
     }
 }
