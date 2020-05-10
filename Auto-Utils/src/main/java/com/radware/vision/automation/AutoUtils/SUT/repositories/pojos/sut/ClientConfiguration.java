@@ -9,5 +9,6 @@ public class ClientConfiguration {
     private String userName;
     private String password;
     private RestConnection restConnection;
+    private SqlDbConnection sqlDbConnection;
 
 }
