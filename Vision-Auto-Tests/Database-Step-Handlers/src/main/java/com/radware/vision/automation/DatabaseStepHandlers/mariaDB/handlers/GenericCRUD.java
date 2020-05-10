@@ -1,7 +1,10 @@
 package com.radware.vision.automation.DatabaseStepHandlers.mariaDB.handlers;
 
+import com.radware.vision.automation.DatabaseStepHandlers.mariaDB.client.JDBCConnectionException;
+import com.radware.vision.automation.DatabaseStepHandlers.mariaDB.client.JDBCConnectionSingleton;
 import com.radware.vision.automation.DatabaseStepHandlers.mariaDB.client.VisionDBSchema;
 
+import java.sql.Connection;
 import java.util.Optional;
 
 /**
@@ -11,8 +14,10 @@ import java.util.Optional;
  */
 public class GenericCRUD {
 
-    public <T> Optional<T> selectOneValue(String columnName, String fromTable, String where, VisionDBSchema schema) {
+    private static JDBCConnectionSingleton connection = JDBCConnectionSingleton.getInstance();
 
+    public <T> Optional<T> selectOneValue(String columnName, String fromTable, String where, VisionDBSchema schema) throws JDBCConnectionException {
+        Connection schemaConnection = connection.getDBConnection(schema);
         return null;
     }
 }
