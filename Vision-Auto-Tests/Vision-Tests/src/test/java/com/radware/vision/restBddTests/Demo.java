@@ -35,6 +35,7 @@ public class Demo extends BddRestTestBase {
 
         VisionLicenseDao visionLicenseDao=new VisionLicenseDao();
         List<VisionLicense> all = visionLicenseDao.getAll();
+        System.out.println(all);
     }
 
     @Then("^SUT Test$")
