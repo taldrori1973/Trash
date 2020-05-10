@@ -1,8 +1,8 @@
 package com.radware.vision.restBddTests;
 
 import com.radware.vision.RestStepResult;
-import com.radware.vision.automation.DatabaseStepHandlers.mariaDB.vision_ng_schema.daos.VisionLicenseDao;
-import com.radware.vision.automation.DatabaseStepHandlers.mariaDB.vision_ng_schema.entities.VisionLicense;
+import com.radware.vision.automation.DatabaseStepHandlers.mariaDB.repositories.vision_ng_schema.daos.VisionLicenseDao;
+import com.radware.vision.automation.DatabaseStepHandlers.mariaDB.repositories.vision_ng_schema.entities.VisionLicense;
 import com.radware.vision.automation.VisionAutoInfra.CLIInfra.CliOperations;
 import com.radware.vision.automation.VisionAutoInfra.CLIInfra.Servers.ServerCliBase;
 import com.radware.vision.bddtests.BddRestTestBase;

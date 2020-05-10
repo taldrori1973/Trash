@@ -1,4 +1,4 @@
-package com.radware.vision.automation.DatabaseStepHandlers.mariaDB.vision_ng_schema.entities;
+package com.radware.vision.automation.DatabaseStepHandlers.mariaDB.repositories.vision_ng_schema.entities;
 
 import java.sql.Timestamp;
 
