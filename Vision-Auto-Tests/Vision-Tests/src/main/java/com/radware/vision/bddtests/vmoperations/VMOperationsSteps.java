@@ -415,6 +415,5 @@ public class VMOperationsSteps extends BddUITestBase {
         restTestBase.getRootServerCli().setBuildNumber(build);
         //Update portal
         FeatureRunner.update_version_build_mode(version, build, BddReporterManager.getRunMode());
-        AutoDBUtils.updateTaskBuild(build);
     }
 }
