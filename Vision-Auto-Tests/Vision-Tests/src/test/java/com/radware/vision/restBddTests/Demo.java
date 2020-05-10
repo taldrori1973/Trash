@@ -2,6 +2,7 @@ package com.radware.vision.restBddTests;
 
 import com.radware.vision.RestStepResult;
 import com.radware.vision.automation.DatabaseStepHandlers.mariaDB.GenericCRUD;
+import com.radware.vision.automation.DatabaseStepHandlers.mariaDB.client.VisionDBSchema;
 import com.radware.vision.automation.VisionAutoInfra.CLIInfra.CliOperations;
 import com.radware.vision.automation.VisionAutoInfra.CLIInfra.Servers.ServerCliBase;
 import com.radware.vision.bddtests.BddRestTestBase;
@@ -36,7 +37,7 @@ public class Demo extends BddRestTestBase {
 //        List<VisionLicense> all = visionLicenseDao.getAll();
 //        System.out.println(all);
 
-        GenericCRUD.
+        GenericCRUD.getOneValue(VisionDBSchema.VISION_NG, "license_str", "vision_license", "description='APSolute Vision Activation License'");
     }
 
     @Then("^SUT Test$")
