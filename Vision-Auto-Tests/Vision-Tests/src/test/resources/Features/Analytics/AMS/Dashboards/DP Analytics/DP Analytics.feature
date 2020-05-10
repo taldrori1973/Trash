@@ -6,6 +6,9 @@ Feature: DP ANALYTICS
   @SID_1
   Scenario: Clean system attacks,database and logs
 #    When CLI Operations - Run Radware Session command "system user authentication-mode set TACACS+"
+    * REST Send simple body request from File "Vision/SystemManagement.json" with label "Set Authentication Mode"
+      | jsonPath             | value    |
+      | $.authenticationMode | "TACACS" |
     * CLI kill all simulator attacks on current vision
     # wait until collector cache clean up
     * Sleep "15"
@@ -13,7 +16,6 @@ Feature: DP ANALYTICS
 #    * CLI Clear vision logs
 #    * CLI Run remote linux Command "curl -X GET localhost:9200/_cat/indices?v | grep dp-attack-raw >> /opt/radware/storage/maintenance/dp-attack-before-streaming" on "ROOT_SERVER_CLI"
 #    * CLI Run remote linux Command "curl -X POST localhost:9200/dp-attack-raw-*/_search -d '{"query":{"bool":{"must":[{"match_all":{}}]}},"from":0,"size":1000}' > /opt/radware/storage/maintenance/attack-raw-index-before-stream" on "ROOT_SERVER_CLI"
-
 
   @SID_2
   Scenario: Run DP simulator PCAPs for Attacks by Protection Policy  widget
@@ -1811,6 +1813,7 @@ Feature: DP ANALYTICS
 #      | logType | expression | isExpected   |
 #      | ALL     | fatal      | NOT_EXPECTED |
     * UI Logout
+
   @Sanity @SID_128
   Scenario: Sanity
     * CLI kill all simulator attacks on current vision
