@@ -10,5 +10,8 @@ public class ClientConfigurationDto {
     private String password;
     private String restConnectionDefaultPort;
     private String restConnectionDefaultProtocol;
+    private String sqlDbConnectionDefaultPort;
+    private String sqlDbConnectionUsername;
+    private String sqlDbConnectionPassword;
 
 }
