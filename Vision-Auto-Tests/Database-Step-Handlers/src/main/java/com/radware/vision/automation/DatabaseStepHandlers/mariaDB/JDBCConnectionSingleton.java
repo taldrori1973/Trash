@@ -79,7 +79,7 @@ public class JDBCConnectionSingleton {
         Connection connection = null;
         Class.forName(JDBC_DRIVER).newInstance();
         String url = String.format(DB_URL_PATTERN, this.host, this.port, schema.toString().toLowerCase());
-        connection = DriverManager.getConnection(url, this.userName, this.port);
+        connection = DriverManager.getConnection(url, this.userName, this.password);
         return connection;
     }
 
