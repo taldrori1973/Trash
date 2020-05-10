@@ -43,6 +43,5 @@ public class GenericCRUD {
         String query = format("UPDATE %s SET %s WHERE %s;", tableName, updateQuery, where);
         int i = statement.executeUpdate(query);
 
-        return result;
     }
 }
