@@ -1,8 +1,7 @@
 package com.radware.vision.restBddTests;
 
 import com.radware.vision.RestStepResult;
-import com.radware.vision.automation.DatabaseStepHandlers.mariaDB.repositories.vision_ng_schema.daos.VisionLicenseDao;
-import com.radware.vision.automation.DatabaseStepHandlers.mariaDB.repositories.vision_ng_schema.entities.VisionLicense;
+import com.radware.vision.automation.DatabaseStepHandlers.mariaDB.GenericCRUD;
 import com.radware.vision.automation.VisionAutoInfra.CLIInfra.CliOperations;
 import com.radware.vision.automation.VisionAutoInfra.CLIInfra.Servers.ServerCliBase;
 import com.radware.vision.bddtests.BddRestTestBase;
@@ -33,9 +32,11 @@ public class Demo extends BddRestTestBase {
 //        JDBCConnectionSingleton jdbcConnectionSingleton=JDBCConnectionSingleton.getInstance();
 //        Connection dbConnection = jdbcConnectionSingleton.getDBConnection(VisionDBSchema.VISION_NG);
 
-        VisionLicenseDao visionLicenseDao=new VisionLicenseDao();
-        List<VisionLicense> all = visionLicenseDao.getAll();
-        System.out.println(all);
+//        VisionLicenseDao visionLicenseDao=new VisionLicenseDao();
+//        List<VisionLicense> all = visionLicenseDao.getAll();
+//        System.out.println(all);
+
+        GenericCRUD.
     }
 
     @Then("^SUT Test$")
