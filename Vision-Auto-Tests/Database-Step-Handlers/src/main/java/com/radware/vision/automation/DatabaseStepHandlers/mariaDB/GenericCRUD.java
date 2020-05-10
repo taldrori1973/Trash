@@ -5,7 +5,11 @@ import com.radware.vision.automation.DatabaseStepHandlers.mariaDB.client.JDBCCon
 import com.radware.vision.automation.DatabaseStepHandlers.mariaDB.client.VisionDBSchema;
 
 import java.sql.Connection;
+import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.Optional;
+
+import static java.lang.String.format;
 
 /**
  * Created by MohamadI - Muhamad Igbaria
@@ -15,8 +19,11 @@ import java.util.Optional;
 public class GenericCRUD {
     private static JDBCConnectionSingleton jdbcConnection = JDBCConnectionSingleton.getInstance();
 
-    public <T> Optional<T> getOneValue(VisionDBSchema schema) throws JDBCConnectionException {
+    public <T> Optional<T> getOneValue(VisionDBSchema schema, String columnName, String tableName, String where) throws JDBCConnectionException, SQLException {
         Connection dbConnection = jdbcConnection.getDBConnection(schema);
+        Statement statement = dbConnection.createStatement();
+        statement.executeQuery(format("SELECT %s from %s Where %s",columnName,tableName,where));
+
         return null;
     }
 }
