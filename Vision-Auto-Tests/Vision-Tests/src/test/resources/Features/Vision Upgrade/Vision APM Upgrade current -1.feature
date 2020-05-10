@@ -124,7 +124,7 @@ Feature: Vision APM Upgrade current -1
 
   @SID_9
   Scenario: Navigate to general settings page
-    Then UI Go To Vision
+    Then UI Navigate to "HOME" page via homePage
     Then UI Navigate to page "System->General Settings->Basic Parameters"
     When UI Do Operation "select" item "Software"
     Then REST get Basic Parameters "lastUpgradeStatus"
