@@ -63,7 +63,7 @@ public class GenericCRUD {
         return statement.executeUpdate(query);
     }
 
-    public static int insertRecord(LinkedHashMap<String, Object> record) throws SQLException {
+    public static int insertRecord(VisionDBSchema schema, String tableName, LinkedHashMap<String, Object> record) throws SQLException, JDBCConnectionException {
 
         Connection dbConnection = jdbcConnection.getDBConnection(schema);
 
@@ -74,7 +74,7 @@ public class GenericCRUD {
 
 
         String columns = format("(%s)", String.join(",", columnsArray));
-        String values =  format("(%s)",String.join(",", valuesArray));
+        String values = format("(%s)", String.join(",", valuesArray));
 
         String query = format("insert into %s %s values %s;");
         PreparedStatement statement = dbConnection.prepareStatement(sql);
