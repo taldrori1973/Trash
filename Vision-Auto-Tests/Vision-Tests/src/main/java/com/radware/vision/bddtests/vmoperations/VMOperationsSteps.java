@@ -14,10 +14,12 @@ import com.radware.vision.bddtests.clioperation.connections.NewVmSteps;
 import com.radware.vision.bddtests.clioperation.system.upgrade.UpgradeSteps;
 import com.radware.vision.bddtests.defenseFlow.defenseFlowDevice;
 import com.radware.vision.bddtests.rest.BasicRestOperationsSteps;
+import com.radware.vision.enums.VisionDeployType;
 import com.radware.vision.infra.testhandlers.cli.CliOperations;
 import com.radware.vision.utils.RegexUtils;
 import com.radware.vision.vision_handlers.NewVmHandler;
 import com.radware.vision.vision_handlers.system.VisionServer;
+import com.radware.vision.vision_handlers.system.upgrade.visionserver.VisionDeployment;
 import com.radware.vision.vision_project_cli.RootServerCli;
 import com.radware.vision.vision_project_cli.VisionCli;
 import com.radware.vision.vision_project_cli.VisionRadwareFirstTime;
@@ -34,6 +36,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import static com.radware.vision.test_utils.DeployOva.getLastSuccessfulBuildNumberFromArtifactory;
+import static com.radware.vision.vision_tests.CliTests.visionVersion;
 
 public class VMOperationsSteps extends BddUITestBase {
 
@@ -371,11 +374,9 @@ public class VMOperationsSteps extends BddUITestBase {
         String build = System.getenv("BUILD");//get build from portal
         restTestBase.getRootServerCli().getVersionNumebr();
         if (build == null || build.equals("") || build.equals("0"))
-            try {
+            {
                 BaseTestUtils.report("No build was supplied. Going for latest", Reporter.PASS);
-                build = getLastSuccessfulBuildNumberFromArtifactory(NewVmHandler.jenkinsURL);//Latest Build
-            } catch (IOException e) {
-                e.printStackTrace();
+                build = new VisionDeployment(VisionDeployType.ANY, version, build).getBuild();//Latest Build
             }
         String currentBuild = FeatureRunner.getBuild();
         String currentVersion = FeatureRunner.getVersion();
