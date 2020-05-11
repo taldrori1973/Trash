@@ -63,13 +63,19 @@ public class GenericCRUD {
         return statement.executeUpdate(query);
     }
 
-    public static int insertRecord(LinkedHashMap<String,Object> record) throws SQLException {
+    public static int insertRecord(LinkedHashMap<String, Object> record) throws SQLException {
+
         Connection dbConnection = jdbcConnection.getDBConnection(schema);
+        List<String> columnsArray = new ArrayList<>();
+        List<String> valuesArray = new ArrayList<>();
+
+        record.forEach((columnName, value) -> );
         String sql = null;
         PreparedStatement statement = dbConnection.prepareStatement(sql);
         statement.setObject();
         return 0;
     }
+
     private static String valueOfByType(Object value) {
         if (value instanceof String) return format("'%s'", value);
         return value.toString();
