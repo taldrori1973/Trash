@@ -65,7 +65,7 @@ public class GenericCRUD {
     public static int deleteRows(VisionDBSchema schema, String tableName, String where) throws JDBCConnectionException, SQLException {
         Connection dbConnection = jdbcConnection.getDBConnection(schema);
         Statement statement = dbConnection.createStatement();
-        format("DELETE FROM %s WHERE %s; ", tableName, where);
+        String query = format("DELETE FROM %s WHERE %s; ", tableName, where);
         statement.executeUpdate()
     }
 
