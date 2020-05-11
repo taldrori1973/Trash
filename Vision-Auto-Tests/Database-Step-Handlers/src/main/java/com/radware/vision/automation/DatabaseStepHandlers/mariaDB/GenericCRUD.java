@@ -66,11 +66,10 @@ public class GenericCRUD {
     public static int insertRecord(LinkedHashMap<String, Object> record) throws SQLException {
 
         Connection dbConnection = jdbcConnection.getDBConnection(schema);
-        List<String> columnsArray = new ArrayList<>();
-        List<String> valuesArray = new ArrayList<>();
 
-        record.keySet().forEach(columnName -> columnsArray.add(columnName));
-        record.keySet().forEach(columnName -> columnsArray.add(columnName));
+        List<String> columnsArray = new ArrayList<>(record.keySet());
+        List<Object> valuesArray = new ArrayList<>(record.values());
+
         String sql = null;
         PreparedStatement statement = dbConnection.prepareStatement(sql);
         statement.setObject();
