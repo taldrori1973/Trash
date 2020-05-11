@@ -82,7 +82,6 @@ public class GenericCRUD {
         String query = format("insert into %s %s values %s;", tableName, columns, values);
         Statement statement = dbConnection.createStatement();
         return statement.executeUpdate(query);
-
     }
 
     private static String valueOfByType(Object value) {
