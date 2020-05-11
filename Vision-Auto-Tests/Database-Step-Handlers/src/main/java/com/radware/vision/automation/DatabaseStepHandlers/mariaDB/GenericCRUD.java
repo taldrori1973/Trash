@@ -42,6 +42,12 @@ public class GenericCRUD {
         return result;
     }
 
+    public static void readAll() throws SQLException {
+        Connection dbConnection = jdbcConnection.getDBConnection(VisionDBSchema.VISION_NG);
+        Statement statement = dbConnection.createStatement();
+        statement.execute("select * from vision_license;")
+    }
+
     public static int updateSingleValue(VisionDBSchema schema, String tableName, String where, String columnName, Object newValue) throws Exception {
         Map<String, Object> map = new HashMap<>();
         map.put(columnName, newValue);
