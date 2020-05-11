@@ -1,10 +1,12 @@
 package com.radware.vision.automation.DatabaseStepHandlers.mariaDB;
 
+import com.radware.vision.automation.DatabaseStepHandlers.mariaDB.client.JDBCConnectionException;
 import com.radware.vision.automation.DatabaseStepHandlers.mariaDB.client.JDBCConnectionSingleton;
 import com.radware.vision.automation.DatabaseStepHandlers.mariaDB.client.VisionDBSchema;
 
 import java.sql.Connection;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -60,9 +62,13 @@ public class GenericCRUD {
         return statement.executeUpdate(query);
     }
 
-    public static int deleteRows(VisionDBSchema schema, String tableName, String where){
-
+    public static int deleteRows(VisionDBSchema schema, String tableName, String where) throws JDBCConnectionException, SQLException {
+        Connection dbConnection = jdbcConnection.getDBConnection(schema);
+        Statement statement = dbConnection.createStatement();
+        format("DELETE FROM %s WHERE %s; ", tableName, where);
+        statement.executeUpdate()
     }
+
     private static String valueOfByType(Object value) {
         if (value instanceof String) return format("'%s'", value);
         return value.toString();
