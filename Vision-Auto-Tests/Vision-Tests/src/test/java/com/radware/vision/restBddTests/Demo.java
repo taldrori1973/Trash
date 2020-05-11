@@ -19,6 +19,8 @@ import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
 
+import static com.radware.vision.automation.DatabaseStepHandlers.mariaDB.GenericCRUD.insertRecord;
+
 public class Demo extends BddRestTestBase {
     @Then("^Send request$")
     public void sendRequest() throws NoSuchFieldException {
@@ -37,7 +39,8 @@ public class Demo extends BddRestTestBase {
     public void mariaDbTest() throws SQLException, JDBCConnectionException {
 //
 
-        GenericCRUD.readAll();
+        GenericCRUD.selectTable(VisionDBSchema.VISION_NG, "vision_license", null);
+
 //        Insert Map
         LinkedHashMap<String, Object> record = new LinkedHashMap<>();
         record.put("row_id", "8a7480a771e6ee660171e6f16df80180");
@@ -59,7 +62,7 @@ public class Demo extends BddRestTestBase {
 ////            String oneValue = GenericCRUD.getOneValue(VisionDBSchema.VISION_NG, "license_str", "vision_license", "description='APSolute Vision Activation License'");
 //            GenericCRUD.updateGroupOfValues(VisionDBSchema.VISION_NG, "vision_license", "description='APS1'", stringObjectMap);
 //        GenericCRUD.deleteRecords(VisionDBSchema.VISION_NG, "vision_license", "description='APS2'");
-            int i = GenericCRUD.insertRecord(VisionDBSchema.VISION_NG, "vision_license", record);
+            int i = insertRecord(VisionDBSchema.VISION_NG, "vision_license", record);
         } catch (Exception e) {
             BaseTestUtils.report(e.getMessage(), Reporter.FAIL);
         }

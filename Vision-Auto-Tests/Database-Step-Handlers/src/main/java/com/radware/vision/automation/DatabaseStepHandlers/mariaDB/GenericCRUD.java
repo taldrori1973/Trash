@@ -44,7 +44,7 @@ public class GenericCRUD {
         return result;
     }
 
-    public static void selectTable(VisionDBSchema schema, String tableName, String where, String... columns) throws SQLException, JDBCConnectionException {
+    public static JsonNode selectTable(VisionDBSchema schema, String tableName, String where, String... columns) throws SQLException, JDBCConnectionException {
         Connection dbConnection = jdbcConnection.getDBConnection(schema);
         try (Statement statement = dbConnection.createStatement()) {
             String queryColumns = "*";
@@ -67,7 +67,7 @@ public class GenericCRUD {
             }
 
             ObjectMapper objectMapper = new ObjectMapper();
-            JsonNode jsonNode = objectMapper.valueToTree(mapList);
+            return objectMapper.valueToTree(mapList);
         }
 
     }
