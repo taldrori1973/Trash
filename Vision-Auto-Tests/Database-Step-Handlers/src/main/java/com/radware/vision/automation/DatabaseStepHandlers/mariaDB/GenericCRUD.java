@@ -44,7 +44,7 @@ public class GenericCRUD {
         return result;
     }
 
-    public static void readAll(VisionDBSchema schema, String tableName, String where, String... columns) throws SQLException, JDBCConnectionException {
+    public static void selectTable(VisionDBSchema schema, String tableName, String where, String... columns) throws SQLException, JDBCConnectionException {
         Connection dbConnection = jdbcConnection.getDBConnection(schema);
         try (Statement statement = dbConnection.createStatement()) {
             String queryColumns = "*";
