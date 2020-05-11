@@ -20,7 +20,7 @@ import static java.lang.String.format;
 public class GenericCRUD {
     private static JDBCConnectionSingleton jdbcConnection = JDBCConnectionSingleton.getInstance();
 
-    public static <T> T getOneValue(VisionDBSchema schema, String columnName, String tableName, String where) throws Exception {
+    public static <T> T readSingleValue(VisionDBSchema schema, String columnName, String tableName, String where) throws Exception {
 
         Connection dbConnection = jdbcConnection.getDBConnection(schema);
         Statement statement = dbConnection.createStatement();
