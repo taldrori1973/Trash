@@ -4,6 +4,7 @@ import com.radware.automation.tools.basetest.BaseTestUtils;
 import com.radware.automation.tools.basetest.Reporter;
 import com.radware.vision.RestStepResult;
 import com.radware.vision.automation.DatabaseStepHandlers.mariaDB.GenericCRUD;
+import com.radware.vision.automation.DatabaseStepHandlers.mariaDB.client.JDBCConnectionException;
 import com.radware.vision.automation.DatabaseStepHandlers.mariaDB.client.VisionDBSchema;
 import com.radware.vision.automation.VisionAutoInfra.CLIInfra.CliOperations;
 import com.radware.vision.automation.VisionAutoInfra.CLIInfra.Servers.ServerCliBase;
@@ -13,6 +14,7 @@ import com.radware.vision.devicesRestApi.topologyTree.TopologyTreeImpl;
 import com.radware.vision.utils.BodyEntry;
 import cucumber.api.java.en.Then;
 
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -32,9 +34,10 @@ public class Demo extends BddRestTestBase {
 
 
     @Then("^MariaDb Test$")
-    public void mariaDbTest() {
+    public void mariaDbTest() throws SQLException, JDBCConnectionException {
 //
 
+        GenericCRUD.readAll();
 //        Insert Map
         LinkedHashMap<String, Object> record = new LinkedHashMap<>();
         record.put("row_id", "8a7480a771e6ee660171e6f16df80180");

@@ -1,5 +1,7 @@
 package com.radware.vision.automation.DatabaseStepHandlers.mariaDB;
 
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.radware.vision.automation.DatabaseStepHandlers.mariaDB.client.JDBCConnectionException;
 import com.radware.vision.automation.DatabaseStepHandlers.mariaDB.client.JDBCConnectionSingleton;
 import com.radware.vision.automation.DatabaseStepHandlers.mariaDB.client.VisionDBSchema;
@@ -42,10 +44,25 @@ public class GenericCRUD {
         return result;
     }
 
-    public static void readAll() throws SQLException {
+    public static void readAll() throws SQLException, JDBCConnectionException {
         Connection dbConnection = jdbcConnection.getDBConnection(VisionDBSchema.VISION_NG);
-        Statement statement = dbConnection.createStatement();
-        statement.execute("select * from vision_license;")
+        try (Statement statement = dbConnection.createStatement()) {
+            ResultSet resultSet = statement.executeQuery("select * from vision_license;");
+
+            List<Map<String, Object>> mapList = new ArrayList<>();
+
+            while (resultSet.next()) {
+                int columnCount = resultSet.getMetaData().getColumnCount();
+                Map<String, Object> map = new LinkedHashMap<>();
+                for (int i = 1; i <= columnCount; i++)
+                    map.put(resultSet.getMetaData().getColumnName(i), resultSet.getObject(i));
+                mapList.add(map);
+            }
+
+            ObjectMapper objectMapper=new ObjectMapper();
+            JsonNode jsonNode = objectMapper.valueToTree(mapList);
+        }
+
     }
 
     public static int updateSingleValue(VisionDBSchema schema, String tableName, String where, String columnName, Object newValue) throws Exception {
