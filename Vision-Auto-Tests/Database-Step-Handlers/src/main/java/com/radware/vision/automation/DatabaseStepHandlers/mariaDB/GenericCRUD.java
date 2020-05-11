@@ -4,14 +4,8 @@ import com.radware.vision.automation.DatabaseStepHandlers.mariaDB.client.JDBCCon
 import com.radware.vision.automation.DatabaseStepHandlers.mariaDB.client.JDBCConnectionSingleton;
 import com.radware.vision.automation.DatabaseStepHandlers.mariaDB.client.VisionDBSchema;
 
-import java.sql.Connection;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.sql.*;
+import java.util.*;
 
 import static java.lang.String.format;
 
@@ -69,7 +63,11 @@ public class GenericCRUD {
         return statement.executeUpdate(query);
     }
 
-    public static int insertRecord(){
+    public static int insertRecord(LinkedHashMap<String,Object> record) throws SQLException {
+        Connection dbConnection = jdbcConnection.getDBConnection(schema);
+        String sql = null;
+        PreparedStatement statement = dbConnection.prepareStatement(sql);
+        statement.setObject();
         return 0;
     }
     private static String valueOfByType(Object value) {
