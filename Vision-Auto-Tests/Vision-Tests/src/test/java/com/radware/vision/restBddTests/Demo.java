@@ -14,6 +14,7 @@ import com.radware.vision.utils.BodyEntry;
 import cucumber.api.java.en.Then;
 
 import java.util.ArrayList;
+import java.util.LinkedHashMap;
 import java.util.List;
 
 public class Demo extends BddRestTestBase {
@@ -34,6 +35,18 @@ public class Demo extends BddRestTestBase {
     public void mariaDbTest() {
 //
 
+//        Insert Map
+        LinkedHashMap<String, Object> record = new LinkedHashMap<>();
+        record.put("row_id", "8a7480a771e6ee660171e6f16df80180");
+        record.put("ormversion", 1);
+        record.put("name", null);
+        record.put("description", "TEST");
+        record.put("license_str", "vision-activation-mJDbvpgb");
+        record.put("product_name", "vision");
+        record.put("feature_name", "vision");
+        record.put("license_activation_date", "2020-05-05 22:25:14");
+        record.put("is_expired", false);
+
 
 //        Map<String, Object> stringObjectMap = new HashMap<>();
 //        stringObjectMap.put("description", "APS2");
@@ -42,7 +55,8 @@ public class Demo extends BddRestTestBase {
         try {
 ////            String oneValue = GenericCRUD.getOneValue(VisionDBSchema.VISION_NG, "license_str", "vision_license", "description='APSolute Vision Activation License'");
 //            GenericCRUD.updateGroupOfValues(VisionDBSchema.VISION_NG, "vision_license", "description='APS1'", stringObjectMap);
-        GenericCRUD.deleteRecords(VisionDBSchema.VISION_NG, "vision_license", "description='APS2'");
+//        GenericCRUD.deleteRecords(VisionDBSchema.VISION_NG, "vision_license", "description='APS2'");
+            GenericCRUD.insertRecord(VisionDBSchema.VISION_NG, "vision_license", record);
         } catch (Exception e) {
             BaseTestUtils.report(e.getMessage(), Reporter.FAIL);
         }
