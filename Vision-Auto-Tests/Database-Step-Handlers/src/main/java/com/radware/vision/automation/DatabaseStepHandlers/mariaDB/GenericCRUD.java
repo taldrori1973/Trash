@@ -48,7 +48,7 @@ public class GenericCRUD {
         Connection dbConnection = jdbcConnection.getDBConnection(schema);
         try (Statement statement = dbConnection.createStatement()) {
             String queryColumns = "*";
-            if (columns == null || columns.length == 0) queryColumns = String.join(",", columns);
+            if (columns != null && columns.length > 0) queryColumns = String.join(",", columns);
             ResultSet resultSet = statement.executeQuery("select * from vision_license;");
 
             List<Map<String, Object>> mapList = new ArrayList<>();
