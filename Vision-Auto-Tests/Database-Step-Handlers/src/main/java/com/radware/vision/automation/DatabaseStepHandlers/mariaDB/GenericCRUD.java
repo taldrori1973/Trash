@@ -69,6 +69,9 @@ public class GenericCRUD {
         return statement.executeUpdate(query);
     }
 
+    public static int insertRecords(){
+        return 0;
+    }
     private static String valueOfByType(Object value) {
         if (value instanceof String) return format("'%s'", value);
         return value.toString();
