@@ -76,7 +76,7 @@ public class GenericCRUD {
         String columns = format("(%s)", String.join(",", columnsArray));
         String values = format("(%s)", String.join(",", valuesArray));
 
-        String query = format("insert into %s %s values %s;");
+        String query = format("insert into %s %s values %s;", tableName, columns, values);
         PreparedStatement statement = dbConnection.prepareStatement(sql);
         statement.setObject();
         return 0;
