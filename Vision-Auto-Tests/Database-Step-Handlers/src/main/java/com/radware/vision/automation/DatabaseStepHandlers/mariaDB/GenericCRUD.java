@@ -26,7 +26,7 @@ public class GenericCRUD {
      * @param schema    Table Database Schema from {@link VisionDBSchema}
      * @param columnName    The column name of the value to be returned
      * @param tableName     The table name
-     * @param where         the condition where to search for the row , in this method the condition should return one row to retuen single value
+     * @param where         the condition where to search for the row , in this method the condition should return one row to return single value
      * @param <T>           Generic Result Type
      * @return              One value which is the under column name of the row that returned from the where
      * @throws Exception
