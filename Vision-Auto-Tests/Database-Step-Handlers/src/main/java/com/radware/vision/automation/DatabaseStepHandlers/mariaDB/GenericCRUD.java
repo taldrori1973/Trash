@@ -45,9 +45,10 @@ public class GenericCRUD {
     }
 
     public static void readAll(VisionDBSchema schema, String tableName, String where, String... columns) throws SQLException, JDBCConnectionException {
-        Connection dbConnection = jdbcConnection.getDBConnection(VisionDBSchema.VISION_NG);
+        Connection dbConnection = jdbcConnection.getDBConnection(schema);
         try (Statement statement = dbConnection.createStatement()) {
-
+            String queryColumns = "*";
+            if (columns == null || columns.length == 0) queryColumns = String.join(",", columns);
             ResultSet resultSet = statement.executeQuery("select * from vision_license;");
 
             List<Map<String, Object>> mapList = new ArrayList<>();
