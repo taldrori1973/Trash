@@ -33,6 +33,9 @@ public class GenericCRUD {
         return result;
     }
 
+    public static void updateSingleValue(VisionDBSchema schema, String tableName, String where,String columnName,String newValue){
+
+    }
     public static void updateGroupOfValues(VisionDBSchema schema, String tableName, String where, Map<String, Object> values) throws Exception {
 
         Connection dbConnection = jdbcConnection.getDBConnection(schema);
