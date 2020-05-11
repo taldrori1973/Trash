@@ -62,11 +62,11 @@ public class GenericCRUD {
         return statement.executeUpdate(query);
     }
 
-    public static int deleteRows(VisionDBSchema schema, String tableName, String where) throws JDBCConnectionException, SQLException {
+    public static int deleteRecords(VisionDBSchema schema, String tableName, String where) throws JDBCConnectionException, SQLException {
         Connection dbConnection = jdbcConnection.getDBConnection(schema);
         Statement statement = dbConnection.createStatement();
         String query = format("DELETE FROM %s WHERE %s; ", tableName, where);
-        statement.executeUpdate()
+        return statement.executeUpdate(query);
     }
 
     private static String valueOfByType(Object value) {
