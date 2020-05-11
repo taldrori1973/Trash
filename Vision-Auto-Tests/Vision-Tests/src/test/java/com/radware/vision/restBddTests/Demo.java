@@ -56,7 +56,7 @@ public class Demo extends BddRestTestBase {
 ////            String oneValue = GenericCRUD.getOneValue(VisionDBSchema.VISION_NG, "license_str", "vision_license", "description='APSolute Vision Activation License'");
 //            GenericCRUD.updateGroupOfValues(VisionDBSchema.VISION_NG, "vision_license", "description='APS1'", stringObjectMap);
 //        GenericCRUD.deleteRecords(VisionDBSchema.VISION_NG, "vision_license", "description='APS2'");
-            GenericCRUD.insertRecord(VisionDBSchema.VISION_NG, "vision_license", record);
+            int i = GenericCRUD.insertRecord(VisionDBSchema.VISION_NG, "vision_license", record);
         } catch (Exception e) {
             BaseTestUtils.report(e.getMessage(), Reporter.FAIL);
         }
