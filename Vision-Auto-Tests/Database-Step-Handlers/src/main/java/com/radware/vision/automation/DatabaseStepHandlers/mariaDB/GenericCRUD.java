@@ -44,11 +44,4 @@ public class GenericCRUD {
         int i = statement.executeUpdate(query);
 
     }
-
-    private static String valueOf(Object value) {
-
-        if (String.class.equals(value.getClass()))
-            return format("'%s'", value);
-        return (String) value;
-    }
 }
