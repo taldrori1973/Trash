@@ -48,7 +48,7 @@ public class GenericCRUD {
         values.forEach((key, value) -> updateValues.add(format("%s=%s", key, valueOfByType(value))));
         String updateQuery = String.join(",", updateValues);
         String query = format("UPDATE %s SET %s WHERE %s;", tableName, updateQuery, where);
-        int i = statement.executeUpdate(query);
+        statement.executeUpdate(query);
     }
 
     private static String valueOfByType(Object value) {
