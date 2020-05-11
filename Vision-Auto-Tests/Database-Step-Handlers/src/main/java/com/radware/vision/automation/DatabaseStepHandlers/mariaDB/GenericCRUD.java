@@ -69,7 +69,8 @@ public class GenericCRUD {
         List<String> columnsArray = new ArrayList<>();
         List<String> valuesArray = new ArrayList<>();
 
-        record.forEach((columnName, value) -> );
+        record.keySet().forEach(columnName -> columnsArray.add(columnName));
+        record.keySet().forEach(columnName -> columnsArray.add(columnName));
         String sql = null;
         PreparedStatement statement = dbConnection.prepareStatement(sql);
         statement.setObject();
