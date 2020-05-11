@@ -4,7 +4,10 @@ import com.radware.vision.automation.DatabaseStepHandlers.mariaDB.client.JDBCCon
 import com.radware.vision.automation.DatabaseStepHandlers.mariaDB.client.JDBCConnectionSingleton;
 import com.radware.vision.automation.DatabaseStepHandlers.mariaDB.client.VisionDBSchema;
 
-import java.sql.*;
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.*;
 
 import static java.lang.String.format;
@@ -77,9 +80,9 @@ public class GenericCRUD {
         String values = format("(%s)", String.join(",", valuesArray));
 
         String query = format("insert into %s %s values %s;", tableName, columns, values);
-        PreparedStatement statement = dbConnection.prepareStatement(sql);
-        statement.setObject();
-        return 0;
+        Statement statement = dbConnection.createStatement();
+        return i = statement.executeUpdate(query);
+
     }
 
     private static String valueOfByType(Object value) {
