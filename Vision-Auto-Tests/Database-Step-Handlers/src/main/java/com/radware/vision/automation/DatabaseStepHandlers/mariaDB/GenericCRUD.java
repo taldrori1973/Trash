@@ -34,13 +34,13 @@ public class GenericCRUD {
         return result;
     }
 
-    public static void updateSingleValue(VisionDBSchema schema, String tableName, String where, String columnName, Object newValue) throws Exception {
+    public static int updateSingleValue(VisionDBSchema schema, String tableName, String where, String columnName, Object newValue) throws Exception {
         Map<String, Object> map = new HashMap<>();
         map.put(columnName, newValue);
-        updateGroupOfValues(schema, tableName, where, map);
+        return updateGroupOfValues(schema, tableName, where, map);
     }
 
-    public static void updateGroupOfValues(VisionDBSchema schema, String tableName, String where, Map<String, Object> values) throws Exception {
+    public static int updateGroupOfValues(VisionDBSchema schema, String tableName, String where, Map<String, Object> values) throws Exception {
 
         Connection dbConnection = jdbcConnection.getDBConnection(schema);
         Statement statement = dbConnection.createStatement();
@@ -48,7 +48,7 @@ public class GenericCRUD {
         values.forEach((key, value) -> updateValues.add(format("%s=%s", key, valueOfByType(value))));
         String updateQuery = String.join(",", updateValues);
         String query = format("UPDATE %s SET %s WHERE %s;", tableName, updateQuery, where);
-        statement.executeUpdate(query);
+        return statement.executeUpdate(query);
     }
 
     private static String valueOfByType(Object value) {
