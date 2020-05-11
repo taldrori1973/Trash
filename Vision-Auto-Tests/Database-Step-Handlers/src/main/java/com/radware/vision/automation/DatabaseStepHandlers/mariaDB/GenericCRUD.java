@@ -31,7 +31,7 @@ public class GenericCRUD {
      * @return One value which is the under column name of the row that returned from the where
      * @throws Exception
      */
-    public static <T> T readSingleValue(VisionDBSchema schema, String columnName, String tableName, String where) throws Exception {
+    public static <T> T selectSingleValue(VisionDBSchema schema, String columnName, String tableName, String where) throws Exception {
 
         Connection dbConnection = jdbcConnection.getDBConnection(schema);
         Statement statement = dbConnection.createStatement();

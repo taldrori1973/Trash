@@ -1,5 +1,6 @@
 package com.radware.vision.restBddTests;
 
+import com.fasterxml.jackson.databind.JsonNode;
 import com.radware.automation.tools.basetest.BaseTestUtils;
 import com.radware.automation.tools.basetest.Reporter;
 import com.radware.vision.RestStepResult;
@@ -16,10 +17,7 @@ import cucumber.api.java.en.Then;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.LinkedHashMap;
 import java.util.List;
-
-import static com.radware.vision.automation.DatabaseStepHandlers.mariaDB.GenericCRUD.insertRecord;
 
 public class Demo extends BddRestTestBase {
     @Then("^Send request$")
@@ -39,19 +37,28 @@ public class Demo extends BddRestTestBase {
     public void mariaDbTest() throws SQLException, JDBCConnectionException {
 //
 
-        GenericCRUD.selectTable(VisionDBSchema.VISION_NG, "vision_license", null);
+        JsonNode jsonNode = GenericCRUD.selectTable(VisionDBSchema.VISION_NG, "vision_license", null);
+        System.out.println("All Table");
+        System.out.println(jsonNode.toPrettyString());
 
+        System.out.println("3 Columns");
+        JsonNode jsonNode2 = GenericCRUD.selectTable(VisionDBSchema.VISION_NG, "vision_license", null, "description", "license_str", "is_expired");
+        System.out.println(jsonNode2.toPrettyString());
+
+        System.out.println("Where description = 'APSolute Vision Activation License'");
+        JsonNode jsonNode3 = GenericCRUD.selectTable(VisionDBSchema.VISION_NG, "vision_license", "description = 'APSolute Vision Activation License'", null);
+        System.out.println(jsonNode3.toPrettyString());
 //        Insert Map
-        LinkedHashMap<String, Object> record = new LinkedHashMap<>();
-        record.put("row_id", "8a7480a771e6ee660171e6f16df80180");
-        record.put("ormversion", 1);
-        record.put("name", null);
-        record.put("description", "TEST");
-        record.put("license_str", "vision-activation-mJDbvpgb");
-        record.put("product_name", "vision");
-        record.put("feature_name", "vision");
-        record.put("license_activation_date", "2020-05-05 22:25:14");
-        record.put("is_expired", false);
+//        LinkedHashMap<String, Object> record = new LinkedHashMap<>();
+//        record.put("row_id", "8a7480a771e6ee660171e6f16df80180");
+//        record.put("ormversion", 1);
+//        record.put("name", null);
+//        record.put("description", "TEST");
+//        record.put("license_str", "vision-activation-mJDbvpgb");
+//        record.put("product_name", "vision");
+//        record.put("feature_name", "vision");
+//        record.put("license_activation_date", "2020-05-05 22:25:14");
+//        record.put("is_expired", false);
 
 
 //        Map<String, Object> stringObjectMap = new HashMap<>();
@@ -62,7 +69,7 @@ public class Demo extends BddRestTestBase {
 ////            String oneValue = GenericCRUD.getOneValue(VisionDBSchema.VISION_NG, "license_str", "vision_license", "description='APSolute Vision Activation License'");
 //            GenericCRUD.updateGroupOfValues(VisionDBSchema.VISION_NG, "vision_license", "description='APS1'", stringObjectMap);
 //        GenericCRUD.deleteRecords(VisionDBSchema.VISION_NG, "vision_license", "description='APS2'");
-            int i = insertRecord(VisionDBSchema.VISION_NG, "vision_license", record);
+//            int i = insertRecord(VisionDBSchema.VISION_NG, "vision_license", record);
         } catch (Exception e) {
             BaseTestUtils.report(e.getMessage(), Reporter.FAIL);
         }
