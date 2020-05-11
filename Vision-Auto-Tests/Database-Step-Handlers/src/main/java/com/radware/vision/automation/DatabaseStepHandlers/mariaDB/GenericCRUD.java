@@ -68,8 +68,8 @@ public class GenericCRUD {
         Connection dbConnection = jdbcConnection.getDBConnection(schema);
 
         List<String> columnsArray = new ArrayList<>(record.keySet());
-        List<Object> valuesArray = new ArrayList<>(record.values());
-
+        List<String> valuesArray = new ArrayList<>();
+        String join = String.join(",", columnsArray);
         String sql = null;
         PreparedStatement statement = dbConnection.prepareStatement(sql);
         statement.setObject();
