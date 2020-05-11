@@ -51,7 +51,7 @@ public class GenericCRUD {
             if (columns != null && columns.length > 0) queryColumns = String.join(",", columns);
 
             String query = format("SELECT %s FROM %s WHERE %s;", queryColumns, tableName, where);
-
+            if (where == null || where.isEmpty()) query = format("SELECT %s FROM %s;", queryColumns, tableName);
             ResultSet resultSet = statement.executeQuery("select * from vision_license;");
 
             List<Map<String, Object>> mapList = new ArrayList<>();
