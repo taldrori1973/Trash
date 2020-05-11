@@ -44,9 +44,10 @@ public class GenericCRUD {
         return result;
     }
 
-    public static void readAll() throws SQLException, JDBCConnectionException {
+    public static void readAll(VisionDBSchema schema, String tableName, String where, String... columns) throws SQLException, JDBCConnectionException {
         Connection dbConnection = jdbcConnection.getDBConnection(VisionDBSchema.VISION_NG);
         try (Statement statement = dbConnection.createStatement()) {
+
             ResultSet resultSet = statement.executeQuery("select * from vision_license;");
 
             List<Map<String, Object>> mapList = new ArrayList<>();
@@ -59,7 +60,7 @@ public class GenericCRUD {
                 mapList.add(map);
             }
 
-            ObjectMapper objectMapper=new ObjectMapper();
+            ObjectMapper objectMapper = new ObjectMapper();
             JsonNode jsonNode = objectMapper.valueToTree(mapList);
         }
 
