@@ -7,6 +7,7 @@ import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -33,9 +34,12 @@ public class GenericCRUD {
         return result;
     }
 
-    public static void updateSingleValue(VisionDBSchema schema, String tableName, String where,String columnName,String newValue){
-
+    public static void updateSingleValue(VisionDBSchema schema, String tableName, String where, String columnName, Object newValue) throws Exception {
+        Map<String, Object> map = new HashMap<>();
+        map.put(columnName, newValue);
+        updateGroupOfValues(schema, tableName, where, map);
     }
+
     public static void updateGroupOfValues(VisionDBSchema schema, String tableName, String where, Map<String, Object> values) throws Exception {
 
         Connection dbConnection = jdbcConnection.getDBConnection(schema);
