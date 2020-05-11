@@ -69,7 +69,7 @@ public class GenericCRUD {
         return statement.executeUpdate(query);
     }
 
-    public static int insertRecords(){
+    public static int insertRecord(){
         return 0;
     }
     private static String valueOfByType(Object value) {
