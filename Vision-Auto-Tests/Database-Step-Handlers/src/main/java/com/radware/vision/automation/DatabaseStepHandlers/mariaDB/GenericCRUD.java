@@ -44,6 +44,11 @@ public class GenericCRUD {
         return result;
     }
 
+    public static JsonNode selectAllTable(VisionDBSchema schema, String tableName, String... columns) throws SQLException, JDBCConnectionException {
+
+        return selectTable(schema, tableName, null, columns);
+    }
+
     public static JsonNode selectTable(VisionDBSchema schema, String tableName, String where, String... columns) throws SQLException, JDBCConnectionException {
         Connection dbConnection = jdbcConnection.getDBConnection(schema);
         try (Statement statement = dbConnection.createStatement()) {
