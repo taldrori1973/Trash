@@ -68,6 +68,15 @@ public class BasicValidationsTests extends BddUITestBase {
         BasicOperationsHandler.isElementFounds(label, isExists, param);
     }
 
+//    @Then("^UI Validate Element Existence By Label \"([^\"]*)\" Equals \"([^\"]*)\"$")
+//    public void validateElementValue(String param, String value) {
+//        BasicOperationsHandler.isElementFounds(label, isExists, param);
+//    }
+
+
+
+
+
     @Then("^UI Validate Element Existence By GWT id \"(.*)\" if Exists \"(true|false)\"(?: with value \"(.*)\")?$")
     public void validateElementExistenceByGwtId(String label, Boolean isExists, String param) {
         BasicOperationsHandler.isGwtElementExists(label, isExists, param);
@@ -94,6 +103,13 @@ public class BasicValidationsTests extends BddUITestBase {
         cutCharsNumber = cutCharsNumber == null ? "0" : cutCharsNumber;
         expectedText = expectedText.equals("") ? getRetrievedParamValue() : expectedText;
         ClickOperationsHandler.validateTextFieldElementByLabel(selectorValue, params, expectedText, operatorsEnum, Integer.valueOf(cutCharsNumber));
+    }
+
+
+    @Then("^Validate Expand Info Table with label \"([^\"]*)\" Equals to \"([^\"]*)\"$")
+    public void validateExtendTable(String label, String value){
+        BasicOperationsHandler.isTextEqualValue(label,null,value);
+
     }
 
     @Then("^UI Validate Text field by id \"([^\"]*)\" (EQUALS|CONTAINS) \"(.*)\"(?: cut Characters Number (\\S+))?$")
