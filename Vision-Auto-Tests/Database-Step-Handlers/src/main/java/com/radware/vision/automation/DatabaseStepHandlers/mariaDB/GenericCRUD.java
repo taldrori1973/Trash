@@ -141,7 +141,7 @@ public class GenericCRUD {
      * @param schema    Table Database Schema from {@link VisionDBSchema}
      * @param tableName The table name
      * @param where     The condition for searching specific records , if the "where" is null will return all the records
-     * @return          Returns number of records that was deleted
+     * @return Returns number of records that was deleted
      * @throws JDBCConnectionException
      * @throws SQLException
      */
@@ -152,6 +152,15 @@ public class GenericCRUD {
         return statement.executeUpdate(query);
     }
 
+
+    /**
+     * @param schema    Table Database Schema from {@link VisionDBSchema}
+     * @param tableName The table name
+     * @param record    {@link LinkedHashMap} of columns and values to insert as record to the table
+     * @return          Returns number of records that was Inserted, i.e: 1 if the record was inserted and 0 else
+     * @throws SQLException
+     * @throws JDBCConnectionException
+     */
     public static int insertRecord(VisionDBSchema schema, String tableName, LinkedHashMap<String, Object> record) throws SQLException, JDBCConnectionException {
 
         Connection dbConnection = jdbcConnection.getDBConnection(schema);
