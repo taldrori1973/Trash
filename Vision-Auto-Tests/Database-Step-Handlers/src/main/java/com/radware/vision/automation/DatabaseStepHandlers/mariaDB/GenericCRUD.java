@@ -44,6 +44,17 @@ public class GenericCRUD {
         return result;
     }
 
+    /**
+     *
+     * @param schema        Table Database Schema from {@link VisionDBSchema}
+     * @param tableName     The table name
+     * @param columns       Optional Array of column names that will return as JSON properties , this is the same of values you set after SELECT on SQL Query
+     *                      for example :   SELECT columnName1,columnName2
+     *                      if no column names was provided is the same as SELECT *
+     * @return              Returns all the records of the table with the columns you provided as JSON
+     * @throws SQLException
+     * @throws JDBCConnectionException
+     */
     public static JsonNode selectAllTable(VisionDBSchema schema, String tableName, String... columns) throws SQLException, JDBCConnectionException {
 
         return selectTable(schema, tableName, null, columns);
