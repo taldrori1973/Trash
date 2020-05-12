@@ -137,7 +137,9 @@ public class GenericCRUD {
         return statement.executeUpdate(query);
     }
 
-    /**Delete one or more records according to the where condition
+    /**
+     * Delete one or more records according to the where condition
+     *
      * @param schema    Table Database Schema from {@link VisionDBSchema}
      * @param tableName The table name
      * @param where     The condition for searching specific records , if the "where" is null will return all the records
@@ -153,11 +155,13 @@ public class GenericCRUD {
     }
 
 
-    /**Insert new record to the end of the table
+    /**
+     * Insert new record to the end of the table
+     *
      * @param schema    Table Database Schema from {@link VisionDBSchema}
      * @param tableName The table name
      * @param record    {@link LinkedHashMap} of columns and values to insert as record to the table
-     * @return          Returns number of records that was Inserted, i.e: 1 if the record was inserted and 0 else
+     * @return Returns number of records that was Inserted, i.e: 1 if the record was inserted and 0 else
      * @throws SQLException
      * @throws JDBCConnectionException
      */
@@ -179,6 +183,14 @@ public class GenericCRUD {
         return statement.executeUpdate(query);
     }
 
+    /**
+     * This is private method which accept value as {@link Object} and return String as follows
+     *
+     * @param value
+     * @return      if the Object is null returns null
+     *              if the object is String will return String with ('') foe example vision will return as 'vision'
+     *              else return the same Object as String
+     */
     private static String valueOfByType(Object value) {
         if (value == null) return null;
         if (value instanceof String) return format("'%s'", value);
