@@ -117,7 +117,7 @@ public class GenericCRUD {
     }
 
     /**
-     * Update multiple columns values
+     * Update multiple columns values, if the where condition apply many records : all these records will updated with same new value
      *
      * @param schema    Table Database Schema from {@link VisionDBSchema}
      * @param tableName The table name
