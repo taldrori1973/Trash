@@ -134,6 +134,7 @@ public class GenericCRUD {
         values.forEach((key, value) -> updateValues.add(format("%s=%s", key, valueOfByType(value))));
         String updateQuery = String.join(",", updateValues);
         String query = format("UPDATE %s SET %s WHERE %s;", tableName, updateQuery, where);
+        if (where == null || where.isEmpty()) query = format("UPDATE %s SET %s;", tableName, updateQuery);
         return statement.executeUpdate(query);
     }
 
