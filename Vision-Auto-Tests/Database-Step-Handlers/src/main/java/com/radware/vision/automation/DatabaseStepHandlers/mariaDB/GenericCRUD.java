@@ -28,7 +28,7 @@ public class GenericCRUD {
      * @param tableName  The table name
      * @param where      the condition where to search for the record , in this method the condition should return one record to return single value
      * @param <T>        Generic Result Type
-     * @return           One value which is under the column name of the record that returned from the where
+     * @return One value which is under the column name of the record that returned from the where
      * @throws Exception
      */
     public static <T> T selectSingleValue(VisionDBSchema schema, String columnName, String tableName, String where) throws Exception {
@@ -45,13 +45,12 @@ public class GenericCRUD {
     }
 
     /**
-     *
-     * @param schema        Table Database Schema from {@link VisionDBSchema}
-     * @param tableName     The table name
-     * @param columns       Optional Array of column names that will return as JSON properties , this is the same of values you set after SELECT on SQL Query
-     *                      for example :   SELECT columnName1,columnName2
-     *                      if no column names was provided is the same as SELECT *
-     * @return              Returns JSON Array of all the table records with the columns you provided as properties
+     * @param schema    Table Database Schema from {@link VisionDBSchema}
+     * @param tableName The table name
+     * @param columns   Optional Array of column names that will return as JSON properties , this is the same of values you set after SELECT on SQL Query
+     *                  for example :   SELECT columnName1,columnName2
+     *                  if no column names was provided is the same as SELECT *
+     * @return Returns JSON Array of all the table records with the columns you provided as properties
      * @throws SQLException
      * @throws JDBCConnectionException
      */
@@ -62,14 +61,13 @@ public class GenericCRUD {
 
 
     /**
-     *
-     * @param schema        Table Database Schema from {@link VisionDBSchema}
-     * @param tableName     The table name
-     * @param where         The condition for searching specific records , if the "where" is null will return all the records
-     * @param columns       Optional Array of column names that will return as JSON properties , this is the same of values you set after SELECT on SQL Query
-     *                      for example :   SELECT columnName1,columnName2
-     *                      if no column names was provided is the same as SELECT *
-     * @return              Returns JSON Array of all the table records that apply on the "where" condition with the columns you provided as properties
+     * @param schema    Table Database Schema from {@link VisionDBSchema}
+     * @param tableName The table name
+     * @param where     The condition for searching specific records , if the "where" is null will return all the records
+     * @param columns   Optional Array of column names that will return as JSON properties , this is the same of values you set after SELECT on SQL Query
+     *                  for example :   SELECT columnName1,columnName2
+     *                  if no column names was provided is the same as SELECT *
+     * @return Returns JSON Array of all the table records that apply on the "where" condition with the columns you provided as properties
      * @throws SQLException
      * @throws JDBCConnectionException
      */
@@ -101,6 +99,15 @@ public class GenericCRUD {
 
     }
 
+    /**
+     * @param schema        Table Database Schema from {@link VisionDBSchema}
+     * @param tableName     The table name
+     * @param where         The condition for searching specific records , if the "where" is null will return all the records
+     * @param columnName    The column name of the value you want to update
+     * @param newValue      The new Value
+     * @return              Returns number of records that was updated
+     * @throws Exception
+     */
     public static int updateSingleValue(VisionDBSchema schema, String tableName, String where, String columnName, Object newValue) throws Exception {
         Map<String, Object> map = new HashMap<>();
         map.put(columnName, newValue);
