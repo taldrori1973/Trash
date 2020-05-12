@@ -60,16 +60,16 @@ public class Demo extends BddRestTestBase {
 //            Update is expired
             int updateNumber = GenericCRUD.updateSingleValue(VisionDBSchema.VISION_NG, "vision_license", "license_str='vision-activation-maria'", "is_expired", true);
             System.out.println("\n number of records updated : " + updateNumber);
-            JsonNode jsonNode2 = GenericCRUD.selectTable(VisionDBSchema.VISION_NG, "vision_license", "license_str='vision-activation-maria'","feature_name","is_expired");
+            JsonNode jsonNode2 = GenericCRUD.selectTable(VisionDBSchema.VISION_NG, "vision_license", "license_str='vision-activation-maria'", "feature_name", "is_expired");
 
             System.out.println("\n The feature_name and is_expired after updated  :\n" + jsonNode2.toPrettyString());
 
 
 //            Update Multiple
 
-            Map<String,Object> mapOfUpdates=new HashMap<>();
-            mapOfUpdates.put("is_expired",false);
-            mapOfUpdates.put("description","This is Updated Value");
+            Map<String, Object> mapOfUpdates = new HashMap<>();
+            mapOfUpdates.put("is_expired", false);
+            mapOfUpdates.put("description", "This is Updated Value");
             int multiUpdate = GenericCRUD.updateGroupOfValues(VisionDBSchema.VISION_NG, "vision_license", "license_str='vision-activation-maria'", mapOfUpdates);
             System.out.println("\n number of records updated : " + multiUpdate);
             JsonNode jsonNode3 = GenericCRUD.selectTable(VisionDBSchema.VISION_NG, "vision_license", "license_str='vision-activation-maria'");
@@ -77,51 +77,25 @@ public class Demo extends BddRestTestBase {
             System.out.println("\n Record After Update :\n" + jsonNode3.toPrettyString());
 
 
-
 //            Select One Value
             String description = GenericCRUD.selectSingleValue(VisionDBSchema.VISION_NG, "description", "vision_license", "license_str='vision-activation-maria'");
             System.out.println("\nThe Description Value Is: " + description);
 
-
+//          Select All Table
             JsonNode allTable = GenericCRUD.selectAllTable(VisionDBSchema.VISION_NG, "vision_license");
             System.out.println("\nAll Table: \n" + allTable.toPrettyString());
 
-//        JsonNode jsonNode = GenericCRUD.selectTable(VisionDBSchema.VISION_NG, "vision_license", null);
-//        System.out.println("All Table");
-//        System.out.println(jsonNode.toPrettyString());
-//
-//        System.out.println("3 Columns");
-//        JsonNode jsonNode2 = GenericCRUD.selectTable(VisionDBSchema.VISION_NG, "vision_license", null, "description", "license_str", "is_expired");
-//        System.out.println(jsonNode2.toPrettyString());
-//
-//        System.out.println("Where description = 'APSolute Vision Activation License'");
-//        JsonNode jsonNode3 = GenericCRUD.selectTable(VisionDBSchema.VISION_NG, "vision_license", "description = 'APSolute Vision Activation License'", null);
-//        System.out.println(jsonNode3.toPrettyString());
-//
 
-//        Insert Map
-//        LinkedHashMap<String, Object> record = new LinkedHashMap<>();
-//        record.put("row_id", "8a7480a771e6ee660171e6f16df80180");
-//        record.put("ormversion", 1);
-//        record.put("name", null);
-//        record.put("description", "TEST");
-//        record.put("license_str", "vision-activation-mJDbvpgb");
-//        record.put("product_name", "vision");
-//        record.put("feature_name", "vision");
-//        record.put("license_activation_date", "2020-05-05 22:25:14");
-//        record.put("is_expired", false);
+//           Delete the new added record
 
+            int deleted = GenericCRUD.deleteRecords(VisionDBSchema.VISION_NG, "vision_license", "license_str='vision-activation-maria'");
 
-//        Map<String, Object> stringObjectMap = new HashMap<>();
-//        stringObjectMap.put("description", "APS2");
-//        stringObjectMap.put("is_expired", 0);
-//
+            System.out.println("\n number of records Deleted : " + deleted);
 
-            String oneValue = GenericCRUD.selectSingleValue(VisionDBSchema.VISION_NG, "license_str", "vision_license", "description='APSolute Vision Activation License'");
-            System.out.println(oneValue);
-//            GenericCRUD.updateGroupOfValues(VisionDBSchema.VISION_NG, "vision_license", "description='APS1'", stringObjectMap);
-//        GenericCRUD.deleteRecords(VisionDBSchema.VISION_NG, "vision_license", "description='APS2'");
-//            int i = insertRecord(VisionDBSchema.VISION_NG, "vision_license", record);
+            //          Select All Table after delete
+            allTable = GenericCRUD.selectAllTable(VisionDBSchema.VISION_NG, "vision_license");
+            System.out.println("\nAll Table after delete: \n" + allTable.toPrettyString());
+
         } catch (Exception e) {
             BaseTestUtils.report(e.getMessage(), Reporter.FAIL);
         }
