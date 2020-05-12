@@ -100,6 +100,7 @@ public class GenericCRUD {
     }
 
     /**
+     * Update Single column value
      * @param schema        Table Database Schema from {@link VisionDBSchema}
      * @param tableName     The table name
      * @param where         The condition for searching specific records , if the "where" is null will return all the records
@@ -114,6 +115,15 @@ public class GenericCRUD {
         return updateGroupOfValues(schema, tableName, where, map);
     }
 
+    /**
+     *Update multiple columns values
+     * @param schema        Table Database Schema from {@link VisionDBSchema}
+     * @param tableName     The table name
+     * @param where         The condition for searching specific records , if the "where" is null will return all the records
+     * @param values        Map of column name and new values that should be updated
+     * @return              Returns number of records that was updated
+     * @throws Exception
+     */
     public static int updateGroupOfValues(VisionDBSchema schema, String tableName, String where, Map<String, Object> values) throws Exception {
 
         Connection dbConnection = jdbcConnection.getDBConnection(schema);
