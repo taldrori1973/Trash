@@ -153,7 +153,7 @@ public class GenericCRUD {
     }
 
 
-    /**
+    /**Insert new record to the end of the table
      * @param schema    Table Database Schema from {@link VisionDBSchema}
      * @param tableName The table name
      * @param record    {@link LinkedHashMap} of columns and values to insert as record to the table
