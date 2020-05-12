@@ -101,12 +101,13 @@ public class GenericCRUD {
 
     /**
      * Update Single column value
-     * @param schema        Table Database Schema from {@link VisionDBSchema}
-     * @param tableName     The table name
-     * @param where         The condition for searching specific records , if the "where" is null will return all the records
-     * @param columnName    The column name of the value you want to update
-     * @param newValue      The new Value
-     * @return              Returns number of records that was updated
+     *
+     * @param schema     Table Database Schema from {@link VisionDBSchema}
+     * @param tableName  The table name
+     * @param where      The condition for searching specific records , if the "where" is null will return all the records
+     * @param columnName The column name of the value you want to update
+     * @param newValue   The new Value
+     * @return Returns number of records that was updated
      * @throws Exception
      */
     public static int updateSingleValue(VisionDBSchema schema, String tableName, String where, String columnName, Object newValue) throws Exception {
@@ -116,12 +117,13 @@ public class GenericCRUD {
     }
 
     /**
-     *Update multiple columns values
-     * @param schema        Table Database Schema from {@link VisionDBSchema}
-     * @param tableName     The table name
-     * @param where         The condition for searching specific records , if the "where" is null will return all the records
-     * @param values        Map of column name and new values that should be updated
-     * @return              Returns number of records that was updated
+     * Update multiple columns values
+     *
+     * @param schema    Table Database Schema from {@link VisionDBSchema}
+     * @param tableName The table name
+     * @param where     The condition for searching specific records , if the "where" is null will return all the records
+     * @param values    Map of column name and new values that should be updated
+     * @return Returns number of records that was updated
      * @throws Exception
      */
     public static int updateGroupOfValues(VisionDBSchema schema, String tableName, String where, Map<String, Object> values) throws Exception {
@@ -135,6 +137,14 @@ public class GenericCRUD {
         return statement.executeUpdate(query);
     }
 
+    /**
+     * @param schema    Table Database Schema from {@link VisionDBSchema}
+     * @param tableName The table name
+     * @param where     The condition for searching specific records , if the "where" is null will return all the records
+     * @return          Returns number of records that was deleted
+     * @throws JDBCConnectionException
+     * @throws SQLException
+     */
     public static int deleteRecords(VisionDBSchema schema, String tableName, String where) throws JDBCConnectionException, SQLException {
         Connection dbConnection = jdbcConnection.getDBConnection(schema);
         Statement statement = dbConnection.createStatement();
