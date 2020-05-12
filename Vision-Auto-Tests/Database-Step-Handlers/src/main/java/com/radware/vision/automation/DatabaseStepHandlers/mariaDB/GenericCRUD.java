@@ -152,7 +152,7 @@ public class GenericCRUD {
         Connection dbConnection = jdbcConnection.getDBConnection(schema);
         Statement statement = dbConnection.createStatement();
         String query = format("DELETE FROM %s WHERE %s; ", tableName, where);
-        if (where == null || where.isEmpty()) query = format("DELETE FROM %s; ", tableName);
+        if (where == null || where.isEmpty()) query = format("DELETE FROM %s;", tableName);
         return statement.executeUpdate(query);
     }
 
