@@ -137,7 +137,7 @@ public class GenericCRUD {
         return statement.executeUpdate(query);
     }
 
-    /**
+    /**Delete one or more records according to the where condition
      * @param schema    Table Database Schema from {@link VisionDBSchema}
      * @param tableName The table name
      * @param where     The condition for searching specific records , if the "where" is null will return all the records
