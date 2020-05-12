@@ -60,6 +60,19 @@ public class GenericCRUD {
         return selectTable(schema, tableName, null, columns);
     }
 
+
+    /**
+     *
+     * @param schema        Table Database Schema from {@link VisionDBSchema}
+     * @param tableName     The table name
+     * @param where         The condition for searching specific records , if the "where" is null will return all the records
+     * @param columns       Optional Array of column names that will return as JSON properties , this is the same of values you set after SELECT on SQL Query
+     *                      for example :   SELECT columnName1,columnName2
+     *                      if no column names was provided is the same as SELECT *
+     * @return              Returns all the records that apply on the "where" condition that was provided of the table with the columns you provided as JSON
+     * @throws SQLException
+     * @throws JDBCConnectionException
+     */
     public static JsonNode selectTable(VisionDBSchema schema, String tableName, String where, String... columns) throws SQLException, JDBCConnectionException {
         Connection dbConnection = jdbcConnection.getDBConnection(schema);
         try (Statement statement = dbConnection.createStatement()) {
