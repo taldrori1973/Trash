@@ -82,6 +82,10 @@ public class Demo extends BddRestTestBase {
             String description = GenericCRUD.selectSingleValue(VisionDBSchema.VISION_NG, "description", "vision_license", "license_str='vision-activation-maria'");
             System.out.println("\nThe Description Value Is: " + description);
 
+
+            JsonNode allTable = GenericCRUD.selectAllTable(VisionDBSchema.VISION_NG, "vision_license");
+            System.out.println("\nAll Table: \n" + allTable.toPrettyString());
+
 //        JsonNode jsonNode = GenericCRUD.selectTable(VisionDBSchema.VISION_NG, "vision_license", null);
 //        System.out.println("All Table");
 //        System.out.println(jsonNode.toPrettyString());
