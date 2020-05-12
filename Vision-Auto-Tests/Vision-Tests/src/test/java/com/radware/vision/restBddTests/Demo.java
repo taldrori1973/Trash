@@ -1,5 +1,6 @@
 package com.radware.vision.restBddTests;
 
+import com.fasterxml.jackson.databind.JsonNode;
 import com.radware.automation.tools.basetest.BaseTestUtils;
 import com.radware.automation.tools.basetest.Reporter;
 import com.radware.vision.RestStepResult;
@@ -15,8 +16,7 @@ import com.radware.vision.utils.BodyEntry;
 import cucumber.api.java.en.Then;
 
 import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 public class Demo extends BddRestTestBase {
     @Then("^Send request$")
@@ -34,7 +34,53 @@ public class Demo extends BddRestTestBase {
 
     @Then("^MariaDb Test$")
     public void mariaDbTest() throws SQLException, JDBCConnectionException {
-//
+        try {
+//        Insert New Record to licenses table
+            //                Insert Map
+            LinkedHashMap<String, Object> record = new LinkedHashMap<>();
+            record.put("row_id", "8a7480a771e6ee660171e6f16df80111");
+            record.put("ormversion", 1);
+            record.put("name", null);
+            record.put("description", "TEST Maria DB");
+            record.put("license_str", "vision-activation-maria");
+            record.put("product_name", "vision");
+            record.put("feature_name", "vision maria");
+            record.put("license_activation_date", "2020-05-13 00:25:14");
+            record.put("is_expired", false);
+
+            int i = GenericCRUD.insertRecord(VisionDBSchema.VISION_NG, "vision_license", record);
+
+            System.out.println("\n number of records inserted : " + i);
+
+//          Get the record inserted
+            JsonNode jsonNode = GenericCRUD.selectTable(VisionDBSchema.VISION_NG, "vision_license", "license_str='vision-activation-maria'");
+            System.out.println("\n The new record is :\n" + jsonNode.toPrettyString());
+
+
+//            Update is expired
+            int updateNumber = GenericCRUD.updateSingleValue(VisionDBSchema.VISION_NG, "vision_license", "license_str='vision-activation-maria'", "is_expired", true);
+            System.out.println("\n number of records updated : " + updateNumber);
+            JsonNode jsonNode2 = GenericCRUD.selectTable(VisionDBSchema.VISION_NG, "vision_license", "license_str='vision-activation-maria'","feature_name","is_expired");
+
+            System.out.println("\n The feature_name and is_expired after updated  :\n" + jsonNode2.toPrettyString());
+
+
+//            Update Multiple
+
+            Map<String,Object> mapOfUpdates=new HashMap<>();
+            mapOfUpdates.put("is_expired",false);
+            mapOfUpdates.put("description","This is Updated Value");
+            int multiUpdate = GenericCRUD.updateGroupOfValues(VisionDBSchema.VISION_NG, "vision_license", "license_str='vision-activation-maria'", mapOfUpdates);
+            System.out.println("\n number of records updated : " + multiUpdate);
+            JsonNode jsonNode3 = GenericCRUD.selectTable(VisionDBSchema.VISION_NG, "vision_license", "license_str='vision-activation-maria'");
+
+            System.out.println("\n Record After Update :\n" + jsonNode3.toPrettyString());
+
+
+
+//            Select One Value
+            String description = GenericCRUD.selectSingleValue(VisionDBSchema.VISION_NG, "description", "vision_license", "license_str='vision-activation-maria'");
+            System.out.println("\nThe Description Value Is: " + description);
 
 //        JsonNode jsonNode = GenericCRUD.selectTable(VisionDBSchema.VISION_NG, "vision_license", null);
 //        System.out.println("All Table");
@@ -66,7 +112,7 @@ public class Demo extends BddRestTestBase {
 //        stringObjectMap.put("description", "APS2");
 //        stringObjectMap.put("is_expired", 0);
 //
-        try {
+
             String oneValue = GenericCRUD.selectSingleValue(VisionDBSchema.VISION_NG, "license_str", "vision_license", "description='APSolute Vision Activation License'");
             System.out.println(oneValue);
 //            GenericCRUD.updateGroupOfValues(VisionDBSchema.VISION_NG, "vision_license", "description='APS1'", stringObjectMap);
