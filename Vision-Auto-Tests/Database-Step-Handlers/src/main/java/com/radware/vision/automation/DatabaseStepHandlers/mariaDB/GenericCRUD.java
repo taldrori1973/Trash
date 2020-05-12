@@ -51,7 +51,7 @@ public class GenericCRUD {
      * @param columns       Optional Array of column names that will return as JSON properties , this is the same of values you set after SELECT on SQL Query
      *                      for example :   SELECT columnName1,columnName2
      *                      if no column names was provided is the same as SELECT *
-     * @return              Returns all the records of the table with the columns you provided as JSON
+     * @return              Returns JSON Array of all the table records with the columns you provided as properties
      * @throws SQLException
      * @throws JDBCConnectionException
      */
@@ -69,7 +69,7 @@ public class GenericCRUD {
      * @param columns       Optional Array of column names that will return as JSON properties , this is the same of values you set after SELECT on SQL Query
      *                      for example :   SELECT columnName1,columnName2
      *                      if no column names was provided is the same as SELECT *
-     * @return              Returns all the records that apply on the "where" condition that was provided of the table with the columns you provided as JSON
+     * @return              Returns JSON Array of all the table records that apply on the "where" condition with the columns you provided as properties
      * @throws SQLException
      * @throws JDBCConnectionException
      */
