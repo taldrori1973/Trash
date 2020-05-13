@@ -82,6 +82,18 @@ Feature: attackTable
     Then UI Select Time From: 0 To: 2 Time, in Line Chart data "Attacks Dashboard Traffic Widget" with timeFormat "yyyy-MM-dd'T'HH:mm:ssXXX"
     Then UI Validate "Attacks Table" Table rows count EQUALS to 6
 
+  @SID_9
+  Scenario: Validate downloaded capture file
+    And UI Do Operation "Select" item "Global Time Filter"
+    Then Sleep "1"
+    And UI Do Operation "Select" item "Global Time Filter.Quick Range" with value "3H"
+    Then Delete downloaded file with name "attack_7839-1402580209_packets.cap"
+    When UI click Table row by keyValue or Index with elementLabel "Attacks Table" findBy columnName "Destination Ports" findBy cellValue "1025"
+    And UI Click Button "PCAP"
+    Then Validate downloaded file size with name "attack_7839-1402580209_packets.cap" equal to 7
+    Then Delete downloaded file with name "attack_7839-1402580209_packets.cap"
+    And UI logout and close browser
+
 
 
 
