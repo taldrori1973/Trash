@@ -106,8 +106,8 @@ public class BasicValidationsTests extends BddUITestBase {
     }
 
 
-    @Then("^Validate Expand Info Table with label \"([^\"]*)\" Equals to \"([^\"]*)\"$")
-    public void validateExtendTable(String label, String value){
+    @Then("^Validate Expand \"([^\"]*)\" Table with label \"([^\"]*)\" Equals to \"([^\"]*)\"$")
+    public void validateExtendTable(String tableName, String label, String value){
         BasicOperationsHandler.isTextEqualValue(label,null,value);
 
     }
@@ -400,6 +400,21 @@ public class BasicValidationsTests extends BddUITestBase {
             {
                 addErrorMessage("The Expected is: the columnName: '" + columnName.get(0) + "' with value: '" + value.get(0) + "' should be exist in table " + tableName + " but they arn't");
             }
+        }
+        ReportsUtils.reportErrors();
+    }
+
+    @Then("^UI search row table in searchLabel \"([^\"]*)\"(?: with params \"([^\"]*)\")? with text \"([^\"]*)\"$")
+    public void uiTextToSearchInTableInSearchLabelWithParamsWithText(String searchLabel, String searchParams, String text) throws Exception {
+        VisionDebugIdsManager.setLabel(searchLabel);
+        VisionDebugIdsManager.setParams(searchParams);
+        WebElement searchElement = WebUIUtils.fluentWait(ComponentLocatorFactory.getLocatorByXpathDbgId(VisionDebugIdsManager.getDataDebugId()).getBy());
+        if (searchElement.findElement(By.xpath("./input")) != null)
+        {
+            searchElement.findElement(By.xpath("./input")).sendKeys(new CharSequence[]{text});
+        }else
+        {
+            setTextField(searchLabel, searchParams, text,false);
         }
         ReportsUtils.reportErrors();
     }

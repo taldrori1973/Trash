@@ -13,6 +13,7 @@ import com.radware.automation.webui.widgets.impl.WebUIComponent;
 import com.radware.automation.webui.widgets.impl.WebUIDropdown;
 import com.radware.automation.webui.widgets.impl.WebUIDualList;
 import com.radware.automation.webui.widgets.impl.WebUIDualListScripts;
+import com.radware.vision.infra.base.pages.navigation.WebUIVisionBasePage;
 import com.radware.vision.infra.enums.DualListSides;
 import com.radware.vision.automation.AutoUtils.Operators.OperatorsEnum;
 import com.radware.vision.infra.enums.VisionTableIDs;
@@ -470,4 +471,26 @@ public class ClickOperationsHandler {
             BaseTestUtils.report("Failed to validate Tooltip, Expected value: " + expectedTooltipValue + ", Actual value: " + actualTooltipValue, Reporter.FAIL);
         }
     }
+
+
+    public static void clickOnSwitchButton(String label, String params, String state) {
+        VisionDebugIdsManager.setLabel(label);
+        VisionDebugIdsManager.setParams(params);
+        if (state.equalsIgnoreCase("off"))
+        {
+            if (WebUIUtils.fluentWait(ComponentLocatorFactory.getLocatorByXpathDbgId(VisionDebugIdsManager.getDataDebugId()).getBy()).getAttribute("aria-checked").equals("true"))
+            {
+                WebUIVisionBasePage.getCurrentPage().getContainer().getButton(label).click();
+            }
+        }
+
+        if (state.equalsIgnoreCase("on"))
+        {
+            if (WebUIUtils.fluentWait(ComponentLocatorFactory.getLocatorByXpathDbgId(VisionDebugIdsManager.getDataDebugId()).getBy()).getAttribute("aria-checked").equals("false"))
+            {
+                WebUIVisionBasePage.getCurrentPage().getContainer().getButton(label).click();
+            }
+        }
+    }
+
 }

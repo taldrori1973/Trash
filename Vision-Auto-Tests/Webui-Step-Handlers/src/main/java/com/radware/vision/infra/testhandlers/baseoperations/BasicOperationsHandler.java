@@ -386,9 +386,9 @@ public class BasicOperationsHandler {
     }
 
 
-    public static void isTextEqualValue(String label, String param, String expectedValue) {
+    public static void isTextEqualValue(String label, String expectedValue, String... params) {
         VisionDebugIdsManager.setLabel(label);
-        VisionDebugIdsManager.setParams(param);
+        VisionDebugIdsManager.setParams(params);
         String actualValue = WebUIVisionBasePage.getCurrentPage().getContainer().getLabel(label).getInnerText();
         if (actualValue.equals(expectedValue)) {
             BaseTestUtils.report("Successfully validated element value: " + label + " equals to " + expectedValue , Reporter.PASS);
