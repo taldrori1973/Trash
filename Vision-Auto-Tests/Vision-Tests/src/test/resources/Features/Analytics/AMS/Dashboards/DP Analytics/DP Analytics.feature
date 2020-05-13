@@ -2,7 +2,6 @@
 
 Feature: DP ANALYTICS
 
-
   @SID_1
   Scenario: Clean system attacks,database and logs
 #    When CLI Operations - Run Radware Session command "system user authentication-mode set TACACS+"
@@ -16,7 +15,6 @@ Feature: DP ANALYTICS
 #    * CLI Clear vision logs
 #    * CLI Run remote linux Command "curl -X GET localhost:9200/_cat/indices?v | grep dp-attack-raw >> /opt/radware/storage/maintenance/dp-attack-before-streaming" on "ROOT_SERVER_CLI"
 #    * CLI Run remote linux Command "curl -X POST localhost:9200/dp-attack-raw-*/_search -d '{"query":{"bool":{"must":[{"match_all":{}}]}},"from":0,"size":1000}' > /opt/radware/storage/maintenance/attack-raw-index-before-stream" on "ROOT_SERVER_CLI"
-
   @SID_2
   Scenario: Run DP simulator PCAPs for Attacks by Protection Policy  widget
     * CLI simulate 1 attacks of type "VRM_attacks" on SetId "DefensePro_Set_1"
@@ -31,7 +29,7 @@ Feature: DP ANALYTICS
 
   @SID_3
   Scenario: Login and add widgets
-    When UI Login with user "sys_admin" and password "radware"
+    When UI Login with user "radware" and password "radware"
 #    * REST Vision Install License Request "vision-AVA-Max-attack-capacity"
     Then UI Navigate to "DefensePro Analytics Dashboard" page via homePage
     And UI Do Operation "Select" item "Global Time Filter"
@@ -45,7 +43,7 @@ Feature: DP ANALYTICS
 
   @SID_4
   Scenario: VRM - Validate Dashboards "Attacks by Mitigation Action" Chart data for all DP machines
-    * Sleep "2"
+    * Sleep "5"
     Then UI Validate StackBar data with widget "Attacks by Mitigation Action"
       | label              | value | legendName         |
       | shlomi             | 15    | Drop               |
@@ -69,7 +67,6 @@ Feature: DP ANALYTICS
       | pph_9Pkt_lmt_252.1 | 3     | Forward            |
       | Seets_policy       | 3     | Http200OkResetDest |
 
-
   @SID_5
   Scenario: VRM - Validate Dashboards "Attacks by Mitigation Action" Chart widget styling attributes
     Then UI Validate Line Chart attributes "Attacks by Mitigation Action" with Label "shlomi"
@@ -87,7 +84,6 @@ Feature: DP ANALYTICS
     Then UI Validate Line Chart attributes "Attacks by Mitigation Action" with Label "Black_IPV6"
       | attribute       | value                    |
       | backgroundColor | rgba(154, 145, 150, 0.7) |
-
 
   @SID_6
   Scenario: VRM - Validate Dashboards "Attacks by Mitigation Action" Chart data for one selected DP machine
@@ -118,7 +114,6 @@ Feature: DP ANALYTICS
       | pph_9Pkt_lmt_252.1 | 1     | Forward            |
       | Seets_policy       | 1     | Http200OkResetDest |
 
-
   @SID_7
   Scenario: VRM - Validate Dashboards "Attacks by Mitigation Action" Chart data for one selected port
     When UI Do Operation "Select" item "Device Selection"
@@ -129,7 +124,6 @@ Feature: DP ANALYTICS
       | label  | value | legendName |
       | shlomi | 5     | Drop       |
       | BDOS   | 4     | Drop       |
-
 
   @SID_8
   Scenario: VRM - Validate Dashboards "Attacks by Mitigation Action" Chart data for selected policies
@@ -145,7 +139,6 @@ Feature: DP ANALYTICS
       | shlomi | 5     | Drop       |
       | BDOS   | 1     | Forward    |
 
-
   @SID_9
   Scenario: VRM - Validate Dashboards "Attacks by Mitigation Action" Chart data for selected port and policies
     When UI Do Operation "Select" item "Device Selection"
@@ -157,7 +150,6 @@ Feature: DP ANALYTICS
       | shlomi | 5     | Drop       |
       | BDOS   | 4     | Drop       |
 
-
   @SID_10
   Scenario: VRM - NEGATIVE: Validate Dashboards "Attacks by Mitigation Action" Chart data doesn't exist for policy without relevant data
     When UI Do Operation "Select" item "Device Selection"
@@ -167,7 +159,6 @@ Feature: DP ANALYTICS
     Then UI Validate StackBar data with widget "Attacks by Mitigation Action"
       | label     | value | legendName | exist |
       | shlomchik | 3     | Drop       | false |
-
 
   @SID_11
   Scenario: VRM - NEGATIVE: Validate Dashboards "Attacks by Mitigation Action" data doesn't exist for policy with traffic and port with no traffic
@@ -193,7 +184,7 @@ Feature: DP ANALYTICS
 #
 #  @SID_13
 #  Scenario: Login
-#    When UI Login with user "sys_admin" and password "radware"
+#    When UI Login with user "radware" and password "radware"
 #    And UI Open Upper Bar Item "AMS"
 #    And UI Open "Dashboards" Tab
 #    And UI Open "DP Analytics" Sub Tab
@@ -327,11 +318,11 @@ Feature: DP ANALYTICS
 
   @SID_22
   Scenario: Login
-    When UI Login with user "sys_admin" and password "radware"
+    When UI Login with user "radware" and password "radware"
     Then UI Navigate to "DefensePro Analytics Dashboard" page via homePage
     And UI Do Operation "Select" item "Global Time Filter"
     And UI Do Operation "Select" item "Global Time Filter.Quick Range" with value "3H"
-
+    * Sleep "5"
 
   @SID_23
   Scenario: VRM - Validate Dashboards "Attacks by Protection Policy" Chart data for all DP machines
@@ -425,12 +416,12 @@ Feature: DP ANALYTICS
       | setId            | ports | policies      |
       | DefensePro_Set_1 | 1     | BDOS,POL_IPV6 |
       | DefensePro_Set_2 | 1     | BDOS,POL_IPV6 |
-    Then UI Validate StackBar data with widget "Attacks by Protection Policy"
-      | label                          | value | legendName |
-      | DOSS-Anomaly-TCP-SYN-RST       | 4     | BDOS       |
-      | tim                            | 2     | BDOS       |
-      | network flood IPv4 TCP-SYN-ACK | 2     | BDOS       |
-    Then UI Total "Attacks by Protection Policy" legends equal to 1
+#    Then UI Validate StackBar data with widget "Attacks by Protection Policy"
+#      | label                          | value | legendName |
+#      | DOSS-Anomaly-TCP-SYN-RST       | 4     | BDOS       |
+#      | tim                            | 2     | BDOS       |
+#      | network flood IPv4 TCP-SYN-ACK | 2     | BDOS       |
+#    Then UI Total "Attacks by Protection Policy" legends equal to 1
 
 
   @SID_28
@@ -473,11 +464,11 @@ Feature: DP ANALYTICS
 
   @SID_31
   Scenario: Login
-    When UI Login with user "sys_admin" and password "radware"
+    When UI Login with user "radware" and password "radware"
     Then UI Navigate to "DefensePro Analytics Dashboard" page via homePage
     And UI Do Operation "Select" item "Global Time Filter"
     And UI Do Operation "Select" item "Global Time Filter.Quick Range" with value "3H"
-
+    * Sleep "5"
 
   @SID_32
   Scenario: VRM - Validate Dashboards "Attacks by Threat Category" Chart data for all DP machines
@@ -592,10 +583,11 @@ Feature: DP ANALYTICS
 
   @SID_40
   Scenario: Login
-    When UI Login with user "sys_admin" and password "radware"
+    When UI Login with user "radware" and password "radware"
     Then UI Navigate to "DefensePro Analytics Dashboard" page via homePage
     And UI Do Operation "Select" item "Global Time Filter"
     And UI Do Operation "Select" item "Global Time Filter.Quick Range" with value "3H"
+    * Sleep "5"
 
   @SID_41
   Scenario: VRM - Validate Dashboards "Attack Categories by Bandwidth" Chart data for all DP machines
@@ -661,6 +653,7 @@ Feature: DP ANALYTICS
       | setId            | ports | policies   |
       | DefensePro_Set_1 |       | Black_IPV4 |
       | DefensePro_Set_2 |       | Black_IPV4 |
+    * Sleep "5"
     Then UI Validate StackBar data with widget "Attack Categories by Bandwidth"
       | label      | value  | legendName |
       | Black_IPV4 | 874042 | ACL        |
@@ -723,11 +716,11 @@ Feature: DP ANALYTICS
 
   @SID_49
   Scenario: Login
-    When UI Login with user "sys_admin" and password "radware"
+    When UI Login with user "radware" and password "radware"
     Then UI Navigate to "DefensePro Analytics Dashboard" page via homePage
     And UI Do Operation "Select" item "Global Time Filter"
     And UI Do Operation "Select" item "Global Time Filter.Quick Range" with value "3H"
-
+    * Sleep "5"
 
   @SID_50
   Scenario: VRM - Validate Dashboards "Top Attack Destination" chart data on All devices
@@ -865,11 +858,11 @@ Feature: DP ANALYTICS
 
   @SID_58
   Scenario: Login
-    When UI Login with user "sys_admin" and password "radware"
+    When UI Login with user "radware" and password "radware"
     Then UI Navigate to "DefensePro Analytics Dashboard" page via homePage
     And UI Do Operation "Select" item "Global Time Filter"
     And UI Do Operation "Select" item "Global Time Filter.Quick Range" with value "3H"
-
+    * Sleep "5"
 
   @SID_59
   Scenario: VRM - Validate Dashboards "Top Attacks" Chart data for all DP machines
@@ -1002,7 +995,7 @@ Feature: DP ANALYTICS
 
   @SID_67
   Scenario: Login
-    When UI Login with user "sys_admin" and password "radware"
+    When UI Login with user "radware" and password "radware"
     Then UI Navigate to "DefensePro Analytics Dashboard" page via homePage
     And UI Do Operation "Select" item "Global Time Filter"
     And UI Do Operation "Select" item "Global Time Filter.Quick Range" with value "3H"
@@ -1130,12 +1123,13 @@ Feature: DP ANALYTICS
 
   @SID_76
   Scenario: Login
-    When UI Login with user "sys_admin" and password "radware"
+    When UI Login with user "radware" and password "radware"
     Then UI Navigate to "DefensePro Analytics Dashboard" page via homePage
     And UI Do Operation "Select" item "Global Time Filter"
     And UI Do Operation "Select" item "Global Time Filter.Quick Range" with value "3H"
     And UI VRM Select Widgets
       | Top Attacks by Duration |
+    * Sleep "5"
 
   @SID_77
   Scenario: VRM - Validate Dashboards "Top Attacks by Duration" Chart data for all DP machines
@@ -1291,10 +1285,11 @@ Feature: DP ANALYTICS
       # ================= Top Attacks by Protocol ================= #
   @SID_85
   Scenario: Login
-    When UI Login with user "sys_admin" and password "radware"
+    When UI Login with user "radware" and password "radware"
     Then UI Navigate to "DefensePro Analytics Dashboard" page via homePage
     And UI Do Operation "Select" item "Global Time Filter"
     And UI Do Operation "Select" item "Global Time Filter.Quick Range" with value "3H"
+    * Sleep "5"
 
   @SID_86
   Scenario: VRM - Validate Dashboards "Top Attacks by Protocol" Chart data for all DP machines
@@ -1446,10 +1441,11 @@ Feature: DP ANALYTICS
 
   @SID_94
   Scenario: Login
-    When UI Login with user "sys_admin" and password "radware"
+    When UI Login with user "radware" and password "radware"
     Then UI Navigate to "DefensePro Analytics Dashboard" page via homePage
     And UI Do Operation "Select" item "Global Time Filter"
     And UI Do Operation "Select" item "Global Time Filter.Quick Range" with value "3H"
+    * Sleep "5"
 
   @SID_95
   Scenario: VRM - Validate Dashboards "Top Attack Sources" Chart data for all DP machines
@@ -1558,10 +1554,11 @@ Feature: DP ANALYTICS
       # ================= TOP FORWARDED ATTACK SOURCES ================= #
   @SID_103
   Scenario: Login
-    When UI Login with user "sys_admin" and password "radware"
+    When UI Login with user "radware" and password "radware"
     Then UI Navigate to "DefensePro Analytics Dashboard" page via homePage
     And UI Do Operation "Select" item "Global Time Filter"
     And UI Do Operation "Select" item "Global Time Filter.Quick Range" with value "3H"
+    * Sleep "5"
 
   @SID_104
   Scenario: VRM - Validate Dashboards "Top Forwarded Attack Sources" Chart data for all DP machines
@@ -1656,12 +1653,13 @@ Feature: DP ANALYTICS
       # ================= TOP PROBED IP ADDRESSES ================= #
   @SID_112
   Scenario: Login
-    When UI Login with user "sys_admin" and password "radware"
+    When UI Login with user "radware" and password "radware"
     Then UI Navigate to "DefensePro Analytics Dashboard" page via homePage
     And UI Do Operation "Select" item "Global Time Filter"
     And UI Do Operation "Select" item "Global Time Filter.Quick Range" with value "3H"
     And UI VRM Select Widgets
       | Top Probed IP Addresses |
+    * Sleep "5"
 
   @SID_113
   Scenario: VRM - Validate Dashboards "Top Probed IP Addresses" Chart data for all DP machines
@@ -1730,10 +1728,11 @@ Feature: DP ANALYTICS
 
   @SID_119
   Scenario: Login
-    When UI Login with user "sys_admin" and password "radware"
+    When UI Login with user "radware" and password "radware"
     Then UI Navigate to "DefensePro Analytics Dashboard" page via homePage
     And UI Do Operation "Select" item "Global Time Filter"
     And UI Do Operation "Select" item "Global Time Filter.Quick Range" with value "3H"
+    * Sleep "5"
 
   @SID_120
   Scenario: VRM - Validate Dashboards "Top Scanners" Chart data for all DP machines
@@ -1820,7 +1819,7 @@ Feature: DP ANALYTICS
     * REST Delete ES index "dp-*"
     * CLI simulate 1 attacks of type "rest_anomalies" on SetId "DefensePro_Set_1"
     * CLI simulate 1 attacks of type "rest_anomalies" on SetId "DefensePro_Set_1" and wait 30 seconds
-    Given UI Login with user "sys_admin" and password "radware"
+    Given UI Login with user "radware" and password "radware"
     Then UI Navigate to "DefensePro Analytics Dashboard" page via homePage
     Then Sleep "5"
     Then UI Do Operation "Select" item "Device Selection"
