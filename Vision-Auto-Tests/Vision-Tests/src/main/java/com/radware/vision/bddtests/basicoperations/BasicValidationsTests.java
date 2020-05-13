@@ -388,13 +388,14 @@ public class BasicValidationsTests extends BddUITestBase {
             setTextField(searchLabel, searchParams, text,false);
         }
         VisionDebugIdsManager.setLabel(tableName);
-        BasicTable table = new BasicTableWithPagination(ComponentLocatorFactory.getEqualLocatorByDbgId(VisionDebugIdsManager.getDataDebugId()), true);
+        BasicTable table = new BasicTableWithPagination(ComponentLocatorFactory.getEqualLocatorByDbgId(VisionDebugIdsManager.getDataDebugId()), false);
         for (TableValues entry : entries)
         {
             List<String> columnName = new ArrayList();
             columnName.add(entry.columnName);
             List <String> value = new ArrayList();
             value.add(entry.value);
+            WebUIUtils.sleep(1);
             if (table.findRowByKeysValues(columnName, value) < 0)
             {
                 addErrorMessage("The Expected is: the columnName: '" + columnName.get(0) + "' with value: '" + value.get(0) + "' should be exist in table " + tableName + " but they arn't");

@@ -206,9 +206,9 @@ public class VRMSteps {
         vrmHandler.uiValidateLineChartDataWithLabelTime(chart, entries);
     }
 
-    @Then("^UI Select Time From: (\\d+) To: (\\d+) Time, in Line Chart data \"([^\"]*)\"$")
-    public void uiSelectFromTo(int from, int to, String chart) {
-        vrmHandler.selectTimeFromTo(from, to, chart);
+    @Then("^UI Select Time From: (\\d+) To: (\\d+) Time, in Line Chart data \"([^\"]*)\"(?: with timeFormat \"([^\"]*)\")?$")
+    public void uiSelectFromTo(int from, int to, String chart, String timeFormat) {
+        vrmHandler.selectTimeFromTo(from, to, chart, timeFormat);
     }
 
     /**
