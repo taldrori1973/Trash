@@ -105,6 +105,7 @@ public class AttacksSteps extends BddCliTestBase {
         String visionIP = clientConfigurations.getHostIp();
         String interFace;
         String macAdress = TestBase.getVisionConfigurations().getManagementInfo().getMacAddress();
+//        String macAdress = "00:14:69:4c:70:42"; //172.17.1.1 GW mac- used only for kvision
         String commandToExecute = "";
         Optional<LinuxFileServer> genericLinuxServer = TestBase.serversManagement.getLinuxFileServer();
         SUTManager sutManager = TestBase.getSutManager();
