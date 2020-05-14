@@ -131,8 +131,10 @@ public class VRMHandler {
         if (dataSets != null && legends != null) {
             entries.forEach(entry -> {
                 Objects.requireNonNull(entry.legendName, "Legend can't be null");
-                if (isLegendNameExistAndShouldReturn(chart, entry)) return;
-                if (isLabanAndEntryExists(chart, entry)) return;
+                if (isLegendNameExistAndShouldReturn(chart, entry) || isLabanAndEntryExists(chart, entry)) {
+                    scrollAndTakeScreenshot(chart);
+                    return;
+                }
                 int legendIndex;
                 legendIndex = legends.toList().indexOf(entry.legendName);
                 if (legendIndex == -1) {
@@ -823,7 +825,7 @@ public class VRMHandler {
                 String deviceIp = null;
                 try {
                     if (entry.setId != null) {
-                        Optional<TreeDeviceManagementDto> deviceOpt= SUTManagerImpl.getInstance().getTreeDeviceManagement(entry.setId);
+                        Optional<TreeDeviceManagementDto> deviceOpt = SUTManagerImpl.getInstance().getTreeDeviceManagement(entry.setId);
                         if (!deviceOpt.isPresent()) {
                             throw new Exception(String.format("No Device with \"%s\" Set ID found in this setup", entry.setId));
                         }
