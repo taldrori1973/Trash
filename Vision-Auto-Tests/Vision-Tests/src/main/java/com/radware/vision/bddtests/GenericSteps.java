@@ -388,6 +388,11 @@ public class GenericSteps extends BddUITestBase {
         WebUIUtils.fluentWait(ComponentLocatorFactory.getCssLocatorByAttribute(attribute, value).getBy()).click();
     }
 
+    @When("^UI set \"([^\"]*)\" switch button to \"([^\"]*)\"$")
+    public void clickOnSwitchButton(String label, String state) throws TargetWebElementNotFoundException {
+        ClickOperationsHandler.clickOnSwitchButton(label,null,state);
+    }
+
 
     private class ElementAttribute {
         String name;
