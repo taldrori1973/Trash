@@ -29,6 +29,11 @@ public class LicenseGenerator {
     }
 
 
+    /**
+     *
+     * @param licenseKeyPrefix
+     * @return      licenseKeyPrefix License Key by the default MAC Address from TestBase.getVisionConfigurations().getManagementInfo().getMacAddress()
+     */
     public static String generateLicense(String licenseKeyPrefix)  {
         return generateLicense(MAC_ADDRESS, licenseKeyPrefix);
     }
