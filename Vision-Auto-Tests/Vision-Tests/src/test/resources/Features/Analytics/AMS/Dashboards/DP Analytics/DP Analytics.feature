@@ -769,17 +769,19 @@ Feature: DP ANALYTICS
     And UI VRM Select device from dashboard and Save Filter
       | setId            | ports | policies |
       | DefensePro_Set_1 |       | Policy15 |
-    Then UI Validate Pie Chart data "Top Attack Destination"
-      | label                                   | data | exist | legendNameExist |
-      | 0.0.0.0                                 | 5    | false | false           |
-      | 1.1.1.10                                | 5    | false | false           |
-      | Multiple                                | 4    | false | false           |
-      | 1234:1234:1234:1234:1234:1234:1234:1235 | 4    | false | false           |
-      | 1.1.1.8                                 | 2    | false | false           |
-      | ::                                      | 2    | false | false           |
-      | 2000::0001                              | 2    | false | false           |
-      | 10.10.1.200                             | 2    | false | false           |
-      | 1.1.1.1                                 | 2    | false | false           |
+#    Then UI Validate Pie Chart data "Top Attack Destination"
+#      | label                                   | data | exist | legendNameExist |
+#      | 0.0.0.0                                 | 5    | false | false           |
+#      | 1.1.1.10                                | 5    | false | false           |
+#      | Multiple                                | 4    | false | false           |
+#      | 1234:1234:1234:1234:1234:1234:1234:1235 | 4    | false | false           |
+#      | 1.1.1.8                                 | 2    | false | false           |
+#      | ::                                      | 2    | false | false           |
+#      | 2000::0001                              | 2    | false | false           |
+#      | 10.10.1.200                             | 2    | false | false           |
+#      | 1.1.1.1                                 | 2    | false | false           |
+    Then UI Validate Text field by id "17f01010-4023-4157-87dd-8c5792577149" CONTAINS "No Data Available"
+
 
 
   @SID_56
@@ -1598,7 +1600,6 @@ Feature: DP ANALYTICS
     Then UI Validate Pie Chart data "Top Probed IP Addresses-1"
       | label       | data |
       | 10.10.1.200 | 2    |
-
 
   @SID_115
   Scenario: VRM - Validate Dashboards "Top Probed IP Addresses" Chart data for selected port
