@@ -23,6 +23,14 @@
       "basePath": "/mgmt/system/config/item/globalaaaparameters",
       "produces": "application/json",
       "description": "Set Authentication Mode"
+    },
+    {
+      "label": "Install License",
+      "method": "POST",
+      "basePath": "/mgmt/system/config/itemlist/visionlicense",
+      "produces": "application/json",
+      "consumes": "application/json",
+      "description": "Set Authentication Mode"
     }
   ]
 }
