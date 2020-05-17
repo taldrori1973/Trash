@@ -1,4 +1,4 @@
-package com.radware.vision.tools;
+package com.radware.vision.systemManagement.licenseManagement;
 
 import com.radware.jsonparsers.impl.GenericJSonParsers;
 import com.radware.restcore.VisionRestClient;
