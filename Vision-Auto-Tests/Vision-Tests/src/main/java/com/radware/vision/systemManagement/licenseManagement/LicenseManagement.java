@@ -204,9 +204,10 @@ public class LicenseManagement {
         else
             licenseToDelete = installedLicenses.stream().filter(license -> license.getLicense_str().startsWith(shortLicensePrefix)).findAny();
 
-        licenseToDelete.ifPresent(license -> restDelete(license));
+        if (licenseToDelete.isPresent())
+            return restDelete(licenseToDelete.get());
+        else return false;
 
-        return true;
     }
 
     private boolean handleRelatedLicenseInstallation(List<VisionLicenses> relatedLicenses) throws Exception {
