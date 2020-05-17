@@ -58,10 +58,7 @@ public class LicenseSteps extends BddRestTestBase {
                     Reporter.FAIL
             );
         } catch (Exception e) {
-            BaseTestUtils.report(
-                    e.getMessage(),
-                    Reporter.FAIL
-            );
+            BaseTestUtils.report(e.getMessage(), Reporter.FAIL);
         }
     }
 
