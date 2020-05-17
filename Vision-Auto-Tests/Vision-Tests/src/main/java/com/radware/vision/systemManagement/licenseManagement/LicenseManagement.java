@@ -15,6 +15,7 @@ import com.radware.vision.automation.DatabaseStepHandlers.mariaDB.repositories.v
 import com.radware.vision.infra.testresthandlers.BasicRestOperationsHandler;
 import com.radware.vision.utils.UriUtils;
 import models.RestResponse;
+import models.StatusCode;
 import restInterface.client.SessionBasedRestClient;
 
 import java.time.LocalDate;
@@ -159,7 +160,7 @@ public class LicenseManagement {
 
     }
 
-    public boolean install() throws JDBCConnectionException {
+    public boolean install() throws Exception {
         String timeBasedLicensePrefix = String.format("%s-%s-%s-%s-", this.productName, this.licenseName, this.fromDate, this.toDate);
         String shortLicensePrefix = String.format("%s-%s-", this.productName, this.licenseName);
 
@@ -213,7 +214,7 @@ public class LicenseManagement {
         return true;
     }
 
-    private boolean handleRelatedLicenseInstallation(List<VisionLicenses> relatedLicenses) throws JDBCConnectionException {
+    private boolean handleRelatedLicenseInstallation(List<VisionLicenses> relatedLicenses) throws Exception {
 //        first check if the same license is already installed
         String timeBasedLicensePrefix = String.format("%s-%s-%s-%s-", this.productName, this.licenseName, this.fromDate, this.toDate);
         String shortLicensePrefix = String.format("%s-%s-", this.productName, this.licenseName);
@@ -238,7 +239,7 @@ public class LicenseManagement {
         return restInstall();
     }
 
-    private boolean restInstall() throws NoSuchFieldException {
+    private boolean restInstall() throws Exception {
         ClientConfigurationDto clientConfigurations = SUTManagerImpl.getInstance().getClientConfigurations();
         int numberOfInstalledLicensesBeforeDelete = installedLicenses.size();
         RestTestBase restTestBase = new RestTestBase();
@@ -254,13 +255,15 @@ public class LicenseManagement {
             BaseTestUtils.report(String.format("License Key Generation Failed , Error Message: %s", e.getMessage()), Reporter.FAIL);
         }
         Object result = "";
-        if (this.featureName.equals(VisionLicenses.ACTIVATION.getLicenseFeatureName()))
-            restTestBase.getVisionRestClient().login("radware", "radware", licenseKey, 1);
-        SessionBasedRestClient connection = RestClientsFactory.getVisionConnection(UriUtils.buildUrlFromProtocolAndIp(getCurrentVisionRestProtocol(), getCurrentVisionIp()),
-                getCurrentVisionRestPort(), getCurrentVisionRestUserName(), getCurrentVisionRestUserPassword(), licenseKey);
-        RestResponse loginResult = connection.login();
-        else
-        result = BasicRestOperationsHandler.visionRestApiRequest(restTestBase.getVisionRestClient(), HttpMethodEnum.POST, "License", null, licenseKey, getExpectedInstallationResult());
+        if (this.featureName.equals(VisionLicenses.ACTIVATION.getLicenseFeatureName())) {
+            SessionBasedRestClient connection = RestClientsFactory.getVisionConnection(UriUtils.buildUrlFromProtocolAndIp(getCurrentVisionRestProtocol(), getCurrentVisionIp()),
+                    getCurrentVisionRestPort(), getCurrentVisionRestUserName(), getCurrentVisionRestUserPassword(), licenseKey);
+            RestResponse loginResult = connection.login();
+            if (!loginResult.getStatusCode().equals(StatusCode.OK)) {
+                throw new Exception(String.format("the Login Fails because of the following error: %s", loginResult.getBody().getBodyAsString()));
+            }
+        } else
+            result = BasicRestOperationsHandler.visionRestApiRequest(restTestBase.getVisionRestClient(), HttpMethodEnum.POST, "License", null, licenseKey, getExpectedInstallationResult());
 
         if (result.toString().contains("\"status\":\"ok\"")) {
             this.installedLicenses = this.visionLicenseDao.getAll();
