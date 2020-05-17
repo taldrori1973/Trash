@@ -1,6 +1,5 @@
 package com.radware.vision.systemManagement.licenseManagement;
 
-import com.radware.vision.base.TestBase;
 import com.radware.vision.utils.ReflectionUtils;
 
 /**
@@ -8,7 +7,7 @@ import com.radware.vision.utils.ReflectionUtils;
  * Copied to this Project and modified by MohamadI on 30/03/2020
  */
 public class LicenseGenerator {
-    private static String MAC_ADDRESS = TestBase.getVisionConfigurations().getManagementInfo().getMacAddress();
+    public static String MAC_ADDRESS ;
 
     /**
      * @return Vision Activation License Key by the default MAC Address from TestBase.getVisionConfigurations().getManagementInfo().getMacAddress()

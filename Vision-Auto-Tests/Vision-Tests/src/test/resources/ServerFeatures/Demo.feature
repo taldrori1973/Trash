@@ -2,13 +2,21 @@
 @TC113068
 Feature: Demo
 
-@run_kVision
+  @run_kVision
   Scenario: MariaDb
     Then MariaDb Test
 
-@run
+  @run
+  Scenario: Licenses
+    Then REST Vision Install License Request "vision-reporting-module-ADC"
+    Then REST Vision Install License Request "vision-perfreporter" from date "-2d" to date "+3d"
+    Then REST Vision Install License Request vision-activation with expired date
+    Then REST Vision Install License Request "vision-activation"
+    Then REST Vision DELETE License Request "vision-reporting-module-AMS"
+
   Scenario: Test
     Given SUT Test
+
   @SID_5
   Scenario: Create Local User
 
