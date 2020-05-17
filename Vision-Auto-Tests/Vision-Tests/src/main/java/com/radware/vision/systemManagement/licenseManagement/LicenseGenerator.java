@@ -2,7 +2,6 @@ package com.radware.vision.systemManagement.licenseManagement;
 
 import com.radware.jsonparsers.impl.GenericJSonParsers;
 import com.radware.restcore.VisionRestClient;
-import com.radware.vision.infra.enums.VisionLicenses;
 import com.radware.vision.pojomodel.security.VisionLicensePojo;
 import com.radware.vision.utils.ReflectionUtils;
 
