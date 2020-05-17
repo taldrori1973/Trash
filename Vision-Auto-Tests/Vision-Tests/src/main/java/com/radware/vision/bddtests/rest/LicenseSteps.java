@@ -72,6 +72,8 @@ public class LicenseSteps extends BddRestTestBase {
                     String.format("Can't create \"LicenseManagement\" Object due to the following Exception:\n%s\n\n%s", e.getMessage(), Arrays.toString(e.getStackTrace())),
                     Reporter.FAIL
             );
+        } catch (Exception e) {
+            BaseTestUtils.report(e.getMessage(), Reporter.FAIL);
         }
     }
 
