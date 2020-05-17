@@ -20,7 +20,7 @@ public class LicenseGenerator {
      * @return              Vision Activation License Key
      * @throws Exception
      */
-    public static String generateVisionActivationLicenseKey(String macAddress) throws Exception {
+    public static String generateVisionActivationLicenseKey(String macAddress) {
         String licenseKey;
         String licensePrefix = VisionLicenses.ACTIVATION.getLicensePrefixPattern();
         licenseKey = licensePrefix + "-" + ReflectionUtils.invokePrivateMethod("generateLicenseString", macAddress, licensePrefix);
