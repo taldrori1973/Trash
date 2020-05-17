@@ -1,4 +1,4 @@
-package com.radware.vision.systemManagement;
+package com.radware.vision.systemManagement.serversManagement;
 
 import com.radware.vision.automation.AutoUtils.SUT.dtos.ServerDto;
 import com.radware.vision.automation.VisionAutoInfra.CLIInfra.Servers.LinuxFileServer;
