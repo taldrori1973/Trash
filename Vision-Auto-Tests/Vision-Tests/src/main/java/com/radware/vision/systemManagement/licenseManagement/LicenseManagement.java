@@ -291,7 +291,7 @@ public class LicenseManagement {
     private boolean restDelete(VisionLicense license) throws NoSuchFieldException {
         int numberOfInstalledLicensesBeforeDelete = installedLicenses.size();
         RestTestBase restTestBase = new RestTestBase();
-        GenericVisionRestAPI request = new GenericVisionRestAPI("Vision/SystemManagement.json", "Install License");
+        GenericVisionRestAPI request = new GenericVisionRestAPI("Vision/SystemManagement.json", "Delete License");
 
         Object result = BasicRestOperationsHandler.visionRestApiRequest(restTestBase.getVisionRestClient(), HttpMethodEnum.DELETE, "License", license.getRow_id(), null, "\"status\":\"ok\"");
         if (result.toString().contains("\"status\":\"ok\"")) {
