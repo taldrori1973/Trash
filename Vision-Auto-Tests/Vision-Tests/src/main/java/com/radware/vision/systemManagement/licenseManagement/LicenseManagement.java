@@ -206,7 +206,7 @@ public class LicenseManagement {
 
         if (licenseToDelete.isPresent())
             return restDelete(licenseToDelete.get());
-        return false;
+        return true;
 
     }
 
