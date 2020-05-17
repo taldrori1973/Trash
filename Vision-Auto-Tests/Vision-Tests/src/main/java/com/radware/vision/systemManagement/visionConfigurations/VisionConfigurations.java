@@ -46,7 +46,7 @@ public class VisionConfigurations {
                     throw new NoSuchFieldException("The Login returns 402 Payment Required and no \"Vision-MAC\" key was found in the response header.");
                 else {//send new login request with activation Key
                     licenseKey = LicenseGenerator.generateVisionActivationLicenseKey(visionMac);
-                    connection = RestClientsFactory.getVisionConnection(baseUri, null, username, password, licenseKey);
+                    connection = RestClientsFactory.getVisionConnection(baseUri, getCurrentVisionRestPort(), username, password, licenseKey);
                     loginResult = connection.login();
 
                     if (!loginResult.getStatusCode().equals(StatusCode.OK)) {
