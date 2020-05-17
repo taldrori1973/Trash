@@ -287,18 +287,6 @@ public class LicenseManagement {
 
     }
 
-    private String getExpectedInstallationResult() {
-        switch (this.featureName.toLowerCase()) {
-            case "ava-attack-capacity":
-            case "ava-max-attack-capacity":
-            case "rtu":
-            case "rtuva":
-            case "rtumax":
-                return "successfully installed";
-            default:
-                return "\"status\":\"ok\"";
-        }
-    }
 
     private boolean restDelete(VisionLicense license) {
         int numberOfInstalledLicensesBeforeDelete = installedLicenses.size();
