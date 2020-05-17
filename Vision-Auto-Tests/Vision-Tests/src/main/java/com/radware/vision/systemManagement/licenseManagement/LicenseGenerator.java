@@ -28,6 +28,7 @@ public class LicenseGenerator {
         String licensePrefix = VisionLicenses.ACTIVATION.getLicensePrefixPattern();
         licenseKey = licensePrefix + "-" + ReflectionUtils.invokePrivateMethod("generateLicenseString", macAddress, licensePrefix);
         return licenseKey;
+        return generateLicense(macAddress,VisionLicenses.ACTIVATION.getLicensePrefixPattern());
     }
 
 
@@ -36,7 +37,9 @@ public class LicenseGenerator {
     }
 
     public static String generateLicense(String macAddress, String licenseKeyPrefix) throws Exception {
-        return null;
+        String licenseKey;
+        licenseKey = licenseKeyPrefix + "-" + ReflectionUtils.invokePrivateMethod("generateLicenseString", macAddress, licenseKeyPrefix);
+        return licenseKey;
     }
 
 }
