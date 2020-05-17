@@ -260,7 +260,7 @@ public class LicenseManagement {
                     getCurrentVisionRestPort(), getCurrentVisionRestUserName(), getCurrentVisionRestUserPassword(), licenseKey);
             RestResponse loginResult = connection.login();
             if (!loginResult.getStatusCode().equals(StatusCode.OK)) {
-                throw new Exception(String.format("the Login Fails because of the following error: %s", loginResult.getBody().getBodyAsString()));
+                throw new Exception(String.format("Vision Activation License Install Fails because of the following error: %s", loginResult.getBody().getBodyAsString()));
             }
         } else
             result = BasicRestOperationsHandler.visionRestApiRequest(restTestBase.getVisionRestClient(), HttpMethodEnum.POST, "License", null, licenseKey, getExpectedInstallationResult());
