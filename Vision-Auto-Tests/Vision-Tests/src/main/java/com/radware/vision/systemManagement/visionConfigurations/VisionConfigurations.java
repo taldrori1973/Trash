@@ -39,7 +39,7 @@ public class VisionConfigurations {
 //          if fail : check if it's because the license
             if (loginResult.getStatusCode().equals(StatusCode.PAYMENT_REQUIRED)) {
 //              if because the license : get the MAC from response header and send another login request with the license activation
-                visionMac = loginResult.getHeaders().getOrDefault("Vision-MAC", null);
+                visionMac = loginResult.getHeaders().getOrDefault("vision-mac", null);
 
 
                 if (visionMac == null)
