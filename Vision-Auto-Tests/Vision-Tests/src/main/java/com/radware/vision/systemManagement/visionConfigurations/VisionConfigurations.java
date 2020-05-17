@@ -1,7 +1,7 @@
 package com.radware.vision.systemManagement.visionConfigurations;
 
 import com.radware.vision.RestClientsFactory;
-import com.radware.vision.tools.LicenseGenerator;
+import com.radware.vision.systemManagement.licenseManagement.LicenseGenerator;
 import models.RestResponse;
 import models.StatusCode;
 import restInterface.client.SessionBasedRestClient;

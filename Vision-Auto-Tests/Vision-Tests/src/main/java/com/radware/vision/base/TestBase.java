@@ -6,9 +6,10 @@ package com.radware.vision.base;
 import com.radware.vision.automation.AutoUtils.SUT.controllers.SUTManager;
 import com.radware.vision.automation.AutoUtils.SUT.controllers.SUTManagerImpl;
 import com.radware.vision.automation.AutoUtils.SUT.dtos.ClientConfigurationDto;
-import com.radware.vision.systemManagement.ServersManagement;
+import com.radware.vision.systemManagement.serversManagement.ServersManagement;
 import com.radware.vision.systemManagement.visionConfigurations.ManagementInfo;
 import com.radware.vision.systemManagement.visionConfigurations.VisionConfigurations;
+
 
 public abstract class TestBase {
 

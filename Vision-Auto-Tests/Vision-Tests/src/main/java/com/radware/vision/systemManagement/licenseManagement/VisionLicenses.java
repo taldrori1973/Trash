@@ -1,4 +1,4 @@
-package com.radware.vision.infra.enums;
+package com.radware.vision.systemManagement.licenseManagement;
 
 import java.util.regex.Pattern;
 
