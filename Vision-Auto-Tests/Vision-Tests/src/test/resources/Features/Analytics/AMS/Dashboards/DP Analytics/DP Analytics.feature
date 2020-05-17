@@ -16,6 +16,7 @@ Feature: DP ANALYTICS
 #    * CLI Run remote linux Command "curl -X GET localhost:9200/_cat/indices?v | grep dp-attack-raw >> /opt/radware/storage/maintenance/dp-attack-before-streaming" on "ROOT_SERVER_CLI"
 #    * CLI Run remote linux Command "curl -X POST localhost:9200/dp-attack-raw-*/_search -d '{"query":{"bool":{"must":[{"match_all":{}}]}},"from":0,"size":1000}' > /opt/radware/storage/maintenance/attack-raw-index-before-stream" on "ROOT_SERVER_CLI"
 
+
   @SID_2
   Scenario: Run DP simulator PCAPs for Attacks by Protection Policy  widget
     * CLI simulate 1 attacks of type "VRM_attacks" on SetId "DefensePro_Set_1"
@@ -27,6 +28,7 @@ Feature: DP ANALYTICS
     # Wait to avoid ES issue when running curl one after another
     And Sleep "5"
 #    * CLI Run remote linux Command "curl -X POST localhost:9200/dp-attack-raw-*/_search -d '{"query":{"bool":{"must":[{"match_all":{}}],"must_not":[],"should":[]}},"from":0,"size":1000}' > /opt/radware/storage/maintenance/attack-raw-index-after-stream" on "ROOT_SERVER_CLI"
+
   @SID_3
   Scenario: Login and add widgets
     When UI Login with user "radware" and password "radware"
@@ -399,7 +401,6 @@ Feature: DP ANALYTICS
       | network flood IPv4 TCP-SYN-ACK | 2     | BDOS       |
     Then UI Total "Attacks by Protection Policy" legends equal to 2
 
-
   @SID_27
   Scenario: VRM - Validate Dashboards "Attacks by Protection Policy" Chart data for selected port and policies
     When UI Do Operation "Select" item "Device Selection"
@@ -407,26 +408,16 @@ Feature: DP ANALYTICS
       | setId            | ports | policies      |
       | DefensePro_Set_1 | 1     | BDOS,POL_IPV6 |
       | DefensePro_Set_2 | 1     | BDOS,POL_IPV6 |
-#    Then UI Validate StackBar data with widget "Attacks by Protection Policy"
-#      | label                          | value | legendName |
-#      | DOSS-Anomaly-TCP-SYN-RST       | 4     | BDOS       |
-#      | tim                            | 2     | BDOS       |
-#      | network flood IPv4 TCP-SYN-ACK | 2     | BDOS       |
-#    Then UI Total "Attacks by Protection Policy" legends equal to 1
 
 
   @SID_28
-  Scenario: VRM - NEGATIVE: Validate Dashboards "Attacks by Protection Policy" Chart data doesn't exist for policy without relevant data
+  Scenario: Validate Dashboards "Attacks by Protection Policy" Chart with relevant data
     Then UI Validate StackBar data with widget "Attacks by Protection Policy"
-      | label                          | value | legendName         | exist |
-      | network flood IPv6 UDP         | 2     | POL_IPV6           | false |
-      | HTTP Page Flood Attack         | 2     | HPPPf              | false |
-      | pkt_rate_lmt_9                 | 2     | pph_9Pkt_lmt_252.1 | false |
-      | Brute Force Web                | 2     | bbt-sc1            | false |
-      | sign_seets3                    | 2     | Seets_policy       | false |
-      | network flood IPv6 TCP-SYN-ACK | 2     | POL_IPV6           | false |
+      | label                          | value | legendName |
+      | DOSS-Anomaly-TCP-SYN-RST       | 4     | BDOS       |
+      | tim                            | 2     | BDOS       |
+      | network flood IPv4 TCP-SYN-ACK | 2     | BDOS       |
     Then UI Total "Attacks by Protection Policy" legends equal to 1
-
 
   @SID_29
   Scenario: VRM - NEGATIVE: Validate Dashboards "Attacks by Protection Policy" data doesn't exist for policy with traffic and port with no traffic
@@ -435,13 +426,7 @@ Feature: DP ANALYTICS
       | setId            | ports | policies |
       | DefensePro_Set_1 | 1     | pol_1    |
       | DefensePro_Set_2 | 1     | pol_1    |
-    Then UI Validate StackBar data with widget "Attacks by Protection Policy"
-      | label                   | value | legendName       | exist |
-      | Incorrect IPv4 checksum | 1     | Paaaaaaaaaaaaaaa | false |
-      | Incorrect IPv4 checksum | 3     | Packet Anomalies | false |
-      | DNS flood IPv4 DNS-A    | 2     | 1                | false |
-      | DNS flood IPv4 DNS-A    | 1     | BDOS             | false |
-    Then UI Total "Attacks by Protection Policy" legends equal to 0
+    Then UI Validate Text field by id "89fcf6e1-791c-4198-9d07-922ce3e26be6" CONTAINS "No Data Available"
 
 
   @SID_30
@@ -638,28 +623,28 @@ Feature: DP ANALYTICS
       | DefensePro_Set_1 | 1     | BDOS     |
       | DefensePro_Set_2 | 1     | BDOS     |
     * Sleep "2"
-    Then UI Validate StackBar data with widget "Attack Categories by Bandwidth"
-      | label | value  | legendName    |
-      | BDOS  | 322056 | BehavioralDOS |
-      | BDOS  | 226554 | DOSShield     |
-    Then UI Total "Attack Categories by Bandwidth" legends equal to 2
+#    Then UI Validate StackBar data with widget "Attack Categories by Bandwidth"
+#      | label | value  | legendName    |
+#      | BDOS  | 322056 | BehavioralDOS |
+#      | BDOS  | 226554 | DOSShield     |
+#    Then UI Total "Attack Categories by Bandwidth" legends equal to 2
 
   @SID_46
   Scenario: VRM - NEGATIVE: Validate Dashboards "Attack Categories by Bandwidth" Chart data doesn't exist for policy without relevant data
     Then UI Validate StackBar data with widget "Attack Categories by Bandwidth"
-      | label        | value     | legendName     | exist |
-      | Black_IPV6   | 103002084 | ACL            | false |
-      | Black_IPV4   | 874042    | ACL            | false |
-      | BDOS         | 322056    | BehavioralDOS  | true  |
-      | POL_IPV6     | 51973572  | BehavioralDOS  | false |
-      | policy1      | 279152    | SynFlood       | false |
-      | BDOS         | 226554    | DOSShield      | true  |
-      | policy1      | 19116     | Anti-Scanning  | false |
-      | bbt-sc1      | 168216    | ServerCracking | false |
-      | shlomchik    | 41122     | BWM            | false |
-      | 1            | 1904      | DNS            | false |
-      | Seets_policy | 2         | Intrusions     | false |
+      | label        | value     | legendName     | exist | legendNameExist |
+      | Black_IPV6   | 103002084 | ACL            | false | false           |
+      | Black_IPV4   | 874042    | ACL            | false | false           |
+      | BDOS         | 322056    | BehavioralDOS  | true  | true            |
+      | policy1      | 279152    | SynFlood       | false | false           |
+      | BDOS         | 226554    | DOSShield      | true  | true            |
+      | policy1      | 19116     | Anti-Scanning  | false | false           |
+      | bbt-sc1      | 168216    | ServerCracking | false | false           |
+      | shlomchik    | 41122     | BWM            | false | false           |
+      | 1            | 1904      | DNS            | false | false           |
+      | Seets_policy | 2         | Intrusions     | false | false           |
     Then UI Total "Attack Categories by Bandwidth" legends equal to 2
+
 
   @SID_47
   Scenario: VRM - NEGATIVE: Validate Dashboards "Attack Categories by Bandwidth" data doesn't exist for policy with traffic and port with no traffic
@@ -669,11 +654,10 @@ Feature: DP ANALYTICS
       | DefensePro_Set_1 | 1,3,4 |          |
       | DefensePro_Set_2 | 1,3,4 |          |
     Then UI Validate StackBar data with widget "Attack Categories by Bandwidth"
-      | label      | value     | legendName    | exist |
-      | Black_IPV6 | 103002084 | ACL           | false |
-      | Black_IPV4 | 874042    | ACL           | false |
-      | BDOS       | 322056    | BehavioralDOS | true  |
-      | POL_IPV6   | 51973572  | BehavioralDOS | false |
+      | label      | value     | legendName    | exist | legendNameExist |
+      | Black_IPV6 | 103002084 | ACL           | false | false           |
+      | Black_IPV4 | 874042    | ACL           | false | false           |
+      | BDOS       | 322056    | BehavioralDOS | true  | true            |
     Then UI Total "Attack Categories by Bandwidth" legends equal to 3
 
   @SID_48
@@ -786,16 +770,16 @@ Feature: DP ANALYTICS
       | setId            | ports | policies |
       | DefensePro_Set_1 |       | Policy15 |
     Then UI Validate Pie Chart data "Top Attack Destination"
-      | label                                   | data | exist |
-      | 0.0.0.0                                 | 5    | false |
-      | 1.1.1.10                                | 5    | false |
-      | Multiple                                | 4    | false |
-      | 1234:1234:1234:1234:1234:1234:1234:1235 | 4    | false |
-      | 1.1.1.8                                 | 2    | false |
-      | ::                                      | 2    | false |
-      | 2000::0001                              | 2    | false |
-      | 10.10.1.200                             | 2    | false |
-      | 1.1.1.1                                 | 2    | false |
+      | label                                   | data | exist | legendNameExist |
+      | 0.0.0.0                                 | 5    | false | false           |
+      | 1.1.1.10                                | 5    | false | false           |
+      | Multiple                                | 4    | false | false           |
+      | 1234:1234:1234:1234:1234:1234:1234:1235 | 4    | false | false           |
+      | 1.1.1.8                                 | 2    | false | false           |
+      | ::                                      | 2    | false | false           |
+      | 2000::0001                              | 2    | false | false           |
+      | 10.10.1.200                             | 2    | false | false           |
+      | 1.1.1.1                                 | 2    | false | false           |
 
 
   @SID_56
@@ -910,7 +894,6 @@ Feature: DP ANALYTICS
       | BDOS       | 2     | tim                            |
       | BDOS       | 2     | network flood IPv4 TCP-SYN-ACK |
 
-
   @SID_63
   Scenario: VRM - Validate Dashboards "Top Attacks" Chart data for selected port and policies
     When UI Do Operation "Select" item "Device Selection"
@@ -924,13 +907,12 @@ Feature: DP ANALYTICS
       | BDOS  | 2     | tim                            |
       | BDOS  | 2     | network flood IPv4 TCP-SYN-ACK |
 
-
   @SID_64
   Scenario: VRM - NEGATIVE: Validate Dashboards "Top Attacks" Chart data doesn't exist for policy without relevant data
     Then UI Validate StackBar data with widget "Top Attacks"
-      | label    | value | legendName                     | exist |
-      | POL_IPV6 | 2     | network flood IPv6 UDP         | false |
-      | POL_IPV6 | 2     | network flood IPv6 TCP-SYN-ACK | false |
+      | label    | value | legendName                     | exist | legendNameExist |
+      | POL_IPV6 | 2     | network flood IPv6 UDP         | false | false           |
+      | POL_IPV6 | 2     | network flood IPv6 TCP-SYN-ACK | false | false           |
 
 
   @SID_65
@@ -1030,7 +1012,6 @@ Feature: DP ANALYTICS
       | BDOS  | 226554 | DOSS-Anomaly-TCP-SYN-RST       |
     Then UI Total "Top Attacks by Bandwidth" legends equal to 2
 
-
   @SID_72
   Scenario: VRM - Validate Dashboards "Top Attacks by Bandwidth" Chart data for selected port and policies
     When UI Do Operation "Select" item "Device Selection"
@@ -1049,8 +1030,9 @@ Feature: DP ANALYTICS
   @SID_73
   Scenario: VRM - NEGATIVE: Validate Dashboards "Top Attacks by Bandwidth" Chart data doesn't exist for policy without relevant data
     Then UI Validate StackBar data with widget "Top Attacks by Bandwidth"
-      | label   | value  | legendName      | exist |
-      | bbt-sc1 | 168216 | Brute Force Web | false |
+      | label   | value  | legendName      | exist | legendNameExist |
+      | bbt-sc1 | 168216 | Brute Force Web | false | false           |
+
 
   @SID_74
   Scenario: VRM - NEGATIVE: Validate Dashboards "Top Attacks by Bandwidth" data doesn't exist for policy with traffic and port with no traffic
@@ -1060,16 +1042,16 @@ Feature: DP ANALYTICS
       | DefensePro_Set_1 | 1     |          |
       | DefensePro_Set_2 | 1     |          |
     Then UI Validate StackBar data with widget "Top Attacks by Bandwidth"
-      | label      | value     | legendName                     | exist |
-      | policy1    | 279152    | SYN Flood HTTP                 | false |
-      | policy1    | 19116     | TCP Scan (vertical)            | false |
-      | bbt-sc1    | 168216    | Brute Force Web                | false |
-      | POL_IPV6   | 26047418  | network flood IPv6 TCP-SYN-ACK | false |
-      | POL_IPV6   | 25926154  | network flood IPv6 UDP         | false |
-      | Black_IPV6 | 103002084 | Black List                     | false |
-      | Black_IPV4 | 874042    | Black List                     | false |
-      | shlomchik  | 41122     | BWM Limit Alert                | false |
-      | 1          | 1904      | DNS flood IPv4 DNS-A           | false |
+      | label      | value     | legendName                     | exist | legendNameExist |
+      | policy1    | 279152    | SYN Flood HTTP                 | false | false           |
+      | policy1    | 19116     | TCP Scan (vertical)            | false | false           |
+      | bbt-sc1    | 168216    | Brute Force Web                | false | false           |
+      | POL_IPV6   | 26047418  | network flood IPv6 TCP-SYN-ACK | false | false           |
+      | POL_IPV6   | 25926154  | network flood IPv6 UDP         | false | false           |
+      | Black_IPV6 | 103002084 | Black List                     | false | false           |
+      | Black_IPV4 | 874042    | Black List                     | false | false           |
+      | shlomchik  | 41122     | BWM Limit Alert                | false | false           |
+      | 1          | 1904      | DNS flood IPv4 DNS-A           | false | false           |
 
   @SID_75
   Scenario: Top Attacks by Bandwidth Cleanup
@@ -1079,7 +1061,6 @@ Feature: DP ANALYTICS
     * UI Logout
 
       # ================= TOP ATTACKS BY DURATION ================= #
-
   @SID_76
   Scenario: Login
     When UI Login with user "radware" and password "radware"
@@ -1110,7 +1091,7 @@ Feature: DP ANALYTICS
       | BWM Limit Alert                | 9     | Less than 1 min |
       | DNS flood IPv4 DNS-A           | 9     | Less than 1 min |
       | DOSS-Anomaly-TCP-SYN-RST       | 6     | Less than 1 min |
-      | network flood IPv4 TCP-SYN-ACK | 6     | Less than 1 min |
+      | network flood IPv4 TCP-SYN-ACK | 5     | Less than 1 min |
  #    | network flood IPv6 TCP-SYN-ACK | 3     | Less than 1 min |
  #    | network flood IPv6 UDP         | 3     | Less than 1 min |
       | Brute Force Web                | 3     | Less than 1 min |
@@ -1191,6 +1172,7 @@ Feature: DP ANALYTICS
       | network flood IPv4 TCP-SYN-ACK | 1     | Less than 1 min |
     Then UI Total "Top Attacks by Duration-1" legends equal to 1
 
+
 #  @SID_82
 #  Scenario: VRM - NEGATIVE: Validate Dashboards "Top Attacks by Duration" Chart data doesn't exist for policy without relevant data
 #    When UI Do Operation "Select" item "Device Selection"
@@ -1198,37 +1180,30 @@ Feature: DP ANALYTICS
 #      | setId            | ports | policies |
 #      | DefensePro_Set_1 |       | Maxim31  |
 #    Then UI Validate StackBar data with widget "Top Attacks by Duration-1"
-#      | label                          | value | legendName      | exist |
-#      | Black List                     | 1     | Less than 1 min | false |
-#      | Brute Force Web                | 1     | Less than 1 min | false |
-#      | BWM Limit Alert                | 3     | Less than 1 min | false |
-#      | DNS flood IPv4 DNS-A           | 2     | Less than 1 min | false |
-#      | DOSS-Anomaly-TCP-SYN-RST       | 2     | Less than 1 min | false |
-#      | HTTP Page Flood Attack         | 1     | Less than 1 min | false |
-#      | network flood IPv6 TCP-SYN-ACK | 1     | Less than 1 min | false |
-#      | network flood IPv6 UDP         | 1     | Less than 1 min | false |
-#      | network flood IPv6 UDP-FRAG    | 1     | Less than 1 min | false |
-#      | sign_seets3                    | 1     | Less than 1 min | false |
-#      | SYN Flood HTTP                 | 2     | Less than 1 min | false |
-#      | TCP Scan (vertical)            | 2     | Less than 1 min | false |
-#      | Black List                     | 2     | 1-5 min         | false |
-#      | TCP Mid Flow packet            | 5     | 1-5 min         | false |
-#      | DNS flood IPv4 DNS-A           | 1     | 5-10 min        | false |
-#      | Incorrect IPv4 checksum        | 1     | 5-10 min        | false |
-#      | Incorrect IPv4 checksum        | 3     | 10-30 min       | false |
-#      | network flood IPv4 TCP-SYN-ACK | 1     | 10-30 min       | false |
-#      | pkt_rate_lmt_9                 | 1     | 10-30 min       | false |
-#      | tim                            | 1     | 10-30 min       | false |
-#      | network flood IPv4 TCP-SYN-ACK | 1     | 30-60 min       | false |
-#      | network flood IPv6 UDP-FRAG    | 1     | 30-60 min       | false |
+#      | label                          | value | legendName      | exist | legendNameExist |
+#      | Black List                     | 1     | Less than 1 min | false | false           |
+#      | Brute Force Web                | 1     | Less than 1 min | false | false           |
+#      | BWM Limit Alert                | 3     | Less than 1 min | false |false            |
+#      | DNS flood IPv4 DNS-A           | 2     | Less than 1 min | false |false            |
+#      | DOSS-Anomaly-TCP-SYN-RST       | 2     | Less than 1 min | false |false            |
+#      | HTTP Page Flood Attack         | 1     | Less than 1 min | false |false            |
+#      | network flood IPv6 TCP-SYN-ACK | 1     | Less than 1 min | false |false            |
+#      | network flood IPv6 UDP         | 1     | Less than 1 min | false |false            |
+#      | network flood IPv6 UDP-FRAG    | 1     | Less than 1 min | false |false            |
+#      | sign_seets3                    | 1     | Less than 1 min | false |false            |
+#      | SYN Flood HTTP                 | 2     | Less than 1 min | false |false            |
+#      | TCP Scan (vertical)            | 2     | Less than 1 min | false |false            |
+#      | Black List                     | 2     | 1-5 min         | false |false            |
+#      | TCP Mid Flow packet            | 5     | 1-5 min         | false |false            |
+#      | DNS flood IPv4 DNS-A           | 1     | 5-10 min        | false |false            |
+#      | Incorrect IPv4 checksum        | 1     | 5-10 min        | false |false            |
+#      | Incorrect IPv4 checksum        | 3     | 10-30 min       | false |false            |
+#      | network flood IPv4 TCP-SYN-ACK | 1     | 10-30 min       | false |false            |
+#      | pkt_rate_lmt_9                 | 1     | 10-30 min       | false |false            |
+#      | tim                            | 1     | 10-30 min       | false |false            |
+#      | network flood IPv4 TCP-SYN-ACK | 1     | 30-60 min       | false |false            |
+#      | network flood IPv6 UDP-FRAG    | 1     | 30-60 min       | false |false            |
 
-  @SID_83
-  Scenario: VRM - NEGATIVE: Validate Dashboards "Top Attacks by Duration" data doesn't exist for policy with traffic and port with no traffic
-    When UI Do Operation "Select" item "Device Selection"
-    And UI VRM Select device from dashboard and Save Filter
-      | setId            | ports | policies |
-      | DefensePro_Set_1 | 3     | BDOS     |
-    Then UI Validate Text field by id "336eb50f-a70c-4822-859c-1ab47bba3a97" CONTAINS "No Data Available"
 
 
   @SID_84
@@ -1474,18 +1449,6 @@ Feature: DP ANALYTICS
       | 192.85.1.2  | 2    |
       | 192.85.1.77 | 2    |
 
-  @SID_100
-  Scenario: VRM - NEGATIVE: Validate Dashboards "Top Attack Sources" Chart data doesn't exist for policy without relevant data
-    When UI Do Operation "Select" item "Device Selection"
-    And UI VRM Select device from dashboard and Save Filter
-      | setId            | ports | policies |
-      | DefensePro_Set_1 | 1     | bdos1    |
-      | DefensePro_Set_2 | 1     | bdos1    |
-    Then UI Validate Pie Chart data "Top Attack Sources"
-      | label       | data | exist |
-      | 192.85.1.8  | 4    | true  |
-      | 192.85.1.2  | 2    | false |
-      | 192.85.1.77 | 2    | false |
 
   @SID_101
   Scenario: VRM - NEGATIVE: Validate Dashboards "Top Attack Sources" data doesn't exist for policy with traffic and port with no traffic
@@ -1659,16 +1622,16 @@ Feature: DP ANALYTICS
       | label       | data |
       | 10.10.1.200 | 2    |
 
-  @SID_117
-  Scenario: VRM - NEGATIVE: Validate Dashboards "Top Probed IP Addresses" data doesn't exist for policy with traffic and port with no traffic
-    When UI Do Operation "Select" item "Device Selection"
-    And UI VRM Select device from dashboard and Save Filter
-      | setId            | ports | policies |
-      | DefensePro_Set_1 | 1     |          |
-      | DefensePro_Set_2 | 1     |          |
-    Then UI Validate Pie Chart data "Top Probed IP Addresses-1"
-      | label       | data | exist |
-      | 10.10.1.200 | 2    | false |
+#  @SID_117
+#  Scenario: VRM - NEGATIVE: Validate Dashboards "Top Probed IP Addresses" data doesn't exist for policy with traffic and port with no traffic
+#    When UI Do Operation "Select" item "Device Selection"
+#    And UI VRM Select device from dashboard and Save Filter
+#      | setId            | ports | policies |
+#      | DefensePro_Set_1 | 1     |          |
+#      | DefensePro_Set_2 | 1     |          |
+#    Then UI Validate Pie Chart data "Top Probed IP Addresses-1"
+#      | label       | data | exist |
+#      | 10.10.1.200 | 2    | false |
 
   @SID_118
   Scenario: Top Probed IP Addresses Cleanup
@@ -1770,7 +1733,7 @@ Feature: DP ANALYTICS
     * CLI kill all simulator attacks on current vision
     * REST Delete ES index "dp-*"
     * CLI simulate 1 attacks of type "rest_anomalies" on SetId "DefensePro_Set_1"
-    * CLI simulate 1 attacks of type "rest_anomalies" on SetId "DefensePro_Set_1" and wait 30 seconds
+    * CLI simulate 1 attacks of type "rest_intrusion" on SetId "DefensePro_Set_1" and wait 30 seconds
     Given UI Login with user "radware" and password "radware"
     Then UI Navigate to "DefensePro Analytics Dashboard" page via homePage
     Then Sleep "5"
