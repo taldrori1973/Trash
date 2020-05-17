@@ -1,6 +1,8 @@
 package com.radware.vision.systemManagement.licenseManagement;
 
 import basejunit.RestTestBase;
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import com.radware.automation.tools.basetest.BaseTestUtils;
@@ -21,10 +23,7 @@ import restInterface.client.SessionBasedRestClient;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
@@ -264,10 +263,19 @@ public class LicenseManagement {
             if (!loginResult.getStatusCode().equals(StatusCode.OK)) {
                 throw new Exception(String.format("Vision Activation License Install Fails because of the following error: %s", loginResult.getBody().getBodyAsString()));
             }
-        } else
+        } else {
             request = new GenericVisionRestAPI("Vision/SystemManagement.json", "Install License");
-        result = BasicRestOperationsHandler.visionRestApiRequest(restTestBase.getVisionRestClient(), HttpMethodEnum.POST, "License", null, licenseKey, getExpectedInstallationResult());
 
+            Map<String, Object> body = new HashMap<>();
+            body.put("licenseStr", licenseKey);
+            body.put("requireDeviceLock", true);
+            body.put("parameters", Collections.EMPTY_LIST);
+            ObjectMapper objectMapper=new ObjectMapper();
+            JsonNode jsonNode = objectMapper.valueToTree(body);
+
+
+            result = BasicRestOperationsHandler.visionRestApiRequest(restTestBase.getVisionRestClient(), HttpMethodEnum.POST, "License", null, licenseKey, getExpectedInstallationResult());
+        }
         if (result.toString().contains("\"status\":\"ok\"")) {
             this.installedLicenses = this.visionLicenseDao.getAll();
             if (numberOfInstalledLicensesBeforeDelete == this.installedLicenses.size())
