@@ -371,7 +371,7 @@ public class VMOperationsSteps extends BddUITestBase {
         boolean isSetupNeeded;
         String version = readVisionVersionFromPomFile();
 //        String versionPrefix = version.substring(0, 4);//example : 4.10.00 --> 4.10
-        String build = System.getenv("BUILD");//get build from portal
+        String build = BaseTestUtils.getRuntimeProperty("BUILD", null);;//get build from portal
         restTestBase.getRootServerCli().getVersionNumebr();
         if (build == null || build.equals("") || build.equals("0"))
             {
