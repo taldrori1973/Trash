@@ -1,4 +1,4 @@
-package com.radware.vision.infra.models;
+package com.radware.vision.systemManagement.licenseManagement;
 
 import basejunit.RestTestBase;
 import com.google.gson.JsonObject;
@@ -9,7 +9,6 @@ import com.radware.restcore.utils.enums.HttpMethodEnum;
 import com.radware.vision.automation.DatabaseStepHandlers.mariaDB.client.JDBCConnectionException;
 import com.radware.vision.automation.DatabaseStepHandlers.mariaDB.repositories.vision_ng_schema.daos.VisionLicenseDao;
 import com.radware.vision.automation.DatabaseStepHandlers.mariaDB.repositories.vision_ng_schema.entities.VisionLicense;
-import com.radware.vision.infra.enums.VisionLicenses;
 import com.radware.vision.infra.testresthandlers.BasicRestOperationsHandler;
 import testhandlers.vision.system.generalSettings.LicenseManagementHandler;
 
