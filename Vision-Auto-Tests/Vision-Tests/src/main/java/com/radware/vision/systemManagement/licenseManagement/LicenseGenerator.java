@@ -34,6 +34,11 @@ public class LicenseGenerator {
      * @param licenseKeyPrefix could be one of two formats:
      *                         time based license : vision-AVA-6-Gbps-attack-capacity-03sep2019-29oct2020
      *                          when the vision-AVA-6-Gbps-attack-capacity you can get from {@link VisionLicenses} and the from to dates are added with the format above.
+     *
+     *                         Or
+     *
+     *                         not time based license :vision-AVA-400-Gbps-attack-capacity
+     *                              *                          when the vision-AVA-6-Gbps-attack-capacity you can get from {@link VisionLicenses} without the from to dates.
      * @return      licenseKeyPrefix License Key by the default MAC Address from TestBase.getVisionConfigurations().getManagementInfo().getMacAddress()
      */
     public static String generateLicense(String licenseKeyPrefix)  {
