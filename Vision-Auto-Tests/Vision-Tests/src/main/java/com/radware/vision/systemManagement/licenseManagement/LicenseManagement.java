@@ -13,6 +13,7 @@ import com.radware.vision.automation.DatabaseStepHandlers.mariaDB.client.JDBCCon
 import com.radware.vision.automation.DatabaseStepHandlers.mariaDB.repositories.vision_ng_schema.daos.VisionLicenseDao;
 import com.radware.vision.automation.DatabaseStepHandlers.mariaDB.repositories.vision_ng_schema.entities.VisionLicense;
 import com.radware.vision.infra.testresthandlers.BasicRestOperationsHandler;
+import com.radware.vision.restAPI.GenericVisionRestAPI;
 import com.radware.vision.utils.UriUtils;
 import models.RestResponse;
 import models.StatusCode;
@@ -263,6 +264,7 @@ public class LicenseManagement {
                 throw new Exception(String.format("Vision Activation License Install Fails because of the following error: %s", loginResult.getBody().getBodyAsString()));
             }
         } else
+            GenericVisionRestAPI request=new GenericVisionRestAPI("restApis/Generic-REST-API/requests/Vision/SystemManagement.json","Install License");
             result = BasicRestOperationsHandler.visionRestApiRequest(restTestBase.getVisionRestClient(), HttpMethodEnum.POST, "License", null, licenseKey, getExpectedInstallationResult());
 
         if (result.toString().contains("\"status\":\"ok\"")) {
