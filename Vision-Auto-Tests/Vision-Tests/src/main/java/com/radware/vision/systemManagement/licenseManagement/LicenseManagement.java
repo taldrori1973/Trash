@@ -3,8 +3,6 @@ package com.radware.vision.systemManagement.licenseManagement;
 import basejunit.RestTestBase;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.google.gson.JsonObject;
-import com.google.gson.JsonParser;
 import com.radware.automation.tools.basetest.BaseTestUtils;
 import com.radware.automation.tools.basetest.Reporter;
 import com.radware.vision.RestClientsFactory;
@@ -300,20 +298,12 @@ public class LicenseManagement {
         if (!restResponse.getStatusCode().equals(StatusCode.OK))
             throw new Exception(String.format("Delete Vision \"%s\" License Fails because of the following error: %s", license.getName(), restResponse.getBody().getBodyAsString()));
 
-        if (result.toString().contains("\"status\":\"ok\"")) {
-            this.installedLicenses = this.visionLicenseDao.getAll();
-            if (numberOfInstalledLicensesBeforeDelete == this.installedLicenses.size())
-                BaseTestUtils.report(String.format("The number of installed licenses before delete and after delete are the same."), Reporter.FAIL);
-            return true;
-        } else if (result.toString().contains("\"status\": \"error\"")) {
-            JsonParser jsonParser = new JsonParser();
-            JsonObject root = jsonParser.parse(result.toString()).getAsJsonObject();
-            String errorMessage = root.get("message").getAsString();
-            BaseTestUtils.report(String.format("Error Message: %s", errorMessage), Reporter.FAIL);
-            return false;
-        }
+        this.installedLicenses = this.visionLicenseDao.getAll();
+        if (numberOfInstalledLicensesBeforeDelete == this.installedLicenses.size())
+            BaseTestUtils.report("The number of installed licenses before delete and after delete are the same.", Reporter.FAIL);
 
-        return false;
+        return true;
+
     }
 
     private void deleteLicenses(List<VisionLicense> toDeleteLicenses) throws JDBCConnectionException {
