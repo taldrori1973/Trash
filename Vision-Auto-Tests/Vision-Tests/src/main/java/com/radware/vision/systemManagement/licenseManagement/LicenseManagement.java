@@ -1,6 +1,5 @@
 package com.radware.vision.systemManagement.licenseManagement;
 
-import basejunit.RestTestBase;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.radware.automation.tools.basetest.BaseTestUtils;
@@ -196,7 +195,7 @@ public class LicenseManagement {
         }
     }
 
-    public boolean delete() {
+    public boolean delete() throws Exception {
         String timeBasedLicensePrefix = String.format("%s-%s-%s-%s", this.productName, this.licenseName, this.fromDate, this.toDate);
         String shortLicensePrefix = String.format("%s-%s", this.productName, this.licenseName);
         Optional<VisionLicense> licenseToDelete;
@@ -205,7 +204,7 @@ public class LicenseManagement {
         else
             licenseToDelete = installedLicenses.stream().filter(license -> license.getLicense_str().startsWith(shortLicensePrefix)).findAny();
 
-        licenseToDelete.ifPresent(this::restDelete);
+        licenseToDelete.ifPresent(license -> restDelete(license));
 
         return true;
     }
@@ -238,7 +237,6 @@ public class LicenseManagement {
     private boolean restInstall() throws Exception {
         ClientConfigurationDto clientConfigurations = SUTManagerImpl.getInstance().getClientConfigurations();
         int numberOfInstalledLicensesBeforeDelete = installedLicenses.size();
-        RestTestBase restTestBase = new RestTestBase();
         String timeBasedLicensePrefix = String.format("%s-%s-%s-%s", this.productName, this.licenseName, this.fromDate, this.toDate);
         String shortLicensePrefix = String.format("%s-%s", this.productName, this.licenseName);
         String licenseKey = null;
@@ -306,9 +304,11 @@ public class LicenseManagement {
 
     }
 
-    private void deleteLicenses(List<VisionLicense> toDeleteLicenses) throws JDBCConnectionException {
+    private void deleteLicenses(List<VisionLicense> toDeleteLicenses) throws Exception {
         VisionLicenseDao visionLicenseDao = new VisionLicenseDao();
-        toDeleteLicenses.forEach(this::restDelete);
+        for (VisionLicense toDeleteLicens : toDeleteLicenses) {
+            restDelete(toDeleteLicens);
+        }
     }
 
     private boolean isTimeBasedLicense() {
