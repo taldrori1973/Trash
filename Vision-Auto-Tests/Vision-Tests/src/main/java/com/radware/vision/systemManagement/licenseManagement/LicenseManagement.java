@@ -6,10 +6,16 @@ import com.google.gson.JsonParser;
 import com.radware.automation.tools.basetest.BaseTestUtils;
 import com.radware.automation.tools.basetest.Reporter;
 import com.radware.restcore.utils.enums.HttpMethodEnum;
+import com.radware.vision.RestClientsFactory;
+import com.radware.vision.automation.AutoUtils.SUT.controllers.SUTManagerImpl;
+import com.radware.vision.automation.AutoUtils.SUT.dtos.ClientConfigurationDto;
 import com.radware.vision.automation.DatabaseStepHandlers.mariaDB.client.JDBCConnectionException;
 import com.radware.vision.automation.DatabaseStepHandlers.mariaDB.repositories.vision_ng_schema.daos.VisionLicenseDao;
 import com.radware.vision.automation.DatabaseStepHandlers.mariaDB.repositories.vision_ng_schema.entities.VisionLicense;
 import com.radware.vision.infra.testresthandlers.BasicRestOperationsHandler;
+import com.radware.vision.utils.UriUtils;
+import models.RestResponse;
+import restInterface.client.SessionBasedRestClient;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -20,6 +26,8 @@ import java.util.Optional;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
+
+import static com.radware.vision.utils.SutUtils.*;
 
 public class LicenseManagement {
 
@@ -230,7 +238,8 @@ public class LicenseManagement {
         return restInstall();
     }
 
-    private boolean restInstall() {
+    private boolean restInstall() throws NoSuchFieldException {
+        ClientConfigurationDto clientConfigurations = SUTManagerImpl.getInstance().getClientConfigurations();
         int numberOfInstalledLicensesBeforeDelete = installedLicenses.size();
         RestTestBase restTestBase = new RestTestBase();
         String timeBasedLicensePrefix = String.format("%s-%s-%s-%s", this.productName, this.licenseName, this.fromDate, this.toDate);
@@ -247,8 +256,11 @@ public class LicenseManagement {
         Object result = "";
         if (this.featureName.equals(VisionLicenses.ACTIVATION.getLicenseFeatureName()))
             restTestBase.getVisionRestClient().login("radware", "radware", licenseKey, 1);
+        SessionBasedRestClient connection = RestClientsFactory.getVisionConnection(UriUtils.buildUrlFromProtocolAndIp(getCurrentVisionRestProtocol(), getCurrentVisionIp()),
+                getCurrentVisionRestPort(), getCurrentVisionRestUserName(), getCurrentVisionRestUserPassword(), licenseKey);
+        RestResponse loginResult = connection.login();
         else
-            result = BasicRestOperationsHandler.visionRestApiRequest(restTestBase.getVisionRestClient(), HttpMethodEnum.POST, "License", null, licenseKey, getExpectedInstallationResult());
+        result = BasicRestOperationsHandler.visionRestApiRequest(restTestBase.getVisionRestClient(), HttpMethodEnum.POST, "License", null, licenseKey, getExpectedInstallationResult());
 
         if (result.toString().contains("\"status\":\"ok\"")) {
             this.installedLicenses = this.visionLicenseDao.getAll();
