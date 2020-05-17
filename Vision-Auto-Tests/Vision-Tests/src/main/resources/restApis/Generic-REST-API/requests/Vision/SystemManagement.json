@@ -35,9 +35,9 @@
     {
       "label": "Delete License",
       "method": "DELETE",
-      "basePath": "/mgmt/system/config/itemlist/visionlicense/%s",
+      "basePath": "/mgmt/system/config/itemlist/visionlicense/{ormID}",
       "produces": "application/json",
-      "description": "Delete License , with following body fromat : {\"licenseStr\":\"%s\",\"requireDeviceLock\":true,\"parameters\": {}}"
+      "description": "Delete License"
     }
   ]
 }
