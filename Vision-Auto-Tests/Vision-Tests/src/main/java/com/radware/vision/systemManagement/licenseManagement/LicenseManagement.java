@@ -7,14 +7,12 @@ import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import com.radware.automation.tools.basetest.BaseTestUtils;
 import com.radware.automation.tools.basetest.Reporter;
-import com.radware.restcore.utils.enums.HttpMethodEnum;
 import com.radware.vision.RestClientsFactory;
 import com.radware.vision.automation.AutoUtils.SUT.controllers.SUTManagerImpl;
 import com.radware.vision.automation.AutoUtils.SUT.dtos.ClientConfigurationDto;
 import com.radware.vision.automation.DatabaseStepHandlers.mariaDB.client.JDBCConnectionException;
 import com.radware.vision.automation.DatabaseStepHandlers.mariaDB.repositories.vision_ng_schema.daos.VisionLicenseDao;
 import com.radware.vision.automation.DatabaseStepHandlers.mariaDB.repositories.vision_ng_schema.entities.VisionLicense;
-import com.radware.vision.infra.testresthandlers.BasicRestOperationsHandler;
 import com.radware.vision.restAPI.GenericVisionRestAPI;
 import com.radware.vision.utils.UriUtils;
 import models.RestResponse;
@@ -288,7 +286,7 @@ public class LicenseManagement {
     }
 
 
-    private boolean restDelete(VisionLicense license) throws NoSuchFieldException {
+    private boolean restDelete(VisionLicense license) throws Exception {
         int numberOfInstalledLicensesBeforeDelete = installedLicenses.size();
 
         GenericVisionRestAPI request = new GenericVisionRestAPI("Vision/SystemManagement.json", "Delete License");
@@ -298,7 +296,10 @@ public class LicenseManagement {
 
         request.getRestRequestSpecification().setPathParams(pathParams);
         RestResponse restResponse = request.sendRequest();
-        Object result = BasicRestOperationsHandler.visionRestApiRequest(restTestBase.getVisionRestClient(), HttpMethodEnum.DELETE, "License", license.getRow_id(), null, "\"status\":\"ok\"");
+
+        if (!restResponse.getStatusCode().equals(StatusCode.OK)) {
+            throw new Exception(String.format("Delete Vision \"%s\" License Fails because of the following error: %s", license.getName(), restResponse.getBody().getBodyAsString()));
+        }
         if (result.toString().contains("\"status\":\"ok\"")) {
             this.installedLicenses = this.visionLicenseDao.getAll();
             if (numberOfInstalledLicensesBeforeDelete == this.installedLicenses.size())
