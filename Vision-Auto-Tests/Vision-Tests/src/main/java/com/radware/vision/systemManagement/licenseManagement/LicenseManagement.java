@@ -207,7 +207,6 @@ public class LicenseManagement {
         if (licenseToDelete.isPresent())
             return restDelete(licenseToDelete.get());
         return true;
-
     }
 
     private boolean handleRelatedLicenseInstallation(List<VisionLicenses> relatedLicenses) throws Exception {
