@@ -1,8 +1,7 @@
-package com.radware.vision.systemManagement.controllers;
+package com.radware.vision.systemManagement.visionConfigurations;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.radware.vision.restAPI.GenericVisionRestAPI;
-import com.radware.vision.systemManagement.models.ManagementInfo;
 import models.RestResponse;
 import models.StatusCode;
 

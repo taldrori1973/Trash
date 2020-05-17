@@ -5,7 +5,7 @@ import com.radware.automation.tools.basetest.Reporter;
 import com.radware.vision.automation.AutoUtils.SUT.dtos.ClientConfigurationDto;
 import com.radware.vision.base.TestBase;
 import com.radware.vision.enums.ConfigSyncMode;
-import com.radware.vision.systemManagement.models.ManagementInfo;
+import com.radware.vision.systemManagement.visionConfigurations.ManagementInfo;
 import com.radware.vision.vision_handlers.system.ConfigSync;
 import com.radware.vision.vision_project_cli.RadwareServerCli;
 import cucumber.api.java.en.Given;

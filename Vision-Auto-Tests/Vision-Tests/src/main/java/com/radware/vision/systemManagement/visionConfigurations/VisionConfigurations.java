@@ -1,8 +1,6 @@
-package com.radware.vision.systemManagement;
+package com.radware.vision.systemManagement.visionConfigurations;
 
 import com.radware.vision.RestClientsFactory;
-import com.radware.vision.systemManagement.controllers.VisionConfigurationsController;
-import com.radware.vision.systemManagement.models.ManagementInfo;
 import com.radware.vision.tools.LicenseGenerator;
 import models.RestResponse;
 import models.StatusCode;

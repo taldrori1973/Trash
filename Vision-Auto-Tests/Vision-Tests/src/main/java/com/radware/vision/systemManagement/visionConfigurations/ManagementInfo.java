@@ -1,4 +1,4 @@
-package com.radware.vision.systemManagement.models;
+package com.radware.vision.systemManagement.visionConfigurations;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;
