@@ -254,7 +254,6 @@ public class LicenseManagement {
         } catch (Exception e) {
             BaseTestUtils.report(String.format("License Key Generation Failed , Error Message: %s", e.getMessage()), Reporter.FAIL);
         }
-        Object result = "";
         GenericVisionRestAPI request;
         if (this.featureName.equals(VisionLicenses.ACTIVATION.getLicenseFeatureName())) {
             SessionBasedRestClient connection = RestClientsFactory.getVisionConnection(UriUtils.buildUrlFromProtocolAndIp(getCurrentVisionRestProtocol(), getCurrentVisionIp()),
@@ -279,19 +278,13 @@ public class LicenseManagement {
                 throw new Exception(String.format("Vision \"%s\" License Installation Fails because of the following error: %s", licenseKey, restResponse.getBody().getBodyAsString()));
             }
         }
-        if (result.toString().contains("\"status\":\"ok\"")) {
-            this.installedLicenses = this.visionLicenseDao.getAll();
-            if (numberOfInstalledLicensesBeforeDelete == this.installedLicenses.size())
-                BaseTestUtils.report(String.format("The number of installed licenses before install and after install are the same."), Reporter.FAIL);
-            return true;
-        } else if (result.toString().contains("\"status\": \"error\"")) {
-            JsonParser jsonParser = new JsonParser();
-            JsonObject root = jsonParser.parse(result.toString()).getAsJsonObject();
-            String errorMessage = root.get("message").getAsString();
-            BaseTestUtils.report(String.format("Error Message: %s", errorMessage), Reporter.FAIL);
-            return false;
-        }
-        return false;
+
+        this.installedLicenses = this.visionLicenseDao.getAll();
+        if (numberOfInstalledLicensesBeforeDelete == this.installedLicenses.size())
+            BaseTestUtils.report("The number of installed licenses before install and after install are the same.", Reporter.FAIL);
+
+        return true;
+
     }
 
     private String getExpectedInstallationResult() {
