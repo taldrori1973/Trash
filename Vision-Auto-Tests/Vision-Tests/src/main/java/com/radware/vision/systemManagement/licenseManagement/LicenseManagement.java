@@ -293,10 +293,11 @@ public class LicenseManagement {
 
         GenericVisionRestAPI request = new GenericVisionRestAPI("Vision/SystemManagement.json", "Delete License");
 
-        Map<String, Object> pathParams = new HashMap<>();
+        Map<String, String> pathParams = new HashMap<>();
         pathParams.put("ormID", license.getRow_id());
 
-        request.getRestRequestSpecification().setPathParams();
+        request.getRestRequestSpecification().setPathParams(pathParams);
+        RestResponse restResponse = request.sendRequest();
         Object result = BasicRestOperationsHandler.visionRestApiRequest(restTestBase.getVisionRestClient(), HttpMethodEnum.DELETE, "License", license.getRow_id(), null, "\"status\":\"ok\"");
         if (result.toString().contains("\"status\":\"ok\"")) {
             this.installedLicenses = this.visionLicenseDao.getAll();
