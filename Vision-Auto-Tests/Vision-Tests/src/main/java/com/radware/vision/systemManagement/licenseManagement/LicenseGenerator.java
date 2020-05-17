@@ -10,6 +10,12 @@ import com.radware.vision.utils.ReflectionUtils;
 public class LicenseGenerator {
     private static String MAC_ADDRESS = TestBase.getVisionConfigurations().getManagementInfo().getMacAddress();
 
+    /**
+     *
+     * @param macAddress    Vision Mac Address
+     * @return              Vision Activation License Key
+     * @throws Exception
+     */
     public static String generateVisionActivationLicenseKey(String macAddress) throws Exception {
         String licenseKey;
         String licensePrefix = VisionLicenses.ACTIVATION.getLicensePrefixPattern();
