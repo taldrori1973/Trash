@@ -31,6 +31,13 @@
       "produces": "application/json",
       "consumes": "application/json",
       "description": "Install License , with following body fromat : {\"licenseStr\":\"%s\",\"requireDeviceLock\":true,\"parameters\": {}}"
+    },
+    {
+      "label": "Delete License",
+      "method": "DELETE",
+      "basePath": "/mgmt/system/config/itemlist/visionlicense/%s",
+      "produces": "application/json",
+      "description": "Delete License , with following body fromat : {\"licenseStr\":\"%s\",\"requireDeviceLock\":true,\"parameters\": {}}"
     }
   ]
 }
