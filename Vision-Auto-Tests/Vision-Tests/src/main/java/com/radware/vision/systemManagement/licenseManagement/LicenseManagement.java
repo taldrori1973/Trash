@@ -292,7 +292,9 @@ public class LicenseManagement {
         int numberOfInstalledLicensesBeforeDelete = installedLicenses.size();
         RestTestBase restTestBase = new RestTestBase();
         GenericVisionRestAPI request = new GenericVisionRestAPI("Vision/SystemManagement.json", "Delete License");
+        ObjectMapper objectMapper = new ObjectMapper();
 
+        JsonNode jsonNode = objectMapper.valueToTree(new HashMap<String, Object>().put("ormID", license.getRow_id()));
         Object result = BasicRestOperationsHandler.visionRestApiRequest(restTestBase.getVisionRestClient(), HttpMethodEnum.DELETE, "License", license.getRow_id(), null, "\"status\":\"ok\"");
         if (result.toString().contains("\"status\":\"ok\"")) {
             this.installedLicenses = this.visionLicenseDao.getAll();
