@@ -297,9 +297,9 @@ public class LicenseManagement {
         request.getRestRequestSpecification().setPathParams(pathParams);
         RestResponse restResponse = request.sendRequest();
 
-        if (!restResponse.getStatusCode().equals(StatusCode.OK)) {
+        if (!restResponse.getStatusCode().equals(StatusCode.OK))
             throw new Exception(String.format("Delete Vision \"%s\" License Fails because of the following error: %s", license.getName(), restResponse.getBody().getBodyAsString()));
-        }
+
         if (result.toString().contains("\"status\":\"ok\"")) {
             this.installedLicenses = this.visionLicenseDao.getAll();
             if (numberOfInstalledLicensesBeforeDelete == this.installedLicenses.size())
