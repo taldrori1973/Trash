@@ -43,6 +43,19 @@ public class LicenseGenerator {
         return generateLicense(MAC_ADDRESS, licenseKeyPrefix);
     }
 
+    /**
+     *
+     * @param macAddress        Vision Mac Address
+     * @param licenseKeyPrefix  could be one of two formats:
+     *      *                         time based license : vision-AVA-6-Gbps-attack-capacity-03sep2019-29oct2020
+     *      *                              when the vision-AVA-6-Gbps-attack-capacity you can get from {@link VisionLicenses} and the from to dates are added with the format above.
+     *      *                         <p>
+     *      *                         Or
+     *      *                         <p>
+     *      *                         not time based license :vision-AVA-400-Gbps-attack-capacity
+     *      *                              when the vision-AVA-6-Gbps-attack-capacity you can get from {@link VisionLicenses} without the from to dates.
+     * @return                  licenseKeyPrefix License Key
+     */
     public static String generateLicense(String macAddress, String licenseKeyPrefix) {
         String licenseKey;
         licenseKey = licenseKeyPrefix + "-" + ReflectionUtils.invokePrivateMethod("generateLicenseString", macAddress, licenseKeyPrefix);
