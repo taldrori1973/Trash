@@ -24,19 +24,16 @@ public class LicenseGenerator {
      * @throws Exception
      */
     public static String generateVisionActivationLicenseKey(String macAddress) {
-        String licenseKey;
-        String licensePrefix = VisionLicenses.ACTIVATION.getLicensePrefixPattern();
-        licenseKey = licensePrefix + "-" + ReflectionUtils.invokePrivateMethod("generateLicenseString", macAddress, licensePrefix);
-        return licenseKey;
+
         return generateLicense(macAddress,VisionLicenses.ACTIVATION.getLicensePrefixPattern());
     }
 
 
-    public static String generateLicense(String licenseKeyPrefix) throws Exception {
+    public static String generateLicense(String licenseKeyPrefix)  {
         return generateLicense(MAC_ADDRESS, licenseKeyPrefix);
     }
 
-    public static String generateLicense(String macAddress, String licenseKeyPrefix) throws Exception {
+    public static String generateLicense(String macAddress, String licenseKeyPrefix)  {
         String licenseKey;
         licenseKey = licenseKeyPrefix + "-" + ReflectionUtils.invokePrivateMethod("generateLicenseString", macAddress, licenseKeyPrefix);
         return licenseKey;
