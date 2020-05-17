@@ -270,11 +270,14 @@ public class LicenseManagement {
             body.put("licenseStr", licenseKey);
             body.put("requireDeviceLock", true);
             body.put("parameters", Collections.EMPTY_LIST);
-            ObjectMapper objectMapper=new ObjectMapper();
+            ObjectMapper objectMapper = new ObjectMapper();
             JsonNode jsonNode = objectMapper.valueToTree(body);
 
-
-            result = BasicRestOperationsHandler.visionRestApiRequest(restTestBase.getVisionRestClient(), HttpMethodEnum.POST, "License", null, licenseKey, getExpectedInstallationResult());
+            request.getRestRequestSpecification().setBody(jsonNode.toString());
+            RestResponse restResponse = request.sendRequest();
+            if (!restResponse.getStatusCode().equals(StatusCode.OK)) {
+                throw new Exception(String.format("Vision \"%s\" License Installation Fails because of the following error: %s", licenseKey, restResponse.getBody().getBodyAsString()));
+            }
         }
         if (result.toString().contains("\"status\":\"ok\"")) {
             this.installedLicenses = this.visionLicenseDao.getAll();
