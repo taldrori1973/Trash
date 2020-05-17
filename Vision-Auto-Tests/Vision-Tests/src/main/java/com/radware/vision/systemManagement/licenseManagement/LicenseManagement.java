@@ -10,7 +10,6 @@ import com.radware.vision.automation.DatabaseStepHandlers.mariaDB.client.JDBCCon
 import com.radware.vision.automation.DatabaseStepHandlers.mariaDB.repositories.vision_ng_schema.daos.VisionLicenseDao;
 import com.radware.vision.automation.DatabaseStepHandlers.mariaDB.repositories.vision_ng_schema.entities.VisionLicense;
 import com.radware.vision.infra.testresthandlers.BasicRestOperationsHandler;
-import testhandlers.vision.system.generalSettings.LicenseManagementHandler;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -239,9 +238,9 @@ public class LicenseManagement {
         String licenseKey = null;
         try {
             if (timeBasedLicense)
-                licenseKey = LicenseManagementHandler.generateLicense(restTestBase.getRadwareServerCli(), timeBasedLicensePrefix);
+                licenseKey = LicenseGenerator.generateLicense(timeBasedLicensePrefix);
             else
-                licenseKey = LicenseManagementHandler.generateLicense(restTestBase.getRadwareServerCli(), shortLicensePrefix);
+                licenseKey = LicenseGenerator.generateLicense(shortLicensePrefix);
         } catch (Exception e) {
             BaseTestUtils.report(String.format("License Key Generation Failed , Error Message: %s", e.getMessage()), Reporter.FAIL);
         }
