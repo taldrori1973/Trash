@@ -256,6 +256,7 @@ public class LicenseManagement {
             BaseTestUtils.report(String.format("License Key Generation Failed , Error Message: %s", e.getMessage()), Reporter.FAIL);
         }
         Object result = "";
+        GenericVisionRestAPI request;
         if (this.featureName.equals(VisionLicenses.ACTIVATION.getLicenseFeatureName())) {
             SessionBasedRestClient connection = RestClientsFactory.getVisionConnection(UriUtils.buildUrlFromProtocolAndIp(getCurrentVisionRestProtocol(), getCurrentVisionIp()),
                     getCurrentVisionRestPort(), getCurrentVisionRestUserName(), getCurrentVisionRestUserPassword(), licenseKey);
@@ -264,8 +265,8 @@ public class LicenseManagement {
                 throw new Exception(String.format("Vision Activation License Install Fails because of the following error: %s", loginResult.getBody().getBodyAsString()));
             }
         } else
-            GenericVisionRestAPI request=new GenericVisionRestAPI("restApis/Generic-REST-API/requests/Vision/SystemManagement.json","Install License");
-            result = BasicRestOperationsHandler.visionRestApiRequest(restTestBase.getVisionRestClient(), HttpMethodEnum.POST, "License", null, licenseKey, getExpectedInstallationResult());
+            request = new GenericVisionRestAPI("Vision/SystemManagement.json", "Install License");
+        result = BasicRestOperationsHandler.visionRestApiRequest(restTestBase.getVisionRestClient(), HttpMethodEnum.POST, "License", null, licenseKey, getExpectedInstallationResult());
 
         if (result.toString().contains("\"status\":\"ok\"")) {
             this.installedLicenses = this.visionLicenseDao.getAll();
