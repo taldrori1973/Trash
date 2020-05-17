@@ -30,7 +30,7 @@
       "basePath": "/mgmt/system/config/itemlist/visionlicense",
       "produces": "application/json",
       "consumes": "application/json",
-      "description": "Set Authentication Mode"
+      "description": "Install License , with following body fromat : {\"licenseStr\":\"%s\",\"requireDeviceLock\":true,\"parameters\": {}}"
     }
   ]
 }
