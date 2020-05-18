@@ -184,9 +184,9 @@ Feature: DP Monitoring Dashboard - Protection Policies - Under Attack
       | Device                | DefensePro_172.16.22.50 |
       | Policy Name           | Global Policy           |
       | Policy Status         | underAttack             |
-      | Total Inbound Traffic | 5.2 Gbps               |
-      | Attack Rate           | 5.2 Gbps               |
-      | Drop Rate             | 5.2 Gbps               |
+      | Total Inbound Traffic | 863.02 Mbps               |
+      | Attack Rate           | 863.02 Mbps               |
+      | Drop Rate             | 863.02 Mbps               |
       | Attack Categories     | ACL                     |
 
   @SID_14
