@@ -38,7 +38,7 @@ Feature: Connectivity Proxy Server Parameters Functionality
     Then UI Validate Text field "Password" EQUALS ""
     Then UI Validate Text field by id "gwt-debug-proxyServerPass_DuplicatePasswordField" EQUALS ""
 
-  @SID_4
+  @SID_5
   Scenario: Validate proxy by IP address - functionality
     When UI Go To Vision
     Then UI Click vision dashboards
@@ -48,7 +48,7 @@ Feature: Connectivity Proxy Server Parameters Functionality
     Then CLI Run remote linux Command "/generic_get_value.sh radware radware GET localhost /mgmt/monitor/scc/SUS > /opt/radware/storage/out.txt " on "ROOT_SERVER_CLI"
 
 
-  @SID_5
+  @SID_6
   Scenario: Set proxy by IP address - Negative wrong password
     Then UI Go To Vision
     Then UI Navigate to page "System->General Settings->Connectivity"
@@ -62,7 +62,7 @@ Feature: Connectivity Proxy Server Parameters Functionality
     Then UI Set Text field with id "gwt-debug-proxyServerPass_DuplicatePasswordField" with "1234"
     Then UI Click Button "Submit"
 
-  @SID_6
+  @SID_7
   Scenario: Validate proxy by IP address - Negative wrong password
     Then UI Click vision dashboards
     Then UI Click security control center
@@ -73,15 +73,15 @@ Feature: Connectivity Proxy Server Parameters Functionality
       | logType | expression                                                             | isExpected |
       | JBOSS   | you are not currently allowed to request https://services.radware.com/ | EXPECTED   |
 
-  @SID_7
+  @SID_8
   Scenario: Validate proxy by IP address - proxy server logs
 
-  @SID_8
+  @SID_9
   Scenario: modify local hosts file
     Then CLI Operations - Run Root Session command "sed -i '/myproxy.local/d' /etc/hosts"
     Then CLI Operations - Run Root Session command "echo "172.17.172.89 myproxy.local" >> /etc/hosts"
 
-  @SID_9
+  @SID_10
   Scenario: Proxy Server Set Parameters by Name
     Then UI Go To Vision
     Then UI Navigate to page "System->General Settings->Connectivity"
@@ -95,7 +95,7 @@ Feature: Connectivity Proxy Server Parameters Functionality
     Then UI Set Text field with id "gwt-debug-proxyServerPass_DuplicatePasswordField" with "radware"
     Then UI Click Button "Submit"
 
-  @SID_10
+  @SID_11
   Scenario: Validate proxy by Name - functionality
     * CLI Clear vision logs
     When UI Go To Vision
@@ -104,13 +104,13 @@ Feature: Connectivity Proxy Server Parameters Functionality
     Then Sleep "15"
     Then CLI Run linux Command "/generic_get_value.sh radware radware GET localhost /mgmt/monitor/scc/SUS \" 20" on "ROOT_SERVER_CLI" and validate result CONTAINS "00"
 
-  @SID_11
+  @SID_12
   Scenario: Validate proxy by Name - proxy server and vision logs
   | logType | expression                                                             | isExpected |
   | JBOSS   | you are not currently allowed to request https://services.radware.com/ | false      |
   | ALL     | fatal                                                                  | false      |
 
 
-  @SID_12
+  @SID_13
   Scenario: Logout
     Then UI logout and close browser
