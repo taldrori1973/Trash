@@ -87,7 +87,7 @@ public class LicenseSteps extends BddRestTestBase {
             activationLicenseWithDateEntity.install();
         } catch (Exception e) {
 
-            BaseTestUtils.report(e.getMessage(), Reporter.PASS);
+            BaseTestUtils.report(e.getMessage(), Reporter.FAIL);
         }
 
     }
