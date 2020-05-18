@@ -1,4 +1,4 @@
-@TC114794
+@
 Feature: Scale Test
 
   @SID_1
