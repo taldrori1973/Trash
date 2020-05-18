@@ -40,6 +40,7 @@ import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.How;
 
+import java.sql.Timestamp;
 import java.time.Duration;
 import java.time.LocalDateTime;
 import java.time.Period;
@@ -1367,35 +1368,33 @@ public class VRMHandler {
 
     /**
      * function select a range in the char.
-     *
-     * @param fromIndex - is an index of label in the session storage.
+     *  @param fromIndex - is an index of label in the session storage.
      * @param toIndex   - is an index of label in the sesison storage
+     * @parm timeFormat
      * @param chart     - chart name
      */
-    public void selectTimeFromTo(int fromIndex, int toIndex, String chart) {
+    public void selectTimeFromTo(int fromIndex, int toIndex, String chart, String timeFormat) {
         try {
             Objects.requireNonNull(chart, "Chart is equal to null");
             JSONArray dataArray;
             Map jsonMap = getSessionStorage(chart);
             jsonMap = JsonUtils.getJsonMap(jsonMap.get(DATA));
             dataArray = (JSONArray) jsonMap.get(LABELS);
-            DateTimeFormatter inputFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'");
+            DateTimeFormatter inputFormatter = DateTimeFormatter.ofPattern(timeFormat!=null? timeFormat:"yyyy-MM-dd'T'HH:mm:ss.SSS'Z'");
 
             if (dataArray.length() < toIndex)
                 BaseTestUtils.report("There is no Enough data in Session Storage", Reporter.FAIL);
             LocalDateTime from = LocalDateTime.parse((CharSequence) dataArray.get(fromIndex), inputFormatter);
             LocalDateTime to = LocalDateTime.parse((CharSequence) dataArray.get(toIndex), inputFormatter);
-            LocalDateTime fromGMT = from.plusHours(2);
-            LocalDateTime toGMT = to.plusHours(2);
             VisionDebugIdsManager.setLabel("Traffic Bandwidth FromTo");
             VisionDebugIdsManager.setParams("from");
             WebElement firstElement = WebUIUtils.fluentWait(ComponentLocatorFactory.getLocatorByXpathDbgId(VisionDebugIdsManager.getDataDebugId()).getBy(), WebUIUtils.DEFAULT_WAIT_TIME, false);
             JavascriptExecutor executor = (JavascriptExecutor) WebUIUtils.getDriver();
-            executor.executeScript("arguments[1].value = arguments[0]; ", fromGMT.toString(), firstElement);
+            executor.executeScript("arguments[1].value = arguments[0]; ", Timestamp.valueOf(from).getTime(), firstElement);
 
             VisionDebugIdsManager.setParams("to");
             WebElement secondElement = WebUIUtils.fluentWait(ComponentLocatorFactory.getLocatorByXpathDbgId(VisionDebugIdsManager.getDataDebugId()).getBy(), WebUIUtils.DEFAULT_WAIT_TIME, false);
-            executor.executeScript("arguments[1].value = arguments[0]; ", toGMT.toString(), secondElement);
+            executor.executeScript("arguments[1].value = arguments[0]; ", Timestamp.valueOf(to).getTime(), secondElement);
             WebElement button = WebUIUtils.fluentWait(ComponentLocatorFactory.getLocatorByXpathDbgId("qa-call-attacks-dialog").getBy(), WebUIUtils.DEFAULT_WAIT_TIME, false);
             executor.executeScript("arguments[0].click(); ", button);
 
