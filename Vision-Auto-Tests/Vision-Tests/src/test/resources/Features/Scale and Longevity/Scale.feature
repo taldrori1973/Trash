@@ -1,4 +1,4 @@
-@
+#@
 Feature: Scale Test
 
   @SID_1
