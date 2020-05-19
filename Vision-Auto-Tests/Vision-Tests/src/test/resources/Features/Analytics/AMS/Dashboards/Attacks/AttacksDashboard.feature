@@ -23,7 +23,7 @@ Feature: AttacksDashboard
     Given UI Login with user "sys_admin" and password "radware"
     Then REST Vision Install License Request "vision-AVA-Max-attack-capacity"
     Then Sleep "2"
-    And UI Navigate to "AMS Attacks" page via homePage
+    And UI Navigate to "DefensePro Attacks" page via homePage
 #    When UI Click Button "Global Time Filter"
 #    When UI select time range from "-4m"
 
