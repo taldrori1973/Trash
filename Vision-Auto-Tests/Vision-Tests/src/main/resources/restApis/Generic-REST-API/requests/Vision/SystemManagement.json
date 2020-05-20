@@ -38,6 +38,13 @@
       "basePath": "/mgmt/system/config/itemlist/visionlicense/{ormID}",
       "produces": "application/json",
       "description": "Delete License"
+    },
+    {
+      "label": "Update Vision Navigation Xml",
+      "method": "GET",
+      "basePath": "/mgmt/system/config/dd/screen/navigation.xml",
+      "produces": "application/json",
+      "description": "Update Vision Navigation Xml"
     }
   ]
 }
