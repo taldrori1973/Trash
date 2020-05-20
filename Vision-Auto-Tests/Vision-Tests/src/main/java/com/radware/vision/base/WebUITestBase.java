@@ -39,10 +39,12 @@ import com.radware.vision.infra.enums.DeviceDriverType;
 import com.radware.vision.infra.testhandlers.baseoperations.BasicOperationsHandler;
 import com.radware.vision.infra.utils.VisionWebUIUtils;
 import com.radware.vision.pojomodel.helpers.constants.ImConstants$DeviceStatusEnumPojo;
+import com.radware.vision.restAPI.GenericVisionRestAPI;
 import com.radware.vision.vision_project_cli.menu.Menu;
 import com.radware.vision.vision_tests.CliTests;
 import cucumber.runtime.junit.FeatureRunner;
 import enums.SUTEntryType;
+import models.RestResponse;
 import org.junit.After;
 import org.junit.Before;
 import testhandlers.Device;
@@ -168,7 +170,7 @@ public abstract class WebUITestBase extends TestBase {
             throw new IllegalStateException(e.getMessage() + "\n" + e.getStackTrace());
         }
 
-//        setDeviceName(deviceName);
+        setDeviceName(deviceName);
     }
 
     public void coreInit() throws Exception {
@@ -390,7 +392,7 @@ public abstract class WebUITestBase extends TestBase {
                     }
                 }
             } else {
-//                updateVisionNavigationXml();
+                updateVisionNavigationXml();
                 isDeviceManagedByVision = false;
             }
         }
@@ -414,17 +416,14 @@ public abstract class WebUITestBase extends TestBase {
         if (navigationParsers.containsKey(visionHost)) {
             WebUIUtils.visionUtils.navParser = navigationParsers.get(visionHost);
         } else {
-
-            String url = VisionUrlPath.mgmt().system().config().dd().screen("navigation.xml").build();
-            String result = new RestCommands(restTestBase.getVisionRestClient()).getLocalCommand(url, false);
-
+            GenericVisionRestAPI restAPI = new GenericVisionRestAPI("Vision/SystemManagement.json", "Update Vision Navigation Xml");
+            RestResponse result = restAPI.sendRequest();
+//            String url = VisionUrlPath.mgmt().system().config().dd().screen("navigation.xml").build();
             String filePath = WebUIUtils.deviceDriversBaseDirectory_VisionServer + File.separator + "client" + File.separator + "navigation.xml";
             if (FileUtils.isFileExist(filePath)) {
                 FileUtils.deleteFile(WebUIUtils.deviceDriversBaseDirectory_VisionServer + File.separator + "client", "navigation.xml");
             }
-            FileUtils.writeToFile(filePath, result);
-
-
+            FileUtils.writeToFile(filePath, result.getBody().getBodyAsString());
             WebUIUtils.visionUtils.setDeviceIpIfNew(null);
             navigationParsers.put(visionHost, WebUIUtils.visionUtils.navParser);
         }
