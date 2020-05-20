@@ -386,11 +386,11 @@ public class BasicOperationsHandler {
     }
 
 
-    public static void isTextEqualValue(String label, String expectedValue, String... params) {
+    public static void isTextEqualValue(String label, String expectedValue, String param) {
         VisionDebugIdsManager.setLabel(label);
-        VisionDebugIdsManager.setParams(params);
+        VisionDebugIdsManager.setParams(param);
         String actualValue = WebUIVisionBasePage.getCurrentPage().getContainer().getLabel(label).getInnerText();
-        if (actualValue.equals(expectedValue)) {
+        if (actualValue.contains(expectedValue)) {
             BaseTestUtils.report("Successfully validated element value: " + label + " equals to " + expectedValue , Reporter.PASS);
         } else {
             BaseTestUtils.report("Failed to validate element value: " + label +  " ,Expected result is: " + expectedValue +" but Actual value is: " + actualValue, Reporter.FAIL);
