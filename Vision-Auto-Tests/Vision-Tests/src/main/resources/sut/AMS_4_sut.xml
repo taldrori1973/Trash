@@ -41,7 +41,7 @@
                 <class>com.radware.vision.vision_project_cli.VisionSetup</class>
                 <!--<setupMode>Fresh Install| Upgrade</setupMode>-->
                 <setupMode>Upgrade</setupMode>
-                <snapshot>4.10.100-GA</snapshot>
+                <snapshot>4.40-GA</snapshot>
                 <!--<vmPrefix>This field is relevant for fresh installed VM</vmPrefix>-->
                 <vmPrefix>VisionAuto-VRM-Upgrade</vmPrefix>
             </visionSetup>
@@ -322,7 +322,7 @@
         <alteonDevices index="11">
             <class>com.radware.vision.automation.tools.sutsystemobjects.devicesinfo.DeviceInfo</class>
             <deviceName>Alteon_50.50.101.11</deviceName>
-            <deviceIp>50.50.101.11</deviceIp>
+            <deviceIp>50.50.101.13</deviceIp>
             <username>admin</username>
             <password>admin</password>
             <readCommunity>public</readCommunity>
@@ -331,7 +331,7 @@
         <alteonDevices index="12">
             <class>com.radware.vision.automation.tools.sutsystemobjects.devicesinfo.DeviceInfo</class>
             <deviceName>Alteon_50.50.101.21</deviceName>
-            <deviceIp>50.50.101.21</deviceIp>
+            <deviceIp>50.50.101.23</deviceIp>
             <username>admin</username>
             <password>admin</password>
             <readCommunity>public</readCommunity>
@@ -340,7 +340,7 @@
         <alteonDevices index="13">
             <class>com.radware.vision.automation.tools.sutsystemobjects.devicesinfo.DeviceInfo</class>
             <deviceName>Alteon_50.50.101.22</deviceName>
-            <deviceIp>50.50.101.22</deviceIp>
+            <deviceIp>50.50.101.24</deviceIp>
             <username>admin</username>
             <password>admin</password>
             <readCommunity>public</readCommunity>

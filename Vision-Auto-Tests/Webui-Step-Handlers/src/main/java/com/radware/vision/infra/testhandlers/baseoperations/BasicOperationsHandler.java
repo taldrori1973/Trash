@@ -385,6 +385,18 @@ public class BasicOperationsHandler {
         return WebUIVisionBasePage.getCurrentPage().getContainer().getTextField(label).getValue();
     }
 
+
+    public static void isTextEqualValue(String label, String expectedValue, String param) {
+        VisionDebugIdsManager.setLabel(label);
+        VisionDebugIdsManager.setParams(param);
+        String actualValue = WebUIVisionBasePage.getCurrentPage().getContainer().getLabel(label).getInnerText();
+        if (actualValue.contains(expectedValue)) {
+            BaseTestUtils.report("Successfully validated element value: " + label + " equals to " + expectedValue , Reporter.PASS);
+        } else {
+            BaseTestUtils.report("Failed to validate element value: " + label +  " ,Expected result is: " + expectedValue +" but Actual value is: " + actualValue, Reporter.FAIL);
+        }
+    }
+
     /**
      * This check will rely on the way that selenium does it
      *
@@ -392,6 +404,10 @@ public class BasicOperationsHandler {
      * @param params    for id's that only will be known at test run time
      * @return
      */
+
+
+
+
     public static boolean isItemSelected(String LabelName, String... params) {
 
         VisionDebugIdsManager.setLabel(LabelName);

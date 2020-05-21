@@ -9,6 +9,13 @@
       "basePath": "/mgmt/system/config/item/mngtinfo",
       "produces": "application/json",
       "description": "Retrieves Vision Management Info : macAddress, hostname ,defenseFlowId, defensePipeUrl, hardwarePlatform,activeServerMacAddress, serverSoftwareVersion, certificateHash"
+    },
+    {
+      "label": "Add Site to TopologyTree",
+      "method": "POST",
+      "basePath": "/mgmt/system/config/tree/site",
+      "produces": "application/json",
+      "description": "Add New Site to TopologyTree"
     }
   ]
 }

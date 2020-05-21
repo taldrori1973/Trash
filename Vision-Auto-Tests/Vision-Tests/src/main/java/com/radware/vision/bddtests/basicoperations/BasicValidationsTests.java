@@ -68,6 +68,15 @@ public class BasicValidationsTests extends BddUITestBase {
         BasicOperationsHandler.isElementFounds(label, isExists, param);
     }
 
+//    @Then("^UI Validate Element Existence By Label \"([^\"]*)\" Equals \"([^\"]*)\"$")
+//    public void validateElementValue(String param, String value) {
+//        BasicOperationsHandler.isElementFounds(label, isExists, param);
+//    }
+
+
+
+
+
     @Then("^UI Validate Element Existence By GWT id \"(.*)\" if Exists \"(true|false)\"(?: with value \"(.*)\")?$")
     public void validateElementExistenceByGwtId(String label, Boolean isExists, String param) {
         BasicOperationsHandler.isGwtElementExists(label, isExists, param);
@@ -94,6 +103,13 @@ public class BasicValidationsTests extends BddUITestBase {
         cutCharsNumber = cutCharsNumber == null ? "0" : cutCharsNumber;
         expectedText = expectedText.equals("") ? getRetrievedParamValue() : expectedText;
         ClickOperationsHandler.validateTextFieldElementByLabel(selectorValue, params, expectedText, operatorsEnum, Integer.valueOf(cutCharsNumber));
+    }
+
+
+    @Then("^Validate Expand \"([^\"]*)\" Table with label \"([^\"]*)\" Equals to \"([^\"]*)\"$")
+    public void validateExtendTable(String tableName, String label, String value){
+        BasicOperationsHandler.isTextEqualValue(label, value, tableName );
+
     }
 
     @Then("^UI Validate Text field by id \"([^\"]*)\" (EQUALS|CONTAINS) \"(.*)\"(?: cut Characters Number (\\S+))?$")
@@ -372,17 +388,34 @@ public class BasicValidationsTests extends BddUITestBase {
             setTextField(searchLabel, searchParams, text,false);
         }
         VisionDebugIdsManager.setLabel(tableName);
-        BasicTable table = new BasicTableWithPagination(ComponentLocatorFactory.getEqualLocatorByDbgId(VisionDebugIdsManager.getDataDebugId()), true);
+        BasicTable table = new BasicTableWithPagination(ComponentLocatorFactory.getEqualLocatorByDbgId(VisionDebugIdsManager.getDataDebugId()), false);
         for (TableValues entry : entries)
         {
             List<String> columnName = new ArrayList();
             columnName.add(entry.columnName);
             List <String> value = new ArrayList();
             value.add(entry.value);
+            WebUIUtils.sleep(1);
             if (table.findRowByKeysValues(columnName, value) < 0)
             {
                 addErrorMessage("The Expected is: the columnName: '" + columnName.get(0) + "' with value: '" + value.get(0) + "' should be exist in table " + tableName + " but they arn't");
             }
+        }
+        ReportsUtils.reportErrors();
+    }
+
+    @Then("^UI search row table in searchLabel \"([^\"]*)\"(?: with params \"([^\"]*)\")? with text \"([^\"]*)\"$")
+    public void uiTextToSearchInTableInSearchLabelWithParamsWithText(String searchLabel, String searchParams, String text) throws Exception {
+        VisionDebugIdsManager.setLabel(searchLabel);
+        VisionDebugIdsManager.setParams(searchParams);
+        WebElement searchElement = WebUIUtils.fluentWait(ComponentLocatorFactory.getLocatorByXpathDbgId(VisionDebugIdsManager.getDataDebugId()).getBy());
+        if (searchElement.findElement(By.xpath("./input")) != null)
+        {
+            searchElement.findElement(By.xpath("./input")).clear();
+            searchElement.findElement(By.xpath("./input")).sendKeys(new CharSequence[]{text});
+        }else
+        {
+            setTextField(searchLabel, searchParams, text,false);
         }
         ReportsUtils.reportErrors();
     }
@@ -428,6 +461,34 @@ public class BasicValidationsTests extends BddUITestBase {
         String first = (String) dataArray.get(indexFrom);
         String second = (String) dataArray.get(indexTo);
         tableHandler.uiValidateRowsIsBetweenDates(tableLabel,first,second);
+    }
+
+    @Then("^Validate Expand  \"([^\"]*)\" table$")
+    public void uiValidateValues(String label, List<TableContent> entries) throws Exception {
+
+        String params = null;
+        for (TableContent entry : entries)
+        {
+            List<String> name = new ArrayList();
+            name.add(entry.name);
+            List <String> value = new ArrayList();
+            value.add(entry.value);
+            List <String> index = new ArrayList();
+            index.add(entry.index);
+            params= name.get(0) + "-" + index.get(0);
+            WebUIUtils.sleep(1);
+            BasicOperationsHandler.isTextEqualValue(label, value.get(0), params);
+        }
+
+
+    }
+
+    class TableContent
+    {
+        public String name;
+        public String value;
+        public String index;
+
     }
 
 }

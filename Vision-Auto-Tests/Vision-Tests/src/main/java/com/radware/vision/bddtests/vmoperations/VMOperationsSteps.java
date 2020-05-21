@@ -4,6 +4,7 @@ import com.radware.automation.bdd.reporter.BddReporterManager;
 import com.radware.automation.tools.basetest.BaseTestUtils;
 import com.radware.automation.tools.basetest.Reporter;
 import com.radware.automation.tools.utils.InvokeUtils;
+import com.radware.automation.utils.AutoDBUtils;
 import com.radware.vision.automation.tools.esxitool.snapshotoperations.EsxiInfo;
 import com.radware.vision.automation.tools.esxitool.snapshotoperations.VMSnapshotOperations;
 import com.radware.vision.automation.tools.esxitool.snapshotoperations.targetvm.VmNameTargetVm;
@@ -13,10 +14,12 @@ import com.radware.vision.bddtests.clioperation.connections.NewVmSteps;
 import com.radware.vision.bddtests.clioperation.system.upgrade.UpgradeSteps;
 import com.radware.vision.bddtests.defenseFlow.defenseFlowDevice;
 import com.radware.vision.bddtests.rest.BasicRestOperationsSteps;
+import com.radware.vision.enums.VisionDeployType;
 import com.radware.vision.infra.testhandlers.cli.CliOperations;
 import com.radware.vision.utils.RegexUtils;
 import com.radware.vision.vision_handlers.NewVmHandler;
 import com.radware.vision.vision_handlers.system.VisionServer;
+import com.radware.vision.vision_handlers.system.upgrade.visionserver.VisionDeployment;
 import com.radware.vision.vision_project_cli.RootServerCli;
 import com.radware.vision.vision_project_cli.VisionCli;
 import com.radware.vision.vision_project_cli.VisionRadwareFirstTime;
@@ -33,6 +36,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import static com.radware.vision.test_utils.DeployOva.getLastSuccessfulBuildNumberFromArtifactory;
+import static com.radware.vision.vision_tests.CliTests.visionVersion;
 
 public class VMOperationsSteps extends BddUITestBase {
 
@@ -75,7 +79,8 @@ public class VMOperationsSteps extends BddUITestBase {
             VMSnapshotOperations.newInstance().switchToSnapshot(new VmNameTargetVm(esxiInfo, vmName), snapshot, true);
             BaseTestUtils.report("Revert done", Reporter.PASS_NOR_FAIL);
             Thread.sleep(6 * 60 * 1000);
-            CliOperations.runCommand(getRestTestBase().getRootServerCli(), "yes|restore_radware_user_password", 15 * 1000);
+            CliOperations.runCommand(getRestTestBase().getRootServerCli(), "/usr/sbin/ntpdate -u $(/bin/grep ^server  /etc/ntp.conf | awk '{print $2}')", 2 * 60 * 1000);
+            CliOperations.runCommand(getRestTestBase().getRootServerCli(), "yes|restore_radware_user_password", 60 * 1000);
             if (VisionServer.waitForVisionServerServicesToStartHA(restTestBase.getRadwareServerCli(), 45 * 60 * 1000))
                 BaseTestUtils.report("All services up", Reporter.PASS);
             else {
@@ -92,7 +97,7 @@ public class VMOperationsSteps extends BddUITestBase {
     }
 
     @When("^Revert DefenseFlow to snapshot$")
-    public void DfenseFlowRevertToSnapshot() throws Exception {
+    public void DfenseFlowRevertToSnapshot() {
         try {
             defenseFlowDevice DF = (defenseFlowDevice) system.getSystemObject("defenseFlowDevice");
             EsxiInfo esxiInfo = new EsxiInfo(DF.getvCenterURL(), DF.getvCenterUserName(), DF.getvCenterPassword(), DF.getResourcePool());
@@ -101,7 +106,7 @@ public class VMOperationsSteps extends BddUITestBase {
             Thread.sleep(10 * 60 * 1000);
             BaseTestUtils.report("DefenseFlow Revert done.", Reporter.PASS_NOR_FAIL);
         } catch (Exception e) {
-
+            BaseTestUtils.report("Revert failed:\n" + e.getMessage(), Reporter.FAIL);
         }
     }
 
@@ -151,7 +156,8 @@ public class VMOperationsSteps extends BddUITestBase {
             BaseTestUtils.report("Server is not running. status is: " + CliOperations.lastOutput, Reporter.FAIL);
 
         Thread.sleep(6 * 60 * 1000);
-        CliOperations.runCommand(getRestTestBase().getRootServerCli(), "yes|restore_radware_user_password", 15 * 1000);
+        CliOperations.runCommand(getRestTestBase().getRootServerCli(), "/usr/sbin/ntpdate -u $(/bin/grep ^server  /etc/ntp.conf | awk '{print $2}')", 2 * 60 * 1000);
+        CliOperations.runCommand(getRestTestBase().getRootServerCli(), "yes|restore_radware_user_password", 60 * 1000);
         if (VisionServer.waitForVisionServerServicesToStartHA(restTestBase.getRadwareServerCli(), 45 * 60 * 1000))
             BaseTestUtils.report("All services up", Reporter.PASS);
         else {
@@ -365,14 +371,12 @@ public class VMOperationsSteps extends BddUITestBase {
         boolean isSetupNeeded;
         String version = readVisionVersionFromPomFile();
 //        String versionPrefix = version.substring(0, 4);//example : 4.10.00 --> 4.10
-        String build = System.getenv("BUILD");//get build from portal
+        String build = BaseTestUtils.getRuntimeProperty("BUILD", null);;//get build from portal
         restTestBase.getRootServerCli().getVersionNumebr();
         if (build == null || build.equals("") || build.equals("0"))
-            try {
+            {
                 BaseTestUtils.report("No build was supplied. Going for latest", Reporter.PASS);
-                build = getLastSuccessfulBuildNumberFromArtifactory(NewVmHandler.jenkinsURL);//Latest Build
-            } catch (IOException e) {
-                e.printStackTrace();
+                build = new VisionDeployment(VisionDeployType.ANY, version, build).getBuild();//Latest Build
             }
         String currentBuild = FeatureRunner.getBuild();
         String currentVersion = FeatureRunner.getVersion();
@@ -384,7 +388,8 @@ public class VMOperationsSteps extends BddUITestBase {
             BaseTestUtils.report("Needed Build: " + build, Reporter.PASS);
             BaseTestUtils.report("Needed Version: " + version, Reporter.PASS);
         }
-
+        //Lock the build
+        AutoDBUtils.updateTaskBuild(build);
         return isSetupNeeded;
     }
 

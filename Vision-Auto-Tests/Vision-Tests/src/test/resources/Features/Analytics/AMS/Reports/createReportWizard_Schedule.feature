@@ -29,8 +29,8 @@ Feature: AMS Report Schedule Wizard
       | reportType            | DefensePro Analytics Dashboard |
       | Time Definitions.Date | Quick:30m                      |
       | Schedule              | Run Every:Daily,On Time:+4m    |
-    Then CLI Run remote linux Command "/get_scheduled_report_value.sh DayScheduleReport" on "ROOT_SERVER_CLI"
-    Then CLI Operations - Verify that output contains regex "0 (\d{1,2}) (\d{1,2}) \? \* \*"
+#    Then CLI Run remote linux Command "/get_scheduled_report_value.sh DayScheduleReport" on "ROOT_SERVER_CLI"
+#    Then CLI Operations - Verify that output contains regex "0 (\d{1,2}) (\d{1,2}) \? \* \*"
     Then UI "Validate" Report With Name "DayScheduleReport"
       | reportType            | DefensePro Analytics Dashboard |
       | Time Definitions.Date | Quick:30m                      |
@@ -64,7 +64,7 @@ Feature: AMS Report Schedule Wizard
     Then UI "Validate" Report With Name "OnceScheduleReport"
       | reportType            | DefensePro Analytics Dashboard |
       | Time Definitions.Date | Quick:30m                      |
-      | Schedule              | Run Every:Once,On Time:+2m     |
+      | Schedule              | Run Every:Once,On Time:23:59   |
 #    Then CLI Run remote linux Command "/get_scheduled_report_value.sh OnceScheduleReport" on "ROOT_SERVER_CLI"
 #    Then CLI Operations - Verify that output contains regex "0 59 23 (\d{1,2}) (\d{1,2}) \? 2020"
 

@@ -1,0 +1,14 @@
+{
+  "deviceName": "Vision",
+  "fileName": "DpCpuUtilization",
+  "description": "Dp CPU Utilization",
+  "api": [
+    {
+      "label": "Dp CPU Utilization",
+      "method": "POST",
+      "basePath": "/mgmt/vrm/reporting/devices/cpu-utilization/search",
+      "produces": "application/json",
+      "description": "Dp CPU Utilization "
+    }
+  ]
+}

@@ -16,8 +16,8 @@ Feature: Elasticsearch watchdog
 
   @SID_4
   Scenario: verify watchdog logs
-    Then CLI Run linux Command "cat /opt/radware/storage/maintenance/logs/elasticsearch_watchdog.log |grep "elastic health-check failed"| wc -l" on "ROOT_SERVER_CLI" and validate result GTE "1"
-    Then CLI Run linux Command "cat /opt/radware/storage/maintenance/logs/elasticsearch_watchdog.log |grep "killing the process and restarting elasticsearch service"| wc -l" on "ROOT_SERVER_CLI" and validate result EQUALS "1"
+    Then CLI Run linux Command "cat /opt/radware/storage/maintenance/logs/elasticsearch_watchdog.log |grep "elastic health-check failed"| wc -l" on "ROOT_SERVER_CLI" and validate result GTE "1" with timeOut 240
+    Then CLI Run linux Command "cat /opt/radware/storage/maintenance/logs/elasticsearch_watchdog.log |grep "killing the process and restarting elasticsearch service"| wc -l" on "ROOT_SERVER_CLI" and validate result EQUALS "1" with timeOut 240
 
   @SID_5
   Scenario: kill elasticsearch subsys locked

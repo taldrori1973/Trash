@@ -8,7 +8,7 @@
                 <class>com.radware.vision.vision_project_cli.RadwareServerCli</class>
                 <user>radware</user>
                 <password>radware</password>
-                <host>172.17.164.134</host>
+                <host>172.17.160.111</host>
                 <dnsServerIp>10.221.1.47</dnsServerIp>
                 <addedPrompts>[new.prompt],to continue the upgrade help process., [Y/n],Please type the sftp server
                     password:,Please type the ftp server password:
@@ -17,20 +17,20 @@
             </visionRadware>
             <visionServerHA>
                 <class>com.radware.vision.vision_project_cli.VisionServerHA</class>
-                <Host_1>172.17.164.134</Host_1>
+                <Host_1>172.17.160.111</Host_1>
                 <Host_2>172.17.164.145</Host_2>
                 <connectOnInit>false</connectOnInit>
             </visionServerHA>
             <visionRoot>
                 <class>com.radware.vision.vision_project_cli.RootServerCli</class>
-                <host>172.17.164.134</host>
+                <host>172.17.160.111</host>
                 <user>root</user>
                 <password>radware</password>
                 <connectOnInit>true</connectOnInit>
             </visionRoot>
             <visionMySql>
                 <class>com.radware.vision.vision_project_cli.MySqlSO</class>
-                <host>172.17.164.134</host>
+                <host>172.17.160.111</host>
                 <port>3306</port>
                 <user>root</user>
                 <password>rad123</password>
@@ -40,8 +40,8 @@
             <visionSetup>
                 <class>com.radware.vision.vision_project_cli.VisionSetup</class>
                 <!--<setupMode>Fresh Install| Upgrade</setupMode>-->
-                <setupMode>KVM_Upgrade</setupMode>
-                <snapshot>4.50-GA</snapshot>
+                <setupMode>Upgrade</setupMode>
+                <snapshot>3.110-GA</snapshot>
                 <!--<vmPrefix>This field is relevant for fresh installed VM</vmPrefix>-->
                 <vmPrefix>VisionAuto-VRM-Upgrade</vmPrefix>
             </visionSetup>
@@ -75,7 +75,7 @@
             <class>systemobjects.VisionServer</class>
             <user>radware</user>
             <password>radware</password>
-            <host>172.17.164.134</host>
+            <host>172.17.160.111</host>
             <restProtocol>HTTPS</restProtocol>
             <connectOnInit>false</connectOnInit>
         </visionServer>
@@ -95,25 +95,23 @@
             <resourcePool>RP1</resourcePool>
             <networkName>Management 172.17</networkName>
             <dataStores>Automation Main Datastore</dataStores>
-            <vmName1>vision_auto_172.17.164.134</vmName1>
-            <vmName2>VisionAuto-VRM-Upgrade-172.17.164.102</vmName2>
+            <vmName1>VisionAuto-VRM-Upgrade-172.17.160.111</vmName1>
+            <vmName2>VisionAuto-VRM-Upgrade-172.17.164.101</vmName2>
         </visionVMs>
     </visionLab>
-
     <visionRadwareFirstTime>
         <class>com.radware.vision.vision_project_cli.VisionRadwareFirstTime
         </class>
-        <user>root</user>
+        <user>radware</user>
         <password>radware</password>
         <connectOnInit>false</connectOnInit>
-        <host>10.205.200.215</host>
+        <host>172.17.160.111</host>
         <dnsServerIp>10.221.1.47</dnsServerIp>
-        <ip>172.17.164.134</ip>
+        <newIp>172.17.160.111</newIp>
         <netMask>255.255.0.0</netMask>
         <gateway>172.17.1.1</gateway>
         <primaryDns>10.221.1.47</primaryDns>
         <physicalManagement>G1</physicalManagement>
-        <vmName>vision_auto_</vmName>
     </visionRadwareFirstTime>
 
     <devices>
@@ -304,22 +302,13 @@
         </alteonDevices>
         <alteonDevices index="6">
             <class>com.radware.vision.automation.tools.sutsystemobjects.devicesinfo.DeviceInfo</class>
-            <deviceName>Alteon_172.16.62.60</deviceName>
+            <deviceName>Alt_172.16.62.60</deviceName>
             <deviceIp>172.16.62.60</deviceIp>
             <username>admin</username>
             <password>admin</password>
             <readCommunity>public</readCommunity>
             <writeCommunity>private</writeCommunity>
             <macAddress>00:03:b2:a3:db:00</macAddress>
-        </alteonDevices>
-        <alteonDevices index="7">
-            <class>com.radware.vision.automation.tools.sutsystemobjects.devicesinfo.DeviceInfo</class>
-            <deviceName>Alteon_172.16.62.60_vADC-2</deviceName>
-            <deviceIp>172.16.160.2</deviceIp>
-            <username>admin</username>
-            <password>admin</password>
-            <readCommunity>public</readCommunity>
-            <writeCommunity>private</writeCommunity>
         </alteonDevices>
         <alteonDevices index="10">
             <class>com.radware.vision.automation.tools.sutsystemobjects.devicesinfo.DeviceInfo</class>
@@ -333,7 +322,7 @@
         <alteonDevices index="11">
             <class>com.radware.vision.automation.tools.sutsystemobjects.devicesinfo.DeviceInfo</class>
             <deviceName>Alteon_50.50.101.11</deviceName>
-            <deviceIp>50.50.101.15</deviceIp>
+            <deviceIp>50.50.101.11</deviceIp>
             <username>admin</username>
             <password>admin</password>
             <readCommunity>public</readCommunity>
@@ -341,7 +330,7 @@
         </alteonDevices>
         <alteonDevices index="12">
             <class>com.radware.vision.automation.tools.sutsystemobjects.devicesinfo.DeviceInfo</class>
-            <deviceName>Alteon_50.50.101.25</deviceName>
+            <deviceName>Alteon_50.50.101.21</deviceName>
             <deviceIp>50.50.101.21</deviceIp>
             <username>admin</username>
             <password>admin</password>
@@ -351,7 +340,7 @@
         <alteonDevices index="13">
             <class>com.radware.vision.automation.tools.sutsystemobjects.devicesinfo.DeviceInfo</class>
             <deviceName>Alteon_50.50.101.22</deviceName>
-            <deviceIp>50.50.101.26</deviceIp>
+            <deviceIp>50.50.101.22</deviceIp>
             <username>admin</username>
             <password>admin</password>
             <readCommunity>public</readCommunity>
@@ -436,14 +425,6 @@
             <deviceIp>172.17.154.25</deviceIp>
             <username>shay</username>
             <password>Shirev4$</password>
-        </appWallDevices>
-        <appWallDevices index="2">
-            <class>com.radware.vision.automation.tools.sutsystemobjects.devicesinfo.DeviceInfo</class>
-            <deviceName>AppWall_172.17.164.30</deviceName>
-            <deviceIp>172.17.164.30</deviceIp>
-            <username>user1</username>
-            <password>1qaz!QAZ</password>
-            <httpsPort>443</httpsPort>
         </appWallDevices>
 
         <linkProofDevices index="0">
@@ -530,7 +511,7 @@
                     <useTelInputStream>true</useTelInputStream>
                     <password>admin</password>
                     <user>admin</user>
-                    <host edit="enable">172.17.164.134</host>
+                    <host edit="enable">172.17.160.111</host>
                     <connectOnInit>false</connectOnInit>
                     <useBuffer>true</useBuffer>
                     <dump>true</dump>
@@ -551,7 +532,7 @@
                     <useTelInputStream>true</useTelInputStream>
                     <user>admin</user>
                     <password>admin</password>
-                    <host edit="enable">172.17.164.134</host>
+                    <host edit="enable">172.17.160.111</host>
                     <protocol>ssh</protocol>
                     <dump>true</dump>
                     <connectOnInit>false</connectOnInit>
@@ -567,7 +548,7 @@
                     <useTelInputStream>true</useTelInputStream>
                     <password>admin</password>
                     <user>admin</user>
-                    <host edit="enable">172.17.164.134</host>
+                    <host edit="enable">172.17.160.111</host>
                     <connectOnInit>false</connectOnInit>
                     <useBuffer>true</useBuffer>
                     <dump>true</dump>
@@ -588,7 +569,7 @@
                     <useTelInputStream>true</useTelInputStream>
                     <user>admin</user>
                     <password>admin</password>
-                    <host edit="enable">172.17.164.134</host>
+                    <host edit="enable">172.17.160.111</host>
                     <protocol>ssh</protocol>
                     <dump>true</dump>
                     <connectOnInit>false</connectOnInit>

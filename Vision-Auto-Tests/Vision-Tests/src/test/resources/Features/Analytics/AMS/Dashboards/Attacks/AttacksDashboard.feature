@@ -14,7 +14,7 @@ Feature: AttacksDashboard
     Given CLI simulate 1000 attacks of type "rest_traffic_diff_Policy15out" on "DefensePro" 10 with loopDelay 15000 and wait 120 seconds
 
   @SID_3
-  Scenario: change the date of traffic of 55 deveice
+  Scenario: change the date of traffic of 51 device
     When CLI Run remote linux Command "curl -XPOST localhost:9200/dp-traffic-raw-*/_update_by_query?conflicts=proceed -d '{"query":{"term":{"deviceIp":"172.16.22.51"}},"script":{"source":"ctx._source.timeStamp='$(date -d "-1 hour" +%s%3N)L'"}}'" on "ROOT_SERVER_CLI"
 
 
@@ -23,7 +23,7 @@ Feature: AttacksDashboard
     Given UI Login with user "sys_admin" and password "radware"
     Then REST Vision Install License Request "vision-AVA-Max-attack-capacity"
     Then Sleep "2"
-    And UI Navigate to "AMS Attacks" page via homePage
+    And UI Navigate to "DefensePro Attacks" page via homePage
 #    When UI Click Button "Global Time Filter"
 #    When UI select time range from "-4m"
 
