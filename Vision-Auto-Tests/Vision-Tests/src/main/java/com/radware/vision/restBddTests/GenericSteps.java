@@ -186,4 +186,13 @@ public class GenericSteps {
         if (result.getStatus().equals(FAILED)) report(result.getMessage(), FAIL);
 
     }
+
+    @Given("^REST Send simple body request from File \"([^\"]*)\" with label \"([^\"]*)\"$")
+    public void sendSimpleBodyRestRequest(String filePath, String requestLabel, List<BodyEntry> bodyEntries){
+        newRequestSpecificationFromFileWithLabel(filePath, requestLabel);
+        theRequestBodyIs("Object", bodyEntries);
+        sendRequest();
+        validateThatResponseCodeOK(StatusCode.OK);
+    }
+
 }
