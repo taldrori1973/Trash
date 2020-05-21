@@ -149,7 +149,7 @@ Feature: Attack Table - Expand Table Row
       |Radware ID         |700                             |
       |Direction          |Unknown                         |
       |Action Type        |Drop                            |
-      |Attack ID          |33-19                           |
+      |Attack ID          |33-                           |
       |Physical Port      |0                               |
       |Total Packet Count |0                               |
       |VLAN               |N/A                             |
@@ -162,14 +162,14 @@ Feature: Attack Table - Expand Table Row
 
     Examples:
       | label                           | value                                  |
-      |Detection Method                 |By Rate of HTTPS Requests               |
+      |Detection Method                 |By Volume of HTTPS Responses               |
       |Mitigation method                |Rate Limit Suspected Attackers          |
       |Auth. Method                     |302 Redirect                            |
-      |Total Suspect Sources            |2,559,994,656                           |
+      |Total Suspect Sources            |16                           |
       |Total Req. Challenged            |14                                      |
-      |Total Sources Challenged         |12                                      |
-      |Toatl Sources Auth.              |1,088,888                               |
-      |Total Attackers Sources          |1,700,000                               |
+      |Total Sources Challenged         |1,200,009                                      |
+      |Toatl Sources Auth.              |13                               |
+      |Total Attackers Sources          |17                              |
       |Auth List Util.                  |15%                                     |
       |Req. Per Sec                     |759                                     |
       |Transitory Baseline Value        |25 RPS                                  |
@@ -307,11 +307,46 @@ Feature: Attack Table - Expand Table Row
       |parameter  |7     |Sequence Number|
       |value      |7     |123456|
 
-#  @SID_25
-  #    Then UI Validate Table record values by columns with elementLabel "Scan Details" findBy index 1
-#      | columnName | value |
-#      | Protocol   | IP    |
-
+  @SID_25
+  Scenario:  validate date of Scan Details table - AntiScanning
+    Then Validate Expand  "Scan Details" table
+      |Name            |index |value   |
+      |destinationIp   |0     | 10.10.1.200     |
+      |destinationPort |0     |22261|
+      |flag            |0     |SYN   |
+      |destinationIp   |1     | 10.10.1.200     |
+      |destinationPort |1     |35915|
+      |flag            |1     |SYN   |
+      |destinationIp   |2     | 10.10.1.200     |
+      |destinationPort |2     |57620|
+      |flag            |2     |SYN   |
+      |destinationIp   |3     | 10.10.1.200     |
+      |destinationPort |3     |61578|
+      |flag            |3     |SYN   |
+      |destinationIp   |4     | 10.10.1.200     |
+      |destinationPort |4     |30789|
+      |flag            |4     |SYN   |
+      |destinationIp   |5     | 10.10.1.200     |
+      |destinationPort |5     |6931|
+      |flag            |5     |SYN   |
+      |destinationIp   |6     | 10.10.1.200     |
+      |destinationPort |6     |43704|
+      |flag            |6     |SYN   |
+      |destinationIp   |7     | 10.10.1.200     |
+      |destinationPort |7     |54620|
+      |flag            |7     |SYN   |
+      |destinationIp   |8     | 10.10.1.200     |
+      |destinationPort |8     |27310|
+      |flag            |8     |SYN   |
+      |destinationIp   |9     | 10.10.1.200     |
+      |destinationPort |9     |46423|
+      |flag            |9     |SYN   |
+      |destinationIp   |10     | 10.10.1.200     |
+      |destinationPort |10     |64922|
+      |flag            |10     |SYN   |
+      |destinationIp   |11     | 10.10.1.200     |
+      |destinationPort |11     |32461|
+      |flag            |11     |SYN   |
   ####################  Traffic Filter attack tables ####################################################
   
   @SID_26
@@ -353,7 +388,7 @@ Feature: Attack Table - Expand Table Row
 
   @SID_29
   Scenario:  validate tables for ACL
-    Then UI search row table in searchLabel "tableSearch" with text "ACL"
+    Then UI search row table in searchLabel "tableSearch" with text "RWTI_4076"
     Then Sleep "3"
     Then UI click Table row by keyValue or Index with elementLabel "Attacks Table" findBy columnName "Policy Name" findBy cellValue "RWTI_4076"
     Then UI Validate Element Existence By Label "Expand Tables View" if Exists "true" with value "info"
