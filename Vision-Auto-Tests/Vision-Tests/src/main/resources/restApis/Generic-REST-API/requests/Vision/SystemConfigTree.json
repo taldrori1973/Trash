@@ -54,6 +54,13 @@
       "basePath": "/mgmt/system/config/tree/device/byid/{ormID}",
       "produces": "application/json",
       "description": "DELETE a device by a ormID"
+    },
+    {
+      "label": "GET Device Tree",
+      "method": "GET",
+      "basePath": "mgmt/system/monitor/tree/Organization",
+      "produces": "application/json",
+      "description": "get the devices tree, response contain all the devices info"
     }
   ]
 }
