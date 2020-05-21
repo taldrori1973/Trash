@@ -28,21 +28,21 @@ import static java.lang.String.format;
 
 public class GenericSteps {
 
-    private RestRequestSpecification restRequestSpecification;
-    private RestResponse response;
-    private Map<String, String> runTimeParameters;
-    private static Pattern runTimeValuesPattern = Pattern.compile("\"?\\$\\{(.*)\\}\"?");
+    public static RestRequestSpecification restRequestSpecification;
+    public static RestResponse response;
+    public static Map<String, String> runTimeParameters;
+    public static Pattern runTimeValuesPattern = Pattern.compile("\"?\\$\\{(.*)\\}\"?");
 
     public GenericSteps() {
-        this.runTimeParameters = new HashMap<>();
+        runTimeParameters = new HashMap<>();
 
     }
 
 
     @Given("^New ([^\"]*) Request Specification with Base Path \"([^\"]*)\"$")
     public void newRequestSpecification(Method method, String basePath) {
-        this.restRequestSpecification = new RestRequestSpecification(method);
-        this.restRequestSpecification.setBasePath(basePath);
+        restRequestSpecification = new RestRequestSpecification(method);
+        restRequestSpecification.setBasePath(basePath);
     }
 
 
@@ -51,7 +51,7 @@ public class GenericSteps {
         if (filePath.startsWith("/")) filePath = filePath.substring(1);
         if (!filePath.endsWith(".json")) filePath = filePath + ".json";
 
-        this.restRequestSpecification = GenericStepsHandler.createNewRestRequestSpecification(filePath, requestLabel);
+        restRequestSpecification = GenericStepsHandler.createNewRestRequestSpecification(filePath, requestLabel);
 
     }
 
@@ -60,9 +60,9 @@ public class GenericSteps {
         if (filePath.startsWith("/")) filePath = filePath.substring(1);
         if (!filePath.endsWith(".json")) filePath = filePath + ".json";
 
-        this.restRequestSpecification = GenericStepsHandler.createNewRestRequestSpecification(filePath, requestLabel);
+        restRequestSpecification = GenericStepsHandler.createNewRestRequestSpecification(filePath, requestLabel);
         this.sendRequest();
-        String responseBody = this.response.getBody().getBodyAsString();
+        String responseBody = response.getBody().getBodyAsString();
         DocumentContext jsonPath = JsonPath.parse(responseBody);
         for (String label : labelByJsonPath.keySet()) {
             Object object = jsonPath.read(labelByJsonPath.get(label));
@@ -89,37 +89,37 @@ public class GenericSteps {
     @And("The Request Path Parameters Are")
     public void requestPathParameters(Map<String, String> pathParams) {
         Map<String, String> pathParamsCopy = StepsParametersUtils.setRunTimeValues(pathParams, runTimeParameters, runTimeValuesPattern);
-        this.restRequestSpecification.setPathParams(pathParamsCopy);
+        restRequestSpecification.setPathParams(pathParamsCopy);
     }
 
     @And("The Request Query Parameters Are")
     public void requestQueryParams(Map<String, String> queryParams) {
         Map<String, String> queryParamsCopy = StepsParametersUtils.setRunTimeValues(queryParams, runTimeParameters, runTimeValuesPattern);
-        this.restRequestSpecification.setQueryParams(queryParamsCopy);
+        restRequestSpecification.setQueryParams(queryParamsCopy);
     }
 
 
     @And("The Request Headers Are")
     public void requestHeaders(Map<String, String> headers) {
         Map<String, String> headersCopy = StepsParametersUtils.setRunTimeValues(headers, runTimeParameters, runTimeValuesPattern);
-        this.restRequestSpecification.setHeaders(headersCopy);
+        restRequestSpecification.setHeaders(headersCopy);
     }
 
     @And("The Request Cookies Are")
     public void requestCookies(Map<String, String> cookies) {
         Map<String, String> cookiesCopy = StepsParametersUtils.setRunTimeValues(cookies, runTimeParameters, runTimeValuesPattern);
-        this.restRequestSpecification.setCookies(cookiesCopy);
+        restRequestSpecification.setCookies(cookiesCopy);
     }
 
     @And("The Request Accept ([^\"]*)")
     public void requestAccept(ContentType contentType) {
-        this.restRequestSpecification.setAccept(contentType);
+        restRequestSpecification.setAccept(contentType);
     }
 
     @And("The Request Content Type Is ([^\"]*)")
     public void requestContentType(ContentType contentType) {
 
-        this.restRequestSpecification.setContentType(contentType);
+        restRequestSpecification.setContentType(contentType);
 
     }
 
@@ -127,15 +127,14 @@ public class GenericSteps {
     public void theRequestBodyIs(String type, List<BodyEntry> bodyEntries) {
         List<BodyEntry> bodyEntriesCopy = StepsParametersUtils.setRunTimeValuesOfBodyEntries(bodyEntries, runTimeParameters, runTimeValuesPattern);
         String body = GenericStepsHandler.createBody(bodyEntriesCopy, type);
-        this.restRequestSpecification.setBody(body);
+        restRequestSpecification.setBody(body);
     }
 
     @When("Send Request with the Given Specification")
     public void sendRequest() {
         RestApi restApi = RestApiManagement.getRestApi();
-        this.response = restApi.sendRequest(this.restRequestSpecification);
+        response = restApi.sendRequest(restRequestSpecification);
     }
-
 
     @Then("Validate That Response Status Code Is ([^\"]*)")
     public void validateThatResponseCodeOK(StatusCode statusCode) {
@@ -144,7 +143,6 @@ public class GenericSteps {
                     "The actual %s value \"%s\" is not equal to the expected value \"%s\"",
                     "status code", response.getStatusCode(), statusCode), FAIL);
     }
-
 
     @Then("^Validate That Response Status Line Is \"([^\"]*)\"$")
     public void validateThatResponseStatusLineIs(String statusLine) {
@@ -172,21 +170,29 @@ public class GenericSteps {
 
     @Then("^Validate That Response Content Type Is ([^\"]*)$")
     public void validateThatResponseAcceptTypeIsJSON(ContentType contentType) {
-        if (!this.response.getContentType().equals(contentType))
+        if (!response.getContentType().equals(contentType))
             report(format(
                     "The actual %s value \"%s\" is not equal to the expected value \"%s\"",
                     "response content type", response.getContentType(), contentType), FAIL);
     }
 
-
     @Then("^Validate That Response Body Contains$")
     public void validateThatResponseBodyContains(List<BodyEntry> bodyEntries) {
         List<BodyEntry> bodyEntriesCopy = StepsParametersUtils.setRunTimeValuesOfBodyEntries(bodyEntries, runTimeParameters, runTimeValuesPattern);
-        String body = this.response.getBody().getBodyAsString();
+        String body = response.getBody().getBodyAsString();
         DocumentContext documentContext = JsonPath.parse(body);
 
         RestStepResult result = GenericStepsHandler.validateBody(bodyEntriesCopy, documentContext);
         if (result.getStatus().equals(FAILED)) report(result.getMessage(), FAIL);
 
     }
+
+    @Given("^REST Send simple body request from File \"([^\"]*)\" with label \"([^\"]*)\"$")
+    public void sendSimpleBodyRestRequest(String filePath, String requestLabel, List<BodyEntry> bodyEntries){
+        newRequestSpecificationFromFileWithLabel(filePath, requestLabel);
+        theRequestBodyIs("Object", bodyEntries);
+        sendRequest();
+        validateThatResponseCodeOK(StatusCode.OK);
+    }
+
 }

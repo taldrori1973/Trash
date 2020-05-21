@@ -108,7 +108,7 @@ public class BasicValidationsTests extends BddUITestBase {
 
     @Then("^Validate Expand \"([^\"]*)\" Table with label \"([^\"]*)\" Equals to \"([^\"]*)\"$")
     public void validateExtendTable(String tableName, String label, String value){
-        BasicOperationsHandler.isTextEqualValue(label,null,value);
+        BasicOperationsHandler.isTextEqualValue(label, value, tableName );
 
     }
 
@@ -411,6 +411,7 @@ public class BasicValidationsTests extends BddUITestBase {
         WebElement searchElement = WebUIUtils.fluentWait(ComponentLocatorFactory.getLocatorByXpathDbgId(VisionDebugIdsManager.getDataDebugId()).getBy());
         if (searchElement.findElement(By.xpath("./input")) != null)
         {
+            searchElement.findElement(By.xpath("./input")).clear();
             searchElement.findElement(By.xpath("./input")).sendKeys(new CharSequence[]{text});
         }else
         {
@@ -460,6 +461,34 @@ public class BasicValidationsTests extends BddUITestBase {
         String first = (String) dataArray.get(indexFrom);
         String second = (String) dataArray.get(indexTo);
         tableHandler.uiValidateRowsIsBetweenDates(tableLabel,first,second);
+    }
+
+    @Then("^Validate Expand  \"([^\"]*)\" table$")
+    public void uiValidateValues(String label, List<TableContent> entries) throws Exception {
+
+        String params = null;
+        for (TableContent entry : entries)
+        {
+            List<String> name = new ArrayList();
+            name.add(entry.name);
+            List <String> value = new ArrayList();
+            value.add(entry.value);
+            List <String> index = new ArrayList();
+            index.add(entry.index);
+            params= name.get(0) + "-" + index.get(0);
+            WebUIUtils.sleep(1);
+            BasicOperationsHandler.isTextEqualValue(label, value.get(0), params);
+        }
+
+
+    }
+
+    class TableContent
+    {
+        public String name;
+        public String value;
+        public String index;
+
     }
 
 }
