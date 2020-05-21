@@ -1,7 +1,7 @@
-@TC114854
+@TC114854 @Test12
 Feature: Attack Table - Expand Table Row
 
-
+  
   @SID_1
   Scenario: Clean system data before Traffic Bandwidth test
     * CLI kill all simulator attacks on current vision
@@ -9,7 +9,7 @@ Feature: Attack Table - Expand Table Row
     * REST Delete ES index "dp-atta*"
     * CLI Clear vision logs
 
-
+  
   @SID_2
   Scenario: Run DP simulator PCAPs for Traffic Bandwidth
     When REST Login with user "radware" and password "radware"
@@ -18,7 +18,7 @@ Feature: Attack Table - Expand Table Row
     Given CLI simulate 1 attacks of type "IP_FEED_Modified" on "DefensePro" 11
     Then CLI simulate 1 attacks of type "VRM_attacks" on "DefensePro" 11 and wait 210 seconds
 
-  
+
   @SID_3
   Scenario:  login
     Given UI Login with user "radware" and password "radware"
@@ -26,6 +26,9 @@ Feature: Attack Table - Expand Table Row
     Then Sleep "2"
     And UI Navigate to "DefensePro Attacks" page via homePage
     When UI set "Auto Refresh" switch button to "off"
+    When UI Do Operation "Select" item "Global Time Filter"
+    And UI Do Operation "Select" item "Global Time Filter.Quick Range" with value "1H"
+
 
 ####################  BehavioralDOS attack tables ####################################################
   
@@ -248,7 +251,6 @@ Feature: Attack Table - Expand Table Row
       | label                   | value           |
       |Current Packet Rate      |7                 |
       |Average Packet Rate      |30                 |
-      |Attack Duration          |0.0 Sec                 |
       |Protected Host           |198.18.252.1                 |
 
 ####################  AntiScanning attack tables ####################################################
@@ -284,11 +286,10 @@ Feature: Attack Table - Expand Table Row
 
     Examples:
       | label                   | value          |
-      |Number of Probes         |9,957           |
       |Action Reason            |Configuration   |
       |Blocking Duration        |10              |
 
-
+  
   @SID_24
   Scenario:  validate date of Real Time Signature table - AntiScanning
     Then Validate Expand  "Real Time Signature" table
@@ -296,7 +297,6 @@ Feature: Attack Table - Expand Table Row
       |operator   |1     | OR     |
       |parameter  |1     |Destination Ip|
       |value      |1     |10.10.1.200   |
-      |operator   |3     | AND     |
       |operator   |5     | AND     |
       |parameter  |5     |Ttl|
       |value      |5     |255|
@@ -347,7 +347,7 @@ Feature: Attack Table - Expand Table Row
       | label               | value           |
       |Filter Name          |f1               |
       |Filter ID            |700000           |
-      |Attack Packet Rate   |246              |
+
 
     ####################  ACL attack tables ####################################################
 
@@ -355,7 +355,7 @@ Feature: Attack Table - Expand Table Row
   Scenario:  validate tables for ACL
     Then UI search row table in searchLabel "tableSearch" with text "ACL"
     Then Sleep "3"
-    Then UI click Table row by keyValue or Index with elementLabel "Attacks Table" findBy columnName "Policy Name" findBy cellValue "Black_IPV4"
+    Then UI click Table row by keyValue or Index with elementLabel "Attacks Table" findBy columnName "Policy Name" findBy cellValue "RWTI_4076"
     Then UI Validate Element Existence By Label "Expand Tables View" if Exists "true" with value "info"
 
 
@@ -369,9 +369,9 @@ Feature: Attack Table - Expand Table Row
       |Radware ID         |8             |
       |Direction          |In                 |
       |Action Type        |Drop               |
-      |Attack ID          |77-1526381752      |
+      |Attack ID          |4109-103     |
       |Physical Port      |T-1              |
-      |Total Packet Count |68,589             |
+      |Total Packet Count |128             |
       |VLAN               |N/A                |
       |MPLS RD            |N/A                |
       |Source port        |0               |
@@ -466,4 +466,3 @@ Feature: Attack Table - Expand Table Row
   @SID_37
   Scenario: Traffic Cleanup
     Given UI logout and close browser
-    * CLI kill all simulator attacks on current vision
