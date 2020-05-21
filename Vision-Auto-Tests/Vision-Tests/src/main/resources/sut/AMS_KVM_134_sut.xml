@@ -333,7 +333,7 @@
         <alteonDevices index="11">
             <class>com.radware.vision.automation.tools.sutsystemobjects.devicesinfo.DeviceInfo</class>
             <deviceName>Alteon_50.50.101.11</deviceName>
-            <deviceIp>50.50.101.11</deviceIp>
+            <deviceIp>50.50.101.15</deviceIp>
             <username>admin</username>
             <password>admin</password>
             <readCommunity>public</readCommunity>
@@ -341,7 +341,7 @@
         </alteonDevices>
         <alteonDevices index="12">
             <class>com.radware.vision.automation.tools.sutsystemobjects.devicesinfo.DeviceInfo</class>
-            <deviceName>Alteon_50.50.101.21</deviceName>
+            <deviceName>Alteon_50.50.101.25</deviceName>
             <deviceIp>50.50.101.21</deviceIp>
             <username>admin</username>
             <password>admin</password>
@@ -351,7 +351,7 @@
         <alteonDevices index="13">
             <class>com.radware.vision.automation.tools.sutsystemobjects.devicesinfo.DeviceInfo</class>
             <deviceName>Alteon_50.50.101.22</deviceName>
-            <deviceIp>50.50.101.22</deviceIp>
+            <deviceIp>50.50.101.26</deviceIp>
             <username>admin</username>
             <password>admin</password>
             <readCommunity>public</readCommunity>
