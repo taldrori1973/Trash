@@ -1,7 +1,7 @@
 @TC114856
 Feature: DP CPU Policy Utilization
 
-  @SID_1
+  @SID_1 @Amir
   Scenario: Simulate Attacks
     * CLI Clear vision logs
     * CLI kill all simulator attacks on current vision
@@ -201,8 +201,474 @@ Feature: DP CPU Policy Utilization
     Then Validate That Response Status Code Is OK
     Then Validate Object "$.devices" isEmpty "true"
 
+
+
+################################################################################ RBAC ################################################################################
+  ########################################################### SEC_MON - LOCAL ###########################################################
   @SID_12
+  Scenario: Authentication Mode - Local User
+    Given That Current Vision is Logged In With Username "radware" and Password "radware"
+    * REST Send simple body request from File "Vision/SystemManagement.json" with label "Set Authentication Mode"
+      | jsonPath             | value   |
+      | $.authenticationMode | "Local" |
+
+  @SID_13
+  Scenario: Create Local User SEC_MON One Device All Policies 1
+    Given That Current Vision is Logged In
+    Given Create Following RUNTIME Parameters by Sending Request Specification from File "Vision/SystemConfigItemList" with label "Get Local Users"
+      | ormID | $[?(@.name=='RadwareTest')].ormID |
+
+    Given New Request Specification from File "Vision/SystemConfigItemList" with label "Delete an Item from the Server"
+    And The Request Path Parameters Are
+      | item | user     |
+      | id   | ${ormID} |
+
+    When Send Request with the Given Specification
+    Given New Request Specification from File "Vision/SystemConfigItemList" with label "Create Local User"
+    Given The Request Body is the following Object
+      | jsonPath                                                       | value                     |
+      | $.name                                                         | "RadwareTest"             |
+      | $.password                                                     | "Radware123321"           |
+      | $.requireDeviceLock                                            | true                      |
+      | $.userSettings.userLocale                                      | "en_US"                   |
+      | $.parameters.roleGroupPairList[0].groupName                    | "DefensePro_172.16.22.50" |
+      | $.parameters.roleGroupPairList[0].roleName                     | "SEC_MON"                 |
+      | $.networkPolicies[0].networkProtectionRuleId.deviceId          | "[ALL]"                   |
+      | $.networkPolicies[0].networkProtectionRuleId.rsIDSNewRulesName | "[ALL]"                   |
+      | $.roleGroupPairList[0].groupName                               | "DefensePro_172.16.22.50" |
+      | $.roleGroupPairList[0].roleName                                | "SEC_MON"                 |
+
+    When Send Request with the Given Specification
+    Then Validate That Response Status Code Is OK
+    Then Validate That Response Body Contains
+      | jsonPath | value |
+      | $.status | "ok"  |
+
+  @SID_14
+  Scenario: Validate RBAC Dp CPU Utilization With All Policies And Restricted Device - Forbidden Access
+    Given That Current Vision is Logged In With Username "RadwareTest" and Password "Radware123321"
+    And New Request Specification from File "Vision/DpCpuUtilization" with label "Dp CPU Utilization"
+    And The Request Body is the following Object
+      | jsonPath                                | value          |
+      | $.selectedDevices[0].deviceId           | "172.16.22.51" |
+      | $.selectedDevices[0].networkPolicies[0] | "SSL2"         |
+      | $.selectedDevices[0].networkPolicies[1] | "BDOS"         |
+      | $.selectedDevices[0].networkPolicies[2] | "bdos1"        |
+      | $.selectedDevices[0].networkPolicies[3] | "pol"          |
+      | $.selectedDevices[0].networkPolicies[4] | "pol1"         |
+      | $.selectedDevices[0].networkPolicies[5] | "policy1"      |
+      | $.selectedDevices[0].networkPolicies[6] | "policy20"     |
+    When Send Request with the Given Specification
+    Then Validate That Response Status Code Is Forbidden
+    And Validate That Response Body Contains
+      | jsonPath  | value                                        |
+      | $.status  | 403                                          |
+      | $.error   | "Forbidden"                                  |
+      | $.message | "Access Error: Unauthorised. Access Denied." |
+
+  @SID_15
+  Scenario: Validate RBAC Dp CPU Utilization With All Policies And Restricted Device
+    Given That Current Vision is Logged In With Username "RadwareTest" and Password "Radware123321"
+    And New Request Specification from File "Vision/DpCpuUtilization" with label "Dp CPU Utilization"
+    And The Request Body is the following Object
+      | jsonPath                                | value          |
+      | $.selectedDevices[0].deviceId           | "172.16.22.50" |
+      | $.selectedDevices[0].networkPolicies[0] | "SSL2"         |
+      | $.selectedDevices[0].networkPolicies[1] | "BDOS"         |
+      | $.selectedDevices[0].networkPolicies[2] | "bdos1"        |
+      | $.selectedDevices[0].networkPolicies[3] | "pol"          |
+      | $.selectedDevices[0].networkPolicies[4] | "pol1"         |
+      | $.selectedDevices[0].networkPolicies[5] | "puPolicy1"    |
+      | $.selectedDevices[0].networkPolicies[6] | "puPolicy2"    |
+    When Send Request with the Given Specification
+    Then Validate That Response Status Code Is OK
+    And Validate That Response Body Contains
+      | jsonPath                                                  | value          |
+      | $.devices[0].policies[?(@.name=='puPolicy2')].utilization | 0              |
+      | $.devices[0].deviceIP                                     | "172.16.22.50" |
+    Then Validate DeviceUtilization for DpCpuUtilization
+    Then Validate Utilization for puPolicy1 DpCpuUtilization
+
+  @SID_16
+  Scenario: Create Local User SEC_MON One Device All Policies 2
+    Given That Current Vision is Logged In
+    Given Create Following RUNTIME Parameters by Sending Request Specification from File "Vision/SystemConfigItemList" with label "Get Local Users"
+      | ormID | $[?(@.name=='RadwareTest1')].ormID |
+
+    Given New Request Specification from File "Vision/SystemConfigItemList" with label "Delete an Item from the Server"
+    And The Request Path Parameters Are
+      | item | user     |
+      | id   | ${ormID} |
+
+    When Send Request with the Given Specification
+    Given New Request Specification from File "Vision/SystemConfigItemList" with label "Create Local User"
+    Given The Request Body is the following Object
+      | jsonPath                                                       | value                     |
+      | $.name                                                         | "RadwareTest1"            |
+      | $.password                                                     | "Radware123321"           |
+      | $.requireDeviceLock                                            | true                      |
+      | $.userSettings.userLocale                                      | "en_US"                   |
+      | $.parameters.roleGroupPairList[0].groupName                    | "DefensePro_172.16.22.51" |
+      | $.parameters.roleGroupPairList[0].roleName                     | "SEC_MON"                 |
+      | $.networkPolicies[0].networkProtectionRuleId.deviceId          | "[ALL]"                   |
+      | $.networkPolicies[0].networkProtectionRuleId.rsIDSNewRulesName | "[ALL]"                   |
+      | $.roleGroupPairList[0].groupName                               | "DefensePro_172.16.22.51" |
+      | $.roleGroupPairList[0].roleName                                | "SEC_MON"                 |
+
+    When Send Request with the Given Specification
+    Then Validate That Response Status Code Is OK
+    Then Validate That Response Body Contains
+      | jsonPath | value |
+      | $.status | "ok"  |
+
+  @SID_17
+  Scenario: Validate RBAC Dp CPU Utilization With All Policies And Restricted Device - Forbidden Access
+    Given That Current Vision is Logged In With Username "RadwareTest1" and Password "Radware123321"
+    And New Request Specification from File "Vision/DpCpuUtilization" with label "Dp CPU Utilization"
+    And The Request Body is the following Object
+      | jsonPath                                | value          |
+      | $.selectedDevices[0].deviceId           | "172.16.22.50" |
+      | $.selectedDevices[0].networkPolicies[0] | "SSL2"         |
+      | $.selectedDevices[0].networkPolicies[1] | "BDOS"         |
+      | $.selectedDevices[0].networkPolicies[2] | "bdos1"        |
+      | $.selectedDevices[0].networkPolicies[3] | "pol"          |
+      | $.selectedDevices[0].networkPolicies[4] | "pol1"         |
+      | $.selectedDevices[0].networkPolicies[5] | "puPolicy1"    |
+      | $.selectedDevices[0].networkPolicies[6] | "puPolicy2"    |
+    When Send Request with the Given Specification
+    Then Validate That Response Status Code Is Forbidden
+    And Validate That Response Body Contains
+      | jsonPath  | value                                        |
+      | $.status  | 403                                          |
+      | $.error   | "Forbidden"                                  |
+      | $.message | "Access Error: Unauthorised. Access Denied." |
+
+  @SID_18
+  Scenario: Validate RBAC Dp CPU Utilization With All Policies And Restricted Device
+    Given That Current Vision is Logged In With Username "RadwareTest1" and Password "Radware123321"
+    And New Request Specification from File "Vision/DpCpuUtilization" with label "Dp CPU Utilization"
+    And The Request Body is the following Object
+      | jsonPath                                | value          |
+      | $.selectedDevices[0].deviceId           | "172.16.22.51" |
+      | $.selectedDevices[0].networkPolicies[0] | "SSL2"         |
+      | $.selectedDevices[0].networkPolicies[1] | "BDOS"         |
+      | $.selectedDevices[0].networkPolicies[2] | "bdos1"        |
+      | $.selectedDevices[0].networkPolicies[3] | "pol"          |
+      | $.selectedDevices[0].networkPolicies[4] | "pol1"         |
+      | $.selectedDevices[0].networkPolicies[5] | "policy1"      |
+      | $.selectedDevices[0].networkPolicies[6] | "policy20"     |
+    When Send Request with the Given Specification
+    Then Validate That Response Status Code Is OK
+    Then Validate Object "$.devices" isEmpty "true"
+
+  @SID_19
+  Scenario: Create Local User SEC_MON All Devices And Restricted Policies 3
+    Given That Current Vision is Logged In
+    Given Create Following RUNTIME Parameters by Sending Request Specification from File "Vision/SystemConfigItemList" with label "Get Local Users"
+      | ormID | $[?(@.name=='RadwareTest2')].ormID |
+
+    Given New Request Specification from File "Vision/SystemConfigItemList" with label "Delete an Item from the Server"
+    And The Request Path Parameters Are
+      | item | user     |
+      | id   | ${ormID} |
+
+    When Send Request with the Given Specification
+    Given New Request Specification from File "Vision/SystemConfigItemList" with label "Create Local User"
+    Given The Request Body is the following Object
+      | jsonPath                                                       | value                     |
+      | $.name                                                         | "RadwareTest2"            |
+      | $.password                                                     | "Radware123321"           |
+      | $.requireDeviceLock                                            | true                      |
+      | $.userSettings.userLocale                                      | "en_US"                   |
+      | $.parameters.roleGroupPairList[0].groupName                    | "[ALL]"                   |
+      | $.parameters.roleGroupPairList[0].roleName                     | "SEC_MON"                 |
+      | $.networkPolicies[0].networkProtectionRuleId.deviceId          | "DefensePro_172.16.22.50" |
+      | $.networkPolicies[0].networkProtectionRuleId.rsIDSNewRulesName | "policy1"                 |
+      | $.networkPolicies[1].networkProtectionRuleId.deviceId          | "DefensePro_172.16.22.51" |
+      | $.networkPolicies[1].networkProtectionRuleId.rsIDSNewRulesName | "[ALL]"                   |
+      | $.roleGroupPairList[0].groupName                               | "[ALL]"                   |
+      | $.roleGroupPairList[0].roleName                                | "SEC_MON"                 |
+
+    When Send Request with the Given Specification
+    Then Validate That Response Status Code Is OK
+    Then Validate That Response Body Contains
+      | jsonPath | value |
+      | $.status | "ok"  |
+
+  @SID_20
+  Scenario: Validate RBAC Dp CPU Utilization With All Policies And Restricted Device
+    Given That Current Vision is Logged In With Username "RadwareTest2" and Password "Radware123321"
+    And New Request Specification from File "Vision/DpCpuUtilization" with label "Dp CPU Utilization"
+    And The Request Body is the following Object
+      | jsonPath                                | value          |
+      | $.selectedDevices[0].deviceId           | "172.16.22.51" |
+      | $.selectedDevices[0].networkPolicies[0] | "SSL2"         |
+      | $.selectedDevices[0].networkPolicies[1] | "BDOS"         |
+      | $.selectedDevices[0].networkPolicies[2] | "bdos1"        |
+      | $.selectedDevices[0].networkPolicies[3] | "pol"          |
+      | $.selectedDevices[0].networkPolicies[4] | "pol1"         |
+      | $.selectedDevices[0].networkPolicies[5] | "policy1"      |
+      | $.selectedDevices[0].networkPolicies[6] | "policy20"     |
+    When Send Request with the Given Specification
+    Then Validate That Response Status Code Is OK
+    Then Validate Object "$.devices" isEmpty "true"
+
+  @SID_21
+  Scenario: Validate RBAC Dp CPU Utilization With All Policies And Restricted Device - Forbidden Access
+    Given That Current Vision is Logged In With Username "RadwareTest2" and Password "Radware123321"
+    And New Request Specification from File "Vision/DpCpuUtilization" with label "Dp CPU Utilization"
+    And The Request Body is the following Object
+      | jsonPath                                | value          |
+      | $.selectedDevices[0].deviceId           | "172.16.22.50" |
+      | $.selectedDevices[0].networkPolicies[0] | "puPolicy1"    |
+      | $.selectedDevices[0].networkPolicies[0] | "puPolicy2"    |
+
+    When Send Request with the Given Specification
+    Then Validate That Response Status Code Is Forbidden
+    And Validate That Response Body Contains
+      | jsonPath  | value                                        |
+      | $.status  | 403                                          |
+      | $.error   | "Forbidden"                                  |
+      | $.message | "Access Error: Unauthorised. Access Denied." |
+#  @SID_22 @Amir
+#  Scenario: Validate RBAC Dp Policy Utilization - Forbidden Access No Data
+#    Given That Current Vision is Logged In With Username "RadwareTest2" and Password "Radware123321"
+#    Then Send DpPolicyUtilization Request
+#      | jsonPath               | value          |
+#      | $.timeFrame.value      | 15             |
+#      | $.timeFrame.unit       | "minute"       |
+#      | $.timeFrame.fromDate   |                |
+#      | $.timeFrame.toDate     |                |
+#      | $.timeFrame.dataPoints | 91             |
+#      | $.selected.deviceIP    | "172.16.22.50" |
+#      | $.selected.policy.name | "puPolicy1"    |
+#    Then Validate That Response Status Code Is OK
+#    Then Validate That Response Body Contains
+#      | jsonPath             | value |
+#      | $.metaData.totalHits | "0"   |
+#    Then Validate Object "$.data" isEmpty "true"
+
+    ########################################################### SEC_ADMIN - LOCAL ###########################################################
+  @SID_23
+  Scenario: Create Local User SEC_ADMIN One Device All Policies 1
+    Given That Current Vision is Logged In
+    Given Create Following RUNTIME Parameters by Sending Request Specification from File "Vision/SystemConfigItemList" with label "Get Local Users"
+      | ormID | $[?(@.name=='RadwareTest')].ormID |
+
+    Given New Request Specification from File "Vision/SystemConfigItemList" with label "Delete an Item from the Server"
+    And The Request Path Parameters Are
+      | item | user     |
+      | id   | ${ormID} |
+
+    When Send Request with the Given Specification
+    Given New Request Specification from File "Vision/SystemConfigItemList" with label "Create Local User"
+    Given The Request Body is the following Object
+      | jsonPath                                                       | value                     |
+      | $.name                                                         | "RadwareTest"             |
+      | $.password                                                     | "Radware123321"           |
+      | $.requireDeviceLock                                            | true                      |
+      | $.userSettings.userLocale                                      | "en_US"                   |
+      | $.parameters.roleGroupPairList[0].groupName                    | "DefensePro_172.16.22.50" |
+      | $.parameters.roleGroupPairList[0].roleName                     | "SEC_ADMIN"               |
+      | $.networkPolicies[0].networkProtectionRuleId.deviceId          | "[ALL]"                   |
+      | $.networkPolicies[0].networkProtectionRuleId.rsIDSNewRulesName | "[ALL]"                   |
+      | $.roleGroupPairList[0].groupName                               | "DefensePro_172.16.22.50" |
+      | $.roleGroupPairList[0].roleName                                | "SEC_ADMIN"               |
+
+    When Send Request with the Given Specification
+    Then Validate That Response Status Code Is OK
+    Then Validate That Response Body Contains
+      | jsonPath | value |
+      | $.status | "ok"  |
+
+  @SID_24
+  Scenario: Validate RBAC Dp CPU Utilization With All Policies And Restricted Device - Forbidden Access
+    Given That Current Vision is Logged In With Username "RadwareTest" and Password "Radware123321"
+    And New Request Specification from File "Vision/DpCpuUtilization" with label "Dp CPU Utilization"
+    And The Request Body is the following Object
+      | jsonPath                                | value          |
+      | $.selectedDevices[0].deviceId           | "172.16.22.51" |
+      | $.selectedDevices[0].networkPolicies[0] | "SSL2"         |
+      | $.selectedDevices[0].networkPolicies[1] | "BDOS"         |
+      | $.selectedDevices[0].networkPolicies[2] | "bdos1"        |
+      | $.selectedDevices[0].networkPolicies[3] | "pol"          |
+      | $.selectedDevices[0].networkPolicies[4] | "pol1"         |
+      | $.selectedDevices[0].networkPolicies[5] | "policy1"      |
+      | $.selectedDevices[0].networkPolicies[6] | "policy20"     |
+    When Send Request with the Given Specification
+    Then Validate That Response Status Code Is Forbidden
+    And Validate That Response Body Contains
+      | jsonPath  | value                                        |
+      | $.status  | 403                                          |
+      | $.error   | "Forbidden"                                  |
+      | $.message | "Access Error: Unauthorised. Access Denied." |
+
+  @SID_25
+  Scenario: Validate RBAC Dp CPU Utilization With All Policies And Restricted Device
+    Given That Current Vision is Logged In With Username "RadwareTest" and Password "Radware123321"
+    And New Request Specification from File "Vision/DpCpuUtilization" with label "Dp CPU Utilization"
+    And The Request Body is the following Object
+      | jsonPath                                | value          |
+      | $.selectedDevices[0].deviceId           | "172.16.22.50" |
+      | $.selectedDevices[0].networkPolicies[0] | "SSL2"         |
+      | $.selectedDevices[0].networkPolicies[1] | "BDOS"         |
+      | $.selectedDevices[0].networkPolicies[2] | "bdos1"        |
+      | $.selectedDevices[0].networkPolicies[3] | "pol"          |
+      | $.selectedDevices[0].networkPolicies[4] | "pol1"         |
+      | $.selectedDevices[0].networkPolicies[5] | "puPolicy1"    |
+      | $.selectedDevices[0].networkPolicies[6] | "puPolicy2"    |
+    When Send Request with the Given Specification
+    Then Validate That Response Status Code Is OK
+    And Validate That Response Body Contains
+      | jsonPath                                                  | value          |
+      | $.devices[0].policies[?(@.name=='puPolicy2')].utilization | 0              |
+      | $.devices[0].deviceIP                                     | "172.16.22.50" |
+    Then Validate DeviceUtilization for DpCpuUtilization
+    Then Validate Utilization for puPolicy1 DpCpuUtilization
+
+  @SID_26
+  Scenario: Create Local User SEC_ADMIN One Device All Policies 2
+    Given That Current Vision is Logged In
+    Given Create Following RUNTIME Parameters by Sending Request Specification from File "Vision/SystemConfigItemList" with label "Get Local Users"
+      | ormID | $[?(@.name=='RadwareTest1')].ormID |
+
+    Given New Request Specification from File "Vision/SystemConfigItemList" with label "Delete an Item from the Server"
+    And The Request Path Parameters Are
+      | item | user     |
+      | id   | ${ormID} |
+
+    When Send Request with the Given Specification
+    Given New Request Specification from File "Vision/SystemConfigItemList" with label "Create Local User"
+    Given The Request Body is the following Object
+      | jsonPath                                                       | value                     |
+      | $.name                                                         | "RadwareTest1"            |
+      | $.password                                                     | "Radware123321"           |
+      | $.requireDeviceLock                                            | true                      |
+      | $.userSettings.userLocale                                      | "en_US"                   |
+      | $.parameters.roleGroupPairList[0].groupName                    | "DefensePro_172.16.22.51" |
+      | $.parameters.roleGroupPairList[0].roleName                     | "SEC_ADMIN"               |
+      | $.networkPolicies[0].networkProtectionRuleId.deviceId          | "[ALL]"                   |
+      | $.networkPolicies[0].networkProtectionRuleId.rsIDSNewRulesName | "[ALL]"                   |
+      | $.roleGroupPairList[0].groupName                               | "DefensePro_172.16.22.51" |
+      | $.roleGroupPairList[0].roleName                                | "SEC_ADMIN"               |
+
+    When Send Request with the Given Specification
+    Then Validate That Response Status Code Is OK
+    Then Validate That Response Body Contains
+      | jsonPath | value |
+      | $.status | "ok"  |
+
+  @SID_27
+  Scenario: Validate RBAC Dp CPU Utilization With All Policies And Restricted Device - Forbidden Access
+    Given That Current Vision is Logged In With Username "RadwareTest1" and Password "Radware123321"
+    And New Request Specification from File "Vision/DpCpuUtilization" with label "Dp CPU Utilization"
+    And The Request Body is the following Object
+      | jsonPath                                | value          |
+      | $.selectedDevices[0].deviceId           | "172.16.22.50" |
+      | $.selectedDevices[0].networkPolicies[0] | "SSL2"         |
+      | $.selectedDevices[0].networkPolicies[1] | "BDOS"         |
+      | $.selectedDevices[0].networkPolicies[2] | "bdos1"        |
+      | $.selectedDevices[0].networkPolicies[3] | "pol"          |
+      | $.selectedDevices[0].networkPolicies[4] | "pol1"         |
+      | $.selectedDevices[0].networkPolicies[5] | "puPolicy1"    |
+      | $.selectedDevices[0].networkPolicies[6] | "puPolicy2"    |
+    When Send Request with the Given Specification
+    Then Validate That Response Status Code Is Forbidden
+    And Validate That Response Body Contains
+      | jsonPath  | value                                        |
+      | $.status  | 403                                          |
+      | $.error   | "Forbidden"                                  |
+      | $.message | "Access Error: Unauthorised. Access Denied." |
+
+  @SID_28
+  Scenario: Validate RBAC Dp CPU Utilization With All Policies And Restricted Device
+    Given That Current Vision is Logged In With Username "RadwareTest1" and Password "Radware123321"
+    And New Request Specification from File "Vision/DpCpuUtilization" with label "Dp CPU Utilization"
+    And The Request Body is the following Object
+      | jsonPath                                | value          |
+      | $.selectedDevices[0].deviceId           | "172.16.22.51" |
+      | $.selectedDevices[0].networkPolicies[0] | "SSL2"         |
+      | $.selectedDevices[0].networkPolicies[1] | "BDOS"         |
+      | $.selectedDevices[0].networkPolicies[2] | "bdos1"        |
+      | $.selectedDevices[0].networkPolicies[3] | "pol"          |
+      | $.selectedDevices[0].networkPolicies[4] | "pol1"         |
+      | $.selectedDevices[0].networkPolicies[5] | "policy1"      |
+      | $.selectedDevices[0].networkPolicies[6] | "policy20"     |
+    When Send Request with the Given Specification
+    Then Validate That Response Status Code Is OK
+    Then Validate Object "$.devices" isEmpty "true"
+
+  @SID_29
+  Scenario: Create Local User SEC_ADMIN All Devices And Restricted Policies 3
+    Given That Current Vision is Logged In
+    Given Create Following RUNTIME Parameters by Sending Request Specification from File "Vision/SystemConfigItemList" with label "Get Local Users"
+      | ormID | $[?(@.name=='RadwareTest2')].ormID |
+
+    Given New Request Specification from File "Vision/SystemConfigItemList" with label "Delete an Item from the Server"
+    And The Request Path Parameters Are
+      | item | user     |
+      | id   | ${ormID} |
+
+    When Send Request with the Given Specification
+    Given New Request Specification from File "Vision/SystemConfigItemList" with label "Create Local User"
+    Given The Request Body is the following Object
+      | jsonPath                                                       | value                     |
+      | $.name                                                         | "RadwareTest2"            |
+      | $.password                                                     | "Radware123321"           |
+      | $.requireDeviceLock                                            | true                      |
+      | $.userSettings.userLocale                                      | "en_US"                   |
+      | $.parameters.roleGroupPairList[0].groupName                    | "[ALL]"                   |
+      | $.parameters.roleGroupPairList[0].roleName                     | "SEC_ADMIN"               |
+      | $.networkPolicies[0].networkProtectionRuleId.deviceId          | "DefensePro_172.16.22.50" |
+      | $.networkPolicies[0].networkProtectionRuleId.rsIDSNewRulesName | "policy1"                 |
+      | $.networkPolicies[1].networkProtectionRuleId.deviceId          | "DefensePro_172.16.22.51" |
+      | $.networkPolicies[1].networkProtectionRuleId.rsIDSNewRulesName | "[ALL]"                   |
+      | $.roleGroupPairList[0].groupName                               | "[ALL]"                   |
+      | $.roleGroupPairList[0].roleName                                | "SEC_ADMIN"               |
+
+    When Send Request with the Given Specification
+    Then Validate That Response Status Code Is OK
+    Then Validate That Response Body Contains
+      | jsonPath | value |
+      | $.status | "ok"  |
+
+  @SID_30
+  Scenario: Validate RBAC Dp CPU Utilization With All Policies And Restricted Device
+    Given That Current Vision is Logged In With Username "RadwareTest2" and Password "Radware123321"
+    And New Request Specification from File "Vision/DpCpuUtilization" with label "Dp CPU Utilization"
+    And The Request Body is the following Object
+      | jsonPath                                | value          |
+      | $.selectedDevices[0].deviceId           | "172.16.22.51" |
+      | $.selectedDevices[0].networkPolicies[0] | "SSL2"         |
+      | $.selectedDevices[0].networkPolicies[1] | "BDOS"         |
+      | $.selectedDevices[0].networkPolicies[2] | "bdos1"        |
+      | $.selectedDevices[0].networkPolicies[3] | "pol"          |
+      | $.selectedDevices[0].networkPolicies[4] | "pol1"         |
+      | $.selectedDevices[0].networkPolicies[5] | "policy1"      |
+      | $.selectedDevices[0].networkPolicies[6] | "policy20"     |
+    When Send Request with the Given Specification
+    Then Validate That Response Status Code Is OK
+    Then Validate Object "$.devices" isEmpty "true"
+
+  @SID_31
+  Scenario: Validate RBAC Dp CPU Utilization With All Policies And Restricted Device - Forbidden Access
+    Given That Current Vision is Logged In With Username "RadwareTest2" and Password "Radware123321"
+    And New Request Specification from File "Vision/DpCpuUtilization" with label "Dp CPU Utilization"
+    And The Request Body is the following Object
+      | jsonPath                                | value          |
+      | $.selectedDevices[0].deviceId           | "172.16.22.50" |
+      | $.selectedDevices[0].networkPolicies[0] | "puPolicy1"    |
+      | $.selectedDevices[0].networkPolicies[0] | "puPolicy2"    |
+
+    When Send Request with the Given Specification
+    Then Validate That Response Status Code Is Forbidden
+    And Validate That Response Body Contains
+      | jsonPath  | value                                        |
+      | $.status  | 403                                          |
+      | $.error   | "Forbidden"                                  |
+      | $.message | "Access Error: Unauthorised. Access Denied." |
+######################################################################################################################
+  @SID_32
   Scenario: Kill Simulate Attack
     * CLI kill all simulator attacks on current vision
-
-
+#
