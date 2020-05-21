@@ -461,3 +461,9 @@ Feature: Attack Table - Expand Table Row
       |VLAN               |N/A                |
       |MPLS RD            |N/A                |
       |Source port        |26505              |
+
+
+  @SID_37
+  Scenario: Traffic Cleanup
+    Given UI logout and close browser
+    * CLI kill all simulator attacks on current vision
