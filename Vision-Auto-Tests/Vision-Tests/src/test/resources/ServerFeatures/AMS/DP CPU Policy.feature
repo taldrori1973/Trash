@@ -1,7 +1,7 @@
 @TC114856
 Feature: DP CPU Policy Utilization
 
-  @SID_1 @Amir
+  @SID_1
   Scenario: Simulate Attacks
     * CLI Clear vision logs
     * CLI kill all simulator attacks on current vision
@@ -430,7 +430,8 @@ Feature: DP CPU Policy Utilization
       | $.status  | 403                                          |
       | $.error   | "Forbidden"                                  |
       | $.message | "Access Error: Unauthorised. Access Denied." |
-#  @SID_22 @Amir
+
+#  @SID_22
 #  Scenario: Validate RBAC Dp Policy Utilization - Forbidden Access No Data
 #    Given That Current Vision is Logged In With Username "RadwareTest2" and Password "Radware123321"
 #    Then Send DpPolicyUtilization Request
@@ -453,7 +454,7 @@ Feature: DP CPU Policy Utilization
   Scenario: Create Local User SEC_ADMIN One Device All Policies 1
     Given That Current Vision is Logged In
     Given Create Following RUNTIME Parameters by Sending Request Specification from File "Vision/SystemConfigItemList" with label "Get Local Users"
-      | ormID | $[?(@.name=='RadwareTest')].ormID |
+      | ormID | $[?(@.name=='RadwareTest3')].ormID |
 
     Given New Request Specification from File "Vision/SystemConfigItemList" with label "Delete an Item from the Server"
     And The Request Path Parameters Are
@@ -464,7 +465,7 @@ Feature: DP CPU Policy Utilization
     Given New Request Specification from File "Vision/SystemConfigItemList" with label "Create Local User"
     Given The Request Body is the following Object
       | jsonPath                                                       | value                     |
-      | $.name                                                         | "RadwareTest"             |
+      | $.name                                                         | "RadwareTest3"            |
       | $.password                                                     | "Radware123321"           |
       | $.requireDeviceLock                                            | true                      |
       | $.userSettings.userLocale                                      | "en_US"                   |
@@ -483,7 +484,7 @@ Feature: DP CPU Policy Utilization
 
   @SID_24
   Scenario: Validate RBAC Dp CPU Utilization With All Policies And Restricted Device - Forbidden Access
-    Given That Current Vision is Logged In With Username "RadwareTest" and Password "Radware123321"
+    Given That Current Vision is Logged In With Username "RadwareTest3" and Password "Radware123321"
     And New Request Specification from File "Vision/DpCpuUtilization" with label "Dp CPU Utilization"
     And The Request Body is the following Object
       | jsonPath                                | value          |
@@ -505,7 +506,7 @@ Feature: DP CPU Policy Utilization
 
   @SID_25
   Scenario: Validate RBAC Dp CPU Utilization With All Policies And Restricted Device
-    Given That Current Vision is Logged In With Username "RadwareTest" and Password "Radware123321"
+    Given That Current Vision is Logged In With Username "RadwareTest3" and Password "Radware123321"
     And New Request Specification from File "Vision/DpCpuUtilization" with label "Dp CPU Utilization"
     And The Request Body is the following Object
       | jsonPath                                | value          |
@@ -530,7 +531,7 @@ Feature: DP CPU Policy Utilization
   Scenario: Create Local User SEC_ADMIN One Device All Policies 2
     Given That Current Vision is Logged In
     Given Create Following RUNTIME Parameters by Sending Request Specification from File "Vision/SystemConfigItemList" with label "Get Local Users"
-      | ormID | $[?(@.name=='RadwareTest1')].ormID |
+      | ormID | $[?(@.name=='RadwareTest4')].ormID |
 
     Given New Request Specification from File "Vision/SystemConfigItemList" with label "Delete an Item from the Server"
     And The Request Path Parameters Are
@@ -541,7 +542,7 @@ Feature: DP CPU Policy Utilization
     Given New Request Specification from File "Vision/SystemConfigItemList" with label "Create Local User"
     Given The Request Body is the following Object
       | jsonPath                                                       | value                     |
-      | $.name                                                         | "RadwareTest1"            |
+      | $.name                                                         | "RadwareTest4"            |
       | $.password                                                     | "Radware123321"           |
       | $.requireDeviceLock                                            | true                      |
       | $.userSettings.userLocale                                      | "en_US"                   |
@@ -560,7 +561,7 @@ Feature: DP CPU Policy Utilization
 
   @SID_27
   Scenario: Validate RBAC Dp CPU Utilization With All Policies And Restricted Device - Forbidden Access
-    Given That Current Vision is Logged In With Username "RadwareTest1" and Password "Radware123321"
+    Given That Current Vision is Logged In With Username "RadwareTest4" and Password "Radware123321"
     And New Request Specification from File "Vision/DpCpuUtilization" with label "Dp CPU Utilization"
     And The Request Body is the following Object
       | jsonPath                                | value          |
@@ -582,7 +583,7 @@ Feature: DP CPU Policy Utilization
 
   @SID_28
   Scenario: Validate RBAC Dp CPU Utilization With All Policies And Restricted Device
-    Given That Current Vision is Logged In With Username "RadwareTest1" and Password "Radware123321"
+    Given That Current Vision is Logged In With Username "RadwareTest4" and Password "Radware123321"
     And New Request Specification from File "Vision/DpCpuUtilization" with label "Dp CPU Utilization"
     And The Request Body is the following Object
       | jsonPath                                | value          |
@@ -602,7 +603,7 @@ Feature: DP CPU Policy Utilization
   Scenario: Create Local User SEC_ADMIN All Devices And Restricted Policies 3
     Given That Current Vision is Logged In
     Given Create Following RUNTIME Parameters by Sending Request Specification from File "Vision/SystemConfigItemList" with label "Get Local Users"
-      | ormID | $[?(@.name=='RadwareTest2')].ormID |
+      | ormID | $[?(@.name=='RadwareTest5')].ormID |
 
     Given New Request Specification from File "Vision/SystemConfigItemList" with label "Delete an Item from the Server"
     And The Request Path Parameters Are
@@ -613,7 +614,7 @@ Feature: DP CPU Policy Utilization
     Given New Request Specification from File "Vision/SystemConfigItemList" with label "Create Local User"
     Given The Request Body is the following Object
       | jsonPath                                                       | value                     |
-      | $.name                                                         | "RadwareTest2"            |
+      | $.name                                                         | "RadwareTest5"            |
       | $.password                                                     | "Radware123321"           |
       | $.requireDeviceLock                                            | true                      |
       | $.userSettings.userLocale                                      | "en_US"                   |
@@ -634,7 +635,7 @@ Feature: DP CPU Policy Utilization
 
   @SID_30
   Scenario: Validate RBAC Dp CPU Utilization With All Policies And Restricted Device
-    Given That Current Vision is Logged In With Username "RadwareTest2" and Password "Radware123321"
+    Given That Current Vision is Logged In With Username "RadwareTest5" and Password "Radware123321"
     And New Request Specification from File "Vision/DpCpuUtilization" with label "Dp CPU Utilization"
     And The Request Body is the following Object
       | jsonPath                                | value          |
@@ -652,7 +653,7 @@ Feature: DP CPU Policy Utilization
 
   @SID_31
   Scenario: Validate RBAC Dp CPU Utilization With All Policies And Restricted Device - Forbidden Access
-    Given That Current Vision is Logged In With Username "RadwareTest2" and Password "Radware123321"
+    Given That Current Vision is Logged In With Username "RadwareTest5" and Password "Radware123321"
     And New Request Specification from File "Vision/DpCpuUtilization" with label "Dp CPU Utilization"
     And The Request Body is the following Object
       | jsonPath                                | value          |
@@ -669,6 +670,52 @@ Feature: DP CPU Policy Utilization
       | $.message | "Access Error: Unauthorised. Access Denied." |
 ######################################################################################################################
   @SID_32
+  Scenario: Authentication Mode - Local User
+    Given That Current Vision is Logged In With Username "radware" and Password "radware"
+    * REST Send simple body request from File "Vision/SystemManagement.json" with label "Set Authentication Mode"
+      | jsonPath             | value    |
+      | $.authenticationMode | "TACACS" |
+
+  @SID_33
+  Scenario: Validate RBAC Dp CPU Utilization With All Policies And Restricted Device - TACACS Forbidden Access
+    Given That Current Vision is Logged In With Username "sec_mon_all_pol" and Password "radware"
+    And New Request Specification from File "Vision/DpCpuUtilization" with label "Dp CPU Utilization"
+    And The Request Body is the following Object
+      | jsonPath                                | value          |
+      | $.selectedDevices[0].deviceId           | "172.16.22.51" |
+      | $.selectedDevices[0].networkPolicies[0] | "puPolicy1"    |
+      | $.selectedDevices[0].networkPolicies[0] | "puPolicy2"    |
+
+    When Send Request with the Given Specification
+    Then Validate That Response Status Code Is Forbidden
+    And Validate That Response Body Contains
+      | jsonPath  | value                                        |
+      | $.status  | 403                                          |
+      | $.error   | "Forbidden"                                  |
+      | $.message | "Access Error: Unauthorised. Access Denied." |
+
+  @SID_34 @Amir
+  Scenario Outline: Delete Local Users
+    Given That Current Vision is Logged In
+    Given Create Following RUNTIME Parameters by Sending Request Specification from File "Vision/SystemConfigItemList" with label "Get Local Users"
+      | ormID | $[?(@.name=='<user>')].ormID |
+
+    Given New Request Specification from File "Vision/SystemConfigItemList" with label "Delete an Item from the Server"
+    And The Request Path Parameters Are
+      | item | user     |
+      | id   | ${ormID} |
+
+    When Send Request with the Given Specification
+    Examples:
+      | user         |
+      | RadwareTest  |
+      | RadwareTest1 |
+      | RadwareTest2 |
+      | RadwareTest3 |
+      | RadwareTest4 |
+      | RadwareTest5 |
+
+  @SID_35
   Scenario: Kill Simulate Attack
     * CLI kill all simulator attacks on current vision
-#
+

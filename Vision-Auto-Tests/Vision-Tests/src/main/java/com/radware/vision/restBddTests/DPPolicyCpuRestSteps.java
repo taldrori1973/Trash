@@ -57,22 +57,24 @@ public class DPPolicyCpuRestSteps {
         genericSteps.sendRequest();
     }
 
-    private Object valueOfJsonPath(String value) {
+    private Object valueOfJsonPath(String value) throws Exception {
         String response = GenericSteps.response.getBody().getBodyAsString();
         DocumentContext documentContext = JsonPath.parse(response);
         documentContext.configuration().addOptions(Option.SUPPRESS_EXCEPTIONS);
+        if(documentContext.read(value) == null)
+            throw new Exception("there is no data ");
         return documentContext.read(value);
     }
 
     @Then("^Validate Object \"([^\"]*)\" isEmpty \"([^\"]*)\"$")
-    public void validateJsonArrayIsEmpty(String object, boolean isEmpty) {
+    public void validateJsonArrayIsEmpty(String object, boolean isEmpty) throws Exception {
         JSONArray jsonArray = (JSONArray) valueOfJsonPath(object);
         if (jsonArray.isEmpty() != isEmpty)
             BaseTestUtils.report("isEmpty of the object " + object + " return: " + !isEmpty + " ,that's not as expected: " + isEmpty + " ", Reporter.FAIL);
     }
 
     @Then("^Validate policyUtil for DpPolicyUtilization$")
-    public void validatePolicyUtil() {
+    public void validatePolicyUtil() throws Exception {
         String policyUtil = (String) valueOfJsonPath("$.data[0].row.policyUtil");
         if (Integer.parseInt(policyUtil) < minPolicyUtilization && Integer.parseInt(policyUtil) > maxPolicyUtilization)
             BaseTestUtils.report(" Wrong policyUtil " + policyUtil + " ", Reporter.FAIL);
@@ -80,21 +82,21 @@ public class DPPolicyCpuRestSteps {
     }
 
     @Then("^Validate totalHits for DpPolicyUtilization$")
-    public void validateTotalHits() {
+    public void validateTotalHits() throws Exception {
         String totalHits = (String) valueOfJsonPath("$.metaData.totalHits");
         if (Integer.parseInt(totalHits) < 1)
             BaseTestUtils.report(" Wrong totalHits: " + totalHits + " ", Reporter.FAIL);
     }
 
     @Then("^Validate Utilization for puPolicy1 DpCpuUtilization$")
-    public void validateUtilization() {
+    public void validateUtilization() throws Exception {
         Integer utilization = (Integer) ((JSONArray) valueOfJsonPath("$.devices[0].policies[?(@.name=='puPolicy1')].utilization")).get(0);
         if (utilization < minPolicyUtilization && utilization > maxPolicyUtilization)
             BaseTestUtils.report(" Wrong utilization: " + utilization + " ", Reporter.FAIL);
     }
 
     @Then("^Validate DeviceUtilization for DpCpuUtilization$")
-    public void validateDeviceUtilization() {
+    public void validateDeviceUtilization() throws Exception {
         Integer actualDeviceUtilization = (Integer) valueOfJsonPath("$.devices[0].deviceUtilization");
         int expectedDeviceUtilization = 0;
         // sum of all utilization in policies
