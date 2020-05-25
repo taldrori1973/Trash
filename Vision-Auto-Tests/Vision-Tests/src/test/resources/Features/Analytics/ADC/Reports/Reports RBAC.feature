@@ -57,7 +57,7 @@ Feature: DPM - ADC Reports RBAC
       | logType     | expression                   | isExpected   |
       | ES          | fatal\|error                 | NOT_EXPECTED |
       | MAINTENANCE | fatal\|error                 | NOT_EXPECTED |
-      | MAINTENANCE | *.traffic-events-dashboard*. | IGMORE       |
+      | MAINTENANCE | *.traffic-events-dashboard*. | IGNORE       |
       | JBOSS       | fatal                        | NOT_EXPECTED |
       | TOMCAT      | fatal                        | NOT_EXPECTED |
       | TOMCAT2     | fatal                        | NOT_EXPECTED |
