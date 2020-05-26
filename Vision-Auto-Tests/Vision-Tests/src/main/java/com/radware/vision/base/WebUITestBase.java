@@ -21,6 +21,7 @@ import com.radware.automation.webui.UIUtils;
 import com.radware.automation.webui.WebUIUtils;
 import com.radware.automation.webui.events.PopupEventHandler;
 import com.radware.automation.webui.events.ReportWebDriverEventListener;
+import com.radware.automation.webui.utils.VisionUtils;
 import com.radware.automation.webui.utils.navtree.VisionNavigationXmlParser;
 import com.radware.automation.webui.utils.popup.MessageIdsIgnore;
 import com.radware.automation.webui.webdriver.WebUIDriver;
@@ -31,7 +32,6 @@ import com.radware.automation.webui.widgets.api.popups.PopupContent;
 import com.radware.automation.webui.widgets.api.popups.PopupType;
 import com.radware.restcommands.RestCommands;
 import com.radware.restcore.VisionRestClient;
-import com.radware.urlbuilder.vision.VisionUrlPath;
 import com.radware.utils.DeviceUtils;
 import com.radware.utils.TreeUtils;
 import com.radware.vision.automation.tools.sutsystemobjects.devicesinfo.DevicesManager;
@@ -52,10 +52,7 @@ import testhandlers.Device;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.NoSuchFileException;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public abstract class WebUITestBase extends TestBase {
     protected boolean doTheVisionLabRestart = false;
@@ -67,11 +64,11 @@ public abstract class WebUITestBase extends TestBase {
     private static Boolean isDeviceManagedByVision = false;
 
     protected static DevicesManager devicesManager;
-    private static Map<String, String> deviceDriverNamesMap = new HashMap<String, String>();
-    private static Map<String, VisionNavigationXmlParser> navigationParsers = new HashMap<String, VisionNavigationXmlParser>();
+    private static final Map<String, String> deviceDriverNamesMap = new HashMap<>();
+    private static final Map<String, VisionNavigationXmlParser> navigationParsers = new HashMap<>();
     private static boolean isUIInit = false;
     String browserSessionId;
-    private String popupContentKey = "popupContent";
+    private final String popupContentKey = "popupContent";
     private DeviceDriverType deviceDriverType = DeviceDriverType.VISION;
     private String deviceName;
     private static boolean isRestInit = false;
@@ -115,7 +112,7 @@ public abstract class WebUITestBase extends TestBase {
     }
 
     private static String getDeviceDriverVersion(String DeviceDriverName) {
-        return DeviceDriverName.substring(DeviceDriverName.indexOf("-", 0) + 1, DeviceDriverName.lastIndexOf("DD") - 1);
+        return DeviceDriverName.substring(DeviceDriverName.indexOf("-") + 1, DeviceDriverName.lastIndexOf("DD") - 1);
     }
 
 
@@ -167,13 +164,13 @@ public abstract class WebUITestBase extends TestBase {
 
             }
         } catch (Exception e) {
-            throw new IllegalStateException(e.getMessage() + "\n" + e.getStackTrace());
+            throw new IllegalStateException(e.getMessage() + "\n" + Arrays.toString(e.getStackTrace()));
         }
 
         setDeviceName(deviceName);
     }
 
-    public void coreInit() throws Exception {
+    public void coreInit() {
         if (!isRestInit) {
 
             isRestInit = true;
@@ -224,7 +221,7 @@ public abstract class WebUITestBase extends TestBase {
             } catch (Exception e) {
                 BaseTestUtils.report(" Test after method " + e.getMessage(), Reporter.FAIL);
             } finally {
-                ((ReportWebDriverEventListener) WebUIDriver.getListenerManager().getWebUIDriverEventListener()).clearLastPopupEventList();
+                ((ReportWebDriverEventListener) Objects.requireNonNull(WebUIDriver.getListenerManager().getWebUIDriverEventListener())).clearLastPopupEventList();
                 WebUIUtils.isDevicePropertiesDialogCancel = false;
                 WebUIUtils.isFindExceptionOccur = true;
                 WebUIUtils.generateAndReportScreenshot();
@@ -238,12 +235,12 @@ public abstract class WebUITestBase extends TestBase {
     public void cliAfterMethodMain() throws IOException {
         try {
             // Clear any remaining commands on the output (In case of a 'Help text' command)
-            String clearString = "";
+            StringBuilder clearString = new StringBuilder();
             for (int i = 0; i < 60; i++) {
-                clearString += "\b";
+                clearString.append("\b");
             }
-            InvokeUtils.invokeCommand(null, clearString, restTestBase.getRadwareServerCli(), 2 * 2000, true, true, true, null, true, true);
-            InvokeUtils.invokeCommand(null, clearString, restTestBase.getRootServerCli(), 2 * 2000, true, true, true, null, true, true);
+            InvokeUtils.invokeCommand(null, clearString.toString(), restTestBase.getRadwareServerCli(), 2 * 2000, true, true, true, null, true, true);
+            InvokeUtils.invokeCommand(null, clearString.toString(), restTestBase.getRootServerCli(), 2 * 2000, true, true, true, null, true, true);
             CliTests.report.stopLevel();
             CliTests.report.startLevel("Begining to Finish the test(After).");
 
@@ -348,19 +345,17 @@ public abstract class WebUITestBase extends TestBase {
     }
 
     private String popupErrorsToString(PopupContent popupErrors) {
-        StringBuffer result = new StringBuffer();
-        result.append("Dialog: ").append("\n").
-                append("Type: ").append(popupErrors.getType().toString()).append("\n").
-                append("Content: ").append(popupErrors.getContent());
-        return result.toString();
+        return "Dialog: " + "\n" +
+                "Type: " + popupErrors.getType().toString() + "\n" +
+                "Content: " + popupErrors.getContent();
     }
 
     protected String parseExceptionBody(Exception e) {
-        StringBuffer exceptionBody = new StringBuffer();
-        if (e instanceof Exception) {
+        StringBuilder exceptionBody = new StringBuilder();
+        if (e != null) {
             exceptionBody.append("Cause: ").append(e.getCause()).append("\n").
                     append(" ,Message: ").append(e.getMessage()).append("\n").
-                    append(" ,Stack Trace: ").append(Arrays.asList(Arrays.asList(e.getStackTrace()))).append("\n");
+                    append(" ,Stack Trace: ").append(Collections.singletonList(Arrays.asList(e.getStackTrace()))).append("\n");
         }
         if (e instanceof IllegalStateException) {
             exceptionBody.append("Additional Info: ").append((e).getLocalizedMessage());
@@ -414,7 +409,7 @@ public abstract class WebUITestBase extends TestBase {
 
         String visionHost = clientConfigurations.getHostIp();
         if (navigationParsers.containsKey(visionHost)) {
-            WebUIUtils.visionUtils.navParser = navigationParsers.get(visionHost);
+            VisionUtils.navParser = navigationParsers.get(visionHost);
         } else {
             GenericVisionRestAPI restAPI = new GenericVisionRestAPI("Vision/SystemManagement.json", "Update Vision Navigation Xml");
             RestResponse result = restAPI.sendRequest();
@@ -425,7 +420,7 @@ public abstract class WebUITestBase extends TestBase {
             }
             FileUtils.writeToFile(filePath, result.getBody().getBodyAsString());
             WebUIUtils.visionUtils.setDeviceIpIfNew(null);
-            navigationParsers.put(visionHost, WebUIUtils.visionUtils.navParser);
+            navigationParsers.put(visionHost, VisionUtils.navParser);
         }
 
         WebUIUtils.selectedDeviceDriverId = WebUIUtils.VISION_DEVICE_DRIVER_ID;
@@ -436,13 +431,13 @@ public abstract class WebUITestBase extends TestBase {
     public void updateNavigationParser(String deviceIp) throws Exception {
         if (deviceIp != null) {
             if (navigationParsers.containsKey(WebUIUtils.selectedDeviceDriverId)) {
-                WebUIUtils.visionUtils.navParser = navigationParsers.get(WebUIUtils.selectedDeviceDriverId);
+                VisionUtils.navParser = navigationParsers.get(WebUIUtils.selectedDeviceDriverId);
             } else if (isDeviceManagedByVision) {
                 getNavigationXml(deviceIp, "client", "navigation.xml");
                 getNavigationXml(deviceIp, "server", "version_hierarchy.xml");
 
                 WebUIUtils.visionUtils.setDeviceIpIfNew(null);
-                navigationParsers.put(WebUIUtils.selectedDeviceDriverId, WebUIUtils.visionUtils.navParser);
+                navigationParsers.put(WebUIUtils.selectedDeviceDriverId, VisionUtils.navParser);
             }
         }
     }
@@ -455,12 +450,12 @@ public abstract class WebUITestBase extends TestBase {
         if (FileUtils.isFileExist(filePath)) {
             FileUtils.deleteFile(WebUIUtils.deviceDriversBaseDirectory_VisionServer + File.separator + navigationPath, navigationFile);
         }
-        File file = FileUtils.writeToFile(filePath, result);
+        FileUtils.writeToFile(filePath, result);
     }
 
     private void setGenerateScreenshotAfterWebFindOperation() {
         try {
-            WebUIDriver.setListenerScreenshotAfterFind(Boolean.valueOf(System.getProperty("generateScreenshotAfterWebFindOperation")));
+            WebUIDriver.setListenerScreenshotAfterFind(Boolean.parseBoolean(System.getProperty("generateScreenshotAfterWebFindOperation")));
         } catch (Exception e) {
 //            Ignore
         }
@@ -468,7 +463,7 @@ public abstract class WebUITestBase extends TestBase {
 
     private void setGenerateScreenshotAfterWebClickOperation() {
         try {
-            WebUIDriver.setListenerScreenshotAfterClick(Boolean.valueOf(System.getProperty("generateScreenshotAfterWebClickOperation")));
+            WebUIDriver.setListenerScreenshotAfterClick(Boolean.parseBoolean(System.getProperty("generateScreenshotAfterWebClickOperation")));
         } catch (Exception e) {
 //            Ignore
         }
