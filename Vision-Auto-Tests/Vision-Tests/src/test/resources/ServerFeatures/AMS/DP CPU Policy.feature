@@ -431,23 +431,24 @@ Feature: DP CPU Policy Utilization
       | $.error   | "Forbidden"                                  |
       | $.message | "Access Error: Unauthorised. Access Denied." |
 
-#  @SID_22
-#  Scenario: Validate RBAC Dp Policy Utilization - Forbidden Access No Data
-#    Given That Current Vision is Logged In With Username "RadwareTest2" and Password "Radware123321"
-#    Then Send DpPolicyUtilization Request
-#      | jsonPath               | value          |
-#      | $.timeFrame.value      | 15             |
-#      | $.timeFrame.unit       | "minute"       |
-#      | $.timeFrame.fromDate   |                |
-#      | $.timeFrame.toDate     |                |
-#      | $.timeFrame.dataPoints | 91             |
-#      | $.selected.deviceIP    | "172.16.22.50" |
-#      | $.selected.policy.name | "puPolicy1"    |
-#    Then Validate That Response Status Code Is OK
-#    Then Validate That Response Body Contains
-#      | jsonPath             | value |
-#      | $.metaData.totalHits | "0"   |
-#    Then Validate Object "$.data" isEmpty "true"
+  @SID_22
+  Scenario: Validate RBAC Dp Policy Utilization - Forbidden Access No Data
+    Given That Current Vision is Logged In With Username "RadwareTest2" and Password "Radware123321"
+    Then Send DpPolicyUtilization Request
+      | jsonPath               | value          |
+      | $.timeFrame.value      | 15             |
+      | $.timeFrame.unit       | "minute"       |
+      | $.timeFrame.fromDate   |                |
+      | $.timeFrame.toDate     |                |
+      | $.timeFrame.dataPoints | 91             |
+      | $.selected.deviceIP    | "172.16.22.50" |
+      | $.selected.policy.name | "puPolicy1"    |
+    Then Validate That Response Status Code Is FORBIDDEN
+    Then Validate That Response Body Contains
+      | jsonPath  | value                                        |
+      | $.status  | 403                                          |
+      | $.error   | "Forbidden"                                  |
+      | $.message | "Access Error: Unauthorised. Access Denied." |
 
     ########################################################### SEC_ADMIN - LOCAL ###########################################################
   @SID_23
@@ -693,8 +694,8 @@ Feature: DP CPU Policy Utilization
       | $.status  | 403                                          |
       | $.error   | "Forbidden"                                  |
       | $.message | "Access Error: Unauthorised. Access Denied." |
-
-  @SID_34 @Amir
+###########################################################################################################
+  @SID_34
   Scenario Outline: Delete Local Users
     Given That Current Vision is Logged In
     Given Create Following RUNTIME Parameters by Sending Request Specification from File "Vision/SystemConfigItemList" with label "Get Local Users"
@@ -718,4 +719,22 @@ Feature: DP CPU Policy Utilization
   @SID_35
   Scenario: Kill Simulate Attack
     * CLI kill all simulator attacks on current vision
+
+  @SID_36
+  Scenario: Validate Dp Policy Utilization Without Live Attacks
+    Given That Current Vision is Logged In With Username "radware" and Password "radware"
+    Then Send DpPolicyUtilization Request
+      | jsonPath               | value          |
+      | $.timeFrame.value      | 15             |
+      | $.timeFrame.unit       | "minute"       |
+      | $.timeFrame.fromDate   |                |
+      | $.timeFrame.toDate     |                |
+      | $.timeFrame.dataPoints | 91             |
+      | $.selected.deviceIP    | "172.16.22.51" |
+      | $.selected.policy.name | "puPolicy2"    |
+    Then Validate That Response Status Code Is OK
+    Then Validate That Response Body Contains
+      | jsonPath   | value |
+      | $.metaData | null  |
+      | $.data     | null  |
 
