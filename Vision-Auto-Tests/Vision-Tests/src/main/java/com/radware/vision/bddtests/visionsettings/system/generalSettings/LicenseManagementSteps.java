@@ -126,7 +126,7 @@ public class LicenseManagementSteps extends BddUITestBase {
     }
 
     @Then("^Validate DefenseFlow is( NOT)? Licensed by Attack Capacity License$")
-    public void validateDefenseFlowIsLicensed(String isNotLicensed) throws IOException, ParseException {
+    public void validateDefenseFlowIsLicensed(String isNotLicensed) throws IOException, ParseException, NoSuchFieldException {
         boolean expected = isNotLicensed == null;
         AttackCapacityLicenseTestHandler visionLicense = new AttackCapacityLicenseTestHandler();
         if (visionLicense.isDefenseFlowLicensed() != expected) {
