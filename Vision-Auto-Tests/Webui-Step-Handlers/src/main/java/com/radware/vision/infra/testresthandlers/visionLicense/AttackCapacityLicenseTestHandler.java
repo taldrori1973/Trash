@@ -3,6 +3,7 @@ package com.radware.vision.infra.testresthandlers.visionLicense;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.ObjectReader;
 import com.radware.vision.infra.testresthandlers.visionLicense.pojos.AttackCapacityLicensePojo;
+import models.RestResponse;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
@@ -60,7 +61,7 @@ public class AttackCapacityLicenseTestHandler extends VisionLicenseTestHandler {
 
     private AttackCapacityLicensePojo attackCapacityLicensePojo;
 
-    public AttackCapacityLicenseTestHandler() throws IOException, ParseException {
+    public AttackCapacityLicenseTestHandler() throws IOException, ParseException, NoSuchFieldException {
         super();
         this.attackCapacityLicensePojo = new AttackCapacityLicensePojo();
         setLicenseInfo();
@@ -115,9 +116,8 @@ public class AttackCapacityLicenseTestHandler extends VisionLicenseTestHandler {
 
     private void setLicenseInfo() throws IOException, ParseException {
 
-        String attackCapacityLicenseResponse = sendRequest(requests.get("Attack Capacity License"));
-
-        String licenseTypesResponse = sendRequest(requests.get("Vision License Info"));
+        String attackCapacityLicenseResponse = requests.get("Attack Capacity License").sendRequest().getBody().getBodyAsString();
+        String licenseTypesResponse = requests.get("Vision License Info").sendRequest().getBody().getBodyAsString();
 
         ObjectMapper mapper = new ObjectMapper();
         attackCapacityLicensePojo = mapper.readValue(attackCapacityLicenseResponse, AttackCapacityLicensePojo.class);
