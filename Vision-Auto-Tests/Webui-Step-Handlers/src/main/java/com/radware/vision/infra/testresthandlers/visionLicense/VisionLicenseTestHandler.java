@@ -8,6 +8,8 @@ import com.jayway.jsonpath.JsonPath;
 import com.radware.automation.tools.basetest.BaseTestUtils;
 import com.radware.automation.tools.basetest.Reporter;
 import com.radware.restcore.utils.enums.HttpMethodEnum;
+import com.radware.vision.restAPI.GenericVisionRestAPI;
+import models.RestResponse;
 import org.json.simple.parser.ParseException;
 import testhandlers.VisionRestApiHandler;
 
@@ -19,24 +21,25 @@ import java.util.List;
 public abstract class VisionLicenseTestHandler {
     protected VisionRestApiHandler visionRestApiHandler;
 
-    protected HashMap<String, RestRequest> requests = new HashMap<>();
+    protected HashMap<String, GenericVisionRestAPI> requests = new HashMap<>();
 
     protected static RestTestBase restTestBase = new RestTestBase();
 
     protected String defenseFlowOrmId;
 
-    public VisionLicenseTestHandler() {
+    public VisionLicenseTestHandler() throws NoSuchFieldException {
         this.visionRestApiHandler = new VisionRestApiHandler();
-        requests.put("Vision License Info", new RestRequest("License->Vision License Info", HttpMethodEnum.GET, null, null, null));
-        requests.put("Attack Capacity License", new RestRequest("License->Attack Capacity License", HttpMethodEnum.GET, null, null, null));
-        requests.put("Get Device Tree", new RestRequest("Device Tree->Get Tree", HttpMethodEnum.GET, null, null, null));
-        requests.put("Get DefenseFlow OrmId", new RestRequest("DefenseFlow->Get OrmId", HttpMethodEnum.GET, null, null, null));
+        requests.put("Vision License Info", new GenericVisionRestAPI("Vision/SystemConfigLicense.json", "Vision License Info"));
+        requests.put("Attack Capacity License",new GenericVisionRestAPI("Vision/SystemConfigLicense.json", "Attack Capacity License"));
+        requests.put("Get Device Tree",new GenericVisionRestAPI("Vision/SystemConfigTree.json", "GET Device Tree"));
+        requests.put("Get DefenseFlow OrmId", new GenericVisionRestAPI("Vision/SystemManagement.json", "Get Management Info"));
+
         setDefenseFlowOrmId();
     }
 
     private void setDefenseFlowOrmId() {
-        String result = sendRequest(requests.get("Get DefenseFlow OrmId"));
-        JsonObject json = new JsonParser().parse(result).getAsJsonObject();
+        RestResponse restResponse = requests.get("Get DefenseFlow OrmId").sendRequest();
+        JsonObject json = new JsonParser().parse(restResponse.getBody().getBodyAsString()).getAsJsonObject();
         defenseFlowOrmId = json.get("defenseFlowId").isJsonNull() ? null : json.get("defenseFlowId").getAsString();
         if (defenseFlowOrmId != null && defenseFlowOrmId.isEmpty())
             defenseFlowOrmId = null;
@@ -53,8 +56,8 @@ public abstract class VisionLicenseTestHandler {
 
     protected List<String> deviceOrmIdListToIpsList(List<String> ormIds) {
         List<String> ips = new ArrayList<>();
-        String tree = sendRequest(requests.get("Get Device Tree"));
-        DocumentContext jsonContext = JsonPath.parse(tree);
+        RestResponse restResponse = requests.get("Get Device Tree").sendRequest();
+        DocumentContext jsonContext = JsonPath.parse(restResponse);
         String jsonPath = "$..children[?(@.meIdentifier.managedElementID=='%s')][\"managementIp\"]";
         for (String ormId : ormIds) {
             List<String> ipAsList = jsonContext.read(jsonPath.replace("%s", ormId));
@@ -86,7 +89,7 @@ public abstract class VisionLicenseTestHandler {
     }
 
 
-    public static VisionLicenseTestHandler createInstanceByType(SupportedLicenseTypes licenseType) throws IOException, ParseException {
+    public static VisionLicenseTestHandler createInstanceByType(SupportedLicenseTypes licenseType) throws IOException, ParseException, NoSuchFieldException {
         VisionLicenseTestHandler visionLicenseTestHandler;
         switch (licenseType) {
             case ATTACK_CAPACITY_LICENSE:
