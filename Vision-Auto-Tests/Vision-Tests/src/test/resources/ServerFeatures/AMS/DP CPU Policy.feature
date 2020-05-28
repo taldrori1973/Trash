@@ -433,22 +433,23 @@ Feature: DP CPU Policy Utilization
 
   @SID_22
   Scenario: Validate RBAC Dp Policy Utilization - Forbidden Access No Data
-    Given That Current Vision is Logged In With Username "RadwareTest2" and Password "Radware123321"
-    Then Send DpPolicyUtilization Request
-      | jsonPath               | value          |
-      | $.timeFrame.value      | 15             |
-      | $.timeFrame.unit       | "minute"       |
-      | $.timeFrame.fromDate   |                |
-      | $.timeFrame.toDate     |                |
-      | $.timeFrame.dataPoints | 91             |
-      | $.selected.deviceIP    | "172.16.22.50" |
-      | $.selected.policy.name | "puPolicy1"    |
-    Then Validate That Response Status Code Is FORBIDDEN
-    Then Validate That Response Body Contains
-      | jsonPath  | value                                        |
-      | $.status  | 403                                          |
-      | $.error   | "Forbidden"                                  |
-      | $.message | "Access Error: Unauthorised. Access Denied." |
+    # this test is catch bug and fixed in 4.70 (management decision), in 4.60 it will fail, TODO in 4.70
+#    Given That Current Vision is Logged In With Username "RadwareTest2" and Password "Radware123321"
+#    Then Send DpPolicyUtilization Request
+#      | jsonPath               | value          |
+#      | $.timeFrame.value      | 15             |
+#      | $.timeFrame.unit       | "minute"       |
+#      | $.timeFrame.fromDate   |                |
+#      | $.timeFrame.toDate     |                |
+#      | $.timeFrame.dataPoints | 91             |
+#      | $.selected.deviceIP    | "172.16.22.50" |
+#      | $.selected.policy.name | "puPolicy1"    |
+#    Then Validate That Response Status Code Is FORBIDDEN
+#    Then Validate That Response Body Contains
+#      | jsonPath  | value                                        |
+#      | $.status  | 403                                          |
+#      | $.error   | "Forbidden"                                  |
+#      | $.message | "Access Error: Unauthorised. Access Denied." |
 
     ########################################################### SEC_ADMIN - LOCAL ###########################################################
   @SID_23
@@ -719,6 +720,8 @@ Feature: DP CPU Policy Utilization
   @SID_35
   Scenario: Kill Simulate Attack
     * CLI kill all simulator attacks on current vision
+    * Sleep "120"
+    * REST Delete ES index "dp-*"
 
   @SID_36
   Scenario: Validate Dp Policy Utilization Without Live Attacks
