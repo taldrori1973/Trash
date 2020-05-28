@@ -321,6 +321,6 @@ Feature: VRM AMS Report Data BDoS baselines
       | JBOSS       | fatal        | NOT_EXPECTED |
       | TOMCAT      | fatal        | NOT_EXPECTED |
       | TOMCAT2     | fatal        | NOT_EXPECTED |
-    Then UI Navigate to "HOME" page via homePage
+    Then UI Navigate to "VISION SETTINGS" page via homePage
     * UI logout and close browser
     * CLI kill all simulator attacks on current vision

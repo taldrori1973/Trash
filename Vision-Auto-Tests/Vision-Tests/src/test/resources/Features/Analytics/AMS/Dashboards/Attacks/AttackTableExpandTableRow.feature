@@ -1,4 +1,4 @@
-@TC114854 @Test12
+@TC114854
 Feature: Attack Table - Expand Table Row
 
   

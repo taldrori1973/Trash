@@ -44,7 +44,7 @@ Feature: AppWall Reports
 
   @SID_5
   Scenario: Email Configuration
-    Then UI Navigate to "HOME" page via homePage
+    Then UI Navigate to "VISION SETTINGS" page via homePage
     Given UI Go To Vision
     And UI Navigate to page "System->General Settings->Alert Settings->Alert Browser"
     And UI Do Operation "select" item "Email Reporting Configuration"

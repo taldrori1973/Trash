@@ -42,7 +42,7 @@ Feature: VRM Alerts RBAC
       | Criteria   | Event Criteria:Action,Operator:Equals,Value:[Proxy,Forward]; |
       | Schedule   | checkBox:Trigger,alertsPerHour:60                            |
 
-    Then UI Navigate to "HOME" page via homePage
+    Then UI Navigate to "VISION SETTINGS" page via homePage
     Then UI logout and close browser
 
   @SID_4
@@ -55,7 +55,7 @@ Feature: VRM Alerts RBAC
     Then UI Validate Element Existence By Label "Toggle Alerts" if Exists "true" with value "Alert DP.10 Policy14 Policy15"
     Then UI Validate Element Existence By Label "Toggle Alerts" if Exists "true" with value "Alert_DP.10_Policy14"
 
-    Then UI Navigate to "HOME" page via homePage
+    Then UI Navigate to "VISION SETTINGS" page via homePage
     Then UI logout and close browser
 
   @SID_5
@@ -68,7 +68,7 @@ Feature: VRM Alerts RBAC
     Then UI Validate Element Existence By Label "Toggle Alerts" if Exists "false" with value "Alert DP.10 Policy14 Policy15"
     Then UI Validate Element Existence By Label "Toggle Alerts" if Exists "true" with value "Alert_DP.10_Policy14"
 
-    Then UI Navigate to "HOME" page via homePage
+    Then UI Navigate to "VISION SETTINGS" page via homePage
     Then UI logout and close browser
 
   @SID_6
