@@ -8,6 +8,7 @@ import java.io.IOException;
 
 /**
  * By MohamadI
+ *
  * @see com.radware.vision.infra.testresthandlers.visionLicense.pojos.BooleanLicensePojo
  * For Licenses that return response to the GET: /mgmt/system/config/item/licenseinfo Request as Follow:
  * "License Name": {
@@ -31,15 +32,13 @@ import java.io.IOException;
  * "vrmAdcLicense": {
  * "valid": <boolean>
  * },
- *
- *
  */
 public class BooleanLicenseTestHandler extends VisionLicenseTestHandler {
 
     private BooleanLicensePojo booleanLicensePojo;
     private BooleanLicenseTypes type;
 
-    public BooleanLicenseTestHandler(BooleanLicenseTypes type) throws IOException {
+    public BooleanLicenseTestHandler(BooleanLicenseTypes type) throws IOException, NoSuchFieldException {
         super();
         this.type = type;
         this.booleanLicensePojo = new BooleanLicensePojo();
@@ -53,7 +52,7 @@ public class BooleanLicenseTestHandler extends VisionLicenseTestHandler {
     }
 
     private void setLicenseInfo() throws IOException {
-        String licenseTypesResponse = sendRequest(requests.get("Vision License Info"));
+        String licenseTypesResponse = requests.get("Vision License Info").sendRequest().getBody().getBodyAsString();
         JsonParser jsonParser = new JsonParser();
         JsonObject root = jsonParser.parse(licenseTypesResponse).getAsJsonObject();
         boolean licenseInfo = root.get(type.licenseName).getAsJsonObject().get("valid").getAsBoolean();
