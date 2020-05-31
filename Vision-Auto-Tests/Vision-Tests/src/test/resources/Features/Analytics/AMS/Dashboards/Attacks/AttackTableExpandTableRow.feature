@@ -162,14 +162,14 @@ Feature: Attack Table - Expand Table Row
 
     Examples:
       | label                           | value                                  |
-      |Detection Method                 |By Volume of HTTPS Responses               |
+      |Detection Method                 |By Rate of HTTPS Requests               |
       |Mitigation method                |Rate Limit Suspected Attackers          |
       |Auth. Method                     |302 Redirect                            |
       |Total Suspect Sources            |16                           |
       |Total Req. Challenged            |14                                      |
-      |Total Sources Challenged         |1,200,009                                      |
-      |Toatl Sources Auth.              |13                               |
-      |Total Attackers Sources          |17                              |
+      |Total Sources Challenged         |12                                      |
+      |Toatl Sources Auth.              |1,088,888                               |
+      |Total Attackers Sources          |1,700,000                              |
       |Auth List Util.                  |15%                                     |
       |Req. Per Sec                     |759                                     |
       |Transitory Baseline Value        |25 RPS                                  |
