@@ -1,4 +1,4 @@
-@TC114854 @Test12
+@TC114854
 Feature: Attack Table - Expand Table Row
 
   
@@ -25,9 +25,9 @@ Feature: Attack Table - Expand Table Row
     Then REST Vision Install License Request "vision-AVA-Max-attack-capacity"
     Then Sleep "2"
     And UI Navigate to "DefensePro Attacks" page via homePage
-    When UI set "Auto Refresh" switch button to "off"
     When UI Do Operation "Select" item "Global Time Filter"
     And UI Do Operation "Select" item "Global Time Filter.Quick Range" with value "1H"
+    When UI set "Auto Refresh" switch button to "off"
 
 
 ####################  BehavioralDOS attack tables ####################################################
@@ -162,14 +162,14 @@ Feature: Attack Table - Expand Table Row
 
     Examples:
       | label                           | value                                  |
-      |Detection Method                 |By Volume of HTTPS Responses               |
+      |Detection Method                 |By Rate of HTTPS Requests               |
       |Mitigation method                |Rate Limit Suspected Attackers          |
       |Auth. Method                     |302 Redirect                            |
-      |Total Suspect Sources            |16                           |
+      |Total Suspect Sources            |2,559,994,656                           |
       |Total Req. Challenged            |14                                      |
-      |Total Sources Challenged         |1,200,009                                      |
-      |Toatl Sources Auth.              |13                               |
-      |Total Attackers Sources          |17                              |
+      |Total Sources Challenged         |12                                      |
+      |Toatl Sources Auth.              |1,088,888                               |
+      |Total Attackers Sources          |1,700,000                              |
       |Auth List Util.                  |15%                                     |
       |Req. Per Sec                     |759                                     |
       |Transitory Baseline Value        |25 RPS                                  |

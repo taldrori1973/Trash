@@ -99,7 +99,7 @@ Feature: VRM Real Time Status Bar Devices status
     When UI Text of "Device Selection" equal to "DEVICES 3/3"
     When UI Text of "Device Status Maintenance Summary" equal to "0"
     When UI Text of "Device Status Down Summary" equal to "0"
-    Then UI Navigate to "HOME" page via homePage
+    Then UI Navigate to "VISION SETTINGS" page via homePage
 
   @SID_7
   Scenario: Delete disconnected Alteon

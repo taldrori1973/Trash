@@ -192,5 +192,5 @@ Feature: EAAF Hits Timeline, Summary Hits and Global Time Selection
   @EAAFDebug
   @SID_14
   Scenario: Cleanup
-    Then UI Navigate to "HOME" page via homePage
+    Then UI Navigate to "VISION SETTINGS" page via homePage
     Then UI logout and close browser

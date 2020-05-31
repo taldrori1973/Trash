@@ -41,6 +41,7 @@ Feature: AttackRateInAlerts&Forensics
     And UI Click Button "Views.report" with value "PPS greater than K"
     And UI Navigate to "HOME" page via homePage
     And UI Navigate to "AMS Forensics" page via homePage
+    Then Sleep "60"
     And UI Click Button "Views.Expand" with value "PPS greater than K"
     And UI Click Button "Views.report" with value "PPS greater than K"
     Then UI Validate "Report.Table" Table rows count EQUALS to 10
