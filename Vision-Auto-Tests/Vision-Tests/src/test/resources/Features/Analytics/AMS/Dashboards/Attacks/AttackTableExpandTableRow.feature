@@ -25,9 +25,9 @@ Feature: Attack Table - Expand Table Row
     Then REST Vision Install License Request "vision-AVA-Max-attack-capacity"
     Then Sleep "2"
     And UI Navigate to "DefensePro Attacks" page via homePage
-    When UI set "Auto Refresh" switch button to "off"
     When UI Do Operation "Select" item "Global Time Filter"
     And UI Do Operation "Select" item "Global Time Filter.Quick Range" with value "1H"
+    When UI set "Auto Refresh" switch button to "off"
 
 
 ####################  BehavioralDOS attack tables ####################################################
