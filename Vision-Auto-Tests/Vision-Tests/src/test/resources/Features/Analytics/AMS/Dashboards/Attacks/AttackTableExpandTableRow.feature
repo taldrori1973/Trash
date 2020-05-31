@@ -165,7 +165,7 @@ Feature: Attack Table - Expand Table Row
       |Detection Method                 |By Rate of HTTPS Requests               |
       |Mitigation method                |Rate Limit Suspected Attackers          |
       |Auth. Method                     |302 Redirect                            |
-      |Total Suspect Sources            |16                           |
+      |Total Suspect Sources            |2,559,994,656                           |
       |Total Req. Challenged            |14                                      |
       |Total Sources Challenged         |12                                      |
       |Toatl Sources Auth.              |1,088,888                               |
