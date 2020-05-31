@@ -1,5 +1,5 @@
 @TC114538
-Feature: AttacksDashboard
+Feature: Attacks Dashboard Traffic Widget
 
 
   @SID_1
@@ -10,12 +10,14 @@ Feature: AttacksDashboard
 
   @SID_2
   Scenario: Run DP simulator PCAPs for Traffic Bandwidth
-    Given CLI simulate 1000 attacks of type "rest_traffic_diff_Policy15out" on "DefensePro" 11 with loopDelay 15000
-    Given CLI simulate 1000 attacks of type "rest_traffic_diff_Policy15out" on "DefensePro" 10 with loopDelay 15000 and wait 120 seconds
+    Given CLI simulate 1000 attacks of type "rest_traffic_diff_Policy15out" on "DefensePro" 11 with loopDelay 15000 and wait 120 seconds
 
   @SID_3
   Scenario: change the date of traffic of 51 device
-    When CLI Run remote linux Command "curl -XPOST localhost:9200/dp-traffic-raw-*/_update_by_query?conflicts=proceed -d '{"query":{"term":{"deviceIp":"172.16.22.51"}},"script":{"source":"ctx._source.timeStamp='$(date -d "-1 hour" +%s%3N)L'"}}'" on "ROOT_SERVER_CLI"
+    Then CLI copy "/home/radware/Scripts/changeDate.sh" from "GENERIC_LINUX_SERVER" to "ROOT_SERVER_CLI" "/"
+    When CLI Run remote linux Command "./changeDate.sh dp-traffic-raw- 172.16.22.51 2" on "ROOT_SERVER_CLI" with timeOut 120
+
+    Given CLI simulate 1000 attacks of type "rest_traffic_diff_Policy15out" on "DefensePro" 10 with loopDelay 15000 and wait 120 seconds
 
 
   @SID_4
@@ -24,8 +26,6 @@ Feature: AttacksDashboard
     Then REST Vision Install License Request "vision-AVA-Max-attack-capacity"
     Then Sleep "2"
     And UI Navigate to "DefensePro Attacks" page via homePage
-#    When UI Click Button "Global Time Filter"
-#    When UI select time range from "-4m"
 
 
   @SID_5
@@ -86,22 +86,22 @@ Feature: AttacksDashboard
   Scenario: validate traffic bandwidth bps+inbound
     Then UI Validate Line Chart data "Attacks Dashboard Traffic Widget" with Label "Received"
       | value   | min |
-      | 1459480 | 5   |
+      | 5578811 | 1   |
 
     Then UI Validate Line Chart data "Attacks Dashboard Traffic Widget" with Label "Dropped"
       | value   | min |
-      | 1027638 | 5   |
+      | 517963 | 1   |
 
   @SID_11
   Scenario: validate traffic bandwidth bps+outbound
     When UI Click Button "outboundSwitch"
     Then UI Validate Line Chart data "Attacks Dashboard Traffic Widget" with Label "Received"
       | value | min |
-      | 40000 | 5   |
+      | 10000 | 1   |
 
     Then UI Validate Line Chart data "Attacks Dashboard Traffic Widget" with Label "Dropped"
       | value | min |
-      | 0     | 5   |
+      | 0     | 1   |
 
   @SID_12
   Scenario: validate traffic bandwidth pps+outbound
@@ -109,11 +109,11 @@ Feature: AttacksDashboard
     When UI Click Button "ppsSwitch"
     Then UI Validate Line Chart data "Attacks Dashboard Traffic Widget" with Label "Received"
       | value | min |
-      | 20000 | 5   |
+      | 10000 | 1   |
 
     Then UI Validate Line Chart data "Attacks Dashboard Traffic Widget" with Label "Dropped"
       | value | min |
-      | 0     | 5   |
+      | 0     | 1   |
 
 
   @SID_13
@@ -121,12 +121,12 @@ Feature: AttacksDashboard
     When UI Click Button "inboundSwitch"
     When UI Click Button "ppsSwitch"
     Then UI Validate Line Chart data "Attacks Dashboard Traffic Widget" with Label "Received"
-      | value    | min |
-      | 11157622 | 5   |
+      | value   | min |
+      | 5578811 | 1   |
 
     Then UI Validate Line Chart data "Attacks Dashboard Traffic Widget" with Label "Dropped"
-      | value   | min |
-      | 1035926 | 5   |
+      | value  | min |
+      | 517963 | 1   |
 
 
   @SID_14
@@ -134,7 +134,7 @@ Feature: AttacksDashboard
     When UI Do Operation "Select" item "Device Selection"
     And UI VRM Select device from dashboard and Save Filter
       | index | ports | policies |
-      | 10    |       |          |
+      | 11    |       |          |
 
 
   @SID_15
@@ -143,22 +143,22 @@ Feature: AttacksDashboard
     When UI Click Button "bpsSwitch"
     Then UI Validate Line Chart data "Attacks Dashboard Traffic Widget" with Label "Received"
       | value  | min |
-      | 729740 | 5   |
+      | 729740 | 1   |
 
     Then UI Validate Line Chart data "Attacks Dashboard Traffic Widget" with Label "Dropped"
       | value  | min |
-      | 513819 | 5   |
+      | 513819 | 1   |
 
   @SID_16
   Scenario: validate traffic bandwidth bps+outbound
     When UI Click Button "outboundSwitch"
     Then UI Validate Line Chart data "Attacks Dashboard Traffic Widget" with Label "Received"
       | value | min |
-      | 20000 | 5   |
+      | 20000 | 1   |
 
     Then UI Validate Line Chart data "Attacks Dashboard Traffic Widget" with Label "Dropped"
       | value | min |
-      | 0     | 5   |
+      | 0     | 1   |
 
   @SID_17
   Scenario: validate traffic bandwidth pps+outbound
@@ -166,11 +166,11 @@ Feature: AttacksDashboard
     When UI Click Button "ppsSwitch"
     Then UI Validate Line Chart data "Attacks Dashboard Traffic Widget" with Label "Received"
       | value | min |
-      | 10000 | 5   |
+      | 10000 | 1   |
 
     Then UI Validate Line Chart data "Attacks Dashboard Traffic Widget" with Label "Dropped"
       | value | min |
-      | 0     | 5   |
+      | 0     | 1   |
 
 
   @SID_18
@@ -179,11 +179,11 @@ Feature: AttacksDashboard
     When UI Click Button "ppsSwitch"
     Then UI Validate Line Chart data "Attacks Dashboard Traffic Widget" with Label "Received"
       | value   | min |
-      | 5578811 | 5   |
+      | 5578811 | 1   |
 
     Then UI Validate Line Chart data "Attacks Dashboard Traffic Widget" with Label "Dropped"
       | value  | min |
-      | 517963 | 5   |
+      | 517963 | 1   |
 
 
   @SID_19
