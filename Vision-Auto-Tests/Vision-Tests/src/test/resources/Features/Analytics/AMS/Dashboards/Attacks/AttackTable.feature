@@ -50,7 +50,7 @@ Feature: attackTable
       | columnName  | Value               |
       | Attack Name | Black List          |
       | Attack Name | TCP Mid Flow packet |
-    Then UI Validate "Attacks Table" Table rows count EQUALS to 6
+    Then UI Validate "Attacks Table" Table rows count EQUALS to 7
 
   @SID_6
   Scenario: validate all the data
