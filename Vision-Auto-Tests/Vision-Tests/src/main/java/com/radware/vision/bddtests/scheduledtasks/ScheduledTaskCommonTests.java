@@ -2,6 +2,7 @@ package com.radware.vision.bddtests.scheduledtasks;
 
 import com.radware.automation.tools.basetest.BaseTestUtils;
 import com.radware.automation.tools.basetest.Reporter;
+import com.radware.vision.infra.testhandlers.baseoperations.BasicOperationsHandler;
 import com.radware.vision.pojomodel.helpers.constants.ImConstants$ScheduledTaskExecutionStatusEnumPojo;
 import com.radware.vision.vision_project_cli.RootServerCli;
 import com.radware.vision.bddtests.BddUITestBase;
@@ -35,7 +36,7 @@ public class ScheduledTaskCommonTests extends BddUITestBase {
      */
     @Then("^UI Close scheduler window$")
     public void closeSchedulerWindow() throws Exception {
-        BaseTasksHandler.openScheduler(false);
+        BasicOperationsHandler.scheduler(false);
     }
 
 
