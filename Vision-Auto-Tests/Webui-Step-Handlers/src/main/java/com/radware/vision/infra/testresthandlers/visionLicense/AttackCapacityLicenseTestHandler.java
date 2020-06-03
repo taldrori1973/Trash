@@ -2,8 +2,9 @@ package com.radware.vision.infra.testresthandlers.visionLicense;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.ObjectReader;
+import com.radware.vision.automation.DatabaseStepHandlers.mariaDB.GenericCRUD;
+import com.radware.vision.automation.DatabaseStepHandlers.mariaDB.client.VisionDBSchema;
 import com.radware.vision.infra.testresthandlers.visionLicense.pojos.AttackCapacityLicensePojo;
-import models.RestResponse;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
@@ -165,11 +166,11 @@ public class AttackCapacityLicenseTestHandler extends VisionLicenseTestHandler {
         update_last_server_upgrade_time(localDate);
     }
 
-    public static void update_grace_period_state_at_db(GracePeriodState state) {
-        String command = "mysql -prad123 vision_ng -e \"update ap set ava_grace_period_state='%d'\\G\"";
-        command = String.format(command, state.getValue());
-//       kVision
-//        CliOperations.runCommand(restTestBase.getRootServerCli(), command);
+    public static void update_grace_period_state_at_db(GracePeriodState state) throws Exception {
+        int updateNumber = GenericCRUD.updateSingleValue(VisionDBSchema.VISION_NG, "ap", null,"ava_grace_period_state", state.getValue());
+        if(updateNumber!=1){
+            throw new Exception(String.format("ap table grace period value not updated with value: %d",state.getValue()));
+        }
     }
 
 
