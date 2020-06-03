@@ -37,7 +37,7 @@ Feature: Update GEO Location Feed Scheduler Task
       # Add lalt DP devices
   @SID_12
   Scenario: Add lalt DP devices
-    When REST Add "DefensePro" Device To topology Tree with Name "DefensePro_50.50.8.19" and Management IP "50.50.8.19" into site "Defualt"
+    When REST Add "DefensePro" Device To topology Tree with Name "DefensePro_50.50.8.19" and Management IP "50.50.8.19" into site "Default"
       | attribute | value |
     Then REST Add "DefensePro" Device To topology Tree with Name "FakeDP" and Management IP "4.4.4.5" into site "Default"
       | attribute | value |
