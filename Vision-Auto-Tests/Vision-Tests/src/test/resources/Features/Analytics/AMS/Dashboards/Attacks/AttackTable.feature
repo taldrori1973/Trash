@@ -36,6 +36,7 @@ Feature: attackTable
 
   @SID_4
   Scenario: validate the table count
+    Then UI Validate the attribute "ant-click-animating" Of Label "Auto Refresh" With Params "" is "EQUALS" to "true"
     Then UI Validate "Attacks Table" Table rows count EQUALS to 14
 
   @SID_5
@@ -44,7 +45,8 @@ Feature: attackTable
     Then UI VRM Select device from dashboard and Save Filter
       | index | ports | policies |
       | 10    |       |          |
-    Then UI Validate "Attacks Table" Table rows count EQUALS to 12
+    Then UI Validate "Attacks Table" Table rows count GTE to 12
+    Then UI Validate "Attacks Table" Table rows count LTE to 13
 
     Then UI Validate search in table "Attacks Table" in searchLabel "tableSearch" with text "ACL"
       | columnName  | Value               |
@@ -71,7 +73,8 @@ Feature: attackTable
     Then UI click Table row by keyValue or Index with elementLabel "Attacks Table" findBy columnName "Policy Name" findBy cellValue "Black_IPV6"
     Then UI Click Button "Sample Data Button" with value ""
     Then UI Validate "SampleDataTable" Table rows count EQUALS to 2
-    Then UI Click Button "closeTable"
+    Then UI Click Button by Class "anticon anticon-close ant-modal-close-icon"
+#    Then UI Click Button "closeTable"
 
 
   @SID_8
@@ -79,8 +82,8 @@ Feature: attackTable
     And UI Navigate to "HOME" page via homePage
     And UI Navigate to "DefensePro Attacks" page via homePage
 
-    Then UI Select Time From: 0 To: 2 Time, in Line Chart data "Attacks Dashboard Traffic Widget" with timeFormat "yyyy-MM-dd'T'HH:mm:ssXXX"
-    Then UI Validate "Attacks Table" Table rows count EQUALS to 6
+    Then UI Select Time From: 0 To: 4 Time, in Line Chart data "Attacks Dashboard Traffic Widget" with timeFormat "yyyy-MM-dd'T'HH:mm:ssXXX"
+    Then UI Validate "Attacks Table" Table rows count GT to 6
 
   @SID_9
   Scenario: Validate downloaded capture file
@@ -90,8 +93,19 @@ Feature: attackTable
     Then Delete downloaded file with name "attack_7839-1402580209_packets.cap"
     When UI click Table row by keyValue or Index with elementLabel "Attacks Table" findBy columnName "Destination Ports" findBy cellValue "1025"
     And UI Click Button "PCAP"
-    Then Validate downloaded file size with name "attack_7839-1402580209_packets.cap" equal to 7
+    Then Sleep "3"
+    Then Validate downloaded file size with name "attack_7839-1402580209_packets.pcap" equal to 304
     Then Delete downloaded file with name "attack_7839-1402580209_packets.cap"
+
+  @SID_10
+  Scenario: validate Auto refresh
+    And UI Click Button "Auto Refresh" with value ""
+    Then UI Validate the attribute "ant-click-animating" Of Label "Auto Refresh" With Params "" is "EQUALS" to "false"
+    And UI Do Operation "Select" item "Global Time Filter"
+    Then Sleep "1"
+    And UI Do Operation "Select" item "Global Time Filter.Quick Range" with value "15m"
+    Then UI Validate the attribute "ant-click-animating" Of Label "Auto Refresh" With Params "" is "EQUALS" to "true"
+
     And UI logout and close browser
 
 
