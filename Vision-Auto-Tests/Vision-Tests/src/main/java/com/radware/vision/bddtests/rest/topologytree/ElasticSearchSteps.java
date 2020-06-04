@@ -90,7 +90,7 @@ public class ElasticSearchSteps extends BddRestTestBase {
 
     @Then("^Validate that the Number of the Mapping Attributes at Index \"(.*)\"(?: with Week Slice (\\d+))? Equals to (\\d+)$")
     public void validateMappingAttributeNumber(String indexName, Integer weekSlice, int expected) {
-        int actual = ElasticSearchHandler.getNumberOfAttributes(restTestBase.getVisionRestClient().getDeviceIp(), indexName, weekSlice);
+        int actual = ElasticSearchHandler.getNumberOfAttributes(indexName, weekSlice);
         if (actual != expected)
             BaseTestUtils.report(String.format("%s Index Mapping Attributes:\nActual=%d, Expected:%d", indexName, actual, expected), Reporter.FAIL);
     }
