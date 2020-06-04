@@ -15,7 +15,7 @@ import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public class ElasticSearchHandlerNew {
+public class ElasticSearchHandler {
 
     public static void deleteESDocument(String data, String index) {
         try {
