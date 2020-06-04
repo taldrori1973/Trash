@@ -647,11 +647,10 @@ public class BasicOperationsHandler {
     }
 
     public static void settings() {
-        navigateFromHomePage("HOME");
-        WebUIBasePage.closeAllYellowMessages();
         try {
             HomePage.navigateFromHomePage(PropertiesFilesUtils.mapAllPropertyFiles("Navigations").get("VISION SETTINGS"));
             WebUIUtils.fluentWait(ComponentLocatorFactory.getLocatorById("gwt-debug-System").getBy()).click();
+            WebUIBasePage.closeAllYellowMessages();
         } catch (Exception ignore) {
         }
         //Verify the click
