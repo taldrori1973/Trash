@@ -661,7 +661,7 @@ public class BasicOperationsHandler {
     }
 
     public static void settings() {
-        navigateFromHomePage("HOME");
+        navigateFromHomePage("VISION SETTINGS");
         WebUIBasePage.closeAllYellowMessages();
     try
     {

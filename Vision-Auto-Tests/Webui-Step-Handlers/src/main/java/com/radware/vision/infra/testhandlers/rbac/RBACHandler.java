@@ -546,7 +546,7 @@ public class RBACHandler extends RBACHandlerBase {
 
             case "PHYSICAL TAB":
                 //if the tree does not exists there is no need to check others
-                HomePage.navigateFromHomePage("HOME");
+                HomePage.navigateFromHomePage("VISION SETTINGS");
                 if (existsAndEnabled = checkIfItemEnabled(new ComponentLocator(How.ID, TreeSelection.TreeSelectionMenu.TREE_SELECTION_MENU.getId()))) {
                     new TreeSelection().openTreeSelectionMenu();
                     if (existsAndEnabled = checkIfItemEnabled(new ComponentLocator(How.ID, TreeSelection.TreeSelectionMenu.PHYSICAL_CONTAINERS.getId())))
