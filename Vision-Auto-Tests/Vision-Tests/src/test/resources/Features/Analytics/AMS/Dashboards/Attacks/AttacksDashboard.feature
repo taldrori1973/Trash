@@ -16,7 +16,7 @@ Feature: Attacks Dashboard Traffic Widget
   Scenario: change the date of traffic of 51 device
     Then CLI copy "/home/radware/Scripts/changeDate.sh" from "GENERIC_LINUX_SERVER" to "ROOT_SERVER_CLI" "/"
     When CLI Run remote linux Command "chmod 777 /changeDate.sh" on "ROOT_SERVER_CLI" with timeOut 120
-    When CLI Run remote linux Command "/changeDate.sh dp-traffic-raw- 172.16.22.51 2" on "ROOT_SERVER_CLI" with timeOut 120
+    When CLI Run remote linux Command "/changeDate.sh dp-traffic-raw- 172.16.22.51 2" on "ROOT_SERVER_CLI" with timeOut 500
 
     Given CLI simulate 1000 attacks of type "rest_traffic_diff_Policy15out" on "DefensePro" 10 with loopDelay 15000 and wait 120 seconds
 
