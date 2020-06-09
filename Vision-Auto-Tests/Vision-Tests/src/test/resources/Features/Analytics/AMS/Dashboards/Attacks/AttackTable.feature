@@ -56,7 +56,7 @@ Feature: attackTable
 
   @SID_6
   Scenario: validate all the data
-    And UI Navigate to "HOME" page via homePage
+    Then UI Navigate to "VISION SETTINGS" page via homePage
     And UI Navigate to "DefensePro Attacks" page via homePage
     Then UI Do Operation "Select" item "Device Selection"
     Then UI VRM Select device from dashboard and Save Filter
@@ -79,7 +79,7 @@ Feature: attackTable
 
   @SID_8
   Scenario: validate the frames1
-    And UI Navigate to "HOME" page via homePage
+    Then UI Navigate to "VISION SETTINGS" page via homePage
     And UI Navigate to "DefensePro Attacks" page via homePage
 
     Then UI Select Time From: 0 To: 4 Time, in Line Chart data "Attacks Dashboard Traffic Widget" with timeFormat "yyyy-MM-dd'T'HH:mm:ssXXX"

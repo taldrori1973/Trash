@@ -218,7 +218,7 @@ Feature: DefenseFlow Attacks Reports
 
   @SID_23
   Scenario: logout
-    When UI Navigate to "HOME" page via homePage
+    When UI Navigate to "VISION SETTINGS" page via homePage
     And UI Go To Vision
     And UI Navigate to page "System->General Settings->APSolute Vision Analytics Settings->Email Reporting Configurations"
     And UI Set Checkbox "Enable" To "false"

@@ -143,7 +143,7 @@ Feature: US62031 APSolute Vision Analytics - AMS - Attack Capacity License
   @SID_6
   Scenario: UI Validate Grace Period of day 29
     Given UI Login with user "sys_admin" and password "radware"
-    Given UI Navigate to "HOME" page via homePage
+    Then UI Navigate to "VISION SETTINGS" page via homePage
     Given UI Navigate to "DefensePro Monitoring Dashboard" page via homePage
 
 
@@ -241,7 +241,7 @@ Feature: US62031 APSolute Vision Analytics - AMS - Attack Capacity License
   @SID_8
   Scenario: UI Validate Grace Period of day 2
     Given UI Login with user "sys_admin" and password "radware"
-    Given UI Navigate to "HOME" page via homePage
+    Then UI Navigate to "VISION SETTINGS" page via homePage
     Given UI Navigate to "DefensePro Monitoring Dashboard" page via homePage
 
 
@@ -340,7 +340,7 @@ Feature: US62031 APSolute Vision Analytics - AMS - Attack Capacity License
   
   Scenario: UI Validate in Grace Period of Last Day
     Given UI Login with user "sys_admin" and password "radware"
-    Given UI Navigate to "HOME" page via homePage
+    Then UI Navigate to "VISION SETTINGS" page via homePage
     Given UI Navigate to "DefensePro Monitoring Dashboard" page via homePage
 
 
@@ -439,7 +439,7 @@ Feature: US62031 APSolute Vision Analytics - AMS - Attack Capacity License
   @SID_12
   Scenario: UI Validate Grace Period Expiration
     Given UI Login with user "sys_admin" and password "radware"
-    Given UI Navigate to "HOME" page via homePage
+    Then UI Navigate to "VISION SETTINGS" page via homePage
     Then Validate Navigation to "DefensePro Monitoring Dashboard" is disabled
     Then Validate Navigation to "DefensePro Behavioral Protections Dashboard" is disabled
     Then Validate Navigation to "DefensePro Analytics Dashboard" is disabled
@@ -482,7 +482,7 @@ Feature: US62031 APSolute Vision Analytics - AMS - Attack Capacity License
 
   Scenario: UI Validate License of 6 Gbps When All Devices Are with Capacity of 6 Gbps
     Given UI Login with user "sys_admin" and password "radware"
-    Given UI Navigate to "HOME" page via homePage
+    Then UI Navigate to "VISION SETTINGS" page via homePage
     Given UI Navigate to "DefensePro Monitoring Dashboard" page via homePage
 
     Then UI Validate Text field with Class "ant-notification-notice-message" "Equals" To "Insufficient Attack-Capacity License"
@@ -576,7 +576,7 @@ Feature: US62031 APSolute Vision Analytics - AMS - Attack Capacity License
   @SID_16
   Scenario: UI Validate License of 20 Gbps When All Devices Are with Capacity of 6 Gbps
     Given UI Login with user "sys_admin" and password "radware"
-    Given UI Navigate to "HOME" page via homePage
+    Then UI Navigate to "VISION SETTINGS" page via homePage
     Given UI Navigate to "DefensePro Monitoring Dashboard" page via homePage
 
 
@@ -663,7 +663,7 @@ Feature: US62031 APSolute Vision Analytics - AMS - Attack Capacity License
   @SID_18
   Scenario: UI Validate License of 20 Gbps When First Device Capacity is 60 Gbps
     Given UI Login with user "sys_admin" and password "radware"
-    Given UI Navigate to "HOME" page via homePage
+    Then UI Navigate to "VISION SETTINGS" page via homePage
     Given UI Navigate to "DefensePro Monitoring Dashboard" page via homePage
 
 #    Validate Message
@@ -760,7 +760,7 @@ Feature: US62031 APSolute Vision Analytics - AMS - Attack Capacity License
   @SID_20
   Scenario: UI Validate Max License
     Given UI Login with user "sys_admin" and password "radware"
-    Given UI Navigate to "HOME" page via homePage
+    Then UI Navigate to "VISION SETTINGS" page via homePage
     Given UI Navigate to "DefensePro Monitoring Dashboard" page via homePage
 
 
@@ -855,7 +855,7 @@ Feature: US62031 APSolute Vision Analytics - AMS - Attack Capacity License
       | valid | true |
 
     Given UI Login with user "sys_admin" and password "radware"
-    Given UI Navigate to "HOME" page via homePage
+    Then UI Navigate to "VISION SETTINGS" page via homePage
     Given UI Navigate to "DefensePro Monitoring Dashboard" page via homePage
 
 

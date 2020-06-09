@@ -39,7 +39,7 @@ Feature: AttackRateInAlerts&Forensics
     And UI Navigate to "AMS Forensics" page via homePage
     When UI Generate and Validate Forensics With Name "PPS greater than K" with Timeout of 300 Seconds
     And UI Click Button "Views.report" with value "PPS greater than K"
-    And UI Navigate to "HOME" page via homePage
+    Then UI Navigate to "VISION SETTINGS" page via homePage
     And UI Navigate to "AMS Forensics" page via homePage
     Then Sleep "60"
     And UI Click Button "Views.Expand" with value "PPS greater than K"

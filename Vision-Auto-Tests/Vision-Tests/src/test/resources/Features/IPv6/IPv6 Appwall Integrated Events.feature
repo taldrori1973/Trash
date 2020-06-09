@@ -86,7 +86,7 @@ Feature: IPv6 Appwall Events
     Then UI Validate Pie Chart data "OWASPCATEGORY"
       | label | data |
       | A5    | 1    |
-    And UI Navigate to "HOME" page via homepage
+    Then UI Navigate to "VISION SETTINGS" page via homePage
 
   @SID_13
   Scenario: Delete Alteon devices from tree

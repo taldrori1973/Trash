@@ -157,5 +157,5 @@ Feature: AMS DefenseFlow Traffic Dashboard
 
   @SID_11
   Scenario: Cleanup
-    And UI Navigate to "HOME" page via homePage
+    Then UI Navigate to "VISION SETTINGS" page via homePage
     Then UI logout and close browser

@@ -67,7 +67,7 @@ Feature: VRM ADC Session Timeout
 #    Given UI Navigate to "ADC Reports" page via homePage
 ##    Then UI Open "Dashboards" Tab negative
 #    Given UI Navigate to "ANALYTICS ADC" page via homePage
-#    Given UI Navigate to "HOME" page via homePage
+#    Then UI Navigate to "VISION SETTINGS" page via homePage
 #    Then UI logout and close browser
 
   @SID_10

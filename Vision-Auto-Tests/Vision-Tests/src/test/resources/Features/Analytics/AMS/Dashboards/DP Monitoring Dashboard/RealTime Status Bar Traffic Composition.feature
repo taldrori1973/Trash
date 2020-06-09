@@ -107,7 +107,7 @@ Feature: VRM Real Time Status Bar Traffic Composition
       | UDP   | rgba(127, 205, 181, 0.7) |
       | ICMP  | rgba(235, 129, 116, 0.7) |
       | OTHER | rgba(154, 145, 150, 0.7) |
-    When UI Navigate to "HOME" page via homePage
+    When UI Navigate to "VISION SETTINGS" page via homePage
 
   @SID_7
   Scenario: Traffic Composition protocols filter port positive

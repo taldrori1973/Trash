@@ -313,5 +313,5 @@ Feature: EAAF Widget - Top IP Statistics
   @SID_32
   Scenario: Cleanup
 #    Then UI Open "Configurations" Tab
-    When UI Navigate to "HOME" page via homePage
+    When UI Navigate to "VISION SETTINGS" page via homePage
     Then UI logout and close browser
