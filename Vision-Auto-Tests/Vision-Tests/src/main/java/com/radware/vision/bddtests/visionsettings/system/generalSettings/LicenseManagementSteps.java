@@ -105,7 +105,7 @@ public class LicenseManagementSteps extends BddUITestBase {
      * @param status
      */
     @Then("^Set AVA_Grace_Period_Status to (Not Set|In Grace Period|No Grace Period)$")
-    public void setAVA_Grace_Period_StatusTo(String status) {
+    public void setAVA_Grace_Period_StatusTo(String status) throws Exception {
         AttackCapacityLicenseTestHandler.GracePeriodState state;
         switch (status) {
             case "Not Set":

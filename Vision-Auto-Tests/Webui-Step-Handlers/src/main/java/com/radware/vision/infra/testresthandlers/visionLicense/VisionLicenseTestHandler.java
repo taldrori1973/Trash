@@ -57,7 +57,7 @@ public abstract class VisionLicenseTestHandler {
     protected List<String> deviceOrmIdListToIpsList(List<String> ormIds) {
         List<String> ips = new ArrayList<>();
         RestResponse restResponse = requests.get("Get Device Tree").sendRequest();
-        DocumentContext jsonContext = JsonPath.parse(restResponse);
+        DocumentContext jsonContext = JsonPath.parse(restResponse.getBody().getBodyAsString());
         String jsonPath = "$..children[?(@.meIdentifier.managedElementID=='%s')][\"managementIp\"]";
         for (String ormId : ormIds) {
             List<String> ipAsList = jsonContext.read(jsonPath.replace("%s", ormId));

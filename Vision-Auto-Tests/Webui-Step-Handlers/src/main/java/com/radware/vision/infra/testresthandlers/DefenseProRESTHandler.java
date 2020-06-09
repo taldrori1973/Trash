@@ -1,15 +1,15 @@
 package com.radware.vision.infra.testresthandlers;
 
-import basejunit.RestTestBase;
 import com.jayway.jsonpath.DocumentContext;
 import com.jayway.jsonpath.JsonPath;
 import com.radware.automation.tools.basetest.BaseTestUtils;
 import com.radware.automation.tools.basetest.Reporter;
 import com.radware.restcore.utils.enums.HttpMethodEnum;
 import com.radware.utils.DeviceUtils;
-import com.radware.vision.automation.tools.sutsystemobjects.devicesinfo.enums.SUTDeviceType;
 import com.radware.vision.infra.testhandlers.BaseHandler;
 import com.radware.vision.infra.testhandlers.vrm.VRMHandler;
+import com.radware.vision.restAPI.GenericVisionRestAPI;
+import models.RestResponse;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
@@ -18,8 +18,6 @@ import testhandlers.VisionRestApiHandler;
 
 import java.util.ArrayList;
 import java.util.List;
-
-import static com.radware.vision.infra.testhandlers.BaseHandler.devicesManager;
 
 public class DefenseProRESTHandler {
 
@@ -312,15 +310,10 @@ public class DefenseProRESTHandler {
     }
 
 
-    public static String getMacByIp(String ip) {
-
-        RestTestBase.visionRestClient.login();
-        VisionRestApiHandler visionRestApiHandler = new VisionRestApiHandler();
-
-        String result = (String) visionRestApiHandler.handleRequest(BaseHandler.restTestBase.getVisionRestClient(),
-                HttpMethodEnum.GET, "Device Tree->Get Tree", null, null, null);
-
-        DocumentContext jsonContext = JsonPath.parse(result);
+    public static String getMacByIp(String ip) throws NoSuchFieldException {
+        GenericVisionRestAPI restAPI= new GenericVisionRestAPI("Vision/SystemConfigTree.json", "GET Device Tree");
+        RestResponse restResponse = restAPI.sendRequest();
+        DocumentContext jsonContext = JsonPath.parse(restResponse.getBody().getBodyAsString());
         String jsonPath = "$..children[?(@.managementIp=='" + ip + "')][\"baseMacAddress\"]";
         return ((List<String>) jsonContext.read(jsonPath)).get(0);
 
