@@ -19,7 +19,7 @@ public class MySQLSteps extends WebUITestBase {
             if (columnName.isEmpty() || tableName.isEmpty())
                 BaseTestUtils.report("Column Name or Table Name is Empty", Reporter.FAIL);
 
-            String resultValue = String.valueOf(GenericCRUD.selectSingleValue(schema, columnName, tableName, whereCondition));
+            String resultValue = GenericCRUD.selectSingleValue(schema, columnName, tableName, whereCondition).toString();
 
             if (!resultValue.equals(value))
                 BaseTestUtils.report(
