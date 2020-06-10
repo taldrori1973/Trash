@@ -5,7 +5,7 @@ Feature: Demo
   Scenario: MariaDb
 #    Then MariaDb Test
 
-  Then MYSQL Validate Single Value by SELECT "columnName" Column FROM "schema" Schema and "table name" Table WHERE "condition" EQUALS "value"
+  Then MYSQL Validate Single Value by SELECT "license_str" Column FROM "VISION_NG" Schema and "vision_license" Table WHERE "description='APSolute Vision Device Performance Monitor'" EQUALS "vision-perfreporter-16May2020-21May2020-JSDuGFSe"
   @run_kVision
   Scenario: Licenses
 #    Then REST Vision Install License Request "vision-reporting-module-ADC"

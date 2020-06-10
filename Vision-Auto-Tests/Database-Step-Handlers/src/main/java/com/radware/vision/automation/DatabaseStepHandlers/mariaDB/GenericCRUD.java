@@ -36,6 +36,7 @@ public class GenericCRUD {
         Connection dbConnection = jdbcConnection.getDBConnection(schema);
         Statement statement = dbConnection.createStatement();
         ResultSet resultSet = statement.executeQuery(format("SELECT %s FROM %s WHERE %s;", columnName, tableName, where));
+        if(Objects.isNull(where) || where.isEmpty()) resultSet = statement.executeQuery(format("SELECT %s FROM %s;", columnName, tableName));
         resultSet.last();
         if (resultSet.getRow() == 0) throw new Exception("No rows was found with the condition you provide.");
         if (resultSet.getRow() > 1) throw new Exception("The condition you provide returns more than one row.");
