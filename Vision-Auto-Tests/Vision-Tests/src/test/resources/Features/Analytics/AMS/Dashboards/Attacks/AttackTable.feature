@@ -25,6 +25,8 @@ Feature: attackTable
     When CLI Run remote linux Command "curl -XPOST localhost:9200/dp-attack-raw-*/_update_by_query?conflicts=proceed -d '{"query":{"term":{"status":"Terminated"}},"script":{"source":"ctx._source.endTime='$(date -d "-1 hour" +%s%3N)L'"}}'" on "ROOT_SERVER_CLI"
 
     When CLI Run remote linux Command "curl -XPOST localhost:9200/dp-traffic-raw-*/_update_by_query?conflicts=proceed -d '{"query":{"term":{"deviceIp":"172.16.22.51"}},"script":{"source":"ctx._source.timeStamp='$(date -d "-1 hour" +%s%3N)L'"}}'" on "ROOT_SERVER_CLI"
+    When CLI Run remote linux Command "curl -XPOST localhost:9200/dp-traffic-raw-*/_update_by_query?conflicts=proceed -d '{"query":{"term":{"deviceIp":"172.16.22.51"}},"script":{"source":"ctx._source.timeStamp='$(date -d "-1 hour" +%s%3N)L'"}}'" on "ROOT_SERVER_CLI"
+    When CLI Run remote linux Command "curl -XPOST localhost:9200/dp-traffic-raw-*/_update_by_query?conflicts=proceed -d '{"query":{"term":{"deviceIp":"172.16.22.51"}},"script":{"source":"ctx._source.timeStamp='$(date -d "-1 hour" +%s%3N)L'"}}'" on "ROOT_SERVER_CLI"
 
 
   @SID_3
@@ -81,8 +83,11 @@ Feature: attackTable
   Scenario: validate the frames1
     Then UI Navigate to "VISION SETTINGS" page via homePage
     And UI Navigate to "DefensePro Attacks" page via homePage
-
-    Then UI Select Time From: 0 To: 4 Time, in Line Chart data "Attacks Dashboard Traffic Widget" with timeFormat "yyyy-MM-dd'T'HH:mm:ssXXX"
+    And UI Do Operation "Select" item "Global Time Filter"
+    Then Sleep "1"
+    And UI Do Operation "Select" item "Global Time Filter.Quick Range" with value "15m"
+    Then Sleep "3"
+    Then UI Select Time From: 0 To: 10 Time, in Line Chart data "Attacks Dashboard Traffic Widget" with timeFormat "yyyy-MM-dd'T'HH:mm:ssXXX"
     Then UI Validate "Attacks Table" Table rows count GT to 6
 
   @SID_9

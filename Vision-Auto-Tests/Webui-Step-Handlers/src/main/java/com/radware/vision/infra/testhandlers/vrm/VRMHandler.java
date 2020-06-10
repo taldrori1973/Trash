@@ -1390,11 +1390,11 @@ public class VRMHandler {
             VisionDebugIdsManager.setParams("from");
             WebElement firstElement = WebUIUtils.fluentWait(ComponentLocatorFactory.getLocatorByXpathDbgId(VisionDebugIdsManager.getDataDebugId()).getBy(), WebUIUtils.DEFAULT_WAIT_TIME, false);
             JavascriptExecutor executor = (JavascriptExecutor) WebUIUtils.getDriver();
-            executor.executeScript("arguments[1].value = arguments[0]; ", Timestamp.valueOf(from.plusHours(3)).getTime(), firstElement);
+            executor.executeScript("arguments[1].value = arguments[0]; ", Timestamp.valueOf(from).getTime(), firstElement);
 
             VisionDebugIdsManager.setParams("to");
             WebElement secondElement = WebUIUtils.fluentWait(ComponentLocatorFactory.getLocatorByXpathDbgId(VisionDebugIdsManager.getDataDebugId()).getBy(), WebUIUtils.DEFAULT_WAIT_TIME, false);
-            executor.executeScript("arguments[1].value = arguments[0]; ", Timestamp.valueOf(to.plusHours(3)).getTime(), secondElement);
+            executor.executeScript("arguments[1].value = arguments[0]; ", Timestamp.valueOf(to).getTime(), secondElement);
             WebElement button = WebUIUtils.fluentWait(ComponentLocatorFactory.getLocatorByXpathDbgId("qa-call-attacks-dialog").getBy(), WebUIUtils.DEFAULT_WAIT_TIME, false);
             executor.executeScript("arguments[0].click(); ", button);
 
