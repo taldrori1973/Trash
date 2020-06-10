@@ -14,16 +14,20 @@ import cucumber.api.java.en.Then;
  */
 public class MySQLSteps extends WebUITestBase {
     @Then("^MYSQL Validate Single Value by SELECT \"([^\"]*)\" Column FROM \"([^\"]*)\" Schema and \"([^\"]*)\" Table WHERE \"([^\"]*)\" EQUALS \"([^\"]*)\"$")
-    public void mysqlValidateSingleValueBySELECTColumnFROMSchemaAndTableWHEREEQUALS(String columnName, VisionDBSchema schema, String tableName, String whereCondition, String value) throws Throwable {
-        if (columnName.isEmpty() || tableName.isEmpty())
-            BaseTestUtils.report("Column Name or Table Name is Empty", Reporter.FAIL);
+    public void mysqlValidateSingleValueBySELECTColumnFROMSchemaAndTableWHEREEQUALS(String columnName, VisionDBSchema schema, String tableName, String whereCondition, String value) {
+        try {
+            if (columnName.isEmpty() || tableName.isEmpty())
+                BaseTestUtils.report("Column Name or Table Name is Empty", Reporter.FAIL);
 
-        String resultValue = String.valueOf(GenericCRUD.selectSingleValue(schema, columnName, tableName, whereCondition));
+            String resultValue = String.valueOf(GenericCRUD.selectSingleValue(schema, columnName, tableName, whereCondition));
 
-        if (!resultValue.equals(value))
-            BaseTestUtils.report(
-                    String.format("The value returned from database not equals to expected value:\n" +
-                            "Actual Value:\"%s\"\n" +
-                            "Expected Value:\"%s\"", resultValue, value), Reporter.FAIL);
+            if (!resultValue.equals(value))
+                BaseTestUtils.report(
+                        String.format("The value returned from database not equals to expected value:\n" +
+                                "Actual Value:\"%s\"\n" +
+                                "Expected Value:\"%s\"", resultValue, value), Reporter.FAIL);
+        } catch (Exception e) {
+            BaseTestUtils.report(e.getMessage(), Reporter.FAIL);
+        }
     }
 }
