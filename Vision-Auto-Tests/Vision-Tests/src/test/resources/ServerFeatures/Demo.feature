@@ -3,8 +3,9 @@
 Feature: Demo
 
   Scenario: MariaDb
-    Then MariaDb Test
+#    Then MariaDb Test
 
+#  Then MYSQL Validate Single Value by SELECT "columnName" Column FROM "schema" Schema and "table name" Table WHERE "condition" EQUALS "value"
   @run_kVision
   Scenario: Licenses
 #    Then REST Vision Install License Request "vision-reporting-module-ADC"
