@@ -87,7 +87,7 @@ public class BasicOperationsHandler {
             e.printStackTrace();
         }
         //get window handlers as list
-        List<String> browserTabs = new ArrayList<String>(WebUIUtils.getDriver().getWindowHandles());
+        List<String> browserTabs = new ArrayList<>(WebUIUtils.getDriver().getWindowHandles());
         //switch to new tab
         WebUIUtils.getDriver().switchTo().window(browserTabs.get(tabIndex));
     }
@@ -100,7 +100,7 @@ public class BasicOperationsHandler {
             e.printStackTrace();
         }
         //get window handlers as list
-        List<String> browserTabs = new ArrayList<String>(WebUIUtils.getDriver().getWindowHandles());
+        List<String> browserTabs = new ArrayList<>(WebUIUtils.getDriver().getWindowHandles());
         //switch to new tab
         return browserTabs.size();
     }
@@ -215,12 +215,10 @@ public class BasicOperationsHandler {
                 throw new Exception("Element not found");
             }
             WebUICheckbox checkbox = new WebUICheckbox(new ComponentLocator(How.ID, elementId));
-            if (checkbox != null) {
-                if (selectCheckbox) {
-                    checkbox.check();
-                } else {
-                    checkbox.uncheck();
-                }
+            if (selectCheckbox) {
+                checkbox.check();
+            } else {
+                checkbox.uncheck();
             }
         } catch (Exception e) {
             BaseTestUtils.report("Failed to set the CheckBox selection: " + elementId, Reporter.FAIL);
@@ -245,7 +243,7 @@ public class BasicOperationsHandler {
     }
 
     /**
-     * @param label
+     * @param label taken from debug ID property file
      * @param params for id's that only will be known at test run time
      */
     public static WebElement clickButton(String label, String... params) throws TargetWebElementNotFoundException {
@@ -390,9 +388,9 @@ public class BasicOperationsHandler {
     /**
      * This check will rely on the way that selenium does it
      *
-     * @param LabelName
+     * @param LabelName taken from debug ID property file
      * @param params    for id's that only will be known at test run time
-     * @return
+     * @return is element selected
      */
     public static boolean isItemSelected(String LabelName, String... params) {
 
@@ -415,8 +413,7 @@ public class BasicOperationsHandler {
         if (param != null)
             VisionDebugIdsManager.setParams(param);
         ComponentLocator locator = new ComponentLocator(How.ID, VisionDebugIdsManager.getDataDebugId());
-        WebElement element = WebUIUtils.fluentWaitDisplayed(locator.getBy(), WebUIUtils.DEFAULT_WAIT_TIME, false);
-        return element;
+        return WebUIUtils.fluentWaitDisplayed(locator.getBy(), WebUIUtils.DEFAULT_WAIT_TIME, false);
 
     }
 
@@ -444,8 +441,8 @@ public class BasicOperationsHandler {
     }
 
     /**
-     * @param LabelName
-     * @param params
+     * @param LabelName taken from debug ID property file
+     * @param params for id's that only will be known at test run time
      * @return if the class attribute contains "selected" returns true else false
      */
     public static boolean isItemSelectedByClass(String LabelName, String... params) {
@@ -459,8 +456,8 @@ public class BasicOperationsHandler {
     /**
      * Validate Item's text is equal to value
      *
-     * @param item
-     * @return
+     * @param item taken from debug ID property file
+     * @return string in element
      */
     public static String getItemValue(String item, String... params) throws TargetWebElementNotFoundException {
         VisionDebugIdsManager.setLabel(item);
@@ -472,17 +469,16 @@ public class BasicOperationsHandler {
                     String.format("%s %s and param %s", messagePrefix, item, params);
             throw new TargetWebElementNotFoundException(errorMessage);
         }
-        String itemValue = widget.getInnerText();
-        return itemValue;
+        return widget.getInnerText();
     }
 
     /**
      * Validate Item's text is contains the value
      *
-     * @param item
-     * @param expectedValue
-     * @param params
-     * @return
+     * @param item taken from debug ID property file
+     * @param expectedValue string to compare
+     * @param params for id's that only will be known at test run time
+     * @return true if match else false
      */
     public static boolean isItemValueContains(String item, String params, String expectedValue) {
         String itemValue = null;
@@ -497,9 +493,9 @@ public class BasicOperationsHandler {
     /**
      * Validate Item's text contains value
      *
-     * @param item
-     * @param expectedValue
-     * @return
+     * @param item from debug ID property file
+     * @param expectedValue string to match
+     * @return true if match else false
      */
     public static boolean isItemValueContains(String item, String expectedValue) {
         VisionDebugIdsManager.setLabel(item);
@@ -595,7 +591,7 @@ public class BasicOperationsHandler {
 
     public static String verifyLogin() {
 
-        WebElement webElement = null;
+        WebElement webElement;
         try {
             //Makes sure browser is maximized or the user name will not be seem.
             WebUIDriver.getDriver().manage().window().maximize();
@@ -619,7 +615,6 @@ public class BasicOperationsHandler {
     public static boolean isLoggedOut(long waitTimeout) {
         if (!isLoggedIn)
             return true;
-//        ComponentLocator locator = new ComponentLocator(How.ID, WebUIStringsVision.getVisionLoginIcon());
         ComponentLocator locator = new ComponentLocator(How.XPATH, "//*[@data-debug-id='card-header_']");
         try {
             WebElement headerElement = WebUIUtils.fluentWaitDisplayed(locator.getBy(), waitTimeout, false);
@@ -647,11 +642,10 @@ public class BasicOperationsHandler {
     }
 
     public static void settings() {
-        navigateFromHomePage("HOME");
-        WebUIBasePage.closeAllYellowMessages();
         try {
             HomePage.navigateFromHomePage(PropertiesFilesUtils.mapAllPropertyFiles("Navigations").get("VISION SETTINGS"));
             WebUIUtils.fluentWait(ComponentLocatorFactory.getLocatorById("gwt-debug-System").getBy()).click();
+            WebUIBasePage.closeAllYellowMessages();
         } catch (Exception ignore) {
         }
         //Verify the click
@@ -910,10 +904,7 @@ public class BasicOperationsHandler {
     public static void uiValidateClassContentOfWithParamsIsEQUALSCONTAINSTo(String attribute, String label, String params, String compare, String value, String expectedErrorMessage) {
         if (params == null) params = "";
         VisionDebugIdsManager.setLabel(label);
-        if (params != null)
-            VisionDebugIdsManager.setParams(params.split(","));
-        else
-            VisionDebugIdsManager.setParams(params);
+        VisionDebugIdsManager.setParams(params.split(","));
         WebElement element = WebUIUtils.fluentWait(ComponentLocatorFactory.getLocatorByXpathDbgId(VisionDebugIdsManager.getDataDebugId()).getBy());
         if (element == null) {
             BaseTestUtils.report("no Element with locator: " + ComponentLocatorFactory.getLocatorByXpathDbgId(VisionDebugIdsManager.getDataDebugId()), Reporter.FAIL);
@@ -984,9 +975,8 @@ public class BasicOperationsHandler {
         builder.click(svgElement).build().perform();
     }
 
-    public static void uploadFileToVision(String name, String label, String param) throws IOException {
+    public static void uploadFileToVision(String name, String label, String param) {
         WebElement elem;
-        Properties properties = new Properties();        //function to upload file from project
 
         String basePath = FileUtils.getAbsoluteProjectPath() + "src" + File.separator + "main" + File.separator + "resources" + File.separator;
         String uploadFilePath = basePath + File.separator + "uploadedFiles" + (System.getProperty("os.name").contains("Windows") ? "\\" : "/") + name;
