@@ -2,6 +2,7 @@ package com.radware.vision.bddtests.databases;
 
 import com.radware.automation.tools.basetest.BaseTestUtils;
 import com.radware.automation.tools.basetest.Reporter;
+import com.radware.vision.automation.AutoUtils.Operators.OperatorsEnum;
 import com.radware.vision.automation.DatabaseStepHandlers.mariaDB.GenericCRUD;
 import com.radware.vision.automation.DatabaseStepHandlers.mariaDB.client.VisionDBSchema;
 import com.radware.vision.base.WebUITestBase;
@@ -13,8 +14,8 @@ import cucumber.api.java.en.Then;
  * Time: 5:22 PM
  */
 public class MySQLSteps extends WebUITestBase {
-    @Then("^MYSQL Validate Single Value by SELECT \"([^\"]*)\" Column FROM \"([^\"]*)\" Schema and \"([^\"]*)\" Table WHERE \"([^\"]*)\" EQUALS \"([^\"]*)\"$")
-    public void mysqlValidateSingleValueBySELECTColumnFROMSchemaAndTableWHEREEQUALS(String columnName, VisionDBSchema schema, String tableName, String whereCondition, String value) {
+    @Then("^MYSQL Validate Single Value by SELECT \"([^\"]*)\" Column FROM \"([^\"]*)\" Schema and \"([^\"]*)\" Table WHERE \"([^\"]*)\" ([^\"]*) \"([^\"]*)\"$")
+    public void mysqlValidateSingleValueBySELECTColumnFROMSchemaAndTableWHEREEQUALS(String columnName, VisionDBSchema schema, String tableName, String whereCondition, OperatorsEnum operation, String value) {
         try {
             if (columnName.isEmpty() || tableName.isEmpty())
                 BaseTestUtils.report("Column Name or Table Name is Empty", Reporter.FAIL);
