@@ -15,7 +15,7 @@ import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public class ElasticSearchHandlerNew {
+public class ElasticSearchHandler {
 
     public static void deleteESDocument(String data, String index) {
         try {
@@ -76,7 +76,7 @@ public class ElasticSearchHandlerNew {
             }
     }
 
-    public static JSONObject getIndex(String indexName) throws NoSuchFieldException {
+    public static JSONObject getIndex(String indexName) {
         ElasticsearchRestAPI esRestApi = createEsRestConnection("Vision/elasticSearch.json", "Get Index");
         HashMap<String, String> hash_map_param = new HashMap<>();
         hash_map_param.put("indexName", indexName);
@@ -85,28 +85,22 @@ public class ElasticSearchHandlerNew {
         return new JSONObject(restResponse.getBody().getBodyAsString());
     }
 
-    public static int getNumberOfAttributes(String ip, String indexName, Integer weekSlice) {
+    public static int getNumberOfAttributes(String indexName, Integer weekSlice) {
 
         if (getIndex(indexName, "last", weekSlice) == null)
             BaseTestUtils.report(String.format("Can't Find Index \"%s\"", indexName), Reporter.FAIL);
         JSONObject root;
-        List<String> types = new ArrayList<>();
-        try {
-            root = getIndex(indexName);
-            String index = getRequiredIndex(root, "last");
-            DocumentContext jsonContext = JsonPath.parse(root.toString());
+        root = getIndex(indexName);
+        String index = getRequiredIndex(root, "last");
+        DocumentContext jsonContext = JsonPath.parse(root.toString());
 
-            String enabledPath = "$." + index + ".mappings..[?(@.enabled==false)]";
-            if (!((List<String>) jsonContext.read(enabledPath)).isEmpty()) {
-                BaseTestUtils.report("The Index contains NOT Enabled Mapping", Reporter.FAIL);
-            }
-            String typesPath = "$." + index + ".mappings..type";
-            types = jsonContext.read(typesPath);
-
-        } catch (NoSuchFieldException e) {
-            BaseTestUtils.reporter.report("index" + indexName + " Not found", Reporter.FAIL);
-            e.printStackTrace();
+        String enabledPath = "$." + index + ".mappings..[?(@.enabled==false)]";
+        if (!((List<String>) jsonContext.read(enabledPath)).isEmpty()) {
+            BaseTestUtils.report("The Index contains NOT Enabled Mapping", Reporter.FAIL);
         }
+        String typesPath = "$." + index + ".mappings..type";
+        List<String> types = jsonContext.read(typesPath);
+
         return types.size();
     }
 
@@ -162,13 +156,13 @@ public class ElasticSearchHandlerNew {
         Matcher matcher = endsWithNumberPattern.matcher(requiredIndex);
         int indexWeekSlice = 0;
         if (matcher.matches()) {
-            matcher = matcher.reset();
+            matcher.reset();
             if (matcher.find()) indexWeekSlice = Integer.parseInt(matcher.group(2));
 
             if (weekSlice == null)
-                BaseTestUtils.report(String.format("For Indices with the pattern : \"{Index Prefix}-{Week number}\" " +
+                BaseTestUtils.report("For Indices with the pattern : \"{Index Prefix}-{Week number}\" " +
                         "you should provide the week slice value in the step," +
-                        " the value you provided is null\nThis value equals every how many weeks the ES will create new index, the value can be different from one index to another"), Reporter.FAIL);
+                        " the value you provided is null\nThis value equals every how many weeks the ES will create new index, the value can be different from one index to another", Reporter.FAIL);
 
             int currentWeekSlice = (int) ((new Date().getTime() / 1000) / (60 * 60 * 24 * 7 * weekSlice));
 
@@ -214,7 +208,7 @@ public class ElasticSearchHandlerNew {
         if (allPrefixes.size() > 1)
             BaseTestUtils.report(String.format("%d Indices with the given Prefix was Found, Please Enter More Specific Index Prefix", root.keySet().size()), Reporter.FAIL);
 
-//        now all the indices are with same prefix but the number is different
+        /* now all the indices are with same prefix but the number is different */
         indices.forEach(index -> {
             Matcher matcher = endsWithNumberPattern.matcher(index);
             if (matcher.find())
