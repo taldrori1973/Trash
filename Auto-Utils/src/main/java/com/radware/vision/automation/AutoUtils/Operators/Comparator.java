@@ -1,6 +1,9 @@
 package com.radware.vision.automation.AutoUtils.Operators;
 
 
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 public class Comparator {
 
     public static String failureMessage;
@@ -68,7 +71,13 @@ public class Comparator {
                     } else
                         bTestSuccess = true;
                     break;
-
+                case MatchRegex:
+                    Pattern pattern = Pattern.compile(expectedResult);
+                    Matcher matcher = pattern.matcher(actualResult);
+                    if (matcher.matches()) bTestSuccess = true;
+                    else
+                        failureMessage = String.format("The Actual Result \"%s\" not matches the regex \"%s\"", actualResult, expectedResult);
+                    break;
                 default:
                     failureMessage = "No such operator: " + operatorsEnum;
             }
