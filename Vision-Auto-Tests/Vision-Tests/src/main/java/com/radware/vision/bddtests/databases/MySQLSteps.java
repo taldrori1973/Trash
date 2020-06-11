@@ -2,6 +2,7 @@ package com.radware.vision.bddtests.databases;
 
 import com.radware.automation.tools.basetest.BaseTestUtils;
 import com.radware.automation.tools.basetest.Reporter;
+import com.radware.vision.automation.AutoUtils.Operators.Comparator;
 import com.radware.vision.automation.AutoUtils.Operators.OperatorsEnum;
 import com.radware.vision.automation.DatabaseStepHandlers.mariaDB.GenericCRUD;
 import com.radware.vision.automation.DatabaseStepHandlers.mariaDB.client.VisionDBSchema;
@@ -22,11 +23,10 @@ public class MySQLSteps extends WebUITestBase {
 
             String resultValue = GenericCRUD.selectSingleValue(schema, columnName, tableName, whereCondition).toString();
 
-            if (!resultValue.equals(value))
+            boolean result = Comparator.compareResults(value, resultValue, operation, null);
+            if (!result)
                 BaseTestUtils.report(
-                        String.format("The value returned from database not equals to expected value:\n" +
-                                "Actual Value:\"%s\"\n" +
-                                "Expected Value:\"%s\"", resultValue, value), Reporter.FAIL);
+                        Comparator.failureMessage, Reporter.FAIL);
         } catch (Exception e) {
             BaseTestUtils.report(e.getMessage(), Reporter.FAIL);
         }
