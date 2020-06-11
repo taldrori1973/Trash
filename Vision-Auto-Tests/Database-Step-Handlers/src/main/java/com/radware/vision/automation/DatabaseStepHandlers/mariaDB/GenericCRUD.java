@@ -5,7 +5,6 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.radware.vision.automation.DatabaseStepHandlers.mariaDB.client.JDBCConnectionException;
 import com.radware.vision.automation.DatabaseStepHandlers.mariaDB.client.JDBCConnectionSingleton;
 import com.radware.vision.automation.DatabaseStepHandlers.mariaDB.client.VisionDBSchema;
-import com.sun.istack.NotNull;
 
 import java.sql.Connection;
 import java.sql.ResultSet;
@@ -32,10 +31,11 @@ public class GenericCRUD {
      * @return One value which is under the column name of the record that returned from the where
      * @throws Exception
      */
-    public static <T> T selectSingleValue(VisionDBSchema schema, String columnName, String tableName,@NotNull String where) throws Exception {
+    public static <T> T selectSingleValue(VisionDBSchema schema, String columnName, String tableName,String where) throws Exception {
         Connection dbConnection = jdbcConnection.getDBConnection(schema);
         Statement statement = dbConnection.createStatement();
         ResultSet resultSet = statement.executeQuery(format("SELECT %s FROM %s WHERE %s;", columnName, tableName, where));
+        if(Objects.isNull(where) || where.isEmpty()) resultSet = statement.executeQuery(format("SELECT %s FROM %s;", columnName, tableName));
         resultSet.last();
         if (resultSet.getRow() == 0) throw new Exception("No rows was found with the condition you provide.");
         if (resultSet.getRow() > 1) throw new Exception("The condition you provide returns more than one row.");
