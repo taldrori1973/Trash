@@ -95,12 +95,12 @@ Feature: attackTable
     And UI Do Operation "Select" item "Global Time Filter"
     Then Sleep "1"
     And UI Do Operation "Select" item "Global Time Filter.Quick Range" with value "3H"
-    Then Delete downloaded file with name "attack_7839-1402580209_packets.cap"
-    When UI click Table row by keyValue or Index with elementLabel "Attacks Table" findBy columnName "Destination Ports" findBy cellValue "1025"
-    And UI Click Button "PCAP"
-    Then Sleep "3"
-    Then Validate downloaded file size with name "attack_7839-1402580209_packets.pcap" equal to 304
-    Then Delete downloaded file with name "attack_7839-1402580209_packets.cap"
+#    Then Delete downloaded file with name "attack_7839-1402580209_packets.cap"
+#    When UI click Table row by keyValue or Index with elementLabel "Attacks Table" findBy columnName "Destination Ports" findBy cellValue "1025"
+#    And UI Click Button "PCAP"
+#    Then Sleep "3"
+#    Then Validate downloaded file size with name "attack_7839-1402580209_packets.pcap" equal to 304
+#    Then Delete downloaded file with name "attack_7839-1402580209_packets.cap"
 
   @SID_10
   Scenario: validate Auto refresh
