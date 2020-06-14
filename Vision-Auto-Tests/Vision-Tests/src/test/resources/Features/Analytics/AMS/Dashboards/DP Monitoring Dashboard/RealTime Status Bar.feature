@@ -78,11 +78,11 @@ Feature: VRM Real Time Status Bar Devices status
     Then UI Text of "Device Status Maintenance Summary" equal to "0"
     Then UI Text of "Device Status Down Summary" equal to "1"
     Then UI Navigate to "VISION SETTINGS" page via homePage
+    Then CLI Run remote linux Command "net route delete 172.16.22.55 255.255.255.255 172.17.3.3" on "Radware_SERVER_CLI"
+    Then Sleep "35"
 
   @SID_5
   Scenario: Devices status connected DP by route
-    Then CLI Run remote linux Command "net route delete 172.16.22.55 255.255.255.255 172.17.3.3" on "Radware_SERVER_CLI"
-    Then Sleep "35"
     And UI Navigate to "DefensePro Monitoring Dashboard" page via homePage
     Then UI Text of "Device Selection" equal to "DEVICES 3/3"
     Then UI Text of "Device Status Up Summary" equal to "3"
