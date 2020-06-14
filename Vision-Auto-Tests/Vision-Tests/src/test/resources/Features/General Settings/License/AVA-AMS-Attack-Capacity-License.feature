@@ -2,18 +2,18 @@
 @TC110252
 Feature: US62031 APSolute Vision Analytics - AMS - Attack Capacity License
 
-#  @TC110252-Rest
-#  @SID_1
-#  Scenario: Setup - Restore Server Status as After Upgrade without AVA License
-#    Given REST Vision DELETE License Request "vision-AVA-6-Gbps-attack-capacity"
-#    And REST Vision DELETE License Request "vision-AVA-20-Gbps-attack-capacity"
-#    And REST Vision DELETE License Request "vision-AVA-60-Gbps-attack-capacity"
-#    And REST Vision DELETE License Request "vision-AVA-400-Gbps-attack-capacity"
-#    And REST Vision DELETE License Request "vision-AVA-Max-attack-capacity"
-#    And REST Vision DELETE License Request "vision-AVA-AppWall"
-#    And REST Vision DELETE License Request "vision-demo"
-#
-#    And REST Vision Install License Request "vision-reporting-module-AMS"
+  @TC110252-Rest
+  @SID_1
+  Scenario: Setup - Restore Server Status as After Upgrade without AVA License
+    Given REST Vision DELETE License Request "vision-AVA-6-Gbps-attack-capacity"
+    And REST Vision DELETE License Request "vision-AVA-20-Gbps-attack-capacity"
+    And REST Vision DELETE License Request "vision-AVA-60-Gbps-attack-capacity"
+    And REST Vision DELETE License Request "vision-AVA-400-Gbps-attack-capacity"
+    And REST Vision DELETE License Request "vision-AVA-Max-attack-capacity"
+    And REST Vision DELETE License Request "vision-AVA-AppWall"
+    And REST Vision DELETE License Request "vision-demo"
+
+    And REST Vision Install License Request "vision-reporting-module-AMS"
 #
 #
 #
@@ -45,7 +45,7 @@ Feature: US62031 APSolute Vision Analytics - AMS - Attack Capacity License
 #
 #  @SID_4
 #  Scenario:UI Validate First Day of Grace Period
-#    Given UI Login with user "sys_admin" and password "radware"
+#    Given UI Login with user "radware" and password "radware"
 #    Given UI Navigate to "DefensePro Monitoring Dashboard" page via homePage
 #
 #
@@ -143,7 +143,7 @@ Feature: US62031 APSolute Vision Analytics - AMS - Attack Capacity License
 #
 #  @SID_6
 #  Scenario: UI Validate Grace Period of day 29
-#    Given UI Login with user "sys_admin" and password "radware"
+#    Given UI Login with user "radware" and password "radware"
 #    Given UI Navigate to "HOME" page via homePage
 #    Given UI Navigate to "DefensePro Monitoring Dashboard" page via homePage
 #
@@ -241,7 +241,7 @@ Feature: US62031 APSolute Vision Analytics - AMS - Attack Capacity License
 #
 #  @SID_8
 #  Scenario: UI Validate Grace Period of day 2
-#    Given UI Login with user "sys_admin" and password "radware"
+#    Given UI Login with user "radware" and password "radware"
 #    Given UI Navigate to "HOME" page via homePage
 #    Given UI Navigate to "DefensePro Monitoring Dashboard" page via homePage
 #
@@ -340,7 +340,7 @@ Feature: US62031 APSolute Vision Analytics - AMS - Attack Capacity License
 #  @SID_10
 #
 #  Scenario: UI Validate in Grace Period of Last Day
-#    Given UI Login with user "sys_admin" and password "radware"
+#    Given UI Login with user "radware" and password "radware"
 #    Given UI Navigate to "HOME" page via homePage
 #    Given UI Navigate to "DefensePro Monitoring Dashboard" page via homePage
 #
@@ -439,7 +439,7 @@ Feature: US62031 APSolute Vision Analytics - AMS - Attack Capacity License
 #
 #  @SID_12
 #  Scenario: UI Validate Grace Period Expiration
-#    Given UI Login with user "sys_admin" and password "radware"
+#    Given UI Login with user "radware" and password "radware"
 #    Given UI Navigate to "HOME" page via homePage
 #    Then Validate Navigation to "DefensePro Monitoring Dashboard" is disabled
 #    Then Validate Navigation to "DefensePro Behavioral Protections Dashboard" is disabled
@@ -478,10 +478,8 @@ Feature: US62031 APSolute Vision Analytics - AMS - Attack Capacity License
       | valid | false |
 
   @SID_14
-
-
   Scenario: UI Validate License of 6 Gbps When All Devices Are with Capacity of 6 Gbps
-    Given UI Login with user "sys_admin" and password "radware"
+    Given UI Login with user "radware" and password "radware"
     Given UI Navigate to "HOME" page via homePage
     Given UI Navigate to "DefensePro Monitoring Dashboard" page via homePage
 
@@ -531,7 +529,7 @@ Feature: US62031 APSolute Vision Analytics - AMS - Attack Capacity License
     And UI Validate Element Existence By Label "DefensePro Analytics Template" if Exists "true"
     And UI Validate Element Existence By Label "DefensePro Behavioral Protections Template" if Exists "true"
     And UI Validate Element Existence By Label "HTTPS Flood Template" if Exists "true"
-    And UI Validate Element Existence By Label "DefenseFlow Analytics Template" if Exists "true"
+#    And UI Validate Element Existence By Label "DefenseFlow Analytics Template" if Exists "true"
     And UI Validate Element Existence By Label "AppWall Template" if Exists "false"
 
 
@@ -539,14 +537,14 @@ Feature: US62031 APSolute Vision Analytics - AMS - Attack Capacity License
     When UI Navigate to "AMS Forensics" page via homePage
     And UI Click Button "Add"
     Then UI Validate Element EnableDisable status By Label "Select Product" and Value "defensepro" is Enabled "true"
-    Then UI Validate Element EnableDisable status By Label "Select Product" and Value "defenseflow" is Enabled "true"
+#    Then UI Validate Element EnableDisable status By Label "Select Product" and Value "defenseflow" is Enabled "true"
     Then UI Validate Element EnableDisable status By Label "Select Product" and Value "appwall" is Enabled "false"
 
 #    Validate Alerts Navigation
     When UI Navigate to "AMS Alerts" page via homePage
     And UI Click Button "Add New"
     Then UI Validate Element EnableDisable status By Label "Select Product" and Value "defensepro" is Enabled "true"
-    Then UI Validate Element EnableDisable status By Label "Select Product" and Value "defenseflow" is Enabled "true"
+#    Then UI Validate Element EnableDisable status By Label "Select Product" and Value "defenseflow" is Enabled "true"
     Then UI Validate Element EnableDisable status By Label "Select Product" and Value "appwall" is Enabled "false"
     Then UI Logout
 
@@ -569,13 +567,13 @@ Feature: US62031 APSolute Vision Analytics - AMS - Attack Capacity License
       | inGracePeriod                     | false                                    |
       | message                           | null                                     |
 
-    And Validate DefenseFlow is Licensed by Attack Capacity License
+#    And Validate DefenseFlow is Licensed by Attack Capacity License
     And Validate License "AVA_APPWALL_LICENSE" Parameters
       | valid | false |
 
   @SID_16
   Scenario: UI Validate License of 20 Gbps When All Devices Are with Capacity of 6 Gbps
-    Given UI Login with user "sys_admin" and password "radware"
+    Given UI Login with user "radware" and password "radware"
     Given UI Navigate to "HOME" page via homePage
     Given UI Navigate to "DefensePro Monitoring Dashboard" page via homePage
 
@@ -618,7 +616,7 @@ Feature: US62031 APSolute Vision Analytics - AMS - Attack Capacity License
     And UI Validate Element Existence By Label "DefensePro Analytics Template" if Exists "true"
     And UI Validate Element Existence By Label "DefensePro Behavioral Protections Template" if Exists "true"
     And UI Validate Element Existence By Label "HTTPS Flood Template" if Exists "true"
-    And UI Validate Element Existence By Label "DefenseFlow Analytics Template" if Exists "true"
+#    And UI Validate Element Existence By Label "DefenseFlow Analytics Template" if Exists "true"
     And UI Validate Element Existence By Label "AppWall Template" if Exists "false"
 
 
@@ -626,14 +624,14 @@ Feature: US62031 APSolute Vision Analytics - AMS - Attack Capacity License
     When UI Navigate to "AMS Forensics" page via homePage
     And UI Click Button "Add"
     Then UI Validate Element EnableDisable status By Label "Select Product" and Value "defensepro" is Enabled "true"
-    Then UI Validate Element EnableDisable status By Label "Select Product" and Value "defenseflow" is Enabled "true"
+#    Then UI Validate Element EnableDisable status By Label "Select Product" and Value "defenseflow" is Enabled "true"
     Then UI Validate Element EnableDisable status By Label "Select Product" and Value "appwall" is Enabled "false"
 
 #    Validate Alerts Navigation
     When UI Navigate to "AMS Alerts" page via homePage
     And UI Click Button "Add New"
     Then UI Validate Element EnableDisable status By Label "Select Product" and Value "defensepro" is Enabled "true"
-    Then UI Validate Element EnableDisable status By Label "Select Product" and Value "defenseflow" is Enabled "true"
+#    Then UI Validate Element EnableDisable status By Label "Select Product" and Value "defenseflow" is Enabled "true"
     Then UI Validate Element EnableDisable status By Label "Select Product" and Value "appwall" is Enabled "false"
     Then UI Logout
 
@@ -656,13 +654,13 @@ Feature: US62031 APSolute Vision Analytics - AMS - Attack Capacity License
       | inGracePeriod                     | false                       |
       | message                           | Insufficient License        |
 
-    And Validate DefenseFlow is Licensed by Attack Capacity License
+#    And Validate DefenseFlow is Licensed by Attack Capacity License
     And Validate License "AVA_APPWALL_LICENSE" Parameters
       | valid | false |
 
   @SID_18
   Scenario: UI Validate License of 20 Gbps When First Device Capacity is 60 Gbps
-    Given UI Login with user "sys_admin" and password "radware"
+    Given UI Login with user "radware" and password "radware"
     Given UI Navigate to "HOME" page via homePage
     Given UI Navigate to "DefensePro Monitoring Dashboard" page via homePage
 
@@ -714,7 +712,7 @@ Feature: US62031 APSolute Vision Analytics - AMS - Attack Capacity License
     And UI Validate Element Existence By Label "DefensePro Analytics Template" if Exists "true"
     And UI Validate Element Existence By Label "DefensePro Behavioral Protections Template" if Exists "true"
     And UI Validate Element Existence By Label "HTTPS Flood Template" if Exists "true"
-    And UI Validate Element Existence By Label "DefenseFlow Analytics Template" if Exists "true"
+#    And UI Validate Element Existence By Label "DefenseFlow Analytics Template" if Exists "true"
     And UI Validate Element Existence By Label "AppWall Template" if Exists "false"
 
 
@@ -722,14 +720,14 @@ Feature: US62031 APSolute Vision Analytics - AMS - Attack Capacity License
     When UI Navigate to "AMS Forensics" page via homePage
     And UI Click Button "Add"
     Then UI Validate Element EnableDisable status By Label "Select Product" and Value "defensepro" is Enabled "true"
-    Then UI Validate Element EnableDisable status By Label "Select Product" and Value "defenseflow" is Enabled "true"
+#    Then UI Validate Element EnableDisable status By Label "Select Product" and Value "defenseflow" is Enabled "true"
     Then UI Validate Element EnableDisable status By Label "Select Product" and Value "appwall" is Enabled "false"
 
 #    Validate Alerts Navigation
     When UI Navigate to "AMS Alerts" page via homePage
     And UI Click Button "Add New"
     Then UI Validate Element EnableDisable status By Label "Select Product" and Value "defensepro" is Enabled "true"
-    Then UI Validate Element EnableDisable status By Label "Select Product" and Value "defenseflow" is Enabled "true"
+#    Then UI Validate Element EnableDisable status By Label "Select Product" and Value "defenseflow" is Enabled "true"
     Then UI Validate Element EnableDisable status By Label "Select Product" and Value "appwall" is Enabled "false"
     Then UI Logout
 
@@ -753,13 +751,13 @@ Feature: US62031 APSolute Vision Analytics - AMS - Attack Capacity License
       | inGracePeriod                     | false                                    |
       | message                           | null                                     |
 
-    And Validate DefenseFlow is Licensed by Attack Capacity License
+#    And Validate DefenseFlow is Licensed by Attack Capacity License
     And Validate License "AVA_APPWALL_LICENSE" Parameters
       | valid | false |
 
   @SID_20
   Scenario: UI Validate Max License
-    Given UI Login with user "sys_admin" and password "radware"
+    Given UI Login with user "radware" and password "radware"
     Given UI Navigate to "HOME" page via homePage
     Given UI Navigate to "DefensePro Monitoring Dashboard" page via homePage
 
@@ -804,7 +802,7 @@ Feature: US62031 APSolute Vision Analytics - AMS - Attack Capacity License
     And UI Validate Element Existence By Label "DefensePro Analytics Template" if Exists "true"
     And UI Validate Element Existence By Label "DefensePro Behavioral Protections Template" if Exists "true"
     And UI Validate Element Existence By Label "HTTPS Flood Template" if Exists "true"
-    And UI Validate Element Existence By Label "DefenseFlow Analytics Template" if Exists "true"
+#    And UI Validate Element Existence By Label "DefenseFlow Analytics Template" if Exists "true"
     And UI Validate Element Existence By Label "AppWall Template" if Exists "false"
 
 
@@ -812,14 +810,14 @@ Feature: US62031 APSolute Vision Analytics - AMS - Attack Capacity License
     When UI Navigate to "AMS Forensics" page via homePage
     And UI Click Button "Add"
     Then UI Validate Element EnableDisable status By Label "Select Product" and Value "defensepro" is Enabled "true"
-    Then UI Validate Element EnableDisable status By Label "Select Product" and Value "defenseflow" is Enabled "true"
+#    Then UI Validate Element EnableDisable status By Label "Select Product" and Value "defenseflow" is Enabled "true"
     Then UI Validate Element EnableDisable status By Label "Select Product" and Value "appwall" is Enabled "false"
 
 #    Validate Alerts Navigation
     When UI Navigate to "AMS Alerts" page via homePage
     And UI Click Button "Add New"
     Then UI Validate Element EnableDisable status By Label "Select Product" and Value "defensepro" is Enabled "true"
-    Then UI Validate Element EnableDisable status By Label "Select Product" and Value "defenseflow" is Enabled "true"
+#    Then UI Validate Element EnableDisable status By Label "Select Product" and Value "defenseflow" is Enabled "true"
     Then UI Validate Element EnableDisable status By Label "Select Product" and Value "appwall" is Enabled "false"
     Then UI Logout
 
@@ -850,11 +848,11 @@ Feature: US62031 APSolute Vision Analytics - AMS - Attack Capacity License
       | inGracePeriod                     | false                                    |
       | message                           | Insufficient License                     |
 
-    And Validate DefenseFlow is Licensed by Attack Capacity License
+#    And Validate DefenseFlow is Licensed by Attack Capacity License
     And Validate License "AVA_APPWALL_LICENSE" Parameters
       | valid | true |
 
-    Given UI Login with user "sys_admin" and password "radware"
+    Given UI Login with user "radware" and password "radware"
     Given UI Navigate to "HOME" page via homePage
     Given UI Navigate to "DefensePro Monitoring Dashboard" page via homePage
 
@@ -902,7 +900,7 @@ Feature: US62031 APSolute Vision Analytics - AMS - Attack Capacity License
     And UI Validate Element Existence By Label "DefensePro Analytics Template" if Exists "true"
     And UI Validate Element Existence By Label "DefensePro Behavioral Protections Template" if Exists "true"
     And UI Validate Element Existence By Label "HTTPS Flood Template" if Exists "true"
-    And UI Validate Element Existence By Label "DefenseFlow Analytics Template" if Exists "true"
+#    And UI Validate Element Existence By Label "DefenseFlow Analytics Template" if Exists "true"
     And UI Validate Element Existence By Label "AppWall Template" if Exists "true"
 
 
@@ -910,14 +908,14 @@ Feature: US62031 APSolute Vision Analytics - AMS - Attack Capacity License
     When UI Navigate to "AMS Forensics" page via homePage
     And UI Click Button "Add"
     Then UI Validate Element EnableDisable status By Label "Select Product" and Value "defensepro" is Enabled "true"
-    Then UI Validate Element EnableDisable status By Label "Select Product" and Value "defenseflow" is Enabled "true"
+#    Then UI Validate Element EnableDisable status By Label "Select Product" and Value "defenseflow" is Enabled "true"
     Then UI Validate Element EnableDisable status By Label "Select Product" and Value "appwall" is Enabled "true"
 
 #    Validate Alerts Navigation
     When UI Navigate to "AMS Alerts" page via homePage
     And UI Click Button "Add New"
     Then UI Validate Element EnableDisable status By Label "Select Product" and Value "defensepro" is Enabled "true"
-    Then UI Validate Element EnableDisable status By Label "Select Product" and Value "defenseflow" is Enabled "true"
+#    Then UI Validate Element EnableDisable status By Label "Select Product" and Value "defenseflow" is Enabled "true"
     Then UI Validate Element EnableDisable status By Label "Select Product" and Value "appwall" is Enabled "true"
     Then REST Vision DELETE License Request "vision-demo"
     Then UI Logout
