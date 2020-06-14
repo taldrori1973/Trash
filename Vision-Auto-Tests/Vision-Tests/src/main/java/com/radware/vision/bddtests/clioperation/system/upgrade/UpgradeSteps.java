@@ -107,10 +107,8 @@ public class UpgradeSteps extends BddCliTestBase {
      */
     @Then("^Upgrade to non-supported version$")
     public void upgradeToAnOldVersion() {
-        VMOperationsSteps vmOperationsSteps;
         try {
-            vmOperationsSteps = new VMOperationsSteps();
-            String version = vmOperationsSteps.readVisionVersionFromPomFile();
+            String version = VMOperationsSteps.readVisionVersionFromPomFile();
             String build = System.getenv("BUILD");//get build from portal
             if (build == null || build.equals("") || build.equals("0")) build = "";//Latest Build
 
@@ -185,10 +183,8 @@ public class UpgradeSteps extends BddCliTestBase {
 
     @Given("^Upgrade to future version$")
     public void upgradeToFutureVersion() {
-        VMOperationsSteps vmOperationsSteps;
         try {
-            vmOperationsSteps = new VMOperationsSteps();
-            String version = vmOperationsSteps.readVisionVersionFromPomFile();
+            String version = VMOperationsSteps.readVisionVersionFromPomFile();
             String build = "";
             build = BaseTestUtils.getRuntimeProperty("BUILD", build);
             if (build == null || build.equals("") || build.equals("0")) build = "";//Latest Build

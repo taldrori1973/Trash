@@ -16,11 +16,8 @@ import com.radware.vision.bddtests.defenseFlow.defenseFlowDevice;
 import com.radware.vision.bddtests.rest.BasicRestOperationsSteps;
 import com.radware.vision.enums.VisionDeployType;
 import com.radware.vision.infra.testhandlers.cli.CliOperations;
-import com.radware.vision.utils.RegexUtils;
 import com.radware.vision.vision_handlers.NewVmHandler;
-import com.radware.vision.vision_handlers.system.VisionServer;
 import com.radware.vision.vision_handlers.system.upgrade.visionserver.VisionDeployment;
-import com.radware.vision.vision_project_cli.RootServerCli;
 import com.radware.vision.vision_project_cli.VisionCli;
 import com.radware.vision.vision_project_cli.VisionRadwareFirstTime;
 import cucumber.api.DataTable;
@@ -35,12 +32,15 @@ import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import static com.radware.vision.test_utils.DeployOva.getLastSuccessfulBuildNumberFromArtifactory;
-import static com.radware.vision.vision_tests.CliTests.visionVersion;
 
 public class VMOperationsSteps extends BddUITestBase {
 
     public VMOperationsSteps() throws Exception {
+    }
+
+    @When("Upgrade Vision According To SUT Snapshot(?: to Version \"([^\"]*)\")?(?: Build \"([^\"]*)\")?$")
+    public void upgradeAccordingToSnapshot(String upgradeToVersion, String build) throws Exception {
+        VmSnapShotOperations.newInstance().upgradeAccordingToSnapshot(upgradeToVersion, build);
     }
 
     /**
@@ -48,17 +48,21 @@ public class VMOperationsSteps extends BddUITestBase {
      * @param snapshotName - VM snapshot
      * @param withMemory   - option take snapshot with memory
      */
-    @When("^Take snapshot from Vision number (\\d+) with name \"(.*)\"( with memory)?$")
-    public void takeSnapshot(int vmNumber, String snapshotName, String withMemory) {
-        try {
-            boolean withMem = withMemory != null;
-            VisionVMs visionVMs = restTestBase.getVisionVMs();
-            String vmName = visionVMs.getVMNameByIndex(vmNumber);
-            EsxiInfo esxiInfo = new EsxiInfo(visionVMs.getvCenterURL(), visionVMs.getUserName(), visionVMs.getPassword(), visionVMs.getResourcePool());
-            VMSnapshotOperations.newInstance().doSnapshot(new VmNameTargetVm(esxiInfo, vmName), snapshotName, withMem);
-        } catch (Exception e) {
-            BaseTestUtils.report("Error creating snapshot: " + parseExceptionBody(e), Reporter.FAIL);
-        }
+    @When("^Take VMWare snapshot from Vision number (\\d+) with name \"(.*)\"( with memory)?$")
+    public void takeSnapshot(int vmNumber, String snapshotName, String withMemory) throws Exception {
+        VmSnapShotOperations.newInstance().takeSnapshotVMWare(vmNumber, snapshotName, withMemory);
+    }
+
+    @When("^Rename VMWare Snapshot \"([^\"]*)\" to \"([^\"]*)\"(?: with description \"([^\"]*)\")?$")
+    public void renameSnapshot(String snapshotName, String newSnapshotName, String descriptionOfSnapshot) throws Exception {
+        if (descriptionOfSnapshot == null)
+            descriptionOfSnapshot = "Automation";
+        VmSnapShotOperations.newInstance().renameSnapshotVMWare(snapshotName, newSnapshotName, descriptionOfSnapshot);
+    }
+
+    @When("^Delete VMWare Snapshot \"([^\"]*)\"$")
+    public void deleteSnapshot(String snapshotName) throws Exception {
+        VmSnapShotOperations.newInstance().deleteSnapshotVMWare(snapshotName);
     }
 
     /**
@@ -66,34 +70,7 @@ public class VMOperationsSteps extends BddUITestBase {
      */
     @When("^Revert Vision number (\\d+) to snapshot$")
     public void revertSnapshot(int vmNumber) throws Exception {
-        try {
-            String snapshot = getVisionSetupAttributeFromSUT("snapshot");
-            if (snapshot == null || snapshot.equals("")) {
-                BaseTestUtils.report("Could not find snapshot in SUT file performing internal upgrade", Reporter.PASS_NOR_FAIL);
-                return;
-            }
-            VisionVMs visionVMs = restTestBase.getVisionVMs();
-            String vmName = visionVMs.getVMNameByIndex(vmNumber);
-            EsxiInfo esxiInfo = new EsxiInfo(visionVMs.getvCenterURL(), visionVMs.getUserName(), visionVMs.getPassword(), visionVMs.getResourcePool());
-            BaseTestUtils.report("Reverting to snapshot " + snapshot, Reporter.PASS_NOR_FAIL);
-            VMSnapshotOperations.newInstance().switchToSnapshot(new VmNameTargetVm(esxiInfo, vmName), snapshot, true);
-            BaseTestUtils.report("Revert done", Reporter.PASS_NOR_FAIL);
-            Thread.sleep(6 * 60 * 1000);
-            CliOperations.runCommand(getRestTestBase().getRootServerCli(), "/usr/sbin/ntpdate -u $(/bin/grep ^server  /etc/ntp.conf | awk '{print $2}')", 2 * 60 * 1000);
-            CliOperations.runCommand(getRestTestBase().getRootServerCli(), "yes|restore_radware_user_password", 60 * 1000);
-            if (VisionServer.waitForVisionServerServicesToStartHA(restTestBase.getRadwareServerCli(), 45 * 60 * 1000))
-                BaseTestUtils.report("All services up", Reporter.PASS);
-            else {
-                BaseTestUtils.report("Not all services up.", Reporter.FAIL);
-            }
-        } catch (Exception e) {
-            BaseTestUtils.report("Error reverting snapshot: " + parseExceptionBody(e), Reporter.FAIL);
-        } finally {
-            restTestBase.getRadwareServerCli().setConnectOnInit(true);
-            restTestBase.getRadwareServerCli().init();
-            restTestBase.getRootServerCli().setConnectOnInit(true);
-            restTestBase.getRootServerCli().init();
-        }
+        VmSnapShotOperations.newInstance().revertVMWareSnapshot(vmNumber);
     }
 
     @When("^Revert DefenseFlow to snapshot$")
@@ -111,19 +88,6 @@ public class VMOperationsSteps extends BddUITestBase {
     }
 
 
-    //    private boolean waitForServerConnection(long timeout, CliConnectionImpl connection) throws InterruptedException {
-//        long startTime = System.currentTimeMillis();
-//        while (System.currentTimeMillis() - startTime < timeout) {
-//            try {
-//                connection.connect();
-//                return true;
-//            } catch (Exception e) {
-//                Thread.sleep(10000);
-//                continue;
-//            }
-//        }
-//        return false;
-//    }
     public void deleteKvm() throws Exception {
         NewVmHandler handler = new NewVmHandler();
         String vmName = handler.visionRadwareFirstTime.getVmName() + handler.visionRadwareFirstTime.getIp();
@@ -131,40 +95,14 @@ public class VMOperationsSteps extends BddUITestBase {
     }
 
     public static void revertKvmSnapshot(String snapshotName, VisionRadwareFirstTime visionRadwareFirstTime) throws Exception {
-        String vmName = visionRadwareFirstTime.getVmName() + visionRadwareFirstTime.getIp();
-        CliOperations.runCommand(visionRadwareFirstTime, "virsh list --all");
-        boolean isContained = RegexUtils.isStringContainsThePattern(vmName, CliOperations.lastOutput);
-        if (!isContained) {
-            throw new Exception("the " + vmName + "does not exist");
-        }
-        int DEFAULT_KVM_CLI_TIMEOUT = 3000;
-        CliOperations.runCommand(visionRadwareFirstTime, "virsh start " + vmName, DEFAULT_KVM_CLI_TIMEOUT);
-        Thread.sleep(60 * 1000);
-        BaseTestUtils.report("Reverting to snapshot.", Reporter.PASS_NOR_FAIL);
-        CliOperations.runCommand(visionRadwareFirstTime, "virsh snapshot-revert --domain " + vmName + " --snapshotname " + snapshotName + " --force", 15 * 60 * 1000);
-        BaseTestUtils.report("Starting server after revert.", Reporter.PASS_NOR_FAIL);
-        CliOperations.runCommand(visionRadwareFirstTime, "virsh start " + vmName, DEFAULT_KVM_CLI_TIMEOUT);
-        String error = ".*Domain not found.*";
-        isContained = RegexUtils.isStringContainsThePattern(error, CliOperations.lastOutput);
-        if (isContained) {
-            String domain = "vision_auto_" + visionRadwareFirstTime.getIp();
-            throw new Exception("error: Domain not found: no domain with matching name '" + domain + "' ");
-        }
-        CliOperations.runCommand(visionRadwareFirstTime, "virsh domstate " + vmName, DEFAULT_KVM_CLI_TIMEOUT);
-        isContained = RegexUtils.isStringContainsThePattern("running", CliOperations.lastRow);
-        if (!isContained)
-            BaseTestUtils.report("Server is not running. status is: " + CliOperations.lastOutput, Reporter.FAIL);
-
-        Thread.sleep(6 * 60 * 1000);
-        CliOperations.runCommand(getRestTestBase().getRootServerCli(), "/usr/sbin/ntpdate -u $(/bin/grep ^server  /etc/ntp.conf | awk '{print $2}')", 2 * 60 * 1000);
-        CliOperations.runCommand(getRestTestBase().getRootServerCli(), "yes|restore_radware_user_password", 60 * 1000);
-        if (VisionServer.waitForVisionServerServicesToStartHA(restTestBase.getRadwareServerCli(), 45 * 60 * 1000))
-            BaseTestUtils.report("All services up", Reporter.PASS);
-        else {
-            BaseTestUtils.report("Not all services up.", Reporter.FAIL);
-        }
-
+        VmSnapShotOperations.newInstance().revertKvmSnapshot(snapshotName, visionRadwareFirstTime);
     }
+
+    @When("^Take KVM Snapshot \"(.*)\"$")
+    public void createKVmSnapshot(String snapshotName) throws Exception {
+        VmSnapShotOperations.newInstance().takeKVmSnapshot(snapshotName);
+    }
+
 
     @Then("^Prerequisite for Setup(\\s+force)?$")
     public void prerequisiteForSetup(String force) {
@@ -326,7 +264,7 @@ public class VMOperationsSteps extends BddUITestBase {
         updateVersionVar();
     }
 
-    private String getVisionSetupAttributeFromSUT(String attribute) {
+    public static String getVisionSetupAttributeFromSUT(String attribute) {
         VisionCli visionCli = null;
         try {
             visionCli = (VisionCli) SystemManagerImpl.getInstance().getSystemObject("visionCli");
@@ -351,11 +289,9 @@ public class VMOperationsSteps extends BddUITestBase {
         return null;
     }
 
-    public String readVisionVersionFromPomFile() {
+    public static String readVisionVersionFromPomFile() {
         Properties properties = new Properties();
-
-        InputStream inputStream = getClass().getClassLoader().getResourceAsStream("vision-tests-pom.properties");
-
+        InputStream inputStream = VMOperationsSteps.class.getClassLoader().getResourceAsStream("vision-tests-pom.properties");
         if (inputStream != null) {
             try {
                 properties.load(inputStream);
@@ -363,7 +299,6 @@ public class VMOperationsSteps extends BddUITestBase {
                 e.printStackTrace();
             }
         }
-
         return properties.getProperty("vision-version");
     }
 
@@ -371,13 +306,12 @@ public class VMOperationsSteps extends BddUITestBase {
         boolean isSetupNeeded;
         String version = readVisionVersionFromPomFile();
 //        String versionPrefix = version.substring(0, 4);//example : 4.10.00 --> 4.10
-        String build = BaseTestUtils.getRuntimeProperty("BUILD", null);;//get build from portal
+        String build = BaseTestUtils.getRuntimeProperty("BUILD", null); //get build from portal
         restTestBase.getRootServerCli().getVersionNumebr();
-        if (build == null || build.equals("") || build.equals("0"))
-            {
-                BaseTestUtils.report("No build was supplied. Going for latest", Reporter.PASS);
-                build = new VisionDeployment(VisionDeployType.ANY, version, build).getBuild();//Latest Build
-            }
+        if (build == null || build.equals("") || build.equals("0")) {
+            BaseTestUtils.report("No build was supplied. Going for latest", Reporter.PASS);
+            build = new VisionDeployment(VisionDeployType.ANY, version, build).getBuild();//Latest Build
+        }
         String currentBuild = FeatureRunner.getBuild();
         String currentVersion = FeatureRunner.getVersion();
 
