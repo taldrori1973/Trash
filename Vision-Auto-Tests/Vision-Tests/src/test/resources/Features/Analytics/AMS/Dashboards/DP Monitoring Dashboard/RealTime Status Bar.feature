@@ -17,37 +17,37 @@ Feature: VRM Real Time Status Bar Devices status
     Then UI Text of "Device Status Down Summary" equal to "0"
     Then UI Navigate to "VISION SETTINGS" page via homePage
 
-  @SID_2
-  Scenario: Devices status filter by device
-  # Filter by device does not affect this widget
-    And UI Navigate to "DefensePro Monitoring Dashboard" page via homePage
-    Then UI Text of "Device Selection" equal to "DEVICES 3/3"
-    Then UI Do Operation "Select" item "Device Selection"
-    Then UI VRM Select device from dashboard and Save Filter
-      | index | ports | policies |
-      | 10    |       |          |
-    Then Sleep "2"
-#   Validate correct number of DPs
-    Then UI Text of "Device Selection" equal to "DEVICES 1/3"
-    Then UI Text of "Device Status Up Summary" equal to "1"
-    Then UI Text of "Device Status Maintenance Summary" equal to "0"
-    Then UI Text of "Device Status Down Summary" equal to "0"
-    Then UI Logout
-
-  @SID_3
-  Scenario: Devices status filter policy
-    Given UI Login with user "sys_admin" and password "radware"
-    And UI Navigate to "DefensePro Monitoring Dashboard" page via homePage
-    Then UI Do Operation "Select" item "Device Selection"
-    Then UI VRM Select device from dashboard and Save Filter
-      | index | ports | policies |
-      | 10    |       | BDOS     |
-    Then Sleep "4"
-    Then UI Text of "Device Selection" equal to "DEVICES 1/3"
-    Then UI Text of "Device Status Up Summary" equal to "1"
-    Then UI Text of "Device Status Maintenance Summary" equal to "0"
-    Then UI Text of "Device Status Down Summary" equal to "0"
-    Then UI Navigate to "VISION SETTINGS" page via homePage
+#  @SID_2
+#  Scenario: Devices status filter by device
+#  # Filter by device does not affect this widget
+#    And UI Navigate to "DefensePro Monitoring Dashboard" page via homePage
+#    Then UI Text of "Device Selection" equal to "DEVICES 3/3"
+#    Then UI Do Operation "Select" item "Device Selection"
+#    Then UI VRM Select device from dashboard and Save Filter
+#      | index | ports | policies |
+#      | 10    |       |          |
+#    Then Sleep "2"
+##   Validate correct number of DPs
+#    Then UI Text of "Device Selection" equal to "DEVICES 1/3"
+#    Then UI Text of "Device Status Up Summary" equal to "1"
+#    Then UI Text of "Device Status Maintenance Summary" equal to "0"
+#    Then UI Text of "Device Status Down Summary" equal to "0"
+#    Then UI Logout
+#
+#  @SID_3
+#  Scenario: Devices status filter policy
+#    Given UI Login with user "sys_admin" and password "radware"
+#    And UI Navigate to "DefensePro Monitoring Dashboard" page via homePage
+#    Then UI Do Operation "Select" item "Device Selection"
+#    Then UI VRM Select device from dashboard and Save Filter
+#      | index | ports | policies |
+#      | 10    |       | BDOS     |
+#    Then Sleep "4"
+#    Then UI Text of "Device Selection" equal to "DEVICES 1/3"
+#    Then UI Text of "Device Status Up Summary" equal to "1"
+#    Then UI Text of "Device Status Maintenance Summary" equal to "0"
+#    Then UI Text of "Device Status Down Summary" equal to "0"
+#    Then UI Navigate to "VISION SETTINGS" page via homePage
 
 #  Scenario: TC100762 Devices status disconnected DP by add device
 #    Then UI Add "DefensePro" with index 31 on "FakeDPs_Old_Version_site" site nowait
