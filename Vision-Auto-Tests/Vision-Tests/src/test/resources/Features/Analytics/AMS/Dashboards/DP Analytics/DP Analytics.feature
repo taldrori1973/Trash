@@ -1,7 +1,6 @@
 @DP_Analytics @TC105989
 
 Feature: DP ANALYTICS
-
   @SID_1
   Scenario: Clean system attacks,database and logs
     * REST Send simple body request from File "Vision/SystemManagement.json" with label "Set Authentication Mode"
@@ -12,7 +11,6 @@ Feature: DP ANALYTICS
     * Sleep "15"
     * REST Delete ES index "dp-*"
 
-
   @SID_2
   Scenario: Run DP simulator PCAPs for Attacks by Protection Policy  widget
     * CLI simulate 1 attacks of type "VRM_attacks" on SetId "DefensePro_Set_1"
@@ -22,7 +20,6 @@ Feature: DP ANALYTICS
     * CLI simulate 1 attacks of type "VRM_attacks" on SetId "DefensePro_Set_5" and wait 240 seconds with attack ID
     # Wait to avoid ES issue when running curl one after another
     And Sleep "5"
-
   @SID_3
   Scenario: Login and add widgets
     When UI Login with user "radware" and password "radware"
@@ -625,7 +622,6 @@ Feature: DP ANALYTICS
     Then UI Validate Text field by id "17f01010-4023-4157-87dd-8c5792577149" CONTAINS "No Data Available"
 
 
-
   @SID_45
   Scenario: NEGATIVE - Validate Chart data doesn't exist for policy with traffic and port with no traffic
     When UI Do Operation "Select" item "Device Selection"
@@ -931,7 +927,7 @@ Feature: DP ANALYTICS
       | BWM Limit Alert                | 9     | Less than 1 min |
       | DNS flood IPv4 DNS-A           | 9     | Less than 1 min |
       | DOSS-Anomaly-TCP-SYN-RST       | 6     | Less than 1 min |
-      | network flood IPv4 TCP-SYN-ACK | 5     | Less than 1 min |
+      | network flood IPv4 TCP-SYN-ACK | 6     | Less than 1 min |
       | Brute Force Web                | 3     | Less than 1 min |
       | HTTP Page Flood Attack         | 3     | Less than 1 min |
       | network flood IPv6 UDP-FRAG    | 6     | Less than 1 min |
@@ -1003,7 +999,6 @@ Feature: DP ANALYTICS
       | DOSS-Anomaly-TCP-SYN-RST       | 2     | Less than 1 min |
       | network flood IPv4 TCP-SYN-ACK | 1     | Less than 1 min |
     Then UI Total "Top Attacks by Duration-1" legends equal to 1
-
 
 
   @SID_71
