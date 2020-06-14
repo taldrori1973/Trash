@@ -80,18 +80,14 @@ public class LicenseSteps extends BddRestTestBase {
     @Then("^REST Vision Install License Request vision-activation with expired date$")
     public void expireActivationLicense() throws Exception {
         String pureActivationLicense = "vision-activation"; // activation license without expired date
-        LicenseManagement pureActivationLicenseManagement = new LicenseManagement(pureActivationLicense, null, null);
         LicenseManagement activationLicenseWithDateEntity = new LicenseManagement(pureActivationLicense, LocalDate.now().minusMonths(4), LocalDate.now().minusDays(1));
         try {
             activationLicenseWithDateEntity.install();
         } catch (Exception e) {
-            pureActivationLicenseManagement.install();// here we return the license without date
             BaseTestUtils.report("The user can't login with expired activation license", Reporter.PASS);
             return;
         }
-        pureActivationLicenseManagement.install();// here we return the license without date
         BaseTestUtils.report("The user can login with expired activation license", Reporter.FAIL);
-
     }
 
 }
