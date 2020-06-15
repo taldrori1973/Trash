@@ -10,8 +10,9 @@ Feature: Demo
 #    Then MYSQL Validate Single Value by SELECT "license_str" Column FROM "VISION_NG" Schema and "vision_license" Table WHERE "description='APSolute Vision Device Performance Monitor'" EQUALS "vision-perfreporter-16May2020-22May2020-JSDuGFSe"
 #    Then MYSQL Validate Single Value by SELECT "license_str" Column FROM "VISION_NG" Schema and "vision_license" Table WHERE "description='APSolute Vision Device Performance Monitor'" MatchRegex ".*-perfreporter-16May2020-21May2020-JSDuGFSe"
 #    Then MYSQL Validate Single Value by SELECT "license_str" Column FROM "VISION_NG" Schema and "vision_license" Table WHERE "description='APSolute Vision Device Performance Monitor'" MatchRegex "-perfreporter-.*"
-    Then MYSQL Validate Single Value by SELECT "is_expired" Column FROM "VISION_NG" Schema and "vision_license" Table WHERE "description='APSolute Vision Device Performance Monitor'" EQUALS "false"
-    Then MYSQL UPDATE "vision_license" Table in "VISION_NG" Schema SET "columnName" Column Value as "value" Where "con"
+#    Then MYSQL Validate Single Value by SELECT "is_expired" Column FROM "VISION_NG" Schema and "vision_license" Table WHERE "description='APSolute Vision Device Performance Monitor'" EQUALS "false"
+    Then MYSQL UPDATE "vision_license" Table in "VISION_NG" Schema SET "is_expired" Column Value as "true" Where "description='APSolute Vision Device Performance Monitor'"
+#    Then MYSQL UPDATE "vision_license" Table in "VISION_NG" Schema SET "is_expired" Column Value as "false" Where "description='APSolute Vision Device Performance Monitor'" And Validate 1 Records Was Updated
   Scenario: Licenses
 #    Then REST Vision Install License Request "vision-reporting-module-ADC"
 #

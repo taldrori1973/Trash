@@ -8,6 +8,7 @@ import com.radware.vision.automation.DatabaseStepHandlers.mariaDB.GenericCRUD;
 import com.radware.vision.automation.DatabaseStepHandlers.mariaDB.client.VisionDBSchema;
 import com.radware.vision.base.WebUITestBase;
 import cucumber.api.java.en.Then;
+import org.apache.commons.lang3.math.NumberUtils;
 
 /**
  * Created by MohamadI - Muhamad Igbaria
@@ -38,7 +39,8 @@ public class MySQLSteps extends WebUITestBase {
     @Then("^MYSQL UPDATE \"([^\"]*)\" Table in \"([^\"]*)\" Schema SET \"([^\"]*)\" Column Value as \"([^\"]*)\" Where \"([^\"]*)\"(?: And Validate (\\d+) Records Was Updated)?$")
     public void mysqlUPDATETableInSchemaSETColumnValueAsWhere(String tableName, VisionDBSchema schema, String columnName, String value, String whereCondition, Integer expectedRowsToUpdate) {
         try {
-            int rowsUpdated = GenericCRUD.updateSingleValue(schema, tableName, whereCondition, columnName, value);
+            Object valueToSet = valueOf(value);
+            int rowsUpdated = GenericCRUD.updateSingleValue(schema, tableName, whereCondition, columnName, valueToSet);
             if (expectedRowsToUpdate != null) {
                 if (rowsUpdated != expectedRowsToUpdate)
                     BaseTestUtils.report(String.format("The Expected number of records to be updated is %d but actual records updated is %d", expectedRowsToUpdate, rowsUpdated), Reporter.FAIL);
@@ -46,9 +48,15 @@ public class MySQLSteps extends WebUITestBase {
                 BaseTestUtils.report("0 records was updated", Reporter.FAIL);
 
         } catch (Exception e) {
-            e.printStackTrace();
+            BaseTestUtils.report(e.getMessage(), Reporter.FAIL);
         }
-
-
     }
+
+    public static Object valueOf(String value) {
+        if (value.equalsIgnoreCase("null")) return null;
+        if (value.equalsIgnoreCase("true") || value.equalsIgnoreCase("false")) return Boolean.valueOf(value);
+        if (NumberUtils.isNumber(value)) return NumberUtils.createNumber(value);
+        return value;
+    }
+
 }
