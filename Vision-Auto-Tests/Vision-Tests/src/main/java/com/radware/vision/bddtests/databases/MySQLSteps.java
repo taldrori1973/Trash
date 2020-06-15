@@ -5,12 +5,13 @@ import com.radware.automation.tools.basetest.Reporter;
 import com.radware.vision.automation.AutoUtils.Operators.Comparator;
 import com.radware.vision.automation.AutoUtils.Operators.OperatorsEnum;
 import com.radware.vision.automation.DatabaseStepHandlers.mariaDB.GenericCRUD;
+import com.radware.vision.automation.DatabaseStepHandlers.mariaDB.client.JDBCConnectionException;
 import com.radware.vision.automation.DatabaseStepHandlers.mariaDB.client.VisionDBSchema;
 import com.radware.vision.base.WebUITestBase;
-import cucumber.api.PendingException;
 import cucumber.api.java.en.Then;
 import org.apache.commons.lang3.math.NumberUtils;
 
+import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -83,8 +84,18 @@ public class MySQLSteps extends WebUITestBase {
     }
 
     @Then("^MYSQL DELETE FROM \"([^\"]*)\" Table in \"([^\"]*)\" Schema WHERE \"([^\"]*)\" And Validate (\\d+) Records Was Updated$")
-    public void mysqlDELETEFROMTableInSchemaWHEREAndValidateRecordsWasUpdated(String tableName, VisionDBSchema schema, String whereCondition, Integer expectedRowsToUpdate)  {
-        // Write code here that turns the phrase above into concrete actions
-        throw new PendingException();
+    public void mysqlDELETEFROMTableInSchemaWHEREAndValidateRecordsWasUpdated(String tableName, VisionDBSchema schema, String whereCondition, Integer expectedRowsToUpdate) {
+        try {
+            int rowsUpdated = GenericCRUD.deleteRecords(schema, tableName, whereCondition);
+            if (expectedRowsToUpdate != null) {
+                if (rowsUpdated != expectedRowsToUpdate)
+                    BaseTestUtils.report(String.format("The Expected number of records to be deleted is %d but actual records updated is %d", expectedRowsToUpdate, rowsUpdated), Reporter.FAIL);
+            } else if (rowsUpdated == 0)
+                BaseTestUtils.report("0 records was updated", Reporter.FAIL);
+
+
+        } catch (JDBCConnectionException | SQLException e) {
+            BaseTestUtils.report(e.getMessage(), Reporter.FAIL);
+        }
     }
 }
