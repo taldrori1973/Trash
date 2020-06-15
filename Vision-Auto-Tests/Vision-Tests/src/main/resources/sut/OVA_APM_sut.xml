@@ -42,7 +42,7 @@
                 <!--<setupMode>Fresh Install| Upgrade</setupMode>-->
                 <setupMode>Fresh Install</setupMode>
                 <isAPM>true</isAPM>
-                <snapshot>4.20-GA</snapshot>
+                <snapshot></snapshot>
                 <!--<vmPrefix>This field is relevant for fresh installed VM</vmPrefix>-->
                 <vmPrefix>VisionAutoAPM</vmPrefix>
             </visionSetup>

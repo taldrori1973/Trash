@@ -41,7 +41,7 @@
                 <class>com.radware.vision.vision_project_cli.VisionSetup</class>
                 <!--<setupMode>Fresh Install| Upgrade</setupMode>-->
                 <setupMode>KVM_Upgrade</setupMode>
-                <snapshot>4.50-GA</snapshot>
+                <snapshot>Current-1</snapshot>
                 <!--<vmPrefix>This field is relevant for fresh installed VM</vmPrefix>-->
                 <vmPrefix>VisionAuto-VRM-Upgrade</vmPrefix>
             </visionSetup>
