@@ -176,7 +176,7 @@ public class VmSnapShotOperations extends BddUITestBase {
     public void upgradeAccordingToSnapshot(String upgradeToVersion, String build) throws Exception {
         UpgradeSteps upgradeSteps = new UpgradeSteps();
         if (upgradeToVersion == null || upgradeToVersion.isEmpty() || upgradeToVersion.equals(" "))
-            upgradeToVersion = calculateVersionAccordingToSnapshot(snapshotName);
+            upgradeToVersion = calculateVersionAccordingToSnapshot();
         if (build == null || build.isEmpty() || build.equals(" "))
             build = ""; // latest build
         assert setupMode != null;
@@ -203,7 +203,7 @@ public class VmSnapShotOperations extends BddUITestBase {
 
     }
 
-    private String calculateVersionAccordingToSnapshot(String snapshotName) throws Exception {
+    private String calculateVersionAccordingToSnapshot() throws Exception {
         if (setupMode.equalsIgnoreCase("upgrade") && (snapshotName == null || snapshotName.isEmpty() || snapshotName.equals(" ")))
             snapshotName = getSnapshotNameOfEnumFromListForVMWare();
         if (setupMode.equalsIgnoreCase("kvm_upgrade") && (snapshotName == null || snapshotName.isEmpty() || snapshotName.equals(" ")))
