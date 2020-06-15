@@ -32,7 +32,7 @@
                 <class>com.radware.vision.vision_project_cli.VisionSetup</class>
                 <!--<setupMode>Fresh Install| Upgrade</setupMode>-->
                 <setupMode>Upgrade</setupMode>
-                <snapshot>4.10-GA</snapshot>
+                <snapshot></snapshot>
                 <!--<vmPrefix>This field is relevant for fresh installed VM</vmPrefix>-->
                 <vmPrefix>Eyal-VM</vmPrefix>
             </visionSetup>

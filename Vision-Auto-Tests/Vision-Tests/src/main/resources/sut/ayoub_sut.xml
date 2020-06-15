@@ -40,7 +40,7 @@
                 <class>com.radware.vision.vision_project_cli.VisionSetup</class>
                 <setupMode>Upgrade</setupMode>
                 <!-- <setupMode>Fresh Install</setupMode>-->
-                <snapshot>3.110-GA</snapshot>
+                <snapshot></snapshot>
                 <vmPrefix>VisionAuto-VRM-Upgrade-172.17.163.3</vmPrefix>
             </visionSetup>
         </visionServer>

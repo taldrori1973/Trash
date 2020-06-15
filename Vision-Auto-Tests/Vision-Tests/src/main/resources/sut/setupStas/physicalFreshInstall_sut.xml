@@ -55,7 +55,7 @@
                 <class>com.radware.vision.vision_project_cli.VisionSetup</class>
                 <setupMode>physical</setupMode>
                 <!--<setupMode>Fresh Install</setupMode>-->
-                <snapshot>3.110-GA</snapshot>
+                <snapshot></snapshot>
                 <vmPrefix>VisionAuto-VRM-Upgrade-10.205.191.42</vmPrefix>
             </visionSetup>
         </visionServer>

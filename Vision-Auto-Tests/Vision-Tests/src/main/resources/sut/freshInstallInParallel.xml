@@ -41,7 +41,7 @@
                 <class>com.radware.vision.vision_project_cli.VisionSetup</class>
                 <!--<setupMode>Fresh Install| Upgrade</setupMode>-->
                 <setupMode>Fresh Install_Inparallel</setupMode>
-                <snapshot>4.20-GA</snapshot>
+                <snapshot></snapshot>
                 <!--<vmPrefix>This field is relevant for fresh installed VM</vmPrefix>-->
                 <vmPrefix>freshInstallTest</vmPrefix>
                 <vmPrefix2>freshInstallTest2</vmPrefix2>
@@ -112,7 +112,7 @@
                 <class>com.radware.vision.vision_project_cli.VisionSetup</class>
                 <!--<setupMode>Fresh Install| Upgrade</setupMode>-->
                 <setupMode>Fresh Install</setupMode>
-                <snapshot>4.20-GA</snapshot>
+                <snapshot></snapshot>
                 <!--<vmPrefix>This field is relevant for fresh installed VM</vmPrefix>-->
                 <vmPrefix>freshInstallTest</vmPrefix>
                 <vmPrefix2>freshInstallTest2</vmPrefix2>
