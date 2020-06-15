@@ -35,9 +35,19 @@ public class MySQLSteps extends WebUITestBase {
     }
 
 
-    @Then("^MYSQL UPDATE \"([^\"]*)\" Table in \"([^\"]*)\" Schema SET \"([^\"]*)\" Column Value as \"([^\"]*)\" Where \"([^\"]*)\"$")
-    public void mysqlUPDATETableInSchemaSETColumnValueAsWhere(String tableName, VisionDBSchema schema, String columnName, String value, String whereCondition){
+    @Then("^MYSQL UPDATE \"([^\"]*)\" Table in \"([^\"]*)\" Schema SET \"([^\"]*)\" Column Value as \"([^\"]*)\" Where \"([^\"]*)\"(?: And Validate (\\d+) Records Was Updated)?$")
+    public void mysqlUPDATETableInSchemaSETColumnValueAsWhere(String tableName, VisionDBSchema schema, String columnName, String value, String whereCondition, Integer expectedRowsToUpdate) {
+        try {
+            int rowsUpdated = GenericCRUD.updateSingleValue(schema, tableName, whereCondition, columnName, value);
+            if (expectedRowsToUpdate != null) {
+                if (rowsUpdated != expectedRowsToUpdate)
+                    BaseTestUtils.report(String.format("The Expected number of records to be updated is %d but actual records updated is %d", expectedRowsToUpdate, rowsUpdated), Reporter.FAIL);
+            } else if (rowsUpdated == 0)
+                BaseTestUtils.report("0 records was updated", Reporter.FAIL);
 
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
 
 
     }
