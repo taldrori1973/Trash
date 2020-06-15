@@ -10,6 +10,8 @@ import com.radware.vision.base.WebUITestBase;
 import cucumber.api.java.en.Then;
 import org.apache.commons.lang3.math.NumberUtils;
 
+import java.util.Map;
+
 /**
  * Created by MohamadI - Muhamad Igbaria
  * Date: 6/10/2020
@@ -60,8 +62,7 @@ public class MySQLSteps extends WebUITestBase {
     }
 
     @Then("^MYSQL UPDATE \"([^\"]*)\" Table in \"([^\"]*)\" Schema SET The Following Columns Values Where \"([^\"]*)\"(?: And Validate (\\d+) Records Was Updated)?$")
-    public void mysqlUPDATETableInSchemaSETTheFollowingColumnsValuesWhereAndValidateRecordsWasUpdated(String tableName, VisionDBSchema schema, String whereCondition, Integer expectedRowsToUpdate) {
-
+    public void mysqlUPDATETableInSchemaSETTheFollowingColumnsValuesWhereAndValidateRecordsWasUpdated(String tableName, VisionDBSchema schema, String whereCondition, Integer expectedRowsToUpdate, Map<String, String> newValues) {
 
     }
 }
