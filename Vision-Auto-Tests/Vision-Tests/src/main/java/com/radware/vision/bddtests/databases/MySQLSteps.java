@@ -83,7 +83,7 @@ public class MySQLSteps extends WebUITestBase {
         return value;
     }
 
-    @Then("^MYSQL DELETE FROM \"([^\"]*)\" Table in \"([^\"]*)\" Schema WHERE \"([^\"]*)\" And Validate (\\d+) Records Was Updated$")
+    @Then("^MYSQL DELETE FROM \"([^\"]*)\" Table in \"([^\"]*)\" Schema WHERE \"([^\"]*)\"(:? And Validate (\\d+) Records Was Updated)?$")
     public void mysqlDELETEFROMTableInSchemaWHEREAndValidateRecordsWasUpdated(String tableName, VisionDBSchema schema, String whereCondition, Integer expectedRowsToUpdate) {
         try {
             int rowsUpdated = GenericCRUD.deleteRecords(schema, tableName, whereCondition);
