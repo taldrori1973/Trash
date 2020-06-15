@@ -96,9 +96,9 @@ Feature: VRM Real Time Status Bar Devices status
     And UI Navigate to "DefensePro Monitoring Dashboard" page via homePage
     Then Sleep "90"
 # Validate correct number of DPs
-    When UI Text of "Device Selection" equal to "DEVICES 3/3"
-    When UI Text of "Device Status Maintenance Summary" equal to "0"
-    When UI Text of "Device Status Down Summary" equal to "0"
+    Then UI Text of "Device Selection" equal to "DEVICES 3/3"
+    Then UI Text of "Device Status Maintenance Summary" equal to "0"
+    Then UI Text of "Device Status Down Summary" equal to "0"
     Then UI Navigate to "VISION SETTINGS" page via homePage
 
   @SID_7
