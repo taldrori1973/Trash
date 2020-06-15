@@ -59,4 +59,9 @@ public class MySQLSteps extends WebUITestBase {
         return value;
     }
 
+    @Then("^MYSQL UPDATE \"([^\"]*)\" Table in \"([^\"]*)\" Schema SET The Following Columns Values Where \"([^\"]*)\" And Validate (\\d+) Records Was Updated$")
+    public void mysqlUPDATETableInSchemaSETTheFollowingColumnsValuesWhereAndValidateRecordsWasUpdated(String arg0, String arg1, String arg2, int arg3) throws Throwable {
+
+
+    }
 }
