@@ -83,7 +83,7 @@ public class MySQLSteps extends WebUITestBase {
     }
 
     @Then("^MYSQL DELETE FROM \"([^\"]*)\" Table in \"([^\"]*)\" Schema WHERE \"([^\"]*)\" And Validate (\\d+) Records Was Updated$")
-    public void mysqlDELETEFROMTableInSchemaWHEREAndValidateRecordsWasUpdated(String arg0, String arg1, String arg2, int arg3) throws Throwable {
+    public void mysqlDELETEFROMTableInSchemaWHEREAndValidateRecordsWasUpdated(String tableName, VisionDBSchema schema, String whereCondition, Integer expectedRowsToUpdate)  {
         // Write code here that turns the phrase above into concrete actions
         throw new PendingException();
     }
