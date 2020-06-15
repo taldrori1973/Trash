@@ -142,9 +142,27 @@ public class VmSnapShotOperations extends BddUITestBase {
 
     }
 
-    public void revertVMWareSnapshot(int vmNumber) throws Exception {
+    public String getSnapshotTypeBySetupMode(boolean snapshotFromSut) throws Exception {
+        if (snapshotFromSut)
+            return snapshotName;
+        switch (setupMode.toLowerCase()){
+            case "upgrade":
+               return getSnapshotNameOfEnumFromListForVMWare();
+            case "kvm_upgrade":
+                return getSnapshotNameOfEnumFromListForKVM();
+            default: return null;
+        }
+    }
+
+    public void revertVMWareSnapshot(int vmNumber,boolean snapshotFromSut) throws Exception {
         try {
-            String snapshot = VMOperationsSteps.getVisionSetupAttributeFromSUT("snapshot");
+            String snapshot = getSnapshotTypeBySetupMode(snapshotFromSut);
+
+            if (!snapshotFromSut && (snapshot == null || snapshot.equals(""))) {
+                BaseTestUtils.report("Could not find snapshot in list ", Reporter.FAIL);
+                return;
+            }
+
             if (snapshot == null || snapshot.equals("")) {
                 BaseTestUtils.report("Could not find snapshot in SUT file performing internal upgrade", Reporter.PASS_NOR_FAIL);
                 return;
@@ -174,15 +192,18 @@ public class VmSnapShotOperations extends BddUITestBase {
     }
 
     public void upgradeAccordingToSnapshot(String upgradeToVersion, String build) throws Exception {
+        boolean snapshotFromSut = true;
         UpgradeSteps upgradeSteps = new UpgradeSteps();
         if (upgradeToVersion == null || upgradeToVersion.isEmpty() || upgradeToVersion.equals(" "))
             upgradeToVersion = calculateVersionAccordingToSnapshot();
         if (build == null || build.isEmpty() || build.equals(" "))
             build = ""; // latest build
+        if(snapshotName == null || snapshotName.isEmpty() || snapshotName.equals(" "))
+            snapshotFromSut = false;
         assert setupMode != null;
         switch (setupMode.toLowerCase()) {
             case "upgrade":
-                revertVMWareSnapshot(1);
+                revertVMWareSnapshot(1,snapshotFromSut);
                 upgradeSteps.UpgradeVisionServer(upgradeToVersion, build);
                 VmSnapShotOperations.newInstance().renameSnapshotVMWare(snapshotName, "temporarySnapshot", "temporary");
                 VmSnapShotOperations.newInstance().takeSnapshotVMWare(1, snapshotName, "withMemory");

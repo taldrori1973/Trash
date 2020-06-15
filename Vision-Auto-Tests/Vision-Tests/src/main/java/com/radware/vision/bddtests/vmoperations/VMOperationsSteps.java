@@ -70,7 +70,7 @@ public class VMOperationsSteps extends BddUITestBase {
      */
     @When("^Revert Vision number (\\d+) to snapshot$")
     public void revertSnapshot(int vmNumber) throws Exception {
-        VmSnapShotOperations.newInstance().revertVMWareSnapshot(vmNumber);
+        VmSnapShotOperations.newInstance().revertVMWareSnapshot(vmNumber,true);
     }
 
     @When("^Revert DefenseFlow to snapshot$")
