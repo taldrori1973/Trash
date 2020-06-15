@@ -36,7 +36,8 @@ public class MySQLSteps extends WebUITestBase {
 
 
     @Then("^MYSQL UPDATE \"([^\"]*)\" Table in \"([^\"]*)\" Schema SET \"([^\"]*)\" Column Value as \"([^\"]*)\" Where \"([^\"]*)\"$")
-    public void mysqlUPDATETableInSchemaSETColumnValueAsWhere(String arg0, String arg1, String arg2, String arg3, String arg4) throws Throwable {
+    public void mysqlUPDATETableInSchemaSETColumnValueAsWhere(String tableName, VisionDBSchema schema, String columnName, String value, String whereCondition){
+
 
 
     }
