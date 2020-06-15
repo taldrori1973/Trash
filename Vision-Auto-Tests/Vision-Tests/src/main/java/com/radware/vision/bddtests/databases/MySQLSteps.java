@@ -55,16 +55,29 @@ public class MySQLSteps extends WebUITestBase {
         }
     }
 
+
+    @Then("^MYSQL UPDATE \"([^\"]*)\" Table in \"([^\"]*)\" Schema SET The Following Columns Values Where \"([^\"]*)\"(?: And Validate (\\d+) Records Was Updated)?$")
+    public void mysqlUPDATETableInSchemaSETTheFollowingColumnsValuesWhereAndValidateRecordsWasUpdated(String tableName, VisionDBSchema schema, String whereCondition, Integer expectedRowsToUpdate, Map<String, String> newValues) {
+        try {
+            Map<String, Object> valuesToUpdate = new HashMap<>();
+            newValues.forEach((key, value) -> valuesToUpdate.put(key, valueOf(value)));
+            int rowsUpdated = GenericCRUD.updateGroupOfValues(schema, tableName, whereCondition, valuesToUpdate);
+
+            if (expectedRowsToUpdate != null) {
+                if (rowsUpdated != expectedRowsToUpdate)
+                    BaseTestUtils.report(String.format("The Expected number of records to be updated is %d but actual records updated is %d", expectedRowsToUpdate, rowsUpdated), Reporter.FAIL);
+            } else if (rowsUpdated == 0)
+                BaseTestUtils.report("0 records was updated", Reporter.FAIL);
+
+        } catch (Exception e) {
+            BaseTestUtils.report(e.getMessage(), Reporter.FAIL);
+        }
+    }
+
     public static Object valueOf(String value) {
         if (value.equalsIgnoreCase("null")) return null;
         if (value.equalsIgnoreCase("true") || value.equalsIgnoreCase("false")) return Boolean.valueOf(value);
         if (NumberUtils.isNumber(value)) return NumberUtils.createNumber(value);
         return value;
-    }
-
-    @Then("^MYSQL UPDATE \"([^\"]*)\" Table in \"([^\"]*)\" Schema SET The Following Columns Values Where \"([^\"]*)\"(?: And Validate (\\d+) Records Was Updated)?$")
-    public void mysqlUPDATETableInSchemaSETTheFollowingColumnsValuesWhereAndValidateRecordsWasUpdated(String tableName, VisionDBSchema schema, String whereCondition, Integer expectedRowsToUpdate, Map<String, String> newValues) {
-        Map<String,Object> valuesToUpdate=new HashMap<>();
-        newValues.forEach((key, value) -> valuesToUpdate.put(key,valueOf(value)));
     }
 }
