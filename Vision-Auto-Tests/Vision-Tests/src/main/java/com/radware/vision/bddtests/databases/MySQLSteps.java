@@ -10,6 +10,7 @@ import com.radware.vision.base.WebUITestBase;
 import cucumber.api.java.en.Then;
 import org.apache.commons.lang3.math.NumberUtils;
 
+import java.util.HashMap;
 import java.util.Map;
 
 /**
@@ -63,6 +64,7 @@ public class MySQLSteps extends WebUITestBase {
 
     @Then("^MYSQL UPDATE \"([^\"]*)\" Table in \"([^\"]*)\" Schema SET The Following Columns Values Where \"([^\"]*)\"(?: And Validate (\\d+) Records Was Updated)?$")
     public void mysqlUPDATETableInSchemaSETTheFollowingColumnsValuesWhereAndValidateRecordsWasUpdated(String tableName, VisionDBSchema schema, String whereCondition, Integer expectedRowsToUpdate, Map<String, String> newValues) {
-
+        Map<String,Object> valuesToUpdate=new HashMap<>();
+        newValues.forEach((key, value) -> valuesToUpdate.put(key,valueOf(value)));
     }
 }
