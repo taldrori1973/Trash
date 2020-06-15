@@ -15,6 +15,8 @@ import cucumber.api.java.en.Then;
  * Time: 5:22 PM
  */
 public class MySQLSteps extends WebUITestBase {
+
+
     @Then("^MYSQL Validate Single Value by SELECT \"([^\"]*)\" Column FROM \"([^\"]*)\" Schema and \"([^\"]*)\" Table WHERE \"([^\"]*)\" ([^\"]*) \"([^\"]*)\"$")
     public void mysqlValidateSingleValueBySELECTColumnFROMSchemaAndTableWHEREEQUALS(String columnName, VisionDBSchema schema, String tableName, String whereCondition, OperatorsEnum operation, String value) {
         try {
@@ -30,5 +32,12 @@ public class MySQLSteps extends WebUITestBase {
         } catch (Exception e) {
             BaseTestUtils.report(e.getMessage(), Reporter.FAIL);
         }
+    }
+
+
+    @Then("^MYSQL UPDATE \"([^\"]*)\" Table in \"([^\"]*)\" Schema SET \"([^\"]*)\" Column Value as \"([^\"]*)\" Where \"([^\"]*)\"$")
+    public void mysqlUPDATETableInSchemaSETColumnValueAsWhere(String arg0, String arg1, String arg2, String arg3, String arg4) throws Throwable {
+
+
     }
 }
