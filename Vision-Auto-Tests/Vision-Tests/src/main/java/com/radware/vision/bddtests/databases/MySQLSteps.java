@@ -7,6 +7,7 @@ import com.radware.vision.automation.AutoUtils.Operators.OperatorsEnum;
 import com.radware.vision.automation.DatabaseStepHandlers.mariaDB.GenericCRUD;
 import com.radware.vision.automation.DatabaseStepHandlers.mariaDB.client.VisionDBSchema;
 import com.radware.vision.base.WebUITestBase;
+import cucumber.api.PendingException;
 import cucumber.api.java.en.Then;
 import org.apache.commons.lang3.math.NumberUtils;
 
@@ -79,5 +80,11 @@ public class MySQLSteps extends WebUITestBase {
         if (value.equalsIgnoreCase("true") || value.equalsIgnoreCase("false")) return Boolean.valueOf(value);
         if (NumberUtils.isNumber(value)) return NumberUtils.createNumber(value);
         return value;
+    }
+
+    @Then("^MYSQL DELETE FROM \"([^\"]*)\" Table in \"([^\"]*)\" Schema WHERE \"([^\"]*)\" And Validate (\\d+) Records Was Updated$")
+    public void mysqlDELETEFROMTableInSchemaWHEREAndValidateRecordsWasUpdated(String arg0, String arg1, String arg2, int arg3) throws Throwable {
+        // Write code here that turns the phrase above into concrete actions
+        throw new PendingException();
     }
 }
