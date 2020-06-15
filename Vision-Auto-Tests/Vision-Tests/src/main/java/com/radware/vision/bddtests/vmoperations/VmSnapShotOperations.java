@@ -193,13 +193,13 @@ public class VmSnapShotOperations extends BddUITestBase {
 
     public void upgradeAccordingToSnapshot(String upgradeToVersion, String build) throws Exception {
         boolean snapshotFromSut = true;
+        if(snapshotName == null || snapshotName.isEmpty() || snapshotName.equals(" "))
+            snapshotFromSut = false;
         UpgradeSteps upgradeSteps = new UpgradeSteps();
         if (upgradeToVersion == null || upgradeToVersion.isEmpty() || upgradeToVersion.equals(" "))
             upgradeToVersion = calculateVersionAccordingToSnapshot();
         if (build == null || build.isEmpty() || build.equals(" "))
             build = ""; // latest build
-        if(snapshotName == null || snapshotName.isEmpty() || snapshotName.equals(" "))
-            snapshotFromSut = false;
         assert setupMode != null;
         switch (setupMode.toLowerCase()) {
             case "upgrade":
