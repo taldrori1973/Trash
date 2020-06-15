@@ -14,9 +14,26 @@ import com.radware.vision.vision_handlers.system.VisionServer;
 import com.radware.vision.vision_project_cli.VisionRadwareFirstTime;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
 
 
 public class VmSnapShotOperations extends BddUITestBase {
+
+    private String snapshotName = VMOperationsSteps.getVisionSetupAttributeFromSUT("snapshot");
+    private String setupMode = VMOperationsSteps.getVisionSetupAttributeFromSUT("setupMode");
+
+    public enum Snapshot {
+        CURRENT("Current"), CURRENT_1("Current-1"), CURRENT_2("Current-2"), CURRENT_3("Current-3");
+        String snapshotName;
+
+        Snapshot(String snapshotName) {
+            this.snapshotName = snapshotName;
+        }
+
+        public String toString() {
+            return snapshotName;
+        }
+    }
 
 
     public VmSnapShotOperations() throws Exception {
@@ -35,7 +52,7 @@ public class VmSnapShotOperations extends BddUITestBase {
         BaseTestUtils.report("Creating snapshot.", Reporter.PASS_NOR_FAIL);
         CliOperations.runCommand(visionRadwareFirstTime, "virsh snapshot-create-as --domain " + vmName + " --name " + snapshotName, 15 * 60 * 1000);
         CliOperations.runCommand(visionRadwareFirstTime, "virsh snapshot-list " + vmName, DEFAULT_KVM_CLI_TIMEOUT);
-        String snapshotIsCreated = ".*"+ snapshotName +".*";
+        String snapshotIsCreated = ".*" + snapshotName + ".*";
         boolean isContained = RegexUtils.isStringContainsThePattern(snapshotIsCreated, CliOperations.lastOutput);
         if (isContained) {
             String domain = "vision_auto_" + visionRadwareFirstTime.getIp();
@@ -72,6 +89,14 @@ public class VmSnapShotOperations extends BddUITestBase {
         } catch (Exception e) {
             BaseTestUtils.report("Error taking snapshot: " + parseExceptionBody(e), Reporter.FAIL);
         }
+    }
+
+    public String findVMWareSnapshotIfExist(String snapshotName) throws Exception {
+        VisionVMs visionVMs = restTestBase.getVisionVMs();
+        String vmName = visionVMs.getVMNameByIndex(1);
+        EsxiInfo esxiInfo = new EsxiInfo(visionVMs.getvCenterURL(), visionVMs.getUserName(), visionVMs.getPassword(), visionVMs.getResourcePool());
+        return VMSnapshotOperations.newInstance().getNameOfSnapshotInTreeIfExist(new VmNameTargetVm(esxiInfo, vmName), snapshotName);
+
     }
 
     public void deleteSnapshotVMWare(String snapshotName) throws Exception {
@@ -148,14 +173,12 @@ public class VmSnapShotOperations extends BddUITestBase {
         }
     }
 
-    public void upgradeAccordingToSnapshot(String upgradeToVersion,String build) throws Exception {
+    public void upgradeAccordingToSnapshot(String upgradeToVersion, String build) throws Exception {
         UpgradeSteps upgradeSteps = new UpgradeSteps();
-        String snapshotName = VMOperationsSteps.getVisionSetupAttributeFromSUT("snapshot");
         if (upgradeToVersion == null || upgradeToVersion.isEmpty() || upgradeToVersion.equals(" "))
-            upgradeToVersion = calculateVersionAccordingToSnapshot();
-        String setupMode = VMOperationsSteps.getVisionSetupAttributeFromSUT("setupMode");
-        if (build == null || upgradeToVersion.isEmpty() || upgradeToVersion.equals(" "))
-        build = ""; // latest build
+            upgradeToVersion = calculateVersionAccordingToSnapshot(snapshotName);
+        if (build == null || build.isEmpty() || build.equals(" "))
+            build = ""; // latest build
         assert setupMode != null;
         switch (setupMode.toLowerCase()) {
             case "upgrade":
@@ -180,13 +203,39 @@ public class VmSnapShotOperations extends BddUITestBase {
 
     }
 
-    private String calculateVersionAccordingToSnapshot() {
+    private String calculateVersionAccordingToSnapshot(String snapshotName) throws Exception {
+        if (setupMode.equalsIgnoreCase("upgrade") && (snapshotName == null || snapshotName.isEmpty() || snapshotName.equals(" ")))
+            snapshotName = getSnapshotNameOfEnumFromListForVMWare();
+        if (setupMode.equalsIgnoreCase("kvm_upgrade") && (snapshotName == null || snapshotName.isEmpty() || snapshotName.equals(" ")))
+            snapshotName = getSnapshotNameOfEnumFromListForKVM();
         String currentVersion = VMOperationsSteps.readVisionVersionFromPomFile().split("\\.")[0] + "." + VMOperationsSteps.readVisionVersionFromPomFile().split("\\.")[1];
-        String snapshotName = VMOperationsSteps.getVisionSetupAttributeFromSUT("snapshot");
         assert snapshotName != null;
-        String number = (snapshotName.equals("current")) ? "0" : snapshotName.split("-")[1].trim();
+        String number = (snapshotName.equalsIgnoreCase("current")) ? "0" : snapshotName.split("-")[1].trim();
         String numberToSubtract = "0." + number;
         return new BigDecimal(currentVersion).subtract(new BigDecimal(numberToSubtract)) + "." + VMOperationsSteps.readVisionVersionFromPomFile().split("\\.")[2];
     }
 
+    public String getSnapshotNameOfEnumFromListForVMWare() throws Exception {
+        String snapshotName;
+        for (Enum snapshot : Snapshot.values()) {
+            snapshotName = findVMWareSnapshotIfExist(snapshot.toString());
+            if (snapshotName != null)
+                return snapshotName;
+        }
+        return null;
+    }
+
+    public String getSnapshotNameOfEnumFromListForKVM() throws Exception {
+        int DEFAULT_KVM_CLI_TIMEOUT = 3000;
+        VisionRadwareFirstTime visionRadwareFirstTime = (VisionRadwareFirstTime) system.getSystemObject("visionRadwareFirstTime");
+        String vmName = visionRadwareFirstTime.getVmName() + visionRadwareFirstTime.getIp();
+        CliOperations.runCommand(visionRadwareFirstTime, "virsh snapshot-list " + vmName + " | awk 'NF!=1 { print $1 }'", DEFAULT_KVM_CLI_TIMEOUT);
+        ArrayList cmdOutput = visionRadwareFirstTime.getCmdOutput();
+        for (Enum snapshot : VmSnapShotOperations.Snapshot.values())
+            for (Object outputLine : cmdOutput) {
+                if (outputLine.toString().equalsIgnoreCase(snapshot.toString()))
+                    return outputLine.toString().trim();
+            }
+        return null;
+    }
 }
