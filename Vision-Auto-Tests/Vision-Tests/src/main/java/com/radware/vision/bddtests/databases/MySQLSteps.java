@@ -89,10 +89,9 @@ public class MySQLSteps extends WebUITestBase {
             int rowsUpdated = GenericCRUD.deleteRecords(schema, tableName, whereCondition);
             if (expectedRowsToUpdate != null) {
                 if (rowsUpdated != expectedRowsToUpdate)
-                    BaseTestUtils.report(String.format("The Expected number of records to be deleted is %d but actual records updated is %d", expectedRowsToUpdate, rowsUpdated), Reporter.FAIL);
+                    BaseTestUtils.report(String.format("The Expected number of records to be deleted is %d but actual records deleted is %d", expectedRowsToUpdate, rowsUpdated), Reporter.FAIL);
             } else if (rowsUpdated == 0)
                 BaseTestUtils.report("0 records was updated", Reporter.FAIL);
-
 
         } catch (JDBCConnectionException | SQLException e) {
             BaseTestUtils.report(e.getMessage(), Reporter.FAIL);
