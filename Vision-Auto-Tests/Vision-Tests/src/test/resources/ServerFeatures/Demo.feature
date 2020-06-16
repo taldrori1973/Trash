@@ -6,7 +6,10 @@ Feature: Demo
 
   @run_kVision
   Scenario: MariaDb
-#    Then MYSQL Validate Single Value by SELECT "license_str" Column FROM "VISION_NG" Schema and "vision_license" Table WHERE "description='APSolute Vision Device Performance Monitor'" EQUALS "vision-perfreporter-16May2020-21May2020-JSDuGFSe"
+    Then MYSQL Validate Single Value by SELECT "name" Column FROM "VISION_NG" Schema and "vision_license" Table WHERE "description='Vision Reporting Module - ADC'" EQUALS null
+    Then MYSQL Validate Single Value by SELECT "name" Column FROM "VISION_NG" Schema and "vision_license" Table WHERE "description='Vision Reporting Module - ADC'" EQUALS "vision-reporting-module-ADC-3sp77Gn7"
+    Then MYSQL Validate Single Value by SELECT "name" Column FROM "VISION_NG" Schema and "vision_license" Table WHERE "description='Vision Reporting Module - ADC'" EQUALS false
+    Then MYSQL Validate Single Value by SELECT "name" Column FROM "VISION_NG" Schema and "vision_license" Table WHERE "description='Vision Reporting Module - ADC'" EQUALS 1
 #    Then MYSQL Validate Single Value by SELECT "license_str" Column FROM "VISION_NG" Schema and "vision_license" Table WHERE "description='APSolute Vision Device Performance Monitor'" EQUALS "vision-perfreporter-16May2020-22May2020-JSDuGFSe"
 #    Then MYSQL Validate Single Value by SELECT "license_str" Column FROM "VISION_NG" Schema and "vision_license" Table WHERE "description='APSolute Vision Device Performance Monitor'" MatchRegex ".*-perfreporter-16May2020-21May2020-JSDuGFSe"
 #    Then MYSQL Validate Single Value by SELECT "license_str" Column FROM "VISION_NG" Schema and "vision_license" Table WHERE "description='APSolute Vision Device Performance Monitor'" MatchRegex "-perfreporter-.*"
@@ -15,7 +18,7 @@ Feature: Demo
 #    Then MYSQL UPDATE "vision_license" Table in "VISION_NG" Schema SET "is_expired" Column Value as "false" Where "description='APSolute Vision Device Performance Monitor'" And Validate 1 Records Was Updated
 #    Then MYSQL UPDATE "vision_license" Table in "VISION_NG" Schema SET The Following Columns Values Where "description='APSolute Vision Device Performance Monitor'" And Validate 1 Records Was Updated
 #      |  |  |
-    Then MYSQL DELETE FROM "vision_license" Table in "VISION_NG" Schema WHERE "description='APSolute Vision Device Performance Monitor'" And Validate 1 Records Was Deleted
+#    Then MYSQL DELETE FROM "vision_license" Table in "VISION_NG" Schema WHERE "description='APSolute Vision Device Performance Monitor'" And Validate 1 Records Was Deleted
 
   Scenario: Licenses
 #    Then REST Vision Install License Request "vision-reporting-module-ADC"

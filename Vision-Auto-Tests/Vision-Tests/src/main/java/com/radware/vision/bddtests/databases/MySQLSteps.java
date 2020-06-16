@@ -8,6 +8,7 @@ import com.radware.vision.automation.DatabaseStepHandlers.mariaDB.GenericCRUD;
 import com.radware.vision.automation.DatabaseStepHandlers.mariaDB.client.JDBCConnectionException;
 import com.radware.vision.automation.DatabaseStepHandlers.mariaDB.client.VisionDBSchema;
 import com.radware.vision.base.WebUITestBase;
+import com.radware.vision.utils.StepsParametersUtils;
 import cucumber.api.java.en.Then;
 import org.apache.commons.lang3.math.NumberUtils;
 
@@ -23,21 +24,37 @@ import java.util.Map;
 public class MySQLSteps extends WebUITestBase {
 
 
-    @Then("^MYSQL Validate Single Value by SELECT \"([^\"]*)\" Column FROM \"([^\"]*)\" Schema and \"([^\"]*)\" Table WHERE \"([^\"]*)\" ([^\"]*) \"([^\"]*)\"$")
+    @Then("^MYSQL Validate Single Value by SELECT \"([^\"]*)\" Column FROM \"([^\"]*)\" Schema and \"([^\"]*)\" Table WHERE \"([^\"]*)\" ([^\"]*) (.*)$")
     public void mysqlValidateSingleValueBySELECTColumnFROMSchemaAndTableWHEREEQUALS(String columnName, VisionDBSchema schema, String tableName, String whereCondition, OperatorsEnum operation, String value) {
         try {
+            boolean result = true;
+
             if (columnName.isEmpty() || tableName.isEmpty())
                 BaseTestUtils.report("Column Name or Table Name is Empty", Reporter.FAIL);
 
-            String resultValue = GenericCRUD.selectSingleValue(schema, columnName, tableName, whereCondition).toString();
+            Object resultValue = GenericCRUD.selectSingleValue(schema, columnName, tableName, whereCondition);
+            Object expectedValue = StepsParametersUtils.valueOf(value);
 
-            boolean result = Comparator.compareResults(value, resultValue, operation, null);
-            if (!result)
-                BaseTestUtils.report(
-                        Comparator.failureMessage, Reporter.FAIL);
+            if (resultValue != null && expectedValue != null) {
+
+                if (!resultValue.getClass().equals(expectedValue.getClass()))
+                    BaseTestUtils.report("The Expected and Actual Values not From the same type", Reporter.FAIL);
+
+                if (resultValue instanceof String && expectedValue instanceof String)
+                    result = Comparator.compareResults(expectedValue.toString(), resultValue.toString(), operation, null);
+                else if (resultValue != expectedValue) {
+                    result = false;
+                    Comparator.failureMessage = "Actual \"" + resultValue + "\" is not equal to \"" + expectedValue + "\"";
+                }
+                if (!result)
+                    BaseTestUtils.report(
+                            Comparator.failureMessage, Reporter.FAIL);
+            } else if (resultValue != null ^ expectedValue != null) BaseTestUtils.report(
+                    "One Value is Null and the other not null \n Expected Value: " + expectedValue + " Actual Value: " + resultValue, Reporter.FAIL);
         } catch (Exception e) {
             BaseTestUtils.report(e.getMessage(), Reporter.FAIL);
         }
+
     }
 
 
