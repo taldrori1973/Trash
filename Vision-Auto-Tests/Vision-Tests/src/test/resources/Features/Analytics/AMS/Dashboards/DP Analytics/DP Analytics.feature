@@ -156,7 +156,7 @@ Feature: DP ANALYTICS
 
   @SID_12
   Scenario: Attacks by Mitigation Action Cleanup
-    * CLI Check if logs contains
+#    * CLI Check if logs contains
 #      | logType | expression | isExpected   |
 #      | ALL     | fatal      | NOT_EXPECTED |
     * UI Logout
