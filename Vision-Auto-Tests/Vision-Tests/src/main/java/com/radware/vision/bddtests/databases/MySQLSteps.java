@@ -56,6 +56,7 @@ public class MySQLSteps extends WebUITestBase {
                         "One Value is Null and the other not null \n Expected Value: " + expectedToReport + " Actual Value: " + actualToReport, Reporter.FAIL)
                 ;
             }
+
         } catch (Exception e) {
             BaseTestUtils.report(e.getMessage(), Reporter.FAIL);
         }
