@@ -50,8 +50,9 @@ public class MySQLSteps extends WebUITestBase {
                     BaseTestUtils.report(
                             Comparator.failureMessage, Reporter.FAIL);
             } else if (resultValue != null ^ expectedValue != null) {
-                String expectedToReport = expectedValue == null ? "null" : "\"" + expectedValue + "\"";
-                String actualToReport = resultValue == null ? "null" : "\"" + resultValue + "\"";
+
+                Object expectedToReport = expectedValue instanceof String ? "\"" + expectedValue + "\"" : expectedValue;
+                Object actualToReport = resultValue instanceof String ? "\"" + resultValue + "\"" : resultValue;
                 BaseTestUtils.report(
                         "One Value is Null and the other not null \n Expected Value: " + expectedToReport + " Actual Value: " + actualToReport, Reporter.FAIL)
                 ;
