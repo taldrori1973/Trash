@@ -7,9 +7,13 @@ Feature: Demo
   @run_kVision
   Scenario: MariaDb
     Then MYSQL Validate Single Value by SELECT "name" Column FROM "VISION_NG" Schema and "vision_license" Table WHERE "description='Vision Reporting Module - ADC'" EQUALS null
-    Then MYSQL Validate Single Value by SELECT "name" Column FROM "VISION_NG" Schema and "vision_license" Table WHERE "description='Vision Reporting Module - ADC'" EQUALS "vision-reporting-module-ADC-3sp77Gn7"
-    Then MYSQL Validate Single Value by SELECT "name" Column FROM "VISION_NG" Schema and "vision_license" Table WHERE "description='Vision Reporting Module - ADC'" EQUALS false
-    Then MYSQL Validate Single Value by SELECT "name" Column FROM "VISION_NG" Schema and "vision_license" Table WHERE "description='Vision Reporting Module - ADC'" EQUALS 1
+    Then MYSQL Validate Single Value by SELECT "license_str" Column FROM "VISION_NG" Schema and "vision_license" Table WHERE "description='Vision Reporting Module - ADC'" EQUALS "vision-reporting-module-ADC-3sp77Gn7"
+    Then MYSQL Validate Single Value by SELECT "is_expired" Column FROM "VISION_NG" Schema and "vision_license" Table WHERE "description='Vision Reporting Module - ADC'" EQUALS false
+    Then MYSQL Validate Single Value by SELECT "ormversion" Column FROM "VISION_NG" Schema and "vision_license" Table WHERE "description='Vision Reporting Module - ADC'" EQUALS 1
+    Then MYSQL Validate Single Value by SELECT "name" Column FROM "VISION_NG" Schema and "vision_license" Table WHERE "description='Vision Reporting Module - ADC'" EQUALS "null"
+    Then MYSQL Validate Single Value by SELECT "license_str" Column FROM "VISION_NG" Schema and "vision_license" Table WHERE "description='Vision Reporting Module - ADC'" EQUALS null
+    Then MYSQL Validate Single Value by SELECT "is_expired" Column FROM "VISION_NG" Schema and "vision_license" Table WHERE "description='Vision Reporting Module - ADC'" EQUALS "false"
+    Then MYSQL Validate Single Value by SELECT "ormversion" Column FROM "VISION_NG" Schema and "vision_license" Table WHERE "description='Vision Reporting Module - ADC'" EQUALS "1"
 #    Then MYSQL Validate Single Value by SELECT "license_str" Column FROM "VISION_NG" Schema and "vision_license" Table WHERE "description='APSolute Vision Device Performance Monitor'" EQUALS "vision-perfreporter-16May2020-22May2020-JSDuGFSe"
 #    Then MYSQL Validate Single Value by SELECT "license_str" Column FROM "VISION_NG" Schema and "vision_license" Table WHERE "description='APSolute Vision Device Performance Monitor'" MatchRegex ".*-perfreporter-16May2020-21May2020-JSDuGFSe"
 #    Then MYSQL Validate Single Value by SELECT "license_str" Column FROM "VISION_NG" Schema and "vision_license" Table WHERE "description='APSolute Vision Device Performance Monitor'" MatchRegex "-perfreporter-.*"
