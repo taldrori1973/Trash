@@ -86,7 +86,7 @@ public class MySQLSteps extends WebUITestBase {
     public void mysqlUPDATETableInSchemaSETTheFollowingColumnsValuesWhereAndValidateRecordsWasUpdated(String tableName, VisionDBSchema schema, String whereCondition, Integer expectedRowsToUpdate, Map<String, String> newValues) {
         try {
             Map<String, Object> valuesToUpdate = new HashMap<>();
-            newValues.forEach((key, value) -> valuesToUpdate.put(key, valueOf(value)));
+            newValues.forEach((key, value) -> valuesToUpdate.put(key, StepsParametersUtils.valueOf(value)));
             int rowsUpdated = GenericCRUD.updateGroupOfValues(schema, tableName, whereCondition, valuesToUpdate);
 
             if (expectedRowsToUpdate != null) {
