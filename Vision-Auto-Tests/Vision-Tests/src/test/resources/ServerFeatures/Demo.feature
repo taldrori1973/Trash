@@ -6,22 +6,25 @@ Feature: Demo
 
   @run_kVision
   Scenario: MariaDb
-    Then MYSQL Validate Single Value by SELECT "name" Column FROM "VISION_NG" Schema and "vision_license" Table WHERE "description='Vision Reporting Module - ADC'" EQUALS null
-    Then MYSQL Validate Single Value by SELECT "license_str" Column FROM "VISION_NG" Schema and "vision_license" Table WHERE "description='Vision Reporting Module - ADC'" EQUALS "vision-reporting-module-ADC-3sp77Gn7"
-    Then MYSQL Validate Single Value by SELECT "is_expired" Column FROM "VISION_NG" Schema and "vision_license" Table WHERE "description='Vision Reporting Module - ADC'" EQUALS false
-    Then MYSQL Validate Single Value by SELECT "ormversion" Column FROM "VISION_NG" Schema and "vision_license" Table WHERE "description='Vision Reporting Module - ADC'" EQUALS 1
-    Then MYSQL Validate Single Value by SELECT "name" Column FROM "VISION_NG" Schema and "vision_license" Table WHERE "description='Vision Reporting Module - ADC'" EQUALS "null"
-    Then MYSQL Validate Single Value by SELECT "license_str" Column FROM "VISION_NG" Schema and "vision_license" Table WHERE "description='Vision Reporting Module - ADC'" EQUALS null
-    Then MYSQL Validate Single Value by SELECT "is_expired" Column FROM "VISION_NG" Schema and "vision_license" Table WHERE "description='Vision Reporting Module - ADC'" EQUALS "false"
-    Then MYSQL Validate Single Value by SELECT "ormversion" Column FROM "VISION_NG" Schema and "vision_license" Table WHERE "description='Vision Reporting Module - ADC'" EQUALS "1"
+#    Then MYSQL Validate Single Value by SELECT "name" Column FROM "VISION_NG" Schema and "vision_license" Table WHERE "description='Vision Reporting Module - ADC'" EQUALS null
+#    Then MYSQL Validate Single Value by SELECT "license_str" Column FROM "VISION_NG" Schema and "vision_license" Table WHERE "description='Vision Reporting Module - ADC'" EQUALS "vision-reporting-module-ADC-3sp77Gn7"
+#    Then MYSQL Validate Single Value by SELECT "is_expired" Column FROM "VISION_NG" Schema and "vision_license" Table WHERE "description='Vision Reporting Module - ADC'" EQUALS false
+#    Then MYSQL Validate Single Value by SELECT "ormversion" Column FROM "VISION_NG" Schema and "vision_license" Table WHERE "description='Vision Reporting Module - ADC'" EQUALS 1
+#    Then MYSQL Validate Single Value by SELECT "name" Column FROM "VISION_NG" Schema and "vision_license" Table WHERE "description='Vision Reporting Module - ADC'" EQUALS "null"
+#    Then MYSQL Validate Single Value by SELECT "license_str" Column FROM "VISION_NG" Schema and "vision_license" Table WHERE "description='Vision Reporting Module - ADC'" EQUALS null
+#    Then MYSQL Validate Single Value by SELECT "is_expired" Column FROM "VISION_NG" Schema and "vision_license" Table WHERE "description='Vision Reporting Module - ADC'" EQUALS "false"
+#    Then MYSQL Validate Single Value by SELECT "ormversion" Column FROM "VISION_NG" Schema and "vision_license" Table WHERE "description='Vision Reporting Module - ADC'" EQUALS "1"
 #    Then MYSQL Validate Single Value by SELECT "license_str" Column FROM "VISION_NG" Schema and "vision_license" Table WHERE "description='APSolute Vision Device Performance Monitor'" EQUALS "vision-perfreporter-16May2020-22May2020-JSDuGFSe"
 #    Then MYSQL Validate Single Value by SELECT "license_str" Column FROM "VISION_NG" Schema and "vision_license" Table WHERE "description='APSolute Vision Device Performance Monitor'" MatchRegex ".*-perfreporter-16May2020-21May2020-JSDuGFSe"
 #    Then MYSQL Validate Single Value by SELECT "license_str" Column FROM "VISION_NG" Schema and "vision_license" Table WHERE "description='APSolute Vision Device Performance Monitor'" MatchRegex "-perfreporter-.*"
 #    Then MYSQL Validate Single Value by SELECT "is_expired" Column FROM "VISION_NG" Schema and "vision_license" Table WHERE "description='APSolute Vision Device Performance Monitor'" EQUALS "false"
 
 
-    Then MYSQL UPDATE "vision_license" Table in "VISION_NG" Schema SET "is_expired" Column Value as "true" WHERE "description='APSolute Vision Device Performance Monitor'"
-    Then MYSQL UPDATE "vision_license" Table in "VISION_NG" Schema SET "is_expired" Column Value as "false" WHERE "description='APSolute Vision Device Performance Monitor'" And VALIDATE 1 Records Was Updated
+    Then MYSQL UPDATE "vision_license" Table in "VISION_NG" Schema SET "is_expired" Column Value as true WHERE "description='Vision Reporting Module - ADC'"
+    Then MYSQL UPDATE "vision_license" Table in "VISION_NG" Schema SET "is_expired" Column Value as false WHERE "description='Vision Reporting Module - ADC'" And VALIDATE 1 Records Was Updated
+    Then MYSQL UPDATE "vision_license" Table in "VISION_NG" Schema SET "name" Column Value as null WHERE "description='Vision Reporting Module - ADC'"
+    Then MYSQL UPDATE "vision_license" Table in "VISION_NG" Schema SET "ormversion" Column Value as 0 WHERE "description='Vision Reporting Module - ADC'"
+    Then MYSQL UPDATE "vision_license" Table in "VISION_NG" Schema SET "product_name" Column Value as "kvision" WHERE "description='Vision Reporting Module - ADC'"
 
 
 #    Then MYSQL UPDATE "vision_license" Table in "VISION_NG" Schema SET The Following Columns Values Where "description='APSolute Vision Device Performance Monitor'" And Validate 1 Records Was Updated

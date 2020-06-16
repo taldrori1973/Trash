@@ -68,7 +68,7 @@ public class MySQLSteps extends WebUITestBase {
     @Then("^MYSQL UPDATE \"([^\"]*)\" Table in \"([^\"]*)\" Schema SET \"([^\"]*)\" Column Value as (.*) WHERE \"([^\"]*)\"(?: And VALIDATE (\\d+) Records Was Updated)?$")
     public void mysqlUPDATETableInSchemaSETColumnValueAsWhere(String tableName, VisionDBSchema schema, String columnName, String value, String whereCondition, Integer expectedRowsToUpdate) {
         try {
-            Object valueToSet = valueOf(value);
+            Object valueToSet = StepsParametersUtils.valueOf(value);
             int rowsUpdated = GenericCRUD.updateSingleValue(schema, tableName, whereCondition, columnName, valueToSet);
             if (expectedRowsToUpdate != null) {
                 if (rowsUpdated != expectedRowsToUpdate)
