@@ -20,15 +20,15 @@ Feature: Demo
 #    Then MYSQL Validate Single Value by SELECT "is_expired" Column FROM "VISION_NG" Schema and "vision_license" Table WHERE "description='APSolute Vision Device Performance Monitor'" EQUALS "false"
 
 
-    Then MYSQL UPDATE "vision_license" Table in "VISION_NG" Schema SET "is_expired" Column Value as true WHERE "description='Vision Reporting Module - ADC'"
-    Then MYSQL UPDATE "vision_license" Table in "VISION_NG" Schema SET "is_expired" Column Value as false WHERE "description='Vision Reporting Module - ADC'" And VALIDATE 1 Records Was Updated
-    Then MYSQL UPDATE "vision_license" Table in "VISION_NG" Schema SET "name" Column Value as null WHERE "description='Vision Reporting Module - ADC'"
-    Then MYSQL UPDATE "vision_license" Table in "VISION_NG" Schema SET "ormversion" Column Value as 0 WHERE "description='Vision Reporting Module - ADC'"
-    Then MYSQL UPDATE "vision_license" Table in "VISION_NG" Schema SET "product_name" Column Value as "kvision" WHERE "description='Vision Reporting Module - ADC'"
+#    Then MYSQL UPDATE "vision_license" Table in "VISION_NG" Schema SET "is_expired" Column Value as true WHERE "description='Vision Reporting Module - ADC'"
+#    Then MYSQL UPDATE "vision_license" Table in "VISION_NG" Schema SET "is_expired" Column Value as false WHERE "description='Vision Reporting Module - ADC'" And VALIDATE 1 Records Was Updated
+#    Then MYSQL UPDATE "vision_license" Table in "VISION_NG" Schema SET "name" Column Value as null WHERE "description='Vision Reporting Module - ADC'"
+#    Then MYSQL UPDATE "vision_license" Table in "VISION_NG" Schema SET "ormversion" Column Value as 0 WHERE "description='Vision Reporting Module - ADC'"
+#    Then MYSQL UPDATE "vision_license" Table in "VISION_NG" Schema SET "product_name" Column Value as "kvision" WHERE "description='Vision Reporting Module - ADC'"
 
 
-#    Then MYSQL UPDATE "vision_license" Table in "VISION_NG" Schema SET The Following Columns Values Where "description='APSolute Vision Device Performance Monitor'" And Validate 1 Records Was Updated
-#      |  |  |
+    Then MYSQL UPDATE "vision_license" Table in "VISION_NG" Schema SET The Following Columns Values Where "description='Vision Reporting Module - ADC'" And Validate 1 Records Was Updated
+      |  |  |
 #    Then MYSQL DELETE FROM "vision_license" Table in "VISION_NG" Schema WHERE "description='APSolute Vision Device Performance Monitor'" And Validate 1 Records Was Deleted
 
   Scenario: Licenses

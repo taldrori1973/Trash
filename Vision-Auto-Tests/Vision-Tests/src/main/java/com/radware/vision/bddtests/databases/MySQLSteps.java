@@ -82,7 +82,7 @@ public class MySQLSteps extends WebUITestBase {
     }
 
 
-    @Then("^MYSQL UPDATE \"([^\"]*)\" Table in \"([^\"]*)\" Schema SET The Following Columns Values Where \"([^\"]*)\"(?: And Validate (\\d+) Records Was Updated)?$")
+    @Then("^MYSQL UPDATE \"([^\"]*)\" Table in \"([^\"]*)\" Schema SET The Following Columns Values WHERE \"([^\"]*)\"(?: And VALIDATE (\\d+) Records Was Updated)?$")
     public void mysqlUPDATETableInSchemaSETTheFollowingColumnsValuesWhereAndValidateRecordsWasUpdated(String tableName, VisionDBSchema schema, String whereCondition, Integer expectedRowsToUpdate, Map<String, String> newValues) {
         try {
             Map<String, Object> valuesToUpdate = new HashMap<>();
@@ -107,7 +107,7 @@ public class MySQLSteps extends WebUITestBase {
         return value;
     }
 
-    @Then("^MYSQL DELETE FROM \"([^\"]*)\" Table in \"([^\"]*)\" Schema WHERE \"([^\"]*)\"(?: And Validate (\\d+) Records Was Deleted)?$")
+    @Then("^MYSQL DELETE FROM \"([^\"]*)\" Table in \"([^\"]*)\" Schema WHERE \"([^\"]*)\"(?: And VALIDATE (\\d+) Records Was Deleted)?$")
     public void mysqlDELETEFROMTableInSchemaWHEREAndValidateRecordsWasUpdated(String tableName, VisionDBSchema schema, String whereCondition, Integer expectedRowsToUpdate) {
         try {
             int rowsUpdated = GenericCRUD.deleteRecords(schema, tableName, whereCondition);
