@@ -9,6 +9,7 @@ Feature: RBAC Menu
 #    And REST Delete "LinkProof" device with index 0 from topology tree
 #    And REST Delete "AppWall" device with index 0 from topology tree
 
+  
   @SID_2
   Scenario: Login And Go to Vision
     Given UI Login with user "radware" and password "radware"
@@ -20,6 +21,7 @@ Feature: RBAC Menu
     Then UI Set Text field with id "gwt-debug-minNumDigits_Widget" with "0"
     Then UI Set Text field with id "gwt-debug-minSpecialChars_Widget" with "0"
     Then UI Click Button "Submit"
+
 
   @SID_3
   Scenario Outline: Create users and verify
@@ -45,6 +47,7 @@ Feature: RBAC Menu
       | vision_reporter       | Vision Reporter               | [ALL] | Radware1234!@#$    |
       | system_user           | System User                   | [ALL] | Radware1234!@#$    |
 
+
   @SID_4
   Scenario Outline: Scope "All" is required for User Definition
     When Scope Is "<enabled or disabled>" For Role "<Role>"
@@ -67,18 +70,16 @@ Feature: RBAC Menu
       | disabled            | Vision Reporter               |
       | disabled            | System User                   |
 
-  @Logout @SID_5
-  Scenario: Add Multiple devices
 
-    Then UI Add "DefensePro" with index 2 on "Default" site nowait
-    Then UI Add "Alteon" with index 2 on "Default" site nowait
-    Then UI Add "AppWall" with index 0 on "Default" site nowait
-    Then UI Add "LinkProof" with index 0 on "Default" site nowait
+  @SID_5
+  Scenario: set Authentication Mode Local
     Then UI Navigate to page "System->User Management->User Management Settings"
     Then UI Select "Local" from Vision dropdown "Authentication Mode"
     Then UI Click Button "Submit"
-    * UI Logout
+    Then UI Logout
 
+
+  
   @SID_6
   Scenario: ADC+Certificate Administrator
     When UI Login with user "adc_admin_certificate" and password "Radware1234!@#$"
