@@ -18,7 +18,7 @@ Feature: DefenseFlow Credentials API
 #    Then CLI Run linux Command "mysql -prad123 vision_ng -e "select https_username,https_password from device_access where https_port='9101'\G" |head -2 |tail -1" on "ROOT_SERVER_CLI" and validate result EQUALS "https_username: userN"
     Then MYSQL Validate Single Value by SELECT "https_username" Column FROM "VISION_NG" Schema and "device_access" Table WHERE "https_port='9101'" EQUALS "userN"
 #    Then CLI Run linux Command "mysql -prad123 vision_ng -e "select https_username,https_password from device_access where https_port='9101'\G" |head -3 |tail -1" on "ROOT_SERVER_CLI" and validate result EQUALS "https_password: passN"
-    Then MYSQL Validate Single Value by SELECT "https_username" Column FROM "VISION_NG" Schema and "device_access" Table WHERE "https_port='9101'" EQUALS "passN"
+    Then MYSQL Validate Single Value by SELECT "https_password" Column FROM "VISION_NG" Schema and "device_access" Table WHERE "https_port='9101'" EQUALS "passN"
 
 
   @SID_4
