@@ -126,7 +126,9 @@ Feature: Backup and Restore
   Scenario: Restore validation Scheduled tasks triggers
 #    Then CLI Run linux Command "mysql -prad123 quartz -NB -e "select CRON_EXPRESSION from qrtz_cron_triggers where TRIGGER_NAME like '%AttackDesc%';"" on "ROOT_SERVER_CLI" and validate result EQUALS "0 30 1 ? * *"
     Then MYSQL Validate Single Value by SELECT "CRON_EXPRESSION" Column FROM "QUARTZ" Schema and "qrtz_cron_triggers" Table WHERE "TRIGGER_NAME like '%AttackDesc%'" EQUALS "0 30 1 ? * *"
-    Then CLI Run linux Command "mysql -prad123 quartz -NB -e "select CRON_EXPRESSION from qrtz_cron_triggers where TRIGGER_NAME like '%OperatorToolbox%';"" on "ROOT_SERVER_CLI" and validate result EQUALS "0 1 12 ? * 2"
+
+#    Then CLI Run linux Command "mysql -prad123 quartz -NB -e "select CRON_EXPRESSION from qrtz_cron_triggers where TRIGGER_NAME like '%OperatorToolbox%';"" on "ROOT_SERVER_CLI" and validate result EQUALS "0 1 12 ? * 2"
+    Then MYSQL Validate Single Value by SELECT "CRON_EXPRESSION" Column FROM "QUARTZ" Schema and "qrtz_cron_triggers" Table WHERE "TRIGGER_NAME like '%OperatorToolbox%'" EQUALS "0 1 12 ? * 2"
 
   @SID_20
   Scenario: Restore validation SSL certificate
