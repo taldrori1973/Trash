@@ -52,7 +52,9 @@ Feature:Network Dashboard - Alteon Image Type
   Scenario: Manipulate ADC platform in mysql and restart service
     Then CLI Run remote linux Command "service vision stop" on "ROOT_SERVER_CLI"
     Then CLI Run remote linux Command "net route set host 50.50.101.22 50.50.77.77" on "Radware_SERVER_CLI"
-    Then CLI Run remote linux Command "mysql -prad123 vision_ng -e "update hardware set platform_type='8820' where form_factor_type='Standalone';"" on "ROOT_SERVER_CLI"
+
+#    Then CLI Run remote linux Command "mysql -prad123 vision_ng -e "update hardware set platform_type='8820' where form_factor_type='Standalone';"" on "ROOT_SERVER_CLI"
+    Then MYSQL UPDATE "hardware" Table in "VISION_NG" Schema SET "platform_type" Column Value as "8820" WHERE "form_factor_type='Standalone'"
     Then CLI Run remote linux Command "service vision start" on "ROOT_SERVER_CLI"
     Then Sleep "90"
 
@@ -109,7 +111,10 @@ Feature:Network Dashboard - Alteon Image Type
   Scenario: Manipulate ADC platform in mysql and restart service
     Then CLI Run remote linux Command "service vision stop" on "ROOT_SERVER_CLI"
     Then CLI Run remote linux Command "net route set host 50.50.101.22 50.50.77.77" on "Radware_SERVER_CLI"
-    Then CLI Run remote linux Command "mysql -prad123 vision_ng -e "update hardware set platform_type='9800' where form_factor_type='Standalone';"" on "ROOT_SERVER_CLI"
+
+#    Then CLI Run remote linux Command "mysql -prad123 vision_ng -e "update hardware set platform_type='9800' where form_factor_type='Standalone';"" on "ROOT_SERVER_CLI"
+    Then MYSQL UPDATE "hardware" Table in "VISION_NG" Schema SET "platform_type" Column Value as "9800" WHERE "form_factor_type='Standalone'"
+
     Then CLI Run remote linux Command "service vision start" on "ROOT_SERVER_CLI"
     Then Sleep "90"
 
@@ -146,7 +151,11 @@ Feature:Network Dashboard - Alteon Image Type
   Scenario: Manipulate ADC platform in mysql and restart service
     Then CLI Run remote linux Command "service vision stop" on "ROOT_SERVER_CLI"
     Then CLI Run remote linux Command "net route set host 50.50.101.22 50.50.77.77" on "Radware_SERVER_CLI"
-    Then CLI Run remote linux Command "mysql -prad123 vision_ng -e "update hardware set platform_type='4208' where form_factor_type='Standalone';"" on "ROOT_SERVER_CLI"
+
+
+#    Then CLI Run remote linux Command "mysql -prad123 vision_ng -e "update hardware set platform_type='4208' where form_factor_type='Standalone';"" on "ROOT_SERVER_CLI"
+    Then MYSQL UPDATE "hardware" Table in "VISION_NG" Schema SET "platform_type" Column Value as "4208" WHERE "form_factor_type='Standalone'"
+
     Then CLI Run remote linux Command "service vision start" on "ROOT_SERVER_CLI"
     Then Sleep "90"
 
