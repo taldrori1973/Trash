@@ -10,7 +10,6 @@ import com.radware.vision.automation.DatabaseStepHandlers.mariaDB.client.VisionD
 import com.radware.vision.base.WebUITestBase;
 import com.radware.vision.utils.StepsParametersUtils;
 import cucumber.api.java.en.Then;
-import org.apache.commons.lang3.math.NumberUtils;
 
 import java.sql.SQLException;
 import java.util.HashMap;
@@ -100,12 +99,6 @@ public class MySQLSteps extends WebUITestBase {
         }
     }
 
-    public static Object valueOf(String value) {
-        if (value.equalsIgnoreCase("null")) return null;
-        if (value.equalsIgnoreCase("true") || value.equalsIgnoreCase("false")) return Boolean.valueOf(value);
-        if (NumberUtils.isNumber(value)) return NumberUtils.createNumber(value);
-        return value;
-    }
 
     @Then("^MYSQL DELETE FROM \"([^\"]*)\" Table in \"([^\"]*)\" Schema WHERE \"([^\"]*)\"(?: And VALIDATE (\\d+) Records Was Deleted)?$")
     public void mysqlDELETEFROMTableInSchemaWHEREAndValidateRecordsWasUpdated(String tableName, VisionDBSchema schema, String whereCondition, Integer expectedRowsToUpdate) {
