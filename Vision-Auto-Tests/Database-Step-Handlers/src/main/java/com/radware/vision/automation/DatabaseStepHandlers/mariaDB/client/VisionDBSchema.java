@@ -8,5 +8,6 @@ public enum VisionDBSchema {
     QUARTZ,
     TEST,
     VISION,
-    VISION_NG;
+    VISION_NG,
+    INFORMATION_SCHEMA;
 }
