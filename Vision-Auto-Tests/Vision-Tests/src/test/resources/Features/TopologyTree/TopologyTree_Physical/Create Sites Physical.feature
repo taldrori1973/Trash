@@ -5,6 +5,7 @@ Feature: Create and Delete Sites Physical container
   @SID_1
   Scenario: Cleanup and pre-requisite
     Given CLI Operations - Run Root Session command "mysql -prad123 vision_ng -e "delete from site_tree_elem_abs where name='site1.2.1_Physical';""
+    Given MYSQL DELETE FROM "site_tree_elem_abs" Table in "VISION_NG" Schema WHERE "name='site1.2.1_Physical'"
     Given CLI Operations - Run Root Session command "mysql -prad123 vision_ng -e "delete from site_tree_elem_abs where name='site1.1.2_Physical';""
     Given CLI Operations - Run Root Session command "mysql -prad123 vision_ng -e "delete from site_tree_elem_abs where name='site1.1.1_Physical';""
     Given CLI Operations - Run Root Session command "mysql -prad123 vision_ng -e "delete from site_tree_elem_abs where name='site1.2_Physical';""
