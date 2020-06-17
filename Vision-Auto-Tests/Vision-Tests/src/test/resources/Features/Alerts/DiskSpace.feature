@@ -9,7 +9,8 @@
     Then REST Delete ES index "alert"
     Given CLI Run remote linux Command "service vision restart" on "ROOT_SERVER_CLI" and wait 185 seconds
     # Set the quarts task to trigger in one minute from now
-    Then CLI Run remote linux Command "mysql -prad123 quartz -e "update qrtz_triggers set NEXT_FIRE_TIME="$(expr $(date +%s%3N)+80000)" where JOB_NAME='CheckDiskSpaceName';"" on "ROOT_SERVER_CLI"
+#    Then CLI Run remote linux Command "mysql -prad123 quartz -e "update qrtz_triggers set NEXT_FIRE_TIME="$(expr $(date +%s%3N)+80000)" where JOB_NAME='CheckDiskSpaceName';"" on "ROOT_SERVER_CLI"
+    Then MYSQL UPDATE "qrtz_triggers" Table in "QUARTZ" Schema SET "NEXT_FIRE_TIME" Column Value as "$(expr $(date +%s%3N)+80000)" WHERE "JOB_NAME='CheckDiskSpaceName'" And VALIDATE 1 Records Was Updated
 #    Given CLI Run remote linux Command "service mysql restart" on "ROOT_SERVER_CLI" and wait 120 seconds
     Then Sleep "205"
 
