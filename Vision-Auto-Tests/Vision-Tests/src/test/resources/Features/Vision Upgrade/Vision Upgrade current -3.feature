@@ -5,6 +5,7 @@ Feature: Vision Upgrade current -3
   Scenario: preparations for upgrade release -3
     Given Prerequisite for Setup force
     Then CLI Run remote linux Command "mysql -prad123 vision_ng -e "update lls_server set min_required_ram='16';"" on "ROOT_SERVER_CLI"
+    Then MYSQL UPDATE "lls_server" Table in "VISION_NG" Schema SET "min_required_ram" Column Value as 16 WHERE ""
     Then CLI copy "/home/radware/Scripts/copyUpgradeLog.sh" from "GENERIC_LINUX_SERVER" to "ROOT_SERVER_CLI" "/"
     Then CLI copy "/home/radware/Scripts/ssh-copy-id.exp" from "GENERIC_LINUX_SERVER" to "ROOT_SERVER_CLI" "/"
 
@@ -133,6 +134,7 @@ Feature: Vision Upgrade current -3
 #    Given REST Login with activation with user "sys_admin" and password "radware"
     Then UI Login with user "sys_admin" and password "radware"
     Then CLI Operations - Run Root Session command "yes|restore_radware_user_password" timeout 15
+
   @SID_10
   Scenario: Validate AVA Attack Capacity Grace Period License was Not Given after Upgrade
     Then Validate License "ATTACK_CAPACITY_LICENSE" Parameters
@@ -147,6 +149,7 @@ Feature: Vision Upgrade current -3
       | timeToExpiration                  | -1                   |
 
     And Validate DefenseFlow is NOT Licensed by Attack Capacity License
+
   @SID_11
   Scenario: Navigate to general settings page
     Then UI Go To Vision
