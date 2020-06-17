@@ -7,7 +7,8 @@ Feature: Alert Settings - Email Reporting Configuration
     Then CLI Operations - Run Root Session command "yes|restore_radware_user_password" timeout 15
     Then CLI Operations - Run Root Session command "sed -i '/mymail.local/d' /etc/hosts"
     Then CLI Operations - Run Root Session command "echo "172.17.164.10 mymail.local" >> /etc/hosts"
-    Then CLI Operations - Run Root Session command "mysql -prad123 vision_ng -e "delete from alrt_fltr_to_ids where device_id=(select fk_alerts_mail_filter from alertsmailnotifiersettings);""
+#    Then CLI Operations - Run Root Session command "mysql -prad123 vision_ng -e "delete from alrt_fltr_to_ids where device_id=(select fk_alerts_mail_filter from alertsmailnotifiersettings);""
+    Then MYSQL DELETE FROM "alrt_fltr_to_ids" Table in "VISION_NG" Schema WHERE "device_id=(select fk_alerts_mail_filter from alertsmailnotifiersettings)"
     Then CLI Clear vision logs
 
   @SID_2
