@@ -4,14 +4,23 @@ Feature: Create and Delete Sites Physical container
 
   @SID_1
   Scenario: Cleanup and pre-requisite
-    Given CLI Operations - Run Root Session command "mysql -prad123 vision_ng -e "delete from site_tree_elem_abs where name='site1.2.1_Physical';""
+#    Given CLI Operations - Run Root Session command "mysql -prad123 vision_ng -e "delete from site_tree_elem_abs where name='site1.2.1_Physical';""
     Given MYSQL DELETE FROM "site_tree_elem_abs" Table in "VISION_NG" Schema WHERE "name='site1.2.1_Physical'"
-    Given CLI Operations - Run Root Session command "mysql -prad123 vision_ng -e "delete from site_tree_elem_abs where name='site1.1.2_Physical';""
-    Given CLI Operations - Run Root Session command "mysql -prad123 vision_ng -e "delete from site_tree_elem_abs where name='site1.1.1_Physical';""
-    Given CLI Operations - Run Root Session command "mysql -prad123 vision_ng -e "delete from site_tree_elem_abs where name='site1.2_Physical';""
-    Given CLI Operations - Run Root Session command "mysql -prad123 vision_ng -e "delete from site_tree_elem_abs where name='site1.1_Physical';""
-    Given CLI Operations - Run Root Session command "mysql -prad123 vision_ng -e "delete from site_tree_elem_abs where name='Site1_Physical';""
 
+#    Given CLI Operations - Run Root Session command "mysql -prad123 vision_ng -e "delete from site_tree_elem_abs where name='site1.1.2_Physical';""
+    Given MYSQL DELETE FROM "site_tree_elem_abs" Table in "VISION_NG" Schema WHERE "name='site1.1.2_Physical'"
+
+#    Given CLI Operations - Run Root Session command "mysql -prad123 vision_ng -e "delete from site_tree_elem_abs where name='site1.1.1_Physical';""
+    Given MYSQL DELETE FROM "site_tree_elem_abs" Table in "VISION_NG" Schema WHERE "name='site1.1.1_Physical'"
+
+#    Given CLI Operations - Run Root Session command "mysql -prad123 vision_ng -e "delete from site_tree_elem_abs where name='site1.2_Physical';""
+    Given MYSQL DELETE FROM "site_tree_elem_abs" Table in "VISION_NG" Schema WHERE "name='site1.2_Physical'"
+
+    Given CLI Operations - Run Root Session command "mysql -prad123 vision_ng -e "delete from site_tree_elem_abs where name='site1.1_Physical';""
+    Given MYSQL DELETE FROM "site_tree_elem_abs" Table in "VISION_NG" Schema WHERE "name='site1.2.1_Physical'"
+
+    Given CLI Operations - Run Root Session command "mysql -prad123 vision_ng -e "delete from site_tree_elem_abs where name='Site1_Physical';""
+    Given MYSQL DELETE FROM "site_tree_elem_abs" Table in "VISION_NG" Schema WHERE "name='site1.2.1_Physical'"
   @SID_2
   Scenario: Open the Physical Containers
     Then CLI Operations - Run Root Session command "yes|restore_radware_user_password" timeout 15
