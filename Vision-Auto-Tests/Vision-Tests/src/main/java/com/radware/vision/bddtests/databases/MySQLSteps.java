@@ -73,8 +73,7 @@ public class MySQLSteps extends WebUITestBase {
             if (expectedRowsToUpdate != null) {
                 if (rowsUpdated != expectedRowsToUpdate)
                     BaseTestUtils.report(String.format("The Expected number of records to be updated is %d but actual records updated is %d", expectedRowsToUpdate, rowsUpdated), Reporter.FAIL);
-            } else if (rowsUpdated == 0)
-                BaseTestUtils.report("0 records was updated", Reporter.FAIL);
+            }
 
         } catch (Exception e) {
             BaseTestUtils.report(e.getMessage(), Reporter.FAIL);
@@ -92,8 +91,7 @@ public class MySQLSteps extends WebUITestBase {
             if (expectedRowsToUpdate != null) {
                 if (rowsUpdated != expectedRowsToUpdate)
                     BaseTestUtils.report(String.format("The Expected number of records to be updated is %d but actual records updated is %d", expectedRowsToUpdate, rowsUpdated), Reporter.FAIL);
-            } else if (rowsUpdated == 0)
-                BaseTestUtils.report("0 records was updated", Reporter.FAIL);
+            }
 
         } catch (Exception e) {
             BaseTestUtils.report(e.getMessage(), Reporter.FAIL);
@@ -108,8 +106,7 @@ public class MySQLSteps extends WebUITestBase {
             if (expectedRowsToUpdate != null) {
                 if (rowsUpdated != expectedRowsToUpdate)
                     BaseTestUtils.report(String.format("The Expected number of records to be deleted is %d but actual records deleted is %d", expectedRowsToUpdate, rowsUpdated), Reporter.FAIL);
-            } else if (rowsUpdated == 0)
-                BaseTestUtils.report("0 records was updated", Reporter.FAIL);
+            }
 
         } catch (JDBCConnectionException | SQLException e) {
             BaseTestUtils.report(e.getMessage(), Reporter.FAIL);
