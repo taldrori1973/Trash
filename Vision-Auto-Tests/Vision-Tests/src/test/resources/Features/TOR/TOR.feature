@@ -34,7 +34,7 @@ Feature: TOR
     Then CLI Run linux Command "line=`echo $(grep -n "start run tor feed task" /opt/radware/storage/mgt-server/third-party/tomcat2/logs/torfeedservice.debug.log | tail -1 | awk "{print $1}" |  grep -oP '[^:]*' | head -1) +1 | bc`; sed -n "$line p" /opt/radware/storage/mgt-server/third-party/tomcat2/logs/torfeedservice.debug.log | grep "Feed fetch disabled. Avoid pulling file" | wc -l" on "ROOT_SERVER_CLI" and validate result EQUALS "1"
     # Check tor_feed table is empty
     Then MYSQL Validate Number of Records FROM "tor_feed" Table in "VISION_NG" Schema WHERE "" Condition Applies EQUALS 0
-    Then CLI Run linux Command "mysql -N -u root -prad123 vision_ng -e "select feed_response from tor_feed" | wc -w" on "ROOT_SERVER_CLI" and validate result EQUALS "0"
+#    Then CLI Run linux Command "mysql -N -u root -prad123 vision_ng -e "select feed_response from tor_feed" | wc -w" on "ROOT_SERVER_CLI" and validate result EQUALS "0"
 # check that vision response with the right message for first time request of any alteon
     Then Run TOR request simulation script "reputationFeed.sh" at scriptPath "/home/radware/" on GENERIC_LINUX_SERVER to current SUT for Alteon 6
     Then CLI Run linux Command "line=`echo $(grep -n "received request from" /opt/radware/storage/mgt-server/third-party/tomcat2/logs/torfeedservice.debug.log | tail -1 | awk "{print $1}" |  grep -oP '[^:]*' | head -1) +1 | bc`; sed -n "$line p" /opt/radware/storage/mgt-server/third-party/tomcat2/logs/torfeedservice.debug.log | grep "Feed Fetch Started but feed is not available yet" | wc -l" on "ROOT_SERVER_CLI" and validate result EQUALS "1"

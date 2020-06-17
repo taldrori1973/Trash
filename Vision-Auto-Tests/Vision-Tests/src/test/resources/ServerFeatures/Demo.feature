@@ -34,6 +34,8 @@ Feature: Demo
 #      | is_expired   | false    |
 
     Then MYSQL Validate Number of Records FROM "vision_license" Table in "VISION_NG" Schema WHERE "" Condition Applies EQUALS 1
+    Then MYSQL Validate Number of Records FROM "vision_license" Table in "VISION_NG" Schema WHERE "" Condition Applies EQUALS 0
+    Then MYSQL Validate Number of Records FROM "vision_license" Table in "VISION_NG" Schema WHERE "" Condition Applies GT 0
   #    Then MYSQL DELETE FROM "vision_license" Table in "VISION_NG" Schema WHERE "description='APSolute Vision Device Performance Monitor'" And VALIDATE 1 Records Was Deleted
 
   Scenario: Licenses
