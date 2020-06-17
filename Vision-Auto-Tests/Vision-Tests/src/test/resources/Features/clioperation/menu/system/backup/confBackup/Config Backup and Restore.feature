@@ -51,7 +51,8 @@ Feature: Backup and Restore
 
   @SID_9
   Scenario: Restore validation number of devices
-    Then CLI Run linux Command "mysql -prad123 vision_ng -e "select count(*) from  site_tree_elem_abs where DTYPE='Device'" | grep -v + | grep -v count" on "ROOT_SERVER_CLI" and validate result EQUALS "11"
+#    Then CLI Run linux Command "mysql -prad123 vision_ng -e "select count(*) from  site_tree_elem_abs where DTYPE='Device'" | grep -v + | grep -v count" on "ROOT_SERVER_CLI" and validate result EQUALS "11"
+    Then MYSQL Validate Number of Records FROM "site_tree_elem_abs" Table in "VISION_NG" Schema WHERE "DTYPE='Device'" Condition Applies EQUALS 11
 
   @SID_10
   Scenario: Check logs for errors
