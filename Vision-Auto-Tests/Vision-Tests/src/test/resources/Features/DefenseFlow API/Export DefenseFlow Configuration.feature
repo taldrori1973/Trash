@@ -4,7 +4,8 @@ Feature: DefenseFlow operation - export configuration
   @SID_1
   Scenario: Login and Clean data
     Given UI Login with user "sys_admin" and password "radware"
-    Then CLI Run remote linux Command "mysql -prad123 vision_ng -e "delete from device_file where dev_type='DefenseFlow';"" on "ROOT_SERVER_CLI"
+#    Then CLI Run remote linux Command "mysql -prad123 vision_ng -e "delete from device_file where dev_type='DefenseFlow';"" on "ROOT_SERVER_CLI"
+    Then MYSQL DELETE FROM "device_file" Table in "VISION_NG" Schema WHERE "dev_type='DefenseFlow'"
 
   @SID_2
   Scenario: Move to DefenseFlow configuration screen
