@@ -42,8 +42,11 @@ Feature: DefenseFlow Credentials API
 
   @SID_7
   Scenario: Validate DF credentials
-    Then CLI Run linux Command "mysql -prad123 vision_ng -e "select https_username,https_password from device_access where https_port='9101'\G" |head -2 |tail -1" on "ROOT_SERVER_CLI" and validate result EQUALS "https_username: radware"
-    Then CLI Run linux Command "mysql -prad123 vision_ng -e "select https_username,https_password from device_access where https_port='9101'\G" |head -3 |tail -1" on "ROOT_SERVER_CLI" and validate result EQUALS "https_password: radware"
+#    Then CLI Run linux Command "mysql -prad123 vision_ng -e "select https_username,https_password from device_access where https_port='9101'\G" |head -2 |tail -1" on "ROOT_SERVER_CLI" and validate result EQUALS "https_username: radware"
+    Then MYSQL Validate Single Value by SELECT "https_username" Column FROM "VISION_NG" Schema and "device_access" Table WHERE "https_port='9101'" EQUALS "radware"
+
+#    Then CLI Run linux Command "mysql -prad123 vision_ng -e "select https_username,https_password from device_access where https_port='9101'\G" |head -3 |tail -1" on "ROOT_SERVER_CLI" and validate result EQUALS "https_password: radware"
+    Then MYSQL Validate Single Value by SELECT "https_password" Column FROM "VISION_NG" Schema and "device_access" Table WHERE "https_port='9101'" EQUALS "radware"
 
   @SID_8
   Scenario: Verify config-sync is using the new username
