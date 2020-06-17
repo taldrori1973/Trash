@@ -27,12 +27,14 @@ Feature: Demo
 #    Then MYSQL UPDATE "vision_license" Table in "VISION_NG" Schema SET "product_name" Column Value as "kvision" WHERE "description='Vision Reporting Module - ADC'"
 
 
-    Then MYSQL UPDATE "vision_license" Table in "VISION_NG" Schema SET The Following Columns Values WHERE "description='Vision Reporting Module - ADC'" And VALIDATE 1 Records Was Updated
-      | ormversion   | 1        |
-      | name         | null     |
-      | product_name | "vision" |
-      | is_expired   | false    |
-#    Then MYSQL DELETE FROM "vision_license" Table in "VISION_NG" Schema WHERE "description='APSolute Vision Device Performance Monitor'" And VALIDATE 1 Records Was Deleted
+#    Then MYSQL UPDATE "vision_license" Table in "VISION_NG" Schema SET The Following Columns Values WHERE "description='Vision Reporting Module - ADC'" And VALIDATE 1 Records Was Updated
+#      | ormversion   | 1        |
+#      | name         | null     |
+#      | product_name | "vision" |
+#      | is_expired   | false    |
+
+    Then MYSQL Validate Number of Records FROM "vision_license" Table in "VISION_NG" Schema WHERE "" Condition Applies EQUALS 1
+  #    Then MYSQL DELETE FROM "vision_license" Table in "VISION_NG" Schema WHERE "description='APSolute Vision Device Performance Monitor'" And VALIDATE 1 Records Was Deleted
 
   Scenario: Licenses
 #    Then REST Vision Install License Request "vision-reporting-module-ADC"

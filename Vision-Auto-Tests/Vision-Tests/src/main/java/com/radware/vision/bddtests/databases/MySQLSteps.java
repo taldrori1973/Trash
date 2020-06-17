@@ -125,12 +125,13 @@ public class MySQLSteps extends WebUITestBase {
             else
                 result = GenericCRUD.selectTable(schema, tableName, whereCondition);
 
-            int size = result.size();
+            Integer tableSize = result.size();
+
+            boolean compareResult = Comparator.compareResults(expectedNumberOfRecords.toString(), tableSize.toString(), operation, 0);
+            if (!compareResult) BaseTestUtils.report(Comparator.failureMessage, Reporter.FAIL);
 
         } catch (SQLException | JDBCConnectionException e) {
-            e.printStackTrace();
+            BaseTestUtils.report(e.getMessage(), Reporter.FAIL);
         }
     }
 }
-
-
