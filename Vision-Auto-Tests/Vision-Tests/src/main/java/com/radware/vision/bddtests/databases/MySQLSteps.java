@@ -1,5 +1,6 @@
 package com.radware.vision.bddtests.databases;
 
+import com.fasterxml.jackson.databind.JsonNode;
 import com.radware.automation.tools.basetest.BaseTestUtils;
 import com.radware.automation.tools.basetest.Reporter;
 import com.radware.vision.automation.AutoUtils.Operators.Comparator;
@@ -114,9 +115,22 @@ public class MySQLSteps extends WebUITestBase {
             BaseTestUtils.report(e.getMessage(), Reporter.FAIL);
         }
     }
-    @Then("^MYSQL Validate Number of Records FROM \"([^\"]*)\" Table in \"([^\"]*)\" Schema WHERE \"([^\"]*)\" Condition Applies ([^\"]*) (\\d+)$")
-    public void validateNumberOfRecords(String tableName, VisionDBSchema schema, String whereCondition,OperatorsEnum operation, Integer expectedNumberOfRecords){
 
+    @Then("^MYSQL Validate Number of Records FROM \"([^\"]*)\" Table in \"([^\"]*)\" Schema WHERE \"([^\"]*)\" Condition Applies ([^\"]*) (\\d+)$")
+    public void validateNumberOfRecords(String tableName, VisionDBSchema schema, String whereCondition, OperatorsEnum operation, Integer expectedNumberOfRecords) {
+        try {
+            JsonNode result;
+            if (whereCondition == null || whereCondition.isEmpty())
+                result = GenericCRUD.selectAllTable(schema, tableName);
+            else
+                result = GenericCRUD.selectTable(schema, tableName, whereCondition);
+
+            int size = result.size();
+
+        } catch (SQLException | JDBCConnectionException e) {
+            e.printStackTrace();
+        }
     }
+}
 
 }
