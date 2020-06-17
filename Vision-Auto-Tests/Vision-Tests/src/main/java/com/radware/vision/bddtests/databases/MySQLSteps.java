@@ -114,4 +114,9 @@ public class MySQLSteps extends WebUITestBase {
             BaseTestUtils.report(e.getMessage(), Reporter.FAIL);
         }
     }
+    @Then("^MYSQL Validate Number of Records FROM \"([^\"]*)\" Table in \"([^\"]*)\" Schema WHERE \"([^\"]*)\" ([^\"]*) (\\d+)$")
+    public void validateNumberofRecords(String tableName, VisionDBSchema schema, String whereCondition,OperatorsEnum operation, Integer expectedNumberOfRecords){
+
+    }
+
 }
