@@ -35,7 +35,9 @@ Feature: CLI System Database Maintenance
 
   @SID_6
   Scenario: Load a device driver into database
-    Then CLI Run remote linux Command "mysql -prad123 vision_ng -e "delete from device_driver where device_version like "%6.14.%";"" on "ROOT_SERVER_CLI"
+#    Then CLI Run remote linux Command "mysql -prad123 vision_ng -e "delete from device_driver where device_version like "%6.14.%";"" on "ROOT_SERVER_CLI"
+    Then MYSQL DELETE FROM "device_driver" Table in "VISION_NG" Schema WHERE "device_version like '%6.14.%'"
+
     Then CLI Run remote linux Command "service vision restart" on "ROOT_SERVER_CLI" and wait 120 seconds
 
     Then CLI copy "/home/radware/Scripts/upload_DD.sh" from "GENERIC_LINUX_SERVER" to "ROOT_SERVER_CLI" "/opt/radware/storage"
