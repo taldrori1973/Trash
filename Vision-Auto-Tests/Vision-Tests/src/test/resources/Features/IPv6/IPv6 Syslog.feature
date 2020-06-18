@@ -116,7 +116,9 @@ Feature: Alert Settings - Syslog Reporting Functionality IPv6
 
   @SID_7
   Scenario: disable syslog Logout and check logs IPv6
-    Then CLI Operations - Run Root Session command "mysql -prad123 vision_ng -e "update syslog_global_params set enable_syslog_reporting=b'0';""
+#    Then CLI Operations - Run Root Session command "mysql -prad123 vision_ng -e "update syslog_global_params set enable_syslog_reporting=b'0';""
+    Then MYSQL UPDATE "syslog_global_params" Table in "VISION_NG" Schema SET "enable_syslog_reporting" Column Value as false WHERE ""
+
     Then UI logout and close browser
     Then CLI Check if logs contains
       | logType     | expression   | isExpected   |
