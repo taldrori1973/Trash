@@ -19,9 +19,9 @@ Feature: DefensePro Network Policy Upload to Server
 
   @SID_3
   Scenario: Verify Network policy in vision
-    Then CLI Run linux Command "mysql -prad123 vision_ng -BNe "select dev_type,file_type from device_exported_file where name='auto_import';"" on "ROOT_SERVER_CLI" and validate result EQUALS "DefensePro	1"
+#    Then CLI Run linux Command "mysql -prad123 vision_ng -BNe "select dev_type,file_type from device_exported_file where name='auto_import';"" on "ROOT_SERVER_CLI" and validate result EQUALS "DefensePro	1"
     Then MYSQL Validate Single Value by SELECT "dev_type" Column FROM "VISION_NG" Schema and "device_exported_file" Table WHERE "name='auto_import'" EQUALS "DefensePro"
-    Then MYSQL Validate Single Value by SELECT "dev_type" Column FROM "VISION_NG" Schema and "device_exported_file" Table WHERE "name='auto_import'" EQUALS "DefensePro"
+    Then MYSQL Validate Single Value by SELECT "file_type" Column FROM "VISION_NG" Schema and "device_exported_file" Table WHERE "name='auto_import'" EQUALS 1
 
     Then REST Request "GET" for "Vision DP Policies->Network Policies Table"
       | type                 | value                                            |
