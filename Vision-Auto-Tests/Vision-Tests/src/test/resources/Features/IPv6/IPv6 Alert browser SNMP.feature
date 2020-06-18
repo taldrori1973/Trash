@@ -84,8 +84,8 @@ Feature: IPv6 Alert Browser SNMP
 
   @SID_7
   Scenario: IPv6 SNMP delete alert rule
-    Then CLI Operations - Run Root Session command "mysql -prad123 vision_ng -e "delete from alert_rule;""
-
+#    Then CLI Operations - Run Root Session command "mysql -prad123 vision_ng -e "delete from alert_rule;""
+    Then MYSQL DELETE FROM "alert_rule" Table in "VISION_NG" Schema WHERE ""
   @SID_8
   Scenario: IPv6 Verify application trap received at snmpd server
     Then CLI Run linux Command "ssh root@172.17.178.20 'cat /var/log/snmptrap.log |grep -a "Community:"|tail -1'" on "GENERIC_LINUX_SERVER" and validate result EQUALS "Community: TRAP2, SNMP v2c, community publicv6"
@@ -98,9 +98,15 @@ Feature: IPv6 Alert Browser SNMP
 
   @SID_9
   Scenario: IPv6 SNMP trap - cleanup
-    Then CLI Operations - Run Root Session command "mysql -prad123 vision_ng -e "delete from alert_rule;""
-    Then CLI Operations - Run Root Session command "mysql -prad123 vision_ng -e "delete from snmp_target_server;""
-    Then CLI Operations - Run Root Session command "mysql -prad123 vision_ng -e "delete from alrt_fltr_to_categories where category=(select row_id from alertsfilter where name='ProfileV6');""
+#    Then CLI Operations - Run Root Session command "mysql -prad123 vision_ng -e "delete from alert_rule;""
+    Then MYSQL DELETE FROM "alert_rule" Table in "VISION_NG" Schema WHERE ""
+
+#    Then CLI Operations - Run Root Session command "mysql -prad123 vision_ng -e "delete from snmp_target_server;""
+    Then MYSQL DELETE FROM "snmp_target_server" Table in "VISION_NG" Schema WHERE ""
+
+#    Then CLI Operations - Run Root Session command "mysql -prad123 vision_ng -e "delete from alrt_fltr_to_categories where category=(select row_id from alertsfilter where name='ProfileV6');""
+    Then MYSQL DELETE FROM "alrt_fltr_to_categories" Table in "VISION_NG" Schema WHERE "category=(select row_id from alertsfilter where name='ProfileV6')"
+
     Then CLI Operations - Run Root Session command "mysql -prad123 vision_ng -e "delete from alrt_fltr_to_logical_grp_ids where alert_filter_id=(select row_id from alertsfilter where name='ProfileV6');""
     Then CLI Operations - Run Root Session command "mysql -prad123 vision_ng -e "delete from alrt_fltr_to_ids where device_id=(select row_id from alertsfilter where name='ProfileV6');""
     Then CLI Operations - Run Root Session command "mysql -prad123 vision_ng -e "delete from alrt_fltr_to_severities where severity=(select row_id from alertsfilter where name='ProfileV6');""
