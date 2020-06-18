@@ -38,7 +38,7 @@ Feature: TOR
 # check that vision response with the right message for first time request of any alteon
     Then Run TOR request simulation script "reputationFeed.sh" at scriptPath "/home/radware/" on GENERIC_LINUX_SERVER to current SUT for Alteon 6
     Then CLI Run linux Command "line=`echo $(grep -n "received request from" /opt/radware/storage/mgt-server/third-party/tomcat2/logs/torfeedservice.debug.log | tail -1 | awk "{print $1}" |  grep -oP '[^:]*' | head -1) +1 | bc`; sed -n "$line p" /opt/radware/storage/mgt-server/third-party/tomcat2/logs/torfeedservice.debug.log | grep "Feed Fetch Started but feed is not available yet" | wc -l" on "ROOT_SERVER_CLI" and validate result EQUALS "1"
-  #    Then CLI Operations - Run Root Session command "mysql -N -u root -prad123 vision_ng -e "select feed_response from tor_feed" | wc -w"
+#    Then CLI Operations - Run Root Session command "mysql -N -u root -prad123 vision_ng -e "select feed_response from tor_feed" | wc -w"
 #    Then CLI Operations - Verify last output contains
 #    |status|
 
@@ -63,14 +63,14 @@ Feature: TOR
     # Veify that after first request from alteon, the task fetched the feed from MIS and requested it for ALL alteons AND linkproof devices
     # need to fetch the macs of all alteons and linkproofs(without the semicolons) and verify in "/opt/radware/storage/mgt-server/third-party/tomcat2/logs/torfeedservice.debug.log" log at the
     # "Fetching from MIS for mac addresses" that the mac list followed contains ALL the macs
-    # in order to get the macs of all the alteons and linkproof, you can use this command: "mysql -N -u root -prad123 vision_ng -e "select base_mac_addr from hardware where row_id IN (SELECT fk_hw_hardware from device_setup WHERE row_id IN(SELECT fk_dev_setup_device_setup from site_tree_elem_abs where type_column IN (\"Alteon\",\"LinkProof\")))" | sed 's/\://g'"
+# in order to get the macs of all the alteons and linkproof, you can use this command: "mysql -N -u root -prad123 vision_ng -e "select base_mac_addr from hardware where row_id IN (SELECT fk_hw_hardware from device_setup WHERE row_id IN(SELECT fk_dev_setup_device_setup from site_tree_elem_abs where type_column IN (\"Alteon\",\"LinkProof\")))" | sed 's/\://g'"
     Then CLI Operations - Verify TOR request for all Alteons and Linkproof
     * Sleep "10"
 
     # Verify that actual checksum of feed file is equal to the value in the fed response
-  # you can use this command to download the file from the tor_feed table "mysql -u root -prad123 vision_ng -e "select feed_file INTO DUMPFILE '/var/lib/mysql-files/tor_feed.zip' from tor_feed""
+# you can use this command to download the file from the tor_feed table "mysql -u root -prad123 vision_ng -e "select feed_file INTO DUMPFILE '/var/lib/mysql-files/tor_feed.zip' from tor_feed""
   # perform md5sum on that file and verfify it's equal to the md5 as it appear in "feed_response" column
-  # you can fetch the md5 value from feed response by this command "mysql -N -u root -prad123 vision_ng -e "select feed_response from tor_feed" | grep -oP '(?<=md5":").[^"]*'"
+# you can fetch the md5 value from feed response by this command "mysql -N -u root -prad123 vision_ng -e "select feed_response from tor_feed" | grep -oP '(?<=md5":").[^"]*'"
     And CLI Operations - Verify TOR feed downloaded successfully
 
 
