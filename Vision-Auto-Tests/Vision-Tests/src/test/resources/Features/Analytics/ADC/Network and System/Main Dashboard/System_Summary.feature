@@ -400,7 +400,9 @@ Feature:System and Network Dashboard - System Summary
     Then REST Delete Device By IP "50.50.101.34"
     Then REST Delete Device By IP "50.50.32.1"
     Then REST Delete Device By IP "50.50.101.254"
-    Then CLI Operations - Run Root Session command "mysql -prad123 vision_ng -e "delete from site_tree_elem_abs where name='Physical_Fake';""
+
+#    Then CLI Operations - Run Root Session command "mysql -prad123 vision_ng -e "delete from site_tree_elem_abs where name='Physical_Fake';""
+    Then MYSQL DELETE FROM "site_tree_elem_abs" Table in "VISION_NG" Schema WHERE "name='Physical_Fake'"
 
     Then REST Update a scalar "snmpV2ReadCommunity" value of Request "Device Tree->Update SNMPv2 Read Community" on the device Ip "172.17.164.17" with the new scalar value "public"
     Then REST Update a scalar "snmpV2ReadCommunity" value of Request "Device Tree->Update SNMPv2 Read Community" on the device Ip "172.17.154.190" with the new scalar value "public"
