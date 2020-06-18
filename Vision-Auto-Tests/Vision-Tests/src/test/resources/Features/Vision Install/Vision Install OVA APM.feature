@@ -123,7 +123,8 @@ Feature: Vision Install OVA APM
 
   @SID_14
   Scenario: Validate minimum RAM for LLS
-    Then CLI Run linux Command "mysql -prad123 vision_ng -NBe "select min_required_ram from lls_server;"" on "ROOT_SERVER_CLI" and validate result EQUALS "24"
+#    Then CLI Run linux Command "mysql -prad123 vision_ng -NBe "select min_required_ram from lls_server;"" on "ROOT_SERVER_CLI" and validate result EQUALS "24"
+    Then MYSQL Validate Single Value by SELECT "min_required_ram" Column FROM "VISION_NG" Schema and "lls_server" Table WHERE "" EQUALS 24
 
   @SID_16
   Scenario: Validate IPv6 Hostname in /etc/hosts
@@ -137,11 +138,13 @@ Feature: Vision Install OVA APM
 
   @SID_18
   Scenario: Verify number of tables in vision schema
-    Then CLI Run linux Command "mysql -prad123 -NB -e "select count(*) from INFORMATION_SCHEMA.TABLES WHERE TABLE_SCHEMA='vision';"" on "ROOT_SERVER_CLI" and validate result EQUALS "90"
+#    Then CLI Run linux Command "mysql -prad123 -NB -e "select count(*) from INFORMATION_SCHEMA.TABLES WHERE TABLE_SCHEMA='vision';"" on "ROOT_SERVER_CLI" and validate result EQUALS "90"
+    Then MYSQL Validate Number of Records FROM "TABLES" Table in "INFORMATION_SCHEMA" Schema WHERE "TABLE_SCHEMA='vision'" Condition Applies EQUALS 90
 
   @SID_19
   Scenario: Verify number of tables in vision_ng schema
-    Then CLI Run linux Command "mysql -prad123 -NB -e "select count(*) from INFORMATION_SCHEMA.TABLES WHERE TABLE_SCHEMA='vision_ng';"" on "ROOT_SERVER_CLI" and validate result EQUALS "166"
+#    Then CLI Run linux Command "mysql -prad123 -NB -e "select count(*) from INFORMATION_SCHEMA.TABLES WHERE TABLE_SCHEMA='vision_ng';"" on "ROOT_SERVER_CLI" and validate result EQUALS "166"
+    Then MYSQL Validate Number of Records FROM "TABLES" Table in "INFORMATION_SCHEMA" Schema WHERE "TABLE_SCHEMA='vision_ng'" Condition Applies EQUALS 166
 
   @SID_15
   Scenario: Verify services are running
