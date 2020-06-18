@@ -4,10 +4,12 @@
 Feature: Geolocation DP Monitoring Dashboard and Map - Protection Policies - Under Attack 2nd Drill
 
   @SID_1
-  
+
   Scenario: Update Attack Reports and Samples per Interval at Database AND misconnectivity Parameters
-    * CLI Run remote linux Command "mysql -prad123 vision_ng -e "update ap set attack_reports_per_interval=50"" on "ROOT_SERVER_CLI"
-    * CLI Run remote linux Command "mysql -prad123 vision_ng -e "update ap set attack_samples_per_interval=50"" on "ROOT_SERVER_CLI"
+#    * CLI Run remote linux Command "mysql -prad123 vision_ng -e "update ap set attack_reports_per_interval=50"" on "ROOT_SERVER_CLI"
+    Given MYSQL UPDATE "ap" Table in "VISION_NG" Schema SET "attack_reports_per_interval" Column Value as 50 WHERE ""
+#    * CLI Run remote linux Command "mysql -prad123 vision_ng -e "update ap set attack_samples_per_interval=50"" on "ROOT_SERVER_CLI"
+    Given MYSQL UPDATE "ap" Table in "VISION_NG" Schema SET "attack_samples_per_interval" Column Value as 50 WHERE ""
 
     * CLI Run remote linux Command "sed -i 's/mis.api.services.server=.*$/mis.api.services.server=servicestest.corp.radware.com/g' /opt/radware/mgt-server/properties/misconnectivity.properties" on "ROOT_SERVER_CLI"
     * CLI Run remote linux Command "sed -i 's|mis.subscription.url=.*$|mis.subscription.url=api/trcservices/v3/subscription|g' /opt/radware/mgt-server/properties/misconnectivity.properties" on "ROOT_SERVER_CLI"
@@ -16,7 +18,7 @@ Feature: Geolocation DP Monitoring Dashboard and Map - Protection Policies - Und
     * CLI Run remote linux Command "service vision restart" on "ROOT_SERVER_CLI" and wait 90 seconds
 
   @SID_2
-  
+
   Scenario: Clean system data before "Protection Policies" test
     * CLI kill all simulator attacks on current vision
     * REST Delete ES index "dp-*"
@@ -26,7 +28,7 @@ Feature: Geolocation DP Monitoring Dashboard and Map - Protection Policies - Und
 #____________________________________Top Attack Source and Destination Tests____________________________________________
 
   @SID_3
-  
+
   Scenario: Install license verify policy BDOS exists and unblock all countries
     Given REST Login with user "sys_admin" and password "radware"
     Given REST Vision Install License Request "vision-AVA-Max-attack-capacity"
@@ -150,7 +152,7 @@ Feature: Geolocation DP Monitoring Dashboard and Map - Protection Policies - Und
 
 #  Block Allowed Country
   @SID_13
-   Scenario: Block China at Map then Validate Block
+  Scenario: Block China at Map then Validate Block
     Given UI Click Button "Geolocation Map Tab"
     And Sleep "1"
     And UI Validate the attribute "style" Of Label "Map.Country" With Params "CHN" is "CONTAINS" to "fill: rgb(90, 90, 90)"
