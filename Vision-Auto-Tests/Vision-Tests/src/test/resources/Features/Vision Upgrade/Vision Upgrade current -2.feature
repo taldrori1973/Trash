@@ -4,7 +4,9 @@ Feature: Vision Upgrade current -2
   @SID_1
   Scenario: preparations for upgrade release -2
     Given Prerequisite for Setup force
-    Then CLI Run remote linux Command "mysql -prad123 vision_ng -e "update lls_server set min_required_ram='16';"" on "ROOT_SERVER_CLI"
+#    Then CLI Run remote linux Command "mysql -prad123 vision_ng -e "update lls_server set min_required_ram='16';"" on "ROOT_SERVER_CLI"
+    Then MYSQL UPDATE "lls_server" Table in "VISION_NG" Schema SET "min_required_ram" Column Value as 16 WHERE ""
+
     Then CLI copy "/home/radware/Scripts/copyUpgradeLog.sh" from "GENERIC_LINUX_SERVER" to "ROOT_SERVER_CLI" "/"
     Then CLI copy "/home/radware/Scripts/ssh-copy-id.exp" from "GENERIC_LINUX_SERVER" to "ROOT_SERVER_CLI" "/"
 
@@ -26,7 +28,9 @@ Feature: Vision Upgrade current -2
 
     # delete ADC analytics license if exists
     Then CLI Run remote linux Command "echo "Before " $(mysql -prad123 vision -e "show create table traffic_utilizations\G" |grep "(PARTITION p" |awk -F"p" '{print$2}'|awk '{printf$1}') >  /opt/radware/sql_partition.txt" on "ROOT_SERVER_CLI"
-    Then CLI Run remote linux Command "mysql -prad123 vision_ng -e "delete from vision_license where license_str like '%reporting-module-ADC%';"" on "ROOT_SERVER_CLI"
+#    Then CLI Run remote linux Command "mysql -prad123 vision_ng -e "delete from vision_license where license_str like '%reporting-module-ADC%';"" on "ROOT_SERVER_CLI"
+    Then MYSQL DELETE FROM "vision_license" Table in "VISION_NG" Schema WHERE "license_str like '%reporting-module-ADC%'"
+
     Then CLI Clear vision logs
  #for testing AVA Attack Capacity Grace Period with the following scenario:
       # if before upgrade the server have the Legacy "vision-reporting-module-AMS" license and never installs the new AVA License so after upgrade Grace Period will be given:
@@ -264,7 +268,9 @@ Feature: Vision Upgrade current -2
     Then CLI Run linux Command "curl -ks -o null -XGET http://localhost6:7070/api/1.0/hostids -w 'RESP_CODE:%{response_code}\n'" on "ROOT_SERVER_CLI" and validate result EQUALS "RESP_CODE:200" with timeOut 300
     Then CLI Operations - Verify that output contains regex "RESP_CODE:200"
       #rollback to the original values
-    Given CLI Run remote linux Command "mysql -prad123 vision_ng -e "update lls_server set min_required_ram='24';"" on "ROOT_SERVER_CLI"
+
+#    Given CLI Run remote linux Command "mysql -prad123 vision_ng -e "update lls_server set min_required_ram='24';"" on "ROOT_SERVER_CLI"
+    Then MYSQL UPDATE "lls_server" Table in "VISION_NG" Schema SET "min_required_ram" Column Value as 24 WHERE ""
 
   @SID_27
   Scenario: Validate LLS version
@@ -297,11 +303,13 @@ Feature: Vision Upgrade current -2
 
   @SID_31
   Scenario: Verify number of tables in vision schema
-    Then CLI Run linux Command "mysql -prad123 -NB -e "select count(*) from INFORMATION_SCHEMA.TABLES WHERE TABLE_SCHEMA='vision';"" on "ROOT_SERVER_CLI" and validate result EQUALS "90"
+#    Then CLI Run linux Command "mysql -prad123 -NB -e "select count(*) from INFORMATION_SCHEMA.TABLES WHERE TABLE_SCHEMA='vision';"" on "ROOT_SERVER_CLI" and validate result EQUALS "90"
+    Then MYSQL Validate Number of Records FROM "TABLES" Table in "INFORMATION_SCHEMA" Schema WHERE "TABLE_SCHEMA='vision'" Condition Applies EQUALS 90
 
   @SID_32
   Scenario: Verify number of tables in vision_ng schema
-    Then CLI Run linux Command "mysql -prad123 -NB -e "select count(*) from INFORMATION_SCHEMA.TABLES WHERE TABLE_SCHEMA='vision_ng';"" on "ROOT_SERVER_CLI" and validate result EQUALS "166"
+#    Then CLI Run linux Command "mysql -prad123 -NB -e "select count(*) from INFORMATION_SCHEMA.TABLES WHERE TABLE_SCHEMA='vision_ng';"" on "ROOT_SERVER_CLI" and validate result EQUALS "166"
+    Then MYSQL Validate Number of Records FROM "TABLES" Table in "INFORMATION_SCHEMA" Schema WHERE "TABLE_SCHEMA='vision_ng'" Condition Applies EQUALS 166
 
   @SID_33
   Scenario: Validate increased MySql partitioning number
