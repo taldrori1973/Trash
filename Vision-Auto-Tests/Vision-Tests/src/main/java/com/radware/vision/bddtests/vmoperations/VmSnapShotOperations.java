@@ -67,12 +67,17 @@ public class VmSnapShotOperations extends BddUITestBase {
     public void takeKVmSnapshot(String snapshotName) throws Exception {
         BaseTestUtils.report("Creating snapshot.", Reporter.PASS_NOR_FAIL);
         CliOperations.runCommand(visionRadwareFirstTime, "virsh snapshot-create-as --domain " + kvmMachineName + " --name " + snapshotName, 15 * 60 * 1000);
+        String snapshotIsAlreadyExists = ".*" + "snapshot " + snapshotName + " already exists.*";
+        boolean isContained = RegexUtils.isStringContainsThePattern(snapshotIsAlreadyExists, CliOperations.lastOutput);
+        if (isContained) {
+            throw new Exception("error: Snapshot: '" + snapshotName + "' of Domain '" + kvmMachineName + "' is not created already exists");
+        }
         validateSnapshotListOfKVMIfExist(snapshotName, true);
     }
 
     public void deleteKvmSnapshot(String snapshotName) throws Exception {
         BaseTestUtils.report("Deleting snapshot.", Reporter.PASS_NOR_FAIL);
-        CliOperations.runCommand(visionRadwareFirstTime, "virsh snapshot-delete --domain " + kvmMachineName + " --name " + snapshotName, 15 * 60 * 1000);
+        CliOperations.runCommand(visionRadwareFirstTime, "virsh snapshot-delete --domain " + kvmMachineName + " " + snapshotName, 15 * 60 * 1000);
         validateSnapshotListOfKVMIfExist(snapshotName, false);
     }
 
