@@ -3,12 +3,23 @@ Feature: Alert Settings - Syslog Reporting Functionality IPv6
 
   @SID_1
   Scenario: Syslog IPv6 cleanup
-    Then CLI Operations - Run Root Session command "mysql -prad123 vision_ng -e "delete from syslog_filter_to_severities;""
-    Then CLI Operations - Run Root Session command "mysql -prad123 vision_ng -e "delete from syslog_filter_to_device_ids;""
-    Then CLI Operations - Run Root Session command "mysql -prad123 vision_ng -e "delete from syslog_filter_to_modules;""
-    Then CLI Operations - Run Root Session command "mysql -prad123 vision_ng -e "delete from syslog_server;""
-    Then CLI Operations - Run Root Session command "mysql -prad123 vision_ng -e "delete from syslog_filter;""
+#    Then CLI Operations - Run Root Session command "mysql -prad123 vision_ng -e "delete from syslog_filter_to_severities;""
+    Then MYSQL DELETE FROM "syslog_filter_to_severities" Table in "VISION_NG" Schema WHERE ""
+
+#    Then CLI Operations - Run Root Session command "mysql -prad123 vision_ng -e "delete from syslog_filter_to_device_ids;""
+    Then MYSQL DELETE FROM "syslog_filter_to_device_ids" Table in "VISION_NG" Schema WHERE ""
+
+#    Then CLI Operations - Run Root Session command "mysql -prad123 vision_ng -e "delete from syslog_filter_to_modules;""
+    Then MYSQL DELETE FROM "syslog_filter_to_modules" Table in "VISION_NG" Schema WHERE ""
+
+#    Then CLI Operations - Run Root Session command "mysql -prad123 vision_ng -e "delete from syslog_server;""
+    Then MYSQL DELETE FROM "syslog_server" Table in "VISION_NG" Schema WHERE ""
+
+#    Then CLI Operations - Run Root Session command "mysql -prad123 vision_ng -e "delete from syslog_filter;""
+    Then MYSQL DELETE FROM "syslog_filter" Table in "VISION_NG" Schema WHERE ""
+
     Then CLI Operations - Run Root Session command "mysql -prad123 vision_ng -e "update syslog_global_params set enable_syslog_reporting=b'0';""
+
 #    Then UI Add "Alteon" with index 40 on "Default" site
     Then CLI Clear vision logs
 
