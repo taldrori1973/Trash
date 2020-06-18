@@ -4,7 +4,8 @@ Feature: Vision Upgrade current -1
   @SID_1
   Scenario: preparations for upgrade release -1
     Given Prerequisite for Setup force
-    Then CLI Run remote linux Command "mysql -prad123 vision_ng -e "update lls_server set min_required_ram='16';"" on "ROOT_SERVER_CLI"
+#    Then CLI Run remote linux Command "mysql -prad123 vision_ng -e "update lls_server set min_required_ram='16';"" on "ROOT_SERVER_CLI"
+    Then MYSQL UPDATE "lls_server" Table in "VISION_NG" Schema SET "min_required_ram" Column Value as 16 WHERE ""
 
    ######################################################################################
 
@@ -223,7 +224,9 @@ Feature: Vision Upgrade current -1
     Then CLI Run linux Command "curl -ks -o null -XGET http://localhost6:7070/api/1.0/hostids -w 'RESP_CODE:%{response_code}\n'" on "ROOT_SERVER_CLI" and validate result EQUALS "RESP_CODE:200" with timeOut 300
     Then CLI Operations - Verify that output contains regex "RESP_CODE:200"
       #rollback to the original values
-    Given CLI Run remote linux Command "mysql -prad123 vision_ng -e "update lls_server set min_required_ram='24';"" on "ROOT_SERVER_CLI"
+
+#    Given CLI Run remote linux Command "mysql -prad123 vision_ng -e "update lls_server set min_required_ram='24';"" on "ROOT_SERVER_CLI"
+    Then MYSQL UPDATE "lls_server" Table in "VISION_NG" Schema SET "min_required_ram" Column Value as 24 WHERE ""
 
   @SID_30
   Scenario: Validate LLS version
@@ -267,8 +270,10 @@ Feature: Vision Upgrade current -1
 
   @SID_36
   Scenario: Verify number of tables in vision schema
-    Then CLI Run linux Command "mysql -prad123 -NB -e "select count(*) from INFORMATION_SCHEMA.TABLES WHERE TABLE_SCHEMA='vision';"" on "ROOT_SERVER_CLI" and validate result EQUALS "90"
+#    Then CLI Run linux Command "mysql -prad123 -NB -e "select count(*) from INFORMATION_SCHEMA.TABLES WHERE TABLE_SCHEMA='vision';"" on "ROOT_SERVER_CLI" and validate result EQUALS "90"
+    Then MYSQL Validate Number of Records FROM "TABLES" Table in "INFORMATION_SCHEMA" Schema WHERE "TABLE_SCHEMA='vision'" Condition Applies EQUALS 90
 
   @SID_37
   Scenario: Verify number of tables in vision_ng schema
-    Then CLI Run linux Command "mysql -prad123 -NB -e "select count(*) from INFORMATION_SCHEMA.TABLES WHERE TABLE_SCHEMA='vision_ng';"" on "ROOT_SERVER_CLI" and validate result EQUALS "166"
+#    Then CLI Run linux Command "mysql -prad123 -NB -e "select count(*) from INFORMATION_SCHEMA.TABLES WHERE TABLE_SCHEMA='vision_ng';"" on "ROOT_SERVER_CLI" and validate result EQUALS "166"
+    Then MYSQL Validate Number of Records FROM "TABLES" Table in "INFORMATION_SCHEMA" Schema WHERE "TABLE_SCHEMA='vision_ng'" Condition Applies EQUALS 166
