@@ -47,8 +47,8 @@ Feature: CLI System Database Maintenance
 
   @SID_7
   Scenario: verify the driver is in database
-    Then CLI Run linux Command "mysql -prad123 vision_ng -N -B -e "select driver_name from device_driver where driver_name like '%6.14.03%';"" on "ROOT_SERVER_CLI" and validate result EQUALS "DefensePro-6.14.03-DD-1.00-28.jar"
-
+#    Then CLI Run linux Command "mysql -prad123 vision_ng -N -B -e "select driver_name from device_driver where driver_name like '%6.14.03%';"" on "ROOT_SERVER_CLI" and validate result EQUALS "DefensePro-6.14.03-DD-1.00-28.jar"
+    Then MYSQL Validate Single Value by SELECT "driver_name" Column FROM "VISION_NG" Schema and "device_driver" Table WHERE "driver_name like '%6.14.03%'" EQUALS "DefensePro-6.14.03-DD-1.00-28.jar"
   @SID_8
   Scenario: system database maintenance driver_table delete cancel
     When CLI Operations - Run Radware Session command "system database maintenance driver_table delete"
