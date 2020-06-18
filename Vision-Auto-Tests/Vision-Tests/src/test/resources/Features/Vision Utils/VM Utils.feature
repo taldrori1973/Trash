@@ -11,6 +11,4 @@ Feature: VM Utils
 
 @Update_Snapshot
     Scenario: Update Snapshot
-  Given UI Login with user "radware" and password "radware"
-  Then UI logout and close browser
-#      Given Upgrade Vision According To SUT Snapshot
+      Given Upgrade Vision According To SUT Snapshot
