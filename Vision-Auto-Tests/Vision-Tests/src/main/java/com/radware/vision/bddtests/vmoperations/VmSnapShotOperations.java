@@ -21,6 +21,13 @@ public class VmSnapShotOperations extends BddUITestBase {
 
     private String snapshotName = VMOperationsSteps.getVisionSetupAttributeFromSUT("snapshot");
     private String setupMode = VMOperationsSteps.getVisionSetupAttributeFromSUT("setupMode");
+    int DEFAULT_KVM_CLI_TIMEOUT = 3000;
+    VisionRadwareFirstTime visionRadwareFirstTime = (VisionRadwareFirstTime) system.getSystemObject("visionRadwareFirstTime");
+    String kvmMachineName = visionRadwareFirstTime.getVmName() + visionRadwareFirstTime.getIp();
+    VisionVMs visionVMs = restTestBase.getVisionVMs();
+    int defaultVMWareNumber = 1;
+    String vmName = visionVMs.getVMNameByIndex(defaultVMWareNumber);
+    EsxiInfo esxiInfo = new EsxiInfo(visionVMs.getvCenterURL(), visionVMs.getUserName(), visionVMs.getPassword(), visionVMs.getResourcePool());
 
     public enum Snapshot {
         CURRENT("Current"), CURRENT_1("Current-1"), CURRENT_2("Current-2"), CURRENT_3("Current-3");
@@ -44,36 +51,35 @@ public class VmSnapShotOperations extends BddUITestBase {
         return new VmSnapShotOperations();
     }
 
-
-    public void takeKVmSnapshot(String snapshotName) throws Exception {
-        int DEFAULT_KVM_CLI_TIMEOUT = 3000;
-        VisionRadwareFirstTime visionRadwareFirstTime = (VisionRadwareFirstTime) system.getSystemObject("visionRadwareFirstTime");
-        String vmName = visionRadwareFirstTime.getVmName() + visionRadwareFirstTime.getIp();
-        BaseTestUtils.report("Creating snapshot.", Reporter.PASS_NOR_FAIL);
-        CliOperations.runCommand(visionRadwareFirstTime, "virsh snapshot-create-as --domain " + vmName + " --name " + snapshotName, 15 * 60 * 1000);
-        CliOperations.runCommand(visionRadwareFirstTime, "virsh snapshot-list " + vmName, DEFAULT_KVM_CLI_TIMEOUT);
+    private void validateSnapshotListOfKVMIfExist(String snapshotName, boolean isExist) throws Exception {
+        CliOperations.runCommand(visionRadwareFirstTime, "virsh snapshot-list " + kvmMachineName, DEFAULT_KVM_CLI_TIMEOUT);
         String snapshotIsCreated = ".*" + snapshotName + ".*";
-        boolean isContained = RegexUtils.isStringContainsThePattern(snapshotIsCreated, CliOperations.lastOutput);
-        if (isContained) {
-            String domain = "vision_auto_" + visionRadwareFirstTime.getIp();
-            throw new Exception("error: Snapshot: '" + snapshotName + "' of Domain '" + domain + "' is not created");
+        boolean snapshot = RegexUtils.isStringContainsThePattern(snapshotIsCreated, CliOperations.lastOutput);
+        if (!snapshot && isExist) {
+            throw new Exception("error: Snapshot: '" + snapshotName + "' of Domain '" + kvmMachineName + "' is not created");
+        }
+        if (snapshot && !isExist) {
+            throw new Exception("error: Snapshot: '" + snapshotName + "' of Domain '" + kvmMachineName + "' is not deleted");
         }
 
     }
 
+    public void takeKVmSnapshot(String snapshotName) throws Exception {
+        BaseTestUtils.report("Creating snapshot.", Reporter.PASS_NOR_FAIL);
+        CliOperations.runCommand(visionRadwareFirstTime, "virsh snapshot-create-as --domain " + kvmMachineName + " --name " + snapshotName, 15 * 60 * 1000);
+        validateSnapshotListOfKVMIfExist(snapshotName, true);
+    }
+
     public void deleteKvmSnapshot(String snapshotName) throws Exception {
-        VisionRadwareFirstTime visionRadwareFirstTime = (VisionRadwareFirstTime) system.getSystemObject("visionRadwareFirstTime");
-        String vmName = visionRadwareFirstTime.getVmName() + visionRadwareFirstTime.getIp();
         BaseTestUtils.report("Deleting snapshot.", Reporter.PASS_NOR_FAIL);
-        CliOperations.runCommand(visionRadwareFirstTime, "virsh snapshot-delete --domain " + vmName + " --name " + snapshotName, 15 * 60 * 1000);
+        CliOperations.runCommand(visionRadwareFirstTime, "virsh snapshot-delete --domain " + kvmMachineName + " --name " + snapshotName, 15 * 60 * 1000);
+        validateSnapshotListOfKVMIfExist(snapshotName, false);
     }
 
     public void takeSnapshotVMWare(int vmNumber, String snapshotName, String withMemory) {
         try {
             boolean withMem = withMemory != null;
-            VisionVMs visionVMs = restTestBase.getVisionVMs();
             String vmName = visionVMs.getVMNameByIndex(vmNumber);
-            EsxiInfo esxiInfo = new EsxiInfo(visionVMs.getvCenterURL(), visionVMs.getUserName(), visionVMs.getPassword(), visionVMs.getResourcePool());
             VMSnapshotOperations.newInstance().doSnapshot(new VmNameTargetVm(esxiInfo, vmName), snapshotName, withMem);
         } catch (Exception e) {
             BaseTestUtils.report("Error creating snapshot: " + parseExceptionBody(e), Reporter.FAIL);
@@ -82,51 +88,38 @@ public class VmSnapShotOperations extends BddUITestBase {
 
     public void renameSnapshotVMWare(String snapshotName, String newSnapshotName, String descriptionOfSnapshot) {
         try {
-            VisionVMs visionVMs = restTestBase.getVisionVMs();
-            String vmName = visionVMs.getVMNameByIndex(1);
-            EsxiInfo esxiInfo = new EsxiInfo(visionVMs.getvCenterURL(), visionVMs.getUserName(), visionVMs.getPassword(), visionVMs.getResourcePool());
             VMSnapshotOperations.newInstance().renameSnapshot(new VmNameTargetVm(esxiInfo, vmName), snapshotName, newSnapshotName, descriptionOfSnapshot);
         } catch (Exception e) {
-            BaseTestUtils.report("Error taking snapshot: " + parseExceptionBody(e), Reporter.FAIL);
+            BaseTestUtils.report("Error rename snapshot: " + parseExceptionBody(e), Reporter.FAIL);
         }
     }
 
     public String findVMWareSnapshotIfExist(String snapshotName) throws Exception {
-        VisionVMs visionVMs = restTestBase.getVisionVMs();
-        String vmName = visionVMs.getVMNameByIndex(1);
-        EsxiInfo esxiInfo = new EsxiInfo(visionVMs.getvCenterURL(), visionVMs.getUserName(), visionVMs.getPassword(), visionVMs.getResourcePool());
         return VMSnapshotOperations.newInstance().getNameOfSnapshotInTreeIfExist(new VmNameTargetVm(esxiInfo, vmName), snapshotName);
-
     }
 
     public void deleteSnapshotVMWare(String snapshotName) throws Exception {
-        VisionVMs visionVMs = restTestBase.getVisionVMs();
-        String vmName = visionVMs.getVMNameByIndex(1);
-        EsxiInfo esxiInfo = new EsxiInfo(visionVMs.getvCenterURL(), visionVMs.getUserName(), visionVMs.getPassword(), visionVMs.getResourcePool());
         VMSnapshotOperations.newInstance().removeSnapshot(new VmNameTargetVm(esxiInfo, vmName), snapshotName);
     }
 
     public void revertKvmSnapshot(String snapshotName, VisionRadwareFirstTime visionRadwareFirstTime) throws Exception {
-        String vmName = visionRadwareFirstTime.getVmName() + visionRadwareFirstTime.getIp();
         CliOperations.runCommand(visionRadwareFirstTime, "virsh list --all");
-        boolean isContained = RegexUtils.isStringContainsThePattern(vmName, CliOperations.lastOutput);
+        boolean isContained = RegexUtils.isStringContainsThePattern(kvmMachineName, CliOperations.lastOutput);
         if (!isContained) {
-            throw new Exception("the " + vmName + "does not exist");
+            throw new Exception("the " + kvmMachineName + "does not exist");
         }
-        int DEFAULT_KVM_CLI_TIMEOUT = 3000;
-        CliOperations.runCommand(visionRadwareFirstTime, "virsh start " + vmName, DEFAULT_KVM_CLI_TIMEOUT);
+        CliOperations.runCommand(visionRadwareFirstTime, "virsh start " + kvmMachineName, DEFAULT_KVM_CLI_TIMEOUT);
         Thread.sleep(60 * 1000);
         BaseTestUtils.report("Reverting to snapshot.", Reporter.PASS_NOR_FAIL);
-        CliOperations.runCommand(visionRadwareFirstTime, "virsh snapshot-revert --domain " + vmName + " --snapshotname " + snapshotName + " --force", 15 * 60 * 1000);
+        CliOperations.runCommand(visionRadwareFirstTime, "virsh snapshot-revert --domain " + kvmMachineName + " --snapshotname " + snapshotName + " --force", 15 * 60 * 1000);
         BaseTestUtils.report("Starting server after revert.", Reporter.PASS_NOR_FAIL);
-        CliOperations.runCommand(visionRadwareFirstTime, "virsh start " + vmName, DEFAULT_KVM_CLI_TIMEOUT);
+        CliOperations.runCommand(visionRadwareFirstTime, "virsh start " + kvmMachineName, DEFAULT_KVM_CLI_TIMEOUT);
         String error = ".*Domain not found.*";
         isContained = RegexUtils.isStringContainsThePattern(error, CliOperations.lastOutput);
         if (isContained) {
-            String domain = "vision_auto_" + visionRadwareFirstTime.getIp();
-            throw new Exception("error: Domain not found: no domain with matching name '" + domain + "' ");
+            throw new Exception("error: Domain not found: no domain with matching name '" + kvmMachineName + "' ");
         }
-        CliOperations.runCommand(visionRadwareFirstTime, "virsh domstate " + vmName, DEFAULT_KVM_CLI_TIMEOUT);
+        CliOperations.runCommand(visionRadwareFirstTime, "virsh domstate " + kvmMachineName, DEFAULT_KVM_CLI_TIMEOUT);
         isContained = RegexUtils.isStringContainsThePattern("running", CliOperations.lastRow);
         if (!isContained)
             BaseTestUtils.report("Server is not running. status is: " + CliOperations.lastOutput, Reporter.FAIL);
@@ -145,31 +138,28 @@ public class VmSnapShotOperations extends BddUITestBase {
     public String getSnapshotTypeBySetupMode(boolean snapshotFromSut) throws Exception {
         if (snapshotFromSut)
             return snapshotName;
-        switch (setupMode.toLowerCase()){
+        switch (setupMode.toLowerCase()) {
             case "upgrade":
-               return getSnapshotNameOfEnumFromListForVMWare();
+                return getSnapshotNameOfEnumFromListForVMWare();
             case "kvm_upgrade":
                 return getSnapshotNameOfEnumFromListForKVM();
-            default: return null;
+            default:
+                return null;
         }
     }
 
-    public void revertVMWareSnapshot(int vmNumber,boolean snapshotFromSut) throws Exception {
+    public void revertVMWareSnapshot(int vmNumber, boolean snapshotFromSut) throws Exception {
         try {
             String snapshot = getSnapshotTypeBySetupMode(snapshotFromSut);
-
             if (!snapshotFromSut && (snapshot == null || snapshot.equals(""))) {
                 BaseTestUtils.report("Could not find snapshot in list ", Reporter.FAIL);
                 return;
             }
-
             if (snapshot == null || snapshot.equals("")) {
                 BaseTestUtils.report("Could not find snapshot in SUT file performing internal upgrade", Reporter.PASS_NOR_FAIL);
                 return;
             }
-            VisionVMs visionVMs = restTestBase.getVisionVMs();
             String vmName = visionVMs.getVMNameByIndex(vmNumber);
-            EsxiInfo esxiInfo = new EsxiInfo(visionVMs.getvCenterURL(), visionVMs.getUserName(), visionVMs.getPassword(), visionVMs.getResourcePool());
             BaseTestUtils.report("Reverting to snapshot " + snapshot, Reporter.PASS_NOR_FAIL);
             VMSnapshotOperations.newInstance().switchToSnapshot(new VmNameTargetVm(esxiInfo, vmName), snapshot, true);
             BaseTestUtils.report("Revert done", Reporter.PASS_NOR_FAIL);
@@ -193,7 +183,7 @@ public class VmSnapShotOperations extends BddUITestBase {
 
     public void upgradeAccordingToSnapshot(String upgradeToVersion, String build) throws Exception {
         boolean snapshotFromSut = true;
-        if(snapshotName == null || snapshotName.isEmpty() || snapshotName.equals(" "))
+        if (snapshotName == null || snapshotName.isEmpty() || snapshotName.equals(" "))
             snapshotFromSut = false;
         UpgradeSteps upgradeSteps = new UpgradeSteps();
         if (upgradeToVersion == null || upgradeToVersion.isEmpty() || upgradeToVersion.equals(" "))
@@ -203,25 +193,21 @@ public class VmSnapShotOperations extends BddUITestBase {
         assert setupMode != null;
         switch (setupMode.toLowerCase()) {
             case "upgrade":
-                revertVMWareSnapshot(1,snapshotFromSut);
+                revertVMWareSnapshot(defaultVMWareNumber, snapshotFromSut);
                 upgradeSteps.UpgradeVisionServer(upgradeToVersion, build);
                 VmSnapShotOperations.newInstance().renameSnapshotVMWare(snapshotName, "temporarySnapshot", "temporary");
-                VmSnapShotOperations.newInstance().takeSnapshotVMWare(1, snapshotName, "withMemory");
+                VmSnapShotOperations.newInstance().takeSnapshotVMWare(defaultVMWareNumber, snapshotName, "withMemory");
                 VmSnapShotOperations.newInstance().deleteSnapshotVMWare("temporarySnapshot");
                 VmSnapShotOperations.newInstance().renameSnapshotVMWare(snapshotName, snapshotName, "Automation, Version: " + upgradeToVersion);
                 break;
 
             case "kvm_upgrade":
-                VisionRadwareFirstTime visionRadwareFirstTime = (VisionRadwareFirstTime) system.getSystemObject("visionRadwareFirstTime");
                 VmSnapShotOperations.newInstance().revertKvmSnapshot(snapshotName, visionRadwareFirstTime);
                 upgradeSteps.UpgradeVisionServer(upgradeToVersion, build);
                 VmSnapShotOperations.newInstance().deleteKvmSnapshot(snapshotName);
                 VmSnapShotOperations.newInstance().takeKVmSnapshot(snapshotName);
                 break;
-
         }
-
-
     }
 
     private String calculateVersionAccordingToSnapshot() throws Exception {
@@ -251,7 +237,7 @@ public class VmSnapShotOperations extends BddUITestBase {
         VisionRadwareFirstTime visionRadwareFirstTime = (VisionRadwareFirstTime) system.getSystemObject("visionRadwareFirstTime");
         String vmName = visionRadwareFirstTime.getVmName() + visionRadwareFirstTime.getIp();
         CliOperations.runCommand(visionRadwareFirstTime, "virsh snapshot-list " + vmName + " | awk 'NF!=1 { print $1 }'", DEFAULT_KVM_CLI_TIMEOUT);
-        ArrayList cmdOutput = visionRadwareFirstTime.getCmdOutput();
+        ArrayList<String> cmdOutput = visionRadwareFirstTime.getCmdOutput();
         for (Enum snapshot : VmSnapShotOperations.Snapshot.values())
             for (Object outputLine : cmdOutput) {
                 if (outputLine.toString().equalsIgnoreCase(snapshot.toString()))
