@@ -4,9 +4,17 @@ Feature: IPv6 LDAP Login
   @SID_1
   Scenario: Clear existing LDAP object setting
     Then CLI Operations - Run Root Session command "mysql -prad123 vision_ng -e "delete from user_role_group_pair where fk_ldap_object_perm is not null;""
+    Then MYSQL DELETE FROM "" Table in "VISION_NG" Schema WHERE ""
+
     Then CLI Operations - Run Root Session command "mysql -prad123 vision_ng -e "delete from ldap_permission_to_net_protec_rule;""
+    Then MYSQL DELETE FROM "" Table in "VISION_NG" Schema WHERE ""
+
     Then CLI Operations - Run Root Session command "mysql -prad123 vision_ng -e "delete from ldap_object_permission;""
+    Then MYSQL DELETE FROM "" Table in "VISION_NG" Schema WHERE ""
+
     Then CLI Operations - Run Root Session command "mysql -prad123 vision_ng -e "delete from ldap_base_dn;""
+    Then MYSQL DELETE FROM "" Table in "VISION_NG" Schema WHERE ""
+
 
   @SID_2
   Scenario: Navigate to LDAP setting page
