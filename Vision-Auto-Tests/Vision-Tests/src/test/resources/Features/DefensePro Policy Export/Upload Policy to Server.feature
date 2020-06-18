@@ -46,4 +46,5 @@ Feature: DefensePro Network Policy Upload to Server
 
   @SID_7
   Scenario: Verify Network policy deleted in vision
-    Then CLI Run linux Command "mysql -prad123 vision_ng -BNe "select count(*) from device_exported_file where name='auto_import';"" on "ROOT_SERVER_CLI" and validate result EQUALS "0"
+#    Then CLI Run linux Command "mysql -prad123 vision_ng -BNe "select count(*) from device_exported_file where name='auto_import';"" on "ROOT_SERVER_CLI" and validate result EQUALS "0"
+    Then MYSQL Validate Number of Records FROM "device_exported_file" Table in "VISION_NG" Schema WHERE "name='auto_import'" Condition Applies EQUALS 0
