@@ -17,10 +17,11 @@ Feature: EAAF Widget - Top IP Statistics
 
   @SID_3
   Scenario: Login and navigate to EAAF dashboard
-    * CLI Run remote linux Command "mysql -u root -prad123 vision_ng -e "update user_mgt set password='0R5nzwnMaxkeLEWhI+QahPWxssDjLbGH', password_expiration_date='2030-1-1' where name='radware';"" on "ROOT_SERVER_CLI"
+#    * CLI Run remote linux Command "mysql -u root -prad123 vision_ng -e "update user_mgt set password='0R5nzwnMaxkeLEWhI+QahPWxssDjLbGH', password_expiration_date='2030-1-1' where name='radware';"" on "ROOT_SERVER_CLI"
     Given MYSQL UPDATE "user_mgt" Table in "VISION_NG" Schema SET The Following Columns Values WHERE "name='radware'"
-      |  |  |
-      |  |  |
+      | password                 | "0R5nzwnMaxkeLEWhI+QahPWxssDjLbGH" |
+      | password_expiration_date | "2030-1-1"                         |
+
     * REST Vision Install License Request "vision-AVA-Max-attack-capacity"
 #    Given UI Login with user "sys_admin" and password "radware"
     Given UI Login with user "sys_admin" and password "radware"
