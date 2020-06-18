@@ -232,10 +232,7 @@ public class VmSnapShotOperations extends BddUITestBase {
         return null;
     }
 
-    public String getSnapshotNameOfEnumFromListForKVM() throws Exception {
-        int DEFAULT_KVM_CLI_TIMEOUT = 3000;
-        VisionRadwareFirstTime visionRadwareFirstTime = (VisionRadwareFirstTime) system.getSystemObject("visionRadwareFirstTime");
-        String vmName = visionRadwareFirstTime.getVmName() + visionRadwareFirstTime.getIp();
+    public String getSnapshotNameOfEnumFromListForKVM() {
         CliOperations.runCommand(visionRadwareFirstTime, "virsh snapshot-list " + vmName + " | awk 'NF!=1 { print $1 }'", DEFAULT_KVM_CLI_TIMEOUT);
         ArrayList<String> cmdOutput = visionRadwareFirstTime.getCmdOutput();
         for (Enum snapshot : VmSnapShotOperations.Snapshot.values())
