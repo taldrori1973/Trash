@@ -1,4 +1,3 @@
-
 @TC109511
 Feature: OTB Alteon Enable Disable Virtual Service
 
@@ -24,7 +23,8 @@ Feature: OTB Alteon Enable Disable Virtual Service
 
   @SID_3
   Scenario: Move Alteon_TurnOffOn_All_Virtual_Servers to EMERGENCY category
-    When CLI Run remote linux Command "mysql -prad123 vision_ng -e "update admin_script set category='6' where name='Alteon_TurnOffOn_All_Virtual_Servers.vm';"" on "ROOT_SERVER_CLI"
+#    When CLI Run remote linux Command "mysql -prad123 vision_ng -e "update admin_script set category='6' where name='Alteon_TurnOffOn_All_Virtual_Servers.vm';"" on "ROOT_SERVER_CLI"
+    When MYSQL UPDATE "admin_script" Table in "VISION_NG" Schema SET "category" Column Value as 6 WHERE "name='Alteon_TurnOffOn_All_Virtual_Servers.vm'"
 
   @SID_4
   Scenario: Run ADC Enable virtual server
@@ -50,7 +50,7 @@ Feature: OTB Alteon Enable Disable Virtual Service
   @SID_6
   Scenario: Verify virt state Enabled in Alteon configuration
     Then REST Request "GET" for "Edit Alteon->Monitoring->Servers Resources->Virtual Server State"
-      |result|VirtServerState: 2|
+      | result | VirtServerState: 2 |
 
   @SID_7
   Scenario: Verify alert success message
@@ -83,7 +83,7 @@ Feature: OTB Alteon Enable Disable Virtual Service
   @SID_11
   Scenario: Verify virt state Disabled in Alteon configuration
     Then REST Request "GET" for "Edit Alteon->Monitoring->Servers Resources->Virtual Server State"
-      |result|VirtServerState: 3|
+      | result | VirtServerState: 3 |
 
   @SID_12
   Scenario: Verify alert success message
@@ -95,7 +95,7 @@ Feature: OTB Alteon Enable Disable Virtual Service
 #    Then REST Unlock Action on "Alteon" 14
 #    Then REST Lock Action on "Alteon" 14
     Then REST Request "DELETE" for "Edit Alteon->Virtual Server"
-      | type         | value   |
+      | type | value |
     Then REST Apply Action on "Alteon" 14
     Then REST Unlock Action on "Alteon" 14
 
