@@ -14,13 +14,14 @@ Feature: RBAC Menu
   Scenario: Login And Go to Vision
     Given UI Login with user "radware" and password "radware"
     Given UI Go To Vision
-    Then UI Navigate to page "System->User Management->User Management Settings"
-    Then UI Set Text field with id "gwt-debug-minPasswordLength_Widget" with "6"
-    Then UI Set Text field with id "gwt-debug-minUpperCaseChars_Widget" with "0"
-    Then UI Set Text field with id "gwt-debug-minLowerCaseChars_Widget" with "0"
-    Then UI Set Text field with id "gwt-debug-minNumDigits_Widget" with "0"
-    Then UI Set Text field with id "gwt-debug-minSpecialChars_Widget" with "0"
-    Then UI Click Button "Submit"
+#    These settings will be enabled once the enhancements for US66016 are merged
+#    Then UI Navigate to page "System->User Management->User Management Settings"
+#    Then UI Set Text field with id "gwt-debug-minPasswordLength_Widget" with "6"
+#    Then UI Set Text field with id "gwt-debug-minUpperCaseChars_Widget" with "0"
+#    Then UI Set Text field with id "gwt-debug-minLowerCaseChars_Widget" with "0"
+#    Then UI Set Text field with id "gwt-debug-minNumDigits_Widget" with "0"
+#    Then UI Set Text field with id "gwt-debug-minSpecialChars_Widget" with "0"
+#    Then UI Click Button "Submit"
 
 
   @SID_3
