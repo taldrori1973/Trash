@@ -108,7 +108,9 @@ Feature: Vision Install KVM SA
 
   @SID_12
   Scenario: Validate MySql version
-    Then CLI Run linux Command "mysql -prad123 --version|awk '{print$5}'" on "ROOT_SERVER_CLI" and validate result EQUALS "10.4.6-MariaDB,"
+#    Then CLI Run linux Command "mysql -prad123 --version|awk '{print$5}'" on "ROOT_SERVER_CLI" and validate result EQUALS "10.4.6-MariaDB,"
+    Then MYSQL Validate "version" Variable Value EQUALS "10.4.6-MariaDB"
+
 
   @SID_13
   Scenario: Validate vdirect listener

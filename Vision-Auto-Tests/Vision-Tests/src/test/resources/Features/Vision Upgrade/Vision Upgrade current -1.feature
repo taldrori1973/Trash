@@ -206,7 +206,8 @@ Feature: Vision Upgrade current -1
 
   @SID_27
   Scenario: Validate MySql version
-    Then CLI Run linux Command "mysql -prad123 --version|awk '{print$5}'" on "ROOT_SERVER_CLI" and validate result EQUALS "10.4.6-MariaDB,"
+#    Then CLI Run linux Command "mysql -prad123 --version|awk '{print$5}'" on "ROOT_SERVER_CLI" and validate result EQUALS "10.4.6-MariaDB,"
+    Then MYSQL Validate "version" Variable Value EQUALS "10.4.6-MariaDB"
 
   @SID_28
   Scenario: Validate vdirect listener

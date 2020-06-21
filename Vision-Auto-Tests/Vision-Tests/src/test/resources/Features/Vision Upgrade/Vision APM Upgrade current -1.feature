@@ -193,7 +193,8 @@ Feature: Vision APM Upgrade current -1
   @SID_21
   Scenario: Validate MySql version
     Then CLI Run remote linux Command "cat /opt/radware/sql_partition.txt" on "ROOT_SERVER_CLI"
-    Then CLI Run linux Command "mysql -prad123 --version|awk '{print$5}'" on "ROOT_SERVER_CLI" and validate result EQUALS "10.4.6-MariaDB,"
+#    Then CLI Run linux Command "mysql -prad123 --version|awk '{print$5}'" on "ROOT_SERVER_CLI" and validate result EQUALS "10.4.6-MariaDB,"
+    Then MYSQL Validate "version" Variable Value EQUALS "10.4.6-MariaDB"
 
   @SID_22
   Scenario: Validate vdirect listener
