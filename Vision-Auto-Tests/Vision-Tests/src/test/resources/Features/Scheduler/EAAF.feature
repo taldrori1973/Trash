@@ -142,7 +142,8 @@ Feature: ERT Active Attackers Feed for DP
   Scenario: Schedule ERT Active Attackers Feed for DefensePro task - 12 Hours
     When UI Navigate to "SCHEDULER" page via homePage
     Then UI Add Attackers feed task with name "testFeed" interval "12 Hours" destination devices indexes "10,11" with default params
-    Then Run command "mysql -prad123 quartz -BNe "select from_unixtime(NEXT_FIRE_TIME/1000) from qrtz_triggers where JOB_NAME like'ERTActiveDDoSFeedTask%';"" and validate task time close to 12
+#    Then Run command "mysql -prad123 quartz -BNe "select from_unixtime(NEXT_FIRE_TIME/1000) from qrtz_triggers where JOB_NAME like'ERTActiveDDoSFeedTask%';"" and validate task time close to 12
+    Then MYSQL Validate The Time by SELECT "from_unixtime(NEXT_FIRE_TIME/1000)" Column FROM "QUARTZ" Schema and "qrtz_triggers" Table WHERE "JOB_NAME like'ERTActiveDDoSFeedTask%'" Close to 12
 
 #    Then CLI Run linux Command "mysql -prad123 quartz -BNe "select REPEAT_INTERVAL from qrtz_simple_triggers where TRIGGER_NAME like 'trigger_ERTActiveDDoSFeedTask%';"" on "ROOT_SERVER_CLI" and validate result EQUALS "43200000"
     Then MYSQL Validate Single Value by SELECT "REPEAT_INTERVAL" Column FROM "QUARTZ" Schema and "qrtz_simple_triggers" Table WHERE "TRIGGER_NAME like 'trigger_ERTActiveDDoSFeedTask%'" EQUALS 43200000
@@ -183,7 +184,9 @@ Feature: ERT Active Attackers Feed for DP
   Scenario: Schedule ERT Active Attackers Feed for DefensePro task - daily
     When UI Navigate to "SCHEDULER" page via homePage
     Then UI Add Attackers feed task with name "testFeedDaily" interval "Daily" destination devices indexes "10,11" with default params
-    Then Run command "mysql -prad123 quartz -BNe "select from_unixtime(NEXT_FIRE_TIME/1000) from qrtz_triggers where JOB_NAME like'ERTActiveDDoSFeedTask%';"" and validate task time close to 24
+#    Then Run command "mysql -prad123 quartz -BNe "select from_unixtime(NEXT_FIRE_TIME/1000) from qrtz_triggers where JOB_NAME like'ERTActiveDDoSFeedTask%';"" and validate task time close to 24
+    Then MYSQL Validate The Time by SELECT "from_unixtime(NEXT_FIRE_TIME/1000)" Column FROM "QUARTZ" Schema and "qrtz_triggers" Table WHERE "JOB_NAME like'ERTActiveDDoSFeedTask%'" Close to 24
+
 #    Then CLI Run linux Command "mysql -prad123 quartz -BNe "select REPEAT_INTERVAL from qrtz_simple_triggers where TRIGGER_NAME like 'trigger_ERTActiveDDoSFeedTask%';"" on "ROOT_SERVER_CLI" and validate result EQUALS "86400000"
     Then MYSQL Validate Single Value by SELECT "REPEAT_INTERVAL" Column FROM "QUARTZ" Schema and "qrtz_simple_triggers" Table WHERE "TRIGGER_NAME like 'trigger_ERTActiveDDoSFeedTask%'" EQUALS 86400000
 
