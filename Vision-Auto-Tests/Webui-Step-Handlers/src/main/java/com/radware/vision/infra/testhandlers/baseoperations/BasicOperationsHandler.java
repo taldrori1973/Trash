@@ -530,7 +530,7 @@ public class BasicOperationsHandler {
             visionWebUILogin.setUsername(username);
             visionWebUILogin.setUPassword(password);
             visionWebUILogin.login();
-            WebUIUtils.sleep(45);
+            WebUIUtils.sleep(15);
             String loginStatusMsg = verifyLogin();
             if (loginStatusMsg.isEmpty()) {
                 BaseTestUtils.report("Failed to Login with username:" + username + " " + "Password: " + password + ", Error:\n" + loginStatusMsg, Reporter.FAIL);
