@@ -188,6 +188,7 @@ public class GenericCRUD {
         Connection connection = jdbcConnection.getDBConnection(VisionDBSchema.VISION_NG);
         PreparedStatement preparedStatement = connection.prepareStatement(format("Show Variables like '%s';", variableName));
         ResultSet resultSet = preparedStatement.executeQuery();
+        resultSet.first();
         return resultSet.getString(2);
 
     }
