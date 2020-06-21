@@ -42,7 +42,7 @@ Feature: Demo
 #    Then MYSQL Validate Single Value by SELECT "CRON_EXPRESSION" Column FROM "QUARTZ" Schema and "qrtz_cron_triggers" Table WHERE "TRIGGER_NAME like '%AttackDesc%'" EQUALS "8 12 15 ? * *"
 #    Then MYSQL Validate Number of Records FROM "TABLES" Table in "INFORMATION_SCHEMA" Schema WHERE "TABLE_SCHEMA='vision'" Condition Applies EQUALS 90
 
-  Then MYSQL Validate The Time by SELECT "from_unixtime(NEXT_FIRE_TIME/1000)" Column FROM "QUARTZ" Schema and "qrtz_triggers" Table WHERE "JOB_NAME like'ERTActiveDDoSFeedTask%'" Close to 10
+  Then MYSQL Validate The Time by SELECT "from_unixtime(NEXT_FIRE_TIME/1000)" Column FROM "QUARTZ" Schema and "qrtz_triggers" Table WHERE "JOB_NAME like'LicenseExpirationAlertGeneratorName%'" Close to 10
   #    Then MYSQL DELETE FROM "vision_license" Table in "VISION_NG" Schema WHERE "description='APSolute Vision Device Performance Monitor'" And VALIDATE 1 Records Was Deleted
 
   Scenario: Licenses

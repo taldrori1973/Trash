@@ -142,14 +142,15 @@ public class MySQLSteps extends WebUITestBase {
             String value = GenericCRUD.selectSingleValue(schema, columnName, tableName, whereCondition);
             DateTimeFormatter inputFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
             LocalDateTime outputDate = LocalDateTime.parse(value, inputFormatter);
-            outputDate =outputDate.plusHours(3);
+            outputDate = outputDate.plusHours(3);
             LocalDateTime current = LocalDateTime.now();
-            double time = Duration.between(current, outputDate).toMinutes()/(60.0);
-            if((time < (closeTo - 0.1) || time > (closeTo + 0.1)))
-                BaseTestUtils.report("the " + time + " is not close to " + closeTo + " " , Reporter.FAIL);
+            double time = Duration.between(current, outputDate).toMinutes() / (60.0);
+            if ((time < (closeTo - 0.1) || time > (closeTo + 0.1)))
+                BaseTestUtils.report("the " + time + " is not close to " + closeTo + " ", Reporter.FAIL);
 
         } catch (Exception e) {
-            e.printStackTrace();
+            BaseTestUtils.report(e.getMessage(), Reporter.FAIL);
+
         }
     }
 
