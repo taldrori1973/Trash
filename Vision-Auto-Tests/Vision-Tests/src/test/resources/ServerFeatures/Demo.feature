@@ -40,8 +40,9 @@ Feature: Demo
 #    Then MYSQL DELETE FROM "alrt_fltr_to_categories" Table in "VISION_NG" Schema WHERE "category=(select row_id from alertsfilter where name='ProfileV6')"
 
 #    Then MYSQL Validate Single Value by SELECT "CRON_EXPRESSION" Column FROM "QUARTZ" Schema and "qrtz_cron_triggers" Table WHERE "TRIGGER_NAME like '%AttackDesc%'" EQUALS "8 12 15 ? * *"
-    Then MYSQL Validate Number of Records FROM "TABLES" Table in "INFORMATION_SCHEMA" Schema WHERE "TABLE_SCHEMA='vision'" Condition Applies EQUALS 90
+#    Then MYSQL Validate Number of Records FROM "TABLES" Table in "INFORMATION_SCHEMA" Schema WHERE "TABLE_SCHEMA='vision'" Condition Applies EQUALS 90
 
+  Then MYSQL Validate The Time by SELECT "" Column FROM "" Schema and "" Table WHERE "" Close to  
   #    Then MYSQL DELETE FROM "vision_license" Table in "VISION_NG" Schema WHERE "description='APSolute Vision Device Performance Monitor'" And VALIDATE 1 Records Was Deleted
 
   Scenario: Licenses
