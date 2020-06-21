@@ -154,7 +154,7 @@ public class MySQLSteps extends WebUITestBase {
         }
     }
 
-    @Then("^MYSQL Validate \"([^\"]*)\" Variable Value ([^\"]*) (.*)$")
+    @Then("^MYSQL Validate \"([^\"]*)\" Variable Value ([^\"]*) \"([^\"]*)\"$")
     public void validateVariables(String variableName, OperatorsEnum operatorsEnum, String expected) {
         try {
             String sqlVariable = GenericCRUD.getSQLVariable(variableName);
