@@ -13,6 +13,9 @@ import com.radware.vision.utils.StepsParametersUtils;
 import cucumber.api.java.en.Then;
 
 import java.sql.SQLException;
+import java.time.Duration;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -133,8 +136,21 @@ public class MySQLSteps extends WebUITestBase {
     }
 
     @Then("^MYSQL Validate The Time by SELECT \"([^\"]*)\" Column FROM \"([^\"]*)\" Schema and \"([^\"]*)\" Table WHERE \"([^\"]*)\" Close to  (\\d+)$")
-    public void validateTimeCloseTo(String columnName, VisionDBSchema schema, String tableName, String whereCondition, Integer closeTo){
+    public void validateTimeCloseTo(String columnName, VisionDBSchema schema, String tableName, String whereCondition, Integer closeTo) {
 
+        try {
+            String value = GenericCRUD.selectSingleValue(schema, columnName, tableName, whereCondition);
+            DateTimeFormatter inputFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+            LocalDateTime outputDate = LocalDateTime.parse(value, inputFormatter);
+            outputDate =outputDate.plusHours(3);
+            LocalDateTime current = LocalDateTime.now();
+            double time = Duration.between(current, outputDate).toMinutes()/(60.0);
+            if((time < (closeTo - 0.1) || time > (closeTo + 0.1)))
+                BaseTestUtils.report("the " + time + " is not close to " + closeTo + " " , Reporter.FAIL);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
 
