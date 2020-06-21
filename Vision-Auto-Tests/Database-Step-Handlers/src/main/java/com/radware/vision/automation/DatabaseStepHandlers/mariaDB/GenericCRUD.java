@@ -6,10 +6,7 @@ import com.radware.vision.automation.DatabaseStepHandlers.mariaDB.client.JDBCCon
 import com.radware.vision.automation.DatabaseStepHandlers.mariaDB.client.JDBCConnectionSingleton;
 import com.radware.vision.automation.DatabaseStepHandlers.mariaDB.client.VisionDBSchema;
 
-import java.sql.Connection;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
+import java.sql.*;
 import java.util.*;
 
 import static java.lang.String.format;
@@ -31,11 +28,12 @@ public class GenericCRUD {
      * @return One value which is under the column name of the record that returned from the where
      * @throws Exception
      */
-    public static <T> T selectSingleValue(VisionDBSchema schema, String columnName, String tableName,String where) throws Exception {
+    public static <T> T selectSingleValue(VisionDBSchema schema, String columnName, String tableName, String where) throws Exception {
         Connection dbConnection = jdbcConnection.getDBConnection(schema);
         Statement statement = dbConnection.createStatement();
         ResultSet resultSet = statement.executeQuery(format("SELECT %s FROM %s WHERE %s;", columnName, tableName, where));
-        if(Objects.isNull(where) || where.isEmpty()) resultSet = statement.executeQuery(format("SELECT %s FROM %s;", columnName, tableName));
+        if (Objects.isNull(where) || where.isEmpty())
+            resultSet = statement.executeQuery(format("SELECT %s FROM %s;", columnName, tableName));
         resultSet.last();
         if (resultSet.getRow() == 0) throw new Exception("No rows was found with the condition you provide.");
         if (resultSet.getRow() > 1) throw new Exception("The condition you provide returns more than one row.");
@@ -185,13 +183,25 @@ public class GenericCRUD {
         return statement.executeUpdate(query);
     }
 
+    public String getSQLVariable(String variableName) {
+        try {
+            Connection connection = jdbcConnection.getDBConnection(VisionDBSchema.VISION_NG);
+            PreparedStatement preparedStatement = connection.prepareStatement(format("Show Variables like '%s';", variableName));
+            ResultSet resultSet = preparedStatement.executeQuery();
+            return resultSet.getString(2);
+
+        } catch (SQLException | JDBCConnectionException e) {
+            e.printStackTrace();
+        }
+    }
+
     /**
      * This is private method which accept value as {@link Object} and return String as follows
      *
      * @param value
-     * @return      if the Object is null returns null
-     *              if the object is String will return String with ('') foe example vision will return as 'vision'
-     *              else return the same Object as String
+     * @return if the Object is null returns null
+     * if the object is String will return String with ('') foe example vision will return as 'vision'
+     * else return the same Object as String
      */
     private static String valueOfByType(Object value) {
         if (value == null) return null;
