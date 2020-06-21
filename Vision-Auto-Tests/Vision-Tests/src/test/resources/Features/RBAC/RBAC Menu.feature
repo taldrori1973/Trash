@@ -477,6 +477,14 @@ Feature: RBAC Menu
 
     * UI Logout
 
+  @SID_23
+  Scenario: Login And Go to Vision
+    Given UI Login with user "radware" and password "radware"
+    Given UI Go To Vision
+    Then UI Navigate to page "System->User Management->User Management Settings"
+    Then UI Select "TACACS+" from Vision dropdown "Authentication Mode"
+    Then UI Click Button "Submit"
+    Then UI Logout
 
   @SID_22
   Scenario:Clean up (clean configurations caused by this feature)
