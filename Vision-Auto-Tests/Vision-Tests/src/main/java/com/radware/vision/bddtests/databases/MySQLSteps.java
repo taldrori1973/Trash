@@ -155,8 +155,14 @@ public class MySQLSteps extends WebUITestBase {
     }
 
     @Then("^MYSQL Validate \"([^\"]*)\" Variable Value ([^\"]*) (.*)$")
-    public void validateVariables(String variableName, OperatorsEnum operatorsEnum,String expected) {
-
+    public void validateVariables(String variableName, OperatorsEnum operatorsEnum, String expected) {
+        try {
+            String sqlVariable = GenericCRUD.getSQLVariable(variableName);
+            boolean result = Comparator.compareResults(expected, sqlVariable, operatorsEnum, null);
+            if (!result) BaseTestUtils.report(Comparator.failureMessage, Reporter.FAIL);
+        } catch (JDBCConnectionException | SQLException e) {
+            BaseTestUtils.report(e.getMessage(), Reporter.FAIL);
+        }
     }
 
 

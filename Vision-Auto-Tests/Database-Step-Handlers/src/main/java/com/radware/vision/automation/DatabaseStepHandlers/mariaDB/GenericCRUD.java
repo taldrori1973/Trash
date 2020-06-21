@@ -183,7 +183,7 @@ public class GenericCRUD {
         return statement.executeUpdate(query);
     }
 
-    public String getSQLVariable(String variableName) throws JDBCConnectionException, SQLException {
+    public static String getSQLVariable(String variableName) throws JDBCConnectionException, SQLException {
 
         Connection connection = jdbcConnection.getDBConnection(VisionDBSchema.VISION_NG);
         PreparedStatement preparedStatement = connection.prepareStatement(format("Show Variables like '%s';", variableName));
