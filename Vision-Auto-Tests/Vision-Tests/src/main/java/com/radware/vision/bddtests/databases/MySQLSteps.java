@@ -131,4 +131,11 @@ public class MySQLSteps extends WebUITestBase {
             BaseTestUtils.report(e.getMessage(), Reporter.FAIL);
         }
     }
+
+    @Then("^MYSQL Validate The Time by SELECT \"([^\"]*)\" Column FROM \"([^\"]*)\" Schema and \"([^\"]*)\" Table WHERE \"([^\"]*)\" Close to  (\\d+)$")
+    public void validateTimeCloseTo(String columnName, VisionDBSchema schema, String tableName, String whereCondition, Integer closeTo){
+
+    }
+
+
 }
