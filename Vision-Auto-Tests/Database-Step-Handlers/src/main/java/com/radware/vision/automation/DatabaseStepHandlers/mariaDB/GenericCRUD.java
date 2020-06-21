@@ -183,16 +183,13 @@ public class GenericCRUD {
         return statement.executeUpdate(query);
     }
 
-    public String getSQLVariable(String variableName) {
-        try {
-            Connection connection = jdbcConnection.getDBConnection(VisionDBSchema.VISION_NG);
-            PreparedStatement preparedStatement = connection.prepareStatement(format("Show Variables like '%s';", variableName));
-            ResultSet resultSet = preparedStatement.executeQuery();
-            return resultSet.getString(2);
+    public String getSQLVariable(String variableName) throws JDBCConnectionException, SQLException {
 
-        } catch (SQLException | JDBCConnectionException e) {
-            e.printStackTrace();
-        }
+        Connection connection = jdbcConnection.getDBConnection(VisionDBSchema.VISION_NG);
+        PreparedStatement preparedStatement = connection.prepareStatement(format("Show Variables like '%s';", variableName));
+        ResultSet resultSet = preparedStatement.executeQuery();
+        return resultSet.getString(2);
+
     }
 
     /**
