@@ -238,7 +238,7 @@ public class VmSnapShotOperations extends BddUITestBase {
     }
 
     public String getSnapshotNameOfEnumFromListForKVM() {
-        CliOperations.runCommand(visionRadwareFirstTime, "virsh snapshot-list " + vmName + " | awk 'NF!=1 { print $1 }'", DEFAULT_KVM_CLI_TIMEOUT);
+        CliOperations.runCommand(visionRadwareFirstTime, "virsh snapshot-list " + kvmMachineName + " | awk 'NF!=1 { print $1 }'", DEFAULT_KVM_CLI_TIMEOUT);
         ArrayList<String> cmdOutput = visionRadwareFirstTime.getCmdOutput();
         for (Snapshot snapshot : VmSnapShotOperations.Snapshot.values())
             for (Object outputLine : cmdOutput) {
