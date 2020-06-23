@@ -5,15 +5,15 @@ import com.radware.automation.tools.basetest.BaseTestUtils;
 import com.radware.automation.tools.basetest.Reporter;
 import com.radware.automation.tools.basetest.RuntimePropertiesEnum;
 import com.radware.automation.tools.utils.InvokeUtils;
+import com.radware.vision.automation.AutoUtils.SUT.dtos.ServerDto;
+import com.radware.vision.base.TestBase;
 import com.radware.vision.enums.YesNo;
 import com.radware.vision.vision_project_cli.menu.Menu;
 import com.radware.vision.vision_tests.CliTests;
+import net.bytebuddy.implementation.bytecode.Throw;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Properties;
+import java.util.*;
 
 import static com.radware.automation.tools.basetest.BaseTestUtils.reporter;
 
@@ -113,14 +113,20 @@ public class CliNegative extends BddCliTestBase {
     /**
      * general export negative test
      */
-    protected void exportNegativeTest(String command, String name, String destenation) throws Exception {
-        exportNegativeTest(command, name, destenation, restTestBase.getLinuxFileServer().getPassword());
+    protected void exportNegativeTest(String command, String name, String destination) throws Exception {
+        Optional<ServerDto> linuxFileServer = TestBase.sutManager.getServerById("linuxFileServer");
+        String password;
+        if (linuxFileServer.isPresent())
+            password = linuxFileServer.get().getPassword();
+        else
+            throw new Exception("Linux File Server was not found");
+        exportNegativeTest(command, name, destination, password);
     }
 
-    protected void exportNegativeTest(String command, String name, String destenation, String password/*, GoodErrorsList goodErrorsList*/) throws Exception {
+    protected void exportNegativeTest(String command, String name, String destination, String password/*, GoodErrorsList goodErrorsList*/) throws Exception {
         try {
             CliTests.report.startLevel("Begining the export");
-            InvokeUtils.invokeCommand(null, command + " export " + name + " " + destenation, restTestBase.getRadwareServerCli(), 2 * 60 * 1000, true);
+            InvokeUtils.invokeCommand(null, command + " export " + name + " " + destination, restTestBase.getRadwareServerCli(), 2 * 60 * 1000, true);
             if (restTestBase.getRadwareServerCli().getTestAgainstObject().toString().contains("(yes/no)?")) {
                 InvokeUtils.invokeCommand(null, "yes", restTestBase.getRadwareServerCli(), 2 * 60 * 1000, true);
             }
@@ -143,12 +149,19 @@ public class CliNegative extends BddCliTestBase {
      * general import negative test
      */
     protected void importNegativeTest(String command, String location) throws Exception {
-        importNegativeTest(command, restTestBase.getLinuxFileServer().getPassword(), location);
+        Optional<ServerDto> linuxFileServer = TestBase.sutManager.getServerById("linuxFileServer");
+        String password;
+        if (linuxFileServer.isPresent())
+            password = linuxFileServer.get().getPassword();
+        else
+            throw new Exception("Linux File Server was not found");
+
+        importNegativeTest(command, password, location);
     }
 
     protected void importNegativeTest(String command, String password, String location/*, GoodErrorsList goodErrorsList*/) throws Exception {
         try {
-            CliTests.report.startLevel("Begining the import");
+            CliTests.report.startLevel("Beginning the import");
 
             InvokeUtils.invokeCommand(null, command + " import " + location, restTestBase.getRadwareServerCli(), 3 * 60 * 1000, true);
             if (restTestBase.getRadwareServerCli().getTestAgainstObject().toString().contains("(yes/no)?")) {

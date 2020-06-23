@@ -3,6 +3,7 @@ package com.radware.vision.bddtests.clioperation.menu.net;
 import com.radware.automation.tools.basetest.BaseTestUtils;
 import com.radware.automation.tools.basetest.Reporter;
 import com.radware.vision.bddtests.BddCliTestBase;
+import com.radware.vision.utils.SutUtils;
 import com.radware.vision.vision_handlers.net.Dns;
 import com.radware.vision.vision_handlers.net.Ip;
 import com.radware.vision.vision_handlers.net.Route;
@@ -36,7 +37,7 @@ public class NetSteps extends BddCliTestBase {
 
             Dns.setDnsPrimaryFromSut(restTestBase.getRadwareServerCli());
             Dns.getDnsPrimary(restTestBase.getRadwareServerCli());
-            Ip.getNetIp(restTestBase.getRadwareServerCli().getHost(), "255.255.0.0", "G1", true, restTestBase.getRadwareServerCli());
+            Ip.getNetIp(SutUtils.getCurrentVisionIp(), "255.255.0.0", "G1", true, restTestBase.getRadwareServerCli());
             Version.verifyServerVersion(versionNumebr, buildNumber, restTestBase.getRadwareServerCli(), restTestBase.getRootServerCli());
             Route.verifyRouteDefault("172.17.1.1", "G1", restTestBase.getRadwareServerCli());
             Route.setNewNetRoute("172.17.0.0", "255.255.0.0", "172.17.1.5", "G1", restTestBase.getRadwareServerCli());
