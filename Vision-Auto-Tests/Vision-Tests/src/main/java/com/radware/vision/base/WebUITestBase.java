@@ -135,7 +135,7 @@ public abstract class WebUITestBase extends TestBase {
 
                 UIUtils.visionModeForTable = true;
 
-                String fileSeperator = System.getProperty("file.separator");
+                String fileSeparator = System.getProperty("file.separator");
                 // Set SMB timeouts
                 System.setProperty("jcifs.smb.client.responseTimeout", "120000"); // default: 30000 millisec.
                 System.setProperty("jcifs.smb.client.soTimeout", "140000"); // default: 35000 millisec.

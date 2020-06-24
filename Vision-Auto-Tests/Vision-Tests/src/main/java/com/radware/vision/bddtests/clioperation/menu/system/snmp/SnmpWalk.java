@@ -7,6 +7,7 @@ import com.radware.automation.webui.VisionDebugIdsManager;
 import com.radware.vision.automation.VisionAutoInfra.CLIInfra.CliOperations;
 import com.radware.vision.bddtests.BddCliTestBase;
 import com.radware.vision.bddtests.BddUITestBase;
+import com.radware.vision.utils.SutUtils;
 import com.radware.vision.vision_project_cli.RadwareServerCli;
 import com.radware.vision.vision_project_cli.RootServerCli;
 import com.radware.vision.vision_tests.CliTests;
@@ -35,7 +36,11 @@ public class SnmpWalk extends BddCliTestBase {
         RadwareServerCli radwareServerCli = restTestBase.getRadwareServerCli();
         RootServerCli rootServerCli = restTestBase.getRootServerCli();
         if (host == null) {
-            host = restTestBase.getRadwareServerCli().getHost();
+            try {
+                host = SutUtils.getCurrentVisionIp();
+            } catch (NoSuchFieldException e) {
+                BaseTestUtils.report(e.getMessage(),Reporter.FAIL);
+            }
             if(!host.matches("(\\d+)\\.(\\d+)\\.(\\d+)\\.(\\d+)"))
                 host = "'" + "udp6:" + host + "'";
         }
