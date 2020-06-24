@@ -211,6 +211,7 @@ public class UpgradeSteps extends BddCliTestBase {
             upgradeSteps.UpgradeVisionServer(version, buildUnderTest);
             BaseTestUtils.report("Server is ready for future upgrade", Reporter.PASS_NOR_FAIL);
         }
+        VMOperationsSteps.newInstance().updateVersionVar();
         visionDeployment = new VisionDeployment(deployType, version, "");
         String nextBuild = visionDeployment.getBuild();
         BaseTestUtils.report(String.format("Going to upgrade from build %s to %s", buildUnderTest, nextBuild),

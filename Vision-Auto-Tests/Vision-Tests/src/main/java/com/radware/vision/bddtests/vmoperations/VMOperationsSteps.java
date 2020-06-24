@@ -35,6 +35,10 @@ import java.util.regex.Pattern;
 
 public class VMOperationsSteps extends BddUITestBase {
 
+    public static VMOperationsSteps newInstance() throws Exception {
+        return new VMOperationsSteps();
+    }
+
     public VMOperationsSteps() throws Exception {
     }
 
@@ -331,7 +335,7 @@ public class VMOperationsSteps extends BddUITestBase {
      * Update variables for local objects and automation portal regrading the new version and build.
      * Relevant to be used after revert to snapshot and upgrade
      */
-    private void updateVersionVar() {
+    public void updateVersionVar() {
         String version = "";
         String build = "";
         try {
