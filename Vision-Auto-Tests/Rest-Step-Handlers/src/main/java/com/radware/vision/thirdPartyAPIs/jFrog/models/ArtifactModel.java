@@ -1,5 +1,7 @@
 package com.radware.vision.thirdPartyAPIs.jFrog.models;
 
+import lombok.Data;
+
 import java.net.URI;
 import java.util.Date;
 
@@ -8,6 +10,7 @@ import java.util.Date;
  * Date: 6/25/2020
  * Time: 3:27 PM
  */
+@Data
 public class ArtifactModel {
     private String repo;
     private URI path;
