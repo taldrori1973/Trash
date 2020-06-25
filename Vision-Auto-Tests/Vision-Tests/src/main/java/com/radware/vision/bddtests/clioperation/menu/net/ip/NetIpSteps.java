@@ -2,7 +2,9 @@ package com.radware.vision.bddtests.clioperation.menu.net.ip;
 
 import com.radware.automation.tools.basetest.BaseTestUtils;
 import com.radware.automation.tools.basetest.Reporter;
+import com.radware.vision.base.TestBase;
 import com.radware.vision.bddtests.BddCliTestBase;
+import com.radware.vision.utils.SutUtils;
 import com.radware.vision.vision_handlers.common.InvokeCommon;
 import com.radware.vision.vision_handlers.net.Ip;
 import com.radware.vision.vision_handlers.root.RootVerifications;
@@ -123,7 +125,7 @@ public class NetIpSteps extends BddCliTestBase {
             //net ip get - check the output
             Ip.getNetIp("", "", "G3", false, restTestBase.getRadwareServerCli());
             Ip.getNetIp("", "", "G2", false, restTestBase.getRadwareServerCli());
-            Ip.getNetIp(restTestBase.getRadwareServerCli().getHost(), "255.255.0.0", "G1", true, restTestBase.getRadwareServerCli());
+            Ip.getNetIp(SutUtils.getCurrentVisionIp(), "255.255.0.0", "G1", true, restTestBase.getRadwareServerCli());
 
             //via root ...
             String[] wantedOutput = {"G1", "G3", "G2", "255.255.0.0", restTestBase.getRadwareServerCli().getHost()};

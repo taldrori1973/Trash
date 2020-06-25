@@ -4,6 +4,7 @@ import com.radware.automation.tools.basetest.BaseTestUtils;
 import com.radware.automation.tools.basetest.Reporter;
 import com.radware.vision.bddtests.CliNegative;
 import com.radware.vision.test_parameters.ImportExport;
+import com.radware.vision.utils.SutUtils;
 import com.radware.vision.vision_handlers.system.ConfBackup;
 import com.radware.vision.vision_project_cli.menu.Menu;
 import com.radware.vision.vision_tests.CliNegativeTests;
@@ -53,7 +54,7 @@ public class ConfBackupNegativeSteps extends CliNegative {
      * 4.	Export with bad password
      * */
     public void confbackupExportNegativeTest(ImportExport.ImportExportType importExportType) throws Exception  {
-        exportNegativeTest(Menu.system().backup().config().build(), CONFBACKUP_NAME, importExportType.toString()+"://root@"+restTestBase.getLinuxFileServer().getHost()+":/home/radware");
+        exportNegativeTest(Menu.system().backup().config().build(), CONFBACKUP_NAME, importExportType.toString()+"://root@"+ SutUtils.getCurrentVisionIp() +":/home/radware");
         }
 
     /**
@@ -95,7 +96,7 @@ public class ConfBackupNegativeSteps extends CliNegative {
      * 4.	Import with bad password
      * */
     public void confbackupImportNegativeTest(ImportExport.ImportExportType importExportType) throws Exception  {
-        importNegativeTest(Menu.system().backup().config().build(), importExportType+"://root@"+ restTestBase.getLinuxFileServer().getHost() +":"+ImportExport.getPath(importExportType)+ CONFBACKUP_NAME + ".tar");
+        importNegativeTest(Menu.system().backup().config().build(), importExportType+"://root@"+ SutUtils.getCurrentVisionIp() +":"+ImportExport.getPath(importExportType)+ CONFBACKUP_NAME + ".tar");
 
     }
 

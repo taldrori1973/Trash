@@ -11,6 +11,7 @@ import com.radware.vision.infra.base.pages.navigation.WebUIVisionBasePage;
 import com.radware.vision.infra.testhandlers.EmailHandler;
 import com.radware.vision.infra.testhandlers.baseoperations.BasicOperationsHandler;
 import com.radware.vision.infra.testhandlers.cli.highavailability.HAHandler;
+import com.radware.vision.utils.SutUtils;
 import com.radware.vision.vision_project_cli.RadwareServerCli;
 import cucumber.api.java.en.Then;
 import enums.SUTEntryType;
@@ -53,7 +54,7 @@ public class ConfigSyncFailureSteps extends BddUITestBase {
         try {
             /* this for peer = host2*/
             String peerHost = restTestBase.getVisionServerHA().getHost_2();
-            RadwareServerCli peerServerCli = new RadwareServerCli(peerHost, restTestBase.getRadwareServerCli().getUser(), restTestBase.getRadwareServerCli().getPassword());
+            RadwareServerCli peerServerCli = new RadwareServerCli(peerHost, SutUtils.getCurrentVisionRestUserName(), SutUtils.getCurrentVisionRestUserPassword());
             peerServerCli.init();
             /* **********************/
             HAHandler.setConfigSyncMode(restTestBase.getRadwareServerCli(), "active", 1000 * sec, "YES");
@@ -116,7 +117,7 @@ public class ConfigSyncFailureSteps extends BddUITestBase {
 //            CliOperations.runCommand(rootGenericLinuxServerCli, delCliuser);
             /* this for peer = host2*/
             String peerHost = restTestBase.getVisionServerHA().getHost_2();
-            RadwareServerCli peerServerCli = new RadwareServerCli(peerHost, restTestBase.getRadwareServerCli().getUser(), restTestBase.getRadwareServerCli().getPassword());
+            RadwareServerCli peerServerCli = new RadwareServerCli(peerHost, SutUtils.getCurrentVisionRestUserName(), SutUtils.getCurrentVisionRestUserPassword());
             peerServerCli.init();
             /* **********************/
             HAHandler.setConfigSyncMode(restTestBase.getRadwareServerCli(), "active", 1000 * sec, "YES");
