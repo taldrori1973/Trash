@@ -1,5 +1,6 @@
 package com.radware.vision.thirdPartyAPIs.jFrog.pojos;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.Data;
 
 /**
@@ -8,5 +9,6 @@ import lombok.Data;
  * Time: 1:42 PM
  */
 @Data
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class ArtifactPojo {
 }
