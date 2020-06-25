@@ -2,8 +2,6 @@ package com.radware.vision.thirdPartyAPIs.jFrog.models;
 
 import lombok.Data;
 
-import java.net.URI;
-import java.util.Date;
 import java.util.List;
 
 /**
@@ -12,12 +10,8 @@ import java.util.List;
  * Time: 1:42 PM
  */
 @Data
-public class ArtifactBranch {
+public class ArtifactBranch extends ArtifactModel{
     private String branchName;
-    private String repo;
-    private URI path;
-    private Date created;
-    private Date lastModified;
-    private Date lastUpdated;
+
     private List<ArtifactBuild> builds;
 }
