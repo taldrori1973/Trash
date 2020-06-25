@@ -1,6 +1,8 @@
 package com.radware.vision.restBddTests;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.radware.automation.tools.basetest.BaseTestUtils;
 import com.radware.automation.tools.basetest.Reporter;
 import com.radware.vision.RestStepResult;
@@ -12,6 +14,7 @@ import com.radware.vision.automation.VisionAutoInfra.CLIInfra.Servers.ServerCliB
 import com.radware.vision.bddtests.BddRestTestBase;
 import com.radware.vision.devicesRestApi.topologyTree.TopologyTree;
 import com.radware.vision.devicesRestApi.topologyTree.TopologyTreeImpl;
+import com.radware.vision.thirdPartyAPIs.jFrog.pojos.ArtifactPojo;
 import com.radware.vision.utils.BodyEntry;
 import cucumber.api.java.en.Then;
 
@@ -177,5 +180,27 @@ public class Demo extends BddRestTestBase {
         CliOperations.lastRow = cliBase.getLastRow();
 
 
+    }
+
+    @Then("^Validate pojo Paesing$")
+    public void validatePojoPaesing() throws JsonProcessingException {
+        ObjectMapper objectMapper = new ObjectMapper();
+        String json = "{\n" +
+                "  \"repo\": \"kvision-images-snapshot-local\",\n" +
+                "  \"path\": \"/\",\n" +
+                "  \"created\": \"2020-01-20T15:20:01.393+02:00\",\n" +
+                "  \"lastModified\": \"2020-01-20T15:20:01.393+02:00\",\n" +
+                "  \"lastUpdated\": \"2020-01-20T15:20:01.393+02:00\",\n" +
+                "  \"children\": [\n" +
+                "    {\n" +
+                "      \"uri\": \"/OVA\",\n" +
+                "      \"folder\": true\n" +
+                "    }\n" +
+                "  ],\n" +
+                "  \"uri\": \"http://devart01:8081/artifactory/api/storage/kvision-images-snapshot-local\"\n" +
+                "}";
+
+        ArtifactPojo artifactPojo = objectMapper.readValue(json, ArtifactPojo.class);
+        System.out.println(artifactPojo);
     }
 }

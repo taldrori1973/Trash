@@ -24,6 +24,7 @@ import com.radware.vision.infra.testhandlers.vrm.enums.vrmActions;
 import com.radware.vision.infra.utils.ReportsUtils;
 import com.radware.vision.infra.utils.TimeUtils;
 import com.radware.vision.infra.utils.json.CustomizedJsonManager;
+import com.radware.vision.utils.SutUtils;
 import com.radware.vision.vision_project_cli.RadwareServerCli;
 import com.radware.vision.vision_project_cli.RootServerCli;
 import org.json.JSONArray;
@@ -964,18 +965,21 @@ public class VRMBaseUtilies {
     public static void openDevicePort(String host) {
         RadwareServerCli radwareServerCli = restTestBase.getRadwareServerCli();
         RootServerCli rootServerCli = restTestBase.getRootServerCli();
-        if (host == null) {
-            host = restTestBase.getRadwareServerCli().getHost();
-        }
-        if (host != null && !host.equals(restTestBase.getRadwareServerCli().getHost())) {
-            try {
-                radwareServerCli = new RadwareServerCli(host, restTestBase.getRadwareServerCli().getUser(), restTestBase.getRootServerCli().getPassword());
+        try {
+            if (host == null) {
+                host = SutUtils.getCurrentVisionIp();
+            }
+            if (host != null && !host.equals(SutUtils.getCurrentVisionIp())) {
+
+                radwareServerCli = new RadwareServerCli(host, SutUtils.getCurrentVisionRestUserName(), SutUtils.getCurrentVisionRestUserPassword());
                 radwareServerCli.init();
+//              kvision
+//               decide what to do with root user
                 rootServerCli = new RootServerCli(host, restTestBase.getRootServerCli().getUser(), restTestBase.getRootServerCli().getPassword());
                 rootServerCli.init();
-            } catch (Exception e) {
-                BaseTestUtils.report("Failed to build with host: " + host + " " + e.getMessage(), Reporter.FAIL);
             }
+        } catch (Exception e) {
+            BaseTestUtils.report("Failed to build with host: " + host + " " + e.getMessage(), Reporter.FAIL);
         }
 //        CliOperations.runCommand(rootServerCli, "service iptables stop");
         String commandToExecute = "net firewall open-port 10080 open";
@@ -1327,7 +1331,7 @@ public class VRMBaseUtilies {
 
         WebElement generateButton = BasicOperationsHandler.isItemAvailableById("Generate Now", reportName);
         if (generateButton == null) BaseTestUtils.report(reportName + " Generate Button not found", Reporter.FAIL)
-        ;
+                ;
         return generateButton;
     }
 

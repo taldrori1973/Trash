@@ -5,6 +5,7 @@ import com.radware.automation.tools.basetest.Reporter;
 import com.radware.automation.tools.cli.ServerCliBase;
 import com.radware.vision.automation.VisionAutoInfra.CLIInfra.CliOperations;
 import com.radware.vision.bddtests.BddCliTestBase;
+import com.radware.vision.utils.SutUtils;
 import com.radware.vision.vision_project_cli.RadwareServerCli;
 import com.radware.vision.vision_project_cli.RootServerCli;
 import cucumber.api.java.en.Then;
@@ -34,7 +35,7 @@ public class ConsoleOperation extends BddCliTestBase {
 
             timeOut = timeOut != null ? timeOut : 30;
             String Host2 = restTestBase.getVisionServerHA().getHost_2();
-            ServerCliBase radwareServerCli = new RadwareServerCli(Host2, getRestTestBase().getRadwareServerCli().getUser(), restTestBase.getRadwareServerCli().getPassword());
+            ServerCliBase radwareServerCli = new RadwareServerCli(Host2, SutUtils.getCurrentVisionRestUserName(), SutUtils.getCurrentVisionRestUserPassword());
             radwareServerCli.init();
             radwareServerCli.connect();
 //           kVision

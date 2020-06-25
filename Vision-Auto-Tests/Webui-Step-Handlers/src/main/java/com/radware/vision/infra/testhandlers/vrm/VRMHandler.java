@@ -1415,6 +1415,8 @@ public class VRMHandler {
     }
 
     public void validateMemoryUtilization() throws Exception {
+//      kvision
+//          replace root user usage
         RootServerCli rootServerCli = new RootServerCli(restTestBase.getRootServerCli().getHost(), restTestBase.getRootServerCli().getUser(), restTestBase.getRootServerCli().getPassword());
         rootServerCli.init();
         InvokeUtils.invokeCommand(null, "yum install stress", rootServerCli, 3 * 60 * 1000, true);
