@@ -13,7 +13,7 @@ import java.util.List;
  */
 @Data
 public class ArtifactBuild {
-    private String build;
+    private Integer buildNumber;
     private String repo;
     private URI path;
     private Date created;

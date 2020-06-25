@@ -13,7 +13,7 @@ import java.util.List;
  */
 @Data
 public class ArtifactBranch {
-
+    private String branchName;
     private String repo;
     private URI path;
     private Date created;
