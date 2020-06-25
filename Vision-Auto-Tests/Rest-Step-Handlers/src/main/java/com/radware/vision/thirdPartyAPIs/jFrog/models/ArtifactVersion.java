@@ -20,5 +20,4 @@ public class ArtifactVersion {
     private Date lastModified;
     private Date lastUpdated;
     private List<ArtifactBranch> branches;
-    private URI uri;
 }
