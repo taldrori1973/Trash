@@ -2,6 +2,8 @@ package com.radware.vision.thirdPartyAPIs.jFrog.pojos;
 
 import lombok.Data;
 
+import java.nio.file.Path;
+
 /**
  * Created by MohamadI - Muhamad Igbaria
  * Date: 6/25/2020
@@ -10,7 +12,7 @@ import lombok.Data;
 @Data
 public class ArtifactChildPojo {
 
-    private String uri;
+    private Path uri;
     private boolean folder;
 
 }
