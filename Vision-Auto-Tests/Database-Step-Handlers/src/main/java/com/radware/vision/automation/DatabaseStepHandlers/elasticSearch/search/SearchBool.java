@@ -8,7 +8,7 @@ import java.util.ArrayList;
 @Setter
 @Getter
 public class SearchBool {
-    ArrayList<InnerQuery> must = new ArrayList<InnerQuery>();
-    ArrayList<InnerQuery> must_not = new ArrayList<InnerQuery>();
-    ArrayList<InnerQuery> should = new ArrayList<InnerQuery>();
+    ArrayList<InnerQuery> must = new ArrayList<>();
+    ArrayList<InnerQuery> must_not = new ArrayList<>();
+    ArrayList<InnerQuery> should = new ArrayList<>();
 }
