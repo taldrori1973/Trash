@@ -6,4 +6,8 @@ package com.radware.vision.thirdPartyAPIs.jFrog.pojos;
  * Time: 1:52 PM
  */
 public class ArtifactChildPojo {
+
+    private String uri;
+    private boolean folder;
+
 }
