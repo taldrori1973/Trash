@@ -19,6 +19,5 @@ public class ArtifactBranch {
     private Date created;
     private Date lastModified;
     private Date lastUpdated;
-    private List<ArtifactBuild> children;
-    private URI uri;
+    private List<ArtifactBuild> builds;
 }
