@@ -14,15 +14,13 @@ import java.util.Date;
 @Data
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class ArtifactFile {
+    private FileType type;
     private String repo;
     private URI path;
     private Date created;
-    private String createdBy;
     private Date lastModified;
-    private String modifiedBy;
     private Date lastUpdated;
     private URI downloadUri;
-    private String mimeType;
     private String size;
     private URI uri;
 
