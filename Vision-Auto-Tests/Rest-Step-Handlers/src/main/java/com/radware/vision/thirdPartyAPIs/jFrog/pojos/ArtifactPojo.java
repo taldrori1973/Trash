@@ -3,6 +3,8 @@ package com.radware.vision.thirdPartyAPIs.jFrog.pojos;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.Data;
 
+import java.net.URI;
+import java.nio.file.Path;
 import java.util.Date;
 import java.util.List;
 
@@ -16,10 +18,10 @@ import java.util.List;
 public class ArtifactPojo {
 
     private String repo;
-    private String path;
+    private Path path;
     private Date created;
     private Date lastModified;
     private Date lastUpdated;
     private List<ArtifactChildPojo> children;
-    private String uri;
+    private URI uri;
 }
