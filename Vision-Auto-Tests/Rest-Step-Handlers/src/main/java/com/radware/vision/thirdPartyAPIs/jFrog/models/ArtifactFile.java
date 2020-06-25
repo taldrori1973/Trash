@@ -12,7 +12,6 @@ import java.util.Date;
  * Time: 1:42 PM
  */
 @Data
-@JsonIgnoreProperties(ignoreUnknown = true)
 public class ArtifactFile {
     private FileType type;
     private String repo;
@@ -22,9 +21,4 @@ public class ArtifactFile {
     private Date lastUpdated;
     private URI downloadUri;
     private String size;
-    private URI uri;
-
-//    checksums
-//    originalChecksums
-
 }
