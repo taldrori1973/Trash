@@ -4,7 +4,6 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.Data;
 
 import java.net.URI;
-import java.nio.file.Path;
 import java.util.Date;
 import java.util.List;
 
@@ -18,7 +17,7 @@ import java.util.List;
 public class ArtifactPojo {
 
     private String repo;
-    private Path path;
+    private URI path;
     private Date created;
     private Date lastModified;
     private Date lastUpdated;
