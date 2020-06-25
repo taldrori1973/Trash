@@ -5,7 +5,6 @@ import lombok.Data;
 
 import java.net.URI;
 import java.util.Date;
-import java.util.List;
 
 /**
  * Created by MohamadI - Muhamad Igbaria
@@ -23,7 +22,7 @@ public class ArtifactFilePojo {
     private String modifiedBy;
     private Date lastUpdated;
     private URI downloadUri;
-    private URI mimeType;
-    private List<ArtifactChildPojo> children;
+    private String mimeType;
+    private String size;
     private URI uri;
 }
