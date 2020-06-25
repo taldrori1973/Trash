@@ -11,7 +11,7 @@ import java.util.Date;
  * Time: 3:27 PM
  */
 @Data
-public class ArtifactModel {
+public abstract class ArtifactModel {
     private String repo;
     private URI path;
     private Date created;
