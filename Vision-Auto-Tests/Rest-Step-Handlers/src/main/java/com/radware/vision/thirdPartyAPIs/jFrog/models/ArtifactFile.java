@@ -1,6 +1,5 @@
 package com.radware.vision.thirdPartyAPIs.jFrog.models;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.Data;
 
 import java.net.URI;

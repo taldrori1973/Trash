@@ -1,6 +1,5 @@
 package com.radware.vision.thirdPartyAPIs.jFrog.models;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.radware.vision.thirdPartyAPIs.jFrog.pojos.ArtifactChildPojo;
 import lombok.Data;
 
@@ -14,7 +13,6 @@ import java.util.List;
  * Time: 1:42 PM
  */
 @Data
-@JsonIgnoreProperties(ignoreUnknown = true)
 public class ArtifactBranch {
 
     private String repo;

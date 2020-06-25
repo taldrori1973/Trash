@@ -1,6 +1,5 @@
 package com.radware.vision.thirdPartyAPIs.jFrog.models;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.Data;
 
 import java.net.URI;
@@ -13,7 +12,6 @@ import java.util.List;
  * Time: 1:42 PM
  */
 @Data
-@JsonIgnoreProperties(ignoreUnknown = true)
 public class ArtifactBuild {
 
     private String repo;
