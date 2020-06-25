@@ -221,7 +221,7 @@ public class TableHandler {
     }
 
     public void validateTableRowByKeyValue(String label, String columnName, String value) throws Exception {
-        setTable(label, true);
+        setTable(label, false);
         int rowIndexFound = -1;
         if (columnName != null && value != null) {
             rowIndexFound = table.getRowIndex(columnName, value);
