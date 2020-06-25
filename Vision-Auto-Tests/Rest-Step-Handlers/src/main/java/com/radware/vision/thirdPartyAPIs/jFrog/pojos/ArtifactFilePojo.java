@@ -25,4 +25,8 @@ public class ArtifactFilePojo {
     private String mimeType;
     private String size;
     private URI uri;
+
+//    checksums
+//    originalChecksums
+
 }
