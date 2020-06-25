@@ -10,7 +10,7 @@ import java.util.List;
  * Time: 1:42 PM
  */
 @Data
-public class ArtifactBuild {
+public class ArtifactBuild extends ArtifactModel{
     private Integer buildNumber;
 
     private List<ArtifactFile> files;
