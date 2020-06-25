@@ -1,6 +1,5 @@
 package com.radware.vision.thirdPartyAPIs.jFrog.models;
 
-import com.radware.vision.thirdPartyAPIs.jFrog.pojos.ArtifactChildPojo;
 import lombok.Data;
 
 import java.net.URI;
@@ -20,6 +19,6 @@ public class ArtifactBranch {
     private Date created;
     private Date lastModified;
     private Date lastUpdated;
-    private List<ArtifactChildPojo> children;
+    private List<ArtifactBuild> children;
     private URI uri;
 }
