@@ -5,6 +5,9 @@ Feature: Demo
 #    Then MariaDb Test
 
   @run_kVision
+    Scenario:JFrog
+    Then Validate pojo Paesing
+
   Scenario: MariaDb
 #    Then MYSQL Validate Single Value by SELECT "name" Column FROM "VISION_NG" Schema and "vision_license" Table WHERE "description='Vision Reporting Module - ADC'" EQUALS null
 #    Then MYSQL Validate Single Value by SELECT "license_str" Column FROM "VISION_NG" Schema and "vision_license" Table WHERE "description='Vision Reporting Module - ADC'" EQUALS "vision-reporting-module-ADC-3sp77Gn7"
