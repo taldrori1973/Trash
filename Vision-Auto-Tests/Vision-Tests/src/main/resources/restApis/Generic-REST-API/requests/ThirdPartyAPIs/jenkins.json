@@ -1,42 +1,14 @@
 {
-  "deviceName": "thirdPartyAPIs",
-  "fileName": "elasticSearch",
-  "description": "elasticsearch",
+  "deviceName": "ThirdPartyAPIs",
+  "fileName": "jenkins",
+  "description": "Jenkins API",
   "api": [
     {
-      "label": "Delete Index",
-      "method": "DELETE",
-      "basePath": "/{indexName}",
-      "produces": "application/json",
-      "description": "delete index "
-    },
-    {
-      "label": "Delete doucument by query",
-      "method": "POST",
-      "basePath": "/{indexName}/_delete_by_query?pretty=true",
-      "produces": "application/json",
-      "description": "delete document by query "
-    },
-    {
-      "label": "Get Index",
+      "label": "Get Job Info",
       "method": "GET",
-      "basePath": "/{indexName}",
+      "basePath": "/job/{jobName}/{buildNumber}/api/json?pretty=true",
       "produces": "application/json",
-      "description": "get index "
-    },
-    {
-      "label": "Search index by query",
-      "method": "POST",
-      "basePath": "/{indexName}/_search/",
-      "produces": "application/json",
-      "description": "search index by query"
-    },
-    {
-      "label": "Update index by query",
-      "method": "POST",
-      "basePath": "/{indexName}/_update_by_query/?conflicts=proceed&refresh",
-      "produces": "application/json",
-      "description": "update index by query"
+      "description": "Get Jenkins Job or Build Info"
     }
   ]
 }
