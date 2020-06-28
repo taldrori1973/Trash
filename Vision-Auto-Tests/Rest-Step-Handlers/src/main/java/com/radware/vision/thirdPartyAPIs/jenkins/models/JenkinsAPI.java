@@ -44,15 +44,12 @@ public class JenkinsAPI {
     }
 
     public static BuildPojo getBuildInfo(String jobName, Integer buildNumber) throws Exception {
-        NoAuthRestClient noAuthConnection = RestClientsFactory.getNoAuthConnection("http://cmjen04.il.corp.radware.com/", 8081);
-        noAuthConnection.switchTo();
 
-        RestRequestSpecification buildInfoRequest = GenericStepsHandler.createNewRestRequestSpecification("/ThirdPartyAPIs/jenkins.json", "Get Build Info");
 
         Map<String, String> pathParamsMap = new HashMap<>();
         pathParamsMap.put("jobName", jobName);
         pathParamsMap.put("buildNumber", buildNumber.toString());
-        buildInfoRequest.setPathParams(pathParamsMap);
+        sendJenkinsRequest("Get Build Info",pathParamsMap);
 
         RestResponse restResponse = RestApiManagement.getRestApi().sendRequest(buildInfoRequest);
         if (!restResponse.getStatusCode().equals(StatusCode.OK))
@@ -60,5 +57,19 @@ public class JenkinsAPI {
 
         ObjectMapper objectMapper = new ObjectMapper();
         return objectMapper.readValue(restResponse.getBody().getBodyAsString(), BuildPojo.class);
+    }
+
+    private static RestResponse sendJenkinsRequest(String requestLabel, Map<String, String> pathParamsMap) throws Exception {
+        NoAuthRestClient noAuthConnection = RestClientsFactory.getNoAuthConnection("http://cmjen04.il.corp.radware.com/", 8081);
+        noAuthConnection.switchTo();
+
+        RestRequestSpecification request = GenericStepsHandler.createNewRestRequestSpecification("/ThirdPartyAPIs/jenkins.json", requestLabel);
+
+        request.setPathParams(pathParamsMap);
+
+        RestResponse restResponse = RestApiManagement.getRestApi().sendRequest(request);
+        if (!restResponse.getStatusCode().equals(StatusCode.OK))
+            throw new Exception(restResponse.getBody().getBodyAsString());
+        return restResponse;
     }
 }
