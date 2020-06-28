@@ -56,19 +56,19 @@ Feature: DP ANALYTICS
   @SID_5
   Scenario: VRM - Validate Dashboards "Attacks by Mitigation Action" Chart widget styling attributes
     Then UI Validate Line Chart attributes "Attacks by Mitigation Action" with Label "shlomi"
-      | attribute       | value                  |
+      | attribute       | value   |
       | backgroundColor | #00BDEE |
     Then  UI Validate Line Chart attributes "Attacks by Mitigation Action" with Label "BDOS"
-      | attribute       | value                    |
+      | attribute       | value   |
       | backgroundColor | #6CB9FF |
     Then UI Validate Line Chart attributes "Attacks by Mitigation Action" with Label "Packet Anomalies"
-      | attribute       | value                    |
+      | attribute       | value   |
       | backgroundColor | #04C2A0 |
     Then UI Validate Line Chart attributes "Attacks by Mitigation Action" with Label "shlomchik"
-      | attribute       | value                   |
-      | backgroundColor | #108282 |
+      | attribute       | value   |
+      | backgroundColor | #088EB1 |
     Then UI Validate Line Chart attributes "Attacks by Mitigation Action" with Label "Black_IPV6"
-      | attribute       | value                    |
+      | attribute       | value   |
       | backgroundColor | #4388C8 |
 
   @SID_6
@@ -123,7 +123,6 @@ Feature: DP ANALYTICS
       | pol_1  | 1     | Drop       |
       | shlomi | 5     | Drop       |
       | BDOS   | 1     | Forward    |
-
   @SID_9
   Scenario: VRM - Validate Dashboards "Attacks by Mitigation Action" Chart data for selected port and policies
     When UI Do Operation "Select" item "Device Selection"
@@ -134,7 +133,6 @@ Feature: DP ANALYTICS
       | label  | value | legendName |
       | shlomi | 5     | Drop       |
       | BDOS   | 4     | Drop       |
-
   @SID_10
   Scenario: VRM - NEGATIVE: Validate Dashboards "Attacks by Mitigation Action" Chart data doesn't exist for policy without relevant data
     When UI Do Operation "Select" item "Device Selection"
@@ -152,7 +150,6 @@ Feature: DP ANALYTICS
       | setId            | ports | policies |
       | DefensePro_Set_1 | 4     | BDOS     |
     Then UI Validate Text field by id "21d31970-adb1-4b9e-815c-44f72e35704d" CONTAINS "No Data Available"
-
 
   @SID_12
   Scenario: Attacks by Mitigation Action Cleanup
