@@ -2,10 +2,8 @@ package com.radware.vision.restBddTests;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.radware.automation.tools.basetest.BaseTestUtils;
 import com.radware.automation.tools.basetest.Reporter;
-import com.radware.vision.RestClientsFactory;
 import com.radware.vision.RestStepResult;
 import com.radware.vision.automation.DatabaseStepHandlers.mariaDB.GenericCRUD;
 import com.radware.vision.automation.DatabaseStepHandlers.mariaDB.client.JDBCConnectionException;
@@ -15,16 +13,11 @@ import com.radware.vision.automation.VisionAutoInfra.CLIInfra.Servers.ServerCliB
 import com.radware.vision.bddtests.BddRestTestBase;
 import com.radware.vision.devicesRestApi.topologyTree.TopologyTree;
 import com.radware.vision.devicesRestApi.topologyTree.TopologyTreeImpl;
-import com.radware.vision.restTestHandler.GenericStepsHandler;
+import com.radware.vision.thirdPartyAPIs.jenkins.JenkinsAPI;
 import com.radware.vision.thirdPartyAPIs.jenkins.pojos.BuildPojo;
 import com.radware.vision.thirdPartyAPIs.jenkins.pojos.JobPojo;
 import com.radware.vision.utils.BodyEntry;
-import controllers.RestApiManagement;
 import cucumber.api.java.en.Then;
-import models.RestRequestSpecification;
-import models.RestResponse;
-import restInterface.RestApi;
-import restInterface.client.NoAuthRestClient;
 
 import java.sql.SQLException;
 import java.util.*;
@@ -192,45 +185,14 @@ public class Demo extends BddRestTestBase {
 
     @Then("^Validate pojo Paesing$")
     public void validatePojoPaesing() throws JsonProcessingException {
-//        ObjectMapper objectMapper = new ObjectMapper();
-//        String json = "{\n" +
-//                "  \"repo\": \"kvision-images-snapshot-local\",\n" +
-//                "  \"path\": \"/\",\n" +
-//                "  \"created\": \"2020-01-20T15:20:01.393+02:00\",\n" +
-//                "  \"lastModified\": \"2020-01-20T15:20:01.393+02:00\",\n" +
-//                "  \"lastUpdated\": \"2020-01-20T15:20:01.393+02:00\",\n" +
-//                "  \"children\": [\n" +
-//                "    {\n" +
-//                "      \"uri\": \"/OVA\",\n" +
-//                "      \"folder\": true\n" +
-//                "    }\n" +
-//                "  ],\n" +
-//                "  \"uri\": \"http://devart01:8081/artifactory/api/storage/kvision-images-snapshot-local\"\n" +
-//                "}";
-//
-//        ArtifactPojo artifactPojo = objectMapper.readValue(json, ArtifactPojo.class);
-//        System.out.println(artifactPojo);
-
-        NoAuthRestClient noAuthConnection = RestClientsFactory.getNoAuthConnection("http://cmjen04.il.corp.radware.com/", 8081);
-        noAuthConnection.switchTo();
-        RestApi restApi = RestApiManagement.getRestApi();
-        RestRequestSpecification get_job_info = GenericStepsHandler.createNewRestRequestSpecification("/ThirdPartyAPIs/jenkins.json", "Get Job Info");
-
-        Map<String,String> pathParamsMap=new HashMap<>();
-        pathParamsMap.put("jobName","kvision_k8s_deploy_dev");
-        get_job_info.setPathParams(pathParamsMap);
-
-        RestResponse restResponse = RestApiManagement.getRestApi().sendRequest(get_job_info);
-        ObjectMapper objectMapper=new ObjectMapper();
-        JobPojo jobPojo = objectMapper.readValue(restResponse.getBody().getBodyAsString(), JobPojo.class);
-
-        RestRequestSpecification get_build_info = GenericStepsHandler.createNewRestRequestSpecification("/ThirdPartyAPIs/jenkins.json", "Get Build Info");
-        pathParamsMap.clear();
-        pathParamsMap.put("jobName","kvision_k8s_deploy_dev");
-        pathParamsMap.put("buildNumber","33");
-        get_build_info.setPathParams(pathParamsMap);
-        RestResponse restResponse1 = RestApiManagement.getRestApi().sendRequest(get_build_info);
-        BuildPojo buildPojo = objectMapper.readValue(restResponse1.getBody().getBodyAsString(), BuildPojo.class);
+        try {
+            JobPojo kvision_k8s_deploy_dev = JenkinsAPI.getJobInfo("kvision_k8s_deploy_dev");
+            System.out.println(kvision_k8s_deploy_dev.toString());
+            BuildPojo kvision_k8s_deploy_dev_33 = JenkinsAPI.getBuildInfo("kvision_k8s_deploy_dev", 33);
+            System.out.println(kvision_k8s_deploy_dev_33.toString());
+        } catch (Exception e) {
+            BaseTestUtils.report(e.getMessage(), Reporter.FAIL);
+        }
 
 
     }
