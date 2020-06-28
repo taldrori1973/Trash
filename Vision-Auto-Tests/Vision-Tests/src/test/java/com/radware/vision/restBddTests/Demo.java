@@ -230,7 +230,7 @@ public class Demo extends BddRestTestBase {
         pathParamsMap.put("buildNumber","33");
         get_build_info.setPathParams(pathParamsMap);
         RestResponse restResponse1 = RestApiManagement.getRestApi().sendRequest(get_build_info);
-        JobPojo buildPojo = objectMapper.readValue(restResponse1.getBody().getBodyAsString(), BuildInfo.class);
+        BuildInfo buildPojo = objectMapper.readValue(restResponse1.getBody().getBodyAsString(), BuildInfo.class);
 
 
     }
