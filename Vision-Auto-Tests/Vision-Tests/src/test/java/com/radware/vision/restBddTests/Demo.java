@@ -22,6 +22,7 @@ import controllers.RestApiManagement;
 import cucumber.api.java.en.Then;
 import models.RestRequestSpecification;
 import models.RestResponse;
+import org.openqa.selenium.BuildInfo;
 import restInterface.RestApi;
 import restInterface.client.NoAuthRestClient;
 
@@ -222,6 +223,15 @@ public class Demo extends BddRestTestBase {
         RestResponse restResponse = RestApiManagement.getRestApi().sendRequest(get_job_info);
         ObjectMapper objectMapper=new ObjectMapper();
         JobPojo jobPojo = objectMapper.readValue(restResponse.getBody().getBodyAsString(), JobPojo.class);
+
+        RestRequestSpecification get_build_info = GenericStepsHandler.createNewRestRequestSpecification("/ThirdPartyAPIs/jenkins.json", "Get Build Info");
+        pathParamsMap.clear();
+        pathParamsMap.put("jobName","kvision_k8s_deploy_dev");
+        pathParamsMap.put("buildNumber","33");
+        get_build_info.setPathParams(pathParamsMap);
+        RestResponse restResponse1 = RestApiManagement.getRestApi().sendRequest(get_build_info);
+        JobPojo buildPojo = objectMapper.readValue(restResponse1.getBody().getBodyAsString(), BuildInfo.class);
+
 
     }
 }
