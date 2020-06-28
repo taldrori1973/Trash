@@ -17,13 +17,13 @@ import java.util.List;
  * Time: 1:42 PM
  */
 
-public class JobPojoDeserializer extends StdDeserializer<List<Integer>> {
+public class JobPojoBuildsArrayDeserializer extends StdDeserializer<List<Integer>> {
 
-    public JobPojoDeserializer() {
+    public JobPojoBuildsArrayDeserializer() {
         this(null);
     }
 
-    public JobPojoDeserializer(Class<?> vc) {
+    public JobPojoBuildsArrayDeserializer(Class<?> vc) {
         super(vc);
     }
 
