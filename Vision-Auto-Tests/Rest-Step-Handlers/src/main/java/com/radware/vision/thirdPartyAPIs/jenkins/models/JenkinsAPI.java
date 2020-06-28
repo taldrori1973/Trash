@@ -26,16 +26,10 @@ public class JenkinsAPI {
     private static RestApi restApi = RestApiManagement.getRestApi();
 
     public static JobPojo getJobInfo(String jobName) throws Exception {
-        NoAuthRestClient noAuthConnection = RestClientsFactory.getNoAuthConnection("http://cmjen04.il.corp.radware.com/", 8081);
-        noAuthConnection.switchTo();
-
-        RestRequestSpecification jobInfoRequest = GenericStepsHandler.createNewRestRequestSpecification("/ThirdPartyAPIs/jenkins.json", "Get Job Info");
-
         Map<String, String> pathParamsMap = new HashMap<>();
         pathParamsMap.put("jobName", jobName);
-        jobInfoRequest.setPathParams(pathParamsMap);
 
-        RestResponse restResponse = RestApiManagement.getRestApi().sendRequest(jobInfoRequest);
+        RestResponse restResponse = sendJenkinsRequest("Get Job Info", pathParamsMap);
         if (!restResponse.getStatusCode().equals(StatusCode.OK))
             throw new Exception(restResponse.getBody().getBodyAsString());
 
@@ -45,13 +39,11 @@ public class JenkinsAPI {
 
     public static BuildPojo getBuildInfo(String jobName, Integer buildNumber) throws Exception {
 
-
         Map<String, String> pathParamsMap = new HashMap<>();
         pathParamsMap.put("jobName", jobName);
         pathParamsMap.put("buildNumber", buildNumber.toString());
-        sendJenkinsRequest("Get Build Info",pathParamsMap);
+        RestResponse restResponse = sendJenkinsRequest("Get Build Info", pathParamsMap);
 
-        RestResponse restResponse = RestApiManagement.getRestApi().sendRequest(buildInfoRequest);
         if (!restResponse.getStatusCode().equals(StatusCode.OK))
             throw new Exception(restResponse.getBody().getBodyAsString());
 
