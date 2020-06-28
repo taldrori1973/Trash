@@ -31,7 +31,7 @@ public class JobPojoDeserializer extends StdDeserializer<List<Integer>> {
     public List<Integer> deserialize(JsonParser jsonParser, DeserializationContext deserializationContext) throws IOException, JsonProcessingException {
 
         JsonNode node = jsonParser.getCodec().readTree(jsonParser);
-        Iterator<JsonNode> buildsObjects = node.get("builds").elements();
+        Iterator<JsonNode> buildsObjects = node.elements();
         List<Integer> builds = new ArrayList<>();
         buildsObjects.forEachRemaining(jsonNode -> builds.add(jsonNode.get("number").asInt()));
         return builds;
