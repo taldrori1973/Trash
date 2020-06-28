@@ -33,14 +33,15 @@ public class ElasticSearchHandler {
         }
     }
 
-    public static void deleteESIndex(String index) {
+    public static void  deleteESIndex(String index) {
         try {
             ElasticsearchRestAPI esRestApi = createEsRestConnection("Vision/elasticSearch.json", "Delete Index");
             HashMap<String, String> hash_map_param = new HashMap<>();
             hash_map_param.put("indexName", index);
             esRestApi.getRestRequestSpecification().setPathParams(hash_map_param);
             RestResponse restResponse = esRestApi.sendRequest();
-            if (!restResponse.getStatusCode().equals(StatusCode.OK)) {
+            if (!restResponse.getStatusCode().equals(StatusCode.OK) &&
+            !restResponse.getStatusCode().equals(StatusCode.NOT_FOUND)) {
                 BaseTestUtils.report("can't delete index: " + index, Reporter.FAIL);
             }
         } catch (Exception e) {
