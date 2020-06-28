@@ -1,4 +1,4 @@
-package com.radware.vision.thirdPartyAPIs.jenkins.models;
+package com.radware.vision.thirdPartyAPIs.jenkins;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.radware.vision.RestClientsFactory;
