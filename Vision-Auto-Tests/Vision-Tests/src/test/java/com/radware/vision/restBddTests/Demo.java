@@ -219,7 +219,6 @@ public class Demo extends BddRestTestBase {
         pathParamsMap.put("jobName","kvision_k8s_deploy_dev");
         get_job_info.setPathParams(pathParamsMap);
 
-//        StdDeserializerlizer
         RestResponse restResponse = RestApiManagement.getRestApi().sendRequest(get_job_info);
         ObjectMapper objectMapper=new ObjectMapper();
         JobPojo jobPojo = objectMapper.readValue(restResponse.getBody().getBodyAsString(), JobPojo.class);
