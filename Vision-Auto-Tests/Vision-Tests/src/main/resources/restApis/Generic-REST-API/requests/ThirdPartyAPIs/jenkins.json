@@ -9,6 +9,13 @@
       "basePath": "/job/{jobName}/{buildNumber}/api/json?pretty=true",
       "produces": "application/json",
       "description": "Get Jenkins Job or Build Info"
+    },
+    {
+      "label": "Get Job Info",
+      "method": "GET",
+      "basePath": "/job/{jobName}/{buildNumber}/api/json?pretty=true",
+      "produces": "application/json",
+      "description": "Get Jenkins Job or Build Info"
     }
   ]
 }
