@@ -16,6 +16,6 @@ public class BuildPojo {
     private String id;
     private Integer number;
     private String result;
-    private String building;
+    private boolean building;
 
 }
