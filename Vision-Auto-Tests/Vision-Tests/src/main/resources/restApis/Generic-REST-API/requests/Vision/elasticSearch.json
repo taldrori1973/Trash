@@ -11,7 +11,7 @@
       "description": "delete index "
     },
     {
-      "label": "Delete doucument by query",
+      "label": "Delete document by query",
       "method": "POST",
       "basePath": "/{indexName}/_delete_by_query?pretty=true",
       "produces": "application/json",
