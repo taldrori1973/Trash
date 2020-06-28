@@ -1,5 +1,6 @@
 package com.radware.vision.automation.DatabaseStepHandlers.elasticSearch;
 
+import com.fasterxml.jackson.databind.JsonNode;
 import com.jayway.jsonpath.DocumentContext;
 import com.jayway.jsonpath.JsonPath;
 import com.radware.automation.tools.basetest.BaseTestUtils;
@@ -14,6 +15,8 @@ import org.json.JSONObject;
 import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+
+import static com.radware.automation.tools.basetest.Reporter.FAIL;
 
 public class ElasticSearchHandler {
 
@@ -65,15 +68,15 @@ public class ElasticSearchHandler {
     }
 
     public static void updateESIndexByQuery(String index, String query, String response) {
-            ElasticsearchRestAPI esRestApi = createEsRestConnection("Vision/elasticSearch.json", "Update index by query");
-            HashMap<String, String> hash_map_param = new HashMap<>();
-            hash_map_param.put("indexName", index);
-            esRestApi.getRestRequestSpecification().setPathParams(hash_map_param);
-            esRestApi.getRestRequestSpecification().setBody(query);
-            RestResponse restResponse = esRestApi.sendRequest();
-            if (response!=null &&!restResponse.getBody().getBodyAsString().contains(response)) {
-                BaseTestUtils.reporter.report("The expected response NOT found", Reporter.FAIL);
-            }
+        ElasticsearchRestAPI esRestApi = createEsRestConnection("Vision/elasticSearch.json", "Update index by query");
+        HashMap<String, String> hash_map_param = new HashMap<>();
+        hash_map_param.put("indexName", index);
+        esRestApi.getRestRequestSpecification().setPathParams(hash_map_param);
+        esRestApi.getRestRequestSpecification().setBody(query);
+        RestResponse restResponse = esRestApi.sendRequest();
+        if (response != null && !restResponse.getBody().getBodyAsString().contains(response)) {
+            BaseTestUtils.reporter.report("The expected response NOT found", Reporter.FAIL);
+        }
     }
 
     public static JSONObject getIndex(String indexName) {
@@ -229,10 +232,23 @@ public class ElasticSearchHandler {
         return new ArrayList<>(allPrefixes).get(0) + requiredSlice;
     }
 
+    public static int searchGetNumberOfHits(String index, String query) {
+        ElasticsearchRestAPI esRestApi = createEsRestConnection("Vision/elasticSearch.json", "Search index by query");
+        HashMap<String, String> hash_map_param = new HashMap<>();
+        hash_map_param.put("indexName", index);
+        esRestApi.getRestRequestSpecification().setPathParams(hash_map_param);
+        esRestApi.getRestRequestSpecification().setBody(query);
+        RestResponse restResponse = esRestApi.sendRequest();
+        Optional<JsonNode> bodyAsJsonNode = restResponse.getBody().getBodyAsJsonNode();
+        if (!bodyAsJsonNode.isPresent())
+            BaseTestUtils.report(String.format("Failed in search index :%s", index), FAIL);
+        return bodyAsJsonNode.get().get("hits").get("total").get("value").asInt();
+    }
+
     public static ElasticsearchRestAPI createEsRestConnection(String requestFilePath, String requestLabel) {
-        SUTManager sutManager =  SUTManagerImpl.getInstance();
-        String host=sutManager.getClientConfigurations().getHostIp();
-        return new ElasticsearchRestAPI("http://"+host, 9200, requestFilePath, requestLabel);
+        SUTManager sutManager = SUTManagerImpl.getInstance();
+        String host = sutManager.getClientConfigurations().getHostIp();
+        return new ElasticsearchRestAPI("http://" + host, 9200, requestFilePath, requestLabel);
     }
 
 }
