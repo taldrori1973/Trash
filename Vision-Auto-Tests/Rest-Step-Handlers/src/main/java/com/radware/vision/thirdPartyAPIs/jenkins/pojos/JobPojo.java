@@ -3,8 +3,6 @@ package com.radware.vision.thirdPartyAPIs.jenkins.pojos;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.Data;
 
-import java.net.URI;
-import java.util.Date;
 import java.util.List;
 
 /**
@@ -16,11 +14,14 @@ import java.util.List;
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class JobPojo {
 
-    private String repo;
-    private URI path;
-    private Date created;
-    private Date lastModified;
-    private Date lastUpdated;
-    private List<ArtifactChildPojo> children;
-    private URI uri;
+    private String name;
+    private Integer firstBuild;
+    private Integer lastBuild;
+    private Integer lastCompletedBuild;
+    private Integer lastFailedBuild;
+    private Integer lastStableBuild;
+    private Integer lastSuccessfulBuild;
+    private Integer lastUnstableBuild;
+    private Integer nextBuildNumber;
+    private List<Integer> builds;
 }
