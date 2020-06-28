@@ -16,13 +16,13 @@ import com.radware.vision.bddtests.BddRestTestBase;
 import com.radware.vision.devicesRestApi.topologyTree.TopologyTree;
 import com.radware.vision.devicesRestApi.topologyTree.TopologyTreeImpl;
 import com.radware.vision.restTestHandler.GenericStepsHandler;
+import com.radware.vision.thirdPartyAPIs.jenkins.pojos.BuildPojo;
 import com.radware.vision.thirdPartyAPIs.jenkins.pojos.JobPojo;
 import com.radware.vision.utils.BodyEntry;
 import controllers.RestApiManagement;
 import cucumber.api.java.en.Then;
 import models.RestRequestSpecification;
 import models.RestResponse;
-import org.openqa.selenium.BuildInfo;
 import restInterface.RestApi;
 import restInterface.client.NoAuthRestClient;
 
@@ -230,7 +230,7 @@ public class Demo extends BddRestTestBase {
         pathParamsMap.put("buildNumber","33");
         get_build_info.setPathParams(pathParamsMap);
         RestResponse restResponse1 = RestApiManagement.getRestApi().sendRequest(get_build_info);
-        BuildInfo buildPojo = objectMapper.readValue(restResponse1.getBody().getBodyAsString(), BuildInfo.class);
+        BuildPojo buildPojo = objectMapper.readValue(restResponse1.getBody().getBodyAsString(), BuildPojo.class);
 
 
     }
