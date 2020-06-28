@@ -1,5 +1,5 @@
 {
-  "deviceName": "Vision",
+  "deviceName": "thirdPartyAPIs",
   "fileName": "elasticSearch",
   "description": "elasticsearch",
   "api": [
