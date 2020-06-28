@@ -2,6 +2,7 @@ package com.radware.vision.restBddTests;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.radware.automation.tools.basetest.BaseTestUtils;
 import com.radware.automation.tools.basetest.Reporter;
 import com.radware.vision.RestClientsFactory;
@@ -15,10 +16,12 @@ import com.radware.vision.bddtests.BddRestTestBase;
 import com.radware.vision.devicesRestApi.topologyTree.TopologyTree;
 import com.radware.vision.devicesRestApi.topologyTree.TopologyTreeImpl;
 import com.radware.vision.restTestHandler.GenericStepsHandler;
+import com.radware.vision.thirdPartyAPIs.jenkins.pojos.JobPojo;
 import com.radware.vision.utils.BodyEntry;
 import controllers.RestApiManagement;
 import cucumber.api.java.en.Then;
 import models.RestRequestSpecification;
+import models.RestResponse;
 import restInterface.RestApi;
 import restInterface.client.NoAuthRestClient;
 
@@ -216,6 +219,10 @@ public class Demo extends BddRestTestBase {
         pathParamsMap.put("jobName","kvision_k8s_deploy_dev");
         get_job_info.setPathParams(pathParamsMap);
 
-        RestApiManagement.getRestApi().sendRequest(get_job_info);
+//        StdDeserializerlizer
+        RestResponse restResponse = RestApiManagement.getRestApi().sendRequest(get_job_info);
+        ObjectMapper objectMapper=new ObjectMapper();
+        JobPojo jobPojo = objectMapper.readValue(restResponse.getBody().getBodyAsString(), JobPojo.class);
+
     }
 }
