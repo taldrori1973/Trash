@@ -16,8 +16,11 @@ import java.io.IOException;
 
 public class JobPojoDeserializer extends StdDeserializer<JobPojo> {
 
+    public JobPojoDeserializer() {
+        this(null);
+    }
 
-    protected JobPojoDeserializer(Class<?> vc) {
+    public JobPojoDeserializer(Class<?> vc) {
         super(vc);
     }
 
