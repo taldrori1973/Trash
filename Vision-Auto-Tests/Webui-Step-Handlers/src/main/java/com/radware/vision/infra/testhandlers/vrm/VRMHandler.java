@@ -839,7 +839,8 @@ public class VRMHandler {
                 boolean changePorts = entry.ports != null && !entry.ports.equals("");
                 if (changePolicies || changePorts) {
                     //click on change
-                    ClickOperationsHandler.clickWebElement(ComponentLocatorFactory.getEqualLocatorByDbgId("scopeSelection_change_" + deviceIp), false);
+                    if(!WebUIUtils.fluentWait(new ComponentLocator(How.XPATH, "//*[@data-debug-id='scopeSelection_change_" + deviceIp + "']/../../../div[contains(@class,'deviceFilters')]").getBy()).getAttribute("class").contains("expanded"))
+                        ClickOperationsHandler.clickWebElement(ComponentLocatorFactory.getEqualLocatorByDbgId("scopeSelection_change_" + deviceIp), false);
                     String policyPrefix = "scopeSelection_deviceIP_" + deviceIp + "_policiesLabel_";
                     String portPrefix = "scopeSelection_deviceIP_" + deviceIp + "_portsLabel_";
                     String policySearch = "scopeSelection_deviceIP_[" + deviceIp + "]_policy_Text";
