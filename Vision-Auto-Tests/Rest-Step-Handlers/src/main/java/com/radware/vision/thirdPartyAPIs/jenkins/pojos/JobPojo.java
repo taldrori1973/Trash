@@ -2,7 +2,7 @@ package com.radware.vision.thirdPartyAPIs.jenkins.pojos;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
-import com.radware.vision.thirdPartyAPIs.jenkins.pojos.Deserializers.JobPojoDeserializer;
+import com.radware.vision.thirdPartyAPIs.jenkins.pojos.Deserializers.JobPojoBuildsArrayDeserializer;
 import lombok.Data;
 
 import java.util.List;
@@ -17,6 +17,9 @@ import java.util.List;
 public class JobPojo {
 
     private String name;
+    private Integer nextBuildNumber;
+
+    @JsonDeserialize(using = JobPojoBuildsArrayDeserializer.class)
     private Integer firstBuild;
     private Integer lastBuild;
     private Integer lastCompletedBuild;
@@ -24,8 +27,7 @@ public class JobPojo {
     private Integer lastStableBuild;
     private Integer lastSuccessfulBuild;
     private Integer lastUnstableBuild;
-    private Integer nextBuildNumber;
 
-    @JsonDeserialize(using = JobPojoDeserializer.class)
+    @JsonDeserialize(using = JobPojoBuildsArrayDeserializer.class)
     private List<Integer> builds;
 }
