@@ -43,7 +43,22 @@ public class JenkinsAPI {
         return objectMapper.readValue(restResponse.getBody().getBodyAsString(), JobPojo.class);
     }
 
-    public static BuildPojo getBuildInfo(String jobName, Integer buildNumber) {
-        return null;
+    public static BuildPojo getBuildInfo(String jobName, Integer buildNumber) throws Exception {
+        NoAuthRestClient noAuthConnection = RestClientsFactory.getNoAuthConnection("http://cmjen04.il.corp.radware.com/", 8081);
+        noAuthConnection.switchTo();
+
+        RestRequestSpecification buildInfoRequest = GenericStepsHandler.createNewRestRequestSpecification("/ThirdPartyAPIs/jenkins.json", "Get Build Info");
+
+        Map<String, String> pathParamsMap = new HashMap<>();
+        pathParamsMap.put("jobName", jobName);
+        pathParamsMap.put("buildNumber", buildNumber.toString());
+        buildInfoRequest.setPathParams(pathParamsMap);
+
+        RestResponse restResponse = RestApiManagement.getRestApi().sendRequest(buildInfoRequest);
+        if (!restResponse.getStatusCode().equals(StatusCode.OK))
+            throw new Exception(restResponse.getBody().getBodyAsString());
+
+        ObjectMapper objectMapper = new ObjectMapper();
+        return objectMapper.readValue(restResponse.getBody().getBodyAsString(), BuildPojo.class);
     }
 }
