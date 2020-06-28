@@ -17,6 +17,6 @@ public class JenkinsAPI {
     }
 
     public BuildPojo getBuildInfo(String jobName, Integer buildNumber) {
-        return null
+        return null;
     }
 }
