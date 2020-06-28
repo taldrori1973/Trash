@@ -5,7 +5,6 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.DeserializationContext;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.deser.std.StdDeserializer;
-import com.radware.vision.thirdPartyAPIs.jenkins.pojos.JobPojo;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -18,24 +17,23 @@ import java.util.List;
  * Time: 1:42 PM
  */
 
-public class JobPojoDeserializer extends StdDeserializer<JobPojo> {
+public class JobPojoBuildsArrayDeserializer extends StdDeserializer<List<Integer>> {
 
-    public JobPojoDeserializer() {
+    public JobPojoBuildsArrayDeserializer() {
         this(null);
     }
 
-    public JobPojoDeserializer(Class<?> vc) {
+    public JobPojoBuildsArrayDeserializer(Class<?> vc) {
         super(vc);
     }
 
     @Override
-    public JobPojo deserialize(JsonParser jsonParser, DeserializationContext deserializationContext) throws IOException, JsonProcessingException {
+    public List<Integer> deserialize(JsonParser jsonParser, DeserializationContext deserializationContext) throws IOException, JsonProcessingException {
 
         JsonNode node = jsonParser.getCodec().readTree(jsonParser);
-        Iterator<JsonNode> buildsObjects = node.get("builds").elements();
+        Iterator<JsonNode> buildsObjects = node.elements();
         List<Integer> builds = new ArrayList<>();
         buildsObjects.forEachRemaining(jsonNode -> builds.add(jsonNode.get("number").asInt()));
-
-        return null;
+        return builds;
     }
 }
