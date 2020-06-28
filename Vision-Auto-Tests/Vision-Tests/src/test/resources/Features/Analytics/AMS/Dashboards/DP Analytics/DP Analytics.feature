@@ -57,19 +57,19 @@ Feature: DP ANALYTICS
   Scenario: VRM - Validate Dashboards "Attacks by Mitigation Action" Chart widget styling attributes
     Then UI Validate Line Chart attributes "Attacks by Mitigation Action" with Label "shlomi"
       | attribute       | value                  |
-      | backgroundColor | rgba(70, 91, 108, 0.7) |
+      | backgroundColor | #00BDEE |
     Then  UI Validate Line Chart attributes "Attacks by Mitigation Action" with Label "BDOS"
       | attribute       | value                    |
-      | backgroundColor | rgba(127, 205, 181, 0.7) |
+      | backgroundColor | #6CB9FF |
     Then UI Validate Line Chart attributes "Attacks by Mitigation Action" with Label "Packet Anomalies"
       | attribute       | value                    |
-      | backgroundColor | rgba(235, 129, 116, 0.7) |
+      | backgroundColor | #04C2A0 |
     Then UI Validate Line Chart attributes "Attacks by Mitigation Action" with Label "shlomchik"
       | attribute       | value                   |
-      | backgroundColor | rgba(95, 182, 199, 0.7) |
+      | backgroundColor | #108282 |
     Then UI Validate Line Chart attributes "Attacks by Mitigation Action" with Label "Black_IPV6"
       | attribute       | value                    |
-      | backgroundColor | rgba(154, 145, 150, 0.7) |
+      | backgroundColor | #4388C8 |
 
   @SID_6
   Scenario: VRM - Validate Dashboards "Attacks by Mitigation Action" Chart data for one selected DP machine
