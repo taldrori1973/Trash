@@ -30,6 +30,11 @@ public class ArtifactService {
 
         ArtifactPojo artifactPojo=this.objectMapper.readValue(repoResponse.getBody().getBodyAsString(),ArtifactPojo.class);
 
+        Artifact artifact=mapPojoToModel(artifactPojo);
+        return null;
+    }
+
+    private Artifact mapPojoToModel(ArtifactPojo artifactPojo) {
         return null;
     }
 }
