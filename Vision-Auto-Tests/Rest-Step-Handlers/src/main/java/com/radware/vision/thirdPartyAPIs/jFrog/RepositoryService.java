@@ -8,6 +8,7 @@ import com.radware.vision.thirdPartyAPIs.jFrog.pojos.ArtifactFolderPojo;
 import com.radware.vision.thirdPartyAPIs.jFrog.pojos.ArtifactPojo;
 import models.RestResponse;
 import models.StatusCode;
+import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 import java.util.List;
 
@@ -49,7 +50,7 @@ public class RepositoryService {
                 versionPojo = getPojo(version, StatusCode.OK, ArtifactFolderPojo.class);
             } else throw new Exception(String.format("The Version \"%s\" not found", version));
         } else {
-
+            throw new NotImplementedException();
         }
         return null;
     }
