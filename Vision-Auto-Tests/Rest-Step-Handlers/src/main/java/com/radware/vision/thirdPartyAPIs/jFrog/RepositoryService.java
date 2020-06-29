@@ -66,7 +66,7 @@ public class RepositoryService {
         return null;
     }
 
-    private Integer getLastSuccessfulBuild(TreeSet<Integer> builds) {
+    private Integer getLastSuccessfulBuild(ArtifactFolderPojo buildParent, FileType fileType) {
 
         Integer last ;
 
