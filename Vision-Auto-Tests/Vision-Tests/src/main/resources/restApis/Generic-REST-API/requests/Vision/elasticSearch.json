@@ -18,6 +18,13 @@
       "description": "delete document by query "
     },
     {
+      "label": "Get document",
+      "method": "GET",
+      "basePath": "/{index}/_doc/{id}",
+      "produces": "application/json",
+      "description": "retrieve document "
+    },
+    {
       "label": "Get Index",
       "method": "GET",
       "basePath": "/{indexName}",
