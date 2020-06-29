@@ -10,6 +10,7 @@ import com.radware.vision.thirdPartyAPIs.jFrog.models.FileType;
  * Time: 3:33 PM
  */
 public class JFrogAPI {
+
     private static ApplicationPropertiesUtils applicationPropertiesUtils = new ApplicationPropertiesUtils();
 
 
@@ -45,7 +46,9 @@ public class JFrogAPI {
     public static Child getBuild(FileType fileType, String repoName, String version, Integer build) {
         if (version == null) version = "Latest";
         if (build == null) build = 0;
-        repositoryService.getBuild(fileType, repoName, version, null, build);
+        RepositoryService repositoryService=new RepositoryService(repoName);
+
+        repositoryService.getBuild(fileType, version, null, build);
 
         return null;
     }
