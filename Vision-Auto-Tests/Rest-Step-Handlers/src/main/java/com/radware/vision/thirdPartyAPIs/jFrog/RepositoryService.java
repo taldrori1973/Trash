@@ -54,6 +54,7 @@ public class RepositoryService {
                 String path=buildParent.getPath().getPath().substring(1)+"/"+build;
                return  getPojo(path,StatusCode.OK,ArtifactFolderPojo.class);
             }
+            else throw new Exception(String.format("The Build \"%s\" not found under %s", build,buildParent.getPath().getPath()));
         }else{//latest build
 
         }
