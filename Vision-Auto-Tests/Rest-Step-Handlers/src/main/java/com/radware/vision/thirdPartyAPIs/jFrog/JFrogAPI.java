@@ -9,7 +9,8 @@ import com.radware.vision.thirdPartyAPIs.jFrog.models.Artifact;
  */
 public class JFrogAPI {
 
+    private static ArtifactService artifactService;
     public static Artifact getArtifact(String artifactName){
-        return null;
+        return artifactService.getArtifact(artifactName);
     }
 }
