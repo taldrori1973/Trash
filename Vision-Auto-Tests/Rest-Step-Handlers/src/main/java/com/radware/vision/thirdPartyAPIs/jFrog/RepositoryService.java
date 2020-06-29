@@ -1,6 +1,5 @@
 package com.radware.vision.thirdPartyAPIs.jFrog;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.radware.vision.restAPI.JFrogRestAPI;
 import com.radware.vision.thirdPartyAPIs.jFrog.models.FileType;
@@ -42,8 +41,8 @@ public class RepositoryService {
     }
 
 
-    private <T> T sendRequestAndGetPojo(String path,StatusCode expectedStatusCode,Class<T> type) throws JsonProcessingException {
+    private <T> T sendRequestAndGetPojo(String path,StatusCode expectedStatusCode,Class<T> clazz) throws Exception {
         RestResponse restResponse = jFrogRestAPI.sendRequest(path, StatusCode.OK);
-        T pojo = objectMapper.readValue(restResponse.getBody().getBodyAsString(), ArtifactFolderPojo.class);
+        T pojo = objectMapper.readValue(restResponse.getBody().getBodyAsString(), clazz);
     }
 }
