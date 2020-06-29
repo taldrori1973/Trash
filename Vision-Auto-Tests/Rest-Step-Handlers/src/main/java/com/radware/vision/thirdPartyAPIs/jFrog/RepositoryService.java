@@ -34,7 +34,7 @@ public class RepositoryService {
 
         ArtifactPojo artifactPojo = getPojo("", StatusCode.OK, ArtifactPojo.class);
 
-        ArtifactFolderPojo versionPojo = getVersion(artifactPojo,version);
+        ArtifactFolderPojo versionPojo = getVersion(artifactPojo, version);
         if (!version.equals("Latest")) {//go to the specific version folder
             RestResponse restResponse = jFrogRestAPI.sendRequest(version, StatusCode.OK);
             versionPojo = objectMapper.readValue(restResponse.getBody().getBodyAsString(), ArtifactFolderPojo.class);
@@ -42,13 +42,12 @@ public class RepositoryService {
 
     }
 
-    private ArtifactFolderPojo getVersion(ArtifactPojo artifactPojo, String version) {
-        if(!version.equals("Latest")){
-            if(isChildExistByUri(artifactPojo.getChildren(),version)){
+    private ArtifactFolderPojo getVersion(ArtifactPojo artifactPojo, String version) throws Exception {
+        if (!version.equals("Latest")) {
+            if (isChildExistByUri(artifactPojo.getChildren(), version)) {
 
-            }
-
-        }else{
+            } else throw new Exception(String.format("The Version \"%s\" not found", version));
+        } else {
 
         }
         return null;
