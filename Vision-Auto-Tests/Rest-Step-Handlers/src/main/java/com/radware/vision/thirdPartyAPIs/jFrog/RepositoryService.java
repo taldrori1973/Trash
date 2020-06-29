@@ -50,9 +50,11 @@ public class RepositoryService {
         if (branch == null) return null;//No branch in the hierarchy
 
         if (isChildExistByUri(branchParent.getChildren(), branch)) {
-            branchPojo = getPojo(branch, StatusCode.OK, ArtifactFolderPojo.class);
+            String path=branchParent.getPath().getPath().substring(1)+"/"+branch;
+
+            branchPojo = getPojo(path, StatusCode.OK, ArtifactFolderPojo.class);
         }
-        else throw new Exception(String.format("The Branch \"%s\" not found under %s", branch,branchParent.getPath().toString()));
+        else throw new Exception(String.format("The Branch \"%s\" not found under %s", branch,branchParent.getPath().getPath()));
         return branchPojo;
     }
 
