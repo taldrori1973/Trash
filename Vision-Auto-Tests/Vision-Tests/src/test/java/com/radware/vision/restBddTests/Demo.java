@@ -2,7 +2,6 @@ package com.radware.vision.restBddTests;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.radware.automation.tools.basetest.BaseTestUtils;
 import com.radware.automation.tools.basetest.Reporter;
 import com.radware.vision.RestStepResult;
@@ -14,7 +13,9 @@ import com.radware.vision.automation.VisionAutoInfra.CLIInfra.Servers.ServerCliB
 import com.radware.vision.bddtests.BddRestTestBase;
 import com.radware.vision.devicesRestApi.topologyTree.TopologyTree;
 import com.radware.vision.devicesRestApi.topologyTree.TopologyTreeImpl;
-import com.radware.vision.thirdPartyAPIs.jFrog.pojos.ArtifactPojo;
+import com.radware.vision.thirdPartyAPIs.jenkins.JenkinsAPI;
+import com.radware.vision.thirdPartyAPIs.jenkins.pojos.BuildPojo;
+import com.radware.vision.thirdPartyAPIs.jenkins.pojos.JobPojo;
 import com.radware.vision.utils.BodyEntry;
 import cucumber.api.java.en.Then;
 
@@ -184,23 +185,15 @@ public class Demo extends BddRestTestBase {
 
     @Then("^Validate pojo Paesing$")
     public void validatePojoPaesing() throws JsonProcessingException {
-        ObjectMapper objectMapper = new ObjectMapper();
-        String json = "{\n" +
-                "  \"repo\": \"kvision-images-snapshot-local\",\n" +
-                "  \"path\": \"/\",\n" +
-                "  \"created\": \"2020-01-20T15:20:01.393+02:00\",\n" +
-                "  \"lastModified\": \"2020-01-20T15:20:01.393+02:00\",\n" +
-                "  \"lastUpdated\": \"2020-01-20T15:20:01.393+02:00\",\n" +
-                "  \"children\": [\n" +
-                "    {\n" +
-                "      \"uri\": \"/OVA\",\n" +
-                "      \"folder\": true\n" +
-                "    }\n" +
-                "  ],\n" +
-                "  \"uri\": \"http://devart01:8081/artifactory/api/storage/kvision-images-snapshot-local\"\n" +
-                "}";
+        try {
+            JobPojo kvision_k8s_deploy_dev = JenkinsAPI.getJobInfo("kvision_k8s_deploy_dev");
+            System.out.println(kvision_k8s_deploy_dev.toString());
+            BuildPojo kvision_k8s_deploy_dev_33 = JenkinsAPI.getBuildInfo("kvision_k8s_deploy_dev", 33);
+            System.out.println(kvision_k8s_deploy_dev_33.toString());
+        } catch (Exception e) {
+            BaseTestUtils.report(e.getMessage(), Reporter.FAIL);
+        }
 
-        ArtifactPojo artifactPojo = objectMapper.readValue(json, ArtifactPojo.class);
-        System.out.println(artifactPojo);
+
     }
 }
