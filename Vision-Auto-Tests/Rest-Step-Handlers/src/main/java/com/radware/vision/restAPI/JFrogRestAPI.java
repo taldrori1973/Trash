@@ -6,6 +6,7 @@ import com.radware.vision.restTestHandler.GenericStepsHandler;
 import controllers.RestApiManagement;
 import models.RestRequestSpecification;
 import models.RestResponse;
+import models.StatusCode;
 import restInterface.client.NoAuthRestClient;
 
 import java.util.HashMap;
@@ -37,7 +38,7 @@ public class JFrogRestAPI {
 
     }
 
-    public RestResponse sendRequest(String path) {
+    public RestResponse sendRequest(String path, StatusCode expectedStatusCode) throws Exception {
         if (path == null) path = "";
 
         NoAuthRestClient connection = RestClientsFactory.getNoAuthConnection(this.baseUri, this.connectionPort);
@@ -50,7 +51,10 @@ public class JFrogRestAPI {
 
         restRequestSpecification.setPathParams(pathParams);
 
-        return RestApiManagement.getRestApi().sendRequest(restRequestSpecification);
+        RestResponse restResponse = RestApiManagement.getRestApi().sendRequest(restRequestSpecification);
+        if (!restResponse.getStatusCode().equals(expectedStatusCode))
+            throw new Exception(restResponse.getBody().getBodyAsString());
+        return restResponse;
 
     }
 }
