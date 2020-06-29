@@ -45,12 +45,14 @@ public class RepositoryService {
 
     }
 
-    private ArtifactFolderPojo getBranch(ArtifactFolderPojo branchParent, String branch) {
-        if(branch==null) return null;//No branch in the hierarchy
-        if(isChildExistByUri(branchParent.getChildren(),branch)){
+    private ArtifactFolderPojo getBranch(ArtifactFolderPojo branchParent, String branch) throws Exception {
+        ArtifactFolderPojo branchPojo;
+        if (branch == null) return null;//No branch in the hierarchy
 
+        if (isChildExistByUri(branchParent.getChildren(), branch)) {
+            branchPojo = getPojo(branch, StatusCode.OK, ArtifactFolderPojo.class);
         }
-        return null;
+        return branchPojo;
     }
 
     private ArtifactFolderPojo getVersion(ArtifactPojo artifactPojo, String version) throws Exception {
