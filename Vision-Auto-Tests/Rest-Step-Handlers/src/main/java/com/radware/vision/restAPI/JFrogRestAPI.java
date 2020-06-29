@@ -34,5 +34,7 @@ public class JFrogRestAPI {
         NoAuthRestClient connection = RestClientsFactory.getNoAuthConnection(this.baseUri, this.connectionPort);
         connection.switchTo();
 
+        return null;
+
     }
 }
