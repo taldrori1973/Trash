@@ -48,9 +48,12 @@ public class RepositoryService {
 
     }
 
-    private ArtifactFolderPojo getBuild(ArtifactFolderPojo buildParent, Integer build) {
+    private ArtifactFolderPojo getBuild(ArtifactFolderPojo buildParent, Integer build) throws Exception {
         if(build!=0){//specific build
-
+            if(isChildExistByUri(buildParent.getChildren(),build.toString())){
+                String path=buildParent.getPath().getPath().substring(1)+"/"+build;
+               return  getPojo(path,StatusCode.OK,ArtifactFolderPojo.class);
+            }
         }else{//latest build
 
         }
