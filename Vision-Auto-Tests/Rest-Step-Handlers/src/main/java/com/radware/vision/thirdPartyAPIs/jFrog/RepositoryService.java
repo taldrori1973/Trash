@@ -36,12 +36,18 @@ public class RepositoryService {
         ArtifactPojo artifactPojo = getPojo("", StatusCode.OK, ArtifactPojo.class);
 
         ArtifactFolderPojo versionPojo = getVersion(artifactPojo, version);
+        ArtifactFolderPojo branchPojo = getBranch(version, branch);
+
 
         if (!version.equals("Latest")) {//go to the specific version folder
             RestResponse restResponse = jFrogRestAPI.sendRequest(version, StatusCode.OK);
             versionPojo = objectMapper.readValue(restResponse.getBody().getBodyAsString(), ArtifactFolderPojo.class);
         }
 
+    }
+
+    private ArtifactFolderPojo getBranch(String version, String branch) {
+        return null;
     }
 
     private ArtifactFolderPojo getVersion(ArtifactPojo artifactPojo, String version) throws Exception {
