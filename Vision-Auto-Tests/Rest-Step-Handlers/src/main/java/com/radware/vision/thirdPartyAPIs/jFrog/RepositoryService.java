@@ -52,7 +52,7 @@ public class RepositoryService {
         } else {
             throw new NotImplementedException();
         }
-        return null;
+        return versionPojo;
     }
 
     private boolean isChildExistByUri(List<ArtifactChildPojo> children, String child) {
@@ -61,7 +61,7 @@ public class RepositoryService {
 
 
     private <T> T getPojo(String path, StatusCode expectedStatusCode, Class<T> clazz) throws Exception {
-        RestResponse restResponse = jFrogRestAPI.sendRequest(path, StatusCode.OK);
+        RestResponse restResponse = jFrogRestAPI.sendRequest(path, expectedStatusCode);
         return objectMapper.readValue(restResponse.getBody().getBodyAsString(), clazz);
     }
 }
