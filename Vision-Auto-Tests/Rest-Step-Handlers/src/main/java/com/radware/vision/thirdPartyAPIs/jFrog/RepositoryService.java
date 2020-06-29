@@ -2,10 +2,8 @@ package com.radware.vision.thirdPartyAPIs.jFrog;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.radware.vision.restAPI.JFrogRestAPI;
-import com.radware.vision.thirdPartyAPIs.jFrog.models.Artifact;
 import com.radware.vision.thirdPartyAPIs.jFrog.models.FileType;
 import com.radware.vision.thirdPartyAPIs.jFrog.pojos.ArtifactFolderPojo;
-import com.radware.vision.thirdPartyAPIs.jFrog.pojos.ArtifactPojo;
 import models.RestResponse;
 import models.StatusCode;
 
@@ -25,23 +23,9 @@ public class RepositoryService {
         this.jFrogRestAPI=new JFrogRestAPI(repoName);
     }
 
-    public Artifact getArtifact(String repoName) throws Exception {
 
-        JFrogRestAPI jFrogRestAPI = new JFrogRestAPI(repoName);
-        RestResponse repoResponse = jFrogRestAPI.sendRequest("", StatusCode.OK);
 
-        if (!repoResponse.getStatusCode().equals(StatusCode.OK))
-            throw new Exception(repoResponse.getBody().getBodyAsString());
 
-        ArtifactPojo artifactPojo = this.objectMapper.readValue(repoResponse.getBody().getBodyAsString(), ArtifactPojo.class);
-
-        Artifact artifact = mapPojoToModel(artifactPojo);
-        return null;
-    }
-
-    private Artifact mapPojoToModel(ArtifactPojo artifactPojo) {
-        return null;
-    }
 
     public void getBuild(FileType fileType, String version, String branch, Integer build) throws Exception {
         ArtifactFolderPojo versionPojo;
