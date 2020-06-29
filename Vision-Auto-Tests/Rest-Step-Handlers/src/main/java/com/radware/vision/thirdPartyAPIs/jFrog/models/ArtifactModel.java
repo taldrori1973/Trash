@@ -17,4 +17,6 @@ public abstract class ArtifactModel {
     private Date created;
     private Date lastModified;
     private Date lastUpdated;
+    private URI uri;
+
 }
