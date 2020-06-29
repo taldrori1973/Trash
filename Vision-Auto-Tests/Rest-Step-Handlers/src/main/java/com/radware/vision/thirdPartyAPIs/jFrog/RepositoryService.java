@@ -19,7 +19,7 @@ import java.util.TreeSet;
  * Time: 3:36 PM
  */
 public class RepositoryService {
-private static String JENKINS_JOB_TEMPLATE="kvision_k8s_deploy_%s";
+    private static String JENKINS_JOB_TEMPLATE = "kvision_k8s_deploy_%s";
 
     private ObjectMapper objectMapper;
 
@@ -33,6 +33,7 @@ private static String JENKINS_JOB_TEMPLATE="kvision_k8s_deploy_%s";
 
     public void getBuild(FileType fileType, String version, String branch, Integer build) throws Exception {
         ArtifactFolderPojo buildPojo;
+        String jenkinsJob;
 
         ArtifactPojo artifactPojo = getPojo("", StatusCode.OK, ArtifactPojo.class);
 
@@ -41,10 +42,9 @@ private static String JENKINS_JOB_TEMPLATE="kvision_k8s_deploy_%s";
         ArtifactFolderPojo branchPojo = getBranch(versionPojo, branch);
 
         if (branchPojo == null) {
-            String jenkinsJob=String.format(JENKINS_JOB_TEMPLATE,"master");
+            jenkinsJob = String.format(JENKINS_JOB_TEMPLATE, "master");
             buildPojo = getBuild(versionPojo, build, fileType);//build under version
-        }
-        else buildPojo = getBuild(branchPojo, build, fileType);//build under branch
+        } else buildPojo = getBuild(branchPojo, build, fileType);//build under branch
 
         if (!version.equals("Latest")) {//go to the specific version folder
             RestResponse restResponse = jFrogRestAPI.sendRequest(version, StatusCode.OK);
@@ -70,7 +70,7 @@ private static String JENKINS_JOB_TEMPLATE="kvision_k8s_deploy_%s";
         return null;
     }
 
-    private Integer getLastSuccessfulBuild(ArtifactFolderPojo buildParent, FileType fileType,String jenkinsJob) throws Exception {
+    private Integer getLastSuccessfulBuild(ArtifactFolderPojo buildParent, FileType fileType, String jenkinsJob) throws Exception {
 //            Build builds Tree
         TreeSet<Integer> builds = new TreeSet<>();
         buildParent.getChildren().forEach(buildChildPojo -> builds.add(Integer.parseInt(buildChildPojo.getUri().getPath().substring(1))));
@@ -79,7 +79,7 @@ private static String JENKINS_JOB_TEMPLATE="kvision_k8s_deploy_%s";
         while (!builds.isEmpty()) {
             last = builds.pollLast();
             String buildPath = buildParent.getPath().getPath().substring(1) + "/" + last;
-            if (containsFileType(fileType, buildPath)){
+            if (containsFileType(fileType, buildPath)) {
                 return 0;
             }
         }
