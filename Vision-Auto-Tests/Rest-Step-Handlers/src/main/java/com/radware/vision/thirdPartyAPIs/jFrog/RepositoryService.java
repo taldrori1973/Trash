@@ -52,6 +52,7 @@ public class RepositoryService {
         if (isChildExistByUri(branchParent.getChildren(), branch)) {
             branchPojo = getPojo(branch, StatusCode.OK, ArtifactFolderPojo.class);
         }
+        else throw new Exception(String.format("The Branch \"%s\" not found under %s", branch,branchParent.getPath().toString()));
         return branchPojo;
     }
 
