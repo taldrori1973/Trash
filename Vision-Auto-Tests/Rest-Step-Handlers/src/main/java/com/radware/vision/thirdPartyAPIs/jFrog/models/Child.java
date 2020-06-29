@@ -12,4 +12,5 @@ import java.util.List;
 @Data
 public class Child extends ArtifactModel {
     private List<Child> children;
+    private boolean isFolder;
 }
