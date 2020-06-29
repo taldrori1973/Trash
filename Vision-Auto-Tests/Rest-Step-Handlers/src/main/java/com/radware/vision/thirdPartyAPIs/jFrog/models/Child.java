@@ -3,14 +3,17 @@ package com.radware.vision.thirdPartyAPIs.jFrog.models;
 import lombok.Data;
 
 import java.net.URI;
+import java.util.List;
 
 /**
  * Created by MohamadI - Muhamad Igbaria
- * Date: 6/25/2020
- * Time: 1:42 PM
+ * Date: 6/29/2020
+ * Time: 3:18 PM
  */
 @Data
-public class ArtifactFile extends ArtifactModel {
+public class Child extends ArtifactModel {
+    private List<Child> children;
+    private boolean isFolder;
     private FileType type;
     private URI downloadUri;
     private String size;
