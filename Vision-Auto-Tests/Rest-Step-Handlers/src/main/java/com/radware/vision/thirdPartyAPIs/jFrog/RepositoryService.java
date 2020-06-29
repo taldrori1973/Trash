@@ -19,6 +19,7 @@ import java.util.TreeSet;
  * Time: 3:36 PM
  */
 public class RepositoryService {
+private static String JENKINS_JOB_TEMPLATE="kvision_k8s_deploy_%s";
 
     private ObjectMapper objectMapper;
 
