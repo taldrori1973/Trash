@@ -1,7 +1,6 @@
 package com.radware.vision.thirdPartyAPIs.jFrog;
 
 import com.radware.vision.automation.AutoUtils.utils.ApplicationPropertiesUtils;
-import com.radware.vision.thirdPartyAPIs.jFrog.models.Artifact;
 import com.radware.vision.thirdPartyAPIs.jFrog.models.Child;
 import com.radware.vision.thirdPartyAPIs.jFrog.models.FileType;
 
@@ -12,11 +11,7 @@ import com.radware.vision.thirdPartyAPIs.jFrog.models.FileType;
  */
 public class JFrogAPI {
     private static ApplicationPropertiesUtils applicationPropertiesUtils = new ApplicationPropertiesUtils();
-    private static ArtifactService artifactService = new ArtifactService();
 
-    public static Artifact getArtifact(String artifactName) throws Exception {
-        return artifactService.getArtifact(artifactName);
-    }
 
     /**
      * This method search for a build when the hierarchy is Version--> Branch--> Build
@@ -32,8 +27,8 @@ public class JFrogAPI {
         if (version == null) version = "Latest";
         if (branch == null) branch = applicationPropertiesUtils.getProperty("default.branch");
         if (build == null) build = 0;
-
-        artifactService.getBuild(fileType, repoName, version, branch, build);
+        RepositoryService repositoryService=new RepositoryService(repoName);
+        repositoryService.getBuild(fileType, repoName, version, branch, build);
 
         return null;
     }
@@ -50,7 +45,7 @@ public class JFrogAPI {
     public static Child getBuild(FileType fileType, String repoName, String version, Integer build) {
         if (version == null) version = "Latest";
         if (build == null) build = 0;
-        artifactService.getBuild(fileType, repoName, version, null, build);
+        repositoryService.getBuild(fileType, repoName, version, null, build);
 
         return null;
     }

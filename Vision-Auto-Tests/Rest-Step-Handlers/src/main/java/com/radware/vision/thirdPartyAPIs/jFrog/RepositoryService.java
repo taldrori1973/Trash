@@ -14,12 +14,15 @@ import models.StatusCode;
  * Date: 6/29/2020
  * Time: 3:36 PM
  */
-public class ArtifactService {
+public class RepositoryService {
 
     private ObjectMapper objectMapper;
+    private String repoName;
 
-    public ArtifactService() {
+    public RepositoryService(String repoName) {
         this.objectMapper = new ObjectMapper();
+
+        this.repoName = repoName;
     }
 
     public Artifact getArtifact(String repoName) throws Exception {
