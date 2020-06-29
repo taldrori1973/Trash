@@ -61,12 +61,12 @@ public class RepositoryService {
 //            Build builds Tree
             TreeSet<Integer> builds = new TreeSet<>();
             buildParent.getChildren().forEach(buildChildPojo -> builds.add(Integer.parseInt(buildChildPojo.getUri().getPath().substring(1))));
-            build=getLastSuccessfullBuild(builds);
+            build= getLastSuccessfulBuild(builds);
         }
         return null;
     }
 
-    private Integer getLastSuccessfullBuild(TreeSet<Integer> builds) {
+    private Integer getLastSuccessfulBuild(TreeSet<Integer> builds) {
 
         Integer last ;
 
