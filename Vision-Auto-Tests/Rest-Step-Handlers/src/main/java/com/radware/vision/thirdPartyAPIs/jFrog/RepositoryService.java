@@ -75,12 +75,13 @@ public class RepositoryService {
         while(!builds.isEmpty()){
             last=builds.pollLast();
             String buildPath=buildParent.getPath().getPath().substring(1) + "/" + last;
-            if(containsFileType(fileType))
+            if(containsFileType(fileType,buildPath))
         }
         return null;
     }
 
-    private boolean containsFileType(FileType fileType) {
+    private boolean containsFileType(FileType fileType, String buildPath) {
+        getPojo()
 return  false;
     }
 
