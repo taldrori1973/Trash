@@ -66,7 +66,7 @@ public class RepositoryService {
         return null;
     }
 
-    private Integer getLastSuccessfulBuild(ArtifactFolderPojo buildParent, FileType fileType) {
+    private Integer getLastSuccessfulBuild(ArtifactFolderPojo buildParent, FileType fileType) throws Exception {
 //            Build builds Tree
         TreeSet<Integer> builds = new TreeSet<>();
         buildParent.getChildren().forEach(buildChildPojo -> builds.add(Integer.parseInt(buildChildPojo.getUri().getPath().substring(1))));
@@ -75,7 +75,7 @@ public class RepositoryService {
         while (!builds.isEmpty()) {
             last = builds.pollLast();
             String buildPath = buildParent.getPath().getPath().substring(1) + "/" + last;
-            if (containsFileType(fileType, buildPath))
+            if (containsFileType(fileType, buildPath)) return last;
         }
         return null;
     }
