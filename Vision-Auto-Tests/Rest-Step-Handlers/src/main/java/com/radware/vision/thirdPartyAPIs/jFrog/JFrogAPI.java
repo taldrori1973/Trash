@@ -19,6 +19,8 @@ public class JFrogAPI {
         return null;
     }
 
-
+    public static Child getBuild(FileType fileType,String repoName,String version,Integer build){
+        return null;
+    }
 
 }
