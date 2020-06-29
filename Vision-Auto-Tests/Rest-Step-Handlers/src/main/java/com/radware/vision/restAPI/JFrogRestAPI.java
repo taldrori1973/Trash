@@ -3,9 +3,13 @@ package com.radware.vision.restAPI;
 import com.radware.vision.RestClientsFactory;
 import com.radware.vision.automation.AutoUtils.utils.ApplicationPropertiesUtils;
 import com.radware.vision.restTestHandler.GenericStepsHandler;
+import controllers.RestApiManagement;
 import models.RestRequestSpecification;
 import models.RestResponse;
 import restInterface.client.NoAuthRestClient;
+
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * Created by MohamadI - Muhamad Igbaria
@@ -35,10 +39,19 @@ public class JFrogRestAPI {
     }
 
     public RestResponse sendRequest(String path) {
+        if (path == null) path = "";
+
         NoAuthRestClient connection = RestClientsFactory.getNoAuthConnection(this.baseUri, this.connectionPort);
         connection.switchTo();
+
         this.restRequestSpecification = GenericStepsHandler.createNewRestRequestSpecification("/ThirdPartyAPIs/jfrog.json", "Get Artifact API");
-        return null;
+        Map<String, String> pathParams = new HashMap<>();
+        pathParams.put("repoName", this.repoName);
+        pathParams.put("path", path);
+
+        this.restRequestSpecification.setPathParams(pathParams);
+
+        return RestApiManagement.getRestApi().sendRequest(this.restRequestSpecification);
 
     }
 }

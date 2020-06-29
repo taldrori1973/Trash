@@ -6,7 +6,7 @@
     {
       "label": "Get Artifact API",
       "method": "GET",
-      "basePath": "/artifactory/api/storage/{artifactName}/{path}",
+      "basePath": "/artifactory/api/storage/{repoName}/{path}",
       "produces": "application/json",
       "description": "Get Artifact, Folders and Files Info"
     }
