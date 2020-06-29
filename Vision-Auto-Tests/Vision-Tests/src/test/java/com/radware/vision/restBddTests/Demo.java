@@ -13,9 +13,9 @@ import com.radware.vision.automation.VisionAutoInfra.CLIInfra.Servers.ServerCliB
 import com.radware.vision.bddtests.BddRestTestBase;
 import com.radware.vision.devicesRestApi.topologyTree.TopologyTree;
 import com.radware.vision.devicesRestApi.topologyTree.TopologyTreeImpl;
-import com.radware.vision.thirdPartyAPIs.jenkins.JenkinsAPI;
-import com.radware.vision.thirdPartyAPIs.jenkins.pojos.BuildPojo;
-import com.radware.vision.thirdPartyAPIs.jenkins.pojos.JobPojo;
+import com.radware.vision.thirdPartyAPIs.jFrog.JFrogAPI;
+import com.radware.vision.thirdPartyAPIs.jFrog.models.Child;
+import com.radware.vision.thirdPartyAPIs.jFrog.models.FileType;
 import com.radware.vision.utils.BodyEntry;
 import cucumber.api.java.en.Then;
 
@@ -186,12 +186,9 @@ public class Demo extends BddRestTestBase {
     @Then("^Validate pojo Paesing$")
     public void validatePojoPaesing() throws JsonProcessingException {
         try {
-            JobPojo kvision_k8s_deploy_dev = JenkinsAPI.getJobInfo("kvision_k8s_deploy_dev");
-            System.out.println(kvision_k8s_deploy_dev.toString());
-            BuildPojo kvision_k8s_deploy_dev_33 = JenkinsAPI.getBuildInfo("kvision_k8s_deploy_dev", 33);
-            System.out.println(kvision_k8s_deploy_dev_33.toString());
+            Child build = JFrogAPI.getBuild(FileType.OVA, "kvision-images-snapshot-local", "OVA", "dev", 33);
         } catch (Exception e) {
-            BaseTestUtils.report(e.getMessage(), Reporter.FAIL);
+            e.printStackTrace();
         }
 
 
