@@ -67,6 +67,12 @@ public class RepositoryService {
     }
 
     private Integer getLastSuccessfullBuild(TreeSet<Integer> builds) {
+
+        Integer last ;
+
+        while(!builds.isEmpty()){
+            last=builds.pollLast();
+        }
         return null;
     }
 
