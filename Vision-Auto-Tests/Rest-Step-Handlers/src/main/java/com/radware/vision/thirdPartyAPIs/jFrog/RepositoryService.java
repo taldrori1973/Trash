@@ -45,7 +45,7 @@ public class RepositoryService {
     private ArtifactFolderPojo getVersion(ArtifactPojo artifactPojo, String version) throws Exception {
         if (!version.equals("Latest")) {
             if (isChildExistByUri(artifactPojo.getChildren(), version)) {
-
+                ArtifactFolderPojo versionPojo = (ArtifactFolderPojo) getPojo(version, StatusCode.OK, ArtifactFolderPojo.class);
             } else throw new Exception(String.format("The Version \"%s\" not found", version));
         } else {
 
