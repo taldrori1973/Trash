@@ -15,6 +15,10 @@ public class JFrogAPI {
     public static Artifact getArtifact(String artifactName) throws Exception {
         return artifactService.getArtifact(artifactName);
     }
-    public static Child getBuild(FileType fileType,String repoName,String version,String branch,Integer build)P
+    public static Child getBuild(FileType fileType,String repoName,String version,String branch,Integer build){
+        return null;
+    }
+
+
 
 }
