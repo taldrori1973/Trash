@@ -2,6 +2,7 @@ package com.radware.vision.thirdPartyAPIs.jFrog.models;
 
 import lombok.Data;
 
+import java.net.URI;
 import java.util.List;
 
 /**
@@ -13,4 +14,7 @@ import java.util.List;
 public class Child extends ArtifactModel {
     private List<Child> children;
     private boolean isFolder;
+    private FileType type;
+    private URI downloadUri;
+    private String size;
 }
