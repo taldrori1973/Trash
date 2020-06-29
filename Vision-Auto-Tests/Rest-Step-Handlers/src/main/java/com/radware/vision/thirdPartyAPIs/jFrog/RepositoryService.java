@@ -6,6 +6,8 @@ import com.radware.vision.thirdPartyAPIs.jFrog.models.FileType;
 import com.radware.vision.thirdPartyAPIs.jFrog.pojos.ArtifactChildPojo;
 import com.radware.vision.thirdPartyAPIs.jFrog.pojos.ArtifactFolderPojo;
 import com.radware.vision.thirdPartyAPIs.jFrog.pojos.ArtifactPojo;
+import com.radware.vision.thirdPartyAPIs.jenkins.JenkinsAPI;
+import com.radware.vision.thirdPartyAPIs.jenkins.pojos.BuildPojo;
 import models.RestResponse;
 import models.StatusCode;
 import sun.reflect.generics.reflectiveObjects.NotImplementedException;
@@ -83,6 +85,8 @@ public class RepositoryService {
             last = builds.pollLast();
             String buildPath = buildParent.getPath().getPath().substring(1) + "/" + last;
             if (containsFileType(fileType, buildPath)) {
+                BuildPojo buildInfo = JenkinsAPI.getBuildInfo(jenkinsJob, last);
+                if(buildInfo.isBuilding()) continue;
                 return 0;
             }
         }
