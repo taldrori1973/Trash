@@ -81,6 +81,7 @@ public class RepositoryService {
     }
 
     private boolean containsFileType(FileType fileType) {
+return  false;
     }
 
     private ArtifactFolderPojo getBranch(ArtifactFolderPojo branchParent, String branch) throws Exception {
