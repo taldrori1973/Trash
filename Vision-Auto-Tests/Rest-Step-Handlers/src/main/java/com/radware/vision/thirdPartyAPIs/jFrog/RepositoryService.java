@@ -39,8 +39,8 @@ public class RepositoryService {
 
         ArtifactFolderPojo branchPojo = getBranch(versionPojo, branch);
 
-        if (branchPojo == null) buildPojo = getBuild(versionPojo, build,fileType);//build under version
-        else buildPojo = getBuild(branchPojo, build,fileType);//build under branch
+        if (branchPojo == null) buildPojo = getBuild(versionPojo, build, fileType);//build under version
+        else buildPojo = getBuild(branchPojo, build, fileType);//build under branch
 
         if (!version.equals("Latest")) {//go to the specific version folder
             RestResponse restResponse = jFrogRestAPI.sendRequest(version, StatusCode.OK);
@@ -61,7 +61,7 @@ public class RepositoryService {
 //            Build builds Tree
             TreeSet<Integer> builds = new TreeSet<>();
             buildParent.getChildren().forEach(buildChildPojo -> builds.add(Integer.parseInt(buildChildPojo.getUri().getPath().substring(1))));
-            build= getLastSuccessfulBuild(buildParent,fileType);
+            build = getLastSuccessfulBuild(buildParent, fileType);
         }
         return null;
     }
@@ -70,19 +70,19 @@ public class RepositoryService {
 //            Build builds Tree
         TreeSet<Integer> builds = new TreeSet<>();
         buildParent.getChildren().forEach(buildChildPojo -> builds.add(Integer.parseInt(buildChildPojo.getUri().getPath().substring(1))));
-        Integer last ;
+        Integer last;
 
-        while(!builds.isEmpty()){
-            last=builds.pollLast();
-            String buildPath=buildParent.getPath().getPath().substring(1) + "/" + last;
-            if(containsFileType(fileType,buildPath))
+        while (!builds.isEmpty()) {
+            last = builds.pollLast();
+            String buildPath = buildParent.getPath().getPath().substring(1) + "/" + last;
+            if (containsFileType(fileType, buildPath))
         }
         return null;
     }
 
-    private boolean containsFileType(FileType fileType, String buildPath) {
-        getPojo()
-return  false;
+    private boolean containsFileType(FileType fileType, String buildPath) throws Exception {
+        ArtifactFolderPojo buildPojo = getPojo(buildPath, StatusCode.OK, ArtifactFolderPojo.class);
+        return false;
     }
 
     private ArtifactFolderPojo getBranch(ArtifactFolderPojo branchParent, String branch) throws Exception {
