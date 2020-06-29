@@ -40,7 +40,10 @@ private static String JENKINS_JOB_TEMPLATE="kvision_k8s_deploy_%s";
 
         ArtifactFolderPojo branchPojo = getBranch(versionPojo, branch);
 
-        if (branchPojo == null) buildPojo = getBuild(versionPojo, build, fileType);//build under version
+        if (branchPojo == null) {
+            String jenkinsJob=String.format(JENKINS_JOB_TEMPLATE,"master");
+            buildPojo = getBuild(versionPojo, build, fileType);//build under version
+        }
         else buildPojo = getBuild(branchPojo, build, fileType);//build under branch
 
         if (!version.equals("Latest")) {//go to the specific version folder
