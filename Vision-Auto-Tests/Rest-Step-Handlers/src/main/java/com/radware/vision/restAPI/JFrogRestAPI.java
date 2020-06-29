@@ -1,7 +1,7 @@
 package com.radware.vision.restAPI;
 
-import com.radware.vision.thirdPartyAPIs.jFrog.ArtifactService;
-import com.radware.vision.thirdPartyAPIs.jFrog.models.Artifact;
+import com.radware.vision.RestClientsFactory;
+import models.RestResponse;
 
 /**
  * Created by MohamadI - Muhamad Igbaria
@@ -10,8 +10,10 @@ import com.radware.vision.thirdPartyAPIs.jFrog.models.Artifact;
  */
 public class JFrogRestAPI {
 
-    private static ArtifactService artifactService;
-    public static Artifact getArtifact(String artifactName){
-        return artifactService.getArtifact(artifactName);
+    private String baseUri;
+    private Integer connectionPort;
+
+    public RestResponse sendRequest(){
+        RestClientsFactory.getNoAuthConnection()
     }
 }
