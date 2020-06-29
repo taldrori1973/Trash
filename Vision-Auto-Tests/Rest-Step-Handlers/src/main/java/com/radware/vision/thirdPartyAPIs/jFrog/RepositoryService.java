@@ -35,7 +35,9 @@ public class RepositoryService {
         ArtifactPojo artifactPojo = getPojo("", StatusCode.OK, ArtifactPojo.class);
 
         ArtifactFolderPojo versionPojo = getVersion(artifactPojo, version);
+
         ArtifactFolderPojo branchPojo = getBranch(versionPojo, branch);
+
         if(branchPojo==null) buildPojo=getBuild(versionPojo,build);//build under version
         else buildPojo=getBuild(branchPojo,build);//build under branch
 
