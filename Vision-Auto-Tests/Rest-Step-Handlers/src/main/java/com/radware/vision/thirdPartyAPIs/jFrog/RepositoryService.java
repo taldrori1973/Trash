@@ -11,6 +11,7 @@ import models.StatusCode;
 import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 import java.util.List;
+import java.util.TreeSet;
 
 /**
  * Created by MohamadI - Muhamad Igbaria
@@ -38,8 +39,8 @@ public class RepositoryService {
 
         ArtifactFolderPojo branchPojo = getBranch(versionPojo, branch);
 
-        if(branchPojo==null) buildPojo=getBuild(versionPojo,build);//build under version
-        else buildPojo=getBuild(branchPojo,build);//build under branch
+        if (branchPojo == null) buildPojo = getBuild(versionPojo, build);//build under version
+        else buildPojo = getBuild(branchPojo, build);//build under branch
 
         if (!version.equals("Latest")) {//go to the specific version folder
             RestResponse restResponse = jFrogRestAPI.sendRequest(version, StatusCode.OK);
@@ -49,14 +50,17 @@ public class RepositoryService {
     }
 
     private ArtifactFolderPojo getBuild(ArtifactFolderPojo buildParent, Integer build) throws Exception {
-        if(build!=0){//specific build
-            if(isChildExistByUri(buildParent.getChildren(),build.toString())){
-                String path=buildParent.getPath().getPath().substring(1)+"/"+build;
-               return  getPojo(path,StatusCode.OK,ArtifactFolderPojo.class);
-            }
-            else throw new Exception(String.format("The Build \"%s\" not found under %s", build,buildParent.getPath().getPath()));
-        }else{//latest build
+        if (build != 0) {//specific build
+            if (isChildExistByUri(buildParent.getChildren(), build.toString())) {
+                String path = buildParent.getPath().getPath().substring(1) + "/" + build;
+                return getPojo(path, StatusCode.OK, ArtifactFolderPojo.class);
+            } else
+                throw new Exception(String.format("The Build \"%s\" not found under %s", build, buildParent.getPath().getPath()));
+        } else {//latest build
 
+//            Build builds Tree
+            TreeSet<Integer> builds = new TreeSet<>();
+            buildParent.getChildren().forEach(buildChildPojo -> builds.add(Integer.parseInt(buildChildPojo.getUri().getPath().substring(1))));
         }
         return null;
     }
@@ -66,11 +70,11 @@ public class RepositoryService {
         if (branch == null) return null;//No branch in the hierarchy
 
         if (isChildExistByUri(branchParent.getChildren(), branch)) {
-            String path=branchParent.getPath().getPath().substring(1)+"/"+branch;
+            String path = branchParent.getPath().getPath().substring(1) + "/" + branch;
 
             branchPojo = getPojo(path, StatusCode.OK, ArtifactFolderPojo.class);
-        }
-        else throw new Exception(String.format("The Branch \"%s\" not found under %s", branch,branchParent.getPath().getPath()));
+        } else
+            throw new Exception(String.format("The Branch \"%s\" not found under %s", branch, branchParent.getPath().getPath()));
         return branchPojo;
     }
 
@@ -78,7 +82,7 @@ public class RepositoryService {
         ArtifactFolderPojo versionPojo;
         if (!version.equals("Latest")) {
             if (isChildExistByUri(artifactPojo.getChildren(), version)) {
-                String path=artifactPojo.getPath().getPath().substring(1)+"/"+version;
+                String path = artifactPojo.getPath().getPath().substring(1) + "/" + version;
                 versionPojo = getPojo(path, StatusCode.OK, ArtifactFolderPojo.class);
             } else throw new Exception(String.format("The Version \"%s\" not found", version));
         } else {
