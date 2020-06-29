@@ -43,8 +43,11 @@ public class RepositoryService {
 
         if (branchPojo == null) {
             jenkinsJob = String.format(JENKINS_JOB_TEMPLATE, "master");
-            buildPojo = getBuild(versionPojo, build, fileType);//build under version
-        } else buildPojo = getBuild(branchPojo, build, fileType);//build under branch
+            buildPojo = getBuild(versionPojo, build, fileType,jenkinsJob);//build under version
+        } else{
+            jenkinsJob = String.format(JENKINS_JOB_TEMPLATE, "master");
+            buildPojo = getBuild(branchPojo, build, fileType,jenkinsJob);//build under branch
+        }
 
         if (!version.equals("Latest")) {//go to the specific version folder
             RestResponse restResponse = jFrogRestAPI.sendRequest(version, StatusCode.OK);
@@ -53,7 +56,7 @@ public class RepositoryService {
 
     }
 
-    private ArtifactFolderPojo getBuild(ArtifactFolderPojo buildParent, Integer build, FileType fileType) throws Exception {
+    private ArtifactFolderPojo getBuild(ArtifactFolderPojo buildParent, Integer build, FileType fileType, String jenkinsJob) throws Exception {
         if (build != 0) {//specific build
             if (isChildExistByUri(buildParent.getChildren(), build.toString())) {
                 String path = buildParent.getPath().getPath().substring(1) + "/" + build;
