@@ -74,6 +74,7 @@ public class RepositoryService {
 
         while(!builds.isEmpty()){
             last=builds.pollLast();
+            String buildPath=buildParent.getPath().getPath().substring(1) + "/" + last;
         }
         return null;
     }
