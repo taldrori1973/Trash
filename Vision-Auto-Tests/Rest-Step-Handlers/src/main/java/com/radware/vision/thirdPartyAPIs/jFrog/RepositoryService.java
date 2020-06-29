@@ -75,8 +75,12 @@ public class RepositoryService {
         while(!builds.isEmpty()){
             last=builds.pollLast();
             String buildPath=buildParent.getPath().getPath().substring(1) + "/" + last;
+            if(containsFileType(fileType))
         }
         return null;
+    }
+
+    private boolean containsFileType(FileType fileType) {
     }
 
     private ArtifactFolderPojo getBranch(ArtifactFolderPojo branchParent, String branch) throws Exception {
