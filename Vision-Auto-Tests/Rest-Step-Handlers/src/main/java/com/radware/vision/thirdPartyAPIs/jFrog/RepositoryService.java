@@ -45,7 +45,7 @@ public class RepositoryService {
             jenkinsJob = String.format(JENKINS_JOB_TEMPLATE, "master");
             buildPojo = getBuild(versionPojo, build, fileType,jenkinsJob);//build under version
         } else{
-            jenkinsJob = String.format(JENKINS_JOB_TEMPLATE, "master");
+            jenkinsJob = String.format(JENKINS_JOB_TEMPLATE, branch);
             buildPojo = getBuild(branchPojo, build, fileType,jenkinsJob);//build under branch
         }
 
