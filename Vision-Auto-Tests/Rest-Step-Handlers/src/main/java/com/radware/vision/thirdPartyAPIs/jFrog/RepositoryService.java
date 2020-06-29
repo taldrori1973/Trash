@@ -16,15 +16,12 @@ public class RepositoryService {
 
     private ObjectMapper objectMapper;
 
-    private JFrogRestAPI jFrogRestAPI ;
+    private JFrogRestAPI jFrogRestAPI;
 
     public RepositoryService(String repoName) {
         this.objectMapper = new ObjectMapper();
-        this.jFrogRestAPI=new JFrogRestAPI(repoName);
+        this.jFrogRestAPI = new JFrogRestAPI(repoName);
     }
-
-
-
 
 
     public void getBuild(FileType fileType, String version, String branch, Integer build) throws Exception {
@@ -41,8 +38,8 @@ public class RepositoryService {
     }
 
 
-    private <T> T sendRequestAndGetPojo(String path,StatusCode expectedStatusCode,Class<T> clazz) throws Exception {
+    private <T> T sendRequestAndGetPojo(String path, StatusCode expectedStatusCode, Class<T> clazz) throws Exception {
         RestResponse restResponse = jFrogRestAPI.sendRequest(path, StatusCode.OK);
-        T pojo = objectMapper.readValue(restResponse.getBody().getBodyAsString(), clazz);
+        return objectMapper.readValue(restResponse.getBody().getBodyAsString(), clazz);
     }
 }
