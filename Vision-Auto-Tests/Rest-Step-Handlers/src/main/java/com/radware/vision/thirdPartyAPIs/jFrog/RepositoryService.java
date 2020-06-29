@@ -44,15 +44,18 @@ public class RepositoryService {
 
     private ArtifactFolderPojo getVersion(ArtifactPojo artifactPojo, String version) {
         if(!version.equals("Latest")){
-            isChildExistByUri(artifactPojo.getChildren(),version);
+            if(isChildExistByUri(artifactPojo.getChildren(),version)){
+
+            }
+
         }else{
 
         }
         return null;
     }
 
-    private boolean isChildExistByUri(List<ArtifactChildPojo> children, String version) {
-        return false;
+    private boolean isChildExistByUri(List<ArtifactChildPojo> children, String child) {
+        return children.stream().anyMatch(artifactChildPojo -> artifactChildPojo.getUri().getPath().equals("/" + child));
     }
 
 
