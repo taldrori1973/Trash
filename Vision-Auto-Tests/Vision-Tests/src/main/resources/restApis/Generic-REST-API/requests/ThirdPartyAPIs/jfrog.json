@@ -1,0 +1,22 @@
+{
+  "deviceName": "ThirdPartyAPIs",
+  "fileName": "jfrog",
+  "description": "JFrog API",
+  "api": [
+    {
+      "label": "Get Artifact API",
+      "method": "GET",
+      "basePath": "/artifactory/api/storage/{artifactName}/{path}",
+      "produces": "application/json",
+      "description": "Get Artifact, Folders and Files Info"
+    },
+    {
+      "label": "Get Build Info",
+      "method": "GET",
+      "basePath": "/job/{jobName}/{buildNumber}/api/json?pretty=true",
+      "produces": "application/json",
+      "description": "Get Jenkins Build Info"
+    }
+  ]
+}
+
