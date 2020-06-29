@@ -30,13 +30,12 @@ public class RepositoryService {
 
 
     public void getBuild(FileType fileType, String version, String branch, Integer build) throws Exception {
-        ArtifactFolderPojo branchPojo;
         ArtifactFolderPojo buildPojo;
 
         ArtifactPojo artifactPojo = getPojo("", StatusCode.OK, ArtifactPojo.class);
 
         ArtifactFolderPojo versionPojo = getVersion(artifactPojo, version);
-        ArtifactFolderPojo branchPojo = getBranch(version, branch);
+        ArtifactFolderPojo branchPojo = getBranch(versionPojo, branch);
 
 
         if (!version.equals("Latest")) {//go to the specific version folder
@@ -46,7 +45,7 @@ public class RepositoryService {
 
     }
 
-    private ArtifactFolderPojo getBranch(String version, String branch) {
+    private ArtifactFolderPojo getBranch(ArtifactFolderPojo version, String branch) {
         return null;
     }
 
