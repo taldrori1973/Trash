@@ -49,6 +49,11 @@ public class RepositoryService {
     }
 
     private ArtifactFolderPojo getBuild(ArtifactFolderPojo buildParent, Integer build) {
+        if(build!=0){//specific build
+
+        }else{//latest build
+
+        }
         return null;
     }
 
