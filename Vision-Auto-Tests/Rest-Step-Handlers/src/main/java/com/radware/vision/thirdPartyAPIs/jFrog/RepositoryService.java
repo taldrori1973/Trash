@@ -17,12 +17,12 @@ import models.StatusCode;
 public class RepositoryService {
 
     private ObjectMapper objectMapper;
-    private String repoName;
+
+    private JFrogRestAPI jFrogRestAPI ;
 
     public RepositoryService(String repoName) {
         this.objectMapper = new ObjectMapper();
-
-        this.repoName = repoName;
+        this.jFrogRestAPI=new JFrogRestAPI(repoName);
     }
 
     public Artifact getArtifact(String repoName) throws Exception {
@@ -57,7 +57,7 @@ public class RepositoryService {
     }
 
 
-    private <T> T sendRequestAndGetPojo(String path,StatusCode expectedStatusCode,Class type){
+    private <T> T sendRequestAndGetPojo(String path,StatusCode expectedStatusCode,Class<T> type){
 
     }
 }
