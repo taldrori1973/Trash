@@ -17,7 +17,7 @@ public class JFrogAPI {
     }
 
     /**
-     *
+     *  This method search for a build when the hierarchy is Version--> Branch--> Build
      * @param fileType  file type to search for
      * @param repoName  in which repository to search for a build i.e. local, release
      * @param version   desired version , if version is null will search in the latest version
