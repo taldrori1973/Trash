@@ -87,7 +87,7 @@ public class RepositoryService {
             if (containsFileType(fileType, buildPath)) {
                 BuildPojo buildInfo = JenkinsAPI.getBuildInfo(jenkinsJob, last);
                 if(buildInfo.isBuilding()) continue;
-                return 0;
+                if(buildInfo.getResult().equals("SUCCESS")) return last;
             }
         }
         return null;
