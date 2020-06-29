@@ -55,4 +55,9 @@ public class RepositoryService {
         }
 
     }
+
+
+    private <T> T sendRequestAndGetPojo(String path,StatusCode expectedStatusCode,Class type){
+
+    }
 }
