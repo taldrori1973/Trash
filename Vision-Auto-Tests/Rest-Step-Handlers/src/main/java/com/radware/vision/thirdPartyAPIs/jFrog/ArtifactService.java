@@ -1,6 +1,11 @@
 package com.radware.vision.thirdPartyAPIs.jFrog;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.radware.vision.restAPI.JFrogRestAPI;
 import com.radware.vision.thirdPartyAPIs.jFrog.models.Artifact;
+import com.radware.vision.thirdPartyAPIs.jFrog.pojos.ArtifactPojo;
+import models.RestResponse;
+import models.StatusCode;
 
 /**
  * Created by MohamadI - Muhamad Igbaria
@@ -8,7 +13,23 @@ import com.radware.vision.thirdPartyAPIs.jFrog.models.Artifact;
  * Time: 3:36 PM
  */
 public class ArtifactService {
-    public Artifact getArtifact(String artifactName) {
+
+    private ObjectMapper objectMapper;
+
+    public ArtifactService() {
+        this.objectMapper = new ObjectMapper();
+    }
+
+    public Artifact getArtifact(String repoName) throws Exception {
+
+        JFrogRestAPI jFrogRestAPI = new JFrogRestAPI(repoName);
+        RestResponse repoResponse = jFrogRestAPI.sendRequest("");
+
+        if (!repoResponse.getStatusCode().equals(StatusCode.OK))
+            throw new Exception(repoResponse.getBody().getBodyAsString());
+
+        ArtifactPojo artifactPojo=this.objectMapper.readValue(repoResponse.getBody().getBodyAsString(),ArtifactPojo.class);
+
         return null;
     }
 }
