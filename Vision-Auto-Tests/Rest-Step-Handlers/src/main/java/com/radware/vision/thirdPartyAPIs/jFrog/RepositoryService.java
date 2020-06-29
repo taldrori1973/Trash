@@ -3,10 +3,13 @@ package com.radware.vision.thirdPartyAPIs.jFrog;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.radware.vision.restAPI.JFrogRestAPI;
 import com.radware.vision.thirdPartyAPIs.jFrog.models.FileType;
+import com.radware.vision.thirdPartyAPIs.jFrog.pojos.ArtifactChildPojo;
 import com.radware.vision.thirdPartyAPIs.jFrog.pojos.ArtifactFolderPojo;
 import com.radware.vision.thirdPartyAPIs.jFrog.pojos.ArtifactPojo;
 import models.RestResponse;
 import models.StatusCode;
+
+import java.util.List;
 
 /**
  * Created by MohamadI - Muhamad Igbaria
@@ -41,11 +44,15 @@ public class RepositoryService {
 
     private ArtifactFolderPojo getVersion(ArtifactPojo artifactPojo, String version) {
         if(!version.equals("Latest")){
-
+            isChildExistByUri(artifactPojo.getChildren(),version);
         }else{
 
         }
         return null;
+    }
+
+    private boolean isChildExistByUri(List<ArtifactChildPojo> children, String version) {
+        return false;
     }
 
 
