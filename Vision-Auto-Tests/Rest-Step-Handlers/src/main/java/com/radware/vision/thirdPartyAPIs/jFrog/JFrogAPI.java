@@ -23,12 +23,19 @@ public class JFrogAPI {
      * @param version   desired version , if version is null will search in the latest version
      * @param branch    in which branch to search , if branch is null , will search on the default branch
      * @param build     desired build number , if null will search for last successful build under version and branch
-     * @return
+     * @return The requested build file info
      */
     public static Child getBuild(FileType fileType,String repoName,String version,String branch,Integer build){
         return null;
     }
-
+    /**
+     *  This method search for a build when the hierarchy is Version--> Build
+     * @param fileType  file type to search for
+     * @param repoName  in which repository to search for a build i.e. local, release
+     * @param version   desired version , if version is null will search in the latest version
+     * @param build     desired build number , if null will search for last successful build under version and branch
+     * @return The requested build file info
+     */
     public static Child getBuild(FileType fileType,String repoName,String version,Integer build){
         return null;
     }
