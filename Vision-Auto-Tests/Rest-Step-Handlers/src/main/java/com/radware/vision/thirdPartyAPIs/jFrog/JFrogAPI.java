@@ -43,7 +43,7 @@ public class JFrogAPI {
      * @param build    desired build number , if null will search for last successful build under version and branch
      * @return The requested build file info
      */
-    public static Child getBuild(FileType fileType, String repoName, String version, Integer build) {
+    public static Child getBuild(FileType fileType, String repoName, String version, Integer build) throws Exception {
         if (version == null) version = "Latest";
         if (build == null) build = 0;
         RepositoryService repositoryService=new RepositoryService(repoName);
