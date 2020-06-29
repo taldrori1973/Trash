@@ -48,6 +48,10 @@ public class JFrogAPI {
      * @return The requested build file info
      */
     public static Child getBuild(FileType fileType, String repoName, String version, Integer build) {
+        if (version == null) version = "Latest";
+        if (build == null) build = 0;
+        artifactService.getBuild(fileType, repoName, version, null, build);
+
         return null;
     }
 
