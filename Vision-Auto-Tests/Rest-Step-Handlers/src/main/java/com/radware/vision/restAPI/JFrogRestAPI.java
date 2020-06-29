@@ -22,7 +22,6 @@ public class JFrogRestAPI {
     private String baseUri;
     private Integer connectionPort;
     private String repoName;
-    private RestRequestSpecification restRequestSpecification;
 
     public JFrogRestAPI(String repoName) {
         this.baseUri = String.format(
@@ -44,14 +43,14 @@ public class JFrogRestAPI {
         NoAuthRestClient connection = RestClientsFactory.getNoAuthConnection(this.baseUri, this.connectionPort);
         connection.switchTo();
 
-        this.restRequestSpecification = GenericStepsHandler.createNewRestRequestSpecification("/ThirdPartyAPIs/jfrog.json", "Get Artifact API");
+        RestRequestSpecification restRequestSpecification = GenericStepsHandler.createNewRestRequestSpecification("/ThirdPartyAPIs/jfrog.json", "Get Artifact API");
         Map<String, String> pathParams = new HashMap<>();
         pathParams.put("repoName", this.repoName);
         pathParams.put("path", path);
 
-        this.restRequestSpecification.setPathParams(pathParams);
+        restRequestSpecification.setPathParams(pathParams);
 
-        return RestApiManagement.getRestApi().sendRequest(this.restRequestSpecification);
+        return RestApiManagement.getRestApi().sendRequest(restRequestSpecification);
 
     }
 }
