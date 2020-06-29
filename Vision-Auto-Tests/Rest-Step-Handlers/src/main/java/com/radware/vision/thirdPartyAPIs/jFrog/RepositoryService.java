@@ -26,13 +26,12 @@ public class RepositoryService {
 
 
     public void getBuild(FileType fileType, String version, String branch, Integer build) throws Exception {
-        ArtifactFolderPojo versionPojo;
         ArtifactFolderPojo branchPojo;
         ArtifactFolderPojo buildPojo;
 
         ArtifactPojo artifactPojo = getPojo("", StatusCode.OK, ArtifactPojo.class);
 
-        versionPojo=getVersion(artifactPojo);
+        ArtifactFolderPojo versionPojo = getVersion(artifactPojo);
         if (!version.equals("Latest")) {//go to the specific version folder
             RestResponse restResponse = jFrogRestAPI.sendRequest(version, StatusCode.OK);
             versionPojo = objectMapper.readValue(restResponse.getBody().getBodyAsString(), ArtifactFolderPojo.class);
