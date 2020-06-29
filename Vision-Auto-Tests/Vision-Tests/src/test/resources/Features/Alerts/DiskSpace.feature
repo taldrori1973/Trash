@@ -17,7 +17,6 @@ Feature: Alert Disk Space
   Scenario: Disk Space Alert Basic Minor - bar icon - Login to verify
     When UI Login with user "radware" and password "radware"
     Then Browser Refresh Page
-    And UI Navigate to "VISION SETTINGS" page via homePage
     Then UI Validate Element Existence By GWT id "Disk Space Alert" if Exists "true" with value "Disk Space Alert"
     Then UI logout and close browser
 
@@ -36,7 +35,6 @@ Feature: Alert Disk Space
   @SID_5
   Scenario: Disk Space Alert RBAC
     When UI Login with user "sec_admin_all_pol" and password "radware"
-    And UI Navigate to "VISION SETTINGS" page via homePage
     Then UI Validate Element Existence By GWT id "Disk Space Alert" if Exists "false"
     Then UI logout and close browser
 
@@ -56,7 +54,6 @@ Feature: Alert Disk Space
   Scenario: Disk Space Alert Basic Major - bar icon - Login to verify
     When UI Login with user "radware" and password "radware"
     Then Browser Refresh Page
-    And UI Navigate to "VISION SETTINGS" page via homePage
     Then UI Validate Element Existence By GWT id "Disk Space Alert" if Exists "true" with value "Disk Space Alert"
 
   @SID_8
@@ -90,7 +87,6 @@ Feature: Alert Disk Space
     When UI Login with user "radware" and password "radware"
     Then CLI Run remote linux Command "result=`curl -ks -X "POST" "https://localhost/mgmt/system/user/login" -H "Content-Type: application/json" -d $"{\"username\": \"radware\",\"password\": \"radware\"}"`; jsession=`echo $result | tr "," "\n"|grep -i jsession|tr -d '"' | cut -d: -f2`; curl -k -XGET -H "Cookie: JSESSIONID=$jsession" https://localhost:443/mgmt/system/config/item/diskspaceinfo >> /opt/radware/storage/maintenance/disk_reply.log" on "ROOT_SERVER_CLI"
     Then Browser Refresh Page
-    And UI Navigate to "VISION SETTINGS" page via homePage
     Then UI Validate Element Existence By GWT id "Disk Space Alert" if Exists "true" with value "Disk Space Alert"
 
   @SID_11
@@ -111,6 +107,5 @@ Feature: Alert Disk Space
     Given CLI Run remote linux Command "sed -i 's/disk_space_alert_critical_threshold=[0-9]*/disk_space_alert_critical_threshold=95/g' /opt/radware/mgt-server/properties/disk_space_alert.properties" on "ROOT_SERVER_CLI"
     Given CLI Run remote linux Command "service vision restart" on "ROOT_SERVER_CLI" and wait 120 seconds
     When UI Login with user "radware" and password "radware"
-    And UI Navigate to "VISION SETTINGS" page via homePage
     Then UI Validate Element Existence By GWT id "Disk Space Alert" if Exists "false"
     Then UI logout and close browser
