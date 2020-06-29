@@ -43,7 +43,7 @@ public class RepositoryService {
         return null;
     }
 
-    public void getBuild(FileType fileType, String repoName, String version, String branch, Integer build) throws Exception {
+    public void getBuild(FileType fileType, String version, String branch, Integer build) throws Exception {
         ArtifactFolderPojo versionPojo;
         ArtifactFolderPojo branchPojo;
         ArtifactFolderPojo buildPojo;
