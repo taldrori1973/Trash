@@ -82,7 +82,7 @@ public class RepositoryService {
 
     private boolean containsFileType(FileType fileType, String buildPath) throws Exception {
         ArtifactFolderPojo buildPojo = getPojo(buildPath, StatusCode.OK, ArtifactFolderPojo.class);
-        return false;
+        return buildPojo.getChildren().stream().anyMatch(artifactChildPojo -> artifactChildPojo.getUri().getPath().endsWith(fileType.getExtension()));
     }
 
     private ArtifactFolderPojo getBranch(ArtifactFolderPojo branchParent, String branch) throws Exception {
