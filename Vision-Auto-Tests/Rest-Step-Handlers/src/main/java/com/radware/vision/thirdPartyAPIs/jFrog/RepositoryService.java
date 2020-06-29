@@ -67,7 +67,9 @@ public class RepositoryService {
     }
 
     private Integer getLastSuccessfulBuild(ArtifactFolderPojo buildParent, FileType fileType) {
-
+//            Build builds Tree
+        TreeSet<Integer> builds = new TreeSet<>();
+        buildParent.getChildren().forEach(buildChildPojo -> builds.add(Integer.parseInt(buildChildPojo.getUri().getPath().substring(1))));
         Integer last ;
 
         while(!builds.isEmpty()){
