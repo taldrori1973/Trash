@@ -13,6 +13,9 @@ public class JFrogRestAPI {
     private String baseUri;
     private Integer connectionPort;
 
+    public JFrogRestAPI(){
+        this
+    }
     public RestResponse sendRequest(){
         RestClientsFactory.getNoAuthConnection()
     }
