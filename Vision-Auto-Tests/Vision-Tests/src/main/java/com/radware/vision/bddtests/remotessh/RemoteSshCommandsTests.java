@@ -10,9 +10,11 @@ import com.radware.automation.webui.UIUtils;
 import com.radware.vision.automation.AutoUtils.Operators.Comparator;
 import com.radware.vision.automation.AutoUtils.Operators.OperatorsEnum;
 import com.radware.vision.automation.VisionAutoInfra.CLIInfra.CliOperations;
+import com.radware.vision.base.TestBase;
 import com.radware.vision.bddtests.BddCliTestBase;
 import com.radware.vision.bddtests.basicoperations.BasicOperationsSteps;
 import com.radware.vision.bddtests.clioperation.FileSteps;
+import com.radware.vision.systemManagement.serversManagement.ServersManagement;
 import com.radware.vision.vision_project_cli.RootServerCli;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
@@ -50,14 +52,14 @@ public class RemoteSshCommandsTests extends BddCliTestBase {
     }
 
     /*
-    * if user type *pipe* it is mean the step replace it to "|"
-    * */
+     * if user type *pipe* it is mean the step replace it to "|"
+     * */
     @When("^CLI Run remote linux Command on \"([^\"]*)\"(?: and wait (\\d+) seconds)?(?: and wait for prompt \"(True|False)\"(?: with timeOut (\\d+))?)?$")
-    public void cliRunRemoteLinuxCommandOn(SUTEntryType sutEntryType, Integer sleep, String waitForPrompt,Integer withTimeout, List<String> commandParts) throws Exception {
+    public void cliRunRemoteLinuxCommandOn(SUTEntryType sutEntryType, Integer sleep, String waitForPrompt, Integer withTimeout, List<String> commandParts) {
         String commandToExecute = getExecuteCommand(commandParts);
         boolean waitForPromptBoolean = waitForPrompt == null || Boolean.parseBoolean(waitForPrompt);
         CliConnectionImpl cli = getSUTEntryType(sutEntryType);
-        withTimeout = withTimeout == null ? 60*1000 : withTimeout;
+        withTimeout = withTimeout == null ? 60 * 1000 : withTimeout;
         try {
             InvokeUtils.invokeCommand(null, commandToExecute, cli, withTimeout, true, false, waitForPromptBoolean, null, true);
             if (sleep != null)
@@ -161,13 +163,12 @@ public class RemoteSshCommandsTests extends BddCliTestBase {
 
 
     @When("^CLI Run remote linux Command \"(.*)\" on \"(.*)\"(?: with timeOut (\\d+))?$")
-    public void runCLICommand(String commandToExecute, SUTEntryType sutEntryType, Integer timeOut) {
+    public void runCLICommand(String commandToExecute, ServersManagement.ServerIds serverId, Integer timeOut) {
         try {
             timeOut = timeOut != null ? timeOut : 30;
-//          kvision
-//            CliOperations.runCommand(getSUTEntryTypeByServerCliBase(sutEntryType), commandToExecute, timeOut * 1000);
+            CliOperations.runCommand(TestBase.serversManagement.getServerById(serverId), commandToExecute, timeOut * 1000);
         } catch (Exception e) {
-            BaseTestUtils.report("Failed to execute command: " + commandToExecute + ", on " + sutEntryType + "\n" + parseExceptionBody(e), Reporter.FAIL);
+            BaseTestUtils.report("Failed to execute command: " + commandToExecute + ", on " + serverId + "\n" + parseExceptionBody(e), Reporter.FAIL);
         }
     }
 
@@ -216,12 +217,12 @@ public class RemoteSshCommandsTests extends BddCliTestBase {
 //        CliOperations.runCommand(getRestTestBase().getRootServerCli(), "chmod +x /root/fetch_num_of_real_alteons_apps.sh");
 //        CliOperations.runCommand(getRestTestBase().getRootServerCli(), "/root/fetch_num_of_real_alteons_apps.sh");
         String numOfApps = CliOperations.lastRow;
-        runCLICommandAndValidateBiggerOrEqualResult("mysql -prad123 vision_ng -e \"select count(*) from dpm_virtual_services\" | grep -v + | tail -1", ROOT_SERVER_CLI, OperatorsEnum.GTE, numOfApps, "", null, null);
+        runCLICommandAndValidateBiggerOrEqualResult("mysql -prad123 vision_ng -e \"select count(*) from dpm_virtual_services\" | grep -v + | tail -1", ServersManagement.ServerIds.ROOT_SERVER_CLI, OperatorsEnum.GTE, numOfApps, "", null, null);
 
     }
 
     @When("^CLI Run linux Command \"(.*)\" on \"(.*)\" and validate result (EQUALS|NOT_EQUALS|CONTAINS|GT|GTE|LT|LTE) \"(.*)\"( in any line)?(?: with timeOut (\\d+))?(?: with runCommand delay (\\d+))?$")
-    public void runCLICommandAndValidateBiggerOrEqualResult(String commandToExecute, SUTEntryType sutEntryType, OperatorsEnum operatorsEnum, String expectedResult, String inAnyLine, Integer iDelay, Integer defaultTimeOut) {
+    public void runCLICommandAndValidateBiggerOrEqualResult(String commandToExecute, ServersManagement.ServerIds serverId, OperatorsEnum operatorsEnum, String expectedResult, String inAnyLine, Integer iDelay, Integer defaultTimeOut) {
         try {
             defaultTimeOut = defaultTimeOut != null ? defaultTimeOut * 1000 : CliOperations.DEFAULT_TIME_OUT;
             boolean bTestSuccess;
@@ -232,8 +233,7 @@ public class RemoteSshCommandsTests extends BddCliTestBase {
             }
 
             do {
-//               kvision
-//                CliOperations.runCommand(getSUTEntryTypeByServerCliBase(sutEntryType), commandToExecute, defaultTimeOut);
+                CliOperations.runCommand(TestBase.serversManagement.getServerById(serverId), commandToExecute, defaultTimeOut);
                 String actualResult = CliOperations.lastRow.trim();
 
                 if (inAnyLine != null && !inAnyLine.isEmpty()) {
@@ -250,7 +250,7 @@ public class RemoteSshCommandsTests extends BddCliTestBase {
                 BaseTestUtils.report(Comparator.failureMessage, Reporter.FAIL);
 
         } catch (Exception e) {
-            BaseTestUtils.report("Failed to execute command: " + commandToExecute + ", on " + sutEntryType + "\n" + parseExceptionBody(e), Reporter.FAIL);
+            BaseTestUtils.report("Failed to execute command: " + commandToExecute + ", on " + serverId + "\n" + parseExceptionBody(e), Reporter.FAIL);
         }
     }
 
@@ -313,7 +313,7 @@ public class RemoteSshCommandsTests extends BddCliTestBase {
         String cmdToGetValue = "grep vrm.scheduled.reports.delete.after.delivery /opt/radware/mgt-server/third-party/tomcat/conf/reporter.properties";
         boolean currentValue = true;//if something got wrong , set the value to false and restart the collectors
 
-        runCLICommand(cmdToGetValue, ROOT_SERVER_CLI, null);
+        runCLICommand(cmdToGetValue, ServersManagement.ServerIds.ROOT_SERVER_CLI, null);
         String commandResult = CliOperations.lastRow;
 
         //if the file not found
@@ -337,9 +337,9 @@ public class RemoteSshCommandsTests extends BddCliTestBase {
 
         if (currentValue) {
             runCLICommand("sed -i 's/vrm.scheduled.reports.delete.after.delivery=.*$/vrm.scheduled.reports.delete.after.delivery=false/g' /opt/radware/mgt-server/third-party/tomcat/conf/reporter.properties",
-                    SUTEntryType.ROOT_SERVER_CLI, null);
+                    ServersManagement.ServerIds.ROOT_SERVER_CLI, null);
             runCLICommand("/opt/radware/mgt-server/bin/collectors_service.sh restart",
-                    SUTEntryType.ROOT_SERVER_CLI, timeout);
+                    ServersManagement.ServerIds.ROOT_SERVER_CLI, timeout);
 
             if (sleepTime != null) {
                 try {
@@ -355,15 +355,19 @@ public class RemoteSshCommandsTests extends BddCliTestBase {
     public void cliClearOldReportsOnFileSystem() {
         SUTEntryType ROOT_SERVER_CLI = SUTEntryType.ROOT_SERVER_CLI;
 
-        runCLICommand("rm -f /opt/radware/mgt-server/third-party/tomcat/bin/VRM_report_*.*", ROOT_SERVER_CLI, null);
-        runCLICommand("rm -f /opt/radware/mgt-server/third-party/tomcat/bin/*.csv", ROOT_SERVER_CLI, null);
+        runCLICommand("rm -f /opt/radware/mgt-server/third-party/tomcat/bin/VRM_report_*.*",
+                ServersManagement.ServerIds.ROOT_SERVER_CLI, null);
+        runCLICommand("rm -f /opt/radware/mgt-server/third-party/tomcat/bin/*.csv",
+                ServersManagement.ServerIds.ROOT_SERVER_CLI, null);
 
     }
 
     @Then("^CLI UnZIP Local Report ZIP File to CSV Files$")
     public void cliUnZIPLocalReportZIPFileToCSVFiles() {
-        runCLICommand("cp /opt/radware/mgt-server/third-party/tomcat/bin/VRM_report_*.zip /opt/radware/storage/maintenance/", ROOT_SERVER_CLI, null);
-        runCLICommand("unzip -o -d /opt/radware/mgt-server/third-party/tomcat/bin/ /opt/radware/mgt-server/third-party/tomcat/bin/VRM_report_*.zip", ROOT_SERVER_CLI, null);
+        runCLICommand("cp /opt/radware/mgt-server/third-party/tomcat/bin/VRM_report_*.zip /opt/radware/storage/maintenance/",
+                ServersManagement.ServerIds.ROOT_SERVER_CLI, null);
+        runCLICommand("unzip -o -d /opt/radware/mgt-server/third-party/tomcat/bin/ /opt/radware/mgt-server/third-party/tomcat/bin/VRM_report_*.zip",
+                ServersManagement.ServerIds.ROOT_SERVER_CLI, null);
     }
 
     @When("^CLI Send Traffic Events file \"(.*)\"$")
@@ -372,10 +376,9 @@ public class RemoteSshCommandsTests extends BddCliTestBase {
         try {
             String serverIp = clientConfigurations.getHostIp();
             commandToExecute = String.format("python3 /home/radware/TED/cef/cef_messages_dir.py -a 1 -i \"%s\" -p \"5140\" -dir \"/home/radware/TED/automation/%s\" -t", serverIp, filename);
-//            String commandToExecute = "python3 /home/radware/TED/cef/cef_messages_dir.py -a 1 -i \"172.17.164.101\" -p \"5140\" -dir \"/home/radware/TED/automation/fieldsummarybadgevalues\" -t";
 
-            int timeOut = 30;
 //          kvision
+//            int timeOut = 30;
 //            CliOperations.runCommand(getSUTEntryTypeByServerCliBase(GENERIC_LINUX_SERVER),
 //                    commandToExecute, timeOut * 1000);
 
