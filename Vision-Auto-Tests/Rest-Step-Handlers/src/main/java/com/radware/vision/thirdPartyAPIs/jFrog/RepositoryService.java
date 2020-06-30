@@ -12,6 +12,7 @@ import models.RestResponse;
 import models.StatusCode;
 import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Set;
 import java.util.TreeSet;
@@ -80,7 +81,7 @@ public class RepositoryService {
     private Integer getLastSuccessfulBuild(ArtifactFolderPojo buildParent, FileType fileType, String jenkinsJob) throws Exception {
 //        build array of builds number
         Set<Integer> buildsNumbers = buildParent.getChildren().stream().sorted().map(buildChildPojo -> Integer.parseInt(buildChildPojo.getUri().getPath().substring(1))).collect(Collectors.toSet());
-
+        LinkedList<Integer> sorted=countingSort(buildsNumbers);
 //            Build builds Tree
         TreeSet<Integer> builds = new TreeSet<>();
         buildParent.getChildren().forEach(buildChildPojo -> builds.add(Integer.parseInt(buildChildPojo.getUri().getPath().substring(1))));
@@ -95,6 +96,10 @@ public class RepositoryService {
                 if (buildInfo.getResult().equals("SUCCESS")) return last;
             }
         }
+        return null;
+    }
+
+    private LinkedList<Integer> countingSort(Set<Integer> buildsNumbers) {
         return null;
     }
 
