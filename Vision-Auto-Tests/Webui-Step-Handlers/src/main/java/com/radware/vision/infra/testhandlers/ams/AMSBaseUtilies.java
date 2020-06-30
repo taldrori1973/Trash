@@ -1,4 +1,4 @@
-package com.radware.vision.infra.testhandlers.vrm;
+package com.radware.vision.infra.testhandlers.ams;
 
 import com.radware.automation.react.widgets.impl.ReactDateControl;
 import com.radware.automation.react.widgets.impl.ReactSelectControl;
@@ -20,7 +20,7 @@ import com.radware.vision.automation.tools.exceptions.web.DropdownNotOpenedExcep
 import com.radware.vision.automation.tools.sutsystemobjects.devicesinfo.DeviceInfo;
 import com.radware.vision.automation.tools.sutsystemobjects.devicesinfo.enums.SUTDeviceType;
 import com.radware.vision.infra.testhandlers.baseoperations.BasicOperationsHandler;
-import com.radware.vision.infra.testhandlers.vrm.enums.vrmActions;
+import com.radware.vision.infra.testhandlers.ams.enums.vrmActions;
 import com.radware.vision.infra.utils.ReportsUtils;
 import com.radware.vision.infra.utils.TimeUtils;
 import com.radware.vision.infra.utils.json.CustomizedJsonManager;
@@ -46,7 +46,7 @@ import static com.radware.vision.infra.utils.ReportsUtils.reportErrors;
 
 public class AMSBaseUtilies {
 
-    VRMHandler vrmHandler = new VRMHandler();
+    AMSHandler AMSHandler = new AMSHandler();
     public static LocalDateTime scheduleLocalDateTime = LocalDateTime.now();
     public static LocalDateTime timeDefinitionLocalDateTime;
 
@@ -110,19 +110,19 @@ public class AMSBaseUtilies {
                     return;
                 case "appwall dashboard":
                 case "defenseflow analytics dashboard": {
-                    List<VRMHandler.DpApplicationFilter> devicesEntries = new ArrayList<>();
+                    List<AMSHandler.DpApplicationFilter> devicesEntries = new ArrayList<>();
                     if (map.get("projectObjects") != null || map.get("webApplications") != null) {
                         String type = map.get("projectObjects") != null ? "projectObjects" : map.get("webApplications") != null ? "webApplications" : "";
                         String[] devices = !map.get(type).matches("(All|all|)") ? map.get(type).split(",") : new String[0];
                         for (String appName : devices) {
-                            devicesEntries.add(new VRMHandler.DpApplicationFilter(appName));
+                            devicesEntries.add(new AMSHandler.DpApplicationFilter(appName));
                         }
                         if (devices.length == 0)
-                            devicesEntries.add(new VRMHandler.DpApplicationFilter("All"));
+                            devicesEntries.add(new AMSHandler.DpApplicationFilter("All"));
                     } else {
-                        devicesEntries.add(new VRMHandler.DpApplicationFilter("All"));
+                        devicesEntries.add(new AMSHandler.DpApplicationFilter("All"));
                     }
-                    vrmHandler.selectApplications(devicesEntries, map.get("reportType").toLowerCase().startsWith("defenseflow") ? "defenseflow" : "appwall", false);
+                    AMSHandler.selectApplications(devicesEntries, map.get("reportType").toLowerCase().startsWith("defenseflow") ? "defenseflow" : "appwall", false);
                     return;
                 }
                 case "defensepro behavioral protections dashboard":
@@ -136,11 +136,11 @@ public class AMSBaseUtilies {
     }
 
     private void selectDefenseProDevices(Map<String, String> map) {
-        List<VRMHandler.DpDeviceFilter> devicesEntries = new ArrayList<>();
+        List<AMSHandler.DpDeviceFilter> devicesEntries = new ArrayList<>();
         if (map.containsKey("devices")) {
             devicesEntries = extractDevicesList(map);
         }
-        vrmHandler.innerSelectDeviceWithPoliciesAndPorts(null, SUTDeviceType.DefensePro, devicesEntries);
+        AMSHandler.innerSelectDeviceWithPoliciesAndPorts(null, SUTDeviceType.DefensePro, devicesEntries);
     }
 
     private static void selectPolicy(String policy) {
@@ -192,7 +192,7 @@ public class AMSBaseUtilies {
 
     }
 
-    public static List<VRMHandler.DpDeviceFilter> extractDevicesList(Map<String, String> map) {
+    public static List<AMSHandler.DpDeviceFilter> extractDevicesList(Map<String, String> map) {
 
         JSONArray devicesJsonArray = new JSONArray();
         try {
@@ -204,9 +204,9 @@ public class AMSBaseUtilies {
                 devicesJsonArray.put(deviceJsonObject);
             }
         }
-        List<VRMHandler.DpDeviceFilter> devicesEntries = new ArrayList<VRMHandler.DpDeviceFilter>();
+        List<AMSHandler.DpDeviceFilter> devicesEntries = new ArrayList<AMSHandler.DpDeviceFilter>();
         for (int i = 0; i < devicesJsonArray.length(); i++) {
-            VRMHandler.DpDeviceFilter deviceEntry = new VRMHandler.DpDeviceFilter();
+            AMSHandler.DpDeviceFilter deviceEntry = new AMSHandler.DpDeviceFilter();
 //            deviceEntry.index = ((JSONObject) devicesJsonArray.get(i)).getInt("index");
             deviceEntry.ports = ((JSONObject) devicesJsonArray.get(i)).toMap().getOrDefault("ports", "").toString().replaceAll("(])|(\\[)", "");
             deviceEntry.policies = ((JSONObject) devicesJsonArray.get(i)).toMap().getOrDefault("policies", "").toString().replaceAll("(])|(\\[)", "");
@@ -1037,7 +1037,7 @@ public class AMSBaseUtilies {
         }
     }
 
-    public void validateFilter(String text, String searchLabel, List<VRMHandler.LabelParam> elementsExist) throws Exception {
+    public void validateFilter(String text, String searchLabel, List<AMSHandler.LabelParam> elementsExist) throws Exception {
         if ((text == null || text.equals("")) && elementsExist.size() > 0) {
             BaseTestUtils.report("have to put text ", Reporter.FAIL);
         }
@@ -1046,7 +1046,7 @@ public class AMSBaseUtilies {
             return;
         }
         BasicOperationsHandler.setTextField(searchLabel, text);
-        for (VRMHandler.LabelParam element : elementsExist) {
+        for (AMSHandler.LabelParam element : elementsExist) {
 
             if (WebUIUtils.fluentWait(ComponentLocatorFactory.getLocatorByXpathDbgId(element.getDataDebugId()).getBy(), WebUIUtils.DEFAULT_WAIT_TIME, false) == null) {
                 addErrorMessage("the label '" + element.getLabel() + "' with param: '" + element.getParam() + "' is not exist OR text: \"" + text + "\" is not correct");
@@ -1159,7 +1159,7 @@ public class AMSBaseUtilies {
                     widgetsList.add(addWidgetsText.getString(i).trim());
                 }
             }
-            vrmHandler.uiVRMDragAndDropWidgets(widgetsList);
+            AMSHandler.uiVRMDragAndDropWidgets(widgetsList);
         }
     }
 
