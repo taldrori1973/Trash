@@ -45,10 +45,10 @@ public class RepositoryService {
 
         if (branchPojo == null) {
             jenkinsJob = String.format(JENKINS_JOB_TEMPLATE, "master");
-            buildPojo = getBuild(versionPojo, build, fileType,jenkinsJob);//build under version
-        } else{
+            buildPojo = getBuild(versionPojo, build, fileType, jenkinsJob);//build under version
+        } else {
             jenkinsJob = String.format(JENKINS_JOB_TEMPLATE, branch);
-            buildPojo = getBuild(branchPojo, build, fileType,jenkinsJob);//build under branch
+            buildPojo = getBuild(branchPojo, build, fileType, jenkinsJob);//build under branch
         }
 
 
@@ -56,14 +56,14 @@ public class RepositoryService {
 
     private ArtifactFolderPojo getBuild(ArtifactFolderPojo buildParent, Integer build, FileType fileType, String jenkinsJob) throws Exception {
         if (build != 0) {//specific build
-            if (isChildExistByUri(buildParent.getChildren(), build.toString())) {//build exist
+            String path = buildParent.getPath().getPath().substring(1) + "/" + build;
+            if (isChildExistByUri(buildParent.getChildren(), build.toString()) && containsFileType(fileType,path)) {//build exist
 
                 BuildPojo buildInfo = JenkinsAPI.getBuildInfo(jenkinsJob, build);//get build data from jenkins
 
-                if(buildInfo.isBuilding() || (!buildInfo.isBuilding() && !buildInfo.getResult().equals("SUCCESS")))
+                if (buildInfo.isBuilding() || (!buildInfo.isBuilding() && !buildInfo.getResult().equals("SUCCESS")))
                     throw new Exception(String.format("The Build \"%s\" is building or failed", build));
 
-                String path = buildParent.getPath().getPath().substring(1) + "/" + build;
                 return getPojo(path, StatusCode.OK, ArtifactFolderPojo.class);
             } else
                 throw new Exception(String.format("The Build \"%s\" not found under %s", build, buildParent.getPath().getPath()));
@@ -72,7 +72,7 @@ public class RepositoryService {
 //            Build builds Tree
             TreeSet<Integer> builds = new TreeSet<>();
             buildParent.getChildren().forEach(buildChildPojo -> builds.add(Integer.parseInt(buildChildPojo.getUri().getPath().substring(1))));
-            build = getLastSuccessfulBuild(buildParent, fileType,jenkinsJob);
+            build = getLastSuccessfulBuild(buildParent, fileType, jenkinsJob);
         }
         return null;
     }
@@ -88,8 +88,8 @@ public class RepositoryService {
             String buildPath = buildParent.getPath().getPath().substring(1) + "/" + last;
             if (containsFileType(fileType, buildPath)) {
                 BuildPojo buildInfo = JenkinsAPI.getBuildInfo(jenkinsJob, last);
-                if(buildInfo.isBuilding()) continue;
-                if(buildInfo.getResult().equals("SUCCESS")) return last;
+                if (buildInfo.isBuilding()) continue;
+                if (buildInfo.getResult().equals("SUCCESS")) return last;
             }
         }
         return null;
