@@ -56,8 +56,10 @@ public class RepositoryService {
 
     private ArtifactFolderPojo getBuild(ArtifactFolderPojo buildParent, Integer build, FileType fileType, String jenkinsJob) throws Exception {
         if (build != 0) {//specific build
-            if (isChildExistByUri(buildParent.getChildren(), build.toString())) {
-                BuildPojo buildInfo = JenkinsAPI.getBuildInfo(jenkinsJob, build);
+            if (isChildExistByUri(buildParent.getChildren(), build.toString())) {//build exist
+
+                BuildPojo buildInfo = JenkinsAPI.getBuildInfo(jenkinsJob, build);//get build data from jenkins
+
                 if(buildInfo.isBuilding() || (!buildInfo.isBuilding() && !buildInfo.getResult().equals("SUCCESS")))
                     throw new Exception(String.format("The Build \"%s\" is building or failed", build));
 
