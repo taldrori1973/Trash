@@ -1,16 +1,25 @@
 package com.radware.vision.automation.DatabaseStepHandlers.elasticSearch;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.jayway.jsonpath.DocumentContext;
 import com.jayway.jsonpath.JsonPath;
 import com.radware.automation.tools.basetest.BaseTestUtils;
 import com.radware.automation.tools.basetest.Reporter;
+import com.radware.automation.webui.WebUIUtils;
 import com.radware.vision.automation.AutoUtils.SUT.controllers.SUTManager;
 import com.radware.vision.automation.AutoUtils.SUT.controllers.SUTManagerImpl;
+import com.radware.vision.automation.DatabaseStepHandlers.elasticSearch.search.EsQuery;
+import com.radware.vision.automation.DatabaseStepHandlers.elasticSearch.search.Match;
+import com.radware.vision.automation.DatabaseStepHandlers.elasticSearch.search.SearchBool;
+import com.radware.vision.automation.DatabaseStepHandlers.elasticSearch.search.SearchQuery;
 import com.radware.vision.restAPI.ElasticsearchRestAPI;
 import models.RestResponse;
 import models.StatusCode;
+import org.json.JSONException;
 import org.json.JSONObject;
+import org.json.simple.parser.ParseException;
 
 import java.util.*;
 import java.util.regex.Matcher;
@@ -36,7 +45,35 @@ public class ElasticSearchHandler {
         }
     }
 
-    public static void  deleteESIndex(String index) {
+    public static JSONObject getESDocumentByField(String index, String field, String value) {
+        ElasticsearchRestAPI esRestApi = createEsRestConnection("Vision/elasticSearch.json", "Search index by query");
+        HashMap<String, String> hash_map_param = new HashMap<>();
+        hash_map_param.put("indexName", index);
+        HashMap<String, String> hash_map_param_query = new HashMap<>();
+        hash_map_param_query.put(field, value);
+        Match match = new Match(hash_map_param_query);
+        SearchBool searchBool = new SearchBool();
+        searchBool.getMust().add(match);
+        String json= null;
+        try {
+            SearchQuery searchQuery = new SearchQuery(searchBool);
+            EsQuery esQuery = new EsQuery(searchQuery);
+            ObjectMapper mapper = new ObjectMapper();
+            json = mapper.writeValueAsString(esQuery);
+        } catch (JsonProcessingException e) {
+            e.printStackTrace();
+        }
+        esRestApi.getRestRequestSpecification().setPathParams(hash_map_param);
+        esRestApi.getRestRequestSpecification().setBody(json);
+        RestResponse restResponse = esRestApi.sendRequest();
+        if (!restResponse.getStatusCode().equals(StatusCode.OK)) {
+            BaseTestUtils.report("could not get: " + index + " from index:" + index, Reporter.FAIL);
+        }
+        return new JSONObject(restResponse.getBody().getBodyAsString());
+    }
+
+
+    public static void deleteESIndex(String index) {
         try {
             ElasticsearchRestAPI esRestApi = createEsRestConnection("Vision/elasticSearch.json", "Delete Index");
             HashMap<String, String> hash_map_param = new HashMap<>();
@@ -44,7 +81,7 @@ public class ElasticSearchHandler {
             esRestApi.getRestRequestSpecification().setPathParams(hash_map_param);
             RestResponse restResponse = esRestApi.sendRequest();
             if (!restResponse.getStatusCode().equals(StatusCode.OK) &&
-            !restResponse.getStatusCode().equals(StatusCode.NOT_FOUND)) {
+                    !restResponse.getStatusCode().equals(StatusCode.NOT_FOUND)) {
                 BaseTestUtils.report("can't delete index: " + index, Reporter.FAIL);
             }
         } catch (Exception e) {
@@ -250,6 +287,26 @@ public class ElasticSearchHandler {
         SUTManager sutManager = SUTManagerImpl.getInstance();
         String host = sutManager.getClientConfigurations().getHostIp();
         return new ElasticsearchRestAPI("http://" + host, 9200, requestFilePath, requestLabel);
+    }
+
+    /**
+     * @param indexName - ES index name
+     * @param field     - column to search
+     * @param docName   - value to search
+     * @param timeout   - in mS
+     */
+    public static void waitForESDocument(String indexName, String field, String docName, long timeout) {
+        if (timeout == 0)
+            timeout = WebUIUtils.DEFAULT_WAIT_TIME;
+        boolean foundObject;
+
+        long startTime = System.currentTimeMillis();
+        do {
+            foundObject = isIndexContainsKeyValue(indexName, field, docName);
+        }
+        while (!foundObject && System.currentTimeMillis() - startTime < timeout);
+        if (!foundObject)
+            BaseTestUtils.report("Could not find document " + docName + " till time out", Reporter.FAIL);
     }
 
 }
