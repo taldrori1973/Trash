@@ -1,4 +1,4 @@
-package com.radware.vision.infra.testhandlers.vrm;
+package com.radware.vision.infra.testhandlers.ams;
 
 import com.google.common.collect.Lists;
 import com.radware.automation.react.widgets.impl.ReactDateControl;
@@ -15,7 +15,7 @@ import com.radware.vision.automation.tools.exceptions.selenium.TargetWebElementN
 import com.radware.vision.infra.testhandlers.EmailHandler;
 import com.radware.vision.infra.testhandlers.alteon.securitymonitoring.dashboardview.sslinspection.enums.QuickRange;
 import com.radware.vision.infra.testhandlers.baseoperations.BasicOperationsHandler;
-import com.radware.vision.infra.testhandlers.vrm.enums.vrmActions;
+import com.radware.vision.infra.testhandlers.ams.enums.vrmActions;
 import com.radware.vision.infra.utils.TimeUtils;
 import com.radware.vision.infra.utils.WebUIStringsVision;
 import com.radware.vision.vision_project_cli.RootServerCli;
@@ -37,16 +37,16 @@ import static com.radware.automation.webui.UIUtils.sleep;
 
 
 public class AMSReportsHandler extends AMSBaseUtilies {
-    private VRMReportsDateUtils vrmReportsDateUtils = new VRMReportsDateUtils();
-    private VRMHandler vrmHandler = new VRMHandler();
+    private AMSReportsDateUtils AMSReportsDateUtils = new AMSReportsDateUtils();
+    private AMSHandler AMSHandler = new AMSHandler();
     private long timePeriodThreshold = 1000 * 60 * 3;
 
     public AMSReportsHandler() {
     }
 
     public void validateSimpleDate(String dateToValidateLabel, String timeFormat, String errorThresholdInMinutes) {
-        long errorThreshold = (errorThresholdInMinutes == null || errorThresholdInMinutes.equals("")) ? timePeriodThreshold : Long.valueOf(errorThresholdInMinutes) * vrmReportsDateUtils.minute;
-        String timeFormatFinal = (timeFormat == null || timeFormat.equals("")) ? vrmReportsDateUtils.timeFormat : timeFormat;
+        long errorThreshold = (errorThresholdInMinutes == null || errorThresholdInMinutes.equals("")) ? timePeriodThreshold : Long.valueOf(errorThresholdInMinutes) * AMSReportsDateUtils.minute;
+        String timeFormatFinal = (timeFormat == null || timeFormat.equals("")) ? AMSReportsDateUtils.timeFormat : timeFormat;
         String dateString = getDateString(dateToValidateLabel);
         long dateToValidate = TimeUtils.getEpochTime(dateString, timeFormatFinal);
         long expectedTime = System.currentTimeMillis();
@@ -58,14 +58,14 @@ public class AMSReportsHandler extends AMSBaseUtilies {
     }
 
     public void validateQuickRange(String startingDateSelector, String endDateSelector, QuickRange quickRange, String timeFormat, String errorThresholdInMinutes) {
-        long errorThreshold = (errorThresholdInMinutes == null || errorThresholdInMinutes.equals("")) ? timePeriodThreshold : Long.valueOf(errorThresholdInMinutes) * vrmReportsDateUtils.minute;
-        String timeFormatFinal = (timeFormat == null || timeFormat.equals("")) ? vrmReportsDateUtils.timeFormat : timeFormat;
+        long errorThreshold = (errorThresholdInMinutes == null || errorThresholdInMinutes.equals("")) ? timePeriodThreshold : Long.valueOf(errorThresholdInMinutes) * AMSReportsDateUtils.minute;
+        String timeFormatFinal = (timeFormat == null || timeFormat.equals("")) ? AMSReportsDateUtils.timeFormat : timeFormat;
         String staringDateString = getDateString(startingDateSelector);
         String endDateString = getDateString(endDateSelector);
         long actualStartDate = TimeUtils.getEpochTime(staringDateString, timeFormatFinal);
         long actualEndDate = TimeUtils.getEpochTime(endDateString, timeFormatFinal);
         long expectedEndDate = System.currentTimeMillis();
-        long expectedStartDate = vrmReportsDateUtils.getExpectedStartTime(quickRange, expectedEndDate);
+        long expectedStartDate = AMSReportsDateUtils.getExpectedStartTime(quickRange, expectedEndDate);
         if (validateDate(actualStartDate, expectedStartDate, errorThreshold) && validateDate(actualEndDate, expectedEndDate, errorThreshold)) {
             BaseTestUtils.report("Validate QuickRange for " + staringDateString + " to - " + endDateString + "is successful", Reporter.PASS);
         } else {
@@ -93,11 +93,11 @@ public class AMSReportsHandler extends AMSBaseUtilies {
 
     public void validateReportTimePeriod(String reportName, QuickRange timePeriod) throws TargetWebElementNotFoundException {
         generateNewReport(reportName);
-        vrmReportsDateUtils.setStartEndTime(timePeriod);
-        Long timePeriodFinal = vrmReportsDateUtils.getEndTimeActual() - vrmReportsDateUtils.getStartTimeActual();
-        Long timePeriodExpected = vrmReportsDateUtils.getEndTimeExpected() - vrmReportsDateUtils.getStartTimeExpected();
+        AMSReportsDateUtils.setStartEndTime(timePeriod);
+        Long timePeriodFinal = AMSReportsDateUtils.getEndTimeActual() - AMSReportsDateUtils.getStartTimeActual();
+        Long timePeriodExpected = AMSReportsDateUtils.getEndTimeExpected() - AMSReportsDateUtils.getStartTimeExpected();
         boolean isValid = false;
-        if (validatePeriod(timePeriodExpected, timePeriodFinal, timePeriod) && validateDate(vrmReportsDateUtils.getEndTimeActual(), vrmReportsDateUtils.getEndTimeExpected(), timePeriodThreshold))
+        if (validatePeriod(timePeriodExpected, timePeriodFinal, timePeriod) && validateDate(AMSReportsDateUtils.getEndTimeActual(), AMSReportsDateUtils.getEndTimeExpected(), timePeriodThreshold))
             if (isValid) {
                 BaseTestUtils.report("Validate Report period " + timePeriod.getQuickRange() + " is successful", Reporter.PASS);
             } else {
@@ -112,7 +112,7 @@ public class AMSReportsHandler extends AMSBaseUtilies {
 
 
     private boolean validatePeriod(Long timePeriodExpected, Long timePeriodFinal, QuickRange timePeriod) {
-        if ((Math.abs(timePeriodFinal - timePeriodExpected) / vrmReportsDateUtils.minute) < Long.valueOf(timePeriod.getErrorThresholdInTimeUnits())) {
+        if ((Math.abs(timePeriodFinal - timePeriodExpected) / AMSReportsDateUtils.minute) < Long.valueOf(timePeriod.getErrorThresholdInTimeUnits())) {
             return true;
         }
         return false;
@@ -715,8 +715,8 @@ public class AMSReportsHandler extends AMSBaseUtilies {
     private static StringBuilder validateSelectDevices(Map<String, String> map, JSONArray actualDevicesJsonArray) {
         StringBuilder errorMessage = new StringBuilder();
         String deviceIp;
-        List<VRMHandler.DpDeviceFilter> expectedDevicesEntry = extractDevicesList(map);
-        for (VRMHandler.DpDeviceFilter deviceEntry : expectedDevicesEntry) {
+        List<AMSHandler.DpDeviceFilter> expectedDevicesEntry = extractDevicesList(map);
+        for (AMSHandler.DpDeviceFilter deviceEntry : expectedDevicesEntry) {
             try {
                 int indexDevice;
 //                deviceIp = devicesManager.getDeviceInfo(SUTDeviceType.DefensePro, deviceEntry.index).getDeviceIp();
@@ -819,7 +819,7 @@ public class AMSReportsHandler extends AMSBaseUtilies {
                 addWidgets(designJsonObject.getJSONArray("Add"));
             }
             if (designJsonObject.toMap().containsKey("Position")) {
-                vrmHandler.dragAndDropVRMChart(designJsonObject.toMap().get("Position").toString(), designJsonObject.getInt("X"), designJsonObject.getInt("Y"));
+                AMSHandler.dragAndDropVRMChart(designJsonObject.toMap().get("Position").toString(), designJsonObject.getInt("X"), designJsonObject.getInt("Y"));
             }
         }
     }
@@ -847,13 +847,13 @@ public class AMSReportsHandler extends AMSBaseUtilies {
                 widgetsList.add("Attacks By Protection Policy");
                 widgetsList.add("Attack Categories By Bandwidth");
                 widgetsList.add("Top Forwarded Attack Sources");
-                vrmHandler.uiVRMSelectWidgets(widgetsList);
+                AMSHandler.uiVRMSelectWidgets(widgetsList);
             } catch (Exception e) {
             }
         } else {
 
             widgetsList = addWidgetsText.toList();
-            vrmHandler.uiVRMSelectWidgets(widgetsList);
+            AMSHandler.uiVRMSelectWidgets(widgetsList);
         }
     }
 
