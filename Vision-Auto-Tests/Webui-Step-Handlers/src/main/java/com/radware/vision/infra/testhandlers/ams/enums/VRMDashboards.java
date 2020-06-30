@@ -1,4 +1,4 @@
-package com.radware.vision.infra.testhandlers.vrm.enums;
+package com.radware.vision.infra.testhandlers.ams.enums;
 
 public enum VRMDashboards {
     DP_ANALYTICS("DP Analytics"),

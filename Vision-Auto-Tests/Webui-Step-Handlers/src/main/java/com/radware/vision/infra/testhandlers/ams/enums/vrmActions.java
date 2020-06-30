@@ -1,4 +1,4 @@
-package com.radware.vision.infra.testhandlers.vrm.enums;
+package com.radware.vision.infra.testhandlers.ams.enums;
 
 import com.radware.vision.automation.tools.exceptions.misc.NoSuchOperationException;
 
