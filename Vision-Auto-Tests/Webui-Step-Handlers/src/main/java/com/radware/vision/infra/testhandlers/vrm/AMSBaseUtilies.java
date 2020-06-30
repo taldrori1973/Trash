@@ -44,75 +44,54 @@ import static com.radware.vision.infra.testhandlers.BaseHandler.restTestBase;
 import static com.radware.vision.infra.utils.ReportsUtils.addErrorMessage;
 import static com.radware.vision.infra.utils.ReportsUtils.reportErrors;
 
-public class VRMBaseUtilies {
+public class AMSBaseUtilies {
 
     VRMHandler vrmHandler = new VRMHandler();
     public static LocalDateTime scheduleLocalDateTime = LocalDateTime.now();
     public static LocalDateTime timeDefinitionLocalDateTime;
-    public static String oldOrNew = "new"; // "old"/"new"
 
 
-    public void BaseVRMOperation(vrmActions operationType, String vrmBaseName, Map<String, String> entry, RootServerCli rootServerCli) throws Exception {
+    public void BaseAMSOperation(vrmActions operationType, String vrmBaseName, Map<String, String> entry) throws Exception {
         Map<String, String> map = null;
         if (operationType != vrmActions.GENERATE)
             map = CustomizedJsonManager.fixJson(entry);
 
         switch (operationType.name().toUpperCase()) {
             case "CREATE":
-                switch (oldOrNew) {
-                    case "old":
-                        createVRMBase(vrmBaseName, map);
-                        break;
-                    case "new":
-                        createVRMBaseNew(vrmBaseName, map);
-                        break;
-                }
+                AMSCreateBase(vrmBaseName, map);
                 break;
             case "VALIDATE":
-                validateVRMBase(rootServerCli, vrmBaseName, map);
+                AMSValidateBase(vrmBaseName, map);
                 break;
             case "EDIT":
-                switch (oldOrNew) {
-                    case "old":
-                        editVRMBase(vrmBaseName, map);
-                        break;
-                    case "new":
-                        editVRMBaseNew(vrmBaseName, map);
-                        break;
-                }
+                AMSEditBase(vrmBaseName, map);
                 break;
             case "GENERATE":
-                generateVRMBase(vrmBaseName, entry);
+                AMSGenerateBase(vrmBaseName, entry);
                 break;
             case "ISEXIST":
-                isExistVRMBase(vrmBaseName, map);
+                isExistAMSBase(vrmBaseName, map);
                 break;
         }
     }
 
-    protected void editVRMBase(String vrmBaseName, Map<String, String> map) throws Exception {
+    protected void AMSEditBase(String vrmBaseName, Map<String, String> map) throws Exception {
     }
 
-    protected void editVRMBaseNew(String vrmBaseName, Map<String, String> map) throws Exception {
+    protected void AMSValidateBase(String vrmBaseName, Map<String, String> map) throws TargetWebElementNotFoundException {
     }
 
-    protected void validateVRMBase(RootServerCli rootServerCli, String vrmBaseName, Map<String, String> map) throws TargetWebElementNotFoundException {
+    protected void AMSCreateBase(String vrmBaseName, Map<String, String> map) throws TargetWebElementNotFoundException {
     }
 
-    protected void createVRMBase(String vrmBaseName, Map<String, String> map) throws Exception {
-    }
-
-    protected void createVRMBaseNew(String vrmBaseName, Map<String, String> map) throws TargetWebElementNotFoundException {
-    }
-
-    protected void generateVRMBase(String vrmBaseName, Map<String, String> map) throws TargetWebElementNotFoundException {
+    protected void AMSGenerateBase(String vrmBaseName, Map<String, String> map) throws TargetWebElementNotFoundException {
     }
 
     protected boolean isExistVRMBaseResult(String vrmBaseName, Map<String, String> map) {
         return false;
     }
 
-    protected void isExistVRMBase(String vrmBaseName, Map<String, String> map) {
+    protected void isExistAMSBase(String vrmBaseName, Map<String, String> map) {
     }
 
 
@@ -213,7 +192,7 @@ public class VRMBaseUtilies {
 
     }
 
-    public List<VRMHandler.DpDeviceFilter> extractDevicesList(Map<String, String> map) {
+    public static List<VRMHandler.DpDeviceFilter> extractDevicesList(Map<String, String> map) {
 
         JSONArray devicesJsonArray = new JSONArray();
         try {
@@ -875,12 +854,7 @@ public class VRMBaseUtilies {
             openDevicePort(null);
         } catch (Exception e) {
         }
-        switch (oldOrNew) {
-            case "old":
-                createVRMBase("validateMaxViews", new HashMap<>());
-            case "new":
-                createVRMBaseNew("validateMaxViews", new HashMap<>());
-        }
+                AMSCreateBase("validateMaxViews", new HashMap<>());
         BasicOperationsHandler.clickButton("Views.Expand", "validateMaxViews");
         List<String> snapshotsName = new ArrayList<>();
         snapshotsName = getViewsList(maxValue);
@@ -900,48 +874,48 @@ public class VRMBaseUtilies {
         ReportsUtils.reportErrors();
     }
 
-    public void uivalidateMaxGenerateTemplateView(int maxValue) throws Exception {
-        validateMaxGenerateTemplateView(maxValue);
-    }
+//    public void uivalidateMaxGenerateTemplateView(int maxValue) throws Exception {
+//        validateMaxGenerateTemplateView(maxValue);
+//    }
 
 
-    protected void validateMaxGenerateTemplateView(int maxValue) throws Exception {
-
-        int iCurrentIndex;
-
-        // Format for leading zerros
-        String srtFormat = String.format("%%0%dd", 2);
-        String strReportName;
-
-        // loop the create and verify the allowed maximum report template number
-        for (iCurrentIndex = 1; iCurrentIndex <= maxValue; iCurrentIndex++) {
-            // Set report name
-            strReportName = String.format(srtFormat, iCurrentIndex) + "_report";
-
-            // create a report
-            createVRMBase(strReportName, new HashMap<>());
-
-            // verify report was created by expanding the report
-            if (!isExistVRMBaseResult(strReportName, new HashMap<>())) {
-                addErrorMessage("report number " + iCurrentIndex + "didn't create, but the maximum allowed template reports  is - " + maxValue);
-            }
-        }
-
-        // Set report name of the excided report template (max =1)
-        strReportName = String.format(srtFormat, iCurrentIndex) + "_report";
-
-        // create a report
-        createVRMBase(strReportName, new HashMap<>());
-
-        if (isExistVRMBaseResult(strReportName, new HashMap<>())) {
-            // if didn't got exception the report tamplate (max + 1 exist) creating an error to the log
-            addErrorMessage("report " + strReportName + "excided the maximum allowed template reports, The maximum allowed reports are: " + iCurrentIndex);
-        }
-
-        // insert the errors (if exist) to the log
-        ReportsUtils.reportErrors();
-    }
-
+//    protected void validateMaxGenerateTemplateView(int maxValue) throws Exception {
+//
+//        int iCurrentIndex;
+//
+//        // Format for leading zerros
+//        String srtFormat = String.format("%%0%dd", 2);
+//        String strReportName;
+//
+//        // loop the create and verify the allowed maximum report template number
+//        for (iCurrentIndex = 1; iCurrentIndex <= maxValue; iCurrentIndex++) {
+//            // Set report name
+//            strReportName = String.format(srtFormat, iCurrentIndex) + "_report";
+//
+//            // create a report
+//            createVRMBase(strReportName, new HashMap<>());
+//
+//            // verify report was created by expanding the report
+//            if (!isExistVRMBaseResult(strReportName, new HashMap<>())) {
+//                addErrorMessage("report number " + iCurrentIndex + "didn't create, but the maximum allowed template reports  is - " + maxValue);
+//            }
+//        }
+//
+//        // Set report name of the excided report template (max =1)
+//        strReportName = String.format(srtFormat, iCurrentIndex) + "_report";
+//
+//        // create a report
+//        createVRMBase(strReportName, new HashMap<>());
+//
+//        if (isExistVRMBaseResult(strReportName, new HashMap<>())) {
+//            // if didn't got exception the report tamplate (max + 1 exist) creating an error to the log
+//            addErrorMessage("report " + strReportName + "excided the maximum allowed template reports, The maximum allowed reports are: " + iCurrentIndex);
+//        }
+//
+//        // insert the errors (if exist) to the log
+//        ReportsUtils.reportErrors();
+//    }
+//
     protected List<WebElement> getSnapshotElements() {
         return null;
     }
