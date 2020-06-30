@@ -104,7 +104,9 @@ public class RepositoryService {
         Integer[] counterArray=new Integer[buildsNumbersRange];
         buildsNumbers.forEach(buildNumber -> counterArray[buildNumber] = 1);
         LinkedList<Integer> sorted=new LinkedList<>();
+        for(int i=0;i<counterArray.length;i++){
 
+        }
         return null;
     }
 
