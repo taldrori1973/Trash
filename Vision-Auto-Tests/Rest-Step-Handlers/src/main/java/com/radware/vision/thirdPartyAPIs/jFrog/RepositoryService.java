@@ -70,15 +70,14 @@ public class RepositoryService {
                 throw new Exception(String.format("The Build \"%s\" not found under %s OR the buil not contains \"%s\" file type", build, buildParent.getPath().getPath(),fileType.getExtension()));
         } else {//latest build
 
-//            Build builds Tree
-            TreeSet<Integer> builds = new TreeSet<>();
-            buildParent.getChildren().forEach(buildChildPojo -> builds.add(Integer.parseInt(buildChildPojo.getUri().getPath().substring(1))));
             build = getLastSuccessfulBuild(buildParent, fileType, jenkinsJob);
         }
         return null;
     }
 
     private Integer getLastSuccessfulBuild(ArtifactFolderPojo buildParent, FileType fileType, String jenkinsJob) throws Exception {
+//        build array of builds number
+        buildParent.getChildren().stream().map(buildChildPojo -> Integer.parseInt(buildChildPojo.getUri().getPath().substring(1)));
 //            Build builds Tree
         TreeSet<Integer> builds = new TreeSet<>();
         buildParent.getChildren().forEach(buildChildPojo -> builds.add(Integer.parseInt(buildChildPojo.getUri().getPath().substring(1))));
