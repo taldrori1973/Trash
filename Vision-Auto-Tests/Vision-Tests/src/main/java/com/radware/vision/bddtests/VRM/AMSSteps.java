@@ -2,9 +2,9 @@ package com.radware.vision.bddtests.VRM;
 
 import com.radware.vision.automation.tools.sutsystemobjects.devicesinfo.enums.SUTDeviceType;
 import com.radware.vision.infra.testhandlers.alteon.securitymonitoring.dashboardview.sslinspection.enums.QuickRange;
-import com.radware.vision.infra.testhandlers.vrm.VRMHandler;
-import com.radware.vision.infra.testhandlers.vrm.VRMHandler.*;
-import com.radware.vision.infra.testhandlers.vrm.VRMReportsHandler;
+import com.radware.vision.infra.testhandlers.ams.AMSHandler;
+import com.radware.vision.infra.testhandlers.ams.AMSHandler.*;
+import com.radware.vision.infra.testhandlers.ams.AMSReportsHandler;
 import cucumber.api.java.en.And;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
@@ -13,25 +13,25 @@ import cucumber.api.java.en.When;
 import java.util.List;
 
 
-public class VRMSteps {
+public class AMSSteps {
 
-    private VRMHandler vrmHandler = new VRMHandler();
-    private VRMReportsHandler vrmReportsHandler = new VRMReportsHandler();
+    private AMSHandler AMSHandler = new AMSHandler();
+    private AMSReportsHandler vrmReportsHandler = new AMSReportsHandler();
 
 
     @Then("^UI Validate (?:column chart \"([^\"]*)\" for )?Line Chart attributes \"([^\"]*)\" with Label \"([^\"]*)\"$")
     public void uiValidateLineChartAttributes(String columnChart, String chart, String label, List<DataSets> entries) {
-        vrmHandler.validateChartDataSets(chart, label, columnChart, entries);
+        AMSHandler.validateChartDataSets(chart, label, columnChart, entries);
     }
 
     @Then("^UI Validate StackBar data with widget \"([^\"]*)\"$")
     public void uiValidateStackBarDataWithWidget(String chart, List<StackBarData> entries) {
-        vrmHandler.validateStackBarData(chart, entries);
+        AMSHandler.validateStackBarData(chart, entries);
     }
 
     @Then("^UI Validate StackBar Timedata with widget \"([^\"]*)\"$")
     public void uiValidateStackBarTimedataWithWidget(String chart, List<StackBarData> entries) {
-        vrmHandler.uiValidateStackBarTimeDataWithWidget(chart, entries);
+        AMSHandler.uiValidateStackBarTimeDataWithWidget(chart, entries);
     }
 
     @Then("^UI Validate VRM Report Existence by Name \"(.*)\" if Exists \"(true|false)\"$")
@@ -46,28 +46,28 @@ public class VRMSteps {
 
     @Then("^UI Validate (?:column chart \"([^\"]*)\" for )?Line Chart data \"([^\"]*)\" with Label \"([^\"]*)\"$")
     public void uiValidateLineChartData(String columnChart, String chart, String label, List<Data> entries) {
-        vrmHandler.validateChartDataOfDataSets(chart, label, columnChart, entries);
+        AMSHandler.validateChartDataOfDataSets(chart, label, columnChart, entries);
     }
 
     @Then("^UI Validate Pie Chart attributes \"([^\"]*)\"$")
     public void uiValidatePieChartAttributes(String chart, List<DataSets> entries) {
         /*without validate*/
-        vrmHandler.validatePieChartDataSets(chart, entries);
+        AMSHandler.validatePieChartDataSets(chart, entries);
     }
 
     @Then("^UI Validate Pie Chart data \"([^\"]*)\"$")
     public void uiValidatePieChartData(String chart, List<PieChart> entries) {
-        vrmHandler.validatePieChartDataOfDataSets(chart, entries);
+        AMSHandler.validatePieChartDataOfDataSets(chart, entries);
     }
 
     @Then("^UI Total Pie Chart data \"([^\"]*)\"$")
     public void uiTotalPieChartData(String chart, List<DataSize> entries) {
-        vrmHandler.validatePieChartDataOfDataSetsSize(chart, entries);
+        AMSHandler.validatePieChartDataOfDataSetsSize(chart, entries);
     }
 
     @Then("^UI Total (?:column chart \"([^\"]*)\" for )?Line Chart data \"([^\"]*)\" With Label \"([^\"]*)\"$")
     public void uiTotalLineChartDataWithLabel(String columnChart, String chart, String label, List<DataSize> entries) {
-        vrmHandler.validateLineChartDataOfDataSetsSize(chart, label, columnChart, entries);
+        AMSHandler.validateLineChartDataOfDataSetsSize(chart, label, columnChart, entries);
 
     }
 
@@ -80,17 +80,17 @@ public class VRMSteps {
      */
     @When("^UI VRM Select device from dashboard( and Save Filter)?(?: device type \"(.*)\")?$")
     public void selectDeviceWithPoliciesAndPorts(String saveFilter, SUTDeviceType deviceType, List<DpDeviceFilter> entries) {
-        vrmHandler.innerSelectDeviceWithPoliciesAndPorts(saveFilter, deviceType, entries, true);
+        AMSHandler.innerSelectDeviceWithPoliciesAndPorts(saveFilter, deviceType, entries, true);
     }
 
     @When("^UI Select device from dashboard(?: device type \"(.*)\")?$")
     public void selectDeviceWithPolicies(SUTDeviceType deviceType, List<DpDeviceFilter> entries) {
-        vrmHandler.innerSelectDeviceWithPoliciesAndPortsTestClickChange(deviceType, entries);
+        AMSHandler.innerSelectDeviceWithPoliciesAndPortsTestClickChange(deviceType, entries);
     }
 
     @Then("^UI validate if policy is Exist$")
     public void validatepolicyIsExist(List<Polices> entries) {
-        vrmHandler.innerSelectDeviceWithPoliciesAndPortsTest(entries);
+        AMSHandler.innerSelectDeviceWithPoliciesAndPortsTest(entries);
     }
 
     /**
@@ -100,17 +100,17 @@ public class VRMSteps {
      */
     @Then("^UI VRM Validate Devices policies$")
     public void uiVRMValidateDevicesPolicies(List<DevicesAndPolices> entries) {
-        vrmHandler.validateDevicePolicies(entries);
+        AMSHandler.validateDevicePolicies(entries);
     }
 
     @When("^UI VRM Drag And Drop \"([^\"]*)\" chart with X offset (-?\\d+) and Y offset (-?\\d+)$")
     public void dragAndDropVRMChart(String elementName, int xOffset, int yOffset) {
-        vrmHandler.dragAndDropVRMChart(elementName, xOffset, yOffset);
+        AMSHandler.dragAndDropVRMChart(elementName, xOffset, yOffset);
     }
 
     @When("^UI VRM Resize \"([^\"]*)\" chart with X offset (-?\\d+) and Y offset (-?\\d+)$")
     public void resizeVRMChart(String elementName, int xOffset, int yOffset) {
-        vrmHandler.resizeVRMChart(elementName, xOffset, yOffset);
+        AMSHandler.resizeVRMChart(elementName, xOffset, yOffset);
     }
 
     /**
@@ -120,7 +120,7 @@ public class VRMSteps {
      */
     @Then("^UI VRM Total Available Device's (\\d+)$")
     public void uiVRMTotalAvailableDeviceS(int totalNumOfDevices) {
-        vrmHandler.uiVRMTotalAvailableDeviceS(totalNumOfDevices);
+        AMSHandler.uiVRMTotalAvailableDeviceS(totalNumOfDevices);
     }
 
     /**
@@ -130,7 +130,7 @@ public class VRMSteps {
      */
     @When("^UI VRM Select Widgets$")
     public void uiVRMSelectWidgets(List<String> entries) {
-        vrmHandler.uiVRMSelectWidgets(entries);
+        AMSHandler.uiVRMSelectWidgets(entries);
     }
 
     /**
@@ -139,7 +139,7 @@ public class VRMSteps {
      */
     @When("^UI VRM Clear All Widgets$")
     public void uiVRMSelectWidgets() {
-        vrmHandler.uiVRMSelectWidgets(null);
+        AMSHandler.uiVRMSelectWidgets(null);
     }
 
     /**
@@ -150,7 +150,7 @@ public class VRMSteps {
      */
     @Then("^UI Total \"(.*)\" legends equal to (\\d+)$")
     public void uiTotalLegendsEqualTo(String chart, int total) {
-        vrmHandler.ValidateTotalLegends(chart, total);
+        AMSHandler.ValidateTotalLegends(chart, total);
     }
 
     /**
@@ -161,7 +161,7 @@ public class VRMSteps {
      */
     @Then("^UI Validate Session Storage \"(.*)\" exists \"(true|false)\"$")
     public void isSessionStorageExists(String sessionStorage, Boolean isExist) {
-        vrmHandler.isSessionStorageExists(sessionStorage, isExist);
+        AMSHandler.isSessionStorageExists(sessionStorage, isExist);
     }
 
     /**
@@ -171,43 +171,43 @@ public class VRMSteps {
      */
     @When("^UI Remove Session Storage \"(.*)\"$")
     public void removeSessionStorage(String sessionStorage) {
-        vrmHandler.removeSessionStorage(sessionStorage);
+        AMSHandler.removeSessionStorage(sessionStorage);
     }
 
 
     @And("^UI Select scope from dashboard and Save Filter device type \"([^\"]*)\"$")
     public void uiVRMSelectApplicationFromDashboardAndSaveFilterDeviceType(String deviceType, List<DpApplicationFilter> entries) throws Exception {
-        vrmHandler.selectApplications(entries,deviceType, true);
+        AMSHandler.selectApplications(entries,deviceType, true);
     }
 
     @Then("^UI Validate Line Chart rate time with \"([^\"]*)\"(?: with offset \"([^\"]*)\")? for \"([^\"]*)\" chart$")
     public void uiValidateLineChartRateTimeWithForWidget(String rate, String offset, String chart) throws Exception {
-        vrmHandler.validateLineChartRateTime(rate, offset, chart);
+        AMSHandler.validateLineChartRateTime(rate, offset, chart);
     }
 
     @Then("^UI validate dataSets of lineChart \"([^\"]*)\" with size \"([^\"]*)\"$")
     public void uiValidateDataSetsOfChartWithSize(String chart, String size) {
-        vrmHandler.uiValidateDataSetsOfChartWithSize(chart, Integer.valueOf(size));
+        AMSHandler.uiValidateDataSetsOfChartWithSize(chart, Integer.valueOf(size));
     }
 
     @Then("^UI validate refresh interval of \"([^\"]*)\" for Line chart \"([^\"]*)\"$")
     public void uiValidateRefreshIntervalForLineChart(String interval, String chart) {
-        vrmHandler.uiValidateRefreshIntervalForLineChart(interval, chart);
+        AMSHandler.uiValidateRefreshIntervalForLineChart(interval, chart);
     }
 
     @Then("^UI validate max time frame in line chart \"([^\"]*)\" equals to \"([^\"]*)\"(?: with offset \"([^\"]*)\")?$")
     public void uiValidateMaxTimeFrameInLineChartEqualsTo(String chart, String maxIntervalTime, Integer offset) {
-        vrmHandler.uiValidateMaxTimeFrameInLineChartEqualsTo(chart, maxIntervalTime, offset);
+        AMSHandler.uiValidateMaxTimeFrameInLineChartEqualsTo(chart, maxIntervalTime, offset);
     }
 
     @Then("^UI Validate Line Chart data \"([^\"]*)\" with LabelTime$")
     public void uiValidateLineChartDataWithLabelTime(String chart, List<DataTime> entries) {
-        vrmHandler.uiValidateLineChartDataWithLabelTime(chart, entries);
+        AMSHandler.uiValidateLineChartDataWithLabelTime(chart, entries);
     }
 
     @Then("^UI Select Time From: (\\d+) To: (\\d+) Time, in Line Chart data \"([^\"]*)\"$")
     public void uiSelectFromTo(int from, int to, String chart) {
-        vrmHandler.selectTimeFromTo(from, to, chart);
+        AMSHandler.selectTimeFromTo(from, to, chart);
     }
 
     /**
@@ -217,12 +217,12 @@ public class VRMSteps {
      */
     @Given("^UI clear (Session|Local) storage")
     public void clearStorageByType(String storageType) {
-        vrmHandler.clearStorageByType(storageType);
+        AMSHandler.clearStorageByType(storageType);
     }
 
     @Then("^Validate Memory Utilization$")
     public void validateMemoryUtilization() throws Exception {
-        vrmHandler.validateMemoryUtilization();
+        AMSHandler.validateMemoryUtilization();
     }
 }
 
