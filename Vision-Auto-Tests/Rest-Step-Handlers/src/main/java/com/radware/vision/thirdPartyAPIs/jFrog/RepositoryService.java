@@ -67,7 +67,7 @@ public class RepositoryService {
 
                 return getPojo(path, StatusCode.OK, ArtifactFolderPojo.class);
             } else
-                throw new Exception(String.format("The Build \"%s\" not found under %s", build, buildParent.getPath().getPath()));
+                throw new Exception(String.format("The Build \"%s\" not found under %s OR the buil not contains \"%s\" file type", build, buildParent.getPath().getPath(),fileType.getExtension()));
         } else {//latest build
 
 //            Build builds Tree
