@@ -64,12 +64,12 @@ public class RepositoryService {
                 BuildPojo buildInfo = JenkinsAPI.getBuildInfo(jenkinsJob, build);//get build data from jenkins
 
 //                if the build still building or finish building not successfully
-                if (buildInfo.isBuilding() || (!buildInfo.isBuilding() && !buildInfo.getResult().equals("SUCCESS")))
+                if (buildInfo.isBuilding() || !buildInfo.getResult().equals("SUCCESS"))
                     throw new Exception(String.format("The Build \"%s\" is building or failed", build));
 
                 return getPojo(path, StatusCode.OK, ArtifactFolderPojo.class);
             } else
-                throw new Exception(String.format("The Build \"%s\" not found under %s OR the buil not contains \"%s\" file type", build, buildParent.getPath().getPath(),fileType.getExtension()));
+                throw new Exception(String.format("The Build \"%s\" not found under %s OR the build not contains \"%s\" file type", build, buildParent.getPath().getPath(),fileType.getExtension()));
         } else {//latest build
 
             build = getLastSuccessfulBuild(buildParent, fileType, jenkinsJob);
