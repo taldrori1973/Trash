@@ -10,13 +10,12 @@ import com.radware.automation.webui.widgets.ComponentLocator;
 import com.radware.automation.webui.widgets.ComponentLocatorFactory;
 import com.radware.automation.webui.widgets.impl.WebUICheckbox;
 import com.radware.automation.webui.widgets.impl.WebUIComponent;
+import com.radware.vision.automation.DatabaseStepHandlers.elasticSearch.ElasticSearchHandler;
 import com.radware.vision.automation.tools.exceptions.selenium.TargetWebElementNotFoundException;
-import com.radware.vision.automation.tools.sutsystemobjects.devicesinfo.enums.SUTDeviceType;
 import com.radware.vision.infra.testhandlers.EmailHandler;
 import com.radware.vision.infra.testhandlers.alteon.securitymonitoring.dashboardview.sslinspection.enums.QuickRange;
 import com.radware.vision.infra.testhandlers.baseoperations.BasicOperationsHandler;
 import com.radware.vision.infra.testhandlers.vrm.enums.vrmActions;
-import com.radware.vision.infra.testresthandlers.ElasticSearchHandler;
 import com.radware.vision.infra.utils.TimeUtils;
 import com.radware.vision.infra.utils.WebUIStringsVision;
 import com.radware.vision.vision_project_cli.RootServerCli;
@@ -26,7 +25,6 @@ import org.json.JSONObject;
 import org.openqa.selenium.By;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.support.How;
 
 import java.time.Instant;
 import java.time.LocalDateTime;
@@ -36,15 +34,14 @@ import java.time.temporal.ChronoUnit;
 import java.util.*;
 
 import static com.radware.automation.webui.UIUtils.sleep;
-import static com.radware.vision.infra.testhandlers.BaseHandler.devicesManager;
 
 
-public class VRMReportsHandler extends VRMBaseUtilies {
+public class AMSReportsHandler extends AMSBaseUtilies {
     private VRMReportsDateUtils vrmReportsDateUtils = new VRMReportsDateUtils();
     private VRMHandler vrmHandler = new VRMHandler();
     private long timePeriodThreshold = 1000 * 60 * 3;
 
-    public VRMReportsHandler() {
+    public AMSReportsHandler() {
     }
 
     public void validateSimpleDate(String dateToValidateLabel, String timeFormat, String errorThresholdInMinutes) {
@@ -129,26 +126,11 @@ public class VRMReportsHandler extends VRMBaseUtilies {
     }
 
     /*******************************************************************************************************************************************************/
-    public void VRMReportOperation(vrmActions operationType, String reportName, Map<String, String> reportsEntry, RootServerCli rootServerCli) throws Exception {
-        BaseVRMOperation(operationType, reportName, reportsEntry, rootServerCli);
+    public void VRMReportOperation(vrmActions operationType, String reportName, Map<String, String> reportsEntry) throws Exception {
+        BaseAMSOperation(operationType, reportName, reportsEntry);
     }
 
-    protected void editVRMBase(String reportName, Map<String, String> map) throws Exception {
-        enterToEdit(reportName);
-        editDevices(map);
-        BasicOperationsHandler.clickButton("Time Definition Step", "initial");
-        editTimeDefinitions(map);
-        BasicOperationsHandler.clickButton("Schedule Step", "initial");
-        editSchedule(map);
-        BasicOperationsHandler.clickButton("Delivery Step", "initial");
-        editDelivery(map);
-        BasicOperationsHandler.clickButton("Design Step", "initial");
-        editDesign(reportName, map);
-        BasicOperationsHandler.clickButton("Summary Step", "initial");
-        BasicOperationsHandler.clickButton("Submit", "");
-    }
-
-    protected void editVRMBaseNew(String reportName, Map<String, String> map) throws Exception {
+    protected void AMSEditBase(String reportName, Map<String, String> map) throws Exception {
         enterToEdit(reportName);
         editDesignNew(reportName, map);
         editCustomizedOptions(map);
@@ -197,7 +179,9 @@ public class VRMReportsHandler extends VRMBaseUtilies {
 
     protected void validateVRMBase(RootServerCli rootServerCli, String reportName, Map<String, String> map) {
 //        EnterToValidateOrEdit(reportName);
-        JSONObject basicRestResult = waitForESDocument(rootServerCli, "reportName", reportName, "vrm-scheduled-report-definition-vrm", 0);
+        ElasticSearchHandler.waitForESDocument("vrm-scheduled-report-definition-vrm-ty-vrm-scheduled-report-definition",  "reportName", reportName, 0);
+        JSONObject basicRestResult = ElasticSearchHandler.getESDocumentByField("rt-alert-def-vrm-ty-rt-alert-def-vrm",
+                "name", reportName);
         if (basicRestResult == null) {
             BaseTestUtils.report("Could not find document: " + reportName, Reporter.FAIL);
             return;
@@ -221,7 +205,7 @@ public class VRMReportsHandler extends VRMBaseUtilies {
         }
     }
 
-    private StringBuilder validateCustomizedOption(JSONObject restResult, Map<String, String> map, String reportName) {
+    public static StringBuilder validateCustomizedOption(JSONObject restResult, Map<String, String> map, String reportName) {
 
         StringBuilder errorMessage = new StringBuilder();
         if (map.containsKey("Customized Options")) {
@@ -246,7 +230,7 @@ public class VRMReportsHandler extends VRMBaseUtilies {
         return errorMessage;
     }
 
-    protected void generateVRMBase(String reportName, Map<String, String> map) throws TargetWebElementNotFoundException {
+    protected void AMSGenerateBase(String reportName, Map<String, String> map) throws TargetWebElementNotFoundException {
         generate(reportName, map);
     }
 
@@ -288,7 +272,7 @@ public class VRMReportsHandler extends VRMBaseUtilies {
     }
 
 
-    protected void isExistVRMBase(String reportName, Map<String, String> map) {
+    protected void isExistAMSBase(String reportName, Map<String, String> map) {
         ComponentLocator componentLocator = ComponentLocatorFactory.getEqualLocatorByDbgId("VRM_report_summary_title_" + reportName);
         WebElement element = WebUIUtils.fluentWait(componentLocator.getBy());
         if (element == null) {
@@ -309,7 +293,7 @@ public class VRMReportsHandler extends VRMBaseUtilies {
 //        validateGeneratedReportDesign(map);
     }
 
-    private StringBuilder validateDesign(Object design, Map<String, String> map) {
+    static StringBuilder validateDesign(Object design, Map<String, String> map) {
         StringBuilder errorMessage = new StringBuilder();
         if (map.containsKey("Design")) {
             List deliveryList = ((JSONArray) design).toList();
@@ -353,7 +337,7 @@ public class VRMReportsHandler extends VRMBaseUtilies {
         return errorMessage;
     }
 
-    private StringBuilder validateDelivery(Object delivery, Map<String, String> map) {
+    static StringBuilder validateDelivery(Object delivery, Map<String, String> map) {
         StringBuilder errorMessage = new StringBuilder();
         if (map.containsKey("Delivery")) {
             Map<String, Object> deliveryMap = ((JSONObject) delivery).toMap();
@@ -384,7 +368,7 @@ public class VRMReportsHandler extends VRMBaseUtilies {
         return errorMessage;
     }
 
-    private StringBuilder validateFormat(Object format, Map<String, String> map) {
+    static StringBuilder validateFormat(Object format, Map<String, String> map) {
         StringBuilder errorMessage = new StringBuilder();
         if (map.containsKey("Format")) {
             Map<String, Object> expectedFormatMap = new JSONObject(map.get("Format")).toMap();
@@ -397,7 +381,7 @@ public class VRMReportsHandler extends VRMBaseUtilies {
         return errorMessage;
     }
 
-    private StringBuilder validateSchedule(Object schedule, Map<String, String> map) {
+    static StringBuilder validateSchedule(Object schedule, Map<String, String> map) {
         StringBuilder errorMessage = new StringBuilder();
         if (map.containsKey("Schedule")) {
             Map<String, String> textsMatchs = buildindMatches();
@@ -571,7 +555,7 @@ public class VRMReportsHandler extends VRMBaseUtilies {
         return errorMessage;
     }
 
-    private Map<String, String> buildindMatches() {
+    private static Map<String, String> buildindMatches() {
         Map<String, String> textsMatchs = new HashMap<>();
         textsMatchs.put("Week", "weekly");
         textsMatchs.put("SUN", "sunday");
@@ -600,7 +584,7 @@ public class VRMReportsHandler extends VRMBaseUtilies {
         return textsMatchs;
     }
 
-    private StringBuilder validateTimeDefinitions(Object timeDefinitions, Map<String, String> map) {
+    public static StringBuilder validateTimeDefinitions(Object timeDefinitions, Map<String, String> map) {
         StringBuilder errorMessage = new StringBuilder();
         if (map.containsKey("Time Definitions.Date")) {
             Map<String, Object> actualTimeDefinitionsMap = ((JSONObject) timeDefinitions).toMap();
@@ -658,7 +642,7 @@ public class VRMReportsHandler extends VRMBaseUtilies {
         return errorMessage;
     }
 
-    protected StringBuilder validateDevices(Object devices, Map<String, String> map) {
+    protected static StringBuilder validateDevices(Object devices, Map<String, String> map) {
         StringBuilder errorMessage = new StringBuilder();
         JSONArray actualDevicesJsonArray = (JSONArray) devices;
         String deviceType = map.containsKey("devices") ? "devices" : map.containsKey("policy") ? "policy" : map.containsKey("projectObjects") ? "projectObjects" : map.containsKey("webApplications") ? "webApplications" : "";
@@ -684,7 +668,7 @@ public class VRMReportsHandler extends VRMBaseUtilies {
         return errorMessage;
     }
 
-    private StringBuilder validateSelectPOs(Map<String, String> map, JSONArray actualDevicesJsonArray) {
+    private static StringBuilder validateSelectPOs(Map<String, String> map, JSONArray actualDevicesJsonArray) {
         ArrayList<String> selectedApplication = new ArrayList<>();
         for (Object poValues : actualDevicesJsonArray) {
             if (((JSONObject) poValues).get("selected").equals(true))
@@ -699,7 +683,7 @@ public class VRMReportsHandler extends VRMBaseUtilies {
         return errorMessage;
     }
 
-    private StringBuilder validateSelectPolicy(JSONArray devices, Map<String, String> map) {
+    private static StringBuilder validateSelectPolicy(JSONArray devices, Map<String, String> map) {
         StringBuilder errorMessage = new StringBuilder();
         JSONArray policy = devices;
         Map<String, String> expected = new HashMap<>();
@@ -728,7 +712,7 @@ public class VRMReportsHandler extends VRMBaseUtilies {
         return errorMessage;
     }
 
-    private StringBuilder validateSelectDevices(Map<String, String> map, JSONArray actualDevicesJsonArray) {
+    private static StringBuilder validateSelectDevices(Map<String, String> map, JSONArray actualDevicesJsonArray) {
         StringBuilder errorMessage = new StringBuilder();
         String deviceIp;
         List<VRMHandler.DpDeviceFilter> expectedDevicesEntry = extractDevicesList(map);
@@ -781,7 +765,7 @@ public class VRMReportsHandler extends VRMBaseUtilies {
         return errorMessage;
     }
 
-    private Map<Integer, String> convertFromArrayToMap(String[] portsArray) {
+    private static Map<Integer, String> convertFromArrayToMap(String[] portsArray) {
         Map<Integer, String> newMap = new HashMap<>();
         for (Integer i = 0; i < portsArray.length; i++) {
             newMap.put(i, portsArray[i]);
@@ -789,7 +773,7 @@ public class VRMReportsHandler extends VRMBaseUtilies {
         return newMap;
     }
 
-    private int arrayJsonContainsBasicKey(String key, String expectedValue, JSONArray JsonArray) {
+    private static int arrayJsonContainsBasicKey(String key, String expectedValue, JSONArray JsonArray) {
         for (int i = 0; i < JsonArray.length(); i++) {
             if (JsonArray.getJSONObject(i).toMap().get(key).equals(expectedValue)) {
                 return i;
@@ -798,33 +782,7 @@ public class VRMReportsHandler extends VRMBaseUtilies {
         return -1;
     }
 
-    protected void createVRMBase(String reportName, Map<String, String> map) throws Exception {
-        try {
-            enterToCreatingReport(reportName, map.getOrDefault("reportType", null));
-            selectDevices(map);
-            BasicOperationsHandler.clickButton("Next", "");
-            selectTimeDefinitions(map);
-            BasicOperationsHandler.clickButton("Next", "");
-            selectSchedule(map);
-            BasicOperationsHandler.clickButton("Next", "");
-            //TODO - restore delivery after R&D fix delivery wizard
-            //            Delivery(map);
-            //BasicOperationsHandler.clickButton("Next", "");
-            Design(reportName, map);
-            BasicOperationsHandler.clickButton("Next", "");
-            BasicOperationsHandler.clickButton("Submit", "");
-        } finally {
-            try {
-                VisionDebugIdsManager.setLabel("Close");
-                WebUIUtils.fluentWaitClick(new ComponentLocator(How.ID, VisionDebugIdsManager.getDataDebugId()).getBy(), 2, false);
-                BasicOperationsHandler.clickButton("Close", "");
-            } catch (Exception e) {
-                BaseTestUtils.report(e.getMessage(), Reporter.FAIL);
-            }
-        }
-    }
-
-    protected void createVRMBaseNew(String reportName, Map<String, String> map) throws TargetWebElementNotFoundException {
+    protected void AMSCreateBase(String reportName, Map<String, String> map) throws TargetWebElementNotFoundException {
         try {
             deleteVRMBase(reportName);
             BasicOperationsHandler.clickButton("Add New", "");
@@ -1161,33 +1119,33 @@ public class VRMReportsHandler extends VRMBaseUtilies {
         return snapshotsName;
     }
 
-    @Override
+//    @Override
     protected List<WebElement> getSnapshotElements() {
         return WebUIUtils.fluentWaitMultiple(ComponentLocatorFactory.getLocatorByDbgId("VRM_Reports_Log_preview_time_validateMaxViews").getBy());
     }
 
-    /**
-     * @param rootServerCli     - root user object
-     * @param documentFieldName - Field name
-     * @param reportName        - file name
-     * @param indexName         - Index
-     * @param timeout           - timeout to wait for the document if 0 applied default timeout is used
-     * @return JSON object, null if not found
-     */
-    private JSONObject waitForESDocument(RootServerCli rootServerCli, String documentFieldName, String reportName, String indexName, long timeout) {
-        if (timeout == 0)
-            timeout = WebUIUtils.DEFAULT_WAIT_TIME;
-        JSONObject foundObject;
-        long startTime = System.currentTimeMillis();
-        do {
-            try {
-                foundObject = ElasticSearchHandler.getDocument(rootServerCli, documentFieldName, reportName, indexName);
-                return foundObject;
-            } catch (JSONException e) {
-            }
-        }
-        while (System.currentTimeMillis() - startTime < timeout);
-        return null;
-    }
+//    /**
+//     * @param rootServerCli     - root user object
+//     * @param documentFieldName - Field name
+//     * @param reportName        - file name
+//     * @param indexName         - Index
+//     * @param timeout           - timeout to wait for the document if 0 applied default timeout is used
+//     * @return JSON object, null if not found
+//     */
+//    public JSONObject waitForESDocument(RootServerCli rootServerCli, String documentFieldName, String reportName, String indexName, long timeout) {
+//        if (timeout == 0)
+//            timeout = WebUIUtils.DEFAULT_WAIT_TIME;
+//        JSONObject foundObject;
+//        long startTime = System.currentTimeMillis();
+//        do {
+//            try {
+//                foundObject = ElasticSearchHandler.getDocument(rootServerCli, documentFieldName, reportName, indexName);
+//                return foundObject;
+//            } catch (JSONException e) {
+//            }
+//        }
+//        while (System.currentTimeMillis() - startTime < timeout);
+//        return null;
+//    }
 
 }
