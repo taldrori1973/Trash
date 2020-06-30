@@ -6,7 +6,7 @@ import com.radware.automation.webui.VisionDebugIdsManager;
 import com.radware.automation.webui.WebUIUtils;
 import com.radware.automation.webui.widgets.ComponentLocatorFactory;
 import com.radware.vision.infra.testhandlers.baseoperations.BasicOperationsHandler;
-import com.radware.vision.infra.testhandlers.vrm.VRMReportsHandler;
+import com.radware.vision.infra.testhandlers.ams.AMSReportsHandler;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import org.openqa.selenium.WebElement;
@@ -14,7 +14,7 @@ import org.openqa.selenium.WebElement;
 import java.util.List;
 import java.util.Map;
 
-public class DPMReportHandler extends VRMReportsHandler {
+public class DPMReportHandler extends AMSReportsHandler {
 
     protected void selectDevices(Map<String, String> map) {
         try {
@@ -69,8 +69,8 @@ public class DPMReportHandler extends VRMReportsHandler {
         }
     }
 
-    @Override
-    protected StringBuilder validateDevices(Object devices, Map<String, String> map) {
+//    @Override
+    protected static StringBuilder validateDevices(Object devices, Map<String, String> map) {
         StringBuilder errorMessage = new StringBuilder();
         if (map.containsKey("devices")) {
             JSONArray actualVirtsJsonArray = (JSONArray) devices;
