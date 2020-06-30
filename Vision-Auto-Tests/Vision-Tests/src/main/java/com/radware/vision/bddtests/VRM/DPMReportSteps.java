@@ -2,7 +2,7 @@ package com.radware.vision.bddtests.VRM;
 
 import com.radware.vision.bddtests.BddUITestBase;
 import com.radware.vision.infra.testhandlers.DPM.DPMReportHandler;
-import com.radware.vision.infra.testhandlers.vrm.enums.vrmActions;
+import com.radware.vision.infra.testhandlers.ams.enums.vrmActions;
 import cucumber.api.java.en.Given;
 
 import java.util.Map;
@@ -72,6 +72,6 @@ public class DPMReportSteps extends BddUITestBase {
 
     @Given("^UI \"(Create|Validate|Edit)\" DPMReport With Name \"([^\"]*)\"$")
     public void uiReportWithName(vrmActions operationType, String reportName, Map<String,String> reportsEntry) throws Throwable {
-        dpmReportsHandler.VRMReportOperation(operationType, reportName, reportsEntry, restTestBase.getRootServerCli());
+        dpmReportsHandler.VRMReportOperation(operationType, reportName, reportsEntry);
     }
 }
