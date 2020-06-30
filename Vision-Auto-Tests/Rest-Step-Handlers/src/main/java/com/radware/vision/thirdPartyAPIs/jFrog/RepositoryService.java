@@ -57,6 +57,7 @@ public class RepositoryService {
     private ArtifactFolderPojo getBuild(ArtifactFolderPojo buildParent, Integer build, FileType fileType, String jenkinsJob) throws Exception {
         if (build != 0) {//specific build
             if (isChildExistByUri(buildParent.getChildren(), build.toString())) {
+                JenkinsAPI.getBuildInfo(jenkinsJob,build);
                 String path = buildParent.getPath().getPath().substring(1) + "/" + build;
                 return getPojo(path, StatusCode.OK, ArtifactFolderPojo.class);
             } else
