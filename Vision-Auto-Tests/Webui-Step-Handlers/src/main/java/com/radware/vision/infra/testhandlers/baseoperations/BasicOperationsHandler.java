@@ -41,7 +41,7 @@ import com.radware.vision.infra.base.pages.navigation.WebUIVisionBasePage;
 import com.radware.vision.infra.enums.UpperBarItems;
 import com.radware.vision.infra.testhandlers.BaseHandler;
 import com.radware.vision.infra.testhandlers.baseoperations.enums.Operation;
-import com.radware.vision.infra.testhandlers.vrm.VRMBaseUtilies;
+import com.radware.vision.infra.testhandlers.ams.AMSBaseUtilies;
 import com.radware.vision.infra.utils.*;
 import com.radware.vision.vision_project_cli.MysqlClientCli;
 import com.radware.vision.vision_project_cli.RadwareServerCli;
@@ -1009,13 +1009,13 @@ public class BasicOperationsHandler {
                 clickButton("Template", "");
                 BasicOperationsHandler.clickButton("DefensePro Behavioral Protections Template", "");
                 clickButton("Widget Apply");
-                VRMBaseUtilies.expandViews(true);
+                AMSBaseUtilies.expandViews(true);
                 break;
             case "Forensics":
             case "Alerts":
                 // openTab(label);
                 clickButton("Add New", "");
-                VRMBaseUtilies.expandViews(true);
+                AMSBaseUtilies.expandViews(true);
                 break;
         }
 
