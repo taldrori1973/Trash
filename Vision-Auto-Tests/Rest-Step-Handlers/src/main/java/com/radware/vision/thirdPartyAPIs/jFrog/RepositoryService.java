@@ -107,7 +107,7 @@ public class RepositoryService {
         for(int i=0;i<counterArray.length;i++){
             if(counterArray[i]!=0) sorted.addLast(i);
         }
-        return null;
+        return sorted;
     }
 
     private boolean containsFileType(FileType fileType, String buildPath) throws Exception {
