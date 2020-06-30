@@ -11,15 +11,13 @@ import com.radware.automation.webui.WebUIUtils;
 import com.radware.vision.automation.AutoUtils.SUT.controllers.SUTManager;
 import com.radware.vision.automation.AutoUtils.SUT.controllers.SUTManagerImpl;
 import com.radware.vision.automation.DatabaseStepHandlers.elasticSearch.search.EsQuery;
-import com.radware.vision.automation.DatabaseStepHandlers.elasticSearch.search.Match;
+import com.radware.vision.automation.DatabaseStepHandlers.elasticSearch.search.innerQuery.Match;
 import com.radware.vision.automation.DatabaseStepHandlers.elasticSearch.search.SearchBool;
 import com.radware.vision.automation.DatabaseStepHandlers.elasticSearch.search.SearchQuery;
 import com.radware.vision.restAPI.ElasticsearchRestAPI;
 import models.RestResponse;
 import models.StatusCode;
-import org.json.JSONException;
 import org.json.JSONObject;
-import org.json.simple.parser.ParseException;
 
 import java.util.*;
 import java.util.regex.Matcher;
