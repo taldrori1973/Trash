@@ -105,7 +105,7 @@ public class RepositoryService {
         buildsNumbers.forEach(buildNumber -> counterArray[buildNumber] = 1);
         LinkedList<Integer> sorted=new LinkedList<>();
         for(int i=0;i<counterArray.length;i++){
-
+            if(counterArray[i]!=0) sorted.addLast(i);
         }
         return null;
     }
