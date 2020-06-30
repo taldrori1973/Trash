@@ -2,9 +2,9 @@ package com.radware.vision.bddtests.VRM;
 
 import com.radware.vision.automation.tools.exceptions.selenium.TargetWebElementNotFoundException;
 import com.radware.vision.bddtests.BddUITestBase;
-import com.radware.vision.infra.testhandlers.vrm.VRMHandler;
-import com.radware.vision.infra.testhandlers.vrm.VRMReportsHandler;
-import com.radware.vision.infra.testhandlers.vrm.enums.vrmActions;
+import com.radware.vision.infra.testhandlers.ams.AMSHandler;
+import com.radware.vision.infra.testhandlers.ams.AMSReportsHandler;
+import com.radware.vision.infra.testhandlers.ams.enums.vrmActions;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
 
@@ -13,7 +13,7 @@ import java.util.List;
 import java.util.Map;
 
 public class ReportSteps extends BddUITestBase {
-    private VRMReportsHandler vrmReportsHandler = new VRMReportsHandler();
+    private AMSReportsHandler vrmReportsHandler = new AMSReportsHandler();
 
     public ReportSteps() throws Exception {
     }
@@ -73,7 +73,7 @@ public class ReportSteps extends BddUITestBase {
      */
     @Then("^UI \"(Create|Validate|Edit|Isexist)\" Report With Name \"([^\"]*)\"( negative)?$")
     public void uiReportWithName(vrmActions operationType, String reportName,String negative, Map<String, String> reportsEntry) throws Throwable {
-        vrmReportsHandler.VRMReportOperation(operationType, reportName, reportsEntry, restTestBase.getRootServerCli());
+        vrmReportsHandler.VRMReportOperation(operationType, reportName, reportsEntry);
     }
 
     @When("^UI Validate invalid message in delivery$")
@@ -87,11 +87,11 @@ public class ReportSteps extends BddUITestBase {
     }
 
 
-    @Then("^UI Validate max generate Report Template is (\\d+)$")
-    public void uivalidateMaxGenerateTemplateReportIs(int maxValue) throws Exception {
-        vrmReportsHandler.uivalidateMaxGenerateTemplateView(maxValue);
-    }
-
+//    @Then("^UI Validate max generate Report Template is (\\d+)$")
+//    public void uivalidateMaxGenerateTemplateReportIs(int maxValue) throws Exception {
+//        vrmReportsHandler.uivalidateMaxGenerateTemplateView(maxValue);
+//    }
+//
     @Then("^UI Validate Expand$")
     public void uiValidateExpand() throws TargetWebElementNotFoundException {
         vrmReportsHandler.validateExpand();
@@ -103,7 +103,7 @@ public class ReportSteps extends BddUITestBase {
     }
 
     @Then("^UI Validate Search The Text \"([^\"]*)\" in Search Label \"([^\"]*)\" if this elements exist$")
-    public void uiValidateSearchTheTextInSearchPlaceIfThisElementsExist(String text, String searchPlace, List<VRMHandler.LabelParam> elementsExist) throws Exception {
+    public void uiValidateSearchTheTextInSearchPlaceIfThisElementsExist(String text, String searchPlace, List<AMSHandler.LabelParam> elementsExist) throws Exception {
         vrmReportsHandler.validateFilter(text, searchPlace, elementsExist);
     }
 
@@ -139,6 +139,6 @@ public class ReportSteps extends BddUITestBase {
         Map<String,String> map=new HashMap<>();
         map.put("validation",Validate);
         map.put("timeout",String.valueOf(timeout));
-        vrmReportsHandler.VRMReportOperation(vrmActions.GENERATE,reportName,map,restTestBase.getRootServerCli());
+        vrmReportsHandler.VRMReportOperation(vrmActions.GENERATE,reportName,map);
     }
 }
