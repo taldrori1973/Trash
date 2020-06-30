@@ -23,7 +23,7 @@ import com.radware.vision.infra.testhandlers.baseoperations.clickoperations.Clic
 import com.radware.vision.infra.testhandlers.baseoperations.sortingFolder.SortableColumn;
 import com.radware.vision.infra.testhandlers.baseoperations.sortingFolder.SortingDataSet;
 import com.radware.vision.infra.testhandlers.baseoperations.sortingFolder.TableSortingHandler;
-import com.radware.vision.infra.testhandlers.vrm.VRMHandler;
+import com.radware.vision.infra.testhandlers.ams.AMSHandler;
 import com.radware.vision.infra.utils.ReportsUtils;
 import com.radware.vision.infra.utils.TimeUtils;
 import com.radware.vision.tests.GeneralOperations.ByLabelValidations;
@@ -410,8 +410,8 @@ public class BasicValidationsTests extends BddUITestBase {
     public void uiValidateTableRowsIsBetween(String tableLabel, int indexFrom, int indexTo, String chart ) throws Exception {
         Objects.requireNonNull(chart, "Chart is equal to null");
         JSONArray dataArray;
-        VRMHandler vrmHandler = new VRMHandler();
-        Map jsonMap = vrmHandler.getSessionStorage(chart);
+        AMSHandler AMSHandler = new AMSHandler();
+        Map jsonMap = AMSHandler.getSessionStorage(chart);
         jsonMap = JsonUtils.getJsonMap(jsonMap.get("data"));
         dataArray = (JSONArray) jsonMap.get("labels");
         String first = (String) dataArray.get(indexFrom);
