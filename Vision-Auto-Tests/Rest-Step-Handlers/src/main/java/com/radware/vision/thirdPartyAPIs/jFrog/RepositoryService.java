@@ -12,8 +12,10 @@ import models.RestResponse;
 import models.StatusCode;
 import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
+import java.util.LinkedList;
 import java.util.List;
-import java.util.TreeSet;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 /**
  * Created by MohamadI - Muhamad Igbaria
@@ -45,40 +47,41 @@ public class RepositoryService {
 
         if (branchPojo == null) {
             jenkinsJob = String.format(JENKINS_JOB_TEMPLATE, "master");
-            buildPojo = getBuild(versionPojo, build, fileType,jenkinsJob);//build under version
-        } else{
+            buildPojo = getBuild(versionPojo, build, fileType, jenkinsJob);//build under version
+        } else {
             jenkinsJob = String.format(JENKINS_JOB_TEMPLATE, branch);
-            buildPojo = getBuild(branchPojo, build, fileType,jenkinsJob);//build under branch
+            buildPojo = getBuild(branchPojo, build, fileType, jenkinsJob);//build under branch
         }
 
-        if (!version.equals("Latest")) {//go to the specific version folder
-            RestResponse restResponse = jFrogRestAPI.sendRequest(version, StatusCode.OK);
-            versionPojo = objectMapper.readValue(restResponse.getBody().getBodyAsString(), ArtifactFolderPojo.class);
-        }
 
     }
 
     private ArtifactFolderPojo getBuild(ArtifactFolderPojo buildParent, Integer build, FileType fileType, String jenkinsJob) throws Exception {
         if (build != 0) {//specific build
-            if (isChildExistByUri(buildParent.getChildren(), build.toString())) {
-                String path = buildParent.getPath().getPath().substring(1) + "/" + build;
+            String path = buildParent.getPath().getPath().substring(1) + "/" + build;
+            if (isChildExistByUri(buildParent.getChildren(), build.toString()) && containsFileType(fileType,path)) {//build exist and contains the the file type
+
+                BuildPojo buildInfo = JenkinsAPI.getBuildInfo(jenkinsJob, build);//get build data from jenkins
+
+//                if the build still building or finish building not successfully
+                if (buildInfo.isBuilding() || !buildInfo.getResult().equals("SUCCESS"))
+                    throw new Exception(String.format("The Build \"%s\" is building or failed", build));
+
                 return getPojo(path, StatusCode.OK, ArtifactFolderPojo.class);
             } else
-                throw new Exception(String.format("The Build \"%s\" not found under %s", build, buildParent.getPath().getPath()));
+                throw new Exception(String.format("The Build \"%s\" not found under %s OR the build not contains \"%s\" file type", build, buildParent.getPath().getPath(),fileType.getExtension()));
         } else {//latest build
 
-//            Build builds Tree
-            TreeSet<Integer> builds = new TreeSet<>();
-            buildParent.getChildren().forEach(buildChildPojo -> builds.add(Integer.parseInt(buildChildPojo.getUri().getPath().substring(1))));
-            build = getLastSuccessfulBuild(buildParent, fileType,jenkinsJob);
+            build = getLastSuccessfulBuild(buildParent, fileType, jenkinsJob);
         }
         return null;
     }
 
     private Integer getLastSuccessfulBuild(ArtifactFolderPojo buildParent, FileType fileType, String jenkinsJob) throws Exception {
-//            Build builds Tree
-        TreeSet<Integer> builds = new TreeSet<>();
-        buildParent.getChildren().forEach(buildChildPojo -> builds.add(Integer.parseInt(buildChildPojo.getUri().getPath().substring(1))));
+//        build array of builds number
+        Set<Integer> buildsNumbers = buildParent.getChildren().stream().map(buildChildPojo -> Integer.parseInt(buildChildPojo.getUri().getPath().substring(1))).collect(Collectors.toSet());
+        LinkedList<Integer> builds=countingSort(buildsNumbers);
+
         Integer last;
 
         while (!builds.isEmpty()) {
@@ -86,11 +89,22 @@ public class RepositoryService {
             String buildPath = buildParent.getPath().getPath().substring(1) + "/" + last;
             if (containsFileType(fileType, buildPath)) {
                 BuildPojo buildInfo = JenkinsAPI.getBuildInfo(jenkinsJob, last);
-                if(buildInfo.isBuilding()) continue;
-                if(buildInfo.getResult().equals("SUCCESS")) return last;
+                if (buildInfo.isBuilding()) continue;
+                if (buildInfo.getResult().equals("SUCCESS")) return last;
             }
         }
         return null;
+    }
+
+    private LinkedList<Integer> countingSort(Set<Integer> buildsNumbers) {
+        int buildsNumbersRange=buildsNumbers.stream().max(Integer::compareTo).orElse(0)+1;
+        Integer[] counterArray=new Integer[buildsNumbersRange];
+        buildsNumbers.forEach(buildNumber -> counterArray[buildNumber] = 1);
+        LinkedList<Integer> sorted=new LinkedList<>();
+        for(int i=0;i<counterArray.length;i++){
+            if(counterArray[i]!=null) sorted.addLast(i);
+        }
+        return sorted;
     }
 
     private boolean containsFileType(FileType fileType, String buildPath) throws Exception {
