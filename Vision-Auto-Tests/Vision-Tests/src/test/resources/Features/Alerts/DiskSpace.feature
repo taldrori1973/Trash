@@ -11,6 +11,7 @@ Feature: Alert Disk Space
     # Set the quarts task to trigger in one minute from now
     Then CLI Run remote linux Command "mysql -prad123 quartz -e "update qrtz_triggers set NEXT_FIRE_TIME="$(expr $(date +%s%3N)+80000)" where JOB_NAME='CheckDiskSpaceName';"" on "ROOT_SERVER_CLI"
 #    Given CLI Run remote linux Command "service mysql restart" on "ROOT_SERVER_CLI" and wait 120 seconds
+    Then CLI Run remote linux Command "cat /opt/radware/mgt-server/properties/disk_space_alert.properties" on "ROOT_SERVER_CLI"
     Then Sleep "205"
 
   @SID_2
@@ -48,6 +49,7 @@ Feature: Alert Disk Space
     Given CLI Run remote linux Command "service vision restart" on "ROOT_SERVER_CLI" and wait 185 seconds
     Then CLI Run remote linux Command "mysql -prad123 quartz -e "update qrtz_triggers set NEXT_FIRE_TIME="$(expr $(date +%s%3N)+80000)" where JOB_NAME='CheckDiskSpaceName';"" on "ROOT_SERVER_CLI"
 #    Given CLI Run remote linux Command "service mysql restart" on "ROOT_SERVER_CLI" and wait 120 seconds
+    Then CLI Run remote linux Command "cat /opt/radware/mgt-server/properties/disk_space_alert.properties" on "ROOT_SERVER_CLI"
     Then Sleep "205"
 
   @SID_7
@@ -83,6 +85,7 @@ Feature: Alert Disk Space
     Given CLI Run remote linux Command "service vision restart" on "ROOT_SERVER_CLI" and wait 185 seconds
     Then CLI Run remote linux Command "mysql -prad123 quartz -e "update qrtz_triggers set NEXT_FIRE_TIME="$(expr $(date +%s%3N)+80000)" where JOB_NAME='CheckDiskSpaceName';"" on "ROOT_SERVER_CLI"
 #    Given CLI Run remote linux Command "service mysql restart" on "ROOT_SERVER_CLI" and wait 120 seconds
+    Then CLI Run remote linux Command "cat /opt/radware/mgt-server/properties/disk_space_alert.properties" on "ROOT_SERVER_CLI"
     Then Sleep "185"
     When UI Login with user "radware" and password "radware"
     Then CLI Run remote linux Command "result=`curl -ks -X "POST" "https://localhost/mgmt/system/user/login" -H "Content-Type: application/json" -d $"{\"username\": \"radware\",\"password\": \"radware\"}"`; jsession=`echo $result | tr "," "\n"|grep -i jsession|tr -d '"' | cut -d: -f2`; curl -k -XGET -H "Cookie: JSESSIONID=$jsession" https://localhost:443/mgmt/system/config/item/diskspaceinfo >> /opt/radware/storage/maintenance/disk_reply.log" on "ROOT_SERVER_CLI"
@@ -106,6 +109,7 @@ Feature: Alert Disk Space
     Given CLI Run remote linux Command "sed -i 's/disk_space_alert_major_threshold=[0-9]*/disk_space_alert_major_threshold=90/g' /opt/radware/mgt-server/properties/disk_space_alert.properties" on "ROOT_SERVER_CLI"
     Given CLI Run remote linux Command "sed -i 's/disk_space_alert_critical_threshold=[0-9]*/disk_space_alert_critical_threshold=95/g' /opt/radware/mgt-server/properties/disk_space_alert.properties" on "ROOT_SERVER_CLI"
     Given CLI Run remote linux Command "service vision restart" on "ROOT_SERVER_CLI" and wait 120 seconds
+    And CLI Run remote linux Command "cat /opt/radware/mgt-server/properties/disk_space_alert.properties" on "ROOT_SERVER_CLI"
     When UI Login with user "radware" and password "radware"
     Then UI Validate Element Existence By GWT id "Disk Space Alert" if Exists "false"
     Then UI logout and close browser
