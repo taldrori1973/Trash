@@ -7,7 +7,7 @@ import com.radware.automation.tools.basetest.Reporter;
 import com.radware.restcore.utils.enums.HttpMethodEnum;
 import com.radware.utils.DeviceUtils;
 import com.radware.vision.infra.testhandlers.BaseHandler;
-import com.radware.vision.infra.testhandlers.vrm.VRMHandler;
+import com.radware.vision.infra.testhandlers.ams.AMSHandler;
 import com.radware.vision.restAPI.GenericVisionRestAPI;
 import models.RestResponse;
 import org.json.simple.JSONArray;
@@ -64,7 +64,7 @@ public class DefenseProRESTHandler {
         updatePolicies(dpIp);
     }
 
-    public static void deletePolicy(String policyName, List<VRMHandler.DpDeviceFilter> entries) {
+    public static void deletePolicy(String policyName, List<AMSHandler.DpDeviceFilter> entries) {
 
 
         entries.forEach(entry -> {
@@ -101,7 +101,7 @@ public class DefenseProRESTHandler {
 
 
 
-    public static void addNewPolicy(String policyName, List<VRMHandler.DpDeviceFilter> entries) {
+    public static void addNewPolicy(String policyName, List<AMSHandler.DpDeviceFilter> entries) {
 
         entries.forEach(entry -> {
             String dpIp = null;
