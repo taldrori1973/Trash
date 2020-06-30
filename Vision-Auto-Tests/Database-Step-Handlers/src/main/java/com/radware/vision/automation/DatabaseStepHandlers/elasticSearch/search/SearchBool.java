@@ -1,5 +1,6 @@
 package com.radware.vision.automation.DatabaseStepHandlers.elasticSearch.search;
 
+import com.radware.vision.automation.DatabaseStepHandlers.elasticSearch.search.innerQuery.InnerQuery;
 import lombok.Getter;
 import lombok.Setter;
 
