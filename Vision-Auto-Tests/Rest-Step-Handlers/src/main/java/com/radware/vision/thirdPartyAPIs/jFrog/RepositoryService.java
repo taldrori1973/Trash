@@ -51,10 +51,6 @@ public class RepositoryService {
             buildPojo = getBuild(branchPojo, build, fileType,jenkinsJob);//build under branch
         }
 
-        if (!version.equals("Latest")) {//go to the specific version folder
-            RestResponse restResponse = jFrogRestAPI.sendRequest(version, StatusCode.OK);
-            versionPojo = objectMapper.readValue(restResponse.getBody().getBodyAsString(), ArtifactFolderPojo.class);
-        }
 
     }
 
