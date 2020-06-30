@@ -1,4 +1,4 @@
-package com.radware.vision.infra.testhandlers.vrm;
+package com.radware.vision.infra.testhandlers.ams;
 
 import com.google.common.collect.Lists;
 import com.radware.automation.react.widgets.impl.ReactDropdown;
@@ -32,7 +32,7 @@ import com.radware.vision.infra.base.pages.navigation.WebUIVisionBasePage;
 import com.radware.vision.infra.enums.WebElementType;
 import com.radware.vision.infra.testhandlers.baseoperations.BasicOperationsHandler;
 import com.radware.vision.infra.testhandlers.baseoperations.clickoperations.ClickOperationsHandler;
-import com.radware.vision.infra.testhandlers.vrm.enums.VRMDashboards;
+import com.radware.vision.infra.testhandlers.ams.enums.VRMDashboards;
 import com.radware.vision.infra.utils.ReportsUtils;
 import com.radware.vision.infra.utils.TimeUtils;
 import com.radware.vision.vision_project_cli.RootServerCli;
@@ -56,7 +56,7 @@ import static com.radware.vision.infra.utils.ReportsUtils.reportErrors;
 import static jodd.util.ThreadUtil.sleep;
 
 
-public class VRMHandler {
+public class AMSHandler {
     private static final String LABEL = "label";
     private static final String DATA = "data";
     private static final String DATASETS = "datasets";
@@ -68,7 +68,7 @@ public class VRMHandler {
     private SessionStorage sessionStorage;
     private LocalStorage localStorage;
 
-    public VRMHandler() {
+    public AMSHandler() {
         this.sessionStorage = new SessionStorageImpl();
         this.localStorage = new LocalStorageImpl();
     }
