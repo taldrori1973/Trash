@@ -3,7 +3,7 @@ package com.radware.vision.automation.DatabaseStepHandlers.elasticSearch;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.radware.vision.automation.DatabaseStepHandlers.elasticSearch.search.EsQuery;
-import com.radware.vision.automation.DatabaseStepHandlers.elasticSearch.search.Match;
+import com.radware.vision.automation.DatabaseStepHandlers.elasticSearch.search.innerQuery.Match;
 import com.radware.vision.automation.DatabaseStepHandlers.elasticSearch.search.SearchBool;
 import com.radware.vision.automation.DatabaseStepHandlers.elasticSearch.search.SearchQuery;
 
