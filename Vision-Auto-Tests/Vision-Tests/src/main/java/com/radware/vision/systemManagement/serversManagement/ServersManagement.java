@@ -1,5 +1,7 @@
 package com.radware.vision.systemManagement.serversManagement;
 
+import com.radware.automation.tools.basetest.BaseTestUtils;
+import com.radware.automation.tools.basetest.Reporter;
 import com.radware.vision.automation.AutoUtils.SUT.dtos.ServerDto;
 import com.radware.vision.automation.VisionAutoInfra.CLIInfra.Servers.LinuxFileServer;
 import com.radware.vision.automation.VisionAutoInfra.CLIInfra.Servers.ServerCliBase;
@@ -24,6 +26,8 @@ public class ServersManagement {
     private <SERVER extends ServerCliBase> SERVER createAndInitServer(ServerIds serverId, Class<SERVER> clazz) {
         try {
             Constructor<SERVER> constructor = clazz.getConstructor(String.class, String.class, String.class);
+//          kVision
+//              fix when will have RADWARE/ROOT users
             Optional<ServerDto> serverById = TestBase.getSutManager().getServerById(serverId.getServerId());
             if (!serverById.isPresent()) return null;
             ServerDto serverDto = serverById.get();
@@ -49,10 +53,10 @@ public class ServersManagement {
 //        return this.rootServerCli != null ? Optional.of(rootServerCli) : Optional.empty();
 //    }
 
-    enum ServerIds {
-        LINUX_FILE_SERVER("linuxFileServer");
-//        RADWARE_SERVER_CLI("radwareServerCli"),
-//        ROOT_SERVER_CLI("rootServerCli");
+    public enum ServerIds {
+        LINUX_FILE_SERVER("linuxFileServer"),
+        RADWARE_SERVER_CLI("radwareServerCli"),
+        ROOT_SERVER_CLI("rootServerCli");
 
         private String serverId;
 
@@ -68,4 +72,16 @@ public class ServersManagement {
             this.serverId = serverId;
         }
     }
+    public ServerCliBase getServerById(ServerIds ServerId) {
+        ServerCliBase serverCliBase = null;
+        switch (ServerId){
+            case LINUX_FILE_SERVER:
+                serverCliBase = this.linuxFileServer;
+                break;
+            default:
+                BaseTestUtils.report("Server ID" + ServerId + " is not implemented", Reporter.FAIL);
+        };
+        return serverCliBase;
+    }
+
 }
