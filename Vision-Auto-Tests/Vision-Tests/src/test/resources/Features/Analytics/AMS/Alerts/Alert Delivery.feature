@@ -92,6 +92,6 @@ Feature: VRM Alerts Delivery
   @SID_13
   Scenario: Cleanup
     Then UI logout and close browser
-#    * CLI Check if logs contains
-#      | logType | expression | isExpected   |
-#      | ALL     | fatal      | NOT_EXPECTED |
+    * CLI Check if logs contains
+      | logType | expression | isExpected   |
+      | ALL     | fatal      | NOT_EXPECTED |
