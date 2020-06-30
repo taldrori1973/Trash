@@ -11,14 +11,13 @@ import com.radware.automation.webui.widgets.api.TextField;
 import com.radware.automation.webui.widgets.impl.WebUITextField;
 import com.radware.vision.automation.tools.exceptions.misc.NoSuchOperationException;
 import com.radware.vision.automation.tools.exceptions.selenium.TargetWebElementNotFoundException;
-import com.radware.vision.automation.tools.sutsystemobjects.devicesinfo.enums.SUTDeviceType;
 import com.radware.vision.infra.base.pages.navigation.WebUIVisionBasePage;
 import com.radware.vision.infra.enums.DeviceDriverType;
 import com.radware.vision.infra.testhandlers.baseoperations.BasicOperationsHandler;
 import com.radware.vision.infra.testhandlers.baseoperations.TableHandler;
 import com.radware.vision.infra.testhandlers.baseoperations.clickoperations.ClickOperationsHandler;
-import com.radware.vision.infra.testhandlers.vrm.VRMHandler;
-import com.radware.vision.infra.testhandlers.vrm.VRMReportsHandler;
+import com.radware.vision.infra.testhandlers.ams.AMSHandler;
+import com.radware.vision.infra.testhandlers.ams.AMSReportsHandler;
 import com.radware.vision.infra.utils.ReportsUtils;
 import cucumber.api.java.en.And;
 import cucumber.api.java.en.Given;
@@ -34,7 +33,7 @@ import static com.radware.vision.infra.utils.ReportsUtils.reportErrors;
 
 public class GenericSteps extends BddUITestBase {
 
-    private VRMReportsHandler vrmReportsHandler = new VRMReportsHandler();
+    private AMSReportsHandler amsReportsHandler = new AMSReportsHandler();
     private TableHandler tableHandler = new TableHandler();
 
     public GenericSteps() throws Exception {
@@ -95,14 +94,14 @@ public class GenericSteps extends BddUITestBase {
     }
 
     @When("^UI Click Button \"([^\"]*)\" with params$")
-    public static void buttonClick(String label, List<VRMHandler.DpDeviceFilter> entries){
+    public static void buttonClick(String label, List<AMSHandler.DpDeviceFilter> entries){
 
         entries.forEach(entry -> {
             String param = null;
             try {
 //                if (entry.index != null) {
 //                    param = devicesManager.getDeviceInfo(SUTDeviceType.DefensePro, entry.index).getDeviceIp();
-                    String[] params = param.split(",");
+                String[] params = param.split(",");
                     try {
                          BasicOperationsHandler.clickButton(label, params);
                     } catch (TargetWebElementNotFoundException e) {
@@ -134,7 +133,7 @@ public class GenericSteps extends BddUITestBase {
 
     @Then("^UI validate Date by Label \"([^\"]*)\"(?: with time Format \"([^\"]*)\")?(?: by error threshold in minutes \"([^\"]*)\")?$")
     public void validateDate(String dateLabel, String timeFormat, String thresholdInMinutes) {
-        vrmReportsHandler.validateSimpleDate(dateLabel, timeFormat, thresholdInMinutes);
+        amsReportsHandler.validateSimpleDate(dateLabel, timeFormat, thresholdInMinutes);
     }
 
     @When("^UI Select \"([^\"]*)\" from dropdown \"([^\"]*)\"$")
@@ -206,7 +205,7 @@ public class GenericSteps extends BddUITestBase {
         }
         if (!actualValue.trim().equals(expectedValue)) {
             try {
-                VRMHandler.scroll("Table_Attack Details");
+                AMSHandler.scroll("Table_Attack Details");
             } catch (Exception e) {
             }
             ReportsUtils.reportAndTakeScreenShot(String.join(" : ", label + "-" + params, "Actual is \"" + actualValue + "\" but is not equal to \"" + expectedValue + "\""), Reporter.FAIL);
@@ -234,7 +233,6 @@ public class GenericSteps extends BddUITestBase {
             BaseTestUtils.report(errorMessage, Reporter.FAIL);
             throw new TargetWebElementNotFoundException(errorMessage);
         }
-        expectedValue.replaceAll(" ", "");
         List<String> expectedValueList = Arrays.asList(expectedValue.replaceAll(" ", "").split(","));
         List<String> actualValuesList = Arrays.asList(actualValue.substring(actualValue.indexOf(prefix) + prefix.length()).split(prefix));
         for (int i = 0; i < actualValuesList.size(); i++) {
@@ -283,7 +281,7 @@ public class GenericSteps extends BddUITestBase {
 
         boolean isSelected = BasicOperationsHandler.isItemSelectedByClass(label, params);
         if (!ComparableUtils.equals(isSelected, expected)) {
-            String errorMessage = String.format("Item with name : %s Does not match the expected result : %s", String.join(".", label, params), String.valueOf(expected));
+            String errorMessage = String.format("Item with name : %s Does not match the expected result : %s", String.join(".", label, params), expected);
             BaseTestUtils.report(errorMessage, Reporter.FAIL);
         }
     }
@@ -391,7 +389,7 @@ public class GenericSteps extends BddUITestBase {
     }
 
 
-    private class ElementAttribute {
+    private static class ElementAttribute {
         String name;
         String value;
     }
