@@ -100,6 +100,7 @@ public class RepositoryService {
     }
 
     private LinkedList<Integer> countingSort(Set<Integer> buildsNumbers) {
+        Integer[] counterArray=new Integer[buildsNumbers.stream().max(Integer::compareTo).orElse(0)];
         return null;
     }
 
