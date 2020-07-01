@@ -61,11 +61,14 @@ public class RepositoryService {
         List<ArtifactChildPojo> filterByFileType=buildPojo.getChildren().stream().filter(artifactChildPojo -> artifactChildPojo.getUri().getPath().endsWith(fileType.getExtension())).collect(Collectors.toList());
         if(filterByFileType.size()==0) throw new Exception(String.format("No File with extension %s was found",fileType.getExtension()));
         if(filterByFileType.size()>1) throw new Exception(
-                String.format("%d Files with extension %s were found: %s",
+                String.format("%d Files with extension %s were found: %s\n Please Customize Filtering Method at %s Class",
                         filterByFileType.size(),
                         fileType.getExtension(),
-                        filterByFileType.toString()
+                        filterByFileType.toString(),
+                        this.getClass().getName()
         ));
+
+//
         return null;
     }
 
