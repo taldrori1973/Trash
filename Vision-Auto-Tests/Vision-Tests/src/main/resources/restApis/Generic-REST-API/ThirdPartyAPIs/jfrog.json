@@ -3,6 +3,11 @@
     "connectionProtocol": "http",
     "connectionHost": "devart01",
     "connectionPort": 8081
+  },
+  "jFrogPackagesArtifactory": {
+    "connectionProtocol": "http",
+    "connectionHost": "bldartifactory",
+    "connectionPort": 8081
   }
 }
 
