@@ -29,9 +29,8 @@ public class JFrogAPI {
         if (branch == null) branch = applicationPropertiesUtils.getProperty("default.branch");
         if (build == null) build = 0;
         RepositoryService repositoryService=new RepositoryService(repoName);
-        repositoryService.getFile(fileType, version, branch, build);
+        return repositoryService.getFile(fileType, version, branch, build);
 
-        return null;
     }
 
     /**
