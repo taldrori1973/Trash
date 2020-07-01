@@ -13,7 +13,6 @@ import com.radware.vision.thirdPartyAPIs.jenkins.pojos.BuildPojo;
 import models.RestResponse;
 import models.StatusCode;
 import org.modelmapper.ModelMapper;
-import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 import java.util.List;
 import java.util.Optional;
@@ -179,7 +178,7 @@ public class RepositoryService {
             }).collect(Collectors.toList());
 
             Optional<ArtifactFolderPojo> lastVersion = versionsPojos.stream().max((version1, version2) -> version1.getCreated().compareTo(version2.getCreated()));
-            throw new NotImplementedException();
+            return lastVersion.orElseThrow(Exception::new);
         }
         return versionPojo;
     }
