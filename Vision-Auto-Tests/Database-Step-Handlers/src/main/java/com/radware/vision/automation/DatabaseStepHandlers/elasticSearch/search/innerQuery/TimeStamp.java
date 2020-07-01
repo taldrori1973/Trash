@@ -1,12 +1,15 @@
 package com.radware.vision.automation.DatabaseStepHandlers.elasticSearch.search.innerQuery;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;
 
 import java.util.HashMap;
 import java.util.Map;
+
 @Data
 
 public class TimeStamp implements RangeFilter {
+    @JsonProperty("@timestamp")
     Map<String, String> timestamp;
 
     public TimeStamp() {
