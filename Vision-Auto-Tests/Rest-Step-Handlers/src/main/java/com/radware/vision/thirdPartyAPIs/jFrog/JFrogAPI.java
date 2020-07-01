@@ -1,6 +1,5 @@
 package com.radware.vision.thirdPartyAPIs.jFrog;
 
-import com.radware.vision.automation.AutoUtils.utils.ApplicationPropertiesUtils;
 import com.radware.vision.thirdPartyAPIs.jFrog.models.FileType;
 import com.radware.vision.thirdPartyAPIs.jFrog.models.JFrogFileModel;
 
@@ -11,7 +10,6 @@ import com.radware.vision.thirdPartyAPIs.jFrog.models.JFrogFileModel;
  */
 public class JFrogAPI {
 
-    private static ApplicationPropertiesUtils applicationPropertiesUtils = new ApplicationPropertiesUtils();
 
 
     /**
@@ -26,7 +24,7 @@ public class JFrogAPI {
      */
     public static JFrogFileModel getBuild(FileType fileType, String repoName, String version, String branch, Integer build) throws Exception {
         if (version == null) version = "Latest";
-        if (branch == null) branch = applicationPropertiesUtils.getProperty("default.branch");
+        if (branch == null) branch = "master";
         if (build == null) build = 0;
         RepositoryService repositoryService=new RepositoryService(repoName);
         return repositoryService.getFile(fileType, version, branch, build);
