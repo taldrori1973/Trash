@@ -112,17 +112,17 @@ public class GeneralSteps extends BddCliTestBase {
 //        }
 //        reportErrors();
 //    }
-    private void searchExpressionInLog(SearchLog object, String command) {
-        LinuxServerCredential rootCredentials = new LinuxServerCredential(getRestTestBase().getRootServerCli().getHost(), getRestTestBase().getRootServerCli().getUser(), getRestTestBase().getRootServerCli().getPassword());
-        ExecuteShellCommands executeShellCommands = ExecuteShellCommands.getInstance();
-        executeShellCommands.runRemoteShellCommand(rootCredentials, command);
-        String output = executeShellCommands.getShellCommandOutput();
-        if (output.equals("") && object.isExpected.equals(MessageAction.EXPECTED))
-            addErrorMessage(object.logType.toString() + ": does not contain -> " + object.expression);
-        else if (!output.equals("") && object.isExpected.equals(MessageAction.NOT_EXPECTED)) {
-            addErrorMessage(object.logType.toString() + ": contains -> " + object.expression + "\n" + output);
-        }
-    }
+//    private void searchExpressionInLog(SearchLog object, String command) {
+//        LinuxServerCredential rootCredentials = new LinuxServerCredential(getRestTestBase().getRootServerCli().getHost(), getRestTestBase().getRootServerCli().getUser(), getRestTestBase().getRootServerCli().getPassword());
+//        ExecuteShellCommands executeShellCommands = ExecuteShellCommands.getInstance();
+//        executeShellCommands.runRemoteShellCommand(rootCredentials, command);
+//        String output = executeShellCommands.getShellCommandOutput();
+//        if (output.equals("") && object.isExpected.equals(MessageAction.EXPECTED))
+//            addErrorMessage(object.logType.toString() + ": does not contain -> " + object.expression);
+//        else if (!output.equals("") && object.isExpected.equals(MessageAction.NOT_EXPECTED)) {
+//            addErrorMessage(object.logType.toString() + ": contains -> " + object.expression + "\n" + output);
+//        }
+//    }
 
     @Then("^Service Vision (restart|stop|start) and Wait (\\d+) Minute|Minutes$")
     public void serviceVisionRestartStopStart(String operation, int waitTime) {
