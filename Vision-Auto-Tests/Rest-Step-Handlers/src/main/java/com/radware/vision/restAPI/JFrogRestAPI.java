@@ -1,5 +1,6 @@
 package com.radware.vision.restAPI;
 
+import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.radware.vision.RestClientsFactory;
 import com.radware.vision.automation.AutoUtils.utils.ApplicationPropertiesUtils;
@@ -11,7 +12,7 @@ import models.StatusCode;
 import restInterface.client.NoAuthRestClient;
 
 import java.io.IOException;
-import java.io.InputStream;
+import java.net.URL;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -27,14 +28,10 @@ public class JFrogRestAPI {
     private Integer connectionPort;
     private String repoName;
 
-    public JFrogRestAPI(String jFrogApiId, String repoName) {
+    public JFrogRestAPI(String jFrogApiId, String repoName) throws IOException {
         ObjectMapper objectMapper = new ObjectMapper();
-        try (InputStream stream = this.getClass().getClassLoader().getResourceAsStream("restApis/Generic-REST-API/ThirdPartyAPIs/jfrog.json")) {
-
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        objectMapper.readTree(this.getClass().getResource("restApis/Generic-REST-API/ThirdPartyAPIs/jfrog.json").getPath(), )
+        URL resource = this.getClass().getClassLoader().getResource("restApis/Generic-REST-API/ThirdPartyAPIs/jfrog.json");
+        JsonNode jsonNode = objectMapper.readTree(resource);
         this.baseUri = String.format(
                 "%s://%s",
                 applicationPropertiesUtils.getProperty("JFrog.artifactory.protocol"),
