@@ -104,11 +104,12 @@ public class RepositoryService {
 
         Integer[] counterArray=new Integer[buildsNumbersRange];//build array of size 10 [0..9]
         buildsNumbers.forEach(buildNumber -> counterArray[buildNumber-minBuildNumber] = 1);
-        Stack<Integer> sorted=new Stack<>();
+
+        Stack<Integer> priorityQueue=new Stack<>();
         for(int i=0;i<counterArray.length;i++){
-            if(counterArray[i]!=null) sorted.addLast(i);
+            if(counterArray[i]!=null) priorityQueue.push(i+minBuildNumber);
         }
-        return sorted;
+        return priorityQueue;
     }
 
     private boolean containsFileType(FileType fileType, String buildPath) throws Exception {
