@@ -53,30 +53,32 @@ public class RepositoryService {
             jenkinsJob = String.format(JENKINS_JOB_TEMPLATE, branch);
             buildPojo = getBuild(branchPojo, build, fileType, jenkinsJob);//build under branch
         }
-        ArtifactFilePojo filePojo=getFile(buildPojo,fileType);
+        ArtifactFilePojo filePojo = getFile(buildPojo, fileType);
 
     }
 
     private ArtifactFilePojo getFile(ArtifactFolderPojo buildPojo, FileType fileType) throws Exception {
-        List<ArtifactChildPojo> filterByFileType=buildPojo.getChildren().stream().filter(artifactChildPojo -> artifactChildPojo.getUri().getPath().endsWith(fileType.getExtension())).collect(Collectors.toList());
-        if(filterByFileType.size()==0) throw new Exception(String.format("No File with extension %s was found",fileType.getExtension()));
-        if(filterByFileType.size()>1) throw new Exception(
+        List<ArtifactChildPojo> filterByFileType = buildPojo.getChildren().stream().filter(artifactChildPojo -> artifactChildPojo.getUri().getPath().endsWith(fileType.getExtension())).collect(Collectors.toList());
+        if (filterByFileType.size() == 0)
+            throw new Exception(String.format("No File with extension %s was found", fileType.getExtension()));
+        if (filterByFileType.size() > 1) throw new Exception(
                 String.format("%d Files with extension %s were found: %s\n Please Customize Filtering Method at %s Class",
                         filterByFileType.size(),
                         fileType.getExtension(),
                         filterByFileType.toString(),
                         this.getClass().getName()
-        ));
+                ));
 
-      String path=String.format("%s%s",buildPojo.getPath().getPath().substring(1),filterByFileType.get(0).getUri().toString());
-        return null;
+        String path = String.format("%s%s", buildPojo.getPath().getPath().substring(1), filterByFileType.get(0).getUri().toString());
+
+        return getPojo(path,StatusCode.OK,ArtifactFilePojo.class);
     }
 
 
     private ArtifactFolderPojo getBuild(ArtifactFolderPojo buildParent, Integer build, FileType fileType, String jenkinsJob) throws Exception {
         if (build != 0) {//specific build
             String path = buildParent.getPath().getPath().substring(1) + "/" + build;
-            if (isChildExistByUri(buildParent.getChildren(), build.toString()) && containsFileType(fileType,path)) {//build exist and contains the the file type
+            if (isChildExistByUri(buildParent.getChildren(), build.toString()) && containsFileType(fileType, path)) {//build exist and contains the the file type
 
                 BuildPojo buildInfo = JenkinsAPI.getBuildInfo(jenkinsJob, build);//get build data from jenkins
 
@@ -86,7 +88,7 @@ public class RepositoryService {
 
                 return getPojo(path, StatusCode.OK, ArtifactFolderPojo.class);
             } else
-                throw new Exception(String.format("The Build \"%s\" not found under %s OR the build not contains \"%s\" file type", build, buildParent.getPath().getPath(),fileType.getExtension()));
+                throw new Exception(String.format("The Build \"%s\" not found under %s OR the build not contains \"%s\" file type", build, buildParent.getPath().getPath(), fileType.getExtension()));
         } else {//latest build
 
             build = getLastSuccessfulBuild(buildParent, fileType, jenkinsJob);
@@ -97,7 +99,7 @@ public class RepositoryService {
     private Integer getLastSuccessfulBuild(ArtifactFolderPojo buildParent, FileType fileType, String jenkinsJob) throws Exception {
 //        build array of builds number
         Set<Integer> buildsNumbers = buildParent.getChildren().stream().map(buildChildPojo -> Integer.parseInt(buildChildPojo.getUri().getPath().substring(1))).collect(Collectors.toSet());
-        Stack<Integer> builds=countingSort(buildsNumbers);
+        Stack<Integer> builds = countingSort(buildsNumbers);
 
         Integer last;
 
@@ -114,17 +116,17 @@ public class RepositoryService {
     }
 
     private Stack<Integer> countingSort(Set<Integer> buildsNumbers) {
-        int minBuildNumber=buildsNumbers.stream().min(Integer::compareTo).orElse(0);//for example 601
-        int maxBuildNumber=buildsNumbers.stream().max(Integer::compareTo).orElse(0);//for example 610
+        int minBuildNumber = buildsNumbers.stream().min(Integer::compareTo).orElse(0);//for example 601
+        int maxBuildNumber = buildsNumbers.stream().max(Integer::compareTo).orElse(0);//for example 610
 
-        int buildsNumbersRange=maxBuildNumber-minBuildNumber+1;//610-601+1=10
+        int buildsNumbersRange = maxBuildNumber - minBuildNumber + 1;//610-601+1=10
 
-        Integer[] counterArray=new Integer[buildsNumbersRange];//build array of size 10 [0..9]
-        buildsNumbers.forEach(buildNumber -> counterArray[buildNumber-minBuildNumber] = 1);
+        Integer[] counterArray = new Integer[buildsNumbersRange];//build array of size 10 [0..9]
+        buildsNumbers.forEach(buildNumber -> counterArray[buildNumber - minBuildNumber] = 1);
 
-        Stack<Integer> priorityQueue=new Stack<>();
-        for(int i=0;i<counterArray.length;i++){
-            if(counterArray[i]!=null) priorityQueue.push(i+minBuildNumber);
+        Stack<Integer> priorityQueue = new Stack<>();
+        for (int i = 0; i < counterArray.length; i++) {
+            if (counterArray[i] != null) priorityQueue.push(i + minBuildNumber);
         }
         return priorityQueue;
     }
