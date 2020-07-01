@@ -14,6 +14,7 @@ import models.RestResponse;
 import models.StatusCode;
 import org.modelmapper.ModelMapper;
 
+import java.io.IOException;
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
@@ -32,7 +33,7 @@ public class RepositoryService {
 
     private JFrogRestAPI jFrogRestAPI;
 
-    public RepositoryService(String repoName) {
+    public RepositoryService(String repoName) throws IOException {
         this.objectMapper = new ObjectMapper();
         this.jFrogRestAPI = new JFrogRestAPI("jFrogBuildsArtifactory",repoName);
     }
