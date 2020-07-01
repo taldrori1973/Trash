@@ -92,8 +92,10 @@ public class RepositoryService {
         } else {//latest build
 
             build = getLastSuccessfulBuild(buildParent, fileType, jenkinsJob);
+            String path = buildParent.getPath().getPath().substring(1) + "/" + build;
+            return getPojo(path, StatusCode.OK, ArtifactFolderPojo.class);
+
         }
-        return null;
     }
 
     private Integer getLastSuccessfulBuild(ArtifactFolderPojo buildParent, FileType fileType, String jenkinsJob) throws Exception {
