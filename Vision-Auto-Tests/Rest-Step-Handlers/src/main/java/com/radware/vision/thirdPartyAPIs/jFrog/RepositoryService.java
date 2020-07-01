@@ -167,6 +167,9 @@ public class RepositoryService {
         } else {//Latest Version will be decided by created date
 
 //            Map Artifact Children to Version Pojo Array
+            String artifactPath = artifactPojo.getPath().getPath().substring(1);
+
+
             throw new NotImplementedException();
         }
         return versionPojo;
