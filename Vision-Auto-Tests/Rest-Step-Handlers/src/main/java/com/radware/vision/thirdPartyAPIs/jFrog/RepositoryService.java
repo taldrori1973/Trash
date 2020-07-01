@@ -164,7 +164,7 @@ public class RepositoryService {
                 String path = artifactPojo.getPath().getPath().substring(1) + "/" + version;
                 versionPojo = getPojo(path, StatusCode.OK, ArtifactFolderPojo.class);
             } else throw new Exception(String.format("The Version \"%s\" not found", version));
-        } else {
+        } else {//Latest Version will be decided by created date
             throw new NotImplementedException();
         }
         return versionPojo;
