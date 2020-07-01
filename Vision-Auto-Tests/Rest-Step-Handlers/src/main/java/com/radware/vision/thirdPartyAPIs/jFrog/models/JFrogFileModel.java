@@ -3,6 +3,7 @@ package com.radware.vision.thirdPartyAPIs.jFrog.models;
 import lombok.Data;
 
 import java.net.URI;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -12,6 +13,12 @@ import java.util.List;
  */
 @Data
 public class JFrogFileModel extends ArtifactModel {
+    private String repo;
+    private URI path;
+    private Date created;
+    private Date lastModified;
+    private Date lastUpdated;
+    private URI uri;
     private List<JFrogFileModel> JFrogFileModels;
     private boolean isFolder;
     private FileType type;
