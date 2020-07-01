@@ -1,0 +1,15 @@
+{
+  "deviceName": "ThirdPartyAPIs",
+  "fileName": "jfrog",
+  "description": "JFrog API",
+  "api": [
+    {
+      "label": "Get Artifact API",
+      "method": "GET",
+      "basePath": "/artifactory/api/storage/{repoName}/{path}",
+      "produces": "application/json",
+      "description": "Get Artifact, Folders and Files Info"
+    }
+  ]
+}
+
