@@ -38,7 +38,7 @@ public class RepositoryService {
     }
 
 
-    public void getFile(FileType fileType, String version, String branch, Integer build) throws Exception {
+    public JFrogFileModel getFile(FileType fileType, String version, String branch, Integer build) throws Exception {
         ArtifactFolderPojo buildPojo;
         String jenkinsJob;
 
@@ -59,6 +59,7 @@ public class RepositoryService {
         ModelMapper modelMapper=new ModelMapper();
         JFrogFileModel jFrogFileModel = modelMapper.map(filePojo, JFrogFileModel.class);
 
+        return jFrogFileModel;
     }
 
     private ArtifactFilePojo getFile(ArtifactFolderPojo buildPojo, FileType fileType) throws Exception {

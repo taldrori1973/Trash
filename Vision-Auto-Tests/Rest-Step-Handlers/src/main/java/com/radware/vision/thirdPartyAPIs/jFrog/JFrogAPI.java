@@ -47,9 +47,8 @@ public class JFrogAPI {
         if (build == null) build = 0;
         RepositoryService repositoryService=new RepositoryService(repoName);
 
-        repositoryService.getFile(fileType, version, null, build);
+        return repositoryService.getFile(fileType, version, null, build);
 
-        return null;
     }
 
 }
