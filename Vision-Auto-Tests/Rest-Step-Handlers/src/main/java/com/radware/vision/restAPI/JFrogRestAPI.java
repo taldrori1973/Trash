@@ -38,7 +38,7 @@ public class JFrogRestAPI {
                 jsonNode.get("connectionHost")
         );
 
-        this.connectionPort = Integer.parseInt(applicationPropertiesUtils.getProperty("JFrog.artifactory.port"));
+        this.connectionPort = jsonNode.get("connectionPort").asInt();
 
         this.repoName = repoName;
 
