@@ -173,6 +173,7 @@ public class RepositoryService {
                     return getPojo(artifactPath + child.getUri().getPath(), StatusCode.OK, ArtifactFolderPojo.class);
                 } catch (Exception e) {
                     e.printStackTrace();
+                    return null;
                 }
             }).collect(Collectors.toList());
             throw new NotImplementedException();
