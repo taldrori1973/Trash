@@ -1,0 +1,39 @@
+{
+  "setupId": "AMS_1",
+  "tree": {
+    "sites": [
+      {
+        "parentSite": "Default",
+        "name": "RealDPs_Version_8_site"
+      },
+      {
+        "parentSite": "Default",
+        "name": "VA_DPs_Version_8_site"
+      }
+    ],
+    "devices": [
+      {
+        "deviceId": "DefensePro_172.16.22.50",
+        "parentSite": "RealDPs_Version_8_site"
+      },
+      {
+        "deviceId": "DefensePro_172.16.22.51",
+        "parentSite": "RealDPs_Version_8_site"
+      },
+      {
+        "deviceId": "DefensePro_172.16.22.55",
+        "parentSite": "VA_DPs_Version_8_site"
+      }
+    ]
+  },
+  "defenseFlowId": null,
+  "servers": [
+    {
+      "serverId": "linuxFileServer",
+      "host": "172.17.164.10",
+      "user": "radware",
+      "password": "radware",
+      "connectOnInit": true
+    }
+  ]
+}
