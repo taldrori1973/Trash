@@ -6,6 +6,7 @@ import com.radware.vision.RestClientsFactory;
 import com.radware.vision.restTestHandler.GenericStepsHandler;
 import com.radware.vision.thirdPartyAPIs.jenkins.pojos.BuildPojo;
 import com.radware.vision.thirdPartyAPIs.jenkins.pojos.JobPojo;
+import com.radware.vision.utils.UriUtils;
 import controllers.RestApiManagement;
 import lombok.Data;
 import models.RestRequestSpecification;
@@ -57,7 +58,9 @@ public class JenkinsAPI {
         ObjectMapper objectMapper=new ObjectMapper();
         URL resource = JenkinsAPI.class.getClassLoader().getResource("restApis/Generic-REST-API/ThirdPartyAPIs/jenkins.json");
         JsonNode jsonNode = objectMapper.readTree(resource).get("jenkinsProduction");
-        NoAuthRestClient noAuthConnection = RestClientsFactory.getNoAuthConnection("http://cmjen04.il.corp.radware.com/", 8081);
+        NoAuthRestClient noAuthConnection = RestClientsFactory.getNoAuthConnection(
+                UriUtils.buildUrlFromProtocolAndIp(jsonNode.get("connectionPort"),jsonNode.get("connectionPort")),
+                jsonNode.get("connectionPort"));
         noAuthConnection.switchTo();
 
         RestRequestSpecification request = GenericStepsHandler.createNewRestRequestSpecification("/ThirdPartyAPIs/jenkins.json", requestLabel);
