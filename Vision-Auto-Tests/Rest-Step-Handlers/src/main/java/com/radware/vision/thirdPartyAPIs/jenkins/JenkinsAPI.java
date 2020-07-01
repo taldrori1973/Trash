@@ -52,6 +52,8 @@ public class JenkinsAPI {
     }
 
     private static RestResponse sendJenkinsRequest(String requestLabel, Map<String, String> pathParamsMap) throws Exception {
+        ObjectMapper objectMapper=new ObjectMapper();
+        JenkinsAPI.class.getClassLoader().getResource("restApis/Generic-REST-API/ThirdPartyAPIs/jenkins.json")
         NoAuthRestClient noAuthConnection = RestClientsFactory.getNoAuthConnection("http://cmjen04.il.corp.radware.com/", 8081);
         noAuthConnection.switchTo();
 
