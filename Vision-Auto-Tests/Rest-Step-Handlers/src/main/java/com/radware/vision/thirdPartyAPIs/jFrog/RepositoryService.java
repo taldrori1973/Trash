@@ -4,6 +4,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.radware.vision.restAPI.JFrogRestAPI;
 import com.radware.vision.thirdPartyAPIs.jFrog.models.FileType;
 import com.radware.vision.thirdPartyAPIs.jFrog.pojos.ArtifactChildPojo;
+import com.radware.vision.thirdPartyAPIs.jFrog.pojos.ArtifactFilePojo;
 import com.radware.vision.thirdPartyAPIs.jFrog.pojos.ArtifactFolderPojo;
 import com.radware.vision.thirdPartyAPIs.jFrog.pojos.ArtifactPojo;
 import com.radware.vision.thirdPartyAPIs.jenkins.JenkinsAPI;
@@ -52,8 +53,11 @@ public class RepositoryService {
             jenkinsJob = String.format(JENKINS_JOB_TEMPLATE, branch);
             buildPojo = getBuild(branchPojo, build, fileType, jenkinsJob);//build under branch
         }
+        ArtifactFilePojo filePojo=getFile(buildPojo,fileType);
 
+    }
 
+    private ArtifactFilePojo getFile(ArtifactFolderPojo buildPojo, FileType fileType) {
     }
 
     private ArtifactFolderPojo getBuild(ArtifactFolderPojo buildParent, Integer build, FileType fileType, String jenkinsJob) throws Exception {
