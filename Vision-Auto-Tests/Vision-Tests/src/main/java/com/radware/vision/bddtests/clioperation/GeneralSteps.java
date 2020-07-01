@@ -55,8 +55,8 @@ public class GeneralSteps extends BddCliTestBase {
 
                     case "true":
                         String isExpectedQuery = ExpectedQuery(selection, searchBool);
-                        if (ElasticSearchHandler.searchGetNumberOfHits("logstash-*", isExpectedQuery) >= 1)
-                            addErrorMessage(String.format("The Log %s contains -> %s", selection.logType.serverLogType, selection.expression));
+                        if (ElasticSearchHandler.searchGetNumberOfHits("logstash-*", isExpectedQuery) < 1)
+                            addErrorMessage(String.format("The Log %s does not contain -> %s", selection.logType.serverLogType, selection.expression));
                 }
             } catch (Exception e) {
                 e.printStackTrace();
