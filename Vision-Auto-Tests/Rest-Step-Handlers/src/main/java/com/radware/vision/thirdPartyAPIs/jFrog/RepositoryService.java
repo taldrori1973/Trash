@@ -168,7 +168,7 @@ public class RepositoryService {
 
 //            Map Artifact Children to Version Pojo Array
             String artifactPath = artifactPojo.getPath().getPath().substring(1);
-            List<ArtifactFolderPojo> collect = artifactPojo.getChildren().stream().map(child -> {
+            List<ArtifactFolderPojo> versionsPojos = artifactPojo.getChildren().stream().map(child -> {
                 try {
                     return getPojo(artifactPath + child.getUri().getPath(), StatusCode.OK, ArtifactFolderPojo.class);
                 } catch (Exception e) {
@@ -176,6 +176,8 @@ public class RepositoryService {
                     return null;
                 }
             }).collect(Collectors.toList());
+
+            versionsPojos.stream().max((version1, version2) ->version1.getCreated().compareTo(version2.getCreated()));
             throw new NotImplementedException();
         }
         return versionPojo;
