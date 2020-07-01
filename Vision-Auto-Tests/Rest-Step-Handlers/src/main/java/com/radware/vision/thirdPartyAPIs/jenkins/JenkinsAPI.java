@@ -1,5 +1,6 @@
 package com.radware.vision.thirdPartyAPIs.jenkins;
 
+import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.radware.vision.RestClientsFactory;
 import com.radware.vision.restTestHandler.GenericStepsHandler;
@@ -13,6 +14,7 @@ import models.StatusCode;
 import restInterface.RestApi;
 import restInterface.client.NoAuthRestClient;
 
+import java.net.URL;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -52,6 +54,10 @@ public class JenkinsAPI {
     }
 
     private static RestResponse sendJenkinsRequest(String requestLabel, Map<String, String> pathParamsMap) throws Exception {
+        ObjectMapper objectMapper = new ObjectMapper();
+        URL resource = JenkinsAPI.class.getClassLoader().getResource("restApis/Generic-REST-API/ThirdPartyAPIs/jenkins.json");
+        JsonNode jsonNode = objectMapper.readTree(resource).get("jenkinsProduction");
+
         NoAuthRestClient noAuthConnection = RestClientsFactory.getNoAuthConnection("http://cmjen04.il.corp.radware.com/", 8081);
         noAuthConnection.switchTo();
 
