@@ -58,7 +58,7 @@ public class RepositoryService {
     }
 
     private ArtifactFilePojo getFile(ArtifactFolderPojo buildPojo, FileType fileType) {
-        String fileUri=buildPojo.getChildren().stream().filter(artifactChildPojo -> artifactChildPojo.getUri().getPath().endsWith(fileType.getExtension()));
+        List<ArtifactChildPojo> fileUri=buildPojo.getChildren().stream().filter(artifactChildPojo -> artifactChildPojo.getUri().getPath().endsWith(fileType.getExtension())).collect(Collectors.toList());
         return null;
     }
 
