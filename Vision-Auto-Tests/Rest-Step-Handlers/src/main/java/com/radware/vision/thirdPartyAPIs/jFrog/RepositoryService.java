@@ -112,8 +112,9 @@ public class RepositoryService {
                 if (buildInfo.getResult().equals("SUCCESS")) return last;
             }
         }
-        return null;
+        throw new Exception("No Success Build was found ");
     }
+
 
     private Stack<Integer> countingSort(Set<Integer> buildsNumbers) {
         int minBuildNumber = buildsNumbers.stream().min(Integer::compareTo).orElse(0);//for example 601
