@@ -3,6 +3,7 @@ package com.radware.vision.thirdPartyAPIs.jFrog;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.radware.vision.restAPI.JFrogRestAPI;
 import com.radware.vision.thirdPartyAPIs.jFrog.models.FileType;
+import com.radware.vision.thirdPartyAPIs.jFrog.models.JFrogFileModel;
 import com.radware.vision.thirdPartyAPIs.jFrog.pojos.ArtifactChildPojo;
 import com.radware.vision.thirdPartyAPIs.jFrog.pojos.ArtifactFilePojo;
 import com.radware.vision.thirdPartyAPIs.jFrog.pojos.ArtifactFolderPojo;
@@ -11,6 +12,7 @@ import com.radware.vision.thirdPartyAPIs.jenkins.JenkinsAPI;
 import com.radware.vision.thirdPartyAPIs.jenkins.pojos.BuildPojo;
 import models.RestResponse;
 import models.StatusCode;
+import org.modelmapper.ModelMapper;
 import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 import java.util.List;
@@ -54,7 +56,8 @@ public class RepositoryService {
             buildPojo = getBuild(branchPojo, build, fileType, jenkinsJob);//build under branch
         }
         ArtifactFilePojo filePojo = getFile(buildPojo, fileType);
-
+        ModelMapper modelMapper=new ModelMapper();
+        modelMapper.map(filePojo, JFrogFileModel.class);
     }
 
     private ArtifactFilePojo getFile(ArtifactFolderPojo buildPojo, FileType fileType) throws Exception {
