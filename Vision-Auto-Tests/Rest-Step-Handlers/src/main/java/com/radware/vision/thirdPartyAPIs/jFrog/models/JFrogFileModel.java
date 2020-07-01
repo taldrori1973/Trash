@@ -11,8 +11,8 @@ import java.util.List;
  * Time: 3:18 PM
  */
 @Data
-public class Child extends ArtifactModel {
-    private List<Child> children;
+public class JFrogFileModel extends ArtifactModel {
+    private List<JFrogFileModel> JFrogFileModels;
     private boolean isFolder;
     private FileType type;
     private URI downloadUri;

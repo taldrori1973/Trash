@@ -12,5 +12,5 @@ import java.util.List;
 @Data
 public class Artifact extends ArtifactModel {
     private String name;
-    private List<Child> children;
+    private List<JFrogFileModel> JFrogFileModels;
 }
