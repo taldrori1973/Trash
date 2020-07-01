@@ -68,7 +68,7 @@ public class RepositoryService {
                         this.getClass().getName()
         ));
 
-      String path=String.format("%s%s"filterByFileType.get(0).getUri().toString());
+      String path=String.format("%s%s",buildPojo.getPath().getPath().substring(1),filterByFileType.get(0).getUri().toString());
         return null;
     }
 
