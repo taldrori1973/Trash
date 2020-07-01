@@ -45,6 +45,13 @@
       "basePath": "/mgmt/system/config/dd/screen/navigation.xml",
       "produces": "application/json",
       "description": "Update Vision Navigation Xml"
+    },
+    {
+      "label": "Set connectivity options",
+      "method": "PUT",
+      "basePath": "mgmt/system/config/item/connectionsettings",
+      "produces": "application/json",
+      "description": "Update connectivity options"
     }
   ]
 }
