@@ -16,6 +16,7 @@ import org.modelmapper.ModelMapper;
 import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.Set;
 import java.util.Stack;
 import java.util.stream.Collectors;
@@ -177,7 +178,7 @@ public class RepositoryService {
                 }
             }).collect(Collectors.toList());
 
-            versionsPojos.stream().max((version1, version2) ->version1.getCreated().compareTo(version2.getCreated()));
+            Optional<ArtifactFolderPojo> lastVersion = versionsPojos.stream().max((version1, version2) -> version1.getCreated().compareTo(version2.getCreated()));
             throw new NotImplementedException();
         }
         return versionPojo;
