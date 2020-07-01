@@ -20,6 +20,7 @@ Feature: DP Monitoring Dashboard - Protection Policies - Under Attack
     Given UI Login with user "sys_admin" and password "radware"
     * REST Vision Install License Request "vision-AVA-Max-attack-capacity"
     And UI Navigate to "DefensePro Monitoring Dashboard" page via homePage
+    Given UI Click Button "Global Time Filter"
     When UI Click Button "Global Time Filter.Quick Range" with value "1H"
 
   @SID_4
