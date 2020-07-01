@@ -24,7 +24,7 @@ public class JFrogRestAPI {
     private Integer connectionPort;
     private String repoName;
 
-    public JFrogRestAPI(String repoName) {
+    public JFrogRestAPI(String jFrogApiId,String repoName) {
         this.baseUri = String.format(
                 "%s://%s",
                 applicationPropertiesUtils.getProperty("JFrog.artifactory.protocol"),

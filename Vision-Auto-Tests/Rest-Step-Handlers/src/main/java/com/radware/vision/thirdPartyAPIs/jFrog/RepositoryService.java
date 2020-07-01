@@ -34,7 +34,7 @@ public class RepositoryService {
 
     public RepositoryService(String repoName) {
         this.objectMapper = new ObjectMapper();
-        this.jFrogRestAPI = new JFrogRestAPI(repoName);
+        this.jFrogRestAPI = new JFrogRestAPI("jFrogBuildsArtifactory",repoName);
     }
 
 
