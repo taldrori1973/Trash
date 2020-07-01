@@ -32,8 +32,8 @@ public class JFrogRestAPI {
         JsonNode jsonNode = objectMapper.readTree(resource).get(jFrogApiId);
         this.baseUri = String.format(
                 "%s://%s",
-                jsonNode.get("connectionProtocol"),
-                jsonNode.get("connectionHost")
+                jsonNode.get("connectionProtocol").asText(),
+                jsonNode.get("connectionHost").asText()
         );
 
         this.connectionPort = jsonNode.get("connectionPort").asInt();
