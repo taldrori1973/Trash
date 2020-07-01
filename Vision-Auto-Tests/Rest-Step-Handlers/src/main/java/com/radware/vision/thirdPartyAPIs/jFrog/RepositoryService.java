@@ -12,9 +12,9 @@ import models.RestResponse;
 import models.StatusCode;
 import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
-import java.util.LinkedList;
 import java.util.List;
 import java.util.Set;
+import java.util.Stack;
 import java.util.stream.Collectors;
 
 /**
@@ -80,12 +80,12 @@ public class RepositoryService {
     private Integer getLastSuccessfulBuild(ArtifactFolderPojo buildParent, FileType fileType, String jenkinsJob) throws Exception {
 //        build array of builds number
         Set<Integer> buildsNumbers = buildParent.getChildren().stream().map(buildChildPojo -> Integer.parseInt(buildChildPojo.getUri().getPath().substring(1))).collect(Collectors.toSet());
-        LinkedList<Integer> builds=countingSort(buildsNumbers);
+        Stack<Integer> builds=countingSort(buildsNumbers);
 
         Integer last;
 
         while (!builds.isEmpty()) {
-            last = builds.pollLast();
+            last = builds.pop();
             String buildPath = buildParent.getPath().getPath().substring(1) + "/" + last;
             if (containsFileType(fileType, buildPath)) {
                 BuildPojo buildInfo = JenkinsAPI.getBuildInfo(jenkinsJob, last);
@@ -96,15 +96,15 @@ public class RepositoryService {
         return null;
     }
 
-    private LinkedList<Integer> countingSort(Set<Integer> buildsNumbers) {
+    private Stack<Integer> countingSort(Set<Integer> buildsNumbers) {
         int minBuildNumber=buildsNumbers.stream().min(Integer::compareTo).orElse(0);//for example 601
         int maxBuildNumber=buildsNumbers.stream().max(Integer::compareTo).orElse(0);//for example 610
 
         int buildsNumbersRange=maxBuildNumber-minBuildNumber+1;//610-601+1=10
 
         Integer[] counterArray=new Integer[buildsNumbersRange];//build array of size 10 [0..9]
-        buildsNumbers.forEach(buildNumber -> counterArray[buildNumber] = 1);
-        LinkedList<Integer> sorted=new LinkedList<>();
+        buildsNumbers.forEach(buildNumber -> counterArray[buildNumber-minBuildNumber] = 1);
+        Stack<Integer> sorted=new Stack<>();
         for(int i=0;i<counterArray.length;i++){
             if(counterArray[i]!=null) sorted.addLast(i);
         }
