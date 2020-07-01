@@ -14,8 +14,8 @@ import com.radware.vision.bddtests.BddRestTestBase;
 import com.radware.vision.devicesRestApi.topologyTree.TopologyTree;
 import com.radware.vision.devicesRestApi.topologyTree.TopologyTreeImpl;
 import com.radware.vision.thirdPartyAPIs.jFrog.JFrogAPI;
-import com.radware.vision.thirdPartyAPIs.jFrog.models.Child;
 import com.radware.vision.thirdPartyAPIs.jFrog.models.FileType;
+import com.radware.vision.thirdPartyAPIs.jFrog.models.JFrogFileModel;
 import com.radware.vision.utils.BodyEntry;
 import cucumber.api.java.en.Then;
 
@@ -186,7 +186,7 @@ public class Demo extends BddRestTestBase {
     @Then("^Validate pojo Paesing$")
     public void validatePojoPaesing() throws JsonProcessingException {
         try {
-            Child build = JFrogAPI.getBuild(FileType.OVA, "kvision-images-snapshot-local", "OVA", "dev", 0);
+            JFrogFileModel build = JFrogAPI.getBuild(FileType.OVA, "kvision-images-snapshot-local", "OVA", "dev", 0);
         } catch (Exception e) {
             e.printStackTrace();
         }
