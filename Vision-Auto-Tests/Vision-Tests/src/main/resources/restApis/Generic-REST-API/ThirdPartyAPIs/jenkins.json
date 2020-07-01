@@ -1,0 +1,17 @@
+{
+  "jFrogBuildsArtifactory": {
+    "connectionProtocol": "http",
+    "connectionHost": "devart01",
+    "connectionPort": 8081,
+    "userName": null,
+    "password": null
+  },
+  "jFrogPackagesArtifactory": {
+    "connectionProtocol": "http",
+    "connectionHost": "bldartifactory",
+    "connectionPort": 8081,
+    "userName": null,
+    "password": null
+  }
+}
+
