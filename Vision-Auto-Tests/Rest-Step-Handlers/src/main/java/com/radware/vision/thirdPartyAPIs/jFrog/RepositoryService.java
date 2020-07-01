@@ -58,7 +58,7 @@ public class RepositoryService {
         ArtifactFilePojo filePojo = getFile(buildPojo, fileType);
         ModelMapper modelMapper=new ModelMapper();
         JFrogFileModel jFrogFileModel = modelMapper.map(filePojo, JFrogFileModel.class);
-
+        jFrogFileModel.setType(fileType);
         return jFrogFileModel;
     }
 
