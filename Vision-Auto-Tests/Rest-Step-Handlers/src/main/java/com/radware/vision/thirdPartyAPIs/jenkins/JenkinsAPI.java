@@ -58,9 +58,10 @@ public class JenkinsAPI {
         ObjectMapper objectMapper=new ObjectMapper();
         URL resource = JenkinsAPI.class.getClassLoader().getResource("restApis/Generic-REST-API/ThirdPartyAPIs/jenkins.json");
         JsonNode jsonNode = objectMapper.readTree(resource).get("jenkinsProduction");
+
         NoAuthRestClient noAuthConnection = RestClientsFactory.getNoAuthConnection(
-                UriUtils.buildUrlFromProtocolAndIp(jsonNode.get("connectionPort"),jsonNode.get("connectionPort")),
-                jsonNode.get("connectionPort"));
+                UriUtils.buildUrlFromProtocolAndIp(jsonNode.get("connectionPort").asText(),jsonNode.get("connectionPort").asText()),
+                jsonNode.get("connectionPort").asInt());
         noAuthConnection.switchTo();
 
         RestRequestSpecification request = GenericStepsHandler.createNewRestRequestSpecification("/ThirdPartyAPIs/jenkins.json", requestLabel);
