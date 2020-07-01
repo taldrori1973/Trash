@@ -168,8 +168,7 @@ public class RepositoryService {
 
 //            Map Artifact Children to Version Pojo Array
             String artifactPath = artifactPojo.getPath().getPath().substring(1);
-artifactPojo.getChildren().stream().map(null);
-
+            List<ArtifactFolderPojo> versionsPojos;
             throw new NotImplementedException();
         }
         return versionPojo;
