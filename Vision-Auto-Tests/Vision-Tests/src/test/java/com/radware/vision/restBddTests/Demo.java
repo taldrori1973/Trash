@@ -186,7 +186,7 @@ public class Demo extends BddRestTestBase {
     @Then("^Validate pojo Paesing$")
     public void validatePojoPaesing() throws JsonProcessingException {
         try {
-            JFrogFileModel build = JFrogAPI.getBuild(FileType.OVA, "kvision-images-snapshot-local", "OVA", "dev", 0);
+            JFrogFileModel build = JFrogAPI.getBuild(FileType.OVA, "kvision-images-snapshot-local", null, "dev", 0);
         } catch (Exception e) {
             e.printStackTrace();
         }
