@@ -1,7 +1,8 @@
 package com.radware.vision.restAPI;
 
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.radware.vision.RestClientsFactory;
-import com.radware.vision.automation.AutoUtils.utils.ApplicationPropertiesUtils;
 import com.radware.vision.restTestHandler.GenericStepsHandler;
 import controllers.RestApiManagement;
 import models.RestRequestSpecification;
@@ -9,6 +10,8 @@ import models.RestResponse;
 import models.StatusCode;
 import restInterface.client.NoAuthRestClient;
 
+import java.io.IOException;
+import java.net.URL;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -19,19 +22,21 @@ import java.util.Map;
  */
 public class JFrogRestAPI {
 
-    private static ApplicationPropertiesUtils applicationPropertiesUtils = new ApplicationPropertiesUtils();
     private String baseUri;
     private Integer connectionPort;
     private String repoName;
 
-    public JFrogRestAPI(String repoName) {
+    public JFrogRestAPI(String jFrogApiId, String repoName) throws IOException {
+        ObjectMapper objectMapper = new ObjectMapper();
+        URL resource = this.getClass().getClassLoader().getResource("restApis/Generic-REST-API/ThirdPartyAPIs/jfrog.json");
+        JsonNode jsonNode = objectMapper.readTree(resource).get(jFrogApiId);
         this.baseUri = String.format(
                 "%s://%s",
-                applicationPropertiesUtils.getProperty("JFrog.artifactory.protocol"),
-                applicationPropertiesUtils.getProperty("JFrog.artifactory.host")
+                jsonNode.get("connectionProtocol"),
+                jsonNode.get("connectionHost")
         );
 
-        this.connectionPort = Integer.parseInt(applicationPropertiesUtils.getProperty("JFrog.artifactory.port"));
+        this.connectionPort = jsonNode.get("connectionPort").asInt();
 
         this.repoName = repoName;
 
