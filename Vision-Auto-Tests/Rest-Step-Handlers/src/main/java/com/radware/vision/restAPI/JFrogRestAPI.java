@@ -31,11 +31,11 @@ public class JFrogRestAPI {
     public JFrogRestAPI(String jFrogApiId, String repoName) throws IOException {
         ObjectMapper objectMapper = new ObjectMapper();
         URL resource = this.getClass().getClassLoader().getResource("restApis/Generic-REST-API/ThirdPartyAPIs/jfrog.json");
-        JsonNode jsonNode = objectMapper.readTree(resource);
+        JsonNode jsonNode = objectMapper.readTree(resource).get(jFrogApiId);
         this.baseUri = String.format(
                 "%s://%s",
-                applicationPropertiesUtils.getProperty("JFrog.artifactory.protocol"),
-                applicationPropertiesUtils.getProperty("JFrog.artifactory.host")
+                jsonNode.get("connectionProtocol"),
+                jsonNode.get("connectionHost")
         );
 
         this.connectionPort = Integer.parseInt(applicationPropertiesUtils.getProperty("JFrog.artifactory.port"));
