@@ -55,12 +55,12 @@ public class JenkinsAPI {
     }
 
     private static RestResponse sendJenkinsRequest(String requestLabel, Map<String, String> pathParamsMap) throws Exception {
-        ObjectMapper objectMapper=new ObjectMapper();
+        ObjectMapper objectMapper = new ObjectMapper();
         URL resource = JenkinsAPI.class.getClassLoader().getResource("restApis/Generic-REST-API/ThirdPartyAPIs/jenkins.json");
         JsonNode jsonNode = objectMapper.readTree(resource).get("jenkinsProduction");
 
         NoAuthRestClient noAuthConnection = RestClientsFactory.getNoAuthConnection(
-                UriUtils.buildUrlFromProtocolAndIp(jsonNode.get("connectionPort").asText(),jsonNode.get("connectionPort").asText()),
+                UriUtils.buildUrlFromProtocolAndIp(jsonNode.get("connectionProtocol").asText(), jsonNode.get("connectionHost").asText()),
                 jsonNode.get("connectionPort").asInt());
         noAuthConnection.switchTo();
 
