@@ -29,7 +29,7 @@ public class JFrogAPI {
         if (branch == null) branch = applicationPropertiesUtils.getProperty("default.branch");
         if (build == null) build = 0;
         RepositoryService repositoryService=new RepositoryService(repoName);
-        repositoryService.getBuild(fileType, version, branch, build);
+        repositoryService.getFile(fileType, version, branch, build);
 
         return null;
     }
@@ -48,7 +48,7 @@ public class JFrogAPI {
         if (build == null) build = 0;
         RepositoryService repositoryService=new RepositoryService(repoName);
 
-        repositoryService.getBuild(fileType, version, null, build);
+        repositoryService.getFile(fileType, version, null, build);
 
         return null;
     }

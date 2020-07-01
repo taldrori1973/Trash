@@ -38,7 +38,7 @@ public class RepositoryService {
     }
 
 
-    public void getBuild(FileType fileType, String version, String branch, Integer build) throws Exception {
+    public void getFile(FileType fileType, String version, String branch, Integer build) throws Exception {
         ArtifactFolderPojo buildPojo;
         String jenkinsJob;
 
@@ -50,10 +50,10 @@ public class RepositoryService {
 
         if (branchPojo == null) {
             jenkinsJob = String.format(JENKINS_JOB_TEMPLATE, "master");
-            buildPojo = getBuild(versionPojo, build, fileType, jenkinsJob);//build under version
+            buildPojo = getFile(versionPojo, build, fileType, jenkinsJob);//build under version
         } else {
             jenkinsJob = String.format(JENKINS_JOB_TEMPLATE, branch);
-            buildPojo = getBuild(branchPojo, build, fileType, jenkinsJob);//build under branch
+            buildPojo = getFile(branchPojo, build, fileType, jenkinsJob);//build under branch
         }
         ArtifactFilePojo filePojo = getFile(buildPojo, fileType);
         ModelMapper modelMapper=new ModelMapper();
@@ -79,7 +79,7 @@ public class RepositoryService {
     }
 
 
-    private ArtifactFolderPojo getBuild(ArtifactFolderPojo buildParent, Integer build, FileType fileType, String jenkinsJob) throws Exception {
+    private ArtifactFolderPojo getFile(ArtifactFolderPojo buildParent, Integer build, FileType fileType, String jenkinsJob) throws Exception {
         if (build != 0) {//specific build
             String path = buildParent.getPath().getPath().substring(1) + "/" + build;
             if (isChildExistByUri(buildParent.getChildren(), build.toString()) && containsFileType(fileType, path)) {//build exist and contains the the file type
