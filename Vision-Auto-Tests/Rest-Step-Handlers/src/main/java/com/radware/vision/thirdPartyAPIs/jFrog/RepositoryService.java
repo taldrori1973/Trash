@@ -68,7 +68,7 @@ public class RepositoryService {
                         this.getClass().getName()
         ));
 
-      String fileUri=filterByFileType.get(0).getUri().toString();
+      String path=String.format("%s%s"filterByFileType.get(0).getUri().toString());
         return null;
     }
 
