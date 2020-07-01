@@ -1,4 +1,4 @@
-@VRM @TC105995
+@VRM @TC105995 @Test12
 Feature: DP Monitoring Dashboard - Protection Policies - Under Attack
 
   @SID_1
@@ -19,8 +19,8 @@ Feature: DP Monitoring Dashboard - Protection Policies - Under Attack
   Scenario: Login and navigate to VRM
     Given UI Login with user "sys_admin" and password "radware"
     * REST Vision Install License Request "vision-AVA-Max-attack-capacity"
-    When UI Click Button "Global Time Filter.Quick Range" with value "1H"
     And UI Navigate to "DefensePro Monitoring Dashboard" page via homePage
+    When UI Click Button "Global Time Filter.Quick Range" with value "1H"
 
   @SID_4
   Scenario: Validate first peace time policy - just traffic
