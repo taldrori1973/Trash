@@ -168,7 +168,7 @@ public class RepositoryService {
 
 //            Map Artifact Children to Version Pojo Array
             String artifactPath = artifactPojo.getPath().getPath().substring(1);
-            List<Object> collect = artifactPojo.getChildren().stream().map(child -> {
+            List<ArtifactFolderPojo> collect = artifactPojo.getChildren().stream().map(child -> {
                 try {
                     return getPojo(artifactPath + child.getUri().getPath(), StatusCode.OK, ArtifactFolderPojo.class);
                 } catch (Exception e) {
