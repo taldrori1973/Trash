@@ -97,8 +97,12 @@ public class RepositoryService {
     }
 
     private LinkedList<Integer> countingSort(Set<Integer> buildsNumbers) {
-        int buildsNumbersRange=buildsNumbers.stream().max(Integer::compareTo).orElse(0)+1;
-        Integer[] counterArray=new Integer[buildsNumbersRange];
+        int minBuildNumber=buildsNumbers.stream().min(Integer::compareTo).orElse(0);//for example 601
+        int maxBuildNumber=buildsNumbers.stream().max(Integer::compareTo).orElse(0);//for example 610
+
+        int buildsNumbersRange=maxBuildNumber-minBuildNumber+1;//610-601+1=10
+
+        Integer[] counterArray=new Integer[buildsNumbersRange];//build array of size 10 [0..9]
         buildsNumbers.forEach(buildNumber -> counterArray[buildNumber] = 1);
         LinkedList<Integer> sorted=new LinkedList<>();
         for(int i=0;i<counterArray.length;i++){
