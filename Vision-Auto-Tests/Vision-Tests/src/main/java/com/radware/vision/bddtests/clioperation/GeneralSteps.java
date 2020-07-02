@@ -6,6 +6,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.radware.automation.tools.utils.ExecuteShellCommands;
 import com.radware.automation.tools.utils.LinuxServerCredential;
 import com.radware.vision.automation.DatabaseStepHandlers.elasticSearch.ElasticSearchHandler;
+import com.radware.vision.automation.DatabaseStepHandlers.elasticSearch.LogsHandler;
 import com.radware.vision.automation.DatabaseStepHandlers.elasticSearch.search.*;
 import com.radware.vision.automation.DatabaseStepHandlers.elasticSearch.search.innerQuery.Match;
 import com.radware.vision.automation.DatabaseStepHandlers.elasticSearch.search.innerQuery.Range;
@@ -37,7 +38,7 @@ public class GeneralSteps extends BddCliTestBase {
         searchList.forEach(selection -> {
             try {
                 SearchBool searchBool = new SearchBool();
-                updateTimeRange(searchBool);
+                LogsHandler.updateTimeRange(searchBool,TestBase.getTestStartTime());
                 List<SearchLog> myIgnored = ignoreList.stream().filter(o ->
                         o.logType.equals(selection.logType)).collect(Collectors.toList());
                 if (!selection.logType.toString().equalsIgnoreCase("ALL")) {
@@ -190,17 +191,4 @@ public class GeneralSteps extends BddCliTestBase {
         return mapper.writeValueAsString(esQuery);
     }
 
-    /**
-     * update the query with test starting time
-     *
-     * @param searchBool the orignal query
-     */
-    private void updateTimeRange(SearchBool searchBool) {
-        LocalDateTime testTime = TestBase.getTestStartTime();
-        testTime = testTime.minusMonths(2);            //////////////////////////temproray
-        TimeStamp timeStamp = new TimeStamp();
-        timeStamp.addFilter("gt", testTime.toString());
-        Range range = new Range(timeStamp);
-        searchBool.getMust().add(range);
-    }
 }
