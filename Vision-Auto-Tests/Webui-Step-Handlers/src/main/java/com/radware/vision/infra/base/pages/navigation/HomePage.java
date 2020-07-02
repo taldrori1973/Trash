@@ -40,7 +40,7 @@ public class HomePage {
         path.addAll(Arrays.asList(pathText.split("->")));
         if (path.isEmpty()) throw new Exception("The path is empty!!");
         VisionDebugIdsManager.setTab("HomePage");
-        expandMenu();
+//        expandMenu();
     }
 
     private static String getHomePagePath(String tab) {
