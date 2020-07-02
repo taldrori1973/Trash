@@ -15,6 +15,7 @@ import com.radware.vision.bddtests.BddCliTestBase;
 import com.radware.vision.infra.testhandlers.baseoperations.BasicOperationsHandler;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
+
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -49,7 +50,7 @@ public class GeneralSteps extends BddCliTestBase {
                     case "false":
                         String isNotExpectedQuery = isNotExpectedQuery(selection, myIgnored, searchBool);
 
-                        if (ElasticSearchHandler.searchGetNumberOfHits("logstash-*", isNotExpectedQuery) >= 1)
+                        if (ElasticSearchHandler.searchGetNumberOfHits("logstash-2020.06.25", isNotExpectedQuery) >= 1)
                             addErrorMessage(String.format("The Log %s contains -> %s", selection.logType.serverLogType, selection.expression));
                         break;
 
@@ -60,11 +61,11 @@ public class GeneralSteps extends BddCliTestBase {
                 }
             } catch (Exception e) {
                 e.printStackTrace();
+                addErrorMessage(e.getMessage());
             }
         });
         reportErrors();
     }
-
 
 
     private void searchExpressionInLog(SearchLog object, String command) {
@@ -152,21 +153,22 @@ public class GeneralSteps extends BddCliTestBase {
     }
 
     /**
-     *
-     * @param selection the experssion in the log we need to search
-     * @param myIgnored the ignoreLIst
+     * @param selection  the experssion in the log we need to search
+     * @param myIgnored  the ignoreLIst
      * @param searchBool the orignal query
-     * @return  return the query after adding the experssion to it
+     * @return return the query after adding the experssion to it
      * @throws JsonProcessingException JsonProcessingException
      */
     private String isNotExpectedQuery(SearchLog selection, List<SearchLog> myIgnored, SearchBool searchBool) throws JsonProcessingException {
-        Match shouldMatch = new Match();
-        shouldMatch.add("message", selection.expression);
-        searchBool.getShould().add(shouldMatch);
+        Match mustMatch = new Match();
+        mustMatch.add("message", selection.expression);
+        searchBool.getMust().add(mustMatch);
         for (SearchLog ignore : myIgnored) {
-            Match mustNotMatch = new Match();
-            mustNotMatch.add("message", ignore.expression);
-            searchBool.getMust_not().add(mustNotMatch);
+            if (ignore.logType.serverLogType.equalsIgnoreCase(selection.logType.serverLogType)) {
+                Match mustNotMatch = new Match();
+                mustNotMatch.add("message", ignore.expression);
+                searchBool.getMust_not().add(mustNotMatch);
+            }
         }
         EsQuery esQuery = new EsQuery(new SearchQuery(searchBool));
         ObjectMapper mapper = new ObjectMapper();
@@ -174,10 +176,9 @@ public class GeneralSteps extends BddCliTestBase {
     }
 
     /**
-     *
      * @param selection  the experssion in the log we need to search
      * @param searchBool the orignal query
-     * @return  return the query after adding the experssion to it
+     * @return return the query after adding the experssion to it
      * @throws JsonProcessingException
      */
     private String ExpectedQuery(SearchLog selection, SearchBool searchBool) throws JsonProcessingException {
@@ -195,8 +196,8 @@ public class GeneralSteps extends BddCliTestBase {
      * @param searchBool the orignal query
      */
     private void updateTimeRange(SearchBool searchBool) {
-        LocalDateTime testTime = TestBase.getTestTime();
-        testTime=testTime.minusMonths(2);            //////////////////////////temproray
+        LocalDateTime testTime = TestBase.getTestStartTime();
+        testTime = testTime.minusMonths(2);            //////////////////////////temproray
         TimeStamp timeStamp = new TimeStamp();
         timeStamp.addFilter("gt", testTime.toString());
         Range range = new Range(timeStamp);
