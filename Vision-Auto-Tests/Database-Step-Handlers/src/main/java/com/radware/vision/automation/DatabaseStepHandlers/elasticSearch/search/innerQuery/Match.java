@@ -9,17 +9,21 @@ import java.util.Map;
 
 @Data
 public class Match implements InnerQuery {
-    Map<String, String> match;
+    Map<String, Map<String,String>> match;
 
     public Match() {
         match = new HashMap<>();
     }
 
-    public Match(Map<String, String> match) {
+    public Match(Map<String, Map<String,String>> match) {
         this.match = match;
     }
 
     public void add(String key, String value) {
-        match.put(key, value);
+        HashMap<String,String> map =new HashMap<>();
+        map.put("query",value);
+        map.put("operator","and");
+
+        match.put(key, map);
     }
 }

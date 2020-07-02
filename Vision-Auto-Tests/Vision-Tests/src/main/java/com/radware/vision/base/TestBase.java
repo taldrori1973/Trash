@@ -11,6 +11,8 @@ import com.radware.vision.systemManagement.serversManagement.ServersManagement;
 import com.radware.vision.systemManagement.visionConfigurations.ManagementInfo;
 import com.radware.vision.systemManagement.visionConfigurations.VisionConfigurations;
 
+import java.time.LocalDateTime;
+
 
 public abstract class TestBase {
 
@@ -20,6 +22,7 @@ public abstract class TestBase {
 
     protected static ManagementInfo managementInfo;
     protected static ClientConfigurationDto clientConfigurations;
+    protected static LocalDateTime testStartTime;
 
     static {
         sutManager = SUTManagerImpl.getInstance();
@@ -29,7 +32,7 @@ public abstract class TestBase {
 
         managementInfo = getVisionConfigurations().getManagementInfo();
         clientConfigurations = getSutManager().getClientConfigurations();
-
+        testStartTime =LocalDateTime.now();
     }
 
     public static VisionConfigurations getVisionConfigurations() {
@@ -40,5 +43,5 @@ public abstract class TestBase {
         return sutManager;
     }
 
-
+    public static LocalDateTime getTestStartTime(){return testStartTime;}
 }

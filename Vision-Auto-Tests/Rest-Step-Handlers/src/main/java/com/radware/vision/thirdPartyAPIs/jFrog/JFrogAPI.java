@@ -1,8 +1,7 @@
 package com.radware.vision.thirdPartyAPIs.jFrog;
 
-import com.radware.vision.automation.AutoUtils.utils.ApplicationPropertiesUtils;
-import com.radware.vision.thirdPartyAPIs.jFrog.models.Child;
 import com.radware.vision.thirdPartyAPIs.jFrog.models.FileType;
+import com.radware.vision.thirdPartyAPIs.jFrog.models.JFrogFileModel;
 
 /**
  * Created by MohamadI - Muhamad Igbaria
@@ -11,7 +10,6 @@ import com.radware.vision.thirdPartyAPIs.jFrog.models.FileType;
  */
 public class JFrogAPI {
 
-    private static ApplicationPropertiesUtils applicationPropertiesUtils = new ApplicationPropertiesUtils();
 
 
     /**
@@ -24,14 +22,13 @@ public class JFrogAPI {
      * @param build    desired build number , if null or 0 will search for last successful build under version and branch
      * @return The requested build file info
      */
-    public static Child getBuild(FileType fileType, String repoName, String version, String branch, Integer build) throws Exception {
+    public static JFrogFileModel getBuild(FileType fileType, String repoName, String version, String branch, Integer build) throws Exception {
         if (version == null) version = "Latest";
-        if (branch == null) branch = applicationPropertiesUtils.getProperty("default.branch");
+        if (branch == null) branch = "master";
         if (build == null) build = 0;
         RepositoryService repositoryService=new RepositoryService(repoName);
-        repositoryService.getBuild(fileType, version, branch, build);
+        return repositoryService.getFile(fileType, version, branch, build);
 
-        return null;
     }
 
     /**
@@ -43,14 +40,13 @@ public class JFrogAPI {
      * @param build    desired build number , if null will search for last successful build under version and branch
      * @return The requested build file info
      */
-    public static Child getBuild(FileType fileType, String repoName, String version, Integer build) throws Exception {
+    public static JFrogFileModel getBuild(FileType fileType, String repoName, String version, Integer build) throws Exception {
         if (version == null) version = "Latest";
         if (build == null) build = 0;
         RepositoryService repositoryService=new RepositoryService(repoName);
 
-        repositoryService.getBuild(fileType, version, null, build);
+        return repositoryService.getFile(fileType, version, null, build);
 
-        return null;
     }
 
 }

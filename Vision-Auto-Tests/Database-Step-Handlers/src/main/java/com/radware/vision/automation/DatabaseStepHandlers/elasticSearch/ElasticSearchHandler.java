@@ -47,9 +47,8 @@ public class ElasticSearchHandler {
         ElasticsearchRestAPI esRestApi = createEsRestConnection("Vision/elasticSearch.json", "Search index by query");
         HashMap<String, String> hash_map_param = new HashMap<>();
         hash_map_param.put("indexName", index);
-        HashMap<String, String> hash_map_param_query = new HashMap<>();
-        hash_map_param_query.put(field, value);
-        Match match = new Match(hash_map_param_query);
+        Match match = new Match();
+        match.add(field, value);
         SearchBool searchBool = new SearchBool();
         searchBool.getMust().add(match);
         String json= null;
