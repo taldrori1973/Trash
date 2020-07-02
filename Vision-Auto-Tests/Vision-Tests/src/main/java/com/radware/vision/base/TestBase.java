@@ -22,7 +22,7 @@ public abstract class TestBase {
 
     protected static ManagementInfo managementInfo;
     protected static ClientConfigurationDto clientConfigurations;
-    protected static LocalDateTime testTime;
+    protected static LocalDateTime testStartTime;
 
     static {
         sutManager = SUTManagerImpl.getInstance();
@@ -32,7 +32,7 @@ public abstract class TestBase {
 
         managementInfo = getVisionConfigurations().getManagementInfo();
         clientConfigurations = getSutManager().getClientConfigurations();
-        testTime=LocalDateTime.now();
+        testStartTime =LocalDateTime.now();
     }
 
     public static VisionConfigurations getVisionConfigurations() {
@@ -43,5 +43,5 @@ public abstract class TestBase {
         return sutManager;
     }
 
-    public static LocalDateTime getTestTime(){return testTime;}
+    public static LocalDateTime getTestStartTime(){return testStartTime;}
 }
