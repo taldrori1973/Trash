@@ -67,6 +67,7 @@ Feature: Alert Disk Space
 
   @SID_9
   Scenario: Disk Space Alert Basic Major - Alert table
+    When UI Click Button by id "gwt-debug-AlertsMaximize"
     Then UI Validate Alert record Content by KeyValue with columnName "Message" with content "The APSolute Vision disk utilization of"
       | columnName   | value           |
       | Severity     | Major           |
@@ -94,6 +95,7 @@ Feature: Alert Disk Space
 
   @SID_11
   Scenario: Disk Space Alert Basic Critical - Alert table
+    When UI Click Button by id "gwt-debug-AlertsMaximize"
     Then UI Validate Alert record Content by KeyValue with columnName "Message" with content "The APSolute Vision disk utilization of"
       | columnName   | value           |
       | Severity     | Critical        |
