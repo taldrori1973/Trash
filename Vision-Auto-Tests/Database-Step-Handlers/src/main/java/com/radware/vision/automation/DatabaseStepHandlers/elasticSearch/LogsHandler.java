@@ -77,7 +77,7 @@ public class LogsHandler {
      * @param selection  the experssion in the log we need to search
      * @param searchBool the orignal query
      * @return return the query after adding the experssion to it
-     * @throws JsonProcessingException
+     * @throws JsonProcessingException JsonProcessingException
      */
     public static String ExpectedQuery(SearchLog selection, SearchBool searchBool) throws JsonProcessingException {
         Match mustMatch = new Match();
