@@ -40,25 +40,25 @@ public class GeneralSteps extends BddCliTestBase {
                 SearchBool searchBool = new SearchBool();
                 LogsHandler.updateTimeRange(searchBool,TestBase.getTestStartTime());
                 List<SearchLog> myIgnored = ignoreList.stream().filter(o ->
-                        o.logType.equals(selection.logType)).collect(Collectors.toList());
-                if (!selection.logType.toString().equalsIgnoreCase("ALL")) {
+                        o.getLogType().equals(selection.getLogType())).collect(Collectors.toList());
+                if (!selection.getLogType().toString().equalsIgnoreCase("ALL")) {
                     Match mustMatch = new Match();
-                    mustMatch.add("kubernetes.container_name", selection.logType.getServerLogType());         /// log type
+                    mustMatch.add("kubernetes.container_name", selection.getLogType().serverLogType);         /// log type
                     searchBool.getMust().add(mustMatch);
                 }
 
-                switch (selection.isExpected.messageAction) {
+                switch (selection.getIsExpected().messageAction) {
                     case "false":
-                        String isNotExpectedQuery = isNotExpectedQuery(selection, myIgnored, searchBool);
+                        String isNotExpectedQuery = LogsHandler.isNotExpectedQuery(selection, myIgnored, searchBool);
 
-                        if (ElasticSearchHandler.searchGetNumberOfHits("logstash-2020.06.25", isNotExpectedQuery) >= 1)
-                            addErrorMessage(String.format("The Log %s contains -> %s", selection.logType.serverLogType, selection.expression));
+                        if (ElasticSearchHandler.searchGetNumberOfHits("logstash-*", isNotExpectedQuery) >= 1)
+                            addErrorMessage(String.format("The Log %s contains -> %s", selection.getLogType().serverLogType, selection.getExpression()));
                         break;
 
                     case "true":
-                        String isExpectedQuery = ExpectedQuery(selection, searchBool);
+                        String isExpectedQuery = LogsHandler.ExpectedQuery(selection, searchBool);
                         if (ElasticSearchHandler.searchGetNumberOfHits("logstash-*", isExpectedQuery) < 1)
-                            addErrorMessage(String.format("The Log %s does not contain -> %s", selection.logType.serverLogType, selection.expression));
+                            addErrorMessage(String.format("The Log %s does not contain -> %s", selection.getLogType().serverLogType, selection.getExpression()));
                 }
             } catch (Exception e) {
                 e.printStackTrace();
@@ -74,10 +74,10 @@ public class GeneralSteps extends BddCliTestBase {
         ExecuteShellCommands executeShellCommands = ExecuteShellCommands.getInstance();
         executeShellCommands.runRemoteShellCommand(rootCredentials, command);
         String output = executeShellCommands.getShellCommandOutput();
-        if (output.equals("") && object.isExpected.equals(MessageAction.EXPECTED))
-            addErrorMessage(object.logType.toString() + ": does not contain -> " + object.expression);
-        else if (!output.equals("") && object.isExpected.equals(MessageAction.NOT_EXPECTED)) {
-            addErrorMessage(object.logType.toString() + ": contains -> " + object.expression + "\n" + output);
+        if (output.equals("") && object.getIsExpected().equals(SearchLog.MessageAction.EXPECTED))
+            addErrorMessage(object.getLogType().toString() + ": does not contain -> " + object.getExpression());
+        else if (!output.equals("") && object.getIsExpected().equals(SearchLog.MessageAction.NOT_EXPECTED)) {
+            addErrorMessage(object.getLogType().toString() + ": contains -> " + object.getExpression() + "\n" + output);
         }
     }
 
@@ -89,106 +89,16 @@ public class GeneralSteps extends BddCliTestBase {
         BasicOperationsHandler.delay(60 * waitTime);
     }
 
-    private enum ServerLogType {
-        /**
-         * Tomcat-> collector,reporter,vrm,rt alerts
-         * Tomcat2-> scheduler,rt alerts,alerts manager
-         * JBOSS-> config service
-         **/
-
-        ALL(""),
-        CONFIGSERVICE("config service"),
-        ALERTSMANAGER("alerts manager"),
-        SCHEDULER("scheduler"),
-        ALERTS("rt alerts"),
-        VRM("vrm"),
-        REPORTER("reporter"),
-        FORMATTER("formatter"),
-        COLLECTOR("collector"),
-        VDIRECT("vDirect"),
-        ES("elasticsearch"),
-        FLUENTD("Fluentd"),
-        LLS("Lls");
-
-        private String serverLogType;
-
-        ServerLogType(String serverLogType) {
-            this.serverLogType = serverLogType;
-        }
-
-        private String getServerLogType() {
-            return serverLogType;
-        }
-    }
-
-    public static class SearchLog {
-        ServerLogType logType;
-        String expression;
-        MessageAction isExpected;
-
-        public void setLogType(ServerLogType logType) {
-            this.logType = logType;
-        }
-    }
-
-    private enum MessageAction {
-        NOT_EXPECTED("false"),
-        EXPECTED("true"),
-        IGNORE("ignore");
-
-        private String messageAction;
-
-        MessageAction(String messageAction) {
-            this.messageAction = messageAction;
-        }
-    }
 
     private List<SearchLog> getIgnoreList(List<SearchLog> selections) {
         return selections.stream().filter(o ->
-                o.isExpected.equals(MessageAction.IGNORE)).collect(Collectors.toList());
+                o.getIsExpected().equals(SearchLog.MessageAction.IGNORE)).collect(Collectors.toList());
     }
 
     private List<SearchLog> getSearchList(List<SearchLog> selections) {
         return selections.stream().filter(o ->
-                !o.isExpected.equals(MessageAction.IGNORE)).collect(Collectors.toList());
+                !o.getIsExpected().equals(SearchLog.MessageAction.IGNORE)).collect(Collectors.toList());
     }
 
-    /**
-     * @param selection  the experssion in the log we need to search
-     * @param myIgnored  the ignoreLIst
-     * @param searchBool the orignal query
-     * @return return the query after adding the experssion to it
-     * @throws JsonProcessingException JsonProcessingException
-     */
-    private String isNotExpectedQuery(SearchLog selection, List<SearchLog> myIgnored, SearchBool searchBool) throws JsonProcessingException {
-        Match mustMatch = new Match();
-        mustMatch.add("message", selection.expression);
-        searchBool.getMust().add(mustMatch);
-        for (SearchLog ignore : myIgnored) {
-            if (ignore.logType.serverLogType.equalsIgnoreCase(selection.logType.serverLogType)) {
-                Match mustNotMatch = new Match();
-                mustNotMatch.add("message", ignore.expression);
-                searchBool.getMust_not().add(mustNotMatch);
-            }
-        }
-        EsQuery esQuery = new EsQuery(new SearchQuery(searchBool));
-        ObjectMapper mapper = new ObjectMapper();
-        return mapper.writeValueAsString(esQuery);
-    }
-
-    /**
-     * @param selection  the experssion in the log we need to search
-     * @param searchBool the orignal query
-     * @return return the query after adding the experssion to it
-     * @throws JsonProcessingException
-     */
-    private String ExpectedQuery(SearchLog selection, SearchBool searchBool) throws JsonProcessingException {
-        Match mustMatch = new Match();
-        mustMatch.add("message", selection.expression);
-        searchBool.getMust().add(mustMatch);
-        EsQuery esQuery = new EsQuery(new SearchQuery(searchBool));
-        ObjectMapper mapper = new ObjectMapper();
-        return mapper.writeValueAsString(esQuery);
-    }
 
 }
