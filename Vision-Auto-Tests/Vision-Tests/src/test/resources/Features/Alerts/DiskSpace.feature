@@ -18,6 +18,8 @@ Feature: Alert Disk Space
   Scenario: Disk Space Alert Basic Minor - bar icon - Login to verify
     When UI Login with user "radware" and password "radware"
     Then Browser Refresh Page
+    Then UI Logout
+    When UI Login with user "radware" and password "radware"
     Then UI Validate Element Existence By GWT id "Disk Space Alert" if Exists "true" with value "Disk Space Alert"
     Then UI logout and close browser
 
