@@ -31,7 +31,7 @@ Feature: Alert Disk Space
 
   @SID_4
   Scenario: Disk Space Alert Basic Minor - Alert table
-    Then CLI Run linux Command "curl -XPOST -s -d'{"query":{"bool":{"must":[{"match":{"module":"INSITE_GENERAL"}},{"match":{"severity":"MINOR"}},{"match":{"userName":"APSolute_Vision"}},{"wildcard":{"message":"*The APSolute Vision disk utilization of \"/dev/sda2\" is now*"}}]}},"from":0,"size":10}' localhost:9200/alert/_search | grep "hits\":{\"total\":1" |wc -l" on "ROOT_SERVER_CLI" and validate result EQUALS "1"
+    Then CLI Run linux Command "curl -XPOST -s -d'{"query":{"bool":{"must":[{"match":{"module":"INSITE_GENERAL"}},{"match":{"severity":"MINOR"}},{"match":{"userName":"APSolute_Vision"}},{"wildcard":{"message":"*The APSolute Vision disk utilization of \"/dev/vda2\" is now*"}}]}},"from":0,"size":10}' localhost:9200/alert/_search | grep "hits\":{\"total\":1" |wc -l" on "ROOT_SERVER_CLI" and validate result GTE "1"
 
   @SID_5
   Scenario: Disk Space Alert RBAC
