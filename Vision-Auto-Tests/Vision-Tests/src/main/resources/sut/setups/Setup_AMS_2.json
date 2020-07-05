@@ -23,6 +23,13 @@
       {
         "deviceId": "DefensePro_172.16.22.55",
         "parentSite": "VA_DPs_Version_8_site"
+      }, {
+        "deviceId": "DefensePro_50.50.7.1",
+        "parentSite": "VA_DPs_Version_8_site"
+      },
+      {
+        "deviceId": "DefensePro_50.50.7.2",
+        "parentSite": "VA_DPs_Version_8_site"
       }
     ]
   },
