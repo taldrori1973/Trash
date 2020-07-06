@@ -28,15 +28,15 @@ public class ServersDao {
         );
     }
 
-    public static ServersDao get_instance(String setupFileName) {
+    public static ServersDao get_instance(String externalServersFileName) {
         if (Objects.isNull(_instance)) {
-            _instance = new ServersDao(setupFileName);
+            _instance = new ServersDao(externalServersFileName);
         }
         return _instance;
     }
 
 
     public Optional<ServerPojo> findServerById(String serverId) {
-        return this.setupPojo.getServers().stream().filter(serverPojo -> serverPojo.getServerId().equals(serverId)).findFirst();
+        return this.externalServersPojo.getServers().stream().filter(serverPojo -> serverPojo.getServerId().equals(serverId)).findFirst();
     }
 }
