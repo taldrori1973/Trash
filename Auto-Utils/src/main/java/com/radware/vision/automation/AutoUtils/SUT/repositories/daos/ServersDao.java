@@ -11,7 +11,7 @@ import java.util.Optional;
 
 public class ServersDao {
 
-    private static final String SUT_SETUPS_FILES_PATH_PROPERTY = "SUT.setups.path";
+    private static final String SUT_SETUPS_FILES_PATH_PROPERTY = "SUT.servers.path";
 
     private static ServersDao _instance;
 
