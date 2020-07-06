@@ -2,7 +2,6 @@ package com.radware.vision.automation.AutoUtils.SUT.repositories.daos;
 
 import com.radware.vision.automation.AutoUtils.SUT.repositories.pojos.servers.ExternalServersPojo;
 import com.radware.vision.automation.AutoUtils.SUT.repositories.pojos.servers.ServerPojo;
-import com.radware.vision.automation.AutoUtils.SUT.repositories.pojos.setup.SetupPojo;
 import com.radware.vision.automation.AutoUtils.utils.ApplicationPropertiesUtils;
 import com.radware.vision.automation.AutoUtils.utils.JsonUtilities;
 import com.radware.vision.automation.AutoUtils.utils.SystemProperties;
@@ -19,13 +18,13 @@ public class ServersDao {
 
     private ExternalServersPojo externalServersPojo;
 
-    public ServersDao(String setupFileName) {
+    public ServersDao(String externalServersFileName) {
         ApplicationPropertiesUtils applicationPropertiesUtils = new ApplicationPropertiesUtils();
         SystemProperties systemProperties = SystemProperties.get_instance();
-        this.setupPojo = JsonUtilities.loadJsonFile(
+        this.externalServersPojo = JsonUtilities.loadJsonFile(
                 systemProperties.getResourcesPath(
-                        String.format("%s/%s", applicationPropertiesUtils.getProperty(SUT_SETUPS_FILES_PATH_PROPERTY), setupFileName)
-                ), SetupPojo.class
+                        String.format("%s/%s", applicationPropertiesUtils.getProperty(SUT_SETUPS_FILES_PATH_PROPERTY), externalServersFileName)
+                ), ExternalServersPojo.class
         );
     }
 
