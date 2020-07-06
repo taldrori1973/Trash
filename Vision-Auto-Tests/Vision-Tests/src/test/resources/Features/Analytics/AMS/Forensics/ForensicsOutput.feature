@@ -43,7 +43,7 @@ Feature: Forensics Output
     Given UI "Create" Forensics With Name "All Output Fields"
       | Time Definitions.Date | Absolute:[01.08.2018 01:00:00, +0d] |
       | Criteria              | Event Criteria:Attack ID,Operator:Equals,Value:78-1526381752;                                                                                                                                                                                |
-      | Output                | Action,Attack ID,Start Time,Source IP Address,Source Port,Destination IP Address,Destination Port,Direction,Protocol,Threat Category,Radware ID,Device IP Address,Attack Name,End Time,Duration,Packets,Mbits,Physical Port,Policy Name,Risk |
+      | Output                | Action,Attack ID,Start Time,Source IP Address,Source Port,Destination IP Address,Destination Port,Direction,Protocol,Threat Category,Radware ID,Device IP Address,Attack Name,End Time,Duration,pps,Mbits,Physical Port,Policy Name,Risk |
     Then UI Generate and Validate Forensics With Name "All Output Fields" with Timeout of 300 Seconds
     And Sleep "30"
     Then UI Click Button "Views.report" with value "All Output Fields"
@@ -98,10 +98,10 @@ Feature: Forensics Output
       | columnName             | value                                   |
       | Duration               | 15                                      |
   @SID_16
-  Scenario: VRM - Validate Forensics output Packets
+  Scenario: VRM - Validate Forensics output pps
     Then UI Validate Table record values by columns with elementLabel "Report.Table" findBy index 0
       | columnName             | value                                   |
-      | Packets                | 38580044                                |
+      | pps                | 38580044                                |
   @SID_17
   Scenario: VRM - Validate Forensics output Mbits
     Then UI Validate Table record values by columns with elementLabel "Report.Table" findBy index 0
@@ -186,7 +186,7 @@ Feature: Forensics Output
 #  Scenario: VRM - Add New Forensics Report output - 3rd group
 #    When UI "Create" Forensics With Name "radware_radware302"
 ##      | Time Definitions.Date | Quick:This Month                                        |
-#      | Output                | Device IP Address,Attack Name,End Time,Duration,Packets |
+#      | Output                | Device IP Address,Attack Name,End Time,Duration,pps |
 #    When UI Click Button "Edit" with value "radware_radware302"
 ##    And UI Click Button "Output Card" with value "initial"
 #    And UI Click Button "Tab" with value "output-tab"
@@ -195,7 +195,7 @@ Feature: Forensics Output
 #    Then UI validate Checkbox by label "output" optional params "Attack Name" if Selected "true"
 #    Then UI validate Checkbox by label "output" optional params "End Time" if Selected "true"
 #    Then UI validate Checkbox by label "output" optional params "Duration" if Selected "true"
-#    Then UI validate Checkbox by label "output" optional params "Packets" if Selected "true"
+#    Then UI validate Checkbox by label "output" optional params "pps" if Selected "true"
 #    When UI Click Button "Close" with value ""
 #
 #  @SID_8
