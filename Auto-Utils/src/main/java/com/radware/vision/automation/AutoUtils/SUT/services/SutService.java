@@ -6,6 +6,7 @@ import com.radware.vision.automation.AutoUtils.SUT.dtos.ClientConfigurationDto;
 import com.radware.vision.automation.AutoUtils.SUT.dtos.ServerDto;
 import com.radware.vision.automation.AutoUtils.SUT.dtos.TreeDeviceManagementDto;
 import com.radware.vision.automation.AutoUtils.SUT.repositories.daos.DevicesDao;
+import com.radware.vision.automation.AutoUtils.SUT.repositories.daos.ServersDao;
 import com.radware.vision.automation.AutoUtils.SUT.repositories.daos.SetupDao;
 import com.radware.vision.automation.AutoUtils.SUT.repositories.daos.SutDao;
 import com.radware.vision.automation.AutoUtils.SUT.repositories.pojos.devices.Device;
@@ -32,6 +33,7 @@ public class SutService {
     private DevicesDao devicesDao;
     private SetupDao setupDao;
     private SutDao sutDao;
+    private ServersDao serversDao;
 
     public SutService() {
         this.modelMapper = new ModelMapper();
@@ -91,7 +93,7 @@ public class SutService {
     }
 
     public Optional<ServerDto> getServerById(String serverId) {
-        Optional<ServerPojo> serverFromPojo = this.setupDao.findServerById(serverId);
+        Optional<ServerPojo> serverFromPojo = this.serversDao.findServerById(serverId);
         if (!serverFromPojo.isPresent()) return Optional.empty();
         ServerDto serverDto = modelMapper.map(serverFromPojo.get(), ServerDto.class);
         return Optional.of(serverDto);
