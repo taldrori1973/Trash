@@ -188,11 +188,11 @@ Feature: Forensic Attack details Tests
     * UI Click Button "Report.Clear Refine"
 
   @SID_20
-  Scenario: Validate attack details refine by Packets
+  Scenario: Validate attack details refine by pps
     When UI click Table row by keyValue or Index with elementLabel "Report.Table" findBy columnName "Attack ID" findBy cellValue "800-1525623158"
     And UI Click Button "Report.Attack Details.Refine View"
     And UI Select Multi items from dropdown "Report.Attack Details.Refine.Dropdown" apply
-      | Packets |
+      | pps |
     Then UI Validate "Report.Table" Table rows count EQUALS to 1
     * UI Click Button "Report.Clear Refine"
 
