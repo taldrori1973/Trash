@@ -1,6 +1,6 @@
 package com.radware.vision.automation.AutoUtils.SUT.repositories.daos;
 
-import com.radware.vision.automation.AutoUtils.SUT.repositories.pojos.setup.ServerPojo;
+import com.radware.vision.automation.AutoUtils.SUT.repositories.pojos.servers.ServerPojo;
 import com.radware.vision.automation.AutoUtils.SUT.repositories.pojos.setup.SetupPojo;
 import com.radware.vision.automation.AutoUtils.SUT.repositories.pojos.setup.Site;
 import com.radware.vision.automation.AutoUtils.SUT.repositories.pojos.setup.TreeDeviceNode;

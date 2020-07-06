@@ -1,4 +1,4 @@
-package com.radware.vision.automation.AutoUtils.SUT.repositories.pojos.setup;
+package com.radware.vision.automation.AutoUtils.SUT.repositories.pojos.servers;
 
 import lombok.Data;
 
