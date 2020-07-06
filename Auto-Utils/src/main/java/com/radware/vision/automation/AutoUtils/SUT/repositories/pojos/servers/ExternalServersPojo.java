@@ -2,7 +2,7 @@ package com.radware.vision.automation.AutoUtils.SUT.repositories.pojos.servers;
 
 import lombok.Data;
 
-import java.util.List;
+import java.util.ArrayList;
 
 /**
  * Created by MohamadI - Muhamad Igbaria
@@ -10,6 +10,5 @@ import java.util.List;
  * Time: 3:39 PM
  */
 @Data
-public class ExternalServersPojo {
-    List<ServerPojo> servers;
+public class ExternalServersPojo extends ArrayList<ServerPojo> {
 }

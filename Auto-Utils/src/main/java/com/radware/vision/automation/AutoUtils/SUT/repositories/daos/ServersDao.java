@@ -37,6 +37,6 @@ public class ServersDao {
 
 
     public Optional<ServerPojo> findServerById(String serverId) {
-        return this.externalServersPojo.getServers().stream().filter(serverPojo -> serverPojo.getServerId().equals(serverId)).findFirst();
+        return this.externalServersPojo.stream().filter(serverPojo -> serverPojo.getServerId().equals(serverId)).findFirst();
     }
 }
