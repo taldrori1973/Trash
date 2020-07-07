@@ -11,7 +11,6 @@ Feature: HTTPS Server Dashboard
 #    * REST Delete ES index "dp-daily-https-rt-*"
 #    * REST Delete ES index "dp-hourly-https-rt-*"
 #    * REST Delete ES index "dp-https-stats*"
-
   @SID_2
   Scenario: Update Policies
     Given REST Login with user "radware" and password "radware"
@@ -27,10 +26,10 @@ Feature: HTTPS Server Dashboard
 #    When UI Click Button "Widgets Selection"
 #    When UI Click Button "Select Outbound Widget"
 #    When UI Click Button "Add Selected Widgets"
-
   @SID_4
   Scenario: Run DP simulator PCAPs for "HTTPS attacks"
     Given CLI simulate 2 attacks of type "HTTPS" on "DefensePro" 11 with loopDelay 5000 and wait 60 seconds
+
 
   @SID_5
   Scenario: Select Server
@@ -41,7 +40,6 @@ Feature: HTTPS Server Dashboard
     * Sleep "60"
 
       ##Https Flood - Info Card
-
   @SID_6
   Scenario: Validate title tool bar
     Then UI Validate Text field "header HTTPS" EQUALS "HTTPS Flood"
@@ -76,9 +74,9 @@ Feature: HTTPS Server Dashboard
       | borderWidth               | 1       |
       | pointHoverRadius          | 4       |
       | pointHoverBorderWidth     | 1       |
-      | backgroundColor           | #6296BA |
-      | pointHoverBackgroundColor | #6296BA |
-      | color                     | #6296BA |
+      | backgroundColor           | #006E8A |
+      | pointHoverBackgroundColor | #006E8A |
+      | color                     | #006E8A |
      #| shapeType                 | line-vertical |
 
   @SID_9
@@ -101,7 +99,7 @@ Feature: HTTPS Server Dashboard
       | borderCapStyle            | butt    |
       | borderDashOffset          | 0       |
       | borderJoinStyle           | miter   |
-      | borderWidth               | 3       |
+      | borderWidth               | 2       |
       | pointHoverRadius          | 0       |
       | pointHoverBorderWidth     | 0       |
       | backgroundColor           | #3C4144 |
@@ -134,9 +132,9 @@ Feature: HTTPS Server Dashboard
       | borderWidth               | 1       |
       | pointHoverRadius          | 4       |
       | pointHoverBorderWidth     | 1       |
-      | backgroundColor           | #F39C12 |
-      | pointHoverBackgroundColor | #F39C12 |
-      | color                     | #F39C12 |
+      | backgroundColor           | #FFC107 |
+      | pointHoverBackgroundColor | #FFC107 |
+      | color                     | #FFC107 |
      #| shapeType                 | plus    |
      #| borderColor               | #F39C12 |
       | pointHitRadius            | 0       |
@@ -165,9 +163,9 @@ Feature: HTTPS Server Dashboard
       | borderWidth               | 1       |
       | pointHoverRadius          | 4       |
       | pointHoverBorderWidth     | 1       |
-      | backgroundColor           | #E74C3C |
-      | pointHoverBackgroundColor | #E74C3C |
-      | color                     | #E74C3C |
+      | backgroundColor           | #F41414 |
+      | pointHoverBackgroundColor | #F41414 |
+      | color                     | #F41414 |
      #| shapeType                 | plus    |
      #| borderColor               | #E74C3C |
       | pointHitRadius            | 0       |
@@ -275,10 +273,10 @@ Feature: HTTPS Server Dashboard
   Scenario: Validate Https Flood baseline graph Transitory Baseline styling
     Then UI Validate Line Chart attributes "Requests per Second" with Label "Transitory Baseline"
       | attribute             | value   |
-      | backgroundColor       | #8CBA46 |
+      | backgroundColor       | #04C2A0 |
       | steppedLine           | true    |
       | pointHoverBorderWidth | 1       |
-      | borderColor           | #8CBA46 |
+      | borderColor           | #04C2A0 |
       | pointHitRadius        | 10      |
       | pointRadius           | 0       |
       | pointHoverRadius      | 4       |
@@ -292,48 +290,48 @@ Feature: HTTPS Server Dashboard
   @SID_29
   Scenario: Validate Https Flood baseline graph Transitory Attack Edge styling
     Then UI Validate Line Chart attributes "Requests per Second" with Label "Transitory Attack Edge"
-      | attribute             | value          |
-      | backgroundColor       | rgb(154, 1, 1) |
-      | steppedLine           | true           |
-      | pointHoverBorderWidth | 1              |
-      | borderColor           | rgb(154, 1, 1) |
-      | pointHitRadius        | 10             |
-      | pointRadius           | 0              |
-      | pointHoverRadius      | 4              |
-      | borderJoinStyle       | miter          |
-      | borderDashOffset      | 0              |
-      | borderWidth           | 2.5            |
-      | borderCapStyle        | butt           |
-      | lineTension           | 0.35           |
-      | fill                  | false          |
+      | attribute             | value   |
+      | backgroundColor       | #AA0A13 |
+      | steppedLine           | true    |
+      | pointHoverBorderWidth | 1       |
+      | borderColor           | #AA0A13 |
+      | pointHitRadius        | 10      |
+      | pointRadius           | 0       |
+      | pointHoverRadius      | 4       |
+      | borderJoinStyle       | miter   |
+      | borderDashOffset      | 0       |
+      | borderWidth           | 2.5     |
+      | borderCapStyle        | butt    |
+      | lineTension           | 0.35    |
+      | fill                  | false   |
 
   @SID_30
   Scenario: Validate Https Flood baseline graph Total Traffic styling
     Then UI Validate Line Chart attributes "Requests per Second" with Label "Total Traffic"
-      | attribute             | value                    |
-      | backgroundColor       | rgba(169, 207, 233, 0.8) |
-      | pointHoverBorderWidth | 1                        |
-      | borderColor           | rgb(169, 207, 233)       |
-      | pointHitRadius        | 10                       |
-      | pointRadius           | 0                        |
-      | pointHoverRadius      | 4                        |
-      | borderJoinStyle       | miter                    |
-      | borderDashOffset      | 0                        |
-      | borderWidth           | 1                        |
-      | borderCapStyle        | butt                     |
-      | lineTension           | 0.35                     |
-      | fill                  | true                     |
-      | borderColor           | rgb(169, 207, 233)       |
-      | color                 | rgba(169, 207, 233, 0.8) |
+      | attribute             | value   |
+      | backgroundColor       | #9AEEEA |
+      | pointHoverBorderWidth | 1       |
+      | borderColor           | #088EB1 |
+      | pointHitRadius        | 10      |
+      | pointRadius           | 0       |
+      | pointHoverRadius      | 4       |
+      | borderJoinStyle       | miter   |
+      | borderDashOffset      | 0       |
+      | borderWidth           | 1       |
+      | borderCapStyle        | butt    |
+      | lineTension           | 0.35    |
+      | fill                  | true    |
+      | borderColor           | #088EB1 |
+      | color                 | #9AEEEA |
 
   @SID_31
   Scenario: Validate Https Flood baseline graph Long Trend Baseline styling
     Then UI Validate Line Chart attributes "Requests per Second" with Label "Long-Term Trend Baseline"
       | attribute             | value   |
-      | backgroundColor       | #67853B |
+      | backgroundColor       | #0A7474 |
       | steppedLine           | true    |
       | pointHoverBorderWidth | 1       |
-      | borderColor           | #67853B |
+      | borderColor           | #0A7474 |
       | pointHitRadius        | 10      |
       | pointRadius           | 0       |
       | pointHoverRadius      | 4       |
@@ -348,10 +346,10 @@ Feature: HTTPS Server Dashboard
   Scenario: Validate Https Flood baseline graph Long Trend Attack Edge styling
     Then UI Validate Line Chart attributes "Requests per Second" with Label "Long-Term Trend Attack Edge"
       | attribute             | value   |
-      | backgroundColor       | #EC3434 |
+      | backgroundColor       | #FF4441 |
       | steppedLine           | true    |
       | pointHoverBorderWidth | 1       |
-      | borderColor           | #EC3434 |
+      | borderColor           | #FF4441 |
       | pointHitRadius        | 10      |
       | pointRadius           | 0       |
       | pointHoverRadius      | 4       |
@@ -365,20 +363,20 @@ Feature: HTTPS Server Dashboard
   @SID_33
   Scenario: Validate Https Flood baseline graph Legitimate Traffic styling
     Then UI Validate Line Chart attributes "Requests per Second" with Label "Legitimate Traffic"
-      | attribute             | value                 |
-      | backgroundColor       | rgba(66, 75, 83, 0.5) |
-      | pointHoverBorderWidth | 1                     |
-      | borderColor           | rgba(66, 75, 83, 0.5) |
-      | pointHitRadius        | 10                    |
-      | pointRadius           | 0                     |
-      | pointHoverRadius      | 4                     |
-      | borderJoinStyle       | miter                 |
-      | borderDashOffset      | 0                     |
-      | borderWidth           | 1                     |
-      | borderCapStyle        | butt                  |
-      | lineTension           | 0.35                  |
-      | fill                  | true                  |
-      | color                 | rgba(66, 75, 83, 0.5) |
+      | attribute             | value   |
+      | backgroundColor       | #9ec3cb |
+      | pointHoverBorderWidth | 1       |
+      | borderColor           | #9ec3cb |
+      | pointHitRadius        | 10      |
+      | pointRadius           | 0       |
+      | pointHoverRadius      | 4       |
+      | borderJoinStyle       | miter   |
+      | borderDashOffset      | 0       |
+      | borderWidth           | 1       |
+      | borderCapStyle        | butt    |
+      | lineTension           | 0.35    |
+      | fill                  | true    |
+      | color                 | #9ec3cb |
 
 
   ##https Otbound tests - Response Bandwidth
