@@ -1,6 +1,7 @@
-@VRM @TC105995 @Test12
+@VRM @TC105995
 Feature: DP Monitoring Dashboard - Protection Policies - Under Attack
 
+  
   @SID_1
   Scenario: Clean system data before "Protection Policies" test
     * CLI kill all simulator attacks on current vision
@@ -15,6 +16,7 @@ Feature: DP Monitoring Dashboard - Protection Policies - Under Attack
     And CLI simulate 1000 attacks of type "rest_traffic_diff_Policy15out" on "DefensePro" 10 with loopDelay 15000
     And CLI simulate 1000 attacks of type "rest_traffic_diff_Policy15out" on "DefensePro" 11 with loopDelay 15000 and wait 50 seconds
 
+  
   @SID_3
   Scenario: Login and navigate to VRM
     Given UI Login with user "sys_admin" and password "radware"
@@ -166,6 +168,7 @@ Feature: DP Monitoring Dashboard - Protection Policies - Under Attack
       | Drop Rate             | 0 bps                   |
       | Attack Categories     | None                    |
 
+  
   @SID_12
   Scenario: Run DP simulator PCAPs for "Protection Policies" - Global Policy attacks
     * CLI kill all simulator attacks on current vision
@@ -178,6 +181,7 @@ Feature: DP Monitoring Dashboard - Protection Policies - Under Attack
       | 10    |       |          |
       | 11    |       |          |
 
+  
   @SID_13
   Scenario: Validate global policy for first device - traffic and attacks
     Then UI Validate Table record values by columns with elementLabel "Protection Policies.Table" findBy columnName "Attack Categories" findBy cellValue "ACL"
@@ -186,14 +190,15 @@ Feature: DP Monitoring Dashboard - Protection Policies - Under Attack
       | Device                | DefensePro_172.16.22.50 |
       | Policy Name           | Global Policy           |
       | Policy Status         | underAttack             |
-      | Total Inbound Traffic | 863.02 Mbps               |
-      | Attack Rate           | 863.02 Mbps               |
-      | Drop Rate             | 863.02 Mbps               |
+      | Total Inbound Traffic | 867.07 Mbps               |
+      | Attack Rate           | 867.07 Mbps               |
+      | Drop Rate             | 867.07 Mbps               |
       | Attack Categories     | ACL                     |
 
+  
   @SID_14
   Scenario: Validate global policy for second device - traffic and attacks
-    Then UI Validate Table record values by columns with elementLabel "Protection Policies.Table" findBy columnName "Attack Categories" findBy cellValue "Anomalies"
+    Then UI Validate Table record values by columns with elementLabel "Protection Policies.Table" findBy index 1 findBy columnName "Attack Categories" findBy cellValue "Anomalies"
       | columnName            | value                   |
       | Site                  | RealDPs_Version_8_site  |
       | Device                | DefensePro_172.16.22.51 |
