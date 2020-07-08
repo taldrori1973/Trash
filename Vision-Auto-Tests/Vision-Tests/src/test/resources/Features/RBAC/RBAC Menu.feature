@@ -14,16 +14,8 @@ Feature: RBAC Menu
   Scenario: Login And Go to Vision
     Given UI Login with user "radware" and password "radware"
     Given UI Go To Vision
-#    These settings will be enabled once the enhancements for US66016 are merged
-#    Then UI Navigate to page "System->User Management->User Management Settings"
-#    Then UI Set Text field with id "gwt-debug-minPasswordLength_Widget" with "6"
-#    Then UI Set Text field with id "gwt-debug-minUpperCaseChars_Widget" with "0"
-#    Then UI Set Text field with id "gwt-debug-minLowerCaseChars_Widget" with "0"
-#    Then UI Set Text field with id "gwt-debug-minNumDigits_Widget" with "0"
-#    Then UI Set Text field with id "gwt-debug-minSpecialChars_Widget" with "0"
-#    Then UI Click Button "Submit"
 
-
+  
   @SID_3
   Scenario Outline: Create users and verify
     Given UI Navigate to page "System->User Management->Local Users"
@@ -48,7 +40,7 @@ Feature: RBAC Menu
       | vision_reporter       | Vision Reporter               | [ALL] | Radware1234!@#$    |
       | system_user           | System User                   | [ALL] | Radware1234!@#$    |
 
-
+  
   @SID_4
   Scenario Outline: Scope "All" is required for User Definition
     When Scope Is "<enabled or disabled>" For Role "<Role>"
@@ -71,16 +63,19 @@ Feature: RBAC Menu
       | disabled            | Vision Reporter               |
       | disabled            | System User                   |
 
+  
+  @Logout @SID_5
+  Scenario: Add Multiple devices
 
-  @SID_5
-  Scenario: set Authentication Mode Local
+    Then UI Add "DefensePro" with index 2 on "Default" site nowait
+    Then UI Add "Alteon" with index 2 on "Default" site nowait
+    Then UI Add "AppWall" with index 0 on "Default" site nowait
+    Then UI Add "LinkProof" with index 0 on "Default" site nowait
     Then UI Navigate to page "System->User Management->User Management Settings"
     Then UI Select "Local" from Vision dropdown "Authentication Mode"
     Then UI Click Button "Submit"
-    Then UI Logout
+    * UI Logout
 
-
-  
   @SID_6
   Scenario: ADC+Certificate Administrator
     When UI Login with user "adc_admin_certificate" and password "Radware1234!@#$"
@@ -293,6 +288,7 @@ Feature: RBAC Menu
     * UI Logout
 
      #  Vdirect should not be display as  mentioned in table from user Guid
+  
   @SID_14
   Scenario: Device Viewer
     When UI Login with user "device_viewer" and password "Radware1234!@#$"
@@ -302,16 +298,16 @@ Feature: RBAC Menu
       | APM                                         | no       |
       | DPM                                         | yes      |
       | ANALYTICS ADC                               | yes      |
-      | ANALYTICS AMS                               | yes      |
-      | DefensePro Behavioral Protections Dashboard | yes      |
-      | HTTPS Flood Dashboard                       | yes      |
-      | DefensePro Analytics Dashboard              | yes      |
-      | DefensePro Monitoring Dashboard             | yes      |
-      | DefenseFlow Analytics Dashboard             | no       |
-      | AppWall Dashboard                           | yes      |
-      | AMS Reports                                 | yes      |
-      | AMS Forensics                               | yes      |
-      | AMS Alerts                                  | yes      |
+      | ANALYTICS AMS                               | no      |
+      | DefensePro Behavioral Protections Dashboard | no      |
+      | HTTPS Flood Dashboard                       | no      |
+      | DefensePro Analytics Dashboard              | no      |
+      | DefensePro Monitoring Dashboard             | no      |
+      | DefenseFlow Analytics Dashboard             | no      |
+      | AppWall Dashboard                           | no      |
+      | AMS Reports                                 | no      |
+      | AMS Forensics                               | no      |
+      | AMS Alerts                                  | no      |
       | vDirect                                     | no      |
       | GEL Dashboard                               | yes      |
       | EAAF Dashboard                              | yes      |
@@ -451,6 +447,7 @@ Feature: RBAC Menu
 
     * UI Logout
 
+  
   @SID_20
   Scenario: Vision Reporter
     When UI Login with user "vision_reporter" and password "Radware1234!@#$"
@@ -465,7 +462,7 @@ Feature: RBAC Menu
       | HTTPS Flood Dashboard                       | yes      |
       | DefensePro Analytics Dashboard              | yes      |
       | DefensePro Monitoring Dashboard             | yes      |
-      | DefenseFlow Analytics Dashboard             | no       |
+      | DefenseFlow Analytics Dashboard             | yes      |
       | AppWall Dashboard                           | yes      |
       | AMS Reports                                 | yes      |
       | AMS Forensics                               | yes      |
@@ -485,6 +482,7 @@ Feature: RBAC Menu
     Then UI Select "TACACS+" from Vision dropdown "Authentication Mode"
     Then UI Click Button "Submit"
     Then UI Logout
+
 
   @SID_22
   Scenario:Clean up (clean configurations caused by this feature)
