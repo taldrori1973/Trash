@@ -37,78 +37,66 @@ Feature: Forensics Output
     Then Sleep "5"
       # editing duration
     When CLI Run remote linux Command "curl -XPOST localhost:9200/dp-attack-raw-*/_update_by_query/?refresh -d '{"query": {"match": {"attackIpsId": "78-1526381752"}},"script": {"source": "ctx._source.duration = '15000'"}}'" on "ROOT_SERVER_CLI"
-
   @SID_5
   Scenario: VRM - Create Forensics Report all output columns
 
     Given UI "Create" Forensics With Name "All Output Fields"
-      | Time Definitions.Date | Absolute:[01.08.2018 01:00:00, +0d]                                                                                                                                                                                                      |
-      | Criteria              | Event Criteria:Attack ID,Operator:Equals,Value:78-1526381752;                                                                                                                                                                            |
-      | Output                | Action,Attack ID,Start Time,Source IP Address,Source Port,Destination IP Address,Destination Port,Direction,Protocol,Threat Category,Radware ID,Device IP Address,Attack Name,End Time,Duration,pps,Mbits,Physical Port,Policy Name,Risk |
+      | Time Definitions.Date | Absolute:[01.08.2018 01:00:00, +0d] |
+      | Criteria              | Event Criteria:Attack ID,Operator:Equals,Value:78-1526381752;                                                                                                                                                                                |
+      | Output                | Action,Attack ID,Start Time,Source IP Address,Source Port,Destination IP Address,Destination Port,Direction,Protocol,Threat Category,Radware ID,Device IP Address,Attack Name,End Time,Duration,pps,Mbps,Physical Port,Policy Name,Risk |
     Then UI Generate and Validate Forensics With Name "All Output Fields" with Timeout of 300 Seconds
     And Sleep "30"
     Then UI Click Button "Views.report" with value "All Output Fields"
-
   @SID_6
   Scenario: VRM - Validate Forensics output Action
     Then UI Validate Table record values by columns with elementLabel "Report.Table" findBy index 0
-      | columnName | value |
-      | Action     | Drop  |
-
+      | columnName             | value                                   |
+      | Action                 | Drop                                    |
   @SID_7
   Scenario: VRM - Validate Forensics output Attack ID
     Then UI Validate Table record values by columns with elementLabel "Report.Table" findBy index 0
-      | columnName | value         |
-      | Attack ID  | 78-1526381752 |
-
+      | columnName             | value                                   |
+      | Attack ID              | 78-1526381752                           |
   @SID_8
   Scenario: VRM - Validate Forensics output Destination Port
     Then UI Validate Table record values by columns with elementLabel "Report.Table" findBy index 0
-      | columnName       | value |
-      | Destination Port | 44444 |
-
+      | columnName             | value                                   |
+      | Destination Port       | 44444                                   |
   @SID_9
   Scenario: VRM - Validate Forensics output Start Time
     Then UI Validate Table record values by columns with elementLabel "Report.Table" findBy index 0
-      | columnName | value                |
-      | Start Time | 01.08.2018, 03:00:00 |
-
+      | columnName             | value                                   |
+      | Start Time             | 01.08.2018, 03:00:00                    |
   @SID_10
   Scenario: VRM - Validate Forensics output Threat Category
     Then UI Validate Table record values by columns with elementLabel "Report.Table" findBy index 0
-      | columnName      | value |
-      | Threat Category | ACL   |
-
+      | columnName             | value                                   |
+      | Threat Category        | ACL                                     |
   @SID_11
   Scenario: VRM - Validate Forensics output Radware ID
     Then UI Validate Table record values by columns with elementLabel "Report.Table" findBy index 0
-      | columnName | value |
-      | Radware ID | 8     |
-
+      | columnName             | value                                   |
+      | Radware ID             | 8                                       |
   @SID_12
   Scenario: VRM - Validate Forensics output Device IP Address
     Then UI Validate Table record values by columns with elementLabel "Report.Table" findBy index 0
-      | columnName        | value        |
-      | Device IP Address | 172.16.22.51 |
-
+      | columnName             | value                                   |
+      | Device IP Address      | 172.16.22.51                            |
   @SID_13
   Scenario: VRM - Validate Forensics output Attack Name
     Then UI Validate Table record values by columns with elementLabel "Report.Table" findBy index 0
-      | columnName  | value      |
-      | Attack Name | Black List |
-
+      | columnName             | value                                   |
+      | Attack Name            | Black List                              |
   @SID_14
   Scenario: VRM - Validate Forensics output End Time
     Then UI Validate Table record values by columns with elementLabel "Report.Table" findBy index 0
-      | columnName | value                |
-      | End Time   | 01.08.2018, 03:00:09 |
-
+      | columnName             | value                                   |
+      | End Time               | 01.08.2018, 03:00:09                    |
   @SID_15
   Scenario: VRM - Validate Forensics output Duration
     Then UI Validate Table record values by columns with elementLabel "Report.Table" findBy index 0
-      | columnName | value |
-      | Duration   | 15    |
-
+      | columnName             | value                                   |
+      | Duration               | 15                                      |
   @SID_16
   Scenario: VRM - Validate Forensics output pps
     Then UI Validate Table record values by columns with elementLabel "Report.Table" findBy index 0
@@ -119,50 +107,42 @@ Feature: Forensics Output
   Scenario: VRM - Validate Forensics output Mbits
     Then UI Validate Table record values by columns with elementLabel "Report.Table" findBy index 0
       | columnName | value    |
-      | Mbits      | 37675.89 |
-
+      | Mbps       | 37675.89 |
   @SID_18
   Scenario: VRM - Validate Forensics output Physical Port
     Then UI Validate Table record values by columns with elementLabel "Report.Table" findBy index 0
-      | columnName    | value |
-      | Physical Port | T-1   |
-
+      | columnName             | value                                   |
+      | Physical Port          | T-1                                     |
   @SID_19
   Scenario: VRM - Validate Forensics output Policy Name
     Then UI Validate Table record values by columns with elementLabel "Report.Table" findBy index 0
-      | columnName  | value      |
-      | Policy Name | Black_IPV6 |
-
+      | columnName             | value                                   |
+      | Policy Name            | Black_IPV6                              |
   @SID_20
   Scenario: VRM - Validate Forensics output Risk
     Then UI Validate Table record values by columns with elementLabel "Report.Table" findBy index 0
-      | columnName | value |
-      | Risk       | Low   |
-
+      | columnName             | value                                   |
+      | Risk                   | Low                                     |
   @SID_21
   Scenario: VRM - Validate Forensics output Direction
     Then UI Validate Table record values by columns with elementLabel "Report.Table" findBy index 0
-      | columnName | value |
-      | Direction  | In    |
-
+      | columnName             | value                                   |
+      | Direction              | In                                      |
   @SID_22
   Scenario: VRM - Validate Forensics output Protocol
     Then UI Validate Table record values by columns with elementLabel "Report.Table" findBy index 0
-      | columnName | value |
-      | Protocol   | IP    |
-
+      | columnName             | value                                   |
+      | Protocol               | IP                                      |
   @SID_23
   Scenario: VRM - Validate Forensics output Source Port
     Then UI Validate Table record values by columns with elementLabel "Report.Table" findBy index 0
-      | columnName  | value |
-      | Source Port | 0     |
-
+      | columnName             | value                                   |
+      | Source Port            | 0                                       |
   @SID_24
   Scenario: VRM - Validate Forensics output Source IP Address
     Then UI Validate Table record values by columns with elementLabel "Report.Table" findBy index 0
-      | columnName        | value                                   |
-      | Source IP Address | 1234:1234:1234:1234:1234:1234:1234:1234 |
-
+      | columnName             | value                                   |
+      | Source IP Address      | 1234:1234:1234:1234:1234:1234:1234:1234 |
   @SID_25
   Scenario: VRM - Validate Forensics output Destination IP Address
     Then UI Validate Table record values by columns with elementLabel "Report.Table" findBy index 0
@@ -207,7 +187,7 @@ Feature: Forensics Output
 #  Scenario: VRM - Add New Forensics Report output - 3rd group
 #    When UI "Create" Forensics With Name "radware_radware302"
 ##      | Time Definitions.Date | Quick:This Month                                        |
-#      | Output                | Device IP Address,Attack Name,End Time,Duration,pps |
+#      | Output                | Device IP Address,Attack Name,End Time,Duration,Packets |
 #    When UI Click Button "Edit" with value "radware_radware302"
 ##    And UI Click Button "Output Card" with value "initial"
 #    And UI Click Button "Tab" with value "output-tab"
@@ -216,7 +196,7 @@ Feature: Forensics Output
 #    Then UI validate Checkbox by label "output" optional params "Attack Name" if Selected "true"
 #    Then UI validate Checkbox by label "output" optional params "End Time" if Selected "true"
 #    Then UI validate Checkbox by label "output" optional params "Duration" if Selected "true"
-#    Then UI validate Checkbox by label "output" optional params "pps" if Selected "true"
+#    Then UI validate Checkbox by label "output" optional params "Packets" if Selected "true"
 #    When UI Click Button "Close" with value ""
 #
 #  @SID_8
