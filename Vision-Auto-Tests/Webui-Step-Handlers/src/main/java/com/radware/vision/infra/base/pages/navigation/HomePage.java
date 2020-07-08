@@ -40,7 +40,7 @@ public class HomePage {
         path.addAll(Arrays.asList(pathText.split("->")));
         if (path.isEmpty()) throw new Exception("The path is empty!!");
         VisionDebugIdsManager.setTab("HomePage");
-        expandMenu();
+//        expandMenu();
     }
 
     private static String getHomePagePath(String tab) {
@@ -67,48 +67,21 @@ public class HomePage {
         BasicOperationsHandler.clickButton(label, value);
     }
 
-//    private static void openItem(String item) throws Exception {
-//        VisionDebugIdsManager.setLabel(item);
-//        WebElement itemElement = WebUIUtils.fluentWait(ComponentLocatorFactory.getLocatorByDbgId(VisionDebugIdsManager.getDataDebugId()).getBy());
-//        if (itemElement != null) {
-//            WebElement titledItem = getTitledItem(itemElement);
-//            if (titledItem == null || titledItem.getAttribute("aria-expanded").equalsIgnoreCase("false"))
-//                BasicOperationsHandler.clickButton(item, "");
-//        } else throw new Exception("The element of " + item + " isn't found");
-//    }
-
-//here I validate if item's parent is title or not (if it has children)
-//    private static WebElement getTitledItem(WebElement itemElement) {
-//        WebElement itemParentElement = itemElement.findElement(By.xpath("./.."));
-//        if (itemParentElement.getAttribute("class").equals("ant-menu-submenu-title"))
-//            return itemParentElement;
-//        return null;
-//
-//    }
-
-
     private static void openItem(String item) throws Exception {
         VisionDebugIdsManager.setLabel(item);
         WebElement itemElement = WebUIUtils.fluentWait(ComponentLocatorFactory.getLocatorByDbgId(VisionDebugIdsManager.getDataDebugId()).getBy());
         if (itemElement != null) {
-            if(itemElement.findElement(By.xpath("./..")).getAttribute("class").contains("sub-menu-children")){
-                WebElement itemParentElement = itemElement.findElement(By.xpath("./../.."));
-                if (itemParentElement.getAttribute("class").contains("sub-menu-collapsed")){
-                    BasicOperationsHandler.clickButton(item, "");
-                }
-            }
-            else{
+            WebElement navigatorParentElement = getTitledItem(itemElement);
+            if (navigatorParentElement == null || navigatorParentElement.findElement(By.xpath("/.//ancestor::li")).getAttribute("class").contains("collapsed"))
                 BasicOperationsHandler.clickButton(item, "");
-            }
-
         } else throw new Exception("The element of " + item + " isn't found");
     }
 
-
-
+    //here I validate if item's parent is title or not (if it has children, if it isn't a navigator)
+    // we returned its parent and if it isn't a navigator returned null
     private static WebElement getTitledItem(WebElement itemElement) {
         WebElement itemParentElement = itemElement.findElement(By.xpath("./.."));
-        if (itemParentElement.getAttribute("class").equals("sub-menu-collapsed"))
+        if (itemParentElement.getAttribute("class").contains("sub-menu-children"))
             return itemParentElement;
         return null;
 

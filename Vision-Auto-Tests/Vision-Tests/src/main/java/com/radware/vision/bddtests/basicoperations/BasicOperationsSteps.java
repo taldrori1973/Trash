@@ -114,11 +114,6 @@ public class BasicOperationsSteps extends BddUITestBase {
      */
     @Given("^UI Login with user \"(.*)\" and password \"(.*)\"( negative)?$")
     public void login(String username, String password, String negative) throws Exception {
-        try {
-            CliOperations.runCommand(getRestTestBase().getRootServerCli(), "yes|restore_radware_user_password", 15 * 1000);
-        } catch (Exception e) {
-            // ignore
-        }
         if (isLoggedIn) {
             if (BasicOperationsHandler.isLoggedInWithUser(username)) {
                 HomePage.navigateFromHomePage("HOME");
