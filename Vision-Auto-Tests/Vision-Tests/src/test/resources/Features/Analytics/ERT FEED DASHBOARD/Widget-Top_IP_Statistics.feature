@@ -14,6 +14,7 @@ Feature: EAAF Widget - Top IP Statistics
     * CLI simulate 1 attacks of type "IP_FEED_Modified" on "DefensePro" 10 and wait 150 seconds
   @SID_3
   Scenario: Login and navigate to EAAF dashboard
+    When CLI Operations - Run Radware Session command "system user authentication-mode set TACACS+"
     * CLI Run remote linux Command "mysql -u root -prad123 vision_ng -e "update user_mgt set password='0R5nzwnMaxkeLEWhI+QahPWxssDjLbGH', password_expiration_date='2030-1-1' where name='radware';"" on "ROOT_SERVER_CLI"
     * REST Vision Install License Request "vision-AVA-Max-attack-capacity"
 #    Given UI Login with user "sys_admin" and password "radware"
