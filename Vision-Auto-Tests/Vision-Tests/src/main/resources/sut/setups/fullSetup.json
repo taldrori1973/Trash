@@ -78,14 +78,5 @@
       }
     ]
   },
-  "defenseFlowId": null,
-  "servers": [
-    {
-      "serverId": "linuxFileServer",
-      "host": "172.17.164.10",
-      "user": "radware",
-      "password": "radware",
-      "connectOnInit": true
-    }
-  ]
+  "defenseFlowId": null
 }

@@ -6,14 +6,16 @@ import com.radware.vision.automation.AutoUtils.SUT.dtos.ClientConfigurationDto;
 import com.radware.vision.automation.AutoUtils.SUT.dtos.ServerDto;
 import com.radware.vision.automation.AutoUtils.SUT.dtos.TreeDeviceManagementDto;
 import com.radware.vision.automation.AutoUtils.SUT.repositories.daos.DevicesDao;
+import com.radware.vision.automation.AutoUtils.SUT.repositories.daos.ServersDao;
 import com.radware.vision.automation.AutoUtils.SUT.repositories.daos.SetupDao;
 import com.radware.vision.automation.AutoUtils.SUT.repositories.daos.SutDao;
 import com.radware.vision.automation.AutoUtils.SUT.repositories.pojos.devices.Device;
 import com.radware.vision.automation.AutoUtils.SUT.repositories.pojos.devices.DeviceConfiguration;
-import com.radware.vision.automation.AutoUtils.SUT.repositories.pojos.setup.ServerPojo;
+import com.radware.vision.automation.AutoUtils.SUT.repositories.pojos.servers.ServerPojo;
 import com.radware.vision.automation.AutoUtils.SUT.repositories.pojos.setup.Site;
 import com.radware.vision.automation.AutoUtils.SUT.repositories.pojos.setup.TreeDeviceNode;
 import com.radware.vision.automation.AutoUtils.SUT.repositories.pojos.sut.ClientConfiguration;
+import com.radware.vision.automation.AutoUtils.utils.ApplicationPropertiesUtils;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.TypeMap;
 import org.modelmapper.TypeToken;
@@ -28,16 +30,18 @@ import java.util.stream.Collectors;
 public class SutService {
 
     private ModelMapper modelMapper;
-
+    private ApplicationPropertiesUtils applicationPropertiesUtils = new ApplicationPropertiesUtils();
     private DevicesDao devicesDao;
     private SetupDao setupDao;
     private SutDao sutDao;
+    private ServersDao externalServersDao;
 
     public SutService() {
         this.modelMapper = new ModelMapper();
         this.devicesDao = DevicesDao.get_instance();
         this.sutDao = SutDao.get_instance();
         this.setupDao = SetupDao.get_instance(sutDao.getSetupFileName());
+        this.externalServersDao = ServersDao.get_instance(applicationPropertiesUtils.getProperty("SUT.servers.externalServers.fileName"));
     }
 
 
@@ -91,7 +95,7 @@ public class SutService {
     }
 
     public Optional<ServerDto> getServerById(String serverId) {
-        Optional<ServerPojo> serverFromPojo = this.setupDao.findServerById(serverId);
+        Optional<ServerPojo> serverFromPojo = this.externalServersDao.findServerById(serverId);
         if (!serverFromPojo.isPresent()) return Optional.empty();
         ServerDto serverDto = modelMapper.map(serverFromPojo.get(), ServerDto.class);
         return Optional.of(serverDto);
