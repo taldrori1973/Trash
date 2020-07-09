@@ -9,20 +9,10 @@ Feature: RBAC Menu
 #    And REST Delete "LinkProof" device with index 0 from topology tree
 #    And REST Delete "AppWall" device with index 0 from topology tree
 
-  
   @SID_2
   Scenario: Login And Go to Vision
     Given UI Login with user "radware" and password "radware"
     Given UI Go To Vision
-#    These settings will be enabled once the enhancements for US66016 are merged
-#    Then UI Navigate to page "System->User Management->User Management Settings"
-#    Then UI Set Text field with id "gwt-debug-minPasswordLength_Widget" with "6"
-#    Then UI Set Text field with id "gwt-debug-minUpperCaseChars_Widget" with "0"
-#    Then UI Set Text field with id "gwt-debug-minLowerCaseChars_Widget" with "0"
-#    Then UI Set Text field with id "gwt-debug-minNumDigits_Widget" with "0"
-#    Then UI Set Text field with id "gwt-debug-minSpecialChars_Widget" with "0"
-#    Then UI Click Button "Submit"
-
 
   @SID_3
   Scenario Outline: Create users and verify
@@ -31,23 +21,22 @@ Feature: RBAC Menu
     Then  UI User With User Name "<User Name>" ,Role "<Role>" ,Scope "<Scope>" Exists
 
     Examples:
-      | User Name             | Role                          | Scope | Password           |
-      | adc_admin_certificate | ADC+Certificate Administrator | [ALL] | Radware1234!@#$    |
-      | adc_admin             | ADC Administrator             | [ALL] | Radware1234!@#$    |
-      | adc_operator          | ADC Operator                  | [ALL] | Radware1234!@#$    |
-      | certificate_admin     | Certificate Administrator     | [ALL] | Radware1234!@#$    |
-      | device_admin          | Device Administrator          | [ALL] | Radware1234!@#$    |
-      | device_configurator   | Device Configurator           | [ALL] | Radware1234!@#$    |
-      | device_operator       | Device Operator               | [ALL] | Radware1234!@#$    |
-      | device_viewer         | Device Viewer                 | [ALL] | Radware1234!@#$    |
-      | real_server_operator  | Real Server Operator          | [ALL] | Radware1234!@#$    |
-      | security_admin        | Security Administrator        | [ALL] | Radware1234!@#$    |
-      | security_monitor      | Security Monitor              | [ALL] | Radware1234!@#$    |
-      | user_admin            | User Administrator            | [ALL] | Radware1234!@#$    |
-      | vision_admin          | Vision Administrator          | [ALL] | Radware1234!@#$    |
-      | vision_reporter       | Vision Reporter               | [ALL] | Radware1234!@#$    |
-      | system_user           | System User                   | [ALL] | Radware1234!@#$    |
-
+      | User Name             | Role                          | Scope | Password        |
+      | adc_admin_certificate | ADC+Certificate Administrator | [ALL] | Radware1234!@#$ |
+      | adc_admin             | ADC Administrator             | [ALL] | Radware1234!@#$ |
+      | adc_operator          | ADC Operator                  | [ALL] | Radware1234!@#$ |
+      | certificate_admin     | Certificate Administrator     | [ALL] | Radware1234!@#$ |
+      | device_admin          | Device Administrator          | [ALL] | Radware1234!@#$ |
+      | device_configurator   | Device Configurator           | [ALL] | Radware1234!@#$ |
+      | device_operator       | Device Operator               | [ALL] | Radware1234!@#$ |
+      | device_viewer         | Device Viewer                 | [ALL] | Radware1234!@#$ |
+      | real_server_operator  | Real Server Operator          | [ALL] | Radware1234!@#$ |
+      | security_admin        | Security Administrator        | [ALL] | Radware1234!@#$ |
+      | security_monitor      | Security Monitor              | [ALL] | Radware1234!@#$ |
+      | user_admin            | User Administrator            | [ALL] | Radware1234!@#$ |
+      | vision_admin          | Vision Administrator          | [ALL] | Radware1234!@#$ |
+      | vision_reporter       | Vision Reporter               | [ALL] | Radware1234!@#$ |
+      | system_user           | System User                   | [ALL] | Radware1234!@#$ |
 
   @SID_4
   Scenario Outline: Scope "All" is required for User Definition
@@ -71,16 +60,17 @@ Feature: RBAC Menu
       | disabled            | Vision Reporter               |
       | disabled            | System User                   |
 
-
   @SID_5
-  Scenario: set Authentication Mode Local
+  Scenario: Add Multiple devices
+    Then UI Add "DefensePro" with index 2 on "Default" site nowait
+    Then UI Add "Alteon" with index 2 on "Default" site nowait
+    Then UI Add "AppWall" with index 0 on "Default" site nowait
+    Then UI Add "LinkProof" with index 0 on "Default" site nowait
     Then UI Navigate to page "System->User Management->User Management Settings"
     Then UI Select "Local" from Vision dropdown "Authentication Mode"
     Then UI Click Button "Submit"
-    Then UI Logout
+    * UI Logout
 
-
-  
   @SID_6
   Scenario: ADC+Certificate Administrator
     When UI Login with user "adc_admin_certificate" and password "Radware1234!@#$"
@@ -158,7 +148,7 @@ Feature: RBAC Menu
       | vDirect                                     | no       |
       | GEL Dashboard                               | yes      |
       | EAAF Dashboard                              | no       |
-      | VISION SETTINGS                             |yes       |
+      | VISION SETTINGS                             | yes      |
 
     * UI Logout
 
@@ -172,8 +162,8 @@ Feature: RBAC Menu
       | DPM                                         | yes      |
       | ANALYTICS ADC                               | yes      |
       | ANALYTICS AMS                               | yes      |
-      | DefensePro Behavioral Protections Dashboard | yes       |
-      | HTTPS Flood Dashboard                       | yes       |
+      | DefensePro Behavioral Protections Dashboard | yes      |
+      | HTTPS Flood Dashboard                       | yes      |
       | DefensePro Analytics Dashboard              | yes      |
       | DefensePro Monitoring Dashboard             | yes      |
       | DefenseFlow Analytics Dashboard             | yes      |
@@ -236,7 +226,7 @@ Feature: RBAC Menu
       | vDirect                                     | yes      |
       | GEL Dashboard                               | yes      |
       | EAAF Dashboard                              | yes      |
-      | VISION SETTINGS                             | yes       |
+      | VISION SETTINGS                             | yes      |
 
     * UI Logout
 
@@ -249,20 +239,20 @@ Feature: RBAC Menu
       | APM                                         | yes      |
       | DPM                                         | yes      |
       | ANALYTICS ADC                               | yes      |
-      | ANALYTICS AMS                               | no      |
-      | DefensePro Behavioral Protections Dashboard | no      |
-      | HTTPS Flood Dashboard                       | no      |
-      | DefensePro Analytics Dashboard              | no      |
-      | DefensePro Monitoring Dashboard             | no      |
+      | ANALYTICS AMS                               | no       |
+      | DefensePro Behavioral Protections Dashboard | no       |
+      | HTTPS Flood Dashboard                       | no       |
+      | DefensePro Analytics Dashboard              | no       |
+      | DefensePro Monitoring Dashboard             | no       |
       | DefenseFlow Analytics Dashboard             | no       |
-      | AppWall Dashboard                           | no      |
-      | AMS Reports                                 | no      |
-      | AMS Forensics                               | no      |
-      | AMS Alerts                                  | no      |
+      | AppWall Dashboard                           | no       |
+      | AMS Reports                                 | no       |
+      | AMS Forensics                               | no       |
+      | AMS Alerts                                  | no       |
       | vDirect                                     | no       |
       | GEL Dashboard                               | yes      |
       | EAAF Dashboard                              | yes      |
-      | VISION SETTINGS                             | yes       |
+      | VISION SETTINGS                             | yes      |
 
     * UI Logout
 
@@ -288,7 +278,7 @@ Feature: RBAC Menu
       | vDirect                                     | no       |
       | GEL Dashboard                               | yes      |
       | EAAF Dashboard                              | yes      |
-      | VISION SETTINGS                             | yes       |
+      | VISION SETTINGS                             | yes      |
 
     * UI Logout
 
@@ -302,20 +292,20 @@ Feature: RBAC Menu
       | APM                                         | no       |
       | DPM                                         | yes      |
       | ANALYTICS ADC                               | yes      |
-      | ANALYTICS AMS                               | yes      |
-      | DefensePro Behavioral Protections Dashboard | yes      |
-      | HTTPS Flood Dashboard                       | yes      |
-      | DefensePro Analytics Dashboard              | yes      |
-      | DefensePro Monitoring Dashboard             | yes      |
+      | ANALYTICS AMS                               | no       |
+      | DefensePro Behavioral Protections Dashboard | no       |
+      | HTTPS Flood Dashboard                       | no       |
+      | DefensePro Analytics Dashboard              | no       |
+      | DefensePro Monitoring Dashboard             | no       |
       | DefenseFlow Analytics Dashboard             | no       |
-      | AppWall Dashboard                           | yes      |
-      | AMS Reports                                 | yes      |
-      | AMS Forensics                               | yes      |
-      | AMS Alerts                                  | yes      |
-      | vDirect                                     | no      |
+      | AppWall Dashboard                           | no       |
+      | AMS Reports                                 | no       |
+      | AMS Forensics                               | no       |
+      | AMS Alerts                                  | no       |
+      | vDirect                                     | no       |
       | GEL Dashboard                               | yes      |
       | EAAF Dashboard                              | yes      |
-      | VISION SETTINGS                             | yes       |
+      | VISION SETTINGS                             | yes      |
 
     * UI Logout
 
@@ -340,10 +330,10 @@ Feature: RBAC Menu
       | AMS Reports                                 | no       |
       | AMS Forensics                               | no       |
       | AMS Alerts                                  | no       |
-      | vDirect                                     | no      |
+      | vDirect                                     | no       |
       | GEL Dashboard                               | no       |
       | EAAF Dashboard                              | no       |
-      | VISION SETTINGS                             | yes       |
+      | VISION SETTINGS                             | yes      |
 
     * UI Logout
 
@@ -361,8 +351,8 @@ Feature: RBAC Menu
       | HTTPS Flood Dashboard                       | yes      |
       | DefensePro Analytics Dashboard              | yes      |
       | DefensePro Monitoring Dashboard             | yes      |
-      | DefenseFlow Analytics Dashboard             | no      |
-      | AppWall Dashboard                           | yes       |
+      | DefenseFlow Analytics Dashboard             | no       |
+      | AppWall Dashboard                           | yes      |
       | AMS Reports                                 | yes      |
       | AMS Forensics                               | yes      |
       | AMS Alerts                                  | yes      |
@@ -395,7 +385,7 @@ Feature: RBAC Menu
       | vDirect                                     | no       |
       | GEL Dashboard                               | no       |
       | EAAF Dashboard                              | yes      |
-      | VISION SETTINGS                             | yes       |
+      | VISION SETTINGS                             | yes      |
 
     * UI Logout
 
@@ -465,7 +455,7 @@ Feature: RBAC Menu
       | HTTPS Flood Dashboard                       | yes      |
       | DefensePro Analytics Dashboard              | yes      |
       | DefensePro Monitoring Dashboard             | yes      |
-      | DefenseFlow Analytics Dashboard             | no       |
+      | DefenseFlow Analytics Dashboard             | yes      |
       | AppWall Dashboard                           | yes      |
       | AMS Reports                                 | yes      |
       | AMS Forensics                               | yes      |
@@ -473,19 +463,20 @@ Feature: RBAC Menu
       | vDirect                                     | no       |
       | GEL Dashboard                               | yes      |
       | EAAF Dashboard                              | yes      |
-      | VISION SETTINGS                             | yes       |
+      | VISION SETTINGS                             | yes      |
 
     * UI Logout
 
-  @SID_23
+  @SID_22
   Scenario: Login And Go to Vision
     Given UI Login with user "radware" and password "radware"
     Given UI Go To Vision
     Then UI Navigate to page "System->User Management->User Management Settings"
     Then UI Select "TACACS+" from Vision dropdown "Authentication Mode"
     Then UI Click Button "Submit"
-    Then UI Logout
+    Then UI logout and close browser
 
-  @SID_22
+
+  @SID_23
   Scenario:Clean up (clean configurations caused by this feature)
 #   Given CLI cleanup without server Ip the vision
