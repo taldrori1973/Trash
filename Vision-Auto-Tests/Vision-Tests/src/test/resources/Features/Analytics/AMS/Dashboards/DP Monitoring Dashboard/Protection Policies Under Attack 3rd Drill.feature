@@ -1,4 +1,4 @@
-@VRM @TC105994
+@VRM @TC105994 
 Feature: DP Monitoring Dashboard - Protection Policies - Under Attack 3rd Drill
 
   @SID_1
@@ -153,8 +153,10 @@ Feature: DP Monitoring Dashboard - Protection Policies - Under Attack 3rd Drill
       | borderWidth           | 1                        |
       | pointHoverRadius      | 4                        |
       | pointHoverBorderWidth | 1                        |
-      | backgroundColor       | rgba(141, 190, 214, 0.1) |
-      | borderColor           | rgba(141, 190, 214, 5)   |
+      | backgroundColor       | #E9FBFF |
+      | borderColor           | #088eB1   |
+#      | backgroundColor       | rgba(141, 190, 214, 0.1) |
+#      | borderColor           | rgba(141, 190, 214, 5)   |
     And UI Validate Line Chart attributes "BDoS-TCP SYN ACK" with Label "Suspected Edge"
       | attribute             | value   |
       | pointRadius           | 0       |
@@ -321,7 +323,7 @@ Feature: DP Monitoring Dashboard - Protection Policies - Under Attack 3rd Drill
 
   @SID_31
   Scenario: Validate per attack card data - DNS Flood
-    Then UI Validate Text field "Characteristics.State" EQUALS "State:Real-Time Signature Rate-Limit"
+    Then UI Validate Text field "Characteristics.State" EQUALS "State:Real-Time Signature Rate Limit"
     Then UI Text of "Characteristics.Real-Time Signature.Outer Value" with extension "0" equal to "["
     Then UI Text of "Characteristics.Real-Time Signature.Operator" with extension "1" equal to "OR"
     Then UI Text of "Characteristics.Real-Time Signature.Parameter" with extension "1" equal to "dns-subdomain"
@@ -386,12 +388,14 @@ Feature: DP Monitoring Dashboard - Protection Policies - Under Attack 3rd Drill
   Scenario: Logout
     Then UI Logout
 
+    
   @SID_36
   Scenario: Kill and generate DNS attack IPv6
     * CLI kill all simulator attacks on current vision
     * REST Delete ES index "dp-*"
     Given CLI simulate 3 attacks of type "baselines_pol_1" on "DefensePro" 10 with loopDelay 15000 and wait 55 seconds
 
+  
   @SID_37
   Scenario: Login and open VRM DNS attack details
     Given UI Login with user "sys_admin" and password "radware"
@@ -400,6 +404,7 @@ Feature: DP Monitoring Dashboard - Protection Policies - Under Attack 3rd Drill
     Then UI click Table row by keyValue or Index with elementLabel "Protection Policies.Protections Table" findBy columnName "Protection Name" findBy cellValue "DNS Flood"
     Then UI click Table row by keyValue or Index with elementLabel "Protection Policies.Events Table" findBy index 0
 
+  
   @SID_38
   Scenario: Validate DNS Flood attack card data - non-default baselines
     Then UI Validate Line Chart attributes "DNS-AAAA" with Label "Total Traffic"
@@ -611,12 +616,12 @@ Feature: DP Monitoring Dashboard - Protection Policies - Under Attack 3rd Drill
 
   @SID_61
   Scenario: Validate per attack card data - DoS pps
-    Then UI Validate Text field "Characteristics.Action" EQUALS "Action:forward"
+    Then UI Validate Text field "Characteristics.Action" EQUALS "Action:Forward"
     Then UI Validate Text field "Characteristics.Attacker IP" EQUALS "Attacker IP:198.18.0.1"
     Then UI Validate Text field "Characteristics.Protected Host" EQUALS "Protected Host:198.18.252.1"
     Then UI Validate Text field "Characteristics.Protected Port" EQUALS "Protected Port:80"
-    Then UI Validate Text field "Characteristics.Current Attack Rate" EQUALS "Current Attack Rate:"
-    Then UI Validate Text field "Characteristics.Average Attack Rate" EQUALS "Average Attack Rate:"
+    Then UI Validate Text field "Characteristics.Current Attack Rate" EQUALS "Current Attack Rate:7"
+    Then UI Validate Text field "Characteristics.Average Attack Rate" EQUALS "Average Attack Rate:30"
     Then UI Validate Element Existence By Label "Characteristics.Average Duration" if Exists "true"
 
   ########################################################   Intrusions   ##########################################################
@@ -834,9 +839,9 @@ Feature: DP Monitoring Dashboard - Protection Policies - Under Attack 3rd Drill
       | borderWidth               | 1       |
       | pointHoverRadius          | 4       |
       | pointHoverBorderWidth     | 1       |
-      | backgroundColor           | #6296BA |
-      | pointHoverBackgroundColor | #6296BA |
-      | color                     | #6296BA |
+      | backgroundColor           | #006e8a |
+      | pointHoverBackgroundColor | #006e8a |
+      | color                     | #006e8a |
 
   @SID_88
   Scenario: Validate Https Flood distributed size graph data - Real Time Traffic
@@ -858,14 +863,14 @@ Feature: DP Monitoring Dashboard - Protection Policies - Under Attack 3rd Drill
       | borderCapStyle            | butt    |
       | borderDashOffset          | 0       |
       | borderJoinStyle           | miter   |
-      | borderWidth               | 3       |
+      | borderWidth               | 2       |
       | pointHoverRadius          | 0       |
       | pointHoverBorderWidth     | 0       |
-      | backgroundColor           | #3C4144 |
-      | pointHoverBackgroundColor | #3C4144 |
-      | color                     | #3C4144 |
+      | backgroundColor           | #3f3f3f |
+      | pointHoverBackgroundColor | #3f3f3f |
+      | color                     | #3f3f3f |
       | type                      | line    |
-      | borderColor               | #3C4144 |
+      | borderColor               | #3f3f3f |
       | pointHitRadius            | 0       |
 
 
@@ -890,9 +895,9 @@ Feature: DP Monitoring Dashboard - Protection Policies - Under Attack 3rd Drill
       | borderWidth               | 1       |
       | pointHoverRadius          | 4       |
       | pointHoverBorderWidth     | 1       |
-      | backgroundColor           | #F39C12 |
-      | pointHoverBackgroundColor | #F39C12 |
-      | color                     | #F39C12 |
+      | backgroundColor           | #ffc107 |
+      | pointHoverBackgroundColor | #ffc107 |
+      | color                     | #ffc107 |
       | pointHitRadius            | 0       |
       | borderDash                | []      |
 
@@ -919,9 +924,9 @@ Feature: DP Monitoring Dashboard - Protection Policies - Under Attack 3rd Drill
       | borderWidth               | 1       |
       | pointHoverRadius          | 4       |
       | pointHoverBorderWidth     | 1       |
-      | backgroundColor           | #E74C3C |
-      | pointHoverBackgroundColor | #E74C3C |
-      | color                     | #E74C3C |
+      | backgroundColor           | #f41414 |
+      | pointHoverBackgroundColor | #f41414 |
+      | color                     | #f41414 |
       | pointHitRadius            | 0       |
       | borderDash                | []      |
 
@@ -1115,10 +1120,10 @@ Feature: DP Monitoring Dashboard - Protection Policies - Under Attack 3rd Drill
   Scenario: Validate Https Flood baseline graph Transitory Baseline styling
     Then UI Validate Line Chart attributes "Requests per Second" with Label "Transitory Baseline"
       | attribute             | value   |
-      | backgroundColor       | #8CBA46 |
+      | backgroundColor       | #04c2a0 |
       | steppedLine           | true    |
       | pointHoverBorderWidth | 1       |
-      | borderColor           | #8CBA46 |
+      | borderColor           | #04c2a0 |
       | pointHitRadius        | 10      |
       | pointRadius           | 0       |
       | pointHoverRadius      | 4       |
@@ -1133,10 +1138,10 @@ Feature: DP Monitoring Dashboard - Protection Policies - Under Attack 3rd Drill
   Scenario: Validate Https Flood baseline graph Transitory Attack Edge styling
     Then UI Validate Line Chart attributes "Requests per Second" with Label "Transitory Attack Edge"
       | attribute             | value          |
-      | backgroundColor       | rgb(154, 1, 1) |
+      | backgroundColor       | #aa0a13 |
       | steppedLine           | true           |
       | pointHoverBorderWidth | 1              |
-      | borderColor           | rgb(154, 1, 1) |
+      | borderColor           | #aa0a13 |
       | pointHitRadius        | 10             |
       | pointRadius           | 0              |
       | pointHoverRadius      | 4              |
@@ -1151,9 +1156,9 @@ Feature: DP Monitoring Dashboard - Protection Policies - Under Attack 3rd Drill
   Scenario: Validate Https Flood baseline graph Total Traffic styling
     Then UI Validate Line Chart attributes "Requests per Second" with Label "Total Traffic"
       | attribute             | value                    |
-      | backgroundColor       | rgba(169, 207, 233, 0.8) |
+      | backgroundColor       | #9aeeea |
       | pointHoverBorderWidth | 1                        |
-      | borderColor           | rgb(169, 207, 233)       |
+      | borderColor           | #088eb1       |
       | pointHitRadius        | 10                       |
       | pointRadius           | 0                        |
       | pointHoverRadius      | 4                        |
@@ -1163,17 +1168,17 @@ Feature: DP Monitoring Dashboard - Protection Policies - Under Attack 3rd Drill
       | borderCapStyle        | butt                     |
       | lineTension           | 0.35                     |
       | fill                  | true                     |
-      | borderColor           | rgb(169, 207, 233)       |
-      | color                 | rgba(169, 207, 233, 0.8) |
+      | borderColor           | #088eb1       |
+      | color                 | #9aeeea |
 
   @SID_116
   Scenario: Validate Https Flood baseline graph Long Trend Baseline styling
     Then UI Validate Line Chart attributes "Requests per Second" with Label "Long-Term Trend Baseline"
       | attribute             | value   |
-      | backgroundColor       | #67853B |
+      | backgroundColor       | #0a7474 |
       | steppedLine           | true    |
       | pointHoverBorderWidth | 1       |
-      | borderColor           | #67853B |
+      | borderColor           | #0a7474 |
       | pointHitRadius        | 10      |
       | pointRadius           | 0       |
       | pointHoverRadius      | 4       |
@@ -1188,10 +1193,10 @@ Feature: DP Monitoring Dashboard - Protection Policies - Under Attack 3rd Drill
   Scenario: Validate Https Flood baseline graph Long Trend Attack Edge styling
     Then UI Validate Line Chart attributes "Requests per Second" with Label "Long-Term Trend Attack Edge"
       | attribute             | value   |
-      | backgroundColor       | #EC3434 |
+      | backgroundColor       | #FF4441 |
       | steppedLine           | true    |
       | pointHoverBorderWidth | 1       |
-      | borderColor           | #EC3434 |
+      | borderColor           | #FF4441 |
       | pointHitRadius        | 10      |
       | pointRadius           | 0       |
       | pointHoverRadius      | 4       |
@@ -1206,9 +1211,9 @@ Feature: DP Monitoring Dashboard - Protection Policies - Under Attack 3rd Drill
   Scenario: Validate Https Flood baseline graph Legitimate Traffic styling
     Then UI Validate Line Chart attributes "Requests per Second" with Label "Legitimate Traffic"
       | attribute             | value                 |
-      | backgroundColor       | rgba(66, 75, 83, 0.5) |
+      | backgroundColor       | rgba#9ec3cb |
       | pointHoverBorderWidth | 1                     |
-      | borderColor           | rgba(66, 75, 83, 0.5) |
+      | borderColor           | #4388c8 |
       | pointHitRadius        | 10                    |
       | pointRadius           | 0                     |
       | pointHoverRadius      | 4                     |
@@ -1218,7 +1223,7 @@ Feature: DP Monitoring Dashboard - Protection Policies - Under Attack 3rd Drill
       | borderCapStyle        | butt                  |
       | lineTension           | 0.35                  |
       | fill                  | true                  |
-      | color                 | rgba(66, 75, 83, 0.5) |
+      | color                 | #9ec3cb |
 
   ###############################################################
   ##https Https set toggle to Current - Verify changes occured ##
@@ -1677,7 +1682,7 @@ Feature: DP Monitoring Dashboard - Protection Policies - Under Attack 3rd Drill
 
   @SID_162
   Scenario: Validate per attack card data - Burst
-    Then UI Validate Text field "Characteristics.State" EQUALS "State:Burst-Attack Signature Blocking"
+    Then UI Validate Text field "Characteristics.State" EQUALS "State:Burst Attack Signature Blocking"
     Then UI Validate Text field "Characteristics.Current Burst Number" EQUALS "Current Burst Number:10"
     Then UI Validate Text field "Characteristics.Avg Burst Duration" EQUALS "Average Burst Duration:0:00:28 (hh.mm.ss)"
     Then UI Validate Text field "Characteristics.Avg Time Between Bursts" EQUALS "Average Time Between Bursts:0:01:04 (hh.mm.ss)"
@@ -1717,8 +1722,8 @@ Feature: DP Monitoring Dashboard - Protection Policies - Under Attack 3rd Drill
       | borderWidth           | 1                        |
       | pointHoverRadius      | 4                        |
       | pointHoverBorderWidth | 1                        |
-      | backgroundColor       | rgba(141, 190, 214, 0.1) |
-      | borderColor           | rgba(141, 190, 214, 5)   |
+      | backgroundColor       | #E9FBFF |
+      | borderColor           | #088eB1   |
 
   @SID_167
   Scenario: Validate baseline Suspected Edge styling - burst
@@ -1726,7 +1731,7 @@ Feature: DP Monitoring Dashboard - Protection Policies - Under Attack 3rd Drill
       | attribute             | value   |
       | pointRadius           | 0       |
       | fill                  | false   |
-      | borderColor           | #ffa20d |
+      | borderColor           | #FFC107 |
       | lineTension           | 0.35    |
       | borderCapStyle        | butt    |
       | borderDashOffset      | 0       |
