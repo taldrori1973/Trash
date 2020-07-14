@@ -47,6 +47,7 @@ Feature: Forensics Output
     Then UI Generate and Validate Forensics With Name "All Output Fields" with Timeout of 300 Seconds
     And Sleep "30"
     Then UI Click Button "Views.report" with value "All Output Fields"
+    Then Sleep "5"
   @SID_6
   Scenario: VRM - Validate Forensics output Action
     Then UI Validate Table record values by columns with elementLabel "Report.Table" findBy index 0
