@@ -1,5 +1,4 @@
 @TC112253
-  @run3
 Feature: VRM Real Time Status Bar BW by Policy
 
   @SID_1
