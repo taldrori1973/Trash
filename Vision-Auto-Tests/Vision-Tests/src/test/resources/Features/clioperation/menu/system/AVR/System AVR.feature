@@ -33,11 +33,10 @@ Feature: CLI System AVR
   @SID_6
   Scenario: verify syslog proxy enabled
     When CLI Run remote linux Command on "GENERIC_LINUX_SERVER"
-      | "cat /home/radware/AW_Attacks/AppwallAttackTypes/Injection1 \| netcat " |
-      | #visionIP                                                               |
-      | " 2215"                                                                 |
-    Then Sleep "62"
-    Then CLI Run linux Command "tail -1 /var/avr/diaglogs/monitoringdiag.log |awk -F":" '{print$5}'|awk '{print$1}'" on "ROOT_SERVER_CLI" and validate result GTE "1"
+      | "count=1;while [ $count -le 120 ]; do  cat /home/radware/AW_Attacks/AppwallAttackTypes/Injection1 \| netcat " |
+      | #visionIP                                                                                                     |
+      | " 2215; sleep 1;let "count+=1";done"                                                                          |
+    Then CLI Run linux Command "tail -1 /var/avr/diaglogs/monitoringdiag.log |awk -F":" '{print$5}'|awk '{print$1}'" on "ROOT_SERVER_CLI" and validate result GTE "1" with timeOut 120
     Then Sleep "15"
     Then CLI Run remote linux Command "tail -20 /var/avr/diaglogs/monitoringdiag.log" on "ROOT_SERVER_CLI"
 
