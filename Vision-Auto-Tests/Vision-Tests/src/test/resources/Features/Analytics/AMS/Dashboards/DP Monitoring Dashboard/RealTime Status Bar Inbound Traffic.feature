@@ -82,7 +82,7 @@ Feature: VRM Real Time Status Bar Inbound Traffic
     And Sleep "2"
     Then UI Validate Text field "Inbound Traffic Kbps" EQUALS "729.74 M"
     Then UI Validate Text field "Inbound Traffic PPS" EQUALS "5.58 M"
-    Then UI Validate Text field "Inbound Traffic CPS" EQUALS "0"
+    Then UI Validate Text field "Inbound Traffic CPS" EQUALS "4.25 K"
     And UI Logout
 
   @SID_6
