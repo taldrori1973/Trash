@@ -1,5 +1,4 @@
 @TC112253
-  @run3
 Feature: VRM Real Time Status Bar BW by Policy
 
   @SID_1
@@ -46,27 +45,7 @@ Feature: VRM Real Time Status Bar BW by Policy
 #| Policy16  | 20000   |
 #| Policy180 | 1002442 |
 #| Policy18  | 131038  |
-    Then UI Validate Pie Chart data "Bandwidth per Policy"
-      | label     | backgroundcolor    |
-      | Policy150 | rgb(235, 129, 116) |
-      | Policy200 | rgb(7, 26, 127)    |
-      | Policy20  | rgb(66, 60, 55)    |
-      | Policy190 | rgb(163, 111, 163) |
-      | Policy19  | rgb(96, 166, 96)   |
-      | Policy140 | rgb(127, 205, 181) |
-      | Policy14  | rgb(70, 91, 108)   |
-      | Policy160 | rgb(154, 145, 150) |
-      | Policy16  | rgb(95, 182, 199)  |
-      | Policy18  | rgb(203, 114, 152) |
 
-    Then UI Validate Pie Chart attributes "Bandwidth per Policy"
-      | attribute             | value |
-      | lineTension           | 0.35  |
-      | borderCapStyle        | butt  |
-      | borderJoinStyle       | miter |
-      | pointHoverRadius      | 4     |
-      | pointHoverBorderWidth | 1     |
-      | pointRadius           | 0     |
 #    Then UI Logout
 
   @SID_3
@@ -92,18 +71,6 @@ Feature: VRM Real Time Status Bar BW by Policy
       | Policy190 | 3099.0 |
       | Policy20  | 3152.0 |
       | Policy200 | 3152.0 |
-    Then UI Validate Pie Chart data "Bandwidth per Policy"
-      | label     | backgroundcolor    |
-      | Policy14  | rgb(70, 91, 108)   |
-      | Policy140 | rgb(127, 205, 181) |
-      | Policy150 | rgb(235, 129, 116) |
-      | Policy16  | rgb(95, 182, 199)  |
-      | Policy160 | rgb(154, 145, 150) |
-      | Policy18  | rgb(203, 114, 152) |
-      | Policy19  | rgb(96, 166, 96)   |
-      | Policy190 | rgb(163, 111, 163) |
-      | Policy20  | rgb(66, 60, 55)    |
-      | Policy200 | rgb(7, 26, 127)    |
 
   @SID_4
   Scenario: BW by policy filter by policy in
@@ -116,8 +83,8 @@ Feature: VRM Real Time Status Bar BW by Policy
       | size | offset |
       | 1    | 0      |
     Then UI Validate Pie Chart data "Bandwidth per Policy"
-      | label    | data   | backgroundcolor  |
-      | Policy14 | 3089.0 | rgb(70, 91, 108) |
+      | label    | data   |
+      | Policy14 | 3089.0 |
 
   @SID_5
   Scenario: BW by policy filter by policy out
@@ -158,18 +125,7 @@ Feature: VRM Real Time Status Bar BW by Policy
       | Policy190 | 3099.0 |
       | Policy20  | 3152.0 |
       | Policy200 | 3152.0 |
-    Then UI Validate Pie Chart data "Bandwidth per Policy"
-      | label     | backgroundcolor    |
-      | Policy14  | rgb(70, 91, 108)   |
-      | Policy140 | rgb(127, 205, 181) |
-      | Policy150 | rgb(235, 129, 116) |
-      | Policy16  | rgb(95, 182, 199)  |
-      | Policy160 | rgb(154, 145, 150) |
-      | Policy18  | rgb(203, 114, 152) |
-      | Policy19  | rgb(96, 166, 96)   |
-      | Policy190 | rgb(163, 111, 163) |
-      | Policy20  | rgb(66, 60, 55)    |
-      | Policy200 | rgb(7, 26, 127)    |
+
     And UI Logout
 
   @SID_7
@@ -181,8 +137,8 @@ Feature: VRM Real Time Status Bar BW by Policy
       | size | offset |
       | 1    | 0      |
     Then UI Validate Pie Chart data "Bandwidth per Policy"
-      | label    | data   | backgroundcolor  |
-      | Policy14 | 3089.0 | rgb(70, 91, 108) |
+      | label    | data   |
+      | Policy14 | 3089.0 |
     Then UI Validate Pie Chart data "Bandwidth per Policy"
       | label     | exist |
       | Policy140 | false |
@@ -203,10 +159,6 @@ Feature: VRM Real Time Status Bar BW by Policy
       | label   | data      |
       | Maxim30 | 3435973.0 |
       | Maxim31 | 6871947.0 |
-    Then UI Validate Pie Chart data "Bandwidth per Policy"
-      | label   | backgroundcolor    |
-      | Maxim30 | rgb(70, 91, 108)   |
-      | Maxim31 | rgb(127, 205, 181) |
 
   @SID_9
   Scenario: BW by policy check logs
