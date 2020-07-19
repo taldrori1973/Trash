@@ -27,6 +27,7 @@ Feature: Vision Upgrade current -3
   Scenario: Pre Upgrade changes
     #for testing AVA Attack Capacity Grace Period with the following scenario:
       # if before upgrade the server not have the Legacy "vision-reporting-module-AMS" license and never installs the new AVA License so after upgrade No  Grace Period will be given:
+    Then CLI Clear vision logs
     Then REST Vision DELETE License Request "vision-AVA-6-Gbps-attack-capacity"
     Then REST Vision DELETE License Request "vision-AVA-20-Gbps-attack-capacity"
     Then REST Vision DELETE License Request "vision-AVA-60-Gbps-attack-capacity"

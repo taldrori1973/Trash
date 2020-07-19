@@ -58,6 +58,8 @@ Feature: Vision APM Upgrade current -1
       | UPGRADE | APSolute Vision Application upgrade finished                           | EXPECTED     |
       | UPGRADE | APSolute Vision System upgrade finished                                | EXPECTED     |
       | UPGRADE | APSolute Vision OS upgrade finished                                    | EXPECTED     |
+      | UPGRADE | APSolute Vision FluentD upgrade finished                               | EXPECTED     |
+      | UPGRADE | APSolute Vision TED upgrade finished                                   | EXPECTED     |
       | UPGRADE | ERROR                                                                  | NOT_EXPECTED |
       | UPGRADE | error: package MySQL-                                                  | IGNORE       |
       | UPGRADE | *.svg                                                                  | IGNORE       |
