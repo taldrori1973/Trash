@@ -1,37 +1,45 @@
 @TC112253
 Feature: VRM Real Time Status Bar BW by Policy
 
-  @SID_1
-  Scenario: BW by policy Clean system data before test
-    Given CLI kill all simulator attacks on current vision
-    Then CLI Clear vision logs
-    Then REST Vision Install License Request "vision-AVA-Max-attack-capacity"
-    Given CLI simulate 2 attacks of type "rest_traffic" on "DefensePro" 10 with loopDelay 15000
-    Given CLI simulate 90 attacks of type "rest_traffic_diff_Policy15out" on "DefensePro" 20 with loopDelay 15000
-    Given CLI simulate 90 attacks of type "rest_traffic_diff_Policy15out" on "DefensePro" 11 with loopDelay 15000
-    Given CLI simulate 90 attacks of type "rest_traffic_diff_Policy15out" on "DefensePro" 10 with loopDelay 15000 and wait 130 seconds
-
-  @SID_2
-  Scenario: BW by policy basic
+  @run3
+  Scenario: Login and Navigate
+    Given REST Vision Install License Request "vision-AVA-Max-attack-capacity"
     Given UI Login with user "sys_admin" and password "radware"
     When UI Navigate to "DefensePro Monitoring Dashboard" page via homePage
-    And Sleep "3"
+
+  @run3
+  @SID_1
+  Scenario: BW by policy Clean system data before test
+    When CLI kill all simulator attacks on current vision
+    When CLI Clear vision logs
+    When REST Delete ES index "dp-*"
+    When CLI simulate 2 attacks of type "rest_traffic" on "DefensePro" 10 with loopDelay 15000
+    When CLI simulate 90 attacks of type "rest_traffic_diff_Policy15out" on "DefensePro" 20 with loopDelay 15000
+    When CLI simulate 90 attacks of type "rest_traffic_diff_Policy15out" on "DefensePro" 11 with loopDelay 15000
+    When CLI simulate 90 attacks of type "rest_traffic_diff_Policy15out" on "DefensePro" 10 with loopDelay 15000 and wait 130 seconds
+    When Sleep "30"
+
+  @SID_2
+  @run3
+  Scenario: BW by policy basic
     Then UI Total Pie Chart data "Bandwidth per Policy"
       | size | offset |
       | 10   | 0      |
   # DE38477 will-never-fix
+#    The Offset is 10% of th expected value
     Then UI Validate Pie Chart data "Bandwidth per Policy"
-      | label     | data   |
-      | Policy150 | 7479.0 |
-      | Policy200 | 3152.0 |
-      | Policy20  | 3152.0 |
-      | Policy190 | 3099.0 |
-      | Policy19  | 3099.0 |
-      | Policy140 | 3089.0 |
-      | Policy14  | 3089.0 |
-      | Policy160 | 2885.0 |
-      | Policy16  | 2885.0 |
-      | Policy18  | 2512.0 |
+      | label     | data        | offset |
+      | Policy20  | 3152.0      | 315    |
+      | Policy16  | 2885.0      | 288    |
+      | Policy160 | 2885.0      | 288    |
+      | Policy150 | 4986.0      | 498    |
+      | Policy19  | 3099.0      | 310    |
+      | Policy18  | 2512.0      | 251    |
+      | Policy180 | 2512.0      | 251    |
+      | Policy17  | 2352.0      | 235    |
+      | Policy190 | 3099.0      | 309    |
+      | Policy200 | 2101.333333 | 210    |
+
 
 #| label     | data    |
 #| Policy150 | 14958   |
