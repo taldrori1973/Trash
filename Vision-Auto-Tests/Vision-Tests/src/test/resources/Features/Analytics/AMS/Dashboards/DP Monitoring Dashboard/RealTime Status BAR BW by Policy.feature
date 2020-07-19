@@ -1,13 +1,13 @@
 @TC112253
 Feature: VRM Real Time Status Bar BW by Policy
 
-
+  @run3
   Scenario: Login and Navigate
     Given REST Vision Install License Request "vision-AVA-Max-attack-capacity"
     Given UI Login with user "sys_admin" and password "radware"
     When UI Navigate to "DefensePro Monitoring Dashboard" page via homePage
 
-#@run3
+  @run3
   @SID_1
   Scenario: BW by policy Clean system data before test
     When CLI kill all simulator attacks on current vision
@@ -20,23 +20,24 @@ Feature: VRM Real Time Status Bar BW by Policy
     When Sleep "30"
 
   @SID_2
+  @run3
   Scenario: BW by policy basic
     Then UI Total Pie Chart data "Bandwidth per Policy"
       | size | offset |
       | 10   | 0      |
   # DE38477 will-never-fix
     Then UI Validate Pie Chart data "Bandwidth per Policy"
-      | label     | data    |
-      | Policy20  | 3152    |
-      | Policy16  | 2885    |
-      | Policy160 | 2885    |
-      | Policy150 | 4986    |
-      | Policy19  | 3099    |
-      | Policy18  | 2512    |
-      | Policy180 | 2512    |
-      | Policy17  | 2352    |
-      | Policy190 | 3099    |
-      | Policy200 | 2101.33 |
+      | label     | data        |
+      | Policy20  | 3152.0      |
+      | Policy16  | 2885.0      |
+      | Policy160 | 2885.0      |
+      | Policy150 | 4986.0      |
+      | Policy19  | 3099.0      |
+      | Policy18  | 2512.0      |
+      | Policy180 | 2512.0      |
+      | Policy17  | 2352.0      |
+      | Policy190 | 3099.0      |
+      | Policy200 | 2101.333333 |
 
 
 #| label     | data    |
