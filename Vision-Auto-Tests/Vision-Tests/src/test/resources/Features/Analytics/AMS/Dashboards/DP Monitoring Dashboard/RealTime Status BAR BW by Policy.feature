@@ -26,15 +26,15 @@ Feature: VRM Real Time Status Bar BW by Policy
       | 10   | 0      |
   # DE38477 will-never-fix
     Then UI Validate Pie Chart data "Bandwidth per Policy"
-      | Policy20 | 3152 |
-      | Policy16 | 2885 |
-      | Policy160 | 2885 |
-      | Policy150 | 4986 |
-      | Policy19 | 3099 |
-      | Policy18 | 2512 |
-      | Policy180 | 2512 |
-      | Policy17 | 2352 |
-      | Policy190 | 3099 |
+      | Policy20  | 3152    |
+      | Policy16  | 2885    |
+      | Policy160 | 2885    |
+      | Policy150 | 4986    |
+      | Policy19  | 3099    |
+      | Policy18  | 2512    |
+      | Policy180 | 2512    |
+      | Policy17  | 2352    |
+      | Policy190 | 3099    |
       | Policy200 | 2101.33 |
 
 
