@@ -38,18 +38,6 @@ Feature: VRM Real Time Status Bar BW by Policy
       | Policy200 | 2101.33 |
 
 
-  | label     | data   |
-  | Policy150 | 4986.0 |
-  | Policy200 | 3152.0 |
-  | Policy20  | 3152.0 |
-  | Policy190 | 3099.0 |
-  | Policy19  | 3099.0 |
-  | Policy140 | 3089.0 |
-  | Policy14  | 3089.0 |
-  | Policy160 | 2885.0 |
-  | Policy16  | 2885.0 |
-  | Policy180  | 2512.0 |
-
 #| label     | data    |
 #| Policy150 | 14958   |
 #| Policy200 | 6304    |
