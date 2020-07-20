@@ -25,7 +25,6 @@ import com.radware.jsonparsers.impl.JsonUtils;
 import com.radware.vision.automation.tools.exceptions.selenium.TargetWebElementNotFoundException;
 import com.radware.vision.automation.tools.exceptions.web.SessionStorageException;
 import com.radware.vision.automation.tools.sutsystemobjects.devicesinfo.enums.SUTDeviceType;
-import com.radware.vision.vision_project_cli.RootServerCli;
 import com.radware.vision.infra.base.pages.navigation.WebUIVisionBasePage;
 import com.radware.vision.infra.enums.WebElementType;
 import com.radware.vision.infra.testhandlers.baseoperations.BasicOperationsHandler;
@@ -34,6 +33,8 @@ import com.radware.vision.infra.testhandlers.cli.CliOperations;
 import com.radware.vision.infra.testhandlers.vrm.enums.VRMDashboards;
 import com.radware.vision.infra.utils.ReportsUtils;
 import com.radware.vision.infra.utils.TimeUtils;
+import com.radware.vision.vision_project_cli.RootServerCli;
+import org.apache.commons.lang.math.NumberUtils;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import org.openqa.selenium.JavascriptExecutor;
@@ -624,12 +625,14 @@ public class VRMHandler {
             }
 
             if (entry.data != null) {
-                if (entry.offset == 0) {
-                    if (!dataArray.get(labelIndex).toString().equals(entry.data)) {
-                        addErrorMessage("The ACTUAL data of label: " + entry.label + " in chart " + chart + " is " + dataArray.get(labelIndex).toString() + " The EXPECTED is " + entry.data);
+                if (entry.offset == 0) {//TODO: Change String Equals to Number Equals
+                    Number entryData = NumberUtils.createNumber(entry.data);
+                    Number dataFromArray=NumberUtils.createNumber(dataArray.get(labelIndex).toString());
+                    if (!dataFromArray.equals(entryData)) {
+                        addErrorMessage("The ACTUAL data of label: " + entry.label + " in chart " + chart + " is " + dataFromArray.toString() + " The EXPECTED is " + entryData);
                         scrollAndTakeScreenshot(chart);
                     }
-                } else {
+                } else {//TODO Parsing Bug
                     int dataInteger = (int) (Double.parseDouble(entry.data));
                     if ((Integer.parseInt(dataArray.get(labelIndex).toString()) > (dataInteger + entry.offset)) || (Integer.parseInt(dataArray.get(labelIndex).toString()) < (dataInteger - entry.offset))) {
 
