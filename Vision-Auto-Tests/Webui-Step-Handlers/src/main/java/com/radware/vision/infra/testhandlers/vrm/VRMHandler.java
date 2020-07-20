@@ -46,6 +46,8 @@ import java.time.LocalDateTime;
 import java.time.Period;
 import java.time.format.DateTimeFormatter;
 import java.util.*;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 import java.util.stream.StreamSupport;
 
 import static com.radware.vision.infra.testhandlers.BaseHandler.devicesManager;
@@ -626,12 +628,18 @@ public class VRMHandler {
             if (entry.data != null) {
                 Double entryData = Double.parseDouble(entry.data);
                 Double dataFromArray = Double.parseDouble(dataArray.get(labelIndex).toString());
-                if (entry.offset == 0) {
+                if (entry.offset == 0 && entry.offsetPercentage == null) {
                     if (!dataFromArray.equals(entryData)) {
                         addErrorMessage("The ACTUAL data of label: " + entry.label + " in chart " + chart + " is " + dataFromArray.toString() + " The EXPECTED is " + entryData);
                         scrollAndTakeScreenshot(chart);
                     }
                 } else {
+                    Pattern pattern = Pattern.compile("((\\d+)(\\.\\d+)?)%");
+                    Matcher matcher = pattern.matcher(entry.offsetPercentage);
+                    if (matcher.matches()) {
+                        double percentage = Double.parseDouble(matcher.group(1)) / 100.0;
+                        entry.offset =(int) (entryData * percentage);
+                    }
                     if (!(entryData - entry.offset <= dataFromArray || entryData + entry.offset >= dataFromArray))
                         addErrorMessage("The EXPECTED between " + (entryData + entry.offset) + " and " + (entryData - entry.offset) + ", The ACTUAL value of " + entry.label + " is " + dataFromArray);
                 }
@@ -1291,7 +1299,7 @@ public class VRMHandler {
     }
 
     public static class PieChart {
-        String label, data, backgroundcolor, shapeType, colors;
+        String label, data, backgroundcolor, shapeType, colors, offsetPercentage;
         int offset = 0;
         Boolean exist;
 
@@ -1305,6 +1313,7 @@ public class VRMHandler {
                     ", colors='" + colors + '\'' +
                     ", exist=" + exist +
                     ", offset=" + offset +
+                    ", offsetPercentage=" + offsetPercentage +
                     '}';
         }
     }
