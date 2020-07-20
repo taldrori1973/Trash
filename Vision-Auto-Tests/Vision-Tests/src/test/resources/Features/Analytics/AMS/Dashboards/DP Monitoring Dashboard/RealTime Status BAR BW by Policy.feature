@@ -28,17 +28,17 @@ Feature: VRM Real Time Status Bar BW by Policy
   # DE38477 will-never-fix
 #    The Offset is 10% of th expected value
     Then UI Validate Pie Chart data "Bandwidth per Policy"
-      | label     | data        | offset |
-      | Policy20  | 3152.0      | 315    |
-      | Policy16  | 2885.0      | 288    |
-      | Policy160 | 2885.0      | 288    |
-      | Policy150 | 4986.0      | 498    |
-      | Policy19  | 3099.0      | 310    |
-      | Policy18  | 2512.0      | 251    |
-      | Policy180 | 2512.0      | 251    |
-      | Policy17  | 2352.0      | 235    |
-      | Policy190 | 3099.0      | 309    |
-      | Policy200 | 2101.333333 | 210    |
+      | label     | data        | offsetPercentage |
+      | Policy20  | 3152.0      | 10%              |
+      | Policy16  | 2885.0      | 10%              |
+      | Policy160 | 2885.0      | 10%              |
+      | Policy150 | 4986.0      | 10%              |
+      | Policy19  | 3099.0      | 10%              |
+      | Policy18  | 2512.0      | 10%              |
+      | Policy180 | 2512.0      | 10%              |
+      | Policy17  | 2352.0      | 10%              |
+      | Policy190 | 3099.0      | 10%              |
+      | Policy200 | 2101.333333 | 10%              |
 
 
 #| label     | data    |
