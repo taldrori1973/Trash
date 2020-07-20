@@ -626,12 +626,12 @@ public class VRMHandler {
             if (entry.data != null) {
                 Double entryData = Double.parseDouble(entry.data);
                 Double dataFromArray = Double.parseDouble(dataArray.get(labelIndex).toString());
-                if (entry.offset == 0) {//TODO: Change String Equals to Number Equals
+                if (entry.offset == 0) {
                     if (!dataFromArray.equals(entryData)) {
                         addErrorMessage("The ACTUAL data of label: " + entry.label + " in chart " + chart + " is " + dataFromArray.toString() + " The EXPECTED is " + entryData);
                         scrollAndTakeScreenshot(chart);
                     }
-                } else {//TODO Parsing Bug
+                } else {
                     if (entryData - entry.offset <= dataFromArray || entryData + entry.offset >= dataFromArray)
                         addErrorMessage("The EXPECTED between " + (entryData + entry.offset) + " and " + (entryData - entry.offset) + ", The ACTUAL value of " + entry.label + " is " + dataFromArray);
                 }
