@@ -34,7 +34,6 @@ import com.radware.vision.infra.testhandlers.vrm.enums.VRMDashboards;
 import com.radware.vision.infra.utils.ReportsUtils;
 import com.radware.vision.infra.utils.TimeUtils;
 import com.radware.vision.vision_project_cli.RootServerCli;
-import org.apache.commons.lang.math.NumberUtils;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import org.openqa.selenium.JavascriptExecutor;
@@ -625,21 +624,18 @@ public class VRMHandler {
             }
 
             if (entry.data != null) {
-                Number entryData = NumberUtils.createNumber(entry.data);
-                Number dataFromArray = NumberUtils.createNumber(dataArray.get(labelIndex).toString());
+                Double entryData = Double.parseDouble(entry.data);
+                Double dataFromArray = Double.parseDouble(dataArray.get(labelIndex).toString());
                 if (entry.offset == 0) {//TODO: Change String Equals to Number Equals
                     if (!dataFromArray.equals(entryData)) {
                         addErrorMessage("The ACTUAL data of label: " + entry.label + " in chart " + chart + " is " + dataFromArray.toString() + " The EXPECTED is " + entryData);
                         scrollAndTakeScreenshot(chart);
                     }
                 } else {//TODO Parsing Bug
-                    int dataInteger = (int) (Double.parseDouble(entry.data));
-                    if ((Integer.parseInt(dataArray.get(labelIndex).toString()) > (dataInteger + entry.offset)) || (Integer.parseInt(dataArray.get(labelIndex).toString()) < (dataInteger - entry.offset))) {
-
-                        addErrorMessage("The EXPECTED between " + (dataInteger + entry.offset) + " and " + (dataInteger - entry.offset) + ", The ACTUAL value of " + entry.label + " is " + dataArray.get(labelIndex).toString());
-                    }
-
+                    if (entryData - entry.offset <= dataFromArray || entryData + entry.offset >= dataFromArray)
+                        addErrorMessage("The EXPECTED between " + (entryData + entry.offset) + " and " + (entryData - entry.offset) + ", The ACTUAL value of " + entry.label + " is " + dataFromArray);
                 }
+
             }
 
 
@@ -657,6 +653,7 @@ public class VRMHandler {
             }
 
         });
+
         reportErrors();
     }
 
@@ -1356,6 +1353,7 @@ public class VRMHandler {
         public String getParam() {
             return param;
         }
+
     }
 
     /**
