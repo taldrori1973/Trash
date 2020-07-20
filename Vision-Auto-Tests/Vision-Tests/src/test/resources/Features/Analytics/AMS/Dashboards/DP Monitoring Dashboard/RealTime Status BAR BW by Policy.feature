@@ -1,7 +1,7 @@
 @TC112253
 Feature: VRM Real Time Status Bar BW by Policy
 
-  @run3
+#  @run3
   Scenario: Login and Navigate
     Given REST Vision Install License Request "vision-AVA-Max-attack-capacity"
     Given UI Login with user "sys_admin" and password "radware"
@@ -19,8 +19,8 @@ Feature: VRM Real Time Status Bar BW by Policy
     When CLI simulate 90 attacks of type "rest_traffic_diff_Policy15out" on "DefensePro" 10 with loopDelay 15000 and wait 130 seconds
     When Sleep "30"
 
+#  @run3
   @SID_2
-  @run3
   Scenario: BW by policy basic
     Then UI Total Pie Chart data "Bandwidth per Policy"
       | size | offset |
