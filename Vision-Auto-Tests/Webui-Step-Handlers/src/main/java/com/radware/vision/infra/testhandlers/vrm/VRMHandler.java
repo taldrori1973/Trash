@@ -168,7 +168,7 @@ public class VRMHandler {
         JSONArray legends = getLabelsFromData(chart);
         if (!((legends.toList().contains(entry.legendName) && entry.legendNameExist) || (!legends.toList().contains(entry.legendName) && !entry.legendNameExist))) {
 //            addErrorMessage("The existence of " + entry.legendName + " is " + entry.legendNameExist + " but ACTUAL is " + legends.toList().contains(entry.legendName));
-            addErrorMessage("The Legend Name of '" + entry.legendName + "'" + (entry.label!=null?" of label '" + entry.label + "'":"") + " is Not as expected, Expected result is: " + (entry.legendNameExist.equals(true)? "'exist'":"'doesn't exist'") + " But Actual result is: " + (legends.toList().contains(entry.legendName)? "'exist'" : "'doesn't exist'"));
+            addErrorMessage("The Legend Name of '" + entry.legendName + "'" + (entry.label != null ? " of label '" + entry.label + "'" : "") + " is Not as expected, Expected result is: " + (entry.legendNameExist.equals(true) ? "'exist'" : "'doesn't exist'") + " But Actual result is: " + (legends.toList().contains(entry.legendName) ? "'exist'" : "'doesn't exist'"));
         }
         return returnValue;
     }
@@ -177,7 +177,7 @@ public class VRMHandler {
         entry.exist = entry.exist == null ? true : entry.exist;
         if (!(isLabelExist(chart, entry.label)) && entry.exist || (isLabelExist(chart, entry.label)) && !entry.exist) {
 //            addErrorMessage("The existence of " + entry.label + " is " + entry.exist + " but ACTUAL is " + isLabelExist(chart, entry.label));
-            addErrorMessage("The Label Name of '" + entry.label + "' is Not as expected, Expected result is: " + (entry.exist.equals(true)? "'exist'":"'doesn't exist'") + " But Actual result is: " + (isLabelExist(chart, entry.label)? "'exist'" : "'doesn't exist'"));
+            addErrorMessage("The Label Name of '" + entry.label + "' is Not as expected, Expected result is: " + (entry.exist.equals(true) ? "'exist'" : "'doesn't exist'") + " But Actual result is: " + (isLabelExist(chart, entry.label) ? "'exist'" : "'doesn't exist'"));
             scrollAndTakeScreenshot(chart);
             return true;
         }
@@ -625,9 +625,9 @@ public class VRMHandler {
             }
 
             if (entry.data != null) {
+                Number entryData = NumberUtils.createNumber(entry.data);
+                Number dataFromArray = NumberUtils.createNumber(dataArray.get(labelIndex).toString());
                 if (entry.offset == 0) {//TODO: Change String Equals to Number Equals
-                    Number entryData = NumberUtils.createNumber(entry.data);
-                    Number dataFromArray=NumberUtils.createNumber(dataArray.get(labelIndex).toString());
                     if (!dataFromArray.equals(entryData)) {
                         addErrorMessage("The ACTUAL data of label: " + entry.label + " in chart " + chart + " is " + dataFromArray.toString() + " The EXPECTED is " + entryData);
                         scrollAndTakeScreenshot(chart);
@@ -716,7 +716,7 @@ public class VRMHandler {
 
                                 break;
                             default:
-                                throw new Exception(" checkBox element not found "+ entry.name + " ");
+                                throw new Exception(" checkBox element not found " + entry.name + " ");
                         }
                     } else {
                         checkbox.check();
@@ -856,14 +856,10 @@ public class VRMHandler {
                             policiesList = Arrays.asList(entry.policies.split("(,)"));
                             for (String policy : policiesList) {
                                 policyText.type(policy.trim());
-                                if (WebUIUtils.fluentWait(ComponentLocatorFactory.getEqualLocatorByDbgId(policyPrefix + policy.trim()).getBy(), WebUIUtils.DEFAULT_WAIT_TIME/2) == null)
-                                {
+                                if (WebUIUtils.fluentWait(ComponentLocatorFactory.getEqualLocatorByDbgId(policyPrefix + policy.trim()).getBy(), WebUIUtils.DEFAULT_WAIT_TIME / 2) == null) {
                                     policyText.type(""); //clear
                                     scrollUntilElementDisplayed(ComponentLocatorFactory.getLocatorByXpathDbgId("scopeSelection_deviceIP_" + deviceIp + "_policiesLabel_"), ComponentLocatorFactory.getEqualLocatorByDbgId(policyPrefix + policy.trim()));
-                                }
-                                else
-                                if (!WebUIUtils.fluentWait(ComponentLocatorFactory.getEqualLocatorByDbgId(policyPrefix + policy.trim()).getBy()).isDisplayed())
-                                {
+                                } else if (!WebUIUtils.fluentWait(ComponentLocatorFactory.getEqualLocatorByDbgId(policyPrefix + policy.trim()).getBy()).isDisplayed()) {
                                     WebUIUtils.scrollIntoView(WebUIUtils.fluentWait(ComponentLocatorFactory.getEqualLocatorByDbgId(policyPrefix + policy.trim()).getBy()));
                                 }
                                 checkbox.setLocator(ComponentLocatorFactory.getEqualLocatorByDbgId(policyPrefix + policy.trim()));
@@ -927,10 +923,9 @@ public class VRMHandler {
     }
 
     /**
-     *
-     * @param elementsLocator this the common comparator of all elements list
+     * @param elementsLocator      this the common comparator of all elements list
      * @param targetElementLocator this target comparator of element who we'r seeking about
-     *        this method searches about an element in list - and do scroll to this element
+     *                             this method searches about an element in list - and do scroll to this element
      */
     private void scrollUntilElementDisplayed(ComponentLocator elementsLocator, ComponentLocator targetElementLocator) {
         if (WebUIUtils.fluentWait(targetElementLocator.getBy(), WebUIUtils.DEFAULT_WAIT_TIME) != null) //if targetElement exist
@@ -947,54 +942,48 @@ public class VRMHandler {
     }
 
     /**
-     *
-     * @param elementsLocator this the common comparator of all elements list
+     * @param elementsLocator      this the common comparator of all elements list
      * @param targetElementLocator this target comparator of element who we'r seeking about
      * @return true - if the targetElement exist in list
-     *         false - if the targetElement doesn't exist in list
-     *
-     *         this method do scrolls until find the target element
+     * false - if the targetElement doesn't exist in list
+     * <p>
+     * this method do scrolls until find the target element
      */
     private boolean isTargetLocatorExistInList(ComponentLocator elementsLocator, ComponentLocator targetElementLocator) {
-        List <String> elementsTextsList = new ArrayList();
+        List<String> elementsTextsList = new ArrayList();
 
-        while (!isTargetLocatorExist(targetElementLocator))
-        {
-            List<WebElement> elementsShouldBeAddedList = WebUIUtils.fluentWaitMultiple(elementsLocator.getBy(), WebUIUtils.DEFAULT_WAIT_TIME/2);
+        while (!isTargetLocatorExist(targetElementLocator)) {
+            List<WebElement> elementsShouldBeAddedList = WebUIUtils.fluentWaitMultiple(elementsLocator.getBy(), WebUIUtils.DEFAULT_WAIT_TIME / 2);
             elementsShouldBeAddedList = extractJustNewElements(elementsTextsList, elementsShouldBeAddedList);
             if (elementsShouldBeAddedList.size() == 0) break; // there aren't new elements to add
-            for (WebElement element : elementsShouldBeAddedList)
-            {
+            for (WebElement element : elementsShouldBeAddedList) {
                 elementsTextsList.add(element.getText());
             }
-            WebUIUtils.scrollIntoView(elementsShouldBeAddedList.size()!=0 ? elementsShouldBeAddedList.get(elementsShouldBeAddedList.size()-1) : null);
+            WebUIUtils.scrollIntoView(elementsShouldBeAddedList.size() != 0 ? elementsShouldBeAddedList.get(elementsShouldBeAddedList.size() - 1) : null);
         }
 
         return isTargetLocatorExist(targetElementLocator);
     }
 
     private boolean isTargetLocatorExist(ComponentLocator targetElementLocator) {
-        return WebUIUtils.fluentWait(targetElementLocator.getBy(), WebUIUtils.DEFAULT_WAIT_TIME/2) != null;
+        return WebUIUtils.fluentWait(targetElementLocator.getBy(), WebUIUtils.DEFAULT_WAIT_TIME / 2) != null;
     }
 
     /**
-     *
-     * @param elementsTextsList list of all texts of the found elements
+     * @param elementsTextsList         list of all texts of the found elements
      * @param elementsShouldBeAddedList list of the new elements that should be added
      * @return return just the new elements - elements their texts aren't found in the elementsTextsList
      */
     private List<WebElement> extractJustNewElements(List<String> elementsTextsList, List<WebElement> elementsShouldBeAddedList) {
-        if (!elementsTextsList.isEmpty())
-        {
+        if (!elementsTextsList.isEmpty()) {
             Collections.reverse(elementsShouldBeAddedList);
-            int i=0;
-            for(WebElement element : elementsShouldBeAddedList)
-            {
-                if (element.getText().equals(elementsTextsList.get(elementsTextsList.size()-1)))
+            int i = 0;
+            for (WebElement element : elementsShouldBeAddedList) {
+                if (element.getText().equals(elementsTextsList.get(elementsTextsList.size() - 1)))
                     break;
                 i++;
             }
-            elementsShouldBeAddedList = elementsShouldBeAddedList.subList(0,i);
+            elementsShouldBeAddedList = elementsShouldBeAddedList.subList(0, i);
             Collections.reverse(elementsShouldBeAddedList);
         }
         return elementsShouldBeAddedList;
@@ -1177,7 +1166,7 @@ public class VRMHandler {
             if (entry.count != null) {
                 int count = 0;
                 for (int i = 0; i < data.length(); i++) {
-                    if (!data.get(i).equals(null)){
+                    if (!data.get(i).equals(null)) {
                         if ((Double.valueOf(data.get(i).toString()) >= entry.value - entry.offset) && (Double.valueOf(data.get(i).toString()) <= entry.value + entry.offset))
                             count++;
                     }
@@ -1371,10 +1360,11 @@ public class VRMHandler {
 
     /**
      * function select a range in the char.
-     *  @param fromIndex - is an index of label in the session storage.
+     *
+     * @param fromIndex - is an index of label in the session storage.
      * @param toIndex   - is an index of label in the sesison storage
-     * @parm timeFormat
      * @param chart     - chart name
+     * @parm timeFormat
      */
     public void selectTimeFromTo(int fromIndex, int toIndex, String chart, String timeFormat) {
         try {
@@ -1383,7 +1373,7 @@ public class VRMHandler {
             Map jsonMap = getSessionStorage(chart);
             jsonMap = JsonUtils.getJsonMap(jsonMap.get(DATA));
             dataArray = (JSONArray) jsonMap.get(LABELS);
-            DateTimeFormatter inputFormatter = DateTimeFormatter.ofPattern(timeFormat!=null? timeFormat:"yyyy-MM-dd'T'HH:mm:ss.SSS'Z'");
+            DateTimeFormatter inputFormatter = DateTimeFormatter.ofPattern(timeFormat != null ? timeFormat : "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'");
 
             if (dataArray.length() < toIndex)
                 BaseTestUtils.report("There is no Enough data in Session Storage", Reporter.FAIL);
@@ -1513,14 +1503,14 @@ public class VRMHandler {
         VisionDebugIdsManager.setLabel(selectAllCheckBox);
         WebUICheckbox checkbox = new WebUICheckbox(ComponentLocatorFactory.getEqualLocatorByDbgId(VisionDebugIdsManager.getDataDebugId()));
 //            To Clear previous settings
-        if(checkbox.isChecked()){
+        if (checkbox.isChecked()) {
             checkbox.uncheck();
         }
 
-            //select the device
-            checkbox.setLocator(ComponentLocatorFactory.getEqualLocatorByDbgId("scopeSelection_deviceIP_" + deviceIp + "_Label"));
-            checkbox.check();
-            ClickOperationsHandler.clickWebElement(ComponentLocatorFactory.getEqualLocatorByDbgId("scopeSelection_change_" + deviceIp), false);
+        //select the device
+        checkbox.setLocator(ComponentLocatorFactory.getEqualLocatorByDbgId("scopeSelection_deviceIP_" + deviceIp + "_Label"));
+        checkbox.check();
+        ClickOperationsHandler.clickWebElement(ComponentLocatorFactory.getEqualLocatorByDbgId("scopeSelection_change_" + deviceIp), false);
 
 
     }
@@ -1537,8 +1527,7 @@ public class VRMHandler {
                 try {
                     if (entry.index == null) {
                         throw new Exception("Index entry is empty please enter it!");
-                    }
-                    else {
+                    } else {
                         deviceIp = devicesManager.getDeviceInfo(SUTDeviceType.DefensePro, entry.index).getDeviceIp();
                     }
 
@@ -1557,15 +1546,15 @@ public class VRMHandler {
                             policiesList = Arrays.asList(entry.policies.split("(,)"));
                             for (String policy : policiesList) {
                                 policyText.type(policy.trim());
-                               // WebUIUtils.scrollIntoView(ComponentLocatorFactory.getEqualLocatorByDbgId(VisionDebugIdsManager.getDataDebugId()));
-                                if(!isExist){
-                                    if(WebUIUtils.fluentWait(ComponentLocatorFactory.getEqualLocatorByDbgId(policyPrefix + policy.trim()).getBy())!=null){
-                                       // addErrorMessage(String.format("device [%s] ->Expected policy [%s] does exist", deviceIp, policy));
+                                // WebUIUtils.scrollIntoView(ComponentLocatorFactory.getEqualLocatorByDbgId(VisionDebugIdsManager.getDataDebugId()));
+                                if (!isExist) {
+                                    if (WebUIUtils.fluentWait(ComponentLocatorFactory.getEqualLocatorByDbgId(policyPrefix + policy.trim()).getBy()) != null) {
+                                        // addErrorMessage(String.format("device [%s] ->Expected policy [%s] does exist", deviceIp, policy));
                                         BaseTestUtils.report("Expected policy: " + policy + " does exist", Reporter.FAIL);
                                         WebUIUtils.generateAndReportScreenshot();
                                     }
                                 }
-                                if(isExist){
+                                if (isExist) {
                                     if (!WebUIUtils.fluentWait(ComponentLocatorFactory.getEqualLocatorByDbgId(policyPrefix + policy.trim()).getBy()).isDisplayed()) {
                                         BaseTestUtils.report("Expected policy: " + policy + " does not exist", Reporter.FAIL);
                                         WebUIUtils.generateAndReportScreenshot();
