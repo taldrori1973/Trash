@@ -1,5 +1,5 @@
 @TC112253
-  
+  @run3
 Feature: VRM Real Time Status Bar BW by Policy
 
 
@@ -107,17 +107,17 @@ Feature: VRM Real Time Status Bar BW by Policy
       | size | offset |
       | 10   | 0      |
     Then UI Validate Pie Chart data "Bandwidth per Policy"
-      | label     | data        | offsetPercentage |
-      | Policy20  | 3152.0      | 10%              |
-      | Policy16  | 2885.0      | 10%              |
-      | Policy160 | 2885.0      | 10%              |
-      | Policy150 | 4986.0      | 10%              |
-      | Policy19  | 3099.0      | 10%              |
-      | Policy18  | 2512.0      | 10%              |
-      | Policy180 | 2512.0      | 10%              |
-      | Policy17  | 2352.0      | 10%              |
-      | Policy190 | 3099.0      | 10%              |
-      | Policy200 | 2101.333333 | 10%              |
+      | label     | data   | offsetPercentage |
+      | Policy14  | 3089.0 | 10%              |
+      | Policy140 | 3089.0 | 10%              |
+      | Policy150 | 7479.0 | 10%              |
+      | Policy16  | 2885.0 | 10%              |
+      | Policy160 | 2885.0 | 10%              |
+      | Policy18  | 2512.0 | 10%              |
+      | Policy19  | 3099.0 | 10%              |
+      | Policy190 | 3099.0 | 10%              |
+      | Policy20  | 3152.0 | 10%              |
+      | Policy200 | 3152.0 | 10%              |
     And UI Logout
 
   @SID_7
@@ -129,8 +129,8 @@ Feature: VRM Real Time Status Bar BW by Policy
       | size | offset |
       | 1    | 0      |
     Then UI Validate Pie Chart data "Bandwidth per Policy"
-      | label    | data   |
-      | Policy14 | 3089.0 |
+      | label     | data   | offsetPercentage |
+      | Policy14  | 3089.0 | 10%              |
     Then UI Validate Pie Chart data "Bandwidth per Policy"
       | label     | exist |
       | Policy140 | false |
