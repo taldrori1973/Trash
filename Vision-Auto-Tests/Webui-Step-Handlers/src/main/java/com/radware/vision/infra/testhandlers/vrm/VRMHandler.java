@@ -632,7 +632,7 @@ public class VRMHandler {
                         scrollAndTakeScreenshot(chart);
                     }
                 } else {
-                    if (entryData - entry.offset <= dataFromArray || entryData + entry.offset >= dataFromArray)
+                    if (!(entryData - entry.offset <= dataFromArray || entryData + entry.offset >= dataFromArray))
                         addErrorMessage("The EXPECTED between " + (entryData + entry.offset) + " and " + (entryData - entry.offset) + ", The ACTUAL value of " + entry.label + " is " + dataFromArray);
                 }
 
