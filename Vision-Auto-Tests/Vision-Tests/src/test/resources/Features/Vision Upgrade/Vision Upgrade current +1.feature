@@ -27,7 +27,6 @@ Feature: Vision Upgrade current +1
     Then REST Vision DELETE License Request "vision-reporting-module-ADC"
     # extract MySql create partition number
     Then CLI Run remote linux Command "echo "Before " $(mysql -prad123 vision -e "show create table traffic_utilizations\G" |grep "(PARTITION p" |awk -F"p" '{print$2}'|awk '{printf$1}') >  /opt/radware/sql_partition.txt" on "ROOT_SERVER_CLI"
-    Then CLI Run remote linux Command "/usr/sbin/ntpdate -u $(/bin/grep ^server  /etc/ntp.conf | awk '{print $2}')" on "ROOT_SERVER_CLI" with timeOut 120
     Then CLI Run remote linux Command "iptables -L -n" on "ROOT_SERVER_CLI"
     Then CLI Clear vision logs
 
