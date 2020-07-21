@@ -131,7 +131,7 @@ Feature: VRM Real Time Status Bar Alerts
     Then CLI Run remote linux Command "curl -XPOST localhost:9200/alert/_update_by_query/?pretty -d '{"query": {"match": {"module": "DEVICE_HEALTH_ERRORS"}},"script": {"source": "ctx._source.raisedTime = 'ctx._source.raisedTime-1080000'"}}'" on "ROOT_SERVER_CLI"
     Then CLI Run remote linux Command "curl -XPOST localhost:9200/alert/_update_by_query/?pretty -d '{"query": {"match": {"module": "DEVICE_THROUGHPUT_LICENSE_ERRORS"}},"script": {"source": "ctx._source.raisedTime = 'ctx._source.raisedTime-1080000'"}}'" on "ROOT_SERVER_CLI" and wait 45 seconds
     Then UI Text of "Health Error Count" equal to "0 Errors"
-    Then UI Validate Element Existence By Label "Health.Ok" if Exists "true"
+#    Then UI Validate Element Existence By Label "Health.Ok" if Exists "true"
     And UI logout and close browser
 
   @SID_10
