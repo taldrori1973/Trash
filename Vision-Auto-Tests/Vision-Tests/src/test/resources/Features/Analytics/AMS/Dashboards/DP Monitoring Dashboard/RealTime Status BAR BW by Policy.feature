@@ -54,17 +54,17 @@ Feature: VRM Real Time Status Bar BW by Policy
       | 10   | 0      |
 
     Then UI Validate Pie Chart data "Bandwidth per Policy"
-      | label     | data   | offsetPercentage |
-      | Policy14  | 3089.0 | 10%              |
-      | Policy140 | 3089.0 | 10%              |
-      | Policy150 | 7479.0 | 10%              |
-      | Policy16  | 2885.0 | 10%              |
-      | Policy160 | 2885.0 | 10%              |
-      | Policy18  | 2512.0 | 10%              |
-      | Policy19  | 3099.0 | 10%              |
-      | Policy190 | 3099.0 | 10%              |
-      | Policy20  | 3152.0 | 10%              |
-      | Policy200 | 3152.0 | 10%              |
+      | label     | data | offsetPercentage |
+      | Policy150 | 7479 | 10%              |
+      | Policy20  | 3152 | 10%              |
+      | Policy200 | 3152 | 10%              |
+      | Policy19  | 3099 | 10%              |
+      | Policy190 | 3099 | 10%              |
+      | Policy14  | 3089 | 10%              |
+      | Policy140 | 3089 | 10%              |
+      | Policy16  | 2885 | 10%              |
+      | Policy160 | 2885 | 10%              |
+      | Policy18  | 2512 | 10%              |
 
   @SID_4
   Scenario: BW by policy filter by policy in
@@ -108,17 +108,17 @@ Feature: VRM Real Time Status Bar BW by Policy
       | size | offset |
       | 10   | 0      |
     Then UI Validate Pie Chart data "Bandwidth per Policy"
-      | label     | data   | offsetPercentage |
-      | Policy14  | 3089.0 | 10%              |
-      | Policy140 | 3089.0 | 10%              |
-      | Policy150 | 7479.0 | 10%              |
-      | Policy16  | 2885.0 | 10%              |
-      | Policy160 | 2885.0 | 10%              |
-      | Policy18  | 2512.0 | 10%              |
-      | Policy19  | 3099.0 | 10%              |
-      | Policy190 | 3099.0 | 10%              |
-      | Policy20  | 3152.0 | 10%              |
-      | Policy200 | 3152.0 | 10%              |
+      | label     | data | offsetPercentage |
+      | Policy150 | 7479 | 10%              |
+      | Policy20  | 3152 | 10%              |
+      | Policy200 | 3152 | 10%              |
+      | Policy19  | 3099 | 10%              |
+      | Policy190 | 3099 | 10%              |
+      | Policy14  | 3089 | 10%              |
+      | Policy140 | 3089 | 10%              |
+      | Policy16  | 2885 | 10%              |
+      | Policy160 | 2885 | 10%              |
+      | Policy18  | 2512 | 10%              |
     And UI Logout
 
   @SID_7
