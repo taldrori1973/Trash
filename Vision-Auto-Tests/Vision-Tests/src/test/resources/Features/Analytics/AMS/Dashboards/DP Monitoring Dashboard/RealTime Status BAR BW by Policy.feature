@@ -1,4 +1,5 @@
 @TC112253
+@run3
 Feature: VRM Real Time Status Bar BW by Policy
 
 
@@ -8,7 +9,6 @@ Feature: VRM Real Time Status Bar BW by Policy
     When UI Navigate to "DefensePro Monitoring Dashboard" page via homePage
 
 
-  @run3
   @SID_1
   Scenario: BW by policy Clean system data before test
     When CLI kill all simulator attacks on current vision
