@@ -41,7 +41,7 @@ Feature: VRM Real Time Status Bar Alerts
 
   Scenario: Operational alerts RBAC
     Given UI Login with user "sec_admin_all_pol" and password "radware"
-    Given UI close tabs, popups and yellow messages
+
     When UI Navigate to "DefensePro Monitoring Dashboard" page via homePage
     Then UI Text of "Health Error Count" equal to "1 Errors"
     Then UI Logout
@@ -49,7 +49,7 @@ Feature: VRM Real Time Status Bar Alerts
   @SID_6
   Scenario: Operational alerts RBAC alert table
     Given UI Login with user "sec_admin_all_pol" and password "radware"
-    Given UI close tabs, popups and yellow messages
+
     When UI Navigate to "DefensePro Monitoring Dashboard" page via homePage
     Then UI Text of "Health Error Count" equal to "1 Errors"
     Then UI Click Button "Health Error Count" with value "1 Errors"
