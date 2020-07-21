@@ -1,5 +1,4 @@
 @TC112253
-  @run3
 Feature: VRM Real Time Status Bar BW by Policy
 
 
@@ -8,7 +7,8 @@ Feature: VRM Real Time Status Bar BW by Policy
     Given UI Login with user "sys_admin" and password "radware"
     When UI Navigate to "DefensePro Monitoring Dashboard" page via homePage
 
-  
+
+  @run3
   @SID_1
   Scenario: BW by policy Clean system data before test
     When CLI kill all simulator attacks on current vision
@@ -29,17 +29,18 @@ Feature: VRM Real Time Status Bar BW by Policy
   # DE38477 will-never-fix
 #    The Offset is 10% of th expected value
     Then UI Validate Pie Chart data "Bandwidth per Policy"
-      | label     | data        | offsetPercentage |
-      | Policy20  | 3152.0      | 10%              |
-      | Policy16  | 2885.0      | 10%              |
-      | Policy160 | 2885.0      | 10%              |
-      | Policy150 | 4986.0      | 10%              |
-      | Policy19  | 3099.0      | 10%              |
-      | Policy18  | 2512.0      | 10%              |
-      | Policy180 | 2512.0      | 10%              |
-      | Policy17  | 2352.0      | 10%              |
-      | Policy190 | 3099.0      | 10%              |
-      | Policy200 | 2101.333333 | 10%              |
+      | label     | data | offsetPercentage |
+      | Policy150 | 7479 | 10%              |
+      | Policy20  | 3152 | 10%              |
+      | Policy200 | 3152 | 10%              |
+      | Policy19  | 3099 | 10%              |
+      | Policy190 | 3099 | 10%              |
+      | Policy14  | 3089 | 10%              |
+      | Policy140 | 3089 | 10%              |
+      | Policy16  | 2885 | 10%              |
+      | Policy160 | 2885 | 10%              |
+      | Policy18  | 2512 | 10%              |
+
 
   @SID_3
   Scenario: BW by policy filter by device
@@ -129,8 +130,8 @@ Feature: VRM Real Time Status Bar BW by Policy
       | size | offset |
       | 1    | 0      |
     Then UI Validate Pie Chart data "Bandwidth per Policy"
-      | label     | data   | offsetPercentage |
-      | Policy14  | 3089.0 | 10%              |
+      | label    | data   | offsetPercentage |
+      | Policy14 | 3089.0 | 10%              |
     Then UI Validate Pie Chart data "Bandwidth per Policy"
       | label     | exist |
       | Policy140 | false |
