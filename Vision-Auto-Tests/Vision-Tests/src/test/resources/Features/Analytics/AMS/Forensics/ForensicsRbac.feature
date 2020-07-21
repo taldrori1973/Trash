@@ -13,9 +13,9 @@ Feature: Forensics RBAC
 
   @SID_2
   Scenario: Forensics RBAC generate attacks
-    Then CLI Operations - Run Root Session command "yes|restore_radware_user_password" timeout 15
-#    * REST Login with user "radware" and password "radware"
-    * REST Vision Install License Request "vision-AVA-Max-attack-capacity"
+    When CLI Operations - Run Root Session command "yes|restore_radware_user_password" timeout 15
+    When CLI Operations - Run Radware Session command "system user authentication-mode set TACACS+"
+    When REST Vision Install License Request "vision-AVA-Max-attack-capacity"
     When CLI simulate 1 attacks of type "Ascan_Policy14" on "DefensePro" 10
     When CLI simulate 1 attacks of type "rest_dos" on "DefensePro" 11
     When CLI simulate 1 attacks of type "rest_anomalies" on "DefensePro" 10 and wait 22 seconds
