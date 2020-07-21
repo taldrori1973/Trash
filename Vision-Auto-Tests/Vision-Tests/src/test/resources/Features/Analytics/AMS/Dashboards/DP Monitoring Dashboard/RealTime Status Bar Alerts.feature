@@ -19,7 +19,7 @@ Feature: VRM Real Time Status Bar Alerts
     When UI Navigate to "DefensePro Monitoring Dashboard" page via homePage
     And Sleep "3"
     Then UI Text of "Health Error Count" equal to "2 Errors"
-    Then UI Validate Element Existence By Label "Health.Warning" if Exists "true"
+#    Then UI Validate Element Existence By Label "Health.Warning" if Exists "true"
 
   @SID_3
   Scenario: Operational alerts table
@@ -37,8 +37,11 @@ Feature: VRM Real Time Status Bar Alerts
     Then UI Logout
 
   @SID_5
+  @run3
+
   Scenario: Operational alerts RBAC
     Given UI Login with user "sec_admin_all_pol" and password "radware"
+    Given UI close tabs, popups and yellow messages
     When UI Navigate to "DefensePro Monitoring Dashboard" page via homePage
     Then UI Text of "Health Error Count" equal to "1 Errors"
     Then UI Logout
@@ -46,6 +49,7 @@ Feature: VRM Real Time Status Bar Alerts
   @SID_6
   Scenario: Operational alerts RBAC alert table
     Given UI Login with user "sec_admin_all_pol" and password "radware"
+    Given UI close tabs, popups and yellow messages
     When UI Navigate to "DefensePro Monitoring Dashboard" page via homePage
     Then UI Text of "Health Error Count" equal to "1 Errors"
     Then UI Click Button "Health Error Count" with value "1 Errors"
