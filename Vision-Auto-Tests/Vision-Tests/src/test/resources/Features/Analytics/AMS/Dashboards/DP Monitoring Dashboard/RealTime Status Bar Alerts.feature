@@ -164,8 +164,8 @@ Feature: VRM Real Time Status Bar Alerts
     And Sleep "4"
     Then UI Text of "Utilization Throughput Status" equal to "1 Errors"
     Then UI Text of "Health Error Count" equal to "0 Errors"
-    Then UI Validate Element Existence By Label "Throughput.Warning" if Exists "true"
-    Then UI Validate Element Existence By Label "Health.Warning" if Exists "false"
+#    Then UI Validate Element Existence By Label "Throughput.Warning" if Exists "true"
+#    Then UI Validate Element Existence By Label "Health.Warning" if Exists "false"
     And UI Logout
 
   @SID_13
