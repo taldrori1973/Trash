@@ -1,13 +1,13 @@
 @TC112253
 Feature: VRM Real Time Status Bar BW by Policy
 
-  @run3
+
   Scenario: Login and Navigate
     Given REST Vision Install License Request "vision-AVA-Max-attack-capacity"
     Given UI Login with user "sys_admin" and password "radware"
     When UI Navigate to "DefensePro Monitoring Dashboard" page via homePage
 
-  @run3
+
   @SID_1
   Scenario: BW by policy Clean system data before test
     When CLI kill all simulator attacks on current vision
@@ -19,8 +19,8 @@ Feature: VRM Real Time Status Bar BW by Policy
     When CLI simulate 90 attacks of type "rest_traffic_diff_Policy15out" on "DefensePro" 10 with loopDelay 15000 and wait 130 seconds
     When Sleep "30"
 
+
   @SID_2
-  @run3
   Scenario: BW by policy basic
     Then UI Total Pie Chart data "Bandwidth per Policy"
       | size | offset |
@@ -28,33 +28,18 @@ Feature: VRM Real Time Status Bar BW by Policy
   # DE38477 will-never-fix
 #    The Offset is 10% of th expected value
     Then UI Validate Pie Chart data "Bandwidth per Policy"
-      | label     | data        | offset |
-      | Policy20  | 3152.0      | 315    |
-      | Policy16  | 2885.0      | 288    |
-      | Policy160 | 2885.0      | 288    |
-      | Policy150 | 4986.0      | 498    |
-      | Policy19  | 3099.0      | 310    |
-      | Policy18  | 2512.0      | 251    |
-      | Policy180 | 2512.0      | 251    |
-      | Policy17  | 2352.0      | 235    |
-      | Policy190 | 3099.0      | 309    |
-      | Policy200 | 2101.333333 | 210    |
+      | label     | data | offsetPercentage |
+      | Policy150 | 7479 | 10%              |
+      | Policy20  | 3152 | 10%              |
+      | Policy200 | 3152 | 10%              |
+      | Policy19  | 3099 | 10%              |
+      | Policy190 | 3099 | 10%              |
+      | Policy14  | 3089 | 10%              |
+      | Policy140 | 3089 | 10%              |
+      | Policy16  | 2885 | 10%              |
+      | Policy160 | 2885 | 10%              |
+      | Policy18  | 2512 | 10%              |
 
-
-#| label     | data    |
-#| Policy150 | 14958   |
-#| Policy200 | 6304    |
-#| Policy20  | 6304    |
-#| Policy190 | 6198    |
-#| Policy19  | 6198    |
-#| Policy140 | 131038  |
-#| Policy14  | 6000    |
-#| Policy160 | 60000   |
-#| Policy16  | 20000   |
-#| Policy180 | 1002442 |
-#| Policy18  | 131038  |
-
-#    Then UI Logout
 
   @SID_3
   Scenario: BW by policy filter by device
@@ -68,17 +53,17 @@ Feature: VRM Real Time Status Bar BW by Policy
       | 10   | 0      |
 
     Then UI Validate Pie Chart data "Bandwidth per Policy"
-      | label     | data   |
-      | Policy14  | 3089.0 |
-      | Policy140 | 3089.0 |
-      | Policy150 | 7479.0 |
-      | Policy16  | 2885.0 |
-      | Policy160 | 2885.0 |
-      | Policy18  | 2512.0 |
-      | Policy19  | 3099.0 |
-      | Policy190 | 3099.0 |
-      | Policy20  | 3152.0 |
-      | Policy200 | 3152.0 |
+      | label     | data | offsetPercentage |
+      | Policy150 | 7479 | 10%              |
+      | Policy20  | 3152 | 10%              |
+      | Policy200 | 3152 | 10%              |
+      | Policy19  | 3099 | 10%              |
+      | Policy190 | 3099 | 10%              |
+      | Policy14  | 3089 | 10%              |
+      | Policy140 | 3089 | 10%              |
+      | Policy16  | 2885 | 10%              |
+      | Policy160 | 2885 | 10%              |
+      | Policy18  | 2512 | 10%              |
 
   @SID_4
   Scenario: BW by policy filter by policy in
@@ -91,8 +76,8 @@ Feature: VRM Real Time Status Bar BW by Policy
       | size | offset |
       | 1    | 0      |
     Then UI Validate Pie Chart data "Bandwidth per Policy"
-      | label    | data   |
-      | Policy14 | 3089.0 |
+      | label    | data   | offsetPercentage |
+      | Policy14 | 3089.0 | 10%              |
 
   @SID_5
   Scenario: BW by policy filter by policy out
@@ -122,18 +107,17 @@ Feature: VRM Real Time Status Bar BW by Policy
       | size | offset |
       | 10   | 0      |
     Then UI Validate Pie Chart data "Bandwidth per Policy"
-      | label     | data   |
-      | Policy14  | 3089.0 |
-      | Policy140 | 3089.0 |
-      | Policy150 | 7479.0 |
-      | Policy16  | 2885.0 |
-      | Policy160 | 2885.0 |
-      | Policy18  | 2512.0 |
-      | Policy19  | 3099.0 |
-      | Policy190 | 3099.0 |
-      | Policy20  | 3152.0 |
-      | Policy200 | 3152.0 |
-
+      | label     | data | offsetPercentage |
+      | Policy150 | 7479 | 10%              |
+      | Policy20  | 3152 | 10%              |
+      | Policy200 | 3152 | 10%              |
+      | Policy19  | 3099 | 10%              |
+      | Policy190 | 3099 | 10%              |
+      | Policy14  | 3089 | 10%              |
+      | Policy140 | 3089 | 10%              |
+      | Policy16  | 2885 | 10%              |
+      | Policy160 | 2885 | 10%              |
+      | Policy18  | 2512 | 10%              |
     And UI Logout
 
   @SID_7
@@ -145,8 +129,8 @@ Feature: VRM Real Time Status Bar BW by Policy
       | size | offset |
       | 1    | 0      |
     Then UI Validate Pie Chart data "Bandwidth per Policy"
-      | label    | data   |
-      | Policy14 | 3089.0 |
+      | label    | data   | offsetPercentage |
+      | Policy14 | 3089.0 | 10%              |
     Then UI Validate Pie Chart data "Bandwidth per Policy"
       | label     | exist |
       | Policy140 | false |
@@ -164,9 +148,9 @@ Feature: VRM Real Time Status Bar BW by Policy
       | size | offset |
       | 2    | 0      |
     Then UI Validate Pie Chart data "Bandwidth per Policy"
-      | label   | data      |
-      | Maxim30 | 3435973.0 |
-      | Maxim31 | 6871947.0 |
+      | label   | data      | offsetPercentage |
+      | Maxim30 | 3435973.0 | 10%              |
+      | Maxim31 | 6871947.0 | 10%              |
 
   @SID_9
   Scenario: BW by policy check logs
