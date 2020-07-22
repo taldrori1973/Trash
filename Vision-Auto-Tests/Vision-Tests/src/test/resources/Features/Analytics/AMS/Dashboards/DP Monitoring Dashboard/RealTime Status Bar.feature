@@ -45,7 +45,7 @@ Feature: VRM Real Time Status Bar Devices status
       | index | ports | policies |
       | 10    |       | BDOS     |
     Then Sleep "4"
-    Then UI Text of "Device Selection" equal to "DEVICES 1/3"
+    Then UI Text of "Device Selection" equal to "DEVICES1/3"
     Then UI Text of "Device Status Up Summary" equal to "3"
     Then UI Text of "Device Status Maintenance Summary" equal to "0"
     Then UI Text of "Device Status Down Summary" equal to "0"
