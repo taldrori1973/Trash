@@ -1,7 +1,7 @@
 @VRM @TC105996
+@run3
 Feature: VRM Real Time Status Bar Devices status
 
-  @run3
   @Sanity @SID_1
   Scenario: Devices status basic
     When CLI kill all simulator attacks on current vision
@@ -19,7 +19,6 @@ Feature: VRM Real Time Status Bar Devices status
     Then UI Navigate to "VISION SETTINGS" page via homePage
 
   @SID_2
-  @run3
   Scenario: Devices status filter by device
   # Filter by device does not affect this widget
     And UI Navigate to "DefensePro Monitoring Dashboard" page via homePage
