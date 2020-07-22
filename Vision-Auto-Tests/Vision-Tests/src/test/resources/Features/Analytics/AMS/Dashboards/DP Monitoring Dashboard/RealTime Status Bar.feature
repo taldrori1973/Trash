@@ -1,6 +1,7 @@
 @VRM @TC105996
 Feature: VRM Real Time Status Bar Devices status
 
+  @run3
   @Sanity @SID_1
   Scenario: Devices status basic
     When CLI kill all simulator attacks on current vision
@@ -18,17 +19,18 @@ Feature: VRM Real Time Status Bar Devices status
     Then UI Navigate to "VISION SETTINGS" page via homePage
 
   @SID_2
+  @run3
   Scenario: Devices status filter by device
   # Filter by device does not affect this widget
     And UI Navigate to "DefensePro Monitoring Dashboard" page via homePage
-    Then UI Text of "Device Selection" equal to "DEVICES 3/3"
+    Then UI Text of "Device Selection" equal to "DEVICES3/3"
     Then UI Do Operation "Select" item "Device Selection"
     Then UI VRM Select device from dashboard and Save Filter
       | index | ports | policies |
       | 10    |       |          |
     Then Sleep "2"
 #   Validate correct number of DPs
-    Then UI Text of "Device Selection" equal to "DEVICES 1/3"
+    Then UI Text of "Device Selection" equal to "DEVICES1/3"
     Then UI Text of "Device Status Up Summary" equal to "3"
     Then UI Text of "Device Status Maintenance Summary" equal to "0"
     Then UI Text of "Device Status Down Summary" equal to "0"
