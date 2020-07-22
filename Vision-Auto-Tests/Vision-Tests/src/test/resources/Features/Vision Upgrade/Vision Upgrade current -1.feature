@@ -27,7 +27,6 @@ Feature: Vision Upgrade current -1
     Given REST Login with activation with user "sys_admin" and password "radware"
       # extract MySql create partition number
     Then CLI Run remote linux Command "echo "Before " $(mysql -prad123 vision -e "show create table traffic_utilizations\G" |grep "(PARTITION p" |awk -F"p" '{print$2}'|awk '{printf$1}') >  /opt/radware/sql_partition.txt" on "ROOT_SERVER_CLI"
-    Then CLI Clear vision logs
 
   @SID_5
   Scenario: Change TED configuration
@@ -43,6 +42,7 @@ Feature: Vision Upgrade current -1
   @SID_11
   Scenario: Upgrade vision from release -1
     # Saving upgrade log to Generic server /home/radware/UpgradeLogs/
+    Given CLI Clear vision logs
     Then Upgrade or Fresh Install Vision
 
   @SID_12

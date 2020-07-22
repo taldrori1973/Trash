@@ -27,6 +27,7 @@ Feature: Vision APM Upgrade current -2
 
   @SID_4
   Scenario: Upgrade APM vision from release -2
+    Given CLI Clear vision logs
     Then Upgrade or Fresh Install Vision
 
   @SID_5

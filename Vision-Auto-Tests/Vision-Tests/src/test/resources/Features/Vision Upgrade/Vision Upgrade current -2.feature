@@ -26,7 +26,6 @@ Feature: Vision Upgrade current -2
     # delete ADC analytics license if exists
     Then CLI Run remote linux Command "echo "Before " $(mysql -prad123 vision -e "show create table traffic_utilizations\G" |grep "(PARTITION p" |awk -F"p" '{print$2}'|awk '{printf$1}') >  /opt/radware/sql_partition.txt" on "ROOT_SERVER_CLI"
     Then CLI Run remote linux Command "mysql -prad123 vision_ng -e "delete from vision_license where license_str like '%reporting-module-ADC%';"" on "ROOT_SERVER_CLI"
-    Then CLI Clear vision logs
  #for testing AVA Attack Capacity Grace Period with the following scenario:
       # if before upgrade the server have the Legacy "vision-reporting-module-AMS" license and never installs the new AVA License so after upgrade Grace Period will be given:
     Given REST Vision DELETE License Request "vision-AVA-6-Gbps-attack-capacity"
@@ -48,6 +47,7 @@ Feature: Vision Upgrade current -2
    ######################################################################################
   @SID_5
   Scenario: Upgrade vision from release -2
+    Given CLI Clear vision logs
     Then Upgrade or Fresh Install Vision
 
   @SID_6
