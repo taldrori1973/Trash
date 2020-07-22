@@ -81,6 +81,7 @@ Feature: VRM Real Time Status Bar Devices status
     Then Sleep "90"
 # Validate correct number of DPs
     Then UI Text of "Device Selection" equal to "DEVICES3/3"
+    Then UI Text of "Device Status Up Summary" equal to "3"
     Then UI Text of "Device Status Maintenance Summary" equal to "0"
     Then UI Text of "Device Status Down Summary" equal to "0"
     Then UI Navigate to "VISION SETTINGS" page via homePage
