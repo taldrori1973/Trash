@@ -42,6 +42,7 @@ Feature: Vision Upgrade current -3
    ######################################################################################
   @SID_5
   Scenario: Upgrade vision from release -3
+    Given CLI Clear vision logs
     Then Upgrade or Fresh Install Vision
 
   @SID_6
