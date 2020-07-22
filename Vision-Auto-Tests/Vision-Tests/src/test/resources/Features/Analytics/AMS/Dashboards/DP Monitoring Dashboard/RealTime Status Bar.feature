@@ -19,6 +19,7 @@ Feature: VRM Real Time Status Bar Devices status
     Then UI Navigate to "VISION SETTINGS" page via homePage
 
   @SID_2
+#    DE57930
   Scenario: Devices status filter by device
   # Filter by device does not affect this widget
     And UI Navigate to "DefensePro Monitoring Dashboard" page via homePage
@@ -36,6 +37,7 @@ Feature: VRM Real Time Status Bar Devices status
     Then UI Logout
 
   @SID_3
+#  DE57930
   Scenario: Devices status filter policy
     Given UI Login with user "sys_admin" and password "radware"
     And UI Navigate to "DefensePro Monitoring Dashboard" page via homePage
@@ -51,6 +53,7 @@ Feature: VRM Real Time Status Bar Devices status
     Then UI Navigate to "VISION SETTINGS" page via homePage
 
   @SID_4
+#  DE57014
   Scenario: Devices status disconnected DP by route
     Then CLI Run remote linux Command "net route set host 172.16.22.55 172.17.3.3" on "Radware_SERVER_CLI"
     Then Sleep "120"
@@ -65,6 +68,7 @@ Feature: VRM Real Time Status Bar Devices status
     Then Sleep "35"
 
   @SID_5
+#    DE57014
   Scenario: Devices status connected DP by route
     And UI Navigate to "DefensePro Monitoring Dashboard" page via homePage
     Then UI Text of "Device Selection" equal to "DEVICES3/3"
@@ -97,6 +101,7 @@ Feature: VRM Real Time Status Bar Devices status
     Then UI Logout
 
   @SID_8
+#  DE57898
   Scenario: Devices status RBAC
     When UI Login with user "sec_admin_all_pol" and password "radware"
   # user has permission only to one up DP
@@ -108,6 +113,7 @@ Feature: VRM Real Time Status Bar Devices status
 #    Then UI logout and close browser
 
   @SID_9
+#    DE57898
   Scenario: Devices status check logs
     Then CLI Check if logs contains
       | logType     | expression   | isExpected   |
