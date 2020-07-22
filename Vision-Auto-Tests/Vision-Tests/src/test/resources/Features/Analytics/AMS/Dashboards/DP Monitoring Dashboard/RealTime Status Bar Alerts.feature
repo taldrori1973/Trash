@@ -1,3 +1,4 @@
+
 @TC112252
 Feature: VRM Real Time Status Bar Alerts
 
@@ -37,7 +38,6 @@ Feature: VRM Real Time Status Bar Alerts
     Then UI Logout
 
   @SID_5
-  @run3
 
   Scenario: Operational alerts RBAC
     Given UI Login with user "sec_admin_all_pol" and password "radware"
