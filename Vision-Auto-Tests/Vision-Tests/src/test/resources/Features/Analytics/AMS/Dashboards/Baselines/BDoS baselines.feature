@@ -4,34 +4,29 @@ Feature: VRM BDoS baselines
 
   @SID_1
   Scenario: increase inactivity timeout to maximum
-    Then CLI Operations - Run Radware Session command "system user authentication-mode set TACACS+"
-#    Given UI Login with user "sys_admin" and password "radware"
-#    Then UI Go To Vision
-#    Then UI Navigate to page "System->General Settings->Connectivity"
-#    Then UI Do Operation "select" item "Inactivity Timeouts"
-#    Then UI Set Text Field "Inactivity Timeout for Configuration and Monitoring Perspectives" To "60"
-#    Then UI Click Button "Submit"
-#    Then UI Logout
-    Then REST Request "PUT" for "Connectivity->Inactivity Timeout for Configuration"
-      | type | value                                 |
-      | body | sessionInactivTimeoutConfiguration=60 |
+    Given REST Send simple body request from File "Vision/SystemManagement.json" with label "Set Authentication Mode"
+      | jsonPath             | value    |
+      | $.authenticationMode | "TACACS" |
+    Given REST Send simple body request from File "Vision/SystemManagement.json" with label "Set connectivity options"
+      | jsonPath             | value    |
+      | $.sessionInactivTimeoutConfiguration | 60 |
 
   @SID_2
   Scenario: BDoS baseline pre-requisite
     Given CLI kill all simulator attacks on current vision
-    Given CLI Clear vision logs
-#    Given REST Delete ES index "dp-bdos-baseline*"
-#    Given REST Delete ES index "dp-baseline*"
-    Given CLI simulate 400 attacks of type "baselines_pol_1" on "DefensePro" 10 with loopDelay 15000 and wait 140 seconds
+#    Given CLI Clear vision logs
+    Given REST Delete ES index "dp-bdos-baseline*"
+    Given REST Delete ES index "dp-baseline*"
+    Given CLI simulate 400 attacks of type "baselines_pol_1" on SetId "DefensePro_Set_1" with loopDelay 15000 and wait 140 seconds
 
   @SID_3
   Scenario: Login into VRM and select device
-    Given UI Login with user "sys_admin" and password "radware"
+    Given UI Login with user "radware" and password "radware"
     Then REST Vision Install License Request "vision-AVA-Max-attack-capacity"
     And UI Navigate to "DefensePro Behavioral Protections Dashboard" page via homePage
-    Then Sleep "1"
+#    Then Sleep "1"
     And UI Do Operation "Select" item "Global Time Filter"
-    Then Sleep "1"
+#    Then Sleep "1"
     And UI Do Operation "Select" item "Global Time Filter.Quick Range" with value "2m"
     And UI Do Operation "Select" item "Device Selection"
     And UI VRM Select device from dashboard and Save Filter

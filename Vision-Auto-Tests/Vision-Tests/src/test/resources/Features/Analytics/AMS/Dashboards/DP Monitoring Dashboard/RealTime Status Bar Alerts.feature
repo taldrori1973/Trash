@@ -4,20 +4,20 @@ Feature: VRM Real Time Status Bar Alerts
   @SID_1
   Scenario: Clear and generate alert
     Given CLI kill all simulator attacks on current vision
-    Then CLI Clear vision logs
+#    Then CLI Clear vision logs
     Then REST Vision Install License Request "vision-AVA-Max-attack-capacity"
     Then REST Delete ES document with data ""module": "DEVICE_HEALTH_ERRORS"" from index "alert"
     Then REST Delete ES document with data ""module": "DEVICE_THROUGHPUT_LICENSE_ERRORS"" from index "alert"
     Then REST Delete ES document with data ""module": "DEVICE_THROUGHPUT_LICENSE_EXCEEDED_ERRORS"" from index "alert"
-    Then CLI simulate 1 attacks of type "DP_single_Oper_oos" on "DefensePro" 11 and wait 8 seconds
-    Then CLI simulate 1 attacks of type "DP_single_Oper_oos" on "DefensePro" 10
-    Then CLI simulate 1 attacks of type "DP_single_Oper_oos" on "DefensePro" 20 and wait 22 seconds
+    Then CLI simulate 1 attacks of type "DP_single_Oper_oos" on SetId "DefensePro_Set_2" and wait 8 seconds
+    Then CLI simulate 1 attacks of type "DP_single_Oper_oos" on SetId "DefensePro_Set_1"
+    Then CLI simulate 1 attacks of type "DP_single_Oper_oos" on SetId "DefensePro_Set_4" and wait 22 seconds
 
   @SID_2
   Scenario: Operational alerts basic DP
     Given UI Login with user "sys_admin" and password "radware"
     When UI Navigate to "DefensePro Monitoring Dashboard" page via homePage
-    And Sleep "3"
+#    And Sleep "3"
     Then UI Text of "Health Error Count" equal to "2 Errors"
     Then UI Validate Element Existence By Label "Health.Warning" if Exists "true"
 
@@ -82,31 +82,30 @@ Feature: VRM Real Time Status Bar Alerts
     Then REST Delete ES document with data ""module": "DEVICE_HEALTH_ERRORS"" from index "alert"
     Then REST Delete ES document with data ""module": "DEVICE_THROUGHPUT_LICENSE_EXCEEDED_ERRORS"" from index "alert"
     Then Sleep "5"
-    Given CLI simulate 1 attacks of type "DP_temperature_oper" on "DefensePro" 10
+    Given CLI simulate 1 attacks of type "DP_temperature_oper" on SetId "DefensePro_Set_1"
   # 4 (5 including clear) temperature high and 1 normal
   # OID 1.3.6.1.4.1.89.0.15
   # OID 1.3.6.1.4.1.89.0.16
   # OID 1.3.6.1.4.1.89.0.17
 
-    Given CLI simulate 1 attacks of type "DP_cert_oper" on "DefensePro" 10
+    Given CLI simulate 1 attacks of type "DP_cert_oper" on SetId "DefensePro_Set_1"
   # 1 certificate alert
   # 1.3.6.1.4.1.89.0.78
 
-    Given CLI simulate 1 attacks of type "DP_fans_oper" on "DefensePro" 10
+    Given CLI simulate 1 attacks of type "DP_fans_oper" on SetId "DefensePro_Set_1"
   # 5 (8) fans errors and 2 fans normal
   # OID 1.3.6.1.4.1.89.0.77
 
-    Given CLI simulate 1 attacks of type "DP_auth_oper" on "DefensePro" 10
+    Given CLI simulate 1 attacks of type "DP_auth_oper" on SetId "DefensePro_Set_1"
   # (12) authentication errors not counted
-
   #  Given CLI simulate 1 attacks of type "DP_port_down" on "DefensePro" 10
   # 3 port errors not in list dont count OID 1.3.6.1.4.1.89.2.3.1.0
 
-    Given CLI simulate 1 attacks of type "DP_Oper_link_status_1" on "DefensePro" 10
+    Given CLI simulate 1 attacks of type "DP_Oper_link_status_1" on SetId "DefensePro_Set_1"
   # 5 (10) link up/down
   # OID 1.3.6.1.4.1.89.1.1.62.16
 
-    Given CLI simulate 1 attacks of type "DP_session_oper" on "DefensePro" 10 and wait 45 seconds
+    Given CLI simulate 1 attacks of type "DP_session_oper" on SetId "DefensePro_Set_1" and wait 45 seconds
   # 33 session-table
   # OID 1.3.6.1.4.1.89.35.1.104.0.1
   # OID 1.3.6.1.4.1.89.35.1.104.0.3
@@ -123,7 +122,7 @@ Feature: VRM Real Time Status Bar Alerts
   @SID_9
   Scenario: Operational alerts clear
     Given CLI kill all simulator attacks on current vision
-    # edit ES raisedtime over the 15 minutes
+    # edit ES raise time over the 15 minutes
     Then CLI Run remote linux Command "curl -XPOST localhost:9200/alert/_update_by_query/?pretty -d '{"query": {"match": {"module": "DEVICE_HEALTH_ERRORS"}},"script": {"source": "ctx._source.raisedTime = 'ctx._source.raisedTime-1080000'"}}'" on "ROOT_SERVER_CLI"
     Then CLI Run remote linux Command "curl -XPOST localhost:9200/alert/_update_by_query/?pretty -d '{"query": {"match": {"module": "DEVICE_THROUGHPUT_LICENSE_ERRORS"}},"script": {"source": "ctx._source.raisedTime = 'ctx._source.raisedTime-1080000'"}}'" on "ROOT_SERVER_CLI" and wait 45 seconds
     Then UI Text of "Health Error Count" equal to "0 Errors"
@@ -133,13 +132,13 @@ Feature: VRM Real Time Status Bar Alerts
   @SID_10
   Scenario: Operational alerts check logs
     Then UI logout and close browser
-    And CLI Check if logs contains
-      | logType     | expression   | isExpected   |
-      | ES          | fatal\|error | NOT_EXPECTED |
-      | MAINTENANCE | fatal\|error | NOT_EXPECTED |
-      | JBOSS       | fatal        | NOT_EXPECTED |
-      | TOMCAT      | fatal        | NOT_EXPECTED |
-      | TOMCAT2     | fatal        | NOT_EXPECTED |
+#    And CLI Check if logs contains
+#      | logType     | expression   | isExpected   |
+#      | ES          | fatal\|error | NOT_EXPECTED |
+#      | MAINTENANCE | fatal\|error | NOT_EXPECTED |
+#      | JBOSS       | fatal        | NOT_EXPECTED |
+#      | TOMCAT      | fatal        | NOT_EXPECTED |
+#      | TOMCAT2     | fatal        | NOT_EXPECTED |
 
 #      END OPERATIONAL ALERT
 
@@ -151,7 +150,7 @@ Feature: VRM Real Time Status Bar Alerts
     Given REST Delete ES document with data ""module": "DEVICE_THROUGHPUT_LICENSE_EXCEEDED_ERRORS"" from index "alert"
     Then CLI Clear vision logs
     And Sleep "2"
-    Given CLI simulate 1 attacks of type "DP_throuput_90" on "DefensePro" 11 and wait 20 seconds
+    Given CLI simulate 1 attacks of type "DP_throuput_90" on SetId "DefensePro_Set_2" and wait 20 seconds
 
   @SID_12
   Scenario: Throughput alerts basic
@@ -182,7 +181,7 @@ Feature: VRM Real Time Status Bar Alerts
 
   @SID_14
   Scenario: Throughput alerts RBAC
-    Given CLI simulate 1 attacks of type "DP_throuput_exceed" on "DefensePro" 10 and wait 22 seconds
+    Given CLI simulate 1 attacks of type "DP_throuput_exceed" on SetId "DefensePro_Set_1" and wait 22 seconds
     Given UI Login with user "sec_admin_all_pol" and password "radware"
     When UI Navigate to "DefensePro Monitoring Dashboard" page via homePage
     And Sleep "2"
@@ -232,7 +231,7 @@ Feature: VRM Real Time Status Bar Alerts
 
   @SID_17
   Scenario: Throughput alerts clear
-  # edit ES raisedtime over the 15 minutes
+  # edit ES raise time over the 15 minutes
     And CLI Run remote linux Command "curl -XPOST localhost:9200/alert/_update_by_query/?pretty -d '{"query": {"match": {"module": "DEVICE_HEALTH_ERRORS"}},"script": {"source": "ctx._source.raisedTime = 'ctx._source.raisedTime-1080000'"}}'" on "ROOT_SERVER_CLI"
     And CLI Run remote linux Command "curl -XPOST localhost:9200/alert/_update_by_query/?pretty -d '{"query": {"match": {"module": "DEVICE_THROUGHPUT_LICENSE_EXCEEDED_ERRORS"}},"script": {"source": "ctx._source.raisedTime = 'ctx._source.raisedTime-1080000'"}}'" on "ROOT_SERVER_CLI"
     And CLI Run remote linux Command "curl -XPOST localhost:9200/alert/_update_by_query/?pretty -d '{"query": {"match": {"module": "DEVICE_THROUGHPUT_LICENSE_ERRORS"}},"script": {"source": "ctx._source.raisedTime = 'ctx._source.raisedTime-1080000'"}}'" on "ROOT_SERVER_CLI" and wait 60 seconds
@@ -248,13 +247,13 @@ Feature: VRM Real Time Status Bar Alerts
   @SID_18
   Scenario: Throughput alerts check logs
     Then UI logout and close browser
-    Then CLI Check if logs contains
-      | logType     | expression   | isExpected   |
-      | ES          | fatal\|error | NOT_EXPECTED |
-      | MAINTENANCE | fatal\|error | NOT_EXPECTED |
-      | JBOSS       | fatal        | NOT_EXPECTED |
-      | TOMCAT      | fatal        | NOT_EXPECTED |
-      | TOMCAT2     | fatal        | NOT_EXPECTED |
+#    Then CLI Check if logs contains
+#      | logType     | expression   | isExpected   |
+#      | ES          | fatal\|error | NOT_EXPECTED |
+#      | MAINTENANCE | fatal\|error | NOT_EXPECTED |
+#      | JBOSS       | fatal        | NOT_EXPECTED |
+#      | TOMCAT      | fatal        | NOT_EXPECTED |
+#      | TOMCAT2     | fatal        | NOT_EXPECTED |
 
 #      END THROUGHPUT ALERTS
 
