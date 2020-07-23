@@ -83,7 +83,7 @@ Feature: DefenseFlow Traffic Reports
 
   @SID_10
   Scenario: Verify content of downloaded CSV
-    When CLI Run linux Command "ll /home/radware/Downloads/downloaded.report |awk '{print$5}'" on "GENERIC_LINUX_SERVER" and validate result GT "2500"
+    When CLI Run linux Command "ll /home/radware/Downloads/downloaded.report |awk '{print$5}'" on "GENERIC_LINUX_SERVER" and validate result GTE "2500"
 
   @SID_11
   Scenario: Search for bad logs
