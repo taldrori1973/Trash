@@ -204,7 +204,7 @@ Feature: Vision APM Upgrade current -2
       | LLS     | Installation ended                                                     | EXPECTED     |
       | LLS     | Setup complete!                                                        | EXPECTED     |
       #rollback to the original values
-    Given CLI Run remote linux Command "mysql -prad123 vision_ng -e "update lls_server set min_required_ram='48';"" on "ROOT_SERVER_CLI"
+    Given CLI Run remote linux Command "mysql -prad123 vision_ng -e "update lls_server set min_required_ram='32';"" on "ROOT_SERVER_CLI"
     When CLI Operations - Run Radware Session command "system lls service stop"
     When CLI Operations - Run Radware Session command "y" timeout 180
 
