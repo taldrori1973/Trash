@@ -6,7 +6,7 @@
 .classpath
 .project
 **/target
-/Vision-Auto-Tests/Vision-Tests/lib/
 /Vision-Auto-Tests/Vision-Tests/jsystem.properties
+/Vision-Auto-Tests/Vision-Tests/lib/
 /Vision-Auto-Tests/Vision-Tests/log/
 /Vision-Auto-Tests/Vision-Tests/jsystem*.log
