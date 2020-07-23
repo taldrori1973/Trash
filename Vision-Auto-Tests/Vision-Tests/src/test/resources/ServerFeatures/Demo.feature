@@ -5,6 +5,9 @@ Feature: Demo
 #    Then MariaDb Test
 
   @run_kVision
+    Scenario: Login
+    Then UI Login with user "radware" and password "radware"
+    Then UI logout and close browser
     Scenario:JFrog
     Then Validate pojo Paesing
 
