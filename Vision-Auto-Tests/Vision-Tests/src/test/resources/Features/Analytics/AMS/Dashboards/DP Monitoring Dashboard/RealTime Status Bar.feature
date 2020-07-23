@@ -18,6 +18,7 @@ Feature: VRM Real Time Status Bar Devices status
     Then UI Text of "Device Status Down Summary" equal to "0"
     Then UI Navigate to "VISION SETTINGS" page via homePage
 
+#    DE57930
   @SID_2
   Scenario: Devices status filter by device
   # Filter by device does not affect this widget
@@ -35,6 +36,7 @@ Feature: VRM Real Time Status Bar Devices status
     Then UI Text of "Device Status Down Summary" equal to "0"
     Then UI Logout
 
+#  DE57930
   @SID_3
   Scenario: Devices status filter policy
     Given UI Login with user "sys_admin" and password "radware"
@@ -50,6 +52,7 @@ Feature: VRM Real Time Status Bar Devices status
     Then UI Text of "Device Status Down Summary" equal to "0"
     Then UI Navigate to "VISION SETTINGS" page via homePage
 
+#  DE57014
   @SID_4
   Scenario: Devices status disconnected DP by route
     Then CLI Run remote linux Command "net route set host 172.16.22.55 172.17.3.3" on "Radware_SERVER_CLI"
@@ -64,6 +67,7 @@ Feature: VRM Real Time Status Bar Devices status
     Then CLI Run remote linux Command "net route delete 172.16.22.55 255.255.255.255 172.17.3.3" on "Radware_SERVER_CLI"
     Then Sleep "35"
 
+#    DE57014
   @SID_5
   Scenario: Devices status connected DP by route
     And UI Navigate to "DefensePro Monitoring Dashboard" page via homePage
@@ -96,6 +100,7 @@ Feature: VRM Real Time Status Bar Devices status
     Then UI Text of "Device Status Down Summary" equal to "0"
     Then UI Logout
 
+#  DE57898
   @SID_8
   Scenario: Devices status RBAC
     When UI Login with user "sec_admin_all_pol" and password "radware"
@@ -107,6 +112,7 @@ Feature: VRM Real Time Status Bar Devices status
     Then UI Text of "Device Status Down Summary" equal to "0"
 #    Then UI logout and close browser
 
+#    DE57898
   @SID_9
   Scenario: Devices status check logs
     Then CLI Check if logs contains
