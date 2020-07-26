@@ -4,7 +4,7 @@ Feature: Vision Upgrade current -2
   @SID_1
   Scenario: preparations for upgrade release -2
     Given Prerequisite for Setup force
-    Then CLI Run remote linux Command "mysql -prad123 vision_ng -e "update lls_server set min_required_ram='16';"" on "ROOT_SERVER_CLI"
+
 
    ######################################################################################
 
@@ -47,6 +47,7 @@ Feature: Vision Upgrade current -2
   @SID_5
   Scenario: Upgrade vision from release -2
     Given CLI Clear vision logs
+    Then CLI Run remote linux Command "mysql -prad123 vision_ng -e "update lls_server set min_required_ram='16';"" on "ROOT_SERVER_CLI"
     Then Upgrade or Fresh Install Vision
 
   @SID_6
