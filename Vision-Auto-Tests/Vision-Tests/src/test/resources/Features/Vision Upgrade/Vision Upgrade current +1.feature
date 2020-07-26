@@ -210,12 +210,18 @@ Feature: Vision Upgrade current +1
 
   @SID_24
   Scenario: Validate LLS service is up
+    Then CLI Run linux Command "system lls service status" on "RADWARE_SERVER_CLI" and validate result CONTAINS "is running" with timeOut 600
     Then CLI Run linux Command "curl -ks -o null -XGET http://localhost4:7070/api/1.0/hostids -w 'RESP_CODE:%{response_code}\n'" on "ROOT_SERVER_CLI" and validate result EQUALS "RESP_CODE:200" with timeOut 300
-    Then CLI Operations - Verify that output contains regex "RESP_CODE:200"
     Then CLI Run linux Command "curl -ks -o null -XGET http://localhost6:7070/api/1.0/hostids -w 'RESP_CODE:%{response_code}\n'" on "ROOT_SERVER_CLI" and validate result EQUALS "RESP_CODE:200" with timeOut 300
-    Then CLI Operations - Verify that output contains regex "RESP_CODE:200"
+    Then CLI Check if logs contains
+      | logType | expression                                                             | isExpected   |
+      | LLS     | fatal\| error\|fail                                                    | NOT_EXPECTED |
+      | LLS     | Installation ended                                                     | EXPECTED     |
+      | LLS     | Setup complete!                                                        | EXPECTED     |
       #rollback to the original values
     Given CLI Run remote linux Command "mysql -prad123 vision_ng -e "update lls_server set min_required_ram='24';"" on "ROOT_SERVER_CLI"
+    When CLI Operations - Run Radware Session command "system lls service stop"
+    When CLI Operations - Run Radware Session command "y" timeout 180
 
   @SID_25
   Scenario: Validate LLS version
