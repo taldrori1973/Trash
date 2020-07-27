@@ -364,7 +364,7 @@ Feature: DefenseFlow Activations Reports CSV
     When UI "Create" Report With Name "OverallDFReport"
       | reportType     | DefenseFlow Analytics Dashboard                                                                                                                                                          |
       | projectObjects | All                                                                                                                                                                                      |
-      | Design         | Add:[Top 10 Attacks by Duration (hh:mm:ss),Top 10 Attacks by Rate (Gbps),Top 10 Attacks by Rate (Mpps),DDoS Peak Attack per Selected Period,DDoS Attack Activations per Selected Period] |
+      | Design         | Add:[Top 10 Attacks by Duration (hh:mm:ss),Top 10 Attacks by Rate (Gbps),Top 10 Attacks by Rate (Mpps),DDoS Peak Attack per Period,DDoS Attack Activations per Period] |
       | Format         | Select: CSV                                                                                                                                                                              |
     Then UI Validate Element Existence By Label "Reports List Item" if Exists "true" with value "OverallDFReport"
 
