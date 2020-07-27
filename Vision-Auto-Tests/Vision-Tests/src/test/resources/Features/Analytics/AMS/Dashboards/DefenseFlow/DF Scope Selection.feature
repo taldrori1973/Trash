@@ -18,19 +18,21 @@ Feature: DF Scope Selection
 
   @SID_3
   Scenario: Filter Validation
-    Then UI Validate Search The Text "PO_10" in Search Label "Filter" if this elements exist
-      | label   | param  |
-      | PO Name | PO_10  |
-      | PO Name | PO_100 |
-      | PO Name | PO_101 |
-      | PO Name | PO_102 |
-      | PO Name | PO_103 |
-      | PO Name | PO_104 |
-      | PO Name | PO_105 |
-      | PO Name | PO_106 |
-      | PO Name | PO_107 |
-      | PO Name | PO_108 |
-      | PO Name | PO_109 |
+    Then UI Validate Search The Text "PO_10" in Search Label "Filter" if this elements exist with prefix label "PO Name"
+      | param  |
+      | PO_10  |
+      | PO_100 |
+      | PO_101 |
+      | PO_102 |
+      | PO_103 |
+      | PO_104 |
+      | PO_105 |
+      | PO_106 |
+      | PO_107 |
+      | PO_108 |
+      | PO_109 |
+    And UI Click Button "Cancel Scope Selection"
+    And UI Do Operation "Select" item "Protected Objects"
     Then UI Validate Search Numbering With text: "PO_10" And Element Label: "Prefix PO" In Search Label "Filter" If this equal to 22
     And UI Click Button "Cancel Scope Selection"
 
