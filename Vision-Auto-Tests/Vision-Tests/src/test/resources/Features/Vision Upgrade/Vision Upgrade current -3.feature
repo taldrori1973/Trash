@@ -5,16 +5,14 @@ Feature: Vision Upgrade current -3
   Scenario: preparations for upgrade release -3
     Given Prerequisite for Setup force
     Then CLI Run remote linux Command "mysql -prad123 vision_ng -e "update lls_server set min_required_ram='16';"" on "ROOT_SERVER_CLI"
-    Then CLI copy "/home/radware/Scripts/copyUpgradeLog.sh" from "GENERIC_LINUX_SERVER" to "ROOT_SERVER_CLI" "/"
-    Then CLI copy "/home/radware/Scripts/ssh-copy-id.exp" from "GENERIC_LINUX_SERVER" to "ROOT_SERVER_CLI" "/"
 
 
    ######################################################################################
 
   @SID_2
   Scenario: change fluentd listening port
-#    Then CLI Run remote linux Command "dos2unix /etc/td-agent/td-agent.conf" on "ROOT_SERVER_CLI"
-#    Then CLI Run remote linux Command "sed -i 's/port .*$/port 51400/g' /etc/td-agent/td-agent.conf" on "ROOT_SERVER_CLI"
+    Then CLI Run remote linux Command "dos2unix /etc/td-agent/td-agent.conf" on "ROOT_SERVER_CLI"
+    Then CLI Run remote linux Command "sed -i 's/port .*$/port 51400/g' /etc/td-agent/td-agent.conf" on "ROOT_SERVER_CLI"
 
   @SID_3
   Scenario: Fill partitions to max limit
@@ -27,6 +25,7 @@ Feature: Vision Upgrade current -3
   Scenario: Pre Upgrade changes
     #for testing AVA Attack Capacity Grace Period with the following scenario:
       # if before upgrade the server not have the Legacy "vision-reporting-module-AMS" license and never installs the new AVA License so after upgrade No  Grace Period will be given:
+    Then CLI Clear vision logs
     Then REST Vision DELETE License Request "vision-AVA-6-Gbps-attack-capacity"
     Then REST Vision DELETE License Request "vision-AVA-20-Gbps-attack-capacity"
     Then REST Vision DELETE License Request "vision-AVA-60-Gbps-attack-capacity"
@@ -41,6 +40,7 @@ Feature: Vision Upgrade current -3
    ######################################################################################
   @SID_5
   Scenario: Upgrade vision from release -3
+    Given CLI Clear vision logs
     Then Upgrade or Fresh Install Vision
 
   @SID_6
@@ -78,8 +78,6 @@ Feature: Vision Upgrade current -3
       | UPGRADE | inflating:                                                             | IGNORE       |
       | UPGRADE | /opt/radware/storage/www/webui/vision-dashboards/public/static/media/* | IGNORE       |
       | LLS     | fatal\| error\|fail                                                    | NOT_EXPECTED |
-      | LLS     | Installation ended                                                     | IGNORE       |
-      | LLS     | Setup complete!                                                        | IGNORE       |
 
   @SID_7
   Scenario: Check firewall settings
@@ -219,12 +217,18 @@ Feature: Vision Upgrade current -3
 
   @SID_23
   Scenario: Validate LLS service is up
+    Then CLI Run linux Command "system lls service status" on "RADWARE_SERVER_CLI" and validate result CONTAINS "is running" in any line with timeOut 600
     Then CLI Run linux Command "curl -ks -o null -XGET http://localhost4:7070/api/1.0/hostids -w 'RESP_CODE:%{response_code}\n'" on "ROOT_SERVER_CLI" and validate result EQUALS "RESP_CODE:200" with timeOut 300
-    Then CLI Operations - Verify that output contains regex "RESP_CODE:200"
     Then CLI Run linux Command "curl -ks -o null -XGET http://localhost6:7070/api/1.0/hostids -w 'RESP_CODE:%{response_code}\n'" on "ROOT_SERVER_CLI" and validate result EQUALS "RESP_CODE:200" with timeOut 300
-    Then CLI Operations - Verify that output contains regex "RESP_CODE:200"
+    Then CLI Check if logs contains
+      | logType | expression                                                             | isExpected   |
+      | LLS     | fatal\| error\|fail                                                    | NOT_EXPECTED |
+      | LLS     | Installation ended                                                     | EXPECTED |
+      | LLS     | Setup complete!                                                        | EXPECTED |
       #rollback to the original values
     Given CLI Run remote linux Command "mysql -prad123 vision_ng -e "update lls_server set min_required_ram='24';"" on "ROOT_SERVER_CLI"
+    When CLI Operations - Run Radware Session command "system lls service stop"
+    When CLI Operations - Run Radware Session command "y" timeout 180
 
   @SID_24
   Scenario: Validate LLS version

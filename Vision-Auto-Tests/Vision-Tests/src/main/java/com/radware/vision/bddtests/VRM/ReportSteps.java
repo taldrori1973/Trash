@@ -104,9 +104,9 @@ public class ReportSteps extends BddUITestBase {
         vrmReportsHandler.validateSearch(elementType, index);
     }
 
-    @Then("^UI Validate Search The Text \"([^\"]*)\" in Search Label \"([^\"]*)\" if this elements exist$")
-    public void uiValidateSearchTheTextInSearchPlaceIfThisElementsExist(String text, String searchPlace, List<VRMHandler.LabelParam> elementsExist) throws Exception {
-        vrmReportsHandler.validateFilter(text, searchPlace, elementsExist);
+    @Then("^UI Validate Search The Text \"([^\"]*)\" in Search Label \"([^\"]*)\" if this elements exist with prefix label \"([^\"]*)\"$")
+    public void uiValidateSearchTheTextInSearchPlaceIfThisElementsExist(String text, String searchPlace,String prefixLabel, List<VRMHandler.LabelParam> elementsExist) throws Exception {
+        vrmReportsHandler.validateFilter(text, searchPlace, elementsExist, prefixLabel);
     }
 
     @Then("^UI Validate Search With Label: \"([^\"]*)\" and param: \"([^\"]*)\" in Search Label \"([^\"]*)\" if this elements exist take label text$")

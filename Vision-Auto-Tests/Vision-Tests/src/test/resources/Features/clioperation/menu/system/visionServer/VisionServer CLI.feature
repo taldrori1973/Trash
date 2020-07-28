@@ -73,6 +73,8 @@ Feature: Vision Server Services CLI Tests
     Then CLI Operations - Verify that output contains regex "Starting APSolute Vision Collectors Server.*\[  OK  \].*"
     Then CLI Operations - Verify that output contains regex "Starting DPM.*"
     Then CLI Operations - Verify that output contains regex "starting reporting engine service.*"
+    # It takes time till all services are up
+    And Sleep "10"
 
   @SID_9
   Scenario: system vision-server status started

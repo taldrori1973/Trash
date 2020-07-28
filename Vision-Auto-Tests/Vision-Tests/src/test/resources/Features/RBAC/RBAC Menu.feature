@@ -15,7 +15,7 @@ Feature: RBAC Menu
     Given UI Login with user "radware" and password "radware"
     Given UI Go To Vision
 
-
+  
   @SID_3
   Scenario Outline: Create users and verify
     Given UI Navigate to page "System->User Management->Local Users"
@@ -40,7 +40,7 @@ Feature: RBAC Menu
       | vision_reporter       | Vision Reporter               | [ALL] | Radware1234!@#$    |
       | system_user           | System User                   | [ALL] | Radware1234!@#$    |
 
-
+  
   @SID_4
   Scenario Outline: Scope "All" is required for User Definition
     When Scope Is "<enabled or disabled>" For Role "<Role>"
@@ -63,14 +63,10 @@ Feature: RBAC Menu
       | disabled            | Vision Reporter               |
       | disabled            | System User                   |
 
-
+  
   @SID_5
-  Scenario: Add Multiple devices
+  Scenario: Edit User Management Settings
 
-    Then UI Add "DefensePro" with index 2 on "Default" site nowait
-    Then UI Add "Alteon" with index 2 on "Default" site nowait
-    Then UI Add "AppWall" with index 0 on "Default" site nowait
-    Then UI Add "LinkProof" with index 0 on "Default" site nowait
     Then UI Navigate to page "System->User Management->User Management Settings"
     Then UI Select "Local" from Vision dropdown "Authentication Mode"
     Then UI Click Button "Submit"
@@ -185,6 +181,7 @@ Feature: RBAC Menu
 
     * UI Logout
 
+  
   @SID_10
   Scenario: Certificate Administrator
     When UI Login with user "certificate_admin" and password "Radware1234!@#$"
@@ -474,6 +471,31 @@ Feature: RBAC Menu
 
     * UI Logout
 
+
+  @SID_23
+  Scenario Outline: Delete All Users
+    Given UI Login with user "radware" and password "radware"
+    Given UI Go To Vision
+    Given UI Navigate to page "System->User Management->Local Users"
+    When UI Delete User With User Name "<User Name>"
+    Examples:
+      | User Name             |
+      | adc_admin_certificate |
+      | adc_admin             |
+      | adc_operator          |
+      | certificate_admin     |
+      | device_admin          |
+      | device_configurator   |
+      | device_operator       |
+      | device_viewer         |
+      | real_server_operator  |
+      | security_admin        |
+      | security_monitor      |
+      | user_admin            |
+      | vision_admin          |
+      | vision_reporter       |
+      | system_user           |
+
   @SID_22
   Scenario: Login And Go to Vision
     Given UI Login with user "radware" and password "radware"
@@ -482,8 +504,3 @@ Feature: RBAC Menu
     Then UI Select "TACACS+" from Vision dropdown "Authentication Mode"
     Then UI Click Button "Submit"
     Then UI logout and close browser
-
-
-  @SID_23
-  Scenario:Clean up (clean configurations caused by this feature)
-   Given CLI cleanup without server Ip the vision

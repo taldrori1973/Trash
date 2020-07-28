@@ -31,40 +31,43 @@ public class LocalUsersHandler {
 
 
     public static void addUser(String username, String fullName, String address, String organisation, String phoneNumber, String permissions, String networkPolicies, String password) {
+        List<String> permistions = Arrays.asList(permissions.split(","));
 
         NavigateHereIfNeedTo();
 
-        AuthorizedNetworkPolicies authorizedNetworkPolicies = new AuthorizedNetworkPolicies();
-        User newUser = localUsers.newUser();
-        newUser.setUsername(username);
-        if (fullName != null && !fullName.isEmpty())
-            newUser.setFullname(fullName);
-        if (organisation != null && !organisation.isEmpty())
-            newUser.setContactInfoOrg(organisation);
-        if (address != null && !address.isEmpty())
-            newUser.setContactInfoAddress(address);
-        if (phoneNumber != null && !phoneNumber.isEmpty())
-            newUser.setContactInfoPhone(phoneNumber);
+        UserEntry expUserEntry = new UserEntry(username, new PermissionEntry(permistions.get(0), "ALL"));
+        if (!LocalUsersHandler.isUserExists(expUserEntry)){
+            AuthorizedNetworkPolicies authorizedNetworkPolicies = new AuthorizedNetworkPolicies();
+            User newUser = localUsers.newUser();
+            newUser.setUsername(username);
+            if (fullName != null && !fullName.isEmpty())
+                newUser.setFullname(fullName);
+            if (organisation != null && !organisation.isEmpty())
+                newUser.setContactInfoOrg(organisation);
+            if (address != null && !address.isEmpty())
+                newUser.setContactInfoAddress(address);
+            if (phoneNumber != null && !phoneNumber.isEmpty())
+                newUser.setContactInfoPhone(phoneNumber);
 
-        addPermissions(parsePermissions(permissions), newUser);
-        if (networkPolicies != null && !networkPolicies.isEmpty()) {
-            AuthorizedNetworkPoliciesHandler.selectNetworkPolices(networkPolicies, authorizedNetworkPolicies);
+            addPermissions(parsePermissions(permissions), newUser);
+            if (networkPolicies != null && !networkPolicies.isEmpty()) {
+                AuthorizedNetworkPoliciesHandler.selectNetworkPolices(networkPolicies, authorizedNetworkPolicies);
+            }
+
+            if (password != null && !password.isEmpty()) {
+                newUser.addPassword(password);
+            }
+
+            BasicOperationsHandler.delay(2);
+
+            WebUIDriver.getListenerManager().getWebUIDriverEventListener().setWaitBeforeEventOperation(Long.valueOf(5 * 1000));
+
+            //Check if it timing issue in jenkins
+            WebUIUtils.sleep(3);
+
+            newUser.submit();
         }
-
-        if (password != null && !password.isEmpty()) {
-            newUser.addPassword(password);
-        }
-
-        BasicOperationsHandler.delay(2);
-
-        WebUIDriver.getListenerManager().getWebUIDriverEventListener().setWaitBeforeEventOperation(Long.valueOf(5 * 1000));
-
-        //Check if it timing issue in jenkins
-        WebUIUtils.sleep(3);
-
-        newUser.submit();
     }
-
     public static void editUser(String username, String fullName, String address, String organisation, String phoneNumber, String permissions, String permissionsToRemove, String networkPoliciesToRemove, String networkPoliciesToAdd) {
 
         NavigateHereIfNeedTo();
@@ -184,7 +187,7 @@ public class LocalUsersHandler {
         List<UserEntry> users = LocalUsersHandler.getExistingUsers();
         for (UserEntry currentUser : users) {
             if (currentUser.getUsername().equals(userToSearch.getUsername())) {
-                if (currentUser.equals(userToSearch)) {
+                if (currentUser.getUsername().equals(userToSearch.getUsername())) {
                     return true;
                 }
             }

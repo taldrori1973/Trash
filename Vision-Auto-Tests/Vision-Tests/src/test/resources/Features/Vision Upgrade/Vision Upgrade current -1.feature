@@ -10,8 +10,6 @@ Feature: Vision Upgrade current -1
 
   @SID_2
   Scenario: change fluentd listening port
-    Then CLI copy "/home/radware/Scripts/copyUpgradeLog.sh" from "GENERIC_LINUX_SERVER" to "ROOT_SERVER_CLI" "/"
-    Then CLI copy "/home/radware/Scripts/ssh-copy-id.exp" from "GENERIC_LINUX_SERVER" to "ROOT_SERVER_CLI" "/"
     Then CLI Run remote linux Command "dos2unix /etc/td-agent/td-agent.conf" on "ROOT_SERVER_CLI"
     Then CLI Run remote linux Command "sed -i 's/port .*$/port 51400/g' /etc/td-agent/td-agent.conf" on "ROOT_SERVER_CLI"
 
@@ -27,8 +25,6 @@ Feature: Vision Upgrade current -1
     Given REST Login with activation with user "sys_admin" and password "radware"
       # extract MySql create partition number
     Then CLI Run remote linux Command "echo "Before " $(mysql -prad123 vision -e "show create table traffic_utilizations\G" |grep "(PARTITION p" |awk -F"p" '{print$2}'|awk '{printf$1}') >  /opt/radware/sql_partition.txt" on "ROOT_SERVER_CLI"
-    Then CLI Run remote linux Command "/usr/sbin/ntpdate -u $(/bin/grep ^server  /etc/ntp.conf | awk '{print $2}')" on "ROOT_SERVER_CLI" with timeOut 120
-    Then CLI Clear vision logs
 
   @SID_5
   Scenario: Change TED configuration
@@ -44,6 +40,7 @@ Feature: Vision Upgrade current -1
   @SID_11
   Scenario: Upgrade vision from release -1
     # Saving upgrade log to Generic server /home/radware/UpgradeLogs/
+    Given CLI Clear vision logs
     Then Upgrade or Fresh Install Vision
 
   @SID_12
@@ -215,12 +212,18 @@ Feature: Vision Upgrade current -1
 
   @SID_29
   Scenario: Validate LLS service is up
+    Then CLI Run linux Command "system lls service status" on "RADWARE_SERVER_CLI" and validate result CONTAINS "is running" in any line with timeOut 600
     Then CLI Run linux Command "curl -ks -o null -XGET http://localhost4:7070/api/1.0/hostids -w 'RESP_CODE:%{response_code}\n'" on "ROOT_SERVER_CLI" and validate result EQUALS "RESP_CODE:200" with timeOut 300
-    Then CLI Operations - Verify that output contains regex "RESP_CODE:200"
     Then CLI Run linux Command "curl -ks -o null -XGET http://localhost6:7070/api/1.0/hostids -w 'RESP_CODE:%{response_code}\n'" on "ROOT_SERVER_CLI" and validate result EQUALS "RESP_CODE:200" with timeOut 300
-    Then CLI Operations - Verify that output contains regex "RESP_CODE:200"
+    Then CLI Check if logs contains
+      | logType | expression                                                             | isExpected   |
+      | LLS     | fatal\| error\|fail                                                    | NOT_EXPECTED |
+      | LLS     | Installation ended                                                     | NOT_EXPECTED     |
+      | LLS     | Setup complete!                                                        | NOT_EXPECTED     |
       #rollback to the original values
     Given CLI Run remote linux Command "mysql -prad123 vision_ng -e "update lls_server set min_required_ram='24';"" on "ROOT_SERVER_CLI"
+    When CLI Operations - Run Radware Session command "system lls service stop"
+    When CLI Operations - Run Radware Session command "y" timeout 180
 
   @SID_30
   Scenario: Validate LLS version

@@ -12,7 +12,6 @@ Feature: Vision APM Upgrade current +1
   @SID_2
   Scenario: Fill partitions to max limit
     Then CLI copy "/home/radware/Scripts/fill_my_disk.sh" from "GENERIC_LINUX_SERVER" to "ROOT_SERVER_CLI" "/"
-    Then CLI copy "/home/radware/Scripts/copyUpgradeLog.sh" from "GENERIC_LINUX_SERVER" to "ROOT_SERVER_CLI" "/"
     Then CLI Run remote linux Command "/fill_my_disk.sh /opt/radware 78" on "ROOT_SERVER_CLI"
     Then CLI Run remote linux Command "/fill_my_disk.sh / 78" on "ROOT_SERVER_CLI"
 
@@ -26,6 +25,7 @@ Feature: Vision APM Upgrade current +1
     ######################################################################################
   @SID_4
   Scenario: Upgrade APM vision from release +1
+    Given CLI Clear vision logs
     Given Upgrade to future version
 
 
@@ -63,8 +63,6 @@ Feature: Vision APM Upgrade current +1
       | UPGRADE | *.svg                                                                  | IGNORE       |
       | UPGRADE | inflating:                                                             | IGNORE       |
       | LLS     | fatal\| error\|fail                                                    | NOT_EXPECTED |
-      | LLS     | Installation ended                                                     | EXPECTED     |
-      | LLS     | Setup complete!                                                        | EXPECTED     |
       | UPGRADE | Failed to parse /etc/cgconfig.conf                                     | IGNORE       |
       | UPGRADE | error loading /etc/cgconfig.conf: Cgroup mounting failed               | IGNORE       |
       | UPGRADE | Error: cannot mount cpuset to /cgroup/cpuset: Device or resource busy  | IGNORE       |
@@ -198,12 +196,18 @@ Feature: Vision APM Upgrade current +1
 
   @SID_22
   Scenario: Validate LLS service is up
+    Then CLI Run linux Command "system lls service status" on "RADWARE_SERVER_CLI" and validate result CONTAINS "is running" in any line with timeOut 600
     Then CLI Run linux Command "curl -ks -o null -XGET http://localhost4:7070/api/1.0/hostids -w 'RESP_CODE:%{response_code}\n'" on "ROOT_SERVER_CLI" and validate result EQUALS "RESP_CODE:200" with timeOut 300
-    Then CLI Operations - Verify that output contains regex "RESP_CODE:200"
     Then CLI Run linux Command "curl -ks -o null -XGET http://localhost6:7070/api/1.0/hostids -w 'RESP_CODE:%{response_code}\n'" on "ROOT_SERVER_CLI" and validate result EQUALS "RESP_CODE:200" with timeOut 300
-    Then CLI Operations - Verify that output contains regex "RESP_CODE:200"
+    Then CLI Check if logs contains
+      | logType | expression                                                             | isExpected   |
+      | LLS     | fatal\| error\|fail                                                    | NOT_EXPECTED |
+      | LLS     | Installation ended                                                     | NOT_EXPECTED     |
+      | LLS     | Setup complete!                                                        | NOT_EXPECTED     |
       #rollback to the original values
     Given CLI Run remote linux Command "mysql -prad123 vision_ng -e "update lls_server set min_required_ram='32';"" on "ROOT_SERVER_CLI"
+    When CLI Operations - Run Radware Session command "system lls service stop"
+    When CLI Operations - Run Radware Session command "y" timeout 180
 
 
   @SID_23

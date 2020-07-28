@@ -199,11 +199,11 @@ Feature: create AMS Report New Form
     When UI Click Button "Add New"
     When UI Click Button "Select Template"
     When UI Click Button "DefensePro Analytics Template"
-    Then UI Validate Search The Text "Top Attacks by" in Search Label "Widget Filter Default" if this elements exist
-      | label         | param                    |
-      | Widget Select | Top Attacks by Duration  |
-      | Widget Select | Top Attacks by Bandwidth |
-      | Widget Select | Top Attacks by Protocol  |
+    Then UI Validate Search The Text "Top Attacks by" in Search Label "Widget" if this elements exist with prefix label "Widget Select"
+      | param                    |
+      | Top Attacks by Duration  |
+      | Top Attacks by Bandwidth |
+      | Top Attacks by Protocol  |
     Then UI Click Button "Widget Close"
     Then UI Click Button "Discard Changes"
     Then UI Click Button "Cancel"

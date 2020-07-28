@@ -266,6 +266,7 @@ public class VMOperationsSteps extends BddUITestBase {
             }
         }
         updateVersionVar();
+        CliOperations.runCommand(getRestTestBase().getRootServerCli(), "/usr/sbin/ntpdate -u europe.pool.ntp.org", 2 * 60 * 1000);
     }
 
     public static String getVisionSetupAttributeFromSUT(String attribute) {

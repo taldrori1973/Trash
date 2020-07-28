@@ -27,7 +27,6 @@ import com.radware.vision.infra.testhandlers.vrm.enums.vrmActions;
 import com.radware.vision.infra.utils.ReportsUtils;
 import com.radware.vision.infra.utils.TimeUtils;
 import com.radware.vision.infra.utils.json.CustomizedJsonManager;
-import gherkin.lexer.Tr;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import org.openqa.selenium.By;
@@ -136,7 +135,7 @@ public class VRMBaseUtilies {
                     List<VRMHandler.DpApplicationFilter> devicesEntries = new ArrayList<>();
                     if (map.get("projectObjects") != null || map.get("webApplications") != null) {
                         String type = map.get("projectObjects") != null ? "projectObjects" : map.get("webApplications") != null ? "webApplications" : "";
-                        String [] devices = !map.get(type).matches("(All|all|)") ? map.get(type).split(",") : new String[0];
+                        String[] devices = !map.get(type).matches("(All|all|)") ? map.get(type).split(",") : new String[0];
                         for (String appName : devices) {
                             devicesEntries.add(new VRMHandler.DpApplicationFilter(appName));
                         }
@@ -145,7 +144,7 @@ public class VRMBaseUtilies {
                     } else {
                         devicesEntries.add(new VRMHandler.DpApplicationFilter("All"));
                     }
-                    vrmHandler.selectApplications(devicesEntries, map.get("reportType").toLowerCase().startsWith("defenseflow")? "defenseflow" : "appwall", false);
+                    vrmHandler.selectApplications(devicesEntries, map.get("reportType").toLowerCase().startsWith("defenseflow") ? "defenseflow" : "appwall", false);
                     return;
                 }
                 case "defensepro behavioral protections dashboard":
@@ -243,8 +242,7 @@ public class VRMBaseUtilies {
             String productSelection = map.get("Product");
             if (productSelection.equals("Appwall") || productSelection.equals("DefenseFlow") || productSelection.equals("DefensePro")) {
                 BasicOperationsHandler.clickButton(productSelection);
-            }
-            else {
+            } else {
                 BaseTestUtils.report("The Product definition should be Appwall, or DefenseFlow or DefensePro: " + productSelection, Reporter.FAIL);
             }
         }
@@ -1061,7 +1059,7 @@ public class VRMBaseUtilies {
         }
     }
 
-    public void validateFilter(String text, String searchLabel, List<VRMHandler.LabelParam> elementsExist) throws Exception {
+    public void validateFilter(String text, String searchLabel, List<VRMHandler.LabelParam> elementsExist, String prefixLabel) throws Exception {
         if ((text == null || text.equals("")) && elementsExist.size() > 0) {
             BaseTestUtils.report("have to put text ", Reporter.FAIL);
         }
@@ -1070,17 +1068,16 @@ public class VRMBaseUtilies {
             return;
         }
         BasicOperationsHandler.setTextField(searchLabel, text);
+        VisionDebugIdsManager.setLabel(prefixLabel);
+        Set<String> elementsDebugIds = getElementsSet();
         for (VRMHandler.LabelParam element : elementsExist) {
-
-            if (WebUIUtils.fluentWait(ComponentLocatorFactory.getLocatorByXpathDbgId(element.getDataDebugId()).getBy(), WebUIUtils.DEFAULT_WAIT_TIME, false) == null) {
-                addErrorMessage("the label '" + element.getLabel() + "' with param: '" + element.getParam() + "' is not exist OR text: \"" + text + "\" is not correct");
+            VisionDebugIdsManager.setLabel(prefixLabel);
+            VisionDebugIdsManager.setParams(element.getParam());
+            if (!elementsDebugIds.contains(VisionDebugIdsManager.getDataDebugId())) {
+                addErrorMessage("the label '" + prefixLabel + "' with param: '" + element.getParam() + "' is not exist OR text: \"" + text + "\" is not correct");
             }
         }
-
-
         reportErrors();
-
-
     }
 
     public void validateFilterNumbering(String text, String label, String searchLabel, int expectedNumber) throws Exception {
@@ -1088,12 +1085,27 @@ public class VRMBaseUtilies {
         VisionDebugIdsManager.setLabel(label);
         VisionDebugIdsManager.setParams("");
         Thread.sleep(15 * 1000);
-        List<WebElement> filterElements = WebUIUtils.fluentWaitMultiple(ComponentLocatorFactory.getLocatorByXpathDbgId(VisionDebugIdsManager.getDataDebugId()).getBy(), WebUIUtils.DEFAULT_WAIT_TIME, false);
-        if (filterElements.size() != expectedNumber) {
-            BaseTestUtils.report("actual number : '" + filterElements.size() + "' is not equal to expected number : '" + expectedNumber + "' ", Reporter.FAIL);
+        Set<String> elementsDebugIds = getElementsSet();
+        if (elementsDebugIds.size() != expectedNumber) {
+            BaseTestUtils.report("actual number : '" + elementsDebugIds.size() + "' is not equal to expected number : '" + expectedNumber + "' ", Reporter.FAIL);
         } else {
             BaseTestUtils.report("actual number equal to expected number ", Reporter.PASS);
         }
+    }
+
+    private Set<String> getElementsSet() {
+        Set<String> elementsDebugIds = new HashSet<String>();
+        int elemntsCount = -1;
+        while (elementsDebugIds.size() > elemntsCount) {
+            elemntsCount = elementsDebugIds.size();
+            List<WebElement> elements = WebUIUtils.fluentWaitMultiple(ComponentLocatorFactory.getLocatorByXpathDbgId(VisionDebugIdsManager.getDataDebugId().split("%s")[0]).getBy());
+            elements.forEach(n -> {
+                elementsDebugIds.add(n.getAttribute("data-debug-id"));
+            });
+            WebUIUtils.scrollIntoView(ComponentLocatorFactory.getEqualLocatorByDbgId(elements.get(elements.size() - 1).getAttribute("data-debug-id")));
+            WebUIUtils.sleep(1);
+        }
+        return elementsDebugIds;
     }
 
     public void DesignNew(Map<String, String> map) throws TargetWebElementNotFoundException {
@@ -1172,16 +1184,14 @@ public class VRMBaseUtilies {
                             WebUIComponent webUIComponent = new WebUIComponent(optionLocator);
                             ((JavascriptExecutor) WebUIUtils.getDriver()).executeScript("arguments[0].click();", webUIComponent.getWebElement());
                             for (Object option : widgetOptions) {
-                                if (option.getClass().getName().equalsIgnoreCase("java.util.HashMap"))
-                                {
+                                if (option.getClass().getName().equalsIgnoreCase("java.util.HashMap")) {
                                     VisionDebugIdsManager.setLabel("Widget Option");
                                     VisionDebugIdsManager.setParams(((Map) option).keySet().toArray()[0].toString());
                                     WebElement wb = WebUIUtils.fluentWait(ComponentLocatorFactory.getLocatorByXpathDbgId(VisionDebugIdsManager.getDataDebugId()).getBy());
-                                    ((JavascriptExecutor) WebUIUtils.getDriver()).executeScript("arguments[0].value='" + ((Map) option).get(((Map) option).keySet().toArray()[0]).toString()  + "';", wb.findElement(By.xpath("./input")));
+                                    ((JavascriptExecutor) WebUIUtils.getDriver()).executeScript("arguments[0].value='" + ((Map) option).get(((Map) option).keySet().toArray()[0]).toString() + "';", wb.findElement(By.xpath("./input")));
                                     wb.findElement(By.xpath("./input")).click();
-                                }
-                                else
-                                BasicOperationsHandler.clickButton("Widget Option", option + "_" + entry);
+                                } else
+                                    BasicOperationsHandler.clickButton("Widget Option", option + "_" + entry);
                             }
                             widgetsList.add(entry);
                         } catch (Exception e) {
