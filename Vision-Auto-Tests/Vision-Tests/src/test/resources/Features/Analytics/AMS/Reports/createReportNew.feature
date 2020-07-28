@@ -1,6 +1,5 @@
 @VRM_Report2
 @TC107944
-
 Feature: create AMS Report New Form
 
   @SID_1
@@ -157,7 +156,6 @@ Feature: create AMS Report New Form
   @SID_20
   Scenario: Validate Scope Selection Search
     Then UI Click Button "Edit" with value "new"
-#    When UI "Edit" Report With Name "new"
     Then UI Validate Scope Selection Search With Element Type "DefensePro" And Device index 10
 
   @SID_21
@@ -199,7 +197,7 @@ Feature: create AMS Report New Form
     When UI Click Button "Add New"
     When UI Click Button "Select Template"
     When UI Click Button "DefensePro Analytics Template"
-    Then UI Validate Search The Text "Top Attacks by" in Search Label "Widget" if this elements exist with prefix label "Widget Select"
+    Then UI Validate Search The Text "Top Attacks by" in Search Label "Widget Filter Default" if this elements exist with prefix label "Widget Select"
       | param                    |
       | Top Attacks by Duration  |
       | Top Attacks by Bandwidth |
@@ -211,8 +209,9 @@ Feature: create AMS Report New Form
   @SID_26
   Scenario: AMS Reports - Validate Search Filter With Expected Elements Number
     When UI Click Button "Add New"
-    When UI Click Button "Select Template"
-    When UI Click Button "DefensePro Analytics Template"
+    And UI Click Button "Select Template"
+    And UI Click Button "DefensePro Analytics Template"
+    And UI Click Button By JavascriptExecutor with label "Clear All"
     Then UI Validate Search Numbering With text: "Top Attacks by" And Element Label: "Widget Select" In Search Label "Widget Filter Default" If this equal to 3
     Then UI Click Button "Widget Close"
     Then UI Click Button "Discard Changes"
@@ -230,8 +229,7 @@ Feature: create AMS Report New Form
     Given UI "Create" Report With Name "DeleteAllReport"
       | reportType | DefensePro Analytics Dashboard |
       | Design     | Delete:[ALL], Add:[ALL]        |
-    Then UI Click Button "Widgets Selection Cancel"
-    Then UI Click Button "Cancel"
+
 
   @SID_29
   Scenario: Create Behavioral Protections Report with all the widgets
