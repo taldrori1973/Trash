@@ -24,6 +24,7 @@ import cucumber.api.java.en.And;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebElement;
 
 import java.util.*;
@@ -90,6 +91,14 @@ public class GenericSteps extends BddUITestBase {
             }
             return null;
         }
+    }
+
+    @When("^UI Click Button By JavascriptExecutor with label \"([^\"]*)\"(?: with value \"([^\"]*)\")?$")
+    public void clickButtonByJavaScript(String label,String param){
+        VisionDebugIdsManager.setLabel(label);
+        VisionDebugIdsManager.setParams(param);
+        WebElement webElement = WebUIUtils.fluentWait(ComponentLocatorFactory.getLocatorByXpathDbgId(VisionDebugIdsManager.getDataDebugId()).getBy());
+        ((JavascriptExecutor) WebUIUtils.getDriver()).executeScript("arguments[0].click();", webElement);
     }
 
     @When("^UI Click Button \"([^\"]*)\" with params$")
