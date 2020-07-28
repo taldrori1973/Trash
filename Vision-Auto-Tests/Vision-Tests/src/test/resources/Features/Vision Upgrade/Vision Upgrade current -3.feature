@@ -223,8 +223,8 @@ Feature: Vision Upgrade current -3
     Then CLI Check if logs contains
       | logType | expression                                                             | isExpected   |
       | LLS     | fatal\| error\|fail                                                    | NOT_EXPECTED |
-      | LLS     | Installation ended                                                     | NOT_EXPECTED |
-      | LLS     | Setup complete!                                                        | NOT_EXPECTED |
+      | LLS     | Installation ended                                                     | EXPECTED |
+      | LLS     | Setup complete!                                                        | EXPECTED |
       #rollback to the original values
     Given CLI Run remote linux Command "mysql -prad123 vision_ng -e "update lls_server set min_required_ram='24';"" on "ROOT_SERVER_CLI"
     When CLI Operations - Run Radware Session command "system lls service stop"
