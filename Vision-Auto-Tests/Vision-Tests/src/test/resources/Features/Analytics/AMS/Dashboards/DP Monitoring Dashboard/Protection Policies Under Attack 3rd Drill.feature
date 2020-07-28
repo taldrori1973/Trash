@@ -1,4 +1,4 @@
-@VRM @TC105994 
+@VRM @TC105994
 Feature: DP Monitoring Dashboard - Protection Policies - Under Attack 3rd Drill
 
   @SID_1
@@ -143,18 +143,18 @@ Feature: DP Monitoring Dashboard - Protection Policies - Under Attack 3rd Drill
       | 3456  | 3     | 1      |
       | 3457  | 3     | 1      |
     And UI Validate Line Chart attributes "BDoS-TCP SYN ACK" with Label "Total Traffic"
-      | attribute             | value                    |
-      | pointRadius           | 0                        |
-      | fill                  | true                     |
-      | lineTension           | 0.35                     |
-      | borderCapStyle        | butt                     |
-      | borderDashOffset      | 0                        |
-      | borderJoinStyle       | miter                    |
-      | borderWidth           | 1                        |
-      | pointHoverRadius      | 4                        |
-      | pointHoverBorderWidth | 1                        |
+      | attribute             | value   |
+      | pointRadius           | 0       |
+      | fill                  | true    |
+      | lineTension           | 0.35    |
+      | borderCapStyle        | butt    |
+      | borderDashOffset      | 0       |
+      | borderJoinStyle       | miter   |
+      | borderWidth           | 1       |
+      | pointHoverRadius      | 4       |
+      | pointHoverBorderWidth | 1       |
       | backgroundColor       | #E9FBFF |
-      | borderColor           | #088eB1   |
+      | borderColor           | #088eB1 |
 #      | backgroundColor       | rgba(141, 190, 214, 0.1) |
 #      | borderColor           | rgba(141, 190, 214, 5)   |
 #    And UI Validate Line Chart attributes "BDoS-TCP SYN ACK" with Label "Suspected Edge"
@@ -388,14 +388,14 @@ Feature: DP Monitoring Dashboard - Protection Policies - Under Attack 3rd Drill
   Scenario: Logout
     Then UI Logout
 
-    
+
   @SID_36
   Scenario: Kill and generate DNS attack IPv6
     * CLI kill all simulator attacks on current vision
     * REST Delete ES index "dp-*"
     Given CLI simulate 3 attacks of type "baselines_pol_1" on "DefensePro" 10 with loopDelay 15000 and wait 55 seconds
 
-  
+
   @SID_37
   Scenario: Login and open VRM DNS attack details
     Given UI Login with user "sys_admin" and password "radware"
@@ -404,7 +404,7 @@ Feature: DP Monitoring Dashboard - Protection Policies - Under Attack 3rd Drill
     Then UI click Table row by keyValue or Index with elementLabel "Protection Policies.Protections Table" findBy columnName "Protection Name" findBy cellValue "DNS Flood"
     Then UI click Table row by keyValue or Index with elementLabel "Protection Policies.Events Table" findBy index 0
 
-  
+
   @SID_38
   Scenario: Validate DNS Flood attack card data - non-default baselines
 #    Then UI Validate Line Chart attributes "DNS-AAAA" with Label "Total Traffic"
@@ -1137,38 +1137,38 @@ Feature: DP Monitoring Dashboard - Protection Policies - Under Attack 3rd Drill
   @SID_114
   Scenario: Validate Https Flood baseline graph Transitory Attack Edge styling
     Then UI Validate Line Chart attributes "Requests per Second" with Label "Transitory Attack Edge"
-      | attribute             | value          |
+      | attribute             | value   |
       | backgroundColor       | #aa0a13 |
-      | steppedLine           | true           |
-      | pointHoverBorderWidth | 1              |
+      | steppedLine           | true    |
+      | pointHoverBorderWidth | 1       |
       | borderColor           | #aa0a13 |
-      | pointHitRadius        | 10             |
-      | pointRadius           | 0              |
-      | pointHoverRadius      | 4              |
-      | borderJoinStyle       | miter          |
-      | borderDashOffset      | 0              |
-      | borderWidth           | 2.5            |
-      | borderCapStyle        | butt           |
-      | lineTension           | 0.35           |
-      | fill                  | false          |
+      | pointHitRadius        | 10      |
+      | pointRadius           | 0       |
+      | pointHoverRadius      | 4       |
+      | borderJoinStyle       | miter   |
+      | borderDashOffset      | 0       |
+      | borderWidth           | 2.5     |
+      | borderCapStyle        | butt    |
+      | lineTension           | 0.35    |
+      | fill                  | false   |
 
   @SID_115
   Scenario: Validate Https Flood baseline graph Total Traffic styling
     Then UI Validate Line Chart attributes "Requests per Second" with Label "Total Traffic"
-      | attribute             | value                    |
+      | attribute             | value   |
       | backgroundColor       | #9aeeea |
-      | pointHoverBorderWidth | 1                        |
-      | borderColor           | #088eb1       |
-      | pointHitRadius        | 10                       |
-      | pointRadius           | 0                        |
-      | pointHoverRadius      | 4                        |
-      | borderJoinStyle       | miter                    |
-      | borderDashOffset      | 0                        |
-      | borderWidth           | 1                        |
-      | borderCapStyle        | butt                     |
-      | lineTension           | 0.35                     |
-      | fill                  | true                     |
-      | borderColor           | #088eb1       |
+      | pointHoverBorderWidth | 1       |
+      | borderColor           | #088eb1 |
+      | pointHitRadius        | 10      |
+      | pointRadius           | 0       |
+      | pointHoverRadius      | 4       |
+      | borderJoinStyle       | miter   |
+      | borderDashOffset      | 0       |
+      | borderWidth           | 1       |
+      | borderCapStyle        | butt    |
+      | lineTension           | 0.35    |
+      | fill                  | true    |
+      | borderColor           | #088eb1 |
       | color                 | #9aeeea |
 
   @SID_116
@@ -1666,6 +1666,9 @@ Feature: DP Monitoring Dashboard - Protection Policies - Under Attack 3rd Drill
     And UI click Table row by keyValue or Index with elementLabel "Protection Policies.Table" findBy columnName "Policy Name" findBy cellValue "BDOS"
     Then UI click Table row by keyValue or Index with elementLabel "Protection Policies.Protections Table" findBy columnName "Protection Name" findBy cellValue "Behavioral DoS"
     Then UI Validate Table record values by columns with elementLabel "Protection Policies.Events Table" findBy columnName "Attack Categories" findBy cellValue "Behavioral DoS"
+      | columnName        | value          |
+      | Attack Categories | Behavioral DoS |
+
     Then UI click Table row by keyValue or Index with elementLabel "Protection Policies.Events Table" findBy index 0
 
   @SID_161
@@ -1712,18 +1715,18 @@ Feature: DP Monitoring Dashboard - Protection Policies - Under Attack 3rd Drill
   @SID_166
   Scenario: Validate baseline Total Traffic styling - burst
     And UI Validate Line Chart attributes "BDoS-TCP SYN ACK" with Label "Total Traffic"
-      | attribute             | value                    |
-      | pointRadius           | 0                        |
-      | fill                  | true                     |
-      | lineTension           | 0.35                     |
-      | borderCapStyle        | butt                     |
-      | borderDashOffset      | 0                        |
-      | borderJoinStyle       | miter                    |
-      | borderWidth           | 1                        |
-      | pointHoverRadius      | 4                        |
-      | pointHoverBorderWidth | 1                        |
+      | attribute             | value   |
+      | pointRadius           | 0       |
+      | fill                  | true    |
+      | lineTension           | 0.35    |
+      | borderCapStyle        | butt    |
+      | borderDashOffset      | 0       |
+      | borderJoinStyle       | miter   |
+      | borderWidth           | 1       |
+      | pointHoverRadius      | 4       |
+      | pointHoverBorderWidth | 1       |
       | backgroundColor       | #E9FBFF |
-      | borderColor           | #088eB1   |
+      | borderColor           | #088eB1 |
 
   @SID_167
   Scenario: Validate baseline Suspected Edge styling - burst
