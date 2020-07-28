@@ -1,4 +1,3 @@
-
 @TC112252
 Feature: VRM Real Time Status Bar Alerts
 
@@ -224,7 +223,7 @@ Feature: VRM Real Time Status Bar Alerts
     Given UI Login with user "sys_admin" and password "radware"
     When UI Navigate to "DefensePro Monitoring Dashboard" page via homePage
     And Sleep "2"
-    Then UI Text of "Utilization Throughput Status" equal to "2 Errors"
+    Then UI Text of "Utilization Throughput Status" equal to "1 Errors"
     Then UI Do Operation "Select" item "Device Selection"
     Then UI VRM Select device from dashboard and Save Filter
       | index | ports | policies |

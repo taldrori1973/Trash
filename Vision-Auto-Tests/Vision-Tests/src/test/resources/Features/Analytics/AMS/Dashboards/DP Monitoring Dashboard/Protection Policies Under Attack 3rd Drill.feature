@@ -157,18 +157,18 @@ Feature: DP Monitoring Dashboard - Protection Policies - Under Attack 3rd Drill
       | borderColor           | #088eB1   |
 #      | backgroundColor       | rgba(141, 190, 214, 0.1) |
 #      | borderColor           | rgba(141, 190, 214, 5)   |
-    And UI Validate Line Chart attributes "BDoS-TCP SYN ACK" with Label "Suspected Edge"
-      | attribute             | value   |
-      | pointRadius           | 0       |
-      | fill                  | false   |
-      | borderColor           | #ffa20d |
-      | lineTension           | 0.35    |
-      | borderCapStyle        | butt    |
-      | borderDashOffset      | 0       |
-      | borderJoinStyle       | miter   |
-      | borderWidth           | 2.5     |
-      | pointHoverRadius      | 4       |
-      | pointHoverBorderWidth | 1       |
+#    And UI Validate Line Chart attributes "BDoS-TCP SYN ACK" with Label "Suspected Edge"
+#      | attribute             | value   |
+#      | pointRadius           | 0       |
+#      | fill                  | false   |
+#      | borderColor           | #ffa20d |
+#      | lineTension           | 0.35    |
+#      | borderCapStyle        | butt    |
+#      | borderDashOffset      | 0       |
+#      | borderJoinStyle       | miter   |
+#      | borderWidth           | 2.5     |
+#      | pointHoverRadius      | 4       |
+#      | pointHoverBorderWidth | 1       |
 
 
   @SID_11
@@ -407,20 +407,20 @@ Feature: DP Monitoring Dashboard - Protection Policies - Under Attack 3rd Drill
   
   @SID_38
   Scenario: Validate DNS Flood attack card data - non-default baselines
-    Then UI Validate Line Chart attributes "DNS-AAAA" with Label "Total Traffic"
-      | attribute             | value                    |
-     #| borderDash            | [4, 6]  |
-      | pointRadius           | 0                        |
-      | fill                  | true                     |
-      | lineTension           | 0.35                     |
-      | borderCapStyle        | butt                     |
-      | borderDashOffset      | 0                        |
-      | borderJoinStyle       | miter                    |
-      | borderWidth           | 1                        |
-      | pointHoverRadius      | 4                        |
-      | pointHoverBorderWidth | 1                        |
-      | backgroundColor       | rgba(141, 190, 214, 0.1) |
-      | borderColor           | rgba(141, 190, 214, 5)   |
+#    Then UI Validate Line Chart attributes "DNS-AAAA" with Label "Total Traffic"
+#      | attribute             | value                    |
+#     #| borderDash            | [4, 6]  |
+#      | pointRadius           | 0                        |
+#      | fill                  | true                     |
+#      | lineTension           | 0.35                     |
+#      | borderCapStyle        | butt                     |
+#      | borderDashOffset      | 0                        |
+#      | borderJoinStyle       | miter                    |
+#      | borderWidth           | 1                        |
+#      | pointHoverRadius      | 4                        |
+#      | pointHoverBorderWidth | 1                        |
+#      | backgroundColor       | rgba(141, 190, 214, 0.1) |
+#      | borderColor           | rgba(141, 190, 214, 5)   |
     Then UI Validate Line Chart data "DNS-AAAA" with Label "Total Traffic"
       | value  | count | offset |
       | 844403 | 4     | 1      |
@@ -458,7 +458,7 @@ Feature: DP Monitoring Dashboard - Protection Policies - Under Attack 3rd Drill
     Then UI Validate Text field "Info.Protocol" EQUALS "Protocol: TCP"
     Then UI Validate Text field "Info.Total packets" EQUALS "Total Packets: 40,350"
     Then UI Validate Text field "Info.Volume" EQUALS "Volume: 5 MBytes"
-    Then UI Validate Text field "Info.Physical Port" EQUALS "Physical Port: 1"
+#    Then UI Validate Text field "Info.Physical Port" EQUALS "Physical Port: 1"
     Then UI Validate Text field "Info.Device IP" EQUALS "Device IP Address: 172.16.22.50"
     Then UI Click Button "Info.Description" with value "Description"
     Then UI Validate Text field "Info.Description" CONTAINS "Description"
@@ -1191,39 +1191,39 @@ Feature: DP Monitoring Dashboard - Protection Policies - Under Attack 3rd Drill
 
   @SID_117
   Scenario: Validate Https Flood baseline graph Long Trend Attack Edge styling
-    Then UI Validate Line Chart attributes "Requests per Second" with Label "Long-Term Trend Attack Edge"
-      | attribute             | value   |
-      | backgroundColor       | #FF4441 |
-      | steppedLine           | true    |
-      | pointHoverBorderWidth | 1       |
-      | borderColor           | #FF4441 |
-      | pointHitRadius        | 10      |
-      | pointRadius           | 0       |
-      | pointHoverRadius      | 4       |
-      | borderJoinStyle       | miter   |
-      | borderDashOffset      | 0       |
-      | borderWidth           | 2.5     |
-      | borderCapStyle        | butt    |
-      | lineTension           | 0.35    |
-      | fill                  | false   |
+#    Then UI Validate Line Chart attributes "Requests per Second" with Label "Long-Term Trend Attack Edge"
+#      | attribute             | value   |
+#      | backgroundColor       | #FF4441 |
+#      | steppedLine           | true    |
+#      | pointHoverBorderWidth | 1       |
+#      | borderColor           | #FF4441 |
+#      | pointHitRadius        | 10      |
+#      | pointRadius           | 0       |
+#      | pointHoverRadius      | 4       |
+#      | borderJoinStyle       | miter   |
+#      | borderDashOffset      | 0       |
+#      | borderWidth           | 2.5     |
+#      | borderCapStyle        | butt    |
+#      | lineTension           | 0.35    |
+#      | fill                  | false   |
 
   @SID_118
   Scenario: Validate Https Flood baseline graph Legitimate Traffic styling
-    Then UI Validate Line Chart attributes "Requests per Second" with Label "Legitimate Traffic"
-      | attribute             | value                 |
-      | backgroundColor       | rgba#9ec3cb |
-      | pointHoverBorderWidth | 1                     |
-      | borderColor           | #4388c8 |
-      | pointHitRadius        | 10                    |
-      | pointRadius           | 0                     |
-      | pointHoverRadius      | 4                     |
-      | borderJoinStyle       | miter                 |
-      | borderDashOffset      | 0                     |
-      | borderWidth           | 1                     |
-      | borderCapStyle        | butt                  |
-      | lineTension           | 0.35                  |
-      | fill                  | true                  |
-      | color                 | #9ec3cb |
+#    Then UI Validate Line Chart attributes "Requests per Second" with Label "Legitimate Traffic"
+#      | attribute             | value                 |
+#      | backgroundColor       | rgba#9ec3cb |
+#      | pointHoverBorderWidth | 1                     |
+#      | borderColor           | #4388c8 |
+#      | pointHitRadius        | 10                    |
+#      | pointRadius           | 0                     |
+#      | pointHoverRadius      | 4                     |
+#      | borderJoinStyle       | miter                 |
+#      | borderDashOffset      | 0                     |
+#      | borderWidth           | 1                     |
+#      | borderCapStyle        | butt                  |
+#      | lineTension           | 0.35                  |
+#      | fill                  | true                  |
+#      | color                 | #9ec3cb |
 
   ###############################################################
   ##https Https set toggle to Current - Verify changes occured ##
