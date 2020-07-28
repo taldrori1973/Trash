@@ -44,21 +44,24 @@ Feature: AW Scope Selection
 
   @SID_3
   Scenario: Filter Validation
-    Then UI Validate Search The Text "radware" in Search Label "Filter" if this elements exist
-      | label                                      | param    |
-      | Device Selection.Available Device CheckBox | radware  |
-      | Device Selection.Available Device CheckBox | radware1 |
-      | Device Selection.Available Device CheckBox | radware2 |
-      | Device Selection.Available Device CheckBox | radware3 |
-      | Device Selection.Available Device CheckBox | radware4 |
-    And UI Set Text Field BY Character "Filter" and params "" To ""
-    Then UI Validate Search The Text "my_app-10" in Search Label "Filter" if this elements exist
-      | label                                      | param      |
-      | Device Selection.Available Device CheckBox | my_app-10  |
-      | Device Selection.Available Device CheckBox | my_app-101 |
-      | Device Selection.Available Device CheckBox | my_app-105 |
-      | Device Selection.Available Device CheckBox | my_app-107 |
-      | Device Selection.Available Device CheckBox | my_app-109 |
+    Then UI Validate Search The Text "radware" in Search Label "Filter" if this elements exist with prefix label "Device Selection.Available Device CheckBox"
+      | param    |
+      | radware  |
+      | radware1 |
+      | radware2 |
+      | radware3 |
+      | radware4 |
+    And UI Click Button "Scope Selection Cancel"
+    And UI Do Operation "Select" item "Applications"
+    Then UI Validate Search The Text "my_app-10" in Search Label "Filter" if this elements exist with prefix label "Device Selection.Available Device CheckBox"
+      | param      |
+      | my_app-10  |
+      | my_app-101 |
+      | my_app-105 |
+      | my_app-107 |
+      | my_app-109 |
+    And UI Click Button "Scope Selection Cancel"
+    And UI Do Operation "Select" item "Applications"
     Then UI Validate Search Numbering With text: "my_app-10" And Element Label: "Prefix Application Name" In Search Label "Filter" If this equal to 11
     And UI Click Button "Scope Selection Cancel"
 
