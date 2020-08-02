@@ -8,14 +8,14 @@ Feature: AMS DefenseFlow Attacks Dashboard
     * REST Delete ES index "df-attack*"
     * CLI Clear vision logs
 
-  @SID_34
+  @SID_2 @Sanity
   Scenario: Change DF managment IP to IP of Generic Linux
     When CLI Operations - Run Radware Session command "system df management-ip set 172.17.164.10"
     When CLI Operations - Run Radware Session command "system df management-ip get"
     Then CLI Operations - Verify that output contains regex "DefenseFlow Management IP Address: 172.17.164.10"
 
 
-  @SID_2 @Sanity
+  @SID_3 @Sanity
   Scenario: Run DF simulator
     When CLI Run remote linux Command on "GENERIC_LINUX_SERVER"
       | "/home/radware/curl_DF_attacks-auto_PO_100.sh " |
@@ -31,14 +31,14 @@ Feature: AMS DefenseFlow Attacks Dashboard
       | " Terminated"                                   |
 
 
-  @SID_3 @Sanity
+  @SID_4 @Sanity
   Scenario: VRM - Login to AMS DefenseFlow Analytics Dashboard
     Given UI Login with user "sys_admin" and password "radware"
     And UI Navigate to "DefenseFlow Analytics Dashboard" page via homePage
     Then UI Do Operation "Select" item "Global Time Filter"
     Then UI Do Operation "Select" item "Global Time Filter.Quick Range" with value "3H"
 
-  @SID_4
+  @SID_5
   Scenario: Validate TOP ATTACKS BY Duration - All POs
     Then UI Validate StackBar data with widget "Top Attacks by Duration"
       | label                      | value | legendName      |
@@ -78,7 +78,7 @@ Feature: AMS DefenseFlow Attacks Dashboard
       | Total (recv.pps)           | 1     | 5-10 min        |
       | HTTP (recv.bps)            | null  | 5-10 min        |
 
-  @SID_5 @Sanity
+  @SID_6 @Sanity
   Scenario: Validate TOP ATTACKS BY Count - All POs
     Then UI Validate StackBar data with widget "Top Attacks by Count"
       | label  | value | legendName                 |
@@ -123,7 +123,7 @@ Feature: AMS DefenseFlow Attacks Dashboard
       | PO_300 | 1     | Total (recv.pps)           |
 
 
-  @SID_6
+  @SID_7
   Scenario: Validate TOP Attacks Bandwidth - All POs
     Then UI Validate StackBar data with widget "Top Attacks by Rate"
       | label  | value     | legendName                 |
@@ -168,7 +168,7 @@ Feature: AMS DefenseFlow Attacks Dashboard
       | PO_300 | 2028828   | UDP Port 0 (recv.pps)      |
 
 
-  @SID_7
+  @SID_8
   Scenario: Validate Top Attack by Protocol - All POs
     Then UI Validate StackBar data with widget "Top Attacks by Protocol"
       | label                      | value | legendName |
@@ -233,7 +233,7 @@ Feature: AMS DefenseFlow Attacks Dashboard
       | UDP Port 0 (recv.pps)      | 33    | UDP        |
 
 
-  @SID_8
+  @SID_9
   Scenario: Validate TOP ATTACKS BY Destination - All POs
     Then UI Validate Pie Chart data "Top Attack Destination"
       | label          | data |
@@ -246,7 +246,7 @@ Feature: AMS DefenseFlow Attacks Dashboard
       | 185.31.222.138 | 4    |
 
 
-  @SID_9
+  @SID_10
   Scenario: Validate TOP ATTACKS BY Sources - All POs
     Then UI Validate Pie Chart data "Top Attack Sources"
       | label           | data |
@@ -262,20 +262,20 @@ Feature: AMS DefenseFlow Attacks Dashboard
       | 100.100.100.109 | 2    |
 
 
-  @SID_10
+  @SID_11
   Scenario: Validate DDos Attack Activations per Day - All POs
 
-  @SID_11
+  @SID_12
   Scenario: Validate DDos Attack Volume per Day (Mbits) - All POs
 
-  @SID_12
+  @SID_13
   Scenario: select two POs
     When UI Do Operation "Select" item "Protected Objects"
     Then UI Select scope from dashboard and Save Filter device type "defenseflow"
       | PO_100 |
       | PO_200 |
 
-  @SID_13
+  @SID_14
   Scenario: Validate TOP ATTACKS BY Duration - part of POs
     Then UI Validate StackBar data with widget "Top Attacks by Duration"
       | label                      | value | legendName      | exist |
@@ -307,7 +307,7 @@ Feature: AMS DefenseFlow Attacks Dashboard
       | legendName | legendNameExist |
       | 5-10 min   | false           |
 
-  @SID_14
+  @SID_15
   Scenario: Validate TOP ATTACKS BY Count - part of POs
   | label  | value | legendName                 | exist|
   | PO_100 | 86    | HTTP (recv.pps)            |true|
@@ -351,7 +351,7 @@ Feature: AMS DefenseFlow Attacks Dashboard
   | PO_300 | 1     | Total (recv.pps)           |false|
 
 
-  @SID_15
+  @SID_16
   Scenario: Validate Attacks Bandwidth - part of POs
     Then UI Validate StackBar data with widget "Top Attacks by Rate"
       | label  | value     | legendName                 | exist |
@@ -396,7 +396,7 @@ Feature: AMS DefenseFlow Attacks Dashboard
       | PO_300 | 2028828   | UDP Port 0 (recv.pps)      | false |
 
 
-  @SID_16
+  @SID_17
   Scenario: Validate Top Attacks by Protocol - part of POs
     Then UI Validate StackBar data with widget "Top Attacks by Protocol"
       | label                      | value | legendName |
@@ -461,7 +461,7 @@ Feature: AMS DefenseFlow Attacks Dashboard
       | UDP Port 0 (recv.pps)      | 26    | UDP        |
 
 
-  @SID_17
+  @SID_18
   Scenario: Validate TOP ATTACKS BY Destination - part of POs
     Then UI Validate Pie Chart data "Top Attack Destination"
       | label          | data |
@@ -473,7 +473,7 @@ Feature: AMS DefenseFlow Attacks Dashboard
       | 94.125.61.203  | 6    |
       | 185.31.222.138 | 3    |
 
-  @SID_18
+  @SID_19
   Scenario: Validate TOP ATTACKS BY Sources - part of POs
     Then UI Validate Pie Chart data "Top Attack Sources"
       | label           | data |
@@ -488,76 +488,7 @@ Feature: AMS DefenseFlow Attacks Dashboard
       | 100.100.100.108 | 3    |
       | 100.100.100.109 | 2    |
 
-#  @SID_24
-#  Scenario: Clean system data
-#    * CLI kill all simulator attacks on current vision
-#    * REST Vision Install License Request "vision-AVA-Max-attack-capacity"
-#    * REST Delete ES index "df-attack*"
-#    * CLI Clear vision logs
-#
-#
-#  @SID_25
-#  Scenario: Run DF simulator for DDos Attack Volume per Day
-#    When CLI Run remote linux Command on "GENERIC_LINUX_SERVER"
-#      | "/home/radware/curl_DF_attacks-auto_PO_100_2D_Before.sh " |
-#      | #visionIP                                                 |
-#      | " Terminated"                                             |
-#    When CLI Run remote linux Command on "GENERIC_LINUX_SERVER"
-#      | "/home/radware/curl_DF_attacks-auto_PO_100_3D_Before.sh " |
-#      | #visionIP                                                 |
-#      | " Terminated"                                             |
-#
-#    When CLI Run remote linux Command on "GENERIC_LINUX_SERVER"
-#      | "/home/radware/curl_DF_attacks-auto_PO_100_5D_Before.sh " |
-#      | #visionIP                                                 |
-#      | " Terminated"                                             |
-#    When CLI Run remote linux Command on "GENERIC_LINUX_SERVER"
-#      | "/home/radware/curl_DF_attacks-auto_PO_300_3D_Before.sh " |
-#      | #visionIP                                                 |
-#      | " Terminated"                                             |
-#    When CLI Run remote linux Command on "GENERIC_LINUX_SERVER"
-#      | "/home/radware/curl_DF_attacks-auto_PO_300_4D_Before.sh " |
-#      | #visionIP                                                 |
-#      | " Terminated"                                             |
-#
-#  @SID_26
-#  Scenario: select range
-#    Then UI Do Operation "Select" item "Global Time Filter"
-#    When UI select time range from "-16d" to "-1d"
-#
-#  @SID_27
-#  Scenario: select 3 POs
-#    When UI Do Operation "Select" item "Protected Objects"
-#    Then UI Select scope from dashboard and Save Filter device type "defenseflow"
-#      | PO_100 |
-#      | PO_200 |
-#      | PO_300 |
-#
-#  @SID_28
-#  Scenario: Validate DDos Attack Volume per Day (bits) - All POs
-#    Then UI Validate Line Chart data "Attack Volume per Day" with LabelTime
-#      | value        | countOffset | time |
-#      | 319366469000 | 10          | -5d  |
-#      | 319366469000 | 10          | -4d  |
-#      | 638732938000 | 10          | -3d  |
-#      | 319366469000 | 10          | -2d  |
-#
-#  @SID_29
-#  Scenario: select two POs
-#    When UI Do Operation "Select" item "Protected Objects"
-#    Then UI Select scope from dashboard and Save Filter device type "defenseflow"
-#      | PO_100 |
-#      | PO_200 |
-#
-#  @SID_30
-#  Scenario: Validate DDos Attack Activations per Day - part of POs
-#    Then UI Validate Line Chart data "Attack Volume per Day" with LabelTime
-#      | value        | countOffset | time |
-#      | 319366469000 | 10          | -5d  |
-#      | 319366469000 | 10          | -3d  |
-#      | 319366469000 | 10          | -2d  |
-
-  @SID_32
+  @SID_20
   Scenario: Search for bad logs
     * CLI kill all simulator attacks on current vision
     * CLI Check if logs contains
@@ -565,7 +496,7 @@ Feature: AMS DefenseFlow Attacks Dashboard
       | ALL     | fatal      | NOT_EXPECTED |
       | ALL     | error      | NOT_EXPECTED |
 
-  @SID_33
+  @SID_21 @Sanity
   Scenario: Cleanup
     Then UI Navigate to "VISION SETTINGS" page via homePage
     Then UI logout and close browser
