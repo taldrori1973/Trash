@@ -27,7 +27,7 @@ Feature: Defense Flow Forensic Wizard
     And UI Navigate to "AMS Forensics" page via homePage
 
   @SID_4 @Sanity
-  Scenario: Run AW attacks
+  Scenario: Run DF attacks
     When CLI Run remote linux Command on "GENERIC_LINUX_SERVER"
       | "/home/radware/curl_DF_attacks-auto_PO_101.sh "                     |
       | #visionIP |

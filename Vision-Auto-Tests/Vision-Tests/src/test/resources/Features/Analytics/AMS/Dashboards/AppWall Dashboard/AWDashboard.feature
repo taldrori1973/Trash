@@ -1,11 +1,12 @@
 @TC111423
 Feature: VRM AppWall dashboard
 
-  @SID_1
+  @SID_1 @Sanity
   Scenario: Clean system data
-    * CLI kill all simulator attacks on current vision
+    Given CLI kill all simulator attacks on current vision
     Given REST Vision Install License Request "vision-AVA-AppWall"
-    * REST Delete ES index "appwall-v2-attack*"
+    Given REST Delete ES index "appwall-v2-attack*"
+    Given CLI Clear vision logs
 
   @SID_2 @Sanity
   Scenario: login
