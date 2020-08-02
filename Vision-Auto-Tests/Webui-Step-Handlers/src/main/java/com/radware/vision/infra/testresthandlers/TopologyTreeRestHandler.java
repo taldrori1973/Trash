@@ -205,7 +205,13 @@ public class TopologyTreeRestHandler {
 
     public static void deleteDeviceByIp(VisionRestClient visionRestClient, String deviceIp) {
         VisionRestApiHandler visionRestApiHandler = new VisionRestApiHandler();
-        String deviceOrmID = getDeviceOrmID(deviceIp);
+        String deviceOrmID = null;
+        try {
+            deviceOrmID = getDeviceOrmID(deviceIp);
+        } catch (IllegalStateException e) {
+            if(e.getMessage().contains("M_00734: There is no device with name " + deviceIp + " configured in APSolute Vision."))
+                return;
+        }
         Object result = visionRestApiHandler.handleRequest(BaseHandler.restTestBase.getVisionRestClient(), HttpMethodEnum.DELETE,
                 "Device Tree->Delete Device", deviceOrmID, null, null);
 
