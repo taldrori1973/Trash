@@ -390,8 +390,15 @@ Feature: VRM AppWall dashboard
       | TOMCAT      | fatal\|error                                            | NOT_EXPECTED |
       | TOMCAT2     | fatal\|error                                            | NOT_EXPECTED |
       | TOMCAT      | parsing data error for device:50.50                     | IGNORE       |
-      | TOMCAT      | failed to get response from device=172.17.164.17        | IGNORE       |
-      | TOMCAT      | failed to get response from device=172.17.164.18        | IGNORE       |
+      | TOMCAT      | failed to get response from device=                     | IGNORE       |
+      | TOMCAT      | ----------task start-----------------                   | IGNORE       |
+      | TOMCAT      | ----------task end-----------------                     | IGNORE       |
+      | TOMCAT      | got valid samples from                                  | IGNORE       |
+      | TOMCAT      | number of responsive devices in the last minute:        | IGNORE       |
+      | TOMCAT      | number of none responsive devices in the last minute:   | IGNORE       |
+      | TOMCAT      | average response time:                                  | IGNORE       |
+      | TOMCAT      | monitored number of devices:                            | IGNORE       |
+      | TOMCAT      | Receiving data from:                                    | IGNORE       |
       | MAINTENANCE | /ErrorPages/HTTP50                                      | IGNORE       |
       | MAINTENANCE | /ErrorPages/HTTP40                                      | IGNORE       |
       | MAINTENANCE | /opt/radware/storage/mgt-server/third-party/nginx/error | IGNORE       |
