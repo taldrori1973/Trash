@@ -6,26 +6,17 @@ Feature: VRM AppWall dashboard
     Given CLI kill all simulator attacks on current vision
     Given REST Vision Install License Request "vision-AVA-AppWall"
     Given REST Delete ES index "appwall-v2-attack*"
-    Given CLI Clear vision logs
 
   @SID_2 @Sanity
   Scenario: login
     Given UI Login with user "sys_admin" and password "radware"
-    Then REST Add "AppWall" Device To topology Tree with Name "Appwall_SA_172.17.164.30" and Management IP "172.17.164.30" into site "AW_site"
-      | attribute     | value    |
-      | httpPassword  | 1qaz!QAZ |
-      | httpsPassword | 1qaz!QAZ |
-      | httpsUsername | user1    |
-      | httpUsername  | user1    |
-      | visionMgtPort | G1       |
-    * CLI Clear vision logs
-
-  @SID_3 @Sanity
-  Scenario: configure the AW in vision
     * REST Delete ES index "aw-web-application"
     * REST Delete Device By IP "172.17.164.30"
     * Browser Refresh Page
     And Sleep "10"
+
+  @SID_3 @Sanity
+  Scenario: configure the AW in vision
     Then REST Add "AppWall" Device To topology Tree with Name "Appwall_SA_172.17.164.30" and Management IP "172.17.164.30" into site "AW_site"
       | attribute     | value    |
       | httpPassword  | 1qaz!QAZ |
@@ -34,6 +25,7 @@ Feature: VRM AppWall dashboard
       | httpUsername  | user1    |
       | visionMgtPort | G1       |
     And Sleep "10"
+    * CLI Clear vision logs
 
   @SID_4
   Scenario:run AW attacks
