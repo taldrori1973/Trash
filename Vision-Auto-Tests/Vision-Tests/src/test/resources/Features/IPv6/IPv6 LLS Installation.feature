@@ -64,7 +64,7 @@ Feature: IPv6 LLS-GEL Installation
   @SID_10
   Scenario: install lls UAT mode
     Then CLI Operations - Run Radware Session command "system config-sync mode set disabled" timeout 1000
-    Then CLI LLS standalone install, "UAT" mode, timeout 1000
+    Then CLI LLS standalone install, "UAT" mode, timeout 1500
 
   @SID_11
   Scenario: verify lls service status is running after UAT install
