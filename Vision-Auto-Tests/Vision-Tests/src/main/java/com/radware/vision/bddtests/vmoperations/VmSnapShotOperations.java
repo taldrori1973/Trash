@@ -10,6 +10,7 @@ import com.radware.vision.bddtests.BddUITestBase;
 import com.radware.vision.bddtests.clioperation.system.upgrade.UpgradeSteps;
 import com.radware.vision.infra.testhandlers.cli.CliOperations;
 import com.radware.vision.utils.RegexUtils;
+import com.radware.vision.vision_handlers.NewVmHandler;
 import com.radware.vision.vision_handlers.system.VisionServer;
 import com.radware.vision.vision_project_cli.VisionRadwareFirstTime;
 
@@ -114,7 +115,7 @@ public class VmSnapShotOperations extends BddUITestBase {
             throw new Exception("the " + kvmMachineName + "does not exist");
         }
         CliOperations.runCommand(visionRadwareFirstTime, "virsh start " + kvmMachineName, DEFAULT_KVM_CLI_TIMEOUT);
-        Thread.sleep(60 * 1000);
+        waitForDomainState(visionRadwareFirstTime, "running", 120);
         BaseTestUtils.report("Reverting to snapshot.", Reporter.PASS_NOR_FAIL);
         CliOperations.runCommand(visionRadwareFirstTime, "virsh snapshot-revert --domain " + kvmMachineName + " --snapshotname " + snapshotName + " --force", 15 * 60 * 1000);
         BaseTestUtils.report("Starting server after revert.", Reporter.PASS_NOR_FAIL);
@@ -124,12 +125,14 @@ public class VmSnapShotOperations extends BddUITestBase {
         if (isContained) {
             throw new Exception("error: Domain not found: no domain with matching name '" + kvmMachineName + "' ");
         }
-        CliOperations.runCommand(visionRadwareFirstTime, "virsh domstate " + kvmMachineName, DEFAULT_KVM_CLI_TIMEOUT);
-        isContained = RegexUtils.isStringContainsThePattern("running", CliOperations.lastRow);
-        if (!isContained)
-            BaseTestUtils.report("Server is not running. status is: " + CliOperations.lastOutput, Reporter.FAIL);
+        waitForDomainState(visionRadwareFirstTime, "running", 120);
+        setupServerAfterRevert();
 
-        Thread.sleep(6 * 60 * 1000);
+    }
+
+    private void setupServerAfterRevert() throws Exception {
+        int connectTimeOut = 10 * 60 * 1000;
+        NewVmHandler.waitForServerConnection(connectTimeOut, getRestTestBase().getRootServerCli());
         CliOperations.runCommand(getRestTestBase().getRootServerCli(), "/usr/sbin/ntpdate -u europe.pool.ntp.org", 2 * 60 * 1000);
         CliOperations.runCommand(getRestTestBase().getRootServerCli(), "yes|restore_radware_user_password", 60 * 1000);
         if (VisionServer.waitForVisionServerServicesToStartHA(restTestBase.getRadwareServerCli(), 45 * 60 * 1000))
@@ -137,7 +140,6 @@ public class VmSnapShotOperations extends BddUITestBase {
         else {
             BaseTestUtils.report("Not all services up.", Reporter.FAIL);
         }
-
     }
 
     public String getSnapshotTypeBySetupMode(boolean snapshotFromSut) throws Exception {
@@ -168,14 +170,7 @@ public class VmSnapShotOperations extends BddUITestBase {
             BaseTestUtils.report("Reverting to snapshot " + snapshot, Reporter.PASS_NOR_FAIL);
             VMSnapshotOperations.newInstance().switchToSnapshot(new VmNameTargetVm(esxiInfo, vmName), snapshot, true);
             BaseTestUtils.report("Revert done", Reporter.PASS_NOR_FAIL);
-            Thread.sleep(6 * 60 * 1000);
-            CliOperations.runCommand(getRestTestBase().getRootServerCli(), "/usr/sbin/ntpdate -u europe.pool.ntp.org", 2 * 60 * 1000);
-            CliOperations.runCommand(getRestTestBase().getRootServerCli(), "yes|restore_radware_user_password", 60 * 1000);
-            if (VisionServer.waitForVisionServerServicesToStartHA(restTestBase.getRadwareServerCli(), 45 * 60 * 1000))
-                BaseTestUtils.report("All services up", Reporter.PASS);
-            else {
-                BaseTestUtils.report("Not all services up.", Reporter.FAIL);
-            }
+            setupServerAfterRevert();
         } catch (Exception e) {
             BaseTestUtils.report("Error reverting snapshot: " + parseExceptionBody(e), Reporter.FAIL);
         } finally {
@@ -247,4 +242,23 @@ public class VmSnapShotOperations extends BddUITestBase {
             }
         return null;
     }
+
+
+    private void waitForDomainState(VisionRadwareFirstTime visionRadwareFirstTime, String state, int timeout) {
+        long startTime = System.currentTimeMillis();
+        try {
+            boolean isContained;
+            do {
+                CliOperations.runCommand(visionRadwareFirstTime, "virsh domstate " + kvmMachineName, DEFAULT_KVM_CLI_TIMEOUT);
+                isContained = RegexUtils.isStringContainsThePattern(state, CliOperations.lastRow);
+                if (!isContained) {
+                    Thread.sleep(5000);
+                } else
+                    return;
+            } while (System.currentTimeMillis() - startTime < timeout);
+        } catch (Exception e) {
+            BaseTestUtils.report("Server state after timeout is: " + CliOperations.lastOutput, Reporter.FAIL);
+        }
+    }
+
 }

@@ -1,7 +1,7 @@
 @TC114854
 Feature: Attack Table - Expand Table Row
 
-
+  
   @SID_1
   Scenario: Clean system data before Traffic Bandwidth test
     * CLI kill all simulator attacks on current vision
@@ -9,7 +9,7 @@ Feature: Attack Table - Expand Table Row
     * REST Delete ES index "dp-atta*"
     * CLI Clear vision logs
 
-
+  
   @SID_2
   Scenario: Run DP simulator PCAPs for Traffic Bandwidth
     When REST Login with user "radware" and password "radware"
@@ -18,7 +18,7 @@ Feature: Attack Table - Expand Table Row
     Given CLI simulate 1 attacks of type "IP_FEED_Modified" on "DefensePro" 11
     Then CLI simulate 1 attacks of type "VRM_attacks" on "DefensePro" 11 and wait 210 seconds
 
-
+  
   @SID_3
   Scenario:  login
     Given UI Login with user "radware" and password "radware"
@@ -131,11 +131,12 @@ Feature: Attack Table - Expand Table Row
 
   ####################  Https attack tables ####################################################
 
+  
   @SID_12
   Scenario:  validate tables for Https
     Then UI search row table in searchLabel "tableSearch" with text "Https"
     Then Sleep "3"
-    Then UI click Table row by keyValue or Index with elementLabel "Attacks Table" findBy index 0 findBy columnName "Policy Name" findBy cellValue "pol1"
+    Then UI click Table row by keyValue or Index with elementLabel "Attacks Table" findBy index 1 findBy columnName "Policy Name" findBy cellValue "pol1"
     Then UI Validate Element Existence By Label "Expand Tables View" if Exists "true" with value "info,Characteristics"
 
 
@@ -156,13 +157,14 @@ Feature: Attack Table - Expand Table Row
       | MPLS RD            | N/A     |
       | Source port        | 0       |
 
+  
   @SID_14
   Scenario Outline:  validate date of Characteristics table - Https
     Then Validate Expand "Characteristics" Table with label "<label>" Equals to "<value>"
 
     Examples:
       | label                             | value                          |
-      | Detection Method                  | By Volume of HTTPS Responses   |
+      | Detection Method                  | By Rate of HTTPS Requests   |
       | Mitigation method                 | Rate Limit Suspected Attackers |
       | Auth. Method                      | 302 Redirect                   |
       | Total Suspect Sources             | 2,559,994,656                  |
