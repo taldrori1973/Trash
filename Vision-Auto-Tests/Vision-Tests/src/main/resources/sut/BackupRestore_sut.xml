@@ -40,7 +40,7 @@
             <visionSetup>
                 <class>com.radware.vision.vision_project_cli.VisionSetup</class>
                 <setupMode>kvm_upgrade_InParallel</setupMode>
-                <snapshot></snapshot>
+                <snapshot>Current-1</snapshot>
                 <isAPM>true</isAPM>
                 <!--<vmPrefix>This field is relevant for fresh installed VM</vmPrefix>-->
                 <vmPrefix>VisionAuto-VRM-Upgrade</vmPrefix>
