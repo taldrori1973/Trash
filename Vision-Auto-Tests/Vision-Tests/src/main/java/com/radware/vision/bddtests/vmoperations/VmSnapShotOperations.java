@@ -115,7 +115,7 @@ public class VmSnapShotOperations extends BddUITestBase {
             throw new Exception("the " + kvmMachineName + "does not exist");
         }
         CliOperations.runCommand(visionRadwareFirstTime, "virsh start " + kvmMachineName, DEFAULT_KVM_CLI_TIMEOUT);
-        waitForDomainState(visionRadwareFirstTime,"running", 120);
+        waitForDomainState(visionRadwareFirstTime, "running", 120);
         BaseTestUtils.report("Reverting to snapshot.", Reporter.PASS_NOR_FAIL);
         CliOperations.runCommand(visionRadwareFirstTime, "virsh snapshot-revert --domain " + kvmMachineName + " --snapshotname " + snapshotName + " --force", 15 * 60 * 1000);
         BaseTestUtils.report("Starting server after revert.", Reporter.PASS_NOR_FAIL);
@@ -131,8 +131,8 @@ public class VmSnapShotOperations extends BddUITestBase {
     }
 
     private void setupServerAfterRevert() throws Exception {
-        int connectTimeOut = 120 *60*1000;
-        NewVmHandler.waitForServerConnection(connectTimeOut,getRestTestBase().getRootServerCli());
+        int connectTimeOut = 10 * 60 * 1000;
+        NewVmHandler.waitForServerConnection(connectTimeOut, getRestTestBase().getRootServerCli());
         CliOperations.runCommand(getRestTestBase().getRootServerCli(), "/usr/sbin/ntpdate -u europe.pool.ntp.org", 2 * 60 * 1000);
         CliOperations.runCommand(getRestTestBase().getRootServerCli(), "yes|restore_radware_user_password", 60 * 1000);
         if (VisionServer.waitForVisionServerServicesToStartHA(restTestBase.getRadwareServerCli(), 45 * 60 * 1000))
@@ -244,7 +244,7 @@ public class VmSnapShotOperations extends BddUITestBase {
     }
 
 
-    private void waitForDomainState(VisionRadwareFirstTime visionRadwareFirstTime, String state, int timeout){
+    private void waitForDomainState(VisionRadwareFirstTime visionRadwareFirstTime, String state, int timeout) {
         long startTime = System.currentTimeMillis();
         try {
             boolean isContained;
@@ -253,10 +253,9 @@ public class VmSnapShotOperations extends BddUITestBase {
                 isContained = RegexUtils.isStringContainsThePattern(state, CliOperations.lastRow);
                 if (!isContained) {
                     Thread.sleep(5000);
-                }
-                else
+                } else
                     return;
-            }while (System.currentTimeMillis() - startTime < timeout);
+            } while (System.currentTimeMillis() - startTime < timeout);
         } catch (Exception e) {
             BaseTestUtils.report("Server state after timeout is: " + CliOperations.lastOutput, Reporter.FAIL);
         }
