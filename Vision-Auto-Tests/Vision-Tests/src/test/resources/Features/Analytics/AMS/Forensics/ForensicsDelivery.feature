@@ -4,18 +4,18 @@ Feature: Forensics Delivery
 
   @SID_1
   Scenario: Clean system data
-    * CLI kill all simulator attacks on current vision
-    * CLI Clear vision logs
-    * REST Delete ES index "dp-*"
+    When CLI kill all simulator attacks on current vision
+    When CLI Clear vision logs
+    When REST Delete ES index "dp-*"
+    When CLI Operations - Run Root Session command "yes|restore_radware_user_password" timeout 15
+    When REST Vision Install License Request "vision-AVA-Max-attack-capacity"
+    When CLI Operations - Run Radware Session command "system user authentication-mode set TACACS+"
 
 
   @SID_2
   Scenario: VRM - Login to VRM "Wizard" Test and enable emailing
     Given UI Login with user "sys_admin" and password "radware"
-    Then CLI Operations - Run Root Session command "yes|restore_radware_user_password" timeout 15
-    * REST Vision Install License Request "vision-AVA-Max-attack-capacity"
     Then UI Navigate to "VISION SETTINGS" page via homePage
-    And UI Go To Vision
     Then UI Navigate to page "System->General Settings->Alert Settings->Alert Browser"
     Then UI Do Operation "select" item "Email Reporting Configuration"
     Then UI Set Checkbox "Enable" To "true"
