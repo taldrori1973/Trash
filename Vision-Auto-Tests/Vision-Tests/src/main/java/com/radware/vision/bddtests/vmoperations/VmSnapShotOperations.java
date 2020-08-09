@@ -110,6 +110,7 @@ public class VmSnapShotOperations extends BddUITestBase {
 
     public void revertKvmSnapshot(String snapshotName, VisionRadwareFirstTime visionRadwareFirstTime) throws Exception {
         CliOperations.runCommand(visionRadwareFirstTime, "virsh list --all");
+        String kvmMachineName = visionRadwareFirstTime.getVmName() + visionRadwareFirstTime.getIp();
         boolean isContained = RegexUtils.isStringContainsThePattern(kvmMachineName, CliOperations.lastOutput);
         if (!isContained) {
             throw new Exception("the " + kvmMachineName + "does not exist");
