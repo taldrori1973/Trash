@@ -21,26 +21,31 @@ Feature: VRM Alerts RBAC
      When UI "Create" Alerts With Name "Alert All All"
       | Criteria   | Event Criteria:Action,Operator:Equals,Value:[Proxy,Forward]; |
       | Schedule   | checkBox:Trigger,alertsPerHour:60                            |
+    Then UI Validate Element Existence By Label "Toggle Alerts" if Exists "true" with value "Alert All All"
 
     When UI "Create" Alerts With Name "Alert DP.10 All"
       | devices    | index:10                                                     |
       | Criteria   | Event Criteria:Action,Operator:Equals,Value:[Proxy,Forward]; |
       | Schedule   | checkBox:Trigger,alertsPerHour:60                            |
+    Then UI Validate Element Existence By Label "Toggle Alerts" if Exists "true" with value "Alert DP.10 All"
 
     When UI "Create" Alerts With Name "Alert DP.11 All"
       | devices    | index:11                                                     |
       | Criteria   | Event Criteria:Action,Operator:Equals,Value:[Proxy,Forward]; |
       | Schedule   | checkBox:Trigger,alertsPerHour:60                            |
+    Then UI Validate Element Existence By Label "Toggle Alerts" if Exists "true" with value "Alert DP.11 All"
 
     When UI "Create" Alerts With Name "Alert DP.10 Policy14 Policy15"
       | devices    | index:10,policies:[Policy14, Policy15];                      |
       | Criteria   | Event Criteria:Action,Operator:Equals,Value:[Proxy,Forward]; |
       | Schedule   | checkBox:Trigger,alertsPerHour:60                            |
+    Then UI Validate Element Existence By Label "Toggle Alerts" if Exists "true" with value "Alert DP.10 Policy14 Policy15"
 
     When UI "Create" Alerts With Name "Alert_DP.10_Policy14"
       | devices    | index:10 ,policies:[Policy14];                               |
       | Criteria   | Event Criteria:Action,Operator:Equals,Value:[Proxy,Forward]; |
       | Schedule   | checkBox:Trigger,alertsPerHour:60                            |
+    Then UI Validate Element Existence By Label "Toggle Alerts" if Exists "true" with value "Alert_DP.10_Policy14"
 
     Then UI Navigate to "VISION SETTINGS" page via homePage
     Then UI logout and close browser
