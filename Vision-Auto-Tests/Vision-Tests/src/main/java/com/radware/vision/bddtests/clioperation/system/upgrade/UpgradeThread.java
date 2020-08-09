@@ -38,6 +38,7 @@ public class UpgradeThread extends Thread {
             BaseTestUtils.report("Waiting for services on server:" + RootServerCli.getHost(), Reporter.PASS_NOR_FAIL);
             com.radware.vision.vision_handlers.system.VisionServer.waitForVisionServerServicesToStartHA(RadwareServerCli, 20 * 60 * 1000);
             CliOperations.runCommand(RootServerCli, "\"yes|restore_radware_user_password\"", 15 * 1000);
+            CliOperations.runCommand(RootServerCli, "/usr/sbin/ntpdate -u europe.pool.ntp.org", 2 * 60 * 1000);
         } catch (InterruptedException e) {
             BaseTestUtils.report("Thread interrupted.", Reporter.FAIL);
         } catch (Exception e) {
