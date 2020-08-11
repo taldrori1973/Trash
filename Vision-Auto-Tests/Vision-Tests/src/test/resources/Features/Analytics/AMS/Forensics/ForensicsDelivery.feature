@@ -15,20 +15,20 @@ Feature: Forensics Delivery
   @SID_2
   Scenario: VRM - Login to VRM "Wizard" Test and enable emailing
     Given UI Login with user "sys_admin" and password "radware"
-    Then UI Navigate to "VISION SETTINGS" page via homePage
-    Then UI Navigate to page "System->General Settings->Alert Settings->Alert Browser"
-    Then UI Do Operation "select" item "Email Reporting Configuration"
-    Then UI Set Checkbox "Enable" To "true"
-    Then UI Set Text Field "SMTP User Name" To "qa_test@radware.com"
-    Then UI Set Text Field "From Header" To "APSolute Vision"
-    Then UI Set Checkbox "Enable" To "false"
-    Then UI Click Button "Submit"
+    And UI Navigate to "VISION SETTINGS" page via homePage
+    And UI Navigate to page "System->General Settings->Alert Settings->Alert Browser"
+    And UI Do Operation "select" item "Email Reporting Configuration"
+    And UI Set Checkbox "Enable" To "true"
+    And UI Set Text Field "SMTP User Name" To "qa_test@radware.com"
+    And UI Set Text Field "From Header" To "APSolute Vision"
+    And UI Set Checkbox "Enable" To "false"
+    And UI Click Button "Submit"
     And UI Navigate to page "System->General Settings->APSolute Vision Analytics Settings->Email Reporting Configurations"
     And UI Set Checkbox "Enable" To "true"
     And UI Set Text Field "SMTP Server Address" To "172.17.164.10"
     And UI Set Text Field "SMTP Port" To "25"
     And UI Click Button "Submit"
-    Then UI Navigate to "AMS Forensics" page via homepage
+    And UI Navigate to "AMS Forensics" page via homepage
 
   @SID_3
   Scenario: validate Forensics Report empty delivery
