@@ -3,6 +3,7 @@ Feature: CLI System AVR
 
   @SID_1
   Scenario: system avr enable cancel
+    When REST Delete ES index "dp-attack-raw*"
     Then CLI Clear vision logs
     Then CLI Run remote linux Command "sed -i 's/sql.persist.allow=.*$/sql.persist.allow=false/g' /opt/radware/mgt-server/third-party/tomcat/conf/collectors.properties" on "ROOT_SERVER_CLI"
     When CLI Operations - Run Radware Session command "system avr enable"
@@ -20,10 +21,10 @@ Feature: CLI System AVR
 
   @SID_4
   Scenario: verify write to sql enabled
+    Given CLI Run linux Command "system avr status" on "RADWARE_SERVER_CLI" and validate result CONTAINS "is running." in any line with timeOut 250
     Then CLI Run remote linux Command "mysql -prad123 vision_ng -e "delete from security_attacks;"" on "ROOT_SERVER_CLI"
     Then CLI simulate 1 attacks of type "rest_anomalies" on "DefensePro" 12
-    Then Sleep "40"
-    Then CLI Run linux Command "mysql -prad123 vision -NB -e "select count(*) from avr_security_attacks;"" on "ROOT_SERVER_CLI" and validate result GT "0"
+    Then CLI Run linux Command "mysql -prad123 vision -NB -e "select count(*) from avr_security_attacks;"" on "ROOT_SERVER_CLI" and validate result GT "0" with timeOut 60
 
   @SID_5
   Scenario: verify services running
@@ -96,9 +97,10 @@ Feature: CLI System AVR
   @SID_12
   Scenario: Verify DP insert to ES
     When REST Delete ES index "dp-attack-raw*"
+    Given CLI Run linux Command "system avr status" on "RADWARE_SERVER_CLI" and validate result CONTAINS "is stopped." in any line with timeOut 250
     Then CLI Run linux Command "curl -s -XGET localhost:9200/_cat/indices/dp-attack-raw* |wc -l" on "ROOT_SERVER_CLI" and validate result EQUALS "0" with timeOut 40 with runCommand delay 5
     When CLI simulate 1 attacks of type "rest_anomalies" on "DefensePro" 12 and wait 35 seconds
-    Then CLI Run linux Command "curl -s -XGET localhost:9200/_cat/indices/dp-attack-raw* |wc -l" on "ROOT_SERVER_CLI" and validate result EQUALS "1" with timeOut 90 with runCommand delay 5
+    Then CLI Run linux Command "curl -s -XGET localhost:9200/_cat/indices/dp-attack-raw* |wc -l" on "ROOT_SERVER_CLI" and validate result EQUALS "1" with timeOut 120 with runCommand delay 5
 
   @SID_13
   Scenario: Verify AppWall insert to ES
