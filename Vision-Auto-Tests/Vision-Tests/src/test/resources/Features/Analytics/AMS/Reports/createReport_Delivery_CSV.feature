@@ -22,7 +22,7 @@ Feature:  Report AMS analytics CSV Validations
   @SID_4
   Scenario: VRM - enabling emailing and go to VRM Reports Tab
     Given UI Login with user "sys_admin" and password "radware"
-    * REST Vision Install License Request "vision-AVA-Max-attack-capacity"
+    * REST Vision Install License Request "vision-AVA-Max-attack-capacity"
     And UI Go To Vision
     Then UI Navigate to page "System->General Settings->Alert Settings->Alert Browser"
     Then UI Do Operation "select" item "Email Reporting Configuration"
@@ -141,12 +141,12 @@ Feature:  Report AMS analytics CSV Validations
 
   @SID_17
   Scenario: VRM report validate CSV file TOP ATTACK DESTINATION headers
-    Then CLI Run linux Command "cat /opt/radware/mgt-server/third-party/tomcat/bin/Top_Attack\ Destination.csv|head -1 |grep "deviceIp,destAddress,Count" |wc -l" on "ROOT_SERVER_CLI" and validate result EQUALS "1"
+    Then CLI Run linux Command "cat /opt/radware/mgt-server/third-party/tomcat/bin/Top_Attack\ Destination.csv|head -1 |grep "ruleName,deviceIp,Count,destAddress" |wc -l" on "ROOT_SERVER_CLI" and validate result EQUALS "1"
 
   @SID_18
   Scenario: VRM report validate CSV file TOP ATTACK DESTINATION content
-    Then CLI Run linux Command "cat "/opt/radware/mgt-server/third-party/tomcat/bin/Top_Attack Destination.csv"|head -2 |tail -1|grep -oP "172.16.22.50,Multiple,2" |wc -l" on "ROOT_SERVER_CLI" and validate result EQUALS "1"
-    Then CLI Run linux Command "cat "/opt/radware/mgt-server/third-party/tomcat/bin/Top_Attack Destination.csv"|head -4 |tail -1|grep -oP "172.16.22.50,1.1.1.8,1"|wc -l" on "ROOT_SERVER_CLI" and validate result EQUALS "1"
+    Then CLI Run linux Command "cat "/opt/radware/mgt-server/third-party/tomcat/bin/Top_Attack Destination.csv"|head -2 |tail -1|grep -oP "172.16.22.50,2,Multiple" |wc -l" on "ROOT_SERVER_CLI" and validate result EQUALS "1"
+    Then CLI Run linux Command "cat "/opt/radware/mgt-server/third-party/tomcat/bin/Top_Attack Destination.csv"|head -4 |tail -1|grep -oP "172.16.22.50,1,1.1.1.8"|wc -l" on "ROOT_SERVER_CLI" and validate result EQUALS "1"
 
 
     ############################################       TOP ATTACK SOURCES       ###############################################################################
@@ -229,11 +229,11 @@ Feature:  Report AMS analytics CSV Validations
     ############################################       CRITICAK ATTACKS BY MITIGATION ACTION      #############################################################
 
   @SID_31
-  Scenario: VRM report validate CSV file CRITICAK ATTACKS BY MITIGATION ACTION number of lines
+  Scenario: VRM report validate CSV file CRITICAL ATTACKS BY MITIGATION ACTION number of lines
     Then CLI Run linux Command "cat /opt/radware/mgt-server/third-party/tomcat/bin/Critical_Attacks\ By\ Mitigation\ Action.csv|wc -l" on "ROOT_SERVER_CLI" and validate result EQUALS "0"
 
   @SID_32
-  Scenario: VRM report validate CSV file CRITICAK ATTACKS BY MITIGATION ACTION headers
+  Scenario: VRM report validate CSV file CRITICAL ATTACKS BY MITIGATION ACTION headers
     Then CLI Run linux Command "cat "/opt/radware/mgt-server/third-party/tomcat/bin/Critical_Attacks by Mitigation Action.csv"|head -1|grep "NO DATA FOR SELECTED DATA SOURCE" |wc -l " on "ROOT_SERVER_CLI" and validate result EQUALS "1"
 
 
