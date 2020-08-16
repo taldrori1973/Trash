@@ -1,7 +1,7 @@
 @AWForensics @TC113209
 Feature: Appwall Forensic Wizard
 
-  @SID_1
+  @SID_1 @Sanity
   Scenario: Clean system data before Forensics Appwall Test
     * CLI kill all simulator attacks on current vision
     * REST Delete ES index "appwall-v2-attack-raw*"
@@ -70,7 +70,7 @@ Feature: Appwall Forensic Wizard
     When UI Delete "Wizard_test" and Approve
     Then UI Validate Element Existence By Label "Views" if Exists "false" with value "Wizard_test"
 
-  @SID_9
+  @SID_9 @Sanity
   Scenario: Logout
     When UI logout and close browser
     Then CLI Check if logs contains

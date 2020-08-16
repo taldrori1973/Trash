@@ -6,6 +6,7 @@ Feature:  Report AMS analytics CSV Validations
   Scenario: keep reports copy on file system
     Then CLI Run remote linux Command "sed -i 's/vrm.scheduled.reports.delete.after.delivery=.*$/vrm.scheduled.reports.delete.after.delivery=false/g' /opt/radware/mgt-server/third-party/tomcat/conf/reporter.properties" on "ROOT_SERVER_CLI"
     Then CLI Run remote linux Command "/opt/radware/mgt-server/bin/collectors_service.sh restart" on "ROOT_SERVER_CLI" with timeOut 720
+    Then CLI Run linux Command "/opt/radware/mgt-server/bin/collectors_service.sh status" on "GENERIC_LINUX_SERVER" and validate result EQUALS "APSolute Vision Collectors Server is running." with timeOut 240
     Then CLI Operations - Run Root Session command "yes|restore_radware_user_password" timeout 15
 
   @SID_2
@@ -48,7 +49,7 @@ Feature:  Report AMS analytics CSV Validations
     Given UI "Create" Report With Name "Delivery_Test_report"
       | reportType | DefensePro Analytics Dashboard                                                            |
       | Share      | Email:[automation.vision1@radware.com, also@report.local],Subject:report delivery Subject |
-      | Format | Select: CSV |
+      | Format     | Select: CSV                                                                               |
 
   @SID_7
   Scenario: Validate delivery card and generate report
@@ -141,12 +142,12 @@ Feature:  Report AMS analytics CSV Validations
 
   @SID_17
   Scenario: VRM report validate CSV file TOP ATTACK DESTINATION headers
-    Then CLI Run linux Command "cat /opt/radware/mgt-server/third-party/tomcat/bin/Top_Attack\ Destination.csv|head -1 |grep "deviceIp,destAddress,Count" |wc -l" on "ROOT_SERVER_CLI" and validate result EQUALS "1"
+    Then CLI Run linux Command "cat /opt/radware/mgt-server/third-party/tomcat/bin/Top_Attack\ Destination.csv|head -1 |grep "ruleName,deviceIp,Count,destAddress" |wc -l" on "ROOT_SERVER_CLI" and validate result EQUALS "1"
 
   @SID_18
   Scenario: VRM report validate CSV file TOP ATTACK DESTINATION content
-    Then CLI Run linux Command "cat "/opt/radware/mgt-server/third-party/tomcat/bin/Top_Attack Destination.csv"|head -2 |tail -1|grep -oP "172.16.22.50,Multiple,2" |wc -l" on "ROOT_SERVER_CLI" and validate result EQUALS "1"
-    Then CLI Run linux Command "cat "/opt/radware/mgt-server/third-party/tomcat/bin/Top_Attack Destination.csv"|head -4 |tail -1|grep -oP "172.16.22.50,1.1.1.8,1"|wc -l" on "ROOT_SERVER_CLI" and validate result EQUALS "1"
+    Then CLI Run linux Command "cat "/opt/radware/mgt-server/third-party/tomcat/bin/Top_Attack Destination.csv"|head -2 |tail -1|grep -oP "172.16.22.50,2,Multiple" |wc -l" on "ROOT_SERVER_CLI" and validate result EQUALS "1"
+    Then CLI Run linux Command "cat "/opt/radware/mgt-server/third-party/tomcat/bin/Top_Attack Destination.csv"|head -4 |tail -1|grep -oP "172.16.22.50,1,1.1.1.8"|wc -l" on "ROOT_SERVER_CLI" and validate result EQUALS "1"
 
 
     ############################################       TOP ATTACK SOURCES       ###############################################################################
@@ -229,11 +230,11 @@ Feature:  Report AMS analytics CSV Validations
     ############################################       CRITICAK ATTACKS BY MITIGATION ACTION      #############################################################
 
   @SID_31
-  Scenario: VRM report validate CSV file CRITICAK ATTACKS BY MITIGATION ACTION number of lines
+  Scenario: VRM report validate CSV file CRITICAL ATTACKS BY MITIGATION ACTION number of lines
     Then CLI Run linux Command "cat /opt/radware/mgt-server/third-party/tomcat/bin/Critical_Attacks\ By\ Mitigation\ Action.csv|wc -l" on "ROOT_SERVER_CLI" and validate result EQUALS "0"
 
   @SID_32
-  Scenario: VRM report validate CSV file CRITICAK ATTACKS BY MITIGATION ACTION headers
+  Scenario: VRM report validate CSV file CRITICAL ATTACKS BY MITIGATION ACTION headers
     Then CLI Run linux Command "cat "/opt/radware/mgt-server/third-party/tomcat/bin/Critical_Attacks by Mitigation Action.csv"|head -1|grep "NO DATA FOR SELECTED DATA SOURCE" |wc -l " on "ROOT_SERVER_CLI" and validate result EQUALS "1"
 
 

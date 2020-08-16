@@ -8,7 +8,7 @@
                 <class>com.radware.vision.vision_project_cli.RadwareServerCli</class>
                 <user>radware</user>
                 <password>radware</password>
-                <host>172.17.164.109</host>
+                <host>172.17.203.10</host>
                 <dnsServerIp>10.221.1.47</dnsServerIp>
                 <addedPrompts>[new.prompt],to continue the upgrade help process., [Y/n],Please type the sftp server
                     password:,Please type the ftp server password:
@@ -17,34 +17,34 @@
             </visionRadware>
             <visionServerHA>
                 <class>com.radware.vision.vision_project_cli.VisionServerHA</class>
-                <Host_1>172.17.164.109</Host_1>
-                <Host_2>172.17.164.107</Host_2>
+                <Host_1>172.17.203.10</Host_1>
+                <Host_2>172.17.164.145</Host_2>
                 <connectOnInit>false</connectOnInit>
             </visionServerHA>
             <visionRoot>
                 <class>com.radware.vision.vision_project_cli.RootServerCli</class>
-                <host>172.17.164.109</host>
+                <host>172.17.203.10</host>
                 <user>root</user>
                 <password>radware</password>
                 <connectOnInit>true</connectOnInit>
             </visionRoot>
+            <visionSetup>
+                <class>com.radware.vision.vision_project_cli.VisionSetup</class>
+                <!--<setupMode>Fresh Install| Upgrade</setupMode>-->
+                <setupMode>Upgrade</setupMode>
+                <snapshot></snapshot>
+                <!--<vmPrefix>This field is relevant for fresh installed VM</vmPrefix>-->
+                <vmPrefix>Eyal-VM</vmPrefix>
+            </visionSetup>
             <visionMySql>
                 <class>com.radware.vision.vision_project_cli.MySqlSO</class>
-                <host>172.17.164.109</host>
+                <host>172.17.203.10</host>
                 <port>3306</port>
                 <user>root</user>
                 <password>rad123</password>
                 <connectOnInit>false</connectOnInit>
                 <type>MySql</type>
             </visionMySql>
-            <visionSetup>
-                <class>com.radware.vision.vision_project_cli.VisionSetup</class>
-                <setupMode>kvm_upgrade_InParallel</setupMode>
-                <snapshot>Current-1</snapshot>
-                <isAPM>true</isAPM>
-                <!--<vmPrefix>This field is relevant for fresh installed VM</vmPrefix>-->
-                <vmPrefix>VisionAuto-VRM-Upgrade</vmPrefix>
-            </visionSetup>
         </visionServer>
         <linuxFileServer>
             <class>com.radware.automation.tools.cli.LinuxFileServer</class>
@@ -68,21 +68,33 @@
             <passwordExternalViewer>viewer</passwordExternalViewer>
             <targetVisionHost/>
         </mysqlClient>
-        <visionRadwareFirstTime>
-            <class>com.radware.vision.vision_project_cli.VisionRadwareFirstTime
-            </class>
-            <user>root</user>
-            <password>radware</password>
-            <connectOnInit>false</connectOnInit>
-            <host>10.205.200.217</host>
-            <dnsServerIp>10.221.1.47</dnsServerIp>
-            <ip>172.17.164.109</ip>
-            <netMask>255.255.0.0</netMask>
-            <gateway>172.17.1.1</gateway>
-            <primaryDns>10.221.1.47</primaryDns>
-            <physicalManagement>G1</physicalManagement>
-            <vmName>vision_auto_</vmName>
-        </visionRadwareFirstTime>
+        <!--<visionRadwareFirstTime>-->
+            <!--<class>systemobjects.VisionRadwareFirstTime-->
+            <!--</class>-->
+            <!--<user>radware</user>-->
+            <!--<password>radware</password>-->
+            <!--<connectOnInit>false</connectOnInit>-->
+            <!--<host>172.17.203.10</host>-->
+            <!--<dnsServerIp>10.221.1.47</dnsServerIp>-->
+            <!--<ip>172.17.203.10</ip>-->
+            <!--<netMask>255.255.0.0</netMask>-->
+            <!--<gateway>172.17.1.1</gateway>-->
+            <!--<primaryDns>10.221.1.47</primaryDns>-->
+            <!--<physicalManagement>G1</physicalManagement>-->
+        <!--</visionRadwareFirstTime>-->
+        <!--<KVMMFirstTimeWizard>-->
+            <!--<class>com.radware.vision.vision_project_cli.KvmFirstTimeWizard</class>-->
+            <!--<user>radware</user>-->
+            <!--<password>radware</password>-->
+            <!--<connectOnInit>false</connectOnInit>-->
+            <!--<host>10.205.200.210</host>-->
+            <!--<dnsServerIp>10.221.1.47</dnsServerIp>-->
+            <!--<Ip>172.17.164.120</Ip>-->
+            <!--<netMask>255.255.0.0</netMask>-->
+            <!--<gateway>172.17.1.1</gateway>-->
+            <!--<primaryDns>10.221.1.47</primaryDns>-->
+            <!--<physicalManagement>G1</physicalManagement>-->
+        <!--</KVMMFirstTimeWizard>-->
     </visionCli>
     <visionLab>
         <class>systemobjects.VisionLab</class>
@@ -90,7 +102,7 @@
             <class>systemobjects.VisionServer</class>
             <user>radware</user>
             <password>radware</password>
-            <host>172.17.164.109</host>
+            <host>172.17.203.10</host>
             <restProtocol>HTTPS</restProtocol>
             <connectOnInit>false</connectOnInit>
         </visionServer>
@@ -103,48 +115,30 @@
         </genericLinuxServer>
         <visionVMs>
             <class>com.radware.vision.automation.tools.sutsystemobjects.VisionVMs</class>
-            <vCenterURL>https://10.205.172.220/sdk</vCenterURL>
+            <vCenterURL>https://10.205.200.251/sdk</vCenterURL>
             <vCenterIP>10.205.172.220</vCenterIP>
             <userName>root</userName>
             <password>radware</password>
-            <resourcePool>RP1</resourcePool>
-            <networkName>Management 172.17</networkName>
-            <dataStores>Automation Main Datastore</dataStores>
-            <vmName1>vision_auto_172.17.164.109</vmName1>
-            <vmName2>vision_auto_172.17.164.107</vmName2>
+            <resourcePool></resourcePool>
+            <vmName1>Vision-4.00.00</vmName1>
+            <vmName2></vmName2>
         </visionVMs>
+
     </visionLab>
     <visionRadwareFirstTime>
         <class>com.radware.vision.vision_project_cli.VisionRadwareFirstTime
         </class>
-        <user>root</user>
+        <user>radware</user>
         <password>radware</password>
         <connectOnInit>false</connectOnInit>
-        <host>10.205.200.217</host>
+        <host>172.17.203.10</host>
         <dnsServerIp>10.221.1.47</dnsServerIp>
-        <ip>172.17.164.109</ip>
+        <ip>172.17.203.10</ip>
         <netMask>255.255.0.0</netMask>
         <gateway>172.17.1.1</gateway>
         <primaryDns>10.221.1.47</primaryDns>
         <physicalManagement>G1</physicalManagement>
-        <vmName>vision_auto_</vmName>
     </visionRadwareFirstTime>
-
-    <visionRadwareFirstTime2>
-        <class>com.radware.vision.vision_project_cli.VisionRadwareFirstTime
-        </class>
-        <user>root</user>
-        <password>radware</password>
-        <connectOnInit>false</connectOnInit>
-        <host>10.205.200.217</host>
-        <dnsServerIp>10.221.1.47</dnsServerIp>
-        <ip>172.17.164.107</ip>
-        <netMask>255.255.0.0</netMask>
-        <gateway>172.17.1.1</gateway>
-        <primaryDns>10.221.1.47</primaryDns>
-        <physicalManagement>G1</physicalManagement>
-        <vmName>vision_auto_</vmName>
-    </visionRadwareFirstTime2>
 
     <devices>
         <class>com.radware.vision.automation.tools.sutsystemobjects.devicesinfo.Devices</class>
@@ -276,16 +270,6 @@
             <writeCommunity>public</writeCommunity>
             <macAddress>00:03:b2:ba:f3:00</macAddress>
         </defenseProDevices>
-        <defenseProDevices index="31">
-            <class>com.radware.vision.automation.tools.sutsystemobjects.devicesinfo.DeviceInfo</class>
-            <deviceName>DefensePro_1.1.1.1</deviceName>
-            <deviceIp>1.1.1.1</deviceIp>
-            <username>radware</username>
-            <password>radware</password>
-            <readCommunity>public</readCommunity>
-            <writeCommunity>public</writeCommunity>
-            <macAddress>00:03:b2:sh:f3:00</macAddress>
-        </defenseProDevices>
 
         <alteonDevices index="0">
             <class>com.radware.vision.automation.tools.sutsystemobjects.devicesinfo.DeviceInfo</class>
@@ -332,16 +316,6 @@
             <readCommunity>automation</readCommunity>
             <writeCommunity>automation</writeCommunity>
         </alteonDevices>
-        <alteonDevices index="6">
-            <class>com.radware.vision.automation.tools.sutsystemobjects.devicesinfo.DeviceInfo</class>
-            <deviceName>Alteon_172.16.62.60</deviceName>
-            <deviceIp>172.16.62.60</deviceIp>
-            <username>admin</username>
-            <password>admin</password>
-            <readCommunity>public</readCommunity>
-            <writeCommunity>private</writeCommunity>
-            <macAddress>00:03:b2:a3:db:00</macAddress>
-        </alteonDevices>
         <alteonDevices index="10">
             <class>com.radware.vision.automation.tools.sutsystemobjects.devicesinfo.DeviceInfo</class>
             <deviceName>Alteon_172.17.154.19</deviceName>
@@ -351,94 +325,10 @@
             <readCommunity>public</readCommunity>
             <writeCommunity>private</writeCommunity>
         </alteonDevices>
-        <alteonDevices index="11">
-            <class>com.radware.vision.automation.tools.sutsystemobjects.devicesinfo.DeviceInfo</class>
-            <deviceName>Alteon_50.50.101.11</deviceName>
-            <deviceIp>50.50.101.11</deviceIp>
-            <username>admin</username>
-            <password>admin</password>
-            <readCommunity>public</readCommunity>
-            <writeCommunity>private</writeCommunity>
-        </alteonDevices>
-        <alteonDevices index="12">
-            <class>com.radware.vision.automation.tools.sutsystemobjects.devicesinfo.DeviceInfo</class>
-            <deviceName>Alteon_50.50.101.21</deviceName>
-            <deviceIp>50.50.101.21</deviceIp>
-            <username>admin</username>
-            <password>admin</password>
-            <readCommunity>public</readCommunity>
-            <writeCommunity>private</writeCommunity>
-        </alteonDevices>
-        <alteonDevices index="13">
-            <class>com.radware.vision.automation.tools.sutsystemobjects.devicesinfo.DeviceInfo</class>
-            <deviceName>Alteon_50.50.101.22</deviceName>
-            <deviceIp>50.50.101.22</deviceIp>
-            <username>admin</username>
-            <password>admin</password>
-            <readCommunity>public</readCommunity>
-            <writeCommunity>private</writeCommunity>
-        </alteonDevices>
-        <alteonDevices index="14">
-            <class>com.radware.vision.automation.tools.sutsystemobjects.devicesinfo.DeviceInfo</class>
-            <deviceName>Alteon_172.17.164.17</deviceName>
-            <deviceIp>172.17.164.17</deviceIp>
-            <username>admin</username>
-            <password>Mayaev8*</password>
-            <readCommunity>public</readCommunity>
-            <writeCommunity>private</writeCommunity>
-        </alteonDevices>
-        <alteonDevices index="15">
-            <class>com.radware.vision.automation.tools.sutsystemobjects.devicesinfo.DeviceInfo</class>
-            <deviceName>Alteon_172.17.164.18</deviceName>
-            <deviceIp>172.17.164.18</deviceIp>
-            <username>admin</username>
-            <password>Mayaev8*</password>
-            <readCommunity>public</readCommunity>
-            <writeCommunity>private</writeCommunity>
-        </alteonDevices>
-        <alteonDevices index="16">
-            <class>com.radware.vision.automation.tools.sutsystemobjects.devicesinfo.DeviceInfo</class>
-            <deviceName>Alteon_172.17.164.11</deviceName>
-            <deviceIp>172.17.164.11</deviceIp>
-            <username>admin</username>
-            <password>shimon1!$4</password>
-            <readCommunity>public</readCommunity>
-            <writeCommunity>private</writeCommunity>
-        </alteonDevices>
         <alteonDevices index="20">
             <class>com.radware.vision.automation.tools.sutsystemobjects.devicesinfo.DeviceInfo</class>
             <deviceName>Alteon_172.16.160.1</deviceName>
             <deviceIp>172.16.160.1</deviceIp>
-            <username>admin</username>
-            <password>admin</password>
-            <readCommunity>public</readCommunity>
-            <writeCommunity>private</writeCommunity>
-        </alteonDevices>
-
-        <alteonDevices index="21">
-            <class>com.radware.vision.automation.tools.sutsystemobjects.devicesinfo.DeviceInfo</class>
-            <deviceName>Alteon_50.50.101.31</deviceName>
-            <deviceIp>50.50.101.31</deviceIp>
-            <username>admin</username>
-            <password>admin</password>
-            <readCommunity>public</readCommunity>
-            <writeCommunity>private</writeCommunity>
-        </alteonDevices>
-        <alteonDevices index="22">
-            <class>com.radware.vision.automation.tools.sutsystemobjects.devicesinfo.DeviceInfo</class>
-            <deviceName>Alteon_50.50.101.32</deviceName>
-            <deviceIp>50.50.101.32</deviceIp>
-            <username>admin</username>
-            <password>admin</password>
-            <readCommunity>public</readCommunity>
-            <writeCommunity>private</writeCommunity>
-        </alteonDevices>
-
-
-        <alteonDevices index="30">
-            <class>com.radware.vision.automation.tools.sutsystemobjects.devicesinfo.DeviceInfo</class>
-            <deviceName>Alteon_2.2.2.2</deviceName>
-            <deviceIp>2.2.2.2</deviceIp>
             <username>admin</username>
             <password>admin</password>
             <readCommunity>public</readCommunity>
@@ -488,6 +378,7 @@
             <writeCommunity>private</writeCommunity>
         </linkProofDevices>
     </devices>
+
 
     <connectivity>
         <devices>
@@ -544,7 +435,7 @@
                     <useTelInputStream>true</useTelInputStream>
                     <password>admin</password>
                     <user>admin</user>
-                    <host edit="enable">172.17.164.109</host>
+                    <host edit="enable">172.17.203.10</host>
                     <connectOnInit>false</connectOnInit>
                     <useBuffer>true</useBuffer>
                     <dump>true</dump>
@@ -565,7 +456,7 @@
                     <useTelInputStream>true</useTelInputStream>
                     <user>admin</user>
                     <password>admin</password>
-                    <host edit="enable">172.17.164.109</host>
+                    <host edit="enable">172.17.203.10</host>
                     <protocol>ssh</protocol>
                     <dump>true</dump>
                     <connectOnInit>false</connectOnInit>
@@ -581,7 +472,7 @@
                     <useTelInputStream>true</useTelInputStream>
                     <password>admin</password>
                     <user>admin</user>
-                    <host edit="enable">172.17.164.109</host>
+                    <host edit="enable">172.17.203.10</host>
                     <connectOnInit>false</connectOnInit>
                     <useBuffer>true</useBuffer>
                     <dump>true</dump>
@@ -602,7 +493,7 @@
                     <useTelInputStream>true</useTelInputStream>
                     <user>admin</user>
                     <password>admin</password>
-                    <host edit="enable">172.17.164.109</host>
+                    <host edit="enable">172.17.203.10</host>
                     <protocol>ssh</protocol>
                     <dump>true</dump>
                     <connectOnInit>false</connectOnInit>

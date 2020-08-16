@@ -1,7 +1,7 @@
 @VRM_Alerts @TC113517 @DFALERTS
 Feature: VRM AW Alerts
 
-  
+
   @SID_1
   Scenario: Clean system data
     * CLI kill all simulator attacks on current vision
@@ -11,7 +11,7 @@ Feature: VRM AW Alerts
     * CLI Clear vision logs
 
   @SID_17
-  Scenario: Change DF managment IP to IP of Generic Linux
+  Scenario: Change DF management IP to IP of Generic Linux
     When CLI Operations - Run Radware Session command "system df management-ip set 172.17.164.10"
     When CLI Operations - Run Radware Session command "system df management-ip get"
     Then CLI Operations - Verify that output contains regex "DefenseFlow Management IP Address: 172.17.164.10"
@@ -39,10 +39,10 @@ Feature: VRM AW Alerts
   @SID_3
   Scenario: Create Alert Delivery
     When UI "Create" Alerts With Name "Alert Delivery"
-      | Product | DefenseFlow |
-      | Basic Info | Description:Alert Delivery Description,Impact: Our network is down,Remedy: Please protect df real quick!,Severity:Critical     |
-      | Criteria   | Event Criteria:Action,Operator:Not Equals,Value:[Forward];     |
-      | Schedule   | checkBox:Trigger,alertsPerHour:10                                                                                           |
+      | Product    | DefenseFlow                                                                                                                        |
+      | Basic Info | Description:Alert Delivery Description,Impact: Our network is down,Remedy: Please protect df real quick!,Severity:Critical         |
+      | Criteria   | Event Criteria:Action,Operator:Not Equals,Value:[Forward];                                                                         |
+      | Schedule   | checkBox:Trigger,alertsPerHour:10                                                                                                  |
       | Share      | Email:[automation.vision1@alert.local, automation.vision2@alert.local],Subject: DF Alert Delivery Subj,Body:DF Alert Delivery Body |
     And Sleep "120"
 
@@ -50,9 +50,9 @@ Feature: VRM AW Alerts
   Scenario: Run DP simulator VRM_Alert_Severity
     Then CLI Run remote linux Command "echo "cleared" $(date) > /var/spool/mail/alertuser" on "GENERIC_LINUX_SERVER"
     When CLI Run remote linux Command on "GENERIC_LINUX_SERVER"
-      | "/home/radware/curl_DF_alert_PO_101auto.sh "                     |
-      | #visionIP |
-      | " Terminated" |
+      | "/home/radware/curl_DF_alert_PO_101auto.sh " |
+      | #visionIP                                    |
+      | " Terminated"                                |
     And Sleep "60"
 
   @SID_5
@@ -70,7 +70,7 @@ Feature: VRM AW Alerts
 
   @SID_8
   Scenario: Verify Alert Email Delivery Sender
-    Then CLI Run linux Command "grep "From: APSolute Vision <qa_test@Radware.com>" /var/spool/mail/alertuser |wc -l" on "GENERIC_LINUX_SERVER" and validate result EQUALS "2"
+    Then CLI Run linux Command "grep "From: APSolute Vision <qa_test@Radware.com>" /var/spool/mail/alertuser |wc -l" on "GENERIC_LINUX_SERVER" and validate result EQUALS "2" with timeOut 90
 
   @SID_9
   Scenario: Verify Alert Email Delivery recipient
@@ -86,30 +86,28 @@ Feature: VRM AW Alerts
     #    ------------------- Ahlam - Add test for Connection PPS  -----------------
 
 
-    
+
   @SID_14
   Scenario: Create Alert Category ConnectionPPS
     When UI "Create" Alerts With Name "Alert_Category connection PPS"
-      | Product | DefenseFlow |
-      | Basic Info | Description:Category Connection PPS Description,Impact: Our network is down,Remedy: Please protect real quick!,Severity:Critical     |
-      | Criteria | Event Criteria:Threat Category,Operator:Equals,Value:[Connection PPS]; |
-      | Schedule   | checkBox:Trigger,alertsPerHour:10                                                                                           |
-      | Share      | Email:[automation.vision1@alert.local, automation.vision2@alert.local],Subject:Alert Delivery Subj,Body:Alert Delivery Body |
+      | Product    | DefenseFlow                                                                                                                      |
+      | Basic Info | Description:Category Connection PPS Description,Impact: Our network is down,Remedy: Please protect real quick!,Severity:Critical |
+      | Criteria   | Event Criteria:Threat Category,Operator:Equals,Value:[Connection PPS];                                                           |
+      | Schedule   | checkBox:Trigger,alertsPerHour:10                                                                                                |
+      | Share      | Email:[automation.vision1@alert.local, automation.vision2@alert.local],Subject:Alert Delivery Subj,Body:Alert Delivery Body      |
     And Sleep "120"
 
-  
+
   @SID_13
   Scenario: Run DP simulator VRM_Alert_Severity
     Then CLI Run remote linux Command "echo "cleared" $(date) > /var/spool/mail/alertuser" on "GENERIC_LINUX_SERVER"
     When CLI Run remote linux Command on "GENERIC_LINUX_SERVER"
-      | "/home/radware/curl_DF_alert_PO_101.sh "                     |
-      | #visionIP |
-      | " Terminated" |
+      | "/home/radware/curl_DF_alert_PO_101.sh " |
+      | #visionIP                                |
+      | " Terminated"                            |
     And Sleep "60"
 
 
-
-  
   @SID_15
   Scenario: Verify alert table sorting in modal popup
     Then UI Navigate to "AMS Alerts" page via homePage
@@ -118,11 +116,11 @@ Feature: VRM AW Alerts
     Then UI "Check" Toggle Alerts with name "Alert_Category connection PPS"
     Then UI click Table row by keyValue or Index with elementLabel "Report.Table" findBy index 0
     Then UI Validate Table record values by columns with elementLabel "Alert details" findBy index 0
-      | columnName  | value |
-      | Threat Category | ConnectionPPS  |
+      | columnName      | value         |
+      | Threat Category | ConnectionPPS |
     Then UI Click Button "Table Details OK" with value "OK"
 
-  
+
   @SID_16
   Scenario: VRM Validate Alert browser details Alert_Category connection PPS
     Then CLI Run remote linux Command "curl -XPOST -s -d'{"query":{"bool":{"must":[{"wildcard":{"message":"M_30000: Vision Analytics Alerts \nAlert Name: Alert_Category connection PPS \nSeverity: MINOR \nDescription: Category \nImpact: N/A \nRemedy: N/A \nDevice IP: 172.16.22.50 \n*Attacks Count: 1 \n"}}]}},"from":0,"size":100}' localhost:9200/alert/_search?pretty |grep "ANALYTICS_ALERTS" |wc -l" on "ROOT_SERVER_CLI"
@@ -137,7 +135,6 @@ Feature: VRM AW Alerts
     And UI Navigate to page "System->General Settings->APSolute Vision Analytics Settings->Email Reporting Configurations"
     And UI Set Checkbox "Enable" To "false"
     And UI Click Button "Submit"
-
 
 
   @SID_12

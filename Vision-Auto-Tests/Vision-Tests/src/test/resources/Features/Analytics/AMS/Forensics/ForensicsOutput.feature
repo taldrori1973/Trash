@@ -1,6 +1,7 @@
 @VRM_Report2 @TC106002
 Feature: Forensics Output
 
+  
   @SID_1
   Scenario: Clean system data
     * CLI kill all simulator attacks on current vision
@@ -12,11 +13,13 @@ Feature: Forensics Output
       | type | value                                 |
       | body | sessionInactivTimeoutConfiguration=60 |
 
+  
   @SID_2
   Scenario: Run DP simulator
     And CLI simulate 1 attacks of type "rest_black_ip46" on "DefensePro" 11 and wait 30 seconds
 #    Given CLI simulate 20 attacks of type "DNS_States" on "DefensePro" 11 with loopDelay 15000 and wait 40 seconds
 
+  
   @SID_3
   Scenario: VRM - Login to VRM "Wizard" Test
     Given UI Login with user "radware" and password "radware"
@@ -24,6 +27,7 @@ Feature: Forensics Output
     Then UI Navigate to "DefensePro Monitoring Dashboard" page via homePage
     Then UI Navigate to "AMS Forensics" page via homepage
 
+  
   @SID_4
   Scenario: VRM - edit dynamic values in DB
     # move start time to Aug 1st 2018 03:00:00
@@ -37,17 +41,22 @@ Feature: Forensics Output
     Then Sleep "5"
       # editing duration
     When CLI Run remote linux Command "curl -XPOST localhost:9200/dp-attack-raw-*/_update_by_query/?refresh -d '{"query": {"match": {"attackIpsId": "78-1526381752"}},"script": {"source": "ctx._source.duration = '15000'"}}'" on "ROOT_SERVER_CLI"
+
+  
   @SID_5
   Scenario: VRM - Create Forensics Report all output columns
 
     Given UI "Create" Forensics With Name "All Output Fields"
       | Time Definitions.Date | Absolute:[01.08.2018 01:00:00, +0d] |
-      | Criteria              | Event Criteria:Attack ID,Operator:Equals,Value:78-1526381752;                                                                                                                                                                                |
-      | Output                | Action,Attack ID,Start Time,Source IP Address,Source Port,Destination IP Address,Destination Port,Direction,Protocol,Threat Category,Radware ID,Device IP Address,Attack Name,End Time,Duration,pps,Mbps,Physical Port,Policy Name,Risk |
+      | Output                | Action,Attack ID,Start Time,Source IP Address,Source Port,Destination IP Address,Destination Port,Direction,Protocol,Threat Category,Radware ID,Device IP Address,Attack Name,End Time,Duration,Total Packets Dropped,Total Mbits Dropped,Physical Port,Policy Name,Risk |
     Then UI Generate and Validate Forensics With Name "All Output Fields" with Timeout of 300 Seconds
+#    Then UI Click Button "Views.report" with value "All Output Fields"
+#    Then UI Validate Text field by id "gwt-debug-Dialog_Box_Message" CONTAINS "Please note that it may take up to 30 seconds for the snapshot to become available, and you might need to reload the screen."
+#    Then UI Click Button by id "gwt-debug-Dialog_Box_Close"
     And Sleep "30"
+    Then UI Generate and Validate Forensics With Name "All Output Fields" with Timeout of 300 Seconds
     Then UI Click Button "Views.report" with value "All Output Fields"
-    Then Sleep "5"
+
   @SID_6
   Scenario: VRM - Validate Forensics output Action
     Then UI Validate Table record values by columns with elementLabel "Report.Table" findBy index 0
@@ -98,17 +107,20 @@ Feature: Forensics Output
     Then UI Validate Table record values by columns with elementLabel "Report.Table" findBy index 0
       | columnName             | value                                   |
       | Duration               | 15                                      |
+
+  
   @SID_16
   Scenario: VRM - Validate Forensics output pps
     Then UI Validate Table record values by columns with elementLabel "Report.Table" findBy index 0
-      | columnName | value    |
-      | pps        | 38580044 |
+      | columnName                 | value    |
+      | Total Packets Dropped        | 38580044 |
 
+  
   @SID_17
   Scenario: VRM - Validate Forensics output Mbits
     Then UI Validate Table record values by columns with elementLabel "Report.Table" findBy index 0
-      | columnName | value    |
-      | Mbps       | 37675.89 |
+      | columnName                | value    |
+      | Total Mbits Dropped       | 37675.89 |
   @SID_18
   Scenario: VRM - Validate Forensics output Physical Port
     Then UI Validate Table record values by columns with elementLabel "Report.Table" findBy index 0

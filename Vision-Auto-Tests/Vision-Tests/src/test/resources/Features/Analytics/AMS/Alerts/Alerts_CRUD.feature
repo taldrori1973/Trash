@@ -41,6 +41,7 @@ Feature: VRM Alerts CRUD
       | Basic Info | Description:Src Port                                    |
       | Criteria   | Event Criteria:Attack ID,Operator:Not Equals,Value:300; |
       | Schedule   | checkBox:Trigger,alertsPerHour:60                       |
+    Then UI Validate Element Existence By Label "Toggle Alerts" if Exists "true" with value "To-be-Disabled"
 
   @SID_6
   Scenario: Disable Alert

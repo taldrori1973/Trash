@@ -31,6 +31,7 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
+import org.openqa.selenium.StaleElementReferenceException;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.How;
 
@@ -1100,7 +1101,12 @@ public class VRMBaseUtilies {
             elemntsCount = elementsDebugIds.size();
             List<WebElement> elements = WebUIUtils.fluentWaitMultiple(ComponentLocatorFactory.getLocatorByXpathDbgId(VisionDebugIdsManager.getDataDebugId().split("%s")[0]).getBy());
             elements.forEach(n -> {
-                elementsDebugIds.add(n.getAttribute("data-debug-id"));
+                try {
+                    elementsDebugIds.add(n.getAttribute("data-debug-id"));
+                } catch (StaleElementReferenceException exception) {
+                    WebUIUtils.sleep(1);
+                    elementsDebugIds.add(n.getAttribute("data-debug-id"));
+                }
             });
             WebUIUtils.scrollIntoView(ComponentLocatorFactory.getEqualLocatorByDbgId(elements.get(elements.size() - 1).getAttribute("data-debug-id")));
             WebUIUtils.sleep(1);
