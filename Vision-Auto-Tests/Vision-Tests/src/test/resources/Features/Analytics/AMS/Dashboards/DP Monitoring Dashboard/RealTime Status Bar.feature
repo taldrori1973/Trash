@@ -1,5 +1,4 @@
 @VRM @TC105996
-@run3
 Feature: VRM Real Time Status Bar Devices status
 
   @Sanity @SID_1
