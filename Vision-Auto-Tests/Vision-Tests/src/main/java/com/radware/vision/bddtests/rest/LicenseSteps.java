@@ -25,7 +25,7 @@ public class LicenseSteps extends BddRestTestBase {
      *                      vision-security-reporter --> DPM License
      *                      vision-reporting-module-AMS  --> AMS License
      */
-    @Given("^REST Vision Install License Request \"([^\"]*)\"(?: from date \"([+-]\\d+[dMY])\" to date \"([+-]\\d+[dMY])\")?$")
+    @Given("^REST Vision Install License Request \"([^\"]*)\"(?: from date \"([+-]\\d+[dMY])\" to date \"([+-]\\d+[dMY])\")?$")
     public void installLicenses(String licensePrefix, String fromDate, String toDate) {
         try {
             LicenseManagement licenseManagement;
