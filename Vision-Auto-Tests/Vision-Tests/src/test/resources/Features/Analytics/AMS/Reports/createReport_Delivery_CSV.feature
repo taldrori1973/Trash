@@ -29,6 +29,8 @@ Feature:  Report AMS analytics CSV Validations
     Then UI Do Operation "select" item "Email Reporting Configuration"
     Then UI Set Checkbox "Enable" To "true"
     Then UI Set Text Field "SMTP User Name" To "qa_test@Radware.com"
+    Then UI Set Text Field "Subject Header" To "Alert Notification Message"
+    Then UI Set Text Field "From Header" To "Automation system"
     Then UI Set Checkbox "Enable" To "false"
     Then UI Click Button "Submit"
     And UI Navigate to page "System->General Settings->APSolute Vision Analytics Settings->Email Reporting Configurations"
