@@ -6,7 +6,7 @@ Feature:  Report AMS analytics CSV Validations
   Scenario: keep reports copy on file system
     Then CLI Run remote linux Command "sed -i 's/vrm.scheduled.reports.delete.after.delivery=.*$/vrm.scheduled.reports.delete.after.delivery=false/g' /opt/radware/mgt-server/third-party/tomcat/conf/reporter.properties" on "ROOT_SERVER_CLI"
     Then CLI Run remote linux Command "/opt/radware/mgt-server/bin/collectors_service.sh restart" on "ROOT_SERVER_CLI" with timeOut 720
-    Then CLI Run linux Command "/opt/radware/mgt-server/bin/collectors_service.sh status" on "GENERIC_LINUX_SERVER" and validate result EQUALS "APSolute Vision Collectors Server is running." with timeOut 240
+    Then CLI Run linux Command "/opt/radware/mgt-server/bin/collectors_service.sh status" on "ROOT_SERVER_CLI" and validate result EQUALS "APSolute Vision Collectors Server is running." with timeOut 240
     Then CLI Operations - Run Root Session command "yes|restore_radware_user_password" timeout 15
 
   @SID_2
