@@ -23,7 +23,7 @@ Feature:  Report AMS analytics CSV Validations
   @SID_4
   Scenario: VRM - enabling emailing and go to VRM Reports Tab
     Given UI Login with user "sys_admin" and password "radware"
-    * REST Vision Install License Request "vision-AVA-Max-attack-capacity"
+    * REST Vision Install License Request "vision-AVA-Max-attack-capacity"
     And UI Go To Vision
     Then UI Navigate to page "System->General Settings->Alert Settings->Alert Browser"
     Then UI Do Operation "select" item "Email Reporting Configuration"
@@ -49,7 +49,7 @@ Feature:  Report AMS analytics CSV Validations
     Given UI "Create" Report With Name "Delivery_Test_report"
       | reportType | DefensePro Analytics Dashboard                                                            |
       | Share      | Email:[automation.vision1@radware.com, also@report.local],Subject:report delivery Subject |
-      | Format | Select: CSV |
+      | Format     | Select: CSV                                                                               |
 
   @SID_7
   Scenario: Validate delivery card and generate report
