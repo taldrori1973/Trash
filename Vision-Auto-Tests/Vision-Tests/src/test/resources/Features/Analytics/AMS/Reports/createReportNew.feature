@@ -14,6 +14,7 @@ Feature: create AMS Report New Form
     # to overcome license delayed reply
     Then Sleep "5"
     And UI Navigate to "AMS Reports" page via homePage
+    And REST Delete ES index "vrm-scheduled-report-definition-vrm"
     Then UI Validate Element Existence By Label "Add New" if Exists "true"
 
   @SID_2
