@@ -65,7 +65,7 @@ Feature: ADC- Create Report share
 
 
   @SID_7
-  Scenario: Validate Report Email recieved content
+  Scenario: Validate Report Email received content
     Then CLI Run remote linux Command "cat /var/spool/mail/reportuser > /tmp/reportdelivery.log" on "GENERIC_LINUX_SERVER"
     Then CLI Run linux Command "cat /var/spool/mail/reportuser|tr -d "="|tr -d "\n"|grep -o "Subject: report delivery Subject ADC" |wc -l" on "GENERIC_LINUX_SERVER" and validate result EQUALS "1"
     Then CLI Run linux Command "cat /var/spool/mail/radware|tr -d "="|tr -d "\n"|grep -o "Subject: report delivery Subject ADC" |wc -l" on "GENERIC_LINUX_SERVER" and validate result EQUALS "1"

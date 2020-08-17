@@ -6,6 +6,7 @@ Feature:  Report AMS analytics CSV Validations
   Scenario: keep reports copy on file system
     Then CLI Run remote linux Command "sed -i 's/vrm.scheduled.reports.delete.after.delivery=.*$/vrm.scheduled.reports.delete.after.delivery=false/g' /opt/radware/mgt-server/third-party/tomcat/conf/reporter.properties" on "ROOT_SERVER_CLI"
     Then CLI Run remote linux Command "/opt/radware/mgt-server/bin/collectors_service.sh restart" on "ROOT_SERVER_CLI" with timeOut 720
+    Then CLI Run linux Command "/opt/radware/mgt-server/bin/collectors_service.sh status" on "ROOT_SERVER_CLI" and validate result EQUALS "APSolute Vision Collectors Server is running." with timeOut 240
     Then CLI Operations - Run Root Session command "yes|restore_radware_user_password" timeout 15
 
   @SID_2
@@ -28,6 +29,8 @@ Feature:  Report AMS analytics CSV Validations
     Then UI Do Operation "select" item "Email Reporting Configuration"
     Then UI Set Checkbox "Enable" To "true"
     Then UI Set Text Field "SMTP User Name" To "qa_test@Radware.com"
+    Then UI Set Text Field "Subject Header" To "Alert Notification Message"
+    Then UI Set Text Field "From Header" To "Automation system"
     Then UI Set Checkbox "Enable" To "false"
     Then UI Click Button "Submit"
     And UI Navigate to page "System->General Settings->APSolute Vision Analytics Settings->Email Reporting Configurations"
@@ -63,8 +66,8 @@ Feature:  Report AMS analytics CSV Validations
     Then CLI Run linux Command "cat /var/spool/mail/reportuser|tr -d "="|tr -d "\n"|grep -o "Subject: report delivery Subject" |wc -l" on "GENERIC_LINUX_SERVER" and validate result EQUALS "1"
     Then CLI Run linux Command "cat /var/spool/mail/radware|tr -d "="|tr -d "\n"|grep -o "Subject: report delivery Subject" |wc -l" on "GENERIC_LINUX_SERVER" and validate result EQUALS "1"
 
-    Then CLI Run linux Command "grep "From: APSolute Vision <qa_test@Radware.com>" /var/spool/mail/reportuser |wc -l" on "GENERIC_LINUX_SERVER" and validate result EQUALS "1"
-    Then CLI Run linux Command "grep "From: APSolute Vision <qa_test@Radware.com>" /var/spool/mail/radware |wc -l" on "GENERIC_LINUX_SERVER" and validate result EQUALS "1"
+    Then CLI Run linux Command "grep "From: Automation system <qa_test@Radware.com>" /var/spool/mail/reportuser |wc -l" on "GENERIC_LINUX_SERVER" and validate result EQUALS "1"
+    Then CLI Run linux Command "grep "From: Automation system <qa_test@Radware.com>" /var/spool/mail/radware |wc -l" on "GENERIC_LINUX_SERVER" and validate result EQUALS "1"
 
     Then CLI Run linux Command "grep "X-Original-To: also@report.local" /var/spool/mail/reportuser |wc -l" on "GENERIC_LINUX_SERVER" and validate result EQUALS "1"
     Then CLI Run linux Command "grep "X-Original-To: automation.vision1@radware.com" /var/spool/mail/radware |wc -l" on "GENERIC_LINUX_SERVER" and validate result EQUALS "1"
@@ -292,12 +295,12 @@ Feature:  Report AMS analytics CSV Validations
     Then CLI Run linux Command "cat "/opt/radware/mgt-server/third-party/tomcat/bin/Top_Scanners.csv"|head -1|grep "NO DATA FOR SELECTED DATA SOURCE" |wc -l " on "ROOT_SERVER_CLI" and validate result EQUALS "1"
 
   @SID_43
-  Scenario: VRM - just English characters
+  Scenario: Edit report format - from CSV to PDF
     Given UI "Create" Report With Name "just English characters"
       | reportType | DefensePro Analytics Dashboard                                                                         |
       | Share      | Email:[automation.vision1@radware.com],Subject:english characters subject,Body:english characters body |
 
-    Given UI "Edit" Report With Name "just English characters"
+    When UI "Edit" Report With Name "just English characters"
       | Format | Select: PDF |
 
     Then UI "Validate" Report With Name "just English characters"

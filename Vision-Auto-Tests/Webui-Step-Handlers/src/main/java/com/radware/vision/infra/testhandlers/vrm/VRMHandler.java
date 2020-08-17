@@ -263,8 +263,8 @@ public class VRMHandler {
             }
 
             long valueAppearances = StreamSupport.stream(data.spliterator(), false)
-                    .map(s -> String.valueOf(s))
-                    .filter(s -> s.equals(entry.value))
+                    .map(String::valueOf)
+                    .filter(s -> isDataMatch(entry, s))
                     .count();
             if (entry.min != null) {
                 if (valueAppearances < entry.min) {
@@ -295,6 +295,14 @@ public class VRMHandler {
             }
         });
         reportErrors();
+    }
+
+    private boolean isDataMatch(Data entry, String s) {
+        if (!s.matches("\\d+\\.\\d+|\\d+"))
+            return s.equals(entry.value);
+        else if (entry.value.matches("\\d+\\.\\d+|\\d+"))
+            return Double.parseDouble(s) >= (Double.parseDouble(entry.value)- entry.valueOffset) && (Double.parseDouble(s) <= (Double.parseDouble(entry.value)+ entry.valueOffset));
+        else return false;
     }
 
     /**
@@ -1260,6 +1268,7 @@ public class VRMHandler {
         Integer min;
         Boolean exist;
         Integer index;
+        double valueOffset;
 
         @Override
         public String toString() {
@@ -1269,6 +1278,7 @@ public class VRMHandler {
                     ", offset=" + offset +
                     ", exist=" + exist +
                     ", index=" + index +
+                    ", valueOffset=" + valueOffset +
                     '}';
         }
     }

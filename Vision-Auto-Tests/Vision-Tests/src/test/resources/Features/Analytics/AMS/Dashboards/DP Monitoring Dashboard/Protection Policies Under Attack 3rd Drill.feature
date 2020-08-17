@@ -1665,10 +1665,7 @@ Feature: DP Monitoring Dashboard - Protection Policies - Under Attack 3rd Drill
     When UI Navigate to "DefensePro Monitoring Dashboard" page via homePage
     And UI click Table row by keyValue or Index with elementLabel "Protection Policies.Table" findBy columnName "Policy Name" findBy cellValue "BDOS"
     Then UI click Table row by keyValue or Index with elementLabel "Protection Policies.Protections Table" findBy columnName "Protection Name" findBy cellValue "Behavioral DoS"
-    Then UI Validate Table record values by columns with elementLabel "Protection Policies.Events Table" findBy columnName "Attack Categories" findBy cellValue "Behavioral DoS"
-      | columnName        | value          |
-      | Attack Categories | Behavioral DoS |
-
+#    Then UI Validate Table record values by columns with elementLabel "Protection Policies.Events Table" findBy columnName "Attack Categories" findBy cellValue "Behavioral DoS"
     Then UI click Table row by keyValue or Index with elementLabel "Protection Policies.Events Table" findBy index 0
 
   @SID_161
@@ -1696,7 +1693,7 @@ Feature: DP Monitoring Dashboard - Protection Policies - Under Attack 3rd Drill
   Scenario: Validate baseline Normal Edge data - burst
     Then UI Validate Line Chart data "BDoS-TCP SYN ACK" with Label "Normal Edge"
       | value | count | offset |
-      | 96    | 7     | 1      |
+      | 96    | 7     | 5      |
       | null  | 53    | 4      |
 
   @SID_164
@@ -1709,8 +1706,8 @@ Feature: DP Monitoring Dashboard - Protection Policies - Under Attack 3rd Drill
   Scenario: Validate baseline Total Traffic data - burst
     Then UI Validate Line Chart data "BDoS-TCP SYN ACK" with Label "Total Traffic"
       | value | count | offset |
-      | 5182  | 7     | 2      |
-      | 1727  | 7     | 2      |
+      | 5182  | 7     | 3      |
+      | 1727  | 7     | 3      |
 
   @SID_166
   Scenario: Validate baseline Total Traffic styling - burst
