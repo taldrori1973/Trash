@@ -1,6 +1,7 @@
-@TC107643
+@TC107643 
 Feature: HTTPS Server Dashboard
 
+  
   @SID_1
   Scenario: Clear data
     * CLI kill all simulator attacks on current vision
@@ -11,11 +12,14 @@ Feature: HTTPS Server Dashboard
 #    * REST Delete ES index "dp-daily-https-rt-*"
 #    * REST Delete ES index "dp-hourly-https-rt-*"
 #    * REST Delete ES index "dp-https-stats*"
+
+  
   @SID_2
   Scenario: Update Policies
     Given REST Login with user "radware" and password "radware"
     Then REST Update Policies for All DPs
 
+  
   @SID_3
   Scenario:Login and Navigate to HTTPS Server Dashboard
     Given UI Login with user "sys_admin" and password "radware"
@@ -26,11 +30,12 @@ Feature: HTTPS Server Dashboard
 #    When UI Click Button "Widgets Selection"
 #    When UI Click Button "Select Outbound Widget"
 #    When UI Click Button "Add Selected Widgets"
+  
   @SID_4
   Scenario: Run DP simulator PCAPs for "HTTPS attacks"
     Given CLI simulate 2 attacks of type "HTTPS" on "DefensePro" 11 with loopDelay 5000 and wait 60 seconds
 
-
+  
   @SID_5
   Scenario: Select Server
     When UI Click Button "Servers Button"
@@ -40,6 +45,7 @@ Feature: HTTPS Server Dashboard
     * Sleep "60"
 
       ##Https Flood - Info Card
+
   @SID_6
   Scenario: Validate title tool bar
     Then UI Validate Text field "header HTTPS" EQUALS "HTTPS Flood"
@@ -74,9 +80,9 @@ Feature: HTTPS Server Dashboard
       | borderWidth               | 1       |
       | pointHoverRadius          | 4       |
       | pointHoverBorderWidth     | 1       |
-      | backgroundColor           | #006E8A |
-      | pointHoverBackgroundColor | #006E8A |
-      | color                     | #006E8A |
+      | backgroundColor           | #006e8a |
+      | pointHoverBackgroundColor | #006e8a |
+      | color                     | #006e8a |
      #| shapeType                 | line-vertical |
 
   @SID_9
@@ -102,12 +108,12 @@ Feature: HTTPS Server Dashboard
       | borderWidth               | 2       |
       | pointHoverRadius          | 0       |
       | pointHoverBorderWidth     | 0       |
-      | backgroundColor           | #3C4144 |
-      | pointHoverBackgroundColor | #3C4144 |
-      | color                     | #3C4144 |
+      | backgroundColor           | #3f3f3f |
+      | pointHoverBackgroundColor | #3f3f3f |
+      | color                     | #3f3f3f |
      #| shapeType                 | cross-dash |
       | type                      | line    |
-      | borderColor               | #3C4144 |
+      | borderColor               | #3f3f3f |
       | pointHitRadius            | 0       |
      #| borderDash                | [10, 5]    |
 
@@ -132,9 +138,9 @@ Feature: HTTPS Server Dashboard
       | borderWidth               | 1       |
       | pointHoverRadius          | 4       |
       | pointHoverBorderWidth     | 1       |
-      | backgroundColor           | #FFC107 |
-      | pointHoverBackgroundColor | #FFC107 |
-      | color                     | #FFC107 |
+      | backgroundColor           | #ffc107 |
+      | pointHoverBackgroundColor | #ffc107 |
+      | color                     | #ffc107 |
      #| shapeType                 | plus    |
      #| borderColor               | #F39C12 |
       | pointHitRadius            | 0       |
@@ -163,9 +169,9 @@ Feature: HTTPS Server Dashboard
       | borderWidth               | 1       |
       | pointHoverRadius          | 4       |
       | pointHoverBorderWidth     | 1       |
-      | backgroundColor           | #F41414 |
-      | pointHoverBackgroundColor | #F41414 |
-      | color                     | #F41414 |
+      | backgroundColor           | #f41414 |
+      | pointHoverBackgroundColor | #f41414 |
+      | color                     | #f41414 |
      #| shapeType                 | plus    |
      #| borderColor               | #E74C3C |
       | pointHitRadius            | 0       |
@@ -273,10 +279,10 @@ Feature: HTTPS Server Dashboard
   Scenario: Validate Https Flood baseline graph Transitory Baseline styling
     Then UI Validate Line Chart attributes "Requests per Second" with Label "Transitory Baseline"
       | attribute             | value   |
-      | backgroundColor       | #04C2A0 |
+      | backgroundColor       | #04c2a0 |
       | steppedLine           | true    |
       | pointHoverBorderWidth | 1       |
-      | borderColor           | #04C2A0 |
+      | borderColor           | #04c2a0 |
       | pointHitRadius        | 10      |
       | pointRadius           | 0       |
       | pointHoverRadius      | 4       |
@@ -291,10 +297,10 @@ Feature: HTTPS Server Dashboard
   Scenario: Validate Https Flood baseline graph Transitory Attack Edge styling
     Then UI Validate Line Chart attributes "Requests per Second" with Label "Transitory Attack Edge"
       | attribute             | value   |
-      | backgroundColor       | #AA0A13 |
+      | backgroundColor       | #aa0a13 |
       | steppedLine           | true    |
       | pointHoverBorderWidth | 1       |
-      | borderColor           | #AA0A13 |
+      | borderColor           | #aa0a13|
       | pointHitRadius        | 10      |
       | pointRadius           | 0       |
       | pointHoverRadius      | 4       |
@@ -309,9 +315,9 @@ Feature: HTTPS Server Dashboard
   Scenario: Validate Https Flood baseline graph Total Traffic styling
     Then UI Validate Line Chart attributes "Requests per Second" with Label "Total Traffic"
       | attribute             | value   |
-      | backgroundColor       | #9AEEEA |
+      | backgroundColor       | #9aeeea |
       | pointHoverBorderWidth | 1       |
-      | borderColor           | #088EB1 |
+      | borderColor           | #088eb1 |
       | pointHitRadius        | 10      |
       | pointRadius           | 0       |
       | pointHoverRadius      | 4       |
@@ -321,17 +327,17 @@ Feature: HTTPS Server Dashboard
       | borderCapStyle        | butt    |
       | lineTension           | 0.35    |
       | fill                  | true    |
-      | borderColor           | #088EB1 |
-      | color                 | #9AEEEA |
+      | borderColor           | #088eb1 |
+      | color                 | #9aeeea |
 
   @SID_31
   Scenario: Validate Https Flood baseline graph Long Trend Baseline styling
     Then UI Validate Line Chart attributes "Requests per Second" with Label "Long-Term Trend Baseline"
       | attribute             | value   |
-      | backgroundColor       | #0A7474 |
+      | backgroundColor       | #0a7474 |
       | steppedLine           | true    |
       | pointHoverBorderWidth | 1       |
-      | borderColor           | #0A7474 |
+      | borderColor           | #0a7474 |
       | pointHitRadius        | 10      |
       | pointRadius           | 0       |
       | pointHoverRadius      | 4       |
@@ -349,7 +355,7 @@ Feature: HTTPS Server Dashboard
       | backgroundColor       | #FF4441 |
       | steppedLine           | true    |
       | pointHoverBorderWidth | 1       |
-      | borderColor           | #FF4441 |
+      | borderColor           | #ff4441 |
       | pointHitRadius        | 10      |
       | pointRadius           | 0       |
       | pointHoverRadius      | 4       |
@@ -366,7 +372,7 @@ Feature: HTTPS Server Dashboard
       | attribute             | value   |
       | backgroundColor       | #9ec3cb |
       | pointHoverBorderWidth | 1       |
-      | borderColor           | #9ec3cb |
+      | borderColor           | #4388c8 |
       | pointHitRadius        | 10      |
       | pointRadius           | 0       |
       | pointHoverRadius      | 4       |
@@ -662,14 +668,16 @@ Feature: HTTPS Server Dashboard
 
 
 # verify 1. refrest occured 2. new data displayed
+
+
   @SID_57
   Scenario: Run DP simulator PCAPs for Https Flood - Make Change
     Given CLI simulate 2 attacks of type "HTTPS-Twist" on "DefensePro" 11 with loopDelay 5000 and wait 180 seconds
-
+  
+  @SID_63
   Scenario: Re-Select Server
-#    When UI Open Upper Bar Item "AMS"
-#    When UI Open "Dashboards" Tab
-#    Then UI Open "HTTPS Servers Dashboard" Sub Tab
+    Given UI Navigate to "DefensePro Monitoring Dashboard" page via homePage
+    And UI Navigate to "HTTPS Flood Dashboard" page via homePage
     When UI Click Button "Servers Button"
     When UI Set Text Field "Server Selection.Search" To "test"
     Then UI Click Button "Server Selection.Server Name" with value "test,DefensePro_172.16.22.51,pol1"
@@ -698,10 +706,10 @@ Feature: HTTPS Server Dashboard
   @SID_60
   Scenario: Validate Https Flood distributed size graph data - Attack Edge - After Change
     Then UI Validate Line Chart data "Request-Size Distribution" with Label "Attack Edge"
-      | value      | count | index | offset     |
+      | value      | count | index | valueOffset|
       | 0          | 48    | 0     | 0          |
       | 1          | 1     | 1     | 0          |
-      | 0.47802296 | 1     | 4     | 0.00000001 |
+      | 0.47802296 | 1     | 4     | 0.2       |
 
   @SID_61
   Scenario: Validate Https Flood distributed size graph data - Under Attack - After Change
