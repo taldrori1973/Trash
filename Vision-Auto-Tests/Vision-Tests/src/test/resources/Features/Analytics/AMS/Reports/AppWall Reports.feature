@@ -99,7 +99,6 @@ Feature: AppWall Reports
     Then UI "Validate" Report With Name "OverAllAppWallReport"
       | reportType            | AppWall Dashboard  |
       | webApplications       | Vision2            |
-      | Customized Options    | addLogo:unselected |
       | Time Definitions.Date | Quick:15m          |
 
   @SID_9
