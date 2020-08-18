@@ -1,5 +1,7 @@
+@TC116609
 Feature: UDP widgets
 
+  @SID_1
   Scenario: add DP
     Then REST Login with user "radware" and password "radware"
     * REST Vision Install License Request "vision-AVA-Max-attack-capacity"
@@ -13,6 +15,7 @@ Feature: UDP widgets
       | httpUsername  | radware  |
       | visionMgtPort | G1       |
 
+  @SID_2
   Scenario: Clear the vision from the attacks and run PCAP
     * CLI kill all simulator attacks on current vision
     * REST Delete ES index "dp-*"
@@ -20,6 +23,7 @@ Feature: UDP widgets
 
     Given CLI simulate 100 attacks of type "testUDPAttack" on "DefensePro" 185 with loopDelay 15000 and wait 60 seconds
 
+  @SID_3
   Scenario: Login and navigate to BDOS behavioral dashboard
     Given UI Login with user "sys_admin" and password "radware"
     And UI Navigate to "DefensePro Behavioral Protections Dashboard" page via homePage
@@ -38,6 +42,7 @@ Feature: UDP widgets
       | value | min |
       | 0     | 5   |
 
+  @SID_4
   Scenario: navigate DP monitoring
     And UI Navigate to "DefensePro Monitoring Dashboard" page via homePage
     And  UI click Table row by keyValue or Index with elementLabel "Protection Policies.Table" findBy columnName "Policy Name" findBy cellValue "test"
@@ -54,6 +59,7 @@ Feature: UDP widgets
     Then UI Text of "Info.Protocol" equal to "Protocol: UDP"
 
 
+  @SID_5
   Scenario: Clear the vision from the attacks and run PCAP
     * CLI kill all simulator attacks on current vision
     * REST Delete ES index "dp-*"
