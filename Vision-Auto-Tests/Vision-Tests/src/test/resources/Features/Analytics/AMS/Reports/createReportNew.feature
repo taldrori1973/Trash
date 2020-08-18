@@ -8,7 +8,6 @@ Feature: create AMS Report New Form
     Then CLI Operations - Run Root Session command "yes|restore_radware_user_password" timeout 15
     Then REST Vision Install License Request "vision-AVA-Max-attack-capacity"
     And REST Delete ES index "vrm-scheduled-report-definition-vrm"
-    Then CLI Run remote linux Command "mysql -prad123 vision_ng -e "select license_str,is_expired+0 from vision_license;"" on "ROOT_SERVER_CLI"
     Then REST Request "PUT" for "Connectivity->Inactivity Timeout for Configuration"
       | type | value                                 |
       | body | sessionInactivTimeoutConfiguration=60 |
