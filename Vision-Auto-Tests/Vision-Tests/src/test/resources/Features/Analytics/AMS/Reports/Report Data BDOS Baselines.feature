@@ -85,7 +85,7 @@ Feature: VRM AMS Report Data BDoS baselines
 
   @SID_10
   Scenario: VRM report validate CSV file BDoS-ICMP IPv4/bps/In content
-    Then CLI Run linux Command "cat /opt/radware/mgt-server/third-party/tomcat/bin/BDoS-ICMP.csv |head -2|tail -1|grep -oP "172.16.22.50,92,pol_1,{},icmp,false,true,bps,$(date +"%B %d %Y [0-9][0-9]:[0-9][0-9]"),,,45600,In,1040" |wc -l" on "ROOT_SERVER_CLI" and validate result EQUALS "1"
+    Then CLI Run linux Command "cat /opt/radware/mgt-server/third-party/tomcat/bin/BDoS-ICMP.csv |head -2|tail -1|grep -oP "172.16.22.50,92,-1,pol_1,{},icmp,false,true,bps,$(date +"%B %d %Y [0-9][0-9]:[0-9][0-9]"),,,45600,In,1040" |wc -l" on "ROOT_SERVER_CLI" and validate result EQUALS "1"
     Then CLI Run linux Command "cat /opt/radware/mgt-server/third-party/tomcat/bin/BDoS-ICMP.csv |head -2|tail -1|awk -F"," '{print $1}'" on "ROOT_SERVER_CLI" and validate result EQUALS "172.16.22.50"
     Then CLI Run linux Command "cat /opt/radware/mgt-server/third-party/tomcat/bin/BDoS-ICMP.csv |head -2|tail -1|awk -F"," '{print $2}'" on "ROOT_SERVER_CLI" and validate result EQUALS "92"
     Then CLI Run linux Command "cat /opt/radware/mgt-server/third-party/tomcat/bin/BDoS-ICMP.csv |head -2|tail -1|awk -F"," '{print $3}'" on "ROOT_SERVER_CLI" and validate result EQUALS "pol_1"
