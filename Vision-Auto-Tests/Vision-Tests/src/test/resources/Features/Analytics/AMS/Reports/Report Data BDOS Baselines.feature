@@ -108,8 +108,8 @@ Feature: VRM AMS Report Data BDoS baselines
 
   @SID_12
   Scenario: VRM report validate CSV file BDoS-UDP_Fragmented IPv4/bps/In headers
-    Then CLI Run linux Command "cat /opt/radware/mgt-server/third-party/tomcat/bin/BDoS-UDP_Fragmented.csv |head -1|grep "deviceIp,normal,policyName,enrichmentContainer,protection,isTcp,isIpv4,units,timeStamp,fast,id,partial,direction,full" |wc -l" on "ROOT_SERVER_CLI" and validate result EQUALS "1"
-    Then CLI Run linux Command "cat /opt/radware/mgt-server/third-party/tomcat/bin/BDoS-UDP_Fragmented.csv |head -7| tail -1|grep "timeStamp,deviceIp,suspectedAttack,policyName,enrichmentContainer,protection,isTcp,id,isIpv4,units,direction,suspectedEdge" |wc -l " on "ROOT_SERVER_CLI" and validate result EQUALS "1"
+    Then CLI Run linux Command "cat /opt/radware/mgt-server/third-party/tomcat/bin/BDoS-UDP_Fragmented.csv |head -1|grep "deviceIp,normal,fullExcluded,policyName,enrichmentContainer,protection,isTcp,isIpv4,units,timeStamp,fast,id,partial,direction,full" |wc -l" on "ROOT_SERVER_CLI" and validate result EQUALS "1"
+    Then CLI Run linux Command "cat /opt/radware/mgt-server/third-party/tomcat/bin/BDoS-UDP_Fragmented.csv |head -7| tail -1|grep "deviceIp,policyName,enrichmentContainer,protection,isTcp,isIpv4,units,timeStamp,suspectedAttack,suspectedEdgeAdv,suspectedAttackAdv,id,direction,suspectedEdge" |wc -l" on "ROOT_SERVER_CLI" and validate result EQUALS "1"
 
   @SID_13
   Scenario: VRM report validate CSV file BDoS-UDP_Fragmented IPv4/bps/In content
