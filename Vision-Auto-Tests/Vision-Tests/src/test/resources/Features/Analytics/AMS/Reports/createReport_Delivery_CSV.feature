@@ -14,6 +14,7 @@ Feature:  Report AMS analytics CSV Validations
     * REST Delete ES index "dp-*"
     Then CLI Run remote linux Command "rm -f /opt/radware/mgt-server/third-party/tomcat/bin/VRM_report_*.zip" on "ROOT_SERVER_CLI"
     Then CLI Run remote linux Command "rm -f /opt/radware/mgt-server/third-party/tomcat/bin/*.csv" on "ROOT_SERVER_CLI"
+    Given Setup email server
 
   @SID_3
   Scenario: generate two attacks
@@ -43,37 +44,31 @@ Feature:  Report AMS analytics CSV Validations
 
   @SID_5
   Scenario: Clear SMTP server log files
-    Then CLI Run remote linux Command "echo "cleared" $(date) > /var/spool/mail/radware" on "GENERIC_LINUX_SERVER"
-    Then CLI Run remote linux Command "echo "cleared" $(date) > /var/spool/mail/reportuser" on "GENERIC_LINUX_SERVER"
+    Given Clear email history for user "setup"
 
   @SID_6
   Scenario: Create new Report Analytics CSV Delivery
     Given UI "Create" Report With Name "Delivery_Test_report"
       | reportType | DefensePro Analytics Dashboard                                                            |
-      | Share      | Email:[automation.vision1@radware.com, also@report.local],Subject:report delivery Subject |
+      | Share      | Email:[Test, Test2],Subject:report delivery Subject |
       | Format     | Select: CSV                                                                               |
 
   @SID_7
   Scenario: Validate delivery card and generate report
-    Then CLI Run remote linux Command "echo "cleared" $(date) > /var/spool/mail/radware" on "GENERIC_LINUX_SERVER"
-    Then CLI Run remote linux Command "echo "cleared" $(date) > /var/spool/mail/reportuser" on "GENERIC_LINUX_SERVER"
+    Given Clear email history for user "setup"
     Then UI Generate and Validate Report With Name "Delivery_Test_report" with Timeout of 300 Seconds
     And Sleep "15"
 
   @SID_8
   Scenario: Validate Report Email received content
-    Then CLI Run remote linux Command "cat /var/spool/mail/reportuser > /tmp/reportdelivery.log" on "GENERIC_LINUX_SERVER"
-    Then CLI Run linux Command "cat /var/spool/mail/reportuser|tr -d "="|tr -d "\n"|grep -o "Subject: report delivery Subject" |wc -l" on "GENERIC_LINUX_SERVER" and validate result EQUALS "1"
-    Then CLI Run linux Command "cat /var/spool/mail/radware|tr -d "="|tr -d "\n"|grep -o "Subject: report delivery Subject" |wc -l" on "GENERIC_LINUX_SERVER" and validate result EQUALS "1"
-
-    Then CLI Run linux Command "grep "From: Automation system <qa_test@Radware.com>" /var/spool/mail/reportuser |wc -l" on "GENERIC_LINUX_SERVER" and validate result EQUALS "1"
-    Then CLI Run linux Command "grep "From: Automation system <qa_test@Radware.com>" /var/spool/mail/radware |wc -l" on "GENERIC_LINUX_SERVER" and validate result EQUALS "1"
-
-    Then CLI Run linux Command "grep "X-Original-To: also@report.local" /var/spool/mail/reportuser |wc -l" on "GENERIC_LINUX_SERVER" and validate result EQUALS "1"
-    Then CLI Run linux Command "grep "X-Original-To: automation.vision1@radware.com" /var/spool/mail/radware |wc -l" on "GENERIC_LINUX_SERVER" and validate result EQUALS "1"
-
-    Then CLI Run linux Command "grep -oP "Content-Disposition: attachment; filename=VRM_report_(\d{13}).zip" /var/spool/mail/reportuser | wc -l" on "GENERIC_LINUX_SERVER" and validate result EQUALS "1"
-    Then CLI Run linux Command "grep -oP "Content-Disposition: attachment; filename=VRM_report_(\d{13}).zip" /var/spool/mail/radware | wc -l" on "GENERIC_LINUX_SERVER" and validate result EQUALS "1"
+    #subject
+    Then Validate "setup" user eMail expression "grep "Subject: report delivery Subject"" EQUALS "2"
+    #From
+    Then Validate "setup" user eMail expression "grep "From: Automation system <qa_test@Radware.com>"" EQUALS "2"
+    #To
+    Then Validate "setup" user eMail expression "grep "X-Original-To: Test2@.*.local"" EQUALS "1"
+    #Attachment
+    Then Validate "setup" user eMail expression "grep -oP "Content-Disposition: attachment; filename=VRM_report_(\d{13}).zip"" EQUALS "2"
 
   @SID_9
   Scenario: VRM report unzip local CSV file
@@ -298,14 +293,14 @@ Feature:  Report AMS analytics CSV Validations
   Scenario: Edit report format - from CSV to PDF
     Given UI "Create" Report With Name "just English characters"
       | reportType | DefensePro Analytics Dashboard                                                                         |
-      | Share      | Email:[automation.vision1@radware.com],Subject:english characters subject,Body:english characters body |
+      | Share      | Email:[Test],Subject:english characters subject,Body:english characters body |
 
     When UI "Edit" Report With Name "just English characters"
       | Format | Select: PDF |
 
     Then UI "Validate" Report With Name "just English characters"
       | reportType | DefensePro Analytics Dashboard                                                                         |
-      | Share      | Email:[automation.vision1@radware.com],Subject:english characters subject,Body:english characters body |
+      | Share      | Email:[Test],Subject:english characters subject,Body:english characters body |
       | Format     | Select: PDF                                                                                            |
 
 

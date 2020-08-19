@@ -43,6 +43,7 @@ import java.util.regex.Pattern;
 
 import static com.radware.vision.infra.testhandlers.BaseHandler.devicesManager;
 import static com.radware.vision.infra.testhandlers.BaseHandler.restTestBase;
+import static com.radware.vision.infra.testhandlers.baseoperations.clickoperations.ClickOperationsHandler.validateElementExistenceByLabel;
 import static com.radware.vision.infra.utils.ReportsUtils.addErrorMessage;
 import static com.radware.vision.infra.utils.ReportsUtils.reportErrors;
 
@@ -713,15 +714,21 @@ public class VRMBaseUtilies {
 
         if (map.containsKey("Share")) {
             JSONObject deliveryJsonObject = new JSONObject(map.get("Share"));
-            String Emails;
+            String eMails;
             if (!deliveryJsonObject.isNull("Email")) {
-                Emails = deliveryJsonObject.getJSONArray("Email").toString().replaceAll("(])|(\\[)|(\")", "");
-
+                eMails = deliveryJsonObject.getJSONArray("Email").toString().replaceAll("(])|(\\[)|(\")", "");
+                eMails = eMails.replaceAll("\\s","");
+                List<String> emailList = Arrays.asList(eMails.split(","));
+                emailList.forEach(mail->{
+                    if(!mail.contains("@"))
+                        emailList.set(emailList.indexOf(mail),String.format("%s@%s.local",mail,restTestBase.getRootServerCli().getHost()));
+                });
+                eMails = String.join(",",emailList);
                 VisionDebugIdsManager.setLabel("Send Email Enable");
                 String debugId = VisionDebugIdsManager.getDataDebugId();
                 BasicOperationsHandler.clickSwitchButton(WebElementType.Data_Debug_Id, debugId, OnOffStatus.ON);
 
-                BasicOperationsHandler.setTextField("Email Recipients", Emails);
+                BasicOperationsHandler.setTextField("Email Recipients", eMails);
                 BasicOperationsHandler.setTextField("Send Email Subject", deliveryJsonObject.getString("Subject"));
                 if (!deliveryJsonObject.isNull("Body")) {
                     BasicOperationsHandler.setTextField("Send Email Body", deliveryJsonObject.getString("Body"));
