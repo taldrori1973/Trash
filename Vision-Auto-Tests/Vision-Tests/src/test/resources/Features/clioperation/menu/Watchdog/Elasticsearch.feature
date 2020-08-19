@@ -8,7 +8,7 @@ Feature: Elasticsearch watchdog
   @SID_2
   Scenario: kill elasticsearch pid exist
     When CLI Run remote linux Command "echo "cleared" $(date) > /opt/radware/storage/maintenance/logs/elasticsearch_watchdog.log" on "ROOT_SERVER_CLI" with timeOut 120
-    When CLI Run remote linux Command "kill -14 $(service elasticsearch status |awk '{print substr($3,1)-1};')" on "ROOT_SERVER_CLI"
+    When CLI Run remote linux Command "kill -14 $(service elasticsearch status |awk '{print substr($3,1)+0};')" on "ROOT_SERVER_CLI"
 
   @SID_3
   Scenario: verify watchdog starts elasticsearch
