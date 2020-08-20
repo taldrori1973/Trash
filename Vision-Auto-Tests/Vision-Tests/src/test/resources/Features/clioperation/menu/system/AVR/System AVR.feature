@@ -22,6 +22,7 @@ Feature: CLI System AVR
   @SID_4
   Scenario: verify write to sql enabled
     Given CLI Run linux Command "system avr status" on "RADWARE_SERVER_CLI" and validate result CONTAINS "is running." in any line with timeOut 250
+    Then Sleep "15"
     Then CLI Run remote linux Command "mysql -prad123 vision_ng -e "delete from security_attacks;"" on "ROOT_SERVER_CLI"
     Then CLI simulate 1 attacks of type "rest_anomalies" on "DefensePro" 12
     Then CLI Run linux Command "mysql -prad123 vision -NB -e "select count(*) from avr_security_attacks;"" on "ROOT_SERVER_CLI" and validate result GT "0" with timeOut 60
@@ -59,6 +60,7 @@ Feature: CLI System AVR
     Then CLI Run remote linux Command "mysql -prad123 vision_ng -e "delete from http_traf_stats_anomaly;"" on "ROOT_SERVER_CLI"
     Then CLI Run remote linux Command "mysql -prad123 vision -e "delete from traffic_utilizations;"" on "ROOT_SERVER_CLI"
     Then CLI Run remote linux Command "mysql -prad123 vision -e "delete from traffic_utilizations_per_policy;"" on "ROOT_SERVER_CLI"
+    Then CLI Run remote linux Command "mysql -prad123 vision_ng -e "delete from df_security_attacks;"" on "ROOT_SERVER_CLI"
 
     Then CLI simulate 1 attacks of type "rest_bdosdns" on "DefensePro" 12
     Then CLI simulate 1 attacks of type "rest_traffic_diff_Policy15out" on "DefensePro" 12
