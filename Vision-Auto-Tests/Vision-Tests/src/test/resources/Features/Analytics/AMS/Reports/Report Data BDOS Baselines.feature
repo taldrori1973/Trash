@@ -111,6 +111,8 @@ Feature: VRM AMS Report Data BDoS baselines
     Then CLI Run linux Command "cat /opt/radware/mgt-server/third-party/tomcat/bin/BDoS-UDP_Fragmented.csv |head -1|grep "deviceIp,normal,fullExcluded,policyName,enrichmentContainer,protection,isTcp,isIpv4,units,timeStamp,fast,id,partial,direction,full" |wc -l" on "ROOT_SERVER_CLI" and validate result EQUALS "1"
     Then CLI Run linux Command "cat /opt/radware/mgt-server/third-party/tomcat/bin/BDoS-UDP_Fragmented.csv |head -7| tail -1|grep "deviceIp,policyName,enrichmentContainer,protection,isTcp,isIpv4,units,timeStamp,suspectedAttack,suspectedEdgeAdv,suspectedAttackAdv,id,direction,suspectedEdge" |wc -l" on "ROOT_SERVER_CLI" and validate result EQUALS "1"
 
+
+#    to be continue...
   @SID_13
   Scenario: VRM report validate CSV file BDoS-UDP_Fragmented IPv4/bps/In content
     Then CLI Run linux Command "cat /opt/radware/mgt-server/third-party/tomcat/bin/BDoS-UDP_Fragmented.csv |head -2|tail -1|grep -oP "172.16.22.50,768,pol_1,{},udp-frag,false,true,bps,$(date +"%B %d %Y [0-9][0-9]:[0-9][0-9]"),,,45120,In,46960" |wc -l" on "ROOT_SERVER_CLI" and validate result EQUALS "1"
