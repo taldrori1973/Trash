@@ -1,0 +1,1060 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sut>
+    <visionCli>
+        <class>com.radware.vision.vision_project_cli.VisionCli</class>
+        <visionServer>
+            <class>com.radware.vision.vision_project_cli.VisionServer</class>
+            <visionRadware>
+                <class>com.radware.vision.vision_project_cli.RadwareServerCli</class>
+                <user>radware</user>
+                <password>radware</password>
+                <host>172.17.164.125</host>
+                <dnsServerIp>10.221.1.47</dnsServerIp>
+                <addedPrompts>[new.prompt],to continue the upgrade help process., [Y/n],Please type the sftp server
+                    password:,Please type the ftp server password:
+                </addedPrompts>
+                <connectOnInit>false</connectOnInit>
+            </visionRadware>
+            <visionServerHA>
+                <class>com.radware.vision.vision_project_cli.VisionServerHA</class>
+                <Host_1>172.17.164.125</Host_1>
+                <Host_2>172.17.164.145</Host_2>
+                <connectOnInit>false</connectOnInit>
+            </visionServerHA>
+            <visionRoot>
+                <class>com.radware.vision.vision_project_cli.RootServerCli</class>
+                <host>172.17.164.125</host>
+                <user>root</user>
+                <password>radware</password>
+                <connectOnInit>false</connectOnInit>
+            </visionRoot>
+            <visionMySql>
+                <class>com.radware.vision.vision_project_cli.MySqlSO</class>
+                <host>172.17.164.125</host>
+                <port>3306</port>
+                <user>root</user>
+                <password>rad123</password>
+                <connectOnInit>false</connectOnInit>
+                <type>MySql</type>
+            </visionMySql>
+            <visionSetup>
+                <class>com.radware.vision.vision_project_cli.VisionSetup</class>
+                <!--<setupMode>Fresh Install| Upgrade</setupMode>-->
+                <setupMode>KVM_Fresh Install</setupMode>
+                <isAPM>false</isAPM>
+                <snapshot></snapshot>
+                <!--<vmPrefix>This field is relevant for fresh installed VM</vmPrefix>-->
+                <vmPrefix>VisionAuto-VRM-Fresh</vmPrefix>
+                <FileNamePrefix>APSoluteVision-Serial_console</FileNamePrefix>
+            </visionSetup>
+        </visionServer>
+        <linuxFileServer>
+            <class>com.radware.automation.tools.cli.LinuxFileServer</class>
+            <host>172.17.164.100</host>
+            <user>root</user>
+            <password>radware</password>
+            <connectOnInit>false</connectOnInit>
+        </linuxFileServer>
+        <alteonServer>
+            <class>com.radware.automation.tools.cli.AlteonServer</class>
+            <host>172.17.164.40</host>
+            <user>admin</user>
+            <password>admin</password>
+        </alteonServer>
+        <mysqlClient>
+            <class>com.radware.vision.vision_project_cli.MysqlClientCli</class>
+            <host>172.17.164.100</host>
+            <user>root</user>
+            <password>radware</password>
+            <userExternalViewer>external</userExternalViewer>
+            <passwordExternalViewer>viewer</passwordExternalViewer>
+            <targetVisionHost/>
+        </mysqlClient>
+    </visionCli>
+    <visionLab>
+        <class>systemobjects.VisionLab</class>
+        <visionServer>
+            <class>systemobjects.VisionServer</class>
+            <user>radware</user>
+            <password>radware</password>
+            <host>172.17.164.125</host>
+            <restProtocol>HTTPS</restProtocol>
+            <connectOnInit>false</connectOnInit>
+        </visionServer>
+        <genericLinuxServer>
+            <class>com.radware.automation.tools.cli.LinuxFileServer</class>
+            <host>172.17.164.10</host>
+            <user>radware</user>
+            <password>radware</password>
+            <connectOnInit>false</connectOnInit>
+        </genericLinuxServer>
+        <visionVMs>
+            <class>com.radware.vision.automation.tools.sutsystemobjects.VisionVMs</class>
+            <vCenterURL>https://10.205.172.220/sdk</vCenterURL>
+            <vCenterIP>10.205.172.220</vCenterIP>
+            <userName>root</userName>
+            <password>radware</password>
+            <resourcePool>RP1</resourcePool>
+            <networkName>Management 172.17</networkName>
+            <dataStores>Automation Main Datastore</dataStores>
+            <vmName1>vision_auto_172.17.164.125</vmName1>
+            <vmName2>VisionAuto-VRM-Upgrade-172.17.164.102</vmName2>
+        </visionVMs>
+    </visionLab>
+    <visionRadwareFirstTime>
+        <class>com.radware.vision.vision_project_cli.VisionRadwareFirstTime</class>
+        <connectOnInit>false</connectOnInit>
+        <user>root</user>
+        <password>radware</password>
+        <host>10.205.200.210</host>
+        <dnsServerIp>10.221.1.47</dnsServerIp>
+        <ip>172.17.164.125</ip>
+        <netMask>255.255.0.0</netMask>
+        <gateway>172.17.1.1</gateway>
+        <primaryDns>10.221.1.47</primaryDns>
+        <physicalManagement>G1</physicalManagement>
+        <vmName>vision_auto_</vmName>
+    </visionRadwareFirstTime>
+    <devices>
+        <class>com.radware.vision.automation.tools.sutsystemobjects.devicesinfo.Devices</class>
+        <defenseProDevices index="0">
+            <class>com.radware.vision.automation.tools.sutsystemobjects.devicesinfo.DeviceInfo</class>
+            <deviceName>DefensePro_172.16.22.18</deviceName>
+            <deviceIp>172.16.22.18</deviceIp>
+            <username>radware</username>
+            <password>radware</password>
+            <readCommunity>public</readCommunity>
+            <writeCommunity>public</writeCommunity>
+            <macAddress>00:1c:7f:51:af:00</macAddress>
+        </defenseProDevices>
+        <defenseProDevices index="1">
+            <class>com.radware.vision.automation.tools.sutsystemobjects.devicesinfo.DeviceInfo</class>
+            <deviceName>DefensePro_172.16.22.24</deviceName>
+            <deviceIp>172.16.22.24</deviceIp>
+            <username>radware</username>
+            <password>radware</password>
+            <readCommunity>public</readCommunity>
+            <writeCommunity>public</writeCommunity>
+            <macAddress>00:03:b2:52:5a:40</macAddress>
+        </defenseProDevices>
+        <defenseProDevices index="2">
+            <class>com.radware.vision.automation.tools.sutsystemobjects.devicesinfo.DeviceInfo</class>
+            <deviceName>DefensePro_172.16.22.25</deviceName>
+            <deviceIp>172.16.22.25</deviceIp>
+            <username>automation</username>
+            <password>radware</password>
+            <readCommunity>public</readCommunity>
+            <writeCommunity>public</writeCommunity>
+            <macAddress>00:03:b2:52:6b:00</macAddress>
+        </defenseProDevices>
+        <defenseProDevices index="3">
+            <class>com.radware.vision.automation.tools.sutsystemobjects.devicesinfo.DeviceInfo</class>
+            <deviceName>DefensePro_172.16.22.26</deviceName>
+            <deviceIp>172.16.22.26</deviceIp>
+            <username>automation</username>
+            <password>automation</password>
+            <readCommunity>automation</readCommunity>
+            <writeCommunity>automation</writeCommunity>
+            <macAddress>00:03:b2:4b:40:c0</macAddress>
+        </defenseProDevices>
+        <defenseProDevices index="4">
+            <class>com.radware.vision.automation.tools.sutsystemobjects.devicesinfo.DeviceInfo</class>
+            <deviceName>DefensePro_172.16.22.27</deviceName>
+            <deviceIp>172.16.22.27</deviceIp>
+            <username>radware</username>
+            <password>radware</password>
+            <readCommunity>public</readCommunity>
+            <writeCommunity>public</writeCommunity>
+            <macAddress>00:03:b2:ca:88:00</macAddress>
+        </defenseProDevices>
+        <defenseProDevices index="5">
+            <class>com.radware.vision.automation.tools.sutsystemobjects.devicesinfo.DeviceInfo</class>
+            <deviceName>DefensePro_172.16.22.31</deviceName>
+            <deviceIp>172.16.22.31</deviceIp>
+            <username>shay</username>
+            <password>radware</password>
+            <readCommunity>public</readCommunity>
+            <writeCommunity>public</writeCommunity>
+            <macAddress>00:03:b2:89:8b:00</macAddress>
+        </defenseProDevices>
+        <defenseProDevices index="6">
+            <class>com.radware.vision.automation.tools.sutsystemobjects.devicesinfo.DeviceInfo</class>
+            <deviceName>DefensePro_172.16.22.92</deviceName>
+            <deviceIp>172.16.22.92</deviceIp>
+            <username>radware</username>
+            <password>radware</password>
+            <readCommunity>public</readCommunity>
+            <writeCommunity>public</writeCommunity>
+        </defenseProDevices>
+        <defenseProDevices index="7">
+            <class>com.radware.vision.automation.tools.sutsystemobjects.devicesinfo.DeviceInfo</class>
+            <deviceName>DefensePro_172.16.22.93</deviceName>
+            <deviceIp>172.16.22.93</deviceIp>
+            <username>radware</username>
+            <password>radware</password>
+            <readCommunity>public</readCommunity>
+            <writeCommunity>public</writeCommunity>
+        </defenseProDevices>
+        <defenseProDevices index="10">
+            <class>com.radware.vision.automation.tools.sutsystemobjects.devicesinfo.DeviceInfo</class>
+            <deviceName>DefensePro_172.16.22.50</deviceName>
+            <deviceIp>172.16.22.50</deviceIp>
+            <username>radware</username>
+            <password>radware1</password>
+            <readCommunity>public</readCommunity>
+            <writeCommunity>public</writeCommunity>
+            <macAddress>2c:b6:93:45:fd:00</macAddress>
+        </defenseProDevices>
+        <defenseProDevices index="11">
+            <class>com.radware.vision.automation.tools.sutsystemobjects.devicesinfo.DeviceInfo</class>
+            <deviceName>DefensePro_172.16.22.51</deviceName>
+            <deviceIp>172.16.22.51</deviceIp>
+            <username>radware</username>
+            <password>radware1</password>
+            <readCommunity>public</readCommunity>
+            <writeCommunity>public</writeCommunity>
+            <macAddress>2c:b6:93:55:03:c0</macAddress>
+        </defenseProDevices>
+        <defenseProDevices index="12">
+            <class>com.radware.vision.automation.tools.sutsystemobjects.devicesinfo.DeviceInfo</class>
+            <deviceName>DefensePro_172.16.22.55</deviceName>
+            <deviceIp>172.16.22.55</deviceIp>
+            <username>radware</username>
+            <password>radware1</password>
+            <readCommunity>public</readCommunity>
+            <writeCommunity>public</writeCommunity>
+            <macAddress>00:50:56:98:13:c3</macAddress>
+        </defenseProDevices>
+        <defenseProDevices index="20">
+            <class>com.radware.vision.automation.tools.sutsystemobjects.devicesinfo.DeviceInfo</class>
+            <deviceName>DefensePro_50.50.7.1</deviceName>
+            <deviceIp>50.50.7.1</deviceIp>
+            <username>radware</username>
+            <password>radware</password>
+            <readCommunity>public</readCommunity>
+            <writeCommunity>public</writeCommunity>
+            <macAddress>00:03:b2:ba:f3:00</macAddress>
+        </defenseProDevices>
+        <defenseProDevices index="21">
+            <class>com.radware.vision.automation.tools.sutsystemobjects.devicesinfo.DeviceInfo</class>
+            <deviceName>DefensePro_50.50.7.2</deviceName>
+            <deviceIp>50.50.7.2</deviceIp>
+            <username>radware</username>
+            <password>radware</password>
+            <readCommunity>public</readCommunity>
+            <writeCommunity>public</writeCommunity>
+            <macAddress>00:03:b2:ba:f3:00</macAddress>
+        </defenseProDevices>
+        <defenseProDevices index="31">
+            <class>com.radware.vision.automation.tools.sutsystemobjects.devicesinfo.DeviceInfo</class>
+            <deviceName>DefensePro_1.1.1.1</deviceName>
+            <deviceIp>1.1.1.1</deviceIp>
+            <username>radware</username>
+            <password>radware</password>
+            <readCommunity>public</readCommunity>
+            <writeCommunity>public</writeCommunity>
+            <macAddress>00:03:b2:sh:f3:00</macAddress>
+        </defenseProDevices>
+
+        <alteonDevices index="0">
+            <class>com.radware.vision.automation.tools.sutsystemobjects.devicesinfo.DeviceInfo</class>
+            <deviceName>Alteon_172.17.163.6</deviceName>
+            <deviceIp>172.17.163.6</deviceIp>
+            <username>admin</username>
+            <password>radware</password>
+            <readCommunity>public</readCommunity>
+            <writeCommunity>private</writeCommunity>
+        </alteonDevices>
+        <alteonDevices index="1">
+            <class>com.radware.vision.automation.tools.sutsystemobjects.devicesinfo.DeviceInfo</class>
+            <deviceName>Alteon_172.17.163.7</deviceName>
+            <deviceIp>172.17.163.7</deviceIp>
+            <username>radware</username>
+            <password>radware</password>
+            <readCommunity>public</readCommunity>
+            <writeCommunity>private</writeCommunity>
+        </alteonDevices>
+        <alteonDevices index="2">
+            <class>com.radware.vision.automation.tools.sutsystemobjects.devicesinfo.DeviceInfo</class>
+            <deviceName>Alteon_172.17.178.1</deviceName>
+            <deviceIp>172.17.178.1</deviceIp>
+            <username>admin</username>
+            <password>admin</password>
+            <readCommunity>public</readCommunity>
+            <writeCommunity>private</writeCommunity>
+        </alteonDevices>
+        <alteonDevices index="3">
+            <class>com.radware.vision.automation.tools.sutsystemobjects.devicesinfo.DeviceInfo</class>
+            <deviceName>Alteon_172.17.178.2</deviceName>
+            <deviceIp>172.17.178.2</deviceIp>
+            <username>admin</username>
+            <password>admin</password>
+            <readCommunity>public</readCommunity>
+            <writeCommunity>private</writeCommunity>
+        </alteonDevices>
+        <alteonDevices index="4">
+            <class>com.radware.vision.automation.tools.sutsystemobjects.devicesinfo.DeviceInfo</class>
+            <deviceName>TorAlteon_172.16.62.63</deviceName>
+            <deviceIp>172.16.62.63</deviceIp>
+            <username>admin</username>
+            <password>admin</password>
+            <readCommunity>automation</readCommunity>
+            <writeCommunity>automation</writeCommunity>
+        </alteonDevices>
+        <alteonDevices index="6">
+            <class>com.radware.vision.automation.tools.sutsystemobjects.devicesinfo.DeviceInfo</class>
+            <deviceName>Alteon_172.16.62.60</deviceName>
+            <deviceIp>172.16.62.60</deviceIp>
+            <username>admin</username>
+            <password>admin</password>
+            <readCommunity>public</readCommunity>
+            <writeCommunity>private</writeCommunity>
+            <macAddress>00:03:b2:a3:db:00</macAddress>
+        </alteonDevices>
+        <alteonDevices index="7">
+            <class>com.radware.vision.automation.tools.sutsystemobjects.devicesinfo.DeviceInfo</class>
+            <deviceName>Alteon_172.16.62.60_vADC-2</deviceName>
+            <deviceIp>172.16.160.2</deviceIp>
+            <username>admin</username>
+            <password>admin</password>
+            <readCommunity>public</readCommunity>
+            <writeCommunity>private</writeCommunity>
+        </alteonDevices>
+        <alteonDevices index="10">
+            <class>com.radware.vision.automation.tools.sutsystemobjects.devicesinfo.DeviceInfo</class>
+            <deviceName>Alteon_172.17.154.19</deviceName>
+            <deviceIp>172.17.154.19</deviceIp>
+            <username>admin</username>
+            <password>admin</password>
+            <readCommunity>public</readCommunity>
+            <writeCommunity>private</writeCommunity>
+        </alteonDevices>
+        <alteonDevices index="11">
+            <class>com.radware.vision.automation.tools.sutsystemobjects.devicesinfo.DeviceInfo</class>
+            <deviceName>Alteon_50.50.101.11</deviceName>
+            <deviceIp>50.50.101.11</deviceIp>
+            <username>admin</username>
+            <password>admin</password>
+            <readCommunity>public</readCommunity>
+            <writeCommunity>private</writeCommunity>
+        </alteonDevices>
+        <alteonDevices index="12">
+            <class>com.radware.vision.automation.tools.sutsystemobjects.devicesinfo.DeviceInfo</class>
+            <deviceName>Alteon_50.50.101.21</deviceName>
+            <deviceIp>50.50.101.21</deviceIp>
+            <username>admin</username>
+            <password>admin</password>
+            <readCommunity>public</readCommunity>
+            <writeCommunity>private</writeCommunity>
+        </alteonDevices>
+        <alteonDevices index="13">
+            <class>com.radware.vision.automation.tools.sutsystemobjects.devicesinfo.DeviceInfo</class>
+            <deviceName>Alteon_50.50.101.22</deviceName>
+            <deviceIp>50.50.101.22</deviceIp>
+            <username>admin</username>
+            <password>admin</password>
+            <readCommunity>public</readCommunity>
+            <writeCommunity>private</writeCommunity>
+        </alteonDevices>
+        <alteonDevices index="14">
+            <class>com.radware.vision.automation.tools.sutsystemobjects.devicesinfo.DeviceInfo</class>
+            <deviceName>Alteon_172.17.164.17</deviceName>
+            <deviceIp>172.17.164.17</deviceIp>
+            <username>admin</username>
+            <password>shimon1!$4</password>
+            <readCommunity>public</readCommunity>
+            <writeCommunity>private</writeCommunity>
+        </alteonDevices>
+        <alteonDevices index="15">
+            <class>com.radware.vision.automation.tools.sutsystemobjects.devicesinfo.DeviceInfo</class>
+            <deviceName>Alteon_172.17.164.18</deviceName>
+            <deviceIp>172.17.164.18</deviceIp>
+            <username>admin</username>
+            <password>shimon1!$4</password>
+            <readCommunity>public</readCommunity>
+            <writeCommunity>private</writeCommunity>
+        </alteonDevices>
+        <alteonDevices index="16">
+            <class>com.radware.vision.automation.tools.sutsystemobjects.devicesinfo.DeviceInfo</class>
+            <deviceName>Alteon_172.17.164.11</deviceName>
+            <deviceIp>172.17.164.11</deviceIp>
+            <username>admin</username>
+            <password>shimon1!$4</password>
+            <readCommunity>public</readCommunity>
+            <writeCommunity>private</writeCommunity>
+        </alteonDevices>
+        <alteonDevices index="20">
+            <class>com.radware.vision.automation.tools.sutsystemobjects.devicesinfo.DeviceInfo</class>
+            <deviceName>Alteon_172.16.160.1</deviceName>
+            <deviceIp>172.16.160.1</deviceIp>
+            <username>admin</username>
+            <password>admin</password>
+            <readCommunity>public</readCommunity>
+            <writeCommunity>private</writeCommunity>
+        </alteonDevices>
+
+        <alteonDevices index="21">
+            <class>com.radware.vision.automation.tools.sutsystemobjects.devicesinfo.DeviceInfo</class>
+            <deviceName>Alteon_50.50.101.31</deviceName>
+            <deviceIp>50.50.101.31</deviceIp>
+            <username>admin</username>
+            <password>admin</password>
+            <readCommunity>public</readCommunity>
+            <writeCommunity>private</writeCommunity>
+        </alteonDevices>
+        <alteonDevices index="22">
+            <class>com.radware.vision.automation.tools.sutsystemobjects.devicesinfo.DeviceInfo</class>
+            <deviceName>Alteon_50.50.101.32</deviceName>
+            <deviceIp>50.50.101.32</deviceIp>
+            <username>admin</username>
+            <password>admin</password>
+            <readCommunity>public</readCommunity>
+            <writeCommunity>private</writeCommunity>
+        </alteonDevices>
+
+
+        <alteonDevices index="30">
+            <class>com.radware.vision.automation.tools.sutsystemobjects.devicesinfo.DeviceInfo</class>
+            <deviceName>Alteon_2.2.2.2</deviceName>
+            <deviceIp>2.2.2.2</deviceIp>
+            <username>admin</username>
+            <password>admin</password>
+            <readCommunity>public</readCommunity>
+            <writeCommunity>private</writeCommunity>
+        </alteonDevices>
+
+        <appWallDevices index="0">
+            <class>com.radware.vision.automation.tools.sutsystemobjects.devicesinfo.DeviceInfo</class>
+            <deviceName>AppWall_172.17.178.21</deviceName>
+            <deviceIp>172.17.178.21</deviceIp>
+            <username>admin</username>
+            <password>radware</password>
+        </appWallDevices>
+        <appWallDevices index="1">
+            <class>com.radware.vision.automation.tools.sutsystemobjects.devicesinfo.DeviceInfo</class>
+            <deviceName>AppWall_172.17.154.25</deviceName>
+            <deviceIp>172.17.154.25</deviceIp>
+            <username>shay</username>
+            <password>Shirev4$</password>
+        </appWallDevices>
+        <appWallDevices index="2">
+            <class>com.radware.vision.automation.tools.sutsystemobjects.devicesinfo.DeviceInfo</class>
+            <deviceName>AppWall_172.17.164.30</deviceName>
+            <deviceIp>172.17.164.30</deviceIp>
+            <username>user1</username>
+            <password>1qaz!QAZ</password>
+            <httpsPort>443</httpsPort>
+        </appWallDevices>
+
+        <linkProofDevices index="0">
+            <class>com.radware.vision.automation.tools.sutsystemobjects.devicesinfo.DeviceInfo</class>
+            <deviceName>LinkProof NG_172.17.178.11</deviceName>
+            <deviceIp>172.17.178.11</deviceIp>
+            <username>admin</username>
+            <password>admin</password>
+            <readCommunity>public</readCommunity>
+            <writeCommunity>private</writeCommunity>
+        </linkProofDevices>
+        <linkProofDevices index="1">
+            <class>com.radware.vision.automation.tools.sutsystemobjects.devicesinfo.DeviceInfo</class>
+            <deviceName>LinkProof NG_172.17.154.190</deviceName>
+            <deviceIp>172.17.154.190</deviceIp>
+            <username>admin</username>
+            <password>admin</password>
+            <readCommunity>public</readCommunity>
+            <writeCommunity>private</writeCommunity>
+        </linkProofDevices>
+        <linkProofDevices index="2">
+            <class>com.radware.vision.automation.tools.sutsystemobjects.devicesinfo.DeviceInfo</class>
+            <deviceName>LinkProof NG_172.17.154.200</deviceName>
+            <deviceIp>172.17.154.200</deviceIp>
+            <username>admin</username>
+            <password>admin</password>
+            <readCommunity>public</readCommunity>
+            <writeCommunity>private</writeCommunity>
+        </linkProofDevices>
+    </devices>
+
+    <connectivity>
+        <devices>
+            <aas>
+                <port dcTo="dut" index="1" isAvailable="false" name="1" otherPortIndex="1" vlan="10"/>
+                <port dcTo="dut" index="2" isAvailable="false" name="2" otherPortIndex="1" vlan="20"/>
+                <port dcTo="dut" index="3" isAvailable="false" name="3" otherPortIndex="1" vlan="1"/>
+                <port dcTo="dut" index="4" isAvailable="false" name="4" otherPortIndex="1" vlan="1"/>
+                <port dcTo="dut" index="5" isAvailable="false" name="5" otherPortIndex="5" vlan="10"/>
+                <port dcTo="dut" index="6" isAvailable="false" name="6" otherPortIndex="-1" vlan="20"/>
+                <port dcTo="dut" index="7" isAvailable="false" name="7" otherPortIndex="7" vlan="1"/>
+                <port dcTo="dut" index="8" isAvailable="false" name="8" otherPortIndex="-1" vlan="1"/>
+                <port dcTo="dut" index="9" isAvailable="false" name="9" otherPortIndex="7" vlan="1"/>
+                <port dcTo="dut" index="10" isAvailable="false" name="10" otherPortIndex="1" vlan="1"/>
+                <port dcTo="dut" index="11" isAvailable="false" name="11" otherPortIndex="1" vlan="1"/>
+                <port dcTo="dut" index="12" isAvailable="false" name="12" otherPortIndex="-1" vlan="1"/>
+                <port dcTo="dut" index="13" isAvailable="false" name="13" otherPortIndex="7" vlan="1"/>
+                <port dcTo="dut" index="14" isAvailable="false" name="14" otherPortIndex="-1" vlan="1"/>
+                <port dcTo="dut" index="15" isAvailable="false" name="15" otherPortIndex="-1" vlan="1"/>
+                <port dcTo="dut" index="16" isAvailable="false" name="16" otherPortIndex="-1" vlan="1"/>
+                <port dcTo="dut" index="17" isAvailable="false" name="17" otherPortIndex="-1" vlan="1"/>
+                <port dcTo="dut" index="18" isAvailable="false" name="18" otherPortIndex="-1" vlan="1"/>
+                <port dcTo="switch" index="19" isAvailable="true" name="19" otherPortIndex="1" vlan="10"/>
+                <port dcTo="switch" index="20" isAvailable="true" name="20" otherPortIndex="1" vlan="20"/>
+                <port dcTo="dut" index="21" isAvailable="false" name="21" otherPortIndex="-1" vlan="1"/>
+                <port dcTo="dut" index="22" isAvailable="false" name="22" otherPortIndex="-1" vlan="1"/>
+                <port dcTo="dut" index="23" isAvailable="false" name="23" otherPortIndex="-1" vlan="1"/>
+                <port dcTo="dut" index="24" isAvailable="false" name="24" otherPortIndex="-1" vlan="1"/>
+                <port dcTo="dut" index="25" isAvailable="false" name="25" otherPortIndex="7" vlan="1"/>
+                <port dcTo="dut" index="26" isAvailable="false" name="26" otherPortIndex="-1" vlan="1"/>
+                <port dcTo="dut" index="27" isAvailable="false" name="27" otherPortIndex="-1" vlan="1"/>
+                <port dcTo="dut" index="28" isAvailable="false" name="28" otherPortIndex="-1" vlan="1"/>
+            </aas>
+        </devices>
+
+        <servers>
+            <server dcTo="switch" designation="server" index="1" otherPortIndex="3" vlan="150"/>
+            <server dcTo="switch" designation="server" index="2" otherPortIndex="4" vlan="150"/>
+            <server dcTo="switch" designation="server" index="3" otherPortIndex="5" vlan="150"/>
+            <server dcTo="switch" designation="server" index="4" otherPortIndex="6" vlan="150"/>
+            <server dcTo="switch" designation="client" index="5" otherPortIndex="3" vlan="150"/>
+            <server dcTo="switch" designation="client" index="6" otherPortIndex="4" vlan="150"/>
+        </servers>
+    </connectivity>
+
+    <aas>
+        <class>com.aas.product.AasProduct</class>
+        <aasCliApplication>
+            <class>com.aas.basics.application.AasCliApplication</class>
+            <conn edit="enable">
+                <class>com.aas.basics.connection.AasConnectivityManager</class>
+                <cli>
+                    <class>com.aas.basics.connection.AasCliConnectionTelnet</class>
+                    <useTelInputStream>true</useTelInputStream>
+                    <password>admin</password>
+                    <user>admin</user>
+                    <host edit="enable">172.17.164.125</host>
+                    <connectOnInit>false</connectOnInit>
+                    <useBuffer>true</useBuffer>
+                    <dump>true</dump>
+                </cli>
+                <console>
+                    <class>com.aas.basics.connection.AasCliConnectionTerminalSrv</class>
+                    <useTelnetInputStream>true</useTelnetInputStream>
+                    <user>admin</user>
+                    <password>admin</password>
+                    <host>10.171.1.51</host>
+                    <protocol>telnet</protocol>
+                    <port>5007</port>
+                    <dump>true</dump>
+                    <connectOnInit>false</connectOnInit>
+                </console>
+                <ssh>
+                    <class>com.aas.basics.connection.AasCliConnectionTelnet</class>
+                    <useTelInputStream>true</useTelInputStream>
+                    <user>admin</user>
+                    <password>admin</password>
+                    <host edit="enable">172.17.164.125</host>
+                    <protocol>ssh</protocol>
+                    <dump>true</dump>
+                    <connectOnInit>false</connectOnInit>
+                </ssh>
+            </conn>
+        </aasCliApplication>
+        <gaCliApplication>
+            <class>com.aas.basics.application.AasCliApplication</class>
+            <conn edit="enable">
+                <class>com.aas.basics.connection.AasConnectivityManager</class>
+                <cli>
+                    <class>com.aas.basics.connection.AasCliConnectionTelnet</class>
+                    <useTelInputStream>true</useTelInputStream>
+                    <password>admin</password>
+                    <user>admin</user>
+                    <host edit="enable">172.17.164.125</host>
+                    <connectOnInit>false</connectOnInit>
+                    <useBuffer>true</useBuffer>
+                    <dump>true</dump>
+                </cli>
+                <console>
+                    <class>com.aas.basics.connection.AasCliConnectionTerminalSrv</class>
+                    <useTelnetInputStream>true</useTelnetInputStream>
+                    <user>admin</user>
+                    <password>admin</password>
+                    <host>10.171.1.51</host>
+                    <protocol>telnet</protocol>
+                    <port>5007</port>
+                    <dump>true</dump>
+                    <connectOnInit>false</connectOnInit>
+                </console>
+                <ssh>
+                    <class>com.aas.basics.connection.AasCliConnectionTelnet</class>
+                    <useTelInputStream>true</useTelInputStream>
+                    <user>admin</user>
+                    <password>admin</password>
+                    <host edit="enable">172.17.164.125</host>
+                    <protocol>ssh</protocol>
+                    <dump>true</dump>
+                    <connectOnInit>false</connectOnInit>
+                </ssh>
+            </conn>
+        </gaCliApplication>
+        <environment>
+            <platform>ODS-HT</platform>
+        </environment>
+    </aas>
+
+    <linuxs>
+        <linux0>
+            <class>com.aqua.sysobj.linux.Linux</class>
+            <linuxCliApplication>
+                <class>com.aqua.sysobj.linux.basics.application.LinuxCliApplication</class>
+                <conn>
+                    <class>
+                        com.aqua.sysobj.linux.basics.connection.LinuxConnectivityManager
+                    </class>
+                    <cli>
+                        <class>com.aqua.sysobj.linux.basics.connection.LinuxCliConnection</class>
+                        <host>10.171.165.11</host>
+                        <protocol>ssh</protocol>
+                        <user>root</user>
+                        <password>radware</password>
+                        <connectOnInit>false</connectOnInit>
+                    </cli>
+                </conn>
+            </linuxCliApplication>
+            <environment>
+                <tftpFolder>/tftpboot</tftpFolder>
+                <network>
+                    <interface index="0" name="eth0" switchPortIndex="1" switchVlanId="10">
+                        <ip addrIpV4="1.1.1.1" addrIpV6="4001::1:1:1" maskIpV4="255.0.0.0" maskIpV6="64"/>
+                    </interface>
+                    <interface index="1" name="eth1" switchPortIndex="1" switchVlanId="11">
+                        <ip addrIpV4="3.1.1.1" addrIpV6="4003::1:1:1" maskIpV4="255.0.0.0" maskIpV6="64"/>
+                    </interface>
+                    <interface index="2" name="eth2" switchPortIndex="23" switchVlanId="-1">
+                        <ip addrIpV4="10.171.165.11" addrIpV6="3ffe::10" maskIpV4="255.255.0.0" maskIpV6="64"/>
+                    </interface>
+                </network>
+            </environment>
+        </linux0>
+
+        <linux1>
+            <class>com.aqua.sysobj.linux.Linux</class>
+            <linuxCliApplication>
+                <class>com.aqua.sysobj.linux.basics.application.LinuxCliApplication</class>
+                <conn>
+                    <class>
+                        com.aqua.sysobj.linux.basics.connection.LinuxConnectivityManager
+                    </class>
+                    <cli>
+                        <class>com.aqua.sysobj.linux.basics.connection.LinuxCliConnection</class>
+                        <host>10.171.165.12</host>
+                        <protocol>ssh</protocol>
+                        <user>root</user>
+                        <password>radware</password>
+                        <connectOnInit>false</connectOnInit>
+                    </cli>
+                </conn>
+            </linuxCliApplication>
+            <environment>
+                <tftpFolder>/tftpboot</tftpFolder>
+                <network>
+                    <interface index="0" name="eth0" switchPortIndex="5" switchVlanId="10">
+                        <ip addrIpV4="1.1.1.2" addrIpV6="4001::1:1:2" maskIpV4="255.0.0.0" maskIpV6="64"/>
+                    </interface>
+                    <interface index="1" name="eth1" switchPortIndex="5" switchVlanId="11">
+                        <ip addrIpV4="3.1.1.2" addrIpV6="4003::1:1:2" maskIpV4="255.0.0.0" maskIpV6="64"/>
+                    </interface>
+                    <interface index="2" name="eth2" switchPortIndex="23" switchVlanId="-1">
+                        <ip addrIpV4="10.171.165.12" addrIpV6="3ffe::11" maskIpV4="255.255.0.0" maskIpV6="64"/>
+                    </interface>
+                </network>
+            </environment>
+        </linux1>
+
+        <linux2>
+            <class>com.aqua.sysobj.linux.Linux</class>
+            <linuxCliApplication>
+                <class>com.aqua.sysobj.linux.basics.application.LinuxCliApplication</class>
+                <conn>
+                    <class>
+                        com.aqua.sysobj.linux.basics.connection.LinuxConnectivityManager
+                    </class>
+                    <cli>
+                        <class>com.aqua.sysobj.linux.basics.connection.LinuxCliConnection</class>
+                        <host>10.171.165.222</host>
+                        <protocol>ssh</protocol>
+                        <user>root</user>
+                        <password>radware</password>
+                        <connectOnInit>false</connectOnInit>
+                    </cli>
+                </conn>
+            </linuxCliApplication>
+            <environment>
+                <tftpFolder>/tftpboot</tftpFolder>
+                <network>
+                    <interface index="0" name="eth0" switchPortIndex="5" switchVlanId="10">
+                        <ip addrIpV4="2.1.1.1" addrIpV6="4002::1:1:1" maskIpV4="255.0.0.0" maskIpV6="64"/>
+                    </interface>
+                    <interface index="1" name="eth1" switchPortIndex="5" switchVlanId="11">
+                        <ip addrIpV4="4.1.1.1" addrIpV6="4004::1:1:1"
+                            aliasIpV4="4.1.1.11,4.1.1.12,4.1.1.13,4.1.1.14,4.1.1.15,4.1.1.16,4.1.1.17,4.1.1.18,4.1.1.19,4.1.1.20,4.1.1.21,4.1.1.22,4.1.1.23,4.1.1.24,4.1.1.25,4.1.1.26,4.1.1.27,4.1.1.28,4.1.1.29,4.1.1.30,4.1.1.31,4.1.1.32,4.1.1.33,4.1.1.34,4.1.1.35,4.1.1.36,4.1.1.37,4.1.1.38,4.1.1.39,4.1.1.40,4.1.1.41,4.1.1.42,4.1.1.43,4.1.1.44,4.1.1.45,4.1.1.46,4.1.1.47,4.1.1.48,4.1.1.49,4.1.1.50,4.1.1.51,4.1.1.52,4.1.1.53,4.1.1.54,4.1.1.55,4.1.1.56,4.1.1.57,4.1.1.58,4.1.1.59,4.1.1.60,4.1.1.61,4.1.1.62,4.1.1.63,4.1.1.64,4.1.1.65,4.1.1.66,4.1.1.67,4.1.1.68,4.1.1.69,4.1.1.70,4.1.1.71,4.1.1.72,4.1.1.73,4.1.1.74,4.1.1.75,4.1.1.76,4.1.1.77,4.1.1.78,4.1.1.79,4.1.1.80,4.1.1.81,4.1.1.82,4.1.1.83,4.1.1.84,4.1.1.85,4.1.1.86,4.1.1.87,4.1.1.88,4.1.1.89,4.1.1.90,4.1.1.91,4.1.1.92,4.1.1.93,4.1.1.94,4.1.1.95,4.1.1.96,4.1.1.97,4.1.1.98,4.1.1.99,4.1.1.100,4.1.1.111,4.1.1.112,4.1.1.113,4.1.1.114,4.1.1.115,4.1.1.116,4.1.1.117,4.1.1.118,4.1.1.119,4.1.1.120,4.1.1.121,4.1.1.122,4.1.1.123,4.1.1.124,4.1.1.125,4.1.1.126,4.1.1.127,4.1.1.128,4.1.1.129,4.1.1.130,4.1.1.131,4.1.1.132,4.1.1.133,4.1.1.134,4.1.1.135,4.1.1.136,4.1.1.137,4.1.1.138,4.1.1.139,4.1.1.140,4.1.1.141,4.1.1.142,4.1.1.143,4.1.1.144,4.1.1.145,4.1.1.146,4.1.1.147,4.1.1.148,4.1.1.149,4.1.1.150,4.1.1.151,4.1.1.152,4.1.1.153,4.1.1.154,4.1.1.155,4.1.1.156,4.1.1.157,4.1.1.158,4.1.1.159,4.1.1.160,4.1.1.161,4.1.1.162,4.1.1.163,4.1.1.165,4.1.1.165,4.1.1.165,4.1.1.167,4.1.1.168,4.1.1.169,4.1.1.170,4.1.1.171,4.1.1.172,4.1.1.173,4.1.1.174,4.1.1.175,4.1.1.176,4.1.1.177,4.1.1.178,4.1.1.179,4.1.1.180,4.1.1.181,4.1.1.182,4.1.1.183,4.1.1.184,4.1.1.185,4.1.1.186,4.1.1.187,4.1.1.188,4.1.1.189,4.1.1.190,4.1.1.191,4.1.1.192,4.1.1.193,4.1.1.194,4.1.1.195,4.1.1.196,4.1.1.197,4.1.1.198,4.1.1.199,4.1.1.200,4.1.1.201,4.1.1.202,4.1.1.203,4.1.1.204,4.1.1.205,4.1.1.206,4.1.1.207,4.1.1.208,4.1.1.209,4.1.1.210,4.1.1.211,4.1.1.212,4.1.1.213,4.1.1.214,4.1.1.215,4.1.1.216,4.1.1.217,4.1.1.218,4.1.1.219,4.1.1.220,4.1.1.221,4.1.1.222,4.1.1.223,4.1.1.224,4.1.1.225,4.1.1.226,4.1.1.227,4.1.1.228,4.1.1.229,4.1.1.230,4.1.1.231,4.1.1.232,4.1.1.233,4.1.1.234,4.1.1.235,4.1.1.236,4.1.1.237,4.1.1.238,4.1.1.239,4.1.1.240,4.1.1.241,4.1.1.242,4.1.1.243,4.1.1.244,4.1.1.245,4.1.1.246,4.1.1.247,4.1.1.248,4.1.1.249,4.1.1.250"
+                            aliasIpv6="4004::1:1:11/64,4004::1:1:12/64,4004::1:1:13/64,4004::1:1:14/64,4004::1:1:15/64,4004::1:1:16/64,4004::1:1:17/64,4004::1:1:18/64,4004::1:1:19/64,4004::1:1:20/64,4004::1:1:21/64,4004::1:1:22/64,4004::1:1:23/64,4004::1:1:24/64,4004::1:1:25/64,4004::1:1:26/64,4004::1:1:27/64,4004::1:1:28/64,4004::1:1:29/64,4004::1:1:30/64,4004::1:1:31/64,4004::1:1:32/64,4004::1:1:33/64,4004::1:1:34/64,4004::1:1:35/64,4004::1:1:36/64,4004::1:1:37/64,4004::1:1:38/64,4004::1:1:39/64,4004::1:1:40/64,4004::1:1:41/64,4004::1:1:42/64,4004::1:1:43/64,4004::1:1:44/64,4004::1:1:45/64,4004::1:1:46/64,4004::1:1:47/64,4004::1:1:48/64,4004::1:1:49/64,4004::1:1:50/64,4004::1:1:51/64,4004::1:1:52/64,4004::1:1:53/64,4004::1:1:54/64,4004::1:1:55/64,4004::1:1:56/64,4004::1:1:57/64,4004::1:1:58/64,4004::1:1:59/64,4004::1:1:60/64,4004::1:1:61/64,4004::1:1:62/64,4004::1:1:63/64,4004::1:1:64/64,4004::1:1:65/64,4004::1:1:66/64,4004::1:1:67/64,4004::1:1:68/64,4004::1:1:69/64,4004::1:1:70/64,4004::1:1:71/64,4004::1:1:72/64,4004::1:1:73/64,4004::1:1:74/64,4004::1:1:75/64,4004::1:1:76/64,4004::1:1:77/64,4004::1:1:78/64,4004::1:1:79/64,4004::1:1:80/64,4004::1:1:81/64,4004::1:1:82/64,4004::1:1:83/64,4004::1:1:84/64,4004::1:1:85/64,4004::1:1:86/64,4004::1:1:87/64,4004::1:1:88/64,4004::1:1:89/64,4004::1:1:90/64,4004::1:1:91/64,4004::1:1:92/64,4004::1:1:93/64,4004::1:1:94/64,4004::1:1:95/64,4004::1:1:96/64,4004::1:1:97/64,4004::1:1:98/64,4004::1:1:99/64,4004::1:1:100/64,4004::1:1:111/64,4004::1:1:112/64,4004::1:1:113/64,4004::1:1:114/64,4004::1:1:115/64,4004::1:1:116/64,4004::1:1:117/64,4004::1:1:118/64,4004::1:1:119/64,4004::1:1:120/64,4004::1:1:121/64,4004::1:1:122/64,4004::1:1:123/64,4004::1:1:124/64,4004::1:1:125/64,4004::1:1:126/64,4004::1:1:127/64,4004::1:1:128/64,4004::1:1:129/64,4004::1:1:130/64,4004::1:1:131/64,4004::1:1:132/64,4004::1:1:133/64,4004::1:1:134/64,4004::1:1:135/64,4004::1:1:136/64,4004::1:1:137/64,4004::1:1:138/64,4004::1:1:139/64,4004::1:1:140/64,4004::1:1:141/64,4004::1:1:142/64,4004::1:1:143/64,4004::1:1:144/64,4004::1:1:145/64,4004::1:1:146/64,4004::1:1:147/64,4004::1:1:148/64,4004::1:1:149/64,4004::1:1:150/64,4004::1:1:151/64,4004::1:1:152/64,4004::1:1:153/64,4004::1:1:154/64,4004::1:1:155/64,4004::1:1:156/64,4004::1:1:157/64,4004::1:1:158/64,4004::1:1:159/64,4004::1:1:160/64,4004::1:1:161/64,4004::1:1:162/64,4004::1:1:163/64,4004::1:1:165/64,4004::1:1:165/64,4004::1:1:165/64,4004::1:1:167/64,4004::1:1:168/64,4004::1:1:169/64,4004::1:1:170/64,4004::1:1:171/64,4004::1:1:172/64,4004::1:1:173/64,4004::1:1:174/64,4004::1:1:175/64,4004::1:1:176/64,4004::1:1:177/64,4004::1:1:178/64,4004::1:1:179/64,4004::1:1:180/64,4004::1:1:181/64,4004::1:1:182/64,4004::1:1:183/64,4004::1:1:184/64,4004::1:1:185/64,4004::1:1:186/64,4004::1:1:187/64,4004::1:1:188/64,4004::1:1:189/64,4004::1:1:190/64,4004::1:1:191/64,4004::1:1:192/64,4004::1:1:193/64,4004::1:1:194/64,4004::1:1:195/64,4004::1:1:196/64,4004::1:1:197/64,4004::1:1:198/64,4004::1:1:199/64,4004::1:1:200/64,4004::1:1:201/64,4004::1:1:202/64,4004::1:1:203/64,4004::1:1:204/64,4004::1:1:205/64,4004::1:1:206/64,4004::1:1:207/64,4004::1:1:208/64,4004::1:1:209/64,4004::1:1:210/64,4004::1:1:211/64,4004::1:1:212/64,4004::1:1:213/64,4004::1:1:214/64,4004::1:1:215/64,4004::1:1:216/64,4004::1:1:217/64,4004::1:1:218/64,4004::1:1:219/64,4004::1:1:220/64,4004::1:1:221/64,4004::1:1:222/64,4004::1:1:223/64,4004::1:1:224/64,4004::1:1:225/64,4004::1:1:226/64,4004::1:1:227/64,4004::1:1:228/64,4004::1:1:229/64,4004::1:1:230/64,4004::1:1:231/64,4004::1:1:232/64,4004::1:1:233/64,4004::1:1:234/64,4004::1:1:235/64,4004::1:1:236/64,4004::1:1:237/64,4004::1:1:238/64,4004::1:1:239/64,4004::1:1:240/64,4004::1:1:241/64,4004::1:1:242/64,4004::1:1:243/64,4004::1:1:244/64,4004::1:1:245/64,4004::1:1:246/64,4004::1:1:247/64,4004::1:1:248/64,4004::1:1:249/64,4004::1:1:250/64"
+                            maskIpV4="255.0.0.0" maskIpV6="64"/>
+                    </interface>
+                    <interface index="2" name="eth2" switchPortIndex="23" switchVlanId="-1">
+                        <ip addrIpV4="10.171.165.1" addrIpV6="4ffe::20" maskIpV4="255.255.0.0" maskIpV6="64"/>
+                    </interface>
+                </network>
+            </environment>
+        </linux2>
+
+        <linux3>
+            <class>com.aqua.sysobj.linux.Linux</class>
+            <linuxCliApplication>
+                <class>com.aqua.sysobj.linux.basics.application.LinuxCliApplication</class>
+                <conn>
+                    <class>
+                        com.aqua.sysobj.linux.basics.connection.LinuxConnectivityManager
+                    </class>
+                    <cli>
+                        <class>com.aqua.sysobj.linux.basics.connection.LinuxCliConnection</class>
+                        <host>10.171.165.2</host>
+                        <protocol>ssh</protocol>
+                        <user>root</user>
+                        <password>radware</password>
+                        <connectOnInit>false</connectOnInit>
+                    </cli>
+                </conn>
+            </linuxCliApplication>
+            <environment>
+                <tftpFolder>/tftpboot</tftpFolder>
+                <network>
+                    <interface index="0" name="eth0" switchPortIndex="5" switchVlanId="10">
+                        <ip addrIpV4="2.1.1.2" addrIpV6="4002::1:1:2" maskIpV4="255.0.0.0" maskIpV6="64"/>
+                    </interface>
+                    <interface index="1" name="eth1" switchPortIndex="5" switchVlanId="11">
+                        <ip addrIpV4="4.1.1.2" addrIpV6="4004::1:1:2" gwIpV4="" maskIpV4="255.0.0.0" maskIpV6="64"/>
+                    </interface>
+                    <interface index="2" name="eth2" switchPortIndex="23" switchVlanId="-1">
+                        <ip addrIpV4="10.171.165.2" addrIpV6="4ffe::21" maskIpV4="255.255.0.0" maskIpV6="64"/>
+                    </interface>
+                </network>
+            </environment>
+        </linux3>
+
+        <linux4>
+            <class>com.aqua.sysobj.linux.Linux</class>
+            <linuxCliApplication>
+                <class>com.aqua.sysobj.linux.basics.application.LinuxCliApplication</class>
+                <conn>
+                    <class>
+                        com.aqua.sysobj.linux.basics.connection.LinuxConnectivityManager
+                    </class>
+                    <cli>
+                        <class>com.aqua.sysobj.linux.basics.connection.LinuxCliConnection</class>
+                        <host>10.171.165.13</host>
+                        <protocol>ssh</protocol>
+                        <user>root</user>
+                        <password>radware</password>
+                        <connectOnInit>false</connectOnInit>
+                    </cli>
+                </conn>
+            </linuxCliApplication>
+            <environment>
+                <tftpFolder>/tftpboot</tftpFolder>
+                <network>
+                    <interface index="0" name="eth0" switchPortIndex="5" switchVlanId="10">
+                        <ip addrIpV4="1.1.1.3" addrIpV6="4001::1:1:3" maskIpV4="255.0.0.0" maskIpV6="64"/>
+                    </interface>
+                    <interface index="1" name="eth1" switchPortIndex="5" switchVlanId="11">
+                        <ip addrIpV4="3.1.1.3" addrIpV6="4003::1:1:3" maskIpV4="255.0.0.0" maskIpV6="64"/>
+                    </interface>
+                    <interface index="2" name="eth2" switchPortIndex="23" switchVlanId="-1">
+                        <ip addrIpV4="10.171.165.13" addrIpV6="3ffe::12" maskIpV4="255.255.0.0" maskIpV6="64"/>
+                    </interface>
+                </network>
+            </environment>
+        </linux4>
+
+        <linux5>
+            <class>com.aqua.sysobj.linux.Linux</class>
+            <linuxCliApplication>
+                <class>com.aqua.sysobj.linux.basics.application.LinuxCliApplication</class>
+                <conn>
+                    <class>
+                        com.aqua.sysobj.linux.basics.connection.LinuxConnectivityManager
+                    </class>
+                    <cli>
+                        <class>com.aqua.sysobj.linux.basics.connection.LinuxCliConnection</class>
+                        <host>10.171.165.14</host>
+                        <protocol>ssh</protocol>
+                        <user>root</user>
+                        <password>radware</password>
+                        <connectOnInit>false</connectOnInit>
+                    </cli>
+                </conn>
+            </linuxCliApplication>
+            <environment>
+                <tftpFolder>/tftpboot</tftpFolder>
+                <network>
+                    <interface index="0" name="eth0" switchPortIndex="5" switchVlanId="10">
+                        <ip addrIpV4="1.1.1.4" addrIpV6="4001::1:1:4" maskIpV4="255.0.0.0" maskIpV6="64"/>
+                    </interface>
+                    <interface index="1" name="eth1" switchPortIndex="5" switchVlanId="11">
+                        <ip addrIpV4="3.1.1.4" addrIpV6="4003::1:1:4" maskIpV4="255.0.0.0" maskIpV6="64"/>
+                    </interface>
+                    <interface index="2" name="eth3" switchPortIndex="23" switchVlanId="-1">
+                        <ip addrIpV4="10.171.165.14" addrIpV6="3ffe::13" maskIpV4="255.255.0.0" maskIpV6="64"/>
+                    </interface>
+                </network>
+            </environment>
+        </linux5>
+
+        <linux6>
+            <class>com.aqua.sysobj.linux.Linux</class>
+            <linuxCliApplication>
+                <class>com.aqua.sysobj.linux.basics.application.LinuxCliApplication</class>
+                <conn>
+                    <class>
+                        com.aqua.sysobj.linux.basics.connection.LinuxConnectivityManager
+                    </class>
+                    <cli>
+                        <class>com.aqua.sysobj.linux.basics.connection.LinuxCliConnection</class>
+                        <host>10.203.130.54</host>
+                        <protocol>ssh</protocol>
+                        <user>root</user>
+                        <password>radware</password>
+                        <connectOnInit>false</connectOnInit>
+                    </cli>
+                </conn>
+            </linuxCliApplication>
+            <environment>
+                <tftpFolder>/tftpboot</tftpFolder>
+                <network>
+                    <interface index="0" name="eth0" switchPortIndex="5" switchVlanId="10">
+                        <ip addrIpV4="1.1.1.5" addrIpV6="4001::1:1:5" maskIpV4="255.0.0.0" maskIpV6="64"/>
+                    </interface>
+                    <interface index="1" name="eth1" switchPortIndex="5" switchVlanId="11">
+                        <ip addrIpV4="3.1.1.5" addrIpV6="4003::1:1:5" maskIpV4="255.0.0.0" maskIpV6="64"/>
+                    </interface>
+                    <interface index="2" name="eth3" switchPortIndex="23" switchVlanId="-1">
+                        <ip addrIpV4="10.203.130.54" addrIpV6="ff:00" maskIpV4="255.255.0.0" maskIpV6="64"/>
+                    </interface>
+                </network>
+            </environment>
+        </linux6>
+
+        <linux7>
+            <class>com.aqua.sysobj.linux.Linux</class>
+            <linuxCliApplication>
+                <class>com.aqua.sysobj.linux.basics.application.LinuxCliApplication</class>
+                <conn>
+                    <class>
+                        com.aqua.sysobj.linux.basics.connection.LinuxConnectivityManager
+                    </class>
+                    <cli>
+                        <class>com.aqua.sysobj.linux.basics.connection.LinuxCliConnection</class>
+                        <host>10.203.130.55</host>
+                        <protocol>ssh</protocol>
+                        <user>root</user>
+                        <password>radware</password>
+                        <connectOnInit>false</connectOnInit>
+                    </cli>
+                </conn>
+            </linuxCliApplication>
+            <environment>
+                <tftpFolder>/tftpboot</tftpFolder>
+                <network>
+                    <interface index="0" name="eth0" switchPortIndex="5" switchVlanId="10">
+                        <ip addrIpV4="1.1.1.6" addrIpV6="4001::1:1:6" maskIpV4="255.0.0.0" maskIpV6="64"/>
+                    </interface>
+                    <interface index="1" name="eth1" switchPortIndex="5" switchVlanId="500">
+                        <ip addrIpV4="7.1.1.1" addrIpV6="4007::1:1:1" maskIpV4="255.0.0.0" maskIpV6="64"/>
+                    </interface>
+                    <interface index="2" name="eth1" switchPortIndex="31" switchVlanId="500">
+                        <ip addrIpV4="7.1.1.1" addrIpV6="4007::1:1:1" maskIpV4="255.0.0.0" maskIpV6="64"/>
+                    </interface>
+                    <interface index="3" name="eth3" switchPortIndex="23" switchVlanId="-1">
+                        <ip addrIpV4="10.203.130.55" addrIpV6="ff:00" maskIpV4="255.255.0.0" maskIpV6="64"/>
+                    </interface>
+                </network>
+            </environment>
+        </linux7>
+
+    </linuxs>
+    <linuxClientsManager>
+        <class>com.aqua.sysobj.linux.LinuxManager</class>
+        <linuxManagers index="0">
+            <class>com.aqua.sysobj.linux.LinuxManager</class>
+            <linuxs index="0" ref="/sut/linuxs/linux2"/>
+            <linuxs index="1" ref="/sut/linuxs/linux2"/>
+            <linuxs index="2" ref="/sut/linuxs/linux2"/>
+            <linuxs index="3" ref="/sut/linuxs/linux2"/>
+        </linuxManagers>
+        <linuxManagers index="1">
+            <class>com.aqua.sysobj.linux.LinuxManager</class>
+            <linuxs index="0" ref="/sut/linuxs/linux3"/>
+            <linuxs index="1" ref="/sut/linuxs/linux3"/>
+            <linuxs index="2" ref="/sut/linuxs/linux3"/>
+            <linuxs index="3" ref="/sut/linuxs/linux3"/>
+        </linuxManagers>
+        <linuxManagers index="2">
+            <class>com.aqua.sysobj.linux.LinuxManager</class>
+            <linuxs index="0" ref="/sut/linuxs/linux7"/>
+            <linuxs index="1" ref="/sut/linuxs/linux7"/>
+            <linuxs index="2" ref="/sut/linuxs/linux7"/>
+            <linuxs index="3" ref="/sut/linuxs/linux7"/>
+        </linuxManagers>
+    </linuxClientsManager>
+
+    <linuxServersManager>
+        <class>com.aqua.sysobj.linux.LinuxManager
+        </class>
+        <linuxManagers index="0">
+            <class>com.aqua.sysobj.linux.LinuxManager</class>
+            <linuxs index="0" ref="/sut/linuxs/linux0"/>
+            <linuxs index="1" ref="/sut/linuxs/linux0"/>
+            <linuxs index="2" ref="/sut/linuxs/linux0"/>
+            <linuxs index="3" ref="/sut/linuxs/linux0"/>
+        </linuxManagers>
+        <linuxManagers index="1">
+            <class>com.aqua.sysobj.linux.LinuxManager</class>
+            <linuxs index="0" ref="/sut/linuxs/linux1"/>
+            <linuxs index="1" ref="/sut/linuxs/linux1"/>
+            <linuxs index="2" ref="/sut/linuxs/linux1"/>
+            <linuxs index="3" ref="/sut/linuxs/linux1"/>
+        </linuxManagers>
+        <linuxManagers index="2">
+            <class>com.aqua.sysobj.linux.LinuxManager</class>
+            <linuxs index="0" ref="/sut/linuxs/linux4"/>
+            <linuxs index="1" ref="/sut/linuxs/linux4"/>
+            <linuxs index="2" ref="/sut/linuxs/linux4"/>
+            <linuxs index="3" ref="/sut/linuxs/linux4"/>
+        </linuxManagers>
+        <linuxManagers index="3">
+            <class>com.aqua.sysobj.linux.LinuxManager</class>
+            <linuxs index="0" ref="/sut/linuxs/linux5"/>
+            <linuxs index="1" ref="/sut/linuxs/linux5"/>
+            <linuxs index="2" ref="/sut/linuxs/linux5"/>
+            <linuxs index="3" ref="/sut/linuxs/linux5"/>
+        </linuxManagers>
+        <!-- Used for Minicom-->
+        <linuxManagers index="4">
+            <class>com.aqua.sysobj.linux.LinuxManager</class>
+            <linuxs index="0" ref="/sut/linuxs/linux6"/>
+            <linuxs index="1" ref="/sut/linuxs/linux6"/>
+            <linuxs index="2" ref="/sut/linuxs/linux6"/>
+            <linuxs index="3" ref="/sut/linuxs/linux6"/>
+        </linuxManagers>
+    </linuxServersManager>
+
+    <platforms>
+        <AAS_3408>
+            <ports designation="data" quantity="4" speed="1000" type="copper"/>
+            <ports designation="data" quantity="4" speed="1000" type="shared"/>
+            <ports designation="data" quantity="4" speed="1000" type="sfp"/>
+            <ports designation="mng" quantity="1" speed="1000" type="copper"/>
+        </AAS_3408>
+
+        <AAS_3408E>
+            <ports designation="data" quantity="4" speed="1000" type="copper"/>
+            <ports designation="data" quantity="4" speed="1000" type="shared"/>
+            <ports designation="data" quantity="4" speed="1000" type="sfp"/>
+            <ports designation="mng" quantity="1" speed="1000" type="copper"/>
+        </AAS_3408E>
+
+        <AAS_2424SSL>
+            <ports designation="data" quantity="24" speed="100" type="copper"/>
+            <ports designation="data" quantity="4" speed="1000" type="sfp"/>
+            <ports designation="mng" quantity="1" speed="100" type="copper"/>
+        </AAS_2424SSL>
+
+        <AAS_2208E>
+            <ports designation="data" quantity="8" speed="100" type="copper"/>
+            <ports designation="data" quantity="2" speed="1000" type="sfp"/>
+            <ports designation="mng" quantity="1" speed="100" type="copper"/>
+        </AAS_2208E>
+
+        <AAS_2216E>
+            <ports designation="data" quantity="16" speed="100" type="copper"/>
+            <ports designation="data" quantity="2" speed="1000" type="sfp"/>
+            <ports designation="mng" quantity="1" speed="100" type="copper"/>
+        </AAS_2216E>
+
+        <AAS_4408>
+            <ports designation="data" quantity="5" speed="1000" type="copper"/>
+            <ports designation="mng" quantity="1" speed="1000" type="copper"/>
+            <ports designation="data" quantity="2" speed="1000" type="sfp"/>
+        </AAS_4408>
+
+        <AAS_4416>
+            <ports designation="data" quantity="12" speed="1000" type="copper"/>
+            <ports designation="data" quantity="4" speed="1000" type="sfp"/>
+            <ports designation="mng" quantity="2" speed="1000" type="copper"/>
+        </AAS_4416>
+
+        <AAS_5412>
+            <ports designation="data" quantity="8" speed="1000" type="copper"/>
+            <ports designation="data" quantity="4" speed="1000" type="sfp"/>
+            <ports designation="mng" quantity="2" speed="1000" type="copper"/>
+        </AAS_5412>
+
+        <AAS_5224>
+            <ports designation="data" quantity="18" speed="1000" type="sfp"/>
+            <ports designation="data" quantity="8" speed="1000" type="copper"/>
+            <ports designation="mng" quantity="2" speed="1000" type="copper"/>
+        </AAS_5224>
+        <ODS4>
+            <ports designation="data" quantity="15" speed="1000" type="sfp"/>
+            <ports designation="data" quantity="8" speed="1000" type="copper"/>
+            <ports designation="mng" quantity="2" speed="1000" type="copper"/>
+
+        </ODS4>
+        <AAS_SwADC>
+            <ports designation="data" quantity="5" speed="1000" type="copper"/>
+            <ports designation="mng" quantity="1" speed="1000" type="copper"/>
+            <ports designation="data" quantity="2" speed="1000" type="sfp"/>
+        </AAS_SwADC>
+        <ODS-HT>
+            <ports designation="data" quantity="24" speed="1000" type="sfp"/>
+            <ports designation="mng" quantity="2" speed="1000" type="copper"/>
+        </ODS-HT>
+    </platforms>
+
+
+    <ciscoSwitch1>
+        <class>com.aas.cisco.product.cswitch.CiscoSwitch</class>
+        <conn>
+            <class>com.aqua.sysobj.conn.ConnectivityManager</class>
+            <cli>
+                <class>com.aas.cisco.connection.CiscoCliConnection</class>
+                <host>10.203.202.116</host>
+                <user>radware</user>
+                <password>radware</password>
+                <connectOnInit>false</connectOnInit>
+            </cli>
+        </conn>
+
+        <switchport>
+            <class>com.aas.cisco.product.cswitch.switchport.SwitchPortCli</class>
+        </switchport>
+        <basic>
+            <class>com.aas.cisco.product.basic.BasicCli</class>
+        </basic>
+
+        <ports index="25">
+            <class>com.aas.cisco.product.port.CiscoPort</class>
+            <type>GigabitEthernet</type>
+            <name>0/25</name>
+        </ports>
+        <ports index="26">
+            <class>com.aas.cisco.product.port.CiscoPort</class>
+            <type>GigabitEthernet</type>
+            <name>0/26</name>
+        </ports>
+        <ports index="31">
+            <class>com.aas.cisco.product.port.CiscoPort</class>
+            <type>GigabitEthernet</type>
+            <name>0/31</name>
+        </ports>
+    </ciscoSwitch1>
+
+</sut>
