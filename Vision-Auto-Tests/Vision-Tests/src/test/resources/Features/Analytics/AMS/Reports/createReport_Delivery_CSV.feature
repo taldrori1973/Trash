@@ -21,6 +21,7 @@ Feature:  Report AMS analytics CSV Validations
     Given CLI simulate 2 attacks of type "rest_anomalies" on "DefensePro" 10 with attack ID
     Given CLI simulate 1 attacks of type "rest_dos" on "DefensePro" 10
 
+
   @SID_4
   Scenario: VRM - enabling emailing and go to VRM Reports Tab
     Given UI Login with user "sys_admin" and password "radware"
@@ -48,21 +49,23 @@ Feature:  Report AMS analytics CSV Validations
 
   @SID_6
   Scenario: Create new Report Analytics CSV Delivery
-    Given UI "Create" Report With Name "Delivery_Test_report"
-      | reportType | DefensePro Analytics Dashboard                                                            |
-      | Share      | Email:[Test, Test2],Subject:report delivery Subject |
-      | Format     | Select: CSV                                                                               |
+    #Make sure all attacks are at the same time
+    When CLI Run remote linux Command "curl -XPOST localhost:9200/dp-attack-raw-*/_update_by_query?conflicts=proceed -d '{"query":{"term":{"deviceIp":"172.16.22.50"}},"script":{"source":"ctx._source.endTime='$(date +%s%3N)L'"}}'" on "ROOT_SERVER_CLI"
+    Given UI "Create" Report With Name "TC108070"
+      | reportType | DefensePro Analytics Dashboard               |
+      | Share      | Email:[Test, Test2],Subject:TC108070 Subject |
+      | Format     | Select: CSV                                  |
 
   @SID_7
   Scenario: Validate delivery card and generate report
     Given Clear email history for user "setup"
-    Then UI Generate and Validate Report With Name "Delivery_Test_report" with Timeout of 300 Seconds
+    Then UI Generate and Validate Report With Name "TC108070" with Timeout of 300 Seconds
     And Sleep "15"
 
   @SID_8
   Scenario: Validate Report Email received content
     #subject
-    Then Validate "setup" user eMail expression "grep "Subject: report delivery Subject"" EQUALS "2"
+    Then Validate "setup" user eMail expression "grep "Subject: TC108070 Subject"" EQUALS "2"
     #From
     Then Validate "setup" user eMail expression "grep "From: Automation system <qa_test@Radware.com>"" EQUALS "2"
     #To
@@ -292,16 +295,16 @@ Feature:  Report AMS analytics CSV Validations
   @SID_43
   Scenario: Edit report format - from CSV to PDF
     Given UI "Create" Report With Name "just English characters"
-      | reportType | DefensePro Analytics Dashboard                                                                         |
+      | reportType | DefensePro Analytics Dashboard                                               |
       | Share      | Email:[Test],Subject:english characters subject,Body:english characters body |
 
     When UI "Edit" Report With Name "just English characters"
       | Format | Select: PDF |
 
     Then UI "Validate" Report With Name "just English characters"
-      | reportType | DefensePro Analytics Dashboard                                                                         |
+      | reportType | DefensePro Analytics Dashboard                                               |
       | Share      | Email:[Test],Subject:english characters subject,Body:english characters body |
-      | Format     | Select: PDF                                                                                            |
+      | Format     | Select: PDF                                                                  |
 
 
   @SID_44
