@@ -98,7 +98,10 @@ Feature: CLI System AVR
 
   @SID_12
   Scenario: Verify DP insert to ES
+    Then Sleep "30"
+    Then CLI Run linux Command "curl -s -XGET localhost:9200/_cat/indices/dp-attack-raw* |wc -l" on "ROOT_SERVER_CLI" and validate result GTE "0" with timeOut 40 with runCommand delay 5
     When REST Delete ES index "dp-attack-raw*"
+    Then CLI Run linux Command "curl -s -XGET localhost:9200/_cat/indices/dp-attack-raw* |wc -l" on "ROOT_SERVER_CLI" and validate result EQUALS "0" with timeOut 40 with runCommand delay 5
     Then Sleep "30"
     Given CLI Run linux Command "system avr status" on "RADWARE_SERVER_CLI" and validate result CONTAINS "is stopped." in any line with timeOut 250
     Then CLI Run linux Command "curl -s -XGET localhost:9200/_cat/indices/dp-attack-raw* |wc -l" on "ROOT_SERVER_CLI" and validate result EQUALS "0" with timeOut 40 with runCommand delay 5
