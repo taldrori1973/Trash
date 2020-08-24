@@ -345,7 +345,7 @@ Feature: HTTPS Server Dashboard
       | value      | count | index | valueOffset|
       | 0          | 48    | 0     | 0          |
       | 1          | 1     | 1     | 0          |
-      | 0.47802296 | 1     | 4     | 0.2       |
+      | 0.47802296 | 1     | 4     | 0.3       |
 
   @SID_31
   Scenario: Validate Https Flood distributed size graph data - Under Attack - After Change
