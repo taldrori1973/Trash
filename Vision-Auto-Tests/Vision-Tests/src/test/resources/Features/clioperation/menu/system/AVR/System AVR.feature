@@ -74,7 +74,7 @@ Feature: CLI System AVR
     Then CLI Run linux Command "mysql -prad123 vision_ng -NB -e "select count(*) from http_traf_stats_anomaly;"" on "ROOT_SERVER_CLI" and validate result EQUALS "0"
     Then CLI Run linux Command "mysql -prad123 vision -NB -e "select count(*) from traffic_utilizations;"" on "ROOT_SERVER_CLI" and validate result EQUALS "0"
     Then CLI Run linux Command "mysql -prad123 vision -NB -e "select count(*) from traffic_utilizations_per_policy;"" on "ROOT_SERVER_CLI" and validate result EQUALS "0"
-
+    Then CLI Run remote linux Command "mysql -prad123 vision_ng -e "delete from df_security_attacks;"" on "ROOT_SERVER_CLI"
   @SID_9
   Scenario: verify services stopped
     Then CLI Run linux Command "service avrservice status|head -1|grep "mainengine.exe"|awk '{print$2,$3}'" on "ROOT_SERVER_CLI" and validate result EQUALS "is stopped"
@@ -99,6 +99,7 @@ Feature: CLI System AVR
   @SID_12
   Scenario: Verify DP insert to ES
     When REST Delete ES index "dp-attack-raw*"
+    Then Sleep "30"
     Given CLI Run linux Command "system avr status" on "RADWARE_SERVER_CLI" and validate result CONTAINS "is stopped." in any line with timeOut 250
     Then CLI Run linux Command "curl -s -XGET localhost:9200/_cat/indices/dp-attack-raw* |wc -l" on "ROOT_SERVER_CLI" and validate result EQUALS "0" with timeOut 40 with runCommand delay 5
     When CLI simulate 1 attacks of type "rest_anomalies" on "DefensePro" 12 and wait 35 seconds
