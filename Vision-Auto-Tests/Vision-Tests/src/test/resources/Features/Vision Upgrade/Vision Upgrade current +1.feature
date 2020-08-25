@@ -78,6 +78,7 @@ Feature: Vision Upgrade current +1
       | UPGRADE | inflating:                                                             | IGNORE       |
       | LLS     | fatal\| error\|fail                                                    | NOT_EXPECTED |
       | UPGRADE | /opt/radware/storage/www/webui/vision-dashboards/public/static/media/* | IGNORE       |
+      | UPGRADE | No such image or container: *                                          | IGNORE       |
 
 
   @SID_8

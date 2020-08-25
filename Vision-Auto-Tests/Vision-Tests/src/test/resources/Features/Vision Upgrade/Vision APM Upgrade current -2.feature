@@ -36,7 +36,6 @@ Feature: Vision APM Upgrade current -2
     Then CLI Check if logs contains
       | logType | expression                                                             | isExpected   |
       | UPGRADE | fatal                                                                  | NOT_EXPECTED |
-    # | UPGRADE | error                                                            | NOT_EXPECTED      |
       | UPGRADE | fail to\|failed to                                                     | NOT_EXPECTED |
       | UPGRADE | The upgrade of APSolute Vision server has completed successfully       | EXPECTED     |
       | UPGRADE | Vision Reporter upgrade finished                                       | EXPECTED     |
@@ -67,6 +66,7 @@ Feature: Vision APM Upgrade current -2
       | UPGRADE | error loading /etc/cgconfig.conf: Cgroup mounting failed               | IGNORE       |
       | UPGRADE | Error: cannot mount cpuset to /cgroup/cpuset: Device or resource busy  | IGNORE       |
       | UPGRADE | /opt/radware/storage/www/webui/vision-dashboards/public/static/media/* | IGNORE       |
+      | UPGRADE | No such image or container: *                                          | IGNORE       |
 
 
 

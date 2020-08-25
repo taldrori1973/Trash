@@ -75,6 +75,7 @@ Feature: Vision APM Upgrade current -3
       | UPGRADE | error loading /etc/cgconfig.conf: Cgroup mounting failed               | IGNORE       |
       | UPGRADE | Error: cannot mount cpuset to /cgroup/cpuset: Device or resource busy  | IGNORE       |
       | UPGRADE | /opt/radware/storage/www/webui/vision-dashboards/public/static/media/* | IGNORE       |
+      | UPGRADE | No such image or container: *                                          | IGNORE       |
 
 
   @SID_6

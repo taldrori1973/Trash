@@ -67,6 +67,7 @@ Feature: Vision APM Upgrade current +1
       | UPGRADE | error loading /etc/cgconfig.conf: Cgroup mounting failed               | IGNORE       |
       | UPGRADE | Error: cannot mount cpuset to /cgroup/cpuset: Device or resource busy  | IGNORE       |
       | UPGRADE | /opt/radware/storage/www/webui/vision-dashboards/public/static/media/* | IGNORE       |
+      | UPGRADE | No such image or container: *                                          | IGNORE       |
 
 
   @SID_6
@@ -200,10 +201,10 @@ Feature: Vision APM Upgrade current +1
     Then CLI Run linux Command "curl -ks -o null -XGET http://localhost4:7070/api/1.0/hostids -w 'RESP_CODE:%{response_code}\n'" on "ROOT_SERVER_CLI" and validate result EQUALS "RESP_CODE:200" with timeOut 300
     Then CLI Run linux Command "curl -ks -o null -XGET http://localhost6:7070/api/1.0/hostids -w 'RESP_CODE:%{response_code}\n'" on "ROOT_SERVER_CLI" and validate result EQUALS "RESP_CODE:200" with timeOut 300
     Then CLI Check if logs contains
-      | logType | expression                                                             | isExpected   |
-      | LLS     | fatal\| error\|fail                                                    | NOT_EXPECTED |
-      | LLS     | Installation ended                                                     | NOT_EXPECTED     |
-      | LLS     | Setup complete!                                                        | NOT_EXPECTED     |
+      | logType | expression          | isExpected   |
+      | LLS     | fatal\| error\|fail | NOT_EXPECTED |
+      | LLS     | Installation ended  | NOT_EXPECTED |
+      | LLS     | Setup complete!     | NOT_EXPECTED |
       #rollback to the original values
     Given CLI Run remote linux Command "mysql -prad123 vision_ng -e "update lls_server set min_required_ram='32';"" on "ROOT_SERVER_CLI"
     When CLI Operations - Run Radware Session command "system lls service stop"
