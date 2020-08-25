@@ -24,6 +24,7 @@ Feature: CLI System AVR
     Given CLI Run linux Command "system avr status" on "RADWARE_SERVER_CLI" and validate result CONTAINS "is running." in any line with timeOut 250
     Then Sleep "15"
     Then CLI Run remote linux Command "mysql -prad123 vision_ng -e "delete from security_attacks;"" on "ROOT_SERVER_CLI"
+    Then CLI Run remote linux Command "mysql -prad123 vision_ng -e "delete from df_security_attacks;"" on "ROOT_SERVER_CLI"
     Then CLI simulate 1 attacks of type "rest_anomalies" on "DefensePro" 12
     Then CLI Run linux Command "mysql -prad123 vision -NB -e "select count(*) from avr_security_attacks;"" on "ROOT_SERVER_CLI" and validate result GT "0" with timeOut 60
 
@@ -165,6 +166,8 @@ Feature: CLI System AVR
       | logType | expression       | isExpected   |
       | TOMCAT  | fatal            | NOT_EXPECTED |
       | TOMCAT  | is not monitored | IGNORE       |
+
+
 
 
 
