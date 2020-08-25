@@ -165,7 +165,7 @@ public class VRMHandler {
 
     private boolean isLegendNameExistAndShouldReturn(String chart, StackBarData entry) {
         boolean returnValue = entry.legendNameExist != null;
-        entry.legendNameExist = entry.legendNameExist == null ? true : entry.legendNameExist;
+        entry.legendNameExist = entry.legendNameExist == null || entry.legendNameExist;
         JSONArray legends = getLabelsFromData(chart);
         if (!((legends.toList().contains(entry.legendName) && entry.legendNameExist) || (!legends.toList().contains(entry.legendName) && !entry.legendNameExist))) {
 //            addErrorMessage("The existence of " + entry.legendName + " is " + entry.legendNameExist + " but ACTUAL is " + legends.toList().contains(entry.legendName));
@@ -251,9 +251,9 @@ public class VRMHandler {
         JSONArray data = (JSONArray) foundObject.get(DATA);
 
         entries.forEach(entry -> {
-            entry.count = entry.count == null ? -1 : entry.count;
-            entry.exist = entry.exist == null ? true : entry.exist;
-            entry.index = entry.index == null ? -1 : entry.index;
+            entry.count = (entry.count == null) ? -1 : entry.count;
+            entry.exist = entry.exist == null || entry.exist;
+            entry.index = (entry.index == null) ? -1 : entry.index;
 
             if (!(isLabelExist(chart, label)) && entry.exist || (isLabelExist(chart, label)) && !entry.exist) {
                 return;
@@ -273,22 +273,23 @@ public class VRMHandler {
                 }
             } else if (entry.count > 0) {
                 // Value has offset that is not "0"
-                if (entry.offset != null && entry.offset != 0) {
-                    int maxVal = entry.count + entry.offset;
-                    int minVal = entry.count - entry.offset;
-                    if (valueAppearances > maxVal || valueAppearances < minVal) {
-                        addErrorMessage("The ACTUAL count of the label " + label + " in the chart " + chart + " is " + valueAppearances + " and the EXPECTED is between " + minVal
-                                + " and " + maxVal);
-                        scrollAndTakeScreenshot(chart);
-                    }
-                }
-                if (entry.valueOffset != 0) {
-                    double maxVal = entry.count + entry.valueOffset;
-                    double minVal = entry.count - entry.valueOffset;
-                    if (valueAppearances > maxVal || valueAppearances < minVal) {
-                        addErrorMessage("The ACTUAL count of the label " + label + " in the chart " + chart + " is " + valueAppearances + " and the EXPECTED is between " + minVal
-                                + " and " + maxVal);
-                        scrollAndTakeScreenshot(chart);
+                if (entry.offset != null && entry.offset != 0 || entry.valueOffset != 0) {
+                    if (entry.valueOffset != 0) {
+                        double maxVal = entry.count + entry.valueOffset;
+                        double minVal = entry.count - entry.valueOffset;
+                        if (valueAppearances > maxVal || valueAppearances < minVal) {
+                            addErrorMessage("The ACTUAL count of the label " + label + " in the chart " + chart + " is " + valueAppearances + " and the EXPECTED is between " + minVal
+                                    + " and " + maxVal);
+                            scrollAndTakeScreenshot(chart);
+                        }
+                    } else {
+                        int maxVal = entry.count + entry.offset;
+                        int minVal = entry.count - entry.offset;
+                        if (valueAppearances > maxVal || valueAppearances < minVal) {
+                            addErrorMessage("The ACTUAL count of the label " + label + " in the chart " + chart + " is " + valueAppearances + " and the EXPECTED is between " + minVal
+                                    + " and " + maxVal);
+                            scrollAndTakeScreenshot(chart);
+                        }
                     }
                 }
                 //Value does not have offset or offset is "0"
@@ -643,7 +644,7 @@ public class VRMHandler {
             }
 
             if (entry.data != null) {
-                Double entryData = Double.parseDouble(entry.data);
+                double entryData = Double.parseDouble(entry.data);
                 Double dataFromArray = Double.parseDouble(dataArray.get(labelIndex).toString());
                 if (entry.offset == 0 && entry.offsetPercentage == null) {
                     if (!dataFromArray.equals(entryData)) {
@@ -689,7 +690,7 @@ public class VRMHandler {
      * @param isExist        - Does session storage expected to exist
      */
     public void isSessionStorageExists(String sessionStorage, Boolean isExist) {
-        boolean expected = isExist == null ? true : isExist;
+        boolean expected = isExist == null || isExist;
         if (this.sessionStorage.isSessionStorageExists(sessionStorage) != expected) {
             BaseTestUtils.report(String.format("Session Storage {%s} expected existence to be [%s], actual [%s]", sessionStorage, expected, !expected), Reporter.FAIL);
         }
@@ -1125,7 +1126,7 @@ public class VRMHandler {
         String amountType = interval.split("\\d+")[1].trim();
         switch (amountType) {
             case "s":
-                sleep(Integer.valueOf(amount) * 1000);
+                sleep(Integer.parseInt(amount) * 1000);
                 break;
             case "m":
                 sleep(Integer.valueOf(amount) * 1000 * 60);
@@ -1208,7 +1209,7 @@ public class VRMHandler {
                     scrollAndTakeScreenshot(chart);
                     addErrorMessage("No label with date " + expectedTime.format(inputFormatter));
                 } else {
-                    if (!((entry.value >= (Double.valueOf(data.get(index).toString())) - entry.offset) && (entry.value <= (Double.valueOf(data.get(index).toString())) + entry.offset))) {
+                    if (!((entry.value >= (Double.parseDouble(data.get(index).toString())) - entry.offset) && (entry.value <= (Double.valueOf(data.get(index).toString())) + entry.offset))) {
                         addErrorMessage("In the label " + expectedTime + " The EXPECTED value is " + entry.value + " but the ACTUAL is " + data.get(index) + " with offset " + entry.offset);
                         scrollAndTakeScreenshot(chart);
                     }
