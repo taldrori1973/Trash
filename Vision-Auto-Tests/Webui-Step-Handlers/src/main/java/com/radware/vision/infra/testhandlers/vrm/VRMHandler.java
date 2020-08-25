@@ -282,6 +282,15 @@ public class VRMHandler {
                         scrollAndTakeScreenshot(chart);
                     }
                 }
+                if (entry.valueOffset != 0) {
+                    double maxVal = entry.count + entry.valueOffset;
+                    double minVal = entry.count - entry.valueOffset;
+                    if (valueAppearances > maxVal || valueAppearances < minVal) {
+                        addErrorMessage("The ACTUAL count of the label " + label + " in the chart " + chart + " is " + valueAppearances + " and the EXPECTED is between " + minVal
+                                + " and " + maxVal);
+                        scrollAndTakeScreenshot(chart);
+                    }
+                }
                 //Value does not have offset or offset is "0"
                 else if (!(valueAppearances == entry.count)) {
                     addErrorMessage("The ACTUAL count of the label " + label + " in the chart " + chart + " is " + valueAppearances + " and the EXPECTED is " + entry.count);
