@@ -202,10 +202,11 @@ Feature: Vision APM Upgrade current -1
     Then CLI Run linux Command "curl -ks -o null -XGET http://localhost4:7070/api/1.0/hostids -w 'RESP_CODE:%{response_code}\n'" on "ROOT_SERVER_CLI" and validate result EQUALS "RESP_CODE:200" with timeOut 300
     Then CLI Run linux Command "curl -ks -o null -XGET http://localhost6:7070/api/1.0/hostids -w 'RESP_CODE:%{response_code}\n'" on "ROOT_SERVER_CLI" and validate result EQUALS "RESP_CODE:200" with timeOut 300
     Then CLI Check if logs contains
-      | logType | expression                                                             | isExpected   |
-      | LLS     | fatal\| error\|fail                                                    | NOT_EXPECTED |
-      | LLS     | Installation ended                                                     | NOT_EXPECTED     |
-      | LLS     | Setup complete!                                                        | NOT_EXPECTED     |
+        # The LLS installation is subject to change if LLS was upgraded
+      | logType | expression          | isExpected   |
+      | LLS     | fatal\| error\|fail | NOT_EXPECTED |
+      | LLS     | Installation ended  | EXPECTED     |
+      | LLS     | Setup complete!     | EXPECTED     |
       #rollback to the original values
     Given CLI Run remote linux Command "mysql -prad123 vision_ng -e "update lls_server set min_required_ram='32';"" on "ROOT_SERVER_CLI"
     When CLI Operations - Run Radware Session command "system lls service stop"
