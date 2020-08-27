@@ -221,6 +221,7 @@ Feature: Vision APM Upgrade current -3
     Then CLI Run linux Command "curl -ks -o null -XGET http://localhost4:7070/api/1.0/hostids -w 'RESP_CODE:%{response_code}\n'" on "ROOT_SERVER_CLI" and validate result EQUALS "RESP_CODE:200" with timeOut 300
     Then CLI Run linux Command "curl -ks -o null -XGET http://localhost6:7070/api/1.0/hostids -w 'RESP_CODE:%{response_code}\n'" on "ROOT_SERVER_CLI" and validate result EQUALS "RESP_CODE:200" with timeOut 300
         # The LLS installation is subject to change if LLS was upgraded
+    Then CLI Check if logs contains
       | logType | expression          | isExpected   |
       | LLS     | fatal\| error\|fail | NOT_EXPECTED |
       | LLS     | Installation ended  | EXPECTED     |
