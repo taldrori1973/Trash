@@ -214,6 +214,16 @@
             <writeCommunity>public</writeCommunity>
             <macAddress>2c:b6:93:55:03:c0</macAddress>
         </defenseProDevices>
+        <defenseProDevices index="185">
+            <class>com.radware.vision.automation.tools.sutsystemobjects.devicesinfo.DeviceInfo</class>
+            <deviceName>DefensePro_10.185.2.85</deviceName>
+            <deviceIp>10.185.2.85</deviceIp>
+            <username>radware</username>
+            <password>radware1</password>
+            <readCommunity>public</readCommunity>
+            <writeCommunity>public</writeCommunity>
+            <macAddress>2c:b6:93:55:8a:00</macAddress>
+        </defenseProDevices>
         <defenseProDevices index="12">
             <class>com.radware.vision.automation.tools.sutsystemobjects.devicesinfo.DeviceInfo</class>
             <deviceName>DefensePro_172.16.22.55</deviceName>
