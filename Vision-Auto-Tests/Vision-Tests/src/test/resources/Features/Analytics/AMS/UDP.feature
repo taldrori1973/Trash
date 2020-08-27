@@ -6,14 +6,18 @@ Feature: UDP widgets
     Then REST Login with user "radware" and password "radware"
     * REST Vision Install License Request "vision-AVA-Max-attack-capacity"
     Then REST Add "DefensePro" Device To topology Tree with Name "10.185.2.85" and Management IP "10.185.2.85" into site "Default"
-      | attribute     | value    |
-      | cliUsername   | radware  |
-      | cliPassword   | radware1 |
-      | httpPassword  | radware1 |
-      | httpsPassword | radware1 |
-      | httpsUsername | radware  |
-      | httpUsername  | radware  |
-      | visionMgtPort | G1       |
+      | attribute            | value    |
+      | cliUsername          | radware  |
+      | cliPassword          | radware1 |
+      | httpPassword         | radware1 |
+      | httpsPassword        | radware1 |
+      | httpsUsername        | radware  |
+      | httpUsername         | radware  |
+      | visionMgtPort        | G1       |
+      | snmpV1ReadCommunity  | public   |
+      | snmpV1WriteCommunity | public   |
+      | snmpV2ReadCommunity  | public   |
+      | snmpV2WriteCommunity | public   |
 
   @SID_2
   Scenario: Clear the vision from the attacks and run PCAP
@@ -21,7 +25,7 @@ Feature: UDP widgets
     * REST Delete ES index "dp-*"
     When CLI Clear vision logs
 
-    Given CLI simulate 100 attacks of type "testUDPAttack" on "DefensePro" 185 with loopDelay 15000 and wait 60 seconds
+    Given CLI simulate 100 attacks of type "testUDPAttack" on "DefensePro" 185 with loopDelay 15000 and wait 120 seconds
 
   @SID_3
   Scenario: Login and navigate to BDOS behavioral dashboard
@@ -33,7 +37,7 @@ Feature: UDP widgets
       | 185   |       | test     |
     Then UI Validate Line Chart data "UDP Invariant Widget" with Label "Real-Time Ratio"
       | value | min |
-      | 0     | 5  |
+      | 0     | 5   |
     Then UI Validate Line Chart data "Excluded UDP Traffic" with Label "Excluded Ports"
       | value | min | valueOffset |
       | 103   | 5   | 5           |
