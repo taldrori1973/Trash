@@ -77,7 +77,6 @@ Feature: Vision Upgrade current -3
       | UPGRADE | *.svg                                                                  | IGNORE       |
       | UPGRADE | inflating:                                                             | IGNORE       |
       | UPGRADE | /opt/radware/storage/www/webui/vision-dashboards/public/static/media/* | IGNORE       |
-      | LLS     | fatal\| error\|fail                                                    | NOT_EXPECTED |
       | UPGRADE | No such image or container: *                                          | IGNORE       |
 
   @SID_7
@@ -221,11 +220,12 @@ Feature: Vision Upgrade current -3
     Then CLI Run linux Command "system lls service status" on "RADWARE_SERVER_CLI" and validate result CONTAINS "is running" in any line with timeOut 600
     Then CLI Run linux Command "curl -ks -o null -XGET http://localhost4:7070/api/1.0/hostids -w 'RESP_CODE:%{response_code}\n'" on "ROOT_SERVER_CLI" and validate result EQUALS "RESP_CODE:200" with timeOut 300
     Then CLI Run linux Command "curl -ks -o null -XGET http://localhost6:7070/api/1.0/hostids -w 'RESP_CODE:%{response_code}\n'" on "ROOT_SERVER_CLI" and validate result EQUALS "RESP_CODE:200" with timeOut 300
-#    Then CLI Check if logs contains
-#      | logType | expression                                                             | isExpected   |
-#      | LLS     | fatal\| error\|fail                                                    | NOT_EXPECTED |
-#      | LLS     | Installation ended                                                     | EXPECTED |
-#      | LLS     | Setup complete!                                                        | EXPECTED |
+    Then CLI Check if logs contains
+    # The LLS installation is subject to change if LLS was upgraded
+      | logType | expression          | isExpected   |
+      | LLS     | fatal\| error\|fail | NOT_EXPECTED |
+      | LLS     | Installation ended  | EXPECTED     |
+      | LLS     | Setup complete!     | EXPECTED     |
       #rollback to the original values
     Given CLI Run remote linux Command "mysql -prad123 vision_ng -e "update lls_server set min_required_ram='24';"" on "ROOT_SERVER_CLI"
     When CLI Operations - Run Radware Session command "system lls service stop"
