@@ -13,9 +13,9 @@ import com.radware.automation.webui.widgets.impl.WebUIComponent;
 import com.radware.automation.webui.widgets.impl.WebUIDropdown;
 import com.radware.automation.webui.widgets.impl.WebUIDualList;
 import com.radware.automation.webui.widgets.impl.WebUIDualListScripts;
+import com.radware.vision.automation.AutoUtils.Operators.OperatorsEnum;
 import com.radware.vision.infra.base.pages.navigation.WebUIVisionBasePage;
 import com.radware.vision.infra.enums.DualListSides;
-import com.radware.vision.automation.AutoUtils.Operators.OperatorsEnum;
 import com.radware.vision.infra.enums.VisionTableIDs;
 import com.radware.vision.infra.enums.WebElementType;
 import com.radware.vision.infra.testhandlers.baseoperations.BasicOperationsHandler;
@@ -155,10 +155,10 @@ public class ClickOperationsHandler {
         }
     }
 
-    public static void validateTextFieldElementByLabel(String elementSelector, String params, String expectedText, OperatorsEnum validationType, int cutCharsNumber) {
+    public static void validateTextFieldElementByLabel(String elementSelector, String params, String expectedText, String regex, OperatorsEnum validationType, int cutCharsNumber) {
         try {
             WebElement element = BasicOperationsHandler.isItemAvailableById(elementSelector, params);
-            validateTextField(element, elementSelector, expectedText, validationType, cutCharsNumber);
+            validateTextField(element, elementSelector, expectedText,regex, validationType, cutCharsNumber);
         } catch (Exception e) {
             BaseTestUtils.report("Failed to get the Text from element with ID: " + elementSelector + " it may not be visible", Reporter.FAIL);
         }
@@ -175,7 +175,7 @@ public class ClickOperationsHandler {
     public static void validateTextFieldElementById(String elementSelector, String expectedText, OperatorsEnum validationType, int cutCharsNumber) {
         try {
             WebElement element = WebUIUtils.fluentWaitDisplayed(new ComponentLocator(How.ID, elementSelector).getBy(), WebUIUtils.DEFAULT_WAIT_TIME, false);
-            validateTextField(element, elementSelector, expectedText, validationType, cutCharsNumber);
+            validateTextField(element, elementSelector, expectedText, null, validationType, cutCharsNumber);
         } catch (Exception e) {
             BaseTestUtils.report("Failed to get the Text from element with ID: " + elementSelector + " it may not be visible", Reporter.FAIL);
         }
@@ -185,13 +185,13 @@ public class ClickOperationsHandler {
         try {
 //            WebElement element = WebUIUtils.fluentWaitDisplayed(new ComponentLocator(How.CLASS_NAME, elementSelector).getBy(), WebUIUtils.DEFAULT_WAIT_TIME, false);
             WebElement element = WebUIUtils.fluentWaitDisplayed(new ComponentLocator(How.XPATH, "//*[@class='" + elementSelector + "']").getBy(), WebUIUtils.DEFAULT_WAIT_TIME, false);
-            validateTextField(element, elementSelector, expectedText, validationType, cutCharsNumber);
+            validateTextField(element, elementSelector, expectedText, null, validationType, cutCharsNumber);
         } catch (Exception e) {
             BaseTestUtils.report("Failed to get the Text from element with Class: " + elementSelector + " it may not be visible", Reporter.FAIL);
         }
     }
 
-    public static void validateTextField(WebElement element, String elementSelector, String expectedText, OperatorsEnum validationType, int cutCharsNumber) {
+    public static void validateTextField(WebElement element, String elementSelector, String expectedText, String regex, OperatorsEnum validationType, int cutCharsNumber) {
         try {
             List<String> expectedTextList = expectedText != null ? Arrays.asList(expectedText.split("\\|")) : Arrays.asList("".split("\\|"));
             String actualText = element.getAttribute("value");

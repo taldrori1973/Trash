@@ -97,9 +97,9 @@ public class BasicValidationsTests extends BddUITestBase {
 
     @Then("^UI Validate Text field \"([^\"]*)\"(?: with params \"([^\"]*)\")?(?: On Regex \"([^\"]*)\")? (EQUALS|CONTAINS|MatchRegex|GT|GTE|LT|LTE) \"(.*)\"(?: cut Characters Number (\\S+))?$")
     public void validateTextFieldElement(String selectorValue, String params, String regex, OperatorsEnum operatorsEnum, String expectedText, String cutCharsNumber) {
-        cutCharsNumber = cutCharsNumber == null ? "0" : cutCharsNumber;
+        cutCharsNumber = cutCharsNumber == null ? "0" : cutCharsNumber;//this parameter can be used for equals or contains of String from char 0 until char cutCharsNumber
         expectedText = expectedText.equals("") ? getRetrievedParamValue() : expectedText;
-        ClickOperationsHandler.validateTextFieldElementByLabel(selectorValue, params, expectedText, operatorsEnum, Integer.valueOf(cutCharsNumber));
+        ClickOperationsHandler.validateTextFieldElementByLabel(selectorValue, params, expectedText,regex, operatorsEnum, Integer.parseInt(cutCharsNumber));
     }
 
 
