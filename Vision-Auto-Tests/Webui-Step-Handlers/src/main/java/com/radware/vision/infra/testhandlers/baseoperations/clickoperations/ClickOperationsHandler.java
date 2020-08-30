@@ -229,6 +229,13 @@ public class ClickOperationsHandler {
                         Reporter.FAIL);
 
             }
+
+            /*
+            Now we have 3 parameters for test:
+            1. expectedTextList : for Contains Operation
+            2. finalExpectedValue
+            3. actualValue
+             */
             switch (validationOperation) {
                 case CONTAINS:
                     for (int i = 0; i < expectedTextList.size(); i++) {
