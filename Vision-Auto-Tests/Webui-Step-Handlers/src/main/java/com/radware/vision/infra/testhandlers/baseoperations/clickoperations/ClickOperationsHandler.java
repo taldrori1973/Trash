@@ -29,6 +29,9 @@ import org.openqa.selenium.support.How;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Objects;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 /**
  * Created by AviH on 03-Dec-17.
@@ -158,7 +161,7 @@ public class ClickOperationsHandler {
     public static void validateTextFieldElementByLabel(String elementSelector, String params, String expectedText, String regex, OperatorsEnum validationType, int cutCharsNumber) {
         try {
             WebElement element = BasicOperationsHandler.isItemAvailableById(elementSelector, params);
-            validateTextField(element, elementSelector, expectedText,regex, validationType, cutCharsNumber);
+            validateTextField(element, elementSelector, expectedText, regex, validationType, cutCharsNumber);
         } catch (Exception e) {
             BaseTestUtils.report("Failed to get the Text from element with ID: " + elementSelector + " it may not be visible", Reporter.FAIL);
         }
@@ -191,40 +194,60 @@ public class ClickOperationsHandler {
         }
     }
 
-    public static void validateTextField(WebElement element, String elementSelector, String expectedText, String regex, OperatorsEnum validationType, int cutCharsNumber) {
+    public static void validateTextField(WebElement element, String elementSelector, String expectedValue, String regex, OperatorsEnum validationOperation, int cutCharsNumber) {
         try {
-            List<String> expectedTextList = expectedText != null ? Arrays.asList(expectedText.split("\\|")) : Arrays.asList("".split("\\|"));
-            String actualText = element.getAttribute("value");
+//            The expectedValue for Contains Operation could be on the following format: value|value|...|value,
+//            if the actual value contains one of these values , the test will pass:
+            List<String> expectedTextList = expectedValue != null ? Arrays.asList(expectedValue.split("\\|")) : null;
+
+//            TODO this line is duplicated by another methods -> should be packed as a method
+            String actualText = element.getAttribute("value");//get the actual value from the UI Element
+
+
             boolean contains = false;
+//            if the element value attribute returns null or EMPTY , try to get the actual from getText()
             if (actualText == null || actualText.equals("")) {
                 actualText = element.getText();
             }
-            String finalExpectedText = "";
-            finalExpectedText = (expectedText.contains("\n") && expectedText.lastIndexOf("\n") == expectedText.length() - 1) ? expectedText.substring(0, expectedText.lastIndexOf("\n")) : expectedText;
 
-            if (!(expectedText == null && actualText.equals(""))) {
-                switch (validationType) {
-                    case CONTAINS:
-                        for (int i = 0; i < expectedTextList.size(); i++) {
-                            if (actualText.contains(expectedTextList.get(i).substring(0, expectedTextList.get(i).length() - cutCharsNumber))) {
-                                contains = true;
-                            }
+
+            String finalExpectedText = "";
+//            remove new line chars
+            finalExpectedText = Objects.nonNull(expectedValue) && (expectedValue.contains("\n") && expectedValue.lastIndexOf("\n") == expectedValue.length() - 1) ? expectedValue.substring(0, expectedValue.lastIndexOf("\n")) : expectedValue;
+
+//            if regex is defined: the operation will work on the regex Group1
+            if (Objects.nonNull(regex)) {
+                Pattern pattern = Pattern.compile(regex);
+                Matcher matcher = pattern.matcher(actualText);
+                if (matcher.matches()) {
+                    actualText = matcher.group(1);
+                } else
+                    BaseTestUtils.report(
+                            String.format("The Regex provided is not matches the actual value.\nRegex: \"%s\"\nActual Value: \"%s\"", regex, actualText), Reporter.FAIL);
+
+            }
+
+            switch (validationOperation) {
+                case CONTAINS:
+                    for (int i = 0; i < expectedTextList.size(); i++) {
+                        if (actualText.contains(expectedTextList.get(i).substring(0, expectedTextList.get(i).length() - cutCharsNumber))) {
+                            contains = true;
                         }
-                        if (!contains) {
-                            BaseTestUtils.report("TextField Validation Failed. Expected Text is:" + expectedTextList + " Actual Text is:" + actualText, Reporter.FAIL);
-                        }
-                        break;
-                    case EQUALS:
-                        if (!finalExpectedText.equals(actualText)) {
-                            BaseTestUtils.report("TextField Validation Failed. Expected Text is:" + expectedText + " Actual Text is:" + actualText, Reporter.FAIL);
-                        }
-                        break;
-                    case MatchRegex:
-                        if (!actualText.matches(expectedText)) {
-                            BaseTestUtils.report("TextField Validation Failed. Expected Text is:" + expectedText + " Actual Text is:" + actualText, Reporter.FAIL);
-                        }
-                        break;
-                }
+                    }
+                    if (!contains) {
+                        BaseTestUtils.report("TextField Validation Failed. Expected Text is:" + expectedTextList + " Actual Text is:" + actualText, Reporter.FAIL);
+                    }
+                    break;
+                case EQUALS:
+                    if (!finalExpectedText.equals(actualText)) {
+                        BaseTestUtils.report("TextField Validation Failed. Expected Text is:" + expectedValue + " Actual Text is:" + actualText, Reporter.FAIL);
+                    }
+                    break;
+                case MatchRegex:
+                    if (!actualText.matches(expectedValue)) {
+                        BaseTestUtils.report("TextField Validation Failed. Expected Text is:" + expectedValue + " Actual Text is:" + actualText, Reporter.FAIL);
+                    }
+                    break;
             }
         } catch (Exception e) {
             BaseTestUtils.report("Failed to get the Text from element with selector: " + elementSelector + " it may not be visible", Reporter.FAIL);
@@ -476,18 +499,14 @@ public class ClickOperationsHandler {
     public static void clickOnSwitchButton(String label, String params, String state) {
         VisionDebugIdsManager.setLabel(label);
         VisionDebugIdsManager.setParams(params);
-        if (state.equalsIgnoreCase("off"))
-        {
-            if (WebUIUtils.fluentWait(ComponentLocatorFactory.getLocatorByXpathDbgId(VisionDebugIdsManager.getDataDebugId()).getBy()).getAttribute("aria-checked").equals("true"))
-            {
+        if (state.equalsIgnoreCase("off")) {
+            if (WebUIUtils.fluentWait(ComponentLocatorFactory.getLocatorByXpathDbgId(VisionDebugIdsManager.getDataDebugId()).getBy()).getAttribute("aria-checked").equals("true")) {
                 WebUIVisionBasePage.getCurrentPage().getContainer().getButton(label).click();
             }
         }
 
-        if (state.equalsIgnoreCase("on"))
-        {
-            if (WebUIUtils.fluentWait(ComponentLocatorFactory.getLocatorByXpathDbgId(VisionDebugIdsManager.getDataDebugId()).getBy()).getAttribute("aria-checked").equals("false"))
-            {
+        if (state.equalsIgnoreCase("on")) {
+            if (WebUIUtils.fluentWait(ComponentLocatorFactory.getLocatorByXpathDbgId(VisionDebugIdsManager.getDataDebugId()).getBy()).getAttribute("aria-checked").equals("false")) {
                 WebUIVisionBasePage.getCurrentPage().getContainer().getButton(label).click();
             }
         }
