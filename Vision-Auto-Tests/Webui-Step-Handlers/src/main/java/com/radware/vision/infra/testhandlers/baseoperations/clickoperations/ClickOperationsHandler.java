@@ -201,51 +201,53 @@ public class ClickOperationsHandler {
             List<String> expectedTextList = expectedValue != null ? Arrays.asList(expectedValue.split("\\|")) : null;
 
 //            TODO this line is duplicated by another methods -> should be packed as a method
-            String actualText = element.getAttribute("value");//get the actual value from the UI Element
+            String actualValue = element.getAttribute("value");//get the actual value from the UI Element
 
 
             boolean contains = false;
 //            if the element value attribute returns null or EMPTY , try to get the actual from getText()
-            if (actualText == null || actualText.equals("")) {
-                actualText = element.getText();
+            if (actualValue == null || actualValue.equals("")) {
+                actualValue = element.getText();
             }
 
 
-            String finalExpectedText = "";
+            String finalExpectedValue = "";
 //            remove new line chars
-            finalExpectedText = Objects.nonNull(expectedValue) && (expectedValue.contains("\n") && expectedValue.lastIndexOf("\n") == expectedValue.length() - 1) ? expectedValue.substring(0, expectedValue.lastIndexOf("\n")) : expectedValue;
+            finalExpectedValue = Objects.nonNull(expectedValue) && (expectedValue.contains("\n") && expectedValue.lastIndexOf("\n") == expectedValue.length() - 1) ? expectedValue.substring(0, expectedValue.lastIndexOf("\n")) : expectedValue;
 
 //            if regex is defined: the operation will work on the regex Group1
+//            for example if the regex value is: "Total Packets: (\d+)" actual value is "Total Packets: 2,903"
+//            we need to check if the actual value is GTE expected value.
+//            in this case regex matching Group(1) will return "2,903" and this is our new actual value that will be compared with the expected value let's say 2900
             if (Objects.nonNull(regex)) {
                 Pattern pattern = Pattern.compile(regex);
-                Matcher matcher = pattern.matcher(actualText);
-                if (matcher.matches()) {
-                    actualText = matcher.group(1);
-                } else
-                    BaseTestUtils.report(
-                            String.format("The Regex provided is not matches the actual value.\nRegex: \"%s\"\nActual Value: \"%s\"", regex, actualText), Reporter.FAIL);
+                Matcher matcher = pattern.matcher(actualValue);
+                if (matcher.matches()) {//if the regex not matches the actual value , then no need to continue
+                    actualValue = matcher.group(1);
+                } else BaseTestUtils.report(
+                        String.format("The Regex provided is not matches the actual value.\nRegex: \"%s\"\nActual Value: \"%s\"", regex, actualValue),
+                        Reporter.FAIL);
 
             }
-
             switch (validationOperation) {
                 case CONTAINS:
                     for (int i = 0; i < expectedTextList.size(); i++) {
-                        if (actualText.contains(expectedTextList.get(i).substring(0, expectedTextList.get(i).length() - cutCharsNumber))) {
+                        if (actualValue.contains(expectedTextList.get(i).substring(0, expectedTextList.get(i).length() - cutCharsNumber))) {
                             contains = true;
                         }
                     }
                     if (!contains) {
-                        BaseTestUtils.report("TextField Validation Failed. Expected Text is:" + expectedTextList + " Actual Text is:" + actualText, Reporter.FAIL);
+                        BaseTestUtils.report("TextField Validation Failed. Expected Text is:" + expectedTextList + " Actual Text is:" + actualValue, Reporter.FAIL);
                     }
                     break;
                 case EQUALS:
-                    if (!finalExpectedText.equals(actualText)) {
-                        BaseTestUtils.report("TextField Validation Failed. Expected Text is:" + expectedValue + " Actual Text is:" + actualText, Reporter.FAIL);
+                    if (!finalExpectedValue.equals(actualValue)) {
+                        BaseTestUtils.report("TextField Validation Failed. Expected Text is:" + expectedValue + " Actual Text is:" + actualValue, Reporter.FAIL);
                     }
                     break;
                 case MatchRegex:
-                    if (!actualText.matches(expectedValue)) {
-                        BaseTestUtils.report("TextField Validation Failed. Expected Text is:" + expectedValue + " Actual Text is:" + actualText, Reporter.FAIL);
+                    if (!actualValue.matches(expectedValue)) {
+                        BaseTestUtils.report("TextField Validation Failed. Expected Text is:" + expectedValue + " Actual Text is:" + actualValue, Reporter.FAIL);
                     }
                     break;
             }
