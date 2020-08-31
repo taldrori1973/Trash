@@ -4,13 +4,17 @@ Feature: Backup and Restore
   @SID_1
   Scenario: Pre upgrade changes
     * CLI Clear vision logs
-    Given Upgrade in Parallel,backup&Restore setup
-    Given validate vision server services is UP
+#    Given Upgrade in Parallel,backup&Restore setup
     # TED Configuration
     Then CLI Run remote linux Command on Vision 2 "sed -i 's/\"elasticRetentionInDays\":.*,/\"elasticRetentionInDays\":8,/g' /opt/radware/storage/ted/config/ted.cfg" on "ROOT_SERVER_CLI"
     Then CLI Run remote linux Command on Vision 2 "sed -i 's/\"elasticRetentionMaxPercent\":.*,/\"elasticRetentionMaxPercent\":74,/g' /opt/radware/storage/ted/config/ted.cfg" on "ROOT_SERVER_CLI"
     Then CLI Run remote linux Command on Vision 2 "sed -i 's/port .*$/port 51400/g' /etc/td-agent/td-agent.conf" on "ROOT_SERVER_CLI"
     Then CLI Operations - Run Radware Session command "net firewall open-port set 9200 open" on vision 2, timeout 5
+
+  @SID_31
+  Scenario: validate services is UP in the two machines before backup and restore
+    Given validate vision server services is UP
+    Given validate vision server services is UP on vision 2
 
   @SID_4
   Scenario: Backup from source vision, and export to target vision
@@ -24,6 +28,7 @@ Feature: Backup and Restore
   @SID_6
   Scenario: validate services UP
     When validate vision server services is UP
+    Then validate vision server services is UP on vision 2
 
 #  @SID_18
 #  Scenario: change /etc/hosts file to target machine
