@@ -4,12 +4,22 @@ Feature: Backup and Restore
   @SID_1
   Scenario: Pre upgrade changes
     * CLI Clear vision logs
+
 #    Given Upgrade in Parallel,backup&Restore setup
     # TED Configuration
     Then CLI Run remote linux Command on Vision 2 "sed -i 's/\"elasticRetentionInDays\":.*,/\"elasticRetentionInDays\":8,/g' /opt/radware/storage/ted/config/ted.cfg" on "ROOT_SERVER_CLI"
     Then CLI Run remote linux Command on Vision 2 "sed -i 's/\"elasticRetentionMaxPercent\":.*,/\"elasticRetentionMaxPercent\":74,/g' /opt/radware/storage/ted/config/ted.cfg" on "ROOT_SERVER_CLI"
     Then CLI Run remote linux Command on Vision 2 "sed -i 's/port .*$/port 51400/g' /etc/td-agent/td-agent.conf" on "ROOT_SERVER_CLI"
     Then CLI Operations - Run Radware Session command "net firewall open-port set 9200 open" on vision 2, timeout 5
+
+  @SID_32
+  Scenario: validate the two machines are active
+    When CLI Operations - Run Radware Session command "system config-sync mode set active" timeout 60
+    When CLI Operations - Run Radware Session command "system config-sync mode get"
+    Then CLI Operations - Verify that output contains regex ".*Mode: active.*"
+    When CLI Operations - Run Radware Session command "system config-sync mode set active" on vision 2, timeout 60
+    Then CLI Operations - Run Radware Session command "system config-sync mode get" on vision 2, timeout 2
+    Then CLI Operations - Run Radware Session command ".*Mode: active.*" on vision 2, timeout 2
 
   @SID_31
   Scenario: validate services is UP in the two machines before backup and restore
