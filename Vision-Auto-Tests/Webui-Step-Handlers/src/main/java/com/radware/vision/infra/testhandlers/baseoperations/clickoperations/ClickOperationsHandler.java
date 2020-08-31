@@ -273,7 +273,7 @@ public class ClickOperationsHandler {
                         break;
                     case EQUALS:
                         if (isParsable(finalExpectedValue.replaceAll(",","")) && isParsable(actualValue.replaceAll(",",""))) {//if the both values is number then compare numbers
-                            if (Double.parseDouble(finalExpectedValue) != Double.parseDouble(actualValue)) {
+                            if (Double.parseDouble(finalExpectedValue.replaceAll(",","")) != Double.parseDouble(actualValue.replaceAll(",",""))) {
                                 BaseTestUtils.report("TextField Validation Failed. Expected Value is:" + Double.parseDouble(finalExpectedValue) + " Actual Value is:" + Double.parseDouble(actualValue), Reporter.FAIL);
                             }
                         } else {//compare strings
