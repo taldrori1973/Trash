@@ -219,8 +219,8 @@ Feature: VRM Alerts Criteria
       | Schedule   | triggerThisRule:32,Within:10,selectTimeUnit:minutes,alertsPerHour:60  |
 
   @SID_31
-  Scenario: Create Alerts Criteria non-selected DP
-    When UI "Create" Alerts With Name "non-selected DP"
+  Scenario: Create Alerts Criteria non_selected DP
+    When UI "Create" Alerts With Name "non_selected DP"
       | Basic Info | Description:DP 12                                       |
       | devices    | index:12                                                |
       | Criteria   | Event Criteria:Attack ID,Operator:Not Equals,Value:123; |
@@ -577,10 +577,10 @@ Feature: VRM Alerts Criteria
     Then UI Validate "Report.Table" Table rows count GTE to 1
 
   @SID_78
-  Scenario: VRM Validate Alert criteria non-selected DP
+  Scenario: VRM Validate Alert criteria non_selected DP
     Then UI "Check" all the Toggle Alerts
     When UI "Uncheck" all the Toggle Alerts
-    Then UI "Check" Toggle Alerts with name "non-selected DP"
+    Then UI "Check" Toggle Alerts with name "non_selected DP"
     Then UI Validate "Report.Table" Table rows count EQUALS to 0
     Then CLI Run remote linux Command "cp /opt/radware/mgt-server/third-party/tomcat/logs/catalina.out /opt/radware/storage/maintenance/catalina.out11" on "ROOT_SERVER_CLI"
 
