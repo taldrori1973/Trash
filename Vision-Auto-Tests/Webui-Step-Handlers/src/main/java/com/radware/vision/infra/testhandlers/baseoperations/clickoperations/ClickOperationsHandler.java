@@ -267,7 +267,7 @@ public class ClickOperationsHandler {
                         break;
                     case MatchRegex:
                         if (!actualValue.matches(expectedValue)) {
-                            BaseTestUtils.report("TextField Validation Failed. Expected Text is:" + expectedValue + " Actual Text is:" + actualValue, Reporter.FAIL);
+                            BaseTestUtils.report("TextField Validation Failed.Actual Value not Matched the Expected Regex. Expected Regex is:" + expectedValue + " Actual Text is:" + actualValue, Reporter.FAIL);
                         }
                         break;
                 }
