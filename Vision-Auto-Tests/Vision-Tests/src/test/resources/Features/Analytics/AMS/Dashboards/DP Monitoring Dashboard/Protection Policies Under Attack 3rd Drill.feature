@@ -293,15 +293,19 @@ Feature: DP Monitoring Dashboard - Protection Policies - Under Attack 3rd Drill
 
   ###################################################   DNS Flood   ################################################################
   @SID_27
+  @run3
   Scenario: Clear data
+    * UI Login with user "radware" and password "radware"
     * CLI kill all simulator attacks on current vision
     * REST Delete ES index "dp-*"
 
   @SID_28
+  @run3
   Scenario: Run DP simulator PCAPs for "Protection Policies" - 3rd drill - DNS Flood
     Given CLI simulate 1 attacks of type "rest_DNS_NEW" on "DefensePro" 10 and wait 130 seconds
 
   @SID_29
+  @run3
   Scenario: Entering to the under attack policy 3nd drill
     When UI Navigate to "DefensePro Monitoring Dashboard" page via homePage
     And UI click Table row by keyValue or Index with elementLabel "Protection Policies.Table" findBy index 0
@@ -310,9 +314,10 @@ Feature: DP Monitoring Dashboard - Protection Policies - Under Attack 3rd Drill
 
   ##DNS Flood - Info Card
   @SID_30
+  @run3
   Scenario: Validate info card data - DNS Flood
     Then UI Validate Text field "Info.Protocol" EQUALS "Protocol: UDP"
-    Then UI Validate Text field "Info.Total packets" EQUALS "Total Packets: 2,417"
+    Then UI Validate Text field "Info.Total packets" On Regex "Total Packets: (\d+,?\d+)" GTE "2417"
     Then UI Validate Text field "Info.Volume" EQUALS "Volume: 175.87 KBytes"
     Then UI Validate Text field "Info.Physical Port" EQUALS "Physical Port: 0"
     Then UI Validate Text field "Info.Device IP" EQUALS "Device IP Address: 172.16.22.50"
