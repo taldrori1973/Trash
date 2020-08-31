@@ -240,8 +240,8 @@ public class ClickOperationsHandler {
                     validationOperation.equals(OperatorsEnum.LTE) ||
                     validationOperation.equals(OperatorsEnum.LT)) {//The Expected and actual Values should be casted to Numbers
                 if (NumberUtils.isParsable(finalExpectedValue.replaceAll(",","")) && isParsable(actualValue.replaceAll(",",""))) {
-                    expectedAsNumber = Double.parseDouble(finalExpectedValue);
-                    actualAsNumber = Double.parseDouble(actualValue);
+                    expectedAsNumber = Double.parseDouble(finalExpectedValue.replaceAll(",",""));
+                    actualAsNumber = Double.parseDouble(actualValue.replaceAll(",",""));
                 } else {
                     BaseTestUtils.reporter.report(
                             String.format("The Expexcted Value and/or the Actual Value is/are not numbers, the GTE,GT,LTE and LT operations are for numbers only." +
