@@ -241,9 +241,10 @@ public class ClickOperationsHandler {
                     (!validationOperation.equals(OperatorsEnum.CONTAINS) && nonNull(finalExpectedValue) && nonNull(actualValue))) {
                 switch (validationOperation) {
                     case CONTAINS:
-                        for (int i = 0; i < expectedTextList.size(); i++) {
-                            if (actualValue.contains(expectedTextList.get(i).substring(0, expectedTextList.get(i).length() - cutCharsNumber))) {
+                        for (String expectedText : expectedTextList) {
+                            if (actualValue.contains(expectedText.substring(0, expectedText.length() - cutCharsNumber))) {
                                 contains = true;
+                                break;
                             }
                         }
                         if (!contains) {
