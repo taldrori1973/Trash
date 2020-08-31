@@ -33,6 +33,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import static java.util.Objects.nonNull;
+import static org.apache.commons.lang3.math.NumberUtils.isParsable;
 
 /**
  * Created by AviH on 03-Dec-17.
@@ -247,13 +248,21 @@ public class ClickOperationsHandler {
                                 break;
                             }
                         }
+                        if (expectedTextList.isEmpty())
+                            contains = true;//if the array of expected values is empty . the test pass
                         if (!contains) {
                             BaseTestUtils.report("TextField Validation Failed. Expected Text is:" + expectedTextList + " Actual Text is:" + actualValue, Reporter.FAIL);
                         }
                         break;
                     case EQUALS:
-                        if (!finalExpectedValue.equals(actualValue)) {
-                            BaseTestUtils.report("TextField Validation Failed. Expected Text is:" + expectedValue + " Actual Text is:" + actualValue, Reporter.FAIL);
+                        if (isParsable(finalExpectedValue) && isParsable(actualValue)) {//if the both values is number then compare numbers
+                            if (Double.parseDouble(finalExpectedValue) != Double.parseDouble(actualValue)) {
+                                BaseTestUtils.report("TextField Validation Failed. Expected Value is:" + Double.parseDouble(finalExpectedValue) + " Actual Value is:" + Double.parseDouble(actualValue), Reporter.FAIL);
+                            }
+                        } else {//compare strings
+                            if (!finalExpectedValue.equals(actualValue)) {
+                                BaseTestUtils.report("TextField Validation Failed. Expected Text is:" + expectedValue + " Actual Text is:" + actualValue, Reporter.FAIL);
+                            }
                         }
                         break;
                     case MatchRegex:
