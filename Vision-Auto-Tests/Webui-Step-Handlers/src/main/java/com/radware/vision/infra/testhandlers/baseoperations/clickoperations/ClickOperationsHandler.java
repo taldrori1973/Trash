@@ -239,7 +239,7 @@ public class ClickOperationsHandler {
                     validationOperation.equals(OperatorsEnum.GT) ||
                     validationOperation.equals(OperatorsEnum.LTE) ||
                     validationOperation.equals(OperatorsEnum.LT)) {//The Expected and actual Values should be casted to Numbers
-                if (NumberUtils.isParsable(finalExpectedValue) && isParsable(actualValue)) {
+                if (NumberUtils.isParsable(finalExpectedValue.replaceAll(",","")) && isParsable(actualValue.replaceAll(",",""))) {
                     expectedAsNumber = Double.parseDouble(finalExpectedValue);
                     actualAsNumber = Double.parseDouble(actualValue);
                 } else {
@@ -272,7 +272,7 @@ public class ClickOperationsHandler {
                         }
                         break;
                     case EQUALS:
-                        if (isParsable(finalExpectedValue) && isParsable(actualValue)) {//if the both values is number then compare numbers
+                        if (isParsable(finalExpectedValue.replaceAll(",","")) && isParsable(actualValue.replaceAll(",",""))) {//if the both values is number then compare numbers
                             if (Double.parseDouble(finalExpectedValue) != Double.parseDouble(actualValue)) {
                                 BaseTestUtils.report("TextField Validation Failed. Expected Value is:" + Double.parseDouble(finalExpectedValue) + " Actual Value is:" + Double.parseDouble(actualValue), Reporter.FAIL);
                             }

@@ -312,7 +312,7 @@ Feature: DP Monitoring Dashboard - Protection Policies - Under Attack 3rd Drill
   @SID_30
   Scenario: Validate info card data - DNS Flood
     Then UI Validate Text field "Info.Protocol" EQUALS "Protocol: UDP"
-    Then UI Validate Text field "Info.Total packets" EQUALS "Total Packets: 2,417"
+    Then UI Validate Text field "Info.Total packets" On Regex "Total Packets: (\d+,?\d+)" GTE "2417"
     Then UI Validate Text field "Info.Volume" EQUALS "Volume: 175.87 KBytes"
     Then UI Validate Text field "Info.Physical Port" EQUALS "Physical Port: 0"
     Then UI Validate Text field "Info.Device IP" EQUALS "Device IP Address: 172.16.22.50"
