@@ -232,6 +232,21 @@ public class ClickOperationsHandler {
 
             }
 
+            Number expected;
+            Number actual;
+            if (validationOperation.equals(OperatorsEnum.GTE) ||
+                    validationOperation.equals(OperatorsEnum.GT) ||
+                    validationOperation.equals(OperatorsEnum.LTE) ||
+                    validationOperation.equals(OperatorsEnum.LT)) {//The Expected and actual Values should be casted to Numbers
+                if (isParsable(finalExpectedValue) && isParsable(actualValue)) {
+
+                } else {
+                    BaseTestUtils.reporter.report(
+                            String.format("The Expexcted Value and/or the Actual Value is/are not numbers, the GTE,GT,LTE and LT operations are for numbers only." +
+                                    "\nActual Value: %s\nExpected Value: %s", actualValue, finalExpectedValue),
+                            Reporter.FAIL);
+                }
+            }
             /*
             Now we have 3 parameters for test:
             1. expectedTextList : for Contains Operation
