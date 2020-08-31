@@ -22,6 +22,7 @@ import com.radware.vision.infra.testhandlers.baseoperations.BasicOperationsHandl
 import com.radware.vision.infra.utils.GeneralUtils;
 import com.radware.vision.infra.utils.ReportsUtils;
 import jsystem.framework.RunProperties;
+import org.apache.commons.lang3.math.NumberUtils;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.How;
@@ -232,14 +233,15 @@ public class ClickOperationsHandler {
 
             }
 
-            Number expected;
-            Number actual;
+            double expectedAsNumber = 0;
+            double actualAsNumber = 0;
             if (validationOperation.equals(OperatorsEnum.GTE) ||
                     validationOperation.equals(OperatorsEnum.GT) ||
                     validationOperation.equals(OperatorsEnum.LTE) ||
                     validationOperation.equals(OperatorsEnum.LT)) {//The Expected and actual Values should be casted to Numbers
-                if (isParsable(finalExpectedValue) && isParsable(actualValue)) {
-
+                if (NumberUtils.isParsable(finalExpectedValue) && isParsable(actualValue)) {
+                    expectedAsNumber = Double.parseDouble(finalExpectedValue);
+                    actualAsNumber = Double.parseDouble(actualValue);
                 } else {
                     BaseTestUtils.reporter.report(
                             String.format("The Expexcted Value and/or the Actual Value is/are not numbers, the GTE,GT,LTE and LT operations are for numbers only." +
@@ -284,6 +286,22 @@ public class ClickOperationsHandler {
                         if (!actualValue.matches(expectedValue)) {
                             BaseTestUtils.report("TextField Validation Failed.Actual Value not Matched the Expected Regex. Expected Regex is:" + expectedValue + " Actual Text is:" + actualValue, Reporter.FAIL);
                         }
+                        break;
+                    case GTE:
+                        if (actualAsNumber < expectedAsNumber)
+                            BaseTestUtils.report("TextField Validation Failed. The Actual Value :" + actualAsNumber + " Expected to be greater than or Equal the expected value: " + expectedValue, Reporter.FAIL);
+                        break;
+                    case GT:
+                        if (actualAsNumber <= expectedAsNumber)
+                            BaseTestUtils.report("TextField Validation Failed. The Actual Value :" + actualAsNumber + " Expected to be greater than the expected value: " + expectedValue, Reporter.FAIL);
+                        break;
+                    case LTE:
+                        if (actualAsNumber > expectedAsNumber)
+                            BaseTestUtils.report("TextField Validation Failed. The Actual Value :" + actualAsNumber + " Expected to be Lower than or Equal the expected value: " + expectedValue, Reporter.FAIL);
+                        break;
+                    case LT:
+                        if (actualAsNumber >= expectedAsNumber)
+                            BaseTestUtils.report("TextField Validation Failed. The Actual Value :" + actualAsNumber + " Expected to be Lower than the expected value: " + expectedValue, Reporter.FAIL);
                         break;
                 }
             }
