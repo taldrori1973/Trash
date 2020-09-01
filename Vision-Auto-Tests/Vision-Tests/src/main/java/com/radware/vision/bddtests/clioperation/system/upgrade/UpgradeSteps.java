@@ -33,7 +33,7 @@ public class UpgradeSteps extends BddCliTestBase {
         try {
             VisionServer.upgradeServerFile(getRestTestBase().getRadwareServerCli(), getRestTestBase().getRootServerCli()
                     , version, build, null, isAPM());
-            validateVisionServerServicesUP();
+            validateVisionServerServicesUP(restTestBase.getRadwareServerCli());
         } catch (Exception e) {
             BaseTestUtils.report("Setup Failed changing server to OFFLINE", Reporter.FAIL);
             BaseTestUtils.report(e.getMessage(), Reporter.FAIL);
@@ -43,7 +43,18 @@ public class UpgradeSteps extends BddCliTestBase {
     @When("^validate vision server services is UP$")
     public void validateVisionServerServicesUPStep() {
         try {
-            validateVisionServerServicesUP();
+            validateVisionServerServicesUP(restTestBase.getRadwareServerCli());
+        } catch (Exception e) {
+            BaseTestUtils.report(e.getMessage(), Reporter.FAIL);
+        }
+    }
+
+    @When("^validate vision server services is UP on vision 2$")
+    public void validateVisionServerServicesUPStepVision2() {
+        try {
+            String sourceIP = restTestBase.getVisionServerHA().getHost_2();
+            RadwareServerCli radwareServerCli = new RadwareServerCli(sourceIP, restTestBase.getRadwareServerCli().getUser(), restTestBase.getRadwareServerCli().getPassword());
+            validateVisionServerServicesUP(radwareServerCli);
         } catch (Exception e) {
             BaseTestUtils.report(e.getMessage(), Reporter.FAIL);
         }
@@ -74,7 +85,7 @@ public class UpgradeSteps extends BddCliTestBase {
     @When("^CLI validate Vision Services UP$")
     public void CliValidateVisionServerServicesUP() {
         try {
-            validateVisionServerServicesUP();
+            validateVisionServerServicesUP(restTestBase.getRadwareServerCli());
         } catch (Exception e) {
             BaseTestUtils.report(e.getMessage(), Reporter.FAIL);
         }
@@ -86,9 +97,8 @@ public class UpgradeSteps extends BddCliTestBase {
         return !CliOperations.lastRow.equals("0");
     }
 
-    private void validateVisionServerServicesUP() throws Exception {
+    private void validateVisionServerServicesUP(RadwareServerCli serverCli) throws Exception {
         try {
-            RadwareServerCli serverCli = restTestBase.getRadwareServerCli();
             serverCli.disconnect();
             serverCli.connect();
             boolean isVisionUp = waitForVisionServerServicesToStartHA(serverCli, 40 * 60 * 1000);
