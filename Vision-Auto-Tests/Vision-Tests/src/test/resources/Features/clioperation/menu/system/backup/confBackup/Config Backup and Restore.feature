@@ -15,11 +15,14 @@ Feature: Backup and Restore
   @SID_32
   Scenario: validate the two machines are active
     When CLI Operations - Run Radware Session command "system config-sync mode set active" timeout 60
+    Then CLI Operations - Verify that output contains regex ".*Continue?.*\(y/n\).*"
+    When CLI Operations - Run Radware Session command "y" timeout 250
     When CLI Operations - Run Radware Session command "system config-sync mode get"
     Then CLI Operations - Verify that output contains regex ".*Mode: active.*"
     When CLI Operations - Run Radware Session command "system config-sync mode set active" on vision 2, timeout 60
-    Then CLI Operations - Run Radware Session command "system config-sync mode get" on vision 2, timeout 2
-    Then CLI Operations - Run Radware Session command ".*Mode: active.*" on vision 2, timeout 2
+    Then CLI Operations - Run Radware Session command "y" on vision 2, timeout 250
+#    Then CLI Operations - Run Radware Session command "system config-sync mode get" on vision 2, timeout 2
+#    Then CLI Operations - Run Radware Session command ".*Mode: active.*" on vision 2, timeout 2
 
   @SID_31
   Scenario: validate services is UP in the two machines before backup and restore
