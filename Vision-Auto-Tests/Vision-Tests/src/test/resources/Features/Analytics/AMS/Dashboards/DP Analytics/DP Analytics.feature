@@ -1079,6 +1079,7 @@ Feature: DP ANALYTICS
   @SID_76
   Scenario: Login
     When UI Login with user "sys_admin" and password "radware"
+    Then CLI Run remote linux Command "curl -XPOST localhost:9200/dp-attack-raw-*/_update_by_query -d '{"query": {"bool": {"must": [{"match": {"name": "network flood IPv4 TCP-SYN-ACK"}},{"match": {"attackIpsId": "7839-2258218226"}}],"must_not": [],"should": []}},"script": {"source": "ctx._source.duration = '68000'"}}'" on "ROOT_SERVER_CLI"
     Then UI Navigate to "DefensePro Analytics Dashboard" page via homePage
     And UI Do Operation "Select" item "Global Time Filter"
     And UI Do Operation "Select" item "Global Time Filter.Quick Range" with value "3H"
@@ -1106,7 +1107,7 @@ Feature: DP ANALYTICS
       | BWM Limit Alert                | 9     | Less than 1 min |
       | DNS flood IPv4 DNS-A           | 9     | Less than 1 min |
       | DOSS-Anomaly-TCP-SYN-RST       | 6     | Less than 1 min |
-      | network flood IPv4 TCP-SYN-ACK | 6     | Less than 1 min |
+      | network flood IPv4 TCP-SYN-ACK | 5     | Less than 1 min |
  #    | network flood IPv6 TCP-SYN-ACK | 3     | Less than 1 min |
  #    | network flood IPv6 UDP         | 3     | Less than 1 min |
 #      | Brute Force Web                | 3     | Less than 1 min |
@@ -1114,10 +1115,13 @@ Feature: DP ANALYTICS
       | network flood IPv6 UDP-FRAG    | 6     | Less than 1 min |
       | SYN Flood HTTP                 | 3     | 1-5 min         |
       | TCP Scan (vertical)            | 3     | 1-5 min         |
+      | network flood IPv4 TCP-SYN-ACK | 1     | 1-5 min         |
+
     Then UI Total "Top Attacks by Duration-1" legends equal to 2
 
   @SID_78
   Scenario: VRM - Validate Dashboards "Top Attacks by Duration" Chart data for one selected DP machine
+    Then CLI Run remote linux Command "curl -XPOST localhost:9200/dp-attack-raw-*/_update_by_query -d '{"query": {"bool": {"must": [{"match": {"name": "HTTP Page Flood Attack"}},{"match": {"attackIpsId": "7841-1402580209"}}],"must_not": [],"should": []}},"script": {"source": "ctx._source.duration = '34000'"}}'" on "ROOT_SERVER_CLI"
     When UI Do Operation "Select" item "Device Selection"
     And UI VRM Select device from dashboard and Save Filter
       | index | ports | policies |
