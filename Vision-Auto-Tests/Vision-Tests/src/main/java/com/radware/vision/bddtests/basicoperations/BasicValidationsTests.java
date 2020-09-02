@@ -429,11 +429,11 @@ public class BasicValidationsTests extends BddUITestBase {
         }
     }
 
-    @Then("^FluentWait For \"([^\"]*)\"(?: With Extension (\"([^\"]*)\"))? Table of (\\d+) Rows Number$")
-    public void fluentWaitForTableWithRows(String label, String extension, int rowsNumber) {
+    @Then("^UI FluentWait For \"([^\"]*)\"(?: With Extension \"([^\"]*)\")? Table Until Rows Number (EQUALS|GTE|GT|LTE|LT) (\\d+)$")
+    public void fluentWaitForTableWithRows(String label, String extension,OperatorsEnum operatorsEnum,int rowsNumber) {
 
         try {
-            if (!tableHandler.fluentWaitTableByRowsNumber(label, extension, rowsNumber))
+            if (!tableHandler.fluentWaitTableByRowsNumber(label, extension,operatorsEnum, rowsNumber))
                 BaseTestUtils.reporter.report("Fluent Wait Time Was Ended without find the number of expected rows", Reporter.FAIL);
         } catch (Exception e) {
             BaseTestUtils.reporter.report(e.getMessage(), Reporter.FAIL);

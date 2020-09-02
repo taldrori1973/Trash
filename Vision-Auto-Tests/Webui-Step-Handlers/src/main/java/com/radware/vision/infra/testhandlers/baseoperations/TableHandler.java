@@ -332,7 +332,7 @@ public class TableHandler {
         }
     }
 
-    public boolean fluentWaitTableByRowsNumber(String label, String extension, int rowsNumber) throws Exception {
+    public boolean fluentWaitTableByRowsNumber(String label, String extension, OperatorsEnum operatorsEnum, int rowsNumber) throws Exception {
 
         setTable(label, extension, false);
 
@@ -341,7 +341,28 @@ public class TableHandler {
                 pollingEvery(Duration.ofMillis(2)).
                 ignoring(StaleElementReferenceException.class, WebDriverException.class);
 
-        return wait.until(table -> table.getRowCount() == rowsNumber);
+        return wait.until(table -> {
+            try {
+                setTable(label, extension, false);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            int rowCount = table.getRowCount();
+            switch (operatorsEnum) {
+                case LTE:
+                    return rowCount <= rowsNumber;
+                case GTE:
+                    return rowCount >= rowsNumber;
+                case LT:
+                    return rowCount < rowsNumber;
+                case GT:
+                    return rowCount > rowsNumber;
+                case EQUALS:
+                    return rowCount == rowsNumber;
+            }
+            return false;
+
+        });
     }
 
 
