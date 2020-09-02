@@ -2,7 +2,7 @@
 Feature: DP Monitoring Dashboard - Protection Policies - Under Attack 3rd Drill
 
   @SID_1
-    @run1
+  @run3
   Scenario: Clean system data before "Protection Policies" test
     * CLI kill all simulator attacks on current vision
     * REST Delete ES index "dp-*"
@@ -12,7 +12,7 @@ Feature: DP Monitoring Dashboard - Protection Policies - Under Attack 3rd Drill
     * CLI Clear vision logs
 
   @SID_2
-    @run1
+  @run3
   Scenario: Login as sys_admin and update Attack Description File
     Given UI Login with user "sys_admin" and password "radware"
     Then REST Vision Install License Request "vision-AVA-Max-attack-capacity"
@@ -21,17 +21,14 @@ Feature: DP Monitoring Dashboard - Protection Policies - Under Attack 3rd Drill
 #########################################################   BDOS   ################################################################
 
   @SID_3
-    @run1
   Scenario: Run DP simulator PCAPs for "Protection Policies" - 3rd drill - BDOS
     Given CLI simulate 1 attacks of type "vrm_bdos" on "DefensePro" 10 and wait 70 seconds
 
   @SID_4
-    @run1
   Scenario: Navigate to DP dashboard
     When UI Navigate to "DefensePro Monitoring Dashboard" page via homePage
 
   @SID_5
-    @run1
   Scenario: Entering to the under attack policy 3nd drill
     Given UI click Table row by keyValue or Index with elementLabel "Protection Policies.Table" findBy index 0
     And UI click Table row by keyValue or Index with elementLabel "Protection Policies.Protections Table" findBy index 0
@@ -77,13 +74,12 @@ Feature: DP Monitoring Dashboard - Protection Policies - Under Attack 3rd Drill
 
     ##Bdos - Per attack card
   @SID_10
-    @run1
   Scenario: Validate per attack card data - BDOS
     Then UI Validate Text field "Characteristics.State" EQUALS "State:Real-Time Signature Blocking"
     Then UI Text of "Characteristics.Real-Time Signature.Operator" with extension "1" equal to "OR"
     Then UI Text of "Characteristics.Real-Time Signature.Parameter" with extension "1" equal to "sequence-number"
     Then UI Text of "Characteristics.Real-Time Signature.Value/s" with extension "1" equal to "123456"
-#    Then FluentWait For "Characteristics.Attack Identification Statistics" Table of 4 Rows Number
+    Then  UI FluentWait For "Characteristics.Attack Identification Statistics" Table Until Rows Number GTE 4
     Then UI Validate Table record values by columns with elementLabel "Characteristics.Attack Identification Statistics" findBy index 0
       | columnName  | value         |
       | Type        | Normal (Kbps) |
