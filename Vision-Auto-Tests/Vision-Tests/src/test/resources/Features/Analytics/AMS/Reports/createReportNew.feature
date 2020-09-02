@@ -1,6 +1,5 @@
 @VRM_Report2
 @TC107944
-  @run3
 Feature: create AMS Report New Form
 
   @SID_1

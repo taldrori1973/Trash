@@ -32,12 +32,9 @@ Feature: DP ANALYTICS
     Then UI Navigate to "DefensePro Analytics Dashboard" page via homePage
     And UI Do Operation "Select" item "Global Time Filter"
     And UI Do Operation "Select" item "Global Time Filter.Quick Range" with value "3H"
-#    And UI VRM Select Widgets
-#      | Attacks by Mitigation Action |
-#      | Top Attacks by Duration           |
-#      | Top Probed IP Addresses           |
 
     # ================= ATTACKS BY MITIGATION ACTION ================= #
+
   @SID_4
   Scenario: VRM - Validate Dashboards "Attacks by Mitigation Action" Chart data for all DP machines
     * Sleep "2"
@@ -50,10 +47,8 @@ Feature: DP ANALYTICS
       | Black_IPV6         | 6     | Drop               |
       | POL_IPV6           | 6     | Drop               |
       | policy1            | 6     | Drop               |
-   #  | bbt-sc1            | 3     | Drop               |
       | Black_IPV4         | 3     | Drop               |
       | Paaaaaaaaaaaaaaa   | 3     | Drop               |
-    # | pol_1              | 3     | Drop               |
       | 1                  | 3     | Drop               |
       | policy1            | 6     | Challenge          |
       | HPPPf              | 3     | Challenge          |
@@ -98,7 +93,6 @@ Feature: DP ANALYTICS
       | Black_IPV6         | 2     | Drop               |
       | POL_IPV6           | 2     | Drop               |
       | policy1            | 2     | Drop               |
-     #| bbt-sc1            | 1     | Drop               |
       | Black_IPV4         | 1     | Drop               |
       | Paaaaaaaaaaaaaaa   | 1     | Drop               |
       | 1                  | 1     | Drop               |
@@ -163,11 +157,6 @@ Feature: DP ANALYTICS
     And UI VRM Select device from dashboard and Save Filter
       | index | ports | policies |
       | 10    | 4     | BDOS     |
-#    Then UI Validate StackBar data with widget "Attacks by Mitigation Action"
-#      | label   | value | legendName | exist |
-#      | shlomi  | 5     | Drop       | false |
-#      | BDOS    | 4     | Drop       | false |
-#      | bbt-sc1 | 1     | Drop       | false |
     Then UI Validate Text field by id "21d31970-adb1-4b9e-815c-44f72e35704d" CONTAINS "No Data Available"
 
   @SID_12
@@ -177,148 +166,16 @@ Feature: DP ANALYTICS
       | ALL     | fatal      | NOT_EXPECTED |
     * UI Logout
 
-#      # ================= ATTACKS BY SOURCE DESTINATION ================= #
-#
-#  @SID_13
-#  Scenario: Login
-#    When UI Login with user "sys_admin" and password "radware"
-#    And UI Open Upper Bar Item "AMS"
-#    And UI Open "Dashboards" Tab
-#    And UI Open "DP Analytics" Sub Tab
-#    And UI Do Operation "Select" item "Global Time Filter"
-#    And UI Do Operation "Select" item "Global Time Filter.Quick Range" with value "3H"
-#
-#  @SID_14
-#  Scenario: VRM - Validate Dashboards "Attacks by Source And Destination" chart data on All devices
-#    When UI Do Operation "Select" item "Device Selection"
-#    And UI VRM Select device from dashboard and Save Filter
-#      | index | ports | policies |
-#      | 10    |       |          |
-#      | 11    |       |          |
-#      | 12    |       |          |
-#    And UI VRM Select Widgets
-#      | Attacks by Source And Destination |
-#    Then  UI Validate StackBar data with widget "Attacks by Source And Destination-1"
-#      | legendName                              | value | label    | exist |
-#      | 192.85.1.2                              | 6     | 0        | true  |
-#      | 192.85.1.2                              | 18    | 1024     | true  |
-#      | 0.0.0.0                                 | 18    | 0        | true  |
-#      | Multiple                                | 12    | 0        | true  |
-#      | Multiple                                | 6     | Multiple | true  |
-#      | 1234:1234:1234:1234:1234:1234:1234:1234 | 6     | 0        | true  |
-#      | 1234:1234:1234:1234:1234:1234:1234:1234 | 6     | 1024     | true  |
-#      | 192.85.1.8                              | 6     | 1055     | true  |
-#      | ::                                      | 6     | 0        | true  |
-#      | 197.1.1.1                               | 6     | 54081    | true  |
-#    Then UI Total "Attacks by Source And Destination-1" legends equal to 10
-#
-#  @SID_15
-#  Scenario: VRM - Validate Dashboards "Attacks by Source And Destination" Chart data for one DP machines
-#    When UI Do Operation "Select" item "Device Selection"
-#    And UI VRM Select device from dashboard and Save Filter
-#      | index | ports | policies |
-#      | 11    |       |          |
-#    Then  UI Validate StackBar data with widget "Attacks by Source And Destination-1"
-#      | legendName                              | value | label    | exist |
-#      | 192.85.1.2                              | 2     | 0        | true  |
-#      | 192.85.1.2                              | 6     | 1024     | true  |
-#      | 0.0.0.0                                 | 6     | 0        | true  |
-#      | Multiple                                | 4     | 0        | true  |
-#      | Multiple                                | 2     | Multiple | true  |
-#      | 1234:1234:1234:1234:1234:1234:1234:1234 | 2     | 0        | true  |
-#      | 1234:1234:1234:1234:1234:1234:1234:1234 | 2     | 1024     | true  |
-#      | 192.85.1.8                              | 2     | 1055     | true  |
-#      | ::                                      | 2     | 0        | true  |
-#    Then UI Total "Attacks by Source And Destination-1" legends equal to 10
-#
-#  @SID_16
-#  Scenario:  VRM - Validate Chart data for one selected DP machine filtered by policies
-#    When UI Do Operation "Select" item "Device Selection"
-#    And UI VRM Select device from dashboard and Save Filter
-#      | index | ports | policies |
-#      | 10    |       | BDOS     |
-#    Then  UI Validate StackBar data with widget "Attacks by Source And Destination-1"
-#      | legendName  | value | label | exist |
-#      | 192.85.1.8  | 2     | 1055  | true  |
-#      | 192.85.1.77 | 1     | 1055  | true  |
-#      | 0.0.0.0     | 1     | 0     | true  |
-#      | 192.85.1.2  | 1     | 1024  | true  |
-#    Then UI Total "Attacks by Source And Destination-1" legends equal to 4
-#
-#  @SID_17
-#  Scenario: VRM - Validate Chart data for two selected DP machine filtered by ports
-#    When UI Do Operation "Select" item "Device Selection"
-#    And UI VRM Select device from dashboard and Save Filter
-#      | index | ports | policies |
-#      | 10    | 1,3   |          |
-#      | 11    | 1,3   |          |
-#    Then  UI Validate StackBar data with widget "Attacks by Source And Destination-1"
-#      | legendName  | value | label | exist |
-#      | 192.85.1.2  | 2     | 0     | true  |
-#      | 192.85.1.2  | 12    | 1024  | true  |
-#      | 192.85.1.8  | 4     | 1055  | true  |
-#      | 198.18.0.1  | 2     | 49743 | true  |
-#      | 192.85.1.77 | 2     | 1055  | true  |
-#    Then UI Total "Attacks by Source And Destination-1" legends equal to 4
-#
-#  @SID_18
-#  Scenario: VRM - Validate Chart data for two selected DP machine filtered by ports and policies
-#    When UI Do Operation "Select" item "Device Selection"
-#    And UI VRM Select device from dashboard and Save Filter
-#      | index | ports | policies |
-#      | 10    | 1,3   | BDOS     |
-#    Then  UI Validate StackBar data with widget "Attacks by Source And Destination-1"
-#      | legendName  | value | label | exist |
-#      | 192.85.1.8  | 2     | 1055  | true  |
-#      | 192.85.1.2  | 1     | 1024  | true  |
-#      | 192.85.1.77 | 1     | 1055  | true  |
-#    Then UI Total "Attacks by Source And Destination-1" legends equal to 3
-#
-#  @SID_19
-#  Scenario: NEGATIVE - Validate Chart data doesn't exist for policy without relevant data
-#    When UI Do Operation "Select" item "Device Selection"
-#    And UI VRM Select device from dashboard and Save Filter
-#      | index | ports | policies |
-#      | 10    |       | Policy15 |
-#    Then  UI Validate StackBar data with widget "Attacks by Source And Destination-1"
-#      | legendName  | value | label | exist |
-#      | 192.85.1.2  | 2     | 0     | false |
-#      | 192.85.1.2  | 12    | 1024  | false |
-#      | 192.85.1.8  | 4     | 1055  | false |
-#      | 198.18.0.1  | 2     | 49743 | false |
-#      | 192.85.1.77 | 2     | 1055  | false |
-#
-#  @SID_20
-#  Scenario: NEGATIVE - Validate Chart data doesn't exist for policy with traffic and port with no traffic
-#    When UI Do Operation "Select" item "Device Selection"
-#    And UI VRM Select device from dashboard and Save Filter
-#      | index | ports | policies |
-#      | 10    | 1     | Policy15 |
-#    Then  UI Validate StackBar data with widget "Attacks by Source And Destination-1"
-#      | legendName  | value | label | exist |
-#      | 192.85.1.2  | 2     | 0     | false |
-#      | 192.85.1.2  | 12    | 1024  | false |
-#      | 192.85.1.8  | 4     | 1055  | false |
-#      | 198.18.0.1  | 2     | 49743 | false |
-#      | 192.85.1.77 | 2     | 1055  | false |
-#      | ::          | 2     | 0     | false |
-#
-#  @SID_21
-#  Scenario: ATTACKS BY SOURCE DESTINATION Cleanup
-#    * CLI Check if logs contains
-#      | logType | expression | isExpected |
-#      | ALL     | fatal      | NOT_EXPECTED      |
-#    * UI Logout
-#
       # ================= ATTACKS BY PROTECTION POLICY ================= #
-  @SID_22
+
+  @SID_13
   Scenario: Login
     When UI Login with user "sys_admin" and password "radware"
     Then UI Navigate to "DefensePro Analytics Dashboard" page via homePage
     And UI Do Operation "Select" item "Global Time Filter"
     And UI Do Operation "Select" item "Global Time Filter.Quick Range" with value "3H"
 
-  @SID_23
+  @SID_14
   Scenario: VRM - Validate Dashboards "Attacks by Protection Policy" Chart data for all DP machines
     When UI Do Operation "Select" item "Device Selection"
     And UI VRM Select device from dashboard and Save Filter
@@ -343,7 +200,7 @@ Feature: DP ANALYTICS
       | network flood IPv6 UDP         | 3     | POL_IPV6         |
     Then UI Total "Attacks by Protection Policy" legends equal to 10
 
-  @SID_24
+  @SID_15
   Scenario: VRM - Validate Dashboards "Attacks by Protection Policy" Chart data for one selected DP machine
     When UI Do Operation "Select" item "Device Selection"
     And UI VRM Select device from dashboard and Save Filter
@@ -366,7 +223,7 @@ Feature: DP ANALYTICS
       | network flood IPv6 UDP         | 1     | POL_IPV6         |
     Then UI Total "Attacks by Protection Policy" legends equal to 10
 
-  @SID_25
+  @SID_16
   Scenario:  VRM - Validate Dashboards "Attacks by Protection Policy" Chart data for selected port
     When UI Do Operation "Select" item "Device Selection"
     And UI VRM Select device from dashboard and Save Filter
@@ -382,7 +239,7 @@ Feature: DP ANALYTICS
       | network flood IPv4 TCP-SYN-ACK | 2     | BDOS       |
     Then UI Total "Attacks by Protection Policy" legends equal to 2
 
-  @SID_26
+  @SID_17
   Scenario: VRM - Validate Dashboards "Attacks by Protection Policy" Chart data for selected policies
     When UI Do Operation "Select" item "Device Selection"
     And UI VRM Select device from dashboard and Save Filter
@@ -399,7 +256,7 @@ Feature: DP ANALYTICS
       | network flood IPv4 TCP-SYN-ACK | 2     | BDOS       |
     Then UI Total "Attacks by Protection Policy" legends equal to 2
 
-  @SID_27
+  @SID_18
   Scenario: VRM - Validate Dashboards "Attacks by Protection Policy" Chart data for selected port and policies
     When UI Do Operation "Select" item "Device Selection"
     And UI VRM Select device from dashboard and Save Filter
@@ -412,33 +269,17 @@ Feature: DP ANALYTICS
       | tim                            | 2     | BDOS       |
       | network flood IPv4 TCP-SYN-ACK | 2     | BDOS       |
     Then UI Total "Attacks by Protection Policy" legends equal to 1
-#  @SID_28
-#  Scenario: VRM - NEGATIVE: Validate Dashboards "Attacks by Protection Policy" Chart data doesn't exist for policy without relevant data
-#    Then UI Validate StackBar data with widget "Attacks by Protection Policy"
-#      | label                          | value | legendName         | exist |
-#      | network flood IPv6 UDP         | 2     | POL_IPV6           | false |
-#      | HTTP Page Flood Attack         | 2     | HPPPf              | false |
-#      | pkt_rate_lmt_9                 | 2     | pph_9Pkt_lmt_252.1 | false |
-#      | Brute Force Web                | 2     | bbt-sc1            | false |
-#      | sign_seets3                    | 2     | Seets_policy       | false |
-#      | network flood IPv6 TCP-SYN-ACK | 2     | POL_IPV6           | false |
-#    Then UI Total "Attacks by Protection Policy" legends equal to 1
-  @SID_29
+
+  @SID_19
   Scenario: VRM - NEGATIVE: Validate Dashboards "Attacks by Protection Policy" data doesn't exist for policy with traffic and port with no traffic
     When UI Do Operation "Select" item "Device Selection"
     And UI VRM Select device from dashboard and Save Filter
       | index | ports | policies |
       | 10    | 1     | pol_1    |
       | 11    | 1     | pol_1    |
-#    Then UI Validate StackBar data with widget "Attacks by Protection Policy"
-#      | label                   | value | legendName       | exist |
-#      | Incorrect IPv4 checksum | 1     | Paaaaaaaaaaaaaaa | false |
-#      | Incorrect IPv4 checksum | 3     | Packet Anomalies | false |
-#      | DNS flood IPv4 DNS-A    | 2     | 1                | false |
-#      | DNS flood IPv4 DNS-A    | 1     | BDOS             | false |
     Then UI Validate Text field by id "89fcf6e1-791c-4198-9d07-922ce3e26be6" CONTAINS "No Data Available"
 
-  @SID_30
+  @SID_20
   Scenario: Attacks by Protection Policy Cleanup
     * CLI Check if logs contains
       | logType | expression | isExpected   |
@@ -446,14 +287,15 @@ Feature: DP ANALYTICS
     * UI Logout
 
       # ================= Attacks by Threat Category ================= #
-  @SID_31
+
+  @SID_21
   Scenario: Login
     When UI Login with user "sys_admin" and password "radware"
     Then UI Navigate to "DefensePro Analytics Dashboard" page via homePage
     And UI Do Operation "Select" item "Global Time Filter"
     And UI Do Operation "Select" item "Global Time Filter.Quick Range" with value "3H"
 
-  @SID_32
+  @SID_22
   Scenario: VRM - Validate Dashboards "Attacks by Threat Category" Chart data for all DP machines
     When UI Do Operation "Select" item "Device Selection"
     And UI VRM Select device from dashboard and Save Filter
@@ -476,7 +318,7 @@ Feature: DP ANALYTICS
       | httpFlood      | 3    | false |
       | ServerCracking | 3    | false |
 
-  @SID_33
+  @SID_23
   Scenario: VRM - Validate Dashboards "Attacks by Threat Category" Chart data for one selected DP machine
     When UI Do Operation "Select" item "Device Selection"
     And UI VRM Select device from dashboard and Save Filter
@@ -497,7 +339,7 @@ Feature: DP ANALYTICS
       | httpFlood      | 1    | false |
       | ServerCracking | 1    | false |
 
-  @SID_34
+  @SID_24
   Scenario: VRM - Validate Dashboards "Attacks by Threat Category" Chart data for one selected port
     When UI Do Operation "Select" item "Device Selection"
     And UI VRM Select device from dashboard and Save Filter
@@ -509,7 +351,7 @@ Feature: DP ANALYTICS
       | DOSShield     | 1    |
       | Anti-Scanning | 1    |
 
-  @SID_35
+  @SID_25
   Scenario: VRM - Validate Dashboards "Attacks by Threat Category" Chart data for one selected policy
     When UI Do Operation "Select" item "Device Selection"
     And UI VRM Select device from dashboard and Save Filter
@@ -523,7 +365,7 @@ Feature: DP ANALYTICS
       | BehavioralDOS | 1    |
       | DNS           | 1    |
 
-  @SID_36
+  @SID_26
   Scenario: VRM - Validate Dashboards "Attacks by Threat Category" Chart data for one selected port and policy
     When UI Do Operation "Select" item "Device Selection"
     And UI VRM Select device from dashboard and Save Filter
@@ -532,27 +374,8 @@ Feature: DP ANALYTICS
     Then UI Validate Pie Chart data "Attacks by Threat Category"
       | label       | data |
       | StatefulACL | 5    |
-#
-#  @SID_37
-#  Scenario: VRM - NEGATIVE: Validate Dashboards "Attacks by Threat Category" Chart data doesn't exist for policy without relevant data
-#    When UI Do Operation "Select" item "Device Selection"
-#    And UI VRM Select device from dashboard and Save Filter
-#      | index | ports | policies |
-#      | 10    |       | SSL      |
-#    Then UI Validate Pie Chart data "Attacks by Threat Category"
-#      | label     | data | exist |
-#      | DOSShield | 1    | false |
-#
-#  @SID_38
-#  Scenario: VRM - NEGATIVE: Validate Dashboards "Attacks by Threat Category" data doesn't exist for policy with traffic and port with no traffic
-#    When UI Do Operation "Select" item "Device Selection"
-#    And UI VRM Select device from dashboard and Save Filter
-#      | index | ports | policies |
-#      | 10    | 8     | shlomi   |
-#    Then UI Validate Pie Chart data "Attacks by Threat Category"
-#      | label       | data | exist |
-#      | StatefulACL | 5    | false |
-  @SID_39
+
+  @SID_27
   Scenario: Attacks by Threat Category Cleanup
     * CLI Check if logs contains
       | logType | expression | isExpected   |
@@ -560,14 +383,15 @@ Feature: DP ANALYTICS
     * UI Logout
 
       # ================= ATTACK CATEGORIES BY BANDWIDTH ================= #
-  @SID_40
+
+  @SID_28
   Scenario: Login
     When UI Login with user "sys_admin" and password "radware"
     Then UI Navigate to "DefensePro Analytics Dashboard" page via homePage
     And UI Do Operation "Select" item "Global Time Filter"
     And UI Do Operation "Select" item "Global Time Filter.Quick Range" with value "3H"
 
-  @SID_41
+  @SID_29
   Scenario: VRM - Validate Dashboards "Attack Categories by Bandwidth" Chart data for all DP machines
     When UI Do Operation "Select" item "Device Selection"
     And UI VRM Select device from dashboard and Save Filter
@@ -590,7 +414,7 @@ Feature: DP ANALYTICS
       | Seets_policy | 3         | Intrusions     |
     Then UI Total "Attack Categories by Bandwidth" legends equal to 9
 
-  @SID_42
+  @SID_30
   Scenario: VRM - Validate Dashboards "Attack Categories by Bandwidth" Chart data for one selected DP machine
     When UI Do Operation "Select" item "Device Selection"
     And UI VRM Select device from dashboard and Save Filter
@@ -611,7 +435,7 @@ Feature: DP ANALYTICS
       | Seets_policy | 1        | Intrusions     |
     Then UI Total "Attack Categories by Bandwidth" legends equal to 9
 
-  @SID_43
+  @SID_31
   Scenario: VRM - Validate Dashboards "Attack Categories by Bandwidth" Chart data with only one selected port
     When UI Do Operation "Select" item "Device Selection"
     And UI VRM Select device from dashboard and Save Filter
@@ -624,7 +448,7 @@ Feature: DP ANALYTICS
       | BDOS  | 226554 | DOSShield     |
     Then UI Total "Attack Categories by Bandwidth" legends equal to 2
 
-  @SID_44
+  @SID_32
   Scenario: VRM - Validate Dashboards "Attack Categories by Bandwidth" Chart data with selected policies
     When UI Do Operation "Select" item "Device Selection"
     And UI VRM Select device from dashboard and Save Filter
@@ -637,7 +461,7 @@ Feature: DP ANALYTICS
     Then UI Total "Attack Categories by Bandwidth" legends equal to 1
 
 
-  @SID_45
+  @SID_33
   Scenario: VRM - Validate Dashboards "Attack Categories by Bandwidth" Chart data with one selected port and policies
     When UI Do Operation "Select" item "Device Selection"
     And UI VRM Select device from dashboard and Save Filter
@@ -645,12 +469,8 @@ Feature: DP ANALYTICS
       | 10    | 1     | BDOS     |
       | 11    | 1     | BDOS     |
     * Sleep "2"
-#    Then UI Validate StackBar data with widget "Attack Categories by Bandwidth"
-#      | label | value  | legendName    |
-#      | BDOS  | 322056 | BehavioralDOS |
-#      | BDOS  | 226554 | DOSShield     |
-#    Then UI Total "Attack Categories by Bandwidth" legends equal to 2
-  @SID_46
+
+  @SID_34
   Scenario: VRM - NEGATIVE: Validate Dashboards "Attack Categories by Bandwidth" Chart data doesn't exist for policy without relevant data
     Then UI Validate StackBar data with widget "Attack Categories by Bandwidth"
       | label        | value     | legendName     | exist | legendNameExist |
@@ -666,7 +486,7 @@ Feature: DP ANALYTICS
       | Seets_policy | 2         | Intrusions     | false | false           |
     Then UI Total "Attack Categories by Bandwidth" legends equal to 2
 
-  @SID_47
+  @SID_35
   Scenario: VRM - NEGATIVE: Validate Dashboards "Attack Categories by Bandwidth" data doesn't exist for policy with traffic and port with no traffic
     When UI Do Operation "Select" item "Device Selection"
     And UI VRM Select device from dashboard and Save Filter
@@ -678,10 +498,9 @@ Feature: DP ANALYTICS
       | Black_IPV6 | 103002084 | ACL           | false | false           |
       | Black_IPV4 | 874042    | ACL           | false | false           |
       | BDOS       | 322056    | BehavioralDOS | true  | true            |
-#      | POL_IPV6   | 51973572  | BehavioralDOS | false |
     Then UI Total "Attack Categories by Bandwidth" legends equal to 3
 
-  @SID_48
+  @SID_36
   Scenario: Attack Categories by Bandwidth Cleanup
     * CLI Check if logs contains
       | logType | expression | isExpected   |
@@ -690,14 +509,14 @@ Feature: DP ANALYTICS
 
       # ================= TOP ATTACKS DESTINATION ================= #
 
-  @SID_49
+  @SID_37
   Scenario: Login
     When UI Login with user "sys_admin" and password "radware"
     Then UI Navigate to "DefensePro Analytics Dashboard" page via homePage
     And UI Do Operation "Select" item "Global Time Filter"
     And UI Do Operation "Select" item "Global Time Filter.Quick Range" with value "3H"
 
-  @SID_50
+  @SID_38
   Scenario: VRM - Validate Dashboards "Top Attack Destination" chart data on All devices
     When UI Do Operation "Select" item "Device Selection"
     And UI VRM Select device from dashboard and Save Filter
@@ -718,7 +537,7 @@ Feature: DP ANALYTICS
       | 1.1.1.1                                 | 6    |
       | 30.1.1.10                               | 6    |
 
-  @SID_51
+  @SID_39
   Scenario: VRM - Validate Dashboards "Top Attack Destination" chart data on one device
     When UI Do Operation "Select" item "Device Selection"
     And UI VRM Select device from dashboard and Save Filter
@@ -737,7 +556,7 @@ Feature: DP ANALYTICS
       | 1.1.1.1                                 | 2    |
       | 30.1.1.10                               | 2    |
 
-  @SID_52
+  @SID_40
   Scenario: VRM - Validate Chart data for two selected DP machine filtered by ports
     When UI Do Operation "Select" item "Device Selection"
     And UI VRM Select device from dashboard and Save Filter
@@ -753,7 +572,7 @@ Feature: DP ANALYTICS
       | 10.10.1.200  | 2    |
       | 198.18.252.1 | 2    |
 
-  @SID_53
+  @SID_41
   Scenario: VRM - Validate Chart data for one selected DP machine filtered by ports and policies
     When UI Do Operation "Select" item "Device Selection"
     And UI VRM Select device from dashboard and Save Filter
@@ -765,7 +584,7 @@ Feature: DP ANALYTICS
       | 1.1.1.8 | 2    |
       | 1.1.1.9 | 1    |
 
-  @SID_54
+  @SID_42
   Scenario:  VRM - Validate Chart data for one selected DP machine filtered by policies
     When UI Do Operation "Select" item "Device Selection"
     And UI VRM Select device from dashboard and Save Filter
@@ -778,47 +597,25 @@ Feature: DP ANALYTICS
       | 1.1.1.8 | 2    |
       | 1.1.1.9 | 1    |
 
-  @SID_55
+  @SID_43
   Scenario: NEGATIVE - Validate Chart data doesn't exist for policy without relevant data
     When UI Do Operation "Select" item "Device Selection"
     And UI VRM Select device from dashboard and Save Filter
       | index | ports | policies |
       | 10    |       | Policy15 |
-#    Then UI Validate Pie Chart data "Top Attack Destination"
-#      | label                                   | data | exist |
-#      | 0.0.0.0                                 | 5    | false |
-#      | 1.1.1.10                                | 5    | false |
-#      | Multiple                                | 4    | false |
-#      | 1234:1234:1234:1234:1234:1234:1234:1235 | 4    | false |
-#      | 1.1.1.8                                 | 2    | false |
-#      | ::                                      | 2    | false |
-#      | 2000::0001                              | 2    | false |
-#      | 10.10.1.200                             | 2    | false |
-#      | 1.1.1.1                                 | 2    | false |
     Then UI Validate Text field by id "17f01010-4023-4157-87dd-8c5792577149" CONTAINS "No Data Available"
 
 
-  @SID_56
+  @SID_44
   Scenario: NEGATIVE - Validate Chart data doesn't exist for policy with traffic and port with no traffic
     When UI Do Operation "Select" item "Device Selection"
     And UI VRM Select device from dashboard and Save Filter
       | index | ports | policies |
       | 10    | 1     | Policy15 |
-#    Then UI Validate Pie Chart data "Top Attack Destination"
-#      | label                                   | data | exist |
-#      | 0.0.0.0                                 | 5    | false |
-#      | 1.1.1.10                                | 5    | false |
-#      | Multiple                                | 4    | false |
-#      | 1234:1234:1234:1234:1234:1234:1234:1235 | 4    | false |
-#      | 1.1.1.8                                 | 2    | false |
-#      | ::                                      | 2    | false |
-#      | 2000::0001                              | 2    | false |
-#      | 10.10.1.200                             | 2    | false |
-#      | 1.1.1.1                                 | 2    | false |
     Then UI Validate Text field by id "17f01010-4023-4157-87dd-8c5792577149" CONTAINS "No Data Available"
 
 
-  @SID_57
+  @SID_45
   Scenario: TOP ATTACKS DESTINATION Cleanup
     * CLI Check if logs contains
       | logType | expression | isExpected   |
@@ -827,14 +624,14 @@ Feature: DP ANALYTICS
 
       # ================= TOP ATTACKS ================= #
 
-  @SID_58
+  @SID_46
   Scenario: Login
     When UI Login with user "sys_admin" and password "radware"
     Then UI Navigate to "DefensePro Analytics Dashboard" page via homePage
     And UI Do Operation "Select" item "Global Time Filter"
     And UI Do Operation "Select" item "Global Time Filter.Quick Range" with value "3H"
 
-  @SID_59
+  @SID_47
   Scenario: VRM - Validate Dashboards "Top Attacks" Chart data for all DP machines
     When UI Do Operation "Select" item "Device Selection"
     And UI VRM Select device from dashboard and Save Filter
@@ -861,7 +658,7 @@ Feature: DP ANALYTICS
       | DOSS             | 3     | network flood IPv6 UDP-FRAG    |
     Then UI Total "Top Attacks" legends equal to 10
 
-  @SID_60
+  @SID_48
   Scenario: VRM - Validate Dashboards "Top Attacks" Chart data for one selected DP machine
     When UI Do Operation "Select" item "Device Selection"
     And UI VRM Select device from dashboard and Save Filter
@@ -886,7 +683,7 @@ Feature: DP ANALYTICS
       | bdos1            | 1     | network flood IPv6 UDP-FRAG    |
       | DOSS             | 1     | network flood IPv6 UDP-FRAG    |
 
-  @SID_61
+  @SID_49
   Scenario: VRM - Validate Dashboards "Top Attacks" Chart data for one selected port
     When UI Do Operation "Select" item "Device Selection"
     And UI VRM Select device from dashboard and Save Filter
@@ -900,7 +697,7 @@ Feature: DP ANALYTICS
       | BDOS   | 2     | tim                            |
       | BDOS   | 2     | network flood IPv4 TCP-SYN-ACK |
 
-  @SID_62
+  @SID_50
   Scenario: VRM - Validate Dashboards "Top Attacks" Chart data for selected policies
     When UI Do Operation "Select" item "Device Selection"
     And UI VRM Select device from dashboard and Save Filter
@@ -916,7 +713,7 @@ Feature: DP ANALYTICS
       | BDOS       | 2     | tim                            |
       | BDOS       | 2     | network flood IPv4 TCP-SYN-ACK |
 
-  @SID_63
+  @SID_51
   Scenario: VRM - Validate Dashboards "Top Attacks" Chart data for selected port and policies
     When UI Do Operation "Select" item "Device Selection"
     And UI VRM Select device from dashboard and Save Filter
@@ -929,14 +726,14 @@ Feature: DP ANALYTICS
       | BDOS  | 2     | tim                            |
       | BDOS  | 2     | network flood IPv4 TCP-SYN-ACK |
 
-  @SID_64
+  @SID_52
   Scenario: VRM - NEGATIVE: Validate Dashboards "Top Attacks" Chart data doesn't exist for policy without relevant data
     Then UI Validate StackBar data with widget "Top Attacks"
       | label    | value | legendName                     | exist | legendNameExist |
       | POL_IPV6 | 2     | network flood IPv6 UDP         | false | false           |
       | POL_IPV6 | 2     | network flood IPv6 TCP-SYN-ACK | false | false           |
 
-  @SID_65
+  @SID_53
   Scenario: VRM - NEGATIVE: Validate Dashboards "Top Attacks" data doesn't exist for policy with traffic and port with no traffic
     When UI Do Operation "Select" item "Device Selection"
     And UI VRM Select device from dashboard and Save Filter
@@ -945,7 +742,7 @@ Feature: DP ANALYTICS
       | 11    | 2     |          |
     Then UI Validate Text field by id "21d31970-adb1-4b9e-815c-44f72e35704d" CONTAINS "No Data Available"
 
-  @SID_66
+  @SID_54
   Scenario: Top Attacks Cleanup
     * CLI Check if logs contains
       | logType | expression | isExpected   |
@@ -954,7 +751,7 @@ Feature: DP ANALYTICS
 
       # ================= Top Attacks by Bandwidth ================= #
 
-  @SID_67
+  @SID_55
   Scenario: Login
     When UI Login with user "sys_admin" and password "radware"
     Then UI Navigate to "DefensePro Analytics Dashboard" page via homePage
@@ -962,7 +759,7 @@ Feature: DP ANALYTICS
     And UI Do Operation "Select" item "Global Time Filter.Quick Range" with value "3H"
 
 
-  @SID_68
+  @SID_56
   Scenario: VRM - Validate Dashboards "Top Attacks by Bandwidth" Chart data for all DP machines
     When UI Do Operation "Select" item "Device Selection"
     And UI VRM Select device from dashboard and Save Filter
@@ -984,7 +781,7 @@ Feature: DP ANALYTICS
       | shlomchik  | 61683     | BWM Limit Alert                |
     Then UI Total "Top Attacks by Bandwidth" legends equal to 10
 
-  @SID_69
+  @SID_57
   Scenario: VRM - Validate Dashboards "Top Attacks by Bandwidth" Chart data for one selected DP machine
     When UI Do Operation "Select" item "Device Selection"
     And UI VRM Select device from dashboard and Save Filter
@@ -1004,7 +801,7 @@ Feature: DP ANALYTICS
       | shlomchik  | 20561    | BWM Limit Alert                |
     Then UI Total "Top Attacks by Bandwidth" legends equal to 10
 
-  @SID_70
+  @SID_58
   Scenario: VRM - Validate Dashboards "Top Attacks by Bandwidth" Chart data for one selected port
     When UI Do Operation "Select" item "Device Selection"
     And UI VRM Select device from dashboard and Save Filter
@@ -1016,7 +813,7 @@ Feature: DP ANALYTICS
       | bbt-sc1 | 168216 | Brute Force Web |
     Then UI Total "Top Attacks by Bandwidth" legends equal to 1
 
-  @SID_71
+  @SID_59
   Scenario: VRM - Validate Dashboards "Top Attacks by Bandwidth" Chart data for one selected policies
     When UI Do Operation "Select" item "Device Selection"
     And UI VRM Select device from dashboard and Save Filter
@@ -1029,7 +826,7 @@ Feature: DP ANALYTICS
       | BDOS  | 226554 | DOSS-Anomaly-TCP-SYN-RST       |
     Then UI Total "Top Attacks by Bandwidth" legends equal to 2
 
-  @SID_72
+  @SID_60
   Scenario: VRM - Validate Dashboards "Top Attacks by Bandwidth" Chart data for selected port and policies
     When UI Do Operation "Select" item "Device Selection"
     And UI VRM Select device from dashboard and Save Filter
@@ -1043,13 +840,13 @@ Feature: DP ANALYTICS
       | BDOS  | 322056 | network flood IPv4 TCP-SYN-ACK |
     Then UI Total "Top Attacks by Bandwidth" legends equal to 2
 
-  @SID_73
+  @SID_61
   Scenario: VRM - NEGATIVE: Validate Dashboards "Top Attacks by Bandwidth" Chart data doesn't exist for policy without relevant data
     Then UI Validate StackBar data with widget "Top Attacks by Bandwidth"
       | label   | value  | legendName      | exist | legendNameExist |
       | bbt-sc1 | 168216 | Brute Force Web | false | false           |
 
-  @SID_74
+  @SID_62
   Scenario: VRM - NEGATIVE: Validate Dashboards "Top Attacks by Bandwidth" data doesn't exist for policy with traffic and port with no traffic
     When UI Do Operation "Select" item "Device Selection"
     And UI VRM Select device from dashboard and Save Filter
@@ -1068,7 +865,7 @@ Feature: DP ANALYTICS
       | shlomchik  | 41122     | BWM Limit Alert                | false | false           |
       | 1          | 1904      | DNS flood IPv4 DNS-A           | false | false           |
 
-  @SID_75
+  @SID_63
   Scenario: Top Attacks by Bandwidth Cleanup
     * CLI Check if logs contains
       | logType | expression | isExpected   |
@@ -1076,7 +873,8 @@ Feature: DP ANALYTICS
     * UI Logout
 
       # ================= TOP ATTACKS BY DURATION ================= #
-  @SID_76
+
+  @SID_64
   Scenario: Login
     When UI Login with user "sys_admin" and password "radware"
     Then CLI Run remote linux Command "curl -XPOST localhost:9200/dp-attack-raw-*/_update_by_query -d '{"query": {"bool": {"must": [{"match": {"name": "network flood IPv4 TCP-SYN-ACK"}},{"match": {"attackIpsId": "7839-2258218226"}}],"must_not": [],"should": []}},"script": {"source": "ctx._source.duration = '68000'"}}'" on "ROOT_SERVER_CLI"
@@ -1087,7 +885,7 @@ Feature: DP ANALYTICS
       | Top Attacks by Duration |
     * Sleep "5"
 
-  @SID_77
+  @SID_65
   Scenario: VRM - Validate Dashboards "Top Attacks by Duration" Chart data for all DP machines
     When UI Do Operation "Select" item "Device Selection"
     And UI VRM Select device from dashboard and Save Filter
@@ -1099,18 +897,11 @@ Feature: DP ANALYTICS
       | label                          | value | legendName      |
       | Black List                     | 9     | Less than 1 min |
       | Incorrect IPv4 checksum        | 12    | Less than 1 min |
- #    | pkt_rate_lmt_9                 | 3     | Less than 1 min |
- #    | sign_seets3                    | 3     | Less than 1 min |
       | TCP Mid Flow packet            | 15    | Less than 1 min |
- #    | TCP Scan (vertical)            | 3     | Less than 1 min |
- #    | tim                            | 3     | Less than 1 min |
       | BWM Limit Alert                | 9     | Less than 1 min |
       | DNS flood IPv4 DNS-A           | 9     | Less than 1 min |
       | DOSS-Anomaly-TCP-SYN-RST       | 6     | Less than 1 min |
       | network flood IPv4 TCP-SYN-ACK | 5     | Less than 1 min |
- #    | network flood IPv6 TCP-SYN-ACK | 3     | Less than 1 min |
- #    | network flood IPv6 UDP         | 3     | Less than 1 min |
-#      | Brute Force Web                | 3     | Less than 1 min |
       | HTTP Page Flood Attack         | 3     | Less than 1 min |
       | network flood IPv6 UDP-FRAG    | 6     | Less than 1 min |
       | SYN Flood HTTP                 | 3     | 1-5 min         |
@@ -1119,7 +910,7 @@ Feature: DP ANALYTICS
 
     Then UI Total "Top Attacks by Duration-1" legends equal to 2
 
-  @SID_78
+  @SID_66
   Scenario: VRM - Validate Dashboards "Top Attacks by Duration" Chart data for one selected DP machine
     Then CLI Run remote linux Command "curl -XPOST localhost:9200/dp-attack-raw-*/_update_by_query -d '{"query": {"bool": {"must": [{"match": {"name": "HTTP Page Flood Attack"}},{"match": {"attackIpsId": "7841-1402580209"}}],"must_not": [],"should": []}},"script": {"source": "ctx._source.duration = '34000'"}}'" on "ROOT_SERVER_CLI"
     When UI Do Operation "Select" item "Device Selection"
@@ -1130,25 +921,18 @@ Feature: DP ANALYTICS
       | label                          | value | legendName      |
       | Black List                     | 3     | Less than 1 min |
       | Incorrect IPv4 checksum        | 4     | Less than 1 min |
-   #  | pkt_rate_lmt_9                 | 1     | Less than 1 min |
-   #  | sign_seets3                    | 1     | Less than 1 min |
       | TCP Mid Flow packet            | 5     | Less than 1 min |
-   #  | TCP Scan (vertical)            | 1     | Less than 1 min |
-   #  | tim                            | 1     | Less than 1 min |
       | BWM Limit Alert                | 3     | Less than 1 min |
       | DNS flood IPv4 DNS-A           | 3     | Less than 1 min |
       | DOSS-Anomaly-TCP-SYN-RST       | 2     | Less than 1 min |
       | network flood IPv4 TCP-SYN-ACK | 2     | Less than 1 min |
-   #  | network flood IPv6 TCP-SYN-ACK | 1     | Less than 1 min |
-   #  | network flood IPv6 UDP         | 1     | Less than 1 min |
-#      | Brute Force Web                | 1     | Less than 1 min |
       | HTTP Page Flood Attack         | 1     | Less than 1 min |
       | network flood IPv6 UDP-FRAG    | 2     | Less than 1 min |
       | SYN Flood HTTP                 | 1     | 1-5 min         |
       | TCP Scan (vertical)            | 1     | 1-5 min         |
     Then UI Total "Top Attacks by Duration-1" legends equal to 2
 
-  @SID_79
+  @SID_67
   Scenario: VRM - Validate Dashboards "Top Attacks by Duration" Chart data for one selected port
     When UI Do Operation "Select" item "Device Selection"
     And UI VRM Select device from dashboard and Save Filter
@@ -1164,7 +948,7 @@ Feature: DP ANALYTICS
       | TCP Scan (vertical)            | 1     | 1-5 min         |
     Then UI Total "Top Attacks by Duration-1" legends equal to 2
 
-  @SID_80
+  @SID_68
   Scenario: VRM - Validate Dashboards "Top Attacks by Duration" Chart data for one selected policies
     When UI Do Operation "Select" item "Device Selection"
     And UI VRM Select device from dashboard and Save Filter
@@ -1178,7 +962,7 @@ Feature: DP ANALYTICS
       | DNS flood IPv4 DNS-A           | 1     | Less than 1 min |
     Then UI Total "Top Attacks by Duration-1" legends equal to 1
 
-  @SID_81
+  @SID_69
   Scenario: VRM - Validate Dashboards "Top Attacks by Duration" Chart data for selected port and policies
     When UI Do Operation "Select" item "Device Selection"
     And UI VRM Select device from dashboard and Save Filter
@@ -1191,49 +975,8 @@ Feature: DP ANALYTICS
       | network flood IPv4 TCP-SYN-ACK | 1     | Less than 1 min |
     Then UI Total "Top Attacks by Duration-1" legends equal to 1
 
-#  @SID_82
-#  Scenario: VRM - NEGATIVE: Validate Dashboards "Top Attacks by Duration" Chart data doesn't exist for policy without relevant data
-#    When UI Do Operation "Select" item "Device Selection"
-#    And UI VRM Select device from dashboard and Save Filter
-#      | index | ports | policies |
-#      | 10    |       | Maxim31  |
-#    Then UI Validate StackBar data with widget "Top Attacks by Duration-1"
-#      | label                          | value | legendName      | exist |
-#      | Black List                     | 1     | Less than 1 min | false |
-#      | Brute Force Web                | 1     | Less than 1 min | false |
-#      | BWM Limit Alert                | 3     | Less than 1 min | false |
-#      | DNS flood IPv4 DNS-A           | 2     | Less than 1 min | false |
-#      | DOSS-Anomaly-TCP-SYN-RST       | 2     | Less than 1 min | false |
-#      | HTTP Page Flood Attack         | 1     | Less than 1 min | false |
-#      | network flood IPv6 TCP-SYN-ACK | 1     | Less than 1 min | false |
-#      | network flood IPv6 UDP         | 1     | Less than 1 min | false |
-#      | network flood IPv6 UDP-FRAG    | 1     | Less than 1 min | false |
-#      | sign_seets3                    | 1     | Less than 1 min | false |
-#      | SYN Flood HTTP                 | 2     | Less than 1 min | false |
-#      | TCP Scan (vertical)            | 2     | Less than 1 min | false |
-#      | Black List                     | 2     | 1-5 min         | false |
-#      | TCP Mid Flow packet            | 5     | 1-5 min         | false |
-#      | DNS flood IPv4 DNS-A           | 1     | 5-10 min        | false |
-#      | Incorrect IPv4 checksum        | 1     | 5-10 min        | false |
-#      | Incorrect IPv4 checksum        | 3     | 10-30 min       | false |
-#      | network flood IPv4 TCP-SYN-ACK | 1     | 10-30 min       | false |
-#      | pkt_rate_lmt_9                 | 1     | 10-30 min       | false |
-#      | tim                            | 1     | 10-30 min       | false |
-#      | network flood IPv4 TCP-SYN-ACK | 1     | 30-60 min       | false |
-#      | network flood IPv6 UDP-FRAG    | 1     | 30-60 min       | false |
-#
-#  @SID_83
-#  Scenario: VRM - NEGATIVE: Validate Dashboards "Top Attacks by Duration" data doesn't exist for policy with traffic and port with no traffic
-#    When UI Do Operation "Select" item "Device Selection"
-#    And UI VRM Select device from dashboard and Save Filter
-#      | index | ports | policies |
-#      | 10    | 3     | BDOS     |
-#    Then UI Validate StackBar data with widget "Top Attacks by Duration-1"
-#      | label                          | value | legendName      | exist |
-#      | DOSS-Anomaly-TCP-SYN-RST       | 2     | Less than 1 min | false |
-#      | DNS flood IPv4 DNS-A           | 1     | 5-10 min        | false |
-#      | network flood IPv4 TCP-SYN-ACK | 1     | 10-30 min       | false |
-  @SID_84
+
+  @SID_70
   Scenario: Top Attacks by Duration Cleanup
     * CLI Check if logs contains
       | logType | expression | isExpected   |
@@ -1242,7 +985,7 @@ Feature: DP ANALYTICS
 
       # ================= Top Attacks by Protocol ================= #
 
-  @SID_85
+  @SID_71
   Scenario: Login
     When UI Login with user "sys_admin" and password "radware"
     Then UI Navigate to "DefensePro Analytics Dashboard" page via homePage
@@ -1250,7 +993,7 @@ Feature: DP ANALYTICS
     And UI Do Operation "Select" item "Global Time Filter.Quick Range" with value "3H"
 
 
-  @SID_86
+  @SID_72
   Scenario: VRM - Validate Dashboards "Top Attacks by Protocol" Chart data for all DP machines
     When UI Do Operation "Select" item "Device Selection"
     And UI VRM Select device from dashboard and Save Filter
@@ -1269,7 +1012,6 @@ Feature: DP ANALYTICS
       | TCP        | 6     | DOSS-Anomaly-TCP-SYN-RST       | true  |
       | TCP        | 3     | HTTP Page Flood Attack         | true  |
       | TCP        | 3     | network flood IPv6 TCP-SYN-ACK | true  |
-     #| TCP        | 3     | pkt_rate_lmt_9                 | true  |
       | TCP        | 3     | sign_seets3                    | true  |
       | IP         | 12    | Incorrect IPv4 checksum        | true  |
       | IP         | 9     | BWM Limit Alert                | true  |
@@ -1280,7 +1022,7 @@ Feature: DP ANALYTICS
     Then UI Total "Top Attacks by Protocol" legends equal to 3
 
 
-  @SID_87
+  @SID_73
   Scenario: VRM - Validate Dashboards "Top Attacks by Protocol" Chart data for one DP machines
     When UI Do Operation "Select" item "Device Selection"
     And UI VRM Select device from dashboard and Save Filter
@@ -1293,7 +1035,6 @@ Feature: DP ANALYTICS
       | TCP        | 1     | HTTP Page Flood Attack         | true  |
       | TCP        | 2     | network flood IPv4 TCP-SYN-ACK | true  |
       | TCP        | 1     | network flood IPv6 TCP-SYN-ACK | true  |
-    # | TCP        | 1     | pkt_rate_lmt_9                 | true  |
       | TCP        | 1     | sign_seets3                    | true  |
       | TCP        | 2     | SYN Flood HTTP                 | true  |
       | TCP        | 5     | TCP Mid Flow packet            | true  |
@@ -1308,7 +1049,7 @@ Feature: DP ANALYTICS
     Then UI Total "Top Attacks by Protocol" legends equal to 3
 
 
-  @SID_88
+  @SID_74
   Scenario:  VRM - Validate Chart data for one selected DP machine filtered by policies
     When UI Do Operation "Select" item "Device Selection"
     And UI VRM Select device from dashboard and Save Filter
@@ -1322,7 +1063,7 @@ Feature: DP ANALYTICS
       | UDP        | 1     | DNS flood IPv4 DNS-A           | true  |
 
 
-  @SID_89
+  @SID_75
   Scenario: VRM - Validate Chart data for two selected DP machine filtered by ports
     When UI Do Operation "Select" item "Device Selection"
     And UI VRM Select device from dashboard and Save Filter
@@ -1340,7 +1081,7 @@ Feature: DP ANALYTICS
       | TCP        | 2     | tim                            | true  |
 
 
-  @SID_90
+  @SID_76
   Scenario: VRM - Validate Chart data for two selected DP machine filtered by ports and policies
     When UI Do Operation "Select" item "Device Selection"
     And UI VRM Select device from dashboard and Save Filter
@@ -1353,47 +1094,8 @@ Feature: DP ANALYTICS
       | TCP        | 1     | network flood IPv4 TCP-SYN-ACK | true  |
       | TCP        | 1     | tim                            | true  |
 
-#  @SID_91
-#  Scenario: NEGATIVE - Validate Chart data doesn't exist for policy without relevant data
-#    When UI Do Operation "Select" item "Device Selection"
-#    And UI VRM Select device from dashboard and Save Filter
-#      | index | ports | policies |
-#      | 10    |       | 1234     |
-#    Then  UI Validate StackBar data with widget "Top Attacks by Protocol"
-#      | legendName | value | label                          | exist |
-#      | TCP        | 2     | DOSS-Anomaly-TCP-SYN-RST       | false |
-#      | TCP        | 2     | network flood IPv4 TCP-SYN-ACK | false |
-#      | TCP        | 2     | SYN Flood HTTP                 | false |
-#      | TCP        | 5     | TCP Mid Flow packet            | false |
-#      | TCP        | 2     | TCP Scan (vertical)            | false |
-#      | IP         | 4     | Incorrect IPv4 checksum        | false |
-#      | IP         | 3     | BWM Limit Alert                | false |
-#      | IP         | 3     | Black List                     | false |
-#      | UDP        | 3     | DNS flood IPv4 DNS-A           | false |
-#      | UDP        | 2     | network flood IPv6 UDP-FRAG    | false |
-#      | UDP        | 1     | network flood IPv6 UDP         | false |
 
-#  @SID_92
-#  Scenario: NEGATIVE - Validate Chart data doesn't exist for policy with traffic and port with no traffic
-#    When UI Do Operation "Select" item "Device Selection"
-#    And UI VRM Select device from dashboard and Save Filter
-#      | index | ports | policies |
-#      | 10    | 1     | 1234     |
-#    Then  UI Validate StackBar data with widget "Top Attacks by Protocol"
-#      | legendName | value | label                          | exist |
-#      | TCP        | 2     | DOSS-Anomaly-TCP-SYN-RST       | false |
-#      | TCP        | 2     | network flood IPv4 TCP-SYN-ACK | false |
-#      | TCP        | 2     | SYN Flood HTTP                 | false |
-#      | TCP        | 5     | TCP Mid Flow packet            | false |
-#      | TCP        | 2     | TCP Scan (vertical)            | false |
-#      | IP         | 4     | Incorrect IPv4 checksum        | false |
-#      | IP         | 3     | BWM Limit Alert                | false |
-#      | IP         | 3     | Black List                     | false |
-#      | UDP        | 3     | DNS flood IPv4 DNS-A           | false |
-#      | UDP        | 2     | network flood IPv6 UDP-FRAG    | false |
-#      | UDP        | 1     | network flood IPv6 UDP         | false |
-
-  @SID_93
+  @SID_77
   Scenario: Top Attacks by Protocol Cleanup
     * CLI Check if logs contains
       | logType | expression | isExpected   |
@@ -1402,7 +1104,7 @@ Feature: DP ANALYTICS
 
       # ================= TOP ATTACKS SOURCES ================= #
 
-  @SID_94
+  @SID_78
   Scenario: Login
     When UI Login with user "sys_admin" and password "radware"
     Then UI Navigate to "DefensePro Analytics Dashboard" page via homePage
@@ -1410,7 +1112,7 @@ Feature: DP ANALYTICS
     And UI Do Operation "Select" item "Global Time Filter.Quick Range" with value "3H"
 
 
-  @SID_95
+  @SID_79
   Scenario: VRM - Validate Dashboards "Top Attack Sources" Chart data for all DP machines
     When UI Do Operation "Select" item "Device Selection"
     And UI VRM Select device from dashboard and Save Filter
@@ -1429,7 +1131,7 @@ Feature: DP ANALYTICS
       | 197.1.1.1                               | 6    |
 
 
-  @SID_96
+  @SID_80
   Scenario:  VRM - Validate Dashboards "Top Attack Sources" Chart data for one selected DP machine
     When UI Do Operation "Select" item "Device Selection"
     And UI VRM Select device from dashboard and Save Filter
@@ -1446,7 +1148,7 @@ Feature: DP ANALYTICS
       | 197.1.1.1                               | 2    |
 
 
-  @SID_97
+  @SID_81
   Scenario: VRM - Validate Dashboards "Top Attack Sources" Chart data for selected port
     When UI Do Operation "Select" item "Device Selection"
     And UI VRM Select device from dashboard and Save Filter
@@ -1459,7 +1161,7 @@ Feature: DP ANALYTICS
       | 192.85.1.2 | 2    |
 
 
-  @SID_98
+  @SID_82
   Scenario:VRM - Validate Dashboards "Top Attack Sources" Chart data for selected policies
     When UI Do Operation "Select" item "Device Selection"
     And UI VRM Select device from dashboard and Save Filter
@@ -1472,7 +1174,7 @@ Feature: DP ANALYTICS
       | 1.1.1.1                                 | 2    |
 
 
-  @SID_99
+  @SID_83
   Scenario: VRM - Validate Dashboards "Top Attack Sources" Chart data for selected port and policies
     When UI Do Operation "Select" item "Device Selection"
     And UI VRM Select device from dashboard and Save Filter
@@ -1485,20 +1187,7 @@ Feature: DP ANALYTICS
       | 192.85.1.2  | 2    |
       | 192.85.1.77 | 2    |
 
-#  @SID_100
-#  Scenario: VRM - NEGATIVE: Validate Dashboards "Top Attack Sources" Chart data doesn't exist for policy without relevant data
-#    When UI Do Operation "Select" item "Device Selection"
-#    And UI VRM Select device from dashboard and Save Filter
-#      | index | ports | policies |
-#      | 10    | 1     | bdos1    |
-#      | 11    | 1     | bdos1    |
-#    Then UI Validate Pie Chart data "Top Attack Sources"
-#      | label       | data | exist |
-#      | 192.85.1.8  | 4    | false |
-#      | 192.85.1.2  | 2    | false |
-#      | 192.85.1.77 | 2    | false |
-
-  @SID_101
+  @SID_84
   Scenario: VRM - NEGATIVE: Validate Dashboards "Top Attack Sources" data doesn't exist for policy with traffic and port with no traffic
     When UI Do Operation "Select" item "Device Selection"
     And UI VRM Select device from dashboard and Save Filter
@@ -1508,114 +1197,14 @@ Feature: DP ANALYTICS
     Then UI Validate Text field by id "5a981b30-3fb1-4592-a69b-d9cf2278c96e" CONTAINS "No Data Available"
 
 
-  @SID_102
+  @SID_85
   Scenario: Top Attack Sources Cleanup
     * CLI Check if logs contains
       | logType | expression | isExpected   |
       | ALL     | fatal      | NOT_EXPECTED |
     * UI Logout
 
-#      # ================= TOP FORWARDED ATTACK SOURCES ================= #
-#
-#  @SID_103
-#  Scenario: Login
-#    When UI Login with user "sys_admin" and password "radware"
-#    Then UI Navigate to "DefensePro Analytics Dashboard" page via homePage
-#    And UI Do Operation "Select" item "Global Time Filter"
-#    And UI Do Operation "Select" item "Global Time Filter.Quick Range" with value "3H"
-#
-#  @SID_104
-#  Scenario: VRM - Validate Dashboards "Top Forwarded Attack Sources" Chart data for all DP machines
-#    When UI Do Operation "Select" item "Device Selection"
-#    And UI VRM Select device from dashboard and Save Filter
-#      | index | ports | policies |
-#      | 10    |       |          |
-#      | 11    |       |          |
-#      | 12    |       |          |
-#    Then UI Validate Pie Chart data "Top Forwarded Attack Sources"
-#      | label      | data |
-#      | ::         | 6    |
-#      | 0.0.0.0    | 3    |
-#      | 197.1.1.1  | 3    |
-#      | 198.18.0.1 | 3    |
-#
-#  @SID_105
-#  Scenario: VRM - Validate Dashboards "Top Forwarded Attack Sources" Chart data for one selected DP machine
-#    When UI Do Operation "Select" item "Device Selection"
-#    And UI VRM Select device from dashboard and Save Filter
-#      | index | ports | policies |
-#      | 10    |       |          |
-#    Then UI Validate Pie Chart data "Top Forwarded Attack Sources"
-#      | label      | data |
-#      | ::         | 2    |
-#      | 0.0.0.0    | 1    |
-#      | 197.1.1.1  | 1    |
-#      | 198.18.0.1 | 1    |
-#
-#  @SID_106
-#  Scenario: VRM - Validate Dashboards "Top Forwarded Attack Sources" Chart data for one selected port
-#    When UI Do Operation "Select" item "Device Selection"
-#    And UI VRM Select device from dashboard and Save Filter
-#      | index | ports | policies |
-#      | 10    | 3     |          |
-#    Then UI Validate Pie Chart data "Top Forwarded Attack Sources"
-#      | label      | data |
-#      | 198.18.0.1 | 1    |
-#
-#  @SID_107
-#  Scenario: VRM - Validate Dashboards "Top Forwarded Attack Sources" Chart data for one selected policy
-#    When UI Do Operation "Select" item "Device Selection"
-#    And UI VRM Select device from dashboard and Save Filter
-#      | index | ports | policies |
-#      | 10    |       | BDOS     |
-#    Then UI Validate Pie Chart data "Top Forwarded Attack Sources"
-#      | label   | data |
-#      | 0.0.0.0 | 1    |
-#
-#  @SID_108
-#  Scenario: VRM - Validate Dashboards "Top Forwarded Attack Sources" Chart data for one selected port and policy
-#    When UI Do Operation "Select" item "Device Selection"
-#    And UI VRM Select device from dashboard and Save Filter
-#      | index | ports | policies           |
-#      | 10    | 3     | pph_9Pkt_lmt_252.1 |
-#    Then UI Validate Pie Chart data "Top Forwarded Attack Sources"
-#      | label      | data |
-#      | 198.18.0.1 | 1    |
-#
-#  @SID_109
-#  Scenario: VRM - NEGATIVE: Validate Dashboards "Top Forwarded Attack Sources" Chart data doesn't exist for policy without relevant data
-#    When UI Do Operation "Select" item "Device Selection"
-#    And UI VRM Select device from dashboard and Save Filter
-#      | index | ports | policies |
-#      | 10    |       | BDOS     |
-#    Then UI Validate Pie Chart data "Top Forwarded Attack Sources"
-#      | label      | data | exist |
-#      | ::         | 2    | false |
-#      | 197.1.1.1  | 2    | false |
-#      | 198.18.0.1 | 1    | false |
-#
-#  @SID_110
-#  Scenario: VRM - NEGATIVE: Validate Dashboards "Top Forwarded Attack Sources" data doesn't exist for policy with traffic and port with no traffic
-#    When UI Do Operation "Select" item "Device Selection"
-#    And UI VRM Select device from dashboard and Save Filter
-#      | index | ports | policies |
-#      | 10    | 6     | BDOS     |
-#    Then UI Validate Pie Chart data "Top Forwarded Attack Sources"
-#      | label      | data | exist |
-#      | 2.0.0.2    | 1    | false |
-#      | 192.85.1.3 | 1    | false |
-#      | 195.18.0.1 | 1    | false |
-#
-#  @SID_111
-#  Scenario: Top Forwarded Attack Sources Cleanup
-#    * CLI Check if logs contains
-#      | logType | expression | isExpected   |
-#      | ALL     | fatal      | NOT_EXPECTED |
-#    * UI Logout
-
-      # ================= TOP PROBED IP ADDRESSES ================= #
-
-  @SID_112
+  @SID_86
   Scenario: Login
     When UI Login with user "sys_admin" and password "radware"
     Then UI Navigate to "DefensePro Analytics Dashboard" page via homePage
@@ -1626,7 +1215,7 @@ Feature: DP ANALYTICS
     * Sleep "5"
 
 
-  @SID_113
+  @SID_87
   Scenario: VRM - Validate Dashboards "Top Probed IP Addresses" Chart data for all DP machines
     When UI Do Operation "Select" item "Device Selection"
     And UI VRM Select device from dashboard and Save Filter
@@ -1638,7 +1227,7 @@ Feature: DP ANALYTICS
       | label       | data |
       | 10.10.1.200 | 6    |
 
-  @SID_114
+  @SID_88
   Scenario: VRM - Validate Dashboards "Top Probed IP Addresses" Chart data for one selected DP machine
     When UI Do Operation "Select" item "Device Selection"
     And UI VRM Select device from dashboard and Save Filter
@@ -1648,7 +1237,7 @@ Feature: DP ANALYTICS
       | label       | data |
       | 10.10.1.200 | 2    |
 
-  @SID_115
+  @SID_89
   Scenario: VRM - Validate Dashboards "Top Probed IP Addresses" Chart data for selected port
     When UI Do Operation "Select" item "Device Selection"
     And UI VRM Select device from dashboard and Save Filter
@@ -1659,7 +1248,7 @@ Feature: DP ANALYTICS
       | label       | data |
       | 10.10.1.200 | 2    |
 
-  @SID_116
+  @SID_90
   Scenario: VRM - Validate Dashboards "Top Probed IP Addresses" Chart data for selected port and policies
     When UI Do Operation "Select" item "Device Selection"
     And UI VRM Select device from dashboard and Save Filter
@@ -1669,19 +1258,8 @@ Feature: DP ANALYTICS
     Then UI Validate Pie Chart data "Top Probed IP Addresses-1"
       | label       | data |
       | 10.10.1.200 | 2    |
-#
-#  @SID_117
-#  Scenario: VRM - NEGATIVE: Validate Dashboards "Top Probed IP Addresses" data doesn't exist for policy with traffic and port with no traffic
-#    When UI Do Operation "Select" item "Device Selection"
-#    And UI VRM Select device from dashboard and Save Filter
-#      | index | ports | policies |
-#      | 10    | 1     |          |
-#      | 11    | 1     |          |
-#    Then UI Validate Pie Chart data "Top Probed IP Addresses-1"
-#      | label       | data | exist |
-#      | 10.10.1.200 | 2    | false |
 
-  @SID_118
+  @SID_91
   Scenario: Top Probed IP Addresses Cleanup
     * CLI Check if logs contains
       | logType | expression | isExpected   |
@@ -1690,14 +1268,14 @@ Feature: DP ANALYTICS
 
       # ================= TOP SCANNERS ================= #
 
-  @SID_119
+  @SID_92
   Scenario: Login
     When UI Login with user "sys_admin" and password "radware"
     Then UI Navigate to "DefensePro Analytics Dashboard" page via homePage
     And UI Do Operation "Select" item "Global Time Filter"
     And UI Do Operation "Select" item "Global Time Filter.Quick Range" with value "3H"
 
-  @SID_120
+  @SID_93
   Scenario: VRM - Validate Dashboards "Top Scanners" Chart data for all DP machines
     When UI Do Operation "Select" item "Device Selection"
     And UI VRM Select device from dashboard and Save Filter
@@ -1709,7 +1287,7 @@ Feature: DP ANALYTICS
       | label      | data |
       | 192.85.1.2 | 6    |
 
-  @SID_121
+  @SID_94
   Scenario: VRM - Validate Dashboards "Top Scanners" Chart data for one selected DP machine
     When UI Do Operation "Select" item "Device Selection"
     And UI VRM Select device from dashboard and Save Filter
@@ -1719,7 +1297,7 @@ Feature: DP ANALYTICS
       | label      | data |
       | 192.85.1.2 | 2    |
 
-  @SID_122
+  @SID_95
   Scenario: VRM - Validate Dashboards "Top Scanners" Chart data for one selected port
     When UI Do Operation "Select" item "Device Selection"
     And UI VRM Select device from dashboard and Save Filter
@@ -1731,7 +1309,7 @@ Feature: DP ANALYTICS
       | label      | data |
       | 192.85.1.2 | 2    |
 
-  @SID_123
+  @SID_96
   Scenario: VRM - Validate Dashboards "Top Scanners" Chart data for one selected policy
     When UI Do Operation "Select" item "Device Selection"
     And UI VRM Select device from dashboard and Save Filter
@@ -1742,7 +1320,7 @@ Feature: DP ANALYTICS
       | label      | data |
       | 192.85.1.2 | 4    |
 
-  @SID_124
+  @SID_97
   Scenario: VRM - Validate Dashboards "Top Scanners" Chart data for one selected port and policy
     When UI Do Operation "Select" item "Device Selection"
     And UI VRM Select device from dashboard and Save Filter
@@ -1753,32 +1331,29 @@ Feature: DP ANALYTICS
       | label      | data |
       | 192.85.1.2 | 2    |
 
-  @SID_125
+  @SID_98
   Scenario: VRM - NEGATIVE: Validate Dashboards "Top Scanners" Chart data doesn't exist for policy without relevant data
     Then UI Validate Pie Chart data "Top Scanners"
       | label     | data | exist |
       | 197.1.1.1 | 2    | false |
 
-  @SID_126
+  @SID_99
   Scenario: VRM - NEGATIVE: Validate Dashboards "Top Scanners" data doesn't exist for policy with traffic and port with no traffic
     When UI Do Operation "Select" item "Device Selection"
     And UI VRM Select device from dashboard and Save Filter
       | index | ports | policies |
       | 10    | 8     |          |
       | 11    | 8     |          |
-#    Then UI Validate Pie Chart data "Top Scanners"
-#      | label      | data | exist |
-#      | 192.85.1.2 | 2    | false |
     Then UI Validate Text field by id "a3e8335b-b6a8-4d10-8ea0-0f02b46e8d30" CONTAINS "No Data Available"
 
-  @SID_127
+  @SID_100
   Scenario: Top Attacks Scanners Cleanup
     * CLI Check if logs contains
       | logType | expression | isExpected   |
       | ALL     | fatal      | NOT_EXPECTED |
     * UI Logout
 
-  @Sanity @SID_128
+  @Sanity @SID_101
   Scenario: Sanity
     * CLI kill all simulator attacks on current vision
     * REST Delete ES index "dp-*"
@@ -1797,13 +1372,13 @@ Feature: DP ANALYTICS
       | BDOS             | 1     | tim                     |
     Then UI Total "Top Attacks" legends equal to 2
 
-  @Sanity @SID_129
+  @Sanity @SID_102
   Scenario: Stop attack and search for bad logs
     * CLI kill all simulator attacks on current vision
     * CLI Check if logs contains
       | logType | expression | isExpected   |
       | ALL     | fatal      | NOT_EXPECTED |
 
-  @Sanity @SID_130
+  @Sanity @SID_103
   Scenario: Cleanup
     Given UI logout and close browser
