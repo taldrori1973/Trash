@@ -2,7 +2,6 @@
 Feature: DP Monitoring Dashboard - Protection Policies - Under Attack 3rd Drill
 
   @SID_1
-  @run3
   Scenario: Clean system data before "Protection Policies" test
     * CLI kill all simulator attacks on current vision
     * REST Delete ES index "dp-*"
@@ -12,7 +11,6 @@ Feature: DP Monitoring Dashboard - Protection Policies - Under Attack 3rd Drill
     * CLI Clear vision logs
 
   @SID_2
-  @run3
   Scenario: Login as sys_admin and update Attack Description File
     Given UI Login with user "sys_admin" and password "radware"
     Then REST Vision Install License Request "vision-AVA-Max-attack-capacity"
@@ -446,7 +444,7 @@ Feature: DP Monitoring Dashboard - Protection Policies - Under Attack 3rd Drill
 
   @SID_42
   Scenario: Run DP simulator PCAPs for "Protection Policies" - 3rd drill - Anti-Scanning
-    Given CLI simulate 1 attacks of type "ascan" on "DefensePro" 10 and wait 75 seconds
+    Given CLI simulate 1 attacks of type "ascan" on "DefensePro" 10 and wait 40 seconds
 
   @SID_43
   Scenario: Entering to the under attack policy 3nd drill
