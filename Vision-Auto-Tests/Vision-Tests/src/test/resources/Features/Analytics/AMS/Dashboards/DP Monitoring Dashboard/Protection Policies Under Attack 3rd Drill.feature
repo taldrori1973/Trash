@@ -501,7 +501,7 @@ Feature: DP Monitoring Dashboard - Protection Policies - Under Attack 3rd Drill
 
   @SID_47
   Scenario: Validate per attack card data - Anti-Scanning - Scan Details table
-    Then  UI FluentWait For "Characteristics.Scan Details" Table Until Rows Number GTE 14
+    Then  UI FluentWait For "Characteristics.Scan Details" Table Until Rows Number GTE 15
     Then UI Validate Table record values by columns with elementLabel "Characteristics.Scan Details" findBy index 0
       | columnName          | value   |
       | Destination IP      | 1.1.1.7 |
