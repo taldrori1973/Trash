@@ -110,7 +110,8 @@ Feature: VRM Alerts Schedule
     When UI "Check" all the Toggle Alerts
     Then UI "Uncheck" all the Toggle Alerts
     Then UI "Check" Toggle Alerts with name "Alert_schedule_3_times_3_min"
-    Then UI Validate "Report.Table" Table rows count EQUALS to 1
+    Then UI Validate "Report.Table" Table rows count GTE to 1
+    Then UI Validate "Report.Table" Table rows count LTE to 2
 
   @SID_16
   Scenario: Validate Alert schedule 5 times in 3 minutes
