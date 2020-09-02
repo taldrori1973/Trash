@@ -1,4 +1,4 @@
-#@VRM @TC105994
+@VRM @TC105994
 Feature: DP Monitoring Dashboard - Protection Policies - Under Attack 3rd Drill
 
   @SID_1
