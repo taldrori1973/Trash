@@ -271,7 +271,6 @@ Feature: Config-Sync
     Then CLI Run linux Command "service mgtsrv status" on "ROOT_SERVER_CLI" and validate result CONTAINS "VRM reporting engine is running" in any line with timeOut 15
 
   @SID_33
-  Scenario: HA server set to active
-    When CLI Operations - Run Radware Session command "system config-sync mode set active" on vision 2, timeout 60
-    Then CLI Operations - Run Radware Session command "y" on vision 2, timeout 250
+  Scenario: set config-sync mode to disabled
+    Then CLI Set both visions disabled with timeout 3000
 
