@@ -1,4 +1,4 @@
-@TC107643
+@TC107643 
 Feature: HTTPS Server Dashboard
 
   
@@ -343,7 +343,7 @@ Feature: HTTPS Server Dashboard
     Then UI Validate Line Chart data "Request-Size Distribution" with Label "Attack Edge"
       | value      | count | index | valueOffset |
       | 0          | 48    | 0     | 0           |
-      | 0.47802296 | 1     | 4     | 0.0000000000000006 |
+      | 0.47802296 | 1     | 4     | 1           |
       | 1          | 1     | 1     | 0           |
 
   @SID_31
