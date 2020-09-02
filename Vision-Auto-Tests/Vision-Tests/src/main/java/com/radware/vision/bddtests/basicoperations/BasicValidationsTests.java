@@ -429,6 +429,12 @@ public class BasicValidationsTests extends BddUITestBase {
         }
     }
 
+    @Then("^FluentWait For \"([^\"]*)\" Table with (\\d+) Rows$")
+    public void fluentwaitForTableWithRows(String label, int rowsNumber)  {
+
+
+    }
+
     class TableValues {
         public String columnName;
         public String value;
