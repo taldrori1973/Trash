@@ -337,8 +337,8 @@ public class TableHandler {
         setTable(label, extension, false);
 
         Wait<AbstractTable> wait = new FluentWait<>(table).
-                withTimeout(Duration.ofMillis(2 * WebUIUtils.DEFAULT_WAIT_TIME)).
-                pollingEvery(Duration.ofMillis(2)).
+                withTimeout(Duration.ofMillis(5 * WebUIUtils.DEFAULT_WAIT_TIME)).
+                pollingEvery(Duration.ofMillis(10)).
                 ignoring(StaleElementReferenceException.class, WebDriverException.class);
 
         return wait.until(table -> {
