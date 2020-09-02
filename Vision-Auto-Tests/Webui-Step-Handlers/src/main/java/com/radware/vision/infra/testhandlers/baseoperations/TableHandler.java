@@ -3,7 +3,10 @@ package com.radware.vision.infra.testhandlers.baseoperations;
 import com.radware.automation.react.widgets.impl.enums.TableSortingCriteria;
 import com.radware.automation.react.widgets.impl.gridTable.ReactGridTable;
 import com.radware.automation.react.widgets.impl.gridTable.ReactGridTableControlItems;
-import com.radware.automation.react.widgets.impl.listTable.*;
+import com.radware.automation.react.widgets.impl.listTable.ListTable;
+import com.radware.automation.react.widgets.impl.listTable.ReactListTable;
+import com.radware.automation.react.widgets.impl.listTable.SimpleTable;
+import com.radware.automation.react.widgets.impl.listTable.TrafficLogTable;
 import com.radware.automation.react.widgets.impl.table.SortTable;
 import com.radware.automation.tools.basetest.BaseTestUtils;
 import com.radware.automation.tools.basetest.Reporter;
@@ -16,15 +19,19 @@ import com.radware.automation.webui.widgets.api.table.AbstractTable;
 import com.radware.automation.webui.widgets.impl.table.BasicTable;
 import com.radware.automation.webui.widgets.impl.table.BasicTableWithPagination;
 import com.radware.automation.webui.widgets.impl.table.WebUITable;
-import com.radware.vision.automation.AutoUtils.Operators.Comparator;
 import com.radware.vision.automation.AutoUtils.Operators.OperatorsEnum;
 import com.radware.vision.infra.testhandlers.baseoperations.sortingFolder.SortableColumn;
 import com.radware.vision.infra.testhandlers.baseoperations.sortingFolder.SortingDataSet;
 import com.radware.vision.infra.testhandlers.baseoperations.sortingFolder.TableSortingHandler;
 import com.radware.vision.infra.utils.ReportsUtils;
+import org.openqa.selenium.StaleElementReferenceException;
+import org.openqa.selenium.WebDriverException;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.How;
+import org.openqa.selenium.support.ui.FluentWait;
+import org.openqa.selenium.support.ui.Wait;
 
+import java.time.Duration;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
@@ -37,7 +44,7 @@ import static com.radware.vision.infra.utils.ReportsUtils.addErrorMessage;
 
 public class TableHandler {
     AbstractTable table;
-//    String REACT_TABLE_OLD = "list-wrapper";
+    //    String REACT_TABLE_OLD = "list-wrapper";
     String REACT_GRID = "genericTableWrapper";
     String Simple_Table = "groups-and-content-rule-expand-row-legends";
     public final String BASIC_TABLE = "vrm-generic-table";
@@ -94,7 +101,7 @@ public class TableHandler {
                 actualRowsCount = getReactGridRowCount();
             }
             boolean isValid;
-            isValid = compareResults(String.valueOf(count), String.valueOf(actualRowsCount), operatorsEnum,offset);
+            isValid = compareResults(String.valueOf(count), String.valueOf(actualRowsCount), operatorsEnum, offset);
             if (isValid) {
                 BaseTestUtils.report("Table Rows count = " + count, Reporter.PASS);
             } else {
@@ -324,6 +331,40 @@ public class TableHandler {
 
         }
     }
+
+    public boolean fluentWaitTableByRowsNumber(String label, String extension, OperatorsEnum operatorsEnum, int rowsNumber) throws Exception {
+
+        setTable(label, extension, false);
+
+        Wait<AbstractTable> wait = new FluentWait<>(table).
+                withTimeout(Duration.ofMillis(2 * WebUIUtils.DEFAULT_WAIT_TIME)).
+                pollingEvery(Duration.ofMillis(2)).
+                ignoring(StaleElementReferenceException.class, WebDriverException.class);
+
+        return wait.until(table -> {
+            try {
+                setTable(label, extension, false);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            int rowCount = table.getRowCount();
+            switch (operatorsEnum) {
+                case LTE:
+                    return rowCount <= rowsNumber;
+                case GTE:
+                    return rowCount >= rowsNumber;
+                case LT:
+                    return rowCount < rowsNumber;
+                case GT:
+                    return rowCount > rowsNumber;
+                case EQUALS:
+                    return rowCount == rowsNumber;
+            }
+            return false;
+
+        });
+    }
+
 
     static public class TableValues {
         public String columnName;
