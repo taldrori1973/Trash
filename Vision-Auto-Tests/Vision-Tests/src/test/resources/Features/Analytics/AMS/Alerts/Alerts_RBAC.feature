@@ -19,31 +19,31 @@ Feature: VRM Alerts RBAC
   @SID_3
   Scenario: Create alerts as sys_admin
      When UI "Create" Alerts With Name "Alert All All"
-      | Criteria   | Event Criteria:Action,Operator:Equals,Value:[Proxy,Forward]; |
+      | Criteria   | Event Criteria:Action,Operator:Equals,Value:[Forward]; |
       | Schedule   | checkBox:Trigger,alertsPerHour:60                            |
     Then UI Validate Element Existence By Label "Toggle Alerts" if Exists "true" with value "Alert All All"
 
     When UI "Create" Alerts With Name "Alert DP.10 All"
       | devices    | index:10                                                     |
-      | Criteria   | Event Criteria:Action,Operator:Equals,Value:[Proxy,Forward]; |
+      | Criteria   | Event Criteria:Action,Operator:Equals,Value:[Forward]; |
       | Schedule   | checkBox:Trigger,alertsPerHour:60                            |
     Then UI Validate Element Existence By Label "Toggle Alerts" if Exists "true" with value "Alert DP.10 All"
 
     When UI "Create" Alerts With Name "Alert DP.11 All"
       | devices    | index:11                                                     |
-      | Criteria   | Event Criteria:Action,Operator:Equals,Value:[Proxy,Forward]; |
+      | Criteria   | Event Criteria:Action,Operator:Equals,Value:[Forward]; |
       | Schedule   | checkBox:Trigger,alertsPerHour:60                            |
     Then UI Validate Element Existence By Label "Toggle Alerts" if Exists "true" with value "Alert DP.11 All"
 
     When UI "Create" Alerts With Name "Alert DP.10 Policy14 Policy15"
       | devices    | index:10,policies:[Policy14, Policy15];                      |
-      | Criteria   | Event Criteria:Action,Operator:Equals,Value:[Proxy,Forward]; |
+      | Criteria   | Event Criteria:Action,Operator:Equals,Value:[Forward]; |
       | Schedule   | checkBox:Trigger,alertsPerHour:60                            |
     Then UI Validate Element Existence By Label "Toggle Alerts" if Exists "true" with value "Alert DP.10 Policy14 Policy15"
 
     When UI "Create" Alerts With Name "Alert_DP.10_Policy14"
       | devices    | index:10 ,policies:[Policy14];                               |
-      | Criteria   | Event Criteria:Action,Operator:Equals,Value:[Proxy,Forward]; |
+      | Criteria   | Event Criteria:Action,Operator:Equals,Value:[Forward]; |
       | Schedule   | checkBox:Trigger,alertsPerHour:60                            |
     Then UI Validate Element Existence By Label "Toggle Alerts" if Exists "true" with value "Alert_DP.10_Policy14"
 
