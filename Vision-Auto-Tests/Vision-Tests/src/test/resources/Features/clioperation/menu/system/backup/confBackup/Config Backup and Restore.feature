@@ -4,9 +4,7 @@ Feature: Backup and Restore
   @SID_1
   Scenario: Pre upgrade changes
     * CLI Clear vision logs
-    Then Revert Vision number 1 to snapshot
-    Then Revert Vision number 2 to snapshot
-    Given Upgrade in Parallel,backup&Restore setup
+#    Given Upgrade in Parallel,backup&Restore setup
     # TED Configuration
     Then CLI Run remote linux Command on Vision 2 "sed -i 's/\"elasticRetentionInDays\":.*,/\"elasticRetentionInDays\":8,/g' /opt/radware/storage/ted/config/ted.cfg" on "ROOT_SERVER_CLI"
     Then CLI Run remote linux Command on Vision 2 "sed -i 's/\"elasticRetentionMaxPercent\":.*,/\"elasticRetentionMaxPercent\":74,/g' /opt/radware/storage/ted/config/ted.cfg" on "ROOT_SERVER_CLI"
