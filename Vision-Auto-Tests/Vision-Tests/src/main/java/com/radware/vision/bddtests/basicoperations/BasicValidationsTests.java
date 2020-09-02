@@ -99,7 +99,7 @@ public class BasicValidationsTests extends BddUITestBase {
     public void validateTextFieldElement(String selectorValue, String params, String regex, OperatorsEnum operatorsEnum, String expectedText, String cutCharsNumber) {
         cutCharsNumber = cutCharsNumber == null ? "0" : cutCharsNumber;//this parameter can be used for equals or contains of String from char 0 until char cutCharsNumber
         expectedText = expectedText.equals("") ? getRetrievedParamValue() : expectedText;
-        ClickOperationsHandler.validateTextFieldElementByLabel(selectorValue, params, expectedText,regex, operatorsEnum, Integer.parseInt(cutCharsNumber));
+        ClickOperationsHandler.validateTextFieldElementByLabel(selectorValue, params, expectedText, regex, operatorsEnum, Integer.parseInt(cutCharsNumber));
     }
 
 
@@ -429,9 +429,15 @@ public class BasicValidationsTests extends BddUITestBase {
         }
     }
 
-    @Then("^FluentWait For \"([^\"]*)\" Table with (\\d+) Rows$")
-    public void fluentwaitForTableWithRows(String label, int rowsNumber)  {
+    @Then("^UI FluentWait For \"([^\"]*)\"(?: With Extension \"([^\"]*)\")? Table Until Rows Number (EQUALS|GTE|GT|LTE|LT) (\\d+)$")
+    public void fluentWaitForTableWithRows(String label, String extension,OperatorsEnum operatorsEnum,int rowsNumber) {
 
+        try {
+            if (!tableHandler.fluentWaitTableByRowsNumber(label, extension,operatorsEnum, rowsNumber))
+                BaseTestUtils.reporter.report("Fluent Wait Time Was Ended without find the number of expected rows", Reporter.FAIL);
+        } catch (Exception e) {
+            BaseTestUtils.reporter.report(e.getMessage(), Reporter.FAIL);
+        }
 
     }
 
