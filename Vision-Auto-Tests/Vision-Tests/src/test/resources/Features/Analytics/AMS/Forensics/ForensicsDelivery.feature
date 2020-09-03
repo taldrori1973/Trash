@@ -23,6 +23,7 @@ Feature: Forensics Delivery
     And UI Set Text Field "From Header" To "APSolute Vision"
     And UI Set Checkbox "Enable" To "false"
     And UI Click Button "Submit"
+    And UI Go To Vision
     And UI Navigate to page "System->General Settings->APSolute Vision Analytics Settings->Email Reporting Configurations"
     And UI Set Checkbox "Enable" To "true"
     And UI Set Text Field "SMTP Server Address" To "172.17.164.10"
