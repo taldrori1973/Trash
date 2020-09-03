@@ -1,7 +1,6 @@
 @DP_Analytics @TC105989
 
 Feature: DP ANALYTICS
-
   @SID_1
   Scenario: Clean system attacks,database and logs
     When CLI Operations - Run Radware Session command "system user authentication-mode set TACACS+"
@@ -12,7 +11,6 @@ Feature: DP ANALYTICS
     * CLI Clear vision logs
     * CLI Run remote linux Command "curl -X GET localhost:9200/_cat/indices?v | grep dp-attack-raw >> /opt/radware/storage/maintenance/dp-attack-before-streaming" on "ROOT_SERVER_CLI"
     * CLI Run remote linux Command "curl -X POST localhost:9200/dp-attack-raw-*/_search -d '{"query":{"bool":{"must":[{"match_all":{}}]}},"from":0,"size":1000}' > /opt/radware/storage/maintenance/attack-raw-index-before-stream" on "ROOT_SERVER_CLI"
-
   @SID_2
   Scenario: Run DP simulator PCAPs for Attacks by Protection Policy  widget
     * CLI simulate 1 attacks of type "VRM_attacks" on "DefensePro" 10
@@ -873,18 +871,20 @@ Feature: DP ANALYTICS
     * UI Logout
 
       # ================= TOP ATTACKS BY DURATION ================= #
-
   @SID_64
   Scenario: Login
     When UI Login with user "sys_admin" and password "radware"
     Then CLI Run remote linux Command "curl -XPOST localhost:9200/dp-attack-raw-*/_update_by_query -d '{"query": {"bool": {"must": [{"match": {"name": "network flood IPv4 TCP-SYN-ACK"}},{"match": {"attackIpsId": "7839-2258218226"}}],"must_not": [],"should": []}},"script": {"source": "ctx._source.duration = '68000'"}}'" on "ROOT_SERVER_CLI"
+    Then CLI Run remote linux Command "curl -XPOST localhost:9200/dp-attack-raw-*/_update_by_query -d '{"query": {"bool": {"must": [{"match": {"name": "HTTP Page Flood Attack"}},{"match": {"attackIpsId": "7841-2258218226"}}],"must_not": [],"should": []}},"script": {"source": "ctx._source.duration = '20000'"}}'" on "ROOT_SERVER_CLI"
+    Then CLI Run remote linux Command "curl -XPOST localhost:9200/dp-attack-raw-*/_update_by_query -d '{"query": {"bool": {"must": [{"match": {"name": "HTTP Page Flood Attack"}},{"match": {"attackIpsId": "7841-1402580209"}}],"must_not": [],"should": []}},"script": {"source": "ctx._source.duration = '20000'"}}'" on "ROOT_SERVER_CLI"
+    Then CLI Run remote linux Command "curl -XPOST localhost:9200/dp-attack-raw-*/_update_by_query -d '{"query": {"bool": {"must": [{"match": {"name": "HTTP Page Flood Attack"}},{"match": {"attackIpsId": "7841-2325327090"}}],"must_not": [],"should": []}},"script": {"source": "ctx._source.duration = '20000'"}}'" on "ROOT_SERVER_CLI"
+
     Then UI Navigate to "DefensePro Analytics Dashboard" page via homePage
     And UI Do Operation "Select" item "Global Time Filter"
     And UI Do Operation "Select" item "Global Time Filter.Quick Range" with value "3H"
     And UI VRM Select Widgets
       | Top Attacks by Duration |
     * Sleep "5"
-
   @SID_65
   Scenario: VRM - Validate Dashboards "Top Attacks by Duration" Chart data for all DP machines
     When UI Do Operation "Select" item "Device Selection"
@@ -902,7 +902,7 @@ Feature: DP ANALYTICS
       | DNS flood IPv4 DNS-A           | 9     | Less than 1 min |
       | DOSS-Anomaly-TCP-SYN-RST       | 6     | Less than 1 min |
       | network flood IPv4 TCP-SYN-ACK | 5     | Less than 1 min |
-      | HTTP Page Flood Attack         | 3     | Less than 1 min |
+#      | HTTP Page Flood Attack         | 3     | Less than 1 min |
       | network flood IPv6 UDP-FRAG    | 6     | Less than 1 min |
       | SYN Flood HTTP                 | 3     | 1-5 min         |
       | TCP Scan (vertical)            | 3     | 1-5 min         |
@@ -926,7 +926,7 @@ Feature: DP ANALYTICS
       | DNS flood IPv4 DNS-A           | 3     | Less than 1 min |
       | DOSS-Anomaly-TCP-SYN-RST       | 2     | Less than 1 min |
       | network flood IPv4 TCP-SYN-ACK | 2     | Less than 1 min |
-      | HTTP Page Flood Attack         | 1     | Less than 1 min |
+#      | HTTP Page Flood Attack         | 1     | Less than 1 min |
       | network flood IPv6 UDP-FRAG    | 2     | Less than 1 min |
       | SYN Flood HTTP                 | 1     | 1-5 min         |
       | TCP Scan (vertical)            | 1     | 1-5 min         |

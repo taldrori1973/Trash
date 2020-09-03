@@ -245,6 +245,7 @@ public class VRMHandler {
      */
     public void validateChartDataOfDataSets(String chart, String label, String columnGraph, List<Data> entries) {
 
+
         Objects.requireNonNull(chart, "Chart is equal to null");
         Objects.requireNonNull(label, "Label is equal to null");
         getObjectFromDataSets(chart, label, columnGraph);
@@ -254,6 +255,8 @@ public class VRMHandler {
             entry.count = (entry.count == null) ? -1 : entry.count;
             entry.exist = entry.exist == null || entry.exist;
             entry.index = (entry.index == null) ? -1 : entry.index;
+            entry.value = (entry.value == null) ? null : entry.value;
+            entry.valueOffset = (entry.value == null) ? 0 : entry.valueOffset;
 
             if (!(isLabelExist(chart, label)) && entry.exist || (isLabelExist(chart, label)) && !entry.exist) {
                 return;
@@ -275,10 +278,11 @@ public class VRMHandler {
                 // Value has offset that is not "0"
                 if (entry.offset != null && entry.offset != 0 || entry.valueOffset != 0) {
                     if (entry.valueOffset != 0) {
-                        double maxVal = entry.count + entry.valueOffset;
-                        double minVal = entry.count - entry.valueOffset;
-                        if (valueAppearances > maxVal || valueAppearances < minVal) {
-                            addErrorMessage("The ACTUAL count of the label " + label + " in the chart " + chart + " is " + valueAppearances + " and the EXPECTED is between " + minVal
+                        double actualValue = (Double) data.get(entry.index);
+                        double maxVal = actualValue + entry.valueOffset;
+                        double minVal = actualValue - entry.valueOffset;
+                        if (actualValue > maxVal || actualValue < minVal) {
+                            addErrorMessage("The ACTUAL value of the label " + label + " in the chart " + chart + " is " + valueAppearances + " and the EXPECTED is between " + minVal
                                     + " and " + maxVal);
                             scrollAndTakeScreenshot(chart);
                         }
@@ -298,7 +302,7 @@ public class VRMHandler {
                     scrollAndTakeScreenshot(chart);
                 }
             }
-            if (entry.index != -1) {
+            if (entry.index != -1 && entry.valueOffset == 0) {
                 if (!data.get(entry.index).toString().trim().equalsIgnoreCase(entry.value.trim())) {
                     addErrorMessage("The ACTUAL value of the index " + entry.index + " is: " + data.get(entry.index) + " BUT the EXPECTED is " + entry.value);
                 }

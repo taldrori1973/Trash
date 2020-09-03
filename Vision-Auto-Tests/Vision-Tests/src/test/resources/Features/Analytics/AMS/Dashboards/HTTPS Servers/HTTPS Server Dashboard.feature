@@ -1,17 +1,20 @@
-@TC107643
+@TC107643 
 Feature: HTTPS Server Dashboard
 
+  
   @SID_1
   Scenario: Clear data
     * CLI kill all simulator attacks on current vision
     Then CLI Operations - Run Root Session command "yes|restore_radware_user_password" timeout 15
     * REST Delete ES index "dp-*"
 
+  
   @SID_2
   Scenario: Update Policies
     Given REST Login with user "radware" and password "radware"
     Then REST Update Policies for All DPs
 
+  
   @SID_3
   Scenario:Login and Navigate to HTTPS Server Dashboard
     Given UI Login with user "sys_admin" and password "radware"
@@ -20,6 +23,7 @@ Feature: HTTPS Server Dashboard
     Given Rest Add Policy "pol1" To DP "172.16.22.51" if Not Exist
     And Rest Add new Rule "https_servers_automation" in Profile "ProfileHttpsflood" to Policy "pol1" to DP "172.16.22.51"
 
+  
   @SID_4
   Scenario: Run DP simulator PCAPs for "HTTPS attacks"
     Given CLI simulate 2 attacks of type "HTTPS" on "DefensePro" 11 with loopDelay 5000 and wait 60 seconds
@@ -307,11 +311,12 @@ Feature: HTTPS Server Dashboard
       | color                 | #9ec3cb |
 
 # verify 1. refresh occurred 2. new data displayed
-
+  
   @SID_27
   Scenario: Run DP simulator PCAPs for Https Flood - Make Change
     Given CLI simulate 2 attacks of type "HTTPS-Twist" on "DefensePro" 11 with loopDelay 5000 and wait 180 seconds
 
+  
   @SID_28
   Scenario: Re-Select Server
     Given UI Navigate to "DefensePro Monitoring Dashboard" page via homePage
@@ -321,6 +326,7 @@ Feature: HTTPS Server Dashboard
     Then UI Click Button "Server Selection.Server Name" with value "test,DefensePro_172.16.22.51,pol1"
     Then UI Click Button "Server Selection.Save"
 
+  
   @SID_29
   Scenario: Validate Https Flood distributed size graph data - Real Time Traffic - After Change
     Then UI Validate Line Chart data "Request-Size Distribution" with Label "Real-Time Traffic"
@@ -331,12 +337,13 @@ Feature: HTTPS Server Dashboard
       | 0.81       | 1     | 4     | 0      |
       | 0.5        | 1     | 49    | 0      |
 
+  
   @SID_30
   Scenario: Validate Https Flood distributed size graph data - Attack Edge - After Change
     Then UI Validate Line Chart data "Request-Size Distribution" with Label "Attack Edge"
       | value      | count | index | valueOffset |
-      | 0.47802296 | 1     | 4     | 0.3         |
       | 0          | 48    | 0     | 0           |
+      | 0.47802296 | 1     | 4     | 1           |
       | 1          | 1     | 1     | 0           |
 
   @SID_31

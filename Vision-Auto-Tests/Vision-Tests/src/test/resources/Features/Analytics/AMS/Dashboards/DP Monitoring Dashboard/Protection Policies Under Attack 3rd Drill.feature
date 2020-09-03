@@ -77,6 +77,7 @@ Feature: DP Monitoring Dashboard - Protection Policies - Under Attack 3rd Drill
     Then UI Text of "Characteristics.Real-Time Signature.Operator" with extension "1" equal to "OR"
     Then UI Text of "Characteristics.Real-Time Signature.Parameter" with extension "1" equal to "sequence-number"
     Then UI Text of "Characteristics.Real-Time Signature.Value/s" with extension "1" equal to "123456"
+    Then  UI FluentWait For "Characteristics.Attack Identification Statistics" Table Until Rows Number GTE 4
     Then UI Validate Table record values by columns with elementLabel "Characteristics.Attack Identification Statistics" findBy index 0
       | columnName  | value         |
       | Type        | Normal (Kbps) |
@@ -443,7 +444,7 @@ Feature: DP Monitoring Dashboard - Protection Policies - Under Attack 3rd Drill
 
   @SID_42
   Scenario: Run DP simulator PCAPs for "Protection Policies" - 3rd drill - Anti-Scanning
-    Given CLI simulate 1 attacks of type "ascan" on "DefensePro" 10 and wait 75 seconds
+    Given CLI simulate 1 attacks of type "ascan" on "DefensePro" 10 and wait 40 seconds
 
   @SID_43
   Scenario: Entering to the under attack policy 3nd drill
@@ -500,6 +501,7 @@ Feature: DP Monitoring Dashboard - Protection Policies - Under Attack 3rd Drill
 
   @SID_47
   Scenario: Validate per attack card data - Anti-Scanning - Scan Details table
+    Then  UI FluentWait For "Characteristics.Scan Details" Table Until Rows Number GTE 15
     Then UI Validate Table record values by columns with elementLabel "Characteristics.Scan Details" findBy index 0
       | columnName          | value   |
       | Destination IP      | 1.1.1.7 |

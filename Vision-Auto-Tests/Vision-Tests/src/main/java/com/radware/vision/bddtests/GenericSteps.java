@@ -6,6 +6,7 @@ import com.radware.automation.tools.basetest.Reporter;
 import com.radware.automation.tools.utils.ComparableUtils;
 import com.radware.automation.webui.VisionDebugIdsManager;
 import com.radware.automation.webui.WebUIUtils;
+import com.radware.automation.webui.widgets.ComponentLocator;
 import com.radware.automation.webui.widgets.ComponentLocatorFactory;
 import com.radware.automation.webui.widgets.api.TextField;
 import com.radware.automation.webui.widgets.impl.WebUITextField;
@@ -24,10 +25,15 @@ import cucumber.api.java.en.And;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
-import org.openqa.selenium.JavascriptExecutor;
-import org.openqa.selenium.WebElement;
+import org.openqa.selenium.*;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.FluentWait;
+import org.openqa.selenium.support.ui.Wait;
 
-import java.util.*;
+import java.time.Duration;
+import java.util.Arrays;
+import java.util.List;
+import java.util.Objects;
 
 import static com.radware.vision.infra.utils.ReportsUtils.reportErrors;
 
@@ -94,7 +100,7 @@ public class GenericSteps extends BddUITestBase {
     }
 
     @When("^UI Click Button By JavascriptExecutor with label \"([^\"]*)\"(?: with value \"([^\"]*)\")?$")
-    public void clickButtonByJavaScript(String label,String param){
+    public void clickButtonByJavaScript(String label, String param) {
         VisionDebugIdsManager.setLabel(label);
         VisionDebugIdsManager.setParams(param);
         WebElement webElement = WebUIUtils.fluentWait(ComponentLocatorFactory.getLocatorByXpathDbgId(VisionDebugIdsManager.getDataDebugId()).getBy());
@@ -102,7 +108,7 @@ public class GenericSteps extends BddUITestBase {
     }
 
     @When("^UI Click Button \"([^\"]*)\" with params$")
-    public static void buttonClick(String label, List<VRMHandler.DpDeviceFilter> entries){
+    public static void buttonClick(String label, List<VRMHandler.DpDeviceFilter> entries) {
 
         entries.forEach(entry -> {
             String param = null;
@@ -111,13 +117,13 @@ public class GenericSteps extends BddUITestBase {
                     param = devicesManager.getDeviceInfo(SUTDeviceType.DefensePro, entry.index).getDeviceIp();
                     String[] params = param.split(",");
                     try {
-                         BasicOperationsHandler.clickButton(label, params);
+                        BasicOperationsHandler.clickButton(label, params);
                     } catch (TargetWebElementNotFoundException e) {
                         BaseTestUtils.report("No Element with data-debug-id " + VisionDebugIdsManager.getDataDebugId(), Reporter.FAIL);
                     }
 
-                }else{
-                     BasicOperationsHandler.clickButton(label, param);
+                } else {
+                    BasicOperationsHandler.clickButton(label, param);
                 }
 
             } catch (Exception e) {
@@ -196,28 +202,43 @@ public class GenericSteps extends BddUITestBase {
     @Then("^UI Text of \"([^\"]*)\"(?: with extension \"(.*)\")? equal to \"([^\"]*)\"$")
     public void uiTextOfEqualTo(String label, String params, String expectedValue) throws TargetWebElementNotFoundException {
         String actualValue = null;
-        try {
-            if (params == null)
-                actualValue = BasicOperationsHandler.getItemValue(label, params);
-            else {
-                String[] params_values = params.split(",");
-                actualValue = BasicOperationsHandler.getItemValue(label, params_values);
-            }
-        } catch (TargetWebElementNotFoundException e) {
-            e.printStackTrace();
-        }
-        if (actualValue == null) {
-            String errorMessage = "Element Value with label " + label + " returns null";
-            BaseTestUtils.report(errorMessage, Reporter.FAIL);
-            throw new TargetWebElementNotFoundException(errorMessage);
-        }
-        if (!actualValue.trim().equals(expectedValue)) {
+
+        VisionDebugIdsManager.setLabel(label);
+        VisionDebugIdsManager.setParams(params);
+
+        ComponentLocator locator = ComponentLocatorFactory.getEqualLocatorByDbgId(VisionDebugIdsManager.getDataDebugId());
+
+        Wait<WebDriver> wait = new FluentWait<>(WebUIUtils.getDriver()).
+                withTimeout(Duration.ofMillis(WebUIUtils.DEFAULT_WAIT_TIME)).
+                pollingEvery(Duration.ofMillis(2)).
+                ignoring(StaleElementReferenceException.class, WebDriverException.class);
+
+        boolean displayed = wait.until(ExpectedConditions.presenceOfElementLocated(locator.getBy())).isDisplayed();
+        if (displayed) {
             try {
-                VRMHandler.scroll("Table_Attack Details");
-            } catch (Exception e) {
+                if (params == null)
+                    actualValue = BasicOperationsHandler.getItemValue(label, params);
+                else {
+                    String[] params_values = params.split(",");
+                    actualValue = BasicOperationsHandler.getItemValue(label, params_values);
+                }
+            } catch (TargetWebElementNotFoundException e) {
+                e.printStackTrace();
             }
-            ReportsUtils.reportAndTakeScreenShot(String.join(" : ", label + "-" + params, "Actual is \"" + actualValue + "\" but is not equal to \"" + expectedValue + "\""), Reporter.FAIL);
-        }
+            if (actualValue == null) {
+                String errorMessage = "Element Value with label " + label + " returns null";
+                BaseTestUtils.report(errorMessage, Reporter.FAIL);
+                throw new TargetWebElementNotFoundException(errorMessage);
+            }
+            if (!actualValue.trim().equals(expectedValue)) {
+                try {
+                    VRMHandler.scroll("Table_Attack Details");
+                } catch (Exception e) {
+                }
+                ReportsUtils.reportAndTakeScreenShot(String.join(" : ", label + "-" + params, "Actual is \"" + actualValue + "\" but is not equal to \"" + expectedValue + "\""), Reporter.FAIL);
+            }
+        } else
+            BaseTestUtils.report(String.format("Web Element located by %s is not diplayed", locator.getBy()), Reporter.FAIL);
     }
 
     /**
@@ -399,7 +420,7 @@ public class GenericSteps extends BddUITestBase {
 
     @When("^UI set \"([^\"]*)\" switch button to \"([^\"]*)\"$")
     public void clickOnSwitchButton(String label, String state) throws TargetWebElementNotFoundException {
-        ClickOperationsHandler.clickOnSwitchButton(label,null,state);
+        ClickOperationsHandler.clickOnSwitchButton(label, null, state);
     }
 
 
