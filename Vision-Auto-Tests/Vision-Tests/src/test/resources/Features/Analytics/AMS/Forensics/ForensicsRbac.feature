@@ -90,10 +90,10 @@ Feature: Forensics RBAC
     Then UI Validate Element Existence By Label "Delete" if Exists "false" with value "AllDevAllPol"
     Then UI Validate Element Existence By Label "Edit" if Exists "false" with value "AllDevAllPol"
     Then UI Validate Element Existence By Label "Views.Expand" if Exists "false" with value "AllDevAllPol"
-    Then UI Validate Element Existence By Label "Views" if Exists "true" with value "Device10_Policy15"
-    Then UI Validate Element Existence By Label "Delete" if Exists "true" with value "Device10_Policy15"
-    Then UI Validate Element Existence By Label "Edit" if Exists "true" with value "Device10_Policy15"
-    Then UI Validate Element Existence By Label "Views.Expand" if Exists "true" with value "Device10_Policy15"
+    Then UI Validate Element Existence By Label "Views" if Exists "false" with value "Device10_Policy15"
+    Then UI Validate Element Existence By Label "Delete" if Exists "false" with value "Device10_Policy15"
+    Then UI Validate Element Existence By Label "Edit" if Exists "false" with value "Device10_Policy15"
+    Then UI Validate Element Existence By Label "Views.Expand" if Exists "false" with value "Device10_Policy15"
     And UI Logout
 
   @SID_9
