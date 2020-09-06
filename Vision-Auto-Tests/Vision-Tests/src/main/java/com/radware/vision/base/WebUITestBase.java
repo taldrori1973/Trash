@@ -38,15 +38,15 @@ import com.radware.urlbuilder.vision.VisionUrlPath;
 import com.radware.utils.DeviceUtils;
 import com.radware.utils.TreeUtils;
 import com.radware.vision.automation.tools.sutsystemobjects.devicesinfo.DevicesManager;
-import com.radware.vision.pojomodel.helpers.constants.ImConstants$DeviceStatusEnumPojo;
-import com.radware.vision.vision_project_cli.MysqlClientCli;
-import com.radware.vision.vision_project_cli.menu.Menu;
-import com.radware.vision.vision_tests.CliTests;
 import com.radware.vision.infra.enums.DeviceDriverType;
 import com.radware.vision.infra.testhandlers.BaseHandler;
 import com.radware.vision.infra.testhandlers.baseoperations.BasicOperationsHandler;
 import com.radware.vision.infra.utils.VisionWebUIUtils;
 import com.radware.vision.infra.utils.threadutils.ThreadsStatusMonitor;
+import com.radware.vision.pojomodel.helpers.constants.ImConstants$DeviceStatusEnumPojo;
+import com.radware.vision.vision_project_cli.MysqlClientCli;
+import com.radware.vision.vision_project_cli.menu.Menu;
+import com.radware.vision.vision_tests.CliTests;
 import cucumber.runtime.junit.FeatureRunner;
 import enums.SUTEntryType;
 import jsystem.framework.ParameterProperties;
@@ -213,6 +213,7 @@ public abstract class WebUITestBase extends SystemTestCase4 {
                         restTestBase.getRootServerCli().getBuildNumber(),
                         mode);
 
+                FeatureRunner.update_station_sutName(restTestBase.getRootServerCli().getHost(), System.getProperty("SUT"));
             }
         } catch (Exception e) {
             throw new IllegalStateException(e.getMessage() + "\n" + e.getStackTrace());
@@ -350,6 +351,8 @@ public abstract class WebUITestBase extends SystemTestCase4 {
             FeatureRunner.update_version_build_mode(restTestBase.getRootServerCli().getVersionNumebr(),
                     restTestBase.getRootServerCli().getBuildNumber(),
                     BddReporterManager.getRunMode());
+            FeatureRunner.update_station_sutName(restTestBase.getRootServerCli().getHost(), System.getProperty("SUT"));
+
         } catch (Exception e) {
             BaseTestUtils.report("publish BDD results Failure!!! ", Reporter.PASS_NOR_FAIL);
         }
@@ -363,12 +366,12 @@ public abstract class WebUITestBase extends SystemTestCase4 {
         if (testCaseId != null && IgnoreList.getInstance().getIgnoreList().containsKey(testCaseId.toString()))
             status = "Failed";
 
-            if (BddReporterManager.getAutoStepId() != null) {
+        if (BddReporterManager.getAutoStepId() != null) {
             setVisionBuildAndVersion();
-                RadAutoDB.getInstance().autoStepTbl.updateStepResult(BddReporterManager.getAutoStepId(), status);
-                if (status.equals("Failed"))
-                    RadAutoDB.getInstance().autoStepFailReasonTbl.createStepFailReason(BddReporterManager.getAutoStepId(), "Error", BddReporterManager.getAllResult(), "", "", "");
-            }
+            RadAutoDB.getInstance().autoStepTbl.updateStepResult(BddReporterManager.getAutoStepId(), status);
+            if (status.equals("Failed"))
+                RadAutoDB.getInstance().autoStepFailReasonTbl.createStepFailReason(BddReporterManager.getAutoStepId(), "Error", BddReporterManager.getAllResult(), "", "", "");
+        }
     }
 
     private boolean ignoredMessageIds(String msg) {
