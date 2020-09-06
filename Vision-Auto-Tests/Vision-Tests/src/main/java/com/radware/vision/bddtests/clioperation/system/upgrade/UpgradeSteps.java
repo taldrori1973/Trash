@@ -4,6 +4,7 @@ import com.radware.automation.tools.basetest.BaseTestUtils;
 import com.radware.automation.tools.basetest.Reporter;
 import com.radware.automation.tools.utils.InvokeUtils;
 import com.radware.vision.bddtests.BddCliTestBase;
+import com.radware.vision.bddtests.clioperation.GeneralSteps;
 import com.radware.vision.bddtests.vmoperations.VMOperationsSteps;
 import com.radware.vision.enums.GlobalProperties;
 import com.radware.vision.enums.VisionDeployType;
@@ -221,6 +222,7 @@ public class UpgradeSteps extends BddCliTestBase {
             upgradeSteps.UpgradeVisionServer(version, buildUnderTest);
             BaseTestUtils.report("Server is ready for future upgrade", Reporter.PASS_NOR_FAIL);
         }
+        GeneralSteps.clearAllLogs();
         VMOperationsSteps.newInstance().updateVersionVar();
         visionDeployment = new VisionDeployment(deployType, version, "");
         String nextBuild = visionDeployment.getBuild();
