@@ -458,7 +458,7 @@ Feature: DP Monitoring Dashboard - Protection Policies - Under Attack 3rd Drill
   @SID_44
   Scenario: Validate info card data - Anti-Scanning
     Then UI Validate Text field "Info.Protocol" EQUALS "Protocol: TCP"
-    Then UI Validate Text field "Info.Total packets" EQUALS "Total Packets: 40,350"
+    Then UI Validate Text field "Info.Total packets" On Regex "Total Packets: (\d+,?\d+)" GTE "40350"
     Then UI Validate Text field "Info.Volume" EQUALS "Volume: 5 MBytes"
 #    Then UI Validate Text field "Info.Physical Port" EQUALS "Physical Port: 1"
     Then UI Validate Text field "Info.Device IP" EQUALS "Device IP Address: 172.16.22.50"
