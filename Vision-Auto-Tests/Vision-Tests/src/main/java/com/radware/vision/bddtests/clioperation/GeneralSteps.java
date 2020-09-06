@@ -18,7 +18,7 @@ import static com.radware.vision.infra.utils.ReportsUtils.reportErrors;
 public class GeneralSteps extends BddCliTestBase {
 
     @Given("^CLI Clear vision logs$")
-    public void clearAllLogs() {
+    public static void clearAllLogs() {
         final String clearAllLogs = "echo 'cleared' $(date)|tee " +
                 "/opt/radware/mgt-server/third-party/tomcat/logs/*.log" +
                 " /opt/radware/storage/maintenance/logs/*.log " +

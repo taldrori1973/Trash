@@ -4,6 +4,7 @@ Feature: Appwall Forensic Wizard
   @SID_1 @Sanity
   Scenario: Clean system data before Forensics Appwall Test
     * CLI kill all simulator attacks on current vision
+    * REST Delete ES index "forensics-*"
     * REST Delete ES index "appwall-v2-attack-raw*"
     Then REST Request "PUT" for "Connectivity->Inactivity Timeout for Configuration"
       | type | value                                 |
