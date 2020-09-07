@@ -465,7 +465,10 @@ public class VRMHandler {
         VisionDebugIdsManager.setLabel("Chart");
         VisionDebugIdsManager.setParams(chart);
         try {
-            WebUIUtils.scrollToTop(ComponentLocatorFactory.getEqualLocatorByDbgId(VisionDebugIdsManager.getDataDebugId()));
+            WebElement element = WebUIUtils.fluentWait(ComponentLocatorFactory.getEqualLocatorByDbgId(VisionDebugIdsManager.getDataDebugId()).getBy());
+            if (element == null)
+                return;
+            WebUIUtils.scrollIntoView(element,true);
         } catch (Exception e) {
             BaseTestUtils.report(e.getMessage(), Reporter.FAIL);
         }
