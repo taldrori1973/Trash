@@ -58,7 +58,7 @@ Feature: VRM Real Time Status Bar Devices status
     Then Sleep "120"
     And UI Navigate to "DefensePro Monitoring Dashboard" page via homePage
     Then Sleep "3"
-    Then UI Text of "Device Selection" equal to "DEVICES3/3"
+    Then UI Text of "Device Selection" equal to "DEVICES1/3"
     Then UI Text of "Device Status Up Summary" equal to "2"
     Then UI Text of "Device Status Maintenance Summary" equal to "0"
     Then UI Text of "Device Status Down Summary" equal to "1"
@@ -70,7 +70,7 @@ Feature: VRM Real Time Status Bar Devices status
   @SID_5
   Scenario: Devices status connected DP by route
     And UI Navigate to "DefensePro Monitoring Dashboard" page via homePage
-    Then UI Text of "Device Selection" equal to "DEVICES3/3"
+    Then UI Text of "Device Selection" equal to "DEVICES1/3"
     Then UI Text of "Device Status Up Summary" equal to "3"
     Then UI Text of "Device Status Maintenance Summary" equal to "0"
     Then UI Text of "Device Status Down Summary" equal to "0"
