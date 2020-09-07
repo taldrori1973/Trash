@@ -601,8 +601,8 @@ Feature: DP Monitoring Dashboard - Protection Policies - Under Attack 3rd Drill
   @SID_59
   Scenario: Validate info card data - DoS pps
     Then UI Validate Text field "Info.Protocol" EQUALS "Protocol: TCP"
-    Then UI Validate Text field "Info.Total packets" EQUALS "Total Packets: 1,296"
-    Then UI Validate Text field "Info.Volume" EQUALS "Volume: 0 Bytes"
+    Then UI Validate Text field "Info.Total packets" On Regex "Total Packets: (\d+,\d+)" GTE "1296"
+    Then UI Validate Text field "Info.Volume" On Regex "Volume: (\d+) Bytes" EQUALS "0"
     Then UI Validate Text field "Info.Physical Port" EQUALS "Physical Port: 3"
     Then UI Validate Text field "Info.Device IP" EQUALS "Device IP Address: 172.16.22.50"
 
@@ -648,7 +648,7 @@ Feature: DP Monitoring Dashboard - Protection Policies - Under Attack 3rd Drill
   @SID_65
   Scenario: Validate info card data - Intrusions
     Then UI Validate Text field "Info.Protocol" EQUALS "Protocol: TCP"
-    Then UI Validate Text field "Info.Total packets" EQUALS "Total Packets: 1"
+    Then UI Validate Text field "Info.Total packets" On Regex "Total Packets: (\d+)" GTE "1"
     Then UI Validate Text field "Info.Volume" EQUALS "Volume: 0 Bytes"
     Then UI Validate Text field "Info.Physical Port" EQUALS "Physical Port: 1"
     Then UI Validate Text field "Info.Device IP" EQUALS "Device IP Address: 172.16.22.50"
@@ -674,8 +674,8 @@ Feature: DP Monitoring Dashboard - Protection Policies - Under Attack 3rd Drill
   @SID_69
   Scenario: Validate info card data - ACL
     Then UI Validate Text field "Info.Protocol" EQUALS "Protocol: IP"
-    Then UI Validate Text field "Info.Total packets" EQUALS "Total Packets: 68,589"
-    Then UI Validate Text field "Info.Volume" EQUALS "Volume: 55.94 MBytes"
+    Then UI Validate Text field "Info.Total packets" On Regex "Total Packets: (\d+,\d+)" GTE "68589"
+    Then UI Validate Text field "Info.Volume" On Regex "Volume: (\d+.+d+) MBytes" GTE "55.94"
     Then UI Validate Text field "Info.Physical Port" EQUALS "Physical Port: T-1"
     Then UI Validate Text field "Info.Device IP" EQUALS "Device IP Address: 172.16.22.50"
     Then UI Click Button "Info.Description" with value "Description"
@@ -725,7 +725,7 @@ Feature: DP Monitoring Dashboard - Protection Policies - Under Attack 3rd Drill
   @SID_76
   Scenario: Validate info card data - Anomalies
     Then UI Validate Text field "Info.Protocol" EQUALS "Protocol: IP"
-    Then UI Validate Text field "Info.Total packets" EQUALS "Total Packets: 1"
+    Then UI Validate Text field "Info.Total packets" On Regex "Total Packets: (\d+)" GTE "1"
     Then UI Validate Text field "Info.Volume" EQUALS "Volume: 0 Bytes"
     Then UI Validate Text field "Info.Physical Port" EQUALS "Physical Port: 0"
     Then UI Validate Text field "Info.Device IP" EQUALS "Device IP Address: 172.16.22.50"
