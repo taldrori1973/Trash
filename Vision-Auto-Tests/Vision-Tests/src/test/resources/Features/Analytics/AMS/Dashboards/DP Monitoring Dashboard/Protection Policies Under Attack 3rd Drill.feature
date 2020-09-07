@@ -1674,8 +1674,8 @@ Feature: DP Monitoring Dashboard - Protection Policies - Under Attack 3rd Drill
   @SID_161
   Scenario: Validate info card data - burst
     Then UI Validate Text field "Info.Protocol" EQUALS "Protocol: TCP"
-    Then UI Validate Text field "Info.Total packets" EQUALS "Total Packets: 36"
-    Then UI Validate Text field "Info.Volume" EQUALS "Volume: 50.69 KBytes"
+    Then UI Validate Text field "Info.Total packets" On Regex "Total Packets: (\d+)" GTE "36"
+    Then UI Validate Text field "Info.Volume" On Regex "Volume: (\d+.+d+) KBytes" GTE "50.69"
     Then UI Validate Text field "Info.Physical Port" EQUALS "Physical Port: 0"
     Then UI Validate Text field "Info.Device IP" EQUALS "Device IP Address: 172.16.22.50"
     Then UI Click Button "Info.Description" with value "Description"
