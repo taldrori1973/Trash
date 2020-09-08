@@ -356,5 +356,7 @@ public class VMOperationsSteps extends BddUITestBase {
         restTestBase.getRootServerCli().setBuildNumber(build);
         //Update portal
         FeatureRunner.update_version_build_mode(version, build, BddReporterManager.getRunMode());
+        FeatureRunner.update_station_sutName(restTestBase.getRootServerCli().getHost(), System.getProperty("SUT"));
+
     }
 }

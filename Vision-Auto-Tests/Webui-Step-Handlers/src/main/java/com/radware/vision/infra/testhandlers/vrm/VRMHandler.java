@@ -149,7 +149,7 @@ public class VRMHandler {
                 if (entry.offset != null && entry.offset != 0) {
                     int maxValue = Integer.parseInt(entry.value) + entry.offset;
                     int minValue = Integer.parseInt(entry.value) - entry.offset;
-                    if (!((Integer.parseInt(actualData) > maxValue) || (Integer.parseInt(actualData) < minValue))) {
+                    if ((Integer.parseInt(actualData) > maxValue) || (Integer.parseInt(actualData) < minValue)) {
                         addErrorMessage("The EXPECTED between " + maxValue + " and " + minValue + ", The ACTUAL value of " + entry.legendName + " is " + actualData);
                         scrollAndTakeScreenshot(chart);
                     }
@@ -465,7 +465,10 @@ public class VRMHandler {
         VisionDebugIdsManager.setLabel("Chart");
         VisionDebugIdsManager.setParams(chart);
         try {
-            WebUIUtils.scrollIntoView(ComponentLocatorFactory.getEqualLocatorByDbgId(VisionDebugIdsManager.getDataDebugId()));
+            WebElement element = WebUIUtils.fluentWait(ComponentLocatorFactory.getEqualLocatorByDbgId(VisionDebugIdsManager.getDataDebugId()).getBy());
+            if (element == null)
+                return;
+            WebUIUtils.scrollIntoView(element,true);
         } catch (Exception e) {
             BaseTestUtils.report(e.getMessage(), Reporter.FAIL);
         }
