@@ -37,7 +37,7 @@ Feature: DP Monitoring Dashboard - Protection Policies - Under Attack 3rd Drill
   Scenario: Validate info card data - BDOS
     Then UI Validate Text field "Info.Protocol" EQUALS "Protocol: TCP"
     Then UI Validate Text field "Info.Total packets" On Regex "Total Packets: (\d+,\d+)" GTE "161491"
-    Then UI Validate Text field "Info.Volume" On Regex "Volume: (\d+.+d+) MBytes" GTE "20.61"
+    Then UI Validate Text field "Info.Volume" On Regex "Volume: (\d+.\d+) MBytes" GTE "20.61"
     Then UI Validate Text field "Info.Physical Port" EQUALS "Physical Port: 1"
     Then UI Validate Text field "Info.Device IP" EQUALS "Device IP Address: 172.16.22.50"
     Then UI Click Button "Info.Description" with value "Description"
@@ -77,7 +77,7 @@ Feature: DP Monitoring Dashboard - Protection Policies - Under Attack 3rd Drill
     Then UI Text of "Characteristics.Real-Time Signature.Operator" with extension "1" equal to "OR"
     Then UI Text of "Characteristics.Real-Time Signature.Parameter" with extension "1" equal to "sequence-number"
     Then UI Text of "Characteristics.Real-Time Signature.Value/s" with extension "1" equal to "123456"
-    Then  UI FluentWait For "Characteristics.Attack Identification Statistics" Table Until Rows Number GTE 4
+#    Then  UI FluentWait For "Characteristics.Attack Identification Statistics" Table Until Rows Number GTE 4
     Then UI Validate Table record values by columns with elementLabel "Characteristics.Attack Identification Statistics" findBy index 0
       | columnName  | value         |
       | Type        | Normal (Kbps) |
@@ -204,7 +204,7 @@ Feature: DP Monitoring Dashboard - Protection Policies - Under Attack 3rd Drill
   Scenario: Validate info card data - SYN Flood
     Then UI Validate Text field "Info.Protocol" EQUALS "Protocol: TCP"
     Then UI Validate Text field "Info.Total packets" On Regex "Total Packets: (\d+,\d+)" GTE "223890"
-    Then UI Validate Text field "Info.Volume" On Regex "Volume: (\d+.+d+) MBytes" GTE "13.43"
+    Then UI Validate Text field "Info.Volume" On Regex "Volume: (\d+.\d+) MBytes" GTE "13.43"
     Then UI Validate Text field "Info.Physical Port" EQUALS "Physical Port: Multiple"
     Then UI Validate Text field "Info.Device IP" EQUALS "Device IP Address: 172.16.22.50"
 
@@ -250,7 +250,7 @@ Feature: DP Monitoring Dashboard - Protection Policies - Under Attack 3rd Drill
   Scenario: Validate info card data - Traffic Filters
     Then UI Validate Text field "Info.Protocol" EQUALS "Protocol: UDP"
     Then UI Validate Text field "Info.Total packets" On Regex "Total Packets: (\d+,\d+)" GTE "18770"
-    Then UI Validate Text field "Info.Volume" On Regex "Volume: (\d+.+d+) MBytes" GTE "1.46"
+    Then UI Validate Text field "Info.Volume" On Regex "Volume: (\d+.\d+) MBytes" GTE "1.46"
     Then UI Validate Text field "Info.Physical Port" EQUALS "Physical Port: MNG-1"
     Then UI Validate Text field "Info.Device IP" EQUALS "Device IP Address: 172.16.22.50"
 
@@ -315,7 +315,7 @@ Feature: DP Monitoring Dashboard - Protection Policies - Under Attack 3rd Drill
   Scenario: Validate info card data - DNS Flood
     Then UI Validate Text field "Info.Protocol" EQUALS "Protocol: UDP"
     Then UI Validate Text field "Info.Total packets" On Regex "Total Packets: (\d+,?\d+)" GTE "2417"
-    Then UI Validate Text field "Info.Volume" On Regex "Volume: (\d+.+d+) KBytes" GTE "175.87"
+    Then UI Validate Text field "Info.Volume" On Regex "Volume: (\d+.\d+) KBytes" GTE "175.87"
     Then UI Validate Text field "Info.Physical Port" EQUALS "Physical Port: 0"
     Then UI Validate Text field "Info.Device IP" EQUALS "Device IP Address: 172.16.22.50"
     Then UI Click Button "Info.Description" with value "Description"
@@ -501,7 +501,7 @@ Feature: DP Monitoring Dashboard - Protection Policies - Under Attack 3rd Drill
 
   @SID_47
   Scenario: Validate per attack card data - Anti-Scanning - Scan Details table
-    Then  UI FluentWait For "Characteristics.Scan Details" Table Until Rows Number GTE 15
+#    Then  UI FluentWait For "Characteristics.Scan Details" Table Until Rows Number GTE 15
     Then UI Validate Table record values by columns with elementLabel "Characteristics.Scan Details" findBy index 0
       | columnName          | value   |
       | Destination IP      | 1.1.1.7 |
@@ -540,7 +540,7 @@ Feature: DP Monitoring Dashboard - Protection Policies - Under Attack 3rd Drill
   Scenario: Validate info card data - DoS
     Then UI Validate Text field "Info.Protocol" EQUALS "Protocol: TCP"
     Then UI Validate Text field "Info.Total packets" On Regex "Total Packets: (\d+,\d+)" GTE "58469"
-    Then UI Validate Text field "Info.Volume" On Regex "Volume: (\d+.+d+) MBytes" GTE "7.25"
+    Then UI Validate Text field "Info.Volume" On Regex "Volume: (\d+.\d+) MBytes" GTE "7.25"
     Then UI Validate Text field "Info.Physical Port" EQUALS "Physical Port: 1"
     Then UI Validate Text field "Info.Device IP" EQUALS "Device IP Address: 172.16.22.50"
 
@@ -675,7 +675,7 @@ Feature: DP Monitoring Dashboard - Protection Policies - Under Attack 3rd Drill
   Scenario: Validate info card data - ACL
     Then UI Validate Text field "Info.Protocol" EQUALS "Protocol: IP"
     Then UI Validate Text field "Info.Total packets" On Regex "Total Packets: (\d+,\d+)" GTE "68589"
-    Then UI Validate Text field "Info.Volume" On Regex "Volume: (\d+.+d+) MBytes" GTE "55.94"
+    Then UI Validate Text field "Info.Volume" On Regex "Volume: (\d+.\d+) MBytes" GTE "55.94"
     Then UI Validate Text field "Info.Physical Port" EQUALS "Physical Port: T-1"
     Then UI Validate Text field "Info.Device IP" EQUALS "Device IP Address: 172.16.22.50"
     Then UI Click Button "Info.Description" with value "Description"
@@ -1675,7 +1675,7 @@ Feature: DP Monitoring Dashboard - Protection Policies - Under Attack 3rd Drill
   Scenario: Validate info card data - burst
     Then UI Validate Text field "Info.Protocol" EQUALS "Protocol: TCP"
     Then UI Validate Text field "Info.Total packets" On Regex "Total Packets: (\d+)" GTE "36"
-    Then UI Validate Text field "Info.Volume" On Regex "Volume: (\d+.+d+) KBytes" GTE "50.69"
+    Then UI Validate Text field "Info.Volume" On Regex "Volume: (\d+.\d+) KBytes" GTE "50.69"
     Then UI Validate Text field "Info.Physical Port" EQUALS "Physical Port: 0"
     Then UI Validate Text field "Info.Device IP" EQUALS "Device IP Address: 172.16.22.50"
     Then UI Click Button "Info.Description" with value "Description"
