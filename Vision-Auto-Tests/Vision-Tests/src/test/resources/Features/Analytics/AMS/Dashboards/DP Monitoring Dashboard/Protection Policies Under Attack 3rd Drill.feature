@@ -744,7 +744,7 @@ Feature: DP Monitoring Dashboard - Protection Policies - Under Attack 3rd Drill
     Then UI Logout
 
       ########################################################   Https Flood Inbound   ###########################################################
-
+  @runSetup
   @SID_79
   Scenario: Clear data
     * CLI kill all simulator attacks on current vision
@@ -755,15 +755,16 @@ Feature: DP Monitoring Dashboard - Protection Policies - Under Attack 3rd Drill
     * REST Update Policies for All DPs
 
 
+    @runSetup
   @SID_80
   Scenario: Run DP simulator PCAPs for "Protection Policies" - 3rd drill - Https Flood
     Given CLI simulate 2 attacks of type "HTTPS" on "DefensePro" 11 with loopDelay 5000 and wait 60 seconds
-
+  @runSetup
   @SID_81
   Scenario: Login and open AMS dashboard
     Given UI Login with user "sys_admin" and password "radware"
     When UI Navigate to "DefensePro Monitoring Dashboard" page via homePage
-
+  @runSetup
   @SID_82
   Scenario: Entering to the under attack policy 3nd drill https flood
     Then UI click Table row by keyValue or Index with elementLabel "Protection Policies.Table" findBy columnName "Attack Categories" findBy cellValue "HTTPS Flood"
@@ -1088,14 +1089,14 @@ Feature: DP Monitoring Dashboard - Protection Policies - Under Attack 3rd Drill
     Then UI Validate Line Chart data "Requests per Second" with Label "Legitimate Traffic"
       | value   | count | offset |
       | 17500.0 | 2     | 1      |
-
+  @runSetup
   @SID_109
   Scenario: Validate Https Flood baseline graph 24H
     When UI Click Button "Time Picker"
     When UI Click Button "Time Range 24H" with value "24H"
     Then UI Validate Line Chart data "Requests per Second" with Label "Legitimate Traffic"
       | value | count | offset |
-      | null  | 24    | 1      |
+      | null  | 58    | 1      |
 
   @SID_110
   Scenario: Validate Https Flood baseline graph 1H

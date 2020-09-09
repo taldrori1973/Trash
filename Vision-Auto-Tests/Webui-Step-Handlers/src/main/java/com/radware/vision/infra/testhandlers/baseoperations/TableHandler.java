@@ -27,6 +27,9 @@ import com.radware.vision.infra.utils.ReportsUtils;
 import org.openqa.selenium.StaleElementReferenceException;
 import org.openqa.selenium.WebDriverException;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.interactions.Actions;
+import org.openqa.selenium.interactions.Locatable;
+import org.openqa.selenium.interactions.internal.Coordinates;
 import org.openqa.selenium.support.How;
 import org.openqa.selenium.support.ui.FluentWait;
 import org.openqa.selenium.support.ui.Wait;
@@ -147,6 +150,7 @@ public class TableHandler {
         String tableSelector = VisionDebugIdsManager.getDataDebugId();
         ComponentLocator tableLocator = ComponentLocatorFactory.getEqualLocatorByDbgId(tableSelector);
         WebElement tableElement = WebUIUtils.fluentWait(tableLocator.getBy(), WebUIUtils.NAVIGATION_TREE_WAIT_TIME, false);
+        WebUIUtils.scrollIntoView(tableElement,true);
         try {
             constructTable(tableSelector, tableLocator, tableElement, withReadAllTable);
         } catch (Exception e) {
