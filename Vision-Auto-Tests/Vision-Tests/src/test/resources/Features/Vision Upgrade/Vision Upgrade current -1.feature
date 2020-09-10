@@ -77,7 +77,6 @@ Feature: Vision Upgrade current -1
       | UPGRADE | *.svg                                                                  | IGNORE       |
       | UPGRADE | *.png                                                                  | IGNORE       |
       | UPGRADE | inflating:                                                             | IGNORE       |
-      | LLS     | fatal\| error\|fail                                                    | NOT_EXPECTED |
       | UPGRADE | /opt/radware/storage/www/webui/vision-dashboards/public/static/media/* | IGNORE       |
       | UPGRADE | No such image or container: *                                          | IGNORE       |
 
@@ -231,7 +230,7 @@ Feature: Vision Upgrade current -1
 
   @SID_30
   Scenario: Validate LLS version
-    Then CLI Run linux Command "cat /opt/radware/storage/llsinstall/license-server-*/version.txt" on "ROOT_SERVER_CLI" and validate result EQUALS "2.4.0-1"
+    Then CLI Run linux Command "cat /opt/radware/storage/llsinstall/license-server-*/version.txt" on "ROOT_SERVER_CLI" and validate result EQUALS "2.4.0-2"
 
   @SID_31
   Scenario: Validate Changed MySql partitioning number

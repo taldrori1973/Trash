@@ -76,7 +76,6 @@ Feature: Vision Upgrade current +1
       | UPGRADE | *.png                                                                  | IGNORE       |
       | UPGRADE | *.svg                                                                  | IGNORE       |
       | UPGRADE | inflating:                                                             | IGNORE       |
-      | LLS     | fatal\| error\|fail                                                    | NOT_EXPECTED |
       | UPGRADE | /opt/radware/storage/www/webui/vision-dashboards/public/static/media/* | IGNORE       |
       | UPGRADE | No such image or container: *                                          | IGNORE       |
 
@@ -229,7 +228,7 @@ Feature: Vision Upgrade current +1
 
   @SID_25
   Scenario: Validate LLS version
-    Then CLI Run linux Command "cat /opt/radware/storage/llsinstall/license-server-*/version.txt" on "ROOT_SERVER_CLI" and validate result EQUALS "2.4.0-1"
+    Then CLI Run linux Command "cat /opt/radware/storage/llsinstall/license-server-*/version.txt" on "ROOT_SERVER_CLI" and validate result EQUALS "2.4.0-2"
 
   @SID_26
   Scenario: Validate IPv6 Hostname in /etc/hosts

@@ -62,7 +62,6 @@ Feature: Vision APM Upgrade current +1
       | UPGRADE | *.png                                                                  | IGNORE       |
       | UPGRADE | *.svg                                                                  | IGNORE       |
       | UPGRADE | inflating:                                                             | IGNORE       |
-      | LLS     | fatal\| error\|fail                                                    | NOT_EXPECTED |
       | UPGRADE | Failed to parse /etc/cgconfig.conf                                     | IGNORE       |
       | UPGRADE | error loading /etc/cgconfig.conf: Cgroup mounting failed               | IGNORE       |
       | UPGRADE | Error: cannot mount cpuset to /cgroup/cpuset: Device or resource busy  | IGNORE       |
@@ -216,7 +215,7 @@ Feature: Vision APM Upgrade current +1
 
   @SID_23
   Scenario: Validate LLS version
-    Then CLI Run linux Command "cat /opt/radware/storage/llsinstall/license-server-*/version.txt" on "ROOT_SERVER_CLI" and validate result EQUALS "2.4.0-1"
+    Then CLI Run linux Command "cat /opt/radware/storage/llsinstall/license-server-*/version.txt" on "ROOT_SERVER_CLI" and validate result EQUALS "2.4.0-2"
 
   @SID_24
   Scenario: Validate IPv6 Hostname in /etc/hosts

@@ -120,12 +120,6 @@ public class VRMBaseUtilies {
 
 
     protected void selectDevices(Map<String, String> map) throws Exception {
-//        if ((map.get("reportType") != null && map.get("reportType").equalsIgnoreCase("HTTPS Flood")) && (map.get("devices") != null || map.get("policy") == null))
-//            BaseTestUtils.report("HTTPS Flood Scope Selection is by Policy , Can't Select Devices", Reporter.FAIL);
-//        if (map.get("policy") != null) {
-//            selectPolicy(map.get("policy"));
-//            return;
-//        }
         if ((map.get("reportType") != null)) {
             switch ((map.get("reportType").toLowerCase())) {
                 case "https flood":
@@ -228,7 +222,7 @@ public class VRMBaseUtilies {
                 devicesJsonArray.put(deviceJsonObject);
             }
         }
-        List<VRMHandler.DpDeviceFilter> devicesEntries = new ArrayList<VRMHandler.DpDeviceFilter>();
+        List<VRMHandler.DpDeviceFilter> devicesEntries = new ArrayList<>();
         for (int i = 0; i < devicesJsonArray.length(); i++) {
             VRMHandler.DpDeviceFilter deviceEntry = new VRMHandler.DpDeviceFilter();
             deviceEntry.index = ((JSONObject) devicesJsonArray.get(i)).getInt("index");
@@ -291,8 +285,8 @@ public class VRMBaseUtilies {
                 BasicOperationsHandler.clickButton("Quick Range");
                 BasicOperationsHandler.clickButton("TimeFrame", timeDefinitionJSONObject.getString("Quick"));
 
-            } else if (!timeDefinitionJSONObject.isNull("Absolute")) {//timeDefinitionJSONObject.toMap().containsKey("Absolute"
-//
+            } else if (!timeDefinitionJSONObject.isNull("Absolute")) {//timeDefinitionJSONObject.toMap().containsKey("Absolute")
+
                 BasicOperationsHandler.clickButton("Absolute");
                 JSONArray absoluteJArray = new JSONArray();
                 try {
@@ -321,6 +315,7 @@ public class VRMBaseUtilies {
             try {
                 setDateString("Time Frame From", absoluteFormat.format(TimeUtils.getAddedDate(absoluteJArray.get(0).toString().trim())));
             } catch (Exception e) {
+                BaseTestUtils.report(e.getMessage(),Reporter.FAIL);
             }
         } else {
             String fromDate = absoluteJArray.get(0).toString();
@@ -343,6 +338,7 @@ public class VRMBaseUtilies {
             try {
                 BasicOperationsHandler.setTextField("Time Frame From", absoluteFormat.format(TimeUtils.getAddedDate(absoluteJArray.get(0).toString().trim())));
             } catch (Exception e) {
+                BaseTestUtils.report(e.getMessage(), Reporter.FAIL);
             }
         } else {
             String fromDate = absoluteJArray.get(0).toString();
@@ -374,7 +370,6 @@ public class VRMBaseUtilies {
     }
 
     private void ClickRelativeDateNew(JSONArray timeDefinitions) throws TargetWebElementNotFoundException {
-//        BasicOperationsHandler.newSelectItemFromDropDown("From Time Selection", timeDefinitions.get(0).toString());
         BasicOperationsHandler.clickButton("Time Relative Period", timeDefinitions.get(0).toString());
         BasicOperationsHandler.setTextField("Time Relative Period Input", timeDefinitions.get(0).toString(), timeDefinitions.get(1).toString(), false);
     }
@@ -402,6 +397,7 @@ public class VRMBaseUtilies {
             try {
                 onTime = scheduleJson.toMap().get("On Time").toString();
             } catch (Exception e) {
+                BaseTestUtils.report(e.getMessage(), Reporter.FAIL);
             }
             if (onTime.contains("+") || onTime.contains("-")) {
                 scheduleLocalDateTime = TimeUtils.getAddedDate(scheduleJson.toMap().get("On Time").toString().trim());
@@ -523,6 +519,7 @@ public class VRMBaseUtilies {
                 try {
                     realOnTime = scheduleJson.getString("On Time");
                 } catch (Exception e) {
+                    BaseTestUtils.report(e.getMessage(), Reporter.FAIL);
                 }
                 BasicOperationsHandler.setTextField("Scheduling At Time", realOnTime);
             }
@@ -540,12 +537,12 @@ public class VRMBaseUtilies {
             }
 
             String runEvery = scheduleJson.getString("Run Every");
-//            BasicOperationsHandler.newSelectItemFromDropDown("Scheduling Run Every", runEvery);
             BasicOperationsHandler.clickButton("Schedule Run Every", runEvery);
             String onTime = "??";
             try {
                 onTime = scheduleJson.toMap().get("On Time").toString();
             } catch (Exception e) {
+                BaseTestUtils.report(e.getMessage(), Reporter.FAIL);
             }
             if (onTime.contains("+") || onTime.contains("-")) {
                 scheduleLocalDateTime = TimeUtils.getAddedDate(scheduleJson.toMap().get("On Time").toString().trim());
@@ -556,7 +553,6 @@ public class VRMBaseUtilies {
                 if (runEvery.contains("Once")) {
                     DateTimeFormatter onDayFormat = DateTimeFormatter.ofPattern("yyyy-MM-dd");
                     String onDay = onDayFormat.format(scheduleLocalDateTime);
-//                    setDateString("Scheduling On Day", onDay);
                     BasicOperationsHandler.setTextField("Scheduling On Day", onDay);
                 }
                 if (runEvery.contains("Weekly")) {
@@ -661,7 +657,6 @@ public class VRMBaseUtilies {
                     }
                     if (runEvery.contains("Once")) {
                         if (scheduleJson.toMap().containsKey("On Day"))
-//                            setDateString("Scheduling On Day", scheduleJson.getString("On Day").trim());
                             BasicOperationsHandler.setTextField("Scheduling On Day", scheduleJson.getString("On Day").trim());
                     }
                 }
@@ -669,6 +664,7 @@ public class VRMBaseUtilies {
                 try {
                     realOnTime = scheduleJson.getString("On Time");
                 } catch (Exception e) {
+                    BaseTestUtils.report(e.getMessage(),Reporter.FAIL);
                 }
                 BasicOperationsHandler.setTextField("Scheduling At Time", realOnTime);
             }
@@ -752,6 +748,7 @@ public class VRMBaseUtilies {
                     BasicOperationsHandler.clickButton("Delete Email", String.valueOf(i) + "_Delete");
                 }
             } catch (Exception e) {
+                BaseTestUtils.report(e.getMessage(), Reporter.FAIL);
             }
 
         }
@@ -806,6 +803,7 @@ public class VRMBaseUtilies {
                 BasicOperationsHandler.newSelectItemFromDropDown("Scheduling Run Every", "Daily");
                 BasicOperationsHandler.clickButton("Scheduling At Time", "");
             } catch (Exception e) {
+                BaseTestUtils.report(e.getMessage(), Reporter.FAIL);
             }
 
             selectSchedule(map);
@@ -847,13 +845,8 @@ public class VRMBaseUtilies {
 
             BasicOperationsHandler.setTextField("Email Recipients", "");
             BasicOperationsHandler.setTextField("Send Email Subject", "");
-//            VisionDebugIdsManager.setLabel("Email Recipients");
-//            ClickOperationsHandler.setTextToElement(ComponentLocatorFactory.getEqualLocatorByDbgId(VisionDebugIdsManager.getDataDebugId()).getLocatorValue(), "", true, true);
-//            VisionDebugIdsManager.setLabel("Send Email Subject");
-//            ClickOperationsHandler.setTextToElement(ComponentLocatorFactory.getEqualLocatorByDbgId(VisionDebugIdsManager.getDataDebugId()).getLocatorValue(), "", true, true);
             Delivery(map);
         }
-
     }
 
     protected void editShare(Map<String, String> map) throws TargetWebElementNotFoundException {
@@ -883,6 +876,7 @@ public class VRMBaseUtilies {
         try {
             openDevicePort(null);
         } catch (Exception e) {
+            BaseTestUtils.report(e.getMessage(), Reporter.FAIL);
         }
         switch (oldOrNew) {
             case "old":
@@ -891,7 +885,7 @@ public class VRMBaseUtilies {
                 createVRMBaseNew("validateMaxViews", new HashMap<>());
         }
         BasicOperationsHandler.clickButton("Views.Expand", "validateMaxViews");
-        List<String> snapshotsName = new ArrayList<>();
+        List<String> snapshotsName;
         snapshotsName = getViewsList(maxValue);
         List<WebElement> snapshots = getSnapshotElements();
         if (snapshots.size() != maxValue) {
@@ -987,7 +981,6 @@ public class VRMBaseUtilies {
                 BaseTestUtils.report("Failed to build with host: " + host + " " + e.getMessage(), Reporter.FAIL);
             }
         }
-//        CliOperations.runCommand(rootServerCli, "service iptables stop");
         String commandToExecute = "net firewall open-port 10080 open";
         CliOperations.runCommand(radwareServerCli, commandToExecute);
         String port = "10080";
@@ -1102,7 +1095,7 @@ public class VRMBaseUtilies {
     }
 
     private Set<String> getElementsSet() {
-        Set<String> elementsDebugIds = new HashSet<String>();
+        Set<String> elementsDebugIds = new HashSet<>();
         int elemntsCount = -1;
         while (elementsDebugIds.size() > elemntsCount) {
             elemntsCount = elementsDebugIds.size();
@@ -1318,10 +1311,11 @@ public class VRMBaseUtilies {
         BasicOperationsHandler.clickButton("Generate Now", reportName);
 
 //        WebElement result = UIUtils.fluentWaitClickable(generateButton, Long.valueOf(map.get("timeout")), false);
-        WebElement result = clickableTimeout(generateButton, Long.valueOf(map.get("timeout")));
+        WebElement result = clickableTimeout(generateButton, Long.parseLong(map.get("timeout")));
         LocalTime end = LocalTime.now();
         Duration duration = Duration.between(start, end);
 
+        assert reportLogsStatusBefore != null;
         String lastTimeBefore = reportLogsStatusBefore.get("lastLogTime");
         littleWaitingForGenerationSnapshotDisplayed(reportContainer, lastTimeBefore);
 
