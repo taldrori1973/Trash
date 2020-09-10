@@ -8,15 +8,16 @@ Feature: VRM AW Alerts
     Then CLI Run remote linux Command "echo "cleared" $(date) > /var/spool/mail/alertuser" on "GENERIC_LINUX_SERVER"
     Then CLI Run remote linux Command "/opt/radware/mgt-server/bin/collectors_service.sh restart" on "ROOT_SERVER_CLI" with timeOut 720
     * REST Delete ES index "rt-alert-def-vrm"
+    * REST Delete ES index "df-attack-raw-*"
     * CLI Clear vision logs
 
-  @SID_17
+  @SID_2
   Scenario: Change DF management IP to IP of Generic Linux
     When CLI Operations - Run Radware Session command "system df management-ip set 172.17.164.10"
     When CLI Operations - Run Radware Session command "system df management-ip get"
     Then CLI Operations - Verify that output contains regex "DefenseFlow Management IP Address: 172.17.164.10"
 
-  @SID_2
+  @SID_3
   Scenario: VRM - enabling emailing and go to VRM Alerts Tab
     Given UI Login with user "sys_admin" and password "radware"
     * REST Vision Install License Request "vision-AVA-Max-attack-capacity"
@@ -33,20 +34,22 @@ Feature: VRM AW Alerts
     And UI Set Text Field "SMTP Server Address" To "172.17.164.10"
     And UI Set Text Field "SMTP Port" To "251"
     And UI Click Button "Submit"
+    Given Setup email server
     And UI Navigate to "AMS Alerts" page via homePage
 
 
-  @SID_3
+  @SID_4
   Scenario: Create Alert Delivery
+    Given Clear email history for user "setup"
     When UI "Create" Alerts With Name "Alert Delivery"
       | Product    | DefenseFlow                                                                                                                        |
       | Basic Info | Description:Alert Delivery Description,Impact: Our network is down,Remedy: Please protect df real quick!,Severity:Critical         |
       | Criteria   | Event Criteria:Action,Operator:Not Equals,Value:[Forward];                                                                         |
       | Schedule   | checkBox:Trigger,alertsPerHour:10                                                                                                  |
-      | Share      | Email:[automation.vision1@alert.local, automation.vision2@alert.local],Subject: DF Alert Delivery Subj,Body:DF Alert Delivery Body |
+      | Share      | Email:[Test, Test2],Subject: TC113517 Subject,Body:DF Alert Delivery Body |
     And Sleep "120"
 
-  @SID_4
+  @SID_5
   Scenario: Run DP simulator VRM_Alert_Severity
     Then CLI Run remote linux Command "echo "cleared" $(date) > /var/spool/mail/alertuser" on "GENERIC_LINUX_SERVER"
     When CLI Run remote linux Command on "GENERIC_LINUX_SERVER"
@@ -55,31 +58,29 @@ Feature: VRM AW Alerts
       | " Terminated"                                |
     And Sleep "60"
 
-  @SID_5
-  Scenario: Verify Alert Email Delivery Subject
-    Then CLI Run remote linux Command "cat /var/spool/mail/alertuser > /tmp/alertdelivery.log" on "GENERIC_LINUX_SERVER"
-    Then CLI Run linux Command "cat /var/spool/mail/alertuser|tr -d "="|tr -d "\n"|grep -o "Subject: DF Alert Delivery Subj" |wc -l" on "GENERIC_LINUX_SERVER" and validate result EQUALS "2"
+
+
 
   @SID_6
-  Scenario: Verify Alert Email Delivery Remedy
-    Then CLI Run linux Command "cat /var/spool/mail/alertuser|tr -d "="|tr -d "\n"|grep -o "Remedy</td>    <td>Please protect df real quick!" |wc -l" on "GENERIC_LINUX_SERVER" and validate result EQUALS "2"
+  Scenario: Validate Report Email received content
+    #subject
+    Then Validate "setup" user eMail expression "grep "Subject: TC113517 Subject"" EQUALS "2"
+    #From
+    Then Validate "setup" user eMail expression "grep "From: Automation system <qa_test@Radware.com>"" EQUALS "2"
+    #To
+    Then Validate "setup" user eMail expression "grep "X-Original-To: test2@.*.local"" EQUALS "1"
+    #To
+    Then Validate "setup" user eMail expression "grep "X-Original-To: test@.*.local"" EQUALS "1"
+#    #Attachment
+#    Then Validate "setup" user eMail expression "grep -oP "Content-Disposition: attachment; filename=VRM_report_(\d{13}).zip"" EQUALS "2"
+    #Remedy
+    Then Validate "setup" user eMail expression "grep -o "Remedy</td>    <td>Please protect df real quick!"" EQUALS "2"
+    #IMPACT
+    Then Validate "setup" user eMail expression "grep -o "<td>Impact</td>    <td>Our network is down" " EQUALS "2"
 
   @SID_7
-  Scenario: Verify Alert Email Delivery Impact
-    Then CLI Run linux Command "cat /var/spool/mail/alertuser|tr -d "="|tr -d "\n"|grep -o "<td>Impact</td>    <td>Our network is down</td>" |wc -l" on "GENERIC_LINUX_SERVER" and validate result EQUALS "2"
-
-  @SID_8
-  Scenario: Verify Alert Email Delivery Sender
-    Then CLI Run linux Command "grep "From: APSolute Vision <qa_test@Radware.com>" /var/spool/mail/alertuser |wc -l" on "GENERIC_LINUX_SERVER" and validate result EQUALS "2" with timeOut 90
-
-  @SID_9
-  Scenario: Verify Alert Email Delivery recipient
-    Then CLI Run linux Command "grep "X-Original-To: automation.vision1@alert.local" /var/spool/mail/alertuser |wc -l" on "GENERIC_LINUX_SERVER" and validate result EQUALS "1"
-    Then CLI Run linux Command "grep "X-Original-To: automation.vision2@alert.local" /var/spool/mail/alertuser |wc -l" on "GENERIC_LINUX_SERVER" and validate result EQUALS "1"
-
-  @SID_10
   Scenario: Verify Alert Email Delivery attack details
-    Then CLI Run linux Command "grep -o -e "2000::0001" -e "<td>80</td>" -e "SYN Flood HTTP" -e "policy1" -e "TCP" -e "Unknown" /var/spool/mail/alertuser |wc -l" on "GENERIC_LINUX_SERVER" and validate result EQUALS "6"
+    Then Validate "setup" user eMail expression "grep -o -e "nknown</td>"  /var/spool/mail/172.17.164.137 |wc -l" EQUALS "6"
 
 
 
@@ -87,7 +88,7 @@ Feature: VRM AW Alerts
 
 
 
-  @SID_14
+  @SID_8
   Scenario: Create Alert Category ConnectionPPS
     When UI "Create" Alerts With Name "Alert_Category connection PPS"
       | Product    | DefenseFlow                                                                                                                      |
@@ -98,7 +99,7 @@ Feature: VRM AW Alerts
     And Sleep "120"
 
 
-  @SID_13
+  @SID_9
   Scenario: Run DP simulator VRM_Alert_Severity
     Then CLI Run remote linux Command "echo "cleared" $(date) > /var/spool/mail/alertuser" on "GENERIC_LINUX_SERVER"
     When CLI Run remote linux Command on "GENERIC_LINUX_SERVER"
@@ -108,7 +109,7 @@ Feature: VRM AW Alerts
     And Sleep "60"
 
 
-  @SID_15
+  @SID_10
   Scenario: Verify alert table sorting in modal popup
     Then UI Navigate to "AMS Alerts" page via homePage
     Then UI "Check" all the Toggle Alerts
@@ -121,14 +122,14 @@ Feature: VRM AW Alerts
     Then UI Click Button "Table Details OK" with value "OK"
 
 
-  @SID_16
+  @SID_11
   Scenario: VRM Validate Alert browser details Alert_Category connection PPS
     Then CLI Run remote linux Command "curl -XPOST -s -d'{"query":{"bool":{"must":[{"wildcard":{"message":"M_30000: Vision Analytics Alerts \nAlert Name: Alert_Category connection PPS \nSeverity: MINOR \nDescription: Category \nImpact: N/A \nRemedy: N/A \nDevice IP: 172.16.22.50 \n*Attacks Count: 1 \n"}}]}},"from":0,"size":100}' localhost:9200/alert/_search?pretty |grep "ANALYTICS_ALERTS" |wc -l" on "ROOT_SERVER_CLI"
     Then CLI Operations - Verify that output contains regex "\b1\b"
 
 # -------------------------------------------------------------------------
 
-  @SID_11
+  @SID_12
   Scenario: VRM - go to vision and disable emailing
     Then UI Open "Configurations" Tab
     And UI Go To Vision
@@ -137,7 +138,7 @@ Feature: VRM AW Alerts
     And UI Click Button "Submit"
 
 
-  @SID_12
+  @SID_13
   Scenario: Cleanup
     Then UI Logout
     * CLI Check if logs contains
