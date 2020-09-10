@@ -1,6 +1,7 @@
 @VRM @TC105994
 Feature: DP Monitoring Dashboard - Protection Policies - Under Attack 3rd Drill
 
+  @runSetup
   @SID_1
   Scenario: Clean system data before "Protection Policies" test
     * CLI kill all simulator attacks on current vision
@@ -10,6 +11,7 @@ Feature: DP Monitoring Dashboard - Protection Policies - Under Attack 3rd Drill
       | body | sessionInactivTimeoutConfiguration=60 |
     * CLI Clear vision logs
 
+  @runSetup
   @SID_2
   Scenario: Login as sys_admin and update Attack Description File
     Given UI Login with user "sys_admin" and password "radware"
@@ -17,15 +19,15 @@ Feature: DP Monitoring Dashboard - Protection Policies - Under Attack 3rd Drill
     When UI Update Attack Description File
 
 #########################################################   BDOS   ################################################################
-
+  @runSetup
   @SID_3
   Scenario: Run DP simulator PCAPs for "Protection Policies" - 3rd drill - BDOS
     Given CLI simulate 1 attacks of type "vrm_bdos" on "DefensePro" 10 and wait 70 seconds
-
+  @runSetup
   @SID_4
   Scenario: Navigate to DP dashboard
     When UI Navigate to "DefensePro Monitoring Dashboard" page via homePage
-
+  @runSetup
   @SID_5
   Scenario: Entering to the under attack policy 3nd drill
     Given UI click Table row by keyValue or Index with elementLabel "Protection Policies.Table" findBy index 0
@@ -34,6 +36,7 @@ Feature: DP Monitoring Dashboard - Protection Policies - Under Attack 3rd Drill
 
   ##Bdos - Info Card
   @SID_6
+  @runSetup
   Scenario: Validate info card data - BDOS
     Then UI Validate Text field "Info.Protocol" EQUALS "Protocol: TCP"
     Then UI Validate Text field "Info.Total packets" On Regex "Total Packets: (\d+,\d+)" GTE "161491"
@@ -47,6 +50,7 @@ Feature: DP Monitoring Dashboard - Protection Policies - Under Attack 3rd Drill
 
   ##Bdos - Dropped packets
   @SID_7
+  @runSetup
   Scenario: Validate Dropped packets card data - BDOS
     Then UI Validate Table record values by columns with elementLabel "Dropped Packets" findBy index 0
       | columnName  | value           |
@@ -61,23 +65,26 @@ Feature: DP Monitoring Dashboard - Protection Policies - Under Attack 3rd Drill
 
   ##Bdos - Top Attack Sources
   @SID_8
+  @runSetup
   Scenario: Validate Top Attack Sources card data - BDOS
     Then UI Text of "TOP ATTACK SOURCES.IP" with extension "0" equal to "192.85.1.2"
     Then UI Text of "TOP ATTACK SOURCES.Percentage" with extension "0" equal to "100%"
 
   ##Bdos -  Attack Log
   @SID_9
+  @runSetup
   Scenario: Validate Attack Log card data - BDOS
     Then UI Text of "Attack Log" with extension "0" contains "Attack Ongoing"
 
     ##Bdos - Per attack card
   @SID_10
+  @runSetup
   Scenario: Validate per attack card data - BDOS
     Then UI Validate Text field "Characteristics.State" EQUALS "State:Real-Time Signature Blocking"
     Then UI Text of "Characteristics.Real-Time Signature.Operator" with extension "1" equal to "OR"
     Then UI Text of "Characteristics.Real-Time Signature.Parameter" with extension "1" equal to "sequence-number"
     Then UI Text of "Characteristics.Real-Time Signature.Value/s" with extension "1" equal to "123456"
-#    Then  UI FluentWait For "Characteristics.Attack Identification Statistics" Table Until Rows Number GTE 4
+    Then  UI FluentWait For "Characteristics.Attack Identification Statistics" Table Until Rows Number GTE 4
     Then UI Validate Table record values by columns with elementLabel "Characteristics.Attack Identification Statistics" findBy index 0
       | columnName  | value         |
       | Type        | Normal (Kbps) |
@@ -173,6 +180,7 @@ Feature: DP Monitoring Dashboard - Protection Policies - Under Attack 3rd Drill
 
 
   @SID_11
+  @runSetup
   Scenario: Logout
     Then UI Logout
 
@@ -744,7 +752,7 @@ Feature: DP Monitoring Dashboard - Protection Policies - Under Attack 3rd Drill
     Then UI Logout
 
       ########################################################   Https Flood Inbound   ###########################################################
-  @runSetup
+  
   @SID_79
   Scenario: Clear data
     * CLI kill all simulator attacks on current vision
@@ -755,16 +763,16 @@ Feature: DP Monitoring Dashboard - Protection Policies - Under Attack 3rd Drill
     * REST Update Policies for All DPs
 
 
-    @runSetup
+    
   @SID_80
   Scenario: Run DP simulator PCAPs for "Protection Policies" - 3rd drill - Https Flood
     Given CLI simulate 2 attacks of type "HTTPS" on "DefensePro" 11 with loopDelay 5000 and wait 60 seconds
-  @runSetup
+  
   @SID_81
   Scenario: Login and open AMS dashboard
     Given UI Login with user "sys_admin" and password "radware"
     When UI Navigate to "DefensePro Monitoring Dashboard" page via homePage
-  @runSetup
+  
   @SID_82
   Scenario: Entering to the under attack policy 3nd drill https flood
     Then UI click Table row by keyValue or Index with elementLabel "Protection Policies.Table" findBy columnName "Attack Categories" findBy cellValue "HTTPS Flood"
@@ -1089,30 +1097,30 @@ Feature: DP Monitoring Dashboard - Protection Policies - Under Attack 3rd Drill
     Then UI Validate Line Chart data "Requests per Second" with Label "Legitimate Traffic"
       | value   | count | offset |
       | 17500.0 | 2     | 1      |
-  @runSetup
-  @SID_109
-  Scenario: Validate Https Flood baseline graph 24H
-    When UI Click Button "Time Picker"
-    When UI Click Button "Time Range 24H" with value "24H"
-    Then UI Validate Line Chart data "Requests per Second" with Label "Legitimate Traffic"
-      | value | count | offset |
-      | null  | 58    | 1      |
+  
+#  @SID_109
+#  Scenario: Validate Https Flood baseline graph 24H
+#    When UI Click Button "Time Picker"
+#    When UI Click Button "Time Range 24H" with value "24H"
+#    Then UI Validate Line Chart data "Requests per Second" with Label "Legitimate Traffic"
+#      | value | count | offset |
+#      | null  | 24    | 1      |
 
-  @SID_110
+  @SID_109
   Scenario: Validate Https Flood baseline graph 1H
     When UI Click Button "Time Range 1H" with value "1H"
     Then UI Validate Line Chart data "Requests per Second" with Label "Legitimate Traffic"
       | value | count | offset |
       | null  | 238   | 1      |
 
-  @SID_111
+  @SID_110
   Scenario: Validate Https Flood baseline graph 30m
     When UI Click Button "Time Range 30m" with value "30m"
     Then UI Validate Line Chart data "Requests per Second" with Label "Legitimate Traffic"
       | value | count | offset |
       | null  | 118   | 1      |
 
-  @SID_112
+  @SID_111
   Scenario: Validate Https Flood baseline graph 15m
     When UI Click Button "Time Range 15m" with value "15m"
     When UI Click Button "Time Picker"
@@ -1120,7 +1128,7 @@ Feature: DP Monitoring Dashboard - Protection Policies - Under Attack 3rd Drill
       | value | count | offset |
       | null  | 58    | 1      |
 
-  @SID_113
+  @SID_112
   Scenario: Validate Https Flood baseline graph Transitory Baseline styling
     Then UI Validate Line Chart attributes "Requests per Second" with Label "Transitory Baseline"
       | attribute             | value   |
@@ -1138,7 +1146,7 @@ Feature: DP Monitoring Dashboard - Protection Policies - Under Attack 3rd Drill
       | lineTension           | 0.35    |
       | fill                  | false   |
 
-  @SID_114
+  @SID_113
   Scenario: Validate Https Flood baseline graph Transitory Attack Edge styling
     Then UI Validate Line Chart attributes "Requests per Second" with Label "Transitory Attack Edge"
       | attribute             | value   |
@@ -1156,7 +1164,7 @@ Feature: DP Monitoring Dashboard - Protection Policies - Under Attack 3rd Drill
       | lineTension           | 0.35    |
       | fill                  | false   |
 
-  @SID_115
+  @SID_114
   Scenario: Validate Https Flood baseline graph Total Traffic styling
     Then UI Validate Line Chart attributes "Requests per Second" with Label "Total Traffic"
       | attribute             | value   |
@@ -1175,7 +1183,7 @@ Feature: DP Monitoring Dashboard - Protection Policies - Under Attack 3rd Drill
       | borderColor           | #088eb1 |
       | color                 | #9aeeea |
 
-  @SID_116
+  @SID_115
   Scenario: Validate Https Flood baseline graph Long Trend Baseline styling
     Then UI Validate Line Chart attributes "Requests per Second" with Label "Long-Term Trend Baseline"
       | attribute             | value   |
@@ -1193,7 +1201,7 @@ Feature: DP Monitoring Dashboard - Protection Policies - Under Attack 3rd Drill
       | lineTension           | 0.35    |
       | fill                  | false   |
 
-  @SID_117
+  @SID_116
   Scenario: Validate Https Flood baseline graph Long Trend Attack Edge styling
 #    Then UI Validate Line Chart attributes "Requests per Second" with Label "Long-Term Trend Attack Edge"
 #      | attribute             | value   |
@@ -1211,7 +1219,7 @@ Feature: DP Monitoring Dashboard - Protection Policies - Under Attack 3rd Drill
 #      | lineTension           | 0.35    |
 #      | fill                  | false   |
 
-  @SID_118
+  @SID_117
   Scenario: Validate Https Flood baseline graph Legitimate Traffic styling
 #    Then UI Validate Line Chart attributes "Requests per Second" with Label "Legitimate Traffic"
 #      | attribute             | value                 |
@@ -1234,16 +1242,16 @@ Feature: DP Monitoring Dashboard - Protection Policies - Under Attack 3rd Drill
   ###############################################################
 
 # verify 1. refrest occured 2. only current is updating 3. toggle starttime is not changing
-  @SID_119
+  @SID_118
   Scenario: Run DP simulator PCAPs for Https Flood - Make Change
     * CLI kill all simulator attacks on current vision
     Given CLI simulate 2 attacks of type "HTTPS-Twist" on "DefensePro" 11 with loopDelay 5000 and wait 90 seconds
 
-  @SID_120
+  @SID_119
   Scenario: Https set toggle to Current - After Change
     * UI Click Button "toggle Current"
 
-  @SID_121
+  @SID_120
   Scenario: Validate Https Flood distributed size graph data - Baseline - After Change
     Then UI Validate Line Chart data "Request-Size Distribution" with Label "Baseline"
       | value       | count | index | offset      |
@@ -1253,7 +1261,7 @@ Feature: DP Monitoring Dashboard - Protection Policies - Under Attack 3rd Drill
       | 0.027675444 | 1     | 4     | 0.000000001 |
       | 0           | 46    | 5     | 0.1         |
 
-  @SID_122
+  @SID_121
   Scenario: Validate Https Flood distributed size graph data - Real Time Traffic - After Change
     Then UI Validate Line Chart data "Request-Size Distribution" with Label "Real-Time Traffic"
       | value      | count | index | offset |
@@ -1263,7 +1271,7 @@ Feature: DP Monitoring Dashboard - Protection Policies - Under Attack 3rd Drill
       | 0.81       | 1     | 4     | 0      |
       | 0.5        | 1     | 49    | 0      |
 
-  @SID_123
+  @SID_122
   Scenario: Validate Https Flood distributed size graph data - Attack Edge - After Change
     Then UI Validate Line Chart data "Request-Size Distribution" with Label "Attack Edge"
       | value      | count | index | offset |
@@ -1271,7 +1279,7 @@ Feature: DP Monitoring Dashboard - Protection Policies - Under Attack 3rd Drill
       | 1          | 1     | 1     | 0      |
       | 0.47802296 | 1     | 4     | 0      |
 
-  @SID_124
+  @SID_123
   Scenario: Validate Https Flood distributed size graph data - Under Attack - After Change
     Then UI Validate Line Chart data "Request-Size Distribution" with Label "Under Attack"
       | value      | count | index | offset |
@@ -1286,14 +1294,14 @@ Feature: DP Monitoring Dashboard - Protection Policies - Under Attack 3rd Drill
   ################################################################################
 
   # Navigate Back in order to refresh https start time
-  @SID_125
+  @SID_124
   Scenario: Https set toggle to Attack Start Time - After Change
     * UI Click Button "Characteristics.HTTPS Go-Back"
     * UI click Table row by keyValue or Index with elementLabel "Protection Policies.Protections Table" findBy columnName "Protection Name" findBy cellValue "HTTPS Flood"
     * UI click Table row by keyValue or Index with elementLabel "Protection Policies.Events Table" findBy index 0
     * UI Click Button "toggle Attack Start Time"
 
-  @SID_126
+  @SID_125
   Scenario: Validate Https Flood distributed size graph data - Baseline - Attack Start Time - After Change
     Then UI Validate Line Chart data "Request-Size Distribution" with Label "Baseline"
       | value       | count | index | offset |
@@ -1301,7 +1309,7 @@ Feature: DP Monitoring Dashboard - Protection Policies - Under Attack 3rd Drill
       | 0.97232455  | 1     | 1     | 0      |
       | 0.027675444 | 1     | 4     | 0      |
 
-  @SID_127
+  @SID_126
   Scenario: Validate Https Flood distributed size graph data - Real Time Traffic - Attack Start Time - After Change
     Then UI Validate Line Chart data "Request-Size Distribution" with Label "Real-Time Traffic"
       | value      | count | index | offset |
@@ -1309,7 +1317,7 @@ Feature: DP Monitoring Dashboard - Protection Policies - Under Attack 3rd Drill
       | 0.23451911 | 1     | 1     | 0      |
       | 0.7654809  | 1     | 4     | 0      |
 
-  @SID_128
+  @SID_127
   Scenario: Validate Https Flood distributed size graph data - Attack Edge - Attack Start Time - After Change
     Then UI Validate Line Chart data "Request-Size Distribution" with Label "Attack Edge"
       | value      | count | index | offset |
@@ -1317,7 +1325,7 @@ Feature: DP Monitoring Dashboard - Protection Policies - Under Attack 3rd Drill
       | 1          | 1     | 1     | 0      |
       | 0.47802296 | 1     | 4     | 0      |
 
-  @SID_129
+  @SID_128
   Scenario: Validate Https Flood distributed size graph data - Under Attack - Attack Start Time - After Change
     Then UI Validate Line Chart data "Request-Size Distribution" with Label "Under Attack"
       | value      | count | index | offset |
@@ -1325,13 +1333,13 @@ Feature: DP Monitoring Dashboard - Protection Policies - Under Attack 3rd Drill
       | 0.23451911 | 1     | 1     | 0      |
       | 0.7654809  | 1     | 4     | 0      |
 
-  @SID_130
+  @SID_129
   Scenario: Logout
     Then UI Logout
 
       ##################################################   Https Flood Outbound   ######################################################
 
-  @SID_131
+  @SID_130
   Scenario: Clear data
     * CLI kill all simulator attacks on current vision
     * REST Delete ES index "dp-attack-*"
@@ -1340,16 +1348,16 @@ Feature: DP Monitoring Dashboard - Protection Policies - Under Attack 3rd Drill
     * REST Delete ES index "dp-hourly-https-rt-*"
     * REST Delete ES index "dp-https-stats*"
 
-  @SID_132
+  @SID_131
   Scenario: Run DP simulator PCAPs for "Protection Policies" - 3rd drill - Https Flood
     Given CLI simulate 2 attacks of type "HTTPS" on "DefensePro" 11 with loopDelay 5000 and wait 60 seconds
 
-  @SID_133
+  @SID_132
   Scenario: Login and open VRM DNS attack details
     Given UI Login with user "sys_admin" and password "radware"
     When UI Navigate to "DefensePro Monitoring Dashboard" page via homePage
 
-  @SID_134
+  @SID_133
   Scenario: Entering to the under attack policy 3nd drill https flood
     Then UI click Table row by keyValue or Index with elementLabel "Protection Policies.Table" findBy columnName "Attack Categories" findBy cellValue "HTTPS Flood"
     Then UI click Table row by keyValue or Index with elementLabel "Protection Policies.Protections Table" findBy columnName "Protection Name" findBy cellValue "HTTPS Flood"
@@ -1357,7 +1365,7 @@ Feature: DP Monitoring Dashboard - Protection Policies - Under Attack 3rd Drill
 
       ##Https Flood - Info Card
 
-  @SID_135
+  @SID_134
   Scenario: Validate info card data - https flood
     Then UI Validate Text field "Info.Protocol" EQUALS "Protocol: TCP"
     Then UI Validate Text field "Info.Total packets" EQUALS "Total Packets: 0"
@@ -1372,7 +1380,7 @@ Feature: DP Monitoring Dashboard - Protection Policies - Under Attack 3rd Drill
 
         ##https flood - Per attack card
 
-  @SID_136
+  @SID_135
   Scenario: Validate per attack card data - https flood
     Then UI Validate Text field "Characteristics.HTTPS Attack Duration" CONTAINS "Attack Duration:"
     Then UI Validate Text field "Characteristics.Attack State" EQUALS "Attack State:Mitigation"
@@ -1399,69 +1407,69 @@ Feature: DP Monitoring Dashboard - Protection Policies - Under Attack 3rd Drill
 
   ##https flood -  Attack Log
 
-  @SID_137
+  @SID_136
   Scenario: Validate Attack Log card data - https flood
     Then UI Text of "Attack Log" with extension "0" contains "State:  Mitigation."
     Then UI Text of "Attack Log" with extension "1" contains "State:  Rate Limit Suspected Attackers."
     Then UI Text of "Attack Log" with extension "2" contains "State:  Characterization."
 
-  @SID_138
+  @SID_137
   Scenario: Validate Https Response Bandwidth graph Transitory Baseline
     Then UI Validate Line Chart data "Response Bandwidth" with Label "Transitory Baseline"
       | value      | count | offset |
       | null       | 57    | 2      |
       | 10070.6284 | 2     | 1      |
 
-  @SID_139
+  @SID_138
   Scenario: Validate Https Response Bandwidth graph Transitory Attack Edge
     Then UI Validate Line Chart data "Response Bandwidth" with Label "Transitory Attack Edge"
       | value              | count | offset |
       | null               | 57    | 2      |
       | 15120.576985000002 | 2     | 1      |
 
-  @SID_140
+  @SID_139
   Scenario: Validate Https Response Bandwidth graph Real-Time Traffic
     Then UI Validate Line Chart data "Response Bandwidth" with Label "Real-Time Traffic"
       | value  | count | offset |
       | null   | 57    | 2      |
       | 6379.5 | 2     | 1      |
 
-  @SID_141
+  @SID_140
   Scenario: Validate Https Response Bandwidth graph Long Trend Baseline data
     Then UI Validate Line Chart data "Response Bandwidth" with Label "Long-Term Trend Baseline"
       | value    | count | offset |
       | null     | 57    | 2      |
       | 140.9568 | 2     | 1      |
 
-  @SID_142
+  @SID_141
   Scenario: Validate Https Response Bandwidth graph Long-Term Trend Attack Edge
     Then UI Validate Line Chart data "Response Bandwidth" with Label "Long-Term Trend Attack Edge"
       | value     | count | offset |
       | null      | 57    | 2      |
       | 240.82397 | 2     | 1      |
 
-  @SID_143
+  @SID_142
   Scenario: Validate Https Average Response Size graph Long-Term Trend Baseline
     Then UI Validate Line Chart data "Average Response Size" with Label "Long-Term Trend Baseline"
       | value              | count | offset |
       | null               | 57    | 2      |
       | 370.47839999999997 | 2     | 1      |
 
-  @SID_144
+  @SID_143
   Scenario: Validate Https Average Response Size graph Long-Term Trend Attack Edge
     Then UI Validate Line Chart data "Average Response Size" with Label "Long-Term Trend Attack Edge"
       | value       | count | offset |
       | null        | 57    | 2      |
       | 5620.761985 | 2     | 1      |
 
-  @SID_145
+  @SID_144
   Scenario: Validate Https Average Response Size graph Real-Time Traffic
     Then UI Validate Line Chart data "Average Response Size" with Label "Real-Time Traffic"
       | value  | count | offset |
       | null   | 57    | 2      |
       | 6129.5 | 2     | 1      |
 
-  @SID_146
+  @SID_145
   Scenario: Validate Https Flood baseline graph 24H
     And UI Do Operation "Select" item "Global Time Filter"
     And UI Do Operation "Select" item "Global Time Filter.Quick Range" with value "24H"
@@ -1472,7 +1480,7 @@ Feature: DP Monitoring Dashboard - Protection Policies - Under Attack 3rd Drill
       | value | count | offset |
       | null  | 24    | 1      |
 
-  @SID_147
+  @SID_146
   Scenario: Validate Https Flood baseline graph 1H
     And UI Do Operation "Select" item "Global Time Filter"
     And UI Do Operation "Select" item "Global Time Filter.Quick Range" with value "1H"
@@ -1483,7 +1491,7 @@ Feature: DP Monitoring Dashboard - Protection Policies - Under Attack 3rd Drill
       | value | count | offset |
       | null  | 238   | 1      |
 
-  @SID_148
+  @SID_147
   Scenario: Validate Https Flood baseline graph 30m
     And UI Do Operation "Select" item "Global Time Filter"
     And UI Do Operation "Select" item "Global Time Filter.Quick Range" with value "30m"
@@ -1494,7 +1502,7 @@ Feature: DP Monitoring Dashboard - Protection Policies - Under Attack 3rd Drill
       | value | count | offset |
       | null  | 118   | 1      |
 
-  @SID_149
+  @SID_148
   Scenario: Validate Https Flood baseline graph 15m
     And UI Do Operation "Select" item "Global Time Filter"
     And UI Do Operation "Select" item "Global Time Filter.Quick Range" with value "15m"
@@ -1505,7 +1513,7 @@ Feature: DP Monitoring Dashboard - Protection Policies - Under Attack 3rd Drill
       | value | count | offset |
       | null  | 58    | 2      |
 
-  @SID_150
+  @SID_149
   Scenario: Validate Https Response Bandwidth graph Transitory Baseline styling
     Then UI Validate Line Chart attributes "Response Bandwidth" with Label "Transitory Baseline"
       | attribute             | value   |
@@ -1523,7 +1531,7 @@ Feature: DP Monitoring Dashboard - Protection Policies - Under Attack 3rd Drill
       | lineTension           | 0.35    |
       | fill                  | false   |
 
-  @SID_151
+  @SID_150
   Scenario: Validate Https Response Bandwidth graph Transitory Attack Edge styling
     Then UI Validate Line Chart attributes "Response Bandwidth" with Label "Transitory Attack Edge"
       | attribute             | value          |
@@ -1541,7 +1549,7 @@ Feature: DP Monitoring Dashboard - Protection Policies - Under Attack 3rd Drill
       | lineTension           | 0.35           |
       | fill                  | false          |
 
-  @SID_152
+  @SID_151
   Scenario: Validate Https Flood baseline graph Real-Time Traffic styling
     Then UI Validate Line Chart attributes "Response Bandwidth" with Label "Real-Time Traffic"
       | attribute             | value                    |
@@ -1559,7 +1567,7 @@ Feature: DP Monitoring Dashboard - Protection Policies - Under Attack 3rd Drill
       | fill                  | true                     |
       | color                 | rgba(169, 207, 233, 0.8) |
 
-  @SID_153
+  @SID_152
   Scenario: Validate Https Response Bandwidth graph Long Trend Baseline styling
     Then UI Validate Line Chart attributes "Response Bandwidth" with Label "Long-Term Trend Baseline"
       | attribute             | value   |
@@ -1577,7 +1585,7 @@ Feature: DP Monitoring Dashboard - Protection Policies - Under Attack 3rd Drill
       | lineTension           | 0.35    |
       | fill                  | false   |
 
-  @SID_154
+  @SID_153
   Scenario: Validate Https Flood baseline graph Long Trend Attack Edge styling
     Then UI Validate Line Chart attributes "Response Bandwidth" with Label "Long-Term Trend Attack Edge"
       | attribute             | value   |
@@ -1596,7 +1604,7 @@ Feature: DP Monitoring Dashboard - Protection Policies - Under Attack 3rd Drill
       | color                 | #EC3434 |
       | fill                  | false   |
 
-  @SID_155
+  @SID_154
   Scenario: Validate Https Average Response Size graph Long-Term Trend Baseline
     Then UI Validate Line Chart attributes "Average Response Size" with Label "Long-Term Trend Baseline"
       | attribute             | value   |
@@ -1614,7 +1622,7 @@ Feature: DP Monitoring Dashboard - Protection Policies - Under Attack 3rd Drill
       | fill                  | false   |
       | color                 | #67853B |
 
-  @SID_156
+  @SID_155
   Scenario: Validate Https Average Response Size graph Long-Term Trend Attack Edge
     Then UI Validate Line Chart attributes "Average Response Size" with Label "Long-Term Trend Attack Edge"
       | attribute             | value   |
@@ -1633,7 +1641,7 @@ Feature: DP Monitoring Dashboard - Protection Policies - Under Attack 3rd Drill
       | fill                  | false   |
       | color                 | #EC3434 |
 
-  @SID_157
+  @SID_156
   Scenario: Validate Https Average Response Size graph Long-Term Trend Attack Edge
     Then UI Validate Line Chart attributes "Average Response Size" with Label "Long-Term Trend Attack Edge"
       | attribute             | value   |
@@ -1654,16 +1662,16 @@ Feature: DP Monitoring Dashboard - Protection Policies - Under Attack 3rd Drill
 
       ###############################################   Burst   ###############################################################
 
-  @SID_158
+  @SID_157
   Scenario: Clear data
     * CLI kill all simulator attacks on current vision
     * REST Delete ES index "dp-*"
 
-  @SID_159
+  @SID_158
   Scenario: run burst attack
     Given CLI simulate 4 attacks of type "my_burst" on "DefensePro" 10 and wait 35 seconds
 
-  @SID_160
+  @SID_159
   Scenario:  Entering to the under attack policy 3nd drill BDoS burst
     Given UI Login with user "sys_admin" and password "radware"
     When UI Navigate to "DefensePro Monitoring Dashboard" page via homePage
@@ -1672,7 +1680,7 @@ Feature: DP Monitoring Dashboard - Protection Policies - Under Attack 3rd Drill
 #    Then UI Validate Table record values by columns with elementLabel "Protection Policies.Events Table" findBy columnName "Attack Categories" findBy cellValue "Behavioral DoS"
     Then UI click Table row by keyValue or Index with elementLabel "Protection Policies.Events Table" findBy index 0
 
-  @SID_161
+  @SID_160
   Scenario: Validate info card data - burst
     Then UI Validate Text field "Info.Protocol" EQUALS "Protocol: TCP"
     Then UI Validate Text field "Info.Total packets" On Regex "Total Packets: (\d+)" GTE "36"
@@ -1684,7 +1692,7 @@ Feature: DP Monitoring Dashboard - Protection Policies - Under Attack 3rd Drill
     Then UI Validate Text field "Info.Description" CONTAINS "RFC 675"
     Then UI Click Button "Info.Description" with value "Description"
 
-  @SID_162
+  @SID_161
   Scenario: Validate per attack card data - Burst
     Then UI Validate Text field "Characteristics.State" EQUALS "State:Burst Attack Signature Blocking"
     Then UI Validate Text field "Characteristics.Current Burst Number" EQUALS "Current Burst Number:10"
@@ -1693,27 +1701,27 @@ Feature: DP Monitoring Dashboard - Protection Policies - Under Attack 3rd Drill
     Then UI Validate Text field "Characteristics.Avg Burst Rate" EQUALS "Average Burst Rate:726581 Kbps"
     Then UI Validate Text field "Characteristics.Max Burst Rate" EQUALS "Max Burst Rate:800002 Kbps"
 
-  @SID_163
+  @SID_162
   Scenario: Validate baseline Normal Edge data - burst
     Then UI Validate Line Chart data "BDoS-TCP SYN ACK" with Label "Normal Edge"
       | value | count | offset |
       | 96    | 7     | 5      |
       | null  | 53    | 4      |
 
-  @SID_164
+  @SID_163
   Scenario: Validate baseline Suspected Edge data - burst
     Then UI Validate Line Chart data "BDoS-TCP SYN ACK" with Label "Suspected Edge"
       | value | count | offset |
       | 2081  | 63    | 6      |
 
-  @SID_165
+  @SID_164
   Scenario: Validate baseline Total Traffic data - burst
     Then UI Validate Line Chart data "BDoS-TCP SYN ACK" with Label "Total Traffic"
       | value | count | offset |
       | 5182  | 7     | 3      |
       | 1727  | 7     | 3      |
 
-  @SID_166
+  @SID_165
   Scenario: Validate baseline Total Traffic styling - burst
     And UI Validate Line Chart attributes "BDoS-TCP SYN ACK" with Label "Total Traffic"
       | attribute             | value   |
@@ -1729,7 +1737,7 @@ Feature: DP Monitoring Dashboard - Protection Policies - Under Attack 3rd Drill
       | backgroundColor       | #E9FBFF |
       | borderColor           | #088eB1 |
 
-  @SID_167
+  @SID_166
   Scenario: Validate baseline Suspected Edge styling - burst
     And UI Validate Line Chart attributes "BDoS-TCP SYN ACK" with Label "Suspected Edge"
       | attribute             | value   |
@@ -1744,7 +1752,7 @@ Feature: DP Monitoring Dashboard - Protection Policies - Under Attack 3rd Drill
       | pointHoverRadius      | 4       |
       | pointHoverBorderWidth | 1       |
 
-  @SID_168
+  @SID_167
   Scenario: Protection Policies 3rd drill Cleanup
     Given UI logout and close browser
     * CLI kill all simulator attacks on current vision
