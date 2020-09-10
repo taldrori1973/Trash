@@ -70,7 +70,6 @@ Feature: Vision APM Upgrade current -3
       | UPGRADE | *.png                                                                  | IGNORE       |
       | UPGRADE | inflating:                                                             | IGNORE       |
       | UPGRADE | *.svg                                                                  | IGNORE       |
-      | LLS     | fatal\| error\|fail                                                    | NOT_EXPECTED |
       | UPGRADE | Failed to parse /etc/cgconfig.conf                                     | IGNORE       |
       | UPGRADE | error loading /etc/cgconfig.conf: Cgroup mounting failed               | IGNORE       |
       | UPGRADE | Error: cannot mount cpuset to /cgroup/cpuset: Device or resource busy  | IGNORE       |

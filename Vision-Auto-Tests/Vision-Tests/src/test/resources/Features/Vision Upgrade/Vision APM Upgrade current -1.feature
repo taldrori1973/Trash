@@ -25,8 +25,8 @@ Feature: Vision APM Upgrade current -1
     ######################################################################################
   @SID_4
   Scenario: Upgrade APM vision from release -1
-    Given CLI Clear vision logs
     Then CLI Run remote linux Command "mysql -prad123 vision_ng -e "update lls_server set min_required_ram='16';"" on "ROOT_SERVER_CLI"
+    Given CLI Clear vision logs
     Then Upgrade or Fresh Install Vision
 
 
@@ -65,7 +65,6 @@ Feature: Vision APM Upgrade current -1
       | UPGRADE | *.svg                                                                  | IGNORE       |
       | UPGRADE | *.png                                                                  | IGNORE       |
       | UPGRADE | inflating:                                                             | IGNORE       |
-      | LLS     | fatal\| error\|fail                                                    | NOT_EXPECTED |
       | UPGRADE | Failed to parse /etc/cgconfig.conf                                     | IGNORE       |
       | UPGRADE | error loading /etc/cgconfig.conf: Cgroup mounting failed               | IGNORE       |
       | UPGRADE | Error: cannot mount cpuset to /cgroup/cpuset: Device or resource busy  | IGNORE       |

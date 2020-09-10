@@ -50,24 +50,6 @@ Feature: Vision Upgrade current -2
     Given CLI Clear vision logs
     Then Upgrade or Fresh Install Vision
 
-  @SID_26
-  Scenario: Validate LLS service is up
-    Then CLI Run linux Command "system lls service status" on "RADWARE_SERVER_CLI" and validate result CONTAINS "is running" in any line with timeOut 600
-    Then CLI Run linux Command "curl -ks -o null -XGET http://localhost4:7070/api/1.0/hostids -w 'RESP_CODE:%{response_code}\n'" on "ROOT_SERVER_CLI" and validate result EQUALS "RESP_CODE:200" with timeOut 300
-    Then CLI Run linux Command "curl -ks -o null -XGET http://localhost6:7070/api/1.0/hostids -w 'RESP_CODE:%{response_code}\n'" on "ROOT_SERVER_CLI" and validate result EQUALS "RESP_CODE:200" with timeOut 300
-    Then CLI Check if logs contains
-    # The LLS installation is subject to change if LLS was upgraded
-      | logType | expression                                                           | isExpected   |
-      | LLS     | fatal\| error\|fail                                                  | NOT_EXPECTED |
-      | LLS     | Installation ended                                                   | EXPECTED     |
-      | LLS     | Setup complete!                                                      | EXPECTED     |
-      | LLS     | touching upgrade flag file /opt/radware/storage/lls/lls_is_upgrading | EXPECTED     |
-      | LLS     | removing upgrade flag file /opt/radware/storage/lls/lls_is_upgrading | EXPECTED     |
-      #rollback to the original values
-    Given CLI Run remote linux Command "mysql -prad123 vision_ng -e "update lls_server set min_required_ram='24';"" on "ROOT_SERVER_CLI"
-    When CLI Operations - Run Radware Session command "system lls service stop"
-    When CLI Operations - Run Radware Session command "y" timeout 180
-
   @SID_6
   Scenario Outline:  Run Migration Tasks
     Then Run ElasticSearch Migration Task "<Migration Task>" and Wait <Wait Time> Seconds
@@ -115,7 +97,6 @@ Feature: Vision Upgrade current -2
       | UPGRADE | inflating:                                                             | IGNORE       |
       | UPGRADE | *.png                                                                  | IGNORE       |
       | UPGRADE | *.svg                                                                  | IGNORE       |
-      | LLS     | fatal\| error\|fail                                                    | NOT_EXPECTED |
       | UPGRADE | /opt/radware/storage/www/webui/vision-dashboards/public/static/media/* | IGNORE       |
       | UPGRADE | No such image or container: *                                          | IGNORE       |
 
@@ -259,6 +240,23 @@ Feature: Vision Upgrade current -2
     Then CLI Run remote linux Command "curl -ks -o null -XGET https://localhost4:2189 -w 'RESP_CODE:%{response_code}\n'" on "ROOT_SERVER_CLI"
     Then CLI Operations - Verify that output contains regex "RESP_CODE:200"
 
+  @SID_26
+  Scenario: Validate LLS service is up
+    Then CLI Run linux Command "system lls service status" on "RADWARE_SERVER_CLI" and validate result CONTAINS "is running" in any line with timeOut 600
+    Then CLI Run linux Command "curl -ks -o null -XGET http://localhost4:7070/api/1.0/hostids -w 'RESP_CODE:%{response_code}\n'" on "ROOT_SERVER_CLI" and validate result EQUALS "RESP_CODE:200" with timeOut 300
+    Then CLI Run linux Command "curl -ks -o null -XGET http://localhost6:7070/api/1.0/hostids -w 'RESP_CODE:%{response_code}\n'" on "ROOT_SERVER_CLI" and validate result EQUALS "RESP_CODE:200" with timeOut 300
+    Then CLI Check if logs contains
+    # The LLS installation is subject to change if LLS was upgraded
+      | logType | expression                                                           | isExpected   |
+      | LLS     | fatal\| error\|fail                                                  | NOT_EXPECTED |
+      | LLS     | Installation ended                                                   | EXPECTED     |
+      | LLS     | Setup complete!                                                      | EXPECTED     |
+      | LLS     | touching upgrade flag file /opt/radware/storage/lls/lls_is_upgrading | EXPECTED     |
+      | LLS     | removing upgrade flag file /opt/radware/storage/lls/lls_is_upgrading | EXPECTED     |
+      #rollback to the original values
+    Given CLI Run remote linux Command "mysql -prad123 vision_ng -e "update lls_server set min_required_ram='24';"" on "ROOT_SERVER_CLI"
+    When CLI Operations - Run Radware Session command "system lls service stop"
+    When CLI Operations - Run Radware Session command "y" timeout 180
 
   @SID_27
   Scenario: Validate LLS version
