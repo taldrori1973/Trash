@@ -95,7 +95,8 @@ Feature: AttackRateInAlerts&Forensics
     When UI Generate and Validate Forensics With Name "bps greater than K" with Timeout of 300 Seconds
     And UI Click Button "Views.report" with value "bps greater than K"
     Then CLI Run remote linux Command "curl -XPOST localhost:9200/dp-attack-raw-*/_search -d '{"query":{"bool":{"must":[{"match_all":{}}]}},"from":0,"size":1000}' > /opt/radware/storage/bps.txt" on "ROOT_SERVER_CLI"
-    Then UI Validate "Report.Table" Table rows count EQUALS to 9
+    Then UI Validate "Report.Table" Table rows count GTE to 8
+    Then UI Validate "Report.Table" Table rows count LTE to 9
 
   @SID_11
   Scenario: VRM - Forensics Report criteria - bps greater than Mega
@@ -254,14 +255,14 @@ Feature: AttackRateInAlerts&Forensics
 
   @SID_30
   Scenario: Create Alerts Criteria rate bps gt Kilo
-    When UI "Create" Alerts With Name "bps greater than K -1"
+    When UI "Create" Alerts With Name "bps greater than K_1"
       | devices  | index:10                                                                      |
       | Criteria | Event Criteria:Attack Rate in bps,Operator:Greater than,RateValue:300,Unit:K; |
       | Schedule | triggerThisRule:13,Within:10,selectTimeUnit:minutes,alertsPerHour:60          |
 
   @SID_31
   Scenario:edit to G
-    Then UI Click Button "Edit" with value "bps greater than K -1"
+    Then UI Click Button "Edit" with value "bps greater than K_1"
     Then UI Click Button "Expand Collapse"
     And UI Click Button "Tab" with value "criteria-tab"
     And scroll Into View to label "Criteria.Custom checkBox"
@@ -273,7 +274,7 @@ Feature: AttackRateInAlerts&Forensics
   @SID_32
   Scenario: validate the edition
     #TODO should actualize the code of validate Alerts
-    Then UI Click Button "Edit" with value "bps greater than K -1"
+    Then UI Click Button "Edit" with value "bps greater than K_1"
     Then UI Click Button "Expand Collapse"
     Then UI Click Button "Expand Collapse"
     And UI Click Button "Tab" with value "criteria-tab"
@@ -283,7 +284,7 @@ Feature: AttackRateInAlerts&Forensics
 
   @SID_33
   Scenario: Validate that there is just greater than in maxPps and maxBps
-    Then UI Click Button "Edit" with value "bps greater than K -1"
+    Then UI Click Button "Edit" with value "bps greater than K_1"
     Then UI Click Button "Expand Collapse"
     Then UI Click Button "Expand Collapse"
     And UI Click Button "Tab" with value "criteria-tab"
