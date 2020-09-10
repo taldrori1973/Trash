@@ -80,7 +80,7 @@ Feature: VRM AW Alerts
 
   @SID_7
   Scenario: Verify Alert Email Delivery attack details
-    Then Validate "setup" user eMail expression "grep -o -e "nknown</td>"  /var/spool/mail/172.17.164.137 |wc -l" EQUALS "6"
+    Then Validate "setup" user eMail expression "grep -o -e "nknown</td>"" EQUALS "6"
 
 
 
