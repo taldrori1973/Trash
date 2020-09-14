@@ -38,9 +38,11 @@ import com.radware.urlbuilder.vision.VisionUrlPath;
 import com.radware.utils.DeviceUtils;
 import com.radware.utils.TreeUtils;
 import com.radware.vision.automation.tools.sutsystemobjects.devicesinfo.DevicesManager;
+import com.radware.vision.bddtests.clioperation.FileSteps;
 import com.radware.vision.infra.enums.DeviceDriverType;
 import com.radware.vision.infra.testhandlers.BaseHandler;
 import com.radware.vision.infra.testhandlers.baseoperations.BasicOperationsHandler;
+import com.radware.vision.infra.testhandlers.cli.CliOperations;
 import com.radware.vision.infra.utils.VisionWebUIUtils;
 import com.radware.vision.infra.utils.threadutils.ThreadsStatusMonitor;
 import com.radware.vision.pojomodel.helpers.constants.ImConstants$DeviceStatusEnumPojo;
@@ -184,7 +186,7 @@ public abstract class WebUITestBase extends SystemTestCase4 {
 
                 // Initialize the restTestBase
                 coreInit();
-
+                resetPassword();
                 UIUtils.visionModeForTable = true;
 
                 fileSeperator = System.getProperty("file.separator");
@@ -233,6 +235,15 @@ public abstract class WebUITestBase extends SystemTestCase4 {
             BaseHandler.devicesManager = devicesManager;
         }
 
+    }
+
+
+    public void resetPassword() {
+        if (restTestBase.getRootServerCli().isConnected()) {
+            FileSteps f = new FileSteps();
+            f.scp("/home/radware/Scripts/restore_radware_user_stand_alone.sh", SUTEntryType.GENERIC_LINUX_SERVER, SUTEntryType.ROOT_SERVER_CLI, "/");
+            CliOperations.runCommand(restTestBase.getRootServerCli(), "yes | /restore_radware_user_stand_alone.sh", CliOperations.DEFAULT_TIME_OUT);
+        }
     }
 
 
