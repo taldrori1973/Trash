@@ -293,7 +293,7 @@ public abstract class WebUITestBase extends SystemTestCase4 {
             InvokeUtils.invokeCommand(null, clearString, restTestBase.getRadwareServerCli(), 2 * 2000, true, true, true, null, true, true);
             InvokeUtils.invokeCommand(null, clearString, restTestBase.getRootServerCli(), 2 * 2000, true, true, true, null, true, true);
             CliTests.report.stopLevel();
-            CliTests.report.startLevel("Begining to Finish the test(After).");
+            CliTests.report.startLevel("Beginning to Finish the test(After).");
 
             if (doTheVisionLabRestart) {
                 InvokeUtils.invokeCommand(null, "", restTestBase.getRadwareServerCli(), 6000, true);
