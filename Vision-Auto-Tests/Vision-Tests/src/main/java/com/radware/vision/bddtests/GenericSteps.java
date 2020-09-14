@@ -58,7 +58,7 @@ public class GenericSteps extends BddUITestBase {
     }
 
     @Given("^CLI Reset radware password$")
-    public void resetPassword() {
+    public static void resetPassword() {
         if (restTestBase.getRootServerCli().isConnected()) {
             FileSteps f = new FileSteps();
             f.scp("/home/radware/Scripts/restore_radware_user_stand_alone.sh", SUTEntryType.GENERIC_LINUX_SERVER, SUTEntryType.ROOT_SERVER_CLI, "/");
