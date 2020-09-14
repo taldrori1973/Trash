@@ -10,6 +10,7 @@ import com.radware.vision.automation.tools.esxitool.snapshotoperations.VMSnapsho
 import com.radware.vision.automation.tools.esxitool.snapshotoperations.targetvm.VmNameTargetVm;
 import com.radware.vision.automation.tools.sutsystemobjects.VisionVMs;
 import com.radware.vision.bddtests.BddUITestBase;
+import com.radware.vision.bddtests.GenericSteps;
 import com.radware.vision.bddtests.clioperation.connections.NewVmSteps;
 import com.radware.vision.bddtests.clioperation.system.upgrade.UpgradeSteps;
 import com.radware.vision.bddtests.defenseFlow.defenseFlowDevice;
@@ -162,7 +163,8 @@ public class VMOperationsSteps extends BddUITestBase {
     }
 
     private void afterUpgrade() throws Exception {
-        InvokeUtils.invokeCommand(null, "yes|restore_radware_user_password", restTestBase.getRootServerCli(), 15 * 1000, true, false, true);
+        GenericSteps genericSteps = new GenericSteps();
+        genericSteps.resetPassword();
         updateVersionVar();
     }
 
