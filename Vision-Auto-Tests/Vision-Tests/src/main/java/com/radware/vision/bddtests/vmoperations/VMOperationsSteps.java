@@ -162,6 +162,7 @@ public class VMOperationsSteps extends BddUITestBase {
     }
 
     private void afterUpgrade() throws Exception {
+        InvokeUtils.invokeCommand(null, "yes|restore_radware_user_password", restTestBase.getRootServerCli(), 15 * 1000, true, false, true);
         updateVersionVar();
     }
 
