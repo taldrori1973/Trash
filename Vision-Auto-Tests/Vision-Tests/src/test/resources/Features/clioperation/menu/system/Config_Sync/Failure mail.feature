@@ -3,7 +3,7 @@ Feature: Config-Sync failure mail
 
   @SID_4
   Scenario: Mail Failure
-    Then CLI Operations - Run Root Session command "yes|restore_radware_user_password" timeout 15
+    Given CLI Reset radware password
     Then CLI Verify Config Sync Failure Mail
 
   @SID_5

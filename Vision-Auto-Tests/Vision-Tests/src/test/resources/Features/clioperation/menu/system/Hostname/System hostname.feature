@@ -3,7 +3,7 @@ Feature: CLI System Hostname
 
   @SID_1
   Scenario: System hostname set cancel
-    When CLI Operations - Run Root Session command "yes|restore_radware_user_password" timeout 15
+    Given CLI Reset radware password
     #wait after reset password
     And Sleep "3"
     And REST Login with activation with user "radware" and password "radware"

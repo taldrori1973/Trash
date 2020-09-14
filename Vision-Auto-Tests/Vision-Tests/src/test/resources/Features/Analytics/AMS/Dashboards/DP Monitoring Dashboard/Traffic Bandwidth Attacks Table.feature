@@ -4,7 +4,7 @@ Feature: AMS Monitoring Dashboard - Attacks table
   @SID_1
   Scenario: Clean system data
     * CLI kill all simulator attacks on current vision
-    Then CLI Operations - Run Root Session command "yes|restore_radware_user_password" timeout 15
+    Given CLI Reset radware password
     # Sleeping in order to let collector cache clean
     Then Sleep "20"
     * REST Delete ES index "dp-*"

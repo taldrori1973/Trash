@@ -2,7 +2,7 @@
 Feature: IPv6 LLS-GEL Installation
   @SID_1
   Scenario: verify lls service status is Not running
-    Then CLI Operations - Run Root Session command "yes|restore_radware_user_password" timeout 15
+    Given CLI Reset radware password
     Given CLI Run remote linux Command "mysql -prad123 vision_ng -e "update lls_server set min_required_ram='16';"" on "ROOT_SERVER_CLI"
     Then REST Login with user "radware" and password "radware"
     Then CLI Set config sync mode to "disabled" with timeout 1000

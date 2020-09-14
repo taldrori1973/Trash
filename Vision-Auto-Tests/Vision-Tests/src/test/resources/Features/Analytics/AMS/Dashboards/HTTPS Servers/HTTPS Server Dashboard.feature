@@ -5,7 +5,7 @@ Feature: HTTPS Server Dashboard
   @SID_1
   Scenario: Clear data
     * CLI kill all simulator attacks on current vision
-    Then CLI Operations - Run Root Session command "yes|restore_radware_user_password" timeout 15
+    Given CLI Reset radware password
     * REST Delete ES index "dp-*"
 
   

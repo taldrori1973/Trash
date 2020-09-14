@@ -4,7 +4,7 @@ Feature: IPv6 Export device configuration
 
   @SID_1
   Scenario: Login and clear device configuration table
-    Then CLI Operations - Run Root Session command "yes|restore_radware_user_password" timeout 15
+    Given CLI Reset radware password
     Then UI Login with user "radware" and password "radware"
     Then CLI Run remote linux Command "mysql -prad123 vision_ng -e "delete from dpm_virtual_services where fk_device=(select row_id from site_tree_elem_abs where name='Alteon_200a::172:17:164:19');"" on "ROOT_SERVER_CLI"
     Then CLI Run remote linux Command "mysql -prad123 vision_ng -e "delete from device_file where dev_type='Alteon';"" on "ROOT_SERVER_CLI"

@@ -7,7 +7,7 @@ Feature: Vision Server Services CLI Tests
     Given REST Login with activation with user "radware" and password "radware"
     When REST Vision Install License Request "vision-perfreporter"
     Then Sleep "60"
-    Then CLI Operations - Run Root Session command "yes|restore_radware_user_password" timeout 15
+    Given CLI Reset radware password
     Then REST Login with activation with user "radware" and password "radware"
     When CLI Operations - Run Radware Session help command "system vision-server ?"
     Then CLI Operations - Verify that output contains regex ".*Starts/stops the APSolute Vision server..*"

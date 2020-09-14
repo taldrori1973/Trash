@@ -13,7 +13,7 @@ Feature: Forensics RBAC
 
   @SID_2
   Scenario: Forensics RBAC generate attacks
-    When CLI Operations - Run Root Session command "yes|restore_radware_user_password" timeout 15
+    Given CLI Reset radware password
     When CLI Operations - Run Radware Session command "system user authentication-mode set TACACS+"
     When REST Vision Install License Request "vision-AVA-Max-attack-capacity"
     When CLI simulate 1 attacks of type "Ascan_Policy14" on "DefensePro" 10

@@ -17,7 +17,7 @@ Feature: Vision APM Upgrade current +1
 
   @SID_3
   Scenario: Do any pre-upgrade changes
-    Then CLI Operations - Run Root Session command "yes|restore_radware_user_password" timeout 15
+    Given CLI Reset radware password
     # extract MySql create partition number
     Then CLI Run remote linux Command "echo "Before " $(mysql -prad123 vision -e "show create table traffic_utilizations\G" |grep "(PARTITION p" |awk -F"p" '{print$2}'|awk '{printf$1}') >  /opt/radware/sql_partition.txt" on "ROOT_SERVER_CLI"
     Then CLI Run remote linux Command "sed -i 's/port .*$/port 51400/g' /etc/td-agent/td-agent.conf" on "ROOT_SERVER_CLI"
@@ -117,7 +117,7 @@ Feature: Vision APM Upgrade current +1
   @SID_8
   Scenario: Login with activation
     Then UI Login with user "sys_admin" and password "radware"
-    Then CLI Operations - Run Root Session command "yes|restore_radware_user_password" timeout 15
+    Given CLI Reset radware password
 
   @SID_9
   Scenario: Navigate to general settings page

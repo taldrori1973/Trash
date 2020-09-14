@@ -15,7 +15,7 @@ Feature: Report Wizard_Time_Definitions
 #  @VRM_Time_1
   @SID_2
   Scenario: Clean system data before test
-    Then CLI Operations - Run Root Session command "yes|restore_radware_user_password" timeout 15
+    Given CLI Reset radware password
     * REST Vision Install License Request "vision-AVA-Max-attack-capacity"
     * REST Request "PUT" for "Connectivity->Inactivity Timeout for Configuration"
       | type | value                                 |

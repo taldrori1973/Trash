@@ -10,7 +10,7 @@ Feature: Authentication Protocols - LDAP settings Functionality
 
   @SID_2
   Scenario: Navigate to LDAP setting page
-    Then CLI Operations - Run Root Session command "yes|restore_radware_user_password" timeout 15
+    Given CLI Reset radware password
     Given UI Login with user "radware" and password "radware"
     Then UI Go To Vision
     Then UI Navigate to page "System->General Settings->Authentication Protocols->LDAP Settings"

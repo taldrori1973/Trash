@@ -2,7 +2,7 @@
 Feature: AMS actionable edit Threshold
   @SID_1
   Scenario: Clean system data before "Protection Policies" test
-    Then CLI Operations - Run Root Session command "yes|restore_radware_user_password" timeout 15
+    Given CLI Reset radware password
     * CLI kill all simulator attacks on current vision
     * REST Delete ES index "dp-*"
     Given REST Login with user "sys_admin" and password "radware"

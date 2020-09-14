@@ -22,7 +22,7 @@ Feature: DPM Analytics Main Page
 
   @Sanity @SID_4
   Scenario: Login to ADC application dashboard
-    Then CLI Operations - Run Root Session command "yes|restore_radware_user_password" timeout 15
+    Given CLI Reset radware password
     Then REST Vision Install License Request "vision-reporting-module-ADC"
     Then UI Login with user "ADC_Administrator_auto_fake" and password "radware"
 

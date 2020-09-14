@@ -55,7 +55,7 @@ Feature: Backup and Restore
   Scenario: Add License to the target device
     When CLI Connect Radware
     When CLI Connect Root
-    Then CLI Operations - Run Root Session command "yes|restore_radware_user_password" timeout 15
+    Given CLI Reset radware password
     * REST Login with activation with user "radware" and password "radware"
     * REST Vision Install License Request "vision-AVA-Max-attack-capacity"
     * REST Vision Install License Request "vision-reporting-module-ADC"

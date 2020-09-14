@@ -5,7 +5,7 @@ Feature: DP Monitoring Dashboard - Protection Policies - Under Attack
   @SID_1
   Scenario: Clean system data before "Protection Policies" test
     * CLI kill all simulator attacks on current vision
-    Then CLI Operations - Run Root Session command "yes|restore_radware_user_password" timeout 15
+    Given CLI Reset radware password
     Then CLI Operations - Run Radware Session command "system user authentication-mode set TACACS+"
     * REST Delete ES index "dp-*"
     * CLI Clear vision logs

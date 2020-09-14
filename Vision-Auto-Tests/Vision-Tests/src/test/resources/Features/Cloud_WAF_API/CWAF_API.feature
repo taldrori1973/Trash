@@ -3,7 +3,7 @@ Feature: Cloud WAF API
 
   @SID_1
   Scenario: install VRM license in case it was removed
-    Then CLI Operations - Run Root Session command "yes|restore_radware_user_password" timeout 15
+    Given CLI Reset radware password
     Then REST Login with user "radware" and password "radware"
     Then REST Vision Install License Request "vision-AVA-Max-attack-capacity"
 #    Then REST Vision Install License Request "vision-reporting-module-ADC"

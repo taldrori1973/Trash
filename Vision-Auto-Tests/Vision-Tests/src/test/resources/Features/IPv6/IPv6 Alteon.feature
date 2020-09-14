@@ -12,7 +12,7 @@ Feature: IPv6 Manage Alteon
 
   @SID_2
   Scenario: Open the SitesAndClusters Containers
-    Then CLI Operations - Run Root Session command "yes|restore_radware_user_password" timeout 15
+    Given CLI Reset radware password
     Given UI Login with user "radware" and password "radware"
     Then UI Go To Vision
     Then UI open Topology Tree view "SitesAndClusters" site

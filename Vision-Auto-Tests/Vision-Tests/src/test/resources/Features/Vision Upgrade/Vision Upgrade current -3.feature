@@ -16,7 +16,7 @@ Feature: Vision Upgrade current -3
 
   @SID_3
   Scenario: Fill partitions to max limit
-    Then CLI Operations - Run Root Session command "yes|restore_radware_user_password" timeout 15
+    Given CLI Reset radware password
     Then CLI copy "/home/radware/Scripts/fill_my_disk.sh" from "GENERIC_LINUX_SERVER" to "ROOT_SERVER_CLI" "/"
     Then CLI Run remote linux Command "/fill_my_disk.sh /opt/radware 84" on "ROOT_SERVER_CLI"
     Then CLI Run remote linux Command "/fill_my_disk.sh / 84" on "ROOT_SERVER_CLI"
@@ -130,7 +130,7 @@ Feature: Vision Upgrade current -3
   @SID_9
   Scenario: Login with activation
     Then UI Login with user "sys_admin" and password "radware"
-    Then CLI Operations - Run Root Session command "yes|restore_radware_user_password" timeout 15
+    Given CLI Reset radware password
 
   @SID_10
   Scenario: Validate AVA Attack Capacity Grace Period License was Not Given after Upgrade

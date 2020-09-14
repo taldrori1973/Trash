@@ -16,7 +16,7 @@ Feature: Vision APM Upgrade current -2
 
   @SID_3
   Scenario: Do any pre-upgrade changes
-    Then CLI Operations - Run Root Session command "yes|restore_radware_user_password" timeout 15
+    Given CLI Reset radware password
     Then CLI Run remote linux Command "echo "Before " $(mysql -prad123 vision -e "show create table traffic_utilizations\G" |grep "(PARTITION p" |awk -F"p" '{print$2}'|awk '{printf$1}') >  /opt/radware/sql_partition.txt" on "ROOT_SERVER_CLI"
 
        #for testing AVA Attack Capacity Grace Period with the following scenario:
@@ -117,7 +117,7 @@ Feature: Vision APM Upgrade current -2
   Scenario: Login with activation
 #    Given REST Login with activation with user "sys_admin" and password "radware"
     Then UI Login with user "sys_admin" and password "radware"
-    Then CLI Operations - Run Root Session command "yes|restore_radware_user_password" timeout 15
+    Given CLI Reset radware password
 
   @SID_9
   Scenario: Navigate to general settings page

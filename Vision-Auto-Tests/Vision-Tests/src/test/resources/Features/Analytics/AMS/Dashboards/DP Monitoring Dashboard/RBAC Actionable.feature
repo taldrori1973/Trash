@@ -3,7 +3,7 @@ Feature: RBAC for actionable
 
   @SID_1
   Scenario: Clean system data before "Protection Policies" test
-    Then CLI Operations - Run Root Session command "yes|restore_radware_user_password" timeout 15
+    Given CLI Reset radware password
     * REST Vision Install License Request "vision-AVA-Max-attack-capacity"
     * CLI kill all simulator attacks on current vision
     * REST Delete ES index "dp-*"

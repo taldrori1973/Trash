@@ -4,7 +4,7 @@ Feature: create AMS Report New Form
 
   @SID_1
   Scenario: Login and navigate to the AMS Reports Wizard
-    Then CLI Operations - Run Root Session command "yes|restore_radware_user_password" timeout 15
+    Given CLI Reset radware password
     Then REST Vision Install License Request "vision-AVA-Max-attack-capacity"
     And REST Delete ES index "vrm-scheduled-report-definition-vrm"
     Then REST Request "PUT" for "Connectivity->Inactivity Timeout for Configuration"

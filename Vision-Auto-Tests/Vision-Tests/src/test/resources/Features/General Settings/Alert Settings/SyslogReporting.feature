@@ -4,7 +4,7 @@ Feature: Alert Settings - Syslog Reporting Functionality
 
   @SID_1
   Scenario: Add Alteon and DP devices
-    Then CLI Operations - Run Root Session command "yes|restore_radware_user_password" timeout 15
+    Given CLI Reset radware password
     Given UI Login with user "radware" and password "radware"
     Then UI Go To Vision
     Then UI Add "DefensePro" with index 1 on "Default" site

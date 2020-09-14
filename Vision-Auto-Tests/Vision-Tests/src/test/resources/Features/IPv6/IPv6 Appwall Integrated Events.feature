@@ -12,7 +12,7 @@ Feature: IPv6 Appwall Events
 
   @SID_2
   Scenario: Open the SitesAndClusters Containers
-    Then CLI Operations - Run Root Session command "yes|restore_radware_user_password" timeout 15
+    Given CLI Reset radware password
     Given UI Login with user "radware" and password "radware"
 #    Then REST Vision Install License Request "vision-AVA-Max-attack-capacity"
     Then UI open Topology Tree view "SitesAndClusters" site

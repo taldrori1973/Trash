@@ -7,7 +7,7 @@ Feature: Forensics Delivery
     When CLI kill all simulator attacks on current vision
     When CLI Clear vision logs
     When REST Delete ES index "dp-*"
-    When CLI Operations - Run Root Session command "yes|restore_radware_user_password" timeout 15
+    Given CLI Reset radware password
     When REST Vision Install License Request "vision-AVA-Max-attack-capacity"
     When CLI Operations - Run Radware Session command "system user authentication-mode set TACACS+"
 

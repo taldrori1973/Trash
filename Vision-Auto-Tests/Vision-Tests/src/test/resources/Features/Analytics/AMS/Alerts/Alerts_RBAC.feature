@@ -8,7 +8,7 @@ Feature: VRM Alerts RBAC
     * CLI kill all simulator attacks on current vision
     * REST Delete ES index "rt-alert-def-vrm"
     * CLI Clear vision logs
-    Then CLI Operations - Run Root Session command "yes|restore_radware_user_password" timeout 15
+    Given CLI Reset radware password
 
   @SID_2
   Scenario: VRM - Login to VRM Alerts Tab

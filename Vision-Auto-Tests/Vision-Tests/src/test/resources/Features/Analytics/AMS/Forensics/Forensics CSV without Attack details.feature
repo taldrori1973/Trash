@@ -3,7 +3,7 @@ Feature: Forensics CSV without Attack details
 
   @SID_1
   Scenario: Clean system data
-    Then CLI Operations - Run Root Session command "yes|restore_radware_user_password" timeout 15
+    Given CLI Reset radware password
     * CLI kill all simulator attacks on current vision
     * CLI Clear vision logs
     * REST Delete ES index "dp-*"
