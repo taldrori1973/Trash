@@ -136,8 +136,7 @@ public class VmSnapShotOperations extends BddUITestBase {
         int connectTimeOut = 10 * 60 * 1000;
         NewVmHandler.waitForServerConnection(connectTimeOut, getRestTestBase().getRootServerCli());
         CliOperations.runCommand(getRestTestBase().getRootServerCli(), "/usr/sbin/ntpdate -u europe.pool.ntp.org", 2 * 60 * 1000);
-        GenericSteps genericSteps = new GenericSteps();
-        genericSteps.resetPassword();
+        GenericSteps.resetPassword();
         if (VisionServer.waitForVisionServerServicesToStartHA(restTestBase.getRadwareServerCli(), 45 * 60 * 1000))
             BaseTestUtils.report("All services up", Reporter.PASS);
         else {

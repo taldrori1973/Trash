@@ -163,8 +163,7 @@ public class VMOperationsSteps extends BddUITestBase {
     }
 
     private void afterUpgrade() throws Exception {
-        GenericSteps genericSteps = new GenericSteps();
-        genericSteps.resetPassword();
+        GenericSteps.resetPassword();
         updateVersionVar();
     }
 
