@@ -1,50 +1,37 @@
 @Functional @TC114371
 Feature: RBAC Menu
 
-#  @SID_1
-#  Scenario: Rbac Setup
-#    Given REST Login with user "radware" and password "radware"
-#    And REST Delete "DefensePro" device with index 2 from topology tree
-#    And REST Delete "Alteon" device with index 1 from topology tree
-#    And REST Delete "LinkProof" device with index 0 from topology tree
-#    And REST Delete "AppWall" device with index 0 from topology tree
-
-  
-  @SID_2
+  @SID_1
   Scenario: Login And Go to Vision
     Given UI Login with user "radware" and password "radware"
     Given UI Go To Vision
 
-  
-  @SID_3
+  @SID_2
   Scenario Outline: Create users and verify
     Given UI Navigate to page "System->User Management->Local Users"
     When UI Create New User With User Name "<User Name>" ,Role "<Role>" ,Scope "<Scope>" ,Password "<Password>"
     Then  UI User With User Name "<User Name>" ,Role "<Role>" ,Scope "<Scope>" Exists
-
     Examples:
-      | User Name             | Role                          | Scope | Password           |
-      | adc_admin_certificate | ADC+Certificate Administrator | [ALL] | Radware1234!@#$    |
-      | adc_admin             | ADC Administrator             | [ALL] | Radware1234!@#$    |
-      | adc_operator          | ADC Operator                  | [ALL] | Radware1234!@#$    |
-      | certificate_admin     | Certificate Administrator     | [ALL] | Radware1234!@#$    |
-      | device_admin          | Device Administrator          | [ALL] | Radware1234!@#$    |
-      | device_configurator   | Device Configurator           | [ALL] | Radware1234!@#$    |
-      | device_operator       | Device Operator               | [ALL] | Radware1234!@#$    |
-      | device_viewer         | Device Viewer                 | [ALL] | Radware1234!@#$    |
-      | real_server_operator  | Real Server Operator          | [ALL] | Radware1234!@#$    |
-      | security_admin        | Security Administrator        | [ALL] | Radware1234!@#$    |
-      | security_monitor      | Security Monitor              | [ALL] | Radware1234!@#$    |
-      | user_admin            | User Administrator            | [ALL] | Radware1234!@#$    |
-      | vision_admin          | Vision Administrator          | [ALL] | Radware1234!@#$    |
-      | vision_reporter       | Vision Reporter               | [ALL] | Radware1234!@#$    |
-      | system_user           | System User                   | [ALL] | Radware1234!@#$    |
+      | User Name             | Role                          | Scope | Password        |
+      | adc_admin_certificate | ADC+Certificate Administrator | [ALL] | Radware1234!@#$ |
+      | adc_admin             | ADC Administrator             | [ALL] | Radware1234!@#$ |
+      | adc_operator          | ADC Operator                  | [ALL] | Radware1234!@#$ |
+      | certificate_admin     | Certificate Administrator     | [ALL] | Radware1234!@#$ |
+      | device_admin          | Device Administrator          | [ALL] | Radware1234!@#$ |
+      | device_configurator   | Device Configurator           | [ALL] | Radware1234!@#$ |
+      | device_operator       | Device Operator               | [ALL] | Radware1234!@#$ |
+      | device_viewer         | Device Viewer                 | [ALL] | Radware1234!@#$ |
+      | real_server_operator  | Real Server Operator          | [ALL] | Radware1234!@#$ |
+      | security_admin        | Security Administrator        | [ALL] | Radware1234!@#$ |
+      | security_monitor      | Security Monitor              | [ALL] | Radware1234!@#$ |
+      | user_admin            | User Administrator            | [ALL] | Radware1234!@#$ |
+      | vision_admin          | Vision Administrator          | [ALL] | Radware1234!@#$ |
+      | vision_reporter       | Vision Reporter               | [ALL] | Radware1234!@#$ |
+      | system_user           | System User                   | [ALL] | Radware1234!@#$ |
 
-  
-  @SID_4
+  @SID_3
   Scenario Outline: Scope "All" is required for User Definition
     When Scope Is "<enabled or disabled>" For Role "<Role>"
-
     Examples:
       | enabled or disabled | Role                          |
       | enabled             | ADC+Certificate Administrator |
@@ -63,18 +50,14 @@ Feature: RBAC Menu
       | disabled            | Vision Reporter               |
       | disabled            | System User                   |
 
-  
-  @SID_5
+  @SID_4
   Scenario: Edit User Management Settings
-
     Then UI Navigate to page "System->User Management->User Management Settings"
     Then UI Select "Local" from Vision dropdown "Authentication Mode"
     Then UI Click Button "Submit"
     Then UI Logout
 
-
-  
-  @SID_6
+  @SID_5
   Scenario: ADC+Certificate Administrator
     When UI Login with user "adc_admin_certificate" and password "Radware1234!@#$"
     Then UI Validate user rbac
@@ -97,11 +80,9 @@ Feature: RBAC Menu
       | GEL Dashboard                               | yes      |
       | EAAF Dashboard                              | no       |
       | VISION SETTINGS                             | yes      |
-
-
     * UI Logout
 
-  @SID_7
+  @SID_6
   Scenario: ADC Administrator
     When UI Login with user "adc_admin" and password "Radware1234!@#$"
     Then UI Validate user rbac
@@ -124,12 +105,10 @@ Feature: RBAC Menu
       | GEL Dashboard                               | yes      |
       | EAAF Dashboard                              | no       |
       | VISION SETTINGS                             | yes      |
-
-
     * UI Logout
 
     #  Vdirect should not be display as  mentioned in table from user Guid
-  @SID_8
+  @SID_7
   Scenario: ADC Operator
     When UI Login with user "adc_operator" and password "Radware1234!@#$"
     Then UI Validate user rbac
@@ -152,10 +131,9 @@ Feature: RBAC Menu
       | GEL Dashboard                               | yes      |
       | EAAF Dashboard                              | no       |
       | VISION SETTINGS                             | yes      |
-
     * UI Logout
 
-  @SID_9
+  @SID_8
   Scenario: Administrator
     When UI Login with user "radware" and password "radware"
     Then UI Validate user rbac
@@ -178,11 +156,9 @@ Feature: RBAC Menu
       | GEL Dashboard                               | yes      |
       | EAAF Dashboard                              | yes      |
       | VISION SETTINGS                             | yes      |
-
     * UI Logout
 
-  
-  @SID_10
+  @SID_9
   Scenario: Certificate Administrator
     When UI Login with user "certificate_admin" and password "Radware1234!@#$"
     Then UI Validate user rbac
@@ -205,10 +181,9 @@ Feature: RBAC Menu
       | GEL Dashboard                               | no       |
       | EAAF Dashboard                              | no       |
       | VISION SETTINGS                             | yes      |
-
     * UI Logout
 
-  @SID_11
+  @SID_10
   Scenario: Device Administrator
     When UI Login with user "device_admin" and password "Radware1234!@#$"
     Then UI Validate user rbac
@@ -230,11 +205,10 @@ Feature: RBAC Menu
       | vDirect                                     | yes      |
       | GEL Dashboard                               | yes      |
       | EAAF Dashboard                              | yes      |
-      | VISION SETTINGS                             | yes       |
-
+      | VISION SETTINGS                             | yes      |
     * UI Logout
 
-  @SID_12
+  @SID_11
   Scenario: Device Configurator
     When UI Login with user "device_configurator" and password "Radware1234!@#$"
     Then UI Validate user rbac
@@ -257,10 +231,9 @@ Feature: RBAC Menu
       | GEL Dashboard                               | yes      |
       | EAAF Dashboard                              | yes      |
       | VISION SETTINGS                             | yes      |
-
     * UI Logout
 
-  @SID_13
+  @SID_12
   Scenario: Device Operator
     When UI Login with user "device_operator" and password "Radware1234!@#$"
     Then UI Validate user rbac
@@ -283,11 +256,10 @@ Feature: RBAC Menu
       | GEL Dashboard                               | yes      |
       | EAAF Dashboard                              | yes      |
       | VISION SETTINGS                             | yes      |
-
     * UI Logout
 
      #  Vdirect should not be display as  mentioned in table from user Guid
-  @SID_14
+  @SID_13
   Scenario: Device Viewer
     When UI Login with user "device_viewer" and password "Radware1234!@#$"
     Then UI Validate user rbac
@@ -310,12 +282,11 @@ Feature: RBAC Menu
       | GEL Dashboard                               | yes      |
       | EAAF Dashboard                              | yes      |
       | VISION SETTINGS                             | yes      |
-
     * UI Logout
 
 
    #  Vdirect should not be display as  mentioned in table from user Guid
-  @SID_15
+  @SID_14
   Scenario: Real server Operator
     When UI Login with user "real_server_operator" and password "Radware1234!@#$"
     Then UI Validate user rbac
@@ -338,10 +309,9 @@ Feature: RBAC Menu
       | GEL Dashboard                               | no       |
       | EAAF Dashboard                              | no       |
       | VISION SETTINGS                             | yes      |
-
     * UI Logout
 
-  @SID_16
+  @SID_15
   Scenario: Security Administrator
     When UI Login with user "security_admin" and password "Radware1234!@#$"
     Then UI Validate user rbac
@@ -364,10 +334,9 @@ Feature: RBAC Menu
       | GEL Dashboard                               | no       |
       | EAAF Dashboard                              | yes      |
       | VISION SETTINGS                             | yes      |
-
     * UI Logout
 
-  @SID_17
+  @SID_16
   Scenario: Security Monitor
     When UI Login with user "security_monitor" and password "Radware1234!@#$"
     Then UI Validate user rbac
@@ -390,10 +359,9 @@ Feature: RBAC Menu
       | GEL Dashboard                               | no       |
       | EAAF Dashboard                              | yes      |
       | VISION SETTINGS                             | yes      |
-
     * UI Logout
 
-  @SID_18
+  @SID_17
   Scenario: User Administrator
     When UI Login with user "user_admin" and password "Radware1234!@#$"
     Then UI Validate user rbac
@@ -416,10 +384,9 @@ Feature: RBAC Menu
       | GEL Dashboard                               | no       |
       | EAAF Dashboard                              | no       |
       | VISION SETTINGS                             | yes      |
-
     * UI Logout
 
-  @SID_19
+  @SID_18
   Scenario: Vision Administrator
     When UI Login with user "vision_admin" and password "Radware1234!@#$"
     Then UI Validate user rbac
@@ -442,10 +409,9 @@ Feature: RBAC Menu
       | GEL Dashboard                               | yes      |
       | EAAF Dashboard                              | yes      |
       | VISION SETTINGS                             | yes      |
-
     * UI Logout
 
-  @SID_20
+  @SID_19
   Scenario: Vision Reporter
     When UI Login with user "vision_reporter" and password "Radware1234!@#$"
     Then UI Validate user rbac
@@ -468,11 +434,10 @@ Feature: RBAC Menu
       | GEL Dashboard                               | yes      |
       | EAAF Dashboard                              | yes      |
       | VISION SETTINGS                             | yes      |
-
     * UI Logout
 
 
-  @SID_23
+  @SID_20
   Scenario Outline: Delete All Users
     Given UI Login with user "radware" and password "radware"
     Given UI Go To Vision
@@ -496,7 +461,7 @@ Feature: RBAC Menu
       | vision_reporter       |
       | system_user           |
 
-  @SID_22
+  @SID_21
   Scenario: Login And Go to Vision
     Given UI Login with user "radware" and password "radware"
     Given UI Go To Vision
