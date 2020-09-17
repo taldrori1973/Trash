@@ -1,5 +1,7 @@
 package com.radware.vision.infra.testhandlers.system.usermanagement.localusers;
 
+import com.radware.automation.tools.basetest.BaseTestUtils;
+import com.radware.automation.tools.basetest.Reporter;
 import com.radware.automation.webui.WebUIUtils;
 import com.radware.automation.webui.webdriver.WebUIDriver;
 import com.radware.automation.webui.widgets.ComponentLocator;
@@ -7,7 +9,9 @@ import com.radware.vision.infra.base.pages.dialogboxes.AreYouSureDialogBox;
 import com.radware.vision.infra.base.pages.navigation.WebUIVisionBasePage;
 import com.radware.vision.infra.base.pages.system.usermanagement.localusers.*;
 import com.radware.vision.infra.testhandlers.baseoperations.BasicOperationsHandler;
+import com.radware.vision.infra.testhandlers.cli.CliOperations;
 import com.radware.vision.infra.utils.WebUIStringsVision;
+import com.radware.vision.utils.RegexUtils;
 import org.openqa.selenium.support.How;
 
 import java.util.ArrayList;
@@ -31,12 +35,12 @@ public class LocalUsersHandler {
 
 
     public static void addUser(String username, String fullName, String address, String organisation, String phoneNumber, String permissions, String networkPolicies, String password) {
-        List<String> permistions = Arrays.asList(permissions.split(","));
+        List<String> permissionsList = Arrays.asList(permissions.split(","));
 
         NavigateHereIfNeedTo();
 
-        UserEntry expUserEntry = new UserEntry(username, new PermissionEntry(permistions.get(0), "ALL"));
-        if (!LocalUsersHandler.isUserExists(expUserEntry)){
+        UserEntry expUserEntry = new UserEntry(username, new PermissionEntry(permissionsList.get(0), "ALL"));
+        if (!LocalUsersHandler.isUserExists(expUserEntry, null)) {
             AuthorizedNetworkPolicies authorizedNetworkPolicies = new AuthorizedNetworkPolicies();
             User newUser = localUsers.newUser();
             newUser.setUsername(username);
@@ -66,8 +70,10 @@ public class LocalUsersHandler {
             WebUIUtils.sleep(3);
 
             newUser.submit();
+            LocalUsersHandler.isUserExists(expUserEntry, 30);
         }
     }
+
     public static void editUser(String username, String fullName, String address, String organisation, String phoneNumber, String permissions, String permissionsToRemove, String networkPoliciesToRemove, String networkPoliciesToAdd) {
 
         NavigateHereIfNeedTo();
@@ -183,14 +189,28 @@ public class LocalUsersHandler {
         }
     }
 
-    public static boolean isUserExists(UserEntry userToSearch) {
-        List<UserEntry> users = LocalUsersHandler.getExistingUsers();
-        for (UserEntry currentUser : users) {
-            if (currentUser.getUsername().equals(userToSearch.getUsername())) {
-                if (currentUser.getUsername().equals(userToSearch.getUsername())) {
-                    return true;
+    /**
+     *
+     * @param userToSearch UserEntry object
+     * @param timeout in seconds to search for user
+     * @return true if user exists
+     */
+    public static boolean isUserExists(UserEntry userToSearch, Integer timeout) {
+        timeout = timeout == null ? 0 : timeout * 1000;
+        long startTime = System.currentTimeMillis();
+        try {
+            do {
+                List<UserEntry> users = LocalUsersHandler.getExistingUsers();
+                for (UserEntry currentUser : users) {
+                    if (currentUser.getUsername().equals(userToSearch.getUsername())) {
+                        if (currentUser.getUsername().equals(userToSearch.getUsername())) {
+                            return true;
+                        }
+                    }
                 }
-            }
+            } while (System.currentTimeMillis() - startTime < timeout);
+        } catch (Exception e) {
+            BaseTestUtils.report(e.getMessage(), Reporter.FAIL);
         }
         return false;
     }
