@@ -32,6 +32,7 @@ public class LocalUsersSteps {
         String roleAndScope = role + "," + scope;
         LocalUsersHandler.addUser(userName, "", "", "", "", roleAndScope, "", pass);
     }
+
     @When("^UI Delete User With User Name \"([^\"]*)\"$")
     public void deleteUser(String userName) {
 
@@ -40,6 +41,7 @@ public class LocalUsersSteps {
 
     /**
      * Check if the use exists in the table
+     *
      * @param userName
      * @param role
      * @param scope
@@ -48,16 +50,14 @@ public class LocalUsersSteps {
 
     @Then("^UI User With User Name \"([^\"]*)\" ,Role \"([^\"]*)\" ,Scope \"([^\"]*)\" Exists$")
     public void userExists(String userName, String role, String scope) throws Throwable {
-        if (!LocalUsersHandler.isUserExists(new UserEntry(userName, new PermissionEntry(role, scope)))) {
+        if (!LocalUsersHandler.isUserExists(new UserEntry(userName, new PermissionEntry(role, scope)), null)) {
             ReportsUtils.reportAndTakeScreenShot("The User " + userName + " Does not Exist", Reporter.FAIL);
-
         }
-
     }
 
     /**
      * @param enabledOrDisabled "enabled" or "disabled"
-     * @param role the role value , Example ""
+     * @param role              the role value , Example ""
      */
 
     @Given("^Scope Is \"([^\"]*)\" For Role \"([^\"]*)\"$")
