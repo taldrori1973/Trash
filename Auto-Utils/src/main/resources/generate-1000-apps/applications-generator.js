@@ -62,7 +62,7 @@ const template = {
 function generate(numberOfApps) {
   for (let index = 1; index <= numberOfApps; index++) {
     let app = { ...template };
-    app.virtualServerID = `service_application_${index}_$myiphex`;
+    app.virtualServerID = `service_application_${index}_\$\{myiphex\}`;
     app.virtualServerIP = `${getIp(index)}`;
     app.uid = `${generateUUID(38)}$myiphex`;
     app.applicationId = `${app.virtualServerID}:${app.servicePort}`;
@@ -98,10 +98,7 @@ function generateVirtualServersObject(numOfApps) {
 
 // generate(1000);
 // console.log(JSON.stringify(apps));
-fs.writeFile(
-  "apps.json",
-  JSON.stringify(generateVirtualServersObject(1000)),
-  (err) => {
-    if (err) throw err;
-  }
-);
+let jsonResult = JSON.stringify(generateVirtualServersObject(1000));
+fs.writeFile("apps.json", jsonResult, (err) => {
+  if (err) throw err;
+});
