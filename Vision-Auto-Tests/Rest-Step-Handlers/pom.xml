@@ -15,20 +15,14 @@
 
     <dependencies>
         <dependency>
-            <groupId>org.modelmapper</groupId>
-            <artifactId>modelmapper</artifactId>
-            <version>2.3.0</version>
+            <groupId>com.radware.vision.automation</groupId>
+            <artifactId>Auto-Utils</artifactId>
+            <version>${revision}</version>
         </dependency>
         <dependency>
             <groupId>com.radware.vision.automation</groupId>
             <artifactId>Rest-Infra</artifactId>
             <version>${revision}</version>
-        </dependency>
-        <dependency>
-            <groupId>org.projectlombok</groupId>
-            <artifactId>lombok</artifactId>
-            <version>1.18.10</version>
-            <scope>provided</scope>
         </dependency>
         <dependency>
             <groupId>com.radware.vision.automation.tools</groupId>
