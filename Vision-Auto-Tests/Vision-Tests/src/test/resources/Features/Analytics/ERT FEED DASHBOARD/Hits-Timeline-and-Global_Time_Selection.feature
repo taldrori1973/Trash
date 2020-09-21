@@ -46,7 +46,7 @@ Feature: EAAF Hits Timeline, Summary Hits and Global Time Selection
     Then UI Validate number range between minValue 17.07 and maxValue 17.83 in label "TotalsInTimeFrame Packets value"
     Then UI Validate number range between minValue 12.50 and maxValue 13.27 in label "TotalsInTimeFrame Volume value"
   Then UI Validate Text field by id "TotalsInTimeFrame Packets badge" EQUALS "K"
-    Then UI Validate Text field by id "TotalsInTimeFrame Volume badge" EQUALS "Mbit"
+    Then UI Validate Text field by id "TotalsInTimeFrame Volume badge" EQUALS "Kbit"
 
       Then UI Validate Line Chart data "EAAF Hits Timeline events" with LabelTime
       | value | count |countOffset |
@@ -63,7 +63,7 @@ Feature: EAAF Hits Timeline, Summary Hits and Global Time Selection
     Then UI Validate number range between minValue 20.44 and maxValue 21.20 in label "TotalsInTimeFrame Packets value"
     Then UI Validate number range between minValue 15.87 and maxValue 16.64 in label "TotalsInTimeFrame Volume value"
     Then UI Validate Text field by id "TotalsInTimeFrame Packets badge" EQUALS "K"
-    Then UI Validate Text field by id "TotalsInTimeFrame Volume badge" EQUALS "Mbit"
+    Then UI Validate Text field by id "TotalsInTimeFrame Volume badge" EQUALS "Kbit"
 
   @EAAFDebug
   @SID_6
@@ -76,7 +76,7 @@ Feature: EAAF Hits Timeline, Summary Hits and Global Time Selection
     Then UI Validate number range between minValue 24.28 and maxValue 25.04 in label "TotalsInTimeFrame Packets value"
     Then UI Validate number range between minValue 19.71 and maxValue 20.48 in label "TotalsInTimeFrame Volume value"
     Then UI Validate Text field by id "TotalsInTimeFrame Packets badge" EQUALS "K"
-    Then UI Validate Text field by id "TotalsInTimeFrame Volume badge" EQUALS "Mbit"
+    Then UI Validate Text field by id "TotalsInTimeFrame Volume badge" EQUALS "Kbit"
 
   @EAAFDebug
   @SID_7
@@ -88,7 +88,7 @@ Feature: EAAF Hits Timeline, Summary Hits and Global Time Selection
     Then UI Validate number range between minValue 41.86 and maxValue 42.62 in label "TotalsInTimeFrame Packets value"
     Then UI Validate number range between minValue 32.72 and maxValue 33.49 in label "TotalsInTimeFrame Volume value"
     Then UI Validate Text field by id "TotalsInTimeFrame Packets badge" EQUALS "K"
-    Then UI Validate Text field by id "TotalsInTimeFrame Volume badge" EQUALS "Mbit"
+    Then UI Validate Text field by id "TotalsInTimeFrame Volume badge" EQUALS "Kbit"
     Then UI Click Button "Events" with value "EAAF-Hits-Timeline"
     Then UI Validate Line Chart data "EAAF Hits Timeline events" with LabelTime
       | value | count |countOffset |
@@ -112,7 +112,7 @@ Feature: EAAF Hits Timeline, Summary Hits and Global Time Selection
     Then UI Validate number range between minValue 43.14 and maxValue 44.00 in label "TotalsInTimeFrame Packets value"
     Then UI Validate number range between minValue 34.01 and maxValue 34.86 in label "TotalsInTimeFrame Volume value"
     Then UI Validate Text field by id "TotalsInTimeFrame Packets badge" EQUALS "K"
-    Then UI Validate Text field by id "TotalsInTimeFrame Volume badge" EQUALS "Mbit"
+    Then UI Validate Text field by id "TotalsInTimeFrame Volume badge" EQUALS "Kbit"
     Then UI Click Button "Events" with value "EAAF-Hits-Timeline"
     Then UI Validate Line Chart data "EAAF Hits Timeline events" with LabelTime
       | value | count |countOffset |
@@ -136,7 +136,7 @@ Feature: EAAF Hits Timeline, Summary Hits and Global Time Selection
     Then UI Validate number range between minValue 44.34 and maxValue 45.24 in label "TotalsInTimeFrame Packets value"
     Then UI Validate number range between minValue 35.21 and maxValue 36.11 in label "TotalsInTimeFrame Volume value"
     Then UI Validate Text field by id "TotalsInTimeFrame Packets badge" EQUALS "K"
-    Then UI Validate Text field by id "TotalsInTimeFrame Volume badge" EQUALS "Mbit"
+    Then UI Validate Text field by id "TotalsInTimeFrame Volume badge" EQUALS "Kbit"
     Then UI Click Button "Events" with value "EAAF-Hits-Timeline"
     Then UI Validate Line Chart data "EAAF Hits Timeline events" with LabelTime
       | value | count |countOffset |
@@ -160,7 +160,7 @@ Feature: EAAF Hits Timeline, Summary Hits and Global Time Selection
     Then UI Validate number range between minValue 44.98 and maxValue 46.52 in label "TotalsInTimeFrame Packets value"
     Then UI Validate number range between minValue 35.85 and maxValue 37.39 in label "TotalsInTimeFrame Volume value"
     Then UI Validate Text field by id "TotalsInTimeFrame Packets badge" EQUALS "K"
-    Then UI Validate Text field by id "TotalsInTimeFrame Volume badge" EQUALS "Mbit"
+    Then UI Validate Text field by id "TotalsInTimeFrame Volume badge" EQUALS "Kbit"
     Then UI Click Button "Events" with value "EAAF-Hits-Timeline"
     Then UI Validate Line Chart data "EAAF Hits Timeline events" with LabelTime
       | value | count |countOffset |
