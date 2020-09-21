@@ -12,7 +12,7 @@ import com.radware.vision.thirdPartyAPIs.jenkins.JenkinsAPI;
 import com.radware.vision.thirdPartyAPIs.jenkins.pojos.BuildPojo;
 import models.RestResponse;
 import models.StatusCode;
-import org.modelmapper.ModelMapper;
+//import org.modelmapper.ModelMapper;
 
 import java.io.IOException;
 import java.util.List;
@@ -57,10 +57,11 @@ public class RepositoryService {
             buildPojo = getFile(branchPojo, build, fileType, jenkinsJob);//build under branch
         }
         ArtifactFilePojo filePojo = getFile(buildPojo, fileType);
-        ModelMapper modelMapper=new ModelMapper();
-        JFrogFileModel jFrogFileModel = modelMapper.map(filePojo, JFrogFileModel.class);
-        jFrogFileModel.setType(fileType);
-        return jFrogFileModel;
+//        ModelMapper modelMapper=new ModelMapper();
+//        JFrogFileModel jFrogFileModel = modelMapper.map(filePojo, JFrogFileModel.class);
+//        jFrogFileModel.setType(fileType);
+//        return jFrogFileModel;
+        return null;              //// temprory
     }
 
     private ArtifactFilePojo getFile(ArtifactFolderPojo buildPojo, FileType fileType) throws Exception {
