@@ -18,6 +18,10 @@ let generateSlbCurCfgEnhVirtServerTable_1 = generateSlbCurCfgEnhVirtServerTable.
   appsArr
 );
 
+let generateSlbCurCfgEnhVirtServerTable_2 = generateSlbCurCfgEnhVirtServerTable.generateSlbCurCfgEnhVirtServerTable_2(
+  appsArr
+);
+
 fs.writeFile(
   "./jsons/reporter_virtualServers.json",
   JSON.stringify(reporter_virtualServers),
@@ -29,6 +33,14 @@ fs.writeFile(
 fs.writeFile(
   "./jsons/generateSlbCurCfgEnhVirtServerTable_1.json",
   JSON.stringify(generateSlbCurCfgEnhVirtServerTable_1),
+  (err) => {
+    if (err) throw err;
+  }
+);
+
+fs.writeFile(
+  "./jsons/generateSlbCurCfgEnhVirtServerTable_2.json",
+  JSON.stringify(generateSlbCurCfgEnhVirtServerTable_2),
   (err) => {
     if (err) throw err;
   }
