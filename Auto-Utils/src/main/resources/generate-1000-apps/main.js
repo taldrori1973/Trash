@@ -13,14 +13,19 @@ let appsArr = application_generator.getApps();
 let reporter_virtualServers = reporter_virtualServers_generator.generateVirtualServersObject(
   appsArr
 );
+// for %http_get_action /config/SlbCurCfgEnhVirtServerTable?count=1024&props=VirtServerIndex,VirtServerIpAddress
 
 let generateSlbCurCfgEnhVirtServerTable_1 = generateSlbCurCfgEnhVirtServerTable.generateSlbCurCfgEnhVirtServerTable_1(
   appsArr
 );
 
+// for %http_get_action /config/SlbCurCfgEnhVirtServicesTable?count=1024&props=ServIndex,VirtPort,Index
+
 let generateSlbCurCfgEnhVirtServerTable_2 = generateSlbCurCfgEnhVirtServerTable.generateSlbCurCfgEnhVirtServerTable_2(
   appsArr
 );
+
+// for %http_get_action /config/SlbNewCfgEnhVirtServicesSeventhPartTable?count=1024&props=ServSeventhPartIndex,SeventhPartIndex,ApplicName,Report
 
 let SlbNewCfgEnhVirtServicesSeventhPartTable = generateSlbCurCfgEnhVirtServerTable.generateSlbNewCfgEnhVirtServicesSeventhPartTable(
   appsArr
