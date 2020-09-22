@@ -26,3 +26,21 @@ module.exports.generateSlbCurCfgEnhVirtServerTable_2 = function (appArray) {
 
   return SlbCurCfgEnhVirtServerTable;
 };
+
+module.exports.generateSlbNewCfgEnhVirtServicesSeventhPartTable = function (
+  appArray
+) {
+  let SlbNewCfgEnhVirtServicesSeventhPartTable = [];
+
+  appArray.forEach((app) => {
+    let virtObject = {
+      ServSeventhPartIndex: app.virtualServerID,
+      SeventhPartIndex: 1,
+      ApplicName: `${app.virtualServerID}:${app.servicePort}`,
+      Report: 1,
+    };
+    SlbNewCfgEnhVirtServicesSeventhPartTable.push(virtObject);
+  });
+
+  return SlbNewCfgEnhVirtServicesSeventhPartTable;
+};
