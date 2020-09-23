@@ -9,7 +9,7 @@ Feature: AMS DefenseFlow Attacks Dashboard
     * CLI Clear vision logs
 
   @SID_2 @Sanity
-  Scenario: Change DF managment IP to IP of Generic Linux
+  Scenario: Change DF management IP to IP of Generic Linux
     When CLI Operations - Run Radware Session command "system df management-ip set 172.17.164.10"
     When CLI Operations - Run Radware Session command "system df management-ip get"
     Then CLI Operations - Verify that output contains regex "DefenseFlow Management IP Address: 172.17.164.10"
@@ -80,6 +80,9 @@ Feature: AMS DefenseFlow Attacks Dashboard
 
   @SID_6 @Sanity
   Scenario: Validate TOP ATTACKS BY Count - All POs
+    # Top Attacks by Count does not exist by default
+    When UI VRM Select Widgets
+    |Top Attacks by Count|
     Then UI Validate StackBar data with widget "Top Attacks by Count"
       | label  | value | legendName                 |
       | PO_100 | 86    | HTTP (recv.pps)            |
