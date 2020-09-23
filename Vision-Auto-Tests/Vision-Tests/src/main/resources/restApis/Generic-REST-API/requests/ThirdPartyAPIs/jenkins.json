@@ -20,14 +20,14 @@
     {
     "label": "Get Build Info cvision",
     "method": "GET",
-    "basePath": "/job/vision_core/job/{featureName}/{buildNumber}/api/json?pretty=true",
+    "basePath": "/job/vision_core/job/{featureBranch}/{buildNumber}/api/json?pretty=true",
     "produces": "application/json",
     "description": "Get Jenkins Build Info cvision"
     },
     {
       "label": "Get Job Info cvision",
       "method": "GET",
-      "basePath": "/job/vision_core/job/{featureName}/api/json?pretty=true",
+      "basePath": "/job/vision_core/job/{featureBranch}/api/json?pretty=true",
       "produces": "application/json",
       "description": "Get Jenkins Build Info cvision"
     }
