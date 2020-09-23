@@ -49,4 +49,20 @@ public class JFrogAPI {
 
     }
 
+    public static JFrogFileModel getBuild(FileType fileType,  Integer build, String repoName, String branch) throws Exception {
+        if (branch == null || branch=="") branch = "master";
+        if (build == null) build = 0;
+        RepositoryService repositoryService=new RepositoryService(repoName);
+        return repositoryService.getFile(fileType,build,branch);
+    }
+
+    public static JFrogFileModel getLastExtendedBuildFromFeatureBranch(FileType fileType,String repoName, String branch) throws Exception {
+        if (branch == null || branch=="") branch = "master";
+        RepositoryService repositoryService=new RepositoryService(repoName);
+        return repositoryService.getFileFromLastExtendedBuild(fileType,branch);
+    }
+
+
+
+
 }
