@@ -12,7 +12,7 @@ import com.radware.vision.thirdPartyAPIs.jenkins.JenkinsAPI;
 import com.radware.vision.thirdPartyAPIs.jenkins.pojos.BuildPojo;
 import models.RestResponse;
 import models.StatusCode;
-//import org.modelmapper.ModelMapper;
+import org.modelmapper.ModelMapper;
 
 import java.io.IOException;
 import java.util.List;
@@ -35,7 +35,7 @@ public class RepositoryService {
 
     public RepositoryService(String repoName) throws IOException {
         this.objectMapper = new ObjectMapper();
-        this.jFrogRestAPI = new JFrogRestAPI("jFrogBuildsArtifactory",repoName);
+        this.jFrogRestAPI = new JFrogRestAPI("jFrogBuildsArtifactory", repoName);
     }
 
 
@@ -57,28 +57,78 @@ public class RepositoryService {
             buildPojo = getFile(branchPojo, build, fileType, jenkinsJob);//build under branch
         }
         ArtifactFilePojo filePojo = getFile(buildPojo, fileType);
-//        ModelMapper modelMapper=new ModelMapper();
-//        JFrogFileModel jFrogFileModel = modelMapper.map(filePojo, JFrogFileModel.class);
-//        jFrogFileModel.setType(fileType);
-//        return jFrogFileModel;
-        return null;              //// temprory
+        ModelMapper modelMapper = new ModelMapper();
+        JFrogFileModel jFrogFileModel = modelMapper.map(filePojo, JFrogFileModel.class);
+        jFrogFileModel.setType(fileType);
+        return jFrogFileModel;
     }
+//////////////////// getFile in the last build where the file exist
+    public JFrogFileModel getFile(FileType fileType,Integer build, String branch) throws Exception {
+
+        ArtifactFolderPojo buildPojo;
+        String jenkinsJob;
+
+        ArtifactPojo artifactPojo = getPojo("", StatusCode.OK, ArtifactPojo.class);
+
+//        ArtifactFolderPojo versionPojo = getVersion(artifactPojo, version);
+        String artifactPojoPtah = artifactPojo.getPath().getPath();
+        ArtifactFolderPojo artifactPojoFolder = getPojo(artifactPojoPtah, StatusCode.OK, ArtifactFolderPojo.class);
+        ArtifactFolderPojo branchPojo = getBranch(artifactPojoFolder, branch);
+
+        if (branchPojo == null) {
+//            jenkinsJob = String.format(JENKINS_JOB_TEMPLATE, "master");
+            buildPojo = getFile(artifactPojoFolder, build, fileType, "master");//build under version
+        } else {
+//            jenkinsJob = String.format(JENKINS_JOB_TEMPLATE, branch);
+            buildPojo = getFile(branchPojo, build, fileType, branch);//build under branch
+        }
+        ArtifactFilePojo filePojo = getFile(buildPojo, fileType);
+        ModelMapper modelMapper = new ModelMapper();
+        JFrogFileModel jFrogFileModel = modelMapper.map(filePojo, JFrogFileModel.class);
+        jFrogFileModel.setType(fileType);
+        return jFrogFileModel;
+
+
+//        return null;
+    }
+    public JFrogFileModel getFileFromLastExtendedBuild(FileType fileType, String branch) throws Exception {
+
+        ArtifactFolderPojo buildPojo;
+        ArtifactPojo artifactPojo = getPojo("", StatusCode.OK, ArtifactPojo.class);
+        String artifactPojoPtah = artifactPojo.getPath().getPath();
+        ArtifactFolderPojo artifactPojoFolder = getPojo(artifactPojoPtah, StatusCode.OK, ArtifactFolderPojo.class);
+        ArtifactFolderPojo branchPojo = getBranch(artifactPojoFolder, branch);
+
+        String path = branchPojo.getPath().getPath().substring(1) + "/" + getLastSuccessfulExtendedBuild(branchPojo, fileType, branch);
+        buildPojo =  getPojo(path, StatusCode.OK, ArtifactFolderPojo.class);
+
+        ArtifactFilePojo filePojo = getFile(buildPojo, fileType);
+        ModelMapper modelMapper = new ModelMapper();
+        JFrogFileModel jFrogFileModel = modelMapper.map(filePojo, JFrogFileModel.class);
+        jFrogFileModel.setType(fileType);
+        return jFrogFileModel;
+
+
+//        return null;
+    }
+
+
 
     private ArtifactFilePojo getFile(ArtifactFolderPojo buildPojo, FileType fileType) throws Exception {
         List<ArtifactChildPojo> filterByFileType = buildPojo.getChildren().stream().filter(artifactChildPojo -> artifactChildPojo.getUri().getPath().endsWith(fileType.getExtension())).collect(Collectors.toList());
         if (filterByFileType.size() == 0)
             throw new Exception(String.format("No File with extension %s was found", fileType.getExtension()));
-        if (filterByFileType.size() > 1) throw new Exception(
-                String.format("%d Files with extension %s were found: %s\n Please Customize Filtering Method at %s Class",
-                        filterByFileType.size(),
-                        fileType.getExtension(),
-                        filterByFileType.toString(),
-                        this.getClass().getName()
-                ));
+//        if (filterByFileType.size() > 1) throw new Exception(
+//                String.format("%d Files with extension %s were found: %s\n Please Customize Filtering Method at %s Class",
+//                        filterByFileType.size(),
+//                        fileType.getExtension(),
+//                        filterByFileType.toString(),
+//                        this.getClass().getName()
+//                ));
 
         String path = String.format("%s%s", buildPojo.getPath().getPath().substring(1), filterByFileType.get(0).getUri().toString());
 
-        return getPojo(path,StatusCode.OK,ArtifactFilePojo.class);
+        return getPojo(path, StatusCode.OK, ArtifactFilePojo.class);
     }
 
 
@@ -87,8 +137,8 @@ public class RepositoryService {
             String path = buildParent.getPath().getPath().substring(1) + "/" + build;
             if (isChildExistByUri(buildParent.getChildren(), build.toString()) && containsFileType(fileType, path)) {//build exist and contains the the file type
 
-                BuildPojo buildInfo = JenkinsAPI.getBuildInfo(jenkinsJob, build);//get build data from jenkins
-
+//                BuildPojo buildInfo = JenkinsAPI.getBuildInfo(jenkinsJob, build);//get build data from jenkins
+                BuildPojo buildInfo = JenkinsAPI.getBuildInfoCvision(jenkinsJob, build);
 //                if the build still building or finish building not successfully
                 if (buildInfo.isBuilding() || !buildInfo.getResult().equals("SUCCESS"))
                     throw new Exception(String.format("The Build \"%s\" is building or failed", build));
@@ -98,12 +148,13 @@ public class RepositoryService {
                 throw new Exception(String.format("The Build \"%s\" not found under %s OR the build not contains \"%s\" file type", build, buildParent.getPath().getPath(), fileType.getExtension()));
         } else {//latest build
 
+
             build = getLastSuccessfulBuild(buildParent, fileType, jenkinsJob);
             String path = buildParent.getPath().getPath().substring(1) + "/" + build;
             return getPojo(path, StatusCode.OK, ArtifactFolderPojo.class);
-
         }
     }
+
 
     private Integer getLastSuccessfulBuild(ArtifactFolderPojo buildParent, FileType fileType, String jenkinsJob) throws Exception {
 //        build array of builds number
@@ -116,13 +167,22 @@ public class RepositoryService {
             last = builds.pop();
             String buildPath = buildParent.getPath().getPath().substring(1) + "/" + last;
             if (containsFileType(fileType, buildPath)) {
-                BuildPojo buildInfo = JenkinsAPI.getBuildInfo(jenkinsJob, last);
+//                BuildPojo buildInfo = JenkinsAPI.getBuildInfo(jenkinsJob, last);
+                BuildPojo buildInfo = JenkinsAPI.getBuildInfoCvision(jenkinsJob, last);
                 if (buildInfo.isBuilding()) continue;
                 if (buildInfo.getResult().equals("SUCCESS")) return last;
             }
         }
         throw new Exception("No Success Build was found ");
     }
+
+    private Integer getLastSuccessfulExtendedBuild(ArtifactFolderPojo buildParent, FileType fileType, String jenkinsJob) throws Exception {
+//        build array of builds number
+        Set<Integer> buildsNumbers = buildParent.getChildren().stream().map(buildChildPojo -> Integer.parseInt(buildChildPojo.getUri().getPath().substring(1))).collect(Collectors.toSet());
+//
+        return null;
+    }
+
 
 
     private Stack<Integer> countingSort(Set<Integer> buildsNumbers) {
