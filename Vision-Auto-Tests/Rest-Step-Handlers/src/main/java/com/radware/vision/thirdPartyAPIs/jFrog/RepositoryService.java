@@ -10,15 +10,13 @@ import com.radware.vision.thirdPartyAPIs.jFrog.pojos.ArtifactFolderPojo;
 import com.radware.vision.thirdPartyAPIs.jFrog.pojos.ArtifactPojo;
 import com.radware.vision.thirdPartyAPIs.jenkins.JenkinsAPI;
 import com.radware.vision.thirdPartyAPIs.jenkins.pojos.BuildPojo;
+import lombok.Data;
 import models.RestResponse;
 import models.StatusCode;
 import org.modelmapper.ModelMapper;
 
 import java.io.IOException;
-import java.util.List;
-import java.util.Optional;
-import java.util.Set;
-import java.util.Stack;
+import java.util.*;
 import java.util.stream.Collectors;
 
 /**
@@ -62,24 +60,17 @@ public class RepositoryService {
         jFrogFileModel.setType(fileType);
         return jFrogFileModel;
     }
-//////////////////// getFile in the last build where the file exist
-    public JFrogFileModel getFile(FileType fileType,Integer build, String branch) throws Exception {
+
+    public JFrogFileModel getFile(FileType fileType, Integer build, String branch) throws Exception {
 
         ArtifactFolderPojo buildPojo;
-        String jenkinsJob;
-
         ArtifactPojo artifactPojo = getPojo("", StatusCode.OK, ArtifactPojo.class);
-
-//        ArtifactFolderPojo versionPojo = getVersion(artifactPojo, version);
         String artifactPojoPtah = artifactPojo.getPath().getPath();
         ArtifactFolderPojo artifactPojoFolder = getPojo(artifactPojoPtah, StatusCode.OK, ArtifactFolderPojo.class);
         ArtifactFolderPojo branchPojo = getBranch(artifactPojoFolder, branch);
-
         if (branchPojo == null) {
-//            jenkinsJob = String.format(JENKINS_JOB_TEMPLATE, "master");
             buildPojo = getFile(artifactPojoFolder, build, fileType, "master");//build under version
         } else {
-//            jenkinsJob = String.format(JENKINS_JOB_TEMPLATE, branch);
             buildPojo = getFile(branchPojo, build, fileType, branch);//build under branch
         }
         ArtifactFilePojo filePojo = getFile(buildPojo, fileType);
@@ -87,10 +78,8 @@ public class RepositoryService {
         JFrogFileModel jFrogFileModel = modelMapper.map(filePojo, JFrogFileModel.class);
         jFrogFileModel.setType(fileType);
         return jFrogFileModel;
-
-
-//        return null;
     }
+
     public JFrogFileModel getFileFromLastExtendedBuild(FileType fileType, String branch) throws Exception {
 
         ArtifactFolderPojo buildPojo;
@@ -98,10 +87,8 @@ public class RepositoryService {
         String artifactPojoPtah = artifactPojo.getPath().getPath();
         ArtifactFolderPojo artifactPojoFolder = getPojo(artifactPojoPtah, StatusCode.OK, ArtifactFolderPojo.class);
         ArtifactFolderPojo branchPojo = getBranch(artifactPojoFolder, branch);
-
         String path = branchPojo.getPath().getPath().substring(1) + "/" + getLastSuccessfulExtendedBuild(branchPojo, fileType, branch);
-        buildPojo =  getPojo(path, StatusCode.OK, ArtifactFolderPojo.class);
-
+        buildPojo = getPojo(path, StatusCode.OK, ArtifactFolderPojo.class);
         ArtifactFilePojo filePojo = getFile(buildPojo, fileType);
         ModelMapper modelMapper = new ModelMapper();
         JFrogFileModel jFrogFileModel = modelMapper.map(filePojo, JFrogFileModel.class);
@@ -111,7 +98,6 @@ public class RepositoryService {
 
 //        return null;
     }
-
 
 
     private ArtifactFilePojo getFile(ArtifactFolderPojo buildPojo, FileType fileType) throws Exception {
@@ -175,15 +161,6 @@ public class RepositoryService {
         }
         throw new Exception("No Success Build was found ");
     }
-
-    private Integer getLastSuccessfulExtendedBuild(ArtifactFolderPojo buildParent, FileType fileType, String jenkinsJob) throws Exception {
-//        build array of builds number
-        Set<Integer> buildsNumbers = buildParent.getChildren().stream().map(buildChildPojo -> Integer.parseInt(buildChildPojo.getUri().getPath().substring(1))).collect(Collectors.toSet());
-//
-        return null;
-    }
-
-
 
     private Stack<Integer> countingSort(Set<Integer> buildsNumbers) {
         int minBuildNumber = buildsNumbers.stream().min(Integer::compareTo).orElse(0);//for example 601
@@ -254,4 +231,37 @@ public class RepositoryService {
         RestResponse restResponse = jFrogRestAPI.sendRequest(path, expectedStatusCode);
         return objectMapper.readValue(restResponse.getBody().getBodyAsString(), clazz);
     }
+
+
+    private Integer getLastSuccessfulExtendedBuild(ArtifactFolderPojo buildParent, FileType fileType, String jenkinsJob) throws Exception {
+//        build array of builds number
+        Set<Integer> buildsNumbers = buildParent.getChildren().stream().map(buildChildPojo -> Integer.parseInt(buildChildPojo.getUri().getPath().substring(1))).collect(Collectors.toSet());
+        Stack<Integer> builds = countingSort(buildsNumbers);
+        Integer last;
+        while (!builds.isEmpty()) {
+            last = builds.pop();
+            String buildPath = buildParent.getPath().getPath().substring(1) + "/" + last;
+            if (isExtended(buildPath)) {
+                BuildPojo buildInfo = JenkinsAPI.getBuildInfoCvision(jenkinsJob, last);
+                if (buildInfo.isBuilding()) continue;
+                if (buildInfo.getResult().equals("SUCCESS")) return last;
+            }
+        }
+        throw new Exception("No Success Build was found ");
+    }
+
+    private boolean isExtended(String path) {
+        try {
+            Map<String, String> queryParams = new HashMap<>();
+            if (path == null) path = "";
+            queryParams.put("repoKey", jFrogRestAPI.getRepoName());
+            queryParams.put("path", String.format("%s/cm.version.txt", path));
+            RestResponse restResponse = jFrogRestAPI.sendRequest("Get Artifact Properties", queryParams, StatusCode.OK);
+            return restResponse.getBody().getBodyAsString().toLowerCase().contains("extended");
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return true;
+    }
+
 }
