@@ -54,6 +54,22 @@ public class JenkinsAPI {
         return objectMapper.readValue(restResponse.getBody().getBodyAsString(), BuildPojo.class);
     }
 
+    public static BuildPojo getBuildInfoCvision(String featureBranch, Integer buildNumber) throws Exception {
+
+        Map<String, String> pathParamsMap = new HashMap<>();
+        pathParamsMap.put("featureBranch", featureBranch);
+        pathParamsMap.put("buildNumber", buildNumber.toString());
+        RestResponse restResponse = sendJenkinsRequest("Get Build Info cvision", pathParamsMap);
+
+        if (!restResponse.getStatusCode().equals(StatusCode.OK))
+            throw new Exception(restResponse.getBody().getBodyAsString());
+
+        ObjectMapper objectMapper = new ObjectMapper();
+        return objectMapper.readValue(restResponse.getBody().getBodyAsString(), BuildPojo.class);
+    }
+
+
+
     private static RestResponse sendJenkinsRequest(String requestLabel, Map<String, String> pathParamsMap) throws Exception {
         ObjectMapper objectMapper = new ObjectMapper();
         URL resource = JenkinsAPI.class.getClassLoader().getResource("restApis/Generic-REST-API/ThirdPartyAPIs/jenkins.json");
