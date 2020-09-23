@@ -4,13 +4,13 @@ Feature: Forensic Wizard
 
   @SID_1 @Sanity
   Scenario: Clean system data before Top Attacks test
+    And CLI Reset radware password
     Given CLI kill all simulator attacks on current vision
     And REST Delete ES index "dp-*"
     And REST Request "PUT" for "Connectivity->Inactivity Timeout for Configuration"
       | type | value                                 |
       | body | sessionInactivTimeoutConfiguration=60 |
     And CLI Clear vision logs
-    And CLI Reset radware password
 
   @SID_2 @Sanity
   Scenario: Run DP simulator PCAPs for Top Attacks test
