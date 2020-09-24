@@ -10,7 +10,6 @@ import com.radware.vision.thirdPartyAPIs.jFrog.pojos.ArtifactFolderPojo;
 import com.radware.vision.thirdPartyAPIs.jFrog.pojos.ArtifactPojo;
 import com.radware.vision.thirdPartyAPIs.jenkins.JenkinsAPI;
 import com.radware.vision.thirdPartyAPIs.jenkins.pojos.BuildPojo;
-import lombok.Data;
 import models.RestResponse;
 import models.StatusCode;
 import org.modelmapper.ModelMapper;
@@ -94,26 +93,22 @@ public class RepositoryService {
         JFrogFileModel jFrogFileModel = modelMapper.map(filePojo, JFrogFileModel.class);
         jFrogFileModel.setType(fileType);
         return jFrogFileModel;
-
-
-//        return null;
     }
 
 
     private ArtifactFilePojo getFile(ArtifactFolderPojo buildPojo, FileType fileType) throws Exception {
-        List<ArtifactChildPojo> filterByFileType = buildPojo.getChildren().stream().filter(artifactChildPojo -> artifactChildPojo.getUri().getPath().endsWith(fileType.getExtension())).collect(Collectors.toList());
+        List<ArtifactChildPojo> filterByFileType = buildPojo.getChildren().stream().filter(artifactChildPojo ->
+                artifactChildPojo.getUri().getPath().substring(1).matches(fileType.getExtension())).collect(Collectors.toList());
         if (filterByFileType.size() == 0)
             throw new Exception(String.format("No File with extension %s was found", fileType.getExtension()));
-//        if (filterByFileType.size() > 1) throw new Exception(
-//                String.format("%d Files with extension %s were found: %s\n Please Customize Filtering Method at %s Class",
-//                        filterByFileType.size(),
-//                        fileType.getExtension(),
-//                        filterByFileType.toString(),
-//                        this.getClass().getName()
-//                ));
-
+        if (filterByFileType.size() > 1) throw new Exception(
+                String.format("%d Files with extension %s were found: %s\n Please Customize Filtering Method at %s Class",
+                        filterByFileType.size(),
+                        fileType.getExtension(),
+                        filterByFileType.toString(),
+                        this.getClass().getName()
+                ));
         String path = String.format("%s%s", buildPojo.getPath().getPath().substring(1), filterByFileType.get(0).getUri().toString());
-
         return getPojo(path, StatusCode.OK, ArtifactFilePojo.class);
     }
 
