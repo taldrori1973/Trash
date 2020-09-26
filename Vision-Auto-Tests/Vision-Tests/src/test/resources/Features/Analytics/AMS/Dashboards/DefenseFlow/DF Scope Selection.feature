@@ -1,6 +1,7 @@
-@TC111125
+@TC111125 
 Feature: DF Scope Selection
 
+  
   @SID_1
   Scenario: VRM - Login to VRM "Wizard" Test
     * REST Login with user "sys_admin" and password "radware"
@@ -13,7 +14,7 @@ Feature: DF Scope Selection
   Scenario: Select All Validation
     Given UI Set Checkbox "Device Selection.All Devices Selection" with extension "" To "true"
     Then UI validate Checkbox by label "Device Selection.All Devices Selection" with extension "" if Selected "true"
-    Then UI Validate Text field "Checked Number" CONTAINS "203/203"
+    Then UI Validate Text field "Checked Number" CONTAINS "203 / 203"
     And UI Set Checkbox "Device Selection.All Devices Selection" with extension "" To "false"
 
   @SID_3
@@ -33,8 +34,9 @@ Feature: DF Scope Selection
       | PO_109 |
     And UI Click Button "Cancel Scope Selection"
     And UI Do Operation "Select" item "Protected Objects"
-    Then UI Validate Search Numbering With text: "PO_10" And Element Label: "Prefix PO" In Search Label "Filter" If this equal to 22
+    Then UI Validate Search Numbering With text: "PO_10" And Element Label: "Prefix PO" In Search Label "Filter" If this equal to 11
     And UI Click Button "Cancel Scope Selection"
+
 
   @SID_4
   Scenario: Validate Selected Checkbox
@@ -53,6 +55,7 @@ Feature: DF Scope Selection
     Then UI Validate the attribute "Class" Of Label "PO Name" With Params "PO_2" is "CONTAINS" to "checked"
     And UI Click Button "Cancel Scope Selection"
 
+  
   @SID_5
   Scenario: Select Default POs
     Given UI Click Button "Protected Objects"
@@ -60,6 +63,24 @@ Feature: DF Scope Selection
       | PO_100 |
       | PO_200 |
       | PO_300 |
+
+
+  @SID_7
+  Scenario: Validate that checked POs appears in top of list
+    Given UI Click Button "Protected Objects"
+    Then UI Validate order of labels "Device Selection.Available Device CheckBox" with attribute "Class" that "CONTAINS" value of "checked"
+      | name   | index |
+      | PO_100 | 0     |
+      | PO_200 | 1     |
+      | PO_300 | 2     |
+    And UI Click Button "Cancel Scope Selection"
+
+  @SID_8
+  Scenario: Select Only One PO
+    Given UI Click Button "Protected Objects"
+    And UI Select scope from dashboard and Save Filter device type "defenseflow"
+      | PO_121 |
+    Then UI Validate Text field "Protected Objects Name" with params "PO_121" EQUALS "PO_121"
 
   @SID_6
   Scenario: Cleanup
