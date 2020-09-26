@@ -1360,6 +1360,11 @@ public class VRMHandler {
         }
     }
 
+    public static class DfProtectedObject{
+        public String name;
+        public Integer index;
+    }
+
     public static class DevicesAndPolices {
         int index;
         String polices, total;
