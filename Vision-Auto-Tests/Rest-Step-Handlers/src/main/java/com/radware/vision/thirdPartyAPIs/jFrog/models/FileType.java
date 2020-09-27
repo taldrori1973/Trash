@@ -18,7 +18,7 @@ public enum FileType {
     ISO_SERIAL("APSoluteVision-Serial_console-\\d(.*)-x86_64.iso");
 
     private String extension;
-
+    private String fileName;
     FileType(String extension) {
         this.extension = extension;
     }
@@ -30,4 +30,11 @@ public enum FileType {
     public void setExtension(String extension) {
         this.extension = extension;
     }
+    public void setFileName(String fileName) {
+        this.fileName = fileName;
+    }
+    public String getFileName() {
+        return fileName;
+    }
+
 }
