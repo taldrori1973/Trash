@@ -109,6 +109,7 @@ public class RepositoryService {
                         this.getClass().getName()
                 ));
         String path = String.format("%s%s", buildPojo.getPath().getPath().substring(1), filterByFileType.get(0).getUri().toString());
+        fileType.setFileName(filterByFileType.get(0).getUri().toString().substring(1));
         return getPojo(path, StatusCode.OK, ArtifactFilePojo.class);
     }
 
