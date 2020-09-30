@@ -3,6 +3,7 @@ package com.radware.vision.bddtests.vmoperations;
 import com.radware.automation.tools.basetest.BaseTestUtils;
 import com.radware.automation.tools.basetest.Reporter;
 import com.radware.vision.automation.tools.sutsystemobjects.VisionVMs;
+import com.radware.vision.bddtests.vmoperations.Deploy.FreshInstallOVA;
 import com.radware.vision.vision_handlers.NewVmHandler;
 
 import java.io.IOException;
@@ -44,7 +45,8 @@ public class freshInstallThread extends Thread {
     @Override
     public void run() {
         try {
-            vmHandler.firstTimeWizardOva(false, vCenterURL, vCenterUser, vCenterPassword, hostip,
+            FreshInstallOVA freshInstallOVA = new FreshInstallOVA(true, false, null, null, "dev", "vision-snapshot-local");
+            vmHandler.firstTimeWizardOva(freshInstallOVA.getBuildFileInfo().getDownloadUri().toString(),false, vCenterURL, vCenterUser, vCenterPassword, hostip,
                     version, build, vmName, null, networkName, resourcePool, null, dataStores);
         }
 //        catch (InterruptedException e) {
