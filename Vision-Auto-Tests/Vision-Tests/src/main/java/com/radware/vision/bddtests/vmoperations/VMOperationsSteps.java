@@ -15,6 +15,9 @@ import com.radware.vision.bddtests.clioperation.connections.NewVmSteps;
 import com.radware.vision.bddtests.clioperation.system.upgrade.UpgradeSteps;
 import com.radware.vision.bddtests.defenseFlow.defenseFlowDevice;
 import com.radware.vision.bddtests.rest.BasicRestOperationsSteps;
+import com.radware.vision.bddtests.vmoperations.Deploy.FreshInstallKVM;
+import com.radware.vision.bddtests.vmoperations.Deploy.Physical;
+import com.radware.vision.bddtests.vmoperations.Deploy.Upgrade;
 import com.radware.vision.enums.VisionDeployType;
 import com.radware.vision.infra.testhandlers.cli.CliOperations;
 import com.radware.vision.vision_handlers.NewVmHandler;
@@ -75,7 +78,7 @@ public class VMOperationsSteps extends BddUITestBase {
      */
     @When("^Revert Vision number (\\d+) to snapshot$")
     public void revertSnapshot(int vmNumber) throws Exception {
-        VmSnapShotOperations.newInstance().revertVMWareSnapshot(vmNumber,true);
+        VmSnapShotOperations.newInstance().revertVMWareSnapshot(vmNumber, true);
     }
 
     @When("^Revert DefenseFlow to snapshot$")
@@ -111,7 +114,10 @@ public class VMOperationsSteps extends BddUITestBase {
 
     @Then("^Prerequisite for Setup(\\s+force)?$")
     public void prerequisiteForSetup(String force) {
-        if (force != null || isSetupNeeded()) {
+        String featureBranch = "master";
+        String repositoryName = "vision-snapshot-local";
+        Upgrade upgrade = new Upgrade(true, false, null, null, featureBranch, repositoryName);
+        if (force != null || upgrade.isSetupNeeded) {
             try {
                 String setupMode = getVisionSetupAttributeFromSUT("setupMode");
                 VisionRadwareFirstTime visionRadwareFirstTime = (VisionRadwareFirstTime) system.getSystemObject("visionRadwareFirstTime");
@@ -204,33 +210,31 @@ public class VMOperationsSteps extends BddUITestBase {
 
     @Then("^Upgrade or Fresh Install Vision$")
     public void upgradeOrFreshInstallVision() {
-        UpgradeSteps upgradeSteps = new UpgradeSteps();
-        if (!isSetupNeeded()) return;
+//        if (!isSetupNeeded()) return;
         String setupMode = getVisionSetupAttributeFromSUT("setupMode");
         if (setupMode == null) throw new NullPointerException("Can't find \"setupMode\" at SUT File");
         String version = readVisionVersionFromPomFile();
         String build = "";
         build = BaseTestUtils.getRuntimeProperty("BUILD", build);//get build from portal
         boolean isAPM = getVisionSetupAttributeFromSUT("isAPM") != null && Boolean.parseBoolean(getVisionSetupAttributeFromSUT("isAPM"));
+        String repositoryName = "vision-snapshot-local";
+        String featureBranch = "master";
 
         switch (setupMode.toLowerCase()) {
             case "kvm_upgrade":
             case "upgrade":
-                upgradeSteps.UpgradeVisionServer(version, build);
+                Upgrade upgrade = new Upgrade(true, isAPM, null, null, featureBranch, repositoryName);
+                upgrade.deploy();
                 break;
 
             case "upgrade_inparallel":
             case "kvm_upgrade_inparallel":
-                upgradeSteps.UpgradeVisionToLatestBuildTwoMachines();
+                UpgradeSteps.UpgradeVisionToLatestBuildTwoMachines();
                 break;
 
             case "kvm_fresh install":
-                NewVmHandler vmHandler = new NewVmHandler();
-                try {
-                    vmHandler.firstTimeWizardKVM(isAPM, version, build);
-                } catch (Exception e) {
-                    BaseTestUtils.report(e.getMessage(), Reporter.FAIL);
-                }
+                FreshInstallKVM freshInstallKVM = new FreshInstallKVM(true, isAPM, null, null, featureBranch, repositoryName);
+                freshInstallKVM.deploy();
                 break;
 
             case "fresh install_inparallel":
@@ -249,17 +253,12 @@ public class VMOperationsSteps extends BddUITestBase {
                 List<List<String>> row = Arrays.asList(columnNames, values);
                 DataTable dataTable = DataTable.create(row, Locale.getDefault(), "version", "build", "NewVmName", "isAPM");
                 newVmSteps.firstTimeWizardOva(dataTable, visionVMs);
+
                 break;
 
             case "physical":
-                try {
-                    NewVmHandler newVmHandler = new NewVmHandler();
-                    newVmHandler.firstTimeWizardIso(version, build);
-                    BasicRestOperationsSteps basicRestOperationsSteps = new BasicRestOperationsSteps();
-                    basicRestOperationsSteps.loginWithActivation("radware", "radware");
-                } catch (Exception e) {
-                    BaseTestUtils.report(e.getMessage(), Reporter.FAIL);
-                }
+                Physical physical = new Physical(true, isAPM, null, null, featureBranch, repositoryName);
+                physical.deploy();
                 break;
 
             default: {

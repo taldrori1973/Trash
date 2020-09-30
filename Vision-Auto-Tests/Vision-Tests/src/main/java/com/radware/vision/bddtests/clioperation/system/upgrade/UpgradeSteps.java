@@ -32,8 +32,8 @@ public class UpgradeSteps extends BddCliTestBase {
     @When("^Upgrade vision to version \"(.*)\", build \"(.*)\"$")
     public void UpgradeVisionServer(String version, String build) {
         try {
-            VisionServer.upgradeServerFile(getRestTestBase().getRadwareServerCli(), getRestTestBase().getRootServerCli()
-                    , version, build, null, isAPM());
+//            VisionServer.upgradeServerFile(getRestTestBase().getRadwareServerCli(), getRestTestBase().getRootServerCli()
+//                    , version, build, null, isAPM());
             validateVisionServerServicesUP(restTestBase.getRadwareServerCli());
         } catch (Exception e) {
             BaseTestUtils.report("Setup Failed changing server to OFFLINE", Reporter.FAIL);
@@ -63,7 +63,7 @@ public class UpgradeSteps extends BddCliTestBase {
 
 
     @When("^Upgrade in Parallel,backup&Restore setup$")        /// backup and restore setup
-    public void UpgradeVisionToLatestBuildTwoMachines() {
+    public static void UpgradeVisionToLatestBuildTwoMachines() {
         try {
             String sourceIP = restTestBase.getVisionServerHA().getHost_2();
             String targetIP = restTestBase.getVisionServer().getHost();
@@ -92,13 +92,13 @@ public class UpgradeSteps extends BddCliTestBase {
         }
     }
 
-    private boolean isAPM() throws Exception {
+    private  static boolean isAPM() throws Exception {
         rootServerCli.connect();
         CliOperations.runCommand(rootServerCli, "df -h | grep apm | grep /vz/private | wc -l", 5 * 60 * 1000);
         return !CliOperations.lastRow.equals("0");
     }
 
-    private void validateVisionServerServicesUP(RadwareServerCli serverCli) throws Exception {
+    public static void validateVisionServerServicesUP(RadwareServerCli serverCli) throws Exception {
         try {
             serverCli.disconnect();
             serverCli.connect();

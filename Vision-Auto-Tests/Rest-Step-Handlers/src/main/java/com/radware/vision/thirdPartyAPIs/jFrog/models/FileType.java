@@ -33,8 +33,8 @@ public enum FileType {
     public void setFileName(String fileName) {
         this.fileName = fileName;
     }
-    public String getFileName() {
-        return fileName;
-    }
+//    public String getFileName() {
+//        return extension;
+//    }
 
 }

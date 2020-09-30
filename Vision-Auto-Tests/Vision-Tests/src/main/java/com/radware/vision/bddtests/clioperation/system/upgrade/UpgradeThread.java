@@ -4,6 +4,7 @@ import com.radware.automation.tools.basetest.BaseTestUtils;
 import com.radware.automation.tools.basetest.Reporter;
 import com.radware.automation.tools.utils.InvokeUtils;
 import com.radware.vision.bddtests.clioperation.FileSteps;
+import com.radware.vision.bddtests.vmoperations.Deploy.Upgrade;
 import com.radware.vision.infra.testhandlers.cli.CliOperations;
 import com.radware.vision.vision_handlers.system.upgrade.visionserver.VisionServer;
 import com.radware.vision.vision_project_cli.RadwareServerCli;
@@ -36,7 +37,9 @@ public class UpgradeThread extends Thread {
             RadwareServerCli.init();
             RootServerCli.init();
             BaseTestUtils.report("Upgrading server:" + RootServerCli.getHost(), Reporter.PASS_NOR_FAIL);
-            VisionServer.upgradeServerFile(RadwareServerCli, RootServerCli, versionNumber, build, null, isAPM);
+//            VisionServer.upgradeServerFile(RadwareServerCli, RootServerCli, versionNumber, build, null, isAPM);
+            Upgrade upgrade = new Upgrade(true, isAPM, null, null, "dev", "vision-snapshot-local");
+            upgrade.deploy();
             BaseTestUtils.report("Waiting for services on server:" + RootServerCli.getHost(), Reporter.PASS_NOR_FAIL);
             com.radware.vision.vision_handlers.system.VisionServer.waitForVisionServerServicesToStartHA(RadwareServerCli, 20 * 60 * 1000);
             FileSteps f = new FileSteps();

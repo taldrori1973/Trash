@@ -86,7 +86,7 @@ public class RepositoryService {
         String artifactPojoPtah = artifactPojo.getPath().getPath();
         ArtifactFolderPojo artifactPojoFolder = getPojo(artifactPojoPtah, StatusCode.OK, ArtifactFolderPojo.class);
         ArtifactFolderPojo branchPojo = getBranch(artifactPojoFolder, branch);
-        String path = branchPojo.getPath().getPath().substring(1) + "/" + getLastSuccessfulExtendedBuild(branchPojo, fileType, branch);
+        String path = branchPojo.getPath().getPath().substring(1) + "/" + getLastSuccessfulExtendedBuild(branchPojo, branch);
         buildPojo = getPojo(path, StatusCode.OK, ArtifactFolderPojo.class);
         ArtifactFilePojo filePojo = getFile(buildPojo, fileType);
         ModelMapper modelMapper = new ModelMapper();
@@ -229,7 +229,7 @@ public class RepositoryService {
     }
 
 
-    private Integer getLastSuccessfulExtendedBuild(ArtifactFolderPojo buildParent, FileType fileType, String jenkinsJob) throws Exception {
+    private Integer getLastSuccessfulExtendedBuild(ArtifactFolderPojo buildParent, String jenkinsJob) throws Exception {
 //        build array of builds number
         Set<Integer> buildsNumbers = buildParent.getChildren().stream().map(buildChildPojo -> Integer.parseInt(buildChildPojo.getUri().getPath().substring(1))).collect(Collectors.toSet());
         Stack<Integer> builds = countingSort(buildsNumbers);
@@ -258,6 +258,15 @@ public class RepositoryService {
             e.printStackTrace();
         }
         return true;
+    }
+
+
+    public int getLastExtendedBuildNumberFromBranch(String branch) throws Exception {
+        ArtifactPojo artifactPojo = getPojo("", StatusCode.OK, ArtifactPojo.class);
+        String artifactPojoPtah = artifactPojo.getPath().getPath();
+        ArtifactFolderPojo artifactPojoFolder = getPojo(artifactPojoPtah, StatusCode.OK, ArtifactFolderPojo.class);
+        ArtifactFolderPojo branchPojo = getBranch(artifactPojoFolder, branch);
+        return getLastSuccessfulExtendedBuild(branchPojo, branch);
     }
 
 }
