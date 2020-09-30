@@ -42,6 +42,7 @@ import com.radware.vision.infra.enums.UpperBarItems;
 import com.radware.vision.infra.testhandlers.BaseHandler;
 import com.radware.vision.infra.testhandlers.baseoperations.enums.Operation;
 import com.radware.vision.infra.testhandlers.vrm.VRMBaseUtilies;
+import com.radware.vision.infra.testhandlers.vrm.VRMHandler;
 import com.radware.vision.infra.utils.*;
 import com.radware.vision.vision_project_cli.MysqlClientCli;
 import com.radware.vision.vision_project_cli.RadwareServerCli;
@@ -962,6 +963,31 @@ public class BasicOperationsHandler {
                 }
                 break;
         }
+    }
+
+
+    public static void uiValidationItemsOrderInList(String label, String attribute, String compare, String value, List<VRMHandler.DfProtectedObject> entries) {
+
+        VisionDebugIdsManager.setLabel(label);
+        VisionDebugIdsManager.setParams("");
+
+        List<WebElement> checkedItems = WebUIUtils.fluentWaitMultiple(new ComponentLocator(How.XPATH,"//*[contains(@data-debug-id,'" + VisionDebugIdsManager.getDataDebugId() + "') and contains(@" + attribute + ",'" + value + "')]").getBy());
+
+        if(checkedItems != null){
+            for (int i=0; i<entries.size(); i++)
+            {
+                if (!checkedItems.get(entries.get(i).index).getText().equals(entries.get(i).name))
+                    BaseTestUtils.report("The Expected value in index " + entries.get(i).index + " is: " +
+                            "" + entries.get(i).name + " But Actual Value is: " + checkedItems.get(entries.get(i).index).getText(), Reporter.FAIL);
+            }
+
+        }else{
+
+            BaseTestUtils.report("There are no selected Items found ", Reporter.FAIL);
+        }
+
+
+
     }
 
 

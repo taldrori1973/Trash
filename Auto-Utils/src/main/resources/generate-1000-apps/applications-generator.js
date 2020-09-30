@@ -21,7 +21,7 @@ const hex = [
 
 const apps = [];
 
-const template = {
+const reporter_virtualServer_template = {
   entityType: "Virtual Service",
   deviceID: "$myDevId",
   timestamp: "${ms_clock}",
@@ -59,18 +59,6 @@ const template = {
   applicHealthScore: "0",
 };
 
-function generate(numberOfApps) {
-  for (let index = 1; index <= numberOfApps; index++) {
-    let app = { ...template };
-    app.virtualServerID = `service_application_${index}_\$\{myiphex\}`;
-    app.virtualServerIP = `${getIp(index)}`;
-    app.uid = `${generateUUID(38)}$myiphex`;
-    app.applicationId = `${app.virtualServerID}:${app.servicePort}`;
-
-    apps.push(app);
-  }
-}
-
 function getIp(index) {
   let thirdOctet = Math.floor(index / 255) + 1;
   let fourthOctet = index % 255;
@@ -85,20 +73,18 @@ function generateUUID(size) {
   return uuid;
 }
 
-function generateVirtualServersObject(numOfApps) {
-  generate(numOfApps);
-  let virts = {};
-  apps.forEach((app) => {
-    let virtName = `${app.virtualServerID}_${app.servicePort}`;
-    virts[virtName] = [app];
-  });
+module.exports.generateApps = function (numberOfApps) {
+  for (let index = 1; index <= numberOfApps; index++) {
+    let app = { ...reporter_virtualServer_template };
+    app.virtualServerID = `service_application_${index}_\$\{myiphex\}`;
+    app.virtualServerIP = `${getIp(index)}`;
+    app.uid = `${generateUUID(38)}$myiphex`;
+    app.applicationId = `${app.virtualServerID}:${app.servicePort}`;
 
-  return virts;
-}
+    apps.push(app);
+  }
+};
 
-// generate(1000);
-// console.log(JSON.stringify(apps));
-let jsonResult = JSON.stringify(generateVirtualServersObject(1000));
-fs.writeFile("apps.json", jsonResult, (err) => {
-  if (err) throw err;
-});
+module.exports.getApps = function () {
+  return apps;
+};

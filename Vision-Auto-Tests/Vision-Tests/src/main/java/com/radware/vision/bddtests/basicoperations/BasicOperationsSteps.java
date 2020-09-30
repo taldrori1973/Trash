@@ -23,8 +23,10 @@ import com.radware.vision.infra.testhandlers.baseoperations.BasicOperationsHandl
 import com.radware.vision.infra.testhandlers.baseoperations.clickoperations.ClickOperationsHandler;
 import com.radware.vision.infra.testhandlers.cli.CliOperations;
 import com.radware.vision.infra.testhandlers.topologytree.TopologyTreeHandler;
+import com.radware.vision.infra.testhandlers.vrm.VRMHandler;
 import com.radware.vision.infra.utils.TimeUtils;
 import com.radware.vision.infra.utils.VisionWebUIUtils;
+import cucumber.api.PendingException;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
@@ -433,6 +435,13 @@ public class BasicOperationsSteps extends BddUITestBase {
         BasicOperationsHandler.uiValidateClassContentOfWithParamsIsEQUALSCONTAINSTo(attribute, label, params, compare, value, expectedErrorMessage);
     }
 
+    @Then("^UI Validate order of labels \"([^\"]*)\" with attribute \"([^\"]*)\" that \"(EQUALS|CONTAINS|NOT CONTAINS)\" value of \"([^\"]*)\"$")
+    public void uiValidateOrderOfLabelsWithAttributeThatValueOf(String label, String attribute, String compare, String value, List<VRMHandler.DfProtectedObject> entries) {
+        BasicOperationsHandler.uiValidationItemsOrderInList(label, attribute, compare, value, entries);
+
+
+    }
+
     @Then("^UI clear (\\d+) characters in \"([^\"]*)\"(?: with params \"([^\"]*)\")?(?: with enter Key \"(true|false)\")?$")
     public void uiClearCharactersInWithParamsEnterKeyTrue(int numCharacters, String label, String params, String enterKey) {
         VisionDebugIdsManager.setLabel(label);
@@ -562,6 +571,8 @@ public class BasicOperationsSteps extends BddUITestBase {
         boolean isDisabled = BasicOperationsHandler.isNavigationDisabled(tab);
         assert isDisabled;
     }
+
+
 
     static public class TableEntry {
         String columnName;
