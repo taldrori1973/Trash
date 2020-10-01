@@ -77,7 +77,7 @@ public class NewVmSteps extends BddCliTestBase {
             try {
                 FreshInstallOVA freshInstallOVA = new FreshInstallOVA(true, isAPM, null, null, "master", "vision-snapshot-local");
                 handler.firstTimeWizardOva(freshInstallOVA.getBuildFileInfo().getDownloadUri().toString(),isAPM, vCenterURL, vCenterUser, vCenterPassword, hostip,
-                        version, build, newVmName, null, networkName, resourcePool, destFolder, dataStores);
+                        version, freshInstallOVA.getBuild(), newVmName, null, networkName, resourcePool, destFolder, dataStores);
             } catch (Exception e) {
                 BaseTestUtils.report("Setup Failed changing server to OFFLINE", Reporter.FAIL);
                 BaseTestUtils.report("Failed to Create NewVm: " + data.get("NewVmName") + " failed with the following error: \n" +
