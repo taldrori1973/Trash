@@ -216,14 +216,16 @@ public class VMOperationsSteps extends BddUITestBase {
         String version = readVisionVersionFromPomFile();
         String build = "";
         build = BaseTestUtils.getRuntimeProperty("BUILD", build);//get build from portal
-        boolean isAPM = (getVisionSetupAttributeFromSUT("isAPM") != null && Boolean.parseBoolean(getVisionSetupAttributeFromSUT("isAPM")))|| UpgradeSteps.isAPM();
+        boolean isAPM = getVisionSetupAttributeFromSUT("isAPM") != null && Boolean.parseBoolean(getVisionSetupAttributeFromSUT("isAPM"));
         String repositoryName = "vision-snapshot-local";
-        String featureBranch = "master";
+        String featureBranch ="master";
+//        String featureBranch = BaseTestUtils.getRuntimeProperty("BRANCH","");
+
 
         switch (setupMode.toLowerCase()) {
             case "kvm_upgrade":
             case "upgrade":
-                Upgrade upgrade = new Upgrade(true, isAPM, null, null, featureBranch, repositoryName);
+                Upgrade upgrade = new Upgrade(true, UpgradeSteps.isAPM(), null, null, featureBranch, repositoryName);
                 upgrade.deploy();
                 break;
 
