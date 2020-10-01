@@ -92,8 +92,12 @@ public class UpgradeSteps extends BddCliTestBase {
         }
     }
 
-    private  static boolean isAPM() throws Exception {
-        rootServerCli.connect();
+    public static boolean isAPM() {
+        try {
+            rootServerCli.connect();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
         CliOperations.runCommand(rootServerCli, "df -h | grep apm | grep /vz/private | wc -l", 5 * 60 * 1000);
         return !CliOperations.lastRow.equals("0");
     }
