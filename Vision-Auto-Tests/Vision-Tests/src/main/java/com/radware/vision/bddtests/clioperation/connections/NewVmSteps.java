@@ -75,8 +75,8 @@ public class NewVmSteps extends BddCliTestBase {
 
             NewVmHandler handler = new NewVmHandler();
             try {
-                FreshInstallOVA freshInstallOVA = new FreshInstallOVA(true, isAPM, null, null, "dev", "vision-snapshot-local");
-                handler.firstTimeWizardOva(freshInstallOVA.getBuildFileInfo().getDownloadUri().getPath(),isAPM, vCenterURL, vCenterUser, vCenterPassword, hostip,
+                FreshInstallOVA freshInstallOVA = new FreshInstallOVA(true, isAPM, null, null, "master", "vision-snapshot-local");
+                handler.firstTimeWizardOva(freshInstallOVA.getBuildFileInfo().getDownloadUri().toString(),isAPM, vCenterURL, vCenterUser, vCenterPassword, hostip,
                         version, build, newVmName, null, networkName, resourcePool, destFolder, dataStores);
             } catch (Exception e) {
                 BaseTestUtils.report("Setup Failed changing server to OFFLINE", Reporter.FAIL);
