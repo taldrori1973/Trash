@@ -1,3 +1,4 @@
+@run
 @TC110221
 Feature: AMS actionable edit Threshold
   @SID_1
@@ -22,7 +23,7 @@ Feature: AMS actionable edit Threshold
     Then CLI Operations - Verify that output contains regex ".*adjust_profile.*"
   @SID_3
   Scenario: run attacks
-    Given CLI simulate 1000 attacks of type "baselines_pol_1_dynamic" on "DefensePro" 10 and wait 10 seconds
+    Given CLI simulate 1000 attacks of type "baselines_pol_1_dynamic" on "DefensePro" 11 and wait 10 seconds
 
   @SID_4
   Scenario: login
@@ -43,7 +44,7 @@ Feature: AMS actionable edit Threshold
   @SID_7
   Scenario: Edit Bandwidth Fill, BDOS
     When UI Click Button "Edit Bandwidth"
-#    Then fill device: "DefensePro_172.16.22.50", Edit Treshold
+#    Then fill device: "DefensePro_172.16.22.51", Edit Treshold
     Then UI Set Text Field "BDOS Profile Name" To "AAA" enter Key false
     Then UI Set Text Field BY Character "Inbound Trafic" To "1234"
     Then UI Set Text Field BY Character "Outbound Trafic" To "123"
@@ -55,12 +56,12 @@ Feature: AMS actionable edit Threshold
   Scenario: Validate BDOS Bandwidth , BDOS
     #must wait until Profile table updated
     Then Sleep "10"
-    Then Rest Validate BDOS Table DP: ip "172.16.22.50" Profile:"AAA" ,Inbound:"1234", Outbound:"123"
+    Then Rest Validate BDOS Table DP: ip "172.16.22.51" Profile:"AAA" ,Inbound:"1234", Outbound:"123"
 
   @SID_9
   Scenario: Edit Bandwidth Fill
     When UI Click Button "Edit Bandwidth"
-#    Then fill device: "DefensePro_172.16.22.50", Edit Treshold
+#    Then fill device: "DefensePro_172.16.22.51", Edit Treshold
     Then UI Set Text Field "BDOS Profile Name" To "AAA" enter Key false
     Then UI Set Text Field BY Character "Inbound Trafic" To "999"
     Then UI Set Text Field BY Character "Outbound Trafic" To "1000"
@@ -71,7 +72,7 @@ Feature: AMS actionable edit Threshold
   Scenario: Validate BDOS Bandwidth
     #must wait until Profile table updated
     Then Sleep "10"
-    Then Rest Validate BDOS Table DP: ip "172.16.22.50" Profile:"AAA" ,Inbound:"999", Outbound:"1000"
+    Then Rest Validate BDOS Table DP: ip "172.16.22.51" Profile:"AAA" ,Inbound:"999", Outbound:"1000"
 
   @SID_11
   Scenario: Validate Vdirect logs
@@ -103,7 +104,7 @@ Feature: AMS actionable edit Threshold
   Scenario: Validate DNS Bandwidth
     #must wait until Profile table updated
     Then Sleep "5"
-    Then Rest Validate DNS Table DP: ip "172.16.22.50" Profile:"DNFp" ,QueryRate:"1234", MaxQPS:"5678"
+    Then Rest Validate DNS Table DP: ip "172.16.22.51" Profile:"DNFp" ,QueryRate:"1234", MaxQPS:"5678"
 
   @SID_16
   Scenario: Validate Vdirect log
@@ -125,7 +126,7 @@ Feature: AMS actionable edit Threshold
   Scenario: Validate Bandwidth DNS
     #must wait until Profile table updated
     Then Sleep "5"
-    Then Rest Validate DNS Table DP: ip "172.16.22.50" Profile:"DNFp" ,QueryRate:"100000", MaxQPS:"110000"
+    Then Rest Validate DNS Table DP: ip "172.16.22.51" Profile:"DNFp" ,QueryRate:"100000", MaxQPS:"110000"
 
   @SID_19
   Scenario: Cleanup
