@@ -19,7 +19,8 @@ public class FreshInstallOVA extends Deploy {
 
     public FreshInstallOVA(boolean isExtended, boolean isAPM, String build, String version, String featureBranch, String repositoryName) {
         super(isExtended, isAPM, build, version, featureBranch, repositoryName);
-        buildFileInfo(FileType.OVA);
+        buildFileInfo(isAPM ? FileType.OVA_APM : FileType.OVA);
+
     }
 
     public void deploy() {
