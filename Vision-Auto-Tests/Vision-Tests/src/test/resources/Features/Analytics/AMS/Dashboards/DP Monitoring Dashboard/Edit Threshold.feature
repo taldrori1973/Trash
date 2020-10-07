@@ -1,4 +1,3 @@
-@run
 @TC110221
 Feature: AMS actionable edit Threshold
   @SID_1
