@@ -212,6 +212,7 @@ public class UpgradeSteps extends BddCliTestBase {
             if (build == null || build.equals("") || build.equals("0")) build = "";//Latest Build
 
             upgradeToTheNextBuild(version, build, isAPM());
+            VMOperationsSteps.updateVersionVar();
         } catch (Exception e) {
             BaseTestUtils.report(e.getMessage(), Reporter.FAIL);
         }
@@ -233,6 +234,7 @@ public class UpgradeSteps extends BddCliTestBase {
                     Reporter.PASS_NOR_FAIL);
 //            upgradeSteps.UpgradeVisionServer(version, buildUnderTest);
             upgrade.deploy();
+
             BaseTestUtils.report("Server is ready for future upgrade", Reporter.PASS_NOR_FAIL);
         }
         GeneralSteps.clearAllLogs();
