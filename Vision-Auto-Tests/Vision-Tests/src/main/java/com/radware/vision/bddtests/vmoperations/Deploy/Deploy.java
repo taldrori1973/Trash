@@ -3,19 +3,12 @@ package com.radware.vision.bddtests.vmoperations.Deploy;
 import com.radware.automation.tools.basetest.BaseTestUtils;
 import com.radware.automation.tools.basetest.Reporter;
 import com.radware.automation.utils.AutoDBUtils;
-import com.radware.vision.base.WebUITestBase;
-import com.radware.vision.enums.VisionDeployType;
 import com.radware.vision.thirdPartyAPIs.jFrog.JFrogAPI;
 import com.radware.vision.thirdPartyAPIs.jFrog.RepositoryService;
 import com.radware.vision.thirdPartyAPIs.jFrog.models.FileType;
 import com.radware.vision.thirdPartyAPIs.jFrog.models.JFrogFileModel;
-import com.radware.vision.vision_handlers.system.upgrade.visionserver.VisionDeployment;
 import cucumber.runtime.junit.FeatureRunner;
-import lombok.Data;
 import lombok.Getter;
-
-import java.io.IOException;
-
 import static com.radware.vision.bddtests.vmoperations.VMOperationsSteps.getVisionSetupAttributeFromSUT;
 import static com.radware.vision.bddtests.vmoperations.VMOperationsSteps.readVisionVersionFromPomFile;
 
