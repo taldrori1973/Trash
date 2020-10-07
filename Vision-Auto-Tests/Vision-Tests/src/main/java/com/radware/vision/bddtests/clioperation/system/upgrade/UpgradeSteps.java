@@ -3,6 +3,7 @@ package com.radware.vision.bddtests.clioperation.system.upgrade;
 import com.radware.automation.tools.basetest.BaseTestUtils;
 import com.radware.automation.tools.basetest.Reporter;
 import com.radware.automation.tools.utils.InvokeUtils;
+import com.radware.vision.base.WebUITestBase;
 import com.radware.vision.bddtests.BddCliTestBase;
 import com.radware.vision.bddtests.clioperation.GeneralSteps;
 import com.radware.vision.bddtests.vmoperations.Deploy.Upgrade;
@@ -142,14 +143,19 @@ public class UpgradeSteps extends BddCliTestBase {
      * @param isApm         - True if server is APM else false
      */
     private void upgradeToNonSupportedVersion(String versionNumber, String buildNumber, boolean isApm) {
-        VisionDeployment visionDeployment;
-        if (isApm)
-            visionDeployment = new VisionDeployment(VisionDeployType.UPGRADE_APM, versionNumber, buildNumber);
-        else
-            visionDeployment = new VisionDeployment(VisionDeployType.UPGRADE, versionNumber, buildNumber);
-        String fileLocation = visionDeployment.getVisionDeploymentURL();
-        String fileName = visionDeployment.getVisionDeploymentFileName();
-        String[] notSupportedVersion = visionDeployment.getNonSupportedVersion();
+//        VisionDeployment visionDeployment;
+//        if (isApm)
+//            visionDeployment = new VisionDeployment(VisionDeployType.UPGRADE_APM, versionNumber, buildNumber);
+//        else
+//            visionDeployment = new VisionDeployment(VisionDeployType.UPGRADE, versionNumber, buildNumber);
+//        String fileLocation = visionDeployment.getVisionDeploymentURL();
+//        String fileName = visionDeployment.getVisionDeploymentFileName();
+        Upgrade upgrade = new Upgrade(true, isAPM(), null, null, "master", "vision-snapshot-local");
+        String[] notSupportedVersion = upgrade.getNonSupportedVersion();
+
+        String[] path = upgrade.getBuildFileInfo().getPath().toString().split("/");
+        String fileName = path[path.length - 1];
+
         try {
             /* Change version to unsupported one */
             InvokeUtils.invokeCommand(null, "/bin/cp /opt/radware/mgt-server/build.properties /opt/radware/storage/",
@@ -161,7 +167,7 @@ public class UpgradeSteps extends BddCliTestBase {
             String changeMinorVersion = String.format("sed -i 's/buildMinorVersion: .*$/buildMinorVersion: %s/g' /opt/radware/mgt-server/build.properties", notSupportedVersion[1]);
             InvokeUtils.invokeCommand(null, changeMinorVersion, rootServerCli, GlobalProperties.THIRTY_SECONDS, false, false, true);
             BaseTestUtils.report("Setting Server property file to version: " + String.format("%s.%s.%s", notSupportedVersion[0], notSupportedVersion[1], notSupportedVersion[2]), Reporter.PASS_NOR_FAIL);
-            VisionServer.downloadUpgradeFile(rootServerCli, fileLocation);
+            VisionServer.downloadUpgradeFile(rootServerCli, upgrade.getBuildFileInfo().getDownloadUri().toString());
             String upgradePassword = "";
             radwareServerCli.setUpgradePassword(upgradePassword);
             radwareServerCli.setBeginningTheAPSoluteVisionUpgradeProcessEndsCommand(false);
@@ -220,7 +226,7 @@ public class UpgradeSteps extends BddCliTestBase {
 
 //        VMOperationsSteps vmOperationsSteps = new VMOperationsSteps();
 //        UpgradeSteps upgradeSteps = new UpgradeSteps();
-        Upgrade upgrade = new Upgrade(true, UpgradeSteps.isAPM(), build, null, "master", "vision-snapshot-local");
+        Upgrade upgrade = new Upgrade(true, isAPM(), build, null, "master", "vision-snapshot-local");
         String buildUnderTest = upgrade.getBuild();
         if (upgrade.isSetupNeeded) {
             BaseTestUtils.report("Upgrading to latest build: " + buildUnderTest,
@@ -231,9 +237,10 @@ public class UpgradeSteps extends BddCliTestBase {
         }
         GeneralSteps.clearAllLogs();
 //        VMOperationsSteps.newInstance().updateVersionVar();
-       upgrade = new Upgrade(true, UpgradeSteps.isAPM(), null, null, "master", "vision-snapshot-local");
+        upgrade = new Upgrade(true, isAPM(), null, null, "master", "vision-snapshot-local");
 //        visionDeployment = new VisionDeployment(deployType, version, "");
-        String nextBuild = upgrade.getBuild();;
+        String nextBuild = upgrade.getBuild();
+        ;
         BaseTestUtils.report(String.format("Going to upgrade from build %s to %s", buildUnderTest, nextBuild),
                 Reporter.PASS_NOR_FAIL);
 //        upgradeSteps.UpgradeVisionServer(version, visionDeployment.getBuild());
