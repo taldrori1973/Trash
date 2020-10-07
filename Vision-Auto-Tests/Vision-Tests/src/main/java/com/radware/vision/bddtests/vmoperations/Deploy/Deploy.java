@@ -34,7 +34,6 @@ public abstract class Deploy {
         this.featureBranch = "master";
 //        this.featureBranch = BaseTestUtils.getRuntimeProperty("BRANCH","");
         this.repositoryName = "vision-snapshot-local";
-        this.isAPM = getVisionSetupAttributeFromSUT("isAPM") != null && Boolean.parseBoolean(getVisionSetupAttributeFromSUT("isAPM")) || UpgradeSteps.isAPM();
         isSetupneeded();
         updateIsExtended();
     }

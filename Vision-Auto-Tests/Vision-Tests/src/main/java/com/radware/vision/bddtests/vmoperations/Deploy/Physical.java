@@ -8,12 +8,15 @@ import com.radware.vision.thirdPartyAPIs.jFrog.models.FileType;
 import com.radware.vision.thirdPartyAPIs.jFrog.models.JFrogFileModel;
 import com.radware.vision.vision_handlers.NewVmHandler;
 
+import static com.radware.vision.bddtests.vmoperations.VMOperationsSteps.getVisionSetupAttributeFromSUT;
+
 public class Physical extends Deploy {
     JFrogFileModel buildFileInfoISO;
     JFrogFileModel buildFileInfoTar;
 
     public Physical(boolean isExtended, String build) {
         super(isExtended, build);
+        this.isAPM = getVisionSetupAttributeFromSUT("isAPM") != null && Boolean.parseBoolean(getVisionSetupAttributeFromSUT("isAPM"));
         buildFileInfo();
     }
 

@@ -1,24 +1,12 @@
 package com.radware.vision.bddtests.vmoperations.Deploy;
-
-import com.radware.automation.tools.basetest.BaseTestUtils;
-import com.radware.automation.tools.basetest.Reporter;
-import com.radware.vision.automation.tools.sutsystemobjects.VisionVMs;
-import com.radware.vision.base.WebUITestBase;
-import com.radware.vision.bddtests.clioperation.connections.NewVmSteps;
-import com.radware.vision.bddtests.vmoperations.VMOperationsSteps;
-import com.radware.vision.thirdPartyAPIs.jFrog.JFrogAPI;
 import com.radware.vision.thirdPartyAPIs.jFrog.models.FileType;
-import com.radware.vision.vision_handlers.NewVmHandler;
-import cucumber.api.DataTable;
-
-import java.util.Arrays;
-import java.util.List;
-import java.util.Locale;
+import static com.radware.vision.bddtests.vmoperations.VMOperationsSteps.getVisionSetupAttributeFromSUT;
 
 public class FreshInstallOVA extends Deploy {
 
     public FreshInstallOVA(boolean isExtended, String build) {
         super(isExtended, build);
+        this.isAPM = getVisionSetupAttributeFromSUT("isAPM") != null && Boolean.parseBoolean(getVisionSetupAttributeFromSUT("isAPM"));
         buildFileInfo(this.isAPM ? FileType.OVA_APM : FileType.OVA);
 
     }

@@ -10,6 +10,8 @@ import com.radware.vision.vision_handlers.system.upgrade.visionserver.VisionServ
 import java.util.HashMap;
 import java.util.Map;
 
+import static com.radware.vision.bddtests.vmoperations.VMOperationsSteps.getVisionSetupAttributeFromSUT;
+
 public class Upgrade extends Deploy {
     private static final Map<String, String> LAST_SUPPORTED_UPGRADE_VERSION = new HashMap<String, String>() {{
         put("4.80.00", "4.50.00");
@@ -21,6 +23,7 @@ public class Upgrade extends Deploy {
 
     public Upgrade(boolean isExtended, String build) {
         super(isExtended, build);
+        this.isAPM = getVisionSetupAttributeFromSUT("isAPM") != null && Boolean.parseBoolean(getVisionSetupAttributeFromSUT("isAPM")) || UpgradeSteps.isAPM();
         buildFileInfo(isAPM ? FileType.UPGRADE_APM : FileType.UPGRADE);
     }
 
