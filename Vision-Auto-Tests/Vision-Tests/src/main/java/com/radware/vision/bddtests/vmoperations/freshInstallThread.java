@@ -20,15 +20,15 @@ public class freshInstallThread extends Thread {
     String vmName;
     String vCenterUser;
     String vCenterPassword;
-    String hostip ;
+    String hostip;
     String vCenterURL;
     String networkName;
     String resourcePool;
     String dataStores;
     String version;
 
-    freshInstallThread(String machine, String cli, String vmName){
-        vmHandler = new NewVmHandler(machine,cli);
+    freshInstallThread(String machine, String cli, String vmName) {
+        vmHandler = new NewVmHandler(machine, cli);
         build = BaseTestUtils.getRuntimeProperty("BUILD", build);//get build from portal
         visionVMs = restTestBase.getVisionVMs();
         this.vmName = vmName;
@@ -45,8 +45,8 @@ public class freshInstallThread extends Thread {
     @Override
     public void run() {
         try {
-            FreshInstallOVA freshInstallOVA = new FreshInstallOVA(true, false, null, null, "master", "vision-snapshot-local");
-            vmHandler.firstTimeWizardOva(freshInstallOVA.getBuildFileInfo().getDownloadUri().toString(),false, vCenterURL, vCenterUser, vCenterPassword, hostip,
+            FreshInstallOVA freshInstallOVA = new FreshInstallOVA(true, null);
+            vmHandler.firstTimeWizardOva(freshInstallOVA.getBuildFileInfo().getDownloadUri().toString(), false, vCenterURL, vCenterUser, vCenterPassword, hostip,
                     version, build, vmName, null, networkName, resourcePool, null, dataStores);
         }
 //        catch (InterruptedException e) {

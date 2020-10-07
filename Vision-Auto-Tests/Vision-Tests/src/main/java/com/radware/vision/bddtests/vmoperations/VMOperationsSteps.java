@@ -116,7 +116,7 @@ public class VMOperationsSteps extends BddUITestBase {
     public void prerequisiteForSetup(String force) {
         String featureBranch = "master";
         String repositoryName = "vision-snapshot-local";
-        Upgrade upgrade = new Upgrade(true, false, null, null, featureBranch, repositoryName);
+        Upgrade upgrade = new Upgrade(true, null);
         if (force != null || upgrade.isSetupNeeded) {
             try {
                 String setupMode = getVisionSetupAttributeFromSUT("setupMode");
@@ -210,22 +210,13 @@ public class VMOperationsSteps extends BddUITestBase {
 
     @Then("^Upgrade or Fresh Install Vision$")
     public void upgradeOrFreshInstallVision() {
-//        if (!isSetupNeeded()) return;
         String setupMode = getVisionSetupAttributeFromSUT("setupMode");
         if (setupMode == null) throw new NullPointerException("Can't find \"setupMode\" at SUT File");
-        String version = readVisionVersionFromPomFile();
-        String build = "";
-        build = BaseTestUtils.getRuntimeProperty("BUILD", build);//get build from portal
-        boolean isAPM = getVisionSetupAttributeFromSUT("isAPM") != null && Boolean.parseBoolean(getVisionSetupAttributeFromSUT("isAPM"));
-        String repositoryName = "vision-snapshot-local";
-        String featureBranch ="master";
-//        String featureBranch = BaseTestUtils.getRuntimeProperty("BRANCH","");
-
 
         switch (setupMode.toLowerCase()) {
             case "kvm_upgrade":
             case "upgrade":
-                Upgrade upgrade = new Upgrade(true, UpgradeSteps.isAPM(), null, null, featureBranch, repositoryName);
+                Upgrade upgrade = new Upgrade(true, null);
                 upgrade.deploy();
                 break;
 
@@ -235,7 +226,7 @@ public class VMOperationsSteps extends BddUITestBase {
                 break;
 
             case "kvm_fresh install":
-                FreshInstallKVM freshInstallKVM = new FreshInstallKVM(true, isAPM, null, null, featureBranch, repositoryName);
+                FreshInstallKVM freshInstallKVM = new FreshInstallKVM(true, null);
                 freshInstallKVM.deploy();
                 break;
 
@@ -251,7 +242,8 @@ public class VMOperationsSteps extends BddUITestBase {
 
                 List<String> columnNames = Arrays.asList("version", "build", "NewVmName", "isAPM");
                 List<String> values;
-                values = Arrays.asList(version, build, vmName, String.valueOf(isAPM));
+                boolean isAPM = getVisionSetupAttributeFromSUT("isAPM") != null && Boolean.parseBoolean(getVisionSetupAttributeFromSUT("isAPM"));
+                values = Arrays.asList(readVisionVersionFromPomFile(), null, vmName, String.valueOf(isAPM));
                 List<List<String>> row = Arrays.asList(columnNames, values);
                 DataTable dataTable = DataTable.create(row, Locale.getDefault(), "version", "build", "NewVmName", "isAPM");
                 newVmSteps.firstTimeWizardOva(dataTable, visionVMs);
@@ -259,7 +251,7 @@ public class VMOperationsSteps extends BddUITestBase {
                 break;
 
             case "physical":
-                Physical physical = new Physical(true, isAPM, null, null, featureBranch, repositoryName);
+                Physical physical = new Physical(true, null);
                 physical.deploy();
                 break;
 

@@ -11,8 +11,9 @@ import com.radware.vision.vision_handlers.NewVmHandler;
 public class Physical extends Deploy {
     JFrogFileModel buildFileInfoISO;
     JFrogFileModel buildFileInfoTar;
-    public Physical(boolean isExtended, boolean isAPM, String build, String version, String featureBranch, String repositoryName) {
-        super(isExtended, isAPM, build, version, featureBranch, repositoryName);
+
+    public Physical(boolean isExtended, String build) {
+        super(isExtended, build);
         buildFileInfo();
     }
 
@@ -21,7 +22,7 @@ public class Physical extends Deploy {
         try {
             String[] path = buildFileInfoTar.getPath().toString().split("/");
             NewVmHandler newVmHandler = new NewVmHandler();
-            newVmHandler.firstTimeWizardIso(version, build,buildFileInfoISO.getDownloadUri().getPath(),buildFileInfoTar.getDownloadUri().toString(),path[path.length-1]);
+            newVmHandler.firstTimeWizardIso(version, build, buildFileInfoISO.getDownloadUri().getPath(), buildFileInfoTar.getDownloadUri().toString(), path[path.length - 1]);
             BasicRestOperationsSteps basicRestOperationsSteps = new BasicRestOperationsSteps();
             basicRestOperationsSteps.loginWithActivation("radware", "radware");
         } catch (Exception e) {

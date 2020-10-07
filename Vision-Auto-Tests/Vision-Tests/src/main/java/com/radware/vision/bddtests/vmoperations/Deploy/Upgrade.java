@@ -19,8 +19,8 @@ public class Upgrade extends Deploy {
         put("4.40.00", "4.10.00");
     }};
 
-    public Upgrade(boolean isExtended, boolean isAPM, String build, String version, String featureBranch, String repositoryName) {
-        super(isExtended, isAPM, build, version, featureBranch, repositoryName);
+    public Upgrade(boolean isExtended, String build) {
+        super(isExtended, build);
         buildFileInfo(isAPM ? FileType.UPGRADE_APM : FileType.UPGRADE);
     }
 

@@ -21,7 +21,8 @@ public class UpgradeThread extends Thread {
     private RootServerCli RootServerCli;
     private String versionNumber;
     private boolean isAPM;
-    UpgradeThread(String IP,String upgradePassword,String buildNumber, boolean isAPM) throws Exception {
+
+    UpgradeThread(String IP, String upgradePassword, String buildNumber, boolean isAPM) throws Exception {
         this.IP = IP;
         this.build = buildNumber;
         RadwareServerCli = new RadwareServerCli(IP, restTestBase.getRadwareServerCli().getUser(), restTestBase.getRadwareServerCli().getPassword());
@@ -38,7 +39,7 @@ public class UpgradeThread extends Thread {
             RootServerCli.init();
             BaseTestUtils.report("Upgrading server:" + RootServerCli.getHost(), Reporter.PASS_NOR_FAIL);
 //            VisionServer.upgradeServerFile(RadwareServerCli, RootServerCli, versionNumber, build, null, isAPM);
-            Upgrade upgrade = new Upgrade(true, isAPM, null, null, "dev", "vision-snapshot-local");
+            Upgrade upgrade = new Upgrade(true, null);
             upgrade.deploy();
             BaseTestUtils.report("Waiting for services on server:" + RootServerCli.getHost(), Reporter.PASS_NOR_FAIL);
             com.radware.vision.vision_handlers.system.VisionServer.waitForVisionServerServicesToStartHA(RadwareServerCli, 20 * 60 * 1000);

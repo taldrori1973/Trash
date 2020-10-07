@@ -150,7 +150,7 @@ public class UpgradeSteps extends BddCliTestBase {
 //            visionDeployment = new VisionDeployment(VisionDeployType.UPGRADE, versionNumber, buildNumber);
 //        String fileLocation = visionDeployment.getVisionDeploymentURL();
 //        String fileName = visionDeployment.getVisionDeploymentFileName();
-        Upgrade upgrade = new Upgrade(true, isAPM(), null, null, "master", "vision-snapshot-local");
+        Upgrade upgrade = new Upgrade(true, null);
         String[] notSupportedVersion = upgrade.getNonSupportedVersion();
 
         String[] path = upgrade.getBuildFileInfo().getPath().toString().split("/");
@@ -227,7 +227,7 @@ public class UpgradeSteps extends BddCliTestBase {
 
 //        VMOperationsSteps vmOperationsSteps = new VMOperationsSteps();
 //        UpgradeSteps upgradeSteps = new UpgradeSteps();
-        Upgrade upgrade = new Upgrade(true, isAPM(), build, null, "master", "vision-snapshot-local");
+        Upgrade upgrade = new Upgrade(true, build);
         String buildUnderTest = upgrade.getBuild();
         if (upgrade.isSetupNeeded) {
             BaseTestUtils.report("Upgrading to latest build: " + buildUnderTest,
@@ -239,7 +239,7 @@ public class UpgradeSteps extends BddCliTestBase {
         }
         GeneralSteps.clearAllLogs();
 //        VMOperationsSteps.newInstance().updateVersionVar();
-        upgrade = new Upgrade(true, isAPM(), null, null, "master", "vision-snapshot-local");
+        upgrade = new Upgrade(true, null);
 //        visionDeployment = new VisionDeployment(deployType, version, "");
         String nextBuild = upgrade.getBuild();
         ;

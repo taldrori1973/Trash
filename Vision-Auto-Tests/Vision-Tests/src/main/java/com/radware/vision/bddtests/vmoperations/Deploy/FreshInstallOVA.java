@@ -17,9 +17,9 @@ import java.util.Locale;
 
 public class FreshInstallOVA extends Deploy {
 
-    public FreshInstallOVA(boolean isExtended, boolean isAPM, String build, String version, String featureBranch, String repositoryName) {
-        super(isExtended, isAPM, build, version, featureBranch, repositoryName);
-        buildFileInfo(isAPM ? FileType.OVA_APM : FileType.OVA);
+    public FreshInstallOVA(boolean isExtended, String build) {
+        super(isExtended, build);
+        buildFileInfo(this.isAPM ? FileType.OVA_APM : FileType.OVA);
 
     }
 

@@ -3,12 +3,14 @@ package com.radware.vision.bddtests.vmoperations.Deploy;
 import com.radware.automation.tools.basetest.BaseTestUtils;
 import com.radware.automation.tools.basetest.Reporter;
 import com.radware.automation.utils.AutoDBUtils;
+import com.radware.vision.bddtests.clioperation.system.upgrade.UpgradeSteps;
 import com.radware.vision.thirdPartyAPIs.jFrog.JFrogAPI;
 import com.radware.vision.thirdPartyAPIs.jFrog.RepositoryService;
 import com.radware.vision.thirdPartyAPIs.jFrog.models.FileType;
 import com.radware.vision.thirdPartyAPIs.jFrog.models.JFrogFileModel;
 import cucumber.runtime.junit.FeatureRunner;
 import lombok.Getter;
+
 import static com.radware.vision.bddtests.vmoperations.VMOperationsSteps.getVisionSetupAttributeFromSUT;
 import static com.radware.vision.bddtests.vmoperations.VMOperationsSteps.readVisionVersionFromPomFile;
 
@@ -24,17 +26,19 @@ public abstract class Deploy {
     JFrogFileModel buildFileInfo;
     public boolean isSetupNeeded;
 
-    public Deploy(boolean isExtended, boolean isAPM, String build, String version, String featureBranch, String repositoryName) {
+    public Deploy(boolean isExtended,String build) {
 //        this.type = type;
         this.isExtended = isExtended;
         this.build = build;
         this.version = readVisionVersionFromPomFile();
-        this.featureBranch = featureBranch;
-        this.repositoryName = repositoryName;
-        this.isAPM = getVisionSetupAttributeFromSUT("isAPM") != null && Boolean.parseBoolean(getVisionSetupAttributeFromSUT("isAPM"));
+        this.featureBranch = "master";
+//        this.featureBranch = BaseTestUtils.getRuntimeProperty("BRANCH","");
+        this.repositoryName = "vision-snapshot-local";
+        this.isAPM = getVisionSetupAttributeFromSUT("isAPM") != null && Boolean.parseBoolean(getVisionSetupAttributeFromSUT("isAPM")) || UpgradeSteps.isAPM();
         isSetupneeded();
         updateIsExtended();
     }
+
 
     abstract public void deploy();
 
