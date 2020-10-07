@@ -243,7 +243,7 @@ public class VMOperationsSteps extends BddUITestBase {
                 List<String> columnNames = Arrays.asList("version", "build", "NewVmName", "isAPM");
                 List<String> values;
                 boolean isAPM = getVisionSetupAttributeFromSUT("isAPM") != null && Boolean.parseBoolean(getVisionSetupAttributeFromSUT("isAPM"));
-                values = Arrays.asList(readVisionVersionFromPomFile(), null, vmName, String.valueOf(isAPM));
+                values = Arrays.asList(readVisionVersionFromPomFile(), "", vmName, String.valueOf(isAPM));
                 List<List<String>> row = Arrays.asList(columnNames, values);
                 DataTable dataTable = DataTable.create(row, Locale.getDefault(), "version", "build", "NewVmName", "isAPM");
                 newVmSteps.firstTimeWizardOva(dataTable, visionVMs);
