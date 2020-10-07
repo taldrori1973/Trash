@@ -26,7 +26,7 @@ public abstract class Deploy {
     JFrogFileModel buildFileInfo;
     public boolean isSetupNeeded;
 
-    public Deploy(boolean isExtended,String build) {
+    public Deploy(boolean isExtended, String build) {
 //        this.type = type;
         this.isExtended = isExtended;
         this.build = build;
@@ -35,7 +35,7 @@ public abstract class Deploy {
 //        this.featureBranch = BaseTestUtils.getRuntimeProperty("BRANCH","");
         this.repositoryName = "vision-snapshot-local";
         isSetupneeded();
-        updateIsExtended();
+//        updateIsExtended();
     }
 
 
@@ -65,9 +65,10 @@ public abstract class Deploy {
             if (build == null || build.equals("") || build.equals("0")) {
                 BaseTestUtils.report("No build was supplied. Going for latest", Reporter.PASS);
                 this.build = String.valueOf(repositoryService.getLastExtendedBuildNumberFromBranch(this.featureBranch));
-//                isExtended = true;
+                isExtended = true;
             } else {
                 this.build = build;
+                this.isExtended = false;
             }
             String currentBuild = FeatureRunner.getBuild();
             String currentVersion = FeatureRunner.getVersion();
