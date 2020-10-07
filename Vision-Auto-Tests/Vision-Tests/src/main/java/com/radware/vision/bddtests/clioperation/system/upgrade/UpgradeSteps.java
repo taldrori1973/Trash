@@ -5,6 +5,7 @@ import com.radware.automation.tools.basetest.Reporter;
 import com.radware.automation.tools.utils.InvokeUtils;
 import com.radware.vision.bddtests.BddCliTestBase;
 import com.radware.vision.bddtests.clioperation.GeneralSteps;
+import com.radware.vision.bddtests.vmoperations.Deploy.Upgrade;
 import com.radware.vision.bddtests.vmoperations.VMOperationsSteps;
 import com.radware.vision.enums.GlobalProperties;
 import com.radware.vision.enums.VisionDeployType;
@@ -212,26 +213,30 @@ public class UpgradeSteps extends BddCliTestBase {
     }
 
     private void upgradeToTheNextBuild(String version, String build, boolean isApm) throws Exception {
-        VisionDeployment visionDeployment;
-        VisionDeployType deployType = isApm ? VisionDeployType.UPGRADE_APM : VisionDeployType.UPGRADE;
+//        VisionDeployment visionDeployment;
+//        VisionDeployType deployType = isApm ? VisionDeployType.UPGRADE_APM : VisionDeployType.UPGRADE;
 
-        visionDeployment = new VisionDeployment(deployType, version, build);
+//        visionDeployment = new VisionDeployment(deployType, version, build);
 
-        VMOperationsSteps vmOperationsSteps = new VMOperationsSteps();
-        UpgradeSteps upgradeSteps = new UpgradeSteps();
-        String buildUnderTest = visionDeployment.getBuild();
-        if (vmOperationsSteps.isSetupNeeded()) {
+//        VMOperationsSteps vmOperationsSteps = new VMOperationsSteps();
+//        UpgradeSteps upgradeSteps = new UpgradeSteps();
+        Upgrade upgrade = new Upgrade(true, UpgradeSteps.isAPM(), build, null, "master", "vision-snapshot-local");
+        String buildUnderTest = upgrade.getBuild();
+        if (upgrade.isSetupNeeded) {
             BaseTestUtils.report("Upgrading to latest build: " + buildUnderTest,
                     Reporter.PASS_NOR_FAIL);
-            upgradeSteps.UpgradeVisionServer(version, buildUnderTest);
+//            upgradeSteps.UpgradeVisionServer(version, buildUnderTest);
+            upgrade.deploy();
             BaseTestUtils.report("Server is ready for future upgrade", Reporter.PASS_NOR_FAIL);
         }
         GeneralSteps.clearAllLogs();
-        VMOperationsSteps.newInstance().updateVersionVar();
-        visionDeployment = new VisionDeployment(deployType, version, "");
-        String nextBuild = visionDeployment.getBuild();
+//        VMOperationsSteps.newInstance().updateVersionVar();
+       upgrade = new Upgrade(true, UpgradeSteps.isAPM(), null, null, "master", "vision-snapshot-local");
+//        visionDeployment = new VisionDeployment(deployType, version, "");
+        String nextBuild = upgrade.getBuild();;
         BaseTestUtils.report(String.format("Going to upgrade from build %s to %s", buildUnderTest, nextBuild),
                 Reporter.PASS_NOR_FAIL);
-        upgradeSteps.UpgradeVisionServer(version, visionDeployment.getBuild());
+//        upgradeSteps.UpgradeVisionServer(version, visionDeployment.getBuild());
+        upgrade.deploy();
     }
 }
