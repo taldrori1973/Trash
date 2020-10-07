@@ -338,7 +338,7 @@ public class VMOperationsSteps extends BddUITestBase {
      * Update variables for local objects and automation portal regrading the new version and build.
      * Relevant to be used after revert to snapshot and upgrade
      */
-    public void updateVersionVar() {
+    public static void updateVersionVar() {
         String version = "";
         String build = "";
         try {
