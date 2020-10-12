@@ -119,25 +119,25 @@ Feature: Vision Install OVA SA
   Scenario: Validate LLS version
     Then CLI Run linux Command "cat /opt/radware/storage/llsinstall/license-server-*/version.txt" on "ROOT_SERVER_CLI" and validate result EQUALS "2.4.0-2"
 
-  @SID_15
+  @SID_14
   Scenario: Validate IPv6 Hostname in /etc/hosts
     Then CLI Run linux Command "if [ "$(hostname | cut -d'.' -f 1)" == "$(grep "::1" /etc/hosts|head -1|awk '{print$6}')" ]; then echo "hostname ok"; else echo "hostname not ok"; fi" on "ROOT_SERVER_CLI" and validate result EQUALS "hostname ok"
     Then CLI Run linux Command "grep "::1" /etc/hosts|grep " $(hostname)"|wc -l" on "ROOT_SERVER_CLI" and validate result EQUALS "1"
 
-  @SID_16
+  @SID_15
   Scenario: Validate IPv4 Hostname in /etc/hosts
     Then CLI Run linux Command "grep "$(hostname -i|awk '{print$2}')" /etc/hosts|grep "$(hostname | cut -d'.' -f 1)"|wc -l" on "ROOT_SERVER_CLI" and validate result EQUALS "1"
     Then CLI Run linux Command "grep "$(hostname -i|awk '{print$2}')" /etc/hosts|grep " $(hostname)"|wc -l" on "ROOT_SERVER_CLI" and validate result EQUALS "1"
 
-  @SID_17
+  @SID_16
   Scenario: Verify number of tables in vision schema
     Then CLI Run linux Command "mysql -prad123 -NB -e "select count(*) from INFORMATION_SCHEMA.TABLES WHERE TABLE_SCHEMA='vision';"" on "ROOT_SERVER_CLI" and validate result EQUALS "90"
 
-  @SID_18
+  @SID_17
   Scenario: Verify number of tables in vision_ng schema
     Then CLI Run linux Command "mysql -prad123 -NB -e "select count(*) from INFORMATION_SCHEMA.TABLES WHERE TABLE_SCHEMA='vision_ng';"" on "ROOT_SERVER_CLI" and validate result EQUALS "166"
 
-  @SID_14
+  @SID_18
   Scenario: Verify services are running
     Then CLI Run linux Command "service mgtsrv status" on "ROOT_SERVER_CLI" and validate result CONTAINS "APSolute Vision Reporter is running" in any line with timeOut 15
     Then CLI Run linux Command "service mgtsrv status" on "ROOT_SERVER_CLI" and validate result CONTAINS "AMQP service is running" in any line with timeOut 15
@@ -155,3 +155,7 @@ Feature: Vision Install OVA SA
   @SID_19
   Scenario: Verify 32GB RAM
     Then CLI Run linux Command "echo $(grep MemTotal /proc/meminfo | awk '{print $2 / 1024}')*1|bc -l|grep -oP '^\d*'" on "ROOT_SERVER_CLI" and validate result GTE "32000"
+
+  @SID_20
+  Scenario: Verify vg_disk-lv number of partitions
+    Then CLI Run linux Command "df -h | grep vg_disk-lv | wc -l" on "ROOT_SERVER_CLI" and validate result GTE "2" with timeOut 15

@@ -18,13 +18,13 @@ Feature: Vision Install OVA APM
     Given REST Login with activation with user "radware" and password "radware"
     Then UI Login with user "radware" and password "radware"
     Then Validate License "ATTACK_CAPACITY_LICENSE" Parameters
-      | allowedAttackCapacityGbps         | 0                    |
-      | requiredDevicesAttackCapacityGbps | 0                    |
-      | licensedDefenseProDeviceIpsList   | []                   |
-      | hasDemoLicense                    | false                |
-      | attackCapacityMaxLicenseExist     | false                |
-      | licenseViolated                   | false                |
-      | inGracePeriod                     | false                |
+      | allowedAttackCapacityGbps         | 0     |
+      | requiredDevicesAttackCapacityGbps | 0     |
+      | licensedDefenseProDeviceIpsList   | []    |
+      | hasDemoLicense                    | false |
+      | attackCapacityMaxLicenseExist     | false |
+      | licenseViolated                   | false |
+      | inGracePeriod                     | false |
     And Validate DefenseFlow is NOT Licensed by Attack Capacity License
     * REST Vision Install License Request "vision-reporting-module-ADC"
     * REST Vision Install License Request "vision-AVA-Max-attack-capacity"
@@ -125,25 +125,25 @@ Feature: Vision Install OVA APM
   Scenario: Validate minimum RAM for LLS
     Then CLI Run linux Command "mysql -prad123 vision_ng -NBe "select min_required_ram from lls_server;"" on "ROOT_SERVER_CLI" and validate result EQUALS "24"
 
-  @SID_16
+  @SID_15
   Scenario: Validate IPv6 Hostname in /etc/hosts
     Then CLI Run linux Command "if [ "$(hostname | cut -d'.' -f 1)" == "$(grep "::1" /etc/hosts|head -1|awk '{print$6}')" ]; then echo "hostname ok"; else echo "hostname not ok"; fi" on "ROOT_SERVER_CLI" and validate result EQUALS "hostname ok"
     Then CLI Run linux Command "grep "::1" /etc/hosts|grep " $(hostname)"|wc -l" on "ROOT_SERVER_CLI" and validate result EQUALS "1"
 
-  @SID_17
+  @SID_16
   Scenario: Validate IPv4 Hostname in /etc/hosts
     Then CLI Run linux Command "grep "$(hostname -i|awk '{print$2}')" /etc/hosts|grep "$(hostname | cut -d'.' -f 1)"|wc -l" on "ROOT_SERVER_CLI" and validate result EQUALS "1"
     Then CLI Run linux Command "grep "$(hostname -i|awk '{print$2}')" /etc/hosts|grep " $(hostname)"|wc -l" on "ROOT_SERVER_CLI" and validate result EQUALS "1"
 
-  @SID_18
+  @SID_17
   Scenario: Verify number of tables in vision schema
     Then CLI Run linux Command "mysql -prad123 -NB -e "select count(*) from INFORMATION_SCHEMA.TABLES WHERE TABLE_SCHEMA='vision';"" on "ROOT_SERVER_CLI" and validate result EQUALS "90"
 
-  @SID_19
+  @SID_18
   Scenario: Verify number of tables in vision_ng schema
     Then CLI Run linux Command "mysql -prad123 -NB -e "select count(*) from INFORMATION_SCHEMA.TABLES WHERE TABLE_SCHEMA='vision_ng';"" on "ROOT_SERVER_CLI" and validate result EQUALS "166"
 
-  @SID_15
+  @SID_19
   Scenario: Verify services are running
     Then CLI Run linux Command "service mgtsrv status" on "ROOT_SERVER_CLI" and validate result CONTAINS "APSolute Vision Reporter is running" in any line with timeOut 15
     Then CLI Run linux Command "service mgtsrv status" on "ROOT_SERVER_CLI" and validate result CONTAINS "AMQP service is running" in any line with timeOut 15
@@ -163,3 +163,7 @@ Feature: Vision Install OVA APM
   @SID_20
   Scenario: Verify 40GB RAM on APM
     Then CLI Run linux Command "grep MemTotal /proc/meminfo | awk '{print $2 / 1024}'" on "ROOT_SERVER_CLI" and validate result EQUALS "40087.9"
+
+  @SID_21
+  Scenario: Verify vg_disk-lv number of partitions
+    Then CLI Run linux Command "df -h | grep vg_disk-lv | wc -l" on "ROOT_SERVER_CLI" and validate result GTE "2" with timeOut 15
