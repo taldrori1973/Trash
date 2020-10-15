@@ -109,6 +109,7 @@ Feature: sanity new report
 
   @SID_13
   Scenario: Time - Relative Hour button is selected
+    Then UI Click Button "Time" with value "relative"
     Then UI Click Button "Relative Time Unit" with value "Hours"
     Then UI Validate the attribute "data-debug-checked" Of Label "Relative Time Unit" With Params "Hours" is "EQUALS" to "true"
     Then UI Validate the attribute "data-debug-checked" Of Label "Relative Time Unit" With Params "Days" is "EQUALS" to "false"
@@ -179,56 +180,58 @@ Feature: sanity new report
     Then UI Set Text Field "Relative Time Unit Value" and params "Months" To "53"
     Then UI Validate the attribute "Class" Of Label "Relative Time Unit Value" With Params "Months" is "CONTAINS" to "cCLrFi"
 
-#  @SID_21
-#  Scenario: Report Schedule Daily is selected
-#    Then UI Click Button "schedule_button"
-#    Then UI Click Button "daily"
-#    Then UI Validate the attribute "aria-selected" Of Label "daily" is "EQUALS" to "true"
-#    Then UI Validate the attribute "aria-selected" Of Label "weekly" is "EQUALS" to "false"
-#    Then UI Validate the attribute "aria-selected" Of Label "monthly" is "EQUALS" to "false"
-#    Then UI Validate the attribute "aria-selected" Of Label "once" is "EQUALS" to "false"
-#
-#  @SID_22
-#  Scenario: Report Schedule Weekly is selected
-#    Then UI Click Button "weekly"
-#    Then UI Validate the attribute "aria-selected" Of Label "daily" is "EQUALS" to "false"
-#    Then UI Validate the attribute "aria-selected" Of Label "weekly" is "EQUALS" to "true"
-#    Then UI Validate the attribute "aria-selected" Of Label "monthly" is "EQUALS" to "false"
-#    Then UI Validate the attribute "aria-selected" Of Label "once" is "EQUALS" to "false"
-#
-#  @SID_23
-#  Scenario: Report Schedule Monthly is selected
-#    Then UI Click Button "monthly"
-#    Then UI Validate the attribute "aria-selected" Of Label "daily" is "EQUALS" to "false"
-#    Then UI Validate the attribute "aria-selected" Of Label "weekly" is "EQUALS" to "false"
-#    Then UI Validate the attribute "aria-selected" Of Label "monthly" is "EQUALS" to "true"
-#    Then UI Validate the attribute "aria-selected" Of Label "once" is "EQUALS" to "false"
-#
-#  @SID_24
-#  Scenario: Report Schedule Once is selected
-#    Then UI Click Button "once"
-#    Then UI Validate the attribute "aria-selected" Of Label "daily" is "EQUALS" to "false"
-#    Then UI Validate the attribute "aria-selected" Of Label "weekly" is "EQUALS" to "false"
-#    Then UI Validate the attribute "aria-selected" Of Label "monthly" is "EQUALS" to "false"
-#    Then UI Validate the attribute "aria-selected" Of Label "once" is "EQUALS" to "true"
-#
+  @SID_21
+  Scenario: Report Schedule Daily is selected
+    Then UI Click Button "Switch button Scheduled Report"
+    Then UI Click Button "Schedule Report" with value "daily"
+    Then UI Validate the attribute "aria-selected" Of Label "Schedule Report" With Params "daily" is "EQUALS" to "true"
+    Then UI Validate the attribute "aria-selected" Of Label "Schedule Report" With Params "weekly" is "EQUALS" to "false"
+    Then UI Validate the attribute "aria-selected" Of Label "Schedule Report" With Params "monthly" is "EQUALS" to "false"
+    Then UI Validate the attribute "aria-selected" Of Label "Schedule Report" With Params "once" is "EQUALS" to "false"
+
+  @SID_22
+  Scenario: Report Schedule Weekly is selected
+    Then UI Click Button "Schedule Report" with value "weekly"
+    Then UI Validate the attribute "aria-selected" Of Label "Schedule Report" With Params "daily" is "EQUALS" to "false"
+    Then UI Validate the attribute "aria-selected" Of Label "Schedule Report" With Params "weekly" is "EQUALS" to "true"
+    Then UI Validate the attribute "aria-selected" Of Label "Schedule Report" With Params "monthly" is "EQUALS" to "false"
+    Then UI Validate the attribute "aria-selected" Of Label "Schedule Report" With Params "once" is "EQUALS" to "false"
+
+  @SID_23
+  Scenario: Report Schedule Monthly is selected
+    Then UI Click Button "Schedule Report" with value "monthly"
+    Then UI Validate the attribute "aria-selected" Of Label "Schedule Report" With Params "daily" is "EQUALS" to "false"
+    Then UI Validate the attribute "aria-selected" Of Label "Schedule Report" With Params "weekly" is "EQUALS" to "false"
+    Then UI Validate the attribute "aria-selected" Of Label "Schedule Report" With Params "monthly" is "EQUALS" to "true"
+    Then UI Validate the attribute "aria-selected" Of Label "Schedule Report" With Params "once" is "EQUALS" to "false"
+
+  @SID_24
+  Scenario: Report Schedule Once is selected
+    Then UI Click Button "Schedule Report" with value "once"
+    Then UI Validate the attribute "aria-selected" Of Label "Schedule Report" With Params "daily" is "EQUALS" to "false"
+    Then UI Validate the attribute "aria-selected" Of Label "Schedule Report" With Params "weekly" is "EQUALS" to "false"
+    Then UI Validate the attribute "aria-selected" Of Label "Schedule Report" With Params "monthly" is "EQUALS" to "false"
+    Then UI Validate the attribute "aria-selected" Of Label "Schedule Report" With Params "once" is "EQUALS" to "true"
+
 #  @SID_25
 #  Scenario: Validate daily schedule
-#    Then UI Click Button "daily"
-#    Then UI Set Text Field "dailyTime_input" To "1:31 PM"
+#    Then UI Click Button "Schedule Report" with value "daily"
+#    Then UI Set Text Field "Schedule Daily Time" To "1:31 PM"
 #    Then UI Validate the attribute "Class" Of Label "dailyTime_textfiled" is "CONTAINS" to "jZCIie"
-#    Then UI Set Text Field "dailyTime_input" To "01:3 PM"
+#    Then UI Set Text Field "Schedule Daily Time" To "01:3 PM"
 #    Then UI Validate the attribute "Class" Of Label "dailyTime_textfiled" is "CONTAINS" to "jZCIie"
-#    Then UI Set Text Field "dailyTime_input" To "01:03"
+#    Then UI Set Text Field "Schedule Daily Time" To "01:03"
 #    Then UI Validate the attribute "Class" Of Label "dailyTime_textfiled" is "CONTAINS" to "jZCIie"
-#    Then UI Set Text Field "dailyTime_input" To "13:00 PM"
+#    Then UI Set Text Field "Schedule Daily Time" To "13:00 PM"
 #    Then UI Validate the attribute "Class" Of Label "dailyTime_textfiled" is "CONTAINS" to "jZCIie"
-#    Then UI Set Text Field "dailyTime_input" To "11:61 PM"
+#    Then UI Set Text Field "Schedule Daily Time" To "00:00 PM"
 #    Then UI Validate the attribute "Class" Of Label "dailyTime_textfiled" is "CONTAINS" to "jZCIie"
-#
+#    Then UI Set Text Field "Schedule Daily Time" To "11:61 PM"
+#    Then UI Validate the attribute "Class" Of Label "dailyTime_textfiled" is "CONTAINS" to "jZCIie"
+
 #  @SID_26
 #  Scenario: Report Schedule Day of week is selected
-#    Then UI Click Button "weekly"
+#    Then UI Click Button "Schedule Report" with value "weekly"
 #    Then UI Validate the attribute "data-debug-checked" Of Label "Schedule Day" With Params "MON" is "EQUALS" to "false"
 #    Then UI Validate the attribute "data-debug-checked" Of Label "Schedule Day" With Params "TUE" is "EQUALS" to "false"
 #    Then UI Validate the attribute "data-debug-checked" Of Label "Schedule Day" With Params "WED" is "EQUALS" to "false"
@@ -240,70 +243,56 @@ Feature: sanity new report
 
 #  @SID_27
 #  Scenario: Report Schedule Month is selected
-#    Then UI Click Button "monthly"
-#    Then UI Validate the attribute "data-debug-checked" Of Label "Schedule_month_JAN" is "EQUALS" to "false"
-#    Then UI Validate the attribute "data-debug-checked" Of Label "Schedule_month_FEB" is "EQUALS" to "false"
-#    Then UI Validate the attribute "data-debug-checked" Of Label "Schedule_month_MAR" is "EQUALS" to "false"
-#    Then UI Validate the attribute "data-debug-checked" Of Label "Schedule_month_APR" is "EQUALS" to "false"
-#    Then UI Validate the attribute "data-debug-checked" Of Label "Schedule_month_MAY" is "EQUALS" to "false"
-#    Then UI Validate the attribute "data-debug-checked" Of Label "Schedule_month_JUN" is "EQUALS" to "false"
-#    Then UI Validate the attribute "data-debug-checked" Of Label "Schedule_month_JUL" is "EQUALS" to "false"
-#    Then UI Validate the attribute "data-debug-checked" Of Label "Schedule_month_AUG" is "EQUALS" to "false"
-#    Then UI Validate the attribute "data-debug-checked" Of Label "Schedule_month_SEP" is "EQUALS" to "false"
-#    Then UI Validate the attribute "data-debug-checked" Of Label "Schedule_month_OCT" is "EQUALS" to "false"
-#    Then UI Validate the attribute "data-debug-checked" Of Label "Schedule_month_NOV" is "EQUALS" to "false"
-#    Then UI Validate the attribute "data-debug-checked" Of Label "Schedule_month_DEC" is "EQUALS" to "false"
+#    Then UI Click Button "Schedule Report" with value "monthly"
+#    Then UI Validate the attribute "data-debug-checked" Of Label "Schedule Month" With Params "JAN" is "EQUALS" to "false"
+#    Then UI Validate the attribute "data-debug-checked" Of Label "Schedule Month" With Params "FEB" is "EQUALS" to "false"
+#    Then UI Validate the attribute "data-debug-checked" Of Label "Schedule Month" With Params "MAR" is "EQUALS" to "false"
+#    Then UI Validate the attribute "data-debug-checked" Of Label "Schedule Month" With Params "APR" is "EQUALS" to "false"
+#    Then UI Validate the attribute "data-debug-checked" Of Label "Schedule Month" With Params "MAY" is "EQUALS" to "false"
+#    Then UI Validate the attribute "data-debug-checked" Of Label "Schedule Month" With Params "JUN" is "EQUALS" to "false"
+#    Then UI Validate the attribute "data-debug-checked" Of Label "Schedule Month" With Params "JUL" is "EQUALS" to "false"
+#    Then UI Validate the attribute "data-debug-checked" Of Label "Schedule Month" With Params "AUG" is "EQUALS" to "false"
+#    Then UI Validate the attribute "data-debug-checked" Of Label "Schedule Month" With Params "SEP" is "EQUALS" to "false"
+#    Then UI Validate the attribute "data-debug-checked" Of Label "Schedule Month" With Params "OCT" is "EQUALS" to "false"
+#    Then UI Validate the attribute "data-debug-checked" Of Label "Schedule Month" With Params "NOV" is "EQUALS" to "false"
+#    Then UI Validate the attribute "data-debug-checked" Of Label "Schedule Month" With Params "DEC" is "EQUALS" to "false"
 #    Then UI Validate the attribute "Class" Of Label "ScheduleMonth" is "CONTAINS" to "jZCIie"
-#
+
 #  @SID_28
-#  Scenario: Validate once schedule
-#    Then UI Click Button "once"
-#    Then UI Set Text Field "dailyTime_input" To "1:31 PM"
-#    Then UI Validate the attribute "Class" Of Label "dailyTime_textfiled" is "CONTAINS" to "jZCIie"
-#    Then UI Set Text Field "dailyTime_input" To "01:3 PM"
-#    Then UI Validate the attribute "Class" Of Label "dailyTime_textfiled" is "CONTAINS" to "jZCIie"
-#    Then UI Set Text Field "dailyTime_input" To "01:03"
-#    Then UI Validate the attribute "Class" Of Label "dailyTime_textfiled" is "CONTAINS" to "jZCIie"
-#    Then UI Set Text Field "dailyTime_input" To "13:00 PM"
-#    Then UI Validate the attribute "Class" Of Label "dailyTime_textfiled" is "CONTAINS" to "jZCIie"
-#    Then UI Set Text Field "dailyTime_input" To "11:61 PM"
-#    Then UI Validate the attribute "Class" Of Label "dailyTime_textfiled" is "CONTAINS" to "jZCIie"
-#
-#  @SID_29
 #  Scenario: Validate Share send email To
 #    Then UI Set Text Field "Email" To "user@automation.local"
-#    Then UI Text of "Email" equal to "Share by Email *"
+#    Then UI Text of "Email" equal to "To *"
 #
-#  @SID_30
+#  @SID_29
 #  Scenario: Validate send email Subject
 #    Then UI Text of "Subject" equal to "Subject"
 #
-#  @SID_31
+#  @SID_30
 #  Scenario: Validate send email Type your message
 #    Then UI Text of "message" equal to "Type your message"
-#
-#  @SID_32
-#  Scenario: Report Format PDF Button is clicked
-#    Then UI Click Button "PDF Format"
-#    Then UI Validate the attribute "data-debug-checked" Of Label "PDF Format" is "EQUALS" to "true"
-#    Then UI Validate the attribute "data-debug-checked" Of Label "HTML Format" is "EQUALS" to "false"
-#    Then UI Validate the attribute "data-debug-checked" Of Label "CSV Format" is "EQUALS" to "false"
-#
-#  @SID_33
-#  Scenario: Report Format HTML Button is clicked
-#    Then UI Click Button "HTML Format"
-#    Then UI Validate the attribute "data-debug-checked" Of Label "PDF Format" is "EQUALS" to "false"
-#    Then UI Validate the attribute "data-debug-checked" Of Label "HTML Format" is "EQUALS" to "true"
-#    Then UI Validate the attribute "data-debug-checked" Of Label "CSV Format" is "EQUALS" to "false"
-#
-#  @SID_34
-#  Scenario: Report Format CSV Button is clicked
-#    Then UI Click Button "CSV FORMAT"
-#    Then UI Validate the attribute "data-debug-checked" Of Label "PDF Format" is "EQUALS" to "false"
-#    Then UI Validate the attribute "data-debug-checked" Of Label "HTML Format" is "EQUALS" to "false"
-#    Then UI Validate the attribute "data-debug-checked" Of Label "CSV Format" is "EQUALS" to "true"
-#
-#  @SID_35
-#  Scenario: Logout
-#    Then UI logout and close browser
-#
+
+  @SID_31
+  Scenario: Report Format PDF Button is clicked
+    Then UI Click Button "PDF Format"
+    Then UI Validate the attribute "data-debug-checked" Of Label "PDF Format" is "EQUALS" to "true"
+    Then UI Validate the attribute "data-debug-checked" Of Label "HTML Format" is "EQUALS" to "false"
+    Then UI Validate the attribute "data-debug-checked" Of Label "CSV Format" is "EQUALS" to "false"
+
+  @SID_32
+  Scenario: Report Format HTML Button is clicked
+    Then UI Click Button "HTML Format"
+    Then UI Validate the attribute "data-debug-checked" Of Label "PDF Format" is "EQUALS" to "false"
+    Then UI Validate the attribute "data-debug-checked" Of Label "HTML Format" is "EQUALS" to "true"
+    Then UI Validate the attribute "data-debug-checked" Of Label "CSV Format" is "EQUALS" to "false"
+
+  @SID_33
+  Scenario: Report Format CSV Button is clicked
+    Then UI Click Button "CSV Format"
+    Then UI Validate the attribute "data-debug-checked" Of Label "PDF Format" is "EQUALS" to "false"
+    Then UI Validate the attribute "data-debug-checked" Of Label "HTML Format" is "EQUALS" to "false"
+    Then UI Validate the attribute "data-debug-checked" Of Label "CSV Format" is "EQUALS" to "true"
+
+  @SID_35
+  Scenario: Logout
+    Then UI logout and close browser
+
