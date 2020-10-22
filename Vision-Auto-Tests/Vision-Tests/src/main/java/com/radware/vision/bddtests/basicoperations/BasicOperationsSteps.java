@@ -8,13 +8,17 @@ import com.radware.automation.webui.WebUIUtils;
 import com.radware.automation.webui.widgets.ComponentLocator;
 import com.radware.automation.webui.widgets.ComponentLocatorFactory;
 import com.radware.automation.webui.widgets.api.Widget;
+import com.radware.automation.webui.widgets.impl.WebUIComponent;
 import com.radware.automation.webui.widgets.impl.table.WebUITable;
 import com.radware.restcore.VisionRestClient;
 import com.radware.vision.automation.AutoUtils.Operators.OperatorsEnum;
+import com.radware.vision.automation.tools.exceptions.selenium.TargetWebElementNotFoundException;
 import com.radware.vision.automation.tools.sutsystemobjects.devicesinfo.DeviceInfo;
 import com.radware.vision.automation.tools.sutsystemobjects.devicesinfo.enums.SUTDeviceType;
 import com.radware.vision.base.WebUITestSetup;
 import com.radware.vision.bddtests.BddUITestBase;
+import com.radware.vision.bddtests.GenericSteps;
+import com.radware.vision.bddtests.clioperation.GeneralSteps;
 import com.radware.vision.infra.base.pages.navigation.HomePage;
 import com.radware.vision.infra.base.pages.navigation.WebUIVisionBasePage;
 import com.radware.vision.infra.enums.*;
@@ -32,6 +36,7 @@ import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
 import jsystem.framework.RunProperties;
 import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.How;
@@ -40,10 +45,13 @@ import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
+import java.util.Map;
 
 import static com.radware.vision.infra.testhandlers.baseoperations.BasicOperationsHandler.isLoggedIn;
 import static com.radware.vision.infra.testhandlers.baseoperations.BasicOperationsHandler.isLoggedOut;
-
+import com.radware.vision.infra.utils.ReportsUtils;
+import static com.radware.vision.infra.utils.ReportsUtils.addErrorMessage;
+import static com.radware.vision.infra.utils.ReportsUtils.reportErrors;
 /**
  * Created by AviH on 30-Nov-17.
  */
@@ -572,7 +580,54 @@ public class BasicOperationsSteps extends BddUITestBase {
         assert isDisabled;
     }
 
+    @Then("^UI Validate the attribute of \"([^\"]*)\" are \"(EQUAL|CONTAINS|NOT CONTAINS)\" to$")
+    public void uiValidateTheAttributesOfAreTo(String attribute  , String compare, List<ParamterSelected> listParamters) throws Throwable {
+        uiValidateClassContentOfWithParamsIsEQUALSCONTAINSToListParameters(listParamters,attribute, compare);
+    }
 
+    public static void uiValidateClassContentOfWithParamsIsEQUALSCONTAINSToListParameters(List<ParamterSelected> listParamters,String attribute,  String compare)
+    {
+        for (ParamterSelected parameter : listParamters) { //all the parameters that selected to compare with values
+            VisionDebugIdsManager.setLabel(parameter.label);
+            VisionDebugIdsManager.setParams(parameter.param);
+
+            WebElement element = WebUIUtils.fluentWait(ComponentLocatorFactory.getLocatorByXpathDbgId(VisionDebugIdsManager.getDataDebugId()).getBy());
+            if (element == null) {
+                addErrorMessage("No " + attribute + " attribute in element that contains " + VisionDebugIdsManager.getDataDebugId() + " in this data-debug-id");
+            }
+            else{
+                String actualStatus = element.getAttribute(attribute);
+                String errorMessage = "The EXPECTED value of : '" + parameter.label + "' with params: '" + parameter.param + "' is not equal to '" + actualStatus + "' ";
+                switch (compare) {
+                    case "EQUAL":
+                    case "EQUALS":
+                        if (!element.getAttribute(attribute).equalsIgnoreCase(parameter.value)) {
+                            addErrorMessage(errorMessage);
+                        }
+                        break;
+                    case "CONTAINS":
+                        if (!element.getAttribute(attribute).contains(parameter.value)) {
+                            errorMessage.replaceFirst(" is not equal to ", " is not contained in ");
+                            addErrorMessage(errorMessage);
+                        }
+                        break;
+                    case "NOT CONTAINS":
+                        if (element.getAttribute(attribute).contains(parameter.value)) {
+                            errorMessage.replaceFirst(" is not equal to ", " is contained in ");
+                            addErrorMessage(errorMessage);
+                        }
+                        break;
+                }
+            }
+        }
+        reportErrors();
+    }
+
+    public static class ParamterSelected{
+        String label;
+        String param ;
+        String value;
+    }
 
     static public class TableEntry {
         String columnName;
@@ -610,4 +665,52 @@ public class BasicOperationsSteps extends BddUITestBase {
             BaseTestUtils.report("The expected count of Label " + label + "with value " + value + "is " + count + "But the Actual is " + actualcount, Reporter.FAIL);
     }
 
+
+// .... Maha test ....
+    @Then("^MahaTest click on \"([^\"]*)\"$")
+    public void mahatestClickOn(String buttonName) {
+        // Write code here that turns the phrase above into concrete actions
+        VisionDebugIdsManager.setLabel(buttonName);
+        VisionDebugIdsManager.setParams("");
+        WebUIUtils.fluentWait((ComponentLocatorFactory.getLocatorByXpathDbgId(VisionDebugIdsManager.getDataDebugId())).getBy()).click();
+//        throw new PendingException();
+    }
+
+
+    @Then("^UI Unclick all the attributes \"([^\"]*)\" is \"(EQUALS|CONTAINS)\" to \"([^\"]*)\"$")
+    public void uiUnclickAllTheAttributesOf(String attribute ,String compare, String value, List<ParamterSelected> listParameters ) throws Throwable {
+        for (ParamterSelected parameter : listParameters) {
+            VisionDebugIdsManager.setLabel(parameter.label);
+            VisionDebugIdsManager.setParams(parameter.param);
+            WebElement element = WebUIUtils.fluentWait(ComponentLocatorFactory.getLocatorByXpathDbgId(VisionDebugIdsManager.getDataDebugId()).getBy());
+            if (element == null) {
+                addErrorMessage("No " + attribute + " attribute in element that contains " + VisionDebugIdsManager.getDataDebugId() + " in this data-debug-id");
+            }
+            else {
+                String actualStatus = element.getAttribute(attribute);
+                switch (compare) {
+                    case "EQUALS":
+                        if (element.getAttribute(attribute).equalsIgnoreCase(value)) {
+                            BasicOperationsHandler.clickButton(parameter.label, parameter.param);
+                        }
+                        break;
+                    case "CONTAINS":
+                        if (element.getAttribute(attribute).contains(value)) {
+                            BasicOperationsHandler.clickButton(parameter.label, parameter.param);
+                        }
+                        break;
+                }
+            }
+            }
+        reportErrors();
+        }
+
+        public static class ClickParameter{
+        String label;
+        String param ;
+        }
+
+
+
+//checkbox_select-all_Label
 }

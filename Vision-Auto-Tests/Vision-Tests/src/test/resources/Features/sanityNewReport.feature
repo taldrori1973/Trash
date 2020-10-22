@@ -1,4 +1,4 @@
-
+@run
 Feature: sanity new report
 
   @SID_1
@@ -6,16 +6,6 @@ Feature: sanity new report
     Then UI Login with user "sys_admin" and password "radware"
     Then UI Navigate to "NEW REPORTS" page via homepage
 #    Then UI Click Button "Report Parameter Menu"
-
-
-#    Then UI Validate the attributes of "data-debug-checked" are "EQUALS" to
-#      | label        | params | value |
-#      | Name Tab     |        | true  |
-#      | Logo Tab     |        | false |
-#      | Time Tab     |        | false |
-#      | Schedule Tab |        | false |
-#      | Share Tab    |        | false |
-
 
   @SID_2
   Scenario: Validate Report Parameters Name
@@ -29,47 +19,57 @@ Feature: sanity new report
   @SID_3
   Scenario: Report Name is selected
     Then UI Click Button "Name Tab"
-    Then UI Validate the attribute "data-debug-checked" Of Label "Name Tab" is "EQUALS" to "true"
-    Then UI Validate the attribute "data-debug-checked" Of Label "Logo Tab" is "EQUALS" to "false"
-    Then UI Validate the attribute "data-debug-checked" Of Label "Time Tab" is "EQUALS" to "false"
-    Then UI Validate the attribute "data-debug-checked" Of Label "Schedule Tab" is "EQUALS" to "false"
-    Then UI Validate the attribute "data-debug-checked" Of Label "Share Tab" is "EQUALS" to "false"
+    Then UI Validate the attribute of "data-debug-checked" are "EQUAL" to
+      | label        | param | value |
+      | Name Tab     |       | true  |
+      | Logo Tab     |       | false |
+      | Time Tab     |       | false |
+      | Schedule Tab |       | false |
+      | Share Tab    |       | false |
 
   @SID_4
   Scenario: Report Logo is selected
     Then UI Click Button "Logo Tab"
-    Then UI Validate the attribute "data-debug-checked" Of Label "Name Tab" is "EQUALS" to "false"
-    Then UI Validate the attribute "data-debug-checked" Of Label "Logo Tab" is "EQUALS" to "true"
-    Then UI Validate the attribute "data-debug-checked" Of Label "Time Tab" is "EQUALS" to "false"
-    Then UI Validate the attribute "data-debug-checked" Of Label "Schedule Tab" is "EQUALS" to "false"
-    Then UI Validate the attribute "data-debug-checked" Of Label "Share Tab" is "EQUALS" to "false"
+    Then UI Validate the attribute of "data-debug-checked" are "EQUAL" to
+      | label        | param | value |
+      | Name Tab     |       | false |
+      | Logo Tab     |       | true  |
+      | Time Tab     |       | false |
+      | Schedule Tab |       | false |
+      | Share Tab    |       | false |
 
   @SID_5
   Scenario: Report Time is selected
     Then UI Click Button "Time Tab"
-    Then UI Validate the attribute "data-debug-checked" Of Label "Name Tab" is "EQUALS" to "false"
-    Then UI Validate the attribute "data-debug-checked" Of Label "Logo Tab" is "EQUALS" to "false"
-    Then UI Validate the attribute "data-debug-checked" Of Label "Time Tab" is "EQUALS" to "true"
-    Then UI Validate the attribute "data-debug-checked" Of Label "Schedule Tab" is "EQUALS" to "false"
-    Then UI Validate the attribute "data-debug-checked" Of Label "Share Tab" is "EQUALS" to "false"
+    Then UI Validate the attribute of "data-debug-checked" are "EQUAL" to
+      | label        | param | value |
+      | Name Tab     |       | false |
+      | Logo Tab     |       | false |
+      | Time Tab     |       | true  |
+      | Schedule Tab |       | false |
+      | Share Tab    |       | false |
 
   @SID_6
   Scenario: Report Schedule is selected
     Then UI Click Button "Schedule Tab"
-    Then UI Validate the attribute "data-debug-checked" Of Label "Name Tab" is "EQUALS" to "false"
-    Then UI Validate the attribute "data-debug-checked" Of Label "Logo Tab" is "EQUALS" to "false"
-    Then UI Validate the attribute "data-debug-checked" Of Label "Time Tab" is "EQUALS" to "false"
-    Then UI Validate the attribute "data-debug-checked" Of Label "Schedule Tab" is "EQUALS" to "true"
-    Then UI Validate the attribute "data-debug-checked" Of Label "Share Tab" is "EQUALS" to "false"
+    Then UI Validate the attribute of "data-debug-checked" are "EQUAL" to
+      | label        | param | value |
+      | Name Tab     |       | false |
+      | Logo Tab     |       | false |
+      | Time Tab     |       | false |
+      | Schedule Tab |       | true  |
+      | Share Tab    |       | false |
 
   @SID_7
   Scenario: Report Share is selected
     Then UI Click Button "Share Tab"
-    Then UI Validate the attribute "data-debug-checked" Of Label "Name Tab" is "EQUALS" to "false"
-    Then UI Validate the attribute "data-debug-checked" Of Label "Logo Tab" is "EQUALS" to "false"
-    Then UI Validate the attribute "data-debug-checked" Of Label "Time Tab" is "EQUALS" to "false"
-    Then UI Validate the attribute "data-debug-checked" Of Label "Schedule Tab" is "EQUALS" to "false"
-    Then UI Validate the attribute "data-debug-checked" Of Label "Share Tab" is "EQUALS" to "true"
+    Then UI Validate the attribute of "data-debug-checked" are "EQUAL" to
+      | label        | param | value |
+      | Name Tab     |       | false |
+      | Logo Tab     |       | false |
+      | Time Tab     |       | false |
+      | Schedule Tab |       | false |
+      | Share Tab    |       | true  |
 
   @SID_8
   Scenario: Validate report name
@@ -95,73 +95,90 @@ Feature: sanity new report
   @SID_10
   Scenario: Report Time - Quick Range is selected
     Then UI Click Button "Time Type" with value "quickrange"
-    Then UI Validate the attribute "aria-selected" Of Label "Time Type" With Params "quickrange" is "EQUALS" to "true"
-    Then UI Validate the attribute "aria-selected" Of Label "Time Type" With Params "absolute" is "EQUALS" to "false"
-    Then UI Validate the attribute "aria-selected" Of Label "Time Type" With Params "relative" is "EQUALS" to "false"
+    Then UI Validate the attribute of "data-debug-checked" are "EQUAL" to
+      | label     | param      | value |
+      | Time Type | quickrange | true  |
+      | Time Type | absolute   | false |
+      | Time Type | relative   | false |
 
   @SID_11
   Scenario: Report Time - Absolute is selected
     Then UI Click Button "Time Type" with value "absolute"
-    Then UI Validate the attribute "aria-selected" Of Label "Time Type" With Params "quickrange" is "EQUALS" to "false"
-    Then UI Validate the attribute "aria-selected" Of Label "Time Type" With Params "absolute" is "EQUALS" to "true"
-    Then UI Validate the attribute "aria-selected" Of Label "Time Type" With Params "relative" is "EQUALS" to "false"
+    Then UI Validate the attribute of "data-debug-checked" are "EQUAL" to
+      | label     | param      | value |
+      | Time Type | quickrange | false |
+      | Time Type | absolute   | true  |
+      | Time Type | relative   | false |
 
   @SID_12
   Scenario: Report Time - Relative is selected
     Then UI Click Button "Time Type" with value "relative"
-    Then UI Validate the attribute "aria-selected" Of Label "Time Type" With Params "quickrange" is "EQUALS" to "false"
-    Then UI Validate the attribute "aria-selected" Of Label "Time Type" With Params "absolute" is "EQUALS" to "false"
-    Then UI Validate the attribute "aria-selected" Of Label "Time Type" With Params "relative" is "EQUALS" to "true"
+    Then UI Validate the attribute of "data-debug-checked" are "EQUAL" to
+      | label     | param      | value |
+      | Time Type | quickrange | false |
+      | Time Type | absolute   | false |
+      | Time Type | relative   | true  |
 
   @SID_13
   Scenario: Validate Quick Range Time
     Then UI Click Button "Time Type" with value "quickrange"
-    Then UI Validate the attribute "data-debug-checked" Of Label "Quick Range" With Params "15m" is "EQUALS" to "true"
-    Then UI Validate the attribute "data-debug-checked" Of Label "Quick Range" With Params "30m" is "EQUALS" to "false"
-    Then UI Validate the attribute "data-debug-checked" Of Label "Quick Range" With Params "1H" is "EQUALS" to "false"
-    Then UI Validate the attribute "data-debug-checked" Of Label "Quick Range" With Params "1D" is "EQUALS" to "false"
-    Then UI Validate the attribute "data-debug-checked" Of Label "Quick Range" With Params "1W" is "EQUALS" to "false"
-    Then UI Validate the attribute "data-debug-checked" Of Label "Quick Range" With Params "1M" is "EQUALS" to "false"
-    Then UI Validate the attribute "data-debug-checked" Of Label "Quick Range" With Params "3M" is "EQUALS" to "false"
-    Then UI Validate the attribute "data-debug-checked" Of Label "Quick Range" With Params "Today" is "EQUALS" to "false"
-    Then UI Validate the attribute "data-debug-checked" Of Label "Quick Range" With Params "Yesterday" is "EQUALS" to "false"
-    Then UI Validate the attribute "data-debug-checked" Of Label "Quick Range" With Params "This Week" is "EQUALS" to "false"
-    Then UI Validate the attribute "data-debug-checked" Of Label "Quick Range" With Params "This Week" is "EQUALS" to "false"
-    Then UI Validate the attribute "data-debug-checked" Of Label "Quick Range" With Params "This Month" is "EQUALS" to "false"
-    Then UI Validate the attribute "data-debug-checked" Of Label "Quick Range" With Params "Quarter" is "EQUALS" to "false"
+    Then UI Click Button "Quick Range" with value "15m"
+    Then UI Validate the attribute of "data-debug-checked" are "EQUAL" to
+      | label       | param          | value |
+      | Quick Range | 15m            | true  |
+      | Quick Range | 30m            | false |
+      | Quick Range | 1H             | false |
+      | Quick Range | 1D             | false |
+      | Quick Range | 1W             | false |
+      | Quick Range | 1M             | false |
+      | Quick Range | 3M             | false |
+      | Quick Range | Today          | false |
+      | Quick Range | Yesterday      | false |
+      | Quick Range | This Week      | false |
+      | Quick Range | This Month     | false |
+      | Quick Range | Previous Month | false |
+      | Quick Range | Quarter        | false |
 
   @SID_14
   Scenario: Time - Relative Hour button is selected
     Then UI Click Button "Time Type" with value "relative"
     Then UI Click Button "Relative Time Unit" with value "Hours"
-    Then UI Validate the attribute "data-debug-checked" Of Label "Relative Time Unit" With Params "Hours" is "EQUALS" to "true"
-    Then UI Validate the attribute "data-debug-checked" Of Label "Relative Time Unit" With Params "Days" is "EQUALS" to "false"
-    Then UI Validate the attribute "data-debug-checked" Of Label "Relative Time Unit" With Params "Weeks" is "EQUALS" to "false"
-    Then UI Validate the attribute "data-debug-checked" Of Label "Relative Time Unit" With Params "Months" is "EQUALS" to "false"
+    Then UI Validate the attribute of "data-debug-checked" are "EQUAL" to
+      | label              | param  | value |
+      | Relative Time Unit | Hours  | true  |
+      | Relative Time Unit | Days   | false |
+      | Relative Time Unit | Weeks  | false |
+      | Relative Time Unit | Months | false |
 
   @SID_15
   Scenario: Time - Relative Days button is selected
     Then UI Click Button "Relative Time Unit" with value "Days"
-    Then UI Validate the attribute "data-debug-checked" Of Label "Relative Time Unit" With Params "Hours" is "EQUALS" to "false"
-    Then UI Validate the attribute "data-debug-checked" Of Label "Relative Time Unit" With Params "Days" is "EQUALS" to "true"
-    Then UI Validate the attribute "data-debug-checked" Of Label "Relative Time Unit" With Params "Weeks" is "EQUALS" to "false"
-    Then UI Validate the attribute "data-debug-checked" Of Label "Relative Time Unit" With Params "Months" is "EQUALS" to "false"
+    Then UI Validate the attribute of "data-debug-checked" are "EQUAL" to
+      | label              | param  | value |
+      | Relative Time Unit | Hours  | false |
+      | Relative Time Unit | Days   | true  |
+      | Relative Time Unit | Weeks  | false |
+      | Relative Time Unit | Months | false |
 
   @SID_16
   Scenario: Time - Relative Weeks button is selected
     Then UI Click Button "Relative Time Unit" with value "Weeks"
-    Then UI Validate the attribute "data-debug-checked" Of Label "Relative Time Unit" With Params "Hours" is "EQUALS" to "false"
-    Then UI Validate the attribute "data-debug-checked" Of Label "Relative Time Unit" With Params "Days" is "EQUALS" to "false"
-    Then UI Validate the attribute "data-debug-checked" Of Label "Relative Time Unit" With Params "Weeks" is "EQUALS" to "true"
-    Then UI Validate the attribute "data-debug-checked" Of Label "Relative Time Unit" With Params "Months" is "EQUALS" to "false"
+    Then UI Validate the attribute of "data-debug-checked" are "EQUAL" to
+      | label              | param  | value |
+      | Relative Time Unit | Hours  | false |
+      | Relative Time Unit | Days   | false |
+      | Relative Time Unit | Weeks  | true  |
+      | Relative Time Unit | Months | false |
 
   @SID_17
   Scenario: Time - Relative Months button is selected
     Then UI Click Button "Relative Time Unit" with value "Months"
-    Then UI Validate the attribute "data-debug-checked" Of Label "Relative Time Unit" With Params "Hours" is "EQUALS" to "false"
-    Then UI Validate the attribute "data-debug-checked" Of Label "Relative Time Unit" With Params "Days" is "EQUALS" to "false"
-    Then UI Validate the attribute "data-debug-checked" Of Label "Relative Time Unit" With Params "Weeks" is "EQUALS" to "false"
-    Then UI Validate the attribute "data-debug-checked" Of Label "Relative Time Unit" With Params "Months" is "EQUALS" to "true"
+    Then UI Validate the attribute of "data-debug-checked" are "EQUAL" to
+      | label              | param  | value |
+      | Relative Time Unit | Hours  | false |
+      | Relative Time Unit | Days   | false |
+      | Relative Time Unit | Weeks  | false |
+      | Relative Time Unit | Months | true  |
 
   @SID_18
   Scenario: Validate Relative Time - Hours
@@ -207,80 +224,90 @@ Feature: sanity new report
   Scenario: Report Schedule Daily is selected
     Then UI Click Button "Switch button Scheduled Report"
     Then UI Click Button "Schedule Report" with value "daily"
-    Then UI Validate the attribute "aria-selected" Of Label "Schedule Report" With Params "daily" is "EQUALS" to "true"
-    Then UI Validate the attribute "aria-selected" Of Label "Schedule Report" With Params "weekly" is "EQUALS" to "false"
-    Then UI Validate the attribute "aria-selected" Of Label "Schedule Report" With Params "monthly" is "EQUALS" to "false"
-    Then UI Validate the attribute "aria-selected" Of Label "Schedule Report" With Params "once" is "EQUALS" to "false"
+    Then UI Validate the attribute of "data-debug-checked" are "EQUAL" to
+      | label           | param   | value |
+      | Schedule Report | daily   | true  |
+      | Schedule Report | weekly  | false |
+      | Schedule Report | monthly | false |
+      | Schedule Report | once    | false |
 
   @SID_23
   Scenario: Report Schedule Weekly is selected
     Then UI Click Button "Schedule Report" with value "weekly"
-    Then UI Validate the attribute "aria-selected" Of Label "Schedule Report" With Params "daily" is "EQUALS" to "false"
-    Then UI Validate the attribute "aria-selected" Of Label "Schedule Report" With Params "weekly" is "EQUALS" to "true"
-    Then UI Validate the attribute "aria-selected" Of Label "Schedule Report" With Params "monthly" is "EQUALS" to "false"
-    Then UI Validate the attribute "aria-selected" Of Label "Schedule Report" With Params "once" is "EQUALS" to "false"
+    Then UI Validate the attribute of "data-debug-checked" are "EQUAL" to
+      | label           | param   | value |
+      | Schedule Report | daily   | false |
+      | Schedule Report | weekly  | true  |
+      | Schedule Report | monthly | false |
+      | Schedule Report | once    | false |
 
   @SID_24
   Scenario: Report Schedule Monthly is selected
     Then UI Click Button "Schedule Report" with value "monthly"
-    Then UI Validate the attribute "aria-selected" Of Label "Schedule Report" With Params "daily" is "EQUALS" to "false"
-    Then UI Validate the attribute "aria-selected" Of Label "Schedule Report" With Params "weekly" is "EQUALS" to "false"
-    Then UI Validate the attribute "aria-selected" Of Label "Schedule Report" With Params "monthly" is "EQUALS" to "true"
-    Then UI Validate the attribute "aria-selected" Of Label "Schedule Report" With Params "once" is "EQUALS" to "false"
+    Then UI Validate the attribute of "data-debug-checked" are "EQUAL" to
+      | label           | param   | value |
+      | Schedule Report | daily   | false |
+      | Schedule Report | weekly  | false |
+      | Schedule Report | monthly | true  |
+      | Schedule Report | once    | false |
 
   @SID_25
   Scenario: Report Schedule Once is selected
     Then UI Click Button "Schedule Report" with value "once"
-    Then UI Validate the attribute "aria-selected" Of Label "Schedule Report" With Params "daily" is "EQUALS" to "false"
-    Then UI Validate the attribute "aria-selected" Of Label "Schedule Report" With Params "weekly" is "EQUALS" to "false"
-    Then UI Validate the attribute "aria-selected" Of Label "Schedule Report" With Params "monthly" is "EQUALS" to "false"
-    Then UI Validate the attribute "aria-selected" Of Label "Schedule Report" With Params "once" is "EQUALS" to "true"
+    Then UI Validate the attribute of "data-debug-checked" are "EQUAL" to
+      | label           | param   | value |
+      | Schedule Report | daily   | false |
+      | Schedule Report | weekly  | false |
+      | Schedule Report | monthly | false |
+      | Schedule Report | once    | true  |
 
+  @SID_26
+  Scenario: Validate daily schedule.
+    Then UI Click Button "Schedule Report" with value "daily"
+    Then UI Set Text Field "Schedule Daily Time" To "1:31 PM"
+    Then UI Text of "Error Massage" with extension "timeOfDay" contains "Please select a time between 12 AM to 11:59 PM"
+    Then UI Set Text Field "Schedule Daily Time" To "01:3 PM"
+    Then UI Text of "Error Massage" with extension "timeOfDay" contains "Please select a time between 12 AM to 11:59 PM"
+    Then UI Set Text Field "Schedule Daily Time" To "01:03"
+    Then UI Text of "Error Massage" with extension "timeOfDay" contains "Please select a time between 12 AM to 11:59 PM"
+    Then UI Set Text Field "Schedule Daily Time" To "13:00 PM"
+    Then UI Text of "Error Massage" with extension "timeOfDay" contains "Please select a time between 12 AM to 11:59 PM"
+    Then UI Set Text Field "Schedule Daily Time" To "00:00 PM"
+    Then UI Text of "Error Massage" with extension "timeOfDay" contains "Please select a time between 12 AM to 11:59 PM"
+    Then UI Set Text Field "Schedule Daily Time" To "11:61 PM"
+    Then UI Text of "Error Massage" with extension "timeOfDay" contains "Please select a time between 12 AM to 11:59 PM"
 
-#  @SID_26
-#  Scenario: Validate daily schedule
-#    Then UI Click Button "Schedule Report" with value "daily"
-#    Then UI Set Text Field "Schedule Daily Time" To "1:31 PM"
-#    Then UI Validate the attribute "Class" Of Label "dailyTime_textfiled" is "CONTAINS" to "jZCIie"
-#    Then UI Set Text Field "Schedule Daily Time" To "01:3 PM"
-#    Then UI Validate the attribute "Class" Of Label "dailyTime_textfiled" is "CONTAINS" to "jZCIie"
-#    Then UI Set Text Field "Schedule Daily Time" To "01:03"
-#    Then UI Validate the attribute "Class" Of Label "dailyTime_textfiled" is "CONTAINS" to "jZCIie"
-#    Then UI Set Text Field "Schedule Daily Time" To "13:00 PM"
-#    Then UI Validate the attribute "Class" Of Label "dailyTime_textfiled" is "CONTAINS" to "jZCIie"
-#    Then UI Set Text Field "Schedule Daily Time" To "00:00 PM"
-#    Then UI Validate the attribute "Class" Of Label "dailyTime_textfiled" is "CONTAINS" to "jZCIie"
-#    Then UI Set Text Field "Schedule Daily Time" To "11:61 PM"
-#    Then UI Validate the attribute "Class" Of Label "dailyTime_textfiled" is "CONTAINS" to "jZCIie"
+  @SID_27
+  Scenario: Report Schedule Day of week is selected
+    Then UI Click Button "Schedule Report" with value "weekly"
+    Then UI Unclick all the attributes "class" is "CONTAINS" to "selected"
+      | label        | param |
+      | Schedule Day | MON   |
+      | Schedule Day | TUE   |
+      | Schedule Day | WED   |
+      | Schedule Day | THU   |
+      | Schedule Day | FRI   |
+      | Schedule Day | SAT   |
+      | Schedule Day | SUN   |
+    Then UI Text of "Error Massage" with extension "dayOfWeek" contains "Please select at least one day of week"
 
-#  @SID_27
-#  Scenario: Report Schedule Day of week is selected
-#    Then UI Click Button "Schedule Report" with value "weekly"
-#    Then UI Validate the attribute "data-debug-checked" Of Label "Schedule Day" With Params "MON" is "EQUALS" to "false"
-#    Then UI Validate the attribute "data-debug-checked" Of Label "Schedule Day" With Params "TUE" is "EQUALS" to "false"
-#    Then UI Validate the attribute "data-debug-checked" Of Label "Schedule Day" With Params "WED" is "EQUALS" to "false"
-#    Then UI Validate the attribute "data-debug-checked" Of Label "Schedule Day" With Params "THU" is "EQUALS" to "false"
-#    Then UI Validate the attribute "data-debug-checked" Of Label "Schedule Day" With Params "FRI" is "EQUALS" to "false"
-#    Then UI Validate the attribute "data-debug-checked" Of Label "Schedule Day" With Params "SAT" is "EQUALS" to "false"
-#    Then UI Validate the attribute "data-debug-checked" Of Label "Schedule Day" With Params "SUN" is "EQUALS" to "false"
-#    Then UI Validate the attribute "Class" Of Label "ScheduleDayOfWeek" is "CONTAINS" to "jZCIie"
-
-#  @SID_28
-#  Scenario: Report Schedule Month is selected
-#    Then UI Click Button "Schedule Report" with value "monthly"
-#    Then UI Validate the attribute "data-debug-checked" Of Label "Schedule Month" With Params "JAN" is "EQUALS" to "false"
-#    Then UI Validate the attribute "data-debug-checked" Of Label "Schedule Month" With Params "FEB" is "EQUALS" to "false"
-#    Then UI Validate the attribute "data-debug-checked" Of Label "Schedule Month" With Params "MAR" is "EQUALS" to "false"
-#    Then UI Validate the attribute "data-debug-checked" Of Label "Schedule Month" With Params "APR" is "EQUALS" to "false"
-#    Then UI Validate the attribute "data-debug-checked" Of Label "Schedule Month" With Params "MAY" is "EQUALS" to "false"
-#    Then UI Validate the attribute "data-debug-checked" Of Label "Schedule Month" With Params "JUN" is "EQUALS" to "false"
-#    Then UI Validate the attribute "data-debug-checked" Of Label "Schedule Month" With Params "JUL" is "EQUALS" to "false"
-#    Then UI Validate the attribute "data-debug-checked" Of Label "Schedule Month" With Params "AUG" is "EQUALS" to "false"
-#    Then UI Validate the attribute "data-debug-checked" Of Label "Schedule Month" With Params "SEP" is "EQUALS" to "false"
-#    Then UI Validate the attribute "data-debug-checked" Of Label "Schedule Month" With Params "OCT" is "EQUALS" to "false"
-#    Then UI Validate the attribute "data-debug-checked" Of Label "Schedule Month" With Params "NOV" is "EQUALS" to "false"
-#    Then UI Validate the attribute "data-debug-checked" Of Label "Schedule Month" With Params "DEC" is "EQUALS" to "false"
-#    Then UI Validate the attribute "Class" Of Label "ScheduleMonth" is "CONTAINS" to "jZCIie"
+  @SID_28
+  Scenario: Report Schedule Month is selected
+    Then UI Click Button "Schedule Report" with value "monthly"
+    Then UI Unclick all the attributes "class" is "CONTAINS" to "selected"
+      | label          | param |
+      | Schedule Month | JAN   |
+      | Schedule Month | FEB   |
+      | Schedule Month | MAR   |
+      | Schedule Month | APR   |
+      | Schedule Month | MAY   |
+      | Schedule Month | JUN   |
+      | Schedule Month | AUG   |
+      | Schedule Month | SEP   |
+      | Schedule Month | OCT   |
+      | Schedule Month | NOV   |
+      | Schedule Month | DEC   |
+    Then UI Text of "Error Massage" with extension "months" contains "Please select at least one month"
 
 #
 #  @SID_29
@@ -300,24 +327,30 @@ Feature: sanity new report
 
   @SID_32
   Scenario: Report Format PDF Button is clicked
-    Then UI Click Button "PDF Format"
-    Then UI Validate the attribute "data-debug-checked" Of Label "PDF Format" is "EQUALS" to "true"
-    Then UI Validate the attribute "data-debug-checked" Of Label "HTML Format" is "EQUALS" to "false"
-    Then UI Validate the attribute "data-debug-checked" Of Label "CSV Format" is "EQUALS" to "false"
+    Then UI Click Button "Format Type" with value "PDF"
+    Then UI Validate the attribute of "data-debug-checked" are "EQUAL" to
+      | label       | param | value |
+      | Format Type | PDF   | true  |
+      | Format Type | HTML  | false |
+      | Format Type | CSV   | false |
 
   @SID_33
   Scenario: Report Format HTML Button is clicked
-    Then UI Click Button "HTML Format"
-    Then UI Validate the attribute "data-debug-checked" Of Label "PDF Format" is "EQUALS" to "false"
-    Then UI Validate the attribute "data-debug-checked" Of Label "HTML Format" is "EQUALS" to "true"
-    Then UI Validate the attribute "data-debug-checked" Of Label "CSV Format" is "EQUALS" to "false"
+    Then UI Click Button "Format Type" with value "HTML"
+    Then UI Validate the attribute of "data-debug-checked" are "EQUAL" to
+      | label       | param | value |
+      | Format Type | PDF   | false |
+      | Format Type | HTML  | true  |
+      | Format Type | CSV   | false |
 
   @SID_34
   Scenario: Report Format CSV Button is clicked
-    Then UI Click Button "CSV Format"
-    Then UI Validate the attribute "data-debug-checked" Of Label "PDF Format" is "EQUALS" to "false"
-    Then UI Validate the attribute "data-debug-checked" Of Label "HTML Format" is "EQUALS" to "false"
-    Then UI Validate the attribute "data-debug-checked" Of Label "CSV Format" is "EQUALS" to "true"
+    Then UI Click Button "Format Type" with value "CSV"
+    Then UI Validate the attribute of "data-debug-checked" are "EQUAL" to
+      | label       | param | value |
+      | Format Type | PDF   | false |
+      | Format Type | HTML  | false |
+      | Format Type | CSV   | true  |
 
   @SID_35
   Scenario: Logout

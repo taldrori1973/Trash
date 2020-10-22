@@ -943,6 +943,7 @@ public class BasicOperationsHandler {
         String errorMessage = "The EXPECTED value of : '" + label + "' with params: '" + params + "' is not equal to '" + actualStatus + "' ";
         switch (compare) {
             case "EQUAL":
+            case "EQUALS":
                 if (!element.getAttribute(attribute).equalsIgnoreCase(value)) {
                     if (expectedErrorMessage != null) errorMessage = expectedErrorMessage;
                     BaseTestUtils.report(errorMessage, Reporter.FAIL);
