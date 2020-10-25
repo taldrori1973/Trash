@@ -3,6 +3,7 @@ Feature: JBOSS WATCHDOG
 
   @SID_1
   Scenario: setup
+    Given CLI Reset radware password
     #Remove previous setting if remained
     Given CLI Run remote linux Command "sed -i 's/#\*\/10 \* \* \* \* \/opt\/radware\/mgt-server\/bin\/watchdogs\/reporting_engine_watchdog.sh/\*\/10 \* \* \* \* \/opt\/radware\/mgt-server\/bin\/watchdogs\/reporting_engine_watchdog.sh/g' /var/spool/cron/root" on "ROOT_SERVER_CLI" with timeOut 10
     #stop JBOSS cron schedule
