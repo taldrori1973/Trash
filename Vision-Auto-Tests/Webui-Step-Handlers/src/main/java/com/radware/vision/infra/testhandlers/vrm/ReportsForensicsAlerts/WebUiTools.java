@@ -5,8 +5,11 @@ import com.radware.automation.webui.WebUIUtils;
 import com.radware.automation.webui.widgets.ComponentLocatorFactory;
 import org.openqa.selenium.WebElement;
 
+import java.util.List;
+
 public class WebUiTools {
     static final String checkedNotCheckedAttribute = "data-debug-checked";
+    static final String ariaChecked = "aria-checked";
 
     public static WebElement getWebElement(String label) {
         return getWebElement(label, "");
@@ -17,26 +20,43 @@ public class WebUiTools {
         VisionDebugIdsManager.setParams(params);
         return WebUIUtils.fluentWait(ComponentLocatorFactory.getLocatorByXpathDbgId(VisionDebugIdsManager.getDataDebugId()).getBy());
     }
+    public static List<WebElement> getWebElements(String label, String params) {
+        VisionDebugIdsManager.setLabel(label);
+        VisionDebugIdsManager.setParams(params);
+        return WebUIUtils.fluentWaitMultiple(ComponentLocatorFactory.getLocatorByXpathDbgId(VisionDebugIdsManager.getDataDebugId()).getBy());
+    }
 
-    public static void check(String label, String param, boolean toCheck) throws Exception {
+    public static void check(String label, String param, boolean isToCheck) throws Exception {
         WebElement checkElement = getWebElement(label, param);
         if (checkElement == null)
             throw new Exception("No Element with label " + label + " and params " + param);
-        if (webElementHasAttribute(checkElement, "class") && checkElement.getAttribute("class").matches(".*selected.*|.*checked.*")||
-                webElementHasAttribute(checkElement, checkedNotCheckedAttribute) && checkElement.getAttribute(checkedNotCheckedAttribute).matches(".*true.*|.*checked.*")
-                    ^ toCheck)
-            checkElement.click();
+        checkWebElement(checkElement, isToCheck);
 
     }
+
+    private static void checkWebElement( WebElement checkElement, boolean isToCheck) {
+        if ((webElementHasAttribute(checkElement, "class") && checkElement.getAttribute("class").matches(".*selected.*|.*checked.*")||
+                webElementHasAttribute(checkElement, checkedNotCheckedAttribute) && checkElement.getAttribute(checkedNotCheckedAttribute).matches(".*true.*|.*checked.*")||
+                    webElementHasAttribute(checkElement, ariaChecked) && checkElement.getAttribute(ariaChecked).matches(".*true.*|.*checked.*"))
+                    ^ isToCheck)
+            checkElement.click();
+    }
+
     public static boolean webElementHasAttribute(WebElement webElement, String attribute) {
             try
             {
-                webElement.getAttribute(attribute);
+                return webElement.getAttribute(attribute) != null;
             }
             catch (Exception e)
             {
                 return false;
             }
-            return true;
+    }
+
+    public static void checkElements(String label, String params, boolean isToBeChecked) {
+        List<WebElement> elements = getWebElements(label, params);
+        for (WebElement element : elements)
+            checkWebElement(element, isToBeChecked);
+
     }
 }

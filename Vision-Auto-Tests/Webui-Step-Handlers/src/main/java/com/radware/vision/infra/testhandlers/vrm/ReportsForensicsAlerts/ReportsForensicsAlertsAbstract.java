@@ -57,9 +57,9 @@ abstract class ReportsForensicsAlertsAbstract implements ReportsForensicsAlertsI
             JSONObject scheduleJson = new JSONObject(map.getOrDefault("Schedule", null));
             WebUiTools.check("Switch button Scheduled Report", "", true);
             String runEvery = scheduleJson.getString("Run Every");
-            BasicOperationsHandler.clickButton("Schedule Report", runEvery); //daily/weekly/monthly/once
+            BasicOperationsHandler.clickButton("Schedule Report", runEvery.toLowerCase()); //daily/weekly/monthly/once
 
-            if (scheduleJson.toMap().get("On Time").toString().matches("\\b\\+\\b|\\b-\\b"))
+            if (scheduleJson.toMap().get("On Time").toString().matches(("[\\+|\\-]\\d+[M|d|y|H|m]")))
                 selectScheduleHandlers.selectSchedulingWithComputingTheDate(runEvery, TimeUtils.getAddedDate(scheduleJson.toMap().get("On Time").toString().trim()));
             else
                 selectScheduleHandlers.selectSchedulingAsTexts(scheduleJson, runEvery);
@@ -71,10 +71,11 @@ abstract class ReportsForensicsAlertsAbstract implements ReportsForensicsAlertsI
     protected void selectShare(Map<String, String> map) throws Exception {
         if (map.containsKey("Share")) {
             JSONObject deliveryJsonObject = new JSONObject(map.get("Share"));
-            if (!deliveryJsonObject.has("Email")) {
-                BasicOperationsHandler.setTextField("Email", String.join(",",fixEmailsText(deliveryJsonObject)));
+            if (deliveryJsonObject.has("Email")) {
+                for(String email : fixEmailsText(deliveryJsonObject))
+                    BasicOperationsHandler.setTextField("Email", email, true);
                 BasicOperationsHandler.setTextField("Subject", deliveryJsonObject.getString("Subject"));
-                if (!deliveryJsonObject.has("Body")) {
+                if (deliveryJsonObject.has("Body")) {
                     BasicOperationsHandler.setTextField("Email message", deliveryJsonObject.getString("Body"));
                 }
             }

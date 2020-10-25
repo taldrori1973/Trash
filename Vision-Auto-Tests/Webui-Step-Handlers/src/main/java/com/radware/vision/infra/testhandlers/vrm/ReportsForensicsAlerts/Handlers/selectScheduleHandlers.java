@@ -14,12 +14,14 @@ public class selectScheduleHandlers {
     public static void selectSchedulingWithComputingTheDate(String runEvery, LocalDateTime scheduleLocalDateTime) throws Exception {
         String onTimeText = DateTimeFormatter.ofPattern("hh:mm a").format(scheduleLocalDateTime);
         switch (runEvery.toLowerCase()) {
-            case "Weekly":
+            case "weekly":
+                WebUiTools.checkElements("Schedule Day", "", false);
                 BasicOperationsHandler.setTextField("Scheduling At Time", onTimeText);
                 WebUiTools.check("Schedule Day", getWeekDayAsText(scheduleLocalDateTime), true);
                 break;
-            case "Monthly":
+            case "monthly":
                 BasicOperationsHandler.setTextField("Scheduling At Time", onTimeText);
+                WebUiTools.checkElements("Schedule Month", "", false);
                 WebUiTools.check("Schedule Month", getMonthAsText(scheduleLocalDateTime), true);
                 BasicOperationsHandler.setTextField("Scheduling On Day of Month", String.valueOf(scheduleLocalDateTime.getDayOfMonth()));
                 break;

@@ -77,8 +77,8 @@ public class Report extends ReportsForensicsAlertsAbstract {
 
     private void addLogo(Map<String, String> map) throws Exception {
         if (map.containsKey("Logo")) {
-            getWebElement("Add Logo").click();
-            BasicOperationsHandler.uploadFileToVision(map.get("Logo").trim(), null, null);
+//            getWebElement("Add Logo").click();
+            BasicOperationsHandler.uploadFileToVision(new JSONObject(map.get("Logo")).get("addLogo").toString().trim(), null, null);
         }
     }
 
