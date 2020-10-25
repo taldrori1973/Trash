@@ -1,7 +1,7 @@
 package com.radware.vision.infra.testhandlers.vrm.ReportsForensicsAlerts;
 
-import com.radware.vision.automation.tools.exceptions.selenium.TargetWebElementNotFoundException;
 import com.radware.vision.infra.testhandlers.baseoperations.BasicOperationsHandler;
+import com.radware.vision.vision_project_cli.RootServerCli;
 import org.json.JSONObject;
 
 import java.util.Arrays;
@@ -83,9 +83,20 @@ public class Report extends ReportsForensicsAlertsAbstract {
     }
 
     @Override
-    public void validate() {
+    public void validate(RootServerCli rootServerCli, String reportName, Map<String, String> map) {
+        validateScheduleDefinition();
+        validateShareDefinition();
+        validateFormatDefinition();
 
     }
+
+    private void validateFormatDefinition() {
+    }
+
+    private void validateShareDefinition() {
+    }
+
+
 
     @Override
     public void edit() {

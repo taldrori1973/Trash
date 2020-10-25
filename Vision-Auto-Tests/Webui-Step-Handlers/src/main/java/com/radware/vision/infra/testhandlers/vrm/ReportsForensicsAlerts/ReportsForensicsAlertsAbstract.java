@@ -95,6 +95,8 @@ abstract class ReportsForensicsAlertsAbstract implements ReportsForensicsAlertsI
 
     }
 
+    protected void validateScheduleDefinition() {
+    }
 
 
 
