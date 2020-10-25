@@ -23,7 +23,7 @@ import static com.radware.vision.bddtests.remotessh.RemoteSshCommandsTests.reset
 public class VmSnapShotOperations extends BddUITestBase {
 
     private String snapshotName = VMOperationsSteps.getVisionSetupAttributeFromSUT("snapshot");
-    private String setupMode = VMOperationsSteps.getVisionSetupAttributeFromSUT("setupMode");
+    private final String setupMode = VMOperationsSteps.getVisionSetupAttributeFromSUT("setupMode");
     int DEFAULT_KVM_CLI_TIMEOUT = 3000;
     VisionRadwareFirstTime visionRadwareFirstTime = (VisionRadwareFirstTime) system.getSystemObject("visionRadwareFirstTime");
     String kvmMachineName = visionRadwareFirstTime.getVmName() + visionRadwareFirstTime.getIp();
