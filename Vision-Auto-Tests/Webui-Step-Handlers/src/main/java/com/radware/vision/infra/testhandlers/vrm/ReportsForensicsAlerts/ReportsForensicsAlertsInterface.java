@@ -1,4 +1,4 @@
-package com.radware.vision.ReportsForensicsAlerts;
+package com.radware.vision.infra.testhandlers.vrm.ReportsForensicsAlerts;
 
 import java.util.Map;
 
