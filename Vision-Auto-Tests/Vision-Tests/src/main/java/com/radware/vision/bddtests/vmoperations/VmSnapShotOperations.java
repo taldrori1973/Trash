@@ -119,7 +119,7 @@ public class VmSnapShotOperations extends BddUITestBase {
         }
         CliOperations.runCommand(visionRadwareFirstTime, "virsh start " + kvmMachineName, DEFAULT_KVM_CLI_TIMEOUT);
         waitForDomainState(visionRadwareFirstTime, "running", 120);
-        BaseTestUtils.report("Reverting to snapshot.", Reporter.PASS_NOR_FAIL);
+        BaseTestUtils.report("Reverting to snapshot: " + snapshotName, Reporter.PASS_NOR_FAIL);
         CliOperations.runCommand(visionRadwareFirstTime, "virsh snapshot-revert --domain " + kvmMachineName + " --snapshotname " + snapshotName + " --force", 15 * 60 * 1000);
         BaseTestUtils.report("Starting server after revert.", Reporter.PASS_NOR_FAIL);
         CliOperations.runCommand(visionRadwareFirstTime, "virsh start " + kvmMachineName, DEFAULT_KVM_CLI_TIMEOUT);
@@ -170,7 +170,7 @@ public class VmSnapShotOperations extends BddUITestBase {
                 return;
             }
             String vmName = visionVMs.getVMNameByIndex(vmNumber);
-            BaseTestUtils.report("Reverting to snapshot " + snapshot, Reporter.PASS_NOR_FAIL);
+            BaseTestUtils.report("Reverting to snapshot: " + snapshot, Reporter.PASS_NOR_FAIL);
             VMSnapshotOperations.newInstance().switchToSnapshot(new VmNameTargetVm(esxiInfo, vmName), snapshot, true);
             BaseTestUtils.report("Revert done", Reporter.PASS_NOR_FAIL);
             setupServerAfterRevert();
