@@ -19,6 +19,7 @@ import com.radware.vision.automation.tools.exceptions.web.DropdownItemNotFoundEx
 import com.radware.vision.automation.tools.exceptions.web.DropdownNotOpenedException;
 import com.radware.vision.automation.tools.sutsystemobjects.devicesinfo.DeviceInfo;
 import com.radware.vision.automation.tools.sutsystemobjects.devicesinfo.enums.SUTDeviceType;
+import com.radware.vision.infra.testhandlers.vrm.ReportsForensicsAlerts.Report;
 import com.radware.vision.vision_project_cli.RadwareServerCli;
 import com.radware.vision.vision_project_cli.RootServerCli;
 import com.radware.vision.infra.testhandlers.baseoperations.BasicOperationsHandler;
@@ -51,8 +52,8 @@ public class VRMBaseUtilies {
 
     VRMHandler vrmHandler = new VRMHandler();
     public static LocalDateTime scheduleLocalDateTime = LocalDateTime.now();
-    public static LocalDateTime timeDefinitionLocalDateTime;
     public static String oldOrNew = "new"; // "old"/"new"
+    public static LocalDateTime timeDefinitionLocalDateTime;
 
 
     public void BaseVRMOperation(vrmActions operationType, String vrmBaseName, Map<String, String> entry, RootServerCli rootServerCli) throws Exception {
@@ -72,7 +73,8 @@ public class VRMBaseUtilies {
                 }
                 break;
             case "VALIDATE":
-                validateVRMBase(rootServerCli, vrmBaseName, map);
+                new Report().validate(rootServerCli, vrmBaseName, map);
+              //  validateVRMBase(rootServerCli, vrmBaseName, map);
                 break;
             case "EDIT":
                 switch (oldOrNew) {
@@ -80,7 +82,8 @@ public class VRMBaseUtilies {
                         editVRMBase(vrmBaseName, map);
                         break;
                     case "new":
-                        editVRMBaseNew(vrmBaseName, map);
+                        new Report().edit(vrmBaseName, map);
+                     //   editVRMBaseNew(vrmBaseName, map);
                         break;
                 }
                 break;
@@ -105,10 +108,10 @@ public class VRMBaseUtilies {
     protected void createVRMBase(String vrmBaseName, Map<String, String> map) throws Exception {
     }
 
-    protected void createVRMBaseNew(String vrmBaseName, Map<String, String> map) throws TargetWebElementNotFoundException {
+    protected void generateVRMBase(String vrmBaseName, Map<String, String> map) throws TargetWebElementNotFoundException {
     }
 
-    protected void generateVRMBase(String vrmBaseName, Map<String, String> map) throws TargetWebElementNotFoundException {
+    protected void createVRMBaseNew(String vrmBaseName, Map<String, String> map) throws TargetWebElementNotFoundException {
     }
 
     protected boolean isExistVRMBaseResult(String vrmBaseName, Map<String, String> map) {

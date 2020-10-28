@@ -2,12 +2,16 @@ package com.radware.vision.infra.testhandlers.vrm.ReportsForensicsAlerts;
 
 import com.radware.automation.tools.basetest.BaseTestUtils;
 import com.radware.automation.tools.basetest.Reporter;
-import com.radware.vision.automation.tools.exceptions.selenium.TargetWebElementNotFoundException;
 import com.radware.vision.infra.testhandlers.baseoperations.BasicOperationsHandler;
 import com.radware.vision.infra.testhandlers.vrm.ReportsForensicsAlerts.Handlers.SelectTimeHandlers;
 import com.radware.vision.infra.utils.TimeUtils;
+import org.json.JSONArray;
 import org.json.JSONObject;
 
+import java.time.Instant;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.time.format.DateTimeFormatter;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
@@ -16,7 +20,13 @@ import static com.radware.vision.infra.testhandlers.BaseHandler.restTestBase;
 import static com.radware.vision.infra.testhandlers.vrm.ReportsForensicsAlerts.WebUiTools.getWebElement;
 import com.radware.vision.infra.testhandlers.vrm.ReportsForensicsAlerts.Handlers.selectScheduleHandlers;
 
+import java.text.SimpleDateFormat;
+import java.text.DateFormat;
+import java.util.Date;
+
 abstract class ReportsForensicsAlertsAbstract implements ReportsForensicsAlertsInterface {
+    public static LocalDateTime timeDefinitionLocalDateTime;
+
     StringBuilder errorMessages = new StringBuilder();
 
 
@@ -24,6 +34,10 @@ abstract class ReportsForensicsAlertsAbstract implements ReportsForensicsAlertsI
         BasicOperationsHandler.setTextField("Report Name", "", name, true);
         if (!getWebElement("Report Name").getAttribute("value").equals(name))
             throw new Exception("Filling report name doesn't succeed");
+    }
+
+    protected void editName(String name) throws Exception {
+        createName(name);
     }
 
     protected void selectTime(Map<String, String> map) throws Exception {
@@ -49,7 +63,9 @@ abstract class ReportsForensicsAlertsAbstract implements ReportsForensicsAlertsI
         }
     }
 
-
+    protected void editTime(Map<String, String> map) throws Exception {
+            selectTime(map);
+    }
 
 
     protected void selectScheduling(Map<String, String> map) throws Exception {
@@ -66,7 +82,70 @@ abstract class ReportsForensicsAlertsAbstract implements ReportsForensicsAlertsI
         }
     }
 
+    protected void editScheduling(Map<String, String> map) throws Exception {
+        WebUiTools.check("Switch button Scheduled Report", "", false);
+        selectScheduling(map);
+    }
 
+    protected StringBuilder validateTimeDefinition( JSONObject  timeDefinitionsJSON, Map<String, String> map) {
+        StringBuilder errorMessage = new StringBuilder();
+        if (map.containsKey("Time Definitions.Date")) {
+            JSONObject expectedTimeDefinitions = new JSONObject(map.get("Time Definitions.Date"));
+            String typeSelectedTime = expectedTimeDefinitions.has("Quick") ? "Quick" :
+                    expectedTimeDefinitions.has("Absolute") ? "Absolute" :
+                            expectedTimeDefinitions.has("Relative") ? "Relative" : "";
+
+            switch (typeSelectedTime.toLowerCase()) {
+                case "quick":
+                    validateQuickRangeTime(timeDefinitionsJSON, errorMessage, expectedTimeDefinitions);
+                    break;
+                case "absolute":
+                    validateAbsoluteTime(timeDefinitionsJSON, errorMessage, expectedTimeDefinitions);
+                    break;
+                case "relative":
+                    validateRelativeTime(timeDefinitionsJSON, errorMessage, expectedTimeDefinitions);
+                    break;
+                default:
+                    BaseTestUtils.report("The time definition should be or Quick or Absolute or Relative not " + timeDefinitionsJSON.toString(), Reporter.FAIL);
+            }
+        }
+        return errorMessage;
+    }
+
+    private void validateRelativeTime(JSONObject timeDefinitions, StringBuilder errorMessage, JSONObject expectedTimeDefinitions) {
+        if (!timeDefinitions.get("rangeType").toString().equalsIgnoreCase("relative"))
+            errorMessage.append("The rangeType is " + timeDefinitions.get("rangeType") + " and not equal to relative").append("\n");
+        if (!timeDefinitions.get("relativeRange").toString().equalsIgnoreCase(new JSONArray(expectedTimeDefinitions.get("Relative").toString()).get(0).toString()))
+                errorMessage.append("The relative range is " + timeDefinitions.get("relativeRange") + " and not " + new JSONArray(expectedTimeDefinitions.get("Relative").toString()).get(0).toString()).append("\n");
+        if (!timeDefinitions.get("relativeRangeValue").toString().equalsIgnoreCase(new JSONArray(expectedTimeDefinitions.get("Relative").toString()).get(1).toString()))
+            errorMessage.append("The relativeRangeValue is " + timeDefinitions.get("relativeRangeValue") + " and not " + new JSONArray(expectedTimeDefinitions.get("Relative").toString()).get(1).toString()).append("'n");
+    }
+
+    private void validateAbsoluteTime(JSONObject timeDefinitions, StringBuilder errorMessage, JSONObject expectedTimeDefinitions) {
+        if (expectedTimeDefinitions.get("Absolute").toString().matches(("[\\+|\\-]\\d+[M|d|y|H|m]"))) {
+            if (!timeDefinitions.get("rangeType").toString().equalsIgnoreCase("absolute"))
+                errorMessage.append("The rangeType is " + timeDefinitions.get("rangeType") + " and not equal to Absolute").append("\n");
+
+//            Date actualDate = new Date(new Long(timeDefinitions.get("to").toString()));
+//            SimpleDateFormat absoluteFormatter = new SimpleDateFormat("dd.MM.YYYY HH:mm:ss");
+//            String actualAbsoluteText = absoluteFormatter.format(actualDate);
+//            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd.MM.YYYY HH:mm:ss");
+//            String expectedAbsoluteText = timeDefinitionLocalDateTime.format(formatter);
+
+            //toDo: check to and from time !!!!!!!!!!!!
+            LocalDateTime actualDate = LocalDateTime.ofInstant(Instant.ofEpochMilli(new Long(timeDefinitions.get("to").toString())), ZoneId.systemDefault());
+            DateTimeFormatter absoluteFormatter = DateTimeFormatter.ofPattern("MMM dd, yyyy HH:mm");
+            if (!actualDate.format(absoluteFormatter).equalsIgnoreCase(timeDefinitionLocalDateTime.format(absoluteFormatter)))
+                errorMessage.append("the Actual absolute time is " + actualDate + " but the expected is " + timeDefinitionLocalDateTime).append("\n");
+        }
+    }
+
+    private void validateQuickRangeTime(JSONObject timeDefinitionsJSON, StringBuilder errorMessage, JSONObject expectedTimeDefinitions) {
+        if (!timeDefinitionsJSON.get("rangeType").toString().equalsIgnoreCase("quick"))
+            errorMessage.append("The rangeType is " + timeDefinitionsJSON.get("rangeType") + " and not equal to quick").append("\n");
+        if (!timeDefinitionsJSON.get("quickRangeSelection").toString().equalsIgnoreCase(expectedTimeDefinitions.getString("Quick")))
+                errorMessage.append("The value of the quickRange is " + timeDefinitionsJSON.get("quickRangeSelection") + " and not equal to " + expectedTimeDefinitions.getString("Quick")).append("\n");
+    }
 
     protected void selectShare(Map<String, String> map) throws Exception {
         if (map.containsKey("Share")) {
@@ -80,6 +159,13 @@ abstract class ReportsForensicsAlertsAbstract implements ReportsForensicsAlertsI
                 }
             }
         }
+    }
+
+    protected void editShare(Map<String, String> map) throws Exception {
+        BasicOperationsHandler.setTextField("Email", "");
+        BasicOperationsHandler.setTextField("Subject", "");
+        BasicOperationsHandler.setTextField("Email message", "");
+        selectShare(map);
     }
 
     private List<String> fixEmailsText(JSONObject deliveryJsonObject) {
@@ -98,9 +184,6 @@ abstract class ReportsForensicsAlertsAbstract implements ReportsForensicsAlertsI
 
     protected void validateScheduleDefinition() {
     }
-
-
-
 
 
 }

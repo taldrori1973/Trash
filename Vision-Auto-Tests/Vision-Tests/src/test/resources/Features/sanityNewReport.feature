@@ -1,4 +1,3 @@
-@run
 Feature: sanity new report
 
   @SID_1
@@ -9,11 +8,11 @@ Feature: sanity new report
 
   @SID_2
   Scenario: Validate Report Parameters Name
-    Then UI Text of "Name Tab" equal to "Name*"
+    Then UI Text of "Name Tab" equal to "Report Name*"
     Then UI Text of "Logo Tab" equal to "Logo"
     Then UI Text of "Time Tab" equal to "Time*"
     Then UI Text of "Schedule Tab" equal to "Schedule*"
-    Then UI Text of "Share Tab" equal to "Share"
+    Then UI Text of "Share Tab" equal to "Share by E-mail"
     Then UI Text of "Format Tab" equal to "Format"
 
   @SID_3
@@ -26,6 +25,7 @@ Feature: sanity new report
       | Time Tab     |       | false |
       | Schedule Tab |       | false |
       | Share Tab    |       | false |
+      | Format Tab   |       | false |
 
   @SID_4
   Scenario: Report Logo is selected
@@ -37,6 +37,8 @@ Feature: sanity new report
       | Time Tab     |       | false |
       | Schedule Tab |       | false |
       | Share Tab    |       | false |
+      | Format Tab   |       | false |
+
 
   @SID_5
   Scenario: Report Time is selected
@@ -48,6 +50,8 @@ Feature: sanity new report
       | Time Tab     |       | true  |
       | Schedule Tab |       | false |
       | Share Tab    |       | false |
+      | Format Tab   |       | false |
+
 
   @SID_6
   Scenario: Report Schedule is selected
@@ -59,6 +63,8 @@ Feature: sanity new report
       | Time Tab     |       | false |
       | Schedule Tab |       | true  |
       | Share Tab    |       | false |
+      | Format Tab   |       | false |
+
 
   @SID_7
   Scenario: Report Share is selected
@@ -70,8 +76,21 @@ Feature: sanity new report
       | Time Tab     |       | false |
       | Schedule Tab |       | false |
       | Share Tab    |       | true  |
+      | Format Tab   |       | false |
 
   @SID_8
+  Scenario: Report Share is selected
+    Then UI Click Button "Format Tab"
+    Then UI Validate the attribute of "data-debug-checked" are "EQUAL" to
+      | label        | param | value |
+      | Name Tab     |       | false |
+      | Logo Tab     |       | false |
+      | Time Tab     |       | false |
+      | Schedule Tab |       | false |
+      | Share Tab    |       | false |
+      | Format Tab   |       | true  |
+
+  @SID_9
   Scenario: Validate report name
     Then UI Validate the attribute "placeholder" Of Label "Report Name" is "EQUALS" to "Type here"
     Then UI Set Text Field "Report Name" To " "
@@ -82,7 +101,7 @@ Feature: sanity new report
     Then UI Validate the attribute "Class" Of Label "Name TextField" is "CONTAINS" to "idEgbD"
 
 
-  @SID_9
+  @SID_10
   Scenario: Validate Logo
     Then UI Text of "Add Logo" equal to "Add Logo (PNG, 100×100)"
     Then UI Click Button "Add Logo"
@@ -92,7 +111,7 @@ Feature: sanity new report
     Then Upload file "invalidFormatReportLogo.jpg"
     Then UI Validate Text field "Logo Size Message" CONTAINS "The graphic file that you selected is invalid. Select a 100×100-pixel .png file and try again"
 
-  @SID_10
+  @SID_11
   Scenario: Report Time - Quick Range is selected
     Then UI Click Button "Time Type" with value "quickrange"
     Then UI Validate the attribute of "data-debug-checked" are "EQUAL" to
@@ -101,7 +120,7 @@ Feature: sanity new report
       | Time Type | absolute   | false |
       | Time Type | relative   | false |
 
-  @SID_11
+  @SID_12
   Scenario: Report Time - Absolute is selected
     Then UI Click Button "Time Type" with value "absolute"
     Then UI Validate the attribute of "data-debug-checked" are "EQUAL" to
@@ -110,7 +129,7 @@ Feature: sanity new report
       | Time Type | absolute   | true  |
       | Time Type | relative   | false |
 
-  @SID_12
+  @SID_13
   Scenario: Report Time - Relative is selected
     Then UI Click Button "Time Type" with value "relative"
     Then UI Validate the attribute of "data-debug-checked" are "EQUAL" to
@@ -119,7 +138,7 @@ Feature: sanity new report
       | Time Type | absolute   | false |
       | Time Type | relative   | true  |
 
-  @SID_13
+  @SID_14
   Scenario: Validate Quick Range Time
     Then UI Click Button "Time Type" with value "quickrange"
     Then UI Click Button "Quick Range" with value "15m"
@@ -139,7 +158,7 @@ Feature: sanity new report
       | Quick Range | Previous Month | false |
       | Quick Range | Quarter        | false |
 
-  @SID_14
+  @SID_15
   Scenario: Time - Relative Hour button is selected
     Then UI Click Button "Time Type" with value "relative"
     Then UI Click Button "Relative Time Unit" with value "Hours"
@@ -150,7 +169,7 @@ Feature: sanity new report
       | Relative Time Unit | Weeks  | false |
       | Relative Time Unit | Months | false |
 
-  @SID_15
+  @SID_16
   Scenario: Time - Relative Days button is selected
     Then UI Click Button "Relative Time Unit" with value "Days"
     Then UI Validate the attribute of "data-debug-checked" are "EQUAL" to
@@ -160,7 +179,7 @@ Feature: sanity new report
       | Relative Time Unit | Weeks  | false |
       | Relative Time Unit | Months | false |
 
-  @SID_16
+  @SID_17
   Scenario: Time - Relative Weeks button is selected
     Then UI Click Button "Relative Time Unit" with value "Weeks"
     Then UI Validate the attribute of "data-debug-checked" are "EQUAL" to
@@ -170,7 +189,7 @@ Feature: sanity new report
       | Relative Time Unit | Weeks  | true  |
       | Relative Time Unit | Months | false |
 
-  @SID_17
+  @SID_18
   Scenario: Time - Relative Months button is selected
     Then UI Click Button "Relative Time Unit" with value "Months"
     Then UI Validate the attribute of "data-debug-checked" are "EQUAL" to
@@ -180,7 +199,7 @@ Feature: sanity new report
       | Relative Time Unit | Weeks  | false |
       | Relative Time Unit | Months | true  |
 
-  @SID_18
+  @SID_19
   Scenario: Validate Relative Time - Hours
     Then UI Click Button "Relative Time Unit" with value "Hours"
     Then UI Set Text Field "Relative Time Unit Value" and params "Hours" To "0"
@@ -190,7 +209,7 @@ Feature: sanity new report
     Then UI Set Text Field "Relative Time Unit Value" and params "Hours" To "8761"
     Then UI Validate the attribute "Class" Of Label "Relative Time Unit Value" With Params "Hours" is "CONTAINS" to "cCLrFi"
 
-  @SID_19
+  @SID_20
   Scenario: Validate Relative Time - Days
     Then UI Click Button "Relative Time Unit" with value "Days"
     Then UI Set Text Field "Relative Time Unit Value" and params "Days" To "0"
@@ -200,7 +219,7 @@ Feature: sanity new report
     Then UI Set Text Field "Relative Time Unit Value" and params "Days" To "366"
     Then UI Validate the attribute "Class" Of Label "Relative Time Unit Value" With Params "Days" is "CONTAINS" to "cCLrFi"
 
-  @SID_20
+  @SID_21
   Scenario: Validate Relative Time - Weeks
     Then UI Click Button "Relative Time Unit" with value "Weeks"
     Then UI Set Text Field "Relative Time Unit Value" and params "Weeks" To "0"
@@ -210,7 +229,7 @@ Feature: sanity new report
     Then UI Set Text Field "Relative Time Unit Value" and params "Weeks" To "53"
     Then UI Validate the attribute "Class" Of Label "Relative Time Unit Value" With Params "Weeks" is "CONTAINS" to "cCLrFi"
 
-  @SID_21
+  @SID_22
   Scenario: Validate Relative Time - Months
     Then UI Click Button "Relative Time Unit" with value "Months"
     Then UI Set Text Field "Relative Time Unit Value" and params "Months" To "0"
@@ -220,7 +239,7 @@ Feature: sanity new report
     Then UI Set Text Field "Relative Time Unit Value" and params "Months" To "13"
     Then UI Validate the attribute "Class" Of Label "Relative Time Unit Value" With Params "Months" is "CONTAINS" to "cCLrFi"
 
-  @SID_22
+  @SID_23
   Scenario: Report Schedule Daily is selected
     Then UI Click Button "Switch button Scheduled Report"
     Then UI Click Button "Schedule Report" with value "daily"
@@ -231,7 +250,7 @@ Feature: sanity new report
       | Schedule Report | monthly | false |
       | Schedule Report | once    | false |
 
-  @SID_23
+  @SID_24
   Scenario: Report Schedule Weekly is selected
     Then UI Click Button "Schedule Report" with value "weekly"
     Then UI Validate the attribute of "data-debug-checked" are "EQUAL" to
@@ -241,7 +260,7 @@ Feature: sanity new report
       | Schedule Report | monthly | false |
       | Schedule Report | once    | false |
 
-  @SID_24
+  @SID_25
   Scenario: Report Schedule Monthly is selected
     Then UI Click Button "Schedule Report" with value "monthly"
     Then UI Validate the attribute of "data-debug-checked" are "EQUAL" to
@@ -251,7 +270,7 @@ Feature: sanity new report
       | Schedule Report | monthly | true  |
       | Schedule Report | once    | false |
 
-  @SID_25
+  @SID_26
   Scenario: Report Schedule Once is selected
     Then UI Click Button "Schedule Report" with value "once"
     Then UI Validate the attribute of "data-debug-checked" are "EQUAL" to
@@ -261,7 +280,7 @@ Feature: sanity new report
       | Schedule Report | monthly | false |
       | Schedule Report | once    | true  |
 
-  @SID_26
+  @SID_27
   Scenario: Validate daily schedule.
     Then UI Click Button "Schedule Report" with value "daily"
     Then UI Set Text Field "Schedule Daily Time" To "1:31 PM"
@@ -277,7 +296,7 @@ Feature: sanity new report
     Then UI Set Text Field "Schedule Daily Time" To "11:61 PM"
     Then UI Text of "Error Massage" with extension "timeOfDay" contains "Please select a time between 12 AM to 11:59 PM"
 
-  @SID_27
+  @SID_28
   Scenario: Report Schedule Day of week is selected
     Then UI Click Button "Schedule Report" with value "weekly"
     Then UI Unclick all the attributes "class" is "CONTAINS" to "selected"
@@ -291,7 +310,7 @@ Feature: sanity new report
       | Schedule Day | SUN   |
     Then UI Text of "Error Massage" with extension "dayOfWeek" contains "Please select at least one day of week"
 
-  @SID_28
+  @SID_29
   Scenario: Report Schedule Month is selected
     Then UI Click Button "Schedule Report" with value "monthly"
     Then UI Unclick all the attributes "class" is "CONTAINS" to "selected"
@@ -309,23 +328,36 @@ Feature: sanity new report
       | Schedule Month | DEC   |
     Then UI Text of "Error Massage" with extension "months" contains "Please select at least one month"
 
-#
-#  @SID_29
-#  Scenario: Validate Share send email To
-#    Then UI Set Text Field "Email" To "user@automation.local"
-#  #no data-debug-id
-#    Then UI Text of "Email" equal to "To *"
-#
-#  @SID_30
-#  Scenario: Validate send email Subject
-#      #no data-debug-id
-#    Then UI Text of "Subject" equal to "Subject"
+  @SID_30
+  Scenario: Validate Share send email To
+    Then UI Set Text Field "Email" To "user@automation.local"
+    Then UI Text of "Email" equal to "E-mail To *"
+    Then UI Set Text Field "Email" To "example@example.example" enter Key true
+    Then UI Validate Element Existence By Label "Email input" if Exists "true" with value "example@example.example,valid"
+    Then UI Set Text Field "Email" To "example" enter Key true
+    Then UI Validate Element Existence By Label "Email input" if Exists "true" with value "example,invalid"
+    Then UI Set Text Field "Email" To "example." enter Key true
+    Then UI Validate Element Existence By Label "Email input" if Exists "true" with value "example.,invalid"
+    Then UI Set Text Field "Email" To "example@" enter Key true
+    Then UI Validate Element Existence By Label "Email input" if Exists "true" with value "example@,invalid"
+    Then UI Set Text Field "Email" To "example@example." enter Key true
+    Then UI Validate Element Existence By Label "Email input" if Exists "true" with value "example@example.,invalid"
+    Then UI Set Text Field "Email" To "example@example" enter Key true
+    Then UI Validate Element Existence By Label "Email input" if Exists "true" with value "example@example,invalid"
+    Then UI Set Text Field "Email" To "example.@example.example" enter Key true
+    Then UI Validate Element Existence By Label "Email input" if Exists "true" with value "example.@example.example,invalid"
+    Then UI Set Text Field "Email" To "example@example. example" enter Key true
+    Then UI Validate Element Existence By Label "Email input" if Exists "true" with value "example@example. example,invalid"
 
   @SID_31
+  Scenario: Validate send email Subject
+    Then UI Text of "Subject" equal to "Subject"
+
+  @SID_32
   Scenario: Validate send email Type your message
     Then UI Validate the attribute "placeholder" Of Label "Email message" is "EQUALS" to "Type your message"
 
-  @SID_32
+  @SID_33
   Scenario: Report Format PDF Button is clicked
     Then UI Click Button "Format Type" with value "PDF"
     Then UI Validate the attribute of "data-debug-checked" are "EQUAL" to
@@ -334,7 +366,7 @@ Feature: sanity new report
       | Format Type | HTML  | false |
       | Format Type | CSV   | false |
 
-  @SID_33
+  @SID_34
   Scenario: Report Format HTML Button is clicked
     Then UI Click Button "Format Type" with value "HTML"
     Then UI Validate the attribute of "data-debug-checked" are "EQUAL" to
@@ -343,7 +375,7 @@ Feature: sanity new report
       | Format Type | HTML  | true  |
       | Format Type | CSV   | false |
 
-  @SID_34
+  @SID_35
   Scenario: Report Format CSV Button is clicked
     Then UI Click Button "Format Type" with value "CSV"
     Then UI Validate the attribute of "data-debug-checked" are "EQUAL" to
@@ -352,7 +384,8 @@ Feature: sanity new report
       | Format Type | HTML  | false |
       | Format Type | CSV   | true  |
 
-  @SID_35
+  @SID_36
   Scenario: Logout
     Then UI logout and close browser
+
 

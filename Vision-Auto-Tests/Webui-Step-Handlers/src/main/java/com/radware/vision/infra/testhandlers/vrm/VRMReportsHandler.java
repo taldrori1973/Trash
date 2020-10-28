@@ -1216,7 +1216,7 @@ public class VRMReportsHandler extends VRMBaseUtilies {
                 }
             }
             if (!textExist)
-                errorMessage = ("The option of " + entry.text + " in widget " + widget + " in report " + reportName +  "doesn't found " + "/n");
+                errorMessage = ("The option of " + entry.text + " in widget " + widget + " in report " + reportName + "doesn't found " + "/n");
         }
         if (!errorMessage.equals(""))
             BaseTestUtils.report(errorMessage, Reporter.FAIL);

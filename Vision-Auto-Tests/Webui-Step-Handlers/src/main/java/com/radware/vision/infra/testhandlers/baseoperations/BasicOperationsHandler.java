@@ -444,11 +444,6 @@ public class BasicOperationsHandler {
         }
     }
 
-    public static boolean isElementExists(String LabelName, boolean isExists, String param) {
-        WebElement element = isItemAvailableById(LabelName, param);
-        return element != null && isExists || element == null && !isExists;
-    }
-
     public static void isElementSelected(String LabelName, boolean isSelected, String param) {
         WebElement element = isItemAvailableById(LabelName, param);
         if (element != null && (element.getAttribute("class").contains("selected") == isSelected)) {
@@ -456,6 +451,11 @@ public class BasicOperationsHandler {
         } else {
             BaseTestUtils.report("Failed to validate element Selection: " + LabelName + " " + isSelected, Reporter.FAIL);
         }
+    }
+
+    public static boolean isElementExists(String LabelName, boolean isExists, String param) {
+        WebElement element = isItemAvailableById(LabelName, param);
+        return element != null && isExists || element == null && !isExists;
     }
 
     /**
