@@ -4,6 +4,7 @@ import com.radware.vision.automation.tools.exceptions.selenium.TargetWebElementN
 import com.radware.vision.automation.tools.exceptions.web.DropdownItemNotFoundException;
 import com.radware.vision.automation.tools.exceptions.web.DropdownNotOpenedException;
 import com.radware.vision.bddtests.BddUITestBase;
+import com.radware.vision.infra.testhandlers.vrm.ReportsForensicsAlerts.Report;
 import com.radware.vision.infra.testhandlers.vrm.VRMHandler;
 import com.radware.vision.infra.testhandlers.vrm.VRMReportsHandler;
 import com.radware.vision.infra.testhandlers.vrm.enums.vrmActions;
@@ -73,9 +74,9 @@ public class ReportSteps extends BddUITestBase {
      *                      you ca write all of the table or some of the columns
      *                      and it will work
      */
-    @Then("^UI \"(Create|Validate|Edit|Isexist)\" Report With Name \"([^\"]*)\"( negative)?$")
+    @Then("^UI \"(Create|Validate|Edit|Generate|Isexist)\" Report With Name \"([^\"]*)\"( negative)?$")
     public void uiReportWithName(vrmActions operationType, String reportName,String negative, Map<String, String> reportsEntry) throws Throwable {
-        vrmReportsHandler.VRMReportOperation(operationType, reportName, reportsEntry, restTestBase.getRootServerCli());
+        new Report().baseOperation(operationType, reportName, reportsEntry, restTestBase.getRootServerCli());
     }
 
     @When("^UI Validate invalid message in delivery$")

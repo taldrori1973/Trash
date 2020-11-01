@@ -12,6 +12,7 @@ import com.radware.automation.webui.widgets.impl.WebUICheckbox;
 import com.radware.automation.webui.widgets.impl.WebUIComponent;
 import com.radware.vision.automation.tools.exceptions.selenium.TargetWebElementNotFoundException;
 import com.radware.vision.automation.tools.sutsystemobjects.devicesinfo.enums.SUTDeviceType;
+import com.radware.vision.infra.testhandlers.vrm.ReportsForensicsAlerts.Report;
 import com.radware.vision.vision_project_cli.RootServerCli;
 import com.radware.vision.infra.testhandlers.EmailHandler;
 import com.radware.vision.infra.testhandlers.alteon.securitymonitoring.dashboardview.sslinspection.enums.QuickRange;
@@ -198,6 +199,7 @@ public class VRMReportsHandler extends VRMBaseUtilies {
 
     protected void validateVRMBase(RootServerCli rootServerCli, String reportName, Map<String, String> map) {
 //        EnterToValidateOrEdit(reportName);
+        new Report().validate(rootServerCli, reportName, map);
         JSONObject basicRestResult = waitForESDocument(rootServerCli, "reportName", reportName, "vrm-scheduled-report-definition-vrm", 0);
         if (basicRestResult == null) {
             BaseTestUtils.report("Could not find document: " + reportName, Reporter.FAIL);
@@ -812,7 +814,6 @@ public class VRMReportsHandler extends VRMBaseUtilies {
             //            Delivery(map);
             //BasicOperationsHandler.clickButton("Next", "");
             Design(reportName, map);
-            BasicOperationsHandler.clickButton("Next", "");
             BasicOperationsHandler.clickButton("Submit", "");
         } finally {
             try {

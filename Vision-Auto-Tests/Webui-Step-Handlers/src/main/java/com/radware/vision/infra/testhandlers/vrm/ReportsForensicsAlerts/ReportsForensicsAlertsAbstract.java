@@ -4,8 +4,12 @@ import com.radware.automation.tools.basetest.BaseTestUtils;
 import com.radware.automation.tools.basetest.Reporter;
 import com.radware.vision.infra.testhandlers.baseoperations.BasicOperationsHandler;
 import com.radware.vision.infra.testhandlers.vrm.ReportsForensicsAlerts.Handlers.SelectTimeHandlers;
+import com.radware.vision.infra.testhandlers.vrm.enums.vrmActions;
+import com.radware.vision.infra.utils.json.CustomizedJsonManager;
+import com.radware.vision.vision_project_cli.RootServerCli;
 import org.json.JSONArray;
 import org.json.JSONObject;
+
 import java.time.LocalDateTime;
 import java.time.Instant;
 import java.time.ZoneId;
@@ -14,8 +18,10 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
 import static com.radware.vision.infra.testhandlers.BaseHandler.restTestBase;
 import static com.radware.vision.infra.testhandlers.vrm.ReportsForensicsAlerts.WebUiTools.getWebElement;
+
 import com.radware.vision.infra.testhandlers.vrm.ReportsForensicsAlerts.Handlers.SelectScheduleHandlers;
 
 
@@ -63,7 +69,7 @@ abstract class ReportsForensicsAlertsAbstract implements ReportsForensicsAlertsI
 
 
     protected void editTime(Map<String, String> map) throws Exception {
-            selectTime(map);
+        selectTime(map);
     }
 
 
@@ -82,7 +88,7 @@ abstract class ReportsForensicsAlertsAbstract implements ReportsForensicsAlertsI
         selectScheduling(map);
     }
 
-    protected StringBuilder validateTimeDefinition( JSONObject  timeDefinitionsJSON, Map<String, String> map) {
+    protected StringBuilder validateTimeDefinition(JSONObject timeDefinitionsJSON, Map<String, String> map) {
         StringBuilder errorMessage = new StringBuilder();
         if (map.containsKey("Time Definitions.Date")) {
             JSONObject expectedTimeDefinitions = new JSONObject(map.get("Time Definitions.Date"));
@@ -111,7 +117,7 @@ abstract class ReportsForensicsAlertsAbstract implements ReportsForensicsAlertsI
         if (!timeDefinitions.get("rangeType").toString().equalsIgnoreCase("relative"))
             errorMessage.append("The rangeType is " + timeDefinitions.get("rangeType") + " and not equal to relative").append("\n");
         if (!timeDefinitions.get("relativeRange").toString().equalsIgnoreCase(new JSONArray(expectedTimeDefinitions.get("Relative").toString()).get(0).toString()))
-                errorMessage.append("The relative range is " + timeDefinitions.get("relativeRange") + " and not " + new JSONArray(expectedTimeDefinitions.get("Relative").toString()).get(0).toString()).append("\n");
+            errorMessage.append("The relative range is " + timeDefinitions.get("relativeRange") + " and not " + new JSONArray(expectedTimeDefinitions.get("Relative").toString()).get(0).toString()).append("\n");
         if (!timeDefinitions.get("relativeRangeValue").toString().equalsIgnoreCase(new JSONArray(expectedTimeDefinitions.get("Relative").toString()).get(1).toString()))
             errorMessage.append("The relativeRangeValue is " + timeDefinitions.get("relativeRangeValue") + " and not " + new JSONArray(expectedTimeDefinitions.get("Relative").toString()).get(1).toString()).append("'n");
     }
@@ -139,7 +145,7 @@ abstract class ReportsForensicsAlertsAbstract implements ReportsForensicsAlertsI
         if (!timeDefinitionsJSON.get("rangeType").toString().equalsIgnoreCase("quick"))
             errorMessage.append("The rangeType is " + timeDefinitionsJSON.get("rangeType") + " and not equal to quick").append("\n");
         if (!timeDefinitionsJSON.get("quickRangeSelection").toString().equalsIgnoreCase(expectedTimeDefinitions.getString("Quick")))
-                errorMessage.append("The value of the quickRange is " + timeDefinitionsJSON.get("quickRangeSelection") + " and not equal to " + expectedTimeDefinitions.getString("Quick")).append("\n");
+            errorMessage.append("The value of the quickRange is " + timeDefinitionsJSON.get("quickRangeSelection") + " and not equal to " + expectedTimeDefinitions.getString("Quick")).append("\n");
     }
 
     protected void selectShare(Map<String, String> map) throws Exception {
@@ -192,4 +198,32 @@ abstract class ReportsForensicsAlertsAbstract implements ReportsForensicsAlertsI
     }
 
     protected abstract String getType();
+
+
+    public void baseOperation(vrmActions operationType, String name, Map<String, String> entry, RootServerCli rootServerCli) throws Exception {
+        Map<String, String> map = null;
+        if (operationType != vrmActions.GENERATE)
+            map = CustomizedJsonManager.fixJson(entry);
+
+        switch (operationType.name().toUpperCase()) {
+            case "CREATE":
+                create(name, map);
+                break;
+            case "VALIDATE":
+                validate(rootServerCli, name, map);
+                break;
+            case "EDIT":
+                edit(name, map);
+                break;
+            case "GENERATE":
+                generate(name);
+                break;
+            case "ISEXIST":
+                break;
+        }
+    }
+
+    public void generate(String name){}
+
+
 }

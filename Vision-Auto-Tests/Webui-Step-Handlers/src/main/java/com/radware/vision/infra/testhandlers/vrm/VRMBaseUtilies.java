@@ -44,7 +44,6 @@ import java.util.regex.Pattern;
 
 import static com.radware.vision.infra.testhandlers.BaseHandler.devicesManager;
 import static com.radware.vision.infra.testhandlers.BaseHandler.restTestBase;
-import static com.radware.vision.infra.testhandlers.baseoperations.clickoperations.ClickOperationsHandler.validateElementExistenceByLabel;
 import static com.radware.vision.infra.utils.ReportsUtils.addErrorMessage;
 import static com.radware.vision.infra.utils.ReportsUtils.reportErrors;
 
@@ -73,8 +72,7 @@ public class VRMBaseUtilies {
                 }
                 break;
             case "VALIDATE":
-                new Report().validate(rootServerCli, vrmBaseName, map);
-              //  validateVRMBase(rootServerCli, vrmBaseName, map);
+                validateVRMBase(rootServerCli, vrmBaseName, map);
                 break;
             case "EDIT":
                 switch (oldOrNew) {
