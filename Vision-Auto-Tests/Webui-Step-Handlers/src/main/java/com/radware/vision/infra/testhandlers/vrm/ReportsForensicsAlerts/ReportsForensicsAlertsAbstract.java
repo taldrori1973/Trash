@@ -4,36 +4,34 @@ import com.radware.automation.tools.basetest.BaseTestUtils;
 import com.radware.automation.tools.basetest.Reporter;
 import com.radware.vision.infra.testhandlers.baseoperations.BasicOperationsHandler;
 import com.radware.vision.infra.testhandlers.vrm.ReportsForensicsAlerts.Handlers.SelectTimeHandlers;
-import com.radware.vision.infra.utils.TimeUtils;
 import org.json.JSONArray;
 import org.json.JSONObject;
-
-import java.time.Instant;
 import java.time.LocalDateTime;
+import java.time.Instant;
 import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
 import static com.radware.vision.infra.testhandlers.BaseHandler.restTestBase;
 import static com.radware.vision.infra.testhandlers.vrm.ReportsForensicsAlerts.WebUiTools.getWebElement;
-import com.radware.vision.infra.testhandlers.vrm.ReportsForensicsAlerts.Handlers.selectScheduleHandlers;
+import com.radware.vision.infra.testhandlers.vrm.ReportsForensicsAlerts.Handlers.SelectScheduleHandlers;
 
-import java.text.SimpleDateFormat;
-import java.text.DateFormat;
-import java.util.Date;
 
 abstract class ReportsForensicsAlertsAbstract implements ReportsForensicsAlertsInterface {
     public static LocalDateTime timeDefinitionLocalDateTime;
 
     StringBuilder errorMessages = new StringBuilder();
+    private static Map<String, LocalDateTime> schedulingDates = new HashMap<>();
+    private String name;
 
 
     protected void createName(String name) throws Exception {
         BasicOperationsHandler.setTextField("Report Name", "", name, true);
         if (!getWebElement("Report Name").getAttribute("value").equals(name))
             throw new Exception("Filling report name doesn't succeed");
+        this.name = name;
     }
 
     protected void editName(String name) throws Exception {
@@ -63,6 +61,7 @@ abstract class ReportsForensicsAlertsAbstract implements ReportsForensicsAlertsI
         }
     }
 
+
     protected void editTime(Map<String, String> map) throws Exception {
             selectTime(map);
     }
@@ -74,11 +73,7 @@ abstract class ReportsForensicsAlertsAbstract implements ReportsForensicsAlertsI
             WebUiTools.check("Switch button Scheduled Report", "", true);
             String runEvery = scheduleJson.getString("Run Every");
             BasicOperationsHandler.clickButton("Schedule Report", runEvery.toLowerCase()); //daily/weekly/monthly/once
-
-            if (scheduleJson.toMap().get("On Time").toString().matches(("[\\+|\\-]\\d+[M|d|y|H|m]")))
-                selectScheduleHandlers.selectSchedulingWithComputingTheDate(runEvery, TimeUtils.getAddedDate(scheduleJson.toMap().get("On Time").toString().trim()));
-            else
-                selectScheduleHandlers.selectSchedulingAsTexts(scheduleJson, runEvery);
+            SelectScheduleHandlers.selectScheduling(runEvery, scheduleJson, schedulingDates, getType() + "_" + name);
         }
     }
 
@@ -151,7 +146,7 @@ abstract class ReportsForensicsAlertsAbstract implements ReportsForensicsAlertsI
         if (map.containsKey("Share")) {
             JSONObject deliveryJsonObject = new JSONObject(map.get("Share"));
             if (deliveryJsonObject.has("Email")) {
-                for(String email : fixEmailsText(deliveryJsonObject))
+                for (String email : fixEmailsText(deliveryJsonObject))
                     BasicOperationsHandler.setTextField("Email", email, true);
                 BasicOperationsHandler.setTextField("Subject", deliveryJsonObject.getString("Subject"));
                 if (deliveryJsonObject.has("Body")) {
@@ -169,11 +164,11 @@ abstract class ReportsForensicsAlertsAbstract implements ReportsForensicsAlertsI
     }
 
     private List<String> fixEmailsText(JSONObject deliveryJsonObject) {
-        String eMailsText = deliveryJsonObject.getJSONArray("Email").toString().replaceAll("(])|(\\[)|(\")", "").replaceAll("\\s","");
+        String eMailsText = deliveryJsonObject.getJSONArray("Email").toString().replaceAll("(])|(\\[)|(\")", "").replaceAll("\\s", "");
         List<String> emailList = Arrays.asList(eMailsText.split(","));
-        emailList.forEach(mail->{
-            if(!mail.contains("@"))
-                emailList.set(emailList.indexOf(mail),String.format("%s@%s.local",mail,restTestBase.getRootServerCli().getHost()));
+        emailList.forEach(mail -> {
+            if (!mail.contains("@"))
+                emailList.set(emailList.indexOf(mail), String.format("%s@%s.local", mail, restTestBase.getRootServerCli().getHost()));
         });
         return emailList;
     }
@@ -182,8 +177,19 @@ abstract class ReportsForensicsAlertsAbstract implements ReportsForensicsAlertsI
 
     }
 
-    protected void validateScheduleDefinition() {
+    protected StringBuilder validateScheduleDefinition(JSONObject schedulingDefinitionJson, Map<String, String> map, String name) {
+        StringBuilder errorMessage = new StringBuilder();
+        if (map.containsKey("Schedule")) {
+            JSONObject expectedScheduleJson = new JSONObject(map.get("Schedule"));
+            String actualType = schedulingDefinitionJson.get("type").toString();
+            String expectedType = expectedScheduleJson.get("Run Every").toString();
+            if (!expectedType.equalsIgnoreCase(actualType))
+                errorMessage.append("The Actual schedule type is " + actualType + " but the Expected type is " + expectedType).append("\n");
+            else
+                SelectScheduleHandlers.validateScheduling(expectedType, schedulingDefinitionJson, expectedScheduleJson, errorMessage, schedulingDates, getType() + "_" + name);
+        }
+        return errorMessage;
     }
 
-
+    protected abstract String getType();
 }

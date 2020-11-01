@@ -26,22 +26,6 @@ public class WebUiTools {
         return WebUIUtils.fluentWaitMultiple(ComponentLocatorFactory.getLocatorByXpathDbgId(VisionDebugIdsManager.getDataDebugId()).getBy());
     }
 
-    public static void check(String label, String param, boolean isToCheck) throws Exception {
-        WebElement checkElement = getWebElement(label, param);
-        if (checkElement == null)
-            throw new Exception("No Element with label " + label + " and params " + param);
-        checkWebElement(checkElement, isToCheck);
-
-    }
-
-    private static void checkWebElement( WebElement checkElement, boolean isToCheck) {
-        if ((webElementHasAttribute(checkElement, "class") && checkElement.getAttribute("class").matches(".*selected.*|.*checked.*")||
-                webElementHasAttribute(checkElement, checkedNotCheckedAttribute) && checkElement.getAttribute(checkedNotCheckedAttribute).matches(".*true.*|.*checked.*")||
-                    webElementHasAttribute(checkElement, ariaChecked) && checkElement.getAttribute(ariaChecked).matches(".*true.*|.*checked.*"))
-                    ^ isToCheck)
-            checkElement.click();
-    }
-
     public static boolean webElementHasAttribute(WebElement webElement, String attribute) {
             try
             {
@@ -53,10 +37,29 @@ public class WebUiTools {
             }
     }
 
-    public static void checkElements(String label, String params, boolean isToBeChecked) {
-        List<WebElement> elements = getWebElements(label, params);
+    public static void checkElements(String label, String param, boolean isToBeChecked) {
+        List<WebElement> elements = getWebElements(label, param);
         for (WebElement element : elements)
             checkWebElement(element, isToBeChecked);
+    }
 
+    public static void check(String label, List<Object> params, boolean isToBeChecked) {
+        for (Object param:params)
+            checkWebElement(getWebElement(label, param.toString()), isToBeChecked);
+    }
+    public static void check(String label, String param, boolean isToCheck) throws Exception {
+        WebElement checkElement = getWebElement(label, param);
+        if (checkElement == null)
+            throw new Exception("No Element with label " + label + " and params " + param);
+        checkWebElement(checkElement, isToCheck);
+
+    }
+
+    private static void checkWebElement( WebElement checkElement, boolean isToCheck) {
+        if ((webElementHasAttribute(checkElement, "class") && checkElement.getAttribute("class").matches(".*selected.*|.*checked.*")||
+                webElementHasAttribute(checkElement, checkedNotCheckedAttribute) && checkElement.getAttribute(checkedNotCheckedAttribute).matches(".*true.*|.*checked.*")||
+                webElementHasAttribute(checkElement, ariaChecked) && checkElement.getAttribute(ariaChecked).matches(".*true.*|.*checked.*"))
+                ^ isToCheck)
+            checkElement.click();
     }
 }

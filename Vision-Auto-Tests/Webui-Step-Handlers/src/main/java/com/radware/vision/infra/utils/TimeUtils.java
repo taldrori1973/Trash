@@ -5,6 +5,7 @@ import java.time.Instant;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.ZoneId;
+import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoUnit;
 import java.util.*;
 
@@ -97,6 +98,11 @@ public class TimeUtils {
         }
 
         return null;
+    }
+
+    public static String getTimeAsText(LocalDateTime time, String pattern)
+    {
+        return DateTimeFormatter.ofPattern(pattern).format(time);
     }
 
 }
