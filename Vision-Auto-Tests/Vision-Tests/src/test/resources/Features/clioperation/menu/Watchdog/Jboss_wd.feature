@@ -34,11 +34,11 @@ Feature: JBOSS WATCHDOG
     When CLI Run linux Command "service vision status" on "ROOT_SERVER_CLI" and validate result EQUALS "APSolute Vision Application Server is running." with timeOut 150
     When CLI Run remote linux Command "/opt/radware/mgt-server/bin/watchdogs/jboss_watchdog.sh" on "ROOT_SERVER_CLI" with timeOut 120
     Then CLI Check if logs contains
-      | logType  | expression                     | isExpected |
-      | JBOSS_WD | start jboss_watchdog_execution | EXPECTED   |
-      | JBOSS_WD | Health check successful        | EXPECTED   |
-      | JBOSS_WD | Jboss server is up             | EXPECTED   |
-      | JBOSS_WD | Restarting jboss               | EXPECTED   |
+      | logType  | expression                     | isExpected   |
+      | JBOSS_WD | start jboss_watchdog_execution | EXPECTED     |
+      | JBOSS_WD | Health check successful        | EXPECTED     |
+      | JBOSS_WD | Jboss server is up             | EXPECTED     |
+      | JBOSS_WD | Restarting jboss               | NOT_EXPECTED |
 
   @SID_4
   Scenario: WD killing process
