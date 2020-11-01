@@ -1,7 +1,6 @@
 package com.radware.vision.infra.testhandlers.vrm.ReportsForensicsAlerts;
 
 import com.radware.vision.vision_project_cli.RootServerCli;
-import org.json.JSONObject;
 
 import java.util.Map;
 
