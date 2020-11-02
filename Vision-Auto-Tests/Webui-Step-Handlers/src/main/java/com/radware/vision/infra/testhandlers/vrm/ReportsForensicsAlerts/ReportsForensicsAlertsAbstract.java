@@ -14,10 +14,7 @@ import java.time.LocalDateTime;
 import java.time.Instant;
 import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 import static com.radware.vision.infra.testhandlers.BaseHandler.restTestBase;
 import static com.radware.vision.infra.testhandlers.vrm.ReportsForensicsAlerts.WebUiTools.getWebElement;
@@ -47,11 +44,8 @@ abstract class ReportsForensicsAlertsAbstract implements ReportsForensicsAlertsI
     protected void selectTime(Map<String, String> map) throws Exception {
         if (map.containsKey("Time Definitions.Date")) {
             JSONObject timeDefinitionJSONObject = new JSONObject(map.get("Time Definitions.Date"));
-            String typeSelectedTime = timeDefinitionJSONObject.has("Quick") ? "Quick" :
-                    timeDefinitionJSONObject.has("Absolute") ? "Absolute" :
-                            timeDefinitionJSONObject.has("Relative") ? "Relative" : "";
 
-            switch (typeSelectedTime) {
+            switch (SelectTimeHandlers.getTypeSelectedTime(timeDefinitionJSONObject)) {
                 case "Quick":
                     SelectTimeHandlers.selectQuickTime(timeDefinitionJSONObject);
                     break;
@@ -92,11 +86,8 @@ abstract class ReportsForensicsAlertsAbstract implements ReportsForensicsAlertsI
         StringBuilder errorMessage = new StringBuilder();
         if (map.containsKey("Time Definitions.Date")) {
             JSONObject expectedTimeDefinitions = new JSONObject(map.get("Time Definitions.Date"));
-            String typeSelectedTime = expectedTimeDefinitions.has("Quick") ? "Quick" :
-                    expectedTimeDefinitions.has("Absolute") ? "Absolute" :
-                            expectedTimeDefinitions.has("Relative") ? "Relative" : "";
 
-            switch (typeSelectedTime.toLowerCase()) {
+            switch (SelectTimeHandlers.getTypeSelectedTime(expectedTimeDefinitions).toLowerCase()) {
                 case "quick":
                     validateQuickRangeTime(timeDefinitionsJSON, errorMessage, expectedTimeDefinitions);
                     break;
@@ -204,6 +195,7 @@ abstract class ReportsForensicsAlertsAbstract implements ReportsForensicsAlertsI
         Map<String, String> map = null;
         if (operationType != vrmActions.GENERATE)
             map = CustomizedJsonManager.fixJson(entry);
+        fixMapToSupportWithOldDesign(map);
 
         switch (operationType.name().toUpperCase()) {
             case "CREATE":
@@ -221,6 +213,25 @@ abstract class ReportsForensicsAlertsAbstract implements ReportsForensicsAlertsI
             case "ISEXIST":
                 break;
         }
+    }
+
+    private void fixMapToSupportWithOldDesign(Map<String, String> map) {
+        fixNewTemplate(map);
+    }
+
+    private void fixNewTemplate(Map<String, String> map) {
+        ArrayList templateKeys = new ArrayList();
+        map.keySet().forEach(key->
+        {
+            if (key.contains("Template"))
+                templateKeys.add(key);
+        });
+        JSONArray newTemplateObject = new JSONArray();
+        for(Object key : templateKeys){
+            newTemplateObject.put(map.get(key));
+            map.remove(key);
+        }
+        map.put("Template", newTemplateObject.toString());
     }
 
     public void generate(String name){}

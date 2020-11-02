@@ -56,4 +56,10 @@ public class SelectTimeHandlers {
         BasicOperationsHandler.setTextField("Relative Time Unit Value", timeDefinitions.get(0).toString(), timeDefinitions.get(1).toString(), false);
     }
 
+    public static String getTypeSelectedTime(JSONObject timeDefinitionJSONObject) {
+        return timeDefinitionJSONObject.has("Quick") ? "Quick" :
+                timeDefinitionJSONObject.has("Absolute") ? "Absolute" :
+                        timeDefinitionJSONObject.has("Relative") ? "Relative" : "";
+    }
+
 }

@@ -3,9 +3,12 @@ package com.radware.vision.infra.testhandlers.vrm.ReportsForensicsAlerts;
 import com.radware.automation.tools.basetest.BaseTestUtils;
 import com.radware.automation.tools.basetest.Reporter;
 import com.radware.automation.webui.WebUIUtils;
+import com.radware.vision.automation.tools.exceptions.selenium.TargetWebElementNotFoundException;
 import com.radware.vision.infra.testhandlers.baseoperations.BasicOperationsHandler;
+import com.radware.vision.infra.testhandlers.vrm.ReportsForensicsAlerts.Handlers.TemplateHandlers;
 import com.radware.vision.infra.testresthandlers.ElasticSearchHandler;
 import com.radware.vision.vision_project_cli.RootServerCli;
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -19,7 +22,7 @@ public class Report extends ReportsForensicsAlertsAbstract {
     public void create(String reportName, Map<String, String> map) throws Exception {
 
         try {
-            createReportParameters(reportName, map);
+//            createReportParameters(reportName, map);
             selectTemplates(map);
         } catch (Exception e) {
             closeReport();
@@ -38,19 +41,15 @@ public class Report extends ReportsForensicsAlertsAbstract {
     private void closeReport() {
     }
 
-    private void selectTemplates(Map<String, String> map) {
-        for (Object template : (Arrays.asList(map.get("templates")))) {
-            addTemplate(template);
-        }
+    private void selectTemplates(Map<String, String> map) throws TargetWebElementNotFoundException {
+        for (Object templateObject :new JSONArray(map.get("Template")))
+            TemplateHandlers.addTemplate(new JSONObject(templateObject.toString()));
     }
 
     private void editTemplates(Map<String, String> map) {
-        for (Object template : (Arrays.asList(map.get("templates")))) {
+        for (Object template : (Arrays.asList(map.get("Templates")))) {
             editTemplate(template);
         }
-    }
-    private void addTemplate(Object template) {
-
     }
     private void editTemplate(Object template) {
 
