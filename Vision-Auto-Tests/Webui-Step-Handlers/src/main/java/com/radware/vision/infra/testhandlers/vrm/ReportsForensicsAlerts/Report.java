@@ -118,26 +118,15 @@ public class Report extends ReportsForensicsAlertsAbstract {
 
     @Override
     public void validate(RootServerCli rootServerCli, String reportName, Map<String, String> map) {
-//        JSONObject basicRestResult = waitForESDocument(rootServerCli, "reportName", reportName, "vrm-scheduled-report-definition-vrm", 0);
+        JSONObject basicRestResult = waitForESDocument(rootServerCli, "reportName", reportName, "vrm-scheduled-report-definition-vrm", 0);
         StringBuilder errorMessage = new StringBuilder();
-        JSONObject basicRestResult = new JSONObject();
-        JSONObject logoDefinition = new JSONObject();
-        //#ToDo should remove the examples and to be one line - Maha
-        logoDefinition.put("fileName", "reportLogoPNG.png");
-        errorMessage.append(validateLogoDefinition(logoDefinition, map));
-
-        //#ToDo should remove the examples and to be one line -Maha
-        JSONObject timeDefinition = new JSONObject();
-        timeDefinition.put("rangeType" , "quick");
-        timeDefinition.put("quickRangeSelection" , "1H");
-        errorMessage.append(validateTimeDefinition(timeDefinition, map));
-
+        errorMessage.append(validateTimeDefinition(new JSONObject(basicRestResult.get("Logo")), map));
+        errorMessage.append(validateTimeDefinition(new JSONObject(basicRestResult.get("Time Definitions.Date")), map));
         errorMessage.append(validateScheduleDefinition(basicRestResult, map, reportName));
         errorMessage.append(validateShareDefinition(new JSONObject(basicRestResult.get("deliveryMethod")), map));
         errorMessage.append(validateFormatDefinition(new JSONObject(basicRestResult.get("exportFormat")), map));
         if (errorMessage.length() != 0)
             BaseTestUtils.report(errorMessage.toString(), Reporter.FAIL);
-
     }
 
     protected StringBuilder validateShareDefinition(JSONObject deliveryJson, Map<String, String> map) {
@@ -203,9 +192,6 @@ public class Report extends ReportsForensicsAlertsAbstract {
         else if (formatJson.get("type").toString().equalsIgnoreCase("html"))
             errorMessage.append("The actual Format is: " + formatJson.get("type").toString() + "but the Expected format is: " + "html").append("\n");
         return errorMessage;
-    }
-
-    private void validateShareDefinition() {
     }
 
     protected StringBuilder validateLogoDefinition( JSONObject  logoDefinitions, Map<String, String> map) {
