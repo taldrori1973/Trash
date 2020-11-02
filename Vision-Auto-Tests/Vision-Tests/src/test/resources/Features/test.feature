@@ -3,7 +3,6 @@ Feature:test
 
   #Temprorary test - by Ayoub and Ramez
 
-
   Scenario: maha test
     Given UI Login with user "radware" and password "radware"
     When UI Navigate to "NEW REPORTS" page via homePage
