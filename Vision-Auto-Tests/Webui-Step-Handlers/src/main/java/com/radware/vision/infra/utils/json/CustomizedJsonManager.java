@@ -101,8 +101,20 @@ public class CustomizedJsonManager {
         String valueBetweenBrackets = value.substring(1, value.length() - 1);
         List<String> eachValue = Arrays.asList(valueBetweenBrackets.split(","));
         StringJoiner result = new StringJoiner(",", "[", "]");
-        for (int i = 0; i < eachValue.size(); i++) {
-            result.add("\"" + eachValue.get(i) + "\"");
+        for (String s : eachValue) {
+
+//            result.add((eachValue.get(i).startsWith("{") ? "{\"" : "\"") + eachValue.get(i).replaceAll("\\[", "[\"")
+//                    .replaceAll("]", "\"]") + (eachValue.get(i).endsWith("}")? "" : "\""));
+            String res;
+            if (s.contains(":")) {
+                String[] stringArray = s.split(":");
+                res = (stringArray[0].startsWith("{") ? "{\"" + stringArray[0].substring(1) : "\"" + stringArray[0]) + "\":" + (stringArray[1].startsWith("[") ? "[\"" + stringArray[1].substring(1) : "\"" + stringArray[1]);
+                res = res.endsWith("]}") || res.endsWith("]}") ? res.substring(0, res.length() - 2) + "\"" + res.substring(res.length() - 2) : res.endsWith("]") || res.endsWith("}") ? res.substring(0, res.length() - 1) + "\"" + res.charAt(res.length() - 1) : res + "\"";
+            } else {
+                res = s.startsWith("\\[\\{") || s.startsWith("\\{\\{") ? s.substring(0, 2) + "\"" : s.startsWith("[") ? "\\[\"" + s.substring(1) : "\"" + s;
+                res = res.endsWith("}]") | res.endsWith("]}") ? res.substring(0, res.length() - 2) + "\"" + res.substring(res.length() - 2) : res.endsWith("]") || res.endsWith("}") ? res.substring(0, res.length() - 1) + "\"" + res.charAt(res.length() - 1) : res + "\"";
+            }
+            result.add(res);
         }
         return result.toString();
 
@@ -115,15 +127,15 @@ public class CustomizedJsonManager {
         for (int i = 0; i < childObjects.size(); i++) {
             String currentValue = childObjects.get(i);
             if (currentValue.contains("[") && !currentValue.contains("]")) {
-                String temp = "";
-                while (!currentValue.contains("]")) {
-                    temp += currentValue + ",";
+                StringBuilder temp = new StringBuilder(currentValue);
+                while (temp.chars().filter(ch -> ch == '[').count()!= temp.chars().filter(ch -> ch == ']').count()) {
                     i++;
                     currentValue = childObjects.get(i);
+                    temp.append(",").append(currentValue);
                 }
-                temp += currentValue;
+//                temp += currentValue;
 
-                list.add(temp);
+                list.add(temp.toString());
             } else list.add(currentValue);
 
         }
