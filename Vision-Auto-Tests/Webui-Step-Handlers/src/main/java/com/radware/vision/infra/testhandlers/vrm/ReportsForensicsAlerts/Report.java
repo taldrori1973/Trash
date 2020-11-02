@@ -22,7 +22,7 @@ public class Report extends ReportsForensicsAlertsAbstract {
     public void create(String reportName, Map<String, String> map) throws Exception {
 
         try {
-//            createReportParameters(reportName, map);
+            createReportParameters(reportName, map);
             selectTemplates(map);
         } catch (Exception e) {
             closeReport();
@@ -123,7 +123,7 @@ public class Report extends ReportsForensicsAlertsAbstract {
         errorMessage.append(validateTimeDefinition(new JSONObject(basicRestResult.get("Logo")), map));
         errorMessage.append(validateTimeDefinition(new JSONObject(basicRestResult.get("Time Definitions.Date")), map));
         errorMessage.append(validateScheduleDefinition(basicRestResult, map, reportName));
-        errorMessage.append(validateShareDefinition(new JSONObject(basicRestResult.get("deliveryMethod")), map));
+        errorMessage.append(validateShareDefinition(new JSONObject(basicRestResult.get("Share")), map));
         errorMessage.append(validateFormatDefinition(new JSONObject(basicRestResult.get("exportFormat")), map));
         if (errorMessage.length() != 0)
             BaseTestUtils.report(errorMessage.toString(), Reporter.FAIL);
