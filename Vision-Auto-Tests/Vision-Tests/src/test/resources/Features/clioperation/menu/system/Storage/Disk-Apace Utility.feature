@@ -21,24 +21,24 @@ Feature: Disk-Space Utility
     When CLI Run remote linux Command "/fill_my_disk.sh /opt/radware 51" on "ROOT_SERVER_CLI"
     When CLI Run remote linux Command "/opt/radware/box/bin/system_disk-usage.sh" on "ROOT_SERVER_CLI" with timeOut 50
     Then CLI Operations - Verify that output contains regex "Large Files"
-    And  CLI Operations - Verify that output contains regex "150Mb /opt/radware/fill_my_disk"
-    And  CLI Operations - Verify that output contains regex "--- WARNING - One or more of the partitions use more than 50%"
-    And  CLI Operations - Verify that output contains regex "Warnings Found"
-    And  CLI Operations - Verify that output contains regex "Actions and recommendations for recovery may be found in the Installation and Maintenance Guide - CHAPTER 5  MAINTENANCE AND UPGRADE"
+    Then  CLI Operations - Verify that output contains regex "150M /opt/radware/fill_my_disk"
+    Then  CLI Operations - Verify that output contains regex "--- WARNING - One or more of the partitions use more than 50%"
+    Then  CLI Operations - Verify that output contains regex "Warnings Found"
+    Then  CLI Operations - Verify that output contains regex "Actions and recommendations for recovery may be found in the Installation and Maintenance Guide - CHAPTER 5  MAINTENANCE AND UPGRADE"
 
   @SID_4
   Scenario: ES index size OK
     Given CLI Run remote linux Command "sed -i 's/^warning_index_usage_size=[[:digit:]]\+$/warning_index_usage_size=99/' /opt/radware/box/bin/system_disk-usage.sh" on "ROOT_SERVER_CLI"
     Given CLI Run remote linux Command "sed -i 's/^warning_index_usage_unit=.*$/warning_index_usage_unit=gb/' /opt/radware/box/bin/system_disk-usage.sh" on "ROOT_SERVER_CLI"
     When CLI Run remote linux Command "/opt/radware/box/bin/system_disk-usage.sh" on "ROOT_SERVER_CLI" with timeOut 50
-    Then CLI Operations - Verify that output contains regex "Total size on all shards of each index found is smaller than 99gb"
+    Then CLI Operations - Verify that output contains regex "Total size on all shards of each index found is smaller than 99 gb"
 
   @SID_5
   Scenario: ES index size exceeded
     Given CLI Run remote linux Command "sed -i 's/^warning_index_usage_size=[[:digit:]]\+$/warning_index_usage_size=50/' /opt/radware/box/bin/system_disk-usage.sh" on "ROOT_SERVER_CLI"
     Given CLI Run remote linux Command "sed -i 's/^warning_index_usage_unit=.*$/warning_index_usage_unit=kb/' /opt/radware/box/bin/system_disk-usage.sh" on "ROOT_SERVER_CLI"
     When CLI Run remote linux Command "/opt/radware/box/bin/system_disk-usage.sh" on "ROOT_SERVER_CLI" with timeOut 50
-    Then CLI Operations - Verify that output contains regex "WARNING - The total store.size of each of the above indices exceeds usage of 50kb!"
+    Then CLI Operations - Verify that output contains regex "WARNING - The total store.size of each of the above indices exceeds usage of 50 kb!"
 
   @SID_6
   Scenario: Cleanup
