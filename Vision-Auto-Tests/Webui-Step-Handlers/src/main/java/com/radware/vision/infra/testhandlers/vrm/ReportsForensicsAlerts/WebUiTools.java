@@ -2,6 +2,7 @@ package com.radware.vision.infra.testhandlers.vrm.ReportsForensicsAlerts;
 
 import com.radware.automation.webui.VisionDebugIdsManager;
 import com.radware.automation.webui.WebUIUtils;
+import com.radware.automation.webui.widgets.ComponentLocator;
 import com.radware.automation.webui.widgets.ComponentLocatorFactory;
 import org.openqa.selenium.WebElement;
 
@@ -16,9 +17,13 @@ public class WebUiTools {
     }
 
     public static WebElement getWebElement(String label, String params) {
+        return WebUIUtils.fluentWait(getComponentLocator(label, params).getBy());
+    }
+    public static ComponentLocator getComponentLocator(String label, String param)
+    {
         VisionDebugIdsManager.setLabel(label);
-        VisionDebugIdsManager.setParams(params);
-        return WebUIUtils.fluentWait(ComponentLocatorFactory.getLocatorByXpathDbgId(VisionDebugIdsManager.getDataDebugId()).getBy());
+        VisionDebugIdsManager.setParams(param);
+        return ComponentLocatorFactory.getLocatorByXpathDbgId(VisionDebugIdsManager.getDataDebugId());
     }
     public static List<WebElement> getWebElements(String label, String params) {
         VisionDebugIdsManager.setLabel(label);

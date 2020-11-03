@@ -189,8 +189,8 @@ public class SelectScheduleHandlers {
         ScheduleWeekly(JSONObject scheduleJson)
         {
             this.expectedScheduleJson = scheduleJson;
-            days = scheduleJson.has("At Week Day")?
-                    scheduleJson.getJSONArray("At Week Day").toList():
+            days = scheduleJson.has("At Days")?
+                    scheduleJson.getJSONArray("At Days").toList():
                     isWithComputing()?
                             new ArrayList<>(Collections.singletonList(TimeUtils.getTimeAsText(getScheduleComputingTime(), "EEE").toUpperCase())):
                             new ArrayList<>();

@@ -3,7 +3,6 @@ package com.radware.vision.infra.testhandlers.vrm.ReportsForensicsAlerts;
 import com.radware.automation.tools.basetest.BaseTestUtils;
 import com.radware.automation.tools.basetest.Reporter;
 import com.radware.automation.webui.WebUIUtils;
-import com.radware.vision.automation.tools.exceptions.selenium.TargetWebElementNotFoundException;
 import com.radware.vision.infra.testhandlers.baseoperations.BasicOperationsHandler;
 import com.radware.vision.infra.testhandlers.vrm.ReportsForensicsAlerts.Handlers.TemplateHandlers;
 import com.radware.vision.infra.testresthandlers.ElasticSearchHandler;
@@ -41,7 +40,7 @@ public class Report extends ReportsForensicsAlertsAbstract {
     private void closeReport() {
     }
 
-    private void selectTemplates(Map<String, String> map) throws TargetWebElementNotFoundException {
+    private void selectTemplates(Map<String, String> map) throws Exception {
         for (Object templateObject :new JSONArray(map.get("Template")))
             TemplateHandlers.addTemplate(new JSONObject(templateObject.toString()));
     }
@@ -109,7 +108,7 @@ public class Report extends ReportsForensicsAlertsAbstract {
 
     private void addLogo(Map<String, String> map) throws Exception {
         if (map.containsKey("Logo"))
-            BasicOperationsHandler.uploadFileToVision(new JSONObject(map.get("Logo")).get("addLogo").toString().trim(), null, null);
+            BasicOperationsHandler.uploadFileToVision(map.get("Logo").trim(), null, null);
     }
 
     private void editLogo(Map<String, String> map) throws Exception {
