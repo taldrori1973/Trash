@@ -17,11 +17,11 @@ public class TemplateHandlers {
     public static void addTemplate(JSONObject templateJsonObject) throws Exception {
         addTemplateType(templateJsonObject.get("reportType").toString());
         addWidgets(new JSONArray(templateJsonObject.get("Widgets").toString()));
-        getScopeSelection(templateJsonObject.get("devices").toString()).create();
+        getScopeSelection(new JSONArray(templateJsonObject.get("devices").toString())).create();
     }
 
-    private static ScopeSelection getScopeSelection(String devicesJSON) {
-        return null;
+    private static ScopeSelection getScopeSelection(JSONArray devicesJSON) {
+        return new DPScopeSelection(devicesJSON, "_1");
     }
 
     private static void addWidgets(JSONArray widgets) {
@@ -63,13 +63,11 @@ public class TemplateHandlers {
         }
 
         private static class DPSingleDPScopeSelection {
-            JSONObject deviceJSON;
             private String deviceIndex;
             private JSONArray devicePorts;
             private JSONArray devicePolicies;
 
             DPSingleDPScopeSelection(JSONObject deviceJSON) {
-                this.deviceJSON = deviceJSON;
                 if (!deviceJSON.keySet().contains("empty")) {
                     deviceIndex = deviceJSON.get("deviceIndex").toString();
                     devicePorts = new JSONArray(deviceJSON.toMap().getOrDefault("devicePorts", ""));
@@ -82,24 +80,21 @@ public class TemplateHandlers {
             }
 
             private void selectDevicePolicies() throws Exception {
-                if (devicePolicies != null) {
-                    WebUITextField policyText = new WebUITextField(WebUiTools.getComponentLocator("DPPortsFilter", getDeviceIp()));
-                    for (Object policy : devicePolicies) {
-                        policyText.type(policy.toString().trim());
-                        WebUiTools.check("DPPortCheck", getDeviceIp() + "," + policy.toString(), true);
+                selectPortsOrPolicies(devicePolicies, "DPPolicyCheck");
+            }
+
+            private void selectPortsOrPolicies(JSONArray devicePoliciesOrPorts, String dpPolicyCheck) throws Exception {
+                if (devicePoliciesOrPorts != null) {
+                    WebUITextField policyOrPortText = new WebUITextField(WebUiTools.getComponentLocator("DPPortsFilter", getDeviceIp()));
+                    for (Object policyOrPort : devicePoliciesOrPorts) {
+                        policyOrPortText.type(policyOrPort.toString().trim());
+                        WebUiTools.check(dpPolicyCheck, getDeviceIp() + "," + policyOrPort.toString(), true);
                     }
                 }
-
             }
 
             private void selectDevicePorts() throws Exception {
-                if (devicePorts != null) {
-                    WebUITextField portText = new WebUITextField(WebUiTools.getComponentLocator("DPPortsFilter", getDeviceIp()));
-                    for (Object port : devicePorts) {
-                        portText.type(port.toString().trim());
-                        WebUiTools.check("DPPortCheck", getDeviceIp() + "," + port.toString(), true);
-                    }
-                }
+                selectPortsOrPolicies(devicePorts, "DPPortCheck");
             }
 
             private void selectDeviceIp() throws Exception {
@@ -107,7 +102,7 @@ public class TemplateHandlers {
                 WebUiTools.check("DPDeviceScopeSelection", getDeviceIp(), true);
             }
 
-            public void create() throws Exception {
+             void create() throws Exception {
                 if (this.getDeviceIp().equalsIgnoreCase("-1"))
                     WebUiTools.check("All_DP_Scope_Selection", "", true);
                 else {
