@@ -53,19 +53,23 @@ public class TemplateHandlers {
         @Override
         public void create() throws Exception {
             BasicOperationsHandler.clickButton("Open Scope Selection", templateParam);
-            clearScopeSelection();
-            for (Object deviceJSONObject : devicesJSON) {
-                new DPSingleDPScopeSelection(new JSONObject(deviceJSONObject.toString())).create();
+            if(!isAllAndClearScopeSelection())
+            {
+                for (Object deviceJSONObject : devicesJSON) {
+                    new DPSingleDPScopeSelection(new JSONObject(deviceJSONObject.toString())).create();
+                }
             }
             BasicOperationsHandler.clickButton("SaveScopeSelection");
         }
 
-        private void clearScopeSelection() throws Exception {
-            if (devicesJSON.get(0).toString().equalsIgnoreCase("All"))
+        private boolean isAllAndClearScopeSelection() throws Exception {
+            if (devicesJSON.get(0).toString().equalsIgnoreCase("All")) {
                 WebUiTools.check("All_DP_Scope_Selection", "", true);
-            else {
+                return true;
+            } else {
                 WebUiTools.check("All_DP_Scope_Selection", "", true);
                 WebUiTools.check("All_DP_Scope_Selection", "", false);
+                return false;
             }
         }
 
@@ -80,7 +84,7 @@ public class TemplateHandlers {
             private ArrayList devicePolicies;
 
             DPSingleDPScopeSelection(JSONObject deviceJSON) {
-                if (!deviceJSON.keySet().contains("empty")) {
+                if (deviceJSON.keySet().size() != 0) {
                     deviceIndex = deviceJSON.get("deviceIndex").toString();
                     devicePorts = ((ArrayList) deviceJSON.toMap().getOrDefault("devicePorts", null));
                     devicePolicies = ((ArrayList) deviceJSON.toMap().getOrDefault("devicePolicies", null));
@@ -102,12 +106,10 @@ public class TemplateHandlers {
             }
 
             private void checkSpecificPortOrPolicy(String dpPolicyCheck, Object policyOrPort) throws Exception {
-                try
-                {
+                try {
                     WebUiTools.check(dpPolicyCheck, new String[]{getDeviceIp(), policyOrPort.toString()}, true);
-                }catch (Exception e)
-                {
-                    if(e.getMessage().startsWith("No Element with"))
+                } catch (Exception e) {
+                    if (e.getMessage().startsWith("No Element with"))
                         throw new Exception("No Element with label" + dpPolicyCheck + " and params " + getDeviceIp() + " and " + policyOrPort.toString());
                     throw e;
                 }
@@ -133,8 +135,9 @@ public class TemplateHandlers {
     private static class HTTPSFloodScopeSelection extends ScopeSelection {
 
 
-        HTTPSFloodScopeSelection(JSONArray deviceJSONArray) {
+        HTTPSFloodScopeSelection(JSONArray deviceJSONArray, String templateParam) {
             this.devicesJSON = deviceJSONArray;
+            this.templateParam = templateParam;
         }
 
         @Override
