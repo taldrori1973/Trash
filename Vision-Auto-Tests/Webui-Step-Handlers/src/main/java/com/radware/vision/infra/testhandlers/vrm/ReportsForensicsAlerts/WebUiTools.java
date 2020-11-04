@@ -19,12 +19,24 @@ public class WebUiTools {
     public static WebElement getWebElement(String label, String params) {
         return WebUIUtils.fluentWait(getComponentLocator(label, params).getBy());
     }
+    public static WebElement getWebElement(String label, String []params) {
+        return WebUIUtils.fluentWait(getComponentLocator(label, params).getBy());
+    }
+
+    public static ComponentLocator getComponentLocator(String label, String [] param)
+    {
+        VisionDebugIdsManager.setLabel(label);
+        VisionDebugIdsManager.setParams(param);
+        return ComponentLocatorFactory.getLocatorByXpathDbgId(VisionDebugIdsManager.getDataDebugId());
+    }
+
     public static ComponentLocator getComponentLocator(String label, String param)
     {
         VisionDebugIdsManager.setLabel(label);
         VisionDebugIdsManager.setParams(param);
         return ComponentLocatorFactory.getLocatorByXpathDbgId(VisionDebugIdsManager.getDataDebugId());
     }
+
     public static List<WebElement> getWebElements(String label, String params) {
         VisionDebugIdsManager.setLabel(label);
         VisionDebugIdsManager.setParams(params);
@@ -52,12 +64,16 @@ public class WebUiTools {
         for (Object param:params)
             checkWebElement(getWebElement(label, param.toString()), isToBeChecked);
     }
-    public static void check(String label, String param, boolean isToCheck) throws Exception {
+    public static void check(String label, String [] param, boolean isToCheck) throws Exception {
         WebElement checkElement = getWebElement(label, param);
+        WebUIUtils.scrollIntoView(checkElement);
         if (checkElement == null)
             throw new Exception("No Element with label " + label + " and params " + param);
         checkWebElement(checkElement, isToCheck);
+    }
 
+    public static void check(String label, String param, boolean isToCheck) throws Exception {
+        check(label, new String[]{param}, isToCheck);
     }
 
     private static void checkWebElement( WebElement checkElement, boolean isToCheck) {
