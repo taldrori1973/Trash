@@ -70,7 +70,7 @@ public abstract class Deploy {
             }
             String currentBuild = FeatureRunner.getBuild();
             String currentVersion = FeatureRunner.getVersion();
-            String currentFeatureBranch = "xxx";  ///////////////// should be handled
+            String currentFeatureBranch = "master";  ///////////////// TODO should be handled
             isSetupNeeded = !currentVersion.equals(version) || !currentBuild.equals(build) || !currentFeatureBranch.equals(this.featureBranch);
             if (isSetupNeeded) {
                 BaseTestUtils.report("Current Build: " + currentBuild, Reporter.PASS);
