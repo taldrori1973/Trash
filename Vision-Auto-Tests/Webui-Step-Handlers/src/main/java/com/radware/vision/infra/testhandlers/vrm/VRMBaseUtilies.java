@@ -100,7 +100,7 @@ public class VRMBaseUtilies {
     protected void editVRMBaseNew(String vrmBaseName, Map<String, String> map) throws Exception {
     }
 
-    protected void validateVRMBase(RootServerCli rootServerCli, String vrmBaseName, Map<String, String> map) throws TargetWebElementNotFoundException {
+    protected void validateVRMBase(RootServerCli rootServerCli, String vrmBaseName, Map<String, String> map) throws TargetWebElementNotFoundException , Exception{
     }
 
     protected void createVRMBase(String vrmBaseName, Map<String, String> map) throws Exception {

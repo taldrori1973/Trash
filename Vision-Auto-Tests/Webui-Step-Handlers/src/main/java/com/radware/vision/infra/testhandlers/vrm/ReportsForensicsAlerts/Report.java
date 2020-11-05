@@ -7,11 +7,14 @@ import com.radware.vision.infra.testhandlers.baseoperations.BasicOperationsHandl
 import com.radware.vision.infra.testhandlers.vrm.ReportsForensicsAlerts.Handlers.TemplateHandlers;
 import com.radware.vision.infra.testresthandlers.ElasticSearchHandler;
 import com.radware.vision.vision_project_cli.RootServerCli;
+import cucumber.api.java.it.Ma;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 import java.util.Map;
 
 
@@ -117,14 +120,15 @@ public class Report extends ReportsForensicsAlertsAbstract {
     }
 
     @Override
-    public void validate(RootServerCli rootServerCli, String reportName, Map<String, String> map) {
+    public void validate(RootServerCli rootServerCli, String reportName, Map<String, String> map) throws Exception{
         JSONObject basicRestResult = waitForESDocument(rootServerCli, "reportName", reportName, "vrm-scheduled-report-definition-vrm", 0);
         StringBuilder errorMessage = new StringBuilder();
-        errorMessage.append(validateTimeDefinition(new JSONObject(basicRestResult.get("Logo")), map));
+        errorMessage.append(validateLogoDefinition(new JSONObject(basicRestResult.get("Logo")), map));
         errorMessage.append(validateTimeDefinition(new JSONObject(basicRestResult.get("Time Definitions.Date")), map));
         errorMessage.append(validateScheduleDefinition(basicRestResult, map, reportName));
         errorMessage.append(validateShareDefinition(new JSONObject(basicRestResult.get("Share")), map));
         errorMessage.append(validateFormatDefinition(new JSONObject(basicRestResult.get("exportFormat")), map));
+        errorMessage.append(TemplateHandlers.validateTemplateDefinition(new JSONArray(basicRestResult.get("Template")),map));
         if (errorMessage.length() != 0)
             BaseTestUtils.report(errorMessage.toString(), Reporter.FAIL);
     }

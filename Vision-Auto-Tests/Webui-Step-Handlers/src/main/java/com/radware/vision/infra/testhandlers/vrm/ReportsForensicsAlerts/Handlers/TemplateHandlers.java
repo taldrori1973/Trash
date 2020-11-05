@@ -10,6 +10,7 @@ import org.json.JSONObject;
 
 
 import java.util.ArrayList;
+import java.util.Map;
 
 import static com.radware.vision.infra.testhandlers.BaseHandler.devicesManager;
 
@@ -54,7 +55,9 @@ public class TemplateHandlers {
         protected String saveButtonText;
         protected String type;
 
-        protected String getType(){return type;}
+        protected String getType() {
+            return type;
+        }
 
         ScopeSelection(JSONArray deviceJSONArray, String templateParam) {
             this.devicesJSON = deviceJSONArray;
@@ -65,8 +68,7 @@ public class TemplateHandlers {
             return saveButtonText;
         }
 
-        public void create() throws Exception
-        {
+        public void create() throws Exception {
             BasicOperationsHandler.clickButton("Open Scope Selection", getType() + templateParam);
             if (!isAllAndClearScopeSelection()) {
                 for (Object deviceJSON : devicesJSON)
@@ -75,7 +77,7 @@ public class TemplateHandlers {
             BasicOperationsHandler.clickButton(getSaveButtonText(), "");
         }
 
-        abstract public void validate();
+        abstract public void validate(JSONArray actualTemplateDeviceJSON, StringBuilder errorMessage) throws Exception;
 
         void selectDevice(String deviceText, boolean isToCheck) throws Exception {
             BasicOperationsHandler.setTextField("ScopeSelectionFilter", deviceText);
@@ -94,6 +96,7 @@ public class TemplateHandlers {
         }
 
     }
+
     private static class DPScopeSelection extends ScopeSelection {
 
         DPScopeSelection(JSONArray deviceJSON, String templateParam) {
@@ -108,10 +111,17 @@ public class TemplateHandlers {
         }
 
         @Override
-        public void validate() {
-
+        public void validate(JSONArray actualTemplatesDeviceJSON, StringBuilder errorMessage) throws Exception {
+            if (actualTemplatesDeviceJSON.length() != devicesJSON.length())
+                errorMessage.append("The actual templateDevice size " + actualTemplatesDeviceJSON.length() + " is not equal to expected templateDevice size" + devicesJSON.length()).append("\n");
+            else {
+                for (Object expectedDeviceJSON : devicesJSON) {
+                    new DPSingleDPScopeSelection(new JSONObject(expectedDeviceJSON)).validate(actualTemplatesDeviceJSON, errorMessage);
+                }
+            }
         }
-        private class DPSingleDPScopeSelection{
+
+        private class DPSingleDPScopeSelection {
 
             private String deviceIndex;
             private ArrayList devicePorts;
@@ -163,6 +173,43 @@ public class TemplateHandlers {
                     BasicOperationsHandler.clickButton("DPScopeSelectionChange", getDeviceIp());
                 }
             }
+
+            private void validate(JSONArray actualTemplatesDeviceJSON, StringBuilder errorMessage) throws Exception {
+                Object actualTemplateDevice = getActualDeviceIndex(actualTemplatesDeviceJSON);
+                if (actualTemplateDevice != null) {
+                    compareDevice(new JSONObject(actualTemplateDevice), errorMessage);
+                } else
+                    errorMessage.append("Actual Device " + actualTemplateDevice + "is not equal to expectedDevice" + toString());
+            }
+
+            private Object getActualDeviceIndex(JSONArray actualTemplatesDeviceJSON) throws Exception {
+                for (Object actualTemplateDevice : actualTemplatesDeviceJSON) {
+                    if (new JSONObject(actualTemplateDevice).get("deviceIP").toString().equals(getDeviceIp()))
+                        return actualTemplateDevice;
+                }
+                return null;
+            }
+
+
+            private void compareDevice(JSONObject actualTemplateDevice, StringBuilder errorMessage) throws Exception {
+                JSONArray actualDevicePorts = new JSONArray(actualTemplateDevice.get("ports"));
+                JSONArray actualDevicePolicies = new JSONArray(actualTemplateDevice.get("policies"));
+                if (actualDevicePolicies.length() != devicePolicies.size()) {
+                    errorMessage.append("The actual templateDevice size " + actualDevicePolicies.length() + " is not equal to expected templateDevice size" + devicePolicies.size()).append("\n");
+                    for (Object actualDevicePolicy : actualDevicePolicies) {
+                        if (!devicePolicies.contains(actualDevicePolicy))
+                            errorMessage.append("The Actual PolicyDevice" + actualDevicePolicy + "is not exist in expected policyDevice ");
+                    }
+                }
+                if (actualDevicePorts.length() != devicePorts.size()) {
+                    errorMessage.append("The actual templateDevice size " + actualDevicePorts.length() + " is not equal to expected templateDevice size" + devicePorts.size()).append("\n");
+                    for (Object actualDevicePort : actualDevicePorts) {
+                        if (!devicePorts.contains(actualDevicePort))
+                            errorMessage.append("The Actual PolicyDevice" + actualDevicePort + "is not exist in expected policyDevice ");
+
+                    }
+                }
+            }
         }
     }
 
@@ -174,8 +221,7 @@ public class TemplateHandlers {
             saveButtonText = "SaveHTTPSScopeSelection";
         }
 
-        protected boolean isAllAndClearScopeSelection()
-        {
+        protected boolean isAllAndClearScopeSelection() {
             return false;
         }
 
@@ -186,39 +232,39 @@ public class TemplateHandlers {
         }
 
         @Override
-        public void validate() {
+        public void validate(JSONArray actualTemplateDeviceJSON, StringBuilder errorMessage) throws Exception {
 
         }
     }
 
-        public static class AWScopeSelection extends ScopeSelection {
+    public static class AWScopeSelection extends ScopeSelection {
 
-            AWScopeSelection(JSONArray deviceJSONArray, String templateParam) {
-                super(deviceJSONArray, templateParam);
-                this.type = "AppWall";
-                this.saveButtonText = "AWSaveButton";
-            }
+        AWScopeSelection(JSONArray deviceJSONArray, String templateParam) {
+            super(deviceJSONArray, templateParam);
+            this.type = "AppWall";
+            this.saveButtonText = "AWSaveButton";
+        }
 
-            @Override
-            public void validate() {
-
-            }
+        @Override
+        public void validate(JSONArray actualTemplateDeviceJSON, StringBuilder errorMessage) throws Exception {
 
         }
 
-        public static class DFScopeSelection extends ScopeSelection {
+    }
 
-            DFScopeSelection(JSONArray deviceJSONArray, String templateParam) {
-                super(deviceJSONArray, templateParam);
-                this.type = "DefenseFlow Analytics";
-                this.saveButtonText = "DFSaveButton";
-            }
+    public static class DFScopeSelection extends ScopeSelection {
 
-            @Override
-            public void validate() {
-
-            }
+        DFScopeSelection(JSONArray deviceJSONArray, String templateParam) {
+            super(deviceJSONArray, templateParam);
+            this.type = "DefenseFlow Analytics";
+            this.saveButtonText = "DFSaveButton";
         }
+
+        @Override
+        public void validate(JSONArray actualTemplateDeviceJSON, StringBuilder errorMessage) throws Exception {
+
+        }
+    }
 
 
     private static class EAAFScopeSelection extends ScopeSelection {
@@ -236,8 +282,43 @@ public class TemplateHandlers {
         }
 
         @Override
-        public void validate() {
+        public void validate(JSONArray actualTemplateDeviceJSON, StringBuilder errorMessage) throws Exception {
 
         }
+
+    }
+
+    public static StringBuilder validateTemplateDefinition(JSONArray actualTemplateJSONArray, Map<String, String> map) throws Exception {
+        StringBuilder errorMessage = new StringBuilder();
+        JSONArray expectedTemplates = new JSONArray(map.get("Template"));
+        for (Object expectedTemplate : expectedTemplates)
+            validateSingleTemplateDefinition(actualTemplateJSONArray, new JSONObject(expectedTemplate), errorMessage);
+        return errorMessage;
+    }
+
+    public static void validateSingleTemplateDefinition(JSONArray actualTemplateJSON, JSONObject expectedSingleTemplate, StringBuilder errorMessage) throws Exception, TargetWebElementNotFoundException {
+        JSONObject singleTemplate = validateTemplateTypeDefinition(actualTemplateJSON, expectedSingleTemplate);
+        if (singleTemplate != null) {
+            validateTemplateDevicesDefinition(singleTemplate, expectedSingleTemplate, errorMessage);
+            validateTemplateWidgetsDefinition(actualTemplateJSON, expectedSingleTemplate, errorMessage);
+        } else
+            errorMessage.append("There is no equal template on actual templates that equal to " + expectedSingleTemplate);
+    }
+
+    private static JSONObject validateTemplateTypeDefinition(JSONArray actualTemplateJSON, JSONObject expectedSingleTemplate) throws TargetWebElementNotFoundException {
+        for (Object singleTemplate : actualTemplateJSON) {
+            if (expectedSingleTemplate.get("reportType").toString().equalsIgnoreCase(new JSONObject(singleTemplate).get("templateTitle").toString())) {
+                return new JSONObject(singleTemplate);
+            }
+        }
+        return null;
+    }
+
+    private static void validateTemplateDevicesDefinition(JSONObject singleTemplate, JSONObject expectedSingleTemplate, StringBuilder errorMessage) throws Exception {
+        getScopeSelection(expectedSingleTemplate).validate(new JSONArray(singleTemplate.get("devices")), errorMessage);
+    }
+
+    private static void validateTemplateWidgetsDefinition(JSONArray actualTemplateJSON, JSONObject expectedSingleTemplate, StringBuilder errorMessage) {
     }
 }
+
