@@ -19,11 +19,24 @@ public class TemplateHandlers {
     public static void addTemplate(JSONObject templateJsonObject) throws Exception {
         addTemplateType(templateJsonObject.get("reportType").toString());
         addWidgets(new JSONArray(templateJsonObject.get("Widgets").toString()));
-        getScopeSelection(new JSONArray(templateJsonObject.get("devices").toString())).create();
+        getScopeSelection(templateJsonObject).create();
     }
 
-    private static ScopeSelection getScopeSelection(JSONArray devicesJSON) {
-        return new DPScopeSelection(devicesJSON, "");
+    private static ScopeSelection getScopeSelection(JSONObject templateJsonObject) {
+        switch (templateJsonObject.get("reportType").toString()) {
+            case "HTTPS Flood":
+                return new HTTPSFloodScopeSelection(new JSONArray(templateJsonObject.get("devices").toString()), "");
+            case "DefenseFlow Analytics":
+                return new DFScopeSelection(new JSONArray(templateJsonObject.get("devices").toString()), "");
+            case "AppWall":
+                return new AWScopeSelection(new JSONArray(templateJsonObject.get("devices").toString()), "");
+            case "EAAF":
+                return new EAAFScopeSelection(new JSONArray(templateJsonObject.get("devices").toString()), "");
+            case "DefensePro Analytics":
+            case "DefensePro Behavioral Protections":
+            default:
+                return new DPScopeSelection(new JSONArray(templateJsonObject.get("devices").toString()), "");
+        }
     }
 
     private static void addWidgets(JSONArray widgets) {
@@ -34,51 +47,72 @@ public class TemplateHandlers {
         BasicOperationsHandler.clickButton("Add Template", reportType);
     }
 
-
     private static abstract class ScopeSelection {
+
         protected String templateParam = "";
-        JSONArray devicesJSON = new JSONArray();
+        JSONArray devicesJSON;
+        protected String saveButtonText;
+        protected String type;
 
-        abstract public void create() throws Exception;
+        protected String getType(){return type;}
 
-        abstract public void validate();
-    }
-
-    private static class DPScopeSelection extends ScopeSelection {
-        DPScopeSelection(JSONArray deviceJSON, String templateParam) {
-            this.devicesJSON = deviceJSON;
+        ScopeSelection(JSONArray deviceJSONArray, String templateParam) {
+            this.devicesJSON = deviceJSONArray;
             this.templateParam = templateParam;
         }
 
-        @Override
-        public void create() throws Exception {
-            BasicOperationsHandler.clickButton("Open Scope Selection", templateParam);
-            if(!isAllAndClearScopeSelection())
-            {
-                for (Object deviceJSONObject : devicesJSON) {
-                    new DPSingleDPScopeSelection(new JSONObject(deviceJSONObject.toString())).create();
-                }
-            }
-            BasicOperationsHandler.clickButton("SaveScopeSelection");
+        protected String getSaveButtonText() {
+            return saveButtonText;
         }
 
-        private boolean isAllAndClearScopeSelection() throws Exception {
+        public void create() throws Exception
+        {
+            BasicOperationsHandler.clickButton("Open Scope Selection", getType() + templateParam);
+            if (!isAllAndClearScopeSelection()) {
+                for (Object deviceJSON : devicesJSON)
+                    selectDevice(deviceJSON.toString(), true);
+            }
+            BasicOperationsHandler.clickButton(getSaveButtonText(), "");
+        }
+
+        abstract public void validate();
+
+        void selectDevice(String deviceText, boolean isToCheck) throws Exception {
+            BasicOperationsHandler.setTextField("ScopeSelectionFilter", deviceText);
+            WebUiTools.check(getType() + "_RationScopeSelection", deviceText, isToCheck);
+        }
+
+        protected boolean isAllAndClearScopeSelection() throws Exception {
             if (devicesJSON.get(0).toString().equalsIgnoreCase("All")) {
-                WebUiTools.check("All_DP_Scope_Selection", "", true);
+                WebUiTools.check("AllScopeSelection", "", true);
                 return true;
             } else {
-                WebUiTools.check("All_DP_Scope_Selection", "", true);
-                WebUiTools.check("All_DP_Scope_Selection", "", false);
+                WebUiTools.check("AllScopeSelection", "", true);
+                WebUiTools.check("AllScopeSelection", "", false);
                 return false;
             }
+        }
+
+    }
+    private static class DPScopeSelection extends ScopeSelection {
+
+        DPScopeSelection(JSONArray deviceJSON, String templateParam) {
+            super(deviceJSON, templateParam);
+            type = "DefensePro Analytics";
+            saveButtonText = "SaveDPScopeSelection";
+        }
+
+        @Override
+        protected void selectDevice(String deviceText, boolean isToCheck) throws Exception {
+            new DPSingleDPScopeSelection(new JSONObject(deviceText)).create();
         }
 
         @Override
         public void validate() {
 
         }
+        private class DPSingleDPScopeSelection{
 
-        private static class DPSingleDPScopeSelection {
             private String deviceIndex;
             private ArrayList devicePorts;
             private ArrayList devicePolicies;
@@ -115,13 +149,13 @@ public class TemplateHandlers {
                 }
             }
 
-            private void selectDeviceIp() throws Exception {
-                BasicOperationsHandler.setTextField("DPScopeSelectionFilter", getDeviceIp());
-                WebUiTools.check("DPDeviceScopeSelection", getDeviceIp(), true);
+            void selectDevice(String deviceText, boolean isToCheck) throws Exception {
+                BasicOperationsHandler.setTextField("ScopeSelectionFilter", deviceText);
+                WebUiTools.check(getType() + "_RationScopeSelection", deviceText, isToCheck);
             }
 
             void create() throws Exception {
-                selectDeviceIp();
+                selectDevice(getDeviceIp(), true);
                 if (devicePorts != null || devicePolicies != null) {
                     BasicOperationsHandler.clickButton("DPScopeSelectionChange", getDeviceIp());
                     selectPortsOrPolicies(devicePorts, "DPPortCheck", "DPPortsFilter");
@@ -134,32 +168,21 @@ public class TemplateHandlers {
 
     private static class HTTPSFloodScopeSelection extends ScopeSelection {
 
-
         HTTPSFloodScopeSelection(JSONArray deviceJSONArray, String templateParam) {
-            this.devicesJSON = deviceJSONArray;
-            this.templateParam = templateParam;
+            super(deviceJSONArray, templateParam);
+            type = "HTTPS Flood";
+            saveButtonText = "SaveHTTPSScopeSelection";
+        }
+
+        protected boolean isAllAndClearScopeSelection()
+        {
+            return false;
         }
 
         @Override
-        public void create() {
-
-        }
-
-        @Override
-        public void validate() {
-
-        }
-    }
-
-    private static class DFAndAWScopeSelection extends ScopeSelection {
-
-        DFAndAWScopeSelection(JSONArray deviceJSONArray) {
-            this.devicesJSON = deviceJSONArray;
-        }
-
-        @Override
-        public void create() {
-
+        protected void selectDevice(String deviceText, boolean isToCheck) throws Exception {
+            BasicOperationsHandler.setTextField("HTTPSScopeSelectionFilter", deviceText.split("-")[0]);
+            WebUiTools.check("httpsScopeRadio", deviceText, isToCheck);
         }
 
         @Override
@@ -167,12 +190,45 @@ public class TemplateHandlers {
 
         }
     }
+
+        public static class AWScopeSelection extends ScopeSelection {
+
+            AWScopeSelection(JSONArray deviceJSONArray, String templateParam) {
+                super(deviceJSONArray, templateParam);
+                this.type = "AppWall";
+                this.saveButtonText = "AWSaveButton";
+            }
+
+            @Override
+            public void validate() {
+
+            }
+
+        }
+
+        public static class DFScopeSelection extends ScopeSelection {
+
+            DFScopeSelection(JSONArray deviceJSONArray, String templateParam) {
+                super(deviceJSONArray, templateParam);
+                this.type = "DefenseFlow Analytics";
+                this.saveButtonText = "DFSaveButton";
+            }
+
+            @Override
+            public void validate() {
+
+            }
+        }
+
 
     private static class EAAFScopeSelection extends ScopeSelection {
 
-        EAAFScopeSelection(JSONArray deviceJSONArray) {
-            this.devicesJSON = deviceJSONArray;
+        EAAFScopeSelection(JSONArray deviceJSONArray, String templateParam) {
+            super(deviceJSONArray, templateParam);
+            type = "EAAF";
+            saveButtonText = null;
         }
+
 
         @Override
         public void create() {

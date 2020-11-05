@@ -21,6 +21,7 @@ public class Report extends ReportsForensicsAlertsAbstract {
     public void create(String reportName, Map<String, String> map) throws Exception {
 
         try {
+            WebUiTools.check("New Report Tab", "", true);
             createReportParameters(reportName, map);
             selectTemplates(map);
         } catch (Exception e) {
