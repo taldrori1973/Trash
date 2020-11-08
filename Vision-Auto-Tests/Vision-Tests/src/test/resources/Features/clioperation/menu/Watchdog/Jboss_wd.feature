@@ -87,7 +87,7 @@ Feature: JBOSS WATCHDOG
   Scenario: SNMP within limits
     Given CLI Run remote linux Command "echo "2" > /opt/radware/storage/maintenance/cancellation_exc_amount.txt" on "ROOT_SERVER_CLI"
     When CLI Clear vision logs
-    When CLI Run remote linux Command "/root/jboss_watchdog/jboss_watchdog.sh" on "ROOT_SERVER_CLI" with timeOut 30
+    When CLI Run remote linux Command "/opt/radware/mgt-server/bin/watchdogs/jboss_watchdog.sh" on "ROOT_SERVER_CLI" with timeOut 30
     Then CLI Check if logs contains
       | logType  | expression                               | isExpected   |
       | JBOSS_WD | Number of threads .*                     | EXPECTED     |
