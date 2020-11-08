@@ -92,3 +92,4 @@ Feature: Vision Server Services CLI Tests
     Then CLI Operations - Verify that output contains regex "VRM SSL Inspection collector service is.*"
     Then CLI Operations - Verify that output contains regex "VRM SSL Inspection visualization service is.*"
     Then CLI Operations - Verify that output contains regex "VRM reporting engine is running..*"
+    Then CLI Validate services state for vision mode
