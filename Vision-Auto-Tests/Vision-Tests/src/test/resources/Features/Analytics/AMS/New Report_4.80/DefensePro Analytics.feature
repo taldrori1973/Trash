@@ -20,6 +20,7 @@ Feature: DefensePro Analytics
 
   @SID_3
   Scenario: create new Traffic Bandwidth2
+    Then UI Click Button "New Report Tab"
     Given UI "Create" Report With Name "Traffic Bandwidth Report2"
       | Template              | reportType:DefensePro Analytics , Widgets:[{Traffic Bandwidth:[pps,Outbound,All]}] , devices:[{deviceIndex:10}] , showTable:false|
       | Schedule              | Run Every:Weekly, On Time:+6H, At days:[WED]                                                                                     |
