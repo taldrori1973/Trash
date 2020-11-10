@@ -1,6 +1,6 @@
 
 
-Feature: Israel and Noam
+Feature: DefensePro Analytics
 
   @SID_1
   Scenario: Navigate to NEW REPORTS page
@@ -377,4 +377,12 @@ Feature: Israel and Noam
       | Schedule              | Run Every:Weekly, On Time:+6H, At days:[THU] , Once                                              |
       | share                 | Email:[automation.vision1@radware.com],Subject:mySubject,Body:myBody                             |
       | Format                | Select: CSV                                                                                      |
-      |
+
+  @SID_44
+  Scenario: Top Attack Sources Report - Time: Absolute
+    Given UI "Create" Report With Name "Top Attack Sources_Time_Absolute"
+      | Template              | reportType:DefensePro Analytics , Widgets:[Top Attack Sources],devices:[{devicesIndex:10}] |
+      | Format                | Select: PDF                                                                                |
+      | Logo                  | reportLogoPNG.png                                                                          |
+      | Time Definitions.Date | Absolute:[27.02.1971 01:00:00, +0d]                                                        |
+      | Share                 | Email:[automation.vision2@radware.com],Subject:myEdit subject,Body:myEdit body             |
