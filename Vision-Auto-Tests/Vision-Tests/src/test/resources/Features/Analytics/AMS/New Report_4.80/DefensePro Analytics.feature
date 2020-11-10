@@ -456,7 +456,7 @@ Feature: DefensePro Analytics
   @SID_46
   Scenario:  Top Attack Sources Report - Time: Relative (Weeks)
     Then UI Click Button "New Report Tab"
-    Given UI "Create" Report With Name "Top Attack Sources Time_Relative "
+    Given UI "Create" Report With Name "Top Attack Sources Time_Relative_Weeks"
       | Template              | reportType:DefensePro Analytics , Widgets:[Top Attack Sources],devices:[{devicesIndex:10}] |
       | Format                | Select: HTML                                                                               |
       | Time Definitions.Date | Relative:[Weeks,2]                                                                         |
@@ -485,7 +485,7 @@ Feature: DefensePro Analytics
   @SID_49
   Scenario: Top Scanners Report - Time: Absolute, Schedule: (Weekly,Fri)
     Then UI Click Button "New Report Tab"
-    Given UI "Create" Report With Name "Top Scanners Time_Absolute"
+    Given UI "Create" Report With Name "Top Scanners Time_Absolute  Schedule_Weekly"
       | Template              | reportType:DefensePro Analytics , Widgets:[Top Scanners],devices:[{devicesIndex:10}] |
       | Format                | Select: PDF                                                                          |
       | Logo                  | reportLogoPNG.png                                                                    |
@@ -537,7 +537,7 @@ Feature: DefensePro Analytics
   @SID_54
   Scenario:  Top Probed IP Addresses Report - Time: Relative (Hours), Schedule: (once)
     Then UI Click Button "New Report Tab"
-    Given UI "Create" Report With Name "Top Probed IP Addresses Time_Relative_Hours"
+    Given UI "Create" Report With Name "Top Probed IP Addresses Time_Relative_Hours  Schedule_once"
       | Template              | reportType:DefensePro Analytics , Widgets:[Top Probed IP Addresses],devices:[{devicesIndex:10}] |
       | Format                | Select: HTML                                                                                    |
       | Time Definitions.Date | Relative:[Hours,2]                                                                              |
@@ -733,7 +733,7 @@ Feature: DefensePro Analytics
   @SID_73
   Scenario: Top Attacks by Signature Report - Time:Absolute, Schedule:(Monthly,JAN)
     Then UI Click Button "New Report Tab"
-    Given UI "Create" Report With Name "Top Attacks by Signature Time_Quick_3M"
+    Given UI "Create" Report With Name "Top Attacks by Signature Time_Absolute   Schedule_Monthly"
       | Template              | reportType:DefensePro Analytics , Widgets:[Top Attacks by Signature],devices:[{devicesIndex:10}] |
       | Format                | Select: PDF                                                                                      |
       | Logo                  | reportLogoPNG.png                                                                                |
@@ -813,7 +813,7 @@ Feature: DefensePro Analytics
   @SID_81
   Scenario:  All Widgets Report - pps,Inbound,All - Time: Relative (Weeks), Schedule: (Weekly,WED)
     Then UI Click Button "New Report Tab"
-    Given UI "Create" Report With Name "All Widgets_pps_Inbound_All"
+    Given UI "Create" Report With Name "All Widgets_pps_Inbound_All  Time_Relative_Weeks  Schedule_Weekly"
       | Template              | reportType:DefensePro Analytics , Widgets:[{Traffic Bandwidth:[pps,Inbound,All]},ALL], devices:[All], showTable:true |
       | Format                | Select: CSV                                                                                                        |
       | Time Definitions.Date | Relative:[Weeks,2]                                                                                                 |
