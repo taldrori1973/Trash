@@ -27,6 +27,7 @@ public class Report extends ReportsForensicsAlertsAbstract {
             WebUiTools.check("New Report Tab", "", true);
             createReportParameters(reportName, map);
             selectTemplates(map);
+            BasicOperationsHandler.clickButton("save");
         } catch (Exception e) {
             closeReport();
             throw e;
