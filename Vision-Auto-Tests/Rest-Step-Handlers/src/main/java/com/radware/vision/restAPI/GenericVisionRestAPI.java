@@ -24,7 +24,7 @@ public class GenericVisionRestAPI {
     private String licenseKey;
 
     /**
-     * @param visionIp             : the request will be sent to https://<visionIp>
+     * @param baseUri             : the request will be sent to https://<visionIp>
      * @param port                 :nullable , default value 443
      * @param username             : login username
      * @param password             :login password
