@@ -104,11 +104,11 @@ public class TemplateHandlers {
             VisionDebugIdsManager.setLabel("widget drag");
             VisionDebugIdsManager.setParams(widgetToDrag);
             ComponentLocator sourceLocator = new ComponentLocator(How.XPATH, "//*[@data-debug-id='" + VisionDebugIdsManager.getDataDebugId() + "']");
-            VisionDebugIdsManager.setLabel("Template Header");
+            VisionDebugIdsManager.setLabel("widgets container");
             VisionDebugIdsManager.setParams(reportType);
-//            ComponentLocator targetLocator = new ComponentLocator(How.XPATH, "//*[@data-debug-id='" + VisionDebugIdsManager.getDataDebugId() + "']/..");
+            ComponentLocator targetLocator = new ComponentLocator(How.XPATH, "//*[@data-debug-id='" + VisionDebugIdsManager.getDataDebugId() + "' and contains(@class,'TemplateWidgetsContainer')]");
           //TODO target by debugID
-            ComponentLocator targetLocator = new ComponentLocator(How.XPATH, "//*[@class='ReportTemplatestyle__TemplateWidgetsContainer-sc-69xssr-5 iIXqdb widget-container-appear-done widget-container-enter-done']");
+//            ComponentLocator targetLocator = new ComponentLocator(How.XPATH, "//*[@class='ReportTemplatestyle__TemplateWidgetsContainer-sc-69xssr-5 iIXqdb widget-container-appear-done widget-container-enter-done']");
             dragAndDrop(sourceLocator, targetLocator);
         }
 
