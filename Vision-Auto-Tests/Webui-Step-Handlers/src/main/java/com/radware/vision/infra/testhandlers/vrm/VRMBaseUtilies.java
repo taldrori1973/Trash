@@ -19,7 +19,6 @@ import com.radware.vision.automation.tools.exceptions.web.DropdownItemNotFoundEx
 import com.radware.vision.automation.tools.exceptions.web.DropdownNotOpenedException;
 import com.radware.vision.automation.tools.sutsystemobjects.devicesinfo.DeviceInfo;
 import com.radware.vision.automation.tools.sutsystemobjects.devicesinfo.enums.SUTDeviceType;
-import com.radware.vision.infra.testhandlers.vrm.ReportsForensicsAlerts.Report;
 import com.radware.vision.vision_project_cli.RadwareServerCli;
 import com.radware.vision.vision_project_cli.RootServerCli;
 import com.radware.vision.infra.testhandlers.baseoperations.BasicOperationsHandler;
@@ -80,8 +79,7 @@ public class VRMBaseUtilies {
                         editVRMBase(vrmBaseName, map);
                         break;
                     case "new":
-                        new Report().edit(vrmBaseName, map);
-                     //   editVRMBaseNew(vrmBaseName, map);
+                        editVRMBaseNew(vrmBaseName, map);
                         break;
                 }
                 break;

@@ -1,9 +1,9 @@
-package com.radware.vision.infra.testhandlers.vrm.ReportsForensicsAlerts;
+package com.radware.vision.bddtests.ReportsForensicsAlerts;
 
 import com.radware.automation.tools.basetest.BaseTestUtils;
 import com.radware.automation.tools.basetest.Reporter;
 import com.radware.vision.infra.testhandlers.baseoperations.BasicOperationsHandler;
-import com.radware.vision.infra.testhandlers.vrm.ReportsForensicsAlerts.Handlers.SelectTimeHandlers;
+import com.radware.vision.bddtests.ReportsForensicsAlerts.Handlers.SelectTimeHandlers;
 import com.radware.vision.infra.testhandlers.vrm.enums.vrmActions;
 import com.radware.vision.infra.utils.json.CustomizedJsonManager;
 import com.radware.vision.vision_project_cli.RootServerCli;
@@ -17,9 +17,9 @@ import java.time.format.DateTimeFormatter;
 import java.util.*;
 
 import static com.radware.vision.infra.testhandlers.BaseHandler.restTestBase;
-import static com.radware.vision.infra.testhandlers.vrm.ReportsForensicsAlerts.WebUiTools.getWebElement;
+import static com.radware.vision.bddtests.ReportsForensicsAlerts.WebUiTools.getWebElement;
 
-import com.radware.vision.infra.testhandlers.vrm.ReportsForensicsAlerts.Handlers.SelectScheduleHandlers;
+import com.radware.vision.bddtests.ReportsForensicsAlerts.Handlers.SelectScheduleHandlers;
 
 
 abstract class ReportsForensicsAlertsAbstract implements ReportsForensicsAlertsInterface {
@@ -27,6 +27,7 @@ abstract class ReportsForensicsAlertsAbstract implements ReportsForensicsAlertsI
 
     StringBuilder errorMessages = new StringBuilder();
     private static Map<String, LocalDateTime> schedulingDates = new HashMap<>();
+    private static Map<String, JSONObject> timeAbsoluteDates = new HashMap<>();
     private String name;
 
 
@@ -50,7 +51,7 @@ abstract class ReportsForensicsAlertsAbstract implements ReportsForensicsAlertsI
                     SelectTimeHandlers.selectQuickTime(timeDefinitionJSONObject);
                     break;
                 case "Absolute":
-                    SelectTimeHandlers.selectAbsoluteTime(timeDefinitionJSONObject);
+                    SelectTimeHandlers.selectAbsoluteTime(timeDefinitionJSONObject , timeAbsoluteDates, getType() + "_" + name);
                     break;
                 case "Relative":
                     SelectTimeHandlers.selectRelativeTime(timeDefinitionJSONObject);
@@ -106,37 +107,30 @@ abstract class ReportsForensicsAlertsAbstract implements ReportsForensicsAlertsI
 
     private void validateRelativeTime(JSONObject timeDefinitions, StringBuilder errorMessage, JSONObject expectedTimeDefinitions) {
         if (!timeDefinitions.get("rangeType").toString().equalsIgnoreCase("relative"))
-            errorMessage.append("The rangeType is " + timeDefinitions.get("rangeType") + " and not equal to relative").append("\n");
+            errorMessage.append("The rangeType is ").append(timeDefinitions.get("rangeType")).append(" and not equal to relative").append("\n");
         if (!timeDefinitions.get("relativeRange").toString().equalsIgnoreCase(new JSONArray(expectedTimeDefinitions.get("Relative").toString()).get(0).toString()))
-            errorMessage.append("The relative range is " + timeDefinitions.get("relativeRange") + " and not " + new JSONArray(expectedTimeDefinitions.get("Relative").toString()).get(0).toString()).append("\n");
+            errorMessage.append("The relative range is ").append(timeDefinitions.get("relativeRange")).append(" and not ").append(new JSONArray(expectedTimeDefinitions.get("Relative").toString()).get(0).toString()).append("\n");
         if (!timeDefinitions.get("relativeRangeValue").toString().equalsIgnoreCase(new JSONArray(expectedTimeDefinitions.get("Relative").toString()).get(1).toString()))
-            errorMessage.append("The relativeRangeValue is " + timeDefinitions.get("relativeRangeValue") + " and not " + new JSONArray(expectedTimeDefinitions.get("Relative").toString()).get(1).toString()).append("'n");
+            errorMessage.append("The relativeRangeValue is ").append(timeDefinitions.get("relativeRangeValue")).append(" and not ").append(new JSONArray(expectedTimeDefinitions.get("Relative").toString()).get(1).toString()).append("'n");
     }
 
     private void validateAbsoluteTime(JSONObject timeDefinitions, StringBuilder errorMessage, JSONObject expectedTimeDefinitions) {
         if (expectedTimeDefinitions.get("Absolute").toString().matches(("[\\+|\\-]\\d+[M|d|y|H|m]"))) {
             if (!timeDefinitions.get("rangeType").toString().equalsIgnoreCase("absolute"))
-                errorMessage.append("The rangeType is " + timeDefinitions.get("rangeType") + " and not equal to Absolute").append("\n");
-
-//            Date actualDate = new Date(new Long(timeDefinitions.get("to").toString()));
-//            SimpleDateFormat absoluteFormatter = new SimpleDateFormat("dd.MM.YYYY HH:mm:ss");
-//            String actualAbsoluteText = absoluteFormatter.format(actualDate);
-//            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd.MM.YYYY HH:mm:ss");
-//            String expectedAbsoluteText = timeDefinitionLocalDateTime.format(formatter);
-
+                errorMessage.append("The rangeType is ").append(timeDefinitions.get("rangeType")).append(" and not equal to Absolute").append("\n");
             //toDo: check to and from time !!!!!!!!!!!!
             LocalDateTime actualDate = LocalDateTime.ofInstant(Instant.ofEpochMilli(new Long(timeDefinitions.get("to").toString())), ZoneId.systemDefault());
             DateTimeFormatter absoluteFormatter = DateTimeFormatter.ofPattern("MMM dd, yyyy HH:mm");
             if (!actualDate.format(absoluteFormatter).equalsIgnoreCase(timeDefinitionLocalDateTime.format(absoluteFormatter)))
-                errorMessage.append("the Actual absolute time is " + actualDate + " but the expected is " + timeDefinitionLocalDateTime).append("\n");
+                errorMessage.append("the Actual absolute time is ").append(actualDate).append(" but the expected is ").append(timeDefinitionLocalDateTime).append("\n");
         }
     }
 
     private void validateQuickRangeTime(JSONObject timeDefinitionsJSON, StringBuilder errorMessage, JSONObject expectedTimeDefinitions) {
         if (!timeDefinitionsJSON.get("rangeType").toString().equalsIgnoreCase("quick"))
-            errorMessage.append("The rangeType is " + timeDefinitionsJSON.get("rangeType") + " and not equal to quick").append("\n");
+            errorMessage.append("The rangeType is ").append(timeDefinitionsJSON.get("rangeType")).append(" and not equal to quick").append("\n");
         if (!timeDefinitionsJSON.get("quickRangeSelection").toString().equalsIgnoreCase(expectedTimeDefinitions.getString("Quick")))
-            errorMessage.append("The value of the quickRange is " + timeDefinitionsJSON.get("quickRangeSelection") + " and not equal to " + expectedTimeDefinitions.getString("Quick")).append("\n");
+            errorMessage.append("The value of the quickRange is ").append(timeDefinitionsJSON.get("quickRangeSelection")).append(" and not equal to ").append(expectedTimeDefinitions.getString("Quick")).append("\n");
     }
 
     protected void selectShare(Map<String, String> map) throws Exception {
@@ -181,7 +175,7 @@ abstract class ReportsForensicsAlertsAbstract implements ReportsForensicsAlertsI
             String actualType = schedulingDefinitionJson.get("type").toString();
             String expectedType = expectedScheduleJson.get("Run Every").toString();
             if (!expectedType.equalsIgnoreCase(actualType))
-                errorMessage.append("The Actual schedule type is " + actualType + " but the Expected type is " + expectedType).append("\n");
+                errorMessage.append("The Actual schedule type is ").append(actualType).append(" but the Expected type is ").append(expectedType).append("\n");
             else
                 SelectScheduleHandlers.validateScheduling(expectedType, schedulingDefinitionJson, expectedScheduleJson, errorMessage, schedulingDates, getType() + "_" + name);
         }
@@ -195,7 +189,9 @@ abstract class ReportsForensicsAlertsAbstract implements ReportsForensicsAlertsI
         Map<String, String> map = null;
         if (operationType != vrmActions.GENERATE)
             map = CustomizedJsonManager.fixJson(entry);
-        fixMapToSupportWithOldDesign(map);
+        if (isOldDesign(map))
+            fixMapToSupportOldDesign(map);
+        fixTemplateMap(map);
 
         switch (operationType.name().toUpperCase()) {
             case "CREATE":
@@ -215,7 +211,40 @@ abstract class ReportsForensicsAlertsAbstract implements ReportsForensicsAlertsI
         }
     }
 
-    private void fixMapToSupportWithOldDesign(Map<String, String> map) {
+    private boolean isOldDesign(Map<String, String> map) {
+        for (String key : map.keySet())
+            if (key.matches("reportType|Design|devices|webApplications|Customized Options|projectObjects")) return true;
+        return false;
+    }
+
+    private void fixMapToSupportOldDesign(Map<String, String> map) {
+        JSONObject templateJSON = new JSONObject();
+        fixOldMapObject(map, templateJSON, "reportType", "reportType", map.get("reportType"));
+        fixOldMapObject(map, templateJSON, "Design", "Widgets", map.containsKey("Design")?new JSONObject(map.get("Design")).toMap().getOrDefault("Add",new JSONObject(map.get("Design")).toMap().getOrDefault("Widgets", "").toString()):"");
+        fixOldMapObject(map, templateJSON, "devices", "devices", map.get("devices"));
+        fixOldMapObject(map, templateJSON, "webApplications", "Applications", "[" + map.get("webApplications") + "]");
+        fixOldMapObject(map, templateJSON, "projectObjects", "Project Objects", "[" + map.get("projectObjects") + "]");
+        if (map.containsKey("Customized Options")){
+            if (new JSONObject(map.get("Customized Options")).has("showTable"))
+                templateJSON.put("showTable", new JSONObject(map.get("Customized Options")).get("showTable"));
+            if(new JSONObject(map.get("Customized Options")).has("addLogo"))
+                map.put("Logo", new JSONObject(map.get("Customized Options")).get("addLogo").toString());
+            map.remove("Customized Options");
+        }
+        map.put("Template", templateJSON.toString());
+    }
+
+
+    private void fixOldMapObject(Map<String, String> map, JSONObject templateJSON, String oldMapKey, String newJSONKey, Object newJSONValue)
+    {
+        if (map.containsKey(oldMapKey))
+        {
+            templateJSON.put(newJSONKey, newJSONValue);
+            map.remove(oldMapKey);
+        }
+    }
+
+    private void fixTemplateMap(Map<String, String> map) {
         fixNewTemplate(map);
     }
 
@@ -228,7 +257,7 @@ abstract class ReportsForensicsAlertsAbstract implements ReportsForensicsAlertsI
         });
         JSONArray newTemplateObject = new JSONArray();
         for(Object key : templateKeys){
-            newTemplateObject.put(map.get(key));
+            newTemplateObject.put(new JSONObject(map.get(key)).put("templateAutomationID", key));
             map.remove(key);
         }
         map.put("Template", newTemplateObject.toString());

@@ -1,4 +1,4 @@
-package com.radware.vision.infra.testhandlers.vrm.ReportsForensicsAlerts;
+package com.radware.vision.bddtests.ReportsForensicsAlerts;
 
 import com.radware.automation.webui.VisionDebugIdsManager;
 import com.radware.automation.webui.WebUIUtils;
@@ -6,6 +6,7 @@ import com.radware.automation.webui.widgets.ComponentLocator;
 import com.radware.automation.webui.widgets.ComponentLocatorFactory;
 import org.openqa.selenium.WebElement;
 
+import java.util.Arrays;
 import java.util.List;
 
 public class WebUiTools {
@@ -68,7 +69,7 @@ public class WebUiTools {
         WebElement checkElement = getWebElement(label, param);
         WebUIUtils.scrollIntoView(checkElement);
         if (checkElement == null)
-            throw new Exception("No Element with label " + label + " and params " + param);
+            throw new Exception("No Element with label " + label + " and params " + Arrays.toString(param));
         checkWebElement(checkElement, isToCheck);
     }
 
@@ -79,7 +80,8 @@ public class WebUiTools {
     private static void checkWebElement( WebElement checkElement, boolean isToCheck) {
         if ((webElementHasAttribute(checkElement, "class") && checkElement.getAttribute("class").matches(".*selected.*|.*checked.*")||
                 webElementHasAttribute(checkElement, checkedNotCheckedAttribute) && checkElement.getAttribute(checkedNotCheckedAttribute).matches(".*true.*|.*checked.*")||
-                webElementHasAttribute(checkElement, ariaChecked) && checkElement.getAttribute(ariaChecked).matches(".*true.*|.*checked.*"))
+                webElementHasAttribute(checkElement, ariaChecked) && checkElement.getAttribute(ariaChecked).matches(".*true.*|.*checked.*"))||
+                webElementHasAttribute(checkElement, "checked")
                 ^ isToCheck)
             checkElement.click();
     }

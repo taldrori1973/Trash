@@ -1,7 +1,8 @@
-package com.radware.vision.infra.testhandlers.vrm.ReportsForensicsAlerts.Handlers;
+package com.radware.vision.bddtests.ReportsForensicsAlerts.Handlers;
 
 import com.radware.vision.automation.tools.exceptions.selenium.TargetWebElementNotFoundException;
 import com.radware.vision.infra.testhandlers.baseoperations.BasicOperationsHandler;
+import com.radware.vision.bddtests.ReportsForensicsAlerts.WebUiTools;
 import com.radware.vision.infra.utils.TimeUtils;
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -11,6 +12,7 @@ import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
 import java.util.GregorianCalendar;
+import java.util.Map;
 
 public class SelectTimeHandlers {
     public static void selectRelativeTime(JSONObject timeDefinitionJSONObject) throws TargetWebElementNotFoundException {
@@ -18,7 +20,7 @@ public class SelectTimeHandlers {
         ClickRelativeDateNew(timeDefinitionJSONObject.getJSONArray("Relative"));
     }
 
-    public static void selectAbsoluteTime(JSONObject timeDefinitionJSONObject) throws TargetWebElementNotFoundException {
+    public static void selectAbsoluteTime(JSONObject timeDefinitionJSONObject, Map<String, JSONObject> timeAbsoluteDates, String name) throws TargetWebElementNotFoundException {
         BasicOperationsHandler.clickButton("Time Type", "absolute");
         JSONArray absoluteJArray = new JSONArray();
         try {
@@ -26,7 +28,7 @@ public class SelectTimeHandlers {
         } catch (Exception e) {
             absoluteJArray.put(timeDefinitionJSONObject.get("Absolute"));
         }
-        selectAbsoluteTimeNew(absoluteJArray);
+        selectAbsoluteTimeNew(absoluteJArray, timeAbsoluteDates, name);
     }
 
     public static void selectQuickTime(JSONObject timeDefinitionJSONObject) throws TargetWebElementNotFoundException {
@@ -35,20 +37,25 @@ public class SelectTimeHandlers {
     }
 
 
-    private static void selectAbsoluteTimeNew(JSONArray absoluteJArray) throws TargetWebElementNotFoundException {
+    private static void selectAbsoluteTimeNew(JSONArray absoluteJArray, Map<String, JSONObject> timeAbsoluteDates, String name) throws TargetWebElementNotFoundException {
+        String toDate, fromDate = WebUiTools.getWebElement("Absolute From").getAttribute("value");
         DateTimeFormatter absoluteFormat = DateTimeFormatter.ofPattern("dd.MM.YYYY HH:mm:ss");
         if (absoluteJArray.length() == 1) {
-            BasicOperationsHandler.setTextField("Absolute To", absoluteFormat.format(TimeUtils.getAddedDate(absoluteJArray.get(0).toString().trim())));
+            toDate = absoluteFormat.format(TimeUtils.getAddedDate(absoluteJArray.get(0).toString().trim()));
+            BasicOperationsHandler.setTextField("Absolute To", toDate);
         } else {
-            String fromDate = absoluteJArray.get(0).toString();
+            fromDate = absoluteJArray.get(0).toString();
             if (fromDate.equals("Today")) {
                 LocalDateTime localDateTime = LocalDateTime.from(Instant.ofEpochMilli(new GregorianCalendar().getTime().getTime()).atZone(ZoneId.systemDefault()));
-                BasicOperationsHandler.setTextField("Absolute From", absoluteFormat.format(localDateTime));
+                fromDate = absoluteFormat.format(localDateTime);
+                BasicOperationsHandler.setTextField("Absolute From", fromDate);
             } else {
                 BasicOperationsHandler.setTextField("Absolute From", fromDate);
             }
-            BasicOperationsHandler.setTextField("Absolute To", absoluteFormat.format(TimeUtils.getAddedDate(absoluteJArray.get(1).toString().trim())));
+            toDate = absoluteFormat.format(TimeUtils.getAddedDate(absoluteJArray.get(1).toString().trim()));
+            BasicOperationsHandler.setTextField("Absolute To", toDate);
         }
+        timeAbsoluteDates.put(name, new JSONObject().put("from", fromDate).put("to", toDate));
     }
 
     private static void ClickRelativeDateNew(JSONArray timeDefinitions) throws TargetWebElementNotFoundException {

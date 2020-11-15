@@ -1,4 +1,4 @@
-package com.radware.vision.infra.testhandlers.vrm.ReportsForensicsAlerts;
+package com.radware.vision.bddtests.ReportsForensicsAlerts;
 
 import com.radware.vision.vision_project_cli.RootServerCli;
 

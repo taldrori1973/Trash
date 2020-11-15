@@ -1,10 +1,15 @@
-package com.radware.vision.infra.testhandlers.vrm.ReportsForensicsAlerts.Handlers;
+package com.radware.vision.bddtests.ReportsForensicsAlerts.Handlers;
 
+import com.radware.automation.webui.WebUIUtils;
+import com.radware.automation.webui.widgets.ComponentLocator;
 import com.radware.vision.automation.tools.exceptions.selenium.TargetWebElementNotFoundException;
 import com.radware.vision.infra.testhandlers.baseoperations.BasicOperationsHandler;
-import com.radware.vision.infra.testhandlers.vrm.ReportsForensicsAlerts.WebUiTools;
+import com.radware.vision.bddtests.ReportsForensicsAlerts.WebUiTools;
 import com.radware.vision.infra.utils.TimeUtils;
 import org.json.JSONObject;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.How;
+
 import java.time.LocalDateTime;
 import java.time.ZoneOffset;
 import java.time.format.DateTimeFormatter;
@@ -79,7 +84,20 @@ public class SelectScheduleHandlers {
             String actualOnTime = getActualTime();
             String expectedTime = getExpectedValidateTime(schedulingDates, name);
             if (!actualOnTime.equalsIgnoreCase(DateTimeFormatter.ofPattern(dailyTimePattern).format(schedulingDates.get(name))))
-                errorMessage.append("the Actual on Time is" + actualOnTime + " but the Expected is " + expectedTime).append("\n");
+                errorMessage.append("the Actual on Time is").append(actualOnTime).append(" but the Expected is ").append(expectedTime).append("\n");
+        }
+
+        protected void setTimeInput()
+        {
+            String [] timePartsArray = {getScheduleTimeAsText("hh"), getScheduleTimeAsText("mm"), getScheduleTimeAsText("a")};
+            for (int i=1; i<=3; i++)
+            {
+                WebUIUtils.fluentWait(new ComponentLocator(How.XPATH, "//*[@class='ant-time-picker-input']").getBy()).click();
+                WebElement timeElement = WebUIUtils.fluentWait(new ComponentLocator(How.XPATH, "//*[@class='ant-time-picker-panel-select'][" + i + "]//li[.='"+ timePartsArray[i-1] + "']").getBy());
+                WebUIUtils.scrollIntoView(timeElement);
+                timeElement.click();
+                WebUIUtils.fluentWait(new ComponentLocator(How.XPATH, "//button[./span[.='Apply']]").getBy()).click();
+            }
         }
     }
 
@@ -89,8 +107,8 @@ public class SelectScheduleHandlers {
         }
 
         @Override
-        public void create() throws TargetWebElementNotFoundException {
-            BasicOperationsHandler.setTextField("Scheduling At Time", getScheduleTimeAsText(dailyTimePattern));
+        public void create() {
+            setTimeInput();
         }
 
         @Override
@@ -146,7 +164,7 @@ public class SelectScheduleHandlers {
 
         @Override
         public void create() throws TargetWebElementNotFoundException {
-            BasicOperationsHandler.setTextField("Scheduling At Time", getScheduleTimeAsText(dailyTimePattern));
+            setTimeInput();
             if (!dayOfMonth.equals("-1"))
                 BasicOperationsHandler.setTextField("Scheduling On Day of Month", dayOfMonth);
             if (months.size()>0)
@@ -170,9 +188,9 @@ public class SelectScheduleHandlers {
             List monthsOfYear = Arrays.asList("january", "february", "march", "april","may", "june", "july", "august", "september", "october", "november", "december");
             for (Object month : monthsOfYear) {
                 if (actualMonths.contains(month) && !expectedMonths.contains(((String) month).substring(0,3).toUpperCase()))
-                    errorMessage.append("The month " + ((String) month).substring(0,3).toUpperCase() + " is exist in actual Months but it isn't exist in the expected Months").append("\n");
+                    errorMessage.append("The month ").append(((String) month).substring(0, 3).toUpperCase()).append(" is exist in actual Months but it isn't exist in the expected Months").append("\n");
                 if (!actualMonths.contains(month) && expectedMonths.contains(((String) month).substring(0,3).toUpperCase()))
-                    errorMessage.append("The month " + ((String) month).substring(0,3).toUpperCase() + " is exist in expected Months but it isn't exist in the actual Months").append("\n");
+                    errorMessage.append("The month ").append(((String) month).substring(0, 3).toUpperCase()).append(" is exist in expected Months but it isn't exist in the actual Months").append("\n");
             }
         }
 
@@ -197,8 +215,8 @@ public class SelectScheduleHandlers {
         }
 
         @Override
-        public void create() throws TargetWebElementNotFoundException {
-            BasicOperationsHandler.setTextField("Scheduling At Time", getScheduleTimeAsText(dailyTimePattern));
+        public void create() {
+            setTimeInput();
             if (days.size()>0)
             {
                 WebUiTools.checkElements("Schedule Day", "", false);
@@ -221,9 +239,9 @@ public class SelectScheduleHandlers {
             List daysOfWeek = Arrays.asList("sunday", "monday", "tuesday", "wednesday","thursday", "friday", "saturday");
             for (Object day : daysOfWeek) {
                 if (actualDays.contains(day) && !expectedDays.contains(day.toString().toUpperCase().substring(0,3)))
-                    errorMessage.append("The day " + day + " is exist in actual days but it isn't exist in the expected days").append("\n");
+                    errorMessage.append("The day ").append(day).append(" is exist in actual days but it isn't exist in the expected days").append("\n");
                 if (!actualDays.contains(day) && expectedDays.contains(day.toString().toUpperCase().substring(0,3)))
-                    errorMessage.append("The day " + day + " is exist in expected days but it isn't exist in the actual days").append("\n");
+                    errorMessage.append("The day ").append(day).append(" is exist in expected days but it isn't exist in the actual days").append("\n");
             }
         }
     }

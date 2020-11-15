@@ -1,4 +1,4 @@
-package com.radware.vision.infra.testhandlers.vrm.ReportsForensicsAlerts.Handlers;
+package com.radware.vision.bddtests.ReportsForensicsAlerts.Handlers;
 
 import com.radware.automation.tools.basetest.BaseTestUtils;
 import com.radware.automation.tools.basetest.Reporter;
@@ -9,7 +9,7 @@ import com.radware.automation.webui.widgets.impl.WebUITextField;
 import com.radware.vision.automation.tools.exceptions.selenium.TargetWebElementNotFoundException;
 import com.radware.vision.automation.tools.sutsystemobjects.devicesinfo.enums.SUTDeviceType;
 import com.radware.vision.infra.testhandlers.baseoperations.BasicOperationsHandler;
-import com.radware.vision.infra.testhandlers.vrm.ReportsForensicsAlerts.WebUiTools;
+import com.radware.vision.bddtests.ReportsForensicsAlerts.WebUiTools;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import org.openqa.selenium.WebElement;
@@ -33,17 +33,17 @@ public class TemplateHandlers {
     }
 
     private static ScopeSelection getScopeSelection(JSONObject templateJsonObject) {
-        switch (templateJsonObject.get("reportType").toString()) {
-            case "HTTPS Flood":
-                return new HTTPSFloodScopeSelection(new JSONArray(templateJsonObject.get("devices").toString()), "");
-            case "DefenseFlow Analytics":
-                return new DFScopeSelection(new JSONArray(templateJsonObject.get("devices").toString()), "");
-            case "AppWall":
-                return new AWScopeSelection(new JSONArray(templateJsonObject.get("devices").toString()), "");
+        switch (templateJsonObject.get("reportType").toString().toUpperCase()) {
+            case "HTTPS FLOOD":
+                return new HTTPSFloodScopeSelection(new JSONArray(templateJsonObject.get("Servers").toString()), "");
+            case "DEFENSEFLOW ANALITICS":
+                return new DFScopeSelection(new JSONArray(templateJsonObject.get("Protected Objects").toString()), "");
+            case "APPWALL":
+                return new AWScopeSelection(new JSONArray(templateJsonObject.get("Applications").toString()), "");
             case "EAAF":
                 return new EAAFScopeSelection(new JSONArray(templateJsonObject.get("devices").toString()), "");
-            case "DefensePro Analytics":
-            case "DefensePro Behavioral Protections":
+            case "DEFENSEPRO ANALITICS":
+            case "DEFENSEPRO BEHAVIORAL PROTECTIONS":
             default:
                 return new DPScopeSelection(new JSONArray(templateJsonObject.get("devices").toString()), "");
         }

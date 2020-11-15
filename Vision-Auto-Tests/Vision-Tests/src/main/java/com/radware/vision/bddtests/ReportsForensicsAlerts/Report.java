@@ -1,20 +1,16 @@
-package com.radware.vision.infra.testhandlers.vrm.ReportsForensicsAlerts;
+package com.radware.vision.bddtests.ReportsForensicsAlerts;
 
 import com.radware.automation.tools.basetest.BaseTestUtils;
 import com.radware.automation.tools.basetest.Reporter;
-import com.radware.automation.webui.WebUIUtils;
 import com.radware.vision.infra.testhandlers.baseoperations.BasicOperationsHandler;
-import com.radware.vision.infra.testhandlers.vrm.ReportsForensicsAlerts.Handlers.TemplateHandlers;
-import com.radware.vision.infra.testresthandlers.ElasticSearchHandler;
+import com.radware.vision.bddtests.ReportsForensicsAlerts.Handlers.TemplateHandlers;
+import com.radware.vision.tools.rest.CurrentVisionRestAPI;
 import com.radware.vision.vision_project_cli.RootServerCli;
-import cucumber.api.java.it.Ma;
+import models.RestResponse;
+import models.StatusCode;
 import org.json.JSONArray;
-import org.json.JSONException;
 import org.json.JSONObject;
-
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
+import java.util.Collections;
 import java.util.Map;
 
 
@@ -51,7 +47,7 @@ public class Report extends ReportsForensicsAlertsAbstract {
     }
 
     private void editTemplates(Map<String, String> map) {
-        for (Object template : (Arrays.asList(map.get("Templates")))) {
+        for (Object template : (Collections.singletonList(map.get("Templates")))) {
             editTemplate(template);
         }
     }
@@ -122,16 +118,37 @@ public class Report extends ReportsForensicsAlertsAbstract {
 
     @Override
     public void validate(RootServerCli rootServerCli, String reportName, Map<String, String> map) throws Exception{
-        JSONObject basicRestResult = waitForESDocument(rootServerCli, "reportName", reportName, "vrm-scheduled-report-definition-vrm", 0);
+        JSONObject basicRestResult = getReportDefinition(reportName);
         StringBuilder errorMessage = new StringBuilder();
-        errorMessage.append(validateLogoDefinition(new JSONObject(basicRestResult.get("Logo")), map));
-        errorMessage.append(validateTimeDefinition(new JSONObject(basicRestResult.get("Time Definitions.Date")), map));
-        errorMessage.append(validateScheduleDefinition(basicRestResult, map, reportName));
-        errorMessage.append(validateShareDefinition(new JSONObject(basicRestResult.get("Share")), map));
-        errorMessage.append(validateFormatDefinition(new JSONObject(basicRestResult.get("exportFormat")), map));
-        errorMessage.append(TemplateHandlers.validateTemplateDefinition(new JSONArray(basicRestResult.get("Template")),map));
+        if (basicRestResult!=null)
+        {
+            errorMessage.append(validateLogoDefinition(new JSONObject(basicRestResult.get("logo").toString()), map));
+            errorMessage.append(validateTimeDefinition(new JSONObject(basicRestResult.get("timeFrame").toString().replace("\\", "")), map));
+            errorMessage.append(validateScheduleDefinition(new JSONObject(basicRestResult.get("scheduling")), map, reportName));
+            errorMessage.append(validateShareDefinition(new JSONObject(basicRestResult.get("deliveryMethod").toString()), map));
+            errorMessage.append(validateFormatDefinition(new JSONObject(basicRestResult.get("exportFormat").toString()), map));
+            errorMessage.append(TemplateHandlers.validateTemplateDefinition(basicRestResult.get("templates").toString().equalsIgnoreCase("null")?new JSONArray():new JSONArray(basicRestResult.get("templates")),map));
+        }else errorMessage.append("No report Defined with name ").append(reportName).append("/n");
         if (errorMessage.length() != 0)
             BaseTestUtils.report(errorMessage.toString(), Reporter.FAIL);
+    }
+
+    private JSONObject getReportDefinition(String reportName) throws NoSuchFieldException {
+        RestResponse restResponse = new CurrentVisionRestAPI("Vision/newReport.json", "Get Created Reports").sendRequest();
+        if (restResponse.getStatusCode()== StatusCode.OK)
+        {
+            JSONArray reportsJSONArray = new JSONArray(restResponse.getBody().getBodyAsString());
+            for(Object reportJsonObject : reportsJSONArray){
+                if (new JSONObject(reportJsonObject.toString()).getString("reportName").equalsIgnoreCase(reportName))
+                    return new JSONObject(reportJsonObject.toString());
+            }
+        }
+
+        return null;
+    }
+
+    private String getReportID(String reportName) {
+        return "";
     }
 
     protected StringBuilder validateShareDefinition(JSONObject deliveryJson, Map<String, String> map) {
@@ -149,7 +166,7 @@ public class Report extends ReportsForensicsAlertsAbstract {
         String actualBody = ((JSONObject) deliveryJson.get("email")).get("message").toString();
         String expectedBody = expectedDeliveryJson.get("Body").toString();
         if (!actualBody.equalsIgnoreCase(expectedBody)) {
-            errorMessage.append("the Actual Body is " + actualBody + ", but the Expected Body is " + expectedBody).append("\n");
+            errorMessage.append("the Actual Body is ").append(actualBody).append(", but the Expected Body is ").append(expectedBody).append("\n");
         }
     }
 
@@ -157,7 +174,7 @@ public class Report extends ReportsForensicsAlertsAbstract {
         String actualSubject = ((JSONObject) deliveryJson.get("email")).get("subject").toString();
         String expectedSubject = expectedDeliveryJson.get("Subject").toString();
         if (!actualSubject.equalsIgnoreCase(expectedSubject)) {
-            errorMessage.append("the Actual Subject is " + actualSubject + ", but the Expected Subject is " + expectedSubject).append("\n");
+            errorMessage.append("the Actual Subject is ").append(actualSubject).append(", but the Expected Subject is ").append(expectedSubject).append("\n");
         }
     }
 
@@ -166,25 +183,9 @@ public class Report extends ReportsForensicsAlertsAbstract {
         String[] expectedEmailsArray = expectedDeliveryJson.get("Email").toString().replaceAll("(])|(\\[)", "").split(",");
         for (String email : expectedEmailsArray) {
             if (!actualEmails.toUpperCase().contains(email.toUpperCase().trim())) {
-                errorMessage.append("The emails aren't the same, the actual is " + actualEmails + " and the Expected email " + email + " isn't found").append("\n");
+                errorMessage.append("The emails aren't the same, the actual is ").append(actualEmails).append(" and the Expected email ").append(email).append(" isn't found").append("\n");
             }
         }
-    }
-
-    private JSONObject waitForESDocument(RootServerCli rootServerCli, String documentFieldName, String reportName, String indexName, long timeout) {
-        if (timeout == 0)
-            timeout = WebUIUtils.DEFAULT_WAIT_TIME;
-        JSONObject foundObject;
-        long startTime = System.currentTimeMillis();
-        do {
-            try {
-                foundObject = ElasticSearchHandler.getDocument(rootServerCli, documentFieldName, reportName, indexName);
-                return foundObject;
-            } catch (JSONException e) {
-            }
-        }
-        while (System.currentTimeMillis() - startTime < timeout);
-        return null;
     }
 
     private StringBuilder validateFormatDefinition(JSONObject formatJson, Map<String, String> map) {
@@ -192,22 +193,21 @@ public class Report extends ReportsForensicsAlertsAbstract {
         if (map.containsKey("Format")) {
             JSONObject expectedFormatJson = new JSONObject(map.get("Format"));
             if (formatJson.get("type").toString().equalsIgnoreCase(expectedFormatJson.get("Select").toString()))
-                errorMessage.append("The actual Format is: " + formatJson.get("type").toString() + "but the Expected format is: " + expectedFormatJson.get("Select").toString()).append("\n");
+                errorMessage.append("The actual Format is: ").append(formatJson.get("type").toString()).append("but the Expected format is: ").append(expectedFormatJson.get("Select").toString()).append("\n");
         }
         else if (formatJson.get("type").toString().equalsIgnoreCase("html"))
-            errorMessage.append("The actual Format is: " + formatJson.get("type").toString() + "but the Expected format is: " + "html").append("\n");
+            errorMessage.append("The actual Format is: ").append(formatJson.get("type").toString()).append("but the Expected format is: ").append("html").append("\n");
         return errorMessage;
     }
 
-    protected StringBuilder validateLogoDefinition( JSONObject  logoDefinitions, Map<String, String> map) {
+    private StringBuilder validateLogoDefinition(JSONObject logoDefinitions, Map<String, String> map) {
         StringBuilder errorMessage = new StringBuilder();
         if (map.containsKey("Logo")) {
-            JSONObject expectedLogoDefinitions = new JSONObject(map.get("Logo"));
-            if (expectedLogoDefinitions.has("addLogo") && !logoDefinitions.get("fileName").toString().equalsIgnoreCase(expectedLogoDefinitions.getString("addLogo"))) {
-                    errorMessage.append("The fileName is " + logoDefinitions.get("addLogo") + " and not correct").append("\n");
-            }
-        }else if (!logoDefinitions.get("fileName").toString().equalsIgnoreCase("null"))
-                errorMessage.append("The fileName is " + logoDefinitions.get("addLogo") + " is null").append("\n");
+            if (logoDefinitions.has("empty"))
+                errorMessage.append("No Logo Defined");
+            else if (!logoDefinitions.get("fileName").toString().equalsIgnoreCase(map.get("Logo")))
+                errorMessage.append("The fileName is ").append(logoDefinitions.get("addLogo")).append(" and not correct").append("\n");
+        }
         return errorMessage;
     }
 
