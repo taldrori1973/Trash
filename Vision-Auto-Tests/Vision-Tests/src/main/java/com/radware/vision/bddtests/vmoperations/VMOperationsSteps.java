@@ -8,6 +8,7 @@ import com.radware.vision.automation.tools.esxitool.snapshotoperations.EsxiInfo;
 import com.radware.vision.automation.tools.esxitool.snapshotoperations.VMSnapshotOperations;
 import com.radware.vision.automation.tools.esxitool.snapshotoperations.targetvm.VmNameTargetVm;
 import com.radware.vision.automation.tools.sutsystemobjects.VisionVMs;
+import com.radware.vision.base.WebUITestBase;
 import com.radware.vision.bddtests.BddUITestBase;
 import com.radware.vision.bddtests.clioperation.connections.NewVmSteps;
 import com.radware.vision.bddtests.clioperation.system.upgrade.UpgradeSteps;
@@ -30,8 +31,6 @@ import jsystem.framework.system.SystemManagerImpl;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.*;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 import static com.radware.vision.bddtests.remotessh.RemoteSshCommandsTests.resetPassword;
 
@@ -330,20 +329,8 @@ public class VMOperationsSteps extends BddUITestBase {
      * Relevant to be used after revert to snapshot and upgrade
      */
     public static void updateVersionVar() {
-        String version = "";
-        String build = "";
-        try {
-            CliOperations.runCommand(restTestBase.getRootServerCli(), "service vision version");
-            String x = CliOperations.lastOutput;
-            Pattern pattern = Pattern.compile("APSolute\\s+Vision\\s+(\\d+\\.\\d+\\.\\d+)\\s+\\(build\\s+(\\d+)\\)");
-            Matcher matcher = pattern.matcher(x);
-            if (matcher.find()) {
-                version = matcher.group(1);
-                build = matcher.group(2);
-            }
-        } catch (Exception e) {
-            BaseTestUtils.report("Failed to get version and build from server", Reporter.FAIL);
-        }
+        String version = WebUITestBase.getVisionVersion();
+        String build = WebUITestBase.getVisionBuild();
         //update runtime variables
         restTestBase.getRootServerCli().setVersionNumebr(version);
         restTestBase.getRootServerCli().setBuildNumber(build);

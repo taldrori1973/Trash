@@ -3,8 +3,11 @@ package com.radware.vision.restBddTests;
 
 import com.jayway.jsonpath.DocumentContext;
 import com.jayway.jsonpath.JsonPath;
+import com.radware.automation.tools.basetest.BaseTestUtils;
 import com.radware.vision.RestStepResult;
+import com.radware.vision.base.WebUITestBase;
 import com.radware.vision.restTestHandler.GenericStepsHandler;
+import com.radware.vision.tools.rest.CurrentVisionRestAPI;
 import com.radware.vision.utils.BodyEntry;
 import com.radware.vision.utils.StepsParametersUtils;
 import controllers.RestApiManagement;
@@ -194,5 +197,4 @@ public class GenericSteps {
         sendRequest();
         validateThatResponseCodeOK(StatusCode.OK);
     }
-
 }
