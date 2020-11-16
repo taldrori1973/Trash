@@ -368,7 +368,7 @@ Feature: DefensePro Analytics
     Given UI "Create" Report With Name "Attacks by Mitigation Action Report2"
       | Template              | reportType:DefensePro Analytics , Widgets:[Attacks by Mitigation Action] , devices:All , showTable:false|
       | Logo                  | reportLogoPNG.png                                                                                       |
-      | Time Definitions.Date | Relative:Hours                                                                                          |
+      | Time Definitions.Date | Relative:[Hours,2]                                                                                          |
       | Schedule              | Run Every:Monthly, On Time:+6H, At Months:[MAY]                                                         |
       | share                 | Email:[automation.vision1@radware.com],Subject:mySubject,Body:myBody                                    |
       | Format                | Select: PDF                                                                                             |
@@ -417,7 +417,7 @@ Feature: DefensePro Analytics
     Then UI Click Button "New Report Tab"
     Given UI "Create" Report With Name "Top Attack Destination Report3"
       | Template              | reportType:DefensePro Analytics , Widgets:[Top Attack Destination] , devices:[{deviceIndex:10}] , showTable:false|
-      | Time Definitions.Date | Relative:Hours                                                                                                   |
+      | Time Definitions.Date | Relative:[Hours,2]                                                                                                   |
       | Schedule              | Run Every:Weekly, On Time:+6H, At days:[SUN]                                                                     |
       | Format                | Select: HTML                                                                                                     |
 
@@ -826,3 +826,30 @@ Feature: DefensePro Analytics
   @SID_82
   Scenario: Logout
     Then UI logout and close browser
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
