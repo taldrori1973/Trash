@@ -56,6 +56,7 @@ abstract class ReportsForensicsAlertsAbstract implements ReportsForensicsAlertsI
                 case "Relative":
                     SelectTimeHandlers.selectRelativeTime(timeDefinitionJSONObject);
                     break;
+                case "":
                 default:
                     BaseTestUtils.report("The time definition should be or Quick or Absolute or Relative not " + timeDefinitionJSONObject.toString(), Reporter.FAIL);
             }
