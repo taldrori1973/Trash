@@ -118,8 +118,8 @@ public class Report extends ReportsForensicsAlertsAbstract {
 
     @Override
     public void validate(RootServerCli rootServerCli, String reportName, Map<String, String> map) throws Exception{
-        JSONObject basicRestResult = getReportDefinition(reportName);
         StringBuilder errorMessage = new StringBuilder();
+        JSONObject basicRestResult = getReportDefinition(reportName);
         if (basicRestResult!=null)
         {
             errorMessage.append(validateLogoDefinition(new JSONObject(basicRestResult.get("logo").toString()), map));

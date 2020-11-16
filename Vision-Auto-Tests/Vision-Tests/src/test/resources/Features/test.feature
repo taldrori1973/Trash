@@ -1,4 +1,3 @@
-@runa
 Feature:test
 
   #Temprorary test - by Ayoub and Ramez

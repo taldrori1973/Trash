@@ -332,8 +332,8 @@ Feature: sanity new report
   Scenario: Validate Share send email To
     Then UI Set Text Field "Email" To "user@automation.local"
     Then UI Text of "Email" equal to "E-mail To *"
-    Then UI Set Text Field "Email" To "example@example.example" enter Key true
-    Then UI Validate Element Existence By Label "Email input" if Exists "true" with value "example@example.example,valid"
+    Then UI Set Text Field "Email" To "example@example.com" enter Key true
+    Then UI Validate Element Existence By Label "Email input" if Exists "true" with value "example@example.com,valid"
     Then UI Set Text Field "Email" To "example" enter Key true
     Then UI Validate Element Existence By Label "Email input" if Exists "true" with value "example,invalid"
     Then UI Set Text Field "Email" To "example." enter Key true
@@ -344,10 +344,10 @@ Feature: sanity new report
     Then UI Validate Element Existence By Label "Email input" if Exists "true" with value "example@example.,invalid"
     Then UI Set Text Field "Email" To "example@example" enter Key true
     Then UI Validate Element Existence By Label "Email input" if Exists "true" with value "example@example,invalid"
-    Then UI Set Text Field "Email" To "example.@example.example" enter Key true
-    Then UI Validate Element Existence By Label "Email input" if Exists "true" with value "example.@example.example,invalid"
+    Then UI Set Text Field "Email" To "example.@example.com" enter Key true
+    Then UI Validate Element Existence By Label "Email input" if Exists "true" with value "example.@example.com,invalid"
     Then UI Set Text Field "Email" To "example@example. example" enter Key true
-    Then UI Validate Element Existence By Label "Email input" if Exists "true" with value "example@example. example,invalid"
+    Then UI Validate Element Existence By Label "Email input" if Exists "true" with value "example@example. com,invalid"
 
   @SID_31
   Scenario: Validate send email Subject
