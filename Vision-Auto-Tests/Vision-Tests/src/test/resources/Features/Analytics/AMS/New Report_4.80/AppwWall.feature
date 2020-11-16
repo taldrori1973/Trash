@@ -1,3 +1,5 @@
+Feature: AppWall
+
 
 @SID_1
 Scenario: Navigate to NEW REPORTS page
