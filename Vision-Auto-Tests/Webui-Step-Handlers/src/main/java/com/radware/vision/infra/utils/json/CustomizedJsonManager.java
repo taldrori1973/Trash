@@ -102,21 +102,19 @@ public class CustomizedJsonManager {
         List<String> eachValue = Arrays.asList(valueBetweenBrackets.split(","));
         StringJoiner result = new StringJoiner(",", "[", "]");
         for (String s : eachValue) {
-
-//            result.add((eachValue.get(i).startsWith("{") ? "{\"" : "\"") + eachValue.get(i).replaceAll("\\[", "[\"")
-//                    .replaceAll("]", "\"]") + (eachValue.get(i).endsWith("}")? "" : "\""));
             String res;
             if (s.contains(":")) {
                 String[] stringArray = s.split(":");
                 res = (stringArray[0].startsWith("{") ? "{\"" + stringArray[0].substring(1) : "\"" + stringArray[0]) + "\":" + (stringArray[1].startsWith("[") ? "[\"" + stringArray[1].substring(1) : "\"" + stringArray[1]);
                 res = res.endsWith("]}") || res.endsWith("]}") ? res.substring(0, res.length() - 2) + "\"" + res.substring(res.length() - 2) : res.endsWith("]") || res.endsWith("}") ? res.substring(0, res.length() - 1) + "\"" + res.charAt(res.length() - 1) : res + "\"";
             } else {
-                res = s.startsWith("\\[\\{") || s.startsWith("\\{\\{") ? s.substring(0, 2) + "\"" : s.startsWith("[") ? "\\[\"" + s.substring(1) : "\"" + s;
-                res = res.endsWith("}]") | res.endsWith("]}") ? res.substring(0, res.length() - 2) + "\"" + res.substring(res.length() - 2) : res.endsWith("]") || res.endsWith("}") ? res.substring(0, res.length() - 1) + "\"" + res.charAt(res.length() - 1) : res + "\"";
+                res = s.startsWith("{") || s.startsWith("{")? s.split(s.split("^(\\[|\\{)+")[0])[0] + "\"" + s.split("^(\\[|\\{)+")[0]:"\"" + s;
+                res = res.endsWith("}") | res.endsWith("]") ? res.split("(\\]+|}+)+$")[0]  + "\"" + res.split(res.split("(\\]+|}+)+$")[0])[1]: res + "\"";
             }
             result.add(res);
         }
-        return result.toString();
+        return (result.toString().split("\\[").length == result.toString().split("]").length + 1?
+                result.toString().substring(0, result.toString().length()-1): result.toString());
 
     }
 
