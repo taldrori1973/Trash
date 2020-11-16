@@ -26,15 +26,13 @@ public abstract class Deploy {
     public boolean isSetupNeeded;
 
     public Deploy(boolean isExtended, String build) {
-//        this.type = type;
         this.isExtended = isExtended;
         this.build = build;
         this.version = readVisionVersionFromPomFile();
-//        this.featureBranch = "master";
-        this.featureBranch = BaseTestUtils.getRuntimeProperty("BRANCH","master");
+        this.featureBranch = "master";
+//        this.featureBranch = BaseTestUtils.getRuntimeProperty("BRANCH","master");
         this.repositoryName = "vision-snapshot-local";
         isSetupNeeded();
-//        updateIsExtended();
     }
 
 
