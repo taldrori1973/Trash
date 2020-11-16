@@ -707,9 +707,6 @@ public abstract class WebUITestBase extends SystemTestCase4 {
             visionBuild = aServerSoftwareVersion[1];
             if(response.getBody().getBodyAsJsonNode().get().has("branch"))
                 visionBranch = response.getBody().getBodyAsJsonNode().get().findValue("branch").asText();
-            else {
-                //TODO something
-            }
         } catch (NoSuchFieldException e) {
             e.printStackTrace();
         }
