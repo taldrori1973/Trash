@@ -45,13 +45,6 @@
                 <vmPrefix>VisionAuto-4.40.00</vmPrefix>
             </visionSetup>
         </visionServer>
-        <linuxFileServer>
-            <class>com.radware.automation.tools.cli.LinuxFileServer</class>
-            <host>172.17.164.100</host>
-            <user>root</user>
-            <password>radware</password>
-            <connectOnInit>false</connectOnInit>
-        </linuxFileServer>
         <alteonServer>
             <class>com.radware.automation.tools.cli.AlteonServer</class>
             <host>172.17.164.40</host>
@@ -59,15 +52,6 @@
             <password>admin</password>
             <connectOnInit>false</connectOnInit>
         </alteonServer>
-        <mysqlClient>
-            <class>com.radware.vision.vision_project_cli.MysqlClientCli</class>
-            <host>172.17.164.100</host>
-            <user>root</user>
-            <password>radware</password>
-            <userExternalViewer>external</userExternalViewer>
-            <passwordExternalViewer>viewer</passwordExternalViewer>
-            <targetVisionHost/>
-        </mysqlClient>
     </visionCli>
     <visionLab>
         <class>systemobjects.VisionLab</class>

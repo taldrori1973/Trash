@@ -46,7 +46,6 @@ import com.radware.vision.infra.utils.VisionWebUIUtils;
 import com.radware.vision.infra.utils.threadutils.ThreadsStatusMonitor;
 import com.radware.vision.pojomodel.helpers.constants.ImConstants$DeviceStatusEnumPojo;
 import com.radware.vision.tools.rest.CurrentVisionRestAPI;
-import com.radware.vision.vision_project_cli.MysqlClientCli;
 import com.radware.vision.vision_project_cli.menu.Menu;
 import com.radware.vision.vision_tests.CliTests;
 import cucumber.runtime.junit.FeatureRunner;
@@ -112,10 +111,6 @@ public abstract class WebUITestBase extends SystemTestCase4 {
 
     public static RestTestBase getRestTestBase() {
         return restTestBase;
-    }
-
-    public static MysqlClientCli getMysqlServerCli() {
-        return restTestBase.getMysqlServer();
     }
 
     public static String getConnectionUsername() {

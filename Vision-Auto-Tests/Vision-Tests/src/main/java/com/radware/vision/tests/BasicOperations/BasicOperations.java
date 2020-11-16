@@ -373,19 +373,6 @@ public class BasicOperations extends WebUITestBase {
     }
 
     @Test
-    @TestProperties(name = "Run MySql Command", paramsInclude = {"mysqlGlobalVariable", "mysqlGlobalVariableValue"})
-    public void runMySqlCommand() {
-        try {
-            String sqlCommandResult = BasicOperationsHandler.setMysqlGlobalVariable(getRestTestBase().getRootServerCli(), getRestTestBase().getMysqlServer(), mysqlGlobalVariable, mysqlGlobalVariableValue);
-            if (sqlCommandResult.contains("ERROR")) {
-                report.report("Failed to set global variable: " + mysqlGlobalVariable + ", with value:" + mysqlGlobalVariableValue + "\n", Reporter.FAIL);
-            }
-        } catch (Exception e) {
-            report.report("Failed to execute command: " + visionServerCommand + "\n" + parseExceptionBody(e), Reporter.FAIL);
-        }
-    }
-
-    @Test
     @TestProperties(name = "Add My.Cnf Attribute", paramsInclude = {"mysqlGlobalVariable", "mysqlGlobalVariableValue"})
     public void addMyCnfAttribute() {
         try {
