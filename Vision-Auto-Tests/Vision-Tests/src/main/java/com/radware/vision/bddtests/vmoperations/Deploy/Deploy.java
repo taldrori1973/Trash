@@ -48,7 +48,7 @@ public abstract class Deploy {
                 buildFileInfo = JFrogAPI.getBuild(type, Integer.parseInt(this.build), repositoryName, featureBranch);
             }
         } catch (Exception e) {
-            BaseTestUtils.report("Artifactory: Failed to get build file info", Reporter.FAIL);
+            BaseTestUtils.report("Artifactory: Failed to get build file info:\n" + e.getMessage(), Reporter.FAIL);
             e.printStackTrace();
         }
     }
