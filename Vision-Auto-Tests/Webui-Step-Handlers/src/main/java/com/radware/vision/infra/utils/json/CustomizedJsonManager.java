@@ -113,7 +113,7 @@ public class CustomizedJsonManager {
             }
             result.add(res);
         }
-        return (result.toString().split("\\[").length == result.toString().split("]").length + 1?
+        return (new StringBuilder(result.toString()).chars().filter(ch->ch=='[').count() == new StringBuilder(result.toString()).chars().filter(ch->ch==']').count()+1?
                 result.toString().substring(0, result.toString().length()-1): result.toString());
 
     }
