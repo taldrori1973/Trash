@@ -60,7 +60,6 @@ public class WebUiTools {
         for (WebElement element : elements)
             checkWebElement(element, isToBeChecked);
     }
-
     public static void check(String label, List<Object> params, boolean isToBeChecked) {
         for (Object param:params)
             checkWebElement(getWebElement(label, param.toString()), isToBeChecked);
@@ -82,7 +81,21 @@ public class WebUiTools {
                 webElementHasAttribute(checkElement, checkedNotCheckedAttribute) && checkElement.getAttribute(checkedNotCheckedAttribute).matches(".*true.*|.*checked.*")||
                 webElementHasAttribute(checkElement, ariaChecked) && checkElement.getAttribute(ariaChecked).matches(".*true.*|.*checked.*"))||
                 webElementHasAttribute(checkElement, "checked")
-                ^ isToCheck)
-            checkElement.click();
+                ^ isToCheck) {
+            clickWebElement(checkElement);
+        }
+    }
+
+    private static void clickWebElement(WebElement webElement) {
+        try
+        {
+            webElement.click();
+        }catch (Exception e)
+        {
+            webElement = WebUIUtils.fluentWait(ComponentLocatorFactory.getLocatorByXpathDbgId(VisionDebugIdsManager.getDataDebugId()).getBy());
+            WebUIUtils.scrollIntoView(webElement);
+            WebUIUtils.sleep(4);
+            webElement.click();
+        }
     }
 }
