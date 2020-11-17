@@ -166,7 +166,7 @@ public class VMOperationsSteps extends BddUITestBase {
         }
     }
 
-    private void afterUpgrade() throws Exception {
+    private void afterUpgrade() {
         resetPassword();
         updateVersionVar();
     }
