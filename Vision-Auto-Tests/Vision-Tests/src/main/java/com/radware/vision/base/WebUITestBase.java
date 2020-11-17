@@ -694,6 +694,7 @@ public abstract class WebUITestBase extends SystemTestCase4 {
             if(response.getStatusCode().equals(StatusCode.INTERNAL_SERVER_ERROR) &&
                     response.getBody().getBodyAsJsonNode().get().findValue("message").toString().contains("Illegal item path")){
                 requestLabel = "Get Management Info";
+                currentVisionRestAPI = new CurrentVisionRestAPI(filePath, requestLabel);
             }
             response = currentVisionRestAPI.sendRequest();
             if(!response.getStatusCode().equals(StatusCode.OK))
