@@ -21,7 +21,6 @@ public class Physical extends Deploy {
     }
 
     public void deploy() {
-        NewVmHandler vmHandler = new NewVmHandler();
         try {
             String[] path = buildFileInfoTar.getPath().toString().split("/");
             NewVmHandler newVmHandler = new NewVmHandler();
@@ -44,7 +43,7 @@ public class Physical extends Deploy {
                 buildFileInfoTar = JFrogAPI.getBuild(FileType.ODSVL2, Integer.parseInt(this.build), repositoryName, featureBranch);
             }
         } catch (Exception e) {
-            BaseTestUtils.report("Failed to get build file info", Reporter.FAIL);
+            BaseTestUtils.report("Artifactory: Failed to get build file info:\n" + e.getMessage(), Reporter.FAIL);
             e.printStackTrace();
         }
     }

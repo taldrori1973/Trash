@@ -44,7 +44,6 @@ import com.radware.vision.infra.testhandlers.baseoperations.enums.Operation;
 import com.radware.vision.infra.testhandlers.vrm.VRMBaseUtilies;
 import com.radware.vision.infra.testhandlers.vrm.VRMHandler;
 import com.radware.vision.infra.utils.*;
-import com.radware.vision.vision_project_cli.MysqlClientCli;
 import com.radware.vision.vision_project_cli.RadwareServerCli;
 import com.radware.vision.vision_project_cli.RootServerCli;
 import com.radware.vision.vision_project_cli.menu.Menu;
@@ -725,15 +724,6 @@ public class BasicOperationsHandler {
 
     public static void setWaitAfterClick(long timeout) {
         WebUIUtils.waitAfterClickOperation = timeout;
-    }
-
-    public static String setMysqlGlobalVariable(RootServerCli rootServerCli, MysqlClientCli mysqlClientCli, String
-            varName, String varValue) throws Exception {
-        rootServerCli.addDBPermissionsToConnectoToMySql("vision.radware");
-        mysqlClientCli.openMysqlShell(mysqlClientCli.getSqlUser(), mysqlClientCli.getSqlPassword());
-        String commandResult = mysqlClientCli.runSqlFromMysqlShell("set " + varName + "=" + varValue + ";");
-        InvokeUtils.invokeCommand("quit", mysqlClientCli);
-        return commandResult;
     }
 
     public static void appendMyCnfFile(RootServerCli rootServerCli, String varName, String varValue) throws

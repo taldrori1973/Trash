@@ -7,7 +7,6 @@ import com.radware.vision.automation.tools.esxitool.snapshotoperations.VMSnapsho
 import com.radware.vision.automation.tools.esxitool.snapshotoperations.targetvm.VmNameTargetVm;
 import com.radware.vision.automation.tools.sutsystemobjects.VisionVMs;
 import com.radware.vision.bddtests.BddUITestBase;
-import com.radware.vision.bddtests.GenericSteps;
 import com.radware.vision.bddtests.clioperation.system.upgrade.UpgradeSteps;
 import com.radware.vision.infra.testhandlers.cli.CliOperations;
 import com.radware.vision.utils.RegexUtils;
@@ -18,11 +17,13 @@ import com.radware.vision.vision_project_cli.VisionRadwareFirstTime;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 
+import static com.radware.vision.bddtests.remotessh.RemoteSshCommandsTests.resetPassword;
+
 
 public class VmSnapShotOperations extends BddUITestBase {
 
     private String snapshotName = VMOperationsSteps.getVisionSetupAttributeFromSUT("snapshot");
-    private String setupMode = VMOperationsSteps.getVisionSetupAttributeFromSUT("setupMode");
+    private final String setupMode = VMOperationsSteps.getVisionSetupAttributeFromSUT("setupMode");
     int DEFAULT_KVM_CLI_TIMEOUT = 3000;
     VisionRadwareFirstTime visionRadwareFirstTime = (VisionRadwareFirstTime) system.getSystemObject("visionRadwareFirstTime");
     String kvmMachineName = visionRadwareFirstTime.getVmName() + visionRadwareFirstTime.getIp();
@@ -118,7 +119,7 @@ public class VmSnapShotOperations extends BddUITestBase {
         }
         CliOperations.runCommand(visionRadwareFirstTime, "virsh start " + kvmMachineName, DEFAULT_KVM_CLI_TIMEOUT);
         waitForDomainState(visionRadwareFirstTime, "running", 120);
-        BaseTestUtils.report("Reverting to snapshot.", Reporter.PASS_NOR_FAIL);
+        BaseTestUtils.report("Reverting to snapshot: " + snapshotName, Reporter.PASS_NOR_FAIL);
         CliOperations.runCommand(visionRadwareFirstTime, "virsh snapshot-revert --domain " + kvmMachineName + " --snapshotname " + snapshotName + " --force", 15 * 60 * 1000);
         BaseTestUtils.report("Starting server after revert.", Reporter.PASS_NOR_FAIL);
         CliOperations.runCommand(visionRadwareFirstTime, "virsh start " + kvmMachineName, DEFAULT_KVM_CLI_TIMEOUT);
@@ -136,8 +137,8 @@ public class VmSnapShotOperations extends BddUITestBase {
         int connectTimeOut = 10 * 60 * 1000;
         NewVmHandler.waitForServerConnection(connectTimeOut, getRestTestBase().getRootServerCli());
         CliOperations.runCommand(getRestTestBase().getRootServerCli(), "/usr/sbin/ntpdate -u europe.pool.ntp.org", 2 * 60 * 1000);
-        GenericSteps.resetPassword();
-        if (VisionServer.waitForVisionServerServicesToStartHA(restTestBase.getRadwareServerCli(), 45 * 60 * 1000))
+        resetPassword();
+        if (VisionServer.waitForVisionServerReadinessForUpgrade(restTestBase.getRadwareServerCli(), 45 * 60 * 1000))
             BaseTestUtils.report("All services up", Reporter.PASS);
         else {
             BaseTestUtils.report("Not all services up.", Reporter.FAIL);
@@ -169,7 +170,7 @@ public class VmSnapShotOperations extends BddUITestBase {
                 return;
             }
             String vmName = visionVMs.getVMNameByIndex(vmNumber);
-            BaseTestUtils.report("Reverting to snapshot " + snapshot, Reporter.PASS_NOR_FAIL);
+            BaseTestUtils.report("Reverting to snapshot: " + snapshot, Reporter.PASS_NOR_FAIL);
             VMSnapshotOperations.newInstance().switchToSnapshot(new VmNameTargetVm(esxiInfo, vmName), snapshot, true);
             BaseTestUtils.report("Revert done", Reporter.PASS_NOR_FAIL);
             setupServerAfterRevert();

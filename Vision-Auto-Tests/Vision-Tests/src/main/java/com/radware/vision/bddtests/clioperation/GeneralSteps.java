@@ -30,7 +30,8 @@ public class GeneralSteps extends BddCliTestBase {
                 "/opt/radware/storage/elasticsearch/logs/*.log " +
                 "/tmp/logs/Vision_install.log " +
                 "/var/log/td-agent/td-agent.log " +
-                "/opt/radware/storage/maintenance/logs/lls/lls_install_display.log";
+                "/opt/radware/storage/maintenance/logs/lls/lls_install_display.log " +
+                "/opt/radware/storage/maintenance/logs/jboss_watchdog.log";
         CliOperations.runCommand(getRestTestBase().getRootServerCli(), clearAllLogs);
     }
 
@@ -114,7 +115,8 @@ public class GeneralSteps extends BddCliTestBase {
         ES("/opt/radware/storage/elasticsearch/logs/*.log"),
         VISION_INSTALL("/tmp/logs/Vision_install.log"),
         FLUENTD("/var/log/td-agent/td-agent.log"),
-        LLS("/opt/radware/storage/maintenance/logs/lls/lls_install_display.log");
+        LLS("/opt/radware/storage/maintenance/logs/lls/lls_install_display.log"),
+        JBOSS_WD("/opt/radware/storage/maintenance/logs/jboss_watchdog.log");
 
         private String serverLogType;
 

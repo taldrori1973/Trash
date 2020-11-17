@@ -448,4 +448,15 @@ public class RemoteSshCommandsTests extends BddCliTestBase {
             BaseTestUtils.report(e.getMessage(), Reporter.FAIL);
         }
     }
+
+    @Given("^CLI Reset radware password$")
+    public static void resetPassword() {
+        if (restTestBase.getRootServerCli().isConnected()) {
+            FileSteps f = new FileSteps();
+            f.scp("/home/radware/Scripts/restore_radware_user_stand_alone.sh", SUTEntryType.GENERIC_LINUX_SERVER, SUTEntryType.ROOT_SERVER_CLI, "/");
+            CliOperations.runCommand(restTestBase.getRootServerCli(), "yes | /restore_radware_user_stand_alone.sh", CliOperations.DEFAULT_TIME_OUT);
+        }
+    }
+
+
 }

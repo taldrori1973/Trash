@@ -3,7 +3,7 @@ package com.radware.vision.bddtests.vmoperations.Deploy;
 import com.radware.automation.tools.basetest.BaseTestUtils;
 import com.radware.automation.tools.basetest.Reporter;
 import com.radware.automation.utils.AutoDBUtils;
-import com.radware.vision.bddtests.clioperation.system.upgrade.UpgradeSteps;
+import com.radware.vision.base.WebUITestBase;
 import com.radware.vision.thirdPartyAPIs.jFrog.JFrogAPI;
 import com.radware.vision.thirdPartyAPIs.jFrog.RepositoryService;
 import com.radware.vision.thirdPartyAPIs.jFrog.models.FileType;
@@ -11,7 +11,6 @@ import com.radware.vision.thirdPartyAPIs.jFrog.models.JFrogFileModel;
 import cucumber.runtime.junit.FeatureRunner;
 import lombok.Getter;
 
-import static com.radware.vision.bddtests.vmoperations.VMOperationsSteps.getVisionSetupAttributeFromSUT;
 import static com.radware.vision.bddtests.vmoperations.VMOperationsSteps.readVisionVersionFromPomFile;
 
 @Getter
@@ -27,15 +26,13 @@ public abstract class Deploy {
     public boolean isSetupNeeded;
 
     public Deploy(boolean isExtended, String build) {
-//        this.type = type;
         this.isExtended = isExtended;
         this.build = build;
         this.version = readVisionVersionFromPomFile();
         this.featureBranch = "master";
-//        this.featureBranch = BaseTestUtils.getRuntimeProperty("BRANCH","");
+//        this.featureBranch = BaseTestUtils.getRuntimeProperty("BRANCH","master");
         this.repositoryName = "vision-snapshot-local";
-        isSetupneeded();
-//        updateIsExtended();
+        isSetupNeeded();
     }
 
 
@@ -49,16 +46,16 @@ public abstract class Deploy {
                 buildFileInfo = JFrogAPI.getBuild(type, Integer.parseInt(this.build), repositoryName, featureBranch);
             }
         } catch (Exception e) {
-            BaseTestUtils.report("Failed to get build file info", Reporter.FAIL);
+            BaseTestUtils.report("Artifactory: Failed to get build file info:\n" + e.getMessage(), Reporter.FAIL);
             e.printStackTrace();
         }
     }
 
     public void updateIsExtended() {
-        if (this.build == null || build == "") isExtended = true;
+        if (this.build == null || build.equals("")) isExtended = true;
     }
 
-    public void isSetupneeded() {
+    public void isSetupNeeded() {
         try {
             RepositoryService repositoryService = new RepositoryService(this.repositoryName);
             String build = BaseTestUtils.getRuntimeProperty("BUILD", null); //get build from portal
@@ -70,10 +67,10 @@ public abstract class Deploy {
                 this.build = build;
                 this.isExtended = false;
             }
-            String currentBuild = FeatureRunner.getBuild();
-            String currentVersion = FeatureRunner.getVersion();
-            String currentFeatureBranch = "xxx";  ///////////////// should be handled
-            isSetupNeeded = !currentVersion.equals(version) || !currentBuild.equals(build) || !currentFeatureBranch.equals(this.featureBranch);
+            String currentBuild = WebUITestBase.getVisionBuild();
+            String currentVersion = WebUITestBase.getVisionVersion();
+            String currentFeatureBranch = WebUITestBase.getVisionBranch();
+            isSetupNeeded = !currentVersion.equals(version) || !currentBuild.equals(this.build) || !currentFeatureBranch.equals(this.featureBranch);
             if (isSetupNeeded) {
                 BaseTestUtils.report("Current Build: " + currentBuild, Reporter.PASS);
                 BaseTestUtils.report("Current Version: " + currentVersion, Reporter.PASS);
