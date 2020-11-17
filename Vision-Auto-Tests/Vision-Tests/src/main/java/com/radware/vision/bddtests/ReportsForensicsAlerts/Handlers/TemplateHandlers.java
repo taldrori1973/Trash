@@ -481,12 +481,6 @@ public class TemplateHandlers {
             this.type = "AppWall";
             this.saveButtonText = "AWSaveButton";
         }
-
-        @Override
-        public void validate(JSONArray actualTemplateDeviceJSON, StringBuilder errorMessage) throws Exception {
-
-        }
-
     }
 
     public static class DFScopeSelection extends ScopeSelection {
