@@ -40,8 +40,8 @@ Feature: Landing_my_reports
 
 
     Then UI Click Button "Report Name Button"
-    Then UI Click Button "Delete Tab" with value ""
-    Then UI Click Button "Delete Button" with value ""
+    Then UI Click Button "Delete Report" with value "Traffic Report"
+    Then UI Click Button "confirm Delete Report" with value ""
     Then UI Validate Element Existence By Label "Report Name Button" if Exists "false"
     Then UI Click Button "Close Button" with value ""
     Then UI Validate Element Existence By Label "Report Name Button" if Exists "true"

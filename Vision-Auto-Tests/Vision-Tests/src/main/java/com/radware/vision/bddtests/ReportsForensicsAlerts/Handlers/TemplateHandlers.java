@@ -30,10 +30,10 @@ public class TemplateHandlers {
 
     public static void addTemplate(JSONObject templateJsonObject, String reportName) throws Exception {
         String reportType = templateJsonObject.get("reportType").toString();
-        String currentTemplateName = getCurrentTemplateName(reportType);
         addTemplateType(reportType);
+        String currentTemplateName = getCurrentTemplateName(reportType);
         addWidgets(new JSONArray(templateJsonObject.get("Widgets").toString()), currentTemplateName);
-        getScopeSelection(templateJsonObject, currentTemplateName.split(reportType)[1]).create();
+        getScopeSelection(templateJsonObject, currentTemplateName.split(reportType).length!=0? currentTemplateName.split(reportType)[1]:"").create();
         Report.updateReportsTemplatesMap(reportName, templateJsonObject.get("templateAutomationID").toString(), currentTemplateName);
     }
 
@@ -199,6 +199,7 @@ public class TemplateHandlers {
                             options.get(i).click();
                             if (isNumber(option)) {
                                 options = WebUIUtils.fluentWaitMultiple(new ComponentLocator(How.XPATH, "//*[starts-with(@data-debug-id, '" + VisionDebugIdsManager.getDataDebugId() + "') and contains(@data-debug-id, '_CustomPolicies')]").getBy(), WebUIUtils.DEFAULT_WAIT_TIME, false);
+                                options.get(i).clear();
                                 options.get(i).sendKeys(option);
                             }
                         } catch (Exception e) {
@@ -214,7 +215,7 @@ public class TemplateHandlers {
 
     private static String getCurrentTemplateName(String reportType) {
         List<WebElement> elements = WebUiTools.getWebElements("Template Header", reportType);
-        return elements.get(elements.size() - 1).getText();
+        return elements.size()!=0? elements.get(elements.size() - 1).getText(): reportType;
 
     }
 
