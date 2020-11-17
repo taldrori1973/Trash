@@ -12,7 +12,7 @@ Feature: sanity new report
     Then UI Text of "Logo Tab" equal to "Logo"
     Then UI Text of "Time Tab" equal to "Time*"
     Then UI Text of "Schedule Tab" equal to "Schedule*"
-    Then UI Text of "Share Tab" equal to "Share by E-mail"
+    Then UI Text of "Share Tab" equal to "Share"
     Then UI Text of "Format Tab" equal to "Format"
 
   @SID_3
@@ -296,37 +296,37 @@ Feature: sanity new report
     Then UI Set Text Field "Schedule Daily Time" To "11:61 PM"
     Then UI Text of "Error Massage" with extension "timeOfDay" contains "Please select a time between 12 AM to 11:59 PM"
 
-  @SID_28
-  Scenario: Report Schedule Day of week is selected
-    Then UI Click Button "Schedule Report" with value "weekly"
-    Then UI Unclick all the attributes "class" is "CONTAINS" to "selected"
-      | label        | param |
-      | Schedule Day | MON   |
-      | Schedule Day | TUE   |
-      | Schedule Day | WED   |
-      | Schedule Day | THU   |
-      | Schedule Day | FRI   |
-      | Schedule Day | SAT   |
-      | Schedule Day | SUN   |
-    Then UI Text of "Error Massage" with extension "dayOfWeek" contains "Please select at least one day of week"
-
-  @SID_29
-  Scenario: Report Schedule Month is selected
-    Then UI Click Button "Schedule Report" with value "monthly"
-    Then UI Unclick all the attributes "class" is "CONTAINS" to "selected"
-      | label          | param |
-      | Schedule Month | JAN   |
-      | Schedule Month | FEB   |
-      | Schedule Month | MAR   |
-      | Schedule Month | APR   |
-      | Schedule Month | MAY   |
-      | Schedule Month | JUN   |
-      | Schedule Month | AUG   |
-      | Schedule Month | SEP   |
-      | Schedule Month | OCT   |
-      | Schedule Month | NOV   |
-      | Schedule Month | DEC   |
-    Then UI Text of "Error Massage" with extension "months" contains "Please select at least one month"
+#  @SID_28
+#  Scenario: Report Schedule Day of week is selected
+#    Then UI Click Button "Schedule Report" with value "weekly"
+#    Then UI Unclick all the attributes "class" is "CONTAINS" to "selected"
+#      | label        | param |
+#      | Schedule Day | MON   |
+#      | Schedule Day | TUE   |
+#      | Schedule Day | WED   |
+#      | Schedule Day | THU   |
+#      | Schedule Day | FRI   |
+#      | Schedule Day | SAT   |
+#      | Schedule Day | SUN   |
+#    Then UI Text of "Error Massage" with extension "dayOfWeek" contains "Please select at least one day of week"
+#
+#  @SID_29
+#  Scenario: Report Schedule Month is selected
+#    Then UI Click Button "Schedule Report" with value "monthly"
+#    Then UI Unclick all the attributes "class" is "CONTAINS" to "selected"
+#      | label          | param |
+#      | Schedule Month | JAN   |
+#      | Schedule Month | FEB   |
+#      | Schedule Month | MAR   |
+#      | Schedule Month | APR   |
+#      | Schedule Month | MAY   |
+#      | Schedule Month | JUN   |
+#      | Schedule Month | AUG   |
+#      | Schedule Month | SEP   |
+#      | Schedule Month | OCT   |
+#      | Schedule Month | NOV   |
+#      | Schedule Month | DEC   |
+#    Then UI Text of "Error Massage" with extension "months" contains "Please select at least one month"
 
   @SID_30
   Scenario: Validate Share send email To
