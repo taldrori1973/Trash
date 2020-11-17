@@ -103,7 +103,7 @@ public class CustomizedJsonManager {
         StringJoiner result = new StringJoiner(",", "[", "]");
         for (String s : eachValue) {
             String res;
-            if (s.contains(":") && s.contains("{")) {
+            if (s.contains(":")) {
                 String[] stringArray = s.split(":");
                 res = (stringArray[0].startsWith("{") ? "{\"" + stringArray[0].substring(1) : "\"" + stringArray[0]) + "\":" + (stringArray[1].startsWith("[") ? "[\"" + stringArray[1].substring(1) : "\"" + stringArray[1]);
                 res = res.endsWith("]}") || res.endsWith("]}") ? res.substring(0, res.length() - 2) + "\"" + res.substring(res.length() - 2) : res.endsWith("]") || res.endsWith("}") ? res.substring(0, res.length() - 1) + "\"" + res.charAt(res.length() - 1) : res + "\"";
