@@ -33,7 +33,7 @@ public class TemplateHandlers {
         addTemplateType(reportType);
         String currentTemplateName = getCurrentTemplateName(reportType);
         addWidgets(new JSONArray(templateJsonObject.get("Widgets").toString()), currentTemplateName);
-        getScopeSelection(templateJsonObject, currentTemplateName.split(reportType)[1]).create();
+        getScopeSelection(templateJsonObject, currentTemplateName.split(reportType).length!=0? currentTemplateName.split(reportType)[1]:"").create();
         Report.updateReportsTemplatesMap(reportName, templateJsonObject.get("templateAutomationID").toString(), currentTemplateName);
     }
 
@@ -215,7 +215,7 @@ public class TemplateHandlers {
 
     private static String getCurrentTemplateName(String reportType) {
         List<WebElement> elements = WebUiTools.getWebElements("Template Header", reportType);
-        return elements.get(elements.size() - 1).getText();
+        return elements.size()!=0? elements.get(elements.size() - 1).getText(): reportType;
 
     }
 
