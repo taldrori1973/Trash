@@ -11,6 +11,7 @@ import models.StatusCode;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.Map;
 
 
@@ -22,7 +23,7 @@ public class Report extends ReportsForensicsAlertsAbstract {
         try {
             WebUiTools.check("New Report Tab", "", true);
             createReportParameters(reportName, map);
-            selectTemplates(map);
+            selectTemplates(map,reportName);
             BasicOperationsHandler.clickButton("save");
         } catch (Exception e) {
             closeReport();
@@ -41,9 +42,10 @@ public class Report extends ReportsForensicsAlertsAbstract {
     private void closeReport() {
     }
 
-    private void selectTemplates(Map<String, String> map) throws Exception {
+    private void selectTemplates(Map<String, String> map,String reportName) throws Exception {
+        templates.put(reportName,new HashMap<>());
         for (Object templateObject :new JSONArray(map.get("Template")))
-            TemplateHandlers.addTemplate(new JSONObject(templateObject.toString()));
+            TemplateHandlers.addTemplate(new JSONObject(templateObject.toString()),reportName);
     }
 
     private void editTemplates(Map<String, String> map) {
@@ -234,4 +236,8 @@ public class Report extends ReportsForensicsAlertsAbstract {
 
     @Override
     protected String getType(){return "Report";}
+
+    public static void updateReportsTemplatesMap(String reportName,String templateAutomationID, String value){
+        templates.get(reportName).put(templateAutomationID,value);
+    }
 }

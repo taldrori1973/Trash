@@ -28,6 +28,7 @@ abstract class ReportsForensicsAlertsAbstract implements ReportsForensicsAlertsI
     StringBuilder errorMessages = new StringBuilder();
     private static Map<String, LocalDateTime> schedulingDates = new HashMap<>();
     private static Map<String, JSONObject> timeAbsoluteDates = new HashMap<>();
+    protected static Map<String, Map<String,String>> templates = new HashMap<>();
     private String name;
 
 

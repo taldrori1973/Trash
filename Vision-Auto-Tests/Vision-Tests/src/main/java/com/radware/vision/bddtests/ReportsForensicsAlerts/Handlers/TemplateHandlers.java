@@ -8,6 +8,7 @@ import com.radware.automation.webui.widgets.ComponentLocator;
 import com.radware.automation.webui.widgets.impl.WebUITextField;
 import com.radware.vision.automation.tools.exceptions.selenium.TargetWebElementNotFoundException;
 import com.radware.vision.automation.tools.sutsystemobjects.devicesinfo.enums.SUTDeviceType;
+import com.radware.vision.bddtests.ReportsForensicsAlerts.Report;
 import com.radware.vision.infra.testhandlers.baseoperations.BasicOperationsHandler;
 import com.radware.vision.bddtests.ReportsForensicsAlerts.WebUiTools;
 import org.json.JSONArray;
@@ -26,10 +27,16 @@ import static org.apache.commons.lang.math.NumberUtils.isNumber;
 
 public class TemplateHandlers {
 
-    public static void addTemplate(JSONObject templateJsonObject) throws Exception {
+
+    public static void addTemplate(JSONObject templateJsonObject,String reportName) throws Exception {
         addTemplateType(templateJsonObject.get("reportType").toString());
         addWidgets(new JSONArray(templateJsonObject.get("Widgets").toString()), getCurrentTemplateName(templateJsonObject.get("reportType").toString()));
         getScopeSelection(templateJsonObject).create();
+        Report.updateReportsTemplatesMap(reportName,templateJsonObject.get("templateAutomationID").toString(),getCurrentTemplateName(templateJsonObject.get("reportType").toString()));
+    }
+
+    public static void editTemplate(Object template) {
+
     }
 
     private static ScopeSelection getScopeSelection(JSONObject templateJsonObject) {
@@ -106,7 +113,7 @@ public class TemplateHandlers {
             VisionDebugIdsManager.setLabel("widgets container");
             VisionDebugIdsManager.setParams(reportType);
             ComponentLocator targetLocator = new ComponentLocator(How.XPATH, "//*[@data-debug-id='" + VisionDebugIdsManager.getDataDebugId() + "' and contains(@class,'TemplateWidgetsContainer')]");
-          //TODO target by debugID
+            //TODO target by debugID
 //            ComponentLocator targetLocator = new ComponentLocator(How.XPATH, "//*[@class='ReportTemplatestyle__TemplateWidgetsContainer-sc-69xssr-5 iIXqdb widget-container-appear-done widget-container-enter-done']");
             dragAndDrop(sourceLocator, targetLocator);
         }
