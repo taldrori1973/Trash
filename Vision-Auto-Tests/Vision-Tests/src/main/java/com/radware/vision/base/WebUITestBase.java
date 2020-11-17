@@ -64,6 +64,7 @@ import java.nio.file.NoSuchFileException;
 import java.util.*;
 
 import static com.radware.automation.tools.basetest.Reporter.FAIL;
+import com.radware.vision.bddtests.remotessh.RemoteSshCommandsTests;
 
 public abstract class WebUITestBase extends SystemTestCase4 {
     protected boolean doTheVisionLabRestart = false;
@@ -232,6 +233,7 @@ public abstract class WebUITestBase extends SystemTestCase4 {
             devicesManager = DevicesManager.getInstance("devices");
             restTestBase = new RestTestBase();
             restTestBase.init();
+            RemoteSshCommandsTests.resetPassword();
             BaseHandler.restTestBase = restTestBase;
             BaseHandler.devicesManager = devicesManager;
             getVisionInfo();
