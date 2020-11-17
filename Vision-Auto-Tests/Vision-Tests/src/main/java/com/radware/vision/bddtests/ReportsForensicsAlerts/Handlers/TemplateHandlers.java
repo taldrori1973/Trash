@@ -28,11 +28,13 @@ import static org.apache.commons.lang.math.NumberUtils.isNumber;
 public class TemplateHandlers {
 
 
-    public static void addTemplate(JSONObject templateJsonObject,String reportName) throws Exception {
-        addTemplateType(templateJsonObject.get("reportType").toString());
-        addWidgets(new JSONArray(templateJsonObject.get("Widgets").toString()), getCurrentTemplateName(templateJsonObject.get("reportType").toString()));
-        getScopeSelection(templateJsonObject, "").create();
-        Report.updateReportsTemplatesMap(reportName,templateJsonObject.get("templateAutomationID").toString(),getCurrentTemplateName(templateJsonObject.get("reportType").toString()));
+    public static void addTemplate(JSONObject templateJsonObject, String reportName) throws Exception {
+        String reportType = templateJsonObject.get("reportType").toString();
+        String currentTemplateName = getCurrentTemplateName(reportType);
+        addTemplateType(reportType);
+        addWidgets(new JSONArray(templateJsonObject.get("Widgets").toString()), currentTemplateName);
+        getScopeSelection(templateJsonObject, currentTemplateName.split(reportType)[1]).create();
+        Report.updateReportsTemplatesMap(reportName, templateJsonObject.get("templateAutomationID").toString(), currentTemplateName);
     }
 
     public static void editTemplate(Object template) {
@@ -283,12 +285,12 @@ public class TemplateHandlers {
         public void validate(JSONArray actualTemplateDeviceJSON, StringBuilder errorMessage) throws Exception {
             JSONArray actualTemplateArrayJSON = new JSONArray();
             List<JSONObject> actualObjectsDivecesSerlected = new ArrayList<>();
-            if(devicesJSON.length() == 1 && devicesJSON.get(0).toString().equals("All")) {
+            if (devicesJSON.length() == 1 && devicesJSON.get(0).toString().equals("All")) {
                 actualTemplateArrayJSON.forEach(object -> {
                     if (new JSONObject(object.toString()).getString("selected").equalsIgnoreCase("false"))
                         errorMessage.append("The all is not selected !");
                 });
-            }else {
+            } else {
                 actualTemplateArrayJSON.forEach(object -> {
                     if (new JSONObject(object.toString()).getString("selected").equalsIgnoreCase("true"))
                         actualObjectsDivecesSerlected.add(new JSONObject(object.toString()));
@@ -340,13 +342,12 @@ public class TemplateHandlers {
             JSONArray actualTemplateArrayJSON = new JSONArray();
             if (actualTemplatesDeviceJSON.length() != devicesJSON.length())
                 errorMessage.append("The actual templateDevice size " + actualTemplatesDeviceJSON.length() + " is not equal to expected templateDevice size" + devicesJSON.length()).append("\n");
-            else if(devicesJSON.length() == 1 && devicesJSON.get(0).toString().equals("all")) {
+            else if (devicesJSON.length() == 1 && devicesJSON.get(0).toString().equals("all")) {
                 actualTemplateArrayJSON.forEach(object -> {
                     if (new JSONObject(object.toString()).getString("selected").equalsIgnoreCase("false"))
                         errorMessage.append("The all is not selected !");
                 });
-            }
-            else {
+            } else {
                 for (Object expectedDeviceJSON : devicesJSON) {
                     new DPSingleDPScopeSelection(new JSONObject(expectedDeviceJSON.toString())).validate(actualTemplatesDeviceJSON, errorMessage);
                 }
