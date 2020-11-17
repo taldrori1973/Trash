@@ -329,6 +329,7 @@ public class VMOperationsSteps extends BddUITestBase {
      * Relevant to be used after revert to snapshot and upgrade
      */
     public static void updateVersionVar() {
+        WebUITestBase.getVisionInfo();
         String version = WebUITestBase.getVisionVersion();
         String build = WebUITestBase.getVisionBuild();
         //update runtime variables

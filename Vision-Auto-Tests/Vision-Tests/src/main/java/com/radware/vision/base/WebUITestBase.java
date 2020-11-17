@@ -683,7 +683,7 @@ public abstract class WebUITestBase extends SystemTestCase4 {
         visionBranch = branch;
     }
 
-    private void getVisionInfo() {
+    public static void getVisionInfo() {
         String filePath = "Vision/SystemManagement.json";
         String requestLabel = "Get Management Info Ex";
         RestResponse response;
