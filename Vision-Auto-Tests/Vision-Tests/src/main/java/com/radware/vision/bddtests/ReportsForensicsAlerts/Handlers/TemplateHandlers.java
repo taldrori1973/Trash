@@ -31,7 +31,7 @@ public class TemplateHandlers {
     public static void addTemplate(JSONObject templateJsonObject,String reportName) throws Exception {
         addTemplateType(templateJsonObject.get("reportType").toString());
         addWidgets(new JSONArray(templateJsonObject.get("Widgets").toString()), getCurrentTemplateName(templateJsonObject.get("reportType").toString()));
-        getScopeSelection(templateJsonObject).create();
+        getScopeSelection(templateJsonObject, "").create();
         Report.updateReportsTemplatesMap(reportName,templateJsonObject.get("templateAutomationID").toString(),getCurrentTemplateName(templateJsonObject.get("reportType").toString()));
     }
 
@@ -39,7 +39,7 @@ public class TemplateHandlers {
 
     }
 
-    private static ScopeSelection getScopeSelection(JSONObject templateJsonObject) {
+    private static ScopeSelection getScopeSelection(JSONObject templateJsonObject, String templateParam) {
         switch (templateJsonObject.get("reportType").toString().toUpperCase()) {
             case "HTTPS FLOOD":
                 return new HTTPSFloodScopeSelection(new JSONArray(templateJsonObject.get("Servers").toString()), "");
@@ -47,6 +47,10 @@ public class TemplateHandlers {
                 return new DFScopeSelection(new JSONArray(templateJsonObject.get("Protected Objects").toString()), "");
             case "APPWALL":
                 return new AWScopeSelection(new JSONArray(templateJsonObject.get("Applications").toString()), "");
+            case "SYSTEM AND NETWORK":
+                return new SystemAndNetworkScopeSelection(new JSONArray(templateJsonObject.get("Applications").toString()), "");
+            case "APPLICATION":
+                return new ApplicationScopeSelection(new JSONArray(templateJsonObject.get("Applications").toString()), "");
             case "EAAF":
                 return new EAAFScopeSelection(new JSONArray(templateJsonObject.get("devices").toString()), "");
             case "DEFENSEPRO ANALITICS":
@@ -207,9 +211,7 @@ public class TemplateHandlers {
     }
 
     private static String getCurrentTemplateName(String reportType) {
-        VisionDebugIdsManager.setLabel("Template Header");
-        VisionDebugIdsManager.setParams(reportType);
-        List<WebElement> elements = WebUIUtils.fluentWaitMultiple(new ComponentLocator(How.XPATH, "//*[@data-debug-id='" + VisionDebugIdsManager.getDataDebugId() + "']").getBy(), WebUIUtils.DEFAULT_WAIT_TIME, false);
+        List<WebElement> elements = WebUiTools.getWebElements("Template Header", reportType);
         return elements.get(elements.size() - 1).getText();
 
     }
@@ -499,6 +501,24 @@ public class TemplateHandlers {
         }
     }
 
+    public static class ApplicationScopeSelection extends ScopeSelection {
+
+        ApplicationScopeSelection(JSONArray deviceJSONArray, String templateParam) {
+            super(deviceJSONArray, templateParam);
+            this.type = "Application";
+            this.saveButtonText = "ApplicationSaveButton";
+        }
+    }
+
+    public static class SystemAndNetworkScopeSelection extends ScopeSelection {
+
+        SystemAndNetworkScopeSelection(JSONArray deviceJSONArray, String templateParam) {
+            super(deviceJSONArray, templateParam);
+            this.type = "System And Network";
+            this.saveButtonText = "SystemAndNetworkSaveButton";
+        }
+    }
+
 
     private static class EAAFScopeSelection extends ScopeSelection {
 
@@ -549,7 +569,7 @@ public class TemplateHandlers {
     }
 
     private static void validateTemplateDevicesDefinition(JSONObject singleTemplate, JSONObject expectedSingleTemplate, StringBuilder errorMessage) throws Exception {
-        getScopeSelection(expectedSingleTemplate).validate(new JSONArray(singleTemplate.get("scope").toString()), errorMessage);
+        getScopeSelection(expectedSingleTemplate, "").validate(new JSONArray(singleTemplate.get("scope").toString()), errorMessage);
     }
 
     private static void validateTemplateWidgetsDefinition(JSONObject singleActualTemplate, JSONObject expectedSingleTemplate, StringBuilder errorMessage) {
