@@ -126,7 +126,7 @@ public class Report extends ReportsForensicsAlertsAbstract {
         {
             errorMessage.append(validateLogoDefinition(new JSONObject(basicRestResult.get("logo").toString()), map));
             errorMessage.append(validateTimeDefinition(new JSONObject(basicRestResult.get("timeFrame").toString().replace("\\", "")), map));
-            errorMessage.append(validateScheduleDefinition(new JSONObject(basicRestResult.get("scheduling").toString()), map, reportName));
+            errorMessage.append(validateScheduleDefinition(basicRestResult, map, reportName));
             errorMessage.append(validateShareDefinition(new JSONObject(basicRestResult.get("deliveryMethod").toString()), map));
             errorMessage.append(validateFormatDefinition(new JSONObject(basicRestResult.get("exportFormat").toString()), map));
             errorMessage.append(TemplateHandlers.validateTemplateDefinition(basicRestResult.get("templates").toString().equalsIgnoreCase("null")?new JSONArray():new JSONArray(basicRestResult.get("templates")),map));
