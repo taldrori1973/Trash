@@ -16,7 +16,7 @@ import java.util.Map;
 
 public class SelectTimeHandlers {
     public static void selectRelativeTime(JSONObject timeDefinitionJSONObject) throws TargetWebElementNotFoundException {
-        BasicOperationsHandler.clickButton("Relative");
+        BasicOperationsHandler.clickButton("Time Type" ,"Relative");
         ClickRelativeDateNew(timeDefinitionJSONObject.getJSONArray("Relative"));
     }
 
