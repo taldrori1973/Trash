@@ -63,7 +63,7 @@ public class SelectScheduleHandlers {
         String getActualTime() {return actualScheduleJson.get(actualTimeKey).toString();}
 
         protected String getExpectedValidateTime(Map<String, LocalDateTime> schedulingDates, String name) {
-            if (isWithComputing())
+            if (isWithComputing())//Todo suit error message if the schedule isn't exist - MAHA
                 return DateTimeFormatter.ofPattern(dailyTimePattern).format(schedulingDates.get(name));
             else return expectedScheduleJson.get("On Time").toString();
         }
