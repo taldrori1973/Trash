@@ -42,22 +42,6 @@ public class TemplateHandlers {
 
     }
 
-    private static void setSummaryTable(JSONObject templateJsonObject, String templateName) {
-        WebElement checkbox = WebUiTools.getWebElement("check summary table", templateName);
-        boolean isChecked = Boolean.parseBoolean(checkbox.getAttribute("data-debug-checked"));
-        switch (templateJsonObject.get("showTable").toString().toLowerCase()) {
-            case "true":
-                if (!isChecked) {
-                    checkbox.click();
-                }
-                break;
-            case "false":
-                if (isChecked) {
-                    checkbox.click();
-                }
-                break;
-        }
-    }
 
     private static ScopeSelection getScopeSelection(JSONObject templateJsonObject, String templateParam) {
         switch (templateJsonObject.get("reportType").toString().toUpperCase()) {
@@ -617,6 +601,24 @@ public class TemplateHandlers {
         for (Object expectedWidgetOption : expectedWidgetOptions) {
             if (!actualWidgetJSONObject.toString().contains(expectedWidgetOption.toString()))
                 errorMessage.append("The Actual TemplateWidget OptionValue is not equal to  " + expectedWidgetOption.toString());
+        }
+    }
+
+
+    private static void setSummaryTable(JSONObject templateJsonObject, String templateName) {
+        WebElement checkbox = WebUiTools.getWebElement("check summary table", templateName);
+        boolean isChecked = Boolean.parseBoolean(checkbox.getAttribute("data-debug-checked"));
+        switch (templateJsonObject.get("showTable").toString().toLowerCase()) {
+            case "true":
+                if (!isChecked) {
+                    checkbox.click();
+                }
+                break;
+            case "false":
+                if (isChecked) {
+                    checkbox.click();
+                }
+                break;
         }
     }
 }
