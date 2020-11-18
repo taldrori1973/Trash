@@ -33,7 +33,7 @@ public class TemplateHandlers {
         addTemplateType(reportType);
         String currentTemplateName = getCurrentTemplateName(reportType);
         addWidgets(new JSONArray(templateJsonObject.get("Widgets").toString()), currentTemplateName);
-        setSummaryTable(templateJsonObject,currentTemplateName);
+        setSummaryTable(templateJsonObject, currentTemplateName);
         getScopeSelection(templateJsonObject, currentTemplateName.split(reportType).length != 0 ? currentTemplateName.split(reportType)[1] : "").create();
         Report.updateReportsTemplatesMap(reportName, templateJsonObject.get("templateAutomationID").toString(), currentTemplateName);
     }
@@ -606,6 +606,7 @@ public class TemplateHandlers {
 
 
     private static void setSummaryTable(JSONObject templateJsonObject, String templateName) {
+        if (templateJsonObject.get("showTable") == null) return;
         WebElement checkbox = WebUiTools.getWebElement("check summary table", templateName);
         boolean isChecked = Boolean.parseBoolean(checkbox.getAttribute("data-debug-checked"));
         switch (templateJsonObject.get("showTable").toString().toLowerCase()) {
