@@ -173,13 +173,14 @@ abstract class ReportsForensicsAlertsAbstract implements ReportsForensicsAlertsI
     protected StringBuilder validateScheduleDefinition(JSONObject schedulingDefinitionJson, Map<String, String> map, String name) {
         StringBuilder errorMessage = new StringBuilder();
         if (map.containsKey("Schedule")) {
+            JSONObject actualSchedule = new JSONObject(schedulingDefinitionJson.get("scheduling").toString());
             JSONObject expectedScheduleJson = new JSONObject(map.get("Schedule"));
-            String actualType = schedulingDefinitionJson.get("type").toString();
+            String actualType = actualSchedule.get("type").toString();
             String expectedType = expectedScheduleJson.get("Run Every").toString();
             if (!expectedType.equalsIgnoreCase(actualType))
                 errorMessage.append("The Actual schedule type is ").append(actualType).append(" but the Expected type is ").append(expectedType).append("\n");
             else
-                SelectScheduleHandlers.validateScheduling(expectedType, schedulingDefinitionJson, expectedScheduleJson, errorMessage, schedulingDates, getType() + "_" + name);
+                SelectScheduleHandlers.validateScheduling(expectedType, actualSchedule, expectedScheduleJson, errorMessage, schedulingDates, getType() + "_" + name);
         }
         return errorMessage;
     }
