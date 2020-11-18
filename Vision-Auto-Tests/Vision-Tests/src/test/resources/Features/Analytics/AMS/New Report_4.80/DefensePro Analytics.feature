@@ -91,7 +91,7 @@ Feature: DefensePro Analytics
     Given UI "Create" Report With Name "Connections Rate Report2"
       | Template              | reportType:DefensePro Analytics , Widgets:[Connections Rate] , devices:[{deviceIndex:10}] , showTable:true |
       | Time Definitions.Date | Quick:1H                                                                                                   |
-      | Schedule              | Run Every:Once                                                                                             |
+      | Schedule              | Run Every:Once, On Time:+6H                                                                                             |
       | Format                | Select: PDF                                                                                                |
 
   @SID_10
@@ -121,7 +121,7 @@ Feature: DefensePro Analytics
       | Template              | reportType:DefensePro Analytics , Widgets:[Concurrent Connections] , devices:[All] , showTable:true |
       | Logo                  | reportLogoPNG.png                                                                                   |
       | Time Definitions.Date | Absolute:[02.11.2020 13:47:16, +0d]                                                                 |
-      | Schedule              | Run Every:Once                                                                                      |
+      | Schedule              | Run Every:Once, On Time:+6H                                                                                      |
       | share                 | Email:[automation.vision1@radware.com],Subject:mySubject,Body:myBody                                |
       | Format                | Select: PDF                                                                                         |
 
@@ -181,7 +181,7 @@ Feature: DefensePro Analytics
     Given UI "Create" Report With Name "Top Attacks Report3"
       | Template              | reportType:DefensePro Analytics , Widgets:[Top Attacks] , devices:[{deviceIndex:10}] , showTable:false |
       | Time Definitions.Date | Relative:[Hours,3]                                                                                     |
-      | Schedule              | Run Every:Once                                                                                         |
+      | Schedule              | Run Every:Once, On Time:+6H                                                                                         |
       | Format                | Select: HTML                                                                                           |
 
   @SID_19
@@ -200,7 +200,7 @@ Feature: DefensePro Analytics
       | Template              | reportType:DefensePro Analytics , Widgets:[Top Attacks by Bandwidth] , devices:[All] , showTable:true |
       | Logo                  | reportLogoPNG.png                                                                                     |
       | Time Definitions.Date | Quick:Previous Month                                                                                  |
-      | Schedule              | Run Every:Once                                                                                        |
+      | Schedule              | Run Every:Once, On Time:+6H                                                                                        |
       | Format                | Select: CSV                                                                                           |
 
   @SID_21
@@ -250,7 +250,7 @@ Feature: DefensePro Analytics
       | Template              | reportType:DefensePro Analytics , Widgets:[Top Attacks by Protocol] , devices:[All] , showTable:false |
       | Logo                  | reportLogoPNG.png                                                                                     |
       | Time Definitions.Date | Quick:1W                                                                                              |
-      | Schedule              | Run Every:Once                                                                                        |
+      | Schedule              | Run Every:Once, On Time:+6H                                                                                        |
       | share                 | Email:[automation.vision1@radware.com],Subject:mySubject,Body:myBody                                  |
       | Format                | Select: PDF                                                                                           |
 
@@ -388,7 +388,7 @@ Feature: DefensePro Analytics
     Given UI "Create" Report With Name "Attacks by Mitigation Action Report4"
       | Template              | reportType:DefensePro Analytics , Widgets:[Attacks by Mitigation Action] , devices:[All] , showTable:true |
       | Time Definitions.Date | Absolute:[02.11.2020 13:47:16, +0d]                                                                       |
-      | Schedule              | Run Every:Once                                                                                            |
+      | Schedule              | Run Every:Once, On Time:+6H                                                                                            |
       | share                 | Email:[automation.vision1@radware.com],Subject:mySubject,Body:myBody                                      |
       | Format                | Select: CSV                                                                                               |
 
@@ -427,7 +427,7 @@ Feature: DefensePro Analytics
     Given UI "Create" Report With Name "Top Attack Destination Report4"
       | Template              | reportType:DefensePro Analytics , Widgets:[Top Attack Destination] , devices:[All] , showTable:true |
       | Time Definitions.Date | Quick:Quarter                                                                                       |
-      | Schedule              | Run Every:Weekly, On Time:+6H, At days:[THU] , Once                                                 |
+      | Schedule              | Run Every:Weekly, On Time:+6H, At days:[THU]                                                  |
       | share                 | Email:[automation.vision1@radware.com],Subject:mySubject,Body:myBody                                |
       | Format                | Select: CSV                                                                                         |
 
