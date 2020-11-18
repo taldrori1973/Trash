@@ -33,12 +33,30 @@ public class TemplateHandlers {
         addTemplateType(reportType);
         String currentTemplateName = getCurrentTemplateName(reportType);
         addWidgets(new JSONArray(templateJsonObject.get("Widgets").toString()), currentTemplateName);
-        getScopeSelection(templateJsonObject, currentTemplateName.split(reportType).length!=0? currentTemplateName.split(reportType)[1]:"").create();
+        setSummaryTable(templateJsonObject,currentTemplateName);
+        getScopeSelection(templateJsonObject, currentTemplateName.split(reportType).length != 0 ? currentTemplateName.split(reportType)[1] : "").create();
         Report.updateReportsTemplatesMap(reportName, templateJsonObject.get("templateAutomationID").toString(), currentTemplateName);
     }
 
     public static void editTemplate(Object template) {
 
+    }
+
+    private static void setSummaryTable(JSONObject templateJsonObject, String templateName) {
+        WebElement checkbox = WebUiTools.getWebElement("check summary table", templateName);
+        boolean isChecked = Boolean.parseBoolean(checkbox.getAttribute("data-debug-checked"));
+        switch (templateJsonObject.get("showTable").toString().toLowerCase()) {
+            case "true":
+                if (!isChecked) {
+                    checkbox.click();
+                }
+                break;
+            case "false":
+                if (isChecked) {
+                    checkbox.click();
+                }
+                break;
+        }
     }
 
     private static ScopeSelection getScopeSelection(JSONObject templateJsonObject, String templateParam) {
@@ -215,7 +233,7 @@ public class TemplateHandlers {
 
     private static String getCurrentTemplateName(String reportType) {
         List<WebElement> elements = WebUiTools.getWebElements("Template Header", reportType);
-        return elements.size()!=0? elements.get(elements.size() - 1).getText(): reportType;
+        return elements.size() != 0 ? elements.get(elements.size() - 1).getText() : reportType;
 
     }
 
