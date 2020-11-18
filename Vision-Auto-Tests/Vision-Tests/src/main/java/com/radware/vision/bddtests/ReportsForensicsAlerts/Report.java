@@ -135,18 +135,25 @@ public class Report extends ReportsForensicsAlertsAbstract {
             BaseTestUtils.report(errorMessage.toString(), Reporter.FAIL);
     }
 
-    private JSONObject getReportDefinition(String reportName) throws NoSuchFieldException {
+    private JSONObject getReportDefinition(String reportName) throws Exception {
         RestResponse restResponse = new CurrentVisionRestAPI("Vision/newReport.json", "Get Created Reports").sendRequest();
         if (restResponse.getStatusCode()== StatusCode.OK)
         {
             JSONArray reportsJSONArray = new JSONArray(restResponse.getBody().getBodyAsString());
             for(Object reportJsonObject : reportsJSONArray){
                 if (new JSONObject(reportJsonObject.toString()).getString("reportName").equalsIgnoreCase(reportName))
-                    return new JSONObject(reportJsonObject.toString());
+                {
+                    CurrentVisionRestAPI currentVisionRestAPI = new CurrentVisionRestAPI("Vision/newReport.json", "Get specific Report");
+                    currentVisionRestAPI.getRestRequestSpecification().setPathParams(Collections.singletonMap("reportID", new JSONObject(reportJsonObject.toString()).getString("id")));
+                    restResponse = currentVisionRestAPI.sendRequest();
+                    if (restResponse.getStatusCode() == StatusCode.OK)
+                        return new JSONObject(restResponse.getBody().getBodyAsString());
+                    else throw new Exception("Get specific Report request failed, The response is " + restResponse);
+                }
             }
+            throw new Exception("No Report with Name " + reportName);
         }
-
-        return null;
+        else throw new Exception("Get Reports failed request, The response is " + restResponse);
     }
 
     private String getReportID(String reportName) {

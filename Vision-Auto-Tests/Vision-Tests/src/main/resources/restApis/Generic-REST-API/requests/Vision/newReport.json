@@ -9,6 +9,13 @@
       "basePath": "/mgmt/monitor/reporter/v1/vrm/reporting/reporting/definitions/byTag/ams/?includecontent=true&includewithouttag=true",
       "produces": "application/json",
       "description": "Get All created reports"
+    },
+    {
+      "label": "Get specific Report",
+      "method": "GET",
+      "basePath": "/mgmt/monitor/reporter/v1/vrm/reporting/reporting/definitions/{reportID}",
+      "produces": "application/json",
+      "description": "Get All created reports"
     }
   ]
 }

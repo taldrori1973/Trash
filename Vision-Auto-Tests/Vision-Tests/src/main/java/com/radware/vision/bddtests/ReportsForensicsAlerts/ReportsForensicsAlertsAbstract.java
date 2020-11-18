@@ -166,10 +166,6 @@ abstract class ReportsForensicsAlertsAbstract implements ReportsForensicsAlertsI
         return emailList;
     }
 
-    protected void selectScopeSelection() {
-
-    }
-
     protected StringBuilder validateScheduleDefinition(JSONObject schedulingDefinitionJson, Map<String, String> map, String name) {
         StringBuilder errorMessage = new StringBuilder();
         if (map.containsKey("Schedule")) {
