@@ -6,61 +6,74 @@ Feature: Landing_my_reports
     Then UI Click Button "New Report Tab"
 
   Scenario: Create New Report
-    Given UI "Create" Report With Name "Traffic Report"
-#      | Template-1            | reportType:DefensePro Analytics , Widgets:[Concurrent Connections],devices:[{deviceIndex:11,devicePorts:[1],devicePolicies:[BDOS,1_https]},{deviceIndex:10}]                             |
-  #    | Template-1            | reportType:DefensePro Analytics , Widgets:[{BDoS-TCP SYN:[pps,IPv6,15]},Concurrent Connections],devices:[{deviceIndex:11,devicePorts:[1,2],devicePolicies:[BDOS,1_https]},{deviceIndex:10}] |
-#      | Template-1            | reportType:DefensePro Analytics , Widgets:[{BDoS-TCP SYN:[pps,IPv6,15]},Concurrent Connections],devices:[All] |
-#      | Template-2            | reportType:HTTPS Flood , Widgets:[{BDoS-TCP SYN:[pps,IPv6,15]},Concurrent Connections],devices:[Server_v4-DefensePro_172.16.22.50-pol1] |
-#      | Template-3            | reportType:AppWall , Widgets:[{BDoS-TCP SYN:[pps,IPv6,15]},Concurrent Connections],devices:[A1,ADZ] |
-#      | Template-4            | reportType:DefenseFlow Analytics , Widgets:[{BDoS-TCP SYN:[pps,IPv6,15]},Concurrent Connections],devices:[All] |
-#      | Format                | Select: CSV                                                                                                                                                                            |
-#      |Template-4             |reportType:DefensePro Analytics , Widgets:[BDoS-TCP SYN,Concurrent Connections],devices:[{devicesIndex:11,devicePorts:[1,2],devicePolicies:[BDOS,APOL]},{deviceIndex:10}]|
-#      | Logo                  | reportLogoPNG.png                                                                                                                                                                      |
-#      | Schedule              | Run Every:Monthly, On Time:+6H, At Months:[JAN,SEP,DEC]                                                                                                                                |
-#      | Time Definitions.Date | Quick:This Month|
+    Given UI "Create" Report With Name "DefensePro Analytics Report"
+      | Time Definitions.Date | Quick: 1H                                                                                                                                                    |
+      | Schedule              | Run Every:Monthly, On Time:+2m                                                                                                                               |
+      | Share                 | Email:[Test, Test2],Subject:TC108070 Subject                                                                                                                 |
+      | Format                | Select: CSV                                                                                                                                                  |
+     # | Logo                  | addLogo: reportLogoPNG.png                                                                                                                                   |
+      | Template-1            | reportType:DefensePro Analytics , Widgets:[Concurrent Connections],devices:[{deviceIndex:11,devicePorts:[1],devicePolicies:[BDOS,1_https]},{deviceIndex:10}] |
 
-    Given UI "Validate" Report With Name "Traffic Report"
-#      | Template-1            | reportType:DefensePro Analytics , Widgets:[Concurrent Connections],devices:[{deviceIndex:11,devicePorts:[1],devicePolicies:[BDOS,1_https]},{deviceIndex:10}]                             |#    | Template-1            | reportType:DefensePro Analytics , Widgets:[{BDoS-TCP SYN:[pps,IPv6,15]},Concurrent Connections],devices:[{deviceIndex:11,devicePorts:[1,2],devicePolicies:[BDOS,1_https]},{deviceIndex:10}] |
-#      | Template-1            | reportType:DefensePro Analytics , Widgets:[{BDoS-TCP SYN:[pps,IPv6,15]},Concurrent Connections],devices:[All] |
-#      | Template-2            | reportType:HTTPS Flood , Widgets:[{BDoS-TCP SYN:[pps,IPv6,15]},Concurrent Connections],devices:[Server_v4-DefensePro_172.16.22.50-pol1] |
-#      | Template-3            | reportType:AppWall , Widgets:[{BDoS-TCP SYN:[pps,IPv6,15]},Concurrent Connections],devices:[A1,ADZ] |
-#      | Template-4            | reportType:DefenseFlow Analytics , Widgets:[{BDoS-TCP SYN:[pps,IPv6,15]},Concurrent Connections],devices:[All] |
-#      | Format                | Select: CSV                                                                                                                                                                            |
-#      |Template-4             |reportType:DefensePro Analytics , Widgets:[BDoS-TCP SYN,Concurrent Connections],devices:[{devicesIndex:11,devicePorts:[1,2],devicePolicies:[BDOS,APOL]},{deviceIndex:10}]|
-#      | Logo                  | reportLogoPNG.png                                                                                                                                                                      |
-#      | Schedule              | Run Every:Monthly, On Time:+6H, At Months:[JAN,SEP,DEC]                                                                                                                                |
-#      | Time Definitions.Date | Quick:This Month|
+    Given UI "Validate" Report With Name "DefensePro Analytics Report"
+      | Time Definitions.Date | Quick: 1H                                                                                                                                                    |
+      | Schedule              | Run Every:Monthly, On Time:+2m                                                                                                                               |
+      | Share                 | Email:[Test, Test2],Subject:TC108070 Subject                                                                                                                 |
+      | Format                | Select: CSV                                                                                                                                                  |
+     # | Logo                  | addLogo: reportLogoPNG.png                                                                                                                                   |
+      | Template-1            | reportType:DefensePro Analytics , Widgets:[Concurrent Connections],devices:[{deviceIndex:11,devicePorts:[1],devicePolicies:[BDOS,1_https]},{deviceIndex:10}] |
 
+    Then UI Validate Element Existence By Label "Generate By Schedule" if Exists "true" with value "DefensePro Analytics Report,on"
+    Then UI Click Button "Generate By Schedule" with value "DefensePro Analytics Report,on"
+    Then UI Validate Element Existence By Label "Generate By Schedule" if Exists "true" with value "DefensePro Analytics Report,off"
 
     Then UI Validate the attribute of "data-debug-checked" are "EQUAL" to
       | label          | param | value |
       | New Report Tab |       | false |
-      | My reports Tab |       | true  |
+      | My Reports Tab |       | true  |
 
+    Then UI Click Button "Edit Report" with value "DefensePro Analytics Report"
+    Given UI "Edit" Report With Name "DefensePro Analytics Report"
+      | Time Definitions.Date | Quick: 1H                                                                                                                                                    |
+      | Schedule              | Run Every:Monthly, On Time:+2m                                                                                                                               |
+      | Share                 | Email:[Test, Test2],Subject:TC108070 Subject                                                                                                                 |
+      | Format                | Select: CSV                                                                                                                                                  |
+    #  | Logo                  | addLogo: reportLogoPNG.png
+      | Template-1            | reportType:DefensePro Analytics , Widgets:[Concurrent Connections],devices:[{deviceIndex:11,devicePorts:[1],devicePolicies:[BDOS,1_https]},{deviceIndex:10}] |
 
-    Then UI Click Button "Report Name Button"
-    Then UI Click Button "Delete Report" with value "Traffic Report"
+    Given UI "Validate" Report With Name "DefensePro Analytics Report"
+      | Time Definitions.Date | Quick: 1H                                                                                                                                                    |
+      | Schedule              | Run Every:Monthly, On Time:+2m                                                                                                                               |
+      | Share                 | Email:[Test, Test2],Subject:TC108070 Subject                                                                                                                 |
+      | Format                | Select: CSV                                                                                                                                                  |
+     # | Logo                  | addLogo: reportLogoPNG.png                                                                                                                                   |
+      | Template-1            | reportType:DefensePro Analytics , Widgets:[Concurrent Connections],devices:[{deviceIndex:11,devicePorts:[1],devicePolicies:[BDOS,1_https]},{deviceIndex:10}] |
+
+#delete - a7lam
+    Then UI Validate Element Existence By Label "My Report" if Exists "true" with value "DefensePro Analytics Report"
+    Then UI Click Button "Delete Report" with value "DefensePro Analytics Report"
+    Then UI Click Button "Close Report"
+    Then UI Validate Element Existence By Label "My Report" if Exists "true" with value "DefensePro Analytics Report"
+    Then UI Click Button "Delete Report" with value "DefensePro Analytics Report"
     Then UI Click Button "confirm Delete Report" with value ""
-    Then UI Validate Element Existence By Label "Report Name Button" if Exists "false"
-    Then UI Click Button "Close Button" with value ""
-    Then UI Validate Element Existence By Label "Report Name Button" if Exists "true"
+    Then UI Validate Element Existence By Label "My Report" if Exists "false" with value "DefensePro Analytics Report"
+
+    Given UI "Create" Report With Name "DefensePro Analytics Report"
+      | Time Definitions.Date | Quick: 1H                                                                                                                                                    |
+      | Share                 | Email:[Test, Test2],Subject:TC108070 Subject                                                                                                                 |
+      | Format                | Select: CSV                                                                                                                                                  |
+     # | Logo                  | addLogo: reportLogoPNG.png                                                                                                                                   |
+      | Template-1            | reportType:DefensePro Analytics , Widgets:[Concurrent Connections],devices:[{deviceIndex:11,devicePorts:[1],devicePolicies:[BDOS,1_https]},{deviceIndex:10}] |
+
+    Given UI "Validate" Report With Name "DefensePro Analytics Report"
+      | Time Definitions.Date | Quick: 1H                                                                                                                                                    |
+      | Share                 | Email:[Test, Test2],Subject:TC108070 Subject                                                                                                                 |
+      | Format                | Select: CSV                                                                                                                                                  |
+     # | Logo                  | addLogo: reportLogoPNG.png                                                                                                                                   |
+      | Template-1            | reportType:DefensePro Analytics , Widgets:[Concurrent Connections],devices:[{deviceIndex:11,devicePorts:[1],devicePolicies:[BDOS,1_https]},{deviceIndex:10}] |
+
+    Then UI Validate Element Existence By Label "Generate By Schedule" if Exists "true" with value "DefensePro Analytics Report,off_disabled"
+    Then UI Click Button "Generate By Schedule" with value "DefensePro Analytics Report,on"
+    Then UI Validate Element Existence By Label "Generate By Schedule" if Exists "true" with value "DefensePro Analytics Report,off_disabled"
 
 
-    Then UI Click Button "Edit Button" with value ""
-    Given UI "Edit" Report With Name "Traffic Report"
-#      | Template-1            | reportType:DefensePro Analytics , Widgets:[Concurrent Connections],devices:[{deviceIndex:11,devicePorts:[1],devicePolicies:[BDOS,1_https]},{deviceIndex:10}]                             |
- #    | Template-1            | reportType:DefensePro Analytics , Widgets:[{BDoS-TCP SYN:[pps,IPv6,15]},Concurrent Connections],devices:[{deviceIndex:11,devicePorts:[1,2],devicePolicies:[BDOS,1_https]},{deviceIndex:10}] |
-#      | Template-1            | reportType:DefensePro Analytics , Widgets:[{BDoS-TCP SYN:[pps,IPv6,15]},Concurrent Connections],devices:[All] |
-#      | Template-2            | reportType:HTTPS Flood , Widgets:[{BDoS-TCP SYN:[pps,IPv6,15]},Concurrent Connections],devices:[Server_v4-DefensePro_172.16.22.50-pol1] |
-#      | Template-3            | reportType:AppWall , Widgets:[{BDoS-TCP SYN:[pps,IPv6,15]},Concurrent Connections],devices:[A1,ADZ] |
-#      | Template-4            | reportType:DefenseFlow Analytics , Widgets:[{BDoS-TCP SYN:[pps,IPv6,15]},Concurrent Connections],devices:[All] |
-#      | Format                | Select: CSV                                                                                                                                                                            |
-#      |Template-4             |reportType:DefensePro Analytics , Widgets:[BDoS-TCP SYN,Concurrent Connections],devices:[{devicesIndex:11,devicePorts:[1,2],devicePolicies:[BDOS,APOL]},{deviceIndex:10}]|
-#      | Logo                  | reportLogoPNG.png                                                                                                                                                                      |
-#      | Schedule              | Run Every:Monthly, On Time:+6H, At Months:[JAN,SEP,DEC]                                                                                                                                |
-#      | Time Definitions.Date | Quick:This Month|
-
-
-
-
-
+#    Then UI Text of "Name Tab" equal to "Report Name*"
