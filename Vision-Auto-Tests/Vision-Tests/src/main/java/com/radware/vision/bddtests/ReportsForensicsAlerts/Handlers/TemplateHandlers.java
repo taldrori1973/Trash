@@ -545,29 +545,29 @@ public class TemplateHandlers {
 
     }
 
-    public static StringBuilder validateTemplateDefinition(JSONArray actualTemplateJSONArray, Map<String, String> map) throws Exception {
+    public static StringBuilder validateTemplateDefinition(JSONArray actualTemplateJSONArray, Map<String, String> map,Map<String, Map<String,String>> templates) throws Exception {
         StringBuilder errorMessage = new StringBuilder();
         JSONArray expectedTemplates = new JSONArray(map.get("Template").toString());
         for (Object expectedTemplate : expectedTemplates)
-            validateSingleTemplateDefinition(actualTemplateJSONArray, new JSONObject(expectedTemplate.toString()), errorMessage);
+            validateSingleTemplateDefinition(actualTemplateJSONArray, new JSONObject(expectedTemplate.toString()), templates ,errorMessage);
         return errorMessage;
     }
 
-    public static void validateSingleTemplateDefinition(JSONArray actualTemplateJSON, JSONObject expectedSingleTemplate, StringBuilder errorMessage) throws Exception, TargetWebElementNotFoundException {
-        JSONObject singleActualTemplate = validateTemplateTypeDefinition(actualTemplateJSON, expectedSingleTemplate);
+    public static void validateSingleTemplateDefinition(JSONArray actualTemplateJSON, JSONObject expectedSingleTemplate,Map<String, Map<String,String>> templates, StringBuilder errorMessage) throws Exception, TargetWebElementNotFoundException {
+        JSONObject singleActualTemplate = validateTemplateTypeDefinition(actualTemplateJSON, expectedSingleTemplate ,templates,errorMessage);
         if (singleActualTemplate != null) {
-            validateTemplateDevicesDefinition(singleActualTemplate, expectedSingleTemplate, errorMessage);
+            validateTemplateDevicesDefinition(singleActualTemplate, expectedSingleTemplate ,errorMessage);
             validateTemplateWidgetsDefinition(singleActualTemplate, expectedSingleTemplate, errorMessage);
         } else
             errorMessage.append("There is no equal template on actual templates that equal to " + expectedSingleTemplate);
     }
 
-    private static JSONObject validateTemplateTypeDefinition(JSONArray actualTemplateJSON, JSONObject expectedSingleTemplate) throws TargetWebElementNotFoundException {
+    private static JSONObject validateTemplateTypeDefinition(JSONArray actualTemplateJSON, JSONObject expectedSingleTemplate,Map<String, Map<String,String>> templates, StringBuilder errorMessage) throws TargetWebElementNotFoundException {
         for (Object singleTemplate : actualTemplateJSON) {
-            //TODO map => template-%s : templateTitle
-            if (expectedSingleTemplate.get("reportType").toString().equalsIgnoreCase(new JSONObject(singleTemplate.toString()).get("templateTitle").toString())) {
+            if (!templates.get(expectedSingleTemplate.get("reportType").toString()).get((new JSONObject(singleTemplate.toString()).get("templateTitle").toString().split("_"))[1]).equalsIgnoreCase(null))
                 return new JSONObject(singleTemplate.toString());
-            }
+            else
+                errorMessage.append("This report name is not exist "+templates.get(expectedSingleTemplate.get("reportType").toString()).get((new JSONObject(singleTemplate.toString()).get("templateTitle").toString().split("_"))[1]));
         }
         return null;
     }
