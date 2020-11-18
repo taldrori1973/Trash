@@ -237,11 +237,6 @@ public class Report extends ReportsForensicsAlertsAbstract {
     }
 
     @Override
-    public void delete() {
-
-    }
-
-    @Override
     protected String getType(){return "Report";}
 
     public static void updateReportsTemplatesMap(String reportName,String templateAutomationID, String value){
