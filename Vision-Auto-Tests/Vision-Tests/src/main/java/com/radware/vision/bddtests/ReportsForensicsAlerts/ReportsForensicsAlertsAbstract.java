@@ -2,6 +2,12 @@ package com.radware.vision.bddtests.ReportsForensicsAlerts;
 
 import com.radware.automation.tools.basetest.BaseTestUtils;
 import com.radware.automation.tools.basetest.Reporter;
+import com.radware.automation.webui.VisionDebugIdsManager;
+import com.radware.automation.webui.WebUIUtils;
+import com.radware.automation.webui.widgets.ComponentLocator;
+import com.radware.automation.webui.widgets.ComponentLocatorFactory;
+import com.radware.vision.automation.tools.exceptions.selenium.TargetWebElementNotFoundException;
+import com.radware.vision.infra.base.pages.navigation.WebUIVisionBasePage;
 import com.radware.vision.infra.testhandlers.baseoperations.BasicOperationsHandler;
 import com.radware.vision.bddtests.ReportsForensicsAlerts.Handlers.SelectTimeHandlers;
 import com.radware.vision.infra.testhandlers.vrm.enums.vrmActions;
@@ -20,6 +26,8 @@ import static com.radware.vision.infra.testhandlers.BaseHandler.restTestBase;
 import static com.radware.vision.bddtests.ReportsForensicsAlerts.WebUiTools.getWebElement;
 
 import com.radware.vision.bddtests.ReportsForensicsAlerts.Handlers.SelectScheduleHandlers;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.How;
 
 
 abstract class ReportsForensicsAlertsAbstract implements ReportsForensicsAlertsInterface {
@@ -264,5 +272,53 @@ abstract class ReportsForensicsAlertsAbstract implements ReportsForensicsAlertsI
 
     public void generate(String name){}
 
+    @Override
+    public void delete(String reportName) throws Exception{
+
+        try{
+            WebUiTools.check("My Reports Tab", "", true);
+            //click on delete icon
+            deleteReport("Delete Report",reportName);
+            //click on validate delete report
+            confirmDeleteReport("confirm Delete Report",reportName);
+
+            if(templates.containsValue(getType() + "_" + reportName)){
+                templates.remove(getType() + "_" + reportName);
+            }
+
+            if(timeAbsoluteDates.containsValue(getType() + "_" + reportName)){
+                timeAbsoluteDates.remove(getType() + "_" + reportName);
+            }
+
+            if (schedulingDates.containsValue(getType() + "_" + reportName)){
+                schedulingDates.remove(getType() + "_" + reportName);
+            }
+
+            // validate that report not exist in list
+        }catch (Exception e){
+
+        }
+    }
+
+
+    private static WebElement deleteReport(String label, String params) throws TargetWebElementNotFoundException {
+        VisionDebugIdsManager.setLabel(label);
+        VisionDebugIdsManager.setParams(params);
+        if (WebUIUtils.fluentWait(ComponentLocatorFactory.getLocatorByXpathDbgId(VisionDebugIdsManager.getDataDebugId()).getBy()) == null) {
+            throw new TargetWebElementNotFoundException("No Element with data-debug-id " + VisionDebugIdsManager.getDataDebugId());
+        }
+        return WebUIVisionBasePage.getCurrentPage().getContainer().getButton(label).click();
+    }
+
+    private static WebElement confirmDeleteReport(String label, String params) throws TargetWebElementNotFoundException {
+        VisionDebugIdsManager.setLabel(label);
+        VisionDebugIdsManager.setParams(params);
+        if (WebUIUtils.fluentWait(ComponentLocatorFactory.getLocatorByXpathDbgId(VisionDebugIdsManager.getDataDebugId()).getBy()) == null) {
+            throw new TargetWebElementNotFoundException("No Element with data-debug-id " + VisionDebugIdsManager.getDataDebugId());
+        }
+        // return WebUIVisionBasePage.getCurrentPage().getContainer().getButton(label).click();
+        return WebUIVisionBasePage.getCurrentPage().getContainer().getButton( "//*[@data-debug-id='" + VisionDebugIdsManager.getDataDebugId() +"']//span[@data-debug-id='confirmation-box-delete-button-label']").click();
+
+    }
 
 }
