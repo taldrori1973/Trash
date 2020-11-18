@@ -72,9 +72,14 @@ public class ReportSteps extends BddUITestBase {
      *                      you ca write all of the table or some of the columns
      *                      and it will work
      */
-    @Then("^UI \"(Create|Validate|Edit|Generate|Isexist)\" Report With Name \"([^\"]*)\"( negative)?$")
+    @Then("^UI \"(Create|Validate|Edit|Generate|Isexist|Delete)\" Report With Name \"([^\"]*)\"( negative)?$")
     public void uiReportWithName(vrmActions operationType, String reportName,String negative, Map<String, String> reportsEntry) throws Throwable {
         new Report().baseOperation(operationType, reportName, reportsEntry, restTestBase.getRootServerCli());
+    }
+
+    @Then("^UI Delete Report With Name \"([^\"]*)\"( negative)?$")
+    public void uiReportWithName(String reportName,String negative) throws Throwable {
+        new Report().delete(reportName);
     }
 
     @When("^UI Validate invalid message in delivery$")

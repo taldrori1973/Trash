@@ -102,11 +102,17 @@ public class CustomizedJsonManager {
         List<String> eachValue = Arrays.asList(valueBetweenBrackets.split(","));
         StringJoiner result = new StringJoiner(",", "[", "]");
         for (String s : eachValue) {
-            String res;
+            String res="";
             if (s.contains(":") && (s.contains("{")|| s.contains("[") || s.contains("]") || s.contains("}"))) {
                 String[] stringArray = s.split(":");
-                res = (stringArray[0].startsWith("{") ? "{\"" + stringArray[0].substring(1) : "\"" + stringArray[0]) + "\":" + (stringArray[1].startsWith("[") ? "[\"" + stringArray[1].substring(1) : "\"" + stringArray[1]);
-                res = res.endsWith("]") || res.endsWith("}") ? res.split("(\\]+|}+)+$")[0] + "\"" + res.substring(res.split("(\\]+|}+)+$")[0].length()) : res + "\"";
+                for (String stringValue : stringArray)
+                {
+                    String fixWord = "";
+                    fixWord = stringValue.startsWith("[")|stringValue.startsWith("{")? stringValue.split(stringValue.split("^(\\[|\\{)+")[1])[0] + "\"" +  stringValue.split("^(\\[|\\{)+")[1] : "\"" + stringValue;
+                    fixWord = fixWord.endsWith("}")|fixWord.endsWith("]")? fixWord.split("(\\]+|}+)+$")[0] + "\"" + fixWord.split(fixWord.split("(\\]+|}+)+$")[0])[1]
+                            : fixWord + "\"";
+                    res+= (res.equalsIgnoreCase("")?"":":") + fixWord;
+                }
             } else {
                 res = s.startsWith("{") || s.startsWith("{")? s.split(s.split("^(\\[|\\{)+")[0])[0] + "\"" + s.split("^(\\[|\\{)+")[0]:"\"" + s;
                 res = res.endsWith("}") | res.endsWith("]") ? res.split("(\\]+|}+)+$")[0]  + "\"" + res.split(res.split("(\\]+|}+)+$")[0])[1]: res + "\"";

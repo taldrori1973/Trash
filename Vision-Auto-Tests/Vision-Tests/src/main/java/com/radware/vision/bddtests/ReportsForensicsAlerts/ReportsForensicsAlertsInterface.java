@@ -11,5 +11,5 @@ public interface ReportsForensicsAlertsInterface {
 
     void edit(String viewBase, Map<String, String> map) throws Exception;
 
-    void delete();
+    void delete(String name) throws Exception;
 }
