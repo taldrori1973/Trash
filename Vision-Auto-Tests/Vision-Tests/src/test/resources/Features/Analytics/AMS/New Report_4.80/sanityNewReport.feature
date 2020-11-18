@@ -280,21 +280,21 @@ Feature: sanity new report
       | Schedule Report | monthly | false |
       | Schedule Report | once    | true  |
 
-  @SID_27
-  Scenario: Validate daily schedule.
-    Then UI Click Button "Schedule Report" with value "daily"
-    Then UI Set Text Field "Schedule Daily Time" To "1:31 PM"
-    Then UI Text of "Error Massage" with extension "timeOfDay" contains "Please select a time between 12 AM to 11:59 PM"
-    Then UI Set Text Field "Schedule Daily Time" To "01:3 PM"
-    Then UI Text of "Error Massage" with extension "timeOfDay" contains "Please select a time between 12 AM to 11:59 PM"
-    Then UI Set Text Field "Schedule Daily Time" To "01:03"
-    Then UI Text of "Error Massage" with extension "timeOfDay" contains "Please select a time between 12 AM to 11:59 PM"
-    Then UI Set Text Field "Schedule Daily Time" To "13:00 PM"
-    Then UI Text of "Error Massage" with extension "timeOfDay" contains "Please select a time between 12 AM to 11:59 PM"
-    Then UI Set Text Field "Schedule Daily Time" To "00:00 PM"
-    Then UI Text of "Error Massage" with extension "timeOfDay" contains "Please select a time between 12 AM to 11:59 PM"
-    Then UI Set Text Field "Schedule Daily Time" To "11:61 PM"
-    Then UI Text of "Error Massage" with extension "timeOfDay" contains "Please select a time between 12 AM to 11:59 PM"
+#  @SID_27
+#  Scenario: Validate daily schedule.
+#    Then UI Click Button "Schedule Report" with value "daily"
+#    Then UI Set Text Field "Schedule Daily Time" To "1:31 PM"
+#    Then UI Text of "Error Massage" with extension "timeOfDay" contains "Please select a time between 12 AM to 11:59 PM"
+#    Then UI Set Text Field "Schedule Daily Time" To "01:3 PM"
+#    Then UI Text of "Error Massage" with extension "timeOfDay" contains "Please select a time between 12 AM to 11:59 PM"
+#    Then UI Set Text Field "Schedule Daily Time" To "01:03"
+#    Then UI Text of "Error Massage" with extension "timeOfDay" contains "Please select a time between 12 AM to 11:59 PM"
+#    Then UI Set Text Field "Schedule Daily Time" To "13:00 PM"
+#    Then UI Text of "Error Massage" with extension "timeOfDay" contains "Please select a time between 12 AM to 11:59 PM"
+#    Then UI Set Text Field "Schedule Daily Time" To "00:00 PM"
+#    Then UI Text of "Error Massage" with extension "timeOfDay" contains "Please select a time between 12 AM to 11:59 PM"
+#    Then UI Set Text Field "Schedule Daily Time" To "11:61 PM"
+#    Then UI Text of "Error Massage" with extension "timeOfDay" contains "Please select a time between 12 AM to 11:59 PM"
 
 #  @SID_28
 #  Scenario: Report Schedule Day of week is selected

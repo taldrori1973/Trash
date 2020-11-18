@@ -20,8 +20,7 @@ Feature: Landing_my_reports
 #      | Time Definitions.Date | Quick:This Month|
 
     Given UI "Validate" Report With Name "Traffic Report"
-#      | Template-1            | reportType:DefensePro Analytics , Widgets:[Concurrent Connections],devices:[{deviceIndex:11,devicePorts:[1],devicePolicies:[BDOS,1_https]},{deviceIndex:10}]                             |
-  #    | Template-1            | reportType:DefensePro Analytics , Widgets:[{BDoS-TCP SYN:[pps,IPv6,15]},Concurrent Connections],devices:[{deviceIndex:11,devicePorts:[1,2],devicePolicies:[BDOS,1_https]},{deviceIndex:10}] |
+#      | Template-1            | reportType:DefensePro Analytics , Widgets:[Concurrent Connections],devices:[{deviceIndex:11,devicePorts:[1],devicePolicies:[BDOS,1_https]},{deviceIndex:10}]                             |#    | Template-1            | reportType:DefensePro Analytics , Widgets:[{BDoS-TCP SYN:[pps,IPv6,15]},Concurrent Connections],devices:[{deviceIndex:11,devicePorts:[1,2],devicePolicies:[BDOS,1_https]},{deviceIndex:10}] |
 #      | Template-1            | reportType:DefensePro Analytics , Widgets:[{BDoS-TCP SYN:[pps,IPv6,15]},Concurrent Connections],devices:[All] |
 #      | Template-2            | reportType:HTTPS Flood , Widgets:[{BDoS-TCP SYN:[pps,IPv6,15]},Concurrent Connections],devices:[Server_v4-DefensePro_172.16.22.50-pol1] |
 #      | Template-3            | reportType:AppWall , Widgets:[{BDoS-TCP SYN:[pps,IPv6,15]},Concurrent Connections],devices:[A1,ADZ] |
@@ -50,7 +49,7 @@ Feature: Landing_my_reports
     Then UI Click Button "Edit Button" with value ""
     Given UI "Edit" Report With Name "Traffic Report"
 #      | Template-1            | reportType:DefensePro Analytics , Widgets:[Concurrent Connections],devices:[{deviceIndex:11,devicePorts:[1],devicePolicies:[BDOS,1_https]},{deviceIndex:10}]                             |
-  #    | Template-1            | reportType:DefensePro Analytics , Widgets:[{BDoS-TCP SYN:[pps,IPv6,15]},Concurrent Connections],devices:[{deviceIndex:11,devicePorts:[1,2],devicePolicies:[BDOS,1_https]},{deviceIndex:10}] |
+ #    | Template-1            | reportType:DefensePro Analytics , Widgets:[{BDoS-TCP SYN:[pps,IPv6,15]},Concurrent Connections],devices:[{deviceIndex:11,devicePorts:[1,2],devicePolicies:[BDOS,1_https]},{deviceIndex:10}] |
 #      | Template-1            | reportType:DefensePro Analytics , Widgets:[{BDoS-TCP SYN:[pps,IPv6,15]},Concurrent Connections],devices:[All] |
 #      | Template-2            | reportType:HTTPS Flood , Widgets:[{BDoS-TCP SYN:[pps,IPv6,15]},Concurrent Connections],devices:[Server_v4-DefensePro_172.16.22.50-pol1] |
 #      | Template-3            | reportType:AppWall , Widgets:[{BDoS-TCP SYN:[pps,IPv6,15]},Concurrent Connections],devices:[A1,ADZ] |
