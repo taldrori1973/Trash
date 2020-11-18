@@ -1,13 +1,13 @@
 
-@TCnoam
-Feature: AppWall
+  @TCnoam1
+  Feature: AppWall
 
 
-@SID_1
-Scenario: Navigate to NEW REPORTS page
-Then UI Login with user "radware" and password "radware"
-Then UI Navigate to "NEW REPORTS" page via homepage
-Then UI Click Button "New Report Tab"
+  @SID_1
+  Scenario: Navigate to NEW REPORTS page
+  Then UI Login with user "radware" and password "radware"
+  Then UI Navigate to "NEW REPORTS" page via homepage
+  Then UI Click Button "New Report Tab"
 
   @SID_2
   Scenario: create new OWASP Top 10 1
@@ -32,7 +32,7 @@ Then UI Click Button "New Report Tab"
   Scenario: create new OWASP Top 10 3
   Then UI Click Button "New Report Tab"
   Given UI "Create" Report With Name "OWASP Top 10 3 "
-  | Template              | reportType:AppWall , Widgets:[OWASP Top 10] , devices:[{devicesIndex:10}] , showTable:false |
+  | Template              | reportType:AppWall , Widgets:[OWASP Top 10] , devices:[{deviceIndex:10}] , showTable:false |
   | Time Definitions.Date | Relative:Days                                                                               |
   | Schedule              | Run Every:Weekly, On Time:+6H, At days:[SUN]                                                |
   | Format                | Select: HTML                                                                                |
@@ -72,7 +72,7 @@ Then UI Click Button "New Report Tab"
   Scenario: create new Top Attack Category3
   Then UI Click Button "New Report Tab"
   Given UI "Create" Report With Name "Top Attack Category3 "
-  | Template              | reportType:AppWall , Widgets:[Top Attack Category] , devices:[{devicesIndex:10}] , showTable:false |
+  | Template              | reportType:AppWall , Widgets:[Top Attack Category] , devices:[{deviceIndex:10}] , showTable:false |
   | Time Definitions.Date | Quick:This Week                                                                                    |
   | Format                | Select: HTML                                                                                       |
 
@@ -111,7 +111,7 @@ Then UI Click Button "New Report Tab"
   Scenario: create new Top Sources3
   Then UI Click Button "New Report Tab"
   Given UI "Create" Report With Name "Top Sources3 "
-  | Template              | reportType:AppWall , Widgets:[Top Sources] , devices:[{devicesIndex:10}] , showTable:false |
+  | Template              | reportType:AppWall , Widgets:[Top Sources] , devices:[{deviceIndex:10}] , showTable:false |
   | Time Definitions.Date | Absolute:[27.02.1971 01:00:00, +0d]                                                        |
   | Schedule              | Run Every:Monthly, On Time:+6H, At Months:[MAY]                                            |
   | Format                | Select: HTML                                                                               |
@@ -150,7 +150,7 @@ Then UI Click Button "New Report Tab"
   Scenario: create new Geolocation3
   Then UI Click Button "New Report Tab"
   Given UI "Create" Report With Name "Geolocation3 "
-  | Template              | reportType:AppWall , Widgets:[Geolocation] , devices:[{devicesIndex:10}] , showTable:false |
+  | Template              | reportType:AppWall , Widgets:[Geolocation] , devices:[{deviceIndex:10}] , showTable:false |
   | Time Definitions.Date | Relative:[Weeks,2]                                                                         |
   | Format                | Select: HTML                                                                               |
 
@@ -188,7 +188,7 @@ Then UI Click Button "New Report Tab"
   Scenario: create new Attacks by Action3
   Then UI Click Button "New Report Tab"
   Given UI "Create" Report With Name "Attacks by Action3"
-  | Template              | reportType:AppWall , Widgets:[Attacks by Action] , devices:[{devicesIndex:10}] , showTable:false |
+  | Template              | reportType:AppWall , Widgets:[Attacks by Action] , devices:[{deviceIndex:10}] , showTable:false |
   | Time Definitions.Date | Absolute:[27.02.1971 01:00:00, +0d]                                                              |
   | Schedule              | Run Every:Monthly, On Time:+6H, At Months:[MAR]                                                  |
   | Format                | Select: HTML                                                                                     |
@@ -227,7 +227,7 @@ Then UI Click Button "New Report Tab"
   Scenario: create new Top Attacked Hosts3
   Then UI Click Button "New Report Tab"
   Given UI "Create" Report With Name "Top Attacked Hosts3"
-  | Template              | reportType:AppWall , Widgets:[Top Attacked Hosts] , devices:[{devicesIndex:10}] , showTable:false |
+  | Template              | reportType:AppWall , Widgets:[Top Attacked Hosts] , devices:[{deviceIndex:10}] , showTable:false |
   | Time Definitions.Date | Absolute:[27.02.1971 01:00:00, +0d]                                                               |
   | Schedule              | Run Every:Monthly, On Time:+6H, At Months:[MAR]                                                   |
   | Format                | Select: HTML                                                                                      |
@@ -267,7 +267,7 @@ Then UI Click Button "New Report Tab"
   Scenario: create new Top Attack Severity3
   Then UI Click Button "New Report Tab"
   Given UI "Create" Report With Name "Attack Severity3"
-  | Template              | reportType:AppWall , Widgets:[Attack Severity] , devices:[{devicesIndex:10}] , showTable:false |
+  | Template              | reportType:AppWall , Widgets:[Attack Severity] , devices:[{deviceIndex:10}] , showTable:false |
   | Time Definitions.Date | Quick:This Month                                                                               |
   | Format                | Select: HTML                                                                                   |
 
@@ -275,7 +275,7 @@ Then UI Click Button "New Report Tab"
   Scenario: create new Top Attack Severity4
   Then UI Click Button "New Report Tab"
   Given UI "Create" Report With Name "Attack Severity4"
-  | Template              | reportType:AppWall , Widgets:[Attack Severity] , devices:[{devicesIndex:10}] , showTable:false |
+  | Template              | reportType:AppWall , Widgets:[Attack Severity] , devices:[{deviceIndex:10}] , showTable:false |
   | Time Definitions.Date | Quick:1H                                                                                       |
   | Schedule              | Run Every:Monthly, On Time:+6H, At Months:[MAR]                                                |
   | Format                | Select: HTML                                                                                   |
@@ -305,7 +305,7 @@ Then UI Click Button "New Report Tab"
   Scenario: create new Attack Severity and Top Sources3
   Then UI Click Button "New Report Tab"
   Given UI "Create" Report With Name "Attack Severity and Top Sources3"
-  | Template              | reportType:AppWall , Widgets:[Top Sources,Attack Severity] , devices:[{devicesIndex:10}] , showTable:false |
+  | Template              | reportType:AppWall , Widgets:[Top Sources,Attack Severity] , devices:[{deviceIndex:10}] , showTable:false |
   | Time Definitions.Date | Quick:This Month                                                                                           |
   | Format                | Select: HTML                                                                                               |
 
@@ -313,7 +313,7 @@ Then UI Click Button "New Report Tab"
   Scenario: create new Attack Severity and Top Sources4
   Then UI Click Button "New Report Tab"
   Given UI "Create" Report With Name "Attack Severity and Top Sources4"
-  | Template              | reportType:AppWall , Widgets:[Top Sources,Attack Severity] , devices:[{devicesIndex:10}] , showTable:false |
+  | Template              | reportType:AppWall , Widgets:[Top Sources,Attack Severity] , devices:[{deviceIndex:10}] , showTable:false |
   | Time Definitions.Date | Quick:1H                                                                                                   |
   | Schedule              | Run Every:Monthly, On Time:+6H, At Months:[MAR]                                                            |
   | Format                | Select: HTML                                                                                               |
@@ -342,7 +342,7 @@ Then UI Click Button "New Report Tab"
   Scenario: create new OWASP Top 10 and Geolocation and Top Attacked Hosts3
   Then UI Click Button "New Report Tab"
   Given UI "Create" Report With Name "OWASP Top 10 and Geolocation and Geolocation Top Attacked Hosts3"
-  | Template              | reportType:AppWall , Widgets:[OWASP Top 10,Geolocation,Top Attacked Hosts] , devices:[{devicesIndex:10}] , showTable:false |
+  | Template              | reportType:AppWall , Widgets:[OWASP Top 10,Geolocation,Top Attacked Hosts] , devices:[{deviceIndex:10}] , showTable:false |
   | Time Definitions.Date | Absolute:[27.02.1971 01:00:00, +0d]                                                                                        |
   | Schedule              | Run Every:Monthly, On Time:+6H, At Months:[MAR]                                                                            |
   | Format                | Select: HTML                                                                                                               |
@@ -381,7 +381,7 @@ Then UI Click Button "New Report Tab"
   Scenario: create new OWASP Top 10 and Top Attack Category and Geolocation and Attacks by Action and Top Attacked Hosts3
   Then UI Click Button "New Report Tab"
   Given UI "Create" Report With Name "OWASP Top 10 and Top Attack Category and Geolocation and Attacks by Action and Top Attacked Hosts3"
-  | Template              | reportType:AppWall , Widgets:[OWASP Top 10,Top Attack Category,Geolocation,Attacks by Action,Top Attacked Hosts] , devices:[{devicesIndex:10}] , showTable:false |
+  | Template              | reportType:AppWall , Widgets:[OWASP Top 10,Top Attack Category,Geolocation,Attacks by Action,Top Attacked Hosts] , devices:[{deviceIndex:10}] , showTable:false |
   | Time Definitions.Date | Absolute:[27.02.1971 01:00:00, +0d]                                                                                                                              |
   | Schedule              | Run Every:Monthly, On Time:+6H, At Months:[MAR]                                                                                                                  |
   | Format                | Select: HTML                                                                                                                                                     |
@@ -420,7 +420,7 @@ Then UI Click Button "New Report Tab"
   Scenario: create new Top Sources and Attack Severity3
   Then UI Click Button "New Report Tab"
   Given UI "Create" Report With Name "Top Sources and Attack Severity3"
-  | Template              | reportType:AppWall , Widgets:[Top Sources,Attack Severity] , devices:[{devicesIndex:10}] , showTable:false |
+  | Template              | reportType:AppWall , Widgets:[Top Sources,Attack Severity] , devices:[{deviceIndex:10}] , showTable:false |
   | Time Definitions.Date | Absolute:[27.02.1971 01:00:00, +0d]                                                                        |
   | Schedule              | Run Every:Monthly, On Time:+6H, At Months:[MAR]                                                            |
   | Format                | Select: HTML                                                                                               |
@@ -460,7 +460,7 @@ Then UI Click Button "New Report Tab"
   Scenario: create new Top Sources and Geolocation and Attacks by Action and Top Attacked Hosts and Attack Severity3
   Then UI Click Button "New Report Tab"
   Given UI "Create" Report With Name "Top Sources and Geolocation and Attacks by Action and Top Attacked Hosts and Attack Severity3"
-  | Template              | reportType:AppWall , Widgets:[Top Sources,Geolocation,Attacks by Action,Top Attacked Hosts,Attack Severity] , devices:[{devicesIndex:10}] , showTable:false |
+  | Template              | reportType:AppWall , Widgets:[Top Sources,Geolocation,Attacks by Action,Top Attacked Hosts,Attack Severity] , devices:[{deviceIndex:10}] , showTable:false |
   | Time Definitions.Date | Quick:This Month                                                                                                                                            |
   | Format                | Select: HTML                                                                                                                                                |
 
@@ -468,7 +468,7 @@ Then UI Click Button "New Report Tab"
   Scenario: create new Top Sources and Geolocation and Attacks by Action and Top Attacked Hosts and Attack Severity4
   Then UI Click Button "New Report Tab"
   Given UI "Create" Report With Name "Top Sources and Geolocation and Attacks by Action and Top Attacked Hosts and Attack Severity4"
-  | Template              | reportType:AppWall , Widgets:[Top Sources,Geolocation,Attacks by Action,Top Attacked Hosts,Attack Severity] , devices:[{devicesIndex:10}] , showTable:false |
+  | Template              | reportType:AppWall , Widgets:[Top Sources,Geolocation,Attacks by Action,Top Attacked Hosts,Attack Severity] , devices:[{deviceIndex:10}] , showTable:false |
   | Time Definitions.Date | Quick:1H                                                                                                                                                    |
   | Schedule              | Run Every:Monthly, On Time:+6H, At Months:[MAR]                                                                                                             |
   | Format                | Select: HTML                                                                                                                                                |
@@ -497,7 +497,7 @@ Then UI Click Button "New Report Tab"
   Scenario: create new OWASP Top 10 and Top Attack Category and Top Attacked Hosts3
   Then UI Click Button "New Report Tab"
   Given UI "Create" Report With Name "OWASP Top 10 and Top Attack Category and Top Attacked Hosts3"
-  | Template              | reportType:AppWall , Widgets:[OWASP Top 10,Top Attack Category,Top Attacked Hosts] , devices:[{devicesIndex:10}] , showTable:false |
+  | Template              | reportType:AppWall , Widgets:[OWASP Top 10,Top Attack Category,Top Attacked Hosts] , devices:[{deviceIndex:10}] , showTable:false |
   | Time Definitions.Date | Absolute:[27.02.1971 01:00:00, +0d]                                                                                                |
   | Schedule              | Run Every:Monthly, On Time:+6H, At Months:[MAR]                                                                                    |
   | Format                | Select: HTML                                                                                                                       |
@@ -536,7 +536,7 @@ Then UI Click Button "New Report Tab"
   Scenario: create new Geolocation and Attacks by Action and Top Attacked Hosts and Attack Severity3
   Then UI Click Button "New Report Tab"
   Given UI "Create" Report With Name "Geolocation and Attacks by Action and Top Attacked Hosts and Attack Severity3"
-  | Template              | reportType:AppWall , Widgets:[Geolocation,Attacks by Action,Top Attacked Hosts,Attack Severity] , devices:[{devicesIndex:10}] , showTable:false |
+  | Template              | reportType:AppWall , Widgets:[Geolocation,Attacks by Action,Top Attacked Hosts,Attack Severity] , devices:[{deviceIndex:10}] , showTable:false |
   | Time Definitions.Date | Absolute:[27.02.1971 01:00:00, +0d]                                                                                                             |
   | Schedule              | Run Every:Monthly, On Time:+6H, At Months:[MAR]                                                                                                 |
   | Format                | Select: HTML                                                                                                                                    |
@@ -575,7 +575,7 @@ Then UI Click Button "New Report Tab"
   Scenario: create new OWASP Top 10 and Top Attack Category and Top Sources and Geolocation and Attacks by Action and Top Attacked Hosts and Attack Severity3
   Then UI Click Button "New Report Tab"
   Given UI "Create" Report With Name "OWASP Top 10 and Top Attack Category and Top Sources and Geolocation and Attacks by Action and Top Attacked Hosts and Attack Severity3"
-  | Template              | reportType:AppWall , Widgets:[OWASP Top 10,Top Attack Category,Top Sources,Geolocation,Attacks by Action,Top Attacked Hosts,Attack Severity] , devices:[{devicesIndex:10}]  , showTable:false |
+  | Template              | reportType:AppWall , Widgets:[OWASP Top 10,Top Attack Category,Top Sources,Geolocation,Attacks by Action,Top Attacked Hosts,Attack Severity] , devices:[{deviceIndex:10}]  , showTable:false |
   | Time Definitions.Date | Absolute:[27.02.1971 01:00:00, +0d]                                                                                                                                                           |
   | Schedule              | Run Every:Monthly, On Time:+6H, At Months:[MAR]                                                                                                                                               |
   | Format                | Select: HTML                                                                                                                                                                                  |
