@@ -11,6 +11,7 @@ import com.radware.vision.automation.tools.sutsystemobjects.devicesinfo.enums.SU
 import com.radware.vision.bddtests.ReportsForensicsAlerts.Report;
 import com.radware.vision.infra.testhandlers.baseoperations.BasicOperationsHandler;
 import com.radware.vision.bddtests.ReportsForensicsAlerts.WebUiTools;
+import org.apache.tools.ant.taskdefs.Sleep;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import org.openqa.selenium.WebElement;
@@ -68,6 +69,9 @@ public class TemplateHandlers {
         List<String> widgetsList = getWidgetsList(widgets);
         List<String> widgetsToRemove = new ArrayList<>();
         if (widgetsList.contains("ALL")) {
+            if (widgets.toList().get(widgetsList.indexOf("ALL")).getClass().getName().contains("HashMap")) { ///// if ALL has widgets with options
+                selectAllOptions((HashMap) widgets.toList().get(widgetsList.indexOf("ALL")), reportType);
+            }
             widgetsList.removeAll(Collections.singleton("ALL"));
             widgetsToRemove = null;
 
@@ -80,7 +84,6 @@ public class TemplateHandlers {
                 String widgetDataDebugId = element.getAttribute("data-debug-id");
                 String debugId = VisionDebugIdsManager.getDataDebugId();
                 String widgetName = widgetDataDebugId.split(debugId)[1].split("_")[1];
-//                widgetName = widgetName.substring(1, widgetName.length() - 1);
                 if (!widgetsList.contains(widgetName)) {
                     widgetsToRemove.add(widgetName);
                 } else {
@@ -88,13 +91,23 @@ public class TemplateHandlers {
                 }
             }
         }
-
         removeunWantedWidgets(widgetsToRemove, reportType);
         dragAndDropDesiredWidgets(widgetsList, reportType);
         selectOptions(widgets, getOccurrenceMap(widgets), reportType);
     }
 
+    private static void selectAllOptions(Map<String, Object> allMap, String reportType) {
+        List<Map<String, Object>> widgetsLst = new ArrayList<>((List) allMap.get("ALL")); /// get all the widgets with options
+        for (Object object : widgetsLst) {
+            HashMap<String, List<String>> widgetOptions = new HashMap<>((Map) object);
+            String widgetName = (String) widgetOptions.keySet().toArray()[0];
+            List<String> optionsLst = new ArrayList<>((List) widgetOptions.get(widgetName));
+            selectOptions(optionsLst, widgetName, reportType, 0);
+        }
+    }
+
     private static void removeunWantedWidgets(List<String> widgetsToRemoveDataDataDebugId, String reportType) {
+        if (widgetsToRemoveDataDataDebugId == null) return;
         VisionDebugIdsManager.setLabel("selected widget");
         for (String widget : widgetsToRemoveDataDataDebugId) {
             try {
@@ -113,20 +126,23 @@ public class TemplateHandlers {
 
 
     private static void dragAndDropDesiredWidgets(List<String> widgetsList, String reportType) {
-
-        for (String widgetToDrag : widgetsList) {
-            VisionDebugIdsManager.setLabel("widget drag");
-            VisionDebugIdsManager.setParams(widgetToDrag);
-            ComponentLocator sourceLocator = new ComponentLocator(How.XPATH, "//*[@data-debug-id='" + VisionDebugIdsManager.getDataDebugId() + "']");
-            VisionDebugIdsManager.setLabel("widgets container");
-            VisionDebugIdsManager.setParams(reportType);
-            ComponentLocator targetLocator = new ComponentLocator(How.XPATH, "//*[@data-debug-id='" + VisionDebugIdsManager.getDataDebugId() + "' and contains(@class,'TemplateWidgetsContainer')]");
-            //TODO target by debugID
+        if (widgetsList == null) return;
+        try {
+            for (String widgetToDrag : widgetsList) {
+                VisionDebugIdsManager.setLabel("widget drag");
+                VisionDebugIdsManager.setParams(widgetToDrag);
+                ComponentLocator sourceLocator = new ComponentLocator(How.XPATH, "//*[@data-debug-id='" + VisionDebugIdsManager.getDataDebugId() + "']");
+                VisionDebugIdsManager.setLabel("widgets container");
+                VisionDebugIdsManager.setParams(reportType);
+                ComponentLocator targetLocator = new ComponentLocator(How.XPATH, "//*[@data-debug-id='" + VisionDebugIdsManager.getDataDebugId() + "' and contains(@class,'TemplateWidgetsContainer')]");
+                //TODO target by debugID
 //            ComponentLocator targetLocator = new ComponentLocator(How.XPATH, "//*[@class='ReportTemplatestyle__TemplateWidgetsContainer-sc-69xssr-5 iIXqdb widget-container-appear-done widget-container-enter-done']");
-            dragAndDrop(sourceLocator, targetLocator);
+                Thread.sleep(3 * 1000);
+                dragAndDrop(sourceLocator, targetLocator);
+            }
+        } catch (InterruptedException e) {
+            e.printStackTrace();
         }
-
-
     }
 
     private static Map<String, List<Integer>> getOccurrenceMap(JSONArray widgets) {
@@ -158,58 +174,63 @@ public class TemplateHandlers {
     }
 
     private static void selectOptions(JSONArray widgets, Map<String, List<Integer>> ocuurenceMap, String reportType) {
-        VisionDebugIdsManager.setLabel("selected widget");
         for (String widgetName : ocuurenceMap.keySet()) {
-            VisionDebugIdsManager.setParams(reportType, widgetName);
             for (int i = 0; i < ocuurenceMap.get(widgetName).size(); i++) {
                 List<WebElement> options = null;
-                if (widgets.toList().get(ocuurenceMap.get(widgetName).get(i)).getClass().getName().contains("HashMap")) {
+                if (!widgetName.equalsIgnoreCase("ALL") && widgets.toList().get(ocuurenceMap.get(widgetName).get(i)).getClass().getName().contains("HashMap")) {
                     Map<String, Object> widgetMap = new HashMap<String, Object>(((HashMap) widgets.toList().get(ocuurenceMap.get(widgetName).get(i))));
                     List<String> lst = new ArrayList<>((List) widgetMap.get(widgetName));
-                    for (String option : lst) {
-                        try {
-                            switch (option.toLowerCase()) {
-                                case "pps":
-                                    options = WebUIUtils.fluentWaitMultiple(new ComponentLocator(How.XPATH, "//*[starts-with(@data-debug-id, '" + VisionDebugIdsManager.getDataDebugId() + "') and contains(@data-debug-id, '_pps')]").getBy(), WebUIUtils.DEFAULT_WAIT_TIME, false);
-                                    break;
-                                case "bps":
-                                    options = WebUIUtils.fluentWaitMultiple(new ComponentLocator(How.XPATH, "//*[starts-with(@data-debug-id, '" + VisionDebugIdsManager.getDataDebugId() + "') and contains(@data-debug-id, '_bps')]").getBy(), WebUIUtils.DEFAULT_WAIT_TIME, false);
-
-                                    break;
-                                case "ipv4":
-                                    options = WebUIUtils.fluentWaitMultiple(new ComponentLocator(How.XPATH, "//*[starts-with(@data-debug-id, '" + VisionDebugIdsManager.getDataDebugId() + "') and contains(@data-debug-id, '_IPv4')]").getBy(), WebUIUtils.DEFAULT_WAIT_TIME, false);
-
-                                    break;
-                                case "ipv6":
-                                    options = WebUIUtils.fluentWaitMultiple(new ComponentLocator(How.XPATH, "//*[starts-with(@data-debug-id, '" + VisionDebugIdsManager.getDataDebugId() + "') and contains(@data-debug-id, '_IPv6')]").getBy(), WebUIUtils.DEFAULT_WAIT_TIME, false);
-
-                                    break;
-                                case "inbound":
-                                    options = WebUIUtils.fluentWaitMultiple(new ComponentLocator(How.XPATH, "//*[starts-with(@data-debug-id, '" + VisionDebugIdsManager.getDataDebugId() + "') and contains(@data-debug-id, '_Inbound')]").getBy(), WebUIUtils.DEFAULT_WAIT_TIME, false);
-
-                                    break;
-                                case "outbound":
-                                    options = WebUIUtils.fluentWaitMultiple(new ComponentLocator(How.XPATH, "//*[starts-with(@data-debug-id, '" + VisionDebugIdsManager.getDataDebugId() + "') and contains(@data-debug-id, '_Outbound')]").getBy(), WebUIUtils.DEFAULT_WAIT_TIME, false);
-
-                                    break;
-                                case "all policies":
-                                    options = WebUIUtils.fluentWaitMultiple(new ComponentLocator(How.XPATH, "//*[starts-with(@data-debug-id, '" + VisionDebugIdsManager.getDataDebugId() + "') and contains(@data-debug-id, '_All Policies')]").getBy(), WebUIUtils.DEFAULT_WAIT_TIME, false);
-                                    break;
-                                case "All":
-                                    options = WebUIUtils.fluentWaitMultiple(new ComponentLocator(How.XPATH, "//*[starts-with(@data-debug-id, '" + VisionDebugIdsManager.getDataDebugId() + "') and contains(@data-debug-id, '_All Policies')]").getBy(), WebUIUtils.DEFAULT_WAIT_TIME, false);
-                            }
-                            options.get(i).click();
-                            if (isNumber(option)) {
-                                options = WebUIUtils.fluentWaitMultiple(new ComponentLocator(How.XPATH, "//*[starts-with(@data-debug-id, '" + VisionDebugIdsManager.getDataDebugId() + "') and contains(@data-debug-id, '_CustomPolicies')]").getBy(), WebUIUtils.DEFAULT_WAIT_TIME, false);
-                                options.get(i).clear();
-                                options.get(i).sendKeys(option);
-                            }
-                        } catch (Exception e) {
-                            BaseTestUtils.report(String.format("Failed to select option: %s in widget: %s", option, widgetName), Reporter.FAIL);
-                        }
-                    }
+                    selectOptions(lst, widgetName, reportType, getWidgetsList(widgets).contains("ALL") ? i + 1 : i);
                 }
 
+            }
+        }
+    }
+
+    private static void selectOptions(List<String> lst, String widgetName, String reportType, int index) {
+        VisionDebugIdsManager.setLabel("selected widget");
+        VisionDebugIdsManager.setParams(reportType, widgetName);
+        List<WebElement> options = null;
+        for (String option : lst) {
+            try {
+                switch (option.toLowerCase()) {
+                    case "pps":
+                        options = WebUIUtils.fluentWaitMultiple(new ComponentLocator(How.XPATH, "//*[starts-with(@data-debug-id, '" + VisionDebugIdsManager.getDataDebugId() + "') and contains(@data-debug-id, '_pps')]").getBy(), WebUIUtils.DEFAULT_WAIT_TIME, false);
+                        break;
+                    case "bps":
+                        options = WebUIUtils.fluentWaitMultiple(new ComponentLocator(How.XPATH, "//*[starts-with(@data-debug-id, '" + VisionDebugIdsManager.getDataDebugId() + "') and contains(@data-debug-id, '_bps')]").getBy(), WebUIUtils.DEFAULT_WAIT_TIME, false);
+
+                        break;
+                    case "ipv4":
+                        options = WebUIUtils.fluentWaitMultiple(new ComponentLocator(How.XPATH, "//*[starts-with(@data-debug-id, '" + VisionDebugIdsManager.getDataDebugId() + "') and contains(@data-debug-id, '_IPv4')]").getBy(), WebUIUtils.DEFAULT_WAIT_TIME, false);
+
+                        break;
+                    case "ipv6":
+                        options = WebUIUtils.fluentWaitMultiple(new ComponentLocator(How.XPATH, "//*[starts-with(@data-debug-id, '" + VisionDebugIdsManager.getDataDebugId() + "') and contains(@data-debug-id, '_IPv6')]").getBy(), WebUIUtils.DEFAULT_WAIT_TIME, false);
+
+                        break;
+                    case "inbound":
+                        options = WebUIUtils.fluentWaitMultiple(new ComponentLocator(How.XPATH, "//*[starts-with(@data-debug-id, '" + VisionDebugIdsManager.getDataDebugId() + "') and contains(@data-debug-id, '_Inbound')]").getBy(), WebUIUtils.DEFAULT_WAIT_TIME, false);
+
+                        break;
+                    case "outbound":
+                        options = WebUIUtils.fluentWaitMultiple(new ComponentLocator(How.XPATH, "//*[starts-with(@data-debug-id, '" + VisionDebugIdsManager.getDataDebugId() + "') and contains(@data-debug-id, '_Outbound')]").getBy(), WebUIUtils.DEFAULT_WAIT_TIME, false);
+
+                        break;
+                    case "all policies":
+                        options = WebUIUtils.fluentWaitMultiple(new ComponentLocator(How.XPATH, "//*[starts-with(@data-debug-id, '" + VisionDebugIdsManager.getDataDebugId() + "') and contains(@data-debug-id, '_All Policies')]").getBy(), WebUIUtils.DEFAULT_WAIT_TIME, false);
+                        break;
+                    case "All":
+                        options = WebUIUtils.fluentWaitMultiple(new ComponentLocator(How.XPATH, "//*[starts-with(@data-debug-id, '" + VisionDebugIdsManager.getDataDebugId() + "') and contains(@data-debug-id, '_All Policies')]").getBy(), WebUIUtils.DEFAULT_WAIT_TIME, false);
+                }
+                options.get(index).click();
+                if (isNumber(option)) {
+                    options = WebUIUtils.fluentWaitMultiple(new ComponentLocator(How.XPATH, "//*[starts-with(@data-debug-id, '" + VisionDebugIdsManager.getDataDebugId() + "') and contains(@data-debug-id, '_CustomPolicies')]").getBy(), WebUIUtils.DEFAULT_WAIT_TIME, false);
+                    options.get(index).clear();
+                    options.get(index).sendKeys(option);
+                }
+            } catch (Exception e) {
+                BaseTestUtils.report(String.format("Failed to select option: %s in widget: %s", option, widgetName), Reporter.FAIL);
             }
         }
 
@@ -545,29 +566,29 @@ public class TemplateHandlers {
 
     }
 
-    public static StringBuilder validateTemplateDefinition(JSONArray actualTemplateJSONArray, Map<String, String> map,Map<String, Map<String,String>> templates) throws Exception {
+    public static StringBuilder validateTemplateDefinition(JSONArray actualTemplateJSONArray, Map<String, String> map, Map<String, Map<String, String>> templates) throws Exception {
         StringBuilder errorMessage = new StringBuilder();
         JSONArray expectedTemplates = new JSONArray(map.get("Template").toString());
         for (Object expectedTemplate : expectedTemplates)
-            validateSingleTemplateDefinition(actualTemplateJSONArray, new JSONObject(expectedTemplate.toString()), templates ,errorMessage);
+            validateSingleTemplateDefinition(actualTemplateJSONArray, new JSONObject(expectedTemplate.toString()), templates, errorMessage);
         return errorMessage;
     }
 
-    public static void validateSingleTemplateDefinition(JSONArray actualTemplateJSON, JSONObject expectedSingleTemplate,Map<String, Map<String,String>> templates, StringBuilder errorMessage) throws Exception, TargetWebElementNotFoundException {
-        JSONObject singleActualTemplate = validateTemplateTypeDefinition(actualTemplateJSON, expectedSingleTemplate ,templates,errorMessage);
+    public static void validateSingleTemplateDefinition(JSONArray actualTemplateJSON, JSONObject expectedSingleTemplate, Map<String, Map<String, String>> templates, StringBuilder errorMessage) throws Exception, TargetWebElementNotFoundException {
+        JSONObject singleActualTemplate = validateTemplateTypeDefinition(actualTemplateJSON, expectedSingleTemplate, templates, errorMessage);
         if (singleActualTemplate != null) {
-            validateTemplateDevicesDefinition(singleActualTemplate, expectedSingleTemplate ,errorMessage);
+            validateTemplateDevicesDefinition(singleActualTemplate, expectedSingleTemplate, errorMessage);
             validateTemplateWidgetsDefinition(singleActualTemplate, expectedSingleTemplate, errorMessage);
         } else
             errorMessage.append("There is no equal template on actual templates that equal to " + expectedSingleTemplate);
     }
 
-    private static JSONObject validateTemplateTypeDefinition(JSONArray actualTemplateJSON, JSONObject expectedSingleTemplate,Map<String, Map<String,String>> templates, StringBuilder errorMessage) throws TargetWebElementNotFoundException {
+    private static JSONObject validateTemplateTypeDefinition(JSONArray actualTemplateJSON, JSONObject expectedSingleTemplate, Map<String, Map<String, String>> templates, StringBuilder errorMessage) throws TargetWebElementNotFoundException {
         for (Object singleTemplate : actualTemplateJSON) {
             if (!templates.get(expectedSingleTemplate.get("reportType").toString()).get((new JSONObject(singleTemplate.toString()).get("templateTitle").toString().split("_"))[1]).equalsIgnoreCase(null))
                 return new JSONObject(singleTemplate.toString());
             else
-                errorMessage.append("This report name is not exist "+templates.get(expectedSingleTemplate.get("reportType").toString()).get((new JSONObject(singleTemplate.toString()).get("templateTitle").toString().split("_"))[1]));
+                errorMessage.append("This report name is not exist " + templates.get(expectedSingleTemplate.get("reportType").toString()).get((new JSONObject(singleTemplate.toString()).get("templateTitle").toString().split("_"))[1]));
         }
         return null;
     }
@@ -606,7 +627,7 @@ public class TemplateHandlers {
 
 
     private static void setSummaryTable(JSONObject templateJsonObject, String templateName) {
-        if(!templateJsonObject.has("showTable")) return;
+        if (!templateJsonObject.has("showTable")) return;
         WebElement checkbox = WebUiTools.getWebElement("check summary table", templateName);
         boolean isChecked = Boolean.parseBoolean(checkbox.getAttribute("data-debug-checked"));
         switch (templateJsonObject.get("showTable").toString().toLowerCase()) {
