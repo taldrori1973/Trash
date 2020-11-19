@@ -275,39 +275,12 @@ abstract class ReportsForensicsAlertsAbstract implements ReportsForensicsAlertsI
     @Override
     public void delete(String reportName) throws Exception{
 
-        try{
+
             WebUiTools.check("My Reports Tab", "", true);
-            //click on delete icon
-            deleteReport("Delete Report",reportName);
-            //click on validate delete report
+            BasicOperationsHandler.clickButton("Delete Report",reportName);
             confirmDeleteReport("confirm Delete Report",reportName);
+            clearSavedReporInMap(reportName);
 
-            if(templates.containsValue(getType() + "_" + reportName)){
-                templates.remove(getType() + "_" + reportName);
-            }
-
-            if(timeAbsoluteDates.containsValue(getType() + "_" + reportName)){
-                timeAbsoluteDates.remove(getType() + "_" + reportName);
-            }
-
-            if (schedulingDates.containsValue(getType() + "_" + reportName)){
-                schedulingDates.remove(getType() + "_" + reportName);
-            }
-
-            // validate that report not exist in list
-        }catch (Exception e){
-
-        }
-    }
-
-
-    private static WebElement deleteReport(String label, String params) throws TargetWebElementNotFoundException {
-        VisionDebugIdsManager.setLabel(label);
-        VisionDebugIdsManager.setParams(params);
-        if (WebUIUtils.fluentWait(ComponentLocatorFactory.getLocatorByXpathDbgId(VisionDebugIdsManager.getDataDebugId()).getBy()) == null) {
-            throw new TargetWebElementNotFoundException("No Element with data-debug-id " + VisionDebugIdsManager.getDataDebugId());
-        }
-        return WebUIVisionBasePage.getCurrentPage().getContainer().getButton(label).click();
     }
 
     private static WebElement confirmDeleteReport(String label, String params) throws TargetWebElementNotFoundException {
@@ -319,6 +292,20 @@ abstract class ReportsForensicsAlertsAbstract implements ReportsForensicsAlertsI
         // return WebUIVisionBasePage.getCurrentPage().getContainer().getButton(label).click();
         return WebUIVisionBasePage.getCurrentPage().getContainer().getButton( "//*[@data-debug-id='" + VisionDebugIdsManager.getDataDebugId() +"']//span[@data-debug-id='confirmation-box-delete-button-label']").click();
 
+    }
+
+    private void clearSavedReporInMap(String reportName){
+        if(templates.containsValue(getType() + "_" + reportName)){
+            templates.remove(getType() + "_" + reportName);
+        }
+
+        if(timeAbsoluteDates.containsValue(getType() + "_" + reportName)){
+            timeAbsoluteDates.remove(getType() + "_" + reportName);
+        }
+
+        if (schedulingDates.containsValue(getType() + "_" + reportName)){
+            schedulingDates.remove(getType() + "_" + reportName);
+        }
     }
 
 }
