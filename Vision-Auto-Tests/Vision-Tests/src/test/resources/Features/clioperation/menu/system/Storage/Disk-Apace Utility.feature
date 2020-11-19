@@ -24,7 +24,7 @@ Feature: Disk-Space Utility
     Then  CLI Operations - Verify that output contains regex "150M /opt/radware/fill_my_disk"
     Then  CLI Operations - Verify that output contains regex "--- WARNING - One or more of the partitions use more than 50%"
     Then  CLI Operations - Verify that output contains regex "Warnings Found"
-    Then  CLI Operations - Verify that output contains regex "Actions and recommendations for recovery may be found in the Installation and Maintenance Guide - CHAPTER 5  MAINTENANCE AND UPGRADE"
+    Then  CLI Operations - Verify that output contains regex "Please contact Radware-support to verify and handle disk usage."
 
   @SID_4
   Scenario: ES index size OK
