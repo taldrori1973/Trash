@@ -2,6 +2,8 @@ package com.radware.vision.bddtests.ReportsForensicsAlerts;
 
 import com.radware.automation.tools.basetest.BaseTestUtils;
 import com.radware.automation.tools.basetest.Reporter;
+import com.radware.automation.webui.WebUIUtils;
+import com.radware.automation.webui.widgets.ComponentLocatorFactory;
 import com.radware.vision.automation.tools.exceptions.selenium.TargetWebElementNotFoundException;
 import com.radware.vision.infra.testhandlers.baseoperations.BasicOperationsHandler;
 import com.radware.vision.bddtests.ReportsForensicsAlerts.Handlers.TemplateHandlers;
@@ -23,6 +25,7 @@ public class Report extends ReportsForensicsAlertsAbstract {
     @Override
     public void create(String reportName, Map<String, String> map) throws Exception {
 
+//        try{delete(reportName);}catch (Exception ignored){}
         try {
             WebUiTools.check("New Report Tab", "", true);
             createReportParameters(reportName, map);
@@ -33,8 +36,11 @@ public class Report extends ReportsForensicsAlertsAbstract {
             throw e;
         }
         if (!reportCreated()) {
+            String errorMessage = "";
+            WebElement errorMessageElement = WebUIUtils.fluentWait(ComponentLocatorFactory.getLocatorByClass("ant-notification-notice-description").getBy());
+            errorMessage = errorMessageElement != null ? "\nbecause:\n" + errorMessageElement.getText():"";
             closeReport();
-            throw new Exception("");
+            throw new Exception("The report " + reportName + " isn't created!" + errorMessage);
         }
     }
 
