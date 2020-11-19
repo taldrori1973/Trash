@@ -497,7 +497,7 @@ Feature: DefensePro Analytics
   Scenario:  Top Scanners Report - Time: Relative (Months)
     Then UI Click Button "New Report Tab"
     Given UI "Create" Report With Name "Top Scanners Time_Relative "
-      | Template              | reportType:DefensePro Analytics , Widgets:[Top Scanners],devices:[{deviceIndex:10, deviceIndex:11}] |
+      | Template              | reportType:DefensePro Analytics , Widgets:[Top Scanners],devices:[{deviceIndex:10},{deviceIndex:11}] |
       | Format                | Select: HTML                                                                                          |
       | Time Definitions.Date | Relative:[Months,4]                                                                                   |
 
@@ -580,7 +580,7 @@ Feature: DefensePro Analytics
   Scenario:  Attacks by Protection Policy Report - Time: Absolute, Schedule: (Monthly,SEP)
     Then UI Click Button "New Report Tab"
     Given UI "Create" Report With Name "Attacks by Protection Policy Time_Absolute  Schedule_Monthly"
-      | Template              | reportType:DefensePro Analytics , Widgets:[Attacks by Protection Policy],devices:[{deviceIndex:10, deviceIndex:11}] |
+      | Template              | reportType:DefensePro Analytics , Widgets:[Attacks by Protection Policy],devices:[{deviceIndex:10},{deviceIndex:11}] |
       | Format                | Select: HTML                                                                                                          |
       | Time Definitions.Date | Absolute:[27.02.1971 01:00, +0d]                                                                                   |
       | Schedule              | Run Every:Monthly, On Time:+6H, At Months:[SEP]                                                                       |
@@ -621,7 +621,7 @@ Feature: DefensePro Analytics
   Scenario:  Attack Categories by Bandwidth Report - Time: Relative: (Weeks), Schedule: (Weekly,SUN)
     Then UI Click Button "New Report Tab"
     Given UI "Create" Report With Name "Attack Categories by Bandwidth Time_Relative_Weeks  Schedule_Weekly"
-      | Template              | reportType:DefensePro Analytics , Widgets:[Attack Categories by Bandwidth],devices:[{deviceIndex:10, deviceIndex:11}] |
+      | Template              | reportType:DefensePro Analytics , Widgets:[Attack Categories by Bandwidth],devices:[{deviceIndex:10},{deviceIndex:11}] |
       | Format                | Select: HTML                                                                                                            |
       | Time Definitions.Date | Relative:[Weeks,2]                                                                                                      |
       | Schedule              | Run Every:Weekly, On Time:+6H, At Days:[SUN]                                                                            |
@@ -663,7 +663,7 @@ Feature: DefensePro Analytics
   Scenario:  Top Allowed Attackers Report - Time: Absolute, Schedule: (Monthly,MAR)
     Then UI Click Button "New Report Tab"
     Given UI "Create" Report With Name "Top Allowed Attackers Time_Absolute  Schedule_Monthly"
-      | Template              | reportType:DefensePro Analytics , Widgets:[Top Allowed Attackers],devices:[{deviceIndex:10, deviceIndex:11}] |
+      | Template              | reportType:DefensePro Analytics , Widgets:[Top Allowed Attackers],devices:[{deviceIndex:10},{deviceIndex:11}] |
       | Format                | Select: HTML                                                                                                   |
       | Time Definitions.Date | Absolute:[27.02.1971 01:00, +0d]                                                                            |
       | Schedule              | Run Every:Monthly, On Time:+6H, At Months:[MAR]                                                                |
@@ -704,7 +704,7 @@ Feature: DefensePro Analytics
   Scenario:  Top Attacks by Duration Report - Time: Absolute, Schedule: (Weekly,MUN)
     Then UI Click Button "New Report Tab"
     Given UI "Create" Report With Name "Top Attacks by Duration Time_Absolute  Schedule_Weekly"
-      | Template              | reportType:DefensePro Analytics , Widgets:[Top Attacks by Duration],devices:[{deviceIndex:10, deviceIndex:11}] |
+      | Template              | reportType:DefensePro Analytics , Widgets:[Top Attacks by Duration],devices:[{deviceIndex:10},{deviceIndex:11}] |
       | Format                | Select: HTML                                                                                                     |
       | Time Definitions.Date | Absolute:[27.02.1971 01:00, +0d]                                                                              |
       | Schedule              | Run Every:Weekly, On Time:+6H, At Days:[MUN]                                                                     |
@@ -745,7 +745,7 @@ Feature: DefensePro Analytics
   Scenario:  Top Attacks by Signature Report - Time: Relative:(Days), Schedule: (Daily)
     Then UI Click Button "New Report Tab"
     Given UI "Create" Report With Name "Top Attacks by Signature Time_Relative_Days  Schedule_Daily"
-      | Template              | reportType:DefensePro Analytics , Widgets:[Top Attacks by Signature],devices:[{deviceIndex:10, deviceIndex:11}] |
+      | Template              | reportType:DefensePro Analytics , Widgets:[Top Attacks by Signature],devices:[{deviceIndex:10},{deviceIndex:11}] |
       | Format                | Select: HTML                                                                                                      |
       | Time Definitions.Date | Relative:[Days,3]                                                                                                 |
       | Schedule              | Run Every:Daily,On Time:+2m                                                                                       |
@@ -786,7 +786,7 @@ Feature: DefensePro Analytics
   Scenario:  All Widgets Report - bps,Inbound,1-100 - Time: Relative:(Days), Schedule: (Daily)
     Then UI Click Button "New Report Tab"
     Given UI "Create" Report With Name "All Widgets  bps_Inbound_1_100  Time_Relative_Days  Schedule_Daily"
-      | Template              | reportType:DefensePro Analytics , Widgets:[{Traffic Bandwidth:[bps,Inbound,1-100]},ALL], devices:[{deviceIndex:10, deviceIndex:11}] |
+      | Template              | reportType:DefensePro Analytics , Widgets:[{Traffic Bandwidth:[bps,Inbound,1-100]},ALL], devices:[{deviceIndex:10},{deviceIndex:11}] |
       | Format                | Select: HTML                                                                                                                          |
       | Time Definitions.Date | Relative:[Days,2]                                                                                                                     |
       | Schedule              | Run Every:Daily,On Time:+2m                                                                                                           |
