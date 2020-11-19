@@ -393,19 +393,19 @@ Feature: DefensePro Analytics
       | Format                | Select: CSV                                                                                               |
 
   @SID_40
-  Scenario: create new Top Attack Destination1
+  Scenario: create new Top Attack Destinations1
     Then UI Click Button "New Report Tab"
-    Given UI "Create" Report With Name "Top Attack Destination Report1"
-      | Template              | reportType:DefensePro Analytics , Widgets:[Top Attack Destination] , devices:[All] , showTable:true |
+    Given UI "Create" Report With Name "Top Attack Destinations Report1"
+      | Template              | reportType:DefensePro Analytics , Widgets:[Top Attack Destinations] , devices:[All] , showTable:true |
       | Logo                  | reportLogoPNG.png                                                                                   |
       | Time Definitions.Date | Absolute:[02.11.2020 13:47, +0d]                                                                 |
       | Format                | Select: CSV                                                                                         |
 
   @SID_41
-  Scenario: create new Top Attack Destination2
+  Scenario: create new Top Attack Destinations2
     Then UI Click Button "New Report Tab"
-    Given UI "Create" Report With Name "Top Attack Destination Report2"
-      | Template              | reportType:DefensePro Analytics , Widgets:[Top Attack Destination] , devices:[All] , showTable:false |
+    Given UI "Create" Report With Name "Top Attack Destinations Report2"
+      | Template              | reportType:DefensePro Analytics , Widgets:[Top Attack Destinations] , devices:[All] , showTable:false |
       | Logo                  | reportLogoPNG.png                                                                                    |
       | Time Definitions.Date | Quick:This Month                                                                                     |
       | Schedule              | Run Every:Monthly, On Time:+6H, At Months:[JUL]                                                      |
@@ -413,19 +413,19 @@ Feature: DefensePro Analytics
       | Format                | Select: PDF                                                                                          |
 
   @SID_42
-  Scenario: create new Top Attack Destination3
+  Scenario: create new Top Attack Destinations3
     Then UI Click Button "New Report Tab"
-    Given UI "Create" Report With Name "Top Attack Destination Report3"
-      | Template              | reportType:DefensePro Analytics , Widgets:[Top Attack Destination] , devices:[{deviceIndex:10}] , showTable:false |
+    Given UI "Create" Report With Name "Top Attack Destinations Report3"
+      | Template              | reportType:DefensePro Analytics , Widgets:[Top Attack Destinations] , devices:[{deviceIndex:10}] , showTable:false |
       | Time Definitions.Date | Relative:[Hours,3]                                                                                                |
       | Schedule              | Run Every:Weekly, On Time:+6H, At days:[SUN]                                                                      |
       | Format                | Select: HTML                                                                                                      |
 
   @SID_43
-  Scenario: create new Top Attack Destination4
+  Scenario: create new Top Attack Destinations4
     Then UI Click Button "New Report Tab"
-    Given UI "Create" Report With Name "Top Attack Destination Report4"
-      | Template              | reportType:DefensePro Analytics , Widgets:[Top Attack Destination] , devices:[All] , showTable:true |
+    Given UI "Create" Report With Name "Top Attack Destinations Report4"
+      | Template              | reportType:DefensePro Analytics , Widgets:[Top Attack Destinations] , devices:[All] , showTable:true |
       | Time Definitions.Date | Quick:Quarter                                                                                       |
       | Schedule              | Run Every:Weekly, On Time:+6H, At days:[THU]                                                  |
       | share                 | Email:[automation.vision1@radware.com],Subject:mySubject,Body:myBody                                |
