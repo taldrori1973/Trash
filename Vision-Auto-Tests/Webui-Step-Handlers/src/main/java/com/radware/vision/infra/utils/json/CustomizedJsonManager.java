@@ -108,16 +108,16 @@ public class CustomizedJsonManager {
                 for (String stringValue : stringArray)
                 {
                     String fixWord = "";
-                    fixWord = stringValue.startsWith("[")|stringValue.startsWith("{")? stringValue.split(stringValue.split("^(\\[|\\{)+")[1])[0] + "\"" +  stringValue.split("^(\\[|\\{)+")[1] : "\"" + stringValue;
-                    fixWord = fixWord.replaceAll("[\\p{Cf}]","");
-                    fixWord = fixWord.endsWith("}")|fixWord.endsWith("]")? fixWord.split("(\\]+|}+)+$")[0] + "\"" + fixWord.substring(fixWord.split("(\\]+|}+)+$")[0].length())
-                            : fixWord + "\"";
-                    res+= (res.equalsIgnoreCase("")?"":":") + fixWord;
+                    fixWord = stringValue.startsWith("[")|stringValue.startsWith("{")? stringValue.split(stringValue.split("^(\\[|\\{)+")[1])[0] + "\"" +  stringValue.split("^(\\[|\\{)+")[1].trim() : "\"" + stringValue.trim();
+                    fixWord = fixWord.replaceAll("[\\p{Cf}]","").trim();
+                    fixWord = fixWord.endsWith("}")|fixWord.endsWith("]")? fixWord.split("(\\]+|}+)+$")[0].trim() + "\"" + fixWord.substring(fixWord.split("(\\]+|}+)+$")[0].trim().length())
+                            : fixWord.trim() + "\"";
+                    res+= (res.equalsIgnoreCase("")?"":":") + fixWord.trim();
                 }
             } else {
-                res = s.startsWith("{") || s.startsWith("{")? s.split(s.split("^(\\[|\\{)+")[0])[0] + "\"" + s.split("^(\\[|\\{)+")[0]:"\"" + s;
-                res = res.replaceAll("[\\p{Cf}]","");
-                res = res.endsWith("}") | res.endsWith("]") ? res.split("(\\]+|}+)+$")[0]  + "\"" + res.split(res.split("(\\]+|}+)+$")[0])[1]: res + "\"";
+                res = s.startsWith("{") || s.startsWith("{")? s.split(s.split("^(\\[|\\{)+")[0])[0].trim() + "\"" + s.split("^(\\[|\\{)+")[0].trim():"\"" + s.trim();
+                res = res.replaceAll("[\\p{Cf}]","").trim();
+                res = res.endsWith("}") | res.endsWith("]") ? res.split("(\\]+|}+)+$")[0].trim()  + "\"" + res.split(res.split("(\\]+|}+)+$")[0].trim())[1].trim(): res.trim() + "\"";
             }
             result.add(res);
         }
