@@ -2,6 +2,9 @@ package com.radware.vision.bddtests.ReportsForensicsAlerts;
 
 import com.radware.automation.tools.basetest.BaseTestUtils;
 import com.radware.automation.tools.basetest.Reporter;
+import com.radware.automation.webui.WebUIUtils;
+import com.radware.automation.webui.widgets.ComponentLocatorFactory;
+import com.radware.vision.automation.tools.exceptions.selenium.TargetWebElementNotFoundException;
 import com.radware.vision.infra.testhandlers.baseoperations.BasicOperationsHandler;
 import com.radware.vision.bddtests.ReportsForensicsAlerts.Handlers.TemplateHandlers;
 import com.radware.vision.tools.rest.CurrentVisionRestAPI;
@@ -10,6 +13,8 @@ import models.RestResponse;
 import models.StatusCode;
 import org.json.JSONArray;
 import org.json.JSONObject;
+import org.openqa.selenium.WebElement;
+
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
@@ -20,6 +25,7 @@ public class Report extends ReportsForensicsAlertsAbstract {
     @Override
     public void create(String reportName, Map<String, String> map) throws Exception {
 
+//        try{delete(reportName);}catch (Exception ignored){}
         try {
             WebUiTools.check("New Report Tab", "", true);
             createReportParameters(reportName, map);
@@ -30,16 +36,26 @@ public class Report extends ReportsForensicsAlertsAbstract {
             throw e;
         }
         if (!reportCreated()) {
+            String errorMessage = "";
+            WebElement errorMessageElement = WebUIUtils.fluentWait(ComponentLocatorFactory.getLocatorByClass("ant-notification-notice-description").getBy());
+            errorMessage = errorMessageElement != null ? "\nbecause:\n" + errorMessageElement.getText():"";
             closeReport();
-            throw new Exception("");
+            throw new Exception("The report " + reportName + " isn't created!" + errorMessage);
         }
     }
 
     private boolean reportCreated() {
+        if (WebUiTools.getWebElement("save") == null)
         return true;
+        //Todo - maha error messages
+        for (WebElement okWebElement : WebUiTools.getWebElements("errorMessageOK", ""))
+            WebUiTools.clickWebElement(okWebElement);
+        return false;
     }
 
-    private void closeReport() {
+    private void closeReport() throws TargetWebElementNotFoundException {
+        BasicOperationsHandler.clickButton("cancel");
+        BasicOperationsHandler.clickButton("saveChanges", "no");
     }
 
     private void selectTemplates(Map<String, String> map,String reportName) throws Exception {
@@ -129,7 +145,7 @@ public class Report extends ReportsForensicsAlertsAbstract {
             errorMessage.append(validateScheduleDefinition(basicRestResult, map, reportName));
             errorMessage.append(validateShareDefinition(new JSONObject(basicRestResult.get("deliveryMethod").toString()), map));
             errorMessage.append(validateFormatDefinition(new JSONObject(basicRestResult.get("exportFormat").toString()), map));
-            errorMessage.append(TemplateHandlers.validateTemplateDefinition(basicRestResult.get("templates").toString().equalsIgnoreCase("null")?new JSONArray():new JSONArray(basicRestResult.get("templates")),map,templates));
+            errorMessage.append(TemplateHandlers.validateTemplateDefinition(basicRestResult.get("templates").toString().equalsIgnoreCase("null")?new JSONArray():new JSONArray(basicRestResult.get("templates").toString()),map,templates));
         }else errorMessage.append("No report Defined with name ").append(reportName).append("/n");
         if (errorMessage.length() != 0)
             BaseTestUtils.report(errorMessage.toString(), Reporter.FAIL);

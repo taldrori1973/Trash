@@ -112,7 +112,7 @@ Feature: DefensePro Analytics
       | Template              | reportType:DefensePro Analytics , Widgets:[Connections Rate] , devices:[All] , showTable:true |
       | Logo                  | reportLogoPNG.png                                                                             |
       | Time Definitions.Date | Quick:This Week                                                                               |
-      | Format                | Select: CVS                                                                                   |
+      | Format                | Select: CSV                                                                                   |
 
   @SID_12
   Scenario: create new Concurrent Connections1
@@ -120,7 +120,7 @@ Feature: DefensePro Analytics
     Given UI "Create" Report With Name "Concurrent Connections Report1"
       | Template              | reportType:DefensePro Analytics , Widgets:[Concurrent Connections] , devices:[All] , showTable:true |
       | Logo                  | reportLogoPNG.png                                                                                   |
-      | Time Definitions.Date | Absolute:[02.11.2020 13:47:16, +0d]                                                                 |
+      | Time Definitions.Date | Absolute:[02.11.2020 13:47, +0d]                                                                 |
       | Schedule              | Run Every:Once, On Time:+6H                                                                                      |
       | share                 | Email:[automation.vision1@radware.com],Subject:mySubject,Body:myBody                                |
       | Format                | Select: PDF                                                                                         |
@@ -170,7 +170,7 @@ Feature: DefensePro Analytics
     Given UI "Create" Report With Name "Top Attacks Report2"
       | Template              | reportType:DefensePro Analytics , Widgets:[Top Attacks] , devices:[All] , showTable:false |
       | Logo                  | reportLogoPNG.png                                                                         |
-      | Time Definitions.Date | Absolute:[02.11.2020 13:47:16, +0d]                                                       |
+      | Time Definitions.Date | Absolute:[02.11.2020 13:47, +0d]                                                       |
       | Schedule              | Run Every:Monthly, On Time:+6H, At Months:[APR]                                           |
       | share                 | Email:[automation.vision1@radware.com],Subject:mySubject,Body:myBody                      |
       | Format                | Select: PDF                                                                               |
@@ -219,7 +219,7 @@ Feature: DefensePro Analytics
     Then UI Click Button "New Report Tab"
     Given UI "Create" Report With Name "Top Attacks by Bandwidth Report3"
       | Template              | reportType:DefensePro Analytics , Widgets:[Top Attacks by Bandwidth] , devices:[{deviceIndex:10}] , showTable:false |
-      | Time Definitions.Date | Absolute:[02.11.2020 13:47:16, +0d]                                                                                 |
+      | Time Definitions.Date | Absolute:[02.11.2020 13:47, +0d]                                                                                 |
       | Schedule              | Run Every:Weekly, On Time:+6H, At days:[THU]                                                                        |
       | Format                | Select: HTML                                                                                                        |
 
@@ -259,7 +259,7 @@ Feature: DefensePro Analytics
     Then UI Click Button "New Report Tab"
     Given UI "Create" Report With Name "Top Attacks by Protocol Report3"
       | Template              | reportType:DefensePro Analytics , Widgets:[Top Attacks by Protocol] , devices:[{deviceIndex:10}] , showTable:false |
-      | Time Definitions.Date | Absolute:[02.11.2020 13:47:16, +0d]                                                                                |
+      | Time Definitions.Date | Absolute:[02.11.2020 13:47, +0d]                                                                                |
       | Format                | Select: HTML                                                                                                       |
 
   @SID_27
@@ -298,7 +298,7 @@ Feature: DefensePro Analytics
     Then UI Click Button "New Report Tab"
     Given UI "Create" Report With Name "Critical Attacks by Mitigation Action Report3"
       | Template              | reportType:DefensePro Analytics , Widgets:[Critical Attacks by Mitigation Action] , devices:[{deviceIndex:10}] , showTable:false |
-      | Time Definitions.Date | Absolute:[02.11.2020 13:47:16, +0d]                                                                                              |
+      | Time Definitions.Date | Absolute:[02.11.2020 13:47, +0d]                                                                                              |
       | Schedule              | Run Every:Weekly, On Time:+6H, At days:[MON]                                                                                     |
       | Format                | Select: HTML                                                                                                                     |
 
@@ -328,7 +328,7 @@ Feature: DefensePro Analytics
     Given UI "Create" Report With Name "Attacks by Threat Category Report2"
       | Template              | reportType:DefensePro Analytics , Widgets:[Attacks by Threat Category] , devices:[All] , showTable:false |
       | Logo                  | reportLogoPNG.png                                                                                        |
-      | Time Definitions.Date | Absolute:[02.11.2020 13:47:16, +0d]                                                                      |
+      | Time Definitions.Date | Absolute:[02.11.2020 13:47, +0d]                                                                      |
       | Schedule              | Run Every:Monthly, On Time:+6H, At Months:[JUN]                                                          |
       | share                 | Email:[automation.vision1@radware.com],Subject:mySubject,Body:myBody                                     |
       | Format                | Select: PDF                                                                                              |
@@ -387,7 +387,7 @@ Feature: DefensePro Analytics
     Then UI Click Button "New Report Tab"
     Given UI "Create" Report With Name "Attacks by Mitigation Action Report4"
       | Template              | reportType:DefensePro Analytics , Widgets:[Attacks by Mitigation Action] , devices:[All] , showTable:true |
-      | Time Definitions.Date | Absolute:[02.11.2020 13:47:16, +0d]                                                                       |
+      | Time Definitions.Date | Absolute:[02.11.2020 13:47, +0d]                                                                       |
       | Schedule              | Run Every:Once, On Time:+6H                                                                                            |
       | share                 | Email:[automation.vision1@radware.com],Subject:mySubject,Body:myBody                                      |
       | Format                | Select: CSV                                                                                               |
@@ -398,7 +398,7 @@ Feature: DefensePro Analytics
     Given UI "Create" Report With Name "Top Attack Destination Report1"
       | Template              | reportType:DefensePro Analytics , Widgets:[Top Attack Destination] , devices:[All] , showTable:true |
       | Logo                  | reportLogoPNG.png                                                                                   |
-      | Time Definitions.Date | Absolute:[02.11.2020 13:47:16, +0d]                                                                 |
+      | Time Definitions.Date | Absolute:[02.11.2020 13:47, +0d]                                                                 |
       | Format                | Select: CSV                                                                                         |
 
   @SID_41
@@ -450,7 +450,7 @@ Feature: DefensePro Analytics
       | Template              | reportType:DefensePro Analytics , Widgets:[Top Attack Sources],devices:[{deviceIndex:10}] |
       | Format                | Select: PDF                                                                                |
       | Logo                  | reportLogoPNG.png                                                                          |
-      | Time Definitions.Date | Absolute:[27.02.1971 01:00:00, +0d]                                                        |
+      | Time Definitions.Date | Absolute:[27.02.1971 01:00, +0d]                                                        |
       | Share                 | Email:[automation.vision2@radware.com],Subject:myEdit subject,Body:myEdit body             |
 
   @SID_46
@@ -489,7 +489,7 @@ Feature: DefensePro Analytics
       | Template              | reportType:DefensePro Analytics , Widgets:[Top Scanners],devices:[{deviceIndex:10}] |
       | Format                | Select: PDF                                                                          |
       | Logo                  | reportLogoPNG.png                                                                    |
-      | Time Definitions.Date | Absolute:[27.02.1971 01:00:00, +0d]                                                  |
+      | Time Definitions.Date | Absolute:[27.02.1971 01:00, +0d]                                                  |
       | Schedule              | Run Every:Weekly, On Time:+6H, At Days:[FRI]                                         |
       | Share                 | Email:[automation.vision2@radware.com],Subject:myEdit subject,Body:myEdit body       |
 
@@ -530,7 +530,7 @@ Feature: DefensePro Analytics
       | Template              | reportType:DefensePro Analytics , Widgets:[Top Probed IP Addresses],devices:[{deviceIndex:10}] |
       | Format                | Select: PDF                                                                                     |
       | Logo                  | reportLogoPNG.png                                                                               |
-      | Time Definitions.Date | Absolute:[27.02.1971 01:00:00, +0d]                                                             |
+      | Time Definitions.Date | Absolute:[27.02.1971 01:00, +0d]                                                             |
       | Schedule              | Run Every:Weekly, On Time:+6H, At Days:[SUN]                                                    |
       | Share                 | Email:[automation.vision2@radware.com],Subject:myEdit subject,Body:myEdit body                  |
 
@@ -582,7 +582,7 @@ Feature: DefensePro Analytics
     Given UI "Create" Report With Name "Attacks by Protection Policy Time_Absolute  Schedule_Monthly"
       | Template              | reportType:DefensePro Analytics , Widgets:[Attacks by Protection Policy],devices:[{deviceIndex:10, deviceIndex:11}] |
       | Format                | Select: HTML                                                                                                          |
-      | Time Definitions.Date | Absolute:[27.02.1971 01:00:00, +0d]                                                                                   |
+      | Time Definitions.Date | Absolute:[27.02.1971 01:00, +0d]                                                                                   |
       | Schedule              | Run Every:Monthly, On Time:+6H, At Months:[SEP]                                                                       |
 
   @SID_59
@@ -612,7 +612,7 @@ Feature: DefensePro Analytics
       | Template              | reportType:DefensePro Analytics , Widgets:[Attack Categories by Bandwidth],devices:[{deviceIndex:10}] |
       | Format                | Select: PDF                                                                                            |
       | Logo                  | reportLogoPNG.png                                                                                      |
-      | Time Definitions.Date | Absolute:[27.02.1971 01:00:00, +0d]                                                                    |
+      | Time Definitions.Date | Absolute:[27.02.1971 01:00, +0d]                                                                    |
       | Schedule              | Run Every:Monthly, On Time:+6H, At Months:[APR]                                                        |
       | Share                 | Email:[automation.vision2@radware.com],Subject:myEdit subject,Body:myEdit body                         |
 
@@ -665,7 +665,7 @@ Feature: DefensePro Analytics
     Given UI "Create" Report With Name "Top Allowed Attackers Time_Absolute  Schedule_Monthly"
       | Template              | reportType:DefensePro Analytics , Widgets:[Top Allowed Attackers],devices:[{deviceIndex:10, deviceIndex:11}] |
       | Format                | Select: HTML                                                                                                   |
-      | Time Definitions.Date | Absolute:[27.02.1971 01:00:00, +0d]                                                                            |
+      | Time Definitions.Date | Absolute:[27.02.1971 01:00, +0d]                                                                            |
       | Schedule              | Run Every:Monthly, On Time:+6H, At Months:[MAR]                                                                |
 
   @SID_67
@@ -706,7 +706,7 @@ Feature: DefensePro Analytics
     Given UI "Create" Report With Name "Top Attacks by Duration Time_Absolute  Schedule_Weekly"
       | Template              | reportType:DefensePro Analytics , Widgets:[Top Attacks by Duration],devices:[{deviceIndex:10, deviceIndex:11}] |
       | Format                | Select: HTML                                                                                                     |
-      | Time Definitions.Date | Absolute:[27.02.1971 01:00:00, +0d]                                                                              |
+      | Time Definitions.Date | Absolute:[27.02.1971 01:00, +0d]                                                                              |
       | Schedule              | Run Every:Weekly, On Time:+6H, At Days:[MUN]                                                                     |
 
   @SID_71
@@ -737,7 +737,7 @@ Feature: DefensePro Analytics
       | Template              | reportType:DefensePro Analytics , Widgets:[Top Attacks by Signature],devices:[{deviceIndex:10}] |
       | Format                | Select: PDF                                                                                      |
       | Logo                  | reportLogoPNG.png                                                                                |
-      | Time Definitions.Date | Absolute:[27.02.1971 01:00:00, +0d]                                                              |
+      | Time Definitions.Date | Absolute:[27.02.1971 01:00, +0d]                                                              |
       | Schedule              | Run Every:Monthly, On Time:+6H, At Months:[JAN]                                                  |
       | Share                 | Email:[automation.vision2@radware.com],Subject:myEdit subject,Body:myEdit body                   |
 
@@ -778,7 +778,7 @@ Feature: DefensePro Analytics
       | Template              | reportType:DefensePro Analytics , Widgets:[{Traffic Bandwidth:[bps,Outbound,All]},ALL], devices:[{deviceIndex:10}] |
       | Format                | Select: PDF                                                                                                         |
       | Logo                  | reportLogoPNG.png                                                                                                   |
-      | Time Definitions.Date | Absolute:[27.02.1971 01:00:00, +0d]                                                                                 |
+      | Time Definitions.Date | Absolute:[27.02.1971 01:00, +0d]                                                                                 |
       | Schedule              | Run Every:Monthly, On Time:+6H, At Months:[JAN]                                                                     |
       | Share                 | Email:[automation.vision2@radware.com],Subject:myEdit subject,Body:myEdit body                                      |
 
