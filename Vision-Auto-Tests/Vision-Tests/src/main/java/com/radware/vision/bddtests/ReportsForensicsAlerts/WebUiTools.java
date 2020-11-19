@@ -86,7 +86,7 @@ public class WebUiTools {
         }
     }
 
-    private static void clickWebElement(WebElement webElement) {
+    public static void clickWebElement(WebElement webElement) {
         try
         {
             webElement.click();
