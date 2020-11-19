@@ -275,26 +275,27 @@ abstract class ReportsForensicsAlertsAbstract implements ReportsForensicsAlertsI
     @Override
     public void delete(String reportName) throws Exception{
 
-
             WebUiTools.check("My Reports Tab", "", true);
             BasicOperationsHandler.clickButton("Delete Report",reportName);
             confirmDeleteReport("confirm Delete Report",reportName);
-            clearSavedReporInMap(reportName);
+            clearSavedReportInMap(reportName);
+            if(!BasicOperationsHandler.isElementExists("My Report", false, reportName)){
+                BaseTestUtils.report("Failed to delete report name: " + reportName, Reporter.FAIL);
+        }
 
     }
 
-    private static WebElement confirmDeleteReport(String label, String params) throws TargetWebElementNotFoundException {
-        VisionDebugIdsManager.setLabel(label);
-        VisionDebugIdsManager.setParams(params);
-        if (WebUIUtils.fluentWait(ComponentLocatorFactory.getLocatorByXpathDbgId(VisionDebugIdsManager.getDataDebugId()).getBy()) == null) {
+    public static void confirmDeleteReport(String label, String params) throws TargetWebElementNotFoundException {
+
+        if (WebUiTools.getWebElement(label,params) == null) {
             throw new TargetWebElementNotFoundException("No Element with data-debug-id " + VisionDebugIdsManager.getDataDebugId());
         }
-        // return WebUIVisionBasePage.getCurrentPage().getContainer().getButton(label).click();
-        return WebUIVisionBasePage.getCurrentPage().getContainer().getButton( "//*[@data-debug-id='" + VisionDebugIdsManager.getDataDebugId() +"']//span[@data-debug-id='confirmation-box-delete-button-label']").click();
+         WebUIVisionBasePage.getCurrentPage().getContainer().getButton( "//*[@data-debug-id='" + VisionDebugIdsManager.getDataDebugId() +"']//span[@data-debug-id='confirmation-box-delete-button-label']").click();
 
     }
 
-    private void clearSavedReporInMap(String reportName){
+    private void clearSavedReportInMap(String reportName){
+
         if(templates.containsValue(getType() + "_" + reportName)){
             templates.remove(getType() + "_" + reportName);
         }
