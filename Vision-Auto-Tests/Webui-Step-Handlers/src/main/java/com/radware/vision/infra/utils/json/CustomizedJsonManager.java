@@ -109,12 +109,14 @@ public class CustomizedJsonManager {
                 {
                     String fixWord = "";
                     fixWord = stringValue.startsWith("[")|stringValue.startsWith("{")? stringValue.split(stringValue.split("^(\\[|\\{)+")[1])[0] + "\"" +  stringValue.split("^(\\[|\\{)+")[1] : "\"" + stringValue;
-                    fixWord = fixWord.endsWith("}")|fixWord.endsWith("]")? fixWord.split("(\\]+|}+)+$")[0] + "\"" + fixWord.split(fixWord.split("(\\]+|}+)+$")[0])[1]
+                    fixWord = fixWord.replaceAll("[\\p{Cf}]","");
+                    fixWord = fixWord.endsWith("}")|fixWord.endsWith("]")? fixWord.split("(\\]+|}+)+$")[0] + "\"" + fixWord.substring(fixWord.split("(\\]+|}+)+$")[0].length())
                             : fixWord + "\"";
                     res+= (res.equalsIgnoreCase("")?"":":") + fixWord;
                 }
             } else {
                 res = s.startsWith("{") || s.startsWith("{")? s.split(s.split("^(\\[|\\{)+")[0])[0] + "\"" + s.split("^(\\[|\\{)+")[0]:"\"" + s;
+                res = res.replaceAll("[\\p{Cf}]","");
                 res = res.endsWith("}") | res.endsWith("]") ? res.split("(\\]+|}+)+$")[0]  + "\"" + res.split(res.split("(\\]+|}+)+$")[0])[1]: res + "\"";
             }
             result.add(res);
