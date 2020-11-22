@@ -46,9 +46,9 @@ public class TemplateHandlers {
     private static ScopeSelection getScopeSelection(JSONObject templateJsonObject, String templateParam) {
         switch (templateJsonObject.get("reportType").toString().toUpperCase()) {
             case "HTTPS FLOOD":
-                return new HTTPSFloodScopeSelection(new JSONArray(templateJsonObject.get("Servers").toString()), templateParam);
-            case "DEFENSEFLOW ANALITICS":
-                return new DFScopeSelection(new JSONArray(templateJsonObject.get("Protected Objects").toString()), templateParam);
+                return new HTTPSFloodScopeSelection(new JSONArray(templateJsonObject.get("Servers").toString()), "");
+            case "DEFENSEFLOW ANALYTICS":
+                return new DFScopeSelection(new JSONArray(templateJsonObject.get("Protected Objects").toString()), "");
             case "APPWALL":
                 return new AWScopeSelection(new JSONArray(templateJsonObject.get("Applications").toString()), templateParam);
             case "SYSTEM AND NETWORK":
@@ -56,8 +56,8 @@ public class TemplateHandlers {
             case "APPLICATION":
                 return new ApplicationScopeSelection(new JSONArray(templateJsonObject.get("Applications").toString()), templateParam);
             case "EAAF":
-                return new EAAFScopeSelection(new JSONArray(templateJsonObject.get("devices").toString()), templateParam);
-            case "DEFENSEPRO ANALITICS":
+                return new EAAFScopeSelection(new JSONArray(templateJsonObject.get("devices").toString()), "");
+            case "DEFENSEPRO ANALYTICS":
             case "DEFENSEPRO BEHAVIORAL PROTECTIONS":
             default:
                 return new DPScopeSelection(new JSONArray(templateJsonObject.get("devices").toString()), templateParam);
@@ -307,27 +307,38 @@ public class TemplateHandlers {
         }
 
         public void validate(JSONArray actualTemplateDeviceJSON, StringBuilder errorMessage) throws Exception {
-            JSONArray actualTemplateArrayJSON = new JSONArray();
-            List<JSONObject> actualObjectsDevicesSelected = new ArrayList<>();
-            if (devicesJSON.length() == 1 && devicesJSON.get(0).toString().equals("All")) {
-                actualTemplateArrayJSON.forEach(object -> {
-                    if (new JSONObject(object.toString()).getString("selected").equalsIgnoreCase("false"))
-                        errorMessage.append("The all is not selected !");
-                });
-            } else {
-                actualTemplateArrayJSON.forEach(object -> {
-                    if (new JSONObject(object.toString()).getString("selected").equalsIgnoreCase("true"))
-                        actualObjectsDevicesSelected.add(new JSONObject(object.toString()));
-                });
-                if (devicesJSON.length() != actualTemplateArrayJSON.length())
-                    errorMessage.append("The actual templateDevice size " + actualTemplateArrayJSON.length() + " is not equal to expected templateDevice size" + devicesJSON.length()).append("\n");
-                else {
-                    for (Object actualTemplateJSON : actualObjectsDevicesSelected) {
-                        if (!devicesJSON.toList().contains(actualTemplateJSON))
-                            errorMessage.append("The ActualTemplate deviceName" + new JSONObject(actualTemplateJSON.toString()).get("name").toString() + " is not contains in expected device templates");
-                    }
+            JSONArray actualTemplateArrayJSON =getJSONArraySelected(actualTemplateDeviceJSON);
+            if (devicesJSON.length() != actualTemplateArrayJSON.length())
+                errorMessage.append("The actual templateDevice size " + actualTemplateArrayJSON.length() + " is not equal to expected templateDevice size" + devicesJSON.length()).append("\n");
+            else {
+                for (Object actualTemplateJSON : actualTemplateArrayJSON) {
+                    if (!devicesJSON.toList().contains(actualTemplateJSON))
+                        errorMessage.append("The ActualTemplate deviceName" + new JSONObject(actualTemplateJSON.toString()).get("name").toString() + " is not contains in expected device templates");
                 }
             }
+
+
+//            JSONArray actualTemplateArrayJSON = new JSONArray();
+//            List<JSONObject> actualObjectsDivecesSerlected = new ArrayList<>();
+//            if (devicesJSON.length() == 1 && devicesJSON.get(0).toString().equals("All")) {
+//                actualTemplateArrayJSON.forEach(object -> {
+//                    if (new JSONObject(object.toString()).getString("selected").equalsIgnoreCase("false"))
+//                        errorMessage.append("The all is not selected !");
+//                });
+//            } else {
+//                actualTemplateArrayJSON.forEach(object -> {
+//                    if (new JSONObject(object.toString()).getString("selected").equalsIgnoreCase("true"))
+//                        actualObjectsDivecesSerlected.add(new JSONObject(object.toString()));
+//                });
+//                if (devicesJSON.length() != actualTemplateArrayJSON.length())
+//                    errorMessage.append("The actual templateDevice size " + actualTemplateArrayJSON.length() + " is not equal to expected templateDevice size" + devicesJSON.length()).append("\n");
+//                else {
+//                    for (Object actualTemplateJSON : actualObjectsDivecesSerlected) {
+//                        if (!devicesJSON.toList().contains(actualTemplateJSON))
+//                            errorMessage.append("The ActualTemplate deviceName" + new JSONObject(actualTemplateJSON.toString()).get("name").toString() + " is not contains in expected device templates");
+//                    }
+//                }
+//            }
         }
 
         void selectDevice(String deviceText, boolean isToCheck) throws Exception {
@@ -346,6 +357,22 @@ public class TemplateHandlers {
             }
         }
 
+        protected JSONArray getJSONArraySelected(JSONArray jsonArrayToGetSelectedTrue) {
+            JSONArray jsonArraySelected = new JSONArray();
+            for (Object object : jsonArrayToGetSelectedTrue) {
+                if (new JSONObject(object.toString().replace("\\", "")).get("selected").toString().equals("true"))
+                    jsonArraySelected.put(new JSONObject(object.toString().replace("\\", "")));
+            }
+            return jsonArraySelected;
+        }
+
+        protected void allDevicesSelected(JSONArray devisesArrayJSON, StringBuilder errorMessage)
+        {
+            for (Object object : devisesArrayJSON) {
+                if (new JSONObject(object.toString().replace("\\", "")).get("selected").toString().equals("false"))
+                    errorMessage.append("The All on Actual is not selected !");
+            }
+        }
     }
 
     private static class DPScopeSelection extends ScopeSelection {
@@ -363,19 +390,25 @@ public class TemplateHandlers {
 
         @Override
         public void validate(JSONArray actualTemplatesDeviceJSON, StringBuilder errorMessage) throws Exception {
-            JSONArray actualTemplateArrayJSON = new JSONArray();
-            if (actualTemplatesDeviceJSON.length() != devicesJSON.length())
-                errorMessage.append("The actual templateDevice size " + actualTemplatesDeviceJSON.length() + " is not equal to expected templateDevice size" + devicesJSON.length()).append("\n");
-            else if (devicesJSON.length() == 1 && devicesJSON.get(0).toString().equals("all")) {
-                actualTemplateArrayJSON.forEach(object -> {
-                    if (new JSONObject(object.toString()).getString("selected").equalsIgnoreCase("false"))
-                        errorMessage.append("The all is not selected !");
-                });
-            } else {
-                for (Object expectedDeviceJSON : devicesJSON) {
-                    new DPSingleDPScopeSelection(new JSONObject(expectedDeviceJSON.toString())).validate(actualTemplatesDeviceJSON, errorMessage);
-                }
+           if(devicesJSON.length() == 1 && devicesJSON.get(0).equals("All"))
+               allDevicesSelected(actualTemplatesDeviceJSON,errorMessage);
+           else {
+               JSONArray actualDevicesTemplateArrayJSON = getActualDevicesJSONArray(actualTemplatesDeviceJSON);
+               if (actualDevicesTemplateArrayJSON.length() != devicesJSON.length())
+                   errorMessage.append("The actual templateDevice size " + actualTemplatesDeviceJSON.length() + " is not equal to expected templateDevice size " + devicesJSON.length()).append("\n");
+               else {
+                   for (Object expectedDeviceJSON : devicesJSON)
+                       new DPSingleDPScopeSelection(new JSONObject(expectedDeviceJSON.toString())).validate(actualDevicesTemplateArrayJSON, errorMessage);
+               }
+           }
+        }
+        private JSONArray getActualDevicesJSONArray(JSONArray actualTemplatesDeviceJSON) {
+            JSONArray actualDevicesTemplateArrayJSON = new JSONArray();
+            for(Object object : actualTemplatesDeviceJSON){
+                if (new JSONObject(object.toString().replace("\\", "")).get("selected").toString().equals("true"))
+                    actualDevicesTemplateArrayJSON.put(new JSONObject(object.toString().replace("\\", "")));
             }
+            return actualDevicesTemplateArrayJSON;
         }
 
         private class DPSingleDPScopeSelection {
@@ -452,15 +485,19 @@ public class TemplateHandlers {
                 validateComparePoliciesOrPorts(errorMessage, new JSONArray(actualTemplateDevice.get("ports").toString()), devicePorts);
             }
 
-            private void validateComparePoliciesOrPorts(StringBuilder errorMessage, JSONArray actualDevicePoliciesOrPorts, ArrayList devicePolicies) {
-                if (actualDevicePoliciesOrPorts.length() != devicePolicies.size())
-                    errorMessage.append("The actual templateDevice size " + actualDevicePoliciesOrPorts.length() + " is not equal to expected templateDevice size" + devicePolicies.size()).append("\n");
-                else {
-                    for (Object actualDevicePolicy : actualDevicePoliciesOrPorts) {
-                        if (!devicePolicies.contains(actualDevicePolicy))
-                            errorMessage.append("The Actual PolicyDevice" + actualDevicePolicy + "is not exist in expected policyDevice ");
+            private void validateComparePoliciesOrPorts(StringBuilder errorMessage, JSONArray actualDevicePoliciesOrPorts, ArrayList devicePoliciesOrPorts) {
+                JSONArray policiesOrPortsJSONArray = getJSONArraySelected(actualDevicePoliciesOrPorts);
+                if(devicePoliciesOrPorts!=null) {
+                    if (policiesOrPortsJSONArray.length() != devicePoliciesOrPorts.size())
+                        errorMessage.append("The actual templateDevice size " + policiesOrPortsJSONArray.length() + " is not equal to expected templateDevice size" + devicePoliciesOrPorts.size()).append("\n");
+                    else {
+                        for (Object actualDevicePolicyOrPorts : policiesOrPortsJSONArray) {
+                            if (!devicePoliciesOrPorts.contains(new JSONObject(((JSONObject) actualDevicePolicyOrPorts).toString()).get("name")))
+                                errorMessage.append("The Actual PolicyDevice" + actualDevicePolicyOrPorts + "is not exist in expected policyDevice ");
+                        }
                     }
-                }
+                }else if(policiesOrPortsJSONArray.length() > 0)
+                    errorMessage.append("The actual templateDevice size " + policiesOrPortsJSONArray.length() + " is not equal to expected templateDevice size 0").append("\n");
             }
         }
     }
@@ -485,26 +522,42 @@ public class TemplateHandlers {
 
         @Override
         public void validate(JSONArray actualTemplateDeviceJSON, StringBuilder errorMessage) throws Exception {
-            JSONArray actualArrayDevicesSelected = new JSONArray();
-            List<JSONObject> actualObjectsDivecesSerlected = new ArrayList<>();
-            if (devicesJSON.length() == 1 && devicesJSON.get(0).toString().equals("all")) {
-                actualArrayDevicesSelected.forEach(object -> {
-                    if (new JSONObject(object.toString()).getString("selected").equalsIgnoreCase("false"))
-                        errorMessage.append("The all is not selected !");
-                });
-            } else {
-                actualArrayDevicesSelected.forEach(n -> {
-                    if (new JSONObject(n.toString()).getString("selected").equalsIgnoreCase("true"))
-                        actualObjectsDivecesSerlected.add(new JSONObject(n.toString()));
-                });
-                String[] expectedDeviceStringArray = devicesJSON.get(0).toString().split("-");
-                if (!actualObjectsDivecesSerlected.get(0).get("serverName").toString().equals(expectedDeviceStringArray[0]))
-                    errorMessage.append("The ActualTemplate ServerName" + actualObjectsDivecesSerlected.get(0).get("serverName").toString() + " is not equal to the expected: " + expectedDeviceStringArray[0]);
-                if (!actualObjectsDivecesSerlected.get(0).get("deviceName").toString().equals(expectedDeviceStringArray[1]))
-                    errorMessage.append("The ActualTemplate deviceName" + actualObjectsDivecesSerlected.get(0).get("deviceName").toString() + " is not equal to the expected: " + expectedDeviceStringArray[1]);
-                if (!actualObjectsDivecesSerlected.get(0).get("policyName").toString().equals(expectedDeviceStringArray[2]))
-                    errorMessage.append("The ActualTemplate policyName" + actualObjectsDivecesSerlected.get(0).get("policyName").toString() + " is not equal to the expected: " + expectedDeviceStringArray[2]);
+            if(devicesJSON.length() == 1 && devicesJSON.get(0).equals("All"))
+                allDevicesSelected(actualTemplateDeviceJSON,errorMessage);
+            else {
+                JSONArray actualObjectsDevicesSelected = getJSONArraySelected(actualTemplateDeviceJSON);
+                if (devicesJSON.length() != actualObjectsDevicesSelected.length())
+                    errorMessage.append("The actual templateDevice size " + actualObjectsDevicesSelected.length() + " is not equal to expected templateDevice size" + devicesJSON.length()).append("\n");
+                else if (actualObjectsDevicesSelected != null) {
+                    String[] expectedDeviceStringArray = devicesJSON.get(0).toString().split("-");
+                    if (!new JSONObject(actualObjectsDevicesSelected.get(0).toString()).get("serverName").toString().equals(expectedDeviceStringArray[0]))
+                        errorMessage.append("The ActualTemplate ServerName" + new JSONObject(actualObjectsDevicesSelected.get(0).toString()).get("serverName").toString() + " is not equal to the expected: " + expectedDeviceStringArray[0]);
+                    if (!new JSONObject(actualObjectsDevicesSelected.get(0).toString()).get("deviceName").toString().equals(expectedDeviceStringArray[1]))
+                        errorMessage.append("The ActualTemplate deviceName" + new JSONObject(actualObjectsDevicesSelected.get(0).toString()).get("deviceName").toString() + " is not equal to the expected: " + expectedDeviceStringArray[1]);
+                    if (!new JSONObject(actualObjectsDevicesSelected.get(0).toString()).get("policyName").toString().equals(expectedDeviceStringArray[2]))
+                        errorMessage.append("The ActualTemplate policyName" + new JSONObject(actualObjectsDevicesSelected.get(0).toString()).get("policyName").toString() + " is not equal to the expected: " + expectedDeviceStringArray[2]);
+                }
             }
+//            JSONArray actualArrayDevicesSelected = new JSONArray();
+//            List<JSONObject> actualObjectsDivecesSerlected = new ArrayList<>();
+//            if (devicesJSON.length() == 1 && devicesJSON.get(0).toString().equals("all")) {
+//                actualArrayDevicesSelected.forEach(object -> {
+//                    if (new JSONObject(object.toString()).getString("selected").equalsIgnoreCase("false"))
+//                        errorMessage.append("The all is not selected !");
+//                });
+//            } else {
+//                actualArrayDevicesSelected.forEach(n -> {
+//                    if (new JSONObject(n.toString()).getString("selected").equalsIgnoreCase("true"))
+//                        actualObjectsDivecesSerlected.add(new JSONObject(n.toString()));
+//                });
+//                String[] expectedDeviceStringArray = devicesJSON.get(0).toString().split("-");
+//                if (!actualObjectsDivecesSerlected.get(0).get("serverName").toString().equals(expectedDeviceStringArray[0]))
+//                    errorMessage.append("The ActualTemplate ServerName" + actualObjectsDivecesSerlected.get(0).get("serverName").toString() + " is not equal to the expected: " + expectedDeviceStringArray[0]);
+//                if (!actualObjectsDivecesSerlected.get(0).get("deviceName").toString().equals(expectedDeviceStringArray[1]))
+//                    errorMessage.append("The ActualTemplate deviceName" + actualObjectsDivecesSerlected.get(0).get("deviceName").toString() + " is not equal to the expected: " + expectedDeviceStringArray[1]);
+//                if (!actualObjectsDivecesSerlected.get(0).get("policyName").toString().equals(expectedDeviceStringArray[2]))
+//                    errorMessage.append("The ActualTemplate policyName" + actualObjectsDivecesSerlected.get(0).get("policyName").toString() + " is not equal to the expected: " + expectedDeviceStringArray[2]);
+//            }
         }
     }
 
@@ -566,35 +619,45 @@ public class TemplateHandlers {
 
     }
 
-    public static StringBuilder validateTemplateDefinition(JSONArray actualTemplateJSONArray, Map<String, String> map, Map<String, Map<String, String>> templates) throws Exception {
+    public static StringBuilder validateTemplateDefinition(JSONArray actualTemplateJSONArray, Map<String, String> map,Map<String, Map<String,String>> templates,String reportName) throws Exception {
         StringBuilder errorMessage = new StringBuilder();
         JSONArray expectedTemplates = new JSONArray(map.get("Template").toString());
-        for (Object expectedTemplate : expectedTemplates)
-            validateSingleTemplateDefinition(actualTemplateJSONArray, new JSONObject(expectedTemplate.toString()), templates, errorMessage);
+        for (Object expectedTemplate : expectedTemplates) {
+            validateSingleTemplateDefinition(actualTemplateJSONArray, new JSONObject(expectedTemplate.toString()), templates.get(reportName).get(new JSONObject(expectedTemplate.toString()).get("templateAutomationID")) , errorMessage);
+        }
         return errorMessage;
     }
 
-    public static void validateSingleTemplateDefinition(JSONArray actualTemplateJSON, JSONObject expectedSingleTemplate, Map<String, Map<String, String>> templates, StringBuilder errorMessage) throws Exception, TargetWebElementNotFoundException {
-        JSONObject singleActualTemplate = validateTemplateTypeDefinition(actualTemplateJSON, expectedSingleTemplate, templates, errorMessage);
+    public static void validateSingleTemplateDefinition(JSONArray actualTemplateJSON, JSONObject expectedSingleTemplate,String expectedTemplateTitle, StringBuilder errorMessage) throws Exception, TargetWebElementNotFoundException {
+        JSONObject singleActualTemplate = validateTemplateTypeDefinition(actualTemplateJSON, expectedSingleTemplate ,expectedTemplateTitle ,errorMessage);
         if (singleActualTemplate != null) {
-            validateTemplateDevicesDefinition(singleActualTemplate, expectedSingleTemplate, errorMessage);
-            validateTemplateWidgetsDefinition(singleActualTemplate, expectedSingleTemplate, errorMessage);
+            validateTemplateDevicesDefinition(singleActualTemplate, expectedSingleTemplate ,errorMessage);
+   //         validateTemplateWidgetsDefinition(singleActualTemplate, expectedSingleTemplate, errorMessage);
         } else
             errorMessage.append("There is no equal template on actual templates that equal to " + expectedSingleTemplate);
     }
 
-    private static JSONObject validateTemplateTypeDefinition(JSONArray actualTemplateJSON, JSONObject expectedSingleTemplate, Map<String, Map<String, String>> templates, StringBuilder errorMessage) throws TargetWebElementNotFoundException {
+    private static JSONObject validateTemplateTypeDefinition(JSONArray actualTemplateJSON, JSONObject expectedSingleTemplate,String expectedTemplateTitle,StringBuilder errorMessage) throws TargetWebElementNotFoundException {
+        String [] expectedTemplateName = expectedTemplateTitle.split("_");
         for (Object singleTemplate : actualTemplateJSON) {
-            if (!templates.get(expectedSingleTemplate.get("reportType").toString()).get((new JSONObject(singleTemplate.toString()).get("templateTitle").toString().split("_"))[1]).equalsIgnoreCase(null))
-                return new JSONObject(singleTemplate.toString());
-            else
-                errorMessage.append("This report name is not exist " + templates.get(expectedSingleTemplate.get("reportType").toString()).get((new JSONObject(singleTemplate.toString()).get("templateTitle").toString().split("_"))[1]));
+            String[] actualTemplateName = new JSONObject(singleTemplate.toString()).get("templateTitle").toString().split("_");
+            switch (expectedTemplateName.length) {
+                case 1:
+                    if (expectedTemplateName[0].equals(actualTemplateName[0]))
+                        return new JSONObject(singleTemplate.toString());
+                    break;
+                case 2:
+                    if (expectedTemplateName[0].equals(actualTemplateName[0]) && expectedTemplateName[1].equals(actualTemplateName[0]))
+                        return new JSONObject(singleTemplate.toString());
+                    break;
+            }
         }
+        errorMessage.append("This expected template name "+expectedSingleTemplate+" is not exist");
         return null;
     }
 
     private static void validateTemplateDevicesDefinition(JSONObject singleTemplate, JSONObject expectedSingleTemplate, StringBuilder errorMessage) throws Exception {
-        getScopeSelection(expectedSingleTemplate, "").validate(new JSONArray(singleTemplate.get("scope").toString()), errorMessage);
+            getScopeSelection(expectedSingleTemplate, "").validate(new JSONArray(singleTemplate.get("scope").toString()), errorMessage);
     }
 
     private static void validateTemplateWidgetsDefinition(JSONObject singleActualTemplate, JSONObject expectedSingleTemplate, StringBuilder errorMessage) {
@@ -610,18 +673,23 @@ public class TemplateHandlers {
 
     private static void validateHashMapObjectWidgets(JSONArray actualWidgetsJSONArray, JSONObject expectedWidgetJSONObject, StringBuilder errorMessage) {
         for (Object actualWidgetObject : actualWidgetsJSONArray) {
-            if (!expectedWidgetJSONObject.keys().toString().contains(((HashMap) new JSONObject(actualWidgetObject.toString()).toMap().get("metaData")).get("title").toString()))
-                errorMessage.append("The Actual TemplateWidget title = :" + ((HashMap) new JSONObject(actualWidgetObject.toString()).toMap().get("metaData")).get("title").toString() + "and  not equal to  " + expectedWidgetJSONObject.toString());
+            if (!expectedWidgetJSONObject.keys().next().equals(new JSONObject(new JSONObject((HashMap) new JSONObject(actualWidgetObject.toString()).toMap()).get("metaData").toString().replace("\\","")).get("title")))
+                errorMessage.append("The Actual TemplateWidget title = :" + new JSONObject(new JSONObject((HashMap) new JSONObject(actualWidgetObject.toString()).toMap()).get("metaData").toString().replace("\\","")).get("title") + "and  not equal to  " + expectedWidgetJSONObject.keys().next());
             else
-                validateOptionsWidgets(expectedWidgetJSONObject, new JSONObject(actualWidgetObject.toString()), errorMessage);
+                validateOptionsWidgets(expectedWidgetJSONObject.keys().next(), expectedWidgetJSONObject, new JSONObject(new JSONObject((HashMap) new JSONObject(actualWidgetObject.toString()).toMap()).get("metaData").toString().replace("\\","")), errorMessage);
         }
     }
 
-    private static void validateOptionsWidgets(JSONObject expectedWidgetJSONObject, JSONObject actualWidgetJSONObject, StringBuilder errorMessage) {
-        JSONArray expectedWidgetOptions = new JSONArray(expectedWidgetJSONObject.get(((HashMap) actualWidgetJSONObject.toMap().get("metaData")).get("title").toString()).toString());
-        for (Object expectedWidgetOption : expectedWidgetOptions) {
-            if (!actualWidgetJSONObject.toString().contains(expectedWidgetOption.toString()))
-                errorMessage.append("The Actual TemplateWidget OptionValue is not equal to  " + expectedWidgetOption.toString());
+    private static void validateOptionsWidgets(String title,JSONObject expectedWidgetJSONObject, JSONObject actualWidgetJSONObject, StringBuilder errorMessage) {
+        Object criteriaToggle =((HashMap)new JSONArray(actualWidgetJSONObject.get("togglesCriteria").toString()).toList().get(0)).get("criteriaToggle");
+        ArrayList<Object> optionsActualWidgets = (ArrayList) ((HashMap) criteriaToggle).get("options");
+        //  ((HashMap) optionsActualWidgets).get("value").toString().equals("bps");
+
+        JSONArray expectedWidgetOptions = new JSONArray(expectedWidgetJSONObject.get(title).toString());
+//        JSONArray actualWidgetOptions = new JSONArray(expectedWidgetJSONObject.get(title).toString());
+        for (Object optionActualWidgets : optionsActualWidgets) {
+            if (!expectedWidgetOptions.toList().contains(((HashMap) optionActualWidgets).get("value").toString()))
+                errorMessage.append("The Actual TemplateWidget OptionValue is not equal to the Actual " + ((HashMap) optionActualWidgets).get("value").toString());
         }
     }
 
