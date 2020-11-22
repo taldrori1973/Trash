@@ -39,8 +39,12 @@ public class TemplateHandlers {
         Report.updateReportsTemplatesMap(reportName, templateJsonObject.get("templateAutomationID").toString(), currentTemplateName);
     }
 
-    public static void editTemplate(Object template) {
-
+    public static void editTemplate(JSONObject templateJsonObject, String currentTemplateName) {
+        List<String> widgetsListToRemove = getWidgetsList(new JSONArray(templateJsonObject.get("DeleteWidgets").toString()));
+        removeunWantedWidgets(widgetsListToRemove,currentTemplateName);
+        addWidgets(new JSONArray(templateJsonObject.get("AddWidgets").toString()), currentTemplateName);
+        JSONArray editWidgets = new JSONArray(templateJsonObject.get("editWidgets").toString());
+        selectOptions(editWidgets, getOccurrenceMap(editWidgets), currentTemplateName);
     }
 
 
@@ -111,7 +115,7 @@ public class TemplateHandlers {
         VisionDebugIdsManager.setLabel("selected widget");
         for (String widget : widgetsToRemoveDataDataDebugId) {
             try {
-                VisionDebugIdsManager.setParams(reportType, widget);
+                VisionDebugIdsManager.setParams(reportType, widget.concat("_"));
                 List<WebElement> elements = WebUIUtils.fluentWaitMultiple(new ComponentLocator(How.XPATH, "//*[starts-with(@data-debug-id, '" + VisionDebugIdsManager.getDataDebugId() + "') and contains(@data-debug-id, '_RemoveButton')]").getBy(), WebUIUtils.DEFAULT_WAIT_TIME, false);
                 while (!elements.isEmpty()) {
                     elements.get(0).click();
@@ -124,26 +128,6 @@ public class TemplateHandlers {
         }
     }
 
-
-    private static void dragAndDropDesiredWidgets(List<String> widgetsList, String reportType) {
-        if (widgetsList == null) return;
-        try {
-            for (String widgetToDrag : widgetsList) {
-                VisionDebugIdsManager.setLabel("widget drag");
-                VisionDebugIdsManager.setParams(widgetToDrag);
-                ComponentLocator sourceLocator = new ComponentLocator(How.XPATH, "//*[@data-debug-id='" + VisionDebugIdsManager.getDataDebugId() + "']");
-                VisionDebugIdsManager.setLabel("widgets container");
-                VisionDebugIdsManager.setParams(reportType);
-                ComponentLocator targetLocator = new ComponentLocator(How.XPATH, "//*[@data-debug-id='" + VisionDebugIdsManager.getDataDebugId() + "' and contains(@class,'TemplateWidgetsContainer')]");
-                //TODO target by debugID
-//            ComponentLocator targetLocator = new ComponentLocator(How.XPATH, "//*[@class='ReportTemplatestyle__TemplateWidgetsContainer-sc-69xssr-5 iIXqdb widget-container-appear-done widget-container-enter-done']");
-                Thread.sleep(3 * 1000);
-                dragAndDrop(sourceLocator, targetLocator);
-            }
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-    }
 
     private static Map<String, List<Integer>> getOccurrenceMap(JSONArray widgets) {
 
@@ -171,6 +155,26 @@ public class TemplateHandlers {
         }
         return ocuurenceMap;
 
+    }
+
+    private static void dragAndDropDesiredWidgets(List<String> widgetsList, String reportType) {
+        if (widgetsList == null) return;
+        try {
+            for (String widgetToDrag : widgetsList) {
+                VisionDebugIdsManager.setLabel("widget drag");
+                VisionDebugIdsManager.setParams(widgetToDrag);
+                ComponentLocator sourceLocator = new ComponentLocator(How.XPATH, "//*[@data-debug-id='" + VisionDebugIdsManager.getDataDebugId() + "']");
+                VisionDebugIdsManager.setLabel("widgets container");
+                VisionDebugIdsManager.setParams(reportType);
+                ComponentLocator targetLocator = new ComponentLocator(How.XPATH, "//*[@data-debug-id='" + VisionDebugIdsManager.getDataDebugId() + "' and contains(@class,'TemplateWidgetsContainer')]");
+                //TODO target by debugID
+//            ComponentLocator targetLocator = new ComponentLocator(How.XPATH, "//*[@class='ReportTemplatestyle__TemplateWidgetsContainer-sc-69xssr-5 iIXqdb widget-container-appear-done widget-container-enter-done']");
+                Thread.sleep(3 * 1000);
+                dragAndDrop(sourceLocator, targetLocator);
+            }
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
     }
 
     private static void selectOptions(JSONArray widgets, Map<String, List<Integer>> ocuurenceMap, String reportType) {
