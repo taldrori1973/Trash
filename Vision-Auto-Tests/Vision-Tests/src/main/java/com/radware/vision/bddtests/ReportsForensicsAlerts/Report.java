@@ -65,9 +65,10 @@ public class Report extends ReportsForensicsAlertsAbstract {
             TemplateHandlers.addTemplate(new JSONObject(templateObject.toString()),reportName);
     }
 
-    private void editTemplates(Map<String, String> map) {
-        for (Object template : (Collections.singletonList(map.get("Templates")))) {
-            editTemplate(template);
+    private void editTemplates(Map<String, String> map,String reportName) {
+        for (Object templateObject : new JSONArray(map.get("Template"))) {
+            TemplateHandlers.editTemplate(new JSONObject(templateObject.toString()),
+                    getReportTemplateUICurrentName(reportName,new JSONObject(templateObject.toString()).get("templateAutomationID").toString()));
         }
     }
     private void editTemplate(Object template) {
@@ -242,7 +243,7 @@ public class Report extends ReportsForensicsAlertsAbstract {
     public void edit(String reportName, Map<String, String> map) throws Exception {
         try {
             editReportParameters(reportName, map);
-            editTemplates(map);
+            editTemplates(map,reportName);
         } catch (Exception e) {
             closeReport();
             throw e;
@@ -259,4 +260,9 @@ public class Report extends ReportsForensicsAlertsAbstract {
     public static void updateReportsTemplatesMap(String reportName,String templateAutomationID, String value){
         templates.get(reportName).put(templateAutomationID,value);
     }
+
+    public static String getReportTemplateUICurrentName(String reportName,String templateAutomationID){
+        return templates.get(reportName).get(templateAutomationID);
+    }
+
 }
