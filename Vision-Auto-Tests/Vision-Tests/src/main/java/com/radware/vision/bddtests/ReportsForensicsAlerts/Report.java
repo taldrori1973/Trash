@@ -26,7 +26,7 @@ public class Report extends ReportsForensicsAlertsAbstract {
     @Override
     public void create(String reportName, Map<String, String> map) throws Exception {
 
-        try{delete(reportName);}catch (Exception ignored){}
+  //      try{delete(reportName);}catch (Exception ignored){}
         try {
             WebUiTools.check("New Report Tab", "", true);
             createReportParameters(reportName, map);
