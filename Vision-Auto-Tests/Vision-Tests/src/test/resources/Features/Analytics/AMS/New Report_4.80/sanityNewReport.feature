@@ -3,7 +3,7 @@ Feature: sanity new report
   @SID_1
   Scenario: Navigate to NEW REPORTS page
     Then UI Login with user "sys_admin" and password "radware"
-    Then UI Navigate to "NEW REPORTS" page via homepage
+    Then UI Navigate to "AMS REPORTS" page via homepage
 #    Then UI Click Button "Report Parameter Menu"
 
   @SID_2

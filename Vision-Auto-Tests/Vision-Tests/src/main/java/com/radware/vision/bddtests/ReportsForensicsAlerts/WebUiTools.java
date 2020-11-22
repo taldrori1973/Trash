@@ -77,13 +77,17 @@ public class WebUiTools {
     }
 
     private static void checkWebElement( WebElement checkElement, boolean isToCheck) {
-        if ((webElementHasAttribute(checkElement, "class") && checkElement.getAttribute("class").matches(".*selected.*|.*checked.*")||
-                webElementHasAttribute(checkElement, checkedNotCheckedAttribute) && checkElement.getAttribute(checkedNotCheckedAttribute).matches(".*true.*|.*checked.*")||
-                webElementHasAttribute(checkElement, ariaChecked) && checkElement.getAttribute(ariaChecked).matches(".*true.*|.*checked.*"))||
-                webElementHasAttribute(checkElement, "checked")
+        if (isElementChecked(checkElement)
                 ^ isToCheck) {
             clickWebElement(checkElement);
         }
+    }
+
+    public static boolean isElementChecked(WebElement checkElement) {
+        return webElementHasAttribute(checkElement, checkedNotCheckedAttribute) && checkElement.getAttribute(checkedNotCheckedAttribute).matches(".*true.*|.*checked.*")||
+                webElementHasAttribute(checkElement, ariaChecked) && checkElement.getAttribute(ariaChecked).matches(".*true.*|.*checked.*")||
+                webElementHasAttribute(checkElement, "class") && checkElement.getAttribute("class").matches(".*selected.*|.*checked.*")||
+                webElementHasAttribute(checkElement, "checked");
     }
 
     public static void clickWebElement(WebElement webElement) {
