@@ -46,9 +46,9 @@ public class TemplateHandlers {
     private static ScopeSelection getScopeSelection(JSONObject templateJsonObject, String templateParam) {
         switch (templateJsonObject.get("reportType").toString().toUpperCase()) {
             case "HTTPS FLOOD":
-                return new HTTPSFloodScopeSelection(new JSONArray(templateJsonObject.get("Servers").toString()), "");
+                return new HTTPSFloodScopeSelection(new JSONArray(templateJsonObject.get("Servers").toString()), templateParam);
             case "DEFENSEFLOW ANALYTICS":
-                return new DFScopeSelection(new JSONArray(templateJsonObject.get("Protected Objects").toString()), "");
+                return new DFScopeSelection(new JSONArray(templateJsonObject.get("Protected Objects").toString()), templateParam);
             case "APPWALL":
                 return new AWScopeSelection(new JSONArray(templateJsonObject.get("Applications").toString()), templateParam);
             case "SYSTEM AND NETWORK":
@@ -56,7 +56,7 @@ public class TemplateHandlers {
             case "APPLICATION":
                 return new ApplicationScopeSelection(new JSONArray(templateJsonObject.get("Applications").toString()), templateParam);
             case "EAAF":
-                return new EAAFScopeSelection(new JSONArray(templateJsonObject.get("devices").toString()), "");
+                return new EAAFScopeSelection(new JSONArray(templateJsonObject.get("devices").toString()), templateParam);
             case "DEFENSEPRO ANALYTICS":
             case "DEFENSEPRO BEHAVIORAL PROTECTIONS":
             default:
