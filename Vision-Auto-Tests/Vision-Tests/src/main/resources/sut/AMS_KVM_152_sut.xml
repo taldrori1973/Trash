@@ -8,11 +8,7 @@
                 <class>com.radware.vision.vision_project_cli.RadwareServerCli</class>
                 <user>radware</user>
                 <password>radware</password>
-<<<<<<<< HEAD:Vision-Auto-Tests/Vision-Tests/src/main/resources/sut/AMS_KVM_152_sut.xml
                 <host>172.17.164.152</host>
-========
-                <host>172.17.164.104</host>
->>>>>>>> dev:Vision-Auto-Tests/Vision-Tests/src/main/resources/sut/AMS_4_sut.xml
                 <dnsServerIp>10.221.1.47</dnsServerIp>
                 <addedPrompts>[new.prompt],to continue the upgrade help process., [Y/n],Please type the sftp server
                     password:,Please type the ftp server password:
@@ -94,15 +90,9 @@
         <user>root</user>
         <password>radware</password>
         <connectOnInit>false</connectOnInit>
-<<<<<<<< HEAD:Vision-Auto-Tests/Vision-Tests/src/main/resources/sut/AMS_KVM_152_sut.xml
         <host>10.205.200.217</host>
         <dnsServerIp>10.221.1.47</dnsServerIp>
         <ip>172.17.164.152</ip>
-========
-        <host>172.17.164.104</host>
-        <dnsServerIp>10.221.1.47</dnsServerIp>
-        <ip>172.17.164.104</ip>
->>>>>>>> dev:Vision-Auto-Tests/Vision-Tests/src/main/resources/sut/AMS_4_sut.xml
         <netMask>255.255.0.0</netMask>
         <gateway>172.17.1.1</gateway>
         <primaryDns>10.221.1.47</primaryDns>
