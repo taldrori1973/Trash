@@ -17,7 +17,7 @@ Feature: DefensePro Network Policy Import to Device
 
   @SID_3
   Scenario: Delete Network template from vision if exists
-    Then CLI Operations - Run Root Session command "yes|restore_radware_user_password" timeout 15
+    Given CLI Reset radware password
     Then CLI Run remote linux Command "mysql -prad123 vision_ng -e "delete from device_exported_file where name='auto_import_DP';"" on "ROOT_SERVER_CLI"
 
   @SID_4
@@ -29,7 +29,7 @@ Feature: DefensePro Network Policy Import to Device
 
   @SID_5
   Scenario: Import network policy to DefensePro
-    When UI Open Upper Bar Item "Toolbox"
+    And UI Navigate to "SCHEDULER" page via homePage
     Then UI Click Button by id "gwt-debug-ToolBox_ADVANCED"
     Then UI Click Button by id "gwt-debug-NetworkProtectionNode-content"
     Then UI Set Text field with id "gwt-debug-name_SearchControl" with "auto"

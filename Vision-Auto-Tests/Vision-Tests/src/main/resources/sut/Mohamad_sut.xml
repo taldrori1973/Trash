@@ -41,34 +41,18 @@
                 <class>com.radware.vision.vision_project_cli.VisionSetup</class>
                 <!--<setupMode>Fresh Install| Upgrade</setupMode>-->
 <!--                <setupMode>Upgrade</setupMode>-->
-                <setupMode>Fresh Install</setupMode>
+                <setupMode>Upgrade</setupMode>
                 <snapshot>4.30-release</snapshot>
                 <!--<vmPrefix>This field is relevant for fresh installed VM</vmPrefix>-->
                 <vmPrefix>Vision-4.30-172.17.192.100</vmPrefix>
             </visionSetup>
         </visionServer>
-        <linuxFileServer>
-            <class>com.radware.automation.tools.cli.LinuxFileServer</class>
-            <host>172.17.164.100</host>
-            <user>root</user>
-            <password>radware</password>
-            <connectOnInit>false</connectOnInit>
-        </linuxFileServer>
         <alteonServer>
             <class>com.radware.automation.tools.cli.AlteonServer</class>
             <host>172.17.164.40</host>
             <user>admin</user>
             <password>admin</password>
         </alteonServer>
-        <mysqlClient>
-            <class>com.radware.vision.vision_project_cli.MysqlClientCli</class>
-            <host>172.17.164.100</host>
-            <user>root</user>
-            <password>radware</password>
-            <userExternalViewer>external</userExternalViewer>
-            <passwordExternalViewer>viewer</passwordExternalViewer>
-            <targetVisionHost/>
-        </mysqlClient>
         <visionRadwareFirstTime>
             <class>com.radware.vision.vision_project_cli.VisionRadwareFirstTime
             </class>

@@ -22,13 +22,7 @@ Feature: DPM Second Drill - Groups and Content Rules Table
   @SID_4
   Scenario: Login
     When UI Login with user "sys_admin" and password "radware"
-    Then UI Open Upper Bar Item "ADC"
-    Then UI Open "Dashboards" Tab
-    Then UI Open "Application Dashboard" Sub Tab
-    Then UI Open "Configurations" Tab
-    Then UI Open Upper Bar Item "ADC"
-    Then UI Open "Dashboards" Tab
-    Then UI Open "Application Dashboard" Sub Tab
+    Then UI Navigate to "Application Dashboard" page via homePage
 
   @SID_5
   Scenario: Navigate to Virtual Service
@@ -38,13 +32,13 @@ Feature: DPM Second Drill - Groups and Content Rules Table
 
 #Validate Widgets Titles
   @SID_6
-  Scenario: TC105516 Validate Table Title
+  Scenario: Validate Table Title
     Then UI Text of "Virtual Service.Widget Title" with extension "Groups and Content Rules" equal to "Groups and Content Rules"
 
 
     #This is not the exact data which expected to get from Alteon , deu to Alteon Bug.
   @SID_7
-  Scenario: TC105517 Validate Table Content
+  Scenario: Validate Table Content
     #Content Rule ID = 1
     Then UI Validate Table record values by columns with elementLabel "Virtual Service.Table" findBy columnName "Content-Rule or Default" findBy cellValue "101"
       | columnName              | value   |
@@ -170,7 +164,7 @@ Feature: DPM Second Drill - Groups and Content Rules Table
 
   #Default Sorting
   @SID_8
-  Scenario: TC105747 Validate Default Sorting by Content Rule Class id
+  Scenario: Validate Default Sorting by Content Rule Class id
     #Content Rule ID = 1
     Then UI Validate Table record values by columns with elementLabel "Virtual Service.Table" findBy index 0
       | columnName              | value |
@@ -205,7 +199,7 @@ Feature: DPM Second Drill - Groups and Content Rules Table
 
   #This Scenario was separated from the previous one because of an open defect on it.
   @SID_9
-  Scenario: TC105748 Validate Default Action at Last Row in Default Sort
+  Scenario: Validate Default Action at Last Row in Default Sort
     Then UI Validate Table record values by columns with elementLabel "Virtual Service.Table" findBy index 6
       | columnName              | value          |
       | Content-Rule or Default | Default Action |
@@ -213,14 +207,14 @@ Feature: DPM Second Drill - Groups and Content Rules Table
   #------------------------By Status----------------------
   #First Click on Status column , The Default Status Order is : Down , Warning, Shutdown, Up, Admin Down
   @SID_10
-  Scenario: TC105749 Validate Sorting by Status in Ascending Order
+  Scenario: Validate Sorting by Status in Ascending Order
     When UI Click Button "Sort By" with value "healthScore"
     Then UI Validate Table "Virtual Service.Table" is Sorted by
       | columnName | order     | compareMethod |
       | Status     | Ascending | HEALTH_SCORE  |
   #Second Click on Status column, The Reversed Status Order is : Admin Down , UP, Shutdown Warning, Down
   @SID_11
-  Scenario: TC105750 Validate Sorting by Status in Descending Order
+  Scenario: Validate Sorting by Status in Descending Order
     When UI Click Button "Sort By" with value "healthScore"
     Then UI Validate Table "Virtual Service.Table" is Sorted by
       | columnName | order      | compareMethod |
@@ -228,7 +222,7 @@ Feature: DPM Second Drill - Groups and Content Rules Table
 
   #Third Click on Status column
   @SID_12
-  Scenario: TC105751 Validate Sorting by Default after Disable The Sorting by Status
+  Scenario: Validate Sorting by Default after Disable The Sorting by Status
     When UI Click Button "Sort By" with value "healthScore"
 #Content Rule ID = 1
     Then UI Validate Table record values by columns with elementLabel "Virtual Service.Table" findBy index 0
@@ -262,7 +256,7 @@ Feature: DPM Second Drill - Groups and Content Rules Table
 
   #This Scenario was separated from the previous one because of an open defect on it.
   @SID_13
-  Scenario: TC105752 Validate Default Action at Last Row after Disable The Sorting by Status
+  Scenario: Validate Default Action at Last Row after Disable The Sorting by Status
     Then UI Validate Table record values by columns with elementLabel "Virtual Service.Table" findBy index 6
       | columnName              | value          |
       | Content-Rule or Default | Default Action |
@@ -270,7 +264,7 @@ Feature: DPM Second Drill - Groups and Content Rules Table
 
   #First Click on Current Throughput column
   @SID_14
-  Scenario: TC105753 Validate Sorting by Current Throughput in Ascending Order
+  Scenario: Validate Sorting by Current Throughput in Ascending Order
     When UI Click Button "Sort By" with value "throughput"
     Then UI Validate Table "Virtual Service.Table" is Sorted by
       | columnName      | order     | compareMethod  |
@@ -278,7 +272,7 @@ Feature: DPM Second Drill - Groups and Content Rules Table
 
   #Second Click on Current Throughput column
   @SID_15
-  Scenario: TC105754 Validate Sorting by Current Throughput in Descending Order
+  Scenario: Validate Sorting by Current Throughput in Descending Order
     When UI Click Button "Sort By" with value "throughput"
     Then UI Validate Table "Virtual Service.Table" is Sorted by
       | columnName      | order      | compareMethod  |
@@ -286,7 +280,7 @@ Feature: DPM Second Drill - Groups and Content Rules Table
 
   #Third Click on Current Throughput column
   @SID_16
-  Scenario: TC105755 Validate Sorting by Default after Disable The Sorting by Current Throughput
+  Scenario: Validate Sorting by Default after Disable The Sorting by Current Throughput
     When UI Click Button "Sort By" with value "throughput"
 #Content Rule ID = 1
     Then UI Validate Table record values by columns with elementLabel "Virtual Service.Table" findBy index 0
@@ -320,7 +314,7 @@ Feature: DPM Second Drill - Groups and Content Rules Table
 
   #This Scenario was separated from the previous one because of an open defect on it.
   @SID_17
-  Scenario: TC105756 Validate Default Action at Last Row after Disable The Sorting by Current Throughput
+  Scenario: Validate Default Action at Last Row after Disable The Sorting by Current Throughput
     Then UI Validate Table record values by columns with elementLabel "Virtual Service.Table" findBy index 6
       | columnName              | value          |
       | Content-Rule or Default | Default Action |
@@ -329,7 +323,7 @@ Feature: DPM Second Drill - Groups and Content Rules Table
 
   #First Click on Current Connections column
   @SID_18
-  Scenario: TC105757 Validate Sorting by Current Connections in Ascending Order
+  Scenario: Validate Sorting by Current Connections in Ascending Order
     When UI Click Button "Sort By" with value "cps"
     Then UI Validate Table "Virtual Service.Table" is Sorted by
       | columnName             | order     | compareMethod |
@@ -337,7 +331,7 @@ Feature: DPM Second Drill - Groups and Content Rules Table
 
   #Second Click on Current Connections column
   @SID_19
-  Scenario: TC105758 Validate Sorting by Current Connections in Descending Order
+  Scenario: Validate Sorting by Current Connections in Descending Order
     When UI Click Button "Sort By" with value "cps"
     Then UI Validate Table "Virtual Service.Table" is Sorted by
       | columnName             | order      | compareMethod |
@@ -345,7 +339,7 @@ Feature: DPM Second Drill - Groups and Content Rules Table
 
   #Third Click on Current Connections column
   @SID_20
-  Scenario: TC105759 Validate Sorting by Default after Disable The Sorting by Current Connections
+  Scenario: Validate Sorting by Default after Disable The Sorting by Current Connections
     When UI Click Button "Sort By" with value "cps"
 #Content Rule ID = 1
     Then UI Validate Table record values by columns with elementLabel "Virtual Service.Table" findBy index 0
@@ -379,7 +373,7 @@ Feature: DPM Second Drill - Groups and Content Rules Table
 
   #This Scenario was separated from the previous one because of an open defect on it.
   @SID_21
-  Scenario: TC105760 Validate Default Action at Last Row after Disable The Sorting by Current Connections
+  Scenario: Validate Default Action at Last Row after Disable The Sorting by Current Connections
     Then UI Validate Table record values by columns with elementLabel "Virtual Service.Table" findBy index 6
       | columnName              | value          |
       | Content-Rule or Default | Default Action |
@@ -387,7 +381,7 @@ Feature: DPM Second Drill - Groups and Content Rules Table
 
   #First Click on Concurrent Connections column
   @SID_22
-  Scenario: TC105762 Validate Sorting by Concurrent Connections in Ascending Order
+  Scenario: Validate Sorting by Concurrent Connections in Ascending Order
     When UI Click Button "Sort By" with value "concurrentConnections"
     Then UI Validate Table "Virtual Service.Table" is Sorted by
       | columnName             | order     | compareMethod |
@@ -395,7 +389,7 @@ Feature: DPM Second Drill - Groups and Content Rules Table
 
   #Second Click on Concurrent Connections column
   @SID_23
-  Scenario: TC105763 Validate Sorting by Concurrent Connections in Descending Order
+  Scenario: Validate Sorting by Concurrent Connections in Descending Order
     When UI Click Button "Sort By" with value "concurrentConnections"
     Then UI Validate Table "Virtual Service.Table" is Sorted by
       | columnName             | order      | compareMethod |
@@ -403,7 +397,7 @@ Feature: DPM Second Drill - Groups and Content Rules Table
 
   #Third Click on Concurrent Connections column
   @SID_24
-  Scenario: TC105764 Validate Sorting by Default after Disable The Sorting by Concurrent Connections
+  Scenario: Validate Sorting by Default after Disable The Sorting by Concurrent Connections
     When UI Click Button "Sort By" with value "concurrentConnections"
 #Content Rule ID = 1
     Then UI Validate Table record values by columns with elementLabel "Virtual Service.Table" findBy index 0
@@ -438,7 +432,7 @@ Feature: DPM Second Drill - Groups and Content Rules Table
 
   #This Scenario was separated from the previous one because of an open defect on it.
   @SID_25
-  Scenario: TC105765 Validate Default Action at Last Row after Disable The Sorting by Concurrent Connections
+  Scenario: Validate Default Action at Last Row after Disable The Sorting by Concurrent Connections
     Then UI Validate Table record values by columns with elementLabel "Virtual Service.Table" findBy index 6
       | columnName              | value          |
       | Content-Rule or Default | Default Action |

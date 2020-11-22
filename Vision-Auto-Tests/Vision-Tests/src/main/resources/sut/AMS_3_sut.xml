@@ -41,33 +41,17 @@
                 <class>com.radware.vision.vision_project_cli.VisionSetup</class>
                 <!--<setupMode>Fresh Install| Upgrade</setupMode>-->
                 <setupMode>Upgrade</setupMode>
-                <snapshot>4.20.00-GA</snapshot>
+                <snapshot>Current-2</snapshot>
                 <!--<vmPrefix>This field is relevant for fresh installed VM</vmPrefix>-->
                 <vmPrefix>VisionAuto-VRM-Upgrade</vmPrefix>
             </visionSetup>
         </visionServer>
-        <linuxFileServer>
-            <class>com.radware.automation.tools.cli.LinuxFileServer</class>
-            <host>172.17.164.100</host>
-            <user>root</user>
-            <password>radware</password>
-            <connectOnInit>false</connectOnInit>
-        </linuxFileServer>
         <alteonServer>
             <class>com.radware.automation.tools.cli.AlteonServer</class>
             <host>172.17.164.40</host>
             <user>admin</user>
             <password>admin</password>
         </alteonServer>
-        <mysqlClient>
-            <class>com.radware.vision.vision_project_cli.MysqlClientCli</class>
-            <host>172.17.164.100</host>
-            <user>root</user>
-            <password>radware</password>
-            <userExternalViewer>external</userExternalViewer>
-            <passwordExternalViewer>viewer</passwordExternalViewer>
-            <targetVisionHost/>
-        </mysqlClient>
     </visionCli>
     <visionLab>
         <class>systemobjects.VisionLab</class>
@@ -226,8 +210,8 @@
         </defenseProDevices>
         <defenseProDevices index="20">
             <class>com.radware.vision.automation.tools.sutsystemobjects.devicesinfo.DeviceInfo</class>
-            <deviceName>DefensePro_50.50.7.1</deviceName>
-            <deviceIp>50.50.7.1</deviceIp>
+            <deviceName>DefensePro_50.50.7.7</deviceName>
+            <deviceIp>50.50.7.7</deviceIp>
             <username>radware</username>
             <password>radware</password>
             <readCommunity>public</readCommunity>
@@ -236,8 +220,8 @@
         </defenseProDevices>
         <defenseProDevices index="21">
             <class>com.radware.vision.automation.tools.sutsystemobjects.devicesinfo.DeviceInfo</class>
-            <deviceName>DefensePro_50.50.7.2</deviceName>
-            <deviceIp>50.50.7.2</deviceIp>
+            <deviceName>DefensePro_50.50.7.8</deviceName>
+            <deviceIp>50.50.7.8</deviceIp>
             <username>radware</username>
             <password>radware</password>
             <readCommunity>public</readCommunity>

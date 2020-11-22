@@ -41,34 +41,18 @@
                 <class>com.radware.vision.vision_project_cli.VisionSetup</class>
                 <!--<setupMode>Fresh Install| Upgrade</setupMode>-->
                 <setupMode>Fresh Install_Inparallel</setupMode>
-                <snapshot>4.20-GA</snapshot>
+                <snapshot></snapshot>
                 <!--<vmPrefix>This field is relevant for fresh installed VM</vmPrefix>-->
                 <vmPrefix>freshInstallTest</vmPrefix>
                 <vmPrefix2>freshInstallTest2</vmPrefix2>
             </visionSetup>
         </visionServer>
-        <linuxFileServer>
-            <class>com.radware.automation.tools.cli.LinuxFileServer</class>
-            <host>172.17.164.100</host>
-            <user>root</user>
-            <password>radware</password>
-            <connectOnInit>false</connectOnInit>
-        </linuxFileServer>
         <alteonServer>
             <class>com.radware.automation.tools.cli.AlteonServer</class>
             <host>172.17.164.40</host>
             <user>admin</user>
             <password>admin</password>
         </alteonServer>
-        <mysqlClient>
-            <class>com.radware.vision.vision_project_cli.MysqlClientCli</class>
-            <host>172.17.164.100</host>
-            <user>root</user>
-            <password>radware</password>
-            <userExternalViewer>external</userExternalViewer>
-            <passwordExternalViewer>viewer</passwordExternalViewer>
-            <targetVisionHost/>
-        </mysqlClient>
     </visionCli>
 
     <visionCli2>
@@ -112,34 +96,18 @@
                 <class>com.radware.vision.vision_project_cli.VisionSetup</class>
                 <!--<setupMode>Fresh Install| Upgrade</setupMode>-->
                 <setupMode>Fresh Install</setupMode>
-                <snapshot>4.20-GA</snapshot>
+                <snapshot></snapshot>
                 <!--<vmPrefix>This field is relevant for fresh installed VM</vmPrefix>-->
                 <vmPrefix>freshInstallTest</vmPrefix>
                 <vmPrefix2>freshInstallTest2</vmPrefix2>
             </visionSetup>
         </visionServer>
-        <linuxFileServer>
-            <class>com.radware.automation.tools.cli.LinuxFileServer</class>
-            <host>172.17.164.100</host>
-            <user>root</user>
-            <password>radware</password>
-            <connectOnInit>false</connectOnInit>
-        </linuxFileServer>
         <alteonServer>
             <class>com.radware.automation.tools.cli.AlteonServer</class>
             <host>172.17.164.40</host>
             <user>admin</user>
             <password>admin</password>
         </alteonServer>
-        <mysqlClient>
-            <class>com.radware.vision.vision_project_cli.MysqlClientCli</class>
-            <host>172.17.164.100</host>
-            <user>root</user>
-            <password>radware</password>
-            <userExternalViewer>external</userExternalViewer>
-            <passwordExternalViewer>viewer</passwordExternalViewer>
-            <targetVisionHost/>
-        </mysqlClient>
     </visionCli2>
 
     <visionLab>

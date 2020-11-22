@@ -106,7 +106,7 @@ public class LocalUsers extends WebUITestBase {
     public void verifyUser() {
         try {
             UserEntry expUserEntry = new UserEntry(username, new PermissionEntry(role, scope));
-            if (!LocalUsersHandler.isUserExists(expUserEntry)) {
+            if (!LocalUsersHandler.isUserExists(expUserEntry, null)) {
                 report.report("User: " + username + " with properties: \n" + expUserEntry.toString() + "\n was not found in the current users list: \n" + LocalUsersHandler.usersListAsText(), Reporter.FAIL);
             }
         } catch (Exception e) {

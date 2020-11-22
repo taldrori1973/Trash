@@ -27,7 +27,11 @@ Feature: ADC dashboard Current Totals Widget
     When UI Navigate to "System and Network Dashboard" page via homePage
     Then UI click Table row by keyValue or Index with elementLabel "Devices table" findBy columnName "Device Name" findBy cellValue "Alteon_50.50.101.31"
     Then UI Click Button "NetworkTab"
-    * Sleep "3"
+    * Sleep "180"
+    When Browser Refresh Page
+    When UI Navigate to "System and Network Dashboard" page via homePage
+    Then UI click Table row by keyValue or Index with elementLabel "Devices table" findBy columnName "Device Name" findBy cellValue "Alteon_50.50.101.31"
+    Then UI Click Button "NetworkTab"
 
   @SID_4
   Scenario: Validation: data correctness and exact 1 Kbps presentation
@@ -51,11 +55,11 @@ Feature: ADC dashboard Current Totals Widget
 
   @SID_8
   Scenario: Validation: data correctness and exact 1 Gbps presentation
-    When UI Navigate to "HOME" page via homePage
+    When UI Navigate to "VISION SETTINGS" page via homePage
     Then UI logout and close browser
     Then UI Login with user "sys_admin" and password "radware"
     When UI Navigate to "Application Dashboard" page via homePage
-    When UI Navigate to "HOME" page via homePage
+    When UI Navigate to "VISION SETTINGS" page via homePage
     When UI Navigate to "System and Network Dashboard" page via homePage
     Then UI click Table row by keyValue or Index with elementLabel "Devices table" findBy columnName "Device Name" findBy cellValue "Alteon_50.50.101.32"
     Then UI Click Button "NetworkTab"
@@ -76,7 +80,5 @@ Feature: ADC dashboard Current Totals Widget
   @SID_11
   Scenario: CleanUp
     Then REST Delete Device By IP "50.50.101.31"
-    Then REST Delete "Alteon" device with index 21 from topology tree
-    Then REST Delete "Alteon" device with index 22 from topology tree
     Then REST Delete Device By IP "50.50.101.32"
     Then UI logout and close browser

@@ -72,6 +72,7 @@ Feature: System And Network - Device List
 
   @SID_7
   Scenario: Navigation
+    Then UI Navigate to "Application Dashboard" page via homePage
     Then UI Open Upper Bar Item "ADC"
     Then UI Open "Dashboards" Tab
     And UI Open "Network and System Dashboard" Sub Tab
@@ -92,7 +93,7 @@ Feature: System And Network - Device List
   Scenario: Validate Table Content
     #Management IP= 50.50.101.30
 
-    Then UI Validate "Device List.Table" Table rows count equal to 12 with offset 0
+    Then UI Validate "Device List.Table" Table rows count EQUALS to 12 with offset 0
 
       #ToDo check color
     Then UI Validate Table record values by columns with elementLabel "Device List.Table" findBy columnName "Management IP" findBy cellValue "50.50.101.30"
@@ -344,25 +345,25 @@ Feature: System And Network - Device List
       | Management IP | 172.17.154.190 |
       | Management IP | 50.50.101.32   |
       | Management IP | 50.50.101.31   |
-    Then UI Validate "Device List.Table" Table rows count equal to 5 with offset 0
+    Then UI Validate "Device List.Table" Table rows count EQUALS to 5 with offset 0
 
     Then UI Validate search in table "Devices table" in searchLabel "searchLabel" with text "ac ACT"
       | columnName    | Value          |
       | Management IP | 172.17.154.200 |
       | Management IP | 172.17.154.190 |
       | Management IP | 50.50.101.32   |
-    Then UI Validate "Device List.Table" Table rows count equal to 3 with offset 0
+    Then UI Validate "Device List.Table" Table rows count EQUALS to 3 with offset 0
 
     Then UI Validate search in table "Devices table" in searchLabel "searchLabel" with text "ac ACT ST"
       | columnName    | Value          |
       | Management IP | 172.17.154.200 |
       | Management IP | 172.17.154.190 |
-    Then UI Validate "Device List.Table" Table rows count equal to 2 with offset 0
+    Then UI Validate "Device List.Table" Table rows count EQUALS to 2 with offset 0
 
     Then UI Validate search in table "Devices table" in searchLabel "searchLabel" with text "ac ACT ST 19"
       | columnName    | Value          |
       | Management IP | 172.17.154.190 |
-    Then UI Validate "Device List.Table" Table rows count equal to 1 with offset 0
+    Then UI Validate "Device List.Table" Table rows count EQUALS to 1 with offset 0
 
 
   @SID_27

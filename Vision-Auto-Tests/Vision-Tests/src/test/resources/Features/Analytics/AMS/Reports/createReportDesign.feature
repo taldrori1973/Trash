@@ -5,14 +5,14 @@ Feature: Design Report Wizard
 
   @SID_1
   Scenario: VRM Reports Cleanup
-    Then CLI Operations - Run Root Session command "yes|restore_radware_user_password" timeout 15
+    Given CLI Reset radware password
     * REST Delete ES index "vrm-scheduled-report-*"
 
 
   @SID_2
   Scenario: Login and navigate to the Reports WizardRamat HaHayal, Tel Aviv-Yafo
-    Given UI Login with user "sys_admin" and password "radware"
     * REST Vision Install License Request "vision-AVA-Max-attack-capacity"
+    Given UI Login with user "sys_admin" and password "radware"
     And UI Navigate to "AMS Reports" page via homePage
     Then UI Validate Element Existence By Label "Add New" if Exists "true"
 

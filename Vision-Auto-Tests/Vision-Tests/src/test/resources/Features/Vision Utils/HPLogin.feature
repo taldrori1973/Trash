@@ -29,9 +29,7 @@ Feature: HPLogin
 
   @SID_5
   Scenario: Legal username and password with Enter
-    When UI Set Text Field "usernameInput" To "sys_admin" enter Key false
-    When UI Set Text Field "passwordInput" To "radware" enter Key true
-    Then UI Validate Text field "logedInUsername" EQUALS "sys_admin"
+    When UI Login with user "sys_admin" and password "radware"
     When UI Logout
 
   @SID_6
@@ -48,14 +46,16 @@ Feature: HPLogin
   Scenario: specific characters
 
   Scenario: login without activate license
-    * REST Vision DELETE License Request "vision-activation"
+    When UI Login with user "sys_admin" and password "radware"
     When UI Logout
+    * REST Vision DELETE License Request "vision-activation"
+    * REST Vision DELETE License Request "vision-demo"
     When UI Set Text Field "usernameInput" To "sys_admin" enter Key false
     When UI Set Text Field "passwordInput" To "radware" enter Key false
+    When UI Click Button "loginButton"
     Then UI Text of "cardHeader" with extension "" contains "The installation does not have an activation license. Please provide it."
     * REST Vision Install License Request "vision-activation"
-    When UI Click Button "loginButton"
-    Then UI Validate Text field "logedInUsername" EQUALS "sys_admin"
+    When UI Login with user "sys_admin" and password "radware" negative
 
   Scenario: logout
     * REST Vision Install License Request "vision-activation"

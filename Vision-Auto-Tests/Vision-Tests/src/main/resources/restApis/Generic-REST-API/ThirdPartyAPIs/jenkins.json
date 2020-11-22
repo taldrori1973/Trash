@@ -1,0 +1,10 @@
+{
+  "jenkinsProduction": {
+    "connectionProtocol": "http",
+    "connectionHost": "cmjen04.il.corp.radware.com",
+    "connectionPort": 8081,
+    "userName": null,
+    "password": null
+  }
+}
+

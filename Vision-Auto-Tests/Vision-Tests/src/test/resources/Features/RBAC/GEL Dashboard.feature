@@ -3,6 +3,7 @@ Feature: GEL Dashboard RBAC
 
   @SID_1
   Scenario: login as radware and configure TACACS server parameters
+    Given CLI Reset radware password
     Given UI Login with user "radware" and password "radware"
     Then UI Go To Vision
     Then UI Navigate to page "System->General Settings->Authentication Protocols->TACACS+ Settings"

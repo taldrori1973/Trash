@@ -17,11 +17,7 @@ Feature:Network Dashboard - Alteon Image Type
     Then REST Login with user "sys_admin" and password "radware"
     Then REST Vision Install License Request "vision-reporting-module-ADC"
     When UI Login with user "sys_admin" and password "radware"
-    Then UI Open Upper Bar Item "ADC"
-    Then UI Open "Dashboards" Tab
-    Then UI Open "Reports" Tab
-    Then UI Open "Dashboards" Tab
-    Then UI Open "Network and System Dashboard" Sub Tab
+    When UI Navigate to "System and Network Dashboard" page via homePage
     Then UI click Table row by keyValue or Index with elementLabel "Devices table" findBy columnName "Device Name" findBy cellValue "Alteon_50.50.101.22"
     Then UI Click Button "NetworkTab"
 
@@ -60,11 +56,7 @@ Feature:Network Dashboard - Alteon Image Type
   @SID_7
   Scenario: Login to VRM and enter ADC devices dashboard
     When UI Login with user "sys_admin" and password "radware"
-    Then UI Open Upper Bar Item "ADC"
-    Then UI Open "Dashboards" Tab
-    Then UI Open "Reports" Tab
-    Then UI Open "Dashboards" Tab
-    Then UI Open "Network and System Dashboard" Sub Tab
+    When UI Navigate to "System and Network Dashboard" page via homePage
     Then UI click Table row by keyValue or Index with elementLabel "Devices table" findBy columnName "Device Name" findBy cellValue "Alteon_50.50.101.22"
     Then UI Click Button "NetworkTab"
 
@@ -121,11 +113,7 @@ Feature:Network Dashboard - Alteon Image Type
   @SID_12
   Scenario: Login to VRM and enter ADC devices dashboard
     When UI Login with user "sys_admin" and password "radware"
-    Then UI Open Upper Bar Item "ADC"
-    Then UI Open "Dashboards" Tab
-    Then UI Open "Reports" Tab
-    Then UI Open "Dashboards" Tab
-    Then UI Open "Network and System Dashboard" Sub Tab
+    When UI Navigate to "System and Network Dashboard" page via homePage
     Then UI click Table row by keyValue or Index with elementLabel "Devices table" findBy columnName "Device Name" findBy cellValue "Alteon_50.50.101.22"
     Then UI Click Button "NetworkTab"
 
@@ -162,11 +150,7 @@ Feature:Network Dashboard - Alteon Image Type
   @SID_17
   Scenario: Login to VRM and enter ADC devices dashboard
     When UI Login with user "sys_admin" and password "radware"
-    Then UI Open Upper Bar Item "ADC"
-    Then UI Open "Dashboards" Tab
-    Then UI Open "Reports" Tab
-    Then UI Open "Dashboards" Tab
-    Then UI Open "Network and System Dashboard" Sub Tab
+    When UI Navigate to "System and Network Dashboard" page via homePage
     Then UI click Table row by keyValue or Index with elementLabel "Devices table" findBy columnName "Device Name" findBy cellValue "Alteon_50.50.101.22"
     Then UI Click Button "NetworkTab"
 
@@ -205,11 +189,7 @@ Feature:Network Dashboard - Alteon Image Type
   @SID_22
   Scenario: Login to VRM and enter ADC devices dashboard
     When UI Login with user "sys_admin" and password "radware"
-    Then UI Open Upper Bar Item "ADC"
-    Then UI Open "Dashboards" Tab
-    Then UI Open "Reports" Tab
-    Then UI Open "Dashboards" Tab
-    Then UI Open "Network and System Dashboard" Sub Tab
+    When UI Navigate to "System and Network Dashboard" page via homePage
     Then UI click Table row by keyValue or Index with elementLabel "Devices table" findBy columnName "Device Name" findBy cellValue "Alteon_50.50.101.22"
     Then UI Click Button "NetworkTab"
 
@@ -260,11 +240,7 @@ Feature:Network Dashboard - Alteon Image Type
   @SID_27
   Scenario: Login to VRM and enter ADC devices dashboard
     When UI Login with user "sys_admin" and password "radware"
-    Then UI Open Upper Bar Item "ADC"
-    Then UI Open "Dashboards" Tab
-    Then UI Open "Reports" Tab
-    Then UI Open "Dashboards" Tab
-    Then UI Open "Network and System Dashboard" Sub Tab
+    When UI Navigate to "System and Network Dashboard" page via homePage
     Then UI click Table row by keyValue or Index with elementLabel "Devices table" findBy columnName "Device Name" findBy cellValue "Alteon_50.50.101.22"
     Then UI Click Button "NetworkTab"
 
@@ -317,11 +293,7 @@ Feature:Network Dashboard - Alteon Image Type
   @SID_32
   Scenario: Login to VRM and enter ADC devices dashboard
     When UI Login with user "sys_admin" and password "radware"
-    Then UI Open Upper Bar Item "ADC"
-    Then UI Open "Dashboards" Tab
-    Then UI Open "Reports" Tab
-    Then UI Open "Dashboards" Tab
-    Then UI Open "Network and System Dashboard" Sub Tab
+    When UI Navigate to "System and Network Dashboard" page via homePage
     Then UI click Table row by keyValue or Index with elementLabel "Devices table" findBy columnName "Device Name" findBy cellValue "Alteon_50.50.101.22"
     Then UI Click Button "NetworkTab"
 
@@ -360,11 +332,7 @@ Feature:Network Dashboard - Alteon Image Type
   @SID_37
   Scenario: Login to VRM and enter ADC devices dashboard
     When UI Login with user "sys_admin" and password "radware"
-    Then UI Open Upper Bar Item "ADC"
-    Then UI Open "Dashboards" Tab
-    Then UI Open "Reports" Tab
-    Then UI Open "Dashboards" Tab
-    Then UI Open "Network and System Dashboard" Sub Tab
+    When UI Navigate to "System and Network Dashboard" page via homePage
     Then UI click Table row by keyValue or Index with elementLabel "Devices table" findBy columnName "Device Name" findBy cellValue "Alteon_50.50.101.22"
     Then UI Click Button "NetworkTab"
 
@@ -411,11 +379,7 @@ Feature:Network Dashboard - Alteon Image Type
   @SID_42
   Scenario: Login to VRM and enter ADC devices dashboard
     When UI Login with user "sys_admin" and password "radware"
-    Then UI Open Upper Bar Item "ADC"
-    Then UI Open "Dashboards" Tab
-    Then UI Open "Reports" Tab
-    Then UI Open "Dashboards" Tab
-    Then UI Open "Network and System Dashboard" Sub Tab
+    When UI Navigate to "System and Network Dashboard" page via homePage
     Then UI click Table row by keyValue or Index with elementLabel "Devices table" findBy columnName "Device Name" findBy cellValue "Alteon_50.50.101.22"
     Then UI Click Button "NetworkTab"
 
@@ -468,11 +432,7 @@ Feature:Network Dashboard - Alteon Image Type
   @SID_47
   Scenario: Login to VRM and enter ADC devices dashboard
     When UI Login with user "sys_admin" and password "radware"
-    Then UI Open Upper Bar Item "ADC"
-    Then UI Open "Dashboards" Tab
-    Then UI Open "Reports" Tab
-    Then UI Open "Dashboards" Tab
-    Then UI Open "Network and System Dashboard" Sub Tab
+    When UI Navigate to "System and Network Dashboard" page via homePage
     Then UI click Table row by keyValue or Index with elementLabel "Devices table" findBy columnName "Device Name" findBy cellValue "Alteon_50.50.101.22"
     Then UI Click Button "NetworkTab"
 
@@ -525,11 +485,7 @@ Feature:Network Dashboard - Alteon Image Type
   @SID_52
   Scenario: Login to VRM and enter ADC devices dashboard
     When UI Login with user "sys_admin" and password "radware"
-    Then UI Open Upper Bar Item "ADC"
-    Then UI Open "Dashboards" Tab
-    Then UI Open "Reports" Tab
-    Then UI Open "Dashboards" Tab
-    Then UI Open "Network and System Dashboard" Sub Tab
+    When UI Navigate to "System and Network Dashboard" page via homePage
     Then UI click Table row by keyValue or Index with elementLabel "Devices table" findBy columnName "Device Name" findBy cellValue "Alteon_50.50.101.22"
     Then UI Click Button "NetworkTab"
 
@@ -584,11 +540,7 @@ Feature:Network Dashboard - Alteon Image Type
   @SID_57
   Scenario: Login to VRM and enter ADC devices dashboard
     When UI Login with user "sys_admin" and password "radware"
-    Then UI Open Upper Bar Item "ADC"
-    Then UI Open "Dashboards" Tab
-    Then UI Open "Reports" Tab
-    Then UI Open "Dashboards" Tab
-    Then UI Open "Network and System Dashboard" Sub Tab
+    When UI Navigate to "System and Network Dashboard" page via homePage
     Then UI click Table row by keyValue or Index with elementLabel "Devices table" findBy columnName "Device Name" findBy cellValue "Alteon_50.50.101.22"
     Then UI Click Button "NetworkTab"
 
@@ -633,11 +585,7 @@ Feature:Network Dashboard - Alteon Image Type
   @SID_62
   Scenario: Login to VRM and enter ADC devices dashboard
     When UI Login with user "sys_admin" and password "radware"
-    Then UI Open Upper Bar Item "ADC"
-    Then UI Open "Dashboards" Tab
-    Then UI Open "Reports" Tab
-    Then UI Open "Dashboards" Tab
-    Then UI Open "Network and System Dashboard" Sub Tab
+    When UI Navigate to "System and Network Dashboard" page via homePage
     Then UI click Table row by keyValue or Index with elementLabel "Devices table" findBy columnName "Device Name" findBy cellValue "Alteon_50.50.101.22"
     Then UI Click Button "NetworkTab"
 
@@ -694,11 +642,7 @@ Feature:Network Dashboard - Alteon Image Type
   @SID_67
   Scenario: Login to VRM and enter ADC devices dashboard
     When UI Login with user "sys_admin" and password "radware"
-    Then UI Open Upper Bar Item "ADC"
-    Then UI Open "Dashboards" Tab
-    Then UI Open "Reports" Tab
-    Then UI Open "Dashboards" Tab
-    Then UI Open "Network and System Dashboard" Sub Tab
+    When UI Navigate to "System and Network Dashboard" page via homePage
     Then UI click Table row by keyValue or Index with elementLabel "Devices table" findBy columnName "Device Name" findBy cellValue "Alteon_50.50.101.22"
     Then UI Click Button "NetworkTab"
 

@@ -3,7 +3,10 @@ package com.radware.vision.infra.testhandlers.baseoperations;
 import com.radware.automation.react.widgets.impl.enums.TableSortingCriteria;
 import com.radware.automation.react.widgets.impl.gridTable.ReactGridTable;
 import com.radware.automation.react.widgets.impl.gridTable.ReactGridTableControlItems;
-import com.radware.automation.react.widgets.impl.listTable.*;
+import com.radware.automation.react.widgets.impl.listTable.ListTable;
+import com.radware.automation.react.widgets.impl.listTable.ReactListTable;
+import com.radware.automation.react.widgets.impl.listTable.SimpleTable;
+import com.radware.automation.react.widgets.impl.listTable.TrafficLogTable;
 import com.radware.automation.react.widgets.impl.table.SortTable;
 import com.radware.automation.tools.basetest.BaseTestUtils;
 import com.radware.automation.tools.basetest.Reporter;
@@ -14,26 +17,37 @@ import com.radware.automation.webui.widgets.ComponentLocatorFactory;
 import com.radware.automation.webui.widgets.api.table.AbstractColumn;
 import com.radware.automation.webui.widgets.api.table.AbstractTable;
 import com.radware.automation.webui.widgets.impl.table.BasicTable;
+import com.radware.automation.webui.widgets.impl.table.BasicTableWithPagination;
 import com.radware.automation.webui.widgets.impl.table.WebUITable;
+import com.radware.vision.automation.AutoUtils.Operators.OperatorsEnum;
 import com.radware.vision.infra.testhandlers.baseoperations.sortingFolder.SortableColumn;
 import com.radware.vision.infra.testhandlers.baseoperations.sortingFolder.SortingDataSet;
 import com.radware.vision.infra.testhandlers.baseoperations.sortingFolder.TableSortingHandler;
 import com.radware.vision.infra.utils.ReportsUtils;
+import org.openqa.selenium.StaleElementReferenceException;
+import org.openqa.selenium.WebDriverException;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.interactions.Actions;
+import org.openqa.selenium.interactions.Locatable;
+import org.openqa.selenium.interactions.internal.Coordinates;
 import org.openqa.selenium.support.How;
+import org.openqa.selenium.support.ui.FluentWait;
+import org.openqa.selenium.support.ui.Wait;
 
+import java.time.Duration;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
 import static com.radware.automation.webui.UIUtils.sleep;
+import static com.radware.vision.automation.AutoUtils.Operators.Comparator.compareResults;
 import static com.radware.vision.infra.testhandlers.baseoperations.BasicOperationsHandler.setTextField;
 import static com.radware.vision.infra.utils.ReportsUtils.addErrorMessage;
 
 public class TableHandler {
     AbstractTable table;
-    String REACT_TABLE_OLD = "list-wrapper";
+    //    String REACT_TABLE_OLD = "list-wrapper";
     String REACT_GRID = "genericTableWrapper";
     String Simple_Table = "groups-and-content-rule-expand-row-legends";
     public final String BASIC_TABLE = "vrm-generic-table";
@@ -80,7 +94,7 @@ public class TableHandler {
     }
 
 
-    public void validateTableRowsCount(String elementLabel, int count, Integer offset) {
+    public void validateTableRowsCount(String elementLabel, int count, OperatorsEnum operatorsEnum, Integer offset) {
         try {
             int actualRowsCount;
             if (!isReactTable(elementLabel)) {
@@ -90,10 +104,7 @@ public class TableHandler {
                 actualRowsCount = getReactGridRowCount();
             }
             boolean isValid;
-            if (offset == null || offset == 0)
-                isValid = actualRowsCount == count;
-            else
-                isValid = (count >= (actualRowsCount - offset) && count <= (actualRowsCount + offset));
+            isValid = compareResults(String.valueOf(count), String.valueOf(actualRowsCount), operatorsEnum, offset);
             if (isValid) {
                 BaseTestUtils.report("Table Rows count = " + count, Reporter.PASS);
             } else {
@@ -124,12 +135,9 @@ public class TableHandler {
         VisionDebugIdsManager.setParams("");
         WebElement tableElement = WebUIUtils.fluentWait(ComponentLocatorFactory.getLocatorByDbgId(VisionDebugIdsManager.getDataDebugId()).getBy(), WebUIUtils.DEFAULT_WAIT_TIME);
         if (tableElement != null) {
-            if (tableElement.getAttribute("class").contains(REACT_GRID)) {
-                return true;
-            }
+            return tableElement.getAttribute("class").contains(REACT_GRID);
         } else
             return VisionDebugIdsManager.getDataDebugId().contains(REACT_GRID);
-        return false;
     }
 
     public void setTable(String label, boolean withReadAllTable) throws Exception {
@@ -142,6 +150,7 @@ public class TableHandler {
         String tableSelector = VisionDebugIdsManager.getDataDebugId();
         ComponentLocator tableLocator = ComponentLocatorFactory.getEqualLocatorByDbgId(tableSelector);
         WebElement tableElement = WebUIUtils.fluentWait(tableLocator.getBy(), WebUIUtils.NAVIGATION_TREE_WAIT_TIME, false);
+        WebUIUtils.scrollIntoView(tableElement,true);
         try {
             constructTable(tableSelector, tableLocator, tableElement, withReadAllTable);
         } catch (Exception e) {
@@ -155,8 +164,10 @@ public class TableHandler {
     private void constructTable(String tableSelector, ComponentLocator tableLocator, WebElement tableElement, boolean withReadAllTable) throws Exception {
         if (tableElement != null) {
             String classValue = WebUIUtils.fluentWaitAttribute(tableLocator.getBy(), WebUIUtils.MAX_RENDER_WAIT_TIME, true, "class", null);
-            if (classValue.contains(BASIC_TABLE) || tableSelector.contains("instances-table"))
+            if (classValue.contains(BASIC_TABLE) || tableSelector.contains("instances-table") || tableSelector.contains("table_sample-data-table"))
                 table = new BasicTable(tableLocator, withReadAllTable);
+            else if (tableSelector.contains("table_attacksTable"))
+                table = new BasicTableWithPagination(tableLocator, withReadAllTable);
             else if (tableSelector.contains(REACT_GRID) || classValue.contains(REACT_GRID))
                 table = new ReactGridTable(tableLocator, withReadAllTable);
             else if (tableSelector.equals("default-eventtable"))
@@ -221,7 +232,7 @@ public class TableHandler {
     }
 
     public void validateTableRowByKeyValue(String label, String columnName, String value) throws Exception {
-        setTable(label, true);
+        setTable(label, false);
         int rowIndexFound = -1;
         if (columnName != null && value != null) {
             rowIndexFound = table.getRowIndex(columnName, value);
@@ -229,13 +240,13 @@ public class TableHandler {
             ReportsUtils.reportAndTakeScreenShot("Failed due to an incorrect input data: columnName is " + columnName + " value is " + value, Reporter.FAIL);
         }
         if (rowIndexFound >= 0) {
-            BaseTestUtils.report("Specified value was Found in the Table: row index found in is " + String.valueOf(rowIndexFound), Reporter.PASS);
+            BaseTestUtils.report("Specified value was Found in the Table: row index found in is " + rowIndexFound, Reporter.PASS);
         } else {
             ReportsUtils.reportAndTakeScreenShot("Specified value was NOT found in the Table: columnName = " + columnName + " value = " + value, Reporter.FAIL);
         }
     }
 
-    public void validateValueExistenceAtTableByColumn(String label, String columnName, String value, boolean expectedExistance) throws Exception {
+    public void validateValueExistenceAtTableByColumn(String label, String columnName, String value, boolean expectedExistence) throws Exception {
         setTable(label, true);
         int rowIndexFound = -1;
         if (columnName != null && value != null) {
@@ -243,10 +254,10 @@ public class TableHandler {
         } else {
             ReportsUtils.reportAndTakeScreenShot("Failed due to an incorrect input data: columnName is " + columnName + " value is " + value, Reporter.FAIL);
         }
-        if (rowIndexFound >= 0 && expectedExistance || rowIndexFound < 0 && !expectedExistance) {
-            BaseTestUtils.report("Specified value Existence Verified in the Table: row index is " + String.valueOf(rowIndexFound), Reporter.PASS);
+        if (rowIndexFound >= 0 && expectedExistence || rowIndexFound < 0 && !expectedExistence) {
+            BaseTestUtils.report("Specified value Existence Verified in the Table: row index is " + rowIndexFound, Reporter.PASS);
         } else {
-            ReportsUtils.reportAndTakeScreenShot("Specified value Existence Not Verified in the Table: columnName = " + columnName + " value = " + value + " ,Expected: " + expectedExistance, Reporter.FAIL);
+            ReportsUtils.reportAndTakeScreenShot("Specified value Existence Not Verified in the Table: columnName = " + columnName + " value = " + value + " ,Expected: " + expectedExistence, Reporter.FAIL);
         }
     }
 
@@ -270,14 +281,14 @@ public class TableHandler {
     }
 
     public void uiValidateTableIsSorted(String tableLabel, List<SortingDataSet> cells) throws Exception {
-        setTable(tableLabel, true);
+        setTable(tableLabel, false);
         if (table == null) ReportsUtils.reportAndTakeScreenShot("failed to construct table", Reporter.FAIL);
         int listsSize = cells.size();
         if (listsSize == 0)
             ReportsUtils.reportAndTakeScreenShot("the number of sortingColumns is 0", Reporter.FAIL);
         List<SortableColumn> sortableColumns = new ArrayList<>();
         for (SortingDataSet sortingDataSet : cells) {
-            List<String> columnData = table.getColumn(sortingDataSet.getColumnName()).columnValues;
+            List<String> columnData = table.getColumnData(sortingDataSet.getColumnName());
             sortableColumns.add(new SortableColumn(columnData, sortingDataSet));
         }
         TableSortingHandler tableSortingHandler = new TableSortingHandler(sortableColumns);
@@ -309,14 +320,14 @@ public class TableHandler {
     public void uiValidateRowsIsBetweenDates(String tableName, String first, String second) throws Exception {
         setTable(tableName, true);
         DateTimeFormatter inputFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'");
-        LocalDateTime from = LocalDateTime.parse((CharSequence) first, inputFormatter);
-        LocalDateTime to = LocalDateTime.parse((CharSequence) second, inputFormatter);
+        LocalDateTime from = LocalDateTime.parse(first, inputFormatter);
+        LocalDateTime to = LocalDateTime.parse(second, inputFormatter);
         LocalDateTime fromGMT = from.plusHours(2);
         LocalDateTime toGMT = to.plusHours(2);
         AbstractColumn startTimeColumn = table.getColumn("Start Time");
         DateTimeFormatter inputFormatter2 = DateTimeFormatter.ofPattern("dd.MM.yyyy HH:mm:ss");
         for (String rowdate : startTimeColumn.columnValues) {
-            LocalDateTime rowdateTime = LocalDateTime.parse((CharSequence) rowdate, inputFormatter2);
+            LocalDateTime rowdateTime = LocalDateTime.parse(rowdate, inputFormatter2);
             if (!rowdateTime.isBefore(toGMT))
                 BaseTestUtils.report("The row is after the end time", Reporter.FAIL);
             if (!rowdateTime.isAfter(fromGMT))
@@ -324,6 +335,40 @@ public class TableHandler {
 
         }
     }
+
+    public boolean fluentWaitTableByRowsNumber(String label, String extension, OperatorsEnum operatorsEnum, int rowsNumber) throws Exception {
+
+        setTable(label, extension, false);
+
+        Wait<AbstractTable> wait = new FluentWait<>(table).
+                withTimeout(Duration.ofMillis(5 * WebUIUtils.DEFAULT_WAIT_TIME)).
+                pollingEvery(Duration.ofMillis(10)).
+                ignoring(StaleElementReferenceException.class, WebDriverException.class);
+
+        return wait.until(table -> {
+            try {
+                setTable(label, extension, false);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            int rowCount = table.getRowCount();
+            switch (operatorsEnum) {
+                case LTE:
+                    return rowCount <= rowsNumber;
+                case GTE:
+                    return rowCount >= rowsNumber;
+                case LT:
+                    return rowCount < rowsNumber;
+                case GT:
+                    return rowCount > rowsNumber;
+                case EQUALS:
+                    return rowCount == rowsNumber;
+            }
+            return false;
+
+        });
+    }
+
 
     static public class TableValues {
         public String columnName;

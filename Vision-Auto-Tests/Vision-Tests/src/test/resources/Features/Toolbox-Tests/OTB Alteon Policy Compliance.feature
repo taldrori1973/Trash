@@ -24,6 +24,7 @@ Feature: OTB Alteon Policy Compliance
   @SID_4
   Scenario: Run ADC Policy Compliance OTB
     Then UI ToolboxTest - Run With Params by actionName "ALTEON_CHECK_POLICY_COMPLIANCE" with actionParentGroupName "MONITORING"
+    Then Sleep "15"
     Then UI Click Web element with id "gwt-debug-deviceListFgId_Tab"
     Then UI ToolboxTest - Move Toolbox DualList Items to Side "LEFT" with dualListItems "Alteon_172.17.164.17" with dualListItems "gwt-debug-#device#alteons"
 #    Then UI Click Button by id "gwt-debug-parametersFieldGroup_Tab"

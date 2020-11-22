@@ -34,9 +34,9 @@ Feature: LLS_GEL_freshInstall
 
   @SID_6
   Scenario: Validate LLS version
-    Then CLI Run linux Command "cat /opt/radware/storage/llsinstall/license-server-*/version.txt" on "ROOT_SERVER_CLI" and validate result EQUALS "2.2.0-6"
+    Then CLI Run linux Command "cat /opt/radware/storage/llsinstall/license-server-*/version.txt" on "ROOT_SERVER_CLI" and validate result EQUALS "2.4.0-2"
     When CLI Operations - Run Radware Session command "system lls version"
-    Then CLI Operations - Verify that output contains regex ".*2.2.0-6*"
+    Then CLI Operations - Verify that output contains regex ".*2.4.0-2*"
 
   @SID_7
   Scenario: verify lls disable
@@ -124,7 +124,7 @@ Feature: LLS_GEL_freshInstall
     Then REST Login with activation with user "radware" and password "radware"
     Then REST Add "Alteon" Device To topology Tree with Name "172.17.141.17" and Management IP "172.17.141.17" into site "Default"
       | attribute | value |
-    Then REST Add "Alteon" Device To topology Tree with Name "172.17.141.18" and Management IP "172.17.141.18" into site "Default"
+    Then REST Add "Alteon" Device To topology Tree with Name "172.17.164.18" and Management IP "172.17.164.18" into site "Default"
       | attribute | value |
 
   @SID_17
@@ -161,7 +161,6 @@ Feature: LLS_GEL_freshInstall
   @SID_30
   Scenario: Login and navigate to GEL Dashboard
     Given UI Login with user "radware" and password "radware"
-    When UI Open Upper Bar Item "GEL Dashboard"
     And UI Navigate to "GEL Dashboard" page via homePage
 
   @SID_31
@@ -169,7 +168,7 @@ Feature: LLS_GEL_freshInstall
     When UI Click Button "Activate License"
     Then UI Set Text Field "Activation ID" To "653b-fc33-8c2b-4b36-8190-0cd8-e4a1-8a16"
     Then UI Click Button "Activate button"
-    Then Sleep "5"
+    Then Sleep "10"
     Then UI Validate Element Existence By Label "Entitlement Card" if Exists "true"
 
   @SID_32
@@ -177,7 +176,7 @@ Feature: LLS_GEL_freshInstall
     Then UI Click Button "Entitlement Card"
     Then UI Click Button "Allocate"
     Then UI Click Button "Instance Select"
-    Then UI Click Button "Instance" with value "172.17.141.18_/_172.17.141.18"
+    Then UI Click Button "Instance" with value "172.17.164.18_/_172.17.164.18"
     Then UI Click Button "Select Throughput"
     Then UI Click Button "Throughput" with value "25_Mbps"
     Then UI Click Button "addon"
@@ -198,9 +197,9 @@ Feature: LLS_GEL_freshInstall
   @SID_34
   Scenario: validate instance added to table
 #    Then UI Click Button "Entitlement Card"
-    Then UI validate Table row by keyValue with elementLabel "instances table" findBy columnName "Instance Name" findBy cellValue "172.17.141.18"
+    Then UI validate Table row by keyValue with elementLabel "instances table" findBy columnName "Instance Name" findBy cellValue "172.17.164.18"
     Then UI validate Table row by keyValue with elementLabel "instances table" findBy columnName "Instance Name" findBy cellValue "172.17.141.17"
-    Then UI Validate "instances table" Table rows count equal to 2
+    Then UI Validate "instances table" Table rows count EQUALS to 2
 
   @SID_35
   Scenario: validate entitlement license card updated
@@ -212,10 +211,10 @@ Feature: LLS_GEL_freshInstall
   @SID_36
   Scenario: Deallocate instance, and validate instances table is updated
     Then UI Click Button "Entitlement Card"
-    Then UI click Table row by keyValue or Index with elementLabel "instances table" findBy columnName "Instance Name" findBy cellValue "172.17.141.18"
+    Then UI click Table row by keyValue or Index with elementLabel "instances table" findBy columnName "Instance Name" findBy cellValue "172.17.164.18"
     Then UI Click Button "deallocate"
     Then UI Click Button "Activate button"
-    Then UI Validate "instances table" Table rows count equal to 1
+    Then UI Validate "instances table" Table rows count EQUALS to 1
     Then UI validate Table row by keyValue with elementLabel "instances table" findBy columnName "Instance Name" findBy cellValue "172.17.141.17"
 
   @SID_37
@@ -223,7 +222,7 @@ Feature: LLS_GEL_freshInstall
     Then UI Click Button "Entitlement Card"
     Then UI Click Button "Allocate"
     Then UI Click Button "Instance Select"
-    Then UI Click Button "Instance" with value "172.17.141.18_/_172.17.141.18"
+    Then UI Click Button "Instance" with value "172.17.164.18_/_172.17.164.18"
     Then UI Click Button "Select Throughput"
     Then UI Click Button "Throughput" with value "25_Mbps"
     Then UI Click Button "addon"
@@ -232,16 +231,16 @@ Feature: LLS_GEL_freshInstall
   @SID_38
   Scenario: validate instance added to table
 #    Then UI Click Button "Entitlement Card"
-    Then UI validate Table row by keyValue with elementLabel "instances table" findBy columnName "Instance Name" findBy cellValue "172.17.141.18"
-    Then UI Validate "instances table" Table rows count equal to 2
+    Then UI validate Table row by keyValue with elementLabel "instances table" findBy columnName "Instance Name" findBy cellValue "172.17.164.18"
+    Then UI Validate "instances table" Table rows count EQUALS to 2
 
   @SID_39
   Scenario: Deallocate instance, and validate instances table is updated
     Then UI Click Button "Entitlement Card"
-    Then UI click Table row by keyValue or Index with elementLabel "instances table" findBy columnName "Instance Name" findBy cellValue "172.17.141.18"
+    Then UI click Table row by keyValue or Index with elementLabel "instances table" findBy columnName "Instance Name" findBy cellValue "172.17.164.18"
     Then UI Click Button "deallocate"
     Then UI Click Button "Activate button"
-    Then UI Validate "instances table" Table rows count equal to 1
+    Then UI Validate "instances table" Table rows count EQUALS to 1
 
   @SID_40
   Scenario: Deallocate instance, and validate instances table is updated
@@ -249,7 +248,7 @@ Feature: LLS_GEL_freshInstall
     Then UI click Table row by keyValue or Index with elementLabel "instances table" findBy columnName "Instance Name" findBy cellValue "172.17.141.17"
     Then UI Click Button "deallocate"
     Then UI Click Button "Activate button"
-    Then UI Validate "instances table" Table rows count equal to 0
+    Then UI Validate "instances table" Table rows count EQUALS to 0
 
   @SID_41
   Scenario: validate license activated in the Peer machine.

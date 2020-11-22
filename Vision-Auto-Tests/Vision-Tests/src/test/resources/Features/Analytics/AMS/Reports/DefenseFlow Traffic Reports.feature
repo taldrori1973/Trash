@@ -1,5 +1,5 @@
 
-@TC112396
+@TC112396 @Test12
 Feature: DefenseFlow Traffic Reports
 
   @SID_1
@@ -10,6 +10,12 @@ Feature: DefenseFlow Traffic Reports
     * REST Delete ES index "vrm-scheduled-report-*"
     * REST Delete ES index "vrm-scheduled-report-result-*"
     * CLI Clear vision logs
+
+  @SID_13
+  Scenario: Change DF managment IP to IP of Generic Linux
+    When CLI Operations - Run Radware Session command "system df management-ip set 172.17.164.10"
+    When CLI Operations - Run Radware Session command "system df management-ip get"
+    Then CLI Operations - Verify that output contains regex "DefenseFlow Management IP Address: 172.17.164.10"
 
   @SID_2
   Scenario: Email configuration
@@ -64,7 +70,7 @@ Feature: DefenseFlow Traffic Reports
     Then CLI Run linux Command "cat /var/spool/mail/reportuser|tr -d "="|tr -d "\n"|grep -o "Subject: DefenseFlow Traffic report" |wc -l" on "GENERIC_LINUX_SERVER" and validate result EQUALS "1"
 
     Then CLI Run remote linux Command "ripmime -i /var/mail/reportuser -d /home/radware/attachments/TC112396" on "GENERIC_LINUX_SERVER"
-    Then CLI Run remote linux Command "unzip /home/radware/attachments/TC112396/VRM_report_*.zip" on "GENERIC_LINUX_SERVER"
+    Then CLI Run remote linux Command "unzip -o /home/radware/attachments/TC112396/VRM_report_*.zip" on "GENERIC_LINUX_SERVER"
 
 
   @SID_9
@@ -73,11 +79,11 @@ Feature: DefenseFlow Traffic Reports
       | "/home/radware/Scripts/download_report_file.sh " |
       | #visionIP                                        |
       | " DF_Traffic"                                    |
-    Then CLI Run remote linux Command "unzip /home/radware/Downloads/downloaded.report" on "GENERIC_LINUX_SERVER"
+    Then CLI Run remote linux Command "unzip -o /home/radware/Downloads/downloaded.report" on "GENERIC_LINUX_SERVER"
 
   @SID_10
   Scenario: Verify content of downloaded CSV
-    When CLI Run linux Command "ll /home/radware/Downloads/downloaded.report |awk '{print$5}'" on "GENERIC_LINUX_SERVER" and validate result GT "3000"
+    When CLI Run linux Command "ll /home/radware/Downloads/downloaded.report |awk '{print$5}'" on "GENERIC_LINUX_SERVER" and validate result GTE "2500"
 
   @SID_11
   Scenario: Search for bad logs
@@ -87,7 +93,7 @@ Feature: DefenseFlow Traffic Reports
       | ALL     | fatal      | NOT_EXPECTED |
       | ALL     | error      | NOT_EXPECTED |
 
-  @SID_11
+  @SID_12
   Scenario: Cleanup
     When UI Open "Configurations" Tab
     Then UI logout and close browser

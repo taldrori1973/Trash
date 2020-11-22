@@ -5,7 +5,7 @@ import com.radware.vision.bddtests.BddUITestBase;
 import com.radware.vision.bddtests.GenericSteps;
 import com.radware.vision.bddtests.basicoperations.BasicValidationsTests;
 import com.radware.vision.bddtests.rest.BasicRestOperationsSteps;
-import com.radware.vision.infra.enums.EqualsOrContains;
+import com.radware.vision.automation.AutoUtils.Operators.OperatorsEnum;
 import com.radware.vision.infra.testhandlers.BaseHandler;
 import com.radware.vision.infra.testhandlers.baseoperations.BasicOperationsHandler;
 import com.radware.vision.infra.testhandlers.baseoperations.clickoperations.ClickOperationsHandler;
@@ -35,7 +35,7 @@ public class HTTPSScopeSelection extends BddUITestBase {
     private String filter = "Server Selection.Search";
     private String header = "Server Selection.Header";
     private String save = "Server Selection.Save";
-    private String contentContainerLabel="Server Selection.Content Container";
+    private String contentContainerLabel = "Server Selection.Content Container";
 
     private static GenericSteps genericSteps;
     private static BasicRestOperationsSteps basicRestOperationsSteps;
@@ -111,7 +111,7 @@ public class HTTPSScopeSelection extends BddUITestBase {
     }
 
     @Then("^HTTPS Scope Selection Validate Servers Number Header on Filtering with Page Size (\\d+)$")
-    public void httpsScopeSelectionValidateServersNumberHeaderOnFilteringWithPageSize(int listSize) {
+    public void httpsScopeSelectionValidateServersNumberHeaderOnFilteringWithPageSize(int listSize) throws Exception {
         if (!BasicOperationsHandler.isElementContainsClass(serverButtonLabel, null, "selected-devices-open")) {
             buttonClick(serverButtonLabel, null);
         }
@@ -145,7 +145,7 @@ public class HTTPSScopeSelection extends BddUITestBase {
         }
 
         List<String> scope = null;
-        List<Server> expectedServersList =(List<Server>) ((ArrayList<Server>)allServers).clone();
+        List<Server> expectedServersList = (List<Server>) ((ArrayList<Server>) allServers).clone();
 
         //if Scope != [ALL] filter by devices ips
         if (devicesIPs != null) { //Scope=Specific Devices
@@ -156,26 +156,25 @@ public class HTTPSScopeSelection extends BddUITestBase {
         }
 
         if (policies != null && !policies.isEmpty()) {
-            List<Server> expectedServersListClone= (List<Server>) ((ArrayList<Server>)expectedServersList).clone();
+            List<Server> expectedServersListClone = (List<Server>) ((ArrayList<Server>) expectedServersList).clone();
             expectedServersList.clear();
             for (Policy policy : policies) {
                 expectedServersList.addAll(expectedServersListClone.stream()
                         .filter(s ->
-                                s.deviceIp.equals(policy.deviceIp) && s.policyName.equals(policy.policyName))
+                                s.deviceIp.equals(policy.deviceIp) && (policy.policyName.equalsIgnoreCase("all") || s.policyName.equals(policy.policyName)))
                         .collect(Collectors.toList()));
             }
         }
 
 
-        validateUIServersList(pageSize,expectedServersList);
-        validateNumberOfServers(expectedServersList.size(),pageSize);
-        validateUIServersListNegative(pageSize,expectedServersList);
+        validateUIServersList(pageSize, expectedServersList);
+        validateNumberOfServers(expectedServersList.size(), pageSize);
+        validateUIServersListNegative(pageSize, expectedServersList);
 
 
         buttonClick(serverButtonLabel, null);
         ReportsUtils.reportErrors();
     }
-
 
 
     //Report UTILS
@@ -189,12 +188,12 @@ public class HTTPSScopeSelection extends BddUITestBase {
         }
     }
 
-    private void validateTextFieldElement(String selectorValue, String params, EqualsOrContains equalsOrContains, String expectedText, String cutCharsNumber) {
+    private void validateTextFieldElement(String selectorValue, String params, OperatorsEnum operatorsEnum, String expectedText, String cutCharsNumber) {
         try {
             if (BasicOperationsHandler.isItemAvailableById(selectorValue, params) == null)
                 ReportsUtils.addErrorMessage("\nERROR:Web Element with Label " + selectorValue + " and Extension " + params + " Not Exist");
             else {
-                ClickOperationsHandler.ValidateText validateText = ClickOperationsHandler.validateTextFieldElementByLabelWithoutReporting(selectorValue, params, expectedText, equalsOrContains, cutCharsNumber);
+                ClickOperationsHandler.ValidateText validateText = ClickOperationsHandler.validateTextFieldElementByLabelWithoutReporting(selectorValue, params, expectedText, operatorsEnum, cutCharsNumber);
                 if (!validateText.isExpected)
                     ReportsUtils.addErrorMessage("\nERROR: Validating Text Field " + selectorValue + " with extension :" + params + " Was Failed,Expected Value: " + expectedText + ", But the Actual value: " + validateText.actualText);
             }
@@ -255,7 +254,6 @@ public class HTTPSScopeSelection extends BddUITestBase {
         }
         return text;
     }
-
 
 
     //Validations
@@ -336,23 +334,23 @@ public class HTTPSScopeSelection extends BddUITestBase {
 
     }
 
-    private void validateNumberOfServersWhenFiltering(List<Server> allServers, int listSize) {
+    private void validateNumberOfServersWhenFiltering(List<Server> allServers, int listSize) throws Exception {
         Set<String> serversNames = getAllValuesOfAttribute("serverName");
         Set<String> serversIPs = getAllValuesOfAttribute("serverIp");
 
 
         for (String serverName : serversNames) {
             List<Server> filteredServers =
-                    allServers.stream().filter(server -> server.serverName.contains(serverName)).collect(Collectors.toList());
-            uiSetTextFieldTo(filter, null, serverName, false);
+                    allServers.stream().filter(server -> server.serverName.toLowerCase().contains(serverName.toLowerCase())).collect(Collectors.toList());
+            GenericSteps.uiSetTextFieldByCharacterTo(filter, null, serverName, false);
             validateNumberOfServers(filteredServers.size(), listSize);
         }
 
 
         for (String serverIp : serversIPs) {
             List<Server> filteredServers =
-                    allServers.stream().filter(server -> server.serverIp.equalsIgnoreCase(serverIp)).collect(Collectors.toList());
-            uiSetTextFieldTo(filter, null, serverIp, false);
+                    allServers.stream().filter(server -> server.serverIp.toLowerCase().contains(serverIp.toLowerCase())).collect(Collectors.toList());
+            GenericSteps.uiSetTextFieldByCharacterTo(filter, null, serverIp, false);
             validateNumberOfServers(filteredServers.size(), listSize);
         }
     }
@@ -360,7 +358,7 @@ public class HTTPSScopeSelection extends BddUITestBase {
     private void validateNumberOfServers(int totalNumberOfServers, int listSize) {
 
         if (totalNumberOfServers <= listSize)
-            validateTextFieldElement(header, null, EqualsOrContains.EQUALS, "Servers\n" + totalNumberOfServers + "/" + totalNumberOfServers, null);
+            validateTextFieldElement(header, null, OperatorsEnum.EQUALS, "Servers\n" + totalNumberOfServers + "/" + totalNumberOfServers, null);
 
         else {
 
@@ -370,50 +368,49 @@ public class HTTPSScopeSelection extends BddUITestBase {
             do {
 
                 index++;
-                validateTextFieldElement(header, null, EqualsOrContains.EQUALS, "Servers\n" + listSize * index + "/" + totalNumberOfServers, null);
+                validateTextFieldElement(header, null, OperatorsEnum.EQUALS, "Servers\n" + listSize * index + "/" + totalNumberOfServers, null);
 
                 if (index < numOfSlots || remainder > 0)
                     buttonClick(loadMoreButton, null);
             } while (index < numOfSlots);
 
             if (remainder > 0) {
-                validateTextFieldElement(header, null, EqualsOrContains.EQUALS, "Servers\n" + (listSize * index + remainder) + "/" + totalNumberOfServers, null);
+                validateTextFieldElement(header, null, OperatorsEnum.EQUALS, "Servers\n" + (listSize * index + remainder) + "/" + totalNumberOfServers, null);
 
             }
         }
     }
 
 
-
     private void validateUIServersListNegative(int pageSize, List<Server> expectedServersList) {
 
-        List<UIServer> serversAtUI=getAllServersFromUI();
-        List<UIServer> expectedServers=new ArrayList<>();
-        for(Server server:expectedServersList){
-            expectedServers.add(new UIServer(server.serverName+"\n"+server.serverIp,
+        List<UIServer> serversAtUI = getAllServersFromUI();
+        List<UIServer> expectedServers = new ArrayList<>();
+        for (Server server : expectedServersList) {
+            expectedServers.add(new UIServer(server.serverName + "\n" + server.serverIp,
                     deviceIpToDeviceName.get(server.deviceIp),
                     server.policyName));
         }
 
         serversAtUI.removeAll(expectedServers);
-        if(!serversAtUI.isEmpty()){
-            ReportsUtils.addErrorMessage("[ERROR : The Following Server should not be available at the list :]"+serversAtUI.toString()
-            +"\nThe Expected List : "+expectedServers.toString());
+        if (!serversAtUI.isEmpty()) {
+            ReportsUtils.addErrorMessage("[ERROR : The Following Server should not be available at the list :]" + serversAtUI.toString()
+                    + "\nThe Expected List : " + expectedServers.toString());
 
         }
 
     }
 
     private List<UIServer> getAllServersFromUI() {
-        List<UIServer> foundServers=new ArrayList<>();
-        while(BasicOperationsHandler.isItemAvailableById(loadMoreButton,null)!=null){
+        List<UIServer> foundServers = new ArrayList<>();
+        while (BasicOperationsHandler.isItemAvailableById(loadMoreButton, null) != null) {
             buttonClick(loadMoreButton, null);
         }
 
         WebElement container = BasicOperationsHandler.isItemAvailableById(contentContainerLabel, null);
         List<WebElement> allLI = container.findElements(By.xpath("div/div/ul/li"));
-        for(WebElement li:allLI){
-            UIServer server=new UIServer(
+        for (WebElement li : allLI) {
+            UIServer server = new UIServer(
                     getTextNode(li.findElement(By.xpath("div/label[contains(@data-debug-id,\"server_name\")]"))),
                     getTextNode(li.findElement(By.xpath("div/label[contains(@data-debug-id,\"device_name\")]"))),
                     getTextNode(li.findElement(By.xpath("div/label[contains(@data-debug-id,\"policy_name\")]"))));
@@ -566,6 +563,7 @@ public class HTTPSScopeSelection extends BddUITestBase {
             return "serverName :" + serverName + " , Device Ip :" + deviceIp + " , Policy Name : " + policyName;
         }
     }
+
     class UIServer {
 
         String serverName;
@@ -580,8 +578,8 @@ public class HTTPSScopeSelection extends BddUITestBase {
 
         @Override
         public boolean equals(Object obj) {
-            if(this==obj) return true;
-            UIServer server= (UIServer) obj;
+            if (this == obj) return true;
+            UIServer server = (UIServer) obj;
             return (this.serverName.equals(server.serverName) &&
                     this.deviceName.equals(server.deviceName) &&
                     this.policyName.equals(server.policyName));
@@ -593,6 +591,7 @@ public class HTTPSScopeSelection extends BddUITestBase {
             return "\nServer Name :" + serverName + " , Device Name :" + deviceName + " , Policy Name : " + policyName;
         }
     }
+
     class Policy {
 
         String deviceIp;

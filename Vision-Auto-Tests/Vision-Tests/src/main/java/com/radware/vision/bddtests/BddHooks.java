@@ -19,7 +19,6 @@ public class BddHooks extends WebUITestBase {
 
     @After
     public void afterScenario() {
-        publishBddResults_new();
-//        publishBddResults();
+        publishBddResults();
     }
 }

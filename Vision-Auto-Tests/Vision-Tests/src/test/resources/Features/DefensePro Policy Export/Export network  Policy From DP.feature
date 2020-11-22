@@ -3,7 +3,7 @@ Feature: DefensePro Network Policy Export from Device
 
   @SID_1
   Scenario: Delete Network template if exists
-    Then CLI Operations - Run Root Session command "yes|restore_radware_user_password" timeout 15
+    Given CLI Reset radware password
     Then CLI Run remote linux Command "mysql -prad123 vision_ng -e "delete from device_exported_file where name='auto_import';"" on "ROOT_SERVER_CLI"
     Then CLI Run remote linux Command "rm -f /download" on "ROOT_SERVER_CLI"
     Given REST Login with user "sys_admin" and password "radware"

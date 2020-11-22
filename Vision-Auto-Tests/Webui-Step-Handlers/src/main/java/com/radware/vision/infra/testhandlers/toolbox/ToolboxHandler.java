@@ -6,6 +6,7 @@ import com.radware.automation.webui.utils.draganddrop.WebUIDragAndDrop;
 import com.radware.automation.webui.widgets.ComponentLocator;
 import com.radware.automation.webui.widgets.impl.*;
 import com.radware.automation.webui.widgets.impl.table.WebUITable;
+import com.radware.vision.infra.base.pages.navigation.HomePage;
 import com.radware.vision.infra.base.pages.navigation.WebUIUpperBar;
 import com.radware.vision.infra.base.pages.toolbox.advanced.OperatorToolbox;
 import com.radware.vision.infra.enums.*;
@@ -75,7 +76,7 @@ public class ToolboxHandler {
     }
 
     public static void deleteActionFromGroup(ToolboxActionsEnum actionName, ToolboxGroupsEnum actionParentGroupName) throws Exception {
-        navigateToToolbox();
+//        navigateToToolbox();
         if (!checkIfActionExistsUnderGroup(actionName, actionParentGroupName)) {
             throw new Exception("\"" + actionName.getActionName() + "\" Action does not exist under " + "\"" + actionParentGroupName.toString() + "\" Group");
         }
@@ -98,7 +99,7 @@ public class ToolboxHandler {
     }
 
     public static void runActionFromGroup(ToolboxActionsEnum actionName, ToolboxGroupsEnum actionParentGroupName) throws Exception {
-        navigateToToolbox();
+//        navigateToToolbox();
         if (!checkIfActionExistsUnderGroup(actionName, actionParentGroupName)) {
             throw new Exception("\"" + actionName.getActionName() + "\" Action does not exist under " + "\"" + actionParentGroupName.toString() + "\" Group");
         }
@@ -117,7 +118,7 @@ public class ToolboxHandler {
     }
 
     public static void runWithParams(ToolboxActionsEnum actionName, ToolboxGroupsEnum actionParentGroupName) throws Exception {
-        navigateToToolbox();
+//        navigateToToolbox();
         if (!checkIfActionExistsUnderGroup(actionName, actionParentGroupName)) {
             throw new Exception("\"" + actionName.getActionName() + "\" Action does not exist under " + "\"" + actionParentGroupName.toString() + "\" Group");
         }
@@ -125,6 +126,8 @@ public class ToolboxHandler {
         showActionPanel(actionName, actionParentGroupName);
 
         String runButtonXpath = ToolboxHandler.generateActionItemRunWithParamsXpath(actionName, actionParentGroupName);
+        WebUIUtils.sleep(1);
+        WebUIUtils.waitUntilElementGetAppear(WebUIUtils.fluentWait(new ComponentLocator(How.XPATH, runButtonXpath).getBy()),3);
         ComponentLocator runButtonLocator = new ComponentLocator(How.XPATH, runButtonXpath);
         WebUIButton runButton = new WebUIButton(new WebUIComponent(runButtonLocator));
         runButton.click();
@@ -133,7 +136,7 @@ public class ToolboxHandler {
     /*compare the copied output after running the script
     with the output we get by click on "shoe previous result button"*/
     public static void showPreviousResultAndCompare(ToolboxActionsEnum actionName, ToolboxGroupsEnum actionParentGroupName, String result) throws Exception {
-        navigateToToolbox();
+//        navigateToToolbox();
         if (!checkIfActionExistsUnderGroup(actionName, actionParentGroupName)) {
             throw new Exception("\"" + actionName.getActionName() + "\" Action does not exist under " + "\"" + actionParentGroupName.toString() + "\" Group");
         }
@@ -170,7 +173,7 @@ public class ToolboxHandler {
     }
 
     public static void scheduleActionFromGroup(ToolboxActionsEnum actionName, ToolboxGroupsEnum actionParentGroupName) throws Exception {
-        navigateToToolbox();
+//        navigateToToolbox();
         if (!checkIfActionExistsUnderGroup(actionName, actionParentGroupName)) {
             throw new Exception("\"" + actionName.getActionName() + "\" Action does not exist under " + "\"" + actionParentGroupName.toString() + "\" Group");
         }
@@ -756,7 +759,10 @@ public class ToolboxHandler {
 
 
     public static void navigateToToolbox() {
-        WebUIUpperBar.select(UpperBarItems.ToolBox);
+        try
+        {
+            HomePage.navigateFromHomePage("AUTOMATION");
+        }catch (Exception ignore){}
     }
 
     public static void selectCategoryFromAdvanced(ToolboxGroupsEnum groupName) {

@@ -67,6 +67,9 @@ Feature: RBAC
     Then UI Add "Alteon" with index 2 on "Default" site nowait
     Then UI Add "AppWall" with index 0 on "Default" site nowait
     Then UI Add "LinkProof" with index 0 on "Default" site nowait
+    Then UI Navigate to page "System->User Management->User Management Settings"
+    Then UI Select "Local" from Vision dropdown "Authentication Mode"
+    Then UI Click Button "Submit"
     * UI Logout
 
   @SID_6
@@ -74,32 +77,11 @@ Feature: RBAC
     When UI Login with user "adc_admin_certificate" and password "radware"
     Then UI Validate user rbac
       | operations                                  | accesses |
-      | add/edit device                             | no       |
-      | lock device                                 | yes      |
-      | supports alteon                             | yes      |
-      | supports linkproof                          | yes      |
-      | supports defensepro                         | no       |
-      | supports AppWall                            | no       |
-      | security monitoring perspective             | yes      |
-      | vision settings device resources            | yes      |
       | AVR                                         | no       |
       | APM                                         | yes      |
       | DPM                                         | yes      |
       | ANALYTICS ADC                               | yes      |
       | ANALYTICS AMS                               | no       |
-      | Alert browser                               | yes      |
-      | Scheduler                                   | no       |
-      | Toolbox                                     | yes      |
-      | operator toolbox                            | yes      |
-      | Appshapes                                   | yes      |
-      | load new Appshape                           | yes      |
-      | DP templates                                | no       |
-      | physical tab                                | yes      |
-      | dp operations                               | no       |
-      | AppWall Dashboard operations                | no       |
-      | alteon operations                           | no       |
-      | Security Control Center                     | no       |
-      | app sla dashboard                           | yes      |
       | DefensePro Behavioral Protections Dashboard | no       |
       | HTTPS Flood Dashboard                       | no       |
       | DefensePro Analytics Dashboard              | no       |
@@ -112,13 +94,9 @@ Feature: RBAC
       | vDirect                                     | yes      |
       | GEL Dashboard                               | yes      |
       | EAAF Dashboard                              | no       |
-      | DEVICES CONFIGURATION                      | yes      |
+      #| DEVICES CONFIGURATIONS                      | yes      |
       | VISION SETTINGS                             | yes      |
-    * UI Logout
 
-  @SID_7
-  Scenario: ADC Administrator
-    When UI Login with user "adc_admin" and password "radware"
     Then UI Validate user rbac
       | operations                                  | accesses |
       | add/edit device                             | no       |
@@ -128,14 +106,9 @@ Feature: RBAC
       | supports defensepro                         | no       |
       | supports AppWall                            | no       |
       | security monitoring perspective             | yes      |
-      | vision settings device resources            | yes      |
-      | AVR                                         | no       |
-      | APM                                         | yes      |
-      | DPM                                         | yes      |
-      | ANALYTICS ADC                               | yes      |
-      | ANALYTICS AMS                               | no       |
+      #| vision settings device resources            | yes      |
       | Alert browser                               | yes      |
-      | Scheduler                                   | no       |
+      | SCHEDULER                                   | no       |
       | Toolbox                                     | yes      |
       | operator toolbox                            | yes      |
       | Appshapes                                   | yes      |
@@ -147,6 +120,19 @@ Feature: RBAC
       | alteon operations                           | no       |
       | Security Control Center                     | no       |
       | app sla dashboard                           | yes      |
+
+    * UI Logout
+
+  @SID_7
+  Scenario: ADC Administrator
+    When UI Login with user "adc_admin" and password "radware"
+    Then UI Validate user rbac
+      | operations                                  | accesses |
+      | AVR                                         | no       |
+      | APM                                         | yes      |
+      | DPM                                         | yes      |
+      | ANALYTICS ADC                               | yes      |
+      | ANALYTICS AMS                               | no       |
       | DefensePro Behavioral Protections Dashboard | no       |
       | HTTPS Flood Dashboard                       | no       |
       | DefensePro Analytics Dashboard              | no       |
@@ -159,13 +145,58 @@ Feature: RBAC
       | vDirect                                     | yes      |
       | GEL Dashboard                               | yes      |
       | EAAF Dashboard                              | no       |
-      | DEVICES CONFIGURATION                      | yes      |
+      #| DEVICES CONFIGURATIONS                      | yes      |
       | VISION SETTINGS                             | yes      |
+
+    Then UI Validate user rbac
+      | operations                                  | accesses |
+      | add/edit device                             | no       |
+      | lock device                                 | yes      |
+      | supports alteon                             | yes      |
+      | supports linkproof                          | yes      |
+      | supports defensepro                         | no       |
+      | supports AppWall                            | no       |
+      | security monitoring perspective             | yes      |
+      #| vision settings device resources            | yes      |
+      | Alert browser                               | yes      |
+      | SCHEDULER                                   | no       |
+      | Toolbox                                     | yes      |
+      | operator toolbox                            | yes      |
+      | Appshapes                                   | yes      |
+      | load new Appshape                           | yes      |
+      | DP templates                                | no       |
+      | physical tab                                | yes      |
+      | dp operations                               | no       |
+      | AppWall Dashboard operations                | no       |
+      | alteon operations                           | no       |
+      | Security Control Center                     | no       |
+      | app sla dashboard                           | yes      |
     * UI Logout
 
   @SID_8
   Scenario: ADC Operator
     When UI Login with user "adc_operator" and password "radware"
+    Then UI Validate user rbac
+      | operations                                  | accesses |
+      | AVR                                         | no       |
+      | APM                                         | yes      |
+      | DPM                                         | yes      |
+      | ANALYTICS ADC                               | yes      |
+      | ANALYTICS AMS                               | no       |
+      | DefensePro Behavioral Protections Dashboard | no       |
+      | HTTPS Flood Dashboard                       | no       |
+      | DefensePro Analytics Dashboard              | no       |
+      | DefensePro Monitoring Dashboard             | no       |
+      | DefenseFlow Analytics Dashboard             | no       |
+      | AppWall Dashboard                           | no       |
+      | AMS Reports                                 | no       |
+      | AMS Forensics                               | no       |
+      | AMS Alerts                                  | no       |
+      | vDirect                                     | yes      |
+      | GEL Dashboard                               | yes      |
+      | EAAF Dashboard                              | no       |
+      #| DEVICES CONFIGURATIONS                      | yes      |
+      | VISION SETTINGS                             | no       |
     Then UI Validate user rbac
       | operations                                  | accesses |
       | add/edit device                             | no       |
@@ -175,14 +206,9 @@ Feature: RBAC
       | supports defensepro                         | no       |
       | supports AppWall                            | no       |
       | security monitoring perspective             | no       |
-      | vision settings device resources            | yes      |
-      | AVR                                         | no       |
-      | APM                                         | yes      |
-      | DPM                                         | yes      |
-      | ANALYTICS ADC                               | yes      |
-      | ANALYTICS AMS                               | no       |
+      #| vision settings device resources            | yes      |
       | Alert browser                               | yes      |
-      | Scheduler                                   | no       |
+      | SCHEDULER                                   | no       |
       | Toolbox                                     | yes      |
       | operator toolbox                            | no       |
       | Appshapes                                   | no       |
@@ -193,26 +219,33 @@ Feature: RBAC
       | AppWall Dashboard operations                | no       |
       | alteon operations                           | no       |
       | Security Control Center                     | no       |
-      | app sla dashboard                           | yes      |
-      | DefensePro Behavioral Protections Dashboard | no       |
-      | HTTPS\ Flood\ Dashboard                     | no       |
-      | DefensePro Analytics Dashboard              | no       |
-      | DefensePro Monitoring Dashboard             | no       |
-      | DefenseFlow Analytics Dashboard             | no       |
-      | AppWall Dashboard                           | no       |
-      | AMS Reports                                 | no       |
-      | AMS Forensics                               | no       |
-      | AMS Alerts                                  | no       |
-      | vDirect                                     | yes      |
-      | GEL Dashboard                               | yes      |
-      | EAAF Dashboard                              | no       |
-      | DEVICES CONFIGURATION                      | yes      |
-      | VISION SETTINGS                             | no       |
+#      | app sla dashboard                           | yes      |
     * UI Logout
 
   @SID_9
   Scenario: Administrator
     When UI Login with user "radware" and password "radware"
+    Then UI Validate user rbac
+      | operations                                  | accesses |
+      | AVR                                         | yes      |
+      | APM                                         | yes      |
+      | DPM                                         | yes      |
+      | ANALYTICS ADC                               | yes      |
+      | ANALYTICS AMS                               | yes      |
+      | DefensePro Behavioral Protections Dashboard | yes       |
+      | HTTPS Flood Dashboard                       | yes       |
+      | DefensePro Analytics Dashboard              | yes      |
+      | DefensePro Monitoring Dashboard             | yes      |
+      | DefenseFlow Analytics Dashboard             | yes      |
+      | AppWall Dashboard                           | yes      |
+      | AMS Reports                                 | yes      |
+      | AMS Forensics                               | yes      |
+      | AMS Alerts                                  | yes      |
+      | vDirect                                     | yes      |
+      | GEL Dashboard                               | yes      |
+      | EAAF Dashboard                              | yes      |
+      #| DEVICES CONFIGURATIONS                      | yes      |
+      | VISION SETTINGS                             | yes      |
     Then UI Validate user rbac
       | operations                                  | accesses |
       | add/edit device                             | yes      |
@@ -222,14 +255,9 @@ Feature: RBAC
       | supports defensepro                         | yes      |
       | supports AppWall                            | yes      |
       | security monitoring perspective             | yes      |
-      | vision settings device resources            | yes      |
-      | AVR                                         | yes      |
-      | APM                                         | yes      |
-      | DPM                                         | yes      |
-      | ANALYTICS ADC                               | yes      |
-      | ANALYTICS AMS                               | yes      |
+      #| vision settings device resources            | yes      |
       | Alert browser                               | yes      |
-      | Scheduler                                   | yes      |
+      | SCHEDULER                                   | yes      |
       | Toolbox                                     | yes      |
       | operator toolbox                            | yes      |
       | Appshapes                                   | yes      |
@@ -241,20 +269,6 @@ Feature: RBAC
       | alteon operations                           | yes      |
       | Security Control Center                     | yes      |
       | app sla dashboard                           | yes      |
-      | DefensePro Behavioral Protections Dashboard | no       |
-      | HTTPS Flood Dashboard                       | no       |
-      | DefensePro Analytics Dashboard              | yes      |
-      | DefensePro Monitoring Dashboard             | yes      |
-      | DefenseFlow Analytics Dashboard             | yes      |
-      | AppWall Dashboard                           | yes      |
-      | AMS Reports                                 | yes      |
-      | AMS Forensics                               | yes      |
-      | AMS Alerts                                  | yes      |
-      | vDirect                                     | yes      |
-      | GEL Dashboard                               | yes      |
-      | EAAF Dashboard                              | yes      |
-      | DEVICES CONFIGURATION                      | yes      |
-      | VISION SETTINGS                             | yes      |
     * UI Logout
 
   @SID_10
@@ -262,32 +276,11 @@ Feature: RBAC
     When UI Login with user "certificate_admin" and password "radware"
     Then UI Validate user rbac
       | operations                                  | accesses |
-      | add/edit device                             | no       |
-      | lock device                                 | yes      |
-      | supports alteon                             | yes      |
-      | supports linkproof                          | yes      |
-      | supports defensepro                         | no       |
-      | supports AppWall                            | no       |
-      | security monitoring perspective             | no       |
-      | vision settings device resources            | yes      |
       | AVR                                         | no       |
       | APM                                         | no       |
       | DPM                                         | no       |
       | ANALYTICS ADC                               | no       |
       | ANALYTICS AMS                               | no       |
-      | Alert browser                               | yes      |
-      | Scheduler                                   | no       |
-      | Toolbox                                     | yes      |
-      | operator toolbox                            | no       |
-      | Appshapes                                   | no       |
-      | load new Appshape                           | no       |
-      | DP templates                                | no       |
-      | physical tab                                | no       |
-      | dp operations                               | no       |
-      | AppWall Dashboard operations                | no       |
-      | alteon operations                           | no       |
-      | Security Control Center                     | no       |
-      | app sla dashboard                           | no       |
       | DefensePro Behavioral Protections Dashboard | no       |
       | HTTPS Flood Dashboard                       | no       |
       | DefensePro Analytics Dashboard              | no       |
@@ -298,15 +291,59 @@ Feature: RBAC
       | AMS Forensics                               | no       |
       | AMS Alerts                                  | no       |
       | vDirect                                     | yes      |
-      | GEL Dashboard                               | yes      |
+      | GEL Dashboard                               | no       |
       | EAAF Dashboard                              | no       |
-      | DEVICES CONFIGURATION                      | no       |
+      #| DEVICES CONFIGURATIONS                      | no       |
       | VISION SETTINGS                             | yes      |
+    Then UI Validate user rbac
+      | operations                                  | accesses |
+      | add/edit device                             | no       |
+      | lock device                                 | yes      |
+      | supports alteon                             | yes      |
+      | supports linkproof                          | yes      |
+      | supports defensepro                         | no       |
+      | supports AppWall                            | no       |
+      | security monitoring perspective             | no       |
+      #| vision settings device resources            | yes      |
+      | Alert browser                               | yes      |
+      | SCHEDULER                                   | no       |
+      | Toolbox                                     | yes      |
+      | operator toolbox                            | no       |
+      | Appshapes                                   | no       |
+      | load new Appshape                           | no       |
+      | DP templates                                | no       |
+      | physical tab                                | no       |
+      | dp operations                               | no       |
+      | AppWall Dashboard operations                | no       |
+      | alteon operations                           | no       |
+      | Security Control Center                     | no       |
+      | app sla dashboard                           | no       |
     * UI Logout
 
   @SID_11
   Scenario: Device Administrator
     When UI Login with user "device_admin" and password "radware"
+    Then UI Validate user rbac
+      | operations                                  | accesses |
+      | AVR                                         | yes      |
+      | APM                                         | yes      |
+      | DPM                                         | yes      |
+      | ANALYTICS ADC                               | yes      |
+      | ANALYTICS AMS                               | yes      |
+      | DefensePro Behavioral Protections Dashboard | yes      |
+      | HTTPS Flood Dashboard                       | yes      |
+      | DefensePro Analytics Dashboard              | yes      |
+      | DefensePro Monitoring Dashboard             | yes      |
+      | DefenseFlow Analytics Dashboard             | no       |
+      | AppWall Dashboard                           | yes      |
+      | AMS Reports                                 | yes      |
+      | AMS Forensics                               | yes      |
+      | AMS Alerts                                  | yes      |
+      | vDirect                                     | yes      |
+      | GEL Dashboard                               | yes      |
+      | EAAF Dashboard                              | yes      |
+      #| DEVICES CONFIGURATIONS                      | yes      |
+      | VISION SETTINGS                             | no       |
     Then UI Validate user rbac
       | operations                                  | accesses |
       | add/edit device                             | yes      |
@@ -316,14 +353,9 @@ Feature: RBAC
       | supports defensepro                         | yes      |
       | supports AppWall                            | yes      |
       | security monitoring perspective             | yes      |
-      | vision settings device resources            | yes      |
-      | AVR                                         | yes      |
-      | APM                                         | yes      |
-      | DPM                                         | yes      |
-      | ANALYTICS ADC                               | yes      |
-      | ANALYTICS AMS                               | yes      |
+      #| vision settings device resources            | yes      |
       | Alert browser                               | yes      |
-      | Scheduler                                   | yes      |
+      | SCHEDULER                                   | yes      |
       | Toolbox                                     | yes      |
       | operator toolbox                            | yes      |
       | Appshapes                                   | yes      |
@@ -334,21 +366,7 @@ Feature: RBAC
       | AppWall Dashboard operations                | yes      |
       | alteon operations                           | yes      |
       | Security Control Center                     | no       |
-      | app sla dashboard                           | yes      |
-      | DefensePro Behavioral Protections Dashboard | yes      |
-      | HTTPS Flood Dashboard                       | yes      |
-      | DefensePro Analytics Dashboard              | yes      |
-      | DefensePro Monitoring Dashboard             | yes      |
-      | DefenseFlow Analytics Dashboard             | no       |
-      | AppWall Dashboard                           | yes      |
-      | AMS Reports                                 | yes      |
-      | AMS Forensics                               | yes      |
-      | AMS Alerts                                  | yes      |
-      | vDirect                                     | yes      |
-      | GEL Dashboard                               | yes      |
-      | EAAF Dashboard                              | yes      |
-      | DEVICES CONFIGURATION                      | yes      |
-      | VISION SETTINGS                             | no       |
+#      | app sla dashboard                           | yes      |
     * UI Logout
 
   @SID_12
@@ -356,6 +374,27 @@ Feature: RBAC
     When UI Login with user "device_configurator" and password "radware"
     Then UI Validate user rbac
       | operations                                  | accesses |
+      | AVR                                         | no       |
+      | APM                                         | yes      |
+      | DPM                                         | yes      |
+      | ANALYTICS ADC                               | yes      |
+      | ANALYTICS AMS                               | yes      |
+      | DefensePro Behavioral Protections Dashboard | yes      |
+      | HTTPS Flood Dashboard                       | yes      |
+      | DefensePro Analytics Dashboard              | yes      |
+      | DefensePro Monitoring Dashboard             | yes      |
+      | DefenseFlow Analytics Dashboard             | no       |
+      | AppWall Dashboard                           | yes      |
+      | AMS Reports                                 | yes      |
+      | AMS Forensics                               | yes      |
+      | AMS Alerts                                  | yes      |
+      | vDirect                                     | no       |
+      | GEL Dashboard                               | yes      |
+      | EAAF Dashboard                              | yes      |
+      #| DEVICES CONFIGURATIONS                      | yes      |
+      | VISION SETTINGS                             | no       |
+    Then UI Validate user rbac
+      | operations                                  | accesses |
       | add/edit device                             | no       |
       | lock device                                 | yes      |
       | supports alteon                             | yes      |
@@ -363,14 +402,9 @@ Feature: RBAC
       | supports defensepro                         | yes      |
       | supports AppWall                            | yes      |
       | security monitoring perspective             | yes      |
-      | vision settings device resources            | yes      |
-      | AVR                                         | no       |
-      | APM                                         | yes      |
-      | DPM                                         | yes      |
-      | ANALYTICS ADC                               | yes      |
-      | ANALYTICS AMS                               | yes      |
+      #| vision settings device resources            | yes      |
       | Alert browser                               | yes      |
-      | Scheduler                                   | yes      |
+      | SCHEDULER                                   | yes      |
       | Toolbox                                     | yes      |
       | operator toolbox                            | no       |
       | Appshapes                                   | no       |
@@ -381,21 +415,7 @@ Feature: RBAC
       | AppWall Dashboard operations                | yes      |
       | alteon operations                           | no       |
       | Security Control Center                     | no       |
-      | app sla dashboard                           | yes      |
-      | DefensePro Behavioral Protections Dashboard | yes      |
-      | HTTPS Flood Dashboard                       | yes      |
-      | DefensePro Analytics Dashboard              | yes      |
-      | DefensePro Monitoring Dashboard             | yes      |
-      | DefenseFlow Analytics Dashboard             | no       |
-      | AppWall Dashboard                           | yes      |
-      | AMS Reports                                 | yes      |
-      | AMS Forensics                               | yes      |
-      | AMS Alerts                                  | yes      |
-      | vDirect                                     | yes      |
-      | GEL Dashboard                               | yes      |
-      | EAAF Dashboard                              | yes      |
-      | DEVICES CONFIGURATION                      | yes      |
-      | VISION SETTINGS                             | no       |
+#      | app sla dashboard                           | yes      |
     * UI Logout
 
   @SID_13
@@ -403,21 +423,37 @@ Feature: RBAC
     When UI Login with user "device_operator" and password "radware"
     Then UI Validate user rbac
       | operations                                  | accesses |
-      | add/edit device                             | no       |
-      | lock device                                 | yes      |
-      | supports alteon                             | yes      |
-      | supports linkproof                          | yes      |
-      | supports defensepro                         | yes      |
-      | supports AppWall                            | yes      |
-      | security monitoring perspective             | no       |
-      | vision settings device resources            | yes      |
       | AVR                                         | no       |
       | APM                                         | yes      |
       | DPM                                         | yes      |
       | ANALYTICS ADC                               | yes      |
       | ANALYTICS AMS                               | yes      |
+      | DefensePro Behavioral Protections Dashboard | yes      |
+      | HTTPS Flood Dashboard                       | yes      |
+      | DefensePro Analytics Dashboard              | yes      |
+      | DefensePro Monitoring Dashboard             | yes      |
+      | DefenseFlow Analytics Dashboard             | no       |
+      | AppWall Dashboard                           | yes      |
+      | AMS Reports                                 | yes      |
+      | AMS Forensics                               | yes      |
+      | AMS Alerts                                  | yes      |
+      | vDirect                                     | no       |
+      | GEL Dashboard                               | yes      |
+      | EAAF Dashboard                              | yes      |
+      #| DEVICES CONFIGURATIONS                      | yes      |
+      | VISION SETTINGS                             | no       |
+    Then UI Validate user rbac
+      | operations                                  | accesses |
+      | add/edit device                             | no       |
+      | lock device                                 | yes      |
+      | supports alteon                             | yes      |
+      | supports linkproof                          | yes      |
+      | supports defensepro                         | no       |
+      | supports AppWall                            | yes      |
+      | security monitoring perspective             | no       |
+      #| vision settings device resources            | yes      |
       | Alert browser                               | yes      |
-      | Scheduler                                   | yes      |
+      | SCHEDULER                                   | yes      |
       | Toolbox                                     | yes      |
       | operator toolbox                            | no       |
       | Appshapes                                   | no       |
@@ -428,21 +464,7 @@ Feature: RBAC
       | AppWall Dashboard operations                | yes      |
       | alteon operations                           | no       |
       | Security Control Center                     | no       |
-      | app sla dashboard                           | yes      |
-      | DefensePro Behavioral Protections Dashboard | yes      |
-      | HTTPS Flood Dashboard                       | yes      |
-      | DefensePro Analytics Dashboard              | yes      |
-      | DefensePro Monitoring Dashboard             | yes      |
-      | DefenseFlow Analytics Dashboard             | no       |
-      | AppWall Dashboard                           | yes      |
-      | AMS Reports                                 | yes      |
-      | AMS Forensics                               | yes      |
-      | AMS Alerts                                  | yes      |
-      | vDirect                                     | yes      |
-      | GEL Dashboard                               | yes      |
-      | EAAF Dashboard                              | yes      |
-      | DEVICES CONFIGURATION                      | yes      |
-      | VISION SETTINGS                             | no       |
+#      | app sla dashboard                           | yes      |
     * UI Logout
 
   @SID_14
@@ -450,32 +472,11 @@ Feature: RBAC
     When UI Login with user "device_viewer" and password "radware"
     Then UI Validate user rbac
       | operations                                  | accesses |
-      | add/edit device                             | no       |
-      | lock device                                 | no       |
-      | supports alteon                             | yes      |
-      | supports linkproof                          | yes      |
-      | supports defensepro                         | yes      |
-      | supports AppWall                            | yes      |
-      | security monitoring perspective             | yes      |
-      | vision settings device resources            | yes      |
       | AVR                                         | yes      |
       | APM                                         | no       |
       | DPM                                         | yes      |
       | ANALYTICS ADC                               | yes      |
       | ANALYTICS AMS                               | yes      |
-      | Alert browser                               | no       |
-      | Scheduler                                   | no       |
-      | Toolbox                                     | yes      |
-      | operator toolbox                            | no       |
-      | Appshapes                                   | no       |
-      | load new Appshape                           | no       |
-      | DP templates                                | no       |
-      | physical tab                                | no       |
-      | dp operations                               | no       |
-      | AppWall Dashboard operations                | no       |
-      | alteon operations                           | no       |
-      | Security Control Center                     | no       |
-      | app sla dashboard                           | yes      |
       | DefensePro Behavioral Protections Dashboard | yes      |
       | HTTPS Flood Dashboard                       | yes      |
       | DefensePro Analytics Dashboard              | yes      |
@@ -488,30 +489,20 @@ Feature: RBAC
       | vDirect                                     | yes      |
       | GEL Dashboard                               | yes      |
       | EAAF Dashboard                              | yes      |
-      | DEVICES CONFIGURATION                      | yes      |
+      #| DEVICES CONFIGURATIONS                      | yes      |
       | VISION SETTINGS                             | no       |
-    * UI Logout
-
-  @SID_15
-  Scenario: Real server Operator
-    When UI Login with user "real_server_operator" and password "radware"
     Then UI Validate user rbac
       | operations                                  | accesses |
       | add/edit device                             | no       |
       | lock device                                 | yes      |
       | supports alteon                             | yes      |
       | supports linkproof                          | yes      |
-      | supports defensepro                         | no       |
-      | supports AppWall                            | no       |
-      | security monitoring perspective             | no       |
-      | vision settings device resources            | no       |
-      | AVR                                         | no       |
-      | APM                                         | no       |
-      | DPM                                         | no       |
-      | ANALYTICS ADC                               | no       |
-      | ANALYTICS AMS                               | no       |
-      | Alert browser                               | yes      |
-      | Scheduler                                   | no       |
+      | supports defensepro                         | yes      |
+      | supports AppWall                            | yes      |
+      | security monitoring perspective             | yes      |
+      #| vision settings device resources            | yes      |
+      | Alert browser                               | no       |
+      | SCHEDULER                                   | no       |
       | Toolbox                                     | yes      |
       | operator toolbox                            | no       |
       | Appshapes                                   | no       |
@@ -522,7 +513,19 @@ Feature: RBAC
       | AppWall Dashboard operations                | no       |
       | alteon operations                           | no       |
       | Security Control Center                     | no       |
-      | app sla dashboard                           | no       |
+#      | app sla dashboard                           | yes      |
+    * UI Logout
+
+  @SID_15
+  Scenario: Real server Operator
+    When UI Login with user "real_server_operator" and password "radware"
+    Then UI Validate user rbac
+      | operations                                  | accesses |
+      | AVR                                         | no       |
+      | APM                                         | no       |
+      | DPM                                         | no       |
+      | ANALYTICS ADC                               | no       |
+      | ANALYTICS AMS                               | no       |
       | DefensePro Behavioral Protections Dashboard | no       |
       | HTTPS Flood Dashboard                       | no       |
       | DefensePro Analytics Dashboard              | no       |
@@ -533,15 +536,59 @@ Feature: RBAC
       | AMS Forensics                               | no       |
       | AMS Alerts                                  | no       |
       | vDirect                                     | yes      |
-      | GEL Dashboard                               | yes      |
+      | GEL Dashboard                               | no       |
       | EAAF Dashboard                              | no       |
-      | DEVICES CONFIGURATION                      | no       |
+      #| DEVICES CONFIGURATIONS                      | no       |
       | VISION SETTINGS                             | no       |
+    Then UI Validate user rbac
+      | operations                                  | accesses |
+      | add/edit device                             | no       |
+      | lock device                                 | yes      |
+      | supports alteon                             | yes      |
+      | supports linkproof                          | yes      |
+      | supports defensepro                         | no       |
+      | supports AppWall                            | no       |
+      | security monitoring perspective             | no       |
+      #| vision settings device resources            | no       |
+      | Alert browser                               | yes      |
+      | SCHEDULER                                   | no       |
+      | Toolbox                                     | yes      |
+      | operator toolbox                            | no       |
+      | Appshapes                                   | no       |
+      | load new Appshape                           | no       |
+      | DP templates                                | no       |
+      | physical tab                                | no       |
+      | dp operations                               | no       |
+      | AppWall Dashboard operations                | no       |
+      | alteon operations                           | no       |
+      | Security Control Center                     | no       |
+#      | app sla dashboard                           | no       |
     * UI Logout
 
   @SID_16
   Scenario: Security Administrator
     When UI Login with user "security_admin " and password "radware"
+    Then UI Validate user rbac
+      | operations                                  | accesses |
+      | AVR                                         | yes      |
+      | APM                                         | no       |
+      | DPM                                         | no       |
+      | ANALYTICS ADC                               | no       |
+      | ANALYTICS AMS                               | yes      |
+      | DefensePro Behavioral Protections Dashboard | yes      |
+      | HTTPS Flood Dashboard                       | yes      |
+      | DefensePro Analytics Dashboard              | yes      |
+      | DefensePro Monitoring Dashboard             | yes      |
+      | DefenseFlow Analytics Dashboard             | no      |
+      | AppWall Dashboard                           | no       |
+      | AMS Reports                                 | yes      |
+      | AMS Forensics                               | yes      |
+      | AMS Alerts                                  | yes      |
+      | vDirect                                     | no       |
+      | GEL Dashboard                               | no       |
+      | EAAF Dashboard                              | yes      |
+      #| DEVICES CONFIGURATIONS                      | yes      |
+      | VISION SETTINGS                             | yes      |
     Then UI Validate user rbac
       | operations                                  | accesses |
       | add/edit device                             | no       |
@@ -551,14 +598,9 @@ Feature: RBAC
       | supports defensepro                         | yes      |
       | supports AppWall                            | yes      |
       | security monitoring perspective             | yes      |
-      | vision settings device resources            | yes      |
-      | AVR                                         | yes      |
-      | APM                                         | no       |
-      | DPM                                         | no       |
-      | ANALYTICS ADC                               | no       |
-      | ANALYTICS AMS                               | yes      |
+      #| vision settings device resources            | yes      |
       | Alert browser                               | yes      |
-      | Scheduler                                   | yes      |
+      | SCHEDULER                                   | yes      |
       | Toolbox                                     | yes      |
       | operator toolbox                            | yes      |
       | Appshapes                                   | no       |
@@ -570,20 +612,6 @@ Feature: RBAC
       | alteon operations                           | no       |
       | Security Control Center                     | no       |
       | app sla dashboard                           | no       |
-      | DefensePro Behavioral Protections Dashboard | yes      |
-      | HTTPS Flood Dashboard                       | yes      |
-      | DefensePro Analytics Dashboard              | yes      |
-      | DefensePro Monitoring Dashboard             | yes      |
-      | DefenseFlow Analytics Dashboard             | yes      |
-      | AppWall Dashboard                           | no       |
-      | AMS Reports                                 | yes      |
-      | AMS Forensics                               | yes      |
-      | AMS Alerts                                  | yes      |
-      | vDirect                                     | yes      |
-      | GEL Dashboard                               | yes      |
-      | EAAF Dashboard                              | yes      |
-      | DEVICES CONFIGURATION                      | yes      |
-      | VISION SETTINGS                             | yes      |
     * UI Logout
 
   @SID_17
@@ -591,32 +619,11 @@ Feature: RBAC
     When UI Login with user "security_monitor" and password "radware"
     Then UI Validate user rbac
       | operations                                  | accesses |
-      | add/edit device                             | no       |
-      | lock device                                 | no       |
-      | supports alteon                             | yes      |
-      | supports linkproof                          | yes      |
-      | supports defensepro                         | yes      |
-      | supports AppWall                            | yes      |
-      | security monitoring perspective             | yes      |
-      | vision settings device resources            | no       |
       | AVR                                         | yes      |
       | APM                                         | no       |
       | DPM                                         | no       |
       | ANALYTICS ADC                               | no       |
       | ANALYTICS AMS                               | yes      |
-      | Alert browser                               | no       |
-      | Scheduler                                   | no       |
-      | Toolbox                                     | no       |
-      | operator toolbox                            | no       |
-      | Appshapes                                   | no       |
-      | load new Appshape                           | no       |
-      | DP templates                                | no       |
-      | physical tab                                | no       |
-      | dp operations                               | no       |
-      | AppWall Dashboard operations                | no       |
-      | alteon operations                           | no       |
-      | Security Control Center                     | no       |
-      | app sla dashboard                           | no       |
       | DefensePro Behavioral Protections Dashboard | yes      |
       | HTTPS Flood Dashboard                       | yes      |
       | DefensePro Analytics Dashboard              | yes      |
@@ -629,30 +636,20 @@ Feature: RBAC
       | vDirect                                     | no       |
       | GEL Dashboard                               | no       |
       | EAAF Dashboard                              | yes      |
-      | DEVICES CONFIGURATION                      | no       |
+      #| DEVICES CONFIGURATIONS                      | no       |
       | VISION SETTINGS                             | no       |
-    * UI Logout
-
-  @SID_18
-  Scenario: User Administrator
-    When UI Login with user "user_admin" and password "radware"
     Then UI Validate user rbac
       | operations                                  | accesses |
       | add/edit device                             | no       |
       | lock device                                 | no       |
-      | supports alteon                             | no       |
-      | supports linkproof                          | no       |
-      | supports defensepro                         | no       |
-      | supports AppWall                            | no       |
-      | security monitoring perspective             | no       |
-      | vision settings device resources            | no       |
-      | AVR                                         | no       |
-      | APM                                         | no       |
-      | DPM                                         | no       |
-      | ANALYTICS ADC                               | no       |
-      | ANALYTICS AMS                               | no       |
+      | supports alteon                             | yes      |
+      | supports linkproof                          | yes      |
+      | supports defensepro                         | yes      |
+      | supports AppWall                            | yes      |
+      | security monitoring perspective             | yes      |
+      #| vision settings device resources            | no       |
       | Alert browser                               | no       |
-      | Scheduler                                   | no       |
+      | SCHEDULER                                   | no       |
       | Toolbox                                     | no       |
       | operator toolbox                            | no       |
       | Appshapes                                   | no       |
@@ -663,7 +660,19 @@ Feature: RBAC
       | AppWall Dashboard operations                | no       |
       | alteon operations                           | no       |
       | Security Control Center                     | no       |
-      | app sla dashboard                           | no       |
+#      | app sla dashboard                           | no       |
+    * UI Logout
+
+  @SID_18
+  Scenario: User Administrator
+    When UI Login with user "user_admin" and password "radware"
+    Then UI Validate user rbac
+      | operations                                  | accesses |
+      | AVR                                         | no       |
+      | APM                                         | no       |
+      | DPM                                         | no       |
+      | ANALYTICS ADC                               | no       |
+      | ANALYTICS AMS                               | no       |
       | DefensePro Behavioral Protections Dashboard | no       |
       | HTTPS Flood Dashboard                       | no       |
       | DefensePro Analytics Dashboard              | no       |
@@ -676,13 +685,57 @@ Feature: RBAC
       | vDirect                                     | no       |
       | GEL Dashboard                               | no       |
       | EAAF Dashboard                              | no       |
-      | DEVICES CONFIGURATION                      | no       |
+      #| DEVICES CONFIGURATIONS                      | no       |
       | VISION SETTINGS                             | yes      |
+    Then UI Validate user rbac
+      | operations                                  | accesses |
+      | add/edit device                             | no       |
+      | lock device                                 | no       |
+      | supports alteon                             | no       |
+      | supports linkproof                          | no       |
+      | supports defensepro                         | no       |
+      | supports AppWall                            | no       |
+      | security monitoring perspective             | no       |
+      #| vision settings device resources            | no       |
+      | Alert browser                               | no       |
+      | SCHEDULER                                   | no       |
+      | Toolbox                                     | no       |
+      | operator toolbox                            | no       |
+      | Appshapes                                   | no       |
+      | load new Appshape                           | no       |
+      | DP templates                                | no       |
+      | physical tab                                | no       |
+      | dp operations                               | no       |
+      | AppWall Dashboard operations                | no       |
+      | alteon operations                           | no       |
+      | Security Control Center                     | no       |
+      | app sla dashboard                           | no       |
     * UI Logout
 
   @SID_19
   Scenario: Vision Administrator
     When UI Login with user "vision_admin" and password "radware"
+    Then UI Validate user rbac
+      | operations                                  | accesses |
+      | AVR                                         | yes      |
+      | APM                                         | yes      |
+      | DPM                                         | yes      |
+      | ANALYTICS ADC                               | yes      |
+      | ANALYTICS AMS                               | yes      |
+      | DefensePro Behavioral Protections Dashboard | yes      |
+      | HTTPS Flood Dashboard                       | yes      |
+      | DefensePro Analytics Dashboard              | yes      |
+      | DefensePro Monitoring Dashboard             | yes      |
+      | DefenseFlow Analytics Dashboard             | yes      |
+      | AppWall Dashboard                           | yes      |
+      | AMS Reports                                 | yes      |
+      | AMS Forensics                               | yes      |
+      | AMS Alerts                                  | yes      |
+      | vDirect                                     | yes      |
+      | GEL Dashboard                               | yes      |
+      | EAAF Dashboard                              | yes      |
+      #| DEVICES CONFIGURATIONS                      | yes      |
+      | VISION SETTINGS                             | yes      |
     Then UI Validate user rbac
       | operations                                  | accesses |
       | add/edit device                             | yes      |
@@ -692,14 +745,9 @@ Feature: RBAC
       | supports defensepro                         | yes      |
       | supports AppWall                            | yes      |
       | security monitoring perspective             | yes      |
-      | vision settings device resources            | yes      |
-      | AVR                                         | yes      |
-      | APM                                         | yes      |
-      | DPM                                         | yes      |
-      | ANALYTICS ADC                               | yes      |
-      | ANALYTICS AMS                               | yes      |
+      #| vision settings device resources            | yes      |
       | Alert browser                               | yes      |
-      | Scheduler                                   | yes      |
+      | SCHEDULER                                   | yes      |
       | Toolbox                                     | yes      |
       | operator toolbox                            | yes      |
       | Appshapes                                   | yes      |
@@ -711,20 +759,6 @@ Feature: RBAC
       | alteon operations                           | yes      |
       | Security Control Center                     | yes      |
       | app sla dashboard                           | yes      |
-      | DefensePro Behavioral Protections Dashboard | yes      |
-      | HTTPS Flood Dashboard                       | yes      |
-      | DefensePro Analytics Dashboard              | yes      |
-      | DefensePro Monitoring Dashboard             | yes      |
-      | DefenseFlow Analytics Dashboard             | yes      |
-      | AppWall Dashboard                           | yes      |
-      | AMS Reports                                 | yes      |
-      | AMS Forensics                               | yes      |
-      | AMS Alerts                                  | yes      |
-      | vDirect                                     | yes      |
-      | GEL Dashboard                               | yes      |
-      | EAAF Dashboard                              | yes      |
-      | DEVICES CONFIGURATION                      | yes      |
-      | VISION SETTINGS                             | yes      |
     * UI Logout
 
   @SID_20
@@ -732,32 +766,11 @@ Feature: RBAC
     When UI Login with user "vision_reporter" and password "radware"
     Then UI Validate user rbac
       | operations                                  | accesses |
-      | add/edit device                             | no       |
-      | lock device                                 | no       |
-      | supports alteon                             | yes      |
-      | supports linkproof                          | yes      |
-      | supports defensepro                         | yes      |
-      | supports AppWall                            | yes      |
-      | security monitoring perspective             | no       |
-      | vision settings device resources            | no       |
       | AVR                                         | yes      |
       | APM                                         | yes      |
       | DPM                                         | yes      |
       | ANALYTICS ADC                               | yes      |
       | ANALYTICS AMS                               | yes      |
-      | Alert browser                               | no       |
-      | Scheduler                                   | no       |
-      | Toolbox                                     | no       |
-      | operator toolbox                            | no       |
-      | Appshapes                                   | no       |
-      | load new Appshape                           | no       |
-      | DP templates                                | no       |
-      | physical tab                                | no       |
-      | dp operations                               | no       |
-      | AppWall Dashboard operations                | no       |
-      | alteon operations                           | no       |
-      | Security Control Center                     | no       |
-      | app sla dashboard                           | yes      |
       | DefensePro Behavioral Protections Dashboard | yes      |
       | HTTPS Flood Dashboard                       | yes      |
       | DefensePro Analytics Dashboard              | yes      |
@@ -768,10 +781,33 @@ Feature: RBAC
       | AMS Forensics                               | yes      |
       | AMS Alerts                                  | yes      |
       | vDirect                                     | no       |
-      | GEL Dashboard                               | no       |
+      | GEL Dashboard                               | yes      |
       | EAAF Dashboard                              | yes      |
-      | DEVICES CONFIGURATION                      | no       |
+      #| DEVICES CONFIGURATIONS                      | no       |
       | VISION SETTINGS                             | no       |
+    Then UI Validate user rbac
+      | operations                                  | accesses |
+      | add/edit device                             | no       |
+      | lock device                                 | no       |
+      | supports alteon                             | no       |
+      | supports linkproof                          | no       |
+      | supports defensepro                         | no       |
+      | supports AppWall                            | no       |
+      | security monitoring perspective             | no       |
+      #| vision settings device resources            | no       |
+      | Alert browser                               | no       |
+      | SCHEDULER                                   | no       |
+      | Toolbox                                     | no       |
+      | operator toolbox                            | no       |
+      | Appshapes                                   | no       |
+      | load new Appshape                           | no       |
+      | DP templates                                | no       |
+      | physical tab                                | no       |
+      | dp operations                               | no       |
+      | AppWall Dashboard operations                | no       |
+      | alteon operations                           | no       |
+      | Security Control Center                     | no       |
+#      | app sla dashboard                           | yes      |
     * UI Logout
 
   @SID_21
@@ -789,7 +825,7 @@ Feature: RBAC
       | ANALYTICS AMS                     | yes      |
       | VISION SETTINGS - DEVICE RESOURCE | yes      |
       | ALERT BROWSER                     | yes      |
-      | Scheduler                         | yes      |
+      | SCHEDULER                         | yes      |
       | operator toolbox                  | yes      |
       | load new Appshape                 | yes      |
       | DP templates                      | yes      |
@@ -801,6 +837,16 @@ Feature: RBAC
 
     * UI Login with user "system_user" and password "radware" negative
     Then UI logout and close browser
+
+  @SID_23
+  Scenario: Login And Go to Vision
+    Given UI Login with user "radware" and password "radware"
+    Given UI Go To Vision
+    Then UI Navigate to page "System->User Management->User Management Settings"
+    Then UI Select "TACACS+" from Vision dropdown "Authentication Mode"
+    Then UI Click Button "Submit"
+    Then UI Logout
+
 
   @SID_22
   Scenario:Clean up (clean configurations caused by this feature)

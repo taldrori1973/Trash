@@ -7,10 +7,10 @@ Feature: TED Functionality
     Then CLI Clear vision logs
     When CLI Operations - Run Radware Session command "net firewall open-port set 5140 open"
     When CLI Operations - Run Radware Session command "net firewall open-port set 9200 open"
-    #Then CLI Operations - Run Root Session command "/etc/init.d/iptables restart"
 
     Then UI Login with user "radware" and password "radware"
     Then REST Vision Install License Request "vision-reporting-module-ADC"
+    Then Browser Refresh Page
     Then REST Add "Alteon" Device To topology Tree with Name "TED Automation" and Management IP "10.25.49.130" into site "Default"
       | attribute     | value   |
       | httpsPassword | admin   |
@@ -21,6 +21,10 @@ Feature: TED Functionality
       | httpsPassword | admin   |
       | httpsUsername | admin   |
     Then Sleep "120"
+    Then REST Add "Alteon" Device To topology Tree with Name "TED Automation3" and Management IP "10.25.49.160" into site "Default"
+      | attribute     | value   |
+      | httpsPassword | admin   |
+      | httpsUsername | admin   |
 
   @SID_2
   Scenario: Navigate to TED Tab
@@ -32,48 +36,58 @@ Feature: TED Functionality
 
   @SID_3
   Scenario: validate filter bar is empty and no data exists in the tedEvents Table
-    Then UI Validate Text field by id "tedFilterBarInput" EQUALS ""
-    Then UI Validate "tedEvent Table" Table rows count equal to 0
+    Then UI Validate Text field by id "tedSearchBarInput" EQUALS ""
+    Then UI Validate "tedEvent Table" Table rows count EQUALS to 0
   #TODO validate the correct "No Data Available" image appears in the table
 
   @SID_4
   Scenario: After Sending events - verify no data appears until refresh and refresh maintains filter bar value
-    #Then CLI Run remote linux Command "python3 /root/cef/cef_messages_dir.py -a 1 -i "10.25.49.196" -p "5140" -dir "/root/cef_events/automation/fieldsummarybadgevalues" -t" on "GENERIC_LINUX_SERVER"
     When CLI Send Traffic Events file "fieldsummarybadgevalues"
-#    Then CLI Run remote linux Command "python3 /home/radware/TED/cef/cef_messages_dir.py -a 1 -i "172.17.164.101" -p "5140" -dir "/home/radware/TED/automation/fieldsummarybadgevalues" -t" on "GENERIC_LINUX_SERVER"
     And Sleep "20"
-    Then UI Validate "tedEvent Table" Table rows count equal to 0
-    Then UI Set Text field with id "tedFilterBarInput" with "range=7d"
-    Then UI Click Button by id "tedFilterBarButtonRefresh"
-    Then UI Validate "tedEvent Table" Table rows count equal to 8
-    Then UI Validate Text field by id "tedFilterBarInput" EQUALS "range=7d"
+    Then UI Validate "tedEvent Table" Table rows count EQUALS to 0
+    Then UI Click Button by id "tedSearchBarClear"
+    Then UI Set Text field with id "tedSearchBarInput" with "range=7d"
+    Then UI Click Button by id "tedSearchBarSearch"
+    Then UI Validate "tedEvent Table" Table rows count EQUALS to 8
+    Then UI Validate Text field by id "tedSearchBarTagIndex0" CONTAINS "range:7d"
 
   @SID_5
   Scenario: Fields Summary -> TedTopAnalyticsSummaryStateBadge value and table displays max 5 results (table offset by 1)
     Then UI Validate Text field by id "tedTopAnalyticsSummaryStateBadge" EQUALS "7"
     Then UI Click Button by id "tedTopAnalyticsSummaryStateBadge"
-    Then UI Validate "tedEvent stateTable" Table rows count equal to 6
+    Then UI Validate "tedEvent stateTable" Table rows count EQUALS to 6
     Then UI click Table row by keyValue or Index with elementLabel "tedEvent stateTable" findBy columnName "Value" findBy cellValue "Sent to client"
-    Then UI Validate Text field by id "tedFilterBarInput" EQUALS "range=7d AND outcome:"Sent to client""
-    Then UI Validate "tedEvent stateTable" Table rows count equal to 2
+
+    Then UI Validate Text field by id "tedSearchBarTagIndex0" CONTAINS "range:7d"
+    Then UI Validate Text field by id "tedSearchBarTagIndex1" CONTAINS "AND outcome:"Sent to client"
+
+    Then UI Validate "tedEvent stateTable" Table rows count EQUALS to 2
     Then UI Click Button by id "tedTopAnalyticsSummaryStateBadge"
-    Then UI Set Text field with id "tedFilterBarInput" with "range=7d"
-    Then UI Click Button by id "tedFilterBarButtonRefresh"
+
+    Then UI Click Button by id "tedSearchBarClear"
+    Then UI Set Text field with id "tedSearchBarInput" with "range=7d"
+    Then UI Click Button by id "tedSearchBarSearch"
 
   @SID_6
   Scenario: tedEvent Table items are clickable and update query bar
-    Then UI Set Text field with id "tedFilterBarInput" with "range=7d AND outcome:"Sent to client""
-    Then UI Click Button by id "tedFilterBarButtonRefresh"
+    Then UI Click Button by id "tedSearchBarClear"
+    Then UI Set Text field with id "tedSearchBarInput" with "range=7d AND outcome:"Sent to client""
+    Then UI Click Button by id "tedSearchBarSearch"
     Then UI "collapse" Table row by keyValue or Index with elementLabel "tedEvent Table" findBy index 0
     Then UI Validate Text field by id "EventsSubPanelBoxRequestleftStateData" EQUALS "Sent to client"
     Then UI Click Button by id "EventsSubPanelBoxRequestrightQueryData"
-    Then UI Validate Text field by id "tedFilterBarInput" EQUALS "range=7d AND outcome:"Sent to client" AND rdwrAltQuery:"?queryWithNoParameters&withParams\=true""
+
+    Then UI Validate Text field by id "tedSearchBarTagIndex0" CONTAINS "range:7d"
+    Then UI Validate Text field by id "tedSearchBarTagIndex1" CONTAINS "AND outcome:"Sent to client""
+    Then UI Validate Text field by id "tedSearchBarTagIndex2" CONTAINS "AND rdwrAltQuery:"?queryWithNoParameters&withParams\=true""
+
     Then UI "expand" Table row by keyValue or Index with elementLabel "tedEvent Table" findBy index 0
 
   @SID_7
   Scenario: Field Summary Badge Values
-    Then UI Set Text field with id "tedFilterBarInput" with "range=7d"
-    Then UI Click Button by id "tedFilterBarButtonRefresh"
+    Then UI Click Button by id "tedSearchBarClear"
+    Then UI Set Text field with id "tedSearchBarInput" with "range=7d"
+    Then UI Click Button by id "tedSearchBarSearch"
     ## Fields Summary - Request
     Then UI Validate Text field by id "tedTopAnalyticsSummaryStateBadge" EQUALS "7"
     Then UI Validate Text field by id "tedTopAnalyticsSummaryQueryBadge" EQUALS "2"
@@ -124,16 +138,18 @@ Feature: TED Functionality
     Then UI Validate Text field by id "tedTopAnalyticsSummaryServNameBadge" EQUALS "1"
     Then UI Validate Text field by id "tedTopAnalyticsSummaryInstanceBadge" EQUALS "1"
 
-    # This test is currently failing due a a defect that is fixed in a branch
   @SID_8
   Scenario: URL encoded query values properly quoted
-    Then UI Set Text field with id "tedFilterBarInput" with "range=7d"
-    Then UI Click Button by id "tedFilterBarButtonRefresh"
+    Then UI Click Button by id "tedSearchBarClear"
+    Then UI Set Text field with id "tedSearchBarInput" with "range=7d"
+    Then UI Click Button by id "tedSearchBarSearch"
     Then UI Click Button by id "tedTopAnalyticsSummaryQueryBadge"
-    Then UI Validate "tedEvent queryTable" Table rows count equal to 3
+    Then UI Validate "tedEvent queryTable" Table rows count EQUALS to 3
     Then UI click Table row by keyValue or Index with elementLabel "tedEvent queryTable" findBy columnName "Value" findBy cellValue "?Hello%20World"
-    Then UI Validate Text field by id "tedFilterBarInput" EQUALS "range=7d AND rdwrAltQuery:"?Hello%20World""
-    Then UI Validate "tedEvent queryTable" Table rows count equal to 2
+    Then UI Validate Text field by id "tedSearchBarTagIndex0" CONTAINS "range:7d"
+    Then UI Validate Text field by id "tedSearchBarTagIndex1" CONTAINS "AND rdwrAltQuery:"?Hello%20World""
+    Then UI Validate "tedEvent queryTable" Table rows count EQUALS to 2
+    Then Sleep "5"
     Then UI Click Button by id "tedTopAnalyticsSummaryQueryBadge"
 
   @SID_9
@@ -141,31 +157,40 @@ Feature: TED Functionality
     * REST Delete ES index "alteon*"
     Then CLI Run remote linux Command "curl 'http://10.25.49.132/' -H 'Connection: keep-alive' -H 'Pragma: no-cache' -H 'Cache-Control: no-cache' -H 'Upgrade-Insecure-Requests: 1' -H 'User-Agent: Mozilla/5.0 (Windows NT 6.1; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/76.0.3809.100 Safari/537.36' -H 'Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3' -H 'Accept-Encoding: gzip, deflate' -H 'Accept-Language: en-GB,en;q=0.9,en-US;q=0.8,he;q=0.7' --compressed --insecure" on "GENERIC_LINUX_SERVER"
     And Sleep "20"
-    Then UI Set Text field with id "tedFilterBarInput" with ""
-    Then UI Click Button by id "tedFilterBarButtonRefresh"
-    Then UI Validate "tedEvent Table" Table rows count equal to 1
+    Then UI Click Button by id "tedSearchBarClear"
+    Then UI Click Button by id "tedSearchBarSearch"
+    Then UI Validate "tedEvent Table" Table rows count EQUALS to 1
 
   @SID_10
     Scenario: Running 34.2.2 traffic
     Then CLI Run remote linux Command "curl 'http://10.25.49.137/' -H 'Connection: keep-alive' -H 'Pragma: no-cache' -H 'Cache-Control: no-cache' -H 'Upgrade-Insecure-Requests: 1' -H 'User-Agent: Mozilla/5.0 (Windows NT 6.1; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/76.0.3809.100 Safari/537.36' -H 'Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3' -H 'Accept-Encoding: gzip, deflate' -H 'Accept-Language: en-GB,en;q=0.9,en-US;q=0.8,he;q=0.7' --compressed --insecure" on "GENERIC_LINUX_SERVER"
     And Sleep "20"
-    Then UI Set Text field with id "tedFilterBarInput" with ""
-    Then UI Click Button by id "tedFilterBarButtonRefresh"
-    Then UI Validate "tedEvent Table" Table rows count equal to 2
+    Then UI Click Button by id "tedSearchBarClear"
+    Then UI Click Button by id "tedSearchBarSearch"
+    Then UI Validate "tedEvent Table" Table rows count EQUALS to 2
 
   @SID_11
+  Scenario: Running 32.6.0.0 traffic
+    Then CLI Run remote linux Command "curl 'http://10.25.49.162/' -H 'Connection: keep-alive' -H 'Pragma: no-cache' -H 'Cache-Control: no-cache' -H 'Upgrade-Insecure-Requests: 1' -H 'User-Agent: Mozilla/5.0 (Windows NT 6.1; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/76.0.3809.100 Safari/537.36' -H 'Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3' -H 'Accept-Encoding: gzip, deflate' -H 'Accept-Language: en-GB,en;q=0.9,en-US;q=0.8,he;q=0.7' --compressed --insecure" on "GENERIC_LINUX_SERVER"
+    And Sleep "20"
+    Then UI Click Button by id "tedSearchBarClear"
+    Then UI Click Button by id "tedSearchBarSearch"
+    Then UI Validate "tedEvent Table" Table rows count EQUALS to 3
+
+  @SID_12
     Scenario: Malformed cef message request
     * REST Delete ES index "alteon*"
     When CLI Send Traffic Events file "unifiedTrafficEventUpdates"
 #    Then CLI Run remote linux Command "python3 /home/radware/TED/cef/cef_messages_dir.py -a 1 -i "172.17.164.101" -p "5140" -dir "/home/radware/TED/automation/unifiedTrafficEventUpdates" -t" on "GENERIC_LINUX_SERVER"
     And Sleep "20"
-    Then UI Click Button by id "tedFilterBarButtonRefresh"
-    Then UI Validate "tedEvent Table" Table rows count equal to 3
+    Then UI Click Button by id "tedSearchBarSearch"
+    Then UI Validate "tedEvent Table" Table rows count EQUALS to 3
 
-  @SID_12
+  @SID_13
   Scenario: Cleanup
     Then REST Delete Device By IP "10.25.49.130"
     Then REST Delete Device By IP "10.25.49.135"
+    Then REST Delete Device By IP "10.25.49.160"
     Then UI logout and close browser
     * CLI Check if logs contains
       | logType | expression | isExpected   |

@@ -4,39 +4,43 @@ Feature: Forensics Delivery
 
   @SID_1
   Scenario: Clean system data
-    * CLI kill all simulator attacks on current vision
-    * CLI Clear vision logs
-    * REST Delete ES index "dp-*"
+    When CLI kill all simulator attacks on current vision
+    When CLI Clear vision logs
+    When REST Delete ES index "dp-*"
+    Given CLI Reset radware password
+    When REST Vision Install License Request "vision-AVA-Max-attack-capacity"
+    When CLI Operations - Run Radware Session command "system user authentication-mode set TACACS+"
+
 
   @SID_2
   Scenario: VRM - Login to VRM "Wizard" Test and enable emailing
     Given UI Login with user "sys_admin" and password "radware"
-    Then CLI Operations - Run Root Session command "yes|restore_radware_user_password" timeout 15
-    * REST Vision Install License Request "vision-AVA-Max-attack-capacity"
+    And UI Navigate to "VISION SETTINGS" page via homePage
     And UI Go To Vision
-    Then UI Navigate to page "System->General Settings->Alert Settings->Alert Browser"
-    Then UI Do Operation "select" item "Email Reporting Configuration"
-    Then UI Set Checkbox "Enable" To "true"
-    Then UI Set Text Field "SMTP User Name" To "qa_test@radware.com"
-    Then UI Set Text Field "From Header" To "APSolute Vision"
-    Then UI Set Checkbox "Enable" To "false"
-    Then UI Click Button "Submit"
+    And UI Navigate to page "System->General Settings->Alert Settings->Alert Browser"
+    And UI Do Operation "select" item "Email Reporting Configuration"
+    And UI Set Checkbox "Enable" To "true"
+    And UI Set Text Field "SMTP User Name" To "qa_test@radware.com"
+    And UI Set Text Field "From Header" To "APSolute Vision"
+    And UI Set Checkbox "Enable" To "false"
+    And UI Click Button "Submit"
+    And UI Go To Vision
     And UI Navigate to page "System->General Settings->APSolute Vision Analytics Settings->Email Reporting Configurations"
     And UI Set Checkbox "Enable" To "true"
     And UI Set Text Field "SMTP Server Address" To "172.17.164.10"
     And UI Set Text Field "SMTP Port" To "25"
     And UI Click Button "Submit"
-    Then UI Navigate to "AMS Forensics" page via homepage
+    And UI Navigate to "AMS Forensics" page via homepage
 
   @SID_3
   Scenario: validate Forensics Report empty delivery
-    When UI "Create" Forensics With Name "Email Validate"
+    Given UI "Create" Forensics With Name "Email Validate"
       | Share    | Email:[automation.vision1@forensic.local],Subject:Forensic Email Validate                                     |
       | Output   | Action,Attack ID,Start Time,Source IP Address,Source Port,Destination IP Address,Destination Port,Direction,Protocol,Threat Category,Radware ID,Device IP Address,Attack Name,End Time,Duration,Packets,Mbits,Physical Port,Policy Name,Risk |
       | Format   | Select: HTML |
 
-    Then CLI Run remote linux Command "echo "cleared" $(date) > /var/spool/mail/forensicuser" on "GENERIC_LINUX_SERVER"
-    Then UI Generate and Validate Forensics With Name "Email Validate" with Timeout of 300 Seconds
+    When CLI Run remote linux Command "echo "cleared" $(date) > /var/spool/mail/forensicuser" on "GENERIC_LINUX_SERVER"
+    When UI Generate and Validate Forensics With Name "Email Validate" with Timeout of 300 Seconds
 
     Then CLI Run linux Command "grep "From qa_test@radware.com" /var/spool/mail/forensicuser |wc -l" on "GENERIC_LINUX_SERVER" and validate result EQUALS "1"
     Then CLI Run linux Command "grep "X-Original-To: automation.vision1@forensic.local" /var/spool/mail/forensicuser |wc -l" on "GENERIC_LINUX_SERVER" and validate result EQUALS "1"
@@ -55,10 +59,18 @@ Feature: Forensics Delivery
     Given UI Login with user "sys_admin" and password "radware"
     Then UI Navigate to "AMS Forensics" page via homepage
     Then UI Generate and Validate Forensics With Name "Email Validate" with Timeout of 300 Seconds
+    And Sleep "30"
+    #For debug use to have the ability to view what was generated
+    Then UI Click Button "Views.report" with value "Email Validate"
+    Then Sleep "5"
 
   @SID_6
   Scenario: validate Forensics Report email no ftp format HTML
     Then CLI Run remote linux Command "cat /var/spool/mail/forensicuser > /tmp/forensicmail" on "GENERIC_LINUX_SERVER"
+
+    Then CLI Run linux Command "ll /var/spool/mail/" on "GENERIC_LINUX_SERVER" and validate result CONTAINS "forensicuser" in any line with timeOut 30
+    Then CLI Run linux Command "ll /tmp/" on "GENERIC_LINUX_SERVER" and validate result CONTAINS "forensicmail" in any line with timeOut 30
+
 
     Then CLI Run remote linux Command "awk -F "</th><th>" '{printf $2}' /var/spool/mail/forensicuser;echo" on "GENERIC_LINUX_SERVER"
     Then CLI Operations - Verify that output contains regex "Start Time"
@@ -136,18 +148,8 @@ Feature: Forensics Delivery
     Then CLI Operations - Verify that output contains regex "(\d{2})"
 
     Then CLI Run remote linux Command "awk -F "</th><th>" '{printf $18}' /var/spool/mail/forensicuser;echo" on "GENERIC_LINUX_SERVER"
-    Then CLI Operations - Verify that output contains regex "Packets"
-    Then CLI Run remote linux Command "awk -F "</td><td>" '{printf $18}' /var/spool/mail/forensicuser;echo" on "GENERIC_LINUX_SERVER"
-    Then CLI Operations - Verify that output contains regex "\b4\b"
-
-    Then CLI Run remote linux Command "awk -F "</th><th>" '{printf $19}' /var/spool/mail/forensicuser;echo" on "GENERIC_LINUX_SERVER"
-    Then CLI Operations - Verify that output contains regex "Mbits"
-    Then CLI Run remote linux Command "awk -F "</td><td>" '{printf $19}' /var/spool/mail/forensicuser;echo" on "GENERIC_LINUX_SERVER"
-    Then CLI Operations - Verify that output contains regex "\b0\b"
-
-    Then CLI Run remote linux Command "awk -F "</th><th>" '{printf $20}' /var/spool/mail/forensicuser;echo" on "GENERIC_LINUX_SERVER"
     Then CLI Operations - Verify that output contains regex "Physical Port"
-    Then CLI Run remote linux Command "awk -F "</td><td>" '{printf $20}' /var/spool/mail/forensicuser;echo" on "GENERIC_LINUX_SERVER"
+    Then CLI Run remote linux Command "awk -F "</td><td>" '{printf $18}' /var/spool/mail/forensicuser;echo" on "GENERIC_LINUX_SERVER"
     Then CLI Operations - Verify that output contains regex "\b1\b"
 
     Then CLI Run remote linux Command "grep -oP '(?<=<th>)[^</th>]*' /var/spool/mail/forensicuser | tail -1" on "GENERIC_LINUX_SERVER"
@@ -237,30 +239,28 @@ Feature: Forensics Delivery
     # validate csv number of rows, columns order, values
     Then CLI Run remote linux Command "unzip -o /home/radware/ftp/FTP_export*.zip -d /home/radware/ftp/" on "GENERIC_LINUX_SERVER"
     Then CLI Run linux Command "cat /home/radware/ftp/FTP_export*.csv |wc -l" on "GENERIC_LINUX_SERVER" and validate result EQUALS "2"
-    Then CLI Run linux Command "cat /home/radware/ftp/FTP_export*.csv |grep "S.No,Start Time,End Time,Device IP,Threat Category,Attack Name,Policy Name,Action,Attack ID,Source IP,Source Port,Destination IP,Destination Port,Direction,Protocol,Radware ID,Duration,Packets,Mbits,Physical Port,Risk" |wc -l" on "GENERIC_LINUX_SERVER" and validate result EQUALS "1"
+    Then CLI Run linux Command "cat /home/radware/ftp/FTP_export*.csv |grep "S.No,Start Time,End Time,Device IP Address,Threat Category,Attack Name,Policy Name,Action,Attack ID,Source IP Address,Source Port,Destination IP Address,Destination Port,Direction,Protocol,Radware ID,Duration,Physical Port,Risk" |wc -l" on "GENERIC_LINUX_SERVER" and validate result EQUALS "1"
     Then CLI Run linux Command "cat /home/radware/ftp/FTP_export*.csv |head -1|awk -F "," '{printf $1}';echo" on "GENERIC_LINUX_SERVER" and validate result EQUALS "S.No"
     Then CLI Run linux Command "cat /home/radware/ftp/FTP_export*.csv |head -1|awk -F "," '{printf $2}';echo" on "GENERIC_LINUX_SERVER" and validate result EQUALS "Start Time"
     Then CLI Run linux Command "cat /home/radware/ftp/FTP_export*.csv |head -1|awk -F "," '{printf $3}';echo" on "GENERIC_LINUX_SERVER" and validate result EQUALS "End Time"
-    Then CLI Run linux Command "cat /home/radware/ftp/FTP_export*.csv |head -1|awk -F "," '{printf $4}';echo" on "GENERIC_LINUX_SERVER" and validate result EQUALS "Device IP"
+    Then CLI Run linux Command "cat /home/radware/ftp/FTP_export*.csv |head -1|awk -F "," '{printf $4}';echo" on "GENERIC_LINUX_SERVER" and validate result EQUALS "Device IP Address"
     Then CLI Run linux Command "cat /home/radware/ftp/FTP_export*.csv |head -1|awk -F "," '{printf $5}';echo" on "GENERIC_LINUX_SERVER" and validate result EQUALS "Threat Category"
     Then CLI Run linux Command "cat /home/radware/ftp/FTP_export*.csv |head -1|awk -F "," '{printf $6}';echo" on "GENERIC_LINUX_SERVER" and validate result EQUALS "Attack Name"
     Then CLI Run linux Command "cat /home/radware/ftp/FTP_export*.csv |head -1|awk -F "," '{printf $7}';echo" on "GENERIC_LINUX_SERVER" and validate result EQUALS "Policy Name"
     Then CLI Run linux Command "cat /home/radware/ftp/FTP_export*.csv |head -1|awk -F "," '{printf $8}';echo" on "GENERIC_LINUX_SERVER" and validate result EQUALS "Action"
     Then CLI Run linux Command "cat /home/radware/ftp/FTP_export*.csv |head -1|awk -F "," '{printf $9}';echo" on "GENERIC_LINUX_SERVER" and validate result EQUALS "Attack ID"
-    Then CLI Run linux Command "cat /home/radware/ftp/FTP_export*.csv |head -1|awk -F "," '{printf $10}';echo" on "GENERIC_LINUX_SERVER" and validate result EQUALS "Source IP"
+    Then CLI Run linux Command "cat /home/radware/ftp/FTP_export*.csv |head -1|awk -F "," '{printf $10}';echo" on "GENERIC_LINUX_SERVER" and validate result EQUALS "Source IP Address"
     Then CLI Run linux Command "cat /home/radware/ftp/FTP_export*.csv |head -1|awk -F "," '{printf $11}';echo" on "GENERIC_LINUX_SERVER" and validate result EQUALS "Source Port"
-    Then CLI Run linux Command "cat /home/radware/ftp/FTP_export*.csv |head -1|awk -F "," '{printf $12}';echo" on "GENERIC_LINUX_SERVER" and validate result EQUALS "Destination IP"
+    Then CLI Run linux Command "cat /home/radware/ftp/FTP_export*.csv |head -1|awk -F "," '{printf $12}';echo" on "GENERIC_LINUX_SERVER" and validate result EQUALS "Destination IP Address"
     Then CLI Run linux Command "cat /home/radware/ftp/FTP_export*.csv |head -1|awk -F "," '{printf $13}';echo" on "GENERIC_LINUX_SERVER" and validate result EQUALS "Destination Port"
     Then CLI Run linux Command "cat /home/radware/ftp/FTP_export*.csv |head -1|awk -F "," '{printf $14}';echo" on "GENERIC_LINUX_SERVER" and validate result EQUALS "Direction"
     Then CLI Run linux Command "cat /home/radware/ftp/FTP_export*.csv |head -1|awk -F "," '{printf $15}';echo" on "GENERIC_LINUX_SERVER" and validate result EQUALS "Protocol"
     Then CLI Run linux Command "cat /home/radware/ftp/FTP_export*.csv |head -1|awk -F "," '{printf $16}';echo" on "GENERIC_LINUX_SERVER" and validate result EQUALS "Radware ID"
     Then CLI Run linux Command "cat /home/radware/ftp/FTP_export*.csv |head -1|awk -F "," '{printf $17}';echo" on "GENERIC_LINUX_SERVER" and validate result EQUALS "Duration"
-    Then CLI Run linux Command "cat /home/radware/ftp/FTP_export*.csv |head -1|awk -F "," '{printf $18}';echo" on "GENERIC_LINUX_SERVER" and validate result EQUALS "Packets"
-    Then CLI Run linux Command "cat /home/radware/ftp/FTP_export*.csv |head -1|awk -F "," '{printf $19}';echo" on "GENERIC_LINUX_SERVER" and validate result EQUALS "Mbits"
-    Then CLI Run linux Command "cat /home/radware/ftp/FTP_export*.csv |head -1|awk -F "," '{printf $20}';echo" on "GENERIC_LINUX_SERVER" and validate result EQUALS "Physical Port"
-    Then CLI Run linux Command "cat /home/radware/ftp/FTP_export*.csv |head -1|awk -F "," '{printf $21}';echo" on "GENERIC_LINUX_SERVER" and validate result EQUALS "Risk"
+    Then CLI Run linux Command "cat /home/radware/ftp/FTP_export*.csv |head -1|awk -F "," '{printf $18}';echo" on "GENERIC_LINUX_SERVER" and validate result EQUALS "Physical Port"
+    Then CLI Run linux Command "cat /home/radware/ftp/FTP_export*.csv |head -1|awk -F "," '{printf $19}';echo" on "GENERIC_LINUX_SERVER" and validate result EQUALS "Risk"
 
-    Then CLI Run linux Command "cat /home/radware/ftp/FTP_export*.csv |grep -oP "1,(\d{2})/(\d{2})/202(\d{1}) (\d{2}):(\d{2}):(\d{2}),(\d{2})/(\d{2})/202(\d{1}) (\d{2}):(\d{2}):(\d{2}),172.16.22.50,Intrusions,tim,BDOS,Drop,7716-1402580209,192.85.1.77,1055,1.1.1.9,80,In,TCP,300000,(\d{2}),4,0.00,1,Low" |wc -l" on "GENERIC_LINUX_SERVER" and validate result EQUALS "1"
+    Then CLI Run linux Command "cat /home/radware/ftp/FTP_export*.csv |grep -oP "1,(\d{2})/(\d{2})/202(\d{1}) (\d{2}):(\d{2}):(\d{2}),(\d{2})/(\d{2})/202(\d{1}) (\d{2}):(\d{2}):(\d{2}),172.16.22.50,Intrusions,tim,BDOS,Drop,7716-1402580209,192.85.1.77,1055,1.1.1.9,80,In,TCP,300000,(\d{2}),1,Low" |wc -l" on "GENERIC_LINUX_SERVER" and validate result EQUALS "1"
     Then CLI Run linux Command "cat /home/radware/ftp/FTP_export*.csv |head -2|tail -1|awk -F "," '{printf $1}';echo" on "GENERIC_LINUX_SERVER" and validate result EQUALS "1"
     Then CLI Run linux Command "cat /home/radware/ftp/FTP_export*.csv |head -2|tail -1|awk -F "," '{printf $4}';echo" on "GENERIC_LINUX_SERVER" and validate result EQUALS "172.16.22.50"
     Then CLI Run linux Command "cat /home/radware/ftp/FTP_export*.csv |head -2|tail -1|awk -F "," '{printf $5}';echo" on "GENERIC_LINUX_SERVER" and validate result EQUALS "Intrusions"
@@ -275,10 +275,8 @@ Feature: Forensics Delivery
     Then CLI Run linux Command "cat /home/radware/ftp/FTP_export*.csv |head -2|tail -1|awk -F "," '{printf $14}';echo" on "GENERIC_LINUX_SERVER" and validate result EQUALS "In"
     Then CLI Run linux Command "cat /home/radware/ftp/FTP_export*.csv |head -2|tail -1|awk -F "," '{printf $15}';echo" on "GENERIC_LINUX_SERVER" and validate result EQUALS "TCP"
     Then CLI Run linux Command "cat /home/radware/ftp/FTP_export*.csv |head -2|tail -1|awk -F "," '{printf $16}';echo" on "GENERIC_LINUX_SERVER" and validate result EQUALS "300000"
-    Then CLI Run linux Command "cat /home/radware/ftp/FTP_export*.csv |head -2|tail -1|awk -F "," '{printf $18}';echo" on "GENERIC_LINUX_SERVER" and validate result EQUALS "4"
-    Then CLI Run linux Command "cat /home/radware/ftp/FTP_export*.csv |head -2|tail -1|awk -F "," '{printf $19}';echo" on "GENERIC_LINUX_SERVER" and validate result EQUALS "0.00"
-    Then CLI Run linux Command "cat /home/radware/ftp/FTP_export*.csv |head -2|tail -1|awk -F "," '{printf $20}';echo" on "GENERIC_LINUX_SERVER" and validate result EQUALS "1"
-    Then CLI Run linux Command "cat /home/radware/ftp/FTP_export*.csv |head -2|tail -1|awk -F "," '{printf $21}';echo" on "GENERIC_LINUX_SERVER" and validate result EQUALS "Low"
+    Then CLI Run linux Command "cat /home/radware/ftp/FTP_export*.csv |head -2|tail -1|awk -F "," '{printf $18}';echo" on "GENERIC_LINUX_SERVER" and validate result EQUALS "1"
+    Then CLI Run linux Command "cat /home/radware/ftp/FTP_export*.csv |head -2|tail -1|awk -F "," '{printf $19}';echo" on "GENERIC_LINUX_SERVER" and validate result EQUALS "Low"
 
     Then CLI Run remote linux Command "cp /home/radware/ftp/FTP_export*.csv /tmp/" on "GENERIC_LINUX_SERVER"
 

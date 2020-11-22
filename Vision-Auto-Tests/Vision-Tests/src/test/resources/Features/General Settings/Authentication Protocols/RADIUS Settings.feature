@@ -4,7 +4,7 @@ Feature: Authentication Protocols - RADIUS settings Functionality
 
   @SID_1
   Scenario: Navigate to RADIUS setting page
-    Then CLI Operations - Run Root Session command "yes|restore_radware_user_password" timeout 15
+    Given CLI Reset radware password
     Given UI Login with user "radware" and password "radware"
     Then UI Open "Configurations" Tab
     Then UI Go To Vision

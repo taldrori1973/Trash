@@ -1,8 +1,9 @@
-@TC111534 @Test12
+@TC111534
 Feature: DefenseFlow operation - export configuration
 
   @SID_1
   Scenario: Login and Clean data
+    When CLI Operations - Run Radware Session command "system user authentication-mode set TACACS+"
     Given UI Login with user "sys_admin" and password "radware"
     Then CLI Run remote linux Command "mysql -prad123 vision_ng -e "delete from device_file where dev_type='DefenseFlow';"" on "ROOT_SERVER_CLI"
 

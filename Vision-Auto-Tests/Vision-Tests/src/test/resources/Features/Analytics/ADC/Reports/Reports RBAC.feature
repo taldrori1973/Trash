@@ -54,9 +54,10 @@ Feature: DPM - ADC Reports RBAC
   Scenario: Reports RBAC check logs
     Then UI logout and close browser
     And CLI Check if logs contains
-      | logType     | expression   | isExpected   |
-      | ES          | fatal\|error | NOT_EXPECTED |
-      | MAINTENANCE | fatal\|error | NOT_EXPECTED |
-      | JBOSS       | fatal        | NOT_EXPECTED |
-      | TOMCAT      | fatal        | NOT_EXPECTED |
-      | TOMCAT2     | fatal        | NOT_EXPECTED |
+      | logType     | expression                   | isExpected   |
+      | ES          | fatal\|error                 | NOT_EXPECTED |
+      | MAINTENANCE | fatal\|error                 | NOT_EXPECTED |
+      | MAINTENANCE | *.traffic-events-dashboard*. | IGNORE       |
+      | JBOSS       | fatal                        | NOT_EXPECTED |
+      | TOMCAT      | fatal                        | NOT_EXPECTED |
+      | TOMCAT2     | fatal                        | NOT_EXPECTED |

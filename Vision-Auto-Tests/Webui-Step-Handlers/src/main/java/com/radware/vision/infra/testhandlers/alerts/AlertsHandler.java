@@ -8,6 +8,7 @@ import com.radware.automation.webui.webpages.WebUIBasePage;
 import com.radware.automation.webui.widgets.api.table.Table;
 import com.radware.automation.webui.widgets.impl.table.WebUITable;
 import com.radware.restcore.VisionRestClient;
+import com.radware.vision.automation.AutoUtils.Operators.OperatorsEnum;
 import com.radware.vision.infra.base.pages.alerts.AlertFilter;
 import com.radware.vision.infra.base.pages.alerts.Alerts;
 import com.radware.vision.infra.base.pages.navigation.WebUIVisionBasePage;
@@ -28,13 +29,13 @@ public class AlertsHandler {
     public static boolean maximizeAlertsBrowser() {
 
         new Alerts().alertsMaximize();
-        String minimizeButtonXpath = GeneralUtils.buildGenericXpath(WebElementType.Id, WebUIStringsVision.getAlertsMinimizeButton(), EqualsOrContains.EQUALS);
+        String minimizeButtonXpath = GeneralUtils.buildGenericXpath(WebElementType.Id, WebUIStringsVision.getAlertsMinimizeButton(), OperatorsEnum.EQUALS);
         return ClickOperationsHandler.checkIfElementExistAndDisplayed(minimizeButtonXpath);
     }
 
     public static boolean minimizeAlertsBrowser() {
         new Alerts().alertsMinimize();
-        String minimizeButtonXpath = GeneralUtils.buildGenericXpath(WebElementType.Id, WebUIStringsVision.getAlertsMaximizeButton(), EqualsOrContains.EQUALS);
+        String minimizeButtonXpath = GeneralUtils.buildGenericXpath(WebElementType.Id, WebUIStringsVision.getAlertsMaximizeButton(), OperatorsEnum.EQUALS);
         return ClickOperationsHandler.checkIfElementExistAndDisplayed(minimizeButtonXpath);
     }
 

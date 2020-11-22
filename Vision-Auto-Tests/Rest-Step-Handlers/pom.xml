@@ -16,14 +16,13 @@
     <dependencies>
         <dependency>
             <groupId>com.radware.vision.automation</groupId>
-            <artifactId>Rest-Infra</artifactId>
+            <artifactId>Auto-Utils</artifactId>
             <version>${revision}</version>
         </dependency>
         <dependency>
-            <groupId>org.projectlombok</groupId>
-            <artifactId>lombok</artifactId>
-            <version>1.18.10</version>
-            <scope>provided</scope>
+            <groupId>com.radware.vision.automation</groupId>
+            <artifactId>Rest-Infra</artifactId>
+            <version>${revision}</version>
         </dependency>
         <dependency>
             <groupId>com.radware.vision.automation.tools</groupId>
@@ -36,6 +35,7 @@
             <artifactId>sut-system-objects</artifactId>
             <version>${artifact-type}-1.0-SNAPSHOT</version>
         </dependency>
+
     </dependencies>
 
 

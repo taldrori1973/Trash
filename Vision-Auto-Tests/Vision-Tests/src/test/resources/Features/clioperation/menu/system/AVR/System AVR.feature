@@ -3,6 +3,7 @@ Feature: CLI System AVR
 
   @SID_1
   Scenario: system avr enable cancel
+    When REST Delete ES index "dp-attack-raw*"
     Then CLI Clear vision logs
     Then CLI Run remote linux Command "sed -i 's/sql.persist.allow=.*$/sql.persist.allow=false/g' /opt/radware/mgt-server/third-party/tomcat/conf/collectors.properties" on "ROOT_SERVER_CLI"
     When CLI Operations - Run Radware Session command "system avr enable"
@@ -20,10 +21,12 @@ Feature: CLI System AVR
 
   @SID_4
   Scenario: verify write to sql enabled
+    Given CLI Run linux Command "system avr status" on "RADWARE_SERVER_CLI" and validate result CONTAINS "is running." in any line with timeOut 250
+    Then Sleep "15"
     Then CLI Run remote linux Command "mysql -prad123 vision_ng -e "delete from security_attacks;"" on "ROOT_SERVER_CLI"
+    Then CLI Run remote linux Command "mysql -prad123 vision_ng -e "delete from df_security_attacks;"" on "ROOT_SERVER_CLI"
     Then CLI simulate 1 attacks of type "rest_anomalies" on "DefensePro" 12
-    Then Sleep "40"
-    Then CLI Run linux Command "mysql -prad123 vision -NB -e "select count(*) from avr_security_attacks;"" on "ROOT_SERVER_CLI" and validate result GT "0"
+    Then CLI Run linux Command "mysql -prad123 vision -NB -e "select count(*) from avr_security_attacks;"" on "ROOT_SERVER_CLI" and validate result GT "0" with timeOut 60
 
   @SID_5
   Scenario: verify services running
@@ -33,11 +36,10 @@ Feature: CLI System AVR
   @SID_6
   Scenario: verify syslog proxy enabled
     When CLI Run remote linux Command on "GENERIC_LINUX_SERVER"
-      | "cat /home/radware/AW_Attacks/AppwallAttackTypes/Injection1 \| netcat " |
-      | #visionIP                                                               |
-      | " 2215"                                                                 |
-    Then Sleep "62"
-    Then CLI Run linux Command "tail -1 /var/avr/diaglogs/monitoringdiag.log |awk -F":" '{print$5}'|awk '{print$1}'" on "ROOT_SERVER_CLI" and validate result GTE "1"
+      | "count=1;while [ $count -le 120 ]; do  cat /home/radware/AW_Attacks/AppwallAttackTypes/Injection1 \| netcat " |
+      | #visionIP                                                                                                     |
+      | " 2215; sleep 1;let "count+=1";done"                                                                          |
+    Then CLI Run linux Command "tail -1 /var/avr/diaglogs/monitoringdiag.log |awk -F":" '{print$5}'|awk '{print$1}'" on "ROOT_SERVER_CLI" and validate result GTE "1" with timeOut 120
     Then Sleep "15"
     Then CLI Run remote linux Command "tail -20 /var/avr/diaglogs/monitoringdiag.log" on "ROOT_SERVER_CLI"
 
@@ -59,6 +61,7 @@ Feature: CLI System AVR
     Then CLI Run remote linux Command "mysql -prad123 vision_ng -e "delete from http_traf_stats_anomaly;"" on "ROOT_SERVER_CLI"
     Then CLI Run remote linux Command "mysql -prad123 vision -e "delete from traffic_utilizations;"" on "ROOT_SERVER_CLI"
     Then CLI Run remote linux Command "mysql -prad123 vision -e "delete from traffic_utilizations_per_policy;"" on "ROOT_SERVER_CLI"
+    Then CLI Run remote linux Command "mysql -prad123 vision_ng -e "delete from df_security_attacks;"" on "ROOT_SERVER_CLI"
 
     Then CLI simulate 1 attacks of type "rest_bdosdns" on "DefensePro" 12
     Then CLI simulate 1 attacks of type "rest_traffic_diff_Policy15out" on "DefensePro" 12
@@ -72,7 +75,7 @@ Feature: CLI System AVR
     Then CLI Run linux Command "mysql -prad123 vision_ng -NB -e "select count(*) from http_traf_stats_anomaly;"" on "ROOT_SERVER_CLI" and validate result EQUALS "0"
     Then CLI Run linux Command "mysql -prad123 vision -NB -e "select count(*) from traffic_utilizations;"" on "ROOT_SERVER_CLI" and validate result EQUALS "0"
     Then CLI Run linux Command "mysql -prad123 vision -NB -e "select count(*) from traffic_utilizations_per_policy;"" on "ROOT_SERVER_CLI" and validate result EQUALS "0"
-
+    Then CLI Run remote linux Command "mysql -prad123 vision_ng -e "delete from df_security_attacks;"" on "ROOT_SERVER_CLI"
   @SID_9
   Scenario: verify services stopped
     Then CLI Run linux Command "service avrservice status|head -1|grep "mainengine.exe"|awk '{print$2,$3}'" on "ROOT_SERVER_CLI" and validate result EQUALS "is stopped"
@@ -96,10 +99,15 @@ Feature: CLI System AVR
 
   @SID_12
   Scenario: Verify DP insert to ES
+    Then Sleep "30"
+    Then CLI Run linux Command "curl -s -XGET localhost:9200/_cat/indices/dp-attack-raw* |wc -l" on "ROOT_SERVER_CLI" and validate result GTE "0" with timeOut 40 with runCommand delay 5
     When REST Delete ES index "dp-attack-raw*"
-    Then CLI Run linux Command "curl -s -XGET localhost:9200/_cat/indices/dp-attack-raw* |wc -l" on "ROOT_SERVER_CLI" and validate result EQUALS "0"
+    Then CLI Run linux Command "curl -s -XGET localhost:9200/_cat/indices/dp-attack-raw* |wc -l" on "ROOT_SERVER_CLI" and validate result EQUALS "0" with timeOut 40 with runCommand delay 5
+    Then Sleep "30"
+    Given CLI Run linux Command "system avr status" on "RADWARE_SERVER_CLI" and validate result CONTAINS "is stopped." in any line with timeOut 250
+    Then CLI Run linux Command "curl -s -XGET localhost:9200/_cat/indices/dp-attack-raw* |wc -l" on "ROOT_SERVER_CLI" and validate result EQUALS "0" with timeOut 40 with runCommand delay 5
     When CLI simulate 1 attacks of type "rest_anomalies" on "DefensePro" 12 and wait 35 seconds
-    Then CLI Run linux Command "curl -s -XGET localhost:9200/_cat/indices/dp-attack-raw* |wc -l" on "ROOT_SERVER_CLI" and validate result EQUALS "1"
+    Then CLI Run linux Command "curl -s -XGET localhost:9200/_cat/indices/dp-attack-raw* |wc -l" on "ROOT_SERVER_CLI" and validate result EQUALS "1" with timeOut 120 with runCommand delay 5
 
   @SID_13
   Scenario: Verify AppWall insert to ES
@@ -158,6 +166,8 @@ Feature: CLI System AVR
       | logType | expression       | isExpected   |
       | TOMCAT  | fatal            | NOT_EXPECTED |
       | TOMCAT  | is not monitored | IGNORE       |
+
+
 
 
 

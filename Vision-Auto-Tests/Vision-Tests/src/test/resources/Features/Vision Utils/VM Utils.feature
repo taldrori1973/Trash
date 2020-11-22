@@ -8,3 +8,7 @@ Feature: VM Utils
       | VisionAutoAPM      |
       | VisionAutoNegative |
       | freshInstallTest   |
+
+@Update_Snapshot
+    Scenario: Update Snapshot
+      Given Upgrade Vision According To SUT Snapshot

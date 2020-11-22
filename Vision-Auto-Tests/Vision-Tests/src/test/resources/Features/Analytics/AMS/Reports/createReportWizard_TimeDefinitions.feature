@@ -15,7 +15,7 @@ Feature: Report Wizard_Time_Definitions
 #  @VRM_Time_1
   @SID_2
   Scenario: Clean system data before test
-    Then CLI Operations - Run Root Session command "yes|restore_radware_user_password" timeout 15
+    Given CLI Reset radware password
     * REST Vision Install License Request "vision-AVA-Max-attack-capacity"
     * REST Request "PUT" for "Connectivity->Inactivity Timeout for Configuration"
       | type | value                                 |
@@ -310,13 +310,13 @@ Feature: Report Wizard_Time_Definitions
     Given UI "Create" Report With Name "testReport_Absolute"
       | reportType            | DefensePro Behavioral Protections Dashboard |
       | devices               | index:10                                    |
-      | Time Definitions.Date | Absolute:[27.02.1971 01:00:00, +1d]         |
+      | Time Definitions.Date | Absolute:[27.02.1971 01:00:00, +0d]         |
     Then Sleep "3"
     Then UI "Validate" Report With Name "testReport_Absolute"
       | reportType            | DefensePro Behavioral Protections Dashboard |
       | devices               | index:10                                    |
 #    Time validation is from now, It is not stable validation.
-#      | Time Definitions.Date | Absolute:[27.02.1971 01:00:00, +1d]         |
+#      | Time Definitions.Date | Absolute:[27.02.1971 01:00:00, +0d]         |
 
 
   @SID_17
@@ -448,7 +448,7 @@ Feature: Report Wizard_Time_Definitions
 
 
     # move Anomalies start time 31 Days -> 63 Days backwards
-    # we shouldnot  find any data
+    # No data should be find
     When CLI Run remote linux Command "curl -XPOST localhost:9200/dp-attack-raw-*/_update_by_query/?pretty -d '{"query": {"match": {"attackIpsId": "4-1402580209"}},"script": {"source": "ctx._source.startTime = 'ctx._source.startTime-2678400000'"}}'" on "ROOT_SERVER_CLI"
 
     #ToDo verify data displayed in the report

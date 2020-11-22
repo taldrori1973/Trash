@@ -30,7 +30,7 @@ Feature: VRM Alerts Delivery
     And UI Click Button "Submit"
     And UI Navigate to "AMS Alerts" page via homePage
 
-
+  
   @SID_3
   Scenario: Create Alert Delivery
     When UI "Create" Alerts With Name "Alert Delivery"
@@ -62,6 +62,7 @@ Feature: VRM Alerts Delivery
   @SID_8
   Scenario: Verify Alert Email Delivery Impact
     Then CLI Run linux Command "cat /var/spool/mail/alertuser|tr -d "="|tr -d "\n"|grep -o "<td>Impact</td>    <td>Our network is down</td>" |wc -l" on "GENERIC_LINUX_SERVER" and validate result EQUALS "2"
+
   
   @SID_9
   Scenario: Verify Alert Email Delivery Sender
@@ -79,7 +80,6 @@ Feature: VRM Alerts Delivery
 
   @SID_12
   Scenario: VRM - go to vision and disable emailing
-    Then UI Open "Configurations" Tab
     And UI Go To Vision
     And UI Navigate to page "System->General Settings->APSolute Vision Analytics Settings->Email Reporting Configurations"
     And UI Set Checkbox "Enable" To "false"

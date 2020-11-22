@@ -6,7 +6,8 @@ Feature: HTTPS Scope Selection - Per Server selection
   Scenario: Update Policies
     Given CLI Operations - Run Radware Session command "system vision-server start" timeout 600
     Given REST Login with user "radware" and password "radware"
-    Then REST Update Policies for All DPs
+    * REST Update Policies for All DPs
+    * REST Vision Install License Request "vision-AVA-Max-attack-capacity"
 
 
   @SID_1

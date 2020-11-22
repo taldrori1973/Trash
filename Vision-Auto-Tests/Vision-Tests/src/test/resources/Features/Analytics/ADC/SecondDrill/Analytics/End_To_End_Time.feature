@@ -23,14 +23,16 @@ Feature: DPM Second Drill - Validate End to End Time Section
   @SID_4
   Scenario: Login and go to DPM dashboard
     When UI Login with user "sys_admin" and password "radware"
-    Then UI Navigate to "ADC Reports" page via homePage
     Then UI Navigate to "Application Dashboard" page via homePage
 
   @SID_5
   Scenario: Navigate to Virtual Service
     Then Sleep "3"
-    Then UI click Table row by keyValue or Index with elementLabel "virts table" findBy columnName "Application Name" findBy cellValue "Rejith_32326515:80"
-    Then UI Validate Text field "Virtual Service.Name" with params "Rejith_32326515:80" EQUALS "Rejith_32326515:80"
+#    Then UI click Table row by keyValue or Index with elementLabel "virts table" findBy columnName "Application Name" findBy cellValue "Rejith_32326515:80"
+    Then UI click Table row by keyValue or Index with elementLabel "virts table" findBy columnName "Application Name" findBy cellValue "Rejith_32326517:80"
+#    Then UI Validate Text field "Virtual Service.Name" with params "Rejith_32326515:80" EQUALS "Rejith_32326515:80"
+    Then Sleep "1"
+    Then UI Validate Text field "Virtual Service.Name" with params "Rejith_32326517:80" EQUALS "Rejith_32326517:80"
 
     #Validate Widget Title
   @SID_6

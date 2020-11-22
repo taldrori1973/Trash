@@ -41,33 +41,17 @@
                 <class>com.radware.vision.vision_project_cli.VisionSetup</class>
                 <!--<setupMode>Fresh Install| Upgrade</setupMode>-->
                 <setupMode>KVM_Upgrade</setupMode>
-                <snapshot>4.20-GA</snapshot>
+                <snapshot></snapshot>
                 <!--<vmPrefix>This field is relevant for fresh installed VM</vmPrefix>-->
                 <vmPrefix>VisionAuto-VRM-Upgrade</vmPrefix>
             </visionSetup>
         </visionServer>
-        <linuxFileServer>
-            <class>com.radware.automation.tools.cli.LinuxFileServer</class>
-            <host>172.17.164.100</host>
-            <user>root</user>
-            <password>radware</password>
-            <connectOnInit>false</connectOnInit>
-        </linuxFileServer>
-        <alteonServer>
+       <alteonServer>
             <class>com.radware.automation.tools.cli.AlteonServer</class>
             <host>172.17.164.40</host>
             <user>admin</user>
             <password>admin</password>
         </alteonServer>
-        <mysqlClient>
-            <class>com.radware.vision.vision_project_cli.MysqlClientCli</class>
-            <host>172.17.164.100</host>
-            <user>root</user>
-            <password>radware</password>
-            <userExternalViewer>external</userExternalViewer>
-            <passwordExternalViewer>viewer</passwordExternalViewer>
-            <targetVisionHost/>
-        </mysqlClient>
     </visionCli>
     <visionLab>
         <class>systemobjects.VisionLab</class>
@@ -333,7 +317,7 @@
         <alteonDevices index="11">
             <class>com.radware.vision.automation.tools.sutsystemobjects.devicesinfo.DeviceInfo</class>
             <deviceName>Alteon_50.50.101.11</deviceName>
-            <deviceIp>50.50.101.11</deviceIp>
+            <deviceIp>50.50.101.15</deviceIp>
             <username>admin</username>
             <password>admin</password>
             <readCommunity>public</readCommunity>
@@ -341,7 +325,7 @@
         </alteonDevices>
         <alteonDevices index="12">
             <class>com.radware.vision.automation.tools.sutsystemobjects.devicesinfo.DeviceInfo</class>
-            <deviceName>Alteon_50.50.101.21</deviceName>
+            <deviceName>Alteon_50.50.101.25</deviceName>
             <deviceIp>50.50.101.21</deviceIp>
             <username>admin</username>
             <password>admin</password>
@@ -351,7 +335,7 @@
         <alteonDevices index="13">
             <class>com.radware.vision.automation.tools.sutsystemobjects.devicesinfo.DeviceInfo</class>
             <deviceName>Alteon_50.50.101.22</deviceName>
-            <deviceIp>50.50.101.22</deviceIp>
+            <deviceIp>50.50.101.26</deviceIp>
             <username>admin</username>
             <password>admin</password>
             <readCommunity>public</readCommunity>

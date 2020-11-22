@@ -10,6 +10,7 @@ import com.radware.automation.webui.widgets.ComponentLocatorFactory;
 import com.radware.automation.webui.widgets.api.Widget;
 import com.radware.automation.webui.widgets.impl.table.WebUITable;
 import com.radware.restcore.VisionRestClient;
+import com.radware.vision.automation.AutoUtils.Operators.OperatorsEnum;
 import com.radware.vision.automation.tools.sutsystemobjects.devicesinfo.DeviceInfo;
 import com.radware.vision.automation.tools.sutsystemobjects.devicesinfo.enums.SUTDeviceType;
 import com.radware.vision.base.WebUITestSetup;
@@ -20,9 +21,12 @@ import com.radware.vision.infra.enums.*;
 import com.radware.vision.infra.testhandlers.baseoperations.BasicOperationsByNameIdHandler;
 import com.radware.vision.infra.testhandlers.baseoperations.BasicOperationsHandler;
 import com.radware.vision.infra.testhandlers.baseoperations.clickoperations.ClickOperationsHandler;
+import com.radware.vision.infra.testhandlers.cli.CliOperations;
 import com.radware.vision.infra.testhandlers.topologytree.TopologyTreeHandler;
+import com.radware.vision.infra.testhandlers.vrm.VRMHandler;
 import com.radware.vision.infra.utils.TimeUtils;
 import com.radware.vision.infra.utils.VisionWebUIUtils;
+import cucumber.api.PendingException;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
@@ -263,16 +267,16 @@ public class BasicOperationsSteps extends BddUITestBase {
     @Given("^UI Validate Text field with Class \"(.*)\" \"(Equals|Contains)\" To \"(.*)\"(?: cut Characters Number (\\S+))?$")
     public void validateTextToElementWithClass(String elementClass, String compareMethod, String expectedText, String cutCharsNumber) {
         cutCharsNumber = cutCharsNumber == null ? "0" : cutCharsNumber;
-        EqualsOrContains equalsOrContains;
+        OperatorsEnum operatorsEnum;
         switch (compareMethod) {
             case "Contains":
-                equalsOrContains = EqualsOrContains.CONTAINS;
+                operatorsEnum = OperatorsEnum.CONTAINS;
                 break;
             case "Equals":
             default:
-                equalsOrContains = EqualsOrContains.EQUALS;
+                operatorsEnum = OperatorsEnum.EQUALS;
         }
-        ClickOperationsHandler.validateTextFieldElementByClass(elementClass, expectedText, equalsOrContains, Integer.parseInt(cutCharsNumber));
+        ClickOperationsHandler.validateTextFieldElementByClass(elementClass, expectedText, operatorsEnum, Integer.parseInt(cutCharsNumber));
     }
 
     /**
@@ -431,6 +435,13 @@ public class BasicOperationsSteps extends BddUITestBase {
         BasicOperationsHandler.uiValidateClassContentOfWithParamsIsEQUALSCONTAINSTo(attribute, label, params, compare, value, expectedErrorMessage);
     }
 
+    @Then("^UI Validate order of labels \"([^\"]*)\" with attribute \"([^\"]*)\" that \"(EQUALS|CONTAINS|NOT CONTAINS)\" value of \"([^\"]*)\"$")
+    public void uiValidateOrderOfLabelsWithAttributeThatValueOf(String label, String attribute, String compare, String value, List<VRMHandler.DfProtectedObject> entries) {
+        BasicOperationsHandler.uiValidationItemsOrderInList(label, attribute, compare, value, entries);
+
+
+    }
+
     @Then("^UI clear (\\d+) characters in \"([^\"]*)\"(?: with params \"([^\"]*)\")?(?: with enter Key \"(true|false)\")?$")
     public void uiClearCharactersInWithParamsEnterKeyTrue(int numCharacters, String label, String params, String enterKey) {
         VisionDebugIdsManager.setLabel(label);
@@ -556,9 +567,12 @@ public class BasicOperationsSteps extends BddUITestBase {
 
     @Then("^Validate Navigation to \"([^\"]*)\" is disabled$")
     public void validateNavigationToIsDisabled(String tab) throws Throwable {
+        Thread.sleep(10 * 1000);
         boolean isDisabled = BasicOperationsHandler.isNavigationDisabled(tab);
         assert isDisabled;
     }
+
+
 
     static public class TableEntry {
         String columnName;
@@ -586,4 +600,14 @@ public class BasicOperationsSteps extends BddUITestBase {
     public void uiOpenDeviceSelection(String label) throws Exception {
         BasicOperationsHandler.openDeviceList(label);
     }
+
+    @Then("^UI Validate that number of elements of label \"([^\"]*)\" with value \"([^\"]*)\" is \"([^\"]*)\"$")
+    public void uiValidateThatNumberOfElementsOfLabelWithValueIs(String label, String value, int count) throws Throwable {
+        VisionDebugIdsManager.setLabel(label);
+        VisionDebugIdsManager.setParams(value != null ? value : "");
+        int actualcount = WebUIUtils.fluentWaitMultiple(ComponentLocatorFactory.getLocatorByXpathDbgId(VisionDebugIdsManager.getDataDebugId()).getBy()).size();
+        if (count != actualcount)
+            BaseTestUtils.report("The expected count of Label " + label + "with value " + value + "is " + count + "But the Actual is " + actualcount, Reporter.FAIL);
+    }
+
 }

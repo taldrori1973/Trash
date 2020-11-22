@@ -270,4 +270,7 @@ Feature: Config-Sync
     Then CLI Run linux Command "service mgtsrv status" on "ROOT_SERVER_CLI" and validate result CONTAINS "Radware vDirect is running" in any line with timeOut 15
     Then CLI Run linux Command "service mgtsrv status" on "ROOT_SERVER_CLI" and validate result CONTAINS "VRM reporting engine is running" in any line with timeOut 15
 
+  @SID_33
+  Scenario: set config-sync mode to disabled
+    Then CLI Set both visions disabled with timeout 3000
 

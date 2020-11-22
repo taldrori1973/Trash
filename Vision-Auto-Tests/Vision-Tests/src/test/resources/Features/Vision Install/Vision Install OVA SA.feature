@@ -18,13 +18,13 @@ Feature: Vision Install OVA SA
     Given REST Login with activation with user "radware" and password "radware"
     Then UI Login with user "radware" and password "radware"
     Then Validate License "ATTACK_CAPACITY_LICENSE" Parameters
-      | allowedAttackCapacityGbps         | 0                    |
-      | requiredDevicesAttackCapacityGbps | 0                    |
-      | licensedDefenseProDeviceIpsList   | []                   |
-      | hasDemoLicense                    | false                |
-      | attackCapacityMaxLicenseExist     | false                |
-      | licenseViolated                   | false                |
-      | inGracePeriod                     | false                |
+      | allowedAttackCapacityGbps         | 0     |
+      | requiredDevicesAttackCapacityGbps | 0     |
+      | licensedDefenseProDeviceIpsList   | []    |
+      | hasDemoLicense                    | false |
+      | attackCapacityMaxLicenseExist     | false |
+      | licenseViolated                   | false |
+      | inGracePeriod                     | false |
     And Validate DefenseFlow is NOT Licensed by Attack Capacity License
     * REST Vision Install License Request "vision-reporting-module-ADC"
     * REST Vision Install License Request "vision-AVA-Max-attack-capacity"
@@ -39,9 +39,9 @@ Feature: Vision Install OVA SA
 
   @SID_5
   Scenario: Validate iptables settings
+    #there are 25 open ports without LLS and ElasticSearch
     Then CLI Run linux Command "iptables -n -L RH-Firewall-1-INPUT|grep "ACCEPT "|wc -l" on "ROOT_SERVER_CLI" and validate result LTE "27"
     Then CLI Run linux Command "iptables -L -n | grep -w "REJECT     all"" on "ROOT_SERVER_CLI" and validate result CONTAINS "reject-with icmp-host-prohibited"
-    Then CLI Run linux Command "iptables -L -n |grep -w tcp | grep -w "dpt:5604"" on "ROOT_SERVER_CLI" and validate result CONTAINS "ACCEPT"
     Then CLI Run linux Command "iptables -L -n |grep -w tcp |grep -w "dpt:1443"" on "ROOT_SERVER_CLI" and validate result CONTAINS "ACCEPT"
     Then CLI Run linux Command "iptables -L -n |grep -w tcp |grep -w "dpt:5672"" on "ROOT_SERVER_CLI" and validate result CONTAINS "ACCEPT"
     Then CLI Run linux Command "iptables -L -n |grep -w tcp |grep -w "dpt:5671"" on "ROOT_SERVER_CLI" and validate result CONTAINS "ACCEPT"
@@ -65,7 +65,6 @@ Feature: Vision Install OVA SA
   @SID_6
   Scenario: Validate ip6tables settings
     Then CLI Run linux Command "ip6tables -L -n | grep -w "REJECT     all"" on "ROOT_SERVER_CLI" and validate result CONTAINS "reject-with icmp6-adm-prohibited"
-    Then CLI Run linux Command "ip6tables -L -n |grep -w tcp | grep -w "dpt:5604"" on "ROOT_SERVER_CLI" and validate result CONTAINS "ACCEPT"
     Then CLI Run linux Command "ip6tables -L -n |grep -w tcp |grep -w "dpt:1443"" on "ROOT_SERVER_CLI" and validate result CONTAINS "ACCEPT"
     Then CLI Run linux Command "ip6tables -L -n |grep -w tcp |grep -w "dpt:5672"" on "ROOT_SERVER_CLI" and validate result CONTAINS "ACCEPT"
     Then CLI Run linux Command "ip6tables -L -n |grep -w tcp |grep -w "dpt:5671"" on "ROOT_SERVER_CLI" and validate result CONTAINS "ACCEPT"
@@ -81,9 +80,6 @@ Feature: Vision Install OVA SA
     Then CLI Run linux Command "ip6tables -L -n |grep -w tcp |grep -w "dpt:443"" on "ROOT_SERVER_CLI" and validate result CONTAINS "ACCEPT"
     Then CLI Run linux Command "ip6tables -L -n |grep -w tcp |grep -w "dpt:80"" on "ROOT_SERVER_CLI" and validate result CONTAINS "ACCEPT"
     Then CLI Run linux Command "ip6tables -L -n |grep "dpt:161" |wc -l" on "ROOT_SERVER_CLI" and validate result EQUALS "0"
-
-#    Then CLI Run linux Command "ip6tables -L -n |grep -w icmp |grep -w 17" on "ROOT_SERVER_CLI" and validate result CONTAINS "DROP"
-#    Then CLI Run linux Command "ip6tables -L -n | grep -w DROP |grep -w icmp |grep -w 13" on "ROOT_SERVER_CLI" and validate result CONTAINS "DROP"
 
   @SID_7
   Scenario: Validate TED status
@@ -103,7 +99,8 @@ Feature: Vision Install OVA SA
   Scenario: validate available disk space
     Then CLI Run linux Command "df -hP /opt/radware/storage|tail -1|awk -F" " '{print $5}'|awk -F"%" '{print $1}'" on "ROOT_SERVER_CLI" and validate result LTE "6"
     Then CLI Run linux Command "df -hP /opt/radware|tail -1|awk -F" " '{print $5}'|awk -F"%" '{print $1}'" on "ROOT_SERVER_CLI" and validate result LTE "30"
-    Then CLI Run linux Command "df -hP /|tail -1|awk '{print $5}'|grep -oP '[\d]*'" on "ROOT_SERVER_CLI" and validate result LTE "40"
+    Then CLI Run remote linux Command "df -hP /|tail -1|awk '{print $5}'|grep -oP '[\d]*'" on "ROOT_SERVER_CLI"
+    Then CLI Run linux Command "echo $(df /|tail -1|awk '{print $3}')/$(df /|tail -1|awk '{print $2}')*100|bc -l|grep -oP '^\d*'" on "ROOT_SERVER_CLI" and validate result LTE "45"
 
   @SID_11
   Scenario: Validate MySql version
@@ -118,27 +115,27 @@ Feature: Vision Install OVA SA
 
   @SID_13
   Scenario: Validate LLS version
-    Then CLI Run linux Command "cat /opt/radware/storage/llsinstall/license-server-*/version.txt" on "ROOT_SERVER_CLI" and validate result EQUALS "2.2.0-6"
+    Then CLI Run linux Command "cat /opt/radware/storage/llsinstall/license-server-*/version.txt" on "ROOT_SERVER_CLI" and validate result EQUALS "2.4.0-2"
 
-  @SID_15
+  @SID_14
   Scenario: Validate IPv6 Hostname in /etc/hosts
     Then CLI Run linux Command "if [ "$(hostname | cut -d'.' -f 1)" == "$(grep "::1" /etc/hosts|head -1|awk '{print$6}')" ]; then echo "hostname ok"; else echo "hostname not ok"; fi" on "ROOT_SERVER_CLI" and validate result EQUALS "hostname ok"
     Then CLI Run linux Command "grep "::1" /etc/hosts|grep " $(hostname)"|wc -l" on "ROOT_SERVER_CLI" and validate result EQUALS "1"
 
-  @SID_16
+  @SID_15
   Scenario: Validate IPv4 Hostname in /etc/hosts
     Then CLI Run linux Command "grep "$(hostname -i|awk '{print$2}')" /etc/hosts|grep "$(hostname | cut -d'.' -f 1)"|wc -l" on "ROOT_SERVER_CLI" and validate result EQUALS "1"
     Then CLI Run linux Command "grep "$(hostname -i|awk '{print$2}')" /etc/hosts|grep " $(hostname)"|wc -l" on "ROOT_SERVER_CLI" and validate result EQUALS "1"
 
-  @SID_17
+  @SID_16
   Scenario: Verify number of tables in vision schema
     Then CLI Run linux Command "mysql -prad123 -NB -e "select count(*) from INFORMATION_SCHEMA.TABLES WHERE TABLE_SCHEMA='vision';"" on "ROOT_SERVER_CLI" and validate result EQUALS "90"
 
-  @SID_18
+  @SID_17
   Scenario: Verify number of tables in vision_ng schema
     Then CLI Run linux Command "mysql -prad123 -NB -e "select count(*) from INFORMATION_SCHEMA.TABLES WHERE TABLE_SCHEMA='vision_ng';"" on "ROOT_SERVER_CLI" and validate result EQUALS "166"
 
-  @SID_14
+  @SID_18
   Scenario: Verify services are running
     Then CLI Run linux Command "service mgtsrv status" on "ROOT_SERVER_CLI" and validate result CONTAINS "APSolute Vision Reporter is running" in any line with timeOut 15
     Then CLI Run linux Command "service mgtsrv status" on "ROOT_SERVER_CLI" and validate result CONTAINS "AMQP service is running" in any line with timeOut 15
@@ -153,3 +150,10 @@ Feature: Vision Install OVA SA
     Then CLI Run linux Command "service mgtsrv status" on "ROOT_SERVER_CLI" and validate result CONTAINS "VRM reporting engine is running" in any line with timeOut 15
     Then CLI Run linux Command "service mgtsrv status" on "ROOT_SERVER_CLI" and validate result CONTAINS "td-agent is running" in any line with timeOut 15
 
+  @SID_19
+  Scenario: Verify 32GB RAM
+    Then CLI Run linux Command "echo $(grep MemTotal /proc/meminfo | awk '{print $2 / 1024}')*1|bc -l|grep -oP '^\d*'" on "ROOT_SERVER_CLI" and validate result GTE "32000"
+
+  @SID_20
+  Scenario: Verify vg_disk-lv number of partitions
+    Then CLI Run linux Command "df -h | grep vg_disk-lv | wc -l" on "ROOT_SERVER_CLI" and validate result GTE "2" with timeOut 15

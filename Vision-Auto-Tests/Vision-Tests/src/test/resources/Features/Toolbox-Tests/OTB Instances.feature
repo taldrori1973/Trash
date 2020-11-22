@@ -15,20 +15,20 @@ Feature: OTB Workflow - Instances
     Then UI Validate Text field with Class "ant-message-custom-content ant-message-success" "Equals" To "The workflow uploaded successfully"
 
   @SID_3
-  Scenario: create instance to calcualtor
+  Scenario: create instance to calculator
     Then UI Click Button "create instance" with value "calculator"
     Then UI Set Text Field "Workflow Name" To "calc10" enter Key false
     Then UI Click Button "Run Create"
     Then UI Click Button "Dismiss"
 
   @SID_4
-  Scenario: validate number of insatnces to calculator is increased
+  Scenario: validate number of instances to calculator is increased
     Then UI Validate Text field "instances" with params "calculator" EQUALS "Instances (1)"
 
   @SID_5
   Scenario: validate that instance added to list
     Then UI Click Button "instances" with value "calculator"
-    Then UI Validate "instances table" Table rows count equal to 1
+    Then UI Validate "instances table" Table rows count EQUALS to 1
     Then UI validate Table row by keyValue with elementLabel "instances table" findBy columnName "Name" findBy cellValue "calc10"
 
   @SID_6
@@ -106,7 +106,7 @@ Feature: OTB Workflow - Instances
   @SID_13
   Scenario: Delete WorkFlow
     Given UI Login with user "radware" and password "radware"
-    When UI Open Upper Bar Item "Toolbox"
+    And UI Navigate to "AUTOMATION" page via homePage
     When set Tab "Automation.Toolbox"
     When UI Click Button by id "gwt-debug-WorkFlow_Tab"
     When UI Click Button "card action" with value "calculator"

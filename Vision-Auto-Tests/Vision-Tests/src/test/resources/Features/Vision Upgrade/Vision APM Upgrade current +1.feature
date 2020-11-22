@@ -4,6 +4,7 @@ Feature: Vision APM Upgrade current +1
 
   @SID_1
   Scenario: preparations for upgrade release +1
+    Given Prerequisite for Setup force
     Then CLI Run remote linux Command "mysql -prad123 vision_ng -e "update lls_server set min_required_ram='16';"" on "ROOT_SERVER_CLI"
 
     ######################################################################################
@@ -11,21 +12,20 @@ Feature: Vision APM Upgrade current +1
   @SID_2
   Scenario: Fill partitions to max limit
     Then CLI copy "/home/radware/Scripts/fill_my_disk.sh" from "GENERIC_LINUX_SERVER" to "ROOT_SERVER_CLI" "/"
-    Then CLI copy "/home/radware/Scripts/copyUpgradeLog.sh" from "GENERIC_LINUX_SERVER" to "ROOT_SERVER_CLI" "/"
     Then CLI Run remote linux Command "/fill_my_disk.sh /opt/radware 78" on "ROOT_SERVER_CLI"
     Then CLI Run remote linux Command "/fill_my_disk.sh / 78" on "ROOT_SERVER_CLI"
 
   @SID_3
   Scenario: Do any pre-upgrade changes
-    Then CLI Operations - Run Root Session command "yes|restore_radware_user_password" timeout 15
+    Given CLI Reset radware password
     # extract MySql create partition number
     Then CLI Run remote linux Command "echo "Before " $(mysql -prad123 vision -e "show create table traffic_utilizations\G" |grep "(PARTITION p" |awk -F"p" '{print$2}'|awk '{printf$1}') >  /opt/radware/sql_partition.txt" on "ROOT_SERVER_CLI"
-#    Then CLI Run remote linux Command "dos2unix /etc/td-agent/td-agent.conf" on "ROOT_SERVER_CLI"
     Then CLI Run remote linux Command "sed -i 's/port .*$/port 51400/g' /etc/td-agent/td-agent.conf" on "ROOT_SERVER_CLI"
 
     ######################################################################################
   @SID_4
   Scenario: Upgrade APM vision from release +1
+    Given CLI Clear vision logs
     Given Upgrade to future version
 
 
@@ -37,7 +37,6 @@ Feature: Vision APM Upgrade current +1
     Then CLI Check if logs contains
       | logType | expression                                                             | isExpected   |
       | UPGRADE | fatal                                                                  | NOT_EXPECTED |
-    # | UPGRADE | error                                                            | NOT_EXPECTED      |
       | UPGRADE | fail to\|failed to                                                     | NOT_EXPECTED |
       | UPGRADE | The upgrade of APSolute Vision server has completed successfully       | EXPECTED     |
       | UPGRADE | Vision Reporter upgrade finished                                       | EXPECTED     |
@@ -63,20 +62,16 @@ Feature: Vision APM Upgrade current +1
       | UPGRADE | *.png                                                                  | IGNORE       |
       | UPGRADE | *.svg                                                                  | IGNORE       |
       | UPGRADE | inflating:                                                             | IGNORE       |
-      | LLS     | fatal\| error\|fail                                                    | NOT_EXPECTED |
-      | LLS     | Installation ended                                                     | EXPECTED     |
-      | LLS     | Setup complete!                                                        | EXPECTED     |
       | UPGRADE | Failed to parse /etc/cgconfig.conf                                     | IGNORE       |
       | UPGRADE | error loading /etc/cgconfig.conf: Cgroup mounting failed               | IGNORE       |
       | UPGRADE | Error: cannot mount cpuset to /cgroup/cpuset: Device or resource busy  | IGNORE       |
       | UPGRADE | /opt/radware/storage/www/webui/vision-dashboards/public/static/media/* | IGNORE       |
-
+      | UPGRADE | No such image or container: *                                          | IGNORE       |
 
 
   @SID_6
   Scenario: Check firewall settings
     Then CLI Run linux Command "iptables -L -n |tail -1|awk -F" " '{print $1,$2}'" on "ROOT_SERVER_CLI" and validate result EQUALS "REJECT all"
-    Then CLI Run linux Command "iptables -L -n |grep tcp|grep dpt:5604" on "ROOT_SERVER_CLI" and validate result CONTAINS "ACCEPT"
     Then CLI Run linux Command "iptables -L -n |grep tcp|grep dpt:9200" on "ROOT_SERVER_CLI" and validate result CONTAINS "ACCEPT"
     Then CLI Run linux Command "iptables -L -n |grep tcp|grep dpt:1443" on "ROOT_SERVER_CLI" and validate result CONTAINS "ACCEPT"
     Then CLI Run linux Command "iptables -L -n |grep tcp|grep dpt:5672" on "ROOT_SERVER_CLI" and validate result CONTAINS "ACCEPT"
@@ -99,7 +94,6 @@ Feature: Vision APM Upgrade current +1
   @SID_7
   Scenario: Check firewall6 settings
     Then CLI Run linux Command "ip6tables -L -n |tail -1|awk -F" " '{print $1,$2}'" on "ROOT_SERVER_CLI" and validate result EQUALS "REJECT all"
-    Then CLI Run linux Command "ip6tables -L -n |grep tcp|grep dpt:5604" on "ROOT_SERVER_CLI" and validate result CONTAINS "ACCEPT"
 #    Skipping following step till it is developed
 #    Then CLI Run linux Command "ip6tables -L -n |grep tcp|grep dpt:9200" on "ROOT_SERVER_CLI" and validate result CONTAINS "ACCEPT"
     Then CLI Run linux Command "ip6tables -L -n |grep tcp|grep dpt:1443" on "ROOT_SERVER_CLI" and validate result CONTAINS "ACCEPT"
@@ -120,13 +114,14 @@ Feature: Vision APM Upgrade current +1
 
   @SID_8
   Scenario: Login with activation
-#    Given REST Login with activation with user "sys_admin" and password "radware"
     Then UI Login with user "sys_admin" and password "radware"
-    Then CLI Operations - Run Root Session command "yes|restore_radware_user_password" timeout 15
+    Given CLI Reset radware password
 
   @SID_9
   Scenario: Navigate to general settings page
-    Then UI Go To Vision
+#    Given UI Click Button by id "gwt-debug-DevicesTree_Node_Default"
+    Then UI Navigate to "VISION SETTINGS" page via homePage
+#    Then UI Go To Vision
     Then UI Navigate to page "System->General Settings->Basic Parameters"
     When UI Do Operation "select" item "Software"
     Then REST get Basic Parameters "lastUpgradeStatus"
@@ -162,7 +157,7 @@ Feature: Vision APM Upgrade current +1
   Scenario: Upload Driver to vision
     Then CLI Run remote linux Command "/opt/radware/storage/upload_DD.sh /opt/radware/storage/Alteon-32.2.1.0-DD-1.00-110.jar" on "ROOT_SERVER_CLI" with timeOut 240
     Then CLI Run remote linux Command "/opt/radware/storage/upload_DD.sh /opt/radware/storage/Alteon-32.4.0.0-DD-1.00-396.jar" on "ROOT_SERVER_CLI" with timeOut 240
-#    Then Sleep "120"
+
 
   @SID_16
   Scenario: Validate fluentd configuration
@@ -170,10 +165,6 @@ Feature: Vision APM Upgrade current +1
 
   @SID_17
   Scenario: Visit device subscription page
-#    Then REST Request "GET" for "Device Subscriptions->Table"
-#       | type                 | value |
-#       | Returned status code | 200   |
-
     Then CLI Run linux Command "result=`curl -ks -X "POST" "https://localhost/mgmt/system/user/login" -H "Content-Type: application/json" -d $"{\"username\": \"radware\",\"password\": \"radware\"}"`; jsession=`echo $result | tr "," "\n"|grep -i jsession|tr -d '"' | cut -d: -f2`; curl -ks -o null -XGET -H "Cookie: JSESSIONID=$jsession" https://localhost/mgmt/system/config/itemlist/devicesubscriptions -w 'RESP_CODE:%{response_code}\n'" on "ROOT_SERVER_CLI" and validate result EQUALS "RESP_CODE:200" with timeOut 300 with runCommand delay 90
     Then CLI Operations - Verify that output contains regex "RESP_CODE:200"
 
@@ -203,17 +194,21 @@ Feature: Vision APM Upgrade current +1
 
   @SID_22
   Scenario: Validate LLS service is up
+    Then CLI Run linux Command "system lls service status" on "RADWARE_SERVER_CLI" and validate result CONTAINS "is running" in any line with timeOut 600
     Then CLI Run linux Command "curl -ks -o null -XGET http://localhost4:7070/api/1.0/hostids -w 'RESP_CODE:%{response_code}\n'" on "ROOT_SERVER_CLI" and validate result EQUALS "RESP_CODE:200" with timeOut 300
-    Then CLI Operations - Verify that output contains regex "RESP_CODE:200"
     Then CLI Run linux Command "curl -ks -o null -XGET http://localhost6:7070/api/1.0/hostids -w 'RESP_CODE:%{response_code}\n'" on "ROOT_SERVER_CLI" and validate result EQUALS "RESP_CODE:200" with timeOut 300
-    Then CLI Operations - Verify that output contains regex "RESP_CODE:200"
+    Then CLI Check if logs contains
+      | logType | expression                                                           | isExpected   |
+      | LLS     | fatal\| error\|fail                                                  | NOT_EXPECTED |
       #rollback to the original values
     Given CLI Run remote linux Command "mysql -prad123 vision_ng -e "update lls_server set min_required_ram='32';"" on "ROOT_SERVER_CLI"
+    When CLI Operations - Run Radware Session command "system lls service stop"
+    When CLI Operations - Run Radware Session command "y" timeout 180
 
 
   @SID_23
   Scenario: Validate LLS version
-    Then CLI Run linux Command "cat /opt/radware/storage/llsinstall/license-server-*/version.txt" on "ROOT_SERVER_CLI" and validate result EQUALS "2.2.0-6"
+    Then CLI Run linux Command "cat /opt/radware/storage/llsinstall/license-server-*/version.txt" on "ROOT_SERVER_CLI" and validate result EQUALS "2.4.0-2"
 
   @SID_24
   Scenario: Validate IPv6 Hostname in /etc/hosts

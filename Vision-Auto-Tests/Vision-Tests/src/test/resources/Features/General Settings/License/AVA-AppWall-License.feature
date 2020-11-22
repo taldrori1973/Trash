@@ -11,6 +11,7 @@ Feature: US58313 APSolute Vision Analytics - AppWall - License
     And REST Vision DELETE License Request "vision-AVA-Max-attack-capacity"
     And REST Vision DELETE License Request "vision-AVA-AppWall"
     And REST Vision DELETE License Request "vision-reporting-module-AMS"
+    And REST Vision DELETE License Request "vision-demo"
 
 
 
@@ -60,9 +61,6 @@ Feature: US58313 APSolute Vision Analytics - AppWall - License
     Given REST Vision Install License Request "vision-AVA-Max-attack-capacity"
     Given UI Login with user "sys_admin" and password "radware"
     Then Validate Navigation to "AppWall Dashboard" is disabled
-    Then Validate Navigation to "AMS Reports" is disabled
-    Then Validate Navigation to "AMS Forensics" is disabled
-    Then Validate Navigation to "AMS Alerts" is disabled
     Then UI Logout
 
 
@@ -82,7 +80,6 @@ Feature: US58313 APSolute Vision Analytics - AppWall - License
 
    #    Validate AppWall Dashboard Navigation
     When UI Navigate to "AppWall Dashboard" page via homePage
-    Then UI Click Button by Class "ant-notification-notice-close"
     Then UI Validate Text field "Title" EQUALS "AppWall"
 
     Then Validate Navigation to "DefensePro Monitoring Dashboard" is disabled
@@ -179,7 +176,7 @@ Feature: US58313 APSolute Vision Analytics - AppWall - License
     Then UI Validate Element EnableDisable status By Label "Select Product" and Value "defensepro" is Enabled "true"
     Then UI Validate Element EnableDisable status By Label "Select Product" and Value "defenseflow" is Enabled "true"
     Then UI Validate Element EnableDisable status By Label "Select Product" and Value "appwall" is Enabled "true"
-    Then UI logout
+    Then UI Logout
   @SID_22
   Scenario: close browser
     Then UI close browser

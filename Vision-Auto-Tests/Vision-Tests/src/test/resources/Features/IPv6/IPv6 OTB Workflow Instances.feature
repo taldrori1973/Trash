@@ -2,9 +2,9 @@
 Feature: Ipv6 OTB Workflow - Instances
   @SID_1
   Scenario: Navigate to OTB WF page
-    Then CLI Operations - Run Root Session command "yes|restore_radware_user_password" timeout 15
+    Given CLI Reset radware password
     Given UI Login with user "radware" and password "radware"
-    When UI Open Upper Bar Item "Toolbox"
+    Then UI Navigate to "AUTOMATION" page via homePage
     When set Tab "Automation.Toolbox"
     When UI Click Button by id "gwt-debug-WorkFlow_Tab"
 
@@ -28,7 +28,7 @@ Feature: Ipv6 OTB Workflow - Instances
   @SID_5
   Scenario: validate that instance added to list
     Then UI Click Button "instances" with value "calculator"
-    Then UI Validate "instances table" Table rows count equal to 1
+    Then UI Validate "instances table" Table rows count EQUALS to 1
     Then UI validate Table row by keyValue with elementLabel "instances table" findBy columnName "Name" findBy cellValue "calc10"
 
   @SID_6

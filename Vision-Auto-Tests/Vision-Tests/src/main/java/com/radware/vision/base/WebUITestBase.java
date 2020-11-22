@@ -24,6 +24,7 @@ import com.radware.automation.webui.UIUtils;
 import com.radware.automation.webui.WebUIUtils;
 import com.radware.automation.webui.events.PopupEventHandler;
 import com.radware.automation.webui.events.ReportWebDriverEventListener;
+import com.radware.automation.webui.utils.VisionUtils;
 import com.radware.automation.webui.utils.navtree.VisionNavigationXmlParser;
 import com.radware.automation.webui.utils.popup.MessageIdsIgnore;
 import com.radware.automation.webui.webdriver.WebUIDriver;
@@ -38,19 +39,21 @@ import com.radware.urlbuilder.vision.VisionUrlPath;
 import com.radware.utils.DeviceUtils;
 import com.radware.utils.TreeUtils;
 import com.radware.vision.automation.tools.sutsystemobjects.devicesinfo.DevicesManager;
-import com.radware.vision.pojomodel.helpers.constants.ImConstants$DeviceStatusEnumPojo;
-import com.radware.vision.vision_project_cli.MysqlClientCli;
-import com.radware.vision.vision_project_cli.menu.Menu;
-import com.radware.vision.vision_tests.CliTests;
 import com.radware.vision.infra.enums.DeviceDriverType;
 import com.radware.vision.infra.testhandlers.BaseHandler;
 import com.radware.vision.infra.testhandlers.baseoperations.BasicOperationsHandler;
 import com.radware.vision.infra.utils.VisionWebUIUtils;
 import com.radware.vision.infra.utils.threadutils.ThreadsStatusMonitor;
+import com.radware.vision.pojomodel.helpers.constants.ImConstants$DeviceStatusEnumPojo;
+import com.radware.vision.tools.rest.CurrentVisionRestAPI;
+import com.radware.vision.vision_project_cli.menu.Menu;
+import com.radware.vision.vision_tests.CliTests;
 import cucumber.runtime.junit.FeatureRunner;
 import enums.SUTEntryType;
 import jsystem.framework.ParameterProperties;
 import junit.framework.SystemTestCase4;
+import models.RestResponse;
+import models.StatusCode;
 import org.junit.After;
 import org.junit.Before;
 import testhandlers.Device;
@@ -59,6 +62,9 @@ import java.io.File;
 import java.io.IOException;
 import java.nio.file.NoSuchFileException;
 import java.util.*;
+
+import static com.radware.automation.tools.basetest.Reporter.FAIL;
+import com.radware.vision.bddtests.remotessh.RemoteSshCommandsTests;
 
 public abstract class WebUITestBase extends SystemTestCase4 {
     protected boolean doTheVisionLabRestart = false;
@@ -96,16 +102,16 @@ public abstract class WebUITestBase extends SystemTestCase4 {
     private String qcTestId;
     private String deviceName;
 
+    private static String visionVersion = "";
+    private static String visionBuild = "";
+    private static String visionBranch = "";
+
     public static VisionRestClient getVisionRestClient() {
         return restTestBase != null ? restTestBase.getVisionRestClient() : new VisionRestClient(null, null, null);
     }
 
     public static RestTestBase getRestTestBase() {
         return restTestBase;
-    }
-
-    public static MysqlClientCli getMysqlServerCli() {
-        return restTestBase.getMysqlServer();
     }
 
     public static String getConnectionUsername() {
@@ -209,13 +215,12 @@ public abstract class WebUITestBase extends SystemTestCase4 {
                 The code below used to send the version, build and mode to RunnerFeature class in order to create Before Feature and After Feature in cucumber
                 this code will run once , at the begin of the test .
                  */
-                FeatureRunner.update_version_build_mode(restTestBase.getRootServerCli().getVersionNumebr(),
-                        restTestBase.getRootServerCli().getBuildNumber(),
-                        mode);
+                FeatureRunner.update_version_build_mode(getVisionVersion(), getVisionBuild(), mode);
 
+                FeatureRunner.update_station_sutName(restTestBase.getRootServerCli().getHost(), System.getProperty("SUT"));
             }
         } catch (Exception e) {
-            throw new IllegalStateException(e.getMessage() + "\n" + e.getStackTrace());
+            throw new IllegalStateException(e.getMessage() + "\n" + Arrays.toString(e.getStackTrace()));
         }
 
         setDeviceName(deviceName);
@@ -228,15 +233,17 @@ public abstract class WebUITestBase extends SystemTestCase4 {
             devicesManager = DevicesManager.getInstance("devices");
             restTestBase = new RestTestBase();
             restTestBase.init();
+            RemoteSshCommandsTests.resetPassword();
             BaseHandler.restTestBase = restTestBase;
             BaseHandler.devicesManager = devicesManager;
+            getVisionInfo();
         }
 
     }
 
 
     @After
-    public void testClosure() throws Exception {
+    public void testClosure() {
         if (!WebUIUtils.isDriverQuit) {
             try {
                 WebUIUtils.setIsTriggerPopupSearchEvent(false);
@@ -252,7 +259,7 @@ public abstract class WebUITestBase extends SystemTestCase4 {
                         for (PopupContent popupError : popupErrors) {
                             if (popupError.getType().equals(PopupType.ERROR) &&
                                     !ignoredMessageIds(popupError.getContent())) {
-                                BaseTestUtils.report("Test :" + getName() + " " + "failed due to the following error popup dialogs: \n" + popupErrorsToString(popupError), Reporter.FAIL);
+                                BaseTestUtils.report("Test :" + getName() + " " + "failed due to the following error popup dialogs: \n" + popupErrorsToString(popupError), FAIL);
                             }
                         }
                     }
@@ -269,9 +276,9 @@ public abstract class WebUITestBase extends SystemTestCase4 {
 
 //                rallyTestReporter.updateTestResult(ScenarioHelpers.getRunnerTest(this), qcTestId, isPass(), getFailCause());
             } catch (Exception e) {
-                BaseTestUtils.report(" Test after method " + e.getMessage(), Reporter.FAIL);
+                BaseTestUtils.report(" Test after method " + e.getMessage(), FAIL);
             } finally {
-                ((ReportWebDriverEventListener) WebUIDriver.getListenerManager().getWebUIDriverEventListener()).clearLastPopupEventList();
+                ((ReportWebDriverEventListener) Objects.requireNonNull(WebUIDriver.getListenerManager().getWebUIDriverEventListener())).clearLastPopupEventList();
                 WebUIUtils.isDevicePropertiesDialogCancel = false;
                 WebUIUtils.isFindExceptionOccur = true;
                 WebUIUtils.generateAndReportScreenshot();
@@ -285,14 +292,14 @@ public abstract class WebUITestBase extends SystemTestCase4 {
     public void cliAfterMethodMain() throws IOException {
         try {
             // Clear any remaining commands on the output (In case of a 'Help text' command)
-            String clearString = "";
+            StringBuilder clearString = new StringBuilder();
             for (int i = 0; i < 60; i++) {
-                clearString += "\b";
+                clearString.append("\b");
             }
-            InvokeUtils.invokeCommand(null, clearString, restTestBase.getRadwareServerCli(), 2 * 2000, true, true, true, null, true, true);
-            InvokeUtils.invokeCommand(null, clearString, restTestBase.getRootServerCli(), 2 * 2000, true, true, true, null, true, true);
+            InvokeUtils.invokeCommand(null, clearString.toString(), restTestBase.getRadwareServerCli(), 2 * 2000, true, true, true, null, true, true);
+            InvokeUtils.invokeCommand(null, clearString.toString(), restTestBase.getRootServerCli(), 2 * 2000, true, true, true, null, true, true);
             CliTests.report.stopLevel();
-            CliTests.report.startLevel("Begining to Finish the test(After).");
+            CliTests.report.startLevel("Beginning to Finish the test(After).");
 
             if (doTheVisionLabRestart) {
                 InvokeUtils.invokeCommand(null, "", restTestBase.getRadwareServerCli(), 6000, true);
@@ -326,19 +333,7 @@ public abstract class WebUITestBase extends SystemTestCase4 {
         for (ReportResultEntity result : resultsManager.getAllResults().values()) {
             results.append(result.toString());
         }
-        restTestBase.automationTestReporter.updateTestResult(resultsManager.getUpToDateAggResult(), results.toString(), targetTestCaseID);
-    }
-
-    public void publishBddResults() {
-        int testId = BddReporterManager.getTestCaseId();
-        if (testId > 0) {
-            setVisionBuildAndVersion();
-            if (IgnoreList.getInstance().getIgnoreList().containsKey("TC" + testId))
-                restTestBase.automationTestReporter.updateTestResult(false, BddReporterManager.getAllResult(), testId);
-            else
-                restTestBase.automationTestReporter.updateTestResult(BddReporterManager.isResultPass(), BddReporterManager.getAllResult(), testId);
-        }
-        BaseTestUtils.report("Scenario Result for testId: " + testId + "\n vision Version: " + restTestBase.getRootServerCli().getVersionNumebr() + "\n build number: " + restTestBase.getRootServerCli().getBuildNumber(), Reporter.PASS_NOR_FAIL);
+        RestTestBase.automationTestReporter.updateTestResult(resultsManager.getUpToDateAggResult(), results.toString(), targetTestCaseID);
     }
 
     public void setVisionBuildAndVersion() {
@@ -347,15 +342,15 @@ public abstract class WebUITestBase extends SystemTestCase4 {
             restTestBase.getRootServerCli().connect();
             restTestBase.getRootServerCli().getVersionAndBuildFromSever();
             restTestBase.initReporter();
-            FeatureRunner.update_version_build_mode(restTestBase.getRootServerCli().getVersionNumebr(),
-                    restTestBase.getRootServerCli().getBuildNumber(),
-                    BddReporterManager.getRunMode());
+            FeatureRunner.update_version_build_mode(getVisionVersion(), getVisionBuild(), BddReporterManager.getRunMode());
+            FeatureRunner.update_station_sutName(restTestBase.getRootServerCli().getHost(), System.getProperty("SUT"));
+
         } catch (Exception e) {
             BaseTestUtils.report("publish BDD results Failure!!! ", Reporter.PASS_NOR_FAIL);
         }
     }
 
-    public void publishBddResults_new() {
+    public void publishBddResults() {
         String status = BddReporterManager.isResultPass() ? "Passed" : "Failed";
 
         Integer testCaseId = BddReporterManager.getStepId();
@@ -363,12 +358,12 @@ public abstract class WebUITestBase extends SystemTestCase4 {
         if (testCaseId != null && IgnoreList.getInstance().getIgnoreList().containsKey(testCaseId.toString()))
             status = "Failed";
 
-            if (BddReporterManager.getAutoStepId() != null) {
+        if (BddReporterManager.getAutoStepId() != null) {
             setVisionBuildAndVersion();
-                RadAutoDB.getInstance().autoStepTbl.updateStepResult(BddReporterManager.getAutoStepId(), status);
-                if (status.equals("Failed"))
-                    RadAutoDB.getInstance().autoStepFailReasonTbl.createStepFailReason(BddReporterManager.getAutoStepId(), "Error", BddReporterManager.getAllResult(), "", "", "");
-            }
+            RadAutoDB.getInstance().autoStepTbl.updateStepResult(BddReporterManager.getAutoStepId(), status);
+            if (status.equals("Failed"))
+                RadAutoDB.getInstance().autoStepFailReasonTbl.createStepFailReason(BddReporterManager.getAutoStepId(), "Error", BddReporterManager.getAllResult(), "", "", "");
+        }
     }
 
     private boolean ignoredMessageIds(String msg) {
@@ -419,10 +414,10 @@ public abstract class WebUITestBase extends SystemTestCase4 {
             if (isPopup) {
                 popupContent = WebUIPage.getPopup().getContent();
             } else {
-                BaseTestUtils.report("Failed to get Popup Content, it may not be visible", Reporter.FAIL);
+                BaseTestUtils.report("Failed to get Popup Content, it may not be visible", FAIL);
             }
         } catch (Exception e) {
-            BaseTestUtils.report("Failed to get Popup Content, it may not be visible" + "\n" + parseExceptionBody(e), Reporter.FAIL);
+            BaseTestUtils.report("Failed to get Popup Content, it may not be visible" + "\n" + parseExceptionBody(e), FAIL);
         }
         return popupContent;
     }
@@ -436,11 +431,11 @@ public abstract class WebUITestBase extends SystemTestCase4 {
     }
 
     protected String parseExceptionBody(Exception e) {
-        StringBuffer exceptionBody = new StringBuffer();
+        StringBuilder exceptionBody = new StringBuilder();
         if (e instanceof Exception) {
             exceptionBody.append("Cause: ").append(e.getCause()).append("\n").
                     append(" ,Message: ").append(e.getMessage()).append("\n").
-                    append(" ,Stack Trace: ").append(Arrays.asList(Arrays.asList(e.getStackTrace()))).append("\n");
+                    append(" ,Stack Trace: ").append(Collections.singletonList(Arrays.asList(e.getStackTrace()))).append("\n");
         }
         if (e instanceof IllegalStateException) {
             exceptionBody.append("Additional Info: ").append((e).getLocalizedMessage());
@@ -494,7 +489,7 @@ public abstract class WebUITestBase extends SystemTestCase4 {
 
     public void setDeviceType(VisionRestClient visionRestClient, String deviceName) {
         try {
-            this.deviceTypeCurrent = DeviceUtils.getDeviceType(visionRestClient, deviceName);
+            deviceTypeCurrent = DeviceUtils.getDeviceType(visionRestClient, deviceName);
         } catch (Exception e) {
             deviceTypeCurrent = "";
         }
@@ -541,7 +536,7 @@ public abstract class WebUITestBase extends SystemTestCase4 {
 
         String visionHost = restTestBase.getRadwareServerCli().getHost();
         if (navigationParsers.containsKey(visionHost)) {
-            WebUIUtils.visionUtils.navParser = navigationParsers.get(visionHost);
+            VisionUtils.navParser = navigationParsers.get(visionHost);
         } else {
 
             String url = VisionUrlPath.mgmt().system().config().dd().screen("navigation.xml").build();
@@ -555,7 +550,7 @@ public abstract class WebUITestBase extends SystemTestCase4 {
 
 
             WebUIUtils.visionUtils.setDeviceIpIfNew(null);
-            navigationParsers.put(visionHost, WebUIUtils.visionUtils.navParser);
+            navigationParsers.put(visionHost, VisionUtils.navParser);
         }
 
         WebUIUtils.selectedDeviceDriverId = WebUIUtils.VISION_DEVICE_DRIVER_ID;
@@ -566,13 +561,13 @@ public abstract class WebUITestBase extends SystemTestCase4 {
     public void updateNavigationParser(String deviceIp) throws Exception {
         if (deviceIp != null) {
             if (navigationParsers.containsKey(WebUIUtils.selectedDeviceDriverId)) {
-                WebUIUtils.visionUtils.navParser = navigationParsers.get(WebUIUtils.selectedDeviceDriverId);
+                VisionUtils.navParser = navigationParsers.get(WebUIUtils.selectedDeviceDriverId);
             } else if (isDeviceManagedByVision) {
                 getNavigationXml(deviceIp, "client", "navigation.xml");
                 getNavigationXml(deviceIp, "server", "version_hierarchy.xml");
 
                 WebUIUtils.visionUtils.setDeviceIpIfNew(null);
-                navigationParsers.put(WebUIUtils.selectedDeviceDriverId, WebUIUtils.visionUtils.navParser);
+                navigationParsers.put(WebUIUtils.selectedDeviceDriverId, VisionUtils.navParser);
             }
         }
     }
@@ -590,7 +585,7 @@ public abstract class WebUITestBase extends SystemTestCase4 {
 
     private void setGenerateScreenshotAfterWebFindOperation() {
         try {
-            WebUIDriver.setListenerScreenshotAfterFind(Boolean.valueOf(System.getProperty("generateScreenshotAfterWebFindOperation")));
+            WebUIDriver.setListenerScreenshotAfterFind(Boolean.parseBoolean(System.getProperty("generateScreenshotAfterWebFindOperation")));
         } catch (Exception e) {
 //            Ignore
         }
@@ -598,12 +593,11 @@ public abstract class WebUITestBase extends SystemTestCase4 {
 
     private void setGenerateScreenshotAfterWebClickOperation() {
         try {
-            WebUIDriver.setListenerScreenshotAfterClick(Boolean.valueOf(System.getProperty("generateScreenshotAfterWebClickOperation")));
+            WebUIDriver.setListenerScreenshotAfterClick(Boolean.parseBoolean(System.getProperty("generateScreenshotAfterWebClickOperation")));
         } catch (Exception e) {
 //            Ignore
         }
     }
-
 
     public CliConnectionImpl getSUTEntryType(SUTEntryType sutEntryType) {
         CliConnectionImpl cli = null;
@@ -665,5 +659,59 @@ public abstract class WebUITestBase extends SystemTestCase4 {
 
     public static void setRetrievedParamValue(String retrievedParamValue) {
         WebUITestBase.retrievedParamValue = retrievedParamValue;
+    }
+
+    public static String getVisionVersion() {
+        return visionVersion;
+    }
+
+    public static void setVisionVersion(String version) {
+        visionVersion = version;
+    }
+
+    public static String getVisionBuild() {
+        return visionBuild;
+    }
+
+    public static void setVisionBuild(String build) {
+        visionBuild = build;
+    }
+
+    public static String getVisionBranch() {
+        return visionBranch;
+    }
+
+    public static void setVisionBranch(String branch) {
+        visionBranch = branch;
+    }
+
+    public static void getVisionInfo() {
+        String filePath = "Vision/SystemManagement.json";
+        String requestLabel = "Get Management Info Ex";
+        RestResponse response;
+        try {
+            CurrentVisionRestAPI currentVisionRestAPI = new CurrentVisionRestAPI(filePath, requestLabel);
+            response = currentVisionRestAPI.sendRequest();
+            //an old version that do not support branch
+            if(response.getStatusCode().equals(StatusCode.INTERNAL_SERVER_ERROR) &&
+                    response.getBody().getBodyAsJsonNode().get().findValue("message").toString().contains("Illegal item path")){
+                requestLabel = "Get Management Info";
+                currentVisionRestAPI = new CurrentVisionRestAPI(filePath, requestLabel);
+            }
+            response = currentVisionRestAPI.sendRequest();
+            if(!response.getStatusCode().equals(StatusCode.OK))
+            {
+                BaseTestUtils.report(response.getStatusCode().toString(), FAIL);
+            }
+            String serverSoftwareVersion = response.getBody().getBodyAsJsonNode().get().findValue("serverSoftwareVersion").asText();
+            String[] aServerSoftwareVersion = serverSoftwareVersion.split(" ");
+
+            visionVersion = aServerSoftwareVersion[0];
+            visionBuild = aServerSoftwareVersion[1];
+            if(response.getBody().getBodyAsJsonNode().get().has("branch"))
+                visionBranch = response.getBody().getBodyAsJsonNode().get().findValue("branch").asText();
+        } catch (NoSuchFieldException e) {
+            e.printStackTrace();
+        }
     }
 }

@@ -4,6 +4,8 @@ import com.radware.automation.tools.basetest.BaseTestUtils;
 import com.radware.automation.tools.basetest.Reporter;
 import com.radware.vision.automation.tools.sutsystemobjects.VisionVMs;
 import com.radware.vision.bddtests.BddCliTestBase;
+import com.radware.vision.bddtests.vmoperations.Deploy.FreshInstallKVM;
+import com.radware.vision.bddtests.vmoperations.Deploy.FreshInstallOVA;
 import com.radware.vision.test_utils.DeployOva;
 import com.radware.vision.vision_handlers.NewVmHandler;
 import cucumber.api.DataTable;
@@ -73,9 +75,11 @@ public class NewVmSteps extends BddCliTestBase {
 
             NewVmHandler handler = new NewVmHandler();
             try {
-                handler.firstTimeWizardOva(isAPM, vCenterURL, vCenterUser, vCenterPassword, hostip,
-                        version, build, newVmName, null, networkName, resourcePool, destFolder, dataStores);
+                FreshInstallOVA freshInstallOVA = new FreshInstallOVA(true, null);
+                handler.firstTimeWizardOva(freshInstallOVA.getBuildFileInfo().getDownloadUri().toString(), isAPM, vCenterURL, vCenterUser, vCenterPassword, hostip,
+                        version, freshInstallOVA.getBuild(), newVmName, null, networkName, resourcePool, destFolder, dataStores);
             } catch (Exception e) {
+                BaseTestUtils.report("Setup Failed changing server to OFFLINE", Reporter.FAIL);
                 BaseTestUtils.report("Failed to Create NewVm: " + data.get("NewVmName") + " failed with the following error: \n" +
                         "Message: " + e.getMessage() + "\n" +
                         "Cause: " + e.getCause() + "\n" +
@@ -84,6 +88,7 @@ public class NewVmSteps extends BddCliTestBase {
             }
         }
     }
+
     @Given("^Remove old VMs$")
     public void removeOldVms(DataTable dataTable) {
         VisionVMs visionVMs = restTestBase.getVisionVMs();

@@ -7,7 +7,7 @@ import com.radware.automation.webui.widgets.ComponentLocator;
 import com.radware.automation.webui.widgets.impl.WebUICheckbox;
 import com.radware.automation.webui.widgets.impl.WebUIRadioGroup;
 import com.radware.vision.base.WebUITestBase;
-import com.radware.vision.infra.enums.EqualsOrContains;
+import com.radware.vision.automation.AutoUtils.Operators.OperatorsEnum;
 import com.radware.vision.infra.enums.FindByType;
 import com.radware.vision.infra.testhandlers.baseoperations.BasicOperationsByNameIdHandler;
 import com.radware.vision.infra.testhandlers.baseoperations.clickoperations.ClickOperationsHandler;
@@ -30,7 +30,7 @@ public class ValidateOperationsTests extends WebUITestBase {
     String xmlFileName;
     String deviceIp;
     boolean isWebElementStatusEnabled = true;
-    EqualsOrContains validationType = EqualsOrContains.EQUALS;
+    OperatorsEnum validationType = OperatorsEnum.EQUALS;
     int cutCharsNumber = 0;
 
     int expectedRecordsNumber;
@@ -208,11 +208,11 @@ public class ValidateOperationsTests extends WebUITestBase {
         this.expectedText = expectedText;
     }
 
-    public EqualsOrContains getValidationType() {
+    public OperatorsEnum getValidationType() {
         return validationType;
     }
 
-    public void setValidationType(EqualsOrContains validationType) {
+    public void setValidationType(OperatorsEnum validationType) {
         this.validationType = validationType;
     }
 

@@ -8,12 +8,10 @@ Scenario: fetch Alteons
 
   @SID_1
   Scenario: Login and open Application Dashboard
-    Then REST Login with user "sys_admin" and password "radware"
-    Then REST Vision Install License Request "vision-reporting-module-ADC"
-    Then UI Login with user "sys_admin" and password "radware"
-    And UI Open Upper Bar Item "ADC"
-    And UI Open "Dashboards" Tab
-    And UI Open "Application Dashboard" Sub Tab
+    Given REST Login with user "sys_admin" and password "radware"
+    When REST Vision Install License Request "vision-reporting-module-ADC"
+    Given UI Login with user "sys_admin" and password "radware"
+    When UI Navigate to "Application Dashboard" page via homePage
 
   @SID_2
   Scenario: Set Accessibility patterns traffic graphs
@@ -58,13 +56,10 @@ Scenario: fetch Alteons
 
   @SID_6
   Scenario: Go back to ADC dashboard
-    And UI Open "Dashboards" Tab
-    And UI Open "Application Dashboard" Sub Tab
+    Then UI Navigate to "Application Dashboard" page via homePage
 
   @SID_7
   Scenario: VRM ADC Set Accessibility stop auto refresh
-    And UI Open "Dashboards" Tab
-    And UI Open "Application Dashboard" Sub Tab
     Given UI Click Button "Accessibility Open Menu"
     Then UI Click Button "Accessibility Auto Refresh" with value "Stop Auto-Refresh"
     Then UI Click Button "Accessibility Close"
@@ -76,9 +71,7 @@ Scenario: fetch Alteons
   @SID_9
   Scenario: VRM ADC Validate Dashboards Charts numbers while refresh is off
     Then CLI Run remote linux Command "/opt/radware/storage/ADC_delete_down_virt.sh localhost 35" on "ROOT_SERVER_CLI" and wait 30 seconds
-    Then UI Open "Reports" Tab
-    Then UI Open "Dashboards" Tab
-    Then UI Open "Application Dashboard" Sub Tab
+    Then UI Navigate to "Application Dashboard" page via homePage
     Then UI Validate Pie Chart data "VIRTUAL SERVICES"
       | label      | data |
       | Down       | 4    |

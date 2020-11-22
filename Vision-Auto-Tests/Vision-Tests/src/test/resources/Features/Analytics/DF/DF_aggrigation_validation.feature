@@ -1,6 +1,11 @@
 @TC111080
 Feature:  DF Statistics - Data Aggregation
 
+  @SID_18
+  Scenario: Change DF managment IP to IP of Generic Linux
+    When CLI Operations - Run Radware Session command "system df management-ip set 172.17.164.10"
+    When CLI Operations - Run Radware Session command "system df management-ip get"
+    Then CLI Operations - Verify that output contains regex "DefenseFlow Management IP Address: 172.17.164.10"
 
   @SID_1
   Scenario: Copy retention verification script
@@ -17,16 +22,15 @@ Feature:  DF Statistics - Data Aggregation
 
 
 
-
   @SID_2
   Scenario: Run DF aggregation
     Then CLI Run remote linux Command "curl -X POST --header 'Content-Type: application/json' --header 'Accept: */*' 'http://localhost:10080/reporter/mgmt/monitor/reporter/internal-dashboard/scheduledTasks?jobClassName=com.reporter.df.task.traffic.DFTrafficUtilizationAggregationTask'" on "ROOT_SERVER_CLI"
-    * Sleep "30"
+    * Sleep "120"
 
   #  tcp pps
   @SID_4
   Scenario: validate average values of fields in index df-traffic-agg units=pps monitoringProtocol=tcp
-    Then CLI Run linux Command "/get_ES_key_value_df.sh df-traffic-agg pps tcp inbound" on "ROOT_SERVER_CLI" and validate result EQUALS "1500.0"
+    Then CLI Run linux Command "/get_ES_key_value_df.sh df-traffic-agg pps tcp inbound" on "ROOT_SERVER_CLI" and validate result EQUALS "1500.0" with timeOut 600
     Then CLI Run linux Command "/get_ES_key_value_df.sh df-traffic-agg pps tcp dropped" on "ROOT_SERVER_CLI" and validate result EQUALS "75.0"
     Then CLI Run linux Command "/get_ES_key_value_df.sh df-traffic-agg pps tcp diverted" on "ROOT_SERVER_CLI" and validate result EQUALS "15.0"
     Then CLI Run linux Command "/get_ES_key_value_df.sh df-traffic-agg pps tcp discarded" on "ROOT_SERVER_CLI" and validate result EQUALS "7.5"

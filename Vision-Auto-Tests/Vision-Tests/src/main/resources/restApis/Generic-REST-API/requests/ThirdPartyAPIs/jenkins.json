@@ -1,0 +1,36 @@
+{
+  "deviceName": "ThirdPartyAPIs",
+  "fileName": "jenkins",
+  "description": "Jenkins API",
+  "api": [
+    {
+      "label": "Get Job Info",
+      "method": "GET",
+      "basePath": "/job/{jobName}/api/json?pretty=true",
+      "produces": "application/json",
+      "description": "Get Jenkins Job Info"
+    },
+    {
+      "label": "Get Build Info",
+      "method": "GET",
+      "basePath": "/job/{jobName}/{buildNumber}/api/json?pretty=true",
+      "produces": "application/json",
+      "description": "Get Jenkins Build Info"
+    },
+    {
+    "label": "Get Build Info cvision",
+    "method": "GET",
+    "basePath": "/job/vision_core/job/{featureBranch}/{buildNumber}/api/json?pretty=true",
+    "produces": "application/json",
+    "description": "Get Jenkins Build Info cvision"
+    },
+    {
+      "label": "Get Job Info cvision",
+      "method": "GET",
+      "basePath": "/job/vision_core/job/{featureBranch}/api/json?pretty=true",
+      "produces": "application/json",
+      "description": "Get Jenkins Build Info cvision"
+    }
+  ]
+}
+

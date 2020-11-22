@@ -1,0 +1,35 @@
+{
+  "deviceName": "Vision",
+  "fileName": "SystemManagement",
+  "description": "System Management",
+  "api": [
+    {
+      "label": "Get Management Info",
+      "method": "GET",
+      "basePath": "/mgmt/system/config/item/mngtinfo",
+      "produces": "application/json",
+      "description": "Retrieves Vision Management Info : macAddress, hostname ,defenseFlowId, defensePipeUrl, hardwarePlatform,activeServerMacAddress, serverSoftwareVersion, certificateHash"
+    },
+    {
+      "label": "Add Site to TopologyTree",
+      "method": "POST",
+      "basePath": "/mgmt/system/config/tree/site",
+      "produces": "application/json",
+      "description": "Add New Site to TopologyTree"
+    },
+    {
+      "label": "Set Authentication Mode",
+      "method": "PUT",
+      "basePath": "/mgmt/system/config/item/globalaaaparameters",
+      "produces": "application/json",
+      "description": "Set Authentication Mode"
+    },
+    {
+      "label": "Get Management Info Ex",
+      "method": "GET",
+      "basePath": "/mgmt/system/config/item/mngtinfoex",
+      "produces": "application/json",
+      "description": "Retrieves Vision Management Info : macAddress, hostname ,defenseFlowId, defensePipeUrl, hardwarePlatform,activeServerMacAddress, serverSoftwareVersion, certificateHash, branch"
+    }
+  ]
+}

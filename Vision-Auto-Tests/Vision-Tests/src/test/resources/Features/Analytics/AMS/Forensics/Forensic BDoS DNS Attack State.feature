@@ -27,6 +27,7 @@ Feature: AMS forensic BDoS and DNS Attack State
   @SID_5
   Scenario: Generate the forensic report
     Given UI Generate and Validate Forensics With Name "BDoS_DNS_State" with Timeout of 300 Seconds
+    And Sleep "30"
   @SID_6
   Scenario: validate attck state of 60-1514816419
     And UI Click Button "Views.report" with value "BDoS_DNS_State"
@@ -150,6 +151,7 @@ Feature: AMS forensic BDoS and DNS Attack State
     When UI "Create" Forensics With Name "BDoS_DNS_State"
       | Output | Attack ID,Threat Category,Attack Name |
     Given UI Generate and Validate Forensics With Name "BDoS_DNS_State" with Timeout of 300 Seconds
+    And Sleep "30"
 
   @SID_25
   Scenario: validate network flood IPv4 UDP attack state of 51-1577804729
@@ -182,6 +184,7 @@ Feature: AMS forensic BDoS and DNS Attack State
     When UI "Create" Forensics With Name "BDoS_DNS_State"
       | Output | Attack ID,Threat Category,Attack Name |
     Given UI Generate and Validate Forensics With Name "BDoS_DNS_State" with Timeout of 300 Seconds
+    And Sleep "30"
 
   @SID_29
   Scenario: validate network flood IPv4 UDP attack state of 51-1577804729

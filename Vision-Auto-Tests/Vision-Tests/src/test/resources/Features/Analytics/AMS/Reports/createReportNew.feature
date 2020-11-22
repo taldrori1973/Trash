@@ -1,13 +1,12 @@
 @VRM_Report2
 @TC107944
-
 Feature: create AMS Report New Form
 
   @SID_1
   Scenario: Login and navigate to the AMS Reports Wizard
-    Then CLI Operations - Run Root Session command "yes|restore_radware_user_password" timeout 15
+    Given CLI Reset radware password
     Then REST Vision Install License Request "vision-AVA-Max-attack-capacity"
-    Then CLI Run remote linux Command "mysql -prad123 vision_ng -e "select license_str,is_expired+0 from vision_license;"" on "ROOT_SERVER_CLI"
+    And REST Delete ES index "vrm-scheduled-report-definition-vrm"
     Then REST Request "PUT" for "Connectivity->Inactivity Timeout for Configuration"
       | type | value                                 |
       | body | sessionInactivTimeoutConfiguration=60 |
@@ -23,7 +22,7 @@ Feature: create AMS Report New Form
       | reportType            | DefensePro Analytics Dashboard                                                                  |
       | Design                | Add:[Traffic Bandwidth,Connections Rate,Top Attack Sources,Top Scanners,Top Attack Destination] |
       | devices               | index:10,ports:[1],policies:[BDOS]                                                              |
-      | Time Definitions.Date | Absolute:[27.02.1971 01:00:00, +1d]                                                             |
+      | Time Definitions.Date | Absolute:[27.02.1971 01:00:00, +0d]                                                             |
       | Format                | Select: HTML                                                                                    |
 
   @SID_3
@@ -32,7 +31,7 @@ Feature: create AMS Report New Form
       | reportType            | DefensePro Analytics Dashboard                                                                      |
       | Design                | Widgets:[Top Attack Sources,Top Scanners,Traffic Bandwidth,Top Attack Destination,Connections Rate] |
       | devices               | index:10,ports:[1],policies:[BDOS]                                                                  |
-      | Time Definitions.Date | Absolute:[27.02.1971 01:00:00, +1d]                                                                 |
+      | Time Definitions.Date | Absolute:[27.02.1971 01:00:00, +0d]                                                                 |
       | Format                | Select: HTML                                                                                        |
 
   @SID_4
@@ -46,7 +45,7 @@ Feature: create AMS Report New Form
       | reportType            | DefensePro Analytics Dashboard                                                                      |
       | Design                | Widgets:[Top Attack Sources,Top Scanners,Traffic Bandwidth,Top Attack Destination,Connections Rate] |
       | devices               | index:10,ports:[1],policies:[BDOS]                                                                  |
-      | Time Definitions.Date | Absolute:[27.02.1971 01:00:00, +1d]                                                                 |
+      | Time Definitions.Date | Absolute:[27.02.1971 01:00:00, +0d]                                                                 |
       | Format                | Select: PDF                                                                                         |
 
   @SID_6
@@ -59,7 +58,7 @@ Feature: create AMS Report New Form
       | reportType            | DefensePro Behavioral Protections Dashboard                                                                                                                    |
       | Design                | {"Add":[{"BDoS-TCP SYN":["pps","IPv6"]},"BDoS-TCP SYN ACK",{"BDoS-TCP FIN ACK":["pps","IPv6","Outbound"]},{"BDoS-UDP":["pps","IPv6","Outbound"]},"BDoS-ICMP"]} |
       | devices               | index:10,ports:[1],policies:[BDOS]                                                                                                                             |
-      | Time Definitions.Date | Absolute:[27.02.1971 01:00:00, +1d]                                                                                                                            |
+      | Time Definitions.Date | Absolute:[27.02.1971 01:00:00, +0d]                                                                                                                            |
       | Format                | Select: CSV                                                                                                                                                    |
 
   @SID_8
@@ -68,7 +67,7 @@ Feature: create AMS Report New Form
       | reportType            | DefensePro Behavioral Protections Dashboard                                 |
       | Design                | Widgets:[BDoS-TCP SYN,BDoS-TCP SYN ACK,BDoS-TCP FIN ACK,BDoS-UDP,BDoS-ICMP] |
       | devices               | index:10,ports:[1],policies:[BDOS]                                          |
-      | Time Definitions.Date | Absolute:[27.02.1971 01:00:00, +1d]                                         |
+      | Time Definitions.Date | Absolute:[27.02.1971 01:00:00, +0d]                                         |
       | Format                | Select: CSV                                                                 |
 
   @SID_9
@@ -82,7 +81,7 @@ Feature: create AMS Report New Form
       | reportType            | DefensePro Behavioral Protections Dashboard                                 |
       | Design                | Widgets:[BDoS-TCP SYN,BDoS-TCP SYN ACK,BDoS-TCP FIN ACK,BDoS-UDP,BDoS-ICMP] |
       | devices               | index:10,ports:[1],policies:[BDOS]                                          |
-      | Time Definitions.Date | Absolute:[27.02.1971 01:00:00, +1d]                                         |
+      | Time Definitions.Date | Absolute:[27.02.1971 01:00:00, +0d]                                         |
       | Format                | Select: PDF                                                                 |
 
   @SID_11
@@ -97,7 +96,7 @@ Feature: create AMS Report New Form
       | reportType            | DefensePro Behavioral Protections Dashboard |
       | Design                | Widgets:[BDoS-TCP SYN,BDoS-TCP SYN ACK]     |
       | devices               | index:10,ports:[1],policies:[BDOS]          |
-      | Time Definitions.Date | Absolute:[27.02.1971 01:00:00, +1d]         |
+      | Time Definitions.Date | Absolute:[27.02.1971 01:00:00, +0d]         |
       | Format                | Select: PDF                                 |
 
   @SID_13
@@ -118,8 +117,7 @@ Feature: create AMS Report New Form
   @SID_15
   Scenario: login
     Given UI Login with user "sys_admin" and password "radware"
-    When UI Open Upper Bar Item "AMS"
-    When UI Open "Reports" Tab
+    And UI Navigate to "AMS Reports" page via homePage
 
   @SID_16
   Scenario: validate error message without report name
@@ -158,7 +156,6 @@ Feature: create AMS Report New Form
   @SID_20
   Scenario: Validate Scope Selection Search
     Then UI Click Button "Edit" with value "new"
-#    When UI "Edit" Report With Name "new"
     Then UI Validate Scope Selection Search With Element Type "DefensePro" And Device index 10
 
   @SID_21
@@ -171,9 +168,9 @@ Feature: create AMS Report New Form
   @SID_22
   Scenario: VRM Reports - Time Selection - Absolute
     Given UI "Create" Report With Name "new"
-      | Time Definitions.Date | Absolute:[27.02.1971 01:00:00, +1d] |
+      | Time Definitions.Date | Absolute:[27.02.1971 01:00:00, +0d] |
     Then UI "Validate" Report With Name "new"
-      | Time Definitions.Date | Absolute:[27.02.1971 01:00:00, +1d] |
+      | Time Definitions.Date | Absolute:[27.02.1971 01:00:00, +0d] |
 
   @SID_23
   Scenario: VRM Reports - Time Selection - Absolute - To date less than from date - Negative Test
@@ -183,7 +180,6 @@ Feature: create AMS Report New Form
     Then UI Validate Text field "Error Title" EQUALS "Unable to submit form"
     Then UI Validate Text field "Error Message" EQUALS "To submit, you must fill in all marked fields*"
     Then UI Click Button "Error Ok"
-#    Then UI Click Button "Close Message"
     Then UI Click Button "Close"
 
   @SID_24
@@ -201,11 +197,11 @@ Feature: create AMS Report New Form
     When UI Click Button "Add New"
     When UI Click Button "Select Template"
     When UI Click Button "DefensePro Analytics Template"
-    Then UI Validate Search The Text "Top Attacks by" in Search Label "Widget Filter Default" if this elements exist
-      | label         | param                    |
-      | Widget Select | Top Attacks by Duration  |
-      | Widget Select | Top Attacks by Bandwidth |
-      | Widget Select | Top Attacks by Protocol  |
+    Then UI Validate Search The Text "Top Attacks by" in Search Label "Widget Filter Default" if this elements exist with prefix label "Widget Select"
+      | param                    |
+      | Top Attacks by Duration  |
+      | Top Attacks by Bandwidth |
+      | Top Attacks by Protocol  |
     Then UI Click Button "Widget Close"
     Then UI Click Button "Discard Changes"
     Then UI Click Button "Cancel"
@@ -213,8 +209,9 @@ Feature: create AMS Report New Form
   @SID_26
   Scenario: AMS Reports - Validate Search Filter With Expected Elements Number
     When UI Click Button "Add New"
-    When UI Click Button "Select Template"
-    When UI Click Button "DefensePro Analytics Template"
+    And UI Click Button "Select Template"
+    And UI Click Button "DefensePro Analytics Template"
+    And UI Click Button By JavascriptExecutor with label "Clear All"
     Then UI Validate Search Numbering With text: "Top Attacks by" And Element Label: "Widget Select" In Search Label "Widget Filter Default" If this equal to 3
     Then UI Click Button "Widget Close"
     Then UI Click Button "Discard Changes"
@@ -232,35 +229,21 @@ Feature: create AMS Report New Form
     Given UI "Create" Report With Name "DeleteAllReport"
       | reportType | DefensePro Analytics Dashboard |
       | Design     | Delete:[ALL], Add:[ALL]        |
-    Then UI Click Button "Widgets Selection Cancel"
-    Then UI Click Button "Cancel"
+
 
   @SID_29
   Scenario: Create Behavioral Protections Report with all the widgets
     Given UI "Create" Report With Name "aaaa"
       | reportType | DefensePro Behavioral Protections Dashboard |
       | Design     | Delete:[ALL], Add:[ALL]                     |
-#    Then UI Click Button "Widgets Selection Cancel"
-#    Then UI Click Button "Cancel"
 
   @SID_30
   Scenario: Create DefensePro Analytics Dashboard Report with all the widgets
     Given UI "Create" Report With Name "DeleteAllReport"
       | reportType | DefensePro Analytics Dashboard                           |
       | Design     | Delete:[ALL], Add:[Top Attacks,Top Attacks by Bandwidth] |
-#    Then UI Click Button "Widgets Selection Cancel"
-#    Then UI Click Button "Cancel"
 
-#  @SID_31
-#  Scenario: AMS Reports - Save widgets after click on Cancel button
-#    Given UI Validate Reports Design Drag and Drop
-#      | reportType | DefensePro Analytics Dashboard                          |
-#      | Design     | Add:[Top Attack Sources,Top Scanners,Traffic Bandwidth] |
-#    Then UI Click Button "Widgets Selection Cancel"
-#    Then UI Validate Text field "Confirm Save Title" EQUALS "Cancel"
-#    Then UI Validate Text field "Confirm Save Message" EQUALS "Cancel"
-
-  @SID_32
+  @SID_31
   Scenario: Report Form Header with name
     When UI Click Button "Add New"
     When UI Set Text Field "Wizard Report Name" To "name"
@@ -269,7 +252,7 @@ Feature: create AMS Report New Form
     Then UI Validate Text field "Name Of Collapsed" EQUALS "name"
     When UI Click Button "Cancel"
 
-  @SID_33
+  @SID_32
   Scenario: Report Form Header without name
     When UI Click Button "Add New"
     And UI Click Button "Arrow Toggle"
@@ -277,7 +260,7 @@ Feature: create AMS Report New Form
     Then UI validate arrow with label "Title Template" and params "" if "COLLAPSED"
     When UI Click Button "Cancel"
 
-  @SID_34
+  @SID_33
   Scenario: Cleanup
     Given UI logout and close browser
     * CLI Check if logs contains

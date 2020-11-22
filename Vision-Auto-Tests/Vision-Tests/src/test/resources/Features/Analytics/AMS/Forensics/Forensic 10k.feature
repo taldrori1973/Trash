@@ -41,17 +41,18 @@ Feature: Forensics 10K
   @SID_7
   Scenario: create forensic definition
     When UI "Create" Forensics With Name "Forensic_10K"
-      | Time Definitions.Date | Absolute:[27.02.2017 01:00:00, +1d] |
+      | Time Definitions.Date | Absolute:[27.02.2017 01:00:00, +0d] |
 
   @SID_8
   Scenario: generate forensic report
     Then UI Generate and Validate Forensics With Name "Forensic_10K" with Timeout of 300 Seconds
+    Then Sleep "30"
 
   @SID_9
   Scenario: validate number of records in forensic table
     And UI Click Button "Views.report" with value "Forensic_10K"
     Then Sleep "15"
-    * UI Validate "Report.Table" Table rows count equal to 10000
+    * UI Validate "Report.Table" Table rows count EQUALS to 10000
 
   @SID_10
   Scenario: validate existence of "export" button

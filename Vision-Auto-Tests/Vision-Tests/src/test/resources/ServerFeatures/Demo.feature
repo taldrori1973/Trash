@@ -1,26 +1,27 @@
-#@rest100
-@TC113068
+
 Feature: Demo
 
-  @SID_4
-  Scenario: Delete User Before Creating it
+
+  @SID_5
+  Scenario: Create Local User
+
     Given That Current Vision is Logged In
 
-    Given Create Following RUNTIME Parameters by Sending Request Specification from File "Vision/mgmt/system/config/itemlist/SystemConfigItemList" with label "Get Local Users"
+    Given Create Following RUNTIME Parameters by Sending Request Specification from File "Vision/SystemConfigItemList" with label "Get Local Users"
       | ormID | $[?(@.name=='cucumber')].ormID |
 
-    Given New Request Specification from File "Vision/mgmt/system/config/itemlist/SystemConfigItemList" with label "Delete an Item from the Server"
+    Given New Request Specification from File "Vision/SystemConfigItemList" with label "Delete an Item from the Server"
+
     And The Request Path Parameters Are
       | item | user     |
       | id   | ${ormID} |
 
     When Send Request with the Given Specification
 
-  @SID_5
-  Scenario: Create Local User
-    Given That Current Vision is Logged In
 
-    Given New Request Specification from File "Vision/mgmt/system/config/itemlist/SystemConfigItemList" with label "Create Local User"
+
+
+    Given New Request Specification from File "Vision/SystemConfigItemList" with label "Create Local User"
 
     Given The Request Body is the following Object
       | jsonPath                                                       | value                     |
@@ -45,4 +46,17 @@ Feature: Demo
       | $.status | "ok"  |
 
 
+  Scenario: DefenseFlow
+
+    Given That Defense Flow With Ip "172.17.160.152" And Port 9101 is Connected without Authentication
+    Given New Request Specification from File "/DefenseFlow/VisionRequests.json" with label "Register DefenseFlow in Vision"
+    And The Request Body is the following Object
+      | jsonPath   | value            |
+      | $.ip       | "172.17.192.100" |
+      | $.user     | "defenseflow"    |
+      | $.password | "defenseflow"    |
+
+    When Send Request with the Given Specification
+
+    Then Validate That Response Status Code Is OK
 

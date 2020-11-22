@@ -99,7 +99,7 @@ Feature: VRM Alerts Severity
 
   @SID_11
   Scenario: go back to vision
-    And UI Navigate to "HOME" page via homePage
+    Then UI Navigate to "VISION SETTINGS" page via homePage
 
   @SID_12
   Scenario: VRM Validate Alert browser details severity Warning

@@ -44,6 +44,11 @@
         </dependency>
         <dependency>
             <groupId>com.radware.vision.automation</groupId>
+            <artifactId>Auto-Utils</artifactId>
+            <version>${revision}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.radware.vision.automation</groupId>
             <artifactId>Rest-Step-Handlers</artifactId>
             <version>${revision}</version>
         </dependency>
@@ -134,6 +139,13 @@
         <!--            <artifactId>openstack-tests</artifactId>-->
         <!--            <version>${VISION_VERSION}-SNAPSHOT</version>-->
         <!--        </dependency>-->
+        <dependency>
+
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <version>1.18.10</version>
+            <scope>provided</scope>
+        </dependency>
     </dependencies>
 
     <build>

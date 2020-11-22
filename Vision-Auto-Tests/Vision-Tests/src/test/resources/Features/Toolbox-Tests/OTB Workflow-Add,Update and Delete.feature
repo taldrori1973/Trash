@@ -1,10 +1,11 @@
 @TC110731
 Feature: OTB Workflow - Add, Update and Delete
 
+
   @SID_1
   Scenario: Navigate to OTB WF page
     Given UI Login with user "radware" and password "radware"
-    And UI Navigate to "AUTOMATION" page via homePage
+    Then UI Navigate to "AUTOMATION" page via homePage
     When set Tab "Automation.Toolbox"
     When UI Click Button by id "gwt-debug-WorkFlow_Tab"
 
@@ -13,6 +14,7 @@ Feature: OTB Workflow - Add, Update and Delete
 #    Then UI Validate Element Existence By Label "New Workflow" if Exists "true"
 #    Then  Upload file "notZip.txt" to "New Workflow"
 #    Then UI Validate Text field with Class "ant-message-custom-content ant-message-error" "Equals" To "Error reading file. Invalid file type. Upload only valid ZIP files"
+
 
   @SID_2
   Scenario: Upload new workflow
@@ -69,7 +71,7 @@ Feature: OTB Workflow - Add, Update and Delete
   Scenario Outline: RBAC - add,delete,update Workflow Templates Available for Administrator Roles
     Given UI Login with user "<userName>" and password "radware"
     Given UI Go To Vision
-    When UI Open Upper Bar Item "Toolbox"
+    Then UI Navigate to "AUTOMATION" page via homePage
     When set Tab "Automation.Toolbox"
     When UI Click Button by id "gwt-debug-WorkFlow_Tab"
     Then UI Validate Element Existence By Label "New Workflow" if Exists "true"
@@ -90,7 +92,7 @@ Feature: OTB Workflow - Add, Update and Delete
   @SID_11
   Scenario Outline: RBAC - validate that NOT Adminstrator Roles can't Add,upload,delete WF
     Given UI Login with user "<userName>" and password "radware"
-    When UI Open Upper Bar Item "Toolbox"
+    Then UI Navigate to "AUTOMATION" page via homePage
     When set Tab "Automation.Toolbox"
     When UI Click Button by id "gwt-debug-WorkFlow_Tab"
     Then UI Validate Element Existence By Label "New Workflow" if Exists "false"
@@ -101,21 +103,25 @@ Feature: OTB Workflow - Add, Update and Delete
       | userName           |
       | Device_Viewer_user |
 
+
   @SID_12
-  Scenario: Delete WorkFlow
+  Scenario: Delete WorkFlow and validate that success message appears
     Given UI Login with user "radware" and password "radware"
-    When UI Open Upper Bar Item "Toolbox"
+    Then UI Navigate to "AUTOMATION" page via homePage
     When set Tab "Automation.Toolbox"
     When UI Click Button by id "gwt-debug-WorkFlow_Tab"
     When UI Click Button "card action" with value "calculator"
     When UI Click Button "delete Workflow" with value "calculator"
     Then UI Validate Element Existence By Label "Delete Submit" if Exists "true"
     Then UI Click Button "Delete Submit"
-
-  @SID_13
-  Scenario: Validate success message appear after delete
+    Then Sleep "3"
     Then UI Validate Text field with Class "ant-message-custom-content ant-message-success" "Equals" To "Workflow calculator was deleted successfully"
 
+
+#  @SID_13
+#  Scenario: validate that success message appears
+#    Then UI Validate Text field with Class "ant-message-custom-content ant-message-success" "Equals" To "Workflow calculator was deleted successfully"
+#
   @SID_14
   Scenario: Logout
     Then UI Logout

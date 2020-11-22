@@ -36,6 +36,7 @@ Feature: Scheduled task Backup Alteon
 
   @SID_4
   Scenario: Run The task
+    Then Sleep "15"
     Then UI Run task with name "ADC_config_task"
 
   @SID_5

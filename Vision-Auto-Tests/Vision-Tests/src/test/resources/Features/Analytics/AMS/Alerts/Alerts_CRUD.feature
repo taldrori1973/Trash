@@ -36,15 +36,16 @@ Feature: VRM Alerts CRUD
       | Schedule   | checkBox:Trigger,alertsPerHour:1                                                                                                    |
 
   @SID_5
-  Scenario: Create Alert To-be-Disabled
-    When UI "Create" Alerts With Name "To-be-Disabled"
+  Scenario: Create Alert To_be_Disabled
+    When UI "Create" Alerts With Name "To_be_Disabled"
       | Basic Info | Description:Src Port                                    |
       | Criteria   | Event Criteria:Attack ID,Operator:Not Equals,Value:300; |
       | Schedule   | checkBox:Trigger,alertsPerHour:60                       |
+    Then UI Validate Element Existence By Label "Toggle Alerts" if Exists "true" with value "To_be_Disabled"
 
   @SID_6
   Scenario: Disable Alert
-    Then UI Set Checkbox "SwitchOff" with extension "To-be-Disabled" To "true"
+    Then UI Set Checkbox "SwitchOff" with extension "To_be_Disabled" To "true"
 
   @SID_7
   Scenario: generate attack to trigger alert
@@ -56,7 +57,7 @@ Feature: VRM Alerts CRUD
     And UI Navigate to "AMS Alerts" page via homePage
     Then UI "Uncheck" all the Toggle Alerts
     Then UI "Check" Toggle Alerts with name "Alert_Src_Port"
-    Then UI Validate "Report.Table" Table rows count equal to 1
+    Then UI Validate "Report.Table" Table rows count EQUALS to 1
     Then UI Validate Table record values by columns with elementLabel "Report.Table" findBy index 0
       | columnName | value   |
       | Severity   | WARNING |
@@ -64,7 +65,7 @@ Feature: VRM Alerts CRUD
   @SID_9
   Scenario: validate Alert details table
     Then UI click Table row by keyValue or Index with elementLabel "Report.Table" findBy index 0
-    Then UI Validate "Alert details" Table rows count equal to 5
+    Then UI Validate "Alert details" Table rows count EQUALS to 5
     Then UI Validate Table record values by columns with elementLabel "Alert details" findBy columnName "Threat Category" findBy cellValue "DNS Flood"
       | columnName       | value                |
       | Attack Name      | DNS flood IPv4 DNS-B |
@@ -82,8 +83,8 @@ Feature: VRM Alerts CRUD
   Scenario: Validate Disabled Alert not triggered
     Then UI "Check" all the Toggle Alerts
     Then UI "Uncheck" all the Toggle Alerts
-    Then UI "Check" Toggle Alerts with name "To-be-Disabled"
-    Then UI Validate "Report.Table" Table rows count equal to 0
+    Then UI "Check" Toggle Alerts with name "To_be_Disabled"
+    Then UI Validate "Report.Table" Table rows count EQUALS to 0
 
   @SID_11
   Scenario: validate Delete Alert

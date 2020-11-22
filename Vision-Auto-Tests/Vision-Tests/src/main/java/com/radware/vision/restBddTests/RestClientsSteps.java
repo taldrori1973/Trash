@@ -4,6 +4,7 @@ package com.radware.vision.restBddTests;
 import com.radware.vision.RestStepResult;
 import com.radware.vision.automation.tools.sutsystemobjects.devicesinfo.enums.SUTDeviceType;
 import com.radware.vision.bddtests.BddRestTestBase;
+import com.radware.vision.bddtests.defenseFlow.defenseFlowDevice;
 import com.radware.vision.restBddTests.utils.SutUtils;
 import com.radware.vision.restBddTests.utils.UriUtils;
 import com.radware.vision.restTestHandler.RestClientsStepsHandler;
@@ -163,4 +164,29 @@ public class RestClientsSteps extends BddRestTestBase {
 
     }
 
+
+
+
+    @Given("^That Defense Flow Device with IP \"([^\"]*)\" is Logged In(?: With Username \"([^\"]*)\" and Password \"([^\"]*)\")?$")
+    public void thatDefenseFlowIsLoggedInWithUsernameAndPassword(String strIP, String username, String password) throws Exception {
+//        Should be Change to get the data from SUT Utils
+        if (isNull(username)) {
+            username = "radware";
+        }
+        if (isNull(password)) {
+            password = "radware";
+        }
+
+        String baseUri = UriUtils.buildUrlFromProtocolAndIp("https", strIP);
+        Integer port = null;
+        RestStepResult result = RestClientsStepsHandler.defenseFlowLogin(baseUri, port, username, password);
+        if (result.getStatus().equals(RestStepResult.Status.FAILED))
+            report(result.getMessage(), FAIL);
+
+    }
+
+    @Given("^That Defense Flow With Ip \"([^\"]*)\" And Port (\\d+) is Connected without Authentication$")
+    public void thatDefenseFlowWithIpAndPortIsConnectedWithoutAuthentication(String defenseFlowIp, int defenseFlowPort) {
+        RestClientsStepsHandler.switchToNoAuthClient(UriUtils.buildUrlFromProtocolAndIp("https", defenseFlowIp), defenseFlowPort);
+    }
 }

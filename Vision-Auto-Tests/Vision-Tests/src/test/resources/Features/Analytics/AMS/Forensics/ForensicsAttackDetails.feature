@@ -6,7 +6,7 @@ Feature: Forensic Attack details Tests
   @SID_1
   Scenario: Clean system data
     * CLI kill all simulator attacks on current vision
-    Then CLI Operations - Run Root Session command "yes|restore_radware_user_password" timeout 15
+    Given CLI Reset radware password
     # Sleeping in order to let collector cache clean
     Then Sleep "20"
     * REST Delete ES index "dp-*"
@@ -32,6 +32,7 @@ Feature: Forensic Attack details Tests
     When UI "Create" Forensics With Name "Attack Details1"
       | Output | Action,Attack ID,Threat Category,Duration |
     Then UI Generate and Validate Forensics With Name "Attack Details1" with Timeout of 180 Seconds
+    And Sleep "30"
     And UI Click Button "Views.report" with value "Attack Details1"
 
  ######################################################### Refine ########################################################################
@@ -42,7 +43,7 @@ Feature: Forensic Attack details Tests
     And UI Click Button "Report.Attack Details.Refine View"
     And UI Select Multi items from dropdown "Report.Attack Details.Refine.Dropdown" apply
       | Action |
-    Then UI Validate "Report.Table" Table rows count equal to 26
+    Then UI Validate "Report.Table" Table rows count EQUALS to 26
     * UI Click Button "Report.Clear Refine"
 
   @SID_6
@@ -51,7 +52,7 @@ Feature: Forensic Attack details Tests
     And UI Click Button "Report.Attack Details.Refine View"
     And UI Select Multi items from dropdown "Report.Attack Details.Refine.Dropdown" apply
       | Attack ID |
-    Then UI Validate "Report.Table" Table rows count equal to 1
+    Then UI Validate "Report.Table" Table rows count EQUALS to 1
     * UI Click Button "Report.Clear Refine"
 
   @SID_7
@@ -61,7 +62,7 @@ Feature: Forensic Attack details Tests
     And UI Select Multi items from dropdown "Report.Attack Details.Refine.Dropdown" apply
       | Start Time |
     #  move to manual because refine by time is not absolute
-      # Then UI Validate "Report.Table" Table rows count equal to 1
+      # Then UI Validate "Report.Table" Table rows count EQUALS to 1
     * UI Click Button "Report.Clear Refine"
 
   @SID_8
@@ -70,7 +71,7 @@ Feature: Forensic Attack details Tests
     And UI Click Button "Report.Attack Details.Refine View"
     And UI Select Multi items from dropdown "Report.Attack Details.Refine.Dropdown" apply
       | Source IP Address |
-    Then UI Validate "Report.Table" Table rows count equal to 4
+    Then UI Validate "Report.Table" Table rows count EQUALS to 4
 
     Then UI Validate Table record values by columns with elementLabel "Report.Table" findBy columnName "Attack ID" findBy cellValue "803-1525623158"
       | columnName | value |
@@ -93,7 +94,7 @@ Feature: Forensic Attack details Tests
     And UI Click Button "Report.Attack Details.Refine View"
     And UI Select Multi items from dropdown "Report.Attack Details.Refine.Dropdown" apply
       | Source Port |
-    Then UI Validate "Report.Table" Table rows count equal to 8
+    Then UI Validate "Report.Table" Table rows count EQUALS to 8
     * UI Click Button "Report.Clear Refine"
 
   @SID_10
@@ -102,7 +103,7 @@ Feature: Forensic Attack details Tests
     And UI Click Button "Report.Attack Details.Refine View"
     And UI Select Multi items from dropdown "Report.Attack Details.Refine.Dropdown" apply
       | Destination IP Address |
-    Then UI Validate "Report.Table" Table rows count equal to 4
+    Then UI Validate "Report.Table" Table rows count EQUALS to 4
     * UI Click Button "Report.Clear Refine"
 
   @SID_11
@@ -111,7 +112,7 @@ Feature: Forensic Attack details Tests
     And UI Click Button "Report.Attack Details.Refine View"
     And UI Select Multi items from dropdown "Report.Attack Details.Refine.Dropdown" apply
       | Destination Port |
-    Then UI Validate "Report.Table" Table rows count equal to 2
+    Then UI Validate "Report.Table" Table rows count EQUALS to 2
     * UI Click Button "Report.Clear Refine"
 
   @SID_12
@@ -120,7 +121,7 @@ Feature: Forensic Attack details Tests
     And UI Click Button "Report.Attack Details.Refine View"
     And UI Select Multi items from dropdown "Report.Attack Details.Refine.Dropdown" apply
       | Direction |
-    Then UI Validate "Report.Table" Table rows count equal to 3
+    Then UI Validate "Report.Table" Table rows count EQUALS to 3
     * UI Click Button "Report.Clear Refine"
 
   @SID_13
@@ -129,7 +130,7 @@ Feature: Forensic Attack details Tests
     And UI Click Button "Report.Attack Details.Refine View"
     And UI Select Multi items from dropdown "Report.Attack Details.Refine.Dropdown" apply
       | Protocol |
-    Then UI Validate "Report.Table" Table rows count equal to 19
+    Then UI Validate "Report.Table" Table rows count EQUALS to 19
     * UI Click Button "Report.Clear Refine"
 
   @SID_14
@@ -138,7 +139,7 @@ Feature: Forensic Attack details Tests
     And UI Click Button "Report.Attack Details.Refine View"
     And UI Select Multi items from dropdown "Report.Attack Details.Refine.Dropdown" apply
       | Threat Category |
-    Then UI Validate "Report.Table" Table rows count equal to 6
+    Then UI Validate "Report.Table" Table rows count EQUALS to 6
     * UI Click Button "Report.Clear Refine"
 
   @SID_15
@@ -147,7 +148,7 @@ Feature: Forensic Attack details Tests
     And UI Click Button "Report.Attack Details.Refine View"
     And UI Select Multi items from dropdown "Report.Attack Details.Refine.Dropdown" apply
       | Radware ID |
-    Then UI Validate "Report.Table" Table rows count equal to 1
+    Then UI Validate "Report.Table" Table rows count EQUALS to 1
     * UI Click Button "Report.Clear Refine"
 
   @SID_16
@@ -156,7 +157,7 @@ Feature: Forensic Attack details Tests
     And UI Click Button "Report.Attack Details.Refine View"
     And UI Select Multi items from dropdown "Report.Attack Details.Refine.Dropdown" apply
       | Attack Name |
-    Then UI Validate "Report.Table" Table rows count equal to 1
+    Then UI Validate "Report.Table" Table rows count EQUALS to 1
     * UI Click Button "Report.Clear Refine"
 
   @SID_17
@@ -165,7 +166,7 @@ Feature: Forensic Attack details Tests
     And UI Click Button "Report.Attack Details.Refine View"
     And UI Select Multi items from dropdown "Report.Attack Details.Refine.Dropdown" apply
       | Device IP Address |
-    Then UI Validate "Report.Table" Table rows count equal to 35
+    Then UI Validate "Report.Table" Table rows count EQUALS to 35
     * UI Click Button "Report.Clear Refine"
 
   @SID_18
@@ -174,7 +175,7 @@ Feature: Forensic Attack details Tests
     And UI Click Button "Report.Attack Details.Refine View"
     And UI Select Multi items from dropdown "Report.Attack Details.Refine.Dropdown" apply
       | End Time |
-    Then UI Validate "Report.Table" Table rows count equal to 1
+    Then UI Validate "Report.Table" Table rows count EQUALS to 1
     * UI Click Button "Report.Clear Refine"
 
   @SID_19
@@ -183,25 +184,25 @@ Feature: Forensic Attack details Tests
     And UI Click Button "Report.Attack Details.Refine View"
     And UI Select Multi items from dropdown "Report.Attack Details.Refine.Dropdown" apply
       | Duration |
-    Then UI Validate "Report.Table" Table rows count equal to 3 with offset 2
+    Then UI Validate "Report.Table" Table rows count EQUALS to 3 with offset 2
     * UI Click Button "Report.Clear Refine"
 
   @SID_20
-  Scenario: Validate attack details refine by Packets
+  Scenario: Validate attack details refine by pps
     When UI click Table row by keyValue or Index with elementLabel "Report.Table" findBy columnName "Attack ID" findBy cellValue "800-1525623158"
     And UI Click Button "Report.Attack Details.Refine View"
     And UI Select Multi items from dropdown "Report.Attack Details.Refine.Dropdown" apply
-      | Packets |
-    Then UI Validate "Report.Table" Table rows count equal to 1
+      | pps |
+    Then UI Validate "Report.Table" Table rows count EQUALS to 1
     * UI Click Button "Report.Clear Refine"
 
   @SID_21
-  Scenario: Validate attack details refine by Mbits
+  Scenario: Validate attack details refine by Mbps
     When UI click Table row by keyValue or Index with elementLabel "Report.Table" findBy columnName "Attack ID" findBy cellValue "800-1525623158"
     And UI Click Button "Report.Attack Details.Refine View"
     And UI Select Multi items from dropdown "Report.Attack Details.Refine.Dropdown" apply
-      | Mbits |
-    Then UI Validate "Report.Table" Table rows count equal to 1
+      | Mbps |
+    Then UI Validate "Report.Table" Table rows count EQUALS to 1
     * UI Click Button "Report.Clear Refine"
 
   @SID_22
@@ -210,7 +211,7 @@ Feature: Forensic Attack details Tests
     And UI Click Button "Report.Attack Details.Refine View"
     And UI Select Multi items from dropdown "Report.Attack Details.Refine.Dropdown" apply
       | Physical Port |
-    Then UI Validate "Report.Table" Table rows count equal to 2
+    Then UI Validate "Report.Table" Table rows count EQUALS to 2
     * UI Click Button "Report.Clear Refine"
 
   @SID_23
@@ -219,7 +220,7 @@ Feature: Forensic Attack details Tests
     And UI Click Button "Report.Attack Details.Refine View"
     And UI Select Multi items from dropdown "Report.Attack Details.Refine.Dropdown" apply
       | Policy Name |
-    Then UI Validate "Report.Table" Table rows count equal to 2
+    Then UI Validate "Report.Table" Table rows count EQUALS to 2
     * UI Click Button "Report.Clear Refine"
 
   @SID_24
@@ -228,7 +229,7 @@ Feature: Forensic Attack details Tests
     And UI Click Button "Report.Attack Details.Refine View"
     And UI Select Multi items from dropdown "Report.Attack Details.Refine.Dropdown" apply
       | Risk |
-    Then UI Validate "Report.Table" Table rows count equal to 10
+    Then UI Validate "Report.Table" Table rows count EQUALS to 10
     * UI Click Button "Report.Clear Refine"
 
   @SID_25
@@ -237,7 +238,7 @@ Feature: Forensic Attack details Tests
     And UI Click Button "Report.Attack Details.Refine View"
     And UI Select Multi items from dropdown "Report.Attack Details.Refine.Dropdown" apply
       | VLAN Tag |
-    Then UI Validate "Report.Table" Table rows count equal to 33
+    Then UI Validate "Report.Table" Table rows count EQUALS to 33
     * UI Click Button "Report.Clear Refine"
 
   @SID_26
@@ -247,7 +248,7 @@ Feature: Forensic Attack details Tests
     And UI Select Multi items from dropdown "Report.Attack Details.Refine.Dropdown" apply
       | VLAN Tag |
       | Risk     |
-    Then UI Validate "Report.Table" Table rows count equal to 10
+    Then UI Validate "Report.Table" Table rows count EQUALS to 10
     * UI Click Button "Report.Clear Refine"
 
   @SID_27
@@ -260,7 +261,7 @@ Feature: Forensic Attack details Tests
       | Device IP Address |
       | Duration          |
       | Risk              |
-    Then UI Validate "Report.Table" Table rows count equal to 1
+    Then UI Validate "Report.Table" Table rows count EQUALS to 1
     * UI Click Button "Report.Clear Refine"
 
 ##################################################### Attack PCAP file ####################################################################
@@ -293,6 +294,7 @@ Feature: Forensic Attack details Tests
   Scenario: VRM - open forensic "Attack details" table
     When UI Click Button "Views.Expand" with value "Attack_Details"
     And UI Click Button "Views.Generate Now" with value "Attack_Details"
+    And Sleep "30"
     And UI Click Button "Views.report" with value "Attack_Details"
     Then UI click Table row by keyValue or Index with elementLabel "Report.Table" findBy columnName "Attack ID" findBy cellValue "7839-1402580209"
 
@@ -307,8 +309,8 @@ Feature: Forensic Attack details Tests
     Then UI Text of "Report.Attack Details.Detail" with extension "Direction" equal to "In"
 
     Then UI Text of "Report.Attack Details.Detail" with extension "Attack Name" equal to "network flood IPv4 TCP-SYN-ACK"
-    Then UI Text of "Report.Attack Details.Detail" with extension "Mbits" equal to "157.25"
-    Then UI Text of "Report.Attack Details.Detail" with extension "Packets" equal to "161491"
+    Then UI Text of "Report.Attack Details.Detail" with extension "Mbps" equal to "157.25"
+    Then UI Text of "Report.Attack Details.Detail" with extension "pps" equal to "161491"
     Then UI Text of "Report.Attack Details.Detail" with extension "Physical Port" equal to "1"
     Then UI Text of "Report.Attack Details.Detail" with extension "Protocol" equal to "TCP"
     Then UI Text of "Report.Attack Details.Detail" with extension "Radware ID" equal to "78"
@@ -347,8 +349,8 @@ Feature: Forensic Attack details Tests
     Then UI Text of "Report.Attack Details.Detail" with extension "Direction" equal to "In"
     Then UI Validate Element Existence By Label "Report.Attack Details.Detail" if Exists "true" with value "Duration"
     Then UI Text of "Report.Attack Details.Detail" with extension "Attack Name" equal to "f1"
-    Then UI Text of "Report.Attack Details.Detail" with extension "Mbits" equal to "11.17"
-    Then UI Text of "Report.Attack Details.Detail" with extension "Packets" equal to "18770"
+    Then UI Text of "Report.Attack Details.Detail" with extension "Mbps" equal to "11.17"
+    Then UI Text of "Report.Attack Details.Detail" with extension "pps" equal to "18770"
     Then UI Text of "Report.Attack Details.Detail" with extension "Physical Port" equal to "MNG-1"
     Then UI Text of "Report.Attack Details.Detail" with extension "Protocol" equal to "UDP"
     Then UI Text of "Report.Attack Details.Detail" with extension "Radware ID" equal to "700000"
@@ -378,8 +380,8 @@ Feature: Forensic Attack details Tests
     Then UI Text of "Report.Attack Details.Detail" with extension "Direction" equal to "Unknown"
 
     Then UI Text of "Report.Attack Details.Detail" with extension "Attack Name" equal to "SYN Flood HTTP"
-    Then UI Text of "Report.Attack Details.Detail" with extension "Mbits" equal to "102.49"
-    Then UI Text of "Report.Attack Details.Detail" with extension "Packets" equal to "223890"
+    Then UI Text of "Report.Attack Details.Detail" with extension "Mbps" equal to "102.49"
+    Then UI Text of "Report.Attack Details.Detail" with extension "pps" equal to "223890"
     Then UI Text of "Report.Attack Details.Detail" with extension "Physical Port" equal to "Multiple"
     Then UI Text of "Report.Attack Details.Detail" with extension "Protocol" equal to "TCP"
     Then UI Text of "Report.Attack Details.Detail" with extension "Radware ID" equal to "200000"
@@ -416,8 +418,8 @@ Feature: Forensic Attack details Tests
     Then UI Text of "Report.Attack Details.Detail" with extension "Direction" equal to "In"
 
     Then UI Text of "Report.Attack Details.Detail" with extension "Attack Name" equal to "pkt_rate_lmt_9"
-    Then UI Text of "Report.Attack Details.Detail" with extension "Mbits" equal to "0"
-    Then UI Text of "Report.Attack Details.Detail" with extension "Packets" equal to "1296"
+    Then UI Text of "Report.Attack Details.Detail" with extension "Mbps" equal to "0"
+    Then UI Text of "Report.Attack Details.Detail" with extension "pps" equal to "1296"
     Then UI Text of "Report.Attack Details.Detail" with extension "Physical Port" equal to "3"
     Then UI Text of "Report.Attack Details.Detail" with extension "Protocol" equal to "TCP"
     Then UI Text of "Report.Attack Details.Detail" with extension "Radware ID" equal to "600006"
@@ -454,8 +456,8 @@ Feature: Forensic Attack details Tests
     Then UI Text of "Report.Attack Details.Detail" with extension "Direction" equal to "In"
     Then UI Validate Element Existence By Label "Report.Attack Details.Detail" if Exists "true" with value "Duration"
     Then UI Text of "Report.Attack Details.Detail" with extension "Attack Name" equal to "sign_seets3"
-    Then UI Text of "Report.Attack Details.Detail" with extension "Mbits" equal to "0"
-    Then UI Text of "Report.Attack Details.Detail" with extension "Packets" equal to "1"
+    Then UI Text of "Report.Attack Details.Detail" with extension "Mbps" equal to "0"
+    Then UI Text of "Report.Attack Details.Detail" with extension "pps" equal to "1"
     Then UI Text of "Report.Attack Details.Detail" with extension "Physical Port" equal to "MNG-1"
     Then UI Text of "Report.Attack Details.Detail" with extension "Protocol" equal to "TCP"
     Then UI Text of "Report.Attack Details.Detail" with extension "Radware ID" equal to "320029"
@@ -484,8 +486,8 @@ Feature: Forensic Attack details Tests
     Then UI Text of "Report.Attack Details.Detail" with extension "Device IP Address" equal to "172.16.22.50"
     Then UI Text of "Report.Attack Details.Detail" with extension "Direction" equal to "Out"
     Then UI Text of "Report.Attack Details.Detail" with extension "Attack Name" equal to "Brute Force Web"
-    Then UI Text of "Report.Attack Details.Detail" with extension "Mbits" equal to "82.14"
-    Then UI Text of "Report.Attack Details.Detail" with extension "Packets" equal to "179244"
+    Then UI Text of "Report.Attack Details.Detail" with extension "Mbps" equal to "82.14"
+    Then UI Text of "Report.Attack Details.Detail" with extension "pps" equal to "179244"
     Then UI Text of "Report.Attack Details.Detail" with extension "Physical Port" equal to "4"
     Then UI Text of "Report.Attack Details.Detail" with extension "Protocol" equal to "TCP"
     Then UI Text of "Report.Attack Details.Detail" with extension "Radware ID" equal to "400"
@@ -517,8 +519,8 @@ Feature: Forensic Attack details Tests
     Then UI Text of "Report.Attack Details.Detail" with extension "Direction" equal to "Unknown"
 
     Then UI Text of "Report.Attack Details.Detail" with extension "Attack Name" equal to "TCP Scan (vertical)"
-    Then UI Text of "Report.Attack Details.Detail" with extension "Mbits" equal to "9.33"
-    Then UI Text of "Report.Attack Details.Detail" with extension "Packets" equal to "9867"
+    Then UI Text of "Report.Attack Details.Detail" with extension "Mbps" equal to "9.33"
+    Then UI Text of "Report.Attack Details.Detail" with extension "pps" equal to "9867"
     Then UI Text of "Report.Attack Details.Detail" with extension "Physical Port" equal to "0"
     Then UI Text of "Report.Attack Details.Detail" with extension "Protocol" equal to "TCP"
     Then UI Text of "Report.Attack Details.Detail" with extension "Radware ID" equal to "350"
@@ -583,7 +585,7 @@ Feature: Forensic Attack details Tests
     Then UI Text of "Report.Attack Details.Detail" with extension "Direction" equal to "Unknown"
     Then UI Validate Element Existence By Label "Report.Attack Details.Detail" if Exists "true" with value "Duration"
     Then UI Text of "Report.Attack Details.Detail" with extension "Attack Name" equal to "DNS flood IPv4 DNS-A"
-    Then UI Text of "Report.Attack Details.Detail" with extension "Mbits" equal to "0"
+    Then UI Text of "Report.Attack Details.Detail" with extension "Mbps" equal to "0"
 
     Then UI Text of "Report.Attack Details.Detail" with extension "Physical Port" equal to "0"
     Then UI Text of "Report.Attack Details.Detail" with extension "Protocol" equal to "UDP"
@@ -632,8 +634,8 @@ Feature: Forensic Attack details Tests
     Then UI Text of "Report.Attack Details.Detail" with extension "Direction" equal to "Unknown"
     Then UI Validate Element Existence By Label "Report.Attack Details.Detail" if Exists "true" with value "Duration"
     Then UI Text of "Report.Attack Details.Detail" with extension "Attack Name" equal to "Incorrect IPv4 checksum"
-    Then UI Text of "Report.Attack Details.Detail" with extension "Mbits" equal to "0"
-    Then UI Text of "Report.Attack Details.Detail" with extension "Packets" equal to "1"
+    Then UI Text of "Report.Attack Details.Detail" with extension "Mbps" equal to "0"
+    Then UI Text of "Report.Attack Details.Detail" with extension "pps" equal to "1"
     Then UI Text of "Report.Attack Details.Detail" with extension "Physical Port" equal to "0"
     Then UI Text of "Report.Attack Details.Detail" with extension "Protocol" equal to "IP"
     Then UI Text of "Report.Attack Details.Detail" with extension "Radware ID" equal to "103"
@@ -659,6 +661,7 @@ Feature: Forensic Attack details Tests
     Then UI Click Button "Criteria.Any"
     Then UI Click Button "Submit" with value "Submit"
     Then UI Generate and Validate Forensics With Name "Attack ACL" with Timeout of 180 Seconds
+    And Sleep "30"
     And UI Click Button "Views.report" with value "Attack ACL"
 
   @SID_59
@@ -676,8 +679,8 @@ Feature: Forensic Attack details Tests
     Then UI Text of "Report.Attack Details.Detail" with extension "Direction" equal to "In"
     Then UI Validate Element Existence By Label "Report.Attack Details.Detail" if Exists "true" with value "Duration"
     Then UI Text of "Report.Attack Details.Detail" with extension "Attack Name" equal to "Black List"
-    Then UI Text of "Report.Attack Details.Detail" with extension "Mbits" equal to "12618.09"
-    Then UI Text of "Report.Attack Details.Detail" with extension "Packets" equal to "12920902"
+    Then UI Text of "Report.Attack Details.Detail" with extension "Mbps" equal to "12618.09"
+    Then UI Text of "Report.Attack Details.Detail" with extension "pps" equal to "12920902"
     Then UI Text of "Report.Attack Details.Detail" with extension "Physical Port" equal to "T-1"
     Then UI Text of "Report.Attack Details.Detail" with extension "Protocol" equal to "IP"
     Then UI Text of "Report.Attack Details.Detail" with extension "Radware ID" equal to "8"
@@ -732,8 +735,8 @@ Feature: Forensic Attack details Tests
 #    Then UI Text of "Report.Attack Details.Detail" with extension "Direction" equal to "In"
 #    Then UI Validate Element Existence By Label "Report.Attack Details.Detail" if Exists "true" with value "Duration"
 #    Then UI Text of "Report.Attack Details.Detail" with extension "Attack Name" equal to "Black List"
-#    Then UI Text of "Report.Attack Details.Detail" with extension "Mbits" equal to "12618.09"
-#    Then UI Text of "Report.Attack Details.Detail" with extension "Packets" equal to "12920902"
+#    Then UI Text of "Report.Attack Details.Detail" with extension "Mbps" equal to "12618.09"
+#    Then UI Text of "Report.Attack Details.Detail" with extension "pps" equal to "12920902"
 #    Then UI Text of "Report.Attack Details.Detail" with extension "Physical Port" equal to "T-1"
 #    Then UI Text of "Report.Attack Details.Detail" with extension "Protocol" equal to "IP"
 #    Then UI Text of "Report.Attack Details.Detail" with extension "Radware ID" equal to "8"

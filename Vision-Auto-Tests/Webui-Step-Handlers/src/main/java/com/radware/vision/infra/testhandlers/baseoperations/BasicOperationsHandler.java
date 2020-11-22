@@ -37,13 +37,13 @@ import com.radware.vision.infra.base.pages.VisionWebUILogin;
 import com.radware.vision.infra.base.pages.navigation.HomePage;
 import com.radware.vision.infra.base.pages.navigation.WebUIUpperBar;
 import com.radware.vision.infra.base.pages.navigation.WebUIVisionBasePage;
-import com.radware.vision.infra.enums.EqualsOrContains;
+import com.radware.vision.automation.AutoUtils.Operators.OperatorsEnum;
 import com.radware.vision.infra.enums.UpperBarItems;
 import com.radware.vision.infra.testhandlers.BaseHandler;
 import com.radware.vision.infra.testhandlers.baseoperations.enums.Operation;
 import com.radware.vision.infra.testhandlers.vrm.VRMBaseUtilies;
+import com.radware.vision.infra.testhandlers.vrm.VRMHandler;
 import com.radware.vision.infra.utils.*;
-import com.radware.vision.vision_project_cli.MysqlClientCli;
 import com.radware.vision.vision_project_cli.RadwareServerCli;
 import com.radware.vision.vision_project_cli.RootServerCli;
 import com.radware.vision.vision_project_cli.menu.Menu;
@@ -209,7 +209,7 @@ public class BasicOperationsHandler {
 
     public static void setCheckboxById(String elementId, boolean selectCheckbox) {
         try {
-            if (!checkIfElementExistAndDisplayed(GeneralUtils.buildGenericXpath(com.radware.vision.infra.enums.WebElementType.Id, elementId, EqualsOrContains.EQUALS))) {
+            if (!checkIfElementExistAndDisplayed(GeneralUtils.buildGenericXpath(com.radware.vision.infra.enums.WebElementType.Id, elementId, OperatorsEnum.EQUALS))) {
                 throw new Exception("Element not found");
             }
             WebUICheckbox checkbox = new WebUICheckbox(new ComponentLocator(How.ID, elementId));
@@ -385,6 +385,18 @@ public class BasicOperationsHandler {
         return WebUIVisionBasePage.getCurrentPage().getContainer().getTextField(label).getValue();
     }
 
+
+    public static void isTextEqualValue(String label, String expectedValue, String param) {
+        VisionDebugIdsManager.setLabel(label);
+        VisionDebugIdsManager.setParams(param);
+        String actualValue = WebUIVisionBasePage.getCurrentPage().getContainer().getLabel(label).getInnerText();
+        if (actualValue.contains(expectedValue)) {
+            BaseTestUtils.report("Successfully validated element value: " + label + " equals to " + expectedValue , Reporter.PASS);
+        } else {
+            BaseTestUtils.report("Failed to validate element value: " + label +  " ,Expected result is: " + expectedValue +" but Actual value is: " + actualValue, Reporter.FAIL);
+        }
+    }
+
     /**
      * This check will rely on the way that selenium does it
      *
@@ -392,6 +404,10 @@ public class BasicOperationsHandler {
      * @param params    for id's that only will be known at test run time
      * @return
      */
+
+
+
+
     public static boolean isItemSelected(String LabelName, String... params) {
 
         VisionDebugIdsManager.setLabel(LabelName);
@@ -514,6 +530,7 @@ public class BasicOperationsHandler {
             visionWebUILogin.setUsername(username);
             visionWebUILogin.setUPassword(password);
             visionWebUILogin.login();
+            WebUIUtils.sleep(15);
             String loginStatusMsg = verifyLogin();
             if (loginStatusMsg.isEmpty()) {
                 BaseTestUtils.report("Failed to Login with username:" + username + " " + "Password: " + password + ", Error:\n" + loginStatusMsg, Reporter.FAIL);
@@ -644,9 +661,13 @@ public class BasicOperationsHandler {
     }
 
     public static void settings() {
-        navigateFromHomePage("HOME");
+        navigateFromHomePage("VISION SETTINGS");
         WebUIBasePage.closeAllYellowMessages();
-
+    try
+    {
+        HomePage.navigateFromHomePage(PropertiesFilesUtils.mapAllPropertyFiles("Navigations").get("VISION SETTINGS"));
+        WebUIUtils.fluentWait(ComponentLocatorFactory.getLocatorById("gwt-debug-System").getBy()).click();
+    }catch (Exception ignore){}
         //Verify the click
         if (!new VisionServerInfoPane().getDeviceName().equals("APSolute Vision")) {
             ReportsUtils.reportAndTakeScreenShot("Failed To Go To Vision ", Reporter.FAIL);
@@ -703,15 +724,6 @@ public class BasicOperationsHandler {
 
     public static void setWaitAfterClick(long timeout) {
         WebUIUtils.waitAfterClickOperation = timeout;
-    }
-
-    public static String setMysqlGlobalVariable(RootServerCli rootServerCli, MysqlClientCli mysqlClientCli, String
-            varName, String varValue) throws Exception {
-        rootServerCli.addDBPermissionsToConnectoToMySql("vision.radware");
-        mysqlClientCli.openMysqlShell(mysqlClientCli.getSqlUser(), mysqlClientCli.getSqlPassword());
-        String commandResult = mysqlClientCli.runSqlFromMysqlShell("set " + varName + "=" + varValue + ";");
-        InvokeUtils.invokeCommand("quit", mysqlClientCli);
-        return commandResult;
     }
 
     public static void appendMyCnfFile(RootServerCli rootServerCli, String varName, String varValue) throws
@@ -941,6 +953,31 @@ public class BasicOperationsHandler {
                 }
                 break;
         }
+    }
+
+
+    public static void uiValidationItemsOrderInList(String label, String attribute, String compare, String value, List<VRMHandler.DfProtectedObject> entries) {
+
+        VisionDebugIdsManager.setLabel(label);
+        VisionDebugIdsManager.setParams("");
+
+        List<WebElement> checkedItems = WebUIUtils.fluentWaitMultiple(new ComponentLocator(How.XPATH,"//*[contains(@data-debug-id,'" + VisionDebugIdsManager.getDataDebugId() + "') and contains(@" + attribute + ",'" + value + "')]").getBy());
+
+        if(checkedItems != null){
+            for (int i=0; i<entries.size(); i++)
+            {
+                if (!checkedItems.get(entries.get(i).index).getText().equals(entries.get(i).name))
+                    BaseTestUtils.report("The Expected value in index " + entries.get(i).index + " is: " +
+                            "" + entries.get(i).name + " But Actual Value is: " + checkedItems.get(entries.get(i).index).getText(), Reporter.FAIL);
+            }
+
+        }else{
+
+            BaseTestUtils.report("There are no selected Items found ", Reporter.FAIL);
+        }
+
+
+
     }
 
 

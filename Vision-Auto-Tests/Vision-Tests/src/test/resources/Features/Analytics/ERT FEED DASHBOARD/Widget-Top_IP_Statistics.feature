@@ -14,10 +14,11 @@ Feature: EAAF Widget - Top IP Statistics
     * CLI simulate 1 attacks of type "IP_FEED_Modified" on "DefensePro" 10 and wait 150 seconds
   @SID_3
   Scenario: Login and navigate to EAAF dashboard
+    When CLI Operations - Run Radware Session command "system user authentication-mode set TACACS+"
     * CLI Run remote linux Command "mysql -u root -prad123 vision_ng -e "update user_mgt set password='0R5nzwnMaxkeLEWhI+QahPWxssDjLbGH', password_expiration_date='2030-1-1' where name='radware';"" on "ROOT_SERVER_CLI"
     * REST Vision Install License Request "vision-AVA-Max-attack-capacity"
 #    Given UI Login with user "sys_admin" and password "radware"
-    Given UI Login with user "sys_admin" and password "radware"
+    Given UI Login with user "radware" and password "radware"
 #    When UI Open Upper Bar Item "EAAF Dashboard"
     When UI Navigate to "EAAF Dashboard" page via homePage
 #this scenario verifies two things: Default selection of "Events" TAB and data correctness of that TAB
@@ -69,7 +70,8 @@ Feature: EAAF Widget - Top IP Statistics
     Then UI Validate Text field "TOTAL IP Events value" with params "0" EQUALS "11.82 K"
     Then UI Validate Text field "TOTAL IP Events value" with params "2" EQUALS "11.82 K"
     Then UI Validate Text field "TOTAL IP Events value" with params "5" EQUALS "11.82 K"
-    Then UI Validate Text field "TOTAL IP Events value" with params "6" EQUALS "1.33 K"
+    Then UI Validate Text field "TOTAL IP Events value" with params "6" On Regex "(\d+.\d+) K" GTE "1.33"
+    Then UI Validate Text field "TOTAL IP Events value" with params "6" On Regex "(\d+.\d+) K" LTE "1.93"
     Then UI Validate Text field "TOTAL IP Events value" with params "7" EQUALS "1.12 K"
     Then UI Validate Text field "TOTAL IP Events value" with params "8" EQUALS "989"
     Then UI Validate Text field "TOTAL IP Events value" with params "9" EQUALS "688"
@@ -110,7 +112,8 @@ Feature: EAAF Widget - Top IP Statistics
     Then UI Validate Text field "TOTAL IP Events value" with params "0" EQUALS "7.26 M"
     Then UI Validate Text field "TOTAL IP Events value" with params "2" EQUALS "7.26 M"
     Then UI Validate Text field "TOTAL IP Events value" with params "5" EQUALS "7.25 M"
-    Then UI Validate Text field "TOTAL IP Events value" with params "6" EQUALS "1.33 M"
+    Then UI Validate Text field "TOTAL IP Events value" with params "6" On Regex "(\d+.\d+) M" GTE "1.33"
+    Then UI Validate Text field "TOTAL IP Events value" with params "6" On Regex "(\d+.\d+) M" LTE "1.93"
     Then UI Validate Text field "TOTAL IP Events value" with params "7" EQUALS "1.12 M"
     Then UI Validate Text field "TOTAL IP Events value" with params "8" EQUALS "989 K"
     Then UI Validate Text field "TOTAL IP Events value" with params "9" EQUALS "688 K"
@@ -161,7 +164,8 @@ Feature: EAAF Widget - Top IP Statistics
     Then UI Validate Text field "TOTAL IP Events value" with params "0" EQUALS "7.26 M"
     Then UI Validate Text field "TOTAL IP Events value" with params "2" EQUALS "7.26 M"
     Then UI Validate Text field "TOTAL IP Events value" with params "5" EQUALS "7.25 M"
-    Then UI Validate Text field "TOTAL IP Events value" with params "6" EQUALS "1.33 M"
+    Then UI Validate Text field "TOTAL IP Events value" with params "6" On Regex "(\d+.\d+) M" GTE "1.33"
+    Then UI Validate Text field "TOTAL IP Events value" with params "6" On Regex "(\d+.\d+) M" LTE "1.93"
     Then UI Validate Text field "TOTAL IP Events value" with params "7" EQUALS "1.12 M"
     Then UI Validate Element Existence By Label "TOTAL IP Events value" if Exists "false" with value "8"
     Then UI Validate Text field "TOTAL IP Events value" with params "9" EQUALS "387"
@@ -196,7 +200,8 @@ Feature: EAAF Widget - Top IP Statistics
     Then UI Validate Text field "TOTAL IP Events value" with params "0" EQUALS "11.82 K"
     Then UI Validate Text field "TOTAL IP Events value" with params "2" EQUALS "11.82 K"
     Then UI Validate Text field "TOTAL IP Events value" with params "5" EQUALS "11.82 K"
-    Then UI Validate Text field "TOTAL IP Events value" with params "6" EQUALS "1.33 K"
+    Then UI Validate Text field "TOTAL IP Events value" with params "6" On Regex "(\d+.\d+) K" GTE "1.33"
+    Then UI Validate Text field "TOTAL IP Events value" with params "6" On Regex "(\d+.\d+) K" LTE "1.93"
     Then UI Validate Text field "TOTAL IP Events value" with params "7" EQUALS "1.12 K"
     Then UI Validate Element Existence By Label "TOTAL IP Events value" if Exists "false" with value "8"
     Then UI Validate Text field "TOTAL IP Events value" with params "9" EQUALS "387"
@@ -264,7 +269,8 @@ Feature: EAAF Widget - Top IP Statistics
     Then UI Validate Text field "TOTAL IP Events value" with params "0" EQUALS "7.26 M"
     Then UI Validate Text field "TOTAL IP Events value" with params "2" EQUALS "7.26 M"
     Then UI Validate Text field "TOTAL IP Events value" with params "5" EQUALS "7.25 M"
-    Then UI Validate Text field "TOTAL IP Events value" with params "6" EQUALS "1.33 M"
+    Then UI Validate Text field "TOTAL IP Events value" with params "6" On Regex "(\d+.\d+) M" GTE "1.33"
+    Then UI Validate Text field "TOTAL IP Events value" with params "6" On Regex "(\d+.\d+) M" LTE "1.37"
     Then UI Validate Text field "TOTAL IP Events value" with params "7" EQUALS "1.12 M"
     Then UI Validate Element Existence By Label "TOTAL IP Events value" if Exists "false" with value "8"
     Then UI Validate Text field "TOTAL IP Events value" with params "9" EQUALS "387"
@@ -294,7 +300,8 @@ Feature: EAAF Widget - Top IP Statistics
     Then UI Validate Text field "TOTAL IP Events value" with params "0" EQUALS "7.26 M"
     Then UI Validate Text field "TOTAL IP Events value" with params "2" EQUALS "7.26 M"
     Then UI Validate Text field "TOTAL IP Events value" with params "5" EQUALS "7.25 M"
-    Then UI Validate Text field "TOTAL IP Events value" with params "6" EQUALS "1.33 M"
+    Then UI Validate Text field "TOTAL IP Events value" with params "6" On Regex "(\d+.\d+) M" GTE "1.33"
+    Then UI Validate Text field "TOTAL IP Events value" with params "6" On Regex "(\d+.\d+) M" LTE "1.93"
     Then UI Validate Text field "TOTAL IP Events value" with params "7" EQUALS "1.12 M"
     Then UI Validate Text field "TOTAL IP Events value" with params "8" EQUALS "989 K"
     Then UI Validate Text field "TOTAL IP Events value" with params "9" EQUALS "688 K"
@@ -313,5 +320,5 @@ Feature: EAAF Widget - Top IP Statistics
   @SID_32
   Scenario: Cleanup
 #    Then UI Open "Configurations" Tab
-    When UI Navigate to "HOME" page via homePage
+    When UI Navigate to "VISION SETTINGS" page via homePage
     Then UI logout and close browser

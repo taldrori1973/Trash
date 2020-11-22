@@ -3,11 +3,12 @@ Feature: ADC System Dashboard
 
   @SID_1
   Scenario: Login and update drivers
-    Then CLI Operations - Run Root Session command "yes|restore_radware_user_password" timeout 15
+    Given CLI Reset radware password
     Then REST Vision Install License Request "vision-reporting-module-ADC"
     Then CLI copy "/home/radware/Scripts/upload_DD.sh" from "GENERIC_LINUX_SERVER" to "ROOT_SERVER_CLI" "/opt/radware/storage"
     Then CLI copy "/home/radware/Scripts/Alteon-32.4.0.0-DD-1.00-396.jar" from "GENERIC_LINUX_SERVER" to "ROOT_SERVER_CLI" "/opt/radware/storage"
     Then CLI Run remote linux Command "/opt/radware/storage/upload_DD.sh /opt/radware/storage/Alteon-32.4.0.0-DD-1.00-396.jar" on "ROOT_SERVER_CLI" with timeOut 240
+    When CLI Operations - Run Radware Session command "system user authentication-mode set TACACS+"
     Then UI Login with user "sys_admin" and password "radware"
 
   @SID_2
@@ -23,12 +24,12 @@ Feature: ADC System Dashboard
     When UI Click Button "Global Time Filter.Quick Range" with value "2m"
     Then UI Validate Line Chart data "THROUGHPUT" with LabelTime
       | value     | count | countOffset |
-      | 9045000.0 | 4     | 1           |
+      | 9045000000.0 | 4     | 1           |
     Given UI Click Button "Global Time Filter"
     When UI Click Button "Global Time Filter.Quick Range" with value "1m"
     Then UI Validate Line Chart data "THROUGHPUT" with LabelTime
       | value     | count | countOffset |
-      | 9045000.0 | 2     | 1           |
+      | 9045000000.0 | 2     | 1           |
 
   @SID_4
   Scenario: Validate CPS widget

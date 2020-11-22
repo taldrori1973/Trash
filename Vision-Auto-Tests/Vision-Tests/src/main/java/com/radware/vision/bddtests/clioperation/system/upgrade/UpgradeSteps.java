@@ -3,7 +3,10 @@ package com.radware.vision.bddtests.clioperation.system.upgrade;
 import com.radware.automation.tools.basetest.BaseTestUtils;
 import com.radware.automation.tools.basetest.Reporter;
 import com.radware.automation.tools.utils.InvokeUtils;
+import com.radware.vision.base.WebUITestBase;
 import com.radware.vision.bddtests.BddCliTestBase;
+import com.radware.vision.bddtests.clioperation.GeneralSteps;
+import com.radware.vision.bddtests.vmoperations.Deploy.Upgrade;
 import com.radware.vision.bddtests.vmoperations.VMOperationsSteps;
 import com.radware.vision.enums.GlobalProperties;
 import com.radware.vision.enums.VisionDeployType;
@@ -31,11 +34,11 @@ public class UpgradeSteps extends BddCliTestBase {
     @When("^Upgrade vision to version \"(.*)\", build \"(.*)\"$")
     public void UpgradeVisionServer(String version, String build) {
         try {
-            VisionServer.upgradeServerFile(getRestTestBase().getRadwareServerCli(), getRestTestBase().getRootServerCli()
-                    , version, build, null, isAPM());
-            validateVisionServerServicesUP();
-            CliOperations.runCommand(getRestTestBase().getRootServerCli(), "\"yes|restore_radware_user_password\"", 15 * 1000);
+//            VisionServer.upgradeServerFile(getRestTestBase().getRadwareServerCli(), getRestTestBase().getRootServerCli()
+//                    , version, build, null, isAPM());
+            validateVisionServerServicesUP(restTestBase.getRadwareServerCli());
         } catch (Exception e) {
+            BaseTestUtils.report("Setup Failed changing server to OFFLINE", Reporter.FAIL);
             BaseTestUtils.report(e.getMessage(), Reporter.FAIL);
         }
     }
@@ -43,7 +46,18 @@ public class UpgradeSteps extends BddCliTestBase {
     @When("^validate vision server services is UP$")
     public void validateVisionServerServicesUPStep() {
         try {
-            validateVisionServerServicesUP();
+            validateVisionServerServicesUP(restTestBase.getRadwareServerCli());
+        } catch (Exception e) {
+            BaseTestUtils.report(e.getMessage(), Reporter.FAIL);
+        }
+    }
+
+    @When("^validate vision server services is UP on vision 2$")
+    public void validateVisionServerServicesUPStepVision2() {
+        try {
+            String sourceIP = restTestBase.getVisionServerHA().getHost_2();
+            RadwareServerCli radwareServerCli = new RadwareServerCli(sourceIP, restTestBase.getRadwareServerCli().getUser(), restTestBase.getRadwareServerCli().getPassword());
+            validateVisionServerServicesUP(radwareServerCli);
         } catch (Exception e) {
             BaseTestUtils.report(e.getMessage(), Reporter.FAIL);
         }
@@ -51,7 +65,7 @@ public class UpgradeSteps extends BddCliTestBase {
 
 
     @When("^Upgrade in Parallel,backup&Restore setup$")        /// backup and restore setup
-    public void UpgradeVisionToLatestBuildTwoMachines() {
+    public static void UpgradeVisionToLatestBuildTwoMachines() {
         try {
             String sourceIP = restTestBase.getVisionServerHA().getHost_2();
             String targetIP = restTestBase.getVisionServer().getHost();
@@ -74,21 +88,24 @@ public class UpgradeSteps extends BddCliTestBase {
     @When("^CLI validate Vision Services UP$")
     public void CliValidateVisionServerServicesUP() {
         try {
-            validateVisionServerServicesUP();
+            validateVisionServerServicesUP(restTestBase.getRadwareServerCli());
         } catch (Exception e) {
             BaseTestUtils.report(e.getMessage(), Reporter.FAIL);
         }
     }
 
-    private boolean isAPM() throws Exception {
-        rootServerCli.connect();
+    public static boolean isAPM() {
+        try {
+            rootServerCli.connect();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
         CliOperations.runCommand(rootServerCli, "df -h | grep apm | grep /vz/private | wc -l", 5 * 60 * 1000);
         return !CliOperations.lastRow.equals("0");
     }
 
-    private void validateVisionServerServicesUP() throws Exception {
+    public static void validateVisionServerServicesUP(RadwareServerCli serverCli) throws Exception {
         try {
-            RadwareServerCli serverCli = restTestBase.getRadwareServerCli();
             serverCli.disconnect();
             serverCli.connect();
             boolean isVisionUp = waitForVisionServerServicesToStartHA(serverCli, 40 * 60 * 1000);
@@ -107,10 +124,8 @@ public class UpgradeSteps extends BddCliTestBase {
      */
     @Then("^Upgrade to non-supported version$")
     public void upgradeToAnOldVersion() {
-        VMOperationsSteps vmOperationsSteps;
         try {
-            vmOperationsSteps = new VMOperationsSteps();
-            String version = vmOperationsSteps.readVisionVersionFromPomFile();
+            String version = VMOperationsSteps.readVisionVersionFromPomFile();
             String build = System.getenv("BUILD");//get build from portal
             if (build == null || build.equals("") || build.equals("0")) build = "";//Latest Build
 
@@ -128,14 +143,19 @@ public class UpgradeSteps extends BddCliTestBase {
      * @param isApm         - True if server is APM else false
      */
     private void upgradeToNonSupportedVersion(String versionNumber, String buildNumber, boolean isApm) {
-        VisionDeployment visionDeployment;
-        if (isApm)
-            visionDeployment = new VisionDeployment(VisionDeployType.UPGRADE_APM, versionNumber, buildNumber);
-        else
-            visionDeployment = new VisionDeployment(VisionDeployType.UPGRADE, versionNumber, buildNumber);
-        String fileLocation = visionDeployment.getVisionDeploymentURL();
-        String fileName = visionDeployment.getVisionDeploymentFileName();
-        String[] notSupportedVersion = visionDeployment.getNonSupportedVersion();
+//        VisionDeployment visionDeployment;
+//        if (isApm)
+//            visionDeployment = new VisionDeployment(VisionDeployType.UPGRADE_APM, versionNumber, buildNumber);
+//        else
+//            visionDeployment = new VisionDeployment(VisionDeployType.UPGRADE, versionNumber, buildNumber);
+//        String fileLocation = visionDeployment.getVisionDeploymentURL();
+//        String fileName = visionDeployment.getVisionDeploymentFileName();
+        Upgrade upgrade = new Upgrade(true, null);
+        String[] notSupportedVersion = upgrade.getNonSupportedVersion();
+
+        String[] path = upgrade.getBuildFileInfo().getPath().toString().split("/");
+        String fileName = path[path.length - 1];
+
         try {
             /* Change version to unsupported one */
             InvokeUtils.invokeCommand(null, "/bin/cp /opt/radware/mgt-server/build.properties /opt/radware/storage/",
@@ -147,7 +167,7 @@ public class UpgradeSteps extends BddCliTestBase {
             String changeMinorVersion = String.format("sed -i 's/buildMinorVersion: .*$/buildMinorVersion: %s/g' /opt/radware/mgt-server/build.properties", notSupportedVersion[1]);
             InvokeUtils.invokeCommand(null, changeMinorVersion, rootServerCli, GlobalProperties.THIRTY_SECONDS, false, false, true);
             BaseTestUtils.report("Setting Server property file to version: " + String.format("%s.%s.%s", notSupportedVersion[0], notSupportedVersion[1], notSupportedVersion[2]), Reporter.PASS_NOR_FAIL);
-            VisionServer.downloadUpgradeFile(rootServerCli, fileLocation);
+            VisionServer.downloadUpgradeFile(rootServerCli, upgrade.getBuildFileInfo().getDownloadUri().toString());
             String upgradePassword = "";
             radwareServerCli.setUpgradePassword(upgradePassword);
             radwareServerCli.setBeginningTheAPSoluteVisionUpgradeProcessEndsCommand(false);
@@ -185,15 +205,14 @@ public class UpgradeSteps extends BddCliTestBase {
 
     @Given("^Upgrade to future version$")
     public void upgradeToFutureVersion() {
-        VMOperationsSteps vmOperationsSteps;
         try {
-            vmOperationsSteps = new VMOperationsSteps();
-            String version = vmOperationsSteps.readVisionVersionFromPomFile();
+            String version = VMOperationsSteps.readVisionVersionFromPomFile();
             String build = "";
             build = BaseTestUtils.getRuntimeProperty("BUILD", build);
             if (build == null || build.equals("") || build.equals("0")) build = "";//Latest Build
 
             upgradeToTheNextBuild(version, build, isAPM());
+            VMOperationsSteps.updateVersionVar();
         } catch (Exception e) {
             BaseTestUtils.report(e.getMessage(), Reporter.FAIL);
         }
@@ -201,24 +220,32 @@ public class UpgradeSteps extends BddCliTestBase {
     }
 
     private void upgradeToTheNextBuild(String version, String build, boolean isApm) throws Exception {
-        VisionDeployment visionDeployment;
-        VisionDeployType deployType = isApm ? VisionDeployType.UPGRADE_APM : VisionDeployType.UPGRADE;
+//        VisionDeployment visionDeployment;
+//        VisionDeployType deployType = isApm ? VisionDeployType.UPGRADE_APM : VisionDeployType.UPGRADE;
 
-        visionDeployment = new VisionDeployment(deployType, version, build);
+//        visionDeployment = new VisionDeployment(deployType, version, build);
 
-        VMOperationsSteps vmOperationsSteps = new VMOperationsSteps();
-        UpgradeSteps upgradeSteps = new UpgradeSteps();
-        String buildUnderTest = visionDeployment.getBuild();
-        if (vmOperationsSteps.isSetupNeeded()) {
+//        VMOperationsSteps vmOperationsSteps = new VMOperationsSteps();
+//        UpgradeSteps upgradeSteps = new UpgradeSteps();
+        Upgrade upgrade = new Upgrade(true, build);
+        String buildUnderTest = upgrade.getBuild();
+        if (upgrade.isSetupNeeded) {
             BaseTestUtils.report("Upgrading to latest build: " + buildUnderTest,
                     Reporter.PASS_NOR_FAIL);
-            upgradeSteps.UpgradeVisionServer(version, buildUnderTest);
+//            upgradeSteps.UpgradeVisionServer(version, buildUnderTest);
+            upgrade.deploy();
+
             BaseTestUtils.report("Server is ready for future upgrade", Reporter.PASS_NOR_FAIL);
         }
-        visionDeployment = new VisionDeployment(deployType, version, "");
-        String nextBuild = visionDeployment.getBuild();
+        GeneralSteps.clearAllLogs();
+//        VMOperationsSteps.newInstance().updateVersionVar();
+        upgrade = new Upgrade(true, null);
+//        visionDeployment = new VisionDeployment(deployType, version, "");
+        String nextBuild = upgrade.getBuild();
+        ;
         BaseTestUtils.report(String.format("Going to upgrade from build %s to %s", buildUnderTest, nextBuild),
                 Reporter.PASS_NOR_FAIL);
-        upgradeSteps.UpgradeVisionServer(version, visionDeployment.getBuild());
+//        upgradeSteps.UpgradeVisionServer(version, visionDeployment.getBuild());
+        upgrade.deploy();
     }
 }

@@ -1,20 +1,23 @@
 @TC111423
 Feature: VRM AppWall dashboard
 
-  @SID_1
+  @SID_1 @Sanity
   Scenario: Clean system data
-    * CLI kill all simulator attacks on current vision
+    Given CLI kill all simulator attacks on current vision
     Given REST Vision Install License Request "vision-AVA-AppWall"
-    * REST Delete ES index "appwall-v2-attack*"
+    Given REST Delete ES index "appwall-v2-attack*"
+    When CLI Operations - Run Radware Session command "system user authentication-mode set TACACS+"
 
   @SID_2 @Sanity
   Scenario: login
     Given UI Login with user "sys_admin" and password "radware"
-    * CLI Clear vision logs
+    * REST Delete ES index "aw-web-application"
+    * REST Delete Device By IP "172.17.164.30"
+    * Browser Refresh Page
+    And Sleep "10"
 
   @SID_3 @Sanity
   Scenario: configure the AW in vision
-#    Then REST Delete Device By IP "172.17.154.194"
     Then REST Add "AppWall" Device To topology Tree with Name "Appwall_SA_172.17.164.30" and Management IP "172.17.164.30" into site "AW_site"
       | attribute     | value    |
       | httpPassword  | 1qaz!QAZ |
@@ -22,6 +25,8 @@ Feature: VRM AppWall dashboard
       | httpsUsername | user1    |
       | httpUsername  | user1    |
       | visionMgtPort | G1       |
+    And Sleep "10"
+    * CLI Clear vision logs
 
   @SID_4
   Scenario:run AW attacks
@@ -243,7 +248,7 @@ Feature: VRM AppWall dashboard
   Scenario: select all Applications
     When UI Do Operation "Select" item "Applications"
     Then UI Select scope from dashboard and Save Filter device type "appwall"
-      | All  |
+      | All |
 
   @SID_33
   Scenario: Change time selection and verify no attack
@@ -386,8 +391,15 @@ Feature: VRM AppWall dashboard
       | TOMCAT      | fatal\|error                                            | NOT_EXPECTED |
       | TOMCAT2     | fatal\|error                                            | NOT_EXPECTED |
       | TOMCAT      | parsing data error for device:50.50                     | IGNORE       |
-      | TOMCAT      | failed to get response from device=172.17.164.17        | IGNORE       |
-      | TOMCAT      | failed to get response from device=172.17.164.18        | IGNORE       |
+      | TOMCAT      | failed to get response from device=                     | IGNORE       |
+      | TOMCAT      | ----------task start-----------------                   | IGNORE       |
+      | TOMCAT      | ----------task end-----------------                     | IGNORE       |
+      | TOMCAT      | got valid samples from                                  | IGNORE       |
+      | TOMCAT      | number of responsive devices in the last minute:        | IGNORE       |
+      | TOMCAT      | number of none responsive devices in the last minute:   | IGNORE       |
+      | TOMCAT      | average response time:                                  | IGNORE       |
+      | TOMCAT      | monitored number of devices:                            | IGNORE       |
+      | TOMCAT      | Receiving data from:                                    | IGNORE       |
       | MAINTENANCE | /ErrorPages/HTTP50                                      | IGNORE       |
       | MAINTENANCE | /ErrorPages/HTTP40                                      | IGNORE       |
       | MAINTENANCE | /opt/radware/storage/mgt-server/third-party/nginx/error | IGNORE       |

@@ -3,7 +3,7 @@ Feature: Forensics CSV without Attack details
 
   @SID_1
   Scenario: Clean system data
-    Then CLI Operations - Run Root Session command "yes|restore_radware_user_password" timeout 15
+    Given CLI Reset radware password
     * CLI kill all simulator attacks on current vision
     * CLI Clear vision logs
     * REST Delete ES index "dp-*"
@@ -24,14 +24,13 @@ Feature: Forensics CSV without Attack details
   @SID_3
   Scenario: login and go to forensic tab
     Given UI Login with user "sys_admin" and password "radware"
-    And UI Open Upper Bar Item "AMS"
-    And UI Open "Forensics" Tab
+    Then UI Navigate to "AMS Forensics" page via homePage
 
   @SID_4
   Scenario: Create Forensics Report csv_without_details
     When UI "Create" Forensics With Name "csv_without_details"
       | Share  | FTP:checked, FTP.Location:172.17.164.10, FTP.Path:/home/radware/ftp/, FTP.Username:radware, FTP.Password:radware                                                                                                                               |
-      | Output | Action,Attack ID,Start Time,Source IP Address,Source Port,Destination IP Address,Destination Port,Direction,Protocol,Threat Category,Radware ID,Device IP Address,Attack Name,End Time,Duration,Packets,Mbits,Physical Port,,Risk, Policy Name |
+      | Output | Action,Attack ID,Start Time,Source IP Address,Source Port,Destination IP Address,Destination Port,Direction,Protocol,Threat Category,Radware ID,Device IP Address,Attack Name,End Time,Duration,pps,Mbps,Physical Port,,Risk, Policy Name |
       | Format | Select: CSV                                                                                                                                                                                                                                    |
 
   @SID_5
@@ -49,7 +48,7 @@ Feature: Forensics CSV without Attack details
   Scenario: Clear FTP server logs and generate the report
     Then CLI Run remote linux Command "rm -f /home/radware/ftp/csv_without_details*.zip /home/radware/ftp/csv_without_details*.csv" on "GENERIC_LINUX_SERVER"
     Then UI Generate and Validate Forensics With Name "csv_without_details" with Timeout of 300 Seconds
-    Then Sleep "5"
+    Then Sleep "30"
 
   @SID_7
   Scenario: Unzip CSV file
