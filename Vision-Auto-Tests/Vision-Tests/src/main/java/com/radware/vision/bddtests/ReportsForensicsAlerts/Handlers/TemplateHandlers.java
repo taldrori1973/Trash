@@ -299,6 +299,7 @@ public class TemplateHandlers {
 
         public void create() throws Exception {
             BasicOperationsHandler.clickButton("Open Scope Selection", getType() + templateParam);
+            WebUIUtils.sleep(1);
             if (!isAllAndClearScopeSelection()) {
                 for (Object deviceJSON : devicesJSON)
                     selectDevice(deviceJSON.toString(), true);
@@ -308,7 +309,7 @@ public class TemplateHandlers {
 
         public void validate(JSONArray actualTemplateDeviceJSON, StringBuilder errorMessage) throws Exception {
             JSONArray actualTemplateArrayJSON = new JSONArray();
-            List<JSONObject> actualObjectsDivecesSerlected = new ArrayList<>();
+            List<JSONObject> actualObjectsDevicesSelected = new ArrayList<>();
             if (devicesJSON.length() == 1 && devicesJSON.get(0).toString().equals("All")) {
                 actualTemplateArrayJSON.forEach(object -> {
                     if (new JSONObject(object.toString()).getString("selected").equalsIgnoreCase("false"))
@@ -317,12 +318,12 @@ public class TemplateHandlers {
             } else {
                 actualTemplateArrayJSON.forEach(object -> {
                     if (new JSONObject(object.toString()).getString("selected").equalsIgnoreCase("true"))
-                        actualObjectsDivecesSerlected.add(new JSONObject(object.toString()));
+                        actualObjectsDevicesSelected.add(new JSONObject(object.toString()));
                 });
                 if (devicesJSON.length() != actualTemplateArrayJSON.length())
                     errorMessage.append("The actual templateDevice size " + actualTemplateArrayJSON.length() + " is not equal to expected templateDevice size" + devicesJSON.length()).append("\n");
                 else {
-                    for (Object actualTemplateJSON : actualObjectsDivecesSerlected) {
+                    for (Object actualTemplateJSON : actualObjectsDevicesSelected) {
                         if (!devicesJSON.toList().contains(actualTemplateJSON))
                             errorMessage.append("The ActualTemplate deviceName" + new JSONObject(actualTemplateJSON.toString()).get("name").toString() + " is not contains in expected device templates");
                     }

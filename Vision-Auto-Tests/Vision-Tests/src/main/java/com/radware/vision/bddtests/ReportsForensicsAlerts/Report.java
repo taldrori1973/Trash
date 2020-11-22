@@ -21,6 +21,7 @@ import java.util.Map;
 
 
 public class Report extends ReportsForensicsAlertsAbstract {
+    private String errorMessage="";
 
     @Override
     public void create(String reportName, Map<String, String> map) throws Exception {
@@ -36,9 +37,6 @@ public class Report extends ReportsForensicsAlertsAbstract {
             throw e;
         }
         if (!reportCreated()) {
-            String errorMessage = "";
-            WebElement errorMessageElement = WebUIUtils.fluentWait(ComponentLocatorFactory.getLocatorByClass("ant-notification-notice-description").getBy());
-            errorMessage = errorMessageElement != null ? "\nbecause:\n" + errorMessageElement.getText():"";
             closeReport();
             throw new Exception("The report " + reportName + " isn't created!" + errorMessage);
         }
@@ -47,9 +45,12 @@ public class Report extends ReportsForensicsAlertsAbstract {
     private boolean reportCreated() {
         if (WebUiTools.getWebElement("save") == null)
         return true;
-        //Todo - maha error messages
         for (WebElement okWebElement : WebUiTools.getWebElements("errorMessageOK", ""))
+        {
+            WebElement errorMessageElement = WebUIUtils.fluentWait(ComponentLocatorFactory.getLocatorByClass("ant-notification-notice-description").getBy());
+            errorMessage+=  errorMessageElement!= null ? "\nbecause:\n" + errorMessageElement.getText() + "\n":"";
             WebUiTools.clickWebElement(okWebElement);
+        }
         return false;
     }
 
