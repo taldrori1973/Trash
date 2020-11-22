@@ -11,7 +11,6 @@ import com.radware.vision.automation.tools.sutsystemobjects.devicesinfo.enums.SU
 import com.radware.vision.bddtests.ReportsForensicsAlerts.Report;
 import com.radware.vision.infra.testhandlers.baseoperations.BasicOperationsHandler;
 import com.radware.vision.bddtests.ReportsForensicsAlerts.WebUiTools;
-import org.apache.tools.ant.taskdefs.Sleep;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import org.openqa.selenium.WebElement;
@@ -47,21 +46,21 @@ public class TemplateHandlers {
     private static ScopeSelection getScopeSelection(JSONObject templateJsonObject, String templateParam) {
         switch (templateJsonObject.get("reportType").toString().toUpperCase()) {
             case "HTTPS FLOOD":
-                return new HTTPSFloodScopeSelection(new JSONArray(templateJsonObject.get("Servers").toString()), "");
+                return new HTTPSFloodScopeSelection(new JSONArray(templateJsonObject.get("Servers").toString()), templateParam);
             case "DEFENSEFLOW ANALITICS":
-                return new DFScopeSelection(new JSONArray(templateJsonObject.get("Protected Objects").toString()), "");
+                return new DFScopeSelection(new JSONArray(templateJsonObject.get("Protected Objects").toString()), templateParam);
             case "APPWALL":
-                return new AWScopeSelection(new JSONArray(templateJsonObject.get("Applications").toString()), "");
+                return new AWScopeSelection(new JSONArray(templateJsonObject.get("Applications").toString()), templateParam);
             case "SYSTEM AND NETWORK":
-                return new SystemAndNetworkScopeSelection(new JSONArray(templateJsonObject.get("Applications").toString()), "");
+                return new SystemAndNetworkScopeSelection(new JSONArray(templateJsonObject.get("Applications").toString()), templateParam);
             case "APPLICATION":
-                return new ApplicationScopeSelection(new JSONArray(templateJsonObject.get("Applications").toString()), "");
+                return new ApplicationScopeSelection(new JSONArray(templateJsonObject.get("Applications").toString()), templateParam);
             case "EAAF":
-                return new EAAFScopeSelection(new JSONArray(templateJsonObject.get("devices").toString()), "");
+                return new EAAFScopeSelection(new JSONArray(templateJsonObject.get("devices").toString()), templateParam);
             case "DEFENSEPRO ANALITICS":
             case "DEFENSEPRO BEHAVIORAL PROTECTIONS":
             default:
-                return new DPScopeSelection(new JSONArray(templateJsonObject.get("devices").toString()), "");
+                return new DPScopeSelection(new JSONArray(templateJsonObject.get("devices").toString()), templateParam);
         }
     }
 
@@ -91,7 +90,7 @@ public class TemplateHandlers {
                 }
             }
         }
-        removeunWantedWidgets(widgetsToRemove, reportType);
+        removeUnWantedWidgets(widgetsToRemove, reportType);
         dragAndDropDesiredWidgets(widgetsList, reportType);
         selectOptions(widgets, getOccurrenceMap(widgets), reportType);
     }
@@ -106,7 +105,7 @@ public class TemplateHandlers {
         }
     }
 
-    private static void removeunWantedWidgets(List<String> widgetsToRemoveDataDataDebugId, String reportType) {
+    private static void removeUnWantedWidgets(List<String> widgetsToRemoveDataDataDebugId, String reportType) {
         if (widgetsToRemoveDataDataDebugId == null) return;
         VisionDebugIdsManager.setLabel("selected widget");
         for (String widget : widgetsToRemoveDataDataDebugId) {
@@ -279,7 +278,7 @@ public class TemplateHandlers {
 
     private static abstract class ScopeSelection {
 
-        protected String templateParam = "";
+        protected String templateParam;
         JSONArray devicesJSON;
         protected String saveButtonText;
         protected String type;
