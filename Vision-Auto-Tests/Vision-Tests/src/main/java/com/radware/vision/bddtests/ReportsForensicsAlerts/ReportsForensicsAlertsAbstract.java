@@ -82,6 +82,9 @@ abstract class ReportsForensicsAlertsAbstract implements ReportsForensicsAlertsI
         if (map.containsKey("Schedule")) {
             JSONObject scheduleJson = new JSONObject(map.getOrDefault("Schedule", null));
             WebUiTools.check("Switch button Scheduled Report", "", true);
+            WebUIUtils.sleep(1);
+            if (!WebUiTools.isElementChecked(WebUiTools.getWebElement("Switch button Scheduled Report")))
+                WebUiTools.check("Switch button Scheduled Report", "", true);
             String runEvery = scheduleJson.getString("Run Every");
             BasicOperationsHandler.clickButton("Schedule Report", runEvery.toLowerCase()); //daily/weekly/monthly/once
             SelectScheduleHandlers.selectScheduling(runEvery, scheduleJson, schedulingDates, getType() + "_" + name);

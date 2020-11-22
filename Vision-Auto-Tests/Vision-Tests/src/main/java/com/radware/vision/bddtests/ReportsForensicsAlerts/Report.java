@@ -38,7 +38,7 @@ public class Report extends ReportsForensicsAlertsAbstract {
         }
         if (!reportCreated()) {
             closeReport();
-            throw new Exception("The report " + reportName + " isn't created!" + errorMessage);
+            throw new Exception("The report '" + reportName + "' isn't created!" + errorMessage);
         }
     }
 

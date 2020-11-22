@@ -17,7 +17,7 @@ Feature: DefensePro Analytics
   @SID_1
   Scenario: Navigate to NEW REPORTS page
     Then UI Login with user "radware" and password "radware"
-    Then UI Navigate to "NEW REPORTS" page via homepage
+    Then UI Navigate to "AMS REPORTS" page via homepage
     Then UI Click Button "New Report Tab"
 
   @SID_2
@@ -143,7 +143,7 @@ Feature: DefensePro Analytics
       | Time Definitions.Date | Quick:This Month                                                                                                  |
       | Schedule              | Run Every:Daily,On Time:+2m                                                                                                   |
       | share                 | Email:[automation.vision1@radware.com],Subject:mySubject,Body:myBody                                              |
-      | Format                | Select: [PDF,CSV]                                                                                                 |
+      | Format                | Select: PDF                                                                                                |
 
   @SID_15
   Scenario: create new Concurrent Connections4
@@ -223,6 +223,7 @@ Feature: DefensePro Analytics
       | Schedule              | Run Every:Weekly, On Time:+6H, At days:[THU]                                                                        |
       | Format                | Select: HTML                                                                                                        |
 
+  #//No Widget with name -Top Attacks by Bandwidth-
   @SID_23
   Scenario: create new Top Attacks by Bandwidth4
     Then UI Click Button "New Report Tab"
@@ -233,6 +234,7 @@ Feature: DefensePro Analytics
       | share                 | Email:[automation.vision1@radware.com],Subject:mySubject,Body:myBody                                  |
       | Format                | Select: CSV                                                                                           |
 
+  #//No Widget with name -Top Attacks by Protocol-
   @SID_24
   Scenario: create new Top Attacks by Protocol1
     Then UI Click Button "New Report Tab"
@@ -243,6 +245,7 @@ Feature: DefensePro Analytics
       | Schedule              | Run Every:Weekly, On Time:+6H, At days:[MON]                                                         |
       | Format                | Select: CSV                                                                                          |
 
+  #//No Widget with name -Top Attacks by Protocol-
   @SID_25
   Scenario: create new Top Attacks by Protocol2
     Then UI Click Button "New Report Tab"
@@ -254,6 +257,7 @@ Feature: DefensePro Analytics
       | share                 | Email:[automation.vision1@radware.com],Subject:mySubject,Body:myBody                                  |
       | Format                | Select: PDF                                                                                           |
 
+  #//No Widget with name -Top Attacks by Protocol-
   @SID_26
   Scenario: create new Top Attacks by Protocol3
     Then UI Click Button "New Report Tab"
@@ -262,6 +266,7 @@ Feature: DefensePro Analytics
       | Time Definitions.Date | Absolute:[02.11.2020 13:47, +0d]                                                                                |
       | Format                | Select: HTML                                                                                                       |
 
+    #//No Widget with name -Top Attacks by Protocol-
   @SID_27
   Scenario: create new Top Attacks by Protocol4
     Then UI Click Button "New Report Tab"
@@ -382,6 +387,7 @@ Feature: DefensePro Analytics
       | Schedule              | Run Every:Daily,On Time:+2m                                                                                                         |
       | Format                | Select: HTML                                                                                                            |
 
+    #//REPETED NAME with SID_31
   @SID_39
   Scenario: create new Attacks by Mitigation Action4
     Then UI Click Button "New Report Tab"
