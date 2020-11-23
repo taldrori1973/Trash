@@ -40,7 +40,7 @@ public class TemplateHandlers {
 
     public static void editTemplate(JSONObject templateJsonObject, String currentTemplateName) {
         List<String> widgetsListToRemove = getWidgetsList(new JSONArray(templateJsonObject.get("DeleteWidgets").toString()));
-        removeunWantedWidgets(widgetsListToRemove,currentTemplateName);
+        removeUnWantedWidgets(widgetsListToRemove,currentTemplateName);
         addWidgets(new JSONArray(templateJsonObject.get("AddWidgets").toString()), currentTemplateName);
         JSONArray editWidgets = new JSONArray(templateJsonObject.get("editWidgets").toString());
         selectOptions(editWidgets, getOccurrenceMap(editWidgets), currentTemplateName);
