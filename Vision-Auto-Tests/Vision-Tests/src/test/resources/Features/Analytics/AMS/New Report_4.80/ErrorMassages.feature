@@ -92,3 +92,4 @@ Feature: Error Massages
     Then UI Click Button "cancel"
     Then UI Text of "Save Change Message" contains "Do you want to save "Report with an Error share Email To"?"
     Then UI Click Button "No"
+
