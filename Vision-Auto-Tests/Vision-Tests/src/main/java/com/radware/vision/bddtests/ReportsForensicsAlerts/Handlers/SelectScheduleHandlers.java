@@ -1,5 +1,6 @@
 package com.radware.vision.bddtests.ReportsForensicsAlerts.Handlers;
 
+import com.radware.automation.webui.VisionDebugIdsManager;
 import com.radware.automation.webui.WebUIUtils;
 import com.radware.automation.webui.widgets.ComponentLocator;
 import com.radware.vision.automation.tools.exceptions.selenium.TargetWebElementNotFoundException;
@@ -19,7 +20,7 @@ import java.util.*;
 
 public class SelectScheduleHandlers {
 
-    public static void selectScheduling(String runEvery, JSONObject scheduleJson, Map<String, LocalDateTime> schedulingDates, String name) throws TargetWebElementNotFoundException {
+    public static void selectScheduling(String runEvery, JSONObject scheduleJson, Map<String, LocalDateTime> schedulingDates, String name) throws Exception {
         Schedule schedule = getSchedule(runEvery, scheduleJson);
         schedule.create();
         if (schedule.isWithComputing())
@@ -58,7 +59,7 @@ public class SelectScheduleHandlers {
         String actualTimeKey = "time";
         LocalDateTime scheduleTime;
 
-        abstract public void create() throws TargetWebElementNotFoundException;
+        abstract public void create() throws Exception;
         abstract public void validate(JSONObject actualScheduleJson, StringBuilder errorMessage, Map<String, LocalDateTime> schedulingDates, String name);
 
         protected void saveScheduleTime(String pattern)
@@ -105,6 +106,16 @@ public class SelectScheduleHandlers {
                 WebUIUtils.scrollIntoView(timeElement);
                 timeElement.click();
                 WebUiTools.getWebElement("apply Time Button").click();
+            }
+        }
+
+        protected void selectDaysOrMonths(String buttonLabel,  List<Object> buttonElements) throws Exception {
+            if (buttonElements.size()>0)
+            {
+                WebUiTools.checkElements(buttonLabel, "", false);
+                String remainMonthParam = WebUIUtils.fluentWait(new ComponentLocator(How.XPATH, "//*[contains(@data-debug-id,'" + VisionDebugIdsManager.getDataDebugId() + "')and@" + WebUiTools.checkedNotCheckedAttribute + "='true']").getBy()).getText();
+                WebUiTools.check(buttonLabel,buttonElements, true);
+                WebUiTools.check(buttonLabel, remainMonthParam, buttonElements.contains(remainMonthParam));
             }
         }
     }
@@ -174,15 +185,11 @@ public class SelectScheduleHandlers {
         }
 
         @Override
-        public void create() throws TargetWebElementNotFoundException {
+        public void create() throws Exception {
             setTimeInput();
             if (!dayOfMonth.equals("-1"))
                 BasicOperationsHandler.setTextField("Scheduling On Day of Month", dayOfMonth, true);
-            if (months.size()>0)
-            {
-                WebUiTools.checkElements("Schedule Month", "", false);
-                WebUiTools.check("Schedule Month",months, true);
-            }
+            selectDaysOrMonths("Schedule Month", months);
         }
 
         @Override
@@ -227,13 +234,9 @@ public class SelectScheduleHandlers {
         }
 
         @Override
-        public void create() {
+        public void create() throws Exception {
             setTimeInput();
-            if (days.size()>0)
-            {
-                WebUiTools.checkElements("Schedule Day", "", false);
-                WebUiTools.check("Schedule Day",days, true);
-            }
+            selectDaysOrMonths("Schedule Day", days);
         }
 
         @Override

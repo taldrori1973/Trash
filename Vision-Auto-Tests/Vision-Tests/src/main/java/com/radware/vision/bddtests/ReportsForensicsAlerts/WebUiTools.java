@@ -10,8 +10,8 @@ import java.util.Arrays;
 import java.util.List;
 
 public class WebUiTools {
-    static final String checkedNotCheckedAttribute = "data-debug-checked";
-    static final String ariaChecked = "aria-checked";
+    public static final String checkedNotCheckedAttribute = "data-debug-checked";
+    public static final String ariaChecked = "aria-checked";
 
     public static WebElement getWebElement(String label) {
         return getWebElement(label, "");
