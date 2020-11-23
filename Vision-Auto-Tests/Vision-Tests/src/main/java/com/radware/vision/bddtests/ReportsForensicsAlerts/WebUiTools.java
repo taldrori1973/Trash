@@ -38,7 +38,7 @@ public class WebUiTools {
         return ComponentLocatorFactory.getLocatorByXpathDbgId(VisionDebugIdsManager.getDataDebugId());
     }
 
-    public static List<WebElement> getWebElements(String label, String params) {
+    public static List<WebElement> getWebElements(String label, String ... params) {
         VisionDebugIdsManager.setLabel(label);
         VisionDebugIdsManager.setParams(params);
         return WebUIUtils.fluentWaitMultiple(ComponentLocatorFactory.getLocatorByXpathDbgId(VisionDebugIdsManager.getDataDebugId()).getBy());
