@@ -23,7 +23,7 @@ Feature: Error Massages
       | Time Definitions.Date | Quick: 1H                                    |
       | Schedule              | Run Every:Monthly, On Time:+2m               |
       | Share                 | Email:[Test, Test2],Subject:TC108070 Subject |
-      | Format                | Select: CSV
+      | Format                | Select: CSV                                  |
     Then UI Text of "Error message title" contains "Unable To Save Report"
     Then UI Text of "Error message description" contains "Invalid configuration. Specify a template for the Report."
     Then UI Click Button "errorMessageOK"
