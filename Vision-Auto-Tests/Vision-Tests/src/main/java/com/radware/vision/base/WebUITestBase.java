@@ -692,6 +692,8 @@ public abstract class WebUITestBase extends SystemTestCase4 {
         try {
             CurrentVisionRestAPI currentVisionRestAPI = new CurrentVisionRestAPI(filePath, requestLabel);
             response = currentVisionRestAPI.sendRequest();
+            if(response==null)//server is down or not connected
+                return;
             //an old version that do not support branch
             if(response.getStatusCode().equals(StatusCode.INTERNAL_SERVER_ERROR) &&
                     response.getBody().getBodyAsJsonNode().get().findValue("message").toString().contains("Illegal item path")){
