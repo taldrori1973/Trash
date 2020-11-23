@@ -273,7 +273,13 @@ abstract class ReportsForensicsAlertsAbstract implements ReportsForensicsAlertsI
         map.put("Template", newTemplateObject.toString());
     }
 
-    public void generate(String name){}
+    public void generate(String name) throws TargetWebElementNotFoundException {
+        BasicOperationsHandler.setTextField("Search input", name);
+        BasicOperationsHandler.clickButton("My Report", name);
+        BasicOperationsHandler.clickButton("Generate Report Manually", name);
+
+
+    }
 
     @Override
     public void delete(String reportName) throws Exception{
