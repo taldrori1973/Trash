@@ -1,4 +1,3 @@
-@run
 Feature: Landing_my_reports
 
   @SID_1
