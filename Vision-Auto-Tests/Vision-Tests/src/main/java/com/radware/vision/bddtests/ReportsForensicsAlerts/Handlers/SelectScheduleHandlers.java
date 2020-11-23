@@ -23,7 +23,7 @@ public class SelectScheduleHandlers {
         Schedule schedule = getSchedule(runEvery, scheduleJson);
         schedule.create();
         if (schedule.isWithComputing())
-            schedulingDates.put(name, schedule.getScheduleComputingTime());
+            schedulingDates.put(name, schedule.scheduleTime);
     }
 
     public static void validateScheduling(String runEvery, JSONObject actualSchedulingJson, JSONObject expectedScheduleJson,  StringBuilder errorMessage, Map<String, LocalDateTime> schedulingDates, String name){
@@ -56,10 +56,18 @@ public class SelectScheduleHandlers {
         JSONObject expectedScheduleJson = new JSONObject();
         JSONObject actualScheduleJson = new JSONObject();
         String actualTimeKey = "time";
+        LocalDateTime scheduleTime;
 
         abstract public void create() throws TargetWebElementNotFoundException;
         abstract public void validate(JSONObject actualScheduleJson, StringBuilder errorMessage, Map<String, LocalDateTime> schedulingDates, String name);
 
+        protected void saveScheduleTime(String pattern)
+        {
+            if (isWithComputing())
+                scheduleTime = getScheduleComputingTime();
+            else
+                scheduleTime = LocalDateTime.parse(expectedScheduleJson.get("On Time").toString().trim(), DateTimeFormatter.ofPattern(pattern));
+        }
         String getActualTime() {return actualScheduleJson.get(actualTimeKey).toString();}
 
         protected String getExpectedValidateTime(Map<String, LocalDateTime> schedulingDates, String name) {
@@ -74,7 +82,7 @@ public class SelectScheduleHandlers {
 
         String getScheduleTimeAsText(String pattern) {
             if (isWithComputing())
-                return TimeUtils.getTimeAsText(getScheduleComputingTime(), pattern);
+                return TimeUtils.getTimeAsText(scheduleTime, pattern);
             else
                 return expectedScheduleJson.get("On Time").toString().trim();
         }
@@ -104,6 +112,7 @@ public class SelectScheduleHandlers {
     private static class ScheduleDaily extends Schedule{
         ScheduleDaily(JSONObject scheduleJson){
             this.expectedScheduleJson = scheduleJson;
+            saveScheduleTime(dailyTimePattern);
         }
 
         @Override
@@ -123,6 +132,7 @@ public class SelectScheduleHandlers {
         {
             this.expectedScheduleJson = scheduleJson;
             this.actualTimeKey="date";
+            saveScheduleTime(onceTimePattern);
         }
 
         protected String getExpectedValidateTime(Map<String, LocalDateTime> schedulingDates, String name)
@@ -160,13 +170,14 @@ public class SelectScheduleHandlers {
                     isWithComputing()?
                             new ArrayList<>(Collections.singletonList(TimeUtils.getTimeAsText(getScheduleComputingTime(), "MMM").toUpperCase())):
                             new ArrayList<>();
+            saveScheduleTime(dailyTimePattern);
         }
 
         @Override
         public void create() throws TargetWebElementNotFoundException {
             setTimeInput();
             if (!dayOfMonth.equals("-1"))
-                BasicOperationsHandler.setTextField("Scheduling On Day of Month", dayOfMonth);
+                BasicOperationsHandler.setTextField("Scheduling On Day of Month", dayOfMonth, true);
             if (months.size()>0)
             {
                 WebUiTools.checkElements("Schedule Month", "", false);
@@ -212,6 +223,7 @@ public class SelectScheduleHandlers {
                     isWithComputing()?
                             new ArrayList<>(Collections.singletonList(TimeUtils.getTimeAsText(getScheduleComputingTime(), "EEE").toUpperCase())):
                             new ArrayList<>();
+            saveScheduleTime(dailyTimePattern);
         }
 
         @Override

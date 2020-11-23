@@ -26,7 +26,7 @@ public class Report extends ReportsForensicsAlertsAbstract {
     @Override
     public void create(String reportName, Map<String, String> map) throws Exception {
 
-  //      try{delete(reportName);}catch (Exception ignored){}
+//        try{delete(reportName);}catch (Exception ignored){}
         try {
             WebUiTools.check("New Report Tab", "", true);
             createReportParameters(reportName, map);
@@ -219,7 +219,7 @@ public class Report extends ReportsForensicsAlertsAbstract {
         StringBuilder errorMessage = new StringBuilder();
         if (map.containsKey("Format")) {
             JSONObject expectedFormatJson = new JSONObject(map.get("Format"));
-            if (formatJson.get("type").toString().equalsIgnoreCase(expectedFormatJson.get("Select").toString()))
+            if (formatJson.get("type").toString().trim().equalsIgnoreCase(expectedFormatJson.get("Select").toString().trim()))
                 errorMessage.append("The actual Format is: ").append(formatJson.get("type").toString()).append("but the Expected format is: ").append(expectedFormatJson.get("Select").toString()).append("\n");
         }
         else if (formatJson.get("type").toString().equalsIgnoreCase("html"))
