@@ -38,14 +38,6 @@ public class TemplateHandlers {
         Report.updateReportsTemplatesMap(reportName, templateJsonObject.get("templateAutomationID").toString(), currentTemplateName);
     }
 
-    public static void editTemplate(JSONObject templateJsonObject, String currentTemplateName) {
-        List<String> widgetsListToRemove = getWidgetsList(new JSONArray(templateJsonObject.get("DeleteWidgets").toString()));
-        removeUnWantedWidgets(widgetsListToRemove, currentTemplateName);
-        addWidgets(new JSONArray(templateJsonObject.get("AddWidgets").toString()), currentTemplateName);
-        JSONArray editWidgets = new JSONArray(templateJsonObject.get("editWidgets").toString());
-        selectOptions(editWidgets, getOccurrenceMap(editWidgets), currentTemplateName);
-    }
-
 
     private static ScopeSelection getScopeSelection(JSONObject templateJsonObject, String templateParam) {
         switch (templateJsonObject.get("reportType").toString().toUpperCase()) {
@@ -94,7 +86,7 @@ public class TemplateHandlers {
                 }
             }
         }
-        removeUnWantedWidgets(widgetsToRemove, reportType);
+        removeUnWantedWidgetsAll(widgetsToRemove, reportType);
         dragAndDropDesiredWidgets(widgetsList, reportType);
         selectOptions(widgets, getOccurrenceMap(widgets), reportType);
     }
@@ -109,7 +101,7 @@ public class TemplateHandlers {
         }
     }
 
-    private static void removeUnWantedWidgets(List<String> widgetsToRemoveDataDataDebugId, String reportType) {
+    private static void removeUnWantedWidgetsAll(List<String> widgetsToRemoveDataDataDebugId, String reportType) {
         if (widgetsToRemoveDataDataDebugId == null) return;
         VisionDebugIdsManager.setLabel("selected widget");
         for (String widget : widgetsToRemoveDataDataDebugId) {
@@ -680,5 +672,52 @@ public class TemplateHandlers {
                 }
                 break;
         }
+    }
+
+    public static void editTemplate(String reportName, JSONObject templateJsonObject, String currentTemplateName) throws Exception {
+        if (templateJsonObject.has("Widgets")) {
+            addTemplate(templateJsonObject, reportName);
+            return;
+        }
+        if (templateJsonObject.has("DeleteTemplate") && Boolean.parseBoolean(templateJsonObject.get("DeleteTemplate").toString())) {
+            deleteTemplate(currentTemplateName);
+            return;
+        }
+        String reportType = templateJsonObject.get("reportType").toString();
+        editTemplateWidgets(templateJsonObject, currentTemplateName);
+        getScopeSelection(templateJsonObject, currentTemplateName.split(reportType).length != 0 ? currentTemplateName.split(reportType)[1] : "").create();
+    }
+
+    public static void editTemplateWidgets(JSONObject templateJsonObject, String currentTemplateName) throws Exception {
+        List<String> widgetsListToRemove = templateJsonObject.has("DeleteWidgets") ?
+                getWidgetsList(new JSONArray(templateJsonObject.get("DeleteWidgets").toString())) : null;
+        List<String> widgetsList = templateJsonObject.has("AddWidgets") ?
+                getWidgetsList(new JSONArray(templateJsonObject.get("AddWidgets").toString())) : null;
+        JSONArray editWidgets = templateJsonObject.has("editWidgets") ?
+                new JSONArray(templateJsonObject.get("editWidgets").toString()) : null;
+        editTemplate(templateJsonObject.get("reportType").toString());
+        removeUnWantedWidgets(widgetsListToRemove, currentTemplateName);
+        dragAndDropDesiredWidgets(widgetsList, currentTemplateName);
+        selectOptions(editWidgets, getOccurrenceMap(editWidgets), currentTemplateName);
+    }
+
+    private static void removeUnWantedWidgets(List<String> widgetsToRemoveDataDataDebugId, String reportType) {
+        if (widgetsToRemoveDataDataDebugId == null) return;
+        VisionDebugIdsManager.setLabel("selected widget");
+        for (String widget : widgetsToRemoveDataDataDebugId) {
+            try {
+                VisionDebugIdsManager.setParams(reportType, widget.concat("_"));
+                WebUIUtils.fluentWait(new ComponentLocator(How.XPATH, "//*[starts-with(@data-debug-id, '" + VisionDebugIdsManager.getDataDebugId() + "') and contains(@data-debug-id, '_RemoveButton')]").getBy(), WebUIUtils.DEFAULT_WAIT_TIME, false).click();
+            } catch (Exception e) {
+                BaseTestUtils.report("Failed to remove widget: " + widget, Reporter.FAIL);
+                e.printStackTrace();
+            }
+        }
+    }
+    public static void deleteTemplate(String currentTemplateName) {
+        WebUiTools.getWebElement("Delete Template", currentTemplateName);
+    }
+    private static void editTemplate(String reportType) throws TargetWebElementNotFoundException {
+        BasicOperationsHandler.clickButton("Edit Template", reportType);
     }
 }
