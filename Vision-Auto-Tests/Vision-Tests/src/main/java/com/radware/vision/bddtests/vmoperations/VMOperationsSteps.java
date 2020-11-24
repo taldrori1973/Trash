@@ -258,6 +258,7 @@ public class VMOperationsSteps extends BddUITestBase {
             }
         }
         updateVersionVar();
+        CliOperations.runCommand(restTestBase.getRootServerCli(), "chkconfig --level 345 rsyslog on", CliOperations.DEFAULT_TIME_OUT);
         CliOperations.runCommand(getRestTestBase().getRootServerCli(), "/usr/sbin/ntpdate -u europe.pool.ntp.org", 2 * 60 * 1000);
     }
 

@@ -42,6 +42,7 @@ import com.radware.vision.automation.tools.sutsystemobjects.devicesinfo.DevicesM
 import com.radware.vision.infra.enums.DeviceDriverType;
 import com.radware.vision.infra.testhandlers.BaseHandler;
 import com.radware.vision.infra.testhandlers.baseoperations.BasicOperationsHandler;
+import com.radware.vision.infra.testhandlers.cli.CliOperations;
 import com.radware.vision.infra.utils.VisionWebUIUtils;
 import com.radware.vision.infra.utils.threadutils.ThreadsStatusMonitor;
 import com.radware.vision.pojomodel.helpers.constants.ImConstants$DeviceStatusEnumPojo;
@@ -237,6 +238,7 @@ public abstract class WebUITestBase extends SystemTestCase4 {
             BaseHandler.restTestBase = restTestBase;
             BaseHandler.devicesManager = devicesManager;
             getVisionInfo();
+            CliOperations.runCommand(restTestBase.getRootServerCli(), "chkconfig --level 345 rsyslog on", CliOperations.DEFAULT_TIME_OUT);
         }
 
     }
