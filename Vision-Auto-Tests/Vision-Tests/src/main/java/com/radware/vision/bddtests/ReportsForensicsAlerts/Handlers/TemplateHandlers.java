@@ -52,7 +52,8 @@ public class TemplateHandlers {
             case "APPLICATION":
                 return new ApplicationScopeSelection(new JSONArray(templateJsonObject.get("Applications").toString()), templateParam);
             case "EAAF":
-                return new EAAFScopeSelection(new JSONArray(templateJsonObject.get("devices").toString()), templateParam);
+//                return new EAAFScopeSelection(new JSONArray(templateJsonObject.get("devices").toString()), templateParam);
+                return new EAAFScopeSelection(new JSONArray(), templateParam);
             case "DEFENSEPRO ANALYTICS":
             case "DEFENSEPRO BEHAVIORAL PROTECTIONS":
             default:
@@ -581,20 +582,20 @@ public class TemplateHandlers {
 
     }
 
-    public static StringBuilder validateTemplateDefinition(JSONArray actualTemplateJSONArray, Map<String, String> map, Map<String, Map<String, String>> templates, String reportName) throws Exception {
+    public static StringBuilder validateTemplateDefinition(JSONArray actualTemplateJSONArray, Map<String, String> map, Map<String, Map<String, String>> templates, Map<String, Integer> widgets ,String reportName) throws Exception {
         StringBuilder errorMessage = new StringBuilder();
         JSONArray expectedTemplates = new JSONArray(map.get("Template").toString());
         for (Object expectedTemplate : expectedTemplates) {
-            validateSingleTemplateDefinition(actualTemplateJSONArray, new JSONObject(expectedTemplate.toString()), templates.get(reportName).get(new JSONObject(expectedTemplate.toString()).get("templateAutomationID")), errorMessage);
+            validateSingleTemplateDefinition(actualTemplateJSONArray, new JSONObject(expectedTemplate.toString()), templates.get(reportName).get(new JSONObject(expectedTemplate.toString()).get("templateAutomationID")), widgets ,errorMessage);
         }
         return errorMessage;
     }
 
-    public static void validateSingleTemplateDefinition(JSONArray actualTemplateJSON, JSONObject expectedSingleTemplate, String expectedTemplateTitle, StringBuilder errorMessage) throws Exception, TargetWebElementNotFoundException {
+    public static void validateSingleTemplateDefinition(JSONArray actualTemplateJSON, JSONObject expectedSingleTemplate, String expectedTemplateTitle , Map<String, Integer> widgets ,StringBuilder errorMessage) throws Exception, TargetWebElementNotFoundException {
         JSONObject singleActualTemplate = validateTemplateTypeDefinition(actualTemplateJSON, expectedSingleTemplate, expectedTemplateTitle, errorMessage);
         if (singleActualTemplate != null) {
-            validateTemplateDevicesDefinition(singleActualTemplate, expectedSingleTemplate, errorMessage);
-            validateTemplateWidgetsDefinition(singleActualTemplate, expectedSingleTemplate, errorMessage);
+            validateTemplateDevicesDefinition(singleActualTemplate, expectedSingleTemplate,  errorMessage);
+            validateTemplateWidgetsDefinition(singleActualTemplate, expectedSingleTemplate,expectedTemplateTitle ,widgets, errorMessage);
         } else
             errorMessage.append("There is no equal template on actual templates that equal to " + expectedSingleTemplate);
     }
@@ -622,14 +623,34 @@ public class TemplateHandlers {
         getScopeSelection(expectedSingleTemplate, "").validate(new JSONArray(singleTemplate.get("scope").toString()), errorMessage);
     }
 
-    private static void validateTemplateWidgetsDefinition(JSONObject singleActualTemplate, JSONObject expectedSingleTemplate, StringBuilder errorMessage) {
+    private static void validateTemplateWidgetsDefinition(JSONObject singleActualTemplate, JSONObject expectedSingleTemplate , String expectedTemplateTitle,Map<String, Integer> widgets, StringBuilder errorMessage) {
         JSONArray expectedWidgetsJSONArray = new JSONArray(expectedSingleTemplate.get("Widgets").toString());
         for (Object expectedWidgetObject : expectedWidgetsJSONArray) {
-            if (expectedWidgetObject.getClass().getName().contains("String")) {
+            if(expectedSingleTemplate.get("Widgets").toString().contains("ALL"))
+                validateAllWidgetsSelected(new JSONArray(singleActualTemplate.get("widgets").toString()),expectedSingleTemplate,expectedTemplateTitle,widgets,errorMessage);
+            else if (expectedWidgetObject.getClass().getName().contains("String")) {
                 if (!singleActualTemplate.toMap().get("widgets").toString().contains(expectedWidgetObject.toString()))
                     errorMessage.append("The Actual TemplateWidget title = " + ((HashMap) singleActualTemplate.toMap().get("metaData")).get("title").toString() + "is not equal to  " + expectedWidgetObject.toString());
             } else
                 validateHashMapObjectWidgets(new JSONArray(singleActualTemplate.get("widgets").toString()), new JSONObject(expectedWidgetObject.toString()), errorMessage);
+        }
+    }
+
+    private static void validateAllWidgetsSelected(JSONArray singleActualTemplate, JSONObject expectedSingleTemplate, String expectedTemplateTitle,Map<String, Integer> widgets, StringBuilder errorMessage) {
+        if (singleActualTemplate.length() != widgets.get(expectedTemplateTitle.split("_")[0]))
+            errorMessage.append("The all widget is not selected on the actual selected" + singleActualTemplate.length() + " and not " + widgets.get(expectedTemplateTitle.split("_")[0]));
+        else {
+            JSONArray expectedWidgetOptions = new JSONArray(new JSONObject(new JSONArray(expectedSingleTemplate.get("Widgets").toString()).get(0).toString()).get("ALL").toString());
+           for(Object expectedWidgetOption : expectedWidgetOptions) {
+               validateAllTheWidgetsOptions(singleActualTemplate, new JSONObject(expectedWidgetOption.toString()),errorMessage);
+           }
+        }
+    }
+
+    private static void validateAllTheWidgetsOptions(JSONArray singleActualTemplate, JSONObject expectedWidgetOption, StringBuilder errorMessage) {
+        for (Object actualWidgetOption : singleActualTemplate) {
+            if (new JSONObject(actualWidgetOption.toString()).get("metaData").toString().replace("\\", "").contains(expectedWidgetOption.keys().next()))
+                validateOptionsWidgets(expectedWidgetOption.keys().next(), expectedWidgetOption, new JSONObject(new JSONObject(actualWidgetOption.toString()).get("metaData").toString().replace("\\", "")), errorMessage);
         }
     }
 

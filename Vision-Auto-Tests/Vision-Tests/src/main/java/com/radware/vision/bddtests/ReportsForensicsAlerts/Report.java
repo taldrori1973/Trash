@@ -21,7 +21,7 @@ import java.util.Map;
 
 
 public class Report extends ReportsForensicsAlertsAbstract {
-    private String errorMessage = "";
+    private String errorMessage="";
 
     @Override
     public void create(String reportName, Map<String, String> map) throws Exception {
@@ -30,7 +30,7 @@ public class Report extends ReportsForensicsAlertsAbstract {
         try {
             WebUiTools.check("New Report Tab", "", true);
             createReportParameters(reportName, map);
-            selectTemplates(map, reportName);
+            selectTemplates(map,reportName);
             BasicOperationsHandler.clickButton("save");
         } catch (Exception e) {
             closeReport();
@@ -44,10 +44,11 @@ public class Report extends ReportsForensicsAlertsAbstract {
 
     private boolean reportCreated() {
         if (WebUiTools.getWebElement("save") == null)
-            return true;
-        for (WebElement okWebElement : WebUiTools.getWebElements("errorMessageOK", "")) {
+        return true;
+        for (WebElement okWebElement : WebUiTools.getWebElements("errorMessageOK", ""))
+        {
             WebElement errorMessageElement = WebUIUtils.fluentWait(ComponentLocatorFactory.getLocatorByClass("ant-notification-notice-description").getBy());
-            errorMessage += errorMessageElement != null ? "\nbecause:\n" + errorMessageElement.getText() + "\n" : "";
+            errorMessage+=  errorMessageElement!= null ? "\nbecause:\n" + errorMessageElement.getText() + "\n":"";
             WebUiTools.clickWebElement(okWebElement);
         }
         return false;
@@ -58,20 +59,18 @@ public class Report extends ReportsForensicsAlertsAbstract {
         BasicOperationsHandler.clickButton("saveChanges", "no");
     }
 
-    private void selectTemplates(Map<String, String> map, String reportName) throws Exception {
-        templates.put(reportName, new HashMap<>());
-        for (Object templateObject : new JSONArray(map.get("Template")))
-            TemplateHandlers.addTemplate(new JSONObject(templateObject.toString()), reportName);
+    private void selectTemplates(Map<String, String> map,String reportName) throws Exception {
+        templates.put(reportName,new HashMap<>());
+        for (Object templateObject :new JSONArray(map.get("Template")))
+            TemplateHandlers.addTemplate(new JSONObject(templateObject.toString()),reportName);
     }
 
-    private void editTemplates(Map<String, String> map, String reportName) throws Exception {
+    private void editTemplates(Map<String, String> map,String reportName) {
         for (Object templateObject : new JSONArray(map.get("Template"))) {
-            TemplateHandlers.editTemplate(reportName,new JSONObject(templateObject.toString()),
+            TemplateHandlers.editTemplate(new JSONObject(templateObject.toString()),
                     getReportTemplateUICurrentName(reportName,new JSONObject(templateObject.toString()).get("templateAutomationID").toString()));
-//            TemplateHandlers.editTemplate(reportName, new JSONObject(templateObject.toString()), "DefensePro Analytics");
         }
     }
-
     private void editTemplate(Object template) {
 
     }
@@ -118,7 +117,7 @@ public class Report extends ReportsForensicsAlertsAbstract {
         if (map.containsKey("Format")) {
             JSONObject deliveryJsonObject = new JSONObject(map.get("Format"));
             if (deliveryJsonObject.has("Select"))
-                BasicOperationsHandler.clickButton("Format Type", deliveryJsonObject.getString("Select").toUpperCase());
+                BasicOperationsHandler.clickButton( "Format Type", deliveryJsonObject.getString("Select").toUpperCase());
             else BasicOperationsHandler.clickButton("Format Type", "HTML");
         }
     }
@@ -138,27 +137,30 @@ public class Report extends ReportsForensicsAlertsAbstract {
     }
 
     @Override
-    public void validate(RootServerCli rootServerCli, String reportName, Map<String, String> map) throws Exception {
+    public void validate(RootServerCli rootServerCli, String reportName, Map<String, String> map) throws Exception{
         StringBuilder errorMessage = new StringBuilder();
         JSONObject basicRestResult = getReportDefinition(reportName);
-        if (basicRestResult != null) {
+        if (basicRestResult!=null)
+        {
             errorMessage.append(validateLogoDefinition(new JSONObject(basicRestResult.get("logo").toString()), map));
             errorMessage.append(validateTimeDefinition(new JSONObject(basicRestResult.get("timeFrame").toString().replace("\\", "")), map));
             errorMessage.append(validateScheduleDefinition(basicRestResult, map, reportName));
             errorMessage.append(validateShareDefinition(new JSONObject(basicRestResult.get("deliveryMethod").toString()), map));
             errorMessage.append(validateFormatDefinition(new JSONObject(basicRestResult.get("exportFormat").toString()), map));
-            errorMessage.append(TemplateHandlers.validateTemplateDefinition(basicRestResult.get("templates").toString().equalsIgnoreCase("null") ? new JSONArray() : new JSONArray(basicRestResult.get("templates").toString()), map, templates, reportName));
-        } else errorMessage.append("No report Defined with name ").append(reportName).append("/n");
+            errorMessage.append(TemplateHandlers.validateTemplateDefinition(basicRestResult.get("templates").toString().equalsIgnoreCase("null")?new JSONArray():new JSONArray(basicRestResult.get("templates").toString()),map,templates,widgets,reportName));
+        }else errorMessage.append("No report Defined with name ").append(reportName).append("/n");
         if (errorMessage.length() != 0)
             BaseTestUtils.report(errorMessage.toString(), Reporter.FAIL);
     }
 
     private JSONObject getReportDefinition(String reportName) throws Exception {
         RestResponse restResponse = new CurrentVisionRestAPI("Vision/newReport.json", "Get Created Reports").sendRequest();
-        if (restResponse.getStatusCode() == StatusCode.OK) {
+        if (restResponse.getStatusCode()== StatusCode.OK)
+        {
             JSONArray reportsJSONArray = new JSONArray(restResponse.getBody().getBodyAsString());
-            for (Object reportJsonObject : reportsJSONArray) {
-                if (new JSONObject(reportJsonObject.toString()).getString("reportName").equalsIgnoreCase(reportName)) {
+            for(Object reportJsonObject : reportsJSONArray){
+                if (new JSONObject(reportJsonObject.toString()).getString("reportName").equalsIgnoreCase(reportName))
+                {
                     CurrentVisionRestAPI currentVisionRestAPI = new CurrentVisionRestAPI("Vision/newReport.json", "Get specific Report");
                     currentVisionRestAPI.getRestRequestSpecification().setPathParams(Collections.singletonMap("reportID", new JSONObject(reportJsonObject.toString()).getString("id")));
                     restResponse = currentVisionRestAPI.sendRequest();
@@ -168,7 +170,8 @@ public class Report extends ReportsForensicsAlertsAbstract {
                 }
             }
             throw new Exception("No Report with Name " + reportName);
-        } else throw new Exception("Get Reports failed request, The response is " + restResponse);
+        }
+        else throw new Exception("Get Reports failed request, The response is " + restResponse);
     }
 
     private String getReportID(String reportName) {
@@ -203,7 +206,7 @@ public class Report extends ReportsForensicsAlertsAbstract {
     }
 
     private void validateEmailRecipients(JSONObject deliveryJson, StringBuilder errorMessage, JSONObject expectedDeliveryJson) {
-        String actualEmails = ((JSONObject) deliveryJson.get("email")).get("recipients").toString().replace("[", "").replace("]", "").replace(" ", "");
+        String actualEmails = ((JSONObject)deliveryJson.get("email")).get("recipients").toString().replace("[", "").replace("]", "").replace(" ", "");
         String[] expectedEmailsArray = expectedDeliveryJson.get("Email").toString().replaceAll("(])|(\\[)", "").split(",");
         for (String email : expectedEmailsArray) {
             if (!actualEmails.toUpperCase().contains(email.toUpperCase().trim())) {
@@ -218,7 +221,8 @@ public class Report extends ReportsForensicsAlertsAbstract {
             JSONObject expectedFormatJson = new JSONObject(map.get("Format"));
             if (formatJson.get("type").toString().trim().equalsIgnoreCase(expectedFormatJson.get("Select").toString().trim()))
                 errorMessage.append("The actual Format is: ").append(formatJson.get("type").toString()).append("but the Expected format is: ").append(expectedFormatJson.get("Select").toString()).append("\n");
-        } else if (formatJson.get("type").toString().equalsIgnoreCase("html"))
+        }
+        else if (!formatJson.get("type").toString().trim().toLowerCase().equalsIgnoreCase("html"))
             errorMessage.append("The actual Format is: ").append(formatJson.get("type").toString()).append("but the Expected format is: ").append("html").append("\n");
         return errorMessage;
     }
@@ -240,7 +244,7 @@ public class Report extends ReportsForensicsAlertsAbstract {
         try {
             WebUiTools.getWebElement("Edit Report",reportName).click();
             editReportParameters(reportName, map);
-            editTemplates(map, reportName);
+            editTemplates(map,reportName);
         } catch (Exception e) {
             closeReport();
             throw e;
@@ -252,15 +256,13 @@ public class Report extends ReportsForensicsAlertsAbstract {
     }
 
     @Override
-    protected String getType() {
-        return "Report";
+    protected String getType(){return "Report";}
+
+    public static void updateReportsTemplatesMap(String reportName,String templateAutomationID, String value){
+        templates.get(reportName).put(templateAutomationID,value);
     }
 
-    public static void updateReportsTemplatesMap(String reportName, String templateAutomationID, String value) {
-        templates.get(reportName).put(templateAutomationID, value);
-    }
-
-    public static String getReportTemplateUICurrentName(String reportName, String templateAutomationID) {
+    public static String getReportTemplateUICurrentName(String reportName,String templateAutomationID){
         return templates.get(reportName).get(templateAutomationID);
     }
 

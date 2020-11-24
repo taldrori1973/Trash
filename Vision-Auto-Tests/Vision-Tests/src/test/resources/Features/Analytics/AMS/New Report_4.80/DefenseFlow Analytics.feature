@@ -6,574 +6,883 @@ Feature:DefenseFlow Analytics
   @SID_1
   Scenario: Navigate to NEW REPORTS page
     Then UI Login with user "radware" and password "radware"
-    Then UI Navigate to "NEW REPORTS" page via homepage
+    Then UI Navigate to "AMS REPORTS" page via homepage
     Then UI Click Button "New Report Tab"
 
     # ------------------------------------------------------------------------------------------------------------------------------------------------------------
   @SID_2
-  Scenario: Top Attacks by Duration Report - Time: Quick Range (15m)
+  Scenario: Top Attacks by Duration Report 1
     Then UI Click Button "New Report Tab"
-    Given UI "Create" Report With Name "Top Attacks by Duration_Time_Quick_15m"
+    Given UI "Create" Report With Name "Top Attacks by Duration 1"
       | Template              | reportType:DefenseFlow_Analytics , Widgets:[Top Attacks by Duration], devices:[All], showTable:true |
       | Format                | Select: CSV                                                                                         |
       | Logo                  | reportLogoPNG.png                                                                                   |
       | Time Definitions.Date | Quick:15m                                                                                           |
+    Given UI "Validate" Report With Name "Top Attacks by Duration 1"
+      | Template              | reportType:DefenseFlow_Analytics , Widgets:[Top Attacks by Duration], devices:[All], showTable:true |
+      | Format                | Select: CSV                                                                                         |
+      | Logo                  | reportLogoPNG.png                                                                                   |
+      | Time Definitions.Date | Quick:15m                                                                                           |
+    Then UI Delete Report With Name "Top Attacks by Duration 1"
 
 
   @SID_3
-  Scenario: Top Attacks by Duration Report - Time: Absolute, Schedule: (Monthly,Oct)
+  Scenario: Top Attacks by Duration Report 2
     Then UI Click Button "New Report Tab"
-    Given UI "Create" Report With Name "Top Attacks by Duration_Time_Absolute  Schedule_Monthly"
+    Given UI "Create" Report With Name "Top Attacks by Duration 2"
       | Template              | reportType:DefenseFlow_Analytics , Widgets:[Top Attacks by Duration],devices:[{deviceIndex:10}] |
       | Format                | Select: PDF                                                                                     |
       | Logo                  | reportLogoPNG.png                                                                               |
-      | Time Definitions.Date | Absolute:[27.02.1971 01:00:00, +0d]                                                             |
+      | Time Definitions.Date | Absolute:[27.02.1971 01:00, +0d]                                                                |
       | Schedule              | Run Every:Monthly, On Time:+6H, At Months:[OCT]                                                 |
       | Share                 | Email:[automation.vision2@radware.com],Subject:myEdit subject,Body:myEdit body                  |
-
+    Given UI "Validate" Report With Name "Top Attacks by Duration 2"
+      | Template              | reportType:DefenseFlow_Analytics , Widgets:[Top Attacks by Duration],devices:[{deviceIndex:10}] |
+      | Format                | Select: PDF                                                                                     |
+      | Logo                  | reportLogoPNG.png                                                                               |
+      | Time Definitions.Date | Absolute:[27.02.1971 01:00, +0d]                                                                |
+      | Schedule              | Run Every:Monthly, On Time:+6H, At Months:[OCT]                                                 |
+      | Share                 | Email:[automation.vision2@radware.com],Subject:myEdit subject,Body:myEdit body                  |
+    Then UI Delete Report With Name "Top Attacks by Duration 2"
 
   @SID_4
-  Scenario:  Top Attacks by Duration Report - Time: Relative (Days), Schedule:(Weekly,SUN)
+  Scenario:  Top Attacks by Duration Report 3
     Then UI Click Button "New Report Tab"
-    Given UI "Create" Report With Name "Top Attacks by Duration Time_Relative_Days  Schedule_Weekly"
+    Given UI "Create" Report With Name "Top Attacks by Duration 3"
       | Template              | reportType:DefenseFlow_Analytics , Widgets:[Top Attacks by Duration],devices:[{deviceIndex:11}] |
       | Format                | Select: HTML                                                                                    |
       | Time Definitions.Date | Relative:[Days,2]                                                                               |
       | Schedule              | Run Every:Weekly, On Time:+6H, At days:[SUN]                                                    |
-
+    Given UI "Validate" Report With Name "Top Attacks by Duration 3"
+      | Template              | reportType:DefenseFlow_Analytics , Widgets:[Top Attacks by Duration],devices:[{deviceIndex:11}] |
+      | Format                | Select: HTML                                                                                    |
+      | Time Definitions.Date | Relative:[Days,2]                                                                               |
+      | Schedule              | Run Every:Weekly, On Time:+6H, At days:[SUN]                                                    |
+    Then UI Delete Report With Name "Top Attacks by Duration 3"
 
   @SID_5
-  Scenario:  Top Attacks by Duration Report  - Time: Relative: (Months)
+  Scenario:  Top Attacks by Duration Report 4
     Then UI Click Button "New Report Tab"
-    Given UI "Create" Report With Name "Top Attacks by Duration  Time_Relative_Months)"
+    Given UI "Create" Report With Name "Top Attacks by Duration 4"
       | Template              | reportType:DefenseFlow_Analytics , Widgets:[Top Attacks by Duration],devices:[All], showTable:true |
       | Format                | Select: CSV                                                                                        |
       | Time Definitions.Date | Relative:[Months,2]                                                                                |
       | Share                 | Email:[automation.vision2@radware.com],Subject:myEdit subject,Body:myEdit body                     |
+    Given UI "Validate" Report With Name "Top Attacks by Duration 4"
+      | Template              | reportType:DefenseFlow_Analytics , Widgets:[Top Attacks by Duration],devices:[All], showTable:true |
+      | Format                | Select: CSV                                                                                        |
+      | Time Definitions.Date | Relative:[Months,2]                                                                                |
+      | Share                 | Email:[automation.vision2@radware.com],Subject:myEdit subject,Body:myEdit body                     |
+    Then UI Delete Report With Name "Top Attacks by Duration 4"
 
 # ------------------------------------------------------------------------------------------------------------------------------------------------------------
 
   @SID_6
-  Scenario: Top Attacks by Count Report - Time: Quick Range (1D), Schedule:(Weekly,FRI)
+  Scenario: Top Attacks by Count Report 1
     Then UI Click Button "New Report Tab"
-    Given UI "Create" Report With Name "Top Attacks by Count_Time_Quick_1D  Schedule_Weekly"
+    Given UI "Create" Report With Name "Top Attacks by Count Report 1"
       | Template              | reportType:DefenseFlow_Analytics , Widgets:[Top Attacks by Count], devices:[All], showTable:true |
       | Format                | Select: CSV                                                                                      |
       | Logo                  | reportLogoPNG.png                                                                                |
       | Time Definitions.Date | Quick:1D                                                                                         |
       | Schedule              | Run Every:Weekly, On Time:+6H, At days:[FRI]                                                     |
-
+    Given UI "Validate" Report With Name "Top Attacks by Count Report 1"
+      | Template              | reportType:DefenseFlow_Analytics , Widgets:[Top Attacks by Count], devices:[All], showTable:true |
+      | Format                | Select: CSV                                                                                      |
+      | Logo                  | reportLogoPNG.png                                                                                |
+      | Time Definitions.Date | Quick:1D                                                                                         |
+      | Schedule              | Run Every:Weekly, On Time:+6H, At days:[FRI]                                                     |
+    Then UI Delete Report With Name "Top Attacks by Count Report 1"
 
   @SID_7
-  Scenario: Top Attacks by Count Report - Time: Absolute, Schedule: (Once)
+  Scenario: Top Attacks by Count Report 2
     Then UI Click Button "New Report Tab"
-    Given UI "Create" Report With Name "Top Attacks by Count_Time_Absolute  Schedule_Once"
+    Given UI "Create" Report With Name "Top Attacks by Count Report 2"
       | Template              | reportType:DefenseFlow_Analytics , Widgets:[Top Attacks by Count],devices:[{deviceIndex:10}] |
       | Format                | Select: PDF                                                                                  |
       | Logo                  | reportLogoPNG.png                                                                            |
-      | Time Definitions.Date | Absolute:[27.02.1971 01:00:00, +0d]                                                          |
-      | Schedule              | Run Every:Once, On Time:+6H                                                                               |
+      | Time Definitions.Date | Absolute:[27.02.1971 01:00, +0d]                                                             |
+      | Schedule              | Run Every:Once, On Time:+6H                                                                  |
       | Share                 | Email:[automation.vision2@radware.com],Subject:myEdit subject,Body:myEdit body               |
-
+    Given UI "Validate" Report With Name "Top Attacks by Count Report 2"
+      | Template              | reportType:DefenseFlow_Analytics , Widgets:[Top Attacks by Count],devices:[{deviceIndex:10}] |
+      | Format                | Select: PDF                                                                                  |
+      | Logo                  | reportLogoPNG.png                                                                            |
+      | Time Definitions.Date | Absolute:[27.02.1971 01:00, +0d]                                                             |
+      | Schedule              | Run Every:Once, On Time:+6H                                                                  |
+      | Share                 | Email:[automation.vision2@radware.com],Subject:myEdit subject,Body:myEdit body               |
+    Then UI Delete Report With Name "Top Attacks by Count Report 2"
 
   @SID_8
-  Scenario:  Top Attacks by Count Report - Time: Quick Range (This Week)
+  Scenario:  Top Attacks by Count Report 3
     Then UI Click Button "New Report Tab"
-    Given UI "Create" Report With Name "Top Attacks by Count  Time_Quick_This Week"
+    Given UI "Create" Report With Name "Top Attacks by Count Report 3"
       | Template              | reportType:DefenseFlow_Analytics , Widgets:[Top Attacks by Count],devices:[{deviceIndex:11}] |
       | Format                | Select: HTML                                                                                 |
       | Time Definitions.Date | Quick:This Week                                                                              |
-
+    Given UI "Validate" Report With Name "Top Attacks by Count Report 3"
+      | Template              | reportType:DefenseFlow_Analytics , Widgets:[Top Attacks by Count],devices:[{deviceIndex:11}] |
+      | Format                | Select: HTML                                                                                 |
+      | Time Definitions.Date | Quick:This Week                                                                              |
+    Then UI Delete Report With Name "Top Attacks by Count Report 3"
 
   @SID_9
-  Scenario:  Top Attacks by Count Report  - Time: Relative: (Days), Schedule:(Daily)
+  Scenario:  Top Attacks by Count Report 4
     Then UI Click Button "New Report Tab"
-    Given UI "Create" Report With Name "Top Attacks by Count  Time_Relative_Days  Schedule_Daily)"
+    Given UI "Create" Report With Name "Top Attacks by Count Report 4"
       | Template              | reportType:DefenseFlow_Analytics , Widgets:[Top Attacks by Count],devices:[All], showTable:true |
       | Format                | Select: CSV                                                                                     |
       | Time Definitions.Date | Relative:[Days,3]                                                                               |
       | Schedule              | Run Every:Daily,On Time:+2m                                                                     |
       | Share                 | Email:[automation.vision2@radware.com],Subject:myEdit subject,Body:myEdit body                  |
+    Given UI "Validate" Report With Name "Top Attacks by Count Report 4"
+      | Template              | reportType:DefenseFlow_Analytics , Widgets:[Top Attacks by Count],devices:[All], showTable:true |
+      | Format                | Select: CSV                                                                                     |
+      | Time Definitions.Date | Relative:[Days,3]                                                                               |
+      | Schedule              | Run Every:Daily,On Time:+2m                                                                     |
+      | Share                 | Email:[automation.vision2@radware.com],Subject:myEdit subject,Body:myEdit body                  |
+    Then UI Delete Report With Name "Top Attacks by Count Report 4"
 
 # ------------------------------------------------------------------------------------------------------------------------------------------------------------
 
   @SID_10
-  Scenario: Top Attacks by Rate Report - Time: Quick Range (This Week), Schedule:(Daily)
+  Scenario: Top Attacks by Rate Report 1
     Then UI Click Button "New Report Tab"
-    Given UI "Create" Report With Name "Top Attacks by Rate_Time_Quick_This Week  Schedule_Daily"
+    Given UI "Create" Report With Name "Top Attacks by Rate Report 1"
       | Template              | reportType:DefenseFlow_Analytics , Widgets:[Top Attacks by Rate], devices:[All], showTable:true |
       | Format                | Select: CSV                                                                                     |
       | Logo                  | reportLogoPNG.png                                                                               |
       | Time Definitions.Date | Quick:This Week                                                                                 |
       | Schedule              | Run Every:Daily,On Time:+2m                                                                     |
-
+    Given UI "Validate" Report With Name "Top Attacks by Rate Report 1"
+      | Template              | reportType:DefenseFlow_Analytics , Widgets:[Top Attacks by Rate], devices:[All], showTable:true |
+      | Format                | Select: CSV                                                                                     |
+      | Logo                  | reportLogoPNG.png                                                                               |
+      | Time Definitions.Date | Quick:This Week                                                                                 |
+      | Schedule              | Run Every:Daily,On Time:+2m                                                                     |
+    Then UI Delete Report With Name "Top Attacks by Rate Report 1"
 
   @SID_11
-  Scenario: Top Attacks by Rate Report - Time:  - Time: Relative: (Weeks), Schedule: (Weekly,THU)
+  Scenario: Top Attacks by Rate Report 2
     Then UI Click Button "New Report Tab"
-    Given UI "Create" Report With Name "Top Attacks by Rate Time_Relative_Weeks  Schedule_Weekly"
+    Given UI "Create" Report With Name "Top Attacks by Rate Report 2"
       | Template              | reportType:DefenseFlow_Analytics , Widgets:[Top Attacks by Rate],devices:[{deviceIndex:10}] |
       | Format                | Select: PDF                                                                                 |
       | Logo                  | reportLogoPNG.png                                                                           |
       | Time Definitions.Date | Relative:[Weeks,2]                                                                          |
       | Schedule              | Run Every:Weekly, On Time:+6H, At days:[THU]                                                |
       | Share                 | Email:[automation.vision2@radware.com],Subject:myEdit subject,Body:myEdit body              |
-
+    Given UI "Validate" Report With Name "Top Attacks by Rate Report 2"
+      | Template              | reportType:DefenseFlow_Analytics , Widgets:[Top Attacks by Rate],devices:[{deviceIndex:10}] |
+      | Format                | Select: PDF                                                                                 |
+      | Logo                  | reportLogoPNG.png                                                                           |
+      | Time Definitions.Date | Relative:[Weeks,2]                                                                          |
+      | Schedule              | Run Every:Weekly, On Time:+6H, At days:[THU]                                                |
+      | Share                 | Email:[automation.vision2@radware.com],Subject:myEdit subject,Body:myEdit body              |
+    Then UI Delete Report With Name "Top Attacks by Rate Report 2"
 
   @SID_12
-  Scenario:  Top Attacks by Rate Report - Time: Absolute, Schedule:(Monthly,MAY)
+  Scenario:  Top Attacks by Rate Report 3
     Then UI Click Button "New Report Tab"
-    Given UI "Create" Report With Name "Top Attacks by Rate Time_Absolute  Schedule_Monthly"
+    Given UI "Create" Report With Name "Top Attacks by Rate 3"
       | Template              | reportType:DefenseFlow_Analytics , Widgets:[Top Attacks by Rate],devices:[{deviceIndex:11}] |
       | Format                | Select: HTML                                                                                |
-      | Time Definitions.Date | Absolute:[27.02.1971 01:00:00, +0d]                                                         |
+      | Time Definitions.Date | Absolute:[27.02.1971 01:00, +0d]                                                            |
       | Schedule              | Run Every:Monthly, On Time:+6H, At Months:[MAY]                                             |
-
+    Given UI "Validate" Report With Name "Top Attacks by Rate 3"
+      | Template              | reportType:DefenseFlow_Analytics , Widgets:[Top Attacks by Rate],devices:[{deviceIndex:11}] |
+      | Format                | Select: HTML                                                                                |
+      | Time Definitions.Date | Absolute:[27.02.1971 01:00, +0d]                                                            |
+      | Schedule              | Run Every:Monthly, On Time:+6H, At Months:[MAY]                                             |
+    Then UI Delete Report With Name "Top Attacks by Rate 3"
 
   @SID_13
-  Scenario:  Top Attacks by Rate Report  - Time: Relative: (Months)
+  Scenario:  Top Attacks by Rate Report 4
     Then UI Click Button "New Report Tab"
-    Given UI "Create" Report With Name "Top Attacks by Rate  Time_Relative_Months"
+    Given UI "Create" Report With Name "Top Attacks by Rate Report 4"
       | Template              | reportType:DefenseFlow_Analytics , Widgets:[Top Attacks by Rate],devices:[All], showTable:true |
       | Format                | Select: CSV                                                                                    |
       | Time Definitions.Date | Relative:[Months,4]                                                                            |
       | Share                 | Email:[automation.vision2@radware.com],Subject:myEdit subject,Body:myEdit body                 |
+    Given UI "Validate" Report With Name "Top Attacks by Rate Report 4"
+      | Template              | reportType:DefenseFlow_Analytics , Widgets:[Top Attacks by Rate],devices:[All], showTable:true |
+      | Format                | Select: CSV                                                                                    |
+      | Time Definitions.Date | Relative:[Months,4]                                                                            |
+      | Share                 | Email:[automation.vision2@radware.com],Subject:myEdit subject,Body:myEdit body                 |
+    Then UI Delete Report With Name "Top Attacks by Rate Report 4"
 
 # ------------------------------------------------------------------------------------------------------------------------------------------------------------
 
   @SID_14
-  Scenario: Top Attacks by Protocol Report - Time: Quick Range (30m), Schedule:(Weekly,TUE)
+  Scenario: Top Attacks by Protocol Report 1
     Then UI Click Button "New Report Tab"
-    Given UI "Create" Report With Name "Top Attacks by Protocol  Time_Quick_30m  Schedule_Weekly"
+    Given UI "Create" Report With Name "Top Attacks by Protocol Report 1"
       | Template              | reportType:DefenseFlow_Analytics , Widgets:[Top Attacks by Protocol], devices:[All], showTable:true |
       | Format                | Select: CSV                                                                                         |
       | Logo                  | reportLogoPNG.png                                                                                   |
       | Time Definitions.Date | Quick:30m                                                                                           |
       | Schedule              | Run Every:Weekly, On Time:+6H, At days:[TUE]                                                        |
-
+    Given UI "Validate" Report With Name "Top Attacks by Protocol Report 1"
+      | Template              | reportType:DefenseFlow_Analytics , Widgets:[Top Attacks by Protocol], devices:[All], showTable:true |
+      | Format                | Select: CSV                                                                                         |
+      | Logo                  | reportLogoPNG.png                                                                                   |
+      | Time Definitions.Date | Quick:30m                                                                                           |
+      | Schedule              | Run Every:Weekly, On Time:+6H, At days:[TUE]                                                        |
+    Then UI Delete Report With Name "Top Attacks by Protocol Report 1"
 
   @SID_15
-  Scenario: Top Attacks by Protocol Report - Time: Absolute,  Schedule: (Months,APR)
+  Scenario: Top Attacks by Protocol Report 2
     Then UI Click Button "New Report Tab"
-    Given UI "Create" Report With Name "Top Attacks by Protocol  Time_Absolute  Schedule_Months"
+    Given UI "Create" Report With Name "Top Attacks by Protocol Report 2"
       | Template              | reportType:DefenseFlow_Analytics , Widgets:[Top Attacks by Protocol],devices:[{deviceIndex:10}] |
       | Format                | Select: PDF                                                                                     |
       | Logo                  | reportLogoPNG.png                                                                               |
-      | Time Definitions.Date | Absolute:[27.02.1971 01:00:00, +0d]                                                             |
+      | Time Definitions.Date | Absolute:[27.02.1971 01:00, +0d]                                                                |
       | Schedule              | Run Every:Monthly, On Time:+6H, At Months:[APR]                                                 |
       | Share                 | Email:[automation.vision2@radware.com],Subject:myEdit subject,Body:myEdit body                  |
-
+    Given UI "Validate" Report With Name "Top Attacks by Protocol Report 2"
+      | Template              | reportType:DefenseFlow_Analytics , Widgets:[Top Attacks by Protocol],devices:[{deviceIndex:10}] |
+      | Format                | Select: PDF                                                                                     |
+      | Logo                  | reportLogoPNG.png                                                                               |
+      | Time Definitions.Date | Absolute:[27.02.1971 01:00, +0d]                                                                |
+      | Schedule              | Run Every:Monthly, On Time:+6H, At Months:[APR]                                                 |
+      | Share                 | Email:[automation.vision2@radware.com],Subject:myEdit subject,Body:myEdit body                  |
+    Then UI Delete Report With Name "Top Attacks by Protocol Report 2"
 
   @SID_16
-  Scenario:  Top Attacks by Protocol Report - Time: Relative (Weeks)
+  Scenario:  Top Attacks by Protocol Report 3
     Then UI Click Button "New Report Tab"
-    Given UI "Create" Report With Name "Top Attacks by Protocol  Time_Relative_Weeks"
+    Given UI "Create" Report With Name "Top Attacks by Protocol Report 3"
       | Template              | reportType:DefenseFlow_Analytics , Widgets:[Top Attacks by Protocol],devices:[{deviceIndex:11}] |
       | Format                | Select: HTML                                                                                    |
       | Time Definitions.Date | Relative:[Weeks,2]                                                                              |
-
+    Given UI "Validate" Report With Name "Top Attacks by Protocol Report 3"
+      | Template              | reportType:DefenseFlow_Analytics , Widgets:[Top Attacks by Protocol],devices:[{deviceIndex:11}] |
+      | Format                | Select: HTML                                                                                    |
+      | Time Definitions.Date | Relative:[Weeks,2]                                                                              |
+    Then UI Delete Report With Name "Top Attacks by Protocol Report 3"
 
   @SID_17
-  Scenario:  Top Attacks by Protocol Report  -Time: Quick Range (Quarter), Schedule:(once)
+  Scenario:  Top Attacks by Protocol Report 4
     Then UI Click Button "New Report Tab"
-    Given UI "Create" Report With Name "Top Attacks by Protocol  Time_Quick_Quarter  Schedule_once"
+    Given UI "Create" Report With Name "Top Attacks by Protocol Report 4"
       | Template              | reportType:DefenseFlow_Analytics , Widgets:[Top Attacks by Protocol],devices:[All], showTable:true |
       | Format                | Select: CSV                                                                                        |
       | Time Definitions.Date | Quick:Quarter                                                                                      |
-      | Schedule              | Run Every:Once, On Time:+6H                                                                                     |
+      | Schedule              | Run Every:Once, On Time:+6H                                                                        |
       | Share                 | Email:[automation.vision2@radware.com],Subject:myEdit subject,Body:myEdit body                     |
+    Given UI "Validate" Report With Name "Top Attacks by Protocol Report 4"
+      | Template              | reportType:DefenseFlow_Analytics , Widgets:[Top Attacks by Protocol],devices:[All], showTable:true |
+      | Format                | Select: CSV                                                                                        |
+      | Time Definitions.Date | Quick:Quarter                                                                                      |
+      | Schedule              | Run Every:Once, On Time:+6H                                                                        |
+      | Share                 | Email:[automation.vision2@radware.com],Subject:myEdit subject,Body:myEdit body                     |
+    Then UI Delete Report With Name "Top Attacks by Protocol Report 4"
+
 # ------------------------------------------------------------------------------------------------------------------------------------------------------------
 
   @SID_18
-  Scenario: Top Attack Destination Report - Time: Quick Range (Previous Month)
+  Scenario: Top Attack Destination Report 1
     Then UI Click Button "New Report Tab"
-    Given UI "Create" Report With Name "Top Attack Destination  Time_Quick_Previous_Month"
+    Given UI "Create" Report With Name "Top Attack Destination Report 1"
       | Template              | reportType:DefenseFlow_Analytics , Widgets:[Top Attack Destination], devices:[All], showTable:true |
       | Format                | Select: CSV                                                                                        |
       | Logo                  | reportLogoPNG.png                                                                                  |
       | Time Definitions.Date | Quick:Previous Month                                                                               |
-
+    Given UI "Validate" Report With Name "Top Attack Destination Report 1"
+      | Template              | reportType:DefenseFlow_Analytics , Widgets:[Top Attack Destination], devices:[All], showTable:true |
+      | Format                | Select: CSV                                                                                        |
+      | Logo                  | reportLogoPNG.png                                                                                  |
+      | Time Definitions.Date | Quick:Previous Month                                                                               |
+    Then UI Delete Report With Name "Top Attack Destination Report 1"
 
   @SID_19
-  Scenario: Top Attack Destination Report - Time: Quick Range (This Month), Schedule: (Once)
+  Scenario: Top Attack Destination Report 2
     Then UI Click Button "New Report Tab"
-    Given UI "Create" Report With Name "Top Attack Destination  Time_Quick_This Month  Schedule_Once"
+    Given UI "Create" Report With Name "Top Attack Destination  Report 2"
       | Template              | reportType:DefenseFlow_Analytics , Widgets:[Top Attack Destination],devices:[{deviceIndex:10}] |
       | Format                | Select: PDF                                                                                    |
       | Logo                  | reportLogoPNG.png                                                                              |
       | Time Definitions.Date | Quick:This Month                                                                               |
-      | Schedule              | Run Every:Once, On Time:+6H                                                                                 |
+      | Schedule              | Run Every:Once, On Time:+6H                                                                    |
       | Share                 | Email:[automation.vision2@radware.com],Subject:myEdit subject,Body:myEdit body                 |
-
+    Given UI "Validate" Report With Name "Top Attack Destination  Report 2"
+      | Template              | reportType:DefenseFlow_Analytics , Widgets:[Top Attack Destination],devices:[{deviceIndex:10}] |
+      | Format                | Select: PDF                                                                                    |
+      | Logo                  | reportLogoPNG.png                                                                              |
+      | Time Definitions.Date | Quick:This Month                                                                               |
+      | Schedule              | Run Every:Once, On Time:+6H                                                                    |
+      | Share                 | Email:[automation.vision2@radware.com],Subject:myEdit subject,Body:myEdit body                 |
+    Then UI Delete Report With Name "Top Attack Destination  Report 2"
 
   @SID_20
-  Scenario:  Top Attack Destination Report - Time: Absolute, Schedule:(Monthly,MAR)
+  Scenario:  Top Attack Destination Report 3
     Then UI Click Button "New Report Tab"
-    Given UI "Create" Report With Name "Top Attack Destination  Time_Absolute  Schedule_Monthly"
+    Given UI "Create" Report With Name "Top Attack Destination Report 3"
       | Template              | reportType:DefenseFlow_Analytics , Widgets:[Top Attack Destination],devices:[{deviceIndex:11}] |
       | Format                | Select: HTML                                                                                   |
-      | Time Definitions.Date | Absolute:[27.02.1971 01:00:00, +0d]                                                            |
+      | Time Definitions.Date | Absolute:[27.02.1971 01:00, +0d]                                                               |
       | Schedule              | Run Every:Monthly, On Time:+6H, At Months:[MAR]                                                |
+    Given UI "Validate" Report With Name "Top Attack Destination Report 3"
+      | Template              | reportType:DefenseFlow_Analytics , Widgets:[Top Attack Destination],devices:[{deviceIndex:11}] |
+      | Format                | Select: HTML                                                                                   |
+      | Time Definitions.Date | Absolute:[27.02.1971 01:00, +0d]                                                               |
+      | Schedule              | Run Every:Monthly, On Time:+6H, At Months:[MAR]                                                |
+    Then UI Delete Report With Name "Top Attack Destination Report 3"
 
   @SID_21
-  Scenario:  Top Attack Destination Report  -Time: Relative:(Hours), Schedule:(Weekly,WED)
+  Scenario:  Top Attack Destination Report 4
     Then UI Click Button "New Report Tab"
-    Given UI "Create" Report With Name "Top Attack Destination  Time_Relative_Hours  Schedule_Weekly"
+    Given UI "Create" Report With Name "Top Attack Destination Report 4"
       | Template              | reportType:DefenseFlow_Analytics , Widgets:[Top Attack Destination],devices:[All], showTable:true |
       | Format                | Select: CSV                                                                                       |
       | Time Definitions.Date | Relative:[Hours,3]                                                                                |
       | Schedule              | Run Every:Weekly, On Time:+6H, At days:[WED]                                                      |
       | Share                 | Email:[automation.vision2@radware.com],Subject:myEdit subject,Body:myEdit body                    |
+    Given UI "Validate" Report With Name "Top Attack Destination Report 4"
+      | Template              | reportType:DefenseFlow_Analytics , Widgets:[Top Attack Destination],devices:[All], showTable:true |
+      | Format                | Select: CSV                                                                                       |
+      | Time Definitions.Date | Relative:[Hours,3]                                                                                |
+      | Schedule              | Run Every:Weekly, On Time:+6H, At days:[WED]                                                      |
+      | Share                 | Email:[automation.vision2@radware.com],Subject:myEdit subject,Body:myEdit body                    |
+    Then UI Delete Report With Name "Top Attack Destination Report 4"
+
 # ------------------------------------------------------------------------------------------------------------------------------------------------------------
 
   @SID_22
-  Scenario: Top Attack Sources Report - Time: Quick Range (15m)
+  Scenario: Top Attack Sources Report 1
     Then UI Click Button "New Report Tab"
-    Given UI "Create" Report With Name "Top Attack Sources  Time_Quick_15m"
+    Given UI "Create" Report With Name "Top Attack Sources Report 1"
       | Template              | reportType:DefenseFlow_Analytics , Widgets:[Top Attack Sources], devices:[All], showTable:true |
       | Format                | Select: CSV                                                                                    |
       | Logo                  | reportLogoPNG.png                                                                              |
       | Time Definitions.Date | Quick:15m                                                                                      |
-
+    Given UI "Validate" Report With Name "Top Attack Sources Report 1"
+      | Template              | reportType:DefenseFlow_Analytics , Widgets:[Top Attack Sources], devices:[All], showTable:true |
+      | Format                | Select: CSV                                                                                    |
+      | Logo                  | reportLogoPNG.png                                                                              |
+      | Time Definitions.Date | Quick:15m                                                                                      |
+    Then UI Delete Report With Name "Top Attack Sources Report 1"
 
   @SID_23
-  Scenario: Top Attack Sources Report - Time: Quick Range (This Week), Schedule:(Monthly,AUG)
+  Scenario: Top Attack Sources Report 2
     Then UI Click Button "New Report Tab"
-    Given UI "Create" Report With Name "Top Attack Sources  Time_Quick_This Week  Schedule_Monthly"
+    Given UI "Create" Report With Name "Top Attack Sources Report 2"
       | Template              | reportType:DefenseFlow_Analytics , Widgets:[Top Attack Sources],devices:[{deviceIndex:10}] |
       | Format                | Select: PDF                                                                                |
       | Logo                  | reportLogoPNG.png                                                                          |
       | Time Definitions.Date | Quick:This Week                                                                            |
       | Schedule              | Run Every:Monthly, On Time:+6H, At Months:[AUG]                                            |
       | Share                 | Email:[automation.vision2@radware.com],Subject:myEdit subject,Body:myEdit body             |
-
+    Given UI "Validate" Report With Name "Top Attack Sources Report 2"
+      | Template              | reportType:DefenseFlow_Analytics , Widgets:[Top Attack Sources],devices:[{deviceIndex:10}] |
+      | Format                | Select: PDF                                                                                |
+      | Logo                  | reportLogoPNG.png                                                                          |
+      | Time Definitions.Date | Quick:This Week                                                                            |
+      | Schedule              | Run Every:Monthly, On Time:+6H, At Months:[AUG]                                            |
+      | Share                 | Email:[automation.vision2@radware.com],Subject:myEdit subject,Body:myEdit body             |
+    Then UI Delete Report With Name "Top Attack Sources Report 2"
 
   @SID_24
-  Scenario:  Top Attack Sources Report - Time: Absolute, Schedule:(Monthly,MAR)
+  Scenario:  Top Attack Sources Report 3
     Then UI Click Button "New Report Tab"
-    Given UI "Create" Report With Name "Top Attack Sources  Time_Absolute  Schedule_Monthly"
+    Given UI "Create" Report With Name "Top Attack Sources Report 3"
       | Template              | reportType:DefenseFlow_Analytics , Widgets:[Top Attack Sources],devices:[{deviceIndex:11}] |
       | Format                | Select: HTML                                                                               |
-      | Time Definitions.Date | Absolute:[27.02.1971 01:00:00, +0d]                                                        |
+      | Time Definitions.Date | Absolute:[27.02.1971 01:00, +0d]                                                           |
       | Schedule              | Run Every:Monthly, On Time:+6H, At Months:[MAR]                                            |
+    Given UI "Validate" Report With Name "Top Attack Sources Report 3"
+      | Template              | reportType:DefenseFlow_Analytics , Widgets:[Top Attack Sources],devices:[{deviceIndex:11}] |
+      | Format                | Select: HTML                                                                               |
+      | Time Definitions.Date | Absolute:[27.02.1971 01:00, +0d]                                                           |
+      | Schedule              | Run Every:Monthly, On Time:+6H, At Months:[MAR]                                            |
+    Then UI Delete Report With Name "Top Attack Sources Report 3"
 
   @SID_25
-  Scenario:  Top Attack Sources Report  -Time: Relative:(Weeks), Schedule:(Daily)
+  Scenario:  Top Attack Sources Report 4
     Then UI Click Button "New Report Tab"
-    Given UI "Create" Report With Name "Top Attack Sources  Time_Relative_Weeks  Schedule_Daily"
+    Given UI "Create" Report With Name "Top Attack Sources Report 4"
       | Template              | reportType:DefenseFlow_Analytics , Widgets:[Top Attack Sources],devices:[All], showTable:true |
       | Format                | Select: CSV                                                                                   |
       | Time Definitions.Date | Relative:[Weeks,3]                                                                            |
       | Schedule              | Run Every:Daily,On Time:+2m                                                                   |
       | Share                 | Email:[automation.vision2@radware.com],Subject:myEdit subject,Body:myEdit body                |
+    Given UI "Validate" Report With Name "Top Attack Sources Report 4"
+      | Template              | reportType:DefenseFlow_Analytics , Widgets:[Top Attack Sources],devices:[All], showTable:true |
+      | Format                | Select: CSV                                                                                   |
+      | Time Definitions.Date | Relative:[Weeks,3]                                                                            |
+      | Schedule              | Run Every:Daily,On Time:+2m                                                                   |
+      | Share                 | Email:[automation.vision2@radware.com],Subject:myEdit subject,Body:myEdit body                |
+    Then UI Delete Report With Name "Top Attack Sources Report 4"
 
 # ------------------------------------------------------------------------------------------------------------------------------------------------------------
 
   @SID_26
-  Scenario: Traffic Bandwidth Report - Time: Absolute, Schedule:(Weekly,SUN)
+  Scenario: Traffic Bandwidth Report 1
     Then UI Click Button "New Report Tab"
-    Given UI "Create" Report With Name "Traffic Bandwidth  Time_Absolute  Schedule_Weekly"
+    Given UI "Create" Report With Name "Traffic Bandwidth Report 1"
       | Template              | reportType:DefenseFlow_Analytics , Widgets:[{Traffic Bandwidth:[30]},Traffic Bandwidth], devices:[All], showTable:true |
       | Format                | Select: CSV                                                                                                            |
       | Logo                  | reportLogoPNG.png                                                                                                      |
-      | Time Definitions.Date | Absolute:[27.02.1971 01:00:00, +0d]                                                                                    |
+      | Time Definitions.Date | Absolute:[27.02.1971 01:00, +0d]                                                                                       |
       | Schedule              | Run Every:Weekly, On Time:+6H, At days:[SUN]                                                                           |
-
+    Given UI "Validate" Report With Name "Traffic Bandwidth Report 1"
+      | Template              | reportType:DefenseFlow_Analytics , Widgets:[{Traffic Bandwidth:[30]},Traffic Bandwidth], devices:[All], showTable:true |
+      | Format                | Select: CSV                                                                                                            |
+      | Logo                  | reportLogoPNG.png                                                                                                      |
+      | Time Definitions.Date | Absolute:[27.02.1971 01:00, +0d]                                                                                       |
+      | Schedule              | Run Every:Weekly, On Time:+6H, At days:[SUN]                                                                           |
+    Then UI Delete Report With Name "Traffic Bandwidth Report 1"
 
   @SID_27
-  Scenario: Traffic Bandwidth Report - Time: Quick Range (3M), Schedule:(Monthly,DEC)
+  Scenario: Traffic Bandwidth Report 2
     Then UI Click Button "New Report Tab"
-    Given UI "Create" Report With Name "Traffic Bandwidth  Time_Quick_3M  Schedule_Monthly"
+    Given UI "Create" Report With Name "Traffic Bandwidth Report 2"
       | Template              | reportType:DefenseFlow_Analytics , Widgets:[{Traffic Bandwidth:[40]},Traffic Bandwidth],devices:[{deviceIndex:10}] |
       | Format                | Select: PDF                                                                                                        |
       | Logo                  | reportLogoPNG.png                                                                                                  |
       | Time Definitions.Date | Quick:3M                                                                                                           |
       | Schedule              | Run Every:Monthly, On Time:+6H, At Months:[DEC]                                                                    |
       | Share                 | Email:[automation.vision2@radware.com],Subject:myEdit subject,Body:myEdit body                                     |
-
+    Given UI "Validate" Report With Name "Traffic Bandwidth Report 2"
+      | Template              | reportType:DefenseFlow_Analytics , Widgets:[{Traffic Bandwidth:[40]},Traffic Bandwidth],devices:[{deviceIndex:10}] |
+      | Format                | Select: PDF                                                                                                        |
+      | Logo                  | reportLogoPNG.png                                                                                                  |
+      | Time Definitions.Date | Quick:3M                                                                                                           |
+      | Schedule              | Run Every:Monthly, On Time:+6H, At Months:[DEC]                                                                    |
+      | Share                 | Email:[automation.vision2@radware.com],Subject:myEdit subject,Body:myEdit body                                     |
+    Then UI Delete Report With Name "Traffic Bandwidth Report 2"
 
   @SID_28
-  Scenario:  Traffic Bandwidth Report - Time: -Time: Quick Range (This Month)
+  Scenario:  Traffic Bandwidth Report 3
     Then UI Click Button "New Report Tab"
-    Given UI "Create" Report With Name "Traffic Bandwidth  Time_Time_Quick_This Month"
+    Given UI "Create" Report With Name "Traffic Bandwidth Report 3"
       | Template              | reportType:DefenseFlow_Analytics , Widgets:[{Traffic Bandwidth:[All]},Traffic Bandwidth],devices:[{deviceIndex:11},{deviceIndex:10}] |
       | Format                | Select: HTML                                                                                                                         |
       | Time Definitions.Date | Quick:This Month                                                                                                                     |
+    Given UI "Validate" Report With Name "Traffic Bandwidth Report 3"
+      | Template              | reportType:DefenseFlow_Analytics , Widgets:[{Traffic Bandwidth:[All]},Traffic Bandwidth],devices:[{deviceIndex:11},{deviceIndex:10}] |
+      | Format                | Select: HTML                                                                                                                         |
+      | Time Definitions.Date | Quick:This Month                                                                                                                     |
+    Then UI Delete Report With Name "Traffic Bandwidth Report 3"
 
   @SID_29
-  Scenario:  Traffic Bandwidth Report  -Time: Quick Range (1H), Schedule:(Monthly,MAR)
+  Scenario:  Traffic Bandwidth Report 4
     Then UI Click Button "New Report Tab"
-    Given UI "Create" Report With Name "Traffic Bandwidth  Time_Quick_1H  Schedule_Monthly"
+    Given UI "Create" Report With Name "Traffic Bandwidth Report 4"
       | Template              | reportType:DefenseFlow_Analytics , Widgets:[{Traffic Bandwidth:[All]},Traffic Bandwidth],devices:[All] |
       | Format                | Select: HTML                                                                                           |
       | Time Definitions.Date | Quick:1H                                                                                               |
       | Schedule              | Run Every:Monthly, On Time:+6H, At Months:[MAR]                                                        |
+    Given UI "Validate" Report With Name "Traffic Bandwidth Report 4"
+      | Template              | reportType:DefenseFlow_Analytics , Widgets:[{Traffic Bandwidth:[All]},Traffic Bandwidth],devices:[All] |
+      | Format                | Select: HTML                                                                                           |
+      | Time Definitions.Date | Quick:1H                                                                                               |
+      | Schedule              | Run Every:Monthly, On Time:+6H, At Months:[MAR]                                                        |
+    Then UI Delete Report With Name "Traffic Bandwidth Report 4"
 
 # ------------------------------------------------------------------------------------------------------------------------------------------------------------
 
   @SID_30
-  Scenario: Traffic Rate Report - Time: Quick Range (15m)
+  Scenario: Traffic Rate Report 1
     Then UI Click Button "New Report Tab"
-    Given UI "Create" Report With Name "Traffic Rate  Time_Quick_15m"
+    Given UI "Create" Report With Name "Traffic Rate Report 1"
       | Template              | reportType:DefenseFlow_Analytics , Widgets:[Traffic Rate], devices:[All], showTable:true |
       | Format                | Select: CSV                                                                              |
       | Logo                  | reportLogoPNG.png                                                                        |
       | Time Definitions.Date | Quick:15m                                                                                |
-
+    Given UI "Validate" Report With Name "Traffic Rate Report 1"
+      | Template              | reportType:DefenseFlow_Analytics , Widgets:[Traffic Rate], devices:[All], showTable:true |
+      | Format                | Select: CSV                                                                              |
+      | Logo                  | reportLogoPNG.png                                                                        |
+      | Time Definitions.Date | Quick:15m                                                                                |
+    Then UI Delete Report With Name "Traffic Rate Report 1"
 
   @SID_31
-  Scenario: Traffic Rate Report - Time: Quick Range Absolute, Schedule:(Monthly,OCT)
+  Scenario: Traffic Rate Report 2
     Then UI Click Button "New Report Tab"
-    Given UI "Create" Report With Name "Traffic Rate  Time_Quick_Absolute  Schedule_Monthly"
+    Given UI "Create" Report With Name "Traffic Rate Report 2"
       | Template              | reportType:DefenseFlow_Analytics , Widgets:[Traffic Rate],devices:[{deviceIndex:11}] |
       | Format                | Select: PDF                                                                          |
       | Logo                  | reportLogoPNG.png                                                                    |
-      | Time Definitions.Date | Absolute:[27.02.1971 01:00:00, +0d]                                                  |
+      | Time Definitions.Date | Absolute:[27.02.1971 01:00, +0d]                                                     |
       | Schedule              | Run Every:Monthly, On Time:+6H, At Months:[OCT]                                      |
       | Share                 | Email:[automation.vision2@radware.com],Subject:myEdit subject,Body:myEdit body       |
-
+    Given UI "Validate" Report With Name "Traffic Rate Report 2"
+      | Template              | reportType:DefenseFlow_Analytics , Widgets:[Traffic Rate],devices:[{deviceIndex:11}] |
+      | Format                | Select: PDF                                                                          |
+      | Logo                  | reportLogoPNG.png                                                                    |
+      | Time Definitions.Date | Absolute:[27.02.1971 01:00, +0d]                                                     |
+      | Schedule              | Run Every:Monthly, On Time:+6H, At Months:[OCT]                                      |
+      | Share                 | Email:[automation.vision2@radware.com],Subject:myEdit subject,Body:myEdit body       |
+    Then UI Delete Report With Name "Traffic Rate Report 2"
 
   @SID_32
-  Scenario:  Traffic Rate Report - Time: Relative:(Days), Schedule:(Weekly,SUN)
+  Scenario:  Traffic Rate Report 3
     Then UI Click Button "New Report Tab"
-    Given UI "Create" Report With Name "Traffic Rate  Time_Relative_Days  Schedule_Weekly"
+    Given UI "Create" Report With Name "Traffic Rate Report 3"
       | Template              | reportType:DefenseFlow_Analytics , Widgets:[Traffic Rate],devices:[{deviceIndex:11},{deviceIndex:10}] |
       | Format                | Select: HTML                                                                                          |
       | Time Definitions.Date | Relative:[Days,3]                                                                                     |
       | Schedule              | Run Every:Weekly, On Time:+6H, At days:[SUN]                                                          |
+    Given UI "Validate" Report With Name "Traffic Rate Report 3"
+      | Template              | reportType:DefenseFlow_Analytics , Widgets:[Traffic Rate],devices:[{deviceIndex:11},{deviceIndex:10}] |
+      | Format                | Select: HTML                                                                                          |
+      | Time Definitions.Date | Relative:[Days,3]                                                                                     |
+      | Schedule              | Run Every:Weekly, On Time:+6H, At days:[SUN]                                                          |
+    Then UI Delete Report With Name "Traffic Rate Report 3"
 
   @SID_33
-  Scenario:  Traffic Rate Report  -Time: Relative:(Months)
+  Scenario:  Traffic Rate Report 4
     Then UI Click Button "New Report Tab"
-    Given UI "Create" Report With Name "Traffic Rate  Time_Relative_Months"
+    Given UI "Create" Report With Name "Traffic Rate Report 4"
       | Template              | reportType:DefenseFlow_Analytics , Widgets:[Traffic Rate],devices:[All], showTable:true |
       | Format                | Select: CSV                                                                             |
       | Time Definitions.Date | Relative:[Months,4]                                                                     |
       | Share                 | Email:[automation.vision2@radware.com],Subject:myEdit subject,Body:myEdit body          |
-
+    Given UI "Validate" Report With Name "Traffic Rate Report 4"
+      | Template              | reportType:DefenseFlow_Analytics , Widgets:[Traffic Rate],devices:[All], showTable:true |
+      | Format                | Select: CSV                                                                             |
+      | Time Definitions.Date | Relative:[Months,4]                                                                     |
+      | Share                 | Email:[automation.vision2@radware.com],Subject:myEdit subject,Body:myEdit body          |
+    Then UI Delete Report With Name "Traffic Rate Report 4"
 
 # ------------------------------------------------------------------------------------------------------------------------------------------------------------
 
   @SID_34
-  Scenario: DDoS Peak Attack per Period Report - Time: Quick Range (1D), Schedule:(Weekly,FRI)
+  Scenario: DDoS Peak Attack per Period Report 1
     Then UI Click Button "New Report Tab"
-    Given UI "Create" Report With Name "DDoS Peak Attack per Period  Time_Quick_1D  Schedule_Weekly"
+    Given UI "Create" Report With Name "DDoS Peak Attack per Period Report 1"
       | Template              | reportType:DefenseFlow_Analytics , Widgets:[DDoS Peak Attack per Period], devices:[All], showTable:true |
       | Format                | Select: CSV                                                                                             |
       | Logo                  | reportLogoPNG.png                                                                                       |
       | Time Definitions.Date | Quick:1D                                                                                                |
       | Schedule              | Run Every:Weekly, On Time:+6H, At days:[FRI]                                                            |
-
+    Given UI "Validate" Report With Name "DDoS Peak Attack per Period Report 1"
+      | Template              | reportType:DefenseFlow_Analytics , Widgets:[DDoS Peak Attack per Period], devices:[All], showTable:true |
+      | Format                | Select: CSV                                                                                             |
+      | Logo                  | reportLogoPNG.png                                                                                       |
+      | Time Definitions.Date | Quick:1D                                                                                                |
+      | Schedule              | Run Every:Weekly, On Time:+6H, At days:[FRI]                                                            |
+    Then UI Delete Report With Name "DDoS Peak Attack per Period Report 1"
 
   @SID_35
-  Scenario: DDoS Peak Attack per Period Report - Time: Quick Range Absolute, Schedule:(once)
+  Scenario: DDoS Peak Attack per Period Report 2
     Then UI Click Button "New Report Tab"
-    Given UI "Create" Report With Name "DDoS Peak Attack per Period  Time_Quick_Absolute  Schedule_once"
+    Given UI "Create" Report With Name "DDoS Peak Attack per Period Report 2"
       | Template              | reportType:DefenseFlow_Analytics , Widgets:[DDoS Peak Attack per Period],devices:[{deviceIndex:11}] |
       | Format                | Select: PDF                                                                                         |
       | Logo                  | reportLogoPNG.png                                                                                   |
-      | Time Definitions.Date | Absolute:[27.02.1971 01:00:00, +0d]                                                                 |
-      | Schedule              | Run Every:Once, On Time:+6H                                                                                      |
+      | Time Definitions.Date | Absolute:[27.02.1971 01:00, +0d]                                                                    |
+      | Schedule              | Run Every:Once, On Time:+6H                                                                         |
       | Share                 | Email:[automation.vision2@radware.com],Subject:myEdit subject,Body:myEdit body                      |
-
+    Given UI "Validate" Report With Name "DDoS Peak Attack per Period Report 2"
+      | Template              | reportType:DefenseFlow_Analytics , Widgets:[DDoS Peak Attack per Period],devices:[{deviceIndex:11}] |
+      | Format                | Select: PDF                                                                                         |
+      | Logo                  | reportLogoPNG.png                                                                                   |
+      | Time Definitions.Date | Absolute:[27.02.1971 01:00, +0d]                                                                    |
+      | Schedule              | Run Every:Once, On Time:+6H                                                                         |
+      | Share                 | Email:[automation.vision2@radware.com],Subject:myEdit subject,Body:myEdit body                      |
+    Then UI Delete Report With Name "DDoS Peak Attack per Period Report 2"
 
   @SID_36
-  Scenario:  DDoS Peak Attack per Period Report - Time: Quick Range (This Week)
+  Scenario:  DDoS Peak Attack per Period Report 3
     Then UI Click Button "New Report Tab"
-    Given UI "Create" Report With Name "DDoS Peak Attack per Period  Time_Quick_This Week"
+    Given UI "Create" Report With Name "DDoS Peak Attack per Period Report 3"
       | Template              | reportType:DefenseFlow_Analytics , Widgets:[DDoS Peak Attack per Period],devices:[{deviceIndex:10}] |
       | Format                | Select: HTML                                                                                        |
       | Time Definitions.Date | Quick:This Week                                                                                     |
-
+    Given UI "Validate" Report With Name "DDoS Peak Attack per Period Report 3"
+      | Template              | reportType:DefenseFlow_Analytics , Widgets:[DDoS Peak Attack per Period],devices:[{deviceIndex:10}] |
+      | Format                | Select: HTML                                                                                        |
+      | Time Definitions.Date | Quick:This Week                                                                                     |
+    Then UI Delete Report With Name "DDoS Peak Attack per Period Report 3"
 
   @SID_37
-  Scenario:  DDoS Peak Attack per Period Report  -Time: Relative:(Days)
+  Scenario:  DDoS Peak Attack per Period Report 4
     Then UI Click Button "New Report Tab"
-    Given UI "Create" Report With Name "DDoS Peak Attack per Period  Time_Relative_Days"
+    Given UI "Create" Report With Name "DDoS Peak Attack per Period Report 4"
       | Template              | reportType:DefenseFlow_Analytics , Widgets:[DDoS Peak Attack per Period],devices:[All], showTable:true |
       | Format                | Select: CSV                                                                                            |
       | Time Definitions.Date | Relative:[Days,3]                                                                                      |
       | Share                 | Email:[automation.vision2@radware.com],Subject:myEdit subject,Body:myEdit body                         |
-
+    Given UI "Validate" Report With Name "DDoS Peak Attack per Period Report 4"
+      | Template              | reportType:DefenseFlow_Analytics , Widgets:[DDoS Peak Attack per Period],devices:[All], showTable:true |
+      | Format                | Select: CSV                                                                                            |
+      | Time Definitions.Date | Relative:[Days,3]                                                                                      |
+      | Share                 | Email:[automation.vision2@radware.com],Subject:myEdit subject,Body:myEdit body                         |
+    Then UI Delete Report With Name "DDoS Peak Attack per Period Report 4"
 
 # ------------------------------------------------------------------------------------------------------------------------------------------------------------
 
   @SID_38
-  Scenario: DDoS Attack Activations per Period Report - Time: Quick Range (This Week), Schedule:(Daily)
+  Scenario: DDoS Attack Activations per Period Report 1
     Then UI Click Button "New Report Tab"
-    Given UI "Create" Report With Name "DDoS Attack Activations per Period  Time_Quick_This Week  Schedule_Daily"
+    Given UI "Create" Report With Name "DDoS Attack Activations per Period Report 1"
       | Template              | reportType:DefenseFlow_Analytics , Widgets:[DDoS Attack Activations per Period], devices:[All], showTable:true |
       | Format                | Select: CSV                                                                                                    |
       | Logo                  | reportLogoPNG.png                                                                                              |
       | Time Definitions.Date | Quick:This Week                                                                                                |
       | Schedule              | Run Every:Daily,On Time:+2m                                                                                    |
-
+    Given UI "Validate" Report With Name "DDoS Attack Activations per Period Report 1"
+      | Template              | reportType:DefenseFlow_Analytics , Widgets:[DDoS Attack Activations per Period], devices:[All], showTable:true |
+      | Format                | Select: CSV                                                                                                    |
+      | Logo                  | reportLogoPNG.png                                                                                              |
+      | Time Definitions.Date | Quick:This Week                                                                                                |
+      | Schedule              | Run Every:Daily,On Time:+2m                                                                                    |
+    Then UI Delete Report With Name "DDoS Attack Activations per Period Report 1"
 
   @SID_39
-  Scenario: DDoS Attack Activations per Period Report - Time: Relative: (Weeks), Schedule:(Weekly,THU)
+  Scenario: DDoS Attack Activations per Period Report 2
     Then UI Click Button "New Report Tab"
-    Given UI "Create" Report With Name "DDoS Attack Activations per Period  Time_Relative_Weeks  Schedule_Weekly"
+    Given UI "Create" Report With Name "DDoS Attack Activations per Period Report 2"
       | Template              | reportType:DefenseFlow_Analytics , Widgets:[DDoS Attack Activations per Period],devices:[{deviceIndex:10},{deviceIndex:11}] |
       | Format                | Select: PDF                                                                                                                 |
       | Logo                  | reportLogoPNG.png                                                                                                           |
       | Time Definitions.Date | Relative:[Weeks,2]                                                                                                          |
       | Schedule              | Run Every:Weekly, On Time:+6H, At days:[THU]                                                                                |
       | Share                 | Email:[automation.vision2@radware.com],Subject:myEdit subject,Body:myEdit body                                              |
-
+    Given UI "Validate" Report With Name "DDoS Attack Activations per Period Report 2"
+      | Template              | reportType:DefenseFlow_Analytics , Widgets:[DDoS Attack Activations per Period],devices:[{deviceIndex:10},{deviceIndex:11}] |
+      | Format                | Select: PDF                                                                                                                 |
+      | Logo                  | reportLogoPNG.png                                                                                                           |
+      | Time Definitions.Date | Relative:[Weeks,2]                                                                                                          |
+      | Schedule              | Run Every:Weekly, On Time:+6H, At days:[THU]                                                                                |
+      | Share                 | Email:[automation.vision2@radware.com],Subject:myEdit subject,Body:myEdit body                                              |
+    Then UI Delete Report With Name "DDoS Attack Activations per Period Report 2"
 
   @SID_40
-  Scenario:  DDoS Attack Activations per Period Report - Time: Absolute, Schedule:(Monthly,MAY)
+  Scenario:  DDoS Attack Activations per Period Report 3
     Then UI Click Button "New Report Tab"
-    Given UI "Create" Report With Name "DDoS Attack Activations per Period  Time_Quick_This Week  Schedule_Monthly"
+    Given UI "Create" Report With Name "DDoS Attack Activations per Period Report 3"
       | Template              | reportType:DefenseFlow_Analytics , Widgets:[DDoS Attack Activations per Period],devices:[{deviceIndex:10}] |
       | Format                | Select: HTML                                                                                               |
-      | Time Definitions.Date | Absolute:[27.02.1971 01:00:00, +0d]                                                                        |
+      | Time Definitions.Date | Absolute:[27.02.1971 01:00, +0d]                                                                           |
       | Schedule              | Run Every:Monthly, On Time:+6H, At Months:[MAY]                                                            |
-
+    Given UI "Validate" Report With Name "DDoS Attack Activations per Period Report 3"
+      | Template              | reportType:DefenseFlow_Analytics , Widgets:[DDoS Attack Activations per Period],devices:[{deviceIndex:10}] |
+      | Format                | Select: HTML                                                                                               |
+      | Time Definitions.Date | Absolute:[27.02.1971 01:00, +0d]                                                                           |
+      | Schedule              | Run Every:Monthly, On Time:+6H, At Months:[MAY]                                                            |
+    Then UI Delete Report With Name "DDoS Attack Activations per Period Report 3"
 
   @SID_41
-  Scenario:  DDoS Attack Activations per Period Report  -Time: Relative:(Months)
+  Scenario:  DDoS Attack Activations per Period Report 4
     Then UI Click Button "New Report Tab"
-    Given UI "Create" Report With Name "DDoS Attack Activations per Period  Time_Relative_Months"
+    Given UI "Create" Report With Name "DDoS Attack Activations per Period Report 4"
       | Template              | reportType:DefenseFlow_Analytics , Widgets:[DDoS Attack Activations per Period],devices:[All], showTable:true |
       | Format                | Select: CSV                                                                                                   |
       | Time Definitions.Date | Relative:[Months,3]                                                                                           |
       | Share                 | Email:[automation.vision2@radware.com],Subject:myEdit subject,Body:myEdit body                                |
-
+    Given UI "Validate" Report With Name "DDoS Attack Activations per Period Report 4"
+      | Template              | reportType:DefenseFlow_Analytics , Widgets:[DDoS Attack Activations per Period],devices:[All], showTable:true |
+      | Format                | Select: CSV                                                                                                   |
+      | Time Definitions.Date | Relative:[Months,3]                                                                                           |
+      | Share                 | Email:[automation.vision2@radware.com],Subject:myEdit subject,Body:myEdit body                                |
+    Then UI Delete Report With Name "DDoS Attack Activations per Period Report 4"
 
 # ------------------------------------------------------------------------------------------------------------------------------------------------------------
 
   @SID_42
-  Scenario:  Top 10 Activations by Duration Report - Time: Quick Range (30m), Schedule:(Weekly,TUE)
+  Scenario: Top 10 Activations by Duration Report 1
     Then UI Click Button "New Report Tab"
-    Given UI "Create" Report With Name " Top 10 Activations by Duration  Time_Quick_30m  Schedule_Weekly"
-      | Template              | reportType:DefenseFlow_Analytics , Widgets:[ Top 10 Activations by Duration], devices:[All], showTable:true |
-      | Format                | Select: CSV                                                                                                 |
-      | Logo                  | reportLogoPNG.png                                                                                           |
-      | Time Definitions.Date | Quick:30m                                                                                                   |
-      | Schedule              | Run Every:Weekly, On Time:+6H, At days:[TUE]                                                                |
-
+    Given UI "Create" Report With Name "Top 10 Activations by Duration Report 1"
+      | Template              | reportType:DefenseFlow_Analytics , Widgets:[Top 10 Activations by Duration], devices:[All], showTable:true |
+      | Format                | Select: CSV                                                                                                |
+      | Logo                  | reportLogoPNG.png                                                                                          |
+      | Time Definitions.Date | Quick:30m                                                                                                  |
+      | Schedule              | Run Every:Weekly, On Time:+6H, At days:[TUE]                                                               |
+    Given UI "Validate" Report With Name "Top 10 Activations by Duration Report 1"
+      | Template              | reportType:DefenseFlow_Analytics , Widgets:[Top 10 Activations by Duration], devices:[All], showTable:true |
+      | Format                | Select: CSV                                                                                                |
+      | Logo                  | reportLogoPNG.png                                                                                          |
+      | Time Definitions.Date | Quick:30m                                                                                                  |
+      | Schedule              | Run Every:Weekly, On Time:+6H, At days:[TUE]                                                               |
+    Then UI Delete Report With Name "Top 10 Activations by Duration Report 1"
 
   @SID_43
-  Scenario:  Top 10 Activations by Duration Report - Time: Absolute, Schedule:(Monthly,APR)
+  Scenario: Top 10 Activations by Duration Report 2
     Then UI Click Button "New Report Tab"
-    Given UI "Create" Report With Name " Top 10 Activations by Duration  Time_Relative_Weeks  Schedule_Monthly"
-      | Template              | reportType:DefenseFlow_Analytics , Widgets:[ Top 10 Activations by Duration],devices:[{deviceIndex:10},{deviceIndex:11}] |
-      | Format                | Select: PDF                                                                                                              |
-      | Logo                  | reportLogoPNG.png                                                                                                        |
-      | Time Definitions.Date | Absolute:[27.02.1971 01:00:00, +0d]                                                                                      |
-      | Schedule              | Run Every:Monthly, On Time:+6H, At Months:[APR]                                                                          |
-      | Share                 | Email:[automation.vision2@radware.com],Subject:myEdit subject,Body:myEdit body                                           |
-
+    Given UI "Create" Report With Name "Top 10 Activations by Duration Report 2"
+      | Template              | reportType:DefenseFlow_Analytics , Widgets:[Top 10 Activations by Duration],devices:[{deviceIndex:10},{deviceIndex:11}] |
+      | Format                | Select: PDF                                                                                                             |
+      | Logo                  | reportLogoPNG.png                                                                                                       |
+      | Time Definitions.Date | Absolute:[27.02.1971 01:00, +0d]                                                                                        |
+      | Schedule              | Run Every:Monthly, On Time:+6H, At Months:[APR]                                                                         |
+      | Share                 | Email:[automation.vision2@radware.com],Subject:myEdit subject,Body:myEdit body                                          |
+    Given UI "Validate" Report With Name "Top 10 Activations by Duration Report 2"
+      | Template              | reportType:DefenseFlow_Analytics , Widgets:[Top 10 Activations by Duration],devices:[{deviceIndex:10},{deviceIndex:11}] |
+      | Format                | Select: PDF                                                                                                             |
+      | Logo                  | reportLogoPNG.png                                                                                                       |
+      | Time Definitions.Date | Absolute:[27.02.1971 01:00, +0d]                                                                                        |
+      | Schedule              | Run Every:Monthly, On Time:+6H, At Months:[APR]                                                                         |
+      | Share                 | Email:[automation.vision2@radware.com],Subject:myEdit subject,Body:myEdit body                                          |
+    Then UI Delete Report With Name "Top 10 Activations by Duration Report 2"
 
   @SID_44
-  Scenario:   Top 10 Activations by Duration Report  - Time: Relative:(Weeks)
+  Scenario:  Top 10 Activations by Duration Report 3
     Then UI Click Button "New Report Tab"
-    Given UI "Create" Report With Name " Top 10 Activations by Duration  Time_Relative_Weeks"
-      | Template              | reportType:DefenseFlow_Analytics , Widgets:[ Top 10 Activations by Duration],devices:[{deviceIndex:10}] |
-      | Format                | Select: HTML                                                                                            |
-      | Time Definitions.Date | Relative:[Weeks,2]                                                                                      |
-
+    Given UI "Create" Report With Name "Top 10 Activations by Duration Report 3"
+      | Template              | reportType:DefenseFlow_Analytics , Widgets:[Top 10 Activations by Duration],devices:[{deviceIndex:10}] |
+      | Format                | Select: HTML                                                                                           |
+      | Time Definitions.Date | Relative:[Weeks,2]                                                                                     |
+    Given UI "Validate" Report With Name "Top 10 Activations by Duration Report 3"
+      | Template              | reportType:DefenseFlow_Analytics , Widgets:[Top 10 Activations by Duration],devices:[{deviceIndex:10}] |
+      | Format                | Select: HTML                                                                                           |
+      | Time Definitions.Date | Relative:[Weeks,2]                                                                                     |
+    Then UI Delete Report With Name "Top 10 Activations by Duration Report 3"
 
   @SID_45
-  Scenario:   Top 10 Activations by Duration Report  -Time: Quick Range (Quarter), Schedule:(once)
+  Scenario:  Top 10 Activations by Duration Report 4
     Then UI Click Button "New Report Tab"
-    Given UI "Create" Report With Name " Top 10 Activations by Duration  Time_Quick_Quarter  Schedule_once"
-      | Template              | reportType:DefenseFlow_Analytics , Widgets:[ Top 10 Activations by Duration],devices:[All], showTable:true |
-      | Format                | Select: CSV                                                                                                |
-      | Time Definitions.Date | Quick:Quarter                                                                                              |
-      | Schedule              | Run Every:Once, On Time:+6H                                                                                             |
-      | Share                 | Email:[automation.vision2@radware.com],Subject:myEdit subject,Body:myEdit body                             |
+    Given UI "Create" Report With Name "Top 10 Activations by Duration Report 4"
+      | Template              | reportType:DefenseFlow_Analytics , Widgets:[Top 10 Activations by Duration],devices:[All], showTable:true |
+      | Format                | Select: CSV                                                                                               |
+      | Time Definitions.Date | Quick:Quarter                                                                                             |
+      | Schedule              | Run Every:Once, On Time:+6H                                                                               |
+      | Share                 | Email:[automation.vision2@radware.com],Subject:myEdit subject,Body:myEdit body                            |
+    Given UI "Validate" Report With Name "Top 10 Activations by Duration Report 4"
+      | Template              | reportType:DefenseFlow_Analytics , Widgets:[Top 10 Activations by Duration],devices:[All], showTable:true |
+      | Format                | Select: CSV                                                                                               |
+      | Time Definitions.Date | Quick:Quarter                                                                                             |
+      | Schedule              | Run Every:Once, On Time:+6H                                                                               |
+      | Share                 | Email:[automation.vision2@radware.com],Subject:myEdit subject,Body:myEdit body                            |
+    Then UI Delete Report With Name "Top 10 Activations by Duration Report 4"
 
     # ------------------------------------------------------------------------------------------------------------------------------------------------------------
 
   @SID_46
-  Scenario:  Top 10 Activations by Attack Rate (Gbps) Report - Time: Quick Range (Previous Month)
+  Scenario: Top 10 Activations by Attack Rate (Gbps) Report 1
     Then UI Click Button "New Report Tab"
-    Given UI "Create" Report With Name " Top 10 Activations by Attack Rate (Gbps)  Time_Quick_Previous Month"
-      | Template              | reportType:DefenseFlow_Analytics , Widgets:[ Top 10 Activations by Attack Rate (Gbps)], devices:[All], showTable:true |
-      | Format                | Select: CSV                                                                                                           |
-      | Logo                  | reportLogoPNG.png                                                                                                     |
-      | Time Definitions.Date | Quick:Previous Month                                                                                                  |
-
+    Given UI "Create" Report With Name "Top 10 Activations by Attack Rate (Gbps) Report 1"
+      | Template              | reportType:DefenseFlow_Analytics , Widgets:[Top 10 Activations by Attack Rate (Gbps)], devices:[All], showTable:true |
+      | Format                | Select: CSV                                                                                                          |
+      | Logo                  | reportLogoPNG.png                                                                                                    |
+      | Time Definitions.Date | Quick:Previous Month                                                                                                 |
+    Given UI "Validate" Report With Name "Top 10 Activations by Attack Rate (Gbps) Report 1"
+      | Template              | reportType:DefenseFlow_Analytics , Widgets:[Top 10 Activations by Attack Rate (Gbps)], devices:[All], showTable:true |
+      | Format                | Select: CSV                                                                                                          |
+      | Logo                  | reportLogoPNG.png                                                                                                    |
+      | Time Definitions.Date | Quick:Previous Month                                                                                                 |
+    Then UI Delete Report With Name "Top 10 Activations by Attack Rate (Gbps) Report 1"
 
   @SID_47
-  Scenario:  Top 10 Activations by Attack Rate (Gbps) Report - Time: Quick Range (This Month), Schedule:(once)
+  Scenario: Top 10 Activations by Attack Rate (Gbps) Report 2
     Then UI Click Button "New Report Tab"
-    Given UI "Create" Report With Name " Top 10 Activations by Attack Rate (Gbps)  Time_Quick_This Month  Schedule_once"
-      | Template              | reportType:DefenseFlow_Analytics , Widgets:[ Top 10 Activations by Attack Rate (Gbps)],devices:[{deviceIndex:10},{deviceIndex:11}] |
-      | Format                | Select: PDF                                                                                                                        |
-      | Logo                  | reportLogoPNG.png                                                                                                                  |
-      | Time Definitions.Date | Quick:This Month                                                                                                                   |
-      | Schedule              | Run Every:Once, On Time:+6H                                                                                                                     |
-      | Share                 | Email:[automation.vision2@radware.com],Subject:myEdit subject,Body:myEdit body                                                     |
-
+    Given UI "Create" Report With Name "Top 10 Activations by Attack Rate (Gbps) Report 2"
+      | Template              | reportType:DefenseFlow_Analytics , Widgets:[Top 10 Activations by Attack Rate (Gbps)],devices:[{deviceIndex:10},{deviceIndex:11}] |
+      | Format                | Select: PDF                                                                                                                       |
+      | Logo                  | reportLogoPNG.png                                                                                                                 |
+      | Time Definitions.Date | Quick:This Month                                                                                                                  |
+      | Schedule              | Run Every:Once, On Time:+6H                                                                                                       |
+      | Share                 | Email:[automation.vision2@radware.com],Subject:myEdit subject,Body:myEdit body                                                    |
+    Given UI "Validate" Report With Name "Top 10 Activations by Attack Rate (Gbps) Report 2"
+      | Template              | reportType:DefenseFlow_Analytics , Widgets:[Top 10 Activations by Attack Rate (Gbps)],devices:[{deviceIndex:10},{deviceIndex:11}] |
+      | Format                | Select: PDF                                                                                                                       |
+      | Logo                  | reportLogoPNG.png                                                                                                                 |
+      | Time Definitions.Date | Quick:This Month                                                                                                                  |
+      | Schedule              | Run Every:Once, On Time:+6H                                                                                                       |
+      | Share                 | Email:[automation.vision2@radware.com],Subject:myEdit subject,Body:myEdit body                                                    |
+    Then UI Delete Report With Name "Top 10 Activations by Attack Rate (Gbps) Report 2"
 
   @SID_48
-  Scenario:   Top 10 Activations by Attack Rate (Gbps) Report  - Time: Absolute, Schedule:(Monthly,MAR)
+  Scenario:  Top 10 Activations by Attack Rate (Gbps) Report 3
     Then UI Click Button "New Report Tab"
-    Given UI "Create" Report With Name " Top 10 Activations by Attack Rate (Gbps)  Time_Relative_Weeks  Schedule_Monthly"
-      | Template              | reportType:DefenseFlow_Analytics , Widgets:[ Top 10 Activations by Attack Rate (Gbps)],devices:[{deviceIndex:10}] |
-      | Format                | Select: HTML                                                                                                      |
-      | Time Definitions.Date | Absolute:[27.02.1971 01:00:00, +0d]                                                                               |
-      | Schedule              | Run Every:Monthly, On Time:+6H, At Months:[MAR]                                                                   |
-
+    Given UI "Create" Report With Name "Top 10 Activations by Attack Rate (Gbps) Report 3"
+      | Template              | reportType:DefenseFlow_Analytics , Widgets:[Top 10 Activations by Attack Rate (Gbps)],devices:[{deviceIndex:10}] |
+      | Format                | Select: HTML                                                                                                     |
+      | Time Definitions.Date | Absolute:[27.02.1971 01:00, +0d]                                                                                 |
+      | Schedule              | Run Every:Monthly, On Time:+6H, At Months:[MAR]                                                                  |
+    Given UI "Validate" Report With Name "Top 10 Activations by Attack Rate (Gbps) Report 3"
+      | Template              | reportType:DefenseFlow_Analytics , Widgets:[Top 10 Activations by Attack Rate (Gbps)],devices:[{deviceIndex:10}] |
+      | Format                | Select: HTML                                                                                                     |
+      | Time Definitions.Date | Absolute:[27.02.1971 01:00, +0d]                                                                                 |
+      | Schedule              | Run Every:Monthly, On Time:+6H, At Months:[MAR]                                                                  |
+    Then UI Delete Report With Name "Top 10 Activations by Attack Rate (Gbps) Report 3"
 
   @SID_49
-  Scenario:   Top 10 Activations by Attack Rate (Gbps) Report  -Time: Relative:(Hours), Schedule:(Weekly,WED)
+  Scenario:  Top 10 Activations by Attack Rate (Gbps) Report 4
     Then UI Click Button "New Report Tab"
-    Given UI "Create" Report With Name " Top 10 Activations by Attack Rate (Gbps)  Time_Relative_Hours  Schedule_Weekly"
-      | Template              | reportType:DefenseFlow_Analytics , Widgets:[ Top 10 Activations by Attack Rate (Gbps)],devices:[All], showTable:true |
-      | Format                | Select: CSV                                                                                                          |
-      | Time Definitions.Date | Relative:[Hours,2]                                                                                                   |
-      | Schedule              | Run Every:Weekly, On Time:+6H, At days:[WED]                                                                         |
-      | Share                 | Email:[automation.vision2@radware.com],Subject:myEdit subject,Body:myEdit body                                       |
-
-
+    Given UI "Create" Report With Name "Top 10 Activations by Attack Rate (Gbps) Report 4"
+      | Template              | reportType:DefenseFlow_Analytics , Widgets:[Top 10 Activations by Attack Rate (Gbps)],devices:[All], showTable:true |
+      | Format                | Select: CSV                                                                                                         |
+      | Time Definitions.Date | Relative:[Hours,2]                                                                                                  |
+      | Schedule              | Run Every:Weekly, On Time:+6H, At days:[WED]                                                                        |
+      | Share                 | Email:[automation.vision2@radware.com],Subject:myEdit subject,Body:myEdit body                                      |
+    Given UI "Validate" Report With Name "Top 10 Activations by Attack Rate (Gbps) Report 4"
+      | Template              | reportType:DefenseFlow_Analytics , Widgets:[Top 10 Activations by Attack Rate (Gbps)],devices:[All], showTable:true |
+      | Format                | Select: CSV                                                                                                         |
+      | Time Definitions.Date | Relative:[Hours,2]                                                                                                  |
+      | Schedule              | Run Every:Weekly, On Time:+6H, At days:[WED]                                                                        |
+      | Share                 | Email:[automation.vision2@radware.com],Subject:myEdit subject,Body:myEdit body                                      |
+    Then UI Delete Report With Name "Top 10 Activations by Attack Rate (Gbps) Report 4"
     # ------------------------------------------------------------------------------------------------------------------------------------------------------------
 
   @SID_50
-  Scenario:  Top 10 Activations by Attack Rate (Mpps) Report - Time: Quick Range (15m)
+  Scenario: Top 10 Activations by Attack Rate (Mpps) Report 1
     Then UI Click Button "New Report Tab"
-    Given UI "Create" Report With Name " Top 10 Activations by Attack Rate (Mpps)  Time_Quick_15m"
-      | Template              | reportType:DefenseFlow_Analytics , Widgets:[ Top 10 Activations by Attack Rate (Mpps)], devices:[All], showTable:true |
-      | Format                | Select: CSV                                                                                                           |
-      | Logo                  | reportLogoPNG.png                                                                                                     |
-      | Time Definitions.Date | Quick:15m                                                                                                             |
-
+    Given UI "Create" Report With Name "Top 10 Activations by Attack Rate (Mpps) Report 1"
+      | Template              | reportType:DefenseFlow_Analytics , Widgets:[Top 10 Activations by Attack Rate (Mpps)], devices:[All], showTable:true |
+      | Format                | Select: CSV                                                                                                          |
+      | Logo                  | reportLogoPNG.png                                                                                                    |
+      | Time Definitions.Date | Quick:15m                                                                                                            |
+    Given UI "Validate" Report With Name "Top 10 Activations by Attack Rate (Mpps) Report 1"
+      | Template              | reportType:DefenseFlow_Analytics , Widgets:[Top 10 Activations by Attack Rate (Mpps)], devices:[All], showTable:true |
+      | Format                | Select: CSV                                                                                                          |
+      | Logo                  | reportLogoPNG.png                                                                                                    |
+      | Time Definitions.Date | Quick:15m                                                                                                            |
+    Then UI Delete Report With Name "Top 10 Activations by Attack Rate (Mpps) Report 1"
 
   @SID_51
-  Scenario:  Top 10 Activations by Attack Rate (Mpps) Report - Time: Quick Range (This Week), Schedule:(Monthly,AUG)
+  Scenario: Top 10 Activations by Attack Rate (Mpps) Report 2
     Then UI Click Button "New Report Tab"
-    Given UI "Create" Report With Name " Top 10 Activations by Attack Rate (Mpps)  Time_Quick_This Week  Schedule_Monthly"
-      | Template              | reportType:DefenseFlow_Analytics , Widgets:[ Top 10 Activations by Attack Rate (Mpps)],devices:[{deviceIndex:10}] |
-      | Format                | Select: PDF                                                                                                       |
-      | Logo                  | reportLogoPNG.png                                                                                                 |
-      | Time Definitions.Date | Quick:This Week                                                                                                   |
-      | Schedule              | Run Every:Monthly, On Time:+6H, At Months:[AUG]                                                                   |
-      | Share                 | Email:[automation.vision2@radware.com],Subject:myEdit subject,Body:myEdit body                                    |
-
+    Given UI "Create" Report With Name "Top 10 Activations by Attack Rate (Mpps) Report 2"
+      | Template              | reportType:DefenseFlow_Analytics , Widgets:[Top 10 Activations by Attack Rate (Mpps)],devices:[{deviceIndex:10}] |
+      | Format                | Select: PDF                                                                                                      |
+      | Logo                  | reportLogoPNG.png                                                                                                |
+      | Time Definitions.Date | Quick:This Week                                                                                                  |
+      | Schedule              | Run Every:Monthly, On Time:+6H, At Months:[AUG]                                                                  |
+      | Share                 | Email:[automation.vision2@radware.com],Subject:myEdit subject,Body:myEdit body                                   |
+    Given UI "Validate" Report With Name "Top 10 Activations by Attack Rate (Mpps) Report 2"
+      | Template              | reportType:DefenseFlow_Analytics , Widgets:[Top 10 Activations by Attack Rate (Mpps)],devices:[{deviceIndex:10}] |
+      | Format                | Select: PDF                                                                                                      |
+      | Logo                  | reportLogoPNG.png                                                                                                |
+      | Time Definitions.Date | Quick:This Week                                                                                                  |
+      | Schedule              | Run Every:Monthly, On Time:+6H, At Months:[AUG]                                                                  |
+      | Share                 | Email:[automation.vision2@radware.com],Subject:myEdit subject,Body:myEdit body                                   |
+    Then UI Delete Report With Name "Top 10 Activations by Attack Rate (Mpps) Report 2"
 
   @SID_52
-  Scenario:   Top 10 Activations by Attack Rate (Mpps) Report  - Time: Absolute, Schedule:(Monthly,MAR)
+  Scenario:  Top 10 Activations by Attack Rate (Mpps) Report 3
     Then UI Click Button "New Report Tab"
-    Given UI "Create" Report With Name " Top 10 Activations by Attack Rate (Mpps)  Time_Relative_Weeks  Schedule_Monthly"
-      | Template              | reportType:DefenseFlow_Analytics , Widgets:[ Top 10 Activations by Attack Rate (Mpps)],devices:[{deviceIndex:10},{deviceIndex:11}] |
-      | Format                | Select: HTML                                                                                                                       |
-      | Time Definitions.Date | Absolute:[27.02.1971 01:00:00, +0d]                                                                                                |
-      | Schedule              | Run Every:Monthly, On Time:+6H, At Months:[MAR]                                                                                    |
-
+    Given UI "Create" Report With Name "Top 10 Activations by Attack Rate (Mpps) Report 3"
+      | Template              | reportType:DefenseFlow_Analytics , Widgets:[Top 10 Activations by Attack Rate (Mpps)],devices:[{deviceIndex:10},{deviceIndex:11}] |
+      | Format                | Select: HTML                                                                                                                      |
+      | Time Definitions.Date | Absolute:[27.02.1971 01:00, +0d]                                                                                                  |
+      | Schedule              | Run Every:Monthly, On Time:+6H, At Months:[MAR]                                                                                   |
+    Given UI "Validate" Report With Name "Top 10 Activations by Attack Rate (Mpps) Report 3"
+      | Template              | reportType:DefenseFlow_Analytics , Widgets:[Top 10 Activations by Attack Rate (Mpps)],devices:[{deviceIndex:10},{deviceIndex:11}] |
+      | Format                | Select: HTML                                                                                                                      |
+      | Time Definitions.Date | Absolute:[27.02.1971 01:00, +0d]                                                                                                  |
+      | Schedule              | Run Every:Monthly, On Time:+6H, At Months:[MAR]                                                                                   |
+    Then UI Delete Report With Name "Top 10 Activations by Attack Rate (Mpps) Report 3"
 
   @SID_53
-  Scenario:   Top 10 Activations by Attack Rate (Mpps) Report  -Time: Relative:(Weeks), Schedule:(Daily)
+  Scenario:  Top 10 Activations by Attack Rate (Mpps) Report 4
     Then UI Click Button "New Report Tab"
-    Given UI "Create" Report With Name " Top 10 Activations by Attack Rate (Mpps)  Time_Relative_Weeks  Schedule_Daily"
-      | Template              | reportType:DefenseFlow_Analytics , Widgets:[ Top 10 Activations by Attack Rate (Mpps)],devices:[All], showTable:true |
-      | Format                | Select: CSV                                                                                                          |
-      | Time Definitions.Date | Relative:[Weeks,2]                                                                                                   |
-      | Schedule              | Run Every:Daily,On Time:+2m                                                                                          |
-      | Share                 | Email:[automation.vision2@radware.com],Subject:myEdit subject,Body:myEdit body                                       |
-
+    Given UI "Create" Report With Name "Top 10 Activations by Attack Rate (Mpps) Report 4"
+      | Template              | reportType:DefenseFlow_Analytics , Widgets:[Top 10 Activations by Attack Rate (Mpps)],devices:[All], showTable:true |
+      | Format                | Select: CSV                                                                                                         |
+      | Time Definitions.Date | Relative:[Weeks,2]                                                                                                  |
+      | Schedule              | Run Every:Daily,On Time:+2m                                                                                         |
+      | Share                 | Email:[automation.vision2@radware.com],Subject:myEdit subject,Body:myEdit body                                      |
+    Given UI "Validate" Report With Name "Top 10 Activations by Attack Rate (Mpps) Report 4"
+      | Template              | reportType:DefenseFlow_Analytics , Widgets:[Top 10 Activations by Attack Rate (Mpps)],devices:[All], showTable:true |
+      | Format                | Select: CSV                                                                                                         |
+      | Time Definitions.Date | Relative:[Weeks,2]                                                                                                  |
+      | Schedule              | Run Every:Daily,On Time:+2m                                                                                         |
+      | Share                 | Email:[automation.vision2@radware.com],Subject:myEdit subject,Body:myEdit body                                      |
+    Then UI Delete Report With Name "Top 10 Activations by Attack Rate (Mpps) Report 4"
 
     # ------------------------------------------------------------------------------------------------------------------------------------------------------------
    # {1}-Top Attacks by Duration, {2}-Top Attacks by Count, {3}-Top Attacks by Rate, {4}-Top Attacks by Protocol, {5}-Top Attack Destination, {6}-Top Attack Sources, {7}-Traffic Bandwidth,
@@ -582,178 +891,684 @@ Feature:DefenseFlow Analytics
     # ------------------------------------------------------------------------------------------------------------------------------------------------------------
 
   @SID_54
-  Scenario:  Widgets 3_7_8_11_13 Report - Time: Absolute, Schedule:(Weekly,SUN)
+  Scenario:Widgets 3_7_8_11_13 Report 1
     Then UI Click Button "New Report Tab"
-    Given UI "Create" Report With Name " Widgets 3_7_8_11_13  Time_Quick_Absolute  Schedule_Weekly"
+    Given UI "Create" Report With Name "Widgets 3_7_8_11_13 Report 1"
       | Template              | reportType:DefenseFlow_Analytics , Widgets:[{Traffic Bandwidth:[60]}, Top Attacks by Rate, Traffic Bandwidth, Traffic Rate, Top 10 Activations by Duration, Top 10 Activations by Attack Rate (Mpps)], devices:[All], showTable:true |
       | Format                | Select: CSV                                                                                                                                                                                                                          |
       | Logo                  | reportLogoPNG.png                                                                                                                                                                                                                    |
       | Schedule              | Run Every:Weekly, On Time:+6H, At days:[SUN]                                                                                                                                                                                         |
-      | Time Definitions.Date | Absolute:[27.02.1971 01:00:00, +0d]                                                                                                                                                                                                  |
-
+      | Time Definitions.Date | Absolute:[27.02.1971 01:00, +0d]                                                                                                                                                                                                     |
+    Given UI "Validate" Report With Name "Widgets 3_7_8_11_13 Report 1"
+      | Template              | reportType:DefenseFlow_Analytics , Widgets:[{Traffic Bandwidth:[60]}, Top Attacks by Rate, Traffic Bandwidth, Traffic Rate, Top 10 Activations by Duration, Top 10 Activations by Attack Rate (Mpps)], devices:[All], showTable:true |
+      | Format                | Select: CSV                                                                                                                                                                                                                          |
+      | Logo                  | reportLogoPNG.png                                                                                                                                                                                                                    |
+      | Schedule              | Run Every:Weekly, On Time:+6H, At days:[SUN]                                                                                                                                                                                         |
+      | Time Definitions.Date | Absolute:[27.02.1971 01:00, +0d]                                                                                                                                                                                                     |
+    Then UI Delete Report With Name "Widgets 3_7_8_11_13 Report 1"
 
   @SID_55
-  Scenario:  Widgets 3_7_8_11_13 Report - Time: Quick Range (3M), Schedule:(Monthly,DEC)
+  Scenario:Widgets 3_7_8_11_13 Report 2
     Then UI Click Button "New Report Tab"
-    Given UI "Create" Report With Name " Widgets 3_7_8_11_13  Time_Quick_3M  Schedule_Monthly"
+    Given UI "Create" Report With Name "Widgets 3_7_8_11_13 Report 2"
       | Template              | reportType:DefenseFlow_Analytics , Widgets:[{Traffic Bandwidth:[70]}, Top Attacks by Rate, Traffic Bandwidth, Traffic Rate, Top 10 Activations by Duration, Top 10 Activations by Attack Rate (Mpps)], devices:[All] |
       | Format                | Select: PDF                                                                                                                                                                                                          |
       | Logo                  | reportLogoPNG.png                                                                                                                                                                                                    |
       | Time Definitions.Date | Quick:3M                                                                                                                                                                                                             |
       | Schedule              | Run Every:Monthly, On Time:+6H, At Months:[DEC]                                                                                                                                                                      |
       | Share                 | Email:[automation.vision2@radware.com],Subject:myEdit subject,Body:myEdit body                                                                                                                                       |
-
+    Given UI "Validate" Report With Name "Widgets 3_7_8_11_13 Report 2"
+      | Template              | reportType:DefenseFlow_Analytics , Widgets:[{Traffic Bandwidth:[70]}, Top Attacks by Rate, Traffic Bandwidth, Traffic Rate, Top 10 Activations by Duration, Top 10 Activations by Attack Rate (Mpps)], devices:[All] |
+      | Format                | Select: PDF                                                                                                                                                                                                          |
+      | Logo                  | reportLogoPNG.png                                                                                                                                                                                                    |
+      | Time Definitions.Date | Quick:3M                                                                                                                                                                                                             |
+      | Schedule              | Run Every:Monthly, On Time:+6H, At Months:[DEC]                                                                                                                                                                      |
+      | Share                 | Email:[automation.vision2@radware.com],Subject:myEdit subject,Body:myEdit body                                                                                                                                       |
+    Then UI Delete Report With Name "Widgets 3_7_8_11_13 Report 2"
 
   @SID_56
-  Scenario:   Widgets 3_7_8_11_13 Report  - Time:Quick Range (This Month)
+  Scenario: Widgets 3_7_8_11_13 Report 3
     Then UI Click Button "New Report Tab"
-    Given UI "Create" Report With Name " Widgets 3_7_8_11_13  Time_Quick_This Month"
+    Given UI "Create" Report With Name "Widgets 3_7_8_11_13 Report 3"
       | Template              | reportType:DefenseFlow_Analytics , Widgets:[{Traffic Bandwidth:[30]}, Top Attacks by Rate, Traffic Bandwidth, Traffic Rate, Top 10 Activations by Duration, Top 10 Activations by Attack Rate (Mpps)], devices:[{deviceIndex:10},{deviceIndex:11}] |
       | Format                | Select: HTML                                                                                                                                                                                                                                       |
       | Time Definitions.Date | Quick:This Month                                                                                                                                                                                                                                   |
-
+    Given UI "Validate" Report With Name "Widgets 3_7_8_11_13 Report 3"
+      | Template              | reportType:DefenseFlow_Analytics , Widgets:[{Traffic Bandwidth:[30]}, Top Attacks by Rate, Traffic Bandwidth, Traffic Rate, Top 10 Activations by Duration, Top 10 Activations by Attack Rate (Mpps)], devices:[{deviceIndex:10},{deviceIndex:11}] |
+      | Format                | Select: HTML                                                                                                                                                                                                                                       |
+      | Time Definitions.Date | Quick:This Month                                                                                                                                                                                                                                   |
+    Then UI Delete Report With Name "Widgets 3_7_8_11_13 Report 3"
 
   @SID_57
-  Scenario:   Widgets 3_7_8_11_13 Report  -Time: Quick Range (1H), Schedule:(Monthly,MAR)
+  Scenario: Widgets 3_7_8_11_13 Report 4
     Then UI Click Button "New Report Tab"
-    Given UI "Create" Report With Name " Widgets 3_7_8_11_13  Time_Quick_1H  Schedule_Monthly"
+    Given UI "Create" Report With Name "Widgets 3_7_8_11_13 Report 4"
       | Template              | reportType:DefenseFlow_Analytics , Widgets:[{Traffic Bandwidth:[90]}, Top Attacks by Rate, Traffic Bandwidth, Traffic Rate, Top 10 Activations by Duration, Top 10 Activations by Attack Rate (Mpps)], devices:[{deviceIndex:10}], showTable:true |
       | Format                | Select: HTML                                                                                                                                                                                                                                      |
       | Time Definitions.Date | Quick:1H                                                                                                                                                                                                                                          |
       | Schedule              | Run Every:Monthly, On Time:+6H, At Months:[MAR]                                                                                                                                                                                                   |
-
+    Given UI "Validate" Report With Name "Widgets 3_7_8_11_13 Report 4"
+      | Template              | reportType:DefenseFlow_Analytics , Widgets:[{Traffic Bandwidth:[90]}, Top Attacks by Rate, Traffic Bandwidth, Traffic Rate, Top 10 Activations by Duration, Top 10 Activations by Attack Rate (Mpps)], devices:[{deviceIndex:10}], showTable:true |
+      | Format                | Select: HTML                                                                                                                                                                                                                                      |
+      | Time Definitions.Date | Quick:1H                                                                                                                                                                                                                                          |
+      | Schedule              | Run Every:Monthly, On Time:+6H, At Months:[MAR]                                                                                                                                                                                                   |
+    Then UI Delete Report With Name "Widgets 3_7_8_11_13 Report 4"
 
     # ------------------------------------------------------------------------------------------------------------------------------------------------------------
 
   @SID_58
-  Scenario:  Widgets 1_4_6_7_8_9_11_12_13 Report - Time: Quick Range (15m)
+  Scenario: Widgets 1_4_6_8_9_11_12_13 Report 1
     Then UI Click Button "New Report Tab"
-    Given UI "Create" Report With Name " Widgets 1_4_6_7_8_9_11_12_13  Time_Quick_15m"
-      | Template              | reportType:DefenseFlow_Analytics , Widgets:[{Traffic Bandwidth:[all]}, Top Attacks by Duration, Top Attacks by Protocol, Top Attack Sources, Traffic Bandwidth, Traffic Rate, DDoS Peak Attack per Period, Top 10 Activations by Duration, Top 10 Activations by Attack Rate (Gbps), Top 10 Activations by Attack Rate (Mpps)], devices:[All], showTable:true |
-      | Format                | Select: CSV                                                                                                                                                                                                                                                                                                                                                   |
-      | Logo                  | reportLogoPNG.png                                                                                                                                                                                                                                                                                                                                             |
-      | Time Definitions.Date | Quick:15m                                                                                                                                                                                                                                                                                                                           |
-
+    Given UI "Create" Report With Name "Widgets 1_4_6_7_8_9_11_12_13 Report 1"
+      | Template              | reportType:DefenseFlow_Analytics , Widgets:[Top Attacks by Duration, Top Attacks by Protocol, Top Attack Sources, Traffic Rate, DDoS Peak Attack per Period, Top 10 Activations by Duration, Top 10 Activations by Attack Rate (Gbps), Top 10 Activations by Attack Rate (Mpps)], devices:[All], showTable:true |
+      | Format                | Select: CSV                                                                                                                                                                                                                                                                                                     |
+      | Logo                  | reportLogoPNG.png                                                                                                                                                                                                                                                                                               |
+      | Time Definitions.Date | Quick:15m                                                                                                                                                                                                                                                                                                       |
+    Given UI "Validate" Report With Name "Widgets 1_4_6_7_8_9_11_12_13 Report 1"
+      | Template              | reportType:DefenseFlow_Analytics , Widgets:[Top Attacks by Duration, Top Attacks by Protocol, Top Attack Sources, Traffic Rate, DDoS Peak Attack per Period, Top 10 Activations by Duration, Top 10 Activations by Attack Rate (Gbps), Top 10 Activations by Attack Rate (Mpps)], devices:[All], showTable:true |
+      | Format                | Select: CSV                                                                                                                                                                                                                                                                                                     |
+      | Logo                  | reportLogoPNG.png                                                                                                                                                                                                                                                                                               |
+      | Time Definitions.Date | Quick:15m                                                                                                                                                                                                                                                                                                       |
+    Then UI Delete Report With Name "Widgets 1_4_6_7_8_9_11_12_13 Report 1"
 
   @SID_59
-  Scenario:  Widgets 1_4_6_7_8_9_11_12_13 Report - Time: Quick Range (This Week), Schedule:(Monthly,AUG)
+  Scenario: Widgets 1_4_6_8_9_11_12_13 Report 2
     Then UI Click Button "New Report Tab"
-    Given UI "Create" Report With Name " Widgets 1_4_6_7_8_9_11_12_13  Time_Quick_This Week  Schedule_Monthly"
-      | Template              | reportType:DefenseFlow_Analytics , Widgets:[{Traffic Bandwidth:[all]}, Top Attacks by Duration, Top Attacks by Protocol, Top Attack Sources, Traffic Bandwidth, Traffic Rate, DDoS Peak Attack per Period, Top 10 Activations by Duration, Top 10 Activations by Attack Rate (Gbps), Top 10 Activations by Attack Rate (Mpps)], devices:[{deviceIndex:10}] |
-      | Format                | Select: PDF                                                                                                                                                                                                                                                                                                                                                |
-      | Logo                  | reportLogoPNG.png                                                                                                                                                                                                                                                                                                                                          |
-      | Time Definitions.Date | Quick:This Week                                                                                                                                                                                                                                                                                                                                            |
-      | Schedule              | Run Every:Monthly, On Time:+6H, At Months:[AUG]                                                                                                                                                                                                                                                                                                            |
-      | Share                 | Email:[automation.vision2@radware.com],Subject:myEdit subject,Body:myEdit body                                                                                                                                                                                                                                                                             |
-
+    Given UI "Create" Report With Name "Widgets 1_4_6_7_8_9_11_12_13 Report 2"
+      | Template              | reportType:DefenseFlow_Analytics , Widgets:[Top Attacks by Duration, Top Attacks by Protocol, Top Attack Sources, Traffic Rate, DDoS Peak Attack per Period, Top 10 Activations by Duration, Top 10 Activations by Attack Rate (Gbps), Top 10 Activations by Attack Rate (Mpps)], devices:[{deviceIndex:10}] |
+      | Format                | Select: PDF                                                                                                                                                                                                                                                                                                  |
+      | Logo                  | reportLogoPNG.png                                                                                                                                                                                                                                                                                            |
+      | Time Definitions.Date | Quick:This Week                                                                                                                                                                                                                                                                                              |
+      | Schedule              | Run Every:Monthly, On Time:+6H, At Months:[AUG]                                                                                                                                                                                                                                                              |
+      | Share                 | Email:[automation.vision2@radware.com],Subject:myEdit subject,Body:myEdit body                                                                                                                                                                                                                               |
+    Given UI "Validate" Report With Name "Widgets 1_4_6_7_8_9_11_12_13 Report 2"
+      | Template              | reportType:DefenseFlow_Analytics , Widgets:[Top Attacks by Duration, Top Attacks by Protocol, Top Attack Sources, Traffic Rate, DDoS Peak Attack per Period, Top 10 Activations by Duration, Top 10 Activations by Attack Rate (Gbps), Top 10 Activations by Attack Rate (Mpps)], devices:[{deviceIndex:10}] |
+      | Format                | Select: PDF                                                                                                                                                                                                                                                                                                  |
+      | Logo                  | reportLogoPNG.png                                                                                                                                                                                                                                                                                            |
+      | Time Definitions.Date | Quick:This Week                                                                                                                                                                                                                                                                                              |
+      | Schedule              | Run Every:Monthly, On Time:+6H, At Months:[AUG]                                                                                                                                                                                                                                                              |
+      | Share                 | Email:[automation.vision2@radware.com],Subject:myEdit subject,Body:myEdit body                                                                                                                                                                                                                               |
+    Then UI Delete Report With Name "Widgets 1_4_6_7_8_9_11_12_13 Report 2"
 
   @SID_60
-  Scenario:   Widgets 1_4_6_7_8_9_11_12_13 Report  - Time:Absolute, Schedule:(Monthly,MAR)
+  Scenario:  Widgets 1_4_6_8_9_11_12_13 Report 3
     Then UI Click Button "New Report Tab"
-    Given UI "Create" Report With Name " Widgets 1_4_6_7_8_9_11_12_13  Time_Quick_Absolute  Schedule_Monthly"
-      | Template              | reportType:DefenseFlow_Analytics , Widgets:[{Traffic Bandwidth:[all]}, Top Attacks by Duration, Top Attacks by Protocol, Top Attack Sources, Traffic Bandwidth, Traffic Rate, DDoS Peak Attack per Period, Top 10 Activations by Duration, Top 10 Activations by Attack Rate (Gbps), Top 10 Activations by Attack Rate (Mpps)], devices:[{deviceIndex:10},{deviceIndex:11}] |
-      | Format                | Select: HTML                                                                                                                                                                                                                                                                                                                                                                |
-      | Time Definitions.Date | Absolute:[27.02.1971 01:00:00, +0d]                                                                                                                                                                                                                                                                                                                                         |
-      | Schedule              | Run Every:Monthly, On Time:+6H, At Months:[MAR]                                                                                                                                                                                                                                                                                                                             |
-
+    Given UI "Create" Report With Name "Widgets 1_4_6_7_8_9_11_12_13 Report 3"
+      | Template              | reportType:DefenseFlow_Analytics , Widgets:[Top Attacks by Duration, Top Attacks by Protocol, Top Attack Sources, Traffic Rate, DDoS Peak Attack per Period, Top 10 Activations by Duration, Top 10 Activations by Attack Rate (Gbps), Top 10 Activations by Attack Rate (Mpps)], devices:[{deviceIndex:10},{deviceIndex:11}] |
+      | Format                | Select: HTML                                                                                                                                                                                                                                                                                                                  |
+      | Time Definitions.Date | Absolute:[27.02.1971 01:00, +0d]                                                                                                                                                                                                                                                                                              |
+      | Schedule              | Run Every:Monthly, On Time:+6H, At Months:[MAR]                                                                                                                                                                                                                                                                               |
+    Given UI "Validate" Report With Name "Widgets 1_4_6_7_8_9_11_12_13 Report 3"
+      | Template              | reportType:DefenseFlow_Analytics , Widgets:[Top Attacks by Duration, Top Attacks by Protocol, Top Attack Sources, Traffic Rate, DDoS Peak Attack per Period, Top 10 Activations by Duration, Top 10 Activations by Attack Rate (Gbps), Top 10 Activations by Attack Rate (Mpps)], devices:[{deviceIndex:10},{deviceIndex:11}] |
+      | Format                | Select: HTML                                                                                                                                                                                                                                                                                                                  |
+      | Time Definitions.Date | Absolute:[27.02.1971 01:00, +0d]                                                                                                                                                                                                                                                                                              |
+      | Schedule              | Run Every:Monthly, On Time:+6H, At Months:[MAR]                                                                                                                                                                                                                                                                               |
+    Then UI Delete Report With Name "Widgets 1_4_6_7_8_9_11_12_13 Report 3"
 
   @SID_61
-  Scenario:   Widgets 1_4_6_7_8_9_11_12_13 Report  -Time:Relative:(Weeks), Schedule:(Daily)
+  Scenario:  Widgets 1_4_6_8_9_11_12_13 Report 4
     Then UI Click Button "New Report Tab"
-    Given UI "Create" Report With Name " Widgets 1_4_6_7_8_9_11_12_13  Time_Relative_Weeks  Schedule_Daily"
-      | Template              | reportType:DefenseFlow_Analytics , Widgets:[{Traffic Bandwidth:[all]}, Top Attacks by Duration, Top Attacks by Protocol, Top Attack Sources, Traffic Bandwidth, Traffic Rate, DDoS Peak Attack per Period, Top 10 Activations by Duration, Top 10 Activations by Attack Rate (Gbps), Top 10 Activations by Attack Rate (Mpps)], devices:[all], showTable:true |
-      | Format                | Select: CSV                                                                                                                                                                                                                                                                                                                                                   |
-      | Time Definitions.Date | Relative:[Weeks,2]                                                                                                                                                                                                                                                                                                                                            |
-      | Schedule              | Run Every:Daily,On Time:+2m                                                                                                                                                                                                                                                                                                                                   |
-      | Share                 | Email:[automation.vision2@radware.com],Subject:myEdit subject,Body:myEdit body                                                                                                                                                                                                                                                                                |
-
+    Given UI "Create" Report With Name "Widgets 1_4_6_7_8_9_11_12_13 Report 4"
+      | Template              | reportType:DefenseFlow_Analytics , Widgets:[Top Attacks by Duration, Top Attacks by Protocol, Top Attack Sources, Traffic Rate, DDoS Peak Attack per Period, Top 10 Activations by Duration, Top 10 Activations by Attack Rate (Gbps), Top 10 Activations by Attack Rate (Mpps)], devices:[all], showTable:true |
+      | Format                | Select: CSV                                                                                                                                                                                                                                                                                                     |
+      | Time Definitions.Date | Relative:[Weeks,2]                                                                                                                                                                                                                                                                                              |
+      | Schedule              | Run Every:Daily,On Time:+2m                                                                                                                                                                                                                                                                                     |
+      | Share                 | Email:[automation.vision2@radware.com],Subject:myEdit subject,Body:myEdit body                                                                                                                                                                                                                                  |
+    Given UI "Validate" Report With Name "Widgets 1_4_6_7_8_9_11_12_13 Report 4"
+      | Template              | reportType:DefenseFlow_Analytics , Widgets:[Top Attacks by Duration, Top Attacks by Protocol, Top Attack Sources, Traffic Rate, DDoS Peak Attack per Period, Top 10 Activations by Duration, Top 10 Activations by Attack Rate (Gbps), Top 10 Activations by Attack Rate (Mpps)], devices:[all], showTable:true |
+      | Format                | Select: CSV                                                                                                                                                                                                                                                                                                     |
+      | Time Definitions.Date | Relative:[Weeks,2]                                                                                                                                                                                                                                                                                              |
+      | Schedule              | Run Every:Daily,On Time:+2m                                                                                                                                                                                                                                                                                     |
+      | Share                 | Email:[automation.vision2@radware.com],Subject:myEdit subject,Body:myEdit body                                                                                                                                                                                                                                  |
+    Then UI Delete Report With Name "Widgets 1_4_6_7_8_9_11_12_13 Report 4"
 
     # ------------------------------------------------------------------------------------------------------------------------------------------------------------
 
   @SID_62
-  Scenario:  Widgets 1_2_4_5_6_7_10 Report - Time: Quick Range (15m)
+  Scenario: Widgets 1_2_4_5_6_10 Report Report 1
     Then UI Click Button "New Report Tab"
-    Given UI "Create" Report With Name " Widgets 1_2_4_5_6_7_10  Time_Quick_15m"
-      | Template              | reportType:DefenseFlow_Analytics , Widgets:[{Traffic Bandwidth:[all]}, Top Attacks by Duration, Top Attacks by Count, Top Attacks by Protocol, Top Attack Destination, Top Attack Sources, Traffic Bandwidth, DDoS Attack Activations per Period], devices:[All], showTable:true |
-      | Format                | Select: CSV                                                                                                                                                                                                                                                                      |
-      | Logo                  | reportLogoPNG.png                                                                                                                                                                                                                                                                |
-      | Time Definitions.Date | Quick:15m                                                                                                                                                                                                                                              |
-
+    Given UI "Create" Report With Name "Widgets 1_2_4_5_6_7_10 Report 1"
+      | Template              | reportType:DefenseFlow_Analytics , Widgets:[Top Attacks by Duration, Top Attacks by Count, Top Attacks by Protocol, Top Attack Destination, Top Attack Sources, DDoS Attack Activations per Period], devices:[All], showTable:true |
+      | Format                | Select: CSV                                                                                                                                                                                                                        |
+      | Logo                  | reportLogoPNG.png                                                                                                                                                                                                                  |
+      | Time Definitions.Date | Quick:15m                                                                                                                                                                                                                          |
+    Given UI "Validate" Report With Name "Widgets 1_2_4_5_6_7_10 Report 1"
+      | Template              | reportType:DefenseFlow_Analytics , Widgets:[Top Attacks by Duration, Top Attacks by Count, Top Attacks by Protocol, Top Attack Destination, Top Attack Sources, DDoS Attack Activations per Period], devices:[All], showTable:true |
+      | Format                | Select: CSV                                                                                                                                                                                                                        |
+      | Logo                  | reportLogoPNG.png                                                                                                                                                                                                                  |
+      | Time Definitions.Date | Quick:15m                                                                                                                                                                                                                          |
+    Then UI Delete Report With Name "Widgets 1_2_4_5_6_7_10 Report 1"
 
   @SID_63
-  Scenario:  Widgets 1_2_4_5_6_7_10 Report - Time: Quick Range (This Week), Schedule:(Monthly,AUG)
+  Scenario: Widgets 1_2_4_5_6_10 Report 2
     Then UI Click Button "New Report Tab"
-    Given UI "Create" Report With Name " Widgets 1_2_4_5_6_7_10  Time_Quick_This Week  Schedule_Monthly"
-      | Template              | reportType:DefenseFlow_Analytics , Widgets:[{Traffic Bandwidth:[all]}, Top Attacks by Duration, Top Attacks by Count, Top Attacks by Protocol, Top Attack Destination, Top Attack Sources, Traffic Bandwidth, DDoS Attack Activations per Period], devices:[{deviceIndex:10}] |
-      | Format                | Select: PDF                                                                                                                                                                                                                                                                   |
-      | Logo                  | reportLogoPNG.png                                                                                                                                                                                                                                                             |
-      | Time Definitions.Date | Quick:This Week                                                                                                                                                                                                                                                               |
-      | Schedule              | Run Every:Monthly, On Time:+6H, At Months:[AUG]                                                                                                                                                                                                                               |
-      | Share                 | Email:[automation.vision2@radware.com],Subject:myEdit subject,Body:myEdit body                                                                                                                                                                                                |
-
+    Given UI "Create" Report With Name "Widgets 1_2_4_5_6_7_10 Report 2"
+      | Template              | reportType:DefenseFlow_Analytics , Widgets:[Top Attacks by Duration, Top Attacks by Count, Top Attacks by Protocol, Top Attack Destination, Top Attack Sources, DDoS Attack Activations per Period], devices:[{deviceIndex:10}] |
+      | Format                | Select: PDF                                                                                                                                                                                                                     |
+      | Logo                  | reportLogoPNG.png                                                                                                                                                                                                               |
+      | Time Definitions.Date | Quick:This Week                                                                                                                                                                                                                 |
+      | Schedule              | Run Every:Monthly, On Time:+6H, At Months:[AUG]                                                                                                                                                                                 |
+      | Share                 | Email:[automation.vision2@radware.com],Subject:myEdit subject,Body:myEdit body                                                                                                                                                  |
+    Given UI "Validate" Report With Name "Widgets 1_2_4_5_6_7_10 Report 2"
+      | Template              | reportType:DefenseFlow_Analytics , Widgets:[Top Attacks by Duration, Top Attacks by Count, Top Attacks by Protocol, Top Attack Destination, Top Attack Sources, DDoS Attack Activations per Period], devices:[{deviceIndex:10}] |
+      | Format                | Select: PDF                                                                                                                                                                                                                     |
+      | Logo                  | reportLogoPNG.png                                                                                                                                                                                                               |
+      | Time Definitions.Date | Quick:This Week                                                                                                                                                                                                                 |
+      | Schedule              | Run Every:Monthly, On Time:+6H, At Months:[AUG]                                                                                                                                                                                 |
+      | Share                 | Email:[automation.vision2@radware.com],Subject:myEdit subject,Body:myEdit body                                                                                                                                                  |
+    Then UI Delete Report With Name "Widgets 1_2_4_5_6_7_10 Report 2"
 
   @SID_64
-  Scenario:   Widgets 1_2_4_5_6_7_10 Report  - Time:Absolute, Schedule:(Monthly,MAR)
+  Scenario:  Widgets 1_2_4_5_6_10 Report 3
     Then UI Click Button "New Report Tab"
-    Given UI "Create" Report With Name " Widgets 1_2_4_5_6_7_10  Time_Quick_Absolute  Schedule_Monthly"
-      | Template              | reportType:DefenseFlow_Analytics , Widgets:[{Traffic Bandwidth:[all]}, Top Attacks by Duration, Top Attacks by Count, Top Attacks by Protocol, Top Attack Destination, Top Attack Sources, Traffic Bandwidth, DDoS Attack Activations per Period], devices:[{deviceIndex:10},{deviceIndex:11}] |
-      | Format                | Select: HTML                                                                                                                                                                                                                                                                                   |
-      | Time Definitions.Date | Absolute:[27.02.1971 01:00:00, +0d]                                                                                                                                                                                                                                                            |
-      | Schedule              | Run Every:Monthly, On Time:+6H, At Months:[MAR]                                                                                                                                                                                                                                                |
-
+    Given UI "Create" Report With Name "Widgets 1_2_4_5_6_7_10 Report 3"
+      | Template              | reportType:DefenseFlow_Analytics , Widgets:[Top Attacks by Duration, Top Attacks by Count, Top Attacks by Protocol, Top Attack Destination, Top Attack Sources, DDoS Attack Activations per Period], devices:[{deviceIndex:10},{deviceIndex:11}] |
+      | Format                | Select: HTML                                                                                                                                                                                                                                     |
+      | Time Definitions.Date | Absolute:[27.02.1971 01:00, +0d]                                                                                                                                                                                                                 |
+      | Schedule              | Run Every:Monthly, On Time:+6H, At Months:[MAR]                                                                                                                                                                                                  |
+    Given UI "Validate" Report With Name "Widgets 1_2_4_5_6_7_10 Report 3"
+      | Template              | reportType:DefenseFlow_Analytics , Widgets:[Top Attacks by Duration, Top Attacks by Count, Top Attacks by Protocol, Top Attack Destination, Top Attack Sources, DDoS Attack Activations per Period], devices:[{deviceIndex:10},{deviceIndex:11}] |
+      | Format                | Select: HTML                                                                                                                                                                                                                                     |
+      | Time Definitions.Date | Absolute:[27.02.1971 01:00, +0d]                                                                                                                                                                                                                 |
+      | Schedule              | Run Every:Monthly, On Time:+6H, At Months:[MAR]                                                                                                                                                                                                  |
+    Then UI Delete Report With Name "Widgets 1_2_4_5_6_7_10 Report 3"
 
   @SID_65
-  Scenario:   Widgets 1_2_4_5_6_7_10 Report  -Time:Relative:(Weeks), Schedule:(Daily)
+  Scenario:  Widgets 1_2_4_5_6_10 Report 4
     Then UI Click Button "New Report Tab"
-    Given UI "Create" Report With Name " Widgets 1_2_4_5_6_7_10  Time_Relative_Weeks  Schedule_Daily"
-      | Template              | reportType:DefenseFlow_Analytics , Widgets:[{Traffic Bandwidth:[all]}, Top Attacks by Duration, Top Attacks by Count, Top Attacks by Protocol, Top Attack Destination, Top Attack Sources, Traffic Bandwidth, DDoS Attack Activations per Period], devices:[all], showTable:true |
-      | Format                | Select: CSV                                                                                                                                                                                                                                                                      |
-      | Time Definitions.Date | Relative:[Weeks,2]                                                                                                                                                                                                                                                               |
-      | Schedule              | Run Every:Daily,On Time:+2m                                                                                                                                                                                                                                                      |
-      | Share                 | Email:[automation.vision2@radware.com],Subject:myEdit subject,Body:myEdit body                                                                                                                                                                                                   |
-
+    Given UI "Create" Report With Name "Widgets 1_2_4_5_6_7_10 Report 4"
+      | Template              | reportType:DefenseFlow_Analytics , Widgets:[Top Attacks by Duration, Top Attacks by Count, Top Attacks by Protocol, Top Attack Destination, Top Attack Sources, DDoS Attack Activations per Period], devices:[all], showTable:true |
+      | Format                | Select: CSV                                                                                                                                                                                                                        |
+      | Time Definitions.Date | Relative:[Weeks,2]                                                                                                                                                                                                                 |
+      | Schedule              | Run Every:Daily,On Time:+2m                                                                                                                                                                                                        |
+      | Share                 | Email:[automation.vision2@radware.com],Subject:myEdit subject,Body:myEdit body                                                                                                                                                     |
+    Given UI "Validate" Report With Name "Widgets 1_2_4_5_6_7_10 Report 4"
+      | Template              | reportType:DefenseFlow_Analytics , Widgets:[Top Attacks by Duration, Top Attacks by Count, Top Attacks by Protocol, Top Attack Destination, Top Attack Sources, DDoS Attack Activations per Period], devices:[all], showTable:true |
+      | Format                | Select: CSV                                                                                                                                                                                                                        |
+      | Time Definitions.Date | Relative:[Weeks,2]                                                                                                                                                                                                                 |
+      | Schedule              | Run Every:Daily,On Time:+2m                                                                                                                                                                                                        |
+      | Share                 | Email:[automation.vision2@radware.com],Subject:myEdit subject,Body:myEdit body                                                                                                                                                     |
+    Then UI Delete Report With Name "Widgets 1_2_4_5_6_7_10 Report 4"
 
     # ------------------------------------------------------------------------------------------------------------------------------------------------------------
 
   @SID_66
-  Scenario:  Widgets 3_7_10_11_12_13 Report - Time: Quick Range (Previous Month)
+  Scenario: Widgets 3_7_10_11_12_13 Report 1
     Then UI Click Button "New Report Tab"
-    Given UI "Create" Report With Name " Widgets 3_7_10_11_12_13  Time_Quick_Previous Month"
+    Given UI "Create" Report With Name "Widgets 3_7_10_11_12_13 Report 1"
       | Template              | reportType:DefenseFlow_Analytics , Widgets:[{Traffic Bandwidth:[70]},Top Attacks by Rate, Traffic Bandwidth, DDoS Attack Activations per Period, Top 10 Activations by Duration, Top 10 Activations by Attack Rate (Gbps), Top 10 Activations by Attack Rate (Mpps)], devices:[All], showTable:true |
-      | Format                | Select: CSV                                                                                                                                                                                                                                                                      |
-      | Logo                  | reportLogoPNG.png                                                                                                                                                                                                                                                                |
-      | Time Definitions.Date | Quick:Previous Month                                                                                                                                                                                                                                               |
-
+      | Format                | Select: CSV                                                                                                                                                                                                                                                                                         |
+      | Logo                  | reportLogoPNG.png                                                                                                                                                                                                                                                                                   |
+      | Time Definitions.Date | Quick:Previous Month                                                                                                                                                                                                                                                                                |
+    Given UI "Validate" Report With Name "Widgets 3_7_10_11_12_13 Report 1"
+      | Template              | reportType:DefenseFlow_Analytics , Widgets:[{Traffic Bandwidth:[70]},Top Attacks by Rate, Traffic Bandwidth, DDoS Attack Activations per Period, Top 10 Activations by Duration, Top 10 Activations by Attack Rate (Gbps), Top 10 Activations by Attack Rate (Mpps)], devices:[All], showTable:true |
+      | Format                | Select: CSV                                                                                                                                                                                                                                                                                         |
+      | Logo                  | reportLogoPNG.png                                                                                                                                                                                                                                                                                   |
+      | Time Definitions.Date | Quick:Previous Month                                                                                                                                                                                                                                                                                |
+    Then UI Delete Report With Name "Widgets 3_7_10_11_12_13 Report 1"
 
   @SID_67
-  Scenario:  Widgets 3_7_10_11_12_13 Report - Time: Quick Range (This Month), Schedule:(Once)
+  Scenario: Widgets 3_7_10_11_12_13 Report 2
     Then UI Click Button "New Report Tab"
-    Given UI "Create" Report With Name " Widgets 3_7_10_11_12_13  Time_Quick_This Month  Schedule_Once"
+    Given UI "Create" Report With Name "Widgets 3_7_10_11_12_13 Report 2"
       | Template              | reportType:DefenseFlow_Analytics , Widgets:[{Traffic Bandwidth:[35]},Top Attacks by Rate, Traffic Bandwidth, DDoS Attack Activations per Period, Top 10 Activations by Duration, Top 10 Activations by Attack Rate (Gbps), Top 10 Activations by Attack Rate (Mpps)], devices:[{deviceIndex:10}] |
-      | Format                | Select: PDF                                                                                                                                                                                                                                                                   |
-      | Logo                  | reportLogoPNG.png                                                                                                                                                                                                                                                             |
-      | Time Definitions.Date | Quick:This Month                                                                                                                                                                                                                                                               |
-      | Schedule              | Run Every:Once, On Time:+6H                                                                                                                                                                                                                               |
-      | Share                 | Email:[automation.vision2@radware.com],Subject:myEdit subject,Body:myEdit body                                                                                                                                                                                                |
-
+      | Format                | Select: PDF                                                                                                                                                                                                                                                                                      |
+      | Logo                  | reportLogoPNG.png                                                                                                                                                                                                                                                                                |
+      | Time Definitions.Date | Quick:This Month                                                                                                                                                                                                                                                                                 |
+      | Schedule              | Run Every:Once, On Time:+6H                                                                                                                                                                                                                                                                      |
+      | Share                 | Email:[automation.vision2@radware.com],Subject:myEdit subject,Body:myEdit body                                                                                                                                                                                                                   |
+    Given UI "Validate" Report With Name "Widgets 3_7_10_11_12_13 Report 2"
+      | Template              | reportType:DefenseFlow_Analytics , Widgets:[{Traffic Bandwidth:[35]},Top Attacks by Rate, Traffic Bandwidth, DDoS Attack Activations per Period, Top 10 Activations by Duration, Top 10 Activations by Attack Rate (Gbps), Top 10 Activations by Attack Rate (Mpps)], devices:[{deviceIndex:10}] |
+      | Format                | Select: PDF                                                                                                                                                                                                                                                                                      |
+      | Logo                  | reportLogoPNG.png                                                                                                                                                                                                                                                                                |
+      | Time Definitions.Date | Quick:This Month                                                                                                                                                                                                                                                                                 |
+      | Schedule              | Run Every:Once, On Time:+6H                                                                                                                                                                                                                                                                      |
+      | Share                 | Email:[automation.vision2@radware.com],Subject:myEdit subject,Body:myEdit body                                                                                                                                                                                                                   |
+    Then UI Delete Report With Name "Widgets 3_7_10_11_12_13 Report 2"
 
   @SID_68
-  Scenario:   Widgets 3_7_10_11_12_13 Report  - Time:Absolute, Schedule:(Monthly,MAR)
+  Scenario:  Widgets 3_7_10_11_12_13 Report 3
     Then UI Click Button "New Report Tab"
-    Given UI "Create" Report With Name " Widgets 3_7_10_11_12_13  Time_Quick_Absolute  Schedule_Monthly"
+    Given UI "Create" Report With Name "Widgets 3_7_10_11_12_13 Report 3"
       | Template              | reportType:DefenseFlow_Analytics , Widgets:[{Traffic Bandwidth:[40]},Top Attacks by Rate, Traffic Bandwidth, DDoS Attack Activations per Period, Top 10 Activations by Duration, Top 10 Activations by Attack Rate (Gbps), Top 10 Activations by Attack Rate (Mpps)], devices:[{deviceIndex:10},{deviceIndex:11}] |
-      | Format                | Select: HTML                                                                                                                                                                                                                                                                                   |
-      | Time Definitions.Date | Absolute:[27.02.1971 01:00:00, +0d]                                                                                                                                                                                                                                                            |
-      | Schedule              | Run Every:Monthly, On Time:+6H, At Months:[MAR]                                                                                                                                                                                                                                                |
-
+      | Format                | Select: HTML                                                                                                                                                                                                                                                                                                      |
+      | Time Definitions.Date | Absolute:[27.02.1971 01:00, +0d]                                                                                                                                                                                                                                                                                  |
+      | Schedule              | Run Every:Monthly, On Time:+6H, At Months:[MAR]                                                                                                                                                                                                                                                                   |
+    Given UI "Validate" Report With Name "Widgets 3_7_10_11_12_13 Report 3"
+      | Template              | reportType:DefenseFlow_Analytics , Widgets:[{Traffic Bandwidth:[40]},Top Attacks by Rate, Traffic Bandwidth, DDoS Attack Activations per Period, Top 10 Activations by Duration, Top 10 Activations by Attack Rate (Gbps), Top 10 Activations by Attack Rate (Mpps)], devices:[{deviceIndex:10},{deviceIndex:11}] |
+      | Format                | Select: HTML                                                                                                                                                                                                                                                                                                      |
+      | Time Definitions.Date | Absolute:[27.02.1971 01:00, +0d]                                                                                                                                                                                                                                                                                  |
+      | Schedule              | Run Every:Monthly, On Time:+6H, At Months:[MAR]                                                                                                                                                                                                                                                                   |
+    Then UI Delete Report With Name "Widgets 3_7_10_11_12_13 Report 3"
 
   @SID_69
-  Scenario:   Widgets 3_7_10_11_12_13 Report  -Time:Relative:(Hours), Schedule:(Weekly)
+  Scenario:  Widgets 3_7_10_11_12_13 Report 4
     Then UI Click Button "New Report Tab"
-    Given UI "Create" Report With Name " Widgets 3_7_10_11_12_13  Time_Relative_Hours  Schedule_Weekly"
+    Given UI "Create" Report With Name "Widgets 3_7_10_11_12_13 Report 4"
       | Template              | reportType:DefenseFlow_Analytics , Widgets:[{Traffic Bandwidth:[60]},Top Attacks by Rate, Traffic Bandwidth, DDoS Attack Activations per Period, Top 10 Activations by Duration, Top 10 Activations by Attack Rate (Gbps), Top 10 Activations by Attack Rate (Mpps)], devices:[all], showTable:true |
-      | Format                | Select: CSV                                                                                                                                                                                                                                                                      |
-      | Time Definitions.Date | Relative:[Hours,4]                                                                                                                                                                                                                                                                |
-      | Schedule              | Run Every:Weekly, On Time:+6H, At days:[SUN]                                                                                                                                                                                                                                                     |
-      | Share                 | Email:[automation.vision2@radware.com],Subject:myEdit subject,Body:myEdit body                                                                                                                                                                                                   |
+      | Format                | Select: CSV                                                                                                                                                                                                                                                                                         |
+      | Time Definitions.Date | Relative:[Hours,4]                                                                                                                                                                                                                                                                                  |
+      | Schedule              | Run Every:Weekly, On Time:+6H, At days:[WED]                                                                                                                                                                                                                                                        |
+      | Share                 | Email:[automation.vision2@radware.com],Subject:myEdit subject,Body:myEdit body                                                                                                                                                                                                                      |
+    Given UI "Validate" Report With Name "Widgets 3_7_10_11_12_13 Report 4"
+      | Template              | reportType:DefenseFlow_Analytics , Widgets:[{Traffic Bandwidth:[60]},Top Attacks by Rate, Traffic Bandwidth, DDoS Attack Activations per Period, Top 10 Activations by Duration, Top 10 Activations by Attack Rate (Gbps), Top 10 Activations by Attack Rate (Mpps)], devices:[all], showTable:true |
+      | Format                | Select: CSV                                                                                                                                                                                                                                                                                         |
+      | Time Definitions.Date | Relative:[Hours,4]                                                                                                                                                                                                                                                                                  |
+      | Schedule              | Run Every:Weekly, On Time:+6H, At days:[WED]                                                                                                                                                                                                                                                        |
+      | Share                 | Email:[automation.vision2@radware.com],Subject:myEdit subject,Body:myEdit body                                                                                                                                                                                                                      |
+    Then UI Delete Report With Name "Widgets 3_7_10_11_12_13 Report 4"
 
+
+    # ------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+  @SID_70
+  Scenario: Widgets 3_4_5_6_7_8_9_13 Report 1
+    Then UI Click Button "New Report Tab"
+    Given UI "Create" Report With Name "Widgets 3_4_5_6_7_8_9_13  Report 1"
+      | Template              | reportType:DefenseFlow_Analytics , Widgets:[{Traffic Bandwidth:[20]}, Top Attacks by Rate, Top Attacks by Protocol, Top Attack Destination, Top Attack Sources, Traffic Bandwidth, Traffic Rate, DDoS Peak Attack per Period, Top 10 Activations by Attack Rate (Mpps)], devices:[All], showTable:true |
+      | Format                | Select: CSV                                                                                                                                                                                                                                                                                            |
+      | Logo                  | reportLogoPNG.png                                                                                                                                                                                                                                                                                      |
+      | Time Definitions.Date | Absolute:[27.02.1971 01:00, +0d]                                                                                                                                                                                                                                                                       |
+      | Schedule              | Run Every:Weekly, On Time:+6H, At days:[SUN]                                                                                                                                                                                                                                                           |
+    Given UI "Validate" Report With Name "Widgets 3_4_5_6_7_8_9_13  Report 1"
+      | Template              | reportType:DefenseFlow_Analytics , Widgets:[{Traffic Bandwidth:[20]}, Top Attacks by Rate, Top Attacks by Protocol, Top Attack Destination, Top Attack Sources, Traffic Bandwidth, Traffic Rate, DDoS Peak Attack per Period, Top 10 Activations by Attack Rate (Mpps)], devices:[All], showTable:true |
+      | Format                | Select: CSV                                                                                                                                                                                                                                                                                            |
+      | Logo                  | reportLogoPNG.png                                                                                                                                                                                                                                                                                      |
+      | Time Definitions.Date | Absolute:[27.02.1971 01:00, +0d]                                                                                                                                                                                                                                                                       |
+      | Schedule              | Run Every:Weekly, On Time:+6H, At days:[SUN]                                                                                                                                                                                                                                                           |
+    Then UI Delete Report With Name "Widgets 3_4_5_6_7_8_9_13  Report 1"
+
+  @SID_71
+  Scenario: Widgets 3_4_5_6_7_8_9_13 Report 2
+    Then UI Click Button "New Report Tab"
+    Given UI "Create" Report With Name "Widgets 3_4_5_6_7_8_9_13 Report 2"
+      | Template              | reportType:DefenseFlow_Analytics , Widgets:[{Traffic Bandwidth:[15]}, Top Attacks by Rate, Top Attacks by Protocol, Top Attack Destination, Top Attack Sources, Traffic Bandwidth, Traffic Rate, DDoS Peak Attack per Period, Top 10 Activations by Attack Rate (Mpps)], devices:[{deviceIndex:10}] |
+      | Format                | Select: PDF                                                                                                                                                                                                                                                                                         |
+      | Logo                  | reportLogoPNG.png                                                                                                                                                                                                                                                                                   |
+      | Time Definitions.Date | Quick:3M                                                                                                                                                                                                                                                                                            |
+      | Schedule              | Run Every:Monthly, On Time:+6H, At Months:[DEC]                                                                                                                                                                                                                                                     |
+      | Share                 | Email:[automation.vision2@radware.com],Subject:myEdit subject,Body:myEdit body                                                                                                                                                                                                                      |
+    Given UI "Validate" Report With Name "Widgets 3_4_5_6_7_8_9_13 Report 2"
+      | Template              | reportType:DefenseFlow_Analytics , Widgets:[{Traffic Bandwidth:[15]}, Top Attacks by Rate, Top Attacks by Protocol, Top Attack Destination, Top Attack Sources, Traffic Bandwidth, Traffic Rate, DDoS Peak Attack per Period, Top 10 Activations by Attack Rate (Mpps)], devices:[{deviceIndex:10}] |
+      | Format                | Select: PDF                                                                                                                                                                                                                                                                                         |
+      | Logo                  | reportLogoPNG.png                                                                                                                                                                                                                                                                                   |
+      | Time Definitions.Date | Quick:3M                                                                                                                                                                                                                                                                                            |
+      | Schedule              | Run Every:Monthly, On Time:+6H, At Months:[DEC]                                                                                                                                                                                                                                                     |
+      | Share                 | Email:[automation.vision2@radware.com],Subject:myEdit subject,Body:myEdit body                                                                                                                                                                                                                      |
+    Then UI Delete Report With Name "Widgets 3_4_5_6_7_8_9_13 Report 2"
+
+  @SID_72
+  Scenario:  Widgets 3_4_5_6_7_8_9_13 Report 3
+    Then UI Click Button "New Report Tab"
+    Given UI "Create" Report With Name "Widgets 3_4_5_6_7_8_9_13 Report 3"
+      | Template              | reportType:DefenseFlow_Analytics , Widgets:[{Traffic Bandwidth:[25]}, Top Attacks by Rate, Top Attacks by Protocol, Top Attack Destination, Top Attack Sources, Traffic Bandwidth, Traffic Rate, DDoS Peak Attack per Period, Top 10 Activations by Attack Rate (Mpps)], devices:[{deviceIndex:10},{deviceIndex:11}] |
+      | Format                | Select: HTML                                                                                                                                                                                                                                                                                                         |
+      | Time Definitions.Date | Quick:This Month                                                                                                                                                                                                                                                                                                     |
+    Given UI "Validate" Report With Name "Widgets 3_4_5_6_7_8_9_13 Report 3"
+      | Template              | reportType:DefenseFlow_Analytics , Widgets:[{Traffic Bandwidth:[25]}, Top Attacks by Rate, Top Attacks by Protocol, Top Attack Destination, Top Attack Sources, Traffic Bandwidth, Traffic Rate, DDoS Peak Attack per Period, Top 10 Activations by Attack Rate (Mpps)], devices:[{deviceIndex:10},{deviceIndex:11}] |
+      | Format                | Select: HTML                                                                                                                                                                                                                                                                                                         |
+      | Time Definitions.Date | Quick:This Month                                                                                                                                                                                                                                                                                                     |
+    Then UI Delete Report With Name "Widgets 3_4_5_6_7_8_9_13 Report 3"
+
+  @SID_73
+  Scenario:  Widgets 3_4_5_6_7_8_9_13 Report 4
+    Then UI Click Button "New Report Tab"
+    Given UI "Create" Report With Name "Widgets 3_4_5_6_7_8_9_13  Report 4"
+      | Template              | reportType:DefenseFlow_Analytics , Widgets:[{Traffic Bandwidth:[30]}, Top Attacks by Rate, Top Attacks by Protocol, Top Attack Destination, Top Attack Sources, Traffic Bandwidth, Traffic Rate, DDoS Peak Attack per Period, Top 10 Activations by Attack Rate (Mpps)], devices:[all], showTable:true |
+      | Format                | Select: CSV                                                                                                                                                                                                                                                                                            |
+      | Time Definitions.Date | Quick:1H                                                                                                                                                                                                                                                                                               |
+      | Schedule              | Run Every:Monthly, On Time:+6H, At Months:[MAR]                                                                                                                                                                                                                                                        |
+      | Share                 | Email:[automation.vision2@radware.com],Subject:myEdit subject,Body:myEdit body                                                                                                                                                                                                                         |
+    Given UI "Validate" Report With Name "Widgets 3_4_5_6_7_8_9_13  Report 4"
+      | Template              | reportType:DefenseFlow_Analytics , Widgets:[{Traffic Bandwidth:[30]}, Top Attacks by Rate, Top Attacks by Protocol, Top Attack Destination, Top Attack Sources, Traffic Bandwidth, Traffic Rate, DDoS Peak Attack per Period, Top 10 Activations by Attack Rate (Mpps)], devices:[all], showTable:true |
+      | Format                | Select: CSV                                                                                                                                                                                                                                                                                            |
+      | Time Definitions.Date | Quick:1H                                                                                                                                                                                                                                                                                               |
+      | Schedule              | Run Every:Monthly, On Time:+6H, At Months:[MAR]                                                                                                                                                                                                                                                        |
+      | Share                 | Email:[automation.vision2@radware.com],Subject:myEdit subject,Body:myEdit body                                                                                                                                                                                                                         |
+    Then UI Delete Report With Name "Widgets 3_4_5_6_7_8_9_13  Report 4"
+
+
+    # ------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+  @SID_74
+  Scenario: Widgets 1_2_6_11_12_13 Report 1
+    Then UI Click Button "New Report Tab"
+    Given UI "Create" Report With Name "Widgets 1_4_6_7_8_9_11_12_13 Report 1"
+      | Template              | reportType:DefenseFlow_Analytics , Widgets:[Top Attacks by Duration, Top Attacks by Count, Top Attack Sources, Top 10 Activations by Duration, Top 10 Activations by Attack Rate (Gbps), Top 10 Activations by Attack Rate (Mpps)], devices:[All], showTable:true |
+      | Format                | Select: CSV                                                                                                                                                                                                                                                       |
+      | Logo                  | reportLogoPNG.png                                                                                                                                                                                                                                                 |
+      | Time Definitions.Date | Quick:15m                                                                                                                                                                                                                                                         |
+    Given UI "Validate" Report With Name "Widgets 1_4_6_7_8_9_11_12_13 Report 1"
+      | Template              | reportType:DefenseFlow_Analytics , Widgets:[Top Attacks by Duration, Top Attacks by Count, Top Attack Sources, Top 10 Activations by Duration, Top 10 Activations by Attack Rate (Gbps), Top 10 Activations by Attack Rate (Mpps)], devices:[All], showTable:true |
+      | Format                | Select: CSV                                                                                                                                                                                                                                                       |
+      | Logo                  | reportLogoPNG.png                                                                                                                                                                                                                                                 |
+      | Time Definitions.Date | Quick:15m                                                                                                                                                                                                                                                         |
+    Then UI Delete Report With Name "Widgets 1_4_6_7_8_9_11_12_13 Report 1"
+
+  @SID_75
+  Scenario: Widgets 1_2_6_11_12_13 Report 2
+    Then UI Click Button "New Report Tab"
+    Given UI "Create" Report With Name "Widgets 1_4_6_7_8_9_11_12_13 Report 2"
+      | Template              | reportType:DefenseFlow_Analytics , Widgets:[Top Attacks by Duration, Top Attacks by Count, Top Attack Sources, Top 10 Activations by Duration, Top 10 Activations by Attack Rate (Gbps), Top 10 Activations by Attack Rate (Mpps)], devices:[{deviceIndex:10}] |
+      | Format                | Select: PDF                                                                                                                                                                                                                                                    |
+      | Logo                  | reportLogoPNG.png                                                                                                                                                                                                                                              |
+      | Time Definitions.Date | Quick:This Week                                                                                                                                                                                                                                                |
+      | Schedule              | Run Every:Monthly, On Time:+6H, At Months:[AUG]                                                                                                                                                                                                                |
+      | Share                 | Email:[automation.vision2@radware.com],Subject:myEdit subject,Body:myEdit body                                                                                                                                                                                 |
+    Given UI "Validate" Report With Name "Widgets 1_4_6_7_8_9_11_12_13 Report 2"
+      | Template              | reportType:DefenseFlow_Analytics , Widgets:[Top Attacks by Duration, Top Attacks by Count, Top Attack Sources, Top 10 Activations by Duration, Top 10 Activations by Attack Rate (Gbps), Top 10 Activations by Attack Rate (Mpps)], devices:[{deviceIndex:10}] |
+      | Format                | Select: PDF                                                                                                                                                                                                                                                    |
+      | Logo                  | reportLogoPNG.png                                                                                                                                                                                                                                              |
+      | Time Definitions.Date | Quick:This Week                                                                                                                                                                                                                                                |
+      | Schedule              | Run Every:Monthly, On Time:+6H, At Months:[AUG]                                                                                                                                                                                                                |
+      | Share                 | Email:[automation.vision2@radware.com],Subject:myEdit subject,Body:myEdit body                                                                                                                                                                                 |
+    Then UI Delete Report With Name "Widgets 1_4_6_7_8_9_11_12_13 Report 2"
+
+  @SID_76
+  Scenario:  Widgets 1_2_6_11_12_13 Report 3
+    Then UI Click Button "New Report Tab"
+    Given UI "Create" Report With Name "Widgets 1_4_6_7_8_9_11_12_13 Report 3"
+      | Template              | reportType:DefenseFlow_Analytics , Widgets:[Top Attacks by Duration, Top Attacks by Count, Top Attack Sources, Top 10 Activations by Duration, Top 10 Activations by Attack Rate (Gbps), Top 10 Activations by Attack Rate (Mpps)], devices:[{deviceIndex:10},{deviceIndex:11}] |
+      | Format                | Select: HTML                                                                                                                                                                                                                                                                    |
+      | Time Definitions.Date | Absolute:[27.02.1971 01:00, +0d]                                                                                                                                                                                                                                                |
+      | Schedule              | Run Every:Monthly, On Time:+6H, At Months:[MAR]                                                                                                                                                                                                                                 |
+    Given UI "Validate" Report With Name "Widgets 1_4_6_7_8_9_11_12_13 Report 3"
+      | Template              | reportType:DefenseFlow_Analytics , Widgets:[Top Attacks by Duration, Top Attacks by Count, Top Attack Sources, Top 10 Activations by Duration, Top 10 Activations by Attack Rate (Gbps), Top 10 Activations by Attack Rate (Mpps)], devices:[{deviceIndex:10},{deviceIndex:11}] |
+      | Format                | Select: HTML                                                                                                                                                                                                                                                                    |
+      | Time Definitions.Date | Absolute:[27.02.1971 01:00, +0d]                                                                                                                                                                                                                                                |
+      | Schedule              | Run Every:Monthly, On Time:+6H, At Months:[MAR]                                                                                                                                                                                                                                 |
+    Then UI Delete Report With Name "Widgets 1_4_6_7_8_9_11_12_13 Report 3"
+
+  @SID_77
+  Scenario:  Widgets 1_2_6_11_12_13 Report 4
+    Then UI Click Button "New Report Tab"
+    Given UI "Create" Report With Name "Widgets 1_4_6_7_8_9_11_12_13 Report 4"
+      | Template              | reportType:DefenseFlow_Analytics , Widgets:[Top Attacks by Duration, Top Attacks by Count, Top Attack Sources, Top 10 Activations by Duration, Top 10 Activations by Attack Rate (Gbps), Top 10 Activations by Attack Rate (Mpps)], devices:[all], showTable:true |
+      | Format                | Select: CSV                                                                                                                                                                                                                                                       |
+      | Time Definitions.Date | Relative:[Weeks,2]                                                                                                                                                                                                                                                |
+      | Schedule              | Run Every:Daily,On Time:+2m                                                                                                                                                                                                                                       |
+      | Share                 | Email:[automation.vision2@radware.com],Subject:myEdit subject,Body:myEdit body                                                                                                                                                                                    |
+    Given UI "Validate" Report With Name "Widgets 1_4_6_7_8_9_11_12_13 Report 4"
+      | Template              | reportType:DefenseFlow_Analytics , Widgets:[Top Attacks by Duration, Top Attacks by Count, Top Attack Sources, Top 10 Activations by Duration, Top 10 Activations by Attack Rate (Gbps), Top 10 Activations by Attack Rate (Mpps)], devices:[all], showTable:true |
+      | Format                | Select: CSV                                                                                                                                                                                                                                                       |
+      | Time Definitions.Date | Relative:[Weeks,2]                                                                                                                                                                                                                                                |
+      | Schedule              | Run Every:Daily,On Time:+2m                                                                                                                                                                                                                                       |
+      | Share                 | Email:[automation.vision2@radware.com],Subject:myEdit subject,Body:myEdit body                                                                                                                                                                                    |
+    Then UI Delete Report With Name "Widgets 1_4_6_7_8_9_11_12_13 Report 4"
+
+    # ------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+  @SID_78
+  Scenario: Widgets 4_5_6_7_8_9_10_11_12_13 Report 1
+    Then UI Click Button "New Report Tab"
+    Given UI "Create" Report With Name "Widgets 4_5_6_7_8_9_10_11_12_13  Report 1"
+      | Template              | reportType:DefenseFlow_Analytics , Widgets:[{Traffic Bandwidth:[20]}, Top Attacks by Protocol, Top Attack Destination, Top Attack Sources, Traffic Bandwidth, Traffic Rate, DDoS Peak Attack per Period, DDoS Attack Activations per Period, Top 10 Activations by Duration, Top 10 Activations by Attack Rate (Gbps), Top 10 Activations by Attack Rate (Mpps)], devices:[All], showTable:true |
+      | Format                | Select: CSV                                                                                                                                                                                                                                                                                                                                                                                     |
+      | Logo                  | reportLogoPNG.png                                                                                                                                                                                                                                                                                                                                                                               |
+      | Time Definitions.Date | Quick:15m                                                                                                                                                                                                                                                                                                                                                                                       |
+    Given UI "Validate" Report With Name "Widgets 4_5_6_7_8_9_10_11_12_13  Report 1"
+      | Template              | reportType:DefenseFlow_Analytics , Widgets:[{Traffic Bandwidth:[20]}, Top Attacks by Protocol, Top Attack Destination, Top Attack Sources, Traffic Bandwidth, Traffic Rate, DDoS Peak Attack per Period, DDoS Attack Activations per Period, Top 10 Activations by Duration, Top 10 Activations by Attack Rate (Gbps), Top 10 Activations by Attack Rate (Mpps)], devices:[All], showTable:true |
+      | Format                | Select: CSV                                                                                                                                                                                                                                                                                                                                                                                     |
+      | Logo                  | reportLogoPNG.png                                                                                                                                                                                                                                                                                                                                                                               |
+      | Time Definitions.Date | Quick:15m                                                                                                                                                                                                                                                                                                                                                                                       |
+    Then UI Delete Report With Name "Widgets 4_5_6_7_8_9_10_11_12_13  Report 1"
+
+  @SID_79
+  Scenario: Widgets 4_5_6_7_8_9_10_11_12_13 Report 2
+    Then UI Click Button "New Report Tab"
+    Given UI "Create" Report With Name "Widgets 4_5_6_7_8_9_10_11_12_13 Report 2"
+      | Template              | reportType:DefenseFlow_Analytics , Widgets:[{Traffic Bandwidth:[15]}, Top Attacks by Protocol, Top Attack Destination, Top Attack Sources, Traffic Bandwidth, Traffic Rate, DDoS Peak Attack per Period, DDoS Attack Activations per Period, Top 10 Activations by Duration, Top 10 Activations by Attack Rate (Gbps), Top 10 Activations by Attack Rate (Mpps)], devices:[{deviceIndex:10}] |
+      | Format                | Select: PDF                                                                                                                                                                                                                                                                                                                                                                                  |
+      | Logo                  | reportLogoPNG.png                                                                                                                                                                                                                                                                                                                                                                            |
+      | Time Definitions.Date | Quick:This Week                                                                                                                                                                                                                                                                                                                                                                              |
+      | Schedule              | Run Every:Monthly, On Time:+6H, At Months:[AUG]                                                                                                                                                                                                                                                                                                                                              |
+      | Share                 | Email:[automation.vision2@radware.com],Subject:myEdit subject,Body:myEdit body                                                                                                                                                                                                                                                                                                               |
+    Given UI "Validate" Report With Name "Widgets 4_5_6_7_8_9_10_11_12_13 Report 2"
+      | Template              | reportType:DefenseFlow_Analytics , Widgets:[{Traffic Bandwidth:[15]}, Top Attacks by Protocol, Top Attack Destination, Top Attack Sources, Traffic Bandwidth, Traffic Rate, DDoS Peak Attack per Period, DDoS Attack Activations per Period, Top 10 Activations by Duration, Top 10 Activations by Attack Rate (Gbps), Top 10 Activations by Attack Rate (Mpps)], devices:[{deviceIndex:10}] |
+      | Format                | Select: PDF                                                                                                                                                                                                                                                                                                                                                                                  |
+      | Logo                  | reportLogoPNG.png                                                                                                                                                                                                                                                                                                                                                                            |
+      | Time Definitions.Date | Quick:This Week                                                                                                                                                                                                                                                                                                                                                                              |
+      | Schedule              | Run Every:Monthly, On Time:+6H, At Months:[AUG]                                                                                                                                                                                                                                                                                                                                              |
+      | Share                 | Email:[automation.vision2@radware.com],Subject:myEdit subject,Body:myEdit body                                                                                                                                                                                                                                                                                                               |
+    Then UI Delete Report With Name "Widgets 4_5_6_7_8_9_10_11_12_13 Report 2"
+
+  @SID_80
+  Scenario:  Widgets 4_5_6_7_8_9_10_11_12_13 Report 3
+    Then UI Click Button "New Report Tab"
+    Given UI "Create" Report With Name "Widgets 4_5_6_7_8_9_10_11_12_13 Report 3"
+      | Template              | reportType:DefenseFlow_Analytics , Widgets:[{Traffic Bandwidth:[25]}, Top Attacks by Protocol, Top Attack Destination, Top Attack Sources, Traffic Bandwidth, Traffic Rate, DDoS Peak Attack per Period, DDoS Attack Activations per Period, Top 10 Activations by Duration, Top 10 Activations by Attack Rate (Gbps), Top 10 Activations by Attack Rate (Mpps)], devices:[{deviceIndex:10},{deviceIndex:11}] |
+      | Format                | Select: HTML                                                                                                                                                                                                                                                                                                                                                                                                  |
+      | Time Definitions.Date | Absolute:[27.02.1971 01:00, +0d]                                                                                                                                                                                                                                                                                                                                                                              |
+      | Schedule              | Run Every:Monthly, On Time:+6H, At Months:[MAR]                                                                                                                                                                                                                                                                                                                                                               |
+    Given UI "Validate" Report With Name "Widgets 4_5_6_7_8_9_10_11_12_13 Report 3"
+      | Template              | reportType:DefenseFlow_Analytics , Widgets:[{Traffic Bandwidth:[25]}, Top Attacks by Protocol, Top Attack Destination, Top Attack Sources, Traffic Bandwidth, Traffic Rate, DDoS Peak Attack per Period, DDoS Attack Activations per Period, Top 10 Activations by Duration, Top 10 Activations by Attack Rate (Gbps), Top 10 Activations by Attack Rate (Mpps)], devices:[{deviceIndex:10},{deviceIndex:11}] |
+      | Format                | Select: HTML                                                                                                                                                                                                                                                                                                                                                                                                  |
+      | Time Definitions.Date | Absolute:[27.02.1971 01:00, +0d]                                                                                                                                                                                                                                                                                                                                                                              |
+      | Schedule              | Run Every:Monthly, On Time:+6H, At Months:[MAR]                                                                                                                                                                                                                                                                                                                                                               |
+    Then UI Delete Report With Name "Widgets 4_5_6_7_8_9_10_11_12_13 Report 3"
+
+  @SID_81
+  Scenario:  Widgets 4_5_6_7_8_9_10_11_12_13 Report 4
+    Then UI Click Button "New Report Tab"
+    Given UI "Create" Report With Name "Widgets 4_5_6_7_8_9_10_11_12_13  Report 4"
+      | Template              | reportType:DefenseFlow_Analytics , Widgets:[{Traffic Bandwidth:[30]}, Top Attacks by Protocol, Top Attack Destination, Top Attack Sources, Traffic Bandwidth, Traffic Rate, DDoS Peak Attack per Period, DDoS Attack Activations per Period, Top 10 Activations by Duration, Top 10 Activations by Attack Rate (Gbps), Top 10 Activations by Attack Rate (Mpps)], devices:[all], showTable:true |
+      | Format                | Select: CSV                                                                                                                                                                                                                                                                                                                                                                                     |
+      | Time Definitions.Date | Relative:[Weeks,2]                                                                                                                                                                                                                                                                                                                                                                              |
+      | Schedule              | Run Every:Daily,On Time:+2m                                                                                                                                                                                                                                                                                                                                                                     |
+      | Share                 | Email:[automation.vision2@radware.com],Subject:myEdit subject,Body:myEdit body                                                                                                                                                                                                                                                                                                                  |
+    Given UI "Validate" Report With Name "Widgets 4_5_6_7_8_9_10_11_12_13  Report 4"
+      | Template              | reportType:DefenseFlow_Analytics , Widgets:[{Traffic Bandwidth:[30]}, Top Attacks by Protocol, Top Attack Destination, Top Attack Sources, Traffic Bandwidth, Traffic Rate, DDoS Peak Attack per Period, DDoS Attack Activations per Period, Top 10 Activations by Duration, Top 10 Activations by Attack Rate (Gbps), Top 10 Activations by Attack Rate (Mpps)], devices:[all], showTable:true |
+      | Format                | Select: CSV                                                                                                                                                                                                                                                                                                                                                                                     |
+      | Time Definitions.Date | Relative:[Weeks,2]                                                                                                                                                                                                                                                                                                                                                                              |
+      | Schedule              | Run Every:Daily,On Time:+2m                                                                                                                                                                                                                                                                                                                                                                     |
+      | Share                 | Email:[automation.vision2@radware.com],Subject:myEdit subject,Body:myEdit body                                                                                                                                                                                                                                                                                                                  |
+    Then UI Delete Report With Name "Widgets 4_5_6_7_8_9_10_11_12_13  Report 4"
+
+    # ------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+  @SID_82
+  Scenario: Widgets 1_2_3_4_5_6_7_10 Report 1
+    Then UI Click Button "New Report Tab"
+    Given UI "Create" Report With Name "Widgets 1_2_3_4_5_6_7_10  Report 1"
+      | Template              | reportType:DefenseFlow_Analytics , Widgets:[{Traffic Bandwidth:[20]}, Top Attacks by Duration, Top Attacks by Count, Top Attacks by Rate, Top Attacks by Protocol, Top Attack Destination, Top Attack Sources, Traffic Bandwidth, DDoS Attack Activations per Period], devices:[All], showTable:true |
+      | Format                | Select: CSV                                                                                                                                                                                                                                                                                          |
+      | Logo                  | reportLogoPNG.png                                                                                                                                                                                                                                                                                    |
+      | Time Definitions.Date | Quick:Previous Month                                                                                                                                                                                                                                                                                 |
+    Given UI "Validate" Report With Name "Widgets 1_2_3_4_5_6_7_10  Report 1"
+      | Template              | reportType:DefenseFlow_Analytics , Widgets:[{Traffic Bandwidth:[20]}, Top Attacks by Duration, Top Attacks by Count, Top Attacks by Rate, Top Attacks by Protocol, Top Attack Destination, Top Attack Sources, Traffic Bandwidth, DDoS Attack Activations per Period], devices:[All], showTable:true |
+      | Format                | Select: CSV                                                                                                                                                                                                                                                                                          |
+      | Logo                  | reportLogoPNG.png                                                                                                                                                                                                                                                                                    |
+      | Time Definitions.Date | Quick:Previous Month                                                                                                                                                                                                                                                                                 |
+    Then UI Delete Report With Name "Widgets 1_2_3_4_5_6_7_10  Report 1"
+
+  @SID_83
+  Scenario: Widgets 1_2_3_4_5_6_7_10 Report 2
+    Then UI Click Button "New Report Tab"
+    Given UI "Create" Report With Name "Widgets 1_2_3_4_5_6_7_10 Report 2"
+      | Template              | reportType:DefenseFlow_Analytics , Widgets:[{Traffic Bandwidth:[15]}, Top Attacks by Duration, Top Attacks by Count, Top Attacks by Rate, Top Attacks by Protocol, Top Attack Destination, Top Attack Sources, Traffic Bandwidth, DDoS Attack Activations per Period], devices:[{deviceIndex:10}] |
+      | Format                | Select: PDF                                                                                                                                                                                                                                                                                       |
+      | Logo                  | reportLogoPNG.png                                                                                                                                                                                                                                                                                 |
+      | Time Definitions.Date | Quick:This Month                                                                                                                                                                                                                                                                                  |
+      | Schedule              | Run Every:Once, On Time:+6H                                                                                                                                                                                                                                                                       |
+      | Share                 | Email:[automation.vision2@radware.com],Subject:myEdit subject,Body:myEdit body                                                                                                                                                                                                                    |
+    Given UI "Validate" Report With Name "Widgets 1_2_3_4_5_6_7_10 Report 2"
+      | Template              | reportType:DefenseFlow_Analytics , Widgets:[{Traffic Bandwidth:[15]}, Top Attacks by Duration, Top Attacks by Count, Top Attacks by Rate, Top Attacks by Protocol, Top Attack Destination, Top Attack Sources, Traffic Bandwidth, DDoS Attack Activations per Period], devices:[{deviceIndex:10}] |
+      | Format                | Select: PDF                                                                                                                                                                                                                                                                                       |
+      | Logo                  | reportLogoPNG.png                                                                                                                                                                                                                                                                                 |
+      | Time Definitions.Date | Quick:This Month                                                                                                                                                                                                                                                                                  |
+      | Schedule              | Run Every:Once, On Time:+6H                                                                                                                                                                                                                                                                       |
+      | Share                 | Email:[automation.vision2@radware.com],Subject:myEdit subject,Body:myEdit body                                                                                                                                                                                                                    |
+    Then UI Delete Report With Name "Widgets 1_2_3_4_5_6_7_10 Report 2"
+
+  @SID_84
+  Scenario:  Widgets 1_2_3_4_5_6_7_10 Report 3
+    Then UI Click Button "New Report Tab"
+    Given UI "Create" Report With Name "Widgets 1_2_3_4_5_6_7_10 Report 3"
+      | Template              | reportType:DefenseFlow_Analytics , Widgets:[{Traffic Bandwidth:[25]}, Top Attacks by Duration, Top Attacks by Count, Top Attacks by Rate, Top Attacks by Protocol, Top Attack Destination, Top Attack Sources, Traffic Bandwidth, DDoS Attack Activations per Period], devices:[{deviceIndex:10},{deviceIndex:11}] |
+      | Format                | Select: HTML                                                                                                                                                                                                                                                                                                       |
+      | Time Definitions.Date | Absolute:[27.02.1971 01:00, +0d]                                                                                                                                                                                                                                                                                   |
+      | Schedule              | Run Every:Monthly, On Time:+6H, At Months:[MAR]                                                                                                                                                                                                                                                                    |
+    Given UI "Validate" Report With Name "Widgets 1_2_3_4_5_6_7_10 Report 3"
+      | Template              | reportType:DefenseFlow_Analytics , Widgets:[{Traffic Bandwidth:[25]}, Top Attacks by Duration, Top Attacks by Count, Top Attacks by Rate, Top Attacks by Protocol, Top Attack Destination, Top Attack Sources, Traffic Bandwidth, DDoS Attack Activations per Period], devices:[{deviceIndex:10},{deviceIndex:11}] |
+      | Format                | Select: HTML                                                                                                                                                                                                                                                                                                       |
+      | Time Definitions.Date | Absolute:[27.02.1971 01:00, +0d]                                                                                                                                                                                                                                                                                   |
+      | Schedule              | Run Every:Monthly, On Time:+6H, At Months:[MAR]                                                                                                                                                                                                                                                                    |
+    Then UI Delete Report With Name "Widgets 1_2_3_4_5_6_7_10 Report 3"
+
+  @SID_85
+  Scenario:  Widgets 1_2_3_4_5_6_7_10 Report 4
+    Then UI Click Button "New Report Tab"
+    Given UI "Create" Report With Name "Widgets 1_2_3_4_5_6_7_10  Report 4"
+      | Template              | reportType:DefenseFlow_Analytics , Widgets:[{Traffic Bandwidth:[30]}, Top Attacks by Duration, Top Attacks by Count, Top Attacks by Rate, Top Attacks by Protocol, Top Attack Destination, Top Attack Sources, Traffic Bandwidth, DDoS Attack Activations per Period], devices:[all], showTable:true |
+      | Format                | Select: CSV                                                                                                                                                                                                                                                                                          |
+      | Time Definitions.Date | Relative:[Hours,2]                                                                                                                                                                                                                                                                                   |
+      | Schedule              | Run Every:Weekly, On Time:+6H, At days:[WED]                                                                                                                                                                                                                                                         |
+      | Share                 | Email:[automation.vision2@radware.com],Subject:myEdit subject,Body:myEdit body                                                                                                                                                                                                                       |
+    Given UI "Validate" Report With Name "Widgets 1_2_3_4_5_6_7_10  Report 4"
+      | Template              | reportType:DefenseFlow_Analytics , Widgets:[{Traffic Bandwidth:[30]}, Top Attacks by Duration, Top Attacks by Count, Top Attacks by Rate, Top Attacks by Protocol, Top Attack Destination, Top Attack Sources, Traffic Bandwidth, DDoS Attack Activations per Period], devices:[all], showTable:true |
+      | Format                | Select: CSV                                                                                                                                                                                                                                                                                          |
+      | Time Definitions.Date | Relative:[Hours,2]                                                                                                                                                                                                                                                                                   |
+      | Schedule              | Run Every:Weekly, On Time:+6H, At days:[WED]                                                                                                                                                                                                                                                         |
+      | Share                 | Email:[automation.vision2@radware.com],Subject:myEdit subject,Body:myEdit body                                                                                                                                                                                                                       |
+    Then UI Delete Report With Name "Widgets 1_2_3_4_5_6_7_10  Report 4"
+
+    # ------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+  @SID_82
+  Scenario: Widgets 1_3_10 Report
+    Then UI Click Button "New Report Tab"
+    Given UI "Create" Report With Name "Widgets 1_3_10  Report"
+      | Template              | reportType:DefenseFlow_Analytics , Widgets:[Top Attacks by Duration, Top Attacks by Rate, DDoS Attack Activations per Period], devices:[All], showTable:true |
+      | Format                | Select: CSV                                                                                                                                                  |
+      | Logo                  | reportLogoPNG.png                                                                                                                                            |
+      | Time Definitions.Date | Quick:15m                                                                                                                                                    |
+    Given UI "Validate" Report With Name "Widgets 1_3_10  Report"
+      | Template              | reportType:DefenseFlow_Analytics , Widgets:[Top Attacks by Duration, Top Attacks by Rate, DDoS Attack Activations per Period], devices:[All], showTable:true |
+      | Format                | Select: CSV                                                                                                                                                  |
+      | Logo                  | reportLogoPNG.png                                                                                                                                            |
+      | Time Definitions.Date | Quick:15m                                                                                                                                                    |
+    Then UI Delete Report With Name "Widgets 1_3_10  Report"
+
+  @SID_83
+  Scenario: Widgets 3_6_9_13 Report
+    Then UI Click Button "New Report Tab"
+    Given UI "Create" Report With Name "Widgets 3_6_9_13 Report"
+      | Template              | reportType:DefenseFlow_Analytics , Widgets:[Top Attacks by Rate, Top Attack Sources, DDoS Peak Attack per Period, Top 10 Activations by Attack Rate (Mpps)], devices:[{deviceIndex:10}] |
+      | Format                | Select: PDF                                                                                                                                                                             |
+      | Logo                  | reportLogoPNG.png                                                                                                                                                                       |
+      | Time Definitions.Date | Quick:This Week                                                                                                                                                                         |
+      | Schedule              | Run Every:Monthly, On Time:+6H, At Months:[AUG]                                                                                                                                         |
+      | Share                 | Email:[automation.vision2@radware.com],Subject:myEdit subject,Body:myEdit body                                                                                                          |
+    Given UI "Validate" Report With Name "Widgets 3_6_9_13 Report"
+      | Template              | reportType:DefenseFlow_Analytics , Widgets:[Top Attacks by Rate, Top Attack Sources, DDoS Peak Attack per Period, Top 10 Activations by Attack Rate (Mpps)], devices:[{deviceIndex:10}] |
+      | Format                | Select: PDF                                                                                                                                                                             |
+      | Logo                  | reportLogoPNG.png                                                                                                                                                                       |
+      | Time Definitions.Date | Quick:This Week                                                                                                                                                                         |
+      | Schedule              | Run Every:Monthly, On Time:+6H, At Months:[AUG]                                                                                                                                         |
+      | Share                 | Email:[automation.vision2@radware.com],Subject:myEdit subject,Body:myEdit body                                                                                                          |
+    Then UI Delete Report With Name "Widgets 3_6_9_13 Report"
+
+  @SID_84
+  Scenario:  Widgets 1_3_5_7_9_11_13 Report
+    Then UI Click Button "New Report Tab"
+    Given UI "Create" Report With Name "Widgets 1_3_5_7_9_11_13 Report"
+      | Template              | reportType:DefenseFlow_Analytics , Widgets:[Top Attacks by Duration, Top Attacks by Rate, Top Attack Destination, {Traffic Bandwidth:[pps,Inbound,20]}, DDoS Peak Attack per Period, Top 10 Activations by Duration, Top 10 Activations by Attack Rate (Mpps)], devices:[{deviceIndex:10},{deviceIndex:11}] |
+      | Format                | Select: HTML                                                                                                                                                                                                                                                                                                |
+      | Time Definitions.Date | Absolute:[27.02.1971 01:00, +0d]                                                                                                                                                                                                                                                                            |
+      | Schedule              | Run Every:Monthly, On Time:+6H, At Months:[MAR]                                                                                                                                                                                                                                                             |
+    Given UI "Validate" Report With Name "Widgets 1_3_5_7_9_11_13 Report"
+      | Template              | reportType:DefenseFlow_Analytics , Widgets:[Top Attacks by Duration, Top Attacks by Rate, Top Attack Destination, {Traffic Bandwidth:[pps,Inbound,20]}, DDoS Peak Attack per Period, Top 10 Activations by Duration, Top 10 Activations by Attack Rate (Mpps)], devices:[{deviceIndex:10},{deviceIndex:11}] |
+      | Format                | Select: HTML                                                                                                                                                                                                                                                                                                |
+      | Time Definitions.Date | Absolute:[27.02.1971 01:00, +0d]                                                                                                                                                                                                                                                                            |
+      | Schedule              | Run Every:Monthly, On Time:+6H, At Months:[MAR]                                                                                                                                                                                                                                                             |
+    Then UI Delete Report With Name "Widgets 1_3_5_7_9_11_13 Report"
+
+  @SID_85
+  Scenario:  Widgets 2_4_8_12 Report 4
+    Then UI Click Button "New Report Tab"
+    Given UI "Create" Report With Name "Widgets 2_4_8_12 Report"
+      | Template              | reportType:DefenseFlow_Analytics , Widgets:[Top Attacks by Count, Top Attacks by Protocol, Traffic Rate, Top 10 Activations by Attack Rate (Gbps)], devices:[all], showTable:true |
+      | Format                | Select: CSV                                                                                                                                                                       |
+      | Time Definitions.Date | Relative:[Weeks,3]                                                                                                                                                                |
+      | Schedule              | Run Every:Daily,On Time:+2m                                                                                                                                                       |
+      | Share                 | Email:[automation.vision2@radware.com],Subject:myEdit subject,Body:myEdit body                                                                                                    |
+    Given UI "Validate" Report With Name "Widgets 2_4_8_12 Report"
+      | Template              | reportType:DefenseFlow_Analytics , Widgets:[Top Attacks by Count, Top Attacks by Protocol, Traffic Rate, Top 10 Activations by Attack Rate (Gbps)], devices:[all], showTable:true |
+      | Format                | Select: CSV                                                                                                                                                                       |
+      | Time Definitions.Date | Relative:[Weeks,3]                                                                                                                                                                |
+      | Schedule              | Run Every:Daily,On Time:+2m                                                                                                                                                       |
+      | Share                 | Email:[automation.vision2@radware.com],Subject:myEdit subject,Body:myEdit body                                                                                                    |
+    Then UI Delete Report With Name "Widgets 2_4_8_12 Report"
+    # ------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+  @SID_82
+  Scenario: ALL Widgets Report 1
+    Then UI Click Button "New Report Tab"
+    Given UI "Create" Report With Name "ALL Widgets Report 1"
+      | Template              | reportType:DefenseFlow_Analytics , Widgets:[All], devices:[All], showTable:true |
+      | Format                | Select: CSV                                                                     |
+      | Logo                  | reportLogoPNG.png                                                               |
+      | Time Definitions.Date | Quick:Previous Month                                                            |
+    Given UI "Validate" Report With Name "ALL Widgets Report 1"
+      | Template              | reportType:DefenseFlow_Analytics , Widgets:[All], devices:[All], showTable:true |
+      | Format                | Select: CSV                                                                     |
+      | Logo                  | reportLogoPNG.png                                                               |
+      | Time Definitions.Date | Quick:Previous Month                                                            |
+    Then UI Delete Report With Name "ALL Widgets Report 1"
+
+  @SID_83
+  Scenario: ALL Widgets Report 2
+    Then UI Click Button "New Report Tab"
+    Given UI "Create" Report With Name "ALL Widgets Report 2"
+      | Template              | reportType:DefenseFlow_Analytics , Widgets:[All], devices:[{deviceIndex:10}]   |
+      | Format                | Select: PDF                                                                    |
+      | Logo                  | reportLogoPNG.png                                                              |
+      | Time Definitions.Date | Quick:This Month                                                               |
+      | Schedule              | Run Every:Once, On Time:+6H                                                    |
+      | Share                 | Email:[automation.vision2@radware.com],Subject:myEdit subject,Body:myEdit body |
+    Given UI "Validate" Report With Name "ALL Widgets Report 2"
+      | Template              | reportType:DefenseFlow_Analytics , Widgets:[All], devices:[{deviceIndex:10}]   |
+      | Format                | Select: PDF                                                                    |
+      | Logo                  | reportLogoPNG.png                                                              |
+      | Time Definitions.Date | Quick:This Month                                                               |
+      | Schedule              | Run Every:Once, On Time:+6H                                                    |
+      | Share                 | Email:[automation.vision2@radware.com],Subject:myEdit subject,Body:myEdit body |
+    Then UI Delete Report With Name "ALL Widgets Report 2"
+
+  @SID_84
+  Scenario:  ALL Widgets Report 3
+    Then UI Click Button "New Report Tab"
+    Given UI "Create" Report With Name "ALL Widgets Report 3"
+      | Template              | reportType:DefenseFlow_Analytics , Widgets:[All], devices:[{deviceIndex:10},{deviceIndex:11}] |
+      | Format                | Select: HTML                                                                                  |
+      | Time Definitions.Date | Absolute:[27.02.1971 01:00, +0d]                                                              |
+      | Schedule              | Run Every:Monthly, On Time:+6H, At Months:[MAR]                                               |
+    Given UI "Validate" Report With Name "ALL Widgets Report 3"
+      | Template              | reportType:DefenseFlow_Analytics , Widgets:[All], devices:[{deviceIndex:10},{deviceIndex:11}] |
+      | Format                | Select: HTML                                                                                  |
+      | Time Definitions.Date | Absolute:[27.02.1971 01:00, +0d]                                                              |
+      | Schedule              | Run Every:Monthly, On Time:+6H, At Months:[MAR]                                               |
+    Then UI Delete Report With Name "ALL Widgets Report 3"
+
+  @SID_85
+  Scenario:  ALL Widgets Report 4
+    Then UI Click Button "New Report Tab"
+    Given UI "Create" Report With Name "ALL Widgets Report 4"
+      | Template              | reportType:DefenseFlow_Analytics , Widgets:[All], devices:[all], showTable:true |
+      | Format                | Select: CSV                                                                     |
+      | Time Definitions.Date | Relative:[Hours,2]                                                              |
+      | Schedule              | Run Every:Weekly, On Time:+6H, At days:[WED]                                    |
+      | Share                 | Email:[automation.vision2@radware.com],Subject:myEdit subject,Body:myEdit body  |
+    Given UI "Validate" Report With Name "ALL Widgets Report 4"
+      | Template              | reportType:DefenseFlow_Analytics , Widgets:[All], devices:[all], showTable:true |
+      | Format                | Select: CSV                                                                     |
+      | Time Definitions.Date | Relative:[Hours,2]                                                              |
+      | Schedule              | Run Every:Weekly, On Time:+6H, At days:[WED]                                    |
+      | Share                 | Email:[automation.vision2@radware.com],Subject:myEdit subject,Body:myEdit body  |
+    Then UI Delete Report With Name "ALL Widgets Report 4"
+
+    # ------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+  @SID_86
+  Scenario: Logout
+    Then UI logout and close browser

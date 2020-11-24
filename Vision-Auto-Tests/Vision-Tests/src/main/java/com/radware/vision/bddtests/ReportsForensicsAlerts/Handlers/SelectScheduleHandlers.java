@@ -11,9 +11,12 @@ import org.json.JSONObject;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.How;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.time.ZoneOffset;
 import java.time.format.DateTimeFormatter;
+import java.time.temporal.ChronoUnit;
 import java.util.*;
 
 
@@ -73,8 +76,8 @@ public class SelectScheduleHandlers {
 
         protected String getExpectedValidateTime(Map<String, LocalDateTime> schedulingDates, String name) {
             if (isWithComputing())//Todo suit error message if the schedule isn't exist - MAHA
-                return DateTimeFormatter.ofPattern(dailyTimePattern).format(schedulingDates.get(name));
-            else return expectedScheduleJson.get("On Time").toString();
+                return DateTimeFormatter.ofPattern("HH:mm").format(schedulingDates.get(name));
+            else return LocalTime.parse(expectedScheduleJson.get("On Time").toString(), DateTimeFormatter.ofPattern(dailyTimePattern)).format(DateTimeFormatter.ofPattern("HH:mm"));
         }
 
         final boolean isWithComputing(){return expectedScheduleJson.get("On Time").toString().matches(("[\\+|\\-]\\d+[M|d|y|H|m]"));}
@@ -92,7 +95,7 @@ public class SelectScheduleHandlers {
             this.actualScheduleJson = actualScheduleJson;
             String actualOnTime = getActualTime();
             String expectedTime = getExpectedValidateTime(schedulingDates, name);
-            if (!actualOnTime.equalsIgnoreCase(DateTimeFormatter.ofPattern(dailyTimePattern).format(schedulingDates.get(name))))
+            if (!actualOnTime.equalsIgnoreCase(expectedTime))
                 errorMessage.append("the Actual on Time is").append(actualOnTime).append(" but the Expected is ").append(expectedTime).append("\n");
         }
 
@@ -113,9 +116,9 @@ public class SelectScheduleHandlers {
             if (buttonElements.size()>0)
             {
                 WebUiTools.checkElements(buttonLabel, "", false);
-                String remainMonthParam = WebUIUtils.fluentWait(new ComponentLocator(How.XPATH, "//*[contains(@data-debug-id,'" + VisionDebugIdsManager.getDataDebugId() + "')and@" + WebUiTools.checkedNotCheckedAttribute + "='true']").getBy()).getText();
+                String remainElementParam = WebUIUtils.fluentWait(new ComponentLocator(How.XPATH, "//*[contains(@data-debug-id,'" + VisionDebugIdsManager.getDataDebugId() + "')and@" + WebUiTools.checkedNotCheckedAttribute + "='true']").getBy()).getText();
                 WebUiTools.check(buttonLabel,buttonElements, true);
-                WebUiTools.check(buttonLabel, remainMonthParam, buttonElements.contains(remainMonthParam));
+                WebUiTools.check(buttonLabel, remainElementParam, buttonElements.contains(remainElementParam));
             }
         }
     }
@@ -155,7 +158,29 @@ public class SelectScheduleHandlers {
 
         @Override
         public void create() throws TargetWebElementNotFoundException {
-            BasicOperationsHandler.setTextField("Schedule Once Time", getScheduleTimeAsText(onceTimePattern));
+            WebUiTools.getWebElement("Schedule Once Time").click();
+            selectDate();
+            WebUiTools.getWebElement("Schedule Once Time").click();
+            WebUIUtils.fluentWait(new ComponentLocator(How.XPATH, "//*[@data-debug-id='Scheduler_once_time_picker']//td[@class='rdtTimeToggle']").getBy()).click();
+            selectHoursOrMinutes("hours");
+            selectHoursOrMinutes("minutes");
+        }
+
+        private void selectDate() {
+            LocalDate actualLocalDate = LocalDate.parse("01 " + WebUIUtils.fluentWait(new ComponentLocator(How.XPATH, "//*[@data-debug-id='Scheduler_once_time_picker']//*[@class='rdtPicker']//*[@class='rdtSwitch']").getBy()).getText(), DateTimeFormatter.ofPattern("dd MMMM yyyy"));
+            int monthsDifference = (int) ChronoUnit.MONTHS.between(actualLocalDate.withDayOfMonth(1), scheduleTime.withDayOfMonth(1));
+            while(monthsDifference > 0)
+            {
+                WebUIUtils.fluentWait(new ComponentLocator(How.XPATH, "//*[@data-debug-id='Scheduler_once_time_picker']//*[@class='rdtPicker']//*[@class='rdtNext']").getBy()).click();
+                monthsDifference--;
+            }
+            WebUIUtils.fluentWait(new ComponentLocator(How.XPATH, "//*[@data-debug-id='Scheduler_once_time_picker']//td[@data-value='" + scheduleTime.getDayOfMonth() + "'][not(contains(@class,'rdtOld'))]").getBy()).click();
+        }
+
+        private void selectHoursOrMinutes(String HourOrMinutes) {
+            int differenceValue = Integer.valueOf(WebUIUtils.fluentWait(new ComponentLocator(How.XPATH, "(//*[@data-debug-id='Scheduler_once_time_picker']//div[@class='rdtCount'])[" + (HourOrMinutes.toLowerCase().equalsIgnoreCase("hours")?"1":"2") + "]").getBy()).getText()) - (HourOrMinutes.toLowerCase().equalsIgnoreCase("hours")?scheduleTime.getHour():scheduleTime.getMinute());
+            for(int i=0; i<Math.abs(differenceValue); i++)
+                WebUIUtils.fluentWait(new ComponentLocator(How.XPATH, "(//*[@data-debug-id='Scheduler_once_time_picker']//div[@class='rdtCounter'])[" + (HourOrMinutes.toLowerCase().equalsIgnoreCase("hours")?"1":"2") + "]//span[.='" + (differenceValue>0?"▼":"▲") + "']").getBy()).click();
         }
 
         @Override
