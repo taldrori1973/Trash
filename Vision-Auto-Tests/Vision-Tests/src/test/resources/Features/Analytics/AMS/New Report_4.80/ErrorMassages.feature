@@ -1,5 +1,4 @@
-Feature: Error Massages
-
+Feature: Negative test to validate Error Messages
   @SID_1
   Scenario: Navigate to NEW REPORTS page
     Then UI Login with user "sys_admin" and password "radware"
@@ -51,12 +50,11 @@ Feature: Error Massages
   @SID_5
   Scenario: Create New Report with Report with more than 50 Widgets
     Given UI "Create" Report With Name "Report with more than 50 Widgets"
-      | Template-1 | reportType:HTTPS Flood,Widgets:[Inbound Traffic],Servers:[server3-DefensePro_172.16.22.51-https_policy7] |
+      | Template-1 | reportType:DefensePro Behavioral Protections , Widgets:[All] , devices:[All]                             |
       | Template-2 | reportType:DefensePro Behavioral Protections , Widgets:[All] , devices:[All]                             |
       | Template-3 | reportType:DefensePro Behavioral Protections , Widgets:[All] , devices:[All]                             |
-      | Template-4 | reportType:DefensePro Behavioral Protections , Widgets:[All] , devices:[All]                             |
     Then UI Text of "Error message title" contains "Unable To Save Report"
-    Then UI Text of "Error message description" contains "The Report configuration contains too many widgets. A Report can contain no more than 50 widgets. The current configuration contains 51 widgets. Remove at least 1 widgets from the Report configuration and try again."
+    Then UI Text of "Error message description" contains "The Report configuration contains too many widgets. A Report can contain no more than 50 widgets. The current configuration contains 60 widgets. Remove at least 10 widgets from the Report configuration and try again."
     Then UI Click Button "errorMessageOK"
     Then UI Click Button "cancel"
     Then UI Text of "Save Change Message" contains "Do you want to save "Report with more than 50 Widgets"?"
@@ -92,4 +90,6 @@ Feature: Error Massages
     Then UI Click Button "cancel"
     Then UI Text of "Save Change Message" contains "Do you want to save "Report with an Error share Email To"?"
     Then UI Click Button "No"
+
+
 
