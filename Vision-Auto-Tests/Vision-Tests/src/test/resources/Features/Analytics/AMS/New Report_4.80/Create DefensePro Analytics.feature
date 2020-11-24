@@ -1,4 +1,4 @@
-@TC117961 @TCtest11
+@TC117961
 Feature: DefensePro Analytics
 
 
@@ -888,12 +888,12 @@ Feature: DefensePro Analytics
       | Template              | reportType:DefensePro Analytics , Widgets:[Top Attacks by Duration],devices:[{deviceIndex:10},{deviceIndex:11}] |
       | Format                | Select: HTML                                                                                                    |
       | Time Definitions.Date | Absolute:[27.02.1971 01:00, +0d]                                                                                |
-      | Schedule              | Run Every:Weekly, On Time:+6H, At Days:[MUN]                                                                    |
+      | Schedule              | Run Every:Weekly, On Time:+6H, At Days:[MON]                                                                    |
     Given UI "Validate" Report With Name "Top Attacks by Duration 3"
       | Template              | reportType:DefensePro Analytics , Widgets:[Top Attacks by Duration],devices:[{deviceIndex:10},{deviceIndex:11}] |
       | Format                | Select: HTML                                                                                                    |
       | Time Definitions.Date | Absolute:[27.02.1971 01:00, +0d]                                                                                |
-      | Schedule              | Run Every:Weekly, On Time:+6H, At Days:[MUN]                                                                    |
+      | Schedule              | Run Every:Weekly, On Time:+6H, At Days:[MON]                                                                    |
     Then UI Delete Report With Name "Top Attacks by Duration 3"
 
   @SID_71
@@ -987,12 +987,12 @@ Feature: DefensePro Analytics
   Scenario: All Widgets Report 1
     Then UI Click Button "New Report Tab"
     Given UI "Create" Report With Name "All Widgets 1"
-      | Template              | reportType:DefensePro Analytics , Widgets:[{ALL:[{Traffic Bandwidth:[pps,Inbound,All]}]}, devices:[All], showTable:true |
+      | Template              | reportType:DefensePro Analytics , Widgets:[{ALL:[{Traffic Bandwidth:[pps,Inbound,All]}]}], devices:[All], showTable:true |
       | Format                | Select: CSV                                                                                                             |
       | Logo                  | reportLogoPNG.png                                                                                                       |
       | Time Definitions.Date | Quick:1H                                                                                                                |
     Given UI "Validate" Report With Name "All Widgets 1"
-      | Template              | reportType:DefensePro Analytics , Widgets:[{ALL:[{Traffic Bandwidth:[pps,Inbound,All]}]}, devices:[All], showTable:true |
+      | Template              | reportType:DefensePro Analytics , Widgets:[{ALL:[{Traffic Bandwidth:[pps,Inbound,All]}]}], devices:[All], showTable:true |
       | Format                | Select: CSV                                                                                                             |
       | Logo                  | reportLogoPNG.png                                                                                                       |
       | Time Definitions.Date | Quick:1H                                                                                                                |
@@ -1002,14 +1002,14 @@ Feature: DefensePro Analytics
   Scenario: All Widgets Report 2
     Then UI Click Button "New Report Tab"
     Given UI "Create" Report With Name "All Widgets 2"
-      | Template              | reportType:DefensePro Analytics , Widgets:[{ALL:[{Traffic Bandwidth:[bps,Outbound,All]}]}, devices:[{deviceIndex:10}] |
+      | Template              | reportType:DefensePro Analytics , Widgets:[{ALL:[{Traffic Bandwidth:[bps,Outbound,All]}]}], devices:[{deviceIndex:10}] |
       | Format                | Select: PDF                                                                                                           |
       | Logo                  | reportLogoPNG.png                                                                                                     |
       | Time Definitions.Date | Absolute:[27.02.1971 01:00, +0d]                                                                                      |
       | Schedule              | Run Every:Monthly, On Time:+6H, At Months:[JAN]                                                                       |
       | Share                 | Email:[automation.vision2@radware.com],Subject:myEdit subject,Body:myEdit body                                        |
     Given UI "Validate" Report With Name "All Widgets 2"
-      | Template              | reportType:DefensePro Analytics , Widgets:[{ALL:[{Traffic Bandwidth:[bps,Outbound,All]}]}, devices:[{deviceIndex:10}] |
+      | Template              | reportType:DefensePro Analytics , Widgets:[{ALL:[{Traffic Bandwidth:[bps,Outbound,All]}]}], devices:[{deviceIndex:10}] |
       | Format                | Select: PDF                                                                                                           |
       | Logo                  | reportLogoPNG.png                                                                                                     |
       | Time Definitions.Date | Absolute:[27.02.1971 01:00, +0d]                                                                                      |
@@ -1021,12 +1021,12 @@ Feature: DefensePro Analytics
   Scenario:  All Widgets Report 3
     Then UI Click Button "New Report Tab"
     Given UI "Create" Report With Name "All Widgets 3"
-      | Template              | reportType:DefensePro Analytics , Widgets:[{ALL:[{Traffic Bandwidth:[bps,Inbound,50]}]}, devices:[{deviceIndex:10},{deviceIndex:11}] |
+      | Template              | reportType:DefensePro Analytics , Widgets:[{ALL:[{Traffic Bandwidth:[bps,Inbound,50]}]}], devices:[{deviceIndex:10},{deviceIndex:11}] |
       | Format                | Select: HTML                                                                                                                         |
       | Time Definitions.Date | Relative:[Days,2]                                                                                                                    |
       | Schedule              | Run Every:Daily,On Time:+2m                                                                                                          |
     Given UI "Validate" Report With Name "All Widgets 3"
-      | Template              | reportType:DefensePro Analytics , Widgets:[{ALL:[{Traffic Bandwidth:[bps,Inbound,50]}]}, devices:[{deviceIndex:10},{deviceIndex:11}] |
+      | Template              | reportType:DefensePro Analytics , Widgets:[{ALL:[{Traffic Bandwidth:[bps,Inbound,50]}]}], devices:[{deviceIndex:10},{deviceIndex:11}] |
       | Format                | Select: HTML                                                                                                                         |
       | Time Definitions.Date | Relative:[Days,2]                                                                                                                    |
       | Schedule              | Run Every:Daily,On Time:+2m                                                                                                          |
@@ -1036,12 +1036,12 @@ Feature: DefensePro Analytics
   Scenario:  All Widgets Report 4
     Then UI Click Button "New Report Tab"
     Given UI "Create" Report With Name "All Widgets 4"
-      | Template              | reportType:DefensePro Analytics , Widgets:[{ALL:[{Traffic Bandwidth:[pps,Outbound,60]}]}, devices:[{deviceIndex:11}] |
+      | Template              | reportType:DefensePro Analytics , Widgets:[{ALL:[{Traffic Bandwidth:[pps,Outbound,60]}]}], devices:[{deviceIndex:11}] |
       | Format                | Select: HTML                                                                                                         |
       | Time Definitions.Date | Relative:[Days,2]                                                                                                    |
       | Schedule              | Run Every:Daily,On Time:+2m                                                                                          |
     Given UI "Validate" Report With Name "All Widgets 4"
-      | Template              | reportType:DefensePro Analytics , Widgets:[{ALL:[{Traffic Bandwidth:[pps,Outbound,60]}]}, devices:[{deviceIndex:11}] |
+      | Template              | reportType:DefensePro Analytics , Widgets:[{ALL:[{Traffic Bandwidth:[pps,Outbound,60]}]}], devices:[{deviceIndex:11}] |
       | Format                | Select: HTML                                                                                                         |
       | Time Definitions.Date | Relative:[Days,2]                                                                                                    |
       | Schedule              | Run Every:Daily,On Time:+2m                                                                                          |
@@ -1051,13 +1051,13 @@ Feature: DefensePro Analytics
   Scenario:  All Widgets Report 5
     Then UI Click Button "New Report Tab"
     Given UI "Create" Report With Name "All Widgets 5"
-      | Template              | reportType:DefensePro Analytics ,  Widgets:[{ALL:[{Traffic Bandwidth:[bps,Outbound,All]}]}, devices:[All], showTable:true |
+      | Template              | reportType:DefensePro Analytics ,  Widgets:[{ALL:[{Traffic Bandwidth:[bps,Outbound,All]}]}], devices:[All], showTable:true |
       | Format                | Select: CSV                                                                                                               |
       | Time Definitions.Date | Relative:[Weeks,2]                                                                                                        |
       | Schedule              | Run Every:Weekly, On Time:+6H, At Days:[WED]                                                                              |
       | Share                 | Email:[automation.vision2@radware.com],Subject:myEdit subject,Body:myEdit body                                            |
     Given UI "Validate" Report With Name "All Widgets 5"
-      | Template              | reportType:DefensePro Analytics ,  Widgets:[{ALL:[{Traffic Bandwidth:[bps,Outbound,All]}]}, devices:[All], showTable:true |
+      | Template              | reportType:DefensePro Analytics ,  Widgets:[{ALL:[{Traffic Bandwidth:[bps,Outbound,All]}]}], devices:[All], showTable:true |
       | Format                | Select: CSV                                                                                                               |
       | Time Definitions.Date | Relative:[Weeks,2]                                                                                                        |
       | Schedule              | Run Every:Weekly, On Time:+6H, At Days:[WED]                                                                              |
@@ -1068,13 +1068,13 @@ Feature: DefensePro Analytics
   Scenario:  All Widgets Report 6
     Then UI Click Button "New Report Tab"
     Given UI "Create" Report With Name "All Widgets 6"
-      | Template              | reportType:DefensePro Analytics , Widgets:[{ALL:[{Traffic Bandwidth:[pps,Inbound,All]}]}, devices:[All], showTable:true |
+      | Template              | reportType:DefensePro Analytics , Widgets:[{ALL:[{Traffic Bandwidth:[pps,Inbound,All]}]}], devices:[All], showTable:true |
       | Format                | Select: CSV                                                                                                             |
       | Time Definitions.Date | Relative:[Weeks,2]                                                                                                      |
       | Schedule              | Run Every:Weekly, On Time:+6H, At Days:[WED]                                                                            |
       | Share                 | Email:[automation.vision2@radware.com],Subject:myEdit subject,Body:myEdit body                                          |
     Given UI "Validate" Report With Name "All Widgets 6"
-      | Template              | reportType:DefensePro Analytics , Widgets:[{ALL:[{Traffic Bandwidth:[pps,Inbound,All]}]}, devices:[All], showTable:true |
+      | Template              | reportType:DefensePro Analytics , Widgets:[{ALL:[{Traffic Bandwidth:[pps,Inbound,All]}]}], devices:[All], showTable:true |
       | Format                | Select: CSV                                                                                                             |
       | Time Definitions.Date | Relative:[Weeks,2]                                                                                                      |
       | Schedule              | Run Every:Weekly, On Time:+6H, At Days:[WED]                                                                            |
