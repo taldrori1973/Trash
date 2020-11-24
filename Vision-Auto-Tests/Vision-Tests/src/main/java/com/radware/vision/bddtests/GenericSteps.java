@@ -284,7 +284,7 @@ public class GenericSteps extends BddUITestBase {
      * @param expectedValue - the text that you want to compare
      * @param params        - adding to debugs id
      */
-    @Then("^UI Text of \"([^\"]*)\"(?: with extension \"(.*)\")? contains \"([^\"]*)\"$")
+    @Then("^UI Text of \"([^\"]*)\"(?: with extension \"(.*)\")? contains \"(.*)\"$")
     public void uiTextContains(String label, String params, String expectedValue) {
         String actualValue = null;
         try {

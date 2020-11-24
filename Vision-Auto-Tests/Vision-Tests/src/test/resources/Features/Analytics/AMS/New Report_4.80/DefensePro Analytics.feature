@@ -1,4 +1,4 @@
-@TCtest11
+@TC117961 @TCtest11
 Feature: DefensePro Analytics
 
 

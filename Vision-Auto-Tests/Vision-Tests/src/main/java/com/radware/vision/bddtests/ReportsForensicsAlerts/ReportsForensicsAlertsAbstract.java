@@ -38,7 +38,17 @@ abstract class ReportsForensicsAlertsAbstract implements ReportsForensicsAlertsI
     private static Map<String, JSONObject> timeAbsoluteDates = new HashMap<>();
     protected static Map<String, Map<String,String>> templates = new HashMap<>();
     private String name;
-
+    public static final Map<String, Integer> widgets;
+    static {
+        Map<String, Integer> templateWidgets= new HashMap<>();
+        templateWidgets.put("DefensePro Analytics",18);
+        templateWidgets.put("DefensePro Behavioral Protections",20);
+        templateWidgets.put("HTTPS Flood",1);
+        templateWidgets.put("DefenseFlow Analytics",13);
+        templateWidgets.put("AppWall",7);
+        templateWidgets.put("EAAF",6);
+        widgets = Collections.unmodifiableMap(templateWidgets);
+    }
 
     protected void createName(String name) throws Exception {
         BasicOperationsHandler.setTextField("Report Name", "", name, true);
