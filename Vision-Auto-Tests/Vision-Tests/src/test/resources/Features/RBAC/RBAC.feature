@@ -67,7 +67,7 @@ Feature: RBAC
     Then UI Add "Alteon" with index 2 on "Default" site nowait
     Then UI Add "AppWall" with index 0 on "Default" site nowait
     Then UI Add "LinkProof" with index 0 on "Default" site nowait
-    Then UI Navigate to page "System->User Management->User Management Settings"
+    Then UI Navigate to page "System->User Management->Authentication Mode"
     Then UI Select "Local" from Vision dropdown "Authentication Mode"
     Then UI Click Button "Submit"
     * UI Logout
@@ -842,7 +842,7 @@ Feature: RBAC
   Scenario: Login And Go to Vision
     Given UI Login with user "radware" and password "radware"
     Given UI Go To Vision
-    Then UI Navigate to page "System->User Management->User Management Settings"
+    Then UI Navigate to page "System->User Management->Authentication Mode"
     Then UI Select "TACACS+" from Vision dropdown "Authentication Mode"
     Then UI Click Button "Submit"
     Then UI Logout
