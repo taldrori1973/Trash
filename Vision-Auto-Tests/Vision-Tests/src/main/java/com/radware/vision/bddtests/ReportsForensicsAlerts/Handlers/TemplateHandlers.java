@@ -60,7 +60,8 @@ public class TemplateHandlers {
             case "APPLICATION":
                 return new ApplicationScopeSelection(new JSONArray(templateJsonObject.get("Applications").toString()), templateParam);
             case "EAAF":
-                return new EAAFScopeSelection(new JSONArray(templateJsonObject.get("devices").toString()), templateParam);
+//                return new EAAFScopeSelection(new JSONArray(templateJsonObject.get("devices").toString()), templateParam);
+                return new EAAFScopeSelection(new JSONArray(), templateParam);
             case "DEFENSEPRO ANALYTICS":
             case "DEFENSEPRO BEHAVIORAL PROTECTIONS":
             default:
