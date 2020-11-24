@@ -1,6 +1,5 @@
-
-  @TCnoam1
-  Feature: AppWall
+@TC117965
+Feature: AppWall
 
 
   @SID_1
