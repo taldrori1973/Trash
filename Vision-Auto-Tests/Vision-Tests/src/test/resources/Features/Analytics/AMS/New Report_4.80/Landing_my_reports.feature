@@ -1,5 +1,5 @@
-Feature: Landing_my_reports
-
+@TC117966
+Feature: Landing my reports basic tests
   @SID_1
   Scenario: Navigate to NEW REPORTS page
     Then UI Login with user "sys_admin" and password "radware"

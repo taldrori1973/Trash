@@ -1,4 +1,5 @@
-Feature: sanity new report
+@TC117968
+Feature: Basic tests for report parameters
 
   @SID_1
   Scenario: Navigate to NEW REPORTS page
