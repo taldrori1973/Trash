@@ -13,6 +13,7 @@ import org.openqa.selenium.support.How;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.time.ZoneOffset;
 import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoUnit;
@@ -75,7 +76,7 @@ public class SelectScheduleHandlers {
 
         protected String getExpectedValidateTime(Map<String, LocalDateTime> schedulingDates, String name) {
             if (isWithComputing())//Todo suit error message if the schedule isn't exist - MAHA
-                return DateTimeFormatter.ofPattern(dailyTimePattern).format(schedulingDates.get(name));
+                return DateTimeFormatter.ofPattern("HH:mm").format(schedulingDates.get(name));
             else return expectedScheduleJson.get("On Time").toString();
         }
 
@@ -94,7 +95,7 @@ public class SelectScheduleHandlers {
             this.actualScheduleJson = actualScheduleJson;
             String actualOnTime = getActualTime();
             String expectedTime = getExpectedValidateTime(schedulingDates, name);
-            if (!actualOnTime.equalsIgnoreCase(DateTimeFormatter.ofPattern(dailyTimePattern).format(schedulingDates.get(name))))
+            if (!actualOnTime.equalsIgnoreCase(LocalTime.parse(expectedTime, DateTimeFormatter.ofPattern("hh:mm a")).format(DateTimeFormatter.ofPattern("HH:mm"))))
                 errorMessage.append("the Actual on Time is").append(actualOnTime).append(" but the Expected is ").append(expectedTime).append("\n");
         }
 
