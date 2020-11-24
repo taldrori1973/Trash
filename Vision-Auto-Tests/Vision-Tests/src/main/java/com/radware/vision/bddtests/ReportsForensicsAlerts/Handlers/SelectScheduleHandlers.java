@@ -77,7 +77,7 @@ public class SelectScheduleHandlers {
         protected String getExpectedValidateTime(Map<String, LocalDateTime> schedulingDates, String name) {
             if (isWithComputing())//Todo suit error message if the schedule isn't exist - MAHA
                 return DateTimeFormatter.ofPattern("HH:mm").format(schedulingDates.get(name));
-            else return expectedScheduleJson.get("On Time").toString();
+            else return LocalTime.parse(expectedScheduleJson.get("On Time").toString(), DateTimeFormatter.ofPattern(dailyTimePattern)).format(DateTimeFormatter.ofPattern("HH:mm"));
         }
 
         final boolean isWithComputing(){return expectedScheduleJson.get("On Time").toString().matches(("[\\+|\\-]\\d+[M|d|y|H|m]"));}
@@ -95,7 +95,7 @@ public class SelectScheduleHandlers {
             this.actualScheduleJson = actualScheduleJson;
             String actualOnTime = getActualTime();
             String expectedTime = getExpectedValidateTime(schedulingDates, name);
-            if (!actualOnTime.equalsIgnoreCase(LocalTime.parse(expectedTime, DateTimeFormatter.ofPattern("hh:mm a")).format(DateTimeFormatter.ofPattern("HH:mm"))))
+            if (!actualOnTime.equalsIgnoreCase(expectedTime))
                 errorMessage.append("the Actual on Time is").append(actualOnTime).append(" but the Expected is ").append(expectedTime).append("\n");
         }
 
