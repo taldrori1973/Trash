@@ -219,10 +219,10 @@ public class Report extends ReportsForensicsAlertsAbstract {
         StringBuilder errorMessage = new StringBuilder();
         if (map.containsKey("Format")) {
             JSONObject expectedFormatJson = new JSONObject(map.get("Format"));
-            if (formatJson.get("type").toString().trim().equalsIgnoreCase(expectedFormatJson.get("Select").toString().trim()))
+            if (formatJson.get("type").toString().trim().toLowerCase().equalsIgnoreCase(expectedFormatJson.get("Select").toString().trim().toLowerCase()))
                 errorMessage.append("The actual Format is: ").append(formatJson.get("type").toString()).append("but the Expected format is: ").append(expectedFormatJson.get("Select").toString()).append("\n");
         }
-        else if (formatJson.get("type").toString().equalsIgnoreCase("html"))
+        else if (formatJson.get("type").toString().trim().toLowerCase().equalsIgnoreCase("html"))
             errorMessage.append("The actual Format is: ").append(formatJson.get("type").toString()).append("but the Expected format is: ").append("html").append("\n");
         return errorMessage;
     }
