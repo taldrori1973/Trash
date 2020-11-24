@@ -160,26 +160,26 @@ public class SelectScheduleHandlers {
             WebUiTools.getWebElement("Schedule Once Time").click();
             selectDate();
             WebUiTools.getWebElement("Schedule Once Time").click();
-            WebUIUtils.fluentWait(new ComponentLocator(How.XPATH, "//td[@class='rdtTimeToggle']").getBy()).click();
+            WebUIUtils.fluentWait(new ComponentLocator(How.XPATH, "//*[@data-debug-id='Scheduler_once_time_picker']//td[@class='rdtTimeToggle']").getBy()).click();
             selectHoursOrMinutes("hours");
             selectHoursOrMinutes("minutes");
         }
 
         private void selectDate() {
-            LocalDate actualLocalDate = LocalDate.parse("01 " + WebUIUtils.fluentWait(new ComponentLocator(How.XPATH, "//*[@class='rdtPicker']//*[@class='rdtSwitch']").getBy()).getText(), DateTimeFormatter.ofPattern("dd MMMM yyyy"));
+            LocalDate actualLocalDate = LocalDate.parse("01 " + WebUIUtils.fluentWait(new ComponentLocator(How.XPATH, "//*[@data-debug-id='Scheduler_once_time_picker']//*[@class='rdtPicker']//*[@class='rdtSwitch']").getBy()).getText(), DateTimeFormatter.ofPattern("dd MMMM yyyy"));
             int monthsDifference = (int) ChronoUnit.MONTHS.between(actualLocalDate.withDayOfMonth(1), scheduleTime.withDayOfMonth(1));
             while(monthsDifference > 0)
             {
-                WebUIUtils.fluentWait(new ComponentLocator(How.XPATH, "//*[@class='rdtPicker']//*[@class='rdtNext']").getBy()).click();
+                WebUIUtils.fluentWait(new ComponentLocator(How.XPATH, "//*[@data-debug-id='Scheduler_once_time_picker']//*[@class='rdtPicker']//*[@class='rdtNext']").getBy()).click();
                 monthsDifference--;
             }
-            WebUIUtils.fluentWait(new ComponentLocator(How.XPATH, "//td[@data-value='" + scheduleTime.getDayOfMonth() + "'][not(contains(@class,'rdtOld'))]").getBy()).click();
+            WebUIUtils.fluentWait(new ComponentLocator(How.XPATH, "//*[@data-debug-id='Scheduler_once_time_picker']//td[@data-value='" + scheduleTime.getDayOfMonth() + "'][not(contains(@class,'rdtOld'))]").getBy()).click();
         }
 
         private void selectHoursOrMinutes(String HourOrMinutes) {
-            int differenceValue = Integer.valueOf(WebUIUtils.fluentWait(new ComponentLocator(How.XPATH, "(//div[@class='rdtCount'])[" + (HourOrMinutes.toLowerCase().equalsIgnoreCase("hours")?"1":"2") + "]").getBy()).getText()) - (HourOrMinutes.toLowerCase().equalsIgnoreCase("hours")?scheduleTime.getHour():scheduleTime.getMinute());
+            int differenceValue = Integer.valueOf(WebUIUtils.fluentWait(new ComponentLocator(How.XPATH, "(//*[@data-debug-id='Scheduler_once_time_picker']//div[@class='rdtCount'])[" + (HourOrMinutes.toLowerCase().equalsIgnoreCase("hours")?"1":"2") + "]").getBy()).getText()) - (HourOrMinutes.toLowerCase().equalsIgnoreCase("hours")?scheduleTime.getHour():scheduleTime.getMinute());
             for(int i=0; i<Math.abs(differenceValue); i++)
-                WebUIUtils.fluentWait(new ComponentLocator(How.XPATH, "(//div[@class='rdtCounter'])[" + (HourOrMinutes.toLowerCase().equalsIgnoreCase("hours")?"1":"2") + "]//span[.='" + (differenceValue>0?"▼":"▲") + "']").getBy()).click();
+                WebUIUtils.fluentWait(new ComponentLocator(How.XPATH, "(//*[@data-debug-id='Scheduler_once_time_picker']//div[@class='rdtCounter'])[" + (HourOrMinutes.toLowerCase().equalsIgnoreCase("hours")?"1":"2") + "]//span[.='" + (differenceValue>0?"▼":"▲") + "']").getBy()).click();
         }
 
         @Override
