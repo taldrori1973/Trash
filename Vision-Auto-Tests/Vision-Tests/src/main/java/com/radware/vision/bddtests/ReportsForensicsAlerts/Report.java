@@ -65,9 +65,9 @@ public class Report extends ReportsForensicsAlertsAbstract {
             TemplateHandlers.addTemplate(new JSONObject(templateObject.toString()),reportName);
     }
 
-    private void editTemplates(Map<String, String> map,String reportName) {
+    private void editTemplates(Map<String, String> map,String reportName) throws Exception{
         for (Object templateObject : new JSONArray(map.get("Template"))) {
-            TemplateHandlers.editTemplate(new JSONObject(templateObject.toString()),
+            TemplateHandlers.editTemplate(reportName,new JSONObject(templateObject.toString()),
                     getReportTemplateUICurrentName(reportName,new JSONObject(templateObject.toString()).get("templateAutomationID").toString()));
         }
     }
