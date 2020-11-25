@@ -14,7 +14,7 @@ Feature: AppWall
       | Logo                  | reportLogoPNG.png                                                                |
       | Time Definitions.Date | Quick:15m                                                                        |
       | Format                | Select: CSV                                                                      |
-    Given UI "Validate" Report With Name "OWASP Top 10 1 "
+    Then UI "Validate" Report With Name "OWASP Top 10 1 "
       | Template              | reportType:AppWall , Widgets:[OWASP Top 10] , Applications:[All] , showTable:true|
       | Logo                  | reportLogoPNG.png                                                                |
       | Time Definitions.Date | Quick:15m                                                                        |
@@ -31,7 +31,7 @@ Feature: AppWall
       | Schedule              | Run Every:Monthly, On Time:+6H, At Months:[OCT]                                     |
       | Share                 | Email:[automation.vision2@radware.com],Subject:myEdit subject,Body:myEdit body      |
       | Format                | Select: PDF                                                                         |
-    Given UI "Validate" Report With Name "OWASP Top 10 2 "
+    Then UI "Validate" Report With Name "OWASP Top 10 2 "
       | Template              | reportType:AppWall , Widgets:[OWASP Top 10] , Applications:[All] , showTable:false  |
       | Logo                  | reportLogoPNG.png                                                                   |
       | Time Definitions.Date | Absolute:[27.02.1971 01:00, +0d]                                                    |
@@ -48,7 +48,7 @@ Feature: AppWall
       | Time Definitions.Date | Relative:[Days,2]                                                                     |
       | Schedule              | Run Every:Weekly, On Time:+6H, At Days:[SUN]                                          |
       | Format                | Select: HTML                                                                          |
-    Given UI "Validate" Report With Name "OWASP Top 10 3 "
+    Then UI "Validate" Report With Name "OWASP Top 10 3 "
       | Template              | reportType:AppWall , Widgets:[OWASP Top 10] , Applications:[Vision] , showTable:false |
       | Time Definitions.Date | Relative:[Days,2]                                                                     |
       | Schedule              | Run Every:Weekly, On Time:+6H, At Days:[SUN]                                          |
@@ -64,7 +64,7 @@ Feature: AppWall
       | Schedule              | Run Every:Daily,On Time:+2m                                                       |
       | Share                 | Email:[automation.vision2@radware.com],Subject:myEdit subject,Body:myEdit body    |
       | Format                | Select: CSV                                                                       |
-    Given UI "Validate" Report With Name "OWASP Top 10 4 "
+    Then UI "Validate" Report With Name "OWASP Top 10 4 "
       | Template              | reportType:AppWall , Widgets:[OWASP Top 10] , Applications:[All] , showTable:true |
       | Time Definitions.Date | Relative:[Months,2]                                                               |
       | Schedule              | Run Every:Daily,On Time:+2m                                                       |
@@ -81,7 +81,7 @@ Feature: AppWall
       | Time Definitions.Date | Quick:1D                                                                                 |
       | Schedule              | Run Every:Weekly, On Time:+6H, At Days:[FRI]                                             |
       | Format                | Select: CSV                                                                              |
-    Given UI "Validate" Report With Name "Top Attack Category1 "
+    Then UI "Validate" Report With Name "Top Attack Category1 "
       | Template              | reportType:AppWall , Widgets:[Top Attack Category] , Applications:[All] , showTable:true |
       | Logo                  | reportLogoPNG.png                                                                        |
       | Time Definitions.Date | Quick:1D                                                                                 |
@@ -99,7 +99,7 @@ Feature: AppWall
       | Schedule              | Run Every:once, On Time:+6H                                                               |
       | Share                 | Email:[automation.vision2@radware.com],Subject:myEdit subject,Body:myEdit body            |
       | Format                | Select: PDF                                                                               |
-    Given UI "Validate" Report With Name "Top Attack Category2 "
+    Then UI "Validate" Report With Name "Top Attack Category2 "
       | Template              | reportType:AppWall , Widgets:[Top Attack Category] , Applications:[All] , showTable:false |
       | Logo                  | reportLogoPNG.png                                                                         |
       | Time Definitions.Date | Absolute:[27.02.1971 01:00, +0d]                                                          |
@@ -115,7 +115,7 @@ Feature: AppWall
       | Template              | reportType:AppWall , Widgets:[Top Attack Category] , Applications:[Vision] , showTable:false |
       | Time Definitions.Date | Quick:This Week                                                                              |
       | Format                | Select: HTML                                                                                 |
-    Given UI "Validate" Report With Name "Top Attack Category3 "
+    Then UI "Validate" Report With Name "Top Attack Category3 "
       | Template              | reportType:AppWall , Widgets:[Top Attack Category] , Applications:[Vision] , showTable:false |
       | Time Definitions.Date | Quick:This Week                                                                              |
       | Format                | Select: HTML                                                                                 |
@@ -130,7 +130,7 @@ Feature: AppWall
       | Schedule              | Run Every:Daily,On Time:+2m                                                              |
       | Share                 | Email:[automation.vision2@radware.com],Subject:myEdit subject,Body:myEdit body           |
       | Format                | Select: CSV                                                                              |
-    Given UI "Validate" Report With Name "Top Attack Category4 "
+    Then UI "Validate" Report With Name "Top Attack Category4 "
       | Template              | reportType:AppWall , Widgets:[Top Attack Category] , Applications:[All] , showTable:true |
       | Time Definitions.Date | Relative:[Days,3]                                                                        |
       | Schedule              | Run Every:Daily,On Time:+2m                                                              |
@@ -147,7 +147,7 @@ Feature: AppWall
       | Time Definitions.Date | Quick:This Week                                                                 |
       | Schedule              | Run Every:Daily,On Time:+2m                                                     |
       | Format                | Select: CSV                                                                     |
-    Given UI "Validate" Report With Name "Top Sources1 "
+    Then UI "Validate" Report With Name "Top Sources1 "
       | Template              | reportType:AppWall , Widgets:[Top Sources] ,Applications:[All] , showTable:true |
       | Logo                  | reportLogoPNG.png                                                               |
       | Time Definitions.Date | Quick:This Week                                                                 |
@@ -165,7 +165,7 @@ Feature: AppWall
       | Schedule              | Run Every:Weekly, On Time:+6H, At Days:[THU]                                     |
       | Share                 | Email:[automation.vision2@radware.com],Subject:myEdit subject,Body:myEdit body   |
       | Format                | Select: PDF                                                                      |
-    Given UI "Validate" Report With Name "Top Sources2 "
+    Then UI "Validate" Report With Name "Top Sources2 "
       | Template              | reportType:AppWall , Widgets:[Top Sources] ,Applications:[All] , showTable:false |
       | Logo                  | reportLogoPNG.png                                                                |
       | Time Definitions.Date | Relative:[Weeks,2]                                                               |
@@ -182,7 +182,7 @@ Feature: AppWall
       | Time Definitions.Date | Absolute:[27.02.1971 01:00, +0d]                                                    |
       | Schedule              | Run Every:Monthly, On Time:+6H, At Months:[MAY]                                     |
       | Format                | Select: HTML                                                                        |
-    Given UI "Validate" Report With Name "Top Sources3 "
+    Then UI "Validate" Report With Name "Top Sources3 "
       | Template              | reportType:AppWall , Widgets:[Top Sources] ,Applications:[Vision] , showTable:false |
       | Time Definitions.Date | Absolute:[27.02.1971 01:00, +0d]                                                    |
       | Schedule              | Run Every:Monthly, On Time:+6H, At Months:[MAY]                                     |
@@ -197,7 +197,7 @@ Feature: AppWall
       | Time Definitions.Date | Relative:[Months,2]                                                              |
       | Share                 | Email:[automation.vision2@radware.com],Subject:myEdit subject,Body:myEdit body   |
       | Format                | Select: CSV                                                                      |
-    Given UI "Validate" Report With Name "Top Sources4 "
+    Then UI "Validate" Report With Name "Top Sources4 "
       | Template              | reportType:AppWall , Widgets:[Top Sources] , Applications:[All] , showTable:true |
       | Time Definitions.Date | Relative:[Months,2]                                                              |
       | Share                 | Email:[automation.vision2@radware.com],Subject:myEdit subject,Body:myEdit body   |
@@ -213,7 +213,7 @@ Feature: AppWall
       | Time Definitions.Date | Quick:30m                                                                        |
       | Schedule              | Run Every:Weekly, On Time:+6H, At Days:[TUE]                                     |
       | Format                | Select: CSV                                                                      |
-    Given UI "Validate" Report With Name "Geolocation1 "
+    Then UI "Validate" Report With Name "Geolocation1 "
       | Template              | reportType:AppWall , Widgets:[Geolocation] , Applications:[All] , showTable:true |
       | Logo                  | reportLogoPNG.png                                                                |
       | Time Definitions.Date | Quick:30m                                                                        |
@@ -231,7 +231,7 @@ Feature: AppWall
       | Schedule              | Run Every:Monthly, On Time:+6H, At Months:[APR]                                   |
       | Share                 | Email:[automation.vision2@radware.com],Subject:myEdit subject,Body:myEdit body    |
       | Format                | Select: PDF                                                                       |
-    Given UI "Validate" Report With Name "Geolocation2 "
+    Then UI "Validate" Report With Name "Geolocation2 "
       | Template              | reportType:AppWall , Widgets:[Geolocation] , Applications:[All] , showTable:false |
       | Logo                  | reportLogoPNG.png                                                                 |
       | Time Definitions.Date | Absolute:[27.02.1971 01:00, +0d]                                                  |
@@ -247,7 +247,7 @@ Feature: AppWall
       | Template              | reportType:AppWall , Widgets:[Geolocation] ,Applications:[Vision] , showTable:false |
       | Time Definitions.Date | Relative:[Weeks,2]                                                                  |
       | Format                | Select: HTML                                                                        |
-    Given UI "Validate" Report With Name "Geolocation3 "
+    Then UI "Validate" Report With Name "Geolocation3 "
       | Template              | reportType:AppWall , Widgets:[Geolocation] ,Applications:[Vision] , showTable:false |
       | Time Definitions.Date | Relative:[Weeks,2]                                                                  |
       | Format                | Select: HTML                                                                        |
@@ -262,7 +262,7 @@ Feature: AppWall
       | Schedule              | Run Every:once, On Time:+6H                                                     |
       | Share                 | Email:[automation.vision2@radware.com],Subject:myEdit subject,Body:myEdit body  |
       | Format                | Select: CSV                                                                     |
-    Given UI "Validate" Report With Name "Geolocation4 "
+    Then UI "Validate" Report With Name "Geolocation4 "
       | Template              | reportType:AppWall , Widgets:[Geolocation] ,Applications:[All] , showTable:true |
       | Time Definitions.Date | Quick:Quarter                                                                   |
       | Schedule              | Run Every:once, On Time:+6H                                                     |
@@ -278,7 +278,7 @@ Feature: AppWall
       | Logo                  | reportLogoPNG.png                                                                     |
       | Time Definitions.Date | Quick:Previous Month                                                                  |
       | Format                | Select: CSV                                                                           |
-    Given UI "Validate" Report With Name "Attacks by Action1"
+    Then UI "Validate" Report With Name "Attacks by Action1"
       | Template              | reportType:AppWall , Widgets:[Attacks by Action] ,Applications:[All] , showTable:true |
       | Logo                  | reportLogoPNG.png                                                                     |
       | Time Definitions.Date | Quick:Previous Month                                                                  |
@@ -295,7 +295,7 @@ Feature: AppWall
       | Schedule              | Run Every:once, On Time:+6H                                                             |
       | Share                 | Email:[automation.vision2@radware.com],Subject:myEdit subject,Body:myEdit body          |
       | Format                | Select: PDF                                                                             |
-    Given UI "Validate" Report With Name "Attacks by Action2"
+    Then UI "Validate" Report With Name "Attacks by Action2"
       | Template              | reportType:AppWall , Widgets:[Attacks by Action] , Applications:[All] , showTable:false |
       | Logo                  | reportLogoPNG.png                                                                       |
       | Time Definitions.Date | Quick:This Month                                                                        |
@@ -312,7 +312,7 @@ Feature: AppWall
       | Time Definitions.Date | Absolute:[27.02.1971 01:00, +0d]                                                           |
       | Schedule              | Run Every:Monthly, On Time:+6H, At Months:[MAR]                                            |
       | Format                | Select: HTML                                                                               |
-    Given UI "Validate" Report With Name "Attacks by Action3"
+    Then UI "Validate" Report With Name "Attacks by Action3"
       | Template              | reportType:AppWall , Widgets:[Attacks by Action] , Applications:[Vision] , showTable:false |
       | Time Definitions.Date | Absolute:[27.02.1971 01:00, +0d]                                                           |
       | Schedule              | Run Every:Monthly, On Time:+6H, At Months:[MAR]                                            |
@@ -328,7 +328,7 @@ Feature: AppWall
       | Schedule              | Run Every:Weekly, On Time:+6H, At Days:[WED]                                           |
       | Share                 | Email:[automation.vision2@radware.com],Subject:myEdit subject,Body:myEdit body         |
       | Format                | Select: CSV                                                                            |
-    Given UI "Validate" Report With Name "Attacks by Action4"
+    Then UI "Validate" Report With Name "Attacks by Action4"
       | Template              | reportType:AppWall , Widgets:[Attacks by Action] , Applications:[All] , showTable:true |
       | Time Definitions.Date | Relative:[Hours,2]                                                                     |
       | Schedule              | Run Every:Weekly, On Time:+6H, At Days:[WED]                                           |
@@ -344,7 +344,7 @@ Feature: AppWall
       | Logo                  | reportLogoPNG.png                                                                      |
       | Time Definitions.Date | Quick:15m                                                                              |
       | Format                | Select: CSV                                                                            |
-    Given UI "Validate" Report With Name "Top Attacked Hosts1"
+    Then UI "Validate" Report With Name "Top Attacked Hosts1"
       | Template              | reportType:AppWall , Widgets:[Top Attacked Hosts] ,Applications:[All] , showTable:true |
       | Logo                  | reportLogoPNG.png                                                                      |
       | Time Definitions.Date | Quick:15m                                                                              |
@@ -361,7 +361,7 @@ Feature: AppWall
       | Schedule              | Run Every:Monthly, On Time:+6H, At Months:[AUG]                                          |
       | Share                 | Email:[automation.vision2@radware.com],Subject:myEdit subject,Body:myEdit body           |
       | Format                | Select: PDF                                                                              |
-    Given UI "Validate" Report With Name "Top Attacked Hosts2"
+    Then UI "Validate" Report With Name "Top Attacked Hosts2"
       | Template              | reportType:AppWall , Widgets:[Top Attacked Hosts] , Applications:[All] , showTable:false |
       | Logo                  | reportLogoPNG.png                                                                        |
       | Time Definitions.Date | Quick:This Week                                                                          |
@@ -379,7 +379,7 @@ Feature: AppWall
       | Time Definitions.Date | Absolute:[27.02.1971 01:00, +0d]                                                           |
       | Schedule              | Run Every:Monthly, On Time:+6H, At Months:[MAR]                                            |
       | Format                | Select: HTML                                                                               |
-    Given UI "Validate" Report With Name "Top Attacked Hosts3"
+    Then UI "Validate" Report With Name "Top Attacked Hosts3"
       | Template              | reportType:AppWall , Widgets:[Top Attacked Hosts] ,Applications:[Vision] , showTable:false |
       | Time Definitions.Date | Absolute:[27.02.1971 01:00, +0d]                                                           |
       | Schedule              | Run Every:Monthly, On Time:+6H, At Months:[MAR]                                            |
@@ -395,7 +395,7 @@ Feature: AppWall
       | Schedule              | Run Every:Daily,On Time:+2m                                                            |
       | Share                 | Email:[automation.vision2@radware.com],Subject:myEdit subject,Body:myEdit body         |
       | Format                | Select: CSV                                                                            |
-    Given UI "Validate" Report With Name "Top Attacked Hosts4"
+    Then UI "Validate" Report With Name "Top Attacked Hosts4"
       | Template              | reportType:AppWall , Widgets:[Top Attacked Hosts] ,Applications:[All] , showTable:true |
       | Time Definitions.Date | Relative:[Weeks,2]                                                                     |
       | Schedule              | Run Every:Daily,On Time:+2m                                                            |
@@ -412,7 +412,7 @@ Feature: AppWall
       | Time Definitions.Date | Absolute:[27.02.1971 01:00, +0d]                                                     |
       | Schedule              | Run Every:Weekly, On Time:+6H, At Days:[SUN]                                         |
       | Format                | Select: CSV                                                                          |
-    Given UI "Validate" Report With Name "Attack Severity1"
+    Then UI "Validate" Report With Name "Attack Severity1"
       | Template              | reportType:AppWall , Widgets:[Attack Severity] , Applications:[All] , showTable:true |
       | Logo                  | reportLogoPNG.png                                                                    |
       | Time Definitions.Date | Absolute:[27.02.1971 01:00, +0d]                                                     |
@@ -430,7 +430,7 @@ Feature: AppWall
       | Schedule              | Run Every:Monthly, On Time:+6H, At Months:[DEC]                                       |
       | Share                 | Email:[automation.vision2@radware.com],Subject:myEdit subject,Body:myEdit body        |
       | Format                | Select: PDF                                                                           |
-    Given UI "Validate" Report With Name "Attack Severity2"
+    Then UI "Validate" Report With Name "Attack Severity2"
       | Template              | reportType:AppWall , Widgets:[Attack Severity] , Applications:[All] , showTable:false |
       | Logo                  | reportLogoPNG.png                                                                     |
       | Time Definitions.Date | Quick:3M                                                                              |
@@ -446,7 +446,7 @@ Feature: AppWall
       | Template              | reportType:AppWall , Widgets:[Attack Severity] , Applications:[Vision] , showTable:false |
       | Time Definitions.Date | Quick:This Month                                                                         |
       | Format                | Select: HTML                                                                             |
-    Given UI "Validate" Report With Name "Attack Severity3"
+    Then UI "Validate" Report With Name "Attack Severity3"
       | Template              | reportType:AppWall , Widgets:[Attack Severity] , Applications:[Vision] , showTable:false |
       | Time Definitions.Date | Quick:This Month                                                                         |
       | Format                | Select: HTML                                                                             |
@@ -461,7 +461,7 @@ Feature: AppWall
       | Time Definitions.Date | Quick:1H                                                                                 |
       | Schedule              | Run Every:Monthly, On Time:+6H, At Months:[MAR]                                          |
       | Format                | Select: HTML                                                                             |
-    Given UI "Validate" Report With Name "Attack Severity4"
+    Then UI "Validate" Report With Name "Attack Severity4"
       | Template              | reportType:AppWall , Widgets:[Attack Severity] , Applications:[Vision] , showTable:false |
       | Time Definitions.Date | Quick:1H                                                                                 |
       | Schedule              | Run Every:Monthly, On Time:+6H, At Months:[MAR]                                          |
@@ -477,7 +477,7 @@ Feature: AppWall
       | Time Definitions.Date | Absolute:[27.02.1971 01:00, +0d]                                                                 |
       | Schedule              | Run Every:Weekly, On Time:+6H, At Days:[SUN]                                                     |
       | Format                | Select: CSV                                                                                      |
-    Given UI "Validate" Report With Name "Attack Severity and Top Sources1"
+    Then UI "Validate" Report With Name "Attack Severity and Top Sources1"
       | Template              | reportType:AppWall , Widgets:[Top Sources,Attack Severity] , Applications:[All] , showTable:true |
       | Logo                  | reportLogoPNG.png                                                                                |
       | Time Definitions.Date | Absolute:[27.02.1971 01:00, +0d]                                                                 |
@@ -495,7 +495,7 @@ Feature: AppWall
       | Schedule              | Run Every:Monthly, On Time:+6H, At Months:[DEC]                                                   |
       | Share                 | Email:[automation.vision2@radware.com],Subject:myEdit subject,Body:myEdit body                    |
       | Format                | Select: PDF                                                                                       |
-    Given UI "Validate" Report With Name "Attack Severity and Top Sources2"
+    Then UI "Validate" Report With Name "Attack Severity and Top Sources2"
       | Template              | reportType:AppWall , Widgets:[Top Sources,Attack Severity] , Applications:[All] , showTable:false |
       | Logo                  | reportLogoPNG.png                                                                                 |
       | Time Definitions.Date | Quick:3M                                                                                          |
@@ -511,7 +511,7 @@ Feature: AppWall
       | Template              | reportType:AppWall , Widgets:[Top Sources,Attack Severity] , Applications:[Vision] , showTable:false |
       | Time Definitions.Date | Quick:This Month                                                                                     |
       | Format                | Select: HTML                                                                                         |
-    Given UI "Validate" Report With Name "Attack Severity and Top Sources3"
+    Then UI "Validate" Report With Name "Attack Severity and Top Sources3"
       | Template              | reportType:AppWall , Widgets:[Top Sources,Attack Severity] , Applications:[Vision] , showTable:false |
       | Time Definitions.Date | Quick:This Month                                                                                     |
       | Format                | Select: HTML                                                                                         |
@@ -525,7 +525,7 @@ Feature: AppWall
       | Time Definitions.Date | Quick:1H                                                                                             |
       | Schedule              | Run Every:Monthly, On Time:+6H, At Months:[MAR]                                                      |
       | Format                | Select: HTML                                                                                         |
-    Given UI "Validate" Report With Name "Attack Severity and Top Sources4"
+    Then UI "Validate" Report With Name "Attack Severity and Top Sources4"
       | Template              | reportType:AppWall , Widgets:[Top Sources,Attack Severity] , Applications:[Vision] , showTable:false |
       | Time Definitions.Date | Quick:1H                                                                                             |
       | Schedule              | Run Every:Monthly, On Time:+6H, At Months:[MAR]                                                      |
@@ -540,7 +540,7 @@ Feature: AppWall
       | Logo                  | reportLogoPNG.png                                                                                                |
       | Time Definitions.Date | Quick:15m                                                                                                        |
       | Format                | Select: CSV                                                                                                      |
-    Given UI "Validate" Report With Name "OWASP Top 10 and Geolocation and Top Attacked Hosts1"
+    Then UI "Validate" Report With Name "OWASP Top 10 and Geolocation and Top Attacked Hosts1"
       | Template              | reportType:AppWall , Widgets:[OWASP Top 10,Geolocation,Top Attacked Hosts] , Applications:[All] , showTable:true |
       | Logo                  | reportLogoPNG.png                                                                                                |
       | Time Definitions.Date | Quick:15m                                                                                                        |
@@ -557,7 +557,7 @@ Feature: AppWall
       | Schedule              | Run Every:Monthly, On Time:+6H, At Months:[AUG]                                                                   |
       | Share                 | Email:[automation.vision2@radware.com],Subject:myEdit subject,Body:myEdit body                                    |
       | Format                | Select: PDF                                                                                                       |
-    Given UI "Validate" Report With Name "OWASP Top 10 and Geolocation and Geolocation Top Attacked Hosts2"
+    Then UI "Validate" Report With Name "OWASP Top 10 and Geolocation and Geolocation Top Attacked Hosts2"
       | Template              | reportType:AppWall , Widgets:[OWASP Top 10,Geolocation,Top Attacked Hosts] , Applications:[All] , showTable:false |
       | Logo                  | reportLogoPNG.png                                                                                                 |
       | Time Definitions.Date | Quick:This Week                                                                                                   |
@@ -574,7 +574,7 @@ Feature: AppWall
       | Time Definitions.Date | Absolute:[27.02.1971 01:00, +0d]                                                                                     |
       | Schedule              | Run Every:Monthly, On Time:+6H, At Months:[MAR]                                                                      |
       | Format                | Select: HTML                                                                                                         |
-    Given UI "Validate" Report With Name "OWASP Top 10 and Geolocation and Geolocation Top Attacked Hosts3"
+    Then UI "Validate" Report With Name "OWASP Top 10 and Geolocation and Geolocation Top Attacked Hosts3"
       | Template              | reportType:AppWall , Widgets:[OWASP Top 10,Geolocation,Top Attacked Hosts] , Applications:[Vision] , showTable:false |
       | Time Definitions.Date | Absolute:[27.02.1971 01:00, +0d]                                                                                     |
       | Schedule              | Run Every:Monthly, On Time:+6H, At Months:[MAR]                                                                      |
@@ -590,7 +590,7 @@ Feature: AppWall
       | Schedule              | Run Every:Daily,On Time:+2m                                                                                      |
       | Share                 | Email:[automation.vision2@radware.com],Subject:myEdit subject,Body:myEdit body                                   |
       | Format                | Select: CSV                                                                                                      |
-    Given UI "Validate" Report With Name "OWASP Top 10 and Geolocation and Geolocation Top Attacked Hosts4"
+    Then UI "Validate" Report With Name "OWASP Top 10 and Geolocation and Geolocation Top Attacked Hosts4"
       | Template              | reportType:AppWall , Widgets:[OWASP Top 10,Geolocation,Top Attacked Hosts] , Applications:[All] , showTable:true |
       | Time Definitions.Date | Relative:[Weeks,2]                                                                                               |
       | Schedule              | Run Every:Daily,On Time:+2m                                                                                      |
@@ -606,7 +606,7 @@ Feature: AppWall
       | Logo                  | reportLogoPNG.png                                                                                                                                      |
       | Time Definitions.Date | Quick:15m                                                                                                                                              |
       | Format                | Select: CSV                                                                                                                                            |
-    Given UI "Validate" Report With Name "OWASP Top 10 and Top Attack Category and Geolocation and Attacks by Action and Top Attacked Hosts1"
+    Then UI "Validate" Report With Name "OWASP Top 10 and Top Attack Category and Geolocation and Attacks by Action and Top Attacked Hosts1"
       | Template              | reportType:AppWall , Widgets:[OWASP Top 10,Top Attack Category,Geolocation,Attacks by Action,Top Attacked Hosts] , Applications:[All] , showTable:true |
       | Logo                  | reportLogoPNG.png                                                                                                                                      |
       | Time Definitions.Date | Quick:15m                                                                                                                                              |
@@ -623,7 +623,7 @@ Feature: AppWall
       | Schedule              | Run Every:Monthly, On Time:+6H, At Months:[AUG]                                                                                                         |
       | Share                 | Email:[automation.vision2@radware.com],Subject:myEdit subject,Body:myEdit body                                                                          |
       | Format                | Select: PDF                                                                                                                                             |
-    Given UI "Validate" Report With Name "OWASP Top 10 and Top Attack Category and Geolocation and Attacks by Action and Top Attacked Hosts2"
+    Then UI "Validate" Report With Name "OWASP Top 10 and Top Attack Category and Geolocation and Attacks by Action and Top Attacked Hosts2"
       | Template              | reportType:AppWall , Widgets:[OWASP Top 10,Top Attack Category,Geolocation,Attacks by Action,Top Attacked Hosts] , Applications:[All] , showTable:false |
       | Logo                  | reportLogoPNG.png                                                                                                                                       |
       | Time Definitions.Date | Quick:This Week                                                                                                                                         |
@@ -640,7 +640,7 @@ Feature: AppWall
       | Time Definitions.Date | Absolute:[27.02.1971 01:00, +0d]                                                                                                                           |
       | Schedule              | Run Every:Monthly, On Time:+6H, At Months:[MAR]                                                                                                            |
       | Format                | Select: HTML                                                                                                                                               |
-    Given UI "Validate" Report With Name "OWASP Top 10 and Top Attack Category and Geolocation and Attacks by Action and Top Attacked Hosts3"
+    Then UI "Validate" Report With Name "OWASP Top 10 and Top Attack Category and Geolocation and Attacks by Action and Top Attacked Hosts3"
       | Template              | reportType:AppWall , Widgets:[OWASP Top 10,Top Attack Category,Geolocation,Attacks by Action,Top Attacked Hosts] , Applications:[Vision] , showTable:false |
       | Time Definitions.Date | Absolute:[27.02.1971 01:00, +0d]                                                                                                                           |
       | Schedule              | Run Every:Monthly, On Time:+6H, At Months:[MAR]                                                                                                            |
@@ -656,7 +656,7 @@ Feature: AppWall
       | Schedule              | Run Every:Daily,On Time:+2m                                                                                                                            |
       | Share                 | Email:[automation.vision2@radware.com],Subject:myEdit subject,Body:myEdit body                                                                         |
       | Format                | Select: CSV                                                                                                                                            |
-    Given UI "Validate" Report With Name "OWASP Top 10 and Top Attack Category and Geolocation and Attacks by Action and Top Attacked Hosts4"
+    Then UI "Validate" Report With Name "OWASP Top 10 and Top Attack Category and Geolocation and Attacks by Action and Top Attacked Hosts4"
       | Template              | reportType:AppWall , Widgets:[OWASP Top 10,Top Attack Category,Geolocation,Attacks by Action,Top Attacked Hosts] , Applications:[All] , showTable:true |
       | Time Definitions.Date | Relative:[Weeks,2]                                                                                                                                     |
       | Schedule              | Run Every:Daily,On Time:+2m                                                                                                                            |
@@ -672,7 +672,7 @@ Feature: AppWall
       | Logo                  | reportLogoPNG.png                                                                                |
       | Time Definitions.Date | Quick:Previous Month                                                                             |
       | Format                | Select: CSV                                                                                      |
-    Given UI "Validate" Report With Name "Top Sources and Attack Severity1"
+    Then UI "Validate" Report With Name "Top Sources and Attack Severity1"
       | Template              | reportType:AppWall , Widgets:[Top Sources,Attack Severity] , Applications:[All] , showTable:true |
       | Logo                  | reportLogoPNG.png                                                                                |
       | Time Definitions.Date | Quick:Previous Month                                                                             |
@@ -689,7 +689,7 @@ Feature: AppWall
       | Schedule              | Run Every:once, On Time:+6H                                                                       |
       | Share                 | Email:[automation.vision2@radware.com],Subject:myEdit subject,Body:myEdit body                    |
       | Format                | Select: PDF                                                                                       |
-    Given UI "Validate" Report With Name "Top Sources and Attack Severity2"
+    Then UI "Validate" Report With Name "Top Sources and Attack Severity2"
       | Template              | reportType:AppWall , Widgets:[Top Sources,Attack Severity] , Applications:[All] , showTable:false |
       | Logo                  | reportLogoPNG.png                                                                                 |
       | Time Definitions.Date | Quick:This Month                                                                                  |
@@ -706,7 +706,7 @@ Feature: AppWall
       | Time Definitions.Date | Absolute:[27.02.1971 01:00, +0d]                                                                     |
       | Schedule              | Run Every:Monthly, On Time:+6H, At Months:[MAR]                                                      |
       | Format                | Select: HTML                                                                                         |
-    Given UI "Validate" Report With Name "Top Sources and Attack Severity3"
+    Then UI "Validate" Report With Name "Top Sources and Attack Severity3"
       | Template              | reportType:AppWall , Widgets:[Top Sources,Attack Severity] , Applications:[Vision] , showTable:false |
       | Time Definitions.Date | Absolute:[27.02.1971 01:00, +0d]                                                                     |
       | Schedule              | Run Every:Monthly, On Time:+6H, At Months:[MAR]                                                      |
@@ -722,7 +722,7 @@ Feature: AppWall
       | Schedule              | Run Every:Weekly, On Time:+6H, At Days:[WED]                                                     |
       | Share                 | Email:[automation.vision2@radware.com],Subject:myEdit subject,Body:myEdit body                   |
       | Format                | Select: CSV                                                                                      |
-    Given UI "Validate" Report With Name "Top Sources and Attack Severity4"
+    Then UI "Validate" Report With Name "Top Sources and Attack Severity4"
       | Template              | reportType:AppWall , Widgets:[Top Sources,Attack Severity] , Applications:[All] , showTable:true |
       | Time Definitions.Date | Relative:[Hours,2]                                                                               |
       | Schedule              | Run Every:Weekly, On Time:+6H, At Days:[WED]                                                     |
@@ -739,7 +739,7 @@ Feature: AppWall
       | Time Definitions.Date | Absolute:[27.02.1971 01:00, +0d]                                                                                                                  |
       | Schedule              | Run Every:Weekly, On Time:+6H, At Days:[SUN]                                                                                                      |
       | Format                | Select: CSV                                                                                                                                       |
-    Given UI "Validate" Report With Name "Top Sources and Geolocation and Attacks by Action and Top Attacked Hosts and Attack Severity1"
+    Then UI "Validate" Report With Name "Top Sources and Geolocation and Attacks by Action and Top Attacked Hosts and Attack Severity1"
       | Template              | reportType:AppWall , Widgets:[Top Sources,Geolocation,Attacks by Action,Top Attacked Hosts,Attack Severity] , Applications:[All] , showTable:true |
       | Logo                  | reportLogoPNG.png                                                                                                                                 |
       | Time Definitions.Date | Absolute:[27.02.1971 01:00, +0d]                                                                                                                  |
@@ -757,7 +757,7 @@ Feature: AppWall
       | Schedule              | Run Every:Monthly, On Time:+6H, At Months:[DEC]                                                                                                    |
       | Share                 | Email:[automation.vision2@radware.com],Subject:myEdit subject,Body:myEdit body                                                                     |
       | Format                | Select: PDF                                                                                                                                        |
-    Given UI "Validate" Report With Name "Top Sources and Geolocation and Attacks by Action and Top Attacked Hosts and Attack Severity2"
+    Then UI "Validate" Report With Name "Top Sources and Geolocation and Attacks by Action and Top Attacked Hosts and Attack Severity2"
       | Template              | reportType:AppWall , Widgets:[Top Sources,Geolocation,Attacks by Action,Top Attacked Hosts,Attack Severity] , Applications:[All] , showTable:false |
       | Logo                  | reportLogoPNG.png                                                                                                                                  |
       | Time Definitions.Date | Quick:3M                                                                                                                                           |
@@ -773,7 +773,7 @@ Feature: AppWall
       | Template              | reportType:AppWall , Widgets:[Top Sources,Geolocation,Attacks by Action,Top Attacked Hosts,Attack Severity] ,Applications:[Vision] , showTable:false |
       | Time Definitions.Date | Quick:This Month                                                                                                                                     |
       | Format                | Select: HTML                                                                                                                                         |
-    Given UI "Validate" Report With Name "Top Sources and Geolocation and Attacks by Action and Top Attacked Hosts and Attack Severity3"
+    Then UI "Validate" Report With Name "Top Sources and Geolocation and Attacks by Action and Top Attacked Hosts and Attack Severity3"
       | Template              | reportType:AppWall , Widgets:[Top Sources,Geolocation,Attacks by Action,Top Attacked Hosts,Attack Severity] ,Applications:[Vision] , showTable:false |
       | Time Definitions.Date | Quick:This Month                                                                                                                                     |
       | Format                | Select: HTML                                                                                                                                         |
@@ -787,7 +787,7 @@ Feature: AppWall
       | Time Definitions.Date | Quick:1H                                                                                                                                              |
       | Schedule              | Run Every:Monthly, On Time:+6H, At Months:[MAR]                                                                                                       |
       | Format                | Select: HTML                                                                                                                                          |
-    Given UI "Validate" Report With Name "Top Sources and Geolocation and Attacks by Action and Top Attacked Hosts and Attack Severity4"
+    Then UI "Validate" Report With Name "Top Sources and Geolocation and Attacks by Action and Top Attacked Hosts and Attack Severity4"
       | Template              | reportType:AppWall , Widgets:[Top Sources,Geolocation,Attacks by Action,Top Attacked Hosts,Attack Severity] , Applications:[Vision] , showTable:false |
       | Time Definitions.Date | Quick:1H                                                                                                                                              |
       | Schedule              | Run Every:Monthly, On Time:+6H, At Months:[MAR]                                                                                                       |
@@ -802,7 +802,7 @@ Feature: AppWall
       | Logo                  | reportLogoPNG.png                                                                                                       |
       | Time Definitions.Date | Quick:15m                                                                                                               |
       | Format                | Select: CSV                                                                                                             |
-    Given UI "Validate" Report With Name "OWASP Top 10 and Top Attack Category and Top Attacked Hosts1"
+    Then UI "Validate" Report With Name "OWASP Top 10 and Top Attack Category and Top Attacked Hosts1"
       | Template              | reportType:AppWall , Widgets:[OWASP Top 10,Top Attack Category,Top Attacked Hosts] ,Applications:[All] , showTable:true |
       | Logo                  | reportLogoPNG.png                                                                                                       |
       | Time Definitions.Date | Quick:15m                                                                                                               |
@@ -819,7 +819,7 @@ Feature: AppWall
       | Schedule              | Run Every:Monthly, On Time:+6H, At Months:[AUG]                                                                           |
       | Share                 | Email:[automation.vision2@radware.com],Subject:myEdit subject,Body:myEdit body                                            |
       | Format                | Select: PDF                                                                                                               |
-    Given UI "Validate" Report With Name "OWASP Top 10 and Top Attack Category and Top Attacked Hosts2"
+    Then UI "Validate" Report With Name "OWASP Top 10 and Top Attack Category and Top Attacked Hosts2"
       | Template              | reportType:AppWall , Widgets:[OWASP Top 10,Top Attack Category,Top Attacked Hosts] , Applications:[All] , showTable:false |
       | Logo                  | reportLogoPNG.png                                                                                                         |
       | Time Definitions.Date | Quick:This Week                                                                                                           |
@@ -836,7 +836,7 @@ Feature: AppWall
       | Time Definitions.Date | Absolute:[27.02.1971 01:00, +0d]                                                                                             |
       | Schedule              | Run Every:Monthly, On Time:+6H, At Months:[MAR]                                                                              |
       | Format                | Select: HTML                                                                                                                 |
-    Given UI "Validate" Report With Name "OWASP Top 10 and Top Attack Category and Top Attacked Hosts3"
+    Then UI "Validate" Report With Name "OWASP Top 10 and Top Attack Category and Top Attacked Hosts3"
       | Template              | reportType:AppWall , Widgets:[OWASP Top 10,Top Attack Category,Top Attacked Hosts] , Applications:[Vision] , showTable:false |
       | Time Definitions.Date | Absolute:[27.02.1971 01:00, +0d]                                                                                             |
       | Schedule              | Run Every:Monthly, On Time:+6H, At Months:[MAR]                                                                              |
@@ -852,7 +852,7 @@ Feature: AppWall
       | Schedule              | Run Every:Daily,On Time:+2m                                                                                              |
       | Share                 | Email:[automation.vision2@radware.com],Subject:myEdit subject,Body:myEdit body                                           |
       | Format                | Select: CSV                                                                                                              |
-    Given UI "Validate" Report With Name "OWASP Top 10 and Top Attack Category and Top Attacked Hosts4"
+    Then UI "Validate" Report With Name "OWASP Top 10 and Top Attack Category and Top Attacked Hosts4"
       | Template              | reportType:AppWall , Widgets:[OWASP Top 10,Top Attack Category,Top Attacked Hosts] , Applications:[All] , showTable:true |
       | Time Definitions.Date | Relative:[Weeks,2]                                                                                                       |
       | Schedule              | Run Every:Daily,On Time:+2m                                                                                              |
@@ -868,7 +868,7 @@ Feature: AppWall
       | Logo                  | reportLogoPNG.png                                                                                                                     |
       | Time Definitions.Date | Quick:15m                                                                                                                             |
       | Format                | Select: CSV                                                                                                                           |
-    Given UI "Validate" Report With Name "Geolocation and Attacks by Action and Top Attacked Hosts and Attack Severity1"
+    Then UI "Validate" Report With Name "Geolocation and Attacks by Action and Top Attacked Hosts and Attack Severity1"
       | Template              | reportType:AppWall , Widgets:[Geolocation,Attacks by Action,Top Attacked Hosts,Attack Severity] , Applications:[All] , showTable:true |
       | Logo                  | reportLogoPNG.png                                                                                                                     |
       | Time Definitions.Date | Quick:15m                                                                                                                             |
@@ -886,7 +886,7 @@ Feature: AppWall
       | Schedule              | Run Every:Monthly, On Time:+6H, At Months:[AUG]                                                                                        |
       | Share                 | Email:[automation.vision2@radware.com],Subject:myEdit subject,Body:myEdit body                                                         |
       | Format                | Select: PDF                                                                                                                            |
-    Given UI "Validate" Report With Name "Geolocation and Attacks by Action and Top Attacked Hosts and Attack Severity2"
+    Then UI "Validate" Report With Name "Geolocation and Attacks by Action and Top Attacked Hosts and Attack Severity2"
       | Template              | reportType:AppWall , Widgets:[Geolocation,Attacks by Action,Top Attacked Hosts,Attack Severity] , Applications:[All] , showTable:false |
       | Logo                  | reportLogoPNG.png                                                                                                                      |
       | Time Definitions.Date | Quick:This Week                                                                                                                        |
@@ -903,7 +903,7 @@ Feature: AppWall
       | Time Definitions.Date | Absolute:[27.02.1971 01:00, +0d]                                                                                                          |
       | Schedule              | Run Every:Monthly, On Time:+6H, At Months:[MAR]                                                                                           |
       | Format                | Select: HTML                                                                                                                              |
-    Given UI "Validate" Report With Name "Geolocation and Attacks by Action and Top Attacked Hosts and Attack Severity3"
+    Then UI "Validate" Report With Name "Geolocation and Attacks by Action and Top Attacked Hosts and Attack Severity3"
       | Template              | reportType:AppWall , Widgets:[Geolocation,Attacks by Action,Top Attacked Hosts,Attack Severity] , Applications:[Vision] , showTable:false |
       | Time Definitions.Date | Absolute:[27.02.1971 01:00, +0d]                                                                                                          |
       | Schedule              | Run Every:Monthly, On Time:+6H, At Months:[MAR]                                                                                           |
@@ -919,7 +919,7 @@ Feature: AppWall
       | Schedule              | Run Every:Daily,On Time:+2m                                                                                                           |
       | Share                 | Email:[automation.vision2@radware.com],Subject:myEdit subject,Body:myEdit body                                                        |
       | Format                | Select: CSV                                                                                                                           |
-    Given UI "Validate" Report With Name "Geolocation and Attacks by Action and Top Attacked Hosts and Attack Severity4"
+    Then UI "Validate" Report With Name "Geolocation and Attacks by Action and Top Attacked Hosts and Attack Severity4"
       | Template              | reportType:AppWall , Widgets:[Geolocation,Attacks by Action,Top Attacked Hosts,Attack Severity] , Applications:[All] , showTable:true |
       | Time Definitions.Date | Relative:[Weeks,2]                                                                                                                    |
       | Schedule              | Run Every:Daily,On Time:+2m                                                                                                           |
@@ -935,7 +935,7 @@ Feature: AppWall
       | Logo                  | reportLogoPNG.png                                                                                                                                                                  |
       | Time Definitions.Date | Quick:Previous Month                                                                                                                                                               |
       | Format                | Select: CSV                                                                                                                                                                        |
-    Given UI "Validate" Report With Name "OWASP Top 10 and Top Attack Category and Top Sources and Geolocation and Attacks by Action and Top Attacked Hosts and Attack Severity1"
+    Then UI "Validate" Report With Name "OWASP Top 10 and Top Attack Category and Top Sources and Geolocation and Attacks by Action and Top Attacked Hosts and Attack Severity1"
       | Template              | reportType:AppWall , Widgets:[OWASP Top 10,Top Attack Category,Top Sources,Geolocation,Attacks by Action,Top Attacked Hosts,Attack Severity] , Applications:[All] , showTable:true |
       | Logo                  | reportLogoPNG.png                                                                                                                                                                  |
       | Time Definitions.Date | Quick:Previous Month                                                                                                                                                               |
@@ -952,7 +952,7 @@ Feature: AppWall
       | Schedule              | Run Every:once, On Time:+6H                                                                                                                                                         |
       | Share                 | Email:[automation.vision2@radware.com],Subject:myEdit subject,Body:myEdit body                                                                                                      |
       | Format                | Select: PDF                                                                                                                                                                         |
-    Given UI "Validate" Report With Name "OWASP Top 10 and Top Attack Category and Top Sources and Geolocation and Attacks by Action and Top Attacked Hosts and Attack Severity2"
+    Then UI "Validate" Report With Name "OWASP Top 10 and Top Attack Category and Top Sources and Geolocation and Attacks by Action and Top Attacked Hosts and Attack Severity2"
       | Template              | reportType:AppWall , Widgets:[OWASP Top 10,Top Attack Category,Top Sources,Geolocation,Attacks by Action,Top Attacked Hosts,Attack Severity] , Applications:[All] , showTable:false |
       | Logo                  | reportLogoPNG.png                                                                                                                                                                   |
       | Time Definitions.Date | Quick:This Month                                                                                                                                                                    |
@@ -969,7 +969,7 @@ Feature: AppWall
       | Time Definitions.Date | Absolute:[27.02.1971 01:00, +0d]                                                                                                                                                        |
       | Schedule              | Run Every:Monthly, On Time:+6H, At Months:[MAR]                                                                                                                                         |
       | Format                | Select: HTML                                                                                                                                                                            |
-    Given UI "Validate" Report With Name "OWASP Top 10 and Top Attack Category and Top Sources and Geolocation and Attacks by Action and Top Attacked Hosts and Attack Severity3"
+    Then UI "Validate" Report With Name "OWASP Top 10 and Top Attack Category and Top Sources and Geolocation and Attacks by Action and Top Attacked Hosts and Attack Severity3"
       | Template              | reportType:AppWall , Widgets:[OWASP Top 10,Top Attack Category,Top Sources,Geolocation,Attacks by Action,Top Attacked Hosts,Attack Severity] , Applications:[Vision]  , showTable:false |
       | Time Definitions.Date | Absolute:[27.02.1971 01:00, +0d]                                                                                                                                                        |
       | Schedule              | Run Every:Monthly, On Time:+6H, At Months:[MAR]                                                                                                                                         |
@@ -985,7 +985,7 @@ Feature: AppWall
       | Schedule              | Run Every:Weekly, On Time:+6H, At Days:[WED]                                                                                                                                       |
       | Share                 | Email:[automation.vision2@radware.com],Subject:myEdit subject,Body:myEdit body                                                                                                     |
       | Format                | Select: CSV                                                                                                                                                                        |
-    Given UI "Validate" Report With Name "OWASP Top 10 and Top Attack Category and Top Sources and Geolocation and Attacks by Action and Top Attacked Hosts and Attack Severity4"
+    Then UI "Validate" Report With Name "OWASP Top 10 and Top Attack Category and Top Sources and Geolocation and Attacks by Action and Top Attacked Hosts and Attack Severity4"
       | Template              | reportType:AppWall , Widgets:[OWASP Top 10,Top Attack Category,Top Sources,Geolocation,Attacks by Action,Top Attacked Hosts,Attack Severity] , Applications:[All] , showTable:true |
       | Time Definitions.Date | Relative:[Hours,2]                                                                                                                                                                 |
       | Schedule              | Run Every:Weekly, On Time:+6H, At Days:[WED]                                                                                                                                       |
