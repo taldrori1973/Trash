@@ -44,7 +44,7 @@ Feature: EAAF
   @SID_4
   Scenario: create new Total Hits Summary3
     Then UI Click Button "New Report Tab"
-    Given UI "Validate" Report With Name "Total Hits Summary3"
+    Given UI "Create" Report With Name "Total Hits Summary3"
       | Template              | reportType:EAAF , Widgets:[Total Hits Summary] |
       | Time Definitions.Date | Relative:[Days,2]                                                |
       | Schedule              | Run Every:Weekly, On Time:+6H, At Days:[SUN]                     |
@@ -878,6 +878,10 @@ Feature: EAAF
       | Share                 | Email:[automation.vision2@radware.com],Subject:myEdit subject,Body:myEdit body                                                                                                                                                    |
       | Format                | Select: CSV                                                                                                                                                                                                                       |
     Then UI Delete Report With Name "All Widgets3"
+
+  @SID_54
+  Scenario: Logout
+    Then UI logout and close browser
 
 
 
