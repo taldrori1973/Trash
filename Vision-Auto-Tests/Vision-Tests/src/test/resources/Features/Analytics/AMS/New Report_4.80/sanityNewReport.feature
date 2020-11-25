@@ -5,6 +5,7 @@ Feature: Basic tests for report parameters
   Scenario: Navigate to NEW REPORTS page
     Then UI Login with user "sys_admin" and password "radware"
     Then UI Navigate to "AMS REPORTS" page via homepage
+    Then UI Click Button "New Report Tab"
 #    Then UI Click Button "Report Parameter Menu"
 
   @SID_2
@@ -90,16 +91,16 @@ Feature: Basic tests for report parameters
       | Schedule Tab |       | false |
       | Share Tab    |       | false |
       | Format Tab   |       | true  |
-
-  @SID_9
-  Scenario: Validate report name
-    Then UI Validate the attribute "placeholder" Of Label "Report Name" is "EQUALS" to "Type here"
-    Then UI Set Text Field "Report Name" To " "
-    Then UI Validate the attribute "Class" Of Label "Name TextField" is "CONTAINS" to "idEgbD"
-    Then UI Set Text Field "Report Name" To "Test"
-    Then UI Validate the attribute "Class" Of Label "Name TextField" is "CONTAINS" to "bbHipN"
-    Then UI Set Text Field "Report Name" To "&"
-    Then UI Validate the attribute "Class" Of Label "Name TextField" is "CONTAINS" to "idEgbD"
+#check the color !!!!!!!!!!!!!!!!!!!!!!!!
+#  @SID_9
+#  Scenario: Validate report name
+#    Then UI Validate the attribute "placeholder" Of Label "Report Name" is "EQUALS" to "Type here"
+#    Then UI Set Text Field "Report Name" To " "
+#    Then UI Validate the attribute "Class" Of Label "Name TextField" is "CONTAINS" to "idEgbD"
+#    Then UI Set Text Field "Report Name" To "Test"
+#    Then UI Validate the attribute "Class" Of Label "Name TextField" is "CONTAINS" to "bbHipN"
+#    Then UI Set Text Field "Report Name" To "&"
+#    Then UI Validate the attribute "Class" Of Label "Name TextField" is "CONTAINS" to "idEgbD"
 
 
   @SID_10
@@ -332,7 +333,8 @@ Feature: Basic tests for report parameters
   @SID_30
   Scenario: Validate Share send email To
     Then UI Set Text Field "Email" To "user@automation.local"
-    Then UI Text of "Email" equal to "E-mail To *"
+    #    no data-debug-id
+    Then UI Text of "Email Tab" equal to "E-mail To *"
     Then UI Set Text Field "Email" To "example@example.com" enter Key true
     Then UI Validate Element Existence By Label "Email input" if Exists "true" with value "example@example.com,valid"
     Then UI Set Text Field "Email" To "example" enter Key true
@@ -352,7 +354,8 @@ Feature: Basic tests for report parameters
 
   @SID_31
   Scenario: Validate send email Subject
-    Then UI Text of "Subject" equal to "Subject"
+    #    no data-debug-id
+    Then UI Text of "Subject Tab" equal to "Subject"
 
   @SID_32
   Scenario: Validate send email Type your message
