@@ -96,7 +96,7 @@ public class SelectScheduleHandlers {
             String actualOnTime = getActualTime();
             String expectedTime = getExpectedValidateTime(schedulingDates, name);
             if (!actualOnTime.equalsIgnoreCase(expectedTime))
-                errorMessage.append("the Actual on Time is").append(actualOnTime).append(" but the Expected is ").append(expectedTime).append("\n");
+                errorMessage.append("the Actual on Time is ").append(actualOnTime).append(" but the Expected is ").append(expectedTime).append("\n");
         }
 
         protected void setTimeInput()
