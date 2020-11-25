@@ -36,7 +36,7 @@ Feature: DefensePro Analytics
       | Schedule              | Run Every:Monthly, On Time:+6H, At Months:[JAN]                                                                    |
       | Time Definitions.Date | Quick:Today                                                                                                        |
       | share                 | Email:[automation.vision1@radware.com],Subject:mySubject,Body:myBody                                               |
-    Given UI "Validate" Report With Name "Traffic Bandwidth Report1"
+    Then UI "Validate" Report With Name "Traffic Bandwidth Report1"
       | Template              | reportType:DefensePro Analytics , Widgets:[{Traffic Bandwidth:[bps,Inbound,All]}] , devices:[All] , showTable:true |
       | Logo                  | reportLogoPNG.png                                                                                                  |
       | Format                | Select: PDF                                                                                                        |
@@ -53,7 +53,7 @@ Feature: DefensePro Analytics
       | Schedule              | Run Every:Weekly, On Time:+6H, At Days:[WED]                                                                                      |
       | Time Definitions.Date | Quick:Yesterday                                                                                                                   |
       | share                 | Email:[automation.vision1@radware.com],Subject:mySubject,Body:myBody                                                              |
-    Given UI "Validate" Report With Name "Traffic Bandwidth Report2"
+    Then UI "Validate" Report With Name "Traffic Bandwidth Report2"
       | Template              | reportType:DefensePro Analytics , Widgets:[{Traffic Bandwidth:[pps,Outbound,All]}] , devices:[{deviceIndex:10}] , showTable:false |
       | Schedule              | Run Every:Weekly, On Time:+6H, At Days:[WED]                                                                                      |
       | Time Definitions.Date | Quick:Yesterday                                                                                                                   |
@@ -67,7 +67,7 @@ Feature: DefensePro Analytics
       | Template              | reportType:DefensePro Analytics , Widgets:[{Traffic Bandwidth:[bps,Outbound,All]}] , devices:[All] , showTable:true |
       | Time Definitions.Date | Quick:Quarter                                                                                                       |
       | Format                | Select: PDF                                                                                                         |
-    Given UI "Validate" Report With Name "Traffic Bandwidth Report3"
+    Then UI "Validate" Report With Name "Traffic Bandwidth Report3"
       | Template              | reportType:DefensePro Analytics , Widgets:[{Traffic Bandwidth:[bps,Outbound,All]}] , devices:[All] , showTable:true |
       | Time Definitions.Date | Quick:Quarter                                                                                                       |
       | Format                | Select: PDF                                                                                                         |
@@ -81,7 +81,7 @@ Feature: DefensePro Analytics
       | Time Definitions.Date | Quick:Quarter                                                                                                      |
       | Schedule              | Run Every:Monthly, On Time:+6H, At Months:[FEB,MAR,JUL,AUG]                                                        |
       | Format                | Select: HTML                                                                                                       |
-    Given UI "Validate" Report With Name "Traffic Bandwidth Report4"
+    Then UI "Validate" Report With Name "Traffic Bandwidth Report4"
       | Template              | reportType:DefensePro Analytics , Widgets:[{Traffic Bandwidth:[pps,Inbound,All]}] , devices:[All] , showTable:true |
       | Time Definitions.Date | Quick:Quarter                                                                                                      |
       | Schedule              | Run Every:Monthly, On Time:+6H, At Months:[FEB,MAR,JUL,AUG]                                                        |
@@ -96,7 +96,7 @@ Feature: DefensePro Analytics
       | Time Definitions.Date | Quick:Quarter                                                                                                     |
       | Schedule              | Run Every:Monthly, On Time:+6H, At Months:[FEB,MAR,JUL,AUG]                                                       |
       | Format                | Select: HTML                                                                                                      |
-    Given UI "Validate" Report With Name "Traffic Bandwidth Report5"
+    Then UI "Validate" Report With Name "Traffic Bandwidth Report5"
       | Template              | reportType:DefensePro Analytics , Widgets:[{Traffic Bandwidth:[bps,Inbound,50]}] , devices:[All] , showTable:true |
       | Time Definitions.Date | Quick:Quarter                                                                                                     |
       | Schedule              | Run Every:Monthly, On Time:+6H, At Months:[FEB,MAR,JUL,AUG]                                                       |
@@ -112,7 +112,7 @@ Feature: DefensePro Analytics
       | Time Definitions.Date | Quick:Quarter                                                                                                      |
       | Schedule              | Run Every:Monthly, On Time:+6H, At Months:[FEB,MAR,JUL,AUG]                                                        |
       | Format                | Select: CSV                                                                                                        |
-    Given UI "Validate" Report With Name "Traffic Bandwidth Report6"
+    Then UI "Validate" Report With Name "Traffic Bandwidth Report6"
       | Template              | reportType:DefensePro Analytics , Widgets:[{Traffic Bandwidth:[pps,Outbound,50]}] , devices:[All] , showTable:true |
       | Time Definitions.Date | Quick:Quarter                                                                                                      |
       | Schedule              | Run Every:Monthly, On Time:+6H, At Months:[FEB,MAR,JUL,AUG]                                                        |
@@ -129,7 +129,7 @@ Feature: DefensePro Analytics
       | Schedule              | Run Every:Daily ,On Time:+2m                                                                               |
       | share                 | Email:[automation.vision1@radware.com],Subject:mySubject,Body:myBody                                       |
       | Format                | Select: CSV                                                                                                |
-    Given UI "Validate" Report With Name "Connections Rate Report1"
+    Then UI "Validate" Report With Name "Connections Rate Report1"
       | Template              | reportType:DefensePro Analytics , Widgets:[Connections Rate] , devices:[{deviceIndex:10}] , showTable:true |
       | Logo                  | reportLogoPNG.png                                                                                          |
       | Time Definitions.Date | Quick:1D                                                                                                   |
@@ -146,7 +146,7 @@ Feature: DefensePro Analytics
       | Time Definitions.Date | Quick:1H                                                                                                   |
       | Schedule              | Run Every:Once, On Time:+6H                                                                                |
       | Format                | Select: PDF                                                                                                |
-    Given UI "Validate" Report With Name "Connections Rate Report2"
+    Then UI "Validate" Report With Name "Connections Rate Report2"
       | Template              | reportType:DefensePro Analytics , Widgets:[Connections Rate] , devices:[{deviceIndex:10}] , showTable:true |
       | Time Definitions.Date | Quick:1H                                                                                                   |
       | Schedule              | Run Every:Once, On Time:+6H                                                                                |
@@ -164,7 +164,7 @@ Feature: DefensePro Analytics
       | Schedule              | Run Every:Monthly, On Time:+6H, At Months:[DEC]                                                |
       | share                 | Email:[automation.vision1@radware.com],Subject:mySubject,Body:myBody                           |
       | Format                | Select: HTML                                                                                   |
-    Given UI "Validate" Report With Name "Connections Rate Report3"
+    Then UI "Validate" Report With Name "Connections Rate Report3"
       | Template              | reportType:DefensePro Analytics , Widgets:[Connections Rate] , devices:[All] , showTable:false |
       | Logo                  | reportLogoPNG.png                                                                              |
       | Time Definitions.Date | Relative:[Hours,3]                                                                             |
@@ -181,7 +181,7 @@ Feature: DefensePro Analytics
       | Logo                  | reportLogoPNG.png                                                                             |
       | Time Definitions.Date | Quick:This Week                                                                               |
       | Format                | Select: CSV                                                                                   |
-    Given UI "Validate" Report With Name "Connections Rate Report4"
+    Then UI "Validate" Report With Name "Connections Rate Report4"
       | Template              | reportType:DefensePro Analytics , Widgets:[Connections Rate] , devices:[All] , showTable:true |
       | Logo                  | reportLogoPNG.png                                                                             |
       | Time Definitions.Date | Quick:This Week                                                                               |
@@ -198,7 +198,7 @@ Feature: DefensePro Analytics
       | Schedule              | Run Every:Once, On Time:+6H                                                                         |
       | share                 | Email:[automation.vision1@radware.com],Subject:mySubject,Body:myBody                                |
       | Format                | Select: PDF                                                                                         |
-    Given UI "Validate" Report With Name "Concurrent Connections Report1"
+    Then UI "Validate" Report With Name "Concurrent Connections Report1"
       | Template              | reportType:DefensePro Analytics , Widgets:[Concurrent Connections] , devices:[All] , showTable:true |
       | Logo                  | reportLogoPNG.png                                                                                   |
       | Time Definitions.Date | Absolute:[02.11.2020 13:47, +0d]                                                                    |
@@ -216,7 +216,7 @@ Feature: DefensePro Analytics
       | Time Definitions.Date | Quick:Quarter                                                                                        |
       | Schedule              | Run Every:Weekly, On Time:+6H, At Days:[SUN]                                                         |
       | Format                | Select: HTML                                                                                         |
-    Given UI "Validate" Report With Name "Concurrent Connections Report2"
+    Then UI "Validate" Report With Name "Concurrent Connections Report2"
       | Template              | reportType:DefensePro Analytics , Widgets:[Concurrent Connections] , devices:[All] , showTable:false |
       | Logo                  | reportLogoPNG.png                                                                                    |
       | Time Definitions.Date | Quick:Quarter                                                                                        |
@@ -233,7 +233,7 @@ Feature: DefensePro Analytics
       | Schedule              | Run Every:Daily,On Time:+2m                                                                                       |
       | share                 | Email:[automation.vision1@radware.com],Subject:mySubject,Body:myBody                                              |
       | Format                | Select: PDF                                                                                                       |
-    Given UI "Validate" Report With Name "Concurrent Connections Report3"
+    Then UI "Validate" Report With Name "Concurrent Connections Report3"
       | Template              | reportType:DefensePro Analytics , Widgets:[Concurrent Connections] , devices:[{deviceIndex:10}] , showTable:false |
       | Time Definitions.Date | Quick:This Month                                                                                                  |
       | Schedule              | Run Every:Daily,On Time:+2m                                                                                       |
@@ -249,7 +249,7 @@ Feature: DefensePro Analytics
       | Time Definitions.Date | Quick:Yesterday                                                                                     |
       | Schedule              | Run Every:Monthly, On Time:+6H, At Months:[FEB]                                                     |
       | share                 | Email:[automation.vision1@radware.com],Subject:mySubject,Body:myBody                                |
-    Given UI "Validate" Report With Name "Concurrent Connections Report4"
+    Then UI "Validate" Report With Name "Concurrent Connections Report4"
       | Template              | reportType:DefensePro Analytics , Widgets:[Concurrent Connections] , devices:[All] , showTable:true |
       | Time Definitions.Date | Quick:Yesterday                                                                                     |
       | Schedule              | Run Every:Monthly, On Time:+6H, At Months:[FEB]                                                     |
@@ -266,7 +266,7 @@ Feature: DefensePro Analytics
       | Time Definitions.Date | Quick:1D                                                                                 |
       | Schedule              | Run Every:Weekly, On Time:+6H, At Days:[WED]                                             |
       | Format                | Select: CSV                                                                              |
-    Given UI "Validate" Report With Name "Top Attacks Report1"
+    Then UI "Validate" Report With Name "Top Attacks Report1"
       | Template              | reportType:DefensePro Analytics , Widgets:[Top Attacks] , devices:[All] , showTable:true |
       | Logo                  | reportLogoPNG.png                                                                        |
       | Time Definitions.Date | Quick:1D                                                                                 |
@@ -284,7 +284,7 @@ Feature: DefensePro Analytics
       | Schedule              | Run Every:Monthly, On Time:+6H, At Months:[APR]                                           |
       | share                 | Email:[automation.vision1@radware.com],Subject:mySubject,Body:myBody                      |
       | Format                | Select: PDF                                                                               |
-    Given UI "Validate" Report With Name "Top Attacks Report2"
+    Then UI "Validate" Report With Name "Top Attacks Report2"
       | Template              | reportType:DefensePro Analytics , Widgets:[Top Attacks] , devices:[All] , showTable:false |
       | Logo                  | reportLogoPNG.png                                                                         |
       | Time Definitions.Date | Absolute:[02.11.2020 13:47, +0d]                                                          |
@@ -301,7 +301,7 @@ Feature: DefensePro Analytics
       | Time Definitions.Date | Relative:[Hours,3]                                                                                     |
       | Schedule              | Run Every:Once, On Time:+6H                                                                            |
       | Format                | Select: HTML                                                                                           |
-    Given UI "Validate" Report With Name "Top Attacks Report3"
+    Then UI "Validate" Report With Name "Top Attacks Report3"
       | Template              | reportType:DefensePro Analytics , Widgets:[Top Attacks] , devices:[{deviceIndex:10}] , showTable:false |
       | Time Definitions.Date | Relative:[Hours,3]                                                                                     |
       | Schedule              | Run Every:Once, On Time:+6H                                                                            |
@@ -316,7 +316,7 @@ Feature: DefensePro Analytics
       | Time Definitions.Date | Relative:[Months,2]                                                                      |
       | share                 | Email:[automation.vision1@radware.com],Subject:mySubject,Body:myBody                     |
       | Format                | Select: CSV                                                                              |
-    Given UI "Validate" Report With Name "Top Attacks Report4"
+    Then UI "Validate" Report With Name "Top Attacks Report4"
       | Template              | reportType:DefensePro Analytics , Widgets:[Top Attacks] , devices:[All] , showTable:true |
       | Time Definitions.Date | Relative:[Months,2]                                                                      |
       | share                 | Email:[automation.vision1@radware.com],Subject:mySubject,Body:myBody                     |
@@ -332,7 +332,7 @@ Feature: DefensePro Analytics
       | Time Definitions.Date | Quick:Previous Month                                                                                  |
       | Schedule              | Run Every:Once, On Time:+6H                                                                           |
       | Format                | Select: CSV                                                                                           |
-    Given UI "Validate" Report With Name "Top Attacks by Volume1"
+    Then UI "Validate" Report With Name "Top Attacks by Volume1"
       | Template              | reportType:DefensePro Analytics , Widgets:[Top Attacks by Volume] , devices:[All] , showTable:true |
       | Logo                  | reportLogoPNG.png                                                                                     |
       | Time Definitions.Date | Quick:Previous Month                                                                                  |
@@ -350,7 +350,7 @@ Feature: DefensePro Analytics
       | Schedule              | Run Every:Monthly, On Time:+6H, At Months:[JUL]                                                        |
       | share                 | Email:[automation.vision1@radware.com],Subject:mySubject,Body:myBody                                   |
       | Format                | Select: PDF                                                                                            |
-    Given UI "Validate" Report With Name "Top Attacks by Volume2"
+    Then UI "Validate" Report With Name "Top Attacks by Volume2"
       | Template              | reportType:DefensePro Analytics , Widgets:[Top Attacks by Volume] , devices:[All] , showTable:false |
       | Logo                  | reportLogoPNG.png                                                                                      |
       | Time Definitions.Date | Quick:Today                                                                                            |
@@ -367,7 +367,7 @@ Feature: DefensePro Analytics
       | Time Definitions.Date | Absolute:[02.11.2020 13:47, +0d]                                                                                    |
       | Schedule              | Run Every:Weekly, On Time:+6H, At Days:[THU]                                                                        |
       | Format                | Select: HTML                                                                                                        |
-    Given UI "Validate" Report With Name "Top Attacks by Bandwidth Report3"
+    Then UI "Validate" Report With Name "Top Attacks by Bandwidth Report3"
       | Template              | reportType:DefensePro Analytics , Widgets:[Top Attacks by Volume] , devices:[{deviceIndex:10}] , showTable:false |
       | Time Definitions.Date | Absolute:[02.11.2020 13:47, +0d]                                                                                    |
       | Schedule              | Run Every:Weekly, On Time:+6H, At Days:[THU]                                                                        |
@@ -384,7 +384,7 @@ Feature: DefensePro Analytics
       | Schedule              | Run Every:Daily,On Time:+2m                                                                         |
       | share                 | Email:[automation.vision1@radware.com],Subject:mySubject,Body:myBody                                |
       | Format                | Select: CSV                                                                                         |
-    Given UI "Validate" Report With Name "Top Attacks by Volume4"
+    Then UI "Validate" Report With Name "Top Attacks by Volume4"
       | Template              | reportType:DefensePro Analytics , Widgets:[Top Attacks by Volume4] , devices:[All] , showTable:true |
       | Time Definitions.Date | Relative:[Months,2]                                                                                 |
       | Schedule              | Run Every:Daily,On Time:+2m                                                                         |
@@ -402,7 +402,7 @@ Feature: DefensePro Analytics
       | Time Definitions.Date | Quick:This Week                                                                                      |
       | Schedule              | Run Every:Weekly, On Time:+6H, At Days:[MON]                                                         |
       | Format                | Select: CSV                                                                                          |
-    Given UI "Validate" Report With Name "Top Attacks by Protocol Report1"
+    Then UI "Validate" Report With Name "Top Attacks by Protocol Report1"
       | Template              | reportType:DefensePro Analytics , Widgets:[Top Attacks by Protocol] , devices:[All] , showTable:true |
       | Logo                  | reportLogoPNG.png                                                                                    |
       | Time Definitions.Date | Quick:This Week                                                                                      |
@@ -421,7 +421,7 @@ Feature: DefensePro Analytics
       | Schedule              | Run Every:Once, On Time:+6H                                                                           |
       | share                 | Email:[automation.vision1@radware.com],Subject:mySubject,Body:myBody                                  |
       | Format                | Select: PDF                                                                                           |
-    Given UI "Validate" Report With Name "Top Attacks by Protocol Report2"
+    Then UI "Validate" Report With Name "Top Attacks by Protocol Report2"
       | Template              | reportType:DefensePro Analytics , Widgets:[Top Attacks by Protocol] , devices:[All] , showTable:false |
       | Logo                  | reportLogoPNG.png                                                                                     |
       | Time Definitions.Date | Quick:1W                                                                                              |
@@ -438,7 +438,7 @@ Feature: DefensePro Analytics
       | Template              | reportType:DefensePro Analytics , Widgets:[Top Attacks by Protocol] , devices:[{deviceIndex:10}] , showTable:false |
       | Time Definitions.Date | Absolute:[02.11.2020 13:47, +0d]                                                                                   |
       | Format                | Select: HTML                                                                                                       |
-    Given UI "Validate" Report With Name "Top Attacks by Protocol Report3"
+    Then UI "Validate" Report With Name "Top Attacks by Protocol Report3"
       | Template              | reportType:DefensePro Analytics , Widgets:[Top Attacks by Protocol] , devices:[{deviceIndex:10}] , showTable:false |
       | Time Definitions.Date | Absolute:[02.11.2020 13:47, +0d]                                                                                   |
       | Format                | Select: HTML                                                                                                       |
@@ -453,7 +453,7 @@ Feature: DefensePro Analytics
       | Schedule              | Run Every:Monthly, On Time:+6H, At Months:[OCT]                                                      |
       | share                 | Email:[automation.vision1@radware.com],Subject:mySubject,Body:myBody                                 |
       | Format                | Select: CSV                                                                                          |
-    Given UI "Validate" Report With Name "Top Attacks by Protocol Report4"
+    Then UI "Validate" Report With Name "Top Attacks by Protocol Report4"
       | Template              | reportType:DefensePro Analytics , Widgets:[Top Attacks by Protocol] , devices:[All] , showTable:true |
       | Time Definitions.Date | Relative:[Hours,3]                                                                                   |
       | Schedule              | Run Every:Monthly, On Time:+6H, At Months:[OCT]                                                      |
@@ -470,7 +470,7 @@ Feature: DefensePro Analytics
       | Time Definitions.Date | Quick:Today                                                                                                        |
       | Schedule              | Run Every:Weekly, On Time:+6H, At Days:[SUN]                                                                       |
       | Format                | Select: CSV                                                                                                        |
-    Given UI "Validate" Report With Name "Critical Attacks by Mitigation Action Report1"
+    Then UI "Validate" Report With Name "Critical Attacks by Mitigation Action Report1"
       | Template              | reportType:DefensePro Analytics , Widgets:[Critical Attacks by Mitigation Action] , devices:[All] , showTable:true |
       | Logo                  | reportLogoPNG.png                                                                                                  |
       | Time Definitions.Date | Quick:Today                                                                                                        |
@@ -488,7 +488,7 @@ Feature: DefensePro Analytics
       | Schedule              | Run Every:Daily,On Time:+2m                                                                                         |
       | share                 | Email:[automation.vision1@radware.com],Subject:mySubject,Body:myBody                                                |
       | Format                | Select: PDF                                                                                                         |
-    Given UI "Validate" Report With Name "Critical Attacks by Mitigation Action Report2"
+    Then UI "Validate" Report With Name "Critical Attacks by Mitigation Action Report2"
       | Template              | reportType:DefensePro Analytics , Widgets:[Critical Attacks by Mitigation Action] , devices:[All] , showTable:false |
       | Logo                  | reportLogoPNG.png                                                                                                   |
       | Time Definitions.Date | Quick:30m                                                                                                           |
@@ -505,7 +505,7 @@ Feature: DefensePro Analytics
       | Time Definitions.Date | Absolute:[02.11.2020 13:47, +0d]                                                                                                 |
       | Schedule              | Run Every:Weekly, On Time:+6H, At Days:[MON]                                                                                     |
       | Format                | Select: HTML                                                                                                                     |
-    Given UI "Validate" Report With Name "Critical Attacks by Mitigation Action Report3"
+    Then UI "Validate" Report With Name "Critical Attacks by Mitigation Action Report3"
       | Template              | reportType:DefensePro Analytics , Widgets:[Critical Attacks by Mitigation Action] , devices:[{deviceIndex:10}] , showTable:false |
       | Time Definitions.Date | Absolute:[02.11.2020 13:47, +0d]                                                                                                 |
       | Schedule              | Run Every:Weekly, On Time:+6H, At Days:[MON]                                                                                     |
@@ -521,7 +521,7 @@ Feature: DefensePro Analytics
       | Schedule              | Run Every:Monthly, On Time:+6H, At Months:[APR]                                                                    |
       | share                 | Email:[automation.vision1@radware.com],Subject:mySubject,Body:myBody                                               |
       | Format                | Select: CSV                                                                                                        |
-    Given UI "Validate" Report With Name "Critical Attacks by Mitigation Action Report4"
+    Then UI "Validate" Report With Name "Critical Attacks by Mitigation Action Report4"
       | Template              | reportType:DefensePro Analytics , Widgets:[Critical Attacks by Mitigation Action] , devices:[All] , showTable:true |
       | Time Definitions.Date | Relative:[Days,3]                                                                                                  |
       | Schedule              | Run Every:Monthly, On Time:+6H, At Months:[APR]                                                                    |
@@ -538,7 +538,7 @@ Feature: DefensePro Analytics
       | Time Definitions.Date | Quick:This Month                                                                                        |
       | Schedule              | Run Every:Monthly, On Time:+6H, At Months:[JUN]                                                         |
       | Format                | Select: CSV                                                                                             |
-    Given UI "Validate" Report With Name "Attacks by Threat Category Report1"
+    Then UI "Validate" Report With Name "Attacks by Threat Category Report1"
       | Template              | reportType:DefensePro Analytics , Widgets:[Attacks by Threat Category] , devices:[All] , showTable:true |
       | Logo                  | reportLogoPNG.png                                                                                       |
       | Time Definitions.Date | Quick:This Month                                                                                        |
@@ -556,7 +556,7 @@ Feature: DefensePro Analytics
       | Schedule              | Run Every:Monthly, On Time:+6H, At Months:[JUN]                                                          |
       | share                 | Email:[automation.vision1@radware.com],Subject:mySubject,Body:myBody                                     |
       | Format                | Select: PDF                                                                                              |
-    Given UI "Validate" Report With Name "Attacks by Threat Category Report2"
+    Then UI "Validate" Report With Name "Attacks by Threat Category Report2"
       | Template              | reportType:DefensePro Analytics , Widgets:[Attacks by Threat Category] , devices:[All] , showTable:false |
       | Logo                  | reportLogoPNG.png                                                                                        |
       | Time Definitions.Date | Absolute:[02.11.2020 13:47, +0d]                                                                         |
@@ -573,7 +573,7 @@ Feature: DefensePro Analytics
       | Time Definitions.Date | Relative:[Months,2]                                                                                                   |
       | Schedule              | Run Every:Weekly, On Time:+6H, At Days:[WED]                                                                          |
       | Format                | Select: HTML                                                                                                          |
-    Given UI "Validate" Report With Name "Attacks by Threat Category Report3"
+    Then UI "Validate" Report With Name "Attacks by Threat Category Report3"
       | Template              | reportType:DefensePro Analytics , Widgets:[Attacks by Threat Category] , devices:[{deviceIndex:10}] , showTable:false |
       | Time Definitions.Date | Relative:[Months,2]                                                                                                   |
       | Schedule              | Run Every:Weekly, On Time:+6H, At Days:[WED]                                                                          |
@@ -589,7 +589,7 @@ Feature: DefensePro Analytics
       | Time Definitions.Date | Quick:Today                                                                                             |
       | share                 | Email:[automation.vision1@radware.com],Subject:mySubject,Body:myBody                                    |
       | Format                | Select: CSV                                                                                             |
-    Given UI "Validate" Report With Name "Attacks by Threat Category Report4"
+    Then UI "Validate" Report With Name "Attacks by Threat Category Report4"
       | Template              | reportType:DefensePro Analytics , Widgets:[Attacks by Threat Category] , devices:[All] , showTable:true |
       | Schedule              | Run Every:Daily,On Time:+2m                                                                             |
       | Time Definitions.Date | Quick:Today                                                                                             |
@@ -606,7 +606,7 @@ Feature: DefensePro Analytics
       | Time Definitions.Date | Quick:Quarter                                                                                             |
       | Schedule              | Run Every:Weekly, On Time:+6H, At Days:[MON]                                                              |
       | Format                | Select: CSV                                                                                               |
-    Given UI "Validate" Report With Name "Attacks by Mitigation Action Report1"
+    Then UI "Validate" Report With Name "Attacks by Mitigation Action Report1"
       | Template              | reportType:DefensePro Analytics , Widgets:[Attacks by Mitigation Action] , devices:[All] , showTable:true |
       | Logo                  | reportLogoPNG.png                                                                                         |
       | Time Definitions.Date | Quick:Quarter                                                                                             |
@@ -624,7 +624,7 @@ Feature: DefensePro Analytics
       | Schedule              | Run Every:Monthly, On Time:+6H, At Months:[MAY]                                                            |
       | share                 | Email:[automation.vision1@radware.com],Subject:mySubject,Body:myBody                                       |
       | Format                | Select: PDF                                                                                                |
-    Given UI "Validate" Report With Name "Attacks by Mitigation Action Report2"
+    Then UI "Validate" Report With Name "Attacks by Mitigation Action Report2"
       | Template              | reportType:DefensePro Analytics , Widgets:[Attacks by Mitigation Action] , devices:[All] , showTable:false |
       | Logo                  | reportLogoPNG.png                                                                                          |
       | Time Definitions.Date | Relative:[Hours,3]                                                                                         |
@@ -641,7 +641,7 @@ Feature: DefensePro Analytics
       | Time Definitions.Date | Quick:Today                                                                                                             |
       | Schedule              | Run Every:Daily,On Time:+2m                                                                                             |
       | Format                | Select: HTML                                                                                                            |
-    Given UI "Validate" Report With Name "Attacks by Mitigation Action Report3"
+    Then UI "Validate" Report With Name "Attacks by Mitigation Action Report3"
       | Template              | reportType:DefensePro Analytics , Widgets:[Attacks by Mitigation Action] , devices:[{deviceIndex:10}] , showTable:false |
       | Time Definitions.Date | Quick:Today                                                                                                             |
       | Schedule              | Run Every:Daily,On Time:+2m                                                                                             |
@@ -658,7 +658,7 @@ Feature: DefensePro Analytics
       | Schedule              | Run Every:Once, On Time:+6H                                                                               |
       | share                 | Email:[automation.vision1@radware.com],Subject:mySubject,Body:myBody                                      |
       | Format                | Select: CSV                                                                                               |
-    Given UI "Validate" Report With Name "Attacks by Mitigation Action Report4"
+    Then UI "Validate" Report With Name "Attacks by Mitigation Action Report4"
       | Template              | reportType:DefensePro Analytics , Widgets:[Attacks by Mitigation Action] , devices:[All] , showTable:true |
       | Time Definitions.Date | Absolute:[02.11.2020 13:47, +0d]                                                                          |
       | Schedule              | Run Every:Once, On Time:+6H                                                                               |
@@ -674,7 +674,7 @@ Feature: DefensePro Analytics
       | Logo                  | reportLogoPNG.png                                                                                    |
       | Time Definitions.Date | Absolute:[02.11.2020 13:47, +0d]                                                                     |
       | Format                | Select: CSV                                                                                          |
-    Given UI "Validate" Report With Name "Top Attack Destinations Report1"
+    Then UI "Validate" Report With Name "Top Attack Destinations Report1"
       | Template              | reportType:DefensePro Analytics , Widgets:[Top Attack Destinations] , devices:[All] , showTable:true |
       | Logo                  | reportLogoPNG.png                                                                                    |
       | Time Definitions.Date | Absolute:[02.11.2020 13:47, +0d]                                                                     |
@@ -691,7 +691,7 @@ Feature: DefensePro Analytics
       | Schedule              | Run Every:Monthly, On Time:+6H, At Months:[JUL]                                                       |
       | share                 | Email:[automation.vision1@radware.com],Subject:mySubject,Body:myBody                                  |
       | Format                | Select: PDF                                                                                           |
-    Given UI "Validate" Report With Name "Top Attack Destinations Report2"
+    Then UI "Validate" Report With Name "Top Attack Destinations Report2"
       | Template              | reportType:DefensePro Analytics , Widgets:[Top Attack Destinations] , devices:[All] , showTable:false |
       | Logo                  | reportLogoPNG.png                                                                                     |
       | Time Definitions.Date | Quick:This Month                                                                                      |
@@ -708,7 +708,7 @@ Feature: DefensePro Analytics
       | Time Definitions.Date | Relative:[Hours,3]                                                                                                 |
       | Schedule              | Run Every:Weekly, On Time:+6H, At Days:[SUN]                                                                       |
       | Format                | Select: HTML                                                                                                       |
-    Given UI "Validate" Report With Name "Top Attack Destinations Report3"
+    Then UI "Validate" Report With Name "Top Attack Destinations Report3"
       | Template              | reportType:DefensePro Analytics , Widgets:[Top Attack Destinations] , devices:[{deviceIndex:10}] , showTable:false |
       | Time Definitions.Date | Relative:[Hours,3]                                                                                                 |
       | Schedule              | Run Every:Weekly, On Time:+6H, At Days:[SUN]                                                                       |
@@ -725,7 +725,7 @@ Feature: DefensePro Analytics
       | Schedule              | Run Every:Weekly, On Time:+6H, At Days:[THU]                                                         |
       | share                 | Email:[automation.vision1@radware.com],Subject:mySubject,Body:myBody                                 |
       | Format                | Select: CSV                                                                                          |
-    Given UI "Validate" Report With Name "Top Attack Destinations Report4"
+    Then UI "Validate" Report With Name "Top Attack Destinations Report4"
       | Template              | reportType:DefensePro Analytics , Widgets:[Top Attack Destinations] , devices:[All] , showTable:true |
       | Time Definitions.Date | Quick:Quarter                                                                                        |
       | Schedule              | Run Every:Weekly, On Time:+6H, At Days:[THU]                                                         |
