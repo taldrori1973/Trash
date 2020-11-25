@@ -15,7 +15,7 @@ Feature: EAAF
       | Logo                  | reportLogoPNG.png                               |
       | Time Definitions.Date | Quick:15m                                       |
       | Format                | Select: CSV                                     |
-    Given UI "Validate" Report With Name "Total Hits Summary1"
+    Then UI "Validate" Report With Name "Total Hits Summary1"
       | Template              | reportType:EAAF , Widgets:[Total Hits Summary]  |
       | Logo                  | reportLogoPNG.png                               |
       | Time Definitions.Date | Quick:15m                                       |
@@ -32,7 +32,7 @@ Feature: EAAF
       | Schedule              | Run Every:Monthly, On Time:+6H, At Months:[OCT]                                |
       | Share                 | Email:[automation.vision2@radware.com],Subject:myEdit subject,Body:myEdit body |
       | Format                | Select: PDF                                                                    |
-    Given UI "Validate" Report With Name "Total Hits Summary2"
+    Then UI "Validate" Report With Name "Total Hits Summary2"
       | Template              | reportType:EAAF , Widgets:[Total Hits Summary] |
       | Logo                  | reportLogoPNG.png                                                              |
       | Time Definitions.Date | Absolute:[27.02.1971 01:00, +0d]                                               |
@@ -49,7 +49,7 @@ Feature: EAAF
       | Time Definitions.Date | Relative:[Days,2]                                                |
       | Schedule              | Run Every:Weekly, On Time:+6H, At Days:[SUN]                     |
       | Format                | Select: HTML                                                     |
-    Given UI "Validate" Report With Name "Total Hits Summary3"
+    Then UI "Validate" Report With Name "Total Hits Summary3"
       | Template              | reportType:EAAF , Widgets:[Total Hits Summary] |
       | Time Definitions.Date | Relative:[Days,2]                                                |
       | Schedule              | Run Every:Weekly, On Time:+6H, At Days:[SUN]                     |
@@ -65,7 +65,7 @@ Feature: EAAF
       | Share                 | Email:[automation.vision2@radware.com],Subject:myEdit subject,Body:myEdit body |
       | Schedule              | Run Every:Monthly, On Time:+6H, At Months:[FEB,MAR]                            |
       | Format                | Select: CSV                                                                    |
-    Given UI "Validate" Report With Name "Total Hits Summary4"
+    Then UI "Validate" Report With Name "Total Hits Summary4"
       | Template              | reportType:EAAF , Widgets:[Total Hits Summary] |
       | Time Definitions.Date | Relative:[Months,2]                                                            |
       | Share                 | Email:[automation.vision2@radware.com],Subject:myEdit subject,Body:myEdit body |
@@ -83,7 +83,7 @@ Feature: EAAF
       | Time Definitions.Date | Quick:1D                                                                           |
       | Schedule              | Run Every:Weekly, On Time:+6H, At Days:[FRI]                                       |
       | Format                | Select: CSV                                                                        |
-    Given UI "Validate" Report With Name "Top Malicious IP Addresses1"
+    Then UI "Validate" Report With Name "Top Malicious IP Addresses1"
       | Template              | reportType:EAAF , Widgets:[{Top Malicious IP Addresses:[Volume]}] |
       | Logo                  | reportLogoPNG.png                                                                  |
       | Time Definitions.Date | Quick:1D                                                                           |
@@ -101,7 +101,7 @@ Feature: EAAF
       | Schedule              | Run Every:once, On Time:+6H                                                          |
       | Share                 | Email:[automation.vision2@radware.com],Subject:myEdit subject,Body:myEdit body       |
       | Format                | Select: PDF                                                                          |
-    Given UI "Validate" Report With Name "Top Malicious IP Addresses2"
+    Then UI "Validate" Report With Name "Top Malicious IP Addresses2"
       | Template              | reportType:EAAF , Widgets:[{Top Malicious IP Addresses:[Packets]}] |
       | Logo                  | reportLogoPNG.png                                                                    |
       | Time Definitions.Date | Absolute:[27.02.1971 01:00, +0d]                                                     |
@@ -117,7 +117,7 @@ Feature: EAAF
       | Template              | reportType:EAAF , Widgets:[{Top Malicious IP Addresses:[Events]}] |
       | Time Definitions.Date | Quick:This Week                                                                     |
       | Format                | Select: HTML                                                                        |
-    Given UI "Validate" Report With Name "Top Malicious IP Addresses3"
+    Then UI "Validate" Report With Name "Top Malicious IP Addresses3"
       | Template              | reportType:EAAF , Widgets:[{Top Malicious IP Addresses:[Events]}] |
       | Time Definitions.Date | Quick:This Week                                                                     |
       | Format                | Select: HTML                                                                        |
@@ -132,7 +132,7 @@ Feature: EAAF
       | Schedule              | Run Every:Daily,On Time:+2m                                                        |
       | Share                 | Email:[automation.vision2@radware.com],Subject:myEdit subject,Body:myEdit body     |
       | Format                | Select: CSV                                                                        |
-    Given UI "Validate" Report With Name "Top Malicious IP Addresses4"
+    Then UI "Validate" Report With Name "Top Malicious IP Addresses4"
       | Template              | reportType:EAAF , Widgets:[{Top Malicious IP Addresses:[Volume]}] |
       | Time Definitions.Date | Relative:[Days,2]                                                                  |
       | Schedule              | Run Every:Daily,On Time:+2m                                                        |
@@ -149,7 +149,7 @@ Feature: EAAF
       | Time Definitions.Date | Quick:This Week                                                                    |
       | Schedule              | Run Every:Daily,On Time:+2m                                                        |
       | Format                | Select: CSV                                                                        |
-    Given UI "Validate" Report With Name "Top Attacking Geolocations1"
+    Then UI "Validate" Report With Name "Top Attacking Geolocations1"
       | Template              | reportType:EAAF , Widgets:[{Top Attacking Geolocations:[Events]}] |
       | Logo                  | reportLogoPNG.png                                                                  |
       | Time Definitions.Date | Quick:This Week                                                                    |
@@ -167,7 +167,7 @@ Feature: EAAF
       | Schedule              | Run Every:Weekly, On Time:+6H, At Days:[THU]                                        |
       | Share                 | Email:[automation.vision2@radware.com],Subject:myEdit subject,Body:myEdit body      |
       | Format                | Select: PDF                                                                         |
-    Given UI "Validate" Report With Name "Top Attacking Geolocations2"
+    Then UI "Validate" Report With Name "Top Attacking Geolocations2"
       | Template              | reportType:EAAF , Widgets:[{Top Attacking Geolocations:[Events]}] |
       | Logo                  | reportLogoPNG.png                                                                   |
       | Time Definitions.Date | Relative:[Weeks,2]                                                                  |
@@ -184,7 +184,7 @@ Feature: EAAF
       | Time Definitions.Date | Absolute:[27.02.1971 01:00, +0d]                                                    |
       | Schedule              | Run Every:Monthly, On Time:+6H, At Months:[MAY]                                     |
       | Format                | Select: HTML                                                                        |
-    Given UI "Validate" Report With Name "Top Attacking Geolocations3"
+    Then UI "Validate" Report With Name "Top Attacking Geolocations3"
       | Template              | reportType:EAAF , Widgets:[{Top Attacking Geolocations:[Volume]}] |
       | Time Definitions.Date | Absolute:[27.02.1971 01:00, +0d]                                                    |
       | Schedule              | Run Every:Monthly, On Time:+6H, At Months:[MAY]                                     |
@@ -199,7 +199,7 @@ Feature: EAAF
       | Time Definitions.Date | Relative:[Months,2]                                                                |
       | Share                 | Email:[automation.vision2@radware.com],Subject:myEdit subject,Body:myEdit body     |
       | Format                | Select: CSV                                                                        |
-    Given UI "Validate" Report With Name "Top Attacking Geolocations4"
+    Then UI "Validate" Report With Name "Top Attacking Geolocations4"
       | Template              | reportType:EAAF , Widgets:[{Top Attacking Geolocations:[Events]}] |
       | Time Definitions.Date | Relative:[Months,2]                                                                |
       | Share                 | Email:[automation.vision2@radware.com],Subject:myEdit subject,Body:myEdit body     |
@@ -215,7 +215,7 @@ Feature: EAAF
       | Time Definitions.Date | Quick:30m                                                                               |
       | Schedule              | Run Every:Weekly, On Time:+6H, At Days:[TUE]                                            |
       | Format                | Select: CSV                                                                             |
-    Given UI "Validate" Report With Name "Breakdown by Malicious Activity1"
+    Then UI "Validate" Report With Name "Breakdown by Malicious Activity1"
       | Template              | reportType:EAAF , Widgets:[{Breakdown by Malicious Activity:[Volume]}] |
       | Logo                  | reportLogoPNG.png                                                                       |
       | Time Definitions.Date | Quick:30m                                                                               |
@@ -233,7 +233,7 @@ Feature: EAAF
       | Schedule              | Run Every:Monthly, On Time:+6H, At Months:[APR]                                           |
       | Share                 | Email:[automation.vision2@radware.com],Subject:myEdit subject,Body:myEdit body            |
       | Format                | Select: PDF                                                                               |
-    Given UI "Validate" Report With Name "Breakdown by Malicious Activity2"
+    Then UI "Validate" Report With Name "Breakdown by Malicious Activity2"
       | Template              | reportType:EAAF , Widgets:[{Breakdown by Malicious Activity:[Packets]}] |
       | Logo                  | reportLogoPNG.png                                                                         |
       | Time Definitions.Date | Absolute:[27.02.1971 01:00, +0d]                                                          |
@@ -249,7 +249,7 @@ Feature: EAAF
       | Template              | reportType:EAAF , Widgets:[{Breakdown by Malicious Activity:[Events]}] |
       | Time Definitions.Date | Relative:[Weeks,2]                                                                       |
       | Format                | Select: HTML                                                                             |
-    Given UI "Validate" Report With Name "Breakdown by Malicious Activity3"
+    Then UI "Validate" Report With Name "Breakdown by Malicious Activity3"
       | Template              | reportType:EAAF , Widgets:[{Breakdown by Malicious Activity:[Events]}] |
       | Time Definitions.Date | Relative:[Weeks,2]                                                                       |
       | Format                | Select: HTML                                                                             |
@@ -264,7 +264,7 @@ Feature: EAAF
       | Schedule              | Run Every:once, On Time:+6H                                                             |
       | Share                 | Email:[automation.vision2@radware.com],Subject:myEdit subject,Body:myEdit body          |
       | Format                | Select: CSV                                                                             |
-    Given UI "Validate" Report With Name "Breakdown by Malicious Activity4"
+    Then UI "Validate" Report With Name "Breakdown by Malicious Activity4"
       | Template              | reportType:EAAF , Widgets:[{Breakdown by Malicious Activity:[Volume]}] |
       | Time Definitions.Date | Quick:Quarter                                                                           |
       | Schedule              | Run Every:once, On Time:+6H                                                             |
@@ -280,7 +280,7 @@ Feature: EAAF
       | Logo                  | reportLogoPNG.png                                                          |
       | Time Definitions.Date | Quick:Previous Month                                                       |
       | Format                | Select: CSV                                                                |
-    Given UI "Validate" Report With Name "EAAF Hits Timeline1"
+    Then UI "Validate" Report With Name "EAAF Hits Timeline1"
       | Template              | reportType:EAAF , Widgets:[{EAAF Hits Timeline:[Volume]}] |
       | Logo                  | reportLogoPNG.png                                                          |
       | Time Definitions.Date | Quick:Previous Month                                                       |
@@ -297,7 +297,7 @@ Feature: EAAF
       | Schedule              | Run Every:once, On Time:+6H                                                    |
       | Share                 | Email:[automation.vision2@radware.com],Subject:myEdit subject,Body:myEdit body |
       | Format                | Select: PDF                                                                    |
-    Given UI "Validate" Report With Name "EAAF Hits Timeline2"
+    Then UI "Validate" Report With Name "EAAF Hits Timeline2"
       | Template              | reportType:EAAF , Widgets:[{EAAF Hits Timeline:[Packets]}] |
       | Logo                  | reportLogoPNG.png                                                              |
       | Time Definitions.Date | Quick:This Month                                                               |
@@ -314,7 +314,7 @@ Feature: EAAF
       | Time Definitions.Date | Absolute:[27.02.1971 01:00:00, +0d]                                         |
       | Schedule              | Run Every:Monthly, On Time:+6H, At Months:[MAR]                             |
       | Format                | Select: HTML                                                                |
-    Given UI "Validate" Report With Name "EAAF Hits Timeline3"
+    Then UI "Validate" Report With Name "EAAF Hits Timeline3"
       | Template              | reportType:EAAF , Widgets:[{EAAF Hits Timeline:[Events]}] |
       | Time Definitions.Date | Absolute:[27.02.1971 01:00:00, +0d]                                         |
       | Schedule              | Run Every:Monthly, On Time:+6H, At Months:[MAR]                             |
@@ -330,7 +330,7 @@ Feature: EAAF
       | Schedule              | Run Every:Weekly, On Time:+6H, At Days:[WED]                                   |
       | Share                 | Email:[automation.vision2@radware.com],Subject:myEdit subject,Body:myEdit body |
       | Format                | Select: CSV                                                                    |
-    Given UI "Validate" Report With Name "EAAF Hits Timeline4"
+    Then UI "Validate" Report With Name "EAAF Hits Timeline4"
       | Template              | reportType:EAAF , Widgets:[{EAAF Hits Timeline:[Volume]}] |
       | Time Definitions.Date | Relative:[Hours,3]                                                             |
       | Schedule              | Run Every:Weekly, On Time:+6H, At Days:[WED]                                   |
@@ -347,7 +347,7 @@ Feature: EAAF
       | Logo                  | reportLogoPNG.png                                                          |
       | Time Definitions.Date | Quick:15m                                                                  |
       | Format                | Select: CSV                                                                |
-    Given UI "Validate" Report With Name "Totals in Selected Time Frame1"
+    Then UI "Validate" Report With Name "Totals in Selected Time Frame1"
       | Template              | reportType:EAAF , Widgets:[Totals in Selected Time Frame] |
       | Logo                  | reportLogoPNG.png                                                          |
       | Time Definitions.Date | Quick:15m                                                                  |
@@ -365,7 +365,7 @@ Feature: EAAF
       | Schedule              | Run Every:Monthly, On Time:+6H, At Months:[AUG]                                |
       | Share                 | Email:[automation.vision2@radware.com],Subject:myEdit subject,Body:myEdit body |
       | Format                | Select: PDF                                                                    |
-    Given UI "Validate" Report With Name "Totals in Selected Time Frame2"
+    Then UI "Validate" Report With Name "Totals in Selected Time Frame2"
       | Template              | reportType:EAAF , Widgets:[Totals in Selected Time Frame] |
       | Logo                  | reportLogoPNG.png                                                              |
       | Time Definitions.Date | Quick:This Week                                                                |
@@ -382,7 +382,7 @@ Feature: EAAF
       | Time Definitions.Date | Absolute:[27.02.1971 01:00:00, +0d]                                         |
       | Schedule              | Run Every:Monthly, On Time:+6H, At Months:[MAR]                             |
       | Format                | Select: HTML                                                                |
-    Given UI "Validate" Report With Name "Totals in Selected Time Frame3"
+    Then UI "Validate" Report With Name "Totals in Selected Time Frame3"
       | Template              | reportType:EAAF , Widgets:[Totals in Selected Time Frame] |
       | Time Definitions.Date | Absolute:[27.02.1971 01:00:00, +0d]                                         |
       | Schedule              | Run Every:Monthly, On Time:+6H, At Months:[MAR]                             |
@@ -398,7 +398,7 @@ Feature: EAAF
       | Schedule              | Run Every:Daily,On Time:+2m                                                    |
       | Share                 | Email:[automation.vision2@radware.com],Subject:myEdit subject,Body:myEdit body |
       | Format                | Select: CSV                                                                    |
-    Given UI "Validate" Report With Name "Totals in Selected Time Frame4"
+    Then UI "Validate" Report With Name "Totals in Selected Time Frame4"
       | Template              | reportType:EAAF , Widgets:[Totals in Selected Time Frame] |
       | Time Definitions.Date | Relative:[Weeks,2]                                                             |
       | Schedule              | Run Every:Daily,On Time:+2m                                                    |
@@ -414,7 +414,7 @@ Feature: EAAF
       | Logo                  | reportLogoPNG.png                                                                                          |
       | Time Definitions.Date | Quick:15m                                                                                                  |
       | Format                | Select: CSV                                                                                                |
-    Given UI "Validate" Report With Name "Total Hits Summary and Breakdown by Malicious Activity1"
+    Then UI "Validate" Report With Name "Total Hits Summary and Breakdown by Malicious Activity1"
       | Template              | reportType:EAAF , Widgets:[Total Hits Summary,{Breakdown by Malicious Activity:[Volume]}] |
       | Logo                  | reportLogoPNG.png                                                                                          |
       | Time Definitions.Date | Quick:15m                                                                                                  |
@@ -431,7 +431,7 @@ Feature: EAAF
       | Schedule              | Run Every:Monthly, On Time:+6H, At Months:[AUG]                                                             |
       | Share                 | Email:[automation.vision2@radware.com],Subject:myEdit subject,Body:myEdit body                              |
       | Format                | Select: PDF                                                                                                 |
-    Given UI "Validate" Report With Name "Total Hits Summary and Breakdown by Malicious Activity2"
+    Then UI "Validate" Report With Name "Total Hits Summary and Breakdown by Malicious Activity2"
       | Template              | reportType:EAAF , Widgets:[Total Hits Summary,{Breakdown by Malicious Activity:[Events]}] |
       | Logo                  | reportLogoPNG.png                                                                                           |
       | Time Definitions.Date | Quick:This Week                                                                                             |
@@ -449,7 +449,7 @@ Feature: EAAF
       | Time Definitions.Date | Absolute:[27.02.1971 01:00:00, +0d]                                                                          |
       | Schedule              | Run Every:Monthly, On Time:+6H, At Months:[MAR]                                                              |
       | Format                | Select: HTML                                                                                                 |
-    Given UI "Validate" Report With Name "Total Hits Summary and Breakdown by Malicious Activity3"
+    Then UI "Validate" Report With Name "Total Hits Summary and Breakdown by Malicious Activity3"
       | Template              | reportType:EAAF , Widgets:[Total Hits Summary,{Breakdown by Malicious Activity:[Packets]}] |
       | Time Definitions.Date | Absolute:[27.02.1971 01:00:00, +0d]                                                                          |
       | Schedule              | Run Every:Monthly, On Time:+6H, At Months:[MAR]                                                              |
@@ -465,7 +465,7 @@ Feature: EAAF
       | Schedule              | Run Every:Daily,On Time:+2m                                                                                  |
       | Share                 | Email:[automation.vision2@radware.com],Subject:myEdit subject,Body:myEdit body                               |
       | Format                | Select: CSV                                                                                                  |
-    Given UI "Validate" Report With Name "Total Hits Summary and Breakdown by Malicious Activity4"
+    Then UI "Validate" Report With Name "Total Hits Summary and Breakdown by Malicious Activity4"
       | Template              | reportType:EAAF , Widgets:[Total Hits Summary,{Breakdown by Malicious Activity:[Packets]}] |
       | Time Definitions.Date | Relative:[Weeks,2]                                                                                           |
       | Schedule              | Run Every:Daily,On Time:+2m                                                                                  |
@@ -482,7 +482,7 @@ Feature: EAAF
       | Logo                  | reportLogoPNG.png                                                                                                                                                              |
       | Time Definitions.Date | Quick:15m                                                                                                                                                                      |
       | Format                | Select: CSV                                                                                                                                                                    |
-    Given UI "Validate" Report With Name "Total Hits Summary and Top Malicious IP Addresses and Breakdown by Malicious Activity and EAAF Hits Timeline1"
+    Then UI "Validate" Report With Name "Total Hits Summary and Top Malicious IP Addresses and Breakdown by Malicious Activity and EAAF Hits Timeline1"
       | Template              | reportType:EAAF , Widgets:[Total Hits Summary,{Top Malicious IP Addresses:[Events]},{Breakdown by Malicious Activity:[Events]},{EAAF Hits Timeline:[Events]}] |
       | Logo                  | reportLogoPNG.png                                                                                                                                                              |
       | Time Definitions.Date | Quick:15m                                                                                                                                                                      |
@@ -500,7 +500,7 @@ Feature: EAAF
       | Schedule              | Run Every:Monthly, On Time:+6H, At Months:[AUG]                                                                                                                                   |
       | Share                 | Email:[automation.vision2@radware.com],Subject:myEdit subject,Body:myEdit body                                                                                                    |
       | Format                | Select: PDF                                                                                                                                                                       |
-    Given UI "Validate" Report With Name "Total Hits Summary and Top Malicious IP Addresses and Breakdown by Malicious Activity and EAAF Hits Timeline2"
+    Then UI "Validate" Report With Name "Total Hits Summary and Top Malicious IP Addresses and Breakdown by Malicious Activity and EAAF Hits Timeline2"
       | Template              | reportType:EAAF , Widgets:[Total Hits Summary,{Top Malicious IP Addresses:[Packets]},{Breakdown by Malicious Activity:[Packets]},{EAAF Hits Timeline:[Volume]}] |
       | Logo                  | reportLogoPNG.png                                                                                                                                                                 |
       | Time Definitions.Date | Quick:This Week                                                                                                                                                                   |
@@ -518,7 +518,7 @@ Feature: EAAF
       | Time Definitions.Date | Absolute:[27.02.1971 01:00, +0d]                                                                                                                                                |
       | Schedule              | Run Every:Monthly, On Time:+6H, At Months:[MAR]                                                                                                                                 |
       | Format                | Select: HTML                                                                                                                                                                    |
-    Given UI "Validate" Report With Name "Total Hits Summary and Top Malicious IP Addresses and Breakdown by Malicious Activity and EAAF Hits Timeline3"
+    Then UI "Validate" Report With Name "Total Hits Summary and Top Malicious IP Addresses and Breakdown by Malicious Activity and EAAF Hits Timeline3"
       | Template              | reportType:EAAF , Widgets:[Total Hits Summary,{Top Malicious IP Addresses:[Volume]},{Breakdown by Malicious Activity:[Volume]},{EAAF Hits Timeline:[Volume]}] |
       | Time Definitions.Date | Absolute:[27.02.1971 01:00, +0d]                                                                                                                                                |
       | Schedule              | Run Every:Monthly, On Time:+6H, At Months:[MAR]                                                                                                                                 |
@@ -535,7 +535,7 @@ Feature: EAAF
       | Schedule              | Run Every:Daily,On Time:+2m                                                                                                                                                     |
       | Share                 | Email:[automation.vision2@radware.com],Subject:myEdit subject,Body:myEdit body                                                                                                  |
       | Format                | Select: CSV                                                                                                                                                                     |
-    Given UI "Validate" Report With Name "Total Hits Summary and Top Malicious IP Addresses and Breakdown by Malicious Activity and EAAF Hits Timeline4"
+    Then UI "Validate" Report With Name "Total Hits Summary and Top Malicious IP Addresses and Breakdown by Malicious Activity and EAAF Hits Timeline4"
       | Template              | reportType:EAAF , Widgets:[Total Hits Summary,{Top Malicious IP Addresses:[Events]},{Breakdown by Malicious Activity:[Packets]},{EAAF Hits Timeline:[Volume]}] |
       | Time Definitions.Date | Relative:[Weeks,2]                                                                                                                                                              |
       | Schedule              | Run Every:Daily,On Time:+2m                                                                                                                                                     |
@@ -552,7 +552,7 @@ Feature: EAAF
       | Logo                  | reportLogoPNG.png                                                                                     |
       | Time Definitions.Date | Quick:Previous Month                                                                                  |
       | Format                | Select: CSV                                                                                           |
-    Given UI "Validate" Report With Name "Total Hits Summary and Top Attacking Geolocations1"
+    Then UI "Validate" Report With Name "Total Hits Summary and Top Attacking Geolocations1"
       | Template              | reportType:EAAF , Widgets:[Total Hits Summary,{Top Attacking Geolocations:[Events]}] |
       | Logo                  | reportLogoPNG.png                                                                                     |
       | Time Definitions.Date | Quick:Previous Month                                                                                  |
@@ -569,7 +569,7 @@ Feature: EAAF
       | Schedule              | Run Every:Once, On Time:+6H                                                                            |
       | Share                 | Email:[automation.vision2@radware.com],Subject:myEdit subject,Body:myEdit body                         |
       | Format                | Select: PDF                                                                                            |
-    Given UI "Validate" Report With Name "Total Hits Summary and Top Attacking Geolocations2"
+    Then UI "Validate" Report With Name "Total Hits Summary and Top Attacking Geolocations2"
       | Template              | reportType:EAAF , Widgets:[Total Hits Summary,{Top Attacking Geolocations:[Volume]}] |
       | Logo                  | reportLogoPNG.png                                                                                      |
       | Time Definitions.Date | Quick:This Month                                                                                       |
@@ -586,7 +586,7 @@ Feature: EAAF
       | Time Definitions.Date | Absolute:[27.02.1971 01:00, +0d]                                                                        |
       | Schedule              | Run Every:Monthly, On Time:+6H, At Months:[MAR]                                                         |
       | Format                | Select: HTML                                                                                            |
-    Given UI "Validate" Report With Name "Total Hits Summary and Top Attacking Geolocations3"
+    Then UI "Validate" Report With Name "Total Hits Summary and Top Attacking Geolocations3"
       | Template              | reportType:EAAF , Widgets:[Total Hits Summary,{Top Attacking Geolocations:[Packets]}] |
       | Time Definitions.Date | Absolute:[27.02.1971 01:00, +0d]                                                                        |
       | Schedule              | Run Every:Monthly, On Time:+6H, At Months:[MAR]                                                         |
@@ -602,7 +602,7 @@ Feature: EAAF
       | Schedule              | Run Every:Weekly, On Time:+6H, At Days:[WED]                                                          |
       | Share                 | Email:[automation.vision2@radware.com],Subject:myEdit subject,Body:myEdit body                        |
       | Format                | Select: CSV                                                                                           |
-    Given UI "Validate" Report With Name "Total Hits Summary and Top Attacking Geolocations4"
+    Then UI "Validate" Report With Name "Total Hits Summary and Top Attacking Geolocations4"
       | Template              | reportType:EAAF , Widgets:[Total Hits Summary,{Top Attacking Geolocations:[Volume]}] |
       | Time Definitions.Date | Relative:[Hours,3]                                                                                    |
       | Schedule              | Run Every:Weekly, On Time:+6H, At Days:[WED]                                                          |
@@ -620,7 +620,7 @@ Feature: EAAF
       | Time Definitions.Date | Absolute:[27.02.1971 01:00, +0d]                                                                                                                            |
       | Schedule              | Run Every:Weekly, On Time:+6H, At Days:[SUN]                                                                                                                |
       | Format                | Select: CSV                                                                                                                                                 |
-    Given UI "Validate" Report With Name "Top Attacking Geolocations and Breakdown by Malicious Activity and EAAF Hits Timeline1"
+    Then UI "Validate" Report With Name "Top Attacking Geolocations and Breakdown by Malicious Activity and EAAF Hits Timeline1"
       | Template              | reportType:EAAF , Widgets:[{Top Attacking Geolocations:[Volume]},{Breakdown by Malicious Activity:[Volume]},{EAAF Hits Timeline:[Volume]}] |
       | Logo                  | reportLogoPNG.png                                                                                                                                           |
       | Time Definitions.Date | Absolute:[27.02.1971 01:00, +0d]                                                                                                                            |
@@ -638,7 +638,7 @@ Feature: EAAF
       | Schedule              | Run Every:Monthly, On Time:+6H, At Months:[DEC]                                                                                                              |
       | Share                 | Email:[automation.vision2@radware.com],Subject:myEdit subject,Body:myEdit body                                                                               |
       | Format                | Select: PDF                                                                                                                                                  |
-    Given UI "Validate" Report With Name "Top Attacking Geolocations and Breakdown by Malicious Activity and EAAF Hits Timeline2"
+    Then UI "Validate" Report With Name "Top Attacking Geolocations and Breakdown by Malicious Activity and EAAF Hits Timeline2"
       | Template              | reportType:EAAF , Widgets:[{Top Attacking Geolocations:[Events]},{Breakdown by Malicious Activity:[Events]},{EAAF Hits Timeline:[Events]}] |
       | Logo                  | reportLogoPNG.png                                                                                                                                            |
       | Time Definitions.Date | Quick:3M                                                                                                                                                     |
@@ -656,7 +656,7 @@ Feature: EAAF
       | Template              | reportType:EAAF , Widgets:[{Top Attacking Geolocations:[Packets]},{Breakdown by Malicious Activity:[Packets]},{EAAF Hits Timeline:[Packets]}] |
       | Time Definitions.Date | Quick:This Month                                                                                                                                                |
       | Format                | Select: HTML                                                                                                                                                    |
-    Given UI "Validate" Report With Name "Top Attacking Geolocations and Breakdown by Malicious Activity and EAAF Hits Timeline3"
+    Then UI "Validate" Report With Name "Top Attacking Geolocations and Breakdown by Malicious Activity and EAAF Hits Timeline3"
       | Template              | reportType:EAAF , Widgets:[{Top Attacking Geolocations:[Packets]},{Breakdown by Malicious Activity:[Packets]},{EAAF Hits Timeline:[Packets]}] |
       | Time Definitions.Date | Quick:This Month                                                                                                                                                |
       | Format                | Select: HTML                                                                                                                                                    |
@@ -672,7 +672,7 @@ Feature: EAAF
       | Time Definitions.Date | Quick:1H                                                                                                                                                     |
       | Schedule              | Run Every:Monthly, On Time:+6H, At Months:[MAR]                                                                                                              |
       | Format                | Select: HTML                                                                                                                                                 |
-    Given UI "Validate" Report With Name "Top Attacking Geolocations and Breakdown by Malicious Activity and EAAF Hits Timeline4"
+    Then UI "Validate" Report With Name "Top Attacking Geolocations and Breakdown by Malicious Activity and EAAF Hits Timeline4"
       | Template              | reportType:EAAF , Widgets:[{Top Attacking Geolocations:[Volume]},{Breakdown by Malicious Activity:[Volume]},{EAAF Hits Timeline:[Volume]}] |
       | Time Definitions.Date | Quick:1H                                                                                                                                                     |
       | Schedule              | Run Every:Monthly, On Time:+6H, At Months:[MAR]                                                                                                              |
@@ -688,7 +688,7 @@ Feature: EAAF
       | Logo                  | reportLogoPNG.png                                                                                     |
       | Time Definitions.Date | Quick:15m                                                                                             |
       | Format                | Select: CSV                                                                                           |
-    Given UI "Validate" Report With Name "Total Hits Summary and Top Malicious IP Addresses1"
+    Then UI "Validate" Report With Name "Total Hits Summary and Top Malicious IP Addresses1"
       | Template              | reportType:EAAF , Widgets:[Total Hits Summary,{Top Malicious IP Addresses:[Volume]}] |
       | Logo                  | reportLogoPNG.png                                                                                     |
       | Time Definitions.Date | Quick:15m                                                                                             |
@@ -706,7 +706,7 @@ Feature: EAAF
       | Schedule              | Run Every:Monthly, On Time:+6H, At Months:[AUG]                                                        |
       | Share                 | Email:[automation.vision2@radware.com],Subject:myEdit subject,Body:myEdit body                         |
       | Format                | Select: PDF                                                                                            |
-    Given UI "Validate" Report With Name "Total Hits Summary and Top Malicious IP Addresses2"
+    Then UI "Validate" Report With Name "Total Hits Summary and Top Malicious IP Addresses2"
       | Template              | reportType:EAAF , Widgets:[Total Hits Summary,{Top Malicious IP Addresses:[Events]}] |
       | Logo                  | reportLogoPNG.png                                                                                      |
       | Time Definitions.Date | Quick:This Week                                                                                        |
@@ -723,7 +723,7 @@ Feature: EAAF
       | Time Definitions.Date | Absolute:[27.02.1971 01:00, +0d]                                                                        |
       | Schedule              | Run Every:Monthly, On Time:+6H, At Months:[MAR]                                                         |
       | Format                | Select: HTML                                                                                            |
-    Given UI "Validate" Report With Name "Total Hits Summary and Top Malicious IP Addresses3"
+    Then UI "Validate" Report With Name "Total Hits Summary and Top Malicious IP Addresses3"
       | Template              | reportType:EAAF , Widgets:[Total Hits Summary,{Top Malicious IP Addresses:[Packets]}] |
       | Time Definitions.Date | Absolute:[27.02.1971 01:00, +0d]                                                                        |
       | Schedule              | Run Every:Monthly, On Time:+6H, At Months:[MAR]                                                         |
@@ -739,7 +739,7 @@ Feature: EAAF
       | Schedule              | Run Every:Daily,On Time:+2m                                                                           |
       | Share                 | Email:[automation.vision2@radware.com],Subject:myEdit subject,Body:myEdit body                        |
       | Format                | Select: CSV                                                                                           |
-    Given UI "Validate" Report With Name "Total Hits Summary and Top Malicious IP Addresses4"
+    Then UI "Validate" Report With Name "Total Hits Summary and Top Malicious IP Addresses4"
       | Template              | reportType:EAAF , Widgets:[Total Hits Summary,{Top Malicious IP Addresses:[Events]}] |
       | Time Definitions.Date | Relative:[Weeks,2]                                                                                    |
       | Schedule              | Run Every:Daily,On Time:+2m                                                                           |
@@ -755,7 +755,7 @@ Feature: EAAF
       | Logo                  | reportLogoPNG.png                                                                                                     |
       | Time Definitions.Date | Quick:15m                                                                                                             |
       | Format                | Select: CSV                                                                                                           |
-    Given UI "Validate" Report With Name " Breakdown by Malicious Activity and EAAF Hits Timeline1"
+    Then UI "Validate" Report With Name " Breakdown by Malicious Activity and EAAF Hits Timeline1"
       | Template              | reportType:EAAF , Widgets:[{Breakdown by Malicious Activity:[Volume]},{EAAF Hits Timeline:[Volume]}] |
       | Logo                  | reportLogoPNG.png                                                                                                     |
       | Time Definitions.Date | Quick:15m                                                                                                             |
@@ -772,7 +772,7 @@ Feature: EAAF
       | Schedule              | Run Every:Monthly, On Time:+6H, At Months:[AUG]                                                                          |
       | Share                 | Email:[automation.vision2@radware.com],Subject:myEdit subject,Body:myEdit body                                           |
       | Format                | Select: PDF                                                                                                              |
-    Given UI "Validate" Report With Name " Breakdown by Malicious Activity and EAAF Hits Timeline2"
+    Then UI "Validate" Report With Name " Breakdown by Malicious Activity and EAAF Hits Timeline2"
       | Template              | reportType:EAAF , Widgets:[{Breakdown by Malicious Activity:[Packets]},{EAAF Hits Timeline:[Packets]}] |
       | Logo                  | reportLogoPNG.png                                                                                                        |
       | Time Definitions.Date | Quick:This Week                                                                                                          |
@@ -789,7 +789,7 @@ Feature: EAAF
       | Time Definitions.Date | Absolute:[27.02.1971 01:00, +0d]                                                                                       |
       | Schedule              | Run Every:Monthly, On Time:+6H, At Months:[MAR]                                                                        |
       | Format                | Select: HTML                                                                                                           |
-    Given UI "Validate" Report With Name " Breakdown by Malicious Activity and EAAF Hits Timeline3"
+    Then UI "Validate" Report With Name " Breakdown by Malicious Activity and EAAF Hits Timeline3"
       | Template              | reportType:EAAF , Widgets:[{Breakdown by Malicious Activity:[Events]},{EAAF Hits Timeline:[Events]}] |
       | Time Definitions.Date | Absolute:[27.02.1971 01:00, +0d]                                                                                       |
       | Schedule              | Run Every:Monthly, On Time:+6H, At Months:[MAR]                                                                        |
@@ -805,7 +805,7 @@ Feature: EAAF
       | Schedule              | Run Every:Daily,On Time:+2m                                                                                            |
       | Share                 | Email:[automation.vision2@radware.com],Subject:myEdit subject,Body:myEdit body                                         |
       | Format                | Select: CSV                                                                                                            |
-    Given UI "Validate" Report With Name " Breakdown by Malicious Activity and EAAF Hits Timeline4"
+    Then UI "Validate" Report With Name " Breakdown by Malicious Activity and EAAF Hits Timeline4"
       | Template              | reportType:EAAF , Widgets:[{Breakdown by Malicious Activity:[Volume]},{EAAF Hits Timeline:[Packets]}] |
       | Time Definitions.Date | Relative:[Weeks,2]                                                                                                     |
       | Schedule              | Run Every:Daily,On Time:+2m                                                                                            |
@@ -821,7 +821,7 @@ Feature: EAAF
       | Logo                  | reportLogoPNG.png                                                                                                                                                                                                                                  |
       | Time Definitions.Date | Quick:Previous Month                                                                                                                                                                                                                               |
       | Format                | Select: CSV                                                                                                                                                                                                                                        |
-    Given UI "Validate" Report With Name "All Widgets1"
+    Then UI "Validate" Report With Name "All Widgets1"
       | Template              | reportType:EAAF , Widgets:[Total Hits Summary,{Top Malicious IP Addresses:[Events]},{Top Attacking Geolocations:[Events]},{Breakdown by Malicious Activity:[Events]},{EAAF Hits Timeline:[Volume]},Totals in Selected Time Frame] |
       | Logo                  | reportLogoPNG.png                                                                                                                                                                                                                                  |
       | Time Definitions.Date | Quick:Previous Month                                                                                                                                                                                                                               |
@@ -838,7 +838,7 @@ Feature: EAAF
       | Schedule              | Run Every:Once, On Time:+6H                                                                                                                                                                                                                            |
       | Share                 | Email:[automation.vision2@radware.com],Subject:myEdit subject,Body:myEdit body                                                                                                                                                                         |
       | Format                | Select: PDF                                                                                                                                                                                                                                            |
-    Given UI "Validate" Report With Name "All Widgets2"
+    Then UI "Validate" Report With Name "All Widgets2"
       | Template              | reportType:EAAF , Widgets:[Total Hits Summary,{Top Malicious IP Addresses:[Packets]},{Top Attacking Geolocations:[Packets]},{Breakdown by Malicious Activity:[Packets]},{EAAF Hits Timeline:[Volume]},Totals in Selected Time Frame] |
       | Logo                  | reportLogoPNG.png                                                                                                                                                                                                                                      |
       | Time Definitions.Date | Quick:This Month                                                                                                                                                                                                                                       |
@@ -855,7 +855,7 @@ Feature: EAAF
       | Time Definitions.Date | Absolute:[27.02.1971 01:00, +0d]                                                                                                                                                                                                                    |
       | Schedule              | Run Every:Monthly, On Time:+6H, At Months:[MAR]                                                                                                                                                                                                     |
       | Format                | Select: HTML                                                                                                                                                                                                                                        |
-    Given UI "Validate" Report With Name "All Widgets3"
+    Then UI "Validate" Report With Name "All Widgets3"
       | Template              | reportType:EAAF , Widgets:[Total Hits Summary,{Top Malicious IP Addresses:[Volume]},{Top Attacking Geolocations:[Volume]},{Breakdown by Malicious Activity:[Volume]},{EAAF Hits Timeline:[Volume]},Totals in Selected Time Frame] |
       | Time Definitions.Date | Absolute:[27.02.1971 01:00, +0d]                                                                                                                                                                                                                    |
       | Schedule              | Run Every:Monthly, On Time:+6H, At Months:[MAR]                                                                                                                                                                                                     |
@@ -871,7 +871,7 @@ Feature: EAAF
       | Schedule              | Run Every:Weekly, On Time:+6H, At Days:[WED]                                                                                                                                                                                      |
       | Share                 | Email:[automation.vision2@radware.com],Subject:myEdit subject,Body:myEdit body                                                                                                                                                    |
       | Format                | Select: CSV                                                                                                                                                                                                                       |
-    Given UI "Validate" Report With Name "All Widgets3"
+    Then UI "Validate" Report With Name "All Widgets3"
       | Template              | reportType:EAAF , Widgets:[Total Hits Summary,{Top Malicious IP Addresses:[Volume]},{Top Attacking Geolocations:[Events]},{Breakdown by Malicious Activity:[Volume]},{EAAF Hits Timeline:[Volume]},Totals in Selected Time Frame] |
       | Time Definitions.Date | Relative:[Hours,3]                                                                                                                                                                                                                |
       | Schedule              | Run Every:Weekly, On Time:+6H, At Days:[WED]                                                                                                                                                                                      |
