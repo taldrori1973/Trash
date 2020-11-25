@@ -992,3 +992,7 @@ Feature: AppWall
       | Share                 | Email:[automation.vision2@radware.com],Subject:myEdit subject,Body:myEdit body                                                                                                     |
       | Format                | Select: CSV                                                                                                                                                                        |
     Then UI Delete Report With Name "OWASP Top 10 and Top Attack Category and Top Sources and Geolocation and Attacks by Action and Top Attacked Hosts and Attack Severity4"
+
+  @SID_62
+  Scenario: Logout
+    Then UI logout and close browser
