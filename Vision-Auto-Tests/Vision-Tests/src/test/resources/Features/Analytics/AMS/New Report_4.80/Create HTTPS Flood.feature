@@ -1,7 +1,6 @@
 @TC117962
 Feature: HTTPS Flood
 
-
   @SID_1
   Scenario: Navigate to NEW REPORTS page
     Then UI Login with user "radware" and password "radware"
@@ -12,19 +11,19 @@ Feature: HTTPS Flood
   Scenario: Inbound Traffic Report 1
     Then UI Click Button "New Report Tab"
     Given UI "Create" Report With Name "Inbound Traffic 1"
-      | Template              | reportType:HTTPS Flood , Widgets:[Inbound Traffic], devices:[{deviceIndex:10, deviceIndex:11}] |
-      | Format                | Select: CSV                                                                                    |
-      | Logo                  | reportLogoPNG.png                                                                              |
-      | Schedule              | Run Every:Daily,On Time:+2m                                                                    |
-      | Time Definitions.Date | Quick:Today                                                                                    |
-      | Share                 | Email:[automation.vision2@radware.com],Subject:myEdit subject,Body:myEdit body                 |
-    Given UI "Validate" Report With Name "Inbound Traffic 1"
-      | Template              | reportType:HTTPS Flood , Widgets:[Inbound Traffic], devices:[{deviceIndex:10, deviceIndex:11}] |
-      | Format                | Select: CSV                                                                                    |
-      | Logo                  | reportLogoPNG.png                                                                              |
-      | Schedule              | Run Every:Daily,On Time:+2m                                                                    |
-      | Time Definitions.Date | Quick:Today                                                                                    |
-      | Share                 | Email:[automation.vision2@radware.com],Subject:myEdit subject,Body:myEdit body                 |
+      | Template              | reportType:HTTPS Flood , Widgets:[Inbound Traffic], Servers:[aaaaaaaaaaaaaaaaaaaaaaaaaaaaaa-DefensePro_172.16.22.51-1] |
+      | Format                | Select: CSV                                                                                                            |
+      | Logo                  | reportLogoPNG.png                                                                                                      |
+      | Schedule              | Run Every:Daily,On Time:+2m                                                                                            |
+      | Time Definitions.Date | Quick:Today                                                                                                            |
+      | Share                 | Email:[automation.vision2@radware.com],Subject:myEdit subject,Body:myEdit body                                         |
+    Then UI "Validate" Report With Name "Inbound Traffic 1"
+      | Template              | reportType:HTTPS Flood , Widgets:[Inbound Traffic], Servers:[aaaaaaaaaaaaaaaaaaaaaaaaaaaaaa-DefensePro_172.16.22.51-1] |
+      | Format                | Select: CSV                                                                                                            |
+      | Logo                  | reportLogoPNG.png                                                                                                      |
+      | Schedule              | Run Every:Daily,On Time:+2m                                                                                            |
+      | Time Definitions.Date | Quick:Today                                                                                                            |
+      | Share                 | Email:[automation.vision2@radware.com],Subject:myEdit subject,Body:myEdit body                                         |
     Then UI Delete Report With Name "Inbound Traffic 1"
 
 
@@ -32,15 +31,15 @@ Feature: HTTPS Flood
   Scenario: Inbound Traffic Report 2
     Then UI Click Button "New Report Tab"
     Given UI "Create" Report With Name "Inbound Traffic 2"
-      | Template              | reportType:HTTPS Flood , Widgets:[Inbound Traffic],devices:[{deviceIndex:10}] |
-      | Format                | Select: CSV                                                                   |
-      | Time Definitions.Date | Quick:Quarter                                                                 |
-      | Schedule              | Run Every:Weekly, On Time:+6H, At Days:[THU]                                  |
+      | Template              | reportType:HTTPS Flood , Widgets:[Inbound Traffic],Servers:[aaaaaaaaaaaaaaaaaaaaaaaaaaaaaa-DefensePro_172.16.22.51-1] |
+      | Format                | Select: CSV                                                                                                           |
+      | Time Definitions.Date | Quick:Quarter                                                                                                         |
+      | Schedule              | Run Every:Weekly, On Time:+6H, At Days:[THU]                                                                          |
     Given UI "Validate" Report With Name "Inbound Traffic 2"
-      | Template              | reportType:HTTPS Flood , Widgets:[Inbound Traffic],devices:[{deviceIndex:10}] |
-      | Format                | Select: CSV                                                                   |
-      | Time Definitions.Date | Quick:Quarter                                                                 |
-      | Schedule              | Run Every:Weekly, On Time:+6H, At Days:[THU]                                  |
+      | Template              | reportType:HTTPS Flood , Widgets:[Inbound Traffic],Servers:[aaaaaaaaaaaaaaaaaaaaaaaaaaaaaa-DefensePro_172.16.22.51-1] |
+      | Format                | Select: CSV                                                                                                           |
+      | Time Definitions.Date | Quick:Quarter                                                                                                         |
+      | Schedule              | Run Every:Weekly, On Time:+6H, At Days:[THU]                                                                          |
     Then UI Delete Report With Name "Inbound Traffic 2"
 
 
@@ -48,17 +47,17 @@ Feature: HTTPS Flood
   Scenario:  Inbound Traffic Report 3
     Then UI Click Button "New Report Tab"
     Given UI "Create" Report With Name "Inbound Traffic 3"
-      | Template              | reportType:HTTPS Flood , Widgets:[Inbound Traffic],devices:[{deviceIndex:10, deviceIndex:11}] |
-      | Format                | Select: PDF                                                                                   |
-      | Time Definitions.Date | Absolute:[27.02.1971 01:00, +0d]                                                              |
-      | Schedule              | Run Every:Monthly, On Time:+6H, At Months:[JUN]                                               |
-      | Share                 | Email:[automation.vision2@radware.com],Subject:myEdit subject,Body:myEdit body                |
+      | Template              | reportType:HTTPS Flood , Widgets:[Inbound Traffic],Servers:[{aaaaaaaaaaaaaaaaaaaaaaaaaaaaaa-DefensePro_172.16.22.51-1}, {aaaaaaaaaaaaaaaaaaaaaaaaaaaaaa-DefensePro_172.16.22.51-2}] |
+      | Format                | Select: PDF                                                                                                                                                                         |
+      | Time Definitions.Date | Absolute:[27.02.1971 01:00, +0d]                                                                                                                                                    |
+      | Schedule              | Run Every:Monthly, On Time:+6H, At Months:[JUN]                                                                                                                                     |
+      | Share                 | Email:[automation.vision2@radware.com],Subject:myEdit subject,Body:myEdit body                                                                                                      |
     Given UI "Validate" Report With Name "Inbound Traffic 3"
-      | Template              | reportType:HTTPS Flood , Widgets:[Inbound Traffic],devices:[{deviceIndex:10, deviceIndex:11}] |
-      | Format                | Select: PDF                                                                                   |
-      | Time Definitions.Date | Absolute:[27.02.1971 01:00, +0d]                                                              |
-      | Schedule              | Run Every:Monthly, On Time:+6H, At Months:[JUN]                                               |
-      | Share                 | Email:[automation.vision2@radware.com],Subject:myEdit subject,Body:myEdit body                |
+      | Template              | reportType:HTTPS Flood , Widgets:[Inbound Traffic],Servers:[{aaaaaaaaaaaaaaaaaaaaaaaaaaaaaa-DefensePro_172.16.22.51-1}, {aaaaaaaaaaaaaaaaaaaaaaaaaaaaaa-DefensePro_172.16.22.51-2}] |
+      | Format                | Select: PDF                                                                                                                                                                         |
+      | Time Definitions.Date | Absolute:[27.02.1971 01:00, +0d]                                                                                                                                                    |
+      | Schedule              | Run Every:Monthly, On Time:+6H, At Months:[JUN]                                                                                                                                     |
+      | Share                 | Email:[automation.vision2@radware.com],Subject:myEdit subject,Body:myEdit body                                                                                                      |
     Then UI Delete Report With Name "Inbound Traffic 3"
 
 
@@ -83,17 +82,17 @@ Feature: HTTPS Flood
   Scenario:  Inbound Traffic Report 5
     Then UI Click Button "New Report Tab"
     Given UI "Create" Report With Name "Inbound Traffic 5"
-      | Template              | reportType:HTTPS Flood , Widgets:[Inbound Traffic],devices:[{deviceIndex:10}]  |
-      | Logo                  | reportLogoPNG.png                                                              |
-      | Format                | Select: CSV                                                                    |
-      | Time Definitions.Date | Quick:1M                                                                       |
-      | Share                 | Email:[automation.vision2@radware.com],Subject:myEdit subject,Body:myEdit body |
+      | Template              | reportType:HTTPS Flood , Widgets:[Inbound Traffic],Servers:[aaaaaaaaaaaaaaaaaaaaaaaaaaaaaa-DefensePro_172.16.22.51-1] |
+      | Logo                  | reportLogoPNG.png                                                                                                     |
+      | Format                | Select: CSV                                                                                                           |
+      | Time Definitions.Date | Quick:1M                                                                                                              |
+      | Share                 | Email:[automation.vision2@radware.com],Subject:myEdit subject,Body:myEdit body                                        |
     Given UI "Validate" Report With Name "Inbound Traffic 5"
-      | Template              | reportType:HTTPS Flood , Widgets:[Inbound Traffic],devices:[{deviceIndex:10}]  |
-      | Logo                  | reportLogoPNG.png                                                              |
-      | Format                | Select: CSV                                                                    |
-      | Time Definitions.Date | Quick:1M                                                                       |
-      | Share                 | Email:[automation.vision2@radware.com],Subject:myEdit subject,Body:myEdit body |
+      | Template              | reportType:HTTPS Flood , Widgets:[Inbound Traffic],Servers:[aaaaaaaaaaaaaaaaaaaaaaaaaaaaaa-DefensePro_172.16.22.51-1] |
+      | Logo                  | reportLogoPNG.png                                                                                                     |
+      | Format                | Select: CSV                                                                                                           |
+      | Time Definitions.Date | Quick:1M                                                                                                              |
+      | Share                 | Email:[automation.vision2@radware.com],Subject:myEdit subject,Body:myEdit body                                        |
     Then UI Delete Report With Name "Inbound Traffic 5"
 
   @SID_7
