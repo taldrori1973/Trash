@@ -593,20 +593,20 @@ public class TemplateHandlers {
 
     }
 
-    public static StringBuilder validateTemplateDefinition(JSONArray actualTemplateJSONArray, Map<String, String> map, Map<String, Map<String, String>> templates, Map<String, Integer> widgets, String reportName) throws Exception {
+    public static StringBuilder validateTemplateDefinition(JSONArray actualTemplateJSONArray, Map<String, String> map, Map<String, Map<String, String>> templates, Map<String, Integer> widgets ,String reportName) throws Exception {
         StringBuilder errorMessage = new StringBuilder();
         JSONArray expectedTemplates = new JSONArray(map.get("Template").toString());
         for (Object expectedTemplate : expectedTemplates) {
-            validateSingleTemplateDefinition(actualTemplateJSONArray, new JSONObject(expectedTemplate.toString()), templates.get(reportName).get(new JSONObject(expectedTemplate.toString()).get("templateAutomationID")), widgets, errorMessage);
+            validateSingleTemplateDefinition(actualTemplateJSONArray, new JSONObject(expectedTemplate.toString()), templates.get(reportName).get(new JSONObject(expectedTemplate.toString()).get("templateAutomationID")), widgets ,errorMessage);
         }
         return errorMessage;
     }
 
-    public static void validateSingleTemplateDefinition(JSONArray actualTemplateJSON, JSONObject expectedSingleTemplate, String expectedTemplateTitle, Map<String, Integer> widgets, StringBuilder errorMessage) throws Exception, TargetWebElementNotFoundException {
+    public static void validateSingleTemplateDefinition(JSONArray actualTemplateJSON, JSONObject expectedSingleTemplate, String expectedTemplateTitle , Map<String, Integer> widgets ,StringBuilder errorMessage) throws Exception, TargetWebElementNotFoundException {
         JSONObject singleActualTemplate = validateTemplateTypeDefinition(actualTemplateJSON, expectedSingleTemplate, expectedTemplateTitle, errorMessage);
         if (singleActualTemplate != null) {
-            validateTemplateDevicesDefinition(singleActualTemplate, expectedSingleTemplate, errorMessage);
-            validateTemplateWidgetsDefinition(singleActualTemplate, expectedSingleTemplate, expectedTemplateTitle, widgets, errorMessage);
+            validateTemplateDevicesDefinition(singleActualTemplate, expectedSingleTemplate,  errorMessage);
+            validateTemplateWidgetsDefinition(singleActualTemplate, expectedSingleTemplate,expectedSingleTemplate.get("reportType").toString() ,widgets, errorMessage);
         } else
             errorMessage.append("There is no equal template on actual templates that equal to " + expectedSingleTemplate);
     }
@@ -634,56 +634,132 @@ public class TemplateHandlers {
         getScopeSelection(expectedSingleTemplate, "").validate(new JSONArray(singleTemplate.get("scope").toString()), errorMessage);
     }
 
-    private static void validateTemplateWidgetsDefinition(JSONObject singleActualTemplate, JSONObject expectedSingleTemplate, String expectedTemplateTitle, Map<String, Integer> widgets, StringBuilder errorMessage) {
+    private static void validateTemplateWidgetsDefinition(JSONObject singleActualTemplate, JSONObject expectedSingleTemplate , String expectedTemplateTitle,Map<String, Integer> widgets, StringBuilder errorMessage) {
         JSONArray expectedWidgetsJSONArray = new JSONArray(expectedSingleTemplate.get("Widgets").toString());
         for (Object expectedWidgetObject : expectedWidgetsJSONArray) {
-            if (expectedSingleTemplate.get("Widgets").toString().contains("ALL"))
-                validateAllWidgetsSelected(new JSONArray(singleActualTemplate.get("widgets").toString()), expectedSingleTemplate, expectedTemplateTitle, widgets, errorMessage);
+            if(expectedSingleTemplate.get("Widgets").toString().contains("ALL"))
+                validateAllWidgetsSelected(new JSONArray(singleActualTemplate.get("widgets").toString()),expectedSingleTemplate,expectedTemplateTitle,widgets,errorMessage);
             else if (expectedWidgetObject.getClass().getName().contains("String")) {
                 if (!singleActualTemplate.toMap().get("widgets").toString().contains(expectedWidgetObject.toString()))
                     errorMessage.append("The Actual TemplateWidget title = " + ((HashMap) singleActualTemplate.toMap().get("metaData")).get("title").toString() + "is not equal to  " + expectedWidgetObject.toString());
             } else
-                validateHashMapObjectWidgets(new JSONArray(singleActualTemplate.get("widgets").toString()), new JSONObject(expectedWidgetObject.toString()), errorMessage);
+                validateHashMapObjectWidgets(new JSONArray(singleActualTemplate.get("widgets").toString()), new JSONObject(expectedWidgetObject.toString()), expectedTemplateTitle,errorMessage);
         }
     }
 
-    private static void validateAllWidgetsSelected(JSONArray singleActualTemplate, JSONObject expectedSingleTemplate, String expectedTemplateTitle, Map<String, Integer> widgets, StringBuilder errorMessage) {
+    private static void validateAllWidgetsSelected(JSONArray singleActualTemplate, JSONObject expectedSingleTemplate, String expectedTemplateTitle,Map<String, Integer> widgets, StringBuilder errorMessage) {
         if (singleActualTemplate.length() != widgets.get(expectedTemplateTitle.split("_")[0]))
             errorMessage.append("The all widget is not selected on the actual selected" + singleActualTemplate.length() + " and not " + widgets.get(expectedTemplateTitle.split("_")[0]));
         else {
             JSONArray expectedWidgetOptions = new JSONArray(new JSONObject(new JSONArray(expectedSingleTemplate.get("Widgets").toString()).get(0).toString()).get("ALL").toString());
-            for (Object expectedWidgetOption : expectedWidgetOptions) {
-                validateAllTheWidgetsOptions(singleActualTemplate, new JSONObject(expectedWidgetOption.toString()), errorMessage);
-            }
+           for(Object expectedWidgetOption : expectedWidgetOptions) {
+               validateAllTheWidgetsOptions(singleActualTemplate, new JSONObject(expectedWidgetOption.toString()),expectedTemplateTitle ,errorMessage);
+           }
         }
     }
 
-    private static void validateAllTheWidgetsOptions(JSONArray singleActualTemplate, JSONObject expectedWidgetOption, StringBuilder errorMessage) {
+    private static void validateAllTheWidgetsOptions(JSONArray singleActualTemplate, JSONObject expectedWidgetOption,String expectedTemplateTitle, StringBuilder errorMessage) {
         for (Object actualWidgetOption : singleActualTemplate) {
             if (new JSONObject(actualWidgetOption.toString()).get("metaData").toString().replace("\\", "").contains(expectedWidgetOption.keys().next()))
-                validateOptionsWidgets(expectedWidgetOption.keys().next(), expectedWidgetOption, new JSONObject(new JSONObject(actualWidgetOption.toString()).get("metaData").toString().replace("\\", "")), errorMessage);
+                validateOptionsWidgets(expectedWidgetOption.keys().next(), expectedWidgetOption, new JSONObject(new JSONObject(actualWidgetOption.toString()).get("metaData").toString().replace("\\", "")),expectedTemplateTitle, errorMessage);
         }
     }
 
-    private static void validateHashMapObjectWidgets(JSONArray actualWidgetsJSONArray, JSONObject expectedWidgetJSONObject, StringBuilder errorMessage) {
+    private static void validateHashMapObjectWidgets(JSONArray actualWidgetsJSONArray, JSONObject expectedWidgetJSONObject, String expectedTemplateTitle,StringBuilder errorMessage) {
         for (Object actualWidgetObject : actualWidgetsJSONArray) {
             if (!expectedWidgetJSONObject.keys().next().equals(new JSONObject(new JSONObject((HashMap) new JSONObject(actualWidgetObject.toString()).toMap()).get("metaData").toString().replace("\\", "")).get("title").toString()))
                 errorMessage.append("The Actual TemplateWidget title = :" + new JSONObject(new JSONObject((HashMap) new JSONObject(actualWidgetObject.toString()).toMap()).get("metaData").toString().replace("\\", "")).get("title") + "and  not equal to  " + expectedWidgetJSONObject.keys().next());
             else
-                validateOptionsWidgets(expectedWidgetJSONObject.keys().next(), expectedWidgetJSONObject, new JSONObject(new JSONObject((HashMap) new JSONObject(actualWidgetObject.toString()).toMap()).get("metaData").toString().replace("\\", "")), errorMessage);
+                validateOptionsWidgets(expectedWidgetJSONObject.keys().next(), expectedWidgetJSONObject, new JSONObject(new JSONObject((HashMap) new JSONObject(actualWidgetObject.toString()).toMap()).get("metaData").toString().replace("\\", "")), expectedTemplateTitle,errorMessage);
         }
     }
 
-    private static void validateOptionsWidgets(String title, JSONObject expectedWidgetJSONObject, JSONObject actualWidgetJSONObject, StringBuilder errorMessage) {
+    private static void validateOptionsWidgets(String widgetTitle, JSONObject expectedWidgetJSONObject, JSONObject actualWidgetJSONObject,String expectedTemplateTitle, StringBuilder errorMessage) {
+        switch (expectedTemplateTitle){
+            case "DefensePro Analytics":
+                validateOptionsWidgetOnDefenseProAnalytics(widgetTitle, expectedWidgetJSONObject, actualWidgetJSONObject, errorMessage);
+                break;
+            case "DefensePro Behavioral Protections":
+                validateOptionsWidgetOnDefenseProBehavioralProtections(widgetTitle, expectedWidgetJSONObject, actualWidgetJSONObject, errorMessage);
+                break;
+            case "DefenseFlow Analytics":
+                validateOptionsWidgetOnDefenseFlowAnalytics(widgetTitle, expectedWidgetJSONObject, actualWidgetJSONObject, errorMessage);
+                break;
+            case "EAAF":
+                validateOptionsWidgetOnEAAF(widgetTitle, expectedWidgetJSONObject, actualWidgetJSONObject, errorMessage);
+                break;
+            default:
+                errorMessage.append("The template title is wrong : "+widgetTitle);
+        }
+    }
+
+    private static void validateOptionsWidgetOnDefenseProAnalytics(String templateTitle, JSONObject expectedWidgetJSONObject, JSONObject actualWidgetJSONObject, StringBuilder errorMessage) {
         JSONArray togglesData = new JSONArray(actualWidgetJSONObject.get("togglesData").toString());
-        JSONArray expectedWidgetOptions = new JSONArray(expectedWidgetJSONObject.get(title).toString());
+        JSONArray expectedWidgetOptions = new JSONArray(expectedWidgetJSONObject.get(templateTitle).toString());
         for (Object toggleData : togglesData) {
             if (!new JSONObject(toggleData.toString()).get("field").equals("unit") && new JSONObject(toggleData.toString()).get("value").equals(expectedWidgetOptions.get(0).toString()))
                 errorMessage.append("The Actual TemplateWidget OptionValue unit is " + new JSONObject(toggleData.toString()).get("value") + " is not equal to the expected " + expectedWidgetOptions.get(0).toString());
             if (!new JSONObject(toggleData.toString()).get("field").equals("direction") && new JSONObject(toggleData.toString()).get("value").equals(expectedWidgetOptions.get(1).toString()))
-                errorMessage.append("The Actual TemplateWidget OptionValue direction is " + new JSONObject(toggleData.toString()).get("value") + " is not equal to the expected " + expectedWidgetOptions.get(0).toString());
+                errorMessage.append("The Actual TemplateWidget OptionValue direction is " + new JSONObject(toggleData.toString()).get("value") + " is not equal to the expected " + expectedWidgetOptions.get(1).toString());
             if (!new JSONObject(toggleData.toString()).get("field").equals("policies") && new JSONObject(toggleData.toString()).get("value").equals(expectedWidgetOptions.get(2).toString()))
-                errorMessage.append("The Actual TemplateWidget OptionValue policies is " + new JSONObject(toggleData.toString()).get("value") + " is not equal to the expected " + expectedWidgetOptions.get(0).toString());
+                errorMessage.append("The Actual TemplateWidget OptionValue policies is " + new JSONObject(toggleData.toString()).get("value") + " is not equal to the expected " + expectedWidgetOptions.get(2).toString());
+        }
+    }
+    private static void validateOptionsWidgetOnDefenseProBehavioralProtections(String templateTitle, JSONObject expectedWidgetJSONObject, JSONObject actualWidgetJSONObject, StringBuilder errorMessage) {
+        JSONArray togglesData = new JSONArray(actualWidgetJSONObject.get("togglesData").toString());
+        JSONArray expectedWidgetOptions = new JSONArray(expectedWidgetJSONObject.get(templateTitle).toString());
+        switch (expectedWidgetOptions.length()){
+            case 1:
+                validateOptionWidgetOnDFWhenThereOneOption(errorMessage, togglesData, expectedWidgetOptions);
+                break;
+            case 2:
+                validateOptionWidgetOnDFWhenThereTwoOptions(errorMessage, togglesData, expectedWidgetOptions);
+                break;
+            case 3:
+                validateOptionWidgetOnDFWhenThereThreeOptions(errorMessage, togglesData, expectedWidgetOptions);
+                break;
+        }
+
+    }
+    private static void validateOptionWidgetOnDFWhenThereOneOption(StringBuilder errorMessage, JSONArray togglesData, JSONArray expectedWidgetOptions) {
+        for (Object toggleData : togglesData) {
+            if (!new JSONObject(toggleData.toString()).get("field").equals("protocol") && new JSONObject(toggleData.toString()).get("value").equals(expectedWidgetOptions.get(0).toString()))
+                errorMessage.append("The Actual TemplateWidget OptionValue protocolis " + new JSONObject(toggleData.toString()).get("value") + " is not equal to the expected " + expectedWidgetOptions.get(0).toString());
+        }
+    }
+    private static void validateOptionWidgetOnDFWhenThereTwoOptions(StringBuilder errorMessage, JSONArray togglesData, JSONArray expectedWidgetOptions) {
+        for (Object toggleData : togglesData) {
+            if (!new JSONObject(toggleData.toString()).get("field").equals("ipVersion") && new JSONObject(toggleData.toString()).get("value").equals(expectedWidgetOptions.get(0).toString()))
+                errorMessage.append("The Actual TemplateWidget OptionValue ipVersion is " + new JSONObject(toggleData.toString()).get("value") + " is not equal to the expected " + expectedWidgetOptions.get(0).toString());
+            if (!new JSONObject(toggleData.toString()).get("field").equals("direction") && new JSONObject(toggleData.toString()).get("value").equals(expectedWidgetOptions.get(1).toString()))
+                errorMessage.append("The Actual TemplateWidget OptionValue direction is " + new JSONObject(toggleData.toString()).get("value") + " is not equal to the expected " + expectedWidgetOptions.get(1).toString());
+        }
+    }
+    private static void validateOptionWidgetOnDFWhenThereThreeOptions(StringBuilder errorMessage, JSONArray togglesData, JSONArray expectedWidgetOptions) {
+        for (Object toggleData : togglesData) {
+            if (!new JSONObject(toggleData.toString()).get("field").equals("protocol") && new JSONObject(toggleData.toString()).get("value").equals(expectedWidgetOptions.get(0).toString()))
+                errorMessage.append("The Actual TemplateWidget OptionValue protocol is " + new JSONObject(toggleData.toString()).get("value") + " is not equal to the expected " + expectedWidgetOptions.get(0).toString());
+            if (!new JSONObject(toggleData.toString()).get("field").equals("units") && new JSONObject(toggleData.toString()).get("value").equals(expectedWidgetOptions.get(1).toString()))
+                errorMessage.append("The Actual TemplateWidget OptionValue units is " + new JSONObject(toggleData.toString()).get("value") + " is not equal to the expected " + expectedWidgetOptions.get(1).toString());
+            if (!new JSONObject(toggleData.toString()).get("field").equals("direction") && new JSONObject(toggleData.toString()).get("value").equals(expectedWidgetOptions.get(2).toString()))
+                errorMessage.append("The Actual TemplateWidget OptionValue direction is " + new JSONObject(toggleData.toString()).get("value") + " is not equal to the expected " + expectedWidgetOptions.get(2).toString());
+        }
+    }
+
+    private static void validateOptionsWidgetOnDefenseFlowAnalytics(String templateTitle, JSONObject expectedWidgetJSONObject, JSONObject actualWidgetJSONObject, StringBuilder errorMessage) {
+        JSONArray togglesData = new JSONArray(actualWidgetJSONObject.get("togglesData").toString());
+        JSONArray expectedWidgetOptions = new JSONArray(expectedWidgetJSONObject.get(templateTitle).toString());
+        for (Object toggleData : togglesData) {
+            if (!new JSONObject(toggleData.toString()).get("field").equals("protectedObjects") && new JSONObject(toggleData.toString()).get("value").equals(expectedWidgetOptions.get(0).toString()))
+                errorMessage.append("The Actual TemplateWidget OptionValue protectedObjects is " + new JSONObject(toggleData.toString()).get("value") + " is not equal to the expected " + expectedWidgetOptions.get(0).toString());
+        }
+    }
+    private static void validateOptionsWidgetOnEAAF(String templateTitle, JSONObject expectedWidgetJSONObject, JSONObject actualWidgetJSONObject, StringBuilder errorMessage) {
+        JSONArray togglesData = new JSONArray(actualWidgetJSONObject.get("togglesData").toString());
+        JSONArray expectedWidgetOptions = new JSONArray(expectedWidgetJSONObject.get(templateTitle).toString());
+        for (Object toggleData : togglesData) {
+            if (!new JSONObject(toggleData.toString()).get("field").equals("tab") && new JSONObject(toggleData.toString()).get("value").equals(expectedWidgetOptions.get(0).toString()))
+                errorMessage.append("The Actual TemplateWidget OptionValue tab is " + new JSONObject(toggleData.toString()).get("value") + " is not equal to the expected " + expectedWidgetOptions.get(0).toString());
         }
     }
 
@@ -746,11 +822,9 @@ public class TemplateHandlers {
             }
         }
     }
-
     public static void deleteTemplate(String currentTemplateName) {
         WebUiTools.getWebElement("Delete Template", currentTemplateName);
     }
-
     private static void editTemplate(String reportType) throws TargetWebElementNotFoundException {
         BasicOperationsHandler.clickButton("Edit Template", reportType);
     }
