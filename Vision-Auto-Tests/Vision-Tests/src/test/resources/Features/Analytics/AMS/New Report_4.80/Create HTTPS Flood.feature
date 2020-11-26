@@ -6,19 +6,18 @@ Feature: HTTPS Flood
     Then UI Login with user "radware" and password "radware"
     Then UI Navigate to "AMS REPORTS" page via homepage
     Then UI Click Button "New Report Tab"
-
   @SID_2
   Scenario: Inbound Traffic Report 1
     Then UI Click Button "New Report Tab"
     Given UI "Create" Report With Name "Inbound Traffic 1"
-      | Template              | reportType:HTTPS Flood , Widgets:[Inbound Traffic], Servers:[aaaaaaaaaaaaaaaaaaaaaaaaaaaaaa-DefensePro_172.16.22.51-1] |
+      | Template              | reportType:HTTPS Flood , Widgets:[Inbound Traffic], Servers:[aaaaaaaaaaaaaaaaaaaaaaaaaaaaaa-DefensePro_172.16.22.51-1_https] |
       | Format                | Select: CSV                                                                                                            |
       | Logo                  | reportLogoPNG.png                                                                                                      |
       | Schedule              | Run Every:Daily,On Time:+2m                                                                                            |
       | Time Definitions.Date | Quick:Today                                                                                                            |
       | Share                 | Email:[automation.vision2@radware.com],Subject:myEdit subject,Body:myEdit body                                         |
     Then UI "Validate" Report With Name "Inbound Traffic 1"
-      | Template              | reportType:HTTPS Flood , Widgets:[Inbound Traffic], Servers:[aaaaaaaaaaaaaaaaaaaaaaaaaaaaaa-DefensePro_172.16.22.51-1] |
+      | Template              | reportType:HTTPS Flood , Widgets:[Inbound Traffic], Servers:[aaaaaaaaaaaaaaaaaaaaaaaaaaaaaa-DefensePro_172.16.22.51-1_https] |
       | Format                | Select: CSV                                                                                                            |
       | Logo                  | reportLogoPNG.png                                                                                                      |
       | Schedule              | Run Every:Daily,On Time:+2m                                                                                            |
@@ -31,12 +30,12 @@ Feature: HTTPS Flood
   Scenario: Inbound Traffic Report 2
     Then UI Click Button "New Report Tab"
     Given UI "Create" Report With Name "Inbound Traffic 2"
-      | Template              | reportType:HTTPS Flood , Widgets:[Inbound Traffic],Servers:[aaaaaaaaaaaaaaaaaaaaaaaaaaaaaa-DefensePro_172.16.22.51-1] |
+      | Template              | reportType:HTTPS Flood , Widgets:[Inbound Traffic], Servers:[aaaaaaaaaaaaaaaaaaaaaaaaaaaaaa-DefensePro_172.16.22.51-1_https] |
       | Format                | Select: CSV                                                                                                           |
       | Time Definitions.Date | Quick:Quarter                                                                                                         |
       | Schedule              | Run Every:Weekly, On Time:+6H, At Days:[THU]                                                                          |
-    Given UI "Validate" Report With Name "Inbound Traffic 2"
-      | Template              | reportType:HTTPS Flood , Widgets:[Inbound Traffic],Servers:[aaaaaaaaaaaaaaaaaaaaaaaaaaaaaa-DefensePro_172.16.22.51-1] |
+    Then UI "Validate" Report With Name "Inbound Traffic 2"
+      | Template              | reportType:HTTPS Flood , Widgets:[Inbound Traffic], Servers:[aaaaaaaaaaaaaaaaaaaaaaaaaaaaaa-DefensePro_172.16.22.51-1_https] |
       | Format                | Select: CSV                                                                                                           |
       | Time Definitions.Date | Quick:Quarter                                                                                                         |
       | Schedule              | Run Every:Weekly, On Time:+6H, At Days:[THU]                                                                          |
@@ -47,13 +46,13 @@ Feature: HTTPS Flood
   Scenario:  Inbound Traffic Report 3
     Then UI Click Button "New Report Tab"
     Given UI "Create" Report With Name "Inbound Traffic 3"
-      | Template              | reportType:HTTPS Flood , Widgets:[Inbound Traffic],Servers:[{aaaaaaaaaaaaaaaaaaaaaaaaaaaaaa-DefensePro_172.16.22.51-1}, {aaaaaaaaaaaaaaaaaaaaaaaaaaaaaa-DefensePro_172.16.22.51-2}] |
+      | Template              | reportType:HTTPS Flood , Widgets:[Inbound Traffic], Servers:[aaaaaaaaaaaaaaaaaaaaaaaaaaaaaa-DefensePro_172.16.22.51-1_https] |
       | Format                | Select: PDF                                                                                                                                                                         |
       | Time Definitions.Date | Absolute:[27.02.1971 01:00, +0d]                                                                                                                                                    |
       | Schedule              | Run Every:Monthly, On Time:+6H, At Months:[JUN]                                                                                                                                     |
       | Share                 | Email:[automation.vision2@radware.com],Subject:myEdit subject,Body:myEdit body                                                                                                      |
-    Given UI "Validate" Report With Name "Inbound Traffic 3"
-      | Template              | reportType:HTTPS Flood , Widgets:[Inbound Traffic],Servers:[{aaaaaaaaaaaaaaaaaaaaaaaaaaaaaa-DefensePro_172.16.22.51-1}, {aaaaaaaaaaaaaaaaaaaaaaaaaaaaaa-DefensePro_172.16.22.51-2}] |
+    Then UI "Validate" Report With Name "Inbound Traffic 3"
+      | Template              | reportType:HTTPS Flood , Widgets:[Inbound Traffic], Servers:[aaaaaaaaaaaaaaaaaaaaaaaaaaaaaa-DefensePro_172.16.22.51-1_https] |
       | Format                | Select: PDF                                                                                                                                                                         |
       | Time Definitions.Date | Absolute:[27.02.1971 01:00, +0d]                                                                                                                                                    |
       | Schedule              | Run Every:Monthly, On Time:+6H, At Months:[JUN]                                                                                                                                     |
@@ -65,13 +64,13 @@ Feature: HTTPS Flood
   Scenario:  Inbound Traffic Report 4
     Then UI Click Button "New Report Tab"
     Given UI "Create" Report With Name "Inbound Traffic 4"
-      | Template              | reportType:HTTPS Flood , Widgets:[Inbound Traffic],devices:[{deviceIndex:11}] |
+      | Template              | reportType:HTTPS Flood , Widgets:[Inbound Traffic],Servers:[aaaaaaaaaaaaaaaaaaaaaaaaaaaaaa-DefensePro_172.16.22.51-1_https] |
       | Logo                  | reportLogoPNG.png                                                             |
       | Format                | Select: HTML                                                                  |
       | Schedule              | Run Every:once, On Time:+6H                                                   |
       | Time Definitions.Date | Relative:[Months,2]                                                           |
-    Given UI "Validate" Report With Name "Inbound Traffic 4"
-      | Template              | reportType:HTTPS Flood , Widgets:[Inbound Traffic],devices:[{deviceIndex:11}] |
+    Then UI "Validate" Report With Name "Inbound Traffic 4"
+      | Template              | reportType:HTTPS Flood , Widgets:[Inbound Traffic],Servers:[aaaaaaaaaaaaaaaaaaaaaaaaaaaaaa-DefensePro_172.16.22.51-1_https] |
       | Logo                  | reportLogoPNG.png                                                             |
       | Format                | Select: HTML                                                                  |
       | Schedule              | Run Every:once, On Time:+6H                                                   |
@@ -82,13 +81,13 @@ Feature: HTTPS Flood
   Scenario:  Inbound Traffic Report 5
     Then UI Click Button "New Report Tab"
     Given UI "Create" Report With Name "Inbound Traffic 5"
-      | Template              | reportType:HTTPS Flood , Widgets:[Inbound Traffic],Servers:[aaaaaaaaaaaaaaaaaaaaaaaaaaaaaa-DefensePro_172.16.22.51-1] |
+      | Template              | reportType:HTTPS Flood , Widgets:[Inbound Traffic],Servers:[aaaaaaaaaaaaaaaaaaaaaaaaaaaaaa-DefensePro_172.16.22.51-1_https] |
       | Logo                  | reportLogoPNG.png                                                                                                     |
       | Format                | Select: CSV                                                                                                           |
       | Time Definitions.Date | Quick:1M                                                                                                              |
       | Share                 | Email:[automation.vision2@radware.com],Subject:myEdit subject,Body:myEdit body                                        |
-    Given UI "Validate" Report With Name "Inbound Traffic 5"
-      | Template              | reportType:HTTPS Flood , Widgets:[Inbound Traffic],Servers:[aaaaaaaaaaaaaaaaaaaaaaaaaaaaaa-DefensePro_172.16.22.51-1] |
+    Then UI "Validate" Report With Name "Inbound Traffic 5"
+      | Template              | reportType:HTTPS Flood , Widgets:[Inbound Traffic],Servers:[aaaaaaaaaaaaaaaaaaaaaaaaaaaaaa-DefensePro_172.16.22.51-1_https] |
       | Logo                  | reportLogoPNG.png                                                                                                     |
       | Format                | Select: CSV                                                                                                           |
       | Time Definitions.Date | Quick:1M                                                                                                              |
