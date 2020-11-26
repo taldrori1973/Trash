@@ -617,7 +617,7 @@ public class TemplateHandlers {
             case "DefensePro Analytics":
             case "DefenseFlow Analytics":
             case "AppWall":
-                validateTemplateContainsSummryTable(singleActualTemplate, expectedSingleTemplate, errorMessage);
+                validateTemplateContainsSummaryTable(singleActualTemplate, expectedSingleTemplate, errorMessage);
             default:
                 if(expectedSingleTemplate.toMap().containsKey("showTable"))
                     errorMessage.append("This template  = "+ expectedTemplateTitle+ " do not have summaryTable so do not showTable on expected tamplate!");
@@ -625,7 +625,7 @@ public class TemplateHandlers {
         }
     }
 
-    private static void validateTemplateContainsSummryTable(JSONObject singleActualTemplate, JSONObject expectedSingleTemplate, StringBuilder errorMessage) {
+    private static void validateTemplateContainsSummaryTable(JSONObject singleActualTemplate, JSONObject expectedSingleTemplate, StringBuilder errorMessage) {
         if(expectedSingleTemplate.toMap().containsKey("showTable")) {
             if(!singleActualTemplate.get("summaryTable").toString().equals(expectedSingleTemplate.get("showTable").toString()))
                 errorMessage.append("summaryTable on actual template = "+ singleActualTemplate.get("summaryTable").toString()+ " and not equal to "+ expectedSingleTemplate.get("showTable").toString());
