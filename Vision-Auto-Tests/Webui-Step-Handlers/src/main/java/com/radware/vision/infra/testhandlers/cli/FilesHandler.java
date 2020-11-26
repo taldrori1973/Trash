@@ -11,7 +11,7 @@ public class FilesHandler {
 
         CliOperations.runCommand(srcMachine, "scp -r " + srcPath + " " + destMachine.getUser() + "@" + destMachine.getHost() + ":" + destPath, 5 * 1000);
         if (CliOperations.lastOutput.contains("Are you sure you want to continue connecting (yes/no)?"))
-            CliOperations.runCommand(srcMachine, "yes", 30 * 1000);
+            CliOperations.runCommand(srcMachine, "yes", 60 * 1000);
 
         if (CliOperations.lastOutput.contains("password"))
             CliOperations.runCommand(srcMachine, destMachine.getPassword(), 10 * 1000);
