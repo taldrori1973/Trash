@@ -132,18 +132,13 @@ public class CustomizedJsonManager {
         //Reconnect the string arrays
         for (int i = 0; i < childObjects.size(); i++) {
             String currentValue = childObjects.get(i);
-            if (currentValue.contains("[") && !currentValue.contains("]")) {
                 StringBuilder temp = new StringBuilder(currentValue);
                 while (temp.chars().filter(ch -> ch == '[').count()!= temp.chars().filter(ch -> ch == ']').count()) {
                     i++;
                     currentValue = childObjects.get(i);
                     temp.append(",").append(currentValue);
                 }
-//                temp += currentValue;
-
                 list.add(temp.toString());
-            } else list.add(currentValue);
-
         }
 
         return list;
