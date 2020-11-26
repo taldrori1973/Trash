@@ -59,7 +59,7 @@ public class SelectScheduleHandlers {
         final String onceTimePattern = "yyyy-MM-dd HH:mm";
         JSONObject expectedScheduleJson = new JSONObject();
         JSONObject actualScheduleJson = new JSONObject();
-        String actualTimeKey = "time";
+        final String actualTimeKey = "time";
         LocalDateTime scheduleTime;
 
         abstract public void create() throws Exception;
@@ -72,7 +72,7 @@ public class SelectScheduleHandlers {
             else
                 scheduleTime = LocalDateTime.parse(expectedScheduleJson.get("On Time").toString().trim(), DateTimeFormatter.ofPattern(pattern));
         }
-        String getActualTime() {return actualScheduleJson.get(actualTimeKey).toString();}
+        protected String getActualTime() {return actualScheduleJson.get(actualTimeKey).toString();}
 
         protected String getExpectedValidateTime(Map<String, LocalDateTime> schedulingDates, String name) {
             if (isWithComputing())//Todo suit error message if the schedule isn't exist - MAHA
@@ -145,15 +145,19 @@ public class SelectScheduleHandlers {
         ScheduleOnce(JSONObject scheduleJson)
         {
             this.expectedScheduleJson = scheduleJson;
-            this.actualTimeKey="date";
             saveScheduleTime(onceTimePattern);
         }
 
         protected String getExpectedValidateTime(Map<String, LocalDateTime> schedulingDates, String name)
         {
             if (isWithComputing())
-                return String.valueOf(schedulingDates.get(name).toEpochSecond(ZoneOffset.UTC));
+                return DateTimeFormatter.ofPattern(onceTimePattern).format(schedulingDates.get(name));
             else return expectedScheduleJson.get("On date").toString();
+        }
+
+        protected String getActualTime()
+        {
+            return actualScheduleJson.get("date").toString() + " " + super.getActualTime();
         }
 
         @Override
