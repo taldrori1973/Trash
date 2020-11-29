@@ -9,9 +9,7 @@ Feature: Negative test to validate Error Messages
   @SID_2
   Scenario: Create New Report Empty
     Then UI Click Button "save"
-#    no data-debug-id
-       Then UI Text of "Error message title" equal to "Unable To Save Report"
-    #    no data-debug-id
+    Then UI Text of "Error message title" equal to "Unable To Save Report"
     Then UI Text of "Error message description" equal to "Invalid configuration. Specify a name for the Report."
     Then UI Click Button "errorMessageOK"
     Then UI Click Button "cancel"
