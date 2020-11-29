@@ -1,4 +1,3 @@
-@run
 @TC117967
 Feature: Negative test to validate Error Messages
   @SID_1
