@@ -13,7 +13,6 @@ Feature: Landing my reports basic tests
       | Schedule              | Run Every:Monthly, On Time:+2m                                                                                                                                            |
       | Share                 | Email:[Test, Test2],Subject:TC108070 Subject                                                                                                                              |
       | Format                | Select: CSV                                                                                                                                                               |
-     # | Logo                  | addLogo: reportLogoPNG.png                                                                                                                                   |
       | Template-1 | reportType:DefensePro Analytics , Widgets:[{Traffic Bandwidth:[pps,Outbound,50]}]  ,devices:[All]                                                                              |
 
 #  @SID_6
@@ -30,7 +29,6 @@ Feature: Landing my reports basic tests
       | Schedule              | Run Every:Monthly, On Time:+2m                                                                                                                                            |
       | Share                 | Email:[Test, Test2],Subject:TC108070 Subject                                                                                                                              |
       | Format                | Select: CSV                                                                                                                                                               |
-     # | Logo                  | addLogo: reportLogoPNG.png                                                                                                                                   |
       | Template-1 | reportType:DefensePro Analytics , Widgets:[{Traffic Bandwidth:[pps,Outbound,50]}]  ,devices:[All]                                                                              |
 
   @SID_4
@@ -58,7 +56,6 @@ Feature: Landing my reports basic tests
       | Schedule              | Run Every:Monthly, On Time:+2m                                                                                                                                            |
       | Share                 | Email:[Test, Test2],Subject:TC108070 Subject                                                                                                                              |
       | Format                | Select: CSV                                                                                                                                                               |
-    #  | Logo                  | addLogo: reportLogoPNG.png
       | Template-1 | reportType:DefensePro Analytics , Widgets:[{Traffic Bandwidth:[pps,Outbound,50]}]  ,devices:[{deviceIndex:11,devicePorts:[1],devicePolicies:[BDOS,1_https]},{deviceIndex:10} ] |
 
   @SID_8
@@ -68,7 +65,6 @@ Feature: Landing my reports basic tests
       | Schedule              | Run Every:Monthly, On Time:+2m                                                                                                                                            |
       | Share                 | Email:[Test, Test2],Subject:TC108070 Subject                                                                                                                              |
       | Format                | Select: CSV                                                                                                                                                               |
-     # | Logo                  | addLogo: reportLogoPNG.png                                                                                                                                   |
       | Template-1 | reportType:DefensePro Analytics , Widgets:[{Traffic Bandwidth:[pps,Outbound,50]}]  ,devices:[{deviceIndex:11,devicePorts:[1],devicePolicies:[BDOS,1_https]},{deviceIndex:10} ] |
 
   @SID_9
@@ -86,7 +82,6 @@ Feature: Landing my reports basic tests
       | Time Definitions.Date | Quick: 1H                                                                                                                                                                 |
       | Share                 | Email:[Test, Test2],Subject:TC108070 Subject                                                                                                                              |
       | Format                | Select: CSV                                                                                                                                                               |
-     # | Logo                  | addLogo: reportLogoPNG.png                                                                                                                                   |
       | Template-1 | reportType:DefensePro Analytics , Widgets:[{Traffic Bandwidth:[pps,Outbound,50]}]  ,devices:[All]                                                                              |
 
   @SID_11
@@ -95,7 +90,6 @@ Feature: Landing my reports basic tests
       | Time Definitions.Date | Quick: 1H                                                                                                                                                                 |
       | Share                 | Email:[Test, Test2],Subject:TC108070 Subject                                                                                                                              |
       | Format                | Select: CSV                                                                                                                                                               |
-     # | Logo                  | addLogo: reportLogoPNG.png                                                                                                                                   |
       | Template-1 | reportType:DefensePro Analytics , Widgets:[{Traffic Bandwidth:[pps,Outbound,50]}]  ,devices:[All]                                                                              |
 
   @SID_12

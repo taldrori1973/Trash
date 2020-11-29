@@ -333,8 +333,7 @@ Feature: Basic tests for report parameters
   @SID_30
   Scenario: Validate Share send email To
     Then UI Set Text Field "Email" To "user@automation.local"
-    #    no data-debug-id
-    Then UI Text of "Email Tab" equal to "E-mail To *"
+    Then UI Text of "Email Tab" equal to "E-mail To*"
     Then UI Set Text Field "Email" To "example@example.com" enter Key true
     Then UI Validate Element Existence By Label "Email input" if Exists "true" with value "example@example.com,valid"
     Then UI Set Text Field "Email" To "example" enter Key true
@@ -350,11 +349,10 @@ Feature: Basic tests for report parameters
     Then UI Set Text Field "Email" To "example.@example.com" enter Key true
     Then UI Validate Element Existence By Label "Email input" if Exists "true" with value "example.@example.com,invalid"
     Then UI Set Text Field "Email" To "example@example. example" enter Key true
-    Then UI Validate Element Existence By Label "Email input" if Exists "true" with value "example@example. com,invalid"
+    Then UI Validate Element Existence By Label "Email input" if Exists "true" with value "example@example. example,invalid"
 
   @SID_31
   Scenario: Validate send email Subject
-    #    no data-debug-id
     Then UI Text of "Subject Tab" equal to "Subject"
 
   @SID_32
