@@ -612,3 +612,7 @@ Feature: Test Reports Definition
       | share                 | Email:[automation.vision1@radware.com],Subject:mySubject,Body:myBody                                                               |
       | Format                | Select: HTML                                                                                                                       |
     Then UI Delete Report With Name "System And Network And Application Report12"
+
+  @SID_38
+  Scenario: Logout
+    Then UI logout and close browser
