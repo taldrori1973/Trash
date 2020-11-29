@@ -238,7 +238,6 @@ public abstract class WebUITestBase extends SystemTestCase4 {
             BaseHandler.restTestBase = restTestBase;
             BaseHandler.devicesManager = devicesManager;
             getVisionInfo();
-            CliOperations.runCommand(restTestBase.getRootServerCli(), "chkconfig --level 345 rsyslog on", CliOperations.DEFAULT_TIME_OUT);
         }
 
     }
@@ -340,9 +339,9 @@ public abstract class WebUITestBase extends SystemTestCase4 {
 
     public void setVisionBuildAndVersion() {
         try {
-            restTestBase.getRootServerCli().setConnectOnInit(true);
-            restTestBase.getRootServerCli().connect();
-            restTestBase.getRootServerCli().getVersionAndBuildFromSever();
+//            restTestBase.getRootServerCli().setConnectOnInit(true);
+//            restTestBase.getRootServerCli().connect();
+//            restTestBase.getRootServerCli().getVersionAndBuildFromSever();
             restTestBase.initReporter();
             FeatureRunner.update_version_build_mode(getVisionVersion(), getVisionBuild(), BddReporterManager.getRunMode());
             FeatureRunner.update_station_sutName(restTestBase.getRootServerCli().getHost(), System.getProperty("SUT"));
