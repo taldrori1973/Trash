@@ -139,7 +139,7 @@ public class Report extends ReportsForensicsAlertsAbstract {
     @Override
     public void validate(RootServerCli rootServerCli, String reportName, Map<String, String> map) throws Exception{
         StringBuilder errorMessage = new StringBuilder();
-        JSONObject basicRestResult = getReportDefinition(reportName);
+        JSONObject basicRestResult = getReportDefinition(reportName, map);
         if (basicRestResult!=null)
         {
             errorMessage.append(validateLogoDefinition(new JSONObject(basicRestResult.get("logo").toString()), map));
@@ -153,8 +153,8 @@ public class Report extends ReportsForensicsAlertsAbstract {
             BaseTestUtils.report(errorMessage.toString(), Reporter.FAIL);
     }
 
-    private JSONObject getReportDefinition(String reportName) throws Exception {
-        RestResponse restResponse = new CurrentVisionRestAPI("Vision/newReport.json", "Get Created Reports").sendRequest();
+    private JSONObject getReportDefinition(String reportName, Map<String, String> map) throws Exception {
+        RestResponse restResponse = new CurrentVisionRestAPI("Vision/newReport.json", "Get Created " + isReportAmsOrAdc(map) + " Reports").sendRequest();
         if (restResponse.getStatusCode()== StatusCode.OK)
         {
             JSONArray reportsJSONArray = new JSONArray(restResponse.getBody().getBodyAsString());
@@ -172,6 +172,18 @@ public class Report extends ReportsForensicsAlertsAbstract {
             throw new Exception("No Report with Name " + reportName);
         }
         else throw new Exception("Get Reports failed request, The response is " + restResponse);
+    }
+
+    private String isReportAmsOrAdc(Map<String, String> map) {
+        JSONArray templatesArray = new JSONArray(map.get("Template"));
+        for (Object singleTemplate: templatesArray)
+        {
+            if (new JSONObject(singleTemplate.toString()).get("reportType")!=null
+                    && (new JSONObject(singleTemplate.toString()).get("reportType").toString().equalsIgnoreCase("APPLICATION")||
+                    new JSONObject(singleTemplate.toString()).get("reportType").toString().equalsIgnoreCase("SYSTEM AND NETWORK")))
+                return "ADC";
+        }
+        return "AMS";
     }
 
     private String getReportID(String reportName) {

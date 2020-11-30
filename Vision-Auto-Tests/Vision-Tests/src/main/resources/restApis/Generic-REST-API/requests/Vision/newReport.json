@@ -4,9 +4,16 @@
   "description": "new Report",
   "api": [
     {
-      "label": "Get Created Reports",
+      "label": "Get Created AMS Reports",
       "method": "GET",
       "basePath": "/mgmt/monitor/reporter/v1/vrm/reporting/reporting/definitions/byTag/ams/?includecontent=true&includewithouttag=true",
+      "produces": "application/json",
+      "description": "Get All created reports"
+    },
+    {
+      "label": "Get Created ADC Reports",
+      "method": "GET",
+      "basePath": "/mgmt/monitor/reporter/v1/vrm/reporting/reporting/definitions/byTag/adc/?includecontent=true&includewithouttag=true",
       "produces": "application/json",
       "description": "Get All created reports"
     },
