@@ -619,8 +619,6 @@ public class TemplateHandlers {
             case "AppWall":
                 validateTemplateContainsSummaryTable(singleActualTemplate, expectedSingleTemplate, errorMessage);
             default:
-                if(expectedSingleTemplate.toMap().containsKey("showTable"))
-                    errorMessage.append("This template  = "+ expectedTemplateTitle+ " do not have summaryTable so do not showTable on expected tamplate!");
                 break;
         }
     }
