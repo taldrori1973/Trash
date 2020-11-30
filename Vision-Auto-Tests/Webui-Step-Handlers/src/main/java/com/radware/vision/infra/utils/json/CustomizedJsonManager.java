@@ -117,7 +117,7 @@ public class CustomizedJsonManager {
             } else {
                 res = s.startsWith("{") || s.startsWith("{")? s.split(s.split("^(\\[|\\{)+")[0])[0].trim() + "\"" + s.split("^(\\[|\\{)+")[0].trim():"\"" + s.trim();
                 res = res.replaceAll("[\\p{Cf}]","").trim();
-                res = res.endsWith("}") | res.endsWith("]") ? res.split("(\\]+|}+)+$")[0].trim()  + "\"" + res.split(res.split("(\\]+|}+)+$")[0].trim())[1].trim(): res.trim() + "\"";
+                res = res.endsWith("}") | res.endsWith("]") ? res.split("(\\]+|}+)+$")[0].trim()  + "\"" + res.substring(res.split("(\\]+|}+)+$")[0].trim().length()): res.trim() + "\"";
             }
             result.add(res);
         }
