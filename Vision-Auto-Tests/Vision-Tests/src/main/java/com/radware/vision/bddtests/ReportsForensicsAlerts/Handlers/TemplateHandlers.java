@@ -688,11 +688,12 @@ public class TemplateHandlers {
 
     private static void validateHashMapObjectWidgets(JSONArray actualWidgetsJSONArray, JSONObject expectedWidgetJSONObject, String expectedTemplateTitle,StringBuilder errorMessage) {
         for (Object actualWidgetObject : actualWidgetsJSONArray) {
-            if (!expectedWidgetJSONObject.keys().next().equals(new JSONObject(new JSONObject((HashMap) new JSONObject(actualWidgetObject.toString()).toMap()).get("metaData").toString().replace("\\", "")).get("title").toString()))
-                errorMessage.append("The Actual TemplateWidget title = :" + new JSONObject(new JSONObject((HashMap) new JSONObject(actualWidgetObject.toString()).toMap()).get("metaData").toString().replace("\\", "")).get("title") + "and  not equal to  " + expectedWidgetJSONObject.keys().next());
-            else
-                validateOptionsWidgets(expectedWidgetJSONObject.keys().next(), expectedWidgetJSONObject, new JSONObject(new JSONObject((HashMap) new JSONObject(actualWidgetObject.toString()).toMap()).get("metaData").toString().replace("\\", "")), expectedTemplateTitle,errorMessage);
+            if (expectedWidgetJSONObject.keys().next().equals(new JSONObject(new JSONObject((HashMap) new JSONObject(actualWidgetObject.toString()).toMap()).get("metaData").toString().replace("\\", "")).get("title").toString())) {
+                validateOptionsWidgets(expectedWidgetJSONObject.keys().next(), expectedWidgetJSONObject, new JSONObject(new JSONObject((HashMap) new JSONObject(actualWidgetObject.toString()).toMap()).get("metaData").toString().replace("\\", "")), expectedTemplateTitle, errorMessage);
+                return;
+            }
         }
+        errorMessage.append("The expected TemplateWidget title = :" +expectedWidgetJSONObject.keys().next() + " does not exist");
     }
 
     private static void validateOptionsWidgets(String widgetTitle, JSONObject expectedWidgetJSONObject, JSONObject actualWidgetJSONObject,String expectedTemplateTitle, StringBuilder errorMessage) {

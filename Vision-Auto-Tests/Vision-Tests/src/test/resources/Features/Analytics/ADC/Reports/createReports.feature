@@ -1,4 +1,3 @@
-@run
 @TC118253
 Feature: Test Reports Definition
 
