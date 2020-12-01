@@ -249,9 +249,12 @@ public class TemplateHandlers {
     }
 
     private static String getCurrentTemplateName(String reportType) {
-        List<WebElement> elements = WebUiTools.getWebElements("Template Header", reportType);
-        return elements.size() != 0 ? elements.get(elements.size() - 1).getText() : reportType;
-
+//        List<WebElement> elements = WebUiTools.getWebElements("Template Header", reportType);
+        VisionDebugIdsManager.setLabel("Template Header");
+        VisionDebugIdsManager.setParams(reportType);
+        List<WebElement> elements = WebUIUtils.fluentWaitMultiple(new ComponentLocator(How.XPATH, "//*[@data-debug-id= '" + VisionDebugIdsManager.getDataDebugId() + "']//input").getBy());
+//        return elements.size() != 0 ? elements.get(elements.size() - 1).getText() : reportType;
+        return elements.size() != 0 ? elements.get(elements.size() - 1).getAttribute("value") : reportType;
     }
 
     public static void dragAndDrop(ComponentLocator sourceLocator, ComponentLocator targetLocator) {
