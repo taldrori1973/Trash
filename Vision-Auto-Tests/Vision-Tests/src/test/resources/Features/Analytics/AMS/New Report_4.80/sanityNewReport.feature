@@ -91,16 +91,17 @@ Feature: Basic tests for report parameters
       | Schedule Tab |       | false |
       | Share Tab    |       | false |
       | Format Tab   |       | true  |
-#check the color !!!!!!!!!!!!!!!!!!!!!!!!
-#  @SID_9
-#  Scenario: Validate report name
-#    Then UI Validate the attribute "placeholder" Of Label "Report Name" is "EQUALS" to "Type here"
-#    Then UI Set Text Field "Report Name" To " "
-#    Then UI Validate the attribute "Class" Of Label "Name TextField" is "CONTAINS" to "idEgbD"
-#    Then UI Set Text Field "Report Name" To "Test"
-#    Then UI Validate the attribute "Class" Of Label "Name TextField" is "CONTAINS" to "bbHipN"
-#    Then UI Set Text Field "Report Name" To "&"
-#    Then UI Validate the attribute "Class" Of Label "Name TextField" is "CONTAINS" to "idEgbD"
+
+#    Alina add valide\invalide to data-debug-id
+  @SID_9
+  Scenario: Validate report name
+    Then UI Validate the attribute "placeholder" Of Label "Report Name" is "EQUALS" to "Type here"
+    Then UI Set Text Field "Report Name" To " "
+    Then UI Validate the attribute "Class" Of Label "Name TextField" is "CONTAINS" to "gazxYV"
+    Then UI Set Text Field "Report Name" To "Test"
+    Then UI Validate the attribute "Class" Of Label "Name TextField" is "CONTAINS" to "dHGMcY"
+    Then UI Set Text Field "Report Name" To "&"
+    Then UI Validate the attribute "Class" Of Label "Name TextField" is "CONTAINS" to "gazxYV"
 
 
   @SID_10
