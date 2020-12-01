@@ -125,8 +125,8 @@
             <class>com.radware.vision.automation.tools.sutsystemobjects.devicesinfo.DeviceInfo</class>
             <deviceName>DefensePro_172.16.22.25</deviceName>
             <deviceIp>172.16.22.25</deviceIp>
-            <username>radware</username>
-            <password>radware</password>
+            <username>automation</username>
+            <password>radware1</password>
             <readCommunity>public</readCommunity>
             <writeCommunity>public</writeCommunity>
             <macAddress>00:03:b2:52:6b:00</macAddress>
