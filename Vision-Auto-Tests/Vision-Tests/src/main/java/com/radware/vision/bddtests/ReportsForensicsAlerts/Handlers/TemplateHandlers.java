@@ -13,6 +13,7 @@ import com.radware.vision.infra.testhandlers.baseoperations.BasicOperationsHandl
 import com.radware.vision.bddtests.ReportsForensicsAlerts.WebUiTools;
 import org.json.JSONArray;
 import org.json.JSONObject;
+import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.How;
@@ -238,7 +239,8 @@ public class TemplateHandlers {
                 if (options != null) options.get(index).click();
                 if (isNumber(option)) {
                     options = WebUIUtils.fluentWaitMultiple(new ComponentLocator(How.XPATH, "//*[starts-with(@data-debug-id, '" + VisionDebugIdsManager.getDataDebugId() + "') and contains(@data-debug-id, '_CustomPolicies')]").getBy(), WebUIUtils.DEFAULT_WAIT_TIME, false);
-                    options.get(index).clear();
+                    options.get(index).click();
+                    options.get(index).sendKeys(Keys.chord(Keys.CONTROL,"a", Keys.DELETE));
                     options.get(index).sendKeys(option);
                 }
             } catch (Exception e) {
