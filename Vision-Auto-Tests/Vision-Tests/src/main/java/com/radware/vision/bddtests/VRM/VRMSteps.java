@@ -1,10 +1,10 @@
 package com.radware.vision.bddtests.VRM;
 
-import com.radware.vision.automation.tools.exceptions.selenium.TargetWebElementNotFoundException;
 import com.radware.vision.automation.tools.sutsystemobjects.devicesinfo.enums.SUTDeviceType;
 import com.radware.vision.infra.testhandlers.alteon.securitymonitoring.dashboardview.sslinspection.enums.QuickRange;
 import com.radware.vision.infra.testhandlers.vrm.VRMHandler;
 import com.radware.vision.infra.testhandlers.vrm.VRMHandler.*;
+import com.radware.vision.infra.testhandlers.vrm.VRMReportsChartsHandler;
 import com.radware.vision.infra.testhandlers.vrm.VRMReportsHandler;
 import cucumber.api.java.en.And;
 import cucumber.api.java.en.Given;
@@ -224,6 +224,15 @@ public class VRMSteps {
     @Then("^Validate Memory Utilization$")
     public void validateMemoryUtilization() throws Exception {
         vrmHandler.validateMemoryUtilization();
+    }
+
+
+    @Then("^Validate Line Chart data \"([^\"]*)\" with Label \"([^\"]*)\" in report \"([^\"]*)\"$")
+    public void validateLineChartDataWithLabelInReport(String chart, String label, String reportName,  List<VRMHandler.Data> entries) throws Throwable {
+        VRMReportsChartsHandler vrmReportsChartsHandler = new VRMReportsChartsHandler();
+        String reportID = vrmReportsChartsHandler.generateReportAndGetReportID(reportName);
+        if (vrmReportsChartsHandler.generateStatus(reportID, 60))
+            vrmReportsChartsHandler.validateReportResult(chart, label, reportID, entries);
     }
 }
 

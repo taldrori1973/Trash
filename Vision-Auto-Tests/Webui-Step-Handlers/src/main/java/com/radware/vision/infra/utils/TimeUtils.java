@@ -105,4 +105,6 @@ public class TimeUtils {
         return DateTimeFormatter.ofPattern(pattern).format(time);
     }
 
+    public static boolean isWithComputing(String timeValue){return timeValue.matches(("[\\+|\\-]\\d+[M|d|y|H|m]"));}
+
 }

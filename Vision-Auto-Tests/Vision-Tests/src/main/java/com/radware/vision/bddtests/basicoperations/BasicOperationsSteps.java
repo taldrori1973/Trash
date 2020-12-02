@@ -8,49 +8,42 @@ import com.radware.automation.webui.WebUIUtils;
 import com.radware.automation.webui.widgets.ComponentLocator;
 import com.radware.automation.webui.widgets.ComponentLocatorFactory;
 import com.radware.automation.webui.widgets.api.Widget;
-import com.radware.automation.webui.widgets.impl.WebUIComponent;
 import com.radware.automation.webui.widgets.impl.table.WebUITable;
 import com.radware.restcore.VisionRestClient;
 import com.radware.vision.automation.AutoUtils.Operators.OperatorsEnum;
-import com.radware.vision.automation.tools.exceptions.selenium.TargetWebElementNotFoundException;
 import com.radware.vision.automation.tools.sutsystemobjects.devicesinfo.DeviceInfo;
 import com.radware.vision.automation.tools.sutsystemobjects.devicesinfo.enums.SUTDeviceType;
 import com.radware.vision.base.WebUITestSetup;
 import com.radware.vision.bddtests.BddUITestBase;
-import com.radware.vision.bddtests.GenericSteps;
-import com.radware.vision.bddtests.clioperation.GeneralSteps;
+import com.radware.vision.bddtests.ReportsForensicsAlerts.WebUiTools;
 import com.radware.vision.infra.base.pages.navigation.HomePage;
 import com.radware.vision.infra.base.pages.navigation.WebUIVisionBasePage;
 import com.radware.vision.infra.enums.*;
 import com.radware.vision.infra.testhandlers.baseoperations.BasicOperationsByNameIdHandler;
 import com.radware.vision.infra.testhandlers.baseoperations.BasicOperationsHandler;
 import com.radware.vision.infra.testhandlers.baseoperations.clickoperations.ClickOperationsHandler;
-import com.radware.vision.infra.testhandlers.cli.CliOperations;
 import com.radware.vision.infra.testhandlers.topologytree.TopologyTreeHandler;
 import com.radware.vision.infra.testhandlers.vrm.VRMHandler;
 import com.radware.vision.infra.utils.TimeUtils;
 import com.radware.vision.infra.utils.VisionWebUIUtils;
-import cucumber.api.PendingException;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
 import jsystem.framework.RunProperties;
 import org.openqa.selenium.By;
-import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.How;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
+import java.time.temporal.ChronoUnit;
 import java.util.List;
-import java.util.Map;
 
 import static com.radware.vision.infra.testhandlers.baseoperations.BasicOperationsHandler.isLoggedIn;
 import static com.radware.vision.infra.testhandlers.baseoperations.BasicOperationsHandler.isLoggedOut;
-import com.radware.vision.infra.utils.ReportsUtils;
-import ucar.units.Base;
 
 import static com.radware.vision.infra.utils.ReportsUtils.addErrorMessage;
 import static com.radware.vision.infra.utils.ReportsUtils.reportErrors;
@@ -636,9 +629,42 @@ public class BasicOperationsSteps extends BddUITestBase {
            BaseTestUtils.report("This element with cssKey : "+cssKey+" and cssValue: "+cssValue+ " is not exist", Reporter.FAIL);
     }
 
-    @Then("^UI Select Time of label \"([^\"]*)\"(?: with params \"([^\"]*)\")? with value \"([^\"]*)\"$")
-    public void uiSelectTimeOfLabelWithParamsWithValue(String label, String param, String timeValue) throws Throwable {
+    @Then("^UI Select Time of label \"([^\"]*)\"(?: with params \"([^\"]*)\")? with value \"([^\"]*)\" and pattern \"([^\"]*)\"$")
+    public void uiSelectTimeOfLabelWithParamsWithValue(String label, String param, String timeValue, String pattern) {
+        LocalDateTime scheduleTime = readTime(timeValue, pattern);
+        fillTime(label, param, scheduleTime);
+    }
 
+    private LocalDateTime readTime(String timeValue, String pattern) {
+        if (TimeUtils.isWithComputing(timeValue))
+            return TimeUtils.getAddedDate(timeValue);
+        else
+            return LocalDateTime.parse(timeValue, DateTimeFormatter.ofPattern(pattern));
+    }
+
+    public static void fillTime(String label, String params, LocalDateTime scheduleTime) {
+        WebUiTools.getWebElement(label, params).click();
+        selectDate(label, params, scheduleTime);
+        WebUiTools.getWebElement(label, params).click();
+        WebUiTools.getWebElement(label, params).findElement(By.xpath("./..//td[@class='rdtTimeToggle']")).click();
+        selectHoursOrMinutes(label, params, "hours", scheduleTime);
+        selectHoursOrMinutes(label, params, "minutes", scheduleTime);
+    }
+
+    private static void selectHoursOrMinutes(String label, String params, String HoursOrMinutes, LocalDateTime scheduleTime) {
+        int differenceValue = Integer.valueOf(WebUiTools.getWebElement(label, params).findElement(By.xpath("(./..//div[@class='rdtCount'])[" + (HoursOrMinutes.toLowerCase().equalsIgnoreCase("hours")?"1":"2") + "]")).getText()) - (HoursOrMinutes.toLowerCase().equalsIgnoreCase("hours")?scheduleTime.getHour():scheduleTime.getMinute());
+        for(int i=0; i<Math.abs(differenceValue); i++)
+            WebUiTools.getWebElement(label, params).findElement(By.xpath("(./..//div[@class='rdtCounter'])[" + (HoursOrMinutes.toLowerCase().equalsIgnoreCase("hours")?"1":"2") + "]//span[.='" + (differenceValue>0?"▼":"▲") + "']")).click();
+    }
+    private static void selectDate(String label, String params, LocalDateTime scheduleTime) {
+        LocalDate actualLocalDate = LocalDate.parse("01 " + WebUiTools.getWebElement(label, params).findElement(By.xpath("./..//*[@class='rdtPicker']//*[@class='rdtSwitch']")).getText(), DateTimeFormatter.ofPattern("dd MMMM yyyy"));
+        int monthsDifference = (int) ChronoUnit.MONTHS.between(actualLocalDate.withDayOfMonth(1), scheduleTime.withDayOfMonth(1));
+        while(monthsDifference != 0)
+        {
+            WebUiTools.getWebElement(label, params).findElement(By.xpath("./..//*[@class='rdtPicker']//*[@class='rdt" + (monthsDifference>0?"Next":"Prev") + "']")).click();
+            monthsDifference = monthsDifference>0?monthsDifference-1:monthsDifference+1;
+        }
+        WebUiTools.getWebElement(label, params).findElement(By.xpath("./..//td[@data-value='" + scheduleTime.getDayOfMonth() + "'][not(contains(@class,'rdtOld'))]")).click();
     }
 
     public static class ParamterSelected{

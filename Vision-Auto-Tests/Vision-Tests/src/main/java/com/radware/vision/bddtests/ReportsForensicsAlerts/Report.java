@@ -28,33 +28,43 @@ public class Report extends ReportsForensicsAlertsAbstract {
 
 //        try{delete(reportName);}catch (Exception ignored){}
         try {
+            closeReport(false);
             WebUiTools.check("New Report Tab", "", true);
             createReportParameters(reportName, map);
             selectTemplates(map,reportName);
             BasicOperationsHandler.clickButton("save");
         } catch (Exception e) {
-            closeReport();
+            cancelReport();
             throw e;
         }
         if (!reportCreated()) {
-            closeReport();
             throw new Exception("The report '" + reportName + "' isn't created!" + errorMessage);
         }
     }
 
-    private boolean reportCreated() {
+    private boolean reportCreated() throws TargetWebElementNotFoundException {
         if (WebUiTools.getWebElement("save") == null)
         return true;
-        for (WebElement okWebElement : WebUiTools.getWebElements("errorMessageOK", ""))
-        {
-            WebElement errorMessageElement = WebUIUtils.fluentWait(ComponentLocatorFactory.getLocatorByClass("ant-notification-notice-description").getBy());
-            errorMessage+=  errorMessageElement!= null ? "\nbecause:\n" + errorMessageElement.getText() + "\n":"";
-            WebUiTools.clickWebElement(okWebElement);
-        }
+        WebUIUtils.sleep(2);
+        closeReport(true);
         return false;
     }
 
-    private void closeReport() throws TargetWebElementNotFoundException {
+    private void closeReport(boolean withReadTheMessage) throws TargetWebElementNotFoundException {
+        boolean isToCancel = false;
+        for (WebElement okWebElement : WebUiTools.getWebElements("errorMessageOK", ""))
+        {
+            isToCancel = true;
+            WebElement errorMessageElement = WebUIUtils.fluentWait(ComponentLocatorFactory.getLocatorByClass("ant-notification-notice-description").getBy());
+            if(withReadTheMessage)
+                errorMessage+=  errorMessageElement!= null ? "\nbecause:\n" + errorMessageElement.getText() + "\n":"";
+            WebUiTools.clickWebElement(okWebElement);
+        }
+        if (isToCancel)
+            cancelReport();
+    }
+
+    private void cancelReport() throws TargetWebElementNotFoundException {
         BasicOperationsHandler.clickButton("cancel");
         BasicOperationsHandler.clickButton("saveChanges", "no");
     }
@@ -258,11 +268,11 @@ public class Report extends ReportsForensicsAlertsAbstract {
             editReportParameters(reportName, map);
             editTemplates(map,reportName);
         } catch (Exception e) {
-            closeReport();
+            cancelReport();
             throw e;
         }
         if (!reportCreated()) {
-            closeReport();
+            cancelReport();
             throw new Exception("");
         }
     }
