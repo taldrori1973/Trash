@@ -1,4 +1,3 @@
-
 @TC117966
 Feature: Landing my reports basic tests
   @SID_1

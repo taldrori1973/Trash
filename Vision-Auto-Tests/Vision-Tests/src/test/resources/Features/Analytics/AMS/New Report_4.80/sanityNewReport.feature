@@ -1,6 +1,6 @@
+@run
 @TC117968
 Feature: Basic tests for report parameters
-
   @SID_1
   Scenario: Navigate to NEW REPORTS page
     Then UI Login with user "sys_admin" and password "radware"
@@ -41,7 +41,6 @@ Feature: Basic tests for report parameters
       | Share Tab    |       | false |
       | Format Tab   |       | false |
 
-
   @SID_5
   Scenario: Report Time is selected
     Then UI Click Button "Time Tab"
@@ -54,7 +53,6 @@ Feature: Basic tests for report parameters
       | Share Tab    |       | false |
       | Format Tab   |       | false |
 
-
   @SID_6
   Scenario: Report Schedule is selected
     Then UI Click Button "Schedule Tab"
@@ -66,7 +64,6 @@ Feature: Basic tests for report parameters
       | Schedule Tab |       | true  |
       | Share Tab    |       | false |
       | Format Tab   |       | false |
-
 
   @SID_7
   Scenario: Report Share is selected
@@ -92,17 +89,15 @@ Feature: Basic tests for report parameters
       | Share Tab    |       | false |
       | Format Tab   |       | true  |
 
-#    Alina add valide\invalide to data-debug-id
   @SID_9
   Scenario: Validate report name
-    Then UI Validate the attribute "placeholder" Of Label "Report Name" is "EQUALS" to "Type here"
-    Then UI Set Text Field "Report Name" To " "
-    Then UI Validate the attribute "Class" Of Label "Name TextField" is "CONTAINS" to "gazxYV"
-    Then UI Set Text Field "Report Name" To "Test"
-    Then UI Validate the attribute "Class" Of Label "Name TextField" is "CONTAINS" to "dHGMcY"
-    Then UI Set Text Field "Report Name" To "&"
-    Then UI Validate the attribute "Class" Of Label "Name TextField" is "CONTAINS" to "gazxYV"
-
+    Then UI Validate the attribute "placeholder" Of Label "Report Name" With Params "valid" is "EQUALS" to "Type here"
+    Then UI Set Text Field "Report Name" and params "valid" To " "
+    Then UI Validate Element Existence By Label "Report Name" if Exists "true" with value "invalid"
+    Then UI Set Text Field "Report Name" and params "invalid" To "&"
+    Then UI Validate Element Existence By Label "Report Name" if Exists "true" with value "invalid"
+    Then UI Set Text Field "Report Name" and params "invalid" To "Test"
+    Then UI Validate Element Existence By Label "Report Name" if Exists "true" with value "valid"
 
   @SID_10
   Scenario: Validate Logo
