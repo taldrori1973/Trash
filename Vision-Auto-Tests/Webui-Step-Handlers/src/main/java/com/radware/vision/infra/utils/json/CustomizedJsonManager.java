@@ -103,11 +103,13 @@ public class CustomizedJsonManager {
         StringJoiner result = new StringJoiner(",", "[", "]");
         for (String s : eachValue) {
             String res="";
+            s=s.trim();
             if (s.contains(":") && (s.contains("{")|| s.contains("[") || s.contains("]") || s.contains("}"))) {
                 String[] stringArray = s.split(":");
                 for (String stringValue : stringArray)
                 {
                     String fixWord = "";
+                    stringValue = stringValue.trim();
                     fixWord = stringValue.startsWith("[")|stringValue.startsWith("{")? stringValue.split(stringValue.split("^(\\[|\\{)+")[1])[0] + "\"" +  stringValue.split("^(\\[|\\{)+")[1].trim() : "\"" + stringValue.trim();
                     fixWord = fixWord.replaceAll("[\\p{Cf}]","").trim();
                     fixWord = fixWord.endsWith("}")|fixWord.endsWith("]")? fixWord.split("(\\]+|}+)+$")[0].trim() + "\"" + fixWord.substring(fixWord.split("(\\]+|}+)+$")[0].trim().length())
