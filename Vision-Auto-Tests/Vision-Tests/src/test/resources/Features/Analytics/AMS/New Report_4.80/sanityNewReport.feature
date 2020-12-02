@@ -11,7 +11,7 @@ Feature: Basic tests for report parameters
 
     Then UI Click Button "Switch button Scheduled Report"
     Then UI Click Button "Schedule Report" with value "once"
-    Then UI Select Time of label "Schedule Once Time" with value "12/02/2019 12:12"
+    Then UI Select Time of label "Schedule Once Time" with value "2019-02-12 12:12" and pattern "yyyy-MM-dd HH:mm"
     Then UI Set Text Field "Schedule Once Time" To "13/02/2020 12:12"
     Then validate webUI CSS value "border-bottom-color" of label "Schedule Once Time" equals "rgb(255, 0, 0)"
 
