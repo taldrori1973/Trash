@@ -325,7 +325,7 @@ public class TemplateHandlers {
         }
 
         public void validate(JSONArray actualTemplateDeviceJSON, StringBuilder errorMessage) throws Exception {
-            if (devicesJSON.length() == 1 && devicesJSON.get(0).equals("All"))
+            if (devicesJSON.length() == 1 && devicesJSON.get(0).toString().equalsIgnoreCase("All"))
                 allDevicesSelected(actualTemplateDeviceJSON, errorMessage);
             else {
                 JSONArray actualTemplateArrayJSON = getJSONArraySelected(actualTemplateDeviceJSON);

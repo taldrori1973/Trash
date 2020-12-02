@@ -1,12 +1,20 @@
+
 @TC117968
 Feature: Basic tests for report parameters
-
   @SID_1
   Scenario: Navigate to NEW REPORTS page
     Then UI Login with user "sys_admin" and password "radware"
     Then UI Navigate to "AMS REPORTS" page via homepage
     Then UI Click Button "New Report Tab"
 #    Then UI Click Button "Report Parameter Menu"
+
+
+    Then UI Click Button "Switch button Scheduled Report"
+    Then UI Click Button "Schedule Report" with value "once"
+    Then UI Select Time of label "Schedule Once Time" with value "12/02/2019 12:12"
+    Then UI Set Text Field "Schedule Once Time" To "13/02/2020 12:12"
+    Then validate webUI CSS value "border-bottom-color" of label "Schedule Once Time" equals "rgb(255, 0, 0)"
+
 
   @SID_2
   Scenario: Validate Report Parameters Name
@@ -41,7 +49,6 @@ Feature: Basic tests for report parameters
       | Share Tab    |       | false |
       | Format Tab   |       | false |
 
-
   @SID_5
   Scenario: Report Time is selected
     Then UI Click Button "Time Tab"
@@ -54,7 +61,6 @@ Feature: Basic tests for report parameters
       | Share Tab    |       | false |
       | Format Tab   |       | false |
 
-
   @SID_6
   Scenario: Report Schedule is selected
     Then UI Click Button "Schedule Tab"
@@ -66,7 +72,6 @@ Feature: Basic tests for report parameters
       | Schedule Tab |       | true  |
       | Share Tab    |       | false |
       | Format Tab   |       | false |
-
 
   @SID_7
   Scenario: Report Share is selected
@@ -92,17 +97,15 @@ Feature: Basic tests for report parameters
       | Share Tab    |       | false |
       | Format Tab   |       | true  |
 
-#    Alina add valide\invalide to data-debug-id
   @SID_9
   Scenario: Validate report name
-    Then UI Validate the attribute "placeholder" Of Label "Report Name" is "EQUALS" to "Type here"
-    Then UI Set Text Field "Report Name" To " "
-    Then UI Validate the attribute "Class" Of Label "Name TextField" is "CONTAINS" to "gazxYV"
-    Then UI Set Text Field "Report Name" To "Test"
-    Then UI Validate the attribute "Class" Of Label "Name TextField" is "CONTAINS" to "dHGMcY"
-    Then UI Set Text Field "Report Name" To "&"
-    Then UI Validate the attribute "Class" Of Label "Name TextField" is "CONTAINS" to "gazxYV"
-
+    Then UI Validate the attribute "placeholder" Of Label "Report Name" With Params "valid" is "EQUALS" to "Type here"
+    Then UI Set Text Field "Report Name" and params "valid" To " "
+    Then UI Validate Element Existence By Label "Report Name" if Exists "true" with value "invalid"
+    Then UI Set Text Field "Report Name" and params "invalid" To "&"
+    Then UI Validate Element Existence By Label "Report Name" if Exists "true" with value "invalid"
+    Then UI Set Text Field "Report Name" and params "invalid" To "Test"
+    Then UI Validate Element Existence By Label "Report Name" if Exists "true" with value "valid"
 
   @SID_10
   Scenario: Validate Logo
@@ -283,55 +286,14 @@ Feature: Basic tests for report parameters
       | Schedule Report | monthly | false |
       | Schedule Report | once    | true  |
 
-#  @SID_27
-#  Scenario: Validate daily schedule.
-#    Then UI Click Button "Schedule Report" with value "daily"
-#    Then UI Set Text Field "Schedule Daily Time" To "1:31 PM"
-#    Then UI Text of "Error Massage" with extension "timeOfDay" contains "Please select a time between 12 AM to 11:59 PM"
-#    Then UI Set Text Field "Schedule Daily Time" To "01:3 PM"
-#    Then UI Text of "Error Massage" with extension "timeOfDay" contains "Please select a time between 12 AM to 11:59 PM"
-#    Then UI Set Text Field "Schedule Daily Time" To "01:03"
-#    Then UI Text of "Error Massage" with extension "timeOfDay" contains "Please select a time between 12 AM to 11:59 PM"
-#    Then UI Set Text Field "Schedule Daily Time" To "13:00 PM"
-#    Then UI Text of "Error Massage" with extension "timeOfDay" contains "Please select a time between 12 AM to 11:59 PM"
-#    Then UI Set Text Field "Schedule Daily Time" To "00:00 PM"
-#    Then UI Text of "Error Massage" with extension "timeOfDay" contains "Please select a time between 12 AM to 11:59 PM"
-#    Then UI Set Text Field "Schedule Daily Time" To "11:61 PM"
-#    Then UI Text of "Error Massage" with extension "timeOfDay" contains "Please select a time between 12 AM to 11:59 PM"
+    @SID_27
+    Scenario: Validate Report Schedule Once
+      Then UI Set Text Field "Schedule Once Time" To "12/02/2019"
+      Then validate webUI CSS value "border-bottom-color" of label "Schedule Once Time" equals "rgb(255, 0, 0)"
 
-#  @SID_28
-#  Scenario: Report Schedule Day of week is selected
-#    Then UI Click Button "Schedule Report" with value "weekly"
-#    Then UI Unclick all the attributes "class" is "CONTAINS" to "selected"
-#      | label        | param |
-#      | Schedule Day | MON   |
-#      | Schedule Day | TUE   |
-#      | Schedule Day | WED   |
-#      | Schedule Day | THU   |
-#      | Schedule Day | FRI   |
-#      | Schedule Day | SAT   |
-#      | Schedule Day | SUN   |
-#    Then UI Text of "Error Massage" with extension "dayOfWeek" contains "Please select at least one day of week"
-#
-#  @SID_29
-#  Scenario: Report Schedule Month is selected
-#    Then UI Click Button "Schedule Report" with value "monthly"
-#    Then UI Unclick all the attributes "class" is "CONTAINS" to "selected"
-#      | label          | param |
-#      | Schedule Month | JAN   |
-#      | Schedule Month | FEB   |
-#      | Schedule Month | MAR   |
-#      | Schedule Month | APR   |
-#      | Schedule Month | MAY   |
-#      | Schedule Month | JUN   |
-#      | Schedule Month | AUG   |
-#      | Schedule Month | SEP   |
-#      | Schedule Month | OCT   |
-#      | Schedule Month | NOV   |
-#      | Schedule Month | DEC   |
-#    Then UI Text of "Error Massage" with extension "months" contains "Please select at least one month"
 
-  @SID_30
+
+  @SID_28
   Scenario: Validate Share send email To
     Then UI Set Text Field "Email" To "user@automation.local"
     Then UI Text of "Email Tab" equal to "E-mail To*"
@@ -352,15 +314,15 @@ Feature: Basic tests for report parameters
     Then UI Set Text Field "Email" To "example@example. example" enter Key true
     Then UI Validate Element Existence By Label "Email input" if Exists "true" with value "example@example. example,invalid"
 
-  @SID_31
+  @SID_29
   Scenario: Validate send email Subject
     Then UI Text of "Subject Tab" equal to "Subject"
 
-  @SID_32
+  @SID_30
   Scenario: Validate send email Type your message
     Then UI Validate the attribute "placeholder" Of Label "Email message" is "EQUALS" to "Type your message"
 
-  @SID_33
+  @SID_31
   Scenario: Report Format PDF Button is clicked
     Then UI Click Button "Format Type" with value "PDF"
     Then UI Validate the attribute of "data-debug-checked" are "EQUAL" to
@@ -369,7 +331,7 @@ Feature: Basic tests for report parameters
       | Format Type | HTML  | false |
       | Format Type | CSV   | false |
 
-  @SID_34
+  @SID_32
   Scenario: Report Format HTML Button is clicked
     Then UI Click Button "Format Type" with value "HTML"
     Then UI Validate the attribute of "data-debug-checked" are "EQUAL" to
@@ -378,7 +340,7 @@ Feature: Basic tests for report parameters
       | Format Type | HTML  | true  |
       | Format Type | CSV   | false |
 
-  @SID_35
+  @SID_33
   Scenario: Report Format CSV Button is clicked
     Then UI Click Button "Format Type" with value "CSV"
     Then UI Validate the attribute of "data-debug-checked" are "EQUAL" to
@@ -387,7 +349,7 @@ Feature: Basic tests for report parameters
       | Format Type | HTML  | false |
       | Format Type | CSV   | true  |
 
-  @SID_36
+  @SID_34
   Scenario: Logout
     Then UI logout and close browser
 
