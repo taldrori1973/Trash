@@ -55,8 +55,6 @@ public class Report extends ReportsForensicsAlertsAbstract {
     }
 
     private void closeReport() throws TargetWebElementNotFoundException {
-        if (WebUiTools.getWebElement("Scope Selection Cancel")!= null)
-            WebUiTools.getWebElement("Scope Selection Cancel").click();
         BasicOperationsHandler.clickButton("cancel");
         BasicOperationsHandler.clickButton("saveChanges", "no");
     }
