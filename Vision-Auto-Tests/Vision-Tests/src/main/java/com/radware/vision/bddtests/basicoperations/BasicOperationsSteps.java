@@ -50,6 +50,8 @@ import java.util.Map;
 import static com.radware.vision.infra.testhandlers.baseoperations.BasicOperationsHandler.isLoggedIn;
 import static com.radware.vision.infra.testhandlers.baseoperations.BasicOperationsHandler.isLoggedOut;
 import com.radware.vision.infra.utils.ReportsUtils;
+import ucar.units.Base;
+
 import static com.radware.vision.infra.utils.ReportsUtils.addErrorMessage;
 import static com.radware.vision.infra.utils.ReportsUtils.reportErrors;
 /**
@@ -621,6 +623,22 @@ public class BasicOperationsSteps extends BddUITestBase {
             }
         }
         reportErrors();
+    }
+
+    @Then("^validate webUI CSS value \"([^\"]*)\" of label \"([^\"]*)\"(?: with params \"([^\"]*)\")? equals \"([^\"]*)\"$")
+    public void validateWebUICSSOfLabelWithParams(String cssKey, String label, String param,String cssValue) throws Throwable {
+       VisionDebugIdsManager.setLabel(label);
+       VisionDebugIdsManager.setParams(param);
+       WebElement element = WebUIUtils.fluentWait(ComponentLocatorFactory.getLocatorByXpathDbgId(VisionDebugIdsManager.getDataDebugId()).getBy());
+       if(element==null)
+           BaseTestUtils.report("This element with label : "+label+" and params: "+param+ " is not exist", Reporter.FAIL);
+       else if(!element.getCssValue(cssKey).equals(cssValue))
+           BaseTestUtils.report("This element with cssKey : "+cssKey+" and cssValue: "+cssValue+ " is not exist", Reporter.FAIL);
+    }
+
+    @Then("^UI Select Time of label \"([^\"]*)\"(?: with params \"([^\"]*)\")? with value \"([^\"]*)\"$")
+    public void uiSelectTimeOfLabelWithParamsWithValue(String label, String param, String timeValue) throws Throwable {
+
     }
 
     public static class ParamterSelected{
