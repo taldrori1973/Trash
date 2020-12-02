@@ -13,6 +13,7 @@ import com.radware.vision.infra.testhandlers.baseoperations.BasicOperationsHandl
 import com.radware.vision.bddtests.ReportsForensicsAlerts.WebUiTools;
 import org.json.JSONArray;
 import org.json.JSONObject;
+import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.How;
@@ -238,7 +239,8 @@ public class TemplateHandlers {
                 if (options != null) options.get(index).click();
                 if (isNumber(option)) {
                     options = WebUIUtils.fluentWaitMultiple(new ComponentLocator(How.XPATH, "//*[starts-with(@data-debug-id, '" + VisionDebugIdsManager.getDataDebugId() + "') and contains(@data-debug-id, '_CustomPolicies')]").getBy(), WebUIUtils.DEFAULT_WAIT_TIME, false);
-                    options.get(index).clear();
+                    options.get(index).click();
+                    options.get(index).sendKeys(Keys.chord(Keys.CONTROL,"a", Keys.DELETE));
                     options.get(index).sendKeys(option);
                 }
             } catch (Exception e) {
@@ -249,9 +251,12 @@ public class TemplateHandlers {
     }
 
     private static String getCurrentTemplateName(String reportType) {
-        List<WebElement> elements = WebUiTools.getWebElements("Template Header", reportType);
-        return elements.size() != 0 ? elements.get(elements.size() - 1).getText() : reportType;
-
+//        List<WebElement> elements = WebUiTools.getWebElements("Template Header", reportType);
+        VisionDebugIdsManager.setLabel("Template Header");
+        VisionDebugIdsManager.setParams(reportType);
+        List<WebElement> elements = WebUIUtils.fluentWaitMultiple(new ComponentLocator(How.XPATH, "//*[@data-debug-id= '" + VisionDebugIdsManager.getDataDebugId() + "']//input").getBy());
+//        return elements.size() != 0 ? elements.get(elements.size() - 1).getText() : reportType;
+        return elements.size() != 0 ? elements.get(elements.size() - 1).getAttribute("value") : reportType;
     }
 
     public static void dragAndDrop(ComponentLocator sourceLocator, ComponentLocator targetLocator) {
@@ -320,7 +325,7 @@ public class TemplateHandlers {
         }
 
         public void validate(JSONArray actualTemplateDeviceJSON, StringBuilder errorMessage) throws Exception {
-            if (devicesJSON.length() == 1 && devicesJSON.get(0).equals("All"))
+            if (devicesJSON.length() == 1 && devicesJSON.get(0).toString().equalsIgnoreCase("All"))
                 allDevicesSelected(actualTemplateDeviceJSON, errorMessage);
             else {
                 JSONArray actualTemplateArrayJSON = getJSONArraySelected(actualTemplateDeviceJSON);
@@ -619,8 +624,6 @@ public class TemplateHandlers {
             case "AppWall":
                 validateTemplateContainsSummaryTable(singleActualTemplate, expectedSingleTemplate, errorMessage);
             default:
-                if(expectedSingleTemplate.toMap().containsKey("showTable"))
-                    errorMessage.append("This template  = "+ expectedTemplateTitle+ " do not have summaryTable so do not showTable on expected tamplate!");
                 break;
         }
     }
@@ -690,11 +693,12 @@ public class TemplateHandlers {
 
     private static void validateHashMapObjectWidgets(JSONArray actualWidgetsJSONArray, JSONObject expectedWidgetJSONObject, String expectedTemplateTitle,StringBuilder errorMessage) {
         for (Object actualWidgetObject : actualWidgetsJSONArray) {
-            if (!expectedWidgetJSONObject.keys().next().equals(new JSONObject(new JSONObject((HashMap) new JSONObject(actualWidgetObject.toString()).toMap()).get("metaData").toString().replace("\\", "")).get("title").toString()))
-                errorMessage.append("The Actual TemplateWidget title = :" + new JSONObject(new JSONObject((HashMap) new JSONObject(actualWidgetObject.toString()).toMap()).get("metaData").toString().replace("\\", "")).get("title") + "and  not equal to  " + expectedWidgetJSONObject.keys().next());
-            else
-                validateOptionsWidgets(expectedWidgetJSONObject.keys().next(), expectedWidgetJSONObject, new JSONObject(new JSONObject((HashMap) new JSONObject(actualWidgetObject.toString()).toMap()).get("metaData").toString().replace("\\", "")), expectedTemplateTitle,errorMessage);
+            if (expectedWidgetJSONObject.keys().next().equals(new JSONObject(new JSONObject((HashMap) new JSONObject(actualWidgetObject.toString()).toMap()).get("metaData").toString().replace("\\", "")).get("title").toString())) {
+                validateOptionsWidgets(expectedWidgetJSONObject.keys().next(), expectedWidgetJSONObject, new JSONObject(new JSONObject((HashMap) new JSONObject(actualWidgetObject.toString()).toMap()).get("metaData").toString().replace("\\", "")), expectedTemplateTitle, errorMessage);
+                return;
+            }
         }
+        errorMessage.append("The expected TemplateWidget title = :" +expectedWidgetJSONObject.keys().next() + " does not exist");
     }
 
     private static void validateOptionsWidgets(String widgetTitle, JSONObject expectedWidgetJSONObject, JSONObject actualWidgetJSONObject,String expectedTemplateTitle, StringBuilder errorMessage) {

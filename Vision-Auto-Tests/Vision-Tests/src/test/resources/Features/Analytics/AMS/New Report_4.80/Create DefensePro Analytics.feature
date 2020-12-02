@@ -21,12 +21,6 @@ Feature: DefensePro Analytics
     Then UI Click Button "New Report Tab"
 
 
-  @SID_1
-  Scenario: Navigate to NEW REPORTS page
-    Then UI Login with user "radware" and password "radware"
-    Then UI Navigate to "AMS REPORTS" page via homepage
-    Then UI Click Button "New Report Tab"
-
   @SID_2
   Scenario: create new Traffic Bandwidth1
     Given UI "Create" Report With Name "Traffic Bandwidth Report1"

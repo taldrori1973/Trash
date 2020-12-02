@@ -29,14 +29,14 @@ Feature:DefenseFlow Analytics
   Scenario: Top Attacks by Duration Report 2
     Then UI Click Button "New Report Tab"
     Given UI "Create" Report With Name "Top Attacks by Duration 2"
-      | Template              | reportType:DefenseFlow Analytics , Widgets:[Top Attacks by Duration],Protected Objects:[{deviceIndex:10}] |
+      | Template              | reportType:DefenseFlow Analytics , Widgets:[Top Attacks by Duration],Protected Objects:[PO Name Space] |
       | Format                | Select: PDF                                                                                               |
       | Logo                  | reportLogoPNG.png                                                                                         |
       | Time Definitions.Date | Absolute:[27.02.1971 01:00, +0d]                                                                          |
       | Schedule              | Run Every:Monthly, On Time:+6H, At Months:[OCT]                                                           |
       | Share                 | Email:[automation.vision2@radware.com],Subject:myEdit subject,Body:myEdit body                            |
     Then UI "Validate" Report With Name "Top Attacks by Duration 2"
-      | Template              | reportType:DefenseFlow Analytics , Widgets:[Top Attacks by Duration], Protected Objects:[{deviceIndex:10}] |
+      | Template              | reportType:DefenseFlow Analytics , Widgets:[Top Attacks by Duration], Protected Objects:[PO Name Space] |
       | Format                | Select: PDF                                                                                                |
       | Logo                  | reportLogoPNG.png                                                                                          |
       | Time Definitions.Date | Absolute:[27.02.1971 01:00, +0d]                                                                           |
@@ -48,12 +48,12 @@ Feature:DefenseFlow Analytics
   Scenario:  Top Attacks by Duration Report 3
     Then UI Click Button "New Report Tab"
     Given UI "Create" Report With Name "Top Attacks by Duration 3"
-      | Template              | reportType:DefenseFlow Analytics , Widgets:[Top Attacks by Duration], Protected Objects:[{deviceIndex:11}] |
+      | Template              | reportType:DefenseFlow Analytics , Widgets:[Top Attacks by Duration], Protected Objects:[PO Name Space] |
       | Format                | Select: HTML                                                                                               |
       | Time Definitions.Date | Relative:[Days,2]                                                                                          |
       | Schedule              | Run Every:Weekly, On Time:+6H, At days:[SUN]                                                               |
     Then UI "Validate" Report With Name "Top Attacks by Duration 3"
-      | Template              | reportType:DefenseFlow Analytics , Widgets:[Top Attacks by Duration], Protected Objects:[{deviceIndex:11}] |
+      | Template              | reportType:DefenseFlow Analytics , Widgets:[Top Attacks by Duration], Protected Objects:[PO Name Space] |
       | Format                | Select: HTML                                                                                               |
       | Time Definitions.Date | Relative:[Days,2]                                                                                          |
       | Schedule              | Run Every:Weekly, On Time:+6H, At days:[SUN]                                                               |
@@ -97,14 +97,14 @@ Feature:DefenseFlow Analytics
   Scenario: Top Attacks by Count Report 2
     Then UI Click Button "New Report Tab"
     Given UI "Create" Report With Name "Top Attacks by Count Report 2"
-      | Template              | reportType:DefenseFlow Analytics , Widgets:[Top Attacks by Count], Protected Objects:[{deviceIndex:10}] |
+      | Template              | reportType:DefenseFlow Analytics , Widgets:[Top Attacks by Count], Protected Objects:[PO Name Space] |
       | Format                | Select: PDF                                                                                             |
       | Logo                  | reportLogoPNG.png                                                                                       |
       | Time Definitions.Date | Absolute:[27.02.1971 01:00, +0d]                                                                        |
       | Schedule              | Run Every:Once, On Time:+6H                                                                             |
       | Share                 | Email:[automation.vision2@radware.com],Subject:myEdit subject,Body:myEdit body                          |
     Then UI "Validate" Report With Name "Top Attacks by Count Report 2"
-      | Template              | reportType:DefenseFlow Analytics , Widgets:[Top Attacks by Count], Protected Objects:[{deviceIndex:10}] |
+      | Template              | reportType:DefenseFlow Analytics , Widgets:[Top Attacks by Count], Protected Objects:[PO Name Space] |
       | Format                | Select: PDF                                                                                             |
       | Logo                  | reportLogoPNG.png                                                                                       |
       | Time Definitions.Date | Absolute:[27.02.1971 01:00, +0d]                                                                        |
@@ -116,11 +116,11 @@ Feature:DefenseFlow Analytics
   Scenario:  Top Attacks by Count Report 3
     Then UI Click Button "New Report Tab"
     Given UI "Create" Report With Name "Top Attacks by Count Report 3"
-      | Template              | reportType:DefenseFlow Analytics , Widgets:[Top Attacks by Count], Protected Objects:[{deviceIndex:11}] |
+      | Template              | reportType:DefenseFlow Analytics , Widgets:[Top Attacks by Count], Protected Objects:[PO Name Space] |
       | Format                | Select: HTML                                                                                            |
       | Time Definitions.Date | Quick:This Week                                                                                         |
     Then UI "Validate" Report With Name "Top Attacks by Count Report 3"
-      | Template              | reportType:DefenseFlow Analytics , Widgets:[Top Attacks by Count], Protected Objects:[{deviceIndex:11}] |
+      | Template              | reportType:DefenseFlow Analytics , Widgets:[Top Attacks by Count], Protected Objects:[PO Name Space] |
       | Format                | Select: HTML                                                                                            |
       | Time Definitions.Date | Quick:This Week                                                                                         |
     Then UI Delete Report With Name "Top Attacks by Count Report 3"
@@ -165,14 +165,14 @@ Feature:DefenseFlow Analytics
   Scenario: Top Attacks by Rate Report 2
     Then UI Click Button "New Report Tab"
     Given UI "Create" Report With Name "Top Attacks by Rate Report 2"
-      | Template              | reportType:DefenseFlow Analytics , Widgets:[Top Attacks by Rate], Protected Objects:[{deviceIndex:10}] |
+      | Template              | reportType:DefenseFlow Analytics , Widgets:[Top Attacks by Rate], Protected Objects:[PO Name Space] |
       | Format                | Select: PDF                                                                                            |
       | Logo                  | reportLogoPNG.png                                                                                      |
       | Time Definitions.Date | Relative:[Weeks,2]                                                                                     |
       | Schedule              | Run Every:Weekly, On Time:+6H, At days:[THU]                                                           |
       | Share                 | Email:[automation.vision2@radware.com],Subject:myEdit subject,Body:myEdit body                         |
     Then UI "Validate" Report With Name "Top Attacks by Rate Report 2"
-      | Template              | reportType:DefenseFlow Analytics , Widgets:[Top Attacks by Rate], Protected Objects:[{deviceIndex:10}] |
+      | Template              | reportType:DefenseFlow Analytics , Widgets:[Top Attacks by Rate], Protected Objects:[PO Name Space] |
       | Format                | Select: PDF                                                                                            |
       | Logo                  | reportLogoPNG.png                                                                                      |
       | Time Definitions.Date | Relative:[Weeks,2]                                                                                     |
@@ -184,12 +184,12 @@ Feature:DefenseFlow Analytics
   Scenario:  Top Attacks by Rate Report 3
     Then UI Click Button "New Report Tab"
     Given UI "Create" Report With Name "Top Attacks by Rate 3"
-      | Template              | reportType:DefenseFlow Analytics , Widgets:[Top Attacks by Rate], Protected Objects:[{deviceIndex:11}] |
+      | Template              | reportType:DefenseFlow Analytics , Widgets:[Top Attacks by Rate], Protected Objects:[PO Name Space] |
       | Format                | Select: HTML                                                                                           |
       | Time Definitions.Date | Absolute:[27.02.1971 01:00, +0d]                                                                       |
       | Schedule              | Run Every:Monthly, On Time:+6H, At Months:[MAY]                                                        |
     Then UI "Validate" Report With Name "Top Attacks by Rate 3"
-      | Template              | reportType:DefenseFlow Analytics , Widgets:[Top Attacks by Rate], Protected Objects:[{deviceIndex:11}] |
+      | Template              | reportType:DefenseFlow Analytics , Widgets:[Top Attacks by Rate], Protected Objects:[PO Name Space] |
       | Format                | Select: HTML                                                                                           |
       | Time Definitions.Date | Absolute:[27.02.1971 01:00, +0d]                                                                       |
       | Schedule              | Run Every:Monthly, On Time:+6H, At Months:[MAY]                                                        |
@@ -233,14 +233,14 @@ Feature:DefenseFlow Analytics
   Scenario: Top Attacks by Protocol Report 2
     Then UI Click Button "New Report Tab"
     Given UI "Create" Report With Name "Top Attacks by Protocol Report 2"
-      | Template              | reportType:DefenseFlow Analytics , Widgets:[Top Attacks by Protocol], Protected Objects:[{deviceIndex:10}] |
+      | Template              | reportType:DefenseFlow Analytics , Widgets:[Top Attacks by Protocol], Protected Objects:[PO Name Space] |
       | Format                | Select: PDF                                                                                                |
       | Logo                  | reportLogoPNG.png                                                                                          |
       | Time Definitions.Date | Absolute:[27.02.1971 01:00, +0d]                                                                           |
       | Schedule              | Run Every:Monthly, On Time:+6H, At Months:[APR]                                                            |
       | Share                 | Email:[automation.vision2@radware.com],Subject:myEdit subject,Body:myEdit body                             |
     Then UI "Validate" Report With Name "Top Attacks by Protocol Report 2"
-      | Template              | reportType:DefenseFlow Analytics , Widgets:[Top Attacks by Protocol], Protected Objects:[{deviceIndex:10}] |
+      | Template              | reportType:DefenseFlow Analytics , Widgets:[Top Attacks by Protocol], Protected Objects:[PO Name Space] |
       | Format                | Select: PDF                                                                                                |
       | Logo                  | reportLogoPNG.png                                                                                          |
       | Time Definitions.Date | Absolute:[27.02.1971 01:00, +0d]                                                                           |
@@ -252,11 +252,11 @@ Feature:DefenseFlow Analytics
   Scenario:  Top Attacks by Protocol Report 3
     Then UI Click Button "New Report Tab"
     Given UI "Create" Report With Name "Top Attacks by Protocol Report 3"
-      | Template              | reportType:DefenseFlow Analytics , Widgets:[Top Attacks by Protocol], Protected Objects:[{deviceIndex:11}] |
+      | Template              | reportType:DefenseFlow Analytics , Widgets:[Top Attacks by Protocol], Protected Objects:[PO Name Space] |
       | Format                | Select: HTML                                                                                               |
       | Time Definitions.Date | Relative:[Weeks,2]                                                                                         |
     Then UI "Validate" Report With Name "Top Attacks by Protocol Report 3"
-      | Template              | reportType:DefenseFlow Analytics , Widgets:[Top Attacks by Protocol], Protected Objects:[{deviceIndex:11}] |
+      | Template              | reportType:DefenseFlow Analytics , Widgets:[Top Attacks by Protocol], Protected Objects:[PO Name Space] |
       | Format                | Select: HTML                                                                                               |
       | Time Definitions.Date | Relative:[Weeks,2]                                                                                         |
     Then UI Delete Report With Name "Top Attacks by Protocol Report 3"
@@ -299,14 +299,14 @@ Feature:DefenseFlow Analytics
   Scenario: Top Attack Destination Report 2
     Then UI Click Button "New Report Tab"
     Given UI "Create" Report With Name "Top Attack Destination  Report 2"
-      | Template              | reportType:DefenseFlow Analytics , Widgets:[Top Attack Destination], Protected Objects:[{deviceIndex:10}] |
+      | Template              | reportType:DefenseFlow Analytics , Widgets:[Top Attack Destination], Protected Objects:[PO Name Space] |
       | Format                | Select: PDF                                                                                               |
       | Logo                  | reportLogoPNG.png                                                                                         |
       | Time Definitions.Date | Quick:This Month                                                                                          |
       | Schedule              | Run Every:Once, On Time:+6H                                                                               |
       | Share                 | Email:[automation.vision2@radware.com],Subject:myEdit subject,Body:myEdit body                            |
     Then UI "Validate" Report With Name "Top Attack Destination  Report 2"
-      | Template              | reportType:DefenseFlow Analytics , Widgets:[Top Attack Destination], Protected Objects:[{deviceIndex:10}] |
+      | Template              | reportType:DefenseFlow Analytics , Widgets:[Top Attack Destination], Protected Objects:[PO Name Space] |
       | Format                | Select: PDF                                                                                               |
       | Logo                  | reportLogoPNG.png                                                                                         |
       | Time Definitions.Date | Quick:This Month                                                                                          |
@@ -318,12 +318,12 @@ Feature:DefenseFlow Analytics
   Scenario:  Top Attack Destination Report 3
     Then UI Click Button "New Report Tab"
     Given UI "Create" Report With Name "Top Attack Destination Report 3"
-      | Template              | reportType:DefenseFlow Analytics , Widgets:[Top Attack Destination], Protected Objects:[{deviceIndex:11}] |
+      | Template              | reportType:DefenseFlow Analytics , Widgets:[Top Attack Destination], Protected Objects:[PO Name Space] |
       | Format                | Select: HTML                                                                                              |
       | Time Definitions.Date | Absolute:[27.02.1971 01:00, +0d]                                                                          |
       | Schedule              | Run Every:Monthly, On Time:+6H, At Months:[MAR]                                                           |
     Then UI "Validate" Report With Name "Top Attack Destination Report 3"
-      | Template              | reportType:DefenseFlow Analytics , Widgets:[Top Attack Destination], Protected Objects:[{deviceIndex:11}] |
+      | Template              | reportType:DefenseFlow Analytics , Widgets:[Top Attack Destination], Protected Objects:[PO Name Space] |
       | Format                | Select: HTML                                                                                              |
       | Time Definitions.Date | Absolute:[27.02.1971 01:00, +0d]                                                                          |
       | Schedule              | Run Every:Monthly, On Time:+6H, At Months:[MAR]                                                           |
@@ -367,14 +367,14 @@ Feature:DefenseFlow Analytics
   Scenario: Top Attack Sources Report 2
     Then UI Click Button "New Report Tab"
     Given UI "Create" Report With Name "Top Attack Sources Report 2"
-      | Template              | reportType:DefenseFlow Analytics , Widgets:[Top Attack Sources], Protected Objects:[{deviceIndex:10}] |
+      | Template              | reportType:DefenseFlow Analytics , Widgets:[Top Attack Sources], Protected Objects:[PO Name Space] |
       | Format                | Select: PDF                                                                                           |
       | Logo                  | reportLogoPNG.png                                                                                     |
       | Time Definitions.Date | Quick:This Week                                                                                       |
       | Schedule              | Run Every:Monthly, On Time:+6H, At Months:[AUG]                                                       |
       | Share                 | Email:[automation.vision2@radware.com],Subject:myEdit subject,Body:myEdit body                        |
     Then UI "Validate" Report With Name "Top Attack Sources Report 2"
-      | Template              | reportType:DefenseFlow Analytics , Widgets:[Top Attack Sources], Protected Objects:[{deviceIndex:10}] |
+      | Template              | reportType:DefenseFlow Analytics , Widgets:[Top Attack Sources], Protected Objects:[PO Name Space] |
       | Format                | Select: PDF                                                                                           |
       | Logo                  | reportLogoPNG.png                                                                                     |
       | Time Definitions.Date | Quick:This Week                                                                                       |
@@ -386,12 +386,12 @@ Feature:DefenseFlow Analytics
   Scenario:  Top Attack Sources Report 3
     Then UI Click Button "New Report Tab"
     Given UI "Create" Report With Name "Top Attack Sources Report 3"
-      | Template              | reportType:DefenseFlow Analytics , Widgets:[Top Attack Sources], Protected Objects:[{deviceIndex:11}] |
+      | Template              | reportType:DefenseFlow Analytics , Widgets:[Top Attack Sources], Protected Objects:[PO Name Space] |
       | Format                | Select: HTML                                                                                          |
       | Time Definitions.Date | Absolute:[27.02.1971 01:00, +0d]                                                                      |
       | Schedule              | Run Every:Monthly, On Time:+6H, At Months:[MAR]                                                       |
     Then UI "Validate" Report With Name "Top Attack Sources Report 3"
-      | Template              | reportType:DefenseFlow Analytics , Widgets:[Top Attack Sources], Protected Objects:[{deviceIndex:11}] |
+      | Template              | reportType:DefenseFlow Analytics , Widgets:[Top Attack Sources], Protected Objects:[PO Name Space] |
       | Format                | Select: HTML                                                                                          |
       | Time Definitions.Date | Absolute:[27.02.1971 01:00, +0d]                                                                      |
       | Schedule              | Run Every:Monthly, On Time:+6H, At Months:[MAR]                                                       |
@@ -437,14 +437,14 @@ Feature:DefenseFlow Analytics
   Scenario: Traffic Bandwidth Report 2
     Then UI Click Button "New Report Tab"
     Given UI "Create" Report With Name "Traffic Bandwidth Report 2"
-      | Template              | reportType:DefenseFlow Analytics , Widgets:[{Traffic Bandwidth:[40]},Traffic Bandwidth], Protected Objects:[{deviceIndex:10}] |
+      | Template              | reportType:DefenseFlow Analytics , Widgets:[{Traffic Bandwidth:[40]},Traffic Bandwidth], Protected Objects:[PO Name Space] |
       | Format                | Select: PDF                                                                                                                   |
       | Logo                  | reportLogoPNG.png                                                                                                             |
       | Time Definitions.Date | Quick:3M                                                                                                                      |
       | Schedule              | Run Every:Monthly, On Time:+6H, At Months:[DEC]                                                                               |
       | Share                 | Email:[automation.vision2@radware.com],Subject:myEdit subject,Body:myEdit body                                                |
     Then UI "Validate" Report With Name "Traffic Bandwidth Report 2"
-      | Template              | reportType:DefenseFlow Analytics , Widgets:[{Traffic Bandwidth:[40]},Traffic Bandwidth], Protected Objects:[{deviceIndex:10}] |
+      | Template              | reportType:DefenseFlow Analytics , Widgets:[{Traffic Bandwidth:[40]},Traffic Bandwidth], Protected Objects:[PO Name Space] |
       | Format                | Select: PDF                                                                                                                   |
       | Logo                  | reportLogoPNG.png                                                                                                             |
       | Time Definitions.Date | Quick:3M                                                                                                                      |
@@ -456,11 +456,11 @@ Feature:DefenseFlow Analytics
   Scenario:  Traffic Bandwidth Report 3
     Then UI Click Button "New Report Tab"
     Given UI "Create" Report With Name "Traffic Bandwidth Report 3"
-      | Template              | reportType:DefenseFlow Analytics , Widgets:[{Traffic Bandwidth:[All]},Traffic Bandwidth], Protected Objects:[{deviceIndex:11},{deviceIndex:10}] |
+      | Template              | reportType:DefenseFlow Analytics , Widgets:[{Traffic Bandwidth:[All]},Traffic Bandwidth], Protected Objects:[PO Name Space] |
       | Format                | Select: HTML                                                                                                                                    |
       | Time Definitions.Date | Quick:This Month                                                                                                                                |
     Then UI "Validate" Report With Name "Traffic Bandwidth Report 3"
-      | Template              | reportType:DefenseFlow Analytics , Widgets:[{Traffic Bandwidth:[All]},Traffic Bandwidth], Protected Objects:[{deviceIndex:11},{deviceIndex:10}] |
+      | Template              | reportType:DefenseFlow Analytics , Widgets:[{Traffic Bandwidth:[All]},Traffic Bandwidth], Protected Objects:[PO Name Space] |
       | Format                | Select: HTML                                                                                                                                    |
       | Time Definitions.Date | Quick:This Month                                                                                                                                |
     Then UI Delete Report With Name "Traffic Bandwidth Report 3"
@@ -501,14 +501,14 @@ Feature:DefenseFlow Analytics
   Scenario: Traffic Rate Report 2
     Then UI Click Button "New Report Tab"
     Given UI "Create" Report With Name "Traffic Rate Report 2"
-      | Template              | reportType:DefenseFlow Analytics , Widgets:[Traffic Rate], Protected Objects:[{deviceIndex:11}] |
+      | Template              | reportType:DefenseFlow Analytics , Widgets:[Traffic Rate], Protected Objects:[PO Name Space] |
       | Format                | Select: PDF                                                                                     |
       | Logo                  | reportLogoPNG.png                                                                               |
       | Time Definitions.Date | Absolute:[27.02.1971 01:00, +0d]                                                                |
       | Schedule              | Run Every:Monthly, On Time:+6H, At Months:[OCT]                                                 |
       | Share                 | Email:[automation.vision2@radware.com],Subject:myEdit subject,Body:myEdit body                  |
     Then UI "Validate" Report With Name "Traffic Rate Report 2"
-      | Template              | reportType:DefenseFlow Analytics , Widgets:[Traffic Rate], Protected Objects:[{deviceIndex:11}] |
+      | Template              | reportType:DefenseFlow Analytics , Widgets:[Traffic Rate], Protected Objects:[PO Name Space] |
       | Format                | Select: PDF                                                                                     |
       | Logo                  | reportLogoPNG.png                                                                               |
       | Time Definitions.Date | Absolute:[27.02.1971 01:00, +0d]                                                                |
@@ -520,12 +520,12 @@ Feature:DefenseFlow Analytics
   Scenario:  Traffic Rate Report 3
     Then UI Click Button "New Report Tab"
     Given UI "Create" Report With Name "Traffic Rate Report 3"
-      | Template              | reportType:DefenseFlow Analytics , Widgets:[Traffic Rate], Protected Objects:[{deviceIndex:11},{deviceIndex:10}] |
+      | Template              | reportType:DefenseFlow Analytics , Widgets:[Traffic Rate], Protected Objects:[PO Name Space] |
       | Format                | Select: HTML                                                                                                     |
       | Time Definitions.Date | Relative:[Days,3]                                                                                                |
       | Schedule              | Run Every:Weekly, On Time:+6H, At days:[SUN]                                                                     |
     Then UI "Validate" Report With Name "Traffic Rate Report 3"
-      | Template              | reportType:DefenseFlow Analytics , Widgets:[Traffic Rate], Protected Objects:[{deviceIndex:11},{deviceIndex:10}] |
+      | Template              | reportType:DefenseFlow Analytics , Widgets:[Traffic Rate], Protected Objects:[PO Name Space] |
       | Format                | Select: HTML                                                                                                     |
       | Time Definitions.Date | Relative:[Days,3]                                                                                                |
       | Schedule              | Run Every:Weekly, On Time:+6H, At days:[SUN]                                                                     |
@@ -569,14 +569,14 @@ Feature:DefenseFlow Analytics
   Scenario: DDoS Peak Attack per Period Report 2
     Then UI Click Button "New Report Tab"
     Given UI "Create" Report With Name "DDoS Peak Attack per Period Report 2"
-      | Template              | reportType:DefenseFlow Analytics , Widgets:[DDoS Peak Attack per Period], Protected Objects:[{deviceIndex:11}] |
+      | Template              | reportType:DefenseFlow Analytics , Widgets:[DDoS Peak Attack per Period], Protected Objects:[PO Name Space] |
       | Format                | Select: PDF                                                                                                    |
       | Logo                  | reportLogoPNG.png                                                                                              |
       | Time Definitions.Date | Absolute:[27.02.1971 01:00, +0d]                                                                               |
       | Schedule              | Run Every:Once, On Time:+6H                                                                                    |
       | Share                 | Email:[automation.vision2@radware.com],Subject:myEdit subject,Body:myEdit body                                 |
     Then UI "Validate" Report With Name "DDoS Peak Attack per Period Report 2"
-      | Template              | reportType:DefenseFlow Analytics , Widgets:[DDoS Peak Attack per Period], Protected Objects:[{deviceIndex:11}] |
+      | Template              | reportType:DefenseFlow Analytics , Widgets:[DDoS Peak Attack per Period], Protected Objects:[PO Name Space] |
       | Format                | Select: PDF                                                                                                    |
       | Logo                  | reportLogoPNG.png                                                                                              |
       | Time Definitions.Date | Absolute:[27.02.1971 01:00, +0d]                                                                               |
@@ -588,11 +588,11 @@ Feature:DefenseFlow Analytics
   Scenario:  DDoS Peak Attack per Period Report 3
     Then UI Click Button "New Report Tab"
     Given UI "Create" Report With Name "DDoS Peak Attack per Period Report 3"
-      | Template              | reportType:DefenseFlow Analytics , Widgets:[DDoS Peak Attack per Period], Protected Objects:[{deviceIndex:10}] |
+      | Template              | reportType:DefenseFlow Analytics , Widgets:[DDoS Peak Attack per Period], Protected Objects:[PO Name Space] |
       | Format                | Select: HTML                                                                                                   |
       | Time Definitions.Date | Quick:This Week                                                                                                |
     Then UI "Validate" Report With Name "DDoS Peak Attack per Period Report 3"
-      | Template              | reportType:DefenseFlow Analytics , Widgets:[DDoS Peak Attack per Period], Protected Objects:[{deviceIndex:10}] |
+      | Template              | reportType:DefenseFlow Analytics , Widgets:[DDoS Peak Attack per Period], Protected Objects:[PO Name Space] |
       | Format                | Select: HTML                                                                                                   |
       | Time Definitions.Date | Quick:This Week                                                                                                |
     Then UI Delete Report With Name "DDoS Peak Attack per Period Report 3"
@@ -635,14 +635,14 @@ Feature:DefenseFlow Analytics
   Scenario: DDoS Attack Activations per Period Report 2
     Then UI Click Button "New Report Tab"
     Given UI "Create" Report With Name "DDoS Attack Activations per Period Report 2"
-      | Template              | reportType:DefenseFlow Analytics , Widgets:[DDoS Attack Activations per Period], Protected Objects:[{deviceIndex:10},{deviceIndex:11}] |
+      | Template              | reportType:DefenseFlow Analytics , Widgets:[DDoS Attack Activations per Period], Protected Objects:[PO Name Space] |
       | Format                | Select: PDF                                                                                                                            |
       | Logo                  | reportLogoPNG.png                                                                                                                      |
       | Time Definitions.Date | Relative:[Weeks,2]                                                                                                                     |
       | Schedule              | Run Every:Weekly, On Time:+6H, At days:[THU]                                                                                           |
       | Share                 | Email:[automation.vision2@radware.com],Subject:myEdit subject,Body:myEdit body                                                         |
     Then UI "Validate" Report With Name "DDoS Attack Activations per Period Report 2"
-      | Template              | reportType:DefenseFlow Analytics , Widgets:[DDoS Attack Activations per Period], Protected Objects:[{deviceIndex:10},{deviceIndex:11}] |
+      | Template              | reportType:DefenseFlow Analytics , Widgets:[DDoS Attack Activations per Period], Protected Objects:[PO Name Space] |
       | Format                | Select: PDF                                                                                                                            |
       | Logo                  | reportLogoPNG.png                                                                                                                      |
       | Time Definitions.Date | Relative:[Weeks,2]                                                                                                                     |
@@ -654,12 +654,12 @@ Feature:DefenseFlow Analytics
   Scenario:  DDoS Attack Activations per Period Report 3
     Then UI Click Button "New Report Tab"
     Given UI "Create" Report With Name "DDoS Attack Activations per Period Report 3"
-      | Template              | reportType:DefenseFlow Analytics , Widgets:[DDoS Attack Activations per Period], Protected Objects:[{deviceIndex:10}] |
+      | Template              | reportType:DefenseFlow Analytics , Widgets:[DDoS Attack Activations per Period], Protected Objects:[PO Name Space] |
       | Format                | Select: HTML                                                                                                          |
       | Time Definitions.Date | Absolute:[27.02.1971 01:00, +0d]                                                                                      |
       | Schedule              | Run Every:Monthly, On Time:+6H, At Months:[MAY]                                                                       |
     Then UI "Validate" Report With Name "DDoS Attack Activations per Period Report 3"
-      | Template              | reportType:DefenseFlow Analytics , Widgets:[DDoS Attack Activations per Period], Protected Objects:[{deviceIndex:10}] |
+      | Template              | reportType:DefenseFlow Analytics , Widgets:[DDoS Attack Activations per Period], Protected Objects:[PO Name Space] |
       | Format                | Select: HTML                                                                                                          |
       | Time Definitions.Date | Absolute:[27.02.1971 01:00, +0d]                                                                                      |
       | Schedule              | Run Every:Monthly, On Time:+6H, At Months:[MAY]                                                                       |
@@ -703,14 +703,14 @@ Feature:DefenseFlow Analytics
   Scenario: Top 10 Activations by Duration Report 2
     Then UI Click Button "New Report Tab"
     Given UI "Create" Report With Name "Top 10 Activations by Duration Report 2"
-      | Template              | reportType:DefenseFlow Analytics , Widgets:[Top 10 Activations by Duration], Protected Objects:[{deviceIndex:10},{deviceIndex:11}] |
+      | Template              | reportType:DefenseFlow Analytics , Widgets:[Top 10 Activations by Duration], Protected Objects:[PO Name Space] |
       | Format                | Select: PDF                                                                                                                        |
       | Logo                  | reportLogoPNG.png                                                                                                                  |
       | Time Definitions.Date | Absolute:[27.02.1971 01:00, +0d]                                                                                                   |
       | Schedule              | Run Every:Monthly, On Time:+6H, At Months:[APR]                                                                                    |
       | Share                 | Email:[automation.vision2@radware.com],Subject:myEdit subject,Body:myEdit body                                                     |
     Then UI "Validate" Report With Name "Top 10 Activations by Duration Report 2"
-      | Template              | reportType:DefenseFlow Analytics , Widgets:[Top 10 Activations by Duration], Protected Objects:[{deviceIndex:10},{deviceIndex:11}] |
+      | Template              | reportType:DefenseFlow Analytics , Widgets:[Top 10 Activations by Duration], Protected Objects:[PO Name Space] |
       | Format                | Select: PDF                                                                                                                        |
       | Logo                  | reportLogoPNG.png                                                                                                                  |
       | Time Definitions.Date | Absolute:[27.02.1971 01:00, +0d]                                                                                                   |
@@ -722,11 +722,11 @@ Feature:DefenseFlow Analytics
   Scenario:  Top 10 Activations by Duration Report 3
     Then UI Click Button "New Report Tab"
     Given UI "Create" Report With Name "Top 10 Activations by Duration Report 3"
-      | Template              | reportType:DefenseFlow Analytics , Widgets:[Top 10 Activations by Duration], Protected Objects:[{deviceIndex:10}] |
+      | Template              | reportType:DefenseFlow Analytics , Widgets:[Top 10 Activations by Duration], Protected Objects:[PO Name Space] |
       | Format                | Select: HTML                                                                                                      |
       | Time Definitions.Date | Relative:[Weeks,2]                                                                                                |
     Then UI "Validate" Report With Name "Top 10 Activations by Duration Report 3"
-      | Template              | reportType:DefenseFlow Analytics , Widgets:[Top 10 Activations by Duration], Protected Objects:[{deviceIndex:10}] |
+      | Template              | reportType:DefenseFlow Analytics , Widgets:[Top 10 Activations by Duration], Protected Objects:[PO Name Space] |
       | Format                | Select: HTML                                                                                                      |
       | Time Definitions.Date | Relative:[Weeks,2]                                                                                                |
     Then UI Delete Report With Name "Top 10 Activations by Duration Report 3"
@@ -769,14 +769,14 @@ Feature:DefenseFlow Analytics
   Scenario: Top 10 Activations by Attack Rate (Gbps) Report 2
     Then UI Click Button "New Report Tab"
     Given UI "Create" Report With Name "Top 10 Activations by Attack Rate (Gbps) Report 2"
-      | Template              | reportType:DefenseFlow Analytics , Widgets:[Top 10 Activations by Attack Rate (Gbps)], Protected Objects:[{deviceIndex:10},{deviceIndex:11}] |
+      | Template              | reportType:DefenseFlow Analytics , Widgets:[Top 10 Activations by Attack Rate (Gbps)], Protected Objects:[PO Name Space] |
       | Format                | Select: PDF                                                                                                                                  |
       | Logo                  | reportLogoPNG.png                                                                                                                            |
       | Time Definitions.Date | Quick:This Month                                                                                                                             |
       | Schedule              | Run Every:Once, On Time:+6H                                                                                                                  |
       | Share                 | Email:[automation.vision2@radware.com],Subject:myEdit subject,Body:myEdit body                                                               |
     Then UI "Validate" Report With Name "Top 10 Activations by Attack Rate (Gbps) Report 2"
-      | Template              | reportType:DefenseFlow Analytics , Widgets:[Top 10 Activations by Attack Rate (Gbps)], Protected Objects:[{deviceIndex:10},{deviceIndex:11}] |
+      | Template              | reportType:DefenseFlow Analytics , Widgets:[Top 10 Activations by Attack Rate (Gbps)], Protected Objects:[PO Name Space] |
       | Format                | Select: PDF                                                                                                                                  |
       | Logo                  | reportLogoPNG.png                                                                                                                            |
       | Time Definitions.Date | Quick:This Month                                                                                                                             |
@@ -788,12 +788,12 @@ Feature:DefenseFlow Analytics
   Scenario:  Top 10 Activations by Attack Rate (Gbps) Report 3
     Then UI Click Button "New Report Tab"
     Given UI "Create" Report With Name "Top 10 Activations by Attack Rate (Gbps) Report 3"
-      | Template              | reportType:DefenseFlow Analytics , Widgets:[Top 10 Activations by Attack Rate (Gbps)], Protected Objects:[{deviceIndex:10}] |
+      | Template              | reportType:DefenseFlow Analytics , Widgets:[Top 10 Activations by Attack Rate (Gbps)], Protected Objects:[PO Name Space] |
       | Format                | Select: HTML                                                                                                                |
       | Time Definitions.Date | Absolute:[27.02.1971 01:00, +0d]                                                                                            |
       | Schedule              | Run Every:Monthly, On Time:+6H, At Months:[MAR]                                                                             |
     Then UI "Validate" Report With Name "Top 10 Activations by Attack Rate (Gbps) Report 3"
-      | Template              | reportType:DefenseFlow Analytics , Widgets:[Top 10 Activations by Attack Rate (Gbps)], Protected Objects:[{deviceIndex:10}] |
+      | Template              | reportType:DefenseFlow Analytics , Widgets:[Top 10 Activations by Attack Rate (Gbps)], Protected Objects:[PO Name Space] |
       | Format                | Select: HTML                                                                                                                |
       | Time Definitions.Date | Absolute:[27.02.1971 01:00, +0d]                                                                                            |
       | Schedule              | Run Every:Monthly, On Time:+6H, At Months:[MAR]                                                                             |
@@ -836,14 +836,14 @@ Feature:DefenseFlow Analytics
   Scenario: Top 10 Activations by Attack Rate (Mpps) Report 2
     Then UI Click Button "New Report Tab"
     Given UI "Create" Report With Name "Top 10 Activations by Attack Rate (Mpps) Report 2"
-      | Template              | reportType:DefenseFlow Analytics , Widgets:[Top 10 Activations by Attack Rate (Mpps)], Protected Objects:[{deviceIndex:10}] |
+      | Template              | reportType:DefenseFlow Analytics , Widgets:[Top 10 Activations by Attack Rate (Mpps)], Protected Objects:[PO Name Space] |
       | Format                | Select: PDF                                                                                                                 |
       | Logo                  | reportLogoPNG.png                                                                                                           |
       | Time Definitions.Date | Quick:This Week                                                                                                             |
       | Schedule              | Run Every:Monthly, On Time:+6H, At Months:[AUG]                                                                             |
       | Share                 | Email:[automation.vision2@radware.com],Subject:myEdit subject,Body:myEdit body                                              |
     Then UI "Validate" Report With Name "Top 10 Activations by Attack Rate (Mpps) Report 2"
-      | Template              | reportType:DefenseFlow Analytics , Widgets:[Top 10 Activations by Attack Rate (Mpps)], Protected Objects:[{deviceIndex:10}] |
+      | Template              | reportType:DefenseFlow Analytics , Widgets:[Top 10 Activations by Attack Rate (Mpps)], Protected Objects:[PO Name Space] |
       | Format                | Select: PDF                                                                                                                 |
       | Logo                  | reportLogoPNG.png                                                                                                           |
       | Time Definitions.Date | Quick:This Week                                                                                                             |
@@ -855,12 +855,12 @@ Feature:DefenseFlow Analytics
   Scenario:  Top 10 Activations by Attack Rate (Mpps) Report 3
     Then UI Click Button "New Report Tab"
     Given UI "Create" Report With Name "Top 10 Activations by Attack Rate (Mpps) Report 3"
-      | Template              | reportType:DefenseFlow Analytics , Widgets:[Top 10 Activations by Attack Rate (Mpps)], Protected Objects:[{deviceIndex:10},{deviceIndex:11}] |
+      | Template              | reportType:DefenseFlow Analytics , Widgets:[Top 10 Activations by Attack Rate (Mpps)], Protected Objects:[PO Name Space] |
       | Format                | Select: HTML                                                                                                                                 |
       | Time Definitions.Date | Absolute:[27.02.1971 01:00, +0d]                                                                                                             |
       | Schedule              | Run Every:Monthly, On Time:+6H, At Months:[MAR]                                                                                              |
     Then UI "Validate" Report With Name "Top 10 Activations by Attack Rate (Mpps) Report 3"
-      | Template              | reportType:DefenseFlow Analytics , Widgets:[Top 10 Activations by Attack Rate (Mpps)], Protected Objects:[{deviceIndex:10},{deviceIndex:11}] |
+      | Template              | reportType:DefenseFlow Analytics , Widgets:[Top 10 Activations by Attack Rate (Mpps)], Protected Objects:[PO Name Space] |
       | Format                | Select: HTML                                                                                                                                 |
       | Time Definitions.Date | Absolute:[27.02.1971 01:00, +0d]                                                                                                             |
       | Schedule              | Run Every:Monthly, On Time:+6H, At Months:[MAR]                                                                                              |
@@ -929,11 +929,11 @@ Feature:DefenseFlow Analytics
   Scenario: Widgets 3_7_8_11_13 Report 3
     Then UI Click Button "New Report Tab"
     Given UI "Create" Report With Name "Widgets 3_7_8_11_13 Report 3"
-      | Template              | reportType:DefenseFlow Analytics , Widgets:[{Traffic Bandwidth:[30]}, Top Attacks by Rate, Traffic Bandwidth, Traffic Rate, Top 10 Activations by Duration, Top 10 Activations by Attack Rate (Mpps)],  Protected Objects:[{deviceIndex:10},{deviceIndex:11}] |
+      | Template              | reportType:DefenseFlow Analytics , Widgets:[{Traffic Bandwidth:[30]}, Top Attacks by Rate, Traffic Bandwidth, Traffic Rate, Top 10 Activations by Duration, Top 10 Activations by Attack Rate (Mpps)],  Protected Objects:[PO Name Space] |
       | Format                | Select: HTML                                                                                                                                                                                                                                                  |
       | Time Definitions.Date | Quick:This Month                                                                                                                                                                                                                                              |
     Then UI "Validate" Report With Name "Widgets 3_7_8_11_13 Report 3"
-      | Template              | reportType:DefenseFlow Analytics , Widgets:[{Traffic Bandwidth:[30]}, Top Attacks by Rate, Traffic Bandwidth, Traffic Rate, Top 10 Activations by Duration, Top 10 Activations by Attack Rate (Mpps)],  Protected Objects:[{deviceIndex:10},{deviceIndex:11}] |
+      | Template              | reportType:DefenseFlow Analytics , Widgets:[{Traffic Bandwidth:[30]}, Top Attacks by Rate, Traffic Bandwidth, Traffic Rate, Top 10 Activations by Duration, Top 10 Activations by Attack Rate (Mpps)],  Protected Objects:[PO Name Space] |
       | Format                | Select: HTML                                                                                                                                                                                                                                                  |
       | Time Definitions.Date | Quick:This Month                                                                                                                                                                                                                                              |
     Then UI Delete Report With Name "Widgets 3_7_8_11_13 Report 3"
@@ -942,12 +942,12 @@ Feature:DefenseFlow Analytics
   Scenario: Widgets 3_7_8_11_13 Report 4
     Then UI Click Button "New Report Tab"
     Given UI "Create" Report With Name "Widgets 3_7_8_11_13 Report 4"
-      | Template              | reportType:DefenseFlow Analytics , Widgets:[{Traffic Bandwidth:[90]}, Top Attacks by Rate, Traffic Bandwidth, Traffic Rate, Top 10 Activations by Duration, Top 10 Activations by Attack Rate (Mpps)],  Protected Objects:[{deviceIndex:10}], showTable:true |
+      | Template              | reportType:DefenseFlow Analytics , Widgets:[{Traffic Bandwidth:[90]}, Top Attacks by Rate, Traffic Bandwidth, Traffic Rate, Top 10 Activations by Duration, Top 10 Activations by Attack Rate (Mpps)],  Protected Objects:[PO Name Space], showTable:true |
       | Format                | Select: HTML                                                                                                                                                                                                                                                 |
       | Time Definitions.Date | Quick:1H                                                                                                                                                                                                                                                     |
       | Schedule              | Run Every:Monthly, On Time:+6H, At Months:[MAR]                                                                                                                                                                                                              |
     Then UI "Validate" Report With Name "Widgets 3_7_8_11_13 Report 4"
-      | Template              | reportType:DefenseFlow Analytics , Widgets:[{Traffic Bandwidth:[90]}, Top Attacks by Rate, Traffic Bandwidth, Traffic Rate, Top 10 Activations by Duration, Top 10 Activations by Attack Rate (Mpps)],  Protected Objects:[{deviceIndex:10}], showTable:true |
+      | Template              | reportType:DefenseFlow Analytics , Widgets:[{Traffic Bandwidth:[90]}, Top Attacks by Rate, Traffic Bandwidth, Traffic Rate, Top 10 Activations by Duration, Top 10 Activations by Attack Rate (Mpps)],  Protected Objects:[PO Name Space], showTable:true |
       | Format                | Select: HTML                                                                                                                                                                                                                                                 |
       | Time Definitions.Date | Quick:1H                                                                                                                                                                                                                                                     |
       | Schedule              | Run Every:Monthly, On Time:+6H, At Months:[MAR]                                                                                                                                                                                                              |
@@ -974,14 +974,14 @@ Feature:DefenseFlow Analytics
   Scenario: Widgets 1_4_6_8_9_11_12_13 Report 2
     Then UI Click Button "New Report Tab"
     Given UI "Create" Report With Name "Widgets 1_4_6_7_8_9_11_12_13 Report 2"
-      | Template              | reportType:DefenseFlow Analytics , Widgets:[Top Attacks by Duration, Top Attacks by Protocol, Top Attack Sources, Traffic Rate, DDoS Peak Attack per Period, Top 10 Activations by Duration, Top 10 Activations by Attack Rate (Gbps), Top 10 Activations by Attack Rate (Mpps)],  Protected Objects:[{deviceIndex:10}] |
+      | Template              | reportType:DefenseFlow Analytics , Widgets:[Top Attacks by Duration, Top Attacks by Protocol, Top Attack Sources, Traffic Rate, DDoS Peak Attack per Period, Top 10 Activations by Duration, Top 10 Activations by Attack Rate (Gbps), Top 10 Activations by Attack Rate (Mpps)],  Protected Objects:[PO Name Space] |
       | Format                | Select: PDF                                                                                                                                                                                                                                                                                                             |
       | Logo                  | reportLogoPNG.png                                                                                                                                                                                                                                                                                                       |
       | Time Definitions.Date | Quick:This Week                                                                                                                                                                                                                                                                                                         |
       | Schedule              | Run Every:Monthly, On Time:+6H, At Months:[AUG]                                                                                                                                                                                                                                                                         |
       | Share                 | Email:[automation.vision2@radware.com],Subject:myEdit subject,Body:myEdit body                                                                                                                                                                                                                                          |
     Then UI "Validate" Report With Name "Widgets 1_4_6_7_8_9_11_12_13 Report 2"
-      | Template              | reportType:DefenseFlow Analytics , Widgets:[Top Attacks by Duration, Top Attacks by Protocol, Top Attack Sources, Traffic Rate, DDoS Peak Attack per Period, Top 10 Activations by Duration, Top 10 Activations by Attack Rate (Gbps), Top 10 Activations by Attack Rate (Mpps)],  Protected Objects:[{deviceIndex:10}] |
+      | Template              | reportType:DefenseFlow Analytics , Widgets:[Top Attacks by Duration, Top Attacks by Protocol, Top Attack Sources, Traffic Rate, DDoS Peak Attack per Period, Top 10 Activations by Duration, Top 10 Activations by Attack Rate (Gbps), Top 10 Activations by Attack Rate (Mpps)],  Protected Objects:[PO Name Space] |
       | Format                | Select: PDF                                                                                                                                                                                                                                                                                                             |
       | Logo                  | reportLogoPNG.png                                                                                                                                                                                                                                                                                                       |
       | Time Definitions.Date | Quick:This Week                                                                                                                                                                                                                                                                                                         |
@@ -993,12 +993,12 @@ Feature:DefenseFlow Analytics
   Scenario:  Widgets 1_4_6_8_9_11_12_13 Report 3
     Then UI Click Button "New Report Tab"
     Given UI "Create" Report With Name "Widgets 1_4_6_7_8_9_11_12_13 Report 3"
-      | Template              | reportType:DefenseFlow Analytics , Widgets:[Top Attacks by Duration, Top Attacks by Protocol, Top Attack Sources, Traffic Rate, DDoS Peak Attack per Period, Top 10 Activations by Duration, Top 10 Activations by Attack Rate (Gbps), Top 10 Activations by Attack Rate (Mpps)],  Protected Objects:[{deviceIndex:10},{deviceIndex:11}] |
+      | Template              | reportType:DefenseFlow Analytics , Widgets:[Top Attacks by Duration, Top Attacks by Protocol, Top Attack Sources, Traffic Rate, DDoS Peak Attack per Period, Top 10 Activations by Duration, Top 10 Activations by Attack Rate (Gbps), Top 10 Activations by Attack Rate (Mpps)],  Protected Objects:[PO Name Space] |
       | Format                | Select: HTML                                                                                                                                                                                                                                                                                                                             |
       | Time Definitions.Date | Absolute:[27.02.1971 01:00, +0d]                                                                                                                                                                                                                                                                                                         |
       | Schedule              | Run Every:Monthly, On Time:+6H, At Months:[MAR]                                                                                                                                                                                                                                                                                          |
     Then UI "Validate" Report With Name "Widgets 1_4_6_7_8_9_11_12_13 Report 3"
-      | Template              | reportType:DefenseFlow Analytics , Widgets:[Top Attacks by Duration, Top Attacks by Protocol, Top Attack Sources, Traffic Rate, DDoS Peak Attack per Period, Top 10 Activations by Duration, Top 10 Activations by Attack Rate (Gbps), Top 10 Activations by Attack Rate (Mpps)],  Protected Objects:[{deviceIndex:10},{deviceIndex:11}] |
+      | Template              | reportType:DefenseFlow Analytics , Widgets:[Top Attacks by Duration, Top Attacks by Protocol, Top Attack Sources, Traffic Rate, DDoS Peak Attack per Period, Top 10 Activations by Duration, Top 10 Activations by Attack Rate (Gbps), Top 10 Activations by Attack Rate (Mpps)],  Protected Objects:[PO Name Space] |
       | Format                | Select: HTML                                                                                                                                                                                                                                                                                                                             |
       | Time Definitions.Date | Absolute:[27.02.1971 01:00, +0d]                                                                                                                                                                                                                                                                                                         |
       | Schedule              | Run Every:Monthly, On Time:+6H, At Months:[MAR]                                                                                                                                                                                                                                                                                          |
@@ -1042,14 +1042,14 @@ Feature:DefenseFlow Analytics
   Scenario: Widgets 1_2_4_5_6_10 Report 2
     Then UI Click Button "New Report Tab"
     Given UI "Create" Report With Name "Widgets 1_2_4_5_6_7_10 Report 2"
-      | Template              | reportType:DefenseFlow Analytics , Widgets:[Top Attacks by Duration, Top Attacks by Count, Top Attacks by Protocol, Top Attack Destination, Top Attack Sources, DDoS Attack Activations per Period],  Protected Objects:[{deviceIndex:10}] |
+      | Template              | reportType:DefenseFlow Analytics , Widgets:[Top Attacks by Duration, Top Attacks by Count, Top Attacks by Protocol, Top Attack Destination, Top Attack Sources, DDoS Attack Activations per Period],  Protected Objects:[PO Name Space] |
       | Format                | Select: PDF                                                                                                                                                                                                                                |
       | Logo                  | reportLogoPNG.png                                                                                                                                                                                                                          |
       | Time Definitions.Date | Quick:This Week                                                                                                                                                                                                                            |
       | Schedule              | Run Every:Monthly, On Time:+6H, At Months:[AUG]                                                                                                                                                                                            |
       | Share                 | Email:[automation.vision2@radware.com],Subject:myEdit subject,Body:myEdit body                                                                                                                                                             |
     Then UI "Validate" Report With Name "Widgets 1_2_4_5_6_7_10 Report 2"
-      | Template              | reportType:DefenseFlow Analytics , Widgets:[Top Attacks by Duration, Top Attacks by Count, Top Attacks by Protocol, Top Attack Destination, Top Attack Sources, DDoS Attack Activations per Period],  Protected Objects:[{deviceIndex:10}] |
+      | Template              | reportType:DefenseFlow Analytics , Widgets:[Top Attacks by Duration, Top Attacks by Count, Top Attacks by Protocol, Top Attack Destination, Top Attack Sources, DDoS Attack Activations per Period],  Protected Objects:[PO Name Space] |
       | Format                | Select: PDF                                                                                                                                                                                                                                |
       | Logo                  | reportLogoPNG.png                                                                                                                                                                                                                          |
       | Time Definitions.Date | Quick:This Week                                                                                                                                                                                                                            |
@@ -1061,12 +1061,12 @@ Feature:DefenseFlow Analytics
   Scenario:  Widgets 1_2_4_5_6_10 Report 3
     Then UI Click Button "New Report Tab"
     Given UI "Create" Report With Name "Widgets 1_2_4_5_6_7_10 Report 3"
-      | Template              | reportType:DefenseFlow Analytics , Widgets:[Top Attacks by Duration, Top Attacks by Count, Top Attacks by Protocol, Top Attack Destination, Top Attack Sources, DDoS Attack Activations per Period],  Protected Objects:[{deviceIndex:10},{deviceIndex:11}] |
+      | Template              | reportType:DefenseFlow Analytics , Widgets:[Top Attacks by Duration, Top Attacks by Count, Top Attacks by Protocol, Top Attack Destination, Top Attack Sources, DDoS Attack Activations per Period],  Protected Objects:[PO Name Space] |
       | Format                | Select: HTML                                                                                                                                                                                                                                                |
       | Time Definitions.Date | Absolute:[27.02.1971 01:00, +0d]                                                                                                                                                                                                                            |
       | Schedule              | Run Every:Monthly, On Time:+6H, At Months:[MAR]                                                                                                                                                                                                             |
     Then UI "Validate" Report With Name "Widgets 1_2_4_5_6_7_10 Report 3"
-      | Template              | reportType:DefenseFlow Analytics , Widgets:[Top Attacks by Duration, Top Attacks by Count, Top Attacks by Protocol, Top Attack Destination, Top Attack Sources, DDoS Attack Activations per Period],  Protected Objects:[{deviceIndex:10},{deviceIndex:11}] |
+      | Template              | reportType:DefenseFlow Analytics , Widgets:[Top Attacks by Duration, Top Attacks by Count, Top Attacks by Protocol, Top Attack Destination, Top Attack Sources, DDoS Attack Activations per Period],  Protected Objects:[PO Name Space] |
       | Format                | Select: HTML                                                                                                                                                                                                                                                |
       | Time Definitions.Date | Absolute:[27.02.1971 01:00, +0d]                                                                                                                                                                                                                            |
       | Schedule              | Run Every:Monthly, On Time:+6H, At Months:[MAR]                                                                                                                                                                                                             |
@@ -1110,14 +1110,14 @@ Feature:DefenseFlow Analytics
   Scenario: Widgets 3_7_10_11_12_13 Report 2
     Then UI Click Button "New Report Tab"
     Given UI "Create" Report With Name "Widgets 3_7_10_11_12_13 Report 2"
-      | Template              | reportType:DefenseFlow Analytics , Widgets:[{Traffic Bandwidth:[35]},Top Attacks by Rate, Traffic Bandwidth, DDoS Attack Activations per Period, Top 10 Activations by Duration, Top 10 Activations by Attack Rate (Gbps), Top 10 Activations by Attack Rate (Mpps)],  Protected Objects:[{deviceIndex:10}] |
+      | Template              | reportType:DefenseFlow Analytics , Widgets:[{Traffic Bandwidth:[35]},Top Attacks by Rate, Traffic Bandwidth, DDoS Attack Activations per Period, Top 10 Activations by Duration, Top 10 Activations by Attack Rate (Gbps), Top 10 Activations by Attack Rate (Mpps)],  Protected Objects:[PO Name Space] |
       | Format                | Select: PDF                                                                                                                                                                                                                                                                                                 |
       | Logo                  | reportLogoPNG.png                                                                                                                                                                                                                                                                                           |
       | Time Definitions.Date | Quick:This Month                                                                                                                                                                                                                                                                                            |
       | Schedule              | Run Every:Once, On Time:+6H                                                                                                                                                                                                                                                                                 |
       | Share                 | Email:[automation.vision2@radware.com],Subject:myEdit subject,Body:myEdit body                                                                                                                                                                                                                              |
     Then UI "Validate" Report With Name "Widgets 3_7_10_11_12_13 Report 2"
-      | Template              | reportType:DefenseFlow Analytics , Widgets:[{Traffic Bandwidth:[35]},Top Attacks by Rate, Traffic Bandwidth, DDoS Attack Activations per Period, Top 10 Activations by Duration, Top 10 Activations by Attack Rate (Gbps), Top 10 Activations by Attack Rate (Mpps)],  Protected Objects:[{deviceIndex:10}] |
+      | Template              | reportType:DefenseFlow Analytics , Widgets:[{Traffic Bandwidth:[35]},Top Attacks by Rate, Traffic Bandwidth, DDoS Attack Activations per Period, Top 10 Activations by Duration, Top 10 Activations by Attack Rate (Gbps), Top 10 Activations by Attack Rate (Mpps)],  Protected Objects:[PO Name Space] |
       | Format                | Select: PDF                                                                                                                                                                                                                                                                                                 |
       | Logo                  | reportLogoPNG.png                                                                                                                                                                                                                                                                                           |
       | Time Definitions.Date | Quick:This Month                                                                                                                                                                                                                                                                                            |
@@ -1129,12 +1129,12 @@ Feature:DefenseFlow Analytics
   Scenario:  Widgets 3_7_10_11_12_13 Report 3
     Then UI Click Button "New Report Tab"
     Given UI "Create" Report With Name "Widgets 3_7_10_11_12_13 Report 3"
-      | Template              | reportType:DefenseFlow Analytics , Widgets:[{Traffic Bandwidth:[40]},Top Attacks by Rate, Traffic Bandwidth, DDoS Attack Activations per Period, Top 10 Activations by Duration, Top 10 Activations by Attack Rate (Gbps), Top 10 Activations by Attack Rate (Mpps)],  Protected Objects:[{deviceIndex:10},{deviceIndex:11}] |
+      | Template              | reportType:DefenseFlow Analytics , Widgets:[{Traffic Bandwidth:[40]},Top Attacks by Rate, Traffic Bandwidth, DDoS Attack Activations per Period, Top 10 Activations by Duration, Top 10 Activations by Attack Rate (Gbps), Top 10 Activations by Attack Rate (Mpps)],  Protected Objects:[PO Name Space] |
       | Format                | Select: HTML                                                                                                                                                                                                                                                                                                                 |
       | Time Definitions.Date | Absolute:[27.02.1971 01:00, +0d]                                                                                                                                                                                                                                                                                             |
       | Schedule              | Run Every:Monthly, On Time:+6H, At Months:[MAR]                                                                                                                                                                                                                                                                              |
     Then UI "Validate" Report With Name "Widgets 3_7_10_11_12_13 Report 3"
-      | Template              | reportType:DefenseFlow Analytics , Widgets:[{Traffic Bandwidth:[40]},Top Attacks by Rate, Traffic Bandwidth, DDoS Attack Activations per Period, Top 10 Activations by Duration, Top 10 Activations by Attack Rate (Gbps), Top 10 Activations by Attack Rate (Mpps)],  Protected Objects:[{deviceIndex:10},{deviceIndex:11}] |
+      | Template              | reportType:DefenseFlow Analytics , Widgets:[{Traffic Bandwidth:[40]},Top Attacks by Rate, Traffic Bandwidth, DDoS Attack Activations per Period, Top 10 Activations by Duration, Top 10 Activations by Attack Rate (Gbps), Top 10 Activations by Attack Rate (Mpps)],  Protected Objects:[PO Name Space] |
       | Format                | Select: HTML                                                                                                                                                                                                                                                                                                                 |
       | Time Definitions.Date | Absolute:[27.02.1971 01:00, +0d]                                                                                                                                                                                                                                                                                             |
       | Schedule              | Run Every:Monthly, On Time:+6H, At Months:[MAR]                                                                                                                                                                                                                                                                              |
@@ -1181,14 +1181,14 @@ Feature:DefenseFlow Analytics
   Scenario: Widgets 3_4_5_6_7_8_9_13 Report 2
     Then UI Click Button "New Report Tab"
     Given UI "Create" Report With Name "Widgets 3_4_5_6_7_8_9_13 Report 2"
-      | Template              | reportType:DefenseFlow Analytics , Widgets:[{Traffic Bandwidth:[15]}, Top Attacks by Rate, Top Attacks by Protocol, Top Attack Destination, Top Attack Sources, Traffic Bandwidth, Traffic Rate, DDoS Peak Attack per Period, Top 10 Activations by Attack Rate (Mpps)],  Protected Objects:[{deviceIndex:10}] |
+      | Template              | reportType:DefenseFlow Analytics , Widgets:[{Traffic Bandwidth:[15]}, Top Attacks by Rate, Top Attacks by Protocol, Top Attack Destination, Top Attack Sources, Traffic Bandwidth, Traffic Rate, DDoS Peak Attack per Period, Top 10 Activations by Attack Rate (Mpps)],  Protected Objects:[PO Name Space] |
       | Format                | Select: PDF                                                                                                                                                                                                                                                                                                    |
       | Logo                  | reportLogoPNG.png                                                                                                                                                                                                                                                                                              |
       | Time Definitions.Date | Quick:3M                                                                                                                                                                                                                                                                                                       |
       | Schedule              | Run Every:Monthly, On Time:+6H, At Months:[DEC]                                                                                                                                                                                                                                                                |
       | Share                 | Email:[automation.vision2@radware.com],Subject:myEdit subject,Body:myEdit body                                                                                                                                                                                                                                 |
     Then UI "Validate" Report With Name "Widgets 3_4_5_6_7_8_9_13 Report 2"
-      | Template              | reportType:DefenseFlow Analytics , Widgets:[{Traffic Bandwidth:[15]}, Top Attacks by Rate, Top Attacks by Protocol, Top Attack Destination, Top Attack Sources, Traffic Bandwidth, Traffic Rate, DDoS Peak Attack per Period, Top 10 Activations by Attack Rate (Mpps)],  Protected Objects:[{deviceIndex:10}] |
+      | Template              | reportType:DefenseFlow Analytics , Widgets:[{Traffic Bandwidth:[15]}, Top Attacks by Rate, Top Attacks by Protocol, Top Attack Destination, Top Attack Sources, Traffic Bandwidth, Traffic Rate, DDoS Peak Attack per Period, Top 10 Activations by Attack Rate (Mpps)],  Protected Objects:[PO Name Space] |
       | Format                | Select: PDF                                                                                                                                                                                                                                                                                                    |
       | Logo                  | reportLogoPNG.png                                                                                                                                                                                                                                                                                              |
       | Time Definitions.Date | Quick:3M                                                                                                                                                                                                                                                                                                       |
@@ -1200,11 +1200,11 @@ Feature:DefenseFlow Analytics
   Scenario:  Widgets 3_4_5_6_7_8_9_13 Report 3
     Then UI Click Button "New Report Tab"
     Given UI "Create" Report With Name "Widgets 3_4_5_6_7_8_9_13 Report 3"
-      | Template              | reportType:DefenseFlow Analytics , Widgets:[{Traffic Bandwidth:[25]}, Top Attacks by Rate, Top Attacks by Protocol, Top Attack Destination, Top Attack Sources, Traffic Bandwidth, Traffic Rate, DDoS Peak Attack per Period, Top 10 Activations by Attack Rate (Mpps)],  Protected Objects:[{deviceIndex:10},{deviceIndex:11}] |
+      | Template              | reportType:DefenseFlow Analytics , Widgets:[{Traffic Bandwidth:[25]}, Top Attacks by Rate, Top Attacks by Protocol, Top Attack Destination, Top Attack Sources, Traffic Bandwidth, Traffic Rate, DDoS Peak Attack per Period, Top 10 Activations by Attack Rate (Mpps)],  Protected Objects:[PO Name Space] |
       | Format                | Select: HTML                                                                                                                                                                                                                                                                                                                    |
       | Time Definitions.Date | Quick:This Month                                                                                                                                                                                                                                                                                                                |
     Then UI "Validate" Report With Name "Widgets 3_4_5_6_7_8_9_13 Report 3"
-      | Template              | reportType:DefenseFlow Analytics , Widgets:[{Traffic Bandwidth:[25]}, Top Attacks by Rate, Top Attacks by Protocol, Top Attack Destination, Top Attack Sources, Traffic Bandwidth, Traffic Rate, DDoS Peak Attack per Period, Top 10 Activations by Attack Rate (Mpps)],  Protected Objects:[{deviceIndex:10},{deviceIndex:11}] |
+      | Template              | reportType:DefenseFlow Analytics , Widgets:[{Traffic Bandwidth:[25]}, Top Attacks by Rate, Top Attacks by Protocol, Top Attack Destination, Top Attack Sources, Traffic Bandwidth, Traffic Rate, DDoS Peak Attack per Period, Top 10 Activations by Attack Rate (Mpps)],  Protected Objects:[PO Name Space] |
       | Format                | Select: HTML                                                                                                                                                                                                                                                                                                                    |
       | Time Definitions.Date | Quick:This Month                                                                                                                                                                                                                                                                                                                |
     Then UI Delete Report With Name "Widgets 3_4_5_6_7_8_9_13 Report 3"
@@ -1248,14 +1248,14 @@ Feature:DefenseFlow Analytics
   Scenario: Widgets 1_2_6_11_12_13 Report 2
     Then UI Click Button "New Report Tab"
     Given UI "Create" Report With Name "Widgets 1_4_6_7_8_9_11_12_13 Report 2"
-      | Template              | reportType:DefenseFlow Analytics , Widgets:[Top Attacks by Duration, Top Attacks by Count, Top Attack Sources, Top 10 Activations by Duration, Top 10 Activations by Attack Rate (Gbps), Top 10 Activations by Attack Rate (Mpps)],  Protected Objects:[{deviceIndex:10}] |
+      | Template              | reportType:DefenseFlow Analytics , Widgets:[Top Attacks by Duration, Top Attacks by Count, Top Attack Sources, Top 10 Activations by Duration, Top 10 Activations by Attack Rate (Gbps), Top 10 Activations by Attack Rate (Mpps)],  Protected Objects:[PO Name Space] |
       | Format                | Select: PDF                                                                                                                                                                                                                                                               |
       | Logo                  | reportLogoPNG.png                                                                                                                                                                                                                                                         |
       | Time Definitions.Date | Quick:This Week                                                                                                                                                                                                                                                           |
       | Schedule              | Run Every:Monthly, On Time:+6H, At Months:[AUG]                                                                                                                                                                                                                           |
       | Share                 | Email:[automation.vision2@radware.com],Subject:myEdit subject,Body:myEdit body                                                                                                                                                                                            |
     Then UI "Validate" Report With Name "Widgets 1_4_6_7_8_9_11_12_13 Report 2"
-      | Template              | reportType:DefenseFlow Analytics , Widgets:[Top Attacks by Duration, Top Attacks by Count, Top Attack Sources, Top 10 Activations by Duration, Top 10 Activations by Attack Rate (Gbps), Top 10 Activations by Attack Rate (Mpps)],  Protected Objects:[{deviceIndex:10}] |
+      | Template              | reportType:DefenseFlow Analytics , Widgets:[Top Attacks by Duration, Top Attacks by Count, Top Attack Sources, Top 10 Activations by Duration, Top 10 Activations by Attack Rate (Gbps), Top 10 Activations by Attack Rate (Mpps)],  Protected Objects:[PO Name Space] |
       | Format                | Select: PDF                                                                                                                                                                                                                                                               |
       | Logo                  | reportLogoPNG.png                                                                                                                                                                                                                                                         |
       | Time Definitions.Date | Quick:This Week                                                                                                                                                                                                                                                           |
@@ -1267,12 +1267,12 @@ Feature:DefenseFlow Analytics
   Scenario:  Widgets 1_2_6_11_12_13 Report 3
     Then UI Click Button "New Report Tab"
     Given UI "Create" Report With Name "Widgets 1_4_6_7_8_9_11_12_13 Report 3"
-      | Template              | reportType:DefenseFlow Analytics , Widgets:[Top Attacks by Duration, Top Attacks by Count, Top Attack Sources, Top 10 Activations by Duration, Top 10 Activations by Attack Rate (Gbps), Top 10 Activations by Attack Rate (Mpps)],  Protected Objects:[{deviceIndex:10},{deviceIndex:11}] |
+      | Template              | reportType:DefenseFlow Analytics , Widgets:[Top Attacks by Duration, Top Attacks by Count, Top Attack Sources, Top 10 Activations by Duration, Top 10 Activations by Attack Rate (Gbps), Top 10 Activations by Attack Rate (Mpps)],  Protected Objects:[PO Name Space] |
       | Format                | Select: HTML                                                                                                                                                                                                                                                                               |
       | Time Definitions.Date | Absolute:[27.02.1971 01:00, +0d]                                                                                                                                                                                                                                                           |
       | Schedule              | Run Every:Monthly, On Time:+6H, At Months:[MAR]                                                                                                                                                                                                                                            |
     Then UI "Validate" Report With Name "Widgets 1_4_6_7_8_9_11_12_13 Report 3"
-      | Template              | reportType:DefenseFlow Analytics , Widgets:[Top Attacks by Duration, Top Attacks by Count, Top Attack Sources, Top 10 Activations by Duration, Top 10 Activations by Attack Rate (Gbps), Top 10 Activations by Attack Rate (Mpps)],  Protected Objects:[{deviceIndex:10},{deviceIndex:11}] |
+      | Template              | reportType:DefenseFlow Analytics , Widgets:[Top Attacks by Duration, Top Attacks by Count, Top Attack Sources, Top 10 Activations by Duration, Top 10 Activations by Attack Rate (Gbps), Top 10 Activations by Attack Rate (Mpps)],  Protected Objects:[PO Name Space] |
       | Format                | Select: HTML                                                                                                                                                                                                                                                                               |
       | Time Definitions.Date | Absolute:[27.02.1971 01:00, +0d]                                                                                                                                                                                                                                                           |
       | Schedule              | Run Every:Monthly, On Time:+6H, At Months:[MAR]                                                                                                                                                                                                                                            |
@@ -1316,14 +1316,14 @@ Feature:DefenseFlow Analytics
   Scenario: Widgets 4_5_6_7_8_9_10_11_12_13 Report 2
     Then UI Click Button "New Report Tab"
     Given UI "Create" Report With Name "Widgets 4_5_6_7_8_9_10_11_12_13 Report 2"
-      | Template              | reportType:DefenseFlow Analytics , Widgets:[{Traffic Bandwidth:[15]}, Top Attacks by Protocol, Top Attack Destination, Top Attack Sources, Traffic Bandwidth, Traffic Rate, DDoS Peak Attack per Period, DDoS Attack Activations per Period, Top 10 Activations by Duration, Top 10 Activations by Attack Rate (Gbps), Top 10 Activations by Attack Rate (Mpps)],  Protected Objects:[{deviceIndex:10}] |
+      | Template              | reportType:DefenseFlow Analytics , Widgets:[{Traffic Bandwidth:[15]}, Top Attacks by Protocol, Top Attack Destination, Top Attack Sources, Traffic Bandwidth, Traffic Rate, DDoS Peak Attack per Period, DDoS Attack Activations per Period, Top 10 Activations by Duration, Top 10 Activations by Attack Rate (Gbps), Top 10 Activations by Attack Rate (Mpps)],  Protected Objects:[PO Name Space] |
       | Format                | Select: PDF                                                                                                                                                                                                                                                                                                                                                                                             |
       | Logo                  | reportLogoPNG.png                                                                                                                                                                                                                                                                                                                                                                                       |
       | Time Definitions.Date | Quick:This Week                                                                                                                                                                                                                                                                                                                                                                                         |
       | Schedule              | Run Every:Monthly, On Time:+6H, At Months:[AUG]                                                                                                                                                                                                                                                                                                                                                         |
       | Share                 | Email:[automation.vision2@radware.com],Subject:myEdit subject,Body:myEdit body                                                                                                                                                                                                                                                                                                                          |
     Then UI "Validate" Report With Name "Widgets 4_5_6_7_8_9_10_11_12_13 Report 2"
-      | Template              | reportType:DefenseFlow Analytics , Widgets:[{Traffic Bandwidth:[15]}, Top Attacks by Protocol, Top Attack Destination, Top Attack Sources, Traffic Bandwidth, Traffic Rate, DDoS Peak Attack per Period, DDoS Attack Activations per Period, Top 10 Activations by Duration, Top 10 Activations by Attack Rate (Gbps), Top 10 Activations by Attack Rate (Mpps)],  Protected Objects:[{deviceIndex:10}] |
+      | Template              | reportType:DefenseFlow Analytics , Widgets:[{Traffic Bandwidth:[15]}, Top Attacks by Protocol, Top Attack Destination, Top Attack Sources, Traffic Bandwidth, Traffic Rate, DDoS Peak Attack per Period, DDoS Attack Activations per Period, Top 10 Activations by Duration, Top 10 Activations by Attack Rate (Gbps), Top 10 Activations by Attack Rate (Mpps)],  Protected Objects:[PO Name Space] |
       | Format                | Select: PDF                                                                                                                                                                                                                                                                                                                                                                                             |
       | Logo                  | reportLogoPNG.png                                                                                                                                                                                                                                                                                                                                                                                       |
       | Time Definitions.Date | Quick:This Week                                                                                                                                                                                                                                                                                                                                                                                         |
@@ -1335,12 +1335,12 @@ Feature:DefenseFlow Analytics
   Scenario:  Widgets 4_5_6_7_8_9_10_11_12_13 Report 3
     Then UI Click Button "New Report Tab"
     Given UI "Create" Report With Name "Widgets 4_5_6_7_8_9_10_11_12_13 Report 3"
-      | Template              | reportType:DefenseFlow Analytics , Widgets:[{Traffic Bandwidth:[25]}, Top Attacks by Protocol, Top Attack Destination, Top Attack Sources, Traffic Bandwidth, Traffic Rate, DDoS Peak Attack per Period, DDoS Attack Activations per Period, Top 10 Activations by Duration, Top 10 Activations by Attack Rate (Gbps), Top 10 Activations by Attack Rate (Mpps)],  Protected Objects:[{deviceIndex:10},{deviceIndex:11}] |
+      | Template              | reportType:DefenseFlow Analytics , Widgets:[{Traffic Bandwidth:[25]}, Top Attacks by Protocol, Top Attack Destination, Top Attack Sources, Traffic Bandwidth, Traffic Rate, DDoS Peak Attack per Period, DDoS Attack Activations per Period, Top 10 Activations by Duration, Top 10 Activations by Attack Rate (Gbps), Top 10 Activations by Attack Rate (Mpps)],  Protected Objects:[PO Name Space] |
       | Format                | Select: HTML                                                                                                                                                                                                                                                                                                                                                                                                             |
       | Time Definitions.Date | Absolute:[27.02.1971 01:00, +0d]                                                                                                                                                                                                                                                                                                                                                                                         |
       | Schedule              | Run Every:Monthly, On Time:+6H, At Months:[MAR]                                                                                                                                                                                                                                                                                                                                                                          |
     Then UI "Validate" Report With Name "Widgets 4_5_6_7_8_9_10_11_12_13 Report 3"
-      | Template              | reportType:DefenseFlow Analytics , Widgets:[{Traffic Bandwidth:[25]}, Top Attacks by Protocol, Top Attack Destination, Top Attack Sources, Traffic Bandwidth, Traffic Rate, DDoS Peak Attack per Period, DDoS Attack Activations per Period, Top 10 Activations by Duration, Top 10 Activations by Attack Rate (Gbps), Top 10 Activations by Attack Rate (Mpps)],  Protected Objects:[{deviceIndex:10},{deviceIndex:11}] |
+      | Template              | reportType:DefenseFlow Analytics , Widgets:[{Traffic Bandwidth:[25]}, Top Attacks by Protocol, Top Attack Destination, Top Attack Sources, Traffic Bandwidth, Traffic Rate, DDoS Peak Attack per Period, DDoS Attack Activations per Period, Top 10 Activations by Duration, Top 10 Activations by Attack Rate (Gbps), Top 10 Activations by Attack Rate (Mpps)],  Protected Objects:[PO Name Space] |
       | Format                | Select: HTML                                                                                                                                                                                                                                                                                                                                                                                                             |
       | Time Definitions.Date | Absolute:[27.02.1971 01:00, +0d]                                                                                                                                                                                                                                                                                                                                                                                         |
       | Schedule              | Run Every:Monthly, On Time:+6H, At Months:[MAR]                                                                                                                                                                                                                                                                                                                                                                          |
@@ -1384,14 +1384,14 @@ Feature:DefenseFlow Analytics
   Scenario: Widgets 1_2_3_4_5_6_7_10 Report 2
     Then UI Click Button "New Report Tab"
     Given UI "Create" Report With Name "Widgets 1_2_3_4_5_6_7_10 Report 2"
-      | Template              | reportType:DefenseFlow Analytics , Widgets:[{Traffic Bandwidth:[15]}, Top Attacks by Duration, Top Attacks by Count, Top Attacks by Rate, Top Attacks by Protocol, Top Attack Destination, Top Attack Sources, Traffic Bandwidth, DDoS Attack Activations per Period],  Protected Objects:[{deviceIndex:10}] |
+      | Template              | reportType:DefenseFlow Analytics , Widgets:[{Traffic Bandwidth:[15]}, Top Attacks by Duration, Top Attacks by Count, Top Attacks by Rate, Top Attacks by Protocol, Top Attack Destination, Top Attack Sources, Traffic Bandwidth, DDoS Attack Activations per Period],  Protected Objects:[PO Name Space] |
       | Format                | Select: PDF                                                                                                                                                                                                                                                                                                  |
       | Logo                  | reportLogoPNG.png                                                                                                                                                                                                                                                                                            |
       | Time Definitions.Date | Quick:This Month                                                                                                                                                                                                                                                                                             |
       | Schedule              | Run Every:Once, On Time:+6H                                                                                                                                                                                                                                                                                  |
       | Share                 | Email:[automation.vision2@radware.com],Subject:myEdit subject,Body:myEdit body                                                                                                                                                                                                                               |
     Then UI "Validate" Report With Name "Widgets 1_2_3_4_5_6_7_10 Report 2"
-      | Template              | reportType:DefenseFlow Analytics , Widgets:[{Traffic Bandwidth:[15]}, Top Attacks by Duration, Top Attacks by Count, Top Attacks by Rate, Top Attacks by Protocol, Top Attack Destination, Top Attack Sources, Traffic Bandwidth, DDoS Attack Activations per Period],  Protected Objects:[{deviceIndex:10}] |
+      | Template              | reportType:DefenseFlow Analytics , Widgets:[{Traffic Bandwidth:[15]}, Top Attacks by Duration, Top Attacks by Count, Top Attacks by Rate, Top Attacks by Protocol, Top Attack Destination, Top Attack Sources, Traffic Bandwidth, DDoS Attack Activations per Period],  Protected Objects:[PO Name Space] |
       | Format                | Select: PDF                                                                                                                                                                                                                                                                                                  |
       | Logo                  | reportLogoPNG.png                                                                                                                                                                                                                                                                                            |
       | Time Definitions.Date | Quick:This Month                                                                                                                                                                                                                                                                                             |
@@ -1403,12 +1403,12 @@ Feature:DefenseFlow Analytics
   Scenario:  Widgets 1_2_3_4_5_6_7_10 Report 3
     Then UI Click Button "New Report Tab"
     Given UI "Create" Report With Name "Widgets 1_2_3_4_5_6_7_10 Report 3"
-      | Template              | reportType:DefenseFlow Analytics , Widgets:[{Traffic Bandwidth:[25]}, Top Attacks by Duration, Top Attacks by Count, Top Attacks by Rate, Top Attacks by Protocol, Top Attack Destination, Top Attack Sources, Traffic Bandwidth, DDoS Attack Activations per Period],  Protected Objects:[{deviceIndex:10},{deviceIndex:11}] |
+      | Template              | reportType:DefenseFlow Analytics , Widgets:[{Traffic Bandwidth:[25]}, Top Attacks by Duration, Top Attacks by Count, Top Attacks by Rate, Top Attacks by Protocol, Top Attack Destination, Top Attack Sources, Traffic Bandwidth, DDoS Attack Activations per Period],  Protected Objects:[PO Name Space] |
       | Format                | Select: HTML                                                                                                                                                                                                                                                                                                                  |
       | Time Definitions.Date | Absolute:[27.02.1971 01:00, +0d]                                                                                                                                                                                                                                                                                              |
       | Schedule              | Run Every:Monthly, On Time:+6H, At Months:[MAR]                                                                                                                                                                                                                                                                               |
     Then UI "Validate" Report With Name "Widgets 1_2_3_4_5_6_7_10 Report 3"
-      | Template              | reportType:DefenseFlow Analytics , Widgets:[{Traffic Bandwidth:[25]}, Top Attacks by Duration, Top Attacks by Count, Top Attacks by Rate, Top Attacks by Protocol, Top Attack Destination, Top Attack Sources, Traffic Bandwidth, DDoS Attack Activations per Period],  Protected Objects:[{deviceIndex:10},{deviceIndex:11}] |
+      | Template              | reportType:DefenseFlow Analytics , Widgets:[{Traffic Bandwidth:[25]}, Top Attacks by Duration, Top Attacks by Count, Top Attacks by Rate, Top Attacks by Protocol, Top Attack Destination, Top Attack Sources, Traffic Bandwidth, DDoS Attack Activations per Period],  Protected Objects:[PO Name Space] |
       | Format                | Select: HTML                                                                                                                                                                                                                                                                                                                  |
       | Time Definitions.Date | Absolute:[27.02.1971 01:00, +0d]                                                                                                                                                                                                                                                                                              |
       | Schedule              | Run Every:Monthly, On Time:+6H, At Months:[MAR]                                                                                                                                                                                                                                                                               |
@@ -1452,14 +1452,14 @@ Feature:DefenseFlow Analytics
   Scenario: Widgets 3_6_9_13 Report
     Then UI Click Button "New Report Tab"
     Given UI "Create" Report With Name "Widgets 3_6_9_13 Report"
-      | Template              | reportType:DefenseFlow Analytics , Widgets:[Top Attacks by Rate, Top Attack Sources, DDoS Peak Attack per Period, Top 10 Activations by Attack Rate (Mpps)],  Protected Objects:[{deviceIndex:10}] |
+      | Template              | reportType:DefenseFlow Analytics , Widgets:[Top Attacks by Rate, Top Attack Sources, DDoS Peak Attack per Period, Top 10 Activations by Attack Rate (Mpps)],  Protected Objects:[PO Name Space] |
       | Format                | Select: PDF                                                                                                                                                                                        |
       | Logo                  | reportLogoPNG.png                                                                                                                                                                                  |
       | Time Definitions.Date | Quick:This Week                                                                                                                                                                                    |
       | Schedule              | Run Every:Monthly, On Time:+6H, At Months:[AUG]                                                                                                                                                    |
       | Share                 | Email:[automation.vision2@radware.com],Subject:myEdit subject,Body:myEdit body                                                                                                                     |
     Then UI "Validate" Report With Name "Widgets 3_6_9_13 Report"
-      | Template              | reportType:DefenseFlow Analytics , Widgets:[Top Attacks by Rate, Top Attack Sources, DDoS Peak Attack per Period, Top 10 Activations by Attack Rate (Mpps)],  Protected Objects:[{deviceIndex:10}] |
+      | Template              | reportType:DefenseFlow Analytics , Widgets:[Top Attacks by Rate, Top Attack Sources, DDoS Peak Attack per Period, Top 10 Activations by Attack Rate (Mpps)],  Protected Objects:[PO Name Space] |
       | Format                | Select: PDF                                                                                                                                                                                        |
       | Logo                  | reportLogoPNG.png                                                                                                                                                                                  |
       | Time Definitions.Date | Quick:This Week                                                                                                                                                                                    |
@@ -1471,12 +1471,12 @@ Feature:DefenseFlow Analytics
   Scenario:  Widgets 1_3_5_7_9_11_13 Report
     Then UI Click Button "New Report Tab"
     Given UI "Create" Report With Name "Widgets 1_3_5_7_9_11_13 Report"
-      | Template              | reportType:DefenseFlow Analytics , Widgets:[Top Attacks by Duration, Top Attacks by Rate, Top Attack Destination, {Traffic Bandwidth:[pps,Inbound,20]}, DDoS Peak Attack per Period, Top 10 Activations by Duration, Top 10 Activations by Attack Rate (Mpps)],  Protected Objects:[{deviceIndex:10},{deviceIndex:11}] |
+      | Template              | reportType:DefenseFlow Analytics , Widgets:[Top Attacks by Duration, Top Attacks by Rate, Top Attack Destination, {Traffic Bandwidth:[pps,Inbound,20]}, DDoS Peak Attack per Period, Top 10 Activations by Duration, Top 10 Activations by Attack Rate (Mpps)],  Protected Objects:[PO Name Space] |
       | Format                | Select: HTML                                                                                                                                                                                                                                                                                                           |
       | Time Definitions.Date | Absolute:[27.02.1971 01:00, +0d]                                                                                                                                                                                                                                                                                       |
       | Schedule              | Run Every:Monthly, On Time:+6H, At Months:[MAR]                                                                                                                                                                                                                                                                        |
     Then UI "Validate" Report With Name "Widgets 1_3_5_7_9_11_13 Report"
-      | Template              | reportType:DefenseFlow Analytics , Widgets:[Top Attacks by Duration, Top Attacks by Rate, Top Attack Destination, {Traffic Bandwidth:[pps,Inbound,20]}, DDoS Peak Attack per Period, Top 10 Activations by Duration, Top 10 Activations by Attack Rate (Mpps)],  Protected Objects:[{deviceIndex:10},{deviceIndex:11}] |
+      | Template              | reportType:DefenseFlow Analytics , Widgets:[Top Attacks by Duration, Top Attacks by Rate, Top Attack Destination, {Traffic Bandwidth:[pps,Inbound,20]}, DDoS Peak Attack per Period, Top 10 Activations by Duration, Top 10 Activations by Attack Rate (Mpps)],  Protected Objects:[PO Name Space] |
       | Format                | Select: HTML                                                                                                                                                                                                                                                                                                           |
       | Time Definitions.Date | Absolute:[27.02.1971 01:00, +0d]                                                                                                                                                                                                                                                                                       |
       | Schedule              | Run Every:Monthly, On Time:+6H, At Months:[MAR]                                                                                                                                                                                                                                                                        |
@@ -1519,14 +1519,14 @@ Feature:DefenseFlow Analytics
   Scenario: ALL Widgets Report 2
     Then UI Click Button "New Report Tab"
     Given UI "Create" Report With Name "ALL Widgets Report 2"
-      | Template              | reportType:DefenseFlow Analytics , Widgets:[All],  Protected Objects:[{deviceIndex:10}] |
+      | Template              | reportType:DefenseFlow Analytics , Widgets:[All],  Protected Objects:[PO Name Space] |
       | Format                | Select: PDF                                                                             |
       | Logo                  | reportLogoPNG.png                                                                       |
       | Time Definitions.Date | Quick:This Month                                                                        |
       | Schedule              | Run Every:Once, On Time:+6H                                                             |
       | Share                 | Email:[automation.vision2@radware.com],Subject:myEdit subject,Body:myEdit body          |
     Then UI "Validate" Report With Name "ALL Widgets Report 2"
-      | Template              | reportType:DefenseFlow Analytics , Widgets:[All],  Protected Objects:[{deviceIndex:10}] |
+      | Template              | reportType:DefenseFlow Analytics , Widgets:[All],  Protected Objects:[PO Name Space] |
       | Format                | Select: PDF                                                                             |
       | Logo                  | reportLogoPNG.png                                                                       |
       | Time Definitions.Date | Quick:This Month                                                                        |
@@ -1538,12 +1538,12 @@ Feature:DefenseFlow Analytics
   Scenario:  ALL Widgets Report 3
     Then UI Click Button "New Report Tab"
     Given UI "Create" Report With Name "ALL Widgets Report 3"
-      | Template              | reportType:DefenseFlow Analytics , Widgets:[All],  Protected Objects:[{deviceIndex:10},{deviceIndex:11}] |
+      | Template              | reportType:DefenseFlow Analytics , Widgets:[All],  Protected Objects:[PO Name Space] |
       | Format                | Select: HTML                                                                                             |
       | Time Definitions.Date | Absolute:[27.02.1971 01:00, +0d]                                                                         |
       | Schedule              | Run Every:Monthly, On Time:+6H, At Months:[MAR]                                                          |
     Then UI "Validate" Report With Name "ALL Widgets Report 3"
-      | Template              | reportType:DefenseFlow Analytics , Widgets:[All],  Protected Objects:[{deviceIndex:10},{deviceIndex:11}] |
+      | Template              | reportType:DefenseFlow Analytics , Widgets:[All],  Protected Objects:[PO Name Space] |
       | Format                | Select: HTML                                                                                             |
       | Time Definitions.Date | Absolute:[27.02.1971 01:00, +0d]                                                                         |
       | Schedule              | Run Every:Monthly, On Time:+6H, At Months:[MAR]                                                          |
