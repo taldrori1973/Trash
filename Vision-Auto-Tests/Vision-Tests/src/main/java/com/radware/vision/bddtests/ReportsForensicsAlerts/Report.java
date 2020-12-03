@@ -244,8 +244,8 @@ public class Report extends ReportsForensicsAlertsAbstract {
             if (!formatJson.get("type").toString().trim().equalsIgnoreCase(expectedFormatJson.get("Select").toString().trim()))
                 errorMessage.append("The actual Format is: ").append(formatJson.get("type").toString().toUpperCase()).append("but the Expected format is: ").append(expectedFormatJson.get("Select").toString().toUpperCase()).append("\n");
         }
-        else if (!formatJson.get("type").toString().trim().toLowerCase().equalsIgnoreCase("html"))
-            errorMessage.append("The actual Format is: ").append(formatJson.get("type").toString()).append("but the Expected format is: ").append("html").append("\n");
+        else if (!formatJson.get("type").toString().trim().toLowerCase().equalsIgnoreCase("pdf"))
+            errorMessage.append("The actual Format is: ").append(formatJson.get("type").toString()).append("but the Expected format is: ").append("pdf").append("\n");
         return errorMessage;
     }
 
