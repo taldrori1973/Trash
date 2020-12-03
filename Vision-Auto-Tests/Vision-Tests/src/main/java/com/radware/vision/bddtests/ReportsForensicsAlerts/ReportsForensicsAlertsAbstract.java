@@ -46,7 +46,7 @@ abstract class ReportsForensicsAlertsAbstract implements ReportsForensicsAlertsI
     }
 
     protected void createName(String name) throws Exception {
-        BasicOperationsHandler.setTextField("Report Name", "valid", name, true);//temporary
+        BasicOperationsHandler.setTextField("Report Name", "", name, true);//temporary
         if (!getWebElement("Report Name").getAttribute("value").equals(name))
             throw new Exception("Filling report name doesn't succeed");
         this.name = name;
