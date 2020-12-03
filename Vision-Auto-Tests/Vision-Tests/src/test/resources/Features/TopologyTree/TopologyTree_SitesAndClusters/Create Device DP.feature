@@ -28,7 +28,7 @@ Feature: Create Device DP
 
   @SID_4 @Sanity
   Scenario: Delete DefensePro
-#    Then UI Delete "DefensePro" device with index 2 from topology tree
-  @SID_5
+    Then UI Delete "DefensePro" device with index 2 from topology tree
+  @SID_5 @Sanity
   Scenario: Logout
     Then UI logout and close browser
