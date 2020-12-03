@@ -51,6 +51,51 @@ Feature: Negative test to validate Error Messages
     Then UI Click Button "New Report Tab"
     Then UI Set Text Field "Report Name" To "Report with more than 50 Widgets"
     Then UI Click Button "Add Template" with value "DefensePro Behavioral Protections"
+    Then UI Click Button "save"
+    Then UI Text of "Error message title" equal to "Unable To Save Report"
+    Then UI Text of "Error message description" equal to "The Report Template requires the selection of a single device and policy"
+    Then UI Click Button "errorMessageOK"
+    Then UI Click Button "cancel"
+    Then UI Text of "Save Change Message" contains "Do you want to save "Report with more than 50 Widgets"?"
+    Then UI Click Button "No"
+
+  @SID_6
+  Scenario: Create New Report with Report with more than 50 Widgets
+    Then UI Click Button "New Report Tab"
+    Then UI Set Text Field "Report Name" To "Report with more than 50 Widgets"
+    Then UI Click Button "Add Template" with value "DefensePro Behavioral Protections"
+    Then UI Click Button "AllScopeSelection"
+    Then UI Click Button "DefensePro Analytics_RationScopeSelection" with value "172.16.22.50"
+    Then UI Click Button "SaveDPScopeSelection"
+    Then UI Click Button "save"
+    Then UI Text of "Error message title" equal to "Unable To Save Report"
+    Then UI Text of "Error message description" equal to "The Report Template requires the selection of a single device and policy"
+    Then UI Click Button "errorMessageOK"
+    Then UI Click Button "cancel"
+    Then UI Text of "Save Change Message" contains "Do you want to save "Report with more than 50 Widgets"?"
+    Then UI Click Button "No"
+
+  @SID_7
+  Scenario: Create New Report with Report with more than 50 Widgets
+    Then UI Click Button "New Report Tab"
+    Then UI Set Text Field "Report Name" To "Report with more than 50 Widgets"
+    Then UI Click Button "Add Template" with value "DefensePro Behavioral Protections"
+    Then UI Click Button "DPScopeSelectionChange" with value "172.16.22.50"
+    Then UI Click Button "DPPolicyCheck" with value "172.16.22.50,BDOS"
+    Then UI Click Button "SaveDPScopeSelection"
+    Then UI Click Button "save"
+    Then UI Text of "Error message title" equal to "Unable To Save Report"
+    Then UI Text of "Error message description" equal to "The Report Template requires the selection of a single device and policy"
+    Then UI Click Button "errorMessageOK"
+    Then UI Click Button "cancel"
+    Then UI Text of "Save Change Message" contains "Do you want to save "Report with more than 50 Widgets"?"
+    Then UI Click Button "No"
+
+  @SID_8
+  Scenario: Create New Report with Report with more than 50 Widgets
+    Then UI Click Button "New Report Tab"
+    Then UI Set Text Field "Report Name" To "Report with more than 50 Widgets"
+    Then UI Click Button "Add Template" with value "DefensePro Behavioral Protections"
     Then UI Click Button "Add Template" with value "DefensePro Behavioral Protections"
     Then UI Click Button "Add Template" with value "DefensePro Behavioral Protections"
     Then UI Click Button "save"
@@ -61,12 +106,11 @@ Feature: Negative test to validate Error Messages
     Then UI Text of "Save Change Message" contains "Do you want to save "Report with more than 50 Widgets"?"
     Then UI Click Button "No"
 
-  @SID_6
+  @SID_9
   Scenario: Create New Report with invalid Email
     Then UI Click Button "New Report Tab"
     Then UI Set Text Field "Report Name" To "Report with invalid Email"
     Then UI Set Text Field "Email" To "invalidEmail"
-#  enter Key true
     Then UI Click Button "Add Template" with value "DefensePro Behavioral Protections"
     Then UI Click Button "save"
     Then UI Text of "Error message title" equal to "Unable To Save Report"
@@ -76,7 +120,7 @@ Feature: Negative test to validate Error Messages
     Then UI Text of "Save Change Message" contains "Do you want to save "Report with invalid Email"?"
     Then UI Click Button "No"
 
-  @SID_7
+  @SID_10
   Scenario: Create New Report without Widgets
     Then UI Click Button "New Report Tab"
     Then UI Set Text Field "Report Name" To "Report without Widgets"
@@ -90,7 +134,7 @@ Feature: Negative test to validate Error Messages
     Then UI Text of "Save Change Message" contains "Do you want to save "Report with an Error share Email To"?"
     Then UI Click Button "No"
 
-  @SID_8
+  @SID_11
   Scenario: Logout
     Then UI logout and close browser
 
