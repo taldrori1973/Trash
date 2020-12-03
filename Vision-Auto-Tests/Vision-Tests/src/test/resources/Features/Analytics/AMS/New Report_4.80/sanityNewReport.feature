@@ -77,7 +77,7 @@ Feature: Basic tests for report parameters
       | Format Tab   |       | false |
 
   @SID_8
-  Scenario: Report Share is selected
+  Scenario: Report Format is selected
     Then UI Click Button "Format Tab"
     Then UI Validate the attribute of "data-debug-checked" are "EQUAL" to
       | label        | param | value |
@@ -286,8 +286,6 @@ Feature: Basic tests for report parameters
       Then UI Select Time of label "Schedule Once Time" with value "2022-02-12 12:12" and pattern "yyyy-MM-dd HH:mm"
       Then validate webUI CSS value "border-bottom-color" of label "Schedule Once Time" equals "rgb(8, 142, 177)"
 
-
-
   @SID_28
   Scenario: Validate Share send email To
     Then UI Set Text Field "Email" To "user@automation.local"
@@ -347,5 +345,3 @@ Feature: Basic tests for report parameters
   @SID_34
   Scenario: Logout
     Then UI logout and close browser
-
-

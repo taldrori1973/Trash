@@ -1,3 +1,4 @@
+
 @TC117967
 Feature: Negative test to validate Error Messages
   @SID_1
@@ -13,7 +14,6 @@ Feature: Negative test to validate Error Messages
     Then UI Text of "Error message description" equal to "Invalid configuration. Specify a name for the Report."
     Then UI Click Button "errorMessageOK"
     Then UI Click Button "cancel"
-
 
   @SID_3
   Scenario: Create New Report without Templates
@@ -64,6 +64,7 @@ Feature: Negative test to validate Error Messages
     Then UI Click Button "New Report Tab"
     Then UI Set Text Field "Report Name" To "Report with more than 50 Widgets"
     Then UI Click Button "Add Template" with value "DefensePro Behavioral Protections"
+    Then UI Click Button "Scope Selection"
     Then UI Click Button "AllScopeSelection"
     Then UI Click Button "DefensePro Analytics_RationScopeSelection" with value "172.16.22.50"
     Then UI Click Button "SaveDPScopeSelection"
@@ -80,6 +81,7 @@ Feature: Negative test to validate Error Messages
     Then UI Click Button "New Report Tab"
     Then UI Set Text Field "Report Name" To "Report with more than 50 Widgets"
     Then UI Click Button "Add Template" with value "DefensePro Behavioral Protections"
+    Then UI Click Button "Scope Selection"
     Then UI Click Button "DPScopeSelectionChange" with value "172.16.22.50"
     Then UI Click Button "DPPolicyCheck" with value "172.16.22.50,BDOS"
     Then UI Click Button "SaveDPScopeSelection"
@@ -120,19 +122,20 @@ Feature: Negative test to validate Error Messages
     Then UI Text of "Save Change Message" contains "Do you want to save "Report with invalid Email"?"
     Then UI Click Button "No"
 
-  @SID_10
-  Scenario: Create New Report without Widgets
-    Then UI Click Button "New Report Tab"
-    Then UI Set Text Field "Report Name" To "Report without Widgets"
-    Then UI Click Button "Add Template" with value "HTTPS Flood"
-    Then UI Click Button "Delete Widget" with value "HTTPS Flood_Inbound Traffic_0"
-    Then UI Click Button "save"
-    Then UI Text of "Error message title" equal to "Unable To Save Report"
-    Then UI Text of "Error message description" equal to "Invalid configuration. Specify a widget for the Report Template."
-    Then UI Click Button "errorMessageOK"
-    Then UI Click Button "cancel"
-    Then UI Text of "Save Change Message" contains "Do you want to save "Report with an Error share Email To"?"
-    Then UI Click Button "No"
+#todo ask moshy !!
+#  @SID_10
+#  Scenario: Create New Report without Widgets
+#    Then UI Click Button "New Report Tab"
+#    Then UI Set Text Field "Report Name" To "Report without Widgets"
+#    Then UI Click Button "Add Template" with value "HTTPS Flood"
+#    Then UI Click Button "Delete Widget" with value "HTTPS Flood_Inbound Traffic_0"
+#    Then UI Click Button "save"
+#    Then UI Text of "Error message title" equal to "Unable To Save Report"
+#    Then UI Text of "Error message description" equal to "Invalid configuration. Specify a widget for the Report Template."
+#    Then UI Click Button "errorMessageOK"
+#    Then UI Click Button "cancel"
+#    Then UI Text of "Save Change Message" contains "Do you want to save "Report with an Error share Email To"?"
+#    Then UI Click Button "No"
 
   @SID_11
   Scenario: Logout
