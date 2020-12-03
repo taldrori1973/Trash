@@ -317,7 +317,7 @@ Feature: DefensePro Analytics
       | Time Definitions.Date | Relative:[Months,2]                                                                      |
       | share                 | Email:[automation.vision1@radware.com],Subject:mySubject,Body:myBody                     |
       | Format                | Select: CSV                                                                              |
-    Then UI Delete Report With Name "Top Attacks Report3"
+    Then UI Delete Report With Name "Top Attacks Report4"
 
   @SID_20
   Scenario: create new Top Attacks by Volume1
@@ -363,7 +363,7 @@ Feature: DefensePro Analytics
       | Time Definitions.Date | Absolute:[02.11.2020 13:47, +0d]                                                                                 |
   #    | Schedule              | Run Every:Weekly, On Time:+6H, At Days:[THU]                                                                        |
       | Format                | Select: HTML                                                                                                     |
-    Then UI "Validate" Report With Name "Top Attacks by Bandwidth Report3"
+    Then UI "Validate" Report With Name "Top Attacks by Volume3"
       | Template              | reportType:DefensePro Analytics , Widgets:[Top Attacks by Volume] , devices:[{deviceIndex:10}] , showTable:false |
       | Time Definitions.Date | Absolute:[02.11.2020 13:47, +0d]                                                                                 |
   #    | Schedule              | Run Every:Weekly, On Time:+6H, At Days:[THU]                                                                        |
@@ -1100,7 +1100,7 @@ Feature: DefensePro Analytics
       | Time Definitions.Date | Quick:This Week                                                                              |
   #    | Schedule              | Run Every:Weekly, On Time:+6H, At Days:[THU]                                                 |
       | Share                 | Email:[automation.vision2@radware.com],Subject:myEdit subject,Body:myEdit body               |
-    Then UI Delete Report With Name "TTop Allowed Attackers 2"
+    Then UI Delete Report With Name "Top Allowed Attackers 2"
 
   @SID_66
   Scenario:  Top Allowed Attackers Report 3
