@@ -122,22 +122,7 @@ Feature: Negative test to validate Error Messages
     Then UI Text of "Save Change Message" contains "Do you want to save "Report with invalid Email"?"
     Then UI Click Button "No"
 
-#todo ask moshy !!
-#  @SID_10
-#  Scenario: Create New Report without Widgets
-#    Then UI Click Button "New Report Tab"
-#    Then UI Set Text Field "Report Name" To "Report without Widgets"
-#    Then UI Click Button "Add Template" with value "HTTPS Flood"
-#    Then UI Click Button "Delete Widget" with value "HTTPS Flood_Inbound Traffic_0"
-#    Then UI Click Button "save"
-#    Then UI Text of "Error message title" equal to "Unable To Save Report"
-#    Then UI Text of "Error message description" equal to "Invalid configuration. Specify a widget for the Report Template."
-#    Then UI Click Button "errorMessageOK"
-#    Then UI Click Button "cancel"
-#    Then UI Text of "Save Change Message" contains "Do you want to save "Report with an Error share Email To"?"
-#    Then UI Click Button "No"
-
-  @SID_11
+  @SID_10
   Scenario: Logout
     Then UI logout and close browser
 
