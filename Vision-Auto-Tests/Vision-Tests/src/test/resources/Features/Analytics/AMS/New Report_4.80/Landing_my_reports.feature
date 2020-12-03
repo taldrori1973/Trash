@@ -69,9 +69,6 @@ Feature: Landing my reports basic tests
 
   @SID_9
   Scenario: Delete Report
-#delete - a7lam
-#    Then UI Validate Element Existence By Label "My Report" if Exists "true" with value "DefensePro Analytics Report"
-#    Then UI Click Button "Delete Report" with value "DefensePro Analytics Report"
     Then UI Validate Element Existence By Label "My Report" if Exists "true" with value "DefensePro Analytics Report"
     Then UI Delete Report With Name "DefensePro Analytics Report"
     Then UI Validate Element Existence By Label "My Report" if Exists "false" with value "DefensePro Analytics Report"

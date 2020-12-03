@@ -626,7 +626,7 @@ public class BasicOperationsSteps extends BddUITestBase {
        if(element==null)
            BaseTestUtils.report("This element with label : "+label+" and params: "+param+ " is not exist", Reporter.FAIL);
        else if(!element.getCssValue(cssKey).equals(cssValue))
-           BaseTestUtils.report("This element with cssKey : "+cssKey+" and cssValue: "+cssValue+ " is not exist", Reporter.FAIL);
+           BaseTestUtils.report("This element with cssKey : "+cssKey+" and cssValue: "+cssValue+ " not equal to "+element.getCssValue(cssKey), Reporter.FAIL);
     }
 
     @Then("^UI Select Time of label \"([^\"]*)\"(?: with params \"([^\"]*)\")? with value \"([^\"]*)\" and pattern \"([^\"]*)\"$")

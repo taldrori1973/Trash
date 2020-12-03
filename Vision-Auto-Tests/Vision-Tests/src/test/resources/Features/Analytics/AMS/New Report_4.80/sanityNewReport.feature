@@ -1,4 +1,3 @@
-
 @TC117968
 Feature: Basic tests for report parameters
   @SID_1
@@ -7,14 +6,6 @@ Feature: Basic tests for report parameters
     Then UI Navigate to "AMS REPORTS" page via homepage
     Then UI Click Button "New Report Tab"
 #    Then UI Click Button "Report Parameter Menu"
-
-
-    Then UI Click Button "Switch button Scheduled Report"
-    Then UI Click Button "Schedule Report" with value "once"
-    Then UI Select Time of label "Schedule Once Time" with value "2019-02-12 12:12" and pattern "yyyy-MM-dd HH:mm"
-    Then UI Set Text Field "Schedule Once Time" To "13/02/2020 12:12"
-    Then validate webUI CSS value "border-bottom-color" of label "Schedule Once Time" equals "rgb(255, 0, 0)"
-
 
   @SID_2
   Scenario: Validate Report Parameters Name
@@ -99,13 +90,13 @@ Feature: Basic tests for report parameters
 
   @SID_9
   Scenario: Validate report name
-    Then UI Validate the attribute "placeholder" Of Label "Report Name" With Params "valid" is "EQUALS" to "Type here"
-    Then UI Set Text Field "Report Name" and params "valid" To " "
-    Then UI Validate Element Existence By Label "Report Name" if Exists "true" with value "invalid"
-    Then UI Set Text Field "Report Name" and params "invalid" To "&"
-    Then UI Validate Element Existence By Label "Report Name" if Exists "true" with value "invalid"
-    Then UI Set Text Field "Report Name" and params "invalid" To "Test"
-    Then UI Validate Element Existence By Label "Report Name" if Exists "true" with value "valid"
+    Then UI Validate the attribute "placeholder" Of Label "Report Name" is "EQUALS" to "Type here"
+    Then UI Set Text Field "Report Name" To " "
+    Then validate webUI CSS value "border-bottom-color" of label "Report Name" equals "rgb(244, 20, 20)"
+    Then UI Set Text Field "Report Name" To "&"
+    Then validate webUI CSS value "border-bottom-color" of label "Report Name" equals "rgb(244, 20, 20)"
+    Then UI Set Text Field "Report Name" To "Test"
+    Then validate webUI CSS value "border-bottom-color" of label "Report Name" equals "rgb(212, 212, 212)"
 
   @SID_10
   Scenario: Validate Logo
@@ -288,8 +279,12 @@ Feature: Basic tests for report parameters
 
     @SID_27
     Scenario: Validate Report Schedule Once
-      Then UI Set Text Field "Schedule Once Time" To "12/02/2019"
+      Then UI Select Time of label "Schedule Once Time" with value "2019-02-12 12:12" and pattern "yyyy-MM-dd HH:mm"
       Then validate webUI CSS value "border-bottom-color" of label "Schedule Once Time" equals "rgb(255, 0, 0)"
+      Then UI Click Button "Schedule Report" with value "daily"
+      Then UI Click Button "Schedule Report" with value "once"
+      Then UI Select Time of label "Schedule Once Time" with value "2022-02-12 12:12" and pattern "yyyy-MM-dd HH:mm"
+      Then validate webUI CSS value "border-bottom-color" of label "Schedule Once Time" equals "rgb(8, 142, 177)"
 
 
 

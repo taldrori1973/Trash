@@ -11,164 +11,164 @@ Feature: Test Reports Definition
   Scenario: create System And Network Report1
     Given UI "Create" Report With Name "System And Network Report1"
       | Template              | reportType:System And Network , Widgets:[Ports Traffic Information] , Applications:[All] |
-      | Logo                  | reportLogoPNG.png                                                                   |
-      | Time Definitions.Date | Quick:15m                                                                           |
-      | Schedule              | Run Every:Daily,On Time:+2m                                                         |
-      | Format                | Select: PDF                                                                         |
+      | Logo                  | reportLogoPNG.png                                                                        |
+      | Time Definitions.Date | Quick:15m                                                                                |
+      | Schedule              | Run Every:Daily,On Time:+2m                                                              |
+      | Format                | Select: PDF                                                                              |
     Then UI "Validate" Report With Name "System And Network Report1"
       | Template              | reportType:System And Network , Widgets:[Ports Traffic Information] , Applications:[All] |
-      | Logo                  | reportLogoPNG.png                                                                   |
-      | Time Definitions.Date | Quick:15m                                                                           |
-      | Schedule              | Run Every:Daily,On Time:+2m                                                         |
-      | Format                | Select: PDF                                                                         |
+      | Logo                  | reportLogoPNG.png                                                                        |
+      | Time Definitions.Date | Quick:15m                                                                                |
+      | Schedule              | Run Every:Daily,On Time:+2m                                                              |
+      | Format                | Select: PDF                                                                              |
     Then UI Delete Report With Name "System And Network Report1"
 #
   @SID_3
   Scenario: create System And Network Report2
     Given UI "Create" Report With Name "System And Network Report2"
       | Template              | reportType:System And Network , Widgets:[Ports Traffic Information] , Applications:[All] |
-      | Time Definitions.Date | Quick:30m                                                                           |
-      | Schedule              | Run Every:Weekly, On Time:+6H, At Days:[MON]                                        |
-      | Format                | Select: HTML                                                                        |
+      | Time Definitions.Date | Quick:30m                                                                                |
+      | Schedule              | Run Every:Weekly, On Time:+6H, At Days:[MON]                                             |
+      | Format                | Select: HTML                                                                             |
     Then UI "Validate" Report With Name "System And Network Report2"
       | Template              | reportType:System And Network , Widgets:[Ports Traffic Information] , Applications:[All] |
-      | Time Definitions.Date | Quick:30m                                                                           |
-      | Schedule              | Run Every:Weekly, On Time:+6H, At Days:[MON]                                        |
-      | Format                | Select: HTML                                                                        |
+      | Time Definitions.Date | Quick:30m                                                                                |
+      | Schedule              | Run Every:Weekly, On Time:+6H, At Days:[MON]                                             |
+      | Format                | Select: HTML                                                                             |
     Then UI Delete Report With Name "System And Network Report2"
 
   @SID_4
   Scenario: create System And Network Report3
     Given UI "Create" Report With Name "System And Network Report3"
       | Template              | reportType:System And Network , Widgets:[Ports Traffic Information] , Applications:[Alteon_172.17.164.17] |
-      | Logo                  | reportLogoPNG.png                                                                                    |
-      | Time Definitions.Date | Quick:1H                                                                                             |
-      | Schedule              | Run Every:Weekly, On Time:+6H, At Days:[TUE,WED]                                                     |
-      | Format                | Select: CSV                                                                                          |
+      | Logo                  | reportLogoPNG.png                                                                                         |
+      | Time Definitions.Date | Quick:1H                                                                                                  |
+      | Schedule              | Run Every:Weekly, On Time:+6H, At Days:[TUE,WED]                                                          |
+      | Format                | Select: CSV                                                                                               |
     Then UI "Validate" Report With Name "System And Network Report3"
       | Template              | reportType:System And Network , Widgets:[Ports Traffic Information] , Applications:[Alteon_172.17.164.17] |
-      | Logo                  | reportLogoPNG.png                                                                                    |
-      | Time Definitions.Date | Quick:1H                                                                                             |
-      | Schedule              | Run Every:Weekly, On Time:+6H, At Days:[TUE,WED]                                                     |
-      | Format                | Select: CSV                                                                                          |
+      | Logo                  | reportLogoPNG.png                                                                                         |
+      | Time Definitions.Date | Quick:1H                                                                                                  |
+      | Schedule              | Run Every:Weekly, On Time:+6H, At Days:[TUE,WED]                                                          |
+      | Format                | Select: CSV                                                                                               |
     Then UI Delete Report With Name "System And Network Report3"
 
   @SID_5
   Scenario: create System And Network Report4
     Given UI "Create" Report With Name "System And Network Report4"
       | Template              | reportType:System And Network , Widgets:[Ports Traffic Information] , Applications:[Alteon_172.17.164.17] |
-      | Time Definitions.Date | Quick:3M                                                                                             |
-      | Schedule              | Run Every:Weekly, On Time:+6H, At Days:[THU]                                                         |
-      | Format                | Select: CSV                                                                                          |
+      | Time Definitions.Date | Quick:3M                                                                                                  |
+      | Schedule              | Run Every:Weekly, On Time:+6H, At Days:[THU]                                                              |
+      | Format                | Select: CSV                                                                                               |
     Then UI "Validate" Report With Name "System And Network Report4"
       | Template              | reportType:System And Network , Widgets:[Ports Traffic Information] , Applications:[Alteon_172.17.164.17] |
-      | Time Definitions.Date | Quick:3M                                                                                             |
-      | Schedule              | Run Every:Weekly, On Time:+6H, At Days:[THU]                                                         |
-      | Format                | Select: CSV                                                                                          |
+      | Time Definitions.Date | Quick:3M                                                                                                  |
+      | Schedule              | Run Every:Weekly, On Time:+6H, At Days:[THU]                                                              |
+      | Format                | Select: CSV                                                                                               |
     Then UI Delete Report With Name "System And Network Report4"
 
   @SID_6
   Scenario: create System And Network Report5
     Given UI "Create" Report With Name "System And Network Report5"
       | Template              | reportType:System And Network , Widgets:[Ports Traffic Information] , Applications:[All] |
-      | Time Definitions.Date | Quick:1D                                                                            |
-      | Schedule              | Run Every:Weekly, On Time:+6H, At Days:[FRI,SAT,SUN]                                |
-      | share                 | Email:[automation.vision1@radware.com],Subject:mySubject,Body:myBody                |
-      | Format                | Select: HTML                                                                        |
+      | Time Definitions.Date | Quick:1D                                                                                 |
+      | Schedule              | Run Every:Weekly, On Time:+6H, At Days:[FRI,SAT,SUN]                                     |
+      | share                 | Email:[automation.vision1@radware.com],Subject:mySubject,Body:myBody                     |
+      | Format                | Select: HTML                                                                             |
     Then UI "Validate" Report With Name "System And Network Report5"
       | Template              | reportType:System And Network , Widgets:[Ports Traffic Information] , Applications:[All] |
-      | Time Definitions.Date | Quick:1D                                                                            |
-      | Schedule              | Run Every:Weekly, On Time:+6H, At Days:[FRI,SAT,SUN]                                |
-      | share                 | Email:[automation.vision1@radware.com],Subject:mySubject,Body:myBody                |
-      | Format                | Select: HTML                                                                        |
+      | Time Definitions.Date | Quick:1D                                                                                 |
+      | Schedule              | Run Every:Weekly, On Time:+6H, At Days:[FRI,SAT,SUN]                                     |
+      | share                 | Email:[automation.vision1@radware.com],Subject:mySubject,Body:myBody                     |
+      | Format                | Select: HTML                                                                             |
     Then UI Delete Report With Name "System And Network Report5"
 
   @SID_7
   Scenario: create System And Network Report6
     Given UI "Create" Report With Name "System And Network Report6"
       | Template              | reportType:System And Network , Widgets:[Ports Traffic Information] , Applications:[All] |
-      | Logo                  | reportLogoPNG.png                                                                   |
-      | Time Definitions.Date | Quick:1W                                                                            |
-      | Schedule              | Run Every:Monthly, On Time:+6H, At Months:[JAN]                                     |
-      | share                 | Email:[automation.vision1@radware.com],Subject:mySubject,Body:myBody                |
-      | Format                | Select: PDF                                                                         |
+      | Logo                  | reportLogoPNG.png                                                                        |
+      | Time Definitions.Date | Quick:1W                                                                                 |
+      | Schedule              | Run Every:Monthly, On Time:+6H, At Months:[JAN]                                          |
+      | share                 | Email:[automation.vision1@radware.com],Subject:mySubject,Body:myBody                     |
+      | Format                | Select: PDF                                                                              |
     Then UI "Validate" Report With Name "System And Network Report6"
       | Template              | reportType:System And Network , Widgets:[Ports Traffic Information] , Applications:[All] |
-      | Logo                  | reportLogoPNG.png                                                                   |
-      | Time Definitions.Date | Quick:1W                                                                            |
-      | Schedule              | Run Every:Monthly, On Time:+6H, At Months:[JAN]                                     |
-      | share                 | Email:[automation.vision1@radware.com],Subject:mySubject,Body:myBody                |
-      | Format                | Select: PDF                                                                         |
+      | Logo                  | reportLogoPNG.png                                                                        |
+      | Time Definitions.Date | Quick:1W                                                                                 |
+      | Schedule              | Run Every:Monthly, On Time:+6H, At Months:[JAN]                                          |
+      | share                 | Email:[automation.vision1@radware.com],Subject:mySubject,Body:myBody                     |
+      | Format                | Select: PDF                                                                              |
     Then UI Delete Report With Name "System And Network Report6"
 
   @SID_8
   Scenario: create System And Network Report7
     Given UI "Create" Report With Name "System And Network Report7"
       | Template              | reportType:System And Network , Widgets:[Ports Traffic Information] , Applications:[All] |
-      | Logo                  | reportLogoPNG.png                                                                   |
-      | Time Definitions.Date | Quick:1M                                                                            |
-      | Schedule              | Run Every:Monthly, On Time:+6H, At Months:[FEB,MAR,APR]                             |
-      | share                 | Email:[automation.vision1@radware.com],Subject:mySubject,Body:myBody                |
-      | Format                | Select: PDF                                                                         |
+      | Logo                  | reportLogoPNG.png                                                                        |
+      | Time Definitions.Date | Quick:1M                                                                                 |
+      | Schedule              | Run Every:Monthly, On Time:+6H, At Months:[FEB,MAR,APR]                                  |
+      | share                 | Email:[automation.vision1@radware.com],Subject:mySubject,Body:myBody                     |
+      | Format                | Select: PDF                                                                              |
     Then UI "Validate" Report With Name "System And Network Report7"
       | Template              | reportType:System And Network , Widgets:[Ports Traffic Information] , Applications:[All] |
-      | Logo                  | reportLogoPNG.png                                                                   |
-      | Time Definitions.Date | Quick:1M                                                                            |
-      | Schedule              | Run Every:Monthly, On Time:+6H, At Months:[FEB,MAR,APR]                             |
-      | share                 | Email:[automation.vision1@radware.com],Subject:mySubject,Body:myBody                |
-      | Format                | Select: PDF                                                                         |
+      | Logo                  | reportLogoPNG.png                                                                        |
+      | Time Definitions.Date | Quick:1M                                                                                 |
+      | Schedule              | Run Every:Monthly, On Time:+6H, At Months:[FEB,MAR,APR]                                  |
+      | share                 | Email:[automation.vision1@radware.com],Subject:mySubject,Body:myBody                     |
+      | Format                | Select: PDF                                                                              |
     Then UI Delete Report With Name "System And Network Report7"
 
   @SID_9
   Scenario: create System And Network Report8
     Given UI "Create" Report With Name "System And Network Report8"
       | Template              | reportType:System And Network , Widgets:[Ports Traffic Information] , Applications:[All] |
-      | Logo                  | reportLogoPNG.png                                                                   |
-      | Time Definitions.Date | Absolute:[-1d, +0d]                                                                 |
-      | Schedule              | Run Every:Monthly, On Time:+6H, At Months:[MAY]                                     |
-      | share                 | Email:[automation.vision1@radware.com],Subject:mySubject,Body:myBody                |
-      | Format                | Select: HTML                                                                        |
+      | Logo                  | reportLogoPNG.png                                                                        |
+      | Time Definitions.Date | Absolute:[-1d, +0d]                                                                      |
+      | Schedule              | Run Every:Monthly, On Time:+6H, At Months:[MAY]                                          |
+      | share                 | Email:[automation.vision1@radware.com],Subject:mySubject,Body:myBody                     |
+      | Format                | Select: HTML                                                                             |
     Then UI "Validate" Report With Name "System And Network Report8"
       | Template              | reportType:System And Network , Widgets:[Ports Traffic Information] , Applications:[All] |
-      | Logo                  | reportLogoPNG.png                                                                   |
-      | Time Definitions.Date | Absolute:[-1d, +0d]                                                                 |
-      | Schedule              | Run Every:Monthly, On Time:+6H, At Months:[MAY]                                     |
-      | share                 | Email:[automation.vision1@radware.com],Subject:mySubject,Body:myBody                |
-      | Format                | Select: HTML                                                                        |
+      | Logo                  | reportLogoPNG.png                                                                        |
+      | Time Definitions.Date | Absolute:[-1d, +0d]                                                                      |
+      | Schedule              | Run Every:Monthly, On Time:+6H, At Months:[MAY]                                          |
+      | share                 | Email:[automation.vision1@radware.com],Subject:mySubject,Body:myBody                     |
+      | Format                | Select: HTML                                                                             |
     Then UI Delete Report With Name "System And Network Report8"
 
   @SID_10
   Scenario: create System And Network Report9
     Given UI "Create" Report With Name "System And Network Report9"
       | Template              | reportType:System And Network , Widgets:[Ports Traffic Information] , Applications:[All] |
-      | Logo                  | reportLogoPNG.png                                                                   |
-      | Time Definitions.Date | Relative:[Hours,2]                                                                  |
-      | Schedule              | Run Every:Monthly, On Time:+6H, At Months:[JUN,JUL,AUG,SEP]                         |
-      | share                 | Email:[automation.vision1@radware.com],Subject:mySubject,Body:myBody                |
-      | Format                | Select: CSV                                                                         |
+      | Logo                  | reportLogoPNG.png                                                                        |
+      | Time Definitions.Date | Relative:[Hours,2]                                                                       |
+      | Schedule              | Run Every:Monthly, On Time:+6H, At Months:[JUN,JUL,AUG,SEP]                              |
+      | share                 | Email:[automation.vision1@radware.com],Subject:mySubject,Body:myBody                     |
+      | Format                | Select: CSV                                                                              |
     Then UI "Validate" Report With Name "System And Network Report9"
       | Template-1            | reportType:System And Network , Widgets:[Ports Traffic Information] , Applications:[All] |
-      | Logo                  | reportLogoPNG.png                                                                   |
-      | Time Definitions.Date | Relative:[Hours,2]                                                                  |
-      | Schedule              | Run Every:Monthly, On Time:+6H, At Months:[JUN,JUL,AUG,SEP]                         |
-      | share                 | Email:[automation.vision1@radware.com],Subject:mySubject,Body:myBody                |
-      | Format                | Select: CSV                                                                         |
+      | Logo                  | reportLogoPNG.png                                                                        |
+      | Time Definitions.Date | Relative:[Hours,2]                                                                       |
+      | Schedule              | Run Every:Monthly, On Time:+6H, At Months:[JUN,JUL,AUG,SEP]                              |
+      | share                 | Email:[automation.vision1@radware.com],Subject:mySubject,Body:myBody                     |
+      | Format                | Select: CSV                                                                              |
     Then UI Delete Report With Name "System And Network Report9"
 
   @SID_11
   Scenario: create System And Network Report10
     Given UI "Create" Report With Name "System And Network Report10"
       | Template              | reportType:System And Network , Widgets:[Ports Traffic Information] , Applications:[Alteon_172.17.164.17] |
-      | Time Definitions.Date | Relative:[Days,3]                                                                                    |
-      | Schedule              | Run Every:Monthly, On Time:+6H, At Months:[JAN,FEB,MAR,APR,MAY,JUN,JUL,AUG,SEP,OCT,NOV,DEC]          |
-      | share                 | Email:[automation.vision1@radware.com],Subject:mySubject,Body:myBody                                 |
-      | Format                | Select: CSV                                                                                          |
+      | Time Definitions.Date | Relative:[Days,3]                                                                                         |
+      | Schedule              | Run Every:Monthly, On Time:+6H, At Months:[JAN,FEB,MAR,APR,MAY,JUN,JUL,AUG,SEP,OCT,NOV,DEC]               |
+      | share                 | Email:[automation.vision1@radware.com],Subject:mySubject,Body:myBody                                      |
+      | Format                | Select: CSV                                                                                               |
     Then UI "Validate" Report With Name "System And Network Report10"
       | Template              | reportType:System And Network , Widgets:[Ports Traffic Information] , Applications:[Alteon_172.17.164.17] |
-      | Time Definitions.Date | Relative:[Days,3]                                                                                    |
-      | Schedule              | Run Every:Monthly, On Time:+6H, At Months:[JAN,FEB,MAR,APR,MAY,JUN,JUL,AUG,SEP,OCT,NOV,DEC]          |
-      | share                 | Email:[automation.vision1@radware.com],Subject:mySubject,Body:myBody                                 |
-      | Format                | Select: CSV                                                                                          |
+      | Time Definitions.Date | Relative:[Days,3]                                                                                         |
+      | Schedule              | Run Every:Monthly, On Time:+6H, At Months:[JAN,FEB,MAR,APR,MAY,JUN,JUL,AUG,SEP,OCT,NOV,DEC]               |
+      | share                 | Email:[automation.vision1@radware.com],Subject:mySubject,Body:myBody                                      |
+      | Format                | Select: CSV                                                                                               |
     Then UI Delete Report With Name "System And Network Report10"
 
   @SID_12
@@ -399,129 +399,129 @@ Feature: Test Reports Definition
   Scenario: create System And Network And Application Report1
     Given UI "Create" Report With Name "System And Network And Application Report1"
       | Template-1            | reportType:System And Network , Widgets:[Ports Traffic Information] , Applications:[Alteon_172.17.164.17] |
-      | Template-2            | reportType:Application ,Widgets:[All] , Applications:[app:80,app:443]                                |
-      | Time Definitions.Date | Relative:[Months,5]                                                                                  |
-      | share                 | Email:[automation.vision1@radware.com],Subject:mySubject,Body:myBody                                 |
-      | Format                | Select: PDF                                                                                          |
+      | Template-2            | reportType:Application ,Widgets:[All] , Applications:[app:80,app:443]                                     |
+      | Time Definitions.Date | Relative:[Months,5]                                                                                       |
+      | share                 | Email:[automation.vision1@radware.com],Subject:mySubject,Body:myBody                                      |
+      | Format                | Select: PDF                                                                                               |
     Then UI "Validate" Report With Name "System And Network And Application Report1"
       | Template-1            | reportType:System And Network , Widgets:[Ports Traffic Information] , Applications:[Alteon_172.17.164.17] |
-      | Template-2            | reportType:Application ,Widgets:[All] , Applications:[app:80,app:443]                                |
-      | Time Definitions.Date | Relative:[Months,5]                                                                                  |
-      | share                 | Email:[automation.vision1@radware.com],Subject:mySubject,Body:myBody                                 |
-      | Format                | Select: PDF                                                                                          |
+      | Template-2            | reportType:Application ,Widgets:[All] , Applications:[app:80,app:443]                                     |
+      | Time Definitions.Date | Relative:[Months,5]                                                                                       |
+      | share                 | Email:[automation.vision1@radware.com],Subject:mySubject,Body:myBody                                      |
+      | Format                | Select: PDF                                                                                               |
     Then UI Delete Report With Name "System And Network And Application Report1"
 
   @SID_27
   Scenario: create System And Network And Application Report2
     Given UI "Create" Report With Name "System And Network And Application Report2"
       | Template-1            | reportType:System And Network , Widgets:[Ports Traffic Information] , Applications:[All] |
-      | Template-2            | reportType:Application ,Widgets:[Requests per Second] , Applications:[All]          |
-      | Logo                  | reportLogoPNG.png                                                                   |
-      | Time Definitions.Date | Quick:15m                                                                           |
-      | Schedule              | Run Every:Daily,On Time:+2m                                                         |
-      | Format                | Select: PDF                                                                         |
+      | Template-2            | reportType:Application ,Widgets:[Requests per Second] , Applications:[All]               |
+      | Logo                  | reportLogoPNG.png                                                                        |
+      | Time Definitions.Date | Quick:15m                                                                                |
+      | Schedule              | Run Every:Daily,On Time:+2m                                                              |
+      | Format                | Select: PDF                                                                              |
     Then UI "Validate" Report With Name "System And Network And Application Report2"
       | Template-1            | reportType:System And Network , Widgets:[Ports Traffic Information] , Applications:[All] |
-      | Template-2            | reportType:Application ,Widgets:[Requests per Second] , Applications:[All]          |
-      | Logo                  | reportLogoPNG.png                                                                   |
-      | Time Definitions.Date | Quick:15m                                                                           |
-      | Schedule              | Run Every:Daily,On Time:+2m                                                         |
-      | Format                | Select: PDF                                                                         |
+      | Template-2            | reportType:Application ,Widgets:[Requests per Second] , Applications:[All]               |
+      | Logo                  | reportLogoPNG.png                                                                        |
+      | Time Definitions.Date | Quick:15m                                                                                |
+      | Schedule              | Run Every:Daily,On Time:+2m                                                              |
+      | Format                | Select: PDF                                                                              |
     Then UI Delete Report With Name "System And Network And Application Report2"
 
   @SID_28
   Scenario: create System And Network And Application Report3
     Given UI "Create" Report With Name "System And Network And Application Report3"
       | Template-1            | reportType:System And Network , Widgets:[Ports Traffic Information] , Applications:[All] |
-      | Template-2            | reportType:Application ,Widgets:[Throughput (bps)] , Applications:[All]             |
-      | Time Definitions.Date | Quick:30m                                                                           |
-      | Schedule              | Run Every:Weekly, On Time:+6H, At Days:[MON]                                        |
-      | Format                | Select: HTML                                                                        |
+      | Template-2            | reportType:Application ,Widgets:[Throughput (bps)] , Applications:[All]                  |
+      | Time Definitions.Date | Quick:30m                                                                                |
+      | Schedule              | Run Every:Weekly, On Time:+6H, At Days:[MON]                                             |
+      | Format                | Select: HTML                                                                             |
     Then UI "Validate" Report With Name "System And Network And Application Report3"
       | Template-1            | reportType:System And Network , Widgets:[Ports Traffic Information] , Applications:[All] |
-      | Template-2            | reportType:Application ,Widgets:[Throughput (bps)] , Applications:[All]             |
-      | Time Definitions.Date | Quick:30m                                                                           |
-      | Schedule              | Run Every:Weekly, On Time:+6H, At Days:[MON]                                        |
-      | Format                | Select: HTML                                                                        |
+      | Template-2            | reportType:Application ,Widgets:[Throughput (bps)] , Applications:[All]                  |
+      | Time Definitions.Date | Quick:30m                                                                                |
+      | Schedule              | Run Every:Weekly, On Time:+6H, At Days:[MON]                                             |
+      | Format                | Select: HTML                                                                             |
     Then UI Delete Report With Name "System And Network And Application Report3"
 
   @SID_29
   Scenario: create System And Network And Application Report4
     Given UI "Create" Report With Name "System And Network And Application Report4"
       | Template-1            | reportType:System And Network , Widgets:[Ports Traffic Information] , Applications:[Alteon_172.17.164.17] |
-      | Template-2            | reportType:Application ,Widgets:[Concurrent Connections] , Applications:[app:80,app:443]             |
-      | Logo                  | reportLogoPNG.png                                                                                    |
-      | Time Definitions.Date | Quick:1H                                                                                             |
-      | Schedule              | Run Every:Weekly, On Time:+6H, At Days:[TUE,WED]                                                     |
-      | Format                | Select: CSV                                                                                          |
+      | Template-2            | reportType:Application ,Widgets:[Concurrent Connections] , Applications:[app:80,app:443]                  |
+      | Logo                  | reportLogoPNG.png                                                                                         |
+      | Time Definitions.Date | Quick:1H                                                                                                  |
+      | Schedule              | Run Every:Weekly, On Time:+6H, At Days:[TUE,WED]                                                          |
+      | Format                | Select: CSV                                                                                               |
     Then UI "Validate" Report With Name "System And Network And Application Report4"
       | Template-1            | reportType:System And Network , Widgets:[Ports Traffic Information] , Applications:[Alteon_172.17.164.17] |
-      | Template-2            | reportType:Application ,Widgets:[Concurrent Connections] ,Applications:[app:80,app:443]              |
-      | Logo                  | reportLogoPNG.png                                                                                    |
-      | Time Definitions.Date | Quick:1H                                                                                             |
-      | Schedule              | Run Every:Weekly, On Time:+6H, At Days:[TUE,WED]                                                     |
-      | Format                | Select: CSV                                                                                          |
+      | Template-2            | reportType:Application ,Widgets:[Concurrent Connections] ,Applications:[app:80,app:443]                   |
+      | Logo                  | reportLogoPNG.png                                                                                         |
+      | Time Definitions.Date | Quick:1H                                                                                                  |
+      | Schedule              | Run Every:Weekly, On Time:+6H, At Days:[TUE,WED]                                                          |
+      | Format                | Select: CSV                                                                                               |
     Then UI Delete Report With Name "System And Network And Application Report4"
 
   @SID_30
   Scenario: create System And Network And Application Report5
     Given UI "Create" Report With Name "System And Network And Application Report5"
       | Template-1            | reportType:System And Network , Widgets:[Ports Traffic Information] , Applications:[Alteon_172.17.164.17] |
-      | Template-2            | reportType:Application ,Widgets:[Connections per Second] , Applications:[app:80,app:443]             |
-      | Time Definitions.Date | Quick:3M                                                                                             |
-      | Schedule              | Run Every:Weekly, On Time:+6H, At Days:[THU]                                                         |
-      | Format                | Select: CSV                                                                                          |
+      | Template-2            | reportType:Application ,Widgets:[Connections per Second] , Applications:[app:80,app:443]                  |
+      | Time Definitions.Date | Quick:3M                                                                                                  |
+      | Schedule              | Run Every:Weekly, On Time:+6H, At Days:[THU]                                                              |
+      | Format                | Select: CSV                                                                                               |
     Then UI "Validate" Report With Name "System And Network And Application Report5"
       | Template-1            | reportType:System And Network , Widgets:[Ports Traffic Information] , Applications:[Alteon_172.17.164.17] |
-      | Template-2            | reportType:Application ,Widgets:[Connections per Second] , Applications:[app:80,app:443]             |
-      | Time Definitions.Date | Quick:3M                                                                                             |
-      | Schedule              | Run Every:Weekly, On Time:+6H, At Days:[THU]                                                         |
-      | Format                | Select: CSV                                                                                          |
+      | Template-2            | reportType:Application ,Widgets:[Connections per Second] , Applications:[app:80,app:443]                  |
+      | Time Definitions.Date | Quick:3M                                                                                                  |
+      | Schedule              | Run Every:Weekly, On Time:+6H, At Days:[THU]                                                              |
+      | Format                | Select: CSV                                                                                               |
     Then UI Delete Report With Name "System And Network And Application Report5"
 
   @SID_31
   Scenario: create System And Network And Application Report6
     Given UI "Create" Report With Name "System And Network And Application Report6"
       | Template-1            | reportType:System And Network , Widgets:[Ports Traffic Information] , Applications:[All] |
-      | Template-2            | reportType:Application ,Widgets:[Groups and Content Rules] , Applications:[All]     |
-      | Time Definitions.Date | Quick:1D                                                                            |
-      | Schedule              | Run Every:Weekly, On Time:+6H, At Days:[FRI,SAT,SUN]                                |
-      | share                 | Email:[automation.vision1@radware.com],Subject:mySubject,Body:myBody                |
-      | Format                | Select: HTML                                                                        |
+      | Template-2            | reportType:Application ,Widgets:[Groups and Content Rules] , Applications:[All]          |
+      | Time Definitions.Date | Quick:1D                                                                                 |
+      | Schedule              | Run Every:Weekly, On Time:+6H, At Days:[FRI,SAT,SUN]                                     |
+      | share                 | Email:[automation.vision1@radware.com],Subject:mySubject,Body:myBody                     |
+      | Format                | Select: HTML                                                                             |
     Then UI "Validate" Report With Name "System And Network And Application Report6"
       | Template-1            | reportType:System And Network , Widgets:[Ports Traffic Information] , Applications:[All] |
-      | Template-2            | reportType:Application ,Widgets:[Groups and Content Rules] , Applications:[All]     |
-      | Time Definitions.Date | Quick:1D                                                                            |
-      | Schedule              | Run Every:Weekly, On Time:+6H, At Days:[FRI,SAT,SUN]                                |
-      | share                 | Email:[automation.vision1@radware.com],Subject:mySubject,Body:myBody                |
-      | Format                | Select: HTML                                                                        |
+      | Template-2            | reportType:Application ,Widgets:[Groups and Content Rules] , Applications:[All]          |
+      | Time Definitions.Date | Quick:1D                                                                                 |
+      | Schedule              | Run Every:Weekly, On Time:+6H, At Days:[FRI,SAT,SUN]                                     |
+      | share                 | Email:[automation.vision1@radware.com],Subject:mySubject,Body:myBody                     |
+      | Format                | Select: HTML                                                                             |
     Then UI Delete Report With Name "System And Network And Application Report6"
 
   @SID_32
   Scenario: create System And Network And Application Report7
     Given UI "Create" Report With Name "System And Network And Application Report7"
       | Template-1            | reportType:System And Network , Widgets:[Ports Traffic Information] , Applications:[All] |
-      | Template-2            | reportType:Application ,Widgets:[End-to-End Time] , Applications:[All]              |
-      | Logo                  | reportLogoPNG.png                                                                   |
-      | Time Definitions.Date | Quick:1W                                                                            |
-      | Schedule              | Run Every:Monthly, On Time:+6H, At Months:[JAN]                                     |
-      | share                 | Email:[automation.vision1@radware.com],Subject:mySubject,Body:myBody                |
-      | Format                | Select: PDF                                                                         |
+      | Template-2            | reportType:Application ,Widgets:[End-to-End Time] , Applications:[All]                   |
+      | Logo                  | reportLogoPNG.png                                                                        |
+      | Time Definitions.Date | Quick:1W                                                                                 |
+      | Schedule              | Run Every:Monthly, On Time:+6H, At Months:[JAN]                                          |
+      | share                 | Email:[automation.vision1@radware.com],Subject:mySubject,Body:myBody                     |
+      | Format                | Select: PDF                                                                              |
     Then UI "Validate" Report With Name "System And Network And Application Report7"
       | Template-1            | reportType:System And Network , Widgets:[Ports Traffic Information] , Applications:[All] |
-      | Template-2            | reportType:Application ,Widgets:[End-to-End Time] , Applications:[All]              |
-      | Logo                  | reportLogoPNG.png                                                                   |
-      | Time Definitions.Date | Quick:1W                                                                            |
-      | Schedule              | Run Every:Monthly, On Time:+6H, At Months:[JAN]                                     |
-      | share                 | Email:[automation.vision1@radware.com],Subject:mySubject,Body:myBody                |
-      | Format                | Select: PDF                                                                         |
+      | Template-2            | reportType:Application ,Widgets:[End-to-End Time] , Applications:[All]                   |
+      | Logo                  | reportLogoPNG.png                                                                        |
+      | Time Definitions.Date | Quick:1W                                                                                 |
+      | Schedule              | Run Every:Monthly, On Time:+6H, At Months:[JAN]                                          |
+      | share                 | Email:[automation.vision1@radware.com],Subject:mySubject,Body:myBody                     |
+      | Format                | Select: PDF                                                                              |
     Then UI Delete Report With Name "System And Network And Application Report7"
 
 
   @SID_33
   Scenario: create System And Network And Application Report8
     Given UI "Create" Report With Name "System And Network And Application Report8"
-      | Template-1            | reportType:System And Network , Widgets:[Ports Traffic Information] , Applications:[All]                                    |
+      | Template-1            | reportType:System And Network , Widgets:[Ports Traffic Information] , Applications:[All]                               |
       | Template-2            | reportType:Application ,Widgets:[Connections per Second,Groups and Content Rules,End-to-End Time] , Applications:[All] |
       | Logo                  | reportLogoPNG.png                                                                                                      |
       | Time Definitions.Date | Quick:1M                                                                                                               |
@@ -529,7 +529,7 @@ Feature: Test Reports Definition
       | share                 | Email:[automation.vision1@radware.com],Subject:mySubject,Body:myBody                                                   |
       | Format                | Select: PDF                                                                                                            |
     Then UI "Validate" Report With Name "System And Network And Application Report8"
-      | Template-1            | reportType:System And Network , Widgets:[Ports Traffic Information] , Applications:[All]                                    |
+      | Template-1            | reportType:System And Network , Widgets:[Ports Traffic Information] , Applications:[All]                               |
       | Template-2            | reportType:Application ,Widgets:[Connections per Second,Groups and Content Rules,End-to-End Time] , Applications:[All] |
       | Logo                  | reportLogoPNG.png                                                                                                      |
       | Time Definitions.Date | Quick:1M                                                                                                               |
@@ -541,7 +541,7 @@ Feature: Test Reports Definition
   @SID_34
   Scenario: create System And Network And Application Report9
     Given UI "Create" Report With Name "System And Network And Application Report9"
-      | Template-1            | reportType:System And Network , Widgets:[Ports Traffic Information] , Applications:[All]                                |
+      | Template-1            | reportType:System And Network , Widgets:[Ports Traffic Information] , Applications:[All]                           |
       | Template-2            | reportType:Application ,Widgets:[Requests per Second,Throughput (bps),Concurrent Connections] , Applications:[All] |
       | Logo                  | reportLogoPNG.png                                                                                                  |
       | Time Definitions.Date | Absolute:[-1d, +0d]                                                                                                |
@@ -549,7 +549,7 @@ Feature: Test Reports Definition
       | share                 | Email:[automation.vision1@radware.com],Subject:mySubject,Body:myBody                                               |
       | Format                | Select: HTML                                                                                                       |
     Then UI "Validate" Report With Name "System And Network And Application Report9"
-      | Template-1            | reportType:System And Network , Widgets:[Ports Traffic Information] , Applications:[All]                                |
+      | Template-1            | reportType:System And Network , Widgets:[Ports Traffic Information] , Applications:[All]                           |
       | Template-2            | reportType:Application ,Widgets:[Requests per Second,Throughput (bps),Concurrent Connections] , Applications:[All] |
       | Logo                  | reportLogoPNG.png                                                                                                  |
       | Time Definitions.Date | Absolute:[-1d, +0d]                                                                                                |
@@ -561,7 +561,7 @@ Feature: Test Reports Definition
   @SID_35
   Scenario: create System And Network And Application Report10
     Given UI "Create" Report With Name "System And Network And Application Report10"
-      | Template-1            | reportType:System And Network , Widgets:[Ports Traffic Information] , Applications:[All]                  |
+      | Template-1            | reportType:System And Network , Widgets:[Ports Traffic Information] , Applications:[All]             |
       | Template-2            | reportType:Application ,Widgets:[Concurrent Connections,Connections per Second] , Applications:[All] |
       | Logo                  | reportLogoPNG.png                                                                                    |
       | Time Definitions.Date | Relative:[Hours,2]                                                                                   |
@@ -569,7 +569,7 @@ Feature: Test Reports Definition
       | share                 | Email:[automation.vision1@radware.com],Subject:mySubject,Body:myBody                                 |
       | Format                | Select: CSV                                                                                          |
     Then UI "Validate" Report With Name "System And Network And Application Report10"
-      | Template-1            | reportType:System And Network , Widgets:[Ports Traffic Information] , Applications:[All]                  |
+      | Template-1            | reportType:System And Network , Widgets:[Ports Traffic Information] , Applications:[All]             |
       | Template-2            | reportType:Application ,Widgets:[Concurrent Connections,Connections per Second] , Applications:[All] |
       | Logo                  | reportLogoPNG.png                                                                                    |
       | Time Definitions.Date | Relative:[Hours,2]                                                                                   |
@@ -581,14 +581,14 @@ Feature: Test Reports Definition
   @SID_36
   Scenario: create System And Network And Application Report11
     Given UI "Create" Report With Name "System And Network And Application Report11"
-      | Template-1            | reportType:System And Network , Widgets:[Ports Traffic Information] , Applications:[Alteon_172.17.164.17]                                  |
+      | Template-1            | reportType:System And Network , Widgets:[Ports Traffic Information] , Applications:[Alteon_172.17.164.17]                             |
       | Template-2            | reportType:Application,Widgets:[Concurrent Connections,Connections per Second,Groups and Content Rules],Applications:[app:80,app:443] |
       | Time Definitions.Date | Relative:[Days,3]                                                                                                                     |
       | Schedule              | Run Every:Monthly, On Time:+6H, At Months:[JAN,FEB,MAR,APR,MAY,JUN,JUL,AUG,SEP,OCT,NOV,DEC]                                           |
       | share                 | Email:[automation.vision1@radware.com],Subject:mySubject,Body:myBody                                                                  |
       | Format                | Select: CSV                                                                                                                           |
     Then UI "Validate" Report With Name "System And Network And Application Report11"
-      | Template-1            | reportType:System And Network , Widgets:[Ports Traffic Information] , Applications:[Alteon_172.17.164.17]                                  |
+      | Template-1            | reportType:System And Network , Widgets:[Ports Traffic Information] , Applications:[Alteon_172.17.164.17]                             |
       | Template-2            | reportType:Application,Widgets:[Concurrent Connections,Connections per Second,Groups and Content Rules],Applications:[app:80,app:443] |
       | Time Definitions.Date | Relative:[Days,3]                                                                                                                     |
       | Schedule              | Run Every:Monthly, On Time:+6H, At Months:[JAN,FEB,MAR,APR,MAY,JUN,JUL,AUG,SEP,OCT,NOV,DEC]                                           |
@@ -599,14 +599,14 @@ Feature: Test Reports Definition
   @SID_37
   Scenario: create System And Network And Application Report12
     Given UI "Create" Report With Name "System And Network And Application Report12"
-      | Template-1            | reportType:System And Network , Widgets:[Ports Traffic Information] , Applications:[Alteon_172.17.164.17]                                         |
+      | Template-1            | reportType:System And Network , Widgets:[Ports Traffic Information] , Applications:[Alteon_172.17.164.17]                                    |
       | Template-2            | reportType:Application,Widgets:[Requests per Second,Throughput (bps),Groups and Content Rules,End-to-End Time],Applications:[app:80,app:443] |
       | Time Definitions.Date | Relative:[Weeks,4]                                                                                                                           |
       | Schedule              | Run Every:Once, On Time:+6H                                                                                                                  |
       | share                 | Email:[automation.vision1@radware.com],Subject:mySubject,Body:myBody                                                                         |
       | Format                | Select: HTML                                                                                                                                 |
     Then UI "Validate" Report With Name "System And Network And Application Report12"
-      | Template-1            | reportType:System And Network , Widgets:[Ports Traffic Information] , Applications:[Alteon_172.17.164.17]                                         |
+      | Template-1            | reportType:System And Network , Widgets:[Ports Traffic Information] , Applications:[Alteon_172.17.164.17]                                    |
       | Template-2            | reportType:Application,Widgets:[Requests per Second,Throughput (bps),Groups and Content Rules,End-to-End Time],Applications:[app:80,app:443] |
       | Time Definitions.Date | Relative:[Weeks,4]                                                                                                                           |
       | Schedule              | Run Every:Once, On Time:+6H                                                                                                                  |
