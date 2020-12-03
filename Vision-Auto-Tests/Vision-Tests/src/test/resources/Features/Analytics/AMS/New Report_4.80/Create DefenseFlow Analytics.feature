@@ -45,7 +45,7 @@ Feature:DefenseFlow Analytics
     Then UI Delete Report With Name "Top Attacks by Duration 2"
 
   @SID_4
-  Scenario:  Top Attacks by Duration Report 3
+  Scenario: Top Attacks by Duration Report 3
     Then UI Click Button "New Report Tab"
     Given UI "Create" Report With Name "Top Attacks by Duration 3"
       | Template              | reportType:DefenseFlow Analytics , Widgets:[Top Attacks by Duration], Protected Objects:[PO Name Space] |
@@ -60,7 +60,7 @@ Feature:DefenseFlow Analytics
     Then UI Delete Report With Name "Top Attacks by Duration 3"
 
   @SID_5
-  Scenario:  Top Attacks by Duration Report 4
+  Scenario: Top Attacks by Duration Report 4
     Then UI Click Button "New Report Tab"
     Given UI "Create" Report With Name "Top Attacks by Duration 4"
       | Template              | reportType:DefenseFlow Analytics , Widgets:[Top Attacks by Duration], Protected Objects:[All], showTable:true |
@@ -113,7 +113,7 @@ Feature:DefenseFlow Analytics
     Then UI Delete Report With Name "Top Attacks by Count Report 2"
 
   @SID_8
-  Scenario:  Top Attacks by Count Report 3
+  Scenario: Top Attacks by Count Report 3
     Then UI Click Button "New Report Tab"
     Given UI "Create" Report With Name "Top Attacks by Count Report 3"
       | Template              | reportType:DefenseFlow Analytics , Widgets:[Top Attacks by Count], Protected Objects:[PO Name Space] |
@@ -126,7 +126,7 @@ Feature:DefenseFlow Analytics
     Then UI Delete Report With Name "Top Attacks by Count Report 3"
 
   @SID_9
-  Scenario:  Top Attacks by Count Report 4
+  Scenario: Top Attacks by Count Report 4
     Then UI Click Button "New Report Tab"
     Given UI "Create" Report With Name "Top Attacks by Count Report 4"
       | Template              | reportType:DefenseFlow Analytics , Widgets:[Top Attacks by Count], Protected Objects:[All], showTable:true |
@@ -181,7 +181,7 @@ Feature:DefenseFlow Analytics
     Then UI Delete Report With Name "Top Attacks by Rate Report 2"
 
   @SID_12
-  Scenario:  Top Attacks by Rate Report 3
+  Scenario: Top Attacks by Rate Report 3
     Then UI Click Button "New Report Tab"
     Given UI "Create" Report With Name "Top Attacks by Rate 3"
       | Template              | reportType:DefenseFlow Analytics , Widgets:[Top Attacks by Rate], Protected Objects:[PO Name Space] |
@@ -196,7 +196,7 @@ Feature:DefenseFlow Analytics
     Then UI Delete Report With Name "Top Attacks by Rate 3"
 
   @SID_13
-  Scenario:  Top Attacks by Rate Report 4
+  Scenario: Top Attacks by Rate Report 4
     Then UI Click Button "New Report Tab"
     Given UI "Create" Report With Name "Top Attacks by Rate Report 4"
       | Template              | reportType:DefenseFlow Analytics , Widgets:[Top Attacks by Rate], Protected Objects:[All], showTable:true |
@@ -249,7 +249,7 @@ Feature:DefenseFlow Analytics
     Then UI Delete Report With Name "Top Attacks by Protocol Report 2"
 
   @SID_16
-  Scenario:  Top Attacks by Protocol Report 3
+  Scenario: Top Attacks by Protocol Report 3
     Then UI Click Button "New Report Tab"
     Given UI "Create" Report With Name "Top Attacks by Protocol Report 3"
       | Template              | reportType:DefenseFlow Analytics , Widgets:[Top Attacks by Protocol], Protected Objects:[PO Name Space] |
@@ -262,7 +262,7 @@ Feature:DefenseFlow Analytics
     Then UI Delete Report With Name "Top Attacks by Protocol Report 3"
 
   @SID_17
-  Scenario:  Top Attacks by Protocol Report 4
+  Scenario: Top Attacks by Protocol Report 4
     Then UI Click Button "New Report Tab"
     Given UI "Create" Report With Name "Top Attacks by Protocol Report 4"
       | Template              | reportType:DefenseFlow Analytics , Widgets:[Top Attacks by Protocol], Protected Objects:[All], showTable:true |
@@ -315,7 +315,7 @@ Feature:DefenseFlow Analytics
     Then UI Delete Report With Name "Top Attack Destination  Report 2"
 
   @SID_20
-  Scenario:  Top Attack Destination Report 3
+  Scenario: Top Attack Destination Report 3
     Then UI Click Button "New Report Tab"
     Given UI "Create" Report With Name "Top Attack Destination Report 3"
       | Template              | reportType:DefenseFlow Analytics , Widgets:[Top Attack Destination], Protected Objects:[PO Name Space] |
@@ -330,7 +330,7 @@ Feature:DefenseFlow Analytics
     Then UI Delete Report With Name "Top Attack Destination Report 3"
 
   @SID_21
-  Scenario:  Top Attack Destination Report 4
+  Scenario: Top Attack Destination Report 4
     Then UI Click Button "New Report Tab"
     Given UI "Create" Report With Name "Top Attack Destination Report 4"
       | Template              | reportType:DefenseFlow Analytics , Widgets:[Top Attack Destination], Protected Objects:[All], showTable:true |
@@ -383,7 +383,7 @@ Feature:DefenseFlow Analytics
     Then UI Delete Report With Name "Top Attack Sources Report 2"
 
   @SID_24
-  Scenario:  Top Attack Sources Report 3
+  Scenario: Top Attack Sources Report 3
     Then UI Click Button "New Report Tab"
     Given UI "Create" Report With Name "Top Attack Sources Report 3"
       | Template              | reportType:DefenseFlow Analytics , Widgets:[Top Attack Sources], Protected Objects:[PO Name Space] |
@@ -398,7 +398,7 @@ Feature:DefenseFlow Analytics
     Then UI Delete Report With Name "Top Attack Sources Report 3"
 
   @SID_25
-  Scenario:  Top Attack Sources Report 4
+  Scenario: Top Attack Sources Report 4
     Then UI Click Button "New Report Tab"
     Given UI "Create" Report With Name "Top Attack Sources Report 4"
       | Template              | reportType:DefenseFlow Analytics , Widgets:[Top Attack Sources], Protected Objects:[All], showTable:true |
@@ -453,7 +453,7 @@ Feature:DefenseFlow Analytics
     Then UI Delete Report With Name "Traffic Bandwidth Report 2"
 
   @SID_28
-  Scenario:  Traffic Bandwidth Report 3
+  Scenario: Traffic Bandwidth Report 3
     Then UI Click Button "New Report Tab"
     Given UI "Create" Report With Name "Traffic Bandwidth Report 3"
       | Template              | reportType:DefenseFlow Analytics , Widgets:[{Traffic Bandwidth:[All Protected Objects]}], Protected Objects:[PO Name Space] |
@@ -466,7 +466,7 @@ Feature:DefenseFlow Analytics
     Then UI Delete Report With Name "Traffic Bandwidth Report 3"
 
   @SID_29
-  Scenario:  Traffic Bandwidth Report 4
+  Scenario: Traffic Bandwidth Report 4
     Then UI Click Button "New Report Tab"
     Given UI "Create" Report With Name "Traffic Bandwidth Report 4"
       | Template              | reportType:DefenseFlow Analytics , Widgets:[{Traffic Bandwidth:[All Protected Objects]}], Protected Objects:[All] |
@@ -517,7 +517,7 @@ Feature:DefenseFlow Analytics
     Then UI Delete Report With Name "Traffic Rate Report 2"
 
   @SID_32
-  Scenario:  Traffic Rate Report 3
+  Scenario: Traffic Rate Report 3
     Then UI Click Button "New Report Tab"
     Given UI "Create" Report With Name "Traffic Rate Report 3"
       | Template              | reportType:DefenseFlow Analytics , Widgets:[Traffic Rate], Protected Objects:[PO Name Space] |
@@ -532,7 +532,7 @@ Feature:DefenseFlow Analytics
     Then UI Delete Report With Name "Traffic Rate Report 3"
 
   @SID_33
-  Scenario:  Traffic Rate Report 4
+  Scenario: Traffic Rate Report 4
     Then UI Click Button "New Report Tab"
     Given UI "Create" Report With Name "Traffic Rate Report 4"
       | Template              | reportType:DefenseFlow Analytics , Widgets:[Traffic Rate], Protected Objects:[All], showTable:true |
@@ -585,7 +585,7 @@ Feature:DefenseFlow Analytics
     Then UI Delete Report With Name "DDoS Peak Attack per Period Report 2"
 
   @SID_36
-  Scenario:  DDoS Peak Attack per Period Report 3
+  Scenario: DDoS Peak Attack per Period Report 3
     Then UI Click Button "New Report Tab"
     Given UI "Create" Report With Name "DDoS Peak Attack per Period Report 3"
       | Template              | reportType:DefenseFlow Analytics , Widgets:[DDoS Peak Attack per Period], Protected Objects:[PO Name Space] |
@@ -598,7 +598,7 @@ Feature:DefenseFlow Analytics
     Then UI Delete Report With Name "DDoS Peak Attack per Period Report 3"
 
   @SID_37
-  Scenario:  DDoS Peak Attack per Period Report 4
+  Scenario: DDoS Peak Attack per Period Report 4
     Then UI Click Button "New Report Tab"
     Given UI "Create" Report With Name "DDoS Peak Attack per Period Report 4"
       | Template              | reportType:DefenseFlow Analytics , Widgets:[DDoS Peak Attack per Period], Protected Objects:[All], showTable:true |
@@ -651,7 +651,7 @@ Feature:DefenseFlow Analytics
     Then UI Delete Report With Name "DDoS Attack Activations per Period Report 2"
 
   @SID_40
-  Scenario:  DDoS Attack Activations per Period Report 3
+  Scenario: DDoS Attack Activations per Period Report 3
     Then UI Click Button "New Report Tab"
     Given UI "Create" Report With Name "DDoS Attack Activations per Period Report 3"
       | Template              | reportType:DefenseFlow Analytics , Widgets:[DDoS Attack Activations per Period], Protected Objects:[PO Name Space] |
@@ -666,7 +666,7 @@ Feature:DefenseFlow Analytics
     Then UI Delete Report With Name "DDoS Attack Activations per Period Report 3"
 
   @SID_41
-  Scenario:  DDoS Attack Activations per Period Report 4
+  Scenario: DDoS Attack Activations per Period Report 4
     Then UI Click Button "New Report Tab"
     Given UI "Create" Report With Name "DDoS Attack Activations per Period Report 4"
       | Template              | reportType:DefenseFlow Analytics , Widgets:[DDoS Attack Activations per Period], Protected Objects:[All], showTable:true |
@@ -719,7 +719,7 @@ Feature:DefenseFlow Analytics
     Then UI Delete Report With Name "Top 10 Activations by Duration Report 2"
 
   @SID_44
-  Scenario:  Top 10 Activations by Duration Report 3
+  Scenario: Top 10 Activations by Duration Report 3
     Then UI Click Button "New Report Tab"
     Given UI "Create" Report With Name "Top 10 Activations by Duration Report 3"
       | Template              | reportType:DefenseFlow Analytics , Widgets:[Top 10 Activations by Duration], Protected Objects:[PO Name Space] |
@@ -732,7 +732,7 @@ Feature:DefenseFlow Analytics
     Then UI Delete Report With Name "Top 10 Activations by Duration Report 3"
 
   @SID_45
-  Scenario:  Top 10 Activations by Duration Report 4
+  Scenario: Top 10 Activations by Duration Report 4
     Then UI Click Button "New Report Tab"
     Given UI "Create" Report With Name "Top 10 Activations by Duration Report 4"
       | Template              | reportType:DefenseFlow Analytics , Widgets:[Top 10 Activations by Duration], Protected Objects:[All], showTable:true |
@@ -785,7 +785,7 @@ Feature:DefenseFlow Analytics
     Then UI Delete Report With Name "Top 10 Activations by Attack Rate (Gbps) Report 2"
 
   @SID_48
-  Scenario:  Top 10 Activations by Attack Rate (Gbps) Report 3
+  Scenario: Top 10 Activations by Attack Rate (Gbps) Report 3
     Then UI Click Button "New Report Tab"
     Given UI "Create" Report With Name "Top 10 Activations by Attack Rate (Gbps) Report 3"
       | Template              | reportType:DefenseFlow Analytics , Widgets:[Top 10 Activations by Attack Rate (Gbps)], Protected Objects:[PO Name Space] |
@@ -800,7 +800,7 @@ Feature:DefenseFlow Analytics
     Then UI Delete Report With Name "Top 10 Activations by Attack Rate (Gbps) Report 3"
 
   @SID_49
-  Scenario:  Top 10 Activations by Attack Rate (Gbps) Report 4
+  Scenario: Top 10 Activations by Attack Rate (Gbps) Report 4
     Then UI Click Button "New Report Tab"
     Given UI "Create" Report With Name "Top 10 Activations by Attack Rate (Gbps) Report 4"
       | Template              | reportType:DefenseFlow Analytics , Widgets:[Top 10 Activations by Attack Rate (Gbps)], Protected Objects:[All], showTable:true |
@@ -852,7 +852,7 @@ Feature:DefenseFlow Analytics
     Then UI Delete Report With Name "Top 10 Activations by Attack Rate (Mpps) Report 2"
 
   @SID_52
-  Scenario:  Top 10 Activations by Attack Rate (Mpps) Report 3
+  Scenario: Top 10 Activations by Attack Rate (Mpps) Report 3
     Then UI Click Button "New Report Tab"
     Given UI "Create" Report With Name "Top 10 Activations by Attack Rate (Mpps) Report 3"
       | Template              | reportType:DefenseFlow Analytics , Widgets:[Top 10 Activations by Attack Rate (Mpps)], Protected Objects:[PO Name Space] |
@@ -867,7 +867,7 @@ Feature:DefenseFlow Analytics
     Then UI Delete Report With Name "Top 10 Activations by Attack Rate (Mpps) Report 3"
 
   @SID_53
-  Scenario:  Top 10 Activations by Attack Rate (Mpps) Report 4
+  Scenario: Top 10 Activations by Attack Rate (Mpps) Report 4
     Then UI Click Button "New Report Tab"
     Given UI "Create" Report With Name "Top 10 Activations by Attack Rate (Mpps) Report 4"
       | Template              | reportType:DefenseFlow Analytics , Widgets:[Top 10 Activations by Attack Rate (Mpps)], Protected Objects:[All], showTable:true |
@@ -990,7 +990,7 @@ Feature:DefenseFlow Analytics
     Then UI Delete Report With Name "Widgets 1_4_6_7_8_9_11_12_13 Report 2"
 
   @SID_60
-  Scenario:  Widgets 1_4_6_8_9_11_12_13 Report 3
+  Scenario: Widgets 1_4_6_8_9_11_12_13 Report 3
     Then UI Click Button "New Report Tab"
     Given UI "Create" Report With Name "Widgets 1_4_6_7_8_9_11_12_13 Report 3"
       | Template              | reportType:DefenseFlow Analytics , Widgets:[Top Attacks by Duration, Top Attacks by Protocol, Top Attack Sources, Traffic Rate, DDoS Peak Attack per Period, Top 10 Activations by Duration, Top 10 Activations by Attack Rate (Gbps), Top 10 Activations by Attack Rate (Mpps)],  Protected Objects:[PO Name Space] |
@@ -1005,7 +1005,7 @@ Feature:DefenseFlow Analytics
     Then UI Delete Report With Name "Widgets 1_4_6_7_8_9_11_12_13 Report 3"
 
   @SID_61
-  Scenario:  Widgets 1_4_6_8_9_11_12_13 Report 4
+  Scenario: Widgets 1_4_6_8_9_11_12_13 Report 4
     Then UI Click Button "New Report Tab"
     Given UI "Create" Report With Name "Widgets 1_4_6_7_8_9_11_12_13 Report 4"
       | Template              | reportType:DefenseFlow Analytics , Widgets:[Top Attacks by Duration, Top Attacks by Protocol, Top Attack Sources, Traffic Rate, DDoS Peak Attack per Period, Top 10 Activations by Duration, Top 10 Activations by Attack Rate (Gbps), Top 10 Activations by Attack Rate (Mpps)],  Protected Objects:[all], showTable:true |
@@ -1058,7 +1058,7 @@ Feature:DefenseFlow Analytics
     Then UI Delete Report With Name "Widgets 1_2_4_5_6_7_10 Report 2"
 
   @SID_64
-  Scenario:  Widgets 1_2_4_5_6_10 Report 3
+  Scenario: Widgets 1_2_4_5_6_10 Report 3
     Then UI Click Button "New Report Tab"
     Given UI "Create" Report With Name "Widgets 1_2_4_5_6_7_10 Report 3"
       | Template              | reportType:DefenseFlow Analytics , Widgets:[Top Attacks by Duration, Top Attacks by Count, Top Attacks by Protocol, Top Attack Destination, Top Attack Sources, DDoS Attack Activations per Period],  Protected Objects:[PO Name Space] |
@@ -1073,7 +1073,7 @@ Feature:DefenseFlow Analytics
     Then UI Delete Report With Name "Widgets 1_2_4_5_6_7_10 Report 3"
 
   @SID_65
-  Scenario:  Widgets 1_2_4_5_6_10 Report 4
+  Scenario: Widgets 1_2_4_5_6_10 Report 4
     Then UI Click Button "New Report Tab"
     Given UI "Create" Report With Name "Widgets 1_2_4_5_6_7_10 Report 4"
       | Template              | reportType:DefenseFlow Analytics , Widgets:[Top Attacks by Duration, Top Attacks by Count, Top Attacks by Protocol, Top Attack Destination, Top Attack Sources, DDoS Attack Activations per Period],  Protected Objects:[all], showTable:true |
@@ -1126,7 +1126,7 @@ Feature:DefenseFlow Analytics
     Then UI Delete Report With Name "Widgets 3_7_10_11_12_13 Report 2"
 
   @SID_68
-  Scenario:  Widgets 3_7_10_11_12_13 Report 3
+  Scenario: Widgets 3_7_10_11_12_13 Report 3
     Then UI Click Button "New Report Tab"
     Given UI "Create" Report With Name "Widgets 3_7_10_11_12_13 Report 3"
       | Template              | reportType:DefenseFlow Analytics , Widgets:[{Traffic Bandwidth:[40]},Top Attacks by Rate, DDoS Attack Activations per Period, Top 10 Activations by Duration, Top 10 Activations by Attack Rate (Gbps), Top 10 Activations by Attack Rate (Mpps)],  Protected Objects:[PO Name Space] |
@@ -1141,7 +1141,7 @@ Feature:DefenseFlow Analytics
     Then UI Delete Report With Name "Widgets 3_7_10_11_12_13 Report 3"
 
   @SID_69
-  Scenario:  Widgets 3_7_10_11_12_13 Report 4
+  Scenario: Widgets 3_7_10_11_12_13 Report 4
     Then UI Click Button "New Report Tab"
     Given UI "Create" Report With Name "Widgets 3_7_10_11_12_13 Report 4"
       | Template              | reportType:DefenseFlow Analytics , Widgets:[{Traffic Bandwidth:[60]},Top Attacks by Rate, DDoS Attack Activations per Period, Top 10 Activations by Duration, Top 10 Activations by Attack Rate (Gbps), Top 10 Activations by Attack Rate (Mpps)],  Protected Objects:[all], showTable:true |
@@ -1197,7 +1197,7 @@ Feature:DefenseFlow Analytics
     Then UI Delete Report With Name "Widgets 3_4_5_6_7_8_9_13 Report 2"
 
   @SID_72
-  Scenario:  Widgets 3_4_5_6_7_8_9_13 Report 3
+  Scenario: Widgets 3_4_5_6_7_8_9_13 Report 3
     Then UI Click Button "New Report Tab"
     Given UI "Create" Report With Name "Widgets 3_4_5_6_7_8_9_13 Report 3"
       | Template              | reportType:DefenseFlow Analytics , Widgets:[{Traffic Bandwidth:[25]}, Top Attacks by Rate, Top Attacks by Protocol, Top Attack Destination, Top Attack Sources, Traffic Rate, DDoS Peak Attack per Period, Top 10 Activations by Attack Rate (Mpps)],  Protected Objects:[PO Name Space] |
@@ -1210,7 +1210,7 @@ Feature:DefenseFlow Analytics
     Then UI Delete Report With Name "Widgets 3_4_5_6_7_8_9_13 Report 3"
 
   @SID_73
-  Scenario:  Widgets 3_4_5_6_7_8_9_13 Report 4
+  Scenario: Widgets 3_4_5_6_7_8_9_13 Report 4
     Then UI Click Button "New Report Tab"
     Given UI "Create" Report With Name "Widgets 3_4_5_6_7_8_9_13  Report 4"
       | Template              | reportType:DefenseFlow Analytics , Widgets:[{Traffic Bandwidth:[30]}, Top Attacks by Rate, Top Attacks by Protocol, Top Attack Destination, Top Attack Sources, Traffic Rate, DDoS Peak Attack per Period, Top 10 Activations by Attack Rate (Mpps)],  Protected Objects:[all], showTable:true |
@@ -1264,7 +1264,7 @@ Feature:DefenseFlow Analytics
     Then UI Delete Report With Name "Widgets 1_4_6_7_8_9_11_12_13 Report 2"
 
   @SID_76
-  Scenario:  Widgets 1_2_6_11_12_13 Report 3
+  Scenario: Widgets 1_2_6_11_12_13 Report 3
     Then UI Click Button "New Report Tab"
     Given UI "Create" Report With Name "Widgets 1_4_6_7_8_9_11_12_13 Report 3"
       | Template              | reportType:DefenseFlow Analytics , Widgets:[Top Attacks by Duration, Top Attacks by Count, Top Attack Sources, Top 10 Activations by Duration, Top 10 Activations by Attack Rate (Gbps), Top 10 Activations by Attack Rate (Mpps)],  Protected Objects:[PO Name Space] |
@@ -1279,7 +1279,7 @@ Feature:DefenseFlow Analytics
     Then UI Delete Report With Name "Widgets 1_4_6_7_8_9_11_12_13 Report 3"
 
   @SID_77
-  Scenario:  Widgets 1_2_6_11_12_13 Report 4
+  Scenario: Widgets 1_2_6_11_12_13 Report 4
     Then UI Click Button "New Report Tab"
     Given UI "Create" Report With Name "Widgets 1_4_6_7_8_9_11_12_13 Report 4"
       | Template              | reportType:DefenseFlow Analytics , Widgets:[Top Attacks by Duration, Top Attacks by Count, Top Attack Sources, Top 10 Activations by Duration, Top 10 Activations by Attack Rate (Gbps), Top 10 Activations by Attack Rate (Mpps)],  Protected Objects:[all], showTable:true |
@@ -1332,7 +1332,7 @@ Feature:DefenseFlow Analytics
     Then UI Delete Report With Name "Widgets 4_5_6_7_8_9_10_11_12_13 Report 2"
 
   @SID_80
-  Scenario:  Widgets 4_5_6_7_8_9_10_11_12_13 Report 3
+  Scenario: Widgets 4_5_6_7_8_9_10_11_12_13 Report 3
     Then UI Click Button "New Report Tab"
     Given UI "Create" Report With Name "Widgets 4_5_6_7_8_9_10_11_12_13 Report 3"
       | Template              | reportType:DefenseFlow Analytics , Widgets:[{Traffic Bandwidth:[25]}, Top Attacks by Protocol, Top Attack Destination, Top Attack Sources, Traffic Rate, DDoS Peak Attack per Period, DDoS Attack Activations per Period, Top 10 Activations by Duration, Top 10 Activations by Attack Rate (Gbps), Top 10 Activations by Attack Rate (Mpps)],  Protected Objects:[PO Name Space] |
@@ -1347,7 +1347,7 @@ Feature:DefenseFlow Analytics
     Then UI Delete Report With Name "Widgets 4_5_6_7_8_9_10_11_12_13 Report 3"
 
   @SID_81
-  Scenario:  Widgets 4_5_6_7_8_9_10_11_12_13 Report 4
+  Scenario: Widgets 4_5_6_7_8_9_10_11_12_13 Report 4
     Then UI Click Button "New Report Tab"
     Given UI "Create" Report With Name "Widgets 4_5_6_7_8_9_10_11_12_13  Report 4"
       | Template              | reportType:DefenseFlow Analytics , Widgets:[{Traffic Bandwidth:[30]}, Top Attacks by Protocol, Top Attack Destination, Top Attack Sources, Traffic Rate, DDoS Peak Attack per Period, DDoS Attack Activations per Period, Top 10 Activations by Duration, Top 10 Activations by Attack Rate (Gbps), Top 10 Activations by Attack Rate (Mpps)],  Protected Objects:[all], showTable:true |
@@ -1400,7 +1400,7 @@ Feature:DefenseFlow Analytics
     Then UI Delete Report With Name "Widgets 1_2_3_4_5_6_7_10 Report 2"
 
   @SID_84
-  Scenario:  Widgets 1_2_3_4_5_6_7_10 Report 3
+  Scenario: Widgets 1_2_3_4_5_6_7_10 Report 3
     Then UI Click Button "New Report Tab"
     Given UI "Create" Report With Name "Widgets 1_2_3_4_5_6_7_10 Report 3"
       | Template              | reportType:DefenseFlow Analytics , Widgets:[{Traffic Bandwidth:[25]}, Top Attacks by Duration, Top Attacks by Count, Top Attacks by Rate, Top Attacks by Protocol, Top Attack Destination, Top Attack Sources, DDoS Attack Activations per Period],  Protected Objects:[PO Name Space] |
@@ -1415,7 +1415,7 @@ Feature:DefenseFlow Analytics
     Then UI Delete Report With Name "Widgets 1_2_3_4_5_6_7_10 Report 3"
 
   @SID_85
-  Scenario:  Widgets 1_2_3_4_5_6_7_10 Report 4
+  Scenario: Widgets 1_2_3_4_5_6_7_10 Report 4
     Then UI Click Button "New Report Tab"
     Given UI "Create" Report With Name "Widgets 1_2_3_4_5_6_7_10  Report 4"
       | Template              | reportType:DefenseFlow Analytics , Widgets:[{Traffic Bandwidth:[30]}, Top Attacks by Duration, Top Attacks by Count, Top Attacks by Rate, Top Attacks by Protocol, Top Attack Destination, Top Attack Sources, DDoS Attack Activations per Period],  Protected Objects:[all], showTable:true |
@@ -1468,7 +1468,7 @@ Feature:DefenseFlow Analytics
     Then UI Delete Report With Name "Widgets 3_6_9_13 Report"
 
   @SID_88
-  Scenario:  Widgets 1_3_5_7_9_11_13 Report
+  Scenario: Widgets 1_3_5_7_9_11_13 Report
     Then UI Click Button "New Report Tab"
     Given UI "Create" Report With Name "Widgets 1_3_5_7_9_11_13 Report"
       | Template              | reportType:DefenseFlow Analytics , Widgets:[Top Attacks by Duration, Top Attacks by Rate, Top Attack Destination, {Traffic Bandwidth:[20]}, DDoS Peak Attack per Period, Top 10 Activations by Duration, Top 10 Activations by Attack Rate (Mpps)],  Protected Objects:[PO Name Space] |
@@ -1483,7 +1483,7 @@ Feature:DefenseFlow Analytics
     Then UI Delete Report With Name "Widgets 1_3_5_7_9_11_13 Report"
 
   @SID_89
-  Scenario:  Widgets 2_4_8_12 Report 4
+  Scenario: Widgets 2_4_8_12 Report 4
     Then UI Click Button "New Report Tab"
     Given UI "Create" Report With Name "Widgets 2_4_8_12 Report"
       | Template              | reportType:DefenseFlow Analytics , Widgets:[Top Attacks by Count, Top Attacks by Protocol, Traffic Rate, Top 10 Activations by Attack Rate (Gbps)],  Protected Objects:[all], showTable:true |
@@ -1535,7 +1535,7 @@ Feature:DefenseFlow Analytics
     Then UI Delete Report With Name "ALL Widgets Report 2"
 
   @SID_92
-  Scenario:  ALL Widgets Report 3
+  Scenario: ALL Widgets Report 3
     Then UI Click Button "New Report Tab"
     Given UI "Create" Report With Name "ALL Widgets Report 3"
       | Template              | reportType:DefenseFlow Analytics , Widgets:[ALL],  Protected Objects:[PO Name Space] |
@@ -1550,7 +1550,7 @@ Feature:DefenseFlow Analytics
     Then UI Delete Report With Name "ALL Widgets Report 3"
 
   @SID_93
-  Scenario:  ALL Widgets Report 4
+  Scenario: ALL Widgets Report 4
     Then UI Click Button "New Report Tab"
     Given UI "Create" Report With Name "ALL Widgets Report 4"
       | Template              | reportType:DefenseFlow Analytics , Widgets:[ALL],  Protected Objects:[all], showTable:true |
