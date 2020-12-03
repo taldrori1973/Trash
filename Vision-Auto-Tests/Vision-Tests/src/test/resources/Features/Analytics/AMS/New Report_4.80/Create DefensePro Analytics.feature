@@ -764,7 +764,7 @@ Feature: DefensePro Analytics
     Then UI Delete Report With Name "Top Attack Sources 2"
 
   @SID_46
-  Scenario:  Top Attack Sources Report 3
+  Scenario: Top Attack Sources Report 3
     Then UI Click Button "New Report Tab"
     Given UI "Create" Report With Name "Top Attack Sources 3"
       | Template              | reportType:DefensePro Analytics , Widgets:[Top Attack Sources],devices:[{deviceIndex:10}] |
@@ -777,7 +777,7 @@ Feature: DefensePro Analytics
     Then UI Delete Report With Name "Top Attack Sources 3"
 
   @SID_47
-  Scenario:  Top Attack Sources Report 4
+  Scenario: Top Attack Sources Report 4
     Then UI Click Button "New Report Tab"
     Given UI "Create" Report With Name "Top Attack Sources 4"
       | Template | reportType:DefensePro Analytics , Widgets:[Top Attack Sources],devices:[All], showTable:true |
@@ -830,7 +830,7 @@ Feature: DefensePro Analytics
     Then UI Delete Report With Name "Top Scanners 2"
 
   @SID_50
-  Scenario:  Top Scanners Report 3
+  Scenario: Top Scanners Report 3
     Then UI Click Button "New Report Tab"
     Given UI "Create" Report With Name "Top Scanners 3"
       | Template              | reportType:DefensePro Analytics , Widgets:[Top Scanners],devices:[{deviceIndex:10},{deviceIndex:11}] |
@@ -843,7 +843,7 @@ Feature: DefensePro Analytics
     Then UI Delete Report With Name "Top Scanners 3"
 
   @SID_51
-  Scenario:  Top Scanners Report 4
+  Scenario: Top Scanners Report 4
     Then UI Click Button "New Report Tab"
     Given UI "Create" Report With Name "Top Scanners 4"
       | Template              | reportType:DefensePro Analytics , Widgets:[Top Scanners],devices:[All], showTable:true |
@@ -898,7 +898,7 @@ Feature: DefensePro Analytics
     Then UI Delete Report With Name "Top Probed IP Addresses 2"
 
   @SID_54
-  Scenario:  Top Probed IP Addresses Report 3
+  Scenario: Top Probed IP Addresses Report 3
     Then UI Click Button "New Report Tab"
     Given UI "Create" Report With Name "Top Probed IP Addresses 3"
       | Template              | reportType:DefensePro Analytics , Widgets:[Top Probed IP Addresses],devices:[{deviceIndex:10}] |
@@ -913,7 +913,7 @@ Feature: DefensePro Analytics
     Then UI Delete Report With Name "Top Probed IP Addresses 3"
 
   @SID_55
-  Scenario:  Top Probed IP Addresses Report 4
+  Scenario: Top Probed IP Addresses Report 4
     Then UI Click Button "New Report Tab"
     Given UI "Create" Report With Name "Top Probed IP Addresses 4"
       | Template              | reportType:DefensePro Analytics , Widgets:[Top Probed IP Addresses],devices:[All], showTable:true |
@@ -966,7 +966,7 @@ Feature: DefensePro Analytics
     Then UI Delete Report With Name "Attacks by Protection Policy 2"
 
   @SID_58
-  Scenario:  Attacks by Protection Policy 3
+  Scenario: Attacks by Protection Policy 3
     Then UI Click Button "New Report Tab"
     Given UI "Create" Report With Name "Attacks by Protection Policy 3"
       | Template              | reportType:DefensePro Analytics , Widgets:[Attacks by Protection Policy],devices:[{deviceIndex:10},{deviceIndex:11}] |
@@ -981,7 +981,7 @@ Feature: DefensePro Analytics
     Then UI Delete Report With Name "Attacks by Protection Policy 3"
 
   @SID_59
-  Scenario:  Attacks by Protection Policy 4
+  Scenario: Attacks by Protection Policy 4
     Then UI Click Button "New Report Tab"
     Given UI "Create" Report With Name "Attacks by Protection Policy 4"
       | Template              | reportType:DefensePro Analytics , Widgets:[Attacks by Protection Policy],devices:[All], showTable:true |
@@ -1033,7 +1033,7 @@ Feature: DefensePro Analytics
     Then UI Delete Report With Name "Attack Categories by Bandwidth 2"
 
   @SID_62
-  Scenario:  Attack Categories by Bandwidth Report 3
+  Scenario: Attack Categories by Bandwidth Report 3
     Then UI Click Button "New Report Tab"
     Given UI "Create" Report With Name "Attack Categories by Bandwidth 3"
       | Template              | reportType:DefensePro Analytics , Widgets:[Attack Categories by Bandwidth],devices:[{deviceIndex:10},{deviceIndex:11}] |
@@ -1048,7 +1048,7 @@ Feature: DefensePro Analytics
     Then UI Delete Report With Name "Attack Categories by Bandwidth 3"
 
   @SID_63
-  Scenario:  Attack Categories by Bandwidth Report 4
+  Scenario: Attack Categories by Bandwidth Report 4
     Then UI Click Button "New Report Tab"
     Given UI "Create" Report With Name "Attack Categories by Bandwidth 4"
       | Template              | reportType:DefensePro Analytics , Widgets:[Attack Categories by Bandwidth],devices:[All], showTable:true |
@@ -1103,7 +1103,7 @@ Feature: DefensePro Analytics
     Then UI Delete Report With Name "Top Allowed Attackers 2"
 
   @SID_66
-  Scenario:  Top Allowed Attackers Report 3
+  Scenario: Top Allowed Attackers Report 3
     Then UI Click Button "New Report Tab"
     Given UI "Create" Report With Name "Top Allowed Attackers 3"
       | Template              | reportType:DefensePro Analytics , Widgets:[Top Allowed Attackers],devices:[{deviceIndex:10},{deviceIndex:11}] |
@@ -1118,7 +1118,7 @@ Feature: DefensePro Analytics
     Then UI Delete Report With Name "Top Allowed Attackers 3"
 
   @SID_67
-  Scenario:  Top Allowed Attackers Report 4
+  Scenario: Top Allowed Attackers Report 4
     Then UI Click Button "New Report Tab"
     Given UI "Create" Report With Name "Top Allowed Attackers 4"
       | Template              | reportType:DefensePro Analytics , Widgets:[Top Allowed Attackers],devices:[All], showTable:true |
@@ -1171,7 +1171,7 @@ Feature: DefensePro Analytics
     Then UI Delete Report With Name "Top Attacks by Duration 2"
 
   @SID_70
-  Scenario:  Top Attacks by Duration Report 3
+  Scenario: Top Attacks by Duration Report 3
     Then UI Click Button "New Report Tab"
     Given UI "Create" Report With Name "Top Attacks by Duration 3"
       | Template              | reportType:DefensePro Analytics , Widgets:[Top Attacks by Duration],devices:[{deviceIndex:10},{deviceIndex:11}] |
@@ -1186,7 +1186,7 @@ Feature: DefensePro Analytics
     Then UI Delete Report With Name "Top Attacks by Duration 3"
 
   @SID_71
-  Scenario:  Top Attacks by Duration Report 4
+  Scenario: Top Attacks by Duration Report 4
     Then UI Click Button "New Report Tab"
     Given UI "Create" Report With Name "Top Attacks by Duration 4"
       | Template              | reportType:DefensePro Analytics , Widgets:[Top Attacks by Duration],devices:[All], showTable:true |
@@ -1239,7 +1239,7 @@ Feature: DefensePro Analytics
     Then UI Delete Report With Name "Top Attacks by Signature 2"
 
   @SID_74
-  Scenario:  Top Attacks by Signature Report 3
+  Scenario: Top Attacks by Signature Report 3
     Then UI Click Button "New Report Tab"
     Given UI "Create" Report With Name "Top Attacks by Signature 3"
       | Template              | reportType:DefensePro Analytics , Widgets:[Top Attacks by Signature],devices:[{deviceIndex:10},{deviceIndex:11}] |
@@ -1254,7 +1254,7 @@ Feature: DefensePro Analytics
     Then UI Delete Report With Name "Top Attacks by Signature 3"
 
   @SID_75
-  Scenario:  Top Attacks by Signature Report 4
+  Scenario: Top Attacks by Signature Report 4
     Then UI Click Button "New Report Tab"
     Given UI "Create" Report With Name "Top Attacks by Signature 4"
       | Template              | reportType:DefensePro Analytics , Widgets:[Top Attacks by Signature],devices:[All], showTable:true |
@@ -1307,7 +1307,7 @@ Feature: DefensePro Analytics
     Then UI Delete Report With Name "All Widgets 2"
 
   @SID_78
-  Scenario:  All Widgets Report 3
+  Scenario: All Widgets Report 3
     Then UI Click Button "New Report Tab"
     Given UI "Create" Report With Name "All Widgets 3"
       | Template              | reportType:DefensePro Analytics , Widgets:[{ALL:[{Traffic Bandwidth:[bps,Inbound,50]}]}], devices:[{deviceIndex:10},{deviceIndex:11}] |
@@ -1322,7 +1322,7 @@ Feature: DefensePro Analytics
     Then UI Delete Report With Name "All Widgets 3"
 
   @SID_79
-  Scenario:  All Widgets Report 4
+  Scenario: All Widgets Report 4
     Then UI Click Button "New Report Tab"
     Given UI "Create" Report With Name "All Widgets 4"
       | Template              | reportType:DefensePro Analytics , Widgets:[{ALL:[{Traffic Bandwidth:[pps,Outbound,60]}]}], devices:[{deviceIndex:11}] |
@@ -1337,7 +1337,7 @@ Feature: DefensePro Analytics
     Then UI Delete Report With Name "All Widgets 4"
 
   @SID_80
-  Scenario:  All Widgets Report 5
+  Scenario: All Widgets Report 5
     Then UI Click Button "New Report Tab"
     Given UI "Create" Report With Name "All Widgets 5"
       | Template              | reportType:DefensePro Analytics ,  Widgets:[{ALL:[{Traffic Bandwidth:[bps,Outbound,All Policies]}]}], devices:[All], showTable:true |
@@ -1354,7 +1354,7 @@ Feature: DefensePro Analytics
     Then UI Delete Report With Name "All Widgets 5"
 
   @SID_81
-  Scenario:  All Widgets Report 6
+  Scenario: All Widgets Report 6
     Then UI Click Button "New Report Tab"
     Given UI "Create" Report With Name "All Widgets 6"
       | Template              | reportType:DefensePro Analytics , Widgets:[{ALL:[{Traffic Bandwidth:[pps,Inbound,All Policies]}]}], devices:[All], showTable:true |
