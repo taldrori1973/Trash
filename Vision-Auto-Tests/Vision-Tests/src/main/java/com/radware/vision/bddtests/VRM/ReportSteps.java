@@ -153,10 +153,4 @@ public class ReportSteps extends BddUITestBase {
             vrmReportsHandler.uiValidateTogglesDataInReportWithWidget(reportName, widget, entries);
     }
 
-    @Then("^Validate Line Chart data \"([^\"]*)\" with Label \"([^\"]*)\" in report \"([^\"]*)\"$")
-    public void validateLineChartDataWithLabelInReport(String chart, String label, String reportName,  List<VRMHandler.Data> entries) throws Throwable {
-        int i=0;
-        i++;
-        i--;
-    }
 }
