@@ -375,13 +375,13 @@ Feature: DefensePro Analytics
   Scenario: create new Top Attacks by Volume4
     Then UI Click Button "New Report Tab"
     Given UI "Create" Report With Name "Top Attacks by Volume4"
-      | Template              | reportType:DefensePro Analytics , Widgets:[Top Attacks by Volume4] , devices:[All] , showTable:true |
+      | Template              | reportType:DefensePro Analytics , Widgets:[Top Attacks by Volume] , devices:[All] , showTable:true |
       | Time Definitions.Date | Relative:[Months,2]                                                                                 |
       | Schedule              | Run Every:Daily,On Time:+2m                                                                         |
       | share                 | Email:[automation.vision1@radware.com],Subject:mySubject,Body:myBody                                |
       | Format                | Select: CSV                                                                                         |
     Then UI "Validate" Report With Name "Top Attacks by Volume4"
-      | Template              | reportType:DefensePro Analytics , Widgets:[Top Attacks by Volume4] , devices:[All] , showTable:true |
+      | Template              | reportType:DefensePro Analytics , Widgets:[Top Attacks by Volume] , devices:[All] , showTable:true |
       | Time Definitions.Date | Relative:[Months,2]                                                                                 |
       | Schedule              | Run Every:Daily,On Time:+2m                                                                         |
       | share                 | Email:[automation.vision1@radware.com],Subject:mySubject,Body:myBody                                |
