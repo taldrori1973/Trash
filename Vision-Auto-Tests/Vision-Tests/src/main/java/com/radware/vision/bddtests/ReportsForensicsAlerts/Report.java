@@ -270,14 +270,15 @@ public class Report extends ReportsForensicsAlertsAbstract {
             WebUiTools.getWebElement("Edit Report",reportName).click();
             editReportParameters(reportName, map);
             editTemplates(map,reportName);
+            BasicOperationsHandler.clickButton("save");
         } catch (Exception e) {
             cancelReport();
             throw e;
         }
-        if (!reportCreated()) {
-            cancelReport();
-            throw new Exception("");
-        }
+//        if (!reportCreated()) {
+//            cancelReport();
+//            throw new Exception("");
+//        }
     }
 
     @Override
