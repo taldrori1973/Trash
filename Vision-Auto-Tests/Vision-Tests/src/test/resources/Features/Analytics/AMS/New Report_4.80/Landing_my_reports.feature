@@ -49,28 +49,23 @@ Feature: Landing my reports basic tests
 #  Scenario: Validate ToolTip
 #    Then UI Text of "Report Info" with extension "DefensePro Analytics Report" equal to ""
 
-  @SID_7
+  @SID_6
   Scenario: Edit Report
     Given UI "Edit" Report With Name "DefensePro Analytics Report"
-      | Template-1            | reportType:DefensePro Analytics , Widgets:[{Traffic Bandwidth:[pps,Outbound,50]}]  ,devices:[{deviceIndex:11,devicePorts:[1],devicePolicies:[BDOS,1_https]}] |
+      | Format | Select: HTML |
+
+  @SID_7
+  Scenario: Validate  Report after the edit
+    Given UI "Validate" Report With Name "DefensePro Analytics Report"
+      | Format | Select: HTML |
 
   @SID_8
-  Scenario: Validate  Report
-    Given UI "Validate" Report With Name "DefensePro Analytics Report"
-      | Time Definitions.Date | Quick: 1H                                                                                                                                                                      |
-      | Schedule              | Run Every:Monthly, On Time:+2m                                                                                                                                                 |
-      | Share                 | Email:[Test, Test2],Subject:TC108070 Subject                                                                                                                                   |
-      | Format                | Select: CSV                                                                                                                                                                    |
-      | Template-1            | reportType:DefensePro Analytics , Widgets:[{Traffic Bandwidth:[pps,Outbound,50]}]  ,devices:[{deviceIndex:11,devicePorts:[1],devicePolicies:[BDOS,1_https]}] |
-#    Then UI Delete Report With Name "DefensePro Analytics Report"
-
-  @SID_9
   Scenario: Delete Report
     Then UI Validate Element Existence By Label "My Report" if Exists "true" with value "DefensePro Analytics Report"
     Then UI Delete Report With Name "DefensePro Analytics Report"
     Then UI Validate Element Existence By Label "My Report" if Exists "false" with value "DefensePro Analytics Report"
 
-  @SID_10
+  @SID_9
   Scenario: Create New Report
     Given UI "Create" Report With Name "DefensePro Analytics Report"
       | Time Definitions.Date | Quick: 1H                                                                                         |
@@ -78,7 +73,7 @@ Feature: Landing my reports basic tests
       | Format                | Select: CSV                                                                                       |
       | Template-1            | reportType:DefensePro Analytics , Widgets:[{Traffic Bandwidth:[pps,Outbound,50]}]  ,devices:[All] |
 
-  @SID_11
+  @SID_10
   Scenario: Validate Report
     Given UI "Validate" Report With Name "DefensePro Analytics Report"
       | Time Definitions.Date | Quick: 1H                                                                                         |
@@ -86,13 +81,12 @@ Feature: Landing my reports basic tests
       | Format                | Select: CSV                                                                                       |
       | Template-1            | reportType:DefensePro Analytics , Widgets:[{Traffic Bandwidth:[pps,Outbound,50]}]  ,devices:[All] |
 
-  @SID_12
+  @SID_11
   Scenario: Validate Enable and Disable the Generate By Schedule
     Then UI Validate Element Existence By Label "Generate By Schedule" if Exists "true" with value "DefensePro Analytics Report,off_disabled"
     Then UI Delete Report With Name "DefensePro Analytics Report"
 
-
-  @SID_13
+  @SID_12
   Scenario: Logout
     Then UI logout and close browser
 

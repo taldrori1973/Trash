@@ -124,9 +124,3 @@ Feature: Negative test to validate Error Messages
   @SID_10
   Scenario: Logout
     Then UI logout and close browser
-
-
-    #todo when they closed the bug
-#  scheduale once error input
-
-
