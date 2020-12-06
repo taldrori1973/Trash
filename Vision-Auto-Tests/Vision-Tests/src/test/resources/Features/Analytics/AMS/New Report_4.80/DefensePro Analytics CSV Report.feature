@@ -1,6 +1,5 @@
-@Test0312
-@Ramez06122020
-Feature:  Report AMS analytics CSV Validations
+@TC118361
+Feature: DefensePro Analytics CSV Report
 
   @SID_1
   Scenario: keep reports copy on file system
@@ -22,24 +21,15 @@ Feature:  Report AMS analytics CSV Validations
     Given CLI simulate 2 attacks of type "rest_anomalies" on "DefensePro" 10 with attack ID
     Given CLI simulate 1 attacks of type "rest_dos" on "DefensePro" 10
 
-#  @SID_4
-#  Scenario: VRM - enabling emailing and go to VRM Reports Tab
-#    Given UI Login with user "sys_admin" and password "radware"
-#    * REST Vision Install License Request "vision-AVA-Max-attack-capacity"
-#    And UI Go To Vision
-#    And UI Navigate to "AMS Reports" page via homePage
-#    Then UI Validate Element Existence By Label "Add New" if Exists "true"
-
-#  @SID_1
-#  Scenario: Navigate to NEW REPORTS page
-#    Then UI Login with user "radware" and password "radware"
-#    * REST Vision Install License Request "vision-AVA-Max-attack-capacity"
-#    Then UI Navigate to "AMS REPORTS" page via homepage
-#    Then UI Click Button "New Report Tab"
-
+  @SID_4
   Scenario: VRM - enabling emailing and go to VRM Reports Tab
-    Given UI Login with user "sys_admin" and password "radware"
+    Given UI Login with user "radware" and password "radware"
     * REST Vision Install License Request "vision-AVA-Max-attack-capacity"
+    #Make sure all attacks are at the same time
+    When CLI Run remote linux Command "curl -XPOST localhost:9200/dp-attack-raw-*/_update_by_query?conflicts=proceed -d '{"query":{"term":{"deviceIp":"172.16.22.50"}},"script":{"source":"ctx._source.endTime='$(date +%s%3N)L'"}}'" on "ROOT_SERVER_CLI"
+
+  @SID_5
+  Scenario: VRM - enabling emailing and go to VRM Reports Tab
     And UI Go To Vision
     Then UI Navigate to page "System->General Settings->Alert Settings->Alert Browser"
     Then UI Do Operation "select" item "Email Reporting Configuration"
@@ -54,24 +44,24 @@ Feature:  Report AMS analytics CSV Validations
     And UI Set Text Field "SMTP Server Address" To "172.17.164.10"
     And UI Set Text Field "SMTP Port" To "25"
     And UI Click Button "Submit"
+
+
+  @SID_6
+  Scenario: Navigate to AMS Reports
     And UI Navigate to "AMS Reports" page via homePage
+
 
   @SID_5
   Scenario: Clear SMTP server log files
     Given Clear email history for user "setup"
 
-#  @SID_5
-#  Scenario: Clear SMTP server log files
-#    Given Clear email history for user "setup"
+
   @SID_6
   Scenario: Create new Report Analytics CSV Delivery
-    #Make sure all attacks are at the same time
-    When CLI Run remote linux Command "curl -XPOST localhost:9200/dp-attack-raw-*/_update_by_query?conflicts=proceed -d '{"query":{"term":{"deviceIp":"172.16.22.50"}},"script":{"source":"ctx._source.endTime='$(date +%s%3N)L'"}}'" on "ROOT_SERVER_CLI"
     Given UI "Create" Report With Name "DP Analytics csv"
       | Template | reportType:DefensePro Analytics , Widgets:[ALL] , devices:[All] , showTable:true |
 #      | Share                 | Email:[Test, Test2],Subject:DP Analytics csv Subject                                                                       |
       | Share    | Email:[Test, Test2],Subject:TC108070 Subject                                     |
-
       | Format   | Select: CSV                                                                      |
 
 
@@ -89,22 +79,18 @@ Feature:  Report AMS analytics CSV Validations
     Then UI Click Button "Generate Report Manually" with value "DP Analytics csv"
     Then Sleep "35"
 
-#    Given Clear email history for user "setup"
-#    Then UI Generate and Validate Report With Name "DP Analytics csv" with Timeout of 300 Seconds
-#    And Sleep "15"
-
-
-
-  @SID_8
-  Scenario: Validate Report Email received content
-    #subject
-    Then Validate "setup" user eMail expression "grep "Subject: TC108070 Subject"" EQUALS "2"
-    #From
-    Then Validate "setup" user eMail expression "grep "From: Automation system <qa_test@Radware.com>"" EQUALS "2"
-    #To
-    Then Validate "setup" user eMail expression "grep "X-Original-To: Test2@.*.local"" EQUALS "1"
-    #Attachment
-    Then Validate "setup" user eMail expression "grep -oP "Content-Disposition: attachment; filename=VRM_report_(\d{13}).zip"" EQUALS "2"
+#########################todo
+#
+#  @SID_8
+#  Scenario: Validate Report Email received content
+#    #subject
+#    Then Validate "setup" user eMail expression "grep "Subject: TC108070 Subject"" EQUALS "2"
+#    #From
+#    Then Validate "setup" user eMail expression "grep "From: Automation system <qa_test@Radware.com>"" EQUALS "2"
+#    #To
+#    Then Validate "setup" user eMail expression "grep "X-Original-To: Test2@.*.local"" EQUALS "1"
+#    #Attachment
+#    Then Validate "setup" user eMail expression "grep -oP "Content-Disposition: attachment; filename=VRM_report_(\d{13}).zip"" EQUALS "2"
 
 
   @SID_9
@@ -273,7 +259,7 @@ Feature:  Report AMS analytics CSV Validations
     Then CLI Run linux Command "cat /opt/radware/mgt-server/third-party/tomcat/bin/Top_Allowed\ Attackers.csv|head -1|grep "NO DATA FOR SELECTED DATA SOURCE" |wc -l" on "ROOT_SERVER_CLI" and validate result EQUALS "0"
 #    Then CLI Run linux Command "cat "/opt/radware/mgt-server/third-party/tomcat/bin/Top_Allowed\ Attackers.csv"|head -1|grep "name,ruleName,sourceAddress,Count" |wc -l" on "ROOT_SERVER_CLI" and validate result EQUALS "1"
 
-
+  @SID_35
   Scenario: VRM report validate CSV file TOP ALLOWED ATTACKERS content
     Then CLI Run linux Command "cat "/opt/radware/mgt-server/third-party/tomcat/bin/Top Allowed Attackers-DefensePro Analytics.csv"|head -2|tail -1|awk -F "," '{printf $1}';echo" on "ROOT_SERVER_CLI" and validate result EQUALS ""Incorrect IPv4 checksum""
     Then CLI Run linux Command "cat "/opt/radware/mgt-server/third-party/tomcat/bin/Top Allowed Attackers-DefensePro Analytics.csv"|head -2|tail -1|awk -F "," '{printf $2}';echo" on "ROOT_SERVER_CLI" and validate result EQUALS ""Packet Anomalies""
@@ -312,21 +298,21 @@ Feature:  Report AMS analytics CSV Validations
   Scenario: VRM report validate CSV file TOP SCANNERS headers
     Then CLI Run linux Command "cat "/opt/radware/mgt-server/third-party/tomcat/bin/Top Scanners-DefensePro Analytics.csv"|head -1|grep "deviceIp,ruleName,sourceAddress,Count" |wc -l " on "ROOT_SERVER_CLI" and validate result EQUALS "1"
 
+  @SID_43
   Scenario: VRM report validate CSV file TOP TOP SCANNERS  content
     Then CLI Run linux Command "cat "/opt/radware/mgt-server/third-party/tomcat/bin/Top Scanners-DefensePro Analytics.csv"|head -2|tail -1|awk -F "," '{printf $1}';echo" on "ROOT_SERVER_CLI" and validate result EQUALS "172.16.22.50"
     Then CLI Run linux Command "cat "/opt/radware/mgt-server/third-party/tomcat/bin/Top Scanners-DefensePro Analytics.csv"|head -2|tail -1|awk -F "," '{printf $2}';echo" on "ROOT_SERVER_CLI" and validate result EQUALS ""Packet Anomalies""
     Then CLI Run linux Command "cat "/opt/radware/mgt-server/third-party/tomcat/bin/Top Scanners-DefensePro Analytics.csv"|head -2|tail -1|awk -F "," '{printf $3}';echo" on "ROOT_SERVER_CLI" and validate result EQUALS "Multiple"
     Then CLI Run linux Command "cat "/opt/radware/mgt-server/third-party/tomcat/bin/Top Scanners-DefensePro Analytics.csv"|head -2|tail -1|awk -F "," '{printf $4}';echo" on "ROOT_SERVER_CLI" and validate result EQUALS "2"
 
-
     Then CLI Run linux Command "cat "/opt/radware/mgt-server/third-party/tomcat/bin/Top Scanners-DefensePro Analytics.csv"|head -3|tail -1|awk -F "," '{printf $1}';echo" on "ROOT_SERVER_CLI" and validate result EQUALS "172.16.22.50"
     Then CLI Run linux Command "cat "/opt/radware/mgt-server/third-party/tomcat/bin/Top Scanners-DefensePro Analytics.csv"|head -3|tail -1|awk -F "," '{printf $2}';echo" on "ROOT_SERVER_CLI" and validate result EQUALS "BDOS"
     Then CLI Run linux Command "cat "/opt/radware/mgt-server/third-party/tomcat/bin/Top Scanners-DefensePro Analytics.csv"|head -3|tail -1|awk -F "," '{printf $4}';echo" on "ROOT_SERVER_CLI" and validate result EQUALS "1"
 
 
-#  @SID_44
-#  Scenario: Cleanup
-#    Given UI logout and close browser
-#    * CLI Check if logs contains
-#      | logType | expression | isExpected   |
-#      | ALL     | fatal      | NOT_EXPECTED |
+  @SID_44
+  Scenario: Cleanup
+    Given UI logout and close browser
+    * CLI Check if logs contains
+      | logType | expression | isExpected   |
+      | ALL     | fatal      | NOT_EXPECTED |
