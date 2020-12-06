@@ -1,7 +1,7 @@
 @TC118343
 Feature: DefensePro Analytics Part 2
 
-@SID_40
+@SID_1
 Scenario: create new Top Attack Destinations1
 Then UI Click Button "New Report Tab"
 Given UI "Create" Report With Name "Top Attack Destinations Report1"
@@ -16,7 +16,7 @@ Then UI "Validate" Report With Name "Top Attack Destinations Report1"
 | Format                | Select: CSV                                                                                          |
 Then UI Delete Report With Name "Top Attack Destinations Report1"
 
-@SID_41
+@SID_2
 Scenario: create new Top Attack Destinations2
 Then UI Click Button "New Report Tab"
 Given UI "Create" Report With Name "Top Attack Destinations Report2"
@@ -35,7 +35,7 @@ Then UI "Validate" Report With Name "Top Attack Destinations Report2"
 | Format                | Select: PDF                                                                                           |
 Then UI Delete Report With Name "Top Attack Destinations Report2"
 
-@SID_42
+@SID_3
 Scenario: create new Top Attack Destinations3
 Then UI Click Button "New Report Tab"
 Given UI "Create" Report With Name "Top Attack Destinations Report3"
@@ -51,7 +51,7 @@ Then UI "Validate" Report With Name "Top Attack Destinations Report3"
 Then UI Delete Report With Name "Top Attack Destinations Report3"
 
 
-@SID_43
+@SID_4
 Scenario: create new Top Attack Destinations4
 Then UI Click Button "New Report Tab"
 Given UI "Create" Report With Name "Top Attack Destinations Report4"
@@ -69,7 +69,7 @@ Then UI "Validate" Report With Name "Top Attack Destinations Report4"
 Then UI Delete Report With Name "Top Attack Destinations Report4"
 
 
-@SID_44
+@SID_5
 Scenario: Top Attack Sources Report 1
 Then UI Click Button "New Report Tab"
 Given UI "Create" Report With Name "Top Attack Sources 1"
@@ -85,7 +85,7 @@ Then UI "Validate" Report With Name "Top Attack Sources 1"
 Then UI Delete Report With Name "Top Attack Sources 1"
 
 
-@SID_45
+@SID_6
 Scenario: Top Attack Sources Report 2
 Then UI Click Button "New Report Tab"
 Given UI "Create" Report With Name "Top Attack Sources 2"
@@ -102,7 +102,7 @@ Then UI "Validate" Report With Name "Top Attack Sources 2"
 | Share                 | Email:[automation.vision2@radware.com],Subject:myEdit subject,Body:myEdit body            |
 Then UI Delete Report With Name "Top Attack Sources 2"
 
-@SID_46
+@SID_7
 Scenario: Top Attack Sources Report 3
 Then UI Click Button "New Report Tab"
 Given UI "Create" Report With Name "Top Attack Sources 3"
@@ -115,7 +115,7 @@ Then UI "Validate" Report With Name "Top Attack Sources 3"
 | Time Definitions.Date | Relative:[Weeks,2]                                                                        |
 Then UI Delete Report With Name "Top Attack Sources 3"
 
-@SID_47
+@SID_8
 Scenario: Top Attack Sources Report 4
 Then UI Click Button "New Report Tab"
 Given UI "Create" Report With Name "Top Attack Sources 4"
@@ -132,7 +132,7 @@ Then UI Delete Report With Name "Top Attack Sources 4"
 
 # ------------------------------------------------------------------------------------------------------------------------------------------------------------
 
-@SID_48
+@SID_9
 Scenario: Top Scanners Report 1
 Then UI Click Button "New Report Tab"
 Given UI "Create" Report With Name "Top Scanners 1"
@@ -149,7 +149,7 @@ Then UI "Validate" Report With Name "Top Scanners 1"
 | Schedule              | Run Every:Daily,On Time:+2m                                                             |
 Then UI Delete Report With Name "Top Scanners 1"
 
-@SID_49
+@SID_10
 Scenario: Top Scanners Report 2
 Then UI Click Button "New Report Tab"
 Given UI "Create" Report With Name "Top Scanners 2"
@@ -168,7 +168,7 @@ Then UI "Validate" Report With Name "Top Scanners 2"
 | Share                 | Email:[automation.vision2@radware.com],Subject:myEdit subject,Body:myEdit body      |
 Then UI Delete Report With Name "Top Scanners 2"
 
-@SID_50
+@SID_11
 Scenario: Top Scanners Report 3
 Then UI Click Button "New Report Tab"
 Given UI "Create" Report With Name "Top Scanners 3"
@@ -181,7 +181,7 @@ Then UI "Validate" Report With Name "Top Scanners 3"
 | Time Definitions.Date | Relative:[Months,4]                                                                                  |
 Then UI Delete Report With Name "Top Scanners 3"
 
-@SID_51
+@SID_12
 Scenario: Top Scanners Report 4
 Then UI Click Button "New Report Tab"
 Given UI "Create" Report With Name "Top Scanners 4"
@@ -200,7 +200,7 @@ Then UI Delete Report With Name "Top Scanners 4"
 
 # ------------------------------------------------------------------------------------------------------------------------------------------------------------
 
-@SID_52
+@SID_13
 Scenario: Top Probed IP Addresses Report 1
 Then UI Click Button "New Report Tab"
 Given UI "Create" Report With Name "Top Probed IP Addresses 1"
@@ -217,7 +217,7 @@ Then UI "Validate" Report With Name "Top Probed IP Addresses 1"
 | Schedule              | Run Every:Daily,On Time:+2m                                                                        |
 Then UI Delete Report With Name "Top Probed IP Addresses 1"
 
-@SID_53
+@SID_14
 Scenario: Top Probed IP Addresses 2
 Then UI Click Button "New Report Tab"
 Given UI "Create" Report With Name "Top Probed IP Addresses 2"
@@ -236,7 +236,7 @@ Then UI "Validate" Report With Name "Top Probed IP Addresses 2"
 | Share                 | Email:[automation.vision2@radware.com],Subject:myEdit subject,Body:myEdit body                 |
 Then UI Delete Report With Name "Top Probed IP Addresses 2"
 
-@SID_54
+@SID_15
 Scenario: Top Probed IP Addresses Report 3
 Then UI Click Button "New Report Tab"
 Given UI "Create" Report With Name "Top Probed IP Addresses 3"
@@ -251,7 +251,7 @@ Then UI "Validate" Report With Name "Top Probed IP Addresses 3"
 | Schedule              | Run Every:once, On Time:+6H                                                                    |
 Then UI Delete Report With Name "Top Probed IP Addresses 3"
 
-@SID_55
+@SID_16
 Scenario: Top Probed IP Addresses Report 4
 Then UI Click Button "New Report Tab"
 Given UI "Create" Report With Name "Top Probed IP Addresses 4"
@@ -268,7 +268,7 @@ Then UI Delete Report With Name "Top Probed IP Addresses 4"
 
  # ------------------------------------------------------------------------------------------------------------------------------------------------------------
 
-@SID_56
+@SID_17
 Scenario: Attacks by Protection Policy Report 1
 Then UI Click Button "New Report Tab"
 Given UI "Create" Report With Name "Attacks by Protection Policy 1"
@@ -285,7 +285,7 @@ Then UI "Validate" Report With Name "Attacks by Protection Policy 1"
   #    | Schedule              | Run Every:Weekly, On Time:+6H, At Days:[MON]                                                            |
 Then UI Delete Report With Name "Attacks by Protection Policy 1"
 
-@SID_57
+@SID_18
 Scenario: Attacks by Protection Policy Report 2
 Then UI Click Button "New Report Tab"
 Given UI "Create" Report With Name "Attacks by Protection Policy 2"
@@ -304,7 +304,7 @@ Then UI "Validate" Report With Name "Attacks by Protection Policy 2"
 | Share                 | Email:[automation.vision2@radware.com],Subject:myEdit subject,Body:myEdit body                      |
 Then UI Delete Report With Name "Attacks by Protection Policy 2"
 
-@SID_58
+@SID_19
 Scenario: Attacks by Protection Policy 3
 Then UI Click Button "New Report Tab"
 Given UI "Create" Report With Name "Attacks by Protection Policy 3"
@@ -319,7 +319,7 @@ Then UI "Validate" Report With Name "Attacks by Protection Policy 3"
 | Schedule              | Run Every:Monthly, On Time:+6H, At Months:[SEP]                                                                      |
 Then UI Delete Report With Name "Attacks by Protection Policy 3"
 
-@SID_59
+@SID_20
 Scenario: Attacks by Protection Policy 4
 Then UI Click Button "New Report Tab"
 Given UI "Create" Report With Name "Attacks by Protection Policy 4"
@@ -337,7 +337,7 @@ Then UI Delete Report With Name "Attacks by Protection Policy 4"
 
   # ------------------------------------------------------------------------------------------------------------------------------------------------------------
 
-@SID_60
+@SID_21
 Scenario: Attack Categories by Bandwidth Report 1
 Then UI Click Button "New Report Tab"
 Given UI "Create" Report With Name "Attack Categories by Bandwidth 1"
@@ -352,7 +352,7 @@ Then UI "Validate" Report With Name "Attack Categories by Bandwidth 1"
 | Time Definitions.Date | Quick:15m                                                                                                 |
 Then UI Delete Report With Name "Attack Categories by Bandwidth 1"
 
-@SID_61
+@SID_22
 Scenario: Attack Categories by Bandwidth Report 2
 Then UI Click Button "New Report Tab"
 Given UI "Create" Report With Name "Attack Categories by Bandwidth 2"
@@ -371,7 +371,7 @@ Then UI "Validate" Report With Name "Attack Categories by Bandwidth 2"
 | Share                 | Email:[automation.vision2@radware.com],Subject:myEdit subject,Body:myEdit body                        |
 Then UI Delete Report With Name "Attack Categories by Bandwidth 2"
 
-@SID_62
+@SID_23
 Scenario: Attack Categories by Bandwidth Report 3
 Then UI Click Button "New Report Tab"
 Given UI "Create" Report With Name "Attack Categories by Bandwidth 3"
@@ -386,7 +386,7 @@ Then UI "Validate" Report With Name "Attack Categories by Bandwidth 3"
   #    | Schedule              | Run Every:Weekly, On Time:+6H, At Days:[SUN]                                                                           |
 Then UI Delete Report With Name "Attack Categories by Bandwidth 3"
 
-@SID_63
+@SID_24
 Scenario: Attack Categories by Bandwidth Report 4
 Then UI Click Button "New Report Tab"
 Given UI "Create" Report With Name "Attack Categories by Bandwidth 4"
@@ -405,7 +405,7 @@ Then UI Delete Report With Name "Attack Categories by Bandwidth 4"
 
   # ------------------------------------------------------------------------------------------------------------------------------------------------------------
 
-@SID_64
+@SID_25
 Scenario: Top Allowed Attackers Report 1
 Then UI Click Button "New Report Tab"
 Given UI "Create" Report With Name "Top Allowed Attackers 1"
@@ -422,7 +422,7 @@ Then UI "Validate" Report With Name "Top Allowed Attackers 1"
 | Schedule              | Run Every:Daily,On Time:+2m                                                                      |
 Then UI Delete Report With Name "Top Allowed Attackers 1"
 
-@SID_65
+@SID_26
 Scenario: Top Allowed Attackers Report 2
 Then UI Click Button "New Report Tab"
 Given UI "Create" Report With Name "Top Allowed Attackers 2"
