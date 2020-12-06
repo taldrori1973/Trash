@@ -79,7 +79,8 @@ abstract class ReportsForensicsAlertsAbstract implements ReportsForensicsAlertsI
 
 
     protected void editTime(Map<String, String> map) throws Exception {
-        selectTime(map);
+        if (map.containsKey("Time Definitions.Date"))
+            selectTime(map);
     }
 
 
@@ -166,10 +167,12 @@ abstract class ReportsForensicsAlertsAbstract implements ReportsForensicsAlertsI
     }
 
     protected void editShare(Map<String, String> map) throws Exception {
-        BasicOperationsHandler.setTextField("Email", "");
-        BasicOperationsHandler.setTextField("Subject", "");
-        BasicOperationsHandler.setTextField("Email message", "");
-        selectShare(map);
+        if (map.containsKey("Share")) {
+            BasicOperationsHandler.setTextField("Email", "");
+            BasicOperationsHandler.setTextField("Subject", "");
+            BasicOperationsHandler.setTextField("Email message", "");
+            selectShare(map);
+        }
     }
 
     private List<String> fixEmailsText(JSONObject deliveryJsonObject) {

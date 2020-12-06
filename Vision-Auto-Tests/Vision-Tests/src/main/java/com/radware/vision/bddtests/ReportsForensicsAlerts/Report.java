@@ -133,8 +133,10 @@ public class Report extends ReportsForensicsAlertsAbstract {
     }
 
     private void editFormat(Map<String, String> map) throws Exception {
-        BasicOperationsHandler.clickButton("Format Type", "HTML");
-        selectFormat(map);
+        if (map.containsKey("Format")) {
+            BasicOperationsHandler.clickButton("Format Type", "PDF");
+            selectFormat(map);
+        }
     }
 
     private void addLogo(Map<String, String> map) throws Exception {
@@ -143,7 +145,8 @@ public class Report extends ReportsForensicsAlertsAbstract {
     }
 
     private void editLogo(Map<String, String> map) throws Exception {
-        addLogo(map);
+        if (map.containsKey("Logo"))
+            addLogo(map);
     }
 
     @Override
