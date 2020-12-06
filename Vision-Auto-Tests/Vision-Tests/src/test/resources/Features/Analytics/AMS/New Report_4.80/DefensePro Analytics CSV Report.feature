@@ -74,7 +74,6 @@ Feature: DefensePro Analytics CSV Report
 #
   @SID_7
   Scenario: Validate delivery card and generate report
-  My\ Report
     Then UI Click Button "My Report" with value "DP Analytics csv"
     Then UI Click Button "Generate Report Manually" with value "DP Analytics csv"
     Then Sleep "35"
