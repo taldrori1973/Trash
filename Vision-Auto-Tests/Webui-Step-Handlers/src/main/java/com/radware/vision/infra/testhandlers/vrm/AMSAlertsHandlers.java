@@ -234,7 +234,7 @@ public class AMSAlertsHandlers extends ForensicsHandler {
         return size;
     }
 
-    public void checkORUncheckSpecificToogleAlert(boolean isCheck, String alertName) {
+    public void checkORUncheckSpecificToggleAlert(boolean isCheck, String alertName) {
 
         ComponentLocator labelLocator = new ComponentLocator(How.XPATH, "(//*[contains(@data-debug-id,'vrm-alerts-toggle-alerts-" + alertName + "')])");
         WebUICheckbox checkboxElement = new WebUICheckbox(labelLocator);
