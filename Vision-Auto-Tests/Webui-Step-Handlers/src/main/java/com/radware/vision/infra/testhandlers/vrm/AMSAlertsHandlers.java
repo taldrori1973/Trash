@@ -238,6 +238,8 @@ public class AMSAlertsHandlers extends ForensicsHandler {
 
         ComponentLocator labelLocator = new ComponentLocator(How.XPATH, "(//*[contains(@data-debug-id,'vrm-alerts-toggle-alerts-" + alertName + "')])");
         WebUICheckbox checkboxElement = new WebUICheckbox(labelLocator);
+        if(checkboxElement==null)
+            BaseTestUtils.report("Could not find checkbox with locator: " + labelLocator.toString(), Reporter.FAIL);
         if (isCheck) {
 
                 if(checkboxElement.getAttribute("class").contains("closed"))
