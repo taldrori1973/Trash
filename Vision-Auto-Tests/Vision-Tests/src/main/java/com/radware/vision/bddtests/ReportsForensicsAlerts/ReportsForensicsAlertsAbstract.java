@@ -52,8 +52,10 @@ abstract class ReportsForensicsAlertsAbstract implements ReportsForensicsAlertsI
         this.name = name;
     }
 
-    protected void editName(String name) throws Exception {
-        createName(name);
+    protected void editName(Map<String, String> map) throws Exception {
+        if (map.containsKey("New Report Name")) {
+            createName(map.get("New Report Name"));
+        }
     }
 
     protected void selectTime(Map<String, String> map) throws Exception {
@@ -98,8 +100,10 @@ abstract class ReportsForensicsAlertsAbstract implements ReportsForensicsAlertsI
     }
 
     protected void editScheduling(Map<String, String> map) throws Exception {
-        WebUiTools.check("Switch button Scheduled Report", "", false);
-        selectScheduling(map);
+        if (map.containsKey("Schedule")) {
+            WebUiTools.check("Switch button Scheduled Report", "", false);
+            selectScheduling(map);
+        }
     }
 
     protected StringBuilder validateTimeDefinition(JSONObject timeDefinitionsJSON, Map<String, String> map) {

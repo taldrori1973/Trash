@@ -24,14 +24,14 @@ Feature: DefensePro Analytics
   @SID_2
   Scenario: create new Traffic Bandwidth1
     Given UI "Create" Report With Name "Traffic Bandwidth Report1"
-      | Template              | reportType:DefensePro Analytics,Widgets:[{Traffic Bandwidth:[bps,Inbound,All Policies]}],devices:[All],showTable:true |
+      | Template-1            | reportType:DefensePro Analytics , Widgets:[{Traffic Bandwidth:[pps,Outbound,All Policies]}]  ,devices:[All]|
       | Logo                  | reportLogoPNG.png                                                                                                           |
       | Format                | Select: PDF                                                                                                                 |
       | Schedule              | Run Every:Monthly, On Time:+6H, At Months:[JAN]                                                                             |
       | Time Definitions.Date | Quick:Today                                                                                                                 |
       | share                 | Email:[automation.vision1@radware.com],Subject:mySubject,Body:myBody                                                        |
     Then UI "Validate" Report With Name "Traffic Bandwidth Report1"
-      | Template              | reportType:DefensePro Analytics,Widgets:[{Traffic Bandwidth:[bps,Inbound,All Policies]}],devices:[All],showTable:true |
+      | Template-1            | reportType:DefensePro Analytics , Widgets:[{Traffic Bandwidth:[pps,Outbound,All Policies]}]  ,devices:[All]|
       | Logo                  | reportLogoPNG.png                                                                                                           |
       | Format                | Select: PDF                                                                                                                 |
       | Schedule              | Run Every:Monthly, On Time:+6H, At Months:[JAN]                                                                             |

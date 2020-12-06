@@ -49,9 +49,9 @@ public class Report extends ReportsForensicsAlertsAbstract {
         closeReport(true);
         return false;
     }
-
     private void closeReport(boolean withReadTheMessage) throws TargetWebElementNotFoundException {
         boolean isToCancel = false;
+
         for (WebElement okWebElement : WebUiTools.getWebElements("errorMessageOK", ""))
         {
             isToCancel = true;
@@ -110,7 +110,7 @@ public class Report extends ReportsForensicsAlertsAbstract {
     private void editReportParameters(String reportName, Map<String, String> map) throws Exception {
         expandReportParameters();
         WebUiTools.check("Name Tab", "", true);
-        editName(reportName);
+        editName(map);
         WebUiTools.check("Logo Tab", "", true);
         editLogo(map);
         WebUiTools.check("Time Tab", "", true);
