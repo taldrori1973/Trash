@@ -1,6 +1,12 @@
 @TC118343
 Feature: DefensePro Analytics Part 2
 
+  @SID_44
+  Scenario: Navigate to NEW REPORTS page
+    Then UI Login with user "radware" and password "radware"
+    Then UI Navigate to "AMS REPORTS" page via homepage
+    Then UI Click Button "New Report Tab"
+
 @SID_1
 Scenario: create new Top Attack Destinations1
 Then UI Click Button "New Report Tab"
@@ -441,7 +447,7 @@ Then UI "Validate" Report With Name "Top Allowed Attackers 2"
 | Share                 | Email:[automation.vision2@radware.com],Subject:myEdit subject,Body:myEdit body               |
 Then UI Delete Report With Name "Top Allowed Attackers 2"
 
-@SID_66
+@SID_27
 Scenario: Top Allowed Attackers Report 3
 Then UI Click Button "New Report Tab"
 Given UI "Create" Report With Name "Top Allowed Attackers 3"
@@ -456,7 +462,7 @@ Then UI "Validate" Report With Name "Top Allowed Attackers 3"
 | Schedule              | Run Every:Monthly, On Time:+6H, At Months:[MAR]                                                               |
 Then UI Delete Report With Name "Top Allowed Attackers 3"
 
-@SID_67
+@SID_28
 Scenario: Top Allowed Attackers Report 4
 Then UI Click Button "New Report Tab"
 Given UI "Create" Report With Name "Top Allowed Attackers 4"
@@ -475,7 +481,7 @@ Then UI Delete Report With Name "Top Allowed Attackers 4"
 
   # ------------------------------------------------------------------------------------------------------------------------------------------------------------
 
-@SID_68
+@SID_29
 Scenario: Top Attacks by Duration Report 1
 Then UI Click Button "New Report Tab"
 Given UI "Create" Report With Name "Top Attacks by Duration 1"
@@ -492,7 +498,7 @@ Then UI "Validate" Report With Name "Top Attacks by Duration 1"
 | Schedule              | Run Every:Monthly, On Time:+6H, At Months:[JUN]                                                    |
 Then UI Delete Report With Name "Top Attacks by Duration 1"
 
-@SID_69
+@SID_30
 Scenario: Top Attacks by Duration 2
 Then UI Click Button "New Report Tab"
 Given UI "Create" Report With Name "Top Attacks by Duration 2"
@@ -509,7 +515,7 @@ Then UI "Validate" Report With Name "Top Attacks by Duration 2"
 | Share                 | Email:[automation.vision2@radware.com],Subject:myEdit subject,Body:myEdit body                 |
 Then UI Delete Report With Name "Top Attacks by Duration 2"
 
-@SID_70
+@SID_31
 Scenario: Top Attacks by Duration Report 3
 Then UI Click Button "New Report Tab"
 Given UI "Create" Report With Name "Top Attacks by Duration 3"
@@ -524,7 +530,7 @@ Then UI "Validate" Report With Name "Top Attacks by Duration 3"
   #    | Schedule              | Run Every:Weekly, On Time:+6H, At Days:[MON]                                                                    |
 Then UI Delete Report With Name "Top Attacks by Duration 3"
 
-@SID_71
+@SID_32
 Scenario: Top Attacks by Duration Report 4
 Then UI Click Button "New Report Tab"
 Given UI "Create" Report With Name "Top Attacks by Duration 4"
@@ -543,7 +549,7 @@ Then UI Delete Report With Name "Top Attacks by Duration 4"
 
   # ------------------------------------------------------------------------------------------------------------------------------------------------------------
 
-@SID_72
+@SID_33
 Scenario: Top Attacks by Signature Report 1
 Then UI Click Button "New Report Tab"
 Given UI "Create" Report With Name "Top Attacks by Signature 1"
@@ -558,7 +564,7 @@ Then UI "Validate" Report With Name "Top Attacks by Signature 1"
 | Time Definitions.Date | Quick:1H                                                                                            |
 Then UI Delete Report With Name "Top Attacks by Signature 1"
 
-@SID_73
+@SID_34
 Scenario: Top Attacks by Signature 2
 Then UI Click Button "New Report Tab"
 Given UI "Create" Report With Name "Top Attacks by Signature 2"
@@ -577,7 +583,7 @@ Then UI "Validate" Report With Name "Top Attacks by Signature 2"
 | Share                 | Email:[automation.vision2@radware.com],Subject:myEdit subject,Body:myEdit body                  |
 Then UI Delete Report With Name "Top Attacks by Signature 2"
 
-@SID_74
+@SID_35
 Scenario: Top Attacks by Signature Report 3
 Then UI Click Button "New Report Tab"
 Given UI "Create" Report With Name "Top Attacks by Signature 3"
@@ -592,7 +598,7 @@ Then UI "Validate" Report With Name "Top Attacks by Signature 3"
 | Schedule              | Run Every:Daily,On Time:+2m                                                                                      |
 Then UI Delete Report With Name "Top Attacks by Signature 3"
 
-@SID_75
+@SID_36
 Scenario: Top Attacks by Signature Report 4
 Then UI Click Button "New Report Tab"
 Given UI "Create" Report With Name "Top Attacks by Signature 4"
@@ -611,7 +617,7 @@ Then UI Delete Report With Name "Top Attacks by Signature 4"
 
   #------------------------------------------------------------------------------------------------------------------------------------------------------------
 
-@SID_76
+@SID_37
 Scenario: All Widgets Report 1
 Then UI Click Button "New Report Tab"
 Given UI "Create" Report With Name "All Widgets 1"
@@ -626,7 +632,7 @@ Then UI "Validate" Report With Name "All Widgets 1"
 | Time Definitions.Date | Quick:1H                                                                                                                          |
 Then UI Delete Report With Name "All Widgets 1"
 
-@SID_77
+@SID_38
 Scenario: All Widgets Report 2
 Then UI Click Button "New Report Tab"
 Given UI "Create" Report With Name "All Widgets 2"
@@ -645,7 +651,7 @@ Then UI "Validate" Report With Name "All Widgets 2"
 | Share                 | Email:[automation.vision2@radware.com],Subject:myEdit subject,Body:myEdit body                                                  |
 Then UI Delete Report With Name "All Widgets 2"
 
-@SID_78
+@SID_39
 Scenario: All Widgets Report 3
 Then UI Click Button "New Report Tab"
 Given UI "Create" Report With Name "All Widgets 3"
@@ -660,7 +666,7 @@ Then UI "Validate" Report With Name "All Widgets 3"
 | Schedule              | Run Every:Daily,On Time:+2m                                                                                                           |
 Then UI Delete Report With Name "All Widgets 3"
 
-@SID_79
+@SID_40
 Scenario: All Widgets Report 4
 Then UI Click Button "New Report Tab"
 Given UI "Create" Report With Name "All Widgets 4"
@@ -675,7 +681,7 @@ Then UI "Validate" Report With Name "All Widgets 4"
 | Schedule              | Run Every:Daily,On Time:+2m                                                                                           |
 Then UI Delete Report With Name "All Widgets 4"
 
-@SID_80
+@SID_41
 Scenario: All Widgets Report 5
 Then UI Click Button "New Report Tab"
 Given UI "Create" Report With Name "All Widgets 5"
@@ -692,7 +698,7 @@ Then UI "Validate" Report With Name "All Widgets 5"
 | Share                 | Email:[automation.vision2@radware.com],Subject:myEdit subject,Body:myEdit body                                                      |
 Then UI Delete Report With Name "All Widgets 5"
 
-@SID_81
+@SID_42
 Scenario: All Widgets Report 6
 Then UI Click Button "New Report Tab"
 Given UI "Create" Report With Name "All Widgets 6"
@@ -712,6 +718,6 @@ Then UI Delete Report With Name "All Widgets 6"
 
  # ------------------------------------------------------------------------------------------------------------------------------------------------------------
 
-@SID_82
+@SID_43
 Scenario: Logout
 Then UI logout and close browser
