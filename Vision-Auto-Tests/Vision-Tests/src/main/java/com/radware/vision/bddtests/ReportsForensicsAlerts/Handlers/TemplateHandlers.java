@@ -33,7 +33,7 @@ public class TemplateHandlers {
         String reportType = templateJsonObject.get("reportType").toString();
         addTemplateType(reportType);
         String currentTemplateName = getCurrentTemplateName(reportType);
-        addWidgets(new JSONArray(templateJsonObject.get("Widgets").toString()), currentTemplateName);
+        addWidgets(new JSONArray(templateJsonObject.has("Widgets")?templateJsonObject.get("Widgets").toString():"[All]"), currentTemplateName);
         setSummaryTable(templateJsonObject, currentTemplateName);
         getScopeSelection(templateJsonObject, currentTemplateName.split(reportType).length != 0 ? currentTemplateName.split(reportType)[1] : "").create();
         Report.updateReportsTemplatesMap(reportName, templateJsonObject.get("templateAutomationID").toString(), currentTemplateName);

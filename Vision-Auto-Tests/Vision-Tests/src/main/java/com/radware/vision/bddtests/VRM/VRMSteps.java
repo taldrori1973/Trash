@@ -1,6 +1,7 @@
 package com.radware.vision.bddtests.VRM;
 
 import com.radware.vision.automation.tools.sutsystemobjects.devicesinfo.enums.SUTDeviceType;
+import com.radware.vision.bddtests.ReportsForensicsAlerts.Report;
 import com.radware.vision.infra.testhandlers.alteon.securitymonitoring.dashboardview.sslinspection.enums.QuickRange;
 import com.radware.vision.infra.testhandlers.vrm.VRMHandler;
 import com.radware.vision.infra.testhandlers.vrm.VRMHandler.*;
@@ -229,10 +230,8 @@ public class VRMSteps {
 
     @Then("^Validate Line Chart data \"([^\"]*)\" with Label \"([^\"]*)\" in report \"([^\"]*)\"$")
     public void validateLineChartDataWithLabelInReport(String chart, String label, String reportName,  List<VRMHandler.Data> entries) throws Throwable {
-        VRMReportsChartsHandler vrmReportsChartsHandler = new VRMReportsChartsHandler();
-        String reportID = vrmReportsChartsHandler.generateReportAndGetReportID(reportName);
-        if (vrmReportsChartsHandler.generateStatus(reportID, 60))
-            vrmReportsChartsHandler.validateReportResult(chart, label, reportID, entries);
+        new Report().validateGenerateReport(chart, label, reportName, entries);
     }
+
 }
 

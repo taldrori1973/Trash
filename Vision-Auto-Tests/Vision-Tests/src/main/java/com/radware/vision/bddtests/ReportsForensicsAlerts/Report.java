@@ -7,6 +7,8 @@ import com.radware.automation.webui.widgets.ComponentLocatorFactory;
 import com.radware.vision.automation.tools.exceptions.selenium.TargetWebElementNotFoundException;
 import com.radware.vision.infra.testhandlers.baseoperations.BasicOperationsHandler;
 import com.radware.vision.bddtests.ReportsForensicsAlerts.Handlers.TemplateHandlers;
+import com.radware.vision.infra.testhandlers.vrm.VRMHandler;
+import com.radware.vision.infra.testhandlers.vrm.VRMReportsChartsHandler;
 import com.radware.vision.tools.rest.CurrentVisionRestAPI;
 import com.radware.vision.vision_project_cli.RootServerCli;
 import models.RestResponse;
@@ -17,6 +19,7 @@ import org.openqa.selenium.WebElement;
 
 import java.util.Collections;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 
@@ -290,6 +293,28 @@ public class Report extends ReportsForensicsAlertsAbstract {
 
     public static String getReportTemplateUICurrentName(String reportName,String templateAutomationID){
         return templates.get(reportName).get(templateAutomationID);
+    }
+
+
+    public void validateGenerateReport(String chart, String label, String reportName, List<VRMHandler.Data> entries) throws NoSuchFieldException {
+        VRMReportsChartsHandler vrmReportsChartsHandler = new VRMReportsChartsHandler();
+        String reportID = generateReportAndGetReportID(reportName);
+        if (generateStatus(reportID, 60))
+            vrmReportsChartsHandler.validateReportResult(chart, label, reportID, entries);
+    }
+
+    public String generateReportAndGetReportID(String reportName) throws NoSuchFieldException {
+
+        RestResponse restResponse = new CurrentVisionRestAPI("Vision/generateReport.json", "Generate Report").sendRequest();
+//        restResponse.setBody(new Body());
+//        if (restResponse.getStatusCode()== StatusCode.OK)
+
+
+        return null;
+    }
+
+    public boolean generateStatus(String reportID, int secondsTimeOut) {
+        return true;
     }
 
 }

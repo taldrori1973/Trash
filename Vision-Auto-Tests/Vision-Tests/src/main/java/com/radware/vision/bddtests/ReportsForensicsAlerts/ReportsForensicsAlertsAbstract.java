@@ -46,7 +46,7 @@ abstract class ReportsForensicsAlertsAbstract implements ReportsForensicsAlertsI
     }
 
     protected void createName(String name) throws Exception {
-        BasicOperationsHandler.setTextField("Report Name", "", name, true);//temporary
+        BasicOperationsHandler.setTextField("Report Name", "", name, true);
         if (!getWebElement("Report Name").getAttribute("value").equals(name))
             throw new Exception("Filling report name doesn't succeed");
         this.name = name;
@@ -243,7 +243,8 @@ abstract class ReportsForensicsAlertsAbstract implements ReportsForensicsAlertsI
         JSONObject templateJSON = new JSONObject();
         fixOldMapObject(map, templateJSON, "reportType", "reportType", map.get("reportType"));
         fixOldMapObject(map, templateJSON, "Design", "Widgets", map.containsKey("Design")?new JSONObject(map.get("Design")).toMap().getOrDefault("Add",new JSONObject(map.get("Design")).toMap().getOrDefault("Widgets", "").toString()):"");
-        fixOldMapObject(map, templateJSON, "devices", "devices", map.get("devices"));
+        String devicesText = map.get("devices").replaceAll("index", "deviceIndex").replaceAll("ports", "devicePorts").replaceAll("policies", "devicePolicies");
+        fixOldMapObject(map, templateJSON, "devices", "devices", "[" + devicesText + "]");
         fixOldMapObject(map, templateJSON, "webApplications", "Applications", "[" + map.get("webApplications") + "]");
         fixOldMapObject(map, templateJSON, "projectObjects", "Project Objects", "[" + map.get("projectObjects") + "]");
         if (map.containsKey("Customized Options")){
