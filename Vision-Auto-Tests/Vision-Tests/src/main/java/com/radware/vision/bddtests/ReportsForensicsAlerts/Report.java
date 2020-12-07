@@ -49,9 +49,9 @@ public class Report extends ReportsForensicsAlertsAbstract {
         closeReport(true);
         return false;
     }
-
     private void closeReport(boolean withReadTheMessage) throws TargetWebElementNotFoundException {
         boolean isToCancel = false;
+
         for (WebElement okWebElement : WebUiTools.getWebElements("errorMessageOK", ""))
         {
             isToCancel = true;
@@ -110,7 +110,7 @@ public class Report extends ReportsForensicsAlertsAbstract {
     private void editReportParameters(String reportName, Map<String, String> map) throws Exception {
         expandReportParameters();
         WebUiTools.check("Name Tab", "", true);
-        editName(reportName);
+        editName(map);
         WebUiTools.check("Logo Tab", "", true);
         editLogo(map);
         WebUiTools.check("Time Tab", "", true);
@@ -133,8 +133,10 @@ public class Report extends ReportsForensicsAlertsAbstract {
     }
 
     private void editFormat(Map<String, String> map) throws Exception {
-        BasicOperationsHandler.clickButton("Format Type", "HTML");
-        selectFormat(map);
+        if (map.containsKey("Format")) {
+            BasicOperationsHandler.clickButton("Format Type", "PDF");
+            selectFormat(map);
+        }
     }
 
     private void addLogo(Map<String, String> map) throws Exception {
@@ -143,7 +145,8 @@ public class Report extends ReportsForensicsAlertsAbstract {
     }
 
     private void editLogo(Map<String, String> map) throws Exception {
-        addLogo(map);
+        if (map.containsKey("Logo"))
+            addLogo(map);
     }
 
     @Override
@@ -267,14 +270,15 @@ public class Report extends ReportsForensicsAlertsAbstract {
             WebUiTools.getWebElement("Edit Report",reportName).click();
             editReportParameters(reportName, map);
             editTemplates(map,reportName);
+            BasicOperationsHandler.clickButton("save");
         } catch (Exception e) {
             cancelReport();
             throw e;
         }
-        if (!reportCreated()) {
-            cancelReport();
-            throw new Exception("");
-        }
+//        if (!reportCreated()) {
+//            cancelReport();
+//            throw new Exception("");
+//        }
     }
 
     @Override

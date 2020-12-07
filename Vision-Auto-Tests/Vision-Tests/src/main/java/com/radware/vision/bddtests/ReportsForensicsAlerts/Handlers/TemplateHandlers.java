@@ -123,7 +123,7 @@ public class TemplateHandlers {
 
 
     private static Map<String, List<Integer>> getOccurrenceMap(JSONArray widgets) {
-
+        if (widgets == null) return null;
         Map<String, List<Integer>> ocuurenceMap = new HashMap<>();
         for (int i = 0; i < widgets.length(); i++) {
             String widgetName;
@@ -177,6 +177,7 @@ public class TemplateHandlers {
     }
 
     private static void selectOptions(JSONArray widgets, Map<String, List<Integer>> ocuurenceMap, String reportType) {
+        if (widgets == null || ocuurenceMap == null) return;
         for (String widgetName : ocuurenceMap.keySet()) {
             for (int i = 0; i < ocuurenceMap.get(widgetName).size(); i++) {
                 if (!widgetName.equalsIgnoreCase("ALL") && widgets.toList().get(ocuurenceMap.get(widgetName).get(i)).getClass().getName().contains("HashMap")) {
@@ -824,7 +825,9 @@ public class TemplateHandlers {
         }
         String reportType = templateJsonObject.get("reportType").toString();
         editTemplateWidgets(templateJsonObject, currentTemplateName);
-        getScopeSelection(templateJsonObject, currentTemplateName.split(reportType).length != 0 ? currentTemplateName.split(reportType)[1] : "").create();
+        if (templateJsonObject.has("devices")) {
+            getScopeSelection(templateJsonObject, currentTemplateName.split(reportType).length != 0 ? currentTemplateName.split(reportType)[1] : "").create();
+        }
     }
 
     public static void editTemplateWidgets(JSONObject templateJsonObject, String currentTemplateName) throws Exception {
@@ -832,11 +835,12 @@ public class TemplateHandlers {
                 getWidgetsList(new JSONArray(templateJsonObject.get("DeleteWidgets").toString())) : null;
         List<String> widgetsList = templateJsonObject.has("AddWidgets") ?
                 getWidgetsList(new JSONArray(templateJsonObject.get("AddWidgets").toString())) : null;
-        JSONArray editWidgets = templateJsonObject.has("editWidgets") ?
-                new JSONArray(templateJsonObject.get("editWidgets").toString()) : null;
+        JSONArray editWidgets = templateJsonObject.has("EditWidgets") ?
+                new JSONArray(templateJsonObject.get("EditWidgets").toString()) : null;
         editTemplate(templateJsonObject.get("reportType").toString());
         removeUnWantedWidgets(widgetsListToRemove, currentTemplateName);
         dragAndDropDesiredWidgets(widgetsList, currentTemplateName);
+        selectOptions(new JSONArray(templateJsonObject.get("AddWidgets").toString()), getOccurrenceMap(new JSONArray(templateJsonObject.get("AddWidgets").toString())), currentTemplateName);
         selectOptions(editWidgets, getOccurrenceMap(editWidgets), currentTemplateName);
     }
 

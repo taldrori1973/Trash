@@ -550,14 +550,14 @@ Feature: AppWall
   @SID_35
   Scenario: create new OWASP Top 10 and Geolocation and Top Attacked Hosts2
     Then UI Click Button "New Report Tab"
-    Given UI "Create" Report With Name "OWASP Top 10 and Geolocation and Geolocation Top Attacked Hosts2"
+    Given UI "Create" Report With Name "OWASP Top 10 and Geolocation and Top Attacked Hosts2"
       | Template              | reportType:AppWall , Widgets:[OWASP Top 10,Geolocation,Top Attacked Hosts] , Applications:[All] , showTable:false |
       | Logo                  | reportLogoPNG.png                                                                                                 |
       | Time Definitions.Date | Quick:This Week                                                                                                   |
       | Schedule              | Run Every:Monthly, On Time:+6H, At Months:[AUG]                                                                   |
       | Share                 | Email:[automation.vision2@radware.com],Subject:myEdit subject,Body:myEdit body                                    |
       | Format                | Select: PDF                                                                                                       |
-    Then UI "Validate" Report With Name "OWASP Top 10 and Geolocation and Geolocation Top Attacked Hosts2"
+    Then UI "Validate" Report With Name "OWASP Top 10 and Geolocation and Top Attacked Hosts2"
       | Template              | reportType:AppWall , Widgets:[OWASP Top 10,Geolocation,Top Attacked Hosts] , Applications:[All] , showTable:false |
       | Logo                  | reportLogoPNG.png                                                                                                 |
       | Time Definitions.Date | Quick:This Week                                                                                                   |
@@ -569,12 +569,12 @@ Feature: AppWall
   @SID_36
   Scenario: create new OWASP Top 10 and Geolocation and Top Attacked Hosts3
     Then UI Click Button "New Report Tab"
-    Given UI "Create" Report With Name "OWASP Top 10 and Geolocation and Geolocation Top Attacked Hosts3"
+    Given UI "Create" Report With Name "OWASP Top 10 and Geolocation and Top Attacked Hosts3"
       | Template              | reportType:AppWall , Widgets:[OWASP Top 10,Geolocation,Top Attacked Hosts] , Applications:[Vision] , showTable:false |
       | Time Definitions.Date | Absolute:[27.02.1971 01:00, +0d]                                                                                     |
       | Schedule              | Run Every:Monthly, On Time:+6H, At Months:[MAR]                                                                      |
       | Format                | Select: HTML                                                                                                         |
-    Then UI "Validate" Report With Name "OWASP Top 10 and Geolocation and Geolocation Top Attacked Hosts3"
+    Then UI "Validate" Report With Name "OWASP Top 10 and Geolocation and Top Attacked Hosts3"
       | Template              | reportType:AppWall , Widgets:[OWASP Top 10,Geolocation,Top Attacked Hosts] , Applications:[Vision] , showTable:false |
       | Time Definitions.Date | Absolute:[27.02.1971 01:00, +0d]                                                                                     |
       | Schedule              | Run Every:Monthly, On Time:+6H, At Months:[MAR]                                                                      |
@@ -584,13 +584,13 @@ Feature: AppWall
   @SID_37
   Scenario: create new OWASP Top 10 and Geolocation and Top Attacked Hosts4
     Then UI Click Button "New Report Tab"
-    Given UI "Create" Report With Name "OWASP Top 10 and Geolocation and Geolocation Top Attacked Hosts4"
+    Given UI "Create" Report With Name "OWASP Top 10 and Geolocation and Top Attacked Hosts4"
       | Template              | reportType:AppWall , Widgets:[OWASP Top 10,Geolocation,Top Attacked Hosts] , Applications:[All] , showTable:true |
       | Time Definitions.Date | Relative:[Weeks,2]                                                                                               |
       | Schedule              | Run Every:Daily,On Time:+2m                                                                                      |
       | Share                 | Email:[automation.vision2@radware.com],Subject:myEdit subject,Body:myEdit body                                   |
       | Format                | Select: CSV                                                                                                      |
-    Then UI "Validate" Report With Name "OWASP Top 10 and Geolocation and Geolocation Top Attacked Hosts4"
+    Then UI "Validate" Report With Name "OWASP Top 10 and Geolocation and Top Attacked Hosts4"
       | Template              | reportType:AppWall , Widgets:[OWASP Top 10,Geolocation,Top Attacked Hosts] , Applications:[All] , showTable:true |
       | Time Definitions.Date | Relative:[Weeks,2]                                                                                               |
       | Schedule              | Run Every:Daily,On Time:+2m                                                                                      |

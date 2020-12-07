@@ -77,7 +77,7 @@ Feature: Basic tests for report parameters
       | Format Tab   |       | false |
 
   @SID_8
-  Scenario: Report Share is selected
+  Scenario: Report Format is selected
     Then UI Click Button "Format Tab"
     Then UI Validate the attribute of "data-debug-checked" are "EQUAL" to
       | label        | param | value |
@@ -200,41 +200,41 @@ Feature: Basic tests for report parameters
   Scenario: Validate Relative Time - Hours
     Then UI Click Button "Relative Time Unit" with value "Hours"
     Then UI Set Text Field "Relative Time Unit Value" and params "Hours" To "0"
-    Then UI Validate the attribute "Class" Of Label "Relative Time Unit Value" With Params "Hours" is "CONTAINS" to "cCLrFi"
+    Then validate webUI CSS value "border-bottom-color" of label "Relative Time Unit Value" with params "Hours" equals "rgb(244, 20, 20)"
     Then UI Set Text Field "Relative Time Unit Value" and params "Hours" To "-1"
-    Then UI Validate the attribute "Class" Of Label "Relative Time Unit Value" With Params "Hours" is "CONTAINS" to "cCLrFi"
+    Then validate webUI CSS value "border-bottom-color" of label "Relative Time Unit Value" with params "Hours" equals "rgb(244, 20, 20)"
     Then UI Set Text Field "Relative Time Unit Value" and params "Hours" To "8761"
-    Then UI Validate the attribute "Class" Of Label "Relative Time Unit Value" With Params "Hours" is "CONTAINS" to "cCLrFi"
+    Then validate webUI CSS value "border-bottom-color" of label "Relative Time Unit Value" with params "Hours" equals "rgb(244, 20, 20)"
 
   @SID_20
   Scenario: Validate Relative Time - Days
     Then UI Click Button "Relative Time Unit" with value "Days"
     Then UI Set Text Field "Relative Time Unit Value" and params "Days" To "0"
-    Then UI Validate the attribute "Class" Of Label "Relative Time Unit Value" With Params "Days" is "CONTAINS" to "cCLrFi"
+    Then validate webUI CSS value "border-bottom-color" of label "Relative Time Unit Value" with params "Days" equals "rgb(244, 20, 20)"
     Then UI Set Text Field "Relative Time Unit Value" and params "Days" To "-1"
-    Then UI Validate the attribute "Class" Of Label "Relative Time Unit Value" With Params "Days" is "CONTAINS" to "cCLrFi"
+    Then validate webUI CSS value "border-bottom-color" of label "Relative Time Unit Value" with params "Days" equals "rgb(244, 20, 20)"
     Then UI Set Text Field "Relative Time Unit Value" and params "Days" To "366"
-    Then UI Validate the attribute "Class" Of Label "Relative Time Unit Value" With Params "Days" is "CONTAINS" to "cCLrFi"
+    Then validate webUI CSS value "border-bottom-color" of label "Relative Time Unit Value" with params "Days" equals "rgb(244, 20, 20)"
 
   @SID_21
   Scenario: Validate Relative Time - Weeks
     Then UI Click Button "Relative Time Unit" with value "Weeks"
     Then UI Set Text Field "Relative Time Unit Value" and params "Weeks" To "0"
-    Then UI Validate the attribute "Class" Of Label "Relative Time Unit Value" With Params "Weeks" is "CONTAINS" to "cCLrFi"
+    Then validate webUI CSS value "border-bottom-color" of label "Relative Time Unit Value" with params "Weeks" equals "rgb(244, 20, 20)"
     Then UI Set Text Field "Relative Time Unit Value" and params "Weeks" To "-1"
-    Then UI Validate the attribute "Class" Of Label "Relative Time Unit Value" With Params "Weeks" is "CONTAINS" to "cCLrFi"
+    Then validate webUI CSS value "border-bottom-color" of label "Relative Time Unit Value" with params "Weeks" equals "rgb(244, 20, 20)"
     Then UI Set Text Field "Relative Time Unit Value" and params "Weeks" To "53"
-    Then UI Validate the attribute "Class" Of Label "Relative Time Unit Value" With Params "Weeks" is "CONTAINS" to "cCLrFi"
+    Then validate webUI CSS value "border-bottom-color" of label "Relative Time Unit Value" with params "Weeks" equals "rgb(244, 20, 20)"
 
   @SID_22
   Scenario: Validate Relative Time - Months
     Then UI Click Button "Relative Time Unit" with value "Months"
     Then UI Set Text Field "Relative Time Unit Value" and params "Months" To "0"
-    Then UI Validate the attribute "Class" Of Label "Relative Time Unit Value" With Params "Months" is "CONTAINS" to "cCLrFi"
+    Then validate webUI CSS value "border-bottom-color" of label "Relative Time Unit Value" with params "Months" equals "rgb(244, 20, 20)"
     Then UI Set Text Field "Relative Time Unit Value" and params "Months" To "-1"
-    Then UI Validate the attribute "Class" Of Label "Relative Time Unit Value" With Params "Months" is "CONTAINS" to "cCLrFi"
+    Then validate webUI CSS value "border-bottom-color" of label "Relative Time Unit Value" with params "Months" equals "rgb(244, 20, 20)"
     Then UI Set Text Field "Relative Time Unit Value" and params "Months" To "13"
-    Then UI Validate the attribute "Class" Of Label "Relative Time Unit Value" With Params "Months" is "CONTAINS" to "cCLrFi"
+    Then validate webUI CSS value "border-bottom-color" of label "Relative Time Unit Value" with params "Months" equals "rgb(244, 20, 20)"
 
   @SID_23
   Scenario: Report Schedule Daily is selected
@@ -276,17 +276,15 @@ Feature: Basic tests for report parameters
       | Schedule Report | weekly  | false |
       | Schedule Report | monthly | false |
       | Schedule Report | once    | true  |
-
-    @SID_27
-    Scenario: Validate Report Schedule Once
-      Then UI Select Time of label "Schedule Once Time" with value "2019-02-12 12:12" and pattern "yyyy-MM-dd HH:mm"
-      Then validate webUI CSS value "border-bottom-color" of label "Schedule Once Time" equals "rgb(255, 0, 0)"
-      Then UI Click Button "Schedule Report" with value "daily"
-      Then UI Click Button "Schedule Report" with value "once"
-      Then UI Select Time of label "Schedule Once Time" with value "2022-02-12 12:12" and pattern "yyyy-MM-dd HH:mm"
-      Then validate webUI CSS value "border-bottom-color" of label "Schedule Once Time" equals "rgb(8, 142, 177)"
-
-
+#
+#    @SID_27
+#    Scenario: Validate Report Schedule Once
+#      Then UI Select Time of label "Schedule Once Time" with value "2019-02-12 12:12" and pattern "yyyy-MM-dd HH:mm"
+#      Then validate webUI CSS value "border-bottom-color" of label "Schedule Once Time" equals "rgb(255, 0, 0)"
+#      Then UI Click Button "Schedule Report" with value "daily"
+#      Then UI Click Button "Schedule Report" with value "once"
+#      Then UI Select Time of label "Schedule Once Time" with value "2022-02-12 12:12" and pattern "yyyy-MM-dd HH:mm"
+#      Then validate webUI CSS value "border-bottom-color" of label "Schedule Once Time" equals "rgb(8, 142, 177)"
 
   @SID_28
   Scenario: Validate Share send email To
@@ -347,5 +345,3 @@ Feature: Basic tests for report parameters
   @SID_34
   Scenario: Logout
     Then UI logout and close browser
-
-

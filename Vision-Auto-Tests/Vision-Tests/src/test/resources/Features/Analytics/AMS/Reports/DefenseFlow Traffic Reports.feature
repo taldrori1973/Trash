@@ -1,5 +1,5 @@
 
-@TC112396 @Test12
+@TC112396
 Feature: DefenseFlow Traffic Reports
 
   @SID_1
