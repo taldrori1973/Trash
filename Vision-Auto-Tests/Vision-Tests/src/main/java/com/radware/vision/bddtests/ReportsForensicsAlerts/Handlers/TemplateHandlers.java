@@ -33,7 +33,7 @@ public class TemplateHandlers {
         String reportType = templateJsonObject.get("reportType").toString();
         addTemplateType(reportType);
         String currentTemplateName = getCurrentTemplateName(reportType);
-        addWidgets(new JSONArray(templateJsonObject.has("Widgets")?templateJsonObject.get("Widgets").toString():"[All]"), currentTemplateName);
+        addWidgets(new JSONArray(templateJsonObject.has("Widgets")?templateJsonObject.get("Widgets").toString():"[ALL]"), currentTemplateName);
         setSummaryTable(templateJsonObject, currentTemplateName);
         getScopeSelection(templateJsonObject, currentTemplateName.split(reportType).length != 0 ? currentTemplateName.split(reportType)[1] : "").create();
         Report.updateReportsTemplatesMap(reportName, templateJsonObject.get("templateAutomationID").toString(), currentTemplateName);
@@ -65,14 +65,20 @@ public class TemplateHandlers {
     private static void addWidgets(JSONArray widgets, String reportType) {
         List<String> widgetsList = getWidgetsList(widgets);
         List<String> widgetsToRemove = new ArrayList<>();
-        if (widgetsList.contains("ALL") || widgetsList.contains("All")) {
-            if (widgets.toList().get(widgetsList.indexOf("ALL")).getClass().getName().contains("HashMap")) { ///// if ALL has widgets with options
-                selectAllOptions((HashMap) widgets.toList().get(widgetsList.indexOf("ALL")), reportType);
-            }
-            widgetsList.removeAll(Collections.singleton("ALL"));
-            widgetsToRemove = null;
-
-        } else {
+        List<String> widgetsTextsToRemove = new ArrayList<>();
+         widgetsList.forEach(
+                widget->
+                {
+                    if (widget.equalsIgnoreCase("all"))
+                    {
+                        if (widgets.toList().get(widgetsList.indexOf(widget)).getClass().getName().contains("HashMap"))///// if ALL has widgets with options
+                            selectAllOptions((HashMap) widgets.toList().get(widgetsList.indexOf(widget)), reportType);
+                        widgetsTextsToRemove.add(widget);
+                    }
+                });
+         widgetsList.removeAll(widgetsTextsToRemove);
+        if (widgetsTextsToRemove.isEmpty())
+         {
             VisionDebugIdsManager.setLabel("canvas widget");
             VisionDebugIdsManager.setParams(reportType);
             List<WebElement> elements = WebUIUtils.fluentWaitMultiple(new ComponentLocator(How.XPATH, "//*[starts-with(@data-debug-id, '" + VisionDebugIdsManager.getDataDebugId() + "') and contains(@data-debug-id, '_RemoveButton')]").getBy(), WebUIUtils.DEFAULT_WAIT_TIME, false);
@@ -104,7 +110,7 @@ public class TemplateHandlers {
     }
 
     private static void removeUnWantedWidgetsAll(List<String> widgetsToRemoveDataDataDebugId, String reportType) {
-        if (widgetsToRemoveDataDataDebugId == null) return;
+        if (widgetsToRemoveDataDataDebugId.isEmpty()) return;
         VisionDebugIdsManager.setLabel("selected widget");
         for (String widget : widgetsToRemoveDataDataDebugId) {
             try {
