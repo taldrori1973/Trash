@@ -1,6 +1,12 @@
 @TC118348
 Feature:DefenseFlow Analytics Part 2
 
+  @SID_50
+  Scenario: Navigate to NEW REPORTS page
+    Then UI Login with user "radware" and password "radware"
+    Then UI Navigate to "AMS REPORTS" page via homepage
+    Then UI Click Button "New Report Tab"
+
 @SID_1
 Scenario: Top 10 Activations by Attack Rate (Gbps) Report 1
 Then UI Click Button "New Report Tab"
