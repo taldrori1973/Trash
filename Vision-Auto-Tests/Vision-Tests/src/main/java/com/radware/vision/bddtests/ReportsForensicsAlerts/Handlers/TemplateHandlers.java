@@ -678,7 +678,7 @@ public class TemplateHandlers {
     private static void validateAllWidgetsSelected(JSONArray singleActualTemplate, JSONObject expectedSingleTemplate, String expectedTemplateTitle, Map<String, Integer> widgets, StringBuilder errorMessage) {
         if (singleActualTemplate.length() != widgets.get(expectedTemplateTitle.split("_")[0]))
             errorMessage.append("The all widget is not selected on the actual selected" + singleActualTemplate.length() + " and not " + widgets.get(expectedTemplateTitle.split("_")[0]));
-        else {
+        else if(!new JSONArray(expectedSingleTemplate.get("Widgets").toString()).get(0).toString().getClass().getName().contains("String")){
             JSONArray expectedWidgetOptions = new JSONArray(new JSONObject(new JSONArray(expectedSingleTemplate.get("Widgets").toString()).get(0).toString()).get("ALL").toString());
             for (Object expectedWidgetOption : expectedWidgetOptions) {
                 validateAllTheWidgetsOptions(singleActualTemplate, new JSONObject(expectedWidgetOption.toString()), expectedTemplateTitle, errorMessage);
