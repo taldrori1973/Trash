@@ -34,12 +34,12 @@ Feature: HTTPS Flood
       | Template              | reportType:HTTPS Flood , Widgets:[Inbound Traffic], Servers:[aaaaaaaaaaaaaaaaaaaaaaaaaaaaaa-DefensePro_172.16.22.51-1_https] |
       | Format                | Select: CSV                                                                                                                  |
       | Time Definitions.Date | Quick:Quarter                                                                                                                |
-    #  | Schedule              | Run Every:Weekly, On Time:+6H, At Days:[THU]                                                                          |
+      | Schedule              | Run Every:Weekly, On Time:+6H, At Days:[THU]                                                                          |
     Then UI "Validate" Report With Name "Inbound Traffic 2"
       | Template              | reportType:HTTPS Flood , Widgets:[Inbound Traffic], Servers:[aaaaaaaaaaaaaaaaaaaaaaaaaaaaaa-DefensePro_172.16.22.51-1_https] |
       | Format                | Select: CSV                                                                                                                  |
       | Time Definitions.Date | Quick:Quarter                                                                                                                |
-     # | Schedule              | Run Every:Weekly, On Time:+6H, At Days:[THU]                                                                          |
+      | Schedule              | Run Every:Weekly, On Time:+6H, At Days:[THU]                                                                          |
     Then UI Delete Report With Name "Inbound Traffic 2"
 
 
