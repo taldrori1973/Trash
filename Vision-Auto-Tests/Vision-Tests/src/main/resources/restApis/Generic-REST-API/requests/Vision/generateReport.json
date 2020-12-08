@@ -6,21 +6,21 @@
     {
       "label": "Generate Report",
       "method": "POST",
-      "basePath": ":3002/formatter/report/automationFlag",
+      "basePath": "/formatter/report/automationFlag",
       "produces": "application/json",
       "description": "generate a specific report"
     },
     {
       "label": "Get Status Report",
       "method": "GET",
-      "basePath": ":3002/formatter/report/{id}/status",
+      "basePath": "/formatter/report/{id}/status",
       "produces": "application/json",
       "description": "Get report status, it can S|F|I "
     },
     {
       "label": "Get Result Of Generate Report",
       "method": "GET",
-      "basePath": ":3002/formatter/report/{id}",
+      "basePath": "/formatter/report/{id}",
       "produces": "application/json",
       "description": "get the json of the geenrate report result"
     }
