@@ -144,6 +144,10 @@ public class VMOperationsSteps extends BddUITestBase {
                         revertSnapshot(1);
                         break;
 
+                }
+                afterUpgrade();
+
+                switch (setupMode.toLowerCase()) {
                     case "fresh install_inparallel":
                     case "fresh install":
                         prefreshInstall();
@@ -155,9 +159,7 @@ public class VMOperationsSteps extends BddUITestBase {
 
                     case "physical":
                         break;
-                }
-                if (setupMode.toLowerCase().contains("upgrade")) {
-                    afterUpgrade();
+
                 }
 
             } catch (Exception e) {

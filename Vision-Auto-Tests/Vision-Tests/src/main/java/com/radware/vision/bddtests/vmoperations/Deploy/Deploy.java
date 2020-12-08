@@ -22,14 +22,16 @@ public abstract class Deploy {
     String repositoryName;
     JFrogFileModel buildFileInfo;
     public boolean isSetupNeeded;
+    private String ipaddress;
 
-    public Deploy(boolean isExtended, String build) {
+    public Deploy(boolean isExtended, String build, String ipaddress) {
         this.isExtended = isExtended;
         this.build = build;
         this.version = readVisionVersionFromPomFile();
         this.featureBranch = "master";
 //        this.featureBranch = BaseTestUtils.getRuntimeProperty("BRANCH","master");
         this.repositoryName = "vision-snapshot-local";
+        this.ipaddress = ipaddress;
         isSetupNeeded();
     }
 
@@ -64,10 +66,10 @@ public abstract class Deploy {
                 this.build = build;
                 this.isExtended = false;
             }
-
-            String currentBuild = VisionInfo.getVisionBuild();
-            String currentVersion = VisionInfo.getVisionVersion();
-            String currentFeatureBranch = VisionInfo.getVisionBranch();
+            VisionInfo visionInfo = new VisionInfo(this.ipaddress);
+            String currentBuild = visionInfo.getVisionBuild();
+            String currentVersion = visionInfo.getVisionVersion();
+            String currentFeatureBranch = visionInfo.getVisionBranch();
             isSetupNeeded = !currentVersion.equals(version) || !currentBuild.equals(this.build) || !currentFeatureBranch.equals(this.featureBranch);
             if (isSetupNeeded) {
                 BaseTestUtils.report("Current Build: " + currentBuild, Reporter.PASS);

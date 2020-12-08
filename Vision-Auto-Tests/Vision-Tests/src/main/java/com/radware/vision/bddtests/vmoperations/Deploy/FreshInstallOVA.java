@@ -1,11 +1,12 @@
 package com.radware.vision.bddtests.vmoperations.Deploy;
+import com.radware.vision.base.WebUITestBase;
 import com.radware.vision.thirdPartyAPIs.jFrog.models.FileType;
 import static com.radware.vision.bddtests.vmoperations.VMOperationsSteps.getVisionSetupAttributeFromSUT;
 
 public class FreshInstallOVA extends Deploy {
 
     public FreshInstallOVA(boolean isExtended, String build) {
-        super(isExtended, build);
+        super(isExtended, build, WebUITestBase.getVisionRestClient().getDeviceIp());
         this.isAPM = getVisionSetupAttributeFromSUT("isAPM") != null && Boolean.parseBoolean(getVisionSetupAttributeFromSUT("isAPM"));
         buildFileInfo(this.isAPM ? FileType.OVA_APM : FileType.OVA);
 

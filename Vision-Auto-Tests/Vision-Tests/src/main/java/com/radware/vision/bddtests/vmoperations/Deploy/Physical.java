@@ -16,7 +16,7 @@ public class Physical extends Deploy {
     JFrogFileModel buildFileInfoTar;
 
     public Physical(boolean isExtended, String build) {
-        super(isExtended, build);
+        super(isExtended, build, WebUITestBase.getVisionRestClient().getDeviceIp());
         this.isAPM = getVisionSetupAttributeFromSUT("isAPM") != null && Boolean.parseBoolean(getVisionSetupAttributeFromSUT("isAPM"));
         buildFileInfo();
     }

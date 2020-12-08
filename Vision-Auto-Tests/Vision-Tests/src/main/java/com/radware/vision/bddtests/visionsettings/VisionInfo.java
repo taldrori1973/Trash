@@ -20,9 +20,9 @@ public class VisionInfo {
     private GenericVisionRestAPI genericVisionRestAPI;
     private String ip;
 
-    private static String visionVersion;
-    private static String visionBuild;
-    private static String visionBranch;
+    private static String visionVersion = "";
+    private static String visionBuild = "";
+    private static String visionBranch = "";
 
     public VisionInfo(String ip) {
         updateVisionInfo(ip);
@@ -39,15 +39,15 @@ public class VisionInfo {
         }
     }
 
-    public static String getVisionBuild() {
+    public String getVisionBuild() {
         return visionBuild;
     }
 
-    public static String getVisionBranch() {
+    public String getVisionBranch() {
         return visionBranch;
     }
 
-    public static String getVisionVersion() {
+    public String getVisionVersion() {
         return visionVersion;
     }
 

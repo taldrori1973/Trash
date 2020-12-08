@@ -26,7 +26,7 @@ public class Upgrade extends Deploy {
     private RootServerCli rootServerCli;
 
     public Upgrade(boolean isExtended, String build, RadwareServerCli radwareServerCli, RootServerCli rootServerCli) {
-        super(isExtended, build);
+        super(isExtended, build, rootServerCli.getHost());
         this.radwareServerCli = radwareServerCli;
         this.rootServerCli = rootServerCli;
         this.isAPM = getVisionSetupAttributeFromSUT("isAPM") != null && Boolean.parseBoolean(getVisionSetupAttributeFromSUT("isAPM")) || UpgradeSteps.isAPM();
