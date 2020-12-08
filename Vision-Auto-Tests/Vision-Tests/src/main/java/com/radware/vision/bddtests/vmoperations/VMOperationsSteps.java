@@ -115,57 +115,62 @@ public class VMOperationsSteps extends BddUITestBase {
     public void prerequisiteForSetup(String force) {
         String featureBranch = "master";
         String repositoryName = "vision-snapshot-local";
-        Upgrade upgrade = new Upgrade(true, null, restTestBase.getRadwareServerCli(), restTestBase.getRootServerCli());
-        if (force != null || upgrade.isSetupNeeded) {
-            try {
-                String setupMode = getVisionSetupAttributeFromSUT("setupMode");
-                VisionRadwareFirstTime visionRadwareFirstTime = (VisionRadwareFirstTime) system.getSystemObject("visionRadwareFirstTime");
-                if (setupMode == null) throw new NullPointerException("Can't find \"setupMode\" at SUT File");
-                String snapshot = getVisionSetupAttributeFromSUT("snapshot");
-                if ((snapshot == null || snapshot.equals("")) && setupMode.toLowerCase().contains("upgrade")) {
-                    BaseTestUtils.report("Could not find snapshot in SUT file performing internal upgrade", Reporter.PASS);
+        String setupMode = "";
+        String snapshot = "";
+        VisionRadwareFirstTime visionRadwareFirstTime;
+        try {
+            setupMode = getVisionSetupAttributeFromSUT("setupMode");
+            visionRadwareFirstTime = (VisionRadwareFirstTime) system.getSystemObject("visionRadwareFirstTime");
+            if (setupMode == null) throw new NullPointerException("Can't find \"setupMode\" at SUT File");
+            snapshot = getVisionSetupAttributeFromSUT("snapshot");
+            if ((snapshot == null || snapshot.equals("")) && setupMode.toLowerCase().contains("upgrade")) {
+                BaseTestUtils.report("Could not find snapshot in SUT file performing internal upgrade", Reporter.PASS);
+                return;
+            }
+            /* Fresh section */
+            switch (setupMode.toLowerCase()) {
+                case "fresh install_inparallel":
+                case "fresh install":
+                    prefreshInstall();
                     return;
-                }
+
+                case "kvm_fresh install":
+                    deleteKvm();
+                    return;
+
+                case "physical":
+                    return;
+            }
+            /* Upgrade section */
+            Upgrade upgrade = new Upgrade(true, null, restTestBase.getRadwareServerCli(), restTestBase.getRootServerCli());
+            if (force != null || upgrade.isSetupNeeded) {
                 switch (setupMode.toLowerCase()) {
                     case "kvm_upgrade_inparallel":
                         revert_kvm_upgrade_InParallel(snapshot, visionRadwareFirstTime);
-                        break;
+                        afterUpgrade();
+                        return;
 
                     case "upgrade_inparallel":
                         revertSnapshot(1);
                         revertSnapshot(2);
-                        break;
+                        afterUpgrade();
+                        return;
 
                     case "kvm_upgrade":
                         revertKvmSnapshot(snapshot, visionRadwareFirstTime);
-                        break;
+                        afterUpgrade();
+                        return;
 
                     case "upgrade":
                         revertSnapshot(1);
-                        break;
-
-                }
-                afterUpgrade();
-
-                switch (setupMode.toLowerCase()) {
-                    case "fresh install_inparallel":
-                    case "fresh install":
-                        prefreshInstall();
-                        break;
-
-                    case "kvm_fresh install":
-                        deleteKvm();
-                        break;
-
-                    case "physical":
-                        break;
-
+                        afterUpgrade();
+                        return;
                 }
 
-            } catch (Exception e) {
-                e.printStackTrace();
-                BaseTestUtils.report(e.getMessage() + " ", Reporter.FAIL);
             }
+        } catch (Exception e) {
+            e.printStackTrace();
+            BaseTestUtils.report(e.getMessage() + " ", Reporter.FAIL);
         }
     }
 
