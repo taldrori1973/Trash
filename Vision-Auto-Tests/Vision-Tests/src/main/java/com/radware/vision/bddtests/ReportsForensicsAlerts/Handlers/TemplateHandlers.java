@@ -669,6 +669,8 @@ public class TemplateHandlers {
     }
 
     private static void validateTemplateWidgetsDefinition(JSONObject singleActualTemplate, JSONObject expectedSingleTemplate, String expectedTemplateTitle, Map<String, Integer> widgets, StringBuilder errorMessage) {
+        if (!expectedSingleTemplate.has("Widgets"))
+            expectedSingleTemplate.put("Widgets", "[ALL]");
         JSONArray expectedWidgetsJSONArray = new JSONArray(expectedSingleTemplate.get("Widgets").toString());
         for (Object expectedWidgetObject : expectedWidgetsJSONArray) {
             if (expectedSingleTemplate.get("Widgets").toString().contains("ALL"))
