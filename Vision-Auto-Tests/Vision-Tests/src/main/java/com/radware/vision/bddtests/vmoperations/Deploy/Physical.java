@@ -2,6 +2,7 @@ package com.radware.vision.bddtests.vmoperations.Deploy;
 
 import com.radware.automation.tools.basetest.BaseTestUtils;
 import com.radware.automation.tools.basetest.Reporter;
+import com.radware.vision.base.WebUITestBase;
 import com.radware.vision.bddtests.rest.BasicRestOperationsSteps;
 import com.radware.vision.thirdPartyAPIs.jFrog.JFrogAPI;
 import com.radware.vision.thirdPartyAPIs.jFrog.models.FileType;

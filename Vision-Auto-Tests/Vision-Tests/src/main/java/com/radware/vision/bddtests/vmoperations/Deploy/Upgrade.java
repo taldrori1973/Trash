@@ -6,6 +6,8 @@ import com.radware.vision.base.WebUITestBase;
 import com.radware.vision.bddtests.clioperation.system.upgrade.UpgradeSteps;
 import com.radware.vision.thirdPartyAPIs.jFrog.models.FileType;
 import com.radware.vision.vision_handlers.system.upgrade.visionserver.VisionServer;
+import com.radware.vision.vision_project_cli.RadwareServerCli;
+import com.radware.vision.vision_project_cli.RootServerCli;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -20,9 +22,13 @@ public class Upgrade extends Deploy {
         put("4.50.00", "4.20.00");
         put("4.40.00", "4.10.00");
     }};
+    private RadwareServerCli radwareServerCli;
+    private RootServerCli rootServerCli;
 
-    public Upgrade(boolean isExtended, String build) {
+    public Upgrade(boolean isExtended, String build, RadwareServerCli radwareServerCli, RootServerCli rootServerCli) {
         super(isExtended, build);
+        this.radwareServerCli = radwareServerCli;
+        this.rootServerCli = rootServerCli;
         this.isAPM = getVisionSetupAttributeFromSUT("isAPM") != null && Boolean.parseBoolean(getVisionSetupAttributeFromSUT("isAPM")) || UpgradeSteps.isAPM();
         buildFileInfo(isAPM ? FileType.UPGRADE_APM : FileType.UPGRADE);
     }
@@ -31,7 +37,7 @@ public class Upgrade extends Deploy {
         try {
             if (!isSetupNeeded) return;
             String[] path = buildFileInfo.getPath().toString().split("/");
-            VisionServer.upgradeServerFile(WebUITestBase.getRestTestBase().getRadwareServerCli(), WebUITestBase.getRestTestBase().getRootServerCli()
+            VisionServer.upgradeServerFile(this.radwareServerCli, this.rootServerCli
                     , version, null, path[path.length - 1], buildFileInfo.getDownloadUri().toString());
             UpgradeSteps.validateVisionServerServicesUP(WebUITestBase.getRestTestBase().getRadwareServerCli());
         } catch (Exception e) {
@@ -52,6 +58,4 @@ public class Upgrade extends Deploy {
         }
         return versionSplit;
     }
-
-
 }

@@ -3,19 +3,17 @@ package com.radware.vision.bddtests.vmoperations.Deploy;
 import com.radware.automation.tools.basetest.BaseTestUtils;
 import com.radware.automation.tools.basetest.Reporter;
 import com.radware.automation.utils.AutoDBUtils;
-import com.radware.vision.base.WebUITestBase;
+import com.radware.vision.bddtests.visionsettings.VisionInfo;
 import com.radware.vision.thirdPartyAPIs.jFrog.JFrogAPI;
 import com.radware.vision.thirdPartyAPIs.jFrog.RepositoryService;
 import com.radware.vision.thirdPartyAPIs.jFrog.models.FileType;
 import com.radware.vision.thirdPartyAPIs.jFrog.models.JFrogFileModel;
-import cucumber.runtime.junit.FeatureRunner;
 import lombok.Getter;
 
 import static com.radware.vision.bddtests.vmoperations.VMOperationsSteps.readVisionVersionFromPomFile;
 
 @Getter
 public abstract class Deploy {
-    //    FileType type;
     boolean isExtended;
     boolean isAPM;
     String build;
@@ -34,7 +32,6 @@ public abstract class Deploy {
         this.repositoryName = "vision-snapshot-local";
         isSetupNeeded();
     }
-
 
     abstract public void deploy();
 
@@ -67,9 +64,10 @@ public abstract class Deploy {
                 this.build = build;
                 this.isExtended = false;
             }
-            String currentBuild = WebUITestBase.getVisionBuild();
-            String currentVersion = WebUITestBase.getVisionVersion();
-            String currentFeatureBranch = WebUITestBase.getVisionBranch();
+
+            String currentBuild = VisionInfo.getVisionBuild();
+            String currentVersion = VisionInfo.getVisionVersion();
+            String currentFeatureBranch = VisionInfo.getVisionBranch();
             isSetupNeeded = !currentVersion.equals(version) || !currentBuild.equals(this.build) || !currentFeatureBranch.equals(this.featureBranch);
             if (isSetupNeeded) {
                 BaseTestUtils.report("Current Build: " + currentBuild, Reporter.PASS);

@@ -13,6 +13,7 @@ import com.radware.vision.bddtests.BddUITestBase;
 import com.radware.vision.bddtests.clioperation.connections.NewVmSteps;
 import com.radware.vision.bddtests.clioperation.system.upgrade.UpgradeSteps;
 import com.radware.vision.bddtests.defenseFlow.defenseFlowDevice;
+import com.radware.vision.bddtests.visionsettings.VisionInfo;
 import com.radware.vision.bddtests.vmoperations.Deploy.FreshInstallKVM;
 import com.radware.vision.bddtests.vmoperations.Deploy.Physical;
 import com.radware.vision.bddtests.vmoperations.Deploy.Upgrade;
@@ -114,7 +115,7 @@ public class VMOperationsSteps extends BddUITestBase {
     public void prerequisiteForSetup(String force) {
         String featureBranch = "master";
         String repositoryName = "vision-snapshot-local";
-        Upgrade upgrade = new Upgrade(true, null);
+        Upgrade upgrade = new Upgrade(true, null, restTestBase.getRadwareServerCli(), restTestBase.getRootServerCli());
         if (force != null || upgrade.isSetupNeeded) {
             try {
                 String setupMode = getVisionSetupAttributeFromSUT("setupMode");
@@ -214,7 +215,7 @@ public class VMOperationsSteps extends BddUITestBase {
         switch (setupMode.toLowerCase()) {
             case "kvm_upgrade":
             case "upgrade":
-                Upgrade upgrade = new Upgrade(true, null);
+                Upgrade upgrade = new Upgrade(true, null, restTestBase.getRadwareServerCli(), restTestBase.getRootServerCli());
                 upgrade.deploy();
                 break;
 
@@ -330,9 +331,9 @@ public class VMOperationsSteps extends BddUITestBase {
      * Relevant to be used after revert to snapshot and upgrade
      */
     public static void updateVersionVar() {
-        WebUITestBase.getVisionInfo();
-        String version = WebUITestBase.getVisionVersion();
-        String build = WebUITestBase.getVisionBuild();
+        VisionInfo visionInfo = new VisionInfo(getRestTestBase().getGenericRestClient().getDeviceIp());
+        String version = visionInfo.getVisionVersion();
+        String build = visionInfo.getVisionBuild();
         //update runtime variables
         restTestBase.getRootServerCli().setVersionNumebr(version);
         restTestBase.getRootServerCli().setBuildNumber(build);
