@@ -254,6 +254,10 @@ abstract class ReportsForensicsAlertsAbstract implements ReportsForensicsAlertsI
                 map.put("Logo", new JSONObject(map.get("Customized Options")).get("addLogo").toString());
             map.remove("Customized Options");
         }
+        if(!templateJSON.has("reportType"))
+        {
+             templateJSON.put("reportType", "DefensePro Analytics");
+        }
         map.put("Template", templateJSON.toString());
     }
 
