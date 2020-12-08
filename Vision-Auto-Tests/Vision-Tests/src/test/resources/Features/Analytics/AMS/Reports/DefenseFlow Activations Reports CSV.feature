@@ -343,7 +343,7 @@ Feature: DefenseFlow Activations Reports CSV
   @SID_2
   Scenario: Clear data
     Given CLI Reset radware password
-    * REST Delete ES index "dp-*"
+#    * REST Delete ES index "dp-*"
     Then CLI Run remote linux Command "rm -f /opt/radware/mgt-server/third-party/tomcat/bin/VRM_report_*.zip" on "ROOT_SERVER_CLI"
     Then CLI Run remote linux Command "rm -f /opt/radware/mgt-server/third-party/tomcat/bin/*.csv" on "ROOT_SERVER_CLI"
     * CLI Clear vision logs
@@ -352,7 +352,7 @@ Feature: DefenseFlow Activations Reports CSV
   @SID_3
   Scenario:Login
     Then REST Vision Install License Request "vision-AVA-Max-attack-capacity"
-    Given UI Login with user "sys_admin" and password "radware"
+    Given UI Login with user "radware" and password "radware"
 
 
   @SID_4
@@ -361,16 +361,22 @@ Feature: DefenseFlow Activations Reports CSV
 
   @SID_5
   Scenario: Create DefenseFlow report
-    When UI "Create" Report With Name "OverallDFReport"
-      | reportType     | DefenseFlow Analytics Dashboard                                                                                                                                                          |
-      | projectObjects | All                                                                                                                                                                                      |
-      | Design         | Add:[Top 10 Attacks by Duration (hh:mm:ss),Top 10 Attacks by Rate (Gbps),Top 10 Attacks by Rate (Mpps),DDoS Peak Attack per Period,DDoS Attack Activations per Period] |
-      | Format         | Select: CSV                                                                                                                                                                              |
-    Then UI Validate Element Existence By Label "Reports List Item" if Exists "true" with value "OverallDFReport"
+#    When UI "Create" Report With Name "OverallDFReport"
+#      | reportType     | DefenseFlow Analytics Dashboard                                                                                                                                                          |
+#      | projectObjects | All                                                                                                                                                                                      |
+#      | Design         | Add:[Top 10 Attacks by Duration (hh:mm:ss),Top 10 Attacks by Rate (Gbps),Top 10 Attacks by Rate (Mpps),DDoS Peak Attack per Period,DDoS Attack Activations per Period] |
+#      | Format         | Select: CSV                                                                                                                                                                              |
+    Given UI "Create" Report With Name "OverallDFReport"
+      | Template              | reportType:DefenseFlow Analytics,Widgets:[Top 10 Activations by Duration,Top 10 Activations by Attack Rate (Gbps),Top 10 Activations by Attack Rate (Mpps),DDoS Attack Activations per Period,DDoS Peak Attack per Period], Protected Objects:[All]|
+      | Format                | Select: CSV                                                                                                          |
+
+#    Then UI Validate Element Existence By Label "Reports List Item" if Exists "true" with value "OverallDFReport"
 
   @SID_6
   Scenario: Generate Report
-    Then UI Generate and Validate Report With Name "OverallDFReport" with Timeout of 120 Seconds
+    Then UI Click Button "My Report" with value "OverallDFReport"
+    Then UI Click Button "Generate Report Manually" with value "OverallDFReport"
+    Then Sleep "35"
 
   Scenario: VRM report unzip local CSV file
     Then CLI Run remote linux Command "unzip -o -d /opt/radware/mgt-server/third-party/tomcat/bin/ /opt/radware/mgt-server/third-party/tomcat/bin/VRM_report_*.zip" on "ROOT_SERVER_CLI"

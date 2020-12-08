@@ -301,6 +301,7 @@ abstract class ReportsForensicsAlertsAbstract implements ReportsForensicsAlertsI
             BasicOperationsHandler.clickButton("Delete Report",reportName);
             confirmDeleteReport("confirm Delete Report",reportName);
             clearSavedReportInMap(reportName);
+            WebUIUtils.sleep(3);
             if(!BasicOperationsHandler.isElementExists("My Report", false, reportName)){
                 BaseTestUtils.report("Failed to delete report name: " + reportName, Reporter.FAIL);
         }

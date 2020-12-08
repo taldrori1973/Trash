@@ -809,6 +809,8 @@ public class TemplateHandlers {
     private static void setSummaryTable(JSONObject templateJsonObject, String templateName) {
         if (!templateJsonObject.has("showTable")) return;
         WebElement checkbox = WebUiTools.getWebElement("check summary table", templateName);
+        if (checkbox==null)
+            return;
         boolean isChecked = Boolean.parseBoolean(checkbox.getAttribute("data-debug-checked"));
         switch (templateJsonObject.get("showTable").toString().toLowerCase()) {
             case "true":
