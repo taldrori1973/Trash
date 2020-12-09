@@ -361,16 +361,10 @@ Feature: DefenseFlow Activations Reports CSV
 
   @SID_5
   Scenario: Create DefenseFlow report
-#    When UI "Create" Report With Name "DFCSV"
-#      | reportType     | DefenseFlow Analytics Dashboard                                                                                                                                                          |
-#      | projectObjects | All                                                                                                                                                                                      |
-#      | Design         | Add:[Top 10 Attacks by Duration (hh:mm:ss),Top 10 Attacks by Rate (Gbps),Top 10 Attacks by Rate (Mpps),DDoS Peak Attack per Period,DDoS Attack Activations per Period] |
-#      | Format         | Select: CSV                                                                                                                                                                              |
     Given UI "Create" Report With Name "DFCSV"
-      | Template              | reportType:DefenseFlow Analytics,Widgets:[Top 10 Activations by Duration,Top 10 Activations by Attack Rate (Gbps),Top 10 Activations by Attack Rate (Mpps),DDoS Attack Activations per Period,DDoS Peak Attack per Period], Protected Objects:[All]|
-      | Format                | Select: CSV                                                                                                          |
+      | Template | reportType:DefenseFlow Analytics,Widgets:[Top 10 Activations by Duration,Top 10 Activations by Attack Rate (Gbps),Top 10 Activations by Attack Rate (Mpps),DDoS Attack Activations per Period,DDoS Peak Attack per Period], Protected Objects:[All] |
+      | Format   | Select: CSV                                                                                                                                                                                                                                         |
 
-#    Then UI Validate Element Existence By Label "Reports List Item" if Exists "true" with value "DFCSV"
 
   @SID_6
   Scenario: Generate Report
@@ -378,6 +372,7 @@ Feature: DefenseFlow Activations Reports CSV
     Then UI Click Button "Generate Report Manually" with value "DFCSV"
     Then Sleep "35"
 
+  @SID_30
   Scenario: VRM report unzip local CSV file
     Then CLI Run remote linux Command "unzip -o -d /opt/radware/mgt-server/third-party/tomcat/bin/ /opt/radware/mgt-server/third-party/tomcat/bin/VRM_report_*.zip" on "ROOT_SERVER_CLI"
 
@@ -414,6 +409,7 @@ Feature: DefenseFlow Activations Reports CSV
     Then CLI Run linux Command "cat "/opt/radware/mgt-server/third-party/tomcat/bin/Top 10 Activations by Attack Rate (Gbps)-DefenseFlow Analytics.csv"|head -11|tail -1|grep 431371200000,1,5,PO_105,70.75.0.0/32|wc -l " on "ROOT_SERVER_CLI" and validate result EQUALS "1"
 
   @SID_11
+  Scenario: VRM report validate CSV file Top 10 Activations by Attack Rate (Mpps)
     Then CLI Run linux Command "cat "/opt/radware/mgt-server/third-party/tomcat/bin/Top 10 Activations by Attack Rate (Mpps)-DefenseFlow Analytics.csv" |wc -l" on "ROOT_SERVER_CLI" and validate result EQUALS "11"
     Then CLI Run linux Command "cat "/opt/radware/mgt-server/third-party/tomcat/bin/Top 10 Activations by Attack Rate (Mpps)-DefenseFlow Analytics.csv"|head -1|tail -1|grep distinct_count,maxPacketRatePps,activationId,protectedObjectName,destinationNetwork|wc -l " on "ROOT_SERVER_CLI" and validate result EQUALS "1"
     Then CLI Run linux Command "cat "/opt/radware/mgt-server/third-party/tomcat/bin/Top 10 Activations by Attack Rate (Mpps)-DefenseFlow Analytics.csv"|head -2|tail -1|grep 1,15087000000,14,PO_115,80.75.0.0/32|wc -l " on "ROOT_SERVER_CLI" and validate result EQUALS "1"
