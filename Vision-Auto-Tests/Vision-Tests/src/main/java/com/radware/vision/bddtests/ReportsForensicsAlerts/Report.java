@@ -73,7 +73,8 @@ public class Report extends ReportsForensicsAlertsAbstract {
         if (WebUiTools.getWebElement("close scope selection") != null)
             BasicOperationsHandler.clickButton("close scope selection");
         BasicOperationsHandler.clickButton("cancel");
-        BasicOperationsHandler.clickButton("saveChanges", "no");
+        if(WebUiTools.getWebElement("saveChanges","no") != null)
+            BasicOperationsHandler.clickButton("saveChanges", "no");
     }
 
     private void selectTemplates(Map<String, String> map,String reportName) throws Exception {
@@ -282,10 +283,10 @@ public class Report extends ReportsForensicsAlertsAbstract {
             cancelReport();
             throw e;
         }
-//        if (!reportCreated()) {
-//            cancelReport();
-//            throw new Exception("");
-//        }
+        if (!reportCreated()) {
+            cancelReport();
+            throw new Exception("");
+        }
     }
 
     @Override
