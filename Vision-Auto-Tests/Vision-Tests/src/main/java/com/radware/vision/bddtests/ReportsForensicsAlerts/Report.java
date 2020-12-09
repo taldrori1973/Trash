@@ -117,7 +117,7 @@ public class Report extends ReportsForensicsAlertsAbstract {
     private void editReportParameters(String reportName, Map<String, String> map) throws Exception {
         expandReportParameters();
         WebUiTools.check("Name Tab", "", true);
-        editName(map);
+        editName(map, reportName);
         WebUiTools.check("Logo Tab", "", true);
         editLogo(map);
         WebUiTools.check("Time Tab", "", true);
