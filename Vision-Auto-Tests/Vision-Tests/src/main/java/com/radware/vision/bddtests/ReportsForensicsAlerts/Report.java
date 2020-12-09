@@ -70,6 +70,8 @@ public class Report extends ReportsForensicsAlertsAbstract {
     }
 
     private void cancelReport() throws TargetWebElementNotFoundException {
+        if (WebUiTools.getWebElement("close scope selection") != null)
+            BasicOperationsHandler.clickButton("close scope selection");
         BasicOperationsHandler.clickButton("cancel");
         BasicOperationsHandler.clickButton("saveChanges", "no");
     }
