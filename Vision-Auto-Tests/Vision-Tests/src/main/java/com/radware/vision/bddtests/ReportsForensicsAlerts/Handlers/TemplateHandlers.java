@@ -546,7 +546,7 @@ public class TemplateHandlers {
 
         @Override
         public void validate(JSONArray actualTemplateDeviceJSON, StringBuilder errorMessage) throws Exception {
-            if (devicesJSON.length() == 1 && devicesJSON.get(0).equals("All"))
+            if (devicesJSON.length() == 1 && (devicesJSON.get(0).equals("All") || devicesJSON.get(0).equals("ALL")))
                 allDevicesSelected(actualTemplateDeviceJSON, errorMessage);
             else {
                 JSONArray actualObjectsDevicesSelected = getJSONArraySelected(actualTemplateDeviceJSON);
@@ -555,11 +555,11 @@ public class TemplateHandlers {
                 else if (actualObjectsDevicesSelected != null) {
                     String[] expectedDeviceStringArray = devicesJSON.get(0).toString().split("-");
                     if (!new JSONObject(actualObjectsDevicesSelected.get(0).toString()).get("serverName").toString().equals(expectedDeviceStringArray[0]))
-                        errorMessage.append("The ActualTemplate ServerName" + new JSONObject(actualObjectsDevicesSelected.get(0).toString()).get("serverName").toString() + " is not equal to the expected: " + expectedDeviceStringArray[0]);
+                        errorMessage.append("The ActualTemplate ServerName " + new JSONObject(actualObjectsDevicesSelected.get(0).toString()).get("serverName").toString() + " is not equal to the expected: " + expectedDeviceStringArray[0]);
                     if (!new JSONObject(actualObjectsDevicesSelected.get(0).toString()).get("deviceName").toString().equals(expectedDeviceStringArray[1]))
-                        errorMessage.append("The ActualTemplate deviceName" + new JSONObject(actualObjectsDevicesSelected.get(0).toString()).get("deviceName").toString() + " is not equal to the expected: " + expectedDeviceStringArray[1]);
+                        errorMessage.append("The ActualTemplate deviceName " + new JSONObject(actualObjectsDevicesSelected.get(0).toString()).get("deviceName").toString() + " is not equal to the expected: " + expectedDeviceStringArray[1]);
                     if (!new JSONObject(actualObjectsDevicesSelected.get(0).toString()).get("policyName").toString().equals(expectedDeviceStringArray[2]))
-                        errorMessage.append("The ActualTemplate policyName" + new JSONObject(actualObjectsDevicesSelected.get(0).toString()).get("policyName").toString() + " is not equal to the expected: " + expectedDeviceStringArray[2]);
+                        errorMessage.append("The ActualTemplate policyName " + new JSONObject(actualObjectsDevicesSelected.get(0).toString()).get("policyName").toString() + " is not equal to the expected: " + expectedDeviceStringArray[2]);
                 }
             }
         }
@@ -666,7 +666,7 @@ public class TemplateHandlers {
             String[] expectedTemplateName = expectedTemplateTitle.split("_");
             for (Object singleTemplate : actualTemplateJSON) {
                 String[] actualTemplateName = new JSONObject(singleTemplate.toString()).get("templateTitle").toString().split("_");
-                switch (expectedTemplateName.length) {
+                switch (actualTemplateName.length) {
                     case 1:
                         if (expectedTemplateName[0].equals(actualTemplateName[0]))
                             return new JSONObject(singleTemplate.toString());
@@ -870,7 +870,7 @@ public class TemplateHandlers {
         editTemplate(templateJsonObject.get("reportType").toString());
         removeUnWantedWidgets(widgetsListToRemove, currentTemplateName);
         dragAndDropDesiredWidgets(widgetsList, currentTemplateName);
-        selectOptions(new JSONArray(templateJsonObject.get("AddWidgets").toString()), getOccurrenceMap(new JSONArray(templateJsonObject.get("AddWidgets").toString())), currentTemplateName);
+        selectOptions(templateJsonObject.has("AddWidgets") ? new JSONArray(templateJsonObject.get("AddWidgets").toString()): null, templateJsonObject.has("AddWidgets") ?getOccurrenceMap(new JSONArray(templateJsonObject.get("AddWidgets").toString())): getOccurrenceMap(null), currentTemplateName);
         selectOptions(editWidgets, getOccurrenceMap(editWidgets), currentTemplateName);
     }
 
