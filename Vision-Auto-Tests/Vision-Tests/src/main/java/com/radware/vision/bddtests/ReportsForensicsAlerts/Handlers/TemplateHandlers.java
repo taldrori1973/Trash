@@ -55,8 +55,9 @@ public class TemplateHandlers {
             case "EAAF":
 //                return new EAAFScopeSelection(new JSONArray(templateJsonObject.get("devices").toString()), templateParam);
                 return new EAAFScopeSelection(new JSONArray(), templateParam);
-            case "DEFENSEPRO ANALYTICS":
             case "DEFENSEPRO BEHAVIORAL PROTECTIONS":
+                return new DPBehavioralScopeSelection(new JSONArray(templateJsonObject.get("devices").toString()), templateParam);
+            case "DEFENSEPRO ANALYTICS":
             default:
                 return new DPScopeSelection(new JSONArray(templateJsonObject.get("devices").toString()), templateParam);
         }
@@ -321,14 +322,20 @@ public class TemplateHandlers {
             return saveButtonText;
         }
 
-        public void create() throws Exception {
+        protected void openScopeSelection() throws TargetWebElementNotFoundException {
             BasicOperationsHandler.clickButton("Open Scope Selection", getType() + templateParam);
+        }
+        public void create() throws Exception {
+            openScopeSelection();
             WebUIUtils.sleep(1);
             if (!isAllAndClearScopeSelection()) {
                 for (Object deviceJSON : devicesJSON)
                     selectDevice(deviceJSON.toString(), true);
             }
             BasicOperationsHandler.clickButton(getSaveButtonText(), "");
+            if (WebUiTools.getWebElement("close scope selection") != null)
+                BasicOperationsHandler.clickButton("close scope selection");
+
         }
 
         public void validate(JSONArray actualTemplateDeviceJSON, StringBuilder errorMessage) throws Exception {
@@ -505,6 +512,17 @@ public class TemplateHandlers {
                 } else if (policiesOrPortsJSONArray.length() > 0)
                     errorMessage.append("The actual templateDevice size " + policiesOrPortsJSONArray.length() + " is not equal to expected templateDevice size 0").append("\n");
             }
+        }
+    }
+
+    private static class DPBehavioralScopeSelection extends DPScopeSelection
+    {
+
+        DPBehavioralScopeSelection(JSONArray deviceJSON, String templateParam) {
+            super(deviceJSON, templateParam);
+        }
+        protected void openScopeSelection() throws TargetWebElementNotFoundException {
+            BasicOperationsHandler.clickButton("Open Scope Selection", "DefensePro Behavioral Protections" + templateParam);
         }
     }
 
