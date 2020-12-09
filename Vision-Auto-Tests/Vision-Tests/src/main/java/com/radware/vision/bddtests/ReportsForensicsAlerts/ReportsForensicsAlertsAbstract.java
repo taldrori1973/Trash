@@ -241,7 +241,7 @@ abstract class ReportsForensicsAlertsAbstract implements ReportsForensicsAlertsI
 
     private void fixMapToSupportOldDesign(Map<String, String> map) {
         JSONObject templateJSON = new JSONObject();
-        fixOldMapObject(map, templateJSON, "reportType", "reportType", map.get("reportType"));
+        fixOldMapObject(map, templateJSON, "reportType", "reportType", map.get("reportType").contains("DefensePro Ana")?"DefensePro Analytics": map.get("reportType").replaceAll("s Dashboard", "s").trim().replaceAll(" Dashboard", "s"));
         fixOldMapObject(map, templateJSON, "Design", "Widgets", map.containsKey("Design")?new JSONObject(map.get("Design")).toMap().getOrDefault("Add",new JSONObject(map.get("Design")).toMap().getOrDefault("Widgets", "").toString()):"");
         String devicesText = map.get("devices").replaceAll("index", "deviceIndex").replaceAll("ports", "devicePorts").replaceAll("policies", "devicePolicies");
         fixOldMapObject(map, templateJSON, "devices", "devices", "[" + devicesText + "]");
@@ -253,6 +253,10 @@ abstract class ReportsForensicsAlertsAbstract implements ReportsForensicsAlertsI
             if(new JSONObject(map.get("Customized Options")).has("addLogo"))
                 map.put("Logo", new JSONObject(map.get("Customized Options")).get("addLogo").toString());
             map.remove("Customized Options");
+        }
+        if(!templateJSON.has("reportType"))
+        {
+             templateJSON.put("reportType", "DefensePro Analytics");
         }
         map.put("Template", templateJSON.toString());
     }

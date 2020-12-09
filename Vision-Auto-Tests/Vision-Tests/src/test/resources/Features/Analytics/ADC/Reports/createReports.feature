@@ -1,11 +1,13 @@
-@TC118253
+@TC118253 @Test12
 Feature: Test Reports Definition
 
+  @Test12
   @SID_1
   Scenario: Navigate to ADC REPORTS page
     Then UI Login with user "sys_admin" and password "radware"
     Then UI Navigate to "ADC REPORTS" page via homepage
     Then UI Click Button "New Report Tab"
+
 
   @SID_2
   Scenario: create System And Network Report1
@@ -22,7 +24,8 @@ Feature: Test Reports Definition
       | Schedule              | Run Every:Daily,On Time:+2m                                                              |
       | Format                | Select: PDF                                                                              |
     Then UI Delete Report With Name "System And Network Report1"
-#
+
+
   @SID_3
   Scenario: create System And Network Report2
     Given UI "Create" Report With Name "System And Network Report2"
@@ -37,35 +40,6 @@ Feature: Test Reports Definition
       | Format                | Select: HTML                                                                             |
     Then UI Delete Report With Name "System And Network Report2"
 
-  @SID_4
-  Scenario: create System And Network Report3
-    Given UI "Create" Report With Name "System And Network Report3"
-      | Template              | reportType:System And Network , Widgets:[Ports Traffic Information] , Applications:[Alteon_172.17.164.17] |
-      | Logo                  | reportLogoPNG.png                                                                                         |
-      | Time Definitions.Date | Quick:1H                                                                                                  |
-      | Schedule              | Run Every:Weekly, On Time:+6H, At Days:[TUE,WED]                                                          |
-      | Format                | Select: CSV                                                                                               |
-    Then UI "Validate" Report With Name "System And Network Report3"
-      | Template              | reportType:System And Network , Widgets:[Ports Traffic Information] , Applications:[Alteon_172.17.164.17] |
-      | Logo                  | reportLogoPNG.png                                                                                         |
-      | Time Definitions.Date | Quick:1H                                                                                                  |
-      | Schedule              | Run Every:Weekly, On Time:+6H, At Days:[TUE,WED]                                                          |
-      | Format                | Select: CSV                                                                                               |
-    Then UI Delete Report With Name "System And Network Report3"
-
-  @SID_5
-  Scenario: create System And Network Report4
-    Given UI "Create" Report With Name "System And Network Report4"
-      | Template              | reportType:System And Network , Widgets:[Ports Traffic Information] , Applications:[Alteon_172.17.164.17] |
-      | Time Definitions.Date | Quick:3M                                                                                                  |
-      | Schedule              | Run Every:Weekly, On Time:+6H, At Days:[THU]                                                              |
-      | Format                | Select: CSV                                                                                               |
-    Then UI "Validate" Report With Name "System And Network Report4"
-      | Template              | reportType:System And Network , Widgets:[Ports Traffic Information] , Applications:[Alteon_172.17.164.17] |
-      | Time Definitions.Date | Quick:3M                                                                                                  |
-      | Schedule              | Run Every:Weekly, On Time:+6H, At Days:[THU]                                                              |
-      | Format                | Select: CSV                                                                                               |
-    Then UI Delete Report With Name "System And Network Report4"
 
   @SID_6
   Scenario: create System And Network Report5
@@ -155,21 +129,6 @@ Feature: Test Reports Definition
       | Format                | Select: CSV                                                                              |
     Then UI Delete Report With Name "System And Network Report9"
 
-  @SID_11
-  Scenario: create System And Network Report10
-    Given UI "Create" Report With Name "System And Network Report10"
-      | Template              | reportType:System And Network , Widgets:[Ports Traffic Information] , Applications:[Alteon_172.17.164.17] |
-      | Time Definitions.Date | Relative:[Days,3]                                                                                         |
-      | Schedule              | Run Every:Monthly, On Time:+6H, At Months:[JAN,FEB,MAR,APR,MAY,JUN,JUL,AUG,SEP,OCT,NOV,DEC]               |
-      | share                 | Email:[automation.vision1@radware.com],Subject:mySubject,Body:myBody                                      |
-      | Format                | Select: CSV                                                                                               |
-    Then UI "Validate" Report With Name "System And Network Report10"
-      | Template              | reportType:System And Network , Widgets:[Ports Traffic Information] , Applications:[Alteon_172.17.164.17] |
-      | Time Definitions.Date | Relative:[Days,3]                                                                                         |
-      | Schedule              | Run Every:Monthly, On Time:+6H, At Months:[JAN,FEB,MAR,APR,MAY,JUN,JUL,AUG,SEP,OCT,NOV,DEC]               |
-      | share                 | Email:[automation.vision1@radware.com],Subject:mySubject,Body:myBody                                      |
-      | Format                | Select: CSV                                                                                               |
-    Then UI Delete Report With Name "System And Network Report10"
 
   @SID_12
   Scenario: create Application Report1
@@ -445,40 +404,6 @@ Feature: Test Reports Definition
       | Format                | Select: HTML                                                                             |
     Then UI Delete Report With Name "System And Network And Application Report3"
 
-  @SID_29
-  Scenario: create System And Network And Application Report4
-    Given UI "Create" Report With Name "System And Network And Application Report4"
-      | Template-1            | reportType:System And Network , Widgets:[Ports Traffic Information] , Applications:[Alteon_172.17.164.17] |
-      | Template-2            | reportType:Application ,Widgets:[Concurrent Connections] , Applications:[app:80,app:443]                  |
-      | Logo                  | reportLogoPNG.png                                                                                         |
-      | Time Definitions.Date | Quick:1H                                                                                                  |
-      | Schedule              | Run Every:Weekly, On Time:+6H, At Days:[TUE,WED]                                                          |
-      | Format                | Select: CSV                                                                                               |
-    Then UI "Validate" Report With Name "System And Network And Application Report4"
-      | Template-1            | reportType:System And Network , Widgets:[Ports Traffic Information] , Applications:[Alteon_172.17.164.17] |
-      | Template-2            | reportType:Application ,Widgets:[Concurrent Connections] ,Applications:[app:80,app:443]                   |
-      | Logo                  | reportLogoPNG.png                                                                                         |
-      | Time Definitions.Date | Quick:1H                                                                                                  |
-      | Schedule              | Run Every:Weekly, On Time:+6H, At Days:[TUE,WED]                                                          |
-      | Format                | Select: CSV                                                                                               |
-    Then UI Delete Report With Name "System And Network And Application Report4"
-
-  @SID_30
-  Scenario: create System And Network And Application Report5
-    Given UI "Create" Report With Name "System And Network And Application Report5"
-      | Template-1            | reportType:System And Network , Widgets:[Ports Traffic Information] , Applications:[Alteon_172.17.164.17] |
-      | Template-2            | reportType:Application ,Widgets:[Connections per Second] , Applications:[app:80,app:443]                  |
-      | Time Definitions.Date | Quick:3M                                                                                                  |
-      | Schedule              | Run Every:Weekly, On Time:+6H, At Days:[THU]                                                              |
-      | Format                | Select: CSV                                                                                               |
-    Then UI "Validate" Report With Name "System And Network And Application Report5"
-      | Template-1            | reportType:System And Network , Widgets:[Ports Traffic Information] , Applications:[Alteon_172.17.164.17] |
-      | Template-2            | reportType:Application ,Widgets:[Connections per Second] , Applications:[app:80,app:443]                  |
-      | Time Definitions.Date | Quick:3M                                                                                                  |
-      | Schedule              | Run Every:Weekly, On Time:+6H, At Days:[THU]                                                              |
-      | Format                | Select: CSV                                                                                               |
-    Then UI Delete Report With Name "System And Network And Application Report5"
-
   @SID_31
   Scenario: create System And Network And Application Report6
     Given UI "Create" Report With Name "System And Network And Application Report6"
@@ -613,6 +538,90 @@ Feature: Test Reports Definition
       | share                 | Email:[automation.vision1@radware.com],Subject:mySubject,Body:myBody                                                                         |
       | Format                | Select: HTML                                                                                                                                 |
     Then UI Delete Report With Name "System And Network And Application Report12"
+
+
+  @SID_4
+  Scenario: create System And Network Report3
+    Given UI "Create" Report With Name "System And Network Report3"
+      | Template              | reportType:System And Network , Widgets:[Ports Traffic Information] , Applications:[Alteon_172.17.164.17] |
+      | Logo                  | reportLogoPNG.png                                                                                         |
+      | Time Definitions.Date | Quick:1H                                                                                                  |
+      | Schedule              | Run Every:Weekly, On Time:+6H, At Days:[TUE,WED]                                                          |
+      | Format                | Select: CSV                                                                                               |
+    Then UI "Validate" Report With Name "System And Network Report3"
+      | Template              | reportType:System And Network , Widgets:[Ports Traffic Information] , Applications:[Alteon_172.17.164.17] |
+      | Logo                  | reportLogoPNG.png                                                                                         |
+      | Time Definitions.Date | Quick:1H                                                                                                  |
+      | Schedule              | Run Every:Weekly, On Time:+6H, At Days:[TUE,WED]                                                          |
+      | Format                | Select: CSV                                                                                               |
+    Then UI Delete Report With Name "System And Network Report3"
+
+  @Test12
+  @SID_5
+  Scenario: create System And Network Report4
+    Given UI "Create" Report With Name "System And Network Report4"
+      | Template              | reportType:System And Network , Widgets:[Ports Traffic Information] , Applications:[Alteon_172.17.164.17] |
+      | Time Definitions.Date | Quick:3M                                                                                                  |
+      | Schedule              | Run Every:Weekly, On Time:+6H, At Days:[THU]                                                              |
+      | Format                | Select: CSV                                                                                               |
+    Then UI "Validate" Report With Name "System And Network Report4"
+      | Template              | reportType:System And Network , Widgets:[Ports Traffic Information] , Applications:[Alteon_172.17.164.17] |
+      | Time Definitions.Date | Quick:3M                                                                                                  |
+      | Schedule              | Run Every:Weekly, On Time:+6H, At Days:[THU]                                                              |
+      | Format                | Select: CSV                                                                                               |
+    Then UI Delete Report With Name "System And Network Report4"
+
+  @SID_11
+  Scenario: create System And Network Report10
+    Given UI "Create" Report With Name "System And Network Report10"
+      | Template              | reportType:System And Network , Widgets:[Ports Traffic Information] , Applications:[Alteon_172.17.164.17] |
+      | Time Definitions.Date | Relative:[Days,3]                                                                                         |
+      | Schedule              | Run Every:Monthly, On Time:+6H, At Months:[JAN,FEB,MAR,APR,MAY,JUN,JUL,AUG,SEP,OCT,NOV,DEC]               |
+      | share                 | Email:[automation.vision1@radware.com],Subject:mySubject,Body:myBody                                      |
+      | Format                | Select: CSV                                                                                               |
+    Then UI "Validate" Report With Name "System And Network Report10"
+      | Template              | reportType:System And Network , Widgets:[Ports Traffic Information] , Applications:[Alteon_172.17.164.17] |
+      | Time Definitions.Date | Relative:[Days,3]                                                                                         |
+      | Schedule              | Run Every:Monthly, On Time:+6H, At Months:[JAN,FEB,MAR,APR,MAY,JUN,JUL,AUG,SEP,OCT,NOV,DEC]               |
+      | share                 | Email:[automation.vision1@radware.com],Subject:mySubject,Body:myBody                                      |
+      | Format                | Select: CSV                                                                                               |
+    Then UI Delete Report With Name "System And Network Report10"
+
+
+
+  @SID_29
+  Scenario: create System And Network And Application Report4
+    Given UI "Create" Report With Name "System And Network And Application Report4"
+      | Template-1            | reportType:System And Network , Widgets:[Ports Traffic Information] , Applications:[Alteon_172.17.164.17] |
+      | Template-2            | reportType:Application ,Widgets:[Concurrent Connections] , Applications:[app:80,app:443]                  |
+      | Logo                  | reportLogoPNG.png                                                                                         |
+      | Time Definitions.Date | Quick:1H                                                                                                  |
+      | Schedule              | Run Every:Weekly, On Time:+6H, At Days:[TUE,WED]                                                          |
+      | Format                | Select: CSV                                                                                               |
+    Then UI "Validate" Report With Name "System And Network And Application Report4"
+      | Template-1            | reportType:System And Network , Widgets:[Ports Traffic Information] , Applications:[Alteon_172.17.164.17] |
+      | Template-2            | reportType:Application ,Widgets:[Concurrent Connections] ,Applications:[app:80,app:443]                   |
+      | Logo                  | reportLogoPNG.png                                                                                         |
+      | Time Definitions.Date | Quick:1H                                                                                                  |
+      | Schedule              | Run Every:Weekly, On Time:+6H, At Days:[TUE,WED]                                                          |
+      | Format                | Select: CSV                                                                                               |
+    Then UI Delete Report With Name "System And Network And Application Report4"
+
+  @SID_30
+  Scenario: create System And Network And Application Report5
+    Given UI "Create" Report With Name "System And Network And Application Report5"
+      | Template-1            | reportType:System And Network , Widgets:[Ports Traffic Information] , Applications:[Alteon_172.17.164.17] |
+      | Template-2            | reportType:Application ,Widgets:[Connections per Second] , Applications:[app:80,app:443]                  |
+      | Time Definitions.Date | Quick:3M                                                                                                  |
+      | Schedule              | Run Every:Weekly, On Time:+6H, At Days:[THU]                                                              |
+      | Format                | Select: CSV                                                                                               |
+    Then UI "Validate" Report With Name "System And Network And Application Report5"
+      | Template-1            | reportType:System And Network , Widgets:[Ports Traffic Information] , Applications:[Alteon_172.17.164.17] |
+      | Template-2            | reportType:Application ,Widgets:[Connections per Second] , Applications:[app:80,app:443]                  |
+      | Time Definitions.Date | Quick:3M                                                                                                  |
+      | Schedule              | Run Every:Weekly, On Time:+6H, At Days:[THU]                                                              |
+      | Format                | Select: CSV                                                                                               |
+    Then UI Delete Report With Name "System And Network And Application Report5"
 
   @SID_38
   Scenario: Logout
