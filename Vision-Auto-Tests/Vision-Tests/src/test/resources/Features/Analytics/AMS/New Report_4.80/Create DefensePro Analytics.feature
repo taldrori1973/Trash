@@ -24,19 +24,19 @@ Feature: DefensePro Analytics
   @SID_2
   Scenario: create new Traffic Bandwidth1
     Given UI "Create" Report With Name "Traffic Bandwidth Report1"
-      | Template-1            | reportType:DefensePro Analytics , Widgets:[{Traffic Bandwidth:[pps,Outbound,All Policies]}]  ,devices:[All]|
-      | Logo                  | reportLogoPNG.png                                                                                                           |
-      | Format                | Select: PDF                                                                                                                 |
-      | Schedule              | Run Every:Monthly, On Time:+6H, At Months:[JAN]                                                                             |
-      | Time Definitions.Date | Quick:Today                                                                                                                 |
-      | share                 | Email:[automation.vision1@radware.com],Subject:mySubject,Body:myBody                                                        |
+      | Template-1            | reportType:DefensePro Analytics , Widgets:[{Traffic Bandwidth:[pps,Outbound,All Policies]}]  ,devices:[All] |
+      | Logo                  | reportLogoPNG.png                                                                                           |
+      | Format                | Select: PDF                                                                                                 |
+      | Schedule              | Run Every:Monthly, On Time:+6H, At Months:[JAN]                                                             |
+      | Time Definitions.Date | Quick:Today                                                                                                 |
+      | share                 | Email:[automation.vision1@radware.com],Subject:mySubject,Body:myBody                                        |
     Then UI "Validate" Report With Name "Traffic Bandwidth Report1"
-      | Template-1            | reportType:DefensePro Analytics , Widgets:[{Traffic Bandwidth:[pps,Outbound,All Policies]}]  ,devices:[All]|
-      | Logo                  | reportLogoPNG.png                                                                                                           |
-      | Format                | Select: PDF                                                                                                                 |
-      | Schedule              | Run Every:Monthly, On Time:+6H, At Months:[JAN]                                                                             |
-      | Time Definitions.Date | Quick:Today                                                                                                                 |
-      | share                 | Email:[automation.vision1@radware.com],Subject:mySubject,Body:myBody                                                        |
+      | Template-1            | reportType:DefensePro Analytics , Widgets:[{Traffic Bandwidth:[pps,Outbound,All Policies]}]  ,devices:[All] |
+      | Logo                  | reportLogoPNG.png                                                                                           |
+      | Format                | Select: PDF                                                                                                 |
+      | Schedule              | Run Every:Monthly, On Time:+6H, At Months:[JAN]                                                             |
+      | Time Definitions.Date | Quick:Today                                                                                                 |
+      | share                 | Email:[automation.vision1@radware.com],Subject:mySubject,Body:myBody                                        |
     Then UI Delete Report With Name "Traffic Bandwidth Report1"
 
   @SID_3
@@ -44,16 +44,16 @@ Feature: DefensePro Analytics
     Then UI Click Button "New Report Tab"
     Given UI "Create" Report With Name "Traffic Bandwidth Report2"
       | Template              | reportType:DefensePro Analytics,Widgets:[{Traffic Bandwidth:[pps,Outbound,All Policies]}],devices:[{deviceIndex:10}],showTable:false |
-  #    | Schedule              | Run Every:Weekly, On Time:+6H, At Days:[WED]                                                                                      |
-      | Time Definitions.Date | Quick:Yesterday                                                                                                                            |
-      | share                 | Email:[automation.vision1@radware.com],Subject:mySubject,Body:myBody                                                                       |
-      | Format                | Select: PDF                                                                                                                                |
+      | Schedule              | Run Every:Weekly, On Time:+6H, At Days:[WED]                                                                                         |
+      | Time Definitions.Date | Quick:Yesterday                                                                                                                      |
+      | share                 | Email:[automation.vision1@radware.com],Subject:mySubject,Body:myBody                                                                 |
+      | Format                | Select: PDF                                                                                                                          |
     Then UI "Validate" Report With Name "Traffic Bandwidth Report2"
       | Template              | reportType:DefensePro Analytics,Widgets:[{Traffic Bandwidth:[pps,Outbound,All Policies]}],devices:[{deviceIndex:10}],showTable:false |
-  #    | Schedule              | Run Every:Weekly, On Time:+6H, At Days:[WED]                                                                                      |
-      | Time Definitions.Date | Quick:Yesterday                                                                                                                            |
-      | share                 | Email:[automation.vision1@radware.com],Subject:mySubject,Body:myBody                                                                       |
-      | Format                | Select: PDF                                                                                                                                |
+      | Schedule              | Run Every:Weekly, On Time:+6H, At Days:[WED]                                                                                         |
+      | Time Definitions.Date | Quick:Yesterday                                                                                                                      |
+      | share                 | Email:[automation.vision1@radware.com],Subject:mySubject,Body:myBody                                                                 |
+      | Format                | Select: PDF                                                                                                                          |
     Then UI Delete Report With Name "Traffic Bandwidth Report2"
 
   @SID_4
@@ -61,12 +61,12 @@ Feature: DefensePro Analytics
     Then UI Click Button "New Report Tab"
     Given UI "Create" Report With Name "Traffic Bandwidth Report3"
       | Template              | reportType:DefensePro Analytics,Widgets:[{Traffic Bandwidth:[bps,Outbound,All Policies]}],devices:[All],showTable:true |
-      | Time Definitions.Date | Quick:Quarter                                                                                                                |
-      | Format                | Select: PDF                                                                                                                  |
+      | Time Definitions.Date | Quick:Quarter                                                                                                          |
+      | Format                | Select: PDF                                                                                                            |
     Then UI "Validate" Report With Name "Traffic Bandwidth Report3"
       | Template              | reportType:DefensePro Analytics,Widgets:[{Traffic Bandwidth:[bps,Outbound,All Policies]}],devices:[All],showTable:true |
-      | Time Definitions.Date | Quick:Quarter                                                                                                                |
-      | Format                | Select: PDF                                                                                                                  |
+      | Time Definitions.Date | Quick:Quarter                                                                                                          |
+      | Format                | Select: PDF                                                                                                            |
     Then UI Delete Report With Name "Traffic Bandwidth Report3"
 
   @SID_5
@@ -74,14 +74,14 @@ Feature: DefensePro Analytics
     Then UI Click Button "New Report Tab"
     Given UI "Create" Report With Name "Traffic Bandwidth Report4"
       | Template              | reportType:DefensePro Analytics,Widgets:[{Traffic Bandwidth:[pps,Inbound,All Policies]}],devices:[All],showTable:true |
-      | Time Definitions.Date | Quick:Quarter                                                                                                               |
-      | Schedule              | Run Every:Monthly, On Time:+6H, At Months:[FEB,MAR,JUL,AUG]                                                                 |
-      | Format                | Select: HTML                                                                                                                |
+      | Time Definitions.Date | Quick:Quarter                                                                                                         |
+      | Schedule              | Run Every:Monthly, On Time:+6H, At Months:[FEB,MAR,JUL,AUG]                                                           |
+      | Format                | Select: HTML                                                                                                          |
     Then UI "Validate" Report With Name "Traffic Bandwidth Report4"
       | Template              | reportType:DefensePro Analytics,Widgets:[{Traffic Bandwidth:[pps,Inbound,All Policies]}],devices:[All],showTable:true |
-      | Time Definitions.Date | Quick:Quarter                                                                                                               |
-      | Schedule              | Run Every:Monthly, On Time:+6H, At Months:[FEB,MAR,JUL,AUG]                                                                 |
-      | Format                | Select: HTML                                                                                                                |
+      | Time Definitions.Date | Quick:Quarter                                                                                                         |
+      | Schedule              | Run Every:Monthly, On Time:+6H, At Months:[FEB,MAR,JUL,AUG]                                                           |
+      | Format                | Select: HTML                                                                                                          |
     Then UI Delete Report With Name "Traffic Bandwidth Report4"
 
   @SID_6
@@ -89,14 +89,14 @@ Feature: DefensePro Analytics
     Then UI Click Button "New Report Tab"
     Given UI "Create" Report With Name "Traffic Bandwidth Report5"
       | Template              | reportType:DefensePro Analytics,Widgets:[{Traffic Bandwidth:[bps,Inbound,50]}],devices:[All],showTable:true |
-      | Time Definitions.Date | Quick:Quarter                                                                                                     |
-      | Schedule              | Run Every:Monthly, On Time:+6H, At Months:[FEB,MAR,JUL,AUG]                                                       |
-      | Format                | Select: HTML                                                                                                      |
+      | Time Definitions.Date | Quick:Quarter                                                                                               |
+      | Schedule              | Run Every:Monthly, On Time:+6H, At Months:[FEB,MAR,JUL,AUG]                                                 |
+      | Format                | Select: HTML                                                                                                |
     Then UI "Validate" Report With Name "Traffic Bandwidth Report5"
       | Template              | reportType:DefensePro Analytics,Widgets:[{Traffic Bandwidth:[bps,Inbound,50]}],devices:[All],showTable:true |
-      | Time Definitions.Date | Quick:Quarter                                                                                                     |
-      | Schedule              | Run Every:Monthly, On Time:+6H, At Months:[FEB,MAR,JUL,AUG]                                                       |
-      | Format                | Select: HTML                                                                                                      |
+      | Time Definitions.Date | Quick:Quarter                                                                                               |
+      | Schedule              | Run Every:Monthly, On Time:+6H, At Months:[FEB,MAR,JUL,AUG]                                                 |
+      | Format                | Select: HTML                                                                                                |
     Then UI Delete Report With Name "Traffic Bandwidth Report5"
 
 
@@ -105,14 +105,14 @@ Feature: DefensePro Analytics
     Then UI Click Button "New Report Tab"
     Given UI "Create" Report With Name "Traffic Bandwidth Report6"
       | Template              | reportType:DefensePro Analytics,Widgets:[{Traffic Bandwidth:[pps,Outbound,50]}],devices:[All],showTable:true |
-      | Time Definitions.Date | Quick:Quarter                                                                                                      |
-      | Schedule              | Run Every:Monthly, On Time:+6H, At Months:[FEB,MAR,JUL,AUG]                                                        |
-      | Format                | Select: CSV                                                                                                        |
+      | Time Definitions.Date | Quick:Quarter                                                                                                |
+      | Schedule              | Run Every:Monthly, On Time:+6H, At Months:[FEB,MAR,JUL,AUG]                                                  |
+      | Format                | Select: CSV                                                                                                  |
     Then UI "Validate" Report With Name "Traffic Bandwidth Report6"
       | Template              | reportType:DefensePro Analytics,Widgets:[{Traffic Bandwidth:[pps,Outbound,50]}],devices:[All],showTable:true |
-      | Time Definitions.Date | Quick:Quarter                                                                                                      |
-      | Schedule              | Run Every:Monthly, On Time:+6H, At Months:[FEB,MAR,JUL,AUG]                                                        |
-      | Format                | Select: CSV                                                                                                        |
+      | Time Definitions.Date | Quick:Quarter                                                                                                |
+      | Schedule              | Run Every:Monthly, On Time:+6H, At Months:[FEB,MAR,JUL,AUG]                                                  |
+      | Format                | Select: CSV                                                                                                  |
     Then UI Delete Report With Name "Traffic Bandwidth Report6"
 
   @SID_8
@@ -120,18 +120,18 @@ Feature: DefensePro Analytics
     Then UI Click Button "New Report Tab"
     Given UI "Create" Report With Name "Connections Rate Report1"
       | Template              | reportType:DefensePro Analytics,Widgets:[Connections Rate],devices:[{deviceIndex:10}],showTable:true |
-      | Logo                  | reportLogoPNG.png                                                                                          |
-      | Time Definitions.Date | Quick:1D                                                                                                   |
-      | Schedule              | Run Every:Daily ,On Time:+2m                                                                               |
-      | share                 | Email:[automation.vision1@radware.com],Subject:mySubject,Body:myBody                                       |
-      | Format                | Select: CSV                                                                                                |
+      | Logo                  | reportLogoPNG.png                                                                                    |
+      | Time Definitions.Date | Quick:1D                                                                                             |
+      | Schedule              | Run Every:Daily ,On Time:+2m                                                                         |
+      | share                 | Email:[automation.vision1@radware.com],Subject:mySubject,Body:myBody                                 |
+      | Format                | Select: CSV                                                                                          |
     Then UI "Validate" Report With Name "Connections Rate Report1"
       | Template              | reportType:DefensePro Analytics,Widgets:[Connections Rate],devices:[{deviceIndex:10}],showTable:true |
-      | Logo                  | reportLogoPNG.png                                                                                          |
-      | Time Definitions.Date | Quick:1D                                                                                                   |
-      | Schedule              | Run Every:Daily ,On Time:+2m                                                                               |
-      | share                 | Email:[automation.vision1@radware.com],Subject:mySubject,Body:myBody                                       |
-      | Format                | Select: CSV                                                                                                |
+      | Logo                  | reportLogoPNG.png                                                                                    |
+      | Time Definitions.Date | Quick:1D                                                                                             |
+      | Schedule              | Run Every:Daily ,On Time:+2m                                                                         |
+      | share                 | Email:[automation.vision1@radware.com],Subject:mySubject,Body:myBody                                 |
+      | Format                | Select: CSV                                                                                          |
     Then UI Delete Report With Name "Connections Rate Report1"
 
   @SID_9
@@ -139,14 +139,14 @@ Feature: DefensePro Analytics
     Then UI Click Button "New Report Tab"
     Given UI "Create" Report With Name "Connections Rate Report2"
       | Template              | reportType:DefensePro Analytics,Widgets:[Connections Rate],devices:[{deviceIndex:10}],showTable:true |
-      | Time Definitions.Date | Quick:1H                                                                                                   |
-      | Schedule              | Run Every:Once, On Time:+6H                                                                                |
-      | Format                | Select: PDF                                                                                                |
+      | Time Definitions.Date | Quick:1H                                                                                             |
+      | Schedule              | Run Every:Once, On Time:+6H                                                                          |
+      | Format                | Select: PDF                                                                                          |
     Then UI "Validate" Report With Name "Connections Rate Report2"
       | Template              | reportType:DefensePro Analytics,Widgets:[Connections Rate],devices:[{deviceIndex:10}],showTable:true |
-      | Time Definitions.Date | Quick:1H                                                                                                   |
-      | Schedule              | Run Every:Once, On Time:+6H                                                                                |
-      | Format                | Select: PDF                                                                                                |
+      | Time Definitions.Date | Quick:1H                                                                                             |
+      | Schedule              | Run Every:Once, On Time:+6H                                                                          |
+      | Format                | Select: PDF                                                                                          |
     Then UI Delete Report With Name "Connections Rate Report2"
 
 
@@ -155,18 +155,18 @@ Feature: DefensePro Analytics
     Then UI Click Button "New Report Tab"
     Given UI "Create" Report With Name "Connections Rate Report3"
       | Template              | reportType:DefensePro Analytics,Widgets:[Connections Rate],devices:[All],showTable:false |
-      | Logo                  | reportLogoPNG.png                                                                              |
-      | Time Definitions.Date | Relative:[Hours,3]                                                                             |
-      | Schedule              | Run Every:Monthly, On Time:+6H, At Months:[DEC]                                                |
-      | share                 | Email:[automation.vision1@radware.com],Subject:mySubject,Body:myBody                           |
-      | Format                | Select: HTML                                                                                   |
+      | Logo                  | reportLogoPNG.png                                                                        |
+      | Time Definitions.Date | Relative:[Hours,3]                                                                       |
+      | Schedule              | Run Every:Monthly, On Time:+6H, At Months:[DEC]                                          |
+      | share                 | Email:[automation.vision1@radware.com],Subject:mySubject,Body:myBody                     |
+      | Format                | Select: HTML                                                                             |
     Then UI "Validate" Report With Name "Connections Rate Report3"
       | Template              | reportType:DefensePro Analytics,Widgets:[Connections Rate],devices:[All],showTable:false |
-      | Logo                  | reportLogoPNG.png                                                                              |
-      | Time Definitions.Date | Relative:[Hours,3]                                                                             |
-      | Schedule              | Run Every:Monthly, On Time:+6H, At Months:[DEC]                                                |
-      | share                 | Email:[automation.vision1@radware.com],Subject:mySubject,Body:myBody                           |
-      | Format                | Select: HTML                                                                                   |
+      | Logo                  | reportLogoPNG.png                                                                        |
+      | Time Definitions.Date | Relative:[Hours,3]                                                                       |
+      | Schedule              | Run Every:Monthly, On Time:+6H, At Months:[DEC]                                          |
+      | share                 | Email:[automation.vision1@radware.com],Subject:mySubject,Body:myBody                     |
+      | Format                | Select: HTML                                                                             |
     Then UI Delete Report With Name "Connections Rate Report3"
 
   @SID_11
@@ -174,14 +174,14 @@ Feature: DefensePro Analytics
     Then UI Click Button "New Report Tab"
     Given UI "Create" Report With Name "Connections Rate Report4"
       | Template              | reportType:DefensePro Analytics,Widgets:[Connections Rate],devices:[All],showTable:true |
-      | Logo                  | reportLogoPNG.png                                                                             |
-      | Time Definitions.Date | Quick:This Week                                                                               |
-      | Format                | Select: CSV                                                                                   |
+      | Logo                  | reportLogoPNG.png                                                                       |
+      | Time Definitions.Date | Quick:This Week                                                                         |
+      | Format                | Select: CSV                                                                             |
     Then UI "Validate" Report With Name "Connections Rate Report4"
       | Template              | reportType:DefensePro Analytics,Widgets:[Connections Rate],devices:[All],showTable:true |
-      | Logo                  | reportLogoPNG.png                                                                             |
-      | Time Definitions.Date | Quick:This Week                                                                               |
-      | Format                | Select: CSV                                                                                   |
+      | Logo                  | reportLogoPNG.png                                                                       |
+      | Time Definitions.Date | Quick:This Week                                                                         |
+      | Format                | Select: CSV                                                                             |
     Then UI Delete Report With Name "Connections Rate Report4"
 
   @SID_12
@@ -189,18 +189,18 @@ Feature: DefensePro Analytics
     Then UI Click Button "New Report Tab"
     Given UI "Create" Report With Name "Concurrent Connections Report1"
       | Template              | reportType:DefensePro Analytics,Widgets:[Concurrent Connections],devices:[All],showTable:true |
-      | Logo                  | reportLogoPNG.png                                                                                   |
-      | Time Definitions.Date | Absolute:[02.11.2020 13:47, +0d]                                                                    |
-      | Schedule              | Run Every:Once, On Time:+6H                                                                         |
-      | share                 | Email:[automation.vision1@radware.com],Subject:mySubject,Body:myBody                                |
-      | Format                | Select: PDF                                                                                         |
+      | Logo                  | reportLogoPNG.png                                                                             |
+      | Time Definitions.Date | Absolute:[02.11.2020 13:47, +0d]                                                              |
+      | Schedule              | Run Every:Once, On Time:+6H                                                                   |
+      | share                 | Email:[automation.vision1@radware.com],Subject:mySubject,Body:myBody                          |
+      | Format                | Select: PDF                                                                                   |
     Then UI "Validate" Report With Name "Concurrent Connections Report1"
       | Template              | reportType:DefensePro Analytics,Widgets:[Concurrent Connections],devices:[All],showTable:true |
-      | Logo                  | reportLogoPNG.png                                                                                   |
-      | Time Definitions.Date | Absolute:[02.11.2020 13:47, +0d]                                                                    |
-      | Schedule              | Run Every:Once, On Time:+6H                                                                         |
-      | share                 | Email:[automation.vision1@radware.com],Subject:mySubject,Body:myBody                                |
-      | Format                | Select: PDF                                                                                         |
+      | Logo                  | reportLogoPNG.png                                                                             |
+      | Time Definitions.Date | Absolute:[02.11.2020 13:47, +0d]                                                              |
+      | Schedule              | Run Every:Once, On Time:+6H                                                                   |
+      | share                 | Email:[automation.vision1@radware.com],Subject:mySubject,Body:myBody                          |
+      | Format                | Select: PDF                                                                                   |
     Then UI Delete Report With Name "Concurrent Connections Report1"
 
   @SID_13
@@ -208,16 +208,16 @@ Feature: DefensePro Analytics
     Then UI Click Button "New Report Tab"
     Given UI "Create" Report With Name "Concurrent Connections Report2"
       | Template              | reportType:DefensePro Analytics,Widgets:[Concurrent Connections],devices:[All],showTable:false |
-      | Logo                  | reportLogoPNG.png                                                                                    |
-      | Time Definitions.Date | Quick:Quarter                                                                                        |
-  #    | Schedule              | Run Every:Weekly, On Time:+6H, At Days:[SUN]                                                         |
-      | Format                | Select: HTML                                                                                         |
+      | Logo                  | reportLogoPNG.png                                                                              |
+      | Time Definitions.Date | Quick:Quarter                                                                                  |
+      | Schedule              | Run Every:Weekly, On Time:+6H, At Days:[SUN]                                                   |
+      | Format                | Select: HTML                                                                                   |
     Then UI "Validate" Report With Name "Concurrent Connections Report2"
       | Template              | reportType:DefensePro Analytics,Widgets:[Concurrent Connections],devices:[All],showTable:false |
-      | Logo                  | reportLogoPNG.png                                                                                    |
-      | Time Definitions.Date | Quick:Quarter                                                                                        |
-  #    | Schedule              | Run Every:Weekly, On Time:+6H, At Days:[SUN]                                                         |
-      | Format                | Select: HTML                                                                                         |
+      | Logo                  | reportLogoPNG.png                                                                              |
+      | Time Definitions.Date | Quick:Quarter                                                                                  |
+      | Schedule              | Run Every:Weekly, On Time:+6H, At Days:[SUN]                                                   |
+      | Format                | Select: HTML                                                                                   |
     Then UI Delete Report With Name "Concurrent Connections Report2"
 
   @SID_14
@@ -225,16 +225,16 @@ Feature: DefensePro Analytics
     Then UI Click Button "New Report Tab"
     Given UI "Create" Report With Name "Concurrent Connections Report3"
       | Template              | reportType:DefensePro Analytics,Widgets:[Concurrent Connections],devices:[{deviceIndex:10}],showTable:false |
-      | Time Definitions.Date | Quick:This Month                                                                                                  |
-      | Schedule              | Run Every:Daily,On Time:+2m                                                                                       |
-      | share                 | Email:[automation.vision1@radware.com],Subject:mySubject,Body:myBody                                              |
-      | Format                | Select: PDF                                                                                                       |
+      | Time Definitions.Date | Quick:This Month                                                                                            |
+      | Schedule              | Run Every:Daily,On Time:+2m                                                                                 |
+      | share                 | Email:[automation.vision1@radware.com],Subject:mySubject,Body:myBody                                        |
+      | Format                | Select: PDF                                                                                                 |
     Then UI "Validate" Report With Name "Concurrent Connections Report3"
       | Template              | reportType:DefensePro Analytics,Widgets:[Concurrent Connections],devices:[{deviceIndex:10}],showTable:false |
-      | Time Definitions.Date | Quick:This Month                                                                                                  |
-      | Schedule              | Run Every:Daily,On Time:+2m                                                                                       |
-      | share                 | Email:[automation.vision1@radware.com],Subject:mySubject,Body:myBody                                              |
-      | Format                | Select: PDF                                                                                                       |
+      | Time Definitions.Date | Quick:This Month                                                                                            |
+      | Schedule              | Run Every:Daily,On Time:+2m                                                                                 |
+      | share                 | Email:[automation.vision1@radware.com],Subject:mySubject,Body:myBody                                        |
+      | Format                | Select: PDF                                                                                                 |
     Then UI Delete Report With Name "Concurrent Connections Report3"
 
   @SID_15
@@ -242,14 +242,14 @@ Feature: DefensePro Analytics
     Then UI Click Button "New Report Tab"
     Given UI "Create" Report With Name "Concurrent Connections Report4"
       | Template              | reportType:DefensePro Analytics,Widgets:[Concurrent Connections],devices:[All],showTable:true |
-      | Time Definitions.Date | Quick:Yesterday                                                                                     |
-      | Schedule              | Run Every:Monthly, On Time:+6H, At Months:[FEB]                                                     |
-      | share                 | Email:[automation.vision1@radware.com],Subject:mySubject,Body:myBody                                |
+      | Time Definitions.Date | Quick:Yesterday                                                                               |
+      | Schedule              | Run Every:Monthly, On Time:+6H, At Months:[FEB]                                               |
+      | share                 | Email:[automation.vision1@radware.com],Subject:mySubject,Body:myBody                          |
     Then UI "Validate" Report With Name "Concurrent Connections Report4"
       | Template              | reportType:DefensePro Analytics,Widgets:[Concurrent Connections],devices:[All],showTable:true |
-      | Time Definitions.Date | Quick:Yesterday                                                                                     |
-      | Schedule              | Run Every:Monthly, On Time:+6H, At Months:[FEB]                                                     |
-      | share                 | Email:[automation.vision1@radware.com],Subject:mySubject,Body:myBody                                |
+      | Time Definitions.Date | Quick:Yesterday                                                                               |
+      | Schedule              | Run Every:Monthly, On Time:+6H, At Months:[FEB]                                               |
+      | share                 | Email:[automation.vision1@radware.com],Subject:mySubject,Body:myBody                          |
     Then UI Delete Report With Name "Concurrent Connections Report4"
 
 
@@ -258,16 +258,16 @@ Feature: DefensePro Analytics
     Then UI Click Button "New Report Tab"
     Given UI "Create" Report With Name "Top Attacks Report1"
       | Template              | reportType:DefensePro Analytics,Widgets:[Top Attacks],devices:[All],showTable:true |
-      | Logo                  | reportLogoPNG.png                                                                        |
-      | Time Definitions.Date | Quick:1D                                                                                 |
-  #    | Schedule              | Run Every:Weekly, On Time:+6H, At Days:[WED]                                             |
-      | Format                | Select: CSV                                                                              |
+      | Logo                  | reportLogoPNG.png                                                                  |
+      | Time Definitions.Date | Quick:1D                                                                           |
+      | Schedule              | Run Every:Weekly, On Time:+6H, At Days:[WED]                                       |
+      | Format                | Select: CSV                                                                        |
     Then UI "Validate" Report With Name "Top Attacks Report1"
       | Template              | reportType:DefensePro Analytics,Widgets:[Top Attacks],devices:[All],showTable:true |
-      | Logo                  | reportLogoPNG.png                                                                        |
-      | Time Definitions.Date | Quick:1D                                                                                 |
-  #    | Schedule              | Run Every:Weekly, On Time:+6H, At Days:[WED]                                             |
-      | Format                | Select: CSV                                                                              |
+      | Logo                  | reportLogoPNG.png                                                                  |
+      | Time Definitions.Date | Quick:1D                                                                           |
+      | Schedule              | Run Every:Weekly, On Time:+6H, At Days:[WED]                                       |
+      | Format                | Select: CSV                                                                        |
     Then UI Delete Report With Name "Top Attacks Report1"
 
   @SID_17
@@ -275,18 +275,18 @@ Feature: DefensePro Analytics
     Then UI Click Button "New Report Tab"
     Given UI "Create" Report With Name "Top Attacks Report2"
       | Template              | reportType:DefensePro Analytics,Widgets:[Top Attacks],devices:[All],showTable:false |
-      | Logo                  | reportLogoPNG.png                                                                         |
-      | Time Definitions.Date | Absolute:[02.11.2020 13:47, +0d]                                                          |
-      | Schedule              | Run Every:Monthly, On Time:+6H, At Months:[APR]                                           |
-      | share                 | Email:[automation.vision1@radware.com],Subject:mySubject,Body:myBody                      |
-      | Format                | Select: PDF                                                                               |
+      | Logo                  | reportLogoPNG.png                                                                   |
+      | Time Definitions.Date | Absolute:[02.11.2020 13:47, +0d]                                                    |
+      | Schedule              | Run Every:Monthly, On Time:+6H, At Months:[APR]                                     |
+      | share                 | Email:[automation.vision1@radware.com],Subject:mySubject,Body:myBody                |
+      | Format                | Select: PDF                                                                         |
     Then UI "Validate" Report With Name "Top Attacks Report2"
       | Template              | reportType:DefensePro Analytics,Widgets:[Top Attacks],devices:[All],showTable:false |
-      | Logo                  | reportLogoPNG.png                                                                         |
-      | Time Definitions.Date | Absolute:[02.11.2020 13:47, +0d]                                                          |
-      | Schedule              | Run Every:Monthly, On Time:+6H, At Months:[APR]                                           |
-      | share                 | Email:[automation.vision1@radware.com],Subject:mySubject,Body:myBody                      |
-      | Format                | Select: PDF                                                                               |
+      | Logo                  | reportLogoPNG.png                                                                   |
+      | Time Definitions.Date | Absolute:[02.11.2020 13:47, +0d]                                                    |
+      | Schedule              | Run Every:Monthly, On Time:+6H, At Months:[APR]                                     |
+      | share                 | Email:[automation.vision1@radware.com],Subject:mySubject,Body:myBody                |
+      | Format                | Select: PDF                                                                         |
     Then UI Delete Report With Name "Top Attacks Report2"
 
   @SID_18
@@ -294,14 +294,14 @@ Feature: DefensePro Analytics
     Then UI Click Button "New Report Tab"
     Given UI "Create" Report With Name "Top Attacks Report3"
       | Template              | reportType:DefensePro Analytics,Widgets:[Top Attacks],devices:[{deviceIndex:10}],showTable:false |
-      | Time Definitions.Date | Relative:[Hours,3]                                                                                     |
-      | Schedule              | Run Every:Once, On Time:+6H                                                                            |
-      | Format                | Select: HTML                                                                                           |
+      | Time Definitions.Date | Relative:[Hours,3]                                                                               |
+      | Schedule              | Run Every:Once, On Time:+6H                                                                      |
+      | Format                | Select: HTML                                                                                     |
     Then UI "Validate" Report With Name "Top Attacks Report3"
       | Template              | reportType:DefensePro Analytics,Widgets:[Top Attacks],devices:[{deviceIndex:10}],showTable:false |
-      | Time Definitions.Date | Relative:[Hours,3]                                                                                     |
-      | Schedule              | Run Every:Once, On Time:+6H                                                                            |
-      | Format                | Select: HTML                                                                                           |
+      | Time Definitions.Date | Relative:[Hours,3]                                                                               |
+      | Schedule              | Run Every:Once, On Time:+6H                                                                      |
+      | Format                | Select: HTML                                                                                     |
     Then UI Delete Report With Name "Top Attacks Report3"
 
   @SID_19
@@ -309,14 +309,14 @@ Feature: DefensePro Analytics
     Then UI Click Button "New Report Tab"
     Given UI "Create" Report With Name "Top Attacks Report4"
       | Template              | reportType:DefensePro Analytics,Widgets:[Top Attacks],devices:[All],showTable:true |
-      | Time Definitions.Date | Relative:[Months,2]                                                                      |
-      | share                 | Email:[automation.vision1@radware.com],Subject:mySubject,Body:myBody                     |
-      | Format                | Select: CSV                                                                              |
+      | Time Definitions.Date | Relative:[Months,2]                                                                |
+      | share                 | Email:[automation.vision1@radware.com],Subject:mySubject,Body:myBody               |
+      | Format                | Select: CSV                                                                        |
     Then UI "Validate" Report With Name "Top Attacks Report4"
       | Template              | reportType:DefensePro Analytics,Widgets:[Top Attacks],devices:[All],showTable:true |
-      | Time Definitions.Date | Relative:[Months,2]                                                                      |
-      | share                 | Email:[automation.vision1@radware.com],Subject:mySubject,Body:myBody                     |
-      | Format                | Select: CSV                                                                              |
+      | Time Definitions.Date | Relative:[Months,2]                                                                |
+      | share                 | Email:[automation.vision1@radware.com],Subject:mySubject,Body:myBody               |
+      | Format                | Select: CSV                                                                        |
     Then UI Delete Report With Name "Top Attacks Report4"
 
   @SID_20
@@ -324,16 +324,16 @@ Feature: DefensePro Analytics
     Then UI Click Button "New Report Tab"
     Given UI "Create" Report With Name "Top Attacks by Volume1"
       | Template              | reportType:DefensePro Analytics,Widgets:[Top Attacks by Volume],devices:[All],showTable:true |
-      | Logo                  | reportLogoPNG.png                                                                                  |
-      | Time Definitions.Date | Quick:Previous Month                                                                               |
-      | Schedule              | Run Every:Once, On Time:+6H                                                                        |
-      | Format                | Select: CSV                                                                                        |
+      | Logo                  | reportLogoPNG.png                                                                            |
+      | Time Definitions.Date | Quick:Previous Month                                                                         |
+      | Schedule              | Run Every:Once, On Time:+6H                                                                  |
+      | Format                | Select: CSV                                                                                  |
     Then UI "Validate" Report With Name "Top Attacks by Volume1"
       | Template              | reportType:DefensePro Analytics,Widgets:[Top Attacks by Volume],devices:[All],showTable:true |
-      | Logo                  | reportLogoPNG.png                                                                                  |
-      | Time Definitions.Date | Quick:Previous Month                                                                               |
-      | Schedule              | Run Every:Once, On Time:+6H                                                                        |
-      | Format                | Select: CSV                                                                                        |
+      | Logo                  | reportLogoPNG.png                                                                            |
+      | Time Definitions.Date | Quick:Previous Month                                                                         |
+      | Schedule              | Run Every:Once, On Time:+6H                                                                  |
+      | Format                | Select: CSV                                                                                  |
     Then UI Delete Report With Name "Top Attacks by Volume1"
 
   @SID_21
@@ -341,18 +341,18 @@ Feature: DefensePro Analytics
     Then UI Click Button "New Report Tab"
     Given UI "Create" Report With Name "Top Attacks by Volume2"
       | Template              | reportType:DefensePro Analytics,Widgets:[Top Attacks by Volume],devices:[All],showTable:false |
-      | Logo                  | reportLogoPNG.png                                                                                   |
-      | Time Definitions.Date | Quick:Today                                                                                         |
-      | Schedule              | Run Every:Monthly, On Time:+6H, At Months:[JUL]                                                     |
-      | share                 | Email:[automation.vision1@radware.com],Subject:mySubject,Body:myBody                                |
-      | Format                | Select: PDF                                                                                         |
+      | Logo                  | reportLogoPNG.png                                                                             |
+      | Time Definitions.Date | Quick:Today                                                                                   |
+      | Schedule              | Run Every:Monthly, On Time:+6H, At Months:[JUL]                                               |
+      | share                 | Email:[automation.vision1@radware.com],Subject:mySubject,Body:myBody                          |
+      | Format                | Select: PDF                                                                                   |
     Then UI "Validate" Report With Name "Top Attacks by Volume2"
       | Template              | reportType:DefensePro Analytics,Widgets:[Top Attacks by Volume],devices:[All],showTable:false |
-      | Logo                  | reportLogoPNG.png                                                                                   |
-      | Time Definitions.Date | Quick:Today                                                                                         |
-      | Schedule              | Run Every:Monthly, On Time:+6H, At Months:[JUL]                                                     |
-      | share                 | Email:[automation.vision1@radware.com],Subject:mySubject,Body:myBody                                |
-      | Format                | Select: PDF                                                                                         |
+      | Logo                  | reportLogoPNG.png                                                                             |
+      | Time Definitions.Date | Quick:Today                                                                                   |
+      | Schedule              | Run Every:Monthly, On Time:+6H, At Months:[JUL]                                               |
+      | share                 | Email:[automation.vision1@radware.com],Subject:mySubject,Body:myBody                          |
+      | Format                | Select: PDF                                                                                   |
     Then UI Delete Report With Name "Top Attacks by Volume2"
 
   @SID_22
@@ -360,14 +360,14 @@ Feature: DefensePro Analytics
     Then UI Click Button "New Report Tab"
     Given UI "Create" Report With Name "Top Attacks by Volume3"
       | Template              | reportType:DefensePro Analytics,Widgets:[Top Attacks by Volume],devices:[{deviceIndex:10}],showTable:false |
-      | Time Definitions.Date | Absolute:[02.11.2020 13:47, +0d]                                                                                 |
-  #    | Schedule              | Run Every:Weekly, On Time:+6H, At Days:[THU]                                                                        |
-      | Format                | Select: HTML                                                                                                     |
+      | Time Definitions.Date | Absolute:[02.11.2020 13:47, +0d]                                                                           |
+      | Schedule              | Run Every:Weekly, On Time:+6H, At Days:[THU]                                                               |
+      | Format                | Select: HTML                                                                                               |
     Then UI "Validate" Report With Name "Top Attacks by Volume3"
       | Template              | reportType:DefensePro Analytics,Widgets:[Top Attacks by Volume],devices:[{deviceIndex:10}],showTable:false |
-      | Time Definitions.Date | Absolute:[02.11.2020 13:47, +0d]                                                                                 |
-  #    | Schedule              | Run Every:Weekly, On Time:+6H, At Days:[THU]                                                                        |
-      | Format                | Select: HTML                                                                                                     |
+      | Time Definitions.Date | Absolute:[02.11.2020 13:47, +0d]                                                                           |
+      | Schedule              | Run Every:Weekly, On Time:+6H, At Days:[THU]                                                               |
+      | Format                | Select: HTML                                                                                               |
     Then UI Delete Report With Name "Top Attacks by Volume3"
 
 
@@ -376,16 +376,16 @@ Feature: DefensePro Analytics
     Then UI Click Button "New Report Tab"
     Given UI "Create" Report With Name "Top Attacks by Volume4"
       | Template              | reportType:DefensePro Analytics,Widgets:[Top Attacks by Volume],devices:[All],showTable:true |
-      | Time Definitions.Date | Relative:[Months,2]                                                                                 |
-      | Schedule              | Run Every:Daily,On Time:+2m                                                                         |
-      | share                 | Email:[automation.vision1@radware.com],Subject:mySubject,Body:myBody                                |
-      | Format                | Select: CSV                                                                                         |
+      | Time Definitions.Date | Relative:[Months,2]                                                                          |
+      | Schedule              | Run Every:Daily,On Time:+2m                                                                  |
+      | share                 | Email:[automation.vision1@radware.com],Subject:mySubject,Body:myBody                         |
+      | Format                | Select: CSV                                                                                  |
     Then UI "Validate" Report With Name "Top Attacks by Volume4"
       | Template              | reportType:DefensePro Analytics,Widgets:[Top Attacks by Volume],devices:[All],showTable:true |
-      | Time Definitions.Date | Relative:[Months,2]                                                                                 |
-      | Schedule              | Run Every:Daily,On Time:+2m                                                                         |
-      | share                 | Email:[automation.vision1@radware.com],Subject:mySubject,Body:myBody                                |
-      | Format                | Select: CSV                                                                                         |
+      | Time Definitions.Date | Relative:[Months,2]                                                                          |
+      | Schedule              | Run Every:Daily,On Time:+2m                                                                  |
+      | share                 | Email:[automation.vision1@radware.com],Subject:mySubject,Body:myBody                         |
+      | Format                | Select: CSV                                                                                  |
     Then UI Delete Report With Name "Top Attacks by Volume4"
 
 
@@ -394,16 +394,16 @@ Feature: DefensePro Analytics
     Then UI Click Button "New Report Tab"
     Given UI "Create" Report With Name "Top Attacks by Protocol Report1"
       | Template              | reportType:DefensePro Analytics,Widgets:[Top Attacks by Protocol],devices:[All],showTable:true |
-      | Logo                  | reportLogoPNG.png                                                                                    |
-      | Time Definitions.Date | Quick:This Week                                                                                      |
-  #    | Schedule              | Run Every:Weekly, On Time:+6H, At Days:[MON]                                                         |
-      | Format                | Select: CSV                                                                                          |
+      | Logo                  | reportLogoPNG.png                                                                              |
+      | Time Definitions.Date | Quick:This Week                                                                                |
+      | Schedule              | Run Every:Weekly, On Time:+6H, At Days:[MON]                                                   |
+      | Format                | Select: CSV                                                                                    |
     Then UI "Validate" Report With Name "Top Attacks by Protocol Report1"
       | Template              | reportType:DefensePro Analytics,Widgets:[Top Attacks by Protocol],devices:[All],showTable:true |
-      | Logo                  | reportLogoPNG.png                                                                                    |
-      | Time Definitions.Date | Quick:This Week                                                                                      |
-  #    | Schedule              | Run Every:Weekly, On Time:+6H, At Days:[MON]                                                         |
-      | Format                | Select: CSV                                                                                          |
+      | Logo                  | reportLogoPNG.png                                                                              |
+      | Time Definitions.Date | Quick:This Week                                                                                |
+      | Schedule              | Run Every:Weekly, On Time:+6H, At Days:[MON]                                                   |
+      | Format                | Select: CSV                                                                                    |
     Then UI Delete Report With Name "Top Attacks by Protocol Report1"
 
 
@@ -412,18 +412,18 @@ Feature: DefensePro Analytics
     Then UI Click Button "New Report Tab"
     Given UI "Create" Report With Name "Top Attacks by Protocol Report2"
       | Template              | reportType:DefensePro Analytics,Widgets:[Top Attacks by Protocol],devices:[All],showTable:false |
-      | Logo                  | reportLogoPNG.png                                                                                     |
-      | Time Definitions.Date | Quick:1W                                                                                              |
-      | Schedule              | Run Every:Once, On Time:+6H                                                                           |
-      | share                 | Email:[automation.vision1@radware.com],Subject:mySubject,Body:myBody                                  |
-      | Format                | Select: PDF                                                                                           |
+      | Logo                  | reportLogoPNG.png                                                                               |
+      | Time Definitions.Date | Quick:1W                                                                                        |
+      | Schedule              | Run Every:Once, On Time:+6H                                                                     |
+      | share                 | Email:[automation.vision1@radware.com],Subject:mySubject,Body:myBody                            |
+      | Format                | Select: PDF                                                                                     |
     Then UI "Validate" Report With Name "Top Attacks by Protocol Report2"
       | Template              | reportType:DefensePro Analytics,Widgets:[Top Attacks by Protocol],devices:[All],showTable:false |
-      | Logo                  | reportLogoPNG.png                                                                                     |
-      | Time Definitions.Date | Quick:1W                                                                                              |
-      | Schedule              | Run Every:Once, On Time:+6H                                                                           |
-      | share                 | Email:[automation.vision1@radware.com],Subject:mySubject,Body:myBody                                  |
-      | Format                | Select: PDF                                                                                           |
+      | Logo                  | reportLogoPNG.png                                                                               |
+      | Time Definitions.Date | Quick:1W                                                                                        |
+      | Schedule              | Run Every:Once, On Time:+6H                                                                     |
+      | share                 | Email:[automation.vision1@radware.com],Subject:mySubject,Body:myBody                            |
+      | Format                | Select: PDF                                                                                     |
     Then UI Delete Report With Name "Top Attacks by Protocol Report2"
 
 
@@ -432,12 +432,12 @@ Feature: DefensePro Analytics
     Then UI Click Button "New Report Tab"
     Given UI "Create" Report With Name "Top Attacks by Protocol Report3"
       | Template              | reportType:DefensePro Analytics,Widgets:[Top Attacks by Protocol],devices:[{deviceIndex:10}],showTable:false |
-      | Time Definitions.Date | Absolute:[02.11.2020 13:47, +0d]                                                                                   |
-      | Format                | Select: HTML                                                                                                       |
+      | Time Definitions.Date | Absolute:[02.11.2020 13:47, +0d]                                                                             |
+      | Format                | Select: HTML                                                                                                 |
     Then UI "Validate" Report With Name "Top Attacks by Protocol Report3"
       | Template              | reportType:DefensePro Analytics,Widgets:[Top Attacks by Protocol],devices:[{deviceIndex:10}],showTable:false |
-      | Time Definitions.Date | Absolute:[02.11.2020 13:47, +0d]                                                                                   |
-      | Format                | Select: HTML                                                                                                       |
+      | Time Definitions.Date | Absolute:[02.11.2020 13:47, +0d]                                                                             |
+      | Format                | Select: HTML                                                                                                 |
     Then UI Delete Report With Name "Top Attacks by Protocol Report3"
 
   @SID_27
@@ -445,16 +445,16 @@ Feature: DefensePro Analytics
     Then UI Click Button "New Report Tab"
     Given UI "Create" Report With Name "Top Attacks by Protocol Report4"
       | Template              | reportType:DefensePro Analytics,Widgets:[Top Attacks by Protocol],devices:[All],showTable:true |
-      | Time Definitions.Date | Relative:[Hours,3]                                                                                   |
-      | Schedule              | Run Every:Monthly, On Time:+6H, At Months:[OCT]                                                      |
-      | share                 | Email:[automation.vision1@radware.com],Subject:mySubject,Body:myBody                                 |
-      | Format                | Select: CSV                                                                                          |
+      | Time Definitions.Date | Relative:[Hours,3]                                                                             |
+      | Schedule              | Run Every:Monthly, On Time:+6H, At Months:[OCT]                                                |
+      | share                 | Email:[automation.vision1@radware.com],Subject:mySubject,Body:myBody                           |
+      | Format                | Select: CSV                                                                                    |
     Then UI "Validate" Report With Name "Top Attacks by Protocol Report4"
       | Template              | reportType:DefensePro Analytics,Widgets:[Top Attacks by Protocol],devices:[All],showTable:true |
-      | Time Definitions.Date | Relative:[Hours,3]                                                                                   |
-      | Schedule              | Run Every:Monthly, On Time:+6H, At Months:[OCT]                                                      |
-      | share                 | Email:[automation.vision1@radware.com],Subject:mySubject,Body:myBody                                 |
-      | Format                | Select: CSV                                                                                          |
+      | Time Definitions.Date | Relative:[Hours,3]                                                                             |
+      | Schedule              | Run Every:Monthly, On Time:+6H, At Months:[OCT]                                                |
+      | share                 | Email:[automation.vision1@radware.com],Subject:mySubject,Body:myBody                           |
+      | Format                | Select: CSV                                                                                    |
     Then UI Delete Report With Name "Top Attacks by Protocol Report4"
 
   @SID_28
@@ -462,16 +462,16 @@ Feature: DefensePro Analytics
     Then UI Click Button "New Report Tab"
     Given UI "Create" Report With Name "Critical Attacks by Mitigation Action Report1"
       | Template              | reportType:DefensePro Analytics,Widgets:[Critical Attacks by Mitigation Action],devices:[All],showTable:true |
-      | Logo                  | reportLogoPNG.png                                                                                                  |
-      | Time Definitions.Date | Quick:Today                                                                                                        |
-  #    | Schedule              | Run Every:Weekly, On Time:+6H, At Days:[SUN]                                                                       |
-      | Format                | Select: CSV                                                                                                        |
+      | Logo                  | reportLogoPNG.png                                                                                            |
+      | Time Definitions.Date | Quick:Today                                                                                                  |
+      | Schedule              | Run Every:Weekly, On Time:+6H, At Days:[SUN]                                                                 |
+      | Format                | Select: CSV                                                                                                  |
     Then UI "Validate" Report With Name "Critical Attacks by Mitigation Action Report1"
       | Template              | reportType:DefensePro Analytics,Widgets:[Critical Attacks by Mitigation Action],devices:[All],showTable:true |
-      | Logo                  | reportLogoPNG.png                                                                                                  |
-      | Time Definitions.Date | Quick:Today                                                                                                        |
-  #    | Schedule              | Run Every:Weekly, On Time:+6H, At Days:[SUN]                                                                       |
-      | Format                | Select: CSV                                                                                                        |
+      | Logo                  | reportLogoPNG.png                                                                                            |
+      | Time Definitions.Date | Quick:Today                                                                                                  |
+      | Schedule              | Run Every:Weekly, On Time:+6H, At Days:[SUN]                                                                 |
+      | Format                | Select: CSV                                                                                                  |
     Then UI Delete Report With Name "Critical Attacks by Mitigation Action Report1"
 
   @SID_29
@@ -479,18 +479,18 @@ Feature: DefensePro Analytics
     Then UI Click Button "New Report Tab"
     Given UI "Create" Report With Name "Critical Attacks by Mitigation Action Report2"
       | Template              | reportType:DefensePro Analytics,Widgets:[Critical Attacks by Mitigation Action],devices:[All],showTable:false |
-      | Logo                  | reportLogoPNG.png                                                                                                   |
-      | Time Definitions.Date | Quick:30m                                                                                                           |
-      | Schedule              | Run Every:Daily,On Time:+2m                                                                                         |
-      | share                 | Email:[automation.vision1@radware.com],Subject:mySubject,Body:myBody                                                |
-      | Format                | Select: PDF                                                                                                         |
+      | Logo                  | reportLogoPNG.png                                                                                             |
+      | Time Definitions.Date | Quick:30m                                                                                                     |
+      | Schedule              | Run Every:Daily,On Time:+2m                                                                                   |
+      | share                 | Email:[automation.vision1@radware.com],Subject:mySubject,Body:myBody                                          |
+      | Format                | Select: PDF                                                                                                   |
     Then UI "Validate" Report With Name "Critical Attacks by Mitigation Action Report2"
       | Template              | reportType:DefensePro Analytics,Widgets:[Critical Attacks by Mitigation Action],devices:[All],showTable:false |
-      | Logo                  | reportLogoPNG.png                                                                                                   |
-      | Time Definitions.Date | Quick:30m                                                                                                           |
-      | Schedule              | Run Every:Daily,On Time:+2m                                                                                         |
-      | share                 | Email:[automation.vision1@radware.com],Subject:mySubject,Body:myBody                                                |
-      | Format                | Select: PDF                                                                                                         |
+      | Logo                  | reportLogoPNG.png                                                                                             |
+      | Time Definitions.Date | Quick:30m                                                                                                     |
+      | Schedule              | Run Every:Daily,On Time:+2m                                                                                   |
+      | share                 | Email:[automation.vision1@radware.com],Subject:mySubject,Body:myBody                                          |
+      | Format                | Select: PDF                                                                                                   |
     Then UI Delete Report With Name "Critical Attacks by Mitigation Action Report2"
 
   @SID_30
@@ -498,14 +498,14 @@ Feature: DefensePro Analytics
     Then UI Click Button "New Report Tab"
     Given UI "Create" Report With Name "Critical Attacks by Mitigation Action Report3"
       | Template              | reportType:DefensePro Analytics,Widgets:[Critical Attacks by Mitigation Action],devices:[{deviceIndex:10}],showTable:false |
-      | Time Definitions.Date | Absolute:[02.11.2020 13:47, +0d]                                                                                                 |
-  #    | Schedule              | Run Every:Weekly, On Time:+6H, At Days:[MON]                                                                                     |
-      | Format                | Select: HTML                                                                                                                     |
+      | Time Definitions.Date | Absolute:[02.11.2020 13:47, +0d]                                                                                           |
+      | Schedule              | Run Every:Weekly, On Time:+6H, At Days:[MON]                                                                               |
+      | Format                | Select: HTML                                                                                                               |
     Then UI "Validate" Report With Name "Critical Attacks by Mitigation Action Report3"
       | Template              | reportType:DefensePro Analytics,Widgets:[Critical Attacks by Mitigation Action],devices:[{deviceIndex:10}],showTable:false |
-      | Time Definitions.Date | Absolute:[02.11.2020 13:47, +0d]                                                                                                 |
-  #    | Schedule              | Run Every:Weekly, On Time:+6H, At Days:[MON]                                                                                     |
-      | Format                | Select: HTML                                                                                                                     |
+      | Time Definitions.Date | Absolute:[02.11.2020 13:47, +0d]                                                                                           |
+      | Schedule              | Run Every:Weekly, On Time:+6H, At Days:[MON]                                                                               |
+      | Format                | Select: HTML                                                                                                               |
     Then UI Delete Report With Name "Critical Attacks by Mitigation Action Report3"
 
   @SID_31
@@ -513,16 +513,16 @@ Feature: DefensePro Analytics
     Then UI Click Button "New Report Tab"
     Given UI "Create" Report With Name "Critical Attacks by Mitigation Action Report4"
       | Template              | reportType:DefensePro Analytics,Widgets:[Critical Attacks by Mitigation Action],devices:[All],showTable:true |
-      | Time Definitions.Date | Relative:[Days,3]                                                                                                  |
-      | Schedule              | Run Every:Monthly, On Time:+6H, At Months:[APR]                                                                    |
-      | share                 | Email:[automation.vision1@radware.com],Subject:mySubject,Body:myBody                                               |
-      | Format                | Select: CSV                                                                                                        |
+      | Time Definitions.Date | Relative:[Days,3]                                                                                            |
+      | Schedule              | Run Every:Monthly, On Time:+6H, At Months:[APR]                                                              |
+      | share                 | Email:[automation.vision1@radware.com],Subject:mySubject,Body:myBody                                         |
+      | Format                | Select: CSV                                                                                                  |
     Then UI "Validate" Report With Name "Critical Attacks by Mitigation Action Report4"
       | Template              | reportType:DefensePro Analytics,Widgets:[Critical Attacks by Mitigation Action],devices:[All],showTable:true |
-      | Time Definitions.Date | Relative:[Days,3]                                                                                                  |
-      | Schedule              | Run Every:Monthly, On Time:+6H, At Months:[APR]                                                                    |
-      | share                 | Email:[automation.vision1@radware.com],Subject:mySubject,Body:myBody                                               |
-      | Format                | Select: CSV                                                                                                        |
+      | Time Definitions.Date | Relative:[Days,3]                                                                                            |
+      | Schedule              | Run Every:Monthly, On Time:+6H, At Months:[APR]                                                              |
+      | share                 | Email:[automation.vision1@radware.com],Subject:mySubject,Body:myBody                                         |
+      | Format                | Select: CSV                                                                                                  |
     Then UI Delete Report With Name "Critical Attacks by Mitigation Action Report4"
 
   @SID_32
@@ -530,16 +530,16 @@ Feature: DefensePro Analytics
     Then UI Click Button "New Report Tab"
     Given UI "Create" Report With Name "Attacks by Threat Category Report1"
       | Template              | reportType:DefensePro Analytics,Widgets:[Attacks by Threat Category],devices:[All],showTable:true |
-      | Logo                  | reportLogoPNG.png                                                                                       |
-      | Time Definitions.Date | Quick:This Month                                                                                        |
-      | Schedule              | Run Every:Monthly, On Time:+6H, At Months:[JUN]                                                         |
-      | Format                | Select: CSV                                                                                             |
+      | Logo                  | reportLogoPNG.png                                                                                 |
+      | Time Definitions.Date | Quick:This Month                                                                                  |
+      | Schedule              | Run Every:Monthly, On Time:+6H, At Months:[JUN]                                                   |
+      | Format                | Select: CSV                                                                                       |
     Then UI "Validate" Report With Name "Attacks by Threat Category Report1"
       | Template              | reportType:DefensePro Analytics,Widgets:[Attacks by Threat Category],devices:[All],showTable:true |
-      | Logo                  | reportLogoPNG.png                                                                                       |
-      | Time Definitions.Date | Quick:This Month                                                                                        |
-      | Schedule              | Run Every:Monthly, On Time:+6H, At Months:[JUN]                                                         |
-      | Format                | Select: CSV                                                                                             |
+      | Logo                  | reportLogoPNG.png                                                                                 |
+      | Time Definitions.Date | Quick:This Month                                                                                  |
+      | Schedule              | Run Every:Monthly, On Time:+6H, At Months:[JUN]                                                   |
+      | Format                | Select: CSV                                                                                       |
     Then UI Delete Report With Name "Attacks by Threat Category Report1"
 
   @SID_33
@@ -547,18 +547,18 @@ Feature: DefensePro Analytics
     Then UI Click Button "New Report Tab"
     Given UI "Create" Report With Name "Attacks by Threat Category Report2"
       | Template              | reportType:DefensePro Analytics,Widgets:[Attacks by Threat Category],devices:[All],showTable:false |
-      | Logo                  | reportLogoPNG.png                                                                                        |
-      | Time Definitions.Date | Absolute:[02.11.2020 13:47, +0d]                                                                         |
-      | Schedule              | Run Every:Monthly, On Time:+6H, At Months:[JUN]                                                          |
-      | share                 | Email:[automation.vision1@radware.com],Subject:mySubject,Body:myBody                                     |
-      | Format                | Select: PDF                                                                                              |
+      | Logo                  | reportLogoPNG.png                                                                                  |
+      | Time Definitions.Date | Absolute:[02.11.2020 13:47, +0d]                                                                   |
+      | Schedule              | Run Every:Monthly, On Time:+6H, At Months:[JUN]                                                    |
+      | share                 | Email:[automation.vision1@radware.com],Subject:mySubject,Body:myBody                               |
+      | Format                | Select: PDF                                                                                        |
     Then UI "Validate" Report With Name "Attacks by Threat Category Report2"
       | Template              | reportType:DefensePro Analytics,Widgets:[Attacks by Threat Category],devices:[All],showTable:false |
-      | Logo                  | reportLogoPNG.png                                                                                        |
-      | Time Definitions.Date | Absolute:[02.11.2020 13:47, +0d]                                                                         |
-      | Schedule              | Run Every:Monthly, On Time:+6H, At Months:[JUN]                                                          |
-      | share                 | Email:[automation.vision1@radware.com],Subject:mySubject,Body:myBody                                     |
-      | Format                | Select: PDF                                                                                              |
+      | Logo                  | reportLogoPNG.png                                                                                  |
+      | Time Definitions.Date | Absolute:[02.11.2020 13:47, +0d]                                                                   |
+      | Schedule              | Run Every:Monthly, On Time:+6H, At Months:[JUN]                                                    |
+      | share                 | Email:[automation.vision1@radware.com],Subject:mySubject,Body:myBody                               |
+      | Format                | Select: PDF                                                                                        |
     Then UI Delete Report With Name "Attacks by Threat Category Report2"
 
   @SID_34
@@ -566,14 +566,14 @@ Feature: DefensePro Analytics
     Then UI Click Button "New Report Tab"
     Given UI "Create" Report With Name "Attacks by Threat Category Report3"
       | Template              | reportType:DefensePro Analytics,Widgets:[Attacks by Threat Category],devices:[{deviceIndex:10}],showTable:false |
-      | Time Definitions.Date | Relative:[Months,2]                                                                                                   |
-  #    | Schedule              | Run Every:Weekly, On Time:+6H, At Days:[WED]                                                                          |
-      | Format                | Select: HTML                                                                                                          |
+      | Time Definitions.Date | Relative:[Months,2]                                                                                             |
+      | Schedule              | Run Every:Weekly, On Time:+6H, At Days:[WED]                                                                    |
+      | Format                | Select: HTML                                                                                                    |
     Then UI "Validate" Report With Name "Attacks by Threat Category Report3"
       | Template              | reportType:DefensePro Analytics,Widgets:[Attacks by Threat Category],devices:[{deviceIndex:10}],showTable:false |
-      | Time Definitions.Date | Relative:[Months,2]                                                                                                   |
-  #    | Schedule              | Run Every:Weekly, On Time:+6H, At Days:[WED]                                                                          |
-      | Format                | Select: HTML                                                                                                          |
+      | Time Definitions.Date | Relative:[Months,2]                                                                                             |
+      | Schedule              | Run Every:Weekly, On Time:+6H, At Days:[WED]                                                                    |
+      | Format                | Select: HTML                                                                                                    |
     Then UI Delete Report With Name "Attacks by Threat Category Report3"
 
   @SID_35
@@ -581,16 +581,16 @@ Feature: DefensePro Analytics
     Then UI Click Button "New Report Tab"
     Given UI "Create" Report With Name "Attacks by Threat Category Report4"
       | Template              | reportType:DefensePro Analytics,Widgets:[Attacks by Threat Category],devices:[All],showTable:true |
-      | Schedule              | Run Every:Daily,On Time:+2m                                                                             |
-      | Time Definitions.Date | Quick:Today                                                                                             |
-      | share                 | Email:[automation.vision1@radware.com],Subject:mySubject,Body:myBody                                    |
-      | Format                | Select: CSV                                                                                             |
+      | Schedule              | Run Every:Daily,On Time:+2m                                                                       |
+      | Time Definitions.Date | Quick:Today                                                                                       |
+      | share                 | Email:[automation.vision1@radware.com],Subject:mySubject,Body:myBody                              |
+      | Format                | Select: CSV                                                                                       |
     Then UI "Validate" Report With Name "Attacks by Threat Category Report4"
       | Template              | reportType:DefensePro Analytics,Widgets:[Attacks by Threat Category],devices:[All],showTable:true |
-      | Schedule              | Run Every:Daily,On Time:+2m                                                                             |
-      | Time Definitions.Date | Quick:Today                                                                                             |
-      | share                 | Email:[automation.vision1@radware.com],Subject:mySubject,Body:myBody                                    |
-      | Format                | Select: CSV                                                                                             |
+      | Schedule              | Run Every:Daily,On Time:+2m                                                                       |
+      | Time Definitions.Date | Quick:Today                                                                                       |
+      | share                 | Email:[automation.vision1@radware.com],Subject:mySubject,Body:myBody                              |
+      | Format                | Select: CSV                                                                                       |
     Then UI Delete Report With Name "Attacks by Threat Category Report4"
 
   @SID_36
@@ -598,16 +598,16 @@ Feature: DefensePro Analytics
     Then UI Click Button "New Report Tab"
     Given UI "Create" Report With Name "Attacks by Mitigation Action Report1"
       | Template              | reportType:DefensePro Analytics,Widgets:[Attacks by Mitigation Action],devices:[All],showTable:true |
-      | Logo                  | reportLogoPNG.png                                                                                         |
-      | Time Definitions.Date | Quick:Quarter                                                                                             |
-  #    | Schedule              | Run Every:Weekly, On Time:+6H, At Days:[MON]                                                              |
-      | Format                | Select: CSV                                                                                               |
+      | Logo                  | reportLogoPNG.png                                                                                   |
+      | Time Definitions.Date | Quick:Quarter                                                                                       |
+      | Schedule              | Run Every:Weekly, On Time:+6H, At Days:[MON]                                                        |
+      | Format                | Select: CSV                                                                                         |
     Then UI "Validate" Report With Name "Attacks by Mitigation Action Report1"
       | Template              | reportType:DefensePro Analytics,Widgets:[Attacks by Mitigation Action],devices:[All],showTable:true |
-      | Logo                  | reportLogoPNG.png                                                                                         |
-      | Time Definitions.Date | Quick:Quarter                                                                                             |
-  #    | Schedule              | Run Every:Weekly, On Time:+6H, At Days:[MON]                                                              |
-      | Format                | Select: CSV                                                                                               |
+      | Logo                  | reportLogoPNG.png                                                                                   |
+      | Time Definitions.Date | Quick:Quarter                                                                                       |
+      | Schedule              | Run Every:Weekly, On Time:+6H, At Days:[MON]                                                        |
+      | Format                | Select: CSV                                                                                         |
     Then UI Delete Report With Name "Attacks by Mitigation Action Report1"
 
   @SID_37
@@ -615,18 +615,18 @@ Feature: DefensePro Analytics
     Then UI Click Button "New Report Tab"
     Given UI "Create" Report With Name "Attacks by Mitigation Action Report2"
       | Template              | reportType:DefensePro Analytics,Widgets:[Attacks by Mitigation Action],devices:[All],showTable:false |
-      | Logo                  | reportLogoPNG.png                                                                                          |
-      | Time Definitions.Date | Relative:[Hours,3]                                                                                         |
-      | Schedule              | Run Every:Monthly, On Time:+6H, At Months:[MAY]                                                            |
-      | share                 | Email:[automation.vision1@radware.com],Subject:mySubject,Body:myBody                                       |
-      | Format                | Select: PDF                                                                                                |
+      | Logo                  | reportLogoPNG.png                                                                                    |
+      | Time Definitions.Date | Relative:[Hours,3]                                                                                   |
+      | Schedule              | Run Every:Monthly, On Time:+6H, At Months:[MAY]                                                      |
+      | share                 | Email:[automation.vision1@radware.com],Subject:mySubject,Body:myBody                                 |
+      | Format                | Select: PDF                                                                                          |
     Then UI "Validate" Report With Name "Attacks by Mitigation Action Report2"
       | Template              | reportType:DefensePro Analytics,Widgets:[Attacks by Mitigation Action],devices:[All],showTable:false |
-      | Logo                  | reportLogoPNG.png                                                                                          |
-      | Time Definitions.Date | Relative:[Hours,3]                                                                                         |
-      | Schedule              | Run Every:Monthly, On Time:+6H, At Months:[MAY]                                                            |
-      | share                 | Email:[automation.vision1@radware.com],Subject:mySubject,Body:myBody                                       |
-      | Format                | Select: PDF                                                                                                |
+      | Logo                  | reportLogoPNG.png                                                                                    |
+      | Time Definitions.Date | Relative:[Hours,3]                                                                                   |
+      | Schedule              | Run Every:Monthly, On Time:+6H, At Months:[MAY]                                                      |
+      | share                 | Email:[automation.vision1@radware.com],Subject:mySubject,Body:myBody                                 |
+      | Format                | Select: PDF                                                                                          |
     Then UI Delete Report With Name "Attacks by Mitigation Action Report2"
 
   @SID_38
@@ -634,14 +634,14 @@ Feature: DefensePro Analytics
     Then UI Click Button "New Report Tab"
     Given UI "Create" Report With Name "Attacks by Mitigation Action Report3"
       | Template              | reportType:DefensePro Analytics,Widgets:[Attacks by Mitigation Action],devices:[{deviceIndex:10}],showTable:false |
-      | Time Definitions.Date | Quick:Today                                                                                                             |
-      | Schedule              | Run Every:Daily,On Time:+2m                                                                                             |
-      | Format                | Select: HTML                                                                                                            |
+      | Time Definitions.Date | Quick:Today                                                                                                       |
+      | Schedule              | Run Every:Daily,On Time:+2m                                                                                       |
+      | Format                | Select: HTML                                                                                                      |
     Then UI "Validate" Report With Name "Attacks by Mitigation Action Report3"
       | Template              | reportType:DefensePro Analytics,Widgets:[Attacks by Mitigation Action],devices:[{deviceIndex:10}],showTable:false |
-      | Time Definitions.Date | Quick:Today                                                                                                             |
-      | Schedule              | Run Every:Daily,On Time:+2m                                                                                             |
-      | Format                | Select: HTML                                                                                                            |
+      | Time Definitions.Date | Quick:Today                                                                                                       |
+      | Schedule              | Run Every:Daily,On Time:+2m                                                                                       |
+      | Format                | Select: HTML                                                                                                      |
     Then UI Delete Report With Name "Attacks by Mitigation Action Report3"
 
 
@@ -650,16 +650,16 @@ Feature: DefensePro Analytics
     Then UI Click Button "New Report Tab"
     Given UI "Create" Report With Name "Attacks by Mitigation Action Report4"
       | Template              | reportType:DefensePro Analytics,Widgets:[Attacks by Mitigation Action],devices:[All],showTable:true |
-      | Time Definitions.Date | Absolute:[02.11.2020 13:47, +0d]                                                                          |
-      | Schedule              | Run Every:Once, On Time:+6H                                                                               |
-      | share                 | Email:[automation.vision1@radware.com],Subject:mySubject,Body:myBody                                      |
-      | Format                | Select: CSV                                                                                               |
+      | Time Definitions.Date | Absolute:[02.11.2020 13:47, +0d]                                                                    |
+      | Schedule              | Run Every:Once, On Time:+6H                                                                         |
+      | share                 | Email:[automation.vision1@radware.com],Subject:mySubject,Body:myBody                                |
+      | Format                | Select: CSV                                                                                         |
     Then UI "Validate" Report With Name "Attacks by Mitigation Action Report4"
       | Template              | reportType:DefensePro Analytics,Widgets:[Attacks by Mitigation Action],devices:[All],showTable:true |
-      | Time Definitions.Date | Absolute:[02.11.2020 13:47, +0d]                                                                          |
-      | Schedule              | Run Every:Once, On Time:+6H                                                                               |
-      | share                 | Email:[automation.vision1@radware.com],Subject:mySubject,Body:myBody                                      |
-      | Format                | Select: CSV                                                                                               |
+      | Time Definitions.Date | Absolute:[02.11.2020 13:47, +0d]                                                                    |
+      | Schedule              | Run Every:Once, On Time:+6H                                                                         |
+      | share                 | Email:[automation.vision1@radware.com],Subject:mySubject,Body:myBody                                |
+      | Format                | Select: CSV                                                                                         |
     Then UI Delete Report With Name "Attacks by Mitigation Action Report4"
 
   @SID_40

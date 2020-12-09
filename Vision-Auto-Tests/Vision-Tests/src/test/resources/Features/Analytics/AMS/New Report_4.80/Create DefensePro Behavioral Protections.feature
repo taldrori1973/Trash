@@ -1056,6 +1056,10 @@ Feature: DefensePro Behavioral Protections
       | Format                | Select: HTML                                                                                          |
     Then UI Delete Report With Name "DNS-PTR4"
 
+  @SID_66
+  Scenario: Logout
+    Then UI logout and close browser
+
 
 
 
