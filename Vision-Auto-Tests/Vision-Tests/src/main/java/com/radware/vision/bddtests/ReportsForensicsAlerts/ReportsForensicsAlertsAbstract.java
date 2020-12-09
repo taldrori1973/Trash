@@ -52,10 +52,11 @@ abstract class ReportsForensicsAlertsAbstract implements ReportsForensicsAlertsI
         this.name = name;
     }
 
-    protected void editName(Map<String, String> map) throws Exception {
+    protected void editName(Map<String, String> map, String reportName) throws Exception {
         if (map.containsKey("New Report Name")) {
             createName(map.get("New Report Name"));
         }
+        else name = reportName;
     }
 
     protected void selectTime(Map<String, String> map) throws Exception {
