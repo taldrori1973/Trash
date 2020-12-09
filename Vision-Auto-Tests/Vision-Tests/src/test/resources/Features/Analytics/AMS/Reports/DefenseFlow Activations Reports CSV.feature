@@ -422,9 +422,9 @@ Feature: DefenseFlow Activations Reports CSV
     Then CLI Run linux Command "cat "/opt/radware/mgt-server/third-party/tomcat/bin/Top 10 Activations by Attack Rate (Mpps)-DefenseFlow Analytics.csv"|head -9|tail -1|grep 1,7087000000,9,PO_107,70.77.0.0/32|wc -l " on "ROOT_SERVER_CLI" and validate result EQUALS "1"
     Then CLI Run linux Command "cat "/opt/radware/mgt-server/third-party/tomcat/bin/Top 10 Activations by Attack Rate (Mpps)-DefenseFlow Analytics.csv"|head -10|tail -1|grep 1,6087000000,8,PO_106,70.76.0.0/32|wc -l " on "ROOT_SERVER_CLI" and validate result EQUALS "1"
     Then CLI Run linux Command "cat "/opt/radware/mgt-server/third-party/tomcat/bin/Top 10 Activations by Attack Rate (Mpps)-DefenseFlow Analytics.csv"|head -11|tail -1|grep 1,5087000000,7,PO_105,70.75.0.0/32|wc -l " on "ROOT_SERVER_CLI" and validate result EQUALS "1"
-
   @SID_12
   Scenario: Cleanup
+    Given UI Delete Report With Name "DFCSV"
     Given UI logout and close browser
     * CLI Check if logs contains
       | logType | expression | isExpected   |
