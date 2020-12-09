@@ -855,7 +855,7 @@ public class TemplateHandlers {
         }
         String reportType = templateJsonObject.get("reportType").toString();
         editTemplateWidgets(templateJsonObject, currentTemplateName);
-        if (templateJsonObject.has("devices")) {
+        if (templateJsonObject.has("devices")||templateJsonObject.has("Servers")||templateJsonObject.has("Applications")||templateJsonObject.has("Protected Objects")) {
             getScopeSelection(templateJsonObject, currentTemplateName.split(reportType).length != 0 ? currentTemplateName.split(reportType)[1] : "").create();
         }
     }
