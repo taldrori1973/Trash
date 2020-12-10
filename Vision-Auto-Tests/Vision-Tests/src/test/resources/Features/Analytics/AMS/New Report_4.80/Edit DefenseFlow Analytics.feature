@@ -86,9 +86,9 @@ Feature: Edit DefenseFlow Analytics tests
   @SID_13
   Scenario: Add Template Widget to Top Attacks by Duration
     Given UI "Edit" Report With Name "Top Attacks by Duration"
-      | Template | reportType:DefenseFlow Analytics,Widgets:[Traffic Rate],Protected Objects:[ALL]|
+      | Template | reportType:DefenseFlow Analytics,AddWidgets[Traffic Rate],Protected Objects:[ALL]|
     Then UI "Validate" Report With Name "Top Attacks by Duration"
-      | Template | reportType:DefenseFlow Analytics,Widgets:[Traffic Rate],Protected Objects:[ALL]|
+      | Template | reportType:DefenseFlow Analytics,AddWidgets[Traffic Rate],Protected Objects:[ALL]|
 
   @SID_14
   Scenario: Add new Template to Top Attacks by Duration
