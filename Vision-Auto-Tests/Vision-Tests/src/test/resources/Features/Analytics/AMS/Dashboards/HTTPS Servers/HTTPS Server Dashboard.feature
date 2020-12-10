@@ -30,10 +30,14 @@ Feature: HTTPS Server Dashboard
 
   @SID_5
   Scenario: Select Server
-    When UI Click Button "Servers Button"
-    When UI Set Text Field "Server Selection.Search" To "test"
-    Then UI Click Button "Server Selection.Server Name" with value "test,DefensePro_172.16.22.51,pol1"
-    Then UI Click Button "Server Selection.Save"
+    When UI Select Server and save
+      | name | device                  | policy |
+      | test | DefensePro_172.16.22.51 | pol1   |
+      | test | DefensePro_172.16.22.51 | pol2   |
+#    When UI Click Button "Servers Button"
+#    When UI Set Text Field "Server Selection.Search" To "test"
+#    Then LazyScroll UI Click Button "Server Selection.Server Name" with value "test,DefensePro_172.16.22.51,pol1"
+#    Then UI Click Button "Server Selection.Save"
     * Sleep "60"
 
       ##Https Flood - Info Card

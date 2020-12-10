@@ -1,4 +1,4 @@
-@DP_Analytics @TC105989
+@DP_Analytics @TC105989 @MY_DEBUG
 
 Feature: DP ANALYTICS
 

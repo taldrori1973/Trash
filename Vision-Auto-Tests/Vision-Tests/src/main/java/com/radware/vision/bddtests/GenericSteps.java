@@ -4,6 +4,7 @@ import com.radware.automation.react.widgets.impl.enums.OnOffStatus;
 import com.radware.automation.tools.basetest.BaseTestUtils;
 import com.radware.automation.tools.basetest.Reporter;
 import com.radware.automation.tools.utils.ComparableUtils;
+import com.radware.automation.webui.UIUtils;
 import com.radware.automation.webui.VisionDebugIdsManager;
 import com.radware.automation.webui.WebUIUtils;
 import com.radware.automation.webui.widgets.ComponentLocator;
@@ -39,6 +40,8 @@ import java.util.List;
 import java.util.Objects;
 
 import static com.radware.vision.infra.utils.ReportsUtils.reportErrors;
+
+
 
 public class GenericSteps extends BddUITestBase {
 
@@ -99,6 +102,32 @@ public class GenericSteps extends BddUITestBase {
                 BaseTestUtils.report("No Element with data-debug-id " + VisionDebugIdsManager.getDataDebugId(), Reporter.FAIL);
             }
             return null;
+        }
+    }
+
+    @When("UI Select Server( and [S|s]ave)?")
+    public void selectServer(String saveServer, List<DataServer> servers) throws TargetWebElementNotFoundException {
+        if(servers.size() != 1) {
+            BaseTestUtils.report(servers.size() + " servers selected, 1 server is required", Reporter.PASS_NOR_FAIL);
+            //return?
+        }
+        DataServer server = servers.get(0);
+        // click button servers
+        // todo: 2 funcs named buttonClick
+        buttonClick("Servers Button", (String) null);
+        // set text field
+        uiSetTextFieldTo("Server Selection.Search",null , server.name, false);
+        // lazy scrolling and click the chosen server
+        VisionDebugIdsManager.setLabel("Server Selection");
+        VisionDebugIdsManager.setParams(server.name, server.device, server.policy);
+        ComponentLocator cl = ComponentLocatorFactory.getEqualLocatorByDbgId(VisionDebugIdsManager.getDataDebugId());
+        //VisionDebugIdsManager.setParams("test-DefensePro_172.16.22.51-");
+        ComponentLocator list = ComponentLocatorFactory.getLocatorByXpathDbgId("radio-test-DefensePro_172.16.22.51-");
+        new VRMHandler().scrollUntilElementDisplayed(list, cl);
+        //buttonClick("Server Selection.Server Name", "test,DefensePro_172.16.22.51,pol1");
+        buttonClick("Server Selection.Server Name", server.toString());
+        if(saveServer != null) {
+            buttonClick("Server Selection.Save", (String) null);
         }
     }
 
@@ -424,6 +453,17 @@ public class GenericSteps extends BddUITestBase {
     @When("^UI set \"([^\"]*)\" switch button to \"([^\"]*)\"$")
     public void clickOnSwitchButton(String label, String state) throws TargetWebElementNotFoundException {
         ClickOperationsHandler.clickOnSwitchButton(label, null, state);
+    }
+
+    static class DataServer {
+        String name;
+        String device;
+        String policy;
+
+        @Override
+        public String toString() {
+            return this.name + "," + this.device + "," + this.policy;
+        }
     }
 
 

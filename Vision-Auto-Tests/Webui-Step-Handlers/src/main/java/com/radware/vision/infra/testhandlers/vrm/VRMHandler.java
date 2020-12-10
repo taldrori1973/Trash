@@ -957,7 +957,7 @@ public class VRMHandler {
      * @param targetElementLocator this target comparator of element who we'r seeking about
      *                             this method searches about an element in list - and do scroll to this element
      */
-    private void scrollUntilElementDisplayed(ComponentLocator elementsLocator, ComponentLocator targetElementLocator) {
+    public void scrollUntilElementDisplayed(ComponentLocator elementsLocator, ComponentLocator targetElementLocator) {
         if (WebUIUtils.fluentWait(targetElementLocator.getBy(), WebUIUtils.DEFAULT_WAIT_TIME) != null) //if targetElement exist
             return;
 
