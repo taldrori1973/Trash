@@ -311,6 +311,7 @@ Feature: DefensePro Analytics CSV Report
 
   @SID_44
   Scenario: Cleanup
+    Then UI Delete Report With Name "DP Analytics csv"
     Given UI logout and close browser
     * CLI Check if logs contains
       | logType | expression | isExpected   |
