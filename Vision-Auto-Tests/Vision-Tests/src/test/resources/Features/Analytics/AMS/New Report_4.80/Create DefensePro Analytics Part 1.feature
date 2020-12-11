@@ -1,5 +1,5 @@
 @TC117961
-Feature: DefensePro Analytics
+Feature: DefensePro Analytics Part 1
 
 
 #Scenario: Create Report of Traffic Global Kbps Inbound

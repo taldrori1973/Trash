@@ -1,4 +1,4 @@
-@Behavioral
+@TC118527
 Feature: DefensePro Behavioral Protections Part 2
 
 

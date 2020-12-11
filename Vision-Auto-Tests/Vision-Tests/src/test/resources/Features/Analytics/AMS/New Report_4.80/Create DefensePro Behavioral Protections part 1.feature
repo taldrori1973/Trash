@@ -1,5 +1,5 @@
-@noam97
-Feature: DefensePro Behavioral Protections
+@TC118526
+Feature: DefensePro Behavioral Protections Part 1
 
  @SID_1
  Scenario: Navigate to NEW REPORTS page
