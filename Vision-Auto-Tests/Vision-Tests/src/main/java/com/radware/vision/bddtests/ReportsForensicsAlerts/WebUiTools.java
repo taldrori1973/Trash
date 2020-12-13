@@ -93,6 +93,9 @@ public class WebUiTools {
     public static void clickWebElement(WebElement webElement) {
         try
         {
+            List<WebElement> webElements = WebUIUtils.fluentWaitMultiple(ComponentLocatorFactory.getLocatorByXpathDbgId(VisionDebugIdsManager.getDataDebugId()).getBy());
+            if (webElements.size()>1)
+                webElement = webElements.stream().filter(WebElement::isDisplayed).findFirst().get();
             webElement.click();
         }catch (Exception e)
         {
