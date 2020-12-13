@@ -5,7 +5,6 @@ import com.radware.vision.bddtests.ReportsForensicsAlerts.Report;
 import com.radware.vision.infra.testhandlers.alteon.securitymonitoring.dashboardview.sslinspection.enums.QuickRange;
 import com.radware.vision.infra.testhandlers.vrm.VRMHandler;
 import com.radware.vision.infra.testhandlers.vrm.VRMHandler.*;
-import com.radware.vision.infra.testhandlers.vrm.VRMReportsChartsHandler;
 import com.radware.vision.infra.testhandlers.vrm.VRMReportsHandler;
 import cucumber.api.java.en.And;
 import cucumber.api.java.en.Given;
@@ -230,7 +229,7 @@ public class VRMSteps {
 
     @Then("^Validate Line Chart data \"([^\"]*)\" with Label \"([^\"]*)\" in report \"([^\"]*)\"$")
     public void validateLineChartDataWithLabelInReport(String chart, String label, String reportName,  List<VRMHandler.Data> entries) throws Throwable {
-        new Report().validateGenerateReport(chart, label, reportName, entries);
+        new Report().getVRMReportsChartsHandler(reportName).validateChartDataOfDataSets(chart, label, null, entries);
     }
 
 }

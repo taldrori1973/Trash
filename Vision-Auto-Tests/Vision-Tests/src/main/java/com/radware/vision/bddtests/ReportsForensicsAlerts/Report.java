@@ -7,7 +7,6 @@ import com.radware.automation.webui.widgets.ComponentLocatorFactory;
 import com.radware.vision.automation.tools.exceptions.selenium.TargetWebElementNotFoundException;
 import com.radware.vision.infra.testhandlers.baseoperations.BasicOperationsHandler;
 import com.radware.vision.bddtests.ReportsForensicsAlerts.Handlers.TemplateHandlers;
-import com.radware.vision.infra.testhandlers.vrm.VRMHandler;
 import com.radware.vision.infra.testhandlers.vrm.VRMReportsChartsHandler;
 import com.radware.vision.restAPI.FormatterRestApi;
 import com.radware.vision.restBddTests.utils.SutUtils;
@@ -21,7 +20,6 @@ import org.openqa.selenium.WebElement;
 
 import java.util.Collections;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 
@@ -301,13 +299,23 @@ public class Report extends ReportsForensicsAlertsAbstract {
     }
 
 
-    public void validateGenerateReport(String chart, String label, String reportName, List<VRMHandler.Data> entries) throws NoSuchFieldException {
-        VRMReportsChartsHandler vrmReportsChartsHandler = new VRMReportsChartsHandler();
+    public VRMReportsChartsHandler getVRMReportsChartsHandler(String reportName) throws NoSuchFieldException {
         if (generateReportAndGetReportID(reportName).equalsIgnoreCase("accepted"))
         {
             if (generateStatus(getReportID(reportName), 60))
-                vrmReportsChartsHandler.validateReportResult(chart, label, getReportID(reportName), entries);
+                return new VRMReportsChartsHandler(getReportGenerateResult(getReportID(reportName)));
         }
+        BaseTestUtils.report("The generation of report " + reportName + " doesn't succeed", Reporter.FAIL);
+        return null;
+    }
+
+
+    public static JSONObject getReportGenerateResult(String reportID) throws NoSuchFieldException {
+        FormatterRestApi formatterRestApiResult = new FormatterRestApi("HTTP://" + SutUtils.getCurrentVisionIp(), 3002,"Vision/generateReport.json", "Get Result Of Generate Report");
+        HashMap map = new HashMap<>();
+        map.put("id", reportID);
+        formatterRestApiResult.getRestRequestSpecification().setPathParams(map);
+        return new JSONObject(new JSONObject(formatterRestApiResult.sendRequest().getBody().getBodyAsString()).get("jsonResult").toString());
     }
 
     public String generateReportAndGetReportID(String reportName) throws NoSuchFieldException {
@@ -440,7 +448,7 @@ public class Report extends ReportsForensicsAlertsAbstract {
         HashMap map = new HashMap<>();
         map.put("id", reportID);
         formatterRestApiStatus.getRestRequestSpecification().setPathParams(map);
-        while (!formatterRestApiStatus.sendRequest().getBody().toString().equalsIgnoreCase("S") && secondsTimeOut>0)
+        while (!new JSONObject(formatterRestApiStatus.sendRequest().getBody().getBodyAsString()).getString("status").equalsIgnoreCase("S") && secondsTimeOut>0)
         {
             WebUIUtils.sleep(1);
             secondsTimeOut--;
