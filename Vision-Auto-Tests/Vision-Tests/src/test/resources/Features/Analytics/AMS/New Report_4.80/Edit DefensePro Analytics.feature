@@ -1,132 +1,151 @@
 Feature: Edit DefensePro Analytics tests
 
   @SID_1
-  Scenario: Navigate to NEW REPORTS page
+  Scenario: Clean data before the test
+    * REST Delete ES index "dp-*"
+
+  @SID_2
+  Scenario: Login
     Then UI Login with user "sys_admin" and password "radware"
+
+  @SID_3
+  Scenario: Run DP simulator PCAPs for "DP attacks"
+    Given CLI simulate 1 attacks of type "many_attacks" on "DefensePro" 11 with loopDelay 15000 and wait 60 seconds
+
+  @SID_4
+  Scenario: Navigate to NEW REPORTS page
     Then UI Navigate to "AMS REPORTS" page via homepage
     Then UI Click Button "New Report Tab"
 
-  @SID_2
-  Scenario: DefensePro Analytics Report
+  @SID_5
+  Scenario: Create and validate DefensePro Analytics Report
     Then UI Click Button "New Report Tab"
-    Given UI "Create" Report With Name "DefensePro Analytics"
-      | Template | reportType:DefensePro Analytics,Widgets:[Attacks by Mitigation Action],devices:[{deviceIndex:11,devicePorts:[1],devicePolicies:[BDOS]}] |
-    Then UI "Validate" Report With Name "DefensePro Analytics"
-      | Template | reportType:DefensePro Analytics,Widgets:[Attacks by Mitigation Action],devices:[{deviceIndex:11,devicePorts:[1],devicePolicies:[BDOS]}] |
+    Given UI "Create" Report With Name "DefensePro Analytics Report"
+      | Template-1            | reportType:DefensePro Analytics,Widgets:[Connections Rate],devices:[{deviceIndex:10}],showTable:true         |
+      | Template-2            | reportType:DefensePro Analytics,Widgets:[{Traffic Bandwidth:[pps,Outbound,50]}],devices:[All],showTable:true |
+      | Logo                  | reportLogoPNG.png                                                                                            |
+      | Time Definitions.Date | Quick:1D                                                                                                     |
+      | Schedule              | Run Every:Daily ,On Time:+2m                                                                                 |
+      | share                 | Email:[automation.vision1@radware.com],Subject:mySubject,Body:myBody                                         |
+      | Format                | Select: PDF                                                                                                  |
+    Then UI "Validate" Report With Name "DefensePro Analytics Report"
+      | Template-1            | reportType:DefensePro Analytics,Widgets:[Connections Rate],devices:[{deviceIndex:10}],showTable:true         |
+      | Template-2            | reportType:DefensePro Analytics,Widgets:[{Traffic Bandwidth:[pps,Outbound,50]}],devices:[All],showTable:true |
+      | Logo                  | reportLogoPNG.png                                                                                            |
+      | Time Definitions.Date | Quick:1D                                                                                                     |
+      | Schedule              | Run Every:Daily ,On Time:+2m                                                                                 |
+      | share                 | Email:[automation.vision1@radware.com],Subject:mySubject,Body:myBody                                         |
+      | Format                | Select: PDF                                                                                                  |
 
-#  @SID_3
-#  Scenario: Add Logo to DefensePro Analytics
-#    Given UI "Edit" Report With Name "DefensePro Analytics"
-#      | Logo |  reportLogoPNG.png |
-#    Then UI "Validate" Report With Name "DefensePro Analytics"
-#      | Logo |  reportLogoPNG.png |
-#
-#  @SID_4
-#  Scenario: Add Share to DefensePro Analytics
-#    Given UI "Edit" Report With Name "DefensePro Analytics"
-#      | Share | Email:[automation.vision1@radware.com],Subject:myAdd subject,Body:myAdd body |
-#    Then UI "Validate" Report With Name "DefensePro Analytics"
-#      | Share | Email:[automation.vision1@radware.com],Subject:myAdd subject,Body:myAdd body |
-#
-#  @SID_5
-#  Scenario: Add Time to DefensePro Analytics
-#    Given UI "Edit" Report With Name "DefensePro Analytics"
-#      | Time Definitions.Date | Quick:Today |
-#    Then UI "Validate" Report With Name "DefensePro Analytics"
-#      | Time Definitions.Date | Quick:Today |
-#
-#  @SID_6
-#  Scenario: Add Schedule to DefensePro Analytics
-#    Given UI "Edit" Report With Name "DefensePro Analytics"
-#      | Schedule | Run Every:Daily,On Time:+2m |
-#    Then UI "Validate" Report With Name "DefensePro Analytics"
-#      | Schedule | Run Every:Daily,On Time:+2m |
-#
-#  @SID_7
-#  Scenario: Add Format to DefensePro Analytics
-#    Given UI "Edit" Report With Name "DefensePro Analytics"
-#      | Format | Select: CSV |
-#    Then UI "Validate" Report With Name "DefensePro Analytics"
-#      | Format | Select: CSV |
-#
-#  @SID_8
-#  Scenario: Edit Format to DefensePro Analytics
-#    Given UI "Edit" Report With Name "DefensePro Analytics"
-#      | Format | Select: PDF |
-#    Then UI "Validate" Report With Name "DefensePro Analytics"
-#      | Format | Select: PDF |
-#
-#  @SID_9
-#  Scenario: Edit Share to DefensePro Analytics
-#    Given UI "Edit" Report With Name "DefensePro Analytics"
-#      | Share | Email:[automation.vision2@radware.com],Subject:myEdit subject,Body:myEdit body |
-#    Then UI "Validate" Report With Name "DefensePro Analytics"
-#      | Share | Email:[automation.vision2@radware.com],Subject:myEdit subject,Body:myEdit body |
-#
-#  @SID_10
-#  Scenario: Edit Time to DefensePro Analytics
-#    Given UI "Edit" Report With Name "DefensePro Analytics"
-#      | Time Definitions.Date | Quick:15m |
-#    Then UI "Validate" Report With Name "DefensePro Analytics"
-#      | Time Definitions.Date | Quick:15m |
-#
-#  @SID_11
-#  Scenario: Edit Schedule to DefensePro Analytics
-#    Given UI "Edit" Report With Name "DefensePro Analytics"
-#      | Schedule | Run Every:once, On Time:+6H |
-#    Then UI "Validate" Report With Name "DefensePro Analytics"
-#      | Schedule | Run Every:once, On Time:+6H |
+  @SID_6
+  Scenario: Validate delivery card and generate report
+    Then UI Click Button "My Report" with value "DefensePro Analytics Report"
+    Then UI Click Button "Generate Report Manually" with value "DD Analytics csv"
+    Then Sleep "35"
+    #todo validate data Ramez
+
+  @SID_7
+  Scenario: Add Template Widget to DefensePro Analytics
+    Given UI "Edit" Report With Name "DefensePro Analytics Report"
+      | Template-1 | reportType:DefensePro Analytics,AddWidgets:[Top Attacks],devices:[{deviceIndex:10}],showTable:true |
+    Then UI "Validate" Report With Name "DefensePro Analytics Report"
+      | Template-1 | reportType:DefensePro Analytics,Widgets:[Top Attacks,Connections Rate],devices:[{deviceIndex:10}],showTable:true |
+
+  @SID_8
+  Scenario: Validate delivery card and generate report
+    Then UI Click Button "My Report" with value "DP Analytics csv"
+    Then UI Click Button "Generate Report Manually" with value "DP Analytics csv"
+    Then Sleep "35"
+    #todo validate data Ramez
+
+  @SID_9
+  Scenario: Delete Template from DefensePro Analytics
+    Given UI "Edit" Report With Name "DefensePro Analytics Report"
+      | Template_2 | DeleteTemplate |
+    Then UI "Validate" Report With Name "DefensePro Analytics Report"
+      | Template-1 | reportType:DefensePro Analytics,Widgets:[Top Attacks,Connections Rate],devices:[{deviceIndex:10}],showTable:true |
+
+  @SID_10
+  Scenario: Validate delivery card and generate report
+    Then UI Click Button "My Report" with value "DP Analytics csv"
+    Then UI Click Button "Generate Report Manually" with value "DP Analytics csv"
+    Then Sleep "35"
+    #todo validate data Ramez
+
+  @SID_11
+  Scenario: Delete Template Widget from DefensePro Analytics
+    Given UI "Edit" Report With Name "DefensePro Analytics Report"
+      | Template-1 | reportType:DefensePro Analytics,DeleteWidgets:[Top Attacks],devices:[{deviceIndex:10}],showTable:true |
+    Then UI "Validate" Report With Name "DefensePro Analytics Report"
+      | Template-1 | reportType:DefensePro Analytics,Widgets:[Connections Rate],devices:[{deviceIndex:10}],showTable:true |
 
   @SID_12
-  Scenario: Edit Template devices to DefensePro Analytics
-    Given UI "Edit" Report With Name "DefensePro Analytics"
-      | Template | reportType:DefensePro Analytics,devices:[{deviceIndex:10,devicePorts:[1],devicePolicies:[BDOS]}] |
-    Then UI "Validate" Report With Name "DefensePro Analytics"
-      | Template | reportType:DefensePro Analytics,devices:[{deviceIndex:10,devicePorts:[1],devicePolicies:[BDOS]}] |
+  Scenario: Validate delivery card and generate report
+    Then UI Click Button "My Report" with value "DP Analytics csv"
+    Then UI Click Button "Generate Report Manually" with value "DP Analytics csv"
+    Then Sleep "35"
+    #todo validate data Ramez
 
   @SID_13
-  Scenario: Add Template Widget to DefensePro Analytics
-    Given UI "Edit" Report With Name "DefensePro Analytics"
-      | Template | reportType:DefensePro Analytics,AddWidgets:[Top Attacks],devices:[{deviceIndex:10,devicePorts:[1],devicePolicies:[BDOS]}] |
-    Then UI "Validate" Report With Name "DefensePro Analytics"
-      | Template | reportType:DefensePro Analytics,AddWidgets:[Top Attacks],devices:[{deviceIndex:10,devicePorts:[1],devicePolicies:[BDOS]}] |
+  Scenario:Add Template to DefensePro Analytics Report
+    Given UI "Edit" Report With Name "DefensePro Analytics Report"
+      | Template | reportType:DefensePro Analytics,Widgets:[{Traffic Bandwidth:[pps,Outbound,50]}],devices:[All],showTable:true |
+    Then UI "Validate" Report With Name "HTTPS Flood"
+      | Template-1 | reportType:DefensePro Analytics,Widgets:[Connections Rate],devices:[{deviceIndex:10}],showTable:true         |
+      | Template-2 | reportType:DefensePro Analytics,Widgets:[{Traffic Bandwidth:[pps,Outbound,50]}],devices:[All],showTable:true |
 
   @SID_14
-  Scenario: Add new Template to DefensePro Analytics
-    Given UI "Edit" Report With Name "DefensePro Analytics"
-      | Template | reportType:DefensePro Analytics,Widgets:[Top Attacks],devices:[{deviceIndex:10,devicePorts:[1],devicePolicies:[bdos1]}] |
-    Then UI "Validate" Report With Name "DefensePro Analytics"
-      | Template | reportType:DefensePro Analytics,Widgets:[Top Attacks],devices:[{deviceIndex:10,devicePorts:[1],devicePolicies:[bdos1]}] |
+  Scenario: Validate delivery card and generate report
+    Then UI Click Button "My Report" with value "DP Analytics csv"
+    Then UI Click Button "Generate Report Manually" with value "DP Analytics csv"
+    Then Sleep "35"
+    #todo validate data Ramez
 
   @SID_15
-  Scenario: Delete Template-2 to DefensePro Analytics
-    Given UI "Edit" Report With Name "DefensePro Analytics"
-      | Template_2 | DeleteTemplate |
+  Scenario: Create and validate DefensePro Analytics Report2
+    Then UI Click Button "New Report Tab"
+    Given UI "Create" Report With Name "DefensePro Analytics Report2"
+      | Template-1            | reportType:DefensePro Analytics,Widgets:[Connections Rate],devices:[{deviceIndex:10}],showTable:true         |
+      | Template-2            | reportType:DefensePro Analytics,Widgets:[{Traffic Bandwidth:[pps,Outbound,50]}],devices:[All],showTable:true |
+      | Logo                  | reportLogoPNG.png                                                                                            |
+      | Time Definitions.Date | Quick:1D                                                                                                     |
+      | Schedule              | Run Every:Daily ,On Time:+2m                                                                                 |
+      | share                 | Email:[automation.vision1@radware.com],Subject:mySubject,Body:myBody                                         |
+      | Format                | Select: PDF                                                                                                  |
+    Then UI "Validate" Report With Name "DefensePro Analytics Report2"
+      | Template-1            | reportType:DefensePro Analytics,Widgets:[Connections Rate],devices:[{deviceIndex:10}],showTable:true         |
+      | Template-2            | reportType:DefensePro Analytics,Widgets:[{Traffic Bandwidth:[pps,Outbound,50]}],devices:[All],showTable:true |
+      | Logo                  | reportLogoPNG.png                                                                                            |
+      | Time Definitions.Date | Quick:1D                                                                                                     |
+      | Schedule              | Run Every:Daily ,On Time:+2m                                                                                 |
+      | share                 | Email:[automation.vision1@radware.com],Subject:mySubject,Body:myBody                                         |
+      | Format                | Select: PDF                                                                                                  |
+      |
 
   @SID_16
-  Scenario: Edit report name DefensePro Analytics
-    Given UI "Edit" Report With Name "DefensePro Analytics"
-      | New Report Name | DefensePro Analytics Report |
-    Then UI "Validate" Report With Name "DefensePro Analytics Report"
-      | Template              | reportType:DefensePro Analytics,Widgets:[Attacks by Mitigation Action,Top Attacks],devices:[{deviceIndex:10,devicePorts:[1],devicePolicies:[BDOS]}] |
-      | Schedule              | Run Every:once, On Time:+6H                                                                                                                         |
-      | Time Definitions.Date | Quick:15m                                                                                                                                           |
-      | Share                 | Email:[automation.vision2@radware.com],Subject:myEdit subject,Body:myEdit body                                                                      |
-      | Format                | Select: PDF                                                                                                                                         |
-      | Logo                  | reportLogoPNG.png                                                                                                                                   |
+  Scenario: Edit DefensePro Analytics Report2 report name
+    Then UI Click Button "My Report Tab"
+    Then UI Click Button "Edit Report" with value "DefensePro Analytics Report2"
+    Then UI Set Text Field "Report Name" To "DefensePro Analytics Report"
+    Then UI Click Button "save"
+    Then UI Text of "Error message title" equal to "Unable To Save Report"
+    Then UI Text of "Error message description" equal to "Report name must be unique. There is already another report with name 'DefensePro Analytics Report'"
+    Then UI Click Button "errorMessageOK"
+    Then UI Click Button "cancel"
+    Then UI Text of "Save Change Message" contains "Do you want to save "DefensePro Analytics Report"?"
+    Then UI Click Button "Yes"
+    Then UI Text of "Error message title" equal to "Unable To Save Report"
+    Then UI Text of "Error message description" equal to "Report name must be unique. There is already another report with name 'DefensePro Analytics Report'"
+    Then UI Click Button "errorMessageOK"
+    Then UI Click Button "cancel"
+    Then UI Text of "Save Change Message" contains "Do you want to save "DefensePro Analytics Report"?"
+    Then UI Click Button "No"
 
   @SID_17
-  Scenario: Delete Report
+  Scenario: Delete report
     Then UI Delete Report With Name "DefensePro Analytics Report"
-
-#  @SID_18
-#  Scenario: Validate delivery card and generate report
-#    Then UI Click Button "My Report" with value "DP Analytics csv"
-#    Then UI Click Button "Generate Report Manually" with value "DP Analytics csv"
-#    Then Sleep "35"
+    Then UI Delete Report With Name "DefensePro Analytics Report2"
 
   @SID_18
   Scenario: Logout
     Then UI logout and close browser
-
-    
