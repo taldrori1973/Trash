@@ -47,7 +47,7 @@ public class Report extends ReportsForensicsAlertsAbstract {
 
     private boolean reportCreated() throws TargetWebElementNotFoundException {
         if (WebUiTools.getWebElement("save") == null)
-        return true;
+            return true;
         WebUIUtils.sleep(2);
         closeReport(true);
         return false;
