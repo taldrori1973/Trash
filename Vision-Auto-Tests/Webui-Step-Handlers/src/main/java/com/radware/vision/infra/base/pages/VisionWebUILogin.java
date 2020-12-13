@@ -55,7 +55,7 @@ public class VisionWebUILogin {
         ComponentLocator usernameLocator = ComponentLocatorFactory.getLocatorByXpathDbgId("usernameInput");
         usernameTextBox = new WebUITextField(usernameLocator);
         // Fluent wait when there is an network overload and it takes time to upload the login page
-        if (WebUIUtils.fluentWait(usernameLocator.getBy()) == null) {
+        if (WebUIUtils.fluentWait(usernameLocator.getBy(), DEFAULT_LOGIN_WAIT_TIME) == null) {
             BaseTestUtils.report("Could not find element: usernameInput", Reporter.FAIL);
         }
         usernameTextBox.setWebElement(loginDialog.findInner(usernameLocator).getWebElement());
