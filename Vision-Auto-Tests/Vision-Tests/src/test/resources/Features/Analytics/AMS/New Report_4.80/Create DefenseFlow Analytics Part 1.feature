@@ -1,7 +1,6 @@
 @TC117964
 Feature:DefenseFlow Analytics Part 1
 
-
   @SID_1
   Scenario: Navigate to NEW REPORTS page
     Then UI Login with user "radware" and password "radware"
@@ -612,145 +611,10 @@ Feature:DefenseFlow Analytics Part 1
       | Share                 | Email:[automation.vision2@radware.com],Subject:myEdit subject,Body:myEdit body                                  |
     Then UI Delete Report With Name "DDoS Peak Attack per Period Report 4"
 
-# ------------------------------------------------------------------------------------------------------------------------------------------------------------
-
-  @SID_38
-  Scenario: DDoS Attack Activations per Period Report 1
-    Then UI Click Button "New Report Tab"
-    Given UI "Create" Report With Name "DDoS Attack Activations per Period Report 1"
-      | Template              | reportType:DefenseFlow Analytics,Widgets:[DDoS Attack Activations per Period],Protected Objects:[All], showTable:true |
-      | Format                | Select: CSV                                                                                                           |
-      | Logo                  | reportLogoPNG.png                                                                                                     |
-      | Time Definitions.Date | Quick:This Week                                                                                                       |
-      | Schedule              | Run Every:Daily,On Time:+2m                                                                                           |
-    Then UI "Validate" Report With Name "DDoS Attack Activations per Period Report 1"
-      | Template              | reportType:DefenseFlow Analytics,Widgets:[DDoS Attack Activations per Period],Protected Objects:[All], showTable:true |
-      | Format                | Select: CSV                                                                                                           |
-      | Logo                  | reportLogoPNG.png                                                                                                     |
-      | Time Definitions.Date | Quick:This Week                                                                                                       |
-      | Schedule              | Run Every:Daily,On Time:+2m                                                                                           |
-    Then UI Delete Report With Name "DDoS Attack Activations per Period Report 1"
-
-  @SID_39
-  Scenario: DDoS Attack Activations per Period Report 2
-    Then UI Click Button "New Report Tab"
-    Given UI "Create" Report With Name "DDoS Attack Activations per Period Report 2"
-      | Template              | reportType:DefenseFlow Analytics,Widgets:[DDoS Attack Activations per Period], Protected Objects:[PO Name Space] |
-      | Format                | Select: PDF                                                                                                      |
-      | Logo                  | reportLogoPNG.png                                                                                                |
-      | Time Definitions.Date | Relative:[Weeks,2]                                                                                               |
-      | Schedule              | Run Every:Weekly, On Time:+6H, At days:[THU]                                                                     |
-      | Share                 | Email:[automation.vision2@radware.com],Subject:myEdit subject,Body:myEdit body                                   |
-    Then UI "Validate" Report With Name "DDoS Attack Activations per Period Report 2"
-      | Template              | reportType:DefenseFlow Analytics,Widgets:[DDoS Attack Activations per Period], Protected Objects:[PO Name Space] |
-      | Format                | Select: PDF                                                                                                      |
-      | Logo                  | reportLogoPNG.png                                                                                                |
-      | Time Definitions.Date | Relative:[Weeks,2]                                                                                               |
-      | Schedule              | Run Every:Weekly, On Time:+6H, At days:[THU]                                                                     |
-      | Share                 | Email:[automation.vision2@radware.com],Subject:myEdit subject,Body:myEdit body                                   |
-    Then UI Delete Report With Name "DDoS Attack Activations per Period Report 2"
-
-  @SID_40
-  Scenario: DDoS Attack Activations per Period Report 3
-    Then UI Click Button "New Report Tab"
-    Given UI "Create" Report With Name "DDoS Attack Activations per Period Report 3"
-      | Template              | reportType:DefenseFlow Analytics,Widgets:[DDoS Attack Activations per Period], Protected Objects:[PO Name Space] |
-      | Format                | Select: HTML                                                                                                     |
-      | Time Definitions.Date | Absolute:[27.02.1971 01:00, +0d]                                                                                 |
-      | Schedule              | Run Every:Monthly, On Time:+6H, At Months:[MAY]                                                                  |
-    Then UI "Validate" Report With Name "DDoS Attack Activations per Period Report 3"
-      | Template              | reportType:DefenseFlow Analytics,Widgets:[DDoS Attack Activations per Period], Protected Objects:[PO Name Space] |
-      | Format                | Select: HTML                                                                                                     |
-      | Time Definitions.Date | Absolute:[27.02.1971 01:00, +0d]                                                                                 |
-      | Schedule              | Run Every:Monthly, On Time:+6H, At Months:[MAY]                                                                  |
-    Then UI Delete Report With Name "DDoS Attack Activations per Period Report 3"
-
-  @SID_41
-  Scenario: DDoS Attack Activations per Period Report 4
-    Then UI Click Button "New Report Tab"
-    Given UI "Create" Report With Name "DDoS Attack Activations per Period Report 4"
-      | Template              | reportType:DefenseFlow Analytics,Widgets:[DDoS Attack Activations per Period], Protected Objects:[All], showTable:true |
-      | Format                | Select: CSV                                                                                                            |
-      | Time Definitions.Date | Relative:[Months,3]                                                                                                    |
-      | Share                 | Email:[automation.vision2@radware.com],Subject:myEdit subject,Body:myEdit body                                         |
-    Then UI "Validate" Report With Name "DDoS Attack Activations per Period Report 4"
-      | Template              | reportType:DefenseFlow Analytics,Widgets:[DDoS Attack Activations per Period], Protected Objects:[All], showTable:true |
-      | Format                | Select: CSV                                                                                                            |
-      | Time Definitions.Date | Relative:[Months,3]                                                                                                    |
-      | Share                 | Email:[automation.vision2@radware.com],Subject:myEdit subject,Body:myEdit body                                         |
-    Then UI Delete Report With Name "DDoS Attack Activations per Period Report 4"
-
-# ------------------------------------------------------------------------------------------------------------------------------------------------------------
-
-  @SID_42
-  Scenario: Top 10 Activations by Duration Report 1
-    Then UI Click Button "New Report Tab"
-    Given UI "Create" Report With Name "Top 10 Activations by Duration Report 1"
-      | Template              | reportType:DefenseFlow Analytics,Widgets:[Top 10 Activations by Duration],Protected Objects:[All], showTable:true |
-      | Format                | Select: CSV                                                                                                       |
-      | Logo                  | reportLogoPNG.png                                                                                                 |
-      | Time Definitions.Date | Quick:30m                                                                                                         |
-      | Schedule              | Run Every:Weekly, On Time:+6H, At days:[TUE]                                                                      |
-    Then UI "Validate" Report With Name "Top 10 Activations by Duration Report 1"
-      | Template              | reportType:DefenseFlow Analytics,Widgets:[Top 10 Activations by Duration],Protected Objects:[All], showTable:true |
-      | Format                | Select: CSV                                                                                                       |
-      | Logo                  | reportLogoPNG.png                                                                                                 |
-      | Time Definitions.Date | Quick:30m                                                                                                         |
-      | Schedule              | Run Every:Weekly, On Time:+6H, At days:[TUE]                                                                      |
-    Then UI Delete Report With Name "Top 10 Activations by Duration Report 1"
-
-  @SID_43
-  Scenario: Top 10 Activations by Duration Report 2
-    Then UI Click Button "New Report Tab"
-    Given UI "Create" Report With Name "Top 10 Activations by Duration Report 2"
-      | Template              | reportType:DefenseFlow Analytics,Widgets:[Top 10 Activations by Duration], Protected Objects:[PO Name Space] |
-      | Format                | Select: PDF                                                                                                  |
-      | Logo                  | reportLogoPNG.png                                                                                            |
-      | Time Definitions.Date | Absolute:[27.02.1971 01:00, +0d]                                                                             |
-      | Schedule              | Run Every:Monthly, On Time:+6H, At Months:[APR]                                                              |
-      | Share                 | Email:[automation.vision2@radware.com],Subject:myEdit subject,Body:myEdit body                               |
-    Then UI "Validate" Report With Name "Top 10 Activations by Duration Report 2"
-      | Template              | reportType:DefenseFlow Analytics,Widgets:[Top 10 Activations by Duration], Protected Objects:[PO Name Space] |
-      | Format                | Select: PDF                                                                                                  |
-      | Logo                  | reportLogoPNG.png                                                                                            |
-      | Time Definitions.Date | Absolute:[27.02.1971 01:00, +0d]                                                                             |
-      | Schedule              | Run Every:Monthly, On Time:+6H, At Months:[APR]                                                              |
-      | Share                 | Email:[automation.vision2@radware.com],Subject:myEdit subject,Body:myEdit body                               |
-    Then UI Delete Report With Name "Top 10 Activations by Duration Report 2"
-
-  @SID_44
-  Scenario: Top 10 Activations by Duration Report 3
-    Then UI Click Button "New Report Tab"
-    Given UI "Create" Report With Name "Top 10 Activations by Duration Report 3"
-      | Template              | reportType:DefenseFlow Analytics,Widgets:[Top 10 Activations by Duration], Protected Objects:[PO Name Space] |
-      | Format                | Select: HTML                                                                                                 |
-      | Time Definitions.Date | Relative:[Weeks,2]                                                                                           |
-    Then UI "Validate" Report With Name "Top 10 Activations by Duration Report 3"
-      | Template              | reportType:DefenseFlow Analytics,Widgets:[Top 10 Activations by Duration], Protected Objects:[PO Name Space] |
-      | Format                | Select: HTML                                                                                                 |
-      | Time Definitions.Date | Relative:[Weeks,2]                                                                                           |
-    Then UI Delete Report With Name "Top 10 Activations by Duration Report 3"
-
-  @SID_45
-  Scenario: Top 10 Activations by Duration Report 4
-    Then UI Click Button "New Report Tab"
-    Given UI "Create" Report With Name "Top 10 Activations by Duration Report 4"
-      | Template              | reportType:DefenseFlow Analytics,Widgets:[Top 10 Activations by Duration], Protected Objects:[All], showTable:true |
-      | Format                | Select: CSV                                                                                                        |
-      | Time Definitions.Date | Quick:Quarter                                                                                                      |
-      | Schedule              | Run Every:Once, On Time:+6H                                                                                        |
-      | Share                 | Email:[automation.vision2@radware.com],Subject:myEdit subject,Body:myEdit body                                     |
-    Then UI "Validate" Report With Name "Top 10 Activations by Duration Report 4"
-      | Template              | reportType:DefenseFlow Analytics,Widgets:[Top 10 Activations by Duration], Protected Objects:[All], showTable:true |
-      | Format                | Select: CSV                                                                                                        |
-      | Time Definitions.Date | Quick:Quarter                                                                                                      |
-      | Schedule              | Run Every:Once, On Time:+6H                                                                                        |
-      | Share                 | Email:[automation.vision2@radware.com],Subject:myEdit subject,Body:myEdit body                                     |
-    Then UI Delete Report With Name "Top 10 Activations by Duration Report 4"
 
     # ------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 
-  @SID_46
+  @SID_38
   Scenario: Logout
     Then UI logout and close browser

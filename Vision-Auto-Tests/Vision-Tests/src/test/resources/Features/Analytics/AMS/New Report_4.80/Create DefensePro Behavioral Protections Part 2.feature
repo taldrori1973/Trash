@@ -9,9 +9,404 @@ Feature: DefensePro Behavioral Protections Part 2
     Then UI Click Button "New Report Tab"
 
 
+  @SID_2
+  Scenario: create new DNS-TXT1
+    Then UI Click Button "New Report Tab"
+    Given UI "Create" Report With Name "DNS_TXT1"
+      | Template              | reportType:DefensePro Behavioral Protections , Widgets:[{DNS-TXT:[IPv4]}] ,devices:[{deviceIndex:11, devicePolicies:[1_https]}] |
+      | Time Definitions.Date | Quick:Quarter                                                                                         |
+      | Schedule              | Run Every:Once, On Time:+6H                                                                           |
+      | Share                 | Email:[automation.vision2@radware.com],Subject:myEdit subject,Body:myEdit body                        |
+      | Format                | Select: CSV                                                                                           |
+    Then UI "Validate" Report With Name "DNS_TXT1"
+      | Template              | reportType:DefensePro Behavioral Protections , Widgets:[{DNS-TXT:[IPv4]}] ,devices:[{deviceIndex:11, devicePolicies:[1_https]}]|
+      | Time Definitions.Date | Quick:Quarter                                                                                         |
+      | Schedule              | Run Every:Once, On Time:+6H                                                                           |
+      | Share                 | Email:[automation.vision2@radware.com],Subject:myEdit subject,Body:myEdit body                        |
+      | Format                | Select: CSV                                                                                           |
+    Then UI Delete Report With Name "DNS_TXT1"
+
+  @SID_3
+  Scenario: create new DNS-TXT2
+    Then UI Click Button "New Report Tab"
+    Given UI "Create" Report With Name "DNS_TXT2"
+      | Template              | reportType:DefensePro Behavioral Protections , Widgets:[{DNS-TXT:[IPv4]}] ,devices:[{deviceIndex:11, devicePolicies:[1_https]}] |
+      | Logo                  | reportLogoPNG.png                                                                                     |
+      | Time Definitions.Date | Quick:Previous Month                                                                                  |
+      | Format                | Select: CSV                                                                                           |
+    Then UI "Validate" Report With Name "DNS_TXT2"
+      | Template              | reportType:DefensePro Behavioral Protections , Widgets:[{DNS-TXT:[IPv4]}] ,devices:[{deviceIndex:11, devicePolicies:[1_https]}] |
+      | Logo                  | reportLogoPNG.png                                                                                     |
+      | Time Definitions.Date | Quick:Previous Month                                                                                  |
+      | Format                | Select: CSV                                                                                           |
+    Then UI Delete Report With Name "DNS_TXT2"
+
+  @SID_4
+  Scenario: create new DNS-TXT3
+    Then UI Click Button "New Report Tab"
+    Given UI "Create" Report With Name "DNS_TXT3"
+      | Template              | reportType:DefensePro Behavioral Protections , Widgets:[{DNS-TXT:[IPv6]}] ,devices:[{deviceIndex:11, devicePolicies:[1_https]}]|
+      | Logo                  | reportLogoPNG.png                                                                                     |
+      | Time Definitions.Date | Quick:This Month                                                                                      |
+      | Schedule              | Run Every:Once, On Time:+6H                                                                           |
+      | Share                 | Email:[automation.vision2@radware.com],Subject:myEdit subject,Body:myEdit body                        |
+      | Format                | Select: PDF                                                                                           |
+    Then UI "Validate" Report With Name "DNS_TXT3"
+      | Template              | reportType:DefensePro Behavioral Protections , Widgets:[{DNS-TXT:[IPv6]}] ,devices:[{deviceIndex:11, devicePolicies:[1_https]}] |
+      | Logo                  | reportLogoPNG.png                                                                                     |
+      | Time Definitions.Date | Quick:This Month                                                                                      |
+      | Schedule              | Run Every:Once, On Time:+6H                                                                           |
+      | Share                 | Email:[automation.vision2@radware.com],Subject:myEdit subject,Body:myEdit body                        |
+      | Format                | Select: PDF                                                                                           |
+    Then UI Delete Report With Name "DNS_TXT3"
+
+  @SID_5
+  Scenario: create new DNS-TXT4
+    Then UI Click Button "New Report Tab"
+    Given UI "Create" Report With Name "DNS_TXT4"
+      | Template              | reportType:DefensePro Behavioral Protections , Widgets:[{DNS-TXT:[IPv6]}] ,devices:[{deviceIndex:11, devicePolicies:[1_https]}]|
+      | Time Definitions.Date |  Absolute:[27.02.1971 01:00, +0d]                                                                     |
+      | Schedule              | Run Every:Monthly, On Time:+6H, At Months:[MAR]                                                       |
+      | Format                | Select: HTML                                                                                          |
+    Then UI "Validate" Report With Name "DNS_TXT4"
+      | Template              | reportType:DefensePro Behavioral Protections , Widgets:[{DNS-TXT:[IPv6]}] ,devices:[{deviceIndex:11, devicePolicies:[1_https]}] |
+      | Time Definitions.Date |  Absolute:[27.02.1971 01:00, +0d]                                                                     |
+      | Schedule              | Run Every:Monthly, On Time:+6H, At Months:[MAR]                                                       |
+      | Format                | Select: HTML                                                                                          |
+    Then UI Delete Report With Name "DNS_TXT4"
+
+  @SID_6
+  Scenario: create new DNS-A1
+    Then UI Click Button "New Report Tab"
+    Given UI "Create" Report With Name "DNS_A1"
+      | Template              | reportType:DefensePro Behavioral Protections , Widgets:[{DNS-A:[IPv6]}] ,devices:[{deviceIndex:11, devicePolicies:[1_https]}] |
+      | Time Definitions.Date | Quick:[Hours,3]                                                                                     |
+      | Schedule              | Run Every:Weekly, On Time:+6H, At Days:[WED]                                                        |
+      | Share                 | Email:[automation.vision2@radware.com],Subject:myEdit subject,Body:myEdit body                      |
+      | Format                | Select: CSV                                                                                         |
+    Then UI "Validate" Report With Name "DNS_A1"
+      | Template              | reportType:DefensePro Behavioral Protections , Widgets:[{DNS-A:[IPv6]}] ,devices:[{deviceIndex:11, devicePolicies:[1_https]}] |
+      | Time Definitions.Date | Quick:[Hours,3]                                                                                     |
+      | Schedule              | Run Every:Weekly, On Time:+6H, At Days:[WED]                                                        |
+      | Share                 | Email:[automation.vision2@radware.com],Subject:myEdit subject,Body:myEdit body                      |
+      | Format                | Select: CSV                                                                                         |
+    Then UI Delete Report With Name "DNS_A1"
+
+  @SID_7
+  Scenario: create new DNS-A2
+    Then UI Click Button "New Report Tab"
+    Given UI "Create" Report With Name "DNS_A2"
+      | Template              | reportType:DefensePro Behavioral Protections , Widgets:[{DNS-A:[IPv6]}] ,devices:[{deviceIndex:11, devicePolicies:[1_https]}] |
+      | Logo                  | reportLogoPNG.png                                                                                   |
+      | Time Definitions.Date | Quick:15m                                                                                           |
+      | Format                | Select: CSV                                                                                         |
+    Then UI "Validate" Report With Name "DNS_A2"
+      | Template              | reportType:DefensePro Behavioral Protections , Widgets:[{DNS-A:[IPv6]}] ,devices:[{deviceIndex:11, devicePolicies:[1_https]}] |
+      | Logo                  | reportLogoPNG.png                                                                                   |
+      | Time Definitions.Date | Quick:15m                                                                                           |
+      | Format                | Select: CSV                                                                                         |
+    Then UI Delete Report With Name "DNS_A2"
+
+  @SID_8
+  Scenario: create new DNS-A3
+    Then UI Click Button "New Report Tab"
+    Given UI "Create" Report With Name "DNS_A3"
+      | Template              | reportType:DefensePro Behavioral Protections , Widgets:[{DNS-A:[IPv4]}] ,devices:[{deviceIndex:11, devicePolicies:[1_https]}] |
+      | Logo                  | reportLogoPNG.png                                                                                   |
+      | Time Definitions.Date | Quick:This Week                                                                                     |
+      | Schedule              | Run Every:Monthly, On Time:+6H, At Months:[AUG]                                                     |
+      | Share                 | Email:[automation.vision2@radware.com],Subject:myEdit subject,Body:myEdit body                      |
+      | Format                | Select: PDF                                                                                         |
+    Then UI "Validate" Report With Name "DNS_A3"
+      | Template              | reportType:DefensePro Behavioral Protections , Widgets:[{DNS-A:[IPv4]}] ,devices:[{deviceIndex:11, devicePolicies:[1_https]}] |
+      | Logo                  | reportLogoPNG.png                                                                                   |
+      | Time Definitions.Date | Quick:This Week                                                                                     |
+      | Schedule              | Run Every:Monthly, On Time:+6H, At Months:[AUG]                                                     |
+      | Share                 | Email:[automation.vision2@radware.com],Subject:myEdit subject,Body:myEdit body                      |
+      | Format                | Select: PDF                                                                                         |
+    Then UI Delete Report With Name "DNS_A3"
+
+  @SID_9
+  Scenario: create new DNS-A4
+    Then UI Click Button "New Report Tab"
+    Given UI "Create" Report With Name "DNS_A4"
+      | Template              | reportType:DefensePro Behavioral Protections , Widgets:[{DNS-A:[IPv4]}] ,devices:[{deviceIndex:11, devicePolicies:[1_https]}] |
+      | Time Definitions.Date |  Absolute:[27.02.1971 01:00, +0d]                                                                   |
+      | Schedule              | Run Every:Monthly, On Time:+6H, At Months:[MAR]                                                     |
+      | Format                | Select: HTML                                                                                        |
+    Then UI "Validate" Report With Name "DNS_A4"
+      | Template              | reportType:DefensePro Behavioral Protections , Widgets:[{DNS-A:[IPv4]}] ,devices:[{deviceIndex:11, devicePolicies:[1_https]}] |
+      | Time Definitions.Date |  Absolute:[27.02.1971 01:00, +0d]                                                                   |
+      | Schedule              | Run Every:Monthly, On Time:+6H, At Months:[MAR]                                                     |
+      | Format                | Select: HTML                                                                                        |
+    Then UI Delete Report With Name "DNS_A4"
+
+  @SID_10
+  Scenario: create new DNS-AAAA1
+    Then UI Click Button "New Report Tab"
+    Given UI "Create" Report With Name "DNS_AAAA1"
+      | Template              | reportType:DefensePro Behavioral Protections , Widgets:[{DNS-AAAA:[IPv4]}] ,devices:[{deviceIndex:11, devicePolicies:[1_https]}] |
+      | Time Definitions.Date | Quick:[Weeks,3]                                                                                        |
+      | Schedule              | Run Every:Daily,On Time:+2m                                                                            |
+      | Share                 | Email:[automation.vision2@radware.com],Subject:myEdit subject,Body:myEdit body                         |
+      | Format                | Select: CSV                                                                                            |
+    Then UI "Validate" Report With Name "DNS_AAAA1"
+      | Template              | reportType:DefensePro Behavioral Protections , Widgets:[{DNS-AAAA:[IPv4]}] ,devices:[{deviceIndex:11, devicePolicies:[1_https]}] |
+      | Time Definitions.Date | Quick:[Weeks,3]                                                                                        |
+      | Schedule              | Run Every:Daily,On Time:+2m                                                                            |
+      | Share                 | Email:[automation.vision2@radware.com],Subject:myEdit subject,Body:myEdit body                         |
+      | Format                | Select: CSV                                                                                            |
+    Then UI Delete Report With Name "DNS_AAAA1"
+
+  @SID_11
+  Scenario: create new DNS-AAAA2
+    Then UI Click Button "New Report Tab"
+    Given UI "Create" Report With Name "DNS_AAAA2"
+      | Template              | reportType:DefensePro Behavioral Protections , Widgets:[{DNS-AAAA:[IPv4]}] ,devices:[{deviceIndex:11, devicePolicies:[1_https]}] |
+      | Logo                  | reportLogoPNG.png                                                                                   |
+      | Time Definitions.Date |  Absolute:[27.02.1971 01:00, +0d]                                                                   |
+      | Schedule              | Run Every:Weekly, On Time:+6H, At Days:[SUN]                                                        |
+      | Format                | Select: CSV                                                                                         |
+    Then UI "Validate" Report With Name "DNS_AAAA2"
+      | Template              | reportType:DefensePro Behavioral Protections , Widgets:[{DNS-AAAA:[IPv4]}] ,devices:[{deviceIndex:11, devicePolicies:[1_https]}] |
+      | Logo                  | reportLogoPNG.png                                                                                   |
+      | Time Definitions.Date |  Absolute:[27.02.1971 01:00, +0d]                                                                   |
+      | Schedule              | Run Every:Weekly, On Time:+6H, At Days:[SUN]                                                        |
+      | Format                | Select: CSV                                                                                         |
+    Then UI Delete Report With Name "DNS_AAAA2"
+
+  @SID_12
+  Scenario: create new DNS-AAAA3
+    Then UI Click Button "New Report Tab"
+    Given UI "Create" Report With Name "DNS_AAAA3"
+      | Template              | reportType:DefensePro Behavioral Protections , Widgets:[DNS-AAAA:[IPv6]}] ,devices:[{deviceIndex:11, devicePolicies:[1_https]}] |
+      | Logo                  | reportLogoPNG.png                                                                                      |
+      | Time Definitions.Date | Quick:3M                                                                                               |
+      | Schedule              | Run Every:Monthly, On Time:+6H, At Months:[DEC]                                                        |
+      | Share                 | Email:[automation.vision2@radware.com],Subject:myEdit subject,Body:myEdit body                         |
+      | Format                | Select: PDF                                                                                            |
+    Then UI "Validate" Report With Name "DNS_AAAA3"
+      | Template              | reportType:DefensePro Behavioral Protections , Widgets:[DNS-AAAA:[IPv6]}] ,devices:[{deviceIndex:11, devicePolicies:[1_https]}]|
+      | Logo                  | reportLogoPNG.png                                                                                      |
+      | Time Definitions.Date | Quick:3M                                                                                               |
+      | Schedule              | Run Every:Monthly, On Time:+6H, At Months:[DEC]                                                        |
+      | Share                 | Email:[automation.vision2@radware.com],Subject:myEdit subject,Body:myEdit body                         |
+      | Format                | Select: PDF                                                                                            |
+    Then UI Delete Report With Name "DNS_AAAA3"
+
+  @SID_13
+  Scenario: create new DNS-AAAA4
+    Then UI Click Button "New Report Tab"
+    Given UI "Create" Report With Name "DNS_AAAA4"
+      | Template              | reportType:DefensePro Behavioral Protections , Widgets:[{DNS-AAAA:[IPv4]}] ,devices:[{deviceIndex:11, devicePolicies:[1_https]}] |
+      | Time Definitions.Date | Quick:This Month                                                                                        |
+      | Format                | Select: HTML                                                                                            |
+    Then UI "Validate" Report With Name "DNS_AAAA4"
+      | Template              | reportType:DefensePro Behavioral Protections , Widgets:[{DNS-AAAA:[IPv4]}] ,devices:[{deviceIndex:11, devicePolicies:[1_https]}] |
+      | Time Definitions.Date | Quick:This Month                                                                                        |
+      | Format                | Select: HTML                                                                                            |
+    Then UI Delete Report With Name "DNS_AAAA4"
+
+  @SID_14
+  Scenario: create new DNS-MX1
+    Then UI Click Button "New Report Tab"
+    Given UI "Create" Report With Name "DNS_MX1"
+      | Template              | reportType:DefensePro Behavioral Protections , Widgets:[{DNS-MX:[IPv6]}] ,devices:[{deviceIndex:11, devicePolicies:[1_https]}] |
+      | Time Definitions.Date | Quick:1H                                                                                              |
+      | Schedule              | Run Every:Monthly, On Time:+6H, At Months:[MAR]                                                       |
+      | Format                | Select: HTML                                                                                          |
+    Then UI "Validate" Report With Name "DNS_MX1"
+      | Template              | reportType:DefensePro Behavioral Protections , Widgets:[{DNS-MX:[IPv6]}] ,devices:[{deviceIndex:11, devicePolicies:[1_https]}] |
+      | Time Definitions.Date | Quick:1H                                                                                              |
+      | Schedule              | Run Every:Monthly, On Time:+6H, At Months:[MAR]                                                       |
+      | Format                | Select: HTML                                                                                          |
+    Then UI Delete Report With Name "DNS_MX1"
+
+  @SID_15
+  Scenario: create new DNS-MX2
+    Then UI Click Button "New Report Tab"
+    Given UI "Create" Report With Name "DNS_MX2"
+      | Template              | reportType:DefensePro Behavioral Protections , Widgets:[{DNS-MX:[IPv6]}] ,devices:[{deviceIndex:11, devicePolicies:[1_https]}] |
+      | Logo                  | reportLogoPNG.png                                                                                     |
+      | Time Definitions.Date | Quick:15m                                                                                             |
+      | Format                | Select: CSV                                                                                           |
+    Then UI "Validate" Report With Name "DNS_MX2"
+      | Template              | reportType:DefensePro Behavioral Protections , Widgets:[{DNS-MX:[IPv6]}] ,devices:[{deviceIndex:11, devicePolicies:[1_https]}] |
+      | Logo                  | reportLogoPNG.png                                                                                     |
+      | Time Definitions.Date | Quick:15m                                                                                             |
+      | Format                | Select: CSV                                                                                           |
+    Then UI Delete Report With Name "DNS_MX2"
+
+  @SID_16
+  Scenario: create new DNS-MX3
+    Then UI Click Button "New Report Tab"
+    Given UI "Create" Report With Name "DNS_MX3"
+      | Template              | reportType:DefensePro Behavioral Protections , Widgets:[{DNS-MX:[IPv4]}] ,devices:[{deviceIndex:11, devicePolicies:[1_https]}] |
+      | Logo                  | reportLogoPNG.png                                                                                     |
+      | Time Definitions.Date | Quick:This Week                                                                                       |
+      | Schedule              | Run Every:Monthly, On Time:+6H, At Months:[AUG]                                                       |
+      | Share                 | Email:[automation.vision2@radware.com],Subject:myEdit subject,Body:myEdit body                        |
+      | Format                | Select: PDF                                                                                           |
+    Then UI "Validate" Report With Name "DNS_MX3"
+      | Template              | reportType:DefensePro Behavioral Protections , Widgets:[{DNS-MX:[IPv4]}] ,devices:[{deviceIndex:11, devicePolicies:[1_https]}] |
+      | Logo                  | reportLogoPNG.png                                                                                     |
+      | Time Definitions.Date | Quick:This Week                                                                                       |
+      | Schedule              | Run Every:Monthly, On Time:+6H, At Months:[AUG]                                                       |
+      | Share                 | Email:[automation.vision2@radware.com],Subject:myEdit subject,Body:myEdit body                        |
+      | Format                | Select: PDF                                                                                           |
+    Then UI Delete Report With Name "DNS_MX3"
+
+  @SID_17
+  Scenario: create new DNS-MX4
+    Then UI Click Button "New Report Tab"
+    Given UI "Create" Report With Name "DNS_MX4"
+      | Template              | reportType:DefensePro Behavioral Protections , Widgets:[{DNS-MX:[IPv4]}] ,devices:[{deviceIndex:11, devicePolicies:[1_https]}] |
+      | Time Definitions.Date |  Absolute:[27.02.1971 01:00, +0d]                                                                     |
+      | Schedule              | Run Every:Monthly, On Time:+6H, At Months:[MAR]                                                       |
+      | Format                | Select: HTML                                                                                          |
+    Then UI "Validate" Report With Name "DNS_MX4"
+      | Template              | reportType:DefensePro Behavioral Protections , Widgets:[{DNS-MX:[IPv4]}] ,devices:[{deviceIndex:11, devicePolicies:[1_https]}] |
+      | Time Definitions.Date |  Absolute:[27.02.1971 01:00, +0d]                                                                     |
+      | Schedule              | Run Every:Monthly, On Time:+6H, At Months:[MAR]                                                       |
+      | Format                | Select: HTML                                                                                          |
+    Then UI Delete Report With Name "DNS_MX4"
+
+  @SID_18
+  Scenario: create new DNS-NAPTR1
+    Then UI Click Button "New Report Tab"
+    Given UI "Create" Report With Name "DNS_NAPTR1"
+      | Template              | reportType:DefensePro Behavioral Protections , Widgets:[{DNS-NAPTR:[IPv4]}] ,devices:[{deviceIndex:11, devicePolicies:[1_https]}] |
+      | Time Definitions.Date | Quick:[Weeks,3]                                                                                          |
+      | Schedule              | Run Every:Daily,On Time:+2m                                                                              |
+      | Share                 | Email:[automation.vision2@radware.com],Subject:myEdit subject,Body:myEdit body                           |
+      | Format                | Select: CSV                                                                                              |
+    Then UI "Validate" Report With Name "DNS_NAPTR1"
+      | Template              | reportType:DefensePro Behavioral Protections , Widgets:[{DNS-NAPTR:[IPv4]}] ,devices:[{deviceIndex:11, devicePolicies:[1_https]}] |
+      | Time Definitions.Date | Quick:[Weeks,3]                                                                                          |
+      | Schedule              | Run Every:Daily,On Time:+2m                                                                              |
+      | Share                 | Email:[automation.vision2@radware.com],Subject:myEdit subject,Body:myEdit body                           |
+      | Format                | Select: CSV                                                                                              |
+    Then UI Delete Report With Name "DNS_NAPTR1"
+
+  @SID_19
+  Scenario: create new DNS-NAPTR2
+    Then UI Click Button "New Report Tab"
+    Given UI "Create" Report With Name "DNS_NAPTR2"
+      | Template              | reportType:DefensePro Behavioral Protections , Widgets:[{DNS-NAPTR:[IPv4]}] ,devices:[{deviceIndex:11, devicePolicies:[1_https]}] |
+      | Logo                  | reportLogoPNG.png                                                                                        |
+      | Time Definitions.Date | Quick:15m                                                                                                |
+      | Format                | Select: CSV                                                                                              |
+    Then UI "Validate" Report With Name "DNS_NAPTR2"
+      | Template              | reportType:DefensePro Behavioral Protections , Widgets:[{DNS-NAPTR:[IPv4]}] ,devices:[{deviceIndex:11, devicePolicies:[1_https]}] |
+      | Logo                  | reportLogoPNG.png                                                                                        |
+      | Time Definitions.Date | Quick:15m                                                                                                |
+      | Format                | Select: CSV                                                                                              |
+      | Format                | Select: CSV                                                                                              |
+    Then UI Delete Report With Name "DNS_NAPTR2"
+
+  @SID_20
+  Scenario: create new DNS-NAPTR3
+    Then UI Click Button "New Report Tab"
+    Given UI "Create" Report With Name "DNS_NAPTR3"
+      | Template              | reportType:DefensePro Behavioral Protections , Widgets:[{DNS-NAPTR:[IPv6]}] ,devices:[{deviceIndex:11, devicePolicies:[1_https]}] |
+      | Logo                  | reportLogoPNG.png                                                                                        |
+      | Time Definitions.Date | Quick:This Week                                                                                          |
+      | Schedule              | Run Every:Monthly, On Time:+6H, At Months:[AUG]                                                          |
+      | Share                 | Email:[automation.vision2@radware.com],Subject:myEdit subject,Body:myEdit body                           |
+      | Format                | Select: PDF                                                                                              |
+    Then UI "Validate" Report With Name "DNS_NAPTR3"
+      | Template              | reportType:DefensePro Behavioral Protections , Widgets:[{DNS-NAPTR:[IPv6]}] ,devices:[{deviceIndex:11, devicePolicies:[1_https]}] |
+      | Logo                  | reportLogoPNG.png                                                                                        |
+      | Time Definitions.Date | Quick:This Week                                                                                          |
+      | Schedule              | Run Every:Monthly, On Time:+6H, At Months:[AUG]                                                          |
+      | Share                 | Email:[automation.vision2@radware.com],Subject:myEdit subject,Body:myEdit body                           |
+      | Format                | Select: PDF                                                                                              |
+    Then UI Delete Report With Name "DNS_NAPTR3"
+
+  @SID_21
+  Scenario: create new DNS-NAPTR4
+    Then UI Click Button "New Report Tab"
+    Given UI "Create" Report With Name "DNS_NAPTR4"
+      | Template              | reportType:DefensePro Behavioral Protections , Widgets:[{DNS-NAPTR:[IPv6]}] ,devices:[{deviceIndex:11, devicePolicies:[1_https]}]|
+      | Time Definitions.Date |  Absolute:[27.02.1971 01:00, +0d]                                                                        |
+      | Schedule              | Run Every:Monthly, On Time:+6H, At Months:[MAR]                                                          |
+      | Format                | Select: HTML                                                                                             |
+    Then UI "Validate" Report With Name "DNS_NAPTR4"
+      | Template              | reportType:DefensePro Behavioral Protections , Widgets:[{DNS-NAPTR:[IPv6]}] ,devices:[{deviceIndex:11, devicePolicies:[1_https]}] |
+      | Time Definitions.Date |  Absolute:[27.02.1971 01:00, +0d]                                                                        |
+      | Schedule              | Run Every:Monthly, On Time:+6H, At Months:[MAR]                                                          |
+      | Format                | Select: HTML                                                                                             |
+    Then UI Delete Report With Name "DNS_NAPTR4"
+
+  @SID_22
+  Scenario: create new DNS-PTR1
+    Then UI Click Button "New Report Tab"
+    Given UI "Create" Report With Name "DNS_PTR1"
+      | Template              | reportType:DefensePro Behavioral Protections , Widgets:[{DNS-PTR:[IPv6]}] ,devices:[{deviceIndex:11, devicePolicies:[1_https]}] |
+      | Time Definitions.Date | Quick:[Weeks,3]                                                                                       |
+      | Schedule              | Run Every:Daily,On Time:+2m                                                                           |
+      | Share                 | Email:[automation.vision2@radware.com],Subject:myEdit subject,Body:myEdit body                        |
+      | Format                | Select: CSV                                                                                           |
+    Then UI "Validate" Report With Name "DNS_PTR1"
+      | Template              | reportType:DefensePro Behavioral Protections , Widgets:[{DNS-PTR:[IPv6]}] ,devices:[{deviceIndex:11, devicePolicies:[1_https]}] |
+      | Time Definitions.Date | Quick:[Weeks,3]                                                                                       |
+      | Schedule              | Run Every:Daily,On Time:+2m                                                                           |
+      | Share                 | Email:[automation.vision2@radware.com],Subject:myEdit subject,Body:myEdit body                        |
+      | Format                | Select: CSV                                                                                           |
+    Then UI Delete Report With Name "DNS_PTR1"
+
+  @SID_23
+  Scenario: create new DNS-PTR2
+    Then UI Click Button "New Report Tab"
+    Given UI "Create" Report With Name "DNS_PTR2"
+      | Template              | reportType:DefensePro Behavioral Protections , Widgets:[{DNS-PTR:[IPv6]}] ,devices:[{deviceIndex:11, devicePolicies:[1_https]}] |
+      | Logo                  | reportLogoPNG.png                                                                                     |
+      | Time Definitions.Date | Quick:Previous Month                                                                                  |
+      | Format                | Select: CSV                                                                                           |
+    Then UI "Validate" Report With Name "DNS_PTR2"
+      | Template              | reportType:DefensePro Behavioral Protections , Widgets:[{DNS-PTR:[IPv6]}] ,devices:[{deviceIndex:11, devicePolicies:[1_https]}]|
+      | Logo                  | reportLogoPNG.png                                                                                     |
+      | Time Definitions.Date | Quick:Previous Month                                                                                  |
+      | Format                | Select: CSV                                                                                           |
+    Then UI Delete Report With Name "DNS_PTR2"
+
+  @SID_24
+  Scenario: create new DNS-PTR3
+    Then UI Click Button "New Report Tab"
+    Given UI "Create" Report With Name "DNS_PTR3"
+      | Template              | reportType:DefensePro Behavioral Protections , Widgets:[{DNS-PTR:[IPv4]}] ,devices:[{deviceIndex:11, devicePolicies:[1_https]}] |
+      | Logo                  | reportLogoPNG.png                                                                                     |
+      | Time Definitions.Date | Quick:This Month                                                                                      |
+      | Schedule              | Run Every:Once, On Time:+6H                                                                           |
+      | Share                 | Email:[automation.vision2@radware.com],Subject:myEdit subject,Body:myEdit body                        |
+      | Format                | Select: PDF                                                                                           |
+    Then UI "Validate" Report With Name "DNS_PTR3"
+      | Template              | reportType:DefensePro Behavioral Protections , Widgets:[{DNS-PTR:[IPv4]}] ,devices:[{deviceIndex:11, devicePolicies:[1_https]}] |
+      | Logo                  | reportLogoPNG.png                                                                                     |
+      | Time Definitions.Date | Quick:This Month                                                                                      |
+      | Schedule              | Run Every:Once, On Time:+6H                                                                           |
+      | Share                 | Email:[automation.vision2@radware.com],Subject:myEdit subject,Body:myEdit body                        |
+      | Format                | Select: PDF                                                                                           |
+    Then UI Delete Report With Name "DNS_PTR3"
+
+  @SID_25
+  Scenario: create new DNS-PTR4
+    Then UI Click Button "New Report Tab"
+    Given UI "Create" Report With Name "DNS_PTR4"
+      | Template              | reportType:DefensePro Behavioral Protections , Widgets:[{DNS-PTR:[IPv4]}] ,devices:[{deviceIndex:11, devicePolicies:[1_https]}] |
+      | Time Definitions.Date |  Absolute:[27.02.1971 01:00, +0d]                                                                     |
+      | Schedule              | Run Every:Monthly, On Time:+6H, At Months:[MAR]                                                       |
+      | Format                | Select: HTML                                                                                          |
+    Then UI "Validate" Report With Name "DNS_PTR4"
+      | Template              | reportType:DefensePro Behavioral Protections , Widgets:[{DNS-PTR:[IPv4]}] ,devices:[{deviceIndex:11, devicePolicies:[1_https]}] |
+      | Time Definitions.Date |  Absolute:[27.02.1971 01:00, +0d]                                                                     |
+      | Schedule              | Run Every:Monthly, On Time:+6H, At Months:[MAR]                                                       |
+      | Format                | Select: HTML                                                                                          |
+    Then UI Delete Report With Name "DNS_PTR4"
+
     # ------------------------------------------------------------------------------------------------------------------------------------------------------------
 
-  @SID_2
+  @SID_26
   Scenario: DNS-SOA 1
     Then UI Click Button "New Report Tab"
     Given UI "Create" Report With Name "DNS_SOA 1"
@@ -28,7 +423,7 @@ Feature: DefensePro Behavioral Protections Part 2
       | Share                 | Email:[automation.vision2@radware.com],Subject:myEdit subject,Body:myEdit body                                              |
     Then UI Delete Report With Name "DNS_SOA 1"
 
-  @SID_3
+  @SID_27
   Scenario: DNS-SOA 2
     Then UI Click Button "New Report Tab"
     Given UI "Create" Report With Name "DNS_SOA 2"
@@ -45,7 +440,7 @@ Feature: DefensePro Behavioral Protections Part 2
       | Schedule              | Run Every:Weekly, On Time:+6H, At Days:[SUN]                                                                               |
     Then UI Delete Report With Name "DNS_SOA 2"
 
-  @SID_4
+  @SID_28
   Scenario:  DNS-SOA 3
     Then UI Click Button "New Report Tab"
     Given UI "Create" Report With Name "DNS_SOA 3"
@@ -64,7 +459,7 @@ Feature: DefensePro Behavioral Protections Part 2
       | Share                 | Email:[automation.vision2@radware.com],Subject:myEdit subject,Body:myEdit body                                             |
     Then UI Delete Report With Name "DNS_SOA 3"
 
-  @SID_5
+  @SID_29
   Scenario:  DNS-SOA 4
     Then UI Click Button "New Report Tab"
     Given UI "Create" Report With Name "DNS_SOA 4"
@@ -79,7 +474,7 @@ Feature: DefensePro Behavioral Protections Part 2
 
     # ------------------------------------------------------------------------------------------------------------------------------------------------------------
 
-  @SID_6
+  @SID_30
   Scenario: DNS-SRV 1
     Then UI Click Button "New Report Tab"
     Given UI "Create" Report With Name "DNS_SRV 1"
@@ -96,7 +491,7 @@ Feature: DefensePro Behavioral Protections Part 2
       | Share                 | Email:[automation.vision2@radware.com],Subject:myEdit subject,Body:myEdit body                                              |
     Then UI Delete Report With Name "DNS_SRV 1"
 
-  @SID_7
+  @SID_31
   Scenario: DNS-SRV 2
     Then UI Click Button "New Report Tab"
     Given UI "Create" Report With Name "DNS_SRV 2"
@@ -111,7 +506,7 @@ Feature: DefensePro Behavioral Protections Part 2
       | Time Definitions.Date | Quick: 15m                                                                                                                 |
     Then UI Delete Report With Name "DNS_SRV 2"
 
-  @SID_8
+  @SID_32
   Scenario:  DNS-SRV 3
     Then UI Click Button "New Report Tab"
     Given UI "Create" Report With Name "DNS_SRV 3"
@@ -130,7 +525,7 @@ Feature: DefensePro Behavioral Protections Part 2
       | Share                 | Email:[automation.vision2@radware.com],Subject:myEdit subject,Body:myEdit body                                             |
     Then UI Delete Report With Name "DNS_SRV 3"
 
-  @SID_9
+  @SID_33
   Scenario:  DNS-SRV 4
     Then UI Click Button "New Report Tab"
     Given UI "Create" Report With Name "DNS_SRV 4"
@@ -147,7 +542,7 @@ Feature: DefensePro Behavioral Protections Part 2
 
         # ------------------------------------------------------------------------------------------------------------------------------------------------------------
 
-  @SID_10
+  @SID_34
   Scenario: DNS-SRV 1
     Then UI Click Button "New Report Tab"
     Given UI "Create" Report With Name "DNS_Other 1"
@@ -164,7 +559,7 @@ Feature: DefensePro Behavioral Protections Part 2
       | Share                 | Email:[automation.vision2@radware.com],Subject:myEdit subject,Body:myEdit body                                                |
     Then UI Delete Report With Name "DNS_Other 1"
 
-  @SID_11
+  @SID_35
   Scenario: DNS-Other 2
     Then UI Click Button "New Report Tab"
     Given UI "Create" Report With Name "DNS_Other 2"
@@ -179,7 +574,7 @@ Feature: DefensePro Behavioral Protections Part 2
       | Time Definitions.Date | Quick: 15m                                                                                                                   |
     Then UI Delete Report With Name "DNS_Other 2"
 
-  @SID_12
+  @SID_36
   Scenario:  DNS-Other 3
     Then UI Click Button "New Report Tab"
     Given UI "Create" Report With Name "DNS_Other 3"
@@ -198,7 +593,7 @@ Feature: DefensePro Behavioral Protections Part 2
       | Share                 | Email:[automation.vision2@radware.com],Subject:myEdit subject,Body:myEdit body                                               |
     Then UI Delete Report With Name "DNS_Other 3"
 
-  @SID_13
+  @SID_37
   Scenario:  DNS-Other 4
     Then UI Click Button "New Report Tab"
     Given UI "Create" Report With Name "DNS_Other 4"
@@ -215,7 +610,7 @@ Feature: DefensePro Behavioral Protections Part 2
 
         # ------------------------------------------------------------------------------------------------------------------------------------------------------------
 
-  @SID_14
+  @SID_38
   Scenario: Excluded UDP Traffic 1
     Then UI Click Button "New Report Tab"
     Given UI "Create" Report With Name "Excluded UDP Traffic 1"
@@ -232,7 +627,7 @@ Feature: DefensePro Behavioral Protections Part 2
       | Share                 | Email:[automation.vision2@radware.com],Subject:myEdit subject,Body:myEdit body                                                                         |
     Then UI Delete Report With Name "Excluded UDP Traffic 1"
 
-  @SID_15
+  @SID_39
   Scenario: Excluded UDP Traffic 2
     Then UI Click Button "New Report Tab"
     Given UI "Create" Report With Name "Excluded UDP Traffic 2"
@@ -247,7 +642,7 @@ Feature: DefensePro Behavioral Protections Part 2
       | Time Definitions.Date | Quick:Previous Month                                                                                                                                   |
     Then UI Delete Report With Name "Excluded UDP Traffic 2"
 
-  @SID_16
+  @SID_40
   Scenario:  Excluded UDP Traffic 3
     Then UI Click Button "New Report Tab"
     Given UI "Create" Report With Name "Excluded UDP Traffic 3"
@@ -266,7 +661,7 @@ Feature: DefensePro Behavioral Protections Part 2
       | Share                 | Email:[automation.vision2@radware.com],Subject:myEdit subject,Body:myEdit body                                                                         |
     Then UI Delete Report With Name "Excluded UDP Traffic 3"
 
-  @SID_17
+  @SID_41
   Scenario:  Excluded UDP Traffic 4
     Then UI Click Button "New Report Tab"
     Given UI "Create" Report With Name "Excluded UDP Traffic 4"
@@ -281,737 +676,6 @@ Feature: DefensePro Behavioral Protections Part 2
       | Schedule              | Run Every:Monthly, On Time:+6H, At Months:[MAR]                                                                                                       |
     Then UI Delete Report With Name "Excluded UDP Traffic 4"
 
-        # ------------------------------------------------------------------------------------------------------------------------------------------------------------
-
-  @SID_18
-  Scenario: Widgets 3_7_8_11_13 Report 1
-    Then UI Click Button "New Report Tab"
-    Given UI "Create" Report With Name "Widgets 3_7_8_11_13 Report 1"
-      | Template              | reportType:DefensePro Behavioral Protections, Widgets:[{BDoS-TCP FIN ACK:[IPv4, bps, inbound]}, {BDoS-UDP:[IPv4, bps, inbound]}, {BDoS-UDP Fragmented:[IPv4, bps, inbound]}, {DNS-TXT:[IPv4]}, {DNS-AAAA:[IPv4]}], devices:[{deviceIndex:11, devicePolicies:[BDOS]}] |
-      | Format                | Select: CSV                                                                                                                                                                                                                                                          |
-      | Time Definitions.Date | Relative:[Weeks,3]                                                                                                                                                                                                                                                   |
-      | Schedule              | Run Every:Daily,On Time:+2m                                                                                                                                                                                                                                          |
-      | Share                 | Email:[automation.vision2@radware.com],Subject:myEdit subject,Body:myEdit body                                                                                                                                                                                       |
-    Then UI "Validate" Report With Name "Widgets 3_7_8_11_13 Report 1"
-      | Template              | reportType:DefensePro Behavioral Protections, Widgets:[{BDoS-TCP FIN ACK:[IPv4, bps, inbound]}, {BDoS-UDP:[IPv4, bps, inbound]}, {BDoS-UDP Fragmented:[IPv4, bps, inbound]}, {DNS-TXT:[IPv4]}, {DNS-AAAA:[IPv4]}], devices:[{deviceIndex:11, devicePolicies:[BDOS]}] |
-      | Format                | Select: CSV                                                                                                                                                                                                                                                          |
-      | Time Definitions.Date | Relative:[Weeks,3]                                                                                                                                                                                                                                                   |
-      | Schedule              | Run Every:Daily,On Time:+2m                                                                                                                                                                                                                                          |
-      | Share                 | Email:[automation.vision2@radware.com],Subject:myEdit subject,Body:myEdit body                                                                                                                                                                                       |
-    Then UI Delete Report With Name "Widgets 3_7_8_11_13 Report 1"
-
-  @SID_19
-  Scenario: Widgets 3_7_8_11_13 Report 2
-    Then UI Click Button "New Report Tab"
-    Given UI "Create" Report With Name "Widgets 3_7_8_11_13 Report 2"
-      | Template              | reportType:DefensePro Behavioral Protections, Widgets:[{BDoS-TCP FIN ACK:[IPv4, pps, Outbound]}, {BDoS-UDP:[IPv4, pps, Outbound]}, {BDoS-UDP Fragmented:[IPv4, pps, Outbound]}, {DNS-TXT:[IPv4]}, {DNS-AAAA:[IPv4]}], devices:[{deviceIndex:11, devicePolicies:[BDOS]}] |
-      | Format                | Select: CSV                                                                                                                                                                                                                                                             |
-      | Logo                  | reportLogoPNG.png                                                                                                                                                                                                                                                       |
-      | Time Definitions.Date | Quick:Previous Month                                                                                                                                                                                                                                                    |
-    Then UI "Validate" Report With Name "Widgets 3_7_8_11_13 Report 2"
-      | Template              | reportType:DefensePro Behavioral Protections, Widgets:[{BDoS-TCP FIN ACK:[IPv4, pps, Outbound]}, {BDoS-UDP:[IPv4, pps, Outbound]}, {BDoS-UDP Fragmented:[IPv4, pps, Outbound]}, {DNS-TXT:[IPv4]}, {DNS-AAAA:[IPv4]}], devices:[{deviceIndex:11, devicePolicies:[BDOS]}] |
-      | Format                | Select: CSV                                                                                                                                                                                                                                                             |
-      | Logo                  | reportLogoPNG.png                                                                                                                                                                                                                                                       |
-      | Time Definitions.Date | Quick:Previous Month                                                                                                                                                                                                                                                    |
-    Then UI Delete Report With Name "Widgets 3_7_8_11_13 Report 2"
-
-  @SID_20
-  Scenario:  Widgets 3_7_8_11_13 Report 3
-    Then UI Click Button "New Report Tab"
-    Given UI "Create" Report With Name "Widgets 3_7_8_11_13 Report 3"
-      | Template              | reportType:DefensePro Behavioral Protections, Widgets:[{BDoS-TCP FIN ACK:[IPv6, bps, Outbound]}, {BDoS-UDP:[IPv6, bps, Outbound]}, {BDoS-UDP Fragmented:[IPv6, bps, Outbound]}, {DNS-TXT:[IPv4]}, {DNS-AAAA:[IPv4]}], devices:[{deviceIndex:10, devicePolicies:[BDOS]}] |
-      | Format                | Select: PDF                                                                                                                                                                                                                                                             |
-      | Logo                  | reportLogoPNG.png                                                                                                                                                                                                                                                       |
-      | Time Definitions.Date | Quick:This Month                                                                                                                                                                                                                                                        |
-      | Schedule              | Run Every:Once, On Time:+6H                                                                                                                                                                                                                                             |
-      | Share                 | Email:[automation.vision2@radware.com],Subject:myEdit subject,Body:myEdit body                                                                                                                                                                                          |
-    Then UI "Validate" Report With Name "Widgets 3_7_8_11_13 Report 3"
-      | Template              | reportType:DefensePro Behavioral Protections, Widgets:[{BDoS-TCP FIN ACK:[IPv6, bps, Outbound]}, {BDoS-UDP:[IPv6, bps, Outbound]}, {BDoS-UDP Fragmented:[IPv6, bps, Outbound]}, {DNS-TXT:[IPv4]}, {DNS-AAAA:[IPv4]}], devices:[{deviceIndex:10, devicePolicies:[BDOS]}] |
-      | Format                | Select: PDF                                                                                                                                                                                                                                                             |
-      | Logo                  | reportLogoPNG.png                                                                                                                                                                                                                                                       |
-      | Time Definitions.Date | Quick:This Month                                                                                                                                                                                                                                                        |
-      | Schedule              | Run Every:Once, On Time:+6H                                                                                                                                                                                                                                             |
-      | Share                 | Email:[automation.vision2@radware.com],Subject:myEdit subject,Body:myEdit body                                                                                                                                                                                          |
-    Then UI Delete Report With Name "Widgets 3_7_8_11_13 Report 3"
-
-  @SID_21
-  Scenario:  Widgets 3_7_8_11_13 Report 4
-    Then UI Click Button "New Report Tab"
-    Given UI "Create" Report With Name "Widgets 3_7_8_11_13 Report 4"
-      | Template              | reportType:DefensePro Behavioral Protections, Widgets:[{BDoS-TCP FIN ACK:[IPv4, pps, inbound]}, {BDoS-UDP:[IPv4, pps, inbound]}, {BDoS-UDP Fragmented:[IPv4, pps, inbound]}, {DNS-TXT:[IPv4]}, {DNS-AAAA:[IPv4]}], devices:[{deviceIndex:10, devicePolicies:[BDOS]}] |
-      | Format                | Select: HTML                                                                                                                                                                                                                                                         |
-      | Time Definitions.Date | Absolute:[27.02.1971 01:00, +0d]                                                                                                                                                                                                                                     |
-      | Schedule              | Run Every:Monthly, On Time:+6H, At Months:[MAR]                                                                                                                                                                                                                      |
-    Then UI "Validate" Report With Name "Widgets 3_7_8_11_13 Report 4"
-      | Template              | reportType:DefensePro Behavioral Protections, Widgets:[{BDoS-TCP FIN ACK:[IPv4, pps, inbound]}, {BDoS-UDP:[IPv4, pps, inbound]}, {BDoS-UDP Fragmented:[IPv4, pps, inbound]}, {DNS-TXT:[IPv4]}, {DNS-AAAA:[IPv4]}], devices:[{deviceIndex:10, devicePolicies:[BDOS]}] |
-      | Format                | Select: HTML                                                                                                                                                                                                                                                         |
-      | Time Definitions.Date | Absolute:[27.02.1971 01:00, +0d]                                                                                                                                                                                                                                     |
-      | Schedule              | Run Every:Monthly, On Time:+6H, At Months:[MAR]                                                                                                                                                                                                                      |
-    Then UI Delete Report With Name "Widgets 3_7_8_11_13 Report 4"
-
-       # ------------------------------------------------------------------------------------------------------------------------------------------------------------
-
-  @SID_22
-  Scenario: Widgets 1_4_6_8_9_11_12_13 Report 1
-    Then UI Click Button "New Report Tab"
-    Given UI "Create" Report With Name "Widgets 1_4_6_8_9_11_12_13 Report 1"
-      | Template              | reportType:DefensePro Behavioral Protections, Widgets:[{BDoS-TCP SYN:[IPv4, bps, inbound]}, {BDoS-TCP Fragmented:[IPv4, bps, inbound]}, {BDoS-TCP SYN ACK:[IPv4, bps, inbound]}, {BDoS-UDP Fragmented:[IPv4, bps, inbound]}, {BDoS-ICMP:[IPv4, bps, inbound]}, {DNS-TXT:[IPv6]}, {DNS-A:[IPv4]}, {DNS-AAAA:[IPv6]}], devices:[{deviceIndex:11, devicePolicies:[BDOS]}] |
-      | Format                | Select: CSV                                                                                                                                                                                                                                                                                                                                                            |
-      | Time Definitions.Date | Relative:[Weeks,3]                                                                                                                                                                                                                                                                                                                                                     |
-      | Schedule              | Run Every:Daily,On Time:+2m                                                                                                                                                                                                                                                                                                                                            |
-      | Share                 | Email:[automation.vision2@radware.com],Subject:myEdit subject,Body:myEdit body                                                                                                                                                                                                                                                                                         |
-    Then UI "Validate" Report With Name "Widgets 1_4_6_8_9_11_12_13 Report 1"
-      | Template              | reportType:DefensePro Behavioral Protections, Widgets:[{BDoS-TCP SYN:[IPv4, bps, inbound]}, {BDoS-TCP Fragmented:[IPv4, bps, inbound]}, {BDoS-TCP SYN ACK:[IPv4, bps, inbound]}, {BDoS-UDP Fragmented:[IPv4, bps, inbound]}, {BDoS-ICMP:[IPv4, bps, inbound]}, {DNS-TXT:[IPv6]}, {DNS-A:[IPv4]}, {DNS-AAAA:[IPv6]}], devices:[{deviceIndex:11, devicePolicies:[BDOS]}] |
-      | Format                | Select: CSV                                                                                                                                                                                                                                                                                                                                                            |
-      | Time Definitions.Date | Relative:[Weeks,3]                                                                                                                                                                                                                                                                                                                                                     |
-      | Schedule              | Run Every:Daily,On Time:+2m                                                                                                                                                                                                                                                                                                                                            |
-      | Share                 | Email:[automation.vision2@radware.com],Subject:myEdit subject,Body:myEdit body                                                                                                                                                                                                                                                                                         |
-    Then UI Delete Report With Name "Widgets 1_4_6_8_9_11_12_13 Report 1"
-
-  @SID_23
-  Scenario: Widgets 1_4_6_8_9_11_12_13 Report 2
-    Then UI Click Button "New Report Tab"
-    Given UI "Create" Report With Name "Widgets 1_4_6_8_9_11_12_13 Report 2"
-      | Template              | reportType:DefensePro Behavioral Protections, Widgets:[{BDoS-TCP SYN:[IPv4, pps, Outbound]}, {BDoS-TCP Fragmented:[IPv4, pps, Outbound]}, {BDoS-TCP SYN ACK:[IPv4, pps, Outbound]}, {BDoS-UDP Fragmented:[IPv4, pps, Outbound]}, {BDoS-ICMP:[IPv4, pps, Outbound]}, {DNS-TXT:[IPv6]}, {DNS-A:[IPv4]}, {DNS-AAAA:[IPv4]}], devices:[{deviceIndex:11, devicePolicies:[BDOS]}] |
-      | Format                | Select: CSV                                                                                                                                                                                                                                                                                                                                                                 |
-      | Logo                  | reportLogoPNG.png                                                                                                                                                                                                                                                                                                                                                           |
-      | Time Definitions.Date | Quick:Previous Month                                                                                                                                                                                                                                                                                                                                                        |
-    Then UI "Validate" Report With Name "Widgets 1_4_6_8_9_11_12_13 Report 2"
-      | Template              | reportType:DefensePro Behavioral Protections, Widgets:[{BDoS-TCP SYN:[IPv4, pps, Outbound]}, {BDoS-TCP Fragmented:[IPv4, pps, Outbound]}, {BDoS-TCP SYN ACK:[IPv4, pps, Outbound]}, {BDoS-UDP Fragmented:[IPv4, pps, Outbound]}, {BDoS-ICMP:[IPv4, pps, Outbound]}, {DNS-TXT:[IPv6]}, {DNS-A:[IPv4]}, {DNS-AAAA:[IPv4]}], devices:[{deviceIndex:11, devicePolicies:[BDOS]}] |
-      | Format                | Select: CSV                                                                                                                                                                                                                                                                                                                                                                 |
-      | Logo                  | reportLogoPNG.png                                                                                                                                                                                                                                                                                                                                                           |
-      | Time Definitions.Date | Quick:Previous Month                                                                                                                                                                                                                                                                                                                                                        |
-    Then UI Delete Report With Name "Widgets 1_4_6_8_9_11_12_13 Report 2"
-
-  @SID_24
-  Scenario:  Widgets 1_4_6_8_9_11_12_13 Report 3
-    Then UI Click Button "New Report Tab"
-    Given UI "Create" Report With Name "Widgets 1_4_6_8_9_11_12_13 Report 3"
-      | Template              | reportType:DefensePro Behavioral Protections, Widgets:[{BDoS-TCP SYN:[IPv6, bps, Outbound]}, {BDoS-TCP Fragmented:[IPv6, bps, Outbound]}, {BDoS-TCP SYN ACK:[IPv6, bps, Outbound]}, {BDoS-UDP Fragmented:[IPv6, bps, Outbound]}, {BDoS-ICMP:[IPv6, bps, Outbound]}, {DNS-TXT:[IPv6]}, {DNS-A:[IPv6]}, {DNS-AAAA:[IPv4]}], devices:[{deviceIndex:10, devicePolicies:[BDOS]}] |
-      | Format                | Select: PDF                                                                                                                                                                                                                                                                                                                                                                 |
-      | Logo                  | reportLogoPNG.png                                                                                                                                                                                                                                                                                                                                                           |
-      | Time Definitions.Date | Quick:This Month                                                                                                                                                                                                                                                                                                                                                            |
-      | Schedule              | Run Every:Once, On Time:+6H                                                                                                                                                                                                                                                                                                                                                 |
-      | Share                 | Email:[automation.vision2@radware.com],Subject:myEdit subject,Body:myEdit body                                                                                                                                                                                                                                                                                              |
-    Then UI "Validate" Report With Name "Widgets 1_4_6_8_9_11_12_13 Report 3"
-      | Template              | reportType:DefensePro Behavioral Protections, Widgets:[{BDoS-TCP SYN:[IPv6, bps, Outbound]}, {BDoS-TCP Fragmented:[IPv6, bps, Outbound]}, {BDoS-TCP SYN ACK:[IPv6, bps, Outbound]}, {BDoS-UDP Fragmented:[IPv6, bps, Outbound]}, {BDoS-ICMP:[IPv6, bps, Outbound]}, {DNS-TXT:[IPv6]}, {DNS-A:[IPv6]}, {DNS-AAAA:[IPv4]}], devices:[{deviceIndex:10, devicePolicies:[BDOS]}] |
-      | Format                | Select: PDF                                                                                                                                                                                                                                                                                                                                                                 |
-      | Logo                  | reportLogoPNG.png                                                                                                                                                                                                                                                                                                                                                           |
-      | Time Definitions.Date | Quick:This Month                                                                                                                                                                                                                                                                                                                                                            |
-      | Schedule              | Run Every:Once, On Time:+6H                                                                                                                                                                                                                                                                                                                                                 |
-      | Share                 | Email:[automation.vision2@radware.com],Subject:myEdit subject,Body:myEdit body                                                                                                                                                                                                                                                                                              |
-    Then UI Delete Report With Name "Widgets 1_4_6_8_9_11_12_13 Report 3"
-
-  @SID_25
-  Scenario:  Widgets 1_4_6_8_9_11_12_13 Report 4
-    Then UI Click Button "New Report Tab"
-    Given UI "Create" Report With Name "Widgets 1_4_6_8_9_11_12_13 Report 4"
-      | Template              | reportType:DefensePro Behavioral Protections, Widgets:[{BDoS-TCP SYN:[IPv4, pps, inbound]}, {BDoS-TCP Fragmented:[IPv4, pps, inbound]}, {BDoS-TCP SYN ACK:[IPv4, pps, inbound]}, {BDoS-UDP Fragmented:[IPv4, pps, inbound]}, {BDoS-ICMP:[IPv4, pps, inbound]}, {DNS-TXT:[IPv4]}, {DNS-A:[IPv4]}, {DNS-AAAA:[IPv4]}], devices:[{deviceIndex:10, devicePolicies:[BDOS]}] |
-      | Format                | Select: HTML                                                                                                                                                                                                                                                                                                                                                           |
-      | Time Definitions.Date | Absolute:[27.02.1971 01:00, +0d]                                                                                                                                                                                                                                                                                                                                       |
-      | Schedule              | Run Every:Monthly, On Time:+6H, At Months:[MAR]                                                                                                                                                                                                                                                                                                                        |
-    Then UI "Validate" Report With Name "Widgets 1_4_6_8_9_11_12_13 Report 4"
-      | Template              | reportType:DefensePro Behavioral Protections, Widgets:[{BDoS-TCP SYN:[IPv4, pps, inbound]}, {BDoS-TCP Fragmented:[IPv4, pps, inbound]}, {BDoS-TCP SYN ACK:[IPv4, pps, inbound]}, {BDoS-UDP Fragmented:[IPv4, pps, inbound]}, {BDoS-ICMP:[IPv4, pps, inbound]}, {DNS-TXT:[IPv4]}, {DNS-A:[IPv4]}, {DNS-AAAA:[IPv4]}], devices:[{deviceIndex:10, devicePolicies:[BDOS]}] |
-      | Format                | Select: HTML                                                                                                                                                                                                                                                                                                                                                           |
-      | Time Definitions.Date | Absolute:[27.02.1971 01:00, +0d]                                                                                                                                                                                                                                                                                                                                       |
-      | Schedule              | Run Every:Monthly, On Time:+6H, At Months:[MAR]                                                                                                                                                                                                                                                                                                                        |
-    Then UI Delete Report With Name "Widgets 1_4_6_8_9_11_12_13 Report 4"
-
-      # ------------------------------------------------------------------------------------------------------------------------------------------------------------
-
-
-  @SID_26
-  Scenario: Widgets 1_2_4_5_6_10_18 Report 1
-    Then UI Click Button "New Report Tab"
-    Given UI "Create" Report With Name "Widgets 1_2_4_5_6_10_18 Report 1"
-      | Template              | reportType:DefensePro Behavioral Protections, Widgets:[{BDoS-TCP SYN:[IPv4, bps, inbound]}, {BDoS-Advanced-UDP Rate-Invariant:[IPv4, inbound]}, {BDoS-TCP Fragmented:[IPv4, bps, inbound]}, {BDoS-TCP RST:[IPv4, bps, inbound]}, {BDoS-TCP SYN ACK:[IPv4, bps, inbound]}, {BDoS-IGMP:[IPv4, bps, inbound]}, {DNS-SRV:[IPv4]}], devices:[{deviceIndex:11, devicePolicies:[BDOS]}] |
-      | Format                | Select: CSV                                                                                                                                                                                                                                                                                                                                                                      |
-      | Time Definitions.Date | Relative:[Hours,2]                                                                                                                                                                                                                                                                                                                                                               |
-      | Schedule              | Run Every:Run Every:Weekly, On Time:+6H, At days:[WED]                                                                                                                                                                                                                                                                                                                           |
-      | Share                 | Email:[automation.vision2@radware.com],Subject:myEdit subject,Body:myEdit body                                                                                                                                                                                                                                                                                                   |
-    Then UI "Validate" Report With Name "Widgets 1_2_4_5_6_10_18 Report 1"
-      | Template              | reportType:DefensePro Behavioral Protections, Widgets:[{BDoS-TCP SYN:[IPv4, bps, inbound]}, {BDoS-Advanced-UDP Rate-Invariant:[IPv4, inbound]}, {BDoS-TCP Fragmented:[IPv4, bps, inbound]}, {BDoS-TCP RST:[IPv4, bps, inbound]}, {BDoS-TCP SYN ACK:[IPv4, bps, inbound]}, {BDoS-IGMP:[IPv4, bps, inbound]}, {DNS-SRV:[IPv4]}], devices:[{deviceIndex:11, devicePolicies:[BDOS]}] |
-      | Format                | Select: CSV                                                                                                                                                                                                                                                                                                                                                                      |
-      | Time Definitions.Date | Relative:[Hours,2]                                                                                                                                                                                                                                                                                                                                                               |
-      | Schedule              | Run Every:Weekly, On Time:+6H, At days:[WED]                                                                                                                                                                                                                                                                                                                                     |
-      | Share                 | Email:[automation.vision2@radware.com],Subject:myEdit subject,Body:myEdit body                                                                                                                                                                                                                                                                                                   |
-    Then UI Delete Report With Name "Widgets 1_2_4_5_6_10_18 Report 1"
-
-  @SID_27
-  Scenario: Widgets 1_2_4_5_6_10_18 Report 2
-    Then UI Click Button "New Report Tab"
-    Given UI "Create" Report With Name "Widgets 1_2_4_5_6_10_18 Report 2"
-      | Template              | reportType:DefensePro Behavioral Protections, Widgets:[{BDoS-TCP SYN:[IPv4, pps, Outbound]}, {BDoS-Advanced-UDP Rate-Invariant:[IPv4, Outbound]}, {BDoS-TCP Fragmented:[IPv4, pps, Outbound]}, {BDoS-TCP RST:[IPv4, pps, Outbound]}, {BDoS-TCP SYN ACK:[IPv4, pps, Outbound]}, {BDoS-IGMP:[IPv4, pps, Outbound]}, {DNS-SRV:[IPv4]}], devices:[{deviceIndex:11, devicePolicies:[BDOS]}] |
-      | Format                | Select: CSV                                                                                                                                                                                                                                                                                                                                                                            |
-      | Logo                  | reportLogoPNG.png                                                                                                                                                                                                                                                                                                                                                                      |
-      | Time Definitions.Date | Quick:15m                                                                                                                                                                                                                                                                                                                                                                              |
-    Then UI "Validate" Report With Name "Widgets 1_2_4_5_6_10_18 Report 2"
-      | Template              | reportType:DefensePro Behavioral Protections, Widgets:[{BDoS-TCP SYN:[IPv4, pps, Outbound]}, {BDoS-Advanced-UDP Rate-Invariant:[IPv4, Outbound]}, {BDoS-TCP Fragmented:[IPv4, pps, Outbound]}, {BDoS-TCP RST:[IPv4, pps, Outbound]}, {BDoS-TCP SYN ACK:[IPv4, pps, Outbound]}, {BDoS-IGMP:[IPv4, pps, Outbound]}, {DNS-SRV:[IPv4]}], devices:[{deviceIndex:11, devicePolicies:[BDOS]}] |
-      | Format                | Select: CSV                                                                                                                                                                                                                                                                                                                                                                            |
-      | Logo                  | reportLogoPNG.png                                                                                                                                                                                                                                                                                                                                                                      |
-      | Time Definitions.Date | Quick:15m                                                                                                                                                                                                                                                                                                                                                                              |
-    Then UI Delete Report With Name "Widgets 1_2_4_5_6_10_18 Report 2"
-
-  @SID_28
-  Scenario:  Widgets 1_2_4_5_6_10_18 Report 3
-    Then UI Click Button "New Report Tab"
-    Given UI "Create" Report With Name "Widgets 1_2_4_5_6_10_18 Report 3"
-      | Template              | reportType:DefensePro Behavioral Protections, Widgets:[{BDoS-TCP SYN:[IPv6, bps, Outbound]}, {BDoS-Advanced-UDP Rate-Invariant:[IPv6, inbound]}, {BDoS-TCP Fragmented:[IPv6, bps, Outbound]}, {BDoS-TCP RST:[IPv6, bps, Outbound]}, {BDoS-TCP SYN ACK:[IPv6, bps, Outbound]}, {BDoS-IGMP:[IPv6, bps, Outbound]}, {DNS-SRV:[IPv4]}], devices:[{deviceIndex:10, devicePolicies:[BDOS]}] |
-      | Format                | Select: PDF                                                                                                                                                                                                                                                                                                                                                                           |
-      | Logo                  | reportLogoPNG.png                                                                                                                                                                                                                                                                                                                                                                     |
-      | Time Definitions.Date | Quick:This Week                                                                                                                                                                                                                                                                                                                                                                       |
-      | Schedule              | Run Every:Monthly, On Time:+6H, At Months:[AUG]                                                                                                                                                                                                                                                                                                                                       |
-      | Share                 | Email:[automation.vision2@radware.com],Subject:myEdit subject,Body:myEdit body                                                                                                                                                                                                                                                                                                        |
-    Then UI "Validate" Report With Name "Widgets 1_2_4_5_6_10_18 Report 3"
-      | Template              | reportType:DefensePro Behavioral Protections, Widgets:[{BDoS-TCP SYN:[IPv6, bps, Outbound]}, {BDoS-Advanced-UDP Rate-Invariant:[IPv6, inbound]}, {BDoS-TCP Fragmented:[IPv6, bps, Outbound]}, {BDoS-TCP RST:[IPv6, bps, Outbound]}, {BDoS-TCP SYN ACK:[IPv6, bps, Outbound]}, {BDoS-IGMP:[IPv6, bps, Outbound]}, {DNS-SRV:[IPv4]}], devices:[{deviceIndex:10, devicePolicies:[BDOS]}] |
-      | Format                | Select: PDF                                                                                                                                                                                                                                                                                                                                                                           |
-      | Logo                  | reportLogoPNG.png                                                                                                                                                                                                                                                                                                                                                                     |
-      | Time Definitions.Date | Quick:This Week                                                                                                                                                                                                                                                                                                                                                                       |
-      | Schedule              | Run Every:Monthly, On Time:+6H, At Months:[AUG]                                                                                                                                                                                                                                                                                                                                       |
-      | Share                 | Email:[automation.vision2@radware.com],Subject:myEdit subject,Body:myEdit body                                                                                                                                                                                                                                                                                                        |
-    Then UI Delete Report With Name "Widgets 1_2_4_5_6_10_18 Report 3"
-
-  @SID_29
-  Scenario:  Widgets 1_2_4_5_6_10_18 Report 4
-    Then UI Click Button "New Report Tab"
-    Given UI "Create" Report With Name "Widgets 1_2_4_5_6_10_18 Report 4"
-      | Template              | reportType:DefensePro Behavioral Protections, Widgets:[{BDoS-TCP SYN:[IPv4, pps, inbound]}, {BDoS-Advanced-UDP Rate-Invariant:[IPv4, Outbound]}, {BDoS-TCP Fragmented:[IPv4, pps, inbound]}, {BDoS-TCP RST:[IPv4, pps, inbound]}, {BDoS-TCP SYN ACK:[IPv4, pps, inbound]}, {BDoS-IGMP:[IPv4, pps, inbound]}, {DNS-SRV:[IPv6]}], devices:[{deviceIndex:10, devicePolicies:[BDOS]}] |
-      | Format                | Select: HTML                                                                                                                                                                                                                                                                                                                                                                      |
-      | Time Definitions.Date | Absolute:[27.02.1971 01:00, +0d]                                                                                                                                                                                                                                                                                                                                                  |
-      | Schedule              | Run Every:Monthly, On Time:+6H, At Months:[MAR]                                                                                                                                                                                                                                                                                                                                   |
-    Then UI "Validate" Report With Name "Widgets 1_2_4_5_6_10_18 Report 4"
-      | Template              | reportType:DefensePro Behavioral Protections, Widgets:[{BDoS-TCP SYN:[IPv4, pps, inbound]}, {BDoS-Advanced-UDP Rate-Invariant:[IPv4, Outbound]}, {BDoS-TCP Fragmented:[IPv4, pps, inbound]}, {BDoS-TCP RST:[IPv4, pps, inbound]}, {BDoS-TCP SYN ACK:[IPv4, pps, inbound]}, {BDoS-IGMP:[IPv4, pps, inbound]}, {DNS-SRV:[IPv6]}], devices:[{deviceIndex:10, devicePolicies:[BDOS]}] |
-      | Format                | Select: HTML                                                                                                                                                                                                                                                                                                                                                                      |
-      | Time Definitions.Date | Absolute:[27.02.1971 01:00, +0d]                                                                                                                                                                                                                                                                                                                                                  |
-      | Schedule              | Run Every:Monthly, On Time:+6H, At Months:[MAR]                                                                                                                                                                                                                                                                                                                                   |
-    Then UI Delete Report With Name "Widgets 1_2_4_5_6_10_18 Report 4"
-
-     # ------------------------------------------------------------------------------------------------------------------------------------------------------------
-
-  @SID_30
-  Scenario: Widgets 3_7_10_11_12_13_18 Report 1
-    Then UI Click Button "New Report Tab"
-    Given UI "Create" Report With Name "Widgets 3_7_10_11_12_13_18 Report 1"
-      | Template              | reportType:DefensePro Behavioral Protections, Widgets:[{BDoS-TCP FIN ACK:[IPv4, bps, inbound]}, {BDoS-UDP:[IPv4, bps, inbound]}, {BDoS-IGMP:[IPv4, bps, inbound]}, {DNS-TXT:[IPv4]}, {DNS-A:[IPv4]}, {DNS-AAAA:[IPv4]}, {DNS-SRV:[IPv6]}], devices:[{deviceIndex:11, devicePolicies:[BDOS]}] |
-      | Format                | Select: CSV                                                                                                                                                                                                                                                                                  |
-      | Time Definitions.Date | Relative:[Weeks,2]                                                                                                                                                                                                                                                                           |
-      | Schedule              | Run Every:Daily,On Time:+2m                                                                                                                                                                                                                                                                  |
-      | Share                 | Email:[automation.vision2@radware.com],Subject:myEdit subject,Body:myEdit body                                                                                                                                                                                                               |
-    Then UI "Validate" Report With Name "Widgets 3_7_10_11_12_13_18 Report 1"
-      | Template              | reportType:DefensePro Behavioral Protections, Widgets:[{BDoS-TCP FIN ACK:[IPv4, bps, inbound]}, {BDoS-UDP:[IPv4, bps, inbound]}, {BDoS-IGMP:[IPv4, bps, inbound]}, {DNS-TXT:[IPv4]}, {DNS-A:[IPv4]}, {DNS-AAAA:[IPv4]}, {DNS-SRV:[IPv6]}], devices:[{deviceIndex:11, devicePolicies:[BDOS]}] |
-      | Format                | Select: CSV                                                                                                                                                                                                                                                                                  |
-      | Time Definitions.Date | Relative:[Weeks,2]                                                                                                                                                                                                                                                                           |
-      | Schedule              | Run Every:Daily,On Time:+2m                                                                                                                                                                                                                                                                  |
-      | Share                 | Email:[automation.vision2@radware.com],Subject:myEdit subject,Body:myEdit body                                                                                                                                                                                                               |
-    Then UI Delete Report With Name "Widgets 3_7_10_11_12_13_18 Report 1"
-
-  @SID_31
-  Scenario: Widgets 3_7_10_11_12_13_18 Report 2
-    Then UI Click Button "New Report Tab"
-    Given UI "Create" Report With Name "Widgets 3_7_10_11_12_13_18 Report 2"
-      | Template              | reportType:DefensePro Behavioral Protections, Widgets:[{BDoS-TCP FIN ACK:[IPv4, pps, Outbound]}, {BDoS-UDP:[IPv4, pps, Outbound]}, {BDoS-IGMP:[IPv4, pps, Outbound]}, {DNS-TXT:[IPv4]},  {DNS-A:[IPv4]}, {DNS-AAAA:[IPv4]}, {DNS-SRV:[IPv6]}], devices:[{deviceIndex:11, devicePolicies:[BDOS]}] |
-      | Format                | Select: CSV                                                                                                                                                                                                                                                                                      |
-      | Logo                  | reportLogoPNG.png                                                                                                                                                                                                                                                                                |
-      | Time Definitions.Date | Absolute:[27.02.1971 01:00, +0d]                                                                                                                                                                                                                                                                 |
-      | Schedule              | Run Every:Weekly, On Time:+6H, At Days:[SUN]                                                                                                                                                                                                                                                     |
-    Then UI "Validate" Report With Name "Widgets 3_7_10_11_12_13_18 Report 2"
-      | Template              | reportType:DefensePro Behavioral Protections, Widgets:[{BDoS-TCP FIN ACK:[IPv4, pps, Outbound]}, {BDoS-UDP:[IPv4, pps, Outbound]}, {BDoS-IGMP:[IPv4, pps, Outbound]}, {DNS-TXT:[IPv4]},  {DNS-A:[IPv4]}, {DNS-AAAA:[IPv4]}, {DNS-SRV:[IPv6]}], devices:[{deviceIndex:11, devicePolicies:[BDOS]}] |
-      | Format                | Select: CSV                                                                                                                                                                                                                                                                                      |
-      | Logo                  | reportLogoPNG.png                                                                                                                                                                                                                                                                                |
-      | Time Definitions.Date | Absolute:[27.02.1971 01:00, +0d]                                                                                                                                                                                                                                                                 |
-      | Schedule              | Run Every:Weekly, On Time:+6H, At Days:[SUN]                                                                                                                                                                                                                                                     |
-    Then UI Delete Report With Name "Widgets 3_7_10_11_12_13_18 Report 2"
-
-  @SID_32
-  Scenario:  Widgets 3_7_10_11_12_13_18 Report 3
-    Then UI Click Button "New Report Tab"
-    Given UI "Create" Report With Name "Widgets 3_7_10_11_12_13_18 Report 3"
-      | Template              | reportType:DefensePro Behavioral Protections, Widgets:[{BDoS-TCP FIN ACK:[IPv6, bps, Outbound]}, {BDoS-UDP:[IPv6, bps, Outbound]}, {BDoS-IGMP:[IPv6, bps, Outbound]}, {DNS-TXT:[IPv6]}, {DNS-A:[IPv4]}, {DNS-AAAA:[IPv4]}, {DNS-SRV:[IPv4]}], devices:[{deviceIndex:10, devicePolicies:[BDOS]}] |
-      | Format                | Select: PDF                                                                                                                                                                                                                                                                                     |
-      | Logo                  | reportLogoPNG.png                                                                                                                                                                                                                                                                               |
-      | Time Definitions.Date | Quick:3M                                                                                                                                                                                                                                                                                        |
-      | Schedule              | Run Every:Monthly, On Time:+6H, At Months:[DEC]                                                                                                                                                                                                                                                 |
-      | Share                 | Email:[automation.vision2@radware.com],Subject:myEdit subject,Body:myEdit body                                                                                                                                                                                                                  |
-    Then UI "Validate" Report With Name "Widgets 3_7_10_11_12_13_18 Report 3"
-      | Template              | reportType:DefensePro Behavioral Protections, Widgets:[{BDoS-TCP FIN ACK:[IPv6, bps, Outbound]}, {BDoS-UDP:[IPv6, bps, Outbound]}, {BDoS-IGMP:[IPv6, bps, Outbound]}, {DNS-TXT:[IPv6]}, {DNS-A:[IPv4]}, {DNS-AAAA:[IPv4]}, {DNS-SRV:[IPv4]}], devices:[{deviceIndex:10, devicePolicies:[BDOS]}] |
-      | Format                | Select: PDF                                                                                                                                                                                                                                                                                     |
-      | Logo                  | reportLogoPNG.png                                                                                                                                                                                                                                                                               |
-      | Time Definitions.Date | Quick:3M                                                                                                                                                                                                                                                                                        |
-      | Schedule              | Run Every:Monthly, On Time:+6H, At Months:[DEC]                                                                                                                                                                                                                                                 |
-      | Share                 | Email:[automation.vision2@radware.com],Subject:myEdit subject,Body:myEdit body                                                                                                                                                                                                                  |
-    Then UI Delete Report With Name "Widgets 3_7_10_11_12_13_18 Report 3"
-
-  @SID_33
-  Scenario:  Widgets 3_7_10_11_12_13_18 Report 4
-    Then UI Click Button "New Report Tab"
-    Given UI "Create" Report With Name "Widgets 3_7_10_11_12_13_18 Report 4"
-      | Template              | reportType:DefensePro Behavioral Protections, Widgets:[{BDoS-TCP FIN ACK:[IPv4, pps, inbound]}, {BDoS-UDP:[IPv4, pps, inbound]}, {BDoS-IGMP:[IPv4, pps, inbound]}, {DNS-TXT:[IPv4]}, {DNS-A:[IPv4]}, {DNS-AAAA:[IPv4]}, {DNS-SRV:[IPv4]}], devices:[{deviceIndex:10, devicePolicies:[BDOS]}] |
-      | Format                | Select: HTML                                                                                                                                                                                                                                                                                 |
-      | Time Definitions.Date | Quick:This Month                                                                                                                                                                                                                                                                             |
-    Then UI "Validate" Report With Name "Widgets 3_7_10_11_12_13_18 Report 4"
-      | Template              | reportType:DefensePro Behavioral Protections, Widgets:[{BDoS-TCP FIN ACK:[IPv4, pps, inbound]}, {BDoS-UDP:[IPv4, pps, inbound]}, {BDoS-IGMP:[IPv4, pps, inbound]}, {DNS-TXT:[IPv4]}, {DNS-A:[IPv4]}, {DNS-AAAA:[IPv4]}, {DNS-SRV:[IPv4]}], devices:[{deviceIndex:10, devicePolicies:[BDOS]}] |
-      | Format                | Select: HTML                                                                                                                                                                                                                                                                                 |
-      | Time Definitions.Date | Quick:This Month                                                                                                                                                                                                                                                                             |
-    Then UI Delete Report With Name "Widgets 3_7_10_11_12_13_18 Report 4"
-
-     # ------------------------------------------------------------------------------------------------------------------------------------------------------------
-
-  @SID_34
-  Scenario: Widgets 3_4_5_6_7_8_9_13 Report 1
-    Then UI Click Button "New Report Tab"
-    Given UI "Create" Report With Name "Widgets 3_4_5_6_7_8_9_13 Report 1"
-      | Template              | reportType:DefensePro Behavioral Protections, Widgets:[{BDoS-TCP FIN ACK:[IPv4, bps, inbound]}, {BDoS-TCP Fragmented:[IPv4, bps, inbound]}, {BDoS-TCP RST:[IPv4, bps, inbound]}, {BDoS-TCP SYN ACK:[IPv4, bps, inbound]}, {BDoS-UDP:[IPv4, bps, inbound]}, {BDoS-UDP Fragmented:[IPv4, bps, inbound]}, {BDoS-ICMP:[IPv4, bps, inbound]}, {DNS-AAAA:[IPv4]}], devices:[{deviceIndex:11, devicePolicies:[BDOS]}] |
-      | Format                | Select: CSV                                                                                                                                                                                                                                                                                                                                                                                                    |
-      | Time Definitions.Date | Quick:1H                                                                                                                                                                                                                                                                                                                                                                                                       |
-      | Schedule              | Run Every:Monthly, On Time:+6H, At Months:[MAR]                                                                                                                                                                                                                                                                                                                                                                |
-      | Share                 | Email:[automation.vision2@radware.com],Subject:myEdit subject,Body:myEdit body                                                                                                                                                                                                                                                                                                                                 |
-    Then UI "Validate" Report With Name "Widgets 3_4_5_6_7_8_9_13 Report 1"
-      | Template              | reportType:DefensePro Behavioral Protections, Widgets:[{BDoS-TCP FIN ACK:[IPv4, bps, inbound]}, {BDoS-TCP Fragmented:[IPv4, bps, inbound]}, {BDoS-TCP RST:[IPv4, bps, inbound]}, {BDoS-TCP SYN ACK:[IPv4, bps, inbound]}, {BDoS-UDP:[IPv4, bps, inbound]}, {BDoS-UDP Fragmented:[IPv4, bps, inbound]}, {BDoS-ICMP:[IPv4, bps, inbound]}, {DNS-AAAA:[IPv4]}], devices:[{deviceIndex:11, devicePolicies:[BDOS]}] |
-      | Format                | Select: CSV                                                                                                                                                                                                                                                                                                                                                                                                    |
-      | Time Definitions.Date | Quick:1H                                                                                                                                                                                                                                                                                                                                                                                                       |
-      | Schedule              | Run Every:Monthly, On Time:+6H, At Months:[MAR]                                                                                                                                                                                                                                                                                                                                                                |
-      | Share                 | Email:[automation.vision2@radware.com],Subject:myEdit subject,Body:myEdit body                                                                                                                                                                                                                                                                                                                                 |
-    Then UI Delete Report With Name "Widgets 3_4_5_6_7_8_9_13 Report 1"
-
-  @SID_35
-  Scenario: Widgets 3_4_5_6_7_8_9_13 Report 2
-    Then UI Click Button "New Report Tab"
-    Given UI "Create" Report With Name "Widgets 3_4_5_6_7_8_9_13 Report 2"
-      | Template              | reportType:DefensePro Behavioral Protections, Widgets:[{BDoS-TCP FIN ACK:[IPv4, pps, Outbound]}, {BDoS-TCP Fragmented:[IPv4, pps, Outbound]}, {BDoS-TCP RST:[IPv4, pps, Outbound]}, {BDoS-TCP SYN ACK:[IPv4, pps, Outbound]}, {BDoS-UDP:[IPv4, pps, Outbound]}, {BDoS-UDP Fragmented:[IPv4, pps, Outbound]}, {BDoS-ICMP:[IPv4, pps, Outbound]}, {DNS-AAAA:[IPv4]}], devices:[{deviceIndex:11, devicePolicies:[BDOS]}] |
-      | Format                | Select: CSV                                                                                                                                                                                                                                                                                                                                                                                                           |
-      | Logo                  | reportLogoPNG.png                                                                                                                                                                                                                                                                                                                                                                                                     |
-      | Time Definitions.Date | Quick:15m                                                                                                                                                                                                                                                                                                                                                                                                             |
-    Then UI "Validate" Report With Name "Widgets 3_4_5_6_7_8_9_13 Report 2"
-      | Template              | reportType:DefensePro Behavioral Protections, Widgets:[{BDoS-TCP FIN ACK:[IPv4, pps, Outbound]}, {BDoS-TCP Fragmented:[IPv4, pps, Outbound]}, {BDoS-TCP RST:[IPv4, pps, Outbound]}, {BDoS-TCP SYN ACK:[IPv4, pps, Outbound]}, {BDoS-UDP:[IPv4, pps, Outbound]}, {BDoS-UDP Fragmented:[IPv4, pps, Outbound]}, {BDoS-ICMP:[IPv4, pps, Outbound]}, {DNS-AAAA:[IPv4]}], devices:[{deviceIndex:11, devicePolicies:[BDOS]}] |
-      | Format                | Select: CSV                                                                                                                                                                                                                                                                                                                                                                                                           |
-      | Logo                  | reportLogoPNG.png                                                                                                                                                                                                                                                                                                                                                                                                     |
-      | Time Definitions.Date | Quick:15m                                                                                                                                                                                                                                                                                                                                                                                                             |
-    Then UI Delete Report With Name "Widgets 3_4_5_6_7_8_9_13 Report 2"
-
-  @SID_36
-  Scenario:  Widgets 3_4_5_6_7_8_9_13 Report 3
-    Then UI Click Button "New Report Tab"
-    Given UI "Create" Report With Name "Widgets 3_4_5_6_7_8_9_13 Report 3"
-      | Template              | reportType:DefensePro Behavioral Protections, Widgets:[{BDoS-TCP FIN ACK:[IPv6, bps, Outbound]}, {BDoS-TCP Fragmented:[IPv6, bps, Outbound]}, {BDoS-TCP RST:[IPv6, bps, Outbound]}, {BDoS-TCP SYN ACK:[IPv6, bps, Outbound]}, {BDoS-UDP:[IPv6, bps, Outbound]}, {BDoS-UDP Fragmented:[IPv6, bps, Outbound]}, {BDoS-ICMP:[IPv6, bps, Outbound]}, {DNS-AAAA:[IPv4]}], devices:[{deviceIndex:10, devicePolicies:[BDOS]}] |
-      | Format                | Select: PDF                                                                                                                                                                                                                                                                                                                                                                                                           |
-      | Logo                  | reportLogoPNG.png                                                                                                                                                                                                                                                                                                                                                                                                     |
-      | Time Definitions.Date | Absolute:[27.02.1971 01:00, +0d]                                                                                                                                                                                                                                                                                                                                                                                      |
-      | Schedule              | Run Every:Monthly, On Time:+6H, At Months:[OCT]                                                                                                                                                                                                                                                                                                                                                                       |
-      | Share                 | Email:[automation.vision2@radware.com],Subject:myEdit subject,Body:myEdit body                                                                                                                                                                                                                                                                                                                                        |
-    Then UI "Validate" Report With Name "Widgets 3_4_5_6_7_8_9_13 Report 3"
-      | Template              | reportType:DefensePro Behavioral Protections, Widgets:[{BDoS-TCP FIN ACK:[IPv6, bps, Outbound]}, {BDoS-TCP Fragmented:[IPv6, bps, Outbound]}, {BDoS-TCP RST:[IPv6, bps, Outbound]}, {BDoS-TCP SYN ACK:[IPv6, bps, Outbound]}, {BDoS-UDP:[IPv6, bps, Outbound]}, {BDoS-UDP Fragmented:[IPv6, bps, Outbound]}, {BDoS-ICMP:[IPv6, bps, Outbound]}, {DNS-AAAA:[IPv4]}], devices:[{deviceIndex:10, devicePolicies:[BDOS]}] |
-      | Format                | Select: PDF                                                                                                                                                                                                                                                                                                                                                                                                           |
-      | Logo                  | reportLogoPNG.png                                                                                                                                                                                                                                                                                                                                                                                                     |
-      | Time Definitions.Date | Absolute:[27.02.1971 01:00, +0d]                                                                                                                                                                                                                                                                                                                                                                                      |
-      | Schedule              | Run Every:Monthly, On Time:+6H, At Months:[OCT]                                                                                                                                                                                                                                                                                                                                                                       |
-      | Share                 | Email:[automation.vision2@radware.com],Subject:myEdit subject,Body:myEdit body                                                                                                                                                                                                                                                                                                                                        |
-    Then UI Delete Report With Name "Widgets 3_4_5_6_7_8_9_13 Report 3"
-
-  @SID_37
-  Scenario:  Widgets 3_4_5_6_7_8_9_13 Report 4
-    Then UI Click Button "New Report Tab"
-    Given UI "Create" Report With Name "Widgets 3_4_5_6_7_8_9_13 Report 4"
-      | Template              | reportType:DefensePro Behavioral Protections, Widgets:[{BDoS-TCP FIN ACK:[IPv4, pps, inbound]}, {BDoS-TCP Fragmented:[IPv4, pps, inbound]}, {BDoS-TCP RST:[IPv4, pps, inbound]}, {BDoS-TCP SYN ACK:[IPv4, pps, inbound]}, {BDoS-UDP:[IPv4, pps, inbound]}, {BDoS-UDP Fragmented:[IPv4, pps, inbound]}, {BDoS-ICMP:[IPv4, pps, inbound]}, {DNS-AAAA:[IPv4]}], devices:[{deviceIndex:10, devicePolicies:[BDOS]}] |
-      | Format                | Select: HTML                                                                                                                                                                                                                                                                                                                                                                                                   |
-      | Time Definitions.Date | Relative:[Days,2]                                                                                                                                                                                                                                                                                                                                                                                              |
-      | Schedule              | Run Every:Weekly, On Time:+6H, At Days:[SUN]                                                                                                                                                                                                                                                                                                                                                                   |
-    Then UI "Validate" Report With Name "Widgets 3_4_5_6_7_8_9_13 Report 4"
-      | Template              | reportType:DefensePro Behavioral Protections, Widgets:[{BDoS-TCP FIN ACK:[IPv4, pps, inbound]}, {BDoS-TCP Fragmented:[IPv4, pps, inbound]}, {BDoS-TCP RST:[IPv4, pps, inbound]}, {BDoS-TCP SYN ACK:[IPv4, pps, inbound]}, {BDoS-UDP:[IPv4, pps, inbound]}, {BDoS-UDP Fragmented:[IPv4, pps, inbound]}, {BDoS-ICMP:[IPv4, pps, inbound]}, {DNS-AAAA:[IPv4]}], devices:[{deviceIndex:10, devicePolicies:[BDOS]}] |
-      | Format                | Select: HTML                                                                                                                                                                                                                                                                                                                                                                                                   |
-      | Time Definitions.Date | Relative:[Days,2]                                                                                                                                                                                                                                                                                                                                                                                              |
-      | Schedule              | Run Every:Weekly, On Time:+6H, At Days:[SUN]                                                                                                                                                                                                                                                                                                                                                                   |
-    Then UI Delete Report With Name "Widgets 3_4_5_6_7_8_9_13 Report 4"
-
-      # ------------------------------------------------------------------------------------------------------------------------------------------------------------
-
-  @SID_38
-  Scenario: Widgets 1_2_6_11_12_13 Report 1
-    Then UI Click Button "New Report Tab"
-    Given UI "Create" Report With Name "Widgets 1_2_6_11_12_13 Report 1"
-      | Template              | reportType:DefensePro Behavioral Protections, Widgets:[{BDoS-TCP SYN:[IPv4, bps, inbound]}, {BDoS-Advanced-UDP Rate-Invariant:[IPv4, inbound]}, {BDoS-TCP SYN ACK:[IPv4, bps, inbound]}, {DNS-TXT:[IPv4]}, {DNS-A:[IPv4]}, {DNS-AAAA:[IPv4]}], devices:[{deviceIndex:11, devicePolicies:[BDOS]}] |
-      | Format                | Select: CSV                                                                                                                                                                                                                                                                                      |
-      | Time Definitions.Date | Quick:1H                                                                                                                                                                                                                                                                                         |
-      | Schedule              | Run Every:Monthly, On Time:+6H, At Months:[MAR]                                                                                                                                                                                                                                                  |
-      | Share                 | Email:[automation.vision2@radware.com],Subject:myEdit subject,Body:myEdit body                                                                                                                                                                                                                   |
-    Then UI "Validate" Report With Name "Widgets 1_2_6_11_12_13 Report 1"
-      | Template              | reportType:DefensePro Behavioral Protections, Widgets:[{BDoS-TCP SYN:[IPv4, bps, inbound]}, {BDoS-Advanced-UDP Rate-Invariant:[IPv4, inbound]}, {BDoS-TCP SYN ACK:[IPv4, bps, inbound]}, {DNS-TXT:[IPv4]}, {DNS-A:[IPv4]}, {DNS-AAAA:[IPv4]}], devices:[{deviceIndex:11, devicePolicies:[BDOS]}] |
-      | Format                | Select: CSV                                                                                                                                                                                                                                                                                      |
-      | Time Definitions.Date | Quick:1H                                                                                                                                                                                                                                                                                         |
-      | Schedule              | Run Every:Monthly, On Time:+6H, At Months:[MAR]                                                                                                                                                                                                                                                  |
-      | Share                 | Email:[automation.vision2@radware.com],Subject:myEdit subject,Body:myEdit body                                                                                                                                                                                                                   |
-    Then UI Delete Report With Name "Widgets 1_2_6_11_12_13 Report 1"
-
-  @SID_39
-  Scenario: Widgets 1_2_6_11_12_13 Report 2
-    Then UI Click Button "New Report Tab"
-    Given UI "Create" Report With Name "Widgets 1_2_6_11_12_13 Report 2"
-      | Template              | reportType:DefensePro Behavioral Protections, Widgets:[{BDoS-TCP SYN:[IPv4, pps, Outbound]}, {BDoS-Advanced-UDP Rate-Invariant:[IPv4, Outbound]}, {BDoS-TCP SYN ACK:[IPv4, pps, Outbound]}, {DNS-TXT:[IPv4]}, {DNS-A:[IPv4]}, {DNS-AAAA:[IPv4]}}], devices:[{deviceIndex:11, devicePolicies:[BDOS]}] |
-      | Format                | Select: CSV                                                                                                                                                                                                                                                                                          |
-      | Logo                  | reportLogoPNG.png                                                                                                                                                                                                                                                                                    |
-      | Time Definitions.Date | Quick:15m                                                                                                                                                                                                                                                                                            |
-    Then UI "Validate" Report With Name "Widgets 1_2_6_11_12_13 Report 2"
-      | Template              | reportType:DefensePro Behavioral Protections, Widgets:[{BDoS-TCP SYN:[IPv4, pps, Outbound]}, {BDoS-Advanced-UDP Rate-Invariant:[IPv4, Outbound]}, {BDoS-TCP SYN ACK:[IPv4, pps, Outbound]}, {DNS-TXT:[IPv4]}, {DNS-A:[IPv4]}, {DNS-AAAA:[IPv4]}}], devices:[{deviceIndex:11, devicePolicies:[BDOS]}] |
-      | Format                | Select: CSV                                                                                                                                                                                                                                                                                          |
-      | Logo                  | reportLogoPNG.png                                                                                                                                                                                                                                                                                    |
-      | Time Definitions.Date | Quick:15m                                                                                                                                                                                                                                                                                            |
-    Then UI Delete Report With Name "Widgets 1_2_6_11_12_13 Report 2"
-
-  @SID_40
-  Scenario:  Widgets 1_2_6_11_12_13 Report 3
-    Then UI Click Button "New Report Tab"
-    Given UI "Create" Report With Name "Widgets 1_2_6_11_12_13 Report 3"
-      | Template              | reportType:DefensePro Behavioral Protections, Widgets:[{BDoS-TCP SYN:[IPv6, bps, Outbound]}, {BDoS-Advanced-UDP Rate-Invariant:[IPv6 inbound]}, {BDoS-TCP SYN ACK:[IPv6, bps, Outbound]}, {DNS-TXT:[IPv4]}, {DNS-A:[IPv4]}, {DNS-AAAA:[IPv4]}], devices:[{deviceIndex:10, devicePolicies:[BDOS]}] |
-      | Format                | Select: PDF                                                                                                                                                                                                                                                                                       |
-      | Logo                  | reportLogoPNG.png                                                                                                                                                                                                                                                                                 |
-      | Time Definitions.Date | Absolute:[27.02.1971 01:00, +0d]                                                                                                                                                                                                                                                                  |
-      | Schedule              | Run Every:Monthly, On Time:+6H, At Months:[OCT]                                                                                                                                                                                                                                                   |
-      | Share                 | Email:[automation.vision2@radware.com],Subject:myEdit subject,Body:myEdit body                                                                                                                                                                                                                    |
-    Then UI "Validate" Report With Name "Widgets 1_2_6_11_12_13 Report 3"
-      | Template              | reportType:DefensePro Behavioral Protections, Widgets:[{BDoS-TCP SYN:[IPv6, bps, Outbound]}, {BDoS-Advanced-UDP Rate-Invariant:[IPv6 inbound]}, {BDoS-TCP SYN ACK:[IPv6, bps, Outbound]}, {DNS-TXT:[IPv4]}, {DNS-A:[IPv4]}, {DNS-AAAA:[IPv4]}], devices:[{deviceIndex:10, devicePolicies:[BDOS]}] |
-      | Format                | Select: PDF                                                                                                                                                                                                                                                                                       |
-      | Logo                  | reportLogoPNG.png                                                                                                                                                                                                                                                                                 |
-      | Time Definitions.Date | Absolute:[27.02.1971 01:00, +0d]                                                                                                                                                                                                                                                                  |
-      | Schedule              | Run Every:Monthly, On Time:+6H, At Months:[OCT]                                                                                                                                                                                                                                                   |
-      | Share                 | Email:[automation.vision2@radware.com],Subject:myEdit subject,Body:myEdit body                                                                                                                                                                                                                    |
-    Then UI Delete Report With Name "Widgets 1_2_6_11_12_13 Report 3"
-
-  @SID_41
-  Scenario:  Widgets 1_2_6_11_12_13 Report 4
-    Then UI Click Button "New Report Tab"
-    Given UI "Create" Report With Name "Widgets 1_2_6_11_12_13 Report 4"
-      | Template              | reportType:DefensePro Behavioral Protections, Widgets:[{BDoS-TCP SYN:[IPv4, pps, inbound]}, {BDoS-Advanced-UDP Rate-Invariant:[IPv4 Outbound]}, {BDoS-TCP SYN ACK:[IPv4, pps, inbound]}, {DNS-TXT:[IPv4]}, {DNS-A:[IPv4]}, {DNS-AAAA:[IPv4]}], devices:[{deviceIndex:10, devicePolicies:[BDOS]}] |
-      | Format                | Select: HTML                                                                                                                                                                                                                                                                                     |
-      | Time Definitions.Date | Relative:[Days,2]                                                                                                                                                                                                                                                                                |
-      | Schedule              | Run Every:Weekly, On Time:+6H, At Days:[SUN]                                                                                                                                                                                                                                                     |
-    Then UI "Validate" Report With Name "Widgets 1_2_6_11_12_13 Report 4"
-      | Template              | reportType:DefensePro Behavioral Protections, Widgets:[{BDoS-TCP SYN:[IPv4, pps, inbound]}, {BDoS-Advanced-UDP Rate-Invariant:[IPv4 Outbound]}, {BDoS-TCP SYN ACK:[IPv4, pps, inbound]}, {DNS-TXT:[IPv4]}, {DNS-A:[IPv4]}, {DNS-AAAA:[IPv4]}], devices:[{deviceIndex:10, devicePolicies:[BDOS]}] |
-      | Format                | Select: HTML                                                                                                                                                                                                                                                                                     |
-      | Time Definitions.Date | Relative:[Days,2]                                                                                                                                                                                                                                                                                |
-      | Schedule              | Run Every:Weekly, On Time:+6H, At Days:[SUN]                                                                                                                                                                                                                                                     |
-    Then UI Delete Report With Name "Widgets 1_2_6_11_12_13 Report 4"
-
-     # ------------------------------------------------------------------------------------------------------------------------------------------------------------
-
-  @SID_42
-  Scenario: Widgets 4_5_6_8_9_10_11_12_13_17 Report 1
-    Then UI Click Button "New Report Tab"
-    Given UI "Create" Report With Name "Widgets 4_5_6_8_9_10_11_12_13_17 Report 1"
-      | Template              | reportType:DefensePro Behavioral Protections, Widgets:[{BDoS-TCP Fragmented:[IPv4, bps, inbound]}, {BDoS-TCP RST:[IPv4, bps, inbound]}, {BDoS-TCP SYN ACK:[IPv4, bps, inbound]}, {BDoS-UDP Fragmented:[IPv4, bps, inbound]}, {BDoS-ICMP:[IPv4, bps, inbound]}, {BDoS-IGMP:[IPv4, bps, inbound]}, {DNS-TXT:[IPv6]}, {DNS-A:[IPv4]}, {DNS-AAAA:[IPv6]}, {DNS-SOA:[IPv4]}], devices:[{deviceIndex:11, devicePolicies:[BDOS]}] |
-      | Format                | Select: CSV                                                                                                                                                                                                                                                                                                                                                                                                                |
-      | Time Definitions.Date | Relative:[Days,2]                                                                                                                                                                                                                                                                                                                                                                                                          |
-      | Schedule              | Run Every:Daily,On Time:+2m                                                                                                                                                                                                                                                                                                                                                                                                |
-      | Share                 | Email:[automation.vision2@radware.com],Subject:myEdit subject,Body:myEdit body                                                                                                                                                                                                                                                                                                                                             |
-    Then UI "Validate" Report With Name "Widgets 4_5_6_8_9_10_11_12_13_17 Report 1"
-      | Template              | reportType:DefensePro Behavioral Protections, Widgets:[{BDoS-TCP Fragmented:[IPv4, bps, inbound]}, {BDoS-TCP RST:[IPv4, bps, inbound]}, {BDoS-TCP SYN ACK:[IPv4, bps, inbound]}, {BDoS-UDP Fragmented:[IPv4, bps, inbound]}, {BDoS-ICMP:[IPv4, bps, inbound]}, {BDoS-IGMP:[IPv4, bps, inbound]}, {DNS-TXT:[IPv6]}, {DNS-A:[IPv4]}, {DNS-AAAA:[IPv6]}, {DNS-SOA:[IPv4]}], devices:[{deviceIndex:11, devicePolicies:[BDOS]}] |
-      | Format                | Select: CSV                                                                                                                                                                                                                                                                                                                                                                                                                |
-      | Time Definitions.Date | Relative:[Days,2]                                                                                                                                                                                                                                                                                                                                                                                                          |
-      | Schedule              | Run Every:Daily,On Time:+2m                                                                                                                                                                                                                                                                                                                                                                                                |
-      | Share                 | Email:[automation.vision2@radware.com],Subject:myEdit subject,Body:myEdit body                                                                                                                                                                                                                                                                                                                                             |
-    Then UI Delete Report With Name "Widgets 4_5_6_8_9_10_11_12_13_17 Report 1"
-
-  @SID_43
-  Scenario: Widgets 4_5_6_8_9_10_11_12_13_17 Report 2
-    Then UI Click Button "New Report Tab"
-    Given UI "Create" Report With Name "Widgets 4_5_6_8_9_10_11_12_13_17 Report 2"
-      | Template              | reportType:DefensePro Behavioral Protections, Widgets:[{BDoS-TCP Fragmented:[IPv4, pps, Outbound]}, {BDoS-TCP RST:[IPv4, pps, Outbound]}, {BDoS-TCP SYN ACK:[IPv4, pps, Outbound]}, {BDoS-UDP Fragmented:[IPv4, pps, Outbound]}, {BDoS-ICMP:[IPv4, pps, Outbound]}, {BDoS-IGMP:[IPv4, pps, Outbound]}, {DNS-TXT:[IPv6]}, {DNS-A:[IPv4]}, {DNS-AAAA:[IPv4]}, {DNS-SOA:[IPv4]}], devices:[{deviceIndex:11, devicePolicies:[BDOS]}] |
-      | Format                | Select: CSV                                                                                                                                                                                                                                                                                                                                                                                                                      |
-      | Logo                  | reportLogoPNG.png                                                                                                                                                                                                                                                                                                                                                                                                                |
-      | Time Definitions.Date | Quick:This Week                                                                                                                                                                                                                                                                                                                                                                                                                  |
-      | Schedule              | Run Every:Daily,On Time:+2m                                                                                                                                                                                                                                                                                                                                                                                                      |
-    Then UI "Validate" Report With Name "Widgets 4_5_6_8_9_10_11_12_13_17 Report 2"
-      | Template              | reportType:DefensePro Behavioral Protections, Widgets:[{BDoS-TCP Fragmented:[IPv4, pps, Outbound]}, {BDoS-TCP RST:[IPv4, pps, Outbound]}, {BDoS-TCP SYN ACK:[IPv4, pps, Outbound]}, {BDoS-UDP Fragmented:[IPv4, pps, Outbound]}, {BDoS-ICMP:[IPv4, pps, Outbound]}, {BDoS-IGMP:[IPv4, pps, Outbound]}, {DNS-TXT:[IPv6]}, {DNS-A:[IPv4]}, {DNS-AAAA:[IPv4]}, {DNS-SOA:[IPv4]}], devices:[{deviceIndex:11, devicePolicies:[BDOS]}] |
-      | Format                | Select: CSV                                                                                                                                                                                                                                                                                                                                                                                                                      |
-      | Logo                  | reportLogoPNG.png                                                                                                                                                                                                                                                                                                                                                                                                                |
-      | Time Definitions.Date | Quick:This Week                                                                                                                                                                                                                                                                                                                                                                                                                  |
-      | Schedule              | Run Every:Daily,On Time:+2m                                                                                                                                                                                                                                                                                                                                                                                                      |
-    Then UI Delete Report With Name "Widgets 4_5_6_8_9_10_11_12_13_17 Report 2"
-
-  @SID_44
-  Scenario:  Widgets 4_5_6_8_9_10_11_12_13_17 Report 3
-    Then UI Click Button "New Report Tab"
-    Given UI "Create" Report With Name "Widgets 4_5_6_8_9_10_11_12_13_17 Report 3"
-      | Template              | reportType:DefensePro Behavioral Protections, Widgets:[{BDoS-TCP Fragmented:[IPv6, bps, Outbound]}, {BDoS-TCP RST:[IPv6, bps, Outbound]}, {BDoS-TCP SYN ACK:[IPv6, bps, Outbound]}, {BDoS-UDP Fragmented:[IPv6, bps, Outbound]}, {BDoS-ICMP:[IPv6, bps, Outbound]}, {BDoS-IGMP:[IPv6, bps, Outbound]}, {DNS-TXT:[IPv4]}, {DNS-A:[IPv4]}, {DNS-AAAA:[IPv4]}, {DNS-SOA:[IPv4]}], devices:[{deviceIndex:10, devicePolicies:[BDOS]}] |
-      | Format                | Select: PDF                                                                                                                                                                                                                                                                                                                                                                                                                      |
-      | Logo                  | reportLogoPNG.png                                                                                                                                                                                                                                                                                                                                                                                                                |
-      | Time Definitions.Date | Relative:[Weeks,2]                                                                                                                                                                                                                                                                                                                                                                                                               |
-      | Schedule              | Run Every:Weekly, On Time:+6H, At Days:[THU]                                                                                                                                                                                                                                                                                                                                                                                     |
-      | Share                 | Email:[automation.vision2@radware.com],Subject:myEdit subject,Body:myEdit body                                                                                                                                                                                                                                                                                                                                                   |
-    Then UI "Validate" Report With Name "Widgets 4_5_6_8_9_10_11_12_13_17 Report 3"
-      | Template              | reportType:DefensePro Behavioral Protections, Widgets:[{BDoS-TCP Fragmented:[IPv6, bps, Outbound]}, {BDoS-TCP RST:[IPv6, bps, Outbound]}, {BDoS-TCP SYN ACK:[IPv6, bps, Outbound]}, {BDoS-UDP Fragmented:[IPv6, bps, Outbound]}, {BDoS-ICMP:[IPv6, bps, Outbound]}, {BDoS-IGMP:[IPv6, bps, Outbound]}, {DNS-TXT:[IPv4]}, {DNS-A:[IPv4]}, {DNS-AAAA:[IPv4]}, {DNS-SOA:[IPv4]}], devices:[{deviceIndex:10, devicePolicies:[BDOS]}] |
-      | Format                | Select: PDF                                                                                                                                                                                                                                                                                                                                                                                                                      |
-      | Logo                  | reportLogoPNG.png                                                                                                                                                                                                                                                                                                                                                                                                                |
-      | Time Definitions.Date | Relative:[Weeks,2]                                                                                                                                                                                                                                                                                                                                                                                                               |
-      | Schedule              | Run Every:Weekly, On Time:+6H, At Days:[THU]                                                                                                                                                                                                                                                                                                                                                                                     |
-      | Share                 | Email:[automation.vision2@radware.com],Subject:myEdit subject,Body:myEdit body                                                                                                                                                                                                                                                                                                                                                   |
-    Then UI Delete Report With Name "Widgets 4_5_6_8_9_10_11_12_13_17 Report 3"
-
-  @SID_45
-  Scenario:  Widgets 4_5_6_8_9_10_11_12_13_17 Report 4
-    Then UI Click Button "New Report Tab"
-    Given UI "Create" Report With Name "Widgets 4_5_6_8_9_10_11_12_13_17 Report 4"
-      | Template              | reportType:DefensePro Behavioral Protections, Widgets:[{BDoS-TCP Fragmented:[IPv4, pps, inbound]}, {BDoS-TCP RST:[IPv4, pps, inbound]}, {BDoS-TCP SYN ACK:[IPv4, pps, inbound]}, {BDoS-UDP Fragmented:[IPv4, pps, inbound]}, {BDoS-ICMP:[IPv4, pps, inbound]}, {BDoS-IGMP:[IPv4, pps, inbound]}, {DNS-TXT:[IPv4]}, {DNS-A:[IPv4]}, {DNS-AAAA:[IPv4]}, {DNS-SOA:[IPv4]}], devices:[{deviceIndex:10, devicePolicies:[BDOS]}] |
-      | Format                | Select: HTML                                                                                                                                                                                                                                                                                                                                                                                                               |
-      | Time Definitions.Date | Absolute:[27.02.1971 01:00, +0d]                                                                                                                                                                                                                                                                                                                                                                                           |
-      | Schedule              | Run Every:Monthly, On Time:+6H, At Months:[MAY]                                                                                                                                                                                                                                                                                                                                                                            |
-    Then UI "Validate" Report With Name "Widgets 4_5_6_8_9_10_11_12_13_17 Report 4"
-      | Template              | reportType:DefensePro Behavioral Protections, Widgets:[{BDoS-TCP Fragmented:[IPv4, pps, inbound]}, {BDoS-TCP RST:[IPv4, pps, inbound]}, {BDoS-TCP SYN ACK:[IPv4, pps, inbound]}, {BDoS-UDP Fragmented:[IPv4, pps, inbound]}, {BDoS-ICMP:[IPv4, pps, inbound]}, {BDoS-IGMP:[IPv4, pps, inbound]}, {DNS-TXT:[IPv4]}, {DNS-A:[IPv4]}, {DNS-AAAA:[IPv4]}, {DNS-SOA:[IPv4]}], devices:[{deviceIndex:10, devicePolicies:[BDOS]}] |
-      | Format                | Select: HTML                                                                                                                                                                                                                                                                                                                                                                                                               |
-      | Time Definitions.Date | Absolute:[27.02.1971 01:00, +0d]                                                                                                                                                                                                                                                                                                                                                                                           |
-      | Schedule              | Run Every:Monthly, On Time:+6H, At Months:[MAY]                                                                                                                                                                                                                                                                                                                                                                            |
-    Then UI Delete Report With Name "Widgets 4_5_6_8_9_10_11_12_13_17 Report 4"
-
-     # ------------------------------------------------------------------------------------------------------------------------------------------------------------
-
-  @SID_46
-  Scenario: Widgets 1_2_3_4_5_6_7_10_15 Report 1
-    Then UI Click Button "New Report Tab"
-    Given UI "Create" Report With Name "Widgets 1_2_3_4_5_6_7_10_15 Report 1"
-      | Template              | reportType:DefensePro Behavioral Protections, Widgets:[{BDoS-TCP SYN:[IPv4, bps, inbound]}, {BDoS-Advanced-UDP Rate-Invariant:[IPv4, inbound]}, {BDoS-TCP FIN ACK:[IPv4, bps, inbound]}, {BDoS-TCP Fragmented:[IPv4, bps, inbound]}, {BDoS-TCP RST:[IPv4, bps, inbound]}, {BDoS-TCP SYN ACK:[IPv4, bps, inbound]}, {BDoS-UDP:[IPv4, bps, inbound]}, {BDoS-IGMP:[IPv4, bps, inbound]}, {DNS-NAPTR:[IPv6]}], devices:[{deviceIndex:11, devicePolicies:[BDOS]}] |
-      | Format                | Select: CSV                                                                                                                                                                                                                                                                                                                                                                                                                                                  |
-      | Time Definitions.Date | Relative:[Months,2]                                                                                                                                                                                                                                                                                                                                                                                                                                          |
-      | Share                 | Email:[automation.vision2@radware.com],Subject:myEdit subject,Body:myEdit body                                                                                                                                                                                                                                                                                                                                                                               |
-    Then UI "Validate" Report With Name "Widgets 1_2_3_4_5_6_7_10_15 Report 1"
-      | Template              | reportType:DefensePro Behavioral Protections, Widgets:[{BDoS-TCP SYN:[IPv4, bps, inbound]}, {BDoS-Advanced-UDP Rate-Invariant:[IPv4, inbound]}, {BDoS-TCP FIN ACK:[IPv4, bps, inbound]}, {BDoS-TCP Fragmented:[IPv4, bps, inbound]}, {BDoS-TCP RST:[IPv4, bps, inbound]}, {BDoS-TCP SYN ACK:[IPv4, bps, inbound]}, {BDoS-UDP:[IPv4, bps, inbound]}, {BDoS-IGMP:[IPv4, bps, inbound]}, {DNS-NAPTR:[IPv6]}], devices:[{deviceIndex:11, devicePolicies:[BDOS]}] |
-      | Format                | Select: CSV                                                                                                                                                                                                                                                                                                                                                                                                                                                  |
-      | Time Definitions.Date | Relative:[Months,2]                                                                                                                                                                                                                                                                                                                                                                                                                                          |
-      | Share                 | Email:[automation.vision2@radware.com],Subject:myEdit subject,Body:myEdit body                                                                                                                                                                                                                                                                                                                                                                               |
-    Then UI Delete Report With Name "Widgets 1_2_3_4_5_6_7_10_15 Report 1"
-
-  @SID_47
-  Scenario: Widgets 1_2_3_4_5_6_7_10_15 Report 2
-    Then UI Click Button "New Report Tab"
-    Given UI "Create" Report With Name "Widgets 1_2_3_4_5_6_7_10_15 Report 2"
-      | Template              | reportType:DefensePro Behavioral Protections, Widgets:[{BDoS-TCP SYN:[IPv4, pps, Outbound]}, {BDoS-Advanced-UDP Rate-Invariant:[IPv4, Outbound]}, {BDoS-TCP FIN ACK:[IPv4, pps, Outbound]}, {BDoS-TCP Fragmented:[IPv4, pps, Outbound]}, {BDoS-TCP RST:[IPv4, pps, Outbound]}, {BDoS-TCP SYN ACK:[IPv4, pps, Outbound]}, {BDoS-UDP:[IPv4, pps, Outbound]}, {BDoS-IGMP:[IPv4, pps, Outbound]}, {DNS-NAPTR:[IPv6]}], devices:[{deviceIndex:11, devicePolicies:[BDOS]}] |
-      | Format                | Select: CSV                                                                                                                                                                                                                                                                                                                                                                                                                                                          |
-      | Logo                  | reportLogoPNG.png                                                                                                                                                                                                                                                                                                                                                                                                                                                    |
-      | Time Definitions.Date | Quick:30m                                                                                                                                                                                                                                                                                                                                                                                                                                                            |
-      | Schedule              | Run Every:Weekly, On Time:+6H, At Days:[TUH]                                                                                                                                                                                                                                                                                                                                                                                                                         |
-    Then UI "Validate" Report With Name "Widgets 1_2_3_4_5_6_7_10_15 Report 2"
-      | Template              | reportType:DefensePro Behavioral Protections, Widgets:[{BDoS-TCP SYN:[IPv4, pps, Outbound]}, {BDoS-Advanced-UDP Rate-Invariant:[IPv4, Outbound]}, {BDoS-TCP FIN ACK:[IPv4, pps, Outbound]}, {BDoS-TCP Fragmented:[IPv4, pps, Outbound]}, {BDoS-TCP RST:[IPv4, pps, Outbound]}, {BDoS-TCP SYN ACK:[IPv4, pps, Outbound]}, {BDoS-UDP:[IPv4, pps, Outbound]}, {BDoS-IGMP:[IPv4, pps, Outbound]}, {DNS-NAPTR:[IPv6]}], devices:[{deviceIndex:11, devicePolicies:[BDOS]}] |
-      | Format                | Select: CSV                                                                                                                                                                                                                                                                                                                                                                                                                                                          |
-      | Logo                  | reportLogoPNG.png                                                                                                                                                                                                                                                                                                                                                                                                                                                    |
-      | Time Definitions.Date | Quick:30m                                                                                                                                                                                                                                                                                                                                                                                                                                                            |
-      | Schedule              | Run Every:Weekly, On Time:+6H, At Days:[TUH]                                                                                                                                                                                                                                                                                                                                                                                                                         |
-    Then UI Delete Report With Name "Widgets 1_2_3_4_5_6_7_10_15 Report 2"
-
-  @SID_48
-  Scenario:  Widgets 1_2_3_4_5_6_7_10_15 Report 3
-    Then UI Click Button "New Report Tab"
-    Given UI "Create" Report With Name "Widgets 1_2_3_4_5_6_7_10_15 Report 3"
-      | Template              | reportType:DefensePro Behavioral Protections, Widgets:[{BDoS-TCP SYN:[IPv6, bps, Outbound]}, {BDoS-Advanced-UDP Rate-Invariant:[IPv6, inbound]}, {BDoS-TCP FIN ACK:[IPv6, bps, Outbound]}, {BDoS-TCP Fragmented:[IPv6, bps, Outbound]}, {BDoS-TCP RST:[IPv6, bps, Outbound]}, {BDoS-TCP SYN ACK:[IPv6, bps, Outbound]}, {BDoS-UDP:[IPv6, bps, Outbound]}, {BDoS-IGMP:[IPv6, bps, Outbound]}, {DNS-NAPTR:[IPv4]}], devices:[{deviceIndex:10, devicePolicies:[BDOS]}] |
-      | Format                | Select: PDF                                                                                                                                                                                                                                                                                                                                                                                                                                                         |
-      | Logo                  | reportLogoPNG.png                                                                                                                                                                                                                                                                                                                                                                                                                                                   |
-      | Time Definitions.Date | Absolute:[27.02.1971 01:00, +0d]                                                                                                                                                                                                                                                                                                                                                                                                                                    |
-      | Schedule              | Run Every:Monthly, On Time:+6H, At Months:[APR]                                                                                                                                                                                                                                                                                                                                                                                                                     |
-      | Share                 | Email:[automation.vision2@radware.com],Subject:myEdit subject,Body:myEdit body                                                                                                                                                                                                                                                                                                                                                                                      |
-    Then UI "Validate" Report With Name "Widgets 1_2_3_4_5_6_7_10_15 Report 3"
-      | Template              | reportType:DefensePro Behavioral Protections, Widgets:[{BDoS-TCP SYN:[IPv6, bps, Outbound]}, {BDoS-Advanced-UDP Rate-Invariant:[IPv6, inbound]}, {BDoS-TCP FIN ACK:[IPv6, bps, Outbound]}, {BDoS-TCP Fragmented:[IPv6, bps, Outbound]}, {BDoS-TCP RST:[IPv6, bps, Outbound]}, {BDoS-TCP SYN ACK:[IPv6, bps, Outbound]}, {BDoS-UDP:[IPv6, bps, Outbound]}, {BDoS-IGMP:[IPv6, bps, Outbound]}, {DNS-NAPTR:[IPv4]}], devices:[{deviceIndex:10, devicePolicies:[BDOS]}] |
-      | Format                | Select: PDF                                                                                                                                                                                                                                                                                                                                                                                                                                                         |
-      | Logo                  | reportLogoPNG.png                                                                                                                                                                                                                                                                                                                                                                                                                                                   |
-      | Time Definitions.Date | Absolute:[27.02.1971 01:00, +0d]                                                                                                                                                                                                                                                                                                                                                                                                                                    |
-      | Schedule              | Run Every:Monthly, On Time:+6H, At Months:[APR]                                                                                                                                                                                                                                                                                                                                                                                                                     |
-      | Share                 | Email:[automation.vision2@radware.com],Subject:myEdit subject,Body:myEdit body                                                                                                                                                                                                                                                                                                                                                                                      |
-    Then UI Delete Report With Name "Widgets 1_2_3_4_5_6_7_10_15 Report 3"
-
-  @SID_49
-  Scenario:  Widgets 1_2_3_4_5_6_7_10_15 Report 4
-    Then UI Click Button "New Report Tab"
-    Given UI "Create" Report With Name "Widgets 1_2_3_4_5_6_7_10_15 Report 4"
-      | Template              | reportType:DefensePro Behavioral Protections, Widgets:[{BDoS-TCP SYN:[IPv4, pps, inbound]}, {BDoS-Advanced-UDP Rate-Invariant:[IPv4, Outbound]}, {BDoS-TCP FIN ACK:[IPv4, pps, inbound]}, {BDoS-TCP Fragmented:[IPv4, pps, inbound]}, {BDoS-TCP RST:[IPv4, pps, inbound]}, {BDoS-TCP SYN ACK:[IPv4, pps, inbound]}, {BDoS-UDP:[IPv4, pps, inbound]}, {BDoS-IGMP:[IPv4, pps, inbound]}, {DNS-NAPTR:[IPv4]}], devices:[{deviceIndex:10, devicePolicies:[BDOS]}] |
-      | Format                | Select: HTML                                                                                                                                                                                                                                                                                                                                                                                                                                                  |
-      | Time Definitions.Date | Relative:[Weeks,2]                                                                                                                                                                                                                                                                                                                                                                                                                                            |
-    Then UI "Validate" Report With Name "Widgets 1_2_3_4_5_6_7_10_15 Report 4"
-      | Template              | reportType:DefensePro Behavioral Protections, Widgets:[{BDoS-TCP SYN:[IPv4, pps, inbound]}, {BDoS-Advanced-UDP Rate-Invariant:[IPv4, Outbound]}, {BDoS-TCP FIN ACK:[IPv4, pps, inbound]}, {BDoS-TCP Fragmented:[IPv4, pps, inbound]}, {BDoS-TCP RST:[IPv4, pps, inbound]}, {BDoS-TCP SYN ACK:[IPv4, pps, inbound]}, {BDoS-UDP:[IPv4, pps, inbound]}, {BDoS-IGMP:[IPv4, pps, inbound]}, {DNS-NAPTR:[IPv4]}], devices:[{deviceIndex:10, devicePolicies:[BDOS]}] |
-      | Format                | Select: HTML                                                                                                                                                                                                                                                                                                                                                                                                                                                  |
-      | Time Definitions.Date | Relative:[Weeks,2]                                                                                                                                                                                                                                                                                                                                                                                                                                            |
-    Then UI Delete Report With Name "Widgets 1_2_3_4_5_6_7_10_15 Report 4"
-
-
-     # ------------------------------------------------------------------------------------------------------------------------------------------------------------
-
-  @SID_50
-  Scenario: Widgets 9_15 Report 1
-    Then UI Click Button "New Report Tab"
-    Given UI "Create" Report With Name "Widgets 9_15 Report 1"
-      | Template              | reportType:DefensePro Behavioral Protections, Widgets:[{BDoS-ICMP:[IPv4, bps, inbound]}, {DNS-NAPTR:[IPv4]}], devices:[{deviceIndex:11, devicePolicies:[BDOS]}] |
-      | Format                | Select: CSV                                                                                                                                                     |
-      | Time Definitions.Date | Quick:Quarter                                                                                                                                                   |
-      | Share                 | Email:[automation.vision2@radware.com],Subject:myEdit subject,Body:myEdit body                                                                                  |
-      | Schedule              | Run Every:Once, On Time:+6H                                                                                                                                     |
-    Then UI "Validate" Report With Name "Widgets 9_15 Report 1"
-      | Template              | reportType:DefensePro Behavioral Protections, Widgets:[{BDoS-ICMP:[IPv4, bps, inbound]}, {DNS-NAPTR:[IPv4]}], devices:[{deviceIndex:11, devicePolicies:[BDOS]}] |
-      | Format                | Select: CSV                                                                                                                                                     |
-      | Time Definitions.Date | Quick:Quarter                                                                                                                                                   |
-      | Share                 | Email:[automation.vision2@radware.com],Subject:myEdit subject,Body:myEdit body                                                                                  |
-      | Schedule              | Run Every:Once, On Time:+6H                                                                                                                                     |
-    Then UI Delete Report With Name "Widgets 9_15 Report 1"
-
-  @SID_51
-  Scenario: Widgets 9_15 Report 2
-    Then UI Click Button "New Report Tab"
-    Given UI "Create" Report With Name "Widgets 9_15 Report 2"
-      | Template              | reportType:DefensePro Behavioral Protections, Widgets:[{BDoS-ICMP:[IPv4, pps, Outbound]}, {DNS-NAPTR:[IPv4]}], devices:[{deviceIndex:11, devicePolicies:[BDOS]}] |
-      | Format                | Select: CSV                                                                                                                                                      |
-      | Logo                  | reportLogoPNG.png                                                                                                                                                |
-      | Time Definitions.Date | Quick:Previous Month                                                                                                                                             |
-    Then UI "Validate" Report With Name "Widgets 9_15 Report 2"
-      | Template              | reportType:DefensePro Behavioral Protections, Widgets:[{BDoS-ICMP:[IPv4, pps, Outbound]}, {DNS-NAPTR:[IPv4]}], devices:[{deviceIndex:11, devicePolicies:[BDOS]}] |
-      | Format                | Select: CSV                                                                                                                                                      |
-      | Logo                  | reportLogoPNG.png                                                                                                                                                |
-      | Time Definitions.Date | Quick:Previous Month                                                                                                                                             |
-    Then UI Delete Report With Name "Widgets 9_15 Report 2"
-
-  @SID_52
-  Scenario:  Widgets 9_15 Report 3
-    Then UI Click Button "New Report Tab"
-    Given UI "Create" Report With Name "Widgets 9_15 Report 3"
-      | Template              | reportType:DefensePro Behavioral Protections, Widgets:[{BDoS-ICMP:[IPv6, bps, Outbound]}, {DNS-NAPTR:[IPv4]}], devices:[{deviceIndex:10, devicePolicies:[BDOS]}] |
-      | Format                | Select: PDF                                                                                                                                                      |
-      | Logo                  | reportLogoPNG.png                                                                                                                                                |
-      | Time Definitions.Date | Quick:This Month                                                                                                                                                 |
-      | Schedule              | Run Every:Once, On Time:+6H                                                                                                                                      |
-      | Share                 | Email:[automation.vision2@radware.com],Subject:myEdit subject,Body:myEdit body                                                                                   |
-    Then UI "Validate" Report With Name "Widgets 9_15 Report 3"
-      | Template              | reportType:DefensePro Behavioral Protections, Widgets:[{BDoS-ICMP:[IPv6, bps, Outbound]}, {DNS-NAPTR:[IPv4]}], devices:[{deviceIndex:10, devicePolicies:[BDOS]}] |
-      | Format                | Select: PDF                                                                                                                                                      |
-      | Logo                  | reportLogoPNG.png                                                                                                                                                |
-      | Time Definitions.Date | Quick:This Month                                                                                                                                                 |
-      | Schedule              | Run Every:Once, On Time:+6H                                                                                                                                      |
-      | Share                 | Email:[automation.vision2@radware.com],Subject:myEdit subject,Body:myEdit body                                                                                   |
-    Then UI Delete Report With Name "Widgets 9_15 Report 3"
-
-  @SID_53
-  Scenario:  Widgets 9_15 Report 4
-    Then UI Click Button "New Report Tab"
-    Given UI "Create" Report With Name "Widgets 9_15 Report 4"
-      | Template              | reportType:DefensePro Behavioral Protections, Widgets:[{BDoS-ICMP:[IPv4, pps, inbound]}, {DNS-NAPTR:[IPv4]}], devices:[{deviceIndex:10, devicePolicies:[BDOS]}] |
-      | Format                | Select: HTML                                                                                                                                                    |
-      | Time Definitions.Date | Absolute:[27.02.1971 01:00, +0d]                                                                                                                                |
-      | Schedule              | Run Every:Monthly, On Time:+6H, At Months:[MAR]                                                                                                                 |
-    Then UI "Validate" Report With Name "Widgets 9_15 Report 4"
-      | Template              | reportType:DefensePro Behavioral Protections, Widgets:[{BDoS-ICMP:[IPv4, pps, inbound]}, {DNS-NAPTR:[IPv4]}], devices:[{deviceIndex:10, devicePolicies:[BDOS]}] |
-      | Format                | Select: HTML                                                                                                                                                    |
-      | Time Definitions.Date | Absolute:[27.02.1971 01:00, +0d]                                                                                                                                |
-      | Schedule              | Run Every:Monthly, On Time:+6H, At Months:[MAR]                                                                                                                 |
-    Then UI Delete Report With Name "Widgets 9_15 Report 4"
-
-         # ------------------------------------------------------------------------------------------------------------------------------------------------------------
-
-  @SID_54
-  Scenario: Widgets 1_3_10_15 Report
-    Then UI Click Button "New Report Tab"
-    Given UI "Create" Report With Name "Widgets 1_3_10_15 Report"
-      | Template              | reportType:DefensePro Behavioral Protections, Widgets:[{BDoS-TCP SYN:[IPv4, pps, inbound]},{BDoS-TCP FIN ACK:[IPv4, bps, inbound]}, {BDoS-IGMP:[IPv4, pps, Outbound]}, {DNS-NAPTR:[IPv4]}], devices:[{deviceIndex:11, devicePolicies:[BDOS]}] |
-      | Format                | Select: CSV                                                                                                                                                                                                                                   |
-      | Time Definitions.Date | Relative:[Hours,2]                                                                                                                                                                                                                            |
-      | Share                 | Email:[automation.vision2@radware.com],Subject:myEdit subject,Body:myEdit body                                                                                                                                                                |
-      | Schedule              | Run Every:Weekly, On Time:+6H, At Days:[WED]                                                                                                                                                                                                  |
-    Then UI "Validate" Report With Name "Widgets 1_3_10_15 Report"
-      | Template              | reportType:DefensePro Behavioral Protections, Widgets:[{BDoS-TCP SYN:[IPv4, pps, inbound]},{BDoS-TCP FIN ACK:[IPv4, bps, inbound]}, {BDoS-IGMP:[IPv4, pps, Outbound]}, {DNS-NAPTR:[IPv4]}]], devices:[{deviceIndex:11, devicePolicies:[BDOS]}] |
-      | Format                | Select: CSV                                                                                                                                                                                                                                    |
-      | Time Definitions.Date | Relative:[Hours,2]                                                                                                                                                                                                                             |
-      | Schedule              | Run Every:Weekly, On Time:+6H, At Days:[WED]                                                                                                                                                                                                   |
-      | Share                 | Email:[automation.vision2@radware.com],Subject:myEdit subject,Body:myEdit body                                                                                                                                                                 |
-    Then UI Delete Report With Name "Widgets 1_3_10_15 Report"
-
-  @SID_55
-  Scenario: Widgets 3_6_9_13_15 Report 2
-    Then UI Click Button "New Report Tab"
-    Given UI "Create" Report With Name "Widgets 3_6_9_13_15 Report"
-      | Template              | reportType:DefensePro Behavioral Protections, Widgets:[{BDoS-TCP FIN ACK:[IPv6, pps, inbound]}, {BDoS-TCP SYN ACK:[IPv4, bps, inbound]}, {BDoS-ICMP:[IPv4, bps, inbound]}, {DNS-AAAA:[IPv4]}, {DNS-NAPTR:[IPv4]}], devices:[{deviceIndex:11, devicePolicies:[BDOS]}] |
-      | Format                | Select: CSV                                                                                                                                                                                                                                                          |
-      | Logo                  | reportLogoPNG.png                                                                                                                                                                                                                                                    |
-      | Time Definitions.Date | Quick:15m                                                                                                                                                                                                                                                            |
-    Then UI "Validate" Report With Name "Widgets 3_6_9_13_15 Report"
-      | Template              | reportType:DefensePro Behavioral Protections, Widgets:[{BDoS-TCP FIN ACK:[IPv6, pps, inbound]}, {BDoS-TCP SYN ACK:[IPv4, bps, inbound]}, {BDoS-ICMP:[IPv4, bps, inbound]}, {DNS-AAAA:[IPv4]}, {DNS-NAPTR:[IPv4]}], devices:[{deviceIndex:11, devicePolicies:[BDOS]}] |
-      | Format                | Select: CSV                                                                                                                                                                                                                                                          |
-      | Logo                  | reportLogoPNG.png                                                                                                                                                                                                                                                    |
-      | Time Definitions.Date | Quick:15m                                                                                                                                                                                                                                                            |
-    Then UI Delete Report With Name "Widgets 3_6_9_13_15 Report"
-
-  @SID_56
-  Scenario:  Widgets 1_3_5_7_9_11_13 Report
-    Then UI Click Button "New Report Tab"
-    Given UI "Create" Report With Name "Widgets 1_3_5_7_9_11_13 Report"
-      | Template              | reportType:DefensePro Behavioral Protections, Widgets:[{BDoS-TCP SYN:[IPv6, bps, Outbound]}, {BDoS-TCP FIN ACK:[IPv4, pps, Outbound]}, {BDoS-TCP RST:[IPv4, pps, Outbound]}, {BDoS-UDP:[IPv4, bps, inbound]}, {BDoS-ICMP:[IPv6, pps, Outbound]}, {DNS-TXT:[IPv4]}, {DNS-AAAA:[IPv6]}], devices:[{deviceIndex:11, devicePolicies:[BDOS]}] |
-      | Format                | Select: PDF                                                                                                                                                                                                                                                                                                                              |
-      | Time Definitions.Date | Quick:1H                                                                                                                                                                                                                                                                                                                                 |
-      | Schedule              | Run Every:Monthly, On Time:+6H, At Months:[AUG]                                                                                                                                                                                                                                                                                          |
-      | Share                 | Email:[automation.vision2@radware.com],Subject:myEdit subject,Body:myEdit body                                                                                                                                                                                                                                                           |
-    Then UI "Validate" Report With Name "Widgets 1_3_5_7_9_11_13 Report "
-      | Template              | reportType:DefensePro Behavioral Protections, Widgets:[{BDoS-TCP SYN:[IPv6, bps, Outbound]}, {BDoS-TCP FIN ACK:[IPv4, pps, Outbound]}, {BDoS-TCP RST:[IPv4, pps, Outbound]}, {BDoS-UDP:[IPv4, bps, inbound]}, {BDoS-ICMP:[IPv6, pps, Outbound]}, {DNS-TXT:[IPv4]}, {DNS-AAAA:[IPv6]}], devices:[{deviceIndex:11, devicePolicies:[BDOS]}] |
-      | Format                | Select: PDF                                                                                                                                                                                                                                                                                                                              |
-      | Time Definitions.Date | Quick:This Week                                                                                                                                                                                                                                                                                                                          |
-      | Schedule              | Run Every:Monthly, On Time:+6H, At Months:[AUG]                                                                                                                                                                                                                                                                                          |
-      | Share                 | Email:[automation.vision2@radware.com],Subject:myEdit subject,Body:myEdit body                                                                                                                                                                                                                                                           |
-    Then UI Delete Report With Name "Widgets 1_3_5_7_9_11_13 Report"
-    # ------------------------------------------------------------------------------------------------------------------------------------------------------------
-
-  @SID_57
-  Scenario: All Widgets Report 1
-    Then UI Click Button "New Report Tab"
-    Given UI "Create" Report With Name "All Widgets Report 1"
-      | Template              | reportType:DefensePro Behavioral Protections, Widgets:[{BDoS-TCP SYN:[IPv4, bps, inbound]}, {BDoS-Advanced-UDP Rate-Invariant:[IPv4, inbound]}, {BDoS-TCP FIN ACK:[IPv4, bps, inbound]}, {BDoS-TCP Fragmented:[IPv4, bps, inbound]}, {BDoS-TCP RST:[IPv4, bps, inbound]}, {BDoS-TCP SYN ACK:[IPv4, bps, inbound]}, {BDoS-UDP:[IPv4, bps, inbound]}, {BDoS-UDP Fragmented:[IPv4, bps, inbound]}, {BDoS-ICMP:[IPv4, bps, inbound]}, {BDoS-IGMP:[IPv4, bps, inbound]}, {DNS-TXT:[IPv6]}, {DNS-A:[IPv4]}, {DNS-AAAA:[IPv4]}, {DNS-MX:[IPv4]}, {DNS-NAPTR:[IPv4]}, {DNS-PTR:[IPv4]}, {DNS-SOA:[IPv4]}, {DNS-SRV:[IPv4]}, {DNS-Other:[IPv4]}, {Excluded UDP Traffic:[IPv4, bps, inbound]}], devices:[{deviceIndex:11, devicePolicies:[BDOS]}] |
-      | Format                | Select: CSV                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             |
-      | Time Definitions.Date | Relative:[Weeks,2]                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      |
-      | Schedule              | Run Every:Daily,On Time:+2m                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             |
-      | Share                 | Email:[automation.vision2@radware.com],Subject:myEdit subject,Body:myEdit body                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          |
-    Then UI "Validate" Report With Name "All Widgets Report 1"
-      | Template              | reportType:DefensePro Behavioral Protections, Widgets:[{BDoS-TCP SYN:[IPv4, bps, inbound]}, {BDoS-Advanced-UDP Rate-Invariant:[IPv4, inbound]}, {BDoS-TCP FIN ACK:[IPv4, bps, inbound]}, {BDoS-TCP Fragmented:[IPv4, bps, inbound]}, {BDoS-TCP RST:[IPv4, bps, inbound]}, {BDoS-TCP SYN ACK:[IPv4, bps, inbound]}, {BDoS-UDP:[IPv4, bps, inbound]}, {BDoS-UDP Fragmented:[IPv4, bps, inbound]}, {BDoS-ICMP:[IPv4, bps, inbound]}, {BDoS-IGMP:[IPv4, bps, inbound]}, {DNS-TXT:[IPv6]}, {DNS-A:[IPv4]}, {DNS-AAAA:[IPv4]}, {DNS-MX:[IPv4]}, {DNS-NAPTR:[IPv4]}, {DNS-PTR:[IPv4]}, {DNS-SOA:[IPv4]}, {DNS-SRV:[IPv4]}, {DNS-Other:[IPv4]}, {Excluded UDP Traffic:[IPv4, bps, inbound]}], devices:[{deviceIndex:11, devicePolicies:[BDOS]}] |
-      | Format                | Select: CSV                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             |
-      | Time Definitions.Date | Relative:[Weeks,2]                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      |
-      | Schedule              | Run Every:Daily,On Time:+2m                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             |
-      | Share                 | Email:[automation.vision2@radware.com],Subject:myEdit subject,Body:myEdit body                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          |
-    Then UI Delete Report With Name "All Widgets Report 1"
-
-  @SID_58
-  Scenario: All Widgets Report 2
-    Then UI Click Button "New Report Tab"
-    Given UI "Create" Report With Name "All Widgets Report 2"
-      | Template              | reportType:DefensePro Behavioral Protections, Widgets:[{BDoS-TCP SYN:[IPv4, pps, Outbound]}, {BDoS-Advanced-UDP Rate-Invariant:[IPv4, Outbound]}, {BDoS-TCP FIN ACK:[IPv4, pps, Outbound]}, {BDoS-TCP Fragmented:[IPv4, pps, Outbound]}, {BDoS-TCP RST:[IPv4, pps, Outbound]}, {BDoS-TCP SYN ACK:[IPv4, pps, Outbound]}, {BDoS-UDP:[IPv4, pps, Outbound]}, {BDoS-UDP Fragmented:[IPv4, pps, Outbound]}, {BDoS-ICMP:[IPv4, pps, Outbound]}, {BDoS-IGMP:[IPv4, pps, Outbound]}, {DNS-TXT:[IPv4]}, {DNS-A:[IPv4]}, {DNS-AAAA:[IPv4]}, {DNS-MX:[IPv4]}, {DNS-NAPTR:[IPv6]}, {DNS-PTR:[IPv6]}, {DNS-SOA:[IPv6]}, {DNS-SRV:[IPv6]}, {DNS-Other:[IPv6]}, {Excluded UDP Traffic:[IPv4, pps, Outbound]}], devices:[{deviceIndex:11, devicePolicies:[BDOS]}] |
-      | Format                | Select: CSV                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        |
-      | Logo                  | reportLogoPNG.png                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  |
-      | Time Definitions.Date | Absolute:[27.02.1971 01:00, +0d]                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   |
-      | Schedule              | Run Every:Weekly, On Time:+6H, At Days:[SUN]                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       |
-    Then UI "Validate" Report With Name "All Widgets Report 2"
-      | Template              | reportType:DefensePro Behavioral Protections, Widgets:[{BDoS-TCP SYN:[IPv4, pps, Outbound]}, {BDoS-Advanced-UDP Rate-Invariant:[IPv4, Outbound]}, {BDoS-TCP FIN ACK:[IPv4, pps, Outbound]}, {BDoS-TCP Fragmented:[IPv4, pps, Outbound]}, {BDoS-TCP RST:[IPv4, pps, Outbound]}, {BDoS-TCP SYN ACK:[IPv4, pps, Outbound]}, {BDoS-UDP:[IPv4, pps, Outbound]}, {BDoS-UDP Fragmented:[IPv4, pps, Outbound]}, {BDoS-ICMP:[IPv4, pps, Outbound]}, {BDoS-IGMP:[IPv4, pps, Outbound]}, {DNS-TXT:[IPv4]}, {DNS-A:[IPv4]}, {DNS-AAAA:[IPv4]}, {DNS-MX:[IPv4]}, {DNS-NAPTR:[IPv6]}, {DNS-PTR:[IPv6]}, {DNS-SOA:[IPv6]}, {DNS-SRV:[IPv6]}, {DNS-Other:[IPv6]}, {Excluded UDP Traffic:[IPv4, pps, Outbound]}], devices:[{deviceIndex:11, devicePolicies:[BDOS]}] |
-      | Format                | Select: CSV                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        |
-      | Logo                  | reportLogoPNG.png                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  |
-      | Time Definitions.Date | Absolute:[27.02.1971 01:00, +0d]                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   |
-      | Schedule              | Run Every:Weekly, On Time:+6H, At Days:[SUN]                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       |
-    Then UI Delete Report With Name "All Widgets Report 2"
-
-  @SID_59
-  Scenario:  All Widgets Report 3
-    Then UI Click Button "New Report Tab"
-    Given UI "Create" Report With Name "All Widgets Report 3"
-      | Template              | reportType:DefensePro Behavioral Protections, Widgets:[{BDoS-TCP SYN:[IPv6, bps, Outbound]}, {BDoS-Advanced-UDP Rate-Invariant:[IPv6, inbound]}, {BDoS-TCP FIN ACK:[IPv6, bps, Outbound]}, {BDoS-TCP Fragmented:[IPv6, bps, Outbound]}, {BDoS-TCP RST:[IPv6, bps, Outbound]}, {BDoS-TCP SYN ACK:[IPv6, bps, Outbound]}, {BDoS-UDP:[IPv6, bps, Outbound]}, {BDoS-UDP Fragmented:[IPv6, bps, Outbound]}, {BDoS-ICMP:[IPv6, bps, Outbound]}, {BDoS-IGMP:[IPv6, bps, Outbound]}, {DNS-TXT:[IPv4]}, {DNS-A:[IPv4]}, {DNS-AAAA:[IPv4]}, {DNS-MX:[IPv4]}, {DNS-NAPTR:[IPv4]}, {DNS-PTR:[IPv4]}, {DNS-SOA:[IPv4]}, {DNS-SRV:[IPv4]}, {DNS-Other:[IPv4]}, {Excluded UDP Traffic:[IPv6, bps, Outbound]}], devices:[{deviceIndex:10, devicePolicies:[BDOS]}] |
-      | Format                | Select: PDF                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       |
-      | Logo                  | reportLogoPNG.png                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 |
-      | Time Definitions.Date | Quick:3M                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          |
-      | Schedule              | Run Every:Monthly, On Time:+6H, At Months:[DEC]                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   |
-      | Share                 | Email:[automation.vision2@radware.com],Subject:myEdit subject,Body:myEdit body                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    |
-    Then UI "Validate" Report With Name "All Widgets Report 3"
-      | Template              | reportType:DefensePro Behavioral Protections, Widgets:[{BDoS-TCP SYN:[IPv6, bps, Outbound]}, {BDoS-Advanced-UDP Rate-Invariant:[IPv6, inbound]}, {BDoS-TCP FIN ACK:[IPv6, bps, Outbound]}, {BDoS-TCP Fragmented:[IPv6, bps, Outbound]}, {BDoS-TCP RST:[IPv6, bps, Outbound]}, {BDoS-TCP SYN ACK:[IPv6, bps, Outbound]}, {BDoS-UDP:[IPv6, bps, Outbound]}, {BDoS-UDP Fragmented:[IPv6, bps, Outbound]}, {BDoS-ICMP:[IPv6, bps, Outbound]}, {BDoS-IGMP:[IPv6, bps, Outbound]}, {DNS-TXT:[IPv4]}, {DNS-A:[IPv4]}, {DNS-AAAA:[IPv4]}, {DNS-MX:[IPv4]}, {DNS-NAPTR:[IPv4]}, {DNS-PTR:[IPv4]}, {DNS-SOA:[IPv4]}, {DNS-SRV:[IPv4]}, {DNS-Other:[IPv4]}, {Excluded UDP Traffic:[IPv6, bps, Outbound]}], devices:[{deviceIndex:10, devicePolicies:[BDOS]}] |
-      | Format                | Select: PDF                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       |
-      | Logo                  | reportLogoPNG.png                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 |
-      | Time Definitions.Date | Quick:3M                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          |
-      | Schedule              | Run Every:Monthly, On Time:+6H, At Months:[DEC]                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   |
-      | Share                 | Email:[automation.vision2@radware.com],Subject:myEdit subject,Body:myEdit body                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    |
-    Then UI Delete Report With Name "All Widgets Report 3"
-
-  @SID_60
-  Scenario:  All Widgets Report 4
-    Then UI Click Button "New Report Tab"
-    Given UI "Create" Report With Name "All Widgets Report 4"
-      | Template              | reportType:DefensePro Behavioral Protections, Widgets:[{BDoS-TCP SYN:[IPv4, pps, inbound]}, {BDoS-Advanced-UDP Rate-Invariant:[IPv4, Outbound]}, {BDoS-TCP FIN ACK:[IPv4, pps, inbound]}, {BDoS-TCP Fragmented:[IPv4, pps, inbound]}, {BDoS-TCP RST:[IPv4, pps, inbound]}, {BDoS-TCP SYN ACK:[IPv4, pps, inbound]}, {BDoS-UDP:[IPv4, pps, inbound]}, {BDoS-UDP Fragmented:[IPv4, pps, inbound]}, {BDoS-ICMP:[IPv4, pps, inbound]}, {BDoS-IGMP:[IPv4, pps, inbound]}, {DNS-TXT:[IPv4]}, {DNS-A:[IPv4]}, {DNS-AAAA:[IPv6]}, {DNS-MX:[IPv4]}, {DNS-NAPTR:[IPv4]}, {DNS-PTR:[IPv4]}, {DNS-SOA:[IPv4]}, {DNS-SRV:[IPv4]}, {DNS-Other:[IPv4]}, {Excluded UDP Traffic:[IPv4, pps, inbound]}], devices:[{deviceIndex:10, devicePolicies:[BDOS]}] |
-      | Format                | Select: HTML                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             |
-      | Time Definitions.Date | Quick:This Month                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         |
-    Then UI "Validate" Report With Name "All Widgets Report 4"
-      | Template              | reportType:DefensePro Behavioral Protections, Widgets:[{BDoS-TCP SYN:[IPv4, pps, inbound]}, {BDoS-Advanced-UDP Rate-Invariant:[IPv4, Outbound]}, {BDoS-TCP FIN ACK:[IPv4, pps, inbound]}, {BDoS-TCP Fragmented:[IPv4, pps, inbound]}, {BDoS-TCP RST:[IPv4, pps, inbound]}, {BDoS-TCP SYN ACK:[IPv4, pps, inbound]}, {BDoS-UDP:[IPv4, pps, inbound]}, {BDoS-UDP Fragmented:[IPv4, pps, inbound]}, {BDoS-ICMP:[IPv4, pps, inbound]}, {BDoS-IGMP:[IPv4, pps, inbound]}, {DNS-TXT:[IPv4]}, {DNS-A:[IPv4]}, {DNS-AAAA:[IPv6]}, {DNS-MX:[IPv4]}, {DNS-NAPTR:[IPv4]}, {DNS-PTR:[IPv4]}, {DNS-SOA:[IPv4]}, {DNS-SRV:[IPv4]}, {DNS-Other:[IPv4]}, {Excluded UDP Traffic:[IPv4, pps, inbound]}], devices:[{deviceIndex:10, devicePolicies:[BDOS]}] |
-      | Format                | Select: HTML                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             |
-      | Time Definitions.Date | Quick:This Month                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         |
-    Then UI Delete Report With Name "All Widgets Report 4"
 
 
   @SID_62

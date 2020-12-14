@@ -1,13 +1,13 @@
 @TC118343
 Feature: DefensePro Analytics Part 2
 
-  @SID_44
+  @SID_1
   Scenario: Navigate to NEW REPORTS page
     Then UI Login with user "radware" and password "radware"
     Then UI Navigate to "AMS REPORTS" page via homepage
     Then UI Click Button "New Report Tab"
 
-  @SID_1
+  @SID_2
   Scenario: create new Top Attack Destinations1
     Then UI Click Button "New Report Tab"
     Given UI "Create" Report With Name "Top Attack Destinations Report1"
@@ -22,7 +22,7 @@ Feature: DefensePro Analytics Part 2
       | Format                | Select: CSV                                                                                    |
     Then UI Delete Report With Name "Top Attack Destinations Report1"
 
-  @SID_2
+  @SID_3
   Scenario: create new Top Attack Destinations2
     Then UI Click Button "New Report Tab"
     Given UI "Create" Report With Name "Top Attack Destinations Report2"
@@ -41,7 +41,7 @@ Feature: DefensePro Analytics Part 2
       | Format                | Select: PDF                                                                                     |
     Then UI Delete Report With Name "Top Attack Destinations Report2"
 
-  @SID_3
+  @SID_4
   Scenario: create new Top Attack Destinations3
     Then UI Click Button "New Report Tab"
     Given UI "Create" Report With Name "Top Attack Destinations Report3"
@@ -57,7 +57,7 @@ Feature: DefensePro Analytics Part 2
     Then UI Delete Report With Name "Top Attack Destinations Report3"
 
 
-  @SID_4
+  @SID_5
   Scenario: create new Top Attack Destinations4
     Then UI Click Button "New Report Tab"
     Given UI "Create" Report With Name "Top Attack Destinations Report4"
@@ -75,7 +75,7 @@ Feature: DefensePro Analytics Part 2
     Then UI Delete Report With Name "Top Attack Destinations Report4"
 
 
-  @SID_5
+  @SID_6
   Scenario: Top Attack Sources Report 1
     Then UI Click Button "New Report Tab"
     Given UI "Create" Report With Name "Top Attack Sources 1"
@@ -91,7 +91,7 @@ Feature: DefensePro Analytics Part 2
     Then UI Delete Report With Name "Top Attack Sources 1"
 
 
-  @SID_6
+  @SID_7
   Scenario: Top Attack Sources Report 2
     Then UI Click Button "New Report Tab"
     Given UI "Create" Report With Name "Top Attack Sources 2"
@@ -108,7 +108,7 @@ Feature: DefensePro Analytics Part 2
       | Share                 | Email:[automation.vision2@radware.com],Subject:myEdit subject,Body:myEdit body          |
     Then UI Delete Report With Name "Top Attack Sources 2"
 
-  @SID_7
+  @SID_8
   Scenario: Top Attack Sources Report 3
     Then UI Click Button "New Report Tab"
     Given UI "Create" Report With Name "Top Attack Sources 3"
@@ -121,7 +121,7 @@ Feature: DefensePro Analytics Part 2
       | Time Definitions.Date | Relative:[Weeks,2]                                                                      |
     Then UI Delete Report With Name "Top Attack Sources 3"
 
-  @SID_8
+  @SID_9
   Scenario: Top Attack Sources Report 4
     Then UI Click Button "New Report Tab"
     Given UI "Create" Report With Name "Top Attack Sources 4"
@@ -138,7 +138,7 @@ Feature: DefensePro Analytics Part 2
 
 # ------------------------------------------------------------------------------------------------------------------------------------------------------------
 
-  @SID_9
+  @SID_10
   Scenario: Top Scanners Report 1
     Then UI Click Button "New Report Tab"
     Given UI "Create" Report With Name "Top Scanners 1"
@@ -155,7 +155,7 @@ Feature: DefensePro Analytics Part 2
       | Schedule              | Run Every:Daily,On Time:+2m                                                           |
     Then UI Delete Report With Name "Top Scanners 1"
 
-  @SID_10
+  @SID_11
   Scenario: Top Scanners Report 2
     Then UI Click Button "New Report Tab"
     Given UI "Create" Report With Name "Top Scanners 2"
@@ -174,7 +174,7 @@ Feature: DefensePro Analytics Part 2
       | Share                 | Email:[automation.vision2@radware.com],Subject:myEdit subject,Body:myEdit body    |
     Then UI Delete Report With Name "Top Scanners 2"
 
-  @SID_11
+  @SID_12
   Scenario: Top Scanners Report 3
     Then UI Click Button "New Report Tab"
     Given UI "Create" Report With Name "Top Scanners 3"
@@ -187,7 +187,7 @@ Feature: DefensePro Analytics Part 2
       | Time Definitions.Date | Relative:[Months,4]                                                                                |
     Then UI Delete Report With Name "Top Scanners 3"
 
-  @SID_12
+  @SID_13
   Scenario: Top Scanners Report 4
     Then UI Click Button "New Report Tab"
     Given UI "Create" Report With Name "Top Scanners 4"
@@ -206,7 +206,7 @@ Feature: DefensePro Analytics Part 2
 
 # ------------------------------------------------------------------------------------------------------------------------------------------------------------
 
-  @SID_13
+  @SID_14
   Scenario: Top Probed IP Addresses Report 1
     Then UI Click Button "New Report Tab"
     Given UI "Create" Report With Name "Top Probed IP Addresses 1"
@@ -223,7 +223,7 @@ Feature: DefensePro Analytics Part 2
       | Schedule              | Run Every:Daily,On Time:+2m                                                                      |
     Then UI Delete Report With Name "Top Probed IP Addresses 1"
 
-  @SID_14
+  @SID_15
   Scenario: Top Probed IP Addresses 2
     Then UI Click Button "New Report Tab"
     Given UI "Create" Report With Name "Top Probed IP Addresses 2"
@@ -242,7 +242,7 @@ Feature: DefensePro Analytics Part 2
       | Share                 | Email:[automation.vision2@radware.com],Subject:myEdit subject,Body:myEdit body               |
     Then UI Delete Report With Name "Top Probed IP Addresses 2"
 
-  @SID_15
+  @SID_16
   Scenario: Top Probed IP Addresses Report 3
     Then UI Click Button "New Report Tab"
     Given UI "Create" Report With Name "Top Probed IP Addresses 3"
@@ -257,7 +257,7 @@ Feature: DefensePro Analytics Part 2
       | Schedule              | Run Every:once, On Time:+6H                                                                  |
     Then UI Delete Report With Name "Top Probed IP Addresses 3"
 
-  @SID_16
+  @SID_17
   Scenario: Top Probed IP Addresses Report 4
     Then UI Click Button "New Report Tab"
     Given UI "Create" Report With Name "Top Probed IP Addresses 4"
@@ -274,7 +274,7 @@ Feature: DefensePro Analytics Part 2
 
  # ------------------------------------------------------------------------------------------------------------------------------------------------------------
 
-  @SID_17
+  @SID_18
   Scenario: Attacks by Protection Policy Report 1
     Then UI Click Button "New Report Tab"
     Given UI "Create" Report With Name "Attacks by Protection Policy 1"
@@ -291,7 +291,7 @@ Feature: DefensePro Analytics Part 2
       | Schedule              | Run Every:Weekly, On Time:+6H, At Days:[MON]                                                          |
     Then UI Delete Report With Name "Attacks by Protection Policy 1"
 
-  @SID_18
+  @SID_19
   Scenario: Attacks by Protection Policy Report 2
     Then UI Click Button "New Report Tab"
     Given UI "Create" Report With Name "Attacks by Protection Policy 2"
@@ -310,7 +310,7 @@ Feature: DefensePro Analytics Part 2
       | Share                 | Email:[automation.vision2@radware.com],Subject:myEdit subject,Body:myEdit body                    |
     Then UI Delete Report With Name "Attacks by Protection Policy 2"
 
-  @SID_19
+  @SID_20
   Scenario: Attacks by Protection Policy 3
     Then UI Click Button "New Report Tab"
     Given UI "Create" Report With Name "Attacks by Protection Policy 3"
@@ -325,7 +325,7 @@ Feature: DefensePro Analytics Part 2
       | Schedule              | Run Every:Monthly, On Time:+6H, At Months:[SEP]                                                                    |
     Then UI Delete Report With Name "Attacks by Protection Policy 3"
 
-  @SID_20
+  @SID_21
   Scenario: Attacks by Protection Policy 4
     Then UI Click Button "New Report Tab"
     Given UI "Create" Report With Name "Attacks by Protection Policy 4"
@@ -343,7 +343,7 @@ Feature: DefensePro Analytics Part 2
 
   # ------------------------------------------------------------------------------------------------------------------------------------------------------------
 
-  @SID_21
+  @SID_22
   Scenario: Attack Categories by Bandwidth Report 1
     Then UI Click Button "New Report Tab"
     Given UI "Create" Report With Name "Attack Categories by Bandwidth 1"
@@ -358,7 +358,7 @@ Feature: DefensePro Analytics Part 2
       | Time Definitions.Date | Quick:15m                                                                                               |
     Then UI Delete Report With Name "Attack Categories by Bandwidth 1"
 
-  @SID_22
+  @SID_23
   Scenario: Attack Categories by Bandwidth Report 2
     Then UI Click Button "New Report Tab"
     Given UI "Create" Report With Name "Attack Categories by Bandwidth 2"
@@ -377,7 +377,7 @@ Feature: DefensePro Analytics Part 2
       | Share                 | Email:[automation.vision2@radware.com],Subject:myEdit subject,Body:myEdit body                      |
     Then UI Delete Report With Name "Attack Categories by Bandwidth 2"
 
-  @SID_23
+  @SID_24
   Scenario: Attack Categories by Bandwidth Report 3
     Then UI Click Button "New Report Tab"
     Given UI "Create" Report With Name "Attack Categories by Bandwidth 3"
@@ -392,7 +392,7 @@ Feature: DefensePro Analytics Part 2
       | Schedule              | Run Every:Weekly, On Time:+6H, At Days:[SUN]                                                                         |
     Then UI Delete Report With Name "Attack Categories by Bandwidth 3"
 
-  @SID_24
+  @SID_25
   Scenario: Attack Categories by Bandwidth Report 4
     Then UI Click Button "New Report Tab"
     Given UI "Create" Report With Name "Attack Categories by Bandwidth 4"
@@ -411,7 +411,7 @@ Feature: DefensePro Analytics Part 2
 
   # ------------------------------------------------------------------------------------------------------------------------------------------------------------
 
-  @SID_25
+  @SID_26
   Scenario: Top Allowed Attackers Report 1
     Then UI Click Button "New Report Tab"
     Given UI "Create" Report With Name "Top Allowed Attackers 1"
@@ -428,7 +428,7 @@ Feature: DefensePro Analytics Part 2
       | Schedule              | Run Every:Daily,On Time:+2m                                                                    |
     Then UI Delete Report With Name "Top Allowed Attackers 1"
 
-  @SID_26
+  @SID_27
   Scenario: Top Allowed Attackers Report 2
     Then UI Click Button "New Report Tab"
     Given UI "Create" Report With Name "Top Allowed Attackers 2"
@@ -447,7 +447,7 @@ Feature: DefensePro Analytics Part 2
       | Share                 | Email:[automation.vision2@radware.com],Subject:myEdit subject,Body:myEdit body             |
     Then UI Delete Report With Name "Top Allowed Attackers 2"
 
-  @SID_27
+  @SID_28
   Scenario: Top Allowed Attackers Report 3
     Then UI Click Button "New Report Tab"
     Given UI "Create" Report With Name "Top Allowed Attackers 3"
@@ -462,7 +462,7 @@ Feature: DefensePro Analytics Part 2
       | Schedule              | Run Every:Monthly, On Time:+6H, At Months:[MAR]                                                             |
     Then UI Delete Report With Name "Top Allowed Attackers 3"
 
-  @SID_28
+  @SID_29
   Scenario: Top Allowed Attackers Report 4
     Then UI Click Button "New Report Tab"
     Given UI "Create" Report With Name "Top Allowed Attackers 4"
@@ -481,7 +481,7 @@ Feature: DefensePro Analytics Part 2
 
   # ------------------------------------------------------------------------------------------------------------------------------------------------------------
 
-  @SID_29
+  @SID_30
   Scenario: Top Attacks by Duration Report 1
     Then UI Click Button "New Report Tab"
     Given UI "Create" Report With Name "Top Attacks by Duration 1"
@@ -498,7 +498,7 @@ Feature: DefensePro Analytics Part 2
       | Schedule              | Run Every:Monthly, On Time:+6H, At Months:[JUN]                                                  |
     Then UI Delete Report With Name "Top Attacks by Duration 1"
 
-  @SID_30
+  @SID_31
   Scenario: Top Attacks by Duration 2
     Then UI Click Button "New Report Tab"
     Given UI "Create" Report With Name "Top Attacks by Duration 2"
@@ -515,7 +515,7 @@ Feature: DefensePro Analytics Part 2
       | Share                 | Email:[automation.vision2@radware.com],Subject:myEdit subject,Body:myEdit body               |
     Then UI Delete Report With Name "Top Attacks by Duration 2"
 
-  @SID_31
+  @SID_32
   Scenario: Top Attacks by Duration Report 3
     Then UI Click Button "New Report Tab"
     Given UI "Create" Report With Name "Top Attacks by Duration 3"
@@ -530,7 +530,7 @@ Feature: DefensePro Analytics Part 2
       | Schedule              | Run Every:Weekly, On Time:+6H, At Days:[MON]                                                                  |
     Then UI Delete Report With Name "Top Attacks by Duration 3"
 
-  @SID_32
+  @SID_33
   Scenario: Top Attacks by Duration Report 4
     Then UI Click Button "New Report Tab"
     Given UI "Create" Report With Name "Top Attacks by Duration 4"
@@ -549,7 +549,7 @@ Feature: DefensePro Analytics Part 2
 
   # ------------------------------------------------------------------------------------------------------------------------------------------------------------
 
-  @SID_33
+  @SID_34
   Scenario: Top Attacks by Signature Report 1
     Then UI Click Button "New Report Tab"
     Given UI "Create" Report With Name "Top Attacks by Signature 1"
@@ -564,7 +564,7 @@ Feature: DefensePro Analytics Part 2
       | Time Definitions.Date | Quick:1H                                                                                          |
     Then UI Delete Report With Name "Top Attacks by Signature 1"
 
-  @SID_34
+  @SID_35
   Scenario: Top Attacks by Signature 2
     Then UI Click Button "New Report Tab"
     Given UI "Create" Report With Name "Top Attacks by Signature 2"
@@ -583,7 +583,7 @@ Feature: DefensePro Analytics Part 2
       | Share                 | Email:[automation.vision2@radware.com],Subject:myEdit subject,Body:myEdit body                |
     Then UI Delete Report With Name "Top Attacks by Signature 2"
 
-  @SID_35
+  @SID_36
   Scenario: Top Attacks by Signature Report 3
     Then UI Click Button "New Report Tab"
     Given UI "Create" Report With Name "Top Attacks by Signature 3"
@@ -598,7 +598,7 @@ Feature: DefensePro Analytics Part 2
       | Schedule              | Run Every:Daily,On Time:+2m                                                                                    |
     Then UI Delete Report With Name "Top Attacks by Signature 3"
 
-  @SID_36
+  @SID_37
   Scenario: Top Attacks by Signature Report 4
     Then UI Click Button "New Report Tab"
     Given UI "Create" Report With Name "Top Attacks by Signature 4"
@@ -617,7 +617,7 @@ Feature: DefensePro Analytics Part 2
 
   #------------------------------------------------------------------------------------------------------------------------------------------------------------
 
-  @SID_37
+  @SID_38
   Scenario: All Widgets Report 1
     Then UI Click Button "New Report Tab"
     Given UI "Create" Report With Name "All Widgets 1"
@@ -632,7 +632,7 @@ Feature: DefensePro Analytics Part 2
       | Time Definitions.Date | Quick:1H                                                                                                                        |
     Then UI Delete Report With Name "All Widgets 1"
 
-  @SID_38
+  @SID_39
   Scenario: All Widgets Report 2
     Then UI Click Button "New Report Tab"
     Given UI "Create" Report With Name "All Widgets 2"
@@ -651,7 +651,7 @@ Feature: DefensePro Analytics Part 2
       | Share                 | Email:[automation.vision2@radware.com],Subject:myEdit subject,Body:myEdit body                                                |
     Then UI Delete Report With Name "All Widgets 2"
 
-  @SID_39
+  @SID_40
   Scenario: All Widgets Report 3
     Then UI Click Button "New Report Tab"
     Given UI "Create" Report With Name "All Widgets 3"
@@ -666,7 +666,7 @@ Feature: DefensePro Analytics Part 2
       | Schedule              | Run Every:Daily,On Time:+2m                                                                                                         |
     Then UI Delete Report With Name "All Widgets 3"
 
-  @SID_40
+  @SID_41
   Scenario: All Widgets Report 4
     Then UI Click Button "New Report Tab"
     Given UI "Create" Report With Name "All Widgets 4"
@@ -681,7 +681,7 @@ Feature: DefensePro Analytics Part 2
       | Schedule              | Run Every:Daily,On Time:+2m                                                                                         |
     Then UI Delete Report With Name "All Widgets 4"
 
-  @SID_41
+  @SID_42
   Scenario: All Widgets Report 5
     Then UI Click Button "New Report Tab"
     Given UI "Create" Report With Name "All Widgets 5"
@@ -698,7 +698,7 @@ Feature: DefensePro Analytics Part 2
       | Share                 | Email:[automation.vision2@radware.com],Subject:myEdit subject,Body:myEdit body                                                    |
     Then UI Delete Report With Name "All Widgets 5"
 
-  @SID_42
+  @SID_43
   Scenario: All Widgets Report 6
     Then UI Click Button "New Report Tab"
     Given UI "Create" Report With Name "All Widgets 6"
@@ -718,6 +718,6 @@ Feature: DefensePro Analytics Part 2
 
  # ------------------------------------------------------------------------------------------------------------------------------------------------------------
 
-  @SID_43
+  @SID_44
   Scenario: Logout
     Then UI logout and close browser
