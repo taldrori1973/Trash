@@ -8,7 +8,6 @@ import com.radware.vision.automation.tools.esxitool.snapshotoperations.EsxiInfo;
 import com.radware.vision.automation.tools.esxitool.snapshotoperations.VMSnapshotOperations;
 import com.radware.vision.automation.tools.esxitool.snapshotoperations.targetvm.VmNameTargetVm;
 import com.radware.vision.automation.tools.sutsystemobjects.VisionVMs;
-import com.radware.vision.base.WebUITestBase;
 import com.radware.vision.bddtests.BddUITestBase;
 import com.radware.vision.bddtests.clioperation.connections.NewVmSteps;
 import com.radware.vision.bddtests.clioperation.system.upgrade.UpgradeSteps;
@@ -131,7 +130,7 @@ public class VMOperationsSteps extends BddUITestBase {
             switch (setupMode.toLowerCase()) {
                 case "fresh install_inparallel":
                 case "fresh install":
-                    prefreshInstall();
+                    preFreshInstall();
                     return;
 
                 case "kvm_fresh install":
@@ -140,11 +139,7 @@ public class VMOperationsSteps extends BddUITestBase {
 
                 case "physical":
                     return;
-            }
             /* Upgrade section */
-            Upgrade upgrade = new Upgrade(true, null, restTestBase.getRadwareServerCli(), restTestBase.getRootServerCli());
-            if (force != null || upgrade.isSetupNeeded) {
-                switch (setupMode.toLowerCase()) {
                     case "kvm_upgrade_inparallel":
                         revert_kvm_upgrade_InParallel(snapshot, visionRadwareFirstTime);
                         afterUpgrade();
@@ -165,9 +160,10 @@ public class VMOperationsSteps extends BddUITestBase {
                         revertSnapshot(1);
                         afterUpgrade();
                         return;
+                default:
+                    BaseTestUtils.report("What is wrong with you man? there is no such a mode as: " + setupMode, Reporter.FAIL);
                 }
 
-            }
         } catch (Exception e) {
             e.printStackTrace();
             BaseTestUtils.report(e.getMessage() + " ", Reporter.FAIL);
@@ -191,7 +187,7 @@ public class VMOperationsSteps extends BddUITestBase {
         }
     }
 
-    private void prefreshInstall() {
+    private void preFreshInstall() {
         NewVmSteps newVmSteps = new NewVmSteps();
         String vmPrefix = getVisionSetupAttributeFromSUT("vmPrefix");
         if (vmPrefix == null) throw new NullPointerException("Can't find \"vmPrefix\" at SUT File");
@@ -313,7 +309,7 @@ public class VMOperationsSteps extends BddUITestBase {
         String version = readVisionVersionFromPomFile();
 //        String versionPrefix = version.substring(0, 4);//example : 4.10.00 --> 4.10
         String build = BaseTestUtils.getRuntimeProperty("BUILD", null); //get build from portal
-        restTestBase.getRootServerCli().getVersionNumebr();
+//        restTestBase.getRootServerCli().getVersionNumebr();
         if (build == null || build.equals("") || build.equals("0")) {
             BaseTestUtils.report("No build was supplied. Going for latest", Reporter.PASS);
             build = new VisionDeployment(VisionDeployType.ANY, version, build).getBuild();//Latest Build
