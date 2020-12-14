@@ -65,7 +65,7 @@ public class WebUiTools {
             checkWebElement(getWebElement(label, param.toString()), isToBeChecked);
     }
     public static void check(String label, String [] param, boolean isToCheck) throws Exception {
-        WebElement checkElement = getWebElement(label, param);
+        WebElement checkElement = getClickabledWebElement(getWebElement(label, param));
         WebUIUtils.scrollIntoView(checkElement);
         if (checkElement == null)
             throw new Exception("No Element with label " + label + " and params " + Arrays.toString(param));
@@ -93,9 +93,6 @@ public class WebUiTools {
     public static void clickWebElement(WebElement webElement) {
         try
         {
-            List<WebElement> webElements = WebUIUtils.fluentWaitMultiple(ComponentLocatorFactory.getLocatorByXpathDbgId(VisionDebugIdsManager.getDataDebugId()).getBy());
-            if (webElements.size()>1)
-                webElement = webElements.stream().filter(WebElement::isDisplayed).findFirst().get();
             webElement.click();
         }catch (Exception e)
         {
@@ -104,5 +101,27 @@ public class WebUiTools {
             WebUIUtils.sleep(4);
             webElement.click();
         }
+    }
+
+    protected static WebElement getClickabledWebElement(WebElement webElement) {
+        List<WebElement> webElements = WebUIUtils.fluentWaitMultiple(ComponentLocatorFactory.getLocatorByXpathDbgId(VisionDebugIdsManager.getDataDebugId()).getBy());
+        if (webElements.size()>1)
+        {
+            int i;
+            for(i=0; i< webElements.size(); i++)
+            {
+                try
+                {
+                    WebUIUtils.fluentWaitMultiple(ComponentLocatorFactory.getLocatorByXpathDbgId(VisionDebugIdsManager.getDataDebugId()).getBy()).get(i).click();
+                    WebUIUtils.fluentWaitMultiple(ComponentLocatorFactory.getLocatorByXpathDbgId(VisionDebugIdsManager.getDataDebugId()).getBy()).get(i).click();
+                    break;
+                }catch (Exception e)
+                {
+
+                }
+            }
+            return WebUIUtils.fluentWaitMultiple(ComponentLocatorFactory.getLocatorByXpathDbgId(VisionDebugIdsManager.getDataDebugId()).getBy()).get(i);
+        }
+        return webElement;
     }
 }
