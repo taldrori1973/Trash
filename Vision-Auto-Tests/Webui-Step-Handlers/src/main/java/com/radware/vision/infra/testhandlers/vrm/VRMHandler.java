@@ -867,7 +867,7 @@ public class VRMHandler {
                     BaseTestUtils.report(e.getMessage(), e);
                 }
                 //select the device
-                checkbox.setLocator(ComponentLocatorFactory.getEqualLocatorByDbgId("scopeSelection_deviceIP_" + deviceIp + "_Label"));
+                checkbox.setLocator(ComponentLocatorFactory.getEqualLocatorByDbgId("scopeSelection_DefensePro_" + deviceIp + "_Label"));
                 checkbox.check();
                 boolean changePolicies = entry.policies != null && !entry.policies.equals("");
                 boolean changePorts = entry.ports != null && !entry.ports.equals("");
