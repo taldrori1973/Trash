@@ -22,7 +22,7 @@ public class RestClientsStepsHandler {
         RestResponse response;
         SessionBasedRestClient connection = RestClientsFactory.getVisionConnection(baseUri, port, username, password, licenseKey);
 
-        if (!connection.isLoggedIn()) {//then login
+        if (!connection.isLoggedIn() || !RestClientsManagement.getCurrentConnection().get().equals(connection)) {//then login
 
             response = connection.login();//the switch happen in the log in if success
 
