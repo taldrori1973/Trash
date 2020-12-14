@@ -666,7 +666,7 @@ public class TemplateHandlers {
             String[] expectedTemplateName = expectedTemplateTitle.split("_");
             for (Object singleTemplate : actualTemplateJSON) {
                 String[] actualTemplateName = new JSONObject(singleTemplate.toString()).get("templateTitle").toString().split("_");
-                switch (actualTemplateName.length) {
+                switch (expectedTemplateName.length) {
                     case 1:
                         if (expectedTemplateName[0].equals(actualTemplateName[0]))
                             return new JSONObject(singleTemplate.toString());
