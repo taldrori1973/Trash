@@ -1,3 +1,5 @@
+@run
+
 @TC117968
 Feature: Basic tests for report parameters
   @SID_1
@@ -5,7 +7,6 @@ Feature: Basic tests for report parameters
     Then UI Login with user "sys_admin" and password "radware"
     Then UI Navigate to "AMS REPORTS" page via homepage
     Then UI Click Button "New Report Tab"
-#    Then UI Click Button "Report Parameter Menu"
 
   @SID_2
   Scenario: Validate Report Parameters Name
@@ -288,7 +289,6 @@ Feature: Basic tests for report parameters
 
   @SID_28
   Scenario: Validate Share send email To
-    Then UI Set Text Field "Email" To "user@automation.local"
     Then UI Text of "Email Tab" equal to "E-mail To*"
     Then UI Set Text Field "Email" To "example@example.com" enter Key true
     Then UI Validate Element Existence By Label "Email input" if Exists "true" with value "example@example.com,valid"

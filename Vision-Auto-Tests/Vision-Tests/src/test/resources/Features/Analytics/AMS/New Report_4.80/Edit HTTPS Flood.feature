@@ -20,16 +20,16 @@ Feature: Edit HTTPS Flood tests
   Scenario: Create and Validate HTTPS Flood Report
     Then UI Click Button "New Report Tab"
     Given UI "Create" Report With Name "HTTPS Flood Report"
-      | Template-1            | reportType:HTTPS Flood,Widgets:[Inbound Traffic],Servers:[aaaaaaaaaaaaaaaaaaaaaaaaaaaaaa-DefensePro_172.16.22.51-1_https]       |
-      | Template-2            | reportType:HTTPS Flood,Widgets:[Inbound Traffic],Servers:[aaaaaaaaaaaaaaaaaaaaaaaaaaaaaa-DefensePro_172.16.22.51-https_policy7] |
+      | Template-1            | reportType:HTTPS Flood,Widgets:[Inbound Traffic],Servers:[server1-DefensePro_172.16.22.51-1_https]       |
+      | Template-2            | reportType:HTTPS Flood,Widgets:[Inbound Traffic],Servers:[server1-DefensePro_172.16.22.51-https_policy7] |
       | Logo                  | reportLogoPNG.png                                                                                                               |
       | Share                 | Email:[automation.vision1@radware.com],Subject:myAdd subject,Body:myAdd body                                                    |
       | Time Definitions.Date | Quick:Today                                                                                                                     |
       | Schedule              | Run Every:Daily,On Time:+2m                                                                                                     |
       | Format                | Select: PDF                                                                                                                     |
     Then UI "Validate" Report With Name "HTTPS Flood Report"
-      | Template-1            | reportType:HTTPS Flood,Widgets:[Inbound Traffic],Servers:[aaaaaaaaaaaaaaaaaaaaaaaaaaaaaa-DefensePro_172.16.22.51-1_https]       |
-      | Template-2            | reportType:HTTPS Flood,Widgets:[Inbound Traffic],Servers:[aaaaaaaaaaaaaaaaaaaaaaaaaaaaaa-DefensePro_172.16.22.51-https_policy7] |
+      | Template-1            | reportType:HTTPS Flood,Widgets:[Inbound Traffic],Servers:[server1-DefensePro_172.16.22.51-1_https]       |
+      | Template-2            | reportType:HTTPS Flood,Widgets:[Inbound Traffic],Servers:[server1-DefensePro_172.16.22.51-https_policy7] |
       | Logo                  | reportLogoPNG.png                                                                                                               |
       | Share                 | Email:[automation.vision1@radware.com],Subject:myAdd subject,Body:myAdd body                                                    |
       | Time Definitions.Date | Quick:Today                                                                                                                     |
@@ -46,9 +46,9 @@ Feature: Edit HTTPS Flood tests
   @SID_7
   Scenario: Add Template Widget to HTTPS Flood Report
     Given UI "Edit" Report With Name "HTTPS Flood Report"
-      | Template-1 | reportType:HTTPS Flood,AddWidgets:[Inbound Traffic],Servers:[aaaaaaaaaaaaaaaaaaaaaaaaaaaaaa-DefensePro_172.16.22.51-1_https] |
+      | Template-1 | reportType:HTTPS Flood,AddWidgets:[Inbound Traffic],Servers:[server1-DefensePro_172.16.22.51-1_https] |
     Then UI "Validate" Report With Name "HTTPS Flood Report"
-      | Template-1 | reportType:HTTPS Flood,Widgets:[Inbound Traffic,Inbound Traffic],Servers:[aaaaaaaaaaaaaaaaaaaaaaaaaaaaaa-DefensePro_172.16.22.51-1_https] |
+      | Template-1 | reportType:HTTPS Flood,Widgets:[Inbound Traffic,Inbound Traffic],Servers:[server1-DefensePro_172.16.22.51-1_https] |
 
   @SID_8
   Scenario: Validate delivery card and generate report
@@ -62,7 +62,7 @@ Feature: Edit HTTPS Flood tests
     Given UI "Edit" Report With Name "HTTPS Flood Report"
       | Template_2 | DeleteTemplate |
     Then UI "Validate" Report With Name "HTTPS Flood Report"
-      | Template-1 | reportType:HTTPS Flood,Widgets:[Inbound Traffic,Inbound Traffic],Servers:[aaaaaaaaaaaaaaaaaaaaaaaaaaaaaa-DefensePro_172.16.22.51-1_https] |
+      | Template-1 | reportType:HTTPS Flood,Widgets:[Inbound Traffic,Inbound Traffic],Servers:[server1-DefensePro_172.16.22.51-1_https] |
 
   @SID_10
   Scenario: Validate delivery card and generate report
@@ -74,9 +74,9 @@ Feature: Edit HTTPS Flood tests
   @SID_11
   Scenario: Edit Template Servers from HTTPS Flood Report
     Given UI "Edit" Report With Name "HTTPS Flood Report"
-      | Template | reportType:HTTPS Flood,Servers:[aaaaaaaaaaaaaaaaaaaaaaaaaaaaaa-DefensePro_172.16.22.51-https_policy6] |
+      | Template | reportType:HTTPS Flood,Servers:[server1-DefensePro_172.16.22.51-https_policy6] |
     Then UI "Validate" Report With Name "HTTPS Flood Report"
-      | Template | reportType:HTTPS Flood,Servers:[aaaaaaaaaaaaaaaaaaaaaaaaaaaaaa-DefensePro_172.16.22.51-https_policy6] |
+      | Template | reportType:HTTPS Flood,Servers:[server1-DefensePro_172.16.22.51-https_policy6] |
 
   @SID_12
   Scenario: Validate delivery card and generate report
@@ -88,10 +88,10 @@ Feature: Edit HTTPS Flood tests
   @SID_13
   Scenario:Add Template to HTTPS Flood
     Given UI "Edit" Report With Name "HTTPS Flood Report"
-      | Template | reportType:HTTPS Flood,Widgets:[Inbound Traffic],Servers:[aaaaaaaaaaaaaaaaaaaaaaaaaaaaaa-DefensePro_172.16.22.51-https_policy7] |
+      | Template | reportType:HTTPS Flood,Widgets:[Inbound Traffic],Servers:[server1-DefensePro_172.16.22.51-https_policy7] |
     Then UI "Validate" Report With Name "HTTPS Flood Report"
-      | Template-1 | reportType:HTTPS Flood,Widgets:[Inbound Traffic,Inbound Traffic],Servers:[aaaaaaaaaaaaaaaaaaaaaaaaaaaaaa-DefensePro_172.16.22.51-https_policy6] |
-      | Template-2 | reportType:HTTPS Flood,Widgets:[Inbound Traffic],Servers:[aaaaaaaaaaaaaaaaaaaaaaaaaaaaaa-DefensePro_172.16.22.51-https_policy7]                 |
+      | Template-1 | reportType:HTTPS Flood,Widgets:[Inbound Traffic,Inbound Traffic],Servers:[server1-DefensePro_172.16.22.51-https_policy6] |
+      | Template-2 | reportType:HTTPS Flood,Widgets:[Inbound Traffic],Servers:[server1-DefensePro_172.16.22.51-https_policy7]                 |
 
   @SID_14
   Scenario: Validate delivery card and generate report
@@ -105,16 +105,16 @@ Feature: Edit HTTPS Flood tests
   Scenario: Create and Validate HTTPS Flood Report2
     Then UI Click Button "New Report Tab"
     Given UI "Create" Report With Name "HTTPS Flood Report2"
-      | Template-1            | reportType:HTTPS Flood,Widgets:[Inbound Traffic],Servers:[aaaaaaaaaaaaaaaaaaaaaaaaaaaaaa-DefensePro_172.16.22.51-1_https]       |
-      | Template-2            | reportType:HTTPS Flood,Widgets:[Inbound Traffic],Servers:[aaaaaaaaaaaaaaaaaaaaaaaaaaaaaa-DefensePro_172.16.22.51-https_policy7] |
+      | Template-1            | reportType:HTTPS Flood,Widgets:[Inbound Traffic],Servers:[server1-DefensePro_172.16.22.51-1_https]       |
+      | Template-2            | reportType:HTTPS Flood,Widgets:[Inbound Traffic],Servers:[server1-DefensePro_172.16.22.51-https_policy7] |
       | Logo                  | reportLogoPNG.png                                                                                                               |
       | Share                 | Email:[automation.vision1@radware.com],Subject:myAdd subject,Body:myAdd body                                                    |
       | Time Definitions.Date | Quick:Today                                                                                                                     |
       | Schedule              | Run Every:Daily,On Time:+2m                                                                                                     |
       | Format                | Select: PDF                                                                                                                     |
     Then UI "Validate" Report With Name "HTTPS Flood Report2"
-      | Template-1            | reportType:HTTPS Flood,Widgets:[Inbound Traffic],Servers:[aaaaaaaaaaaaaaaaaaaaaaaaaaaaaa-DefensePro_172.16.22.51-1_https]       |
-      | Template-2            | reportType:HTTPS Flood,Widgets:[Inbound Traffic],Servers:[aaaaaaaaaaaaaaaaaaaaaaaaaaaaaa-DefensePro_172.16.22.51-https_policy7] |
+      | Template-1            | reportType:HTTPS Flood,Widgets:[Inbound Traffic],Servers:[server1-DefensePro_172.16.22.51-1_https]       |
+      | Template-2            | reportType:HTTPS Flood,Widgets:[Inbound Traffic],Servers:[server1-DefensePro_172.16.22.51-https_policy7] |
       | Logo                  | reportLogoPNG.png                                                                                                               |
       | Share                 | Email:[automation.vision1@radware.com],Subject:myAdd subject,Body:myAdd body                                                    |
       | Time Definitions.Date | Quick:Today                                                                                                                     |
