@@ -1,4 +1,3 @@
-@run
 
 @TC117968
 Feature: Basic tests for report parameters
