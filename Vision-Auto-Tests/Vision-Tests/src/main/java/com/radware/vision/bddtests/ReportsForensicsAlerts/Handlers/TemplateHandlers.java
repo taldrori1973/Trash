@@ -780,27 +780,27 @@ public class TemplateHandlers {
 
     private static void validateOptionWidgetOnDFWhenThereOneOption(StringBuilder errorMessage, JSONArray togglesData, JSONArray expectedWidgetOptions) {
         for (Object toggleData : togglesData) {
-            if (new JSONObject(toggleData.toString()).get("field").equals("protocol") && !new JSONObject(toggleData.toString()).get("value").equals(expectedWidgetOptions.get(0).toString()))
+            if (new JSONObject(toggleData.toString()).get("field").equals("protocol") && !new JSONObject(toggleData.toString()).get("value").toString().toLowerCase().equals(expectedWidgetOptions.get(0).toString().toLowerCase()))
                 errorMessage.append("The Actual TemplateWidget OptionValue protocolis " + new JSONObject(toggleData.toString()).get("value") + " is not equal to the expected " + expectedWidgetOptions.get(0).toString());
         }
     }
 
     private static void validateOptionWidgetOnDFWhenThereTwoOptions(StringBuilder errorMessage, JSONArray togglesData, JSONArray expectedWidgetOptions) {
         for (Object toggleData : togglesData) {
-            if (new JSONObject(toggleData.toString()).get("field").equals("ipVersion") && !new JSONObject(toggleData.toString()).get("value").equals(expectedWidgetOptions.get(0).toString()))
+            if (new JSONObject(toggleData.toString()).get("field").equals("ipVersion") && !new JSONObject(toggleData.toString()).get("value").toString().toLowerCase().equals(expectedWidgetOptions.get(0).toString().toLowerCase()))
                 errorMessage.append("The Actual TemplateWidget OptionValue ipVersion is " + new JSONObject(toggleData.toString()).get("value") + " is not equal to the expected " + expectedWidgetOptions.get(0).toString());
-            if (new JSONObject(toggleData.toString()).get("field").equals("direction") && !new JSONObject(toggleData.toString()).get("value").equals(expectedWidgetOptions.get(1).toString()))
+            if (new JSONObject(toggleData.toString()).get("field").equals("direction") && !new JSONObject(toggleData.toString()).get("value").toString().toLowerCase().equals(expectedWidgetOptions.get(1).toString().toLowerCase()))
                 errorMessage.append("The Actual TemplateWidget OptionValue direction is " + new JSONObject(toggleData.toString()).get("value") + " is not equal to the expected " + expectedWidgetOptions.get(1).toString());
         }
     }
 
     private static void validateOptionWidgetOnDFWhenThereThreeOptions(StringBuilder errorMessage, JSONArray togglesData, JSONArray expectedWidgetOptions) {
         for (Object toggleData : togglesData) {
-            if (new JSONObject(toggleData.toString()).get("field").equals("protocol") && !new JSONObject(toggleData.toString()).get("value").equals(expectedWidgetOptions.get(0).toString()))
+            if (new JSONObject(toggleData.toString()).get("field").equals("protocol") && !new JSONObject(toggleData.toString()).get("value").toString().toLowerCase().equals(expectedWidgetOptions.get(0).toString().toLowerCase()))
                 errorMessage.append("The Actual TemplateWidget OptionValue protocol is " + new JSONObject(toggleData.toString()).get("value") + " is not equal to the expected " + expectedWidgetOptions.get(0).toString());
-            if (new JSONObject(toggleData.toString()).get("field").equals("units") && !new JSONObject(toggleData.toString()).get("value").equals(expectedWidgetOptions.get(1).toString()))
+            if (new JSONObject(toggleData.toString()).get("field").equals("units") && !new JSONObject(toggleData.toString()).get("value").toString().toLowerCase().equals(expectedWidgetOptions.get(1).toString().toLowerCase()))
                 errorMessage.append("The Actual TemplateWidget OptionValue units is " + new JSONObject(toggleData.toString()).get("value") + " is not equal to the expected " + expectedWidgetOptions.get(1).toString());
-            if (new JSONObject(toggleData.toString()).get("field").equals("direction") && !new JSONObject(toggleData.toString()).get("value").equals(expectedWidgetOptions.get(2).toString()))
+            if (new JSONObject(toggleData.toString()).get("field").equals("direction") && !new JSONObject(toggleData.toString()).get("value").toString().toLowerCase().equals(expectedWidgetOptions.get(2).toString().toLowerCase()))
                 errorMessage.append("The Actual TemplateWidget OptionValue direction is " + new JSONObject(toggleData.toString()).get("value") + " is not equal to the expected " + expectedWidgetOptions.get(2).toString());
         }
     }
@@ -809,7 +809,7 @@ public class TemplateHandlers {
         JSONArray togglesData = new JSONArray(actualWidgetJSONObject.get("togglesData").toString());
         JSONArray expectedWidgetOptions = new JSONArray(expectedWidgetJSONObject.get(templateTitle).toString());
         for (Object toggleData : togglesData) {
-            if (new JSONObject(toggleData.toString()).get("field").equals("protectedObjects") && !new JSONObject(toggleData.toString()).get("value").equals(expectedWidgetOptions.get(0).toString()))
+            if (new JSONObject(toggleData.toString()).get("field").equals("protectedObjects") && !new JSONObject(toggleData.toString()).get("value").toString().toLowerCase().equals(expectedWidgetOptions.get(0).toString().toLowerCase()))
                 errorMessage.append("The Actual TemplateWidget OptionValue protectedObjects is " + new JSONObject(toggleData.toString()).get("value") + " is not equal to the expected " + expectedWidgetOptions.get(0).toString());
         }
     }
@@ -818,7 +818,7 @@ public class TemplateHandlers {
         JSONArray togglesData = new JSONArray(actualWidgetJSONObject.get("togglesData").toString());
         JSONArray expectedWidgetOptions = new JSONArray(expectedWidgetJSONObject.get(templateTitle).toString());
         for (Object toggleData : togglesData) {
-            if (new JSONObject(toggleData.toString()).get("field").equals("tab") && !new JSONObject(toggleData.toString()).get("value").equals(expectedWidgetOptions.get(0).toString()))
+            if (new JSONObject(toggleData.toString()).get("field").equals("tab") && !new JSONObject(toggleData.toString()).get("value").toString().toLowerCase().equals(expectedWidgetOptions.get(0).toString().toLowerCase()))
                 errorMessage.append("The Actual TemplateWidget OptionValue tab is " + new JSONObject(toggleData.toString()).get("value") + " is not equal to the expected " + expectedWidgetOptions.get(0).toString());
         }
     }

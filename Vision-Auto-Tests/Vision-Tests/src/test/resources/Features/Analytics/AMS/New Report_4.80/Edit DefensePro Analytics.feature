@@ -1,3 +1,4 @@
+@TC118578
 Feature: Edit DefensePro Analytics tests
 
   @SID_1
@@ -21,21 +22,21 @@ Feature: Edit DefensePro Analytics tests
   Scenario: Create and validate DefensePro Analytics Report
     Then UI Click Button "New Report Tab"
     Given UI "Create" Report With Name "DefensePro Analytics Report"
-      | Template-1            | reportType:DefensePro Analytics,Widgets:[Connections Rate],devices:[{deviceIndex:10}],showTable:true         |
-      | Template-2            | reportType:DefensePro Analytics,Widgets:[{Traffic Bandwidth:[pps,Outbound,50]}],devices:[All],showTable:true |
-      | Logo                  | reportLogoPNG.png                                                                                            |
-      | Time Definitions.Date | Quick:1D                                                                                                     |
-      | Schedule              | Run Every:Daily ,On Time:+2m                                                                                 |
-      | share                 | Email:[automation.vision1@radware.com],Subject:mySubject,Body:myBody                                         |
-      | Format                | Select: PDF                                                                                                  |
+      | Template-1            | reportType:DefensePro Analytics,Widgets:[Connections Rate],devices:[{deviceIndex:10}],showTable:true                      |
+      | Template-2            | reportType:DefensePro Analytics,Widgets:[{Traffic Bandwidth:[pps,Outbound,50]}],devices:[{deviceIndex:11}],showTable:true |
+      | Logo                  | reportLogoPNG.png                                                                                                         |
+      | Time Definitions.Date | Quick:1D                                                                                                                  |
+      | Schedule              | Run Every:Daily ,On Time:+2m                                                                                              |
+      | share                 | Email:[automation.vision1@radware.com],Subject:mySubject,Body:myBody                                                      |
+      | Format                | Select: PDF                                                                                                               |
     Then UI "Validate" Report With Name "DefensePro Analytics Report"
-      | Template-1            | reportType:DefensePro Analytics,Widgets:[Connections Rate],devices:[{deviceIndex:10}],showTable:true         |
-      | Template-2            | reportType:DefensePro Analytics,Widgets:[{Traffic Bandwidth:[pps,Outbound,50]}],devices:[All],showTable:true |
-      | Logo                  | reportLogoPNG.png                                                                                            |
-      | Time Definitions.Date | Quick:1D                                                                                                     |
-      | Schedule              | Run Every:Daily ,On Time:+2m                                                                                 |
-      | share                 | Email:[automation.vision1@radware.com],Subject:mySubject,Body:myBody                                         |
-      | Format                | Select: PDF                                                                                                  |
+      | Template-1            | reportType:DefensePro Analytics,Widgets:[Connections Rate],devices:[{deviceIndex:10}],showTable:true                      |
+      | Template-2            | reportType:DefensePro Analytics,Widgets:[{Traffic Bandwidth:[pps,Outbound,50]}],devices:[{deviceIndex:11}],showTable:true |
+      | Logo                  | reportLogoPNG.png                                                                                                         |
+      | Time Definitions.Date | Quick:1D                                                                                                                  |
+      | Schedule              | Run Every:Daily ,On Time:+2m                                                                                              |
+      | share                 | Email:[automation.vision1@radware.com],Subject:mySubject,Body:myBody                                                      |
+      | Format                | Select: PDF                                                                                                               |
 
   @SID_6
   Scenario: Validate delivery card and generate report
@@ -61,7 +62,7 @@ Feature: Edit DefensePro Analytics tests
   @SID_9
   Scenario: Delete Template from DefensePro Analytics
     Given UI "Edit" Report With Name "DefensePro Analytics Report"
-      | Template_2 | DeleteTemplate |
+      | Template-2 | DeleteTemplate |
     Then UI "Validate" Report With Name "DefensePro Analytics Report"
       | Template-1 | reportType:DefensePro Analytics,Widgets:[Top Attacks,Connections Rate],devices:[{deviceIndex:10}],showTable:true |
 
@@ -89,10 +90,10 @@ Feature: Edit DefensePro Analytics tests
   @SID_13
   Scenario:Add Template to DefensePro Analytics Report
     Given UI "Edit" Report With Name "DefensePro Analytics Report"
-      | Template | reportType:DefensePro Analytics,Widgets:[{Traffic Bandwidth:[pps,Outbound,50]}],devices:[All],showTable:true |
-    Then UI "Validate" Report With Name "HTTPS Flood"
-      | Template-1 | reportType:DefensePro Analytics,Widgets:[Connections Rate],devices:[{deviceIndex:10}],showTable:true         |
-      | Template-2 | reportType:DefensePro Analytics,Widgets:[{Traffic Bandwidth:[pps,Outbound,50]}],devices:[All],showTable:true |
+      | Template | reportType:DefensePro Analytics,Widgets:[{Traffic Bandwidth:[pps,Outbound,50]}],devices:[{deviceIndex:11}],showTable:true |
+    Then UI "Validate" Report With Name "DefensePro Analytics Report"
+      | Template-1 | reportType:DefensePro Analytics,Widgets:[Connections Rate],devices:[{deviceIndex:10}],showTable:true                      |
+      | Template-2 | reportType:DefensePro Analytics,Widgets:[{Traffic Bandwidth:[pps,Outbound,50]}],devices:[{deviceIndex:11}],showTable:true |
 
   @SID_14
   Scenario: Validate delivery card and generate report
@@ -105,22 +106,21 @@ Feature: Edit DefensePro Analytics tests
   Scenario: Create and validate DefensePro Analytics Report2
     Then UI Click Button "New Report Tab"
     Given UI "Create" Report With Name "DefensePro Analytics Report2"
-      | Template-1            | reportType:DefensePro Analytics,Widgets:[Connections Rate],devices:[{deviceIndex:10}],showTable:true         |
-      | Template-2            | reportType:DefensePro Analytics,Widgets:[{Traffic Bandwidth:[pps,Outbound,50]}],devices:[All],showTable:true |
-      | Logo                  | reportLogoPNG.png                                                                                            |
-      | Time Definitions.Date | Quick:1D                                                                                                     |
-      | Schedule              | Run Every:Daily ,On Time:+2m                                                                                 |
-      | share                 | Email:[automation.vision1@radware.com],Subject:mySubject,Body:myBody                                         |
-      | Format                | Select: PDF                                                                                                  |
+      | Template-1            | reportType:DefensePro Analytics,Widgets:[Connections Rate],devices:[{deviceIndex:10}],showTable:true                      |
+      | Template-2            | reportType:DefensePro Analytics,Widgets:[{Traffic Bandwidth:[pps,Outbound,50]}],devices:[{deviceIndex:11}],showTable:true |
+      | Logo                  | reportLogoPNG.png                                                                                                         |
+      | Time Definitions.Date | Quick:1D                                                                                                                  |
+      | Schedule              | Run Every:Daily ,On Time:+2m                                                                                              |
+      | share                 | Email:[automation.vision1@radware.com],Subject:mySubject,Body:myBody                                                      |
+      | Format                | Select: PDF                                                                                                               |
     Then UI "Validate" Report With Name "DefensePro Analytics Report2"
-      | Template-1            | reportType:DefensePro Analytics,Widgets:[Connections Rate],devices:[{deviceIndex:10}],showTable:true         |
-      | Template-2            | reportType:DefensePro Analytics,Widgets:[{Traffic Bandwidth:[pps,Outbound,50]}],devices:[All],showTable:true |
-      | Logo                  | reportLogoPNG.png                                                                                            |
-      | Time Definitions.Date | Quick:1D                                                                                                     |
-      | Schedule              | Run Every:Daily ,On Time:+2m                                                                                 |
-      | share                 | Email:[automation.vision1@radware.com],Subject:mySubject,Body:myBody                                         |
-      | Format                | Select: PDF                                                                                                  |
-      |
+      | Template-1            | reportType:DefensePro Analytics,Widgets:[Connections Rate],devices:[{deviceIndex:10}],showTable:true                      |
+      | Template-2            | reportType:DefensePro Analytics,Widgets:[{Traffic Bandwidth:[pps,Outbound,50]}],devices:[{deviceIndex:11}],showTable:true |
+      | Logo                  | reportLogoPNG.png                                                                                                         |
+      | Time Definitions.Date | Quick:1D                                                                                                                  |
+      | Schedule              | Run Every:Daily ,On Time:+2m                                                                                              |
+      | share                 | Email:[automation.vision1@radware.com],Subject:mySubject,Body:myBody                                                      |
+      | Format                | Select: PDF                                                                                                               |
 
   @SID_16
   Scenario: Edit DefensePro Analytics Report2 report name

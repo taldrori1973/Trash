@@ -1,4 +1,3 @@
-
 @TC117968
 Feature: Basic tests for report parameters
   @SID_1
@@ -288,7 +287,7 @@ Feature: Basic tests for report parameters
 
   @SID_28
   Scenario: Validate Share send email To
-    Then UI Text of "Email Tab" equal to "E-mail To*"
+    Then UI Text of "Email Tab" equal to "E-mail To"
     Then UI Set Text Field "Email" To "example@example.com" enter Key true
     Then UI Validate Element Existence By Label "Email input" if Exists "true" with value "example@example.com,valid"
     Then UI Set Text Field "Email" To "example" enter Key true

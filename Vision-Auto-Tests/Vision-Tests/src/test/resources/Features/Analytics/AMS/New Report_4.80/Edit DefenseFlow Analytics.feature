@@ -1,4 +1,6 @@
+@TC118576
 Feature: Edit DefenseFlow Analytics tests
+
   @SID_1
   Scenario: Clean data before the test
 #    * REST Delete ES index "df-traffic*"
@@ -32,7 +34,7 @@ Feature: Edit DefenseFlow Analytics tests
     Then UI Click Button "New Report Tab"
     Given UI "Create" Report With Name "DefenseFlow Analytics Report"
       | Template-1            | reportType:DefenseFlow Analytics,Widgets:[Top 10 Activations by Attack Rate (Gbps)],Protected Objects:[PO Name Space],showTable:true |
-      | Template-2            | reportType:DefenseFlow Analytics,Widgets:[Top Attacks by Rate],Protected Objects:[PO Name Space],showTable:true                      |
+      | Template-2            | reportType:DefenseFlow Analytics,Widgets:[Top Attacks by Rate],Protected Objects:[PO_1],showTable:true                               |
       | Logo                  | reportLogoPNG.png                                                                                                                    |
       | Share                 | Email:[automation.vision1@radware.com],Subject:myAdd subject,Body:myAdd body                                                         |
       | Time Definitions.Date | Quick:Today                                                                                                                          |
@@ -40,7 +42,7 @@ Feature: Edit DefenseFlow Analytics tests
       | Format                | Select: PDF                                                                                                                          |
     Then UI "Validate" Report With Name "DefenseFlow Analytics Report"
       | Template-1            | reportType:DefenseFlow Analytics,Widgets:[Top 10 Activations by Attack Rate (Gbps)],Protected Objects:[PO Name Space],showTable:true |
-      | Template-2            | reportType:DefenseFlow Analytics,Widgets:[Top Attacks by Rate],Protected Objects:[PO Name Space],showTable:true                      |
+      | Template-2            | reportType:DefenseFlow Analytics,Widgets:[Top Attacks by Rate],Protected Objects:[PO_1],showTable:true                               |
       | Logo                  | reportLogoPNG.png                                                                                                                    |
       | Share                 | Email:[automation.vision1@radware.com],Subject:myAdd subject,Body:myAdd body                                                         |
       | Time Definitions.Date | Quick:Today                                                                                                                          |
@@ -71,7 +73,7 @@ Feature: Edit DefenseFlow Analytics tests
   @SID_9
   Scenario: Delete Template from DefenseFlow Analytics
     Given UI "Edit" Report With Name "DefenseFlow Analytics Report"
-      | Template_2 | DeleteTemplate |
+      | Template-2 | DeleteTemplate |
     Then UI "Validate" Report With Name "DefenseFlow Analytics Report"
       | Template-1 | reportType:DefenseFlow Analytics,Widgets:[Top 10 Activations by Attack Rate (Gbps),Top Attack Destination],Protected Objects:[PO Name Space],showTable:true |
 
@@ -99,10 +101,10 @@ Feature: Edit DefenseFlow Analytics tests
   @SID_13
   Scenario:Add Template to DefenseFlow Analytics Report
     Given UI "Edit" Report With Name "DefenseFlow Analytics Report"
-      | Template | reportType:DefenseFlow Analytics,Widgets:[Top Attacks by Rate],Protected Objects:[PO Name Space],showTable:true |
-    Then UI "Validate" Report With Name "HTTPS Flood"
+      | Template | reportType:DefenseFlow Analytics,Widgets:[Top Attacks by Rate],Protected Objects:[PO_1],showTable:true |
+    Then UI "Validate" Report With Name "DefenseFlow Analytics Report"
       | Template-1 | reportType:DefenseFlow Analytics,Widgets:[Top Attack Destination],Protected Objects:[PO Name Space],showTable:true |
-      | Template-2 | reportType:DefenseFlow Analytics,Widgets:[Top Attacks by Rate],Protected Objects:[PO Name Space],showTable:true    |
+      | Template-2 | reportType:DefenseFlow Analytics,Widgets:[Top Attacks by Rate],Protected Objects:[PO_1],showTable:true             |
 
   @SID_14
   Scenario: Validate delivery card and generate report
@@ -116,7 +118,7 @@ Feature: Edit DefenseFlow Analytics tests
     Then UI Click Button "New Report Tab"
     Given UI "Create" Report With Name "DefenseFlow Analytics Report2"
       | Template-1            | reportType:DefenseFlow Analytics,Widgets:[Top 10 Activations by Attack Rate (Gbps)],Protected Objects:[PO Name Space],showTable:true |
-      | Template-2            | reportType:DefenseFlow Analytics,Widgets:[Top Attacks by Rate],Protected Objects:[PO Name Space],showTable:true                      |
+      | Template-2            | reportType:DefenseFlow Analytics,Widgets:[Top Attacks by Rate],Protected Objects:[PO_1],showTable:true                               |
       | Logo                  | reportLogoPNG.png                                                                                                                    |
       | Share                 | Email:[automation.vision1@radware.com],Subject:myAdd subject,Body:myAdd body                                                         |
       | Time Definitions.Date | Quick:Today                                                                                                                          |
@@ -124,7 +126,7 @@ Feature: Edit DefenseFlow Analytics tests
       | Format                | Select: PDF                                                                                                                          |
     Then UI "Validate" Report With Name "DefenseFlow Analytics Report"
       | Template-1            | reportType:DefenseFlow Analytics,Widgets:[Top 10 Activations by Attack Rate (Gbps)],Protected Objects:[PO Name Space],showTable:true |
-      | Template-2            | reportType:DefenseFlow Analytics,Widgets:[Top Attacks by Rate],Protected Objects:[PO Name Space],showTable:true                      |
+      | Template-2            | reportType:DefenseFlow Analytics,Widgets:[Top Attacks by Rate],Protected Objects:[PO_1],showTable:true                               |
       | Logo                  | reportLogoPNG.png                                                                                                                    |
       | Share                 | Email:[automation.vision1@radware.com],Subject:myAdd subject,Body:myAdd body                                                         |
       | Time Definitions.Date | Quick:Today                                                                                                                          |
