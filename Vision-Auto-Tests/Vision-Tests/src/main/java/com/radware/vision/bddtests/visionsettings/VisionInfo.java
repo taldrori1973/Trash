@@ -1,8 +1,11 @@
 package com.radware.vision.bddtests.visionsettings;
 
 import com.radware.automation.tools.basetest.BaseTestUtils;
+import com.radware.vision.RestStepResult;
 import com.radware.vision.restAPI.GenericVisionRestAPI;
 import com.radware.vision.restBddTests.utils.UriUtils;
+import com.radware.vision.restTestHandler.RestClientsStepsHandler;
+import controllers.restAssured.client.SessionBased.VisionRestAssuredClient;
 import models.RestRequestSpecification;
 import models.RestResponse;
 import models.StatusCode;
@@ -10,6 +13,7 @@ import models.StatusCode;
 import static com.radware.automation.tools.basetest.Reporter.FAIL;
 import static com.radware.vision.restBddTests.utils.SutUtils.*;
 import static com.radware.vision.restBddTests.utils.SutUtils.getCurrentVisionRestUserPassword;
+import static models.config.DevicesConstants.VISION_DEFAULT_PORT;
 
 public class VisionInfo {
     private Integer port = null;
@@ -66,10 +70,11 @@ public class VisionInfo {
             //an old version that do not support branch
             if (response.getStatusCode().equals(StatusCode.INTERNAL_SERVER_ERROR) &&
                     response.getBody().getBodyAsJsonNode().get().findValue("message").toString().contains("Illegal item path")) {
+                //try the old API
                 requestLabel = "Get Management Info";
                 genericVisionRestAPI = new GenericVisionRestAPI(baseUri, port, username, password, null, filePath, requestLabel);
+                response = genericVisionRestAPI.sendRequest();
             }
-            response = genericVisionRestAPI.sendRequest();
             if (!response.getStatusCode().equals(StatusCode.OK)) {
                 BaseTestUtils.report(response.getStatusCode().toString(), FAIL);
             }
