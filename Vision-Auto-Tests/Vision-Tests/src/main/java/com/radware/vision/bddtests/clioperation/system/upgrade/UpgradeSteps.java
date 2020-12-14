@@ -66,10 +66,24 @@ public class UpgradeSteps extends BddCliTestBase {
             String targetIP = restTestBase.getVisionServer().getHost();
             String build = System.getenv("BUILD");//get build from portal
             if (build == null || build.equals("") || build.equals("0")) build = "";//Latest Build
+
+            RadwareServerCli radwareSource = new RadwareServerCli(sourceIP, restTestBase.getRadwareServerCli().getUser(), restTestBase.getRadwareServerCli().getPassword());
+            RootServerCli rootSource = new RootServerCli(sourceIP, restTestBase.getRootServerCli().getUser(), restTestBase.getRootServerCli().getPassword());
+
+            RadwareServerCli radwareTarget = new RadwareServerCli(targetIP, restTestBase.getRadwareServerCli().getUser(), restTestBase.getRadwareServerCli().getPassword());
+            RootServerCli rootTarget = new RootServerCli(targetIP, restTestBase.getRootServerCli().getUser(), restTestBase.getRootServerCli().getPassword());
+
+            Upgrade upgradeSource = new Upgrade(true, null, radwareSource, rootSource);
+            Upgrade upgradeTarget = new Upgrade(true, null, radwareTarget, rootTarget);
             UpgradeThread sourceMachineThread = new UpgradeThread(sourceIP, null, build, isAPM());
-            sourceMachineThread.start();
             UpgradeThread targetMachineThread = new UpgradeThread(targetIP, null, build, isAPM());
-            targetMachineThread.start();
+
+            if(upgradeSource.isSetupNeeded) {
+                sourceMachineThread.start();
+            }
+            if(upgradeTarget.isSetupNeeded) {
+                targetMachineThread.start();
+            }
             while (true) {
                 if (!sourceMachineThread.isAlive() && !targetMachineThread.isAlive())
                     break;
