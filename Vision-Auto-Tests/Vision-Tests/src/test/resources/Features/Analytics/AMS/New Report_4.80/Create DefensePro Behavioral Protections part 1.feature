@@ -298,7 +298,7 @@ Feature: DefensePro Behavioral Protections Part 1
     Then UI "Validate" Report With Name "BDoS_TCP RST2"
       | Template              | reportType:DefensePro Behavioral Protections , Widgets:[{BDoS-TCP RST:[IPv4,pps,Outbound]}] ,devices:[{deviceIndex:11, devicePolicies:[1_https]}] |
       | Logo                  | reportLogoPNG.png                                                                                                 |
-      | Time Definitions.Date | Quick:This Week                                                                                                         |
+      | Time Definitions.Date | Quick:15m                                                                                                      |
       | Format                | Select: CSV                                                                                                       |
     Then UI Delete Report With Name "BDoS_TCP RST2"
 
@@ -308,7 +308,7 @@ Feature: DefensePro Behavioral Protections Part 1
     Given UI "Create" Report With Name "BDoS_TCP RST3"
       | Template              | reportType:DefensePro Behavioral Protections , Widgets:[{BDoS-TCP RST:[IPv4,bps,Outbound]}] ,devices:[{deviceIndex:11, devicePolicies:[1_https]}] |
       | Logo                  | reportLogoPNG.png                                                                                                 |
-      | Time Definitions.Date | Quick:15m                                                                                                  |
+      | Time Definitions.Date | Quick:This Week                                                                                              |
       | Schedule              | Run Every:Monthly, On Time:+6H, At Months:[AUG]                                                                   |
       | Share                 | Email:[automation.vision2@radware.com],Subject:myEdit subject,Body:myEdit body                                    |
       | Format                | Select: PDF                                                                                                       |
