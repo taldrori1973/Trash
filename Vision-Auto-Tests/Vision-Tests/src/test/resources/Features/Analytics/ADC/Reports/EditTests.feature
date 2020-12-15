@@ -2,7 +2,7 @@ Feature: Edit ADC Report tests
 
   @SID_1
   Scenario: Clean data before the test
-
+    * REST Vision Install License Request "vision-reporting-module-ADC"
 
   @SID_2
   Scenario: Login

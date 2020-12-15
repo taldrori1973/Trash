@@ -62,7 +62,7 @@ Feature: Edit DefensePro Analytics tests
   @SID_9
   Scenario: Delete Template from DefensePro Analytics
     Given UI "Edit" Report With Name "DefensePro Analytics Report"
-      | Template-2 | DeleteTemplate |
+      | Template-2 | DeleteTemplate:true |
     Then UI "Validate" Report With Name "DefensePro Analytics Report"
       | Template-1 | reportType:DefensePro Analytics,Widgets:[Top Attacks,Connections Rate],devices:[{deviceIndex:10}],showTable:true |
 

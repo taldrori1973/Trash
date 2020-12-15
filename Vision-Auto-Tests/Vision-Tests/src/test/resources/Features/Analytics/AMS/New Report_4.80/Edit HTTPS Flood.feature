@@ -61,7 +61,7 @@ Feature: Edit HTTPS Flood tests
   @SID_9
   Scenario: Delete Template from HTTPS Flood Report
     Given UI "Edit" Report With Name "HTTPS Flood Report"
-      | Template-2 | DeleteTemplate |
+      | Template-2 | DeleteTemplate:true |
     Then UI "Validate" Report With Name "HTTPS Flood Report"
       | Template-1 | reportType:HTTPS Flood,Widgets:[Inbound Traffic,Inbound Traffic],Servers:[server1-DefensePro_172.16.22.51-1_https] |
 

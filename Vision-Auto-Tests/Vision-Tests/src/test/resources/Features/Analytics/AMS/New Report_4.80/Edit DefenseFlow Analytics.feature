@@ -3,26 +3,26 @@ Feature: Edit DefenseFlow Analytics tests
 
   @SID_1
   Scenario: Clean data before the test
-#    * REST Delete ES index "df-traffic*"
+    * REST Delete ES index "df-traffic*"
 
   @SID_2
   Scenario: Login
     Then UI Login with user "sys_admin" and password "radware"
 
-#  @SID_3
-#  Scenario: Run DP simulator PCAPs for "DF attacks"
-#    When CLI Run remote linux Command on "GENERIC_LINUX_SERVER"
-#      | "/home/radware/curl_DF_attacks-auto_PO_100.sh " |
-#      | #visionIP                                       |
-#      | " Terminated"                                   |
-#    When CLI Run remote linux Command on "GENERIC_LINUX_SERVER"
-#      | "/home/radware/curl_DF_attacks-auto_PO_200.sh " |
-#      | #visionIP                                       |
-#      | " Terminated"                                   |
-#    When CLI Run remote linux Command on "GENERIC_LINUX_SERVER" and wait 30 seconds
-#      | "/home/radware/curl_DF_attacks-auto_PO_300.sh " |
-#      | #visionIP                                       |
-#      | " Terminated"                                   |
+  @SID_3
+  Scenario: Run DP simulator PCAPs for "DF attacks"
+    When CLI Run remote linux Command on "GENERIC_LINUX_SERVER"
+      | "/home/radware/curl_DF_attacks-auto_PO_100.sh " |
+      | #visionIP                                       |
+      | " Terminated"                                   |
+    When CLI Run remote linux Command on "GENERIC_LINUX_SERVER"
+      | "/home/radware/curl_DF_attacks-auto_PO_200.sh " |
+      | #visionIP                                       |
+      | " Terminated"                                   |
+    When CLI Run remote linux Command on "GENERIC_LINUX_SERVER" and wait 30 seconds
+      | "/home/radware/curl_DF_attacks-auto_PO_300.sh " |
+      | #visionIP                                       |
+      | " Terminated"                                   |
 
   @SID_4
   Scenario: Navigate to NEW REPORTS page
@@ -73,7 +73,7 @@ Feature: Edit DefenseFlow Analytics tests
   @SID_9
   Scenario: Delete Template from DefenseFlow Analytics
     Given UI "Edit" Report With Name "DefenseFlow Analytics Report"
-      | Template-2 | DeleteTemplate |
+      | Template-2 | DeleteTemplate:true |
     Then UI "Validate" Report With Name "DefenseFlow Analytics Report"
       | Template-1 | reportType:DefenseFlow Analytics,Widgets:[Top 10 Activations by Attack Rate (Gbps),Top Attack Destination],Protected Objects:[PO Name Space],showTable:true |
 
