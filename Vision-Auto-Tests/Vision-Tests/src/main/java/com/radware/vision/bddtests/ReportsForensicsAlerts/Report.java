@@ -206,7 +206,7 @@ public class Report extends ReportsForensicsAlertsAbstract {
     }
 
     private String getReportID(String reportName) {
-        return new JSONObject(new ReportsDefinitions().definitions.get(reportName)).getString("id");
+        return new JSONObject(new ReportsDefinitions().getJsonDefinition(reportName).toString()).getString("id");
     }
 
     protected StringBuilder validateShareDefinition(JSONObject deliveryJson, Map<String, String> map) {
@@ -321,9 +321,8 @@ public class Report extends ReportsForensicsAlertsAbstract {
     public String generateReportAndGetReportID(String reportName) throws NoSuchFieldException {
 
         FormatterRestApi formatterRestApi = new FormatterRestApi("HTTP://" + SutUtils.getCurrentVisionIp(), 3002,"Vision/generateReport.json", "Generate Report");
-        formatterRestApi.getRestRequestSpecification().setBody(new ReportsDefinitions().definitions.get(reportName));
-
-        return formatterRestApi.sendRequest().getStatusCode().getReasonPhrase();
+        formatterRestApi.getRestRequestSpecification().setBody(new ReportsDefinitions().getJsonDefinition(reportName).toString());
+            return formatterRestApi.sendRequest().getStatusCode().getReasonPhrase();
     }
 
     public boolean generateStatus(String reportID, int secondsTimeOut) throws NoSuchFieldException {

@@ -232,5 +232,14 @@ public class VRMSteps {
         new Report().getVRMReportsChartsHandler(reportName).validateChartDataOfDataSets(chart, label, null, entries);
     }
 
+    @Then("^UI Validate StackBar data with widget \"([^\"]*)\" in report \"([^\"]*)\"$")
+    public void uiValidateStackBarDataWithWidgetInReport(String chart, String reportName, List<StackBarData> entries) throws Throwable {
+        new Report().getVRMReportsChartsHandler(reportName).validateStackBarData(chart, entries);
+    }
+
+    @Then("^UI Validate Pie Chart data \"([^\"]*)\" in Report \"([^\"]*)\"$")
+    public void uiValidatePieChartDataInReport(String chart, String reportName, List<PieChart> entries) throws Throwable {
+        new Report().getVRMReportsChartsHandler(reportName).validatePieChartDataOfDataSets(chart, entries);
+    }
 }
 

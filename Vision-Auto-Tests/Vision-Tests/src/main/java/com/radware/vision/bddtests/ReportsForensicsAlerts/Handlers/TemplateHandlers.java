@@ -11,6 +11,7 @@ import com.radware.vision.automation.tools.sutsystemobjects.devicesinfo.enums.SU
 import com.radware.vision.bddtests.ReportsForensicsAlerts.Report;
 import com.radware.vision.infra.testhandlers.baseoperations.BasicOperationsHandler;
 import com.radware.vision.bddtests.ReportsForensicsAlerts.WebUiTools;
+import com.radware.vision.infra.testhandlers.vrm.VRMHandler;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import org.openqa.selenium.Keys;
@@ -546,6 +547,7 @@ public class TemplateHandlers {
         @Override
         protected void selectDevice(String deviceText, boolean isToCheck) throws Exception {
             BasicOperationsHandler.setTextField("HTTPSScopeSelectionFilter", deviceText.split("-")[0]);
+            new VRMHandler().scrollUntilElementDisplayed(new ComponentLocator(How.XPATH, "//*[contains(@data-debug-id,'radio-') and contains(@data-debug-id,'-parent')]"), WebUiTools.getComponentLocator("httpsScopeRadio", deviceText));
             WebUiTools.check("httpsScopeRadio", deviceText, isToCheck);
         }
 
@@ -601,7 +603,7 @@ public class TemplateHandlers {
 
         SystemAndNetworkScopeSelection(JSONArray deviceJSONArray, String templateParam) {
             super(deviceJSONArray, templateParam);
-            this.type = "System And Network";
+            this.type = "System and Network";
             this.saveButtonText = "SystemAndNetworkSaveButton";
         }
     }
@@ -642,7 +644,7 @@ public class TemplateHandlers {
         StringBuilder errorMessage = new StringBuilder();
         JSONArray expectedTemplates = new JSONArray(map.get("Template"));
         for (Object expectedTemplate : expectedTemplates) {
-            validateSingleTemplateDefinition(actualTemplateJSONArray, new JSONObject(expectedTemplate.toString()), new JSONObject(expectedTemplate.toString()).get("templateAutomationID").equals("Template-1") && !templates.get(reportName).containsKey("Template-1") ? templates.get(reportName).get("Template") : templates.get(reportName).get(new JSONObject(expectedTemplate.toString()).get("templateAutomationID")), widgets, errorMessage);
+            validateSingleTemplateDefinition(actualTemplateJSONArray, new JSONObject(expectedTemplate.toString()),templates.get(reportName).get(new JSONObject(expectedTemplate.toString()).get("templateAutomationID")), widgets, errorMessage);
         }
         return errorMessage;
     }
@@ -667,23 +669,11 @@ public class TemplateHandlers {
     }
 
     private static JSONObject validateTemplateTypeDefinition(JSONArray actualTemplateJSON, JSONObject expectedSingleTemplate, String expectedTemplateTitle, StringBuilder errorMessage) throws TargetWebElementNotFoundException {
-      //  if(expectedTemplateTitle!=null) {
-            String[] expectedTemplateName = expectedTemplateTitle.split("_");
             for (Object singleTemplate : actualTemplateJSON) {
-                String[] actualTemplateName = new JSONObject(singleTemplate.toString()).get("templateTitle").toString().split("_");
-                switch (expectedTemplateName.length) {
-                    case 1:
-                        if (expectedTemplateName[0].equals(actualTemplateName[0]))
+                if(new JSONObject(singleTemplate.toString()).get("templateTitle").toString().equals(expectedTemplateTitle))
                             return new JSONObject(singleTemplate.toString());
-                        break;
-                    case 2:
-                        if (expectedTemplateName[0].equals(actualTemplateName[0]) && expectedTemplateName[1].equals(actualTemplateName[0]))
-                            return new JSONObject(singleTemplate.toString());
-                        break;
-                }
             }
             errorMessage.append("This expected template name " + expectedSingleTemplate + " is not exist");
-    //    }
         return null;
     }
 
