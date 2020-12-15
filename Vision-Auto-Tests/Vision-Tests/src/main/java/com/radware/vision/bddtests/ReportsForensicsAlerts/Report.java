@@ -294,6 +294,10 @@ public class Report extends ReportsForensicsAlertsAbstract {
         templates.get(reportName).put(templateAutomationID,value);
     }
 
+    public static void deleteTemplateReport(String reportName,String templateAutomationID){
+        templates.get(reportName).remove(templateAutomationID);
+    }
+
     public static String getReportTemplateUICurrentName(String reportName,String templateAutomationID){
         return templates.get(reportName).get(templateAutomationID);
     }
