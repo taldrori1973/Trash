@@ -39,29 +39,29 @@ Feature: Negative test to validate Error Messages
     Then UI Click Button "Add Template" with value "HTTPS Flood"
     Then UI Click Button "save"
     Then UI Text of "Error message title" equal to "Unable to Save Report"
-    Then UI Text of "Error message description" equal to "Report name contains special characters."
+    Then UI Text of "Error message description" equal to "The Report name contains special characters. Remove the special characters."
     Then UI Click Button "errorMessageOK"
     Then UI Click Button "cancel"
     Then UI Text of "Save Change Message" contains "Do you want to save ","?"
     Then UI Click Button "No"
 
   @SID_5
-  Scenario: Create New Report with Report with more than 50 Widgets
+  Scenario: Create New Report with Report with more than 50 Widgets without policy and port
     Then UI Click Button "New Report Tab"
-    Then UI Set Text Field "Report Name" To "Report with more than 50 Widgets"
+    Then UI Set Text Field "Report Name" To "Report with more than 50 Widgets without device and policy and port"
     Then UI Click Button "Add Template" with value "DefensePro Behavioral Protections"
     Then UI Click Button "save"
     Then UI Text of "Error message title" equal to "Unable to Save Report"
-    Then UI Text of "Error message description" equal to "The Report Template requires the selection of a single device and policy"
+    Then UI Text of "Error message description" equal to "The Report Template requires the selection of a single device and policy."
     Then UI Click Button "errorMessageOK"
     Then UI Click Button "cancel"
-    Then UI Text of "Save Change Message" contains "Do you want to save "Report with more than 50 Widgets"?"
+    Then UI Text of "Save Change Message" contains "Do you want to save "Report with more than 50 Widgets without device and policy and port"?"
     Then UI Click Button "No"
 
   @SID_6
-  Scenario: Create New Report with Report with more than 50 Widgets
+  Scenario: Create New Report with Report with more than 50 Widgets without policy and port
     Then UI Click Button "New Report Tab"
-    Then UI Set Text Field "Report Name" To "Report with more than 50 Widgets"
+    Then UI Set Text Field "Report Name" To "Report with more than 50 Widgets without policy and port"
     Then UI Click Button "Add Template" with value "DefensePro Behavioral Protections"
     Then UI Click Button "Scope Selection"
     Then UI Click Button "AllScopeSelection"
@@ -69,16 +69,16 @@ Feature: Negative test to validate Error Messages
     Then UI Click Button "SaveDPScopeSelection"
     Then UI Click Button "save"
     Then UI Text of "Error message title" equal to "Unable to Save Report"
-    Then UI Text of "Error message description" equal to "The Report Template requires the selection of a single device and policy"
+    Then UI Text of "Error message description" equal to "The Report Template requires the selection of a single device and policy."
     Then UI Click Button "errorMessageOK"
     Then UI Click Button "cancel"
-    Then UI Text of "Save Change Message" contains "Do you want to save "Report with more than 50 Widgets"?"
+    Then UI Text of "Save Change Message" contains "Do you want to save "Report with more than 50 Widgets without policy and port"?"
     Then UI Click Button "No"
 
   @SID_7
-  Scenario: Create New Report with Report with more than 50 Widgets
+  Scenario: Create New Report with Report with more than 50 Widgets without port
     Then UI Click Button "New Report Tab"
-    Then UI Set Text Field "Report Name" To "Report with more than 50 Widgets"
+    Then UI Set Text Field "Report Name" To "Report with more than 50 Widgets without port"
     Then UI Click Button "Add Template" with value "DefensePro Behavioral Protections"
     Then UI Click Button "Scope Selection"
     Then UI Click Button "DPScopeSelectionChange" with value "172.16.22.50"
@@ -86,10 +86,10 @@ Feature: Negative test to validate Error Messages
     Then UI Click Button "SaveDPScopeSelection"
     Then UI Click Button "save"
     Then UI Text of "Error message title" equal to "Unable to Save Report"
-    Then UI Text of "Error message description" equal to "The Report Template requires the selection of a single device and policy"
+    Then UI Text of "Error message description" equal to "The Report Template requires the selection of a single device and policy."
     Then UI Click Button "errorMessageOK"
     Then UI Click Button "cancel"
-    Then UI Text of "Save Change Message" contains "Do you want to save "Report with more than 50 Widgets"?"
+    Then UI Text of "Save Change Message" contains "Do you want to save "Report with more than 50 Widgets without port"?"
     Then UI Click Button "No"
 
   @SID_8
