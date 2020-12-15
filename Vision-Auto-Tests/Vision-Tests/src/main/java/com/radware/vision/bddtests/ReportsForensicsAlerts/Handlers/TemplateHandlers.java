@@ -846,6 +846,7 @@ public class TemplateHandlers {
         }
         if (templateJsonObject.has("DeleteTemplate") && Boolean.parseBoolean(templateJsonObject.get("DeleteTemplate").toString())) {
             deleteTemplate(currentTemplateName);
+            Report.deleteTemplateReport(reportName,new JSONObject(templateJsonObject.toString()).get("templateAutomationID").toString());
             return;
         }
         String reportType = templateJsonObject.get("reportType").toString();
@@ -884,7 +885,7 @@ public class TemplateHandlers {
     }
 
     public static void deleteTemplate(String currentTemplateName) {
-        WebUiTools.getWebElement("Delete Template", currentTemplateName);
+        WebUiTools.getWebElement("Delete Template", currentTemplateName).click();
     }
 
     private static void editTemplate(String reportType) throws TargetWebElementNotFoundException {
