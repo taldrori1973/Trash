@@ -11,6 +11,7 @@ import com.radware.vision.bddtests.ReportsForensicsAlerts.Handlers.SelectTimeHan
 import com.radware.vision.infra.testhandlers.vrm.enums.vrmActions;
 import com.radware.vision.infra.utils.json.CustomizedJsonManager;
 import com.radware.vision.vision_project_cli.RootServerCli;
+import org.apache.commons.collections.map.HashedMap;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
@@ -32,6 +33,8 @@ abstract class ReportsForensicsAlertsAbstract implements ReportsForensicsAlertsI
     private static Map<String, LocalDateTime> schedulingDates = new HashMap<>();
     private static Map<String, JSONObject> timeAbsoluteDates = new HashMap<>();
     protected static Map<String, Map<String,String>> templates = new HashMap<>();
+    protected static Map<String, String> oldReportType = new HashMap<>();
+
     private String name;
     public static final Map<String, Integer> widgets;
     static {
@@ -212,8 +215,11 @@ abstract class ReportsForensicsAlertsAbstract implements ReportsForensicsAlertsI
         Map<String, String> map = null;
         if (operationType != vrmActions.GENERATE)
             map = CustomizedJsonManager.fixJson(entry);
-        if (isOldDesign(map))
-            fixMapToSupportOldDesign(map);
+        if (isOldDesign(map)) {
+            if(map.containsKey("reportType"))
+                oldReportType.put(name , map.get("reportType")); //oldReportType Map = "reportName" : "reportType
+            fixMapToSupportOldDesign(name,map);
+        }
         fixTemplateMap(map);
 
         switch (operationType.name().toUpperCase()) {
@@ -240,9 +246,12 @@ abstract class ReportsForensicsAlertsAbstract implements ReportsForensicsAlertsI
         return false;
     }
 
-    private void fixMapToSupportOldDesign(Map<String, String> map) {
+    private void fixMapToSupportOldDesign(String reportName,Map<String, String> map) {
         JSONObject templateJSON = new JSONObject();
-        fixOldMapObject(map, templateJSON, "reportType", "reportType", map.get("reportType").contains("DefensePro Ana")?"DefensePro Analytics": map.get("reportType").replaceAll("s Dashboard", "s").trim().replaceAll(" Dashboard", "s"));
+        if(templateJSON.has("reportType"))
+            fixOldMapObject(map, templateJSON, "reportType", "reportType", map.get("reportType").contains("DefensePro Ana")?"DefensePro Analytics": map.get("reportType").replaceAll("s Dashboard", "s").trim().replaceAll(" Dashboard", "s"));
+        else
+           fixOldMapObject(map, templateJSON, "reportType", "reportType", oldReportType.get(reportName));
         fixOldMapObject(map, templateJSON, "Design", "Widgets", map.containsKey("Design")?new JSONObject(map.get("Design")).toMap().getOrDefault("Add",new JSONObject(map.get("Design")).toMap().getOrDefault("Widgets", "").toString()):"");
         String devicesText = map.get("devices").replaceAll("index", "deviceIndex").replaceAll("ports", "devicePorts").replaceAll("policies", "devicePolicies");
         fixOldMapObject(map, templateJSON, "devices", "devices", "[" + devicesText + "]");

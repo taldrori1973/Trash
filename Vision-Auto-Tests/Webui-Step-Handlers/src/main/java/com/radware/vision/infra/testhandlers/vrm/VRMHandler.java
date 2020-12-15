@@ -258,7 +258,7 @@ public class VRMHandler {
             entry.value = (entry.value == null) ? null : entry.value;
             entry.valueOffset = (entry.value == null) ? 0 : entry.valueOffset;
 
-            if (!(isLabelExist(chart, label)) && entry.exist || (isLabelExist(chart, label)) && !entry.exist) {
+            if (isLabelExist(chart, label) ^ entry.exist) {
                 return;
             }
             if ((!isLabelExist(chart, label)) && !entry.exist) {
