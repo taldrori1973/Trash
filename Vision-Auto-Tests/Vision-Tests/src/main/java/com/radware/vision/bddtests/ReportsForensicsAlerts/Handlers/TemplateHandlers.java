@@ -603,7 +603,7 @@ public class TemplateHandlers {
 
         SystemAndNetworkScopeSelection(JSONArray deviceJSONArray, String templateParam) {
             super(deviceJSONArray, templateParam);
-            this.type = "System And Network";
+            this.type = "System and Network";
             this.saveButtonText = "SystemAndNetworkSaveButton";
         }
     }
