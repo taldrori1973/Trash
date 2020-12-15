@@ -51,7 +51,7 @@ Feature: DefensePro Behavioral Protections Part 1
      | Share                 | Email:[automation.vision2@radware.com],Subject:myEdit subject,Body:myEdit body                                           |
      | Format                | Select: PDF                                                                                                              |
    Then UI "Validate" Report With Name "BDoS_TCP SYN3"
-     | Template              | reportType:DefensePro Behavioral Protections , Widgets:[{BDoS-TCP SYN:[IPv4,pps,Outbound]}] ,devices:[{deviceIndex:11, devicePolicies:[1_https]}] |
+     | Template              | reportType:DefensePro Behavioral Protections , Widgets:[{BDoS-TCP SYN:[IPv4,bps,Outbound]}] ,devices:[{deviceIndex:11, devicePolicies:[1_https]}] |
      | Logo                  | reportLogoPNG.png                                                                                                       |
      | Time Definitions.Date | Absolute:[27.02.1971 01:00, +0d]                                                                                        |
      | Schedule              | Run Every:Once, On Time:+6H                                                                                             |
@@ -275,13 +275,13 @@ Feature: DefensePro Behavioral Protections Part 1
     Then UI Click Button "New Report Tab"
     Given UI "Create" Report With Name "BDoS_TCP RST1"
       | Template              | reportType:DefensePro Behavioral Protections , Widgets:[{BDoS-TCP RST:[IPv4,bps,Inbound]}] ,devices:[{deviceIndex:11, devicePolicies:[1_https]}] |
-      | Time Definitions.Date | Quick:[Hours,3]                                                                                |
+      | Time Definitions.Date | Relative:[Hours,3]                                                                                |
       | Schedule              | Run Every:Weekly, On Time:+6H, At Days:[WED]                                                                     |
       | Share                 | Email:[automation.vision2@radware.com],Subject:myEdit subject,Body:myEdit body                                   |
       | Format                | Select: CSV                                                                                                      |
     Then UI "Validate" Report With Name "BDoS_TCP RST1"
       | Template              | reportType:DefensePro Behavioral Protections , Widgets:[{BDoS-TCP RST:[IPv4,bps,Inbound]}] ,devices:[{deviceIndex:11, devicePolicies:[1_https]}] |
-      | Time Definitions.Date | Quick:[Hours,3]                                                                                 |
+      | Time Definitions.Date | Relative:[Hours,3]                                                                                 |
       | Schedule              | Run Every:Weekly, On Time:+6H, At Days:[WED]                                                                     |
       | Share                 | Email:[automation.vision2@radware.com],Subject:myEdit subject,Body:myEdit body                                   |
       | Format                | Select: CSV                                                                                                      |

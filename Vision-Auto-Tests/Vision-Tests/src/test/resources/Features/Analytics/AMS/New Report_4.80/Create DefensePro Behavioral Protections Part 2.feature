@@ -9,22 +9,22 @@ Feature: DefensePro Behavioral Protections Part 2
     Then UI Click Button "New Report Tab"
 
 
-  @SID_2
-  Scenario: create new DNS-TXT1
-    Then UI Click Button "New Report Tab"
-    Given UI "Create" Report With Name "DNS_TXT1"
-      | Template              | reportType:DefensePro Behavioral Protections , Widgets:[{DNS-TXT:[IPv4]}] ,devices:[{deviceIndex:11, devicePolicies:[1_https]}] |
-      | Time Definitions.Date | Quick:Quarter                                                                                         |
-      | Schedule              | Run Every:Once, On Time:+6H                                                                           |
-      | Share                 | Email:[automation.vision2@radware.com],Subject:myEdit subject,Body:myEdit body                        |
-      | Format                | Select: CSV                                                                                           |
-    Then UI "Validate" Report With Name "DNS_TXT1"
-      | Template              | reportType:DefensePro Behavioral Protections , Widgets:[{DNS-TXT:[IPv4]}] ,devices:[{deviceIndex:11, devicePolicies:[1_https]}]|
-      | Time Definitions.Date | Quick:Quarter                                                                                         |
-      | Schedule              | Run Every:Once, On Time:+6H                                                                           |
-      | Share                 | Email:[automation.vision2@radware.com],Subject:myEdit subject,Body:myEdit body                        |
-      | Format                | Select: CSV                                                                                           |
-    Then UI Delete Report With Name "DNS_TXT1"
+#  @SID_2
+#  Scenario: create new DNS-TXT1
+#    Then UI Click Button "New Report Tab"
+#    Given UI "Create" Report With Name "DNS_TXT1"
+#      | Template              | reportType:DefensePro Behavioral Protections , Widgets:[{DNS-TXT:[IPv4]}] ,devices:[{deviceIndex:11, devicePolicies:[1_https]}] |
+#      | Time Definitions.Date | Quick:Quarter                                                                                         |
+#      | Schedule              | Run Every:Once, On Time:+6H                                                                           |
+#      | Share                 | Email:[automation.vision2@radware.com],Subject:myEdit subject,Body:myEdit body                        |
+#      | Format                | Select: CSV                                                                                           |
+#    Then UI "Validate" Report With Name "DNS_TXT1"
+#      | Template              | reportType:DefensePro Behavioral Protections , Widgets:[{DNS-TXT:[IPv4]}] ,devices:[{deviceIndex:11, devicePolicies:[1_https]}]|
+#      | Time Definitions.Date | Quick:Quarter                                                                                         |
+#      | Schedule              | Run Every:Once, On Time:+6H                                                                           |
+#      | Share                 | Email:[automation.vision2@radware.com],Subject:myEdit subject,Body:myEdit body                        |
+#      | Format                | Select: CSV                                                                                           |
+#    Then UI Delete Report With Name "DNS_TXT1"
 
   @SID_3
   Scenario: create new DNS-TXT2
@@ -41,31 +41,31 @@ Feature: DefensePro Behavioral Protections Part 2
       | Format                | Select: CSV                                                                                           |
     Then UI Delete Report With Name "DNS_TXT2"
 
-  @SID_4
-  Scenario: create new DNS-TXT3
-    Then UI Click Button "New Report Tab"
-    Given UI "Create" Report With Name "DNS_TXT3"
-      | Template              | reportType:DefensePro Behavioral Protections , Widgets:[{DNS-TXT:[IPv6]}] ,devices:[{deviceIndex:11, devicePolicies:[1_https]}]|
-      | Logo                  | reportLogoPNG.png                                                                                     |
-      | Time Definitions.Date | Quick:This Month                                                                                      |
-      | Schedule              | Run Every:Once, On Time:+6H                                                                           |
-      | Share                 | Email:[automation.vision2@radware.com],Subject:myEdit subject,Body:myEdit body                        |
-      | Format                | Select: PDF                                                                                           |
-    Then UI "Validate" Report With Name "DNS_TXT3"
-      | Template              | reportType:DefensePro Behavioral Protections , Widgets:[{DNS-TXT:[IPv6]}] ,devices:[{deviceIndex:11, devicePolicies:[1_https]}] |
-      | Logo                  | reportLogoPNG.png                                                                                     |
-      | Time Definitions.Date | Quick:This Month                                                                                      |
-      | Schedule              | Run Every:Once, On Time:+6H                                                                           |
-      | Share                 | Email:[automation.vision2@radware.com],Subject:myEdit subject,Body:myEdit body                        |
-      | Format                | Select: PDF                                                                                           |
-    Then UI Delete Report With Name "DNS_TXT3"
+#  @SID_4
+#  Scenario: create new DNS-TXT3
+#    Then UI Click Button "New Report Tab"
+#    Given UI "Create" Report With Name "DNS_TXT3"
+#      | Template              | reportType:DefensePro Behavioral Protections , Widgets:[{DNS-TXT:[IPv6]}] ,devices:[{deviceIndex:11, devicePolicies:[1_https]}]|
+#      | Logo                  | reportLogoPNG.png                                                                                     |
+#      | Time Definitions.Date | Quick:This Month                                                                                      |
+#      | Schedule              | Run Every:Once, On Time:+6H                                                                           |
+#      | Share                 | Email:[automation.vision2@radware.com],Subject:myEdit subject,Body:myEdit body                        |
+#      | Format                | Select: PDF                                                                                           |
+#    Then UI "Validate" Report With Name "DNS_TXT3"
+#      | Template              | reportType:DefensePro Behavioral Protections , Widgets:[{DNS-TXT:[IPv6]}] ,devices:[{deviceIndex:11, devicePolicies:[1_https]}] |
+#      | Logo                  | reportLogoPNG.png                                                                                     |
+#      | Time Definitions.Date | Quick:This Month                                                                                      |
+#      | Schedule              | Run Every:Once, On Time:+6H                                                                           |
+#      | Share                 | Email:[automation.vision2@radware.com],Subject:myEdit subject,Body:myEdit body                        |
+#      | Format                | Select: PDF                                                                                           |
+#    Then UI Delete Report With Name "DNS_TXT3"
 
   @SID_5
   Scenario: create new DNS-TXT4
     Then UI Click Button "New Report Tab"
     Given UI "Create" Report With Name "DNS_TXT4"
       | Template              | reportType:DefensePro Behavioral Protections , Widgets:[{DNS-TXT:[IPv6]}] ,devices:[{deviceIndex:11, devicePolicies:[1_https]}]|
-      | Time Definitions.Date |  Absolute:[27.02.1971 01:00, +0d]                                                                     |
+      | Time Definitions.Date | Absolute:[27.02.1971 01:00, +0d]                                                                     |
       | Schedule              | Run Every:Monthly, On Time:+6H, At Months:[MAR]                                                       |
       | Format                | Select: HTML                                                                                          |
     Then UI "Validate" Report With Name "DNS_TXT4"
@@ -80,13 +80,13 @@ Feature: DefensePro Behavioral Protections Part 2
     Then UI Click Button "New Report Tab"
     Given UI "Create" Report With Name "DNS_A1"
       | Template              | reportType:DefensePro Behavioral Protections , Widgets:[{DNS-A:[IPv6]}] ,devices:[{deviceIndex:11, devicePolicies:[1_https]}] |
-      | Time Definitions.Date | Quick:[Hours,3]                                                                                     |
+      | Time Definitions.Date | Quick:1D                                                                                    |
       | Schedule              | Run Every:Weekly, On Time:+6H, At Days:[WED]                                                        |
       | Share                 | Email:[automation.vision2@radware.com],Subject:myEdit subject,Body:myEdit body                      |
       | Format                | Select: CSV                                                                                         |
     Then UI "Validate" Report With Name "DNS_A1"
       | Template              | reportType:DefensePro Behavioral Protections , Widgets:[{DNS-A:[IPv6]}] ,devices:[{deviceIndex:11, devicePolicies:[1_https]}] |
-      | Time Definitions.Date | Quick:[Hours,3]                                                                                     |
+      | Time Definitions.Date | Quick:1D                                                                                     |
       | Schedule              | Run Every:Weekly, On Time:+6H, At Days:[WED]                                                        |
       | Share                 | Email:[automation.vision2@radware.com],Subject:myEdit subject,Body:myEdit body                      |
       | Format                | Select: CSV                                                                                         |
@@ -131,12 +131,12 @@ Feature: DefensePro Behavioral Protections Part 2
     Then UI Click Button "New Report Tab"
     Given UI "Create" Report With Name "DNS_A4"
       | Template              | reportType:DefensePro Behavioral Protections , Widgets:[{DNS-A:[IPv4]}] ,devices:[{deviceIndex:11, devicePolicies:[1_https]}] |
-      | Time Definitions.Date |  Absolute:[27.02.1971 01:00, +0d]                                                                   |
+      | Time Definitions.Date | Absolute:[27.02.1971 01:00, +0d]                                                                   |
       | Schedule              | Run Every:Monthly, On Time:+6H, At Months:[MAR]                                                     |
       | Format                | Select: HTML                                                                                        |
     Then UI "Validate" Report With Name "DNS_A4"
       | Template              | reportType:DefensePro Behavioral Protections , Widgets:[{DNS-A:[IPv4]}] ,devices:[{deviceIndex:11, devicePolicies:[1_https]}] |
-      | Time Definitions.Date |  Absolute:[27.02.1971 01:00, +0d]                                                                   |
+      | Time Definitions.Date | Absolute:[27.02.1971 01:00, +0d]                                                                   |
       | Schedule              | Run Every:Monthly, On Time:+6H, At Months:[MAR]                                                     |
       | Format                | Select: HTML                                                                                        |
     Then UI Delete Report With Name "DNS_A4"
@@ -146,13 +146,13 @@ Feature: DefensePro Behavioral Protections Part 2
     Then UI Click Button "New Report Tab"
     Given UI "Create" Report With Name "DNS_AAAA1"
       | Template              | reportType:DefensePro Behavioral Protections , Widgets:[{DNS-AAAA:[IPv4]}] ,devices:[{deviceIndex:11, devicePolicies:[1_https]}] |
-      | Time Definitions.Date | Quick:[Weeks,3]                                                                                        |
+      | Time Definitions.Date | Relative:[Weeks,3]                                                                                        |
       | Schedule              | Run Every:Daily,On Time:+2m                                                                            |
       | Share                 | Email:[automation.vision2@radware.com],Subject:myEdit subject,Body:myEdit body                         |
       | Format                | Select: CSV                                                                                            |
     Then UI "Validate" Report With Name "DNS_AAAA1"
       | Template              | reportType:DefensePro Behavioral Protections , Widgets:[{DNS-AAAA:[IPv4]}] ,devices:[{deviceIndex:11, devicePolicies:[1_https]}] |
-      | Time Definitions.Date | Quick:[Weeks,3]                                                                                        |
+      | Time Definitions.Date | Relative:[Weeks,3]                                                                                        |
       | Schedule              | Run Every:Daily,On Time:+2m                                                                            |
       | Share                 | Email:[automation.vision2@radware.com],Subject:myEdit subject,Body:myEdit body                         |
       | Format                | Select: CSV                                                                                            |
@@ -164,7 +164,7 @@ Feature: DefensePro Behavioral Protections Part 2
     Given UI "Create" Report With Name "DNS_AAAA2"
       | Template              | reportType:DefensePro Behavioral Protections , Widgets:[{DNS-AAAA:[IPv4]}] ,devices:[{deviceIndex:11, devicePolicies:[1_https]}] |
       | Logo                  | reportLogoPNG.png                                                                                   |
-      | Time Definitions.Date |  Absolute:[27.02.1971 01:00, +0d]                                                                   |
+      | Time Definitions.Date | Absolute:[27.02.1971 01:00, +0d]                                                                    |
       | Schedule              | Run Every:Weekly, On Time:+6H, At Days:[SUN]                                                        |
       | Format                | Select: CSV                                                                                         |
     Then UI "Validate" Report With Name "DNS_AAAA2"
@@ -276,13 +276,13 @@ Feature: DefensePro Behavioral Protections Part 2
     Then UI Click Button "New Report Tab"
     Given UI "Create" Report With Name "DNS_NAPTR1"
       | Template              | reportType:DefensePro Behavioral Protections , Widgets:[{DNS-NAPTR:[IPv4]}] ,devices:[{deviceIndex:11, devicePolicies:[1_https]}] |
-      | Time Definitions.Date | Quick:[Weeks,3]                                                                                          |
+      | Time Definitions.Date | Relative:[Weeks,3]                                                                                          |
       | Schedule              | Run Every:Daily,On Time:+2m                                                                              |
       | Share                 | Email:[automation.vision2@radware.com],Subject:myEdit subject,Body:myEdit body                           |
       | Format                | Select: CSV                                                                                              |
     Then UI "Validate" Report With Name "DNS_NAPTR1"
       | Template              | reportType:DefensePro Behavioral Protections , Widgets:[{DNS-NAPTR:[IPv4]}] ,devices:[{deviceIndex:11, devicePolicies:[1_https]}] |
-      | Time Definitions.Date | Quick:[Weeks,3]                                                                                          |
+      | Time Definitions.Date | Relative:[Weeks,3]                                                                                          |
       | Schedule              | Run Every:Daily,On Time:+2m                                                                              |
       | Share                 | Email:[automation.vision2@radware.com],Subject:myEdit subject,Body:myEdit body                           |
       | Format                | Select: CSV                                                                                              |
@@ -300,7 +300,6 @@ Feature: DefensePro Behavioral Protections Part 2
       | Template              | reportType:DefensePro Behavioral Protections , Widgets:[{DNS-NAPTR:[IPv4]}] ,devices:[{deviceIndex:11, devicePolicies:[1_https]}] |
       | Logo                  | reportLogoPNG.png                                                                                        |
       | Time Definitions.Date | Quick:15m                                                                                                |
-      | Format                | Select: CSV                                                                                              |
       | Format                | Select: CSV                                                                                              |
     Then UI Delete Report With Name "DNS_NAPTR2"
 
@@ -343,13 +342,13 @@ Feature: DefensePro Behavioral Protections Part 2
     Then UI Click Button "New Report Tab"
     Given UI "Create" Report With Name "DNS_PTR1"
       | Template              | reportType:DefensePro Behavioral Protections , Widgets:[{DNS-PTR:[IPv6]}] ,devices:[{deviceIndex:11, devicePolicies:[1_https]}] |
-      | Time Definitions.Date | Quick:[Weeks,3]                                                                                       |
+      | Time Definitions.Date | Relative:[Weeks,3]                                                                                       |
       | Schedule              | Run Every:Daily,On Time:+2m                                                                           |
       | Share                 | Email:[automation.vision2@radware.com],Subject:myEdit subject,Body:myEdit body                        |
       | Format                | Select: CSV                                                                                           |
     Then UI "Validate" Report With Name "DNS_PTR1"
       | Template              | reportType:DefensePro Behavioral Protections , Widgets:[{DNS-PTR:[IPv6]}] ,devices:[{deviceIndex:11, devicePolicies:[1_https]}] |
-      | Time Definitions.Date | Quick:[Weeks,3]                                                                                       |
+      | Time Definitions.Date | Relative:[Weeks,3]                                                                                       |
       | Schedule              | Run Every:Daily,On Time:+2m                                                                           |
       | Share                 | Email:[automation.vision2@radware.com],Subject:myEdit subject,Body:myEdit body                        |
       | Format                | Select: CSV                                                                                           |
@@ -370,24 +369,24 @@ Feature: DefensePro Behavioral Protections Part 2
       | Format                | Select: CSV                                                                                           |
     Then UI Delete Report With Name "DNS_PTR2"
 
-  @SID_24
-  Scenario: create new DNS-PTR3
-    Then UI Click Button "New Report Tab"
-    Given UI "Create" Report With Name "DNS_PTR3"
-      | Template              | reportType:DefensePro Behavioral Protections , Widgets:[{DNS-PTR:[IPv4]}] ,devices:[{deviceIndex:11, devicePolicies:[1_https]}] |
-      | Logo                  | reportLogoPNG.png                                                                                     |
-      | Time Definitions.Date | Quick:This Month                                                                                      |
-      | Schedule              | Run Every:Once, On Time:+6H                                                                           |
-      | Share                 | Email:[automation.vision2@radware.com],Subject:myEdit subject,Body:myEdit body                        |
-      | Format                | Select: PDF                                                                                           |
-    Then UI "Validate" Report With Name "DNS_PTR3"
-      | Template              | reportType:DefensePro Behavioral Protections , Widgets:[{DNS-PTR:[IPv4]}] ,devices:[{deviceIndex:11, devicePolicies:[1_https]}] |
-      | Logo                  | reportLogoPNG.png                                                                                     |
-      | Time Definitions.Date | Quick:This Month                                                                                      |
-      | Schedule              | Run Every:Once, On Time:+6H                                                                           |
-      | Share                 | Email:[automation.vision2@radware.com],Subject:myEdit subject,Body:myEdit body                        |
-      | Format                | Select: PDF                                                                                           |
-    Then UI Delete Report With Name "DNS_PTR3"
+#  @SID_24
+#  Scenario: create new DNS-PTR3
+#    Then UI Click Button "New Report Tab"
+#    Given UI "Create" Report With Name "DNS_PTR3"
+#      | Template              | reportType:DefensePro Behavioral Protections , Widgets:[{DNS-PTR:[IPv4]}] ,devices:[{deviceIndex:11, devicePolicies:[1_https]}] |
+#      | Logo                  | reportLogoPNG.png                                                                                     |
+#      | Time Definitions.Date | Quick:This Month                                                                                      |
+#      | Schedule              | Run Every:Once, On Time:+6H                                                                           |
+#      | Share                 | Email:[automation.vision2@radware.com],Subject:myEdit subject,Body:myEdit body                        |
+#      | Format                | Select: PDF                                                                                           |
+#    Then UI "Validate" Report With Name "DNS_PTR3"
+#      | Template              | reportType:DefensePro Behavioral Protections , Widgets:[{DNS-PTR:[IPv4]}] ,devices:[{deviceIndex:11, devicePolicies:[1_https]}] |
+#      | Logo                  | reportLogoPNG.png                                                                                     |
+#      | Time Definitions.Date | Quick:This Month                                                                                      |
+#      | Schedule              | Run Every:Once, On Time:+6H                                                                           |
+#      | Share                 | Email:[automation.vision2@radware.com],Subject:myEdit subject,Body:myEdit body                        |
+#      | Format                | Select: PDF                                                                                           |
+#    Then UI Delete Report With Name "DNS_PTR3"
 
   @SID_25
   Scenario: create new DNS-PTR4
@@ -642,24 +641,24 @@ Feature: DefensePro Behavioral Protections Part 2
       | Time Definitions.Date | Quick:Previous Month                                                                                                                                   |
     Then UI Delete Report With Name "Excluded UDP Traffic 2"
 
-  @SID_40
-  Scenario:  Excluded UDP Traffic 3
-    Then UI Click Button "New Report Tab"
-    Given UI "Create" Report With Name "Excluded UDP Traffic 3"
-      | Template              | reportType:DefensePro Behavioral Protections, Widgets:[{Excluded UDP Traffic:[IPv6, bps, Outbound]}],devices:[{deviceIndex:10, devicePolicies:[BDOS]}] |
-      | Format                | Select: PDF                                                                                                                                            |
-      | Logo                  | reportLogoPNG.png                                                                                                                                      |
-      | Time Definitions.Date | Quick:This Month                                                                                                                                       |
-      | Schedule              | Run Every:Once, On Time:+6H                                                                                                                            |
-      | Share                 | Email:[automation.vision2@radware.com],Subject:myEdit subject,Body:myEdit body                                                                         |
-    Then UI "Validate" Report With Name "Excluded UDP Traffic 3"
-      | Template              | reportType:DefensePro Behavioral Protections, Widgets:[{Excluded UDP Traffic:[IPv6, bps, Outbound]}],devices:[{deviceIndex:10, devicePolicies:[BDOS]}] |
-      | Format                | Select: PDF                                                                                                                                            |
-      | Logo                  | reportLogoPNG.png                                                                                                                                      |
-      | Time Definitions.Date | Quick:This Month                                                                                                                                       |
-      | Schedule              | Run Every:Once, On Time:+6H                                                                                                                            |
-      | Share                 | Email:[automation.vision2@radware.com],Subject:myEdit subject,Body:myEdit body                                                                         |
-    Then UI Delete Report With Name "Excluded UDP Traffic 3"
+#  @SID_40
+#  Scenario:  Excluded UDP Traffic 3
+#    Then UI Click Button "New Report Tab"
+#    Given UI "Create" Report With Name "Excluded UDP Traffic 3"
+#      | Template              | reportType:DefensePro Behavioral Protections, Widgets:[{Excluded UDP Traffic:[IPv6, bps, Outbound]}],devices:[{deviceIndex:10, devicePolicies:[BDOS]}] |
+#      | Format                | Select: PDF                                                                                                                                            |
+#      | Logo                  | reportLogoPNG.png                                                                                                                                      |
+#      | Time Definitions.Date | Quick:This Month                                                                                                                                       |
+#      | Schedule              | Run Every:Once, On Time:+6H                                                                                                                            |
+#      | Share                 | Email:[automation.vision2@radware.com],Subject:myEdit subject,Body:myEdit body                                                                         |
+#    Then UI "Validate" Report With Name "Excluded UDP Traffic 3"
+#      | Template              | reportType:DefensePro Behavioral Protections, Widgets:[{Excluded UDP Traffic:[IPv6, bps, Outbound]}],devices:[{deviceIndex:10, devicePolicies:[BDOS]}] |
+#      | Format                | Select: PDF                                                                                                                                            |
+#      | Logo                  | reportLogoPNG.png                                                                                                                                      |
+#      | Time Definitions.Date | Quick:This Month                                                                                                                                       |
+#      | Schedule              | Run Every:Once, On Time:+6H                                                                                                                            |
+#      | Share                 | Email:[automation.vision2@radware.com],Subject:myEdit subject,Body:myEdit body                                                                         |
+#    Then UI Delete Report With Name "Excluded UDP Traffic 3"
 
   @SID_41
   Scenario:  Excluded UDP Traffic 4
