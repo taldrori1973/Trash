@@ -340,12 +340,12 @@ Feature: Test Reports Definition
   @SID_22
   Scenario: create Application Report14
     Given UI "Create" Report With Name "Application Report14"
-      | Template              | reportType:Application ,Widgets:[All] , Applications:[app:80,app:443] |
+      | Template              | reportType:Application ,Widgets:[ALL] , Applications:[app:80,app:443] |
       | Time Definitions.Date | Relative:[Weeks,4]                                                    |
       | share                 | Email:[automation.vision1@radware.com],Subject:mySubject,Body:myBody  |
       | Format                | Select: PDF                                                           |
     Then UI "Validate" Report With Name "Application Report14"
-      | Template              | reportType:Application ,Widgets:[All] , Applications:[app:80,app:443] |
+      | Template              | reportType:Application ,Widgets:[ALL] , Applications:[app:80,app:443] |
       | Time Definitions.Date | Relative:[Weeks,4]                                                    |
       | share                 | Email:[automation.vision1@radware.com],Subject:mySubject,Body:myBody  |
       | Format                | Select: PDF                                                           |
@@ -355,13 +355,13 @@ Feature: Test Reports Definition
   Scenario: create System and Network And Application Report1
     Given UI "Create" Report With Name "System and Network And Application Report1"
       | Template-1            | reportType:System and Network , Widgets:[Ports Traffic Information] , Applications:[Alteon_172.17.164.17] |
-      | Template-2            | reportType:Application ,Widgets:[All] , Applications:[app:80,app:443]                                     |
+      | Template-2            | reportType:Application ,Widgets:[ALL] , Applications:[app:80,app:443]                                     |
       | Time Definitions.Date | Relative:[Months,5]                                                                                       |
       | share                 | Email:[automation.vision1@radware.com],Subject:mySubject,Body:myBody                                      |
       | Format                | Select: PDF                                                                                               |
     Then UI "Validate" Report With Name "System and Network And Application Report1"
       | Template-1            | reportType:System and Network , Widgets:[Ports Traffic Information] , Applications:[Alteon_172.17.164.17] |
-      | Template-2            | reportType:Application ,Widgets:[All] , Applications:[app:80,app:443]                                     |
+      | Template-2            | reportType:Application ,Widgets:[ALL] , Applications:[app:80,app:443]                                     |
       | Time Definitions.Date | Relative:[Months,5]                                                                                       |
       | share                 | Email:[automation.vision1@radware.com],Subject:mySubject,Body:myBody                                      |
       | Format                | Select: PDF                                                                                               |

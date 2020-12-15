@@ -45,6 +45,8 @@ abstract class ReportsForensicsAlertsAbstract implements ReportsForensicsAlertsI
         templateWidgets.put("DefenseFlow Analytics",13);
         templateWidgets.put("AppWall",7);
         templateWidgets.put("EAAF",6);
+        templateWidgets.put("System and Network",1);
+        templateWidgets.put("Application",6);
         widgets = Collections.unmodifiableMap(templateWidgets);
     }
 
