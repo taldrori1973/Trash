@@ -360,14 +360,19 @@ public class TemplateHandlers {
         }
 
         protected boolean isAllAndClearScopeSelection() throws Exception {
-            if (devicesJSON.get(0).toString().equalsIgnoreCase("All")) {
-                WebUiTools.check("AllScopeSelection", "", true);
-                return true;
-            } else {
-                WebUiTools.check("AllScopeSelection", "", true);
-                WebUiTools.check("AllScopeSelection", "", false);
-                return false;
+            if(devicesJSON.length()>0)
+            {
+                if (devicesJSON.get(0).toString().equalsIgnoreCase("All")) {
+                    WebUiTools.check("AllScopeSelection", "", true);
+                    return true;
+                }
+                else {
+                    WebUiTools.check("AllScopeSelection", "", true);
+                    WebUiTools.check("AllScopeSelection", "", false);
+                    return false;
+                }
             }
+            return true;
         }
 
         protected JSONArray getJSONArraySelected(JSONArray jsonArrayToGetSelectedTrue) {
