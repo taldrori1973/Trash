@@ -11,6 +11,7 @@ import com.radware.vision.automation.tools.sutsystemobjects.devicesinfo.enums.SU
 import com.radware.vision.bddtests.ReportsForensicsAlerts.Report;
 import com.radware.vision.infra.testhandlers.baseoperations.BasicOperationsHandler;
 import com.radware.vision.bddtests.ReportsForensicsAlerts.WebUiTools;
+import com.radware.vision.infra.testhandlers.vrm.VRMHandler;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import org.openqa.selenium.Keys;
@@ -546,6 +547,7 @@ public class TemplateHandlers {
         @Override
         protected void selectDevice(String deviceText, boolean isToCheck) throws Exception {
             BasicOperationsHandler.setTextField("HTTPSScopeSelectionFilter", deviceText.split("-")[0]);
+            new VRMHandler().scrollUntilElementDisplayed(new ComponentLocator(How.XPATH, "//*[contains(@data-debug-id,'radio-') and contains(@data-debug-id,'-parent')]"), WebUiTools.getComponentLocator("httpsScopeRadio", deviceText));
             WebUiTools.check("httpsScopeRadio", deviceText, isToCheck);
         }
 
