@@ -287,7 +287,7 @@ Feature: Basic tests for report parameters
 
   @SID_28
   Scenario: Validate Share send email To
-    Then UI Text of "Email Tab" equal to "E-mail To"
+    Then UI Validate the attribute "placeholder" Of Label "Email" is "EQUALS" to "E-mail To"
     Then UI Set Text Field "Email" To "example@example.com" enter Key true
     Then UI Validate Element Existence By Label "Email input" if Exists "true" with value "example@example.com,valid"
     Then UI Set Text Field "Email" To "example" enter Key true
@@ -307,7 +307,7 @@ Feature: Basic tests for report parameters
 
   @SID_29
   Scenario: Validate send email Subject
-    Then UI Text of "Subject Tab" equal to "Subject"
+    Then UI Validate the attribute "placeholder" Of Label "Subject" is "EQUALS" to "Subject"
 
   @SID_30
   Scenario: Validate send email Type your message
