@@ -73,7 +73,7 @@ Feature: DefensePro Analytics CSV Report
 #      | share                 | Email:[automation.vision1@radware.com],Subject:mySubject,Body:myBody                                               |
 #
   @SID_7
-  Scenario: Validate delivery card and generate report
+  Scenario: generate report
     Then UI Click Button "My Report" with value "DP Analytics csv"
     Then UI Click Button "Generate Report Manually" with value "DP Analytics csv"
     Then Sleep "35"
