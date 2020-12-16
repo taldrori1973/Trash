@@ -41,7 +41,7 @@ Feature: Edit DefensePro Analytics tests
   @SID_6
   Scenario: Validate delivery card and generate report
     Then UI Click Button "My Report" with value "DefensePro Analytics Report"
-    Then UI Click Button "Generate Report Manually" with value "DD Analytics csv"
+    Then UI Click Button "Generate Report Manually" with value "DefensePro Analytics Report"
     Then Sleep "35"
     #todo validate data Ramez
 
@@ -52,26 +52,12 @@ Feature: Edit DefensePro Analytics tests
     Then UI "Validate" Report With Name "DefensePro Analytics Report"
       | Template-1 | reportType:DefensePro Analytics,Widgets:[Top Attacks,Connections Rate],devices:[{deviceIndex:10}],showTable:true |
 
-  @SID_8
-  Scenario: Validate delivery card and generate report
-    Then UI Click Button "My Report" with value "DP Analytics csv"
-    Then UI Click Button "Generate Report Manually" with value "DP Analytics csv"
-    Then Sleep "35"
-    #todo validate data Ramez
-
   @SID_9
   Scenario: Delete Template from DefensePro Analytics
     Given UI "Edit" Report With Name "DefensePro Analytics Report"
       | Template-2 | DeleteTemplate:true |
     Then UI "Validate" Report With Name "DefensePro Analytics Report"
       | Template-1 | reportType:DefensePro Analytics,Widgets:[Top Attacks,Connections Rate],devices:[{deviceIndex:10}],showTable:true |
-
-  @SID_10
-  Scenario: Validate delivery card and generate report
-    Then UI Click Button "My Report" with value "DP Analytics csv"
-    Then UI Click Button "Generate Report Manually" with value "DP Analytics csv"
-    Then Sleep "35"
-    #todo validate data Ramez
 
   @SID_11
   Scenario: Delete Template Widget from DefensePro Analytics
@@ -80,13 +66,6 @@ Feature: Edit DefensePro Analytics tests
     Then UI "Validate" Report With Name "DefensePro Analytics Report"
       | Template-1 | reportType:DefensePro Analytics,Widgets:[Connections Rate],devices:[{deviceIndex:10}],showTable:true |
 
-  @SID_12
-  Scenario: Validate delivery card and generate report
-    Then UI Click Button "My Report" with value "DP Analytics csv"
-    Then UI Click Button "Generate Report Manually" with value "DP Analytics csv"
-    Then Sleep "35"
-    #todo validate data Ramez
-
   @SID_13
   Scenario:Add Template to DefensePro Analytics Report
     Given UI "Edit" Report With Name "DefensePro Analytics Report"
@@ -94,13 +73,6 @@ Feature: Edit DefensePro Analytics tests
     Then UI "Validate" Report With Name "DefensePro Analytics Report"
       | Template-1 | reportType:DefensePro Analytics,Widgets:[Connections Rate],devices:[{deviceIndex:10}],showTable:true                      |
       | Template-2 | reportType:DefensePro Analytics,Widgets:[{Traffic Bandwidth:[pps,Outbound,50]}],devices:[{deviceIndex:11}],showTable:true |
-
-  @SID_14
-  Scenario: Validate delivery card and generate report
-    Then UI Click Button "My Report" with value "DP Analytics csv"
-    Then UI Click Button "Generate Report Manually" with value "DP Analytics csv"
-    Then Sleep "35"
-    #todo validate data Ramez
 
   @SID_15
   Scenario: Create and validate DefensePro Analytics Report2

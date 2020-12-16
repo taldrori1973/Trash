@@ -108,6 +108,10 @@ Feature: Report Wizard edit and update - new form
       | Share | Email:[automation.vision2@radware.com],Subject:mySubjectEdit,Body:myBodyEdit |
 
   @SID_8
+  Scenario: Delete report
+    Then UI Delete Report With Name "Edit_and_Update_Test_report"
+
+  @SID_9
   Scenario: Cleanup
     Given UI logout and close browser
     * CLI Check if logs contains
