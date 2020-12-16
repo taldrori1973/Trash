@@ -1,3 +1,4 @@
+@TC118728
 Feature: DPGenerateReport
 
   @SID_1
@@ -14,24 +15,29 @@ Feature: DPGenerateReport
   Scenario: Run DP simulator
     Given CLI simulate 1 attacks of type "VRM_attacks" on "DefensePro" 10 and wait 250 seconds
 
+  @SID_3
   Scenario: Login and navigate
     Given UI Login with user "radware" and password "radware"
     When UI Navigate to "AMS REPORTS" page via homePage
 
-
-  Scenario: validate DP Analytics Widgets
+  @SID_4
+  Scenario: validate DP Analytics Widget - Top Attack Destinations
     Then UI Validate Pie Chart data "Top Attack Destinations-DefensePro Analytics" in Report "DPAndDPBehavioralReport"
       | label    | data |
       | 1.1.1.10 | 5    |
       | 0.0.0.0  | 5    |
       | 1.1.1.1  | 2    |
 
+  @SID_5
+  Scenario: validate DP Analytics Widget - Top Attack Sources
     Then UI Validate Pie Chart data "Top Attack Sources-DefensePro Analytics" in Report "DPAndDPBehavioralReport"
       | label      | data |
       | 192.85.1.2 | 8    |
       | 0.0.0.0    | 6    |
       | 1.1.1.1    | 1    |
 
+  @SID_6
+  Scenario: validate DP Analytics Widget - Attacks by Protection Policy
     Then Validate Line Chart data "Attacks by Protection Policy-DefensePro Analytics" with Label "DOSS-Anomaly-TCP-SYN-RST" in report "DPAndDPBehavioralReport"
       | value | count | offset |
       | 2     | 1     | 0      |
