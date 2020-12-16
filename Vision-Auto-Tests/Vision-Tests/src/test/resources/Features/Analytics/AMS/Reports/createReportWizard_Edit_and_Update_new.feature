@@ -71,7 +71,7 @@ Feature: Report Wizard edit and update - new form
       | devices |  |
 
     Then UI "Validate" Report With Name "Edit_and_Update_Test_report"
-      | devices |  |
+      | devices | index:11,ports:[1],policies:[BDOS] |
 
 
   @SID_6
