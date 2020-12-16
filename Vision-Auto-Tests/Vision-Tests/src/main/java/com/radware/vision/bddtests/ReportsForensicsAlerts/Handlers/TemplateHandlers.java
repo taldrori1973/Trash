@@ -547,7 +547,7 @@ public class TemplateHandlers {
         @Override
         protected void selectDevice(String deviceText, boolean isToCheck) throws Exception {
             BasicOperationsHandler.setTextField("HTTPSScopeSelectionFilter", deviceText.split("-")[0]);
-            new VRMHandler().scrollUntilElementDisplayed(new ComponentLocator(How.XPATH, "//*[contains(@data-debug-id,'radio-') and contains(@data-debug-id,'-parent')]"), WebUiTools.getComponentLocator("httpsScopeRadio", deviceText));
+            new VRMHandler().scrollUntilElementDisplayed(new ComponentLocator(How.XPATH, "//*[contains(@data-debug-id,'radio-') and contains(@data-debug-id,'-parent')]"), WebUiTools.getComponentLocator("httpsScopeRadio", deviceText), true);
             WebUiTools.check("httpsScopeRadio", deviceText, isToCheck);
         }
 

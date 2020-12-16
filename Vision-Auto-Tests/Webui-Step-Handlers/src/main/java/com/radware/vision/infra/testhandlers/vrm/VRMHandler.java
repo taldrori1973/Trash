@@ -957,7 +957,7 @@ public class VRMHandler {
      * @param targetElementLocator this target comparator of element who we'r seeking about
      *                             this method searches about an element in list - and do scroll to this element
      */
-    public void scrollUntilElementDisplayed(ComponentLocator elementsLocator, ComponentLocator targetElementLocator) {
+    public void scrollUntilElementDisplayed(ComponentLocator elementsLocator, ComponentLocator targetElementLocator, boolean isScrollElementToTop) {
         if (WebUIUtils.fluentWait(targetElementLocator.getBy(), WebUIUtils.DEFAULT_WAIT_TIME) != null) //if targetElement exist
             return;
 
@@ -965,10 +965,14 @@ public class VRMHandler {
         if (firstElementInList == null) //if the list is empty
             BaseTestUtils.report("The list is empty", Reporter.FAIL);
 
-        if (!isTargetLocatorExistInList(elementsLocator, targetElementLocator))
+        if (!isTargetLocatorExistInList(elementsLocator, targetElementLocator, isScrollElementToTop))
             BaseTestUtils.report("The target Element '" + targetElementLocator.getLocatorValue() + "' is not found", Reporter.FAIL);
         else
             WebUIUtils.scrollIntoView(WebUIUtils.fluentWait(targetElementLocator.getBy()));
+    }
+    public void scrollUntilElementDisplayed(ComponentLocator elementsLocator, ComponentLocator targetElementLocator)
+    {
+        scrollUntilElementDisplayed(elementsLocator, targetElementLocator, false);
     }
 
     /**
@@ -979,7 +983,7 @@ public class VRMHandler {
      * <p>
      * this method do scrolls until find the target element
      */
-    protected boolean isTargetLocatorExistInList(ComponentLocator elementsLocator, ComponentLocator targetElementLocator) {
+    protected boolean isTargetLocatorExistInList(ComponentLocator elementsLocator, ComponentLocator targetElementLocator, boolean isScrollElementToTop) {
         List<String> elementsTextsList = new ArrayList();
 
         while (!isTargetLocatorExist(targetElementLocator)) {
@@ -989,7 +993,9 @@ public class VRMHandler {
             for (WebElement element : elementsShouldBeAddedList) {
                 elementsTextsList.add(element.getText());
             }
-            WebUIUtils.scrollIntoView(elementsShouldBeAddedList.size() != 0 ? elementsShouldBeAddedList.get(elementsShouldBeAddedList.size() - 1) : null);
+            if (isScrollElementToTop)
+                ((JavascriptExecutor)WebUIUtils.getDriver()).executeScript("arguments[0].scrollIntoView();", elementsShouldBeAddedList.get(elementsShouldBeAddedList.size() - 1));
+            else WebUIUtils.scrollIntoView(elementsShouldBeAddedList.size() != 0 ? elementsShouldBeAddedList.get(elementsShouldBeAddedList.size() - 1) : null);
         }
 
         return isTargetLocatorExist(targetElementLocator);

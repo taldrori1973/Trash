@@ -63,26 +63,12 @@ Feature: Edit DefenseFlow Analytics tests
     Then UI "Validate" Report With Name "DefenseFlow Analytics Report"
       | Template-1 | reportType:DefenseFlow Analytics,Widgets:[Top 10 Activations by Attack Rate (Gbps),Top Attack Destination],Protected Objects:[PO Name Space],showTable:true |
 
-  @SID_8
-  Scenario: Validate delivery card and generate report
-    Then UI Click Button "My Report" with value "DefenseFlow Analytics Report"
-    Then UI Click Button "Generate Report Manually" with value "DefenseFlow Analytics Report"
-    Then Sleep "35"
-    #todo validate data Ramez
-
   @SID_9
   Scenario: Delete Template from DefenseFlow Analytics
     Given UI "Edit" Report With Name "DefenseFlow Analytics Report"
       | Template-2 | DeleteTemplate:true |
     Then UI "Validate" Report With Name "DefenseFlow Analytics Report"
       | Template-1 | reportType:DefenseFlow Analytics,Widgets:[Top 10 Activations by Attack Rate (Gbps),Top Attack Destination],Protected Objects:[PO Name Space],showTable:true |
-
-  @SID_10
-  Scenario: Validate delivery card and generate report
-    Then UI Click Button "My Report" with value "DefenseFlow Analytics Report"
-    Then UI Click Button "Generate Report Manually" with value "DefenseFlow Analytics Report"
-    Then Sleep "35"
-    #todo validate data Ramez
 
   @SID_11
   Scenario: Delete Template Widget from DefenseFlow Analytics
@@ -91,13 +77,6 @@ Feature: Edit DefenseFlow Analytics tests
     Then UI "Validate" Report With Name "DefenseFlow Analytics Report"
       | Template-1 | reportType:DefenseFlow Analytics,Widgets:[Top Attack Destination],Protected Objects:[PO Name Space],showTable:true |
 
-  @SID_12
-  Scenario: Validate delivery card and generate report
-    Then UI Click Button "My Report" with value "DefenseFlow Analytics Report"
-    Then UI Click Button "Generate Report Manually" with value "DefenseFlow Analytics Report"
-    Then Sleep "35"
-    #todo validate data Ramez
-
   @SID_13
   Scenario:Add Template to DefenseFlow Analytics Report
     Given UI "Edit" Report With Name "DefenseFlow Analytics Report"
@@ -105,13 +84,6 @@ Feature: Edit DefenseFlow Analytics tests
     Then UI "Validate" Report With Name "DefenseFlow Analytics Report"
       | Template-1 | reportType:DefenseFlow Analytics,Widgets:[Top Attack Destination],Protected Objects:[PO Name Space],showTable:true |
       | Template-2 | reportType:DefenseFlow Analytics,Widgets:[Top Attacks by Rate],Protected Objects:[PO_1],showTable:true             |
-
-  @SID_14
-  Scenario: Validate delivery card and generate report
-    Then UI Click Button "My Report" with value "DefenseFlow Analytics Report"
-    Then UI Click Button "Generate Report Manually" with value "DefenseFlow Analytics Report"
-    Then Sleep "35"
-    #todo validate data Ramez
 
   @SID_15
   Scenario: Create and validate DefenseFlow Analytics Report2
