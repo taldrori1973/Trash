@@ -200,6 +200,6 @@ Feature: AppWall CSV Report
 
   @SID_30
   Scenario: Cleanup
-    Then UI Delete Report With Name "OWASP Top 10 1 "
+    Then UI Delete Report With Name "Automation AppWall CSV Report"
     And UI logout and close browser
 
