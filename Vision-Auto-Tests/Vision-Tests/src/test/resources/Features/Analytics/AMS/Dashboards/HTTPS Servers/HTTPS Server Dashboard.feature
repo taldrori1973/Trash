@@ -31,8 +31,8 @@ Feature: HTTPS Server Dashboard
   @SID_5
   Scenario: Select Server
     When UI Select Server and save
-      | name | device                  | policy |
-      | test | DefensePro_172.16.22.51 | pol1   |
+      | name | device                  | policy        |
+      | test | DefensePro_172.16.22.51 | pol1          |
     * Sleep "60"
 
       ##Https Flood - Info Card

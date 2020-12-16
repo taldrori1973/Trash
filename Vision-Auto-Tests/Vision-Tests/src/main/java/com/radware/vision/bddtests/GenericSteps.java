@@ -122,11 +122,11 @@ public class GenericSteps extends BddUITestBase {
         // set text field
         uiSetTextFieldTo("Server Selection.Search", null, server.name, false);
         // lazy scrolling and click the chosen server
-        VisionDebugIdsManager.setLabel("Server Selection");
+        VisionDebugIdsManager.setLabel("Server Selection Parent");
         VisionDebugIdsManager.setParams(server.name, server.device, server.policy);
         ComponentLocator targetElementLocator = ComponentLocatorFactory.getEqualLocatorByDbgId(VisionDebugIdsManager.getDataDebugId());
-        //ComponentLocator elementsLocator = new ComponentLocator(How.XPATH, "//*[contains(@data-debug-id, 'radio-" + server.name + "') and contains(@data-debug-id, '" + server.device + "')]");
-        ComponentLocator elementsLocator = new ComponentLocator(How.XPATH, "//*[contains(@data-debug-id, 'radio-" + server.name + "') and contains(@data-debug-id, 'parent')]");
+        String valueElementsLocator = "//*[contains(@data-debug-id, 'radio-" + server.name + "') and contains(@data-debug-id, 'parent')]";
+        ComponentLocator elementsLocator = new ComponentLocator(How.XPATH, valueElementsLocator);
         new VRMHandler().scrollUntilElementDisplayed(elementsLocator, targetElementLocator);
         buttonClick("Server Selection.Server Name", server.toString());
         if (saveServer != null) {
