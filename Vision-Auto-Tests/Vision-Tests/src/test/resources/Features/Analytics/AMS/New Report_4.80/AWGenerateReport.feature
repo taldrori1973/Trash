@@ -62,6 +62,7 @@ Feature: AWGenerateReport
 
     @SID_7
     Scenario: validate attacks by action
+      Then CLI Run linux Command "service iptables stop" on "ROOT_SERVER_CLI" and validate result CONTAINS "Setting chains to policy ACCEPT"
     Then UI Validate Pie Chart data "Attacks by Action-AppWall" in Report "AwReportGeneration"
       | label    | data |
       | Blocked  | 281  |
@@ -86,4 +87,8 @@ Feature: AWGenerateReport
       | A5    | 100  |
       | A7    | 60   |
       | A6    | 10   |
+    @SID_10
+    Scenario: start IPTABLES
+      Then CLI Run linux Command "service iptables start" on "ROOT_SERVER_CLI" and validate result CONTAINS "Loading additional modules"
+
 

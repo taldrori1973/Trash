@@ -22,6 +22,7 @@ Feature: DPGenerateReport
 
   @SID_4
   Scenario: validate DP Analytics Widget - Top Attack Destinations
+    Then CLI Run linux Command "service iptables stop" on "ROOT_SERVER_CLI" and validate result CONTAINS "Setting chains to policy ACCEPT"
     Then UI Validate Pie Chart data "Top Attack Destinations-DefensePro Analytics" in Report "DPAndDPBehavioralReport"
       | label    | data |
       | 1.1.1.10 | 5    |
@@ -47,5 +48,7 @@ Feature: DPGenerateReport
       | 1     | 1     | 0      |
       | 2     | 1     | 0      |
 
-
+@SID_7
+Scenario: start IPTABLES
+  Then CLI Run linux Command "service iptables start" on "ROOT_SERVER_CLI" and validate result CONTAINS "Loading additional modules"
 
