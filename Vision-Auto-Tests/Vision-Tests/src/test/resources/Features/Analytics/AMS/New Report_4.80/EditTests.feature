@@ -69,13 +69,6 @@ Feature: Edit AMS Report tests
     Then UI "Validate" Report With Name "Dp Analytics and DF Analytics and HTTPS Flood Report"
       | Template-1 | reportType:DefensePro Analytics,Widgets:[Top Attacks,Connections Rate],devices:[{deviceIndex:10}],showTable:true |
 
-  @SID_8
-  Scenario: Validate delivery card and generate report
-    Then UI Click Button "My Report" with value "Dp Analytics and DF Analytics and HTTPS Flood Report"
-    Then UI Click Button "Generate Report Manually" with value "Dp Analytics and DF Analytics and HTTPS Flood Report"
-    Then Sleep "35"
-    #todo validate data Ramez
-
   @SID_9
   Scenario: Delete Template from Dp Analytics and DF Analytics and HTTPS Flood Report
     Given UI "Edit" Report With Name "Dp Analytics and DF Analytics and HTTPS Flood Report"
@@ -84,26 +77,12 @@ Feature: Edit AMS Report tests
       | Template-1 | reportType:DefensePro Analytics,Widgets:[Top Attacks,Connections Rate],devices:[{deviceIndex:10}],showTable:true          |
       | Template-2 | reportType:HTTPS Flood,Widgets:[Inbound Traffic],Servers:[aaaaaaaaaaaaaaaaaaaaaaaaaaaaaa-DefensePro_172.16.22.51-1_https] |
 
-  @SID_10
-  Scenario: Validate delivery card and generate report
-    Then UI Click Button "My Report" with value "Dp Analytics and DF Analytics and HTTPS Flood Report"
-    Then UI Click Button "Generate Report Manually" with value "Dp Analytics and DF Analytics and HTTPS Flood Report"
-    Then Sleep "35"
-    #todo validate data Ramez
-
   @SID_11
   Scenario: Delete Template Widget from Dp Analytics and DF Analytics and HTTPS Flood Report
     Given UI "Edit" Report With Name "Dp Analytics and DF Analytics and HTTPS Flood Report"
       | Template-1 | reportType:DefensePro Analytics,DeleteWidgets:[Top Attacks],devices:[{deviceIndex:10}],showTable:true |
     Then UI "Validate" Report With Name "Dp Analytics and DF Analytics and HTTPS Flood Report"
       | Template-1 | reportType:DefensePro Analytics,Widgets:[Connections Rate],devices:[{deviceIndex:10}],showTable:true |
-
-  @SID_12
-  Scenario: Validate delivery card and generate report
-    Then UI Click Button "My Report" with value "Dp Analytics and DF Analytics and HTTPS Flood Report"
-    Then UI Click Button "Generate Report Manually" with value "Dp Analytics and DF Analytics and HTTPS Flood Report"
-    Then Sleep "35"
-    #todo validate data Ramez
 
   @SID_13
   Scenario: Create and validateDp Analytics and DF Analytics and HTTPS Flood Report2
