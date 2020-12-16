@@ -111,7 +111,6 @@ Feature: Edit AMS Report tests
     Then UI Click Button "My Report Tab"
     Then UI Click Button "Edit Report" with value "Dp Analytics and DF Analytics and HTTPS Flood Report2"
     Then UI Set Text Field "Report Name" To "Dp Analytics and DF Analytics and HTTPS Flood Report"
-    Then UI Click Button "save"
     Then UI Text of "Error message title" equal to "Unable To Save Report"
     Then UI Text of "Error message description" equal to "Report name must be unique. There is already another report with name 'Dp Analytics and DF Analytics and HTTPS Flood Report'"
     Then UI Click Button "errorMessageOK"

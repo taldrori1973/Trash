@@ -125,10 +125,15 @@ Feature: Edit DefenseFlow Analytics tests
     Then UI Click Button "No"
 
   @SID_17
+  Scenario: Report Format Validate
+    Then UI Validate Element Existence By Label "Email input" if Exists "true" with value "example@example. example,invalid"
+
+
+  @SID_18
   Scenario: Delete report
     Then UI Delete Report With Name "DefenseFlow Analytics Report"
     Then UI Delete Report With Name "DefenseFlow Analytics Report2"
 
-  @SID_18
+  @SID_19
   Scenario: Logout
     Then UI logout and close browser
