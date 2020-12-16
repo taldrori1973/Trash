@@ -33,7 +33,6 @@ abstract class ReportsForensicsAlertsAbstract implements ReportsForensicsAlertsI
     private static Map<String, LocalDateTime> schedulingDates = new HashMap<>();
     private static Map<String, JSONObject> timeAbsoluteDates = new HashMap<>();
     protected static Map<String, Map<String,String>> templates = new HashMap<>();
-    protected static Map<String, String> oldReportType = new HashMap<>();
 
     private String name;
     public static final Map<String, Integer> widgets;
@@ -218,8 +217,6 @@ abstract class ReportsForensicsAlertsAbstract implements ReportsForensicsAlertsI
         if (operationType != vrmActions.GENERATE)
             map = CustomizedJsonManager.fixJson(entry);
         if (isOldDesign(map)) {
-            if(map.containsKey("reportType"))
-                oldReportType.put(name , map.get("reportType")); //oldReportType Map = "reportName" : "reportType
             fixMapToSupportOldDesign(name,map);
         }
         fixTemplateMap(map);
@@ -250,14 +247,11 @@ abstract class ReportsForensicsAlertsAbstract implements ReportsForensicsAlertsI
 
     private void fixMapToSupportOldDesign(String reportName,Map<String, String> map) {
         JSONObject templateJSON = new JSONObject();
-        if(templateJSON.has("reportType"))
-            fixOldMapObject(map, templateJSON, "reportType", "reportType", map.get("reportType").contains("DefensePro Ana")?"DefensePro Analytics": map.get("reportType").replaceAll("s Dashboard", "s").trim().replaceAll(" Dashboard", "s"));
-        else
-           fixOldMapObject(map, templateJSON, "reportType", "reportType", oldReportType.get(reportName));
+        fixOldMapObject(map, templateJSON, "reportType", "reportType", map.containsKey("reportType")?map.get("reportType").contains("DefensePro Ana")?"DefensePro Analytics": map.get("reportType").replaceAll("s Dashboard", "s").trim().replaceAll(" Dashboard", "s"):"DefensePro Analytics");
         fixOldMapObject(map, templateJSON, "Design", "Widgets", map.containsKey("Design")?new JSONObject(map.get("Design")).toMap().getOrDefault("Add",new JSONObject(map.get("Design")).toMap().getOrDefault("Widgets", "").toString()):"");
         String devicesText = "";
         if (map.containsKey("devices"))
-            map.get("devices").replaceAll("index", "deviceIndex").replaceAll("ports", "devicePorts").replaceAll("policies", "devicePolicies");
+            devicesText = map.get("devices").replaceAll("index", "deviceIndex").replaceAll("ports", "devicePorts").replaceAll("policies", "devicePolicies");
         fixOldMapObject(map, templateJSON, "devices", "devices", "[" + devicesText + "]");
         fixOldMapObject(map, templateJSON, "webApplications", "Applications", "[" + map.get("webApplications") + "]");
         fixOldMapObject(map, templateJSON, "projectObjects", "Project Objects", "[" + map.get("projectObjects") + "]");
