@@ -4,6 +4,7 @@ import com.radware.automation.react.widgets.impl.enums.OnOffStatus;
 import com.radware.automation.tools.basetest.BaseTestUtils;
 import com.radware.automation.tools.basetest.Reporter;
 import com.radware.automation.tools.utils.ComparableUtils;
+import com.radware.automation.webui.UIUtils;
 import com.radware.automation.webui.VisionDebugIdsManager;
 import com.radware.automation.webui.WebUIUtils;
 import com.radware.automation.webui.widgets.ComponentLocator;
@@ -29,6 +30,7 @@ import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
 import enums.SUTEntryType;
 import org.openqa.selenium.*;
+import org.openqa.selenium.support.How;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.FluentWait;
 import org.openqa.selenium.support.ui.Wait;
@@ -39,6 +41,7 @@ import java.util.List;
 import java.util.Objects;
 
 import static com.radware.vision.infra.utils.ReportsUtils.reportErrors;
+
 
 public class GenericSteps extends BddUITestBase {
 
@@ -89,16 +92,45 @@ public class GenericSteps extends BddUITestBase {
 
     @When("^UI Click Button \"([^\"]*)\"(?: with value \"([^\"]*)\")?$")
     public WebElement buttonClick(String label, String param) throws TargetWebElementNotFoundException {
-        if (param == null)
-            return BasicOperationsHandler.clickButton(label, param);
-        else {
-            String[] params = param.split(",");
-            try {
+        try {
+            if (param == null)
+                return BasicOperationsHandler.clickButton(label, param);
+            else {
+                String[] params = param.split(",");
                 return BasicOperationsHandler.clickButton(label, params);
-            } catch (TargetWebElementNotFoundException e) {
-                BaseTestUtils.report("No Element with data-debug-id " + VisionDebugIdsManager.getDataDebugId(), Reporter.FAIL);
             }
-            return null;
+        } catch (TargetWebElementNotFoundException e) {
+            BaseTestUtils.report("No Element with data-debug-id " + VisionDebugIdsManager.getDataDebugId(), Reporter.FAIL);
+        }
+        return null;
+    }
+
+    /**
+     * @param saveServer - string to check if data
+     * @param servers    - list of DataServers
+     * @throws TargetWebElementNotFoundException
+     */
+    @When("UI Select Server( and [S|s]ave)?")
+    public void selectServer(String saveServer, List<DataServer> servers) throws TargetWebElementNotFoundException {
+        if (servers.size() == 0) {
+            BaseTestUtils.report("No server has been selected, 1 server is required", Reporter.FAIL);
+        }
+        // In case there are several servers - select the first one
+        DataServer server = servers.get(0);
+        // click button servers
+        buttonClick("Servers Button", (String) null);
+        // set text field
+        uiSetTextFieldTo("Server Selection.Search", null, server.name, false);
+        // lazy scrolling and click the chosen server
+        VisionDebugIdsManager.setLabel("Server Selection");
+        VisionDebugIdsManager.setParams(server.name, server.device, server.policy);
+        ComponentLocator targetElementLocator = ComponentLocatorFactory.getEqualLocatorByDbgId(VisionDebugIdsManager.getDataDebugId());
+        String valueElementsLocator = "//*[contains(@data-debug-id, 'radio-" + server.name + "') and contains(@data-debug-id, 'parent')]";
+        ComponentLocator elementsLocator = new ComponentLocator(How.XPATH, valueElementsLocator);
+        new VRMHandler().scrollUntilElementDisplayed(elementsLocator, targetElementLocator);
+        buttonClick("Server Selection.Server Name", server.toString());
+        if (saveServer != null) {
+            buttonClick("Server Selection.Save", (String) null);
         }
     }
 
@@ -424,6 +456,17 @@ public class GenericSteps extends BddUITestBase {
     @When("^UI set \"([^\"]*)\" switch button to \"([^\"]*)\"$")
     public void clickOnSwitchButton(String label, String state) throws TargetWebElementNotFoundException {
         ClickOperationsHandler.clickOnSwitchButton(label, null, state);
+    }
+
+    static class DataServer {
+        String name;
+        String device;
+        String policy;
+
+        @Override
+        public String toString() {
+            return this.name + "," + this.device + "," + this.policy;
+        }
     }
 
 
