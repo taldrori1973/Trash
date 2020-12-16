@@ -255,10 +255,17 @@ abstract class ReportsForensicsAlertsAbstract implements ReportsForensicsAlertsI
         else
            fixOldMapObject(map, templateJSON, "reportType", "reportType", oldReportType.get(reportName));
         fixOldMapObject(map, templateJSON, "Design", "Widgets", map.containsKey("Design")?new JSONObject(map.get("Design")).toMap().getOrDefault("Add",new JSONObject(map.get("Design")).toMap().getOrDefault("Widgets", "").toString()):"");
-        String devicesText = map.get("devices").replaceAll("index", "deviceIndex").replaceAll("ports", "devicePorts").replaceAll("policies", "devicePolicies");
+        String devicesText = "";
+        if (map.containsKey("devices"))
+            map.get("devices").replaceAll("index", "deviceIndex").replaceAll("ports", "devicePorts").replaceAll("policies", "devicePolicies");
         fixOldMapObject(map, templateJSON, "devices", "devices", "[" + devicesText + "]");
         fixOldMapObject(map, templateJSON, "webApplications", "Applications", "[" + map.get("webApplications") + "]");
         fixOldMapObject(map, templateJSON, "projectObjects", "Project Objects", "[" + map.get("projectObjects") + "]");
+        if (map.containsKey("policy"))
+        {
+            JSONObject policy = new JSONObject(map.get("policy"));
+            fixOldMapObject(map, templateJSON, "policy", "Servers", "[" + policy.get("serverName") + "-" + policy.get("deviceName") + "-" + policy.get("policyName") + "]");
+        }
         if (map.containsKey("Customized Options")){
             if (new JSONObject(map.get("Customized Options")).has("showTable"))
                 templateJSON.put("showTable", new JSONObject(map.get("Customized Options")).get("showTable"));
