@@ -179,14 +179,14 @@ Feature: DefensePro Behavioral Protections Part 2
   Scenario: create new DNS-AAAA3
     Then UI Click Button "New Report Tab"
     Given UI "Create" Report With Name "DNS_AAAA3"
-      | Template              | reportType:DefensePro Behavioral Protections , Widgets:[DNS-AAAA:[IPv6]}] ,devices:[{deviceIndex:11, devicePolicies:[1_https]}] |
+      | Template              | reportType:DefensePro Behavioral Protections , Widgets:[{DNS-AAAA:[IPv6]}] ,devices:[{deviceIndex:11, devicePolicies:[1_https]}] |
       | Logo                  | reportLogoPNG.png                                                                                      |
       | Time Definitions.Date | Quick:3M                                                                                               |
       | Schedule              | Run Every:Monthly, On Time:+6H, At Months:[DEC]                                                        |
       | Share                 | Email:[automation.vision2@radware.com],Subject:myEdit subject,Body:myEdit body                         |
       | Format                | Select: PDF                                                                                            |
     Then UI "Validate" Report With Name "DNS_AAAA3"
-      | Template              | reportType:DefensePro Behavioral Protections , Widgets:[DNS-AAAA:[IPv6]}] ,devices:[{deviceIndex:11, devicePolicies:[1_https]}]|
+      | Template              | reportType:DefensePro Behavioral Protections , Widgets:[{DNS-AAAA:[IPv6]}] ,devices:[{deviceIndex:11, devicePolicies:[1_https]}]|
       | Logo                  | reportLogoPNG.png                                                                                      |
       | Time Definitions.Date | Quick:3M                                                                                               |
       | Schedule              | Run Every:Monthly, On Time:+6H, At Months:[DEC]                                                        |
