@@ -1,3 +1,4 @@
+
 @TC118579
 Feature: Edit HTTPS Flood tests
   @SID_1
@@ -40,11 +41,11 @@ Feature: Edit HTTPS Flood tests
 
   @SID_7
   Scenario: Navigate to AMS Reports
-    And UI Navigate to "AMS Reports" page via homePage
+    Then UI Navigate to "AMS REPORTS" page via homepage
+    Then UI Click Button "New Report Tab"
 
   @SID_8
   Scenario: Create and Validate HTTPS Flood Report
-    Then UI Click Button "New Report Tab"
     Given UI "Create" Report With Name "HTTPS Flood Report"
       | Template-1            | reportType:HTTPS Flood,Widgets:[Inbound Traffic],Servers:[test-DefensePro_172.16.22.51-pol1] |
       | Template-2            | reportType:HTTPS Flood,Widgets:[Inbound Traffic],Servers:[test-DefensePro_172.16.22.51-pol1] |
@@ -142,14 +143,6 @@ Feature: Edit HTTPS Flood tests
       | Format | Select: HTML |
     Then UI "Validate" Report With Name "HTTPS Flood Report"
       | Format | Select: HTML |
-#
-#  @SID_17
-#  Scenario: Validate Edit Template name
-#    Then UI Click Button "My Report Tab"
-#    Then UI Click Button "Edit Report" with value "HTTPS Flood Report"
-#    Then UI Set Text Field "Template Header" and params "HTTPS Flood" To "HTTPS Flood Updates"
-#    Then UI Click Button "check summary table"
-#    Then UI Validate Text field "Template Header" with params "HTTPS Flood" EQUALS "HTTPS Flood Updates"
 
   @SID_19
   Scenario: Create and Validate HTTPS Flood Report2
@@ -173,17 +166,17 @@ Feature: Edit HTTPS Flood tests
 
   @SID_20
   Scenario: Edit HTTPS Flood Report2 report name
-    Then UI Click Button "My Report Tab"
+    Then UI Click Button "My Reports Tab"
     Then UI Click Button "Edit Report" with value "HTTPS Flood Report2"
     Then UI Set Text Field "Report Name" To "HTTPS Flood Report"
     Then UI Click Button "save"
-    Then UI Text of "Error message title" equal to "Unable To Save Report"
+    Then UI Text of "Error message title" equal to "Unable to Save Report"
     Then UI Text of "Error message description" equal to "Report name must be unique. There is already another report with name 'HTTPS Flood Report'"
     Then UI Click Button "errorMessageOK"
     Then UI Click Button "cancel"
     Then UI Text of "Save Change Message" contains "Do you want to save "HTTPS Flood Report"?"
     Then UI Click Button "Yes"
-    Then UI Text of "Error message title" equal to "Unable To Save Report"
+    Then UI Text of "Error message title" equal to "Unable to Save Report"
     Then UI Text of "Error message description" equal to "Report name must be unique. There is already another report with name 'HTTPS Flood Report'"
     Then UI Click Button "errorMessageOK"
     Then UI Click Button "cancel"
