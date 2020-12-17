@@ -1,4 +1,3 @@
-
 @TC118579
 Feature: Edit HTTPS Flood tests
   @SID_1
@@ -137,14 +136,14 @@ Feature: Edit HTTPS Flood tests
     Then UI "Validate" Report With Name "HTTPS Flood Report"
       | Time Definitions.Date | Quick:15m |
 
-  @SID_18
+  @SID_19
   Scenario: Edit The Format and validate
     Then UI "Edit" Report With Name "HTTPS Flood Report"
       | Format | Select: HTML |
     Then UI "Validate" Report With Name "HTTPS Flood Report"
       | Format | Select: HTML |
 
-  @SID_19
+  @SID_20
   Scenario: Create and Validate HTTPS Flood Report2
     Then UI Click Button "New Report Tab"
     Given UI "Create" Report With Name "HTTPS Flood Report2"
@@ -164,7 +163,7 @@ Feature: Edit HTTPS Flood tests
       | Schedule              | Run Every:Daily,On Time:+2m                                                                  |
       | Format                | Select: PDF                                                                                  |
 
-  @SID_20
+  @SID_21
   Scenario: Edit HTTPS Flood Report2 report name
     Then UI Click Button "My Reports Tab"
     Then UI Click Button "Edit Report" with value "HTTPS Flood Report2"
@@ -183,11 +182,11 @@ Feature: Edit HTTPS Flood tests
     Then UI Text of "Save Change Message" contains "Do you want to save "HTTPS Flood Report"?"
     Then UI Click Button "No"
 
-  @SID_21
+  @SID_22
   Scenario: Delete report
     Then UI Delete Report With Name "HTTPS Flood Report"
     Then UI Delete Report With Name "HTTPS Flood Report2"
 
-  @SID_22
+  @SID_23
   Scenario: Logout
     Then UI logout and close browser
