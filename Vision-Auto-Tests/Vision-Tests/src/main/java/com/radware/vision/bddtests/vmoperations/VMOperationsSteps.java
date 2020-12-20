@@ -112,8 +112,6 @@ public class VMOperationsSteps extends BddUITestBase {
 
     @Then("^Prerequisite for Setup(\\s+force)?$")
     public void prerequisiteForSetup(String force) {
-        String featureBranch = "master";
-        String repositoryName = "vision-snapshot-local";
         String setupMode = "";
         String snapshot = "";
         VisionRadwareFirstTime visionRadwareFirstTime;
