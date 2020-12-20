@@ -105,7 +105,7 @@ Feature: Edit DefenseFlow Analytics tests
       | Time Definitions.Date | Quick:Today                                                                                                                          |
       | Schedule              | Run Every:Daily,On Time:+2m                                                                                                          |
       | Format                | Select: PDF                                                                                                                          |
-    Then UI "Validate" Report With Name "DefenseFlow Analytics Report"
+    Then UI "Validate" Report With Name "DefenseFlow Analytics Report2"
       | Template-1            | reportType:DefenseFlow Analytics,Widgets:[Top 10 Activations by Attack Rate (Gbps)],Protected Objects:[PO Name Space],showTable:true |
       | Template-2            | reportType:DefenseFlow Analytics,Widgets:[Top Attacks by Rate],Protected Objects:[PO Name Space],showTable:true                      |
       | Logo                  | reportLogoPNG.png                                                                                                                    |
