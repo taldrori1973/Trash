@@ -112,8 +112,8 @@ public class VMOperationsSteps extends BddUITestBase {
 
     @Then("^Prerequisite for Setup(\\s+force)?$")
     public void prerequisiteForSetup(String force) {
-        String setupMode = "";
-        String snapshot = "";
+        String setupMode;
+        String snapshot;
         VisionRadwareFirstTime visionRadwareFirstTime;
         try {
             setupMode = getVisionSetupAttributeFromSUT("setupMode");
