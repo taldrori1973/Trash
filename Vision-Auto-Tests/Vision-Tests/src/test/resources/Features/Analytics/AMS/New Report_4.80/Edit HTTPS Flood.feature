@@ -1,5 +1,6 @@
 @TC118579
 Feature: Edit HTTPS Flood tests
+
   @SID_1
   Scenario: Clear data
     * CLI kill all simulator attacks on current vision
@@ -46,21 +47,14 @@ Feature: Edit HTTPS Flood tests
   @SID_8
   Scenario: Create and Validate HTTPS Flood Report
     Given UI "Create" Report With Name "HTTPS Flood Report"
-      | Template-1            | reportType:HTTPS Flood,Widgets:[Inbound Traffic],Servers:[test-DefensePro_172.16.22.51-pol1] |
-      | Template-2            | reportType:HTTPS Flood,Widgets:[Inbound Traffic],Servers:[test-DefensePro_172.16.22.51-pol1] |
-      | Logo                  | reportLogoPNG.png                                                                            |
-      | Share                 | Email:[automation.vision1@radware.com],Subject:myAdd subject,Body:myAdd body                 |
-      | Time Definitions.Date | Quick:Today                                                                                  |
-      | Schedule              | Run Every:Daily,On Time:+2m                                                                  |
-      | Format                | Select: PDF                                                                                  |
+      | Template-1            | reportType:HTTPS Flood , Widgets:[Inbound Traffic],Servers:[test-DefensePro_172.16.22.51-pol1] |
+      | Format                | Select: CSV                                                                                    |
+      | Time Definitions.Date | Quick:1H                                                                                       |
     Then UI "Validate" Report With Name "HTTPS Flood Report"
-      | Template-1            | reportType:HTTPS Flood,Widgets:[Inbound Traffic],Servers:[test-DefensePro_172.16.22.51-pol1] |
-      | Template-2            | reportType:HTTPS Flood,Widgets:[Inbound Traffic],Servers:[test-DefensePro_172.16.22.51-pol1] |
-      | Logo                  | reportLogoPNG.png                                                                            |
-      | Share                 | Email:[automation.vision1@radware.com],Subject:myAdd subject,Body:myAdd body                 |
-      | Time Definitions.Date | Quick:Today                                                                                  |
-      | Schedule              | Run Every:Daily,On Time:+2m                                                                  |
-      | Format                | Select: PDF                                                                                  |
+      | Template-1            | reportType:HTTPS Flood , Widgets:[Inbound Traffic],Servers:[test-DefensePro_172.16.22.51-pol1] |
+      | Format                | Select: CSV                                                                                    |
+      | Time Definitions.Date | Quick:1H                                                                                       |
+
 
   @SID_9
   Scenario: Validate delivery card and generate report
@@ -91,20 +85,36 @@ Feature: Edit HTTPS Flood tests
     Then CLI Run linux Command "cat /opt/radware/mgt-server/third-party/tomcat/bin/Inbound\ Traffic-HTTPS\ Flood.csv|head -2|tail -1|awk -F "," '{printf $6}';echo" on "ROOT_SERVER_CLI" and validate result EQUALS "5075.3"
 
   @SID_13
+  Scenario: Edit The Format and validate
+    Then UI "Edit" Report With Name "HTTPS Flood Report"
+      | Format | Select: PDF |
+    Then UI "Validate" Report With Name "HTTPS Flood Report"
+      | Format | Select: PDF |
+
+
+  @SID_14
+  Scenario: Edit The Time and validate
+    Then UI "Edit" Report With Name "HTTPS Flood Report"
+      | Time Definitions.Date | Quick:15m |
+    Then UI "Validate" Report With Name "HTTPS Flood Report"
+      | Time Definitions.Date | Quick:15m |
+
+
+  @SID_15
   Scenario: Add Template Widget to HTTPS Flood Report
     Given UI "Edit" Report With Name "HTTPS Flood Report"
       | Template-1 | reportType:HTTPS Flood,AddWidgets:[Inbound Traffic],Servers:[test-DefensePro_172.16.22.51-pol1] |
     Then UI "Validate" Report With Name "HTTPS Flood Report"
       | Template-1 | reportType:HTTPS Flood,Widgets:[Inbound Traffic,Inbound Traffic],Servers:[test-DefensePro_172.16.22.51-pol1] |
 
-  @SID_14
+  @SID_16
   Scenario: Delete Template Widget from HTTPS Flood Report
     Given UI "Edit" Report With Name "HTTPS Flood Report"
       | Template-1 | reportType:HTTPS Flood,DeleteWidgets:[Inbound Traffic],Servers:[test-DefensePro_172.16.22.51-pol1] |
     Then UI "Validate" Report With Name "HTTPS Flood Report"
       | Template-1 | reportType:HTTPS Flood,Widgets:[Inbound Traffic],Servers:[test-DefensePro_172.16.22.51-pol1] |
 
-  @SID_15
+  @SID_17
   Scenario: Edit Template Servers from HTTPS Flood Report
     Given UI "Edit" Report With Name "HTTPS Flood Report"
       | Template-1 | reportType:HTTPS Flood,Servers:[test-DefensePro_172.16.22.51-pol1] |
@@ -112,36 +122,20 @@ Feature: Edit HTTPS Flood tests
       | Template-1 | reportType:HTTPS Flood,Widgets:[Inbound Traffic],Servers:[test-DefensePro_172.16.22.51-pol1] |
 
 
-  @SID_16
+  @SID_18
   Scenario:Add Template to HTTPS Flood
     Given UI "Edit" Report With Name "HTTPS Flood Report"
-      | Template-3 | reportType:HTTPS Flood,Widgets:[Inbound Traffic],Servers:[test-DefensePro_172.16.22.51-pol1] |
+      | Template-2 | reportType:HTTPS Flood,Widgets:[Inbound Traffic],Servers:[test-DefensePro_172.16.22.51-pol1] |
     Then UI "Validate" Report With Name "HTTPS Flood Report"
       | Template-1 | reportType:HTTPS Flood,Widgets:[Inbound Traffic],Servers:[test-DefensePro_172.16.22.51-pol1] |
       | Template-2 | reportType:HTTPS Flood,Widgets:[Inbound Traffic],Servers:[test-DefensePro_172.16.22.51-pol1] |
-      | Template-3 | reportType:HTTPS Flood,Widgets:[Inbound Traffic],Servers:[test-DefensePro_172.16.22.51-pol1] |
-
-  @SID_17
-  Scenario: Delete Template from HTTPS Flood Report
-    Given UI "Edit" Report With Name "HTTPS Flood Report"
-      | Template-3 | DeleteTemplate:true |
-    Then UI "Validate" Report With Name "HTTPS Flood Report"
-      | Template-1 | reportType:HTTPS Flood,Widgets:[Inbound Traffic],Servers:[test-DefensePro_172.16.22.51-pol1] |
-      | Template-2 | reportType:HTTPS Flood,Widgets:[Inbound Traffic],Servers:[test-DefensePro_172.16.22.51-pol1] |
-
-  @SID_18
-  Scenario: Edit The Time and validate
-    Then UI "Edit" Report With Name "HTTPS Flood Report"
-      | Time Definitions.Date | Quick:15m |
-    Then UI "Validate" Report With Name "HTTPS Flood Report"
-      | Time Definitions.Date | Quick:15m |
 
   @SID_19
-  Scenario: Edit The Format and validate
-    Then UI "Edit" Report With Name "HTTPS Flood Report"
-      | Format | Select: HTML |
+  Scenario: Delete Template from HTTPS Flood Report
+    Given UI "Edit" Report With Name "HTTPS Flood Report"
+      | Template-2 | DeleteTemplate:true |
     Then UI "Validate" Report With Name "HTTPS Flood Report"
-      | Format | Select: HTML |
+      | Template-1 | reportType:HTTPS Flood,Widgets:[Inbound Traffic],Servers:[test-DefensePro_172.16.22.51-pol1] |
 
   @SID_20
   Scenario: Create and Validate HTTPS Flood Report2
@@ -153,7 +147,7 @@ Feature: Edit HTTPS Flood tests
       | Share                 | Email:[automation.vision1@radware.com],Subject:myAdd subject,Body:myAdd body                 |
       | Time Definitions.Date | Quick:Today                                                                                  |
       | Schedule              | Run Every:Daily,On Time:+2m                                                                  |
-      | Format                | Select: PDF                                                                                  |
+      | Format                | Select: CSV                                                                                  |
     Then UI "Validate" Report With Name "HTTPS Flood Report2"
       | Template-1            | reportType:HTTPS Flood,Widgets:[Inbound Traffic],Servers:[test-DefensePro_172.16.22.51-pol1] |
       | Template-2            | reportType:HTTPS Flood,Widgets:[Inbound Traffic],Servers:[test-DefensePro_172.16.22.51-pol1] |
@@ -161,7 +155,7 @@ Feature: Edit HTTPS Flood tests
       | Share                 | Email:[automation.vision1@radware.com],Subject:myAdd subject,Body:myAdd body                 |
       | Time Definitions.Date | Quick:Today                                                                                  |
       | Schedule              | Run Every:Daily,On Time:+2m                                                                  |
-      | Format                | Select: PDF                                                                                  |
+      | Format                | Select: CSV                                                                                  |
 
   @SID_21
   Scenario: Edit HTTPS Flood Report2 report name
