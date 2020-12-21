@@ -1,15 +1,15 @@
 Feature: Edit ADC Report tests
-
-  @SID_1
-  Scenario: Clean data before the test
-    * REST Vision Install License Request "vision-reporting-module-ADC"
+#
+#  @SID_1
+#  Scenario: Clean data before the test
+#    * REST Vision Install License Request "vision-reporting-module-ADC"
 
   @SID_2
   Scenario: Login
     Then UI Login with user "sys_admin" and password "radware"
-
-  @SID_3
-  Scenario: Run DP simulator PCAPs for "System and Network"                               |
+#
+#  @SID_3
+#  Scenario: Run DP simulator PCAPs for "System and Network"                               |
 
   @SID_4
   Scenario: Navigate to NEW REPORTS page
@@ -50,26 +50,12 @@ Feature: Edit ADC Report tests
     Then UI "Validate" Report With Name "ADC Report"
       | Template-1 | reportType:Application ,Widgets:[Concurrent Connections,End-to-End Time] , Applications:[app:80] |
 
-  @SID_8
-  Scenario: Validate delivery card and generate report
-    Then UI Click Button "My Report" with value "ADC Report"
-    Then UI Click Button "Generate Report Manually" with value "ADC Report"
-    Then Sleep "35"
-    #todo validate data Ramez
-
   @SID_9
   Scenario: Delete Template from ADC Report
     Given UI "Edit" Report With Name "ADC Report"
-      | Template-2 | DeleteTemplate |
+      | Template-2 | DeleteTemplate:true |
     Then UI "Validate" Report With Name "ADC Report"
       | Template-1 | reportType:Application ,Widgets:[Concurrent Connections,End-to-End Time] , Applications:[app:80] |
-
-  @SID_10
-  Scenario: Validate delivery card and generate report
-    Then UI Click Button "My Report" with value "ADC Report"
-    Then UI Click Button "Generate Report Manually" with value "ADC Report"
-    Then Sleep "35"
-    #todo validate data Ramez
 
   @SID_11
   Scenario: Delete Template Widget from ADC Report
@@ -77,13 +63,6 @@ Feature: Edit ADC Report tests
       | Template-1 | reportType:Application ,DeleteWidgets:[Concurrent Connections] , Applications:[app:80] |
     Then UI "Validate" Report With Name "ADC Report"
       | Template-1 | reportType:Application ,Widgets:[End-to-End Time] , Applications:[app:80] |
-
-  @SID_12
-  Scenario: Validate delivery card and generate report
-    Then UI Click Button "My Report" with value "ADC Report"
-    Then UI Click Button "Generate Report Manually" with value "ADC Report"
-    Then Sleep "35"
-    #todo validate data Ramez
 
   @SID_13
   Scenario: Create and validateADC Report2
@@ -108,16 +87,16 @@ Feature: Edit ADC Report tests
   @SID_14
   Scenario: Edit ADC Report2 report name
     Then UI Click Button "My Report Tab"
-    Then UI Click Button "Edit Report" with value "ADC Report2"
+    Then UI Click Button "Edit Reports" with value "ADC Report2"
     Then UI Set Text Field "Report Name" To "ADC Report"
     Then UI Click Button "save"
-    Then UI Text of "Error message title" equal to "Unable To Save Report"
+    Then UI Text of "Error message title" equal to "Unable to Save Report"
     Then UI Text of "Error message description" equal to "Report name must be unique. There is already another report with name 'ADC Report'"
     Then UI Click Button "errorMessageOK"
     Then UI Click Button "cancel"
     Then UI Text of "Save Change Message" contains "Do you want to save "ADC Report"?"
     Then UI Click Button "Yes"
-    Then UI Text of "Error message title" equal to "Unable To Save Report"
+    Then UI Text of "Error message title" equal to "Unable to Save Report"
     Then UI Text of "Error message description" equal to "Report name must be unique. There is already another report with name 'ADC Report'"
     Then UI Click Button "errorMessageOK"
     Then UI Click Button "cancel"
