@@ -206,7 +206,7 @@ public class ConfBackupSteps extends BddCliTestBase {
             ConfBackup.deleteConfBackup(confB1, sourceServerCli);
             ConfBackup.confBackupCreate(confB1, "1created_by_automation", sourceServerCli);
             sourceServerCli.connect();
-            ConfBackup.exportConfBackup(confB1, sourceServerCli, protocol + "://" + "root" + "@" + targetIP + ":" + path + confB1, restTestBase.getLinuxFileServer().getPassword());
+            ConfBackup.exportConfBackup(confB1, sourceServerCli, protocol + "://" + "root" + "@" + targetIP + ":" + path + confB1, restTestBase.getRadwareServerCli().getPassword());
 
         } catch (Exception e) {
             BaseTestUtils.report(e.getMessage(), Reporter.FAIL);

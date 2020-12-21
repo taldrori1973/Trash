@@ -1369,6 +1369,7 @@ Feature: DP ANALYTICS
     * REST Delete ES index "dp-*"
     * CLI simulate 1 attacks of type "rest_anomalies" on "DefensePro" 10
     * CLI simulate 1 attacks of type "rest_intrusion" on "DefensePro" 10 and wait 30 seconds
+    * CLI Clear vision logs
     Given UI Login with user "sys_admin" and password "radware"
     Then UI Navigate to "DefensePro Analytics Dashboard" page via homePage
     Then Sleep "5"

@@ -8,11 +8,11 @@ import com.radware.vision.automation.tools.esxitool.snapshotoperations.EsxiInfo;
 import com.radware.vision.automation.tools.esxitool.snapshotoperations.VMSnapshotOperations;
 import com.radware.vision.automation.tools.esxitool.snapshotoperations.targetvm.VmNameTargetVm;
 import com.radware.vision.automation.tools.sutsystemobjects.VisionVMs;
-import com.radware.vision.base.WebUITestBase;
 import com.radware.vision.bddtests.BddUITestBase;
 import com.radware.vision.bddtests.clioperation.connections.NewVmSteps;
 import com.radware.vision.bddtests.clioperation.system.upgrade.UpgradeSteps;
 import com.radware.vision.bddtests.defenseFlow.defenseFlowDevice;
+import com.radware.vision.bddtests.visionsettings.VisionInfo;
 import com.radware.vision.bddtests.vmoperations.Deploy.FreshInstallKVM;
 import com.radware.vision.bddtests.vmoperations.Deploy.Physical;
 import com.radware.vision.bddtests.vmoperations.Deploy.Upgrade;
@@ -112,57 +112,59 @@ public class VMOperationsSteps extends BddUITestBase {
 
     @Then("^Prerequisite for Setup(\\s+force)?$")
     public void prerequisiteForSetup(String force) {
-        String featureBranch = "master";
-        String repositoryName = "vision-snapshot-local";
-        Upgrade upgrade = new Upgrade(true, null);
-        if (force != null || upgrade.isSetupNeeded) {
-            try {
-                String setupMode = getVisionSetupAttributeFromSUT("setupMode");
-                VisionRadwareFirstTime visionRadwareFirstTime = (VisionRadwareFirstTime) system.getSystemObject("visionRadwareFirstTime");
-                if (setupMode == null) throw new NullPointerException("Can't find \"setupMode\" at SUT File");
-                String snapshot = getVisionSetupAttributeFromSUT("snapshot");
-                if ((snapshot == null || snapshot.equals("")) && setupMode.toLowerCase().contains("upgrade")) {
-                    BaseTestUtils.report("Could not find snapshot in SUT file performing internal upgrade", Reporter.PASS);
+        String setupMode;
+        String snapshot;
+        VisionRadwareFirstTime visionRadwareFirstTime;
+        try {
+            setupMode = getVisionSetupAttributeFromSUT("setupMode");
+            visionRadwareFirstTime = (VisionRadwareFirstTime) system.getSystemObject("visionRadwareFirstTime");
+            if (setupMode == null) throw new NullPointerException("Can't find \"setupMode\" at SUT File");
+            snapshot = getVisionSetupAttributeFromSUT("snapshot");
+            if ((snapshot == null || snapshot.equals("")) && setupMode.toLowerCase().contains("upgrade")) {
+                BaseTestUtils.report("Could not find snapshot in SUT file performing internal upgrade", Reporter.PASS);
+                return;
+            }
+            /* Fresh section */
+            switch (setupMode.toLowerCase()) {
+                case "fresh install_inparallel":
+                case "fresh install":
+                    preFreshInstall();
                     return;
-                }
-                switch (setupMode.toLowerCase()) {
+
+                case "kvm_fresh install":
+                    deleteKvm();
+                    return;
+
+                case "physical":
+                    return;
+            /* Upgrade section */
                     case "kvm_upgrade_inparallel":
                         revert_kvm_upgrade_InParallel(snapshot, visionRadwareFirstTime);
-                        break;
+                        afterUpgrade();
+                        return;
 
                     case "upgrade_inparallel":
                         revertSnapshot(1);
                         revertSnapshot(2);
-                        break;
+                        afterUpgrade();
+                        return;
 
                     case "kvm_upgrade":
                         revertKvmSnapshot(snapshot, visionRadwareFirstTime);
-                        break;
+                        afterUpgrade();
+                        return;
 
                     case "upgrade":
                         revertSnapshot(1);
-                        break;
-
-                    case "fresh install_inparallel":
-                    case "fresh install":
-                        prefreshInstall();
-                        break;
-
-                    case "kvm_fresh install":
-                        deleteKvm();
-                        break;
-
-                    case "physical":
-                        break;
-                }
-                if (setupMode.toLowerCase().contains("upgrade")) {
-                    afterUpgrade();
+                        afterUpgrade();
+                        return;
+                default:
+                    BaseTestUtils.report("What is wrong with you man? there is no such a mode as: " + setupMode, Reporter.FAIL);
                 }
 
-            } catch (Exception e) {
-                e.printStackTrace();
-                BaseTestUtils.report(e.getMessage() + " ", Reporter.FAIL);
-            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            BaseTestUtils.report(e.getMessage() + " ", Reporter.FAIL);
         }
     }
 
@@ -183,7 +185,7 @@ public class VMOperationsSteps extends BddUITestBase {
         }
     }
 
-    private void prefreshInstall() {
+    private void preFreshInstall() {
         NewVmSteps newVmSteps = new NewVmSteps();
         String vmPrefix = getVisionSetupAttributeFromSUT("vmPrefix");
         if (vmPrefix == null) throw new NullPointerException("Can't find \"vmPrefix\" at SUT File");
@@ -214,7 +216,7 @@ public class VMOperationsSteps extends BddUITestBase {
         switch (setupMode.toLowerCase()) {
             case "kvm_upgrade":
             case "upgrade":
-                Upgrade upgrade = new Upgrade(true, null);
+                Upgrade upgrade = new Upgrade(true, null, restTestBase.getRadwareServerCli(), restTestBase.getRootServerCli());
                 upgrade.deploy();
                 break;
 
@@ -258,6 +260,7 @@ public class VMOperationsSteps extends BddUITestBase {
             }
         }
         updateVersionVar();
+        CliOperations.runCommand(restTestBase.getRootServerCli(), "chkconfig --level 345 rsyslog on", CliOperations.DEFAULT_TIME_OUT);
         CliOperations.runCommand(getRestTestBase().getRootServerCli(), "/usr/sbin/ntpdate -u europe.pool.ntp.org", 2 * 60 * 1000);
     }
 
@@ -304,7 +307,7 @@ public class VMOperationsSteps extends BddUITestBase {
         String version = readVisionVersionFromPomFile();
 //        String versionPrefix = version.substring(0, 4);//example : 4.10.00 --> 4.10
         String build = BaseTestUtils.getRuntimeProperty("BUILD", null); //get build from portal
-        restTestBase.getRootServerCli().getVersionNumebr();
+//        restTestBase.getRootServerCli().getVersionNumebr();
         if (build == null || build.equals("") || build.equals("0")) {
             BaseTestUtils.report("No build was supplied. Going for latest", Reporter.PASS);
             build = new VisionDeployment(VisionDeployType.ANY, version, build).getBuild();//Latest Build
@@ -329,9 +332,9 @@ public class VMOperationsSteps extends BddUITestBase {
      * Relevant to be used after revert to snapshot and upgrade
      */
     public static void updateVersionVar() {
-        WebUITestBase.getVisionInfo();
-        String version = WebUITestBase.getVisionVersion();
-        String build = WebUITestBase.getVisionBuild();
+        VisionInfo visionInfo = new VisionInfo(getRestTestBase().getGenericRestClient().getDeviceIp());
+        String version = visionInfo.getVisionVersion();
+        String build = visionInfo.getVisionBuild();
         //update runtime variables
         restTestBase.getRootServerCli().setVersionNumebr(version);
         restTestBase.getRootServerCli().setBuildNumber(build);

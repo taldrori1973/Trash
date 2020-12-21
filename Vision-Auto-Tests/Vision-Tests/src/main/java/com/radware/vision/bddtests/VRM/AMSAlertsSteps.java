@@ -65,7 +65,7 @@ public class AMSAlertsSteps extends BddUITestBase {
     @When("^UI \"(Check|Uncheck)\" Toggle Alerts with name \"([^\"]*)\"$")
     public void checkORUncheckSpecificToogleAlert(String check, String alertName)
     {
-        alertsHandlers.checkORUncheckSpecificToogleAlert(check.equalsIgnoreCase("Check"), alertName);
+        alertsHandlers.checkORUncheckSpecificToggleAlert(check.equalsIgnoreCase("Check"), alertName);
     }
 
 }

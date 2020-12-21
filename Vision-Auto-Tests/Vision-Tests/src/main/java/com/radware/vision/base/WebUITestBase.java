@@ -39,21 +39,19 @@ import com.radware.urlbuilder.vision.VisionUrlPath;
 import com.radware.utils.DeviceUtils;
 import com.radware.utils.TreeUtils;
 import com.radware.vision.automation.tools.sutsystemobjects.devicesinfo.DevicesManager;
+import com.radware.vision.bddtests.visionsettings.VisionInfo;
 import com.radware.vision.infra.enums.DeviceDriverType;
 import com.radware.vision.infra.testhandlers.BaseHandler;
 import com.radware.vision.infra.testhandlers.baseoperations.BasicOperationsHandler;
 import com.radware.vision.infra.utils.VisionWebUIUtils;
 import com.radware.vision.infra.utils.threadutils.ThreadsStatusMonitor;
 import com.radware.vision.pojomodel.helpers.constants.ImConstants$DeviceStatusEnumPojo;
-import com.radware.vision.tools.rest.CurrentVisionRestAPI;
 import com.radware.vision.vision_project_cli.menu.Menu;
 import com.radware.vision.vision_tests.CliTests;
 import cucumber.runtime.junit.FeatureRunner;
 import enums.SUTEntryType;
 import jsystem.framework.ParameterProperties;
 import junit.framework.SystemTestCase4;
-import models.RestResponse;
-import models.StatusCode;
 import org.junit.After;
 import org.junit.Before;
 import testhandlers.Device;
@@ -101,10 +99,6 @@ public abstract class WebUITestBase extends SystemTestCase4 {
     private DeviceDriverType deviceDriverType = DeviceDriverType.VISION;
     private String qcTestId;
     private String deviceName;
-
-    private static String visionVersion = "";
-    private static String visionBuild = "";
-    private static String visionBranch = "";
 
     public static VisionRestClient getVisionRestClient() {
         return restTestBase != null ? restTestBase.getVisionRestClient() : new VisionRestClient(null, null, null);
@@ -215,7 +209,8 @@ public abstract class WebUITestBase extends SystemTestCase4 {
                 The code below used to send the version, build and mode to RunnerFeature class in order to create Before Feature and After Feature in cucumber
                 this code will run once , at the begin of the test .
                  */
-                FeatureRunner.update_version_build_mode(getVisionVersion(), getVisionBuild(), mode);
+                VisionInfo visionInfo = new VisionInfo(getVisionServerIp());
+                FeatureRunner.update_version_build_mode(visionInfo.getVisionVersion(), visionInfo.getVisionBuild(), mode);
 
                 FeatureRunner.update_station_sutName(restTestBase.getRootServerCli().getHost(), System.getProperty("SUT"));
             }
@@ -236,9 +231,7 @@ public abstract class WebUITestBase extends SystemTestCase4 {
             RemoteSshCommandsTests.resetPassword();
             BaseHandler.restTestBase = restTestBase;
             BaseHandler.devicesManager = devicesManager;
-            getVisionInfo();
         }
-
     }
 
 
@@ -338,11 +331,12 @@ public abstract class WebUITestBase extends SystemTestCase4 {
 
     public void setVisionBuildAndVersion() {
         try {
-            restTestBase.getRootServerCli().setConnectOnInit(true);
-            restTestBase.getRootServerCli().connect();
-            restTestBase.getRootServerCli().getVersionAndBuildFromSever();
+//            restTestBase.getRootServerCli().setConnectOnInit(true);
+//            restTestBase.getRootServerCli().connect();
+//            restTestBase.getRootServerCli().getVersionAndBuildFromSever();
+            VisionInfo visionInfo = new VisionInfo(getVisionServerIp());
             restTestBase.initReporter();
-            FeatureRunner.update_version_build_mode(getVisionVersion(), getVisionBuild(), BddReporterManager.getRunMode());
+            FeatureRunner.update_version_build_mode(visionInfo.getVisionVersion(), visionInfo.getVisionBuild(), BddReporterManager.getRunMode());
             FeatureRunner.update_station_sutName(restTestBase.getRootServerCli().getHost(), System.getProperty("SUT"));
 
         } catch (Exception e) {
@@ -659,59 +653,5 @@ public abstract class WebUITestBase extends SystemTestCase4 {
 
     public static void setRetrievedParamValue(String retrievedParamValue) {
         WebUITestBase.retrievedParamValue = retrievedParamValue;
-    }
-
-    public static String getVisionVersion() {
-        return visionVersion;
-    }
-
-    public static void setVisionVersion(String version) {
-        visionVersion = version;
-    }
-
-    public static String getVisionBuild() {
-        return visionBuild;
-    }
-
-    public static void setVisionBuild(String build) {
-        visionBuild = build;
-    }
-
-    public static String getVisionBranch() {
-        return visionBranch;
-    }
-
-    public static void setVisionBranch(String branch) {
-        visionBranch = branch;
-    }
-
-    public static void getVisionInfo() {
-        String filePath = "Vision/SystemManagement.json";
-        String requestLabel = "Get Management Info Ex";
-        RestResponse response;
-        try {
-            CurrentVisionRestAPI currentVisionRestAPI = new CurrentVisionRestAPI(filePath, requestLabel);
-            response = currentVisionRestAPI.sendRequest();
-            //an old version that do not support branch
-            if(response.getStatusCode().equals(StatusCode.INTERNAL_SERVER_ERROR) &&
-                    response.getBody().getBodyAsJsonNode().get().findValue("message").toString().contains("Illegal item path")){
-                requestLabel = "Get Management Info";
-                currentVisionRestAPI = new CurrentVisionRestAPI(filePath, requestLabel);
-            }
-            response = currentVisionRestAPI.sendRequest();
-            if(!response.getStatusCode().equals(StatusCode.OK))
-            {
-                BaseTestUtils.report(response.getStatusCode().toString(), FAIL);
-            }
-            String serverSoftwareVersion = response.getBody().getBodyAsJsonNode().get().findValue("serverSoftwareVersion").asText();
-            String[] aServerSoftwareVersion = serverSoftwareVersion.split(" ");
-
-            visionVersion = aServerSoftwareVersion[0];
-            visionBuild = aServerSoftwareVersion[1];
-            if(response.getBody().getBodyAsJsonNode().get().has("branch"))
-                visionBranch = response.getBody().getBodyAsJsonNode().get().findValue("branch").asText();
-        } catch (NoSuchFieldException e) {
-            e.printStackTrace();
-        }
     }
 }

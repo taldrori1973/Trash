@@ -49,9 +49,6 @@ public class freshInstallThread extends Thread {
             vmHandler.firstTimeWizardOva(freshInstallOVA.getBuildFileInfo().getDownloadUri().toString(), false, vCenterURL, vCenterUser, vCenterPassword, hostip,
                     version, build, vmName, null, networkName, resourcePool, null, dataStores);
         }
-//        catch (InterruptedException e) {
-//            BaseTestUtils.report("Thread interrupted.", Reporter.FAIL);
-//        }
         catch (Exception e) {
             BaseTestUtils.report(e.getMessage(), Reporter.FAIL);
         }

@@ -43,7 +43,7 @@ Feature: Authentication Protocols - LDAP settings Functionality
 
   @SID_5
   Scenario: LDAP setting - set and validate Authentication Mode
-    Then UI Navigate to page "System->User Management->User Management Settings"
+    Then UI Navigate to page "System->User Management->Authentication Mode"
     Then UI Select "LDAP" from Vision dropdown "Authentication Mode"
     Then UI Click Button "Submit"
     Then REST get UserManagement Settings "authenticationMode"

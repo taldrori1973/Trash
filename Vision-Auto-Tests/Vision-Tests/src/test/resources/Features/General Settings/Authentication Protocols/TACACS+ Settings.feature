@@ -42,7 +42,7 @@ Feature: Authentication Protocols - TACACS+ settings Functionality
 
   @SID_3
   Scenario: TACACS+ setting - set and validate Authentication Mode
-    Then UI Navigate to page "System->User Management->User Management Settings"
+    Then UI Navigate to page "System->User Management->Authentication Mode"
     Then UI Select "TACACS+" from Vision dropdown "Authentication Mode"
     Then UI Click Button "Submit"
     Then REST get UserManagement Settings "authenticationMode"
@@ -79,7 +79,7 @@ Feature: Authentication Protocols - TACACS+ settings Functionality
   Scenario: TACACS+ setting - set and validate Authentication Mode -  back to tacacs
     Then CLI Operations - Run Radware Session command "system user authentication-mode set TACACS+"
 #    Given UI Login with user "radware" and password "radware"
-#    Then UI Navigate to page "System->User Management->User Management Settings"
+#    Then UI Navigate to page "System->User Management->Authentication Mode"
 #    Then UI Select "Local" from Vision dropdown "Authentication Mode"
 #    Then UI Click Button "Submit"
 #    Then REST get UserManagement Settings "authenticationMode"

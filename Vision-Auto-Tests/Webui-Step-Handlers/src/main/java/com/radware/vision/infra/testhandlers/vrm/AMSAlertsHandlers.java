@@ -9,8 +9,6 @@ import com.radware.automation.webui.widgets.ComponentLocatorFactory;
 import com.radware.automation.webui.widgets.impl.WebUICheckbox;
 import com.radware.automation.webui.widgets.impl.WebUIDropdownStandard;
 import com.radware.vision.automation.tools.exceptions.selenium.TargetWebElementNotFoundException;
-import com.radware.vision.automation.tools.exceptions.web.DropdownItemNotFoundException;
-import com.radware.vision.automation.tools.exceptions.web.DropdownNotOpenedException;
 import com.radware.vision.vision_project_cli.RootServerCli;
 import com.radware.vision.infra.testhandlers.baseoperations.BasicOperationsHandler;
 import com.radware.vision.infra.testhandlers.vrm.enums.vrmActions;
@@ -84,7 +82,7 @@ public class AMSAlertsHandlers extends ForensicsHandler {
                 WebUIUtils.fluentWaitClick(closeLocator.getBy(), 2, false);
                 BasicOperationsHandler.clickButton("Close", "");
             } catch (Exception e) {
-
+                BaseTestUtils.report(e.getMessage(), Reporter.FAIL);
             }
         }
     }
@@ -135,7 +133,6 @@ public class AMSAlertsHandlers extends ForensicsHandler {
                     BasicOperationsHandler.clickButton("Schedule.Custom");
                     BasicOperationsHandler.setTextField("Schedule.Trigger this rule", scheduleMap.getOrDefault("triggerThisRule", "0").toString());
                     BasicOperationsHandler.setTextField("Schedule.Within", scheduleMap.getOrDefault("Within", "0").toString());
-//                    BasicOperationsHandler.selectItemFromDropDown("Schedule.Select time unit", scheduleMap.getOrDefault("selectTimeUnit", "").toString());
                     break;
             }
             BasicOperationsHandler.setTextField("Schedule.Alerts per hour", scheduleMap.getOrDefault("alertsPerHour", "8").toString());
@@ -234,10 +231,12 @@ public class AMSAlertsHandlers extends ForensicsHandler {
         return size;
     }
 
-    public void checkORUncheckSpecificToogleAlert(boolean isCheck, String alertName) {
+    public void checkORUncheckSpecificToggleAlert(boolean isCheck, String alertName) {
 
         ComponentLocator labelLocator = new ComponentLocator(How.XPATH, "(//*[contains(@data-debug-id,'vrm-alerts-toggle-alerts-" + alertName + "')])");
         WebUICheckbox checkboxElement = new WebUICheckbox(labelLocator);
+        if(checkboxElement.getWebElement()==null)
+            BaseTestUtils.report("Could not find checkbox with locator: " + labelLocator.toString(), Reporter.FAIL);
         if (isCheck) {
 
                 if(checkboxElement.getAttribute("class").contains("closed"))
