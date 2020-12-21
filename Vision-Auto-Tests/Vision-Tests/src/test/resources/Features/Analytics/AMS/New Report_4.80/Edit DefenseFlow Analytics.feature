@@ -1,4 +1,3 @@
-
 @TC118576
 Feature: Edit DefenseFlow Analytics tests
 #
@@ -100,20 +99,8 @@ Feature: Edit DefenseFlow Analytics tests
     Then UI Click Button "New Report Tab"
     Given UI "Create" Report With Name "DefenseFlow Analytics Report2"
       | Template-1            | reportType:DefenseFlow Analytics,Widgets:[Top 10 Activations by Attack Rate (Gbps)],Protected Objects:[PO Name Space],showTable:true |
-      | Template-2            | reportType:DefenseFlow Analytics,Widgets:[Top Attacks by Rate],Protected Objects:[PO Name Space],showTable:true                      |
-      | Logo                  | reportLogoPNG.png                                                                                                                    |
-      | Share                 | Email:[automation.vision1@radware.com],Subject:myAdd subject,Body:myAdd body                                                         |
-      | Time Definitions.Date | Quick:Today                                                                                                                          |
-      | Schedule              | Run Every:Daily,On Time:+2m                                                                                                          |
-      | Format                | Select: PDF                                                                                                                          |
     Then UI "Validate" Report With Name "DefenseFlow Analytics Report2"
       | Template-1            | reportType:DefenseFlow Analytics,Widgets:[Top 10 Activations by Attack Rate (Gbps)],Protected Objects:[PO Name Space],showTable:true |
-      | Template-2            | reportType:DefenseFlow Analytics,Widgets:[Top Attacks by Rate],Protected Objects:[PO Name Space],showTable:true                      |
-      | Logo                  | reportLogoPNG.png                                                                                                                    |
-      | Share                 | Email:[automation.vision1@radware.com],Subject:myAdd subject,Body:myAdd body                                                         |
-      | Time Definitions.Date | Quick:Today                                                                                                                          |
-      | Schedule              | Run Every:Daily,On Time:+2m                                                                                                          |
-      | Format                | Select: PDF                                                                                                                          |
 
   @SID_10
   Scenario: Edit DefenseFlow Analytics Report2 report name

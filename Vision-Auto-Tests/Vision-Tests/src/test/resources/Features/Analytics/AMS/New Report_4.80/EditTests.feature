@@ -12,8 +12,8 @@ Feature: Edit AMS Report tests
     Then UI Click Button "New Report Tab"
     Given UI "Create" Report With Name "Dp Analytics and DF Analytics and HTTPS Flood Report"
       | Template-1            | reportType:DefensePro Analytics,Widgets:[Connections Rate],devices:[{deviceIndex:10}],showTable:true                      |
-      | Template-2            | reportType:DefenseFlow Analytics,Widgets:[Top Attacks by Rate],Protected Objects:[PO Name Space],showTable:true           |
-      | Template-3            | reportType:HTTPS Flood,Widgets:[Inbound Traffic],Servers:[aaaaaaaaaaaaaaaaaaaaaaaaaaaaaa-DefensePro_172.16.22.51-1_https] |
+      | Template-2              | reportType:DefensePro Behavioral Protections, Widgets:[{BDoS-TCP FIN ACK:[IPv4, bps, inbound]}, {BDoS-UDP:[IPv4, bps, inbound]}, {BDoS-UDP Fragmented:[IPv4, bps, inbound]}, {DNS-TXT:[IPv4]}, {DNS-AAAA:[IPv4]}], devices:[{deviceIndex:11, devicePolicies:[BDOS]}] |
+      | Template-3            | reportType:DefenseFlow Analytics,Widgets:[Top Attacks by Rate],Protected Objects:[PO Name Space],showTable:true           |
       | Logo                  | reportLogoPNG.png                                                                                                         |
       | Time Definitions.Date | Quick:1D                                                                                                                  |
       | Schedule              | Run Every:Daily ,On Time:+2m                                                                                              |
@@ -21,8 +21,8 @@ Feature: Edit AMS Report tests
       | Format                | Select: PDF                                                                                                               |
     Then UI "Validate" Report With Name "Dp Analytics and DF Analytics and HTTPS Flood Report"
       | Template-1            | reportType:DefensePro Analytics,Widgets:[Connections Rate],devices:[{deviceIndex:10}],showTable:true                      |
-      | Template-2            | reportType:DefenseFlow Analytics,Widgets:[Top Attacks by Rate],Protected Objects:[PO Name Space],showTable:true           |
-      | Template-3            | reportType:HTTPS Flood,Widgets:[Inbound Traffic],Servers:[aaaaaaaaaaaaaaaaaaaaaaaaaaaaaa-DefensePro_172.16.22.51-1_https] |
+      | Template-2              | reportType:DefensePro Behavioral Protections, Widgets:[{BDoS-TCP FIN ACK:[IPv4, bps, inbound]}, {BDoS-UDP:[IPv4, bps, inbound]}, {BDoS-UDP Fragmented:[IPv4, bps, inbound]}, {DNS-TXT:[IPv4]}, {DNS-AAAA:[IPv4]}], devices:[{deviceIndex:11, devicePolicies:[BDOS]}] |
+      | Template-3            | reportType:DefenseFlow Analytics,Widgets:[Top Attacks by Rate],Protected Objects:[PO Name Space],showTable:true           |
       | Logo                  | reportLogoPNG.png                                                                                                         |
       | Time Definitions.Date | Quick:1D                                                                                                                  |
       | Schedule              | Run Every:Daily ,On Time:+2m                                                                                              |
@@ -33,16 +33,16 @@ Feature: Edit AMS Report tests
   @SID_3
   Scenario: Add Template Widget to Dp Analytics and DF Analytics and HTTPS Flood Report
     Given UI "Edit" Report With Name "Dp Analytics and DF Analytics and HTTPS Flood Report"
-      | Template-3 | reportType:HTTPS Flood,AddWidgets:[Inbound Traffic],Servers:[aaaaaaaaaaaaaaaaaaaaaaaaaaaaaa-DefensePro_172.16.22.51-1_https] |
+      | Template-3 | reportType:DefenseFlow Analytics,AddWidgets:[Top Attack Destination],Protected Objects:[PO Name Space],showTable:true |
     Then UI "Validate" Report With Name "Dp Analytics and DF Analytics and HTTPS Flood Report"
-      | Template-3 | reportType:HTTPS Flood,Widgets:[Inbound Traffic,Inbound Traffic],Servers:[aaaaaaaaaaaaaaaaaaaaaaaaaaaaaa-DefensePro_172.16.22.51-1_https] |
+      | Template-3            | reportType:DefenseFlow Analytics,Widgets:[Top Attacks by Rate,Top Attack Destination],Protected Objects:[PO Name Space],showTable:true           |
 
   @SID_4
   Scenario: Delete Template Widget from Dp Analytics and DF Analytics and HTTPS Flood Report
     Given UI "Edit" Report With Name "Dp Analytics and DF Analytics and HTTPS Flood Report"
-      | Template-3 | reportType:HTTPS Flood,DeleteWidgets:[Inbound Traffic],Servers:[aaaaaaaaaaaaaaaaaaaaaaaaaaaaaa-DefensePro_172.16.22.51-1_https] |
+      | Template-3 | reportType:DefenseFlow Analytics,DeleteWidgets:[Top Attack Destination],Protected Objects:[PO Name Space],showTable:true |
     Then UI "Validate" Report With Name "Dp Analytics and DF Analytics and HTTPS Flood Report"
-      | Template-3 | reportType:HTTPS Flood,Widgets:[Inbound Traffic],Servers:[aaaaaaaaaaaaaaaaaaaaaaaaaaaaaa-DefensePro_172.16.22.51-1_https] |
+      | Template-3            | reportType:DefenseFlow Analytics,Widgets:[Top Attacks by Rate],Protected Objects:[PO Name Space],showTable:true           |
 
 
   @SID_5
@@ -58,9 +58,9 @@ Feature: Edit AMS Report tests
     Given UI "Edit" Report With Name "Dp Analytics and DF Analytics and HTTPS Flood Report"
       | Template-4 | reportType:DefensePro Analytics,Widgets:[{Traffic Bandwidth:[pps,Outbound,50]}],devices:[{deviceIndex:11}],showTable:true |
     Then UI "Validate" Report With Name "Dp Analytics and DF Analytics and HTTPS Flood Report"
-      | Template-1 | reportType:DefensePro Analytics,Widgets:[Connections Rate],devices:[{deviceIndex:11}],showTable:true                      |
-      | Template-2 | reportType:DefenseFlow Analytics,Widgets:[Top Attacks by Rate],Protected Objects:[PO Name Space],showTable:true           |
-      | Template-3 | reportType:HTTPS Flood,Widgets:[Inbound Traffic],Servers:[aaaaaaaaaaaaaaaaaaaaaaaaaaaaaa-DefensePro_172.16.22.51-1_https] |
+      | Template-1            | reportType:DefensePro Analytics,Widgets:[Connections Rate],devices:[{deviceIndex:11}],showTable:true                      |
+      | Template-2              | reportType:DefensePro Behavioral Protections, Widgets:[{BDoS-TCP FIN ACK:[IPv4, bps, inbound]}, {BDoS-UDP:[IPv4, bps, inbound]}, {BDoS-UDP Fragmented:[IPv4, bps, inbound]}, {DNS-TXT:[IPv4]}, {DNS-AAAA:[IPv4]}], devices:[{deviceIndex:11, devicePolicies:[BDOS]}] |
+      | Template-3            | reportType:DefenseFlow Analytics,Widgets:[Top Attacks by Rate],Protected Objects:[PO Name Space],showTable:true           |
       | Template-4 | reportType:DefensePro Analytics,Widgets:[{Traffic Bandwidth:[pps,Outbound,50]}],devices:[{deviceIndex:11}],showTable:true |
 
   @SID_7
@@ -68,9 +68,9 @@ Feature: Edit AMS Report tests
     Given UI "Edit" Report With Name "Dp Analytics and DF Analytics and HTTPS Flood Report"
       | Template-4 | DeleteTemplate:true |
     Then UI "Validate" Report With Name "Dp Analytics and DF Analytics and HTTPS Flood Report"
-      | Template-1 | reportType:DefensePro Analytics,Widgets:[Connections Rate],devices:[{deviceIndex:11}],showTable:true                      |
-      | Template-2 | reportType:DefenseFlow Analytics,Widgets:[Top Attacks by Rate],Protected Objects:[PO Name Space],showTable:true           |
-      | Template-3 | reportType:HTTPS Flood,Widgets:[Inbound Traffic],Servers:[aaaaaaaaaaaaaaaaaaaaaaaaaaaaaa-DefensePro_172.16.22.51-1_https] |
+      | Template-1            | reportType:DefensePro Analytics,Widgets:[Connections Rate],devices:[{deviceIndex:11}],showTable:true                      |
+      | Template-2              | reportType:DefensePro Behavioral Protections, Widgets:[{BDoS-TCP FIN ACK:[IPv4, bps, inbound]}, {BDoS-UDP:[IPv4, bps, inbound]}, {BDoS-UDP Fragmented:[IPv4, bps, inbound]}, {DNS-TXT:[IPv4]}, {DNS-AAAA:[IPv4]}], devices:[{deviceIndex:11, devicePolicies:[BDOS]}] |
+      | Template-3            | reportType:DefenseFlow Analytics,Widgets:[Top Attacks by Rate],Protected Objects:[PO Name Space],showTable:true           |
 
   @SID_8
   Scenario: Create and validate Dp Analytics and DF Analytics and HTTPS Flood Report
@@ -78,7 +78,6 @@ Feature: Edit AMS Report tests
     Given UI "Create" Report With Name "Dp Analytics and DF Analytics and HTTPS Flood Report2"
       | Template-1            | reportType:DefensePro Analytics,Widgets:[Connections Rate],devices:[{deviceIndex:10}],showTable:true                      |
       | Template-2            | reportType:DefenseFlow Analytics,Widgets:[Top Attacks by Rate],Protected Objects:[PO Name Space],showTable:true           |
-      | Template-3            | reportType:HTTPS Flood,Widgets:[Inbound Traffic],Servers:[aaaaaaaaaaaaaaaaaaaaaaaaaaaaaa-DefensePro_172.16.22.51-1_https] |
       | Logo                  | reportLogoPNG.png                                                                                                         |
       | Time Definitions.Date | Quick:1D                                                                                                                  |
       | Schedule              | Run Every:Daily ,On Time:+2m                                                                                              |
@@ -87,7 +86,6 @@ Feature: Edit AMS Report tests
     Then UI "Validate" Report With Name "Dp Analytics and DF Analytics and HTTPS Flood Report2"
       | Template-1            | reportType:DefensePro Analytics,Widgets:[Connections Rate],devices:[{deviceIndex:10}],showTable:true                      |
       | Template-2            | reportType:DefenseFlow Analytics,Widgets:[Top Attacks by Rate],Protected Objects:[PO Name Space],showTable:true           |
-      | Template-3            | reportType:HTTPS Flood,Widgets:[Inbound Traffic],Servers:[aaaaaaaaaaaaaaaaaaaaaaaaaaaaaa-DefensePro_172.16.22.51-1_https] |
       | Logo                  | reportLogoPNG.png                                                                                                         |
       | Time Definitions.Date | Quick:1D                                                                                                                  |
       | Schedule              | Run Every:Daily ,On Time:+2m                                                                                              |
