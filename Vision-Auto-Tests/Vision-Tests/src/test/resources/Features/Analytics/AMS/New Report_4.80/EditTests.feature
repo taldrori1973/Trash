@@ -1,5 +1,6 @@
 @TC118580
 Feature: Edit AMS Report tests
+
   @SID_1
   Scenario: Login and Navigate to NEW REPORTS page
     Then UI Login with user "sys_admin" and password "radware"
@@ -57,9 +58,9 @@ Feature: Edit AMS Report tests
     Given UI "Edit" Report With Name "Dp Analytics and DF Analytics and HTTPS Flood Report"
       | Template-4 | reportType:DefensePro Analytics,Widgets:[{Traffic Bandwidth:[pps,Outbound,50]}],devices:[{deviceIndex:11}],showTable:true |
     Then UI "Validate" Report With Name "Dp Analytics and DF Analytics and HTTPS Flood Report"
-      | Template-1 | reportType:DefensePro Analytics,Widgets:[Connections Rate],devices:[{deviceIndex:11}],showTable:true |
-      | Template-2            | reportType:DefenseFlow Analytics,Widgets:[Top Attacks by Rate],Protected Objects:[PO Name Space],showTable:true           |
-      | Template-3            | reportType:HTTPS Flood,Widgets:[Inbound Traffic],Servers:[aaaaaaaaaaaaaaaaaaaaaaaaaaaaaa-DefensePro_172.16.22.51-1_https] |
+      | Template-1 | reportType:DefensePro Analytics,Widgets:[Connections Rate],devices:[{deviceIndex:11}],showTable:true                      |
+      | Template-2 | reportType:DefenseFlow Analytics,Widgets:[Top Attacks by Rate],Protected Objects:[PO Name Space],showTable:true           |
+      | Template-3 | reportType:HTTPS Flood,Widgets:[Inbound Traffic],Servers:[aaaaaaaaaaaaaaaaaaaaaaaaaaaaaa-DefensePro_172.16.22.51-1_https] |
       | Template-4 | reportType:DefensePro Analytics,Widgets:[{Traffic Bandwidth:[pps,Outbound,50]}],devices:[{deviceIndex:11}],showTable:true |
 
   @SID_7
@@ -67,9 +68,9 @@ Feature: Edit AMS Report tests
     Given UI "Edit" Report With Name "Dp Analytics and DF Analytics and HTTPS Flood Report"
       | Template-4 | DeleteTemplate:true |
     Then UI "Validate" Report With Name "Dp Analytics and DF Analytics and HTTPS Flood Report"
-      | Template-1 | reportType:DefensePro Analytics,Widgets:[Connections Rate],devices:[{deviceIndex:11}],showTable:true |
-      | Template-2            | reportType:DefenseFlow Analytics,Widgets:[Top Attacks by Rate],Protected Objects:[PO Name Space],showTable:true           |
-      | Template-3            | reportType:HTTPS Flood,Widgets:[Inbound Traffic],Servers:[aaaaaaaaaaaaaaaaaaaaaaaaaaaaaa-DefensePro_172.16.22.51-1_https] |
+      | Template-1 | reportType:DefensePro Analytics,Widgets:[Connections Rate],devices:[{deviceIndex:11}],showTable:true                      |
+      | Template-2 | reportType:DefenseFlow Analytics,Widgets:[Top Attacks by Rate],Protected Objects:[PO Name Space],showTable:true           |
+      | Template-3 | reportType:HTTPS Flood,Widgets:[Inbound Traffic],Servers:[aaaaaaaaaaaaaaaaaaaaaaaaaaaaaa-DefensePro_172.16.22.51-1_https] |
 
   @SID_8
   Scenario: Create and validate Dp Analytics and DF Analytics and HTTPS Flood Report
