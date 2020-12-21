@@ -1,3 +1,4 @@
+@TC118775
 Feature: Edit ADC Report tests
 #
 #  @SID_1
@@ -86,8 +87,8 @@ Feature: Edit ADC Report tests
 
   @SID_14
   Scenario: Edit ADC Report2 report name
-    Then UI Click Button "My Report Tab"
-    Then UI Click Button "Edit Reports" with value "ADC Report2"
+    Then UI Click Button "My Reports Tab"
+    Then UI Click Button "Edit Report" with value "ADC Report2"
     Then UI Set Text Field "Report Name" To "ADC Report"
     Then UI Click Button "save"
     Then UI Text of "Error message title" equal to "Unable to Save Report"
