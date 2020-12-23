@@ -41,6 +41,7 @@ Feature: Edit HTTPS Flood tests
 
   @SID_7
   Scenario: Navigate to AMS Reports
+    Given UI Login with user "sys_admin" and password "radware"
     Then UI Navigate to "AMS REPORTS" page via homepage
     Then UI Click Button "New Report Tab"
 
@@ -55,36 +56,36 @@ Feature: Edit HTTPS Flood tests
       | Format                | Select: CSV                                                                                    |
       | Time Definitions.Date | Quick:1H                                                                                       |
 
+#
+#  @SID_9
+#  Scenario: Validate delivery card and generate report
+#    Then UI Click Button "My Report" with value "HTTPS Flood Report"
+#    Then UI Click Button "Generate Report Manually" with value "HTTPS Flood Report"
+#    Then Sleep "35"
+#
+#  @SID_10
+#  Scenario: VRM report unzip local CSV file
+#    Then CLI Run remote linux Command "unzip -o -d /opt/radware/mgt-server/third-party/tomcat/bin/ /opt/radware/mgt-server/third-party/tomcat/bin/VRM_report_*.zip" on "ROOT_SERVER_CLI"
+#
+#    ############################################       TOP ATTACKS       ###################################################################################
+#  @SID_11
+#  Scenario: VRM report validate CSV file TOP ATTACKS number of lines
+#    Then CLI Run linux Command "cat /opt/radware/mgt-server/third-party/tomcat/bin/Inbound\ Traffic-HTTPS\ Flood.csv |wc -l" on "ROOT_SERVER_CLI" and validate result EQUALS "2"
+#
+#  @SID_12
+#  Scenario: VRM report validate CSV file TOP ATTACKS headers
+#    Then CLI Run linux Command "cat /opt/radware/mgt-server/third-party/tomcat/bin/Inbound\ Traffic-HTTPS\ Flood.csv|head -1|grep timeStamp,shortTermBaseline.attackEdge,longTermBaseline.attackEdge,shortTermBaseline.requestsBaseline,longTermBaseline.requestsBaseline|wc -l" on "ROOT_SERVER_CLI" and validate result EQUALS "1"
+#    Then CLI Run linux Command "cat /opt/radware/mgt-server/third-party/tomcat/bin/Inbound\ Traffic-HTTPS\ Flood.csv|head -1|awk -F "," '{printf $1}';echo" on "ROOT_SERVER_CLI" and validate result EQUALS "timeStamp"
+#    Then CLI Run linux Command "cat /opt/radware/mgt-server/third-party/tomcat/bin/Inbound\ Traffic-HTTPS\ Flood.csv|head -1|awk -F "," '{printf $2}';echo" on "ROOT_SERVER_CLI" and validate result EQUALS "shortTermBaseline.attackEdge"
+#    Then CLI Run linux Command "cat /opt/radware/mgt-server/third-party/tomcat/bin/Inbound\ Traffic-HTTPS\ Flood.csv|head -1|awk -F "," '{printf $3}';echo" on "ROOT_SERVER_CLI" and validate result EQUALS "longTermBaseline.attackEdge"
+#    Then CLI Run linux Command "cat /opt/radware/mgt-server/third-party/tomcat/bin/Inbound\ Traffic-HTTPS\ Flood.csv|head -1|awk -F "," '{printf $4}';echo" on "ROOT_SERVER_CLI" and validate result EQUALS "shortTermBaseline.requestsBaseline"
+#    Then CLI Run linux Command "cat /opt/radware/mgt-server/third-party/tomcat/bin/Inbound\ Traffic-HTTPS\ Flood.csv|head -1|awk -F "," '{printf $5}';echo" on "ROOT_SERVER_CLI" and validate result EQUALS "longTermBaseline.requestsBaseline"
+#    Then CLI Run linux Command "cat /opt/radware/mgt-server/third-party/tomcat/bin/Inbound\ Traffic-HTTPS\ Flood.csv|head -2|tail -1|awk -F "," '{printf $3}';echo" on "ROOT_SERVER_CLI" and validate result EQUALS "21641.0"
+#    Then CLI Run linux Command "cat /opt/radware/mgt-server/third-party/tomcat/bin/Inbound\ Traffic-HTTPS\ Flood.csv|head -2|tail -1|awk -F "," '{printf $4}';echo" on "ROOT_SERVER_CLI" and validate result EQUALS "7002.258"
+#    Then CLI Run linux Command "cat /opt/radware/mgt-server/third-party/tomcat/bin/Inbound\ Traffic-HTTPS\ Flood.csv|head -2|tail -1|awk -F "," '{printf $5}';echo" on "ROOT_SERVER_CLI" and validate result EQUALS "17200.0"
+#    Then CLI Run linux Command "cat /opt/radware/mgt-server/third-party/tomcat/bin/Inbound\ Traffic-HTTPS\ Flood.csv|head -2|tail -1|awk -F "," '{printf $6}';echo" on "ROOT_SERVER_CLI" and validate result EQUALS "5075.3"
 
   @SID_9
-  Scenario: Validate delivery card and generate report
-    Then UI Click Button "My Report" with value "HTTPS Flood Report"
-    Then UI Click Button "Generate Report Manually" with value "HTTPS Flood Report"
-    Then Sleep "35"
-
-  @SID_10
-  Scenario: VRM report unzip local CSV file
-    Then CLI Run remote linux Command "unzip -o -d /opt/radware/mgt-server/third-party/tomcat/bin/ /opt/radware/mgt-server/third-party/tomcat/bin/VRM_report_*.zip" on "ROOT_SERVER_CLI"
-
-    ############################################       TOP ATTACKS       ###################################################################################
-  @SID_11
-  Scenario: VRM report validate CSV file TOP ATTACKS number of lines
-    Then CLI Run linux Command "cat /opt/radware/mgt-server/third-party/tomcat/bin/Inbound\ Traffic-HTTPS\ Flood.csv |wc -l" on "ROOT_SERVER_CLI" and validate result EQUALS "2"
-
-  @SID_12
-  Scenario: VRM report validate CSV file TOP ATTACKS headers
-    Then CLI Run linux Command "cat /opt/radware/mgt-server/third-party/tomcat/bin/Inbound\ Traffic-HTTPS\ Flood.csv|head -1|grep timeStamp,shortTermBaseline.attackEdge,longTermBaseline.attackEdge,shortTermBaseline.requestsBaseline,longTermBaseline.requestsBaseline|wc -l" on "ROOT_SERVER_CLI" and validate result EQUALS "1"
-    Then CLI Run linux Command "cat /opt/radware/mgt-server/third-party/tomcat/bin/Inbound\ Traffic-HTTPS\ Flood.csv|head -1|awk -F "," '{printf $1}';echo" on "ROOT_SERVER_CLI" and validate result EQUALS "timeStamp"
-    Then CLI Run linux Command "cat /opt/radware/mgt-server/third-party/tomcat/bin/Inbound\ Traffic-HTTPS\ Flood.csv|head -1|awk -F "," '{printf $2}';echo" on "ROOT_SERVER_CLI" and validate result EQUALS "shortTermBaseline.attackEdge"
-    Then CLI Run linux Command "cat /opt/radware/mgt-server/third-party/tomcat/bin/Inbound\ Traffic-HTTPS\ Flood.csv|head -1|awk -F "," '{printf $3}';echo" on "ROOT_SERVER_CLI" and validate result EQUALS "longTermBaseline.attackEdge"
-    Then CLI Run linux Command "cat /opt/radware/mgt-server/third-party/tomcat/bin/Inbound\ Traffic-HTTPS\ Flood.csv|head -1|awk -F "," '{printf $4}';echo" on "ROOT_SERVER_CLI" and validate result EQUALS "shortTermBaseline.requestsBaseline"
-    Then CLI Run linux Command "cat /opt/radware/mgt-server/third-party/tomcat/bin/Inbound\ Traffic-HTTPS\ Flood.csv|head -1|awk -F "," '{printf $5}';echo" on "ROOT_SERVER_CLI" and validate result EQUALS "longTermBaseline.requestsBaseline"
-    Then CLI Run linux Command "cat /opt/radware/mgt-server/third-party/tomcat/bin/Inbound\ Traffic-HTTPS\ Flood.csv|head -2|tail -1|awk -F "," '{printf $3}';echo" on "ROOT_SERVER_CLI" and validate result EQUALS "21641.0"
-    Then CLI Run linux Command "cat /opt/radware/mgt-server/third-party/tomcat/bin/Inbound\ Traffic-HTTPS\ Flood.csv|head -2|tail -1|awk -F "," '{printf $4}';echo" on "ROOT_SERVER_CLI" and validate result EQUALS "7002.258"
-    Then CLI Run linux Command "cat /opt/radware/mgt-server/third-party/tomcat/bin/Inbound\ Traffic-HTTPS\ Flood.csv|head -2|tail -1|awk -F "," '{printf $5}';echo" on "ROOT_SERVER_CLI" and validate result EQUALS "17200.0"
-    Then CLI Run linux Command "cat /opt/radware/mgt-server/third-party/tomcat/bin/Inbound\ Traffic-HTTPS\ Flood.csv|head -2|tail -1|awk -F "," '{printf $6}';echo" on "ROOT_SERVER_CLI" and validate result EQUALS "5075.3"
-
-  @SID_13
   Scenario: Edit The Format and validate
     Then UI "Edit" Report With Name "HTTPS Flood Report"
       | Format | Select: PDF |
@@ -92,7 +93,7 @@ Feature: Edit HTTPS Flood tests
       | Format | Select: PDF |
 
 
-  @SID_14
+  @SID_10
   Scenario: Edit The Time and validate
     Then UI "Edit" Report With Name "HTTPS Flood Report"
       | Time Definitions.Date | Quick:15m |
@@ -100,29 +101,28 @@ Feature: Edit HTTPS Flood tests
       | Time Definitions.Date | Quick:15m |
 
 
-  @SID_15
+  @SID_11
   Scenario: Add Template Widget to HTTPS Flood Report
     Given UI "Edit" Report With Name "HTTPS Flood Report"
       | Template-1 | reportType:HTTPS Flood,AddWidgets:[Inbound Traffic],Servers:[test-DefensePro_172.16.22.51-pol1] |
     Then UI "Validate" Report With Name "HTTPS Flood Report"
       | Template-1 | reportType:HTTPS Flood,Widgets:[Inbound Traffic,Inbound Traffic],Servers:[test-DefensePro_172.16.22.51-pol1] |
 
-  @SID_16
+  @SID_12
   Scenario: Delete Template Widget from HTTPS Flood Report
     Given UI "Edit" Report With Name "HTTPS Flood Report"
       | Template-1 | reportType:HTTPS Flood,DeleteWidgets:[Inbound Traffic],Servers:[test-DefensePro_172.16.22.51-pol1] |
     Then UI "Validate" Report With Name "HTTPS Flood Report"
       | Template-1 | reportType:HTTPS Flood,Widgets:[Inbound Traffic],Servers:[test-DefensePro_172.16.22.51-pol1] |
 
-  @SID_17
+  @SID_13
   Scenario: Edit Template Servers from HTTPS Flood Report
     Given UI "Edit" Report With Name "HTTPS Flood Report"
       | Template-1 | reportType:HTTPS Flood,Servers:[test-DefensePro_172.16.22.51-pol1] |
     Then UI "Validate" Report With Name "HTTPS Flood Report"
       | Template-1 | reportType:HTTPS Flood,Widgets:[Inbound Traffic],Servers:[test-DefensePro_172.16.22.51-pol1] |
 
-
-  @SID_18
+  @SID_14
   Scenario:Add Template to HTTPS Flood
     Given UI "Edit" Report With Name "HTTPS Flood Report"
       | Template-2 | reportType:HTTPS Flood,Widgets:[Inbound Traffic],Servers:[test-DefensePro_172.16.22.51-pol1] |
@@ -130,14 +130,14 @@ Feature: Edit HTTPS Flood tests
       | Template-1 | reportType:HTTPS Flood,Widgets:[Inbound Traffic],Servers:[test-DefensePro_172.16.22.51-pol1] |
       | Template-2 | reportType:HTTPS Flood,Widgets:[Inbound Traffic],Servers:[test-DefensePro_172.16.22.51-pol1] |
 
-  @SID_19
+  @SID_15
   Scenario: Delete Template from HTTPS Flood Report
     Given UI "Edit" Report With Name "HTTPS Flood Report"
       | Template-2 | DeleteTemplate:true |
     Then UI "Validate" Report With Name "HTTPS Flood Report"
       | Template-1 | reportType:HTTPS Flood,Widgets:[Inbound Traffic],Servers:[test-DefensePro_172.16.22.51-pol1] |
 
-  @SID_20
+  @SID_16
   Scenario: Create and Validate HTTPS Flood Report2
     Then UI Click Button "New Report Tab"
     Given UI "Create" Report With Name "HTTPS Flood Report2"
@@ -157,7 +157,7 @@ Feature: Edit HTTPS Flood tests
       | Schedule              | Run Every:Daily,On Time:+2m                                                                  |
       | Format                | Select: CSV                                                                                  |
 
-  @SID_21
+  @SID_17
   Scenario: Edit HTTPS Flood Report2 report name
     Then UI Click Button "My Reports Tab"
     Then UI Click Button "Edit Report" with value "HTTPS Flood Report2"
@@ -176,11 +176,11 @@ Feature: Edit HTTPS Flood tests
     Then UI Text of "Save Change Message" contains "Do you want to save "HTTPS Flood Report"?"
     Then UI Click Button "No"
 
-  @SID_22
+  @SID_18
   Scenario: Delete report
     Then UI Delete Report With Name "HTTPS Flood Report"
     Then UI Delete Report With Name "HTTPS Flood Report2"
 
-  @SID_23
+  @SID_19
   Scenario: Logout
     Then UI logout and close browser
