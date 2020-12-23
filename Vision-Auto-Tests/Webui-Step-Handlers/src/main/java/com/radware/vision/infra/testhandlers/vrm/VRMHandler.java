@@ -853,42 +853,45 @@ public class VRMHandler {
 
             entries.forEach(entry -> {
                 String deviceIp = null;
+                String deviceName = null;
                 try {
                     if (entry.index == null) {
                         throw new Exception("Index entry is empty please enter it!");
                     }
                     if (deviceType == null) {
                         deviceIp = devicesManager.getDeviceInfo(SUTDeviceType.DefensePro, entry.index).getDeviceIp();
+                        deviceName = devicesManager.getDeviceInfo(SUTDeviceType.DefensePro, entry.index).getDeviceName();
                     } else {
                         deviceIp = devicesManager.getDeviceInfo(deviceType, entry.index).getDeviceIp();
+                        deviceName = devicesManager.getDeviceInfo(SUTDeviceType.DefensePro, entry.index).getDeviceName();
                     }
 
                 } catch (Exception e) {
                     BaseTestUtils.report(e.getMessage(), e);
                 }
                 //select the device
-                checkbox.setLocator(ComponentLocatorFactory.getEqualLocatorByDbgId("scopeSelection_deviceIP_" + deviceIp + "_Label"));
+                checkbox.setLocator(ComponentLocatorFactory.getEqualLocatorByDbgId("scopeSelection_" + deviceName + "_Label"));
                 checkbox.check();
                 boolean changePolicies = entry.policies != null && !entry.policies.equals("");
                 boolean changePorts = entry.ports != null && !entry.ports.equals("");
                 if (changePolicies || changePorts) {
                     //click on change
-                    ClickOperationsHandler.clickWebElement(ComponentLocatorFactory.getEqualLocatorByDbgId("scopeSelection_change_" + deviceIp), false);
-                    String policyPrefix = "scopeSelection_deviceIP_" + deviceIp + "_policiesLabel_";
-                    String portPrefix = "scopeSelection_deviceIP_" + deviceIp + "_portsLabel_";
-                    String policySearch = "scopeSelection_deviceIP_[" + deviceIp + "]_policy_Text";
-                    String portSearch = "scopeSelection_deviceIP_[" + deviceIp + "]_port_Text";
+                    ClickOperationsHandler.clickWebElement(ComponentLocatorFactory.getEqualLocatorByDbgId("scopeSelection_change_" + deviceName), false);
+                    String policyPrefix = "scopeSelection_" + deviceName + "_policiesLabel_";
+                    String portPrefix = "scopeSelection_" + deviceName + "_portsLabel_";
+                    String policySearch = "scopeSelection_[" + deviceName + "]_policy_Text";
+                    String portSearch = "scopeSelection_[" + deviceName + "]_port_Text";
                     List<String> policiesList, portsList;
                     if (changePolicies) {
                         WebUITextField policyText = new WebUITextField(ComponentLocatorFactory.getEqualLocatorByDbgId(policySearch));
-                        WebUIUtils.scrollIntoView(policyText.getWebElement());
+                        WebUIUtils.scrollIntoView(policyText.getWebElement(), true);
                         if (!entry.policies.equalsIgnoreCase("ALL")) {
                             policiesList = Arrays.asList(entry.policies.split("(,)"));
                             for (String policy : policiesList) {
                                 policyText.type(policy.trim());
                                 if (WebUIUtils.fluentWait(ComponentLocatorFactory.getEqualLocatorByDbgId(policyPrefix + policy.trim()).getBy(), WebUIUtils.DEFAULT_WAIT_TIME / 2) == null) {
                                     policyText.type(""); //clear
-                                    scrollUntilElementDisplayed(ComponentLocatorFactory.getLocatorByXpathDbgId("scopeSelection_deviceIP_" + deviceIp + "_policiesLabel_"), ComponentLocatorFactory.getEqualLocatorByDbgId(policyPrefix + policy.trim()));
+                                    scrollUntilElementDisplayed(ComponentLocatorFactory.getLocatorByXpathDbgId("scopeSelection_" + deviceName + "_policiesLabel_"), ComponentLocatorFactory.getEqualLocatorByDbgId(policyPrefix + policy.trim()));
                                 } else if (!WebUIUtils.fluentWait(ComponentLocatorFactory.getEqualLocatorByDbgId(policyPrefix + policy.trim()).getBy()).isDisplayed()) {
                                     WebUIUtils.scrollIntoView(WebUIUtils.fluentWait(ComponentLocatorFactory.getEqualLocatorByDbgId(policyPrefix + policy.trim()).getBy()));
                                 }
@@ -896,7 +899,7 @@ public class VRMHandler {
                                 checkbox.check();
                             }
                         } else {
-                            LazyView lazyView = new LazyViewImpl(ComponentLocatorFactory.getEqualLocatorByDbgId("VRM_Scope_Selection_policies_DefensePro_" + deviceIp), new ComponentLocator(How.XPATH, "//lablel"));
+                            LazyView lazyView = new LazyViewImpl(ComponentLocatorFactory.getEqualLocatorByDbgId("VRM_Scope_Selection_policies_" + deviceName), new ComponentLocator(How.XPATH, "//lablel"));
                             policiesList = lazyView.getViewValues();
                             for (String policy : policiesList) {
                                 policyText.type(policy.trim());
@@ -915,7 +918,7 @@ public class VRMHandler {
                                 checkbox.check();
                             }
                         } else {
-                            LazyView lazyView = new LazyViewImpl(ComponentLocatorFactory.getEqualLocatorByDbgId("VRM_Scope_Selection_policies_DefensePro_" + deviceIp), new ComponentLocator(How.XPATH, "//lablel"));
+                            LazyView lazyView = new LazyViewImpl(ComponentLocatorFactory.getEqualLocatorByDbgId("VRM_Scope_Selection_policies_" + deviceName), new ComponentLocator(How.XPATH, "//lablel"));
                             portsList = lazyView.getViewValues();
                             for (String port : portsList) {
                                 portText.type(port.trim());
