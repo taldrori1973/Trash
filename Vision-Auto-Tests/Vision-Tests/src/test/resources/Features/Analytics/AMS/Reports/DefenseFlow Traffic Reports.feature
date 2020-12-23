@@ -43,18 +43,15 @@ Feature: DefenseFlow Traffic Reports
   @SID_4
   Scenario: Navigate to AMS report
     And UI Navigate to "AMS Reports" page via homePage
-    Then UI Validate Element Existence By Label "Add New" if Exists "true"
+
 
   # =============================================Overall===========================================================
   @SID_5
   Scenario: Create DefenseFlow traffic report
-    When UI "Create" Report With Name "DF_Traffic"
-      | reportType     | DefenseFlow Analytics Dashboard                                    |
-      | projectObjects | PO_100                                                             |
-#     | Design             | Add:[Top Attacks by Duration,Top Attack Destination,Top Attacks by Protocol] |
-#     | Customized Options | addLogo: reportLogoPNG.png                                                   |
+    Given UI "Create" Report With Name "DF_Traffic"
+      | Template              | reportType:DefenseFlow Analytics,Widgets:[ALL],Protected Objects:[PO_100] |
+      | Format                | Select: CSV                                                                                                           |
       | Share          | Email:[DF_traffic@report.local],Subject:DefenseFlow Traffic report |
-      | Format         | Select: CSV                                                        |
 
   @SID_6
   Scenario: Clear SMTP server log files
