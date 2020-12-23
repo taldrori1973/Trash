@@ -41,7 +41,7 @@ Feature: Edit HTTPS Flood tests
 
   @SID_7
   Scenario: Navigate to AMS Reports
-    Given UI Login with user "sys_admin" and password "radware"
+    Then UI Login with user "sys_admin" and password "radware"
     Then UI Navigate to "AMS REPORTS" page via homepage
     Then UI Click Button "New Report Tab"
 
