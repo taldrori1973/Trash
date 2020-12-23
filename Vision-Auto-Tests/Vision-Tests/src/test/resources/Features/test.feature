@@ -1,10 +1,16 @@
+@runa
 Feature:test
 
   #Temprorary test - by Ayoub and Ramez
 
   Scenario: maha test
     Given UI Login with user "radware" and password "radware"
-    When UI Navigate to "NEW REPORTS" page via homePage
+    Given UI Navigate to "DefensePro Monitoring Dashboard" page via homePage
+
+    And UI VRM Select device from dashboard and Save Filter
+      | index | ports | policies       |
+      | 10    |       | BDOS, Policy14 |
+      | 11    |       | BDOS, Policy14 |
 #    Then UI "Validate" Report With Name "OverallDFReport1"
 #      | reportType         | DefenseFlow Analytics Dashboard                                                  |
 #      | projectObjects     | PO_100,PO_200,PO_300                                                             |
