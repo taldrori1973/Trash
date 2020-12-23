@@ -1,4 +1,4 @@
-@Test12
+@TC117962
 Feature: HTTPS Flood CSV Report
 
 
@@ -80,12 +80,12 @@ Feature: HTTPS Flood CSV Report
     Then CLI Run remote linux Command "unzip -o -d /opt/radware/mgt-server/third-party/tomcat/bin/ /opt/radware/mgt-server/third-party/tomcat/bin/VRM_report_*.zip" on "ROOT_SERVER_CLI"
 
     ############################################       TOP ATTACKS       ###################################################################################
-  @Test12
+  
   @SID_10
   Scenario: VRM report validate CSV file TOP ATTACKS number of lines
-    Then CLI Run linux Command "cat /opt/radware/mgt-server/third-party/tomcat/bin/Inbound\ Traffic-HTTPS\ Flood.csv |wc -l" on "ROOT_SERVER_CLI" and validate result EQUALS "2"
+    Then CLI Run linux Command "cat /opt/radware/mgt-server/third-party/tomcat/bin/Inbound\ Traffic-HTTPS\ Flood.csv |wc -l" on "ROOT_SERVER_CLI" and validate result EQUALS "3"
 
-  @Test12
+  
   @SID_11
   Scenario: VRM report validate CSV file TOP ATTACKS headers
     Then CLI Run linux Command "cat /opt/radware/mgt-server/third-party/tomcat/bin/Inbound\ Traffic-HTTPS\ Flood.csv|head -1|grep timeStamp,shortTermBaseline.attackEdge,longTermBaseline.attackEdge,shortTermBaseline.requestsBaseline,longTermBaseline.requestsBaseline|wc -l" on "ROOT_SERVER_CLI" and validate result EQUALS "1"
