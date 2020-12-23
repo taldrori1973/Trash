@@ -138,6 +138,7 @@ public class GeneralSteps extends BddCliTestBase {
         }
     }
 
+
     private enum MessageAction {
         NOT_EXPECTED("false"),
         EXPECTED("true"),

@@ -43,7 +43,6 @@ import java.util.regex.Pattern;
 
 import static com.radware.vision.infra.testhandlers.BaseHandler.devicesManager;
 import static com.radware.vision.infra.testhandlers.BaseHandler.restTestBase;
-import static com.radware.vision.infra.testhandlers.baseoperations.clickoperations.ClickOperationsHandler.validateElementExistenceByLabel;
 import static com.radware.vision.infra.utils.ReportsUtils.addErrorMessage;
 import static com.radware.vision.infra.utils.ReportsUtils.reportErrors;
 
@@ -51,8 +50,8 @@ public class VRMBaseUtilies {
 
     VRMHandler vrmHandler = new VRMHandler();
     public static LocalDateTime scheduleLocalDateTime = LocalDateTime.now();
-    public static LocalDateTime timeDefinitionLocalDateTime;
     public static String oldOrNew = "new"; // "old"/"new"
+    public static LocalDateTime timeDefinitionLocalDateTime;
 
 
     public void BaseVRMOperation(vrmActions operationType, String vrmBaseName, Map<String, String> entry, RootServerCli rootServerCli) throws Exception {
@@ -99,16 +98,16 @@ public class VRMBaseUtilies {
     protected void editVRMBaseNew(String vrmBaseName, Map<String, String> map) throws Exception {
     }
 
-    protected void validateVRMBase(RootServerCli rootServerCli, String vrmBaseName, Map<String, String> map) throws TargetWebElementNotFoundException {
+    protected void validateVRMBase(RootServerCli rootServerCli, String vrmBaseName, Map<String, String> map) throws TargetWebElementNotFoundException , Exception{
     }
 
     protected void createVRMBase(String vrmBaseName, Map<String, String> map) throws Exception {
     }
 
-    protected void createVRMBaseNew(String vrmBaseName, Map<String, String> map) throws TargetWebElementNotFoundException {
+    protected void generateVRMBase(String vrmBaseName, Map<String, String> map) throws TargetWebElementNotFoundException {
     }
 
-    protected void generateVRMBase(String vrmBaseName, Map<String, String> map) throws TargetWebElementNotFoundException {
+    protected void createVRMBaseNew(String vrmBaseName, Map<String, String> map) throws TargetWebElementNotFoundException {
     }
 
     protected boolean isExistVRMBaseResult(String vrmBaseName, Map<String, String> map) {

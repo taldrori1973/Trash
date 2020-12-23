@@ -11,7 +11,8 @@ public enum vrmActions {
     GENERATE("Generate"),
     VALIDATE("Validate"),
     ISEXIST("Isexist"),
-    EDIT("Edit");
+    EDIT("Edit"),
+    DELETE("Delete");
 
 
     String value;

@@ -196,8 +196,9 @@ public class VRMReportsHandler extends VRMBaseUtilies {
         }
     }
 
-    protected void validateVRMBase(RootServerCli rootServerCli, String reportName, Map<String, String> map) {
-//        EnterToValidateOrEdit(reportName);
+    protected void validateVRMBase(RootServerCli rootServerCli, String reportName, Map<String, String> map)throws Exception {
+        EnterToValidateOrEdit(reportName);
+//        new Report().validate(rootServerCli, reportName, map);
         JSONObject basicRestResult = waitForESDocument(rootServerCli, "reportName", reportName, "vrm-scheduled-report-definition-vrm", 0);
         if (basicRestResult == null) {
             BaseTestUtils.report("Could not find document: " + reportName, Reporter.FAIL);
@@ -812,7 +813,6 @@ public class VRMReportsHandler extends VRMBaseUtilies {
             //            Delivery(map);
             //BasicOperationsHandler.clickButton("Next", "");
             Design(reportName, map);
-            BasicOperationsHandler.clickButton("Next", "");
             BasicOperationsHandler.clickButton("Submit", "");
         } finally {
             try {
@@ -1216,7 +1216,7 @@ public class VRMReportsHandler extends VRMBaseUtilies {
                 }
             }
             if (!textExist)
-                errorMessage = ("The option of " + entry.text + " in widget " + widget + " in report " + reportName +  "doesn't found " + "/n");
+                errorMessage = ("The option of " + entry.text + " in widget " + widget + " in report " + reportName + "doesn't found " + "/n");
         }
         if (!errorMessage.equals(""))
             BaseTestUtils.report(errorMessage, Reporter.FAIL);
