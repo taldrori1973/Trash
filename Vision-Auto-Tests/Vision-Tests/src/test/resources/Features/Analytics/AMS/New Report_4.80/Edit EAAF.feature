@@ -1,3 +1,4 @@
+
 Feature: Edit EAAF tests
 
   @SID_1
@@ -63,8 +64,22 @@ Feature: Edit EAAF tests
       | Template-1 | reportType:EAAF , Widgets:[{Top Malicious IP Addresses:[Packets]}] |
       | Template-2 | reportType:EAAF , Widgets:[Total Hits Summary]                     |
 
-
   @SID_8
+  Scenario: Edit The Time and validate
+    Then UI "Edit" Report With Name "EAAF Report"
+      | Time Definitions.Date | Quick:15m |
+    Then UI "Validate" Report With Name "EAAF Report"
+      | Time Definitions.Date | Quick:15m |
+
+  @SID_9
+  Scenario: Edit The Format and validate
+    Then UI "Edit" Report With Name "EAAF Report"
+      | Format | Select: HTML |
+    Then UI "Validate" Report With Name "EAAF Report"
+      | Format | Select: HTML |
+
+
+  @SID_10
   Scenario: Create and validate EAAF Report2
     Then UI Click Button "New Report Tab"
     Given UI "Create" Report With Name "EAAF Report2"
@@ -78,7 +93,7 @@ Feature: Edit EAAF tests
       | Time Definitions.Date | Quick:15m                                                                            |
       | Format                | Select: CSV                                                                          |
 
-  @SID_9
+  @SID_11
   Scenario: Edit DefensePro Analytics Report2 report name
     Then UI Click Button "My Reports Tab"
     Then UI Click Button "Edit Report" with value "EAAF Report2"
@@ -97,11 +112,12 @@ Feature: Edit EAAF tests
     Then UI Text of "Save Change Message" contains "Do you want to save "EAAF Report"?"
     Then UI Click Button "No"
 
-  @SID_10
+  @SID_12
   Scenario: Delete report
     Then UI Delete Report With Name "EAAF Report"
     Then UI Delete Report With Name "EAAF Report2"
 
-  @SID_11
+  @SID_13
   Scenario: Logout
     Then UI logout and close browser
+
