@@ -130,13 +130,13 @@ Feature: Test Reports Definition
   @SID_9
   Scenario: create Application Report1
     Given UI "Create" Report With Name "Application Report1"
-      | Template              | reportType:Application , Widgets:[Requests per Second,End-to-End Time] ,Applications:[app:80,app:443] |
+      | Template              | reportType:Application , Widgets:[Requests per Second,End-to-End Time] ,Applications:[Rejith_32326515:80] |
       | Time Definitions.Date | Relative:[Weeks,4]                                                                                    |
       | Schedule              | Run Every:Once, On Time:+6H                                                                           |
       | share                 | Email:[automation.vision1@radware.com],Subject:mySubject,Body:myBody                                  |
       | Format                | Select: HTML                                                                                          |
     Then UI "Validate" Report With Name "Application Report1"
-      | Template              | reportType:Application , Widgets:[Requests per Second,End-to-End Time] ,Applications:[app:80,app:443] |
+      | Template              | reportType:Application , Widgets:[Requests per Second,End-to-End Time] ,Applications:[Rejith_32326515:80] |
       | Time Definitions.Date | Relative:[Weeks,4]                                                                                    |
       | Schedule              | Run Every:Once, On Time:+6H                                                                           |
       | share                 | Email:[automation.vision1@radware.com],Subject:mySubject,Body:myBody                                  |
@@ -146,12 +146,12 @@ Feature: Test Reports Definition
   @SID_10
   Scenario: create Application Report2
     Given UI "Create" Report With Name "Application Report2"
-      | Template              | reportType:Application ,Widgets:[Throughput (bps) ,Concurrent Connections] , Applications:[app:80,app:443] |
+      | Template              | reportType:Application ,Widgets:[Throughput (bps) ,Concurrent Connections] , Applications:[Rejith_32326515:80] |
       | Time Definitions.Date | Relative:[Months,5]                                                                                        |
       | share                 | Email:[automation.vision1@radware.com],Subject:mySubject,Body:myBody                                       |
       | Format                | Select: PDF                                                                                                |
     Then UI "Validate" Report With Name "Application Report2"
-      | Template              | reportType:Application ,Widgets:[Throughput (bps) ,Concurrent Connections] ,Applications:[app:80,app:443] |
+      | Template              | reportType:Application ,Widgets:[Throughput (bps) ,Concurrent Connections] ,Applications:[Rejith_32326515:80] |
       | Time Definitions.Date | Relative:[Months,5]                                                                                       |
       | share                 | Email:[automation.vision1@radware.com],Subject:mySubject,Body:myBody                                      |
       | Format                | Select: PDF                                                                                               |
@@ -190,13 +190,13 @@ Feature: Test Reports Definition
   @SID_13
   Scenario: create Application Report5
     Given UI "Create" Report With Name "Application Report5"
-      | Template              | reportType:Application ,Widgets:[Concurrent Connections] , Applications:[app:80,app:443] |
+      | Template              | reportType:Application ,Widgets:[Concurrent Connections] , Applications:[Rejith_32326515:80] |
       | Logo                  | reportLogoPNG.png                                                                        |
       | Time Definitions.Date | Quick:1H                                                                                 |
       | Schedule              | Run Every:Weekly, On Time:+6H, At Days:[TUE,WED]                                         |
       | Format                | Select: CSV                                                                              |
     Then UI "Validate" Report With Name "Application Report5"
-      | Template              | reportType:Application ,Widgets:[Concurrent Connections] , Applications:[app:80,app:443] |
+      | Template              | reportType:Application ,Widgets:[Concurrent Connections] , Applications:[Rejith_32326515:80] |
       | Logo                  | reportLogoPNG.png                                                                        |
       | Time Definitions.Date | Quick:1H                                                                                 |
       | Schedule              | Run Every:Weekly, On Time:+6H, At Days:[TUE,WED]                                         |
@@ -206,12 +206,12 @@ Feature: Test Reports Definition
   @SID_14
   Scenario: create Application Report6
     Given UI "Create" Report With Name "Application Report6"
-      | Template              | reportType:Application ,Widgets:[Connections per Second] ,Applications:[app:80,app:443] |
+      | Template              | reportType:Application ,Widgets:[Connections per Second] ,Applications:[Rejith_32326515:80] |
       | Time Definitions.Date | Quick:3M                                                                                |
       | Schedule              | Run Every:Weekly, On Time:+6H, At Days:[THU]                                            |
       | Format                | Select: CSV                                                                             |
     Then UI "Validate" Report With Name "Application Report6"
-      | Template              | reportType:Application ,Widgets:[Connections per Second] , Applications:[app:80,app:443] |
+      | Template              | reportType:Application ,Widgets:[Connections per Second] , Applications:[Rejith_32326515:80] |
       | Time Definitions.Date | Quick:3M                                                                                 |
       | Schedule              | Run Every:Weekly, On Time:+6H, At Days:[THU]                                             |
       | Format                | Select: CSV                                                                              |
@@ -308,13 +308,13 @@ Feature: Test Reports Definition
   @SID_20
   Scenario: create Application Report12
     Given UI "Create" Report With Name "Application Report12"
-      | Template              | reportType:Application ,Widgets:[Concurrent Connections,Connections per Second,Groups and Content Rules] , Applications:[app:80,app:443] |
+      | Template              | reportType:Application ,Widgets:[Concurrent Connections,Connections per Second,Groups and Content Rules] , Applications:[Rejith_32326515:80] |
       | Time Definitions.Date | Relative:[Days,3]                                                                                                                        |
       | Schedule              | Run Every:Monthly, On Time:+6H, At Months:[JAN,FEB,MAR,APR,MAY,JUN,JUL,AUG,SEP,OCT,NOV,DEC]                                              |
       | share                 | Email:[automation.vision1@radware.com],Subject:mySubject,Body:myBody                                                                     |
       | Format                | Select: CSV                                                                                                                              |
     Then UI "Validate" Report With Name "Application Report12"
-      | Template              | reportType:Application ,Widgets:[Concurrent Connections,Connections per Second,Groups and Content Rules] , Applications:[app:80,app:443] |
+      | Template              | reportType:Application ,Widgets:[Concurrent Connections,Connections per Second,Groups and Content Rules] , Applications:[Rejith_32326515:80] |
       | Time Definitions.Date | Relative:[Days,3]                                                                                                                        |
       | Schedule              | Run Every:Monthly, On Time:+6H, At Months:[JAN,FEB,MAR,APR,MAY,JUN,JUL,AUG,SEP,OCT,NOV,DEC]                                              |
       | share                 | Email:[automation.vision1@radware.com],Subject:mySubject,Body:myBody                                                                     |
@@ -324,13 +324,13 @@ Feature: Test Reports Definition
   @SID_21
   Scenario: create Application Report13
     Given UI "Create" Report With Name "Application Report13"
-      | Template              | reportType:Application ,Widgets:[Requests per Second,Throughput (bps),Groups and Content Rules,End-to-End Time] , Applications:[app:80,app:443] |
+      | Template              | reportType:Application ,Widgets:[Requests per Second,Throughput (bps),Groups and Content Rules,End-to-End Time] , Applications:[Rejith_32326515:80] |
       | Time Definitions.Date | Relative:[Weeks,4]                                                                                                                              |
       | Schedule              | Run Every:Once, On Time:+6H                                                                                                                     |
       | share                 | Email:[automation.vision1@radware.com],Subject:mySubject,Body:myBody                                                                            |
       | Format                | Select: HTML                                                                                                                                    |
     Then UI "Validate" Report With Name "Application Report13"
-      | Template              | reportType:Application ,Widgets:[Requests per Second,Throughput (bps),Groups and Content Rules,End-to-End Time] , Applications:[app:80,app:443] |
+      | Template              | reportType:Application ,Widgets:[Requests per Second,Throughput (bps),Groups and Content Rules,End-to-End Time] , Applications:[Rejith_32326515:80] |
       | Time Definitions.Date | Relative:[Weeks,4]                                                                                                                              |
       | Schedule              | Run Every:Once, On Time:+6H                                                                                                                     |
       | share                 | Email:[automation.vision1@radware.com],Subject:mySubject,Body:myBody                                                                            |
@@ -340,12 +340,12 @@ Feature: Test Reports Definition
   @SID_22
   Scenario: create Application Report14
     Given UI "Create" Report With Name "Application Report14"
-      | Template              | reportType:Application ,Widgets:[ALL] , Applications:[app:80,app:443] |
+      | Template              | reportType:Application ,Widgets:[ALL] , Applications:[Rejith_32326515:80] |
       | Time Definitions.Date | Relative:[Weeks,4]                                                    |
       | share                 | Email:[automation.vision1@radware.com],Subject:mySubject,Body:myBody  |
       | Format                | Select: PDF                                                           |
     Then UI "Validate" Report With Name "Application Report14"
-      | Template              | reportType:Application ,Widgets:[ALL] , Applications:[app:80,app:443] |
+      | Template              | reportType:Application ,Widgets:[ALL] , Applications:[Rejith_32326515:80] |
       | Time Definitions.Date | Relative:[Weeks,4]                                                    |
       | share                 | Email:[automation.vision1@radware.com],Subject:mySubject,Body:myBody  |
       | Format                | Select: PDF                                                           |
@@ -355,13 +355,13 @@ Feature: Test Reports Definition
   Scenario: create System and Network And Application Report1
     Given UI "Create" Report With Name "System and Network And Application Report1"
       | Template-1            | reportType:System and Network , Widgets:[Ports Traffic Information] , Applications:[Alteon_172.17.164.17] |
-      | Template-2            | reportType:Application ,Widgets:[ALL] , Applications:[app:80,app:443]                                     |
+      | Template-2            | reportType:Application ,Widgets:[ALL] , Applications:[Rejith_32326515:80]                                     |
       | Time Definitions.Date | Relative:[Months,5]                                                                                       |
       | share                 | Email:[automation.vision1@radware.com],Subject:mySubject,Body:myBody                                      |
       | Format                | Select: PDF                                                                                               |
     Then UI "Validate" Report With Name "System and Network And Application Report1"
       | Template-1            | reportType:System and Network , Widgets:[Ports Traffic Information] , Applications:[Alteon_172.17.164.17] |
-      | Template-2            | reportType:Application ,Widgets:[ALL] , Applications:[app:80,app:443]                                     |
+      | Template-2            | reportType:Application ,Widgets:[ALL] , Applications:[Rejith_32326515:80]                                     |
       | Time Definitions.Date | Relative:[Months,5]                                                                                       |
       | share                 | Email:[automation.vision1@radware.com],Subject:mySubject,Body:myBody                                      |
       | Format                | Select: PDF                                                                                               |
@@ -504,14 +504,14 @@ Feature: Test Reports Definition
   Scenario: create System and Network And Application Report11
     Given UI "Create" Report With Name "System and Network And Application Report11"
       | Template-1            | reportType:System and Network , Widgets:[Ports Traffic Information] , Applications:[Alteon_172.17.164.17]                             |
-      | Template-2            | reportType:Application,Widgets:[Concurrent Connections,Connections per Second,Groups and Content Rules],Applications:[app:80,app:443] |
+      | Template-2            | reportType:Application,Widgets:[Concurrent Connections,Connections per Second,Groups and Content Rules],Applications:[Rejith_32326515:80] |
       | Time Definitions.Date | Relative:[Days,3]                                                                                                                     |
       | Schedule              | Run Every:Monthly, On Time:+6H, At Months:[JAN,FEB,MAR,APR,MAY,JUN,JUL,AUG,SEP,OCT,NOV,DEC]                                           |
       | share                 | Email:[automation.vision1@radware.com],Subject:mySubject,Body:myBody                                                                  |
       | Format                | Select: CSV                                                                                                                           |
     Then UI "Validate" Report With Name "System and Network And Application Report11"
       | Template-1            | reportType:System and Network , Widgets:[Ports Traffic Information] , Applications:[Alteon_172.17.164.17]                             |
-      | Template-2            | reportType:Application,Widgets:[Concurrent Connections,Connections per Second,Groups and Content Rules],Applications:[app:80,app:443] |
+      | Template-2            | reportType:Application,Widgets:[Concurrent Connections,Connections per Second,Groups and Content Rules],Applications:[Rejith_32326515:80] |
       | Time Definitions.Date | Relative:[Days,3]                                                                                                                     |
       | Schedule              | Run Every:Monthly, On Time:+6H, At Months:[JAN,FEB,MAR,APR,MAY,JUN,JUL,AUG,SEP,OCT,NOV,DEC]                                           |
       | share                 | Email:[automation.vision1@radware.com],Subject:mySubject,Body:myBody                                                                  |
@@ -522,14 +522,14 @@ Feature: Test Reports Definition
   Scenario: create System and Network And Application Report12
     Given UI "Create" Report With Name "System and Network And Application Report12"
       | Template-1            | reportType:System and Network , Widgets:[Ports Traffic Information] , Applications:[Alteon_172.17.164.17]                                    |
-      | Template-2            | reportType:Application,Widgets:[Requests per Second,Throughput (bps),Groups and Content Rules,End-to-End Time],Applications:[app:80,app:443] |
+      | Template-2            | reportType:Application,Widgets:[Requests per Second,Throughput (bps),Groups and Content Rules,End-to-End Time],Applications:[Rejith_32326515:80] |
       | Time Definitions.Date | Relative:[Weeks,4]                                                                                                                           |
       | Schedule              | Run Every:Once, On Time:+6H                                                                                                                  |
       | share                 | Email:[automation.vision1@radware.com],Subject:mySubject,Body:myBody                                                                         |
       | Format                | Select: HTML                                                                                                                                 |
     Then UI "Validate" Report With Name "System and Network And Application Report12"
       | Template-1            | reportType:System and Network , Widgets:[Ports Traffic Information] , Applications:[Alteon_172.17.164.17]                                    |
-      | Template-2            | reportType:Application,Widgets:[Requests per Second,Throughput (bps),Groups and Content Rules,End-to-End Time],Applications:[app:80,app:443] |
+      | Template-2            | reportType:Application,Widgets:[Requests per Second,Throughput (bps),Groups and Content Rules,End-to-End Time],Applications:[Rejith_32326515:80] |
       | Time Definitions.Date | Relative:[Weeks,4]                                                                                                                           |
       | Schedule              | Run Every:Once, On Time:+6H                                                                                                                  |
       | share                 | Email:[automation.vision1@radware.com],Subject:mySubject,Body:myBody                                                                         |
@@ -587,14 +587,14 @@ Feature: Test Reports Definition
   Scenario: create System and Network And Application Report4
     Given UI "Create" Report With Name "System and Network And Application Report4"
       | Template-1            | reportType:System and Network , Widgets:[Ports Traffic Information] , Applications:[Alteon_172.17.164.17] |
-      | Template-2            | reportType:Application ,Widgets:[Concurrent Connections] , Applications:[app:80,app:443]                  |
+      | Template-2            | reportType:Application ,Widgets:[Concurrent Connections] , Applications:[Rejith_32326515:80]                  |
       | Logo                  | reportLogoPNG.png                                                                                         |
       | Time Definitions.Date | Quick:1H                                                                                                  |
       | Schedule              | Run Every:Weekly, On Time:+6H, At Days:[TUE,WED]                                                          |
       | Format                | Select: CSV                                                                                               |
     Then UI "Validate" Report With Name "System and Network And Application Report4"
       | Template-1            | reportType:System and Network , Widgets:[Ports Traffic Information] , Applications:[Alteon_172.17.164.17] |
-      | Template-2            | reportType:Application ,Widgets:[Concurrent Connections] ,Applications:[app:80,app:443]                   |
+      | Template-2            | reportType:Application ,Widgets:[Concurrent Connections] ,Applications:[Rejith_32326515:80]                   |
       | Logo                  | reportLogoPNG.png                                                                                         |
       | Time Definitions.Date | Quick:1H                                                                                                  |
       | Schedule              | Run Every:Weekly, On Time:+6H, At Days:[TUE,WED]                                                          |
@@ -605,13 +605,13 @@ Feature: Test Reports Definition
   Scenario: create System and Network And Application Report5
     Given UI "Create" Report With Name "System and Network And Application Report5"
       | Template-1            | reportType:System and Network , Widgets:[Ports Traffic Information] , Applications:[Alteon_172.17.164.17] |
-      | Template-2            | reportType:Application ,Widgets:[Connections per Second] , Applications:[app:80,app:443]                  |
+      | Template-2            | reportType:Application ,Widgets:[Connections per Second] , Applications:[Rejith_32326515:80]                  |
       | Time Definitions.Date | Quick:3M                                                                                                  |
       | Schedule              | Run Every:Weekly, On Time:+6H, At Days:[THU]                                                              |
       | Format                | Select: CSV                                                                                               |
     Then UI "Validate" Report With Name "System and Network And Application Report5"
       | Template-1            | reportType:System and Network , Widgets:[Ports Traffic Information] , Applications:[Alteon_172.17.164.17] |
-      | Template-2            | reportType:Application ,Widgets:[Connections per Second] , Applications:[app:80,app:443]                  |
+      | Template-2            | reportType:Application ,Widgets:[Connections per Second] , Applications:[Rejith_32326515:80]                  |
       | Time Definitions.Date | Quick:3M                                                                                                  |
       | Schedule              | Run Every:Weekly, On Time:+6H, At Days:[THU]                                                              |
       | Format                | Select: CSV                                                                                               |
