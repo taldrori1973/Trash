@@ -16,14 +16,14 @@ Feature: Edit ADC Report tests
       | Time Definitions.Date | Quick:1D                                                                                                  |
       | Schedule              | Run Every:Daily ,On Time:+2m                                                                              |
       | share                 | Email:[automation.vision1@radware.com],Subject:mySubject,Body:myBody                                      |
-      | Format                | Select:  CSV                                                                                              |
+      | Format                | Select:  PDF                                                                                              |
     Then UI "Validate" Report With Name "ADC Report"
       | Template-1            | reportType:Application ,Widgets:[Concurrent Connections] , Applications:[ALL]                             |
       | Template-2            | reportType:System and Network , Widgets:[Ports Traffic Information] , Applications:[Alteon_172.17.164.17] |
       | Time Definitions.Date | Quick:1D                                                                                                  |
       | Schedule              | Run Every:Daily ,On Time:+2m                                                                              |
       | share                 | Email:[automation.vision1@radware.com],Subject:mySubject,Body:myBody                                      |
-      | Format                | Select: CSV                                                                                               |
+      | Format                | Select: PDF                                                                                               |
 
   @SID_3
   Scenario: Add Template Widget to ADC Report
@@ -105,6 +105,6 @@ Feature: Edit ADC Report tests
     Then UI Delete Report With Name "ADC Report"
     Then UI Delete Report With Name "ADC Report2"
 
-  @SID_12
+  @SID_11
   Scenario: Logout
     Then UI logout and close browser
