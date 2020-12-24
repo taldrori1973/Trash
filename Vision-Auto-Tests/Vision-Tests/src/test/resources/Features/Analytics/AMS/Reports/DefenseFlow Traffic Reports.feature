@@ -60,7 +60,9 @@ Feature: DefenseFlow Traffic Reports
 
   @SID_7
   Scenario: Generate Report
-    Then UI Generate and Validate Report With Name "DF_Traffic" with Timeout of 120 Seconds
+    Then UI Click Button "My Report" with value "DF_Traffic"
+    Then UI Click Button "Generate Report Manually" with value "DF_Traffic"
+    Then Sleep "35"
 
   @SID_8
   Scenario: Validate Report Email recieved content
