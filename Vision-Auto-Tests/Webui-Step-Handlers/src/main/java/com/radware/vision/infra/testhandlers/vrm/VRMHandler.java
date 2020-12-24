@@ -48,6 +48,7 @@ import java.time.format.DateTimeFormatter;
 import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import java.util.stream.Collectors;
 import java.util.stream.StreamSupport;
 
 import static com.radware.vision.infra.testhandlers.BaseHandler.devicesManager;
@@ -135,7 +136,7 @@ public class VRMHandler {
                 if (isLegendNameExistAndShouldReturn(chart, entry)) return;
                 if (isLabanAndEntryExists(chart, entry)) return;
                 int legendIndex;
-                legendIndex = legends.toList().indexOf(entry.legendName);
+                legendIndex = legends.toList().stream().map(s-> String.valueOf(s)).collect(Collectors.toList()).indexOf(entry.legendName);
                 if (legendIndex == -1) {
                     addErrorMessage("There is no legend with name " + entry.legendName);
                     scrollAndTakeScreenshot(chart);
@@ -1318,6 +1319,7 @@ public class VRMHandler {
         String legendName;
         Integer count;
         Integer countOffset;
+        Integer min;
 
         @Override
         public String toString() {
