@@ -404,7 +404,6 @@ public class RemoteSshCommandsTests extends BddCliTestBase {
     }
 
     /**
-     *
      * @param user - either "setup" that will use the setup IP address or any other domain
      */
     @Given("^Clear email history for user \"(setup|.*)\"$")
@@ -422,7 +421,6 @@ public class RemoteSshCommandsTests extends BddCliTestBase {
     }
 
     /**
-     *
      * @return setup' IP address for email domain
      */
     private String getSetUpDomain() {
@@ -430,14 +428,13 @@ public class RemoteSshCommandsTests extends BddCliTestBase {
     }
 
     /**
-     *
-     * @param domain - "setup" or any other domain
-     * @param expression - the query without the file path
-     * @param operatorsEnum - OperatorsEnum ENUM
+     * @param domain         - "setup" or any other domain
+     * @param expression     - the query without the file path
+     * @param operatorsEnum  - OperatorsEnum ENUM
      * @param expectedResult - cli last line output
      */
     @Given("^Validate \"(setup|.*)\" user eMail expression \"(.*)\" (EQUALS|NOT_EQUALS|CONTAINS|GT|GTE|LT|LTE) \"(.*)\"$")
-    public void validateEmail(String domain, String expression, OperatorsEnum operatorsEnum, String expectedResult){
+    public void validateEmail(String domain, String expression, OperatorsEnum operatorsEnum, String expectedResult) {
         if (domain.equalsIgnoreCase("setup"))
             domain = getSetUpDomain();
         String commandToExecute = String.format("%s /var/spool/mail/%s |wc -l", expression, domain);
@@ -451,7 +448,7 @@ public class RemoteSshCommandsTests extends BddCliTestBase {
 
     @Given("^CLI Reset radware password$")
     public static void resetPassword() {
-        if (restTestBase.getRootServerCli().isConnected()) {
+        if (restTestBase.getRootServerCli() != null && restTestBase.getRootServerCli().isConnected()) {
             FileSteps f = new FileSteps();
             f.scp("/home/radware/Scripts/restore_radware_user_stand_alone.sh", SUTEntryType.GENERIC_LINUX_SERVER, SUTEntryType.ROOT_SERVER_CLI, "/");
             CliOperations.runCommand(restTestBase.getRootServerCli(), "yes | /restore_radware_user_stand_alone.sh", CliOperations.DEFAULT_TIME_OUT);
