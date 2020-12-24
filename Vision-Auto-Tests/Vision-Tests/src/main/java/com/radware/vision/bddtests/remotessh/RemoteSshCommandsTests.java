@@ -387,7 +387,7 @@ public class RemoteSshCommandsTests extends BddCliTestBase {
             if (actualResult == 0) {
                 commandToExecute = "sudo useradd " + domain;
                 CliOperations.runCommand(getSUTEntryTypeByServerCliBase(GENERIC_LINUX_SERVER), commandToExecute, 10 * 1000);
-                commandToExecute = String.format("touch /var/mail/%s", domain);
+                commandToExecute = String.format("sudo touch /var/mail/%s", domain);
                 CliOperations.runCommand(getSUTEntryTypeByServerCliBase(GENERIC_LINUX_SERVER), commandToExecute, 10 * 1000);
                 commandToExecute = String.format("sudo chown %s /var/mail/%s", domain, domain);
                 CliOperations.runCommand(getSUTEntryTypeByServerCliBase(GENERIC_LINUX_SERVER), commandToExecute, 10 * 1000);
