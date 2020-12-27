@@ -381,10 +381,13 @@ public class RemoteSshCommandsTests extends BddCliTestBase {
         try {
             getSUTEntryTypeByServerCliBase(GENERIC_LINUX_SERVER).connect();
             String domain = getSetUpDomain();
-            String commandToExecute = String.format("cut -d: -f1 /etc/passwd |grep %s |wc -l", domain);
+            String file = "/etc/postfix/virtual";
+            int actualResult = -1;
+            String commandToExecute = String.format("grep -c \"%s\" %s", domain, file);
             CliOperations.runCommand(getSUTEntryTypeByServerCliBase(GENERIC_LINUX_SERVER), commandToExecute, 10 * 1000);
-            int actualResult = parseInt(CliOperations.lastRow.trim());
-            if (actualResult == 0) {
+            actualResult = parseInt(CliOperations.lastRow.trim());
+            if(actualResult == 0) //need to add
+            {
                 commandToExecute = "sudo useradd " + domain;
                 CliOperations.runCommand(getSUTEntryTypeByServerCliBase(GENERIC_LINUX_SERVER), commandToExecute, 10 * 1000);
                 commandToExecute = String.format("sudo touch /var/mail/%s", domain);
@@ -394,7 +397,8 @@ public class RemoteSshCommandsTests extends BddCliTestBase {
                 commandToExecute = String.format("sudo chmod 666 /var/mail/%s", domain);
                 CliOperations.runCommand(getSUTEntryTypeByServerCliBase(GENERIC_LINUX_SERVER), commandToExecute, 10 * 1000);
                 String line = String.format("/@%s.local/   %s", domain, domain);
-                String file = "/etc/postfix/virtual";
+                commandToExecute = String.format("sudo chmod 666 %s", file);
+                CliOperations.runCommand(getSUTEntryTypeByServerCliBase(GENERIC_LINUX_SERVER), commandToExecute, 10 * 1000);
                 commandToExecute = String.format("sudo grep -qF -- \"%s\" \"%s\" || echo \"%s\" >> \"%s\"", line, file, line, file);
                 CliOperations.runCommand(getSUTEntryTypeByServerCliBase(GENERIC_LINUX_SERVER), commandToExecute, 10 * 1000);
             }
