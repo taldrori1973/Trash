@@ -1,4 +1,4 @@
-
+@noam99
 Feature: Edit AppWall tests
 
 
@@ -19,7 +19,7 @@ Feature: Edit AppWall tests
       | Template-1            | reportType:AppWall , Widgets:[Geolocation] , Applications:[All] , showTable:false          |
       | Template-2            | reportType:AppWall , Widgets:[Attacks by Action] , Applications:[Vision] , showTable:false |
       | Logo                  | reportLogoPNG.png                                                                          |
-      | Time Definitions.Date | Absolute:[27.02.1971 01:00, +0d]                                                           |
+      | Time Definitions.Date | Quick:1D                                                                                   |
       | Schedule              | Run Every:Monthly, On Time:+6H, At Months:[APR]                                            |
       | Share                 | Email:[automation.vision2@radware.com],Subject:myEdit subject,Body:myEdit body             |
       | Format                | Select: PDF                                                                                |
@@ -27,7 +27,7 @@ Feature: Edit AppWall tests
       | Template-1            | reportType:AppWall , Widgets:[Geolocation] , Applications:[All] , showTable:false          |
       | Template-2            | reportType:AppWall , Widgets:[Attacks by Action] , Applications:[Vision] , showTable:false |
       | Logo                  | reportLogoPNG.png                                                                          |
-      | Time Definitions.Date | Absolute:[27.02.1971 01:00, +0d]                                                           |
+      | Time Definitions.Date | Quick:1D                                                                                   |
       | Schedule              | Run Every:Monthly, On Time:+6H, At Months:[APR]                                            |
       | Share                 | Email:[automation.vision2@radware.com],Subject:myEdit subject,Body:myEdit body             |
       | Format                | Select: PDF                                                                                |
@@ -36,17 +36,17 @@ Feature: Edit AppWall tests
   @SID_4
   Scenario: Add Template Widget to AppWall
     Given UI "Edit" Report With Name "AppWall Report"
-      | Template-2            | reportType:AppWall , AddWidgets:[Top Sources] , Applications:[All] , showTable:false                            |
+      | Template-1            | reportType:AppWall , AddWidgets:[Top Sources] , Applications:[All] , showTable:false                      |
     Then UI "Validate" Report With Name "AppWall Report"
-      | Template-2            | reportType:AppWall , Widgets:[Attacks by Action,Top Sources] , Applications:[All] , showTable:false             |
+      | Template-1            | reportType:AppWall , Widgets:[Geolocation,Top Sources] , Applications:[All] , showTable:false             |
 
 
   @SID_5
   Scenario: Delete Template Widget from AppWall
     Given UI "Edit" Report With Name "AppWall Report"
-      | Template-2            | reportType:AppWall , DeleteWidgets:[Top Sources] , Applications:[All] , showTable:false          |
+      | Template-1            | reportType:AppWall , DeleteWidgets:[Top Sources] , Applications:[All] , showTable:false          |
     Then UI "Validate" Report With Name "AppWall Report"
-      | Template-2            | reportType:AppWall , Widgets:[Attacks by Action] , Applications:[All] , showTable:false          |
+      | Template-1            | reportType:AppWall , Widgets:[Geolocation] , Applications:[All] , showTable:false          |
 
   @SID_6
   Scenario: Edit Template Devices from AppWall Report
@@ -60,7 +60,7 @@ Feature: Edit AppWall tests
     Given UI "Edit" Report With Name "AppWall Report"
       | Template-3            | reportType:AppWall , Widgets:[Attack Severity] , Applications:[Vision] , showTable:false   |
     Then UI "Validate" Report With Name "AppWall Report"
-      | Template-1            | reportType:AppWall , Widgets:[Top Sources] , Applications:[All] , showTable:false          |
+      | Template-1            | reportType:AppWall , Widgets:[Geolocation] , Applications:[Vision] , showTable:false       |
       | Template-2            | reportType:AppWall , Widgets:[Attacks by Action] , Applications:[Vision] , showTable:false |
       | Template-3            | reportType:AppWall , Widgets:[Attack Severity] , Applications:[Vision] , showTable:false   |
 
@@ -69,7 +69,7 @@ Feature: Edit AppWall tests
     Given UI "Edit" Report With Name "AppWall Report"
       | Template-3            | DeleteTemplate:true                                                                        |
     Then UI "Validate" Report With Name "AppWall Report"
-      | Template-1            | reportType:AppWall , Widgets:[Top Sources] , Applications:[All] , showTable:false          |
+      | Template-1            | reportType:AppWall , Widgets:[Geolocation] , Applications:[Vision] , showTable:false       |
       | Template-2            | reportType:AppWall , Widgets:[Attacks by Action] , Applications:[Vision] , showTable:false |
 
   @SID_9
@@ -107,17 +107,17 @@ Feature: Edit AppWall tests
     Then UI Click Button "Edit Report" with value "AppWall Report2"
     Then UI Set Text Field "Report Name" To "AppWall Report"
     Then UI Click Button "save"
-    Then UI Text of "Error message title" equal to "Unable To Save Report"
+    Then UI Text of "Error message title" equal to "Unable to Save Report"
     Then UI Text of "Error message description" equal to "Report name must be unique. There is already another report with name 'AppWall Report'"
     Then UI Click Button "errorMessageOK"
     Then UI Click Button "cancel"
     Then UI Text of "Save Change Message" contains "Do you want to save "AppWall Report"?"
     Then UI Click Button "Yes"
-    Then UI Text of "Error message title" equal to "Unable To Save Report"
-    Then UI Text of "Error message description" equal to "Report name must be unique. There is already another report with name 'AppWall Report2'"
+    Then UI Text of "Error message title" equal to "Unable to Save Report"
+    Then UI Text of "Error message description" equal to "Report name must be unique. There is already another report with name 'AppWall Report'"
     Then UI Click Button "errorMessageOK"
     Then UI Click Button "cancel"
-    Then UI Text of "Save Change Message" contains "Do you want to save "AppWall Report2"?"
+    Then UI Text of "Save Change Message" contains "Do you want to save "AppWall Report"?"
     Then UI Click Button "No"
 
   @SID_13
