@@ -103,7 +103,7 @@ Feature: Edit AppWall tests
 
   @SID_12
   Scenario: Edit AppWall Report2 report name
-    Then UI Click Button "My Report Tab"
+    Then UI Click Button "My Reports Tab"
     Then UI Click Button "Edit Report" with value "AppWall Report2"
     Then UI Set Text Field "Report Name" To "AppWall Report"
     Then UI Click Button "save"
