@@ -70,35 +70,35 @@ Feature:Edit DefensePro Behavioral Protections
       | Template-2 | reportType:DefensePro Behavioral Protections, Widgets:[{Excluded UDP Traffic:[IPv6, bps, Outbound]}], devices:[{deviceIndex:10, devicePolicies:[BDOS]}] |
 
   @SID_8
-  Scenario: Edit Template Devices from DefensePro Behavioral Protections Report
+  Scenario: Edit Template Devices from DefensePro Behavioral Protections Report 1
     Given UI "Edit" Report With Name "DefensePro Behavioral Protections Report"
-      | Template-1 | reportType:DefensePro Behavioral Protections,devices:[{deviceIndex:11}] |
+      | Template-1 | reportType:DefensePro Behavioral Protections,devices:[{deviceIndex:11, devicePolicies:[BDOS]}] |
     Then UI "Validate" Report With Name "DefensePro Behavioral Protections Report"
-      | Template-1 | reportType:DefensePro Behavioral Protections,Widgets:[{BDoS-UDP:[IPv4, bps,Outbound]}], devices:[{deviceIndex:11}] |
+      | Template-1 | reportType:DefensePro Behavioral Protections,Widgets:[{BDoS-UDP:[IPv4, bps,Outbound]}], devices:[{deviceIndex:11, devicePolicies:[BDOS]}] |
 
   @SID_9
-  Scenario: Edit Template Devices from DefensePro Behavioral Protections Report
+  Scenario: Edit Template Devices from DefensePro Behavioral Protections Report 2
     Given UI "Edit" Report With Name "DefensePro Behavioral Protections Report"
-      | Template-2 | reportType:DefensePro Behavioral Protections,devices:[{deviceIndex:11}] |
+      | Template-2 | reportType:DefensePro Behavioral Protections,devices:[{deviceIndex:11, devicePolicies:[BDOS]}] |
     Then UI "Validate" Report With Name "DefensePro Behavioral Protections Report"
-      | Template-2 | reportType:DefensePro Behavioral Protections,Widgets:[{Excluded UDP Traffic:[IPv6, bps, Outbound]}], devices:[{deviceIndex:11}] |
+      | Template-2 | reportType:DefensePro Behavioral Protections,Widgets:[{Excluded UDP Traffic:[IPv6, bps, Outbound]}], devices:[{deviceIndex:11, devicePolicies:[BDOS]}] |
 
   @SID_10
   Scenario:Add Template to DefensePro Behavioral Protections Report
     Given UI "Edit" Report With Name "DefensePro Behavioral Protections Report"
-      | Template-3 | reportType:DefensePro Behavioral Protections , Widgets:[{BDoS-TCP SYN ACK:[IPv4,bps,Outbound]}] ,devices:[{deviceIndex:11}] |
+      | Template-3 | reportType:DefensePro Behavioral Protections , Widgets:[{BDoS-TCP SYN ACK:[IPv4,bps,Outbound]}] ,devices:[{deviceIndex:11, devicePolicies:[BDOS]}] |
     Then UI "Validate" Report With Name "DefensePro Behavioral Protections Report"
-      | Template-1 | reportType:DefensePro Behavioral Protections,Widgets:[{BDoS-UDP:[IPv4, bps,Outbound]}], devices:[{deviceIndex:11}]              |
-      | Template-2 | reportType:DefensePro Behavioral Protections,Widgets:[{Excluded UDP Traffic:[IPv6, bps, Outbound]}], devices:[{deviceIndex:11}] |
-      | Template-3 | reportType:DefensePro Behavioral Protections , Widgets:[{BDoS-TCP SYN ACK:[IPv4,bps,Outbound]}] ,devices:[{deviceIndex:11}]     |
+      | Template-1 | reportType:DefensePro Behavioral Protections,Widgets:[{BDoS-UDP:[IPv4, bps,Outbound]}], devices:[{deviceIndex:11, devicePolicies:[BDOS]}]              |
+      | Template-2 | reportType:DefensePro Behavioral Protections,Widgets:[{Excluded UDP Traffic:[IPv6, bps, Outbound]}], devices:[{deviceIndex:11, devicePolicies:[BDOS]}] |
+      | Template-3 | reportType:DefensePro Behavioral Protections , Widgets:[{BDoS-TCP SYN ACK:[IPv4,bps,Outbound]}] ,devices:[{deviceIndex:11, devicePolicies:[BDOS]}]     |
 
   @SID_10
   Scenario: Delete Template from DefensePro Behavioral Protections Report
     Given UI "Edit" Report With Name "DefensePro Behavioral Protections Report"
       | Template-3 | DeleteTemplate:true |
     Then UI "Validate" Report With Name "DefensePro Behavioral Protections Report"
-      | Template-1 | reportType:DefensePro Behavioral Protections,Widgets:[{BDoS-UDP:[IPv4, bps,Outbound]}], devices:[{deviceIndex:11}]               |
-      | Template-2 | reportType:DefensePro Behavioral Protections,Widgets:[{Excluded UDP Traffic:[IPv6, bps, Outbound]}], devices:[{deviceIndex:11}]  |
+      | Template-1 | reportType:DefensePro Behavioral Protections,Widgets:[{BDoS-UDP:[IPv4, bps,Outbound]}], devices:[{deviceIndex:11, devicePolicies:[BDOS]}]               |
+      | Template-2 | reportType:DefensePro Behavioral Protections,Widgets:[{Excluded UDP Traffic:[IPv6, bps, Outbound]}], devices:[{deviceIndex:11, devicePolicies:[BDOS]}]  |
 
   @SID_12
   Scenario: Edit The Time and validate
