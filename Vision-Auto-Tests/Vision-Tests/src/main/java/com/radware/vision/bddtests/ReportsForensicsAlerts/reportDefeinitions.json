@@ -1224,40 +1224,161 @@
   },
   {
     "version": 1,
-    "id": "AXaPiBLBCsuXsLPBPJ0L",
+    "id": "AXatyZZEmNsdPWL8ZN_k",
     "state": "disabled",
     "templates": [
       {
-        "templateType": "systemDevices",
-        "templateId": "4483b82c-9ff7-4374-b9de-8548cefdb5d0",
+        "templateType": "eaaf",
+        "templateId": "5abe1b4b-6e55-416d-be63-eff1ea384850",
         "widgets": [
           {
-            "id": "111e2885-b1f8-4334-b254-6ad3b2ee76d6",
-            "scopeId": "systemDevicesScope",
-            "templateId": "systemDevices",
-            "component": "comp-vrm-dpm-servers-info-table",
-            "metaData": "{\\\"title\\\":\\\"Ports Traffic Information\\\",\\\"dashboardType\\\":\\\"systemDevices\\\",\\\"componentType\\\":\\\"port-info-table\\\",\\\"uuid\\\":\\\"7e7fd2cf-d094-41d2-ac98-c63649d73333\\\",\\\"settings\\\":{},\\\"config\\\":{\\\"api\\\":\\\"ADC_MONITORING_NETWORK_RAW\\\",\\\"chartType\\\":\\\"area\\\",\\\"settings\\\":{},\\\"type\\\":\\\"area\\\"}}"
+            "id": "34291b7d-38ef-4855-b915-179786d541d5",
+            "scopeId": "eaafScope",
+            "templateId": "eaaf",
+            "component": "eaaf-totalHits",
+            "metaData": "{\\\"title\\\":\\\"Total Hits Summary\\\",\\\"dashboardType\\\":\\\"eaafDashboard\\\",\\\"componentType\\\":\\\"eaaf-totalHits\\\"}"
+          },
+          {
+            "id": "e4d45e2c-f1d2-4101-a01f-bb3c4535a803",
+            "scopeId": "eaafScope",
+            "templateId": "eaaf",
+            "component": "eaaf-top-malicious-ip-addresses",
+            "metaData": "{\\\"title\\\":\\\"Top Malicious IP Addresses\\\",\\\"dashboardType\\\":\\\"eaafDashboard\\\",\\\"componentType\\\":\\\"eaaf-top-malicious-ip-addresses\\\",\\\"togglesData\\\":[{\\\"field\\\":\\\"tab\\\",\\\"value\\\":\\\"packets\\\"}],\\\"togglesCriteria\\\":[{\\\"criteriaToggle\\\":{\\\"fieldId\\\":\\\"tab\\\",\\\"options\\\":[{\\\"value\\\":\\\"Events\\\",\\\"title\\\":\\\"Events\\\"},{\\\"value\\\":\\\"Packets\\\",\\\"title\\\":\\\"Packets\\\"},{\\\"value\\\":\\\"Volume\\\",\\\"title\\\":\\\"Volume\\\"}]}}]}"
+          },
+          {
+            "id": "b297dd82-e795-4a99-b0f9-d329ac3c382d",
+            "scopeId": "eaafScope",
+            "templateId": "eaaf",
+            "component": "eaaf-top-attacking-by-countries",
+            "metaData": "{\\\"title\\\":\\\"Top Attacking Geolocations\\\",\\\"dashboardType\\\":\\\"eaafDashboard\\\",\\\"componentType\\\":\\\"eaaf-top-attacking-by-countries\\\",\\\"togglesData\\\":[{\\\"field\\\":\\\"tab\\\",\\\"value\\\":\\\"packets\\\"}],\\\"togglesCriteria\\\":[{\\\"criteriaToggle\\\":{\\\"fieldId\\\":\\\"tab\\\",\\\"options\\\":[{\\\"value\\\":\\\"Events\\\",\\\"title\\\":\\\"Events\\\"},{\\\"value\\\":\\\"Packets\\\",\\\"title\\\":\\\"Packets\\\"},{\\\"value\\\":\\\"Volume\\\",\\\"title\\\":\\\"Volume\\\"}]}}]}"
+          },
+          {
+            "id": "eda049ae-f88b-4818-88e0-72908c05eddd",
+            "scopeId": "eaafScope",
+            "templateId": "eaaf",
+            "component": "eaaf-breakdown-by-malicious-activity",
+            "metaData": "{\\\"title\\\":\\\"Breakdown by Malicious Activity\\\",\\\"dashboardType\\\":\\\"eaafDashboard\\\",\\\"componentType\\\":\\\"eaaf-breakdown-by-malicious-activity\\\",\\\"togglesData\\\":[{\\\"field\\\":\\\"tab\\\",\\\"value\\\":\\\"packets\\\"}],\\\"togglesCriteria\\\":[{\\\"criteriaToggle\\\":{\\\"fieldId\\\":\\\"tab\\\",\\\"options\\\":[{\\\"value\\\":\\\"Events\\\",\\\"title\\\":\\\"Events\\\"},{\\\"value\\\":\\\"Packets\\\",\\\"title\\\":\\\"Packets\\\"},{\\\"value\\\":\\\"Volume\\\",\\\"title\\\":\\\"Volume\\\"}]}}]}"
+          },
+          {
+            "id": "944d0a69-f84b-4dd5-a853-9e3c0c2ba6fa",
+            "scopeId": "eaafScope",
+            "templateId": "eaaf",
+            "component": "eaaf-hits-timeline",
+            "metaData": "{\\\"title\\\":\\\"EAAF Hits Timeline\\\",\\\"dashboardType\\\":\\\"eaafDashboard\\\",\\\"componentType\\\":\\\"eaaf-hits-timeline\\\",\\\"togglesData\\\":[{\\\"field\\\":\\\"tab\\\",\\\"value\\\":\\\"packets\\\"}],\\\"togglesCriteria\\\":[{\\\"criteriaToggle\\\":{\\\"fieldId\\\":\\\"tab\\\",\\\"options\\\":[{\\\"value\\\":\\\"Events\\\",\\\"title\\\":\\\"Events\\\"},{\\\"value\\\":\\\"Packets\\\",\\\"title\\\":\\\"Packets\\\"},{\\\"value\\\":\\\"Volume\\\",\\\"title\\\":\\\"Volume\\\"}]}}]}"
+          },
+          {
+            "id": "42e8ae1d-e4fa-493e-b3b2-ec42cd8e98e3",
+            "scopeId": "eaafScope",
+            "templateId": "eaaf",
+            "component": "eaaf-total-summary",
+            "metaData": "{\\\"title\\\":\\\"Totals in Selected Time Frame\\\",\\\"dashboardType\\\":\\\"eaafDashboard\\\",\\\"componentType\\\":\\\"eaaf-total-summary\\\"}"
+          }
+        ],
+        "scope": [],
+        "summaryTable": false,
+        "printScopePreview": true,
+        "templateTitle": "EAAF"
+      }
+    ],
+    "timeFrame": "{\\\"quickRangeSelection\\\":\\\"15m\\\",\\\"rangeType\\\":\\\"quick\\\",\\\"quickRangeUnit\\\":\\\"minute\\\",\\\"quickRangeValue\\\":15,\\\"generatedTimeFrame\\\":{\\\"precision\\\":\\\"MINUTE\\\",\\\"baseUnit\\\":\\\"minutes\\\",\\\"unit\\\":\\\"minute\\\",\\\"baseUnitStep\\\":5,\\\"dateTimeFormat\\\":\\\"HH:mm\\\",\\\"value\\\":15,\\\"baseUnitDisplaySkip\\\":1,\\\"dataPoints\\\":16,\\\"fromDate\\\":1609232524840,\\\"toDate\\\":1609233424840,\\\"type\\\":\\\"timeFrame\\\",\\\"amsRawDataHoursDiff\\\":1,\\\"fiveMinutePrecisionHours\\\":1,\\\"dateFormat\\\":\\\"dd.MM.yyyy\\\",\\\"timeFormat\\\":\\\"HH:mm:ss\\\",\\\"timezone\\\":\\\"Asia/Jerusalem\\\",\\\"utcOffset\\\":120}}",
+    "reportName": "EAAF Report",
+    "scheduling": null,
+    "exportFormat": {
+      "type": "pdf"
+    },
+    "logo": {
+      "file": null,
+      "fileName": null
+    },
+    "deliveryMethod": {
+      "email": {
+        "recipients": [],
+        "subject": "",
+        "message": ""
+      },
+      "ftp": null
+    },
+    "tags": [
+      "ams"
+    ],
+    "userName": "radware",
+    "userRoles": [
+      "SYS_ADMIN"
+    ]
+  },
+  {
+    "version": 1,
+    "id": "AXaypvDCo5_JJC2F8kIP",
+    "state": "disabled",
+    "templates": [
+      {
+        "templateType": "systemApplications",
+        "templateId": "b07a71cb-6006-41fa-af45-95b3d024ebbf",
+        "widgets": [
+          {
+            "id": "78554d7a-e89d-416b-bb07-37f54eacb82f",
+            "scopeId": "systemApplicationsScope",
+            "templateId": "systemApplications",
+            "component": "comp-vrm-dpm-generic-area-chart",
+            "metaData": "{\\\"title\\\":\\\"Requests per Second\\\",\\\"componentType\\\":\\\"requests-per-second\\\",\\\"dashboardType\\\":\\\"systemApplications\\\",\\\"config\\\":{\\\"api\\\":\\\"ADC_MONITORING_HTTP_REQUESTS_REPORTS\\\",\\\"field\\\":\\\"RequestsPerSecond\\\",\\\"settings\\\":{},\\\"type\\\":\\\"area\\\",\\\"chartType\\\":\\\"area\\\",\\\"selectedFields\\\":[\\\"deviceIp\\\",\\\"type\\\",\\\"servicePort\\\",\\\"id\\\",\\\"ip\\\",\\\"status\\\",\\\"timestamp\\\",\\\"httpVersionPS\\\"],\\\"metaData\\\":{\\\"mapper\\\":{\\\"type\\\":\\\"httpVersionPS\\\"}},\\\"displayLegends\\\":true,\\\"fieldsForResponse\\\":[{\\\"field\\\":\\\"HTTP 2\\\",\\\"label\\\":\\\"HTTP 2\\\",\\\"backgroundColor\\\":\\\"rgba(145, 196, 231,1)\\\",\\\"pointBackgroundColor\\\":\\\"rgba(145, 196, 231,1)\\\",\\\"borderColor\\\":\\\"rgba(145, 196, 231,1)\\\",\\\"hoverBackgroundColor\\\":\\\"rgba(145, 196, 231,0.4)\\\",\\\"hoverBorderColor\\\":\\\"rgba(145, 196, 231,1)\\\",\\\"borderWidth\\\":1},{\\\"field\\\":\\\"HTTP 1.1\\\",\\\"label\\\":\\\"HTTP 1.1\\\",\\\"backgroundColor\\\":\\\"rgba(122, 174, 210,1)\\\",\\\"pointBackgroundColor\\\":\\\"rgba(122, 174, 210,1)\\\",\\\"borderColor\\\":\\\"rgba(122, 174, 210,1)\\\",\\\"hoverBackgroundColor\\\":\\\"rgba(122, 174, 210,0.4)\\\",\\\"hoverBorderColor\\\":\\\"rgba(122, 174, 210,1)\\\",\\\"borderWidth\\\":1},{\\\"field\\\":\\\"HTTP 1.0\\\",\\\"label\\\":\\\"HTTP 1.0\\\",\\\"backgroundColor\\\":\\\"rgba(166, 228, 246,1)\\\",\\\"pointBackgroundColor\\\":\\\"rgba(166, 228, 246,1)\\\",\\\"borderColor\\\":\\\"rgba(166, 228, 246,1)\\\",\\\"hoverBackgroundColor\\\":\\\"rgba(166, 228, 246,0.4)\\\",\\\"hoverBorderColor\\\":\\\"rgba(166, 228, 246,1)\\\",\\\"borderWidth\\\":1}],\\\"isConvertValue\\\":false,\\\"uuid\\\":\\\"bf2c5f9d-ccf3-47a9-bfb4-73dcf33681f5\\\",\\\"componentType\\\":\\\"requests-per-second\\\"}}"
+          },
+          {
+            "id": "74502434-346a-4429-bde1-8aa89b165c1a",
+            "scopeId": "systemApplicationsScope",
+            "templateId": "systemApplications",
+            "component": "comp-vrm-dpm-generic-area-chart",
+            "metaData": "{\\\"title\\\":\\\"Throughput (bps)\\\",\\\"componentType\\\":\\\"throughput\\\",\\\"dashboardType\\\":\\\"systemApplications\\\",\\\"config\\\":{\\\"api\\\":\\\"ADC_MONITORING_RAW_REPORTS\\\",\\\"field\\\":\\\"throughput\\\",\\\"chartType\\\":\\\"area\\\",\\\"settings\\\":{},\\\"type\\\":\\\"area\\\",\\\"compTimerContainer\\\":true,\\\"selectedFields\\\":[\\\"deviceIp\\\",\\\"type\\\",\\\"servicePort\\\",\\\"id\\\",\\\"ip\\\",\\\"status\\\",\\\"timestamp\\\",\\\"throughput\\\"],\\\"fieldsForResponse\\\":[{\\\"field\\\":\\\"throughput\\\",\\\"label\\\":\\\"Throughput\\\",\\\"backgroundColor\\\":\\\"rgba(95, 173, 226,1)\\\",\\\"pointBackgroundColor\\\":\\\"rgba(95, 173, 226,1)\\\",\\\"borderColor\\\":\\\"rgba(95, 173, 226,1)\\\",\\\"hoverBackgroundColor\\\":\\\"rgba(95, 173, 226,0.4)\\\",\\\"hoverBorderColor\\\":\\\"rgba(95, 173, 226,1)\\\",\\\"borderWidth\\\":2}],\\\"uuid\\\":\\\"24edf5d1-b718-4219-a554-42a49bbedf70\\\",\\\"componentType\\\":\\\"throughput\\\"}}"
+          },
+          {
+            "id": "9d4de7b3-9e01-4127-a532-999c945bf5de",
+            "scopeId": "systemApplicationsScope",
+            "templateId": "systemApplications",
+            "component": "comp-vrm-dpm-generic-area-chart",
+            "metaData": "{\\\"title\\\":\\\"Concurrent Connections\\\",\\\"componentType\\\":\\\"concurrent-connections\\\",\\\"dashboardType\\\":\\\"systemApplications\\\",\\\"config\\\":{\\\"api\\\":\\\"ADC_MONITORING_RAW_REPORTS\\\",\\\"field\\\":\\\"concurrentConnections\\\",\\\"settings\\\":{\\\"visibility\\\":{\\\"globalVisibility\\\":false,\\\"chartTypes\\\":{\\\"visibility\\\":false},\\\"scopeSelection\\\":true,\\\"dataFilter\\\":false}},\\\"chartType\\\":\\\"area\\\",\\\"type\\\":\\\"area\\\",\\\"selectedFields\\\":[\\\"deviceIp\\\",\\\"type\\\",\\\"servicePort\\\",\\\"id\\\",\\\"ip\\\",\\\"status\\\",\\\"timestamp\\\",\\\"concurrentConnections\\\"],\\\"fieldsForResponse\\\":[{\\\"field\\\":\\\"concurrentConnections\\\",\\\"label\\\":\\\"Concurrent Connections\\\",\\\"backgroundColor\\\":\\\"rgba(166, 228, 246,1)\\\",\\\"pointBackgroundColor\\\":\\\"rgba(166, 228, 246,1)\\\",\\\"borderColor\\\":\\\"rgba(166, 228, 246,1)\\\",\\\"hoverBackgroundColor\\\":\\\"rgba(166, 228, 246,0.4)\\\",\\\"hoverBorderColor\\\":\\\"rgba(166, 228, 246,1)\\\",\\\"borderWidth\\\":2}],\\\"uuid\\\":\\\"7e7fd2cf-d094-41d2-ac98-c63649d73205\\\",\\\"componentType\\\":\\\"concurrent-connections\\\"}}"
+          },
+          {
+            "id": "629b9f98-4dc2-4007-ab5a-0a178e768c6b",
+            "scopeId": "systemApplicationsScope",
+            "templateId": "systemApplications",
+            "component": "comp-vrm-dpm-generic-area-chart",
+            "metaData": "{\\\"title\\\":\\\"Connections per Second\\\",\\\"componentType\\\":\\\"connections-per-second\\\",\\\"dashboardType\\\":\\\"systemApplications\\\",\\\"config\\\":{\\\"api\\\":\\\"ADC_MONITORING_RAW_REPORTS\\\",\\\"field\\\":\\\"cps\\\",\\\"settings\\\":{},\\\"type\\\":\\\"area\\\",\\\"chartType\\\":\\\"area\\\",\\\"selectedFields\\\":[\\\"deviceIp\\\",\\\"type\\\",\\\"servicePort\\\",\\\"id\\\",\\\"ip\\\",\\\"status\\\",\\\"timestamp\\\",\\\"cps\\\"],\\\"fieldsForResponse\\\":[{\\\"field\\\":\\\"cps\\\",\\\"label\\\":\\\"Connections per Second\\\",\\\"backgroundColor\\\":\\\"rgba(169, 203, 226,1)\\\",\\\"pointBackgroundColor\\\":\\\"rgba(169, 203, 226,1)\\\",\\\"borderColor\\\":\\\"rgba(169, 203, 226,1)\\\",\\\"hoverBackgroundColor\\\":\\\"rgba(169, 203, 226,0.4)\\\",\\\"hoverBorderColor\\\":\\\"rgba(169, 203, 226,1)\\\",\\\"borderWidth\\\":2}],\\\"uuid\\\":\\\"7e7fd2cf-d094-41d2-ac98-c63649d73206\\\",\\\"componentType\\\":\\\"connections-per-second\\\"}}"
+          },
+          {
+            "id": "4c064e6c-4d8c-44cd-a30a-384178812689",
+            "scopeId": "systemApplicationsScope",
+            "templateId": "systemApplications",
+            "component": "virtual-service-action-content-rule",
+            "metaData": "{\\\"title\\\":\\\"Groups and Content Rules\\\",\\\"componentType\\\":\\\"groups-and-content-rules\\\",\\\"dashboardType\\\":\\\"systemApplications\\\",\\\"config\\\":{\\\"api\\\":\\\"ADC_MONITORING_RAW_REPORTS\\\",\\\"defaultAction\\\":null,\\\"tableConfig\\\":{\\\"header\\\":[{\\\"title\\\":\\\"Status\\\",\\\"isSorter\\\":true,\\\"field\\\":\\\"healthScore\\\",\\\"sortingType\\\":\\\"LONG\\\"},{\\\"title\\\":\\\"Content-Rule or Default \\\"},{\\\"title\\\":\\\"Action\\\"},{\\\"title\\\":\\\"Group ID\\\"},{\\\"title\\\":\\\"Throughput\\\",\\\"seconderyTitle\\\":\\\"(bps)\\\",\\\"isSorter\\\":true,\\\"field\\\":\\\"throughput\\\",\\\"sortingType\\\":\\\"LONG\\\"},{\\\"title\\\":\\\"Connections\\\",\\\"seconderyTitle\\\":\\\"per Second\\\",\\\"isSorter\\\":true,\\\"field\\\":\\\"cps\\\",\\\"sortingType\\\":\\\"STRING\\\"},{\\\"title\\\":\\\"Concurrent Connections\\\",\\\"isSorter\\\":true,\\\"field\\\":\\\"concurrentConnections\\\",\\\"sortingType\\\":\\\"STRING\\\"}],\\\"body\\\":[]},\\\"uuid\\\":\\\"7e7fd2cf-d094-41d2-ac98-c63649d73280\\\",\\\"componentType\\\":\\\"groups-and-content-rules\\\"}}"
+          },
+          {
+            "id": "5f7abbc4-626c-4f7d-9593-ea0210052956",
+            "scopeId": "systemApplicationsScope",
+            "templateId": "systemApplications",
+            "component": "comp-vrm-dpm-application-end-to-end-time",
+            "metaData": "{\\\"title\\\":\\\"End-to-End Time\\\",\\\"componentType\\\":\\\"end-to-end-time\\\",\\\"dashboardType\\\":\\\"systemApplications\\\",\\\"config\\\":{\\\"api\\\":\\\"ADC_MONITORING_RAW_REPORTS\\\",\\\"chartType\\\":\\\"area\\\",\\\"settings\\\":{},\\\"type\\\":\\\"area\\\",\\\"uuid\\\":\\\"7e7fd2cf-d094-41d2-ac98-c63649d73207\\\",\\\"componentType\\\":\\\"end-to-end-time\\\"}}"
           }
         ],
         "scope": [
-          "{\\\"deviceName\\\":\\\"Alteon_172.17.164.17\\\",\\\"deviceIP\\\":\\\"172.17.164.20\\\",\\\"deviceID\\\":\\\"2c9124fc6beba9b3016bebbbbce30012\\\",\\\"softwareVersion\\\":\\\"32.4.0.0\\\",\\\"formFactor\\\":\\\"Standalone\\\",\\\"deviceType\\\":\\\"Alteon\\\",\\\"deviceStatus\\\":\\\"Down\\\",\\\"site\\\":\\\"Alteon_for_DPM\\\",\\\"platform\\\":\\\"VA\\\",\\\"externalID\\\":\\\"012baaaf5a061fc73795916630bd0b99\\\",\\\"timeStamp\\\":\\\"0\\\",\\\"haState\\\":\\\"NONE\\\",\\\"name\\\":\\\"Alteon_172.17.164.17\\\",\\\"selected\\\":false,\\\"enabled\\\":true}",
-          "{\\\"deviceName\\\":\\\"Alteon_172.17.164.18\\\",\\\"deviceIP\\\":\\\"172.17.164.21\\\",\\\"deviceID\\\":\\\"2c9124fc6beba9b3016bebbdc70d0019\\\",\\\"softwareVersion\\\":\\\"32.4.0.0\\\",\\\"formFactor\\\":\\\"Standalone\\\",\\\"deviceType\\\":\\\"Alteon\\\",\\\"deviceStatus\\\":\\\"Down\\\",\\\"site\\\":\\\"Alteon_for_DPM\\\",\\\"platform\\\":\\\"VA\\\",\\\"externalID\\\":\\\"79de89af156f2f8e36aafa94f10ac57a\\\",\\\"timeStamp\\\":\\\"0\\\",\\\"haState\\\":\\\"INIT\\\",\\\"name\\\":\\\"Alteon_172.17.164.18\\\",\\\"selected\\\":false,\\\"enabled\\\":true}",
-          "{\\\"deviceName\\\":\\\"Alteon_50.50.101.11\\\",\\\"deviceIP\\\":\\\"50.50.101.11\\\",\\\"deviceID\\\":\\\"2c9124e665802253016580729e870041\\\",\\\"softwareVersion\\\":\\\"32.2.1.0\\\",\\\"formFactor\\\":\\\"Standalone\\\",\\\"deviceType\\\":\\\"Alteon\\\",\\\"deviceStatus\\\":\\\"Unknown\\\",\\\"site\\\":\\\"Alteons_for_DPM-Fakes\\\",\\\"platform\\\":\\\"VA\\\",\\\"externalID\\\":\\\"0463edc600821364485ea9cc3232650b\\\",\\\"timeStamp\\\":\\\"0\\\",\\\"haState\\\":\\\"DISABLED\\\",\\\"name\\\":\\\"Alteon_50.50.101.11\\\",\\\"selected\\\":false,\\\"enabled\\\":true}",
-          "{\\\"deviceName\\\":\\\"Alteon_50.50.101.21\\\",\\\"deviceIP\\\":\\\"50.50.101.21\\\",\\\"deviceID\\\":\\\"2c9124e665802253016580316419001a\\\",\\\"softwareVersion\\\":\\\"32.4.0.0\\\",\\\"formFactor\\\":\\\"Standalone\\\",\\\"deviceType\\\":\\\"Alteon\\\",\\\"deviceStatus\\\":\\\"Up\\\",\\\"site\\\":\\\"Alteons_for_DPM-Fakes\\\",\\\"platform\\\":\\\"7220\\\",\\\"externalID\\\":\\\"324058c999f5de7a67b1ead532326515\\\",\\\"timeStamp\\\":\\\"0\\\",\\\"haState\\\":\\\"MASTER\\\",\\\"name\\\":\\\"Alteon_50.50.101.21\\\",\\\"selected\\\":true,\\\"enabled\\\":true}",
-          "{\\\"deviceName\\\":\\\"Alteon_50.50.101.22\\\",\\\"deviceIP\\\":\\\"50.50.101.22\\\",\\\"deviceID\\\":\\\"2c9124e665802253016580715eec0033\\\",\\\"softwareVersion\\\":\\\"32.4.0.0\\\",\\\"formFactor\\\":\\\"Standalone\\\",\\\"deviceType\\\":\\\"Alteon\\\",\\\"deviceStatus\\\":\\\"Up\\\",\\\"site\\\":\\\"Alteons_for_DPM-Fakes\\\",\\\"platform\\\":\\\"7220\\\",\\\"externalID\\\":\\\"324058c999f5de7a67b1ead532326516\\\",\\\"timeStamp\\\":\\\"0\\\",\\\"haState\\\":\\\"MASTER\\\",\\\"name\\\":\\\"Alteon_50.50.101.22\\\",\\\"selected\\\":false,\\\"enabled\\\":true}",
-          "{\\\"deviceName\\\":\\\"Alteon_172.17.154.19\\\",\\\"deviceIP\\\":\\\"172.17.154.19\\\",\\\"deviceID\\\":\\\"2c912402634578df01636e632a46021a\\\",\\\"softwareVersion\\\":\\\"32.4.0.0\\\",\\\"formFactor\\\":\\\"Standalone\\\",\\\"deviceType\\\":\\\"Alteon\\\",\\\"deviceStatus\\\":\\\"Down\\\",\\\"site\\\":\\\"VA_Alteons_site\\\",\\\"platform\\\":\\\"VA\\\",\\\"externalID\\\":\\\"792c29d6856ce2b4b2273d861ed67123\\\",\\\"timeStamp\\\":\\\"0\\\",\\\"haState\\\":\\\"NONE\\\",\\\"name\\\":\\\"Alteon_172.17.154.19\\\",\\\"selected\\\":false,\\\"enabled\\\":true}",
-          "{\\\"deviceName\\\":\\\"LinkProof NG_172.17.154.190\\\",\\\"deviceIP\\\":\\\"172.17.154.190\\\",\\\"deviceID\\\":\\\"2c912402634578df01636e6804600240\\\",\\\"softwareVersion\\\":\\\"32.2.1.0\\\",\\\"formFactor\\\":\\\"Standalone\\\",\\\"deviceType\\\":\\\"LinkProof\\\",\\\"deviceStatus\\\":\\\"Down\\\",\\\"site\\\":\\\"VA_LP_site\\\",\\\"platform\\\":\\\"VA\\\",\\\"externalID\\\":\\\"2a046feddb9374a56f4aeb197422cafa\\\",\\\"timeStamp\\\":\\\"0\\\",\\\"haState\\\":\\\"ACTIVE\\\",\\\"name\\\":\\\"LinkProof NG_172.17.154.190\\\",\\\"selected\\\":false,\\\"enabled\\\":true}",
-          "{\\\"deviceName\\\":\\\"LinkProof NG_172.17.154.200\\\",\\\"deviceIP\\\":\\\"172.17.154.200\\\",\\\"deviceID\\\":\\\"2c912402634578df01636e6865e30250\\\",\\\"softwareVersion\\\":\\\"32.2.1.0\\\",\\\"formFactor\\\":\\\"Standalone\\\",\\\"deviceType\\\":\\\"Alteon\\\",\\\"deviceStatus\\\":\\\"Down\\\",\\\"site\\\":\\\"VA_LP_site\\\",\\\"platform\\\":\\\"VA\\\",\\\"externalID\\\":\\\"2fa1f66b6b0a8e1dd49b01be33fa02b2\\\",\\\"timeStamp\\\":\\\"0\\\",\\\"haState\\\":\\\"ACTIVE\\\",\\\"name\\\":\\\"LinkProof NG_172.17.154.200\\\",\\\"selected\\\":false,\\\"enabled\\\":true}",
-          "{\\\"deviceName\\\":\\\"172.185.100.10\\\",\\\"deviceIP\\\":\\\"172.185.100.10\\\",\\\"deviceID\\\":\\\"2c9124fc75d5cac50175d6bc1b550558\\\",\\\"softwareVersion\\\":\\\"32.6.3.50\\\",\\\"formFactor\\\":\\\"Standalone\\\",\\\"deviceType\\\":\\\"Alteon\\\",\\\"deviceStatus\\\":\\\"Down\\\",\\\"site\\\":\\\"Default\\\",\\\"platform\\\":\\\"8420XL\\\",\\\"externalID\\\":\\\"5c70ea9ce984dae43dc049d70146d11f\\\",\\\"timeStamp\\\":\\\"0\\\",\\\"haState\\\":\\\"NONE\\\",\\\"name\\\":\\\"172.185.100.10\\\",\\\"selected\\\":false,\\\"enabled\\\":true}",
-          "{\\\"deviceName\\\":\\\"172.185.95.40\\\",\\\"deviceIP\\\":\\\"172.185.95.40\\\",\\\"deviceID\\\":\\\"2c9124fc75dda38b0175df71930200c8\\\",\\\"softwareVersion\\\":\\\"32.6.3.0\\\",\\\"formFactor\\\":\\\"Standalone\\\",\\\"deviceType\\\":\\\"Alteon\\\",\\\"deviceStatus\\\":\\\"Down\\\",\\\"site\\\":\\\"Default\\\",\\\"platform\\\":\\\"VA\\\",\\\"externalID\\\":\\\"7e9e1d027e5140c0821af0ec3f07556b\\\",\\\"timeStamp\\\":\\\"0\\\",\\\"haState\\\":\\\"NONE\\\",\\\"name\\\":\\\"172.185.95.40\\\",\\\"selected\\\":false,\\\"enabled\\\":true}"
+          "{\\\"name\\\":\\\"1_32326516:80\\\",\\\"applicationId\\\":\\\"1_32326516:80\\\",\\\"deviceIds\\\":[\\\"324058c999f5de7a67b1ead532326516\\\"],\\\"selected\\\":false,\\\"enabled\\\":true,\\\"deviceType\\\":\\\"Alteon\\\",\\\"devicesCount\\\":1}",
+          "{\\\"name\\\":\\\"1_32326515:80\\\",\\\"applicationId\\\":\\\"1_32326515:80\\\",\\\"deviceIds\\\":[\\\"324058c999f5de7a67b1ead532326515\\\"],\\\"selected\\\":false,\\\"enabled\\\":true,\\\"deviceType\\\":\\\"Alteon\\\",\\\"devicesCount\\\":1}",
+          "{\\\"name\\\":\\\"Rejith_32326515:80\\\",\\\"applicationId\\\":\\\"Rejith_32326515:80\\\",\\\"deviceIds\\\":[\\\"324058c999f5de7a67b1ead532326515\\\"],\\\"selected\\\":false,\\\"enabled\\\":true,\\\"deviceType\\\":\\\"Alteon\\\",\\\"devicesCount\\\":1}",
+          "{\\\"name\\\":\\\"1234_32326516:80\\\",\\\"applicationId\\\":\\\"1234_32326516:80\\\",\\\"deviceIds\\\":[\\\"324058c999f5de7a67b1ead532326516\\\"],\\\"selected\\\":false,\\\"enabled\\\":true,\\\"deviceType\\\":\\\"Alteon\\\",\\\"devicesCount\\\":1}",
+          "{\\\"name\\\":\\\"1234_32326515:80\\\",\\\"applicationId\\\":\\\"1234_32326515:80\\\",\\\"deviceIds\\\":[\\\"324058c999f5de7a67b1ead532326515\\\"],\\\"selected\\\":false,\\\"enabled\\\":true,\\\"deviceType\\\":\\\"Alteon\\\",\\\"devicesCount\\\":1}",
+          "{\\\"name\\\":\\\"Rejith_32326516:88\\\",\\\"applicationId\\\":\\\"Rejith_32326516:88\\\",\\\"deviceIds\\\":[\\\"324058c999f5de7a67b1ead532326516\\\"],\\\"selected\\\":false,\\\"enabled\\\":true,\\\"deviceType\\\":\\\"Alteon\\\",\\\"devicesCount\\\":1}",
+          "{\\\"name\\\":\\\"6:80\\\",\\\"applicationId\\\":\\\"6:80\\\",\\\"deviceIds\\\":[\\\"792c29d6856ce2b4b2273d861ed67123\\\"],\\\"selected\\\":false,\\\"enabled\\\":true,\\\"deviceType\\\":\\\"Alteon\\\",\\\"devicesCount\\\":1}",
+          "{\\\"name\\\":\\\"ShortID:80\\\",\\\"applicationId\\\":\\\"ShortID:80\\\",\\\"deviceIds\\\":[\\\"792c29d6856ce2b4b2273d861ed67123\\\"],\\\"selected\\\":false,\\\"enabled\\\":true,\\\"deviceType\\\":\\\"Alteon\\\",\\\"devicesCount\\\":1}",
+          "{\\\"name\\\":\\\"Rejith_32326515:88\\\",\\\"applicationId\\\":\\\"Rejith_32326515:88\\\",\\\"deviceIds\\\":[\\\"324058c999f5de7a67b1ead532326515\\\"],\\\"selected\\\":true,\\\"enabled\\\":true,\\\"deviceType\\\":\\\"Alteon\\\",\\\"devicesCount\\\":1}",
+          "{\\\"name\\\":\\\"Rejith_32326516:80\\\",\\\"applicationId\\\":\\\"Rejith_32326516:80\\\",\\\"deviceIds\\\":[\\\"324058c999f5de7a67b1ead532326516\\\"],\\\"selected\\\":false,\\\"enabled\\\":true,\\\"deviceType\\\":\\\"Alteon\\\",\\\"devicesCount\\\":1}",
+          "{\\\"name\\\":\\\"Rejith_32326516:443\\\",\\\"applicationId\\\":\\\"Rejith_32326516:443\\\",\\\"deviceIds\\\":[\\\"324058c999f5de7a67b1ead532326516\\\"],\\\"selected\\\":false,\\\"enabled\\\":true,\\\"deviceType\\\":\\\"Alteon\\\",\\\"devicesCount\\\":1}",
+          "{\\\"name\\\":\\\"Rejith_32326515:443\\\",\\\"applicationId\\\":\\\"Rejith_32326515:443\\\",\\\"deviceIds\\\":[\\\"324058c999f5de7a67b1ead532326515\\\"],\\\"selected\\\":false,\\\"enabled\\\":true,\\\"deviceType\\\":\\\"Alteon\\\",\\\"devicesCount\\\":1}"
         ],
         "summaryTable": false,
         "printScopePreview": true,
-        "templateTitle": "System and Network"
+        "templateTitle": "Application"
       }
     ],
-    "timeFrame": "{\\\"quickRangeSelection\\\":\\\"15m\\\",\\\"rangeType\\\":\\\"quick\\\",\\\"quickRangeUnit\\\":\\\"minute\\\",\\\"quickRangeValue\\\":15,\\\"generatedTimeFrame\\\":{\\\"precision\\\":\\\"MINUTE\\\",\\\"baseUnit\\\":\\\"minutes\\\",\\\"unit\\\":\\\"minute\\\",\\\"baseUnitStep\\\":5,\\\"dateTimeFormat\\\":\\\"HH:mm\\\",\\\"value\\\":15,\\\"baseUnitDisplaySkip\\\":1,\\\"dataPoints\\\":16,\\\"fromDate\\\":1608724920833,\\\"toDate\\\":1608725820833,\\\"type\\\":\\\"timeFrame\\\",\\\"amsRawDataHoursDiff\\\":1,\\\"fiveMinutePrecisionHours\\\":1,\\\"dateFormat\\\":\\\"dd.MM.yyyy\\\",\\\"timeFormat\\\":\\\"HH:mm:ss\\\",\\\"timezone\\\":\\\"Asia/Jerusalem\\\",\\\"utcOffset\\\":120}}",
-    "reportName": "ADC Report Definition",
+    "timeFrame": "{\\\"rangeType\\\":\\\"quick\\\",\\\"quickRangeSelection\\\":\\\"1H\\\",\\\"quickRangeValue\\\":1,\\\"quickRangeUnit\\\":\\\"hour\\\",\\\"quickRangeCustom\\\":false,\\\"generatedTimeFrame\\\":{\\\"value\\\":60,\\\"display\\\":\\\"1H\\\",\\\"unit\\\":\\\"minute\\\",\\\"baseUnitStep\\\":1,\\\"baseUnitDisplaySkip\\\":2,\\\"precision\\\":\\\"MINUTE\\\",\\\"baseUnit\\\":\\\"minutes\\\",\\\"dataPoints\\\":30,\\\"Id\\\":3,\\\"type\\\":\\\"timeFrame\\\",\\\"timezone\\\":\\\"Asia/Jerusalem\\\",\\\"utcOffset\\\":120,\\\"fromDate\\\":1609311416945,\\\"toDate\\\":1609315016945,\\\"fiveMinutePrecisionHours\\\":1,\\\"amsRawDataHoursDiff\\\":1,\\\"dateFormat\\\":\\\"dd.MM.yyyy\\\",\\\"timeFormat\\\":\\\"HH:mm:ss\\\"}}",
+    "reportName": "ADC Applications Report Definition",
     "scheduling": null,
     "exportFormat": {
       "type": "pdf"

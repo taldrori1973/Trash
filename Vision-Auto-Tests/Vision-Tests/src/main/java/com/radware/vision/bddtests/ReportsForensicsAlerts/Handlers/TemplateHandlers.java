@@ -5,6 +5,7 @@ import com.radware.automation.tools.basetest.Reporter;
 import com.radware.automation.webui.VisionDebugIdsManager;
 import com.radware.automation.webui.WebUIUtils;
 import com.radware.automation.webui.widgets.ComponentLocator;
+import com.radware.automation.webui.widgets.ComponentLocatorFactory;
 import com.radware.automation.webui.widgets.impl.WebUITextField;
 import com.radware.vision.automation.tools.exceptions.selenium.TargetWebElementNotFoundException;
 import com.radware.vision.automation.tools.sutsystemobjects.devicesinfo.enums.SUTDeviceType;
@@ -24,6 +25,7 @@ import java.util.*;
 import java.util.stream.Collectors;
 
 import static com.radware.vision.infra.testhandlers.BaseHandler.devicesManager;
+import static com.radware.vision.infra.utils.ReportsUtils.addErrorMessage;
 import static org.apache.commons.lang.math.NumberUtils.isNumber;
 
 
@@ -863,13 +865,22 @@ public class TemplateHandlers {
                 getWidgetsList(new JSONArray(templateJsonObject.get("AddWidgets").toString())) : null;
         JSONArray editWidgets = templateJsonObject.has("EditWidgets") ?
                 new JSONArray(templateJsonObject.get("EditWidgets").toString()) : null;
+        expandCollapseArrowClick(currentTemplateName);
         editTemplate(templateJsonObject.get("reportType").toString());
         removeUnWantedWidgets(widgetsListToRemove, currentTemplateName);
         dragAndDropDesiredWidgets(widgetsList, currentTemplateName);
         selectOptions(templateJsonObject.has("AddWidgets") ? new JSONArray(templateJsonObject.get("AddWidgets").toString()): null, templateJsonObject.has("AddWidgets") ?getOccurrenceMap(new JSONArray(templateJsonObject.get("AddWidgets").toString())): getOccurrenceMap(null), currentTemplateName);
         selectOptions(editWidgets, getOccurrenceMap(editWidgets), currentTemplateName);
     }
-
+    public static void expandCollapseArrowClick(String currentTemplateName) throws TargetWebElementNotFoundException {
+        VisionDebugIdsManager.setLabel("Template Expand CollapseArrow");
+        VisionDebugIdsManager.setParams(currentTemplateName);
+        WebElement element = WebUIUtils.fluentWait(ComponentLocatorFactory.getLocatorByXpathDbgId(VisionDebugIdsManager.getDataDebugId()).getBy());
+        if (element == null)
+            addErrorMessage("No attribute in element that contains " + VisionDebugIdsManager.getDataDebugId() + " in this data-debug-id");
+        else if(element.getAttribute("data-debug-checked")==null || element.getAttribute("data-debug-checked").equals("false"))
+            BasicOperationsHandler.clickButton("Template Expand CollapseArrow", currentTemplateName);
+    }
     private static void removeUnWantedWidgets(List<String> widgetsToRemoveDataDataDebugId, String reportType) {
         if (widgetsToRemoveDataDataDebugId == null) return;
         VisionDebugIdsManager.setLabel("selected widget");
