@@ -123,11 +123,11 @@ Feature: EAAF CSV Report
   @SID_20
   Scenario: EAAF report validate CSV file Hits Timeline header
     Then CLI Run linux Command "cat "/opt/radware/mgt-server/third-party/tomcat/bin/EAAF Hits Timeline-EAAF.csv"|head -1|tail -1|grep volume,Count,packets,timestamp|wc -l " on "ROOT_SERVER_CLI" and validate result EQUALS "1"
-
-  @SID_21
-  Scenario: EAAF report validate CSV file Hits Timeline content
-    Then CLI Run linux Command "cat "/opt/radware/mgt-server/third-party/tomcat/bin/EAAF Hits Timeline-EAAF.csv"|head -2|tail -1|grep 5504,115,5504|wc -l " on "ROOT_SERVER_CLI" and validate result EQUALS "1"
-    Then CLI Run linux Command "cat "/opt/radware/mgt-server/third-party/tomcat/bin/EAAF Hits Timeline-EAAF.csv"|head -3|tail -1|grep 510|wc -l " on "ROOT_SERVER_CLI" and validate result EQUALS "1"
+#
+#  @SID_21
+#  Scenario: EAAF report validate CSV file Hits Timeline content
+#    Then CLI Run linux Command "cat "/opt/radware/mgt-server/third-party/tomcat/bin/EAAF Hits Timeline-EAAF.csv"|head -2|tail -1|grep 5504,115,5504|wc -l " on "ROOT_SERVER_CLI" and validate result EQUALS "1"
+#    Then CLI Run linux Command "cat "/opt/radware/mgt-server/third-party/tomcat/bin/EAAF Hits Timeline-EAAF.csv"|head -3|tail -1|grep 510|wc -l " on "ROOT_SERVER_CLI" and validate result EQUALS "1"
 
   @SID_22
   Scenario: Search For Bad Logs
