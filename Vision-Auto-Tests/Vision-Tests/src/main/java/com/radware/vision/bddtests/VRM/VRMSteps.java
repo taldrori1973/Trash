@@ -1,7 +1,7 @@
 package com.radware.vision.bddtests.VRM;
 
-import com.radware.vision.automation.tools.exceptions.selenium.TargetWebElementNotFoundException;
 import com.radware.vision.automation.tools.sutsystemobjects.devicesinfo.enums.SUTDeviceType;
+import com.radware.vision.bddtests.ReportsForensicsAlerts.Report;
 import com.radware.vision.infra.testhandlers.alteon.securitymonitoring.dashboardview.sslinspection.enums.QuickRange;
 import com.radware.vision.infra.testhandlers.vrm.VRMHandler;
 import com.radware.vision.infra.testhandlers.vrm.VRMHandler.*;
@@ -224,6 +224,22 @@ public class VRMSteps {
     @Then("^Validate Memory Utilization$")
     public void validateMemoryUtilization() throws Exception {
         vrmHandler.validateMemoryUtilization();
+    }
+
+
+    @Then("^Validate Line Chart data \"([^\"]*)\" with Label \"([^\"]*)\" in report \"([^\"]*)\"$")
+    public void validateLineChartDataWithLabelInReport(String chart, String label, String reportName,  List<VRMHandler.Data> entries) throws Throwable {
+        new Report().getVRMReportsChartsHandler(reportName).validateChartDataOfDataSets(chart, label, null, entries);
+    }
+
+    @Then("^UI Validate StackBar data with widget \"([^\"]*)\" in report \"([^\"]*)\"$")
+    public void uiValidateStackBarDataWithWidgetInReport(String chart, String reportName, List<StackBarData> entries) throws Throwable {
+        new Report().getVRMReportsChartsHandler(reportName).validateStackBarData(chart, entries);
+    }
+
+    @Then("^UI Validate Pie Chart data \"([^\"]*)\" in Report \"([^\"]*)\"$")
+    public void uiValidatePieChartDataInReport(String chart, String reportName, List<PieChart> entries) throws Throwable {
+        new Report().getVRMReportsChartsHandler(reportName).validatePieChartDataOfDataSets(chart, entries);
     }
 }
 

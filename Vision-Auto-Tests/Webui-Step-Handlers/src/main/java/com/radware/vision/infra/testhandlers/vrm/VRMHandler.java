@@ -48,6 +48,7 @@ import java.time.format.DateTimeFormatter;
 import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import java.util.stream.Collectors;
 import java.util.stream.StreamSupport;
 
 import static com.radware.vision.infra.testhandlers.BaseHandler.devicesManager;
@@ -58,16 +59,16 @@ import static jodd.util.ThreadUtil.sleep;
 
 
 public class VRMHandler {
-    private static final String LABEL = "label";
-    private static final String DATA = "data";
-    private static final String DATASETS = "datasets";
-    private static final String LABELS = "labels";
-    private static final String BACKGROUND_COLOR = "backgroundColor";
-    private static final String SHAPE = "shapeType";
-    private static final String SHAPE_COLOR = "colors";
-    private static JSONObject foundObject;
-    private SessionStorage sessionStorage;
-    private LocalStorage localStorage;
+    protected static final String LABEL = "label";
+    protected static final String DATA = "data";
+    protected static final String DATASETS = "datasets";
+    protected static final String LABELS = "labels";
+    protected static final String BACKGROUND_COLOR = "backgroundColor";
+    protected static final String SHAPE = "shapeType";
+    protected static final String SHAPE_COLOR = "colors";
+    protected static JSONObject foundObject;
+    protected SessionStorage sessionStorage;
+    protected LocalStorage localStorage;
 
     public VRMHandler() {
         this.sessionStorage = new SessionStorageImpl();
@@ -135,7 +136,7 @@ public class VRMHandler {
                 if (isLegendNameExistAndShouldReturn(chart, entry)) return;
                 if (isLabanAndEntryExists(chart, entry)) return;
                 int legendIndex;
-                legendIndex = legends.toList().indexOf(entry.legendName);
+                legendIndex = legends.toList().stream().map(s-> String.valueOf(s)).collect(Collectors.toList()).indexOf(entry.legendName);
                 if (legendIndex == -1) {
                     addErrorMessage("There is no legend with name " + entry.legendName);
                     scrollAndTakeScreenshot(chart);
@@ -163,7 +164,7 @@ public class VRMHandler {
         reportErrors();
     }
 
-    private boolean isLegendNameExistAndShouldReturn(String chart, StackBarData entry) {
+    protected boolean isLegendNameExistAndShouldReturn(String chart, StackBarData entry) {
         boolean returnValue = entry.legendNameExist != null;
         entry.legendNameExist = entry.legendNameExist == null || entry.legendNameExist;
         JSONArray legends = getLabelsFromData(chart);
@@ -174,7 +175,7 @@ public class VRMHandler {
         return returnValue;
     }
 
-    private boolean isLabanAndEntryExists(String chart, StackBarData entry) {
+    protected boolean isLabanAndEntryExists(String chart, StackBarData entry) {
         entry.exist = entry.exist == null ? true : entry.exist;
         if (!(isLabelExist(chart, entry.label)) && entry.exist || (isLabelExist(chart, entry.label)) && !entry.exist) {
 //            addErrorMessage("The existence of " + entry.label + " is " + entry.exist + " but ACTUAL is " + isLabelExist(chart, entry.label));
@@ -258,7 +259,7 @@ public class VRMHandler {
             entry.value = (entry.value == null) ? null : entry.value;
             entry.valueOffset = (entry.value == null) ? 0 : entry.valueOffset;
 
-            if (!(isLabelExist(chart, label)) && entry.exist || (isLabelExist(chart, label)) && !entry.exist) {
+            if (isLabelExist(chart, label) ^ entry.exist) {
                 return;
             }
             if ((!isLabelExist(chart, label)) && !entry.exist) {
@@ -311,7 +312,7 @@ public class VRMHandler {
         reportErrors();
     }
 
-    private boolean isDataMatch(Data entry, String s) {
+    protected boolean isDataMatch(Data entry, String s) {
         if (!s.matches("\\d+\\.\\d+|\\d+"))
             return s.equals(entry.value);
         else if (entry.value.matches("\\d+\\.\\d+|\\d+"))
@@ -324,7 +325,7 @@ public class VRMHandler {
      * @param label - Chart internal key
      * @return true if the label exists at the web's chart
      */
-    private boolean isLabelExist(String chart, String label) {
+    protected boolean isLabelExist(String chart, String label) {
         JSONArray dataArray = null;
         try {
             Map jsonMap = getSessionStorage(chart);
@@ -347,7 +348,7 @@ public class VRMHandler {
      * @param chart     - Session storage key (for report use only)
      * @return updates foundObject parameter with JSONObject that found at in given JSONArray and returns it
      */
-    private JSONObject getObjectFromDataArray(JSONArray dataArray, String label, String chart) {
+    protected JSONObject getObjectFromDataArray(JSONArray dataArray, String label, String chart) {
         try {
             foundObject = StreamSupport.stream(dataArray.spliterator(), false)
                     .map(JSONObject.class::cast)
@@ -365,7 +366,7 @@ public class VRMHandler {
      * @param label - Chart internal key
      * @return update the foundObject parameter with JSONArray that found at sessionStorage->DATA->DATASETS and returns  it
      */
-    private JSONObject getObjectFromDataSets(String chart, String label, String columnGraph) {
+    protected JSONObject getObjectFromDataSets(String chart, String label, String columnGraph) {
         JSONArray dataArray;
         try {
             Map jsonMap = getSessionStorage(chart);
@@ -394,7 +395,7 @@ public class VRMHandler {
      * @param chart - Session storage key
      * @return it returns JSONArray that found at sessionStorage->DATA->DATASETS
      */
-    private JSONArray getObjectArraysFromDataSets(String chart) {
+    protected JSONArray getObjectArraysFromDataSets(String chart) {
         JSONArray dataArray;
         try {
             Map jsonMap = getSessionStorage(chart);
@@ -411,7 +412,7 @@ public class VRMHandler {
      * @param chart - Session storage key
      * @return it update foundObject parameter with JSONObject that found at sessionStorage->DATA->DATASETS->get(0) and returns it
      */
-    private JSONObject getObjectFromDataSets(String chart) {
+    protected JSONObject getObjectFromDataSets(String chart) {
         JSONArray dataArray;
         try {
             Map jsonMap = getSessionStorage(chart);
@@ -429,7 +430,7 @@ public class VRMHandler {
      * @param chart - Session storage key
      * @return it returns JSONArray that found at sessionStorage->DATA->LABELS
      */
-    private JSONArray getLabelsFromData(String chart) {
+    protected JSONArray getLabelsFromData(String chart) {
 
         Map jsonMap = null;
         try {
@@ -613,7 +614,7 @@ public class VRMHandler {
         reportErrors();
     }
 
-    private static void scrollAndTakeScreenshot(String chart) {
+    protected static void scrollAndTakeScreenshot(String chart) {
         scroll(chart);
         WebUIUtils.forceGenerateAndReportScreenshot();
     }
@@ -829,7 +830,7 @@ public class VRMHandler {
     }
 
 
-    private void uiVRMSelectWidgets() {
+    protected void uiVRMSelectWidgets() {
 //      Open widget selection popup
         WebUIVisionBasePage.getCurrentPage().getContainer().getWidget("").click();
 //      Remove all
@@ -853,43 +854,45 @@ public class VRMHandler {
 
             entries.forEach(entry -> {
                 String deviceIp = null;
+                String deviceName = null;
                 try {
                     if (entry.index == null) {
                         throw new Exception("Index entry is empty please enter it!");
                     }
                     if (deviceType == null) {
                         deviceIp = devicesManager.getDeviceInfo(SUTDeviceType.DefensePro, entry.index).getDeviceIp();
+                        deviceName = devicesManager.getDeviceInfo(SUTDeviceType.DefensePro, entry.index).getDeviceName();
                     } else {
                         deviceIp = devicesManager.getDeviceInfo(deviceType, entry.index).getDeviceIp();
+                        deviceName = devicesManager.getDeviceInfo(SUTDeviceType.DefensePro, entry.index).getDeviceName();
                     }
 
                 } catch (Exception e) {
                     BaseTestUtils.report(e.getMessage(), e);
                 }
                 //select the device
-                checkbox.setLocator(ComponentLocatorFactory.getEqualLocatorByDbgId("scopeSelection_DefensePro_" + deviceIp + "_Label"));
+                checkbox.setLocator(ComponentLocatorFactory.getEqualLocatorByDbgId("scopeSelection_" + deviceName + "_Label"));
                 checkbox.check();
                 boolean changePolicies = entry.policies != null && !entry.policies.equals("");
                 boolean changePorts = entry.ports != null && !entry.ports.equals("");
                 if (changePolicies || changePorts) {
                     //click on change
-                    if(!WebUIUtils.fluentWait(new ComponentLocator(How.XPATH, "//*[@data-debug-id='scopeSelection_change_" + deviceIp + "']/../../../div[contains(@class,'deviceFilters')]").getBy()).getAttribute("class").contains("expanded"))
-                        ClickOperationsHandler.clickWebElement(ComponentLocatorFactory.getEqualLocatorByDbgId("scopeSelection_change_" + deviceIp), false);
-                    String policyPrefix = "scopeSelection_deviceIP_" + deviceIp + "_policiesLabel_";
-                    String portPrefix = "scopeSelection_deviceIP_" + deviceIp + "_portsLabel_";
-                    String policySearch = "scopeSelection_deviceIP_[" + deviceIp + "]_policy_Text";
-                    String portSearch = "scopeSelection_deviceIP_[" + deviceIp + "]_port_Text";
+                    ClickOperationsHandler.clickWebElement(ComponentLocatorFactory.getEqualLocatorByDbgId("scopeSelection_change_" + deviceName), false);
+                    String policyPrefix = "scopeSelection_" + deviceName + "_policiesLabel_";
+                    String portPrefix = "scopeSelection_" + deviceName + "_portsLabel_";
+                    String policySearch = "scopeSelection_[" + deviceName + "]_policy_Text";
+                    String portSearch = "scopeSelection_[" + deviceName + "]_port_Text";
                     List<String> policiesList, portsList;
                     if (changePolicies) {
                         WebUITextField policyText = new WebUITextField(ComponentLocatorFactory.getEqualLocatorByDbgId(policySearch));
-                        WebUIUtils.scrollIntoView(policyText.getWebElement());
+                        WebUIUtils.scrollIntoView(policyText.getWebElement(), true);
                         if (!entry.policies.equalsIgnoreCase("ALL")) {
                             policiesList = Arrays.asList(entry.policies.split("(,)"));
                             for (String policy : policiesList) {
                                 policyText.type(policy.trim());
                                 if (WebUIUtils.fluentWait(ComponentLocatorFactory.getEqualLocatorByDbgId(policyPrefix + policy.trim()).getBy(), WebUIUtils.DEFAULT_WAIT_TIME / 2) == null) {
                                     policyText.type(""); //clear
-                                    scrollUntilElementDisplayed(ComponentLocatorFactory.getLocatorByXpathDbgId("scopeSelection_deviceIP_" + deviceIp + "_policiesLabel_"), ComponentLocatorFactory.getEqualLocatorByDbgId(policyPrefix + policy.trim()));
+                                    scrollUntilElementDisplayed(ComponentLocatorFactory.getLocatorByXpathDbgId("scopeSelection_" + deviceName + "_policiesLabel_"), ComponentLocatorFactory.getEqualLocatorByDbgId(policyPrefix + policy.trim()));
                                 } else if (!WebUIUtils.fluentWait(ComponentLocatorFactory.getEqualLocatorByDbgId(policyPrefix + policy.trim()).getBy()).isDisplayed()) {
                                     WebUIUtils.scrollIntoView(WebUIUtils.fluentWait(ComponentLocatorFactory.getEqualLocatorByDbgId(policyPrefix + policy.trim()).getBy()));
                                 }
@@ -897,7 +900,7 @@ public class VRMHandler {
                                 checkbox.check();
                             }
                         } else {
-                            LazyView lazyView = new LazyViewImpl(ComponentLocatorFactory.getEqualLocatorByDbgId("VRM_Scope_Selection_policies_DefensePro_" + deviceIp), new ComponentLocator(How.XPATH, "//lablel"));
+                            LazyView lazyView = new LazyViewImpl(ComponentLocatorFactory.getEqualLocatorByDbgId("VRM_Scope_Selection_policies_" + deviceName), new ComponentLocator(How.XPATH, "//lablel"));
                             policiesList = lazyView.getViewValues();
                             for (String policy : policiesList) {
                                 policyText.type(policy.trim());
@@ -916,7 +919,7 @@ public class VRMHandler {
                                 checkbox.check();
                             }
                         } else {
-                            LazyView lazyView = new LazyViewImpl(ComponentLocatorFactory.getEqualLocatorByDbgId("VRM_Scope_Selection_policies_DefensePro_" + deviceIp), new ComponentLocator(How.XPATH, "//lablel"));
+                            LazyView lazyView = new LazyViewImpl(ComponentLocatorFactory.getEqualLocatorByDbgId("VRM_Scope_Selection_policies_" + deviceName), new ComponentLocator(How.XPATH, "//lablel"));
                             portsList = lazyView.getViewValues();
                             for (String port : portsList) {
                                 portText.type(port.trim());
@@ -958,7 +961,7 @@ public class VRMHandler {
      * @param targetElementLocator this target comparator of element who we'r seeking about
      *                             this method searches about an element in list - and do scroll to this element
      */
-    public void scrollUntilElementDisplayed(ComponentLocator elementsLocator, ComponentLocator targetElementLocator) {
+    public void scrollUntilElementDisplayed(ComponentLocator elementsLocator, ComponentLocator targetElementLocator, boolean isScrollElementToTop) {
         if (WebUIUtils.fluentWait(targetElementLocator.getBy(), WebUIUtils.DEFAULT_WAIT_TIME) != null) //if targetElement exist
             return;
 
@@ -966,10 +969,14 @@ public class VRMHandler {
         if (firstElementInList == null) //if the list is empty
             BaseTestUtils.report("The list is empty", Reporter.FAIL);
 
-        if (!isTargetLocatorExistInList(elementsLocator, targetElementLocator))
+        if (!isTargetLocatorExistInList(elementsLocator, targetElementLocator, isScrollElementToTop))
             BaseTestUtils.report("The target Element '" + targetElementLocator.getLocatorValue() + "' is not found", Reporter.FAIL);
         else
             WebUIUtils.scrollIntoView(WebUIUtils.fluentWait(targetElementLocator.getBy()));
+    }
+    public void scrollUntilElementDisplayed(ComponentLocator elementsLocator, ComponentLocator targetElementLocator)
+    {
+        scrollUntilElementDisplayed(elementsLocator, targetElementLocator, false);
     }
 
     /**
@@ -980,7 +987,7 @@ public class VRMHandler {
      * <p>
      * this method do scrolls until find the target element
      */
-    private boolean isTargetLocatorExistInList(ComponentLocator elementsLocator, ComponentLocator targetElementLocator) {
+    protected boolean isTargetLocatorExistInList(ComponentLocator elementsLocator, ComponentLocator targetElementLocator, boolean isScrollElementToTop) {
         List<String> elementsTextsList = new ArrayList();
 
         while (!isTargetLocatorExist(targetElementLocator)) {
@@ -990,13 +997,15 @@ public class VRMHandler {
             for (WebElement element : elementsShouldBeAddedList) {
                 elementsTextsList.add(element.getText());
             }
-            WebUIUtils.scrollIntoView(elementsShouldBeAddedList.size() != 0 ? elementsShouldBeAddedList.get(elementsShouldBeAddedList.size() - 1) : null);
+            if (isScrollElementToTop)
+                ((JavascriptExecutor)WebUIUtils.getDriver()).executeScript("arguments[0].scrollIntoView();", elementsShouldBeAddedList.get(elementsShouldBeAddedList.size() - 1));
+            else WebUIUtils.scrollIntoView(elementsShouldBeAddedList.size() != 0 ? elementsShouldBeAddedList.get(elementsShouldBeAddedList.size() - 1) : null);
         }
 
         return isTargetLocatorExist(targetElementLocator);
     }
 
-    private boolean isTargetLocatorExist(ComponentLocator targetElementLocator) {
+    protected boolean isTargetLocatorExist(ComponentLocator targetElementLocator) {
         return WebUIUtils.fluentWait(targetElementLocator.getBy(), WebUIUtils.DEFAULT_WAIT_TIME / 2) != null;
     }
 
@@ -1005,7 +1014,7 @@ public class VRMHandler {
      * @param elementsShouldBeAddedList list of the new elements that should be added
      * @return return just the new elements - elements their texts aren't found in the elementsTextsList
      */
-    private List<WebElement> extractJustNewElements(List<String> elementsTextsList, List<WebElement> elementsShouldBeAddedList) {
+    protected List<WebElement> extractJustNewElements(List<String> elementsTextsList, List<WebElement> elementsShouldBeAddedList) {
         if (!elementsTextsList.isEmpty()) {
             Collections.reverse(elementsShouldBeAddedList);
             int i = 0;
@@ -1099,7 +1108,7 @@ public class VRMHandler {
         reportErrors();
     }
 
-    private LocalDateTime getLocalDateTime(String amount, String amountType, LocalDateTime localDateTime) {
+    protected LocalDateTime getLocalDateTime(String amount, String amountType, LocalDateTime localDateTime) {
         switch (amountType) {
             case "M":
                 localDateTime = localDateTime.plusMonths(Integer.parseInt(amount));
@@ -1310,6 +1319,7 @@ public class VRMHandler {
         String legendName;
         Integer count;
         Integer countOffset;
+        Integer min;
 
         @Override
         public String toString() {
@@ -1378,8 +1388,8 @@ public class VRMHandler {
     }
 
     public static class LabelParam {
-        private String param = "";
-        private String label = "";
+        protected String param = "";
+        protected String label = "";
         public boolean exist;
 
         public String getDataDebugId() {
@@ -1522,7 +1532,7 @@ public class VRMHandler {
             BaseTestUtils.report("Failed to get Falling memory Warning ", Reporter.FAIL);
     }
 
-    private void changeValuesMemoryUtilization(String warningRising, String errorRising, String warningFalling, String errorFalling) {
+    protected void changeValuesMemoryUtilization(String warningRising, String errorRising, String warningFalling, String errorFalling) {
         if (WebUIUtils.fluentWait(new ComponentLocator(How.ID, "gwt-debug-ConfigTab_EDIT_AlertBrowser.Alerts_Submit").getBy(), WebUIUtils.DEFAULT_WAIT_TIME, false) != null)
             WebUIUtils.fluentWaitClick((new ComponentLocator(How.ID, "gwt-debug-ConfigTab_EDIT_AlertBrowser.Alerts_Submit")).getBy(), WebUIUtils.DEFAULT_WAIT_TIME, false);
         WebUIUtils.fluentWaitClick(new ComponentLocator(How.XPATH, "//*[contains(@id,'CellID_parameterName')]//div[contains(text(),'MEMORY')]").getBy(), WebUIUtils.DEFAULT_WAIT_TIME, false);

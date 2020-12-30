@@ -15,18 +15,17 @@ import com.radware.vision.automation.tools.sutsystemobjects.devicesinfo.DeviceIn
 import com.radware.vision.automation.tools.sutsystemobjects.devicesinfo.enums.SUTDeviceType;
 import com.radware.vision.base.WebUITestSetup;
 import com.radware.vision.bddtests.BddUITestBase;
+import com.radware.vision.bddtests.ReportsForensicsAlerts.WebUiTools;
 import com.radware.vision.infra.base.pages.navigation.HomePage;
 import com.radware.vision.infra.base.pages.navigation.WebUIVisionBasePage;
 import com.radware.vision.infra.enums.*;
 import com.radware.vision.infra.testhandlers.baseoperations.BasicOperationsByNameIdHandler;
 import com.radware.vision.infra.testhandlers.baseoperations.BasicOperationsHandler;
 import com.radware.vision.infra.testhandlers.baseoperations.clickoperations.ClickOperationsHandler;
-import com.radware.vision.infra.testhandlers.cli.CliOperations;
 import com.radware.vision.infra.testhandlers.topologytree.TopologyTreeHandler;
 import com.radware.vision.infra.testhandlers.vrm.VRMHandler;
 import com.radware.vision.infra.utils.TimeUtils;
 import com.radware.vision.infra.utils.VisionWebUIUtils;
-import cucumber.api.PendingException;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
@@ -36,14 +35,18 @@ import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.How;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
+import java.time.temporal.ChronoUnit;
 import java.util.List;
 
 import static com.radware.vision.infra.testhandlers.baseoperations.BasicOperationsHandler.isLoggedIn;
 import static com.radware.vision.infra.testhandlers.baseoperations.BasicOperationsHandler.isLoggedOut;
 
+import static com.radware.vision.infra.utils.ReportsUtils.addErrorMessage;
+import static com.radware.vision.infra.utils.ReportsUtils.reportErrors;
 /**
  * Created by AviH on 30-Nov-17.
  */
@@ -572,7 +575,103 @@ public class BasicOperationsSteps extends BddUITestBase {
         assert isDisabled;
     }
 
+    @Then("^UI Validate the attribute of \"([^\"]*)\" are \"(EQUAL|CONTAINS|NOT CONTAINS)\" to$")
+    public void uiValidateTheAttributesOfAreTo(String attribute  , String compare, List<ParamterSelected> listParamters) throws Throwable {
+        uiValidateClassContentOfWithParamsIsEQUALSCONTAINSToListParameters(listParamters,attribute, compare);
+    }
 
+    public static void uiValidateClassContentOfWithParamsIsEQUALSCONTAINSToListParameters(List<ParamterSelected> listParamters,String attribute,  String compare)
+    {
+        for (ParamterSelected parameter : listParamters) { //all the parameters that selected to compare with values
+            VisionDebugIdsManager.setLabel(parameter.label);
+            VisionDebugIdsManager.setParams(parameter.param);
+
+            WebElement element = WebUIUtils.fluentWait(ComponentLocatorFactory.getLocatorByXpathDbgId(VisionDebugIdsManager.getDataDebugId()).getBy());
+            if (element == null) {
+                addErrorMessage("No " + attribute + " attribute in element that contains " + VisionDebugIdsManager.getDataDebugId() + " in this data-debug-id");
+            }
+            else{
+                String actualStatus = element.getAttribute(attribute);
+                String errorMessage = "The EXPECTED value of : '" + parameter.label + "' with params: '" + parameter.param + "' is not equal to '" + actualStatus + "' ";
+                switch (compare) {
+                    case "EQUAL":
+                    case "EQUALS":
+                        if (!element.getAttribute(attribute).equalsIgnoreCase(parameter.value)) {
+                            addErrorMessage(errorMessage);
+                        }
+                        break;
+                    case "CONTAINS":
+                        if (!element.getAttribute(attribute).contains(parameter.value)) {
+                            errorMessage.replaceFirst(" is not equal to ", " is not contained in ");
+                            addErrorMessage(errorMessage);
+                        }
+                        break;
+                    case "NOT CONTAINS":
+                        if (element.getAttribute(attribute).contains(parameter.value)) {
+                            errorMessage.replaceFirst(" is not equal to ", " is contained in ");
+                            addErrorMessage(errorMessage);
+                        }
+                        break;
+                }
+            }
+        }
+        reportErrors();
+    }
+
+    @Then("^validate webUI CSS value \"([^\"]*)\" of label \"([^\"]*)\"(?: with params \"([^\"]*)\")? equals \"([^\"]*)\"$")
+    public void validateWebUICSSOfLabelWithParams(String cssKey, String label, String param,String cssValue) throws Throwable {
+       VisionDebugIdsManager.setLabel(label);
+       VisionDebugIdsManager.setParams(param);
+       WebElement element = WebUIUtils.fluentWait(ComponentLocatorFactory.getLocatorByXpathDbgId(VisionDebugIdsManager.getDataDebugId()).getBy());
+       if(element==null)
+           BaseTestUtils.report("This element with label : "+label+" and params: "+param+ " is not exist", Reporter.FAIL);
+       else if(!element.getCssValue(cssKey).equals(cssValue))
+           BaseTestUtils.report("This element with cssKey : "+cssKey+" and cssValue: "+cssValue+ " not equal to "+element.getCssValue(cssKey), Reporter.FAIL);
+    }
+
+    @Then("^UI Select Time of label \"([^\"]*)\"(?: with params \"([^\"]*)\")? with value \"([^\"]*)\" and pattern \"([^\"]*)\"$")
+    public void uiSelectTimeOfLabelWithParamsWithValue(String label, String param, String timeValue, String pattern) {
+        LocalDateTime scheduleTime = readTime(timeValue, pattern);
+        fillTime(label, param, scheduleTime);
+    }
+
+    private LocalDateTime readTime(String timeValue, String pattern) {
+        if (TimeUtils.isWithComputing(timeValue))
+            return TimeUtils.getAddedDate(timeValue);
+        else
+            return LocalDateTime.parse(timeValue, DateTimeFormatter.ofPattern(pattern));
+    }
+
+    public static void fillTime(String label, String params, LocalDateTime scheduleTime) {
+        WebUiTools.getWebElement(label, params).click();
+        selectDate(label, params, scheduleTime);
+        WebUiTools.getWebElement(label, params).click();
+        WebUiTools.getWebElement(label, params).findElement(By.xpath("./..//td[@class='rdtTimeToggle']")).click();
+        selectHoursOrMinutes(label, params, "hours", scheduleTime);
+        selectHoursOrMinutes(label, params, "minutes", scheduleTime);
+    }
+
+    private static void selectHoursOrMinutes(String label, String params, String HoursOrMinutes, LocalDateTime scheduleTime) {
+        int differenceValue = Integer.valueOf(WebUiTools.getWebElement(label, params).findElement(By.xpath("(./..//div[@class='rdtCount'])[" + (HoursOrMinutes.toLowerCase().equalsIgnoreCase("hours")?"1":"2") + "]")).getText()) - (HoursOrMinutes.toLowerCase().equalsIgnoreCase("hours")?scheduleTime.getHour():scheduleTime.getMinute());
+        for(int i=0; i<Math.abs(differenceValue); i++)
+            WebUiTools.getWebElement(label, params).findElement(By.xpath("(./..//div[@class='rdtCounter'])[" + (HoursOrMinutes.toLowerCase().equalsIgnoreCase("hours")?"1":"2") + "]//span[.='" + (differenceValue>0?"▼":"▲") + "']")).click();
+    }
+    private static void selectDate(String label, String params, LocalDateTime scheduleTime) {
+        LocalDate actualLocalDate = LocalDate.parse("01 " + WebUiTools.getWebElement(label, params).findElement(By.xpath("./..//*[@class='rdtPicker']//*[@class='rdtSwitch']")).getText(), DateTimeFormatter.ofPattern("dd MMMM yyyy"));
+        int monthsDifference = (int) ChronoUnit.MONTHS.between(actualLocalDate.withDayOfMonth(1), scheduleTime.withDayOfMonth(1));
+        while(monthsDifference != 0)
+        {
+            WebUiTools.getWebElement(label, params).findElement(By.xpath("./..//*[@class='rdtPicker']//*[@class='rdt" + (monthsDifference>0?"Next":"Prev") + "']")).click();
+            monthsDifference = monthsDifference>0?monthsDifference-1:monthsDifference+1;
+        }
+        WebUiTools.getWebElement(label, params).findElement(By.xpath("./..//td[@data-value='" + scheduleTime.getDayOfMonth() + "'][not(contains(@class,'rdtOld'))]")).click();
+    }
+
+    public static class ParamterSelected{
+        String label;
+        String param ;
+        String value;
+    }
 
     static public class TableEntry {
         String columnName;
@@ -610,4 +709,52 @@ public class BasicOperationsSteps extends BddUITestBase {
             BaseTestUtils.report("The expected count of Label " + label + "with value " + value + "is " + count + "But the Actual is " + actualcount, Reporter.FAIL);
     }
 
+
+// .... Maha test ....
+    @Then("^MahaTest click on \"([^\"]*)\"$")
+    public void mahatestClickOn(String buttonName) {
+        // Write code here that turns the phrase above into concrete actions
+        VisionDebugIdsManager.setLabel(buttonName);
+        VisionDebugIdsManager.setParams("");
+        WebUIUtils.fluentWait((ComponentLocatorFactory.getLocatorByXpathDbgId(VisionDebugIdsManager.getDataDebugId())).getBy()).click();
+//        throw new PendingException();
+    }
+
+
+    @Then("^UI Unclick all the attributes \"([^\"]*)\" is \"(EQUALS|CONTAINS)\" to \"([^\"]*)\"$")
+    public void uiUnclickAllTheAttributesOf(String attribute ,String compare, String value, List<ParamterSelected> listParameters ) throws Throwable {
+        for (ParamterSelected parameter : listParameters) {
+            VisionDebugIdsManager.setLabel(parameter.label);
+            VisionDebugIdsManager.setParams(parameter.param);
+            WebElement element = WebUIUtils.fluentWait(ComponentLocatorFactory.getLocatorByXpathDbgId(VisionDebugIdsManager.getDataDebugId()).getBy());
+            if (element == null) {
+                addErrorMessage("No " + attribute + " attribute in element that contains " + VisionDebugIdsManager.getDataDebugId() + " in this data-debug-id");
+            }
+            else {
+                String actualStatus = element.getAttribute(attribute);
+                switch (compare) {
+                    case "EQUALS":
+                        if (element.getAttribute(attribute).equalsIgnoreCase(value)) {
+                            BasicOperationsHandler.clickButton(parameter.label, parameter.param);
+                        }
+                        break;
+                    case "CONTAINS":
+                        if (element.getAttribute(attribute).contains(value)) {
+                            BasicOperationsHandler.clickButton(parameter.label, parameter.param);
+                        }
+                        break;
+                }
+            }
+            }
+        reportErrors();
+        }
+
+        public static class ClickParameter{
+        String label;
+        String param ;
+        }
+
+
+
+//checkbox_select-all_Label
 }

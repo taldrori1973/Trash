@@ -1,6 +1,7 @@
 @TC112423
 Feature: AppWall Reports
 
+  
   @SID_1
   Scenario: Clear data
     * CLI kill all simulator attacks on current vision
@@ -10,6 +11,7 @@ Feature: AppWall Reports
     * REST Delete ES index "vrm-scheduled-report-*"
     * CLI Clear vision logs
 
+  
   @SID_2
   Scenario:Run AW Attacks
     Given CLI Run remote linux Command on "GENERIC_LINUX_SERVER"
@@ -33,11 +35,13 @@ Feature: AppWall Reports
       | " 172.17.164.30 5 "/home/radware/AW_Attacks/AppwallAttackTypes/"" |
     And Sleep "40"
 
+
   @SID_3
   Scenario: Clear SMTP Server Log Files
     Given CLI Run remote linux Command "echo "cleared" $(date) > /var/spool/mail/radware" on "GENERIC_LINUX_SERVER"
     And CLI Run remote linux Command "echo "cleared" $(date) > /var/spool/mail/reportuser" on "GENERIC_LINUX_SERVER"
 
+  
   @SID_4
   Scenario: Login And Copy get_scheduled_report_value.sh File To Server
     Given UI Login with user "radware" and password "radware"
@@ -60,6 +64,7 @@ Feature: AppWall Reports
     And UI Set Text Field "SMTP Port" To "25"
     And UI Click Button "Submit"
 
+  
   @SID_6
   Scenario: Navigate AMS Report
     * REST Vision Install License Request "vision-AVA-Max-attack-capacity"
@@ -73,44 +78,47 @@ Feature: AppWall Reports
     * REST Vision Install License Request "vision-AVA-AppWall"
     And Browser Refresh Page
     And UI Navigate to "AMS Reports" page via homePage
-    Then UI Validate Element Existence By Label "Add New" if Exists "true"
+
 
   # =============================================Overall===========================================================
   @SID_7
   Scenario: Create One Report Validation
-    When UI "Create" Report With Name "OverAllAppWallReport"
-      | reportType         | AppWall Dashboard                   |
-      | webApplications    | Vision1,radware1,test1              |
-      | Design             | Add:[Top Sources,Attacks by Action] |
-      | Customized Options | addLogo: reportLogoPNG.png          |
+    Given UI "Create" Report With Name "OverAllAppWallReport"
+      | Template              | reportType:AppWall , Widgets:[Top Sources,Attacks by Action] , Applications:[Vision1,radware1,test1] , showTable:false|
+      | Logo                  | reportLogoPNG.png                                                                |
+     
+    
+    
     Then UI "Validate" Report With Name "OverAllAppWallReport"
-      | reportType         | AppWall Dashboard                       |
-      | webApplications    | Vision1,radware1,test1                  |
-      | Design             | Widgets:[Top Sources,Attacks by Action] |
-      | Customized Options | addLogo: reportLogoPNG.png              |
-    Then UI Validate Element Existence By Label "Reports List Item" if Exists "true" with value "OverAllAppWallReport"
+      | Template              | reportType:AppWall , Widgets:[Top Sources,Attacks by Action] , Applications:[Vision1,radware1,test1] , showTable:false|
+      | Logo                  | reportLogoPNG.png                                                                |
+
+    
+    Then UI Validate Element Existence By Label "My Report" if Exists "true" with value "OverAllAppWallReport"
+
+    
 
   @SID_8
   Scenario: Edit Report Validation
-    When UI "Edit" Report With Name "OverAllAppWallReport"
-      | reportType            | AppWall Dashboard  |
-      | webApplications       | Vision2            |
-      | Customized Options    | addLogo:unselected |
+    Given UI "Edit" Report With Name "OverAllAppWallReport"
+      | Template-3 | reportType:AppWall , Widgets:[Attack Severity] , Applications:[Vision2] , showTable:false |
       | Time Definitions.Date | Quick:15m          |
+
     Then UI "Validate" Report With Name "OverAllAppWallReport"
-      | reportType            | AppWall Dashboard  |
-      | webApplications       | Vision2            |
+      | Template-3 | reportType:AppWall , Widgets:[Attack Severity] , Applications:[Vision2] , showTable:false |
       | Time Definitions.Date | Quick:15m          |
 
   @SID_9
   Scenario: Generate Report Validation
-    Then UI Generate and Validate Report With Name "OverAllAppWallReport" with Timeout of 100 Seconds
+    Then UI Click Button "My Report" with value "OverAllAppWallReport"
+    Then UI Click Button "Generate Report Manually" with value "OverAllAppWallReport"
+    Then Sleep "35"
 
   @SID_10
   Scenario: Delete Report Validation
-    When UI Click Button "Delete" with value "OverAllAppWallReport"
-    And UI Click Button "Delete.Approve"
-    Then UI Validate Element Existence By Label "Reports List Item" if Exists "false" with value "OverAllAppWallReport"
+    Then UI Validate Element Existence By Label "My Report" if Exists "true" with value "OverAllAppWallReport"
+    Then UI Delete Report With Name "OverAllAppWallReport"
+    Then UI Validate Element Existence By Label "My Report" if Exists "false" with value "OverAllAppWallReport"
 
           # =============================================SanityReports===========================================================
 
@@ -119,10 +127,13 @@ Feature: AppWall Reports
     Given CLI Run remote linux Command "echo "cleared" $(date) > /var/spool/mail/radware" on "GENERIC_LINUX_SERVER"
     And CLI Run remote linux Command "echo "cleared" $(date) > /var/spool/mail/reportuser" on "GENERIC_LINUX_SERVER"
     When UI "Create" Report With Name "deliveryAW"
-      | reportType      | AppWall Dashboard                                                                            |
-      | webApplications | All                                                                                          |
+      | Template              | reportType:AppWall , Widgets:[All] , Applications:[All] , showTable:false|
       | Share           | Email:[automation.vision1@radware.com, also@report.local],Subject:report delivery Subject AW |
-    Then UI Generate and Validate Report With Name "deliveryAW" with Timeout of 100 Seconds
+
+    Then UI Click Button "My Report" with value "deliveryAW"
+    Then UI Click Button "Generate Report Manually" with value "deliveryAW"
+    Then Sleep "35"
+
 
   @SID_12
   Scenario: Validate Report Email Recieved Content
@@ -139,37 +150,38 @@ Feature: AppWall Reports
     Then CLI Run linux Command "grep -oP "Content-Disposition: attachment; filename=VRM_report_(\d{13}).pdf" /var/spool/mail/reportuser | wc -l" on "GENERIC_LINUX_SERVER" and validate result GTE "1"
     Then CLI Run linux Command "grep -oP "Content-Disposition: attachment; filename=VRM_report_(\d{13}).pdf" /var/spool/mail/radware | wc -l" on "GENERIC_LINUX_SERVER" and validate result GTE "1"
 
+
   @SID_13
   Scenario: Create New Report With Monthly Schedule
     When UI "Create" Report With Name "scheduleMonthlyAW"
-      | reportType | AppWall Dashboard             |
+      | Template              | reportType:AppWall , Widgets:[OWASP Top 10,Top Attack Category,Top Sources,Geolocation,Attacks by Action,Top Attacked Hosts,Attack Severity] , Applications:[All] , showTable:false|
       | Schedule   | Run Every:Monthly,On Time:+2m |
 
-    Then UI "Validate" Report With Name "scheduleMonthlyAW"
-      | reportType | AppWall Dashboard             |
+    When UI "Validate" Report With Name "scheduleMonthlyAW"
+      | Template              | reportType:AppWall , Widgets:[OWASP Top 10,Top Attack Category,Top Sources,Geolocation,Attacks by Action,Top Attacked Hosts,Attack Severity] , Applications:[All] , showTable:false|
       | Schedule   | Run Every:Monthly,On Time:+2m |
 
+  
   @SID_14
   Scenario: Create New Report With Daily Schedule
     When UI "Create" Report With Name "scheduleDailyAW"
-      | reportType | AppWall Dashboard           |
+      | Template              | reportType:AppWall , Widgets:[OWASP Top 10,Top Attack Category,Top Sources,Geolocation,Attacks by Action,Top Attacked Hosts,Attack Severity] , Applications:[All] , showTable:false|
       | Schedule   | Run Every:Daily,On Time:+2m |
 
     Then UI "Validate" Report With Name "scheduleDailyAW"
-      | reportType | AppWall Dashboard           |
+      | Template              | reportType:AppWall, Widgets:[OWASP Top 10,Top Attack Category,Top Sources,Geolocation,Attacks by Action,Top Attacked Hosts,Attack Severity], Applications:[All] , showTable:false|
       | Schedule   | Run Every:Daily,On Time:+2m |
 
+    
   @SID_15
   Scenario: Validation If Reports Generated After The Expected Time
     Given Sleep "150"
     # validate if scheduleMonthlyAW generated in UI
-    When UI Click Button "Reports List Item" with value "scheduleMonthlyAW"
-    Then UI Validate Element Existence By Label "Logs List Items" if Exists "true" with value "scheduleMonthlyAW"
-
+    When UI Click Button "My Report" with value "scheduleMonthlyAW"
+    Then UI Validate Element Existence By Label "Show Report" if Exists "true" with value "scheduleMonthlyAW,0"
     # validate if scheduleDailyAW generated in UI
-    When UI Click Button "Reports List Item" with value "scheduleDailyAW"
-    Then UI Validate Element Existence By Label "Logs List Items" if Exists "true" with value "scheduleDailyAW"
-
+    When UI Click Button "My Report" with value "scheduleDailyAW"
+    Then UI Validate Element Existence By Label "Show Report" if Exists "true" with value "scheduleDailyAW,0"
     # validate scheduleMonthlyAW schedule regex matchs in CLI
     When CLI Run remote linux Command "/get_scheduled_report_value.sh scheduleMonthlyAW" on "ROOT_SERVER_CLI"
     Then CLI Operations - Verify that output contains regex "0 (\d{2}) (\d{2}) (\d{1,2}) (\d{1,2}) \? \*"
@@ -181,30 +193,34 @@ Feature: AppWall Reports
   @SID_16
   Scenario: Validate Time Selection - Quick Range - Report
     Given UI "Create" Report With Name "1HourBeforeReport"
-      | reportType            | AppWall Dashboard |
-      | webApplications       | test1             |
+      | Template              | reportType:AppWall , Widgets:[OWASP Top 10,Top Attack Category,Top Sources,Geolocation,Attacks by Action,Top Attacked Hosts,Attack Severity] , Applications:[test1] , showTable:false|
       | Time Definitions.Date | Quick:1H          |
       | Format                | Select: CSV       |
     Then UI "Validate" Report With Name "1HourBeforeReport"
-      | reportType            | AppWall Dashboard |
-      | webApplications       | test1             |
+      | Template              | reportType:AppWall , Widgets:[OWASP Top 10,Top Attack Category,Top Sources,Geolocation,Attacks by Action,Top Attacked Hosts,Attack Severity] , Applications:[test1] , showTable:false|
       | Time Definitions.Date | Quick:1H          |
       | Format                | Select: CSV       |
-    Then UI Generate and Validate Report With Name "1HourBeforeReport" with Timeout of 100 Seconds
+
+    Then UI Click Button "My Report" with value "1HourBeforeReport"
+    Then UI Click Button "Generate Report Manually" with value "1HourBeforeReport"
+    Then Sleep "35"
+
 
   @SID_17
   Scenario: Validate Time Selection - Relative - Report
     Given UI "Create" Report With Name "2DaysBeforeReport"
-      | reportType            | AppWall Dashboard                  |
-      | Design                | Add:[Geolocation, Attack Severity] |
+      | Template              | reportType:AppWall , Widgets:[Geolocation, Attack Severity] , Applications:[All] , showTable:false|
       | Time Definitions.Date | Relative:[Days,2]                  |
       | Format                | Select: CSV                        |
     Then UI "Validate" Report With Name "2DaysBeforeReport"
-      | reportType            | AppWall Dashboard                      |
-      | Design                | Widgets:[Geolocation, Attack Severity] |
+      | Template              | reportType:AppWall , Widgets:[Geolocation, Attack Severity] , Applications:[All] , showTable:false|
       | Time Definitions.Date | Relative:[Days,2]                      |
       | Format                | Select: CSV                            |
-    Then UI Generate and Validate Report With Name "2DaysBeforeReport" with Timeout of 100 Seconds
+
+    Then UI Click Button "My Report" with value "2DaysBeforeReport"
+    Then UI Click Button "Generate Report Manually" with value "2DaysBeforeReport"
+    Then Sleep "35"
+
 
   @SID_18
   Scenario: Validate Credential of sec_mon User
@@ -212,7 +228,8 @@ Feature: AppWall Reports
     When UI logout and close browser
     And UI Login with user "sec_mon" and password "radware"
     And UI Navigate to "AMS Reports" page via homePage
-    Then UI Validate Element Existence By Label "Title" if Exists "false" with value "2DaysBeforeReport"
+    Then UI Validate Element Existence By Label "Generate By Schedule" if Exists "true" with value "2DaysBeforeReport"
+
 
   @SID_19
   Scenario: Search For Bad Logs

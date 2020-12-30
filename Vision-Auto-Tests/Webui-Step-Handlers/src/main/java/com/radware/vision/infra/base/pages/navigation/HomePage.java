@@ -47,7 +47,10 @@ public class HomePage {
         switch (tab.toLowerCase()) {
             case "adc reports":
             case "ams reports":
-                return "Reports";
+                return "REPORTS";
+//            case "ams new reports":
+//            case "adc new reports":
+//                return "NEW REPORTS";
             case "automation":
                 return "Automation.Toolbox";
             case "home":return "HomePage";

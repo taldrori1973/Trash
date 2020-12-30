@@ -3,17 +3,22 @@ package com.radware.vision.bddtests.rest;
 import basejunit.RestTestBase;
 import com.radware.automation.tools.basetest.BaseTestUtils;
 import com.radware.automation.tools.basetest.Reporter;
+import com.radware.automation.webui.VisionDebugIdsManager;
 import com.radware.automation.webui.WebUIUtils;
 import com.radware.automation.webui.widgets.ComponentLocatorFactory;
 import com.radware.restcore.utils.enums.HTTPStatusCodes;
 import com.radware.restcore.utils.enums.HttpMethodEnum;
+import com.radware.vision.automation.tools.exceptions.selenium.TargetWebElementNotFoundException;
 import com.radware.vision.automation.tools.sutsystemobjects.devicesinfo.enums.SUTDeviceType;
 import com.radware.vision.bddtests.BddRestTestBase;
+import com.radware.vision.bddtests.basicoperations.BasicOperationsSteps;
 import com.radware.vision.infra.testhandlers.BaseHandler;
+import com.radware.vision.infra.testhandlers.baseoperations.BasicOperationsHandler;
 import com.radware.vision.infra.testhandlers.cli.CliOperations;
 import com.radware.vision.infra.testresthandlers.BasicRestOperationsHandler;
 import com.radware.vision.infra.utils.TimeUtils;
 import com.radware.vision.vision_project_cli.RootServerCli;
+import cucumber.api.PendingException;
 import cucumber.api.java.en.And;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
@@ -23,6 +28,7 @@ import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
+import org.openqa.selenium.WebElement;
 import testhandlers.VisionRestApiHandler;
 import testhandlers.vision.system.UserManagement.UserManagementSettingsHandler;
 import testhandlers.vision.system.UserManagement.enums.UserManagementSettingsKeys;
@@ -37,6 +43,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import static com.radware.vision.infra.testresthandlers.BasicRestOperationsHandler.visionRestApiBuilder;
+import static com.radware.vision.infra.utils.ReportsUtils.addErrorMessage;
 
 
 public class BasicRestOperationsSteps extends BddRestTestBase {
@@ -102,7 +109,7 @@ public class BasicRestOperationsSteps extends BddRestTestBase {
         BasicRestOperationsHandler.visionRestApiRequest(restTestBase.getVisionRestClient(), method, request, urlField, bodyFields, expectedResult);
     }
 
-//    @Then("^REST Vision DELETE License Request \"(.*)\"$")
+    //    @Then("^REST Vision DELETE License Request \"(.*)\"$")
     public void deleteLicenses(String feature_name) {
         CliOperations.runCommand(restTestBase.getRootServerCli(), String.format("mysql -u root -prad123 vision_ng -e \"select row_id from vision_license where license_str like '%%%s%%'\\G\" | tail -1 | awk '{print $2}'", feature_name));
         String licenseRawID = CliOperations.lastRow;
@@ -491,9 +498,10 @@ public class BasicRestOperationsSteps extends BddRestTestBase {
     }
 
     @Then("^REST Validate existence reports$")
-    public void restValidateExistenceReports(List <BasicRestOperationsHandler.ExistenceReport> reports) {
-        List <BasicRestOperationsHandler.RestRequestElements> requestEntries = new ArrayList<>();
+    public void restValidateExistenceReports(List<BasicRestOperationsHandler.ExistenceReport> reports) {
+        List<BasicRestOperationsHandler.RestRequestElements> requestEntries = new ArrayList<>();
         requestEntries.add(new BasicRestOperationsHandler.RestRequestElements("Returned status code", "200"));
         BasicRestOperationsHandler.validateExistenceReports(reports, visionRestApiBuilder(HttpMethodEnum.GET, "DefenseFlow->getReports", requestEntries));
     }
+
 }
