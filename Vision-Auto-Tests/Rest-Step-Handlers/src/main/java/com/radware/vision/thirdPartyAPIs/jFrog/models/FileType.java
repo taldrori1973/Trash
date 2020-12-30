@@ -8,6 +8,7 @@ package com.radware.vision.thirdPartyAPIs.jFrog.models;
 public enum FileType {
 //    OVA("ova"),
     OVA("Vision-\\d(.*)_prod.ova"),
+    OVA_HIGHSCALE("Vision-\\d(.*)_highscale.ova"),
     OVA_APM("Vision-with-APM-\\d(.*)_prod.ova"),
     UPGRADE("Upgrade_Vision-\\d(.*).upgrade"),
     UPGRADE_APM("Upgrade_Vision-with-APM-\\d(.*).upgrade"),

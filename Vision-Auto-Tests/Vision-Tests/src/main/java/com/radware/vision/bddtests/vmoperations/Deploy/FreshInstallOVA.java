@@ -8,7 +8,10 @@ public class FreshInstallOVA extends Deploy {
     public FreshInstallOVA(boolean isExtended, String build) {
         super(isExtended, build, WebUITestBase.getVisionRestClient().getDeviceIp());
         this.isAPM = getVisionSetupAttributeFromSUT("isAPM") != null && Boolean.parseBoolean(getVisionSetupAttributeFromSUT("isAPM"));
-        buildFileInfo(this.isAPM ? FileType.OVA_APM : FileType.OVA);
+        //boolean isHighscale = getVisionSetupAttributeFromSUT("isHighscale") != null;
+        //todo: change the file type
+        buildFileInfo(FileType.OVA_HIGHSCALE);
+        //buildFileInfo(this.isAPM ? FileType.OVA_APM : FileType.OVA);
 
     }
 

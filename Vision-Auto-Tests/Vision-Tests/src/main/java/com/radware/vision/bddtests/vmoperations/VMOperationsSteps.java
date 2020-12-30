@@ -126,6 +126,7 @@ public class VMOperationsSteps extends BddUITestBase {
             }
             /* Fresh section */
             switch (setupMode.toLowerCase()) {
+                case "fresh install highscale":
                 case "fresh install_inparallel":
                 case "fresh install":
                     preFreshInstall();
@@ -233,7 +234,7 @@ public class VMOperationsSteps extends BddUITestBase {
             case "fresh install_inparallel":
                 freshInstallInParallel();
                 break;
-
+            case "fresh install highscale":
             case "fresh install":
                 VisionVMs visionVMs = restTestBase.getVisionVMs();
                 NewVmSteps newVmSteps = new NewVmSteps();
