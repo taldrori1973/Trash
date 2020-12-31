@@ -386,7 +386,7 @@ Feature: DP ANALYTICS
     * UI Logout
 
       # ================= ATTACK CATEGORIES BY BANDWIDTH ================= #
-  
+
   @SID_28
   Scenario: Login
     When UI Login with user "sys_admin" and password "radware"
@@ -394,7 +394,7 @@ Feature: DP ANALYTICS
     And UI Do Operation "Select" item "Global Time Filter"
     And UI Do Operation "Select" item "Global Time Filter.Quick Range" with value "3H"
 
-  
+
   @SID_29
   Scenario: VRM - Validate Dashboards "Attack Categories by Bandwidth" Chart data for all DP machines
     When UI Do Operation "Select" item "Device Selection"
@@ -418,7 +418,7 @@ Feature: DP ANALYTICS
       | Seets_policy | 3         | Intrusions     | 1000   |
     Then UI Total "Attack Categories by Bandwidth" legends equal to 9
 
-  
+
   @SID_30
   Scenario: VRM - Validate Dashboards "Attack Categories by Bandwidth" Chart data for one selected DP machine
     When UI Do Operation "Select" item "Device Selection"
@@ -522,14 +522,14 @@ Feature: DP ANALYTICS
     And UI Do Operation "Select" item "Global Time Filter.Quick Range" with value "3H"
 
   @SID_38
-  Scenario: VRM - Validate Dashboards "Top Attack Destination" chart data on All devices
+  Scenario: VRM - Validate Dashboards "Top Attack Destinations" chart data on All devices
     When UI Do Operation "Select" item "Device Selection"
     And UI VRM Select device from dashboard and Save Filter
       | index | ports | policies |
       | 10    |       |          |
       | 11    |       |          |
       | 12    |       |          |
-    Then UI Validate Pie Chart data "Top Attack Destination"
+    Then UI Validate Pie Chart data "Top Attack Destinations"
       | label                                   | data |
       | 0.0.0.0                                 | 15   |
       | 1.1.1.10                                | 15   |
@@ -543,12 +543,12 @@ Feature: DP ANALYTICS
       | 30.1.1.10                               | 6    |
 
   @SID_39
-  Scenario: VRM - Validate Dashboards "Top Attack Destination" chart data on one device
+  Scenario: VRM - Validate Dashboards "Top Attack Destinations" chart data on one device
     When UI Do Operation "Select" item "Device Selection"
     And UI VRM Select device from dashboard and Save Filter
       | index | ports | policies |
       | 10    |       |          |
-    Then UI Validate Pie Chart data "Top Attack Destination"
+    Then UI Validate Pie Chart data "Top Attack Destinations"
       | label                                   | data |
       | 0.0.0.0                                 | 5    |
       | 1.1.1.10                                | 5    |
@@ -568,7 +568,7 @@ Feature: DP ANALYTICS
       | index | ports | policies |
       | 10    | 1,3   |          |
       | 11    | 1,3   |          |
-    Then UI Validate Pie Chart data "Top Attack Destination"
+    Then UI Validate Pie Chart data "Top Attack Destinations"
       | label        | data |
       | 1.1.1.1      | 2    |
       | 1.1.1.10     | 10   |
@@ -583,7 +583,7 @@ Feature: DP ANALYTICS
     And UI VRM Select device from dashboard and Save Filter
       | index | ports | policies |
       | 10    | 1     | BDOS     |
-    Then UI Validate Pie Chart data "Top Attack Destination"
+    Then UI Validate Pie Chart data "Top Attack Destinations"
       | label   | data |
       | 1.1.1.1 | 1    |
       | 1.1.1.8 | 2    |
@@ -595,7 +595,7 @@ Feature: DP ANALYTICS
     And UI VRM Select device from dashboard and Save Filter
       | index | ports | policies |
       | 10    |       | BDOS     |
-    Then UI Validate Pie Chart data "Top Attack Destination"
+    Then UI Validate Pie Chart data "Top Attack Destinations"
       | label   | data |
       | 1.1.1.1 | 1    |
       | 0.0.0.0 | 1    |
@@ -754,8 +754,8 @@ Feature: DP ANALYTICS
       | ALL     | fatal      | NOT_EXPECTED |
     * UI Logout
 
-      # ================= Top Attacks by Bandwidth ================= #
-  
+      # ================= Top Attacks by Volume ================= #
+
   @SID_55
   Scenario: Login
     When UI Login with user "sys_admin" and password "radware"
@@ -763,37 +763,37 @@ Feature: DP ANALYTICS
     And UI Do Operation "Select" item "Global Time Filter"
     And UI Do Operation "Select" item "Global Time Filter.Quick Range" with value "3H"
 
-  
+
   @SID_56
-  Scenario: VRM - Validate Dashboards "Top Attacks by Bandwidth" Chart data for all DP machines
+  Scenario: VRM - Validate Dashboards "Top Attacks by Volume" Chart data for all DP machines
     When UI Do Operation "Select" item "Device Selection"
     And UI VRM Select device from dashboard and Save Filter
       | index | ports | policies |
       | 10    |       |          |
       | 11    |       |          |
       | 12    |       |          |
-    Then UI Validate StackBar data with widget "Top Attacks by Bandwidth"
-      | label      | value     | legendName                     | offset |
-      | BDOS       | 483084    | network flood IPv4 TCP-SYN-ACK | 1000   |
-      | BDOS       | 339831    | DOSS-Anomaly-TCP-SYN-RST       | 1000   |
-      | policy1    | 418728    | SYN Flood HTTP                 | 1000   |
-      | policy1    | 28674     | TCP Scan (vertical)            | 1000   |
-      | bbt-sc1    | 252324    | Brute Force Web                | 1000   |
-      | POL_IPV6   | 38889231  | network flood IPv6 TCP-SYN-ACK | 1000   |
-      | POL_IPV6   | 39071127  | network flood IPv6 UDP         | 1000   |
-      | Black_IPV6 | 154503126 | Black List                     | 1000   |
-      | Black_IPV4 | 1311063   | Black List                     | 1000   |
-      | shlomchik  | 61683     | BWM Limit Alert                | 1000   |
-    Then UI Total "Top Attacks by Bandwidth" legends equal to 10
+    Then UI Validate StackBar data with widget "Top Attacks by Volume"
+      | label      | value     | legendName                     | offset   |
+      | BDOS       | 483084    | network flood IPv4 TCP-SYN-ACK | 1000     |
+      | BDOS       | 339831    | DOSS-Anomaly-TCP-SYN-RST       | 1000     |
+      | policy1    | 418728    | SYN Flood HTTP                 | 1000     |
+      | policy1    | 28674     | TCP Scan (vertical)            | 1000     |
+      | bbt-sc1    | 252324    | Brute Force Web                | 1000     |
+      | POL_IPV6   | 38889231  | network flood IPv6 TCP-SYN-ACK | 1000     |
+      | POL_IPV6   | 39071127  | network flood IPv6 UDP         | 1000     |
+      | Black_IPV6 | 175000000 | Black List                     | 25000000 |
+      | Black_IPV4 | 1700000   | Black List                     | 1000000  |
+      | shlomchik  | 61683     | BWM Limit Alert                | 1000     |
+    Then UI Total "Top Attacks by Volume" legends equal to 10
 
-  
+
   @SID_57
-  Scenario: VRM - Validate Dashboards "Top Attacks by Bandwidth" Chart data for one selected DP machine
+  Scenario: VRM - Validate Dashboards "Top Attacks by Volume" Chart data for one selected DP machine
     When UI Do Operation "Select" item "Device Selection"
     And UI VRM Select device from dashboard and Save Filter
       | index | ports | policies |
       | 10    |       |          |
-    Then UI Validate StackBar data with widget "Top Attacks by Bandwidth"
+    Then UI Validate StackBar data with widget "Top Attacks by Volume"
       | label      | value    | legendName                     | offset |
       | BDOS       | 161028   | network flood IPv4 TCP-SYN-ACK | 1000   |
       | BDOS       | 113277   | DOSS-Anomaly-TCP-SYN-RST       | 1000   |
@@ -805,65 +805,65 @@ Feature: DP ANALYTICS
       | Black_IPV6 | 51501042 | Black List                     | 1000   |
       | Black_IPV4 | 437021   | Black List                     | 1000   |
       | shlomchik  | 20561    | BWM Limit Alert                | 1000   |
-    Then UI Total "Top Attacks by Bandwidth" legends equal to 10
+    Then UI Total "Top Attacks by Volume" legends equal to 10
 
-  
+
   @SID_58
-  Scenario: VRM - Validate Dashboards "Top Attacks by Bandwidth" Chart data for one selected port
+  Scenario: VRM - Validate Dashboards "Top Attacks by Volume" Chart data for one selected port
     When UI Do Operation "Select" item "Device Selection"
     And UI VRM Select device from dashboard and Save Filter
       | index | ports | policies |
       | 10    | 4     |          |
       | 11    | 4     |          |
-    Then UI Validate StackBar data with widget "Top Attacks by Bandwidth"
+    Then UI Validate StackBar data with widget "Top Attacks by Volume"
       | label   | value  | legendName      | offset |
       | bbt-sc1 | 168216 | Brute Force Web | 1000   |
-    Then UI Total "Top Attacks by Bandwidth" legends equal to 1
+    Then UI Total "Top Attacks by Volume" legends equal to 1
 
-  
+
   @SID_59
-  Scenario: VRM - Validate Dashboards "Top Attacks by Bandwidth" Chart data for one selected policies
+  Scenario: VRM - Validate Dashboards "Top Attacks by Volume" Chart data for one selected policies
     When UI Do Operation "Select" item "Device Selection"
     And UI VRM Select device from dashboard and Save Filter
       | index | ports | policies |
       | 10    |       | BDOS     |
       | 11    |       | BDOS     |
-    Then UI Validate StackBar data with widget "Top Attacks by Bandwidth"
+    Then UI Validate StackBar data with widget "Top Attacks by Volume"
       | label | value  | legendName                     | offset |
       | BDOS  | 322056 | network flood IPv4 TCP-SYN-ACK | 1000   |
       | BDOS  | 226554 | DOSS-Anomaly-TCP-SYN-RST       | 1000   |
-    Then UI Total "Top Attacks by Bandwidth" legends equal to 2
+    Then UI Total "Top Attacks by Volume" legends equal to 2
 
-  
+
   @SID_60
-  Scenario: VRM - Validate Dashboards "Top Attacks by Bandwidth" Chart data for selected port and policies
+  Scenario: VRM - Validate Dashboards "Top Attacks by Volume" Chart data for selected port and policies
     When UI Do Operation "Select" item "Device Selection"
     And UI VRM Select device from dashboard and Save Filter
       | index | ports | policies |
       | 10    | 1,4   | BDOS     |
       | 11    | 1,4   | BDOS     |
     * Sleep "2"
-    Then UI Validate StackBar data with widget "Top Attacks by Bandwidth"
+    Then UI Validate StackBar data with widget "Top Attacks by Volume"
       | label | value  | legendName                     | offset |
       | BDOS  | 226554 | DOSS-Anomaly-TCP-SYN-RST       | 1000   |
       | BDOS  | 322056 | network flood IPv4 TCP-SYN-ACK | 1000   |
-    Then UI Total "Top Attacks by Bandwidth" legends equal to 2
+    Then UI Total "Top Attacks by Volume" legends equal to 2
 
-  
+
   @SID_61
-  Scenario: VRM - NEGATIVE: Validate Dashboards "Top Attacks by Bandwidth" Chart data doesn't exist for policy without relevant data
-    Then UI Validate StackBar data with widget "Top Attacks by Bandwidth"
+  Scenario: VRM - NEGATIVE: Validate Dashboards "Top Attacks by Volume" Chart data doesn't exist for policy without relevant data
+    Then UI Validate StackBar data with widget "Top Attacks by Volume"
       | label   | value  | legendName      | exist | legendNameExist | offset |
       | bbt-sc1 | 168216 | Brute Force Web | false | false           | 1000   |
-  
+
   @SID_62
-  Scenario: VRM - NEGATIVE: Validate Dashboards "Top Attacks by Bandwidth" data doesn't exist for policy with traffic and port with no traffic
+  Scenario: VRM - NEGATIVE: Validate Dashboards "Top Attacks by Volume" data doesn't exist for policy with traffic and port with no traffic
     When UI Do Operation "Select" item "Device Selection"
     And UI VRM Select device from dashboard and Save Filter
       | index | ports | policies |
       | 10    | 1     |          |
       | 11    | 1     |          |
-    Then UI Validate StackBar data with widget "Top Attacks by Bandwidth"
+    Then UI Validate StackBar data with widget "Top Attacks by Volume"
       | label      | value     | legendName                     | exist | legendNameExist | offset |
       | policy1    | 279152    | SYN Flood HTTP                 | false | false           | 1000   |
       | policy1    | 19116     | TCP Scan (vertical)            | false | false           | 1000   |
@@ -876,7 +876,7 @@ Feature: DP ANALYTICS
       | 1          | 1904      | DNS flood IPv4 DNS-A           | false | false           | 1000   |
 
   @SID_63
-  Scenario: Top Attacks by Bandwidth Cleanup
+  Scenario: Top Attacks by Volume Cleanup
     * CLI Check if logs contains
       | logType | expression | isExpected   |
       | ALL     | fatal      | NOT_EXPECTED |
