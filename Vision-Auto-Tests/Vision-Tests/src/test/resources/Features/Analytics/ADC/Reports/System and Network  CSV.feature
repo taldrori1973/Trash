@@ -26,8 +26,8 @@ Feature: ADC System and Network Generate CSV Report
 
   @SID_4
   Scenario: Validate delivery card and generate report
-    Then UI Click Button "My Report" with value "ADC Applications Report"
-    Then UI Click Button "Generate Report Manually" with value "ADC Applications Report"
+    Then UI Click Button "My Report" with value "ADC System and Network Report"
+    Then UI Click Button "Generate Report Manually" with value "ADC System and Network Report"
     Then Sleep "35"
 
   @SID_5
