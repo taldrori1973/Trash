@@ -33,7 +33,10 @@ Feature: Jobs setups
     * Revert Vision number 1 to "3.110-GA" snapshot
 #    Clear history
     * CLI kill all simulator attacks on current vision
-    * REST Delete ES index "dp-*"
+    * REST Delete ES index "dp-traffic-*"
+    * REST Delete ES index "dp-https-stats-*"
+    * REST Delete ES index "dp-https-rt-*"
+    * REST Delete ES index "dp-five-*"
     * CLI Clear vision logs
     #Attack
     Given CLI simulate 1 attacks of type "rest_dos_pps" on "DefensePro" 10 and wait 80 seconds
@@ -44,7 +47,10 @@ Feature: Jobs setups
     * Revert Vision number 1 to "3.110-GA" snapshot
 #    Clear history
     Then CLI kill all simulator attacks on current vision
-    Then REST Delete ES index "dp-*"
+    * REST Delete ES index "dp-traffic-*"
+    * REST Delete ES index "dp-https-stats-*"
+    * REST Delete ES index "dp-https-rt-*"
+    * REST Delete ES index "dp-five-*"
     Then CLI Clear vision logs
     #Attack
     And Sleep "4"

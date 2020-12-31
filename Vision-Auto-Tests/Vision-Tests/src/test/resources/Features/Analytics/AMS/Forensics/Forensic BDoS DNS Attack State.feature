@@ -6,7 +6,10 @@ Feature: AMS forensic BDoS and DNS Attack State
   Scenario: Clean system data
     * CLI kill all simulator attacks on current vision
     * CLI Clear vision logs
-    * REST Delete ES index "dp-*"
+    * REST Delete ES index "dp-traffic-*"
+    * REST Delete ES index "dp-https-stats-*"
+    * REST Delete ES index "dp-https-rt-*"
+    * REST Delete ES index "dp-five-*"
 
   @SID_2
   Scenario: generate BDoS attacks with all possible states
@@ -140,7 +143,10 @@ Feature: AMS forensic BDoS and DNS Attack State
   @SID_24
   Scenario: Clear ES for new attacks
     Given CLI kill all simulator attacks on current vision
-    Given REST Delete ES index "dp-*"
+    * REST Delete ES index "dp-traffic-*"
+    * REST Delete ES index "dp-https-stats-*"
+    * REST Delete ES index "dp-https-rt-*"
+    * REST Delete ES index "dp-five-*"
     # Wait for clean to finish
     And Sleep "30"
     Then CLI Run remote linux Command "curl -XGET localhost:9200/dp-attack-raw-*/_search?pretty" on "ROOT_SERVER_CLI"
@@ -177,7 +183,10 @@ Feature: AMS forensic BDoS and DNS Attack State
   @SID_28
   Scenario: Second clear ES for new attack
     Given CLI kill all simulator attacks on current vision
-    Given REST Delete ES index "dp-*"
+    * REST Delete ES index "dp-traffic-*"
+    * REST Delete ES index "dp-https-stats-*"
+    * REST Delete ES index "dp-https-rt-*"
+    * REST Delete ES index "dp-five-*"
     And Sleep "30"
     # Wait for clean to finish
     Given CLI simulate 1 attacks of type "newstate1" on "DefensePro" 10 and wait 90 seconds

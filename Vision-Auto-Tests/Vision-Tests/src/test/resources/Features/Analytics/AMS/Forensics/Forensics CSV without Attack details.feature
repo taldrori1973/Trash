@@ -6,7 +6,10 @@ Feature: Forensics CSV without Attack details
     Given CLI Reset radware password
     * CLI kill all simulator attacks on current vision
     * CLI Clear vision logs
-    * REST Delete ES index "dp-*"
+    * REST Delete ES index "dp-traffic-*"
+    * REST Delete ES index "dp-https-stats-*"
+    * REST Delete ES index "dp-https-rt-*"
+    * REST Delete ES index "dp-five-*"
     * REST Vision Install License Request "vision-AVA-Max-attack-capacity"
 
   @SID_2

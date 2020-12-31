@@ -140,7 +140,10 @@ Feature: AttackRateInAlerts&Forensics
     Then CLI kill all simulator attacks on current vision
     Then REST Delete ES index "rt-alert-def-vrm"
     Then REST Delete ES index "alert"
-    Then REST Delete ES index "dp-*"
+    * REST Delete ES index "dp-traffic-*"
+    * REST Delete ES index "dp-https-stats-*"
+    * REST Delete ES index "dp-https-rt-*"
+    * REST Delete ES index "dp-five-*"
     Then CLI Clear vision logs
 
 
@@ -245,7 +248,10 @@ Feature: AttackRateInAlerts&Forensics
     Then CLI kill all simulator attacks on current vision
     Then REST Delete ES index "rt-alert-def-vrm"
     Then REST Delete ES index "alert"
-    Then REST Delete ES index "dp-*"
+    * REST Delete ES index "dp-traffic-*"
+    * REST Delete ES index "dp-https-stats-*"
+    * REST Delete ES index "dp-https-rt-*"
+    * REST Delete ES index "dp-five-*"
     Then CLI Clear vision logs
 
   @SID_29

@@ -12,7 +12,10 @@ Feature: VRM Real Time Status Bar BW by Policy
   Scenario: BW by policy Clean system data before test
     When CLI kill all simulator attacks on current vision
     When CLI Clear vision logs
-    When REST Delete ES index "dp-*"
+    * REST Delete ES index "dp-traffic-*"
+    * REST Delete ES index "dp-https-stats-*"
+    * REST Delete ES index "dp-https-rt-*"
+    * REST Delete ES index "dp-five-*"
     When CLI simulate 2 attacks of type "rest_traffic" on "DefensePro" 10 with loopDelay 15000
     When CLI simulate 90 attacks of type "rest_traffic_diff_Policy15out" on "DefensePro" 20 with loopDelay 15000
     When CLI simulate 90 attacks of type "rest_traffic_diff_Policy15out" on "DefensePro" 11 with loopDelay 15000

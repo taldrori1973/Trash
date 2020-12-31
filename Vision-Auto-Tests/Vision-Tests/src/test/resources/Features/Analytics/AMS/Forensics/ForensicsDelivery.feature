@@ -6,7 +6,10 @@ Feature: Forensics Delivery
   Scenario: Clean system data
     When CLI kill all simulator attacks on current vision
     When CLI Clear vision logs
-    When REST Delete ES index "dp-*"
+    * REST Delete ES index "dp-traffic-*"
+    * REST Delete ES index "dp-https-stats-*"
+    * REST Delete ES index "dp-https-rt-*"
+    * REST Delete ES index "dp-five-*"
     Given CLI Reset radware password
     When REST Vision Install License Request "vision-AVA-Max-attack-capacity"
     When CLI Operations - Run Radware Session command "system user authentication-mode set TACACS+"

@@ -1,5 +1,5 @@
 #@TC117962
-@TC118805
+@TC118805 @Test12
 Feature: HTTPS Flood CSV Report
 
 
@@ -84,24 +84,63 @@ Feature: HTTPS Flood CSV Report
   
   @SID_10
   Scenario: VRM report validate CSV file TOP ATTACKS number of lines
-    Then CLI Run linux Command "cat /opt/radware/mgt-server/third-party/tomcat/bin/Inbound\ Traffic-HTTPS\ Flood.csv |wc -l" on "ROOT_SERVER_CLI" and validate result EQUALS "3"
+    Then CLI Run linux Command "cat /opt/radware/mgt-server/third-party/tomcat/bin/Request\ Per\ Second-HTTPS\ Flood.csv |wc -l" on "ROOT_SERVER_CLI" and validate result EQUALS "3"
 
   
   @SID_11
   Scenario: VRM report validate CSV file TOP ATTACKS headers
-    Then CLI Run linux Command "cat /opt/radware/mgt-server/third-party/tomcat/bin/Inbound\ Traffic-HTTPS\ Flood.csv|head -1|grep timeStamp,shortTermBaseline.attackEdge,longTermBaseline.attackEdge,shortTermBaseline.requestsBaseline,longTermBaseline.requestsBaseline|wc -l" on "ROOT_SERVER_CLI" and validate result EQUALS "1"
-    Then CLI Run linux Command "cat /opt/radware/mgt-server/third-party/tomcat/bin/Inbound\ Traffic-HTTPS\ Flood.csv|head -1|awk -F "," '{printf $1}';echo" on "ROOT_SERVER_CLI" and validate result EQUALS "timeStamp"
-    Then CLI Run linux Command "cat /opt/radware/mgt-server/third-party/tomcat/bin/Inbound\ Traffic-HTTPS\ Flood.csv|head -1|awk -F "," '{printf $2}';echo" on "ROOT_SERVER_CLI" and validate result EQUALS "shortTermBaseline.attackEdge"
-    Then CLI Run linux Command "cat /opt/radware/mgt-server/third-party/tomcat/bin/Inbound\ Traffic-HTTPS\ Flood.csv|head -1|awk -F "," '{printf $3}';echo" on "ROOT_SERVER_CLI" and validate result EQUALS "longTermBaseline.attackEdge"
-    Then CLI Run linux Command "cat /opt/radware/mgt-server/third-party/tomcat/bin/Inbound\ Traffic-HTTPS\ Flood.csv|head -1|awk -F "," '{printf $4}';echo" on "ROOT_SERVER_CLI" and validate result EQUALS "shortTermBaseline.requestsBaseline"
-    Then CLI Run linux Command "cat /opt/radware/mgt-server/third-party/tomcat/bin/Inbound\ Traffic-HTTPS\ Flood.csv|head -1|awk -F "," '{printf $5}';echo" on "ROOT_SERVER_CLI" and validate result EQUALS "longTermBaseline.requestsBaseline"
+    Then CLI Run linux Command "cat /opt/radware/mgt-server/third-party/tomcat/bin/Request\ Per\ Second-HTTPS\ Flood.csv|head -1|grep timeStamp,shortTermBaseline.attackEdge,longTermBaseline.attackEdge,shortTermBaseline.requestsBaseline,longTermBaseline.requestsBaseline|wc -l" on "ROOT_SERVER_CLI" and validate result EQUALS "1"
+    Then CLI Run linux Command "cat /opt/radware/mgt-server/third-party/tomcat/bin/Request\ Per\ Second-HTTPS\ Flood.csv|head -1|awk -F "," '{printf $1}';echo" on "ROOT_SERVER_CLI" and validate result EQUALS "timeStamp"
+    Then CLI Run linux Command "cat /opt/radware/mgt-server/third-party/tomcat/bin/Request\ Per\ Second-HTTPS\ Flood.csv|head -1|awk -F "," '{printf $2}';echo" on "ROOT_SERVER_CLI" and validate result EQUALS "shortTermBaseline.attackEdge"
+    Then CLI Run linux Command "cat /opt/radware/mgt-server/third-party/tomcat/bin/Request\ Per\ Second-HTTPS\ Flood.csv|head -1|awk -F "," '{printf $3}';echo" on "ROOT_SERVER_CLI" and validate result EQUALS "longTermBaseline.attackEdge"
+    Then CLI Run linux Command "cat /opt/radware/mgt-server/third-party/tomcat/bin/Request\ Per\ Second-HTTPS\ Flood.csv|head -1|awk -F "," '{printf $4}';echo" on "ROOT_SERVER_CLI" and validate result EQUALS "shortTermBaseline.requestsBaseline"
+    Then CLI Run linux Command "cat /opt/radware/mgt-server/third-party/tomcat/bin/Request\ Per\ Second-HTTPS\ Flood.csv|head -1|awk -F "," '{printf $5}';echo" on "ROOT_SERVER_CLI" and validate result EQUALS "longTermBaseline.requestsBaseline"
 
-    Then CLI Run linux Command "cat /opt/radware/mgt-server/third-party/tomcat/bin/Inbound\ Traffic-HTTPS\ Flood.csv|head -2|tail -1|awk -F "," '{printf $3}';echo" on "ROOT_SERVER_CLI" and validate result EQUALS "21641.0"
-    Then CLI Run linux Command "cat /opt/radware/mgt-server/third-party/tomcat/bin/Inbound\ Traffic-HTTPS\ Flood.csv|head -2|tail -1|awk -F "," '{printf $4}';echo" on "ROOT_SERVER_CLI" and validate result EQUALS "7002.258"
-    Then CLI Run linux Command "cat /opt/radware/mgt-server/third-party/tomcat/bin/Inbound\ Traffic-HTTPS\ Flood.csv|head -2|tail -1|awk -F "," '{printf $5}';echo" on "ROOT_SERVER_CLI" and validate result EQUALS "17200.0"
-    Then CLI Run linux Command "cat /opt/radware/mgt-server/third-party/tomcat/bin/Inbound\ Traffic-HTTPS\ Flood.csv|head -2|tail -1|awk -F "," '{printf $6}';echo" on "ROOT_SERVER_CLI" and validate result EQUALS "5075.3"
+    Then CLI Run linux Command "cat /opt/radware/mgt-server/third-party/tomcat/bin/Request\ Per\ Second-HTTPS\ Flood.csv|head -2|tail -1|awk -F "," '{printf $3}';echo" on "ROOT_SERVER_CLI" and validate result EQUALS "21641.0"
+    Then CLI Run linux Command "cat /opt/radware/mgt-server/third-party/tomcat/bin/Request\ Per\ Second-HTTPS\ Flood.csv|head -2|tail -1|awk -F "," '{printf $4}';echo" on "ROOT_SERVER_CLI" and validate result EQUALS "7002.258"
+    Then CLI Run linux Command "cat /opt/radware/mgt-server/third-party/tomcat/bin/Request\ Per\ Second-HTTPS\ Flood.csv|head -2|tail -1|awk -F "," '{printf $5}';echo" on "ROOT_SERVER_CLI" and validate result EQUALS "17200.0"
+    Then CLI Run linux Command "cat /opt/radware/mgt-server/third-party/tomcat/bin/Request\ Per\ Second-HTTPS\ Flood.csv|head -2|tail -1|awk -F "," '{printf $6}';echo" on "ROOT_SERVER_CLI" and validate result EQUALS "5075.3"
 
 
+  @SID_16
+  Scenario: Validate Inbound Traffic - Request Size Distribution
+    Then CSV Read CSV File "Request-Size\ Distribution-HTTPS\ Flood.csv"
+      | tableName | header                                                                                                       |
+      | table1    | upperBound,rtSizeDistributionBin.fullProbability,rtSizeDistributionBin.partialProbability                    |
+      | table2    | upperBound,sizeDistributionBaselineBin.attackEdgeProbability,sizeDistributionBaselineBin.baselineProbability |
+
+    Then CSV Validate "table1" Table Size Equals to 50
+    Then CSV Validate "table2" Table Size Equals to 50
+
+    Then CSV Validate Row Number 0 at "table1" Table Equals to "00100,0.0,0.0" Regex
+    Then CSV Validate Row Number 49 at "table1" Table Equals to "16383,0.5,0.0" Regex
+
+
+    Then CSV Validate Row Number 0 at "table2" Table Equals to "00100,0.0,0.0" Regex
+    Then CSV Validate Row Number 49 at "table2" Table Equals to "16383,0.0,0.0" Regex
+
+    Then CSV Validate Column "upperBound" at "table1" Table is Sorted "NUMERICAL"
+    Then CSV Validate Column "upperBound" at "table2" Table is Sorted "NUMERICAL"
+
+    Then CSV Validate Value Frequency Under "rtSizeDistributionBin.fullProbability" Column at "table1" Table
+      | 0.0        | 46 |
+      | 0.23451911 | 1  |
+      | 0.214519   | 1  |
+      | 0.81       | 1  |
+      | 0.5        | 1  |
+    Then CSV Validate Value Frequency Under "rtSizeDistributionBin.partialProbability" Column at "table1" Table
+      | 0.0        | 48 |
+      | 0.23451911 | 1  |
+      | 0.7654809  | 1  |
+    Then CSV Validate Value Frequency Under "sizeDistributionBaselineBin.attackEdgeProbability" Column at "table2" Table
+      | 0.0        | 48 |
+      | 1.0        | 1  |
+      | 0.47802296 | 1  |
+    Then CSV Validate Value Frequency Under "sizeDistributionBaselineBin.baselineProbability" Column at "table2" Table
+      | 0.0         | 47 |
+      | 0.97232455  | 1  |
+      | 0.027675444 | 1  |
+      | 0.77        | 1  |
 
 #  @SID_44
 #  Scenario: Cleanup

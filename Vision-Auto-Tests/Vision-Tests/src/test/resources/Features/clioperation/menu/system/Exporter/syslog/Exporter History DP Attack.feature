@@ -3,7 +3,10 @@ Feature: Exporter Syslog 30 days History DP Attack
 
   @SID_1
   Scenario: Cleanup DP attacks and syslog messages
-    * REST Delete ES index "dp-*"
+    * REST Delete ES index "dp-traffic-*"
+    * REST Delete ES index "dp-https-stats-*"
+    * REST Delete ES index "dp-https-rt-*"
+    * REST Delete ES index "dp-five-*"
     Then CLI Run remote linux Command "ssh root@172.17.178.20 'rm -f /var/log/syslog*.gz'" on "GENERIC_LINUX_SERVER"
     Then CLI Run remote linux Command "ssh root@172.17.178.20 'echo "cleared" $(date) > /var/log/syslog'" on "GENERIC_LINUX_SERVER"
     Then CLI Clear vision logs
