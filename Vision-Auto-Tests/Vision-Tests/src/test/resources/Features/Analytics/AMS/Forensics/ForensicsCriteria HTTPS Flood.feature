@@ -5,7 +5,10 @@ Feature: Forensic Criteria HTTPS Flood Tests
   @SID_1
   Scenario: Clean system data
     * CLI kill all simulator attacks on current vision
-    * REST Delete ES index "dp-*"
+    * REST Delete ES index "dp-traffic-*"
+    * REST Delete ES index "dp-https-stats-*"
+    * REST Delete ES index "dp-https-rt-*"
+    * REST Delete ES index "dp-five-*"
     * REST Delete ES index "forensics-*"
     * REST Delete ES index "dpforensics-*"
     * CLI Clear vision logs

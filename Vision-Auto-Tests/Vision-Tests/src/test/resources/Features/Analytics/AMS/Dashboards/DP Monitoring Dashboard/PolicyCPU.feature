@@ -5,7 +5,10 @@ Feature: Policy CPU
   @SID_1
   Scenario: Clean system data before Traffic Bandwidth test
     * CLI kill all simulator attacks on current vision
-    * REST Delete ES index "dp-*"
+    * REST Delete ES index "dp-traffic-*"
+    * REST Delete ES index "dp-https-stats-*"
+    * REST Delete ES index "dp-https-rt-*"
+    * REST Delete ES index "dp-five-*"
     * CLI Clear vision logs
 
   @SID_2

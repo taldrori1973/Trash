@@ -8,7 +8,10 @@ Feature: Report Wizard_Time_Definitions
   @SID_1
   Scenario: Clean DB and generate attacks
     When CLI kill all simulator attacks on current vision
-    Given REST Delete ES index "dp-*"
+    * REST Delete ES index "dp-traffic-*"
+    * REST Delete ES index "dp-https-stats-*"
+    * REST Delete ES index "dp-https-rt-*"
+    * REST Delete ES index "dp-five-*"
     When CLI Clear vision logs
     And CLI simulate 1 attacks of type "rest_dos" on "DefensePro" 10
     And CLI simulate 1 attacks of type "rest_anomalies" on "DefensePro" 10 and wait 22 seconds
