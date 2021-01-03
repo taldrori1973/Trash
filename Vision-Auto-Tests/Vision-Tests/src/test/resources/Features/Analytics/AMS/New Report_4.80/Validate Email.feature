@@ -32,24 +32,18 @@ Feature: Validate Email
     Given UI "Create" Report With Name "DefensePro Analytics Report"
       | Template | reportType:DefensePro Analytics , Widgets:[Connections Rate]  ,devices:[All] |
       | Share    | Email:[maha],Subject:Validate Email,Body:Email Body                          |
-      | Format   | Select: PDF                                                                  |
+      | Format   | Select: CSV                                                                  |
     Then UI "Validate" Report With Name "DefensePro Analytics Report"
       | Template | reportType:DefensePro Analytics , Widgets:[Connections Rate]  ,devices:[All] |
       | Share    | Email:[maha],Subject:Validate Email,Body:Email Body                          |
-      | Format   | Select: PDF                                                                  |
-
-  @SID_4
-  Scenario: Validate delivery card and generate report
-    Then UI Click Button "My Report" with value "DefensePro Analytics Report"
-    Then UI Click Button "Generate Report Manually" with value "DefensePro Analytics Report"
-    Then Sleep "35"
+      | Format   | Select: CSV                                                                  |
 
   @SID_5
   Scenario: Validate Report Email received content
     #subject
     Then Validate "setup" user eMail expression "grep "Subject: Validate Email"" EQUALS "1"
     #body
-    Then Validate "setup" user eMail expression "grep "Body: Email Body"" EQUALS "1"
+    Then Validate "setup" user eMail expression "grep "Email Body"" EQUALS "1"
     #From
     Then Validate "setup" user eMail expression "grep "From: Automation system <qa_test@Radware.com>"" EQUALS "1"
     #To
