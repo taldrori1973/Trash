@@ -1402,5 +1402,65 @@
     "userRoles": [
       "SYS_ADMIN"
     ]
+  },
+  {
+    "version": 1,
+    "id": "AXbIFSxq4swyujw8TlZx",
+    "state": "disabled",
+    "templates": [
+      {
+        "templateType": "systemDevices",
+        "templateId": "86fff1f3-9a21-4a0f-9629-7f76b14bbe04",
+        "widgets": [
+          {
+            "id": "eff885f3-050a-4b7b-b601-c8e01e966193",
+            "scopeId": "systemDevicesScope",
+            "templateId": "systemDevices",
+            "component": "comp-vrm-dpm-servers-info-table",
+            "metaData": "{\\\"title\\\":\\\"Ports Traffic Information\\\",\\\"dashboardType\\\":\\\"systemDevices\\\",\\\"componentType\\\":\\\"port-info-table\\\",\\\"uuid\\\":\\\"7e7fd2cf-d094-41d2-ac98-c63649d73333\\\",\\\"settings\\\":{},\\\"config\\\":{\\\"api\\\":\\\"ADC_MONITORING_NETWORK_RAW\\\",\\\"chartType\\\":\\\"area\\\",\\\"settings\\\":{},\\\"type\\\":\\\"area\\\"}}"
+          }
+        ],
+        "scope": [
+          "{\\\"deviceName\\\":\\\"Alteon_172.16.62.60\\\",\\\"deviceIP\\\":\\\"172.16.62.60\\\",\\\"deviceID\\\":\\\"2c912402634578df01636e627884020a\\\",\\\"softwareVersion\\\":\\\"32.2.1.0\\\",\\\"formFactor\\\":\\\"VX\\\",\\\"deviceType\\\":\\\"Alteon\\\",\\\"deviceStatus\\\":\\\"Down\\\",\\\"site\\\":\\\"Default (Physical)\\\",\\\"platform\\\":\\\"5224XL\\\",\\\"externalID\\\":\\\"b06409718d0d9d73b7beec890213ae77\\\",\\\"timeStamp\\\":\\\"0\\\",\\\"haState\\\":\\\"DISABLED\\\",\\\"name\\\":\\\"Alteon_172.16.62.60\\\",\\\"selected\\\":false,\\\"enabled\\\":true}",
+          "{\\\"deviceName\\\":\\\"Alteon_172.17.164.17\\\",\\\"deviceIP\\\":\\\"172.16.100.137\\\",\\\"deviceID\\\":\\\"2c9124096f251d3b016f252428c90027\\\",\\\"softwareVersion\\\":\\\"32.4.0.6\\\",\\\"formFactor\\\":\\\"VADC\\\",\\\"deviceType\\\":\\\"Alteon\\\",\\\"deviceStatus\\\":\\\"Up\\\",\\\"site\\\":\\\"Alteon_for_DPM\\\",\\\"platform\\\":\\\"6420\\\",\\\"externalID\\\":\\\"c5db695db7cf18348535c51b3e2ef262\\\",\\\"timeStamp\\\":\\\"0\\\",\\\"haState\\\":\\\"NONE\\\",\\\"name\\\":\\\"Alteon_172.17.164.17\\\",\\\"selected\\\":false,\\\"enabled\\\":true}",
+          "{\\\"deviceName\\\":\\\"Alteon_172.17.164.18\\\",\\\"deviceIP\\\":\\\"172.16.101.137\\\",\\\"deviceID\\\":\\\"2c9124096f251d3b016f2524802f002e\\\",\\\"softwareVersion\\\":\\\"32.4.0.6\\\",\\\"formFactor\\\":\\\"VADC\\\",\\\"deviceType\\\":\\\"Alteon\\\",\\\"deviceStatus\\\":\\\"Up\\\",\\\"site\\\":\\\"Alteon_for_DPM\\\",\\\"platform\\\":\\\"6420\\\",\\\"externalID\\\":\\\"14f18a1341356eae5e87d5483526bd7e\\\",\\\"timeStamp\\\":\\\"0\\\",\\\"haState\\\":\\\"NONE\\\",\\\"name\\\":\\\"Alteon_172.17.164.18\\\",\\\"selected\\\":false,\\\"enabled\\\":true}",
+          "{\\\"deviceName\\\":\\\"Alteon_50.50.101.11\\\",\\\"deviceIP\\\":\\\"50.50.101.11\\\",\\\"deviceID\\\":\\\"2c9124e665802253016580729e870041\\\",\\\"softwareVersion\\\":\\\"32.4.0.0\\\",\\\"formFactor\\\":\\\"Standalone\\\",\\\"deviceType\\\":\\\"Alteon\\\",\\\"deviceStatus\\\":\\\"Up\\\",\\\"site\\\":\\\"Alteons_for_DPM-Fakes\\\",\\\"platform\\\":\\\"7220\\\",\\\"externalID\\\":\\\"324058c999f5de7a67b1ead53232650b\\\",\\\"timeStamp\\\":\\\"0\\\",\\\"haState\\\":\\\"MASTER\\\",\\\"name\\\":\\\"Alteon_50.50.101.11\\\",\\\"selected\\\":false,\\\"enabled\\\":true}",
+          "{\\\"deviceName\\\":\\\"Alteon_50.50.101.21\\\",\\\"deviceIP\\\":\\\"50.50.101.21\\\",\\\"deviceID\\\":\\\"2c9124e665802253016580316419001a\\\",\\\"softwareVersion\\\":\\\"32.4.0.0\\\",\\\"formFactor\\\":\\\"Standalone\\\",\\\"deviceType\\\":\\\"Alteon\\\",\\\"deviceStatus\\\":\\\"Up\\\",\\\"site\\\":\\\"Alteons_for_DPM-Fakes\\\",\\\"platform\\\":\\\"7220\\\",\\\"externalID\\\":\\\"324058c999f5de7a67b1ead532326515\\\",\\\"timeStamp\\\":\\\"0\\\",\\\"haState\\\":\\\"MASTER\\\",\\\"name\\\":\\\"Alteon_50.50.101.21\\\",\\\"selected\\\":false,\\\"enabled\\\":true}",
+          "{\\\"deviceName\\\":\\\"Alteon_50.50.101.22\\\",\\\"deviceIP\\\":\\\"50.50.101.22\\\",\\\"deviceID\\\":\\\"2c9124e665802253016580715eec0033\\\",\\\"softwareVersion\\\":\\\"32.4.0.0\\\",\\\"formFactor\\\":\\\"Standalone\\\",\\\"deviceType\\\":\\\"Alteon\\\",\\\"deviceStatus\\\":\\\"Up\\\",\\\"site\\\":\\\"Alteons_for_DPM-Fakes\\\",\\\"platform\\\":\\\"7220\\\",\\\"externalID\\\":\\\"324058c999f5de7a67b1ead532326516\\\",\\\"timeStamp\\\":\\\"0\\\",\\\"haState\\\":\\\"MASTER\\\",\\\"name\\\":\\\"Alteon_50.50.101.22\\\",\\\"selected\\\":true,\\\"enabled\\\":true}",
+          "{\\\"deviceName\\\":\\\"Alteon_172.17.154.19\\\",\\\"deviceIP\\\":\\\"172.17.154.19\\\",\\\"deviceID\\\":\\\"2c912402634578df01636e632a46021a\\\",\\\"softwareVersion\\\":\\\"32.4.0.0\\\",\\\"formFactor\\\":\\\"Standalone\\\",\\\"deviceType\\\":\\\"Alteon\\\",\\\"deviceStatus\\\":\\\"Down\\\",\\\"site\\\":\\\"VA_Alteons_site\\\",\\\"platform\\\":\\\"VA\\\",\\\"externalID\\\":\\\"792c29d6856ce2b4b2273d861ed67123\\\",\\\"timeStamp\\\":\\\"0\\\",\\\"haState\\\":\\\"NONE\\\",\\\"name\\\":\\\"Alteon_172.17.154.19\\\",\\\"selected\\\":false,\\\"enabled\\\":true}",
+          "{\\\"deviceName\\\":\\\"LinkProof NG_172.17.154.190\\\",\\\"deviceIP\\\":\\\"172.17.154.190\\\",\\\"deviceID\\\":\\\"2c912402634578df01636e6804600240\\\",\\\"softwareVersion\\\":\\\"32.2.1.0\\\",\\\"formFactor\\\":\\\"Standalone\\\",\\\"deviceType\\\":\\\"LinkProof\\\",\\\"deviceStatus\\\":\\\"Down\\\",\\\"site\\\":\\\"VA_LP_site\\\",\\\"platform\\\":\\\"VA\\\",\\\"externalID\\\":\\\"2a046feddb9374a56f4aeb197422cafa\\\",\\\"timeStamp\\\":\\\"0\\\",\\\"haState\\\":\\\"ACTIVE\\\",\\\"name\\\":\\\"LinkProof NG_172.17.154.190\\\",\\\"selected\\\":false,\\\"enabled\\\":true}",
+          "{\\\"deviceName\\\":\\\"LinkProof NG_172.17.154.200\\\",\\\"deviceIP\\\":\\\"172.17.154.200\\\",\\\"deviceID\\\":\\\"2c912402634578df01636e6865e30250\\\",\\\"softwareVersion\\\":\\\"32.2.1.0\\\",\\\"formFactor\\\":\\\"Standalone\\\",\\\"deviceType\\\":\\\"Alteon\\\",\\\"deviceStatus\\\":\\\"Down\\\",\\\"site\\\":\\\"VA_LP_site\\\",\\\"platform\\\":\\\"VA\\\",\\\"externalID\\\":\\\"2fa1f66b6b0a8e1dd49b01be33fa02b2\\\",\\\"timeStamp\\\":\\\"0\\\",\\\"haState\\\":\\\"ACTIVE\\\",\\\"name\\\":\\\"LinkProof NG_172.17.154.200\\\",\\\"selected\\\":false,\\\"enabled\\\":true}",
+          "{\\\"deviceName\\\":\\\"Alteon_172.16.160.1\\\",\\\"deviceIP\\\":\\\"172.16.160.1\\\",\\\"deviceID\\\":\\\"2c912402634578df01636e64ecc8022f\\\",\\\"softwareVersion\\\":\\\"32.4.0.0\\\",\\\"formFactor\\\":\\\"VADC\\\",\\\"deviceType\\\":\\\"Alteon\\\",\\\"deviceStatus\\\":\\\"Down\\\",\\\"site\\\":\\\"vADC_Alteon_site\\\",\\\"platform\\\":\\\"5224XL\\\",\\\"externalID\\\":\\\"71df508c8c637a282b0fc120312652ef\\\",\\\"timeStamp\\\":\\\"0\\\",\\\"haState\\\":\\\"NONE\\\",\\\"name\\\":\\\"Alteon_172.16.160.1\\\",\\\"selected\\\":false,\\\"enabled\\\":true}"
+        ],
+        "summaryTable": false,
+        "printScopePreview": true,
+        "templateTitle": "System and Network"
+      }
+    ],
+    "timeFrame": "{\\\"quickRangeSelection\\\":\\\"15m\\\",\\\"rangeType\\\":\\\"quick\\\",\\\"quickRangeUnit\\\":\\\"minute\\\",\\\"quickRangeValue\\\":15,\\\"generatedTimeFrame\\\":{\\\"precision\\\":\\\"MINUTE\\\",\\\"baseUnit\\\":\\\"minutes\\\",\\\"unit\\\":\\\"minute\\\",\\\"baseUnitStep\\\":5,\\\"dateTimeFormat\\\":\\\"HH:mm\\\",\\\"value\\\":15,\\\"baseUnitDisplaySkip\\\":1,\\\"dataPoints\\\":16,\\\"fromDate\\\":1609673697212,\\\"toDate\\\":1609674597212,\\\"type\\\":\\\"timeFrame\\\",\\\"amsRawDataHoursDiff\\\":1,\\\"fiveMinutePrecisionHours\\\":1,\\\"dateFormat\\\":\\\"dd.MM.yyyy\\\",\\\"timeFormat\\\":\\\"HH:mm:ss\\\",\\\"timezone\\\":\\\"Asia/Jerusalem\\\",\\\"utcOffset\\\":120}}",
+    "reportName": "ADC System and Network Report Definition",
+    "scheduling": null,
+    "exportFormat": {
+      "type": "csv"
+    },
+    "logo": {
+      "file": null,
+      "fileName": null
+    },
+    "deliveryMethod": {
+      "email": {
+        "recipients": [],
+        "subject": "",
+        "message": ""
+      },
+      "ftp": null
+    },
+    "tags": [
+      "adc"
+    ],
+    "userName": "radware",
+    "userRoles": [
+      "SYS_ADMIN"
+    ]
   }
 ]
