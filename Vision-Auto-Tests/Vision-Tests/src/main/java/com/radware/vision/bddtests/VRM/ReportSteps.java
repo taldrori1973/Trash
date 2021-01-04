@@ -74,7 +74,7 @@ public class ReportSteps extends BddUITestBase {
      */
     @Then("^UI \"(Create|Validate|Edit|Generate|Isexist|Delete)\" Report With Name \"([^\"]*)\"( negative)?$")
     public void uiReportWithName(vrmActions operationType, String reportName,String negative, Map<String, String> reportsEntry) throws Throwable {
-        new Report().baseOperation(operationType, reportName, reportsEntry, restTestBase.getRootServerCli());
+        new Report().baseOperation(operationType, reportName, negative, reportsEntry, restTestBase.getRootServerCli());
     }
 
     @Then("^UI Delete Report With Name \"([^\"]*)\"( negative)?$")

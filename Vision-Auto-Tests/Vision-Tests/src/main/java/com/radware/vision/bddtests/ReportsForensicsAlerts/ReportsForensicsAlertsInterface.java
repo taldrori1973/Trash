@@ -5,7 +5,7 @@ import com.radware.vision.vision_project_cli.RootServerCli;
 import java.util.Map;
 
 public interface ReportsForensicsAlertsInterface {
-    void create(String name, Map<String, String> map) throws Exception;
+    void create(String name,String negative, Map<String, String> map) throws Exception;
 
     void validate(RootServerCli rootServerCli, String name, Map<String, String> map)throws Exception;
 

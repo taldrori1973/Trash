@@ -1,5 +1,7 @@
 @TC117967
 Feature: Negative test to validate Error Messages
+
+  
   @SID_1
   Scenario: Navigate to NEW REPORTS page
     Then UI Login with user "sys_admin" and password "radware"
@@ -120,6 +122,38 @@ Feature: Negative test to validate Error Messages
     Then UI Click Button "cancel"
     Then UI Text of "Save Change Message" contains "Do you want to save "Report with invalid Email"?"
     Then UI Click Button "No"
+
+  
+  @SID_11
+  Scenario: Create two reports with same name
+    Given UI "Create" Report With Name "Duplicate Report"
+      | Template              | reportType:DefensePro Analytics,Widgets:[Top Attack Destinations],devices:[All],showTable:true |
+      | Logo                  | reportLogoPNG.png                                                                              |
+      | Time Definitions.Date | Absolute:[02.11.2020 13:47, +0d]                                                               |
+      | Format                | Select: CSV                                                                                    |
+
+    Given UI "Validate" Report With Name "Duplicate Report"
+      | Template              | reportType:DefensePro Analytics,Widgets:[Top Attack Destinations],devices:[All],showTable:true |
+      | Logo                  | reportLogoPNG.png                                                                              |
+      | Time Definitions.Date | Absolute:[02.11.2020 13:47, +0d]                                                               |
+      | Format                | Select: CSV                                                                                    |
+
+    Given UI "Create" Report With Name "Duplicate Report" negative
+      | Template              | reportType:DefensePro Analytics,Widgets:[Top Attack Destinations],devices:[All],showTable:true |
+      | Logo                  | reportLogoPNG.png                                                                              |
+      | Time Definitions.Date | Absolute:[02.11.2020 13:47, +0d]                                                               |
+      | Format                | Select: CSV                                                                                    |
+
+    Then UI Text of "Error message title" equal to "Unable to Save Report"
+    Then UI Text of "Error message description" equal to "Report name must be unique. There is already another report with name 'Duplicate Report'"
+    Then UI Click Button "errorMessageOK"
+    Then UI Click Button "cancel"
+
+    Then UI Text of "Save Change Message" contains "Do you want to save "Duplicate Report"?"
+    Then UI Click Button "No"
+
+    Then UI Click Button "My Reports Tab"
+    Then UI Delete Report With Name "Duplicate Report"
 
   @SID_10
   Scenario: Logout

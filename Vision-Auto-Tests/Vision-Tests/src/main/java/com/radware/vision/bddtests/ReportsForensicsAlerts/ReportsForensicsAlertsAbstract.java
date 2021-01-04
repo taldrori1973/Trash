@@ -212,7 +212,7 @@ abstract class ReportsForensicsAlertsAbstract implements ReportsForensicsAlertsI
     protected abstract String getType();
 
 
-    public void baseOperation(vrmActions operationType, String name, Map<String, String> entry, RootServerCli rootServerCli) throws Exception {
+    public void baseOperation(vrmActions operationType, String name,String negative, Map<String, String> entry, RootServerCli rootServerCli) throws Exception {
         Map<String, String> map = null;
         if (operationType != vrmActions.GENERATE)
             map = CustomizedJsonManager.fixJson(entry);
@@ -223,7 +223,7 @@ abstract class ReportsForensicsAlertsAbstract implements ReportsForensicsAlertsI
 
         switch (operationType.name().toUpperCase()) {
             case "CREATE":
-                create(name, map);
+                create(name,negative, map);
                 break;
             case "VALIDATE":
                 validate(rootServerCli, name, map);
