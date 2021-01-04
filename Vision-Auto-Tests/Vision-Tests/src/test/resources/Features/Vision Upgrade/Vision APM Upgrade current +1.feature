@@ -251,3 +251,13 @@ Feature: Vision APM Upgrade current +1
   @SID_30
   Scenario: Delete Site2 After Upgrade
     Then CLI Run remote linux Command "mysql -prad123 vision_ng -e "delete from site_tree_elem_abs where name='Site2 After Upgrade';"" on "ROOT_SERVER_CLI"
+
+  @SID_31
+  Scenario: Validate APM is running
+    Given That Current Vision is Logged In
+    And New Request Specification from File "Vision/SystemManagement" with label "Get Share Path State"
+    When Send Request with the Given Specification
+    Then Validate That Response Status Code Is OK
+    And Validate That Response Body Contains
+      | jsonPath         | value     |
+      | $.sharePathState | "Running" |
