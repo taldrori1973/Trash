@@ -28,6 +28,7 @@ Feature: Vision Install OVA APM
     And Validate DefenseFlow is NOT Licensed by Attack Capacity License
     * REST Vision Install License Request "vision-reporting-module-ADC"
     * REST Vision Install License Request "vision-AVA-Max-attack-capacity"
+    * REST Vision Install License Request "vision-APM-reporter-server"
 
   @SID_4
   Scenario: Navigate to general settings page

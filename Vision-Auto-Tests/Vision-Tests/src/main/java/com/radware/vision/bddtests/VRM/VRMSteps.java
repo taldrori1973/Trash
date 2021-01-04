@@ -6,6 +6,7 @@ import com.radware.vision.infra.testhandlers.alteon.securitymonitoring.dashboard
 import com.radware.vision.infra.testhandlers.vrm.VRMHandler;
 import com.radware.vision.infra.testhandlers.vrm.VRMHandler.*;
 import com.radware.vision.infra.testhandlers.vrm.VRMReportsHandler;
+import cucumber.api.PendingException;
 import cucumber.api.java.en.And;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
@@ -240,6 +241,17 @@ public class VRMSteps {
     @Then("^UI Validate Pie Chart data \"([^\"]*)\" in Report \"([^\"]*)\"$")
     public void uiValidatePieChartDataInReport(String chart, String reportName, List<PieChart> entries) throws Throwable {
         new Report().getVRMReportsChartsHandler(reportName).validatePieChartDataOfDataSets(chart, entries);
+    }
+
+    @Then("^UI Validate Line Chart data \"([^\"]*)\" with LabelTime in report \"([^\"]*)\"$")
+    public void uiValidateLineChartDataWithLabelTimeInReport(String chart,String reportName, List<DataTime> entries) throws Throwable {
+        new Report().getVRMReportsChartsHandler(reportName).uiValidateLineChartDataWithLabelTime(chart, entries);
+    }
+
+    @Then("^UI Validate StackBar Timedata with widget \"([^\"]*)\" in report \"([^\"]*)\"$")
+    public void uiValidateStackBarTimedataWithWidgetInReport(String chart, String reportName, List<StackBarData> entries) throws NoSuchFieldException {
+        new Report().getVRMReportsChartsHandler(reportName).uiValidateStackBarTimeDataWithWidget(chart, entries);
+
     }
 }
 
