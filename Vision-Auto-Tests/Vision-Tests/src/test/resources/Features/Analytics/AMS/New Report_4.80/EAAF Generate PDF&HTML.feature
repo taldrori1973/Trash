@@ -1,6 +1,5 @@
-@NOAN99
-
 Feature: EAAF Generate PDF and HTML Report
+
   @SID_1
   Scenario: keep reports copy on file system
     Given CLI Reset radware password
@@ -46,12 +45,11 @@ Feature: EAAF Generate PDF and HTML Report
 
   @SID_7
   Scenario: validate Ports EAAF Hits Timeline-EAAF
-    Then Validate Line Chart data "EAAF Hits Timeline-EAAF" with Label "port_20" in report "EAAF Report"
-      | value | min |
-      | 205   | 10  |
+    Then UI Validate Line Chart data "EAAF Hits Timeline-EAAF" with LabelTime in report "EAAF Report"
+      | value  | count |
+      | 280972 | 0     |
 
-
-  @SID_14
+  @SID_8
   Scenario: Logout
     Then UI logout and close browser
 
