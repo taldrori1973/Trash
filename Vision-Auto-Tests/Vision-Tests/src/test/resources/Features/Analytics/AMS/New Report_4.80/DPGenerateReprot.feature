@@ -51,7 +51,30 @@ Feature: DPGenerateReport
       | 1     | 1     | 0      |
       | 2     | 1     | 0      |
 
-@SID_7
-Scenario: start IPTABLES
-  Then CLI Run linux Command "service iptables start" on "ROOT_SERVER_CLI" and validate result CONTAINS "Loading additional modules"
+  @SID_7
+  Scenario: DNS baseline pre-requisite
+    Given CLI kill all simulator attacks on current vision
+    Given CLI Clear vision logs
+    When CLI Operations - Run Radware Session command "system user authentication-mode set TACACS+"
+    Then REST Request "PUT" for "Connectivity->Inactivity Timeout for Configuration"
+      | type | value                                 |
+      | body | sessionInactivTimeoutConfiguration=60 |
+    Given CLI simulate 200 attacks of type "baselines_pol_1" on "DefensePro" 10 with loopDelay 15000 and wait 140 seconds
+
+  @SID_8
+    Then UI Validate StackBar Timedata with widget "BDoS-TCP SYN ACK-DefensePro Behavioral Protections" in report "dpBehavioral"
+      | value | min | label              |
+      | 44000 | 10  | Legitimate Traffic |
+      | 66680 | 10  | Total Traffic      |
+
+  @SID_9
+    Then UI Validate StackBar Timedata with widget "BDoS-TCP FIN ACK-DefensePro Behavioral Protections" in report "dpBehavioral"
+      | value | min | label              |
+      | 44160 | 10  | Legitimate Traffic |
+      | 46000 | 10  | Total Traffic      |
+
+
+  @SID_10
+  Scenario: start IPTABLES
+    Then CLI Run linux Command "service iptables start" on "ROOT_SERVER_CLI" and validate result CONTAINS "Loading additional modules"
 
