@@ -32,6 +32,7 @@ Feature: Vision Install KVM APM
 
     * REST Vision Install License Request "vision-reporting-module-ADC"
     * REST Vision Install License Request "vision-AVA-Max-attack-capacity"
+    * REST Vision Install License Request "vision-APM-reporter-server"
 
   @SID_4
   Scenario: Navigate and validate general settings page

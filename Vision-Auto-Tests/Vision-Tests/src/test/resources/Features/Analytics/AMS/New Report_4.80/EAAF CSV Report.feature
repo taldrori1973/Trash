@@ -1,12 +1,6 @@
 @TC118899
 Feature: EAAF CSV Report
 
-  @SID_1
-  Scenario: keep reports copy on file system
-    Given CLI Reset radware password
-    Then CLI Run remote linux Command "sed -i 's/vrm.scheduled.reports.delete.after.delivery=.*$/vrm.scheduled.reports.delete.after.delivery=false/g' /opt/radware/mgt-server/third-party/tomcat/conf/reporter.properties" on "ROOT_SERVER_CLI"
-    Then CLI Run remote linux Command "/opt/radware/mgt-server/bin/collectors_service.sh restart" on "ROOT_SERVER_CLI" with timeOut 720
-    Then CLI Run linux Command "/opt/radware/mgt-server/bin/collectors_service.sh status" on "ROOT_SERVER_CLI" and validate result EQUALS "APSolute Vision Collectors Server is running." with timeOut 240
 
 
   @SID_2
@@ -20,14 +14,18 @@ Feature: EAAF CSV Report
     * CLI kill all simulator attacks on current vision
     # wait until collector cache clean up
     * Sleep "15"
-    * REST Delete ES index "dp-traffic-*"
-    * REST Delete ES index "dp-https-stats-*"
-    * REST Delete ES index "dp-https-rt-*"
-    * REST Delete ES index "dp-five-*"
+    * REST Delete ES index "dp-*"
     * CLI Clear vision logs
     * CLI Run remote linux Command "curl -X GET localhost:9200/_cat/indices?v | grep dp-attack-raw >> /opt/radware/storage/maintenance/dp-attack-before-streaming" on "ROOT_SERVER_CLI"
     * CLI Run remote linux Command "curl -X POST localhost:9200/dp-attack-raw-*/_search -d '{"query":{"bool":{"must":[{"match_all":{}}],"must_not":[],"should":[]}},"from":0,"size":1000,"sort":[],"aggs":{}}' >> /opt/radware/storage/maintenance/attack-raw-index-before-stream" on "ROOT_SERVER_CLI"
 
+
+  @SID_1
+  Scenario: keep reports copy on file system
+    Given CLI Reset radware password
+    Then CLI Run remote linux Command "sed -i 's/vrm.scheduled.reports.delete.after.delivery=.*$/vrm.scheduled.reports.delete.after.delivery=false/g' /opt/radware/mgt-server/third-party/tomcat/conf/reporter.properties" on "ROOT_SERVER_CLI"
+    Then CLI Run remote linux Command "/opt/radware/mgt-server/bin/collectors_service.sh restart" on "ROOT_SERVER_CLI" with timeOut 720
+    Then CLI Run linux Command "/opt/radware/mgt-server/bin/collectors_service.sh status" on "ROOT_SERVER_CLI" and validate result EQUALS "APSolute Vision Collectors Server is running." with timeOut 240
   @SID_4
   Scenario: Run DP simulator PCAPs for EAAF widgets and arrange the data for automation needs
     # run EAAF attacks PCAP - this PCAP is the ONLY RELEVANT PCAP FOR THIS TEST FILE
@@ -121,7 +119,7 @@ Feature: EAAF CSV Report
 
   @SID_19
   Scenario: EAAF report validate CSV file EAAF Hits Timeline of number lines
-    Then CLI Run linux Command "cat "/opt/radware/mgt-server/third-party/tomcat/bin/EAAF Hits Timeline-EAAF.csv" |wc -l" on "ROOT_SERVER_CLI" and validate result EQUALS "3"
+    Then CLI Run linux Command "cat "/opt/radware/mgt-server/third-party/tomcat/bin/EAAF Hits Timeline-EAAF.csv" |wc -l" on "ROOT_SERVER_CLI" and validate result EQUALS "2"
 
   @SID_20
   Scenario: EAAF report validate CSV file Hits Timeline header
