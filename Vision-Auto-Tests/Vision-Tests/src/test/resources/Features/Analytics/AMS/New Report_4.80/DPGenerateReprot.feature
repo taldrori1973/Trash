@@ -62,12 +62,14 @@ Feature: DPGenerateReport
     Given CLI simulate 200 attacks of type "baselines_pol_1" on "DefensePro" 10 with loopDelay 15000 and wait 140 seconds
 
   @SID_8
+  Scenario: validate BDoS-TCP SYN ACK
     Then UI Validate StackBar Timedata with widget "BDoS-TCP SYN ACK-DefensePro Behavioral Protections" in report "dpBehavioral"
       | value | min | label              |
       | 44000 | 10  | Legitimate Traffic |
       | 66680 | 10  | Total Traffic      |
 
   @SID_9
+  Scenario: validate BDoS-TCP FIN ACK
     Then UI Validate StackBar Timedata with widget "BDoS-TCP FIN ACK-DefensePro Behavioral Protections" in report "dpBehavioral"
       | value | min | label              |
       | 44160 | 10  | Legitimate Traffic |
