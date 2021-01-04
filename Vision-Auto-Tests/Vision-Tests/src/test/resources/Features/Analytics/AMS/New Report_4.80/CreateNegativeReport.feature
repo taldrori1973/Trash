@@ -1,7 +1,5 @@
 @TC117967
 Feature: Negative test to validate Error Messages
-
-  
   @SID_1
   Scenario: Navigate to NEW REPORTS page
     Then UI Login with user "sys_admin" and password "radware"
@@ -123,8 +121,7 @@ Feature: Negative test to validate Error Messages
     Then UI Text of "Save Change Message" contains "Do you want to save "Report with invalid Email"?"
     Then UI Click Button "No"
 
-  
-  @SID_11
+  @SID_10
   Scenario: Create two reports with same name
     Given UI "Create" Report With Name "Duplicate Report"
       | Template              | reportType:DefensePro Analytics,Widgets:[Top Attack Destinations],devices:[All],showTable:true |
@@ -155,6 +152,6 @@ Feature: Negative test to validate Error Messages
     Then UI Click Button "My Reports Tab"
     Then UI Delete Report With Name "Duplicate Report"
 
-  @SID_10
+  @SID_11
   Scenario: Logout
     Then UI logout and close browser

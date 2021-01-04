@@ -1224,50 +1224,50 @@
   },
   {
     "version": 1,
-    "id": "AXatyZZEmNsdPWL8ZN_k",
+    "id": "AXbM8JllnDiboAqLlcrT",
     "state": "disabled",
     "templates": [
       {
         "templateType": "eaaf",
-        "templateId": "5abe1b4b-6e55-416d-be63-eff1ea384850",
+        "templateId": "9dea9d12-54b9-4814-8bb9-6014a5e3fbe2",
         "widgets": [
           {
-            "id": "34291b7d-38ef-4855-b915-179786d541d5",
+            "id": "957e69f4-fe3a-4a6a-a8ee-4ef75b25f3d3",
             "scopeId": "eaafScope",
             "templateId": "eaaf",
             "component": "eaaf-totalHits",
             "metaData": "{\\\"title\\\":\\\"Total Hits Summary\\\",\\\"dashboardType\\\":\\\"eaafDashboard\\\",\\\"componentType\\\":\\\"eaaf-totalHits\\\"}"
           },
           {
-            "id": "e4d45e2c-f1d2-4101-a01f-bb3c4535a803",
+            "id": "0f5e9839-f677-4730-9a16-8af231cd3eb8",
             "scopeId": "eaafScope",
             "templateId": "eaaf",
             "component": "eaaf-top-malicious-ip-addresses",
-            "metaData": "{\\\"title\\\":\\\"Top Malicious IP Addresses\\\",\\\"dashboardType\\\":\\\"eaafDashboard\\\",\\\"componentType\\\":\\\"eaaf-top-malicious-ip-addresses\\\",\\\"togglesData\\\":[{\\\"field\\\":\\\"tab\\\",\\\"value\\\":\\\"packets\\\"}],\\\"togglesCriteria\\\":[{\\\"criteriaToggle\\\":{\\\"fieldId\\\":\\\"tab\\\",\\\"options\\\":[{\\\"value\\\":\\\"Events\\\",\\\"title\\\":\\\"Events\\\"},{\\\"value\\\":\\\"Packets\\\",\\\"title\\\":\\\"Packets\\\"},{\\\"value\\\":\\\"Volume\\\",\\\"title\\\":\\\"Volume\\\"}]}}]}"
+            "metaData": "{\\\"title\\\":\\\"Top Malicious IP Addresses\\\",\\\"dashboardType\\\":\\\"eaafDashboard\\\",\\\"componentType\\\":\\\"eaaf-top-malicious-ip-addresses\\\",\\\"togglesData\\\":[{\\\"field\\\":\\\"tab\\\",\\\"value\\\":\\\"Events\\\"}],\\\"togglesCriteria\\\":[{\\\"criteriaToggle\\\":{\\\"fieldId\\\":\\\"tab\\\",\\\"options\\\":[{\\\"value\\\":\\\"Events\\\",\\\"title\\\":\\\"Events\\\"},{\\\"value\\\":\\\"Packets\\\",\\\"title\\\":\\\"Packets\\\"},{\\\"value\\\":\\\"Volume\\\",\\\"title\\\":\\\"Volume\\\"}]}}]}"
           },
           {
-            "id": "b297dd82-e795-4a99-b0f9-d329ac3c382d",
+            "id": "6cabd32d-ba3e-4d36-ab3f-460913b597eb",
             "scopeId": "eaafScope",
             "templateId": "eaaf",
             "component": "eaaf-top-attacking-by-countries",
-            "metaData": "{\\\"title\\\":\\\"Top Attacking Geolocations\\\",\\\"dashboardType\\\":\\\"eaafDashboard\\\",\\\"componentType\\\":\\\"eaaf-top-attacking-by-countries\\\",\\\"togglesData\\\":[{\\\"field\\\":\\\"tab\\\",\\\"value\\\":\\\"packets\\\"}],\\\"togglesCriteria\\\":[{\\\"criteriaToggle\\\":{\\\"fieldId\\\":\\\"tab\\\",\\\"options\\\":[{\\\"value\\\":\\\"Events\\\",\\\"title\\\":\\\"Events\\\"},{\\\"value\\\":\\\"Packets\\\",\\\"title\\\":\\\"Packets\\\"},{\\\"value\\\":\\\"Volume\\\",\\\"title\\\":\\\"Volume\\\"}]}}]}"
+            "metaData": "{\\\"title\\\":\\\"Top Attacking Geolocations\\\",\\\"dashboardType\\\":\\\"eaafDashboard\\\",\\\"componentType\\\":\\\"eaaf-top-attacking-by-countries\\\",\\\"togglesData\\\":[{\\\"field\\\":\\\"tab\\\",\\\"value\\\":\\\"Events\\\"}],\\\"togglesCriteria\\\":[{\\\"criteriaToggle\\\":{\\\"fieldId\\\":\\\"tab\\\",\\\"options\\\":[{\\\"value\\\":\\\"Events\\\",\\\"title\\\":\\\"Events\\\"},{\\\"value\\\":\\\"Packets\\\",\\\"title\\\":\\\"Packets\\\"},{\\\"value\\\":\\\"Volume\\\",\\\"title\\\":\\\"Volume\\\"}]}}]}"
           },
           {
-            "id": "eda049ae-f88b-4818-88e0-72908c05eddd",
+            "id": "5e5b0a44-9071-45c7-a380-56e141aab4b0",
             "scopeId": "eaafScope",
             "templateId": "eaaf",
             "component": "eaaf-breakdown-by-malicious-activity",
-            "metaData": "{\\\"title\\\":\\\"Breakdown by Malicious Activity\\\",\\\"dashboardType\\\":\\\"eaafDashboard\\\",\\\"componentType\\\":\\\"eaaf-breakdown-by-malicious-activity\\\",\\\"togglesData\\\":[{\\\"field\\\":\\\"tab\\\",\\\"value\\\":\\\"packets\\\"}],\\\"togglesCriteria\\\":[{\\\"criteriaToggle\\\":{\\\"fieldId\\\":\\\"tab\\\",\\\"options\\\":[{\\\"value\\\":\\\"Events\\\",\\\"title\\\":\\\"Events\\\"},{\\\"value\\\":\\\"Packets\\\",\\\"title\\\":\\\"Packets\\\"},{\\\"value\\\":\\\"Volume\\\",\\\"title\\\":\\\"Volume\\\"}]}}]}"
+            "metaData": "{\\\"title\\\":\\\"Breakdown by Malicious Activity\\\",\\\"dashboardType\\\":\\\"eaafDashboard\\\",\\\"componentType\\\":\\\"eaaf-breakdown-by-malicious-activity\\\",\\\"togglesData\\\":[{\\\"field\\\":\\\"tab\\\",\\\"value\\\":\\\"Events\\\"}],\\\"togglesCriteria\\\":[{\\\"criteriaToggle\\\":{\\\"fieldId\\\":\\\"tab\\\",\\\"options\\\":[{\\\"value\\\":\\\"Events\\\",\\\"title\\\":\\\"Events\\\"},{\\\"value\\\":\\\"Packets\\\",\\\"title\\\":\\\"Packets\\\"},{\\\"value\\\":\\\"Volume\\\",\\\"title\\\":\\\"Volume\\\"}]}}]}"
           },
           {
-            "id": "944d0a69-f84b-4dd5-a853-9e3c0c2ba6fa",
+            "id": "c1a864e9-63f1-4d7e-96ac-3529e7e9411d",
             "scopeId": "eaafScope",
             "templateId": "eaaf",
             "component": "eaaf-hits-timeline",
-            "metaData": "{\\\"title\\\":\\\"EAAF Hits Timeline\\\",\\\"dashboardType\\\":\\\"eaafDashboard\\\",\\\"componentType\\\":\\\"eaaf-hits-timeline\\\",\\\"togglesData\\\":[{\\\"field\\\":\\\"tab\\\",\\\"value\\\":\\\"packets\\\"}],\\\"togglesCriteria\\\":[{\\\"criteriaToggle\\\":{\\\"fieldId\\\":\\\"tab\\\",\\\"options\\\":[{\\\"value\\\":\\\"Events\\\",\\\"title\\\":\\\"Events\\\"},{\\\"value\\\":\\\"Packets\\\",\\\"title\\\":\\\"Packets\\\"},{\\\"value\\\":\\\"Volume\\\",\\\"title\\\":\\\"Volume\\\"}]}}]}"
+            "metaData": "{\\\"title\\\":\\\"EAAF Hits Timeline\\\",\\\"dashboardType\\\":\\\"eaafDashboard\\\",\\\"componentType\\\":\\\"eaaf-hits-timeline\\\",\\\"togglesData\\\":[{\\\"field\\\":\\\"tab\\\",\\\"value\\\":\\\"Events\\\"}],\\\"togglesCriteria\\\":[{\\\"criteriaToggle\\\":{\\\"fieldId\\\":\\\"tab\\\",\\\"options\\\":[{\\\"value\\\":\\\"Events\\\",\\\"title\\\":\\\"Events\\\"},{\\\"value\\\":\\\"Packets\\\",\\\"title\\\":\\\"Packets\\\"},{\\\"value\\\":\\\"Volume\\\",\\\"title\\\":\\\"Volume\\\"}]}}]}"
           },
           {
-            "id": "42e8ae1d-e4fa-493e-b3b2-ec42cd8e98e3",
+            "id": "8598111a-bdc8-433b-b399-342a089217f8",
             "scopeId": "eaafScope",
             "templateId": "eaaf",
             "component": "eaaf-total-summary",
@@ -1280,7 +1280,7 @@
         "templateTitle": "EAAF"
       }
     ],
-    "timeFrame": "{\\\"quickRangeSelection\\\":\\\"15m\\\",\\\"rangeType\\\":\\\"quick\\\",\\\"quickRangeUnit\\\":\\\"minute\\\",\\\"quickRangeValue\\\":15,\\\"generatedTimeFrame\\\":{\\\"precision\\\":\\\"MINUTE\\\",\\\"baseUnit\\\":\\\"minutes\\\",\\\"unit\\\":\\\"minute\\\",\\\"baseUnitStep\\\":5,\\\"dateTimeFormat\\\":\\\"HH:mm\\\",\\\"value\\\":15,\\\"baseUnitDisplaySkip\\\":1,\\\"dataPoints\\\":16,\\\"fromDate\\\":1609232524840,\\\"toDate\\\":1609233424840,\\\"type\\\":\\\"timeFrame\\\",\\\"amsRawDataHoursDiff\\\":1,\\\"fiveMinutePrecisionHours\\\":1,\\\"dateFormat\\\":\\\"dd.MM.yyyy\\\",\\\"timeFormat\\\":\\\"HH:mm:ss\\\",\\\"timezone\\\":\\\"Asia/Jerusalem\\\",\\\"utcOffset\\\":120}}",
+    "timeFrame": "{\\\"rangeType\\\":\\\"quick\\\",\\\"quickRangeSelection\\\":\\\"1H\\\",\\\"quickRangeValue\\\":1,\\\"quickRangeUnit\\\":\\\"hour\\\",\\\"quickRangeCustom\\\":false,\\\"generatedTimeFrame\\\":{\\\"value\\\":60,\\\"display\\\":\\\"1H\\\",\\\"unit\\\":\\\"minute\\\",\\\"baseUnitStep\\\":1,\\\"baseUnitDisplaySkip\\\":2,\\\"precision\\\":\\\"MINUTE\\\",\\\"baseUnit\\\":\\\"minutes\\\",\\\"dataPoints\\\":30,\\\"Id\\\":3,\\\"type\\\":\\\"timeFrame\\\",\\\"timezone\\\":\\\"Asia/Jerusalem\\\",\\\"utcOffset\\\":120,\\\"fromDate\\\":1609752035467,\\\"toDate\\\":1609755635467,\\\"fiveMinutePrecisionHours\\\":12,\\\"amsRawDataHoursDiff\\\":2,\\\"dateFormat\\\":\\\"dd.MM.yyyy\\\",\\\"timeFormat\\\":\\\"HH:mm:ss\\\"}}",
     "reportName": "EAAF Report",
     "scheduling": null,
     "exportFormat": {
