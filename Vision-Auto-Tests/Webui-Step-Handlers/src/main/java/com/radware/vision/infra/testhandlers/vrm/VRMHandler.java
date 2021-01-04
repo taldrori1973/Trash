@@ -159,6 +159,15 @@ public class VRMHandler {
                     addErrorMessage("There is no match found in --> the EXPECTED data is " + entry.toString() + " and the ACTUAL value is " + actualData);
                     scrollAndTakeScreenshot(chart);
                 }
+
+                if (entry.min != null)
+                {
+                    int actualCount = dataArray.toList().stream().map(s->s.toString().equals(entry.value)).collect(Collectors.toList()).size();
+                    if(actualCount < entry.min)
+                        addErrorMessage("The count of value " + entry.value + " is " + actualCount + " but the expected is " + entry.count);
+                    scrollAndTakeScreenshot(chart);
+
+                }
             });
         }
         reportErrors();
@@ -207,6 +216,17 @@ public class VRMHandler {
                     double maxValue = entry.count + countOffset;
                     if (actualCount > maxValue || actualCount < minValue)
                         addErrorMessage("The Actual count of value " + entry.value + " of label " + entry.label + " in chart " + chart + " is " + actualCount + " and the Expected is between minCount " + (minValue) + " and maxCount " + (maxValue));
+                    return;
+                }
+                if (entry.min != null)
+                {
+                    int actualCount = 0;
+                    for (Object value : dataArray) {
+                        if (value.toString().equals(entry.value))
+                            actualCount++;
+                    }
+                    if (actualCount < entry.min)
+                        addErrorMessage("The Actual count of value " + entry.value + " of label " + entry.label + " in chart " + chart + " is " + actualCount + " and the Expected minCount is " + entry.min);
                     return;
                 }
 

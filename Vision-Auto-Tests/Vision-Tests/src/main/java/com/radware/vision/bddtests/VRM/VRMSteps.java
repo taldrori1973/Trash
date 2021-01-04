@@ -247,5 +247,11 @@ public class VRMSteps {
     public void uiValidateLineChartDataWithLabelTimeInReport(String chart,String reportName, List<DataTime> entries) throws Throwable {
         new Report().getVRMReportsChartsHandler(reportName).uiValidateLineChartDataWithLabelTime(chart, entries);
     }
+
+    @Then("^UI Validate StackBar Timedata with widget \"([^\"]*)\" in report \"([^\"]*)\"$")
+    public void uiValidateStackBarTimedataWithWidgetInReport(String chart, String reportName, List<StackBarData> entries) throws NoSuchFieldException {
+        new Report().getVRMReportsChartsHandler(reportName).uiValidateStackBarTimeDataWithWidget(chart, entries);
+
+    }
 }
 
