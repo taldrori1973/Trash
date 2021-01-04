@@ -249,3 +249,13 @@ Feature: Vision APM Upgrade current -2
     Then CLI Run remote linux Command "echo "After " $(mysql -prad123 vision -e "show create table traffic_utilizations\G" |grep "(PARTITION \`p" |awk -F"p" '{print$2}'|awk -F"\`" '{print$1}') >>  /opt/radware/sql_partition.txt" on "ROOT_SERVER_CLI"
     Then CLI Run remote linux Command "cat /opt/radware/sql_partition.txt" on "ROOT_SERVER_CLI"
     Then CLI Run linux Command "echo $(cat /opt/radware/sql_partition.txt |grep "After"|awk '{print$2}')-$(cat /opt/radware/sql_partition.txt |grep "Before"|awk '{print$2}')|bc" on "ROOT_SERVER_CLI" and validate result NOT_EQUALS "0"
+
+  @SID_30
+  Scenario: Validate APM is running
+    Given That Current Vision is Logged In
+    And New Request Specification from File "Vision/SystemManagement" with label "Get Share Path State"
+    When Send Request with the Given Specification
+    Then Validate That Response Status Code Is OK
+    And Validate That Response Body Contains
+      | jsonPath         | value     |
+      | $.sharePathState | "Running" |
