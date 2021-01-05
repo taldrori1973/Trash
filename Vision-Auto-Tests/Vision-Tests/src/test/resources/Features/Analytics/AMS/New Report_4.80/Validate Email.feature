@@ -3,7 +3,7 @@ Feature: Validate Email
   @SID_1
   Scenario: VRM - enabling emailing and go to VRM Reports Tab
     Given Setup email server
-    Given UI Login with user "sys_admin" and password "radware"
+    Then UI Login with user "radware" and password "radware"
     * REST Vision Install License Request "vision-AVA-Max-attack-capacity"
     And UI Go To Vision
     Then UI Navigate to page "System->General Settings->Alert Settings->Alert Browser"

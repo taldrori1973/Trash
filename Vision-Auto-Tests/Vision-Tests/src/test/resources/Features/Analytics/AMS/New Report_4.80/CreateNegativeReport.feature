@@ -2,9 +2,10 @@
 Feature: Negative test to validate Error Messages
   @SID_1
   Scenario: Navigate to NEW REPORTS page
-    Then UI Login with user "sys_admin" and password "radware"
+    Then UI Login with user "radware" and password "radware"
     Then UI Navigate to "AMS REPORTS" page via homepage
     Then UI Click Button "New Report Tab"
+
 
   @SID_2
   Scenario: Create New Report Empty
@@ -37,6 +38,7 @@ Feature: Negative test to validate Error Messages
     Then UI Click Button "New Report Tab"
     Then UI Set Text Field "Report Name" To ","
     Then UI Click Button "Add Template" with value "HTTPS Flood"
+    Then UI Click Button "Open Scope Selection" with value "HTTPS Flood"
     Then UI Click Button "httpsScopeRadio" with value "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaa-DefensePro_172.16.22.51-1_https"
     Then UI Click Button "SaveHTTPSScopeSelection"
     Then UI Click Button "save"
@@ -61,9 +63,9 @@ Feature: Negative test to validate Error Messages
     Then UI Click Button "No"
 
   @SID_6
-  Scenario: Create New Report with Report with more than 50 Widgets without policy and port
+  Scenario: Create New DefensePro Behavioral Protections report without policy and port
     Then UI Click Button "New Report Tab"
-    Then UI Set Text Field "Report Name" To "Report with more than 50 Widgets without policy and port"
+    Then UI Set Text Field "Report Name" To "DefensePro Behavioral Protections report without policy and port"
     Then UI Click Button "Add Template" with value "DefensePro Behavioral Protections"
     Then UI Click Button "Scope Selection"
     Then UI Click Button "AllScopeSelection"
@@ -74,13 +76,13 @@ Feature: Negative test to validate Error Messages
     Then UI Text of "Error message description" equal to "The Report Template requires the selection of a single device and policy."
     Then UI Click Button "errorMessageOK"
     Then UI Click Button "cancel"
-    Then UI Text of "Save Change Message" contains "Do you want to save "Report with more than 50 Widgets without policy and port"?"
+    Then UI Text of "Save Change Message" contains "Do you want to save "DefensePro Behavioral Protections report without policy and port"?"
     Then UI Click Button "No"
 
   @SID_7
-  Scenario: Create New Report with Report with more than 50 Widgets without port
+  Scenario: Create New DefensePro Behavioral Protections report without port
     Then UI Click Button "New Report Tab"
-    Then UI Set Text Field "Report Name" To "Report with more than 50 Widgets without port"
+    Then UI Set Text Field "Report Name" To "DefensePro Behavioral Protections report without port"
     Then UI Click Button "Add Template" with value "DefensePro Behavioral Protections"
     Then UI Click Button "Scope Selection"
     Then UI Click Button "DPScopeSelectionChange" with value "172.16.22.50"
@@ -91,7 +93,7 @@ Feature: Negative test to validate Error Messages
     Then UI Text of "Error message description" equal to "The Report Template requires the selection of a single device and policy."
     Then UI Click Button "errorMessageOK"
     Then UI Click Button "cancel"
-    Then UI Text of "Save Change Message" contains "Do you want to save "Report with more than 50 Widgets without port"?"
+    Then UI Text of "Save Change Message" contains "Do you want to save "DefensePro Behavioral Protections report without port"?"
     Then UI Click Button "No"
 
   @SID_8
@@ -169,6 +171,7 @@ Feature: Negative test to validate Error Messages
     Then UI Click Button "DPPolicyCheck" with value "172.16.22.50,BDOS"
     Then UI Click Button "SaveDPScopeSelection"
     Then UI Click Button "Add Template" with value "HTTPS Flood"
+    Then UI Click Button "Open Scope Selection" with value "HTTPS Flood"
     Then UI Click Button "httpsScopeRadio" with value "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaa-DefensePro_172.16.22.51-1_https"
     Then UI Click Button "SaveHTTPSScopeSelection"
     Then UI Click Button "save"

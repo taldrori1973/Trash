@@ -7,13 +7,8 @@ Feature: HTTPS Flood CSV Report
   Scenario: Clear data
     * CLI kill all simulator attacks on current vision
     Given CLI Reset radware password
-    * REST Delete ES index "dp-traffic-*"
-    * REST Delete ES index "dp-https-stats-*"
-    * REST Delete ES index "dp-https-rt-*"
-    * REST Delete ES index "dp-five-*"
-
-
-
+    * REST Delete ES index "dp-*"
+    Given CLI Run remote linux Command "service vision restart" on "ROOT_SERVER_CLI" and wait 185 seconds
 
   @SID_2
   Scenario: keep reports copy on file system
@@ -38,7 +33,7 @@ Feature: HTTPS Flood CSV Report
 
   @SID_3
   Scenario:Login and Navigate to HTTPS Server Dashboard
-    Given UI Login with user "sys_admin" and password "radware"
+    Then UI Login with user "radware" and password "radware"
     Then REST Vision Install License Request "vision-AVA-Max-attack-capacity"
     Given Rest Add Policy "pol1" To DP "172.16.22.51" if Not Exist
     And Rest Add new Rule "https_servers_automation" in Profile "ProfileHttpsflood" to Policy "pol1" to DP "172.16.22.51"
