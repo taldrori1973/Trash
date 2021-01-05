@@ -6,6 +6,7 @@ Feature: Negative test to validate Error Messages
     Then UI Navigate to "AMS REPORTS" page via homepage
     Then UI Click Button "New Report Tab"
 
+
   @SID_2
   Scenario: Create New Report Empty
     Then UI Click Button "save"
