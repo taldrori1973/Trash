@@ -7,10 +7,12 @@ Feature: DP Monitoring Dashboard - Protection Policies - Under Attack
     * CLI kill all simulator attacks on current vision
     Given CLI Reset radware password
     Then CLI Operations - Run Radware Session command "system user authentication-mode set TACACS+"
-    * REST Delete ES index "dp-traffic-*"
-    * REST Delete ES index "dp-https-stats-*"
-    * REST Delete ES index "dp-https-rt-*"
-    * REST Delete ES index "dp-five-*"
+#    * REST Delete ES index "dp-traffic-*"
+#    * REST Delete ES index "dp-https-stats-*"
+#    * REST Delete ES index "dp-https-rt-*"
+#    * REST Delete ES index "dp-five-*"
+    * REST Delete ES index "dp-*"
+
     * CLI Clear vision logs
 
   @SID_2
@@ -175,10 +177,12 @@ Feature: DP Monitoring Dashboard - Protection Policies - Under Attack
   @SID_12
   Scenario: Run DP simulator PCAPs for "Protection Policies" - Global Policy attacks
     * CLI kill all simulator attacks on current vision
-    * REST Delete ES index "dp-traffic-*"
-    * REST Delete ES index "dp-https-stats-*"
-    * REST Delete ES index "dp-https-rt-*"
-    * REST Delete ES index "dp-five-*"
+#    * REST Delete ES index "dp-traffic-*"
+#    * REST Delete ES index "dp-https-stats-*"
+#    * REST Delete ES index "dp-https-rt-*"
+#    * REST Delete ES index "dp-five-*"
+    * REST Delete ES index "dp-*"
+
     * CLI simulate 30 attacks of type "rest_black_ip46" on "DefensePro" 10
     * CLI simulate 40 attacks of type "rest_anomalies" on "DefensePro" 11 with loopDelay 5000 and wait 60 seconds
     When UI Do Operation "Select" item "Device Selection"
