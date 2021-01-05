@@ -1,3 +1,4 @@
+@run
 @TC118902
 Feature: ADC Generate PDF and HTML Report
 

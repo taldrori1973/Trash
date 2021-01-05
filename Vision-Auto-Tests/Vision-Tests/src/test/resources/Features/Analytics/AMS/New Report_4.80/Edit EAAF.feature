@@ -3,7 +3,7 @@ Feature: Edit EAAF tests
 
   @SID_1
   Scenario: Login
-    Then UI Login with user "sys_admin" and password "radware"
+    Then UI Login with user "radware" and password "radware"
 
   @SID_2
   Scenario: Navigate to NEW REPORTS page

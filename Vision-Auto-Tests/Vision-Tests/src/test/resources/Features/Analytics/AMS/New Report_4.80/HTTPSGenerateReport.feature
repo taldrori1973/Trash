@@ -26,7 +26,7 @@ Feature: HTTPSGenerateReport
 
   @SID_4
   Scenario:Login and Navigate to HTTPS Flood Dashboard
-    Given UI Login with user "sys_admin" and password "radware"
+    Then UI Login with user "radware" and password "radware"
     Then UI Navigate to "AMS REPORTS" page via homepage
 
   @SID_5
