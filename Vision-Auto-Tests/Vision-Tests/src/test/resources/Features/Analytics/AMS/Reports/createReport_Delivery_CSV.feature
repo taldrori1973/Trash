@@ -9,6 +9,7 @@ Feature:  Report AMS analytics CSV Validations
     Then CLI Run linux Command "/opt/radware/mgt-server/bin/collectors_service.sh status" on "ROOT_SERVER_CLI" and validate result EQUALS "APSolute Vision Collectors Server is running." with timeOut 240
     Given CLI Reset radware password
 
+
   @SID_2
   Scenario: Clear Database and old reports on file-system
 #    * REST Delete ES index "dp-traffic-*"

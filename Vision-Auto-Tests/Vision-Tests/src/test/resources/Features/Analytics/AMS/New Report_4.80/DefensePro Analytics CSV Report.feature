@@ -1,4 +1,4 @@
-@TC118361
+@TC118361 @Test12
 Feature: DefensePro Analytics CSV Report
 
   @SID_1
