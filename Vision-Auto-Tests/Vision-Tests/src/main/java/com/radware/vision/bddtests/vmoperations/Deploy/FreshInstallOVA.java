@@ -11,7 +11,7 @@ public class FreshInstallOVA extends Deploy {
         //boolean isHighscale = getVisionSetupAttributeFromSUT("isHighscale") != null;
         //todo: change the file type
         buildFileInfo(FileType.OVA_HIGHSCALE);
-        //buildFileInfo(this.isAPM ? FileType.OVA_APM : FileType.OVA);
+        buildFileInfo(this.isAPM ? FileType.OVA_APM : FileType.OVA);
 
     }
 
