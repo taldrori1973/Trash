@@ -11,10 +11,11 @@ Feature: VRM AMS Report Data BDoS baselines
   Scenario: Clear Database latest traffic index and old reports on file-system
     Then CLI kill all simulator attacks on current vision
     Then CLI Clear vision logs
-    * REST Delete ES index "dp-traffic-*"
-    * REST Delete ES index "dp-https-stats-*"
-    * REST Delete ES index "dp-https-rt-*"
-    * REST Delete ES index "dp-five-*"
+#    * REST Delete ES index "dp-traffic-*"
+#    * REST Delete ES index "dp-https-stats-*"
+#    * REST Delete ES index "dp-https-rt-*"
+#    * REST Delete ES index "dp-five-*"
+    * REST Delete ES index "dp-*"
     * REST Vision Install License Request "vision-AVA-Max-attack-capacity"
     Then Sleep "5"
 
