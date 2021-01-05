@@ -45,12 +45,20 @@ Feature: EAAF Generate PDF and HTML Report
     And UI Navigate to "AMS Reports" page via homePage
 
   @SID_7
+  Scenario: stop IPTABLES
+    Then CLI Run linux Command "service iptables stop" on "ROOT_SERVER_CLI" and validate result CONTAINS "Unloading modules"
+
+  @SID_8
   Scenario: validate Ports EAAF Hits Timeline-EAAF
     Then UI Validate Line Chart data "EAAF Hits Timeline-EAAF" with LabelTime in report "EAAF Report"
       | value  | count |
       | 280972 | 0     |
 
-  @SID_8
+  @SID_9
+  Scenario: start IPTABLES
+    Then CLI Run linux Command "service iptables start" on "ROOT_SERVER_CLI" and validate result CONTAINS "Loading additional modules"
+
+  @SID_10
   Scenario: Logout
     Then UI logout and close browser
 
