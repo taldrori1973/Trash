@@ -82,57 +82,57 @@ Feature: ADC Applications Generate CSV Report
   @SID_13
   Scenario: ADC Applications report validate CSV file Groups and Content Rules widget header
     Then CLI Run linux Command "cat "/opt/radware/mgt-server/third-party/tomcat/bin/Groups and Content Rules-Application.csv"|head -1|tail -1|grep totalDownTime,hcFailureReason,groupID,ip,lastFailureTime,id,status|wc -l " on "ROOT_SERVER_CLI" and validate result EQUALS "1"
-    Then CLI Run linux Command "cat "/opt/radware/mgt-server/third-party/tomcat/bin/Groups and Content Rules-Application.csv"|head -2|tail -1|awk -F "," '{printf $2}';echo" on "ROOT_SERVER_CLI" and validate result EQUALS "Connection Timeout."
+    Then CLI Run linux Command "cat "/opt/radware/mgt-server/third-party/tomcat/bin/Groups and Content Rules-Application.csv"|head -2|tail -1|awk -F "," '{printf $2}';echo" on "ROOT_SERVER_CLI" and validate result CONTAINS "Connection Timeout."
     Then CLI Run linux Command "cat "/opt/radware/mgt-server/third-party/tomcat/bin/Groups and Content Rules-Application.csv"|head -2|tail -1|awk -F "," '{printf $4}';echo" on "ROOT_SERVER_CLI" and validate result EQUALS "201.41.1.8"
     Then CLI Run linux Command "cat "/opt/radware/mgt-server/third-party/tomcat/bin/Groups and Content Rules-Application.csv"|head -2|tail -1|awk -F "," '{printf $6}';echo" on "ROOT_SERVER_CLI" and validate result EQUALS "10"
     Then CLI Run linux Command "cat "/opt/radware/mgt-server/third-party/tomcat/bin/Groups and Content Rules-Application.csv"|head -2|tail -1|awk -F "," '{printf $7}';echo" on "ROOT_SERVER_CLI" and validate result EQUALS "DOWN"
 
-    Then CLI Run linux Command "cat "/opt/radware/mgt-server/third-party/tomcat/bin/Groups and Content Rules-Application.csv"|head -3|tail -1|awk -F "," '{printf $2}';echo" on "ROOT_SERVER_CLI" and validate result EQUALS "Connection Timeout."
+    Then CLI Run linux Command "cat "/opt/radware/mgt-server/third-party/tomcat/bin/Groups and Content Rules-Application.csv"|head -3|tail -1|awk -F "," '{printf $2}';echo" on "ROOT_SERVER_CLI" and validate result CONTAINS "Connection Timeout."
     Then CLI Run linux Command "cat "/opt/radware/mgt-server/third-party/tomcat/bin/Groups and Content Rules-Application.csv"|head -3|tail -1|awk -F "," '{printf $4}';echo" on "ROOT_SERVER_CLI" and validate result EQUALS "201.41.1.99"
     Then CLI Run linux Command "cat "/opt/radware/mgt-server/third-party/tomcat/bin/Groups and Content Rules-Application.csv"|head -3|tail -1|awk -F "," '{printf $6}';echo" on "ROOT_SERVER_CLI" and validate result EQUALS "99"
     Then CLI Run linux Command "cat "/opt/radware/mgt-server/third-party/tomcat/bin/Groups and Content Rules-Application.csv"|head -3|tail -1|awk -F "," '{printf $7}';echo" on "ROOT_SERVER_CLI" and validate result EQUALS "DOWN"
 
-    Then CLI Run linux Command "cat "/opt/radware/mgt-server/third-party/tomcat/bin/Groups and Content Rules-Application.csv"|head -4|tail -1|awk -F "," '{printf $2}';echo" on "ROOT_SERVER_CLI" and validate result EQUALS "Connection Timeout."
+    Then CLI Run linux Command "cat "/opt/radware/mgt-server/third-party/tomcat/bin/Groups and Content Rules-Application.csv"|head -4|tail -1|awk -F "," '{printf $2}';echo" on "ROOT_SERVER_CLI" and validate result CONTAINS "Connection Timeout."
     Then CLI Run linux Command "cat "/opt/radware/mgt-server/third-party/tomcat/bin/Groups and Content Rules-Application.csv"|head -4|tail -1|awk -F "," '{printf $4}';echo" on "ROOT_SERVER_CLI" and validate result EQUALS "201.41.1.100"
     Then CLI Run linux Command "cat "/opt/radware/mgt-server/third-party/tomcat/bin/Groups and Content Rules-Application.csv"|head -4|tail -1|awk -F "," '{printf $6}';echo" on "ROOT_SERVER_CLI" and validate result EQUALS "100"
     Then CLI Run linux Command "cat "/opt/radware/mgt-server/third-party/tomcat/bin/Groups and Content Rules-Application.csv"|head -4|tail -1|awk -F "," '{printf $7}';echo" on "ROOT_SERVER_CLI" and validate result EQUALS "DOWN"
 
-    Then CLI Run linux Command "cat "/opt/radware/mgt-server/third-party/tomcat/bin/Groups and Content Rules-Application.csv"|head -5|tail -1|awk -F "," '{printf $2}';echo" on "ROOT_SERVER_CLI" and validate result EQUALS "Connection Timeout."
+    Then CLI Run linux Command "cat "/opt/radware/mgt-server/third-party/tomcat/bin/Groups and Content Rules-Application.csv"|head -5|tail -1|awk -F "," '{printf $2}';echo" on "ROOT_SERVER_CLI" and validate result CONTAINS "Connection Timeout."
     Then CLI Run linux Command "cat "/opt/radware/mgt-server/third-party/tomcat/bin/Groups and Content Rules-Application.csv"|head -5|tail -1|awk -F "," '{printf $4}';echo" on "ROOT_SERVER_CLI" and validate result EQUALS "201.41.1.101"
     Then CLI Run linux Command "cat "/opt/radware/mgt-server/third-party/tomcat/bin/Groups and Content Rules-Application.csv"|head -5|tail -1|awk -F "," '{printf $6}';echo" on "ROOT_SERVER_CLI" and validate result EQUALS "101"
     Then CLI Run linux Command "cat "/opt/radware/mgt-server/third-party/tomcat/bin/Groups and Content Rules-Application.csv"|head -5|tail -1|awk -F "," '{printf $7}';echo" on "ROOT_SERVER_CLI" and validate result EQUALS "DOWN"
 
-    Then CLI Run linux Command "cat "/opt/radware/mgt-server/third-party/tomcat/bin/Groups and Content Rules-Application.csv"|head -6|tail -1|awk -F "," '{printf $2}';echo" on "ROOT_SERVER_CLI" and validate result EQUALS "Connection Timeout."
+    Then CLI Run linux Command "cat "/opt/radware/mgt-server/third-party/tomcat/bin/Groups and Content Rules-Application.csv"|head -6|tail -1|awk -F "," '{printf $2}';echo" on "ROOT_SERVER_CLI" and validate result CONTAINS "Connection Timeout."
     Then CLI Run linux Command "cat "/opt/radware/mgt-server/third-party/tomcat/bin/Groups and Content Rules-Application.csv"|head -6|tail -1|awk -F "," '{printf $4}';echo" on "ROOT_SERVER_CLI" and validate result EQUALS "201.41.1.6"
     Then CLI Run linux Command "cat "/opt/radware/mgt-server/third-party/tomcat/bin/Groups and Content Rules-Application.csv"|head -6|tail -1|awk -F "," '{printf $6}';echo" on "ROOT_SERVER_CLI" and validate result CONTAINS "123abc"
     Then CLI Run linux Command "cat "/opt/radware/mgt-server/third-party/tomcat/bin/Groups and Content Rules-Application.csv"|head -6|tail -1|awk -F "," '{printf $7}';echo" on "ROOT_SERVER_CLI" and validate result EQUALS "DOWN"
 
-    Then CLI Run linux Command "cat "/opt/radware/mgt-server/third-party/tomcat/bin/Groups and Content Rules-Application.csv"|head -7|tail -1|awk -F "," '{printf $2}';echo" on "ROOT_SERVER_CLI" and validate result EQUALS "Connection Timeout."
+    Then CLI Run linux Command "cat "/opt/radware/mgt-server/third-party/tomcat/bin/Groups and Content Rules-Application.csv"|head -7|tail -1|awk -F "," '{printf $2}';echo" on "ROOT_SERVER_CLI" and validate result CONTAINS "Connection Timeout."
     Then CLI Run linux Command "cat "/opt/radware/mgt-server/third-party/tomcat/bin/Groups and Content Rules-Application.csv"|head -7|tail -1|awk -F "," '{printf $4}';echo" on "ROOT_SERVER_CLI" and validate result EQUALS "201.41.1.11"
     Then CLI Run linux Command "cat "/opt/radware/mgt-server/third-party/tomcat/bin/Groups and Content Rules-Application.csv"|head -7|tail -1|awk -F "," '{printf $6}';echo" on "ROOT_SERVER_CLI" and validate result CONTAINS "123456789abcdefghijklmno...vwxyz"
     Then CLI Run linux Command "cat "/opt/radware/mgt-server/third-party/tomcat/bin/Groups and Content Rules-Application.csv"|head -7|tail -1|awk -F "," '{printf $7}';echo" on "ROOT_SERVER_CLI" and validate result EQUALS "DOWN"
 
-    Then CLI Run linux Command "cat "/opt/radware/mgt-server/third-party/tomcat/bin/Groups and Content Rules-Application.csv"|head -8|tail -1|awk -F "," '{printf $2}';echo" on "ROOT_SERVER_CLI" and validate result EQUALS "Connection Timeout."
+    Then CLI Run linux Command "cat "/opt/radware/mgt-server/third-party/tomcat/bin/Groups and Content Rules-Application.csv"|head -8|tail -1|awk -F "," '{printf $2}';echo" on "ROOT_SERVER_CLI" and validate result CONTAINS "Connection Timeout."
     Then CLI Run linux Command "cat "/opt/radware/mgt-server/third-party/tomcat/bin/Groups and Content Rules-Application.csv"|head -8|tail -1|awk -F "," '{printf $4}';echo" on "ROOT_SERVER_CLI" and validate result EQUALS "201.41.1.5"
     Then CLI Run linux Command "cat "/opt/radware/mgt-server/third-party/tomcat/bin/Groups and Content Rules-Application.csv"|head -8|tail -1|awk -F "," '{printf $6}';echo" on "ROOT_SERVER_CLI" and validate result CONTAINS "abcdabcdabcdabcdabcdabcdabcdabcdabcdabcd"
     Then CLI Run linux Command "cat "/opt/radware/mgt-server/third-party/tomcat/bin/Groups and Content Rules-Application.csv"|head -8|tail -1|awk -F "," '{printf $7}';echo" on "ROOT_SERVER_CLI" and validate result EQUALS "DOWN"
 
-    Then CLI Run linux Command "cat "/opt/radware/mgt-server/third-party/tomcat/bin/Groups and Content Rules-Application.csv"|head -9|tail -1|awk -F "," '{printf $2}';echo" on "ROOT_SERVER_CLI" and validate result EQUALS "Connection Timeout."
+    Then CLI Run linux Command "cat "/opt/radware/mgt-server/third-party/tomcat/bin/Groups and Content Rules-Application.csv"|head -9|tail -1|awk -F "," '{printf $2}';echo" on "ROOT_SERVER_CLI" and validate result CONTAINS "Connection Timeout."
     Then CLI Run linux Command "cat "/opt/radware/mgt-server/third-party/tomcat/bin/Groups and Content Rules-Application.csv"|head -9|tail -1|awk -F "," '{printf $4}';echo" on "ROOT_SERVER_CLI" and validate result EQUALS "201.41.1.1"
     Then CLI Run linux Command "cat "/opt/radware/mgt-server/third-party/tomcat/bin/Groups and Content Rules-Application.csv"|head -9|tail -1|awk -F "," '{printf $6}';echo" on "ROOT_SERVER_CLI" and validate result EQUALS "Real1"
     Then CLI Run linux Command "cat "/opt/radware/mgt-server/third-party/tomcat/bin/Groups and Content Rules-Application.csv"|head -9|tail -1|awk -F "," '{printf $7}';echo" on "ROOT_SERVER_CLI" and validate result EQUALS "DOWN"
 
-    Then CLI Run linux Command "cat "/opt/radware/mgt-server/third-party/tomcat/bin/Groups and Content Rules-Application.csv"|head -10|tail -1|awk -F "," '{printf $2}';echo" on "ROOT_SERVER_CLI" and validate result EQUALS "Connection Timeout."
+    Then CLI Run linux Command "cat "/opt/radware/mgt-server/third-party/tomcat/bin/Groups and Content Rules-Application.csv"|head -10|tail -1|awk -F "," '{printf $2}';echo" on "ROOT_SERVER_CLI" and validate result CONTAINS "Connection Timeout."
     Then CLI Run linux Command "cat "/opt/radware/mgt-server/third-party/tomcat/bin/Groups and Content Rules-Application.csv"|head -10|tail -1|awk -F "," '{printf $4}';echo" on "ROOT_SERVER_CLI" and validate result EQUALS "201.41.1.2"
     Then CLI Run linux Command "cat "/opt/radware/mgt-server/third-party/tomcat/bin/Groups and Content Rules-Application.csv"|head -10|tail -1|awk -F "," '{printf $6}';echo" on "ROOT_SERVER_CLI" and validate result EQUALS "Real2"
     Then CLI Run linux Command "cat "/opt/radware/mgt-server/third-party/tomcat/bin/Groups and Content Rules-Application.csv"|head -10|tail -1|awk -F "," '{printf $7}';echo" on "ROOT_SERVER_CLI" and validate result EQUALS "DOWN"
 
-    Then CLI Run linux Command "cat "/opt/radware/mgt-server/third-party/tomcat/bin/Groups and Content Rules-Application.csv"|head -11|tail -1|awk -F "," '{printf $2}';echo" on "ROOT_SERVER_CLI" and validate result EQUALS "Connection Timeout."
+    Then CLI Run linux Command "cat "/opt/radware/mgt-server/third-party/tomcat/bin/Groups and Content Rules-Application.csv"|head -11|tail -1|awk -F "," '{printf $2}';echo" on "ROOT_SERVER_CLI" and validate result CONTAINS "Connection Timeout."
     Then CLI Run linux Command "cat "/opt/radware/mgt-server/third-party/tomcat/bin/Groups and Content Rules-Application.csv"|head -11|tail -1|awk -F "," '{printf $4}';echo" on "ROOT_SERVER_CLI" and validate result EQUALS "201.41.1.3"
     Then CLI Run linux Command "cat "/opt/radware/mgt-server/third-party/tomcat/bin/Groups and Content Rules-Application.csv"|head -11|tail -1|awk -F "," '{printf $6}';echo" on "ROOT_SERVER_CLI" and validate result EQUALS "Real3"
     Then CLI Run linux Command "cat "/opt/radware/mgt-server/third-party/tomcat/bin/Groups and Content Rules-Application.csv"|head -11|tail -1|awk -F "," '{printf $7}';echo" on "ROOT_SERVER_CLI" and validate result EQUALS "DOWN"
 
-    Then CLI Run linux Command "cat "/opt/radware/mgt-server/third-party/tomcat/bin/Groups and Content Rules-Application.csv"|head -12|tail -1|awk -F "," '{printf $2}';echo" on "ROOT_SERVER_CLI" and validate result EQUALS "Connection Timeout."
+    Then CLI Run linux Command "cat "/opt/radware/mgt-server/third-party/tomcat/bin/Groups and Content Rules-Application.csv"|head -12|tail -1|awk -F "," '{printf $2}';echo" on "ROOT_SERVER_CLI" and validate result CONTAINS "Connection Timeout."
     Then CLI Run linux Command "cat "/opt/radware/mgt-server/third-party/tomcat/bin/Groups and Content Rules-Application.csv"|head -12|tail -1|awk -F "," '{printf $4}';echo" on "ROOT_SERVER_CLI" and validate result EQUALS "201.41.1.4"
     Then CLI Run linux Command "cat "/opt/radware/mgt-server/third-party/tomcat/bin/Groups and Content Rules-Application.csv"|head -12|tail -1|awk -F "," '{printf $6}';echo" on "ROOT_SERVER_CLI" and validate result EQUALS "Real4"
     Then CLI Run linux Command "cat "/opt/radware/mgt-server/third-party/tomcat/bin/Groups and Content Rules-Application.csv"|head -12|tail -1|awk -F "," '{printf $7}';echo" on "ROOT_SERVER_CLI" and validate result EQUALS "DOWN"
