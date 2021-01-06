@@ -1,6 +1,42 @@
 @TC118847
 Feature: Validate Email
   @SID_1
+  Scenario: Clear data
+    * CLI kill all simulator attacks on current vision
+    Given CLI Reset radware password
+    * REST Delete ES index "dp-*"
+    Given CLI Run remote linux Command "service vision restart" on "ROOT_SERVER_CLI" and wait 185 seconds
+
+  @SID_2
+  Scenario: keep reports copy on file system
+    Given CLI Reset radware password
+    Then CLI Run remote linux Command "sed -i 's/vrm.scheduled.reports.delete.after.delivery=.*$/vrm.scheduled.reports.delete.after.delivery=false/g' /opt/radware/mgt-server/third-party/tomcat/conf/reporter.properties" on "ROOT_SERVER_CLI"
+    Then CLI Run remote linux Command "/opt/radware/mgt-server/bin/collectors_service.sh restart" on "ROOT_SERVER_CLI" with timeOut 720
+    Then CLI Run linux Command "/opt/radware/mgt-server/bin/collectors_service.sh status" on "ROOT_SERVER_CLI" and validate result EQUALS "APSolute Vision Collectors Server is running." with timeOut 240
+
+  @SID_3
+  Scenario: Clear Database and old reports on file-system
+    Then CLI Run remote linux Command "rm -f /opt/radware/mgt-server/third-party/tomcat/bin/VRM_report_*.zip" on "ROOT_SERVER_CLI"
+    Then CLI Run remote linux Command "rm -f /opt/radware/mgt-server/third-party/tomcat/bin/*.csv" on "ROOT_SERVER_CLI"
+
+  @SID_4
+  Scenario: Update Policies
+    Given REST Login with user "radware" and password "radware"
+    Then REST Update Policies for All DPs
+
+  @SID_5
+  Scenario:Login and Navigate to HTTPS Server Dashboard
+    Then UI Login with user "radware" and password "radware"
+    Then REST Vision Install License Request "vision-AVA-Max-attack-capacity"
+    Given Rest Add Policy "pol1" To DP "172.16.22.51" if Not Exist
+    And Rest Add new Rule "https_servers_automation" in Profile "ProfileHttpsflood" to Policy "pol1" to DP "172.16.22.51"
+    When CLI Run remote linux Command "curl -XPOST localhost:9200/dp-attack-raw-*/_update_by_query?conflicts=proceed -d '{"query":{"term":{"deviceIp":"172.16.22.50"}},"script":{"source":"ctx._source.endTime='$(date +%s%3N)L'"}}'" on "ROOT_SERVER_CLI"
+
+  @SID_6
+  Scenario: Run DP simulator PCAPs for "HTTPS attacks"
+    Given CLI simulate 2 attacks of type "HTTPS" on "DefensePro" 11 with loopDelay 5000 and wait 60 seconds
+
+  @SID_7
   Scenario: VRM - enabling emailing and go to VRM Reports Tab
     Given Setup email server
     Then UI Login with user "radware" and password "radware"
@@ -21,11 +57,11 @@ Feature: Validate Email
     And UI Click Button "Submit"
     And UI Navigate to "AMS Reports" page via homePage
 
-  @SID_2
+  @SID_8
   Scenario: Clear SMTP server log files
     Given Clear email history for user "setup"
 
-  @SID_3
+  @SID_9
   Scenario: Create and Validate DefensePro Analytics Report
     Then UI Click Button "New Report Tab"
     Given UI "Create" Report With Name "DefensePro Analytics Report"
@@ -37,13 +73,13 @@ Feature: Validate Email
       | Share    | Email:[maha],Subject:Validate Email,Body:Email Body                          |
       | Format   | Select: CSV                                                                  |
 
-  @SID_4
+  @SID_10
   Scenario: Validate delivery card and generate report
     Then UI Click Button "My Report" with value "DefensePro Analytics Report"
     Then UI Click Button "Generate Report Manually" with value "DefensePro Analytics Report"
     Then Sleep "35"
 
-  @SID_5
+  @SID_11
   Scenario: Validate Report Email received content
     #subject
     Then Validate "setup" user eMail expression "grep "Subject: Validate Email"" EQUALS "1"
@@ -56,24 +92,24 @@ Feature: Validate Email
     #Attachment
     Then Validate "setup" user eMail expression "grep -oP "Content-Disposition: attachment; filename=VRM_report_(\d{13}).zip"" EQUALS "1"
 
-  @SID_6
+  @SID_12
   Scenario: Clear SMTP server log files
     Given Clear email history for user "setup"
 
-  @SID_7
+  @SID_13
   Scenario: Edit The Format to PDF and validate DefensePro Analytics Report
     Then UI "Edit" Report With Name "DefensePro Analytics Report"
       | Format | Select: PDF |
     Then UI "Validate" Report With Name "DefensePro Analytics Report"
       | Format | Select: PDF |
 
-  @SID_8
+  @SID_14
   Scenario: Validate delivery card and generate report
     Then UI Click Button "My Report" with value "DefensePro Analytics Report"
     Then UI Click Button "Generate Report Manually" with value "DefensePro Analytics Report"
     Then Sleep "35"
 
-  @SID_9
+  @SID_15
   Scenario: Validate Report Email received content
     #subject
     Then Validate "setup" user eMail expression "grep "Subject: Validate Email"" EQUALS "1"
@@ -86,24 +122,24 @@ Feature: Validate Email
     #Attachment
     Then Validate "setup" user eMail expression "grep -oP "Content-Disposition: attachment; filename=VRM_report_(\d{13}).pdf"" EQUALS "1"
 
-  @SID_10
+  @SID_16
   Scenario: Clear SMTP server log files
     Given Clear email history for user "setup"
 
-  @SID_11
+  @SID_17
   Scenario: Edit The Format to HTML and validate DefensePro Analytics Report
     Then UI "Edit" Report With Name "DefensePro Analytics Report"
       | Format | Select: HTML |
     Then UI "Validate" Report With Name "DefensePro Analytics Report"
       | Format | Select: HTML |
 
-  @SID_12
+  @SID_18
   Scenario: Validate delivery card and generate report
     Then UI Click Button "My Report" with value "DefensePro Analytics Report"
     Then UI Click Button "Generate Report Manually" with value "DefensePro Analytics Report"
     Then Sleep "35"
 
-  @SID_13
+  @SID_19
   Scenario: Validate Report Email received content
     #subject
     Then Validate "setup" user eMail expression "grep "Subject: Validate Email"" EQUALS "1"
@@ -116,15 +152,15 @@ Feature: Validate Email
     #Attachment
     Then Validate "setup" user eMail expression "grep -oP "Content-Disposition: attachment; filename=VRM_report_(\d{13}).html"" EQUALS "1"
 
-  @SID_14
+  @SID_20
   Scenario: Delete report
     Then UI Delete Report With Name "DefensePro Analytics Report"
 
-  @SID_15
+  @SID_21
   Scenario: Clear SMTP server log files
     Given Clear email history for user "setup"
 
-  @SID_16
+  @SID_22
   Scenario: Create and Validate HTTPS Flood Report
     Then UI Click Button "New Report Tab"
     Given UI "Create" Report With Name "HTTPS Flood Report"
@@ -136,13 +172,13 @@ Feature: Validate Email
       | Share    | Email:[maha],Subject:Validate Email,Body:Email Body                                          |
       | Format   | Select: CSV                                                                                  |
 
-  @SID_17
+  @SID_23
   Scenario: Validate delivery card and generate report
     Then UI Click Button "My Report" with value "HTTPS Flood Report"
     Then UI Click Button "Generate Report Manually" with value "HTTPS Flood Report"
     Then Sleep "35"
 
-  @SID_18
+  @SID_24
   Scenario: Validate Report Email received content
     #subject
     Then Validate "setup" user eMail expression "grep "Subject: Validate Email"" EQUALS "1"
@@ -155,24 +191,24 @@ Feature: Validate Email
     #Attachment
     Then Validate "setup" user eMail expression "grep -oP "Content-Disposition: attachment; filename=VRM_report_(\d{13}).zip"" EQUALS "1"
 
-  @SID_19
+  @SID_25
   Scenario: Clear SMTP server log files
     Given Clear email history for user "setup"
 
-  @SID_20
+  @SID_26
   Scenario: Edit The Format to PDF and validate HTTPS Flood Report
     Then UI "Edit" Report With Name "HTTPS Flood Report"
       | Format | Select: PDF |
     Then UI "Validate" Report With Name "HTTPS Flood Report"
       | Format | Select: PDF |
 
-  @SID_21
+  @SID_27
   Scenario: Validate delivery card and generate report
     Then UI Click Button "My Report" with value "HTTPS Flood Report"
     Then UI Click Button "Generate Report Manually" with value "HTTPS Flood Report"
     Then Sleep "35"
 
-  @SID_22
+  @SID_28
   Scenario: Validate Report Email received content
     #subject
     Then Validate "setup" user eMail expression "grep "Subject: Validate Email"" EQUALS "1"
@@ -185,24 +221,24 @@ Feature: Validate Email
     #Attachment
     Then Validate "setup" user eMail expression "grep -oP "Content-Disposition: attachment; filename=VRM_report_(\d{13}).pdf"" EQUALS "1"
 
-  @SID_23
+  @SID_29
   Scenario: Clear SMTP server log files
     Given Clear email history for user "setup"
 
-  @SID_24
+  @SID_30
   Scenario: Edit The Format to HTML and validate HTTPS Flood Report
     Then UI "Edit" Report With Name "HTTPS Flood Report"
       | Format | Select: HTML |
     Then UI "Validate" Report With Name "HTTPS Flood Report"
       | Format | Select: HTML |
 
-  @SID_25
+  @SID_31
   Scenario: Validate delivery card and generate report
     Then UI Click Button "My Report" with value "HTTPS Flood Report"
     Then UI Click Button "Generate Report Manually" with value "HTTPS Flood Report"
     Then Sleep "35"
 
-  @SID_26
+  @SID_32
   Scenario: Validate Report Email received content
     #subject
     Then Validate "setup" user eMail expression "grep "Subject: Validate Email"" EQUALS "1"
@@ -215,15 +251,15 @@ Feature: Validate Email
     #Attachment
     Then Validate "setup" user eMail expression "grep -oP "Content-Disposition: attachment; filename=VRM_report_(\d{13}).html"" EQUALS "1"
 
-  @SID_27
+  @SID_33
   Scenario: Delete report
     Then UI Delete Report With Name "HTTPS Flood Report"
 
-  @SID_28
+  @SID_34
   Scenario: Clear SMTP server log files
     Given Clear email history for user "setup"
 
-  @SID_29
+  @SID_35
   Scenario: Create and Validate DefenseFlow Analytics Report
     Then UI Click Button "New Report Tab"
     Given UI "Create" Report With Name "DefenseFlow Analytics Report"
@@ -235,13 +271,13 @@ Feature: Validate Email
       | Share    | Email:[maha],Subject:Validate Email,Body:Email Body                                                                                  |
       | Format   | Select: CSV                                                                                                                          |
 
-  @SID_30
+  @SID_36
   Scenario: Validate delivery card and generate report
     Then UI Click Button "My Report" with value "DefenseFlow Analytics Report"
     Then UI Click Button "Generate Report Manually" with value "DefenseFlow Analytics Report"
     Then Sleep "35"
 
-  @SID_31
+  @SID_37
   Scenario: Validate Report Email received content
     #subject
     Then Validate "setup" user eMail expression "grep "Subject: Validate Email"" EQUALS "1"
@@ -254,24 +290,24 @@ Feature: Validate Email
     #Attachment
     Then Validate "setup" user eMail expression "grep -oP "Content-Disposition: attachment; filename=VRM_report_(\d{13}).zip"" EQUALS "1"
 
-  @SID_32
+  @SID_38
   Scenario: Clear SMTP server log files
     Given Clear email history for user "setup"
 
-  @SID_33
+  @SID_39
   Scenario: Edit The Format to PDF and validate DefenseFlow Analytics Report
     Then UI "Edit" Report With Name "DefenseFlow Analytics Report"
       | Format | Select: PDF |
     Then UI "Validate" Report With Name "DefenseFlow Analytics Report"
       | Format | Select: PDF |
 
-  @SID_34
+  @SID_40
   Scenario: Validate delivery card and generate report
     Then UI Click Button "My Report" with value "DefenseFlow Analytics Report"
     Then UI Click Button "Generate Report Manually" with value "DefenseFlow Analytics Report"
     Then Sleep "35"
 
-  @SID_35
+  @SID_41
   Scenario: Validate Report Email received content
     #subject
     Then Validate "setup" user eMail expression "grep "Subject: Validate Email"" EQUALS "1"
@@ -284,24 +320,24 @@ Feature: Validate Email
     #Attachment
     Then Validate "setup" user eMail expression "grep -oP "Content-Disposition: attachment; filename=VRM_report_(\d{13}).pdf"" EQUALS "1"
 
-  @SID_36
+  @SID_42
   Scenario: Clear SMTP server log files
     Given Clear email history for user "setup"
 
-  @SID_37
+  @SID_43
   Scenario: Edit The Format to HTML and validate DefenseFlow Analytics Report
     Then UI "Edit" Report With Name "DefenseFlow Analytics Report"
       | Format | Select: HTML |
     Then UI "Validate" Report With Name "DefenseFlow Analytics Report"
       | Format | Select: HTML |
 
-  @SID_38
+  @SID_44
   Scenario: Validate delivery card and generate report
     Then UI Click Button "My Report" with value "DefenseFlow Analytics Report"
     Then UI Click Button "Generate Report Manually" with value "DefenseFlow Analytics Report"
     Then Sleep "35"
 
-  @SID_39
+  @SID_45
   Scenario: Validate Report Email received content
     #subject
     Then Validate "setup" user eMail expression "grep "Subject: Validate Email"" EQUALS "1"
@@ -314,15 +350,15 @@ Feature: Validate Email
     #Attachment
     Then Validate "setup" user eMail expression "grep -oP "Content-Disposition: attachment; filename=VRM_report_(\d{13}).html"" EQUALS "1"
 
-  @SID_40
+  @SID_46
   Scenario: Delete report
     Then UI Delete Report With Name "DefenseFlow Analytics Report"
 
-  @SID_41
+  @SID_47
   Scenario: Clear SMTP server log files
     Given Clear email history for user "setup"
 
-  @SID_42
+  @SID_48
   Scenario: Create and Validate DefensePro Behavioral Protections Report
     Then UI Click Button "New Report Tab"
     Given UI "Create" Report With Name "DefensePro Behavioral Protections Report"
@@ -334,13 +370,13 @@ Feature: Validate Email
       | Share    | Email:[maha],Subject:Validate Email,Body:Email Body                                                                                               |
       | Format   | Select: CSV                                                                                                                                     |
 
-  @SID_43
+  @SID_49
   Scenario: Validate delivery card and generate report
     Then UI Click Button "My Report" with value "DefensePro Behavioral Protections Report"
     Then UI Click Button "Generate Report Manually" with value "DefensePro Behavioral Protections Report"
     Then Sleep "35"
 
-  @SID_44
+  @SID_50
   Scenario: Validate Report Email received content
     #subject
     Then Validate "setup" user eMail expression "grep "Subject: Validate Email"" EQUALS "1"
@@ -353,24 +389,24 @@ Feature: Validate Email
     #Attachment
     Then Validate "setup" user eMail expression "grep -oP "Content-Disposition: attachment; filename=VRM_report_(\d{13}).zip"" EQUALS "1"
 
-  @SID_45
+  @SID_51
   Scenario: Clear SMTP server log files
     Given Clear email history for user "setup"
 
-  @SID_46
+  @SID_52
   Scenario: Edit The Format to PDF and validate DefensePro Behavioral Protections Report
     Then UI "Edit" Report With Name "DefensePro Behavioral Protections Report"
       | Format | Select: PDF |
     Then UI "Validate" Report With Name "DefensePro Behavioral Protections Report"
       | Format | Select: PDF |
 
-  @SID_47
+  @SID_53
   Scenario: Validate delivery card and generate report
     Then UI Click Button "My Report" with value "DefensePro Behavioral Protections Report"
     Then UI Click Button "Generate Report Manually" with value "DefensePro Behavioral Protections Report"
     Then Sleep "35"
 
-  @SID_48
+  @SID_54
   Scenario: Validate Report Email received content
     #subject
     Then Validate "setup" user eMail expression "grep "Subject: Validate Email"" EQUALS "1"
@@ -383,24 +419,24 @@ Feature: Validate Email
     #Attachment
     Then Validate "setup" user eMail expression "grep -oP "Content-Disposition: attachment; filename=VRM_report_(\d{13}).pdf"" EQUALS "1"
 
-  @SID_49
+  @SID_55
   Scenario: Clear SMTP server log files
     Given Clear email history for user "setup"
 
-  @SID_50
+  @SID_56
   Scenario: Edit The Format to HTML and validate DefensePro Behavioral Protections Report
     Then UI "Edit" Report With Name "DefensePro Behavioral Protections Report"
       | Format | Select: HTML |
     Then UI "Validate" Report With Name "DefensePro Behavioral Protections Report"
       | Format | Select: HTML |
 
-  @SID_51
+  @SID_57
   Scenario: Validate delivery card and generate report
     Then UI Click Button "My Report" with value "DefensePro Behavioral Protections Report"
     Then UI Click Button "Generate Report Manually" with value "DefensePro Behavioral Protections Report"
     Then Sleep "35"
 
-  @SID_52
+  @SID_58
   Scenario: Validate Report Email received content
     #subject
     Then Validate "setup" user eMail expression "grep "Subject: Validate Email"" EQUALS "1"
@@ -413,15 +449,15 @@ Feature: Validate Email
     #Attachment
     Then Validate "setup" user eMail expression "grep -oP "Content-Disposition: attachment; filename=VRM_report_(\d{13}).html"" EQUALS "1"
 
-  @SID_53
+  @SID_59
   Scenario: Delete report
     Then UI Delete Report With Name "DefensePro Behavioral Protections Report"
 
-  @SID_54
+  @SID_60
   Scenario: Clear SMTP server log files
     Given Clear email history for user "setup"
 
-  @SID_55
+  @SID_61
   Scenario: Create and Validate AppWall Report
     Then UI Click Button "New Report Tab"
     Given UI "Create" Report With Name "AppWall Report"
@@ -433,13 +469,13 @@ Feature: Validate Email
       | Share    | Email:[maha],Subject:Validate Email,Body:Email Body                               |
       | Format   | Select: CSV                                                                       |
 
-  @SID_56
+  @SID_62
   Scenario: Validate delivery card and generate report
     Then UI Click Button "My Report" with value "AppWall Report"
     Then UI Click Button "Generate Report Manually" with value "AppWall Report"
     Then Sleep "35"
 
-  @SID_57
+  @SID_63
   Scenario: Validate Report Email received content
     #subject
     Then Validate "setup" user eMail expression "grep "Subject: Validate Email"" EQUALS "1"
@@ -452,24 +488,24 @@ Feature: Validate Email
     #Attachment
     Then Validate "setup" user eMail expression "grep -oP "Content-Disposition: attachment; filename=VRM_report_(\d{13}).zip"" EQUALS "1"
 
-  @SID_58
+  @SID_64
   Scenario: Clear SMTP server log files
     Given Clear email history for user "setup"
 
-  @SID_59
+  @SID_65
   Scenario: Edit The Format to PDF and validate AppWall Report
     Then UI "Edit" Report With Name "AppWall Report"
       | Format | Select: PDF |
     Then UI "Validate" Report With Name "AppWall Report"
       | Format | Select: PDF |
 
-  @SID_60
+  @SID_66
   Scenario: Validate delivery card and generate report
     Then UI Click Button "My Report" with value "AppWall Report"
     Then UI Click Button "Generate Report Manually" with value "AppWall Report"
     Then Sleep "35"
 
-  @SID_61
+  @SID_67
   Scenario: Validate Report Email received content
     #subject
     Then Validate "setup" user eMail expression "grep "Subject: Validate Email"" EQUALS "1"
@@ -482,24 +518,24 @@ Feature: Validate Email
     #Attachment
     Then Validate "setup" user eMail expression "grep -oP "Content-Disposition: attachment; filename=VRM_report_(\d{13}).pdf"" EQUALS "1"
 
-  @SID_62
+  @SID_68
   Scenario: Clear SMTP server log files
     Given Clear email history for user "setup"
 
-  @SID_63
+  @SID_69
   Scenario: Edit The Format to HTML and validate AppWall Report
     Then UI "Edit" Report With Name "AppWall Report"
       | Format | Select: HTML |
     Then UI "Validate" Report With Name "AppWall Report"
       | Format | Select: HTML |
 
-  @SID_64
+  @SID_70
   Scenario: Validate delivery card and generate report
     Then UI Click Button "My Report" with value "AppWall Report"
     Then UI Click Button "Generate Report Manually" with value "AppWall Report"
     Then Sleep "35"
 
-  @SID_65
+  @SID_71
   Scenario: Validate Report Email received content
     #subject
     Then Validate "setup" user eMail expression "grep "Subject: Validate Email"" EQUALS "1"
@@ -512,15 +548,15 @@ Feature: Validate Email
     #Attachment
     Then Validate "setup" user eMail expression "grep -oP "Content-Disposition: attachment; filename=VRM_report_(\d{13}).html"" EQUALS "1"
 
-  @SID_66
+  @SID_72
   Scenario: Delete report
     Then UI Delete Report With Name "AppWall Report"
 
-  @SID_67
+  @SID_73
   Scenario: Clear SMTP server log files
     Given Clear email history for user "setup"
 
-  @SID_68
+  @SID_74
   Scenario: Create and Validate EAAF Report
     Then UI Click Button "New Report Tab"
     Given UI "Create" Report With Name "EAAF Report"
@@ -532,13 +568,13 @@ Feature: Validate Email
       | Share    | Email:[maha],Subject:Validate Email,Body:Email Body |
       | Format   | Select: CSV                                         |
 
-  @SID_69
+  @SID_75
   Scenario: Validate delivery card and generate report
     Then UI Click Button "My Report" with value "EAAF Report"
     Then UI Click Button "Generate Report Manually" with value "EAAF Report"
     Then Sleep "35"
 
-  @SID_70
+  @SID_76
   Scenario: Validate Report Email received content
     #subject
     Then Validate "setup" user eMail expression "grep "Subject: Validate Email"" EQUALS "1"
@@ -551,24 +587,24 @@ Feature: Validate Email
     #Attachment
     Then Validate "setup" user eMail expression "grep -oP "Content-Disposition: attachment; filename=VRM_report_(\d{13}).zip"" EQUALS "1"
 
-  @SID_71
+  @SID_77
   Scenario: Clear SMTP server log files
     Given Clear email history for user "setup"
 
-  @SID_72
+  @SID_78
   Scenario: Edit The Format to PDF and validate EAAF Report
     Then UI "Edit" Report With Name "EAAF Report"
       | Format | Select: PDF |
     Then UI "Validate" Report With Name "EAAF Report"
       | Format | Select: PDF |
 
-  @SID_73
+  @SID_79
   Scenario: Validate delivery card and generate report
     Then UI Click Button "My Report" with value "EAAF Report"
     Then UI Click Button "Generate Report Manually" with value "EAAF Report"
     Then Sleep "35"
 
-  @SID_74
+  @SID_80
   Scenario: Validate Report Email received content
     #subject
     Then Validate "setup" user eMail expression "grep "Subject: Validate Email"" EQUALS "1"
@@ -581,24 +617,24 @@ Feature: Validate Email
     #Attachment
     Then Validate "setup" user eMail expression "grep -oP "Content-Disposition: attachment; filename=VRM_report_(\d{13}).pdf"" EQUALS "1"
 
-  @SID_75
+  @SID_81
   Scenario: Clear SMTP server log files
     Given Clear email history for user "setup"
 
-  @SID_76
+  @SID_82
   Scenario: Edit The Format to HTML and validate EAAF Report
     Then UI "Edit" Report With Name "EAAF Report"
       | Format | Select: HTML |
     Then UI "Validate" Report With Name "EAAF Report"
       | Format | Select: HTML |
 
-  @SID_77
+  @SID_83
   Scenario: Validate delivery card and generate report
     Then UI Click Button "My Report" with value "EAAF Report"
     Then UI Click Button "Generate Report Manually" with value "EAAF Report"
     Then Sleep "35"
 
-  @SID_78
+  @SID_84
   Scenario: Validate Report Email received content
     #subject
     Then Validate "setup" user eMail expression "grep "Subject: Validate Email"" EQUALS "1"
@@ -611,10 +647,10 @@ Feature: Validate Email
     #Attachment
     Then Validate "setup" user eMail expression "grep -oP "Content-Disposition: attachment; filename=VRM_report_(\d{13}).html"" EQUALS "1"
 
-  @SID_79
+  @SID_85
   Scenario: Delete report
     Then UI Delete Report With Name "EAAF Report"
 
-  @SID_80
+  @SID_86
   Scenario: Logout
     Then UI logout and close browser
