@@ -5,10 +5,12 @@ Feature: DP Monitoring Dashboard - Protection Policies - Under Attack 3rd Drill
   @SID_1
   Scenario: Clean system data before "Protection Policies" test
     * CLI kill all simulator attacks on current vision
-    * REST Delete ES index "dp-traffic-*"
-    * REST Delete ES index "dp-https-stats-*"
-    * REST Delete ES index "dp-https-rt-*"
-    * REST Delete ES index "dp-five-*"
+#    * REST Delete ES index "dp-traffic-*"
+#    * REST Delete ES index "dp-https-stats-*"
+#    * REST Delete ES index "dp-https-rt-*"
+#    * REST Delete ES index "dp-five-*"
+    * REST Delete ES index "dp-*"
+
     Then REST Request "PUT" for "Connectivity->Inactivity Timeout for Configuration"
       | type | value                                 |
       | body | sessionInactivTimeoutConfiguration=60 |
@@ -196,10 +198,11 @@ Feature: DP Monitoring Dashboard - Protection Policies - Under Attack 3rd Drill
   @SID_13
   Scenario: Clear data
     * CLI kill all simulator attacks on current vision
-    * REST Delete ES index "dp-traffic-*"
-    * REST Delete ES index "dp-https-stats-*"
-    * REST Delete ES index "dp-https-rt-*"
-    * REST Delete ES index "dp-five-*"
+#    * REST Delete ES index "dp-traffic-*"
+#    * REST Delete ES index "dp-https-stats-*"
+#    * REST Delete ES index "dp-https-rt-*"
+#    * REST Delete ES index "dp-five-*"
+    * REST Delete ES index "dp-*"
 
   @SID_14
   Scenario: Run DP simulator PCAPs for "Protection Policies" - 3rd drill - SYN Flood
@@ -245,10 +248,11 @@ Feature: DP Monitoring Dashboard - Protection Policies - Under Attack 3rd Drill
   @SID_19
   Scenario: Clear data
     * CLI kill all simulator attacks on current vision
-    * REST Delete ES index "dp-traffic-*"
-    * REST Delete ES index "dp-https-stats-*"
-    * REST Delete ES index "dp-https-rt-*"
-    * REST Delete ES index "dp-five-*"
+#    * REST Delete ES index "dp-traffic-*"
+#    * REST Delete ES index "dp-https-stats-*"
+#    * REST Delete ES index "dp-https-rt-*"
+#    * REST Delete ES index "dp-five-*"
+    * REST Delete ES index "dp-*"
 
   @SID_20
   Scenario: Run DP simulator PCAPs for "Protection Policies" - 3rd drill - Traffic Filters
@@ -314,10 +318,11 @@ Feature: DP Monitoring Dashboard - Protection Policies - Under Attack 3rd Drill
   Scenario: Clear data
     * UI Login with user "radware" and password "radware"
     * CLI kill all simulator attacks on current vision
-    * REST Delete ES index "dp-traffic-*"
-    * REST Delete ES index "dp-https-stats-*"
-    * REST Delete ES index "dp-https-rt-*"
-    * REST Delete ES index "dp-five-*"
+#    * REST Delete ES index "dp-traffic-*"
+#    * REST Delete ES index "dp-https-stats-*"
+#    * REST Delete ES index "dp-https-rt-*"
+#    * REST Delete ES index "dp-five-*"
+    * REST Delete ES index "dp-*"
 
   @SID_28
   Scenario: Run DP simulator PCAPs for "Protection Policies" - 3rd drill - DNS Flood
@@ -414,10 +419,12 @@ Feature: DP Monitoring Dashboard - Protection Policies - Under Attack 3rd Drill
   @SID_36
   Scenario: Kill and generate DNS attack IPv6
     * CLI kill all simulator attacks on current vision
-    * REST Delete ES index "dp-traffic-*"
-    * REST Delete ES index "dp-https-stats-*"
-    * REST Delete ES index "dp-https-rt-*"
-    * REST Delete ES index "dp-five-*"
+#    * REST Delete ES index "dp-traffic-*"
+#    * REST Delete ES index "dp-https-stats-*"
+#    * REST Delete ES index "dp-https-rt-*"
+#    * REST Delete ES index "dp-five-*"
+    * REST Delete ES index "dp-*"
+
     Given CLI simulate 3 attacks of type "baselines_pol_1" on "DefensePro" 10 with loopDelay 15000 and wait 55 seconds
 
 
@@ -463,10 +470,11 @@ Feature: DP Monitoring Dashboard - Protection Policies - Under Attack 3rd Drill
   @SID_41
   Scenario: Clear data
     * CLI kill all simulator attacks on current vision
-    * REST Delete ES index "dp-traffic-*"
-    * REST Delete ES index "dp-https-stats-*"
-    * REST Delete ES index "dp-https-rt-*"
-    * REST Delete ES index "dp-five-*"
+#    * REST Delete ES index "dp-traffic-*"
+#    * REST Delete ES index "dp-https-stats-*"
+#    * REST Delete ES index "dp-https-rt-*"
+#    * REST Delete ES index "dp-five-*"
+    * REST Delete ES index "dp-*"
 
   @SID_42
   Scenario: Run DP simulator PCAPs for "Protection Policies" - 3rd drill - Anti-Scanning
@@ -548,10 +556,11 @@ Feature: DP Monitoring Dashboard - Protection Policies - Under Attack 3rd Drill
   @SID_48
   Scenario: Clear data
     * CLI kill all simulator attacks on current vision
-    * REST Delete ES index "dp-traffic-*"
-    * REST Delete ES index "dp-https-stats-*"
-    * REST Delete ES index "dp-https-rt-*"
-    * REST Delete ES index "dp-five-*"
+#    * REST Delete ES index "dp-traffic-*"
+#    * REST Delete ES index "dp-https-stats-*"
+#    * REST Delete ES index "dp-https-rt-*"
+#    * REST Delete ES index "dp-five-*"
+    * REST Delete ES index "dp-*"
 
   @SID_49
   Scenario: Run DP simulator PCAPs for "Protection Policies" - 3rd drill - DoS
@@ -612,10 +621,11 @@ Feature: DP Monitoring Dashboard - Protection Policies - Under Attack 3rd Drill
   @SID_56
   Scenario: Clear data
     * CLI kill all simulator attacks on current vision
-    * REST Delete ES index "dp-traffic-*"
-    * REST Delete ES index "dp-https-stats-*"
-    * REST Delete ES index "dp-https-rt-*"
-    * REST Delete ES index "dp-five-*"
+#    * REST Delete ES index "dp-traffic-*"
+#    * REST Delete ES index "dp-https-stats-*"
+#    * REST Delete ES index "dp-https-rt-*"
+#    * REST Delete ES index "dp-five-*"
+    * REST Delete ES index "dp-*"
 
   @SID_57
   Scenario: Run DP simulator PCAPs for "Protection Policies" - 3rd drill - DoS pps
@@ -663,10 +673,11 @@ Feature: DP Monitoring Dashboard - Protection Policies - Under Attack 3rd Drill
   @SID_62
   Scenario: Clear data
     * CLI kill all simulator attacks on current vision
-    * REST Delete ES index "dp-traffic-*"
-    * REST Delete ES index "dp-https-stats-*"
-    * REST Delete ES index "dp-https-rt-*"
-    * REST Delete ES index "dp-five-*"
+#    * REST Delete ES index "dp-traffic-*"
+#    * REST Delete ES index "dp-https-stats-*"
+#    * REST Delete ES index "dp-https-rt-*"
+#    * REST Delete ES index "dp-five-*"
+    * REST Delete ES index "dp-*"
 
   @SID_63
   Scenario: Run DP simulator PCAPs for "Protection Policies" - 3rd drill - Intrusions
@@ -692,10 +703,11 @@ Feature: DP Monitoring Dashboard - Protection Policies - Under Attack 3rd Drill
   @SID_66
   Scenario: Clear data
     * CLI kill all simulator attacks on current vision
-    * REST Delete ES index "dp-traffic-*"
-    * REST Delete ES index "dp-https-stats-*"
-    * REST Delete ES index "dp-https-rt-*"
-    * REST Delete ES index "dp-five-*"
+#    * REST Delete ES index "dp-traffic-*"
+#    * REST Delete ES index "dp-https-stats-*"
+#    * REST Delete ES index "dp-https-rt-*"
+#    * REST Delete ES index "dp-five-*"
+    * REST Delete ES index "dp-*"
 
   @SID_67
   Scenario: Run DP simulator PCAPs for "Protection Policies" - 3rd drill - ACL
@@ -745,10 +757,11 @@ Feature: DP Monitoring Dashboard - Protection Policies - Under Attack 3rd Drill
   @SID_73
   Scenario: Clear data
     * CLI kill all simulator attacks on current vision
-    * REST Delete ES index "dp-traffic-*"
-    * REST Delete ES index "dp-https-stats-*"
-    * REST Delete ES index "dp-https-rt-*"
-    * REST Delete ES index "dp-five-*"
+#    * REST Delete ES index "dp-traffic-*"
+#    * REST Delete ES index "dp-https-stats-*"
+#    * REST Delete ES index "dp-https-rt-*"
+#    * REST Delete ES index "dp-five-*"
+    * REST Delete ES index "dp-*"
 
   @SID_74
   Scenario: Run DP simulator PCAPs for "Protection Policies" - 3rd drill - Anomalies
@@ -792,10 +805,12 @@ Feature: DP Monitoring Dashboard - Protection Policies - Under Attack 3rd Drill
     Given CLI Reset radware password
     * REST Login with user "radware" and password "radware"
     Then REST Vision Install License Request "vision-AVA-Max-attack-capacity"
-    * REST Delete ES index "dp-traffic-*"
-    * REST Delete ES index "dp-https-stats-*"
-    * REST Delete ES index "dp-https-rt-*"
-    * REST Delete ES index "dp-five-*"
+#    * REST Delete ES index "dp-traffic-*"
+#    * REST Delete ES index "dp-https-stats-*"
+#    * REST Delete ES index "dp-https-rt-*"
+#    * REST Delete ES index "dp-five-*"
+    * REST Delete ES index "dp-*"
+
     * REST Update Policies for All DPs
 
 
@@ -1701,10 +1716,11 @@ Feature: DP Monitoring Dashboard - Protection Policies - Under Attack 3rd Drill
   @SID_157
   Scenario: Clear data
     * CLI kill all simulator attacks on current vision
-    * REST Delete ES index "dp-traffic-*"
-    * REST Delete ES index "dp-https-stats-*"
-    * REST Delete ES index "dp-https-rt-*"
-    * REST Delete ES index "dp-five-*"
+#    * REST Delete ES index "dp-traffic-*"
+#    * REST Delete ES index "dp-https-stats-*"
+#    * REST Delete ES index "dp-https-rt-*"
+#    * REST Delete ES index "dp-five-*"
+    * REST Delete ES index "dp-*"
 
   @SID_158
   Scenario: run burst attack

@@ -22,10 +22,11 @@ Feature: UDP widgets
   @SID_2
   Scenario: Clear the vision from the attacks and run PCAP
     * CLI kill all simulator attacks on current vision
-    * REST Delete ES index "dp-traffic-*"
-    * REST Delete ES index "dp-https-stats-*"
-    * REST Delete ES index "dp-https-rt-*"
-    * REST Delete ES index "dp-five-*"
+#    * REST Delete ES index "dp-traffic-*"
+#    * REST Delete ES index "dp-https-stats-*"
+#    * REST Delete ES index "dp-https-rt-*"
+#    * REST Delete ES index "dp-five-*"
+    * REST Delete ES index "dp-*"
     When CLI Clear vision logs
 
     Given CLI simulate 100 attacks of type "testUDPAttack" on "DefensePro" 185 with loopDelay 15000 and wait 120 seconds
@@ -69,9 +70,10 @@ Feature: UDP widgets
   @SID_5
   Scenario: Clear the vision from the attacks and run PCAP
     * CLI kill all simulator attacks on current vision
-    * REST Delete ES index "dp-traffic-*"
-    * REST Delete ES index "dp-https-stats-*"
-    * REST Delete ES index "dp-https-rt-*"
-    * REST Delete ES index "dp-five-*"
+#    * REST Delete ES index "dp-traffic-*"
+#    * REST Delete ES index "dp-https-stats-*"
+#    * REST Delete ES index "dp-https-rt-*"
+#    * REST Delete ES index "dp-five-*"
+    * REST Delete ES index "dp-*"
     When CLI Clear vision logs
     Then REST Delete Device By IP "10.185.2.85"

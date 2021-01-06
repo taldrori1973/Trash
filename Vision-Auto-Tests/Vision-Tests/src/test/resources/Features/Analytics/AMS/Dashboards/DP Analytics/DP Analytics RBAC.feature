@@ -7,10 +7,11 @@ Feature: DP ANALYTICS RBAC
     * CLI kill all simulator attacks on current vision
     # wait until collector cache clean up
     * Sleep "15"
-    * REST Delete ES index "dp-traffic-*"
-    * REST Delete ES index "dp-https-stats-*"
-    * REST Delete ES index "dp-https-rt-*"
-    * REST Delete ES index "dp-five-*"
+#    * REST Delete ES index "dp-traffic-*"
+#    * REST Delete ES index "dp-https-stats-*"
+#    * REST Delete ES index "dp-https-rt-*"
+#    * REST Delete ES index "dp-five-*"
+    * REST Delete ES index "dp-*"
     * CLI Clear vision logs
     * REST Vision Install License Request "vision-AVA-Max-attack-capacity"
 

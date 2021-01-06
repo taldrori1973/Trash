@@ -62,7 +62,8 @@ Feature: EAAF CSV Report
   @SID_9
   Scenario: VRM report unzip local CSV file
     Then CLI Run remote linux Command "unzip -o -d /opt/radware/mgt-server/third-party/tomcat/bin/ /opt/radware/mgt-server/third-party/tomcat/bin/VRM_report_*.zip" on "ROOT_SERVER_CLI"
-
+    Then CLI Run remote linux Command "unzip -o -d /opt/radware/mgt-server/third-party/tomcat/bin/ /opt/radware/mgt-server/third-party/tomcat/bin/VRM_report_*.zip" on "ROOT_SERVER_CLI"
+    Then Sleep "10"
   @SID_10
   Scenario: EAAF report validate CSV file Totals in Selected Time Frame number of lines
     Then CLI Run linux Command "cat "/opt/radware/mgt-server/third-party/tomcat/bin/Totals in Selected Time Frame-EAAF.csv" |wc -l" on "ROOT_SERVER_CLI" and validate result EQUALS "2"

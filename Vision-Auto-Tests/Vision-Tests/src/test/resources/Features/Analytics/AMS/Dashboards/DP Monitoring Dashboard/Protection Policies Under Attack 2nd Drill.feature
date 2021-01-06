@@ -5,10 +5,11 @@ Feature: DP Monitoring Dashboard - Protection Policies - Under Attack 2nd Drill
   @SID_1
   Scenario: Clean system data before "Protection Policies" test
     * CLI kill all simulator attacks on current vision
-    * REST Delete ES index "dp-traffic-*"
-    * REST Delete ES index "dp-https-stats-*"
-    * REST Delete ES index "dp-https-rt-*"
-    * REST Delete ES index "dp-five-*"
+#    * REST Delete ES index "dp-traffic-*"
+#    * REST Delete ES index "dp-https-stats-*"
+#    * REST Delete ES index "dp-https-rt-*"
+#    * REST Delete ES index "dp-five-*"
+    * REST Delete ES index "dp-*"
     * CLI Clear vision logs
 
 
@@ -225,10 +226,12 @@ Feature: DP Monitoring Dashboard - Protection Policies - Under Attack 2nd Drill
   @SID_11
   Scenario: Validate Attack Rate and Drop Rate Aggregation
     Given CLI kill all simulator attacks on current vision
-    * REST Delete ES index "dp-traffic-*"
-    * REST Delete ES index "dp-https-stats-*"
-    * REST Delete ES index "dp-https-rt-*"
-    * REST Delete ES index "dp-five-*"
+#    * REST Delete ES index "dp-traffic-*"
+#    * REST Delete ES index "dp-https-stats-*"
+#    * REST Delete ES index "dp-https-rt-*"
+#    * REST Delete ES index "dp-five-*"
+    * REST Delete ES index "dp-*"
+
     Given CLI simulate 1 attacks of type "rest_black_ip46" on "DefensePro" 10 and wait 45 seconds
     And UI Navigate to "DefensePro Monitoring Dashboard" page via homePage
     And  UI click Table row by keyValue or Index with elementLabel "Protection Policies.Table" findBy index 0
