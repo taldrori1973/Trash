@@ -162,11 +162,75 @@ Feature: ADC System and Network Generate CSV Report
     Then CLI Run linux Command "cat "/opt/radware/mgt-server/third-party/tomcat/bin/Ports Traffic Information-System and Network.csv"|head -21|tail -1|awk -F "," '{printf $4}';echo" on "ROOT_SERVER_CLI" and validate result EQUALS "port_20"
     Then CLI Run linux Command "cat "/opt/radware/mgt-server/third-party/tomcat/bin/Ports Traffic Information-System and Network.csv"|head -21|tail -1|awk -F "," '{printf $5}';echo" on "ROOT_SERVER_CLI" and validate result EQUALS "206.0"
 
+
   @SID_8
+  Scenario: ADC Applications report validate CSV file Ports Traffic Information-1 widget header
+    Then CLI Run linux Command "cat "/opt/radware/mgt-server/third-party/tomcat/bin/Ports Traffic Information-System and Network_1.csv"|head -1|tail -1|grep name,status|wc -l " on "ROOT_SERVER_CLI" and validate result EQUALS "1"
+    Then CLI Run linux Command "cat "/opt/radware/mgt-server/third-party/tomcat/bin/Ports Traffic Information-System and Network_1.csv"|head -2|tail -1|awk -F "," '{printf $1}';echo" on "ROOT_SERVER_CLI" and validate result EQUALS "port_01"
+    Then CLI Run linux Command "cat "/opt/radware/mgt-server/third-party/tomcat/bin/Ports Traffic Information-System and Network_1.csv"|head -2|tail -1|awk -F "," '{printf $2}';echo" on "ROOT_SERVER_CLI" and validate result EQUALS "UP"
+
+    Then CLI Run linux Command "cat "/opt/radware/mgt-server/third-party/tomcat/bin/Ports Traffic Information-System and Network_1.csv"|head -3|tail -1|awk -F "," '{printf $1}';echo" on "ROOT_SERVER_CLI" and validate result EQUALS "port_02"
+    Then CLI Run linux Command "cat "/opt/radware/mgt-server/third-party/tomcat/bin/Ports Traffic Information-System and Network_1.csv"|head -3|tail -1|awk -F "," '{printf $2}';echo" on "ROOT_SERVER_CLI" and validate result EQUALS "UP"
+
+    Then CLI Run linux Command "cat "/opt/radware/mgt-server/third-party/tomcat/bin/Ports Traffic Information-System and Network_1.csv"|head -4|tail -1|awk -F "," '{printf $1}';echo" on "ROOT_SERVER_CLI" and validate result EQUALS "port_03"
+    Then CLI Run linux Command "cat "/opt/radware/mgt-server/third-party/tomcat/bin/Ports Traffic Information-System and Network_1.csv"|head -4|tail -1|awk -F "," '{printf $2}';echo" on "ROOT_SERVER_CLI" and validate result EQUALS "UP"
+
+    Then CLI Run linux Command "cat "/opt/radware/mgt-server/third-party/tomcat/bin/Ports Traffic Information-System and Network_1.csv"|head -5|tail -1|awk -F "," '{printf $1}';echo" on "ROOT_SERVER_CLI" and validate result EQUALS "port_04"
+    Then CLI Run linux Command "cat "/opt/radware/mgt-server/third-party/tomcat/bin/Ports Traffic Information-System and Network_1.csv"|head -5|tail -1|awk -F "," '{printf $2}';echo" on "ROOT_SERVER_CLI" and validate result EQUALS "UP"
+
+    Then CLI Run linux Command "cat "/opt/radware/mgt-server/third-party/tomcat/bin/Ports Traffic Information-System and Network_1.csv"|head -6|tail -1|awk -F "," '{printf $1}';echo" on "ROOT_SERVER_CLI" and validate result EQUALS "port_05"
+    Then CLI Run linux Command "cat "/opt/radware/mgt-server/third-party/tomcat/bin/Ports Traffic Information-System and Network_1.csv"|head -6|tail -1|awk -F "," '{printf $2}';echo" on "ROOT_SERVER_CLI" and validate result EQUALS "UP"
+
+    Then CLI Run linux Command "cat "/opt/radware/mgt-server/third-party/tomcat/bin/Ports Traffic Information-System and Network_1.csv"|head -7|tail -1|awk -F "," '{printf $1}';echo" on "ROOT_SERVER_CLI" and validate result EQUALS "port_06"
+    Then CLI Run linux Command "cat "/opt/radware/mgt-server/third-party/tomcat/bin/Ports Traffic Information-System and Network_1.csv"|head -7|tail -1|awk -F "," '{printf $2}';echo" on "ROOT_SERVER_CLI" and validate result EQUALS "DOWN"
+
+    Then CLI Run linux Command "cat "/opt/radware/mgt-server/third-party/tomcat/bin/Ports Traffic Information-System and Network_1.csv"|head -8|tail -1|awk -F "," '{printf $1}';echo" on "ROOT_SERVER_CLI" and validate result EQUALS "port_07"
+    Then CLI Run linux Command "cat "/opt/radware/mgt-server/third-party/tomcat/bin/Ports Traffic Information-System and Network_1.csv"|head -8|tail -1|awk -F "," '{printf $2}';echo" on "ROOT_SERVER_CLI" and validate result EQUALS "DOWN"
+
+    Then CLI Run linux Command "cat "/opt/radware/mgt-server/third-party/tomcat/bin/Ports Traffic Information-System and Network_1.csv"|head -9|tail -1|awk -F "," '{printf $1}';echo" on "ROOT_SERVER_CLI" and validate result EQUALS "port_08"
+    Then CLI Run linux Command "cat "/opt/radware/mgt-server/third-party/tomcat/bin/Ports Traffic Information-System and Network_1.csv"|head -9|tail -1|awk -F "," '{printf $2}';echo" on "ROOT_SERVER_CLI" and validate result EQUALS "DOWN"
+
+    Then CLI Run linux Command "cat "/opt/radware/mgt-server/third-party/tomcat/bin/Ports Traffic Information-System and Network_1.csv"|head -10|tail -1|awk -F "," '{printf $1}';echo" on "ROOT_SERVER_CLI" and validate result EQUALS "port_09"
+    Then CLI Run linux Command "cat "/opt/radware/mgt-server/third-party/tomcat/bin/Ports Traffic Information-System and Network_1.csv"|head -10|tail -1|awk -F "," '{printf $2}';echo" on "ROOT_SERVER_CLI" and validate result EQUALS "DOWN"
+
+    Then CLI Run linux Command "cat "/opt/radware/mgt-server/third-party/tomcat/bin/Ports Traffic Information-System and Network_1.csv"|head -11|tail -1|awk -F "," '{printf $1}';echo" on "ROOT_SERVER_CLI" and validate result EQUALS "port_10"
+    Then CLI Run linux Command "cat "/opt/radware/mgt-server/third-party/tomcat/bin/Ports Traffic Information-System and Network_1.csv"|head -11|tail -1|awk -F "," '{printf $2}';echo" on "ROOT_SERVER_CLI" and validate result EQUALS "DOWN"
+
+    Then CLI Run linux Command "cat "/opt/radware/mgt-server/third-party/tomcat/bin/Ports Traffic Information-System and Network_1.csv"|head -12|tail -1|awk -F "," '{printf $1}';echo" on "ROOT_SERVER_CLI" and validate result EQUALS "port_11"
+    Then CLI Run linux Command "cat "/opt/radware/mgt-server/third-party/tomcat/bin/Ports Traffic Information-System and Network_1.csv"|head -12|tail -1|awk -F "," '{printf $2}';echo" on "ROOT_SERVER_CLI" and validate result EQUALS "DISABLED"
+
+    Then CLI Run linux Command "cat "/opt/radware/mgt-server/third-party/tomcat/bin/Ports Traffic Information-System and Network_1.csv"|head -13|tail -1|awk -F "," '{printf $1}';echo" on "ROOT_SERVER_CLI" and validate result EQUALS "port_12"
+    Then CLI Run linux Command "cat "/opt/radware/mgt-server/third-party/tomcat/bin/Ports Traffic Information-System and Network_1.csv"|head -13|tail -1|awk -F "," '{printf $2}';echo" on "ROOT_SERVER_CLI" and validate result EQUALS "DISABLED"
+
+    Then CLI Run linux Command "cat "/opt/radware/mgt-server/third-party/tomcat/bin/Ports Traffic Information-System and Network_1.csv"|head -14|tail -1|awk -F "," '{printf $1}';echo" on "ROOT_SERVER_CLI" and validate result EQUALS "port_13"
+    Then CLI Run linux Command "cat "/opt/radware/mgt-server/third-party/tomcat/bin/Ports Traffic Information-System and Network_1.csv"|head -14|tail -1|awk -F "," '{printf $2}';echo" on "ROOT_SERVER_CLI" and validate result EQUALS "DISABLED"
+
+    Then CLI Run linux Command "cat "/opt/radware/mgt-server/third-party/tomcat/bin/Ports Traffic Information-System and Network_1.csv"|head -15|tail -1|awk -F "," '{printf $1}';echo" on "ROOT_SERVER_CLI" and validate result EQUALS "port_14"
+    Then CLI Run linux Command "cat "/opt/radware/mgt-server/third-party/tomcat/bin/Ports Traffic Information-System and Network_1.csv"|head -15|tail -1|awk -F "," '{printf $2}';echo" on "ROOT_SERVER_CLI" and validate result EQUALS "DISABLED"
+
+    Then CLI Run linux Command "cat "/opt/radware/mgt-server/third-party/tomcat/bin/Ports Traffic Information-System and Network_1.csv"|head -16|tail -1|awk -F "," '{printf $1}';echo" on "ROOT_SERVER_CLI" and validate result EQUALS "port_15"
+    Then CLI Run linux Command "cat "/opt/radware/mgt-server/third-party/tomcat/bin/Ports Traffic Information-System and Network_1.csv"|head -16|tail -1|awk -F "," '{printf $2}';echo" on "ROOT_SERVER_CLI" and validate result EQUALS "DISABLED"
+
+    Then CLI Run linux Command "cat "/opt/radware/mgt-server/third-party/tomcat/bin/Ports Traffic Information-System and Network_1.csv"|head -17|tail -1|awk -F "," '{printf $1}';echo" on "ROOT_SERVER_CLI" and validate result EQUALS "port_16"
+    Then CLI Run linux Command "cat "/opt/radware/mgt-server/third-party/tomcat/bin/Ports Traffic Information-System and Network_1.csv"|head -17|tail -1|awk -F "," '{printf $2}';echo" on "ROOT_SERVER_CLI" and validate result EQUALS "UNPLUGGED"
+
+    Then CLI Run linux Command "cat "/opt/radware/mgt-server/third-party/tomcat/bin/Ports Traffic Information-System and Network_1.csv"|head -18|tail -1|awk -F "," '{printf $1}';echo" on "ROOT_SERVER_CLI" and validate result EQUALS "port_17"
+    Then CLI Run linux Command "cat "/opt/radware/mgt-server/third-party/tomcat/bin/Ports Traffic Information-System and Network_1.csv"|head -18|tail -1|awk -F "," '{printf $2}';echo" on "ROOT_SERVER_CLI" and validate result EQUALS "UNPLUGGED"
+
+    Then CLI Run linux Command "cat "/opt/radware/mgt-server/third-party/tomcat/bin/Ports Traffic Information-System and Network_1.csv"|head -19|tail -1|awk -F "," '{printf $1}';echo" on "ROOT_SERVER_CLI" and validate result EQUALS "port_18"
+    Then CLI Run linux Command "cat "/opt/radware/mgt-server/third-party/tomcat/bin/Ports Traffic Information-System and Network_1.csv"|head -19|tail -1|awk -F "," '{printf $2}';echo" on "ROOT_SERVER_CLI" and validate result EQUALS "UNPLUGGED"
+
+    Then CLI Run linux Command "cat "/opt/radware/mgt-server/third-party/tomcat/bin/Ports Traffic Information-System and Network_1.csv"|head -20|tail -1|awk -F "," '{printf $1}';echo" on "ROOT_SERVER_CLI" and validate result EQUALS "port_19"
+    Then CLI Run linux Command "cat "/opt/radware/mgt-server/third-party/tomcat/bin/Ports Traffic Information-System and Network_1.csv"|head -20|tail -1|awk -F "," '{printf $2}';echo" on "ROOT_SERVER_CLI" and validate result EQUALS "UNPLUGGED"
+
+    Then CLI Run linux Command "cat "/opt/radware/mgt-server/third-party/tomcat/bin/Ports Traffic Information-System and Network_1.csv"|head -21|tail -1|awk -F "," '{printf $1}';echo" on "ROOT_SERVER_CLI" and validate result EQUALS "port_20"
+    Then CLI Run linux Command "cat "/opt/radware/mgt-server/third-party/tomcat/bin/Ports Traffic Information-System and Network_1.csv"|head -21|tail -1|awk -F "," '{printf $2}';echo" on "ROOT_SERVER_CLI" and validate result EQUALS "UNPLUGGED"
+
+  @SID_9
   Scenario: Delete report
     Then UI Delete Report With Name "ADC System and Network Report"
 
-  @SID_9
+  @SID_10
   Scenario: Logout
     Then UI logout and close browser
 
