@@ -140,7 +140,7 @@ Feature: ADC Applications Generate CSV Report
     Then CLI Run linux Command "cat "/opt/radware/mgt-server/third-party/tomcat/bin/Groups and Content Rules-Application.csv"|head -13|tail -1|awk -F "," '{printf $2}';echo" on "ROOT_SERVER_CLI" and validate result EQUALS "none"
     Then CLI Run linux Command "cat "/opt/radware/mgt-server/third-party/tomcat/bin/Groups and Content Rules-Application.csv"|head -13|tail -1|awk -F "," '{printf $4}';echo" on "ROOT_SERVER_CLI" and validate result EQUALS "201.41.1.10"
     Then CLI Run linux Command "cat "/opt/radware/mgt-server/third-party/tomcat/bin/Groups and Content Rules-Application.csv"|head -13|tail -1|awk -F "," '{printf $6}';echo" on "ROOT_SERVER_CLI" and validate result EQUALS "1"
-    Then CLI Run linux Command "cat "/opt/radware/mgt-server/third-party/tomcat/bin/Groups and Content Rules-Application.csv"|head -13|tail -1|awk -F "," '{printf $7}';echo" on "ROOT_SERVER_CLI" and validate result EQUALS "Up0"
+    Then CLI Run linux Command "cat "/opt/radware/mgt-server/third-party/tomcat/bin/Groups and Content Rules-Application.csv"|head -13|tail -1|awk -F "," '{printf $7}';echo" on "ROOT_SERVER_CLI" and validate result EQUALS "Up"
 
   @SID_14
   Scenario: ADC Applications report validate CSV file Groups and Content Rules widget header
