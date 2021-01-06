@@ -8,6 +8,12 @@ Feature: ADC Applications Generate CSV Report
     Then CLI Run linux Command "/opt/radware/mgt-server/bin/collectors_service.sh status" on "ROOT_SERVER_CLI" and validate result EQUALS "APSolute Vision Collectors Server is running." with timeOut 240
 
   @SID_2
+  Scenario: old reports on file-system
+    Then CLI Run remote linux Command "rm -f /opt/radware/mgt-server/third-party/tomcat/bin/VRM_report_*.zip" on "ROOT_SERVER_CLI"
+    Then CLI Run remote linux Command "rm -f /opt/radware/mgt-server/third-party/tomcat/bin/*.csv" on "ROOT_SERVER_CLI"
+    Given Setup email server
+
+  @SID_2
   Scenario: Login and Navigate ADC Report
     Given UI Login with user "radware" and password "radware"
     And UI Navigate to "ADC Reports" page via homePage
