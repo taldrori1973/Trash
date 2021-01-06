@@ -34,7 +34,7 @@ Feature: DFGenerateReport
 
   @SID_4
   Scenario: VRM - Login to AMS DefenseFlow Analytics Dashboard
-    Given UI Login with user "sys_admin" and password "radware"
+    Then UI Login with user "radware" and password "radware"
 
   @SID_5
   Scenario: validate destination

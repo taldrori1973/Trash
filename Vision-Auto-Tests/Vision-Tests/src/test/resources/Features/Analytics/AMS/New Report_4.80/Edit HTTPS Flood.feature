@@ -5,10 +5,8 @@ Feature: Edit HTTPS Flood tests
   Scenario: Clear data
     * CLI kill all simulator attacks on current vision
     Given CLI Reset radware password
-    * REST Delete ES index "dp-traffic-*"
-    * REST Delete ES index "dp-https-stats-*"
-    * REST Delete ES index "dp-https-rt-*"
-    * REST Delete ES index "dp-five-*"
+    * REST Delete ES index "dp-*"
+    Given CLI Run remote linux Command "service vision restart" on "ROOT_SERVER_CLI" and wait 185 seconds
 
   @SID_2
   Scenario: keep reports copy on file system
@@ -29,7 +27,7 @@ Feature: Edit HTTPS Flood tests
 
   @SID_5
   Scenario:Login and Navigate to HTTPS Server Dashboard
-    Given UI Login with user "sys_admin" and password "radware"
+    Then UI Login with user "radware" and password "radware"
     Then REST Vision Install License Request "vision-AVA-Max-attack-capacity"
     Given Rest Add Policy "pol1" To DP "172.16.22.51" if Not Exist
     And Rest Add new Rule "https_servers_automation" in Profile "ProfileHttpsflood" to Policy "pol1" to DP "172.16.22.51"
@@ -54,35 +52,6 @@ Feature: Edit HTTPS Flood tests
       | Template-1            | reportType:HTTPS Flood , Widgets:[Inbound Traffic],Servers:[test-DefensePro_172.16.22.51-pol1] |
       | Format                | Select: CSV                                                                                    |
       | Time Definitions.Date | Quick:1H                                                                                       |
-
-#
-#  @SID_9
-#  Scenario: Validate delivery card and generate report
-#    Then UI Click Button "My Report" with value "HTTPS Flood Report"
-#    Then UI Click Button "Generate Report Manually" with value "HTTPS Flood Report"
-#    Then Sleep "35"
-#
-#  @SID_10
-#  Scenario: VRM report unzip local CSV file
-#    Then CLI Run remote linux Command "unzip -o -d /opt/radware/mgt-server/third-party/tomcat/bin/ /opt/radware/mgt-server/third-party/tomcat/bin/VRM_report_*.zip" on "ROOT_SERVER_CLI"
-#
-#    ############################################       TOP ATTACKS       ###################################################################################
-#  @SID_11
-#  Scenario: VRM report validate CSV file TOP ATTACKS number of lines
-#    Then CLI Run linux Command "cat /opt/radware/mgt-server/third-party/tomcat/bin/Inbound\ Traffic-HTTPS\ Flood.csv |wc -l" on "ROOT_SERVER_CLI" and validate result EQUALS "2"
-#
-#  @SID_12
-#  Scenario: VRM report validate CSV file TOP ATTACKS headers
-#    Then CLI Run linux Command "cat /opt/radware/mgt-server/third-party/tomcat/bin/Inbound\ Traffic-HTTPS\ Flood.csv|head -1|grep timeStamp,shortTermBaseline.attackEdge,longTermBaseline.attackEdge,shortTermBaseline.requestsBaseline,longTermBaseline.requestsBaseline|wc -l" on "ROOT_SERVER_CLI" and validate result EQUALS "1"
-#    Then CLI Run linux Command "cat /opt/radware/mgt-server/third-party/tomcat/bin/Inbound\ Traffic-HTTPS\ Flood.csv|head -1|awk -F "," '{printf $1}';echo" on "ROOT_SERVER_CLI" and validate result EQUALS "timeStamp"
-#    Then CLI Run linux Command "cat /opt/radware/mgt-server/third-party/tomcat/bin/Inbound\ Traffic-HTTPS\ Flood.csv|head -1|awk -F "," '{printf $2}';echo" on "ROOT_SERVER_CLI" and validate result EQUALS "shortTermBaseline.attackEdge"
-#    Then CLI Run linux Command "cat /opt/radware/mgt-server/third-party/tomcat/bin/Inbound\ Traffic-HTTPS\ Flood.csv|head -1|awk -F "," '{printf $3}';echo" on "ROOT_SERVER_CLI" and validate result EQUALS "longTermBaseline.attackEdge"
-#    Then CLI Run linux Command "cat /opt/radware/mgt-server/third-party/tomcat/bin/Inbound\ Traffic-HTTPS\ Flood.csv|head -1|awk -F "," '{printf $4}';echo" on "ROOT_SERVER_CLI" and validate result EQUALS "shortTermBaseline.requestsBaseline"
-#    Then CLI Run linux Command "cat /opt/radware/mgt-server/third-party/tomcat/bin/Inbound\ Traffic-HTTPS\ Flood.csv|head -1|awk -F "," '{printf $5}';echo" on "ROOT_SERVER_CLI" and validate result EQUALS "longTermBaseline.requestsBaseline"
-#    Then CLI Run linux Command "cat /opt/radware/mgt-server/third-party/tomcat/bin/Inbound\ Traffic-HTTPS\ Flood.csv|head -2|tail -1|awk -F "," '{printf $3}';echo" on "ROOT_SERVER_CLI" and validate result EQUALS "21641.0"
-#    Then CLI Run linux Command "cat /opt/radware/mgt-server/third-party/tomcat/bin/Inbound\ Traffic-HTTPS\ Flood.csv|head -2|tail -1|awk -F "," '{printf $4}';echo" on "ROOT_SERVER_CLI" and validate result EQUALS "7002.258"
-#    Then CLI Run linux Command "cat /opt/radware/mgt-server/third-party/tomcat/bin/Inbound\ Traffic-HTTPS\ Flood.csv|head -2|tail -1|awk -F "," '{printf $5}';echo" on "ROOT_SERVER_CLI" and validate result EQUALS "17200.0"
-#    Then CLI Run linux Command "cat /opt/radware/mgt-server/third-party/tomcat/bin/Inbound\ Traffic-HTTPS\ Flood.csv|head -2|tail -1|awk -F "," '{printf $6}';echo" on "ROOT_SERVER_CLI" and validate result EQUALS "5075.3"
 
   @SID_9
   Scenario: Edit The Format and validate

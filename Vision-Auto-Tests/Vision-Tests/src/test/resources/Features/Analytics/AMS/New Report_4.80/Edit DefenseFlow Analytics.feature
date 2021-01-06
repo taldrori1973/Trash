@@ -1,28 +1,9 @@
 @TC118576
 Feature: Edit DefenseFlow Analytics tests
-#
-#  @SID_1
-#  Scenario: Clean data before the test
-#    * REST Delete ES index "df-traffic*"
 
   @SID_1
   Scenario: Login
-    Then UI Login with user "sys_admin" and password "radware"
-#
-#  @SID_3
-#  Scenario: Run DP simulator PCAPs for "DF attacks"
-#    When CLI Run remote linux Command on "GENERIC_LINUX_SERVER"
-#      | "/home/radware/curl_DF_attacks-auto_PO_100.sh " |
-#      | #visionIP                                       |
-#      | " Terminated"                                   |
-#    When CLI Run remote linux Command on "GENERIC_LINUX_SERVER"
-#      | "/home/radware/curl_DF_attacks-auto_PO_200.sh " |
-#      | #visionIP                                       |
-#      | " Terminated"                                   |
-#    When CLI Run remote linux Command on "GENERIC_LINUX_SERVER" and wait 30 seconds
-#      | "/home/radware/curl_DF_attacks-auto_PO_300.sh " |
-#      | #visionIP                                       |
-#      | " Terminated"                                   |
+    Then UI Login with user "radware" and password "radware"
 
   @SID_2
   Scenario: Navigate to NEW REPORTS page
@@ -49,12 +30,6 @@ Feature: Edit DefenseFlow Analytics tests
       | Schedule              | Run Every:Daily,On Time:+2m                                                                                                          |
       | Format                | Select: PDF                                                                                                                          |
 
-#  @SID_6
-#  Scenario: Validate delivery card and generate report
-#    Then UI Click Button "My Report" with value "DefenseFlow Analytics Report"
-#    Then UI Click Button "Generate Report Manually" with value "DefenseFlow Analytics Report"
-#    Then Sleep "35"
-#    #todo validate data Ramez
 
   @SID_4
   Scenario: Add Template Widget to DefenseFlow Analytics

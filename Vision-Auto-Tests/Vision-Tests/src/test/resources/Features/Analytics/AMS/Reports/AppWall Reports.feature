@@ -227,7 +227,7 @@ Feature: AppWall Reports
     When UI logout and close browser
     And UI Login with user "sec_mon" and password "radware"
     And UI Navigate to "AMS Reports" page via homePage
-    Then UI Validate Element Existence By Label "Generate By Schedule" if Exists "true" with value "2DaysBeforeReport"
+    Then UI Validate Element Existence By Label "My Report" if Exists "true" with value "2DaysBeforeReport"
 
 
   @SID_19
