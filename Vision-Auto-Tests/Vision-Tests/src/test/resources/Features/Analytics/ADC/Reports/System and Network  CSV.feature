@@ -11,14 +11,13 @@ Feature: ADC System and Network Generate CSV Report
   Scenario: old reports on file-system
     Then CLI Run remote linux Command "rm -f /opt/radware/mgt-server/third-party/tomcat/bin/VRM_report_*.zip" on "ROOT_SERVER_CLI"
     Then CLI Run remote linux Command "rm -f /opt/radware/mgt-server/third-party/tomcat/bin/*.csv" on "ROOT_SERVER_CLI"
-    Given Setup email server
 
-  @SID_2
+  @SID_3
   Scenario: Login and Navigate ADC Report
     Given UI Login with user "radware" and password "radware"
     And UI Navigate to "ADC Reports" page via homePage
 
-  @SID_3
+  @SID_4
   Scenario: Create and validate ADC Report
     Then UI Click Button "New Report Tab"
     Given UI "Create" Report With Name "ADC System and Network Report"
@@ -30,17 +29,17 @@ Feature: ADC System and Network Generate CSV Report
       | Time Definitions.Date | Quick:1H                                                                                                 |
       | Format                | Select: CSV                                                                                              |
 
-  @SID_4
+  @SID_5
   Scenario: Validate delivery card and generate report
     Then UI Click Button "My Report" with value "ADC System and Network Report"
     Then UI Click Button "Generate Report Manually" with value "ADC System and Network Report"
     Then Sleep "35"
 
-  @SID_5
+  @SID_6
   Scenario: VRM report unzip local CSV file
     Then CLI Run remote linux Command "unzip -o -d /opt/radware/mgt-server/third-party/tomcat/bin/ /opt/radware/mgt-server/third-party/tomcat/bin/VRM_report_*.zip" on "ROOT_SERVER_CLI"
 
-  @SID_6
+  @SID_7
   Scenario: ADC Applications report validate CSV file Ports Traffic Information widget header
     Then CLI Run linux Command "cat "/opt/radware/mgt-server/third-party/tomcat/bin/Ports Traffic Information-System and Network.csv"|head -1|tail -1|grep pps_receive,throughput_transmit,throughput_receive,id,pps_transmit,timestamp|wc -l " on "ROOT_SERVER_CLI" and validate result EQUALS "1"
     Then CLI Run linux Command "cat "/opt/radware/mgt-server/third-party/tomcat/bin/Ports Traffic Information-System and Network.csv"|head -2|tail -1|awk -F "," '{printf $1}';echo" on "ROOT_SERVER_CLI" and validate result EQUALS "9.99999986991104E14"
@@ -163,11 +162,11 @@ Feature: ADC System and Network Generate CSV Report
     Then CLI Run linux Command "cat "/opt/radware/mgt-server/third-party/tomcat/bin/Ports Traffic Information-System and Network.csv"|head -21|tail -1|awk -F "," '{printf $4}';echo" on "ROOT_SERVER_CLI" and validate result EQUALS "port_20"
     Then CLI Run linux Command "cat "/opt/radware/mgt-server/third-party/tomcat/bin/Ports Traffic Information-System and Network.csv"|head -21|tail -1|awk -F "," '{printf $5}';echo" on "ROOT_SERVER_CLI" and validate result EQUALS "206.0"
 
-  @SID_7
+  @SID_8
   Scenario: Delete report
     Then UI Delete Report With Name "ADC System and Network Report"
 
-  @SID_8
+  @SID_9
   Scenario: Logout
     Then UI logout and close browser
 
