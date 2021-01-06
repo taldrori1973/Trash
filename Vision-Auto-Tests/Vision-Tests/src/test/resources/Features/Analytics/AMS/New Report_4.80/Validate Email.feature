@@ -1,5 +1,6 @@
 @TC118847
 Feature: Validate Email
+
   @SID_1
   Scenario: Clear data
     * CLI kill all simulator attacks on current vision
