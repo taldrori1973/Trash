@@ -14,9 +14,9 @@ Feature: DPM - ADC Reports RBAC
     Given UI Login with user "sys_admin" and password "radware"
     When UI Navigate to "ADC Reports" page via homePage
     Given UI "Create" Report With Name "App_Rejith_32326515:80"
-      | Template | reportType:Application , Widgets:[Requests per Second,End-to-End Time] ,Applications:[Rejith_32326515:80] |
+      | Template | reportType:Application , Widgets:[Requests per Second,End-to-End Time] ,Applications:[Rejith_32326515:88] |
     Then UI "Validate" Report With Name "App_Rejith_32326515:80"
-      | Template | reportType:Application , Widgets:[Requests per Second,End-to-End Time] ,Applications:[Rejith_32326515:80] |
+      | Template | reportType:Application , Widgets:[Requests per Second,End-to-End Time] ,Applications:[Rejith_32326515:88] |
 
 
 #    Then UI "Create" DPMReport With Name "All_apps"
@@ -26,7 +26,7 @@ Feature: DPM - ADC Reports RBAC
     Given UI "Create" Report With Name "Alteon_172.17.164.17"
       | Template | reportType:System and Network , Widgets:[Ports Traffic Information] , Applications:[Alteon_172.17.164.17] |
     Then UI "Validate" Report With Name "Alteon_172.17.164.17"
-      | Template | reportType:Application , Widgets:[Requests per Second,End-to-End Time] ,Applications:[Rejith_32326515:80] |
+      | Template | reportType:Application , Widgets:[Requests per Second,End-to-End Time] ,Applications:[Rejith_32326515:88] |
 
 
 #    Then UI "Create" DPMReport With Name "All_devices"
