@@ -1,5 +1,5 @@
 #@TC117962
-@TC118805 @Test12
+@TC118805
 Feature: HTTPS Flood CSV Report
 
 

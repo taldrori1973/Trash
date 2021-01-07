@@ -28,17 +28,15 @@ Feature: Disk-Space Utility
 
   @SID_4
   Scenario: ES index size OK
-    Given CLI Run remote linux Command "sed -i 's/^warning_index_usage_size=[[:digit:]]\+$/warning_index_usage_size=99/' /opt/radware/box/bin/system_disk-usage.sh" on "ROOT_SERVER_CLI"
-    Given CLI Run remote linux Command "sed -i 's/^warning_index_usage_unit=.*$/warning_index_usage_unit=gb/' /opt/radware/box/bin/system_disk-usage.sh" on "ROOT_SERVER_CLI"
+    Given CLI Run remote linux Command "sed -i -E 's/warning_index_usage_size=(\"\$\{1\}\"|[0-9]+)/warning_index_usage_size=107374182400/' /opt/radware/box/bin/system_disk-usage.sh" on "ROOT_SERVER_CLI"
     When CLI Run remote linux Command "/opt/radware/box/bin/system_disk-usage.sh" on "ROOT_SERVER_CLI" with timeOut 50
-    Then CLI Operations - Verify that output contains regex "Total size on all shards of each index found is smaller than 99 gb"
+    Then CLI Operations - Verify that output contains regex "Total size on all shards of each index found is smaller than 100.0 GB."
 
   @SID_5
   Scenario: ES index size exceeded
-    Given CLI Run remote linux Command "sed -i 's/^warning_index_usage_size=[[:digit:]]\+$/warning_index_usage_size=50/' /opt/radware/box/bin/system_disk-usage.sh" on "ROOT_SERVER_CLI"
-    Given CLI Run remote linux Command "sed -i 's/^warning_index_usage_unit=.*$/warning_index_usage_unit=kb/' /opt/radware/box/bin/system_disk-usage.sh" on "ROOT_SERVER_CLI"
+    Given CLI Run remote linux Command "sed -i -E 's/warning_index_usage_size=[0-9]+/warning_index_usage_size=51200/' /opt/radware/box/bin/system_disk-usage.sh" on "ROOT_SERVER_CLI"
     When CLI Run remote linux Command "/opt/radware/box/bin/system_disk-usage.sh" on "ROOT_SERVER_CLI" with timeOut 50
-    Then CLI Operations - Verify that output contains regex "WARNING - The total store.size of each of the above indices exceeds usage of 50 kb!"
+    Then CLI Operations - Verify that output contains regex "WARNING - The total store.size of each of the above indices exceeds usage of 50.0 KB!"
 
   @SID_6
   Scenario: Cleanup
