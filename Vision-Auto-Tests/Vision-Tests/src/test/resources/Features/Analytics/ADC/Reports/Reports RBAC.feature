@@ -13,9 +13,9 @@ Feature: DPM - ADC Reports RBAC
     * REST Vision Install License Request "vision-reporting-module-ADC"
     Given UI Login with user "sys_admin" and password "radware"
     When UI Navigate to "ADC Reports" page via homePage
-    Given UI "Create" Report With Name "App_Rejith_32326515:80"
+    Given UI "Create" Report With Name "App_Rejith_32326515:88"
       | Template | reportType:Application , Widgets:[Requests per Second,End-to-End Time] ,Applications:[Rejith_32326515:88] |
-    Then UI "Validate" Report With Name "App_Rejith_32326515:80"
+    Then UI "Validate" Report With Name "App_Rejith_32326515:88"
       | Template | reportType:Application , Widgets:[Requests per Second,End-to-End Time] ,Applications:[Rejith_32326515:88] |
 
 
@@ -39,7 +39,7 @@ Feature: DPM - ADC Reports RBAC
   Scenario: ADC - Verify permissions for user with ALL:ALL permission
     Given UI Login with user "sys_admin" and password "radware"
     When UI Navigate to "ADC Reports" page via homePage
-    Then UI Validate VRM Report Existence by Name "App_Rejith_32326515:80" if Exists "true"
+    Then UI Validate VRM Report Existence by Name "App_Rejith_32326515:88" if Exists "true"
     Then UI Validate VRM Report Existence by Name "Alteon_172.17.164.17" if Exists "true"
     And UI logout and close browser
 
@@ -47,7 +47,7 @@ Feature: DPM - ADC Reports RBAC
   Scenario: ADC - verify App access for user with no DEVICE permission
     Given UI Login with user "Device_Admin_50.50.101.21" and password "radware"
     When UI Navigate to "ADC Reports" page via homePage
-    Then UI Validate VRM Report Existence by Name "App_Rejith_32326515:80" if Exists "false"
+    Then UI Validate VRM Report Existence by Name "App_Rejith_32326515:88" if Exists "false"
     #50.50.101.21 has "Rejith_32326515:80" so user should see the report
 
   @SID_5
