@@ -4,6 +4,7 @@ Feature: DefenseFlow Traffic Reports
 
   @SID_1
   Scenario: Clear data
+    Then CLI Operations - Run Radware Session command "system user authentication-mode set TACACS+"
     * CLI kill all simulator attacks on current vision
     * REST Vision Install License Request "vision-AVA-Max-attack-capacity"
     * REST Delete ES index "df-traffic*"
