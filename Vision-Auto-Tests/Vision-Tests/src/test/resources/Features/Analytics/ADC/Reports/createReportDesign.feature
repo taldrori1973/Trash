@@ -51,6 +51,7 @@ Feature: DPM - Design Report Wizard
 #      | reportType | Virtual Service Report   |
 #      | Design     | Position:Table,X:0,Y:460 |
 
+  @SID_4
   Scenario: Design the Report - edit and delete the top widget
     Given UI "Create" Report With Name "NetworkReport"
       | Template              | reportType:System and Network , Widgets:[Ports Traffic Information] , Applications:[Alteon_172.17.164.17] |
