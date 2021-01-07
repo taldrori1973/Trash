@@ -72,7 +72,7 @@ Feature: ADC Applications Generate CSV Report
     Then CLI Run linux Command "cat "/opt/radware/mgt-server/third-party/tomcat/bin/End-to-End Time-Application.csv"|head -2|tail -1|awk -F "," '{printf $4}';echo" on "ROOT_SERVER_CLI" and validate result EQUALS "Rejith_32326515:88"
 
   @SID_12
-  Scenario: ADC Applications report validate CSV file End-to-End Time widget header
+  Scenario: ADC Applications report validate CSV file End-to-End_1 Time widget header
     Then CLI Run linux Command "cat "/opt/radware/mgt-server/third-party/tomcat/bin/End-to-End Time-Application_1.csv"|head -1|tail -1|grep endToEndUsecs,responseTransferUsecs,appResponseUsecs,clientRttUsecs,applicationId,serverRttUsecs,timestamp|wc -l " on "ROOT_SERVER_CLI" and validate result EQUALS "1"
     Then CLI Run linux Command "cat "/opt/radware/mgt-server/third-party/tomcat/bin/End-to-End Time-Application_1.csv"|head -2|tail -1|awk -F "," '{printf $1}';echo" on "ROOT_SERVER_CLI" and validate result EQUALS "469995990"
     Then CLI Run linux Command "cat "/opt/radware/mgt-server/third-party/tomcat/bin/End-to-End Time-Application_1.csv"|head -2|tail -1|awk -F "," '{printf $2}';echo" on "ROOT_SERVER_CLI" and validate result EQUALS "74008629"
@@ -140,7 +140,7 @@ Feature: ADC Applications Generate CSV Report
     Then CLI Run linux Command "cat "/opt/radware/mgt-server/third-party/tomcat/bin/Groups and Content Rules-Application.csv"|head -13|tail -1|awk -F "," '{printf $2}';echo" on "ROOT_SERVER_CLI" and validate result EQUALS "none"
     Then CLI Run linux Command "cat "/opt/radware/mgt-server/third-party/tomcat/bin/Groups and Content Rules-Application.csv"|head -13|tail -1|awk -F "," '{printf $4}';echo" on "ROOT_SERVER_CLI" and validate result EQUALS "201.41.1.10"
     Then CLI Run linux Command "cat "/opt/radware/mgt-server/third-party/tomcat/bin/Groups and Content Rules-Application.csv"|head -13|tail -1|awk -F "," '{printf $6}';echo" on "ROOT_SERVER_CLI" and validate result EQUALS "1"
-    Then CLI Run linux Command "cat "/opt/radware/mgt-server/third-party/tomcat/bin/Groups and Content Rules-Application.csv"|head -13|tail -1|awk -F "," '{printf $7}';echo" on "ROOT_SERVER_CLI" and validate result EQUALS "Up0"
+    Then CLI Run linux Command "cat "/opt/radware/mgt-server/third-party/tomcat/bin/Groups and Content Rules-Application.csv"|head -13|tail -1|awk -F "," '{printf $7}';echo" on "ROOT_SERVER_CLI" and validate result EQUALS "Up"
 
   @SID_14
   Scenario: ADC Applications report validate CSV file Groups and Content Rules widget header

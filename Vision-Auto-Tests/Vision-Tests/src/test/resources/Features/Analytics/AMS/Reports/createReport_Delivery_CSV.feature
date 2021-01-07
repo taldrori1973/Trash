@@ -64,7 +64,6 @@ Feature:  Report AMS analytics CSV Validations
 
   @SID_7
   Scenario: Validate delivery card and generate report
-    Given Clear email history for user "setup"
     Then UI Click Button "My Report" with value "TC108070"
     Then UI Click Button "Generate Report Manually" with value "TC108070"
     Then Sleep "35"

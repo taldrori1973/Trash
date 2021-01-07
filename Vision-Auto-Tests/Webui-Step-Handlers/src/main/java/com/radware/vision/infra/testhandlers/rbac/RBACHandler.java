@@ -240,6 +240,7 @@ public class RBACHandler extends RBACHandlerBase {
     public static boolean verifyRoleScope(UserRoles role) {
         LocalUsersHandler.NavigateHereIfNeedTo();
         User newUser = LocalUsersHandler.getLocalUsers().newUser();
+        LocalUsersHandler.NavigateToUserRoleGroup();
         newUser.addPermission().setRole(role.getUserRole());
 
         ComponentLocator itemLocator = new ComponentLocator(How.ID, WebUIStringsVision.getScopeMenu());
