@@ -14,9 +14,9 @@ Feature: DPM - ADC Reports RBAC
     Given UI Login with user "sys_admin" and password "radware"
     When UI Navigate to "ADC Reports" page via homePage
     Given UI "Create" Report With Name "App_Rejith_32326515:88"
-      | Template | reportType:Application , Widgets:[Requests per Second,End-to-End Time] ,Applications:[Rejith_32326515:88] |
+      | Template | reportType:Application , Widgets:[Requests per Second] ,Applications:[Rejith_32326515:88] |
     Then UI "Validate" Report With Name "App_Rejith_32326515:88"
-      | Template | reportType:Application , Widgets:[Requests per Second,End-to-End Time] ,Applications:[Rejith_32326515:88] |
+      | Template | reportType:Application , Widgets:[Requests per Second] ,Applications:[Rejith_32326515:88] |
 
 
 #    Then UI "Create" DPMReport With Name "All_apps"
@@ -26,35 +26,15 @@ Feature: DPM - ADC Reports RBAC
     Given UI "Create" Report With Name "Alteon_172.17.164.17"
       | Template | reportType:System and Network , Widgets:[Ports Traffic Information] , Applications:[Alteon_172.17.164.17] |
     Then UI "Validate" Report With Name "Alteon_172.17.164.17"
-      | Template | reportType:Application , Widgets:[Requests per Second,End-to-End Time] ,Applications:[Rejith_32326515:88] |
+      | Template | reportType:System and Network , Widgets:[Ports Traffic Information] , Applications:[Alteon_172.17.164.17] |
 
 
 #    Then UI "Create" DPMReport With Name "All_devices"
 #      | reportType | Network Report         |
 #      | devices    | virts:[Rejith:88, Rejith:443] |
 
-    Then UI logout and close browser
 
   @SID_3
-  Scenario: ADC - Verify permissions for user with ALL:ALL permission
-    Given UI Login with user "sys_admin" and password "radware"
-    When UI Navigate to "ADC Reports" page via homePage
-    Then UI Validate VRM Report Existence by Name "App_Rejith_32326515:88" if Exists "true"
-    Then UI Validate VRM Report Existence by Name "Alteon_172.17.164.17" if Exists "true"
-    And UI logout and close browser
-
-  @SID_4
-  Scenario: ADC - verify App access for user with no DEVICE permission
-    Given UI Login with user "Device_Admin_50.50.101.21" and password "radware"
-    When UI Navigate to "ADC Reports" page via homePage
-    Then UI Validate VRM Report Existence by Name "App_Rejith_32326515:88" if Exists "false"
-    #50.50.101.21 has "Rejith_32326515:80" so user should see the report
-
-  @SID_5
-  Scenario: ADC - verify Device access for user with no DEVICE permission
-    Then UI Validate VRM Report Existence by Name "Alteon_172.17.164.17" if Exists "false"
-
-  @SID_6
   Scenario: Reports RBAC check logs
     Then UI logout and close browser
     And CLI Check if logs contains
