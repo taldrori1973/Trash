@@ -33,6 +33,12 @@ public class LocalUsersHandler {
         }
     }
 
+    public static void NavigateToUserRoleGroup() {
+        ComponentLocator tabLocator = new ComponentLocator(How.ID, "gwt-debug-UserManagement.Users.Column_1_Tab");
+        ComponentLocator tableAddButton = new ComponentLocator(How.ID, "gwt-debug-roleGroupPairList_NEW");
+        WebUIUtils.fluentWaitClick(tabLocator.getBy(), WebUIUtils.DEFAULT_WAIT_TIME, false);
+        WebUIUtils.fluentWaitClick(tableAddButton.getBy(), WebUIUtils.DEFAULT_WAIT_TIME, false);
+    }
 
     public static void addUser(String username, String fullName, String address, String organisation, String phoneNumber, String permissions, String networkPolicies, String password) {
         List<String> permissionsList = Arrays.asList(permissions.split(","));
