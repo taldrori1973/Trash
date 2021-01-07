@@ -51,45 +51,38 @@ Feature:Edit DefensePro Behavioral Protections
   @SID_5
   Scenario: Add Template Widget to DefensePro Behavioral Protections 2
     Given UI "Edit" Report With Name "DefensePro Behavioral Protections Report"
-      | Template-2 | reportType:DefensePro Behavioral Protections, AddWidgets:[{BDoS-IGMP:[IPv6, bps, Outbound]}], devices:[{deviceIndex:10, devicePolicies:[BDOS]}] |
+      | Template-2 | reportType:DefensePro Behavioral Protections, AddWidgets:[{BDoS-TCP SYN:[IPv6, bps, Outbound]}], devices:[{deviceIndex:10, devicePolicies:[BDOS]}] |
     Then UI "Validate" Report With Name "DefensePro Behavioral Protections Report"
-      | Template-2 | reportType:DefensePro Behavioral Protections, Widgets:[{Excluded UDP Traffic:[IPv6, bps, Outbound]},{BDoS-IGMP:[IPv6, bps, Outbound]}], devices:[{deviceIndex:10, devicePolicies:[BDOS]}] |
+      | Template-2 | reportType:DefensePro Behavioral Protections, Widgets:[{Excluded UDP Traffic:[IPv6, bps, Outbound]},{{BDoS-TCP SYN:[IPv6, bps, Outbound]}], devices:[{deviceIndex:10, devicePolicies:[BDOS]}] |
 
   @SID_6
   Scenario: Delete Template Widget from DefensePro Behavioral Protections 1
     Given UI "Edit" Report With Name "DefensePro Behavioral Protections Report"
-      | Template-1 | reportType:DefensePro Behavioral Protections, DeleteWidgets:[{DNS-SOA:[IPv4]}], devices:[{deviceIndex:10, devicePolicies:[BDOS]}] |
-    Then UI "Validate" Report With Name "DefensePro Behavioral Protections Report"
-      | Template-1 | reportType:DefensePro Behavioral Protections, Widgets:[{BDoS-UDP:[IPv4, bps,Outbound]}], devices:[{deviceIndex:10, devicePolicies:[BDOS]}] |
-
-  @SID_7
-  Scenario: Delete Template Widget from DefensePro Behavioral Protections 2
-    Given UI "Edit" Report With Name "DefensePro Behavioral Protections Report"
-      | Template-2 | reportType:DefensePro Behavioral Protections, DeleteWidgets:[{BDoS-IGMP:[IPv6, bps, Outbound]}], devices:[{deviceIndex:10, devicePolicies:[BDOS]}] |
+      | Template-2 | reportType:DefensePro Behavioral Protections, DeleteWidgets:[{BDoS-UDP:[IPv4, bps,Outbound]}], devices:[{deviceIndex:10, devicePolicies:[BDOS]}] |
     Then UI "Validate" Report With Name "DefensePro Behavioral Protections Report"
       | Template-2 | reportType:DefensePro Behavioral Protections, Widgets:[{Excluded UDP Traffic:[IPv6, bps, Outbound]}], devices:[{deviceIndex:10, devicePolicies:[BDOS]}] |
 
-  @SID_8
+  @SID_7
   Scenario: Edit Template Devices from DefensePro Behavioral Protections Report 1
     Given UI "Edit" Report With Name "DefensePro Behavioral Protections Report"
       | Template-1 | reportType:DefensePro Behavioral Protections,devices:[{deviceIndex:11, devicePolicies:[BDOS]}] |
     Then UI "Validate" Report With Name "DefensePro Behavioral Protections Report"
-      | Template-1 | reportType:DefensePro Behavioral Protections,Widgets:[{BDoS-UDP:[IPv4, bps,Outbound]}], devices:[{deviceIndex:11, devicePolicies:[BDOS]}] |
+      | Template-1 | reportType:DefensePro Behavioral Protections, Widgets:[{DNS-SOA:[IPv4]}], devices:[{deviceIndex:11, devicePolicies:[BDOS]}] |
 
-  @SID_9
+  @SID_8
   Scenario: Edit Template Devices from DefensePro Behavioral Protections Report 2
     Given UI "Edit" Report With Name "DefensePro Behavioral Protections Report"
       | Template-2 | reportType:DefensePro Behavioral Protections,devices:[{deviceIndex:11, devicePolicies:[BDOS]}] |
     Then UI "Validate" Report With Name "DefensePro Behavioral Protections Report"
-      | Template-2 | reportType:DefensePro Behavioral Protections,Widgets:[{Excluded UDP Traffic:[IPv6, bps, Outbound]}], devices:[{deviceIndex:11, devicePolicies:[BDOS]}] |
+      | Template-2 | reportType:DefensePro Behavioral Protections, Widgets:[{Excluded UDP Traffic:[IPv6, bps, Outbound]},{{BDoS-TCP SYN:[IPv6, bps, Outbound]}], devices:[{deviceIndex:11, devicePolicies:[BDOS]}] |
 
-  @SID_10
+  @SID_9
   Scenario:Add Template to DefensePro Behavioral Protections Report
     Given UI "Edit" Report With Name "DefensePro Behavioral Protections Report"
       | Template-3 | reportType:DefensePro Behavioral Protections , Widgets:[{BDoS-TCP SYN ACK:[IPv4,bps,Outbound]}] ,devices:[{deviceIndex:11, devicePolicies:[BDOS]}] |
     Then UI "Validate" Report With Name "DefensePro Behavioral Protections Report"
-      | Template-1 | reportType:DefensePro Behavioral Protections,Widgets:[{BDoS-UDP:[IPv4, bps,Outbound]}], devices:[{deviceIndex:11, devicePolicies:[BDOS]}]              |
-      | Template-2 | reportType:DefensePro Behavioral Protections,Widgets:[{Excluded UDP Traffic:[IPv6, bps, Outbound]}], devices:[{deviceIndex:11, devicePolicies:[BDOS]}] |
+      | Template-1 | reportType:DefensePro Behavioral Protections, Widgets:[{DNS-SOA:[IPv4]}], devices:[{deviceIndex:11, devicePolicies:[BDOS]}] |
+      | Template-2 | reportType:DefensePro Behavioral Protections, Widgets:[{Excluded UDP Traffic:[IPv6, bps, Outbound]},{{BDoS-TCP SYN:[IPv6, bps, Outbound]}], devices:[{deviceIndex:11, devicePolicies:[BDOS]}] |
       | Template-3 | reportType:DefensePro Behavioral Protections , Widgets:[{BDoS-TCP SYN ACK:[IPv4,bps,Outbound]}] ,devices:[{deviceIndex:11, devicePolicies:[BDOS]}]     |
 
   @SID_10
@@ -97,24 +90,24 @@ Feature:Edit DefensePro Behavioral Protections
     Given UI "Edit" Report With Name "DefensePro Behavioral Protections Report"
       | Template-3 | DeleteTemplate:true |
     Then UI "Validate" Report With Name "DefensePro Behavioral Protections Report"
-      | Template-1 | reportType:DefensePro Behavioral Protections,Widgets:[{BDoS-UDP:[IPv4, bps,Outbound]}], devices:[{deviceIndex:11, devicePolicies:[BDOS]}]               |
-      | Template-2 | reportType:DefensePro Behavioral Protections,Widgets:[{Excluded UDP Traffic:[IPv6, bps, Outbound]}], devices:[{deviceIndex:11, devicePolicies:[BDOS]}]  |
+      | Template-1 | reportType:DefensePro Behavioral Protections,Widgets:[{BDoS-UDP:[IPv4, bps,Outbound]}], devices:[{deviceIndex:11, devicePolicies:[BDOS]}]              |
+      | Template-2 | reportType:DefensePro Behavioral Protections,Widgets:[{Excluded UDP Traffic:[IPv6, bps, Outbound]}], devices:[{deviceIndex:11, devicePolicies:[BDOS]}] |
 
-  @SID_12
+  @SID_11
   Scenario: Edit The Time and validate
     Then UI "Edit" Report With Name "DefensePro Behavioral Protections Report"
       | Time Definitions.Date | Quick:15m |
     Then UI "Validate" Report With Name "DefensePro Behavioral Protections Report"
       | Time Definitions.Date | Quick:15m |
 
-  @SID_13
+  @SID_12
   Scenario: Edit The Format and validate
     Then UI "Edit" Report With Name "DefensePro Behavioral Protections Report"
       | Format | Select: HTML |
     Then UI "Validate" Report With Name "DefensePro Behavioral Protections Report"
       | Format | Select: HTML |
 
-  @SID_14
+  @SID_13
   Scenario: Create and validate DefensePro Behavioral Protections Report
     Then UI Click Button "New Report Tab"
     Given UI "Create" Report With Name "DefensePro Behavioral Protections Report 2"
@@ -134,7 +127,7 @@ Feature:Edit DefensePro Behavioral Protections
       | share                 | Email:[automation.vision1@radware.com],Subject:mySubject,Body:myBody                                                                                    |
       | Format                | Select: PDF                                                                                                                                             |
 
-  @SID_15
+  @SID_14
   Scenario: Edit DefensePro Behavioral Protections Report 2
     Then UI Click Button "My Reports Tab"
     Then UI Click Button "Edit Report" with value "DefensePro Behavioral Protections Report 2"
@@ -153,11 +146,11 @@ Feature:Edit DefensePro Behavioral Protections
     Then UI Text of "Save Change Message" contains "Do you want to save "DefensePro Behavioral Protections Report"?"
     Then UI Click Button "No"
 
-  @SID_16
+  @SID_15
   Scenario: Delete report
     Then UI Delete Report With Name "DefensePro Behavioral Protections Report"
     Then UI Delete Report With Name "DefensePro Behavioral Protections Report 2"
 
-  @SID_17
+  @SID_16
   Scenario: Logout
     Then UI logout and close browser
