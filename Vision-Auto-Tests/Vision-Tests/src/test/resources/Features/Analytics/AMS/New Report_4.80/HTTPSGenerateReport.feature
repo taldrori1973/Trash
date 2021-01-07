@@ -90,5 +90,6 @@ Feature: HTTPSGenerateReport
 #      | Under Attack | 0          | 400        |
 #      | Under Attack | 0.81       | 500        |
 
+  @SID_7
   Scenario: start IPTABLES
     Then CLI Run linux Command "service iptables start" on "ROOT_SERVER_CLI" and validate result CONTAINS "Loading additional modules"

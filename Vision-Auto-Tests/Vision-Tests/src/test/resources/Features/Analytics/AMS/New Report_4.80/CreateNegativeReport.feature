@@ -73,7 +73,7 @@ Feature: Negative test to validate Error Messages
     Then UI Set Text Field "Report Name" To ","
     Then UI Click Button "Add Template" with value "HTTPS Flood"
     Then UI Click Button "Open Scope Selection" with value "HTTPS Flood"
-    Then UI Click Button "httpsScopeRadio" with value "test-DefensePro_172.16.22.51-pol1"
+    Then UI Click Button "httpsScopeRadio" with value "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaa-DefensePro_172.16.22.51-1_https"
     Then UI Click Button "SaveHTTPSScopeSelection"
     Then UI Click Button "save"
     Then UI Text of "Error message title" equal to "Unable to Save Report"
@@ -131,7 +131,7 @@ Feature: Negative test to validate Error Messages
     Then UI Click Button "No"
 
   @SID_14
-  Scenario: Create New Report with Report with more than 50 Widgets
+  Scenario: Create New Report with Report with more than 200 Widgets
     Then UI Click Button "New Report Tab"
     Then UI Set Text Field "Report Name" To "Report with more than 50 Widgets"
     Then UI Click Button "Add Template" with value "DefensePro Behavioral Protections"
@@ -206,7 +206,7 @@ Feature: Negative test to validate Error Messages
     Then UI Click Button "SaveDPScopeSelection"
     Then UI Click Button "Add Template" with value "HTTPS Flood"
     Then UI Click Button "Open Scope Selection" with value "HTTPS Flood"
-    Then UI Click Button "httpsScopeRadio" with value "test-DefensePro_172.16.22.51-pol1"
+    Then UI Click Button "httpsScopeRadio" with value "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaa-DefensePro_172.16.22.51-1_https"
     Then UI Click Button "SaveHTTPSScopeSelection"
     Then UI Click Button "save"
     Then UI Text of "Error message title" equal to "Unable to Save Report"

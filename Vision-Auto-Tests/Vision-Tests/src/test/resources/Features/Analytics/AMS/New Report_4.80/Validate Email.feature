@@ -40,7 +40,7 @@ Feature: Validate Email
   @SID_7
   Scenario: VRM - enabling emailing and go to VRM Reports Tab
     Given Setup email server
-    Then UI Login with user "radware" and password "radware"
+#    Then UI Login with user "radware" and password "radware"
     * REST Vision Install License Request "vision-AVA-Max-attack-capacity"
     And UI Go To Vision
     Then UI Navigate to page "System->General Settings->Alert Settings->Alert Browser"
@@ -561,11 +561,11 @@ Feature: Validate Email
   Scenario: Create and Validate EAAF Report
     Then UI Click Button "New Report Tab"
     Given UI "Create" Report With Name "EAAF Report"
-      | Template | reportType:EAAF , Widgets:[Total Hits Summary]      |
+      | Template | reportType:EAAF , Widgets:[Totals in Selected Time Frame]      |
       | Share    | Email:[maha],Subject:Validate Email,Body:Email Body |
       | Format   | Select: CSV                                         |
     Then UI "Validate" Report With Name "EAAF Report"
-      | Template | reportType:EAAF , Widgets:[Total Hits Summary]      |
+      | Template | reportType:EAAF , Widgets:[Totals in Selected Time Frame]      |
       | Share    | Email:[maha],Subject:Validate Email,Body:Email Body |
       | Format   | Select: CSV                                         |
 
