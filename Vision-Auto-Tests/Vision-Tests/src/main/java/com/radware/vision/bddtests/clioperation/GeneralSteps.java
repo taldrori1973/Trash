@@ -4,9 +4,9 @@ import basejunit.RestTestBase;
 import com.radware.automation.tools.utils.ExecuteShellCommands;
 import com.radware.automation.tools.utils.LinuxServerCredential;
 import com.radware.vision.bddtests.BddCliTestBase;
+import com.radware.vision.bddtests.ReportsForensicsAlerts.WebUiTools;
 import com.radware.vision.infra.testhandlers.baseoperations.BasicOperationsHandler;
 import com.radware.vision.infra.testhandlers.cli.CliOperations;
-import cucumber.api.PendingException;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 
@@ -104,9 +104,9 @@ public class GeneralSteps extends BddCliTestBase {
         BasicOperationsHandler.delay(60*waitTime);
     }
 
-    @Then("^UI Select Element with label \"([^\"]*)\" and params \"([^\"]*)\"$")
-    public void uiSelectElementWithLabelAndParams(String label, String params){
-
+    @Then("^UI (UnSelect|Select) Element with label \"([^\"]*)\" and params \"([^\"]*)\"$")
+    public void uiSelectElementWithLabelAndParams(String selectOrUnselect, String label, String params) throws Exception {
+        WebUiTools.check(label, params, selectOrUnselect.equalsIgnoreCase("select"));
     }
 
     private enum ServerLogType {
