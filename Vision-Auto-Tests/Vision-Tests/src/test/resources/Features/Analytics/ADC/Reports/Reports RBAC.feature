@@ -13,9 +13,9 @@ Feature: DPM - ADC Reports RBAC
     * REST Vision Install License Request "vision-reporting-module-ADC"
     Given UI Login with user "sys_admin" and password "radware"
     When UI Navigate to "ADC Reports" page via homePage
-    Given UI "Create" Report With Name "App_Rejith_32326515:88 Report"
+    Given UI "Create" Report With Name "App Report"
       | Template | reportType:Application , Widgets:[Requests per Second] ,Applications:[Rejith_32326515:88] |
-    Then UI "Validate" Report With Name "App_Rejith_32326515:88 Report"
+    Then UI "Validate" Report With Name "App Report"
       | Template | reportType:Application , Widgets:[Requests per Second] ,Applications:[Rejith_32326515:88] |
 
 
@@ -35,10 +35,10 @@ Feature: DPM - ADC Reports RBAC
 
 
     Then UI Click Button "My Reports Tab"
-    Then UI Validate Element Existence By Label "My Report" if Exists "true" with value "App_Rejith_32326515:88 Report"
+    Then UI Validate Element Existence By Label "My Report" if Exists "true" with value "App Report"
     Then UI Validate Element Existence By Label "My Report" if Exists "true" with value "Alteon_172.17.164.17 Report"
 
-    Then UI Delete Report With Name "App_Rejith_32326515:88 Report"
+    Then UI Delete Report With Name "App Report"
     Then UI Delete Report With Name "Alteon_172.17.164.17 Report"
 
 
