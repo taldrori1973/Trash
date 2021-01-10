@@ -13,9 +13,9 @@ Feature: DPM - ADC Reports RBAC
     * REST Vision Install License Request "vision-reporting-module-ADC"
     Given UI Login with user "sys_admin" and password "radware"
     When UI Navigate to "ADC Reports" page via homePage
-    Given UI "Create" Report With Name "App_Rejith_32326515:88"
+    Given UI "Create" Report With Name "App_Rejith_32326515:88 Report"
       | Template | reportType:Application , Widgets:[Requests per Second] ,Applications:[Rejith_32326515:88] |
-    Then UI "Validate" Report With Name "App_Rejith_32326515:88"
+    Then UI "Validate" Report With Name "App_Rejith_32326515:88 Report"
       | Template | reportType:Application , Widgets:[Requests per Second] ,Applications:[Rejith_32326515:88] |
 
 
@@ -23,15 +23,23 @@ Feature: DPM - ADC Reports RBAC
 #      | reportType | DefensePro Behavioral Protections Dashboard |
 #      | devices    | virts:[Rejith:88, Rejith:443]               |
 
-    Given UI "Create" Report With Name "Alteon_172.17.164.17"
+    Given UI "Create" Report With Name "Alteon_172.17.164.17 Report"
       | Template | reportType:System and Network , Widgets:[Ports Traffic Information] , Applications:[Alteon_172.17.164.17] |
-    Then UI "Validate" Report With Name "Alteon_172.17.164.17"
+    Then UI "Validate" Report With Name "Alteon_172.17.164.17 Report"
       | Template | reportType:System and Network , Widgets:[Ports Traffic Information] , Applications:[Alteon_172.17.164.17] |
 
 
 #    Then UI "Create" DPMReport With Name "All_devices"
 #      | reportType | Network Report         |
 #      | devices    | virts:[Rejith:88, Rejith:443] |
+
+
+    Then UI Click Button "My Reports Tab"
+    Then UI Validate Element Existence By Label "My Report" if Exists "true" with value "App_Rejith_32326515:88 Report"
+    Then UI Validate Element Existence By Label "My Report" if Exists "true" with value "Alteon_172.17.164.17 Report"
+
+    Then UI Delete Report With Name "App_Rejith_32326515:88 Report"
+    Then UI Delete Report With Name "Alteon_172.17.164.17 Report"
 
 
   @SID_3
