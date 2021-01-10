@@ -4,7 +4,7 @@ Feature: RBAC Menu
 
   @SID_1
   Scenario: Login And Go to Vision
-    Given UI Login with user "sys_admin" and password "radware"
+    Given UI Login with user "radware" and password "radware"
     Given UI Go To Vision
     Given UI Navigate to page "System->User Management->Local Users"
 
@@ -442,7 +442,7 @@ Feature: RBAC Menu
 
   @SID_20
   Scenario Outline: Delete All Users
-    Given UI Login with user "sys_admin" and password "radware"
+    Given UI Login with user "radware" and password "radware"
     Given UI Go To Vision
     Given UI Navigate to page "System->User Management->Local Users"
     When UI Delete User With User Name "<User Name>"

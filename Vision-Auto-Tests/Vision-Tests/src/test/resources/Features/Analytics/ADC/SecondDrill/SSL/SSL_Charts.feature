@@ -1,3 +1,4 @@
+@run
 @Analytics_ADC @TC105978
 @SSL_Charts
 Feature: ADC dashboard Second Drill - SSL
@@ -19,9 +20,9 @@ Feature: ADC dashboard Second Drill - SSL
 
   @SID_4
   Scenario: Login
-    Then REST Login with user "sys_admin" and password "radware"
+    Then REST Login with user "radware" and password "radware"
     Then REST Vision Install License Request "vision-reporting-module-ADC"
-    Then UI Login with user "sys_admin" and password "radware"
+    Then UI Login with user "radware" and password "radware"
     When UI Navigate to "Application Dashboard" page via homePage
 
 
