@@ -12,6 +12,7 @@ import com.radware.vision.infra.testhandlers.baseoperations.BasicOperationsHandl
 import com.radware.vision.infra.testhandlers.cli.CliOperations;
 import com.radware.vision.infra.utils.WebUIStringsVision;
 import com.radware.vision.utils.RegexUtils;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.How;
 
 import java.util.ArrayList;
@@ -113,7 +114,29 @@ public class LocalUsersHandler {
 
     public static void deleteUser(String username) {
         NavigateHereIfNeedTo();
-        localUsers.deleteUser("User Name", username);
+        try{
+            WebElement element = WebUIUtils.fluentWait(new ComponentLocator(How.ID, "gwt-debug-totalRows").getBy(), WebUIUtils.DEFAULT_WAIT_TIME, false);
+            int totalRows = Integer.parseInt(Arrays.asList(element.getText().split(": ")).get(1));
+
+            for(int i = 0; i<totalRows; i++){
+                element = WebUIUtils.fluentWait(new ComponentLocator(How.ID, "gwt-debug-User_RowID_"+ i +"_CellID_name").getBy(), WebUIUtils.DEFAULT_WAIT_TIME, false);
+                if(element.getText().equalsIgnoreCase(username)){
+
+                    element = WebUIUtils.fluentWait(new ComponentLocator(How.CSS,"#gwt-debug-User_RowID_"+ i +"_CellID_name #close").getBy(), WebUIUtils.DEFAULT_WAIT_TIME, false);
+                    element.click();
+
+                    element = WebUIUtils.fluentWait(new ComponentLocator(How.ID, "gwt-debug-Dialog_Box_Yes").getBy(), WebUIUtils.DEFAULT_WAIT_TIME, false);
+                    element.click();
+                    break;
+                }
+        }
+
+        }catch(Exception e){
+            BaseTestUtils.report("Failed to delete the user: "+ username + e.getCause(), Reporter.FAIL);
+
+        }
+
+
     }
 
     public static void enableUser(String username) {
