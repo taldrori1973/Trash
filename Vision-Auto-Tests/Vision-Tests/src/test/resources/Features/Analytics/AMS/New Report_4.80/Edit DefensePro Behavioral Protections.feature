@@ -40,74 +40,59 @@ Feature:Edit DefensePro Behavioral Protections
       | share                 | Email:[automation.vision1@radware.com],Subject:mySubject,Body:myBody                                                                                    |
       | Format                | Select: PDF                                                                                                                                             |
 
-
   @SID_4
-  Scenario: Add Template Widget to DefensePro Behavioral Protections 1
-    Given UI "Edit" Report With Name "DefensePro Behavioral Protections Report"
-      | Template-1 | reportType:DefensePro Behavioral Protections, AddWidgets:[{BDoS-UDP:[IPv4, bps,Outbound]}], devices:[{deviceIndex:10, devicePolicies:[BDOS]}] |
-    Then UI "Validate" Report With Name "DefensePro Behavioral Protections Report"
-      | Template-1 | reportType:DefensePro Behavioral Protections, Widgets:[{DNS-SOA:[IPv4]},{BDoS-UDP:[IPv4, bps,Outbound]}], devices:[{deviceIndex:10, devicePolicies:[BDOS]}] |
-
-  @SID_5
   Scenario: Add Template Widget to DefensePro Behavioral Protections 2
     Given UI "Edit" Report With Name "DefensePro Behavioral Protections Report"
       | Template-2 | reportType:DefensePro Behavioral Protections, AddWidgets:[{BDoS-TCP SYN:[IPv6, bps, Outbound]}], devices:[{deviceIndex:10, devicePolicies:[BDOS]}] |
     Then UI "Validate" Report With Name "DefensePro Behavioral Protections Report"
       | Template-2 | reportType:DefensePro Behavioral Protections, Widgets:[{Excluded UDP Traffic:[IPv6, bps, Outbound]},{BDoS-TCP SYN:[IPv6, bps, Outbound]}], devices:[{deviceIndex:10, devicePolicies:[BDOS]}] |
 
-  @SID_6
-  Scenario: Delete Template Widget from DefensePro Behavioral Protections 1
+  @SID_5
+  Scenario: Delete Template Widget from DefensePro Behavioral Protections 2
     Given UI "Edit" Report With Name "DefensePro Behavioral Protections Report"
       | Template-2 | reportType:DefensePro Behavioral Protections, DeleteWidgets:[{BDoS-TCP SYN:[IPv6, bps, Outbound]}], devices:[{deviceIndex:10, devicePolicies:[BDOS]}] |
     Then UI "Validate" Report With Name "DefensePro Behavioral Protections Report"
       | Template-2 | reportType:DefensePro Behavioral Protections, Widgets:[{Excluded UDP Traffic:[IPv6, bps, Outbound]}], devices:[{deviceIndex:10, devicePolicies:[BDOS]}] |
 
-  @SID_7
-  Scenario: Edit Template Devices from DefensePro Behavioral Protections Report 1
-    Given UI "Edit" Report With Name "DefensePro Behavioral Protections Report"
-      | Template-1 | reportType:DefensePro Behavioral Protections,devices:[{deviceIndex:11, devicePolicies:[BDOS]}] |
-    Then UI "Validate" Report With Name "DefensePro Behavioral Protections Report"
-      | Template-1 | reportType:DefensePro Behavioral Protections, Widgets:[{DNS-SOA:[IPv4]},{BDoS-UDP:[IPv4, bps,Outbound]}], devices:[{deviceIndex:11, devicePolicies:[BDOS]}] |
-
-  @SID_8
+  @SID_6
   Scenario: Edit Template Devices from DefensePro Behavioral Protections Report 2
     Given UI "Edit" Report With Name "DefensePro Behavioral Protections Report"
       | Template-2 | reportType:DefensePro Behavioral Protections,devices:[{deviceIndex:11, devicePolicies:[BDOS]}] |
     Then UI "Validate" Report With Name "DefensePro Behavioral Protections Report"
       | Template-2 | reportType:DefensePro Behavioral Protections, Widgets:[{Excluded UDP Traffic:[IPv6, bps, Outbound]}], devices:[{deviceIndex:11, devicePolicies:[BDOS]}] |
 
-  @SID_9
+  @SID_7
   Scenario:Add Template to DefensePro Behavioral Protections Report
     Given UI "Edit" Report With Name "DefensePro Behavioral Protections Report"
-      | Template-3 | reportType:DefensePro Behavioral Protections , Widgets:[{BDoS-TCP SYN ACK:[IPv4,bps,Outbound]}] ,devices:[{deviceIndex:11, devicePolicies:[BDOS]}] |
+      | Template-3 | reportType:DefensePro Behavioral Protections, Widgets:[{Excluded UDP Traffic:[IPv6, bps, Outbound]}], devices:[{deviceIndex:11, devicePolicies:[BDOS]}] |
     Then UI "Validate" Report With Name "DefensePro Behavioral Protections Report"
-      | Template-1 | reportType:DefensePro Behavioral Protections, Widgets:[{DNS-SOA:[IPv4]},{BDoS-UDP:[IPv4, bps,Outbound]}], devices:[{deviceIndex:11, devicePolicies:[BDOS]}] |
-      | Template-2 | reportType:DefensePro Behavioral Protections, Widgets:[{Excluded UDP Traffic:[IPv6, bps, Outbound]}], devices:[{deviceIndex:11, devicePolicies:[BDOS]}]     |
-      | Template-3 | reportType:DefensePro Behavioral Protections , Widgets:[{BDoS-TCP SYN ACK:[IPv4,bps,Outbound]}] ,devices:[{deviceIndex:11, devicePolicies:[BDOS]}]          |
+      | Template-1 | reportType:DefensePro Behavioral Protections, Widgets:[{DNS-SOA:[IPv4]}], devices:[{deviceIndex:10, devicePolicies:[BDOS]}]                             |
+      | Template-2 | reportType:DefensePro Behavioral Protections, Widgets:[{Excluded UDP Traffic:[IPv6, bps, Outbound]}], devices:[{deviceIndex:11, devicePolicies:[BDOS]}] |
+      | Template-3 | reportType:DefensePro Behavioral Protections, Widgets:[{Excluded UDP Traffic:[IPv6, bps, Outbound]}], devices:[{deviceIndex:11, devicePolicies:[BDOS]}] |
 
-  @SID_10
+  @SID_8
   Scenario: Delete Template from DefensePro Behavioral Protections Report
     Given UI "Edit" Report With Name "DefensePro Behavioral Protections Report"
       | Template-3 | DeleteTemplate:true |
     Then UI "Validate" Report With Name "DefensePro Behavioral Protections Report"
-      | Template-1 | reportType:DefensePro Behavioral Protections, Widgets:[{DNS-SOA:[IPv4]},{BDoS-UDP:[IPv4, bps,Outbound]}], devices:[{deviceIndex:11, devicePolicies:[BDOS]}] |
-      | Template-2 | reportType:DefensePro Behavioral Protections, Widgets:[{Excluded UDP Traffic:[IPv6, bps, Outbound]}], devices:[{deviceIndex:11, devicePolicies:[BDOS]}]     |
+      | Template-1 | reportType:DefensePro Behavioral Protections, Widgets:[{DNS-SOA:[IPv4]}], devices:[{deviceIndex:10, devicePolicies:[BDOS]}]                             |
+      | Template-2 | reportType:DefensePro Behavioral Protections, Widgets:[{Excluded UDP Traffic:[IPv6, bps, Outbound]}], devices:[{deviceIndex:11, devicePolicies:[BDOS]}] |
 
-  @SID_11
+  @SID_9
   Scenario: Edit The Time and validate
     Then UI "Edit" Report With Name "DefensePro Behavioral Protections Report"
       | Time Definitions.Date | Quick:15m |
     Then UI "Validate" Report With Name "DefensePro Behavioral Protections Report"
       | Time Definitions.Date | Quick:15m |
 
-  @SID_12
+  @SID_10
   Scenario: Edit The Format and validate
     Then UI "Edit" Report With Name "DefensePro Behavioral Protections Report"
       | Format | Select: HTML |
     Then UI "Validate" Report With Name "DefensePro Behavioral Protections Report"
       | Format | Select: HTML |
 
-  @SID_13
+  @SID_11
   Scenario: Create and validate DefensePro Behavioral Protections Report
     Then UI Click Button "New Report Tab"
     Given UI "Create" Report With Name "DefensePro Behavioral Protections Report 2"
@@ -127,7 +112,7 @@ Feature:Edit DefensePro Behavioral Protections
       | share                 | Email:[automation.vision1@radware.com],Subject:mySubject,Body:myBody                                                                                    |
       | Format                | Select: PDF                                                                                                                                             |
 
-  @SID_14
+  @SID_12
   Scenario: Edit DefensePro Behavioral Protections Report 2
     Then UI Click Button "My Reports Tab"
     Then UI Click Button "Edit Report" with value "DefensePro Behavioral Protections Report 2"
@@ -146,11 +131,11 @@ Feature:Edit DefensePro Behavioral Protections
     Then UI Text of "Save Change Message" contains "Do you want to save "DefensePro Behavioral Protections Report"?"
     Then UI Click Button "No"
 
-  @SID_15
+  @SID_13
   Scenario: Delete report
     Then UI Delete Report With Name "DefensePro Behavioral Protections Report"
     Then UI Delete Report With Name "DefensePro Behavioral Protections Report 2"
 
-  @SID_16
+  @SID_14
   Scenario: Logout
     Then UI logout and close browser
