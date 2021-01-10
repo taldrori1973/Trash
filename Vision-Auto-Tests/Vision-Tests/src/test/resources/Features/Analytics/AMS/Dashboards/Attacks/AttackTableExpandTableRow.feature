@@ -30,7 +30,7 @@ Feature: Attack Table - Expand Table Row
     When UI set "Auto Refresh" switch button to "off"
     Given UI Click Button "Accessibility Menu"
     Then UI Select Element with label "Accessibility Auto Refresh" and params "Stop Auto-Refresh"
-    Then UI Click Button "accessibility button"
+    Then UI Click Button "Accessibility Menu"
 
 
 
