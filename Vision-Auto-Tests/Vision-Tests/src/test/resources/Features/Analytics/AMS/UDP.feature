@@ -5,7 +5,7 @@ Feature: UDP widgets
   Scenario: add DP
     Then REST Login with user "radware" and password "radware"
     * REST Vision Install License Request "vision-AVA-Max-attack-capacity"
-    Then REST Add "DefensePro" Device To topology Tree with Name "10.185.2.85" and Management IP "10.185.2.85" into site "Default"
+    Then REST Add "DefensePro" Device To topology Tree with Name "DefensePro_10.185.2.85" and Management IP "10.185.2.85" into site "Default"
       | attribute            | value    |
       | cliUsername          | radware  |
       | cliPassword          | radware1 |
@@ -38,7 +38,7 @@ Feature: UDP widgets
     Then UI Do Operation "Select" item "Device Selection"
     Then UI VRM Select device from dashboard and Save Filter
       | index | ports | policies |
-      | 185   |       | test     |
+      | 185   |       | Test     |
     Then UI Validate Line Chart data "UDP Invariant Widget" with Label "Real-Time Ratio"
       | value | min |
       | 0     | 5   |
@@ -53,7 +53,7 @@ Feature: UDP widgets
   @SID_4
   Scenario: navigate DP monitoring
     And UI Navigate to "DefensePro Monitoring Dashboard" page via homePage
-    And  UI click Table row by keyValue or Index with elementLabel "Protection Policies.Table" findBy columnName "Policy Name" findBy cellValue "test"
+    And  UI click Table row by keyValue or Index with elementLabel "Protection Policies.Table" findBy columnName "Policy Name" findBy cellValue "Test"
     And UI click Table row by keyValue or Index with elementLabel "Protection Policies.Protections Table" findBy columnName "Protection Name" findBy cellValue "Behavioral DoS"
     And UI click Table row by keyValue or Index with elementLabel "Protection Policies.Events Table" findBy columnName "Attack Status" findBy cellValue "Ongoing"
     Then UI Validate Line Chart data "UDP Invariant Widget" with Label "Real-Time Ratio"
