@@ -18,7 +18,7 @@ Feature: Attack Table - Expand Table Row
     Given CLI simulate 1 attacks of type "IP_FEED_Modified" on "DefensePro" 11
     Then CLI simulate 1 attacks of type "VRM_attacks" on "DefensePro" 11 and wait 210 seconds
 
-  
+  @Test12
   @SID_3
   Scenario:  login
     Given UI Login with user "radware" and password "radware"
@@ -28,6 +28,10 @@ Feature: Attack Table - Expand Table Row
     When UI Do Operation "Select" item "Global Time Filter"
     And UI Do Operation "Select" item "Global Time Filter.Quick Range" with value "1H"
     When UI set "Auto Refresh" switch button to "off"
+    Given UI Click Button "Accessibility Menu"
+    Then UI Select Element with label "Accessibility Auto Refresh" and params "Stop Auto-Refresh"
+    Then UI Click Button "Accessibility Menu"
+
 
 
 ####################  BehavioralDOS attack tables ####################################################

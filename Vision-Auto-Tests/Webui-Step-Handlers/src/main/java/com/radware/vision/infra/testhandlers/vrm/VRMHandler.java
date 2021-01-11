@@ -756,6 +756,7 @@ public class VRMHandler {
                         switch (deviceType.toLowerCase()) {
                             case "defenseflow":
                             case "appwall":
+                            case "alteon":
                                 VisionDebugIdsManager.setLabel("Filter");
                                 TextField textField = WebUIVisionBasePage.getCurrentPage().getContainer().getTextField(VisionDebugIdsManager.getDataDebugId());
                                 BasicOperationsHandler.setTextField("Filter", "");

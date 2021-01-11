@@ -1,4 +1,3 @@
-@run
 @Analytics_ADC @TC105978
 @SSL_Charts
 Feature: ADC dashboard Second Drill - SSL
@@ -81,10 +80,10 @@ Feature: ADC dashboard Second Drill - SSL
   @SID_9
   Scenario: Validate Key Exchange Algorithms widget
     Then UI Validate Pie Chart data "Key Exchange Algorithms"
-      | label | data | offset |
-      | RSA   | 750  | 60     |
-      | DHE   | 780  | 60     |
-      | ECDHE | 810  | 60     |
+      | label | data |
+      | RSA   | 750  |
+      | DHE   | 780  |
+      | ECDHE | 810  |
 
   @SID_10
   Scenario: Validate Key Exchange Algorithms Widget attributes

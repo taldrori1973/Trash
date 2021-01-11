@@ -36,7 +36,7 @@ public class TemplateHandlers {
         String reportType = templateJsonObject.get("reportType").toString();
         addTemplateType(reportType);
         String currentTemplateName = getCurrentTemplateName(reportType);
-        addWidgets(new JSONArray(templateJsonObject.has("Widgets")?templateJsonObject.get("Widgets").toString():"[ALL]"), currentTemplateName);
+        addWidgets(new JSONArray(templateJsonObject.has("Widgets") ? templateJsonObject.get("Widgets").toString() : "[ALL]"), currentTemplateName);
         setSummaryTable(templateJsonObject, currentTemplateName);
         getScopeSelection(templateJsonObject, currentTemplateName.split(reportType).length != 0 ? currentTemplateName.split(reportType)[1] : "").create();
         Report.updateReportsTemplatesMap(reportName, templateJsonObject.get("templateAutomationID").toString(), currentTemplateName);
@@ -70,19 +70,17 @@ public class TemplateHandlers {
         List<String> widgetsList = getWidgetsList(widgets);
         List<String> widgetsToRemove = new ArrayList<>();
         List<String> widgetsTextsToRemove = new ArrayList<>();
-         widgetsList.forEach(
-                widget->
+        widgetsList.forEach(
+                widget ->
                 {
-                    if (widget.equalsIgnoreCase("all"))
-                    {
+                    if (widget.equalsIgnoreCase("all")) {
                         if (widgets.toList().get(widgetsList.indexOf(widget)).getClass().getName().contains("HashMap"))///// if ALL has widgets with options
                             selectAllOptions((HashMap) widgets.toList().get(widgetsList.indexOf(widget)), reportType);
                         widgetsTextsToRemove.add(widget);
                     }
                 });
-         widgetsList.removeAll(widgetsTextsToRemove);
-        if (widgetsTextsToRemove.isEmpty())
-         {
+        widgetsList.removeAll(widgetsTextsToRemove);
+        if (widgetsTextsToRemove.isEmpty()) {
             VisionDebugIdsManager.setLabel("canvas widget");
             VisionDebugIdsManager.setParams(reportType);
             List<WebElement> elements = WebUIUtils.fluentWaitMultiple(new ComponentLocator(How.XPATH, "//*[starts-with(@data-debug-id, '" + VisionDebugIdsManager.getDataDebugId() + "') and contains(@data-debug-id, '_RemoveButton')]").getBy(), WebUIUtils.DEFAULT_WAIT_TIME, false);
@@ -328,6 +326,7 @@ public class TemplateHandlers {
         protected void openScopeSelection() throws TargetWebElementNotFoundException {
             BasicOperationsHandler.clickButton("Open Scope Selection", getType() + templateParam);
         }
+
         public void create() throws Exception {
             openScopeSelection();
             WebUIUtils.sleep(1);
@@ -363,13 +362,11 @@ public class TemplateHandlers {
         }
 
         protected boolean isAllAndClearScopeSelection() throws Exception {
-            if(devicesJSON.length()>0)
-            {
+            if (devicesJSON.length() > 0) {
                 if (devicesJSON.get(0).toString().equalsIgnoreCase("All")) {
                     WebUiTools.check("AllScopeSelection", "", true);
                     return true;
-                }
-                else {
+                } else {
                     WebUiTools.check("AllScopeSelection", "", true);
                     WebUiTools.check("AllScopeSelection", "", false);
                     return false;
@@ -523,12 +520,12 @@ public class TemplateHandlers {
         }
     }
 
-    private static class DPBehavioralScopeSelection extends DPScopeSelection
-    {
+    private static class DPBehavioralScopeSelection extends DPScopeSelection {
 
         DPBehavioralScopeSelection(JSONArray deviceJSON, String templateParam) {
             super(deviceJSON, templateParam);
         }
+
         protected void openScopeSelection() throws TargetWebElementNotFoundException {
             BasicOperationsHandler.clickButton("Open Scope Selection", "DefensePro Behavioral Protections" + templateParam);
         }
@@ -646,7 +643,8 @@ public class TemplateHandlers {
         StringBuilder errorMessage = new StringBuilder();
         JSONArray expectedTemplates = new JSONArray(map.get("Template"));
         for (Object expectedTemplate : expectedTemplates) {
-            validateSingleTemplateDefinition(actualTemplateJSONArray, new JSONObject(expectedTemplate.toString()),templates.get(reportName).get(new JSONObject(expectedTemplate.toString()).get("templateAutomationID")), widgets, errorMessage);
+            String expectedTemplateTitle = templates.get(reportName) == null ? ((JSONObject) expectedTemplate).get("reportType").toString() : templates.get(reportName).get(new JSONObject(expectedTemplate.toString()).get("templateAutomationID"));
+            validateSingleTemplateDefinition(actualTemplateJSONArray, new JSONObject(expectedTemplate.toString()), expectedTemplateTitle, widgets, errorMessage);
         }
         return errorMessage;
     }
@@ -671,11 +669,11 @@ public class TemplateHandlers {
     }
 
     private static JSONObject validateTemplateTypeDefinition(JSONArray actualTemplateJSON, JSONObject expectedSingleTemplate, String expectedTemplateTitle, StringBuilder errorMessage) throws TargetWebElementNotFoundException {
-            for (Object singleTemplate : actualTemplateJSON) {
-                if(new JSONObject(singleTemplate.toString()).get("templateTitle").toString().equals(expectedTemplateTitle))
-                            return new JSONObject(singleTemplate.toString());
-            }
-            errorMessage.append("This expected template name " + expectedSingleTemplate + " is not exist");
+        for (Object singleTemplate : actualTemplateJSON) {
+            if (new JSONObject(singleTemplate.toString()).get("templateTitle").toString().equals(expectedTemplateTitle))
+                return new JSONObject(singleTemplate.toString());
+        }
+        errorMessage.append("This expected template name " + expectedSingleTemplate + " is not exist");
         return null;
     }
 
@@ -701,7 +699,7 @@ public class TemplateHandlers {
     private static void validateAllWidgetsSelected(JSONArray singleActualTemplate, JSONObject expectedSingleTemplate, String expectedTemplateTitle, Map<String, Integer> widgets, StringBuilder errorMessage) {
         if (singleActualTemplate.length() != widgets.get(expectedTemplateTitle.split("_")[0]))
             errorMessage.append("The all widget is not selected on the actual selected" + singleActualTemplate.length() + " and not " + widgets.get(expectedTemplateTitle.split("_")[0]));
-        else if(!new JSONArray(expectedSingleTemplate.get("Widgets").toString()).get(0).toString().getClass().getName().contains("String")){
+        else if (!new JSONArray(expectedSingleTemplate.get("Widgets").toString()).get(0).toString().getClass().getName().contains("String")) {
             JSONArray expectedWidgetOptions = new JSONArray(new JSONObject(new JSONArray(expectedSingleTemplate.get("Widgets").toString()).get(0).toString()).get("ALL").toString());
             for (Object expectedWidgetOption : expectedWidgetOptions) {
                 validateAllTheWidgetsOptions(singleActualTemplate, new JSONObject(expectedWidgetOption.toString()), expectedTemplateTitle, errorMessage);
@@ -824,7 +822,7 @@ public class TemplateHandlers {
     private static void setSummaryTable(JSONObject templateJsonObject, String templateName) {
         if (!templateJsonObject.has("showTable")) return;
         WebElement checkbox = WebUiTools.getWebElement("check summary table", templateName);
-        if (checkbox==null)
+        if (checkbox == null)
             return;
         boolean isChecked = Boolean.parseBoolean(checkbox.getAttribute("data-debug-checked"));
         switch (templateJsonObject.get("showTable").toString().toLowerCase()) {
@@ -848,12 +846,12 @@ public class TemplateHandlers {
         }
         if (templateJsonObject.has("DeleteTemplate") && Boolean.parseBoolean(templateJsonObject.get("DeleteTemplate").toString())) {
             deleteTemplate(currentTemplateName);
-            Report.deleteTemplateReport(reportName,new JSONObject(templateJsonObject.toString()).get("templateAutomationID").toString());
+            Report.deleteTemplateReport(reportName, new JSONObject(templateJsonObject.toString()).get("templateAutomationID").toString());
             return;
         }
         String reportType = templateJsonObject.get("reportType").toString();
         editTemplateWidgets(templateJsonObject, currentTemplateName);
-        if (templateJsonObject.has("devices")||templateJsonObject.has("Servers")||templateJsonObject.has("Applications")||templateJsonObject.has("Protected Objects")) {
+        if (templateJsonObject.has("devices") || templateJsonObject.has("Servers") || templateJsonObject.has("Applications") || templateJsonObject.has("Protected Objects")) {
             getScopeSelection(templateJsonObject, currentTemplateName.split(reportType).length != 0 ? currentTemplateName.split(reportType)[1] : "").create();
         }
     }
@@ -869,18 +867,20 @@ public class TemplateHandlers {
         editTemplate(templateJsonObject.get("reportType").toString());
         removeUnWantedWidgets(widgetsListToRemove, currentTemplateName);
         dragAndDropDesiredWidgets(widgetsList, currentTemplateName);
-        selectOptions(templateJsonObject.has("AddWidgets") ? new JSONArray(templateJsonObject.get("AddWidgets").toString()): null, templateJsonObject.has("AddWidgets") ?getOccurrenceMap(new JSONArray(templateJsonObject.get("AddWidgets").toString())): getOccurrenceMap(null), currentTemplateName);
+        selectOptions(templateJsonObject.has("AddWidgets") ? new JSONArray(templateJsonObject.get("AddWidgets").toString()) : null, templateJsonObject.has("AddWidgets") ? getOccurrenceMap(new JSONArray(templateJsonObject.get("AddWidgets").toString())) : getOccurrenceMap(null), currentTemplateName);
         selectOptions(editWidgets, getOccurrenceMap(editWidgets), currentTemplateName);
     }
+
     public static void expandCollapseArrowClick(String currentTemplateName) throws TargetWebElementNotFoundException {
         VisionDebugIdsManager.setLabel("Template Expand CollapseArrow");
         VisionDebugIdsManager.setParams(currentTemplateName);
         WebElement element = WebUIUtils.fluentWait(ComponentLocatorFactory.getLocatorByXpathDbgId(VisionDebugIdsManager.getDataDebugId()).getBy());
         if (element == null)
             addErrorMessage("No attribute in element that contains " + VisionDebugIdsManager.getDataDebugId() + " in this data-debug-id");
-        else if(element.getAttribute("data-debug-checked")==null || element.getAttribute("data-debug-checked").equals("false"))
+        else if (element.getAttribute("data-debug-checked") == null || element.getAttribute("data-debug-checked").equals("false"))
             BasicOperationsHandler.clickButton("Template Expand CollapseArrow", currentTemplateName);
     }
+
     private static void removeUnWantedWidgets(List<String> widgetsToRemoveDataDataDebugId, String reportType) {
         if (widgetsToRemoveDataDataDebugId == null) return;
         VisionDebugIdsManager.setLabel("selected widget");
