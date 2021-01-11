@@ -47,7 +47,7 @@ Feature: Backup and Restore
 
   @SID_8
   Scenario: Restore validation number of devices
-    Then CLI Run linux Command "mysql -prad123 vision_ng -e "select count(*) from  site_tree_elem_abs where DTYPE='Device'" | grep -v + | grep -v count" on "ROOT_SERVER_CLI" and validate result EQUALS "11"
+    Then CLI Run linux Command "mysql -prad123 vision_ng -e "select count(*) from  site_tree_elem_abs where DTYPE='Device'" | grep -v + | grep -v count" on "ROOT_SERVER_CLI" and validate result EQUALS "16"
 
   @SID_9
   Scenario: Check logs for errors
@@ -66,12 +66,12 @@ Feature: Backup and Restore
 
   @SID_11
   Scenario: Restore validation AMS report definition
-    Given UI Login with user "sys_admin" and password "radware"
+    Given UI Login with user "radware" and password "radware"
     And UI Navigate to "AMS Reports" page via homePage
     Then UI "Validate" Report With Name "Report_backup_restore"
-      | Template              | reportType:DefensePro Analytics ,devices:[{deviceIndex:10,  devicePolicies:[BDOS]}] |
-      | Time Definitions.Date | Quick:1W                                                                            |
-      | Format                | Select: HTML                                                                        |
+      | Template              | reportType:DefensePro Analytics, Widgets:[ALL], devices:[{deviceIndex:10,  devicePolicies:[BDOS]}] |
+      | Time Definitions.Date | Quick:1W                                                                                           |
+      | Format                | Select: HTML                                                                                       |
 
   @SID_12
   Scenario: Restore validation AMS report schedule

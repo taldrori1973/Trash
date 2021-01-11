@@ -101,6 +101,7 @@ public class AMSAlertsHandlers extends ForensicsHandler {
             BasicOperationsHandler.clickButton("Submit", "");
         } catch (Exception e) {
             BasicOperationsHandler.clickButton("Cancel");
+            BaseTestUtils.report("Could not terminate form due to:\n" + e.getMessage() + "\nOperation Canceled", Reporter.FAIL);
         }
     }
 

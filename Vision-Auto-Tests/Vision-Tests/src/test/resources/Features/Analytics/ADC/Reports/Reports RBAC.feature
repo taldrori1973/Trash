@@ -11,7 +11,7 @@ Feature: DPM - ADC Reports RBAC
   @SID_2
   Scenario: ADC - Login as admin and create two types of reports
     * REST Vision Install License Request "vision-reporting-module-ADC"
-    Given UI Login with user "sys_admin" and password "radware"
+    Given UI Login with user "radware" and password "radware"
     When UI Navigate to "ADC Reports" page via homePage
     Given UI "Create" Report With Name "App Report"
       | Template | reportType:Application , Widgets:[Requests per Second] ,Applications:[Rejith_32326515:88] |
