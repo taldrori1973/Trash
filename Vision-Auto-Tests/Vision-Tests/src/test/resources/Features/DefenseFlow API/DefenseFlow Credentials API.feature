@@ -27,7 +27,7 @@ Feature: DefenseFlow Credentials API
   Scenario: Verify config-sync is using the new username
     Then Sleep "120"
     Then CLI Operations - Run Root Session command "clear"
-    Then CLI Run linux Command "cat /opt/radware/storage/maintenance/logs/config.sync.log | grep "username"|tail -1|awk -F"password" '{print$1}'|awk -F"username " '{print$2}'" on "ROOT_SERVER_CLI" and validate result EQUALS "userN" with runCommand delay 60
+    Then CLI Run linux Command "cat /opt/radware/storage/maintenance/logs/config.sync.log | grep "username"|tail -1|awk -F"password" '{print$1}'|awk -F"username " '{print$2}'" on "ROOT_SERVER_CLI" and validate result EQUALS "userN" Retry 60 seconds
 
   @SID_6
   Scenario: Change DF credentials

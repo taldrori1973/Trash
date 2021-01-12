@@ -32,11 +32,11 @@ Feature: APSolute Vision Reporter Functionality
 
   @SID_6
   Scenario: Validate AVR restart flag cleared
-    Then CLI Run linux Command "ll /opt/radware/storage/maintenance/avr_need_to_restart.txt |wc -l" on "ROOT_SERVER_CLI" and validate result EQUALS "0" with timeOut 660
+    Then CLI Run linux Command "ll /opt/radware/storage/maintenance/avr_need_to_restart.txt |wc -l" on "ROOT_SERVER_CLI" and validate result EQUALS "0" Retry 660 seconds
 
   @SID_7
   Scenario: Validate AVR restarted
-    Then CLI Run linux Command "grep -o -a "Starting APSolute Vision Reporter Server" /var/avr/diaglogs/mainenginediag.log" on "ROOT_SERVER_CLI" and validate result EQUALS "Starting APSolute Vision Reporter Server" with timeOut 300
+    Then CLI Run linux Command "grep -o -a "Starting APSolute Vision Reporter Server" /var/avr/diaglogs/mainenginediag.log" on "ROOT_SERVER_CLI" and validate result EQUALS "Starting APSolute Vision Reporter Server" Retry 300 seconds
 
   @SID_8
   Scenario: Set APSolute Vision Reporter - Parameters

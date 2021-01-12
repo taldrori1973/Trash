@@ -38,7 +38,7 @@ Feature: DefensePro Network Policy Upload to Server
 
   @SID_6
   Scenario: Delete Network policy from vision
-    Then CLI Run linux Command "/Delete_network_Policy.sh device_exported_file auto_import" on "ROOT_SERVER_CLI" and validate result CONTAINS ""status":"ok"" in any line with timeOut 5
+    Then CLI Run linux Command "/Delete_network_Policy.sh device_exported_file auto_import" on "ROOT_SERVER_CLI" and validate result CONTAINS ""status":"ok"" in any line
 
   @SID_7
   Scenario: Verify Network policy deleted in vision
