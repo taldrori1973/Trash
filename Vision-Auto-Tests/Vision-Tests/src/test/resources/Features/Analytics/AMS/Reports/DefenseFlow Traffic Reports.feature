@@ -66,7 +66,7 @@ Feature: DefenseFlow Traffic Reports
     Then Sleep "35"
 
   @SID_8
-  Scenario: Validate Report Email recieved content
+  Scenario: Validate Report Email received content
     Then CLI Run linux Command "cat /var/spool/mail/reportuser|tr -d "="|tr -d "\n"|grep -o "Subject: DefenseFlow Traffic report" |wc -l" on "GENERIC_LINUX_SERVER" and validate result EQUALS "1"
 
     Then CLI Run remote linux Command "ripmime -i /var/mail/reportuser -d /home/radware/attachments/TC112396" on "GENERIC_LINUX_SERVER"

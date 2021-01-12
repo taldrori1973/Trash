@@ -6,6 +6,7 @@ Feature: AppWall Reports
   Scenario: Clear data
     * CLI kill all simulator attacks on current vision
     * REST Vision Install License Request "vision-AVA-Max-attack-capacity"
+    * REST Vision Install License Request "vision-AVA-AppWall"
     * REST Delete ES index "appwall-v2-attack*"
     * REST Delete ES index "vrm-scheduled-report-*"
     * CLI Clear vision logs

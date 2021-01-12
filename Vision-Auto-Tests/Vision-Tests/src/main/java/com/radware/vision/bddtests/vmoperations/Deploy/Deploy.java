@@ -28,10 +28,10 @@ public abstract class Deploy {
         this.isExtended = isExtended;
         this.build = build;
         this.version = readVisionVersionFromPomFile();
-        this.featureBranch = "4.80.00";
-//        this.featureBranch = BaseTestUtils.getRuntimeProperty("BRANCH","master");
-//        this.repositoryName = "vision-snapshot-local";
-        this.repositoryName = "vision-release-local";
+//        this.featureBranch = "4.81.00";
+        this.featureBranch = BaseTestUtils.getRuntimeProperty("BRANCH","master");
+        this.repositoryName = "vision-snapshot-local";
+//        this.repositoryName = "vision-release-local";
         this.ipaddress = ipaddress;
         isSetupNeeded();
     }

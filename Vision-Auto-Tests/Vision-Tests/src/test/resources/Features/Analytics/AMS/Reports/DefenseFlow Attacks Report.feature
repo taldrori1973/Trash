@@ -98,7 +98,7 @@ Feature: DefenseFlow Attacks Reports
     Then UI Validate Element Existence By Label "Reports List Item" if Exists "false" with value "OverallDFReport"
 
   @SID_11
-  Scenario: Validate Report Email recieved content
+  Scenario: Validate Report Email received content
     Then CLI Run remote linux Command "cat /var/spool/mail/reportuser > /tmp/reportdelivery.log" on "GENERIC_LINUX_SERVER"
     Then CLI Run linux Command "grep "X-Original-To: DF_attack@report.local" /var/spool/mail/reportuser |wc -l" on "GENERIC_LINUX_SERVER" and validate result EQUALS "1"
 
