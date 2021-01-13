@@ -1,3 +1,4 @@
+@TC119057
 Feature: GRE and Ip in Ip
 
   @SID_1
@@ -39,6 +40,13 @@ Feature: GRE and Ip in Ip
   @SID_7
   Scenario: validate the protocol in DP attack dashboard
     When UI Navigate to "DefensePro Attacks" page via homePage
+    Then UI Validate "Attacks Table" Table rows count EQUALS to 2
+    Then UI validate Table row by keyValue with elementLabel "Attacks Table" findBy columnName "Protocol" findBy cellValue "GRE"
+      | columnName | value |
+      | Protocol   | GRE   |
+    Then UI validate Table row by keyValue with elementLabel "Attacks Table" findBy columnName "Protocol" findBy cellValue "IP in IP"
+      | columnName | value    |
+      | Protocol   | IP in IP |
 
 
 
