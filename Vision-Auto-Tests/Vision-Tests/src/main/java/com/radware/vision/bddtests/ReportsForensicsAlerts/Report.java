@@ -37,7 +37,6 @@ public class Report extends ReportsForensicsAlertsAbstract {
         try {
             closeReport(false);
             WebUiTools.check("New Report Tab", "", true);
-            WebUiTools.check("Report Parameter Menu", "", true);
             createReportParameters(reportName, map);
             selectTemplates(map,reportName);
             BasicOperationsHandler.clickButton("save");
@@ -102,7 +101,7 @@ public class Report extends ReportsForensicsAlertsAbstract {
     }
 
     private void expandReportParameters() throws Exception {
-        WebUiTools.check("Report Parameter Menu", "", true);
+        WebUiTools.check("Report Parameter Menu", "", false);
     }
 
     private void createReportParameters(String reportName, Map<String, String> map) throws Exception {
