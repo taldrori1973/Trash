@@ -54,6 +54,10 @@ public class Report extends ReportsForensicsAlertsAbstract {
     }
 
     private boolean reportCreated(String reportName) throws Exception {
+        if (WebUiTools.getWebElement("save") != null)
+        {
+            WebUIUtils.sleep(10);
+        }
         WebUiTools.check("My Reports Tab", "", true);
         if (BasicOperationsHandler.isElementExists("My Report", true, reportName))
             return true;
