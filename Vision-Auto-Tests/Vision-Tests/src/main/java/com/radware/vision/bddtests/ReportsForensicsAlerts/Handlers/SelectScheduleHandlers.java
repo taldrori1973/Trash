@@ -105,6 +105,7 @@ public class SelectScheduleHandlers {
                 WebUIUtils.fluentWait(new ComponentLocator(How.XPATH, "//*[@class='ant-time-picker-input']").getBy()).click();
                 WebElement timeElement = WebUIUtils.fluentWait(new ComponentLocator(How.XPATH, "//*[@class='ant-time-picker-panel-select'][" + i + "]//li[.='"+ timePartsArray[i-1] + "']").getBy());
                 WebUIUtils.scrollIntoView(timeElement);
+                WebUIUtils.sleep(2);
                 timeElement.click();
                 WebUiTools.getWebElement("apply Time Button").click();
             }
