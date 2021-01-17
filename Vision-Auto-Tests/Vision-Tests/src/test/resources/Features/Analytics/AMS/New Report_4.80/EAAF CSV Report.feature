@@ -55,9 +55,8 @@ Feature: EAAF CSV Report
 
   @SID_8
   Scenario: generate report
-    Then UI Click Button "My Report" with value "EAAF CSV"
-    Then UI Click Button "Generate Report Manually" with value "EAAF CSV"
-    Then Sleep "35"
+    Then UI "Generate" Report With Name "EAAF CSV"
+      | timeOut | 60 |
 
   @SID_9
   Scenario: VRM report unzip local CSV file
