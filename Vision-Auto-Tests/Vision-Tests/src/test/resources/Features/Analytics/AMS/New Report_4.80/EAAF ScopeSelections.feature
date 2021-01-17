@@ -42,24 +42,30 @@ Feature: EAAF ScopeSelections Reports
     Then UI Delete Report With Name "EAAF Report with device index 11 and Policies BDOS and 1_https"
 
   @SID_7
-  Scenario: Validate Disable to change policy
+  Scenario: Validate Enable and Disable to change policy
     Then UI Click Button "New Report Tab"
     Then UI Set Text Field "Report Name" To "EAAF Report Disable to change policy"
     Then UI Click Button "Add Template" with value "EAAF"
     Then UI Click Button "Open Scope Selection" with value "EAAF"
-    Then UI Click Button "EAAF_RationScopeSelection" with value "172.16.22.50"
+    And UI VRM Select device from dashboard and Save Filter
+      | index | ports | policies |
+      | 10    |       |          |
+    Then UI Click Button "Open Scope Selection" with value "EAAF"
     Then UI Validate Element Existence By Label "EAAFScopeSelectionChange" if Exists "true" with value "172.16.22.50_disabled"
     Then UI Validate Element Existence By Label "EAAFScopeSelectionChange" if Exists "false" with value "172.16.22.50"
     Then UI Click Button "SaveEAAFScopeSelection"
     Then UI Click Button "save"
 
   @SID_8
-  Scenario: Validate Enable to change policy
+  Scenario: Validate Enable and Enable to change policy
     Then UI Click Button "New Report Tab"
     Then UI Set Text Field "Report Name" To "EAAF Report Enable to change policy"
     Then UI Click Button "Add Template" with value "EAAF"
     Then UI Click Button "Open Scope Selection" with value "EAAF"
-    Then UI Click Button "EAAF_RationScopeSelection" with value "172.16.22.51"
+    And UI VRM Select device from dashboard and Save Filter
+      | index | ports | policies |
+      | 11    |       | 1_https  |
+    Then UI Click Button "Open Scope Selection" with value "EAAF"
     Then UI Validate Element Existence By Label "EAAFScopeSelectionChange" if Exists "false" with value "172.16.22.51_disabled"
     Then UI Validate Element Existence By Label "EAAFScopeSelectionChange" if Exists "true" with value "172.16.22.51"
     Then UI Click Button "EAAFScopeSelectionChange" with value "172.16.22.51"
@@ -71,7 +77,6 @@ Feature: EAAF ScopeSelections Reports
   Scenario: Delete reports
     Then UI Delete Report With Name "EAAF Report Disable to change policy"
     Then UI Delete Report With Name "EAAF Report Enable to change policy"
-
 
   @SID_10
   Scenario: Logout
