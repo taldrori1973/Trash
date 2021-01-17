@@ -29,8 +29,8 @@ public abstract class Deploy {
         this.build = build;
         this.version = readVisionVersionFromPomFile();
 //        this.featureBranch = "4.81.00";
-        this.featureBranch = BaseTestUtils.getRuntimeProperty("BRANCH","master");
-        this.repositoryName = "vision-snapshot-local";
+        this.featureBranch = BaseTestUtils.getRuntimeProperty("PRDCT_BRANCH", "master"); // default branch master
+        this.repositoryName = BaseTestUtils.getRuntimeProperty("DVERSION", "vision-snapshot-local");
 //        this.repositoryName = "vision-release-local";
         this.ipaddress = ipaddress;
         isSetupNeeded();
