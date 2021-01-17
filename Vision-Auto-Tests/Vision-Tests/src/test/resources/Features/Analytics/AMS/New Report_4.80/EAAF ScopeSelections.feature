@@ -42,7 +42,7 @@ Feature: EAAF ScopeSelections Reports
     Then UI Delete Report With Name "EAAF Report with device index 11 and Policies BDOS and 1_https"
 
   @SID_7
-  Scenario: Validate Enable and Disable to change policy
+  Scenario: Validate Disable to change policy
     Then UI Click Button "New Report Tab"
     Then UI Set Text Field "Report Name" To "EAAF Report Disable to change policy"
     Then UI Click Button "Add Template" with value "EAAF"
@@ -54,7 +54,7 @@ Feature: EAAF ScopeSelections Reports
     Then UI Click Button "save"
 
   @SID_8
-  Scenario: Validate Enable and Enable to change policy
+  Scenario: Validate Enable to change policy
     Then UI Click Button "New Report Tab"
     Then UI Set Text Field "Report Name" To "EAAF Report Enable to change policy"
     Then UI Click Button "Add Template" with value "EAAF"
