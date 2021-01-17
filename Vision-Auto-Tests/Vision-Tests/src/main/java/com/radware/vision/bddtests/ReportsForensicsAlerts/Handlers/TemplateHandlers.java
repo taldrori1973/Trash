@@ -608,101 +608,12 @@ public class TemplateHandlers {
     }
 
 
-    private static class EAAFScopeSelection extends ScopeSelection {
+    private static class EAAFScopeSelection extends DPScopeSelection {
         EAAFScopeSelection(JSONArray deviceJSONArray, String templateParam) {
             super(deviceJSONArray, templateParam);
             type = "EAAF";
             saveButtonText = "SaveEAAFScopeSelection";
         }
-        @Override
-        public void create() throws Exception {
-            openScopeSelection();
-            WebUIUtils.sleep(1);
-            if (!isAllAndClearScopeSelection()) {
-                for (Object deviceJSON : devicesJSON) {
-                    selectDevice(getDeviceIp(((JSONObject) deviceJSON).get("deviceIndex").toString()), true);
-                    ArrayList devicePolicies = (ArrayList) ((JSONObject) deviceJSON).toMap().getOrDefault("devicePolicies", null);
-                    BasicOperationsHandler.clickButton("DPScopeSelectionChange", getDeviceIp(((JSONObject) deviceJSON).get("deviceIndex").toString()));
-                    selectPolicies( devicePolicies , "DPPolicyCheck", "DPPoliciesFilter" ,((JSONObject) deviceJSON).get("deviceIndex").toString() );
-                }
-            }
-
-            BasicOperationsHandler.clickButton(getSaveButtonText(), "");
-            if (WebUiTools.getWebElement("close scope selection") != null)
-                BasicOperationsHandler.clickButton("close scope selection");
-        }
-        private void selectPolicies(ArrayList devicePolicies, String dpPolicyCheck, String policyFileter,String deviceIndex) throws Exception {
-            if (devicePolicies != null) {
-                WebUITextField policyText = new WebUITextField(WebUiTools.getComponentLocator(policyFileter, getDeviceIp(deviceIndex)));
-                for (Object policy : devicePolicies) {
-                    policyText.type(policy.toString().trim());
-                    checkSpecificPolicy(dpPolicyCheck, policy,deviceIndex);
-                }
-            }
-        }
-        private String getDeviceIp(String deviceIndex) throws Exception {
-            return devicesManager.getDeviceInfo(SUTDeviceType.DefensePro, deviceIndex.matches("\\d+") ? Integer.valueOf(deviceIndex) : -1).getDeviceIp();
-        }
-        private void checkSpecificPolicy(String dpPolicyCheck, Object policy,String deviceIndex) throws Exception {
-            try {
-                WebUiTools.check(dpPolicyCheck, new String[]{getDeviceIp(deviceIndex), policy.toString()}, true);
-            } catch (Exception e) {
-                if (e.getMessage().startsWith("No Element with"))
-                    throw new Exception("No Element with label" + dpPolicyCheck + " and params " + getDeviceIp(deviceIndex) + " and " + policy.toString());
-                throw e;
-            }
-        }
-
-        @Override
-        public void validate(JSONArray actualTemplatesDeviceJSON, StringBuilder errorMessage) throws Exception {
-            if (devicesJSON.length() == 1 && devicesJSON.get(0).equals("All"))
-                allDevicesSelected(actualTemplatesDeviceJSON, errorMessage);
-            else {
-                JSONArray actualDevicesTemplateArrayJSON = getActualDevicesJSONArray(actualTemplatesDeviceJSON);
-                if (actualDevicesTemplateArrayJSON.length() != devicesJSON.length())
-                    errorMessage.append("The actual templateDevice size " + actualTemplatesDeviceJSON.length() + " is not equal to expected templateDevice size " + devicesJSON.length()).append("\n");
-                else if (actualDevicesTemplateArrayJSON != null) {
-                    for (Object expectedDeviceJSON : devicesJSON) {
-                        JSONObject actualTemplateDevice = getActualDeviceIndex(actualTemplatesDeviceJSON,((JSONObject) expectedDeviceJSON).get("deviceIndex").toString());
-                        if(actualTemplateDevice != null)
-                            compareDevice(errorMessage,new JSONArray(actualTemplateDevice.get("policies").toString()),((JSONObject) expectedDeviceJSON).toMap().containsKey("devicePolicies") ? new JSONArray((new JSONObject((expectedDeviceJSON).toString())).get("devicePolicies").toString()) : null);
-                         else
-                            errorMessage.append("Actual Device " + actualTemplateDevice + "is not equal to expectedDevice" + toString());
-
-                    }
-                }
-            }
-        }
-        private void compareDevice(StringBuilder errorMessage, JSONArray actualDevicePoliciesOrPorts, JSONArray devicePolicies) {
-            JSONArray policiesOrPortsJSONArray = getJSONArraySelected(actualDevicePoliciesOrPorts);
-            if (devicePolicies != null) {
-                if (policiesOrPortsJSONArray.length() != devicePolicies.length())
-                    errorMessage.append("The actual templateDevice size " + policiesOrPortsJSONArray.length() + " is not equal to expected templateDevice size" + devicePolicies.length()).append("\n");
-                else {
-                    for (Object actualDevicePolicyOrPorts : policiesOrPortsJSONArray) {
-                        if (!devicePolicies.equals(new JSONObject(((JSONObject) actualDevicePolicyOrPorts).toString()).get("name")))
-                            errorMessage.append("The Actual PolicyDevice" + actualDevicePolicyOrPorts + "is not exist in expected policyDevice ");
-                    }
-                }
-            } else if (policiesOrPortsJSONArray.length() > 0)
-                errorMessage.append("The actual templateDevice size " + policiesOrPortsJSONArray.length() + " is not equal to expected templateDevice size 0").append("\n");
-        }
-        private JSONObject getActualDeviceIndex(JSONArray actualTemplatesDeviceJSON , String index) throws Exception {
-            for (Object actualTemplateDevice : actualTemplatesDeviceJSON) {
-                if(new JSONObject(actualTemplateDevice.toString().replace("\\","")).get("deviceIP").toString().equals(getDeviceIp(index)))
-                    return new JSONObject(actualTemplateDevice.toString().replace("\\", ""));
-            }
-            return null;
-        }
-        private JSONArray getActualDevicesJSONArray(JSONArray actualTemplatesDeviceJSON) {
-            JSONArray actualDevicesTemplateArrayJSON = new JSONArray();
-            for (Object object : actualTemplatesDeviceJSON) {
-                if (new JSONObject(object.toString().replace("\\", "")).get("selected").toString().equals("true"))
-                    actualDevicesTemplateArrayJSON.put(new JSONObject(object.toString().replace("\\", "")));
-            }
-            return actualDevicesTemplateArrayJSON;
-        }
-
     }
 
     public static void validateSingleTemplateDefinition(JSONArray actualTemplateJSON, JSONObject expectedSingleTemplate, String expectedTemplateTitle, Map<String, Integer> widgets, StringBuilder errorMessage) throws Exception, TargetWebElementNotFoundException {
