@@ -26,7 +26,7 @@ Feature: GET Alert API
     # max number of results
     # raisedTime
     # printf delimiter
-    Then CLI Run linux Command "/home/radware/Scripts/GET_alert_API.sh "" "DEVICE_GENERAL" "INFO" "" "DEFENSE_PRO" "1" "2019-01-01" "message"" on "GENERIC_LINUX_SERVER" and validate result CONTAINS "locked by user sys_admin" Wait For Prompt 30 seconds Retry 200 seconds
+    Then CLI Run linux Command "/home/radware/Scripts/GET_alert_API.sh "" "DEVICE_GENERAL" "INFO" "" "DEFENSE_PRO" "1" "2019-01-01" "message"" on "GENERIC_LINUX_SERVER" and validate result CONTAINS "locked by user sys_admin" Retry 200 seconds
 
   @SID_4
   Scenario:  Verify correct result for filter NUMBER OF RESULTS
@@ -34,7 +34,7 @@ Feature: GET Alert API
     Then REST Unlock Action on "DefensePro" 10
     Then Sleep "2"
     Then REST Lock Action on "DefensePro" 10
-    Then CLI Run linux Command "/home/radware/Scripts/GET_alert_API.sh "" "DEVICE_GENERAL" "INFO" "" "DEFENSE_PRO" "1" "2019-01-01" "" |grep -o "locked by"|wc -l" on "GENERIC_LINUX_SERVER" and validate result EQUALS "2" Wait For Prompt 30 seconds
+    Then CLI Run linux Command "/home/radware/Scripts/GET_alert_API.sh "" "DEVICE_GENERAL" "INFO" "" "DEFENSE_PRO" "1" "2019-01-01" "" |grep -o "locked by"|wc -l" on "GENERIC_LINUX_SERVER" and validate result EQUALS "2" Retry 200 seconds
     Then CLI Run linux Command "/home/radware/Scripts/GET_alert_API.sh "" "DEVICE_GENERAL" "INFO" "" "DEFENSE_PRO" "20" "2019-01-01" "" |grep -o "locked by"|wc -l" on "GENERIC_LINUX_SERVER" and validate result EQUALS "4"
 
   @SID_5
