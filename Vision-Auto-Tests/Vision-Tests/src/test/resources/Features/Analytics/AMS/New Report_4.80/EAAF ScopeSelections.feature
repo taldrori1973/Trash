@@ -34,17 +34,17 @@ Feature: EAAF ScopeSelections Reports
     Then UI Delete Report With Name "EAAF Report with device index 11 and Policy 1_https"
 
   @SID_6
-  Scenario: Create and validate EAAF Report with device index 11 and Policies BDOS and policy1
-    Given UI "Create" Report With Name "EAAF Report with device index 11 and Policies BDOS and policy1"
-      | Template | reportType:EAAF , Widgets:[{Top Malicious IP Addresses:[Volume]}] ,devices:[{deviceIndex:11 , devicePolicies:[BDOS,policy1]}]|
-    Then UI "Validate" Report With Name "EAAF Report with device index 11 and Policies BDOS and policy1"
-      | Template | reportType:EAAF , Widgets:[{Top Malicious IP Addresses:[Volume]}] ,devices:[{deviceIndex:11 , devicePolicies:[BDOS,policy1]}]|
-    Then UI Delete Report With Name "EAAF Report with device index 11 and Policies BDOS and policy1"
+  Scenario: Create and validate EAAF Report with device index 11 and Policies BDOS and 1_https
+    Given UI "Create" Report With Name "EAAF Report with device index 11 and Policies BDOS and 1_https"
+      | Template | reportType:EAAF , Widgets:[{Top Malicious IP Addresses:[Volume]}] ,devices:[{deviceIndex:11 , devicePolicies:[BDOS,1_https]}]|
+    Then UI "Validate" Report With Name "EAAF Report with device index 11 and Policies BDOS and 1_https"
+      | Template | reportType:EAAF , Widgets:[{Top Malicious IP Addresses:[Volume]}] ,devices:[{deviceIndex:11 , devicePolicies:[BDOS,1_https]}]|
+    Then UI Delete Report With Name "EAAF Report with device index 11 and Policies BDOS and 1_https"
 
   @SID_7
   Scenario: Validate Enable and Disable to change policy
     Then UI Click Button "New Report Tab"
-    Then UI Set Text Field "Report Name" To "EAAF Report Disable to cahnge policy"
+    Then UI Set Text Field "Report Name" To "EAAF Report Disable to change policy"
     Then UI Click Button "Add Template" with value "EAAF"
     Then UI Click Button "Open Scope Selection" with value "EAAF"
     Then UI Click Button "EAAF_RationScopeSelection" with value "172.16.22.50"
@@ -56,7 +56,7 @@ Feature: EAAF ScopeSelections Reports
   @SID_8
   Scenario: Validate Enable and Enable to change policy
     Then UI Click Button "New Report Tab"
-    Then UI Set Text Field "Report Name" To "EAAF Report Enable to cahnge policy"
+    Then UI Set Text Field "Report Name" To "EAAF Report Enable to change policy"
     Then UI Click Button "Add Template" with value "EAAF"
     Then UI Click Button "Open Scope Selection" with value "EAAF"
     Then UI Click Button "EAAF_RationScopeSelection" with value "172.16.22.51"
