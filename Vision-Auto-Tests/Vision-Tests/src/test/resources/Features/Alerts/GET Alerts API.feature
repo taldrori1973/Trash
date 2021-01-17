@@ -26,7 +26,7 @@ Feature: GET Alert API
     # max number of results
     # raisedTime
     # printf delimiter
-    Then CLI Run linux Command "/home/radware/Scripts/GET_alert_API.sh "" "DEVICE_GENERAL" "INFO" "" "DEFENSE_PRO" "1" "2019-01-01" "message"" on "GENERIC_LINUX_SERVER" and validate result CONTAINS "locked by user sys_admin" Wait For Prompt 30 seconds
+    Then CLI Run linux Command "/home/radware/Scripts/GET_alert_API.sh "" "DEVICE_GENERAL" "INFO" "" "DEFENSE_PRO" "1" "2019-01-01" "message"" on "GENERIC_LINUX_SERVER" and validate result CONTAINS "locked by user sys_admin" Wait For Prompt 30 seconds Retry 200 seconds
 
   @SID_4
   Scenario:  Verify correct result for filter NUMBER OF RESULTS
