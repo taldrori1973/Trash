@@ -44,8 +44,7 @@ Feature: DefenseFlow Credentials API
 
   @SID_8
   Scenario: Verify config-sync is using the new username
-    Then Sleep "90"
-    Then CLI Run linux Command "cat /opt/radware/storage/maintenance/logs/config.sync.log |grep "/rest/ha/view/registration-active"|tail -1|awk -F"timeout 10 " '{print$2}'" on "ROOT_SERVER_CLI" and validate result EQUALS "username radware password ****"
+    Then CLI Run linux Command "cat /opt/radware/storage/maintenance/logs/config.sync.log |grep "/rest/ha/view/registration-active"|tail -1|awk -F"timeout 10 " '{print$2}'" on "ROOT_SERVER_CLI" and validate result EQUALS "username radware password ****" Retry 200 seconds
 
   @SID_9
   Scenario: Cleanup
