@@ -1,4 +1,3 @@
-
 @TC118847
 Feature: Validate Email
 
@@ -366,11 +365,11 @@ Feature: Validate Email
     Given UI "Create" Report With Name "DefensePro Behavioral Protections Report"
       | Template | reportType:DefensePro Behavioral Protections , Widgets:[{BDoS-TCP SYN:[IPv4,pps,Outbound]}] ,devices:[{deviceIndex:11, devicePolicies:[1_https]}] |
       | Share    | Email:[maha],Subject:Validate Email,Body:Email Body                                                                                               |
-      | Format   | Select: CSV                                                                                                                                      |
+      | Format   | Select: CSV                                                                                                                                       |
     Then UI "Validate" Report With Name "DefensePro Behavioral Protections Report"
       | Template | reportType:DefensePro Behavioral Protections , Widgets:[{BDoS-TCP SYN:[IPv4,pps,Outbound]}] ,devices:[{deviceIndex:11, devicePolicies:[1_https]}] |
       | Share    | Email:[maha],Subject:Validate Email,Body:Email Body                                                                                               |
-      | Format   | Select: CSV                                                                                                                                     |
+      | Format   | Select: CSV                                                                                                                                       |
 
   @SID_49
   Scenario: Validate delivery card and generate report
@@ -562,13 +561,13 @@ Feature: Validate Email
   Scenario: Create and Validate EAAF Report
     Then UI Click Button "New Report Tab"
     Given UI "Create" Report With Name "EAAF Report"
-      | Template | reportType:EAAF , Widgets:[Totals in Selected Time Frame]      |
-      | Share    | Email:[maha],Subject:Validate Email,Body:Email Body |
-      | Format   | Select: CSV                                         |
+      | Template | reportType:EAAF , Widgets:[Totals in Selected Time Frame] ,devices:[All] |
+      | Share    | Email:[maha],Subject:Validate Email,Body:Email Body                      |
+      | Format   | Select: CSV                                                              |
     Then UI "Validate" Report With Name "EAAF Report"
-      | Template | reportType:EAAF , Widgets:[Totals in Selected Time Frame]      |
-      | Share    | Email:[maha],Subject:Validate Email,Body:Email Body |
-      | Format   | Select: CSV                                         |
+      | Template | reportType:EAAF , Widgets:[Totals in Selected Time Frame],devices:[All] |
+      | Share    | Email:[maha],Subject:Validate Email,Body:Email Body                     |
+      | Format   | Select: CSV                                                             |
 
   @SID_75
   Scenario: Validate delivery card and generate report
