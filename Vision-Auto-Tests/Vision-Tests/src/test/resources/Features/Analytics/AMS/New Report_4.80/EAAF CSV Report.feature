@@ -2,7 +2,6 @@
 Feature: EAAF CSV Report
 
 
-
   @SID_2
   Scenario: Clear old reports on file-system
     Then CLI Run remote linux Command "rm -f /opt/radware/mgt-server/third-party/tomcat/bin/VRM_report_*.zip" on "ROOT_SERVER_CLI"
@@ -26,6 +25,7 @@ Feature: EAAF CSV Report
     Then CLI Run remote linux Command "sed -i 's/vrm.scheduled.reports.delete.after.delivery=.*$/vrm.scheduled.reports.delete.after.delivery=false/g' /opt/radware/mgt-server/third-party/tomcat/conf/reporter.properties" on "ROOT_SERVER_CLI"
     Then CLI Run remote linux Command "/opt/radware/mgt-server/bin/collectors_service.sh restart" on "ROOT_SERVER_CLI" with timeOut 720
     Then CLI Run linux Command "/opt/radware/mgt-server/bin/collectors_service.sh status" on "ROOT_SERVER_CLI" and validate result EQUALS "APSolute Vision Collectors Server is running." with timeOut 240
+
   @SID_4
   Scenario: Run DP simulator PCAPs for EAAF widgets and arrange the data for automation needs
     # run EAAF attacks PCAP - this PCAP is the ONLY RELEVANT PCAP FOR THIS TEST FILE
@@ -45,13 +45,13 @@ Feature: EAAF CSV Report
   @SID_7
   Scenario: create new Total Hits Summary1
     Given UI "Create" Report With Name "EAAF CSV"
-      | Template              | reportType:EAAF , Widgets:[ALL] |
-      | Time Definitions.Date | Quick:15m                       |
-      | Format                | Select: CSV                     |
+      | Template              | reportType:EAAF , Widgets:[ALL],devices:[All] |
+      | Time Definitions.Date | Quick:15m                                     |
+      | Format                | Select: CSV                                   |
     Then UI "Validate" Report With Name "EAAF CSV"
-      | Template              | reportType:EAAF , Widgets:[ALL] |
-      | Time Definitions.Date | Quick:15m                       |
-      | Format                | Select: CSV                     |
+      | Template              | reportType:EAAF , Widgets:[ALL],devices:[All] |
+      | Time Definitions.Date | Quick:15m                                     |
+      | Format                | Select: CSV                                   |
 
   @SID_8
   Scenario: generate report
@@ -63,6 +63,7 @@ Feature: EAAF CSV Report
     Then CLI Run remote linux Command "unzip -o -d /opt/radware/mgt-server/third-party/tomcat/bin/ /opt/radware/mgt-server/third-party/tomcat/bin/VRM_report_*.zip" on "ROOT_SERVER_CLI"
     Then CLI Run remote linux Command "unzip -o -d /opt/radware/mgt-server/third-party/tomcat/bin/ /opt/radware/mgt-server/third-party/tomcat/bin/VRM_report_*.zip" on "ROOT_SERVER_CLI"
     Then Sleep "10"
+
   @SID_10
   Scenario: EAAF report validate CSV file Totals in Selected Time Frame number of lines
     Then CLI Run linux Command "cat "/opt/radware/mgt-server/third-party/tomcat/bin/Totals in Selected Time Frame-EAAF.csv" |wc -l" on "ROOT_SERVER_CLI" and validate result EQUALS "2"
