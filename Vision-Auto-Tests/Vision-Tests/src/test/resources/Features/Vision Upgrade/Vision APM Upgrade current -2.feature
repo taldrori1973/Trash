@@ -158,10 +158,6 @@ Feature: Vision APM Upgrade current -2
 
   @SID_17
   Scenario: Visit device subscription page
-#       Then REST Request "GET" for "Device Subscriptions->Table"
-#       | type                 | value |
-#       | Returned status code | 200   |
-
     Then CLI Run linux Command "result=`curl -ks -X "POST" "https://localhost/mgmt/system/user/login" -H "Content-Type: application/json" -d $"{\"username\": \"radware\",\"password\": \"radware\"}"`; jsession=`echo $result | tr "," "\n"|grep -i jsession|tr -d '"' | cut -d: -f2`; curl -ks -o null -XGET -H "Cookie: JSESSIONID=$jsession" https://localhost/mgmt/system/config/itemlist/devicesubscriptions -w 'RESP_CODE:%{response_code}\n'" on "ROOT_SERVER_CLI" and validate result EQUALS "RESP_CODE:200" Retry 300 seconds
     Then CLI Operations - Verify that output contains regex "RESP_CODE:200"
 
