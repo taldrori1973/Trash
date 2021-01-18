@@ -8,13 +8,16 @@ import com.radware.automation.webui.WebUIUtils;
 import com.radware.automation.webui.widgets.ComponentLocator;
 import com.radware.automation.webui.widgets.ComponentLocatorFactory;
 import com.radware.automation.webui.widgets.api.Widget;
+import com.radware.automation.webui.widgets.impl.WebUICheckbox;
 import com.radware.automation.webui.widgets.impl.table.WebUITable;
 import com.radware.restcore.VisionRestClient;
 import com.radware.vision.automation.AutoUtils.Operators.OperatorsEnum;
+import com.radware.vision.automation.tools.exceptions.selenium.TargetWebElementNotFoundException;
 import com.radware.vision.automation.tools.sutsystemobjects.devicesinfo.DeviceInfo;
 import com.radware.vision.automation.tools.sutsystemobjects.devicesinfo.enums.SUTDeviceType;
 import com.radware.vision.base.WebUITestSetup;
 import com.radware.vision.bddtests.BddUITestBase;
+import com.radware.vision.bddtests.ReportsForensicsAlerts.Report;
 import com.radware.vision.bddtests.ReportsForensicsAlerts.WebUiTools;
 import com.radware.vision.infra.base.pages.navigation.HomePage;
 import com.radware.vision.infra.base.pages.navigation.WebUIVisionBasePage;
@@ -24,17 +27,21 @@ import com.radware.vision.infra.testhandlers.baseoperations.BasicOperationsHandl
 import com.radware.vision.infra.testhandlers.baseoperations.clickoperations.ClickOperationsHandler;
 import com.radware.vision.infra.testhandlers.topologytree.TopologyTreeHandler;
 import com.radware.vision.infra.testhandlers.vrm.VRMHandler;
+import com.radware.vision.infra.utils.ReportsUtils;
 import com.radware.vision.infra.utils.TimeUtils;
 import com.radware.vision.infra.utils.VisionWebUIUtils;
+import cucumber.api.PendingException;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
 import jsystem.framework.RunProperties;
-import org.openqa.selenium.By;
-import org.openqa.selenium.Keys;
-import org.openqa.selenium.WebElement;
+import org.openqa.selenium.*;
 import org.openqa.selenium.support.How;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.FluentWait;
+import org.openqa.selenium.support.ui.Wait;
 
+import java.time.Duration;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
@@ -665,6 +672,11 @@ public class BasicOperationsSteps extends BddUITestBase {
             monthsDifference = monthsDifference>0?monthsDifference-1:monthsDifference+1;
         }
         WebUiTools.getWebElement(label, params).findElement(By.xpath("./..//td[@data-value='" + scheduleTime.getDayOfMonth() + "'][not(contains(@class,'rdtOld'))]")).click();
+    }
+
+    @Then("^UI Validate Deletion of report instance \"([^\"]*)\" with value \"([^\"]*)\"$")
+    public void uiValidateDeletionOfReportInstanceWithValue(String label, String params) throws Exception {
+        new Report().deletionReportInstance(label,params);
     }
 
     public static class ParamterSelected{

@@ -4,6 +4,9 @@ import com.radware.automation.tools.basetest.BaseTestUtils;
 import com.radware.automation.tools.basetest.Reporter;
 import com.radware.automation.webui.VisionDebugIdsManager;
 import com.radware.automation.webui.WebUIUtils;
+import com.radware.automation.webui.widgets.ComponentLocator;
+import com.radware.automation.webui.widgets.ComponentLocatorFactory;
+import com.radware.automation.webui.widgets.impl.WebUICheckbox;
 import com.radware.vision.automation.tools.exceptions.selenium.TargetWebElementNotFoundException;
 import com.radware.vision.infra.base.pages.navigation.WebUIVisionBasePage;
 import com.radware.vision.infra.testhandlers.baseoperations.BasicOperationsHandler;
@@ -24,6 +27,8 @@ import java.util.*;
 import static com.radware.vision.infra.testhandlers.BaseHandler.restTestBase;
 import static com.radware.vision.bddtests.ReportsForensicsAlerts.WebUiTools.getWebElement;
 import com.radware.vision.bddtests.ReportsForensicsAlerts.Handlers.SelectScheduleHandlers;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.How;
 
 
 abstract class ReportsForensicsAlertsAbstract implements ReportsForensicsAlertsInterface {
@@ -214,13 +219,13 @@ abstract class ReportsForensicsAlertsAbstract implements ReportsForensicsAlertsI
 
     public void baseOperation(vrmActions operationType, String name,String negative, Map<String, String> entry, RootServerCli rootServerCli) throws Exception {
         Map<String, String> map = null;
-        if (operationType != vrmActions.GENERATE)
+        if (operationType != vrmActions.GENERATE) {
             map = CustomizedJsonManager.fixJson(entry);
-        if (isOldDesign(map)) {
-            fixMapToSupportOldDesign(name,map);
+            if (isOldDesign(map)) {
+                fixMapToSupportOldDesign(name, map);
+            }
+            fixTemplateMap(map);
         }
-        fixTemplateMap(map);
-
         switch (operationType.name().toUpperCase()) {
             case "CREATE":
                 create(name,negative, map);
@@ -232,7 +237,7 @@ abstract class ReportsForensicsAlertsAbstract implements ReportsForensicsAlertsI
                 edit(name, map);
                 break;
             case "GENERATE":
-                generate(name);
+                generate(name, entry);
                 break;
             case "ISEXIST":
                 break;
@@ -303,12 +308,29 @@ abstract class ReportsForensicsAlertsAbstract implements ReportsForensicsAlertsI
         map.put("Template", newTemplateObject.toString());
     }
 
-    public void generate(String name) throws TargetWebElementNotFoundException {
-        BasicOperationsHandler.setTextField("Search input", name);
+    public void generate(String name, Map<String, String> map) throws Exception {
+        BasicOperationsHandler.setTextField("Search Report", name);
         BasicOperationsHandler.clickButton("My Report", name);
+        String oldDate = "";
+        String[] generateReportParam = {name, "0"};
+        if (WebUiTools.getWebElement("Views.reportIndex", generateReportParam) != null)
+            oldDate = WebUiTools.getWebElement("Views.reportIndex", generateReportParam).getText();
         BasicOperationsHandler.clickButton("Generate Report Manually", name);
 
-
+        int remainWaitingInSeconds = Integer.valueOf(map.get("timeOut"));
+        while (WebUIUtils.fluentWait(new ComponentLocator(How.XPATH, "//*[@data-debug-id='list-item_" + name + "']//div[@class='loading-dots--dot-red']").getBy()) != null && remainWaitingInSeconds > 0)
+        {
+            WebUIUtils.sleep(1);
+            remainWaitingInSeconds--;
+        }
+        remainWaitingInSeconds = 20;
+        while (oldDate.equalsIgnoreCase(WebUiTools.getWebElement("Views.reportIndex", generateReportParam).getText()) && remainWaitingInSeconds > 0)
+        {
+            WebUIUtils.sleep(1);
+            remainWaitingInSeconds--;
+        }
+        if (oldDate.equalsIgnoreCase(WebUiTools.getWebElement("Views.reportIndex", generateReportParam).getText()))
+            throw new Exception("Generate " + name + " report has failed");
     }
 
     @Override
@@ -323,6 +345,20 @@ abstract class ReportsForensicsAlertsAbstract implements ReportsForensicsAlertsI
                 BaseTestUtils.report("Failed to delete report name: " + reportName, Reporter.FAIL);
         }
 
+    }
+
+    public void deletionReportInstance(String label, String params) throws Exception{
+        VisionDebugIdsManager.setLabel("Show Report Time Generated");
+        VisionDebugIdsManager.setParams(params);
+        String TimeReport =WebUIUtils.fluentWait(ComponentLocatorFactory.getEqualLocatorByDbgId(VisionDebugIdsManager.getDataDebugId()).getBy()).getText();
+        BasicOperationsHandler.clickButton("Deletion Report Instance",params);
+        confirmDeleteReport("confirm Delete Report",params.split("_")[0]);
+        WebUIUtils.sleep(3);
+        VisionDebugIdsManager.setLabel("Show Report Time Generated");
+        VisionDebugIdsManager.setParams(params);
+        WebElement element = WebUIUtils.fluentWait(ComponentLocatorFactory.getLocatorByXpathDbgId(VisionDebugIdsManager.getDataDebugId()).getBy());
+        if (element != null && element.getText().equalsIgnoreCase(TimeReport))
+            BaseTestUtils.report("No Report Generate at this time" +TimeReport, Reporter.FAIL);
     }
 
     public static void confirmDeleteReport(String label, String params) throws TargetWebElementNotFoundException {

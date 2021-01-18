@@ -1,6 +1,7 @@
 @TC108785
 Feature: Backup and Restore
 
+
   @SID_1
   Scenario: Pre upgrade changes
     * CLI Clear vision logs
@@ -39,7 +40,6 @@ Feature: Backup and Restore
     * REST Vision Install License Request "vision-reporting-module-ADC"
     * REST Vision Install License Request "vision-RTUMAX"
 
-
   @SID_7
   Scenario: Restore validation authentication mode
     When CLI Operations - Run Radware Session command "system user authentication-mode get"
@@ -62,7 +62,7 @@ Feature: Backup and Restore
 
   @SID_10
   Scenario: Restore validation hostname
-    Then CLI Run linux Command "hostname" on "ROOT_SERVER_CLI" and validate result EQUALS "my.auto.vision"
+    Then CLI Run linux Command "hostname" on "ROOT_SERVER_CLI" and validate result EQUALS "vision.radware"
 
   @SID_11
   Scenario: Restore validation AMS report definition
@@ -115,17 +115,17 @@ Feature: Backup and Restore
     Then UI Logout
     Then CLI Operations - Run Radware Session command "system user authentication-mode set TACACS+"
 
-  @SID_18
-  Scenario: Restore validation Scheduled tasks triggers
-    Then CLI Run linux Command "mysql -prad123 quartz -NB -e "select CRON_EXPRESSION from qrtz_cron_triggers where TRIGGER_NAME like '%AttackDesc%';"" on "ROOT_SERVER_CLI" and validate result EQUALS "0 30 1 ? * *"
-    Then CLI Run linux Command "mysql -prad123 quartz -NB -e "select CRON_EXPRESSION from qrtz_cron_triggers where TRIGGER_NAME like '%OperatorToolbox%';"" on "ROOT_SERVER_CLI" and validate result EQUALS "0 1 12 ? * 2"
+#  @SID_18
+#  Scenario: Restore validation Scheduled tasks triggers
+#    Then CLI Run linux Command "mysql -prad123 quartz -NB -e "select CRON_EXPRESSION from qrtz_cron_triggers where TRIGGER_NAME like '%AttackDesc%';"" on "ROOT_SERVER_CLI" and validate result EQUALS "0 30 1 ? * *"
+#    Then CLI Run linux Command "mysql -prad123 quartz -NB -e "select CRON_EXPRESSION from qrtz_cron_triggers where TRIGGER_NAME like '%OperatorToolbox%';"" on "ROOT_SERVER_CLI" and validate result EQUALS "0 1 12 ? * 2"
 
   @SID_19
   Scenario: Restore validation SSL certificate
     When CLI Operations - Run Radware Session command "system ssl show | grep Name"
-    Then CLI Operations - Verify that output contains regex ".*my.auto.vision.*"
+    Then CLI Operations - Verify that output contains regex ".*APSolute Vision Server.*"
     When CLI Operations - Run Radware Session command "system ssl show | grep Unit"
-    Then CLI Operations - Verify that output contains regex ".*floor9.*"
+    Then CLI Operations - Verify that output contains regex ".*NA*"
 
   @SID_20
   Scenario: Restore validation fluentd listening port

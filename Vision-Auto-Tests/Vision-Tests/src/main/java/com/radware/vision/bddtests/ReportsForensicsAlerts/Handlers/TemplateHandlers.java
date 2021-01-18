@@ -56,8 +56,8 @@ public class TemplateHandlers {
             case "APPLICATION":
                 return new ApplicationScopeSelection(new JSONArray(templateJsonObject.get("Applications").toString()), templateParam);
             case "EAAF":
-//                return new EAAFScopeSelection(new JSONArray(templateJsonObject.get("devices").toString()), templateParam);
-                return new EAAFScopeSelection(new JSONArray(), templateParam);
+                return new EAAFScopeSelection(new JSONArray(templateJsonObject.get("devices").toString()), templateParam);
+       //         return new EAAFScopeSelection(new JSONArray(), templateParam);
             case "DEFENSEPRO BEHAVIORAL PROTECTIONS":
                 return new DPBehavioralScopeSelection(new JSONArray(templateJsonObject.get("devices").toString()), templateParam);
             case "DEFENSEPRO ANALYTICS":
@@ -522,7 +522,7 @@ public class TemplateHandlers {
 
     private static class DPBehavioralScopeSelection extends DPScopeSelection {
 
-        DPBehavioralScopeSelection(JSONArray deviceJSON, String templateParam) {
+         DPBehavioralScopeSelection(JSONArray deviceJSON, String templateParam) {
             super(deviceJSON, templateParam);
         }
 
@@ -608,25 +608,12 @@ public class TemplateHandlers {
     }
 
 
-    private static class EAAFScopeSelection extends ScopeSelection {
-
+    private static class EAAFScopeSelection extends DPScopeSelection {
         EAAFScopeSelection(JSONArray deviceJSONArray, String templateParam) {
             super(deviceJSONArray, templateParam);
             type = "EAAF";
-            saveButtonText = null;
+            saveButtonText = "SaveEAAFScopeSelection";
         }
-
-
-        @Override
-        public void create() {
-
-        }
-
-        @Override
-        public void validate(JSONArray actualTemplateDeviceJSON, StringBuilder errorMessage) throws Exception {
-
-        }
-
     }
 
     public static void validateSingleTemplateDefinition(JSONArray actualTemplateJSON, JSONObject expectedSingleTemplate, String expectedTemplateTitle, Map<String, Integer> widgets, StringBuilder errorMessage) throws Exception, TargetWebElementNotFoundException {

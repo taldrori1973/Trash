@@ -75,10 +75,8 @@ Feature: AppWall CSV Report
 
   @SID_8
   Scenario: generate report
-    Then UI Click Button "My Report" with value "Automation AppWall CSV Report"
-    Then UI Click Button "Generate Report Manually" with value "Automation AppWall CSV Report"
-    Then Sleep "35"
-
+    Then UI "Generate" Report With Name "Automation AppWall CSV Report"
+      | timeOut | 60 |
 
   @SID_7
   Scenario: VRM report unzip local CSV file

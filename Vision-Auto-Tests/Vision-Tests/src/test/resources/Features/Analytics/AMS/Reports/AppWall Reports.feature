@@ -110,9 +110,8 @@ Feature: AppWall Reports
 
   @SID_9
   Scenario: Generate Report Validation
-    Then UI Click Button "My Report" with value "OverAllAppWallReport"
-    Then UI Click Button "Generate Report Manually" with value "OverAllAppWallReport"
-    Then Sleep "35"
+    Then UI "Generate" Report With Name "OverAllAppWallReport"
+      | timeOut | 60 |
 
   @SID_10
   Scenario: Delete Report Validation
@@ -130,10 +129,8 @@ Feature: AppWall Reports
       | Template              | reportType:AppWall , Widgets:[All] , Applications:[All] , showTable:false|
       | Share           | Email:[automation.vision1@radware.com, also@report.local],Subject:report delivery Subject AW |
 
-    Then UI Click Button "My Report" with value "deliveryAW"
-    Then UI Click Button "Generate Report Manually" with value "deliveryAW"
-    Then Sleep "35"
-
+    Then UI "Generate" Report With Name "deliveryAW"
+      | timeOut | 60 |
 
   @SID_12
   Scenario: Validate Report Email Recieved Content
@@ -201,9 +198,8 @@ Feature: AppWall Reports
       | Time Definitions.Date | Quick:1H          |
       | Format                | Select: CSV       |
 
-    Then UI Click Button "My Report" with value "1HourBeforeReport"
-    Then UI Click Button "Generate Report Manually" with value "1HourBeforeReport"
-    Then Sleep "35"
+    Then UI "Generate" Report With Name "1HourBeforeReport"
+      | timeOut | 60 |
 
 
   @SID_17
@@ -217,10 +213,8 @@ Feature: AppWall Reports
       | Time Definitions.Date | Relative:[Days,2]                      |
       | Format                | Select: CSV                            |
 
-    Then UI Click Button "My Report" with value "2DaysBeforeReport"
-    Then UI Click Button "Generate Report Manually" with value "2DaysBeforeReport"
-    Then Sleep "35"
-
+    Then UI "Generate" Report With Name "2DaysBeforeReport"
+      | timeOut | 60 |
 
   @SID_18
   Scenario: Validate Credential of sec_mon User
