@@ -10,6 +10,9 @@ import com.radware.vision.thirdPartyAPIs.jFrog.models.FileType;
 import com.radware.vision.thirdPartyAPIs.jFrog.models.JFrogFileModel;
 import lombok.Getter;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import static com.radware.vision.bddtests.vmoperations.VMOperationsSteps.readVisionVersionFromPomFile;
 
 @Getter
@@ -23,6 +26,10 @@ public abstract class Deploy {
     JFrogFileModel buildFileInfo;
     public boolean isSetupNeeded;
     private String ipaddress;
+    private static final Map<String, String> Respository_types = new HashMap<String, String>() {{
+        put("Snapshot", "vision-snapshot-local");
+        put("Release", "vision-release-local");
+    }};
 
     public Deploy(boolean isExtended, String build, String ipaddress) {
         this.isExtended = isExtended;
@@ -30,7 +37,7 @@ public abstract class Deploy {
         this.version = readVisionVersionFromPomFile();
 //        this.featureBranch = "4.81.00";
         this.featureBranch = BaseTestUtils.getRuntimeProperty("PRDCT_BRANCH", "master"); // default branch master
-        this.repositoryName = BaseTestUtils.getRuntimeProperty("DVERSION", "vision-snapshot-local");
+        this.repositoryName =Respository_types.get(BaseTestUtils.getRuntimeProperty("BuildType", "Snapshot"));
 //        this.repositoryName = "vision-release-local";
         this.ipaddress = ipaddress;
         isSetupNeeded();
