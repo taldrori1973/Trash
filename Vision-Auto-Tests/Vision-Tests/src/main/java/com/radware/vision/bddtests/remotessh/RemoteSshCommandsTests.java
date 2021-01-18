@@ -215,7 +215,7 @@ public class RemoteSshCommandsTests extends BddCliTestBase {
         try {
             waitForPrompt = waitForPrompt != null ? waitForPrompt * 1000 : CliOperations.DEFAULT_TIME_OUT;
             boolean bTestSuccess;
-            int iInterval = 15;
+            int iInterval = 5;
             if(iRetryFor==null)
                 iRetryFor=0;
 
