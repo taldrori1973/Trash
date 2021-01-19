@@ -78,9 +78,8 @@ Feature: DefensePro Analytics CSV Report
 #
   @SID_7
   Scenario: generate report
-    Then UI Click Button "My Report" with value "DP Analytics csv"
-    Then UI Click Button "Generate Report Manually" with value "DP Analytics csv"
-    Then Sleep "35"
+    Then UI "Generate" Report With Name "DP Analytics csv"
+      | timeOut | 60 |
 
 #########################todo
 #

@@ -64,9 +64,8 @@ Feature:  Report AMS analytics CSV Validations
 
   @SID_7
   Scenario: Validate delivery card and generate report
-    Then UI Click Button "My Report" with value "TC108070"
-    Then UI Click Button "Generate Report Manually" with value "TC108070"
-    Then Sleep "35"
+    Then UI "Generate" Report With Name "TC108070"
+      | timeOut | 60 |
 
   @SID_8
   Scenario: Validate Report Email received content

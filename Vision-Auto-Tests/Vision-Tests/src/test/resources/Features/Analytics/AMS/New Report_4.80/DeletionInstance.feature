@@ -25,9 +25,9 @@ Feature: Deletion Instance
 
   @SID_4
   Scenario: Validate delivery card and generate report
-    Then UI Click Button "My Report" with value "DefensePro Analytics Report"
-    Then UI Click Button "Generate Report Manually" with value "DefensePro Analytics Report"
-    Then Sleep "35"
+    Then UI "Generate" Report With Name "DefensePro Analytics Report"
+      | timeOut | 60 |
+
 
   @SID_5
   Scenario: Edit The Format and validate
@@ -38,9 +38,8 @@ Feature: Deletion Instance
 
   @SID_6
   Scenario: Validate delivery card and generate report
-    Then UI Click Button "My Report" with value "DefensePro Analytics Report"
-    Then UI Click Button "Generate Report Manually" with value "DefensePro Analytics Report"
-    Then Sleep "35"
+    Then UI "Generate" Report With Name "DefensePro Analytics Report"
+      | timeOut | 60 |
 
   @SID_7
   Scenario: Edit The Time and validate
@@ -51,9 +50,8 @@ Feature: Deletion Instance
 
   @SID_8
   Scenario: Validate delivery card and generate report
-    Then UI Click Button "My Report" with value "DefensePro Analytics Report"
-    Then UI Click Button "Generate Report Manually" with value "DefensePro Analytics Report"
-    Then Sleep "35"
+    Then UI "Generate" Report With Name "DefensePro Analytics Report"
+      | timeOut | 60 |
 
   @SID_9
   Scenario: Deletion Report Instance
@@ -70,9 +68,8 @@ Feature: Deletion Instance
 
   @SID_11
   Scenario: Validate delivery card and generate report
-    Then UI Click Button "My Report" with value "DefensePro Analytics Report"
-    Then UI Click Button "Generate Report Manually" with value "DefensePro Analytics Report"
-    Then Sleep "35"
+    Then UI "Generate" Report With Name "DefensePro Analytics Report"
+      | timeOut | 60 |
 
   @SID_12
   Scenario: Edit The Share Email and validate
@@ -83,9 +80,8 @@ Feature: Deletion Instance
 
   @SID_13
   Scenario: Validate delivery card and generate report
-    Then UI Click Button "My Report" with value "DefensePro Analytics Report"
-    Then UI Click Button "Generate Report Manually" with value "DefensePro Analytics Report"
-    Then Sleep "35"
+    Then UI "Generate" Report With Name "DefensePro Analytics Report"
+      | timeOut | 60 |
 
   @SID_14
   Scenario: Deletion Report Instance

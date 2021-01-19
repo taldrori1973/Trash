@@ -14,55 +14,55 @@ Feature: Edit EAAF tests
   Scenario: Create and validate EAAF Report
     Then UI Click Button "New Report Tab"
     Given UI "Create" Report With Name "EAAF Report"
-      | Template-1            | reportType:EAAF , Widgets:[{Top Malicious IP Addresses:[Packets]}]    |
-      | Template-2            | reportType:EAAF , Widgets:[Total Hits Summary]                        |
-      | Logo                  | reportLogoPNG.png                                                     |
-      | Time Definitions.Date | Quick:1D                                                              |
-      | Schedule              | Run Every:Daily ,On Time:+2m                                          |
-      | share                 | Email:[automation.vision1@radw are.com],Subject:mySubject,Body:myBody |
-      | Format                | Select: PDF                                                           |
+      | Template-1            | reportType:EAAF , Widgets:[{Top Malicious IP Addresses:[Packets]}],devices:[All] |
+      | Template-2            | reportType:EAAF , Widgets:[Total Hits Summary]                                   |
+      | Logo                  | reportLogoPNG.png                                                                |
+      | Time Definitions.Date | Quick:1D                                                                         |
+      | Schedule              | Run Every:Daily ,On Time:+2m                                                     |
+      | share                 | Email:[automation.vision1@radw are.com],Subject:mySubject,Body:myBody            |
+      | Format                | Select: PDF                                                                      |
     Then UI "Validate" Report With Name "EAAF Report"
-      | Template-1            | reportType:EAAF , Widgets:[{Top Malicious IP Addresses:[Packets]}]   |
-      | Template-2            | reportType:EAAF , Widgets:[Total Hits Summary]                       |
-      | Logo                  | reportLogoPNG.png                                                    |
-      | Time Definitions.Date | Quick:1D                                                             |
-      | Schedule              | Run Every:Daily ,On Time:+2m                                         |
-      | share                 | Email:[automation.vision1@radware.com],Subject:mySubject,Body:myBody |
-      | Format                | Select: PDF                                                          |
+      | Template-1            | reportType:EAAF , Widgets:[{Top Malicious IP Addresses:[Packets]}],devices:[All] |
+      | Template-2            | reportType:EAAF , Widgets:[Total Hits Summary]                                   |
+      | Logo                  | reportLogoPNG.png                                                                |
+      | Time Definitions.Date | Quick:1D                                                                         |
+      | Schedule              | Run Every:Daily ,On Time:+2m                                                     |
+      | share                 | Email:[automation.vision1@radware.com],Subject:mySubject,Body:myBody             |
+      | Format                | Select: PDF                                                                      |
 
 
   @SID_4
   Scenario: Add Template Widget to EAAF
     Given UI "Edit" Report With Name "EAAF Report"
-      | Template-1 | reportType:EAAF , AddWidgets:[{Top Attacking Geolocations:[Events]}] |
+      | Template-1 | reportType:EAAF , AddWidgets:[{Top Attacking Geolocations:[Events]}],devices:[All] |
     Then UI "Validate" Report With Name "EAAF Report"
-      | Template-1 | reportType:EAAF , Widgets:[{Top Malicious IP Addresses:[Packets]},{Top Attacking Geolocations:[Events]}] |
+      | Template-1 | reportType:EAAF , Widgets:[{Top Malicious IP Addresses:[Packets]},{Top Attacking Geolocations:[Events]}],devices:[All] |
 
 
   @SID_5
   Scenario: Delete Template Widget from EAAF
     Given UI "Edit" Report With Name "EAAF Report"
-      | Template-1 | reportType:EAAF , DeleteWidgets:[{Top Attacking Geolocations:[Events]}] |
+      | Template-1 | reportType:EAAF , DeleteWidgets:[{Top Attacking Geolocations:[Events]}],devices:[All] |
     Then UI "Validate" Report With Name "EAAF Report"
-      | Template-1 | reportType:EAAF , Widgets:[{Top Malicious IP Addresses:[Packets]}] |
+      | Template-1 | reportType:EAAF , Widgets:[{Top Malicious IP Addresses:[Packets]}],devices:[All] |
 
 
   @SID_6
   Scenario:Add Template to EAAF Report
     Given UI "Edit" Report With Name "EAAF Report"
-      | Template-3 | reportType:EAAF , Widgets:[{EAAF Hits Timeline:[Volume]}] |
+      | Template-3 | reportType:EAAF , Widgets:[{EAAF Hits Timeline:[Volume]}],devices:[All] |
     Then UI "Validate" Report With Name "EAAF Report"
-      | Template-1 | reportType:EAAF , Widgets:[{Top Malicious IP Addresses:[Packets]}] |
-      | Template-2 | reportType:EAAF , Widgets:[Total Hits Summary]                     |
-      | Template-3 | reportType:EAAF , Widgets:[{EAAF Hits Timeline:[Volume]}]          |
+      | Template-1 | reportType:EAAF , Widgets:[{Top Malicious IP Addresses:[Packets]}],devices:[All] |
+      | Template-2 | reportType:EAAF , Widgets:[Total Hits Summary],devices:[All]                     |
+      | Template-3 | reportType:EAAF , Widgets:[{EAAF Hits Timeline:[Volume]}],devices:[All]          |
 
   @SID_7
   Scenario: Delete Template from EAAF
     Given UI "Edit" Report With Name "EAAF Report"
       | Template-3 | DeleteTemplate:true |
     Then UI "Validate" Report With Name "EAAF Report"
-      | Template-1 | reportType:EAAF , Widgets:[{Top Malicious IP Addresses:[Packets]}] |
-      | Template-2 | reportType:EAAF , Widgets:[Total Hits Summary]                     |
+      | Template-1 | reportType:EAAF , Widgets:[{Top Malicious IP Addresses:[Packets]}],devices:[All] |
+      | Template-2 | reportType:EAAF , Widgets:[Total Hits Summary],devices:[All]                     |
 
   @SID_8
   Scenario: Edit The Time and validate
@@ -83,15 +83,15 @@ Feature: Edit EAAF tests
   Scenario: Create and validate EAAF Report2
     Then UI Click Button "New Report Tab"
     Given UI "Create" Report With Name "EAAF Report2"
-      | Template              | reportType:EAAF , Widgets:[Total Hits Summary,{Top Malicious IP Addresses:[Volume]}] |
-      | Logo                  | reportLogoPNG.png                                                                    |
-      | Time Definitions.Date | Quick:15m                                                                            |
-      | Format                | Select: CSV                                                                          |
+      | Template              | reportType:EAAF , Widgets:[Total Hits Summary,{Top Malicious IP Addresses:[Volume]}],devices:[All] |
+      | Logo                  | reportLogoPNG.png                                                                                  |
+      | Time Definitions.Date | Quick:15m                                                                                          |
+      | Format                | Select: CSV                                                                                        |
     Then UI "Validate" Report With Name "EAAF Report2"
-      | Template              | reportType:EAAF , Widgets:[Total Hits Summary,{Top Malicious IP Addresses:[Volume]}] |
-      | Logo                  | reportLogoPNG.png                                                                    |
-      | Time Definitions.Date | Quick:15m                                                                            |
-      | Format                | Select: CSV                                                                          |
+      | Template              | reportType:EAAF , Widgets:[Total Hits Summary,{Top Malicious IP Addresses:[Volume]}],devices:[All] |
+      | Logo                  | reportLogoPNG.png                                                                                  |
+      | Time Definitions.Date | Quick:15m                                                                                          |
+      | Format                | Select: CSV                                                                                        |
 
   @SID_11
   Scenario: Edit DefensePro Analytics Report2 report name
