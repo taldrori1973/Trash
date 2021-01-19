@@ -77,6 +77,11 @@ public class ReportSteps extends BddUITestBase {
         new Report().baseOperation(operationType, reportName, negative, reportsEntry, restTestBase.getRootServerCli());
     }
 
+    @Then("^UI Open Report Parameters$")
+    public void uiOpenReportParameters() throws Throwable {
+        Report.expandReportParameters();
+    }
+
     @Then("^UI Delete Report With Name \"([^\"]*)\"( negative)?$")
     public void uiReportWithName(String reportName,String negative) throws Throwable {
         new Report().delete(reportName);

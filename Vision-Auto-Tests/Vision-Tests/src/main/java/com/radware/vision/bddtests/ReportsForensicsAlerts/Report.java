@@ -104,7 +104,7 @@ public class Report extends ReportsForensicsAlertsAbstract {
 
     }
 
-    private void expandReportParameters() throws Exception {
+    public static void expandReportParameters() throws Exception {
         WebUiTools.check("Report Parameter Menu", "", false);
     }
 
