@@ -39,7 +39,6 @@ Feature: JBOSS WATCHDOG
       | JBOSS_WD | start jboss_watchdog_execution | EXPECTED     |
       | JBOSS_WD | Health check successful        | EXPECTED     |
       | JBOSS_WD | Number of threads .*           | EXPECTED     |
-      | JBOSS_WD | Jboss server is up             | EXPECTED     |
       | JBOSS_WD | Restarting jboss               | NOT_EXPECTED |
 
   @SID_4
