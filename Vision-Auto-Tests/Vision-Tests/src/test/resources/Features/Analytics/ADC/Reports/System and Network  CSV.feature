@@ -31,9 +31,8 @@ Feature: ADC System and Network Generate CSV Report
 
   @SID_5
   Scenario: Validate delivery card and generate report
-    Then UI Click Button "My Report" with value "ADC System and Network Report"
-    Then UI Click Button "Generate Report Manually" with value "ADC System and Network Report"
-    Then Sleep "35"
+    Then UI "Generate" Report With Name "ADC System and Network Report"
+      | timeOut | 60 |
 
   @SID_6
   Scenario: VRM report unzip local CSV file
