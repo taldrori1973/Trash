@@ -76,7 +76,6 @@ Feature: EAAF Scope selection
       | 10    |       |                   |
       | 11    |       | 1_https,Policy150 |
 
-    Then UI Do Operation "Select" item "Device Selection"
     Then UI Text of "Device Selection.Available Devices header" with extension "" equal to "Devices2/3"
     Then UI Validate Element Existence By Label "DPScopeSelectionChange" if Exists "true" with value "172.16.22.50_disabled"
     Then UI Do Operation "Select" item "Device Selection"
