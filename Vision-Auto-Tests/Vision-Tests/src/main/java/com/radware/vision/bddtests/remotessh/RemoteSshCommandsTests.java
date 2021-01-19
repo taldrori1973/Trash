@@ -218,7 +218,7 @@ public class RemoteSshCommandsTests extends BddCliTestBase {
             int iInterval = 5;
             if(iRetryFor==null)
                 iRetryFor=0;
-            else iRetryFor = iRetryFor * 1000;
+            iRetryFor = iRetryFor * 1000;
 
             long startTime = System.currentTimeMillis();
 
