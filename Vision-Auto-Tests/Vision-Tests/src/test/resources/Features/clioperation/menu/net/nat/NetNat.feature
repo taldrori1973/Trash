@@ -65,6 +65,8 @@ Feature: Net Nat CLI Tests
   @SID_11
   Scenario: Verify services are running
     Then CLI Connect Root
+    Then CLI Run remote linux Command "service mgtsrv restart" on "ROOT_SERVER_CLI" with timeOut 360
+    # ToDo remove after services bug fix
     Then CLI Run linux Command "service mgtsrv status" on "ROOT_SERVER_CLI" and validate result CONTAINS "APSolute Vision Reporter is running" in any line Retry 600 seconds
     Then CLI Run linux Command "service mgtsrv status" on "ROOT_SERVER_CLI" and validate result CONTAINS "AMQP service is running" in any line Retry 600 seconds
     Then CLI Run linux Command "service mgtsrv status" on "ROOT_SERVER_CLI" and validate result CONTAINS "Configuration server is running" in any line Retry 900 seconds
