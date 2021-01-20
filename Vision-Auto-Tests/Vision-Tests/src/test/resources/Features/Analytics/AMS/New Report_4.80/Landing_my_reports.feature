@@ -37,7 +37,7 @@ Feature: Landing my reports basic tests
     Then UI Validate the attribute of "data-debug-checked" are "EQUAL" to
       | label          | param | value |
       | New Report Tab |       | false |
-      | My Reports Tab |       | true  |
+      | My Report Tab |       | true  |
 
   @SID_5
   Scenario: Validate Enable and Disable the Generate By Schedule

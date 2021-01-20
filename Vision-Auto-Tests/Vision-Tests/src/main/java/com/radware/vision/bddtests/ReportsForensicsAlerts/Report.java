@@ -26,6 +26,11 @@ import java.util.Map;
 public class Report extends ReportsForensicsAlertsAbstract {
     private String errorMessage="";
 
+
+    public void expandReportParameters() throws Exception {
+        WebUiTools.check(getType() + " Parameter Menu", "", false);
+    }
+
     @Override
     public void create(String reportName,String negative, Map<String, String> map) throws Exception {
 
@@ -58,7 +63,7 @@ public class Report extends ReportsForensicsAlertsAbstract {
         {
             WebUIUtils.sleep(10);
         }
-        WebUiTools.check("My Reports Tab", "", true);
+        WebUiTools.check("My Report Tab", "", true);
         if (BasicOperationsHandler.isElementExists("My Report", true, reportName))
             return true;
         WebUIUtils.sleep(2);
@@ -102,10 +107,6 @@ public class Report extends ReportsForensicsAlertsAbstract {
     }
     private void editTemplate(Object template) {
 
-    }
-
-    public static void expandReportParameters() throws Exception {
-        WebUiTools.check("Report Parameter Menu", "", false);
     }
 
     private void createReportParameters(String reportName, Map<String, String> map) throws Exception {
