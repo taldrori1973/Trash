@@ -94,7 +94,7 @@ Feature: Edit AMS Report tests
 
   @SID_9
   Scenario: Edit Dp Analytics and DF Analytics and HTTPS Flood Report2 report name
-    Then UI Click Button "My Reports Tab"
+    Then UI Click Button "My Report Tab"
     Then UI Click Button "Edit Report" with value "Dp Analytics and DF Analytics and HTTPS Flood Report2"
     Then UI Set Text Field "Report Name" To "Dp Analytics and DF Analytics and HTTPS Flood Report"
     Then UI Click Button "save"

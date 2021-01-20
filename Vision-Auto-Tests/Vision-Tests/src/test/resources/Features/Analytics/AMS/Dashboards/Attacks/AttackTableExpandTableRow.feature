@@ -18,7 +18,7 @@ Feature: Attack Table - Expand Table Row
     Given CLI simulate 1 attacks of type "IP_FEED_Modified" on "DefensePro" 11
     Then CLI simulate 1 attacks of type "VRM_attacks" on "DefensePro" 11 and wait 210 seconds
 
-  @Test12
+
   @SID_3
   Scenario:  login
     Given UI Login with user "radware" and password "radware"

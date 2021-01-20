@@ -95,7 +95,7 @@ Feature: Edit EAAF tests
 
   @SID_11
   Scenario: Edit DefensePro Analytics Report2 report name
-    Then UI Click Button "My Reports Tab"
+    Then UI Click Button "My Report Tab"
     Then UI Click Button "Edit Report" with value "EAAF Report2"
     Then UI Set Text Field "Report Name" To "EAAF Report"
     Then UI Click Button "save"
