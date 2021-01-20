@@ -45,10 +45,10 @@ Feature: EAAF Scope selection
       | index | ports | policies |
       | 10    |       |          |
     Then UI Click Button "Packets" with value "Top-Attacking-Geolocations"
-    Then UI Validate Text field "TOTAL Country Events value" with params "0" MatchRegex "\d+ K"
+    Then UI Validate Text field "TOTAL Country Events value" with params "0" MatchRegex "(\d+.\d+|\d+) K"
 
     Then UI Click Button "Packets" with value "Top-Malicious-IP-Addresses"
-    Then UI Validate Text field "TOTAL IP Events value" with params "0" MatchRegex "\d+ K"
+    Then UI Validate Text field "TOTAL IP Events value" with params "0" MatchRegex "(\d+.\d+|\d+) K"
 
   @SID_7
   Scenario: validate data with device 11
@@ -56,7 +56,7 @@ Feature: EAAF Scope selection
     Then UI VRM Select device from dashboard and Save Filter
       | index | ports | policies |
       | 11    |       |          |
-    Then UI Validate Text field "TOTAL Country Events value" with params "0" MatchRegex "\d+ K"
+    Then UI Validate Text field "TOTAL Country Events value" with params "0" MatchRegex "(\d+.\d+|\d+) K"
 
 
   @SID_8
