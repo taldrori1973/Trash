@@ -38,4 +38,7 @@ public enum FileType {
 //        return extension;
 //    }
 
+    public boolean isContained(String substring) {
+        return extension.contains(substring);
+    }
 }

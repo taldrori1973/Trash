@@ -39,8 +39,9 @@
             <visionSetup>
                 <class>com.radware.vision.vision_project_cli.VisionSetup</class>
                 <!--<setupMode>Fresh Install| Upgrade</setupMode>-->
-                <setupMode>Fresh Install Highscale</setupMode>
-                <ovaType>apm | </ovaType>
+                <setupMode>Fresh Install</setupMode>
+<!--                <serverType>ova_apm | ova | highscale</serverType>-->
+                <serverType>highscale</serverType>
                 <snapshot></snapshot>
                 <!--<vmPrefix>This field is relevant for fresh installed VM</vmPrefix>-->
                 <vmPrefix>VisionAutoSapir</vmPrefix>

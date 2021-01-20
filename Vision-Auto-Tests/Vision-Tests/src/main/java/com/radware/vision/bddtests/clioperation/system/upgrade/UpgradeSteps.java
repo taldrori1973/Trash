@@ -78,10 +78,10 @@ public class UpgradeSteps extends BddCliTestBase {
             UpgradeThread sourceMachineThread = new UpgradeThread(sourceIP, null, build, isAPM());
             UpgradeThread targetMachineThread = new UpgradeThread(targetIP, null, build, isAPM());
 
-            if(upgradeSource.isSetupNeeded) {
+            if (upgradeSource.isSetupNeeded) {
                 sourceMachineThread.start();
             }
-            if(upgradeTarget.isSetupNeeded) {
+            if (upgradeTarget.isSetupNeeded) {
                 targetMachineThread.start();
             }
             while (true) {

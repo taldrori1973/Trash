@@ -15,7 +15,6 @@ import static com.radware.vision.bddtests.vmoperations.VMOperationsSteps.readVis
 @Getter
 public abstract class Deploy {
     boolean isExtended;
-    boolean isAPM;
     String build;
     String version;
     String featureBranch;
