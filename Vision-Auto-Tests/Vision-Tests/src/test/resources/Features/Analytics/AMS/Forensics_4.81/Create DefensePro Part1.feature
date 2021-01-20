@@ -11,7 +11,7 @@ Feature:DefensePro Part1
     When UI "Create" Forensics With Name " Output Device IP Address"
       | Product               | DefensePro                                                                     |
       | Output                | Device IP Address                                                              |
-      | Criteria              | All Conditions                                                                 |
+      | Criteria              | condition.All:true                                                             |
       | devices               | All                                                                            |
       | Share                 | Email:[automation.vision2@radware.com],Subject:myEdit subject,Body:myEdit body |
       | Format                | Select: CSV with Attack Detail                                                 |
@@ -21,7 +21,7 @@ Feature:DefensePro Part1
     When UI "Create" Forensics With Name "Output End Time"
       | Product               | DefensePro                                                                     |
       | Output                | End Time                                                                       |
-      | Criteria              | All Conditions                                                                 |
+      | Criteria              | condition.All:true                                                             |
       | devices               | All                                                                            |
       | Share                 | Email:[automation.vision2@radware.com],Subject:myEdit subject,Body:myEdit body |
       | Format                | Select: CSV with Attack Detail                                                 |
@@ -31,7 +31,7 @@ Feature:DefensePro Part1
     When UI "Create" Forensics With Name "Output Start Time"
       | Product               | DefensePro                                                                     |
       | Output                | Start Time                                                                     |
-      | Criteria              | All Conditions                                                                 |
+      | Criteria              | condition.All:true                                                             |
       | devices               | All                                                                            |
       | Share                 | Email:[automation.vision2@radware.com],Subject:myEdit subject,Body:myEdit body |
       | Format                | Select: CSV with Attack Detail                                                 |
@@ -41,7 +41,7 @@ Feature:DefensePro Part1
     When UI "Create" Forensics With Name "Output Threat Category"
       | Product               | DefensePro                                                                     |
       | Output                | Threat Category                                                                |
-      | Criteria              | All Conditions                                                                 |
+      | Criteria              | condition.All:true                                                             |
       | devices               | All                                                                            |
       | Schedule              | Run Every:Monthly, On Time:+6H, At Months:[FEB,MAR,JUL,AUG]                    |
       | Format                | Select: HTML                                                                   |
@@ -51,7 +51,7 @@ Feature:DefensePro Part1
     When UI "Create" Forensics With Name "Output Attack Name1"
       | Product               | DefensePro                                                                     |
       | Output                | Attack Name                                                                    |
-      | Criteria              | All Conditions                                                                 |
+      | Criteria              | condition.All:true                                                             |
       | devices               | All                                                                            |
       | Schedule              | Run Every:Monthly, On Time:+6H, At Months:[FEB,MAR,JUL,AUG]                    |
       | Format                | Select: HTML                                                                   |
@@ -61,7 +61,7 @@ Feature:DefensePro Part1
     When UI "Create" Forensics With Name "Output Attack Name2"
       | Product               | DefensePro                                                                     |
       | Output                | Attack Name                                                                    |
-      | Criteria              | All Conditions                                                                 |
+      | Criteria              | condition.All:true                                                             |
       | devices               | All                                                                            |
       | Schedule              | Run Every:Monthly, On Time:+6H, At Months:[FEB,MAR,JUL,AUG]                    |
       | Format                | Select: CSV                                                                    |
@@ -71,7 +71,7 @@ Feature:DefensePro Part1
     When UI "Create" Forensics With Name "Output Action"
       | Product               | DefensePro                                                                                                       |
       | Output                | Action                                                                                                           |
-      | Criteria              | All Conditions                                                                                                   |
+      | Criteria              | condition.All:true                                                                                               |
       | devices               | index:10                                                                                                         |
       | Time Definitions.Date | Quick:1D                                                                                                         |
       | Schedule              | Run Every:Daily,On Time:+2m                                                                                      |
@@ -83,7 +83,7 @@ Feature:DefensePro Part1
     When UI "Create" Forensics With Name "Output Attack ID"
       | Product               | DefensePro                                                                     |
       | Output                | Attack ID                                                                      |
-      | Criteria              | All Conditions                                                                 |
+      | Criteria              | condition.All:true                                                             |
       | devices               | index:10                                                                       |
       | Schedule              | Run Every:once, On Time:+6H                                                    |
       | Share                 | Email:[automation.vision2@radware.com],Subject:myEdit subject,Body:myEdit body |
@@ -94,7 +94,7 @@ Feature:DefensePro Part1
     When UI "Create" Forensics With Name "Output Policy Name"
       | Product               | DefensePro                                                                                                       |
       | Output                | Policy Name                                                                                                      |
-      | Criteria              | All Conditions                                                                                                   |
+      | Criteria              | condition.All:true                                                                                               |
       | devices               | All                                                                                                              |
       | Time Definitions.Date | Relative:[Weeks,2]                                                                                               |
       | Schedule              | Run Every:Monthly, On Time:+6H, At Months:[DEC]                                                                  |
@@ -106,7 +106,7 @@ Feature:DefensePro Part1
     When UI "Create" Forensics With Name "Output Source IP Address"
       | Product               | DefensePro                                                                     |
       | Output                | Source IP Address                                                              |
-      | Criteria              | All Conditions                                                                 |
+      | Criteria              | condition.All:true                                                             |
       | devices               | All                                                                            |
       | Share                 | Email:[automation.vision2@radware.com],Subject:myEdit subject,Body:myEdit body |
       | Format                | Select: CSV with Attack Detail                                                 |
@@ -116,7 +116,7 @@ Feature:DefensePro Part1
     When UI "Create" Forensics With Name "Output Source Port"
       | Product               | DefensePro                                                                                                       |
       | Output                | Source Port                                                                                                      |
-      | Criteria              | All Conditions                                                                                                   |
+      | Criteria              | condition.All:true                                                                                               |
       | devices               | All                                                                                                              |
       | Time Definitions.Date | Absolute:[27.02.1971 01:00, +0d]                                                                                 |
       | Schedule              | Run Every:once, On Time:+6H                                                                                      |
@@ -128,7 +128,7 @@ Feature:DefensePro Part1
     When UI "Create" Forensics With Name "Output Destination IP Address"
       | Product               | DefensePro                                                                     |
       | Output                | Destination IP Address                                                         |
-      | Criteria              | All Conditions                                                                 |
+      | Criteria              | condition.All:true                                                             |
       | devices               | All                                                                            |
       | Schedule              | Run Every:Weekly, On Time:+6H, At Days:[SUN]                                   |
       | Share                 | Email:[automation.vision2@radware.com],Subject:myEdit subject,Body:myEdit body |
@@ -139,7 +139,7 @@ Feature:DefensePro Part1
     When UI "Create" Forensics With Name "Output Destination Port"
       | Product               | DefensePro                                                                                                       |
       | Output                | Destination Port                                                                                                 |
-      | Criteria              | All Conditions                                                                                                   |
+      | Criteria              | condition.All:true                                                                                               |
       | devices               | index:10                                                                                                         |
       | Time Definitions.Date | Quick:This Month                                                                                                 |
       | Schedule              | Run Every:Daily,On Time:+2m                                                                                      |
@@ -151,7 +151,7 @@ Feature:DefensePro Part1
     When UI "Create" Forensics With Name "Output Direction"
       | Product               | DefensePro                                                                                                       |
       | Output                | Direction                                                                                                        |
-      | Criteria              | All Conditions                                                                                                   |
+      | Criteria              | condition.All:true                                                                                               |
       | devices               | All                                                                                                              |
       | Time Definitions.Date | Quick:Yesterday                                                                                                  |
       | Schedule              | Run Every:Monthly, On Time:+6H, At Months:[FEB]                                                                  |
@@ -163,7 +163,7 @@ Feature:DefensePro Part1
     When UI "Create" Forensics With Name "Output Protocol"
       | Product               | DefensePro                                                                     |
       | Output                | Protocol                                                                       |
-      | Criteria              | All Conditions                                                                 |
+      | Criteria              | condition.All:true                                                             |
       | devices               | All                                                                            |
       | Time Definitions.Date | Quick:1D                                                                       |
       | Schedule              | Run Every:Weekly, On Time:+6H, At Days:[WED]                                   |
@@ -175,7 +175,7 @@ Feature:DefensePro Part1
     When UI "Create" Forensics With Name "Output Radware ID"
       | Product               | DefensePro                                                                                                       |
       | Output                | Radware ID                                                                                                       |
-      | Criteria              | All Conditions                                                                                                   |
+      | Criteria              | condition.All:true                                                                                               |
       | devices               | All                                                                                                              |
       | Time Definitions.Date | Absolute:[02.11.2020 13:47, +0d]                                                                                 |
       | Schedule              | Run Every:Monthly, On Time:+6H, At Months:[APR]                                                                  |
@@ -187,7 +187,7 @@ Feature:DefensePro Part1
     When UI "Create" Forensics With Name "Output Duration"
       | Product               | DefensePro                                                                     |
       | Output                | Duration                                                                       |
-      | Criteria              | All Conditions                                                                 |
+      | Criteria              | condition.All:true                                                             |
       | devices               | index:10                                                                       |
       | Time Definitions.Date | Relative:[Hours,3]                                                             |
       | Schedule              | Run Every:Once, On Time:+6H                                                    |
@@ -199,7 +199,7 @@ Feature:DefensePro Part1
     When UI "Create" Forensics With Name "Output Total Packets Dropped"
       | Product               | DefensePro                                                                                                       |
       | Output                | Total Packets Dropped                                                                                            |
-      | Criteria              | All Conditions                                                                                                   |
+      | Criteria              | condition.All:true                                                                                               |
       | devices               | All                                                                                                              |
       | Time Definitions.Date | Relative:[Months,2]                                                                                              |
       | Share                 | FTP:checked, FTP.Location:172.17.164.10, FTP.Path:/home/radware/ftp/, FTP.Username:radware, FTP.Password:radware |
@@ -210,7 +210,7 @@ Feature:DefensePro Part1
     When UI "Create" Forensics With Name "Output Max pps"
       | Product               | DefensePro                                                                     |
       | Output                | Max pps                                                                        |
-      | Criteria              | All Conditions                                                                 |
+      | Criteria              | condition.All:true                                                             |
       | devices               | All                                                                            |
       | Time Definitions.Date | Quick:1Y                                                                       |
       | Schedule              | Run Every:Once, On Time:+6H                                                    |
@@ -222,7 +222,7 @@ Feature:DefensePro Part1
     When UI "Create" Forensics With Name "Output Total Mbits Dropped"
       | Product               | DefensePro                                                                                                       |
       | Output                | Total Mbits Dropped                                                                                              |
-      | Criteria              | All Conditions                                                                                                   |
+      | Criteria              | condition.All:true                                                                                               |
       | devices               | All                                                                                                              |
       | Time Definitions.Date | Quick:Today                                                                                                      |
       | Schedule              | Run Every:Monthly, On Time:+6H, At Months:[JUL]                                                                  |
@@ -234,7 +234,7 @@ Feature:DefensePro Part1
     When UI "Create" Forensics With Name "Output Max Kbps"
       | Product               | DefensePro                                                                     |
       | Output                | Max Kbps                                                                       |
-      | Criteria              | All Conditions                                                                 |
+      | Criteria              | condition.All:true                                                             |
       | devices               | index:10                                                                       |
       | Time Definitions.Date | Absolute:[02.11.2020 13:47, +0d]                                               |
       | Schedule              | Run Every:Weekly, On Time:+6H, At Days:[THU]                                   |
@@ -246,7 +246,7 @@ Feature:DefensePro Part1
     When UI "Create" Forensics With Name "Output Physical Port"
       | Product               | DefensePro                                                                                                       |
       | Output                | Physical Port                                                                                                    |
-      | Criteria              | All Conditions                                                                                                   |
+      | Criteria              | condition.All:true                                                                                               |
       | devices               | All                                                                                                              |
       | Time Definitions.Date | Relative:[Months,2]                                                                                              |
       | Schedule              | Run Every:Daily,On Time:+2m                                                                                      |
@@ -258,7 +258,7 @@ Feature:DefensePro Part1
     When UI "Create" Forensics With Name "Output Risk"
       | Product               | DefensePro                                                                     |
       | Output                | Risk                                                                           |
-      | Criteria              | All Conditions                                                                 |
+      | Criteria              | condition.All:true                                                             |
       | devices               | All                                                                            |
       | Schedule              | Run Every:Weekly, On Time:+6H, At Days:[MON]                                   |
       | Share                 | Email:[automation.vision2@radware.com],Subject:myEdit subject,Body:myEdit body |
@@ -269,7 +269,7 @@ Feature:DefensePro Part1
     When UI "Create" Forensics With Name "Output VLAN Tag"
       | Product               | DefensePro                                                                                                       |
       | Output                | VLAN Tag                                                                                                         |
-      | Criteria              | All Conditions                                                                                                   |
+      | Criteria              | condition.All:true                                                                                               |
       | devices               | All                                                                                                              |
       | Time Definitions.Date | Quick:1W                                                                                                         |
       | Schedule              | Run Every:Once, On Time:+6H                                                                                      |
@@ -281,7 +281,7 @@ Feature:DefensePro Part1
     When UI "Create" Forensics With Name "Output Destination IP Address,Destination Port,Direction,Protocol,Radware ID,Duration,Total Packets Dropped"
       | Product               | DefensePro                                                                                           |
       | Output                | Destination IP Address,Destination Port,Direction,Protocol,Radware ID,Duration,Total Packets Dropped |
-      | Criteria              | All Conditions                                                                                       |
+      | Criteria              | condition.All:true                                                                                   |
       | devices               | index:10                                                                                             |
       | Time Definitions.Date | Absolute:[02.11.2020 13:47, +0d]                                                                     |
       | Share                 | Email:[automation.vision2@radware.com],Subject:myEdit subject,Body:myEdit body                       |
@@ -292,7 +292,7 @@ Feature:DefensePro Part1
     When UI "Create" Forensics With Name "Output Action,Attack ID,Policy Name,Source IP Address,Destination IP Address,Destination Port,Total Mbits Dropped,Max Kbps,Physical Port,Risk,VLAN Tag"
       | Product               | DefensePro                                                                                                                                      |
       | Output                | Action,Attack ID,Policy Name,Source IP Address,Destination IP Address,Destination Port,Total Mbits Dropped,Max Kbps,Physical Port,Risk,VLAN Tag |
-      | Criteria              | All Conditions                                                                                                                                  |
+      | Criteria              | condition.All:true                                                                                                                              |
       | devices               | All                                                                                                                                             |
       | Time Definitions.Date | Relative:[Weeks,2]                                                                                                                              |
       | Schedule              | Run Every:Monthly, On Time:+6H, At Months:[OCT]                                                                                                 |
@@ -304,7 +304,7 @@ Feature:DefensePro Part1
     When UI "Create" Forensics With Name "Output Source IP Address,Source Port,Destination IP Address,Radware ID,Duration,Total Packets Dropped,Max pps"
       | Product               | DefensePro                                                                                             |
       | Output                | Source IP Address,Source Port,Destination IP Address,Radware ID,Duration,Total Packets Dropped,Max pps |
-      | Criteria              | All Conditions                                                                                         |
+      | Criteria              | condition.All:true                                                                                     |
       | devices               | All                                                                                                    |
       | Time Definitions.Date | Quick:Today                                                                                            |
       | Schedule              | Run Every:Weekly, On Time:+6H, At Days:[SUN]                                                           |
@@ -316,7 +316,7 @@ Feature:DefensePro Part1
     When UI "Create" Forensics With Name "Output Start Time,End Time,Device IP Address,Threat Category,Attack Name,Action"
       | Product               | DefensePro                                                                                                       |
       | Output                | Start Time,End Time,Device IP Address,Threat Category,Attack Name,Action                                         |
-      | Criteria              | All Conditions                                                                                                   |
+      | Criteria              | condition.All:true                                                                                               |
       | devices               | All                                                                                                              |
       | Schedule              | Run Every:Daily,On Time:+2m                                                                                      |
       | Share                 | FTP:checked, FTP.Location:172.17.164.10, FTP.Path:/home/radware/ftp/, FTP.Username:radware, FTP.Password:radware |
@@ -327,7 +327,7 @@ Feature:DefensePro Part1
     When UI "Create" Forensics With Name "Output Policy Name,Source IP Address"
       | Product               | DefensePro                                                                     |
       | Output                | Policy Name,Source IP Address                                                  |
-      | Criteria              | All Conditions                                                                 |
+      | Criteria              | condition.All:true                                                             |
       | devices               | index:10                                                                       |
       | Time Definitions.Date | Absolute:[27.02.1971 01:00, +0d]                                               |
       | Schedule              | Run Every:Weekly, On Time:+6H, At Days:[MON]                                   |
@@ -339,7 +339,7 @@ Feature:DefensePro Part1
     When UI "Create" Forensics With Name "Output Destination IP Address,Destination Port,Direction"
       | Product               | DefensePro                                                                                                       |
       | Output                | Destination IP Address,Destination Port,Direction                                                                |
-      | Criteria              | All Conditions                                                                                                   |
+      | Criteria              | condition.All:true                                                                                               |
       | devices               | All                                                                                                              |
       | Time Definitions.Date | Relative:[Days,3]                                                                                                |
       | Schedule              | Run Every:Monthly, On Time:+6H, At Months:[APR]                                                                  |
@@ -351,7 +351,7 @@ Feature:DefensePro Part1
     When UI "Create" Forensics With Name "Output All"
       | Product               | DefensePro                                                                                                                                                                                                                                                                                         |
       | Output                | Start Time,End Time,Device IP Address,Threat Category,Attack Name,Action,Attack ID,Policy Name,Source IP Address,Source Port,Destination IP Address,Destination Port,Direction,Protocol,Radware ID,Duration,Total Packets Dropped,Max pps,Total Mbits Dropped,Max Kbps,Physical Port,Risk,VLAN Tag |
-      | Criteria              | All Conditions                                                                                                                                                                                                                                                                                     |
+      | Criteria              | condition.All:true                                                                                                                                                                                                                                                                                 |
       | devices               | All                                                                                                                                                                                                                                                                                                |
       | Time Definitions.Date | Quick:This Month                                                                                                                                                                                                                                                                                   |
       | Schedule              | Run Every:Monthly, On Time:+6H, At Months:[JUN]                                                                                                                                                                                                                                                    |
