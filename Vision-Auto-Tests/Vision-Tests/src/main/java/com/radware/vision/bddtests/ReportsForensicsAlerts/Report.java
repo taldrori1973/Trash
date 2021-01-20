@@ -63,7 +63,7 @@ public class Report extends ReportsForensicsAlertsAbstract {
         {
             WebUIUtils.sleep(10);
         }
-        WebUiTools.check("My Reports Tab", "", true);
+        WebUiTools.check("My Report Tab", "", true);
         if (BasicOperationsHandler.isElementExists("My Report", true, reportName))
             return true;
         WebUIUtils.sleep(2);

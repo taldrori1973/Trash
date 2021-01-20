@@ -127,7 +127,7 @@ Feature: Edit HTTPS Flood tests
 
   @SID_17
   Scenario: Edit HTTPS Flood Report2 report name
-    Then UI Click Button "My Reports Tab"
+    Then UI Click Button "My Report Tab"
     Then UI Click Button "Edit Report" with value "HTTPS Flood Report2"
     Then UI Set Text Field "Report Name" To "HTTPS Flood Report"
     Then UI Click Button "save"

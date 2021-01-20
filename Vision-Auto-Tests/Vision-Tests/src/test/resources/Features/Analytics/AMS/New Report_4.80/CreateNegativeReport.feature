@@ -258,7 +258,7 @@ Feature: Negative test to validate Error Messages
     Then UI Text of "Save Change Message" contains "Do you want to save "Duplicate Report"?"
     Then UI Click Button "No"
 
-    Then UI Click Button "My Reports Tab"
+    Then UI Click Button "My Report Tab"
     Then UI Delete Report With Name "Duplicate Report"
 
   @SID_17
