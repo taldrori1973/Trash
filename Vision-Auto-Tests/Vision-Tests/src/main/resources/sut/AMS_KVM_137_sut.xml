@@ -344,18 +344,18 @@
         <alteonDevices index="14">
             <class>com.radware.vision.automation.tools.sutsystemobjects.devicesinfo.DeviceInfo</class>
             <deviceName>Alteon_172.17.164.17</deviceName>
-            <deviceIp>172.17.164.17</deviceIp>
+            <deviceIp>172.16.100.137</deviceIp>
             <username>admin</username>
-            <password>shimon1!$4</password>
+            <password>admin</password>
             <readCommunity>public</readCommunity>
             <writeCommunity>private</writeCommunity>
         </alteonDevices>
         <alteonDevices index="15">
             <class>com.radware.vision.automation.tools.sutsystemobjects.devicesinfo.DeviceInfo</class>
             <deviceName>Alteon_172.17.164.18</deviceName>
-            <deviceIp>172.17.164.18</deviceIp>
+            <deviceIp>172.16.101.137</deviceIp>
             <username>admin</username>
-            <password>shimon1!$4</password>
+            <password>admin</password>
             <readCommunity>public</readCommunity>
             <writeCommunity>private</writeCommunity>
         </alteonDevices>

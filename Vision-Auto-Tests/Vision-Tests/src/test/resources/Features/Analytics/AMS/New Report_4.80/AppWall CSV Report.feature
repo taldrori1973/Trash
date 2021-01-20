@@ -75,14 +75,14 @@ Feature: AppWall CSV Report
 
   @SID_8
   Scenario: generate report
-    Then UI Click Button "My Report" with value "Automation AppWall CSV Report"
-    Then UI Click Button "Generate Report Manually" with value "Automation AppWall CSV Report"
-    Then Sleep "35"
-
+    Then UI "Generate" Report With Name "Automation AppWall CSV Report"
+      | timeOut | 60 |
 
   @SID_7
   Scenario: VRM report unzip local CSV file
+    Then CLI Run remote linux Command "unzip -o -d /opt/radware/mgt-server/third-party/tomcat/bin/ /opt/radware/mgt-server/third-party/tomcat/bin/VRM_report_*.zip" on "ROOT_SERVER_CLI" and wait 185 seconds
     Then CLI Run remote linux Command "unzip -o -d /opt/radware/mgt-server/third-party/tomcat/bin/ /opt/radware/mgt-server/third-party/tomcat/bin/VRM_report_*.zip" on "ROOT_SERVER_CLI"
+    Then Sleep "10"
 
   @SID_8
   Scenario: AppWall report validate CSV file Attack Severity widget number of lines

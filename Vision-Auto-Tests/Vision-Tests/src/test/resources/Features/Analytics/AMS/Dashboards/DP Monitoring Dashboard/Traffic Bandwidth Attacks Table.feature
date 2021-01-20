@@ -7,6 +7,10 @@ Feature: AMS Monitoring Dashboard - Attacks table
     Given CLI Reset radware password
     # Sleeping in order to let collector cache clean
     Then Sleep "20"
+#    * REST Delete ES index "dp-traffic-*"
+#    * REST Delete ES index "dp-https-stats-*"
+#    * REST Delete ES index "dp-https-rt-*"
+#    * REST Delete ES index "dp-five-*"
     * REST Delete ES index "dp-*"
 #    * REST Delete ES index "forensics-*"
 #    * REST Delete ES index "dpforensics-*"

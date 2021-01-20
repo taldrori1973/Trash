@@ -3,7 +3,12 @@ Feature: VRM AMS Session Timeout
 
   @SID_1
   Scenario: Navigate to Vision Connectivity and set values
+#    * REST Delete ES index "dp-traffic-*"
+#    * REST Delete ES index "dp-https-stats-*"
+#    * REST Delete ES index "dp-https-rt-*"
+#    * REST Delete ES index "dp-five-*"
     * REST Delete ES index "dp-*"
+
     * CLI kill all simulator attacks on current vision
     Then REST Delete ES document with data ""module": "DEVICE_HEALTH_ERRORS"" from index "alert"
     Given UI Login with user "sys_admin" and password "radware"

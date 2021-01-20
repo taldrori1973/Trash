@@ -5,6 +5,10 @@ Feature: Forensics Multiple IP
   Scenario: Clean system data
     * CLI Clear vision logs
     * CLI kill all simulator attacks on current vision
+#    * REST Delete ES index "dp-traffic-*"
+#    * REST Delete ES index "dp-https-stats-*"
+#    * REST Delete ES index "dp-https-rt-*"
+#    * REST Delete ES index "dp-five-*"
     * REST Delete ES index "dp-*"
 
   @SID_2

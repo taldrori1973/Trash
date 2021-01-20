@@ -38,7 +38,7 @@ Feature: attackTable
 
   @SID_4
   Scenario: validate the table count
-    Then UI Validate the attribute "ant-click-animating" Of Label "Auto Refresh" With Params "" is "EQUALS" to "true"
+    Then UI Validate the attribute "aria-checked" Of Label "Auto Refresh" With Params "" is "EQUALS" to "true"
     Then UI Validate "Attacks Table" Table rows count EQUALS to 14
 
   @SID_5
@@ -54,7 +54,8 @@ Feature: attackTable
       | columnName  | Value               |
       | Attack Name | Black List          |
       | Attack Name | TCP Mid Flow packet |
-    Then UI Validate "Attacks Table" Table rows count EQUALS to 7
+    Then UI Validate "Attacks Table" Table rows count GTE to 6
+    Then UI Validate "Attacks Table" Table rows count LTE to 7
 
   @SID_6
   Scenario: validate all the data
@@ -73,8 +74,9 @@ Feature: attackTable
   @SID_7
   Scenario: validate sampleData
     Then UI click Table row by keyValue or Index with elementLabel "Attacks Table" findBy columnName "Policy Name" findBy cellValue "Black_IPV6"
+    Then Sleep "3"
     Then UI Click Button "Sample Data Button" with value ""
-    Then UI Validate "SampleDataTable" Table rows count EQUALS to 2
+    Then UI Validate "SampleDataTable" Table rows count GTE to 2
     Then UI Click Button by Class "anticon anticon-close ant-modal-close-icon"
 #    Then UI Click Button "closeTable"
 
@@ -105,14 +107,13 @@ Feature: attackTable
   @SID_10
   Scenario: validate Auto refresh
     And UI Click Button "Auto Refresh" with value ""
-    Then UI Validate the attribute "ant-click-animating" Of Label "Auto Refresh" With Params "" is "EQUALS" to "false"
+    Then UI Validate the attribute "aria-checked" Of Label "Auto Refresh" With Params "" is "EQUALS" to "false"
     And UI Do Operation "Select" item "Global Time Filter"
     Then Sleep "1"
     And UI Do Operation "Select" item "Global Time Filter.Quick Range" with value "15m"
-    Then UI Validate the attribute "ant-click-animating" Of Label "Auto Refresh" With Params "" is "EQUALS" to "true"
+    Then UI Validate the attribute "aria-checked" Of Label "Auto Refresh" With Params "" is "EQUALS" to "true"
 
     And UI logout and close browser
-
 
 
 

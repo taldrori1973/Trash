@@ -335,6 +335,7 @@ public class VMOperationsSteps extends BddUITestBase {
     public static void updateVersionVar() {
         VisionInfo visionInfo = new VisionInfo(getRestTestBase().getGenericRestClient().getDeviceIp());
         String version = visionInfo.getVisionVersion();
+        String featureBranch = visionInfo.getVisionBranch();
         String build = visionInfo.getVisionBuild();
         //update runtime variables
         restTestBase.getRootServerCli().setVersionNumebr(version);

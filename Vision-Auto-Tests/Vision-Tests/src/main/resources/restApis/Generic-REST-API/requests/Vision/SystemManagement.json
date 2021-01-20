@@ -30,6 +30,13 @@
       "basePath": "/mgmt/system/config/item/mngtinfoex",
       "produces": "application/json",
       "description": "Retrieves Vision Management Info : macAddress, hostname ,defenseFlowId, defensePipeUrl, hardwarePlatform,activeServerMacAddress, serverSoftwareVersion, certificateHash, branch"
+    },
+    {
+      "label": "Get Share Path State",
+      "method": "GET",
+      "basePath": "mgmt/system/config/itemlist/apm/sharepathstate",
+      "produces": "application/json",
+      "description": "Retrieves Vision Share path Info : An indication for APM status"
     }
   ]
 }

@@ -6,7 +6,11 @@ Feature: EAAF Widget - Top Country Statistics
     * CLI kill all simulator attacks on current vision
     # wait until collector cache clean up
     * Sleep "15"
-    * REST Delete ES index "dp-*"
+#  * REST Delete ES index "dp-traffic-*"
+#  * REST Delete ES index "dp-https-stats-*"
+#  * REST Delete ES index "dp-https-rt-*"
+#  * REST Delete ES index "dp-five-*"
+  * REST Delete ES index "dp-*"
     * CLI Clear vision logs
     * CLI Run remote linux Command "curl -X GET localhost:9200/_cat/indices?v | grep dp-attack-raw >> /opt/radware/storage/maintenance/dp-attack-before-streaming" on "ROOT_SERVER_CLI"
     * CLI Run remote linux Command "curl -X POST localhost:9200/dp-attack-raw-*/_search -d '{"query":{"bool":{"must":[{"match_all":{}}],"must_not":[],"should":[]}},"from":0,"size":1000,"sort":[],"aggs":{}}' >> /opt/radware/storage/maintenance/attack-raw-index-before-stream" on "ROOT_SERVER_CLI"

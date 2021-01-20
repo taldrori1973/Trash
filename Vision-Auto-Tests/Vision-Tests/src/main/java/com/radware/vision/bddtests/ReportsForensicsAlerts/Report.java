@@ -27,9 +27,13 @@ public class Report extends ReportsForensicsAlertsAbstract {
     private String errorMessage="";
 
     @Override
-    public void create(String reportName, Map<String, String> map) throws Exception {
+    public void create(String reportName,String negative, Map<String, String> map) throws Exception {
 
-//        try{delete(reportName);}catch (Exception ignored){}
+
+        if(negative == null){
+            try{delete(reportName);}catch (Exception ignored){}
+        }
+
         try {
             closeReport(false);
             WebUiTools.check("New Report Tab", "", true);
@@ -40,13 +44,22 @@ public class Report extends ReportsForensicsAlertsAbstract {
             cancelReport();
             throw e;
         }
-        if (!reportCreated()) {
-            throw new Exception("The report '" + reportName + "' isn't created!" + errorMessage);
+
+        if(negative == null){
+            if (!reportCreated(reportName)) {
+                throw new Exception("The report '" + reportName + "' isn't created!" + errorMessage);
+            }
         }
+
     }
 
-    private boolean reportCreated() throws TargetWebElementNotFoundException {
-        if (WebUiTools.getWebElement("save") == null)
+    private boolean reportCreated(String reportName) throws Exception {
+        if (WebUiTools.getWebElement("save") != null)
+        {
+            WebUIUtils.sleep(10);
+        }
+        WebUiTools.check("My Reports Tab", "", true);
+        if (BasicOperationsHandler.isElementExists("My Report", true, reportName))
             return true;
         WebUIUtils.sleep(2);
         closeReport(true);
@@ -91,7 +104,7 @@ public class Report extends ReportsForensicsAlertsAbstract {
 
     }
 
-    private void expandReportParameters() throws Exception {
+    public static void expandReportParameters() throws Exception {
         WebUiTools.check("Report Parameter Menu", "", false);
     }
 
@@ -281,7 +294,7 @@ public class Report extends ReportsForensicsAlertsAbstract {
             cancelReport();
             throw e;
         }
-        if (!reportCreated()) {
+        if (!reportCreated(reportName)) {
             cancelReport();
             throw new Exception("");
         }

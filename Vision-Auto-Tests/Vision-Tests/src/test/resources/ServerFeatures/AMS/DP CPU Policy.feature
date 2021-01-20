@@ -5,6 +5,10 @@ Feature: DP CPU Policy Utilization
   Scenario: Simulate Attacks
     * CLI Clear vision logs
     * CLI kill all simulator attacks on current vision
+#    * REST Delete ES index "dp-traffic-*"
+#    * REST Delete ES index "dp-https-stats-*"
+#    * REST Delete ES index "dp-https-rt-*"
+#    * REST Delete ES index "dp-five-*"
     * REST Delete ES index "dp-*"
     Then CLI simulate 1000 attacks of type "dp_two_policies" on "DefensePro" 10 and wait 120 seconds
 
@@ -721,6 +725,10 @@ Feature: DP CPU Policy Utilization
   Scenario: Kill Simulate Attack
     * CLI kill all simulator attacks on current vision
     * Sleep "120"
+#    * REST Delete ES index "dp-traffic-*"
+#    * REST Delete ES index "dp-https-stats-*"
+#    * REST Delete ES index "dp-https-rt-*"
+#    * REST Delete ES index "dp-five-*"
     * REST Delete ES index "dp-*"
 
   @SID_36

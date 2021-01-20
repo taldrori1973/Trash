@@ -7,7 +7,12 @@ Feature: VRM Alerts Delivery
     * CLI kill all simulator attacks on current vision
     * REST Delete ES index "rt-alert-def-vrm"
     * REST Delete ES index "alert"
+#    * REST Delete ES index "dp-traffic-*"
+#    * REST Delete ES index "dp-https-stats-*"
+#    * REST Delete ES index "dp-https-rt-*"
+#    * REST Delete ES index "dp-five-*"
     * REST Delete ES index "dp-*"
+
     Then CLI Run remote linux Command "echo "cleared" $(date) > /var/spool/mail/alertuser" on "GENERIC_LINUX_SERVER"
     * CLI Clear vision logs
 

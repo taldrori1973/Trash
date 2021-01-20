@@ -6,7 +6,12 @@ Feature: Forensic Wizard
   Scenario: Clean system data before Top Attacks test
     And CLI Reset radware password
     Given CLI kill all simulator attacks on current vision
-    And REST Delete ES index "dp-*"
+#    * REST Delete ES index "dp-traffic-*"
+#    * REST Delete ES index "dp-https-stats-*"
+#    * REST Delete ES index "dp-https-rt-*"
+#    * REST Delete ES index "dp-five-*"
+    * REST Delete ES index "dp-*"
+
     And REST Request "PUT" for "Connectivity->Inactivity Timeout for Configuration"
       | type | value                                 |
       | body | sessionInactivTimeoutConfiguration=60 |

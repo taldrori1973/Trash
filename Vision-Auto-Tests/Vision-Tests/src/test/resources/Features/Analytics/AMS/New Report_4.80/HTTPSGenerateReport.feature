@@ -6,7 +6,7 @@ Feature: HTTPSGenerateReport
   Scenario: Clear data
     * CLI kill all simulator attacks on current vision
     * REST Delete ES index "dp-*"
-    * REST Delete ES index "vrm-scheduled-report-*"
+    Given CLI Run remote linux Command "service vision restart" on "ROOT_SERVER_CLI" and wait 185 seconds
 
   @SID_2
   Scenario: Update Policies
@@ -23,7 +23,7 @@ Feature: HTTPSGenerateReport
 
   @SID_4
   Scenario:Login and Navigate to HTTPS Flood Dashboard
-    Given UI Login with user "sys_admin" and password "radware"
+    Then UI Login with user "radware" and password "radware"
     Then UI Navigate to "AMS REPORTS" page via homepage
 
   @SID_5
@@ -90,5 +90,6 @@ Feature: HTTPSGenerateReport
 #      | Under Attack | 0          | 400        |
 #      | Under Attack | 0.81       | 500        |
 
+  @SID_7
   Scenario: start IPTABLES
     Then CLI Run linux Command "service iptables start" on "ROOT_SERVER_CLI" and validate result CONTAINS "Loading additional modules"

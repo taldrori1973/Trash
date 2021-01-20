@@ -118,7 +118,7 @@ Feature: RBAC
       | dp operations                               | no       |
       | AppWall Dashboard operations                | no       |
       | alteon operations                           | no       |
-      | Security Control Center                     | no       |
+      
       | app sla dashboard                           | yes      |
 
     * UI Logout
@@ -169,7 +169,7 @@ Feature: RBAC
       | dp operations                               | no       |
       | AppWall Dashboard operations                | no       |
       | alteon operations                           | no       |
-      | Security Control Center                     | no       |
+      
       | app sla dashboard                           | yes      |
     * UI Logout
 
@@ -218,8 +218,7 @@ Feature: RBAC
       | dp operations                               | no       |
       | AppWall Dashboard operations                | no       |
       | alteon operations                           | no       |
-      | Security Control Center                     | no       |
-#      | app sla dashboard                           | yes      |
+
     * UI Logout
 
   @SID_9
@@ -267,7 +266,6 @@ Feature: RBAC
       | dp operations                               | yes      |
       | AppWall Dashboard operations                | yes      |
       | alteon operations                           | yes      |
-      | Security Control Center                     | yes      |
       | app sla dashboard                           | yes      |
     * UI Logout
 
@@ -316,7 +314,6 @@ Feature: RBAC
       | dp operations                               | no       |
       | AppWall Dashboard operations                | no       |
       | alteon operations                           | no       |
-      | Security Control Center                     | no       |
       | app sla dashboard                           | no       |
     * UI Logout
 
@@ -365,7 +362,7 @@ Feature: RBAC
       | dp operations                               | yes      |
       | AppWall Dashboard operations                | yes      |
       | alteon operations                           | yes      |
-      | Security Control Center                     | no       |
+      
 #      | app sla dashboard                           | yes      |
     * UI Logout
 
@@ -414,7 +411,7 @@ Feature: RBAC
       | dp operations                               | yes      |
       | AppWall Dashboard operations                | yes      |
       | alteon operations                           | no       |
-      | Security Control Center                     | no       |
+      
 #      | app sla dashboard                           | yes      |
     * UI Logout
 
@@ -463,7 +460,7 @@ Feature: RBAC
       | dp operations                               | yes      |
       | AppWall Dashboard operations                | yes      |
       | alteon operations                           | no       |
-      | Security Control Center                     | no       |
+      
 #      | app sla dashboard                           | yes      |
     * UI Logout
 
@@ -512,7 +509,7 @@ Feature: RBAC
       | dp operations                               | no       |
       | AppWall Dashboard operations                | no       |
       | alteon operations                           | no       |
-      | Security Control Center                     | no       |
+      
 #      | app sla dashboard                           | yes      |
     * UI Logout
 
@@ -561,7 +558,7 @@ Feature: RBAC
       | dp operations                               | no       |
       | AppWall Dashboard operations                | no       |
       | alteon operations                           | no       |
-      | Security Control Center                     | no       |
+      
 #      | app sla dashboard                           | no       |
     * UI Logout
 
@@ -610,7 +607,7 @@ Feature: RBAC
       | dp operations                               | yes      |
       | AppWall Dashboard operations                | yes      |
       | alteon operations                           | no       |
-      | Security Control Center                     | no       |
+      
       | app sla dashboard                           | no       |
     * UI Logout
 
@@ -659,7 +656,7 @@ Feature: RBAC
       | dp operations                               | no       |
       | AppWall Dashboard operations                | no       |
       | alteon operations                           | no       |
-      | Security Control Center                     | no       |
+      
 #      | app sla dashboard                           | no       |
     * UI Logout
 
@@ -708,7 +705,7 @@ Feature: RBAC
       | dp operations                               | no       |
       | AppWall Dashboard operations                | no       |
       | alteon operations                           | no       |
-      | Security Control Center                     | no       |
+      
       | app sla dashboard                           | no       |
     * UI Logout
 
@@ -757,7 +754,6 @@ Feature: RBAC
       | dp operations                               | yes      |
       | AppWall Dashboard operations                | yes      |
       | alteon operations                           | yes      |
-      | Security Control Center                     | yes      |
       | app sla dashboard                           | yes      |
     * UI Logout
 
@@ -806,7 +802,7 @@ Feature: RBAC
       | dp operations                               | no       |
       | AppWall Dashboard operations                | no       |
       | alteon operations                           | no       |
-      | Security Control Center                     | no       |
+      
 #      | app sla dashboard                           | yes      |
     * UI Logout
 
@@ -833,7 +829,7 @@ Feature: RBAC
       | dp operations                     | yes      |
       | AppWall Dashboard operations      | yes      |
       | alteon operations                 | yes      |
-      | Security Control Center           | yes      |
+
 
     * UI Login with user "system_user" and password "radware" negative
     Then UI logout and close browser

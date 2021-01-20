@@ -12,7 +12,11 @@ Feature: VRM AMS Report Data Traffic
   Scenario: Clear Database latest traffic index and old reports on file-system
     Then CLI kill all simulator attacks on current vision
     Then CLI Clear vision logs
-    Then REST Delete ES index "dp-*"
+#    * REST Delete ES index "dp-traffic-*"
+#    * REST Delete ES index "dp-https-stats-*"
+#    * REST Delete ES index "dp-https-rt-*"
+#    * REST Delete ES index "dp-five-*"
+    * REST Delete ES index "dp-*"
     Then Sleep "10"
 
     Then CLI Run remote linux Command "rm -f /opt/radware/mgt-server/third-party/tomcat/bin/VRM_report_*.zip" on "ROOT_SERVER_CLI"

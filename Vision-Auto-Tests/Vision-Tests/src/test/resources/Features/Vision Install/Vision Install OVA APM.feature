@@ -28,6 +28,7 @@ Feature: Vision Install OVA APM
     And Validate DefenseFlow is NOT Licensed by Attack Capacity License
     * REST Vision Install License Request "vision-reporting-module-ADC"
     * REST Vision Install License Request "vision-AVA-Max-attack-capacity"
+    * REST Vision Install License Request "vision-APM-reporter-server"
 
   @SID_4
   Scenario: Navigate to general settings page
@@ -165,3 +166,13 @@ Feature: Vision Install OVA APM
   @SID_21
   Scenario: Verify vg_disk-lv number of partitions
     Then CLI Run linux Command "df -h | grep vg_disk-lv | wc -l" on "ROOT_SERVER_CLI" and validate result GTE "2" with timeOut 15
+
+  @SID_22
+  Scenario: Validate APM is running
+    Given That Current Vision is Logged In
+    And New Request Specification from File "Vision/SystemManagement" with label "Get Share Path State"
+    When Send Request with the Given Specification
+    Then Validate That Response Status Code Is OK
+    And Validate That Response Body Contains
+      | jsonPath         | value     |
+      | $.sharePathState | "Running" |

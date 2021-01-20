@@ -6,6 +6,10 @@ Feature: DP Monitoring Dashboard - Protection Policies - Peace Time
   Scenario: Clean system data before "Protection Policies" test
     * CLI kill all simulator attacks on current vision
     Then CLI Operations - Run Radware Session command "system user authentication-mode set TACACS+"
+#    * REST Delete ES index "dp-traffic-*"
+#    * REST Delete ES index "dp-https-stats-*"
+#    * REST Delete ES index "dp-https-rt-*"
+#    * REST Delete ES index "dp-five-*"
     * REST Delete ES index "dp-*"
     * CLI Clear vision logs
 

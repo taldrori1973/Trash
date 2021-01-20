@@ -233,6 +233,8 @@ public class UpgradeSteps extends BddCliTestBase {
         }
         GeneralSteps.clearAllLogs();
         upgrade = new Upgrade(true, null, radwareServerCli, rootServerCli);
+        //Force upgrade to make sure another upgrade will occur.
+        upgrade.isSetupNeeded = true;
         String nextBuild = upgrade.getBuild();
 
         BaseTestUtils.report(String.format("Going to upgrade from build %s to %s", buildUnderTest, nextBuild),

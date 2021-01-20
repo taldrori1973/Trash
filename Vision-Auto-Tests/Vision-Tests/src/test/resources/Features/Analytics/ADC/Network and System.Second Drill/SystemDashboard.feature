@@ -9,13 +9,16 @@ Feature: ADC System Dashboard
     Then CLI copy "/home/radware/Scripts/Alteon-32.4.0.0-DD-1.00-396.jar" from "GENERIC_LINUX_SERVER" to "ROOT_SERVER_CLI" "/opt/radware/storage"
     Then CLI Run remote linux Command "/opt/radware/storage/upload_DD.sh /opt/radware/storage/Alteon-32.4.0.0-DD-1.00-396.jar" on "ROOT_SERVER_CLI" with timeOut 240
     When CLI Operations - Run Radware Session command "system user authentication-mode set TACACS+"
-    Then UI Login with user "sys_admin" and password "radware"
+    Then UI Login with user "radware" and password "radware"
 
   @SID_2
   Scenario: Go into system dashboard
     When UI Navigate to "ANALYTICS ADC" page via homePage
     Then Sleep "30"
     When UI Navigate to "System and Network Dashboard" page via homePage
+    Given UI Click Button "Device Selection"
+    Then UI Select scope from dashboard and Save Filter device type "Alteon"
+      | Alteon_50.50.101.22 |
     Then UI click Table row by keyValue or Index with elementLabel "Devices table" findBy columnName "Device Name" findBy cellValue "Alteon_50.50.101.22"
 
   @SID_3

@@ -349,7 +349,7 @@ public class ForensicsHandler extends VRMBaseUtilies {
                 break;
             }
 
-            case "ATTACK ID":
+            case "RADWARE ID":
             case "ATTACK NAME": {
                 switch (oldOrNew) {
                     case "old":

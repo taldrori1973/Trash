@@ -254,3 +254,13 @@ Feature: Vision APM Upgrade current -1
     Then CLI Run linux Command "service mgtsrv status" on "ROOT_SERVER_CLI" and validate result CONTAINS "Radware vDirect is running" in any line with timeOut 15
     Then CLI Run linux Command "service mgtsrv status" on "ROOT_SERVER_CLI" and validate result CONTAINS "VRM reporting engine is running" in any line with timeOut 15
     Then CLI Run linux Command "service mgtsrv status" on "ROOT_SERVER_CLI" and validate result CONTAINS "td-agent is running" in any line with timeOut 15
+
+  @SID_31
+  Scenario: Validate APM is running
+    Given That Current Vision is Logged In
+    And New Request Specification from File "Vision/SystemManagement" with label "Get Share Path State"
+    When Send Request with the Given Specification
+    Then Validate That Response Status Code Is OK
+    And Validate That Response Body Contains
+      | jsonPath         | value     |
+      | $.sharePathState | "Running" |

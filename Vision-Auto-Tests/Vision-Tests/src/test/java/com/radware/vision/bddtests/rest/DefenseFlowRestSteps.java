@@ -29,4 +29,20 @@ public class DefenseFlowRestSteps {
             restPoDF(HttpMethodEnum.POST, nameofPo, bodyField, null);
         }
     }
+
+    @Then("^REST DELETE (\\d+) DefenseFlow PO url params \"([^\"]*)\"$")
+    public void deletePo(int number, String poPrefix) {
+        for (int i = 1; i <= number; i++) {
+            String nameofPo = poPrefix + "_" + i;
+            DefenseFlowRestHandler.deletePo(HttpMethodEnum.DELETE, nameofPo, null, null);
+        }
+    }
+
+    @Then("^REST DELETE DefenseFlow PO url params \"([^\"]*)\"$")
+    public void deletePo(String nameOfPo) {
+        DefenseFlowRestHandler.deletePo(HttpMethodEnum.DELETE, nameOfPo, null, null);
+
+    }
+
+
 }

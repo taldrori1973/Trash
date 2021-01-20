@@ -1,14 +1,16 @@
 @Functional @TC114371
 Feature: RBAC Menu
 
+
   @SID_1
   Scenario: Login And Go to Vision
     Given UI Login with user "radware" and password "radware"
     Given UI Go To Vision
+    Given UI Navigate to page "System->User Management->Local Users"
+
 
   @SID_2
   Scenario Outline: Create users and verify
-    Given UI Navigate to page "System->User Management->Local Users"
     When UI Create New User With User Name "<User Name>" ,Role "<Role>" ,Scope "<Scope>" ,Password "<Password>"
     Then  UI User With User Name "<User Name>" ,Role "<Role>" ,Scope "<Scope>" Exists
     Examples:
@@ -28,6 +30,7 @@ Feature: RBAC Menu
       | vision_admin          | Vision Administrator          | [ALL] | Radware1234!@#$ |
       | vision_reporter       | Vision Reporter               | [ALL] | Radware1234!@#$ |
       | system_user           | System User                   | [ALL] | Radware1234!@#$ |
+
 
   @SID_3
   Scenario Outline: Scope "All" is required for User Definition
