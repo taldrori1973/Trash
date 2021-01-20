@@ -117,9 +117,9 @@ public class AttacksSteps extends BddCliTestBase {
             CliOperations.runCommand(getRestTestBase().getGenericLinuxServer(), commandToExecute);
             interFace = CliOperations.lastRow;
             if (withAttackId) {
-                commandToExecute = String.format("sudo perl sendfile.pl -i %s -d %s -si %s -s %d -ld %d -ai 1 -f %s.pcap &", interFace, visionIP, deviceIp, numOfAttacks, loopDelay, fileName);
+                commandToExecute = String.format("sudo perl sendfile.pl -i %s -d %s -si %s -s %d -ld %d -ai 1 -f %s.pcap " + (visionIP.startsWith("172.19")?"-dm 00:14:69:4c:70:42 ":"") + "&", interFace, visionIP, deviceIp, numOfAttacks, loopDelay, fileName);
             } else {
-                commandToExecute = String.format("sudo perl sendfile.pl -i %s -d %s -si %s -s %d -ld %d -f %s.pcap &", interFace, visionIP, deviceIp, numOfAttacks, loopDelay, fileName);
+                commandToExecute = String.format("sudo perl sendfile.pl -i %s -d %s -si %s -s %d -ld %d -f %s.pcap " + (visionIP.startsWith("172.19")?"-dm 00:14:69:4c:70:42 ":"")  + "&", interFace, visionIP, deviceIp, numOfAttacks, loopDelay, fileName);
             }
             //for the next generations
             restTestBase.getGenericLinuxServer().connect();
