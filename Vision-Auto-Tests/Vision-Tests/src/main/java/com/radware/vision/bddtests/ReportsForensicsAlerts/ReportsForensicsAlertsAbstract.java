@@ -31,7 +31,7 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.How;
 
 
-abstract class ReportsForensicsAlertsAbstract implements ReportsForensicsAlertsInterface {
+abstract public class ReportsForensicsAlertsAbstract implements ReportsForensicsAlertsInterface {
     public static LocalDateTime timeDefinitionLocalDateTime;
 
     StringBuilder errorMessages = new StringBuilder();
@@ -336,7 +336,7 @@ abstract class ReportsForensicsAlertsAbstract implements ReportsForensicsAlertsI
     @Override
     public void delete(String reportName) throws Exception{
 
-            WebUiTools.check("My Reports Tab", "", true);
+            WebUiTools.check("My " + getType() + " Tab", "", true);
             BasicOperationsHandler.clickButton("Delete Report",reportName);
             confirmDeleteReport("confirm Delete Report",reportName);
             clearSavedReportInMap(reportName);
