@@ -30,7 +30,8 @@ Feature: Vision APM Upgrade current -1
     Then Upgrade or Fresh Install Vision
 
   Scenario: Validate server is up after reset
-    When CLI Operations - Run Root Session command "reboot" timeout 300
+    When CLI Operations - Run Root Session command "reboot"
+#    When CLI Operations - Run Root Session command "reboot" timeout 300
     When validate vision server services is UP
 
 
