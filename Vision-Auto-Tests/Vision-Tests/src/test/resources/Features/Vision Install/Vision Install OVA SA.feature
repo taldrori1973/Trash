@@ -6,6 +6,11 @@ Feature: Vision Install OVA SA
     Given Prerequisite for Setup force
     Then Upgrade or Fresh Install Vision
 
+  Scenario: Validate server is up after reset
+    When CLI Operations - Run Root Session command "reboot"
+#    When CLI Operations - Run Root Session command "reboot" timeout 300
+    When validate vision server services is UP
+
   @SID_2
   Scenario: verify vision_install logs
     Then CLI Check if logs contains
