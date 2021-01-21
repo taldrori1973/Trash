@@ -81,7 +81,7 @@ public class ReportSteps extends BddUITestBase {
     public void uiReportWithName(String type, String reportName,String negative) throws Throwable {
         switch (type.toLowerCase())
         {
-            case "Report": new Report().delete(reportName);break;
+            case "report": new Report().delete(reportName);break;
 //            case "Forensics": new Forensics().delete(reportName);break;
 //            case "Alert": new Alert().delete(reportName);break;
         }
