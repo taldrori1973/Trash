@@ -88,7 +88,7 @@ public class ReportSteps extends BddUITestBase {
         switch (type.toLowerCase())
         {
             case "Report": new Report().delete(reportName);break;
-          //  case "Forensics": new Forensics().delete(reportName);break;
+            case "Forensics": new Forensics().delete(reportName);break;
 //            case "Alert": new Alert().delete(reportName);break;
         }
     }

@@ -347,17 +347,17 @@ abstract public class ReportsForensicsAlertsAbstract implements ReportsForensics
     }
 
     public void deletionReportInstance(String label, String params) throws Exception{
-        VisionDebugIdsManager.setLabel("Show Report Time Generated");
+        VisionDebugIdsManager.setLabel("Show " + getType() + " Time Generated");
         VisionDebugIdsManager.setParams(params);
         String TimeReport =WebUIUtils.fluentWait(ComponentLocatorFactory.getEqualLocatorByDbgId(VisionDebugIdsManager.getDataDebugId()).getBy()).getText();
-        BasicOperationsHandler.clickButton("Deletion Report Instance",params);
-        confirmDeleteReport("confirm Delete Report",params.split("_")[0]);
+        BasicOperationsHandler.clickButton("Deletion " + getType() + " Instance",params);
+        confirmDeleteReport("confirm Delete "+ getType(),params.split("_")[0]);
         WebUIUtils.sleep(3);
-        VisionDebugIdsManager.setLabel("Show Report Time Generated");
+        VisionDebugIdsManager.setLabel("Show " + getType() + " Time Generated");
         VisionDebugIdsManager.setParams(params);
         WebElement element = WebUIUtils.fluentWait(ComponentLocatorFactory.getLocatorByXpathDbgId(VisionDebugIdsManager.getDataDebugId()).getBy());
         if (element != null && element.getText().equalsIgnoreCase(TimeReport))
-            BaseTestUtils.report("No Report Generate at this time" +TimeReport, Reporter.FAIL);
+            BaseTestUtils.report("No" + getType() + " Generate at this time" +TimeReport, Reporter.FAIL);
     }
 
     public static void confirmDeleteReport(String label, String params) throws TargetWebElementNotFoundException {
