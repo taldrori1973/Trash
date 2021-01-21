@@ -2,7 +2,6 @@ package com.radware.vision.bddtests.VRM;
 
 import com.radware.vision.automation.tools.exceptions.selenium.TargetWebElementNotFoundException;
 import com.radware.vision.bddtests.BddUITestBase;
-import com.radware.vision.bddtests.ReportsForensicsAlerts.Forensics;
 import com.radware.vision.bddtests.ReportsForensicsAlerts.Report;
 import com.radware.vision.infra.testhandlers.vrm.VRMHandler;
 import com.radware.vision.infra.testhandlers.vrm.VRMReportsHandler;
@@ -78,17 +77,12 @@ public class ReportSteps extends BddUITestBase {
         new Report().baseOperation(operationType, reportName, negative, reportsEntry, restTestBase.getRootServerCli());
     }
 
-    @Then("^UI Open Report Parameters$")
-    public void uiOpenReportParameters() throws Throwable {
-        new Report().expandReportParameters();
-    }
-
     @Then("^UI Delete (Report|Forensics|Alert) With Name \"([^\"]*)\"( negative)?$")
     public void uiReportWithName(String type, String reportName,String negative) throws Throwable {
         switch (type.toLowerCase())
         {
             case "Report": new Report().delete(reportName);break;
-          //  case "Forensics": new Forensics().delete(reportName);break;
+//            case "Forensics": new Forensics().delete(reportName);break;
 //            case "Alert": new Alert().delete(reportName);break;
         }
     }
