@@ -47,7 +47,7 @@ public class Report extends ReportsForensicsAlertsAbstract {
             BasicOperationsHandler.clickButton("save");
         } catch (Exception e) {
             cancelReport();
-            throw e;
+            BaseTestUtils.report(e.getMessage(),Reporter.FAIL);
         }
 
         if(negative == null){
@@ -293,7 +293,7 @@ public class Report extends ReportsForensicsAlertsAbstract {
             BasicOperationsHandler.clickButton("save");
         } catch (Exception e) {
             cancelReport();
-            throw e;
+            BaseTestUtils.report(e.getMessage(),Reporter.FAIL);
         }
         if (!reportCreated(reportName)) {
             cancelReport();
