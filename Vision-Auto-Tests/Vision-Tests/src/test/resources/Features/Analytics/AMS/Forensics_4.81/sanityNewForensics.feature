@@ -1,6 +1,7 @@
+@TC119241
 Feature: Basic tests for Forensics parameters
 
-  @Test12
+
   @SID_1
   Scenario: Navigate to NEW ForensicsS page
     Then UI Login with user "radware" and password "radware"
@@ -132,7 +133,7 @@ Feature: Basic tests for Forensics parameters
 #    Then UI Text of "Forensics Format Type" with extension "CSV" equal to "CSV W/Details"
 
   ##################### Name Section tests ###############################
-  @Test12
+
   @SID_14
   Scenario: Validate Forensics Name and Description
     Then UI Validate the attribute "placeholder" Of Label "Forensics Name" is "EQUALS" to "Type here"
