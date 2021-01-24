@@ -181,13 +181,16 @@ public class Report extends ReportsForensicsAlertsAbstract {
             errorMessage.append(validateShareDefinition(new JSONObject(basicRestResult.get("deliveryMethod").toString()), map));
             errorMessage.append(validateFormatDefinition(new JSONObject(basicRestResult.get("exportFormat").toString()), map));
             errorMessage.append(TemplateHandlers.validateTemplateDefinition(basicRestResult.get("templates").toString().equalsIgnoreCase("null")?new JSONArray():new JSONArray(basicRestResult.get("templates").toString()),map,templates,widgets,reportName));
-        }else errorMessage.append("No report Defined with name ").append(reportName).append("/n");
+        }else errorMessage.append("Returned JSON object is empty ").append(reportName).append("/n");
         if (errorMessage.length() != 0)
             BaseTestUtils.report(errorMessage.toString(), Reporter.FAIL);
     }
 
-    private JSONObject getReportDefinition(String reportName, Map<String, String> map) throws Exception {
-        RestResponse restResponse = new CurrentVisionRestAPI("Vision/newReport.json", "Get Created " + isReportAmsOrAdc(map) + " Reports").sendRequest();
+    private JSONObject getReportDefinition(String reportName, Map<String, String> map) {
+        RestResponse restResponse = null;
+        JSONObject jsonObject = null;
+        try {
+            restResponse = new CurrentVisionRestAPI("Vision/newReport.json", "Get Created " + isReportAmsOrAdc(map) + " Reports").sendRequest();
         if (restResponse.getStatusCode()== StatusCode.OK)
         {
             JSONArray reportsJSONArray = new JSONArray(restResponse.getBody().getBodyAsString());
@@ -198,13 +201,18 @@ public class Report extends ReportsForensicsAlertsAbstract {
                     currentVisionRestAPI.getRestRequestSpecification().setPathParams(Collections.singletonMap("reportID", new JSONObject(reportJsonObject.toString()).getString("id")));
                     restResponse = currentVisionRestAPI.sendRequest();
                     if (restResponse.getStatusCode() == StatusCode.OK)
-                        return new JSONObject(restResponse.getBody().getBodyAsString());
-                    else throw new Exception("Get specific Report request failed, The response is " + restResponse);
+                        jsonObject = new JSONObject(restResponse.getBody().getBodyAsString());
+                    else BaseTestUtils.report("Get specific Report request failed, The response is " + restResponse, Reporter.FAIL);
                 }
             }
-            throw new Exception("No Report with Name " + reportName);
+            BaseTestUtils.report("No Report with Name " + reportName, Reporter.FAIL);
         }
-        else throw new Exception("Get Reports failed request, The response is " + restResponse);
+        else
+            BaseTestUtils.report("Get Reports failed request, The response is " + restResponse, Reporter.FAIL);
+    } catch (NoSuchFieldException e) {
+        BaseTestUtils.report(e.getMessage(), Reporter.FAIL);
+    }
+        return jsonObject;
     }
 
     private String isReportAmsOrAdc(Map<String, String> map) {
