@@ -1,5 +1,6 @@
 Feature: Basic tests for Forensics parameters
 
+  @Test12
   @SID_1
   Scenario: Navigate to NEW ForensicsS page
     Then UI Login with user "radware" and password "radware"
@@ -130,9 +131,73 @@ Feature: Basic tests for Forensics parameters
 #  data-debug-id
 #    Then UI Text of "Forensics Format Type" with extension "CSV" equal to "CSV W/Details"
 
+  ##################### Name Section tests ###############################
+  @Test12
+  @SID_14
+  Scenario: Validate Forensics Name and Description
+    Then UI Validate the attribute "placeholder" Of Label "Forensics Name" is "EQUALS" to "Type here"
+    Then UI Set Text Field "Forensics Name" To " "
+    Then validate webUI CSS value "border-bottom-color" of label "Forensics Name" equals "rgb(244, 20, 20)"
+    Then UI Set Text Field "Forensics Name" To "&"
+    Then validate webUI CSS value "border-bottom-color" of label "Forensics Name" equals "rgb(244, 20, 20)"
+    Then UI Set Text Field "Forensics Name" To "Test"
+    Then validate webUI CSS value "border-bottom-color" of label "Forensics Name" equals "rgb(212, 212, 212)"
+    Then UI Set Text Field "Forensics Name" To "test~a"
+    Then validate webUI CSS value "border-bottom-color" of label "Forensics Name" equals "rgb(244, 20, 20)"
+    Then UI Set Text Field "Forensics Name" To "test`"
+    Then validate webUI CSS value "border-bottom-color" of label "Forensics Name" equals "rgb(244, 20, 20)"
+    Then UI Set Text Field "Forensics Name" To "test!!"
+    Then validate webUI CSS value "border-bottom-color" of label "Forensics Name" equals "rgb(244, 20, 20)"
+    Then UI Set Text Field "Forensics Name" To "test#"
+    Then validate webUI CSS value "border-bottom-color" of label "Forensics Name" equals "rgb(244, 20, 20)"
+    Then UI Set Text Field "Forensics Name" To "test$"
+    Then validate webUI CSS value "border-bottom-color" of label "Forensics Name" equals "rgb(244, 20, 20)"
+    Then UI Set Text Field "Forensics Name" To "test%"
+    Then validate webUI CSS value "border-bottom-color" of label "Forensics Name" equals "rgb(244, 20, 20)"
+    Then UI Set Text Field "Forensics Name" To "test^"
+    Then validate webUI CSS value "border-bottom-color" of label "Forensics Name" equals "rgb(244, 20, 20)"
+    Then UI Set Text Field "Forensics Name" To "test&"
+    Then validate webUI CSS value "border-bottom-color" of label "Forensics Name" equals "rgb(244, 20, 20)"
+    Then UI Set Text Field "Forensics Name" To "test*"
+    Then validate webUI CSS value "border-bottom-color" of label "Forensics Name" equals "rgb(244, 20, 20)"
+    Then UI Set Text Field "Forensics Name" To "test+"
+    Then validate webUI CSS value "border-bottom-color" of label "Forensics Name" equals "rgb(244, 20, 20)"
+    Then UI Set Text Field "Forensics Name" To "test="
+    Then validate webUI CSS value "border-bottom-color" of label "Forensics Name" equals "rgb(244, 20, 20)"
+    Then UI Set Text Field "Forensics Name" To "test\"
+    Then validate webUI CSS value "border-bottom-color" of label "Forensics Name" equals "rgb(244, 20, 20)"
+    Then UI Set Text Field "Forensics Name" To "test-"
+    Then validate webUI CSS value "border-bottom-color" of label "Forensics Name" equals "rgb(244, 20, 20)"
+    Then UI Set Text Field "Forensics Name" To "test?"
+    Then validate webUI CSS value "border-bottom-color" of label "Forensics Name" equals "rgb(244, 20, 20)"
+    Then UI Set Text Field "Forensics Name" To "test["
+    Then validate webUI CSS value "border-bottom-color" of label "Forensics Name" equals "rgb(244, 20, 20)"
+    Then UI Set Text Field "Forensics Name" To "test]"
+    Then validate webUI CSS value "border-bottom-color" of label "Forensics Name" equals "rgb(244, 20, 20)"
+    Then UI Set Text Field "Forensics Name" To "test'"
+    Then validate webUI CSS value "border-bottom-color" of label "Forensics Name" equals "rgb(244, 20, 20)"
+    Then UI Set Text Field "Forensics Name" To "test;"
+    Then validate webUI CSS value "border-bottom-color" of label "Forensics Name" equals "rgb(244, 20, 20)"
+    Then UI Set Text Field "Forensics Name" To "test,"
+    Then validate webUI CSS value "border-bottom-color" of label "Forensics Name" equals "rgb(244, 20, 20)"
+    Then UI Set Text Field "Forensics Name" To "test/"
+    Then validate webUI CSS value "border-bottom-color" of label "Forensics Name" equals "rgb(244, 20, 20)"
+    Then UI Set Text Field "Forensics Name" To "test{"
+    Then validate webUI CSS value "border-bottom-color" of label "Forensics Name" equals "rgb(244, 20, 20)"
+    Then UI Set Text Field "Forensics Name" To "test}"
+    Then validate webUI CSS value "border-bottom-color" of label "Forensics Name" equals "rgb(244, 20, 20)"
+    Then UI Set Text Field "Forensics Name" To "test:"
+    Then validate webUI CSS value "border-bottom-color" of label "Forensics Name" equals "rgb(244, 20, 20)"
+    Then UI Set Text Field "Forensics Name" To "test<"
+    Then validate webUI CSS value "border-bottom-color" of label "Forensics Name" equals "rgb(244, 20, 20)"
+    Then UI Set Text Field "Forensics Name" To "test>"
+    Then validate webUI CSS value "border-bottom-color" of label "Forensics Name" equals "rgb(244, 20, 20)"
+    Then UI Set Text Field "Forensics Name" To "@"
+    Then validate webUI CSS value "border-bottom-color" of label "Forensics Name" equals "rgb(212, 212, 212)"
+    Then UI Set Text Field "Forensics Name" To "("
+    Then validate webUI CSS value "border-bottom-color" of label "Forensics Name" equals "rgb(212, 212, 212)"
+    Then UI Set Text Field "Forensics Name" To ")"
+    Then validate webUI CSS value "border-bottom-color" of label "Forensics Name" equals "rgb(212, 212, 212)"
 
-
-
-
-
-
+    Then UI Set Text Field "Forensics Description" To "Description for Forensics"
+    Then validate webUI CSS value "border-bottom-color" of label "Forensics Description" equals "rgb(212, 212, 212)"
