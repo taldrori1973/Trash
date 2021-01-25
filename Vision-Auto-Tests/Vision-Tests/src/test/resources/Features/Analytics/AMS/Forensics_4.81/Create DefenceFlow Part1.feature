@@ -55,7 +55,7 @@ Feature:DefenseFlow Part1
   @SID_6
   Scenario: create new Output Attack Name1
     When UI "Create" Forensics With Name "Output Attack Name1"
-      | Product               | DefensePro                                                                                                       |
+      | Product               | DefenseFlow                                                                                                       |
       | Output                | Attack Name                                                                                                      |
       | Criteria              | condition.All:true                                                                                               |
       | devices               | All                                                                                                              |
