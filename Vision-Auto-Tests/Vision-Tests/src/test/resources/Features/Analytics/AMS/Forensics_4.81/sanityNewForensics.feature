@@ -6,7 +6,7 @@ Feature: Basic tests for Forensics parameters
   Scenario: Navigate to NEW ForensicsS page
     Then UI Login with user "radware" and password "radware"
     Then UI Navigate to "New Forensics" page via homepage
-    Then UI Click Button "New Forensics"
+    Then UI Click Button "New Forensics Tab"
 
   @SID_2
   Scenario: Validate Forensics Parameters Name
