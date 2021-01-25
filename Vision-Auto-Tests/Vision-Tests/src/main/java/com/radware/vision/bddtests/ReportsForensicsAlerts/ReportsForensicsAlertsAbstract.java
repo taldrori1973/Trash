@@ -31,7 +31,7 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.How;
 
 
-abstract class ReportsForensicsAlertsAbstract implements ReportsForensicsAlertsInterface {
+abstract public class ReportsForensicsAlertsAbstract implements ReportsForensicsAlertsInterface {
     public static LocalDateTime timeDefinitionLocalDateTime;
 
     StringBuilder errorMessages = new StringBuilder();
@@ -334,31 +334,30 @@ abstract class ReportsForensicsAlertsAbstract implements ReportsForensicsAlertsI
     }
 
     @Override
-    public void delete(String reportName) throws Exception{
-
-            WebUiTools.check("My Reports Tab", "", true);
-            BasicOperationsHandler.clickButton("Delete Report",reportName);
-            confirmDeleteReport("confirm Delete Report",reportName);
-            clearSavedReportInMap(reportName);
+    public void delete(String Name) throws Exception{
+            WebUiTools.check("My " + getType() + " Tab", "", true);
+            BasicOperationsHandler.clickButton("Delete "+ getType(),Name);
+            confirmDeleteReport("confirm Delete "+ getType(),Name);
+            clearSavedReportInMap(Name);
             WebUIUtils.sleep(3);
-            if(!BasicOperationsHandler.isElementExists("My Report", false, reportName)){
-                BaseTestUtils.report("Failed to delete report name: " + reportName, Reporter.FAIL);
+            if(!BasicOperationsHandler.isElementExists("My "+ getType(), false, Name)){
+                BaseTestUtils.report("Failed to delete "+ getType() +" name: " + Name, Reporter.FAIL);
         }
 
     }
 
     public void deletionReportInstance(String label, String params) throws Exception{
-        VisionDebugIdsManager.setLabel("Show Report Time Generated");
+        VisionDebugIdsManager.setLabel("Show " + getType() + " Time Generated");
         VisionDebugIdsManager.setParams(params);
         String TimeReport =WebUIUtils.fluentWait(ComponentLocatorFactory.getEqualLocatorByDbgId(VisionDebugIdsManager.getDataDebugId()).getBy()).getText();
-        BasicOperationsHandler.clickButton("Deletion Report Instance",params);
-        confirmDeleteReport("confirm Delete Report",params.split("_")[0]);
+        BasicOperationsHandler.clickButton("Deletion " + getType() + " Instance",params);
+        confirmDeleteReport("confirm Delete "+ getType(),params.split("_")[0]);
         WebUIUtils.sleep(3);
-        VisionDebugIdsManager.setLabel("Show Report Time Generated");
+        VisionDebugIdsManager.setLabel("Show " + getType() + " Time Generated");
         VisionDebugIdsManager.setParams(params);
         WebElement element = WebUIUtils.fluentWait(ComponentLocatorFactory.getLocatorByXpathDbgId(VisionDebugIdsManager.getDataDebugId()).getBy());
         if (element != null && element.getText().equalsIgnoreCase(TimeReport))
-            BaseTestUtils.report("No Report Generate at this time" +TimeReport, Reporter.FAIL);
+            BaseTestUtils.report("No" + getType() + " Generate at this time" +TimeReport, Reporter.FAIL);
     }
 
     public static void confirmDeleteReport(String label, String params) throws TargetWebElementNotFoundException {

@@ -1,5 +1,5 @@
-@TC114832
-Feature: attackTable
+@TC114832 
+Feature: Attacks Table
 
   @SID_1
   Scenario: Clean system data
@@ -40,6 +40,10 @@ Feature: attackTable
   Scenario: validate the table count
     Then UI Validate the attribute "aria-checked" Of Label "Auto Refresh" With Params "" is "EQUALS" to "true"
     Then UI Validate "Attacks Table" Table rows count EQUALS to 14
+    When UI set "Auto Refresh" switch button to "off"
+    Given UI Click Button "Accessibility Menu"
+    Then UI Select Element with label "Accessibility Auto Refresh" and params "Stop Auto-Refresh"
+    Then UI Click Button "Accessibility Menu"
 
   @SID_5
   Scenario: validate scope selection with table
@@ -106,6 +110,9 @@ Feature: attackTable
 
   @SID_10
   Scenario: validate Auto refresh
+    Given UI Click Button "Accessibility Menu"
+    Then UI UnSelect Element with label "Accessibility Auto Refresh" and params "Stop Auto-Refresh"
+    Then UI Click Button "Accessibility Menu"
     And UI Click Button "Auto Refresh" with value ""
     Then UI Validate the attribute "aria-checked" Of Label "Auto Refresh" With Params "" is "EQUALS" to "false"
     And UI Do Operation "Select" item "Global Time Filter"

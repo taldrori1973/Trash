@@ -34,7 +34,7 @@ Feature: DPM - ADC Reports RBAC
 #      | devices    | virts:[Rejith:88, Rejith:443] |
 
 
-    Then UI Click Button "My Reports Tab"
+    Then UI Click Button "My Report Tab"
     Then UI Validate Element Existence By Label "My Report" if Exists "true" with value "App Report"
     Then UI Validate Element Existence By Label "My Report" if Exists "true" with value "Alteon_172.17.164.17 Report"
 

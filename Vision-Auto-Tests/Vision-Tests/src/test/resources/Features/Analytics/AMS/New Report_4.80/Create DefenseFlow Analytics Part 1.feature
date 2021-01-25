@@ -1,6 +1,7 @@
 @TC117964
 Feature:DefenseFlow Analytics Part 1
 
+  
   @SID_1
   Scenario: Navigate to NEW REPORTS page
     Then UI Login with user "radware" and password "radware"
@@ -8,6 +9,7 @@ Feature:DefenseFlow Analytics Part 1
     Then UI Click Button "New Report Tab"
 
     # ------------------------------------------------------------------------------------------------------------------------------------------------------------
+  
   @SID_2
   Scenario: Top Attacks by Duration Report 1
     Then UI Click Button "New Report Tab"

@@ -14,12 +14,10 @@ Feature: Deletion Instance
   Scenario: Create and validate DefensePro Analytics Report
     Given UI "Create" Report With Name "DefensePro Analytics Report"
       | Template              | reportType:DefensePro Analytics,Widgets:[Connections Rate],devices:[{deviceIndex:10}],showTable:true |
-      | Logo                  | reportLogoPNG.png                                                                                    |
       | Time Definitions.Date | Quick:1D                                                                                             |
       | Format                | Select: CSV                                                                                          |
     Then UI "Validate" Report With Name "DefensePro Analytics Report"
       | Template              | reportType:DefensePro Analytics,Widgets:[Connections Rate],devices:[{deviceIndex:10}],showTable:true |
-      | Logo                  | reportLogoPNG.png                                                                                    |
       | Time Definitions.Date | Quick:1D                                                                                             |
       | Format                | Select: CSV                                                                                          |
 
@@ -55,9 +53,9 @@ Feature: Deletion Instance
 
   @SID_9
   Scenario: Deletion Report Instance
-    Then UI Validate Deletion of report instance "Deletion Report Instance" with value "DefensePro Analytics Report_2"
-    Then UI Validate Deletion of report instance "Deletion Report Instance" with value "DefensePro Analytics Report_1"
-    Then UI Validate Deletion of report instance "Deletion Report Instance" with value "DefensePro Analytics Report_0"
+    Then UI Validate Deletion of Report instance "Deletion Report Instance" with value "DefensePro Analytics Report_2"
+    Then UI Validate Deletion of Report instance "Deletion Report Instance" with value "DefensePro Analytics Report_1"
+    Then UI Validate Deletion of Report instance "Deletion Report Instance" with value "DefensePro Analytics Report_0"
 
   @SID_10
   Scenario: Edit The Time and validate
@@ -85,8 +83,8 @@ Feature: Deletion Instance
 
   @SID_14
   Scenario: Deletion Report Instance
-    Then UI Validate Deletion of report instance "Deletion Report Instance" with value "DefensePro Analytics Report_1"
-    Then UI Validate Deletion of report instance "Deletion Report Instance" with value "DefensePro Analytics Report_0"
+    Then UI Validate Deletion of Report instance "Deletion Report Instance" with value "DefensePro Analytics Report_1"
+    Then UI Validate Deletion of Report instance "Deletion Report Instance" with value "DefensePro Analytics Report_0"
 
   @SID_15
   Scenario: Delete report
