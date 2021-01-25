@@ -109,7 +109,7 @@ Feature: Basic tests for Forensics parameters
       | Format HTML Type                    |       | true  |
       | Format CSV Type                     |       | false |
       | Format CSV With Attack Details Type |       | false |
-    Then UI Text of "Forensics Format Type" with extension "HTML" equal to "HTML"
+    Then UI Text of "Forensics Format Type" with extension "html" equal to "HTML"
 
   @SID_12
   Scenario: Forensics Format CSV Button is clicked
@@ -119,7 +119,7 @@ Feature: Basic tests for Forensics parameters
       | Format HTML Type                    |       | false |
       | Format CSV Type                     |       | true  |
       | Format CSV With Attack Details Type |       | false |
-    Then UI Text of "Forensics Format Type" with extension "CSV" equal to "CSV"
+    Then UI Text of "Forensics Format Type" with extension "csv" equal to "CSV"
 
   @SID_13
   Scenario: Forensics Format CSV With Attack Details Button is clicked
@@ -130,7 +130,7 @@ Feature: Basic tests for Forensics parameters
       | Format CSV Type                     |       | false |
       | Format CSV With Attack Details Type |       | true  |
 #  data-debug-id
-#    Then UI Text of "Forensics Format Type" with extension "CSV" equal to "CSV W/Details"
+#    Then UI Text of "Forensics Format Type" with extension "csv" equal to "CSV W/Details"
 
   ##################### Name Section tests ###############################
 
