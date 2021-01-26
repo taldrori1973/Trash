@@ -1,7 +1,7 @@
 @TC119241
 Feature: Basic tests for Forensics parameters
 
-
+  
   @SID_1
   Scenario: Navigate to NEW ForensicsS page
     Then UI Login with user "radware" and password "radware"
@@ -202,3 +202,59 @@ Feature: Basic tests for Forensics parameters
 
     Then UI Set Text Field "Forensics Description" To "Description for Forensics"
     Then validate webUI CSS value "border-bottom-color" of label "Forensics Description" equals "rgb(212, 212, 212)"
+
+
+    ########################## Schedule Tests #########################################################
+  
+  @SID_15
+  Scenario: Forensics Schedule Daily is selected
+    Then UI Click Button "Switch button Scheduled Forensics"
+    Then UI Click Button "Schedule Forensics" with value "daily"
+    Then UI Validate the attribute of "data-debug-checked" are "EQUAL" to
+      | label           | param   | value |
+      | Schedule Forensics | daily   | true  |
+      | Schedule Forensics | weekly  | false |
+      | Schedule Forensics | monthly | false |
+      | Schedule Forensics | once    | false |
+
+  
+  @SID_16
+  Scenario: Forensics Schedule Weekly is selected
+    Then UI Click Button "Schedule Forensics" with value "weekly"
+    Then UI Validate the attribute of "data-debug-checked" are "EQUAL" to
+      | label           | param   | value |
+      | Schedule Forensics | daily   | false |
+      | Schedule Forensics | weekly  | true  |
+      | Schedule Forensics | monthly | false |
+      | Schedule Forensics | once    | false |
+
+  
+  @SID_17
+  Scenario: Forensics Schedule Monthly is selected
+    Then UI Click Button "Schedule Forensics" with value "monthly"
+    Then UI Validate the attribute of "data-debug-checked" are "EQUAL" to
+      | label           | param   | value |
+      | Schedule Forensics | daily   | false |
+      | Schedule Forensics | weekly  | false |
+      | Schedule Forensics | monthly | true  |
+      | Schedule Forensics | once    | false |
+
+  
+  @SID_18
+  Scenario: Forensics Schedule Once is selected
+    Then UI Click Button "Schedule Forensics" with value "once"
+    Then UI Validate the attribute of "data-debug-checked" are "EQUAL" to
+      | label           | param   | value |
+      | Schedule Forensics | daily   | false |
+      | Schedule Forensics | weekly  | false |
+      | Schedule Forensics | monthly | false |
+      | Schedule Forensics | once    | true  |
+
+  
+  @SID_19
+  Scenario: Forensics Schedule Monthly - day of month
+    Then UI Click Button "Schedule Forensics" with value "monthly"
+    Then validate webUI CSS value "border-bottom-color" of label "Scheduling Day of Month" equals "rgb(212, 212, 212)"
+    Then UI Set Text Field "Scheduling Day of Month input" To "-1"
+    Then UI Validate Text field "Scheduling Month Error Message" CONTAINS "Select the day of the month."
+    Then validate webUI CSS value "border-bottom-color" of label "Scheduling Month Error Message" equals "rgb(244, 20, 20)"
