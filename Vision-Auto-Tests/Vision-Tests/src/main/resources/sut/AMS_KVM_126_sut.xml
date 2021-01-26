@@ -41,7 +41,7 @@
                 <class>com.radware.vision.vision_project_cli.VisionSetup</class>
                 <!--<setupMode>Fresh Install| Upgrade</setupMode>-->
                 <setupMode>KVM_Fresh Install</setupMode>
-                <isAPM>true</isAPM>
+                <serverType>apm</serverType>
                 <snapshot></snapshot>
                 <!--<vmPrefix>This field is relevant for fresh installed VM</vmPrefix>-->
                 <vmPrefix>VisionAuto-VRM-Fresh</vmPrefix>

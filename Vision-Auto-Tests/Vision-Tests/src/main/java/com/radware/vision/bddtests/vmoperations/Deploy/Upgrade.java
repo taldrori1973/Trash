@@ -23,17 +23,31 @@ public class Upgrade extends Deploy {
         put("4.50.00", "4.20.00");
         put("4.40.00", "4.10.00");
     }};
-    private RadwareServerCli radwareServerCli;
-    private RootServerCli rootServerCli;
+    private final RadwareServerCli radwareServerCli;
+    private final RootServerCli rootServerCli;
+    private FileType upgradeType;
 
     public Upgrade(boolean isExtended, String build, RadwareServerCli radwareServerCli, RootServerCli rootServerCli) {
         super(isExtended, build, rootServerCli.getHost());
         this.radwareServerCli = radwareServerCli;
         this.rootServerCli = rootServerCli;
-        this.isAPM = getVisionSetupAttributeFromSUT("isAPM") != null && Boolean.parseBoolean(getVisionSetupAttributeFromSUT("isAPM")) || UpgradeSteps.isAPM();
-        buildFileInfo(isAPM ? FileType.UPGRADE_APM : FileType.UPGRADE);
+        this.initFileType();
+        buildFileInfo(this.upgradeType);
     }
 
+    /**
+     * initialize the right FileType according to serverCli for deploy.
+     */
+    public void initFileType() {
+        if (UpgradeSteps.isAPM()) {
+            this.upgradeType = FileType.UPGRADE_APM;
+        } else {
+            this.upgradeType = FileType.UPGRADE;
+        }
+    }
+
+
+    @Override
     public void deploy() {
         try {
             if (!isSetupNeeded) return;
