@@ -217,7 +217,7 @@ Feature: Basic tests for Forensics parameters
       | Schedule Forensics | monthly | false |
       | Schedule Forensics | once    | false |
 
-  
+
   @SID_16
   Scenario: Forensics Schedule Weekly is selected
     Then UI Click Button "Schedule Forensics" with value "weekly"
@@ -228,7 +228,7 @@ Feature: Basic tests for Forensics parameters
       | Schedule Forensics | monthly | false |
       | Schedule Forensics | once    | false |
 
-  
+
   @SID_17
   Scenario: Forensics Schedule Monthly is selected
     Then UI Click Button "Schedule Forensics" with value "monthly"
@@ -239,7 +239,7 @@ Feature: Basic tests for Forensics parameters
       | Schedule Forensics | monthly | true  |
       | Schedule Forensics | once    | false |
 
-  
+
   @SID_18
   Scenario: Forensics Schedule Once is selected
     Then UI Click Button "Schedule Forensics" with value "once"
@@ -254,7 +254,7 @@ Feature: Basic tests for Forensics parameters
   @SID_19
   Scenario: Forensics Schedule Monthly - day of month
     Then UI Click Button "Schedule Forensics" with value "monthly"
-    Then validate webUI CSS value "border-bottom-color" of label "Scheduling Day of Month" equals "rgb(212, 212, 212)"
     Then UI Set Text Field "Scheduling Day of Month input" To "-1"
+    Then validate webUI CSS value "border-bottom-color" of label "Scheduling Day of Month" equals "rgb(244, 20, 20)"
     Then UI Validate Text field "Scheduling Month Error Message" CONTAINS "Select the day of the month."
     Then validate webUI CSS value "border-bottom-color" of label "Scheduling Month Error Message" equals "rgb(244, 20, 20)"
