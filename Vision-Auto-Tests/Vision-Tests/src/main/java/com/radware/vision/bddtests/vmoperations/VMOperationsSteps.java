@@ -267,8 +267,6 @@ public class VMOperationsSteps extends BddUITestBase {
                 return visionCli.visionServer.visionSetup.getVmPrefix();
             case "FileNamePrefix":
                 return visionCli.visionServer.visionSetup.getFileNamePrefix();
-            case "isAPM":
-                return visionCli.visionServer.visionSetup.getIsAPM();
             case "serverType":
                 return visionCli.visionServer.visionSetup.getServerType();
         }
