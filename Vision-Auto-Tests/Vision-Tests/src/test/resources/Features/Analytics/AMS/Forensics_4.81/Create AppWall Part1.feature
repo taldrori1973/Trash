@@ -588,7 +588,9 @@ Feature:AppWall Part1
       | Share                 | Email:[automation.vision2@radware.com],Subject:myEdit subject,Body:myEdit body                                                                                                                                                               |
       | Format                | Select: CSV                                                                                                                                                                                                                                  |
 
-
+  @SID_53
+  Scenario: Logout
+    Then UI logout and close browser
 
 
 
