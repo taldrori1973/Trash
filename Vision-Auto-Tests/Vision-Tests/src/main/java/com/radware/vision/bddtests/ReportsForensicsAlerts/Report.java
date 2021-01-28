@@ -25,7 +25,6 @@ import java.util.Map;
 
 public class Report extends ReportsForensicsAlertsAbstract {
 
-
     public void expandReportParameters() throws Exception {
         WebUiTools.check(getType() + " Parameter Menu", "", false);
     }
