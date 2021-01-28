@@ -1,18 +1,21 @@
 package com.radware.vision.bddtests.VRM;
 
 import com.radware.vision.automation.tools.sutsystemobjects.devicesinfo.enums.SUTDeviceType;
+import com.radware.vision.bddtests.ReportsForensicsAlerts.Forensics;
 import com.radware.vision.bddtests.ReportsForensicsAlerts.Report;
 import com.radware.vision.infra.testhandlers.alteon.securitymonitoring.dashboardview.sslinspection.enums.QuickRange;
 import com.radware.vision.infra.testhandlers.vrm.VRMHandler;
 import com.radware.vision.infra.testhandlers.vrm.VRMHandler.*;
 import com.radware.vision.infra.testhandlers.vrm.VRMReportsHandler;
-import cucumber.api.PendingException;
+import com.radware.vision.infra.utils.json.CustomizedJsonManager;
 import cucumber.api.java.en.And;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 
 public class VRMSteps {
@@ -252,6 +255,14 @@ public class VRMSteps {
     public void uiValidateStackBarTimedataWithWidgetInReport(String chart, String reportName, List<StackBarData> entries) throws NoSuchFieldException {
         new Report().getVRMReportsChartsHandler(reportName).uiValidateStackBarTimeDataWithWidget(chart, entries);
 
+    }
+
+    @Then("^select forensics schedule with details \"([^\"]*)\"$")
+    public void selectScheduleWithDetails(String schedulingJson) throws Exception {
+        Map<String, String> map = new HashMap<>();
+        map.put("Schedule", schedulingJson);
+        map = CustomizedJsonManager.fixJson(map);
+        new Forensics().selectScheduling(map);
     }
 }
 
