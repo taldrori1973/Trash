@@ -386,7 +386,7 @@ abstract public class ReportsForensicsAlertsAbstract implements ReportsForensics
         {
             WebUIUtils.sleep(10);
         }
-        WebUiTools.check("My " + getType() + "s Tab", "", true);
+        WebUiTools.check("My " + getType() + " Tab", "", true);
         if (BasicOperationsHandler.isElementExists("My " + getType(), true, reportName))
             return true;
         WebUIUtils.sleep(2);
