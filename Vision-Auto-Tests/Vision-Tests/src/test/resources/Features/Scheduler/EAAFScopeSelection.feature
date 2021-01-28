@@ -1,8 +1,6 @@
 @TC119138
 Feature: EAAF Scope selection
 
-  Scenario: VRM - Forensics Report criteria - Any Condition
-
   @SID_1
   Scenario: keep reports copy on file system
     Given CLI Reset radware password
@@ -83,3 +81,12 @@ Feature: EAAF Scope selection
     Then UI Text of "Device Selection.Available Devices header" with extension "" equal to "Devices2/3"
     Then UI Validate Element Existence By Label "DPScopeSelectionChange" if Exists "true" with value "172.16.22.50_disabled"
     Then UI Do Operation "Select" item "Device Selection"
+
+  @SID_10
+  Scenario: validate if user with policy can't see device earlier than 8.19
+    When UI Logout
+    Then UI Login with user "userWithPolicy" and password "radware"
+    Then UI Navigate to "EAAF Dashboard" page via homePage
+    Then UI Do Operation "Select" item "Device Selection"
+    Then UI Validate Element Existence By Label "device" if Exists "false" with value "172.16.22.50"
+
