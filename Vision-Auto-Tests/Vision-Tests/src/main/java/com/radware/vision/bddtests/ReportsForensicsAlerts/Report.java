@@ -24,7 +24,6 @@ import java.util.Map;
 
 
 public class Report extends ReportsForensicsAlertsAbstract {
-    private String errorMessage="";
 
 
     public void expandReportParameters() throws Exception {
@@ -40,18 +39,18 @@ public class Report extends ReportsForensicsAlertsAbstract {
         }
 
         try {
-            closeReport(false);
+            closeView(false);
             WebUiTools.check("New Report Tab", "", true);
             createReportParameters(reportName, map);
             selectTemplates(map,reportName);
             BasicOperationsHandler.clickButton("save");
         } catch (Exception e) {
-            cancelReport();
+            cancelView();
             throw e;
         }
 
         if(negative == null){
-            if (!reportCreated(reportName)) {
+            if (!viewCreated(reportName)) {
                 throw new Exception("The report '" + reportName + "' isn't created!" + errorMessage);
             }
         }
@@ -141,15 +140,6 @@ public class Report extends ReportsForensicsAlertsAbstract {
         editShare(map);
         WebUiTools.check("Format Tab", "", true);
         editFormat(map);
-    }
-
-    private void selectFormat(Map<String, String> map) throws Exception {
-        if (map.containsKey("Format")) {
-            JSONObject deliveryJsonObject = new JSONObject(map.get("Format"));
-            if (deliveryJsonObject.has("Select"))
-                BasicOperationsHandler.clickButton( "Format Type", deliveryJsonObject.getString("Select").toUpperCase());
-            else BasicOperationsHandler.clickButton("Format Type", "HTML");
-        }
     }
 
     private void editFormat(Map<String, String> map) throws Exception {
@@ -292,11 +282,11 @@ public class Report extends ReportsForensicsAlertsAbstract {
             editTemplates(map,reportName);
             BasicOperationsHandler.clickButton("save");
         } catch (Exception e) {
-            cancelReport();
+            cancelView();
             throw e;
         }
-        if (!reportCreated(reportName)) {
-            cancelReport();
+        if (!viewCreated(reportName)) {
+            cancelView();
             throw new Exception("");
         }
     }

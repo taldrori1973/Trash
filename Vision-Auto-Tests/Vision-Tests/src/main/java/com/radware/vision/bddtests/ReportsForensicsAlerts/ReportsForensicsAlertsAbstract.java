@@ -6,7 +6,6 @@ import com.radware.automation.webui.VisionDebugIdsManager;
 import com.radware.automation.webui.WebUIUtils;
 import com.radware.automation.webui.widgets.ComponentLocator;
 import com.radware.automation.webui.widgets.ComponentLocatorFactory;
-import com.radware.automation.webui.widgets.impl.WebUICheckbox;
 import com.radware.vision.automation.tools.exceptions.selenium.TargetWebElementNotFoundException;
 import com.radware.vision.infra.base.pages.navigation.WebUIVisionBasePage;
 import com.radware.vision.infra.testhandlers.baseoperations.BasicOperationsHandler;
@@ -14,7 +13,6 @@ import com.radware.vision.bddtests.ReportsForensicsAlerts.Handlers.SelectTimeHan
 import com.radware.vision.infra.testhandlers.vrm.enums.vrmActions;
 import com.radware.vision.infra.utils.json.CustomizedJsonManager;
 import com.radware.vision.vision_project_cli.RootServerCli;
-import org.apache.commons.collections.map.HashedMap;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
@@ -33,8 +31,7 @@ import org.openqa.selenium.support.How;
 
 abstract public class ReportsForensicsAlertsAbstract implements ReportsForensicsAlertsInterface {
     public static LocalDateTime timeDefinitionLocalDateTime;
-
-    StringBuilder errorMessages = new StringBuilder();
+    protected String errorMessage="";
     private static Map<String, LocalDateTime> schedulingDates = new HashMap<>();
     private static Map<String, JSONObject> timeAbsoluteDates = new HashMap<>();
     protected static Map<String, Map<String,String>> templates = new HashMap<>();
@@ -55,17 +52,17 @@ abstract public class ReportsForensicsAlertsAbstract implements ReportsForensics
     }
 
     protected void createName(String name) throws Exception {
-        BasicOperationsHandler.setTextField("Report Name", "", name, true);
-        if (!getWebElement("Report Name").getAttribute("value").equals(name))
-            throw new Exception("Filling report name doesn't succeed");
+        BasicOperationsHandler.setTextField(getType() + " Name", "", name, true);
+        if (!getWebElement(getType() + " Name").getAttribute("value").equals(name))
+            throw new Exception("Filling " + getType() + " name doesn't succeed");
         this.name = name;
     }
 
-    protected void editName(Map<String, String> map, String reportName) throws Exception {
-        if (map.containsKey("New Report Name")) {
-            createName(map.get("New Report Name"));
+    protected void editName(Map<String, String> map, String viewName) throws Exception {
+        if (map.containsKey("New " + getType() + " Name")) {
+            createName(map.get("New " + getType() + " Name"));
         }
-        else name = reportName;
+        else this.name = viewName;
     }
 
     protected void selectTime(Map<String, String> map) throws Exception {
@@ -96,7 +93,7 @@ abstract public class ReportsForensicsAlertsAbstract implements ReportsForensics
     }
 
 
-    protected void selectScheduling(Map<String, String> map) throws Exception {
+    public void selectScheduling(Map<String, String> map) throws Exception {
         if (map.containsKey("Schedule")) {
             JSONObject scheduleJson = new JSONObject(map.getOrDefault("Schedule", null));
             WebUiTools.check("Switch button Scheduled Report", "", true);
@@ -246,7 +243,7 @@ abstract public class ReportsForensicsAlertsAbstract implements ReportsForensics
 
     private boolean isOldDesign(Map<String, String> map) {
         for (String key : map.keySet())
-            if (key.matches("reportType|Design|devices|webApplications|Customized Options|projectObjects")) return true;
+            if (getType().equalsIgnoreCase("report") && key.matches("reportType|Design|devices|webApplications|Customized Options|projectObjects")) return true;
         return false;
     }
 
@@ -381,6 +378,50 @@ abstract public class ReportsForensicsAlertsAbstract implements ReportsForensics
 
         if (schedulingDates.containsValue(getType() + "_" + reportName)){
             schedulingDates.remove(getType() + "_" + reportName);
+        }
+    }
+
+    protected boolean viewCreated(String reportName) throws Exception {
+        if (WebUiTools.getWebElement("save") != null)
+        {
+            WebUIUtils.sleep(10);
+        }
+        WebUiTools.check("My " + getType() + "s Tab", "", true);
+        if (BasicOperationsHandler.isElementExists("My " + getType(), true, reportName))
+            return true;
+        WebUIUtils.sleep(2);
+        closeView(true);
+        return false;
+    }
+    protected void closeView(boolean withReadTheMessage) throws TargetWebElementNotFoundException {
+        boolean isToCancel = false;
+
+        for (WebElement okWebElement : WebUiTools.getWebElements("errorMessageOK", ""))
+        {
+            isToCancel = true;
+            WebElement errorMessageElement = WebUIUtils.fluentWait(ComponentLocatorFactory.getLocatorByClass("ant-notification-notice-description").getBy());
+            if(withReadTheMessage)
+                errorMessage+=  errorMessageElement!= null ? "\nbecause:\n" + errorMessageElement.getText() + "\n":"";
+            WebUiTools.clickWebElement(okWebElement);
+        }
+        if (isToCancel)
+            cancelView();
+    }
+
+    protected void cancelView() throws TargetWebElementNotFoundException {
+        if (WebUiTools.getWebElement("close scope selection") != null)
+            BasicOperationsHandler.clickButton("close scope selection");
+        BasicOperationsHandler.clickButton("cancel");
+        if(WebUiTools.getWebElement("saveChanges","no") != null)
+            BasicOperationsHandler.clickButton("saveChanges", "no");
+    }
+
+    protected void selectFormat(Map<String, String> map) throws Exception {
+        if (map.containsKey("Format")) {
+            JSONObject deliveryJsonObject = new JSONObject(map.get("Format"));
+            if (deliveryJsonObject.has("Select"))
+                BasicOperationsHandler.clickButton( "Format Type", deliveryJsonObject.getString("Select").toUpperCase());
+            else BasicOperationsHandler.clickButton("Format Type", "HTML");
         }
     }
 

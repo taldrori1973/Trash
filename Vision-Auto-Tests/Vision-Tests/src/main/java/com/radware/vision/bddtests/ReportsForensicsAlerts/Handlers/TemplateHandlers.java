@@ -303,7 +303,7 @@ public class TemplateHandlers {
         BasicOperationsHandler.clickButton("Add Template", reportType);
     }
 
-    private static abstract class ScopeSelection {
+    public static abstract class ScopeSelection {
 
         protected String templateParam;
         JSONArray devicesJSON;
@@ -392,9 +392,15 @@ public class TemplateHandlers {
         }
     }
 
-    private static class DPScopeSelection extends ScopeSelection {
+    public static class DPScopeSelection extends ScopeSelection {
 
-        DPScopeSelection(JSONArray deviceJSON, String templateParam) {
+        public DPScopeSelection(JSONArray deviceJSON, String templateParam, String type)
+        {
+            super(deviceJSON, templateParam);
+            this.type = type;
+            saveButtonText = "SaveDPScopeSelection";
+        }
+        public DPScopeSelection(JSONArray deviceJSON, String templateParam) {
             super(deviceJSON, templateParam);
             type = "DefensePro Analytics";
             saveButtonText = "SaveDPScopeSelection";
@@ -437,9 +443,9 @@ public class TemplateHandlers {
 
             DPSingleDPScopeSelection(JSONObject deviceJSON) {
                 if (deviceJSON.keySet().size() != 0) {
-                    deviceIndex = deviceJSON.get("deviceIndex").toString();
-                    devicePorts = ((ArrayList) deviceJSON.toMap().getOrDefault("devicePorts", null));
-                    devicePolicies = ((ArrayList) deviceJSON.toMap().getOrDefault("devicePolicies", null));
+                    deviceIndex = deviceJSON.toMap().getOrDefault("deviceIndex", deviceJSON.toMap().get("index")).toString();
+                    devicePorts = ((ArrayList) deviceJSON.toMap().getOrDefault("devicePorts", deviceJSON.toMap().getOrDefault("ports", null)));
+                    devicePolicies = ((ArrayList) deviceJSON.toMap().getOrDefault("devicePolicies", deviceJSON.toMap().getOrDefault("policies", null)));
                 }
             }
 
@@ -520,7 +526,7 @@ public class TemplateHandlers {
         }
     }
 
-    private static class DPBehavioralScopeSelection extends DPScopeSelection {
+    public static class DPBehavioralScopeSelection extends DPScopeSelection {
 
          DPBehavioralScopeSelection(JSONArray deviceJSON, String templateParam) {
             super(deviceJSON, templateParam);
@@ -531,7 +537,7 @@ public class TemplateHandlers {
         }
     }
 
-    private static class HTTPSFloodScopeSelection extends ScopeSelection {
+    public static class HTTPSFloodScopeSelection extends ScopeSelection {
 
         HTTPSFloodScopeSelection(JSONArray deviceJSONArray, String templateParam) {
             super(deviceJSONArray, templateParam);
@@ -573,16 +579,28 @@ public class TemplateHandlers {
 
     public static class AWScopeSelection extends ScopeSelection {
 
-        AWScopeSelection(JSONArray deviceJSONArray, String templateParam) {
+        public AWScopeSelection(JSONArray deviceJSONArray, String templateParam) {
             super(deviceJSONArray, templateParam);
             this.type = "AppWall";
+            this.saveButtonText = "AWSaveButton";
+        }
+
+        public AWScopeSelection(JSONArray deviceJSONArray, String templateParam, String type) {
+            super(deviceJSONArray, templateParam);
+            this.type = type;
             this.saveButtonText = "AWSaveButton";
         }
     }
 
     public static class DFScopeSelection extends ScopeSelection {
 
-        DFScopeSelection(JSONArray deviceJSONArray, String templateParam) {
+        public DFScopeSelection(JSONArray deviceJSONArray, String templateParam, String type) {
+            super(deviceJSONArray, templateParam);
+            this.type = type;
+            this.saveButtonText = "DFSaveButton";
+        }
+
+        public DFScopeSelection(JSONArray deviceJSONArray, String templateParam) {
             super(deviceJSONArray, templateParam);
             this.type = "DefenseFlow Analytics";
             this.saveButtonText = "DFSaveButton";
@@ -608,7 +626,7 @@ public class TemplateHandlers {
     }
 
 
-    private static class EAAFScopeSelection extends DPScopeSelection {
+    public static class EAAFScopeSelection extends DPScopeSelection {
         EAAFScopeSelection(JSONArray deviceJSONArray, String templateParam) {
             super(deviceJSONArray, templateParam);
             type = "EAAF";

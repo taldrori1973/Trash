@@ -5,6 +5,7 @@ import com.radware.vision.automation.tools.exceptions.selenium.TargetWebElementN
 import com.radware.vision.automation.tools.exceptions.web.DropdownItemNotFoundException;
 import com.radware.vision.automation.tools.exceptions.web.DropdownNotOpenedException;
 import com.radware.vision.bddtests.BddUITestBase;
+import com.radware.vision.bddtests.ReportsForensicsAlerts.Forensics;
 import com.radware.vision.infra.testhandlers.vrm.ForensicsHandler;
 import com.radware.vision.infra.testhandlers.vrm.enums.vrmActions;
 import cucumber.api.java.en.Given;
@@ -22,8 +23,8 @@ public class ForensicsSteps extends BddUITestBase {
 
     /**
      * @param operationType or Create or Validate or Edit (Enum)
-     * @param reportName The name of the report (String)
-     * @param reportsEntry The values that the user want to added it like:
+     * @param forensicsName The name of the report (String)
+     * @param forensicsEntry The values that the user want to added it like:
      *  *- | Basic Info| Description:desc,forensics name:EDIT_1|
      *                     - The first widget name and description (here you type just the description because the name we take it from the title)
      *  *- | devices| index:10, ports:[1], policies:[pol_1]; ports: [1,3], index:11;|
@@ -75,8 +76,9 @@ public class ForensicsSteps extends BddUITestBase {
      *
      * */
     @Given("^UI \"(Create|Validate|Edit|Generate|Isexist)\" Forensics With Name \"([^\"]*)\"( negative)?$")
-    public void uiReportWithName(vrmActions operationType, String reportName, String negative, Map<String,String> reportsEntry) throws Throwable {
-        forensicsHandler.VRMForensicsOperation(operationType, reportName, reportsEntry, restTestBase.getRootServerCli());
+    public void uiReportWithName(vrmActions operationType, String forensicsName, String negative, Map<String,String> forensicsEntry) throws Throwable {
+//        forensicsHandler.VRMForensicsOperation(operationType, reportName, reportsEntry, restTestBase.getRootServerCli());
+        new Forensics().baseOperation(operationType, forensicsName, negative, forensicsEntry, restTestBase.getRootServerCli());
     }
 
     @Then("^UI Validate max generate Forensics is (\\d+)$")
