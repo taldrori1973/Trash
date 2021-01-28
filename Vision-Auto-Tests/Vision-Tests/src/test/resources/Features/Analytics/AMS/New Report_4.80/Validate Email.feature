@@ -561,13 +561,13 @@ Feature: Validate Email
   Scenario: Create and Validate EAAF Report
     Then UI Click Button "New Report Tab"
     Given UI "Create" Report With Name "EAAF Report"
-      | Template | reportType:EAAF , Widgets:[Totals in Selected Time Frame] ,devices:[All] |
-      | Share    | Email:[maha],Subject:Validate Email,Body:Email Body                      |
-      | Format   | Select: CSV                                                              |
-    Then UI "Validate" Report With Name "EAAF Report"
       | Template | reportType:EAAF , Widgets:[Totals in Selected Time Frame],devices:[All] |
       | Share    | Email:[maha],Subject:Validate Email,Body:Email Body                     |
       | Format   | Select: CSV                                                             |
+    Then UI "Validate" Report With Name "EAAF Report"
+      | Template | reportType:EAAF , Widgets:[Totals in Selected Time Frame] ,devices:[All] |
+      | Share    | Email:[maha],Subject:Validate Email,Body:Email Body                      |
+      | Format   | Select: CSV                                                              |
 
   @SID_75
   Scenario: Validate delivery card and generate report

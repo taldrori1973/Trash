@@ -14,14 +14,14 @@ Feature: DefensePro Analytics Part 1
 
 
 
-  @SID_1
+  @SID_1 @Sanity
   Scenario: Navigate to NEW REPORTS page
     Then UI Login with user "radware" and password "radware"
     Then UI Navigate to "AMS REPORTS" page via homepage
     Then UI Click Button "New Report Tab"
 
 
-  @SID_2
+  @SID_2  @Sanity
   Scenario: create new Traffic Bandwidth1
     Given UI "Create" Report With Name "Traffic Bandwidth Report1"
       | Template-1            | reportType:DefensePro Analytics , Widgets:[{Traffic Bandwidth:[pps,Outbound,All Policies]}]  ,devices:[All] |
@@ -662,6 +662,6 @@ Feature: DefensePro Analytics Part 1
       | Format                | Select: CSV                                                                                         |
     Then UI Delete Report With Name "Attacks by Mitigation Action Report4"
 
-  @SID_40
+  @SID_40 @Sanity
   Scenario: Logout
     Then UI logout and close browser

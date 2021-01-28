@@ -52,6 +52,7 @@ Feature: Negative test to validate Error Messages
   @SID_9
   Scenario: Create New Report without Templates
     Then UI Click Button "New Report Tab"
+    Then UI Open Report Parameters
     Then UI Set Text Field "Report Name" To "Report without templates"
     Then UI Click Button "save"
     Then UI Text of "Error message title" equal to "Unable to Save Report"
@@ -70,6 +71,7 @@ Feature: Negative test to validate Error Messages
   @SID_10
   Scenario: Create New Report with Report Name invalid
     Then UI Click Button "New Report Tab"
+    Then UI Open Report Parameters
     Then UI Set Text Field "Report Name" To ","
     Then UI Click Button "Add Template" with value "HTTPS Flood"
     Then UI Click Button "Open Scope Selection" with value "HTTPS Flood"
@@ -86,6 +88,7 @@ Feature: Negative test to validate Error Messages
   @SID_11
   Scenario: Create New Report with Report with more than 50 Widgets without policy and port
     Then UI Click Button "New Report Tab"
+    Then UI Open Report Parameters
     Then UI Set Text Field "Report Name" To "Report with more than 50 Widgets without device and policy and port"
     Then UI Click Button "Add Template" with value "DefensePro Behavioral Protections"
     Then UI Click Button "save"
@@ -99,6 +102,7 @@ Feature: Negative test to validate Error Messages
   @SID_12
   Scenario: Create New DefensePro Behavioral Protections report without policy and port
     Then UI Click Button "New Report Tab"
+    Then UI Open Report Parameters
     Then UI Set Text Field "Report Name" To "DefensePro Behavioral Protections report without policy and port"
     Then UI Click Button "Add Template" with value "DefensePro Behavioral Protections"
     Then UI Click Button "Scope Selection"
@@ -116,6 +120,7 @@ Feature: Negative test to validate Error Messages
   @SID_13
   Scenario: Create New DefensePro Behavioral Protections report without port
     Then UI Click Button "New Report Tab"
+    Then UI Open Report Parameters
     Then UI Set Text Field "Report Name" To "DefensePro Behavioral Protections report without port"
     Then UI Click Button "Add Template" with value "DefensePro Behavioral Protections"
     Then UI Click Button "Scope Selection"
@@ -133,6 +138,7 @@ Feature: Negative test to validate Error Messages
   @SID_14
   Scenario: Create New Report with Report with more than 200 Widgets
     Then UI Click Button "New Report Tab"
+    Then UI Open Report Parameters
     Then UI Set Text Field "Report Name" To "Report with more than 50 Widgets"
     Then UI Click Button "Add Template" with value "DefensePro Behavioral Protections"
     Then UI Click Button "Scope Selection"
@@ -219,6 +225,7 @@ Feature: Negative test to validate Error Messages
   @SID_15
   Scenario: Create New Report with invalid Email
     Then UI Click Button "New Report Tab"
+    Then UI Open Report Parameters
     Then UI Set Text Field "Report Name" To "Report with invalid Email"
     Then UI Set Text Field "Email" To "invalidEmail"
     Then UI Click Button "Add Template" with value "DefensePro Behavioral Protections"

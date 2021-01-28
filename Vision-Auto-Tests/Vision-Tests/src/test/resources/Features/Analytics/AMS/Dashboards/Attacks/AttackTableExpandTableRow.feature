@@ -1,4 +1,4 @@
-@TC114854
+@TC114854 
 Feature: Attack Table - Expand Table Row
 
   
@@ -18,7 +18,7 @@ Feature: Attack Table - Expand Table Row
     Given CLI simulate 1 attacks of type "IP_FEED_Modified" on "DefensePro" 11
     Then CLI simulate 1 attacks of type "VRM_attacks" on "DefensePro" 11 and wait 210 seconds
 
-
+  
   @SID_3
   Scenario:  login
     Given UI Login with user "radware" and password "radware"
@@ -83,12 +83,12 @@ Feature: Attack Table - Expand Table Row
 
 
   ####################  DNS attack tables ####################################################
-
+  
   @SID_8
   Scenario:  validate tables for DNS
     Then UI search row table in searchLabel "tableSearch" with text "DNS"
     Then Sleep "3"
-    Then UI click Table row by keyValue or Index with elementLabel "Attacks Table" findBy columnName "Policy Name" findBy cellValue "BDOS"
+    Then UI click Table row by keyValue or Index with elementLabel "Attacks Table" findBy columnName "Policy Name" findBy cellValue "1"
     Then UI Validate Element Existence By Label "Expand Tables View" if Exists "true" with value "info,Characteristics,realTimeSignature"
 
 
@@ -228,7 +228,7 @@ Feature: Attack Table - Expand Table Row
   Scenario:  validate tables for DOS
     Then UI search row table in searchLabel "tableSearch" with text "DOSShield"
     Then Sleep "3"
-    Then UI click Table row by keyValue or Index with elementLabel "Attacks Table" findBy columnName "Policy Name" findBy cellValue "pph_9Pkt_lmt_252.1"
+    Then UI click Table row by keyValue or Index with elementLabel "Attacks Table" findBy columnName "Policy Name" findBy cellValue "BDOS"
     Then UI Validate Element Existence By Label "Expand Tables View" if Exists "true" with value "info,Characteristics"
 
 

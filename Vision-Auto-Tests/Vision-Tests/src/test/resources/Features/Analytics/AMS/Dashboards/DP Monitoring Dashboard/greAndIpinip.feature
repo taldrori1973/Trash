@@ -42,11 +42,7 @@ Feature: GRE and Ip in Ip
     When UI Navigate to "DefensePro Attacks" page via homePage
     Then UI Validate "Attacks Table" Table rows count EQUALS to 2
     Then UI validate Table row by keyValue with elementLabel "Attacks Table" findBy columnName "Protocol" findBy cellValue "GRE"
-      | columnName | value |
-      | Protocol   | GRE   |
     Then UI validate Table row by keyValue with elementLabel "Attacks Table" findBy columnName "Protocol" findBy cellValue "IP in IP"
-      | columnName | value    |
-      | Protocol   | IP in IP |
 
 
 

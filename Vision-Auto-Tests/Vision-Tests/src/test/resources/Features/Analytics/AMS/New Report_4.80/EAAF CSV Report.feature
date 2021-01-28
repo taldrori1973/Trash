@@ -49,9 +49,9 @@ Feature: EAAF CSV Report
       | Time Definitions.Date | Quick:15m                                     |
       | Format                | Select: CSV                                   |
     Then UI "Validate" Report With Name "EAAF CSV"
-      | Template              | reportType:EAAF , Widgets:[ALL] ,devices:[All] |
-      | Time Definitions.Date | Quick:15m                                      |
-      | Format                | Select: CSV                                    |
+      | Template              | reportType:EAAF , Widgets:[ALL],devices:[All] |
+      | Time Definitions.Date | Quick:15m                                     |
+      | Format                | Select: CSV                                   |
 
   @SID_8
   Scenario: generate report

@@ -15,7 +15,7 @@ Feature: Edit EAAF tests
     Then UI Click Button "New Report Tab"
     Given UI "Create" Report With Name "EAAF Report"
       | Template-1            | reportType:EAAF , Widgets:[{Top Malicious IP Addresses:[Packets]}],devices:[All] |
-      | Template-2            | reportType:EAAF , Widgets:[Total Hits Summary] ,devices:[All]                    |
+      | Template-2            | reportType:EAAF , Widgets:[Total Hits Summary]                                   |
       | Logo                  | reportLogoPNG.png                                                                |
       | Time Definitions.Date | Quick:1D                                                                         |
       | Schedule              | Run Every:Daily ,On Time:+2m                                                     |
@@ -23,7 +23,7 @@ Feature: Edit EAAF tests
       | Format                | Select: PDF                                                                      |
     Then UI "Validate" Report With Name "EAAF Report"
       | Template-1            | reportType:EAAF , Widgets:[{Top Malicious IP Addresses:[Packets]}],devices:[All] |
-      | Template-2            | reportType:EAAF , Widgets:[Total Hits Summary] ,devices:[All]                    |
+      | Template-2            | reportType:EAAF , Widgets:[Total Hits Summary]                                   |
       | Logo                  | reportLogoPNG.png                                                                |
       | Time Definitions.Date | Quick:1D                                                                         |
       | Schedule              | Run Every:Daily ,On Time:+2m                                                     |
@@ -53,8 +53,8 @@ Feature: Edit EAAF tests
       | Template-3 | reportType:EAAF , Widgets:[{EAAF Hits Timeline:[Volume]}],devices:[All] |
     Then UI "Validate" Report With Name "EAAF Report"
       | Template-1 | reportType:EAAF , Widgets:[{Top Malicious IP Addresses:[Packets]}],devices:[All] |
-      | Template-2 | reportType:EAAF , Widgets:[Total Hits Summary] ,devices:[All]                    |
-      | Template-3 | reportType:EAAF , Widgets:[{EAAF Hits Timeline:[Volume]}] ,devices:[All]         |
+      | Template-2 | reportType:EAAF , Widgets:[Total Hits Summary],devices:[All]                     |
+      | Template-3 | reportType:EAAF , Widgets:[{EAAF Hits Timeline:[Volume]}],devices:[All]          |
 
   @SID_7
   Scenario: Delete Template from EAAF

@@ -25,9 +25,11 @@ Feature: EAAF Scope selection
 
   @SID_4
   Scenario: Run DP simulator PCAPs for EAAF widgets and arrange the data for automation needs
+    # run EAAF attacks PCAP - this PCAP is the ONLY RELEVANT PCAP FOR THIS TEST FILE
+    # run NON EAAF attacks PCAP - this made in order to check whether system distinguish between EAAF and NON EAAF attacks
+    * CLI simulate 1 attacks of type "VRM_attacks" on "DefensePro" 10
     * CLI simulate 2 attacks of type "IP_FEED_Modified" on "DefensePro" 11
-    * CLI simulate 2 attacks of type "IP_FEED_Modified_differentAttackAyoub" on "DefensePro" 10 and wait 100 seconds
-
+    * CLI simulate 1 attacks of type "IP_FEED_Modified" on "DefensePro" 10 and wait 100 seconds
 
 
   @SID_5
@@ -43,13 +45,10 @@ Feature: EAAF Scope selection
       | index | ports | policies |
       | 10    |       |          |
     Then UI Click Button "Packets" with value "Top-Attacking-Geolocations"
-#    Then UI Validate Text field "TOTAL Country Events value" with params "0" MatchRegex "(\d+.\d+|\d+) K"
-    Then UI Validate Text field "TOTAL Country Events value" with params "0" CONTAINS "86"
-    Then UI Validate Text field "geolocationCountry" with params "United States" EQUALS "United States"
-    Then UI Validate Element Existence By Label "geolocationCountry" if Exists "false" with value "Costa Rica"
+    Then UI Validate Text field "TOTAL Country Events value" with params "0" MatchRegex "(\d+.\d+|\d+) K"
 
     Then UI Click Button "Packets" with value "Top-Malicious-IP-Addresses"
-    Then UI Validate Text field "TOTAL IP Events value" with params "0" CONTAINS "86"
+    Then UI Validate Text field "TOTAL IP Events value" with params "0" MatchRegex "(\d+.\d+|\d+) K"
 
   @SID_7
   Scenario: validate data with device 11
@@ -58,7 +57,6 @@ Feature: EAAF Scope selection
       | index | ports | policies |
       | 11    |       |          |
     Then UI Validate Text field "TOTAL Country Events value" with params "0" MatchRegex "(\d+.\d+|\d+) K"
-    Then UI Validate Text field "geolocationCountry" with params "Costa Rica" EQUALS "Costa Rica"
 
 
   @SID_8
@@ -81,12 +79,3 @@ Feature: EAAF Scope selection
     Then UI Text of "Device Selection.Available Devices header" with extension "" equal to "Devices2/3"
     Then UI Validate Element Existence By Label "DPScopeSelectionChange" if Exists "true" with value "172.16.22.50_disabled"
     Then UI Do Operation "Select" item "Device Selection"
-
-  @SID_10
-  Scenario: validate if user with policy can't see device earlier than 8.19
-    When UI Logout
-    Then UI Login with user "userWithPolicy" and password "radware"
-    Then UI Navigate to "EAAF Dashboard" page via homePage
-    Then UI Do Operation "Select" item "Device Selection"
-    Then UI Validate Element Existence By Label "device" if Exists "false" with value "172.16.22.50"
-

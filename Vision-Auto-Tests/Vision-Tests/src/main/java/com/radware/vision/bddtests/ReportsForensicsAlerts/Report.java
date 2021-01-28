@@ -24,7 +24,12 @@ import java.util.Map;
 
 
 public class Report extends ReportsForensicsAlertsAbstract {
-    private String errorMessage="";
+    private StringBuilder errorMessage = null;
+
+
+    public void expandReportParameters() throws Exception {
+        WebUiTools.check(getType() + " Parameter Menu", "", false);
+    }
 
 
     public void expandReportParameters() throws Exception {
@@ -47,12 +52,12 @@ public class Report extends ReportsForensicsAlertsAbstract {
             BasicOperationsHandler.clickButton("save");
         } catch (Exception e) {
             cancelReport();
-            throw e;
+            BaseTestUtils.report(e.getMessage(),Reporter.FAIL);
         }
 
         if(negative == null){
             if (!reportCreated(reportName)) {
-                throw new Exception("The report '" + reportName + "' isn't created!" + errorMessage);
+                throw new Exception("Report: '" + reportName + "' wasn't created!" + errorMessage);
             }
         }
 
@@ -78,7 +83,7 @@ public class Report extends ReportsForensicsAlertsAbstract {
             isToCancel = true;
             WebElement errorMessageElement = WebUIUtils.fluentWait(ComponentLocatorFactory.getLocatorByClass("ant-notification-notice-description").getBy());
             if(withReadTheMessage)
-                errorMessage+=  errorMessageElement!= null ? "\nbecause:\n" + errorMessageElement.getText() + "\n":"";
+                errorMessage.append(errorMessageElement!= null ? "\nbecause:\n" + errorMessageElement.getText() + "\n":"");
             WebUiTools.clickWebElement(okWebElement);
         }
         if (isToCancel)
@@ -170,18 +175,15 @@ public class Report extends ReportsForensicsAlertsAbstract {
     }
 
     @Override
-    public void validate(RootServerCli rootServerCli, String reportName, Map<String, String> map) throws Exception{
+    public void validate(RootServerCli rootServerCli, String reportName, Map<String, String> map) throws Exception {
         StringBuilder errorMessage = new StringBuilder();
         JSONObject basicRestResult = getReportDefinition(reportName, map);
-        if (basicRestResult!=null)
-        {
             errorMessage.append(validateLogoDefinition(new JSONObject(basicRestResult.get("logo").toString()), map));
             errorMessage.append(validateTimeDefinition(new JSONObject(basicRestResult.get("timeFrame").toString().replace("\\", "")), map));
             errorMessage.append(validateScheduleDefinition(basicRestResult, map, reportName));
             errorMessage.append(validateShareDefinition(new JSONObject(basicRestResult.get("deliveryMethod").toString()), map));
             errorMessage.append(validateFormatDefinition(new JSONObject(basicRestResult.get("exportFormat").toString()), map));
             errorMessage.append(TemplateHandlers.validateTemplateDefinition(basicRestResult.get("templates").toString().equalsIgnoreCase("null")?new JSONArray():new JSONArray(basicRestResult.get("templates").toString()),map,templates,widgets,reportName));
-        }else errorMessage.append("No report Defined with name ").append(reportName).append("/n");
         if (errorMessage.length() != 0)
             BaseTestUtils.report(errorMessage.toString(), Reporter.FAIL);
     }
@@ -267,7 +269,7 @@ public class Report extends ReportsForensicsAlertsAbstract {
             if (!formatJson.get("type").toString().trim().equalsIgnoreCase(expectedFormatJson.get("Select").toString().trim()))
                 errorMessage.append("The actual Format is: ").append(formatJson.get("type").toString().toUpperCase()).append("but the Expected format is: ").append(expectedFormatJson.get("Select").toString().toUpperCase()).append("\n");
         }
-        else if (!formatJson.get("type").toString().trim().toLowerCase().equalsIgnoreCase("pdf"))
+        else if (!formatJson.get("type").toString().trim().equalsIgnoreCase("pdf"))
             errorMessage.append("The actual Format is: ").append(formatJson.get("type").toString()).append("but the Expected format is: ").append("pdf").append("\n");
         return errorMessage;
     }
@@ -293,7 +295,7 @@ public class Report extends ReportsForensicsAlertsAbstract {
             BasicOperationsHandler.clickButton("save");
         } catch (Exception e) {
             cancelReport();
-            throw e;
+            BaseTestUtils.report(e.getMessage(),Reporter.FAIL);
         }
         if (!reportCreated(reportName)) {
             cancelReport();
@@ -323,7 +325,7 @@ public class Report extends ReportsForensicsAlertsAbstract {
             if (generateStatus(getReportID(reportName), 60))
                 return new VRMReportsChartsHandler(getReportGenerateResult(getReportID(reportName)));
         }
-        BaseTestUtils.report("The generation of report " + reportName + " doesn't succeed", Reporter.FAIL);
+        BaseTestUtils.report("Report: " + reportName + " generation Failed", Reporter.FAIL);
         return null;
     }
 
