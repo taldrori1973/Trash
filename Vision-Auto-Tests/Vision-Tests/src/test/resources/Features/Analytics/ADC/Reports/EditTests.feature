@@ -83,7 +83,7 @@ Feature: Edit ADC Report tests
 
   @SID_9
   Scenario: Edit ADC Report2 report name
-    Then UI Click Button "My Reports Tab"
+    Then UI Click Button "My Report Tab"
     Then UI Click Button "Edit Report" with value "ADC Report2"
     Then UI Set Text Field "Report Name" To "ADC Report"
     Then UI Click Button "save"

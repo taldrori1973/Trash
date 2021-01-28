@@ -114,7 +114,7 @@ Feature:Edit DefensePro Behavioral Protections
 
   @SID_12
   Scenario: Edit DefensePro Behavioral Protections Report 2
-    Then UI Click Button "My Reports Tab"
+    Then UI Click Button "My Report Tab"
     Then UI Click Button "Edit Report" with value "DefensePro Behavioral Protections Report 2"
     Then UI Set Text Field "Report Name" To "DefensePro Behavioral Protections Report"
     Then UI Click Button "save"

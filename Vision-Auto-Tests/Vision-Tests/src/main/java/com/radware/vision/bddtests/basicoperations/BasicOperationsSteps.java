@@ -17,6 +17,7 @@ import com.radware.vision.automation.tools.sutsystemobjects.devicesinfo.DeviceIn
 import com.radware.vision.automation.tools.sutsystemobjects.devicesinfo.enums.SUTDeviceType;
 import com.radware.vision.base.WebUITestSetup;
 import com.radware.vision.bddtests.BddUITestBase;
+import com.radware.vision.bddtests.ReportsForensicsAlerts.Forensics;
 import com.radware.vision.bddtests.ReportsForensicsAlerts.Report;
 import com.radware.vision.bddtests.ReportsForensicsAlerts.WebUiTools;
 import com.radware.vision.infra.base.pages.navigation.HomePage;
@@ -674,9 +675,14 @@ public class BasicOperationsSteps extends BddUITestBase {
         WebUiTools.getWebElement(label, params).findElement(By.xpath("./..//td[@data-value='" + scheduleTime.getDayOfMonth() + "'][not(contains(@class,'rdtOld'))]")).click();
     }
 
-    @Then("^UI Validate Deletion of report instance \"([^\"]*)\" with value \"([^\"]*)\"$")
-    public void uiValidateDeletionOfReportInstanceWithValue(String label, String params) throws Exception {
-        new Report().deletionReportInstance(label,params);
+    @Then("^UI Validate Deletion of (Report|Forensics|Alert) instance \"([^\"]*)\" with value \"([^\"]*)\"$")
+    public void uiValidateDeletionOfReportInstanceWithValue(String type ,String label, String params) throws Exception {
+        switch (type.toLowerCase())
+        {
+            case "report": new Report().deletionReportInstance(label,params);break;
+            case "forensics": new Forensics().deletionReportInstance(label,params);break;
+//            case "Alert": new Alert().deletionReportInstance(label,params);break;
+        }
     }
 
     public static class ParamterSelected{
