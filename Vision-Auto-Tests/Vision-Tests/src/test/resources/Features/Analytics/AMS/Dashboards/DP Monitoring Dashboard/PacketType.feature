@@ -1,44 +1,55 @@
-Feature: Packet Type testing
-  #  ==========================================Setup================================================
+@TC119270
+Feature: Packet Type testing in DefensePro Monitoring Dashboard
+
   @SID_1
-  Scenario: Clear data
+  Scenario: Clean system data before Traffic Bandwidth test
     * CLI kill all simulator attacks on current vision
-    * REST Delete ES index "dp-*"
-    Given CLI Run remote linux Command "service vision restart" on "ROOT_SERVER_CLI" and wait 185 seconds
+    * REST Delete ES index "dp-tr*"
+    * REST Delete ES index "dp-atta*"
+    * CLI Clear vision logs
 
   @SID_2
-  Scenario: Update Policies
-    Then REST Vision Install License Request "vision-AVA-Max-attack-capacity"
-    Given REST Login with user "radware" and password "radware"
-    Then REST Update Policies for All DPs
+  Scenario: Run DP simulator PCAPs for Traffic Bandwidth
+    When REST Login with user "radware" and password "radware"
+    Given CLI simulate 4 attacks of type "https" on "DefensePro" 11
 
   @SID_3
-  Scenario: Copy and run add https server script
-    Then CLI copy "/home/radware/Scripts/add_https_server.sh" from "GENERIC_LINUX_SERVER" to "ROOT_SERVER_CLI" "/"
-    Then CLI Run remote linux Command "/add_https_server.sh 172.16.22.51 pol1 test 1.1.1.2" on "ROOT_SERVER_CLI"
-
-  @SID_4
-  Scenario:Login and Navigate to HTTPS Flood Dashboard
-    Then UI Login with user "radware" and password "radware"
+  Scenario:  login
+    Given UI Login with user "radware" and password "radware"
+    Then REST Vision Install License Request "vision-AVA-Max-attack-capacity"
+    Then Sleep "2"
     Then UI Navigate to "DefensePro Monitoring Dashboard" page via homePage
 
-  @SID_5
-  Scenario: Run DP simulator PCAPs for "HTTPS attacks"
-    Given CLI simulate 1 attacks of type "HTTPS" on "DefensePro" 11 with loopDelay 15000 and wait 60 seconds
-    Then CLI Run linux Command "service iptables stop" on "ROOT_SERVER_CLI" and validate result CONTAINS "Unloading modules"
-
-  @SID_6
-  Scenario: validate table to validate paketType : Decrypted-HTTPS
+  @SID_4
+  Scenario: validate paketType : Decrypted-HTTPS
     Then UI click Table row by keyValue or Index with elementLabel "Protection Policies.Table" findBy columnName "Policy Name" findBy cellValue "p2"
     Then UI click Table row by keyValue or Index with elementLabel "Protection Policies.Protections Table" findBy columnName "Protection Name" findBy cellValue "Intrusions"
     Then UI Validate "Protection Policies.Events Table" Table rows count EQUALS to 1
     Then UI validate Table row by keyValue with elementLabel "Protection Policies.Events Table" findBy columnName "Packet Type" findBy cellValue "Decrypted HTTPS"
+    Then UI Click Button "Protection Policies.GO BACK"
 
-  @SID_7
-  Scenario: validate table to validate paketType : Decrypted-HTTPS
-    Then UI Navigate to "DefensePro Monitoring Dashboard" page via homePage
+  @SID_5
+  Scenario: validate paketType : Regular
     Then UI click Table row by keyValue or Index with elementLabel "Protection Policies.Table" findBy columnName "Policy Name" findBy cellValue "p2"
     Then UI click Table row by keyValue or Index with elementLabel "Protection Policies.Protections Table" findBy columnName "Protection Name" findBy cellValue "SYN Flood"
     Then UI Validate "Protection Policies.Events Table" Table rows count EQUALS to 1
     Then UI validate Table row by keyValue with elementLabel "Protection Policies.Events Table" findBy columnName "Packet Type" findBy cellValue "Regular"
+    Then UI Click Button "Protection Policies.GO BACK"
+
+  @SID_6
+  Scenario: validate Events Table
+    Given CLI simulate 4 attacks of type "https" on "DefensePro" 11
+    Then UI click Table row by keyValue or Index with elementLabel "Protection Policies.Table" findBy columnName "Policy Name" findBy cellValue "p2"
+    Then UI Click Switch button "Protection Policies.Protections Table.Switch Button" and set the status to "ON"
+    Then UI Validate "Protection Policies.Events Table" Table rows count EQUALS to 2
+    Then UI Validate Table record values by columns with elementLabel "Protection Policies.Events Table" findBy index 0
+      | columnName  | value           |
+      | Packet Type | Decrypted HTTPS |
+    Then UI Validate Table record values by columns with elementLabel "Protection Policies.Events Table" findBy index 1
+      | columnName  | value   |
+      | Packet Type | Regular |
+
+  @SID_7
+  Scenario: Traffic Cleanup
+    Given UI logout and close browser
 

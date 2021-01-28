@@ -1,5 +1,5 @@
-@TC110094
-Feature: Vision Install OVA SA
+@TC119280
+Feature: Vision Install HI SCALE
 
   @SID_1
   Scenario: Fresh Install VM
