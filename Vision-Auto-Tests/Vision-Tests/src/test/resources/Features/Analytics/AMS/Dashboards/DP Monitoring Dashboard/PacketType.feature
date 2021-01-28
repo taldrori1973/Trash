@@ -29,7 +29,7 @@ Feature: Packet Type testing in DefensePro Monitoring Dashboard
     Then UI Click Button "Protection Policies.GO BACK"
 
   @SID_5
-  Scenario: validate paketType : Decrypted-HTTPS
+  Scenario: validate paketType : Regular
     Then UI click Table row by keyValue or Index with elementLabel "Protection Policies.Table" findBy columnName "Policy Name" findBy cellValue "p2"
     Then UI click Table row by keyValue or Index with elementLabel "Protection Policies.Protections Table" findBy columnName "Protection Name" findBy cellValue "SYN Flood"
     Then UI Validate "Protection Policies.Events Table" Table rows count EQUALS to 1
