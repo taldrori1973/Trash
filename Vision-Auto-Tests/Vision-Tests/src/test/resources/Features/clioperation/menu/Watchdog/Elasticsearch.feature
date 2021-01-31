@@ -27,4 +27,4 @@ Feature: Elasticsearch watchdog
 
   @SID_6
   Scenario: verify watchdog starts elasticsearch
-    Then CLI Run linux Command "service elasticsearch status|awk '{print$4,$5}'" on "ROOT_SERVER_CLI" and validate result EQUALS "is running..." Retry 240
+    Then CLI Run linux Command "service elasticsearch status|awk '{print$4,$5}'" on "ROOT_SERVER_CLI" and validate result EQUALS "is running..." Retry 240 seconds
