@@ -5,9 +5,9 @@ Feature: JBOSS WATCHDOG
   Scenario: setup
     Given CLI Reset radware password
     #Remove previous setting if remained
-    Given CLI Run remote linux Command "sed -i 's/#\*\/10 \* \* \* \* \/opt\/radware\/mgt-server\/bin\/watchdogs\/reporting_engine_watchdog.sh/\*\/10 \* \* \* \* \/opt\/radware\/mgt-server\/bin\/watchdogs\/reporting_engine_watchdog.sh/g' /var/spool/cron/root" on "ROOT_SERVER_CLI" with timeOut 10
+    Given CLI Run remote linux Command "sed -i 's/#\*\/10 \* \* \* \* \/opt\/radware\/mgt-server\/bin\/watchdogs\/jboss_watchdog.sh/\*\/10 \* \* \* \* \/opt\/radware\/mgt-server\/bin\/watchdogs\/jboss_watchdog.sh/g' /var/spool/cron/root" on "ROOT_SERVER_CLI" with timeOut 10
     #stop JBOSS cron schedule
-    Given CLI Run remote linux Command "sed -i 's/\*\/10 \* \* \* \* \/opt\/radware\/mgt-server\/bin\/watchdogs\/reporting_engine_watchdog.sh/#\*\/10 \* \* \* \* \/opt\/radware\/mgt-server\/bin\/watchdogs\/reporting_engine_watchdog.sh/g' /var/spool/cron/root" on "ROOT_SERVER_CLI" with timeOut 10
+    Given CLI Run remote linux Command "sed -i 's/\*\/10 \* \* \* \* \/opt\/radware\/mgt-server\/bin\/watchdogs\/jboss_watchdog.sh/#\*\/10 \* \* \* \* \/opt\/radware\/mgt-server\/bin\/watchdogs\/jboss_watchdog.sh/g' /var/spool/cron/root" on "ROOT_SERVER_CLI" with timeOut 10
     Given That Current Vision is Logged In With Username "radware" and Password "radware"
     And New Request Specification from File "Vision/Monitoring/Monitoring Settings" with label "Set Monitoring Settings"
     And The Request Body is the following Object
@@ -123,7 +123,7 @@ Feature: JBOSS WATCHDOG
 
   @SID_10
   Scenario: Revert all back to normal
-    Given CLI Run remote linux Command "sed -i 's/#\*\/10 \* \* \* \* \/opt\/radware\/mgt-server\/bin\/watchdogs\/reporting_engine_watchdog.sh/\*\/10 \* \* \* \* \/opt\/radware\/mgt-server\/bin\/watchdogs\/reporting_engine_watchdog.sh/g' /var/spool/cron/root" on "ROOT_SERVER_CLI"
+    Given CLI Run remote linux Command "sed -i 's/#\*\/10 \* \* \* \* \/opt\/radware\/mgt-server\/bin\/watchdogs\/jboss_watchdog.sh/\*\/10 \* \* \* \* \/opt\/radware\/mgt-server\/bin\/watchdogs\/jboss_watchdog.sh/g' /var/spool/cron/root" on "ROOT_SERVER_CLI"
     Given CLI Run remote linux Command "sed -i 's/watchdog.jboss.threads_threshold=150/watchdog.jboss.threads_threshold=2000/g' /opt/radware//mgt-server/properties/watchdogs.properties" on "ROOT_SERVER_CLI"
     Then CLI Run linux Command "/opt/radware/mgt-server/bin/watchdogs/jboss_watchdog.sh | grep 'Number of threads'| cut -d ' ' -f 4" on "ROOT_SERVER_CLI" and validate result GTE "200" Retry 120 seconds
     Given That Current Vision is Logged In With Username "radware" and Password "radware"
