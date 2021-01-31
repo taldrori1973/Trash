@@ -73,7 +73,7 @@ public class Forensics extends ReportsForensicsAlertsAbstract {
         selectOutput(map);
     }
 
-    private void selectOutput(Map<String, String> map) throws Exception {
+    public void selectOutput(Map<String, String> map) throws Exception {
         WebUiTools.check("outputExpandOrCollapse", "", true);
         ArrayList expectedOutputs = new ArrayList<>(Arrays.asList(map.get("Output").split(",")));
         if (expectedOutputs.size() == 1 && expectedOutputs.get(0).toString().equalsIgnoreCase(""))
