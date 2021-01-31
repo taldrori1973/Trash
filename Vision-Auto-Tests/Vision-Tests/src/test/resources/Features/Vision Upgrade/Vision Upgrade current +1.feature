@@ -79,8 +79,19 @@ Feature: Vision Upgrade current +1
       | UPGRADE | /opt/radware/storage/www/webui/vision-dashboards/public/static/media/* | IGNORE       |
       | UPGRADE | No such image or container: *                                          | IGNORE       |
 
-
   @SID_8
+  Scenario: Validate server is up after reset
+    When CLI Operations - Run Root Session command "reboot"
+    Then Sleep "180"
+    When validate vision server services is UP
+
+  @SID_9
+  Scenario: Validate server is up after reset
+    When CLI Operations - Run Root Session command "reboot"
+    Then Sleep "180"
+    When validate vision server services is UP
+
+  @SID_10
   Scenario: Check firewall settings
     Then CLI Run remote linux Command "iptables -L -n" on "ROOT_SERVER_CLI"
     Then CLI Run linux Command "iptables -L -n | grep -w "REJECT     all"" on "ROOT_SERVER_CLI" and validate result CONTAINS "reject-with icmp-host-prohibited"
@@ -105,7 +116,7 @@ Feature: Vision Upgrade current +1
     Then CLI Run linux Command "iptables -L -n |grep "ACCEPT"|grep "state NEW" |wc -l" on "ROOT_SERVER_CLI" and validate result LTE "18"
     Then CLI Run linux Command "iptables -L -n |grep "dpt:161" |wc -l" on "ROOT_SERVER_CLI" and validate result EQUALS "0"
 
-  @SID_9
+  @SID_11
   Scenario: Check firewall6 settings
     Then CLI Run linux Command "ip6tables -L -n |tail -1|awk -F" " '{print $1,$2}'" on "ROOT_SERVER_CLI" and validate result EQUALS "REJECT all"
     #    Skipping following step till it is developed
@@ -127,14 +138,14 @@ Feature: Vision Upgrade current +1
     Then CLI Run linux Command "ip6tables -L -n |grep tcp|grep dpt:22" on "ROOT_SERVER_CLI" and validate result CONTAINS "ACCEPT"
     Then CLI Run linux Command "ip6tables -L -n |grep "dpt:161" |wc -l" on "ROOT_SERVER_CLI" and validate result EQUALS "0"
 
-  @SID_10
+  @SID_12
   Scenario: Login
     Then UI Login with user "sys_admin" and password "radware"
     Given CLI Reset radware password
     Then REST Vision Install License Request "vision-reporting-module-ADC"
 
 
-  @SID_11
+  @SID_13
   Scenario: Navigate to general settings page
     Then UI Go To Vision
     Then UI Navigate to page "System->General Settings->Basic Parameters"
@@ -142,62 +153,62 @@ Feature: Vision Upgrade current +1
     Then REST get Basic Parameters "lastUpgradeStatus"
     Then UI Validate Text field "Upgrade Status" EQUALS "OK"
 
-  @SID_12
+  @SID_14
   Scenario: Create new Site
     Then UI Add new Site "Site2 After Upgrade" under Parent "Default"
 
-  @SID_13
+  @SID_15
   Scenario: Add fake devices to tree
     Then REST Add "Alteon" Device To topology Tree with Name "FakeAlteon" and Management IP "4.4.4.4" into site "Default"
       | attribute | value |
     Then REST Add "DefensePro" Device To topology Tree with Name "FakeDP" and Management IP "4.4.4.5" into site "Default"
       | attribute | value |
 
-  @SID_14
+  @SID_16
   Scenario: validate Edit Threshold script exist in vision
     Then CLI Run linux Command "ll /opt/radware/storage/vdirect/database/templates/adjust_profile_v2.vm |wc -l" on "ROOT_SERVER_CLI" and validate result EQUALS "1"
     Then CLI Run linux Command "ll /opt/radware/ConfigurationTemplatesRepository/actionable/adjust_profile_v2.vm |wc -l" on "ROOT_SERVER_CLI" and validate result EQUALS "1"
 
-  @SID_15
+  @SID_17
   Scenario: Import driver script and jar file
     Then CLI copy "/home/radware/Scripts/upload_DD.sh" from "GENERIC_LINUX_SERVER" to "ROOT_SERVER_CLI" "/opt/radware/storage"
     Then CLI copy "/home/radware/Scripts/Alteon-32.2.1.0-DD-1.00-110.jar" from "GENERIC_LINUX_SERVER" to "ROOT_SERVER_CLI" "/opt/radware/storage"
     Then CLI copy "/home/radware/Scripts/Alteon-32.4.0.0-DD-1.00-396.jar" from "GENERIC_LINUX_SERVER" to "ROOT_SERVER_CLI" "/opt/radware/storage"
 
-  @SID_16
+  @SID_18
   Scenario: Upload Driver to vision
     Then CLI Run remote linux Command "/opt/radware/storage/upload_DD.sh /opt/radware/storage/Alteon-32.2.1.0-DD-1.00-110.jar" on "ROOT_SERVER_CLI" with timeOut 240
     Then CLI Run remote linux Command "/opt/radware/storage/upload_DD.sh /opt/radware/storage/Alteon-32.4.0.0-DD-1.00-396.jar" on "ROOT_SERVER_CLI" with timeOut 240
 
-  @SID_17
+  @SID_19
   Scenario: Validate fluentd configuration
     Then CLI Run linux Command "cat /etc/td-agent/td-agent.conf |grep "port"|awk '{print $NF}'" on "ROOT_SERVER_CLI" and validate result EQUALS "51400"
 
-  @SID_18
+  @SID_20
   Scenario: Validate TED status
     Then CLI Run linux Command "echo $(mysql -prad123 vision_ng -N -B -e "select count(*) from vision_license where license_str like '%reporting-module-ADC%';")-$(netstat -nlt |grep 5140|wc -l)|bc" on "ROOT_SERVER_CLI" and validate result EQUALS "0" Retry 600 seconds
     Then CLI Run linux Command "curl -ks -o null -w 'RESP_CODE:%{response_code}\n' -XGET https://localhost:443/ted/api/data" on "ROOT_SERVER_CLI" and validate result EQUALS "RESP_CODE:200" Retry 240 seconds
 
-  @SID_19
+  @SID_21
   Scenario: Visit device subscription page
     Then CLI Run linux Command "result=`curl -ks -X "POST" "https://localhost/mgmt/system/user/login" -H "Content-Type: application/json" -d $"{\"username\": \"radware\",\"password\": \"radware\"}"`; jsession=`echo $result | tr "," "\n"|grep -i jsession|tr -d '"' | cut -d: -f2`; curl -ks -o null -XGET -H "Cookie: JSESSIONID=$jsession" https://localhost/mgmt/system/config/itemlist/devicesubscriptions -w 'RESP_CODE:%{response_code}\n'" on "ROOT_SERVER_CLI" and validate result EQUALS "RESP_CODE:200" Retry 300 seconds
     Then CLI Operations - Verify that output contains regex "RESP_CODE:200"
 
-  @SID_20
+  @SID_22
   Scenario: Delete fake devices from tree
     Then Sleep "20"
     Then REST Delete Device By IP "4.4.4.4"
     Then REST Delete Device By IP "4.4.4.5"
 
-  @SID_21
+  @SID_23
   Scenario: Logout and Close
     Given UI logout and close browser
 
-  @SID_22
+  @SID_24
   Scenario: Validate MySql version
     Then CLI Run linux Command "mysql -prad123 --version|awk '{print$5}'" on "ROOT_SERVER_CLI" and validate result EQUALS "10.4.6-MariaDB,"
 
-  @SID_23
+  @SID_25
   Scenario: Validate vdirect listener
     Then CLI Run linux Command "netstat -nlt |grep 2188|awk '{print$4}'" on "ROOT_SERVER_CLI" and validate result EQUALS ":::2188" Retry 120 seconds
     Then CLI Run linux Command "netstat -nlt |grep 2189|awk '{print$4}'" on "ROOT_SERVER_CLI" and validate result EQUALS ":::2189" Retry 120 seconds
@@ -206,7 +217,7 @@ Feature: Vision Upgrade current +1
     Then CLI Run remote linux Command "curl -ks -o null -XGET https://localhost4:2189 -w 'RESP_CODE:%{response_code}\n'" on "ROOT_SERVER_CLI"
     Then CLI Operations - Verify that output contains regex "RESP_CODE:200"
 
-  @SID_24
+  @SID_26
   Scenario: Validate LLS service is up
     Then CLI Run linux Command "system lls service status" on "RADWARE_SERVER_CLI" and validate result CONTAINS "is running" in any line Retry 600 seconds
     Then CLI Run linux Command "curl -ks -o null -XGET http://localhost4:7070/api/1.0/hostids -w 'RESP_CODE:%{response_code}\n'" on "ROOT_SERVER_CLI" and validate result EQUALS "RESP_CODE:200" Retry 300 seconds
@@ -219,21 +230,21 @@ Feature: Vision Upgrade current +1
     When CLI Operations - Run Radware Session command "system lls service stop"
     When CLI Operations - Run Radware Session command "y" timeout 180
 
-  @SID_25
+  @SID_27
   Scenario: Validate LLS version
     Then CLI Run linux Command "cat /opt/radware/storage/llsinstall/license-server-*/version.txt" on "ROOT_SERVER_CLI" and validate result EQUALS "2.4.0-2"
 
-  @SID_26
+  @SID_28
   Scenario: Validate IPv6 Hostname in /etc/hosts
     Then CLI Run linux Command "if [ "$(hostname | cut -d'.' -f 1)" == "$(grep "::1" /etc/hosts|head -1|awk '{print$6}')" ]; then echo "hostname ok"; else echo "hostname not ok"; fi" on "ROOT_SERVER_CLI" and validate result EQUALS "hostname ok"
     Then CLI Run linux Command "grep "::1" /etc/hosts|grep " $(hostname)"|wc -l" on "ROOT_SERVER_CLI" and validate result EQUALS "1"
 
-  @SID_27
+  @SID_29
   Scenario: Validate IPv4 Hostname in /etc/hosts
     Then CLI Run linux Command "grep "$(hostname -i|awk '{print$2}')" /etc/hosts|grep "$(hostname | cut -d'.' -f 1)"|wc -l" on "ROOT_SERVER_CLI" and validate result EQUALS "1"
     Then CLI Run linux Command "grep "$(hostname -i|awk '{print$2}')" /etc/hosts|grep " $(hostname)"|wc -l" on "ROOT_SERVER_CLI" and validate result EQUALS "1"
 
-  @SID_28
+  @SID_30
   Scenario: Verify services are running
     Then CLI Run linux Command "service mgtsrv status" on "ROOT_SERVER_CLI" and validate result CONTAINS "APSolute Vision Reporter is running" in any line
     Then CLI Run linux Command "service mgtsrv status" on "ROOT_SERVER_CLI" and validate result CONTAINS "AMQP service is running" in any line
@@ -248,18 +259,18 @@ Feature: Vision Upgrade current +1
     Then CLI Run linux Command "service mgtsrv status" on "ROOT_SERVER_CLI" and validate result CONTAINS "VRM reporting engine is running" in any line
     Then CLI Run linux Command "service mgtsrv status" on "ROOT_SERVER_CLI" and validate result CONTAINS "td-agent is running" in any line
 
-  @SID_29
+  @SID_31
   Scenario: Verify TED configuration
     Then CLI Run linux Command "cat /opt/radware/storage/ted/config/ted.cfg |awk -F"elasticRetentionMaxPercent\":" '{print$2}'|awk -F"," '{print$1}'" on "ROOT_SERVER_CLI" and validate result EQUALS "74"
 
-  @SID_30
+  @SID_32
   Scenario: Verify number of tables in vision schema
     Then CLI Run linux Command "mysql -prad123 -NB -e "select count(*) from INFORMATION_SCHEMA.TABLES WHERE TABLE_SCHEMA='vision';"" on "ROOT_SERVER_CLI" and validate result EQUALS "90"
 
-  @SID_31
+  @SID_33
   Scenario: Verify number of tables in vision_ng schema
     Then CLI Run linux Command "mysql -prad123 -NB -e "select count(*) from INFORMATION_SCHEMA.TABLES WHERE TABLE_SCHEMA='vision_ng';"" on "ROOT_SERVER_CLI" and validate result EQUALS "166"
 
-  @SID_32
+  @SID_34
   Scenario: Delete Site2 After Upgrade
     Then CLI Run remote linux Command "mysql -prad123 vision_ng -e "delete from site_tree_elem_abs where name='Site2 After Upgrade';"" on "ROOT_SERVER_CLI"

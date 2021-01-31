@@ -14,6 +14,7 @@ import com.radware.vision.bddtests.clioperation.system.upgrade.UpgradeSteps;
 import com.radware.vision.bddtests.defenseFlow.defenseFlowDevice;
 import com.radware.vision.bddtests.visionsettings.VisionInfo;
 import com.radware.vision.bddtests.vmoperations.Deploy.FreshInstallKVM;
+import com.radware.vision.bddtests.vmoperations.Deploy.FreshInstallOVA;
 import com.radware.vision.bddtests.vmoperations.Deploy.Physical;
 import com.radware.vision.bddtests.vmoperations.Deploy.Upgrade;
 import com.radware.vision.enums.VisionDeployType;
@@ -137,30 +138,30 @@ public class VMOperationsSteps extends BddUITestBase {
 
                 case "physical":
                     return;
-            /* Upgrade section */
-                    case "kvm_upgrade_inparallel":
-                        revert_kvm_upgrade_InParallel(snapshot, visionRadwareFirstTime);
-                        afterUpgrade();
-                        return;
+                /* Upgrade section */
+                case "kvm_upgrade_inparallel":
+                    revert_kvm_upgrade_InParallel(snapshot, visionRadwareFirstTime);
+                    afterUpgrade();
+                    return;
 
-                    case "upgrade_inparallel":
-                        revertSnapshot(1);
-                        revertSnapshot(2);
-                        afterUpgrade();
-                        return;
+                case "upgrade_inparallel":
+                    revertSnapshot(1);
+                    revertSnapshot(2);
+                    afterUpgrade();
+                    return;
 
-                    case "kvm_upgrade":
-                        revertKvmSnapshot(snapshot, visionRadwareFirstTime);
-                        afterUpgrade();
-                        return;
+                case "kvm_upgrade":
+                    revertKvmSnapshot(snapshot, visionRadwareFirstTime);
+                    afterUpgrade();
+                    return;
 
-                    case "upgrade":
-                        revertSnapshot(1);
-                        afterUpgrade();
-                        return;
+                case "upgrade":
+                    revertSnapshot(1);
+                    afterUpgrade();
+                    return;
                 default:
                     BaseTestUtils.report("What is wrong with you man? there is no such a mode as: " + setupMode, Reporter.FAIL);
-                }
+            }
 
         } catch (Exception e) {
             e.printStackTrace();
@@ -219,42 +220,25 @@ public class VMOperationsSteps extends BddUITestBase {
                 Upgrade upgrade = new Upgrade(true, null, restTestBase.getRadwareServerCli(), restTestBase.getRootServerCli());
                 upgrade.deploy();
                 break;
-
             case "upgrade_inparallel":
             case "kvm_upgrade_inparallel":
                 UpgradeSteps.UpgradeVisionToLatestBuildTwoMachines();
                 break;
-
             case "kvm_fresh install":
                 FreshInstallKVM freshInstallKVM = new FreshInstallKVM(true, null);
                 freshInstallKVM.deploy();
                 break;
-
             case "fresh install_inparallel":
                 freshInstallInParallel();
                 break;
-
             case "fresh install":
-                VisionVMs visionVMs = restTestBase.getVisionVMs();
-                NewVmSteps newVmSteps = new NewVmSteps();
-                String vmName = getVisionSetupAttributeFromSUT("vmPrefix");
-                if (vmName == null) throw new NullPointerException("Can't find \"vmPrefix\" at SUT File");
-
-                List<String> columnNames = Arrays.asList("version", "build", "NewVmName", "isAPM");
-                List<String> values;
-                boolean isAPM = getVisionSetupAttributeFromSUT("isAPM") != null && Boolean.parseBoolean(getVisionSetupAttributeFromSUT("isAPM"));
-                values = Arrays.asList(readVisionVersionFromPomFile(), "", vmName, String.valueOf(isAPM));
-                List<List<String>> row = Arrays.asList(columnNames, values);
-                DataTable dataTable = DataTable.create(row, Locale.getDefault(), "version", "build", "NewVmName", "isAPM");
-                newVmSteps.firstTimeWizardOva(dataTable, visionVMs);
-
+                FreshInstallOVA freshInstallOVA = new FreshInstallOVA(true, null);
+                freshInstallOVA.deploy();
                 break;
-
             case "physical":
                 Physical physical = new Physical(true, null);
                 physical.deploy();
                 break;
-
             default: {
                 BaseTestUtils.report("Setup mode:" + setupMode + " is not familiar.", Reporter.FAIL);
             }
@@ -283,8 +267,8 @@ public class VMOperationsSteps extends BddUITestBase {
                 return visionCli.visionServer.visionSetup.getVmPrefix();
             case "FileNamePrefix":
                 return visionCli.visionServer.visionSetup.getFileNamePrefix();
-            case "isAPM":
-                return visionCli.visionServer.visionSetup.getIsAPM();
+            case "serverType":
+                return visionCli.visionServer.visionSetup.getServerType();
         }
         return null;
     }

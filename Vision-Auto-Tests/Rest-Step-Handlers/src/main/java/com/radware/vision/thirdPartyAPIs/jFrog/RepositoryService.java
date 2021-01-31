@@ -66,7 +66,7 @@ public class RepositoryService {
         ArtifactPojo artifactPojo = getPojo("", StatusCode.OK, ArtifactPojo.class);
         String artifactPojoPtah = artifactPojo.getPath().getPath();
         ArtifactFolderPojo artifactPojoFolder = getPojo(artifactPojoPtah, StatusCode.OK, ArtifactFolderPojo.class);
-        ArtifactFolderPojo branchPojo = getBranch(artifactPojoFolder, branch);
+        ArtifactFolderPojo branchPojo = getBranch(artifactPojoFolder, branch.toLowerCase());// in Artifactory all folders are lower case
         if (branchPojo == null) {
             buildPojo = getFile(artifactPojoFolder, build, fileType, "master");//build under version
         } else {
@@ -85,7 +85,7 @@ public class RepositoryService {
         ArtifactPojo artifactPojo = getPojo("", StatusCode.OK, ArtifactPojo.class);
         String artifactPojoPtah = artifactPojo.getPath().getPath();
         ArtifactFolderPojo artifactPojoFolder = getPojo(artifactPojoPtah, StatusCode.OK, ArtifactFolderPojo.class);
-        ArtifactFolderPojo branchPojo = getBranch(artifactPojoFolder, branch);
+        ArtifactFolderPojo branchPojo = getBranch(artifactPojoFolder, branch.toLowerCase());// in Artifactory all folders are lower case
         String path = branchPojo.getPath().getPath().substring(1) + "/" + getLastSuccessfulExtendedBuild(branchPojo, branch);
         buildPojo = getPojo(path, StatusCode.OK, ArtifactFolderPojo.class);
         ArtifactFilePojo filePojo = getFile(buildPojo, fileType);
@@ -129,8 +129,6 @@ public class RepositoryService {
             } else
                 throw new Exception(String.format("The Build \"%s\" not found under %s OR the build not contains \"%s\" file type", build, buildParent.getPath().getPath(), fileType.getExtension()));
         } else {//latest build
-
-
             build = getLastSuccessfulBuild(buildParent, fileType, jenkinsJob);
             String path = buildParent.getPath().getPath().substring(1) + "/" + build;
             return getPojo(path, StatusCode.OK, ArtifactFolderPojo.class);

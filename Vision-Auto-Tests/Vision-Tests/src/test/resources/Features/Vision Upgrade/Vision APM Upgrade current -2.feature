@@ -67,8 +67,13 @@ Feature: Vision APM Upgrade current -2
       | UPGRADE | /opt/radware/storage/www/webui/vision-dashboards/public/static/media/* | IGNORE       |
       | UPGRADE | No such image or container: *                                          | IGNORE       |
 
-
   @SID_6
+  Scenario: Validate server is up after reset
+    When CLI Operations - Run Root Session command "reboot"
+    Then Sleep "180"
+    When validate vision server services is UP
+
+  @SID_7
   Scenario: Check firewall settings
     Then CLI Run linux Command "iptables -L -n |tail -1|awk -F" " '{print $1,$2}'" on "ROOT_SERVER_CLI" and validate result EQUALS "REJECT all"
     Then CLI Run linux Command "iptables -L -n |grep tcp|grep dpt:9200" on "ROOT_SERVER_CLI" and validate result CONTAINS "ACCEPT"
@@ -90,7 +95,7 @@ Feature: Vision APM Upgrade current -2
     Then CLI Run linux Command "iptables -L -n |grep "icmp type 13"" on "ROOT_SERVER_CLI" and validate result CONTAINS "DROP"
     Then CLI Run linux Command "iptables -L -n |grep "icmp type 17"" on "ROOT_SERVER_CLI" and validate result CONTAINS "DROP"
 
-  @SID_7
+  @SID_8
   Scenario: Check firewall6 settings
     Then CLI Run linux Command "ip6tables -L -n |tail -1|awk -F" " '{print $1,$2}'" on "ROOT_SERVER_CLI" and validate result EQUALS "REJECT all"
     #    Skipping following step till it is developed
@@ -111,13 +116,13 @@ Feature: Vision APM Upgrade current -2
     Then CLI Run linux Command "ip6tables -L -n |grep tcp|grep dpt:80" on "ROOT_SERVER_CLI" and validate result CONTAINS "ACCEPT"
     Then CLI Run linux Command "ip6tables -L -n |grep tcp|grep dpt:22" on "ROOT_SERVER_CLI" and validate result CONTAINS "ACCEPT"
 
-  @SID_8
+  @SID_9
   Scenario: Login with activation
 #    Given REST Login with activation with user "sys_admin" and password "radware"
     Then UI Login with user "sys_admin" and password "radware"
     Given CLI Reset radware password
 
-  @SID_9
+  @SID_10
   Scenario: Navigate to general settings page
     Then UI Go To Vision
     Then UI Navigate to page "System->General Settings->Basic Parameters"
@@ -220,12 +225,12 @@ Feature: Vision APM Upgrade current -2
   Scenario: Verify number of tables in vision_ng schema
     Then CLI Run linux Command "mysql -prad123 -NB -e "select count(*) from INFORMATION_SCHEMA.TABLES WHERE TABLE_SCHEMA='vision_ng';"" on "ROOT_SERVER_CLI" and validate result EQUALS "166"
 
-  @SID_10
+  @SID_28
   Scenario: validate APM container is up and relevant services are running in it
     Then CLI Run linux Command "service vz status" on "ROOT_SERVER_CLI" and validate result EQUALS "OpenVZ is running..."
     Then CLI Run linux Command "vzctl exec 101 SPSERVER_INSTANCE=rad /usr/share/sharepath/server/sbin/spserver-initd.sh --action=status | grep "is running..." | wc -l" on "ROOT_SERVER_CLI" and validate result EQUALS "6" Retry 300 seconds
 
-  @SID_28
+  @SID_29
   Scenario: Verify services are running
     Then CLI Run linux Command "service mgtsrv status" on "ROOT_SERVER_CLI" and validate result CONTAINS "APSolute Vision Reporter is running" in any line
     Then CLI Run linux Command "service mgtsrv status" on "ROOT_SERVER_CLI" and validate result CONTAINS "AMQP service is running" in any line
@@ -240,13 +245,13 @@ Feature: Vision APM Upgrade current -2
     Then CLI Run linux Command "service mgtsrv status" on "ROOT_SERVER_CLI" and validate result CONTAINS "VRM reporting engine is running" in any line
     Then CLI Run linux Command "service mgtsrv status" on "ROOT_SERVER_CLI" and validate result CONTAINS "td-agent is running" in any line
 
-  @SID_29
+  @SID_30
   Scenario: Validate Changed MySql partitioning number
     Then CLI Run remote linux Command "echo "After " $(mysql -prad123 vision -e "show create table traffic_utilizations\G" |grep "(PARTITION \`p" |awk -F"p" '{print$2}'|awk -F"\`" '{print$1}') >>  /opt/radware/sql_partition.txt" on "ROOT_SERVER_CLI"
     Then CLI Run remote linux Command "cat /opt/radware/sql_partition.txt" on "ROOT_SERVER_CLI"
     Then CLI Run linux Command "echo $(cat /opt/radware/sql_partition.txt |grep "After"|awk '{print$2}')-$(cat /opt/radware/sql_partition.txt |grep "Before"|awk '{print$2}')|bc" on "ROOT_SERVER_CLI" and validate result NOT_EQUALS "0"
 
-  @SID_30
+  @SID_31
   Scenario: Validate APM is running
     Given That Current Vision is Logged In
     And New Request Specification from File "Vision/SystemManagement" with label "Get Share Path State"

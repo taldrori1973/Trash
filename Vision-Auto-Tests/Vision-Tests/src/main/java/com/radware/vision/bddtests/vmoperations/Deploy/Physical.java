@@ -17,11 +17,12 @@ public class Physical extends Deploy {
 
     public Physical(boolean isExtended, String build) {
         super(isExtended, build, WebUITestBase.getVisionRestClient().getDeviceIp());
-        this.isAPM = getVisionSetupAttributeFromSUT("isAPM") != null && Boolean.parseBoolean(getVisionSetupAttributeFromSUT("isAPM"));
         buildFileInfo();
     }
 
+    @Override
     public void deploy() {
+        //todo: isAPM relevant?
         try {
             String[] path = buildFileInfoTar.getPath().toString().split("/");
             NewVmHandler newVmHandler = new NewVmHandler();
@@ -48,5 +49,4 @@ public class Physical extends Deploy {
             e.printStackTrace();
         }
     }
-
 }
