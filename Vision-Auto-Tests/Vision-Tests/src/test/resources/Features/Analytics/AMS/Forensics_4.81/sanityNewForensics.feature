@@ -259,14 +259,203 @@ Feature: Basic tests for Forensics parameters
     Then UI Validate Text field "Scheduling Month Error Message" CONTAINS "Select the day of the month."
     Then validate webUI CSS value "border-bottom-color" of label "Scheduling Month Error Message" equals "rgb(244, 20, 20)"
 
-############################ Output Test ##########################################################################################
+             ########################## Time Tests #########################################################
+  @SID_20
+  Scenario: Forensics Time - Quick Range is selected
+    Then UI Click Button "Time Type" with value "quickrange"
+    Then UI Validate the attribute of "data-debug-checked" are "EQUAL" to
+      | label     | param      | value |
+      | Time Type | quickrange | true  |
+      | Time Type | absolute   | false |
+      | Time Type | relative   | false |
+
+  @SID_21
+  Scenario: Forensics Time - Absolute is selected
+    Then UI Click Button "Time Type" with value "absolute"
+    Then UI Validate the attribute of "data-debug-checked" are "EQUAL" to
+      | label     | param      | value |
+      | Time Type | quickrange | false |
+      | Time Type | absolute   | true  |
+      | Time Type | relative   | false |
 
   @SID_22
+  Scenario: Forensics Time - Relative is selected
+    Then UI Click Button "Time Type" with value "relative"
+    Then UI Validate the attribute of "data-debug-checked" are "EQUAL" to
+      | label     | param      | value |
+      | Time Type | quickrange | false |
+      | Time Type | absolute   | false |
+      | Time Type | relative   | true  |
+
+  @SID_23
+  Scenario: Validate Quick Range Time
+    Then UI Click Button "Time Type" with value "quickrange"
+    Then UI Click Button "Quick Range" with value "1D"
+    Then UI Validate the attribute of "data-debug-checked" are "EQUAL" to
+      | label       | param      | value |
+      | Quick Range | 1D         | true  |
+      | Quick Range | 1W         | false |
+      | Quick Range | 1M         | false |
+      | Quick Range | 3M         | false |
+      | Quick Range | 1Y         | false |
+      | Quick Range | Today      | false |
+      | Quick Range | Yesterday  | false |
+      | Quick Range | This Month | false |
+
+  @SID_24
+  Scenario: Time - Relative Hour button is selected
+    Then UI Click Button "Time Type" with value "relative"
+    Then UI Click Button "Relative Time Unit" with value "Hours"
+    Then UI Validate the attribute of "data-debug-checked" are "EQUAL" to
+      | label              | param  | value |
+      | Relative Time Unit | Hours  | true  |
+      | Relative Time Unit | Days   | false |
+      | Relative Time Unit | Weeks  | false |
+      | Relative Time Unit | Months | false |
+
+  @SID_25
+  Scenario: Time - Relative Days button is selected
+    Then UI Click Button "Relative Time Unit" with value "Days"
+    Then UI Validate the attribute of "data-debug-checked" are "EQUAL" to
+      | label              | param  | value |
+      | Relative Time Unit | Hours  | false |
+      | Relative Time Unit | Days   | true  |
+      | Relative Time Unit | Weeks  | false |
+      | Relative Time Unit | Months | false |
+
+  @SID_26
+  Scenario: Time - Relative Weeks button is selected
+    Then UI Click Button "Relative Time Unit" with value "Weeks"
+    Then UI Validate the attribute of "data-debug-checked" are "EQUAL" to
+      | label              | param  | value |
+      | Relative Time Unit | Hours  | false |
+      | Relative Time Unit | Days   | false |
+      | Relative Time Unit | Weeks  | true  |
+      | Relative Time Unit | Months | false |
+
+  @SID_27
+  Scenario: Time - Relative Months button is selected
+    Then UI Click Button "Relative Time Unit" with value "Months"
+    Then UI Validate the attribute of "data-debug-checked" are "EQUAL" to
+      | label              | param  | value |
+      | Relative Time Unit | Hours  | false |
+      | Relative Time Unit | Days   | false |
+      | Relative Time Unit | Weeks  | false |
+      | Relative Time Unit | Months | true  |
+
+  @SID_28
+  Scenario: Validate Relative Time - Hours
+    Then UI Click Button "Relative Time Unit" with value "Hours"
+    Then UI Set Text Field "Relative Time Unit Value" and params "Hours" To "0"
+    Then validate webUI CSS value "border-bottom-color" of label "Relative Time Unit Value" with params "Hours" equals "rgb(244, 20, 20)"
+    Then UI Validate Text field "Relative Time Error Message" CONTAINS "Select a value between 1 and 8760 Hours."
+    Then UI Set Text Field "Relative Time Unit Value" and params "Hours" To "-1"
+    Then validate webUI CSS value "border-bottom-color" of label "Relative Time Unit Value" with params "Hours" equals "rgb(244, 20, 20)"
+    Then UI Validate Text field "Relative Time Error Message" CONTAINS "Select a value between 1 and 8760 Hours."
+    Then UI Set Text Field "Relative Time Unit Value" and params "Hours" To "8761"
+    Then validate webUI CSS value "border-bottom-color" of label "Relative Time Unit Value" with params "Hours" equals "rgb(244, 20, 20)"
+    Then UI Validate Text field "Relative Time Error Message" CONTAINS "Select a value between 1 and 8760 Hours."
+
+  @SID_29
+  Scenario: Validate Relative Time - Days
+    Then UI Click Button "Relative Time Unit" with value "Days"
+    Then UI Set Text Field "Relative Time Unit Value" and params "Days" To "0"
+    Then validate webUI CSS value "border-bottom-color" of label "Relative Time Unit Value" with params "Days" equals "rgb(244, 20, 20)"
+    Then UI Validate Text field "Relative Time Error Message" CONTAINS "Select a value between 1 and 365 Days."
+    Then UI Set Text Field "Relative Time Unit Value" and params "Days" To "-1"
+    Then validate webUI CSS value "border-bottom-color" of label "Relative Time Unit Value" with params "Days" equals "rgb(244, 20, 20)"
+    Then UI Validate Text field "Relative Time Error Message" CONTAINS "Select a value between 1 and 365 Days."
+    Then UI Set Text Field "Relative Time Unit Value" and params "Days" To "366"
+    Then validate webUI CSS value "border-bottom-color" of label "Relative Time Unit Value" with params "Days" equals "rgb(244, 20, 20)"
+    Then UI Validate Text field "Relative Time Error Message" CONTAINS "Select a value between 1 and 365 Days."
+
+  @SID_30
+  Scenario: Validate Relative Time - Weeks
+    Then UI Click Button "Relative Time Unit" with value "Weeks"
+    Then UI Set Text Field "Relative Time Unit Value" and params "Weeks" To "0"
+    Then validate webUI CSS value "border-bottom-color" of label "Relative Time Unit Value" with params "Weeks" equals "rgb(244, 20, 20)"
+    Then UI Validate Text field "Relative Time Error Message" CONTAINS "Select a value between 1 and 52 Weeks."
+    Then UI Set Text Field "Relative Time Unit Value" and params "Weeks" To "-1"
+    Then validate webUI CSS value "border-bottom-color" of label "Relative Time Unit Value" with params "Weeks" equals "rgb(244, 20, 20)"
+    Then UI Validate Text field "Relative Time Error Message" CONTAINS "Select a value between 1 and 52 Weeks."
+    Then UI Set Text Field "Relative Time Unit Value" and params "Weeks" To "53"
+    Then validate webUI CSS value "border-bottom-color" of label "Relative Time Unit Value" with params "Weeks" equals "rgb(244, 20, 20)"
+    Then UI Validate Text field "Relative Time Error Message" CONTAINS "Select a value between 1 and 52 Weeks."
+
+  @SID_31
+  Scenario: Validate Relative Time - Months
+    Then UI Click Button "Relative Time Unit" with value "Months"
+    Then UI Set Text Field "Relative Time Unit Value" and params "Months" To "0"
+    Then validate webUI CSS value "border-bottom-color" of label "Relative Time Unit Value" with params "Months" equals "rgb(244, 20, 20)"
+    Then UI Validate Text field "Relative Time Error Message" CONTAINS "Select a value between 1 and 12 Months."
+    Then UI Set Text Field "Relative Time Unit Value" and params "Months" To "-1"
+    Then validate webUI CSS value "border-bottom-color" of label "Relative Time Unit Value" with params "Months" equals "rgb(244, 20, 20)"
+    Then UI Validate Text field "Relative Time Error Message" CONTAINS "Select a value between 1 and 12 Months."
+    Then UI Set Text Field "Relative Time Unit Value" and params "Months" To "13"
+    Then validate webUI CSS value "border-bottom-color" of label "Relative Time Unit Value" with params "Months" equals "rgb(244, 20, 20)"
+    Then UI Validate Text field "Relative Time Error Message" CONTAINS "Select a value between 1 and 12 Months."
+
+        ########################## Email Tests #########################################################
+
+  @SID_32
+  Scenario: Forensics Share Tab Label with value "email" is selected
+    Then UI Click Button "Share Tab"
+    Then UI Click Button "Share Tab Label" with value "email"
+    Then UI Validate the attribute of "data-debug-checked" are "EQUAL" to
+      | label           | param | value |
+      | Share Tab Label | email | true  |
+      | Share Tab Label | ftp   | false |
+
+  @SID_33
+  Scenario: Forensics Share Tab Label with value "email" is selected
+    Then UI Click Button "Share Tab"
+    Then UI Click Button "Share Tab Label" with value "ftp"
+    Then UI Validate the attribute of "data-debug-checked" are "EQUAL" to
+      | label           | param | value |
+      | Share Tab Label | email | false |
+      | Share Tab Label | ftp   | true  |
+
+  @SID_34
+  Scenario: Validate Share send email To
+    Then UI Click Button "Share Tab Label" with value "email"
+    Then UI Text of "Email Tab" equal to "E-mail To"
+    Then UI Set Text Field "Email" To "example@example.com" enter Key true
+    Then UI Validate Element Existence By Label "Email input" if Exists "true" with value "example@example.com,valid"
+    Then UI Set Text Field "Email" To "example" enter Key true
+    Then UI Validate Element Existence By Label "Email input" if Exists "true" with value "example,invalid"
+    Then UI Set Text Field "Email" To "example." enter Key true
+    Then UI Validate Element Existence By Label "Email input" if Exists "true" with value "example.,invalid"
+    Then UI Set Text Field "Email" To "example@" enter Key true
+    Then UI Validate Element Existence By Label "Email input" if Exists "true" with value "example@,invalid"
+    Then UI Set Text Field "Email" To "example@example." enter Key true
+    Then UI Validate Element Existence By Label "Email input" if Exists "true" with value "example@example.,invalid"
+    Then UI Set Text Field "Email" To "example@example" enter Key true
+    Then UI Validate Element Existence By Label "Email input" if Exists "true" with value "example@example,invalid"
+    Then UI Set Text Field "Email" To "example.@example.com" enter Key true
+    Then UI Validate Element Existence By Label "Email input" if Exists "true" with value "example.@example.com,invalid"
+    Then UI Set Text Field "Email" To "example@example. example" enter Key true
+    Then UI Validate Element Existence By Label "Email input" if Exists "true" with value "example@example. example,invalid"
+
+  @SID_35
+  Scenario: Validate send email Subject
+#    no data febug id
+#    Then UI Text of "Subject" equal to "Subject *"
+
+  @SID_36
+  Scenario: Validate send email Type your message
+    Then UI Validate the attribute "placeholder" Of Label "Email message" is "EQUALS" to "Type your message"
+
+  @SID_37
+  Scenario: Validate FTP
+
+############################ Output Test ##########################################################################################
+
+  @SID_38
   Scenario: Forensics Output - select all output option of DefensePro
     Then UI Validate Text field "Output Tab" CONTAINS "*"
 
            ######################################## DefensePro ##########################################################
-  @SID_20
+  @SID_39
   Scenario: Forensics Output - validate default values of DefensePro
     Then UI Click Button "Product Tab" with value "DefensePro"
     Then UI Click Button "outputExpandOrCollapse"
@@ -281,9 +470,7 @@ Feature: Basic tests for Forensics parameters
     Then UI Validate the attribute "aria-selected" Of Label "Output Value" With Params "Direction" is "EQUALS" to "true"
     Then UI Validate the attribute "aria-selected" Of Label "Output Value" With Params "Protocol" is "EQUALS" to "true"
 
-
-
-  @SID_21
+  @SID_40
   Scenario: Forensics Output - delete all selected output of DefensePro
     Then select forensics Output with details ""
     Then UI Validate the attribute "aria-selected" Of Label "Output Value" With Params "Start Time" is "EQUALS" to "false"
@@ -313,9 +500,7 @@ Feature: Basic tests for Forensics parameters
     Then UI Click Button "outputExpandOrCollapse"
     ## add validate error message
 
-
-
-  @SID_22
+  @SID_41
   Scenario: Forensics Output - select all output option of DefensePro
     Then select forensics Output with details "Start Time,End Time,Threat Category,Attack Name,Policy Name,Source IP Address,Destination IP Address,Destination Port,Direction,Protocol,Device IP Address,Action,Attack ID,Source Port,Radware ID,Duration,Total Packets Dropped,Max pps,Total Mbits Dropped,Max bps,Physical Port,Risk,VLAN Tag,Packet Type"
     Then UI Validate the attribute "aria-selected" Of Label "Output Value" With Params "Start Time" is "EQUALS" to "true"
@@ -345,11 +530,9 @@ Feature: Basic tests for Forensics parameters
     Then UI Click Button "outputExpandOrCollapse"
 
 
-
     #############################################  DefenseFlow ###############################################
 
-
-  @SID_23
+  @SID_41
   Scenario: Forensics Output - validate default values of DefenseFlow
     Then UI Click Button "Product Tab" with value "DefenseFlow"
     Then UI Click Button "outputExpandOrCollapse"
@@ -364,9 +547,7 @@ Feature: Basic tests for Forensics parameters
     Then UI Validate the attribute "aria-selected" Of Label "Output Value" With Params "Direction" is "EQUALS" to "true"
     Then UI Validate the attribute "aria-selected" Of Label "Output Value" With Params "Protocol" is "EQUALS" to "true"
 
-
-
-  @SID_24
+  @SID_43
   Scenario: Forensics Output - delete all selected output of DefenseFlow
     Then select forensics Output with details ""
     Then UI Validate the attribute "aria-selected" Of Label "Output Value" With Params "Start Time" is "EQUALS" to "false"
@@ -396,9 +577,7 @@ Feature: Basic tests for Forensics parameters
     Then UI Click Button "outputExpandOrCollapse"
     ## add validate error message
 
-
-
-  @SID_25
+  @SID_44
   Scenario: Forensics Output - select all output option of DefenseFlow
     Then select forensics Output with details "Start Time,End Time,Threat Category,Attack Name,Policy Name,Source IP Address,Destination IP Address,Destination Port,Direction,Protocol,Device IP Address,Action,Attack ID,Source Port,Radware ID,Duration,Total Packets Dropped,Max pps,Total Mbits Dropped,Max bps,Physical Port,Risk,VLAN Tag,Packet Type"
     Then UI Validate the attribute "aria-selected" Of Label "Output Value" With Params "Start Time" is "EQUALS" to "true"
@@ -430,8 +609,7 @@ Feature: Basic tests for Forensics parameters
 
 #############################################  AppWall ###############################################
 
-  
-  @SID_26
+  @SID_45
   Scenario: Forensics Output - validate default values of AppWall
     Then UI Click Button "Product Tab" with value "AppWall"
     Then UI Click Button "outputExpandOrCollapse"
@@ -444,10 +622,7 @@ Feature: Basic tests for Forensics parameters
     Then UI Validate the attribute "aria-selected" Of Label "Output Value" With Params "Web Application Name" is "EQUALS" to "true"
     Then UI Validate the attribute "aria-selected" Of Label "Output Value" With Params "Event Description" is "EQUALS" to "true"
 
-
-
-  
-  @SID_27
+  @SID_46
   Scenario: Forensics Output - delete all selected output of AppWall
     Then select forensics Output with details ""
     Then UI Validate the attribute "aria-selected" Of Label "Output Value" With Params "Date and Time" is "EQUALS" to "false"
@@ -471,9 +646,7 @@ Feature: Basic tests for Forensics parameters
     Then UI Click Button "outputExpandOrCollapse"
     ## add validate error message
 
-
-  
-  @SID_28
+  @SID_47
   Scenario: Forensics Output - select all output option of AppWall
     Then select forensics Output with details "User Name,Tunnel,Transaction ID,Threat Category,Severity,Module,Directory,Device Host Name,Attack Name,Action,Event Description,Source IP,Device IP,Date and Time,Destination IP Address,Web Application Name,Source Port,Cluster Manager IP,"
     Then UI Validate the attribute "aria-selected" Of Label "Output Value" With Params "Date and Time" is "EQUALS" to "true"
@@ -496,6 +669,9 @@ Feature: Basic tests for Forensics parameters
     Then UI Validate the attribute "aria-selected" Of Label "Output Value" With Params "User Name" is "EQUALS" to "true"
     Then UI Click Button "outputExpandOrCollapse"
 
-  @SID_29
+
+
+
+  @SID_48
   Scenario: Logout
     Then UI logout and close browser
