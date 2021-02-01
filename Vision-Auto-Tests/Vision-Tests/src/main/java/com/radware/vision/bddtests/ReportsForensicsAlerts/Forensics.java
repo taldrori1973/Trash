@@ -91,10 +91,10 @@ public class Forensics extends ReportsForensicsAlertsAbstract {
             String outputText = outputElement.getText();
             if (expectedOutputs.contains(outputText))
             {
-                WebUiTools.check("outputValue", outputText, true);
+                WebUiTools.check("Output Value", outputText, true);
                 expectedOutputs.remove(outputText);
             }
-            else WebUiTools.check("outputValue", outputText, false);
+            else WebUiTools.check("Output Value", outputText, false);
         }
 
         if (expectedOutputs.size()>0)

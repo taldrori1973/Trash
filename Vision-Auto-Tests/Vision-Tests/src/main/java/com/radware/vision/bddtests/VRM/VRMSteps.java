@@ -264,5 +264,13 @@ public class VRMSteps {
         map = CustomizedJsonManager.fixJson(map);
         new Forensics().selectScheduling(map);
     }
+
+    @Then("^select forensics Output with details \"([^\"]*)\"$")
+    public void selectOutputWithDetails(String schedulingJson) throws Exception {
+        Map<String, String> map = new HashMap<>();
+        map.put("Output", schedulingJson);
+        map = CustomizedJsonManager.fixJson(map);
+        new Forensics().selectOutput(map);
+    }
 }
 
