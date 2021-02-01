@@ -1,15 +1,22 @@
 package com.radware.vision.bddtests.ReportsForensicsAlerts;
 
+import com.radware.automation.tools.basetest.BaseTestUtils;
+import com.radware.automation.tools.basetest.Reporter;
 import com.radware.automation.webui.WebUIUtils;
 import com.radware.automation.webui.widgets.ComponentLocatorFactory;
 import com.radware.vision.bddtests.ReportsForensicsAlerts.Handlers.TemplateHandlers;
 import com.radware.vision.infra.testhandlers.baseoperations.BasicOperationsHandler;
+import com.radware.vision.tools.rest.CurrentVisionRestAPI;
 import com.radware.vision.vision_project_cli.RootServerCli;
+import models.RestResponse;
+import models.StatusCode;
 import org.json.JSONArray;
+import org.json.JSONObject;
 import org.openqa.selenium.WebElement;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.Map;
 
 public class Forensics extends ReportsForensicsAlertsAbstract {
@@ -101,8 +108,55 @@ public class Forensics extends ReportsForensicsAlertsAbstract {
     }
 
     @Override
-    public void validate(RootServerCli rootServerCli, String name, Map<String, String> map) throws Exception {
+    public void validate(RootServerCli rootServerCli, String forensicsName, Map<String, String> map) throws Exception {
+        StringBuilder errorMessage = new StringBuilder();
+        JSONObject basicRestResult = getForensicsDefinition(forensicsName, map);
+        if (basicRestResult!=null)
+        {
+            errorMessage.append(validateTimeDefinition(new JSONObject(basicRestResult.get("timeRageDefinition").toString()), map));
+            errorMessage.append(validateCriteriaDefinition(new JSONObject(basicRestResult.get("criteria").toString())));
+            errorMessage.append(validateScheduleDefinition(basicRestResult, map, forensicsName));
+            errorMessage.append(validateFormatDefinition(new JSONObject(basicRestResult.get("exportFormat").toString()), map));
+            errorMessage.append(validateShareDefinition(new JSONObject(basicRestResult.get("deliveryMethod").toString()), map));
+            errorMessage.append(validateScopeSelection(new JSONArray(map.get("devices"))));
+        }else errorMessage.append("No report Defined with name ").append(forensicsName).append("/n");
+        if (errorMessage.length() != 0)
+            BaseTestUtils.report(errorMessage.toString(), Reporter.FAIL);
+    }
 
+    private StringBuilder validateScopeSelection(JSONArray devices) {
+        return null;
+    }
+
+    protected StringBuilder validateCriteriaDefinition(JSONObject criteria) {
+        return null;
+    }
+
+    private StringBuilder validateFormatDefinition(JSONObject exportFormat, Map<String, String> map) {
+        return null;
+    }
+
+    private JSONObject getForensicsDefinition(String forensicsName, Map<String, String> map) throws Exception {
+        RestResponse restResponse = new CurrentVisionRestAPI("Vision/newForensics.json", "Get Created Forensics").sendRequest();
+        if (restResponse.getStatusCode()== StatusCode.OK)
+        {
+            JSONArray forensicsJSONArray = new JSONArray(restResponse.getBody().getBodyAsString());
+            for(Object reportJsonObject : forensicsJSONArray)
+            {
+                if (new JSONObject(reportJsonObject.toString()).getString("name").equalsIgnoreCase(forensicsName))
+                {
+                    CurrentVisionRestAPI currentVisionRestAPI = new CurrentVisionRestAPI("Vision/newForensics.json", "Get specific Forensics");
+                    currentVisionRestAPI.getRestRequestSpecification().setPathParams(Collections.singletonMap("ForensicsID", new JSONObject(reportJsonObject.toString()).getString("id")));
+                    restResponse = currentVisionRestAPI.sendRequest();
+                    if (restResponse.getStatusCode() == StatusCode.OK)
+                        return new JSONObject(restResponse.getBody().getBodyAsString());
+                    else throw new Exception("Get specific Forensics request failed, The response is " + restResponse);
+                }
+            }
+
+            throw new Exception("No Report with Name " + forensicsName);
+        }
+        else throw new Exception("Get Reports failed request, The response is " + restResponse);
     }
 
     @Override

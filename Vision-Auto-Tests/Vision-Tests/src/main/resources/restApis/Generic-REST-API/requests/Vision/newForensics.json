@@ -1,0 +1,21 @@
+{
+  "deviceName": "Vision",
+  "fileName": "newForensics",
+  "description": "newForensics",
+  "api": [
+    {
+      "label": "Get Created Forensics",
+      "method": "GET",
+      "basePath": "mgmt/monitor/reporter/forensics/definition",
+      "produces": "application/json",
+      "description": "Get All created forensics"
+    },
+    {
+      "label": "Get specific Forensics",
+      "method": "GET",
+      "basePath": "mgmt/monitor/reporter/forensics/definition/{ForensicsID}",
+      "produces": "application/json",
+      "description": "Get specific created forensics"
+    }
+  ]
+}

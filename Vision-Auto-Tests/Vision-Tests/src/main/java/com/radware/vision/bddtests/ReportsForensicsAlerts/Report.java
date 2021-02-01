@@ -212,42 +212,6 @@ public class Report extends ReportsForensicsAlertsAbstract {
         return new JSONObject(new ReportsDefinitions().getJsonDefinition(reportName).toString()).getString("id");
     }
 
-    protected StringBuilder validateShareDefinition(JSONObject deliveryJson, Map<String, String> map) {
-        StringBuilder errorMessage = new StringBuilder();
-        if (map.containsKey("Delivery")) {
-            JSONObject expectedDeliveryJson = new JSONObject(map.get("Delivery"));
-            validateEmailRecipients(deliveryJson, errorMessage, expectedDeliveryJson);
-            validateEmailSubject(deliveryJson, errorMessage, expectedDeliveryJson);
-            validateEmailBody(deliveryJson, errorMessage, expectedDeliveryJson);
-        }
-        return errorMessage;
-    }
-
-    private void validateEmailBody(JSONObject deliveryJson, StringBuilder errorMessage, JSONObject expectedDeliveryJson) {
-        String actualBody = ((JSONObject) deliveryJson.get("email")).get("message").toString();
-        String expectedBody = expectedDeliveryJson.get("Body").toString();
-        if (!actualBody.equalsIgnoreCase(expectedBody)) {
-            errorMessage.append("the Actual Body is ").append(actualBody).append(", but the Expected Body is ").append(expectedBody).append("\n");
-        }
-    }
-
-    private void validateEmailSubject(JSONObject deliveryJson, StringBuilder errorMessage, JSONObject expectedDeliveryJson) {
-        String actualSubject = ((JSONObject) deliveryJson.get("email")).get("subject").toString();
-        String expectedSubject = expectedDeliveryJson.get("Subject").toString();
-        if (!actualSubject.equalsIgnoreCase(expectedSubject)) {
-            errorMessage.append("the Actual Subject is ").append(actualSubject).append(", but the Expected Subject is ").append(expectedSubject).append("\n");
-        }
-    }
-
-    private void validateEmailRecipients(JSONObject deliveryJson, StringBuilder errorMessage, JSONObject expectedDeliveryJson) {
-        String actualEmails = ((JSONObject)deliveryJson.get("email")).get("recipients").toString().replace("[", "").replace("]", "").replace(" ", "");
-        String[] expectedEmailsArray = expectedDeliveryJson.get("Email").toString().replaceAll("(])|(\\[)", "").split(",");
-        for (String email : expectedEmailsArray) {
-            if (!actualEmails.toUpperCase().contains(email.toUpperCase().trim())) {
-                errorMessage.append("The emails aren't the same, the actual is ").append(actualEmails).append(" and the Expected email ").append(email).append(" isn't found").append("\n");
-            }
-        }
-    }
 
     private StringBuilder validateFormatDefinition(JSONObject formatJson, Map<String, String> map) {
         StringBuilder errorMessage = new StringBuilder();

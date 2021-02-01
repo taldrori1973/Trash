@@ -22,7 +22,7 @@
       "method": "GET",
       "basePath": "/mgmt/monitor/reporter/v1/vrm/reporting/reporting/definitions/{reportID}",
       "produces": "application/json",
-      "description": "Get All created reports"
+      "description": "Get specific created reports"
     }
   ]
 }
