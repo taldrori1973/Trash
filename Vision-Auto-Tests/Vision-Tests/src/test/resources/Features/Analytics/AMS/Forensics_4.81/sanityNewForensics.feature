@@ -1,7 +1,7 @@
 @TC119241
 Feature: Basic tests for Forensics parameters
 
-  @Test12
+  
   @SID_1
   Scenario: Navigate to NEW ForensicsS page
     Then UI Login with user "radware" and password "radware"
@@ -343,3 +343,7 @@ Feature: Basic tests for Forensics parameters
   @SID_22
   Scenario: Forensics Output - select all output option
     Then UI Validate Text field "Output Tab" CONTAINS "*"
+
+  @SID_23
+  Scenario: Logout
+    Then UI logout and close browser
