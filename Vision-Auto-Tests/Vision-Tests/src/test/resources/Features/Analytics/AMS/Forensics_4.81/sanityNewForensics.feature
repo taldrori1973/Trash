@@ -10,11 +10,11 @@ Feature: Basic tests for Forensics parameters
 
   @SID_2
   Scenario: Validate Forensics Parameters Name
-    Then UI Text of "Name Tab" equal to "Name"
-    Then UI Text of "Time Tab" equal to "Time"
+    Then UI Text of "Name Tab" equal to "Name*"
+    Then UI Text of "Time Tab" equal to "Time*"
     Then UI Text of "Schedule Tab" equal to "Schedule"
     Then UI Text of "Share Tab" equal to "Share"
-    Then UI Text of "Format Tab" equal to "Format"
+    Then UI Text of "Format Tab" equal to "Format*"
 
   @SID_3
   Scenario: Forensics Name is selected
@@ -259,9 +259,12 @@ Feature: Basic tests for Forensics parameters
     Then UI Validate Text field "Scheduling Month Error Message" CONTAINS "Select the day of the month."
     Then validate webUI CSS value "border-bottom-color" of label "Scheduling Month Error Message" equals "rgb(244, 20, 20)"
 
+############################ Output Test ##########################################################################################
+
 
   @SID_20
-  Scenario: Forensics Output - validate default values
+  Scenario: Forensics Output - validate default values of DefensePro
+    Then UI Click Button "Product Tab" with value "DefensePro"
     Then UI Click Button "outputExpandOrCollapse"
     Then UI Validate the attribute "aria-selected" Of Label "Output Value" With Params "Start Time" is "EQUALS" to "true"
     Then UI Validate the attribute "aria-selected" Of Label "Output Value" With Params "End Time" is "EQUALS" to "true"
@@ -277,7 +280,7 @@ Feature: Basic tests for Forensics parameters
 
 
   @SID_21
-  Scenario: Forensics Output - delete all selected output
+  Scenario: Forensics Output - delete all selected output of DefensePro
     Then select forensics Output with details ""
     Then UI Validate the attribute "aria-selected" Of Label "Output Value" With Params "Start Time" is "EQUALS" to "false"
     Then UI Validate the attribute "aria-selected" Of Label "Output Value" With Params "End Time" is "EQUALS" to "false"
@@ -309,7 +312,7 @@ Feature: Basic tests for Forensics parameters
 
 
   @SID_22
-  Scenario: Forensics Output - select all output option
+  Scenario: Forensics Output - select all output option of DefensePro
     Then select forensics Output with details "Start Time,End Time,Threat Category,Attack Name,Policy Name,Source IP Address,Destination IP Address,Destination Port,Direction,Protocol,Device IP Address,Action,Attack ID,Source Port,Radware ID,Duration,Total Packets Dropped,Max pps,Total Mbits Dropped,Max bps,Physical Port,Risk,VLAN Tag,Packet Type"
     Then UI Validate the attribute "aria-selected" Of Label "Output Value" With Params "Start Time" is "EQUALS" to "true"
     Then UI Validate the attribute "aria-selected" Of Label "Output Value" With Params "End Time" is "EQUALS" to "true"
@@ -341,7 +344,7 @@ Feature: Basic tests for Forensics parameters
 
 
   @SID_22
-  Scenario: Forensics Output - select all output option
+  Scenario: Forensics Output - select all output option of DefensePro
     Then UI Validate Text field "Output Tab" CONTAINS "*"
 
   @SID_23
