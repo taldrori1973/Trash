@@ -103,7 +103,7 @@ public class SelectScheduleHandlers {
             for (int i=1; i<=3; i++)
             {
                 WebUIUtils.fluentWait(new ComponentLocator(How.XPATH, "//*[@class='ant-time-picker-input']").getBy()).click();
-                WebElement timeElement = WebUIUtils.fluentWait(new ComponentLocator(How.XPATH, "//*[@class='ant-time-picker-panel-select'][" + i + "]//li[.='"+ timePartsArray[i-1] + "']").getBy(), 25000);
+                WebElement timeElement = WebUIUtils.fluentWait(new ComponentLocator(How.XPATH, "//div[contains(@class,'ant-time-picker-panel-select')][" + i + "]//li[.='"+ timePartsArray[i-1] + "']").getBy(), 25000);
                 WebUIUtils.scrollIntoView(timeElement, true);
                 WebUIUtils.sleep(2);
                 timeElement.click();
