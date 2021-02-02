@@ -25,14 +25,6 @@ public class SutUtils {
         return ip;
     }
 
-    public static String getCurrentVisionRestUserName() throws NoSuchFieldException {
-        String userName = WebUITestBase.getRestTestBase().getVisionServer().getUser();
-        if (isNull(userName) || isEmpty(userName) || isBlank(userName)) {
-            throw new NoSuchFieldException("Can't read User Name from SUT file under " + WebUITestBase.getRestTestBase().getVisionServer().getXPath());
-        }
-        return userName;
-    }
-
     public static String getCurrentVisionRestUserPassword() throws NoSuchFieldException {
         String password = WebUITestBase.getRestTestBase().getVisionServer().getPassword();
         if (isNull(password) || isEmpty(password) || isBlank(password)) {
@@ -47,6 +39,14 @@ public class SutUtils {
             throw new NoSuchFieldException("Can't read HA Host Name from SUT file under visionCli/visionServer/visionServerHA/Host_2");
         }
         return ip;
+    }
+
+    public static String getCurrentVisionRestUserName() throws NoSuchFieldException {
+        String userName = WebUITestBase.getRestTestBase().getVisionServer().getUser();
+        if (isNull(userName) || isEmpty(userName) || isBlank(userName)) {
+            throw new NoSuchFieldException("Can't read User Name from SUT file under " + WebUITestBase.getRestTestBase().getVisionServer().getXPath());
+        }
+        return userName;
     }
 
 

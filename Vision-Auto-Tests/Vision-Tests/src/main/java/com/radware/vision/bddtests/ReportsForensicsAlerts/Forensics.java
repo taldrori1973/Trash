@@ -114,28 +114,42 @@ public class Forensics extends ReportsForensicsAlertsAbstract {
         JSONObject basicRestResult = getForensicsDefinition(forensicsName, map);
         if (basicRestResult!=null)
         {
-            errorMessage.append(validateTimeDefinition(new JSONObject(basicRestResult.get("timeRageDefinition").toString()), map));
-            errorMessage.append(validateCriteriaDefinition(new JSONObject(basicRestResult.get("criteria").toString())));
+
+            errorMessage.append(validateTimeDefinition(new JSONObject(basicRestResult.get("timeRangeDefinition").toString()), map));
+//            errorMessage.append(validateTimeDefinition(new JSONObject(basicRestResult.get("timeRageDefinition").toString()), map));
+//            errorMessage.append(validateCriteriaDefinition(new JSONObject(basicRestResult.get("criteria").toString())));
+//            errorMessage.append(validateCriteriaDefinition(new JSONObject(new JSONObject(basicRestResult.get("request").toString()).toString()).get("criteria").toString()));
             errorMessage.append(validateScheduleDefinition(basicRestResult, map, forensicsName));
-            errorMessage.append(validateFormatDefinition(new JSONObject(basicRestResult.get("exportFormat").toString()), map));
+//            errorMessage.append(validateFormatDefinition(new JSONObject(basicRestResult.get("exportFormat").toString()), map));
+            errorMessage.append(validateFormatDefinition(new JSONObject(new JSONArray(basicRestResult.get("exportFormats").toString()).get(0).toString()), map));
             errorMessage.append(validateShareDefinition(new JSONObject(basicRestResult.get("deliveryMethod").toString()), map));
-            errorMessage.append(validateScopeSelection(new JSONArray(map.get("devices"))));
-        }else errorMessage.append("No report Defined with name ").append(forensicsName).append("/n");
+//            errorMessage.append(validateScopeSelection(new JSONArray(map.get("devices"))));
+            //new JSONArray(basicRestResult.get("deviceScopes").toString())
+        }else errorMessage.append("No Forensics Defined with name ").append(forensicsName).append("/n");
         if (errorMessage.length() != 0)
             BaseTestUtils.report(errorMessage.toString(), Reporter.FAIL);
     }
+
+
 
     private StringBuilder validateScopeSelection(JSONArray devices) {
         return null;
     }
 
-    protected StringBuilder validateCriteriaDefinition(JSONObject criteria) {
+    protected StringBuilder validateCriteriaDefinition(String criteria) {
         return null;
     }
 
-    private StringBuilder validateFormatDefinition(JSONObject exportFormat, Map<String, String> map) {
-        return null;
-    }
+//    private StringBuilder validateFormatDefinition(JSONObject exportFormat, Map<String, String> map) {
+//        StringBuilder errorMessage = new StringBuilder();
+//        if (map.containsKey("Format")) {
+//            JSONObject expectedFormatJson = new JSONObject(map.get("Format"));
+//            if (!exportFormat.get("type").toString().trim().equalsIgnoreCase(expectedFormatJson.get("Select").toString().trim()))
+//                errorMessage.append("The actual Format is: ").append(exportFormat.get("type").toString().toUpperCase()).append("but the Expected format is: ").append(expectedFormatJson.get("Select").toString().toUpperCase()).append("\n");
+//        }
+//        else if (!exportFormat.get("type").toString().trim().toLowerCase().equalsIgnoreCase("pdf"))
+//            errorMessage.append("The actual Format is: ").append(exportFormat.get("type").toString()).append("but the Expected format is: ").append("pdf").append("\n");
+//        return errorMessage;    }
 
     private JSONObject getForensicsDefinition(String forensicsName, Map<String, String> map) throws Exception {
         RestResponse restResponse = new CurrentVisionRestAPI("Vision/newForensics.json", "Get Created Forensics").sendRequest();
@@ -161,7 +175,51 @@ public class Forensics extends ReportsForensicsAlertsAbstract {
     }
 
     @Override
-    public void edit(String viewBase, Map<String, String> map) throws Exception {
-
+    public void edit(String forensicsName, Map<String, String> map) throws Exception {
+        try {
+            WebUiTools.getWebElement("Edit Forensics",forensicsName).click();
+            editForensicsParameters(forensicsName, map);
+            editScopeSelection(map,forensicsName);
+            BasicOperationsHandler.clickButton("save");
+        } catch (Exception e) {
+            cancelView();
+            throw e;
+        }
+        if (!viewCreated(forensicsName)) {
+            cancelView();
+            throw new Exception("");
+        }
     }
+
+    private void editForensicsParameters(String forensicsName, Map<String, String> map) throws Exception {
+        WebUiTools.check("Name Tab", "", true);
+        editName(map, forensicsName);
+        WebUiTools.check("Time Tab", "", true);
+        editTime(map);
+        WebUiTools.check("Schedule Tab", "", true);
+        editScheduling(map);
+        WebUiTools.check("Share Tab", "", true);
+        editShare(map);
+        WebUiTools.check("Format Tab", "", true);
+        editFormat(map);
+        WebUiTools.check("Criteria Tab", "", true);
+        editCriteria(map);
+    }
+
+    private void editCriteria(Map<String, String> map) throws Exception {
+        if (map.containsKey("Criteria")) {
+        }
+    }
+    private void editFormat(Map<String, String> map) throws Exception {
+        if (map.containsKey("Format")) {
+            BasicOperationsHandler.clickButton("Format Type", "HTML");
+            selectFormat(map);
+        }
+    }
+
+    private void editScopeSelection(Map<String, String> map,String reportName) throws Exception{
+        if (map.containsKey("devices"))
+            selectScopeSelection(map);
+    }
+    
 }

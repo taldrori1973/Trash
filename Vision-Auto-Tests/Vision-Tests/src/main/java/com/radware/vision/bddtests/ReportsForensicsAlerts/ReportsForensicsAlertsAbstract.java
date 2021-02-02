@@ -162,7 +162,6 @@ abstract public class ReportsForensicsAlertsAbstract implements ReportsForensics
         if (!timeDefinitionsJSON.get("quickRangeSelection").toString().equalsIgnoreCase(expectedTimeDefinitions.getString("Quick")))
             errorMessage.append("The value of the quickRange is ").append(timeDefinitionsJSON.get("quickRangeSelection")).append(" and not equal to ").append(expectedTimeDefinitions.getString("Quick")).append("\n");
     }
-
     protected void editShare(Map<String, String> map) throws Exception {
         if (map.containsKey("Share")) {
             BasicOperationsHandler.setTextField("Email", "");
@@ -208,6 +207,18 @@ abstract public class ReportsForensicsAlertsAbstract implements ReportsForensics
             else
                 SelectScheduleHandlers.validateScheduling(expectedType, actualSchedule, expectedScheduleJson, errorMessage, schedulingDates, getType() + "_" + name);
         }
+        return errorMessage;
+    }
+
+    protected StringBuilder validateFormatDefinition(JSONObject formatJson, Map<String, String> map) {
+        StringBuilder errorMessage = new StringBuilder();
+        if (map.containsKey("Format")) {
+            JSONObject expectedFormatJson = new JSONObject(map.get("Format"));
+            if (!formatJson.get("type").toString().trim().equalsIgnoreCase(expectedFormatJson.get("Select").toString().trim()))
+                errorMessage.append("The actual Format is: ").append(formatJson.get("type").toString().toUpperCase()).append("but the Expected format is: ").append(expectedFormatJson.get("Select").toString().toUpperCase()).append("\n");
+        }
+        else if ((getType().equals("Report")&& !formatJson.get("type").toString().trim().toLowerCase().equalsIgnoreCase("pdf") )|| (getType().equals("Forensics") && !formatJson.get("type").toString().trim().toLowerCase().equalsIgnoreCase("html")))
+            errorMessage.append("The actual Format is: ").append(formatJson.get("type").toString()).append("but the Expected format is: ").append("pdf").append("\n");
         return errorMessage;
     }
 
@@ -306,7 +317,7 @@ abstract public class ReportsForensicsAlertsAbstract implements ReportsForensics
     }
 
     public void generate(String name, Map<String, String> map) throws Exception {
-        BasicOperationsHandler.setTextField("Search Report", name);
+        BasicOperationsHandler.setTextField("Search Report"+getType(), name);
         BasicOperationsHandler.clickButton("My Report", name);
         String oldDate = "";
         String[] generateReportParam = {name, "0"};

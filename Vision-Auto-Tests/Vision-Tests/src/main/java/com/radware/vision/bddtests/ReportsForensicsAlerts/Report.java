@@ -213,17 +213,17 @@ public class Report extends ReportsForensicsAlertsAbstract {
     }
 
 
-    private StringBuilder validateFormatDefinition(JSONObject formatJson, Map<String, String> map) {
-        StringBuilder errorMessage = new StringBuilder();
-        if (map.containsKey("Format")) {
-            JSONObject expectedFormatJson = new JSONObject(map.get("Format"));
-            if (!formatJson.get("type").toString().trim().equalsIgnoreCase(expectedFormatJson.get("Select").toString().trim()))
-                errorMessage.append("The actual Format is: ").append(formatJson.get("type").toString().toUpperCase()).append("but the Expected format is: ").append(expectedFormatJson.get("Select").toString().toUpperCase()).append("\n");
-        }
-        else if (!formatJson.get("type").toString().trim().toLowerCase().equalsIgnoreCase("pdf"))
-            errorMessage.append("The actual Format is: ").append(formatJson.get("type").toString()).append("but the Expected format is: ").append("pdf").append("\n");
-        return errorMessage;
-    }
+//    private StringBuilder validateFormatDefinition(JSONObject formatJson, Map<String, String> map) {
+//        StringBuilder errorMessage = new StringBuilder();
+//        if (map.containsKey("Format")) {
+//            JSONObject expectedFormatJson = new JSONObject(map.get("Format"));
+//            if (!formatJson.get("type").toString().trim().equalsIgnoreCase(expectedFormatJson.get("Select").toString().trim()))
+//                errorMessage.append("The actual Format is: ").append(formatJson.get("type").toString().toUpperCase()).append("but the Expected format is: ").append(expectedFormatJson.get("Select").toString().toUpperCase()).append("\n");
+//        }
+//        else if (!formatJson.get("type").toString().trim().toLowerCase().equalsIgnoreCase("pdf"))
+//            errorMessage.append("The actual Format is: ").append(formatJson.get("type").toString()).append("but the Expected format is: ").append("pdf").append("\n");
+//        return errorMessage;
+//    }
 
     private StringBuilder validateLogoDefinition(JSONObject logoDefinitions, Map<String, String> map) {
         StringBuilder errorMessage = new StringBuilder();
