@@ -4,6 +4,7 @@ import com.radware.automation.tools.basetest.BaseTestUtils;
 import com.radware.automation.tools.basetest.Reporter;
 import com.radware.vision.automation.tools.exceptions.selenium.TargetWebElementNotFoundException;
 import com.radware.vision.bddtests.BddUITestBase;
+import com.radware.vision.bddtests.ReportsForensicsAlerts.Forensics;
 import com.radware.vision.bddtests.ReportsForensicsAlerts.Report;
 import com.radware.vision.infra.testhandlers.vrm.VRMHandler;
 import com.radware.vision.infra.testhandlers.vrm.VRMReportsHandler;
@@ -89,7 +90,7 @@ public class ReportSteps extends BddUITestBase {
             switch (type.toLowerCase())
             {
                 case "report": new Report().delete(reportName);break;
-    //            case "Forensics": new Forensics().delete(reportName);break;
+                case "forensics": new Forensics().delete(reportName);break;
     //            case "Alert": new Alert().delete(reportName);break;
             }
         } catch (Exception e) {

@@ -1,7 +1,6 @@
 @TC119241
 Feature: Basic tests for Forensics parameters
 
-  
   @SID_1
   Scenario: Navigate to NEW ForensicsS page
     Then UI Login with user "radware" and password "radware"
@@ -236,13 +235,13 @@ Feature: Basic tests for Forensics parameters
 
 ## add error message validation
     ########################## Schedule Tests #########################################################
-  
+
   @SID_15
   Scenario: Forensics Schedule Daily is selected
     Then UI Click Button "Switch button Scheduled Forensics"
     Then UI Click Button "Schedule Forensics" with value "daily"
     Then UI Validate the attribute of "data-debug-checked" are "EQUAL" to
-      | label           | param   | value |
+      | label              | param   | value |
       | Schedule Forensics | daily   | true  |
       | Schedule Forensics | weekly  | false |
       | Schedule Forensics | monthly | false |
@@ -253,7 +252,7 @@ Feature: Basic tests for Forensics parameters
   Scenario: Forensics Schedule Weekly is selected
     Then UI Click Button "Schedule Forensics" with value "weekly"
     Then UI Validate the attribute of "data-debug-checked" are "EQUAL" to
-      | label           | param   | value |
+      | label              | param   | value |
       | Schedule Forensics | daily   | false |
       | Schedule Forensics | weekly  | true  |
       | Schedule Forensics | monthly | false |
@@ -264,7 +263,7 @@ Feature: Basic tests for Forensics parameters
   Scenario: Forensics Schedule Monthly is selected
     Then UI Click Button "Schedule Forensics" with value "monthly"
     Then UI Validate the attribute of "data-debug-checked" are "EQUAL" to
-      | label           | param   | value |
+      | label              | param   | value |
       | Schedule Forensics | daily   | false |
       | Schedule Forensics | weekly  | false |
       | Schedule Forensics | monthly | true  |
@@ -275,13 +274,13 @@ Feature: Basic tests for Forensics parameters
   Scenario: Forensics Schedule Once is selected
     Then UI Click Button "Schedule Forensics" with value "once"
     Then UI Validate the attribute of "data-debug-checked" are "EQUAL" to
-      | label           | param   | value |
+      | label              | param   | value |
       | Schedule Forensics | daily   | false |
       | Schedule Forensics | weekly  | false |
       | Schedule Forensics | monthly | false |
       | Schedule Forensics | once    | true  |
 
-  
+
   @SID_19
   Scenario: Forensics Schedule Monthly - day of month
     Then UI Click Button "Schedule Forensics" with value "monthly"
@@ -469,24 +468,94 @@ Feature: Basic tests for Forensics parameters
 
   @SID_35
   Scenario: Validate send email Subject
-#    no data febug id
-#    Then UI Text of "Subject" equal to "Subject *"
+    Then UI Text of "Subject Label" equal to "Subject"
 
   @SID_36
   Scenario: Validate send email Type your message
     Then UI Validate the attribute "placeholder" Of Label "Email message" is "EQUALS" to "Type your message"
 
   @SID_37
-  Scenario: Validate FTP
+  Scenario: Validate FTP Labels
+    Then UI Click Button "Share Tab Label" with value "ftp"
+    Then UI Text of "FTP Label" with extension "location" equal to "Hostname / IP Address"
+    Then UI Text of "FTP Label" with extension "path" equal to "Path"
+    Then UI Text of "FTP Label" with extension "username" equal to "User Name"
+    Then UI Text of "FTP Label" with extension "password" equal to "Password"
+
+  @SID_38
+  Scenario: Validate FTP input
+    Then UI Set Text Field "FTP input" and params "location" To " "
+    Then validate webUI CSS value "border-bottom-color" of label "FTP input" with params "location" equals "rgb(244, 20, 20)"
+    Then UI Set Text Field "FTP input" and params "location" To ","
+    Then validate webUI CSS value "border-bottom-color" of label "FTP input" with params "location" equals "rgb(244, 20, 20)"
+    Then UI Set Text Field "FTP input" and params "location" To "Test,"
+    Then validate webUI CSS value "border-bottom-color" of label "FTP input" with params "location" equals "rgb(244, 20, 20)"
+    Then UI Set Text Field "FTP input" and params "location" To ",Test"
+    Then validate webUI CSS value "border-bottom-color" of label "FTP input" with params "location" equals "rgb(244, 20, 20)"
+    Then UI Set Text Field "FTP input" and params "location" To "172"
+    Then validate webUI CSS value "border-bottom-color" of label "FTP input" with params "location" equals "rgb(244, 20, 20)"
+    Then UI Set Text Field "FTP input" and params "location" To "172."
+    Then validate webUI CSS value "border-bottom-color" of label "FTP input" with params "location" equals "rgb(244, 20, 20)"
+    Then UI Set Text Field "FTP input" and params "location" To "172.17"
+    Then validate webUI CSS value "border-bottom-color" of label "FTP input" with params "location" equals "rgb(244, 20, 20)"
+    Then UI Set Text Field "FTP input" and params "location" To "172.17."
+    Then validate webUI CSS value "border-bottom-color" of label "FTP input" with params "location" equals "rgb(244, 20, 20)"
+    Then UI Set Text Field "FTP input" and params "location" To "172.17.164"
+    Then validate webUI CSS value "border-bottom-color" of label "FTP input" with params "location" equals "rgb(244, 20, 20)"
+    Then UI Set Text Field "FTP input" and params "location" To "172.17.164."
+    Then validate webUI CSS value "border-bottom-color" of label "FTP input" with params "location" equals "rgb(244, 20, 20)"
+    Then UI Set Text Field "FTP input" and params "location" To "172.17.164.10."
+    Then validate webUI CSS value "border-bottom-color" of label "FTP input" with params "location" equals "rgb(244, 20, 20)"
+    Then UI Set Text Field "FTP input" and params "location" To "172.17.164.10.1"
+    Then validate webUI CSS value "border-bottom-color" of label "FTP input" with params "location" equals "rgb(244, 20, 20)"
+    Then UI Set Text Field "FTP input" and params "location" To "256.1.1.1"
+    Then validate webUI CSS value "border-bottom-color" of label "FTP input" with params "location" equals "rgb(244, 20, 20)"
+    Then UI Set Text Field "FTP input" and params "location" To "1.256.1.1"
+    Then validate webUI CSS value "border-bottom-color" of label "FTP input" with params "location" equals "rgb(244, 20, 20)"
+    Then UI Set Text Field "FTP input" and params "location" To "1.1.256.1"
+    Then validate webUI CSS value "border-bottom-color" of label "FTP input" with params "location" equals "rgb(244, 20, 20)"
+    Then UI Set Text Field "FTP input" and params "location" To "1.1.1.256"
+    Then validate webUI CSS value "border-bottom-color" of label "FTP input" with params "location" equals "rgb(244, 20, 20)"
+    Then UI Set Text Field "FTP input" and params "location" To "-1.1.1.1"
+    Then validate webUI CSS value "border-bottom-color" of label "FTP input" with params "location" equals "rgb(244, 20, 20)"
+    Then UI Set Text Field "FTP input" and params "location" To "1.-1.1.1"
+    Then validate webUI CSS value "border-bottom-color" of label "FTP input" with params "location" equals "rgb(244, 20, 20)"
+    Then UI Set Text Field "FTP input" and params "location" To "1.1.-1.1"
+    Then validate webUI CSS value "border-bottom-color" of label "FTP input" with params "location" equals "rgb(244, 20, 20)"
+    Then UI Set Text Field "FTP input" and params "location" To "1.1.1.-1"
+    Then validate webUI CSS value "border-bottom-color" of label "FTP input" with params "location" equals "rgb(244, 20, 20)"
+    Then UI Set Text Field "FTP input" and params "location" To "01.1.1.1"
+    Then validate webUI CSS value "border-bottom-color" of label "FTP input" with params "location" equals "rgb(244, 20, 20)"
+    Then UI Set Text Field "FTP input" and params "location" To "1.01.1.1"
+    Then validate webUI CSS value "border-bottom-color" of label "FTP input" with params "location" equals "rgb(244, 20, 20)"
+    Then UI Set Text Field "FTP input" and params "location" To "1.1.01.1"
+    Then validate webUI CSS value "border-bottom-color" of label "FTP input" with params "location" equals "rgb(244, 20, 20)"
+    Then UI Set Text Field "FTP input" and params "location" To "1.1.1.01"
+    Then validate webUI CSS value "border-bottom-color" of label "FTP input" with params "location" equals "rgb(244, 20, 20)"
+
+#  @SID_39
+#  Scenario: Validate FTP Path
+#
+
+  @SID_40
+  Scenario: Validate FTP User Name
+    Then UI Set Text Field "FTP input" and params "username" To " "
+    Then validate webUI CSS value "border-bottom-color" of label "FTP input" with params "username" equals "rgb(244, 20, 20)"
+#    Then UI Set Text Field "FTP input" and params "username" To ","
+#    Then validate webUI CSS value "border-bottom-color" of label "FTP input" with params "username" equals "rgb(244, 20, 20)"
+
+#  @SID_41
+#  Scenario: Validate FTP Password
+
 
 ############################ Output Test ##########################################################################################
 
-  @SID_38
+  @SID_42
   Scenario: Forensics Output - select all output option of DefensePro
     Then UI Validate Text field "Output Tab" CONTAINS "*"
 
            ######################################## DefensePro ##########################################################
-  @SID_39
+  @SID_43
   Scenario: Forensics Output - validate default values of DefensePro
     Then UI Click Button "Product Tab" with value "DefensePro"
     Then UI Click Button "outputExpandOrCollapse"
@@ -501,7 +570,7 @@ Feature: Basic tests for Forensics parameters
     Then UI Validate the attribute "aria-selected" Of Label "Output Value" With Params "Direction" is "EQUALS" to "true"
     Then UI Validate the attribute "aria-selected" Of Label "Output Value" With Params "Protocol" is "EQUALS" to "true"
 
-  @SID_40
+  @SID_44
   Scenario: Forensics Output - delete all selected output of DefensePro
     Then select forensics Output with details ""
     Then UI Validate the attribute "aria-selected" Of Label "Output Value" With Params "Start Time" is "EQUALS" to "false"
@@ -532,7 +601,7 @@ Feature: Basic tests for Forensics parameters
 
     Then UI Validate Text field "Output Error Message" CONTAINS "This field cannot be empty."
 
-  @SID_41
+  @SID_45
   Scenario: Forensics Output - select all output option of DefensePro
     Then select forensics Output with details "Start Time,End Time,Threat Category,Attack Name,Policy Name,Source IP Address,Destination IP Address,Destination Port,Direction,Protocol,Device IP Address,Action,Attack ID,Source Port,Radware ID,Duration,Total Packets Dropped,Max pps,Total Mbits Dropped,Max bps,Physical Port,Risk,VLAN Tag,Packet Type"
     Then UI Validate the attribute "aria-selected" Of Label "Output Value" With Params "Start Time" is "EQUALS" to "true"
@@ -564,7 +633,7 @@ Feature: Basic tests for Forensics parameters
 
     #############################################  DefenseFlow ###############################################
 
-  @SID_41
+  @SID_46
   Scenario: Forensics Output - validate default values of DefenseFlow
     Then UI Click Button "Product Tab" with value "DefenseFlow"
     Then UI Click Button "outputExpandOrCollapse"
@@ -579,7 +648,7 @@ Feature: Basic tests for Forensics parameters
     Then UI Validate the attribute "aria-selected" Of Label "Output Value" With Params "Direction" is "EQUALS" to "true"
     Then UI Validate the attribute "aria-selected" Of Label "Output Value" With Params "Protocol" is "EQUALS" to "true"
 
-  @SID_43
+  @SID_47
   Scenario: Forensics Output - delete all selected output of DefenseFlow
     Then select forensics Output with details ""
     Then UI Validate the attribute "aria-selected" Of Label "Output Value" With Params "Start Time" is "EQUALS" to "false"
@@ -610,7 +679,7 @@ Feature: Basic tests for Forensics parameters
 
     Then UI Validate Text field "Output Error Message" CONTAINS "This field cannot be empty."
 
-  @SID_44
+  @SID_48
   Scenario: Forensics Output - select all output option of DefenseFlow
     Then select forensics Output with details "Start Time,End Time,Threat Category,Attack Name,Policy Name,Source IP Address,Destination IP Address,Destination Port,Direction,Protocol,Device IP Address,Action,Attack ID,Source Port,Radware ID,Duration,Total Packets Dropped,Max pps,Total Mbits Dropped,Max bps,Physical Port,Risk,VLAN Tag,Packet Type"
     Then UI Validate the attribute "aria-selected" Of Label "Output Value" With Params "Start Time" is "EQUALS" to "true"
@@ -642,7 +711,7 @@ Feature: Basic tests for Forensics parameters
 
 #############################################  AppWall ###############################################
 
-  @SID_45
+  @SID_49
   Scenario: Forensics Output - validate default values of AppWall
     Then UI Click Button "Product Tab" with value "AppWall"
     Then UI Click Button "outputExpandOrCollapse"
@@ -655,7 +724,7 @@ Feature: Basic tests for Forensics parameters
     Then UI Validate the attribute "aria-selected" Of Label "Output Value" With Params "Web Application Name" is "EQUALS" to "true"
     Then UI Validate the attribute "aria-selected" Of Label "Output Value" With Params "Event Description" is "EQUALS" to "true"
 
-  @SID_46
+  @SID_50
   Scenario: Forensics Output - delete all selected output of AppWall
     Then select forensics Output with details ""
     Then UI Validate the attribute "aria-selected" Of Label "Output Value" With Params "Date and Time" is "EQUALS" to "false"
@@ -681,7 +750,7 @@ Feature: Basic tests for Forensics parameters
     Then UI Validate Text field "Output Error Message" CONTAINS "This field cannot be empty."
 
 
-  @SID_47
+  @SID_51
   Scenario: Forensics Output - select all output option of AppWall
     Then select forensics Output with details "User Name,Tunnel,Transaction ID,Threat Category,Severity,Module,Directory,Device Host Name,Attack Name,Action,Event Description,Source IP,Device IP,Date and Time,Destination IP Address,Web Application Name,Source Port,Cluster Manager IP,"
     Then UI Validate the attribute "aria-selected" Of Label "Output Value" With Params "Date and Time" is "EQUALS" to "true"
@@ -705,8 +774,6 @@ Feature: Basic tests for Forensics parameters
     Then UI Click Button "outputExpandOrCollapse"
 
 
-
-
-  @SID_48
+  @SID_52
   Scenario: Logout
     Then UI logout and close browser

@@ -163,6 +163,15 @@ abstract public class ReportsForensicsAlertsAbstract implements ReportsForensics
             errorMessage.append("The value of the quickRange is ").append(timeDefinitionsJSON.get("quickRangeSelection")).append(" and not equal to ").append(expectedTimeDefinitions.getString("Quick")).append("\n");
     }
 
+    protected void editShare(Map<String, String> map) throws Exception {
+        if (map.containsKey("Share")) {
+            BasicOperationsHandler.setTextField("Email", "");
+            BasicOperationsHandler.setTextField("Subject", "");
+            BasicOperationsHandler.setTextField("Email message", "");
+            selectShare(map);
+        }
+    }
+
     protected void selectShare(Map<String, String> map) throws Exception {
         if (map.containsKey("Share")) {
             JSONObject deliveryJsonObject = new JSONObject(map.get("Share"));
@@ -174,15 +183,6 @@ abstract public class ReportsForensicsAlertsAbstract implements ReportsForensics
                     BasicOperationsHandler.setTextField("Email message", deliveryJsonObject.getString("Body"));
                 }
             }
-        }
-    }
-
-    protected void editShare(Map<String, String> map) throws Exception {
-        if (map.containsKey("Share")) {
-            BasicOperationsHandler.setTextField("Email", "");
-            BasicOperationsHandler.setTextField("Subject", "");
-            BasicOperationsHandler.setTextField("Email message", "");
-            selectShare(map);
         }
     }
 
