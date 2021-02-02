@@ -44,7 +44,7 @@
                 <serverType>highscale</serverType>
                 <snapshot></snapshot>
                 <!--<vmPrefix>This field is relevant for fresh installed VM</vmPrefix>-->
-                <vmPrefix>VisionAutoSapir</vmPrefix>
+                <vmPrefix>VisionAutoHiScale</vmPrefix>
             </visionSetup>
         </visionServer>
         <alteonServer>
