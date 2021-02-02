@@ -139,71 +139,102 @@ Feature: Basic tests for Forensics parameters
     Then UI Validate the attribute "placeholder" Of Label "Forensics Name" is "EQUALS" to "Type here"
     Then UI Set Text Field "Forensics Name" To " "
     Then validate webUI CSS value "border-bottom-color" of label "Forensics Name" equals "rgb(244, 20, 20)"
+    Then UI Validate Text field "Name Error Message" CONTAINS "The Forensics Name field can contain only letters, numbers, and underscore (_) characters."
     Then UI Set Text Field "Forensics Name" To "&"
     Then validate webUI CSS value "border-bottom-color" of label "Forensics Name" equals "rgb(244, 20, 20)"
+    Then UI Validate Text field "Name Error Message" CONTAINS "The Forensics Name field can contain only letters, numbers, and underscore (_) characters."
     Then UI Set Text Field "Forensics Name" To "Test"
     Then validate webUI CSS value "border-bottom-color" of label "Forensics Name" equals "rgb(212, 212, 212)"
     Then UI Set Text Field "Forensics Name" To "test~a"
     Then validate webUI CSS value "border-bottom-color" of label "Forensics Name" equals "rgb(244, 20, 20)"
+    Then UI Validate Text field "Name Error Message" CONTAINS "The Forensics Name field can contain only letters, numbers, and underscore (_) characters."
     Then UI Set Text Field "Forensics Name" To "test`"
     Then validate webUI CSS value "border-bottom-color" of label "Forensics Name" equals "rgb(244, 20, 20)"
+    Then UI Validate Text field "Name Error Message" CONTAINS "The Forensics Name field can contain only letters, numbers, and underscore (_) characters."
     Then UI Set Text Field "Forensics Name" To "test!!"
     Then validate webUI CSS value "border-bottom-color" of label "Forensics Name" equals "rgb(244, 20, 20)"
+    Then UI Validate Text field "Name Error Message" CONTAINS "The Forensics Name field can contain only letters, numbers, and underscore (_) characters."
     Then UI Set Text Field "Forensics Name" To "test#"
     Then validate webUI CSS value "border-bottom-color" of label "Forensics Name" equals "rgb(244, 20, 20)"
+    Then UI Validate Text field "Name Error Message" CONTAINS "The Forensics Name field can contain only letters, numbers, and underscore (_) characters."
     Then UI Set Text Field "Forensics Name" To "test$"
     Then validate webUI CSS value "border-bottom-color" of label "Forensics Name" equals "rgb(244, 20, 20)"
+    Then UI Validate Text field "Name Error Message" CONTAINS "The Forensics Name field can contain only letters, numbers, and underscore (_) characters."
     Then UI Set Text Field "Forensics Name" To "test%"
     Then validate webUI CSS value "border-bottom-color" of label "Forensics Name" equals "rgb(244, 20, 20)"
+    Then UI Validate Text field "Name Error Message" CONTAINS "The Forensics Name field can contain only letters, numbers, and underscore (_) characters."
     Then UI Set Text Field "Forensics Name" To "test^"
     Then validate webUI CSS value "border-bottom-color" of label "Forensics Name" equals "rgb(244, 20, 20)"
+    Then UI Validate Text field "Name Error Message" CONTAINS "The Forensics Name field can contain only letters, numbers, and underscore (_) characters."
     Then UI Set Text Field "Forensics Name" To "test&"
     Then validate webUI CSS value "border-bottom-color" of label "Forensics Name" equals "rgb(244, 20, 20)"
+    Then UI Validate Text field "Name Error Message" CONTAINS "The Forensics Name field can contain only letters, numbers, and underscore (_) characters."
     Then UI Set Text Field "Forensics Name" To "test*"
     Then validate webUI CSS value "border-bottom-color" of label "Forensics Name" equals "rgb(244, 20, 20)"
+    Then UI Validate Text field "Name Error Message" CONTAINS "The Forensics Name field can contain only letters, numbers, and underscore (_) characters."
     Then UI Set Text Field "Forensics Name" To "test+"
     Then validate webUI CSS value "border-bottom-color" of label "Forensics Name" equals "rgb(244, 20, 20)"
+    Then UI Validate Text field "Name Error Message" CONTAINS "The Forensics Name field can contain only letters, numbers, and underscore (_) characters."
     Then UI Set Text Field "Forensics Name" To "test="
     Then validate webUI CSS value "border-bottom-color" of label "Forensics Name" equals "rgb(244, 20, 20)"
+    Then UI Validate Text field "Name Error Message" CONTAINS "The Forensics Name field can contain only letters, numbers, and underscore (_) characters."
     Then UI Set Text Field "Forensics Name" To "test\"
     Then validate webUI CSS value "border-bottom-color" of label "Forensics Name" equals "rgb(244, 20, 20)"
+    Then UI Validate Text field "Name Error Message" CONTAINS "The Forensics Name field can contain only letters, numbers, and underscore (_) characters."
     Then UI Set Text Field "Forensics Name" To "test-"
     Then validate webUI CSS value "border-bottom-color" of label "Forensics Name" equals "rgb(244, 20, 20)"
+    Then UI Validate Text field "Name Error Message" CONTAINS "The Forensics Name field can contain only letters, numbers, and underscore (_) characters."
     Then UI Set Text Field "Forensics Name" To "test?"
     Then validate webUI CSS value "border-bottom-color" of label "Forensics Name" equals "rgb(244, 20, 20)"
+    Then UI Validate Text field "Name Error Message" CONTAINS "The Forensics Name field can contain only letters, numbers, and underscore (_) characters."
     Then UI Set Text Field "Forensics Name" To "test["
     Then validate webUI CSS value "border-bottom-color" of label "Forensics Name" equals "rgb(244, 20, 20)"
+    Then UI Validate Text field "Name Error Message" CONTAINS "The Forensics Name field can contain only letters, numbers, and underscore (_) characters."
     Then UI Set Text Field "Forensics Name" To "test]"
     Then validate webUI CSS value "border-bottom-color" of label "Forensics Name" equals "rgb(244, 20, 20)"
+    Then UI Validate Text field "Name Error Message" CONTAINS "The Forensics Name field can contain only letters, numbers, and underscore (_) characters."
     Then UI Set Text Field "Forensics Name" To "test'"
     Then validate webUI CSS value "border-bottom-color" of label "Forensics Name" equals "rgb(244, 20, 20)"
+    Then UI Validate Text field "Name Error Message" CONTAINS "The Forensics Name field can contain only letters, numbers, and underscore (_) characters."
     Then UI Set Text Field "Forensics Name" To "test;"
     Then validate webUI CSS value "border-bottom-color" of label "Forensics Name" equals "rgb(244, 20, 20)"
+    Then UI Validate Text field "Name Error Message" CONTAINS "The Forensics Name field can contain only letters, numbers, and underscore (_) characters."
     Then UI Set Text Field "Forensics Name" To "test,"
     Then validate webUI CSS value "border-bottom-color" of label "Forensics Name" equals "rgb(244, 20, 20)"
+    Then UI Validate Text field "Name Error Message" CONTAINS "The Forensics Name field can contain only letters, numbers, and underscore (_) characters."
     Then UI Set Text Field "Forensics Name" To "test/"
     Then validate webUI CSS value "border-bottom-color" of label "Forensics Name" equals "rgb(244, 20, 20)"
+    Then UI Validate Text field "Name Error Message" CONTAINS "The Forensics Name field can contain only letters, numbers, and underscore (_) characters."
     Then UI Set Text Field "Forensics Name" To "test{"
     Then validate webUI CSS value "border-bottom-color" of label "Forensics Name" equals "rgb(244, 20, 20)"
+    Then UI Validate Text field "Name Error Message" CONTAINS "The Forensics Name field can contain only letters, numbers, and underscore (_) characters."
     Then UI Set Text Field "Forensics Name" To "test}"
     Then validate webUI CSS value "border-bottom-color" of label "Forensics Name" equals "rgb(244, 20, 20)"
+    Then UI Validate Text field "Name Error Message" CONTAINS "The Forensics Name field can contain only letters, numbers, and underscore (_) characters."
     Then UI Set Text Field "Forensics Name" To "test:"
     Then validate webUI CSS value "border-bottom-color" of label "Forensics Name" equals "rgb(244, 20, 20)"
+    Then UI Validate Text field "Name Error Message" CONTAINS "The Forensics Name field can contain only letters, numbers, and underscore (_) characters."
     Then UI Set Text Field "Forensics Name" To "test<"
     Then validate webUI CSS value "border-bottom-color" of label "Forensics Name" equals "rgb(244, 20, 20)"
+    Then UI Validate Text field "Name Error Message" CONTAINS "The Forensics Name field can contain only letters, numbers, and underscore (_) characters."
     Then UI Set Text Field "Forensics Name" To "test>"
     Then validate webUI CSS value "border-bottom-color" of label "Forensics Name" equals "rgb(244, 20, 20)"
+    Then UI Validate Text field "Name Error Message" CONTAINS "The Forensics Name field can contain only letters, numbers, and underscore (_) characters."
+    Then UI Set Text Field "Forensics Name" To ""
+    Then validate webUI CSS value "border-bottom-color" of label "Forensics Name" equals "rgb(244, 20, 20)"
+    Then UI Validate Text field "Name Error Message" CONTAINS "This field cannot be empty."
     Then UI Set Text Field "Forensics Name" To "@"
     Then validate webUI CSS value "border-bottom-color" of label "Forensics Name" equals "rgb(212, 212, 212)"
     Then UI Set Text Field "Forensics Name" To "("
     Then validate webUI CSS value "border-bottom-color" of label "Forensics Name" equals "rgb(212, 212, 212)"
     Then UI Set Text Field "Forensics Name" To ")"
     Then validate webUI CSS value "border-bottom-color" of label "Forensics Name" equals "rgb(212, 212, 212)"
-
+    Then UI Set Text Field "Forensics Name" To "_"
+    Then validate webUI CSS value "border-bottom-color" of label "Forensics Name" equals "rgb(212, 212, 212)"
     Then UI Set Text Field "Forensics Description" To "Description for Forensics"
     Then validate webUI CSS value "border-bottom-color" of label "Forensics Description" equals "rgb(212, 212, 212)"
 
-
+## add error message validation
     ########################## Schedule Tests #########################################################
   
   @SID_15
@@ -498,7 +529,8 @@ Feature: Basic tests for Forensics parameters
     Then UI Validate the attribute "aria-selected" Of Label "Output Value" With Params "VLAN Tag" is "EQUALS" to "false"
     Then UI Validate the attribute "aria-selected" Of Label "Output Value" With Params "Packet Type" is "EQUALS" to "false"
     Then UI Click Button "outputExpandOrCollapse"
-    ## add validate error message
+
+    Then UI Validate Text field "Output Error Message" CONTAINS "This field cannot be empty."
 
   @SID_41
   Scenario: Forensics Output - select all output option of DefensePro
@@ -575,7 +607,8 @@ Feature: Basic tests for Forensics parameters
     Then UI Validate the attribute "aria-selected" Of Label "Output Value" With Params "VLAN Tag" is "EQUALS" to "false"
     Then UI Validate the attribute "aria-selected" Of Label "Output Value" With Params "Packet Type" is "EQUALS" to "false"
     Then UI Click Button "outputExpandOrCollapse"
-    ## add validate error message
+
+    Then UI Validate Text field "Output Error Message" CONTAINS "This field cannot be empty."
 
   @SID_44
   Scenario: Forensics Output - select all output option of DefenseFlow
@@ -644,7 +677,9 @@ Feature: Basic tests for Forensics parameters
     Then UI Validate the attribute "aria-selected" Of Label "Output Value" With Params "Tunnel" is "EQUALS" to "false"
     Then UI Validate the attribute "aria-selected" Of Label "Output Value" With Params "User Name" is "EQUALS" to "false"
     Then UI Click Button "outputExpandOrCollapse"
-    ## add validate error message
+
+    Then UI Validate Text field "Output Error Message" CONTAINS "This field cannot be empty."
+
 
   @SID_47
   Scenario: Forensics Output - select all output option of AppWall
