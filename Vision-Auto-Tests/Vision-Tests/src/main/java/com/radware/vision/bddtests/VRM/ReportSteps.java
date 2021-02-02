@@ -208,4 +208,9 @@ public class ReportSteps extends BddUITestBase {
             vrmReportsHandler.uiValidateTogglesDataInReportWithWidget(reportName, widget, entries);
     }
 
+    @Then("^UI Open Report Parameters$")
+    public void uiOpenReportParameters() throws Throwable {
+        new Report().expandReportParameters();
+    }
+
 }
