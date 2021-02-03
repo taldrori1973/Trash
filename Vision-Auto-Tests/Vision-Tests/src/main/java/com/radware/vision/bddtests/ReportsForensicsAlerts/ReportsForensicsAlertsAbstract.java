@@ -217,8 +217,8 @@ abstract public class ReportsForensicsAlertsAbstract implements ReportsForensics
             if (!formatJson.get("type").toString().trim().equalsIgnoreCase(expectedFormatJson.get("Select").toString().trim()))
                 errorMessage.append("The actual Format is: ").append(formatJson.get("type").toString().toUpperCase()).append("but the Expected format is: ").append(expectedFormatJson.get("Select").toString().toUpperCase()).append("\n");
         }
-        else if ((getType().equals("Report")&& !formatJson.get("type").toString().trim().toLowerCase().equalsIgnoreCase("pdf") )|| (getType().equals("Forensics") && !formatJson.get("type").toString().trim().toLowerCase().equalsIgnoreCase("html")))
-            errorMessage.append("The actual Format is: ").append(formatJson.get("type").toString()).append("but the Expected format is: ").append("pdf").append("\n");
+        else
+            validateDefaultFormatDefinition(formatJson,map);
         return errorMessage;
     }
 
@@ -422,7 +422,8 @@ abstract public class ReportsForensicsAlertsAbstract implements ReportsForensics
     protected void cancelView() throws TargetWebElementNotFoundException {
         if (WebUiTools.getWebElement("close scope selection") != null)
             BasicOperationsHandler.clickButton("close scope selection");
-        BasicOperationsHandler.clickButton("cancel");
+        if (WebUiTools.getWebElement("cancel") != null)
+            BasicOperationsHandler.clickButton("cancel");
         if(WebUiTools.getWebElement("saveChanges","no") != null)
             BasicOperationsHandler.clickButton("saveChanges", "no");
     }
@@ -473,4 +474,5 @@ abstract public class ReportsForensicsAlertsAbstract implements ReportsForensics
         }
     }
 
+    protected abstract StringBuilder validateDefaultFormatDefinition(JSONObject exportFormat, Map<String, String> map);
 }

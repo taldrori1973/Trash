@@ -114,7 +114,6 @@ public class Forensics extends ReportsForensicsAlertsAbstract {
         JSONObject basicRestResult = getForensicsDefinition(forensicsName, map);
         if (basicRestResult!=null)
         {
-
             errorMessage.append(validateTimeDefinition(new JSONObject(basicRestResult.get("timeRangeDefinition").toString()), map));
 //            errorMessage.append(validateTimeDefinition(new JSONObject(basicRestResult.get("timeRageDefinition").toString()), map));
 //            errorMessage.append(validateCriteriaDefinition(new JSONObject(basicRestResult.get("criteria").toString())));
@@ -140,16 +139,13 @@ public class Forensics extends ReportsForensicsAlertsAbstract {
         return null;
     }
 
-//    private StringBuilder validateFormatDefinition(JSONObject exportFormat, Map<String, String> map) {
-//        StringBuilder errorMessage = new StringBuilder();
-//        if (map.containsKey("Format")) {
-//            JSONObject expectedFormatJson = new JSONObject(map.get("Format"));
-//            if (!exportFormat.get("type").toString().trim().equalsIgnoreCase(expectedFormatJson.get("Select").toString().trim()))
-//                errorMessage.append("The actual Format is: ").append(exportFormat.get("type").toString().toUpperCase()).append("but the Expected format is: ").append(expectedFormatJson.get("Select").toString().toUpperCase()).append("\n");
-//        }
-//        else if (!exportFormat.get("type").toString().trim().toLowerCase().equalsIgnoreCase("pdf"))
-//            errorMessage.append("The actual Format is: ").append(exportFormat.get("type").toString()).append("but the Expected format is: ").append("pdf").append("\n");
-//        return errorMessage;    }
+    @Override
+    protected StringBuilder validateDefaultFormatDefinition(JSONObject exportFormat, Map<String, String> map ) {
+        StringBuilder errorMessage = new StringBuilder();
+        if (exportFormat.get("type").toString().trim().toLowerCase().equalsIgnoreCase("html"))
+            errorMessage.append("The actual Format is: ").append(exportFormat.get("type").toString()).append("but the Expected format is: ").append("html").append("\n");
+        return errorMessage;
+    }
 
     private JSONObject getForensicsDefinition(String forensicsName, Map<String, String> map) throws Exception {
         RestResponse restResponse = new CurrentVisionRestAPI("Vision/newForensics.json", "Get Created Forensics").sendRequest();
@@ -185,10 +181,10 @@ public class Forensics extends ReportsForensicsAlertsAbstract {
             cancelView();
             throw e;
         }
-        if (!viewCreated(forensicsName)) {
-            cancelView();
-            throw new Exception("");
-        }
+//        if (!viewCreated(forensicsName)) {
+//            cancelView();
+//            throw new Exception("");
+//        }
     }
 
     private void editForensicsParameters(String forensicsName, Map<String, String> map) throws Exception {
