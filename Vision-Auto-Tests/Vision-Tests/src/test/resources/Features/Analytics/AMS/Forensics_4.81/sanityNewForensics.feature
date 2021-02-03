@@ -524,29 +524,20 @@ Feature: Basic tests for Forensics parameters
     Then UI Set Text Field "FTP input" and params "location" To "1.1.1.01"
     Then validate webUI CSS value "border-bottom-color" of label "FTP input" with params "location" equals "rgb(244, 20, 20)"
 
-#  @SID_39
-#  Scenario: Validate FTP Path
-#
-
-  @SID_40
+  @SID_39
   Scenario: Validate FTP User Name
     Then UI Set Text Field "FTP input" and params "username" To " "
     Then validate webUI CSS value "border-bottom-color" of label "FTP input" with params "username" equals "rgb(244, 20, 20)"
-#    Then UI Set Text Field "FTP input" and params "username" To ","
-#    Then validate webUI CSS value "border-bottom-color" of label "FTP input" with params "username" equals "rgb(244, 20, 20)"
-
-#  @SID_41
-#  Scenario: Validate FTP Password
 
 
 ############################ Output Test ##########################################################################################
 
-  @SID_42
+  @SID_40
   Scenario: Forensics Output - select all output option of DefensePro
     Then UI Validate Text field "Output Tab" CONTAINS "*"
 
            ######################################## DefensePro ##########################################################
-  @SID_43
+  @SID_41
   Scenario: Forensics Output - validate default values of DefensePro
     Then UI Click Button "Product Tab" with value "DefensePro"
     Then UI Click Button "outputExpandOrCollapse"
@@ -561,7 +552,7 @@ Feature: Basic tests for Forensics parameters
     Then UI Validate the attribute "aria-selected" Of Label "Output Value" With Params "Direction" is "EQUALS" to "true"
     Then UI Validate the attribute "aria-selected" Of Label "Output Value" With Params "Protocol" is "EQUALS" to "true"
 
-  @SID_44
+  @SID_42
   Scenario: Forensics Output - delete all selected output of DefensePro
     Then select forensics Output with details ""
     Then UI Validate the attribute "aria-selected" Of Label "Output Value" With Params "Start Time" is "EQUALS" to "false"
@@ -592,7 +583,7 @@ Feature: Basic tests for Forensics parameters
 
     Then UI Validate Text field "Output Error Message" CONTAINS "This field cannot be empty."
 
-  @SID_45
+  @SID_43
   Scenario: Forensics Output - select all output option of DefensePro
     Then select forensics Output with details "Start Time,End Time,Threat Category,Attack Name,Policy Name,Source IP Address,Destination IP Address,Destination Port,Direction,Protocol,Device IP Address,Action,Attack ID,Source Port,Radware ID,Duration,Total Packets Dropped,Max pps,Total Mbits Dropped,Max bps,Physical Port,Risk,VLAN Tag,Packet Type"
     Then UI Validate the attribute "aria-selected" Of Label "Output Value" With Params "Start Time" is "EQUALS" to "true"
@@ -624,7 +615,7 @@ Feature: Basic tests for Forensics parameters
 
     #############################################  DefenseFlow ###############################################
 
-  @SID_46
+  @SID_44
   Scenario: Forensics Output - validate default values of DefenseFlow
     Then UI Click Button "Product Tab" with value "DefenseFlow"
     Then UI Click Button "outputExpandOrCollapse"
@@ -639,7 +630,7 @@ Feature: Basic tests for Forensics parameters
     Then UI Validate the attribute "aria-selected" Of Label "Output Value" With Params "Direction" is "EQUALS" to "true"
     Then UI Validate the attribute "aria-selected" Of Label "Output Value" With Params "Protocol" is "EQUALS" to "true"
 
-  @SID_47
+  @SID_45
   Scenario: Forensics Output - delete all selected output of DefenseFlow
     Then select forensics Output with details ""
     Then UI Validate the attribute "aria-selected" Of Label "Output Value" With Params "Start Time" is "EQUALS" to "false"
@@ -670,7 +661,7 @@ Feature: Basic tests for Forensics parameters
 
     Then UI Validate Text field "Output Error Message" CONTAINS "This field cannot be empty."
 
-  @SID_48
+  @SID_46
   Scenario: Forensics Output - select all output option of DefenseFlow
     Then select forensics Output with details "Start Time,End Time,Threat Category,Attack Name,Policy Name,Source IP Address,Destination IP Address,Destination Port,Direction,Protocol,Device IP Address,Action,Attack ID,Source Port,Radware ID,Duration,Total Packets Dropped,Max pps,Total Mbits Dropped,Max bps,Physical Port,Risk,VLAN Tag,Packet Type"
     Then UI Validate the attribute "aria-selected" Of Label "Output Value" With Params "Start Time" is "EQUALS" to "true"
@@ -702,7 +693,7 @@ Feature: Basic tests for Forensics parameters
 
 #############################################  AppWall ###############################################
 
-  @SID_49
+  @SID_47
   Scenario: Forensics Output - validate default values of AppWall
     Then UI Click Button "Product Tab" with value "AppWall"
     Then UI Click Button "outputExpandOrCollapse"
@@ -715,7 +706,7 @@ Feature: Basic tests for Forensics parameters
     Then UI Validate the attribute "aria-selected" Of Label "Output Value" With Params "Web Application Name" is "EQUALS" to "true"
     Then UI Validate the attribute "aria-selected" Of Label "Output Value" With Params "Event Description" is "EQUALS" to "true"
 
-  @SID_50
+  @SID_48
   Scenario: Forensics Output - delete all selected output of AppWall
     Then select forensics Output with details ""
     Then UI Validate the attribute "aria-selected" Of Label "Output Value" With Params "Date and Time" is "EQUALS" to "false"
@@ -741,7 +732,7 @@ Feature: Basic tests for Forensics parameters
     Then UI Validate Text field "Output Error Message" CONTAINS "This field cannot be empty."
 
 
-  @SID_51
+  @SID_49
   Scenario: Forensics Output - select all output option of AppWall
     Then select forensics Output with details "User Name,Tunnel,Transaction ID,Threat Category,Severity,Module,Directory,Device Host Name,Attack Name,Action,Event Description,Source IP,Device IP,Date and Time,Destination IP Address,Web Application Name,Source Port,Cluster Manager IP,"
     Then UI Validate the attribute "aria-selected" Of Label "Output Value" With Params "Date and Time" is "EQUALS" to "true"
@@ -765,6 +756,6 @@ Feature: Basic tests for Forensics parameters
     Then UI Click Button "outputExpandOrCollapse"
 
 
-  @SID_52
+  @SID_50
   Scenario: Logout
     Then UI logout and close browser
