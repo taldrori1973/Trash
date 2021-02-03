@@ -2,7 +2,7 @@
 Feature:  DF Statistics - Data Aggregation
 
   @SID_18
-  Scenario: Change DF managment IP to IP of Generic Linux
+  Scenario: Change DF management IP to IP of Generic Linux
     When CLI Operations - Run Radware Session command "system df management-ip set 172.17.164.10"
     When CLI Operations - Run Radware Session command "system df management-ip get"
     Then CLI Operations - Verify that output contains regex "DefenseFlow Management IP Address: 172.17.164.10"
@@ -30,7 +30,7 @@ Feature:  DF Statistics - Data Aggregation
   #  tcp pps
   @SID_4
   Scenario: validate average values of fields in index df-traffic-agg units=pps monitoringProtocol=tcp
-    Then CLI Run linux Command "/get_ES_key_value_df.sh df-traffic-agg pps tcp inbound" on "ROOT_SERVER_CLI" and validate result EQUALS "1500.0" with timeOut 600
+    Then CLI Run linux Command "/get_ES_key_value_df.sh df-traffic-agg pps tcp inbound" on "ROOT_SERVER_CLI" and validate result EQUALS "1500.0" Retry 600 seconds
     Then CLI Run linux Command "/get_ES_key_value_df.sh df-traffic-agg pps tcp dropped" on "ROOT_SERVER_CLI" and validate result EQUALS "75.0"
     Then CLI Run linux Command "/get_ES_key_value_df.sh df-traffic-agg pps tcp diverted" on "ROOT_SERVER_CLI" and validate result EQUALS "15.0"
     Then CLI Run linux Command "/get_ES_key_value_df.sh df-traffic-agg pps tcp discarded" on "ROOT_SERVER_CLI" and validate result EQUALS "7.5"

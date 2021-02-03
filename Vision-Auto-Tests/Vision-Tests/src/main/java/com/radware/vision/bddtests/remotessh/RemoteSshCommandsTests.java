@@ -11,7 +11,6 @@ import com.radware.vision.bddtests.BddCliTestBase;
 import com.radware.vision.bddtests.basicoperations.BasicOperationsSteps;
 import com.radware.vision.bddtests.clioperation.FileSteps;
 import com.radware.vision.automation.AutoUtils.Operators.OperatorsEnum;
-import com.radware.vision.infra.testhandlers.baseoperations.BasicOperationsHandler;
 import com.radware.vision.infra.testhandlers.cli.CliOperations;
 import com.radware.vision.vision_project_cli.RootServerCli;
 import cucumber.api.java.en.Given;
@@ -211,32 +210,33 @@ public class RemoteSshCommandsTests extends BddCliTestBase {
 
     }
 
-    @When("^CLI Run linux Command \"(.*)\" on \"(.*)\" and validate result (EQUALS|NOT_EQUALS|CONTAINS|GT|GTE|LT|LTE) \"(.*)\"( in any line)?(?: with timeOut (\\d+))?(?: with runCommand delay (\\d+))?$")
-    public void runCLICommandAndValidateBiggerOrEqualResult(String commandToExecute, SUTEntryType sutEntryType, OperatorsEnum operatorsEnum, String expectedResult, String inAnyLine, Integer iDelay, Integer defaultTimeOut) {
+    @When("^CLI Run linux Command \"(.*)\" on \"(.*)\" and validate result (EQUALS|NOT_EQUALS|CONTAINS|GT|GTE|LT|LTE) \"(.*)\"( in any line)?(?: Wait For Prompt (\\d+) seconds)?(?: Retry (\\d+) seconds)?$")
+    public void runCLICommandAndValidateBiggerOrEqualResult(String commandToExecute, SUTEntryType sutEntryType, OperatorsEnum operatorsEnum, String expectedResult, String inAnyLine, Integer waitForPrompt, Integer iRetryFor) {
         try {
-            defaultTimeOut = defaultTimeOut != null ? defaultTimeOut * 1000 : CliOperations.DEFAULT_TIME_OUT;
+            waitForPrompt = waitForPrompt != null ? waitForPrompt * 1000 : CliOperations.DEFAULT_TIME_OUT;
             boolean bTestSuccess;
-            int iNumberOfDelayTimes = 1;
+            int iInterval = 5;
+            if(iRetryFor==null)
+                iRetryFor=0;
+            iRetryFor = iRetryFor * 1000;
 
-            if (iDelay != null && iDelay > 15) {
-                iNumberOfDelayTimes = iDelay / 15;
-            }
+            long startTime = System.currentTimeMillis();
 
             do {
                 getSUTEntryTypeByServerCliBase(sutEntryType).connect();
-                CliOperations.runCommand(getSUTEntryTypeByServerCliBase(sutEntryType), commandToExecute, defaultTimeOut);
+                CliOperations.runCommand(getSUTEntryTypeByServerCliBase(sutEntryType), commandToExecute, waitForPrompt);
                 String actualResult = CliOperations.lastRow.trim();
 
                 if (inAnyLine != null && !inAnyLine.isEmpty()) {
                     actualResult = CliOperations.lastOutput.trim();
                 }
 
-                iNumberOfDelayTimes--;
                 bTestSuccess = compareResults(expectedResult, actualResult, operatorsEnum, null);
 
-                if (!(iNumberOfDelayTimes == 0 || bTestSuccess))
-                    sleep(15 * 1000);
-            } while (iNumberOfDelayTimes > 0 && !bTestSuccess);
+                if (bTestSuccess)
+                    break;
+                sleep(iInterval * 1000);
+            } while (System.currentTimeMillis() - startTime < iRetryFor);
             if (!bTestSuccess)
                 BaseTestUtils.report(Comparator.failureMessage, Reporter.FAIL);
 

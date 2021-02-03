@@ -47,7 +47,7 @@ public class freshInstallThread extends Thread {
         try {
             FreshInstallOVA freshInstallOVA = new FreshInstallOVA(true, null);
             vmHandler.firstTimeWizardOva(freshInstallOVA.getBuildFileInfo().getDownloadUri().toString(), false, vCenterURL, vCenterUser, vCenterPassword, hostip,
-                    version, build, vmName, null, networkName, resourcePool, null, dataStores);
+                    build, vmName, null, networkName, resourcePool, null, dataStores);
         }
         catch (Exception e) {
             BaseTestUtils.report(e.getMessage(), Reporter.FAIL);

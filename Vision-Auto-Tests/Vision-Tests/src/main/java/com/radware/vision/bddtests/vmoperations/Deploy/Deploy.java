@@ -77,7 +77,7 @@ public abstract class Deploy {
             String currentBuild = visionInfo.getVisionBuild();
             String currentVersion = visionInfo.getVisionVersion();
             String currentFeatureBranch = visionInfo.getVisionBranch();
-            isSetupNeeded = !currentVersion.equals(version) || !currentBuild.equals(this.build) || !currentFeatureBranch.equals(this.featureBranch);
+            isSetupNeeded = !currentVersion.equals(version) || !currentBuild.equals(this.build) || !currentFeatureBranch.equals(this.featureBranch.toLowerCase());
             if (isSetupNeeded) {
                 BaseTestUtils.report("Current Build: " + currentBuild, Reporter.PASS);
                 BaseTestUtils.report("Current Version: " + currentVersion, Reporter.PASS);

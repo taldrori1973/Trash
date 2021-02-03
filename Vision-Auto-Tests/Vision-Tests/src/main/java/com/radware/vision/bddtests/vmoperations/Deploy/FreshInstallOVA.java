@@ -61,8 +61,6 @@ public class FreshInstallOVA extends Deploy {
         if (vmName == null) {
             BaseTestUtils.report("Can't find \"vmPrefix\" at SUT File", Reporter.FAIL);
         }
-        // todo: delete version, firstTimeWizard not using it
-        String version = VMOperationsSteps.readVisionVersionFromPomFile();
         boolean isAPM = this.ovaType.isContained("APM");
         String vCenterUser = visionVMs.getUserName();
         String vCenterPassword = visionVMs.getPassword();
@@ -74,7 +72,7 @@ public class FreshInstallOVA extends Deploy {
         NewVmHandler vmHandler = new NewVmHandler();
         try {
             vmHandler.firstTimeWizardOva(super.getBuildFileInfo().getDownloadUri().toString(), isAPM, vCenterURL, vCenterUser, vCenterPassword, hostIp,
-                    version, super.getBuild(), vmName, null, networkName, resourcePool, null, dataStores);
+                    super.getBuild(), vmName, null, networkName, resourcePool, null, dataStores);
         } catch (Exception e) {
             BaseTestUtils.report("Setup Failed changing server to OFFLINE", Reporter.FAIL);
             BaseTestUtils.report("Failed to Create NewVm: " + vmName + " failed with the following error: \n" +
