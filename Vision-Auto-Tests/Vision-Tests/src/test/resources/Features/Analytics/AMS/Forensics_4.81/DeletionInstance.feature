@@ -81,6 +81,6 @@ Feature: Deletion Instance
   Scenario: Delete Forensics
     Then UI Delete Forensics With Name "Forensics DefensePro"
 
-  @SID_16
+  @SID_14
   Scenario: Logout
     Then UI logout and close browser

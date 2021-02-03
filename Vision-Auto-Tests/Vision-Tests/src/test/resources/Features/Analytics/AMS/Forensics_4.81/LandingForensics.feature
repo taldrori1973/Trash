@@ -63,5 +63,8 @@ Feature: Landing Forensics
     Then UI Delete Forensics With Name "DefensePro Forensics"
     Then UI Validate Element Existence By Label "My Forensics" if Exists "false" with value "DefensePro Forensics"
 
+  @SID_10
+  Scenario: Logout
+    Then UI logout and close browser
 
 

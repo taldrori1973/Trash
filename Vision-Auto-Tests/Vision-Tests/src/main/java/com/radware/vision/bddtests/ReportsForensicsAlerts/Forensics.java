@@ -4,8 +4,10 @@ import com.radware.automation.tools.basetest.BaseTestUtils;
 import com.radware.automation.tools.basetest.Reporter;
 import com.radware.automation.webui.WebUIUtils;
 import com.radware.automation.webui.widgets.ComponentLocatorFactory;
+import com.radware.vision.automation.tools.exceptions.selenium.TargetWebElementNotFoundException;
 import com.radware.vision.bddtests.ReportsForensicsAlerts.Handlers.TemplateHandlers;
 import com.radware.vision.infra.testhandlers.baseoperations.BasicOperationsHandler;
+import com.radware.vision.tests.BasicOperations.BasicOperations;
 import com.radware.vision.tools.rest.CurrentVisionRestAPI;
 import com.radware.vision.vision_project_cli.RootServerCli;
 import models.RestResponse;
@@ -147,6 +149,27 @@ public class Forensics extends ReportsForensicsAlertsAbstract {
         return errorMessage;
     }
 
+    protected void editShareDefinition(Map<String, String> map ) throws Exception {
+        if (map.containsKey("Share")) {
+            JSONObject deliveryJsonObject = new JSONObject(map.get("Share"));
+            if (deliveryJsonObject.has("Email"))
+                editShare(map);
+            else if (deliveryJsonObject.has("FTP")) {
+                WebUiTools.check("Share Tab Label", "ftp", true);
+                editFTPShare(map);
+            }
+        }
+    }
+
+    private void editFTPShare(Map<String, String> map) throws TargetWebElementNotFoundException {
+        BasicOperationsHandler.setTextField("FTP input", "location", "", true);
+        BasicOperationsHandler.setTextField("FTP input", "path", "", true);
+        BasicOperationsHandler.setTextField("FTP input", "username", "", true);
+        BasicOperationsHandler.setTextField("FTP input", "password", "", true);
+
+      //  selectShare(map);
+    }
+
     private JSONObject getForensicsDefinition(String forensicsName, Map<String, String> map) throws Exception {
         RestResponse restResponse = new CurrentVisionRestAPI("Vision/newForensics.json", "Get Created Forensics").sendRequest();
         if (restResponse.getStatusCode()== StatusCode.OK)
@@ -195,12 +218,21 @@ public class Forensics extends ReportsForensicsAlertsAbstract {
         WebUiTools.check("Schedule Tab", "", true);
         editScheduling(map);
         WebUiTools.check("Share Tab", "", true);
-        editShare(map);
+        editShareDefinition(map);
         WebUiTools.check("Format Tab", "", true);
         editFormat(map);
         WebUiTools.check("Criteria Tab", "", true);
         editCriteria(map);
+        WebUiTools.check("Output Tab", "", true);
+        editOutput(map);
     }
+
+    private void editOutput(Map<String, String> map) throws Exception {
+        if (map.containsKey("Output"))
+            selectOutput(map);
+    }
+
+
 
     private void editCriteria(Map<String, String> map) throws Exception {
         if (map.containsKey("Criteria")) {
