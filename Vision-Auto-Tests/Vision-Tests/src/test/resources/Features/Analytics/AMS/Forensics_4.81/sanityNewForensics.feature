@@ -132,7 +132,7 @@ Feature: Basic tests for Forensics parameters
 #    Then UI Text of "Forensics Format Type" with extension "csv" equal to "CSV W/Details"
 
   ##################### Name Section tests ###############################
-  
+
   @SID_14
   Scenario: Validate Forensics Name and Description
     Then UI Validate the attribute "placeholder" Of Label "Forensics Name" is "EQUALS" to "Type here"
@@ -220,7 +220,7 @@ Feature: Basic tests for Forensics parameters
     Then UI Set Text Field "Forensics Name" To ""
     Then validate webUI CSS value "border-bottom-color" of label "Forensics Name" equals "rgb(244, 20, 20)"
     Then UI Validate Text field "Name Error Message" CONTAINS "This field cannot be empty."
-    
+
     Then UI Set Text Field "Forensics Description" To "Description for Forensics"
     Then validate webUI CSS value "border-bottom-color" of label "Forensics Description" equals "rgb(212, 212, 212)"
 
