@@ -24,14 +24,9 @@ public class AttacksSteps extends BddCliTestBase {
     @Given("^CLI simulate (\\d+) attacks of type \"(.*)\" on \"(.*)\" (\\d+)(?: with loopDelay (\\d+))?(?: and wait (\\d+) seconds)?( with attack ID)?$")
     public void runSimulatorFromDevice(int numOfAttacks, String fileName, SUTDeviceType deviceType, int deviceIndex, Integer ld, Integer waitTimeout, String withAttackId) {
         try {
-            int loopDelay = 1000;
-            int wait = 0;
-            if (ld != null) {
-                loopDelay = ld;
-            }
-            if (waitTimeout != null) {
-                wait = waitTimeout;
-            }
+            int loopDelay = ld != null ? ld : 1000;
+            int wait = waitTimeout != null ? waitTimeout : 0;
+
             String commandToExecute = getCommandToexecute(deviceType, deviceIndex, numOfAttacks, loopDelay, fileName, withAttackId != null);
             CliOperations.runCommand(getRestTestBase().getGenericLinuxServer(), commandToExecute, 30 * 1000, false, true, false);
 
