@@ -1,4 +1,5 @@
-Feature: Edit DP Parameters
+@TC119482
+Feature: Edit DefensePro Parameters
 
   @SID_1
   Scenario: Login and Navigate

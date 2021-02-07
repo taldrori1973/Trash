@@ -1,4 +1,5 @@
-Feature: Edit DF Parameters
+@TC119483
+Feature: Edit DefenseFlow Parameters
 
   @SID_1
   Scenario: Login and Navigate
