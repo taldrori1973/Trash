@@ -1,6 +1,8 @@
 @TC119241
+
+
 Feature: Basic tests for Forensics parameters
-  
+
   @SID_1
   Scenario: Navigate to NEW ForensicsS page
     Then UI Login with user "radware" and password "radware"
@@ -227,7 +229,7 @@ Feature: Basic tests for Forensics parameters
 
 ## add error message validation
     ########################## Schedule Tests #########################################################
-  
+
   @SID_15
   Scenario: Forensics Schedule Daily is selected
     Then UI Click Button "Switch button Scheduled Forensics"
@@ -272,7 +274,7 @@ Feature: Basic tests for Forensics parameters
       | Schedule Forensics | monthly | false |
       | Schedule Forensics | once    | true  |
 
-  
+
   @SID_19
   Scenario: Forensics Schedule Monthly - day of month
     Then UI Click Button "Schedule Forensics" with value "monthly"

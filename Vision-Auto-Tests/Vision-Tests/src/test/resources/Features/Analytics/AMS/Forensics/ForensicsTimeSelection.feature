@@ -1,6 +1,6 @@
-@VRM_Report @TC106005
-Feature: Forensic Time Selection
+@TC106005
 
+Feature: Forensic Time Selection
 
   @SID_1
   Scenario: Clean DB and generate attacks
@@ -26,7 +26,6 @@ Feature: Forensic Time Selection
    # move Anomalies start time 23.20 hrs backwards
     When CLI Run remote linux Command "curl -XPOST localhost:9200/dp-attack-raw-*/_update_by_query/?pretty -d '{"query": {"match": {"attackIpsId": "4-1402580209"}},"script": {"source": "ctx._source.startTime = 'ctx._source.startTime-85800000'"}}'" on "ROOT_SERVER_CLI"
     Then UI "Create" Forensics With Name "Forensic Time"
-      | devices               | index:10              |
       | Output                | Attack ID, Start Time |
       | Time Definitions.Date | Quick:1D              |
     Then UI Generate and Validate Forensics With Name "Forensic Time" with Timeout of 300 Seconds
@@ -54,7 +53,6 @@ Feature: Forensic Time Selection
    # move Anomalies start time 23.20 hrs backwards
     When CLI Run remote linux Command "curl -XPOST localhost:9200/dp-attack-raw-*/_update_by_query/?pretty -d '{"query": {"match": {"attackIpsId": "4-1402580209"}},"script": {"source": "ctx._source.startTime = 'ctx._source.startTime-85800000'"}}'" on "ROOT_SERVER_CLI"
     Then UI "Create" Forensics With Name "Forensic Time"
-      | devices               | index:10              |
       | Output                | Attack ID, Start Time |
       | Time Definitions.Date | Relative:[Hours,24]   |
     Then UI Generate and Validate Forensics With Name "Forensic Time" with Timeout of 300 Seconds
@@ -72,16 +70,6 @@ Feature: Forensic Time Selection
 
     When UI Delete "Forensic Time" and Approve
 
-#    @SID_17
-#      WHAT IS THE GOAL OF THIS SCENARIO ?   PREVIOUS SCENARIO ALREADY VALIDATED 24 HRS
-#      Scenario: Forensics Relative Time Validate Edit
-#      When UI "Create" Forensics With Name "Forensic Time Relative"
-#        | devices               | index:10              |
-#        | Output                | Attack ID, Start Time |
-#        | Time Definitions.Date | Relative:[Hours,24]   |
-#      And UI Click Button "Edit" with value "Forensic Time Relative"
-#      And UI Click Button "Tab" with value "time-tab"
-#      Then UI Validate Class Content Of "Time Relative Period" With Params "Weeks" is "CONTAINS" to "opened"
 
    ######################   QUICK YESTERDAY   ####################################################
 
@@ -90,7 +78,6 @@ Feature: Forensic Time Selection
     # move the attack 25 hrs backwards
     When CLI Run remote linux Command "curl -XPOST "localhost:9200/dp-attack-raw-*/_update_by_query/?pretty&conflicts=proceed" -d '{"query": {"match": {"attackIpsId": "4-1402580209"}},"script": {"source": "ctx._source.startTime = 'ctx._source.startTime-90000000'"}}'" on "ROOT_SERVER_CLI"
     Then UI "Create" Forensics With Name "Forensic Time"
-      | devices               | index:10              |
       | Output                | Attack ID, Start Time |
       | Time Definitions.Date | Quick:Yesterday       |
     Then UI Generate and Validate Forensics With Name "Forensic Time" with Timeout of 300 Seconds
@@ -113,7 +100,6 @@ Feature: Forensic Time Selection
    # move start time 6 days and 23.5 Hrs back
     When CLI Run remote linux Command "curl -XPOST localhost:9200/dp-attack-raw-*/_update_by_query/?pretty -d '{"query": {"match": {"attackIpsId": "4-1402580209"}},"script": {"source": "ctx._source.startTime = 'ctx._source.startTime-603000000'"}}'" on "ROOT_SERVER_CLI"
     Then UI "Create" Forensics With Name "Forensic Time"
-      | devices               | index:10              |
       | Output                | Attack ID, Start Time |
       | Time Definitions.Date | Quick:1W              |
     Then UI Generate and Validate Forensics With Name "Forensic Time" with Timeout of 300 Seconds
@@ -137,7 +123,6 @@ Feature: Forensic Time Selection
   # move start time 6 days and 23.5 Hrs back
     When CLI Run remote linux Command "curl -XPOST localhost:9200/dp-attack-raw-*/_update_by_query/?pretty -d '{"query": {"match": {"attackIpsId": "4-1402580209"}},"script": {"source": "ctx._source.startTime = 'ctx._source.startTime-603000000'"}}'" on "ROOT_SERVER_CLI"
     Then UI "Create" Forensics With Name "Forensic Time"
-      | devices               | index:10              |
       | Output                | Attack ID, Start Time |
       | Time Definitions.Date | Relative:[Days,7]     |
     Then UI Generate and Validate Forensics With Name "Forensic Time" with Timeout of 300 Seconds
@@ -161,7 +146,6 @@ Feature: Forensic Time Selection
     # move start time 28 days and 23.5 hrs back
     When CLI Run remote linux Command "curl -XPOST localhost:9200/dp-attack-raw-*/_update_by_query/?pretty -d '{"query": {"match": {"attackIpsId": "4-1402580209"}},"script": {"source": "ctx._source.startTime = 'ctx._source.startTime-2503800000L'"}}'" on "ROOT_SERVER_CLI"
     Then UI "Create" Forensics With Name "Forensic Time"
-      | devices               | index:10              |
       | Output                | Attack ID, Start Time |
       | Time Definitions.Date | Quick:1M              |
     Then UI Generate and Validate Forensics With Name "Forensic Time" with Timeout of 300 Seconds
@@ -180,12 +164,12 @@ Feature: Forensic Time Selection
 
    ######################   RELATIVE WEEKS   #################################################
 
+
   @SID_9
   Scenario: Forensic Time Relative Weeks
         # move start time 28 days and 23.5 hrs back
     When CLI Run remote linux Command "curl -XPOST localhost:9200/dp-attack-raw-*/_update_by_query/?pretty -d '{"query": {"match": {"attackIpsId": "4-1402580209"}},"script": {"source": "ctx._source.startTime = 'ctx._source.startTime-2503800000L'"}}'" on "ROOT_SERVER_CLI"
     Then UI "Create" Forensics With Name "Forensic Time"
-      | devices               | index:10              |
       | Output                | Attack ID, Start Time |
       | Time Definitions.Date | Relative:[Weeks,5]    |
     Then UI Generate and Validate Forensics With Name "Forensic Time" with Timeout of 300 Seconds
@@ -209,7 +193,6 @@ Feature: Forensic Time Selection
     # move start time 88 days and 23.5 hrs back
     When CLI Run remote linux Command "curl -XPOST localhost:9200/dp-attack-raw-*/_update_by_query/?pretty -d '{"query": {"match": {"attackIpsId": "4-1402580209"}},"script": {"source": "ctx._source.startTime = 'ctx._source.startTime-7687800000L'"}}'" on "ROOT_SERVER_CLI"
     Then UI "Create" Forensics With Name "Forensic Time"
-      | devices               | index:10              |
       | Output                | Attack ID, Start Time |
       | Time Definitions.Date | Quick:3M              |
     Then UI Generate and Validate Forensics With Name "Forensic Time" with Timeout of 300 Seconds
@@ -233,7 +216,6 @@ Feature: Forensic Time Selection
     # move start time 11.5 months backwards
     When CLI Run remote linux Command "curl -XPOST localhost:9200/dp-attack-raw-*/_update_by_query/?pretty -d '{"query": {"match": {"attackIpsId": "4-1402580209"}},"script": {"source": "ctx._source.startTime = 'ctx._source.startTime-31015800000L'"}}'" on "ROOT_SERVER_CLI"
     Then UI "Create" Forensics With Name "Forensic Time"
-      | devices               | index:10              |
       | Output                | Attack ID, Start Time |
       | Time Definitions.Date | Quick:1Y              |
     Then UI Generate and Validate Forensics With Name "Forensic Time" with Timeout of 300 Seconds
@@ -257,7 +239,6 @@ Feature: Forensic Time Selection
    # move start time 11.5 months backwards
     When CLI Run remote linux Command "curl -XPOST localhost:9200/dp-attack-raw-*/_update_by_query/?pretty -d '{"query": {"match": {"attackIpsId": "4-1402580209"}},"script": {"source": "ctx._source.startTime = 'ctx._source.startTime-31015800000L'"}}'" on "ROOT_SERVER_CLI"
     Then UI "Create" Forensics With Name "Forensic Time"
-      | devices               | index:10              |
       | Output                | Attack ID, Start Time |
       | Time Definitions.Date | Relative:[Months,12]  |
     Then UI Generate and Validate Forensics With Name "Forensic Time" with Timeout of 300 Seconds
@@ -282,7 +263,6 @@ Feature: Forensic Time Selection
     # move start time to 27/02/1971
     When CLI Run remote linux Command "curl -XPOST localhost:9200/dp-attack-raw-*/_update_by_query/?pretty -d '{"query": {"match": {"attackIpsId": "4-1402580209"}},"script": {"source": "ctx._source.startTime = '36504000000L'"}}'" on "ROOT_SERVER_CLI"
     When UI "Create" Forensics With Name "Forensic Time"
-      | devices               | index:10                           |
       | Output                | Attack ID, Start Time              |
       | Time Definitions.Date | Absolute:[27.02.1971 01:00:00, +0d] |
     Then UI Generate and Validate Forensics With Name "Forensic Time" with Timeout of 300 Seconds
@@ -303,7 +283,6 @@ Feature: Forensic Time Selection
     When CLI Run remote linux Command "curl -XPOST localhost:9200/dp-attack-raw-*/_update_by_query/?pretty -d '{"query": {"match": {"attackIpsId": "4-1402580209"}},"script": {"source": "ctx._source.startTime ='$(date -d "$today 0" +%s%3N)L'"}}'" on "ROOT_SERVER_CLI"
     When CLI Run remote linux Command "curl -XPOST localhost:9200/dp-attack-raw-*/_update_by_query/?pretty -d '{"query": {"match": {"attackIpsId": "7706-1402580209"}},"script": {"source": "ctx._source.startTime ='$(date -d "$today 0" +%s%3N)L'"}}'" on "ROOT_SERVER_CLI"
     When UI "Create" Forensics With Name "Forensic Time"
-      | devices               | index:10              |
       | Output                | Attack ID, Start Time |
       | Time Definitions.Date | Quick:Today           |
 
@@ -327,7 +306,6 @@ Feature: Forensic Time Selection
   # move Anomalies start time to beginning of month
     When CLI Run remote linux Command "curl -XPOST localhost:9200/dp-attack-raw-*/_update_by_query/?pretty -d '{"query": {"match": {"attackIpsId": "4-1402580209"}},"script": {"source": "ctx._source.startTime ='$(date -d "`date +%Y%m01`" +%s%3N)L'"}}'" on "ROOT_SERVER_CLI"
     When UI "Create" Forensics With Name "Forensic Time"
-      | devices               | index:10                        |
       | Output                | Attack ID, Start Time, Protocol |
       | Time Definitions.Date | Quick:This Month                |
 
@@ -341,8 +319,7 @@ Feature: Forensic Time Selection
     Then UI Validate Table record values by columns with elementLabel "Report.Table" findBy columnName "Attack ID" findBy cellValue "4-1402580209"
       | columnName  | value        |
       | Attack ID   | 4-1402580209 |
-    #When UI Delete "Forensic Time" and Approve
-
+    When UI Delete "Forensic Time" and Approve
 
 
   @SID_16
