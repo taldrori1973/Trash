@@ -429,7 +429,6 @@ Feature: Basic tests for Forensics parameters
 
   @SID_33
   Scenario: Forensics Share Tab Label with value "email" is selected
-    Then UI Click Button "Share Tab"
     Then UI Click Button "Share Tab Label" with value "ftp"
     Then UI Validate the attribute of "data-debug-checked" are "EQUAL" to
       | label           | param | value |
@@ -475,7 +474,8 @@ Feature: Basic tests for Forensics parameters
 
   @SID_38
   Scenario: Validate FTP input
-    Then UI Set Text Field "FTP input" and params "location" To " "
+    Then UI Set Text Field "FTP input" and params "location" To "  "
+    Then Sleep "1"
     Then validate webUI CSS value "border-bottom-color" of label "FTP input Label" with params "location" equals "rgb(244, 20, 20)"
     Then UI Set Text Field "FTP input" and params "location" To ","
     Then validate webUI CSS value "border-bottom-color" of label "FTP input Label" with params "location" equals "rgb(244, 20, 20)"
@@ -526,7 +526,8 @@ Feature: Basic tests for Forensics parameters
 
   @SID_39
   Scenario: Validate FTP User Name
-    Then UI Set Text Field "FTP input" and params "username" To " "
+    Then UI Set Text Field "FTP input" and params "username" To "  "
+    Then Sleep "1"
     Then validate webUI CSS value "border-bottom-color" of label "FTP input Label" with params "username" equals "rgb(244, 20, 20)"
 
 
