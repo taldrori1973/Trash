@@ -137,6 +137,7 @@ Feature: Basic tests for Forensics parameters
   Scenario: Validate Forensics Name and Description
     Then UI Validate the attribute "placeholder" Of Label "Forensics Name" is "EQUALS" to "Type here"
     Then UI Set Text Field "Forensics Name" To " "
+    Then Sleep "1"
     Then validate webUI CSS value "border-bottom-color" of label "Forensics Name" equals "rgb(244, 20, 20)"
     Then UI Validate Text field "Name Error Message" CONTAINS "The Forensics Name field can contain only letters, numbers, and underscore (_) characters."
     Then UI Set Text Field "Forensics Name" To "&"
@@ -481,6 +482,7 @@ Feature: Basic tests for Forensics parameters
   @SID_38
   Scenario: Validate FTP input
     Then UI Set Text Field "FTP input" and params "location" To " "
+    Then Sleep "1"
     Then validate webUI CSS value "border-bottom-color" of label "FTP input Label" with params "location" equals "rgb(244, 20, 20)"
     Then UI Set Text Field "FTP input" and params "location" To ","
     Then validate webUI CSS value "border-bottom-color" of label "FTP input Label" with params "location" equals "rgb(244, 20, 20)"
@@ -532,6 +534,7 @@ Feature: Basic tests for Forensics parameters
   @SID_39
   Scenario: Validate FTP User Name
     Then UI Set Text Field "FTP input" and params "username" To " "
+    Then Sleep "1"
     Then validate webUI CSS value "border-bottom-color" of label "FTP input Label" with params "username" equals "rgb(244, 20, 20)"
 
 
