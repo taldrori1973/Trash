@@ -283,7 +283,7 @@ Feature: Basic tests for Forensics parameters
     Then validate webUI CSS value "border-bottom-color" of label "Scheduling Day of Month" equals "rgb(244, 20, 20)"
     Then UI Validate Text field "Scheduling Month Error Message" CONTAINS "Select the day of the month."
     Then validate webUI CSS value "border-bottom-color" of label "Scheduling Month Error Message" equals "rgb(244, 20, 20)"
-    Then UI Set Text Field "Scheduling Day of Month input" To ""
+    Then UI Set Text Field "Scheduling Day of Month input" To " "
     Then validate webUI CSS value "border-bottom-color" of label "Scheduling Day of Month" equals "rgb(244, 20, 20)"
     Then UI Validate Text field "Scheduling Month Error Message" CONTAINS "Select the day of the month."
     Then validate webUI CSS value "border-bottom-color" of label "Scheduling Month Error Message" equals "rgb(244, 20, 20)"
