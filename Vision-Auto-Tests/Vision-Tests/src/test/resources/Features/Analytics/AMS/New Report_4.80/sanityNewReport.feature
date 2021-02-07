@@ -91,6 +91,7 @@ Feature: Basic tests for report parameters
   Scenario: Validate report name
     Then UI Validate the attribute "placeholder" Of Label "Report Name" is "EQUALS" to "Type here"
     Then UI Set Text Field "Report Name" To " "
+    Then Sleep "1"
     Then validate webUI CSS value "border-bottom-color" of label "Report Name" equals "rgb(244, 20, 20)"
     Then UI Set Text Field "Report Name" To "&"
     Then validate webUI CSS value "border-bottom-color" of label "Report Name" equals "rgb(244, 20, 20)"

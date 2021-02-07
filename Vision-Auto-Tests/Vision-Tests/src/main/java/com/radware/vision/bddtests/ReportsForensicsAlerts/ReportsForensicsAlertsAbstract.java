@@ -317,7 +317,7 @@ abstract public class ReportsForensicsAlertsAbstract implements ReportsForensics
     }
 
     public void generate(String name, Map<String, String> map) throws Exception {
-        BasicOperationsHandler.setTextField("Search Report"+getType(), name);
+        BasicOperationsHandler.setTextField("Search "+getType(), name);
         BasicOperationsHandler.clickButton("My Report", name);
         String oldDate = "";
         String[] generateReportParam = {name, "0"};
