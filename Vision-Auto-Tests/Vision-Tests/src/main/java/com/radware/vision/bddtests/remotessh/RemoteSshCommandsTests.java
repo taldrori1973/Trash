@@ -12,6 +12,7 @@ import com.radware.vision.bddtests.basicoperations.BasicOperationsSteps;
 import com.radware.vision.bddtests.clioperation.FileSteps;
 import com.radware.vision.automation.AutoUtils.Operators.OperatorsEnum;
 import com.radware.vision.infra.testhandlers.cli.CliOperations;
+import com.radware.vision.vision_handlers.NewVmHandler;
 import com.radware.vision.vision_project_cli.RootServerCli;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
@@ -459,6 +460,14 @@ public class RemoteSshCommandsTests extends BddCliTestBase {
             CliOperations.runCommand(restTestBase.getRootServerCli(), "yes | /restore_radware_user_stand_alone.sh", CliOperations.DEFAULT_TIME_OUT);
         }
     }
-
+    @Given("^CLI Wait for Vision Re-Connection(?: (\\d+) seconds)?$")
+    public static void waitForVisionReConnection(Integer timeOut) {
+        try {
+            timeOut = timeOut == null? 300 : timeOut;
+            NewVmHandler.waitForServerConnection(timeOut * 1000, restTestBase.getRootServerCli());
+        } catch (InterruptedException e) {
+            BaseTestUtils.report(e.getMessage(), Reporter.FAIL);
+        }
+    }
 
 }
