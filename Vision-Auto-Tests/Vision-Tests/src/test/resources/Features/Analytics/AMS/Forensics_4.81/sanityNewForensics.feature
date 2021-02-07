@@ -137,6 +137,7 @@ Feature: Basic tests for Forensics parameters
   Scenario: Validate Forensics Name and Description
     Then UI Validate the attribute "placeholder" Of Label "Forensics Name" is "EQUALS" to "Type here"
     Then UI Set Text Field "Forensics Name" To " "
+    Then Sleep "1"
     Then validate webUI CSS value "border-bottom-color" of label "Forensics Name" equals "rgb(244, 20, 20)"
     Then UI Validate Text field "Name Error Message" CONTAINS "The Forensics Name field can contain only letters, numbers, and underscore (_) characters."
     Then UI Set Text Field "Forensics Name" To "&"
