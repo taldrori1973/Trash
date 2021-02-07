@@ -133,6 +133,7 @@ Feature: Basic tests for Forensics parameters
 
   ##################### Name Section tests ###############################
 
+
   @SID_14
   Scenario: Validate Forensics Name and Description
     Then UI Validate the attribute "placeholder" Of Label "Forensics Name" is "EQUALS" to "Type here"
