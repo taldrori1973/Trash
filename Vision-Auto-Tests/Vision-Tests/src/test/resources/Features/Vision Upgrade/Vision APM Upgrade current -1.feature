@@ -70,7 +70,6 @@ Feature: Vision APM Upgrade current -1
       | UPGRADE | /opt/radware/storage/www/webui/vision-dashboards/public/static/media/* | IGNORE       |
       | UPGRADE | No such image or container: *                                          | IGNORE       |
 
-  @debug
   @SID_6
   Scenario: Validate server is up after reset
     # Avoid reboot during an active process
@@ -80,7 +79,6 @@ Feature: Vision APM Upgrade current -1
     When CLI Wait for Vision Re-Connection
     Then validate vision server services is UP
 
-  @debug
   @SID_7
   Scenario: Check firewall settings
     Then CLI Run linux Command "iptables -L -n |tail -1|awk -F" " '{print $1,$2}'" on "ROOT_SERVER_CLI" and validate result EQUALS "REJECT all"
@@ -273,11 +271,3 @@ Feature: Vision APM Upgrade current -1
     And Validate That Response Body Contains
       | jsonPath         | value     |
       | $.sharePathState | "Running" |
-
-  @debug
-  Scenario: Check lvm partitions:
-    When CLI Operations - Run Root Session command "df -h"
-    Then CLI Operations - Verify that output contains regex "vg_disk-lv_radware"
-    Then CLI Operations - Verify that output contains regex "vg_disk-lv_storage"
-    Then CLI Run linux Command "df -h | awk 'NR==5' | awk '{print $1}' | sed 's/G//'" on "ROOT_SERVER_CLI" and validate result GT "8"
-    Then CLI Run linux Command "df -h | awk 'NR==7' | awk '{print $1}' | sed 's/G//'" on "ROOT_SERVER_CLI" and validate result GTE "200"

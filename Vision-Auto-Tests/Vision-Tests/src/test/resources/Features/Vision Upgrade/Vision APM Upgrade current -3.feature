@@ -291,11 +291,3 @@ Feature: Vision APM Upgrade current -3
       | jsonPath         | value     |
       | $.sharePathState | "Running" |
 
-  @SID_34
-  Scenario: Check lvm partitions:
-    When CLI Operations - Run Root Session command "df -h"
-    Then CLI Operations - Verify that output contains regex "vg_disk-lv_radware"
-    Then CLI Operations - Verify that output contains regex "vg_disk-lv_storage"
-    Then CLI Run linux Command "df -h | awk 'NR==5' | awk '{print $1}' | sed 's/G//'" on "ROOT_SERVER_CLI" and validate result GT "8"
-    Then CLI Run linux Command "df -h | awk 'NR==7' | awk '{print $1}' | sed 's/G//'" on "ROOT_SERVER_CLI" and validate result GTE "200"
-

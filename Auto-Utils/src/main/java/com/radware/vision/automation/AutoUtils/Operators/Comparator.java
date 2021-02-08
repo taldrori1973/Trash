@@ -20,10 +20,8 @@ public class Comparator {
                 case EQUALS:
                     //Numbers with offset
                     if (offset != null && offset > 0) {
-                        //fActualResult = Float.parseFloat(actualResult.trim());
-                        //fExpectedResult = Float.parseFloat(expectedResult.trim());
-                        fActualResult = Integer.parseInt(actualResult.trim());
-                        fExpectedResult = Integer.parseInt(expectedResult.trim());
+                        fActualResult = Float.parseFloat(actualResult.trim());
+                        fExpectedResult = Float.parseFloat(expectedResult.trim());
                         if (fActualResult >= (fExpectedResult - offset) && fActualResult <= (fExpectedResult + offset))
                             bTestSuccess = true;
                         else
