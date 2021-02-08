@@ -165,7 +165,7 @@ public class Report extends ReportsForensicsAlertsAbstract {
         if (basicRestResult!=null)
         {
             errorMessage.append(validateLogoDefinition(new JSONObject(basicRestResult.get("logo").toString()), map));
-            errorMessage.append(validateTimeDefinition(new JSONObject(basicRestResult.get("timeFrame").toString().replace("\\", "")), map));
+            errorMessage.append(validateTimeDefinition(new JSONObject(basicRestResult.get("timeFrame").toString().replace("\\", "")), map, reportName));
             errorMessage.append(validateScheduleDefinition(basicRestResult, map, reportName));
             errorMessage.append(validateShareDefinition(new JSONObject(basicRestResult.get("deliveryMethod").toString()), map));
             errorMessage.append(validateFormatDefinition(new JSONObject(basicRestResult.get("exportFormat").toString()), map));
@@ -213,14 +213,6 @@ public class Report extends ReportsForensicsAlertsAbstract {
     }
 
 
-    @Override
-    protected StringBuilder validateDefaultFormatDefinition(JSONObject exportFormat, Map<String, String> map ) {
-        StringBuilder errorMessage = new StringBuilder();
-        if (exportFormat.get("type").toString().trim().toLowerCase().equalsIgnoreCase("pdf"))
-            errorMessage.append("The actual Format is: ").append(exportFormat.get("type").toString()).append("but the Expected format is: ").append("pdf").append("\n");
-        return errorMessage;
-    }
-
     private StringBuilder validateLogoDefinition(JSONObject logoDefinitions, Map<String, String> map) {
         StringBuilder errorMessage = new StringBuilder();
         if (map.containsKey("Logo")) {
@@ -249,6 +241,9 @@ public class Report extends ReportsForensicsAlertsAbstract {
             throw new Exception("");
         }
     }
+
+    @Override
+    protected void selectFTP(JSONObject deliveryJsonObject) {}
 
     @Override
     protected String getType(){return "Report";}

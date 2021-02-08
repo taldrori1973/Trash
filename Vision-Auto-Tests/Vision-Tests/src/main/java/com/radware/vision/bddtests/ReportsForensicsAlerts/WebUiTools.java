@@ -66,7 +66,7 @@ public class WebUiTools {
     }
     public static void check(String label, String [] param, boolean isToCheck) throws Exception {
         WebElement checkElement = getClickabledWebElement(getWebElement(label, param));
-        WebUIUtils.scrollIntoView(checkElement);
+        WebUIUtils.scrollIntoView(checkElement, true);
         if (checkElement == null)
             throw new Exception("No Element with label " + label + " and params " + Arrays.toString(param));
         checkWebElement(checkElement, isToCheck);

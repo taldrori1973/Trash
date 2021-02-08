@@ -7,7 +7,6 @@ import com.radware.automation.webui.widgets.ComponentLocatorFactory;
 import com.radware.vision.automation.tools.exceptions.selenium.TargetWebElementNotFoundException;
 import com.radware.vision.bddtests.ReportsForensicsAlerts.Handlers.TemplateHandlers;
 import com.radware.vision.infra.testhandlers.baseoperations.BasicOperationsHandler;
-import com.radware.vision.tests.BasicOperations.BasicOperations;
 import com.radware.vision.tools.rest.CurrentVisionRestAPI;
 import com.radware.vision.vision_project_cli.RootServerCli;
 import models.RestResponse;
@@ -16,15 +15,25 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 import org.openqa.selenium.WebElement;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.Map;
+import java.util.*;
 
 public class Forensics extends ReportsForensicsAlertsAbstract {
     @Override
     protected String getType() {
         return "Forensics";
+    }
+    protected String getRangeTypeTextKey() {return "type";}
+    protected String getRelativeRangeTextKey() {
+        return "unit";
+    }
+    protected String getRelativeRangeValueKey() {
+        return "count";
+    }
+    protected String getSchedulingKey() {
+        return "schedule";
+    }
+    protected String getDeliveryKey() {
+        return "Share";
     }
 
     @Override
@@ -73,14 +82,14 @@ public class Forensics extends ReportsForensicsAlertsAbstract {
         createName(name, map);
         WebUiTools.check("Time Tab", "", true);
         selectTime(map);
+        WebUiTools.check("Output Tab", "", true);
+        selectOutput(map);
         WebUiTools.check("Schedule Tab", "", true);
         selectScheduling(map);
         WebUiTools.check("Format Tab", "", true);
         selectFormat(map);
         WebUiTools.check("Share Tab", "", true);
         selectShare(map);
-//        WebUiTools.check("Output Tab", "", true);
-        selectOutput(map);
     }
 
     public void selectOutput(Map<String, String> map) throws Exception {
@@ -116,21 +125,40 @@ public class Forensics extends ReportsForensicsAlertsAbstract {
         JSONObject basicRestResult = getForensicsDefinition(forensicsName, map);
         if (basicRestResult!=null)
         {
-            errorMessage.append(validateTimeDefinition(new JSONObject(basicRestResult.get("timeRangeDefinition").toString()), map));
-//            errorMessage.append(validateTimeDefinition(new JSONObject(basicRestResult.get("timeRageDefinition").toString()), map));
-//            errorMessage.append(validateCriteriaDefinition(new JSONObject(basicRestResult.get("criteria").toString())));
-//            errorMessage.append(validateCriteriaDefinition(new JSONObject(new JSONObject(basicRestResult.get("request").toString()).toString()).get("criteria").toString()));
+            errorMessage.append(validateTimeDefinition(new JSONObject(basicRestResult.get("timeRangeDefinition").toString()), map, forensicsName));
             errorMessage.append(validateScheduleDefinition(basicRestResult, map, forensicsName));
-//            errorMessage.append(validateFormatDefinition(new JSONObject(basicRestResult.get("exportFormat").toString()), map));
             errorMessage.append(validateFormatDefinition(new JSONObject(new JSONArray(basicRestResult.get("exportFormats").toString()).get(0).toString()), map));
             errorMessage.append(validateShareDefinition(new JSONObject(basicRestResult.get("deliveryMethod").toString()), map));
-//            errorMessage.append(validateScopeSelection(new JSONArray(map.get("devices"))));
-            //new JSONArray(basicRestResult.get("deviceScopes").toString())
         }else errorMessage.append("No Forensics Defined with name ").append(forensicsName).append("/n");
         if (errorMessage.length() != 0)
             BaseTestUtils.report(errorMessage.toString(), Reporter.FAIL);
     }
 
+    protected StringBuilder validateShareDefinition(JSONObject deliveryJson, Map<String, String> map) {
+        StringBuilder errorMessage = new StringBuilder();
+        if (map.containsKey(getDeliveryKey())) {
+            if (!new JSONObject(map.get("Share")).isNull("FTP"))
+                validateFTP(deliveryJson, map, errorMessage);
+            else
+                validateStandardEmail(deliveryJson, map, errorMessage);
+        }
+        return errorMessage;
+    }
+
+    private void validateFTP(JSONObject deliveryJson, Map<String, String> map, StringBuilder errorMessage) {
+        if (deliveryJson.isNull("ftp"))
+            errorMessage.append("The Expected share type is ftp but Actual no FTP in the definition");
+        JSONObject ftpActualJSON = new JSONObject(new JSONArray(deliveryJson.get("ftp").toString()).get(0).toString());
+        JSONObject ftpExpectedJSON = new JSONObject(map.get("Share"));
+        if (!ftpActualJSON.getString("path").equals(ftpExpectedJSON.get("FTP.Path")))
+            errorMessage.append("The Expected ftp path is " + ftpExpectedJSON.get("FTP.Path") + " But the actual is " + ftpActualJSON.get("path") + "/n");
+        if (!ftpActualJSON.getString("password").equals(ftpExpectedJSON.get("FTP.Password")))
+            errorMessage.append("The Expected ftp password is " + ftpExpectedJSON.get("FTP.Password") + " But the actual is " + ftpActualJSON.get("password") + "/n");
+        if (!ftpActualJSON.getString("location").equals(ftpExpectedJSON.get("FTP.Location")))
+            errorMessage.append("The Expected ftp location is " + ftpExpectedJSON.get("FTP.Location") + " But the actual is " + ftpActualJSON.get("location") + "/n");
+        if (!ftpActualJSON.getString("username").equals(ftpExpectedJSON.get("FTP.Username")))
+            errorMessage.append("The Expected ftp username is " + ftpExpectedJSON.get("FTP.Username") + " But the actual is " + ftpActualJSON.get("username") + "/n");
+    }
 
 
     private StringBuilder validateScopeSelection(JSONArray devices) {
@@ -141,12 +169,8 @@ public class Forensics extends ReportsForensicsAlertsAbstract {
         return null;
     }
 
-    @Override
-    protected StringBuilder validateDefaultFormatDefinition(JSONObject exportFormat, Map<String, String> map ) {
-        StringBuilder errorMessage = new StringBuilder();
-        if (exportFormat.get("type").toString().trim().toLowerCase().equalsIgnoreCase("html"))
-            errorMessage.append("The actual Format is: ").append(exportFormat.get("type").toString()).append("but the Expected format is: ").append("html").append("\n");
-        return errorMessage;
+    protected String getDefaultFormat() {
+        return "html";
     }
 
     protected void editShareDefinition(Map<String, String> map ) throws Exception {
@@ -191,6 +215,38 @@ public class Forensics extends ReportsForensicsAlertsAbstract {
             throw new Exception("No Report with Name " + forensicsName);
         }
         else throw new Exception("Get Reports failed request, The response is " + restResponse);
+    }
+
+
+    @Override
+    protected void validateQuickRangeTime(JSONObject timeDefinitionsJSON, StringBuilder errorMessage, JSONObject expectedTimeDefinitions) throws Exception {
+        if (!timeDefinitionsJSON.get("type").toString().equalsIgnoreCase("quickTimeRange"))
+            errorMessage.append("The rangeType is ").append(timeDefinitionsJSON.get("type")).append(" and not equal to quick").append("\n");
+        if (!timeDefinitionsJSON.get("period").toString().equalsIgnoreCase(getQuickTimeAsText(expectedTimeDefinitions.getString("Quick"))))
+            errorMessage.append("The value of the quickRange is ").append(timeDefinitionsJSON.get("period")).append(" and not equal to ").append(expectedTimeDefinitions.getString("Quick")).append("\n");
+    }
+
+    @Override
+    protected void selectFTP(JSONObject deliveryJsonObject) throws Exception {
+        BasicOperationsHandler.setTextField("FTP input", "location", deliveryJsonObject.getString("FTP.Location"), false);
+        BasicOperationsHandler.setTextField("FTP input", "path", deliveryJsonObject.getString("FTP.Path"), false);
+        BasicOperationsHandler.setTextField("FTP input", "username", deliveryJsonObject.getString("FTP.Username"), false);
+        BasicOperationsHandler.setTextField("FTP input", "password", deliveryJsonObject.getString("FTP.Password"), false);
+    }
+
+    private String getQuickTimeAsText(String period) throws Exception {
+        switch (period)
+        {
+            case "Today":return "Today";
+            case "Yesterday":return "Yesterday";
+            case "This Month":return "This Month";
+            case "1D":return "oneDay";
+            case "1W":return "oneWeek";
+            case "1M":return "oneMonth";
+            case "3M":return "ThreeMonths";
+            case "1Y":return "oneYear";
+        }
+        throw new Exception("No period with name " + period + " in Forensics");
     }
 
     @Override
