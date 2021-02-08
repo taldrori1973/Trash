@@ -275,3 +275,11 @@ Feature: Vision Upgrade current -1
   @SID_33
   Scenario: Verify number of tables in vision_ng schema
     Then CLI Run linux Command "mysql -prad123 -NB -e "select count(*) from INFORMATION_SCHEMA.TABLES WHERE TABLE_SCHEMA='vision_ng';"" on "ROOT_SERVER_CLI" and validate result EQUALS "166"
+
+  @SID_34
+  Scenario: Check lvm partitions:
+    When CLI Operations - Run Root Session command "df -h"
+    Then CLI Operations - Verify that output contains regex "vg_disk-lv_radware"
+    Then CLI Operations - Verify that output contains regex "vg_disk-lv_storage"
+    Then CLI Run linux Command "df -h | awk 'NR==5' | awk '{print $1}' | sed 's/G//'" on "ROOT_SERVER_CLI" and validate result GT "8"
+    Then CLI Run linux Command "df -h | awk 'NR==7' | awk '{print $1}' | sed 's/G//'" on "ROOT_SERVER_CLI" and validate result GTE "200"
