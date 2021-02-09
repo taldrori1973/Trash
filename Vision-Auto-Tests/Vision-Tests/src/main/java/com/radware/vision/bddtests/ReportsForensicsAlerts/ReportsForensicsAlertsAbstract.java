@@ -454,7 +454,7 @@ abstract public class ReportsForensicsAlertsAbstract implements ReportsForensics
         if (map.containsKey("Format")) {
             JSONObject deliveryJsonObject = new JSONObject(map.get("Format"));
             if (deliveryJsonObject.has("Select"))
-                BasicOperationsHandler.clickButton("Format Type", deliveryJsonObject.getString("Select").toUpperCase());
+                BasicOperationsHandler.clickButton("Format Type", deliveryJsonObject.getString("Select").equalsIgnoreCase("CSV With Attack Details")?"CSVWithDetails":deliveryJsonObject.getString("Select"));
             else BasicOperationsHandler.clickButton("Format Type", "HTML");
         }
     }

@@ -1,10 +1,11 @@
-
+@noam123
 Feature:DefensePro Part1
 
   @SID_1
   Scenario: Navigate to NEW REPORTS page
     Then UI Login with user "radware" and password "radware"
-    Then UI Navigate to "AMS Forensics" page via homepage
+    Then UI Navigate to "New Forensics" page via homePage
+
 
   @SID_2
   Scenario: create new Output Device IP Address
@@ -14,7 +15,7 @@ Feature:DefensePro Part1
       | Criteria              | condition.All:true                                                             |
       | devices               | All                                                                            |
       | Share                 | Email:[automation.vision2@radware.com],Subject:myEdit subject,Body:myEdit body |
-      | Format                | Select: CSV with Attack Detail                                                 |
+      | Format                | Select: CSV WITH ATTACK DETAILS                                                |
 
   @SID_3
   Scenario: create new Output End Time
@@ -24,7 +25,7 @@ Feature:DefensePro Part1
       | Criteria              | condition.All:true                                                             |
       | devices               | All                                                                            |
       | Share                 | Email:[automation.vision2@radware.com],Subject:myEdit subject,Body:myEdit body |
-      | Format                | Select: CSV with Attack Detail                                                 |
+      | Format                | Select: CSV With Attack Details                                                 |
 
   @SID_4
   Scenario: create new Output Start Time
@@ -34,7 +35,7 @@ Feature:DefensePro Part1
       | Criteria              | condition.All:true                                                             |
       | devices               | All                                                                            |
       | Share                 | Email:[automation.vision2@radware.com],Subject:myEdit subject,Body:myEdit body |
-      | Format                | Select: CSV with Attack Detail                                                 |
+      | Format                | Select: CSV With Attack Details                                                 |
 
   @SID_5
   Scenario: create new Output Threat Category
@@ -85,9 +86,9 @@ Feature:DefensePro Part1
       | Output                | Attack ID                                                                      |
       | Criteria              | condition.All:true                                                             |
       | devices               | index:10                                                                       |
-      | Schedule              | Run Every:once, On Time:+6H                                                    |
+#      | Schedule              | Run Every:once, On Time:+6H                                                    |
       | Share                 | Email:[automation.vision2@radware.com],Subject:myEdit subject,Body:myEdit body |
-      | Format                | Select: CSV with Attack Detail                                                 |
+      | Format                | Select: CSV With Attack Details                                                 |
 
   @SID_10
   Scenario: create new Output Policy Name
@@ -109,7 +110,7 @@ Feature:DefensePro Part1
       | Criteria              | condition.All:true                                                             |
       | devices               | All                                                                            |
       | Share                 | Email:[automation.vision2@radware.com],Subject:myEdit subject,Body:myEdit body |
-      | Format                | Select: CSV with Attack Detail                                                 |
+      | Format                | Select: CSV With Attack Details                                                 |
 
   @SID_12
   Scenario: create new Output Source Port
@@ -119,9 +120,9 @@ Feature:DefensePro Part1
       | Criteria              | condition.All:true                                                                                               |
       | devices               | All                                                                                                              |
       | Time Definitions.Date | Absolute:[27.02.1971 01:00, +0d]                                                                                 |
-      | Schedule              | Run Every:once, On Time:+6H                                                                                      |
+#      | Schedule              | Run Every:once, On Time:+6H                                                                                      |
       | Share                 | FTP:checked, FTP.Location:172.17.164.10, FTP.Path:/home/radware/ftp/, FTP.Username:radware, FTP.Password:radware |
-      | Format                | Select: CSV with Attack Detail                                                                                   |
+      | Format                | Select: CSV With Attack Details                                                                                   |
 
   @SID_13
   Scenario: create new Output Destination IP Address
@@ -144,7 +145,7 @@ Feature:DefensePro Part1
       | Time Definitions.Date | Quick:This Month                                                                                                 |
       | Schedule              | Run Every:Daily,On Time:+2m                                                                                      |
       | Share                 | FTP:checked, FTP.Location:172.17.164.10, FTP.Path:/home/radware/ftp/, FTP.Username:radware, FTP.Password:radware |
-      | Format                | Select: CSV with Attack Detail                                                                                   |
+      | Format                | Select: CSV With Attack Details                                                                                   |
 
   @SID_15
   Scenario: create new Output Direction
@@ -180,7 +181,7 @@ Feature:DefensePro Part1
       | Time Definitions.Date | Absolute:[02.11.2020 13:47, +0d]                                                                                 |
       | Schedule              | Run Every:Monthly, On Time:+6H, At Months:[APR]                                                                  |
       | Share                 | FTP:checked, FTP.Location:172.17.164.10, FTP.Path:/home/radware/ftp/, FTP.Username:radware, FTP.Password:radware |
-      | Format                | Select: CSV with Attack Detail                                                                                   |
+      | Format                | Select: CSV With Attack Details                                                                                   |
 
   @SID_18
   Scenario: create new Output Duration
@@ -190,7 +191,7 @@ Feature:DefensePro Part1
       | Criteria              | condition.All:true                                                             |
       | devices               | index:10                                                                       |
       | Time Definitions.Date | Relative:[Hours,3]                                                             |
-      | Schedule              | Run Every:Once, On Time:+6H                                                    |
+#      | Schedule              | Run Every:Once, On Time:+6H                                                    |
       | Share                 | Email:[automation.vision2@radware.com],Subject:myEdit subject,Body:myEdit body |
       | Format                | Select: HTNL                                                                   |
 
@@ -213,7 +214,7 @@ Feature:DefensePro Part1
       | Criteria              | condition.All:true                                                             |
       | devices               | All                                                                            |
       | Time Definitions.Date | Quick:1Y                                                                       |
-      | Schedule              | Run Every:Once, On Time:+6H                                                    |
+#      | Schedule              | Run Every:Once, On Time:+6H                                                    |
       | Share                 | Email:[automation.vision2@radware.com],Subject:myEdit subject,Body:myEdit body |
       | Format                | Select: CSV                                                                    |
 
@@ -227,7 +228,7 @@ Feature:DefensePro Part1
       | Time Definitions.Date | Quick:Today                                                                                                      |
       | Schedule              | Run Every:Monthly, On Time:+6H, At Months:[JUL]                                                                  |
       | Share                 | FTP:checked, FTP.Location:172.17.164.10, FTP.Path:/home/radware/ftp/, FTP.Username:radware, FTP.Password:radware |
-      | Format                | Select: CSV with Attack Detail                                                                                   |
+      | Format                | Select: CSV With Attack Details                                                                                   |
 
   @SID_22
   Scenario: create new Output Max Kbps
@@ -272,9 +273,9 @@ Feature:DefensePro Part1
       | Criteria              | condition.All:true                                                                                               |
       | devices               | All                                                                                                              |
       | Time Definitions.Date | Quick:1W                                                                                                         |
-      | Schedule              | Run Every:Once, On Time:+6H                                                                                      |
+#      | Schedule              | Run Every:Once, On Time:+6H                                                                                      |
       | Share                 | FTP:checked, FTP.Location:172.17.164.10, FTP.Path:/home/radware/ftp/, FTP.Username:radware, FTP.Password:radware |
-      | Format                | Select: CSV with Attack Detail                                                                                   |
+      | Format                | Select: CSV With Attack Details                                                                                   |
 
   @SID_26
   Scenario: create new Output Destination IP Address,Destination Port,Direction,Protocol,Radware ID,Duration,Total Packets Dropped
@@ -320,7 +321,7 @@ Feature:DefensePro Part1
       | devices               | All                                                                                                              |
       | Schedule              | Run Every:Daily,On Time:+2m                                                                                      |
       | Share                 | FTP:checked, FTP.Location:172.17.164.10, FTP.Path:/home/radware/ftp/, FTP.Username:radware, FTP.Password:radware |
-      | Format                | Select: CSV with Attack Detail                                                                                   |
+      | Format                | Select: CSV With Attack Details                                                                                   |
 
   @SID_30
   Scenario: create new Output Policy Name,Source IP Address
@@ -368,7 +369,7 @@ Feature:DefensePro Part1
       | Time Definitions.Date | Absolute:[27.02.1971 01:00, +0d]                                                                                 |
       | Schedule              | Run Every:Monthly, On Time:+6H, At Months:[JUN]                                                                  |
       | Share                 | FTP:checked, FTP.Location:172.17.164.10, FTP.Path:/home/radware/ftp/, FTP.Username:radware, FTP.Password:radware |
-      | Format                | Select: CSV with Attack Detail                                                                                   |
+      | Format                | Select: CSV With Attack Details                                                                                   |
 
   @SID_34
   Scenario: create new Output End Time Equals
@@ -415,7 +416,7 @@ Feature:DefensePro Part1
       | Time Definitions.Date | Relative:[Hours,3]                                                                                               |
       | Schedule              | Run Every:Monthly, On Time:+6H, At Months:[MAY]                                                                  |
       | Share                 | FTP:checked, FTP.Location:172.17.164.10, FTP.Path:/home/radware/ftp/, FTP.Username:radware, FTP.Password:radware |
-      | Format                | Select: CSV with Attack Detail                                                                                   |
+      | Format                | Select: CSV With Attack Details                                                                                   |
 
   @SID_38
   Scenario: create new Output Attack Name2 Equals
@@ -437,7 +438,7 @@ Feature:DefensePro Part1
       | Criteria              | Event Criteria:Action,Operator:Equals,Actions:Bypass                                                             |
       | devices               | All                                                                                                              |
       | Time Definitions.Date | Absolute:[27.02.1971 01:00, +0d]                                                                                 |
-      | Schedule              | Run Every:once, On Time:+6H                                                                                      |
+#      | Schedule              | Run Every:once, On Time:+6H                                                                                      |
       | Share                 | FTP:checked, FTP.Location:172.17.164.10, FTP.Path:/home/radware/ftp/, FTP.Username:radware, FTP.Password:radware |
       | Format                | Select: CSV                                                                                                      |
 
@@ -462,7 +463,7 @@ Feature:DefensePro Part1
       | Time Definitions.Date | Quick:This Month                                                                                                 |
       | Schedule              | Run Every:Monthly, On Time:+6H, At Months:[JUL]                                                                  |
       | Share                 | FTP:checked, FTP.Location:172.17.164.10, FTP.Path:/home/radware/ftp/, FTP.Username:radware, FTP.Password:radware |
-      | Format                | Select: CSV with Attack Detail                                                                                   |
+      | Format                | Select: CSV With Attack Details                                                                                   |
 
   @SID_42
   Scenario: create new Output Source IP Address Equals
@@ -494,7 +495,7 @@ Feature:DefensePro Part1
       | Output                | Destination IP Address                                                         |
       | Criteria              | Event Criteria:Action,Operator:Equals,Actions:Http 403 Forbidden Reset Dest    |
       | devices               | All                                                                            |
-      | Schedule              | Run Every:once, On Time:+6H                                                    |
+#      | Schedule              | Run Every:once, On Time:+6H                                                    |
       | Share                 | Email:[automation.vision2@radware.com],Subject:myEdit subject,Body:myEdit body |
       | Format                | Select: CSV                                                                    |
 
@@ -507,7 +508,7 @@ Feature:DefensePro Part1
       | devices               | All                                                                                                                                        |
       | Time Definitions.Date | Absolute:[27.02.1971 01:00, +0d]                                                                                                           |
       | Share                 | FTP:checked, FTP.Location:172.17.164.10, FTP.Path:/home/radware/ftp/, FTP.Username:radware, FTP.Password:radware                           |
-      | Format                | Select: CSV with Attack Detail                                                                                                             |
+      | Format                | Select: CSV With Attack Detailss                                                                                                             |
 
 
   @SID_46
@@ -554,7 +555,7 @@ Feature:DefensePro Part1
       | Time Definitions.Date | Absolute:[27.02.1971 01:00, +0d]                                                                                 |
       | Schedule              | Run Every:Weekly, On Time:+6H, At Days:[FRI]                                                                     |
       | Share                 | FTP:checked, FTP.Location:172.17.164.10, FTP.Path:/home/radware/ftp/, FTP.Username:radware, FTP.Password:radware |
-      | Format                | Select: CSV with Attack Detail                                                                                   |
+      | Format                | Select: CSV With Attack Details                                                                                   |
 
   @SID_50
   Scenario: create new Output Total Packets Dropped Not Equals
