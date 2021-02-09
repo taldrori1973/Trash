@@ -50,18 +50,75 @@ Feature: Edit DefensePro Parameters
   @SID_7
   Scenario: Edit Time
     Then UI "Edit" Forensics With Name "Forensics DefensePro"
+      | Time Definitions.Date | Quick:Today |
+    Then UI "Validate" Forensics With Name "Forensics DefensePro"
+      | Time Definitions.Date | Quick:Today |
+    Then UI Text of "Forensics Time Type" equal to "Today"
+
+  @SID_8
+  Scenario: Edit Time
+    Then UI "Edit" Forensics With Name "Forensics DefensePro"
+      | Time Definitions.Date | Quick:Yesterday |
+    Then UI "Validate" Forensics With Name "Forensics DefensePro"
+      | Time Definitions.Date | Quick:Yesterday |
+    Then UI Text of "Forensics Time Type" equal to "Yesterday"
+
+  @SID_9
+  Scenario: Edit Time
+    Then UI "Edit" Forensics With Name "Forensics DefensePro"
+      | Time Definitions.Date | Quick:This Month |
+    Then UI "Validate" Forensics With Name "Forensics DefensePro"
+      | Time Definitions.Date | Quick:This Month |
+    Then UI Text of "Forensics Time Type" equal to "This Month"
+
+  @SID_10
+  Scenario: Edit Time
+    Then UI "Edit" Forensics With Name "Forensics DefensePro"
+      | Time Definitions.Date | Quick:1D |
+    Then UI "Validate" Forensics With Name "Forensics DefensePro"
+      | Time Definitions.Date | Quick:1D |
+    Then UI Text of "Forensics Time Type" equal to "1D"
+
+  @SID_11
+  Scenario: Edit Time
+    Then UI "Edit" Forensics With Name "Forensics DefensePro"
       | Time Definitions.Date | Quick:1W |
     Then UI "Validate" Forensics With Name "Forensics DefensePro"
       | Time Definitions.Date | Quick:1W |
+    Then UI Text of "Forensics Time Type" equal to "1W"
 
-  @SID_8
+  @SID_12
+  Scenario: Edit Time
+    Then UI "Edit" Forensics With Name "Forensics DefensePro"
+      | Time Definitions.Date | Quick:1M |
+    Then UI "Validate" Forensics With Name "Forensics DefensePro"
+      | Time Definitions.Date | Quick:1M |
+    Then UI Text of "Forensics Time Type" equal to "1M"
+
+  @SID_13
+  Scenario: Edit Time
+    Then UI "Edit" Forensics With Name "Forensics DefensePro"
+      | Time Definitions.Date | Quick:3M |
+    Then UI "Validate" Forensics With Name "Forensics DefensePro"
+      | Time Definitions.Date | Quick:3M |
+    Then UI Text of "Forensics Time Type" equal to "3M"
+
+  @SID_14
+  Scenario: Edit Time
+    Then UI "Edit" Forensics With Name "Forensics DefensePro"
+      | Time Definitions.Date | Quick:1Y |
+    Then UI "Validate" Forensics With Name "Forensics DefensePro"
+      | Time Definitions.Date | Quick:1Y |
+    Then UI Text of "Forensics Time Type" equal to "1Y"
+
+  @SID_15
   Scenario: Edit Output
     Then UI "Edit" Forensics With Name "Forensics DefensePro"
       | Output | Total Mbits Dropped,Direction |
     Then UI "Validate" Forensics With Name "Forensics DefensePro"
       | Output | Total Mbits Dropped,Direction |
 
-  @SID_9
+  @SID_16
   Scenario: Edit Scope
     Then UI "Edit" Forensics With Name "Forensics DefensePro"
       | Product | DefensePro |
@@ -70,7 +127,7 @@ Feature: Edit DefensePro Parameters
       | Product | DefensePro |
       | devices | index:10   |
 
-  @SID_10
+  @SID_17
   Scenario: Edit Scope policy
     Then UI "Edit" Forensics With Name "Forensics DefensePro"
       | Product | DefensePro               |
@@ -79,7 +136,7 @@ Feature: Edit DefensePro Parameters
       | Product | DefensePro                   |
       | devices | index:10,policies:[Policy15] |
 
-  @SID_11
+  @SID_18
   Scenario: Edit Scope port
     Then UI "Edit" Forensics With Name "Forensics DefensePro"
       | Product | DefensePro         |
@@ -89,11 +146,11 @@ Feature: Edit DefensePro Parameters
       | devices | index:10,ports:[1] |
 
 
-#  @SID_12
+#  @SID_19
 #  Scenario: Edit Critiria
 
 
-  @SID_13
+  @SID_20
   Scenario: Edit Name
     Then UI "Edit" Forensics With Name "Forensics DefensePro"
       | New Forensics Name | Forensics DefensePro Updated |
@@ -108,7 +165,7 @@ Feature: Edit DefensePro Parameters
       | Share                 | Email:[automation.vision2@radware.com],Subject:myEdit subject,Body:myEdit body                                   |
     Then UI Delete Forensics With Name "Forensics DefensePro Updated"
 
-  @SID_14
+  @SID_21
   Scenario: Logout
     Then UI logout and close browser
 

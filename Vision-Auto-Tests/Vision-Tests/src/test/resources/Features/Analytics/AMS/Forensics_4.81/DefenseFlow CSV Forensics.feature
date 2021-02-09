@@ -35,22 +35,22 @@ Feature: DefenseFlow CSV Forensics
     Given UI Login with user "sys_admin" and password "radware"
     Then UI Navigate to "New Forensics" page via homepage
 
-#  @SID_5
-#  Scenario: create new Forensics_DefenseFlow and validate
-#    Then UI Click Button "New Forensics Tab"
-#    When UI "Create" Forensics With Name "Forensics_DefenseFlow"
-#      | Product           | DefenseFlow                                                                                                      |
-#      | Protected Objects | All                                                                                                              |
-#      | Output            | ALL                                                                                             |
-#      | Format            | Select: CSV                                                                                                      |
-#      | Share             | FTP:checked, FTP.Location:172.17.164.10, FTP.Path:/home/radware/ftp/, FTP.Username:radware, FTP.Password:radware |
-#    Given UI "Validate" Forensics With Name "Forensics_DefenseFlow"
-#      | Product           | DefenseFlow                                                                                                      |
-#      | Protected Objects | All                                                                                                              |
-#      | Output            | ALL                                                                                          |
-#      | Format            | Select: CSV                                                                                                      |
-#      | Share             | FTP:checked, FTP.Location:172.17.164.10, FTP.Path:/home/radware/ftp/, FTP.Username:radware, FTP.Password:radware |
-#
+  @SID_5
+  Scenario: create new Forensics_DefenseFlow and validate
+    Then UI Click Button "New Forensics Tab"
+    When UI "Create" Forensics With Name "Forensics_DefenseFlow"
+      | Product           | DefenseFlow                                                                                                      |
+      | Protected Objects | All                                                                                                              |
+      | Output            | All                                                                                                              |
+      | Format            | Select: CSV                                                                                                      |
+      | Share             | FTP:checked, FTP.Location:172.17.164.10, FTP.Path:/home/radware/ftp/, FTP.Username:radware, FTP.Password:radware |
+    Given UI "Validate" Forensics With Name "Forensics_DefenseFlow"
+      | Product           | DefenseFlow                                                                                                      |
+      | Protected Objects | All                                                                                                              |
+      | Output            | ALL                                                                                                              |
+      | Format            | Select: CSV                                                                                                      |
+      | Share             | FTP:checked, FTP.Location:172.17.164.10, FTP.Path:/home/radware/ftp/, FTP.Username:radware, FTP.Password:radware |
+
 
   @SID_6
   Scenario: Clear FTP server logs and generate the report
@@ -128,9 +128,9 @@ Feature: DefenseFlow CSV Forensics
     Then CLI Run linux Command "sed -n '1d;p' /home/radware/ftp/Forensics_DefenseFlow_*.csv| awk -F "," '{print $14}' | grep TCP|wc -l" on "GENERIC_LINUX_SERVER" and validate result EQUALS "151"
     Then CLI Run linux Command "sed -n '1d;p' /home/radware/ftp/Forensics_DefenseFlow_*.csv| awk -F "," '{print $14}' | grep UDP|wc -l" on "GENERIC_LINUX_SERVER" and validate result EQUALS "33"
 
-#  @SID_14
-#  Scenario: Delete Forensics
-#    Then UI Delete Forensics With Name "Forensics_DefenseFlow"
+  @SID_14
+  Scenario: Delete Forensics
+    Then UI Delete Forensics With Name "Forensics_DefenseFlow"
 
   @SID_15
   Scenario: Logout
