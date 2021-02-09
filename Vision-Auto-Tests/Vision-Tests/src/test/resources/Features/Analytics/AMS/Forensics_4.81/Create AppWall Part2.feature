@@ -1,5 +1,5 @@
-
-Feature:AppWall Part2
+@TC119585
+Feature:Create AppWall Part2
 
   @SID_1
   Scenario: Navigate to NEW REPORTS page
