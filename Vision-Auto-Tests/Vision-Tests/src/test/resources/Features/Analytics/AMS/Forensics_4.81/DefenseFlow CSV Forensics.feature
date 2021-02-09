@@ -41,13 +41,13 @@ Feature: DefenseFlow CSV Forensics
     When UI "Create" Forensics With Name "Forensics_DefenseFlow"
       | Product           | DefenseFlow                                                                                                      |
       | Protected Objects | All                                                                                                              |
-      | Output            | All                                                                                                              |
+      | Output            | Start Time,End Time,Threat Category,Attack Name,Policy Name,Source IP Address,Destination IP Address,Destination Port,Direction,Protocol,Device IP Address,Action,Attack ID,Source Port,Radware ID,Duration,Total Packets Dropped,Max pps,Total Mbits Dropped,Max bps,Physical Port,Risk,VLAN Tag,Packet Type                                                                                                             |
       | Format            | Select: CSV                                                                                                      |
       | Share             | FTP:checked, FTP.Location:172.17.164.10, FTP.Path:/home/radware/ftp/, FTP.Username:radware, FTP.Password:radware |
     Given UI "Validate" Forensics With Name "Forensics_DefenseFlow"
       | Product           | DefenseFlow                                                                                                      |
       | Protected Objects | All                                                                                                              |
-      | Output            | ALL                                                                                                              |
+      | Output            | Start Time,End Time,Threat Category,Attack Name,Policy Name,Source IP Address,Destination IP Address,Destination Port,Direction,Protocol,Device IP Address,Action,Attack ID,Source Port,Radware ID,Duration,Total Packets Dropped,Max pps,Total Mbits Dropped,Max bps,Physical Port,Risk,VLAN Tag,Packet Type                                                                                                              |
       | Format            | Select: CSV                                                                                                      |
       | Share             | FTP:checked, FTP.Location:172.17.164.10, FTP.Path:/home/radware/ftp/, FTP.Username:radware, FTP.Password:radware |
 
@@ -58,7 +58,7 @@ Feature: DefenseFlow CSV Forensics
 
   @SID_7
   Scenario: Validate delivery card and generate Forensics
-    Then UI Click Button "My Forensics Tab" with value "Forensics_DefenseFlow"
+    Then UI Click Button "My Forensics" with value "Forensics_DefenseFlow"
     Then UI Click Button "Generate Snapshot Forensics Manually" with value "Forensics_DefenseFlow"
     Then Sleep "35"
 
