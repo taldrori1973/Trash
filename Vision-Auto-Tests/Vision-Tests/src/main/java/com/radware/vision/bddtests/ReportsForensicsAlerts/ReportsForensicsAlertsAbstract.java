@@ -188,7 +188,6 @@ abstract public class ReportsForensicsAlertsAbstract implements ReportsForensics
             JSONObject deliveryJsonObject = new JSONObject(map.get("Share"));
             if (deliveryJsonObject.has("Email"))
             {
-                WebUiTools.check("Share Tab Label", "email", true);
                 selectEmail(deliveryJsonObject);
             }
             else if (deliveryJsonObject.has("FTP"))
@@ -201,7 +200,7 @@ abstract public class ReportsForensicsAlertsAbstract implements ReportsForensics
 
     protected abstract void selectFTP(JSONObject deliveryJsonObject) throws Exception;
 
-    private void selectEmail(JSONObject deliveryJsonObject) throws TargetWebElementNotFoundException {
+    protected void selectEmail(JSONObject deliveryJsonObject) throws Exception {
         for (String email : fixEmailsText(deliveryJsonObject))
             BasicOperationsHandler.setTextField("Email", email, true);
         BasicOperationsHandler.setTextField("Subject", deliveryJsonObject.getString("Subject"));
