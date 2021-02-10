@@ -289,7 +289,6 @@ public class Forensics extends ReportsForensicsAlertsAbstract {
     }
 
 
-
     private void editCriteria(Map<String, String> map) throws Exception {
         if (map.containsKey("Criteria")) {
         }
@@ -305,5 +304,11 @@ public class Forensics extends ReportsForensicsAlertsAbstract {
         if (map.containsKey("devices"))
             selectScopeSelection(map);
     }
-    
+
+    @Override
+    protected void selectEmail(JSONObject deliveryJsonObject) throws Exception {
+        WebUiTools.check("Share Tab Label", "email", true);
+        super.selectEmail(deliveryJsonObject);
+    }
+
 }
