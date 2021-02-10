@@ -40,7 +40,7 @@ public class RemoteSshCommandsTests extends BddCliTestBase {
         }
     }
 
-    @When("^CLI Run remote linux Command \"(.*)\" on \"(.*)\" and wait (\\d+) seconds$")
+    @When("^CLI Run remote linux Command \"(.*)\" on \"(.*)\" and halt (\\d+) seconds$")
     public void runRemoteCommand(String commandToExecute, SUTEntryType sutEntryType, int waitTimeout) {
         try {
             RemoteProcessExecutor remoteProcessExecutor = new RemoteProcessExecutor("", "");

@@ -3,7 +3,7 @@ Feature: HTTPS Flood
 
   @SID_8
   Scenario: srevices restart
-    Given CLI Run remote linux Command "service vision restart" on "ROOT_SERVER_CLI" and wait 185 seconds
+    Given CLI Run remote linux Command "service vision restart" on "ROOT_SERVER_CLI" and halt 185 seconds
 
   @SID_1
   Scenario: Navigate to NEW REPORTS page
