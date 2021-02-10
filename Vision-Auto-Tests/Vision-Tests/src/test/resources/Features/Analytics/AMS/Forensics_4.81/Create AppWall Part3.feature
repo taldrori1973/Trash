@@ -4,7 +4,7 @@ Feature:Create AppWall Part3
   @SID_1
   Scenario: Navigate to NEW REPORTS page
     Then UI Login with user "radware" and password "radware"
-    Then UI Navigate to "AMS Forensics" page via homepage
+    Then UI Navigate to "New Forensics" page via homePage
 
   @SID_2
   Scenario: create new Threat Category1 Equal
@@ -16,7 +16,7 @@ Feature:Create AppWall Part3
       | Time Definitions.Date | Quick:3M                                                                                                                                             |
       | Schedule              | Run Every:Monthly, On Time:+6H, At Months:[DEC]                                                                                                      |
       | Share                 | FTP:checked, FTP.Location:172.17.164.10, FTP.Path:/home/radware/ftp/, FTP.Username:radware, FTP.Password:radware                                     |
-      | Format                | Select: CSV with Attack Detail                                                                                                                       |
+      | Format                | Select: CSV With Attack Details                                                                                                                       |
 
   @SID_3
   Scenario: create new Threat Category2 Equal

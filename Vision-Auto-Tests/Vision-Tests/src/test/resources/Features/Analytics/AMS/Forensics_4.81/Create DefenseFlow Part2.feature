@@ -4,7 +4,7 @@ Feature:Create DefenseFlow Part2
   @SID_1
   Scenario: Navigate to NEW REPORTS page
     Then UI Login with user "radware" and password "radware"
-    Then UI Navigate to "AMS Forensics" page via homepage
+    Then UI Navigate to "New Forensics" page via homePage
 
   @SID_2
   Scenario: create new Output Total Mbits Dropped Action Not Equals
@@ -38,7 +38,7 @@ Feature:Create DefenseFlow Part2
       | Time Definitions.Date | Quick:This Month                                                                                                                               |
       | Schedule              | Run Every:Once, On Time:+6H                                                                                                                    |
       | Share                 | FTP:checked, FTP.Location:172.17.164.10, FTP.Path:/home/radware/ftp/, FTP.Username:radware, FTP.Password:radware                               |
-      | Format                | Select: CSV with Attack Detail                                                                                                                 |
+      | Format                | Select: CSV With Attack Details                                                                                                                 |
 
   @SID_5
   Scenario: create new Output Risk Action Not Equals
@@ -83,7 +83,7 @@ Feature:Create DefenseFlow Part2
       | devices               | All                                                                                                                                             |
       | Schedule              | Run Every:Monthly, On Time:+6H, At Months:[AUG]                                                                                                 |
       | Share                 | FTP:checked, FTP.Location:172.17.164.10, FTP.Path:/home/radware/ftp/, FTP.Username:radware, FTP.Password:radware                                |
-      | Format                | Select: CSV with Attack Detail                                                                                                                  |
+      | Format                | Select: CSV With Attack Details                                                                                                                  |
 
   @SID_9
   Scenario: create new Output Source IP Address,Source Port,Destination IP Address,Radware ID,Duration,Total Packets Dropped,Max pps Attack Name Not Equals
@@ -131,7 +131,7 @@ Feature:Create DefenseFlow Part2
       | Time Definitions.Date | Quick:3M                                                                                                         |
       | Schedule              | Run Every:Monthly, On Time:+6H, At Months:[DEC]                                                                  |
       | Share                 | FTP:checked, FTP.Location:172.17.164.10, FTP.Path:/home/radware/ftp/, FTP.Username:radware, FTP.Password:radware |
-      | Format                | Select: CSV with Attack Detail                                                                                   |
+      | Format                | Select: CSV With Attack Details                                                                                   |
 
   @SID_13
   Scenario: create new Output All Attack Rate in bps Greater than
@@ -175,7 +175,7 @@ Feature:Create DefenseFlow Part2
       | Time Definitions.Date | Absolute:[27.02.1971 01:00, +0d]                                                                                 |
       | Schedule              | Run Every:Monthly, On Time:+6H, At Months:[OCT]                                                                  |
       | Share                 | FTP:checked, FTP.Location:172.17.164.10, FTP.Path:/home/radware/ftp/, FTP.Username:radware, FTP.Password:radware |
-      | Format                | Select: CSV with Attack Detail                                                                                   |
+      | Format                | Select: CSV With Attack Details                                                                                   |
 
   @SID_17
   Scenario: create new Output Threat Category Attack Rate in pps Greater than
@@ -222,7 +222,7 @@ Feature:Create DefenseFlow Part2
       | Time Definitions.Date | Absolute:[27.02.1971 01:00, +0d]                                                                                 |
       | Schedule              | Run Every:once, On Time:+6H                                                                                      |
       | Share                 | FTP:checked, FTP.Location:172.17.164.10, FTP.Path:/home/radware/ftp/, FTP.Username:radware, FTP.Password:radware |
-      | Format                | Select: CSV with Attack Detail                                                                                   |
+      | Format                | Select: CSV With Attack Details                                                                                   |
 
   @SID_21
   Scenario: create new Output Attack ID Destination IP Not Equal
@@ -267,7 +267,7 @@ Feature:Create DefenseFlow Part2
       | Time Definitions.Date | Relative:[Weeks,2]                                                                                               |
       | Schedule              | Run Every:Weekly, On Time:+6H, At Days:[THU]                                                                     |
       | Share                 | FTP:checked, FTP.Location:172.17.164.10, FTP.Path:/home/radware/ftp/, FTP.Username:radware, FTP.Password:radware |
-      | Format                | Select: CSV with Attack Detail                                                                                   |
+      | Format                | Select: CSV With Attack Details                                                                                   |
 
   @SID_25
   Scenario: create new Output Destination IP Address Destination Port Not Equal
@@ -313,7 +313,7 @@ Feature:Create DefenseFlow Part2
       | Time Definitions.Date | Absolute:[27.02.1971 01:00, +0d]                                                                                 |
       | Schedule              | Run Every:Monthly, On Time:+6H, At Months:[APR]                                                                  |
       | Share                 | FTP:checked, FTP.Location:172.17.164.10, FTP.Path:/home/radware/ftp/, FTP.Username:radware, FTP.Password:radware |
-      | Format                | Select: CSV with Attack Detail                                                                                   |
+      | Format                | Select: CSV With Attack Details                                                                                   |
 
   @SID_29
   Scenario: create new Output Radware ID Direction Equal
@@ -358,7 +358,7 @@ Feature:Create DefenseFlow Part2
       | Time Definitions.Date | Quick:This Month                                                                                                 |
       | Schedule              | Run Every:Once, On Time:+6H                                                                                      |
       | Share                 | FTP:checked, FTP.Location:172.17.164.10, FTP.Path:/home/radware/ftp/, FTP.Username:radware, FTP.Password:radware |
-      | Format                | Select: CSV with Attack Detail                                                                                   |
+      | Format                | Select: CSV With Attack Details                                                                                   |
 
   @SID_33
   Scenario: create new Output Total Mbits Dropped Direction Not Equal
@@ -403,7 +403,7 @@ Feature:Create DefenseFlow Part2
       | devices               | All                                                                                                              |
       | Schedule              | Run Every:Monthly, On Time:+6H, At Months:[AUG]                                                                  |
       | Share                 | FTP:checked, FTP.Location:172.17.164.10, FTP.Path:/home/radware/ftp/, FTP.Username:radware, FTP.Password:radware |
-      | Format                | Select: CSV with Attack Detail                                                                                   |
+      | Format                | Select: CSV With Attack Details                                                                                   |
 
   @SID_37
   Scenario: create new Output VLAN Tag Duration Equal
@@ -451,7 +451,7 @@ Feature:Create DefenseFlow Part2
       | Time Definitions.Date | Quick:3M                                                                                                         |
       | Schedule              | Run Every:Monthly, On Time:+6H, At Months:[DEC]                                                                  |
       | Share                 | FTP:checked, FTP.Location:172.17.164.10, FTP.Path:/home/radware/ftp/, FTP.Username:radware, FTP.Password:radware |
-      | Format                | Select: CSV with Attack Detail                                                                                   |
+      | Format                | Select: CSV With Attack Details                                                                                   |
 
   @SID_41
   Scenario: create new Output Start Time,End Time,Device IP Address,Threat Category,Attack Name,Action Duration Equal
@@ -495,7 +495,7 @@ Feature:Create DefenseFlow Part2
       | devices               | All                                                                                                                                                                                                                                                                                                |
       | Schedule              | Run Every:Monthly, On Time:+6H, At Months:[AUG]                                                                                                                                                                                                                                                    |
       | Share                 | FTP:checked, FTP.Location:172.17.164.10, FTP.Path:/home/radware/ftp/, FTP.Username:radware, FTP.Password:radware                                                                                                                                                                                   |
-      | Format                | Select: CSV with Attack Detail                                                                                                                                                                                                                                                                     |
+      | Format                | Select: CSV With Attack Details                                                                                                                                                                                                                                                                     |
 
   @SID_45
   Scenario: create new Output Start Time Duration Not Equal
@@ -540,7 +540,7 @@ Feature:Create DefenseFlow Part2
       | devices               | All                                                                                                              |
       | Schedule              | Run Every:Monthly, On Time:+6H, At Months:[AUG]                                                                  |
       | Share                 | FTP:checked, FTP.Location:172.17.164.10, FTP.Path:/home/radware/ftp/, FTP.Username:radware, FTP.Password:radware |
-      | Format                | Select: CSV with Attack Detail                                                                                   |
+      | Format                | Select: CSV With Attack Details                                                                                   |
 
   @SID_49
   Scenario: create new Output Attack Name1 Max bps Greater than

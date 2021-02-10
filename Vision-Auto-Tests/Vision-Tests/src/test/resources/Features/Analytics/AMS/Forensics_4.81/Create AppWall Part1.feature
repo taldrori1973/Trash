@@ -4,7 +4,7 @@ Feature:Create AppWall Part1
   @SID_1
   Scenario: Navigate to NEW REPORTS page
     Then UI Login with user "radware" and password "radware"
-    Then UI Navigate to "AMS Forensics" page via homepage
+    Then UI Navigate to "New Forensics" page via homePage
 
   @SID_2
   Scenario: create new Output Date and Time
@@ -49,7 +49,7 @@ Feature:Create AppWall Part1
       | Time Definitions.Date | Relative:[Weeks,2]                                                                                               |
       | Schedule              | Run Every:Weekly, On Time:+6H, At Days:[THU]                                                                     |
       | Share                 | FTP:checked, FTP.Location:172.17.164.10, FTP.Path:/home/radware/ftp/, FTP.Username:radware, FTP.Password:radware |
-      | Format                | Select: CSV with Attack Detail                                                                                   |
+      | Format                | Select: CSV With Attack Details                                                                                   |
 
   @SID_6
   Scenario: create new Output Source Port
@@ -95,7 +95,7 @@ Feature:Create AppWall Part1
       | Time Definitions.Date | Absolute:[27.02.1971 01:00, +0d]                                                                                 |
       | Schedule              | Run Every:Monthly, On Time:+6H, At Months:[APR]                                                                  |
       | Share                 | FTP:checked, FTP.Location:172.17.164.10, FTP.Path:/home/radware/ftp/, FTP.Username:radware, FTP.Password:radware |
-      | Format                | Select: CSV with Attack Detail                                                                                   |
+      | Format                | Select: CSV With Attack Details                                                                                   |
 
   @SID_10
   Scenario: create new Output Action
@@ -140,7 +140,7 @@ Feature:Create AppWall Part1
       | Time Definitions.Date | Quick:This Month                                                                                                 |
       | Schedule              | Run Every:Once, On Time:+6H                                                                                      |
       | Share                 | FTP:checked, FTP.Location:172.17.164.10, FTP.Path:/home/radware/ftp/, FTP.Username:radware, FTP.Password:radware |
-      | Format                | Select: CSV with Attack Detail                                                                                   |
+      | Format                | Select: CSV With Attack Details                                                                                   |
 
   @SID_14
   Scenario: create new Output Module
@@ -185,7 +185,7 @@ Feature:Create AppWall Part1
       | devices               | index:10                                                                                                         |
       | Schedule              | Run Every:Monthly, On Time:+6H, At Months:[AUG]                                                                  |
       | Share                 | FTP:checked, FTP.Location:172.17.164.10, FTP.Path:/home/radware/ftp/, FTP.Username:radware, FTP.Password:radware |
-      | Format                | Select: CSV with Attack Detail                                                                                   |
+      | Format                | Select: CSV With Attack Details                                                                                   |
 
   @SID_18
   Scenario: create new Output Tunnel
@@ -233,7 +233,7 @@ Feature:Create AppWall Part1
       | Time Definitions.Date | Quick:3M                                                                                                                                                                                                                         |
       | Schedule              | Run Every:Monthly, On Time:+6H, At Months:[DEC]                                                                                                                                                                                  |
       | Share                 | FTP:checked, FTP.Location:172.17.164.10, FTP.Path:/home/radware/ftp/, FTP.Username:radware, FTP.Password:radware                                                                                                                 |
-      | Format                | Select: CSV with Attack Detail                                                                                                                                                                                                   |
+      | Format                | Select: CSV With Attack Details                                                                                                                                                                                                   |
 
   @SID_22
   Scenario: create new Output all3
@@ -276,7 +276,7 @@ Feature:Create AppWall Part1
       | devices               | index:10                                                                                                                                                                                                                         |
       | Schedule              | Run Every:Monthly, On Time:+6H, At Months:[AUG]                                                                                                                                                                                  |
       | Share                 | FTP:checked, FTP.Location:172.17.164.10, FTP.Path:/home/radware/ftp/, FTP.Username:radware, FTP.Password:radware                                                                                                                 |
-      | Format                | Select: CSV with Attack Detail                                                                                                                                                                                                   |
+      | Format                | Select: CSV With Attack Details                                                                                                                                                                                                   |
 
   @SID_26
   Scenario: create new Output all7
@@ -322,7 +322,7 @@ Feature:Create AppWall Part1
       | devices               | index:10                                                                                                         |
       | Schedule              | Run Every:Monthly, On Time:+6H, At Months:[AUG]                                                                  |
       | Share                 | FTP:checked, FTP.Location:172.17.164.10, FTP.Path:/home/radware/ftp/, FTP.Username:radware, FTP.Password:radware |
-      | Format                | Select: CSV with Attack Detail                                                                                   |
+      | Format                | Select: CSV With Attack Details                                                                                   |
 
   @SID_30
   Scenario: create new Output Date and Time,Destination IP Address
@@ -369,7 +369,7 @@ Feature:Create AppWall Part1
       | Time Definitions.Date | Quick:This Month                                                                                                              |
       | Schedule              | Run Every:Once, On Time:+6H                                                                                                   |
       | Share                 | FTP:checked, FTP.Location:172.17.164.10, FTP.Path:/home/radware/ftp/, FTP.Username:radware, FTP.Password:radware              |
-      | Format                | Select: CSV with Attack Detail                                                                                                |
+      | Format                | Select: CSV With Attack Details                                                                                                |
 
   @SID_34
   Scenario: create new Output Date and Time,Device IP,Source IP,Destination IP Address,Action,Threat Category
@@ -417,7 +417,7 @@ Feature:Create AppWall Part1
       | Time Definitions.Date | Quick:3M                                                                                                         |
       | Schedule              | Run Every:Monthly, On Time:+6H, At Months:[DEC]                                                                  |
       | Share                 | FTP:checked, FTP.Location:172.17.164.10, FTP.Path:/home/radware/ftp/, FTP.Username:radware, FTP.Password:radware |
-      | Format                | Select: CSV with Attack Detail                                                                                   |
+      | Format                | Select: CSV With Attack Details                                                                                   |
 
   @SID_38
   Scenario: create new Output Source IP,Directory
@@ -460,7 +460,7 @@ Feature:Create AppWall Part1
       | devices               | All                                                                                                                                                                        |
       | Schedule              | Run Every:Monthly, On Time:+6H, At Months:[AUG]                                                                                                                            |
       | Share                 | FTP:checked, FTP.Location:172.17.164.10, FTP.Path:/home/radware/ftp/, FTP.Username:radware, FTP.Password:radware                                                           |
-      | Format                | Select: CSV with Attack Detail                                                                                                                                             |
+      | Format                | Select: CSV With Attack Details                                                                                                                                             |
 
   @SID_42
   Scenario: create new Output Date and Time,Device IP,Source IP,Transaction ID,Tunnel Equal Action
@@ -505,7 +505,7 @@ Feature:Create AppWall Part1
       | devices               | All                                                                                                                                                                                                                                          |
       | Schedule              | Run Every:Monthly, On Time:+6H, At Months:[AUG]                                                                                                                                                                                              |
       | Share                 | FTP:checked, FTP.Location:172.17.164.10, FTP.Path:/home/radware/ftp/, FTP.Username:radware, FTP.Password:radware                                                                                                                             |
-      | Format                | Select: CSV with Attack Detail                                                                                                                                                                                                               |
+      | Format                | Select: CSV With Attack Details                                                                                                                                                                                                               |
 
   @SID_46
   Scenario: create new Output all1 Equal Attack Name
@@ -552,7 +552,7 @@ Feature:Create AppWall Part1
       | Time Definitions.Date | Quick:This Month                                                                                                                                                                                                                             |
       | Schedule              | Run Every:Once, On Time:+6H                                                                                                                                                                                                                  |
       | Share                 | FTP:checked, FTP.Location:172.17.164.10, FTP.Path:/home/radware/ftp/, FTP.Username:radware, FTP.Password:radware                                                                                                                             |
-      | Format                | Select: CSV with Attack Detail                                                                                                                                                                                                               |
+      | Format                | Select: CSV With Attack Details                                                                                                                                                                                                               |
 
   @SID_50
   Scenario: create new Output all3 Not Equal Cluster IP

@@ -4,7 +4,7 @@ Feature:Create AppWall Part2
   @SID_1
   Scenario: Navigate to NEW REPORTS page
     Then UI Login with user "radware" and password "radware"
-    Then UI Navigate to "AMS Forensics" page via homepage
+    Then UI Navigate to "New Forensics" page via homePage
 
   @SID_2
   Scenario: create new Output all1 Equal Destination IP
@@ -15,7 +15,7 @@ Feature:Create AppWall Part2
       | devices               | All                                                                                                                                                                                                                                          |
       | Schedule              | Run Every:Monthly, On Time:+6H, At Months:[AUG]                                                                                                                                                                                              |
       | Share                 | FTP:checked, FTP.Location:172.17.164.10, FTP.Path:/home/radware/ftp/, FTP.Username:radware, FTP.Password:radware                                                                                                                             |
-      | Format                | Select: CSV with Attack Detail                                                                                                                                                                                                               |
+      | Format                | Select: CSV With Attack Details                                                                                                                                                                                                               |
 
   @SID_3
   Scenario: create new Output all2 Not Equal Destination IP
@@ -60,7 +60,7 @@ Feature:Create AppWall Part2
       | devices               | All                                                                                                                                                                                                                                          |
       | Schedule              | Run Every:Monthly, On Time:+6H, At Months:[AUG]                                                                                                                                                                                              |
       | Share                 | FTP:checked, FTP.Location:172.17.164.10, FTP.Path:/home/radware/ftp/, FTP.Username:radware, FTP.Password:radware                                                                                                                             |
-      | Format                | Select: CSV with Attack Detail                                                                                                                                                                                                               |
+      | Format                | Select: CSV With Attack Details                                                                                                                                                                                                               |
 
   @SID_7
   Scenario: create new Output all Equal Device Host Name
@@ -107,7 +107,7 @@ Feature:Create AppWall Part2
       | Time Definitions.Date | Quick:This Month                                                                                                                                                                                                                             |
       | Schedule              | Run Every:Once, On Time:+6H                                                                                                                                                                                                                  |
       | Share                 | FTP:checked, FTP.Location:172.17.164.10, FTP.Path:/home/radware/ftp/, FTP.Username:radware, FTP.Password:radware                                                                                                                             |
-      | Format                | Select: CSV with Attack Detail                                                                                                                                                                                                               |
+      | Format                | Select: CSV With Attack Details                                                                                                                                                                                                               |
 
   @SID_11
   Scenario: create new Output all3 Not Equal Device IP
@@ -152,7 +152,7 @@ Feature:Create AppWall Part2
       | devices               | All                                                                                                              |
       | Schedule              | Run Every:Monthly, On Time:+6H, At Months:[AUG]                                                                  |
       | Share                 | FTP:checked, FTP.Location:172.17.164.10, FTP.Path:/home/radware/ftp/, FTP.Username:radware, FTP.Password:radware |
-      | Format                | Select: CSV with Attack Detail                                                                                   |
+      | Format                | Select: CSV With Attack Details                                                                                   |
 
   @SID_15
   Scenario: create new Directory Not Equal
@@ -200,7 +200,7 @@ Feature:Create AppWall Part2
       | Time Definitions.Date | Quick:3M                                                                                                                      |
       | Schedule              | Run Every:Monthly, On Time:+6H, At Months:[DEC]                                                                               |
       | Share                 | FTP:checked, FTP.Location:172.17.164.10, FTP.Path:/home/radware/ftp/, FTP.Username:radware, FTP.Password:radware              |
-      | Format                | Select: CSV with Attack Detail                                                                                                |
+      | Format                | Select: CSV With Attack Details                                                                                                |
 
   @SID_19
   Scenario: create new Transaction ID Not Equal
@@ -244,7 +244,7 @@ Feature:Create AppWall Part2
       | Time Definitions.Date | Absolute:[27.02.1971 01:00, +0d]                                                                                 |
       | Schedule              | Run Every:Monthly, On Time:+6H, At Months:[OCT]                                                                  |
       | Share                 | FTP:checked, FTP.Location:172.17.164.10, FTP.Path:/home/radware/ftp/, FTP.Username:radware, FTP.Password:radware |
-      | Format                | Select: CSV with Attack Detail                                                                                   |
+      | Format                | Select: CSV With Attack Details                                                                                   |
 
   @SID_23
   Scenario: create new Severity4 Not Equal
@@ -291,7 +291,7 @@ Feature:Create AppWall Part2
       | Time Definitions.Date | Absolute:[27.02.1971 01:00, +0d]                                                                                                                                           |
       | Schedule              | Run Every:once, On Time:+6H                                                                                                                                                |
       | Share                 | FTP:checked, FTP.Location:172.17.164.10, FTP.Path:/home/radware/ftp/, FTP.Username:radware, FTP.Password:radware                                                           |
-      | Format                | Select: CSV with Attack Detail                                                                                                                                             |
+      | Format                | Select: CSV With Attack Details                                                                                                                                             |
 
   @SID_27
   Scenario: create new Severity8 Not Equal
@@ -336,7 +336,7 @@ Feature:Create AppWall Part2
       | Time Definitions.Date | Relative:[Weeks,2]                                                                                               |
       | Schedule              | Run Every:Weekly, On Time:+6H, At Days:[THU]                                                                     |
       | Share                 | FTP:checked, FTP.Location:172.17.164.10, FTP.Path:/home/radware/ftp/, FTP.Username:radware, FTP.Password:radware |
-      | Format                | Select: CSV with Attack Detail                                                                                   |
+      | Format                | Select: CSV With Attack Details                                                                                   |
 
   @SID_31
   Scenario: create new Severity12 Equal
@@ -382,7 +382,7 @@ Feature:Create AppWall Part2
       | Time Definitions.Date | Absolute:[27.02.1971 01:00, +0d]                                                                                 |
       | Schedule              | Run Every:Monthly, On Time:+6H, At Months:[APR]                                                                  |
       | Share                 | FTP:checked, FTP.Location:172.17.164.10, FTP.Path:/home/radware/ftp/, FTP.Username:radware, FTP.Password:radware |
-      | Format                | Select: CSV with Attack Detail                                                                                   |
+      | Format                | Select: CSV With Attack Details                                                                                   |
 
   @SID_35
   Scenario: create new Severity16 Equal
@@ -427,7 +427,7 @@ Feature:Create AppWall Part2
       | Time Definitions.Date | Quick:This Month                                                                                                 |
       | Schedule              | Run Every:Once, On Time:+6H                                                                                      |
       | Share                 | FTP:checked, FTP.Location:172.17.164.10, FTP.Path:/home/radware/ftp/, FTP.Username:radware, FTP.Password:radware |
-      | Format                | Select: CSV with Attack Detail                                                                                   |
+      | Format                | Select: CSV With Attack Details                                                                                   |
 
   @SID_39
   Scenario: create new Source IP3 Not Equal
@@ -472,7 +472,7 @@ Feature:Create AppWall Part2
       | devices               | All                                                                                                              |
       | Schedule              | Run Every:Monthly, On Time:+6H, At Months:[AUG]                                                                  |
       | Share                 | FTP:checked, FTP.Location:172.17.164.10, FTP.Path:/home/radware/ftp/, FTP.Username:radware, FTP.Password:radware |
-      | Format                | Select: CSV with Attack Detail                                                                                   |
+      | Format                | Select: CSV With Attack Details                                                                                   |
 
   @SID_43
   Scenario: create new Source Port2 Not Equal

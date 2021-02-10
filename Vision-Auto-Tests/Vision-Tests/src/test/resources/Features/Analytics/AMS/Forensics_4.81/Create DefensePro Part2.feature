@@ -4,7 +4,7 @@ Feature:Create DefensePro Part2
   @SID_1
   Scenario: Navigate to NEW REPORTS page
     Then UI Login with user "radware" and password "radware"
-    Then UI Navigate to "AMS Forensics" page via homepage
+    Then UI Navigate to "New Forensics" page via homePage
 
   @SID_2
   Scenario: create new Output Total Mbits Dropped Action Not Equals
@@ -27,7 +27,7 @@ Feature:Create DefensePro Part2
       | Time Definitions.Date | Absolute:[27.02.1971 01:00, +0d]                                                                                 |
       | Schedule              | Run Every:Weekly, On Time:+6H, At Days:[SUN]                                                                     |
       | Share                 | FTP:checked, FTP.Location:172.17.164.10, FTP.Path:/home/radware/ftp/, FTP.Username:radware, FTP.Password:radware |
-      | Format                | Select: CSV with Attack Detail                                                                                   |
+      | Format                | Select: CSV With Attack Details                                                                                   |
 
   @SID_4
   Scenario: create new Output Physical Port Action Not Equals
