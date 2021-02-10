@@ -158,8 +158,8 @@ public class RemoteSshCommandsTests extends BddCliTestBase {
     @When("^CLI Run remote linux Command \"(.*)\" on \"(.*)\"(?: with timeOut (\\d+))?$")
     public void runCLICommand(String commandToExecute, SUTEntryType sutEntryType, Integer timeOut) {
         try {
-            timeOut = timeOut != null ? timeOut : 40;
-            CliOperations.runCommand(getSUTEntryTypeByServerCliBase(sutEntryType), commandToExecute, timeOut * 1000);
+            timeOut = timeOut != null ? (timeOut * 1000) : CliOperations.DEFAULT_TIME_OUT;
+            CliOperations.runCommand(getSUTEntryTypeByServerCliBase(sutEntryType), commandToExecute, timeOut);
         } catch (Exception e) {
             BaseTestUtils.report("Failed to execute command: " + commandToExecute + ", on " + sutEntryType + "\n" + parseExceptionBody(e), Reporter.FAIL);
         }
