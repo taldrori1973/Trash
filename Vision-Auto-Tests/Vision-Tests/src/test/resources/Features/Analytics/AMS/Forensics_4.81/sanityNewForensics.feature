@@ -2,7 +2,7 @@
 
 
 Feature: Basic tests for Forensics parameters
-
+@run
   @SID_1
   Scenario: Navigate to NEW ForensicsS page
     Then UI Login with user "radware" and password "radware"
@@ -13,6 +13,7 @@ Feature: Basic tests for Forensics parameters
   Scenario: Validate Forensics Parameters Name
     Then UI Text of "Name Tab" equal to "Name*"
     Then UI Text of "Time Tab" equal to "Time*"
+    Then UI Text of "Criteria Tab" equal to "Criteria"
     Then UI Text of "Schedule Tab" equal to "Schedule"
     Then UI Text of "Share Tab" equal to "Share"
     Then UI Text of "Format Tab" equal to "Format*"
@@ -764,6 +765,103 @@ Feature: Basic tests for Forensics parameters
     Then UI Validate the attribute "aria-selected" Of Label "Output Value" With Params "Tunnel" is "EQUALS" to "true"
     Then UI Validate the attribute "aria-selected" Of Label "Output Value" With Params "User Name" is "EQUALS" to "true"
     Then UI Click Button "outputExpandOrCollapse"
+
+                 ########################## Criteria Tests #########################################################
+ @run
+  @SID_50
+  Scenario: Validate Criteria Action Attribute
+    Then UI Click Button "Criteria Tab"
+    Then UI Validate Element Existence By Label "Add Condition" if Exists "true" with value "disabled"
+    Then UI Validate Element Existence By Label "Add Condition" if Exists "false" with value "enabled"
+    Then UI Click Button "Criteria Attribute Expand"
+    Then UI Click Button "Criteria Attribute Selected" with value "Action"
+    Then UI Click Button "Criteria Attribute Selected" with value "≠"
+    Then UI Validate Element Existence By Label "Add Condition" if Exists "true" with value "enabled"
+    Then UI Validate Element Existence By Label "Add Condition" if Exists "false" with value "disabled"
+    Then UI Click Button "Add Condition" with value "enabled"
+    Then validate webUI CSS value "border-bottom-color" of label "Criteria Value Label" equals "rgb(244, 20, 20)"
+    Then UI Click Button "Criteria Value Expand"
+    Then UI Validate Element Existence By Label "Criteria Value Selected" if Exists "false" with value "test"
+    Then validate webUI CSS value "border-bottom-color" of label "Criteria Value Label" equals "rgb(244, 20, 20)"
+
+   @run
+  @SID_51
+  Scenario: Validate Criteria Attack ID Attribute
+    Then UI Click Button "Criteria Tab"
+    Then UI Click Button "Criteria Attribute Expand"
+    Then UI Click Button "Criteria Attribute Selected" with value "Attack ID"
+    Then UI Click Button "Criteria Attribute Selected" with value "≠"
+    Then UI Validate Element Existence By Label "Add Condition" if Exists "true" with value "enabled"
+    Then UI Validate Element Existence By Label "Add Condition" if Exists "false" with value "disabled"
+    Then UI Click Button "Add Condition" with value "enabled"
+    Then validate webUI CSS value "border-bottom-color" of label "Criteria Value Label" equals "rgb(244, 20, 20)"
+     Then Sleep "1"
+    Then UI Set Text Field "Criteria Value Input" To " "
+    Then validate webUI CSS value "border-bottom-color" of label "Criteria Value Label" equals "rgb(244, 20, 20)"
+    Then UI Set Text Field "Criteria Value Input" To ","
+    Then validate webUI CSS value "border-bottom-color" of label "Criteria Value Label" equals "rgb(244, 20, 20)"
+    Then UI Set Text Field "Criteria Value Input" To "test"
+    Then validate webUI CSS value "border-bottom-color" of label "Criteria Value Label" equals "rgb(244, 20, 20)"
+    Then UI Set Text Field "Criteria Value Input" To "1W"
+    Then validate webUI CSS value "border-bottom-color" of label "Criteria Value Label" equals "rgb(244, 20, 20)"
+    Then UI Set Text Field "Criteria Value Input" To "1,"
+    Then validate webUI CSS value "border-bottom-color" of label "Criteria Value Label" equals "rgb(244, 20, 20)"
+    Then UI Set Text Field "Criteria Value Input" To "1.1"
+    Then validate webUI CSS value "border-bottom-color" of label "Criteria Value Label" equals "rgb(244, 20, 20)"
+
+#  @run
+#  @SID_52
+#  Scenario: Validate Criteria Attack Name Attribute
+#    Then UI Click Button "Criteria Tab"
+#    Then UI Click Button "Criteria Attribute Expand"
+#    Then UI Click Button "Criteria Attribute Selected" with value "Attack Name"
+#    Then UI Click Button "Criteria Attribute Selected" with value "≠"
+#    Then UI Validate Element Existence By Label "Add Condition" if Exists "true" with value "enabled"
+#    Then UI Validate Element Existence By Label "Add Condition" if Exists "false" with value "disabled"
+#    Then UI Click Button "Add Condition" with value "enabled"
+#    Then validate webUI CSS value "border-bottom-color" of label "Criteria Value Label" equals "rgb(244, 20, 20)"
+#    Then UI Set Text Field "Criteria Value Input" To " "
+#    Then validate webUI CSS value "border-bottom-color" of label "Criteria Value Label" equals "rgb(244, 20, 20)"
+#    Then UI Set Text Field "Criteria Value Input" To ","
+#    Then validate webUI CSS value "border-bottom-color" of label "Criteria Value Label" equals "rgb(244, 20, 20)"
+#    Then UI Set Text Field "Criteria Value Input" To "test"
+#    Then validate webUI CSS value "border-bottom-color" of label "Criteria Value Label" equals "rgb(244, 20, 20)"
+#    Then UI Set Text Field "Criteria Value Input" To "1W"
+#    Then validate webUI CSS value "border-bottom-color" of label "Criteria Value Label" equals "rgb(244, 20, 20)"
+#    Then UI Set Text Field "Criteria Value Input" To "1,"
+#    Then validate webUI CSS value "border-bottom-color" of label "Criteria Value Label" equals "rgb(244, 20, 20)"
+#    Then UI Set Text Field "Criteria Value Input" To "1.1"
+#    Then validate webUI CSS value "border-bottom-color" of label "Criteria Value Label" equals "rgb(244, 20, 20)"
+
+  @run
+  @SID_53
+  Scenario: Validate Criteria Attack Rate in bps Attribute
+    Then UI Click Button "Criteria Tab"
+    Then UI Click Button "Criteria Attribute Expand"
+    Then UI Click Button "Criteria Attribute Selected" with value "Attack Rate in bps"
+    Then UI Click Button "Criteria Attribute Selected" with value "≠"
+    Then UI Validate Element Existence By Label "Add Condition" if Exists "true" with value "enabled"
+    Then UI Validate Element Existence By Label "Add Condition" if Exists "false" with value "disabled"
+    Then UI Click Button "Add Condition" with value "enabled"
+    Then validate webUI CSS value "border-bottom-color" of label "Criteria Value Label" equals "rgb(244, 20, 20)"
+    Then UI Set Text Field "Criteria Value Input" To " "
+    Then validate webUI CSS value "border-bottom-color" of label "Criteria Value Label" equals "rgb(244, 20, 20)"
+    Then UI Set Text Field "Criteria Value Input" To ","
+    Then validate webUI CSS value "border-bottom-color" of label "Criteria Value Label" equals "rgb(244, 20, 20)"
+    Then UI Set Text Field "Criteria Value Input" To "test"
+    Then validate webUI CSS value "border-bottom-color" of label "Criteria Value Label" equals "rgb(244, 20, 20)"
+    Then UI Set Text Field "Criteria Value Input" To "1W"
+    Then validate webUI CSS value "border-bottom-color" of label "Criteria Value Label" equals "rgb(244, 20, 20)"
+    Then UI Set Text Field "Criteria Value Input" To "1,"
+    Then validate webUI CSS value "border-bottom-color" of label "Criteria Value Label" equals "rgb(244, 20, 20)"
+    Then UI Set Text Field "Criteria Value Input" To "1.1"
+    Then validate webUI CSS value "border-bottom-color" of label "Criteria Value Label" equals "rgb(244, 20, 20)"
+
+
+
+
+
+
 
 
   @SID_50
