@@ -1,10 +1,14 @@
 package com.radware.vision.bddtests.ReportsForensicsAlerts;
 
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.radware.automation.tools.basetest.BaseTestUtils;
 import com.radware.automation.tools.basetest.Reporter;
 import com.radware.automation.webui.WebUIUtils;
+import com.radware.automation.webui.widgets.ComponentLocator;
 import com.radware.automation.webui.widgets.ComponentLocatorFactory;
 import com.radware.vision.automation.tools.exceptions.selenium.TargetWebElementNotFoundException;
+import com.radware.vision.automation.tools.sutsystemobjects.devicesinfo.enums.SUTDeviceType;
 import com.radware.vision.bddtests.ReportsForensicsAlerts.Handlers.TemplateHandlers;
 import com.radware.vision.infra.testhandlers.baseoperations.BasicOperationsHandler;
 import com.radware.vision.tools.rest.CurrentVisionRestAPI;
@@ -14,27 +18,40 @@ import models.StatusCode;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.How;
 
 import java.util.*;
+import java.util.concurrent.atomic.AtomicBoolean;
+
+import static com.radware.vision.infra.testhandlers.BaseHandler.devicesManager;
 
 public class Forensics extends ReportsForensicsAlertsAbstract {
     @Override
     protected String getType() {
         return "Forensics";
     }
-    protected String getRangeTypeTextKey() {return "type";}
+
+    protected String getRangeTypeTextKey() {
+        return "type";
+    }
+
     protected String getRelativeRangeTextKey() {
         return "unit";
     }
+
     protected String getRelativeRangeValueKey() {
         return "count";
     }
+
     protected String getSchedulingKey() {
         return "schedule";
     }
+
     protected String getDeliveryKey() {
         return "Share";
     }
+
+    static JSONObject outputsMatches = new JSONObject("{\"Application Name\":\"webApp\",\"Device Host Name\":\"appwallHostName\",\"Received Time\":\"receivedTimeStamp\",\"Packets\":\"packetCount\",\"Destination IP\":\"destAddress\",\"Source IP\":\"sourceAddress\",\"Start Time\":\"startTime\",\"Threat Category\":\"category\",\"Attack Name\":\"name\",\"Policy Name\":\"ruleName\",\"Source IP Address\":\"sourceIp\",\"Destination IP Address\":\"destinationIp\",\"Destination Port\":\"destPort\",\"Direction\":\"direction\",\"Protocol\":\"protocol\",\"Device IP\":\"appwallIP\",\"End Time\":\"endTime\",\"Action\":\"action\",\"Attack ID\":\"attackIpsId\",\"Source Port\":\"sourcePort\",\"Radware ID\":\"radwareId\",\"Duration\":\"duration\",\"Max pps\":\"maxAttackPacketRatePps\",\"Max bps\":\"maxAttackRateBps\",\"Physical Port\":\"physicalPort\",\"Risk\":\"risk\",\"VLAN Tag\":\"vlanTag\",\"Packet Type\":\"packetType\"}");
 
     @Override
     public void create(String name, String negative, Map<String, String> map) throws Exception {
@@ -53,7 +70,8 @@ public class Forensics extends ReportsForensicsAlertsAbstract {
                 if (map.containsKey("devices")) {
                     fixSelectionToArray("devices", map);
                     new TemplateHandlers.DPScopeSelection(new JSONArray(map.get("devices")), "", "DEVICES").create();
-                }break;
+                }
+                break;
             case "defenseflow":
                 WebUiTools.check("Product", map.get("Product"), true);
                 if (map.containsKey("Protected Objects"))
@@ -82,6 +100,8 @@ public class Forensics extends ReportsForensicsAlertsAbstract {
         createName(name, map);
         WebUiTools.check("Time Tab", "", true);
         selectTime(map);
+        WebUiTools.check("Criteria Tab", "", true);
+        selectCriteria(map);
         WebUiTools.check("Output Tab", "", true);
         selectOutput(map);
         WebUiTools.check("Schedule Tab", "", true);
@@ -92,24 +112,59 @@ public class Forensics extends ReportsForensicsAlertsAbstract {
         selectShare(map);
     }
 
+    private void selectCriteria(Map<String, String> map) throws Exception {
+        if (map.containsKey("Criteria"))
+        {
+            List<Object> conditions = new JSONArray(map.get("Criteria")).toList();
+            for (Object condition : conditions)
+            {
+                selectAttributeCriteria(new JSONObject(condition.toString()));
+                selectAttributeValuesCriteria(condition);
+                BasicOperationsHandler.clickButton("add Condition");
+            }
+            applyToCriteria(map);
+        }
+    }
+
+    private void applyToCriteria(Map<String, String> map) {
+
+    }
+
+    private void selectAttributeValuesCriteria(Object condition) {
+
+    }
+
+    private void selectAttributeCriteria(JSONObject condition) throws Exception {
+        BasicOperationsHandler.clickButton("attributePicker");
+        WebUIUtils.fluentWait(new ComponentLocator(How.XPATH, "//li[@title='" + condition.get("Event Criteria") + "']").getBy()).click();
+        WebUIUtils.fluentWait(new ComponentLocator(How.XPATH, "//li[@title='" + getCriteriaOperator(condition.get("Operator").toString()) + "']").getBy()).click();
+    }
+
+    private String getCriteriaOperator(String operator) throws Exception {
+        switch (operator.toLowerCase())
+        {
+            case "not equals": return "≠";
+            case "greater than": return ">";
+            case "equals": return "=";
+        }
+        throw new Exception("No operator with name " + operator);
+    }
+
     public void selectOutput(Map<String, String> map) throws Exception {
         WebUiTools.check("outputExpandOrCollapse", "", true);
-        ArrayList expectedOutputs = new ArrayList<>(Arrays.asList(map.get("Output").split(",")));
+        ArrayList<String> expectedOutputs = new ArrayList<>(Arrays.asList(map.get("Output").split(",")));
         if (expectedOutputs.size() == 1 && expectedOutputs.get(0).toString().equalsIgnoreCase(""))
             expectedOutputs.remove(0);
 
-        for(WebElement outputElement : WebUIUtils.fluentWaitMultiple(ComponentLocatorFactory.getLocatorByXpathDbgId("forensics_output_").getBy()))
-        {
+        for (WebElement outputElement : WebUIUtils.fluentWaitMultiple(ComponentLocatorFactory.getLocatorByXpathDbgId("forensics_output_").getBy())) {
             String outputText = outputElement.getText();
-            if (expectedOutputs.contains(outputText))
-            {
+            if (expectedOutputs.contains(outputText)) {
                 WebUiTools.check("Output Value", outputText, true);
                 expectedOutputs.remove(outputText);
-            }
-            else WebUiTools.check("Output Value", outputText, false);
+            } else WebUiTools.check("Output Value", outputText, false);
         }
 
-        if (expectedOutputs.size()>0)
+        if (expectedOutputs.size() > 0)
             throw new Exception("The outputs " + expectedOutputs + " don't exist in the outputs");
     }
 
@@ -123,15 +178,41 @@ public class Forensics extends ReportsForensicsAlertsAbstract {
     public void validate(RootServerCli rootServerCli, String forensicsName, Map<String, String> map) throws Exception {
         StringBuilder errorMessage = new StringBuilder();
         JSONObject basicRestResult = getForensicsDefinition(forensicsName, map);
-        if (basicRestResult!=null)
-        {
+        if (basicRestResult != null) {
             errorMessage.append(validateTimeDefinition(new JSONObject(basicRestResult.get("timeRangeDefinition").toString()), map, forensicsName));
             errorMessage.append(validateScheduleDefinition(basicRestResult, map, forensicsName));
             errorMessage.append(validateFormatDefinition(new JSONObject(new JSONArray(basicRestResult.get("exportFormats").toString()).get(0).toString()), map));
             errorMessage.append(validateShareDefinition(new JSONObject(basicRestResult.get("deliveryMethod").toString()), map));
-        }else errorMessage.append("No Forensics Defined with name ").append(forensicsName).append("/n");
+            errorMessage.append(validateScopeSelection(basicRestResult, map, errorMessage));
+            errorMessage.append(validateOutput(basicRestResult, map, errorMessage));
+        } else errorMessage.append("No Forensics Defined with name ").append(forensicsName).append("/n");
         if (errorMessage.length() != 0)
             BaseTestUtils.report(errorMessage.toString(), Reporter.FAIL);
+    }
+
+    private StringBuilder validateOutput(JSONObject basicRestResult, Map<String, String> map, StringBuilder errorMessage) {
+        if (map.containsKey("Output"))
+        {
+            JSONArray actualOutputs = new JSONArray(basicRestResult.get("outputFields").toString());
+            List expectedOutputs = new JSONArray("[" + map.get("Output") + "]").toList();
+            for (Object expectedOutput : expectedOutputs)
+            {
+                String matchOutput = outputsMatches.toMap().getOrDefault(expectedOutput, expectedOutput).toString();
+                expectedOutputs.set(expectedOutputs.indexOf(expectedOutput), matchOutput);
+            }
+            for (Object output : expectedOutputs)
+            {
+                if (!actualOutputs.toList().contains(output))
+                    errorMessage.append("The output " + output + " isn't contained im the actual definition/n");
+            }
+
+            for (Object output : actualOutputs)
+            {
+                if (!expectedOutputs.contains(output))
+                    errorMessage.append("The output " + output + " in actual output and it isn't contained in the expected definition/n");
+            }
+        }
+        return errorMessage;
     }
 
     protected StringBuilder validateShareDefinition(JSONObject deliveryJson, Map<String, String> map) {
@@ -161,8 +242,87 @@ public class Forensics extends ReportsForensicsAlertsAbstract {
     }
 
 
-    private StringBuilder validateScopeSelection(JSONArray devices) {
+    private StringBuilder validateScopeSelection(JSONObject forensicsDefinition, Map<String, String> map, StringBuilder errorMessage) throws Exception {
+        switch (map.getOrDefault("Product", "").toLowerCase()) {
+            case "defensepro":
+            case "":
+                if (map.containsKey("devices")) {
+                    JsonNode actualDevicesJson = new ObjectMapper().readTree(forensicsDefinition.toString()).get("request").get("criteria").get(0).get("filters");
+                    JSONArray expectedDevices = new JSONArray(map.get("devices"));
+                    for (Object expectedDevice : expectedDevices)
+                    {
+                        JsonNode targetActualDevice = validateDPName(actualDevicesJson, expectedDevice, errorMessage);
+                        if (targetActualDevice == null)
+                            return errorMessage;
+                        validateDPPortsOrPolicies(targetActualDevice, ((JSONObject)expectedDevice), errorMessage, "Ports");
+                        validateDPPortsOrPolicies(targetActualDevice, ((JSONObject)expectedDevice), errorMessage, "Policies");
+                    }
+
+                }
+                break;
+            case "defenseflow":
+                if (map.containsKey("Protected Objects")) {
+                    if (map.get("Protected Objects").equalsIgnoreCase("all"))
+                        return errorMessage;
+                    List<Object> actualPOs = new ArrayList<>();
+                    for (Object device : ((JSONArray) ((JSONObject) ((JSONArray) ((JSONObject) forensicsDefinition.get("request")).get("criteria")).get(0)).get("filters")).toList())
+                        actualPOs.add(((HashMap)device).get("value"));
+                    validatePOsORApps(actualPOs, map, errorMessage, "Protected Objects");
+                }
+                break;
+
+            case "appwall":
+                if (map.containsKey("Applications"))
+                {
+                    if (map.get("Applications").equalsIgnoreCase("all"))
+                        return errorMessage;
+                    List applicationsList = ((JSONArray) ((JSONObject) ((JSONArray) ((JSONObject) forensicsDefinition.get("request")).get("criteria")).get(0)).get("filters")).toList();
+                    List<Object> actualApplications = new ArrayList<>();
+                    for(Object application : applicationsList)
+                    {
+                        actualApplications.add(((HashMap)(((ArrayList)((HashMap)application).get("filters")).get(1))).get("value"));
+                    }
+                    validatePOsORApps(actualApplications, map, errorMessage, "Applications");
+                }
+                break;
+        }
+        return errorMessage;
+    }
+
+    private void validateDPPortsOrPolicies(JsonNode actualDeviceJson, JSONObject expectedDevice, StringBuilder errorMessage, String validateType) throws Exception {
+        if (expectedDevice.has(validateType))
+        {
+            for (Object portOrPolicy : new JSONArray(new JSONObject(expectedDevice.toString()).get(validateType))) {
+                AtomicBoolean contained = new AtomicBoolean(false);
+                actualDeviceJson.get("filters").get(1).get("filters").get(validateType.equalsIgnoreCase("ports")?0:1).get("filters").forEach(n->
+                {
+                    if(n.get("value").toString().equalsIgnoreCase(portOrPolicy.toString()))
+                        contained.set(true);
+                });
+                if (!contained.get())
+                    errorMessage.append("The " + validateType + " " + portOrPolicy + " isn't exist in device " + getDPDeviceIp(new JSONObject(expectedDevice.toString()).get("index").toString()) + "/n");
+            }
+        }
+    }
+
+    private JsonNode validateDPName(JsonNode actualDevicesDefinition, Object expectedDevice, StringBuilder errorMessage) throws Exception {
+        for (JsonNode actualDeviceDefinition : actualDevicesDefinition)
+        {
+            if (actualDeviceDefinition.get("filters").get(0).get("value").toString().replaceAll("\"", "").equalsIgnoreCase(getDPDeviceIp(new JSONObject(expectedDevice.toString()).get("index").toString())))
+                return actualDeviceDefinition;
+        }
+        errorMessage.append("No device with Ip " + getDPDeviceIp(new JSONObject(expectedDevice.toString()).get("index") + "/n"));
         return null;
+    }
+
+    private void validatePOsORApps(List<Object> actualDevices, Map<String, String> map, StringBuilder errorMessage, String devicesKey) {
+        List<Object> expectedDevices = new JSONArray("[" + map.get(devicesKey) + "]").toList();
+        for (Object device : actualDevices) {
+            if (!expectedDevices.contains(device))
+                errorMessage.append(devicesKey + " name ").append(new JSONObject(device.toString()).get("value")).append(" is contained in the definition/n");
+        }
+        if (expectedDevices.size() != actualDevices.size())
+            errorMessage.append("The expected " + devicesKey + " number is " + expectedDevices.size() + " But the actual " + devicesKey + " number is " + actualDevices.size() + "/n");
     }
 
     protected StringBuilder validateCriteriaDefinition(String criteria) {
@@ -173,7 +333,7 @@ public class Forensics extends ReportsForensicsAlertsAbstract {
         return "html";
     }
 
-    protected void editShareDefinition(Map<String, String> map ) throws Exception {
+    protected void editShareDefinition(Map<String, String> map) throws Exception {
         if (map.containsKey("Share")) {
             JSONObject deliveryJsonObject = new JSONObject(map.get("Share"));
             if (deliveryJsonObject.has("Email"))
@@ -191,18 +351,15 @@ public class Forensics extends ReportsForensicsAlertsAbstract {
         BasicOperationsHandler.setTextField("FTP input", "username", "", true);
         BasicOperationsHandler.setTextField("FTP input", "password", "", true);
 
-      //  selectShare(map);
+        //  selectShare(map);
     }
 
     private JSONObject getForensicsDefinition(String forensicsName, Map<String, String> map) throws Exception {
         RestResponse restResponse = new CurrentVisionRestAPI("Vision/newForensics.json", "Get Created Forensics").sendRequest();
-        if (restResponse.getStatusCode()== StatusCode.OK)
-        {
+        if (restResponse.getStatusCode() == StatusCode.OK) {
             JSONArray forensicsJSONArray = new JSONArray(restResponse.getBody().getBodyAsString());
-            for(Object reportJsonObject : forensicsJSONArray)
-            {
-                if (new JSONObject(reportJsonObject.toString()).getString("name").equalsIgnoreCase(forensicsName))
-                {
+            for (Object reportJsonObject : forensicsJSONArray) {
+                if (new JSONObject(reportJsonObject.toString()).getString("name").equalsIgnoreCase(forensicsName)) {
                     CurrentVisionRestAPI currentVisionRestAPI = new CurrentVisionRestAPI("Vision/newForensics.json", "Get specific Forensics");
                     currentVisionRestAPI.getRestRequestSpecification().setPathParams(Collections.singletonMap("ForensicsID", new JSONObject(reportJsonObject.toString()).getString("id")));
                     restResponse = currentVisionRestAPI.sendRequest();
@@ -213,8 +370,7 @@ public class Forensics extends ReportsForensicsAlertsAbstract {
             }
 
             throw new Exception("No Report with Name " + forensicsName);
-        }
-        else throw new Exception("Get Reports failed request, The response is " + restResponse);
+        } else throw new Exception("Get Reports failed request, The response is " + restResponse);
     }
 
 
@@ -235,16 +391,23 @@ public class Forensics extends ReportsForensicsAlertsAbstract {
     }
 
     private String getQuickTimeAsText(String period) throws Exception {
-        switch (period)
-        {
-            case "Today":return "Today";
-            case "Yesterday":return "Yesterday";
-            case "This Month":return "This Month";
-            case "1D":return "oneDay";
-            case "1W":return "oneWeek";
-            case "1M":return "oneMonth";
-            case "3M":return "ThreeMonths";
-            case "1Y":return "oneYear";
+        switch (period) {
+            case "Today":
+                return "Today";
+            case "Yesterday":
+                return "Yesterday";
+            case "This Month":
+                return "This Month";
+            case "1D":
+                return "oneDay";
+            case "1W":
+                return "oneWeek";
+            case "1M":
+                return "oneMonth";
+            case "3M":
+                return "ThreeMonths";
+            case "1Y":
+                return "oneYear";
         }
         throw new Exception("No period with name " + period + " in Forensics");
     }
@@ -252,9 +415,9 @@ public class Forensics extends ReportsForensicsAlertsAbstract {
     @Override
     public void edit(String forensicsName, Map<String, String> map) throws Exception {
         try {
-            WebUiTools.getWebElement("Edit Forensics",forensicsName).click();
+            WebUiTools.getWebElement("Edit Forensics", forensicsName).click();
             editForensicsParameters(forensicsName, map);
-            editScopeSelection(map,forensicsName);
+            editScopeSelection(map, forensicsName);
             BasicOperationsHandler.clickButton("save");
         } catch (Exception e) {
             cancelView();
@@ -293,6 +456,7 @@ public class Forensics extends ReportsForensicsAlertsAbstract {
         if (map.containsKey("Criteria")) {
         }
     }
+
     private void editFormat(Map<String, String> map) throws Exception {
         if (map.containsKey("Format")) {
             BasicOperationsHandler.clickButton("Format Type", "HTML");
@@ -300,7 +464,7 @@ public class Forensics extends ReportsForensicsAlertsAbstract {
         }
     }
 
-    private void editScopeSelection(Map<String, String> map,String reportName) throws Exception{
+    private void editScopeSelection(Map<String, String> map, String reportName) throws Exception {
         if (map.containsKey("devices"))
             selectScopeSelection(map);
     }
@@ -309,6 +473,10 @@ public class Forensics extends ReportsForensicsAlertsAbstract {
     protected void selectEmail(JSONObject deliveryJsonObject) throws Exception {
         WebUiTools.check("Share Tab Label", "email", true);
         super.selectEmail(deliveryJsonObject);
+    }
+
+    private String getDPDeviceIp(String deviceIndex) throws Exception {
+        return devicesManager.getDeviceInfo(SUTDeviceType.DefensePro, deviceIndex.matches("\\d+") ? Integer.valueOf(deviceIndex) : -1).getDeviceIp();
     }
 
 }

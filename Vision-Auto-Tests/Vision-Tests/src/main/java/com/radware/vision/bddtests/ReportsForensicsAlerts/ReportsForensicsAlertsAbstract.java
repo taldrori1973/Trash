@@ -136,7 +136,10 @@ abstract public class ReportsForensicsAlertsAbstract implements ReportsForensics
 
     private void validateRelativeTime(JSONObject timeDefinitions, StringBuilder errorMessage, JSONObject expectedTimeDefinitions) {
         if (!timeDefinitions.get(getRangeTypeTextKey()).toString().contains("relative"))
+        {
             errorMessage.append("The rangeType is ").append(timeDefinitions.get(getRangeTypeTextKey())).append(" and not equal to relative").append("\n");
+            return;
+        }
         if (!timeDefinitions.get(getRelativeRangeTextKey()).toString().equalsIgnoreCase(new JSONArray(expectedTimeDefinitions.get("Relative").toString()).get(0).toString()))
             errorMessage.append("The relative range is ").append(timeDefinitions.get(getRelativeRangeTextKey())).append(" and not ").append(new JSONArray(expectedTimeDefinitions.get("Relative").toString()).get(0).toString()).append("\n");
         if (!timeDefinitions.get(getRelativeRangeValueKey()).toString().equalsIgnoreCase(new JSONArray(expectedTimeDefinitions.get("Relative").toString()).get(1).toString()))
@@ -153,13 +156,16 @@ abstract public class ReportsForensicsAlertsAbstract implements ReportsForensics
 
     private void validateAbsoluteTime(JSONObject timeDefinitions, StringBuilder errorMessage, JSONObject expectedTimeDefinitions, String viewName) {
         if (!timeDefinitions.get(getRangeTypeTextKey()).toString().contains("absolute"))
+        {
             errorMessage.append("The rangeType is ").append(timeDefinitions.get(getRangeTypeTextKey())).append(" and not equal to Absolute").append("\n");
+            return;
+        }
         LocalDateTime actualToDate = LocalDateTime.ofInstant(Instant.ofEpochMilli(new Long(timeDefinitions.get("to").toString())), ZoneId.systemDefault());
         LocalDateTime actualFromDate = LocalDateTime.ofInstant(Instant.ofEpochMilli(new Long(timeDefinitions.get("from").toString())), ZoneId.systemDefault());
         DateTimeFormatter absoluteFormatter = DateTimeFormatter.ofPattern("dd.MM.yyyy HH:mm");
-            if (!actualToDate.format(absoluteFormatter).equalsIgnoreCase(LocalDateTime.parse(timeAbsoluteDates.get(viewName).get("to").toString(), absoluteFormatter).format(absoluteFormatter)))
+            if (!actualToDate.format(absoluteFormatter).equalsIgnoreCase(LocalDateTime.parse(timeAbsoluteDates.get(getType() + "_" + viewName).get("to").toString(), absoluteFormatter).format(absoluteFormatter)))
                 errorMessage.append("the Actual to absolute time is ").append(actualToDate).append(" but the expected is ").append(timeDefinitionLocalDateTime).append("\n");
-        if (!actualFromDate.format(absoluteFormatter).equalsIgnoreCase(LocalDateTime.parse(timeAbsoluteDates.get(viewName).get("from").toString(), absoluteFormatter).format(absoluteFormatter)))
+        if (!actualFromDate.format(absoluteFormatter).equalsIgnoreCase(LocalDateTime.parse(timeAbsoluteDates.get(getType() + "_" + viewName).get("from").toString(), absoluteFormatter).format(absoluteFormatter)))
             errorMessage.append("the Actual from absolute time is ").append(actualFromDate).append(" but the expected is ").append(timeDefinitionLocalDateTime).append("\n");
     }
 
@@ -169,7 +175,10 @@ abstract public class ReportsForensicsAlertsAbstract implements ReportsForensics
 
     protected void validateQuickRangeTime(JSONObject timeDefinitionsJSON, StringBuilder errorMessage, JSONObject expectedTimeDefinitions) throws Exception {
         if (!timeDefinitionsJSON.get(getRangeTypeTextKey()).toString().equalsIgnoreCase("quick"))
+        {
             errorMessage.append("The rangeType is ").append(timeDefinitionsJSON.get(getRangeTypeTextKey())).append(" and not equal to quick").append("\n");
+            return;
+        }
         if (!timeDefinitionsJSON.get("quickRangeSelection").toString().equalsIgnoreCase(expectedTimeDefinitions.getString("Quick")))
             errorMessage.append("The value of the quickRange is ").append(timeDefinitionsJSON.get("quickRangeSelection")).append(" and not equal to ").append(expectedTimeDefinitions.getString("Quick")).append("\n");
     }

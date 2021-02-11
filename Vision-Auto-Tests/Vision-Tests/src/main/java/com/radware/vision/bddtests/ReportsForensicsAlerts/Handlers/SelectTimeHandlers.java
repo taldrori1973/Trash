@@ -45,7 +45,7 @@ public class SelectTimeHandlers {
             toDate = absoluteFormat.format(TimeUtils.getAddedDate(absoluteJArray.get(0).toString().trim()));
             BasicOperationsHandler.setTextField("Absolute To", toDate);
         } else {
-            fromDate = absoluteJArray.get(0).toString();
+            fromDate = TimeUtils.isWithComputing(absoluteJArray.get(0).toString())?absoluteFormat.format(TimeUtils.getAddedDate(absoluteJArray.get(0).toString().trim())):absoluteJArray.get(0).toString();
             if (fromDate.equals("Today")) {
                 LocalDateTime localDateTime = LocalDateTime.from(Instant.ofEpochMilli(new GregorianCalendar().getTime().getTime()).atZone(ZoneId.systemDefault()));
                 fromDate = absoluteFormat.format(localDateTime);
