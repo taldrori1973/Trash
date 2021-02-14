@@ -1,8 +1,7 @@
 @TC119241
 
-
 Feature: Basic tests for Forensics parameters
-@run
+
   @SID_1
   Scenario: Navigate to NEW ForensicsS page
     Then UI Login with user "radware" and password "radware"
@@ -135,7 +134,7 @@ Feature: Basic tests for Forensics parameters
 #    Then UI Text of "Forensics Format Type" with extension "csv" equal to "CSV W/Details"
 
   ##################### Name Section tests ###############################
-  
+
   @SID_14
   Scenario: Validate Forensics Name and Description
     Then UI Validate the attribute "placeholder" Of Label "Forensics Name" is "EQUALS" to "Type here"
@@ -767,7 +766,7 @@ Feature: Basic tests for Forensics parameters
     Then UI Click Button "outputExpandOrCollapse"
 
                  ########################## Criteria Tests #########################################################
- @run
+
   @SID_50
   Scenario: Validate Criteria Action Attribute
     Then UI Click Button "Criteria Tab"
@@ -784,86 +783,503 @@ Feature: Basic tests for Forensics parameters
     Then UI Validate Element Existence By Label "Criteria Value Selected" if Exists "false" with value "test"
     Then validate webUI CSS value "border-bottom-color" of label "Criteria Value Label" equals "rgb(244, 20, 20)"
 
-   @run
+
   @SID_51
   Scenario: Validate Criteria Attack ID Attribute
     Then UI Click Button "Criteria Tab"
     Then UI Click Button "Criteria Attribute Expand"
     Then UI Click Button "Criteria Attribute Selected" with value "Attack ID"
+    Then UI Click Button "Criteria Attribute Selected" with value "="
+    Then UI Validate Element Existence By Label "Add Condition" if Exists "true" with value "enabled"
+    Then UI Validate Element Existence By Label "Add Condition" if Exists "false" with value "disabled"
+    Then UI Click Button "Add Condition" with value "enabled"
+    Then validate webUI CSS value "border-bottom-color" of label "Criteria Value Input" equals "rgb(244, 20, 20)"
+    Then UI Set Text Field "Criteria Value Input" To " "
+    Then validate webUI CSS value "border-bottom-color" of label "Criteria Value Input" equals "rgb(244, 20, 20)"
+    Then UI Set Text Field "Criteria Value Input" To ","
+    Then validate webUI CSS value "border-bottom-color" of label "Criteria Value Input" equals "rgb(244, 20, 20)"
+    Then UI Set Text Field "Criteria Value Input" To "test"
+    Then validate webUI CSS value "border-bottom-color" of label "Criteria Value Input" equals "rgb(244, 20, 20)"
+    Then UI Set Text Field "Criteria Value Input" To "1W"
+    Then validate webUI CSS value "border-bottom-color" of label "Criteria Value Input" equals "rgb(244, 20, 20)"
+    Then UI Set Text Field "Criteria Value Input" To "1,"
+    Then validate webUI CSS value "border-bottom-color" of label "Criteria Value Input" equals "rgb(244, 20, 20)"
+    Then UI Set Text Field "Criteria Value Input" To "1.1"
+    Then validate webUI CSS value "border-bottom-color" of label "Criteria Value Input" equals "rgb(244, 20, 20)"
+
+
+  @SID_52
+  Scenario: Validate Criteria Attack Name Attribute
+    Then UI Click Button "Criteria Tab"
+    Then UI Click Button "Criteria Attribute Expand"
+    Then UI Click Button "Criteria Attribute Selected" with value "Attack Name"
     Then UI Click Button "Criteria Attribute Selected" with value "≠"
     Then UI Validate Element Existence By Label "Add Condition" if Exists "true" with value "enabled"
     Then UI Validate Element Existence By Label "Add Condition" if Exists "false" with value "disabled"
     Then UI Click Button "Add Condition" with value "enabled"
-    Then validate webUI CSS value "border-bottom-color" of label "Criteria Value Label" equals "rgb(244, 20, 20)"
-     Then Sleep "1"
-    Then UI Set Text Field "Criteria Value Input" To " "
-    Then validate webUI CSS value "border-bottom-color" of label "Criteria Value Label" equals "rgb(244, 20, 20)"
-    Then UI Set Text Field "Criteria Value Input" To ","
-    Then validate webUI CSS value "border-bottom-color" of label "Criteria Value Label" equals "rgb(244, 20, 20)"
-    Then UI Set Text Field "Criteria Value Input" To "test"
-    Then validate webUI CSS value "border-bottom-color" of label "Criteria Value Label" equals "rgb(244, 20, 20)"
-    Then UI Set Text Field "Criteria Value Input" To "1W"
-    Then validate webUI CSS value "border-bottom-color" of label "Criteria Value Label" equals "rgb(244, 20, 20)"
-    Then UI Set Text Field "Criteria Value Input" To "1,"
-    Then validate webUI CSS value "border-bottom-color" of label "Criteria Value Label" equals "rgb(244, 20, 20)"
-    Then UI Set Text Field "Criteria Value Input" To "1.1"
-    Then validate webUI CSS value "border-bottom-color" of label "Criteria Value Label" equals "rgb(244, 20, 20)"
+    Then validate webUI CSS value "border-bottom-color" of label "Criteria Value Input" equals "rgb(244, 20, 20)"
 
-#  @run
-#  @SID_52
-#  Scenario: Validate Criteria Attack Name Attribute
-#    Then UI Click Button "Criteria Tab"
-#    Then UI Click Button "Criteria Attribute Expand"
-#    Then UI Click Button "Criteria Attribute Selected" with value "Attack Name"
-#    Then UI Click Button "Criteria Attribute Selected" with value "≠"
-#    Then UI Validate Element Existence By Label "Add Condition" if Exists "true" with value "enabled"
-#    Then UI Validate Element Existence By Label "Add Condition" if Exists "false" with value "disabled"
-#    Then UI Click Button "Add Condition" with value "enabled"
-#    Then validate webUI CSS value "border-bottom-color" of label "Criteria Value Label" equals "rgb(244, 20, 20)"
-#    Then UI Set Text Field "Criteria Value Input" To " "
-#    Then validate webUI CSS value "border-bottom-color" of label "Criteria Value Label" equals "rgb(244, 20, 20)"
-#    Then UI Set Text Field "Criteria Value Input" To ","
-#    Then validate webUI CSS value "border-bottom-color" of label "Criteria Value Label" equals "rgb(244, 20, 20)"
-#    Then UI Set Text Field "Criteria Value Input" To "test"
-#    Then validate webUI CSS value "border-bottom-color" of label "Criteria Value Label" equals "rgb(244, 20, 20)"
-#    Then UI Set Text Field "Criteria Value Input" To "1W"
-#    Then validate webUI CSS value "border-bottom-color" of label "Criteria Value Label" equals "rgb(244, 20, 20)"
-#    Then UI Set Text Field "Criteria Value Input" To "1,"
-#    Then validate webUI CSS value "border-bottom-color" of label "Criteria Value Label" equals "rgb(244, 20, 20)"
-#    Then UI Set Text Field "Criteria Value Input" To "1.1"
-#    Then validate webUI CSS value "border-bottom-color" of label "Criteria Value Label" equals "rgb(244, 20, 20)"
 
-  @run
   @SID_53
   Scenario: Validate Criteria Attack Rate in bps Attribute
     Then UI Click Button "Criteria Tab"
     Then UI Click Button "Criteria Attribute Expand"
     Then UI Click Button "Criteria Attribute Selected" with value "Attack Rate in bps"
+    Then UI Click Button "Criteria Attribute Selected" with value ">"
+    Then UI Validate Element Existence By Label "Add Condition" if Exists "true" with value "enabled"
+    Then UI Validate Element Existence By Label "Add Condition" if Exists "false" with value "disabled"
+    Then UI Click Button "Add Condition" with value "enabled"
+    Then validate webUI CSS value "border-bottom-color" of label "Criteria Value input" with params "rate" equals "rgb(244, 20, 20)"
+    Then UI Set Text Field "Criteria Value input" and params "rate" To " "
+    Then validate webUI CSS value "border-bottom-color" of label "Criteria Value input" with params "rate" equals "rgb(244, 20, 20)"
+    Then UI Set Text Field "Criteria Value input" and params "rate" To ","
+    Then validate webUI CSS value "border-bottom-color" of label "Criteria Value input" with params "rate" equals "rgb(244, 20, 20)"
+    Then UI Set Text Field "Criteria Value input" and params "rate" To "test"
+    Then validate webUI CSS value "border-bottom-color" of label "Criteria Value input" with params "rate" equals "rgb(244, 20, 20)"
+    Then UI Set Text Field "Criteria Value input" and params "rate" To "1W"
+    Then validate webUI CSS value "border-bottom-color" of label "Criteria Value input" with params "rate" equals "rgb(244, 20, 20)"
+    Then UI Set Text Field "Criteria Value input" and params "rate" To "1,"
+    Then validate webUI CSS value "border-bottom-color" of label "Criteria Value input" with params "rate" equals "rgb(244, 20, 20)"
+    Then UI Set Text Field "Criteria Value input" and params "rate" To "1.1"
+    Then validate webUI CSS value "border-bottom-color" of label "Criteria Value input" with params "rate" equals "rgb(244, 20, 20)"
+
+
+  @SID_53
+  Scenario: Validate Criteria Destination IP Attribute
+    Then UI Click Button "Criteria Tab"
+    Then UI Click Button "Criteria Attribute Expand"
+    Then UI Click Button "Criteria Attribute Selected" with value "Destination IP"
+    Then UI Click Button "Criteria Attribute Selected" with value "="
+    Then UI Validate Element Existence By Label "Add Condition" if Exists "true" with value "enabled"
+    Then UI Validate Element Existence By Label "Add Condition" if Exists "false" with value "disabled"
+    Then UI Click Button "Add Condition" with value "enabled"
+    Then validate webUI CSS value "border-bottom-color" of label "Criteria Value input" with params "ip" equals "rgb(244, 20, 20)"
+
+   #    --------------------------------------------IPv4----------------------------------------------------------
+
+    Then UI Set Text Field "Criteria Value input" and params "ip" To " "
+    Then validate webUI CSS value "border-bottom-color" of label "Criteria Value input" with params "ip" equals "rgb(244, 20, 20)"
+    Then UI Set Text Field "Criteria Value input" and params "ip" To ","
+    Then validate webUI CSS value "border-bottom-color" of label "Criteria Value input" with params "ip" equals "rgb(244, 20, 20)"
+    Then UI Set Text Field "Criteria Value input" and params "ip" To "test"
+    Then validate webUI CSS value "border-bottom-color" of label "Criteria Value input" with params "ip" equals "rgb(244, 20, 20)"
+    Then UI Set Text Field "Criteria Value input" and params "ip" To "172"
+    Then validate webUI CSS value "border-bottom-color" of label "Criteria Value input" with params "ip" equals "rgb(244, 20, 20)"
+    Then UI Set Text Field "Criteria Value input" and params "ip" To "172."
+    Then validate webUI CSS value "border-bottom-color" of label "Criteria Value input" with params "ip" equals "rgb(244, 20, 20)"
+    Then UI Set Text Field "Criteria Value input" and params "ip" To "172.17"
+    Then validate webUI CSS value "border-bottom-color" of label "Criteria Value input" with params "ip" equals "rgb(244, 20, 20)"
+    Then UI Set Text Field "Criteria Value input" and params "ip" To "172.17."
+    Then validate webUI CSS value "border-bottom-color" of label "Criteria Value input" with params "ip" equals "rgb(244, 20, 20)"
+    Then UI Set Text Field "Criteria Value input" and params "ip" To "172.17.10"
+    Then validate webUI CSS value "border-bottom-color" of label "Criteria Value input" with params "ip" equals "rgb(244, 20, 20)"
+    Then UI Set Text Field "Criteria Value input" and params "ip" To "172.17.10."
+    Then validate webUI CSS value "border-bottom-color" of label "Criteria Value input" with params "ip" equals "rgb(244, 20, 20)"
+    Then UI Set Text Field "Criteria Value input" and params "ip" To "172.17.10.10."
+    Then validate webUI CSS value "border-bottom-color" of label "Criteria Value input" with params "ip" equals "rgb(244, 20, 20)"
+    Then UI Set Text Field "Criteria Value input" and params "ip" To "172.17.10.10.10"
+    Then validate webUI CSS value "border-bottom-color" of label "Criteria Value input" with params "ip" equals "rgb(244, 20, 20)"
+    Then UI Set Text Field "Criteria Value input" and params "ip" To "256.0.0.0"
+    Then validate webUI CSS value "border-bottom-color" of label "Criteria Value input" with params "ip" equals "rgb(244, 20, 20)"
+    Then UI Set Text Field "Criteria Value input" and params "ip" To "0.256.0.0"
+    Then validate webUI CSS value "border-bottom-color" of label "Criteria Value input" with params "ip" equals "rgb(244, 20, 20)"
+    Then UI Set Text Field "Criteria Value input" and params "ip" To "0.0.256.0"
+    Then validate webUI CSS value "border-bottom-color" of label "Criteria Value input" with params "ip" equals "rgb(244, 20, 20)"
+    Then UI Set Text Field "Criteria Value input" and params "ip" To "0.0.0.256"
+    Then validate webUI CSS value "border-bottom-color" of label "Criteria Value input" with params "ip" equals "rgb(244, 20, 20)"
+    Then UI Set Text Field "Criteria Value input" and params "ip" To "-1.0.0.0"
+    Then validate webUI CSS value "border-bottom-color" of label "Criteria Value input" with params "ip" equals "rgb(244, 20, 20)"
+    Then UI Set Text Field "Criteria Value input" and params "ip" To "0.-1.0.0"
+    Then validate webUI CSS value "border-bottom-color" of label "Criteria Value input" with params "ip" equals "rgb(244, 20, 20)"
+    Then UI Set Text Field "Criteria Value input" and params "ip" To "0.0.-1.0"
+    Then validate webUI CSS value "border-bottom-color" of label "Criteria Value input" with params "ip" equals "rgb(244, 20, 20)"
+    Then UI Set Text Field "Criteria Value input" and params "ip" To "0.0.0.-1"
+    Then validate webUI CSS value "border-bottom-color" of label "Criteria Value input" with params "ip" equals "rgb(244, 20, 20)"
+
+#    --------------------------------------------IPv6----------------------------------------------------------
+
+    Then UI Click Button "Criteria Value Expand input"
+    Then UI Click Button "Criteria Value select input" with value "IPv6"
+    Then UI Set Text Field "Criteria Value input" and params "ip" To " "
+    Then validate webUI CSS value "border-bottom-color" of label "Criteria Value input" with params "ip" equals "rgb(244, 20, 20)"
+    Then UI Set Text Field "Criteria Value input" and params "ip" To ","
+    Then validate webUI CSS value "border-bottom-color" of label "Criteria Value input" with params "ip" equals "rgb(244, 20, 20)"
+    Then UI Set Text Field "Criteria Value input" and params "ip" To "test"
+    Then validate webUI CSS value "border-bottom-color" of label "Criteria Value input" with params "ip" equals "rgb(244, 20, 20)"
+    Then UI Set Text Field "Criteria Value input" and params "ip" To "172"
+    Then validate webUI CSS value "border-bottom-color" of label "Criteria Value input" with params "ip" equals "rgb(244, 20, 20)"
+    Then UI Set Text Field "Criteria Value input" and params "ip" To "172."
+    Then validate webUI CSS value "border-bottom-color" of label "Criteria Value input" with params "ip" equals "rgb(244, 20, 20)"
+    Then UI Set Text Field "Criteria Value input" and params "ip" To "172.17"
+    Then validate webUI CSS value "border-bottom-color" of label "Criteria Value input" with params "ip" equals "rgb(244, 20, 20)"
+    Then UI Set Text Field "Criteria Value input" and params "ip" To "172.17."
+    Then validate webUI CSS value "border-bottom-color" of label "Criteria Value input" with params "ip" equals "rgb(244, 20, 20)"
+    Then UI Set Text Field "Criteria Value input" and params "ip" To "172.17.10"
+    Then validate webUI CSS value "border-bottom-color" of label "Criteria Value input" with params "ip" equals "rgb(244, 20, 20)"
+    Then UI Set Text Field "Criteria Value input" and params "ip" To "172.17.10."
+    Then validate webUI CSS value "border-bottom-color" of label "Criteria Value input" with params "ip" equals "rgb(244, 20, 20)"
+    Then UI Set Text Field "Criteria Value input" and params "ip" To "172.17.10.10."
+    Then validate webUI CSS value "border-bottom-color" of label "Criteria Value input" with params "ip" equals "rgb(244, 20, 20)"
+    Then UI Set Text Field "Criteria Value input" and params "ip" To "172.17.10.10.10"
+    Then validate webUI CSS value "border-bottom-color" of label "Criteria Value input" with params "ip" equals "rgb(244, 20, 20)"
+    Then UI Set Text Field "Criteria Value input" and params "ip" To "172.17.10.10.10."
+    Then validate webUI CSS value "border-bottom-color" of label "Criteria Value input" with params "ip" equals "rgb(244, 20, 20)"
+    Then UI Set Text Field "Criteria Value input" and params "ip" To "172.17.10.10.10.10."
+    Then validate webUI CSS value "border-bottom-color" of label "Criteria Value input" with params "ip" equals "rgb(244, 20, 20)"
+    Then UI Set Text Field "Criteria Value input" and params "ip" To "172.17.10.10.10.10."
+    Then validate webUI CSS value "border-bottom-color" of label "Criteria Value input" with params "ip" equals "rgb(244, 20, 20)"
+    Then UI Set Text Field "Criteria Value input" and params "ip" To "172.17.10.10.10.10.10"
+    Then validate webUI CSS value "border-bottom-color" of label "Criteria Value input" with params "ip" equals "rgb(244, 20, 20)"
+    Then UI Set Text Field "Criteria Value input" and params "ip" To "172.17.10.10.10.10.10"
+    Then validate webUI CSS value "border-bottom-color" of label "Criteria Value input" with params "ip" equals "rgb(244, 20, 20)"
+    Then UI Set Text Field "Criteria Value input" and params "ip" To "172.17.10.10.10.10.10.10"
+    Then validate webUI CSS value "border-bottom-color" of label "Criteria Value input" with params "ip" equals "rgb(244, 20, 20)"
+    Then UI Set Text Field "Criteria Value input" and params "ip" To "G:1:2:3:4:5:6:7"
+    Then validate webUI CSS value "border-bottom-color" of label "Criteria Value input" with params "ip" equals "rgb(244, 20, 20)"
+    Then UI Set Text Field "Criteria Value input" and params "ip" To "g:1:2:3:4:5:6:7"
+    Then validate webUI CSS value "border-bottom-color" of label "Criteria Value input" with params "ip" equals "rgb(244, 20, 20)"
+    Then UI Set Text Field "Criteria Value input" and params "ip" To "FFFFF:1:2:3:4:5:6:7"
+    Then validate webUI CSS value "border-bottom-color" of label "Criteria Value input" with params "ip" equals "rgb(244, 20, 20)"
+    Then UI Set Text Field "Criteria Value input" and params "ip" To "AAAAA:1:2:3:4:5:6:7"
+    Then validate webUI CSS value "border-bottom-color" of label "Criteria Value input" with params "ip" equals "rgb(244, 20, 20)"
+
+
+  @SID_54
+  Scenario: Validate Criteria Attack Rate in pps Attribute
+    Then UI Click Button "Criteria Tab"
+    Then UI Click Button "Criteria Attribute Expand"
+    Then UI Click Button "Criteria Attribute Selected" with value "Attack Rate in pps"
+    Then UI Click Button "Criteria Attribute Selected" with value ">"
+    Then UI Validate Element Existence By Label "Add Condition" if Exists "true" with value "enabled"
+    Then UI Validate Element Existence By Label "Add Condition" if Exists "false" with value "disabled"
+    Then UI Click Button "Add Condition" with value "enabled"
+    Then validate webUI CSS value "border-bottom-color" of label "Criteria Value input" with params "rate" equals "rgb(244, 20, 20)"
+    Then UI Set Text Field "Criteria Value input" and params "rate" To " "
+    Then validate webUI CSS value "border-bottom-color" of label "Criteria Value input" with params "rate" equals "rgb(244, 20, 20)"
+    Then UI Set Text Field "Criteria Value input" and params "rate" To ","
+    Then validate webUI CSS value "border-bottom-color" of label "Criteria Value input" with params "rate" equals "rgb(244, 20, 20)"
+    Then UI Set Text Field "Criteria Value input" and params "rate" To "test"
+    Then validate webUI CSS value "border-bottom-color" of label "Criteria Value input" with params "rate" equals "rgb(244, 20, 20)"
+    Then UI Set Text Field "Criteria Value input" and params "rate" To "1W"
+    Then validate webUI CSS value "border-bottom-color" of label "Criteria Value input" with params "rate" equals "rgb(244, 20, 20)"
+    Then UI Set Text Field "Criteria Value input" and params "rate" To "1,"
+    Then validate webUI CSS value "border-bottom-color" of label "Criteria Value input" with params "rate" equals "rgb(244, 20, 20)"
+    Then UI Set Text Field "Criteria Value input" and params "rate" To "1.1"
+    Then validate webUI CSS value "border-bottom-color" of label "Criteria Value input" with params "rate" equals "rgb(244, 20, 20)"
+
+
+  @SID_55
+  Scenario: Validate Criteria Destination Port Attribute
+    Then UI Click Button "Criteria Tab"
+    Then UI Click Button "Criteria Attribute Expand"
+    Then UI Click Button "Criteria Attribute Selected" with value "Destination Port"
+    Then UI Click Button "Criteria Attribute Selected" with value "="
+    Then UI Validate Element Existence By Label "Add Condition" if Exists "true" with value "enabled"
+    Then UI Validate Element Existence By Label "Add Condition" if Exists "false" with value "disabled"
+    Then UI Click Button "Add Condition" with value "enabled"
+    Then validate webUI CSS value "border-bottom-color" of label "Criteria Value input" with params "port-from" equals "rgb(244, 20, 20)"
+#    ---------------------------------------------Single----------------------------
+    Then UI Set Text Field "Criteria Value input" and params "port-from" To " "
+    Then validate webUI CSS value "border-bottom-color" of label "Criteria Value input" with params "port-from" equals "rgb(244, 20, 20)"
+    Then UI Set Text Field "Criteria Value input" and params "port-from" To "-1"
+    Then validate webUI CSS value "border-bottom-color" of label "Criteria Value input" with params "port-from" equals "rgb(244, 20, 20)"
+    Then UI Set Text Field "Criteria Value input" and params "port-from" To "test"
+    Then validate webUI CSS value "border-bottom-color" of label "Criteria Value input" with params "port-from" equals "rgb(244, 20, 20)"
+    Then UI Set Text Field "Criteria Value input" and params "port-from" To "1A"
+    Then validate webUI CSS value "border-bottom-color" of label "Criteria Value input" with params "port-from" equals "rgb(244, 20, 20)"
+    Then UI Set Text Field "Criteria Value input" and params "port-from" To "A1"
+    Then validate webUI CSS value "border-bottom-color" of label "Criteria Value input" with params "port-from" equals "rgb(244, 20, 20)"
+#    ---------------------------------------------Range----------------------------
+    Then UI Click Button "Criteria Value Expand input"
+    Then UI Click Button "Criteria Value select input" with value "Range"
+    Then UI Set Text Field "Criteria Value input" and params "port-from" To " "
+    Then validate webUI CSS value "border-bottom-color" of label "Criteria Value input" with params "port-from" equals "rgb(244, 20, 20)"
+    Then UI Set Text Field "Criteria Value input" and params "port-from" To "1"
+    Then UI Set Text Field "Criteria Value input" and params "port-to" To " "
+    Then validate webUI CSS value "border-bottom-color" of label "Criteria Value input" with params "port-to" equals "rgb(244, 20, 20)"
+    Then UI Set Text Field "Criteria Value input" and params "port-to" To "A"
+    Then validate webUI CSS value "border-bottom-color" of label "Criteria Value input" with params "port-to" equals "rgb(244, 20, 20)"
+    Then UI Set Text Field "Criteria Value input" and params "port-to" To "A1"
+    Then validate webUI CSS value "border-bottom-color" of label "Criteria Value input" with params "port-to" equals "rgb(244, 20, 20)"
+    Then UI Set Text Field "Criteria Value input" and params "port-to" To "1A"
+    Then validate webUI CSS value "border-bottom-color" of label "Criteria Value input" with params "port-to" equals "rgb(244, 20, 20)"
+
+
+  @SID_56
+  Scenario: Validate Criteria Direction Attribute
+    Then UI Click Button "Criteria Tab"
+    Then UI Click Button "Criteria Attribute Expand"
+    Then UI Click Button "Criteria Attribute Selected" with value "Direction"
     Then UI Click Button "Criteria Attribute Selected" with value "≠"
     Then UI Validate Element Existence By Label "Add Condition" if Exists "true" with value "enabled"
     Then UI Validate Element Existence By Label "Add Condition" if Exists "false" with value "disabled"
     Then UI Click Button "Add Condition" with value "enabled"
-    Then validate webUI CSS value "border-bottom-color" of label "Criteria Value Label" equals "rgb(244, 20, 20)"
-    Then UI Set Text Field "Criteria Value Input" To " "
-    Then validate webUI CSS value "border-bottom-color" of label "Criteria Value Label" equals "rgb(244, 20, 20)"
-    Then UI Set Text Field "Criteria Value Input" To ","
-    Then validate webUI CSS value "border-bottom-color" of label "Criteria Value Label" equals "rgb(244, 20, 20)"
-    Then UI Set Text Field "Criteria Value Input" To "test"
-    Then validate webUI CSS value "border-bottom-color" of label "Criteria Value Label" equals "rgb(244, 20, 20)"
-    Then UI Set Text Field "Criteria Value Input" To "1W"
-    Then validate webUI CSS value "border-bottom-color" of label "Criteria Value Label" equals "rgb(244, 20, 20)"
-    Then UI Set Text Field "Criteria Value Input" To "1,"
-    Then validate webUI CSS value "border-bottom-color" of label "Criteria Value Label" equals "rgb(244, 20, 20)"
-    Then UI Set Text Field "Criteria Value Input" To "1.1"
-    Then validate webUI CSS value "border-bottom-color" of label "Criteria Value Label" equals "rgb(244, 20, 20)"
+    Then validate webUI CSS value "border-bottom-color" of label "Criteria Value Expand" equals "rgb(244, 20, 20)"
+
+  @SID_57
+  Scenario: Validate Criteria Duration Attribute
+    Then UI Click Button "Criteria Tab"
+    Then UI Click Button "Criteria Attribute Expand"
+    Then UI Click Button "Criteria Attribute Selected" with value "Duration"
+    Then UI Click Button "Criteria Attribute Selected" with value "="
+    Then UI Validate Element Existence By Label "Add Condition" if Exists "true" with value "enabled"
+    Then UI Validate Element Existence By Label "Add Condition" if Exists "false" with value "disabled"
+    Then UI Click Button "Add Condition" with value "enabled"
+    Then validate webUI CSS value "border-bottom-color" of label "Criteria Value Expand" equals "rgb(244, 20, 20)"
+
+  @SID_58
+  Scenario: Validate Criteria Protocol Attribute
+    Then UI Click Button "Criteria Tab"
+    Then UI Click Button "Criteria Attribute Expand"
+    Then UI Click Button "Criteria Attribute Selected" with value "Protocol"
+    Then UI Click Button "Criteria Attribute Selected" with value "≠"
+    Then UI Validate Element Existence By Label "Add Condition" if Exists "true" with value "enabled"
+    Then UI Validate Element Existence By Label "Add Condition" if Exists "false" with value "disabled"
+    Then UI Click Button "Add Condition" with value "enabled"
+    Then validate webUI CSS value "border-bottom-color" of label "Criteria Value Expand" equals "rgb(244, 20, 20)"
+
+  @SID_59
+  Scenario: Validate Criteria Risk Attribute
+    Then UI Click Button "Criteria Tab"
+    Then UI Click Button "Criteria Attribute Expand"
+    Then UI Click Button "Criteria Attribute Selected" with value "Risk"
+    Then UI Click Button "Criteria Attribute Selected" with value "="
+    Then UI Validate Element Existence By Label "Add Condition" if Exists "true" with value "enabled"
+    Then UI Validate Element Existence By Label "Add Condition" if Exists "false" with value "disabled"
+    Then UI Click Button "Add Condition" with value "enabled"
+    Then validate webUI CSS value "border-bottom-color" of label "Criteria Value Expand" equals "rgb(244, 20, 20)"
+
+  @SID_60
+  Scenario: Validate Criteria Source IP Attribute
+    Then UI Click Button "Criteria Tab"
+    Then UI Click Button "Criteria Attribute Expand"
+    Then UI Click Button "Criteria Attribute Selected" with value "Source IP"
+    Then UI Click Button "Criteria Attribute Selected" with value "≠"
+    Then UI Validate Element Existence By Label "Add Condition" if Exists "true" with value "enabled"
+    Then UI Validate Element Existence By Label "Add Condition" if Exists "false" with value "disabled"
+    Then UI Click Button "Add Condition" with value "enabled"
+    Then validate webUI CSS value "border-bottom-color" of label "Criteria Value input" with params "ip" equals "rgb(244, 20, 20)"
+
+   #    --------------------------------------------IPv4----------------------------------------------------------
+
+    Then UI Set Text Field "Criteria Value input" and params "ip" To " "
+    Then validate webUI CSS value "border-bottom-color" of label "Criteria Value input" with params "ip" equals "rgb(244, 20, 20)"
+    Then UI Set Text Field "Criteria Value input" and params "ip" To ","
+    Then validate webUI CSS value "border-bottom-color" of label "Criteria Value input" with params "ip" equals "rgb(244, 20, 20)"
+    Then UI Set Text Field "Criteria Value input" and params "ip" To "test"
+    Then validate webUI CSS value "border-bottom-color" of label "Criteria Value input" with params "ip" equals "rgb(244, 20, 20)"
+    Then UI Set Text Field "Criteria Value input" and params "ip" To "172"
+    Then validate webUI CSS value "border-bottom-color" of label "Criteria Value input" with params "ip" equals "rgb(244, 20, 20)"
+    Then UI Set Text Field "Criteria Value input" and params "ip" To "172."
+    Then validate webUI CSS value "border-bottom-color" of label "Criteria Value input" with params "ip" equals "rgb(244, 20, 20)"
+    Then UI Set Text Field "Criteria Value input" and params "ip" To "172.17"
+    Then validate webUI CSS value "border-bottom-color" of label "Criteria Value input" with params "ip" equals "rgb(244, 20, 20)"
+    Then UI Set Text Field "Criteria Value input" and params "ip" To "172.17."
+    Then validate webUI CSS value "border-bottom-color" of label "Criteria Value input" with params "ip" equals "rgb(244, 20, 20)"
+    Then UI Set Text Field "Criteria Value input" and params "ip" To "172.17.10"
+    Then validate webUI CSS value "border-bottom-color" of label "Criteria Value input" with params "ip" equals "rgb(244, 20, 20)"
+    Then UI Set Text Field "Criteria Value input" and params "ip" To "172.17.10."
+    Then validate webUI CSS value "border-bottom-color" of label "Criteria Value input" with params "ip" equals "rgb(244, 20, 20)"
+    Then UI Set Text Field "Criteria Value input" and params "ip" To "172.17.10.10."
+    Then validate webUI CSS value "border-bottom-color" of label "Criteria Value input" with params "ip" equals "rgb(244, 20, 20)"
+    Then UI Set Text Field "Criteria Value input" and params "ip" To "172.17.10.10.10"
+    Then validate webUI CSS value "border-bottom-color" of label "Criteria Value input" with params "ip" equals "rgb(244, 20, 20)"
+    Then UI Set Text Field "Criteria Value input" and params "ip" To "256.0.0.0"
+    Then validate webUI CSS value "border-bottom-color" of label "Criteria Value input" with params "ip" equals "rgb(244, 20, 20)"
+    Then UI Set Text Field "Criteria Value input" and params "ip" To "0.256.0.0"
+    Then validate webUI CSS value "border-bottom-color" of label "Criteria Value input" with params "ip" equals "rgb(244, 20, 20)"
+    Then UI Set Text Field "Criteria Value input" and params "ip" To "0.0.256.0"
+    Then validate webUI CSS value "border-bottom-color" of label "Criteria Value input" with params "ip" equals "rgb(244, 20, 20)"
+    Then UI Set Text Field "Criteria Value input" and params "ip" To "0.0.0.256"
+    Then validate webUI CSS value "border-bottom-color" of label "Criteria Value input" with params "ip" equals "rgb(244, 20, 20)"
+    Then UI Set Text Field "Criteria Value input" and params "ip" To "-1.0.0.0"
+    Then validate webUI CSS value "border-bottom-color" of label "Criteria Value input" with params "ip" equals "rgb(244, 20, 20)"
+    Then UI Set Text Field "Criteria Value input" and params "ip" To "0.-1.0.0"
+    Then validate webUI CSS value "border-bottom-color" of label "Criteria Value input" with params "ip" equals "rgb(244, 20, 20)"
+    Then UI Set Text Field "Criteria Value input" and params "ip" To "0.0.-1.0"
+    Then validate webUI CSS value "border-bottom-color" of label "Criteria Value input" with params "ip" equals "rgb(244, 20, 20)"
+    Then UI Set Text Field "Criteria Value input" and params "ip" To "0.0.0.-1"
+    Then validate webUI CSS value "border-bottom-color" of label "Criteria Value input" with params "ip" equals "rgb(244, 20, 20)"
+
+#    --------------------------------------------IPv6----------------------------------------------------------
+
+    Then UI Click Button "Criteria Value Expand input"
+    Then UI Click Button "Criteria Value select input" with value "IPv6"
+    Then UI Set Text Field "Criteria Value input" and params "ip" To " "
+    Then validate webUI CSS value "border-bottom-color" of label "Criteria Value input" with params "ip" equals "rgb(244, 20, 20)"
+    Then UI Set Text Field "Criteria Value input" and params "ip" To ","
+    Then validate webUI CSS value "border-bottom-color" of label "Criteria Value input" with params "ip" equals "rgb(244, 20, 20)"
+    Then UI Set Text Field "Criteria Value input" and params "ip" To "test"
+    Then validate webUI CSS value "border-bottom-color" of label "Criteria Value input" with params "ip" equals "rgb(244, 20, 20)"
+    Then UI Set Text Field "Criteria Value input" and params "ip" To "172"
+    Then validate webUI CSS value "border-bottom-color" of label "Criteria Value input" with params "ip" equals "rgb(244, 20, 20)"
+    Then UI Set Text Field "Criteria Value input" and params "ip" To "172."
+    Then validate webUI CSS value "border-bottom-color" of label "Criteria Value input" with params "ip" equals "rgb(244, 20, 20)"
+    Then UI Set Text Field "Criteria Value input" and params "ip" To "172.17"
+    Then validate webUI CSS value "border-bottom-color" of label "Criteria Value input" with params "ip" equals "rgb(244, 20, 20)"
+    Then UI Set Text Field "Criteria Value input" and params "ip" To "172.17."
+    Then validate webUI CSS value "border-bottom-color" of label "Criteria Value input" with params "ip" equals "rgb(244, 20, 20)"
+    Then UI Set Text Field "Criteria Value input" and params "ip" To "172.17.10"
+    Then validate webUI CSS value "border-bottom-color" of label "Criteria Value input" with params "ip" equals "rgb(244, 20, 20)"
+    Then UI Set Text Field "Criteria Value input" and params "ip" To "172.17.10."
+    Then validate webUI CSS value "border-bottom-color" of label "Criteria Value input" with params "ip" equals "rgb(244, 20, 20)"
+    Then UI Set Text Field "Criteria Value input" and params "ip" To "172.17.10.10."
+    Then validate webUI CSS value "border-bottom-color" of label "Criteria Value input" with params "ip" equals "rgb(244, 20, 20)"
+    Then UI Set Text Field "Criteria Value input" and params "ip" To "172.17.10.10.10"
+    Then validate webUI CSS value "border-bottom-color" of label "Criteria Value input" with params "ip" equals "rgb(244, 20, 20)"
+    Then UI Set Text Field "Criteria Value input" and params "ip" To "172.17.10.10.10."
+    Then validate webUI CSS value "border-bottom-color" of label "Criteria Value input" with params "ip" equals "rgb(244, 20, 20)"
+    Then UI Set Text Field "Criteria Value input" and params "ip" To "172.17.10.10.10.10."
+    Then validate webUI CSS value "border-bottom-color" of label "Criteria Value input" with params "ip" equals "rgb(244, 20, 20)"
+    Then UI Set Text Field "Criteria Value input" and params "ip" To "172.17.10.10.10.10."
+    Then validate webUI CSS value "border-bottom-color" of label "Criteria Value input" with params "ip" equals "rgb(244, 20, 20)"
+    Then UI Set Text Field "Criteria Value input" and params "ip" To "172.17.10.10.10.10.10"
+    Then validate webUI CSS value "border-bottom-color" of label "Criteria Value input" with params "ip" equals "rgb(244, 20, 20)"
+    Then UI Set Text Field "Criteria Value input" and params "ip" To "172.17.10.10.10.10.10"
+    Then validate webUI CSS value "border-bottom-color" of label "Criteria Value input" with params "ip" equals "rgb(244, 20, 20)"
+    Then UI Set Text Field "Criteria Value input" and params "ip" To "172.17.10.10.10.10.10.10"
+    Then validate webUI CSS value "border-bottom-color" of label "Criteria Value input" with params "ip" equals "rgb(244, 20, 20)"
+    Then UI Set Text Field "Criteria Value input" and params "ip" To "G:1:2:3:4:5:6:7"
+    Then validate webUI CSS value "border-bottom-color" of label "Criteria Value input" with params "ip" equals "rgb(244, 20, 20)"
+    Then UI Set Text Field "Criteria Value input" and params "ip" To "g:1:2:3:4:5:6:7"
+    Then validate webUI CSS value "border-bottom-color" of label "Criteria Value input" with params "ip" equals "rgb(244, 20, 20)"
+    Then UI Set Text Field "Criteria Value input" and params "ip" To "FFFFF:1:2:3:4:5:6:7"
+    Then validate webUI CSS value "border-bottom-color" of label "Criteria Value input" with params "ip" equals "rgb(244, 20, 20)"
+    Then UI Set Text Field "Criteria Value input" and params "ip" To "AAAAA:1:2:3:4:5:6:7"
+    Then validate webUI CSS value "border-bottom-color" of label "Criteria Value input" with params "ip" equals "rgb(244, 20, 20)"
+
+  @SID_61
+  Scenario: Validate Criteria Source Port Attribute
+    Then UI Click Button "Criteria Tab"
+    Then UI Click Button "Criteria Attribute Expand"
+    Then UI Click Button "Criteria Attribute Selected" with value "Source Port"
+    Then UI Click Button "Criteria Attribute Selected" with value "="
+    Then UI Validate Element Existence By Label "Add Condition" if Exists "true" with value "enabled"
+    Then UI Validate Element Existence By Label "Add Condition" if Exists "false" with value "disabled"
+    Then UI Click Button "Add Condition" with value "enabled"
+    Then validate webUI CSS value "border-bottom-color" of label "Criteria Value input" with params "port-from" equals "rgb(244, 20, 20)"
+#    ---------------------------------------------Single----------------------------
+    Then UI Set Text Field "Criteria Value input" and params "port-from" To " "
+    Then validate webUI CSS value "border-bottom-color" of label "Criteria Value input" with params "port-from" equals "rgb(244, 20, 20)"
+    Then UI Set Text Field "Criteria Value input" and params "port-from" To "-1"
+    Then validate webUI CSS value "border-bottom-color" of label "Criteria Value input" with params "port-from" equals "rgb(244, 20, 20)"
+    Then UI Set Text Field "Criteria Value input" and params "port-from" To "test"
+    Then validate webUI CSS value "border-bottom-color" of label "Criteria Value input" with params "port-from" equals "rgb(244, 20, 20)"
+    Then UI Set Text Field "Criteria Value input" and params "port-from" To "1A"
+    Then validate webUI CSS value "border-bottom-color" of label "Criteria Value input" with params "port-from" equals "rgb(244, 20, 20)"
+    Then UI Set Text Field "Criteria Value input" and params "port-from" To "A1"
+    Then validate webUI CSS value "border-bottom-color" of label "Criteria Value input" with params "port-from" equals "rgb(244, 20, 20)"
+#    ---------------------------------------------Range----------------------------
+    Then UI Click Button "Criteria Value Expand input"
+    Then UI Click Button "Criteria Value select input" with value "Range"
+    Then UI Set Text Field "Criteria Value input" and params "port-from" To " "
+    Then validate webUI CSS value "border-bottom-color" of label "Criteria Value input" with params "port-from" equals "rgb(244, 20, 20)"
+    Then UI Set Text Field "Criteria Value input" and params "port-from" To "1"
+    Then UI Set Text Field "Criteria Value input" and params "port-to" To " "
+    Then validate webUI CSS value "border-bottom-color" of label "Criteria Value input" with params "port-to" equals "rgb(244, 20, 20)"
+    Then UI Set Text Field "Criteria Value input" and params "port-to" To "A"
+    Then validate webUI CSS value "border-bottom-color" of label "Criteria Value input" with params "port-to" equals "rgb(244, 20, 20)"
+    Then UI Set Text Field "Criteria Value input" and params "port-to" To "A1"
+    Then validate webUI CSS value "border-bottom-color" of label "Criteria Value input" with params "port-to" equals "rgb(244, 20, 20)"
+    Then UI Set Text Field "Criteria Value input" and params "port-to" To "1A"
+    Then validate webUI CSS value "border-bottom-color" of label "Criteria Value input" with params "port-to" equals "rgb(244, 20, 20)"
 
 
+  @SID_62
+  Scenario: Validate Criteria Threat Category Attribute
+    Then UI Click Button "Criteria Tab"
+    Then UI Click Button "Criteria Attribute Expand"
+    Then UI Click Button "Criteria Attribute Selected" with value "Threat Category"
+    Then UI Click Button "Criteria Attribute Selected" with value "≠"
+    Then UI Validate Element Existence By Label "Add Condition" if Exists "true" with value "enabled"
+    Then UI Validate Element Existence By Label "Add Condition" if Exists "false" with value "disabled"
+    Then UI Click Button "Add Condition" with value "enabled"
+    Then validate webUI CSS value "border-bottom-color" of label "Criteria Value Expand" equals "rgb(244, 20, 20)"
 
+  @SID_63
+  Scenario: Validate Criteria MAx bps Attribute
+    Then UI Click Button "Criteria Tab"
+    Then UI Click Button "Criteria Attribute Expand"
+    Then UI Click Button "Criteria Attribute Selected" with value "Max bps"
+    Then UI Click Button "Criteria Attribute Selected" with value ">"
+    Then UI Validate Element Existence By Label "Add Condition" if Exists "true" with value "enabled"
+    Then UI Validate Element Existence By Label "Add Condition" if Exists "false" with value "disabled"
+    Then UI Click Button "Add Condition" with value "enabled"
+    Then validate webUI CSS value "border-bottom-color" of label "Criteria Value input" with params "rate" equals "rgb(244, 20, 20)"
+    Then UI Set Text Field "Criteria Value input" and params "rate" To " "
+    Then validate webUI CSS value "border-bottom-color" of label "Criteria Value input" with params "rate" equals "rgb(244, 20, 20)"
+    Then UI Set Text Field "Criteria Value input" and params "rate" To ","
+    Then validate webUI CSS value "border-bottom-color" of label "Criteria Value input" with params "rate" equals "rgb(244, 20, 20)"
+    Then UI Set Text Field "Criteria Value input" and params "rate" To "test"
+    Then validate webUI CSS value "border-bottom-color" of label "Criteria Value input" with params "rate" equals "rgb(244, 20, 20)"
+    Then UI Set Text Field "Criteria Value input" and params "rate" To "1W"
+    Then validate webUI CSS value "border-bottom-color" of label "Criteria Value input" with params "rate" equals "rgb(244, 20, 20)"
+    Then UI Set Text Field "Criteria Value input" and params "rate" To "1,"
+    Then validate webUI CSS value "border-bottom-color" of label "Criteria Value input" with params "rate" equals "rgb(244, 20, 20)"
+    Then UI Set Text Field "Criteria Value input" and params "rate" To "1.1"
+    Then validate webUI CSS value "border-bottom-color" of label "Criteria Value input" with params "rate" equals "rgb(244, 20, 20)"
 
+  @SID_64
+  Scenario: Validate Criteria Packet Type Attribute
+    Then UI Click Button "Criteria Tab"
+    Then UI Click Button "Criteria Attribute Expand"
+    Then UI Click Button "Criteria Attribute Selected" with value "Packet Type"
+    Then UI Click Button "Criteria Attribute Selected" with value "≠"
+    Then UI Validate Element Existence By Label "Add Condition" if Exists "true" with value "enabled"
+    Then UI Validate Element Existence By Label "Add Condition" if Exists "false" with value "disabled"
+    Then UI Click Button "Add Condition" with value "enabled"
+    Then validate webUI CSS value "border-bottom-color" of label "Criteria Value Expand" equals "rgb(244, 20, 20)"
 
+  @SID_65
+  Scenario: Validate Criteria MAx pps Attribute
+    Then UI Click Button "Criteria Tab"
+    Then UI Click Button "Criteria Attribute Expand"
+    Then UI Click Button "Criteria Attribute Selected" with value "Max pps"
+    Then UI Click Button "Criteria Attribute Selected" with value ">"
+    Then UI Validate Element Existence By Label "Add Condition" if Exists "true" with value "enabled"
+    Then UI Validate Element Existence By Label "Add Condition" if Exists "false" with value "disabled"
+    Then UI Click Button "Add Condition" with value "enabled"
+    Then validate webUI CSS value "border-bottom-color" of label "Criteria Value input" with params "rate" equals "rgb(244, 20, 20)"
+    Then UI Set Text Field "Criteria Value input" and params "rate" To " "
+    Then validate webUI CSS value "border-bottom-color" of label "Criteria Value input" with params "rate" equals "rgb(244, 20, 20)"
+    Then UI Set Text Field "Criteria Value input" and params "rate" To ","
+    Then validate webUI CSS value "border-bottom-color" of label "Criteria Value input" with params "rate" equals "rgb(244, 20, 20)"
+    Then UI Set Text Field "Criteria Value input" and params "rate" To "test"
+    Then validate webUI CSS value "border-bottom-color" of label "Criteria Value input" with params "rate" equals "rgb(244, 20, 20)"
+    Then UI Set Text Field "Criteria Value input" and params "rate" To "1W"
+    Then validate webUI CSS value "border-bottom-color" of label "Criteria Value input" with params "rate" equals "rgb(244, 20, 20)"
+    Then UI Set Text Field "Criteria Value input" and params "rate" To "1,"
+    Then validate webUI CSS value "border-bottom-color" of label "Criteria Value input" with params "rate" equals "rgb(244, 20, 20)"
+    Then UI Set Text Field "Criteria Value input" and params "rate" To "1.1"
+    Then validate webUI CSS value "border-bottom-color" of label "Criteria Value input" with params "rate" equals "rgb(244, 20, 20)"
 
+  @SID_66
+  Scenario: Forensics Criteria Apply To All is selected
+    Then UI Click Button "Criteria Apply To" with value "all"
+    Then UI Validate the attribute of "data-debug-checked" are "EQUAL" to
+      | label             | param  | value |
+      | Criteria Apply To | all    | true  |
+      | Criteria Apply To | any    | false |
+      | Criteria Apply To | custom | false |
 
+  @SID_67
+  Scenario: Forensics Criteria Apply To Any is selected
+    Then UI Click Button "Criteria Apply To" with value "any"
+    Then UI Validate the attribute of "data-debug-checked" are "EQUAL" to
+      | label             | param  | value |
+      | Criteria Apply To | all    | false |
+      | Criteria Apply To | any    | true  |
+      | Criteria Apply To | custom | false |
 
-  @SID_50
+  @SID_68
+  Scenario: Forensics Criteria Apply To custom is selected
+    Then UI Click Button "Criteria Apply To" with value "custom"
+    Then UI Validate the attribute of "data-debug-checked" are "EQUAL" to
+      | label             | param  | value |
+      | Criteria Apply To | all    | false |
+      | Criteria Apply To | any    | false |
+      | Criteria Apply To | custom | true  |
+
+  @SID_69
   Scenario: Logout
     Then UI logout and close browser
