@@ -807,6 +807,7 @@ Feature: Basic tests for Forensics parameters
     Then UI Set Text Field "Criteria Value Input" To "1.1"
     Then validate webUI CSS value "border-bottom-color" of label "Criteria Value Input" equals "rgb(244, 20, 20)"
 
+
   @SID_52
   Scenario: Validate Criteria Attack Name Attribute
     Then UI Click Button "Criteria Tab"
@@ -817,6 +818,7 @@ Feature: Basic tests for Forensics parameters
     Then UI Validate Element Existence By Label "Add Condition" if Exists "false" with value "disabled"
     Then UI Click Button "Add Condition" with value "enabled"
     Then validate webUI CSS value "border-bottom-color" of label "Criteria Value Input" equals "rgb(244, 20, 20)"
+
 
   @SID_53
   Scenario: Validate Criteria Attack Rate in bps Attribute
@@ -840,6 +842,7 @@ Feature: Basic tests for Forensics parameters
     Then validate webUI CSS value "border-bottom-color" of label "Criteria Value input" with params "rate" equals "rgb(244, 20, 20)"
     Then UI Set Text Field "Criteria Value input" and params "rate" To "1.1"
     Then validate webUI CSS value "border-bottom-color" of label "Criteria Value input" with params "rate" equals "rgb(244, 20, 20)"
+
 
   @SID_53
   Scenario: Validate Criteria Destination IP Attribute
@@ -989,7 +992,6 @@ Feature: Basic tests for Forensics parameters
 #    ---------------------------------------------Range----------------------------
     Then UI Click Button "Criteria Value Expand input"
     Then UI Click Button "Criteria Value select input" with value "Range"
-    Then UI Click Button "Add Condition" with value "enabled"
     Then UI Set Text Field "Criteria Value input" and params "port-from" To " "
     Then validate webUI CSS value "border-bottom-color" of label "Criteria Value input" with params "port-from" equals "rgb(244, 20, 20)"
     Then UI Set Text Field "Criteria Value input" and params "port-from" To "1"
