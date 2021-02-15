@@ -192,7 +192,7 @@ Feature:DefensePro Part1
       | Time Definitions.Date | Relative:[Hours,3]                                                             |
       | Schedule              | Run Every:Once, On Time:+6H                                                    |
       | Share                 | Email:[automation.vision2@radware.com],Subject:myEdit subject,Body:myEdit body |
-      | Format                | Select: HTNL                                                                   |
+      | Format                | Select: HTML                                                                   |
 
   @SID_19
   Scenario: create new Output Total Packets Dropped
@@ -230,10 +230,10 @@ Feature:DefensePro Part1
       | Format                | Select: CSV With Attack Details                                                                                  |
 
   @SID_22
-  Scenario: create new Output Max Kbps
-    When UI "Create" Forensics With Name "Output Max Kbps"
+  Scenario: create new Output Max bps
+    When UI "Create" Forensics With Name "Output Max bps"
       | Product               | DefensePro                                                                     |
-      | Output                | Max Kbps                                                                       |
+      | Output                | Max bps                                                                        |
       | Criteria              | condition.All:true                                                             |
       | devices               | index:10                                                                       |
       | Time Definitions.Date | Absolute:[02.11.2020 13:47, +0d]                                               |
@@ -288,10 +288,10 @@ Feature:DefensePro Part1
       | Format                | Select: HTML                                                                                         |
 
   @SID_27
-  Scenario: create new Output Action,Attack ID,Policy Name,Source IP Address,Destination IP Address,Destination Port,Total Mbits Dropped,Max Kbps,Physical Port,Risk,VLAN Tag
-    When UI "Create" Forensics With Name "Output Action,Attack ID,Policy Name,Source IP Address,Destination IP Address,Destination Port,Total Mbits Dropped,Max Kbps,Physical Port,Risk,VLAN Tag"
+  Scenario: create new Output Action,Attack ID,Policy Name,Source IP Address,Destination IP Address,Destination Port,Total Mbits Dropped,Max bps,Physical Port,Risk,VLAN Tag
+    When UI "Create" Forensics With Name "Output Action,Attack ID,Policy Name,Source IP Address,Destination IP Address,Destination Port,Total Mbits Dropped,Max bps,Physical Port,Risk,VLAN Tag"
       | Product               | DefensePro                                                                                                                                      |
-      | Output                | Action,Attack ID,Policy Name,Source IP Address,Destination IP Address,Destination Port,Total Mbits Dropped,Max Kbps,Physical Port,Risk,VLAN Tag |
+      | Output                | Action,Attack ID,Policy Name,Source IP Address,Destination IP Address,Destination Port,Total Mbits Dropped,Max bps,Physical Port,Risk,VLAN Tag  |
       | Criteria              | condition.All:true                                                                                                                              |
       | devices               | All                                                                                                                                             |
       | Time Definitions.Date | Relative:[Weeks,2]                                                                                                                              |
@@ -350,7 +350,7 @@ Feature:DefensePro Part1
   Scenario: create new Output All
     When UI "Create" Forensics With Name "Output All"
       | Product               | DefensePro                                                                                                                                                                                                                                                                                         |
-      | Output                | Start Time,End Time,Device IP Address,Threat Category,Attack Name,Action,Attack ID,Policy Name,Source IP Address,Source Port,Destination IP Address,Destination Port,Direction,Protocol,Radware ID,Duration,Total Packets Dropped,Max pps,Total Mbits Dropped,Max Kbps,Physical Port,Risk,VLAN Tag |
+      | Output                | Start Time,End Time,Device IP Address,Threat Category,Attack Name,Action,Attack ID,Policy Name,Source IP Address,Source Port,Destination IP Address,Destination Port,Direction,Protocol,Radware ID,Duration,Total Packets Dropped,Max pps,Total Mbits Dropped,Max bps,Physical Port,Risk,VLAN Tag  |
       | Criteria              | condition.All:true                                                                                                                                                                                                                                                                                 |
       | devices               | All                                                                                                                                                                                                                                                                                                |
       | Time Definitions.Date | Quick:This Month                                                                                                                                                                                                                                                                                   |
@@ -501,13 +501,13 @@ Feature:DefensePro Part1
   @SID_45
   Scenario: create new Output Destination Port Equals
     When UI "Create" Forensics With Name "Output Destination Port Equals"
-      | Product               | DefensePro                                                                                                                                 |
-      | Output                | Destination Port                                                                                                                           |
-      | Criteria              | Event Criteria:Action,Operator:Equals,Actions:Modified,Source Reset,Source and Destination Reset,Http 200 Ok,Http 403 Forbidden Reset Dest |
-      | devices               | All                                                                                                                                        |
-      | Time Definitions.Date | Absolute:[27.02.1971 01:00, +0d]                                                                                                           |
-      | Share                 | FTP:checked, FTP.Location:172.17.164.10, FTP.Path:/home/radware/ftp/, FTP.Username:radware, FTP.Password:radware                           |
-      | Format                | Select: CSV With Attack Details                                                                                                            |
+      | Product               | DefensePro                                                                                                                                   |
+      | Output                | Destination Port                                                                                                                             |
+      | Criteria              | Event Criteria:Action,Operator:Equals,Actions:[Modified,Source Reset,Source and Destination Reset,Http 200 Ok,Http 403 Forbidden Reset Dest] |
+      | devices               | All                                                                                                                                          |
+      | Time Definitions.Date | Absolute:[27.02.1971 01:00, +0d]                                                                                                             |
+      | Share                 | FTP:checked, FTP.Location:172.17.164.10, FTP.Path:/home/radware/ftp/, FTP.Username:radware, FTP.Password:radware                             |
+      | Format                | Select: CSV With Attack Details                                                                                                              |
 
 
   @SID_46
@@ -515,7 +515,7 @@ Feature:DefensePro Part1
     When UI "Create" Forensics With Name "Output Direction Equals"
       | Product               | DefensePro                                                                                                                                                                                                                             |
       | Output                | Direction                                                                                                                                                                                                                              |
-      | Criteria              | Event Criteria:Action,Operator:Equals,Actions:Modified,Forward,Drop,Source Reset,Destination Reset,Source and Destination Reset,Bypass,Challenge,Http 200 Ok,Http 200 Ok Reset Dest,Http 403 Forbidden,Http 403 Forbidden Reset Dest   |
+      | Criteria              | Event Criteria:Action,Operator:Equals,Actions:[Modified,Forward,Drop,Source Reset,Destination Reset,Source and Destination Reset,Bypass,Challenge,Http 200 Ok,Http 200 Ok Reset Dest,Http 403 Forbidden,Http 403 Forbidden Reset Dest] |
       | devices               | index:10                                                                                                                                                                                                                               |
       | Time Definitions.Date | Relative:[Weeks,2]                                                                                                                                                                                                                     |
       | Share                 | Email:[automation.vision2@radware.com],Subject:myEdit subject,Body:myEdit body                                                                                                                                                         |
