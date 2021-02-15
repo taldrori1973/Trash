@@ -152,20 +152,24 @@ public class Forensics extends ReportsForensicsAlertsAbstract {
 
     public void selectOutput(Map<String, String> map) throws Exception {
         WebUiTools.check("outputExpandOrCollapse", "", true);
-        ArrayList<String> expectedOutputs = new ArrayList<>(Arrays.asList(map.get("Output").split(",")));
-        if (expectedOutputs.size() == 1 && expectedOutputs.get(0).toString().equalsIgnoreCase(""))
-            expectedOutputs.remove(0);
+        if(map.get("Output").equalsIgnoreCase("Add All"))
+            WebUiTools.check("Add All Output", "", true);
+        else {
+            ArrayList<String> expectedOutputs = new ArrayList<>(Arrays.asList(map.get("Output").split(",")));
+            if (expectedOutputs.size() == 1 && expectedOutputs.get(0).toString().equalsIgnoreCase(""))
+                expectedOutputs.remove(0);
 
-        for (WebElement outputElement : WebUIUtils.fluentWaitMultiple(ComponentLocatorFactory.getLocatorByXpathDbgId("forensics_output_").getBy())) {
-            String outputText = outputElement.getText();
-            if (expectedOutputs.contains(outputText)) {
-                WebUiTools.check("Output Value", outputText, true);
-                expectedOutputs.remove(outputText);
-            } else WebUiTools.check("Output Value", outputText, false);
+            for (WebElement outputElement : WebUIUtils.fluentWaitMultiple(ComponentLocatorFactory.getLocatorByXpathDbgId("forensics_output_").getBy())) {
+                String outputText = outputElement.getText();
+                if (expectedOutputs.contains(outputText)) {
+                    WebUiTools.check("Output Value", outputText, true);
+                    expectedOutputs.remove(outputText);
+                } else WebUiTools.check("Output Value", outputText, false);
+            }
+
+            if (expectedOutputs.size() > 0)
+                throw new Exception("The outputs " + expectedOutputs + " don't exist in the outputs");
         }
-
-        if (expectedOutputs.size() > 0)
-            throw new Exception("The outputs " + expectedOutputs + " don't exist in the outputs");
     }
 
     private void createName(String name, Map<String, String> map) throws Exception {
@@ -454,6 +458,7 @@ public class Forensics extends ReportsForensicsAlertsAbstract {
 
     private void editCriteria(Map<String, String> map) throws Exception {
         if (map.containsKey("Criteria")) {
+            selectCriteria(map);
         }
     }
 
