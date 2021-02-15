@@ -68,44 +68,44 @@ Feature: Negative Forensics tests to validate Error Messages
     Then UI Click Button "cancel"
     Then UI Click Button "No"
 
-#  @SID_7
-#  Scenario: Add Forensics with invalid FTP hostname
-#    Then UI Click Button "New Forensics Tab"
-#    Then UI Set Text Field "Forensics Name" To "Share FTP"
-#    Then UI Click Button "Share Tab Label" with value "ftp"
-#    Then UI Set Text Field "FTP input" and params "location" To ","
-#    Then UI Click Button "save"
-#    Then UI Text of "Error message title" equal to "Unable to Save"
-#    Then UI Text of "Error message description" equal to "The Share configuration is improper."
-#    Then UI Click Button "errorMessageOK"
-#    Then UI Click Button "cancel"
-#    Then UI Click Button "No"
-#
-#  @SID_8
-#  Scenario: Add Forensics with invalid FTP IP
-#    Then UI Click Button "New Forensics Tab"
-#    Then UI Set Text Field "Forensics Name" To "Share FTP"
-#    Then UI Click Button "Share Tab Label" with value "ftp"
-#    Then UI Set Text Field "FTP input" and params "location" To "1.-1.1.1"
-#    Then UI Click Button "save"
-#    Then UI Text of "Error message title" equal to "Unable to Save"
-#    Then UI Text of "Error message description" equal to "The Share configuration is improper."
-#    Then UI Click Button "errorMessageOK"
-#    Then UI Click Button "cancel"
-#    Then UI Click Button "No"
-#
-#  @SID_9
-#  Scenario: Add Forensics with invalid FTP User Name
-#    Then UI Click Button "New Forensics Tab"
-#    Then UI Set Text Field "Forensics Name" To "Share FTP"
-#    Then UI Click Button "Share Tab Label" with value "ftp"
-#    Then UI Set Text Field "FTP input" and params "username" To " "
-#    Then UI Click Button "save"
-#    Then UI Text of "Error message title" equal to "Unable to Save"
-#    Then UI Text of "Error message description" equal to "The Share configuration is improper."
-#    Then UI Click Button "errorMessageOK"
-#    Then UI Click Button "cancel"
-#    Then UI Click Button "No"
+  @SID_7
+  Scenario: Add Forensics with invalid FTP hostname
+    Then UI Click Button "New Forensics Tab"
+    Then UI Set Text Field "Forensics Name" To "Share FTP"
+    Then UI Click Button "Share Tab Label" with value "ftp"
+    Then UI Set Text Field "FTP input" and params "location" To ","
+    Then UI Click Button "save"
+    Then UI Text of "Error message title" equal to "Unable to Save"
+    Then UI Text of "Error message description" equal to "The Share configuration is improper."
+    Then UI Click Button "errorMessageOK"
+    Then UI Click Button "cancel"
+    Then UI Click Button "No"
+
+  @SID_8
+  Scenario: Add Forensics with invalid FTP IP
+    Then UI Click Button "New Forensics Tab"
+    Then UI Set Text Field "Forensics Name" To "Share FTP"
+    Then UI Click Button "Share Tab Label" with value "ftp"
+    Then UI Set Text Field "FTP input" and params "location" To "1.-1.1.1"
+    Then UI Click Button "save"
+    Then UI Text of "Error message title" equal to "Unable to Save"
+    Then UI Text of "Error message description" equal to "The Share configuration is improper."
+    Then UI Click Button "errorMessageOK"
+    Then UI Click Button "cancel"
+    Then UI Click Button "No"
+
+  @SID_9
+  Scenario: Add Forensics with invalid FTP User Name
+    Then UI Click Button "New Forensics Tab"
+    Then UI Set Text Field "Forensics Name" To "Share FTP"
+    Then UI Click Button "Share Tab Label" with value "ftp"
+    Then UI Set Text Field "FTP input" and params "username" To " "
+    Then UI Click Button "save"
+    Then UI Text of "Error message title" equal to "Unable to Save"
+    Then UI Text of "Error message description" equal to "The Share configuration is improper."
+    Then UI Click Button "errorMessageOK"
+    Then UI Click Button "cancel"
+    Then UI Click Button "No"
 
 
 
@@ -156,7 +156,7 @@ Feature: Negative Forensics tests to validate Error Messages
 
 
 
-    ## Missing Criteria and different
+    ## Missing Criteria and different product
 
   @SID_11
   Scenario: Logout
