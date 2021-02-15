@@ -4,6 +4,7 @@ import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.radware.automation.tools.basetest.BaseTestUtils;
 import com.radware.automation.tools.basetest.Reporter;
+import com.radware.automation.webui.VisionDebugIdsManager;
 import com.radware.automation.webui.WebUIUtils;
 import com.radware.automation.webui.widgets.ComponentLocator;
 import com.radware.vision.automation.tools.exceptions.selenium.TargetWebElementNotFoundException;
@@ -14,11 +15,13 @@ import com.radware.vision.tools.rest.CurrentVisionRestAPI;
 import com.radware.vision.vision_project_cli.RootServerCli;
 import models.RestResponse;
 import models.StatusCode;
+import org.apache.bcel.generic.NEW;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.How;
 
+import java.io.IOException;
 import java.util.*;
 import java.util.concurrent.atomic.AtomicBoolean;
 
@@ -117,11 +120,12 @@ public class Forensics extends ReportsForensicsAlertsAbstract {
             List<Object> conditions = new ObjectMapper().readTree(map.get("Criteria")).isArray() ? new JSONArray(map.get("Criteria")).toList() : new JSONArray().put(map.get("Criteria")).toList();
             for (Object condition : conditions)
             {
-                if (new JSONObject(condition).has("Event Criteria"))
+                if (new JSONObject(condition.toString()).has("Event Criteria"))
                 {
+                    conditionsMap.put(indexConditionsMap++, new JSONObject(condition.toString()));
                     selectAttributeCriteria(new JSONObject(condition.toString()));
                     selectAttributeValuesCriteria(new JSONObject(condition.toString()));
-                    BasicOperationsHandler.clickButton("add Condition");
+                    BasicOperationsHandler.clickButton("Add Condition","enabled");
                 }
             }
             applyToCriteria(new JSONObject(map.get("Criteria")));
@@ -207,26 +211,27 @@ public class Forensics extends ReportsForensicsAlertsAbstract {
     }
 
     public void selectOutput(Map<String, String> map) throws Exception {
-        WebUiTools.check("outputExpandOrCollapse", "", true);
-        ArrayList<String> expectedOutputs = new ArrayList<>(Arrays.asList(map.get("Output").split(",")));
-        if (expectedOutputs.size() == 1 && expectedOutputs.get(0).toString().equalsIgnoreCase(""))
-            expectedOutputs.remove(0);
-        if (expectedOutputs.get(0).equalsIgnoreCase("Add All"))
-        {
-            BasicOperationsHandler.clickButton("Add All Output");
-            return;
-        }
+        if(map.containsKey("Output")) {
+            WebUiTools.check("outputExpandOrCollapse", "", true);
+            ArrayList<String> expectedOutputs = new ArrayList<>(Arrays.asList(map.get("Output").split(",")));
+            if (expectedOutputs.get(0).equalsIgnoreCase("Add All")) {
+                BasicOperationsHandler.clickButton("Add All Output");
+                return;
+            }
+            if (expectedOutputs.size() == 1 && expectedOutputs.get(0).toString().equalsIgnoreCase(""))
+                expectedOutputs.remove(0);
 
-        for (WebElement outputElement : WebUIUtils.fluentWaitMultiple(new ComponentLocator(How.XPATH, "//li[contains(@data-debug-id,'forensics_output_') and not(contains(@data-debug-id,'Add All'))]").getBy())) {
-            String outputText = outputElement.getText();
-            if (expectedOutputs.contains(outputText)) {
-                WebUiTools.check("Output Value", outputText, true);
-                expectedOutputs.remove(outputText);
-            } else WebUiTools.check("Output Value", outputText, false);
-        }
+            for (WebElement outputElement : WebUIUtils.fluentWaitMultiple(new ComponentLocator(How.XPATH, "//li[contains(@data-debug-id,'forensics_output_') and not(contains(@data-debug-id,'Add All'))]").getBy())) {
+                String outputText = outputElement.getText();
+                if (expectedOutputs.contains(outputText)) {
+                    WebUiTools.check("Output Value", outputText, true);
+                    expectedOutputs.remove(outputText);
+                } else WebUiTools.check("Output Value", outputText, false);
+            }
 
-        if (expectedOutputs.size() > 0)
-            throw new Exception("The outputs " + expectedOutputs + " don't exist in the outputs");
+            if (expectedOutputs.size() > 0)
+                throw new Exception("The outputs " + expectedOutputs + " don't exist in the outputs");
+        }
     }
 
     private void createName(String name, Map<String, String> map) throws Exception {
@@ -522,9 +527,91 @@ public class Forensics extends ReportsForensicsAlertsAbstract {
 
 
     private void editCriteria(Map<String, String> map) throws Exception {
-        if (map.containsKey("Criteria")) {
+        if (map.containsKey("Criteria")) //add new condition
             selectCriteria(map);
+        if (map.containsKey("Delete Criteria")) // delete Condition
+            deleteCriteriaCondition(map);
+        if (map.containsKey("Edit Criteria")) // edit Condition
+            editCriteriaCondition(map);
+    }
+
+    private void editCriteriaCondition(Map<String, String> map) {
+    }
+
+    private void deleteCriteriaCondition(Map<String, String> map) throws IOException, TargetWebElementNotFoundException {
+        List<Object> conditions = new ObjectMapper().readTree(map.get("Delete Criteria")).isArray() ? new JSONArray(map.get("Delete Criteria")).toList() : new JSONArray().put(map.get("Delete Criteria")).toList();
+        for (Object condition : conditions)
+        {
+            if (new JSONObject(condition.toString()).has("Event Criteria"))
+            {
+                int index= validateAttributeCriteria(new JSONObject(condition.toString()));
+                if(index == -1)
+                    throw new TargetWebElementNotFoundException("cant remove this condition because there is no condition to delete ");
+                else
+                    BasicOperationsHandler.clickButton("Criteria Delete Condition",index);
+            }
         }
+    }
+
+    private int validateAttributeCriteria(JSONObject condition) {
+        for(int index =1; index<indexConditionsMap ; index++) {
+            if (condition.get("Event Criteria").equals(conditionsMap.get(index).get("Event Criteria")) && condition.get("Operator").equals(conditionsMap.get(index).get("Operator"))) {
+                if(validateAttributeValuesCriteria(condition) == index)
+                    return index;
+            }
+        }
+        return -1;
+    }
+    private int validateAttributeValuesCriteria(JSONObject condition) {
+        for(int index =1; index<indexConditionsMap ; index++) {
+            switch (condition.get("Event Criteria").toString().toUpperCase()) {
+                case "ACTION":
+                case "DIRECTION":
+                case "DURATION":
+                case "PROTOCOL":
+                case "RISK":
+                case "THREAT CATEGORY": {
+                    String valuesText = condition.get("Value").toString().charAt(0) == '[' ? condition.get("Value").toString().replaceAll("(\\[)|(])", "") : condition.get("Value").toString();
+                    List<String> values = new ArrayList<>();
+                    Collections.addAll(values, valuesText.split(","));
+                    for (String value : values){
+                        if (condition.get("Value").equals(conditionsMap.get(index).get("Value")))
+                            return index;
+                    }
+
+                    break;
+                }
+                case "ATTACK ID":
+                case "ATTACK NAME": {
+                    if (condition.get("Value").equals(conditionsMap.get(index).get("Value")))
+                        return index;
+                    break;
+                }
+                case "DESTINATION IP":
+                case "SOURCE IP": {
+                    if (condition.get("IPType").equals(conditionsMap.get(index).get("IPType")) && condition.get("IPValue").equals(conditionsMap.get(index).get("IPValue")))
+                        return index;
+                    break;
+                }
+                case "DESTINATION PORT":
+                case "SOURCE PORT": {
+                    if (condition.has("portValue") && (condition.get("portType").equals(conditionsMap.get(index).get("portType")) && condition.get("portValue").equals(conditionsMap.get(index).get("portValue"))))
+                            return index;
+                    else {
+                        if(condition.get("portType").equals(conditionsMap.get(index).get("portType")) && condition.get("portFrom").equals(conditionsMap.get(index).get("portFrom")) && condition.get("portTo").equals(conditionsMap.get(index).get("portTo")))
+                            return index;
+                    }
+                    break;
+                }
+                case "ATTACK RATE IN BPS":
+                case "ATTACK RATE IN PPS": {
+                    if (condition.get("RateValue").equals(conditionsMap.get(index).get("RateValue")) && condition.get("Unit").equals(conditionsMap.get(index).get("Unit")))
+                        return index;
+                    break;
+                }
+            }
+        }
+        return -1 ;
     }
 
     private void editFormat(Map<String, String> map) throws Exception {
