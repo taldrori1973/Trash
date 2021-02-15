@@ -2,6 +2,7 @@
 
 Feature: Basic tests for Forensics parameters
 
+  
   @SID_1
   Scenario: Navigate to NEW ForensicsS page
     Then UI Login with user "radware" and password "radware"
@@ -543,10 +544,11 @@ Feature: Basic tests for Forensics parameters
 ############################ Output Test ##########################################################################################
 
   @SID_40
-  Scenario: Forensics Output - select all output option of DefensePro
+  Scenario: Forensics Output
     Then UI Validate Text field "Output Tab" CONTAINS "*"
 
            ######################################## DefensePro ##########################################################
+  
   @SID_41
   Scenario: Forensics Output - validate default values of DefensePro
     Then UI Click Button "Product Tab" with value "DefensePro"
@@ -561,9 +563,12 @@ Feature: Basic tests for Forensics parameters
     Then UI Validate the attribute "aria-selected" Of Label "Output Value" With Params "Destination Port" is "EQUALS" to "true"
     Then UI Validate the attribute "aria-selected" Of Label "Output Value" With Params "Direction" is "EQUALS" to "true"
     Then UI Validate the attribute "aria-selected" Of Label "Output Value" With Params "Protocol" is "EQUALS" to "true"
+    Then UI Click Button "outputExpandOrCollapse"
 
+  
   @SID_42
   Scenario: Forensics Output - delete all selected output of DefensePro
+    Then UI Click Button "outputExpandOrCollapse"
     Then select forensics Output with details ""
     Then UI Validate the attribute "aria-selected" Of Label "Output Value" With Params "Start Time" is "EQUALS" to "false"
     Then UI Validate the attribute "aria-selected" Of Label "Output Value" With Params "End Time" is "EQUALS" to "false"
@@ -593,6 +598,7 @@ Feature: Basic tests for Forensics parameters
 
     Then UI Validate Text field "Output Error Message" CONTAINS "This field cannot be empty."
 
+  
   @SID_43
   Scenario: Forensics Output - select all output option of DefensePro
     Then select forensics Output with details "Start Time,End Time,Threat Category,Attack Name,Policy Name,Source IP Address,Destination IP Address,Destination Port,Direction,Protocol,Device IP Address,Action,Attack ID,Source Port,Radware ID,Duration,Total Packets Dropped,Max pps,Total Mbits Dropped,Max bps,Physical Port,Risk,VLAN Tag,Packet Type"
@@ -622,26 +628,10 @@ Feature: Basic tests for Forensics parameters
     Then UI Validate the attribute "aria-selected" Of Label "Output Value" With Params "Packet Type" is "EQUALS" to "true"
     Then UI Click Button "outputExpandOrCollapse"
 
-
-    #############################################  DefenseFlow ###############################################
-
+  
   @SID_44
-  Scenario: Forensics Output - validate default values of DefenseFlow
-    Then UI Click Button "Product Tab" with value "DefenseFlow"
+  Scenario: Forensics Output - delete all selected output of DefensePro
     Then UI Click Button "outputExpandOrCollapse"
-    Then UI Validate the attribute "aria-selected" Of Label "Output Value" With Params "Start Time" is "EQUALS" to "true"
-    Then UI Validate the attribute "aria-selected" Of Label "Output Value" With Params "End Time" is "EQUALS" to "true"
-    Then UI Validate the attribute "aria-selected" Of Label "Output Value" With Params "Threat Category" is "EQUALS" to "true"
-    Then UI Validate the attribute "aria-selected" Of Label "Output Value" With Params "Attack Name" is "EQUALS" to "true"
-    Then UI Validate the attribute "aria-selected" Of Label "Output Value" With Params "Policy Name" is "EQUALS" to "true"
-    Then UI Validate the attribute "aria-selected" Of Label "Output Value" With Params "Source IP Address" is "EQUALS" to "true"
-    Then UI Validate the attribute "aria-selected" Of Label "Output Value" With Params "Destination IP Address" is "EQUALS" to "true"
-    Then UI Validate the attribute "aria-selected" Of Label "Output Value" With Params "Destination Port" is "EQUALS" to "true"
-    Then UI Validate the attribute "aria-selected" Of Label "Output Value" With Params "Direction" is "EQUALS" to "true"
-    Then UI Validate the attribute "aria-selected" Of Label "Output Value" With Params "Protocol" is "EQUALS" to "true"
-
-  @SID_45
-  Scenario: Forensics Output - delete all selected output of DefenseFlow
     Then select forensics Output with details ""
     Then UI Validate the attribute "aria-selected" Of Label "Output Value" With Params "Start Time" is "EQUALS" to "false"
     Then UI Validate the attribute "aria-selected" Of Label "Output Value" With Params "End Time" is "EQUALS" to "false"
@@ -671,7 +661,126 @@ Feature: Basic tests for Forensics parameters
 
     Then UI Validate Text field "Output Error Message" CONTAINS "This field cannot be empty."
 
+  
+  @SID_45
+  Scenario: Forensics Output - Add all output and validate that saved
+    Then UI Set Text Field "Forensics Name" To "Add All Output DP"
+    Then UI Click Button "Product Tab" with value "DefensePro"
+    Then UI Click Button "outputExpandOrCollapse"
+    Then UI Click Button "Add All Output"
+    Then UI Validate the attribute "aria-selected" Of Label "Output Value" With Params "Start Time" is "EQUALS" to "true"
+    Then UI Validate the attribute "aria-selected" Of Label "Output Value" With Params "End Time" is "EQUALS" to "true"
+    Then UI Validate the attribute "aria-selected" Of Label "Output Value" With Params "Threat Category" is "EQUALS" to "true"
+    Then UI Validate the attribute "aria-selected" Of Label "Output Value" With Params "Attack Name" is "EQUALS" to "true"
+    Then UI Validate the attribute "aria-selected" Of Label "Output Value" With Params "Policy Name" is "EQUALS" to "true"
+    Then UI Validate the attribute "aria-selected" Of Label "Output Value" With Params "Source IP Address" is "EQUALS" to "true"
+    Then UI Validate the attribute "aria-selected" Of Label "Output Value" With Params "Destination IP Address" is "EQUALS" to "true"
+    Then UI Validate the attribute "aria-selected" Of Label "Output Value" With Params "Destination Port" is "EQUALS" to "true"
+    Then UI Validate the attribute "aria-selected" Of Label "Output Value" With Params "Direction" is "EQUALS" to "true"
+    Then UI Validate the attribute "aria-selected" Of Label "Output Value" With Params "Protocol" is "EQUALS" to "true"
+    Then UI Validate the attribute "aria-selected" Of Label "Output Value" With Params "Device IP Address" is "EQUALS" to "true"
+    Then UI Validate the attribute "aria-selected" Of Label "Output Value" With Params "Action" is "EQUALS" to "true"
+    Then UI Validate the attribute "aria-selected" Of Label "Output Value" With Params "Attack ID" is "EQUALS" to "true"
+    Then UI Validate the attribute "aria-selected" Of Label "Output Value" With Params "Source Port" is "EQUALS" to "true"
+    Then UI Validate the attribute "aria-selected" Of Label "Output Value" With Params "Radware ID" is "EQUALS" to "true"
+    Then UI Validate the attribute "aria-selected" Of Label "Output Value" With Params "Duration" is "EQUALS" to "true"
+    Then UI Validate the attribute "aria-selected" Of Label "Output Value" With Params "Total Packets Dropped" is "EQUALS" to "true"
+    Then UI Validate the attribute "aria-selected" Of Label "Output Value" With Params "Max pps" is "EQUALS" to "true"
+    Then UI Validate the attribute "aria-selected" Of Label "Output Value" With Params "Total Mbits Dropped" is "EQUALS" to "true"
+    Then UI Validate the attribute "aria-selected" Of Label "Output Value" With Params "Max bps" is "EQUALS" to "true"
+    Then UI Validate the attribute "aria-selected" Of Label "Output Value" With Params "Physical Port" is "EQUALS" to "true"
+    Then UI Validate the attribute "aria-selected" Of Label "Output Value" With Params "Risk" is "EQUALS" to "true"
+    Then UI Validate the attribute "aria-selected" Of Label "Output Value" With Params "VLAN Tag" is "EQUALS" to "true"
+    Then UI Validate the attribute "aria-selected" Of Label "Output Value" With Params "Packet Type" is "EQUALS" to "true"
+    Then UI Click Button "outputExpandOrCollapse"
+    Then UI Click Button "save"
+    Then UI Validate Element Existence By Label "My Forensics" if Exists "true" with value "Add All Output DP"
+    Then UI Click Button "Edit Forensics" with value "Add All Output DP"
+    Then UI Click Button "Output Tab"
+    Then UI Click Button "outputExpandOrCollapse"
+    Then UI Validate the attribute "aria-selected" Of Label "Output Value" With Params "Start Time" is "EQUALS" to "true"
+    Then UI Validate the attribute "aria-selected" Of Label "Output Value" With Params "End Time" is "EQUALS" to "true"
+    Then UI Validate the attribute "aria-selected" Of Label "Output Value" With Params "Threat Category" is "EQUALS" to "true"
+    Then UI Validate the attribute "aria-selected" Of Label "Output Value" With Params "Attack Name" is "EQUALS" to "true"
+    Then UI Validate the attribute "aria-selected" Of Label "Output Value" With Params "Policy Name" is "EQUALS" to "true"
+    Then UI Validate the attribute "aria-selected" Of Label "Output Value" With Params "Source IP Address" is "EQUALS" to "true"
+    Then UI Validate the attribute "aria-selected" Of Label "Output Value" With Params "Destination IP Address" is "EQUALS" to "true"
+    Then UI Validate the attribute "aria-selected" Of Label "Output Value" With Params "Destination Port" is "EQUALS" to "true"
+    Then UI Validate the attribute "aria-selected" Of Label "Output Value" With Params "Direction" is "EQUALS" to "true"
+    Then UI Validate the attribute "aria-selected" Of Label "Output Value" With Params "Protocol" is "EQUALS" to "true"
+    Then UI Validate the attribute "aria-selected" Of Label "Output Value" With Params "Device IP Address" is "EQUALS" to "true"
+    Then UI Validate the attribute "aria-selected" Of Label "Output Value" With Params "Action" is "EQUALS" to "true"
+    Then UI Validate the attribute "aria-selected" Of Label "Output Value" With Params "Attack ID" is "EQUALS" to "true"
+    Then UI Validate the attribute "aria-selected" Of Label "Output Value" With Params "Source Port" is "EQUALS" to "true"
+    Then UI Validate the attribute "aria-selected" Of Label "Output Value" With Params "Radware ID" is "EQUALS" to "true"
+    Then UI Validate the attribute "aria-selected" Of Label "Output Value" With Params "Duration" is "EQUALS" to "true"
+    Then UI Validate the attribute "aria-selected" Of Label "Output Value" With Params "Total Packets Dropped" is "EQUALS" to "true"
+    Then UI Validate the attribute "aria-selected" Of Label "Output Value" With Params "Max pps" is "EQUALS" to "true"
+    Then UI Validate the attribute "aria-selected" Of Label "Output Value" With Params "Total Mbits Dropped" is "EQUALS" to "true"
+    Then UI Validate the attribute "aria-selected" Of Label "Output Value" With Params "Max bps" is "EQUALS" to "true"
+    Then UI Validate the attribute "aria-selected" Of Label "Output Value" With Params "Physical Port" is "EQUALS" to "true"
+    Then UI Validate the attribute "aria-selected" Of Label "Output Value" With Params "Risk" is "EQUALS" to "true"
+    Then UI Validate the attribute "aria-selected" Of Label "Output Value" With Params "VLAN Tag" is "EQUALS" to "true"
+    Then UI Validate the attribute "aria-selected" Of Label "Output Value" With Params "Packet Type" is "EQUALS" to "true"
+    Then UI Click Button "outputExpandOrCollapse"
+    Then UI Click Button "save"
+    Then UI Validate Element Existence By Label "My Forensics" if Exists "true" with value "Add All Output DP"
+    Then UI Delete Forensics With Name "Add All Output DP"
+    Then UI Validate Element Existence By Label "My Forensics" if Exists "false" with value "Add All Output DP"
+
+    #############################################  DefenseFlow ###############################################
+  
   @SID_46
+  Scenario: Forensics Output - validate default values of DefenseFlow
+    Then UI Click Button "Product Tab" with value "DefenseFlow"
+    Then UI Click Button "outputExpandOrCollapse"
+    Then UI Validate the attribute "aria-selected" Of Label "Output Value" With Params "Start Time" is "EQUALS" to "true"
+    Then UI Validate the attribute "aria-selected" Of Label "Output Value" With Params "End Time" is "EQUALS" to "true"
+    Then UI Validate the attribute "aria-selected" Of Label "Output Value" With Params "Threat Category" is "EQUALS" to "true"
+    Then UI Validate the attribute "aria-selected" Of Label "Output Value" With Params "Attack Name" is "EQUALS" to "true"
+    Then UI Validate the attribute "aria-selected" Of Label "Output Value" With Params "Policy Name" is "EQUALS" to "true"
+    Then UI Validate the attribute "aria-selected" Of Label "Output Value" With Params "Source IP Address" is "EQUALS" to "true"
+    Then UI Validate the attribute "aria-selected" Of Label "Output Value" With Params "Destination IP Address" is "EQUALS" to "true"
+    Then UI Validate the attribute "aria-selected" Of Label "Output Value" With Params "Destination Port" is "EQUALS" to "true"
+    Then UI Validate the attribute "aria-selected" Of Label "Output Value" With Params "Direction" is "EQUALS" to "true"
+    Then UI Validate the attribute "aria-selected" Of Label "Output Value" With Params "Protocol" is "EQUALS" to "true"
+    Then UI Click Button "outputExpandOrCollapse"
+
+  
+  @SID_47
+  Scenario: Forensics Output - delete all selected output of DefenseFlow
+    Then UI Click Button "outputExpandOrCollapse"
+    Then select forensics Output with details ""
+    Then UI Validate the attribute "aria-selected" Of Label "Output Value" With Params "Start Time" is "EQUALS" to "false"
+    Then UI Validate the attribute "aria-selected" Of Label "Output Value" With Params "End Time" is "EQUALS" to "false"
+    Then UI Validate the attribute "aria-selected" Of Label "Output Value" With Params "Threat Category" is "EQUALS" to "false"
+    Then UI Validate the attribute "aria-selected" Of Label "Output Value" With Params "Attack Name" is "EQUALS" to "false"
+    Then UI Validate the attribute "aria-selected" Of Label "Output Value" With Params "Policy Name" is "EQUALS" to "false"
+    Then UI Validate the attribute "aria-selected" Of Label "Output Value" With Params "Source IP Address" is "EQUALS" to "false"
+    Then UI Validate the attribute "aria-selected" Of Label "Output Value" With Params "Destination IP Address" is "EQUALS" to "false"
+    Then UI Validate the attribute "aria-selected" Of Label "Output Value" With Params "Destination Port" is "EQUALS" to "false"
+    Then UI Validate the attribute "aria-selected" Of Label "Output Value" With Params "Direction" is "EQUALS" to "false"
+    Then UI Validate the attribute "aria-selected" Of Label "Output Value" With Params "Protocol" is "EQUALS" to "false"
+    Then UI Validate the attribute "aria-selected" Of Label "Output Value" With Params "Device IP Address" is "EQUALS" to "false"
+    Then UI Validate the attribute "aria-selected" Of Label "Output Value" With Params "Action" is "EQUALS" to "false"
+    Then UI Validate the attribute "aria-selected" Of Label "Output Value" With Params "Attack ID" is "EQUALS" to "false"
+    Then UI Validate the attribute "aria-selected" Of Label "Output Value" With Params "Source Port" is "EQUALS" to "false"
+    Then UI Validate the attribute "aria-selected" Of Label "Output Value" With Params "Radware ID" is "EQUALS" to "false"
+    Then UI Validate the attribute "aria-selected" Of Label "Output Value" With Params "Duration" is "EQUALS" to "false"
+    Then UI Validate the attribute "aria-selected" Of Label "Output Value" With Params "Total Packets Dropped" is "EQUALS" to "false"
+    Then UI Validate the attribute "aria-selected" Of Label "Output Value" With Params "Max pps" is "EQUALS" to "false"
+    Then UI Validate the attribute "aria-selected" Of Label "Output Value" With Params "Total Mbits Dropped" is "EQUALS" to "false"
+    Then UI Validate the attribute "aria-selected" Of Label "Output Value" With Params "Max bps" is "EQUALS" to "false"
+    Then UI Validate the attribute "aria-selected" Of Label "Output Value" With Params "Physical Port" is "EQUALS" to "false"
+    Then UI Validate the attribute "aria-selected" Of Label "Output Value" With Params "Risk" is "EQUALS" to "false"
+    Then UI Validate the attribute "aria-selected" Of Label "Output Value" With Params "VLAN Tag" is "EQUALS" to "false"
+    Then UI Validate the attribute "aria-selected" Of Label "Output Value" With Params "Packet Type" is "EQUALS" to "false"
+    Then UI Click Button "outputExpandOrCollapse"
+
+    Then UI Validate Text field "Output Error Message" CONTAINS "This field cannot be empty."
+
+  
+  @SID_48
   Scenario: Forensics Output - select all output option of DefenseFlow
     Then select forensics Output with details "Start Time,End Time,Threat Category,Attack Name,Policy Name,Source IP Address,Destination IP Address,Destination Port,Direction,Protocol,Device IP Address,Action,Attack ID,Source Port,Radware ID,Duration,Total Packets Dropped,Max pps,Total Mbits Dropped,Max bps,Physical Port,Risk,VLAN Tag,Packet Type"
     Then UI Validate the attribute "aria-selected" Of Label "Output Value" With Params "Start Time" is "EQUALS" to "true"
@@ -700,10 +809,109 @@ Feature: Basic tests for Forensics parameters
     Then UI Validate the attribute "aria-selected" Of Label "Output Value" With Params "Packet Type" is "EQUALS" to "true"
     Then UI Click Button "outputExpandOrCollapse"
 
+  
+  @SID_49
+  Scenario: Forensics Output - delete all selected output of DefenseFlow
+    Then UI Click Button "outputExpandOrCollapse"
+    Then select forensics Output with details ""
+    Then UI Validate the attribute "aria-selected" Of Label "Output Value" With Params "Start Time" is "EQUALS" to "false"
+    Then UI Validate the attribute "aria-selected" Of Label "Output Value" With Params "End Time" is "EQUALS" to "false"
+    Then UI Validate the attribute "aria-selected" Of Label "Output Value" With Params "Threat Category" is "EQUALS" to "false"
+    Then UI Validate the attribute "aria-selected" Of Label "Output Value" With Params "Attack Name" is "EQUALS" to "false"
+    Then UI Validate the attribute "aria-selected" Of Label "Output Value" With Params "Policy Name" is "EQUALS" to "false"
+    Then UI Validate the attribute "aria-selected" Of Label "Output Value" With Params "Source IP Address" is "EQUALS" to "false"
+    Then UI Validate the attribute "aria-selected" Of Label "Output Value" With Params "Destination IP Address" is "EQUALS" to "false"
+    Then UI Validate the attribute "aria-selected" Of Label "Output Value" With Params "Destination Port" is "EQUALS" to "false"
+    Then UI Validate the attribute "aria-selected" Of Label "Output Value" With Params "Direction" is "EQUALS" to "false"
+    Then UI Validate the attribute "aria-selected" Of Label "Output Value" With Params "Protocol" is "EQUALS" to "false"
+    Then UI Validate the attribute "aria-selected" Of Label "Output Value" With Params "Device IP Address" is "EQUALS" to "false"
+    Then UI Validate the attribute "aria-selected" Of Label "Output Value" With Params "Action" is "EQUALS" to "false"
+    Then UI Validate the attribute "aria-selected" Of Label "Output Value" With Params "Attack ID" is "EQUALS" to "false"
+    Then UI Validate the attribute "aria-selected" Of Label "Output Value" With Params "Source Port" is "EQUALS" to "false"
+    Then UI Validate the attribute "aria-selected" Of Label "Output Value" With Params "Radware ID" is "EQUALS" to "false"
+    Then UI Validate the attribute "aria-selected" Of Label "Output Value" With Params "Duration" is "EQUALS" to "false"
+    Then UI Validate the attribute "aria-selected" Of Label "Output Value" With Params "Total Packets Dropped" is "EQUALS" to "false"
+    Then UI Validate the attribute "aria-selected" Of Label "Output Value" With Params "Max pps" is "EQUALS" to "false"
+    Then UI Validate the attribute "aria-selected" Of Label "Output Value" With Params "Total Mbits Dropped" is "EQUALS" to "false"
+    Then UI Validate the attribute "aria-selected" Of Label "Output Value" With Params "Max bps" is "EQUALS" to "false"
+    Then UI Validate the attribute "aria-selected" Of Label "Output Value" With Params "Physical Port" is "EQUALS" to "false"
+    Then UI Validate the attribute "aria-selected" Of Label "Output Value" With Params "Risk" is "EQUALS" to "false"
+    Then UI Validate the attribute "aria-selected" Of Label "Output Value" With Params "VLAN Tag" is "EQUALS" to "false"
+    Then UI Validate the attribute "aria-selected" Of Label "Output Value" With Params "Packet Type" is "EQUALS" to "false"
+    Then UI Click Button "outputExpandOrCollapse"
+
+    Then UI Validate Text field "Output Error Message" CONTAINS "This field cannot be empty."
+
+  
+  @SID_50
+  Scenario: Forensics Output - Add all output and validate that saved
+    Then UI Set Text Field "Forensics Name" To "Add All Output DF"
+    Then UI Click Button "Product Tab" with value "DefenseFlow"
+    Then UI Click Button "outputExpandOrCollapse"
+    Then UI Click Button "Add All Output"
+    Then UI Validate the attribute "aria-selected" Of Label "Output Value" With Params "Start Time" is "EQUALS" to "true"
+    Then UI Validate the attribute "aria-selected" Of Label "Output Value" With Params "End Time" is "EQUALS" to "true"
+    Then UI Validate the attribute "aria-selected" Of Label "Output Value" With Params "Threat Category" is "EQUALS" to "true"
+    Then UI Validate the attribute "aria-selected" Of Label "Output Value" With Params "Attack Name" is "EQUALS" to "true"
+    Then UI Validate the attribute "aria-selected" Of Label "Output Value" With Params "Policy Name" is "EQUALS" to "true"
+    Then UI Validate the attribute "aria-selected" Of Label "Output Value" With Params "Source IP Address" is "EQUALS" to "true"
+    Then UI Validate the attribute "aria-selected" Of Label "Output Value" With Params "Destination IP Address" is "EQUALS" to "true"
+    Then UI Validate the attribute "aria-selected" Of Label "Output Value" With Params "Destination Port" is "EQUALS" to "true"
+    Then UI Validate the attribute "aria-selected" Of Label "Output Value" With Params "Direction" is "EQUALS" to "true"
+    Then UI Validate the attribute "aria-selected" Of Label "Output Value" With Params "Protocol" is "EQUALS" to "true"
+    Then UI Validate the attribute "aria-selected" Of Label "Output Value" With Params "Device IP Address" is "EQUALS" to "true"
+    Then UI Validate the attribute "aria-selected" Of Label "Output Value" With Params "Action" is "EQUALS" to "true"
+    Then UI Validate the attribute "aria-selected" Of Label "Output Value" With Params "Attack ID" is "EQUALS" to "true"
+    Then UI Validate the attribute "aria-selected" Of Label "Output Value" With Params "Source Port" is "EQUALS" to "true"
+    Then UI Validate the attribute "aria-selected" Of Label "Output Value" With Params "Radware ID" is "EQUALS" to "true"
+    Then UI Validate the attribute "aria-selected" Of Label "Output Value" With Params "Duration" is "EQUALS" to "true"
+    Then UI Validate the attribute "aria-selected" Of Label "Output Value" With Params "Total Packets Dropped" is "EQUALS" to "true"
+    Then UI Validate the attribute "aria-selected" Of Label "Output Value" With Params "Max pps" is "EQUALS" to "true"
+    Then UI Validate the attribute "aria-selected" Of Label "Output Value" With Params "Total Mbits Dropped" is "EQUALS" to "true"
+    Then UI Validate the attribute "aria-selected" Of Label "Output Value" With Params "Max bps" is "EQUALS" to "true"
+    Then UI Validate the attribute "aria-selected" Of Label "Output Value" With Params "Physical Port" is "EQUALS" to "true"
+    Then UI Validate the attribute "aria-selected" Of Label "Output Value" With Params "Risk" is "EQUALS" to "true"
+    Then UI Validate the attribute "aria-selected" Of Label "Output Value" With Params "VLAN Tag" is "EQUALS" to "true"
+    Then UI Validate the attribute "aria-selected" Of Label "Output Value" With Params "Packet Type" is "EQUALS" to "true"
+    Then UI Click Button "outputExpandOrCollapse"
+    Then UI Click Button "save"
+    Then UI Validate Element Existence By Label "My Forensics" if Exists "true" with value "Add All Output DF"
+    Then UI Click Button "Edit Forensics" with value "Add All Output DF"
+    Then UI Click Button "Output Tab"
+    Then UI Click Button "outputExpandOrCollapse"
+    Then UI Validate the attribute "aria-selected" Of Label "Output Value" With Params "Start Time" is "EQUALS" to "true"
+    Then UI Validate the attribute "aria-selected" Of Label "Output Value" With Params "End Time" is "EQUALS" to "true"
+    Then UI Validate the attribute "aria-selected" Of Label "Output Value" With Params "Threat Category" is "EQUALS" to "true"
+    Then UI Validate the attribute "aria-selected" Of Label "Output Value" With Params "Attack Name" is "EQUALS" to "true"
+    Then UI Validate the attribute "aria-selected" Of Label "Output Value" With Params "Policy Name" is "EQUALS" to "true"
+    Then UI Validate the attribute "aria-selected" Of Label "Output Value" With Params "Source IP Address" is "EQUALS" to "true"
+    Then UI Validate the attribute "aria-selected" Of Label "Output Value" With Params "Destination IP Address" is "EQUALS" to "true"
+    Then UI Validate the attribute "aria-selected" Of Label "Output Value" With Params "Destination Port" is "EQUALS" to "true"
+    Then UI Validate the attribute "aria-selected" Of Label "Output Value" With Params "Direction" is "EQUALS" to "true"
+    Then UI Validate the attribute "aria-selected" Of Label "Output Value" With Params "Protocol" is "EQUALS" to "true"
+    Then UI Validate the attribute "aria-selected" Of Label "Output Value" With Params "Device IP Address" is "EQUALS" to "true"
+    Then UI Validate the attribute "aria-selected" Of Label "Output Value" With Params "Action" is "EQUALS" to "true"
+    Then UI Validate the attribute "aria-selected" Of Label "Output Value" With Params "Attack ID" is "EQUALS" to "true"
+    Then UI Validate the attribute "aria-selected" Of Label "Output Value" With Params "Source Port" is "EQUALS" to "true"
+    Then UI Validate the attribute "aria-selected" Of Label "Output Value" With Params "Radware ID" is "EQUALS" to "true"
+    Then UI Validate the attribute "aria-selected" Of Label "Output Value" With Params "Duration" is "EQUALS" to "true"
+    Then UI Validate the attribute "aria-selected" Of Label "Output Value" With Params "Total Packets Dropped" is "EQUALS" to "true"
+    Then UI Validate the attribute "aria-selected" Of Label "Output Value" With Params "Max pps" is "EQUALS" to "true"
+    Then UI Validate the attribute "aria-selected" Of Label "Output Value" With Params "Total Mbits Dropped" is "EQUALS" to "true"
+    Then UI Validate the attribute "aria-selected" Of Label "Output Value" With Params "Max bps" is "EQUALS" to "true"
+    Then UI Validate the attribute "aria-selected" Of Label "Output Value" With Params "Physical Port" is "EQUALS" to "true"
+    Then UI Validate the attribute "aria-selected" Of Label "Output Value" With Params "Risk" is "EQUALS" to "true"
+    Then UI Validate the attribute "aria-selected" Of Label "Output Value" With Params "VLAN Tag" is "EQUALS" to "true"
+    Then UI Validate the attribute "aria-selected" Of Label "Output Value" With Params "Packet Type" is "EQUALS" to "true"
+    Then UI Click Button "outputExpandOrCollapse"
+    Then UI Click Button "save"
+    Then UI Validate Element Existence By Label "My Forensics" if Exists "true" with value "Add All Output DF"
+    Then UI Delete Forensics With Name "Add All Output DF"
+    Then UI Validate Element Existence By Label "My Forensics" if Exists "false" with value "Add All Output DF"
 
 #############################################  AppWall ###############################################
-
-  @SID_47
+  
+  @SID_51
   Scenario: Forensics Output - validate default values of AppWall
     Then UI Click Button "Product Tab" with value "AppWall"
     Then UI Click Button "outputExpandOrCollapse"
@@ -715,9 +923,12 @@ Feature: Basic tests for Forensics parameters
     Then UI Validate the attribute "aria-selected" Of Label "Output Value" With Params "Cluster Manager IP" is "EQUALS" to "true"
     Then UI Validate the attribute "aria-selected" Of Label "Output Value" With Params "Web Application Name" is "EQUALS" to "true"
     Then UI Validate the attribute "aria-selected" Of Label "Output Value" With Params "Event Description" is "EQUALS" to "true"
+    Then UI Click Button "outputExpandOrCollapse"
 
-  @SID_48
+  
+  @SID_52
   Scenario: Forensics Output - delete all selected output of AppWall
+    Then UI Click Button "outputExpandOrCollapse"
     Then select forensics Output with details ""
     Then UI Validate the attribute "aria-selected" Of Label "Output Value" With Params "Date and Time" is "EQUALS" to "false"
     Then UI Validate the attribute "aria-selected" Of Label "Output Value" With Params "Device IP" is "EQUALS" to "false"
@@ -741,8 +952,8 @@ Feature: Basic tests for Forensics parameters
 
     Then UI Validate Text field "Output Error Message" CONTAINS "This field cannot be empty."
 
-
-  @SID_49
+  
+  @SID_53
   Scenario: Forensics Output - select all output option of AppWall
     Then select forensics Output with details "User Name,Tunnel,Transaction ID,Threat Category,Severity,Module,Directory,Device Host Name,Attack Name,Action,Event Description,Source IP,Device IP,Date and Time,Destination IP Address,Web Application Name,Source Port,Cluster Manager IP,"
     Then UI Validate the attribute "aria-selected" Of Label "Output Value" With Params "Date and Time" is "EQUALS" to "true"
@@ -765,9 +976,91 @@ Feature: Basic tests for Forensics parameters
     Then UI Validate the attribute "aria-selected" Of Label "Output Value" With Params "User Name" is "EQUALS" to "true"
     Then UI Click Button "outputExpandOrCollapse"
 
+  
+  @SID_54
+  Scenario: Forensics Output - delete all selected output of AppWall
+    Then UI Click Button "outputExpandOrCollapse"
+    Then select forensics Output with details ""
+    Then UI Validate the attribute "aria-selected" Of Label "Output Value" With Params "Date and Time" is "EQUALS" to "false"
+    Then UI Validate the attribute "aria-selected" Of Label "Output Value" With Params "Device IP" is "EQUALS" to "false"
+    Then UI Validate the attribute "aria-selected" Of Label "Output Value" With Params "Source IP" is "EQUALS" to "false"
+    Then UI Validate the attribute "aria-selected" Of Label "Output Value" With Params "Destination IP Address" is "EQUALS" to "false"
+    Then UI Validate the attribute "aria-selected" Of Label "Output Value" With Params "Source Port" is "EQUALS" to "false"
+    Then UI Validate the attribute "aria-selected" Of Label "Output Value" With Params "Cluster Manager IP" is "EQUALS" to "false"
+    Then UI Validate the attribute "aria-selected" Of Label "Output Value" With Params "Web Application Name" is "EQUALS" to "false"
+    Then UI Validate the attribute "aria-selected" Of Label "Output Value" With Params "Event Description" is "EQUALS" to "false"
+    Then UI Validate the attribute "aria-selected" Of Label "Output Value" With Params "Action" is "EQUALS" to "false"
+    Then UI Validate the attribute "aria-selected" Of Label "Output Value" With Params "Attack Name" is "EQUALS" to "false"
+    Then UI Validate the attribute "aria-selected" Of Label "Output Value" With Params "Device Host Name" is "EQUALS" to "false"
+    Then UI Validate the attribute "aria-selected" Of Label "Output Value" With Params "Directory" is "EQUALS" to "false"
+    Then UI Validate the attribute "aria-selected" Of Label "Output Value" With Params "Module" is "EQUALS" to "false"
+    Then UI Validate the attribute "aria-selected" Of Label "Output Value" With Params "Severity" is "EQUALS" to "false"
+    Then UI Validate the attribute "aria-selected" Of Label "Output Value" With Params "Threat Category" is "EQUALS" to "false"
+    Then UI Validate the attribute "aria-selected" Of Label "Output Value" With Params "Transaction ID" is "EQUALS" to "false"
+    Then UI Validate the attribute "aria-selected" Of Label "Output Value" With Params "Tunnel" is "EQUALS" to "false"
+    Then UI Validate the attribute "aria-selected" Of Label "Output Value" With Params "User Name" is "EQUALS" to "false"
+    Then UI Click Button "outputExpandOrCollapse"
+
+    Then UI Validate Text field "Output Error Message" CONTAINS "This field cannot be empty."
+
+  
+  @SID_55
+  Scenario: Forensics Output - Add all output and validate that saved
+    Then UI Set Text Field "Forensics Name" To "Add All Output AW"
+    Then UI Click Button "Product Tab" with value "AppWall"
+    Then UI Click Button "outputExpandOrCollapse"
+    Then UI Click Button "Add All Output"
+    Then UI Validate the attribute "aria-selected" Of Label "Output Value" With Params "Date and Time" is "EQUALS" to "true"
+    Then UI Validate the attribute "aria-selected" Of Label "Output Value" With Params "Device IP" is "EQUALS" to "true"
+    Then UI Validate the attribute "aria-selected" Of Label "Output Value" With Params "Source IP" is "EQUALS" to "true"
+    Then UI Validate the attribute "aria-selected" Of Label "Output Value" With Params "Destination IP Address" is "EQUALS" to "true"
+    Then UI Validate the attribute "aria-selected" Of Label "Output Value" With Params "Source Port" is "EQUALS" to "true"
+    Then UI Validate the attribute "aria-selected" Of Label "Output Value" With Params "Cluster Manager IP" is "EQUALS" to "true"
+    Then UI Validate the attribute "aria-selected" Of Label "Output Value" With Params "Web Application Name" is "EQUALS" to "true"
+    Then UI Validate the attribute "aria-selected" Of Label "Output Value" With Params "Event Description" is "EQUALS" to "true"
+    Then UI Validate the attribute "aria-selected" Of Label "Output Value" With Params "Action" is "EQUALS" to "true"
+    Then UI Validate the attribute "aria-selected" Of Label "Output Value" With Params "Attack Name" is "EQUALS" to "true"
+    Then UI Validate the attribute "aria-selected" Of Label "Output Value" With Params "Device Host Name" is "EQUALS" to "true"
+    Then UI Validate the attribute "aria-selected" Of Label "Output Value" With Params "Directory" is "EQUALS" to "true"
+    Then UI Validate the attribute "aria-selected" Of Label "Output Value" With Params "Module" is "EQUALS" to "true"
+    Then UI Validate the attribute "aria-selected" Of Label "Output Value" With Params "Severity" is "EQUALS" to "true"
+    Then UI Validate the attribute "aria-selected" Of Label "Output Value" With Params "Threat Category" is "EQUALS" to "true"
+    Then UI Validate the attribute "aria-selected" Of Label "Output Value" With Params "Transaction ID" is "EQUALS" to "true"
+    Then UI Validate the attribute "aria-selected" Of Label "Output Value" With Params "Tunnel" is "EQUALS" to "true"
+    Then UI Validate the attribute "aria-selected" Of Label "Output Value" With Params "User Name" is "EQUALS" to "true"
+    Then UI Click Button "outputExpandOrCollapse"
+    Then UI Click Button "save"
+    Then UI Validate Element Existence By Label "My Forensics" if Exists "true" with value "Add All Output AW"
+    Then UI Click Button "Edit Forensics" with value "Add All Output AW"
+    Then UI Click Button "Output Tab"
+    Then UI Click Button "outputExpandOrCollapse"
+    Then UI Validate the attribute "aria-selected" Of Label "Output Value" With Params "Date and Time" is "EQUALS" to "true"
+    Then UI Validate the attribute "aria-selected" Of Label "Output Value" With Params "Device IP" is "EQUALS" to "true"
+    Then UI Validate the attribute "aria-selected" Of Label "Output Value" With Params "Source IP" is "EQUALS" to "true"
+    Then UI Validate the attribute "aria-selected" Of Label "Output Value" With Params "Destination IP Address" is "EQUALS" to "true"
+    Then UI Validate the attribute "aria-selected" Of Label "Output Value" With Params "Source Port" is "EQUALS" to "true"
+    Then UI Validate the attribute "aria-selected" Of Label "Output Value" With Params "Cluster Manager IP" is "EQUALS" to "true"
+    Then UI Validate the attribute "aria-selected" Of Label "Output Value" With Params "Web Application Name" is "EQUALS" to "true"
+    Then UI Validate the attribute "aria-selected" Of Label "Output Value" With Params "Event Description" is "EQUALS" to "true"
+    Then UI Validate the attribute "aria-selected" Of Label "Output Value" With Params "Action" is "EQUALS" to "true"
+    Then UI Validate the attribute "aria-selected" Of Label "Output Value" With Params "Attack Name" is "EQUALS" to "true"
+    Then UI Validate the attribute "aria-selected" Of Label "Output Value" With Params "Device Host Name" is "EQUALS" to "true"
+    Then UI Validate the attribute "aria-selected" Of Label "Output Value" With Params "Directory" is "EQUALS" to "true"
+    Then UI Validate the attribute "aria-selected" Of Label "Output Value" With Params "Module" is "EQUALS" to "true"
+    Then UI Validate the attribute "aria-selected" Of Label "Output Value" With Params "Severity" is "EQUALS" to "true"
+    Then UI Validate the attribute "aria-selected" Of Label "Output Value" With Params "Threat Category" is "EQUALS" to "true"
+    Then UI Validate the attribute "aria-selected" Of Label "Output Value" With Params "Transaction ID" is "EQUALS" to "true"
+    Then UI Validate the attribute "aria-selected" Of Label "Output Value" With Params "Tunnel" is "EQUALS" to "true"
+    Then UI Validate the attribute "aria-selected" Of Label "Output Value" With Params "User Name" is "EQUALS" to "true"
+    Then UI Click Button "outputExpandOrCollapse"
+    Then UI Click Button "save"
+    Then UI Validate Element Existence By Label "My Forensics" if Exists "true" with value "Add All Output AW"
+    Then UI Delete Forensics With Name "Add All Output AW"
+    Then UI Validate Element Existence By Label "My Forensics" if Exists "false" with value "Add All Output AW"
+
                  ########################## Criteria Tests #########################################################
 
-  @SID_50
+  @SID_56
   Scenario: Validate Criteria Action Attribute
     Then UI Click Button "Criteria Tab"
     Then UI Validate Element Existence By Label "Add Condition" if Exists "true" with value "disabled"
@@ -784,7 +1077,7 @@ Feature: Basic tests for Forensics parameters
     Then validate webUI CSS value "border-bottom-color" of label "Criteria Value Label" equals "rgb(244, 20, 20)"
 
 
-  @SID_51
+  @SID_57
   Scenario: Validate Criteria Attack ID Attribute
     Then UI Click Button "Criteria Tab"
     Then UI Click Button "Criteria Attribute Expand"
@@ -808,7 +1101,7 @@ Feature: Basic tests for Forensics parameters
     Then validate webUI CSS value "border-bottom-color" of label "Criteria Value Input" equals "rgb(244, 20, 20)"
 
 
-  @SID_52
+  @SID_58
   Scenario: Validate Criteria Attack Name Attribute
     Then UI Click Button "Criteria Tab"
     Then UI Click Button "Criteria Attribute Expand"
@@ -820,7 +1113,7 @@ Feature: Basic tests for Forensics parameters
     Then validate webUI CSS value "border-bottom-color" of label "Criteria Value Input" equals "rgb(244, 20, 20)"
 
 
-  @SID_53
+  @SID_59
   Scenario: Validate Criteria Attack Rate in bps Attribute
     Then UI Click Button "Criteria Tab"
     Then UI Click Button "Criteria Attribute Expand"
@@ -844,7 +1137,7 @@ Feature: Basic tests for Forensics parameters
     Then validate webUI CSS value "border-bottom-color" of label "Criteria Value input" with params "rate" equals "rgb(244, 20, 20)"
 
 
-  @SID_53
+  @SID_60
   Scenario: Validate Criteria Destination IP Attribute
     Then UI Click Button "Criteria Tab"
     Then UI Click Button "Criteria Attribute Expand"
@@ -944,7 +1237,7 @@ Feature: Basic tests for Forensics parameters
     Then validate webUI CSS value "border-bottom-color" of label "Criteria Value input" with params "ip" equals "rgb(244, 20, 20)"
 
 
-  @SID_54
+  @SID_61
   Scenario: Validate Criteria Attack Rate in pps Attribute
     Then UI Click Button "Criteria Tab"
     Then UI Click Button "Criteria Attribute Expand"
@@ -968,7 +1261,7 @@ Feature: Basic tests for Forensics parameters
     Then validate webUI CSS value "border-bottom-color" of label "Criteria Value input" with params "rate" equals "rgb(244, 20, 20)"
 
 
-  @SID_55
+  @SID_62
   Scenario: Validate Criteria Destination Port Attribute
     Then UI Click Button "Criteria Tab"
     Then UI Click Button "Criteria Attribute Expand"
@@ -1005,7 +1298,7 @@ Feature: Basic tests for Forensics parameters
     Then validate webUI CSS value "border-bottom-color" of label "Criteria Value input" with params "port-to" equals "rgb(244, 20, 20)"
 
 
-  @SID_56
+  @SID_63
   Scenario: Validate Criteria Direction Attribute
     Then UI Click Button "Criteria Tab"
     Then UI Click Button "Criteria Attribute Expand"
@@ -1016,7 +1309,7 @@ Feature: Basic tests for Forensics parameters
     Then UI Click Button "Add Condition" with value "enabled"
     Then validate webUI CSS value "border-bottom-color" of label "Criteria Value Expand" equals "rgb(244, 20, 20)"
 
-  @SID_57
+  @SID_64
   Scenario: Validate Criteria Duration Attribute
     Then UI Click Button "Criteria Tab"
     Then UI Click Button "Criteria Attribute Expand"
@@ -1027,7 +1320,7 @@ Feature: Basic tests for Forensics parameters
     Then UI Click Button "Add Condition" with value "enabled"
     Then validate webUI CSS value "border-bottom-color" of label "Criteria Value Expand" equals "rgb(244, 20, 20)"
 
-  @SID_58
+  @SID_65
   Scenario: Validate Criteria Protocol Attribute
     Then UI Click Button "Criteria Tab"
     Then UI Click Button "Criteria Attribute Expand"
@@ -1038,7 +1331,7 @@ Feature: Basic tests for Forensics parameters
     Then UI Click Button "Add Condition" with value "enabled"
     Then validate webUI CSS value "border-bottom-color" of label "Criteria Value Expand" equals "rgb(244, 20, 20)"
 
-  @SID_59
+  @SID_66
   Scenario: Validate Criteria Risk Attribute
     Then UI Click Button "Criteria Tab"
     Then UI Click Button "Criteria Attribute Expand"
@@ -1049,7 +1342,7 @@ Feature: Basic tests for Forensics parameters
     Then UI Click Button "Add Condition" with value "enabled"
     Then validate webUI CSS value "border-bottom-color" of label "Criteria Value Expand" equals "rgb(244, 20, 20)"
 
-  @SID_60
+  @SID_67
   Scenario: Validate Criteria Source IP Attribute
     Then UI Click Button "Criteria Tab"
     Then UI Click Button "Criteria Attribute Expand"
@@ -1148,7 +1441,7 @@ Feature: Basic tests for Forensics parameters
     Then UI Set Text Field "Criteria Value input" and params "ip" To "AAAAA:1:2:3:4:5:6:7"
     Then validate webUI CSS value "border-bottom-color" of label "Criteria Value input" with params "ip" equals "rgb(244, 20, 20)"
 
-  @SID_61
+  @SID_68
   Scenario: Validate Criteria Source Port Attribute
     Then UI Click Button "Criteria Tab"
     Then UI Click Button "Criteria Attribute Expand"
@@ -1185,7 +1478,7 @@ Feature: Basic tests for Forensics parameters
     Then validate webUI CSS value "border-bottom-color" of label "Criteria Value input" with params "port-to" equals "rgb(244, 20, 20)"
 
 
-  @SID_62
+  @SID_69
   Scenario: Validate Criteria Threat Category Attribute
     Then UI Click Button "Criteria Tab"
     Then UI Click Button "Criteria Attribute Expand"
@@ -1196,7 +1489,7 @@ Feature: Basic tests for Forensics parameters
     Then UI Click Button "Add Condition" with value "enabled"
     Then validate webUI CSS value "border-bottom-color" of label "Criteria Value Expand" equals "rgb(244, 20, 20)"
 
-  @SID_63
+  @SID_70
   Scenario: Validate Criteria MAx bps Attribute
     Then UI Click Button "Criteria Tab"
     Then UI Click Button "Criteria Attribute Expand"
@@ -1219,7 +1512,7 @@ Feature: Basic tests for Forensics parameters
     Then UI Set Text Field "Criteria Value input" and params "rate" To "1.1"
     Then validate webUI CSS value "border-bottom-color" of label "Criteria Value input" with params "rate" equals "rgb(244, 20, 20)"
 
-  @SID_64
+  @SID_71
   Scenario: Validate Criteria Packet Type Attribute
     Then UI Click Button "Criteria Tab"
     Then UI Click Button "Criteria Attribute Expand"
@@ -1230,7 +1523,7 @@ Feature: Basic tests for Forensics parameters
     Then UI Click Button "Add Condition" with value "enabled"
     Then validate webUI CSS value "border-bottom-color" of label "Criteria Value Expand" equals "rgb(244, 20, 20)"
 
-  @SID_65
+  @SID_72
   Scenario: Validate Criteria MAx pps Attribute
     Then UI Click Button "Criteria Tab"
     Then UI Click Button "Criteria Attribute Expand"
@@ -1253,7 +1546,7 @@ Feature: Basic tests for Forensics parameters
     Then UI Set Text Field "Criteria Value input" and params "rate" To "1.1"
     Then validate webUI CSS value "border-bottom-color" of label "Criteria Value input" with params "rate" equals "rgb(244, 20, 20)"
 
-  @SID_66
+  @SID_73
   Scenario: Forensics Criteria Apply To All is selected
     Then UI Click Button "Criteria Apply To" with value "all"
     Then UI Validate the attribute of "data-debug-checked" are "EQUAL" to
@@ -1262,7 +1555,7 @@ Feature: Basic tests for Forensics parameters
       | Criteria Apply To | any    | false |
       | Criteria Apply To | custom | false |
 
-  @SID_67
+  @SID_74
   Scenario: Forensics Criteria Apply To Any is selected
     Then UI Click Button "Criteria Apply To" with value "any"
     Then UI Validate the attribute of "data-debug-checked" are "EQUAL" to
@@ -1271,7 +1564,7 @@ Feature: Basic tests for Forensics parameters
       | Criteria Apply To | any    | true  |
       | Criteria Apply To | custom | false |
 
-  @SID_68
+  @SID_75
   Scenario: Forensics Criteria Apply To custom is selected
     Then UI Click Button "Criteria Apply To" with value "custom"
     Then UI Validate the attribute of "data-debug-checked" are "EQUAL" to
@@ -1280,6 +1573,6 @@ Feature: Basic tests for Forensics parameters
       | Criteria Apply To | any    | false |
       | Criteria Apply To | custom | true  |
 
-  @SID_69
+  @SID_76
   Scenario: Logout
     Then UI logout and close browser
