@@ -2,6 +2,7 @@
 Feature: Basic tests for Forensics parameters
 
   
+
   @SID_1
   Scenario: Navigate to NEW ForensicsS page
     Then UI Login with user "radware" and password "radware"
@@ -544,6 +545,7 @@ Feature: Basic tests for Forensics parameters
 
   @SID_40
   Scenario: Forensics Output
+    Then UI Click Button "New Forensics Tab"
     Then UI Validate Text field "Output Tab" CONTAINS "*"
 
            ######################################## DefensePro ##########################################################
@@ -601,6 +603,7 @@ Feature: Basic tests for Forensics parameters
   @SID_43
   Scenario: Forensics Output - select all output option of DefensePro
     Then select forensics Output with details "Start Time,End Time,Threat Category,Attack Name,Policy Name,Source IP Address,Destination IP Address,Destination Port,Direction,Protocol,Device IP Address,Action,Attack ID,Source Port,Radware ID,Duration,Total Packets Dropped,Max pps,Total Mbits Dropped,Max bps,Physical Port,Risk,VLAN Tag,Packet Type"
+    Then UI Click Button "outputExpandOrCollapse"
     Then UI Validate the attribute "aria-selected" Of Label "Output Value" With Params "Start Time" is "EQUALS" to "true"
     Then UI Validate the attribute "aria-selected" Of Label "Output Value" With Params "End Time" is "EQUALS" to "true"
     Then UI Validate the attribute "aria-selected" Of Label "Output Value" With Params "Threat Category" is "EQUALS" to "true"
@@ -629,7 +632,7 @@ Feature: Basic tests for Forensics parameters
 
   
   @SID_44
-  Scenario: Forensics Output - delete all selected output of DefensePro
+  Scenario: Forensics Output - DP delete all selected output
     Then UI Click Button "outputExpandOrCollapse"
     Then select forensics Output with details ""
     Then UI Validate the attribute "aria-selected" Of Label "Output Value" With Params "Start Time" is "EQUALS" to "false"
@@ -662,7 +665,7 @@ Feature: Basic tests for Forensics parameters
 
   
   @SID_45
-  Scenario: Forensics Output - Add all output and validate that saved
+  Scenario: Forensics Output - Add all DP output and validate that saved
     Then UI Set Text Field "Forensics Name" To "Add All Output DP"
     Then UI Click Button "Product Tab" with value "DefensePro"
     Then UI Click Button "outputExpandOrCollapse"
@@ -731,6 +734,7 @@ Feature: Basic tests for Forensics parameters
   
   @SID_46
   Scenario: Forensics Output - validate default values of DefenseFlow
+    Then UI Click Button "New Forensics Tab"
     Then UI Click Button "Product Tab" with value "DefenseFlow"
     Then UI Click Button "outputExpandOrCollapse"
     Then UI Validate the attribute "aria-selected" Of Label "Output Value" With Params "Start Time" is "EQUALS" to "true"
@@ -782,6 +786,7 @@ Feature: Basic tests for Forensics parameters
   @SID_48
   Scenario: Forensics Output - select all output option of DefenseFlow
     Then select forensics Output with details "Start Time,End Time,Threat Category,Attack Name,Policy Name,Source IP Address,Destination IP Address,Destination Port,Direction,Protocol,Device IP Address,Action,Attack ID,Source Port,Radware ID,Duration,Total Packets Dropped,Max pps,Total Mbits Dropped,Max bps,Physical Port,Risk,VLAN Tag,Packet Type"
+    Then UI Click Button "outputExpandOrCollapse"
     Then UI Validate the attribute "aria-selected" Of Label "Output Value" With Params "Start Time" is "EQUALS" to "true"
     Then UI Validate the attribute "aria-selected" Of Label "Output Value" With Params "End Time" is "EQUALS" to "true"
     Then UI Validate the attribute "aria-selected" Of Label "Output Value" With Params "Threat Category" is "EQUALS" to "true"
@@ -810,7 +815,7 @@ Feature: Basic tests for Forensics parameters
 
   
   @SID_49
-  Scenario: Forensics Output - delete all selected output of DefenseFlow
+  Scenario: Forensics Output - DF delete all selected output
     Then UI Click Button "outputExpandOrCollapse"
     Then select forensics Output with details ""
     Then UI Validate the attribute "aria-selected" Of Label "Output Value" With Params "Start Time" is "EQUALS" to "false"
@@ -843,7 +848,7 @@ Feature: Basic tests for Forensics parameters
 
   
   @SID_50
-  Scenario: Forensics Output - Add all output and validate that saved
+  Scenario: Forensics Output - Add all DF output and validate that saved
     Then UI Set Text Field "Forensics Name" To "Add All Output DF"
     Then UI Click Button "Product Tab" with value "DefenseFlow"
     Then UI Click Button "outputExpandOrCollapse"
@@ -912,6 +917,7 @@ Feature: Basic tests for Forensics parameters
   
   @SID_51
   Scenario: Forensics Output - validate default values of AppWall
+    Then UI Click Button "New Forensics Tab"
     Then UI Click Button "Product Tab" with value "AppWall"
     Then UI Click Button "outputExpandOrCollapse"
     Then UI Validate the attribute "aria-selected" Of Label "Output Value" With Params "Date and Time" is "EQUALS" to "true"
@@ -955,6 +961,7 @@ Feature: Basic tests for Forensics parameters
   @SID_53
   Scenario: Forensics Output - select all output option of AppWall
     Then select forensics Output with details "User Name,Tunnel,Transaction ID,Threat Category,Severity,Module,Directory,Device Host Name,Attack Name,Action,Event Description,Source IP,Device IP,Date and Time,Destination IP Address,Web Application Name,Source Port,Cluster Manager IP,"
+    Then UI Click Button "outputExpandOrCollapse"
     Then UI Validate the attribute "aria-selected" Of Label "Output Value" With Params "Date and Time" is "EQUALS" to "true"
     Then UI Validate the attribute "aria-selected" Of Label "Output Value" With Params "Device IP" is "EQUALS" to "true"
     Then UI Validate the attribute "aria-selected" Of Label "Output Value" With Params "Source IP" is "EQUALS" to "true"
@@ -977,7 +984,7 @@ Feature: Basic tests for Forensics parameters
 
   
   @SID_54
-  Scenario: Forensics Output - delete all selected output of AppWall
+  Scenario: Forensics Output - AW delete all selected output
     Then UI Click Button "outputExpandOrCollapse"
     Then select forensics Output with details ""
     Then UI Validate the attribute "aria-selected" Of Label "Output Value" With Params "Date and Time" is "EQUALS" to "false"
@@ -1004,7 +1011,7 @@ Feature: Basic tests for Forensics parameters
 
   
   @SID_55
-  Scenario: Forensics Output - Add all output and validate that saved
+  Scenario: Forensics Output - Add all AW output and validate that saved
     Then UI Set Text Field "Forensics Name" To "Add All Output AW"
     Then UI Click Button "Product Tab" with value "AppWall"
     Then UI Click Button "outputExpandOrCollapse"
@@ -1061,6 +1068,7 @@ Feature: Basic tests for Forensics parameters
 
   @SID_56
   Scenario: Validate Criteria Action Attribute
+    Then UI Click Button "New Forensics Tab"
     Then UI Click Button "Criteria Tab"
     Then UI Validate Element Existence By Label "Add Condition" if Exists "true" with value "disabled"
     Then UI Validate Element Existence By Label "Add Condition" if Exists "false" with value "enabled"
@@ -1307,6 +1315,7 @@ Feature: Basic tests for Forensics parameters
     Then UI Validate Element Existence By Label "Add Condition" if Exists "false" with value "disabled"
     Then UI Click Button "Add Condition" with value "enabled"
     Then validate webUI CSS value "border-bottom-color" of label "Criteria Value Expand" equals "rgb(244, 20, 20)"
+
 
   @SID_64
   Scenario: Validate Criteria Duration Attribute
