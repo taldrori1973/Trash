@@ -6,6 +6,8 @@ import com.radware.vision.automation.AutoUtils.SUT.dtos.ServerDto;
 import com.radware.vision.automation.VisionAutoInfra.CLIInfra.Servers.LinuxFileServer;
 import com.radware.vision.automation.VisionAutoInfra.CLIInfra.Servers.ServerCliBase;
 import com.radware.vision.base.TestBase;
+import com.radware.vision.vision_project_cli.RadwareServerCli;
+import com.radware.vision.vision_project_cli.RootServerCli;
 
 import java.lang.reflect.Constructor;
 import java.util.Optional;
@@ -15,12 +17,15 @@ public class ServersManagement {
 
     private LinuxFileServer linuxFileServer;
     private LinuxFileServer deploymentServer;
+    private RadwareServerCli radwareServerCli;
+    private RootServerCli rootServerCli;
 //    private RadwareServerCli radwareServerCli;
 //    private RootServerCli rootServerCli;
 
     public ServersManagement() {
         this.linuxFileServer = this.createAndInitServer(ServerIds.LINUX_FILE_SERVER, LinuxFileServer.class);
         this.deploymentServer = this.createAndInitServer(ServerIds.DEPLOYMENT_SERVER, LinuxFileServer.class);
+//        this.radwareServerCli = this.createAndInitServer(ServerIds.RADWARE_SERVER_CLI, RadwareServerCli.class);
 //        this.radwareServerCli = this.createAndInitServer(ServerIds.RADWARE_SERVER_CLI, RadwareServerCli.class);
 //        this.rootServerCli = this.createAndInitServer(ServerIds.ROOT_SERVER_CLI, RootServerCli.class);
     }
