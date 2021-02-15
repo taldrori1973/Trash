@@ -6,7 +6,6 @@ import com.radware.automation.tools.basetest.BaseTestUtils;
 import com.radware.automation.tools.basetest.Reporter;
 import com.radware.automation.webui.WebUIUtils;
 import com.radware.automation.webui.widgets.ComponentLocator;
-import com.radware.automation.webui.widgets.ComponentLocatorFactory;
 import com.radware.vision.automation.tools.exceptions.selenium.TargetWebElementNotFoundException;
 import com.radware.vision.automation.tools.sutsystemobjects.devicesinfo.enums.SUTDeviceType;
 import com.radware.vision.bddtests.ReportsForensicsAlerts.Handlers.TemplateHandlers;
@@ -57,8 +56,8 @@ public class Forensics extends ReportsForensicsAlertsAbstract {
     public void create(String name, String negative, Map<String, String> map) throws Exception {
         closeView(false);
         WebUiTools.check("New Forensics Tab", "", true);
-        createForensicsParam(name, map);
         selectScopeSelection(map);
+        createForensicsParam(name, map);
         BasicOperationsHandler.clickButton("save");
     }
 
@@ -115,29 +114,86 @@ public class Forensics extends ReportsForensicsAlertsAbstract {
     private void selectCriteria(Map<String, String> map) throws Exception {
         if (map.containsKey("Criteria"))
         {
-            List<Object> conditions = new JSONArray(map.get("Criteria")).toList();
+            List<Object> conditions = new ObjectMapper().readTree(map.get("Criteria")).isArray() ? new JSONArray(map.get("Criteria")).toList() : new JSONArray().put(map.get("Criteria")).toList();
             for (Object condition : conditions)
             {
-                selectAttributeCriteria(new JSONObject(condition.toString()));
-                selectAttributeValuesCriteria(condition);
-                BasicOperationsHandler.clickButton("add Condition");
+                if (new JSONObject(condition).has("Event Criteria"))
+                {
+                    selectAttributeCriteria(new JSONObject(condition.toString()));
+                    selectAttributeValuesCriteria(new JSONObject(condition.toString()));
+                    BasicOperationsHandler.clickButton("add Condition");
+                }
             }
-            applyToCriteria(map);
+            applyToCriteria(new JSONObject(map.get("Criteria")));
         }
     }
 
-    private void applyToCriteria(Map<String, String> map) {
-
+    private void applyToCriteria(JSONObject criteriaObject) throws Exception {
+        if (criteriaObject.has("Criteria.Custom checkBox") || criteriaObject.has("condition.Custom"))
+        {
+            WebUiTools.check("Criteria Apply To", "custom", true);
+            BasicOperationsHandler.setTextField("customTextField", criteriaObject.get("Criteria.Custom checkBox").toString());
+        }
+        else if (criteriaObject.has("Criteria.Any") || criteriaObject.has("condition.Any"))
+            WebUiTools.check("Criteria Apply To", "any", true);
+        else if (criteriaObject.has("Criteria.All") || criteriaObject.has("condition.All"))
+            WebUiTools.check("Criteria Apply To", "all", true);
     }
 
-    private void selectAttributeValuesCriteria(Object condition) {
-
+    private void selectAttributeValuesCriteria(JSONObject condition) throws Exception {
+            switch (condition.get("Event Criteria").toString().toUpperCase()) {
+                case "ACTION":
+                case "DIRECTION":
+                case "DURATION":
+                case "PROTOCOL":
+                case "RISK":
+                case "THREAT CATEGORY": {
+                    BasicOperationsHandler.clickButton("Criteria Value Expand");
+                    String valuesText = condition.get("Value").toString().charAt(0) == '[' ? condition.get("Value").toString().replaceAll("(\\[)|(])", "") : condition.get("Value").toString();
+                    List<String> values = new ArrayList<>();
+                    Collections.addAll(values, valuesText.split(","));
+                    for (String value : values)
+                        WebUiTools.check("Criteria Value Selected", value, true);
+                    break;
+                }
+                case "ATTACK ID":
+                case "ATTACK NAME": {
+                    BasicOperationsHandler.setTextField("Criteria Value Input", condition.get("Value").toString());
+                    break;
+                }
+                case "DESTINATION IP":
+                case "SOURCE IP": {
+                    WebUiTools.check("attributeValueExpand", "", true);
+                    WebUiTools.check("attributeValueSelect", condition.get("IPType").toString(), true);
+                    BasicOperationsHandler.setTextField("attributeValueIPInput", condition.get("IPValue").toString());
+                    break;
+                }
+                case "DESTINATION PORT":
+                case "SOURCE PORT": {
+                    WebUiTools.check("attributeValueExpand", "", true);
+                    WebUiTools.check("attributeValueSelect", condition.get("portType").toString(), true);
+                    if (condition.has("portValue"))
+                        BasicOperationsHandler.setTextField("attributeValuePortFrom", condition.get("portValue").toString());
+                    else {
+                        BasicOperationsHandler.setTextField("attributeValuePortFrom", condition.get("portFrom").toString());
+                        BasicOperationsHandler.setTextField("attributeValueIPInput", condition.get("portTo").toString());
+                    }
+                    break;
+                }
+                case "ATTACK RATE IN BPS":
+                case "ATTACK RATE IN PPS": {
+                    BasicOperationsHandler.setTextField("attributeValueRate", condition.get("RateValue").toString());
+                    BasicOperationsHandler.clickButton("");
+                    WebUiTools.check("attributeValueSelect", condition.get("Unit").toString(), true);
+                    break;
+                }
+            }
     }
 
     private void selectAttributeCriteria(JSONObject condition) throws Exception {
-        BasicOperationsHandler.clickButton("attributePicker");
-        WebUIUtils.fluentWait(new ComponentLocator(How.XPATH, "//li[@title='" + condition.get("Event Criteria") + "']").getBy()).click();
-        WebUIUtils.fluentWait(new ComponentLocator(How.XPATH, "//li[@title='" + getCriteriaOperator(condition.get("Operator").toString()) + "']").getBy()).click();
+        BasicOperationsHandler.clickButton("Criteria Attribute Expand");
+        BasicOperationsHandler.clickButton("Criteria Attribute Selected", condition.get("Event Criteria").toString());
+        BasicOperationsHandler.clickButton("Criteria Attribute Selected", getCriteriaOperator(condition.get("Operator").toString()));
     }
 
     private String getCriteriaOperator(String operator) throws Exception {
@@ -152,24 +208,25 @@ public class Forensics extends ReportsForensicsAlertsAbstract {
 
     public void selectOutput(Map<String, String> map) throws Exception {
         WebUiTools.check("outputExpandOrCollapse", "", true);
-        if(map.get("Output").equalsIgnoreCase("Add All"))
-            WebUiTools.check("Add All Output", "", true);
-        else {
-            ArrayList<String> expectedOutputs = new ArrayList<>(Arrays.asList(map.get("Output").split(",")));
-            if (expectedOutputs.size() == 1 && expectedOutputs.get(0).toString().equalsIgnoreCase(""))
-                expectedOutputs.remove(0);
-
-            for (WebElement outputElement : WebUIUtils.fluentWaitMultiple(ComponentLocatorFactory.getLocatorByXpathDbgId("forensics_output_").getBy())) {
-                String outputText = outputElement.getText();
-                if (expectedOutputs.contains(outputText)) {
-                    WebUiTools.check("Output Value", outputText, true);
-                    expectedOutputs.remove(outputText);
-                } else WebUiTools.check("Output Value", outputText, false);
-            }
-
-            if (expectedOutputs.size() > 0)
-                throw new Exception("The outputs " + expectedOutputs + " don't exist in the outputs");
+        ArrayList<String> expectedOutputs = new ArrayList<>(Arrays.asList(map.get("Output").split(",")));
+        if (expectedOutputs.size() == 1 && expectedOutputs.get(0).toString().equalsIgnoreCase(""))
+            expectedOutputs.remove(0);
+        if (expectedOutputs.get(0).equalsIgnoreCase("Add All"))
+        {
+            BasicOperationsHandler.clickButton("Add All Output");
+            return;
         }
+
+        for (WebElement outputElement : WebUIUtils.fluentWaitMultiple(new ComponentLocator(How.XPATH, "//li[contains(@data-debug-id,'forensics_output_') and not(contains(@data-debug-id,'Add All'))]").getBy())) {
+            String outputText = outputElement.getText();
+            if (expectedOutputs.contains(outputText)) {
+                WebUiTools.check("Output Value", outputText, true);
+                expectedOutputs.remove(outputText);
+            } else WebUiTools.check("Output Value", outputText, false);
+        }
+
+        if (expectedOutputs.size() > 0)
+            throw new Exception("The outputs " + expectedOutputs + " don't exist in the outputs");
     }
 
     private void createName(String name, Map<String, String> map) throws Exception {
@@ -189,6 +246,7 @@ public class Forensics extends ReportsForensicsAlertsAbstract {
             errorMessage.append(validateShareDefinition(new JSONObject(basicRestResult.get("deliveryMethod").toString()), map));
             errorMessage.append(validateScopeSelection(basicRestResult, map, errorMessage));
             errorMessage.append(validateOutput(basicRestResult, map, errorMessage));
+            errorMessage.append(validateCriteriaDefinition(basicRestResult, map, errorMessage));
         } else errorMessage.append("No Forensics Defined with name ").append(forensicsName).append("/n");
         if (errorMessage.length() != 0)
             BaseTestUtils.report(errorMessage.toString(), Reporter.FAIL);
@@ -329,8 +387,15 @@ public class Forensics extends ReportsForensicsAlertsAbstract {
             errorMessage.append("The expected " + devicesKey + " number is " + expectedDevices.size() + " But the actual " + devicesKey + " number is " + actualDevices.size() + "/n");
     }
 
-    protected StringBuilder validateCriteriaDefinition(String criteria) {
-        return null;
+    protected StringBuilder validateCriteriaDefinition(JSONObject basicRestResult, Map<String, String> map, StringBuilder errorMessage) {
+        if (map.containsKey("Criteria"))
+        {
+            JSONObject actualDefinition = new JSONObject(basicRestResult.get("metadata").toString().replace("\\", ""));
+            if (map.containsKey("Criteria.Custom checkBox"))
+                if (!actualDefinition.get("mode").toString().equalsIgnoreCase(map.get("Criteria.Custom checkBox")))
+                    errorMessage.append("The actual mode is " + actualDefinition.get("mode").toString() + " but the expected mode" + map.get("Criteria.Custom checkBox"));
+        }
+        return errorMessage;
     }
 
     protected String getDefaultFormat() {
