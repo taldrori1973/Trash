@@ -31,7 +31,7 @@ Feature: Edit AppWall Parameters
   Scenario: Edit Email FTP
     Then UI "Edit" Forensics With Name "Forensics AppWall"
       | Share | FTP:checked, FTP.Location:172.17.164.10, FTP.Path:/home/radware/ftp/, FTP.Username:radware, FTP.Password:radware |
-    Then UI "Validate" Forensics With Name "Forensics AppWall Updated"
+    Then UI "Validate" Forensics With Name "Forensics AppWall"
       | Share | FTP:checked, FTP.Location:172.17.164.10, FTP.Path:/home/radware/ftp/, FTP.Username:radware, FTP.Password:radware |
 
   @SID_5
@@ -54,7 +54,6 @@ Feature: Edit AppWall Parameters
       | Time Definitions.Date | Quick:Today |
     Then UI "Validate" Forensics With Name "Forensics AppWall"
       | Time Definitions.Date | Quick:Today |
-    Then UI Text of "Forensics Time Type" equal to "Today"
 
   @SID_8
   Scenario: Edit Time
@@ -62,7 +61,6 @@ Feature: Edit AppWall Parameters
       | Time Definitions.Date | Quick:Yesterday |
     Then UI "Validate" Forensics With Name "Forensics AppWall"
       | Time Definitions.Date | Quick:Yesterday |
-    Then UI Text of "Forensics Time Type" equal to "Yesterday"
 
   @SID_9
   Scenario: Edit Time
@@ -70,7 +68,6 @@ Feature: Edit AppWall Parameters
       | Time Definitions.Date | Quick:This Month |
     Then UI "Validate" Forensics With Name "Forensics AppWall"
       | Time Definitions.Date | Quick:This Month |
-    Then UI Text of "Forensics Time Type" equal to "This Month"
 
   @SID_10
   Scenario: Edit Time
@@ -78,7 +75,6 @@ Feature: Edit AppWall Parameters
       | Time Definitions.Date | Quick:1D |
     Then UI "Validate" Forensics With Name "Forensics AppWall"
       | Time Definitions.Date | Quick:1D |
-    Then UI Text of "Forensics Time Type" equal to "1D"
 
   @SID_11
   Scenario: Edit Time
@@ -86,7 +82,6 @@ Feature: Edit AppWall Parameters
       | Time Definitions.Date | Quick:1W |
     Then UI "Validate" Forensics With Name "Forensics AppWall"
       | Time Definitions.Date | Quick:1W |
-    Then UI Text of "Forensics Time Type" equal to "1W"
 
   @SID_12
   Scenario: Edit Time
@@ -94,7 +89,6 @@ Feature: Edit AppWall Parameters
       | Time Definitions.Date | Quick:1M |
     Then UI "Validate" Forensics With Name "Forensics AppWall"
       | Time Definitions.Date | Quick:1M |
-    Then UI Text of "Forensics Time Type" equal to "1M"
 
   @SID_13
   Scenario: Edit Time
@@ -102,7 +96,6 @@ Feature: Edit AppWall Parameters
       | Time Definitions.Date | Quick:3M |
     Then UI "Validate" Forensics With Name "Forensics AppWall"
       | Time Definitions.Date | Quick:3M |
-    Then UI Text of "Forensics Time Type" equal to "3M"
 
   @SID_14
   Scenario: Edit Time
@@ -110,7 +103,6 @@ Feature: Edit AppWall Parameters
       | Time Definitions.Date | Quick:1Y |
     Then UI "Validate" Forensics With Name "Forensics AppWall"
       | Time Definitions.Date | Quick:1Y |
-    Then UI Text of "Forensics Time Type" equal to "1Y"
 
   @SID_15
   Scenario: Edit Output

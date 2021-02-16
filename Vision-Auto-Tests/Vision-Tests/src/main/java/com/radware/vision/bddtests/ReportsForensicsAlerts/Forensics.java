@@ -160,7 +160,7 @@ public class Forensics extends ReportsForensicsAlertsAbstract {
                 case "RISK":
                 case "THREAT CATEGORY": {
                     BasicOperationsHandler.clickButton("Criteria Value Expand");
-                    String valuesText = condition.get("Value").toString().charAt(0) == '[' ? condition.get("Value").toString().replaceAll("(\\[)|(])", "") : condition.get("Value").toString();
+                    String valuesText = condition.get("Value").toString().charAt(0) == '[' ? condition.get("Value").toString().replaceAll("(\\[)|(])|(\")", "") : condition.get("Value").toString();
                     List<String> values = new ArrayList<>();
                     Collections.addAll(values, valuesText.split(","));
                     for (String value : values)

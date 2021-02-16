@@ -31,7 +31,7 @@ Feature: Edit DefenseFlow Parameters
   Scenario: Edit Email FTP
     Then UI "Edit" Forensics With Name "Forensics DefenseFlow"
       | Share | FTP:checked, FTP.Location:172.17.164.10, FTP.Path:/home/radware/ftp/, FTP.Username:radware, FTP.Password:radware |
-    Then UI "Validate" Forensics With Name "Forensics DefenseFlow Updated"
+    Then UI "Validate" Forensics With Name "Forensics DefenseFlow"
       | Share | FTP:checked, FTP.Location:172.17.164.10, FTP.Path:/home/radware/ftp/, FTP.Username:radware, FTP.Password:radware |
 
   @SID_5
@@ -62,7 +62,7 @@ Feature: Edit DefenseFlow Parameters
       | Time Definitions.Date | Quick:Yesterday |
     Then UI "Validate" Forensics With Name "Forensics DefenseFlow"
       | Time Definitions.Date | Quick:Yesterday |
-    Then UI Text of "Forensics Time Type" equal to "Yesterday"
+
 
   @SID_9
   Scenario: Edit Time
@@ -70,7 +70,6 @@ Feature: Edit DefenseFlow Parameters
       | Time Definitions.Date | Quick:This Month |
     Then UI "Validate" Forensics With Name "Forensics DefenseFlow"
       | Time Definitions.Date | Quick:This Month |
-    Then UI Text of "Forensics Time Type" equal to "This Month"
 
   @SID_10
   Scenario: Edit Time
@@ -78,7 +77,6 @@ Feature: Edit DefenseFlow Parameters
       | Time Definitions.Date | Quick:1D |
     Then UI "Validate" Forensics With Name "Forensics DefenseFlow"
       | Time Definitions.Date | Quick:1D |
-    Then UI Text of "Forensics Time Type" equal to "1D"
 
   @SID_11
   Scenario: Edit Time
@@ -86,7 +84,6 @@ Feature: Edit DefenseFlow Parameters
       | Time Definitions.Date | Quick:1W |
     Then UI "Validate" Forensics With Name "Forensics DefenseFlow"
       | Time Definitions.Date | Quick:1W |
-    Then UI Text of "Forensics Time Type" equal to "1W"
 
   @SID_12
   Scenario: Edit Time
@@ -94,7 +91,6 @@ Feature: Edit DefenseFlow Parameters
       | Time Definitions.Date | Quick:1M |
     Then UI "Validate" Forensics With Name "Forensics DefenseFlow"
       | Time Definitions.Date | Quick:1M |
-    Then UI Text of "Forensics Time Type" equal to "1M"
 
   @SID_13
   Scenario: Edit Time
@@ -102,7 +98,6 @@ Feature: Edit DefenseFlow Parameters
       | Time Definitions.Date | Quick:3M |
     Then UI "Validate" Forensics With Name "Forensics DefenseFlow"
       | Time Definitions.Date | Quick:3M |
-    Then UI Text of "Forensics Time Type" equal to "3M"
 
   @SID_14
   Scenario: Edit Time
@@ -110,7 +105,6 @@ Feature: Edit DefenseFlow Parameters
       | Time Definitions.Date | Quick:1Y |
     Then UI "Validate" Forensics With Name "Forensics DefenseFlow"
       | Time Definitions.Date | Quick:1Y |
-    Then UI Text of "Forensics Time Type" equal to "1Y"
 
   @SID_15
   Scenario: Edit Output
@@ -128,8 +122,12 @@ Feature: Edit DefenseFlow Parameters
       | Product           | DefenseFlow   |
       | Protected Objects | PO Name Space |
 
-#  @SID_17
-#  Scenario: Edit Critiria
+  @SID_17
+  Scenario: Edit Criteria
+    Then UI "Edit" Forensics With Name "Forensics DefensePro"
+      | Criteria | Event Criteria:Action,Operator:Not Equals,Value:Http 403 Forbidden |
+    Then UI "Validate" Forensics With Name "Forensics DefensePro"
+      | Criteria | Event Criteria:Action,Operator:Not Equals,Value:Http 403 Forbidden |
 
   @SID_18
   Scenario: Edit Name
@@ -138,6 +136,7 @@ Feature: Edit DefenseFlow Parameters
     Then UI "Validate" Forensics With Name "Forensics DefenseFlow Updated"
       | Product               | DefenseFlow                                                                                                      |
       | Protected Objects     | PO Name Space                                                                                                    |
+      | Criteria              | Event Criteria:Action,Operator:Not Equals,Value:Http 403 Forbidden                                               |
       | Output                | Total Mbits Dropped,Direction                                                                                    |
       | Format                | Select: HTML                                                                                                     |
       | Time Definitions.Date | Quick:1W                                                                                                         |

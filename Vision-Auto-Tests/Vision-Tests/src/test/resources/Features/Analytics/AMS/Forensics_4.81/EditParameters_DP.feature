@@ -1,4 +1,5 @@
 @TC119482
+
 Feature: Edit DefensePro Parameters
 
   @SID_1
@@ -19,7 +20,6 @@ Feature: Edit DefensePro Parameters
       | devices | All        |
       | Output  | Action     |
 
-
   @SID_3
   Scenario: Edit Email
     Then UI "Edit" Forensics With Name "Forensics DefensePro"
@@ -31,7 +31,7 @@ Feature: Edit DefensePro Parameters
   Scenario: Edit Email FTP
     Then UI "Edit" Forensics With Name "Forensics DefensePro"
       | Share | FTP:checked, FTP.Location:172.17.164.10, FTP.Path:/home/radware/ftp/, FTP.Username:radware, FTP.Password:radware |
-    Then UI "Validate" Forensics With Name "Forensics DefensePro Updated"
+    Then UI "Validate" Forensics With Name "Forensics DefensePro"
       | Share | FTP:checked, FTP.Location:172.17.164.10, FTP.Path:/home/radware/ftp/, FTP.Username:radware, FTP.Password:radware |
 
   @SID_5
@@ -54,7 +54,7 @@ Feature: Edit DefensePro Parameters
       | Time Definitions.Date | Quick:Today |
     Then UI "Validate" Forensics With Name "Forensics DefensePro"
       | Time Definitions.Date | Quick:Today |
-    Then UI Text of "Forensics Time Type" equal to "Today"
+
 
   @SID_8
   Scenario: Edit Time
@@ -62,7 +62,6 @@ Feature: Edit DefensePro Parameters
       | Time Definitions.Date | Quick:Yesterday |
     Then UI "Validate" Forensics With Name "Forensics DefensePro"
       | Time Definitions.Date | Quick:Yesterday |
-    Then UI Text of "Forensics Time Type" equal to "Yesterday"
 
   @SID_9
   Scenario: Edit Time
@@ -70,7 +69,7 @@ Feature: Edit DefensePro Parameters
       | Time Definitions.Date | Quick:This Month |
     Then UI "Validate" Forensics With Name "Forensics DefensePro"
       | Time Definitions.Date | Quick:This Month |
-    Then UI Text of "Forensics Time Type" equal to "This Month"
+
 
   @SID_10
   Scenario: Edit Time
@@ -78,7 +77,6 @@ Feature: Edit DefensePro Parameters
       | Time Definitions.Date | Quick:1D |
     Then UI "Validate" Forensics With Name "Forensics DefensePro"
       | Time Definitions.Date | Quick:1D |
-    Then UI Text of "Forensics Time Type" equal to "1D"
 
   @SID_11
   Scenario: Edit Time
@@ -86,6 +84,7 @@ Feature: Edit DefensePro Parameters
       | Time Definitions.Date | Quick:1W |
     Then UI "Validate" Forensics With Name "Forensics DefensePro"
       | Time Definitions.Date | Quick:1W |
+    Then Sleep "1"
     Then UI Text of "Forensics Time Type" equal to "1W"
 
   @SID_12
@@ -94,7 +93,6 @@ Feature: Edit DefensePro Parameters
       | Time Definitions.Date | Quick:1M |
     Then UI "Validate" Forensics With Name "Forensics DefensePro"
       | Time Definitions.Date | Quick:1M |
-    Then UI Text of "Forensics Time Type" equal to "1M"
 
   @SID_13
   Scenario: Edit Time
@@ -102,7 +100,6 @@ Feature: Edit DefensePro Parameters
       | Time Definitions.Date | Quick:3M |
     Then UI "Validate" Forensics With Name "Forensics DefensePro"
       | Time Definitions.Date | Quick:3M |
-    Then UI Text of "Forensics Time Type" equal to "3M"
 
   @SID_14
   Scenario: Edit Time
@@ -110,7 +107,6 @@ Feature: Edit DefensePro Parameters
       | Time Definitions.Date | Quick:1Y |
     Then UI "Validate" Forensics With Name "Forensics DefensePro"
       | Time Definitions.Date | Quick:1Y |
-    Then UI Text of "Forensics Time Type" equal to "1Y"
 
   @SID_15
   Scenario: Edit Output
@@ -147,8 +143,12 @@ Feature: Edit DefensePro Parameters
       | devices | index:10,ports:[1] |
 
 
-#  @SID_19
-#  Scenario: Edit Critiria
+  @SID_19
+  Scenario: Edit Criteria
+    Then UI "Edit" Forensics With Name "Forensics DefensePro"
+      | Criteria | Event Criteria:Action,Operator:Not Equals,Value:Http 403 Forbidden |
+    Then UI "Validate" Forensics With Name "Forensics DefensePro"
+      | Criteria | Event Criteria:Action,Operator:Not Equals,Value:Http 403 Forbidden |
 
 
   @SID_20
@@ -158,6 +158,7 @@ Feature: Edit DefensePro Parameters
     Then UI "Validate" Forensics With Name "Forensics DefensePro Updated"
       | Product               | DefensePro                                                                                                       |
       | devices               | index:10                                                                                                         |
+      | Criteria | Event Criteria:Action,Operator:Not Equals,Value:Http 403 Forbidden |
       | Output                | Total Mbits Dropped,Direction                                                                                    |
       | Format                | Select: HTML                                                                                                     |
       | Time Definitions.Date | Quick:1W                                                                                                         |
