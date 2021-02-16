@@ -3,6 +3,7 @@ Feature:Create AppWall Part2
 
   @SID_1
   Scenario: Navigate to NEW REPORTS page
+    * REST Delete ES index "forensics-*"
     Then UI Login with user "radware" and password "radware"
     Then UI Navigate to "New Forensics" page via homePage
 

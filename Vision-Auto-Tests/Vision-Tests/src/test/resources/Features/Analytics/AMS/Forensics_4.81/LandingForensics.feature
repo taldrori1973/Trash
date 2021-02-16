@@ -3,6 +3,7 @@ Feature: Landing Forensics
 
   @SID_1
   Scenario: Login and Navigate to NEW ForensicsS page
+    * REST Delete ES index "forensics-*"
     Then UI Login with user "radware" and password "radware"
     Then UI Navigate to "New Forensics" page via homepage
 

@@ -3,6 +3,7 @@ Feature: Edit AppWall Parameters
 
   @SID_1
   Scenario: Login and Navigate
+    * REST Delete ES index "forensics-*"
     Given UI Login with user "sys_admin" and password "radware"
     Then UI Navigate to "New Forensics" page via homepage
 

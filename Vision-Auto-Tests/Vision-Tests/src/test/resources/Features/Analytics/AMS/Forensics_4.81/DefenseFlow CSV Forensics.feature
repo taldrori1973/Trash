@@ -7,6 +7,7 @@ Feature: DefenseFlow CSV Forensics
     * CLI kill all simulator attacks on current vision
     * REST Vision Install License Request "vision-AVA-Max-attack-capacity"
     * REST Delete ES index "df-attack*"
+    * REST Delete ES index "forensics-*"
     * CLI Clear vision logs
 
   @SID_2

@@ -5,6 +5,7 @@ Feature: Basic tests for Forensics parameters
 
   @SID_1
   Scenario: Navigate to NEW ForensicsS page
+    * REST Delete ES index "forensics-*"
     Then UI Login with user "radware" and password "radware"
     Then UI Navigate to "New Forensics" page via homepage
     Then UI Click Button "New Forensics Tab"

@@ -3,6 +3,7 @@ Feature: Deletion Instance
 
   @SID_1
   Scenario: Login
+    * REST Delete ES index "forensics-*"
     Then UI Login with user "radware" and password "radware"
 
   @SID_2
