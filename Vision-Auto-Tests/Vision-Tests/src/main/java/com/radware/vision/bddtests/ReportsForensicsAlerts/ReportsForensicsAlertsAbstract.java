@@ -35,8 +35,6 @@ abstract public class ReportsForensicsAlertsAbstract implements ReportsForensics
     private static Map<String, LocalDateTime> schedulingDates = new HashMap<>();
     private static Map<String, JSONObject> timeAbsoluteDates = new HashMap<>();
     protected static Map<String, Map<String, String>> templates = new HashMap<>();
-    protected static Map<Integer,  JSONObject> conditionsMap = new HashMap<>();
-    protected static int indexConditionsMap = 1 ;
 
     private String name;
     public static final Map<String, Integer> widgets;
