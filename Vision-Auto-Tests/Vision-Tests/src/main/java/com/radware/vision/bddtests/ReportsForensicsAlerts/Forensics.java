@@ -225,7 +225,7 @@ public class Forensics extends ReportsForensicsAlertsAbstract {
                 BasicOperationsHandler.clickButton("Add All Output");
                 return;
             }
-            if (expectedOutputs.size() == 1 && expectedOutputs.get(0).toString().equalsIgnoreCase(""))
+            if (expectedOutputs.size() == 1 && expectedOutputs.get(0).equalsIgnoreCase(""))
                 expectedOutputs.remove(0);
 
             for (WebElement outputElement : WebUIUtils.fluentWaitMultiple(new ComponentLocator(How.XPATH, "//li[contains(@data-debug-id,'forensics_output_') and not(contains(@data-debug-id,'Add All'))]").getBy())) {
@@ -243,6 +243,8 @@ public class Forensics extends ReportsForensicsAlertsAbstract {
 
     private void createName(String name, Map<String, String> map) throws Exception {
         super.createName(name);
+        if (WebUiTools.getWebElement("ForensicsNameInvalid") != null)
+            throw new Exception("isn't good forensics name because " + WebUiTools.getWebElement("ForensicsNameInvalid").getText());
         if (map.containsKey("Description"))
             BasicOperationsHandler.setTextField(getType() + " Description", "", map.get("Description"), true);
     }
