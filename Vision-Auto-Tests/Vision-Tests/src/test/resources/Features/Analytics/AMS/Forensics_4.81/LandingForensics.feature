@@ -36,7 +36,7 @@ Feature: Landing Forensics
 
   @SID_5
   Scenario: Validate delivery card and generate Forensics
-    Then UI Click Button "My Forensics Tab" with value "DefensePro Forensics"
+    Then UI Click Button "My Forensics" with value "DefensePro Forensics"
     Then UI Click Button "Generate Snapshot Forensics Manually" with value "DefensePro Forensics"
     Then Sleep "35"
 
