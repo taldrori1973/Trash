@@ -57,11 +57,18 @@ public class Forensics extends ReportsForensicsAlertsAbstract {
 
     @Override
     public void create(String name, String negative, Map<String, String> map) throws Exception {
-        closeView(false);
-        WebUiTools.check("New Forensics Tab", "", true);
-        selectScopeSelection(map);
-        createForensicsParam(name, map);
-        BasicOperationsHandler.clickButton("save");
+        try
+        {
+            closeView(false);
+            WebUiTools.check("New Forensics Tab", "", true);
+            selectScopeSelection(map);
+            createForensicsParam(name, map);
+            BasicOperationsHandler.clickButton("save");
+        }catch (Exception e)
+        {
+            cancelView();
+            throw e;
+        }
     }
 
     private void selectScopeSelection(Map<String, String> map) throws Exception {
