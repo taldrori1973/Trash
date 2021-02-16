@@ -6,7 +6,6 @@ import com.radware.automation.tools.basetest.BaseTestUtils;
 import com.radware.automation.tools.basetest.Reporter;
 import com.radware.automation.webui.WebUIUtils;
 import com.radware.automation.webui.widgets.ComponentLocator;
-import com.radware.vision.automation.tools.exceptions.selenium.TargetWebElementNotFoundException;
 import com.radware.vision.automation.tools.sutsystemobjects.devicesinfo.enums.SUTDeviceType;
 import com.radware.vision.bddtests.ReportsForensicsAlerts.Handlers.TemplateHandlers;
 import com.radware.vision.infra.testhandlers.baseoperations.BasicOperationsHandler;
@@ -14,13 +13,11 @@ import com.radware.vision.tools.rest.CurrentVisionRestAPI;
 import com.radware.vision.vision_project_cli.RootServerCli;
 import models.RestResponse;
 import models.StatusCode;
-import org.apache.bcel.generic.NEW;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.How;
 
-import java.io.IOException;
 import java.util.*;
 import java.util.concurrent.atomic.AtomicBoolean;
 
