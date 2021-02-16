@@ -4,7 +4,6 @@ import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.radware.automation.tools.basetest.BaseTestUtils;
 import com.radware.automation.tools.basetest.Reporter;
-import com.radware.automation.webui.VisionDebugIdsManager;
 import com.radware.automation.webui.WebUIUtils;
 import com.radware.automation.webui.widgets.ComponentLocator;
 import com.radware.vision.automation.tools.exceptions.selenium.TargetWebElementNotFoundException;
@@ -124,12 +123,11 @@ public class Forensics extends ReportsForensicsAlertsAbstract {
     private void selectCriteria(Map<String, String> map) throws Exception {
         if (map.containsKey("Criteria"))
         {
-            List<Object> conditions = new ObjectMapper().readTree(map.get("Criteria")).isArray() ? new JSONArray(map.get("Criteria")).toList() : new JSONArray().put(map.get("Criteria")).toList();
+            JSONArray conditions = new ObjectMapper().readTree(map.get("Criteria")).isArray() ? new JSONArray(map.get("Criteria")) : new JSONArray().put(map.get("Criteria"));
             for (Object condition : conditions)
             {
                 if (new JSONObject(condition.toString()).has("Event Criteria"))
                 {
-                    conditionsMap.put(indexConditionsMap++, new JSONObject(condition.toString()));
                     selectAttributeCriteria(new JSONObject(condition.toString()));
                     selectAttributeValuesCriteria(new JSONObject(condition.toString()));
                     BasicOperationsHandler.clickButton("Add Condition","enabled");
@@ -201,12 +199,6 @@ public class Forensics extends ReportsForensicsAlertsAbstract {
             }
     }
 
-    private void selectAttributeCriteria(JSONObject condition) throws Exception {
-        BasicOperationsHandler.clickButton("Criteria Attribute Expand");
-        BasicOperationsHandler.clickButton("Criteria Attribute Selected", condition.get("Event Criteria").toString());
-        BasicOperationsHandler.clickButton("Criteria Attribute Selected", getCriteriaOperator(condition.get("Operator").toString()));
-    }
-
     private String getCriteriaOperator(String operator) throws Exception {
         switch (operator.toLowerCase())
         {
@@ -215,6 +207,12 @@ public class Forensics extends ReportsForensicsAlertsAbstract {
             case "equals": return "=";
         }
         throw new Exception("No operator with name " + operator);
+    }
+
+    private void selectAttributeCriteria(JSONObject condition) throws Exception {
+        BasicOperationsHandler.clickButton("Criteria Attribute Expand");
+        BasicOperationsHandler.clickButton("Criteria Attribute Selected", condition.get("Event Criteria").toString());
+        BasicOperationsHandler.clickButton("Criteria Attribute Selected", getCriteriaOperator(condition.get("Operator").toString()));
     }
 
     public void selectOutput(Map<String, String> map) throws Exception {
@@ -428,13 +426,12 @@ public class Forensics extends ReportsForensicsAlertsAbstract {
         }
     }
 
-    private void editFTPShare(Map<String, String> map) throws TargetWebElementNotFoundException {
+    private void editFTPShare(Map<String, String> map) throws Exception {
         BasicOperationsHandler.setTextField("FTP input", "location", "", true);
         BasicOperationsHandler.setTextField("FTP input", "path", "", true);
         BasicOperationsHandler.setTextField("FTP input", "username", "", true);
         BasicOperationsHandler.setTextField("FTP input", "password", "", true);
-
-        //  selectShare(map);
+        selectShare(map);
     }
 
     private JSONObject getForensicsDefinition(String forensicsName, Map<String, String> map) throws Exception {
@@ -536,91 +533,12 @@ public class Forensics extends ReportsForensicsAlertsAbstract {
 
 
     private void editCriteria(Map<String, String> map) throws Exception {
-        if (map.containsKey("Criteria")) //add new condition
+        if (map.containsKey("Criteria")) {
+            for (WebElement criteriaElement : WebUiTools.getWebElements("Criteria Delete Condition","")) {
+                criteriaElement.click();
+            }
             selectCriteria(map);
-        if (map.containsKey("Delete Criteria")) // delete Condition
-            deleteCriteriaCondition(map);
-        if (map.containsKey("Edit Criteria")) // edit Condition
-            editCriteriaCondition(map);
-    }
-
-    private void editCriteriaCondition(Map<String, String> map) {
-    }
-
-    private void deleteCriteriaCondition(Map<String, String> map) throws IOException, TargetWebElementNotFoundException {
-        List<Object> conditions = new ObjectMapper().readTree(map.get("Delete Criteria")).isArray() ? new JSONArray(map.get("Delete Criteria")).toList() : new JSONArray().put(map.get("Delete Criteria")).toList();
-        for (Object condition : conditions)
-        {
-            if (new JSONObject(condition.toString()).has("Event Criteria"))
-            {
-                int index= validateAttributeCriteria(new JSONObject(condition.toString()));
-                if(index == -1)
-                    throw new TargetWebElementNotFoundException("cant remove this condition because there is no condition to delete ");
-                else
-                    BasicOperationsHandler.clickButton("Criteria Delete Condition",index);
-            }
         }
-    }
-
-    private int validateAttributeCriteria(JSONObject condition) {
-        for(int index =1; index<indexConditionsMap ; index++) {
-            if (condition.get("Event Criteria").equals(conditionsMap.get(index).get("Event Criteria")) && condition.get("Operator").equals(conditionsMap.get(index).get("Operator"))) {
-                if(validateAttributeValuesCriteria(condition) == index)
-                    return index;
-            }
-        }
-        return -1;
-    }
-    private int validateAttributeValuesCriteria(JSONObject condition) {
-        for(int index =1; index<indexConditionsMap ; index++) {
-            switch (condition.get("Event Criteria").toString().toUpperCase()) {
-                case "ACTION":
-                case "DIRECTION":
-                case "DURATION":
-                case "PROTOCOL":
-                case "RISK":
-                case "THREAT CATEGORY": {
-                    String valuesText = condition.get("Value").toString().charAt(0) == '[' ? condition.get("Value").toString().replaceAll("(\\[)|(])", "") : condition.get("Value").toString();
-                    List<String> values = new ArrayList<>();
-                    Collections.addAll(values, valuesText.split(","));
-                    for (String value : values){
-                        if (condition.get("Value").equals(conditionsMap.get(index).get("Value")))
-                            return index;
-                    }
-
-                    break;
-                }
-                case "ATTACK ID":
-                case "ATTACK NAME": {
-                    if (condition.get("Value").equals(conditionsMap.get(index).get("Value")))
-                        return index;
-                    break;
-                }
-                case "DESTINATION IP":
-                case "SOURCE IP": {
-                    if (condition.get("IPType").equals(conditionsMap.get(index).get("IPType")) && condition.get("IPValue").equals(conditionsMap.get(index).get("IPValue")))
-                        return index;
-                    break;
-                }
-                case "DESTINATION PORT":
-                case "SOURCE PORT": {
-                    if (condition.has("portValue") && (condition.get("portType").equals(conditionsMap.get(index).get("portType")) && condition.get("portValue").equals(conditionsMap.get(index).get("portValue"))))
-                            return index;
-                    else {
-                        if(condition.get("portType").equals(conditionsMap.get(index).get("portType")) && condition.get("portFrom").equals(conditionsMap.get(index).get("portFrom")) && condition.get("portTo").equals(conditionsMap.get(index).get("portTo")))
-                            return index;
-                    }
-                    break;
-                }
-                case "ATTACK RATE IN BPS":
-                case "ATTACK RATE IN PPS": {
-                    if (condition.get("RateValue").equals(conditionsMap.get(index).get("RateValue")) && condition.get("Unit").equals(conditionsMap.get(index).get("Unit")))
-                        return index;
-                    break;
-                }
-            }
-        }
-        return -1 ;
     }
 
     private void editFormat(Map<String, String> map) throws Exception {

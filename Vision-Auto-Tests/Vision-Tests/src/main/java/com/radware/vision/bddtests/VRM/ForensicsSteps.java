@@ -77,8 +77,8 @@ public class ForensicsSteps extends BddUITestBase {
      * */
     @Given("^UI \"(Create|Validate|Edit|Generate|Isexist)\" Forensics With Name \"([^\"]*)\"( negative)?$")
     public void uiReportWithName(vrmActions operationType, String forensicsName, String negative, Map<String,String> forensicsEntry) throws Throwable {
-//        forensicsHandler.VRMForensicsOperation(operationType, reportName, reportsEntry, restTestBase.getRootServerCli());
-        new Forensics().baseOperation(operationType, forensicsName, negative, forensicsEntry, restTestBase.getRootServerCli());
+      //  forensicsHandler.VRMForensicsOperation(operationType, forensicsName, forensicsEntry, restTestBase.getRootServerCli());
+       new Forensics().baseOperation(operationType, forensicsName, negative, forensicsEntry, restTestBase.getRootServerCli());
     }
 
     @Then("^UI Validate max generate Forensics is (\\d+)$")
