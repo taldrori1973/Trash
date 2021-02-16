@@ -4,7 +4,6 @@ import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.radware.automation.tools.basetest.BaseTestUtils;
 import com.radware.automation.tools.basetest.Reporter;
-import com.radware.automation.webui.VisionDebugIdsManager;
 import com.radware.automation.webui.WebUIUtils;
 import com.radware.automation.webui.widgets.ComponentLocator;
 import com.radware.vision.automation.tools.exceptions.selenium.TargetWebElementNotFoundException;
@@ -124,7 +123,7 @@ public class Forensics extends ReportsForensicsAlertsAbstract {
     private void selectCriteria(Map<String, String> map) throws Exception {
         if (map.containsKey("Criteria"))
         {
-            List<Object> conditions = new ObjectMapper().readTree(map.get("Criteria")).isArray() ? new JSONArray(map.get("Criteria")).toList() : new JSONArray().put(map.get("Criteria")).toList();
+            JSONArray conditions = new ObjectMapper().readTree(map.get("Criteria")).isArray() ? new JSONArray(map.get("Criteria")) : new JSONArray().put(map.get("Criteria"));
             for (Object condition : conditions)
             {
                 if (new JSONObject(condition.toString()).has("Event Criteria"))
