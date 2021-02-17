@@ -220,73 +220,68 @@ Feature: Edit Criteria Testes
 
         #    ------------------------------------- AppWall------------------------------------------------------
 
+  @SID_20
+  Scenario: create new Forensics_AppWall and validate
+    Then UI Click Button "New Forensics Tab"
+    When UI "Create" Forensics With Name "AppWall Forensics"
+      | Product      | AppWall                                              |
+      | Applications | All                                                  |
+      | Criteria     | Event Criteria:Tunnel,Operator:Not Equals,Value:123 |
 
-# ------------- bug selected criteria !!!!
+  @SID_21
+  Scenario: Edit the First condition on Criteria
+    Then UI Click Button "My Forensics Tab"
+    Then UI Click Button "My Forensics" with value "AppWall Forensics"
+    Then UI Click Button "Edit Forensics" with value "AppWall Forensics"
+    Then UI Click Button "Criteria Tab"
+    Then UI Click Button "Criteria Attribute Selected" with value "Tunnel"
+    Then UI Click Button "Criteria Attribute Selected" with value "Web Application Name"
+    Then UI Click Button "Criteria Attribute Selected" with value "="
+    Then UI Set Text Field "Criteria Value Input" To "Test"
+    Then UI Click Button "save"
 
-#  @SID_20
-#  Scenario: create new Forensics_AppWall and validate
-#    Then UI Click Button "New Forensics Tab"
-#    When UI "Create" Forensics With Name "AppWall Forensics"
-#      | Product      | AppWall                                              |
-#      | Applications | All                                                  |
-#      | Criteria     | Event Criteria:Protocol,Operator:Not Equals,Value:IP |
-#
-#  @SID_21
-#  Scenario: Edit the First condition on Criteria
-#    Then UI Click Button "My Forensics Tab"
-#    Then UI Click Button "My Forensics" with value "AppWall Forensics"
-#    Then UI Click Button "Edit Forensics" with value "AppWall Forensics"
-#    Then UI Click Button "Criteria Tab"
-#    Then UI Click Button "Criteria Attribute Selected" with value "Protocol"
-#    Then UI Click Button "Criteria Attribute Selected" with value "Source Port"
-#    Then UI Click Button "Criteria Attribute Selected" with value "="
-#    Then UI Click Button "Criteria Value select input" with value "Range"
-#    Then UI Set Text Field "Criteria Value Input Label" and params "port-from" To "3"
-#    Then UI Set Text Field "Criteria Value Input Label" and params "port-to" To "4"
-#    Then UI Click Button "save"
-#
-#  @SID_22
-#  Scenario: Delete the first condition on Criteria
-#    Then UI Click Button "My Forensics Tab"
-#    Then UI Click Button "My Forensics" with value "AppWall Forensics"
-#    Then UI Click Button "Edit Forensics" with value "AppWall Forensics"
-#    Then UI Click Button "Criteria Tab"
-#    Then UI Validate Element Existence By Label "Criteria Delete Condition" if Exists "true" with value "1"
-#    Then UI Click Button "Criteria Delete Condition" with value "1"
-#    Then UI Validate Element Existence By Label "Criteria Delete Condition" if Exists "false" with value "1"
-#    Then UI Click Button "save"
-#
-#  @SID_23
-#  Scenario: add new Criteria that contians two conditions
-#    Then UI "Edit" Forensics With Name "AppWall Forensics"
-#      | Criteria | Event Criteria:Duration,Operator:Equals,Value:1-5 min; Event Criteria:Direction,Operator:Not Equals,Value:Both; |
-#
-#  @SID_24
-#  Scenario: Edit the First condition on Criteria
-#    Then UI Click Button "My Forensics Tab"
-#    Then UI Click Button "My Forensics" with value "AppWall Forensics"
-#    Then UI Click Button "Edit Forensics" with value "AppWall Forensics"
-#    Then UI Click Button "Criteria Tab"
-#    Then UI Click Button "Criteria Attribute Selected" with value "Duration"
-#    Then UI Click Button "Criteria Attribute Selected" with value "Attack ID"
-#    Then UI Click Button "Criteria Attribute Selected" with value "="
-#    Then UI Set Text Field "Criteria Value Input" To "123"
-#    Then UI Click Button "save"
-#
-#  @SID_25
-#  Scenario: Delete the Second condition on Criteria
-#    Then UI Click Button "My Forensics Tab"
-#    Then UI Click Button "My Forensics" with value "AppWall Forensics"
-#    Then UI Click Button "Edit Forensics" with value "AppWall Forensics"
-#    Then UI Click Button "Criteria Tab"
-#    Then UI Validate Element Existence By Label "Criteria Delete Condition" if Exists "true" with value "2"
-#    Then UI Click Button "Criteria Delete Condition" with value "2"
-#    Then UI Validate Element Existence By Label "Criteria Delete Condition" if Exists "false" with value "2"
-#    Then UI Click Button "save"
-#
-#  @SID_26
-#  Scenario: Delete AppWall Forensics
-#    Then UI Delete Forensics With Name "AppWall Forensics"
+  @SID_22
+  Scenario: Delete the first condition on Criteria
+    Then UI Click Button "My Forensics Tab"
+    Then UI Click Button "My Forensics" with value "AppWall Forensics"
+    Then UI Click Button "Edit Forensics" with value "AppWall Forensics"
+    Then UI Click Button "Criteria Tab"
+    Then UI Validate Element Existence By Label "Criteria Delete Condition" if Exists "true" with value "1"
+    Then UI Click Button "Criteria Delete Condition" with value "1"
+    Then UI Validate Element Existence By Label "Criteria Delete Condition" if Exists "false" with value "1"
+    Then UI Click Button "save"
+
+  @SID_23
+  Scenario: add new Criteria that contians two conditions
+    Then UI "Edit" Forensics With Name "AppWall Forensics"
+      | Criteria | Event Criteria:Action,Operator:Not Equals,Value:Http 403 Forbidden; Event Criteria:Threat Category,Operator:Not Equals,Value:Dos; |
+
+  @SID_24
+  Scenario: Edit the First condition on Criteria
+    Then UI Click Button "My Forensics Tab"
+    Then UI Click Button "My Forensics" with value "AppWall Forensics"
+    Then UI Click Button "Edit Forensics" with value "AppWall Forensics"
+    Then UI Click Button "Criteria Tab"
+    Then UI Click Button "Criteria Attribute Selected" with value "Action"
+    Then UI Click Button "Criteria Attribute Selected" with value "Transaction ID"
+    Then UI Click Button "Criteria Attribute Selected" with value "="
+    Then UI Set Text Field "Criteria Value Input" To "123"
+    Then UI Click Button "save"
+
+  @SID_25
+  Scenario: Delete the Second condition on Criteria
+    Then UI Click Button "My Forensics Tab"
+    Then UI Click Button "My Forensics" with value "AppWall Forensics"
+    Then UI Click Button "Edit Forensics" with value "AppWall Forensics"
+    Then UI Click Button "Criteria Tab"
+    Then UI Validate Element Existence By Label "Criteria Delete Condition" if Exists "true" with value "2"
+    Then UI Click Button "Criteria Delete Condition" with value "2"
+    Then UI Validate Element Existence By Label "Criteria Delete Condition" if Exists "false" with value "2"
+    Then UI Click Button "save"
+
+  @SID_26
+  Scenario: Delete AppWall Forensics
+    Then UI Delete Forensics With Name "AppWall Forensics"
 
   @SID_27
   Scenario: Logout
