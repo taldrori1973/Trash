@@ -19,10 +19,10 @@ Feature:Create DefenseFlow Part2
       | Format                | Select: CSV                                                                                                      |
 
   @SID_3
-  Scenario: create new Output Max Kbps Action Not Equals
-    When UI "Create" Forensics With Name "Output Max Kbps Action Not Equals"
+  Scenario: create new Output Max bps Action Not Equals
+    When UI "Create" Forensics With Name "Output Max bps Action Not Equals"
       | Product               | DefenseFlow                                                                     |
-      | Output                | Max Kbps                                                                        |
+      | Output                | Max bps                                                                        |
       | Criteria              | Event Criteria:Action,Operator:Not Equals,Value:Http 403 Forbidden Reset Dest |
       | devices               | All                                                                             |
       | Time Definitions.Date | Quick:1Y                                                                        |
@@ -76,10 +76,10 @@ Feature:Create DefenseFlow Part2
       | Format                | Select: CSV                                                                                                      |
 
   @SID_8
-  Scenario: create new Output Action,Attack ID,Policy Name,Source IP Address,Destination IP Address,Destination Port,Total Mbits Dropped,Max Kbps,Physical Port,Risk,VLAN Tag Attack Name Equals
-    When UI "Create" Forensics With Name "Output Action,Attack ID,Policy Name,Source IP Address,Destination IP Address,Destination Port,Total Mbits Dropped,Max Kbps,Physical Port,Risk,VLAN Tag Attack Name Equals"
+  Scenario: create new Output Action,Attack ID,Policy Name,Source IP Address,Destination IP Address,Destination Port,Total Mbits Dropped,Max bps,Physical Port,Risk,VLAN Tag Attack Name Equals
+    When UI "Create" Forensics With Name "Output Action,Attack ID,Policy Name,Source IP Address,Destination IP Address,Destination Port,Total Mbits Dropped,Max bps,Physical Port,Risk,VLAN Tag Attack Name Equals"
       | Product               | DefenseFlow                                                                                                                                     |
-      | Output                | Action,Attack ID,Policy Name,Source IP Address,Destination IP Address,Destination Port,Total Mbits Dropped,Max Kbps,Physical Port,Risk,VLAN Tag |
+      | Output                | Action,Attack ID,Policy Name,Source IP Address,Destination IP Address,Destination Port,Total Mbits Dropped,Max bps,Physical Port,Risk,VLAN Tag |
       | Criteria              | Event Criteria:Attack Name,Operator:Equals,Value:TCP Port Scan                                                                                  |
       | devices               | All                                                                                                                                             |
       | Schedule              | Run Every:Monthly, On Time:+6H, At Months:[AUG]                                                                                                 |
@@ -138,7 +138,7 @@ Feature:Create DefenseFlow Part2
   Scenario: create new Output All Attack Rate in bps Greater than
     When UI "Create" Forensics With Name "Output All Attack Rate in bps Greater than"
       | Product               | DefenseFlow                                                                                                                                                                                                                                                                                        |
-      | Output                | Start Time,End Time,Device IP Address,Threat Category,Attack Name,Action,Attack ID,Policy Name,Source IP Address,Source Port,Destination IP Address,Destination Port,Direction,Protocol,Radware ID,Duration,Total Packets Dropped,Max pps,Total Mbits Dropped,Max Kbps,Physical Port,Risk,VLAN Tag |
+      | Output                | Start Time,End Time,Device IP Address,Threat Category,Attack Name,Action,Attack ID,Policy Name,Source IP Address,Source Port,Destination IP Address,Destination Port,Direction,Protocol,Radware ID,Duration,Total Packets Dropped,Max pps,Total Mbits Dropped,Max bps,Physical Port,Risk,VLAN Tag |
       | Criteria              | Event Criteria:Attack Rate in bps,Operator:Greater than,RateValue:1,Unit:T                                                                                                                                                                                                                         |
       | devices               | index:10                                                                                                                                                                                                                                                                                           |
       | Time Definitions.Date | Quick:This Month                                                                                                                                                                                                                                                                                   |
@@ -374,10 +374,10 @@ Feature:Create DefenseFlow Part2
       | Format                | Select: HTML                                                                   |
 
   @SID_34
-  Scenario: create new Output Max Kbps Direction Equal
-    When UI "Create" Forensics With Name "Output Max Kbps Direction Equal"
+  Scenario: create new Output Max bps Direction Equal
+    When UI "Create" Forensics With Name "Output Max bps Direction Equal"
       | Product               | DefenseFlow                                                                                                      |
-      | Output                | Max Kbps                                                                                                         |
+      | Output                | Max bps                                                                                                         |
       | Criteria              | Event Criteria:Direction,Operator:Equals,Value:[Inbound,Outbound,Unknown,both]                                   |
       | devices               | All                                                                                                              |
       | Time Definitions.Date | Relative:[Hours,2]                                                                                               |
@@ -431,10 +431,10 @@ Feature:Create DefenseFlow Part2
       | Format                | Select: CSV                                                                                                      |
 
   @SID_39
-  Scenario: create new Output Action,Attack ID,Policy Name,Source IP Address,Destination IP Address,Destination Port,Total Mbits Dropped,Max Kbps,Physical Port,Risk,VLAN Tag Duration Equal
-    When UI "Create" Forensics With Name "Output Action,Attack ID,Policy Name,Source IP Address,Destination IP Address,Destination Port,Total Mbits Dropped,Max Kbps,Physical Port,Risk,VLAN Tag Duration Equal"
+  Scenario: create new Output Action,Attack ID,Policy Name,Source IP Address,Destination IP Address,Destination Port,Total Mbits Dropped,Max bps,Physical Port,Risk,VLAN Tag Duration Equal
+    When UI "Create" Forensics With Name "Output Action,Attack ID,Policy Name,Source IP Address,Destination IP Address,Destination Port,Total Mbits Dropped,Max bps,Physical Port,Risk,VLAN Tag Duration Equal"
       | Product               | DefenseFlow                                                                                                                                     |
-      | Output                | Action,Attack ID,Policy Name,Source IP Address,Destination IP Address,Destination Port,Total Mbits Dropped,Max Kbps,Physical Port,Risk,VLAN Tag |
+      | Output                | Action,Attack ID,Policy Name,Source IP Address,Destination IP Address,Destination Port,Total Mbits Dropped,Max bps,Physical Port,Risk,VLAN Tag |
       | Criteria              | Event Criteria:Duration,Operator:Equals,Value:[10-30 min]                                                                                       |
       | devices               | All                                                                                                                                             |
       | Time Definitions.Date | Absolute:[27.02.1971 01:00, +0d]                                                                                                                |
@@ -491,7 +491,7 @@ Feature:Create DefenseFlow Part2
   Scenario: create new Output All Duration Equal
     When UI "Create" Forensics With Name "Output All Duration Equal"
       | Product               | DefenseFlow                                                                                                                                                                                                                                                                                        |
-      | Output                | Start Time,End Time,Device IP Address,Threat Category,Attack Name,Action,Attack ID,Policy Name,Source IP Address,Source Port,Destination IP Address,Destination Port,Direction,Protocol,Radware ID,Duration,Total Packets Dropped,Max pps,Total Mbits Dropped,Max Kbps,Physical Port,Risk,VLAN Tag |
+      | Output                | Start Time,End Time,Device IP Address,Threat Category,Attack Name,Action,Attack ID,Policy Name,Source IP Address,Source Port,Destination IP Address,Destination Port,Direction,Protocol,Radware ID,Duration,Total Packets Dropped,Max pps,Total Mbits Dropped,Max bps,Physical Port,Risk,VLAN Tag |
       | Criteria              | Event Criteria:Duration,Operator:Equals,Value:[Less than 1 min,1-5 min,5-10 min,10-30 min,30-60 min,More than 1 hour]                                                                                                                                                                              |
       | devices               | All                                                                                                                                                                                                                                                                                                |
       | Schedule              | Run Every:Monthly, On Time:+6H, At Months:[AUG]                                                                                                                                                                                                                                                    |
