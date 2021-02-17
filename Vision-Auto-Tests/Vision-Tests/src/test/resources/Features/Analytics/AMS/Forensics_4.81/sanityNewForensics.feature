@@ -1,7 +1,7 @@
 @TC119241
 Feature: Basic tests for Forensics parameters
 
-@SID_1
+  @SID_1
   Scenario: Navigate to NEW ForensicsS page
     * REST Delete ES index "forensics-*"
     Then UI Login with user "radware" and password "radware"
@@ -1559,7 +1559,7 @@ Feature: Basic tests for Forensics parameters
 
   @SID_73
   Scenario: Forensics Criteria Apply To All is selected
-    Then UI Click Button "Criteria Apply To" with value "all"
+    Then UI Select Element with label "Criteria Apply To" and params "all"
     Then UI Validate the attribute of "data-debug-checked" are "EQUAL" to
       | label             | param  | value |
       | Criteria Apply To | all    | true  |
@@ -1568,7 +1568,7 @@ Feature: Basic tests for Forensics parameters
 
   @SID_74
   Scenario: Forensics Criteria Apply To Any is selected
-    Then UI Click Button "Criteria Apply To" with value "any"
+    Then UI Select Element with label "Criteria Apply To" and params "any"
     Then UI Validate the attribute of "data-debug-checked" are "EQUAL" to
       | label             | param  | value |
       | Criteria Apply To | all    | false |
@@ -1577,7 +1577,7 @@ Feature: Basic tests for Forensics parameters
 
   @SID_75
   Scenario: Forensics Criteria Apply To custom is selected
-    Then UI Click Button "Criteria Apply To" with value "custom"
+    Then UI Select Element with label "Criteria Apply To" and params "custom"
     Then UI Validate the attribute of "data-debug-checked" are "EQUAL" to
       | label             | param  | value |
       | Criteria Apply To | all    | false |
