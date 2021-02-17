@@ -46,12 +46,12 @@ Feature: Forensics Edit Definition
   @SID_6
   Scenario: forensics definition edit all fields
     When UI "Edit" Forensics With Name "Test Edit"
-      | Basic Info            | Description:desc                                         |
-      | Time Definitions.Date | Quick:1M                                                 |
-      | Criteria              | Event Criteria:Action,Operator:Equals,Value:[Forward]    |
-      | Output                | Start Time,Action,Attack ID,Risk                         |
-      | Schedule              | Run Every:Daily, On Time:10:00 AM                        |
-      | Delivery              | Email:[automation.vision1@radware.com],Subject:mySubject |
+      | Basic Info            | Description:desc                                                   |
+      | Time Definitions.Date | Quick:1M                                                           |
+      | Criteria              | Event Criteria:Action,Operator:Not Equals,Value:Http 403 Forbidden |
+      | Output                | Start Time,Action,Attack ID,Risk                                   |
+      | Schedule              | Run Every:Daily,On Time:+2m                                        |
+      | Delivery              | Email:[automation.vision1@radware.com],Subject:mySubject           |
 
 #  @SID_7
 #  Scenario: Validate forensics definition edit all fields
@@ -83,7 +83,7 @@ Feature: Forensics Edit Definition
   @SID_9
   Scenario: Validate forensics definition edit criteria
     When UI "Edit" Forensics With Name "Test Edit"
-      | Criteria | Event Criteria:Action,Operator:Equals,Value:[Drop] |
+      | Criteria | Event Criteria:Protocol,Operator:Not Equals,Value:IP |
     Then UI Click Button "My Forensics" with value "Test Edit"
     Then UI Click Button "Generate Snapshot Forensics Manually" with value "Test Edit"
     Then Sleep "35"
