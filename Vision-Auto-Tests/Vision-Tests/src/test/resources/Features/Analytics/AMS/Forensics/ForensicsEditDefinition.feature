@@ -1,5 +1,5 @@
 @VRM_Report2 @TC106001
-@run
+
 Feature: Forensics Edit Definition
 
   @SID_1
