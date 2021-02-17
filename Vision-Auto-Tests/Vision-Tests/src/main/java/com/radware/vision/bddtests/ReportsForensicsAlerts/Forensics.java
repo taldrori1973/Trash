@@ -121,8 +121,11 @@ public class Forensics extends ReportsForensicsAlertsAbstract {
         if (map.containsKey("Criteria"))
         {
             JSONArray conditions = new ObjectMapper().readTree(map.get("Criteria")).isArray() ? new JSONArray(map.get("Criteria")) : new JSONArray().put(map.get("Criteria"));
+            final Object[] applyValue = {""};
             for (Object condition : conditions)
             {
+                ((JSONObject) condition).keySet().forEach(n -> {if (n.toLowerCase().contains("condition."))
+                    applyValue[0] = condition;});
                 if (new JSONObject(condition.toString()).has("Event Criteria"))
                 {
                     selectAttributeCriteria(new JSONObject(condition.toString()));
@@ -130,19 +133,19 @@ public class Forensics extends ReportsForensicsAlertsAbstract {
                     BasicOperationsHandler.clickButton("Add Condition","enabled");
                 }
             }
-            applyToCriteria(new JSONObject(map.get("Criteria")));
+            applyToCriteria((JSONObject) applyValue[0]);
         }
     }
 
-    private void applyToCriteria(JSONObject criteriaObject) throws Exception {
-        if (criteriaObject.has("Criteria.Custom checkBox") || criteriaObject.has("condition.Custom"))
+    private void applyToCriteria(JSONObject applyValue) throws Exception {
+        if (applyValue.has("Criteria.Custom checkBox") || applyValue.has("condition.Custom"))
         {
             WebUiTools.check("Criteria Apply To", "custom", true);
-            BasicOperationsHandler.setTextField("customTextField", criteriaObject.get("Criteria.Custom checkBox").toString());
+            BasicOperationsHandler.setTextField("customTextField", applyValue.get("Criteria.Custom checkBox").toString());
         }
-        else if (criteriaObject.has("Criteria.Any") || criteriaObject.has("condition.Any"))
+        else if (applyValue.has("Criteria.Any") || applyValue.has("condition.Any"))
             WebUiTools.check("Criteria Apply To", "any", true);
-        else if (criteriaObject.has("Criteria.All") || criteriaObject.has("condition.All"))
+        else if (applyValue.has("Criteria.All") || applyValue.has("condition.All"))
             WebUiTools.check("Criteria Apply To", "all", true);
     }
 
