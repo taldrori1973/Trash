@@ -647,8 +647,9 @@ public class BasicOperationsSteps extends BddUITestBase {
     public void validateWebUICSSOfLabelWithParams(String cssKey, String label, String param,String cssValue) {
        VisionDebugIdsManager.setLabel(label);
        VisionDebugIdsManager.setParams(param);
-       WebElement element = WebUIUtils.fluentWait(ComponentLocatorFactory.getLocatorByXpathDbgId(VisionDebugIdsManager.getDataDebugId()).getBy());
-       if(element==null)
+        WebUIUtils.sleep(3);
+        WebElement element = WebUIUtils.fluentWait(ComponentLocatorFactory.getLocatorByXpathDbgId(VisionDebugIdsManager.getDataDebugId()).getBy());
+        if(element==null)
            BaseTestUtils.report("This element with label : "+label+" and params: "+param+ " is not exist", Reporter.FAIL);
        else if(!element.getCssValue(cssKey).equals(cssValue))
            BaseTestUtils.report("This element with cssKey : "+cssKey+" and cssValue: "+cssValue+ " not equal to "+element.getCssValue(cssKey), Reporter.FAIL);
