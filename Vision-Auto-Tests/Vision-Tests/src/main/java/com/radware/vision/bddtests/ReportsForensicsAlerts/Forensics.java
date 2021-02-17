@@ -49,7 +49,21 @@ public class Forensics extends ReportsForensicsAlertsAbstract {
         return "Share";
     }
 
-    static JSONObject outputsMatches = new JSONObject("{\"Application Name\":\"webApp\",\"Device Host Name\":\"appwallHostName\",\"Received Time\":\"receivedTimeStamp\",\"Packets\":\"packetCount\",\"Destination IP\":\"destAddress\",\"Source IP\":\"sourceAddress\",\"Start Time\":\"startTime\",\"Threat Category\":\"category\",\"Attack Name\":\"name\",\"Policy Name\":\"ruleName\",\"Source IP Address\":\"sourceIp\",\"Destination IP Address\":\"destinationIp\",\"Destination Port\":\"destPort\",\"Direction\":\"direction\",\"Protocol\":\"protocol\",\"Device IP\":\"appwallIP\",\"End Time\":\"endTime\",\"Action\":\"action\",\"Attack ID\":\"attackIpsId\",\"Source Port\":\"sourcePort\",\"Radware ID\":\"radwareId\",\"Duration\":\"duration\",\"Max pps\":\"maxAttackPacketRatePps\",\"Max bps\":\"maxAttackRateBps\",\"Physical Port\":\"physicalPort\",\"Risk\":\"risk\",\"VLAN Tag\":\"vlanTag\",\"Packet Type\":\"packetType\"}");
+    protected JSONObject outputsMatches = new JSONObject();
+
+    protected JSONObject fillOutputMatch(String productName) {
+        switch (productName.toLowerCase())
+        {
+            case "defenseflow":
+                return new JSONObject("{\"Application Name\":\"webApp\",\"Device Host Name\":\"appwallHostName\",\"Received Time\":\"receivedTimeStamp\",\"Packets\":\"packetCount\",\"Destination IP\":\"destAddress\",\"Source IP\":\"sourceAddress\",\"Start Time\":\"startTime\",\"Threat Category\":\"category\",\"Attack Name\":\"name\",\"Policy Name\":\"ruleName\",\"Source IP Address\":\"sourceIp\",\"Destination IP Address\":\"destinationIp\",\"Destination Port\":\"destPort\",\"Direction\":\"direction\",\"Protocol\":\"protocol\",\"Device IP\":\"appwallIP\",\"End Time\":\"endTime\",\"Action\":\"action\",\"Attack ID\":\"attackIpsId\",\"Source Port\":\"sourcePort\",\"Radware ID\":\"radwareId\",\"Duration\":\"duration\",\"Max pps\":\"maxAttackPacketRatePps\",\"Max bps\":\"maxAttackRateBps\",\"Physical Port\":\"physicalPort\",\"Risk\":\"risk\",\"VLAN Tag\":\"vlanTag\",\"Packet Type\":\"packetType\"}");
+            case "appwall":
+                return new JSONObject("{\"Application Name\":\"webApp\",\"Device Host Name\":\"appwallHostName\",\"Received Time\":\"receivedTimeStamp\",\"Packets\":\"packetCount\",\"Destination IP\":\"destAddress\",\"Source IP\":\"sourceAddress\",\"Start Time\":\"startTime\",\"Threat Category\":\"category\",\"Attack Name\":\"name\",\"Policy Name\":\"ruleName\",\"Source IP Address\":\"sourceIp\",\"Destination IP Address\":\"destinationIp\",\"Destination Port\":\"destPort\",\"Direction\":\"direction\",\"Protocol\":\"protocol\",\"Device IP\":\"appwallIP\",\"End Time\":\"endTime\",\"Action\":\"" + "\",\"Attack ID\":\"attackIpsId\",\"Source Port\":\"sourcePort\",\"Radware ID\":\"radwareId\",\"Duration\":\"duration\",\"Max pps\":\"maxAttackPacketRatePps\",\"Max bps\":\"maxAttackRateBps\",\"Physical Port\":\"physicalPort\",\"Risk\":\"risk\",\"VLAN Tag\":\"vlanTag\",\"Packet Type\":\"packetType\"}");
+            case "":
+            case "defensepro":
+                default:
+                    return new JSONObject("{\"Application Name\":\"webApp\",\"Device Host Name\":\"appwallHostName\",\"Received Time\":\"receivedTimeStamp\",\"Packets\":\"packetCount\",\"Destination IP\":\"destAddress\",\"Source IP\":\"sourceAddress\",\"Start Time\":\"startTime\",\"Threat Category\":\"category\",\"Attack Name\":\"name\",\"Policy Name\":\"ruleName\",\"Source IP Address\":\"sourceIp\",\"Destination IP Address\":\"destinationIp\",\"Destination Port\":\"destPort\",\"Direction\":\"direction\",\"Protocol\":\"protocol\",\"Device IP\":\"appwallIP\",\"End Time\":\"endTime\",\"Action\":\"actionType\",\"Attack ID\":\"attackIpsId\",\"Source Port\":\"sourcePort\",\"Radware ID\":\"radwareId\",\"Duration\":\"duration\",\"Max pps\":\"maxAttackPacketRatePps\",\"Max bps\":\"maxAttackRateBps\",\"Physical Port\":\"physicalPort\",\"Risk\":\"risk\",\"VLAN Tag\":\"vlanTag\",\"Packet Type\":\"packetType\"}");
+        }
+    }
 
     @Override
     public void create(String name, String negative, Map<String, String> map) throws Exception {
@@ -267,6 +281,7 @@ public class Forensics extends ReportsForensicsAlertsAbstract {
     private StringBuilder validateOutput(JSONObject basicRestResult, Map<String, String> map, StringBuilder errorMessage) {
         if (map.containsKey("Output"))
         {
+            outputsMatches = fillOutputMatch(map.getOrDefault("Product", ""));
             JSONArray actualOutputs = new JSONArray(basicRestResult.get("outputFields").toString());
             List expectedOutputs = new JSONArray("[" + map.get("Output") + "]").toList();
             for (Object expectedOutput : expectedOutputs)
@@ -321,6 +336,8 @@ public class Forensics extends ReportsForensicsAlertsAbstract {
             case "defensepro":
             case "":
                 if (map.containsKey("devices")) {
+                    if (map.get("devices").equalsIgnoreCase("all"))
+                        return errorMessage;
                     JsonNode actualDevicesJson = new ObjectMapper().readTree(forensicsDefinition.toString()).get("request").get("criteria").get(0).get("filters");
                     JSONArray expectedDevices = new JSONArray(map.get("devices"));
                     for (Object expectedDevice : expectedDevices)
