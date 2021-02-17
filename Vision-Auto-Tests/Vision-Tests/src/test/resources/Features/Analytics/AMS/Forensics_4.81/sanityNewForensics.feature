@@ -1,8 +1,6 @@
 @TC119241
 Feature: Basic tests for Forensics parameters
 
-  
-@run
 @SID_1
   Scenario: Navigate to NEW ForensicsS page
     * REST Delete ES index "forensics-*"
