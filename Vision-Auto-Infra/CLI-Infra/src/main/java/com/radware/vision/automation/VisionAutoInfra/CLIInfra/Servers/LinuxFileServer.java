@@ -1,8 +1,5 @@
 package com.radware.vision.automation.VisionAutoInfra.CLIInfra.Servers;
-
-import com.radware.automation.tools.basetest.BaseTestUtils;
 import systemobject.terminal.Prompt;
-
 import java.util.ArrayList;
 
 public class LinuxFileServer extends ServerCliBase {
