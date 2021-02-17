@@ -1,5 +1,6 @@
 @TC117968
 Feature: Basic tests for report parameters
+  
   @SID_1
   Scenario: Navigate to NEW REPORTS page
     Then UI Login with user "radware" and password "radware"
@@ -285,10 +286,10 @@ Feature: Basic tests for report parameters
 #      Then UI Click Button "Schedule Report" with value "once"
 #      Then UI Select Time of label "Schedule Once Time" with value "2022-02-12 12:12" and pattern "yyyy-MM-dd HH:mm"
 #      Then validate webUI CSS value "border-bottom-color" of label "Schedule Once Time" equals "rgb(8, 142, 177)"
-
+  
   @SID_28
   Scenario: Validate Share send email To
-    Then UI Validate the attribute "placeholder" Of Label "Email" is "EQUALS" to "E-mail To"
+    Then UI Text of "Email Tab" equal to "E-mail To"
     Then UI Set Text Field "Email" To "example@example.com" enter Key true
     Then UI Validate Element Existence By Label "Email input" if Exists "true" with value "example@example.com,valid"
     Then UI Set Text Field "Email" To "example" enter Key true
@@ -306,9 +307,10 @@ Feature: Basic tests for report parameters
     Then UI Set Text Field "Email" To "example@example. example" enter Key true
     Then UI Validate Element Existence By Label "Email input" if Exists "true" with value "example@example. example,invalid"
 
+  
   @SID_29
   Scenario: Validate send email Subject
-    Then UI Validate the attribute "placeholder" Of Label "Subject" is "EQUALS" to "Subject"
+    Then UI Text of "Subject Label" equal to "Subject"
 
   @SID_30
   Scenario: Validate send email Type your message
