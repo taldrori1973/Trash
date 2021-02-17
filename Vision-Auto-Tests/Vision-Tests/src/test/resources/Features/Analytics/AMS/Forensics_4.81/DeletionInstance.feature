@@ -1,4 +1,5 @@
 @TC119418
+
 Feature: Deletion Instance
 
   @SID_1
@@ -15,11 +16,9 @@ Feature: Deletion Instance
   Scenario: Create and validate Forensics DefensePro
     When UI "Create" Forensics With Name "Forensics DefensePro"
       | Product | DefensePro          |
-      | Output  | Total Mbits Dropped |
       | Format  | Select: CSV         |
     When UI "Validate" Forensics With Name "Forensics DefensePro"
       | Product | DefensePro          |
-      | Output  | Total Mbits Dropped |
       | Format  | Select: CSV         |
 
   @SID_4
