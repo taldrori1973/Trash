@@ -138,7 +138,7 @@ public class Forensics extends ReportsForensicsAlertsAbstract {
             final Object[] applyValue = {""};
             for (Object condition : conditions)
             {
-                ((JSONObject) condition).keySet().forEach(n -> {if (n.toLowerCase().contains("condition."))
+                (conditions.length() == 1? (new JSONObject(condition)) : ((JSONObject) condition)).keySet().forEach(n -> {if (n.toLowerCase().contains("condition."))
                     applyValue[0] = condition;});
                 if (new JSONObject(condition.toString()).has("Event Criteria"))
                 {
@@ -147,7 +147,7 @@ public class Forensics extends ReportsForensicsAlertsAbstract {
                     BasicOperationsHandler.clickButton("Add Condition","enabled");
                 }
             }
-            applyToCriteria((JSONObject) applyValue[0]);
+            applyToCriteria(applyValue[0].equals("")?new JSONObject("{}"):(JSONObject) applyValue[0]);
         }
     }
 
