@@ -24,16 +24,16 @@ Feature: Forensics Edit Definition
   Scenario: VRM - Login to VRM "Wizard" Test
     Given UI Login with user "sys_admin" and password "radware"
     Then REST Vision Install License Request "vision-AVA-Max-attack-capacity"
-    Then UI Navigate to "AMS Forensics" page via homepage
+    Then UI Navigate to "New Forensics" page via homepage
 
 
   @SID_4
   Scenario: forensics create basic report
     When UI "Create" Forensics With Name "Test Edit"
       |  |  |
-    When UI Click Button "Views" with value "Test Edit"
-    And UI Click Button "Views.Generate Now" with value "Test Edit"
-    And Sleep "30"
+    Then UI Click Button "My Forensics" with value "Test Edit"
+    Then UI Click Button "Generate Snapshot Forensics Manually" with value "Test Edit"
+    Then Sleep "35"
     And UI Click Button "Views.report" with value "Test Edit"
     Then UI Validate "Report.Table" Table rows count EQUALS to 3
 
@@ -84,9 +84,9 @@ Feature: Forensics Edit Definition
   Scenario: Validate forensics definition edit criteria
     When UI "Edit" Forensics With Name "Test Edit"
       | Criteria | Event Criteria:Action,Operator:Equals,Value:[Drop] |
-    When UI Click Button "Views" with value "Test Edit"
-    And UI Click Button "Views.Generate Now" with value "Test Edit"
-    And Sleep "30"
+    Then UI Click Button "My Forensics" with value "Test Edit"
+    Then UI Click Button "Generate Snapshot Forensics Manually" with value "Test Edit"
+    Then Sleep "35"
     And UI Click Button "Views.report" with value "Test Edit"
     Then UI Validate "Report.Table" Table rows count EQUALS to 1
 
@@ -97,11 +97,13 @@ Feature: Forensics Edit Definition
     When CLI Run remote linux Command "curl -XPOST localhost:9200/dp-attack-raw-*/_update_by_query/?pretty -d '{"query": {"match": {"attackIpsId": "78-1526381752"}},"script": {"source": "ctx._source.startTime = 'ctx._source.startTime-172800000'"}}'" on "ROOT_SERVER_CLI"
     When UI "Edit" Forensics With Name "Test Edit"
       | Time Definitions.Date | Relative:[Hours,12] |
-    When UI Click Button "Views" with value "Test Edit"
-    And UI Click Button "Views.Generate Now" with value "Test Edit"
-    And Sleep "30"
+    Then UI Click Button "My Forensics" with value "Test Edit"
+    Then UI Click Button "Generate Snapshot Forensics Manually" with value "Test Edit"
+    Then Sleep "35"
     And UI Click Button "Views.report" with value "Test Edit"
     Then UI Validate "Report.Table" Table rows count EQUALS to 2
+    Then UI Delete Forensics With Name "Test Edit"
+
 
   @SID_11
   Scenario: Cleanup

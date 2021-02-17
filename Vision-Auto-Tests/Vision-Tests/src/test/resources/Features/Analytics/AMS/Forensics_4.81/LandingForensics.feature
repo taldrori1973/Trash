@@ -155,29 +155,23 @@ Feature: Landing Forensics
     Then Sleep "35"
 
   @SID_21
-  Scenario: Validate tooltip values
-    Then UI Do Operation "hover" item "INFO Forensics" with value "AppWall Forensics"
-    Then Sleep "3"
-    Then UI Text of "ToolTip Forensics" with extension "AppWall Forensics" equal to "Applications ScopeApplication:A1AppWall Device IP:172.17.164.30Time Period1 DayFilter CriteriaNot SelectedOutput FieldsAction; ScheduleNot SelectedFormatCSVDeliveryDelivery:emailRecipients:automation.vision2@radware.comSubject:myEdit subject"
-
-  @SID_22
   Scenario: Deletion Forensics Instance
     Then UI Validate Deletion of Forensics instance "Deletion Forensics Instance" with value "AppWall Forensics_0"
 
-  @SID_23
+  @SID_22
   Scenario: Edit Forensics and validate
     Given UI "Edit" Forensics With Name "AppWall Forensics"
       | Format | Select: HTML |
     Given UI "Validate" Forensics With Name "AppWall Forensics"
       | Format | Select: HTML |
 
-  @SID_24
+  @SID_23
   Scenario: Delete Forensics
     Then UI Validate Element Existence By Label "My Forensics" if Exists "true" with value "AppWall Forensics"
     Then UI Delete Forensics With Name "AppWall Forensics"
     Then UI Validate Element Existence By Label "My Forensics" if Exists "false" with value "AppWall Forensics"
 
-  @SID_25
+  @SID_24
   Scenario: Logout
     Then UI logout and close browser
 
