@@ -164,7 +164,7 @@ Feature: Vision Install HI SCALE
 
   @SID_21
   Scenario: Verify vg_disk-lv number of partitions
-    Then CLI Run linux Command "df -h | grep vg_disk-lv | wc -l" on "ROOT_SERVER_CLI" and validate result GTE "2" with timeOut 15
+    Then CLI Run linux Command "df -h | grep vg_disk-lv | wc -l" on "ROOT_SERVER_CLI" and validate result GTE "2"
 
   @SID_22
   Scenario: Check lvm partitions:
