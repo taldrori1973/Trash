@@ -496,7 +496,7 @@ public class Forensics extends ReportsForensicsAlertsAbstract {
             case "Yesterday":
                 return "Yesterday";
             case "This Month":
-                return "This Month";
+                return "AllDatesInCurrentMonth";
             case "1D":
                 return "oneDay";
             case "1W":

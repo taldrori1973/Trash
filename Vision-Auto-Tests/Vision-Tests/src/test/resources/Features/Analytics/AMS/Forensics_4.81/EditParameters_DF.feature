@@ -19,7 +19,6 @@ Feature: Edit DefenseFlow Parameters
       | Protected Objects | All         |
       | Output            | Action      |
 
-
   @SID_3
   Scenario: Edit Email
     Then UI "Edit" Forensics With Name "Forensics DefenseFlow"
@@ -37,18 +36,32 @@ Feature: Edit DefenseFlow Parameters
   @SID_5
   Scenario: Edit Format
     Then UI "Edit" Forensics With Name "Forensics DefenseFlow"
+      | Format | Select: CSV |
+    Then UI "Validate" Forensics With Name "Forensics DefenseFlow"
+      | Format | Select: CSV |
+
+  @SID_6
+  Scenario: Edit Format
+    Then UI "Edit" Forensics With Name "Forensics DefenseFlow"
+      | Format | Select: CSVWithDetails |
+    Then UI "Validate" Forensics With Name "Forensics DefenseFlow"
+      | Format | Select: CSVWithDetails |
+
+  @SID_7
+  Scenario: Edit Format
+    Then UI "Edit" Forensics With Name "Forensics DefenseFlow"
       | Format | Select: HTML |
     Then UI "Validate" Forensics With Name "Forensics DefenseFlow"
       | Format | Select: HTML |
 
-  @SID_6
+  @SID_8
   Scenario: Edit Schedule
     Then UI "Edit" Forensics With Name "Forensics DefenseFlow"
       | Schedule | Run Every:Monthly, On Time:+6H, At Months:[AUG] |
     Then UI "Validate" Forensics With Name "Forensics DefenseFlow"
       | Schedule | Run Every:Monthly, On Time:+6H, At Months:[AUG] |
 
-  @SID_7
+  @SID_9
   Scenario: Edit Time
     Then UI "Edit" Forensics With Name "Forensics DefenseFlow"
       | Time Definitions.Date | Quick:Today |
@@ -56,64 +69,63 @@ Feature: Edit DefenseFlow Parameters
       | Time Definitions.Date | Quick:Today |
     Then UI Text of "Forensics Time Type" equal to "Today"
 
-  @SID_8
-  Scenario: Edit Time
-    Then UI "Edit" Forensics With Name "Forensics DefenseFlow"
-      | Time Definitions.Date | Quick:Yesterday |
-    Then UI "Validate" Forensics With Name "Forensics DefenseFlow"
-      | Time Definitions.Date | Quick:Yesterday |
-
-
-  @SID_9
-  Scenario: Edit Time
-    Then UI "Edit" Forensics With Name "Forensics DefenseFlow"
-      | Time Definitions.Date | Quick:This Month |
-    Then UI "Validate" Forensics With Name "Forensics DefenseFlow"
-      | Time Definitions.Date | Quick:This Month |
-
   @SID_10
   Scenario: Edit Time
     Then UI "Edit" Forensics With Name "Forensics DefenseFlow"
-      | Time Definitions.Date | Quick:1D |
+      | Time Definitions.Date | Quick:Yesterday |
     Then UI "Validate" Forensics With Name "Forensics DefenseFlow"
-      | Time Definitions.Date | Quick:1D |
+      | Time Definitions.Date | Quick:Yesterday |
 
   @SID_11
   Scenario: Edit Time
     Then UI "Edit" Forensics With Name "Forensics DefenseFlow"
-      | Time Definitions.Date | Quick:1W |
+      | Time Definitions.Date | Quick:This Month |
     Then UI "Validate" Forensics With Name "Forensics DefenseFlow"
-      | Time Definitions.Date | Quick:1W |
+      | Time Definitions.Date | Quick:This Month |
 
   @SID_12
   Scenario: Edit Time
     Then UI "Edit" Forensics With Name "Forensics DefenseFlow"
-      | Time Definitions.Date | Quick:1M |
+      | Time Definitions.Date | Quick:1D |
     Then UI "Validate" Forensics With Name "Forensics DefenseFlow"
-      | Time Definitions.Date | Quick:1M |
+      | Time Definitions.Date | Quick:1D |
 
   @SID_13
   Scenario: Edit Time
     Then UI "Edit" Forensics With Name "Forensics DefenseFlow"
+      | Time Definitions.Date | Quick:1W |
+    Then UI "Validate" Forensics With Name "Forensics DefenseFlow"
+      | Time Definitions.Date | Quick:1W |
+
+  @SID_14
+  Scenario: Edit Time
+    Then UI "Edit" Forensics With Name "Forensics DefenseFlow"
+      | Time Definitions.Date | Quick:1M |
+    Then UI "Validate" Forensics With Name "Forensics DefenseFlow"
+      | Time Definitions.Date | Quick:1M |
+
+  @SID_15
+  Scenario: Edit Time
+    Then UI "Edit" Forensics With Name "Forensics DefenseFlow"
       | Time Definitions.Date | Quick:3M |
     Then UI "Validate" Forensics With Name "Forensics DefenseFlow"
       | Time Definitions.Date | Quick:3M |
 
-  @SID_14
+  @SID_16
   Scenario: Edit Time
     Then UI "Edit" Forensics With Name "Forensics DefenseFlow"
       | Time Definitions.Date | Quick:1Y |
     Then UI "Validate" Forensics With Name "Forensics DefenseFlow"
       | Time Definitions.Date | Quick:1Y |
 
-  @SID_15
+  @SID_17
   Scenario: Edit Output
     Then UI "Edit" Forensics With Name "Forensics DefenseFlow"
-      | Output | Total Mbits Dropped,Direction |
+      | Output | Direction |
     Then UI "Validate" Forensics With Name "Forensics DefenseFlow"
-      | Output | Total Mbits Dropped,Direction |
+      | Output | Direction |
 
-  @SID_16
+  @SID_18
   Scenario: Edit Scope
     Then UI "Edit" Forensics With Name "Forensics DefenseFlow"
       | Product           | DefenseFlow   |
@@ -122,14 +134,14 @@ Feature: Edit DefenseFlow Parameters
       | Product           | DefenseFlow   |
       | Protected Objects | PO Name Space |
 
-  @SID_17
+  @SID_19
   Scenario: Edit Criteria
-    Then UI "Edit" Forensics With Name "Forensics DefensePro"
+    Then UI "Edit" Forensics With Name "Forensics DefenseFlow"
       | Criteria | Event Criteria:Action,Operator:Not Equals,Value:Http 403 Forbidden |
-    Then UI "Validate" Forensics With Name "Forensics DefensePro"
+    Then UI "Validate" Forensics With Name "Forensics DefenseFlow"
       | Criteria | Event Criteria:Action,Operator:Not Equals,Value:Http 403 Forbidden |
 
-  @SID_18
+  @SID_20
   Scenario: Edit Name
     Then UI "Edit" Forensics With Name "Forensics DefenseFlow"
       | New Forensics Name | Forensics DefenseFlow Updated |
@@ -137,15 +149,15 @@ Feature: Edit DefenseFlow Parameters
       | Product               | DefenseFlow                                                                                                      |
       | Protected Objects     | PO Name Space                                                                                                    |
       | Criteria              | Event Criteria:Action,Operator:Not Equals,Value:Http 403 Forbidden                                               |
-      | Output                | Total Mbits Dropped,Direction                                                                                    |
+      | Output                | Direction                                                                                                        |
       | Format                | Select: HTML                                                                                                     |
-      | Time Definitions.Date | Quick:1W                                                                                                         |
+      | Time Definitions.Date | Quick:1Y |
       | Schedule              | Run Every:Monthly, On Time:+6H, At Months:[AUG]                                                                  |
       | Share                 | FTP:checked, FTP.Location:172.17.164.10, FTP.Path:/home/radware/ftp/, FTP.Username:radware, FTP.Password:radware |
       | Share                 | Email:[automation.vision2@radware.com],Subject:myEdit subject,Body:myEdit body                                   |
     Then UI Delete Forensics With Name "Forensics DefenseFlow Updated"
 
-  @SID_19
+  @SID_21
   Scenario: Logout
     Then UI logout and close browser
 
