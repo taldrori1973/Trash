@@ -25,7 +25,7 @@ public class Comparator {
                         if (fActualResult >= (fExpectedResult - offset) && fActualResult <= (fExpectedResult + offset))
                             bTestSuccess = true;
                         else
-                            failureMessage = String.format("Expected values between: %d and %d. Actual: %d",
+                            failureMessage = String.format("Expected values between: %.1f and %.1f. Actual: %.1f",
                                     fExpectedResult - offset, fExpectedResult + offset, fActualResult);
                         //Numbers with no offset or strings
                     } else if (!actualResult.trim().equals(expectedResult)) {
