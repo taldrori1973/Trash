@@ -55,7 +55,7 @@ public class Forensics extends ReportsForensicsAlertsAbstract {
         switch (productName.toLowerCase())
         {
             case "defenseflow":
-                return new JSONObject("{\"Application Name\":\"webApp\",\"Device Host Name\":\"appwallHostName\",\"Received Time\":\"receivedTimeStamp\",\"Packets\":\"packetCount\",\"Destination IP\":\"destAddress\",\"Source IP\":\"sourceAddress\",\"Start Time\":\"startTime\",\"Threat Category\":\"category\",\"Attack Name\":\"name\",\"Policy Name\":\"ruleName\",\"Source IP Address\":\"sourceIp\",\"Destination IP Address\":\"destinationIp\",\"Destination Port\":\"destPort\",\"Direction\":\"direction\",\"Protocol\":\"protocol\",\"Device IP\":\"appwallIP\",\"End Time\":\"endTime\",\"Action\":\"action\",\"Attack ID\":\"attackIpsId\",\"Source Port\":\"sourcePort\",\"Radware ID\":\"radwareId\",\"Duration\":\"duration\",\"Max pps\":\"maxAttackPacketRatePps\",\"Max bps\":\"maxAttackRateBps\",\"Physical Port\":\"physicalPort\",\"Risk\":\"risk\",\"VLAN Tag\":\"vlanTag\",\"Packet Type\":\"packetType\"}");
+                return new JSONObject("{\"Application Name\":\"webApp\",\"Device Host Name\":\"appwallHostName\",\"Received Time\":\"receivedTimeStamp\",\"Packets\":\"packetCount\",\"Destination IP\":\"destAddress\",\"Source IP\":\"sourceAddress\",\"Start Time\":\"startTime\",\"Threat Category\":\"category\",\"Attack Name\":\"name\",\"Policy Name\":\"ruleName\",\"Source IP Address\":\"sourceIp\",\"Destination IP Address\":\"destinationIp\",\"Destination Port\":\"destPort\",\"Direction\":\"direction\",\"Protocol\":\"protocol\",\"Device IP\":\"appwallIP\",\"End Time\":\"endTime\",\"Action\":\"actionType\",\"Attack ID\":\"attackIpsId\",\"Source Port\":\"sourcePort\",\"Radware ID\":\"radwareId\",\"Duration\":\"duration\",\"Max pps\":\"maxAttackPacketRatePps\",\"Max bps\":\"maxAttackRateBps\",\"Physical Port\":\"physicalPort\",\"Risk\":\"risk\",\"VLAN Tag\":\"vlanTag\",\"Packet Type\":\"packetType\"}");
             case "appwall":
                 return new JSONObject("{\"Application Name\":\"webApp\",\"Device Host Name\":\"appwallHostName\",\"Received Time\":\"receivedTimeStamp\",\"Packets\":\"packetCount\",\"Destination IP\":\"destAddress\",\"Source IP\":\"sourceAddress\",\"Start Time\":\"startTime\",\"Threat Category\":\"category\",\"Attack Name\":\"name\",\"Policy Name\":\"ruleName\",\"Source IP Address\":\"sourceIp\",\"Destination IP Address\":\"destinationIp\",\"Destination Port\":\"destPort\",\"Direction\":\"direction\",\"Protocol\":\"protocol\",\"Device IP\":\"appwallIP\",\"End Time\":\"endTime\",\"Action\":\"" + "\",\"Attack ID\":\"attackIpsId\",\"Source Port\":\"sourcePort\",\"Radware ID\":\"radwareId\",\"Duration\":\"duration\",\"Max pps\":\"maxAttackPacketRatePps\",\"Max bps\":\"maxAttackRateBps\",\"Physical Port\":\"physicalPort\",\"Risk\":\"risk\",\"VLAN Tag\":\"vlanTag\",\"Packet Type\":\"packetType\"}");
             case "":
@@ -270,15 +270,16 @@ public class Forensics extends ReportsForensicsAlertsAbstract {
             errorMessage.append(validateScheduleDefinition(basicRestResult, map, forensicsName));
             errorMessage.append(validateFormatDefinition(new JSONObject(new JSONArray(basicRestResult.get("exportFormats").toString()).get(0).toString()), map));
             errorMessage.append(validateShareDefinition(new JSONObject(basicRestResult.get("deliveryMethod").toString()), map));
-            errorMessage.append(validateScopeSelection(basicRestResult, map, errorMessage));
-            errorMessage.append(validateOutput(basicRestResult, map, errorMessage));
+            errorMessage.append(validateScopeSelection(basicRestResult, map));
+            errorMessage.append(validateOutput(basicRestResult, map));
             errorMessage.append(validateCriteriaDefinition(basicRestResult, map, errorMessage));
         } else errorMessage.append("No Forensics Defined with name ").append(forensicsName).append("/n");
         if (errorMessage.length() != 0)
             BaseTestUtils.report(errorMessage.toString(), Reporter.FAIL);
     }
 
-    private StringBuilder validateOutput(JSONObject basicRestResult, Map<String, String> map, StringBuilder errorMessage) {
+    private StringBuilder validateOutput(JSONObject basicRestResult, Map<String, String> map) {
+        StringBuilder errorMessage = new StringBuilder();
         if (map.containsKey("Output"))
         {
             outputsMatches = fillOutputMatch(map.getOrDefault("Product", ""));
@@ -292,7 +293,7 @@ public class Forensics extends ReportsForensicsAlertsAbstract {
             for (Object output : expectedOutputs)
             {
                 if (!actualOutputs.toList().contains(output))
-                    errorMessage.append("The output " + output + " isn't contained im the actual definition/n");
+                    errorMessage.append("The output " + output + " isn't contained in the actual definition /n");
             }
 
             for (Object output : actualOutputs)
@@ -331,7 +332,8 @@ public class Forensics extends ReportsForensicsAlertsAbstract {
     }
 
 
-    private StringBuilder validateScopeSelection(JSONObject forensicsDefinition, Map<String, String> map, StringBuilder errorMessage) throws Exception {
+    private StringBuilder validateScopeSelection(JSONObject forensicsDefinition, Map<String, String> map) throws Exception {
+        StringBuilder errorMessage = new StringBuilder();
         switch (map.getOrDefault("Product", "").toLowerCase()) {
             case "defensepro":
             case "":
