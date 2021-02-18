@@ -64,11 +64,161 @@ Feature: DefenseFlow CSV Forensics
     Then Sleep "35"
 
   @SID_8
+  Scenario: Validate Forensics.Table
+    And UI Click Button "Views.Forensic" with value "Forensics_DefenseFlow"
+    Then UI Validate "Forensics.Table" Table rows count EQUALS to 278
+
+  @SID_9
+  Scenario: Validate Threat Category
+    And UI Click Button "Views.Forensic" with value "Forensics_DefenseFlow"
+    Then UI Validate "Forensics.Table" Table rows count EQUALS to 278
+    Then UI click Table row by keyValue or Index with elementLabel "Forensics.Table" findBy columnName "Threat Category" findBy cellValue "Behavioral DoS"
+    And UI Click Button "Refine View"
+    And UI Click Button "Refine by"
+    And UI Click Button "Refine by Value" with value "category"
+    And UI Click Button "Apply"
+    Then UI Validate "Forensics.Table" Table rows count EQUALS to 278
+    And UI Click Button "Clear Refine"
+
+  @SID_10
+  Scenario: Validate Attack Name
+    Then UI click Table row by keyValue or Index with elementLabel "Forensics.Table" findBy columnName "Attack Name" findBy cellValue "HTTP (recv.pps)"
+    And UI Click Button "Refine View"
+    And UI Click Button "Refine by"
+    And UI Click Button "Refine by Value" with value "name"
+    And UI Click Button "Apply"
+    Then UI Validate "Forensics.Table" Table rows count EQUALS to 150
+    And UI Click Button "Clear Refine"
+    Then UI click Table row by keyValue or Index with elementLabel "Forensics.Table" findBy columnName "Attack Name" findBy cellValue "HTTP (recv.bps)"
+    And UI Click Button "Refine View"
+    And UI Click Button "Refine by"
+    And UI Click Button "Refine by Value" with value "name"
+    And UI Click Button "Apply"
+    Then UI Validate "Forensics.Table" Table rows count EQUALS to 1
+    And UI Click Button "Clear Refine"
+    Then UI click Table row by keyValue or Index with elementLabel "Forensics.Table" findBy columnName "Attack Name" findBy cellValue "Total (recv.pps)"
+    And UI Click Button "Refine View"
+    And UI Click Button "Refine by"
+    And UI Click Button "Refine by Value" with value "name"
+    And UI Click Button "Apply"
+    Then UI Validate "Forensics.Table" Table rows count EQUALS to 4
+    And UI Click Button "Clear Refine"
+    Then UI click Table row by keyValue or Index with elementLabel "Forensics.Table" findBy columnName "Attack Name" findBy cellValue "Total (recv.bps)"
+    And UI Click Button "Refine View"
+    And UI Click Button "Refine by"
+    And UI Click Button "Refine by Value" with value "name"
+    And UI Click Button "Apply"
+    Then UI Validate "Forensics.Table" Table rows count EQUALS to 19
+    And UI Click Button "Clear Refine"
+    Then UI click Table row by keyValue or Index with elementLabel "Forensics.Table" findBy columnName "Attack Name" findBy cellValue "UDP Port 0 (recv.pps)"
+    And UI Click Button "Refine View"
+    And UI Click Button "Refine by"
+    And UI Click Button "Refine by Value" with value "name"
+    And UI Click Button "Apply"
+    Then UI Validate "Forensics.Table" Table rows count EQUALS to 33
+    And UI Click Button "Clear Refine"
+    Then UI click Table row by keyValue or Index with elementLabel "Forensics.Table" findBy columnName "Attack Name" findBy cellValue "network flood IPv6 UDP"
+    And UI Click Button "Refine View"
+    And UI Click Button "Refine by"
+    And UI Click Button "Refine by Value" with value "name"
+    And UI Click Button "Apply"
+    Then UI Validate "Forensics.Table" Table rows count EQUALS to 18
+    And UI Click Button "Clear Refine"
+    Then UI click Table row by keyValue or Index with elementLabel "Forensics.Table" findBy columnName "Attack Name" findBy cellValue "network flood IPv4 UDP"
+    And UI Click Button "Refine View"
+    And UI Click Button "Refine by"
+    And UI Click Button "Refine by Value" with value "name"
+    And UI Click Button "Apply"
+    Then UI Validate "Forensics.Table" Table rows count EQUALS to 12
+    And UI Click Button "Clear Refine"
+    Then UI click Table row by keyValue or Index with elementLabel "Forensics.Table" findBy columnName "Attack Name" findBy cellValue "network flood IPv6 TCP-SYN"
+    And UI Click Button "Refine View"
+    And UI Click Button "Refine by"
+    And UI Click Button "Refine by Value" with value "name"
+    And UI Click Button "Apply"
+    Then UI Validate "Forensics.Table" Table rows count EQUALS to 8
+    And UI Click Button "Clear Refine"
+    Then UI click Table row by keyValue or Index with elementLabel "Forensics.Table" findBy columnName "Attack Name" findBy cellValue "network flood Protection"
+    And UI Click Button "Refine View"
+    And UI Click Button "Refine by"
+    And UI Click Button "Refine by Value" with value "name"
+    And UI Click Button "Apply"
+    Then UI Validate "Forensics.Table" Table rows count EQUALS to 9
+    And UI Click Button "Clear Refine"
+    Then UI click Table row by keyValue or Index with elementLabel "Forensics.Table" findBy columnName "Attack Name" findBy cellValue "External report"
+    And UI Click Button "Refine View"
+    And UI Click Button "Refine by"
+    And UI Click Button "Refine by Value" with value "name"
+    And UI Click Button "Apply"
+    Then UI Validate "Forensics.Table" Table rows count EQUALS to 7
+    And UI Click Button "Clear Refine"
+    Then UI click Table row by keyValue or Index with elementLabel "Forensics.Table" findBy columnName "Attack Name" findBy cellValue "DOSS-NTP-monlist-flood"
+    And UI Click Button "Refine View"
+    And UI Click Button "Refine by"
+    And UI Click Button "Refine by Value" with value "name"
+    And UI Click Button "Apply"
+    Then UI Validate "Forensics.Table" Table rows count EQUALS to 17
+    And UI Click Button "Clear Refine"
+
+  @SID_11
+  Scenario: Validate Action
+    And UI Click Button "Views.Forensic" with value "Forensics_DefenseFlow"
+    Then UI Validate "Forensics.Table" Table rows count EQUALS to 278
+    Then UI click Table row by keyValue or Index with elementLabel "Forensics.Table" findBy columnName "Action" findBy cellValue "Drop"
+    And UI Click Button "Refine View"
+    And UI Click Button "Refine by"
+    And UI Click Button "Refine by Value" with value "actionType"
+    And UI Click Button "Apply"
+    Then UI Validate "Forensics.Table" Table rows count EQUALS to 278
+    And UI Click Button "Clear Refine"
+
+  @SID_12
+  Scenario: Validate Protocol
+    And UI Click Button "Views.Forensic" with value "Forensics_DefenseFlow"
+    Then UI Validate "Forensics.Table" Table rows count EQUALS to 278
+    Then UI click Table row by keyValue or Index with elementLabel "Forensics.Table" findBy columnName "Protocol" findBy cellValue "ICMP"
+    And UI Click Button "Refine View"
+    And UI Click Button "Refine by"
+    And UI Click Button "Refine by Value" with value "protocol"
+    And UI Click Button "Apply"
+    Then UI Validate "Forensics.Table" Table rows count EQUALS to 9
+    And UI Click Button "Clear Refine"
+    Then UI click Table row by keyValue or Index with elementLabel "Forensics.Table" findBy columnName "Protocol" findBy cellValue "IP"
+    And UI Click Button "Refine View"
+    And UI Click Button "Refine by"
+    And UI Click Button "Refine by Value" with value "protocol"
+    And UI Click Button "Apply"
+    Then UI Validate "Forensics.Table" Table rows count EQUALS to 9
+    And UI Click Button "Clear Refine"
+    Then UI click Table row by keyValue or Index with elementLabel "Forensics.Table" findBy columnName "Protocol" findBy cellValue "NonIP"
+    And UI Click Button "Refine View"
+    And UI Click Button "Refine by"
+    And UI Click Button "Refine by Value" with value "protocol"
+    And UI Click Button "Apply"
+    Then UI Validate "Forensics.Table" Table rows count EQUALS to 76
+    And UI Click Button "Clear Refine"
+    Then UI click Table row by keyValue or Index with elementLabel "Forensics.Table" findBy columnName "Protocol" findBy cellValue "TCP"
+    And UI Click Button "Refine View"
+    And UI Click Button "Refine by"
+    And UI Click Button "Refine by Value" with value "protocol"
+    And UI Click Button "Apply"
+    Then UI Validate "Forensics.Table" Table rows count EQUALS to 151
+    And UI Click Button "Clear Refine"
+    Then UI click Table row by keyValue or Index with elementLabel "Forensics.Table" findBy columnName "Protocol" findBy cellValue "UDP"
+    And UI Click Button "Refine View"
+    And UI Click Button "Refine by"
+    And UI Click Button "Refine by Value" with value "protocol"
+    And UI Click Button "Apply"
+    Then UI Validate "Forensics.Table" Table rows count EQUALS to 33
+    And UI Click Button "Clear Refine"
+
+
+  @SID_13
   Scenario: Unzip CSV file
     Then CLI Run remote linux Command "unzip -o /home/radware/ftp/Forensics_DefenseFlow*.zip -d /home/radware/ftp/" on "GENERIC_LINUX_SERVER"
     Then Sleep "3"
 
-  @SID_9
+  @SID_14
   Scenario: Validate the First line in Forensics_DefenseFlow_*.csv File
     Then CLI Run linux Command "cat /home/radware/ftp/Forensics_DefenseFlow_*.csv |wc -l" on "GENERIC_LINUX_SERVER" and validate result EQUALS "279"
     Then CLI Run linux Command "cat /home/radware/ftp/Forensics_DefenseFlow_*.csv|head -1|tail -1|awk -F "," '{printf $1}';echo" on "GENERIC_LINUX_SERVER" and validate result EQUALS "S.No"
@@ -95,12 +245,12 @@ Feature: DefenseFlow CSV Forensics
     Then CLI Run linux Command "cat /home/radware/ftp/Forensics_DefenseFlow_*.csv|head -1|tail -1|awk -F "," '{printf $22}';echo" on "GENERIC_LINUX_SERVER" and validate result EQUALS "Risk"
     Then CLI Run linux Command "cat /home/radware/ftp/Forensics_DefenseFlow_*.csv|head -1|tail -1|awk -F "," '{printf $23}';echo" on "GENERIC_LINUX_SERVER" and validate result EQUALS "Vlan tag"
 
-  @SID_10
+  @SID_15
   Scenario: Validate Threat Category
     Then CLI Run linux Command "sed -n '1d;p' /home/radware/ftp/Forensics_DefenseFlow_*.csv| awk -F "," '{print $4}' | sort | uniq| wc -l" on "GENERIC_LINUX_SERVER" and validate result EQUALS "1"
     Then CLI Run linux Command "cat /home/radware/ftp/Forensics_DefenseFlow_*.csv |grep -w  BehavioralDOS|wc -l" on "GENERIC_LINUX_SERVER" and validate result EQUALS "278"
 
-  @SID_11
+  @SID_16
   Scenario: Validate Attack Name
     Then CLI Run linux Command "sed -n '1d;p' /home/radware/ftp/Forensics_DefenseFlow_*.csv| awk -F "," '{print $5}' | sort | uniq| wc -l" on "GENERIC_LINUX_SERVER" and validate result EQUALS "11"
     Then CLI Run linux Command "cat /home/radware/ftp/Forensics_DefenseFlow_*.csv |grep -w  'HTTP (recv.pps)'|wc -l" on "GENERIC_LINUX_SERVER" and validate result EQUALS "150"
@@ -115,12 +265,12 @@ Feature: DefenseFlow CSV Forensics
     Then CLI Run linux Command "cat /home/radware/ftp/Forensics_DefenseFlow_*.csv |grep -w  External\ report|wc -l" on "GENERIC_LINUX_SERVER" and validate result EQUALS "7"
     Then CLI Run linux Command "cat /home/radware/ftp/Forensics_DefenseFlow_*.csv |grep -w  DOSS-NTP-monlist-flood|wc -l" on "GENERIC_LINUX_SERVER" and validate result EQUALS "17"
 
-  @SID_12
+  @SID_17
   Scenario: Validate Action
     Then CLI Run linux Command "sed -n '1d;p' /home/radware/ftp/Forensics_DefenseFlow_*.csv| awk -F "," '{print $7}' | sort | uniq| wc -l" on "GENERIC_LINUX_SERVER" and validate result EQUALS "1"
     Then CLI Run linux Command "cat /home/radware/ftp/Forensics_DefenseFlow_*.csv |grep -w  Drop|wc -l" on "GENERIC_LINUX_SERVER" and validate result EQUALS "278"
 
-  @SID_13
+  @SID_18
   Scenario: Validate Protocol
     Then CLI Run linux Command "sed -n '1d;p' /home/radware/ftp/Forensics_DefenseFlow_*.csv| awk -F "," '{print $14}' | sort | uniq| wc -l" on "GENERIC_LINUX_SERVER" and validate result EQUALS "5"
     Then CLI Run linux Command "sed -n '1d;p' /home/radware/ftp/Forensics_DefenseFlow_*.csv| awk -F "," '{print $14}' | grep ICMP|wc -l" on "GENERIC_LINUX_SERVER" and validate result EQUALS "9"
@@ -129,11 +279,11 @@ Feature: DefenseFlow CSV Forensics
     Then CLI Run linux Command "sed -n '1d;p' /home/radware/ftp/Forensics_DefenseFlow_*.csv| awk -F "," '{print $14}' | grep TCP|wc -l" on "GENERIC_LINUX_SERVER" and validate result EQUALS "151"
     Then CLI Run linux Command "sed -n '1d;p' /home/radware/ftp/Forensics_DefenseFlow_*.csv| awk -F "," '{print $14}' | grep UDP|wc -l" on "GENERIC_LINUX_SERVER" and validate result EQUALS "33"
 
-  @SID_14
+  @SID_19
   Scenario: Delete Forensics
     Then UI Delete Forensics With Name "Forensics_DefenseFlow"
 
-  @SID_15
+  @SID_20
   Scenario: Logout
     Then UI logout and close browser
 

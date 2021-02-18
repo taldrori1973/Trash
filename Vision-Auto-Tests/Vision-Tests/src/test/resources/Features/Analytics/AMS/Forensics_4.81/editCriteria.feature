@@ -25,7 +25,7 @@ Feature: Edit Criteria Testes
     Then UI Click Button "Criteria Attribute Selected" with value "Action"
     Then UI Click Button "Criteria Attribute Selected" with value "Attack ID"
     Then UI Click Button "Criteria Attribute Selected" with value "="
-    Then UI Set Text Field "Criteria Value Input" To "123"
+    Then UI Set Text Field "Criteria Value Edit Input" and params "1" To "123"
     Then UI Click Button "save"
 
   @SID_4
@@ -37,7 +37,7 @@ Feature: Edit Criteria Testes
     Then UI Click Button "Criteria Attribute Selected" with value "Action"
     Then UI Click Button "Criteria Attribute Selected" with value "Attack ID"
     Then UI Click Button "Criteria Attribute Selected" with value "="
-    Then UI Set Text Field "Criteria Value Input" To "test"
+    Then UI Set Text Field "Criteria Value Edit Input" and params "1" To "test"
     Then UI Click Button "save"
     Then UI Text of "Error message title" equal to "Unable to Save"
     Then UI Text of "Error message description" equal to "The Criteria configuration is improper."
@@ -58,7 +58,7 @@ Feature: Edit Criteria Testes
 
 
   @SID_6
-  Scenario: add new Criteria that contians two conditions
+  Scenario: add new Criteria that contains two conditions
     Then UI "Edit" Forensics With Name "DefenseFlow Forensics"
       | Criteria | Event Criteria:Packet Type,Operator:Equals,Value:SSL; Event Criteria:Risk,Operator:Not Equals,Value:Low; |
 
@@ -71,7 +71,7 @@ Feature: Edit Criteria Testes
     Then UI Click Button "Criteria Attribute Selected" with value "Risk"
     Then UI Click Button "Criteria Attribute Selected" with value "Attack Name"
     Then UI Click Button "Criteria Attribute Selected" with value "="
-    Then UI Set Text Field "Criteria Value Input" To "Test"
+    Then UI Set Text Field "Criteria Value Edit Input" and params "2" To "Test"
     Then UI Click Button "save"
 
   @SID_8
@@ -109,8 +109,8 @@ Feature: Edit Criteria Testes
     Then UI Click Button "Criteria Attribute Selected" with value "Source Port"
     Then UI Click Button "Criteria Attribute Selected" with value "="
     Then UI Click Button "Criteria Value select input" with value "Range"
-    Then UI Set Text Field "Criteria Value Input Label" and params "port-from" To "3"
-    Then UI Set Text Field "Criteria Value Input Label" and params "port-to" To "4"
+    Then UI Set Text Field "Criteria Value Input Label" and params "port-from_1" To "3"
+    Then UI Set Text Field "Criteria Value Input Label" and params "port-to_1" To "4"
     Then UI Click Button "save"
 
 
@@ -200,7 +200,7 @@ Feature: Edit Criteria Testes
     Then UI Click Button "Criteria Attribute Selected" with value "Duration"
     Then UI Click Button "Criteria Attribute Selected" with value "Attack ID"
     Then UI Click Button "Criteria Attribute Selected" with value "="
-    Then UI Set Text Field "Criteria Value Input" To "123"
+    Then UI Set Text Field "Criteria Value Edit Input" and params "1" To "123"
     Then UI Click Button "save"
 
   @SID_18
@@ -237,7 +237,7 @@ Feature: Edit Criteria Testes
     Then UI Click Button "Criteria Attribute Selected" with value "Tunnel"
     Then UI Click Button "Criteria Attribute Selected" with value "Web Application Name"
     Then UI Click Button "Criteria Attribute Selected" with value "="
-    Then UI Set Text Field "Criteria Value Input" To "Test"
+    Then UI Set Text Field "Criteria Value Edit Input" and params "1" To "Test"
     Then UI Click Button "save"
 
   @SID_22
@@ -265,7 +265,7 @@ Feature: Edit Criteria Testes
     Then UI Click Button "Criteria Attribute Selected" with value "Action"
     Then UI Click Button "Criteria Attribute Selected" with value "Transaction ID"
     Then UI Click Button "Criteria Attribute Selected" with value "="
-    Then UI Set Text Field "Criteria Value Input" To "123"
+    Then UI Set Text Field "Criteria Value Edit Input" and params "1" To "123"
     Then UI Click Button "save"
 
   @SID_25

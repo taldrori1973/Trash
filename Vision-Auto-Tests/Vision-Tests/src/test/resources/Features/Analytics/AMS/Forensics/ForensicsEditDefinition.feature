@@ -1,5 +1,4 @@
 @VRM_Report2 @TC106001
-
 Feature: Forensics Edit Definition
 
   @SID_1
@@ -36,7 +35,7 @@ Feature: Forensics Edit Definition
     Then Sleep "35"
     And UI Click Button "Views.report" with value "Test Edit"
     Then UI Validate "Report.Table" Table rows count EQUALS to 3
-    Then UI Validate Deletion of Forensics instance "Deletion Forensics Instance" with value "Test Edit_1"
+    Then UI Validate Deletion of Forensics instance "Deletion Forensics Instance" with value "Test Edit_0"
 
 
   @SID_5
@@ -91,7 +90,7 @@ Feature: Forensics Edit Definition
     Then Sleep "35"
     And UI Click Button "Views.report" with value "Test Edit"
     Then UI Validate "Report.Table" Table rows count EQUALS to 1
-    Then UI Validate Deletion of Forensics instance "Deletion Forensics Instance" with value "Test Edit_1"
+    Then UI Validate Deletion of Forensics instance "Deletion Forensics Instance" with value "Test Edit_0"
 
 
 
@@ -105,9 +104,9 @@ Feature: Forensics Edit Definition
     Then UI Click Button "Generate Snapshot Forensics Manually" with value "Test Edit"
     Then Sleep "35"
     And UI Click Button "Views.report" with value "Test Edit"
-    Then UI Validate "Report.Table" Table rows count EQUALS to 2
+    Then UI Validate "Report.Table" Table rows count EQUALS to 1
     Then UI Delete Forensics With Name "Test Edit"
-    Then UI Validate Deletion of Forensics instance "Deletion Forensics Instance" with value "Test Edit_1"
+
 
 
   @SID_11
