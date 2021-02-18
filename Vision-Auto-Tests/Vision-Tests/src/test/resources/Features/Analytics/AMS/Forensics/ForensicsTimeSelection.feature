@@ -288,7 +288,10 @@ Feature: Forensic Time Selection
     Then UI Click Button "Generate Snapshot Forensics Manually" with value "Forensic Time"
     Then Sleep "35"
     And UI Click Button "Views.report" with value "Forensic Time"
-    Then UI Validate "Report.Table" Table rows count EQUALS to 1
+    Then UI Validate "Report.Table" Table rows count EQUALS to 2
+    Then UI Validate Table record values by columns with elementLabel "Report.Table" findBy columnName "Attack ID" findBy cellValue "7706-1402580209"
+      | columnName | value           |
+      | Attack ID  | 7706-1402580209 |
     Then UI Validate Table record values by columns with elementLabel "Report.Table" findBy columnName "Attack ID" findBy cellValue "4-1402580209"
       | columnName | value        |
       | Attack ID  | 4-1402580209 |
