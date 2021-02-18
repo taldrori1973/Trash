@@ -339,7 +339,7 @@ public class Forensics extends ReportsForensicsAlertsAbstract {
                     if (map.get("devices").equalsIgnoreCase("all"))
                         return errorMessage;
                     JsonNode actualDevicesJson = new ObjectMapper().readTree(forensicsDefinition.toString()).get("request").get("criteria").get(0).get("filters");
-                    JSONArray expectedDevices = new JSONArray(map.get("devices"));
+                    JSONArray expectedDevices = new ObjectMapper().readTree(map.get("devices")).isArray()? new JSONArray(map.get("devices")) : new JSONArray().put(new JSONObject(map.get("devices")));
                     for (Object expectedDevice : expectedDevices)
                     {
                         JsonNode targetActualDevice = validateDPName(actualDevicesJson, expectedDevice, errorMessage);
