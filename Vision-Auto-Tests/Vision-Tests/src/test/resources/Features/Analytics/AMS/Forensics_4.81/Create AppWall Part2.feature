@@ -136,7 +136,7 @@ Feature:Create AppWall Part2
 
   @SID_13
   Scenario: create new Output Event Description,Action,Attack Name,Device Host Name Equal Device IP
-    When UI "Create" Forensics With Name "Output Event Description,Action,Attack Name,Device Host Name Equal Device IP"
+    When UI "Create" Forensics With Name "Output Event Description_Action_Attack Name_Device Host Name Equal Device IP"
       | Product               | AppWall                                                                        |
       | Output                | Event Description,Action,Attack Name,Device Host Name                          |
       | Criteria              | Event Criteria:Device IP,Operator:Equals,IPType:IPv6,IPValue:fe80::23a1:b152   |
@@ -469,7 +469,7 @@ Feature:Create AppWall Part2
     When UI "Create" Forensics With Name "Source Port1 Equal"
       | Product               | AppWall                                                                                                          |
       | Output                | Date and Time,Device IP,Source IP,Transaction ID,Tunnel                                                           |
-      | Criteria              | Event Criteria:Source Port,Operator:Equals,portType:Port,portValue:1024                                          |
+      | Criteria              | Event Criteria:Source Port,Operator:Equals,portType:Single,portValue:1024                                          |
       | devices               | All                                                                                                              |
       | Schedule              | Run Every:Monthly, On Time:+6H, At Months:[AUG]                                                                  |
       | Share                 | FTP:checked, FTP.Location:172.17.164.10, FTP.Path:/home/radware/ftp/, FTP.Username:radware, FTP.Password:radware |
@@ -480,7 +480,7 @@ Feature:Create AppWall Part2
     When UI "Create" Forensics With Name "Source Port2 Not Equal"
       | Product               | AppWall                                                                        |
       | Output                | Event Description,Action,Attack Name,Device Host Name                          |
-      | Criteria              | Event Criteria:Source Port,Operator:Not Equals,portType:Port,portValue:88      |
+      | Criteria              | Event Criteria:Source Port,Operator:Not Equals,portType:Single,portValue:88      |
       | devices               | index:10                                                                       |
       | Time Definitions.Date | Absolute:[27.02.1971 01:00, +0d]                                               |
       | Schedule              | Run Every:Monthly, On Time:+6H, At Months:[MAR]                                |
@@ -492,7 +492,7 @@ Feature:Create AppWall Part2
     When UI "Create" Forensics With Name "Source Port3 Equal"
       | Product               | AppWall                                                                                                          |
       | Output                | Device IP,Source IP,Destination IP Address,Cluster Manager IP                                                    |
-      | Criteria              | Event Criteria:Source Port,Operator:Equals,portType:Port Range,portFrom:50,portTo:90                             |
+      | Criteria              | Event Criteria:Source Port,Operator:Equals,portType:Range,portFrom:50,portTo:90                             |
       | devices               | All                                                                                                              |
       | Time Definitions.Date | Relative:[Weeks,2]                                                                                               |
       | Schedule              | Run Every:Daily,On Time:+2m                                                                                      |
@@ -504,7 +504,7 @@ Feature:Create AppWall Part2
     When UI "Create" Forensics With Name "Source Port4 Not Equal"
       | Product               | AppWall                                                                                 |
       | Output                | Date and Time,Source Port                                                               |
-      | Criteria              | Event Criteria:Source Port,Operator:Not Equals,portType:Port Range,portFrom:0,portTo:24 |
+      | Criteria              | Event Criteria:Source Port,Operator:Not Equals,portType:Range,portFrom:0,portTo:24 |
       | devices               | All                                                                                     |
       | Time Definitions.Date | Absolute:[27.02.1971 01:00, +0d]                                                        |
       | Schedule              | Run Every:Weekly, On Time:+6H, At Days:[SUN]                                            |

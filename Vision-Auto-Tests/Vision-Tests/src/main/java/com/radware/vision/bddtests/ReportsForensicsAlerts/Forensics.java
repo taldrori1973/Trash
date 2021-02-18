@@ -77,7 +77,7 @@ public class Forensics extends ReportsForensicsAlertsAbstract {
         }catch (Exception e)
         {
             cancelView();
-            throw e;
+            BaseTestUtils.report(e.getMessage(), Reporter.FAIL);
         }
     }
 
