@@ -306,7 +306,7 @@ Feature:Create AppWall Part1
 
   @SID_28
   Scenario: create new Output Event Description,Action,Attack Name,Device Host Name
-    When UI "Create" Forensics With Name " Output Event Description,Action,Attack Name,Device Host Name"
+    When UI "Create" Forensics With Name " Output Event Description_Action_Attack Name_Device Host Name"
       | Product               | AppWall                                                                        |
       | Output                | Event Description,Action,Attack Name,Device Host Name                          |
       | Criteria              | condition.All:true                                                             |
@@ -316,7 +316,7 @@ Feature:Create AppWall Part1
 
   @SID_29
   Scenario: create new Output Device IP,Source IP,Destination IP Address,Cluster Manager IP
-    When UI "Create" Forensics With Name " Output Device IP,Source IP,Destination IP Address,Cluster Manager IP"
+    When UI "Create" Forensics With Name " Output Device IP_Source IP,Destination IP Address_Cluster Manager IP"
       | Product               | AppWall                                                                                                          |
       | Output                | Device IP,Source IP,Destination IP Address,Cluster Manager IP                                                    |
       | Criteria              | condition.All:true                                                                                               |
@@ -327,7 +327,7 @@ Feature:Create AppWall Part1
 
   @SID_30
   Scenario: create new Output Date and Time,Destination IP Address
-    When UI "Create" Forensics With Name " Output Date and Time,Destination IP Address"
+    When UI "Create" Forensics With Name " Output Date and Time_Destination IP Address"
       | Product               | AppWall                                                                        |
       | Output                | Date and Time,Destination IP Address                                           |
       | Criteria              | condition.All:true                                                             |
@@ -339,7 +339,7 @@ Feature:Create AppWall Part1
 
   @SID_31
   Scenario: create new Output Web Application Name,Event Description,Action,Attack Name,Device Host Name,Directory,Module,Severity,Threat Category,Transaction ID,Tunnel,User Name
-    When UI "Create" Forensics With Name " Output Web Application Name,Event Description,Action,Attack Name,Device Host Name,Directory,Module,Severity,Threat Category,Transaction ID,Tunnel,User Name"
+    When UI "Create" Forensics With Name " Output Web Application Name_Event Description_Action_Attack Name_Device Host Name_Directory_Module_Severity_Threat Category_Transaction ID_Tunnel_User Name"
       | Product               | AppWall                                                                                                                                              |
       | Output                | Web Application Name,Event Description,Action,Attack Name,Device Host Name,Directory,Module,Severity,Threat Category,Transaction ID,Tunnel,User Name |
       | Criteria              | condition.All:true                                                                                                                                   |
@@ -351,7 +351,7 @@ Feature:Create AppWall Part1
 
   @SID_32
   Scenario: create new Output Action,Threat Category
-    When UI "Create" Forensics With Name " Output Action,Threat Category"
+    When UI "Create" Forensics With Name " Output Action_Threat Category"
       | Product               | AppWall                                                                        |
       | Output                | Action,Threat Category                                                         |
       | Criteria              | condition.All:true                                                             |
@@ -362,7 +362,7 @@ Feature:Create AppWall Part1
 
   @SID_33
   Scenario: create new Output Web Application Name,Event Description,Attack Name,Device Host Name,Directory,Module,Severity,Transaction ID,Tunnel,User Name
-    When UI "Create" Forensics With Name " Output Web Application Name,Event Description,Attack Name,Device Host Name,Directory,Module,Severity,Transaction ID,Tunnel,User Name"
+    When UI "Create" Forensics With Name " Output Web Application Name_Event Description_Attack Name_Device Host Name_Directory_Module_Severity_Transaction ID_Tunnel_User Name"
       | Product               | AppWall                                                                                                                       |
       | Output                | Web Application Name,Event Description,Attack Name,Device Host Name,Directory,Module,Severity,Transaction ID,Tunnel,User Name |
       | Criteria              | condition.All:true                                                                                                            |
@@ -374,7 +374,7 @@ Feature:Create AppWall Part1
 
   @SID_34
   Scenario: create new Output Date and Time,Device IP,Source IP,Destination IP Address,Action,Threat Category
-    When UI "Create" Forensics With Name " Output Date and Time,Device IP,Source IP,Destination IP Address,Action,Threat Category"
+    When UI "Create" Forensics With Name " Output Date and Time_Device IP_Source IP_Destination IP Address_Action_Threat Category"
       | Product               | AppWall                                                                         |
       | Output                | Date and Time,Device IP,Source IP,Destination IP Address,Action,Threat Category |
       | Criteria              | condition.All:true                                                              |
@@ -386,7 +386,7 @@ Feature:Create AppWall Part1
 
   @SID_35
   Scenario: create new Output Date and Time,Device IP,Source Port,Web Application Name,Action,Attack Name,Threat Category,Transaction ID
-    When UI "Create" Forensics With Name " Output Date and Time,Device IP,Source Port,Web Application Name,Action,Attack Name,Threat Category,Transaction ID"
+    When UI "Create" Forensics With Name " Output Date and Time_Device IP_Source Port_Web Application Name_Action_Attack Name_Threat Category_Transaction ID"
       | Product               | AppWall                                                                                                          |
       | Output                | Date and Time,Device IP,Source Port,Web Application Name,Action,Attack Name,Threat Category,Transaction ID       |
       | Criteria              | condition.All:true                                                                                               |
@@ -398,7 +398,7 @@ Feature:Create AppWall Part1
 
   @SID_36
   Scenario: create new Output Source IP,Destination IP Address,Cluster Manager IP,Event Description,Device Host Name,Directory,Module,Severity,Tunnel,User Name
-    When UI "Create" Forensics With Name " Output Source IP,Destination IP Address,Cluster Manager IP,Event Description,Device Host Name,Directory,Module,Severity,Tunnel,User Name"
+    When UI "Create" Forensics With Name " Output Source IP_Destination IP Address_Cluster Manager IP_Event Description_Device Host Name_Directory_Module_Severity_Tunnel_User Name"
       | Product               | AppWall                                                                                                                           |
       | Output                | Source IP,Destination IP Address,Cluster Manager IP,Event Description,Device Host Name,Directory,Module,Severity,Tunnel,User Name |
       | Criteria              | condition.All:true                                                                                                                |
@@ -410,7 +410,7 @@ Feature:Create AppWall Part1
 
   @SID_36
   Scenario: create new Output Cluster Manager IP,Attack Name
-    When UI "Create" Forensics With Name " Output Cluster Manager IP,Attack Name"
+    When UI "Create" Forensics With Name " Output Cluster Manager IP_Attack Name"
       | Product               | AppWall                                                                                                          |
       | Output                | Cluster Manager IP,Attack Name                                                                                   |
       | Criteria              | condition.All:true                                                                                               |
@@ -422,7 +422,7 @@ Feature:Create AppWall Part1
 
   @SID_38
   Scenario: create new Output Source IP,Directory
-    When UI "Create" Forensics With Name " Output Source IP,Directory"
+    When UI "Create" Forensics With Name " Output Source IP_Directory"
       | Product               | AppWall                                                                        |
       | Output                | Source IP,Directory                                                            |
       | Criteria              | condition.All:true                                                             |
@@ -433,7 +433,7 @@ Feature:Create AppWall Part1
 
   @SID_39
   Scenario: create new Output Destination IP Address,Cluster Manager IP,Event Description,Device Host Name,Severity,User Name Equal Action
-    When UI "Create" Forensics With Name " Output Destination IP Address,Cluster Manager IP,Event Description,Device Host Name,Severity,User Name Equal Action"
+    When UI "Create" Forensics With Name " Output Destination IP Address_Cluster Manager IP_Event Description_Device Host Name_Severity_User Name Equal Action"
       | Product               | AppWall                                                                                          |
       | Output                | Destination IP Address,Cluster Manager IP,Event Description,Device Host Name,Severity,User Name  |
       | Criteria              | Event Criteria:Action,Operator:Equals,Actions:Modified                                           |
@@ -454,7 +454,7 @@ Feature:Create AppWall Part1
 
   @SID_41
   Scenario: create new Output Destination IP Address,Source Port,Cluster Manager IP,Web Application Name,Event Description,Action,Attack Name,Device Host Name,Directory,Module,Severity,Threat Category Not Equal Action
-    When UI "Create" Forensics With Name " Output Destination IP Address,Source Port,Cluster Manager IP,Web Application Name,Event Description,Action,Attack Name,Device Host Name,Directory,Module,Severity,Threat Category Not Equal Action"
+    When UI "Create" Forensics With Name " Output Destination IP Address,Source Port_Cluster Manager IP_Web Application Name_Event Description_Action_Attack Name_Device Host Name_Directory_Module_Severity_Threat Category Not Equal Action"
       | Product               | AppWall                                                                                                                                                                    |
       | Output                | Destination IP Address,Source Port,Cluster Manager IP,Web Application Name,Event Description,Action,Attack Name,Device Host Name,Directory,Module,Severity,Threat Category |
       | Criteria              | Event Criteria:Action,Operator:Not Equals,Actions:Reported                                                                                                                 |
@@ -465,7 +465,7 @@ Feature:Create AppWall Part1
 
   @SID_42
   Scenario: create new Output Date and Time,Device IP,Source IP,Transaction ID,Tunnel Equal Action
-    When UI "Create" Forensics With Name " Output Date and Time,Device IP,Source IP,Transaction ID,Tunnel Equal Action"
+    When UI "Create" Forensics With Name " Output Date and Time_Device IP_Source IP_Transaction ID_Tunnel Equal Action"
       | Product               | AppWall                                                                        |
       | Output                | Date and Time,Device IP,Source IP,Transaction ID,Tunnel                        |
       | Criteria              | Event Criteria:Action,Operator:Equals,Actions:Modified,Blocked,Reported        |
