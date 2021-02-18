@@ -36,6 +36,8 @@ Feature: Forensics Edit Definition
     Then Sleep "35"
     And UI Click Button "Views.report" with value "Test Edit"
     Then UI Validate "Report.Table" Table rows count EQUALS to 3
+    Then UI Validate Deletion of Forensics instance "Deletion Forensics Instance" with value "Test Edit_1"
+
 
   @SID_5
   Scenario: forensics definition edit forensic name
@@ -89,6 +91,8 @@ Feature: Forensics Edit Definition
     Then Sleep "35"
     And UI Click Button "Views.report" with value "Test Edit"
     Then UI Validate "Report.Table" Table rows count EQUALS to 1
+    Then UI Validate Deletion of Forensics instance "Deletion Forensics Instance" with value "Test Edit_1"
+
 
 
   @SID_10
@@ -103,6 +107,7 @@ Feature: Forensics Edit Definition
     And UI Click Button "Views.report" with value "Test Edit"
     Then UI Validate "Report.Table" Table rows count EQUALS to 2
     Then UI Delete Forensics With Name "Test Edit"
+    Then UI Validate Deletion of Forensics instance "Deletion Forensics Instance" with value "Test Edit_1"
 
 
   @SID_11

@@ -1086,6 +1086,11 @@ Feature: Basic tests for Forensics parameters
     Then UI Click Button "Criteria Value Expand"
     Then UI Validate Element Existence By Label "Criteria Value Selected" if Exists "false" with value "test"
     Then validate webUI CSS value "border-bottom-color" of label "Criteria Value Label" equals "rgb(244, 20, 20)"
+    Then UI Click Button "Criteria Value Selected" with value "Drop"
+    Then UI Click Button "Add Condition" with value "enabled"
+    Then UI Click Button "Criteria Delete Condition" with value "1"
+
+
 
   @SID_57
   Scenario: Validate Criteria Attack ID Attribute
@@ -1109,6 +1114,9 @@ Feature: Basic tests for Forensics parameters
     Then validate webUI CSS value "border-bottom-color" of label "Criteria Value Input" equals "rgb(244, 20, 20)"
     Then UI Set Text Field "Criteria Value Input" To "1.1"
     Then validate webUI CSS value "border-bottom-color" of label "Criteria Value Input" equals "rgb(244, 20, 20)"
+    Then UI Set Text Field "Criteria Value Input" To "123"
+    Then UI Click Button "Add Condition" with value "enabled"
+    Then UI Click Button "Criteria Delete Condition" with value "1"
 
 
   @SID_58
@@ -1121,6 +1129,9 @@ Feature: Basic tests for Forensics parameters
     Then UI Validate Element Existence By Label "Add Condition" if Exists "false" with value "disabled"
     Then UI Click Button "Add Condition" with value "enabled"
     Then validate webUI CSS value "border-bottom-color" of label "Criteria Value Input" equals "rgb(244, 20, 20)"
+    Then UI Set Text Field "Criteria Value Input" To "Test"
+    Then UI Click Button "Add Condition" with value "enabled"
+    Then UI Click Button "Criteria Delete Condition" with value "1"
 
 
   @SID_59
@@ -1145,6 +1156,9 @@ Feature: Basic tests for Forensics parameters
     Then validate webUI CSS value "border-bottom-color" of label "Criteria Value Input Label" with params "rate" equals "rgb(244, 20, 20)"
     Then UI Set Text Field "Criteria Value Input Label" and params "rate" To "1.1"
     Then validate webUI CSS value "border-bottom-color" of label "Criteria Value Input Label" with params "rate" equals "rgb(244, 20, 20)"
+    Then UI Set Text Field "Criteria Value Input Label" and params "rate" To "11"
+    Then UI Click Button "Add Condition" with value "enabled"
+    Then UI Click Button "Criteria Delete Condition" with value "1"
 
 
   @SID_60
@@ -1245,6 +1259,9 @@ Feature: Basic tests for Forensics parameters
     Then validate webUI CSS value "border-bottom-color" of label "Criteria Value Input Label" with params "ip" equals "rgb(244, 20, 20)"
     Then UI Set Text Field "Criteria Value Input Label" and params "ip" To "AAAAA:1:2:3:4:5:6:7"
     Then validate webUI CSS value "border-bottom-color" of label "Criteria Value Input Label" with params "ip" equals "rgb(244, 20, 20)"
+    Then UI Set Text Field "Criteria Value Input Label" and params "ip" To "1:2:3:4:5:6:7:8"
+    Then UI Click Button "Add Condition" with value "enabled"
+    Then UI Click Button "Criteria Delete Condition" with value "1"
 
 
   @SID_61
@@ -1269,6 +1286,9 @@ Feature: Basic tests for Forensics parameters
     Then validate webUI CSS value "border-bottom-color" of label "Criteria Value Input Label" with params "rate" equals "rgb(244, 20, 20)"
     Then UI Set Text Field "Criteria Value Input Label" and params "rate" To "1.1"
     Then validate webUI CSS value "border-bottom-color" of label "Criteria Value Input Label" with params "rate" equals "rgb(244, 20, 20)"
+    Then UI Set Text Field "Criteria Value Input Label" and params "rate" To "11"
+    Then UI Click Button "Add Condition" with value "enabled"
+    Then UI Click Button "Criteria Delete Condition" with value "1"
 
 
   @SID_62
@@ -1306,6 +1326,9 @@ Feature: Basic tests for Forensics parameters
     Then validate webUI CSS value "border-bottom-color" of label "Criteria Value Input Label" with params "port-to" equals "rgb(244, 20, 20)"
     Then UI Set Text Field "Criteria Value Input Label" and params "port-to" To "1A"
     Then validate webUI CSS value "border-bottom-color" of label "Criteria Value Input Label" with params "port-to" equals "rgb(244, 20, 20)"
+    Then UI Set Text Field "Criteria Value Input Label" and params "port-to" To "23"
+    Then UI Click Button "Add Condition" with value "enabled"
+    Then UI Click Button "Criteria Delete Condition" with value "1"
 
 
   @SID_63
@@ -1318,6 +1341,10 @@ Feature: Basic tests for Forensics parameters
     Then UI Validate Element Existence By Label "Add Condition" if Exists "false" with value "disabled"
     Then UI Click Button "Add Condition" with value "enabled"
     Then validate webUI CSS value "border-bottom-color" of label "Criteria Value Expand" equals "rgb(244, 20, 20)"
+    Then UI Click Button "Criteria Value Expand"
+    Then UI Click Button "Criteria Value Selected" with value "Both"
+    Then UI Click Button "Add Condition" with value "enabled"
+    Then UI Click Button "Criteria Delete Condition" with value "1"
 
 
   @SID_64
@@ -1330,6 +1357,10 @@ Feature: Basic tests for Forensics parameters
     Then UI Validate Element Existence By Label "Add Condition" if Exists "false" with value "disabled"
     Then UI Click Button "Add Condition" with value "enabled"
     Then validate webUI CSS value "border-bottom-color" of label "Criteria Value Expand" equals "rgb(244, 20, 20)"
+    Then UI Click Button "Criteria Value Expand"
+    Then UI Click Button "Criteria Value Selected" with value "1-5 min"
+    Then UI Click Button "Add Condition" with value "enabled"
+    Then UI Click Button "Criteria Delete Condition" with value "1"
 
   @SID_65
   Scenario: Validate Criteria Protocol Attribute
@@ -1341,6 +1372,10 @@ Feature: Basic tests for Forensics parameters
     Then UI Validate Element Existence By Label "Add Condition" if Exists "false" with value "disabled"
     Then UI Click Button "Add Condition" with value "enabled"
     Then validate webUI CSS value "border-bottom-color" of label "Criteria Value Expand" equals "rgb(244, 20, 20)"
+    Then UI Click Button "Criteria Value Expand"
+    Then UI Click Button "Criteria Value Selected" with value "IP"
+    Then UI Click Button "Add Condition" with value "enabled"
+    Then UI Click Button "Criteria Delete Condition" with value "1"
 
   @SID_66
   Scenario: Validate Criteria Risk Attribute
@@ -1352,6 +1387,10 @@ Feature: Basic tests for Forensics parameters
     Then UI Validate Element Existence By Label "Add Condition" if Exists "false" with value "disabled"
     Then UI Click Button "Add Condition" with value "enabled"
     Then validate webUI CSS value "border-bottom-color" of label "Criteria Value Expand" equals "rgb(244, 20, 20)"
+    Then UI Click Button "Criteria Value Expand"
+    Then UI Click Button "Criteria Value Selected" with value "Low"
+    Then UI Click Button "Add Condition" with value "enabled"
+    Then UI Click Button "Criteria Delete Condition" with value "1"
 
   @SID_67
   Scenario: Validate Criteria Source IP Attribute
@@ -1451,6 +1490,9 @@ Feature: Basic tests for Forensics parameters
     Then validate webUI CSS value "border-bottom-color" of label "Criteria Value Input Label" with params "ip" equals "rgb(244, 20, 20)"
     Then UI Set Text Field "Criteria Value Input Label" and params "ip" To "AAAAA:1:2:3:4:5:6:7"
     Then validate webUI CSS value "border-bottom-color" of label "Criteria Value Input Label" with params "ip" equals "rgb(244, 20, 20)"
+    Then UI Set Text Field "Criteria Value Input Label" and params "ip" To "1:2:3:4:5:6:7:8"
+    Then UI Click Button "Add Condition" with value "enabled"
+    Then UI Click Button "Criteria Delete Condition" with value "1"
 
   @SID_68
   Scenario: Validate Criteria Source Port Attribute
@@ -1487,6 +1529,9 @@ Feature: Basic tests for Forensics parameters
     Then validate webUI CSS value "border-bottom-color" of label "Criteria Value Input Label" with params "port-to" equals "rgb(244, 20, 20)"
     Then UI Set Text Field "Criteria Value Input Label" and params "port-to" To "1A"
     Then validate webUI CSS value "border-bottom-color" of label "Criteria Value Input Label" with params "port-to" equals "rgb(244, 20, 20)"
+    Then UI Set Text Field "Criteria Value Input Label" and params "port-to" To "23"
+    Then UI Click Button "Add Condition" with value "enabled"
+    Then UI Click Button "Criteria Delete Condition" with value "1"
 
 
   @SID_69
@@ -1499,6 +1544,10 @@ Feature: Basic tests for Forensics parameters
     Then UI Validate Element Existence By Label "Add Condition" if Exists "false" with value "disabled"
     Then UI Click Button "Add Condition" with value "enabled"
     Then validate webUI CSS value "border-bottom-color" of label "Criteria Value Expand" equals "rgb(244, 20, 20)"
+    Then UI Click Button "Criteria Value Expand"
+    Then UI Click Button "Criteria Value Selected" with value "ACL"
+    Then UI Click Button "Add Condition" with value "enabled"
+    Then UI Click Button "Criteria Delete Condition" with value "1"
 
   @SID_70
   Scenario: Validate Criteria MAx bps Attribute
@@ -1522,6 +1571,9 @@ Feature: Basic tests for Forensics parameters
     Then validate webUI CSS value "border-bottom-color" of label "Criteria Value Input Label" with params "rate" equals "rgb(244, 20, 20)"
     Then UI Set Text Field "Criteria Value Input Label" and params "rate" To "1.1"
     Then validate webUI CSS value "border-bottom-color" of label "Criteria Value Input Label" with params "rate" equals "rgb(244, 20, 20)"
+    Then UI Set Text Field "Criteria Value Input Label" and params "rate" To "11"
+    Then UI Click Button "Add Condition" with value "enabled"
+    Then UI Click Button "Criteria Delete Condition" with value "1"
 
   @SID_71
   Scenario: Validate Criteria Packet Type Attribute
@@ -1533,6 +1585,10 @@ Feature: Basic tests for Forensics parameters
     Then UI Validate Element Existence By Label "Add Condition" if Exists "false" with value "disabled"
     Then UI Click Button "Add Condition" with value "enabled"
     Then validate webUI CSS value "border-bottom-color" of label "Criteria Value Expand" equals "rgb(244, 20, 20)"
+    Then UI Click Button "Criteria Value Expand"
+    Then UI Click Button "Criteria Value Selected" with value "SSL"
+    Then UI Click Button "Add Condition" with value "enabled"
+    Then UI Click Button "Criteria Delete Condition" with value "1"
 
   @SID_72
   Scenario: Validate Criteria MAx pps Attribute
@@ -1556,6 +1612,9 @@ Feature: Basic tests for Forensics parameters
     Then validate webUI CSS value "border-bottom-color" of label "Criteria Value Input Label" with params "rate" equals "rgb(244, 20, 20)"
     Then UI Set Text Field "Criteria Value Input Label" and params "rate" To "1.1"
     Then validate webUI CSS value "border-bottom-color" of label "Criteria Value Input Label" with params "rate" equals "rgb(244, 20, 20)"
+    Then UI Set Text Field "Criteria Value Input Label" and params "rate" To "11"
+    Then UI Click Button "Add Condition" with value "enabled"
+    Then UI Click Button "Criteria Delete Condition" with value "1"
 
   @SID_73
   Scenario: Forensics Criteria Apply To All is selected
