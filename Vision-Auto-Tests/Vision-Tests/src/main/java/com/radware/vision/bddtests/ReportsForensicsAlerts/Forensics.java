@@ -293,7 +293,7 @@ public class Forensics extends ReportsForensicsAlertsAbstract {
             for (Object output : expectedOutputs)
             {
                 if (!actualOutputs.toList().contains(output))
-                    errorMessage.append("The output " + output + " isn't contained in the actual definition /n");
+                    errorMessage.append("The output " + output + " isn't contained in the actual definition \n");
             }
 
             for (Object output : actualOutputs)
