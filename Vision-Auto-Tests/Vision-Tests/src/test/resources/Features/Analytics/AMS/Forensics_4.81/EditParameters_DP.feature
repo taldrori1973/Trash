@@ -1,5 +1,4 @@
 @TC119482
-
 Feature: Edit DefensePro Parameters
 
   @SID_1
@@ -14,11 +13,9 @@ Feature: Edit DefensePro Parameters
     When UI "Create" Forensics With Name "Forensics DefensePro"
       | Product | DefensePro |
       | devices | All        |
-      | Output  | Action     |
     Given UI "Validate" Forensics With Name "Forensics DefensePro"
       | Product | DefensePro |
       | devices | All        |
-      | Output  | Action     |
 
   @SID_3
   Scenario: Edit Email
@@ -37,85 +34,97 @@ Feature: Edit DefensePro Parameters
   @SID_5
   Scenario: Edit Format
     Then UI "Edit" Forensics With Name "Forensics DefensePro"
+      | Format | Select: CSV |
+    Then UI "Validate" Forensics With Name "Forensics DefensePro"
+      | Format | Select: CSV |
+
+  @SID_6
+  Scenario: Edit Format
+    Then UI "Edit" Forensics With Name "Forensics DefensePro"
+      | Format | Select: CSVWithDetails |
+    Then UI "Validate" Forensics With Name "Forensics DefensePro"
+      | Format | Select: CSVWithDetails |
+
+  @SID_7
+  Scenario: Edit Format
+    Then UI "Edit" Forensics With Name "Forensics DefensePro"
       | Format | Select: HTML |
     Then UI "Validate" Forensics With Name "Forensics DefensePro"
       | Format | Select: HTML |
 
-  @SID_6
+  @SID_8
   Scenario: Edit Schedule
     Then UI "Edit" Forensics With Name "Forensics DefensePro"
       | Schedule | Run Every:Monthly, On Time:+6H, At Months:[AUG] |
     Then UI "Validate" Forensics With Name "Forensics DefensePro"
       | Schedule | Run Every:Monthly, On Time:+6H, At Months:[AUG] |
 
-  @SID_7
-  Scenario: Edit Time
-    Then UI "Edit" Forensics With Name "Forensics DefensePro"
-      | Time Definitions.Date | Quick:Today |
-    Then UI "Validate" Forensics With Name "Forensics DefensePro"
-      | Time Definitions.Date | Quick:Today |
-
-
-  @SID_8
-  Scenario: Edit Time
-    Then UI "Edit" Forensics With Name "Forensics DefensePro"
-      | Time Definitions.Date | Quick:Yesterday |
-    Then UI "Validate" Forensics With Name "Forensics DefensePro"
-      | Time Definitions.Date | Quick:Yesterday |
-
   @SID_9
   Scenario: Edit Time
     Then UI "Edit" Forensics With Name "Forensics DefensePro"
-      | Time Definitions.Date | Quick:This Month |
+      | Time Definitions.Date | Quick:Today |
     Then UI "Validate" Forensics With Name "Forensics DefensePro"
-      | Time Definitions.Date | Quick:This Month |
-
-
-  @SID_10
-  Scenario: Edit Time
-    Then UI "Edit" Forensics With Name "Forensics DefensePro"
-      | Time Definitions.Date | Quick:1D |
-    Then UI "Validate" Forensics With Name "Forensics DefensePro"
-      | Time Definitions.Date | Quick:1D |
+      | Time Definitions.Date | Quick:Today |
 
   @SID_11
   Scenario: Edit Time
     Then UI "Edit" Forensics With Name "Forensics DefensePro"
-      | Time Definitions.Date | Quick:1W |
+      | Time Definitions.Date | Quick:Yesterday |
     Then UI "Validate" Forensics With Name "Forensics DefensePro"
-      | Time Definitions.Date | Quick:1W |
-    Then Sleep "1"
-    Then UI Text of "Forensics Time Type" equal to "1W"
+      | Time Definitions.Date | Quick:Yesterday |
 
   @SID_12
   Scenario: Edit Time
     Then UI "Edit" Forensics With Name "Forensics DefensePro"
-      | Time Definitions.Date | Quick:1M |
+      | Time Definitions.Date | Quick:This Month |
     Then UI "Validate" Forensics With Name "Forensics DefensePro"
-      | Time Definitions.Date | Quick:1M |
+      | Time Definitions.Date | Quick:This Month |
+
 
   @SID_13
   Scenario: Edit Time
     Then UI "Edit" Forensics With Name "Forensics DefensePro"
+      | Time Definitions.Date | Quick:1D |
+    Then UI "Validate" Forensics With Name "Forensics DefensePro"
+      | Time Definitions.Date | Quick:1D |
+
+  @SID_14
+  Scenario: Edit Time
+    Then UI "Edit" Forensics With Name "Forensics DefensePro"
+      | Time Definitions.Date | Quick:1W |
+    Then UI "Validate" Forensics With Name "Forensics DefensePro"
+      | Time Definitions.Date | Quick:1W |
+
+
+  @SID_15
+  Scenario: Edit Time
+    Then UI "Edit" Forensics With Name "Forensics DefensePro"
+      | Time Definitions.Date | Quick:1M |
+    Then UI "Validate" Forensics With Name "Forensics DefensePro"
+      | Time Definitions.Date | Quick:1M |
+
+  @SID_16
+  Scenario: Edit Time
+    Then UI "Edit" Forensics With Name "Forensics DefensePro"
       | Time Definitions.Date | Quick:3M |
     Then UI "Validate" Forensics With Name "Forensics DefensePro"
       | Time Definitions.Date | Quick:3M |
 
-  @SID_14
+  @SID_17
   Scenario: Edit Time
     Then UI "Edit" Forensics With Name "Forensics DefensePro"
       | Time Definitions.Date | Quick:1Y |
     Then UI "Validate" Forensics With Name "Forensics DefensePro"
       | Time Definitions.Date | Quick:1Y |
 
-  @SID_15
+  @SID_18
   Scenario: Edit Output
     Then UI "Edit" Forensics With Name "Forensics DefensePro"
-      | Output | Total Mbits Dropped,Direction |
+      | Output | Direction |
     Then UI "Validate" Forensics With Name "Forensics DefensePro"
-      | Output | Total Mbits Dropped,Direction |
+      | Output | Direction |
 
-  @SID_16
+  @SID_19
   Scenario: Edit Scope
     Then UI "Edit" Forensics With Name "Forensics DefensePro"
       | Product | DefensePro |
@@ -124,7 +133,7 @@ Feature: Edit DefensePro Parameters
       | Product | DefensePro |
       | devices | index:10   |
 
-  @SID_17
+  @SID_20
   Scenario: Edit Scope policy
     Then UI "Edit" Forensics With Name "Forensics DefensePro"
       | Product | DefensePro               |
@@ -133,41 +142,39 @@ Feature: Edit DefensePro Parameters
       | Product | DefensePro                   |
       | devices | index:10,policies:[Policy15] |
 
-  @SID_18
+  @SID_21
   Scenario: Edit Scope port
     Then UI "Edit" Forensics With Name "Forensics DefensePro"
-      | Product | DefensePro         |
-      | devices | index:10,ports:[1] |
+      | Product | DefensePro                             |
+      | devices | index:10,policies:[Policy15],ports:[1] |
     Then UI "Validate" Forensics With Name "Forensics DefensePro"
-      | Product | DefensePro         |
-      | devices | index:10,ports:[1] |
+      | Product | DefensePro                             |
+      | devices | index:10,policies:[Policy15],ports:[1] |
 
-
-  @SID_19
+  @SID_22
   Scenario: Edit Criteria
     Then UI "Edit" Forensics With Name "Forensics DefensePro"
       | Criteria | Event Criteria:Action,Operator:Not Equals,Value:Http 403 Forbidden |
     Then UI "Validate" Forensics With Name "Forensics DefensePro"
       | Criteria | Event Criteria:Action,Operator:Not Equals,Value:Http 403 Forbidden |
 
-
-  @SID_20
+  @SID_23
   Scenario: Edit Name
     Then UI "Edit" Forensics With Name "Forensics DefensePro"
       | New Forensics Name | Forensics DefensePro Updated |
     Then UI "Validate" Forensics With Name "Forensics DefensePro Updated"
       | Product               | DefensePro                                                                                                       |
-      | devices               | index:10                                                                                                         |
-      | Criteria | Event Criteria:Action,Operator:Not Equals,Value:Http 403 Forbidden |
-      | Output                | Total Mbits Dropped,Direction                                                                                    |
+      | devices               | index:10,policies:[Policy15],ports:[1]                                                                           |
+      | Criteria              | Event Criteria:Action,Operator:Not Equals,Value:Http 403 Forbidden                                               |
+      | Output                | Direction                                                                                                        |
       | Format                | Select: HTML                                                                                                     |
-      | Time Definitions.Date | Quick:1W                                                                                                         |
+      | Time Definitions.Date | Quick:1Y                                                                                                         |
       | Schedule              | Run Every:Monthly, On Time:+6H, At Months:[AUG]                                                                  |
       | Share                 | FTP:checked, FTP.Location:172.17.164.10, FTP.Path:/home/radware/ftp/, FTP.Username:radware, FTP.Password:radware |
       | Share                 | Email:[automation.vision2@radware.com],Subject:myEdit subject,Body:myEdit body                                   |
     Then UI Delete Forensics With Name "Forensics DefensePro Updated"
 
-  @SID_21
+  @SID_24
   Scenario: Logout
     Then UI logout and close browser
 

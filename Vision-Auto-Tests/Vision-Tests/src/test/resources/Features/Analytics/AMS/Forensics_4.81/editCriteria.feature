@@ -25,7 +25,7 @@ Feature: Edit Criteria Testes
     Then UI Click Button "Criteria Attribute Selected" with value "Action"
     Then UI Click Button "Criteria Attribute Selected" with value "Attack ID"
     Then UI Click Button "Criteria Attribute Selected" with value "="
-    Then UI Set Text Field "Criteria Value Edit Input" and params "1" To "123"
+    Then UI Set Text Field "Criteria Value Edit Value" and params "text,1" To "123"
     Then UI Click Button "save"
 
   @SID_4
@@ -34,10 +34,7 @@ Feature: Edit Criteria Testes
     Then UI Click Button "My Forensics" with value "DefenseFlow Forensics"
     Then UI Click Button "Edit Forensics" with value "DefenseFlow Forensics"
     Then UI Click Button "Criteria Tab"
-    Then UI Click Button "Criteria Attribute Selected" with value "Action"
-    Then UI Click Button "Criteria Attribute Selected" with value "Attack ID"
-    Then UI Click Button "Criteria Attribute Selected" with value "="
-    Then UI Set Text Field "Criteria Value Edit Input" and params "1" To "test"
+    Then UI Set Text Field "Criteria Value Edit Value" and params "text,1" To "Test"
     Then UI Click Button "save"
     Then UI Text of "Error message title" equal to "Unable to Save"
     Then UI Text of "Error message description" equal to "The Criteria configuration is improper."
@@ -71,7 +68,7 @@ Feature: Edit Criteria Testes
     Then UI Click Button "Criteria Attribute Selected" with value "Risk"
     Then UI Click Button "Criteria Attribute Selected" with value "Attack Name"
     Then UI Click Button "Criteria Attribute Selected" with value "="
-    Then UI Set Text Field "Criteria Value Edit Input" and params "2" To "Test"
+    Then UI Set Text Field "Criteria Value Edit Value" and params "text,2" To "Test"
     Then UI Click Button "save"
 
   @SID_8
@@ -200,7 +197,7 @@ Feature: Edit Criteria Testes
     Then UI Click Button "Criteria Attribute Selected" with value "Duration"
     Then UI Click Button "Criteria Attribute Selected" with value "Attack ID"
     Then UI Click Button "Criteria Attribute Selected" with value "="
-    Then UI Set Text Field "Criteria Value Edit Input" and params "1" To "123"
+    Then UI Set Text Field "Criteria Value Edit Value" and params "text,1" To "123"
     Then UI Click Button "save"
 
   @SID_18
@@ -237,7 +234,7 @@ Feature: Edit Criteria Testes
     Then UI Click Button "Criteria Attribute Selected" with value "Tunnel"
     Then UI Click Button "Criteria Attribute Selected" with value "Web Application Name"
     Then UI Click Button "Criteria Attribute Selected" with value "="
-    Then UI Set Text Field "Criteria Value Edit Input" and params "1" To "Test"
+    Then UI Set Text Field "Criteria Value Edit Value" and params "text,1" To "Test"
     Then UI Click Button "save"
 
   @SID_22
@@ -265,7 +262,7 @@ Feature: Edit Criteria Testes
     Then UI Click Button "Criteria Attribute Selected" with value "Action"
     Then UI Click Button "Criteria Attribute Selected" with value "Transaction ID"
     Then UI Click Button "Criteria Attribute Selected" with value "="
-    Then UI Set Text Field "Criteria Value Edit Input" and params "1" To "123"
+    Then UI Set Text Field "Criteria Value Edit Value" and params "text,1" To "123"
     Then UI Click Button "save"
 
   @SID_25
