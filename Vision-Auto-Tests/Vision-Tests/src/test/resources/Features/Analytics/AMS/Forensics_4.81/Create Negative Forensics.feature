@@ -1,7 +1,7 @@
 @TC119593 
 Feature: Negative Forensics tests to validate Error Messages
 
-  @Test12
+  
   @SID_1
   Scenario: Navigate to NEW ForensicsS page
     * REST Delete ES index "forensics-*"
@@ -170,7 +170,7 @@ Feature: Negative Forensics tests to validate Error Messages
 
 
 ############################ Criteria DP ###################################################################
-  @Test12
+  
   @SID_12
   Scenario: Add Forensics with invalid Attack ID in Criteria - DP
     Then UI Click Button "New Forensics Tab"
