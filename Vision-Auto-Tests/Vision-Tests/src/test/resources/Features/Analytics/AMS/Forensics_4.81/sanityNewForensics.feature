@@ -548,6 +548,8 @@ Feature: Basic tests for Forensics parameters
 
   @SID_40
   Scenario: Forensics Output
+    Then UI Navigate to "AMS REPORTS" page via homepage
+    Then UI Navigate to "New Forensics" page via homepage
     Then UI Click Button "My Forensics Tab"
     Then UI Click Button "New Forensics Tab"
     Then UI Validate Text field "Output Tab" CONTAINS "*"
