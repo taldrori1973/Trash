@@ -372,6 +372,8 @@ public class BasicOperationsHandler {
         if (params == null) {
             textField = WebUIVisionBasePage.getCurrentPage().getContainer().getTextField(label);
         } else {
+            if (params != null)
+                VisionDebugIdsManager.setParams(params.split(","));
             String debugID = VisionDebugIdsManager.getDataDebugId();
             textField = WebUIVisionBasePage.getCurrentPage().getContainer().getTextField(debugID);
         }

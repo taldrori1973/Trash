@@ -1,7 +1,7 @@
 @TC119593 
 Feature: Negative Forensics tests to validate Error Messages
 
-  
+  @Test12
   @SID_1
   Scenario: Navigate to NEW ForensicsS page
     * REST Delete ES index "forensics-*"
@@ -170,6 +170,7 @@ Feature: Negative Forensics tests to validate Error Messages
 
 
 ############################ Criteria DP ###################################################################
+  @Test12
   @SID_12
   Scenario: Add Forensics with invalid Attack ID in Criteria - DP
     Then UI Click Button "New Forensics Tab"
@@ -181,7 +182,7 @@ Feature: Negative Forensics tests to validate Error Messages
     Then UI Click Button "Criteria Attribute Selected" with value "="
     Then UI Set Text Field "Criteria Value Input Label" and params "text" To "123"
     Then UI Click Button "Add Condition" with value "enabled"
-    Then UI Set Text Field "Criteria Value Edit Value" and params "text,1" To ""
+    Then UI Set Text Field "Criteria Value Edit Value" and params "text,1" To " "
     Then UI Click Button "save"
     Then UI Text of "Error message title" equal to "Unable to Save"
     Then UI Text of "Error message description" equal to "The Criteria configuration is improper."
@@ -534,7 +535,7 @@ Feature: Negative Forensics tests to validate Error Messages
     Then UI Click Button "Criteria Attribute Selected" with value "="
     Then UI Set Text Field "Criteria Value Input Label" and params "text" To "123"
     Then UI Click Button "Add Condition" with value "enabled"
-    Then UI Set Text Field "Criteria Value Edit Value" and params "text,1" To ""
+    Then UI Set Text Field "Criteria Value Edit Value" and params "text,1" To " "
     Then UI Click Button "save"
     Then UI Text of "Error message title" equal to "Unable to Save"
     Then UI Text of "Error message description" equal to "The Criteria configuration is improper."
@@ -591,7 +592,7 @@ Feature: Negative Forensics tests to validate Error Messages
     Then UI Click Button "Criteria Attribute Selected" with value "="
     Then UI Set Text Field "Criteria Value Input Label" and params "text" To "123"
     Then UI Click Button "Add Condition" with value "enabled"
-    Then UI Set Text Field "Criteria Value Edit Value" and params "text,1" To ""
+    Then UI Set Text Field "Criteria Value Edit Value" and params "text,1" To " "
     Then UI Click Button "save"
     Then UI Text of "Error message title" equal to "Unable to Save"
     Then UI Text of "Error message description" equal to "The Criteria configuration is improper."
@@ -610,7 +611,7 @@ Feature: Negative Forensics tests to validate Error Messages
     Then UI Click Button "Criteria Attribute Selected" with value "="
     Then UI Set Text Field "Criteria Value Input Label" and params "text" To "123"
     Then UI Click Button "Add Condition" with value "enabled"
-    Then UI Set Text Field "Criteria Value Edit Value" and params "text,1" To ""
+    Then UI Set Text Field "Criteria Value Edit Value" and params "text,1" To " "
     Then UI Click Button "save"
     Then UI Text of "Error message title" equal to "Unable to Save"
     Then UI Text of "Error message description" equal to "The Criteria configuration is improper."
@@ -629,7 +630,7 @@ Feature: Negative Forensics tests to validate Error Messages
     Then UI Click Button "Criteria Attribute Selected" with value "="
     Then UI Set Text Field "Criteria Value Input Label" and params "text" To "123"
     Then UI Click Button "Add Condition" with value "enabled"
-    Then UI Set Text Field "Criteria Value Edit Value" and params "text,1" To ""
+    Then UI Set Text Field "Criteria Value Edit Value" and params "text,1" To " "
     Then UI Click Button "save"
     Then UI Text of "Error message title" equal to "Unable to Save"
     Then UI Text of "Error message description" equal to "The Criteria configuration is improper."
@@ -648,7 +649,7 @@ Feature: Negative Forensics tests to validate Error Messages
     Then UI Click Button "Criteria Attribute Selected" with value "="
     Then UI Set Text Field "Criteria Value Input Label" and params "text" To "123"
     Then UI Click Button "Add Condition" with value "enabled"
-    Then UI Set Text Field "Criteria Value Edit Value" and params "text,1" To ""
+    Then UI Set Text Field "Criteria Value Edit Value" and params "text,1" To " "
     Then UI Click Button "save"
     Then UI Text of "Error message title" equal to "Unable to Save"
     Then UI Text of "Error message description" equal to "The Criteria configuration is improper."
@@ -667,7 +668,7 @@ Feature: Negative Forensics tests to validate Error Messages
     Then UI Click Button "Criteria Attribute Selected" with value "="
     Then UI Set Text Field "Criteria Value Input Label" and params "ip" To "1.1.1.1"
     Then UI Click Button "Add Condition" with value "enabled"
-    Then UI Set Text Field "Criteria Value Edit Value" and params "ip,1" To ""
+    Then UI Set Text Field "Criteria Value Edit Value" and params "ip,1" To " "
     Then UI Click Button "save"
     Then UI Text of "Error message title" equal to "Unable to Save"
     Then UI Text of "Error message description" equal to "The Criteria configuration is improper."
@@ -686,7 +687,7 @@ Feature: Negative Forensics tests to validate Error Messages
     Then UI Click Button "Criteria Attribute Selected" with value "="
     Then UI Set Text Field "Criteria Value Input Label" and params "port-from" To "123"
     Then UI Click Button "Add Condition" with value "enabled"
-    Then UI Set Text Field "Criteria Value Edit Value" and params "port-from,1" To ""
+    Then UI Set Text Field "Criteria Value Edit Value" and params "port-from,1" To " "
     Then UI Click Button "save"
     Then UI Text of "Error message title" equal to "Unable to Save"
     Then UI Text of "Error message description" equal to "The Criteria configuration is improper."
@@ -705,7 +706,7 @@ Feature: Negative Forensics tests to validate Error Messages
     Then UI Click Button "Criteria Attribute Selected" with value "="
     Then UI Set Text Field "Criteria Value Input Label" and params "text" To "aaaa"
     Then UI Click Button "Add Condition" with value "enabled"
-    Then UI Set Text Field "Criteria Value Edit Value" and params "text,1" To ""
+    Then UI Set Text Field "Criteria Value Edit Value" and params "text,1" To " "
     Then UI Click Button "save"
     Then UI Text of "Error message title" equal to "Unable to Save"
     Then UI Text of "Error message description" equal to "The Criteria configuration is improper."
@@ -724,7 +725,7 @@ Feature: Negative Forensics tests to validate Error Messages
     Then UI Click Button "Criteria Attribute Selected" with value "="
     Then UI Set Text Field "Criteria Value Input Label" and params "text" To "aaaa"
     Then UI Click Button "Add Condition" with value "enabled"
-    Then UI Set Text Field "Criteria Value Edit Value" and params "text,1" To ""
+    Then UI Set Text Field "Criteria Value Edit Value" and params "text,1" To " "
     Then UI Click Button "save"
     Then UI Text of "Error message title" equal to "Unable to Save"
     Then UI Text of "Error message description" equal to "The Criteria configuration is improper."
@@ -743,7 +744,7 @@ Feature: Negative Forensics tests to validate Error Messages
     Then UI Click Button "Criteria Attribute Selected" with value "="
     Then UI Set Text Field "Criteria Value Input Label" and params "text" To "aaaa"
     Then UI Click Button "Add Condition" with value "enabled"
-    Then UI Set Text Field "Criteria Value Edit Value" and params "text,1" To ""
+    Then UI Set Text Field "Criteria Value Edit Value" and params "text,1" To " "
     Then UI Click Button "save"
     Then UI Text of "Error message title" equal to "Unable to Save"
     Then UI Text of "Error message description" equal to "The Criteria configuration is improper."
