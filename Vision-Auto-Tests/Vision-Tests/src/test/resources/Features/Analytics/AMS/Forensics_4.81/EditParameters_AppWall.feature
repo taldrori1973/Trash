@@ -104,9 +104,9 @@ Feature: Edit AppWall Parameters
   @SID_15
   Scenario: Edit Output
     Then UI "Edit" Forensics With Name "Forensics AppWall"
-      | Output | Action |
+      | Output | Source IP |
     Then UI "Validate" Forensics With Name "Forensics AppWall"
-      | Output | Action |
+      | Output | Source IP |
 
   @SID_16
   Scenario: Edit Scope
@@ -120,9 +120,9 @@ Feature: Edit AppWall Parameters
   @SID_17
   Scenario: Edit Criteria
     Then UI "Edit" Forensics With Name "Forensics AppWall"
-      | Criteria | Event Criteria:Action,Operator:Not Equals,Value:Blocked |
+      | Criteria | Event Criteria:Source IP,Operator:Not Equals,Value:Blocked |
     Then UI "Validate" Forensics With Name "Forensics AppWall"
-      | Criteria | Event Criteria:Action,Operator:Not Equals,Value:Blocked |
+      | Criteria | Event Criteria:Source IP,Operator:Not Equals,Value:Blocked |
 
   @SID_18
   Scenario: Edit Forensics Product
