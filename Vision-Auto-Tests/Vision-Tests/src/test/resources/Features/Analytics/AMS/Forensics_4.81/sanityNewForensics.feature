@@ -1,9 +1,8 @@
 @TC119241
-Feature: Basic tests for Forensics parameters
 
+Feature: Basic tests for Forensics parameters
   @SID_1
   Scenario: Navigate to NEW ForensicsS page
-    * REST Delete ES index "forensics-*"
     Then UI Login with user "radware" and password "radware"
     Then UI Navigate to "New Forensics" page via homepage
     Then UI Click Button "New Forensics Tab"
@@ -1085,18 +1084,14 @@ Feature: Basic tests for Forensics parameters
     Then UI Validate Element Existence By Label "Add Condition" if Exists "false" with value "enabled"
     Then UI Click Button "Criteria Value Expand"
     Then UI Click Button "Criteria Value Selected" with value "Drop"
-    Then UI Click Button "Criteria Value Expand"
     Then UI Click Button "Criteria Value Selected" with value "Drop"
-    Then validate webUI CSS value "border-bottom-color" of label "Criteria Value Label" equals "rgb(244, 20, 20)"
+    Then validate webUI CSS value "border-bottom-color" of label "Criteria Value Expand" equals "rgb(244, 20, 20)"
     Then UI Validate Text field "Criteria Error Message" EQUALS "Please select at least one item"
-    Then UI Click Button "Criteria Value Expand"
     Then UI Click Button "Criteria Value Selected" with value "Drop"
     Then UI Validate Element Existence By Label "Add Condition" if Exists "true" with value "enabled"
     Then UI Validate Element Existence By Label "Add Condition" if Exists "false" with value "disabled"
     Then UI Click Button "Add Condition" with value "enabled"
     Then UI Click Button "Criteria Delete Condition" with value "1"
-
-
 
   @SID_57
   Scenario: Validate Criteria Attack ID Attribute
@@ -1130,7 +1125,6 @@ Feature: Basic tests for Forensics parameters
     Then UI Click Button "Add Condition" with value "enabled"
     Then UI Click Button "Criteria Delete Condition" with value "1"
 
-
   @SID_58
   Scenario: Validate Criteria Attack Name Attribute
     Then UI Click Button "Criteria Tab"
@@ -1139,14 +1133,11 @@ Feature: Basic tests for Forensics parameters
     Then UI Click Button "Criteria Attribute Selected" with value "≠"
     Then UI Validate Element Existence By Label "Add Condition" if Exists "true" with value "disabled"
     Then UI Validate Element Existence By Label "Add Condition" if Exists "false" with value "enabled"
-    Then validate webUI CSS value "border-bottom-color" of label "Criteria Value Input" equals "rgb(244, 20, 20)"
-    Then UI Validate Text field "Criteria Error Message" EQUALS "Field cannot be empty"
     Then UI Set Text Field "Criteria Value Input" To "Test"
     Then UI Validate Element Existence By Label "Add Condition" if Exists "false" with value "disabled"
     Then UI Validate Element Existence By Label "Add Condition" if Exists "true" with value "enabled"
     Then UI Click Button "Add Condition" with value "enabled"
     Then UI Click Button "Criteria Delete Condition" with value "1"
-
 
   @SID_59
   Scenario: Validate Criteria Attack Rate in bps Attribute
@@ -1154,8 +1145,8 @@ Feature: Basic tests for Forensics parameters
     Then UI Click Button "Criteria Attribute Expand"
     Then UI Click Button "Criteria Attribute Selected" with value "Attack Rate in bps"
     Then UI Click Button "Criteria Attribute Selected" with value ">"
-    Then UI Validate Element Existence By Label "Add Condition" if Exists "false" with value "disabled"
-    Then UI Validate Element Existence By Label "Add Condition" if Exists "true" with value "enabled"
+    Then UI Validate Element Existence By Label "Add Condition" if Exists "true" with value "disabled"
+    Then UI Validate Element Existence By Label "Add Condition" if Exists "false" with value "enabled"
     Then UI Set Text Field "Criteria Value Input Label" and params "rate" To " "
     Then validate webUI CSS value "border-bottom-color" of label "Criteria Value Input Label" with params "rate" equals "rgb(244, 20, 20)"
     Then UI Validate Text field "Criteria Error Message" EQUALS "Please enter a numeric input"
@@ -1179,7 +1170,6 @@ Feature: Basic tests for Forensics parameters
     Then UI Validate Element Existence By Label "Add Condition" if Exists "true" with value "enabled"
     Then UI Click Button "Add Condition" with value "enabled"
     Then UI Click Button "Criteria Delete Condition" with value "1"
-
 
   @SID_60
   Scenario: Validate Criteria Destination IP Attribute
@@ -1323,7 +1313,6 @@ Feature: Basic tests for Forensics parameters
     Then UI Click Button "Add Condition" with value "enabled"
     Then UI Click Button "Criteria Delete Condition" with value "1"
 
-
   @SID_61
   Scenario: Validate Criteria Attack Rate in pps Attribute
     Then UI Click Button "Criteria Tab"
@@ -1355,7 +1344,6 @@ Feature: Basic tests for Forensics parameters
     Then UI Validate Element Existence By Label "Add Condition" if Exists "true" with value "enabled"
     Then UI Click Button "Add Condition" with value "enabled"
     Then UI Click Button "Criteria Delete Condition" with value "1"
-
 
   @SID_62
   Scenario: Validate Criteria Destination Port Attribute
@@ -1407,7 +1395,6 @@ Feature: Basic tests for Forensics parameters
     Then UI Click Button "Add Condition" with value "enabled"
     Then UI Click Button "Criteria Delete Condition" with value "1"
 
-
   @SID_63
   Scenario: Validate Criteria Direction Attribute
     Then UI Click Button "Criteria Tab"
@@ -1423,7 +1410,6 @@ Feature: Basic tests for Forensics parameters
     Then UI Click Button "Add Condition" with value "enabled"
     Then UI Click Button "Criteria Delete Condition" with value "1"
 
-
   @SID_64
   Scenario: Validate Criteria Duration Attribute
     Then UI Click Button "Criteria Tab"
@@ -1433,7 +1419,7 @@ Feature: Basic tests for Forensics parameters
     Then UI Validate Element Existence By Label "Add Condition" if Exists "false" with value "enabled"
     Then UI Validate Element Existence By Label "Add Condition" if Exists "true" with value "disabled"
     Then UI Click Button "Criteria Value Expand"
-    Then UI Click Button "Criteria Value Selected" with value "1-5 min"
+    Then UI Click Button "Criteria Value Selected" with value "5-10min"
     Then UI Validate Element Existence By Label "Add Condition" if Exists "false" with value "disabled"
     Then UI Validate Element Existence By Label "Add Condition" if Exists "true" with value "enabled"
     Then UI Click Button "Add Condition" with value "enabled"
@@ -1660,7 +1646,6 @@ Feature: Basic tests for Forensics parameters
     Then UI Validate Element Existence By Label "Add Condition" if Exists "true" with value "enabled"
     Then UI Click Button "Add Condition" with value "enabled"
     Then UI Click Button "Criteria Delete Condition" with value "1"
-
 
   @SID_69
   Scenario: Validate Criteria Threat Category Attribute
