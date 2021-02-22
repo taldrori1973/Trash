@@ -1,7 +1,7 @@
 @TC119593 
 Feature: Negative Forensics tests to validate Error Messages
 
-  
+  @Test12
   @SID_1
   Scenario: Navigate to NEW ForensicsS page
     * REST Delete ES index "forensics-*"
@@ -175,7 +175,7 @@ Feature: Negative Forensics tests to validate Error Messages
   Scenario: Add Forensics with invalid Attack ID in Criteria - DP
     Then UI Click Button "New Forensics Tab"
     Then UI Click Button "Product Tab" with value "DefensePro"
-    Then UI Set Text Field "Forensics Name" To "Criteria Test"
+    Then UI Set Text Field "Forensics Name" To "DP Criteria Test Attack ID"
     Then UI Click Button "Criteria Tab"
     Then UI Click Button "Criteria Attribute Expand"
     Then UI Click Button "Criteria Attribute Selected" with value "Attack ID"
@@ -195,7 +195,7 @@ Feature: Negative Forensics tests to validate Error Messages
   Scenario: Add Forensics with invalid Attack Rate in bps in Criteria - DP
     Then UI Click Button "New Forensics Tab"
     Then UI Click Button "Product Tab" with value "DefensePro"
-  Then UI Set Text Field "Forensics Name" To "Criteria Test"
+  Then UI Set Text Field "Forensics Name" To "DP Criteria Test Attack Rate in bps"
     Then UI Click Button "Criteria Tab"
     Then UI Click Button "Criteria Attribute Expand"
     Then UI Click Button "Criteria Attribute Selected" with value "Attack Rate in bps"
@@ -214,7 +214,7 @@ Feature: Negative Forensics tests to validate Error Messages
   Scenario: Add Forensics with invalid Attack Rate in pps in Criteria - DP
     Then UI Click Button "New Forensics Tab"
     Then UI Click Button "Product Tab" with value "DefensePro"
-    Then UI Set Text Field "Forensics Name" To "Criteria Test"
+    Then UI Set Text Field "Forensics Name" To "DP Criteria Test Attack Rate in pps"
     Then UI Click Button "Criteria Tab"
     Then UI Click Button "Criteria Attribute Expand"
     Then UI Click Button "Criteria Attribute Selected" with value "Attack Rate in pps"
@@ -234,7 +234,7 @@ Feature: Negative Forensics tests to validate Error Messages
   Scenario: Add Forensics with invalid Destination Ip in Criteria - DP
     Then UI Click Button "New Forensics Tab"
     Then UI Click Button "Product Tab" with value "DefensePro"
-    Then UI Set Text Field "Forensics Name" To "Criteria Test"
+    Then UI Set Text Field "Forensics Name" To "DP Criteria Test Destination IP"
     Then UI Click Button "Criteria Tab"
     Then UI Click Button "Criteria Attribute Expand"
     Then UI Click Button "Criteria Attribute Selected" with value "Destination IP"
@@ -253,7 +253,7 @@ Feature: Negative Forensics tests to validate Error Messages
   Scenario: Add Forensics with invalid Destination port in Criteria - DP
     Then UI Click Button "New Forensics Tab"
     Then UI Click Button "Product Tab" with value "DefensePro"
-    Then UI Set Text Field "Forensics Name" To "Criteria Test"
+    Then UI Set Text Field "Forensics Name" To "DP Criteria Test Destination Port"
     Then UI Click Button "Criteria Tab"
     Then UI Click Button "Criteria Attribute Expand"
     Then UI Click Button "Criteria Attribute Selected" with value "Destination Port"
@@ -268,18 +268,18 @@ Feature: Negative Forensics tests to validate Error Messages
     Then UI Click Button "cancel"
     Then UI Click Button "No"
 
+  @Test12
   @SID_17
   Scenario: Add Forensics with invalid Source IP in Criteria - DP
     Then UI Click Button "New Forensics Tab"
     Then UI Click Button "Product Tab" with value "DefensePro"
-    Then UI Set Text Field "Forensics Name" To "Criteria Test"
+    Then UI Set Text Field "Forensics Name" To "DP Criteria Test Source IP"
     Then UI Click Button "Criteria Tab"
     Then UI Click Button "Criteria Attribute Expand"
     Then UI Click Button "Criteria Attribute Selected" with value "Source IP"
     Then UI Click Button "Criteria Attribute Selected" with value "="
     Then UI Set Text Field "Criteria Value Input Label" and params "ip" To "1.1.1.1"
     Then UI Click Button "Add Condition" with value "enabled"
-    Then UI Set Text Field "Criteria Value Input Label" and params "ip" To "text"
     Then UI Set Text Field "Criteria Value Edit Value" and params "ip,1" To "text"
     Then UI Click Button "save"
     Then UI Text of "Error message title" equal to "Unable to Save"
@@ -292,7 +292,7 @@ Feature: Negative Forensics tests to validate Error Messages
   Scenario: Add Forensics with invalid Source Port in Criteria - DP
     Then UI Click Button "New Forensics Tab"
     Then UI Click Button "Product Tab" with value "DefensePro"
-    Then UI Set Text Field "Forensics Name" To "Criteria Test"
+    Then UI Set Text Field "Forensics Name" To "DP Criteria Test Source Port"
     Then UI Click Button "Criteria Tab"
     Then UI Click Button "Criteria Attribute Expand"
     Then UI Click Button "Criteria Attribute Selected" with value "Source Port"
@@ -311,7 +311,7 @@ Feature: Negative Forensics tests to validate Error Messages
   Scenario: Add Forensics with invalid Max bps in Criteria - DP
     Then UI Click Button "New Forensics Tab"
     Then UI Click Button "Product Tab" with value "DefensePro"
-    Then UI Set Text Field "Forensics Name" To "Criteria Test"
+    Then UI Set Text Field "Forensics Name" To "DP Criteria Test Max bps"
     Then UI Click Button "Criteria Tab"
     Then UI Click Button "Criteria Attribute Expand"
     Then UI Click Button "Criteria Attribute Selected" with value "Max bps"
@@ -330,7 +330,7 @@ Feature: Negative Forensics tests to validate Error Messages
   Scenario: Add Forensics with invalid Max pps in Criteria - DP
     Then UI Click Button "New Forensics Tab"
     Then UI Click Button "Product Tab" with value "DefensePro"
-    Then UI Set Text Field "Forensics Name" To "Criteria Test"
+    Then UI Set Text Field "Forensics Name" To "DP Criteria Test Max pps"
     Then UI Click Button "Criteria Tab"
     Then UI Click Button "Criteria Attribute Expand"
     Then UI Click Button "Criteria Attribute Selected" with value "Max pps"
@@ -347,18 +347,19 @@ Feature: Negative Forensics tests to validate Error Messages
 
 
     ############################ Criteria DF ###################################################################
+  @Test12
   @SID_21
   Scenario: Add Forensics with invalid Attack ID in Criteria - DF
     Then UI Click Button "New Forensics Tab"
     Then UI Click Button "Product Tab" with value "DefenseFlow"
-    Then UI Set Text Field "Forensics Name" To "Criteria Test"
+    Then UI Set Text Field "Forensics Name" To "DF Criteria Test Attack ID"
     Then UI Click Button "Criteria Tab"
     Then UI Click Button "Criteria Attribute Expand"
     Then UI Click Button "Criteria Attribute Selected" with value "Attack ID"
     Then UI Click Button "Criteria Attribute Selected" with value "="
-    Then UI Set Text Field "Criteria Value Input Label" and params "port-from" To "123"
+    Then UI Set Text Field "Criteria Value Input Label" and params "text" To "123"
     Then UI Click Button "Add Condition" with value "enabled"
-    Then UI Set Text Field "Criteria Value Edit Value" and params "port-from,1" To "text"
+    Then UI Set Text Field "Criteria Value Edit Value" and params "text,1" To "text"
     Then UI Click Button "save"
     Then UI Text of "Error message title" equal to "Unable to Save"
     Then UI Text of "Error message description" equal to "The Criteria configuration is improper."
@@ -371,7 +372,7 @@ Feature: Negative Forensics tests to validate Error Messages
   Scenario: Add Forensics with invalid Attack Rate in bps in Criteria - DF
     Then UI Click Button "New Forensics Tab"
     Then UI Click Button "Product Tab" with value "DefenseFlow"
-    Then UI Set Text Field "Forensics Name" To "Criteria Test"
+    Then UI Set Text Field "Forensics Name" To "DF Criteria Test Attack Rate in bps"
     Then UI Click Button "Criteria Tab"
     Then UI Click Button "Criteria Attribute Expand"
     Then UI Click Button "Criteria Attribute Selected" with value "Attack Rate in bps"
@@ -390,7 +391,7 @@ Feature: Negative Forensics tests to validate Error Messages
   Scenario: Add Forensics with invalid Attack Rate in pps in Criteria - DF
     Then UI Click Button "New Forensics Tab"
     Then UI Click Button "Product Tab" with value "DefenseFlow"
-    Then UI Set Text Field "Forensics Name" To "Criteria Test"
+    Then UI Set Text Field "Forensics Name" To "DF Criteria Test Attack Rate in pps"
     Then UI Click Button "Criteria Tab"
     Then UI Click Button "Criteria Attribute Expand"
     Then UI Click Button "Criteria Attribute Selected" with value "Attack Rate in pps"
@@ -410,7 +411,7 @@ Feature: Negative Forensics tests to validate Error Messages
   Scenario: Add Forensics with invalid Destination Ip in Criteria - DF
     Then UI Click Button "New Forensics Tab"
     Then UI Click Button "Product Tab" with value "DefenseFlow"
-    Then UI Set Text Field "Forensics Name" To "Criteria Test"
+    Then UI Set Text Field "Forensics Name" To "DF Criteria Test Destination IP"
     Then UI Click Button "Criteria Tab"
     Then UI Click Button "Criteria Attribute Expand"
     Then UI Click Button "Criteria Attribute Selected" with value "Destination IP"
@@ -429,7 +430,7 @@ Feature: Negative Forensics tests to validate Error Messages
   Scenario: Add Forensics with invalid Destination port in Criteria - DF
     Then UI Click Button "New Forensics Tab"
     Then UI Click Button "Product Tab" with value "DefenseFlow"
-    Then UI Set Text Field "Forensics Name" To "Criteria Test"
+    Then UI Set Text Field "Forensics Name" To "DF Criteria Test Destination Port"
     Then UI Click Button "Criteria Tab"
     Then UI Click Button "Criteria Attribute Expand"
     Then UI Click Button "Criteria Attribute Selected" with value "Destination Port"
@@ -444,18 +445,18 @@ Feature: Negative Forensics tests to validate Error Messages
     Then UI Click Button "cancel"
     Then UI Click Button "No"
 
+  @Test12
   @SID_26
   Scenario: Add Forensics with invalid Source IP in Criteria - DF
     Then UI Click Button "New Forensics Tab"
     Then UI Click Button "Product Tab" with value "DefenseFlow"
-    Then UI Set Text Field "Forensics Name" To "Criteria Test"
+    Then UI Set Text Field "Forensics Name" To "DF Criteria Test Source IP"
     Then UI Click Button "Criteria Tab"
     Then UI Click Button "Criteria Attribute Expand"
     Then UI Click Button "Criteria Attribute Selected" with value "Source IP"
     Then UI Click Button "Criteria Attribute Selected" with value "="
     Then UI Set Text Field "Criteria Value Input Label" and params "ip" To "1.1.1.1"
     Then UI Click Button "Add Condition" with value "enabled"
-    Then UI Set Text Field "Criteria Value Input Label" and params "ip" To "text"
     Then UI Set Text Field "Criteria Value Edit Value" and params "ip,1" To "text"
     Then UI Click Button "save"
     Then UI Text of "Error message title" equal to "Unable to Save"
@@ -464,18 +465,18 @@ Feature: Negative Forensics tests to validate Error Messages
     Then UI Click Button "cancel"
     Then UI Click Button "No"
 
+  @Test12
   @SID_27
   Scenario: Add Forensics with invalid Source Port in Criteria - DF
     Then UI Click Button "New Forensics Tab"
     Then UI Click Button "Product Tab" with value "DefenseFlow"
-    Then UI Set Text Field "Forensics Name" To "Criteria Test"
+    Then UI Set Text Field "Forensics Name" To "DF Criteria Test Source Port"
     Then UI Click Button "Criteria Tab"
     Then UI Click Button "Criteria Attribute Expand"
     Then UI Click Button "Criteria Attribute Selected" with value "Source Port"
     Then UI Click Button "Criteria Attribute Selected" with value "="
     Then UI Set Text Field "Criteria Value Input Label" and params "port-from" To "1"
     Then UI Click Button "Add Condition" with value "enabled"
-    Then UI Set Text Field "Criteria Value Input Label" and params "port-from" To "text"
     Then UI Set Text Field "Criteria Value Edit Value" and params "port-from,1" To "text"
     Then UI Click Button "save"
     Then UI Text of "Error message title" equal to "Unable to Save"
@@ -488,7 +489,7 @@ Feature: Negative Forensics tests to validate Error Messages
   Scenario: Add Forensics with invalid Max bps in Criteria - DF
     Then UI Click Button "New Forensics Tab"
     Then UI Click Button "Product Tab" with value "DefenseFlow"
-    Then UI Set Text Field "Forensics Name" To "Criteria Test"
+    Then UI Set Text Field "Forensics Name" To "DF Criteria Test Max bps"
     Then UI Click Button "Criteria Tab"
     Then UI Click Button "Criteria Attribute Expand"
     Then UI Click Button "Criteria Attribute Selected" with value "Max bps"
@@ -507,7 +508,7 @@ Feature: Negative Forensics tests to validate Error Messages
   Scenario: Add Forensics with invalid Max pps in Criteria - DF
     Then UI Click Button "New Forensics Tab"
     Then UI Click Button "Product Tab" with value "DefenseFlow"
-    Then UI Set Text Field "Forensics Name" To "Criteria Test"
+    Then UI Set Text Field "Forensics Name" To "DF Criteria Test Max pps"
     Then UI Click Button "Criteria Tab"
     Then UI Click Button "Criteria Attribute Expand"
     Then UI Click Button "Criteria Attribute Selected" with value "Max pps"
@@ -524,11 +525,12 @@ Feature: Negative Forensics tests to validate Error Messages
 
 
     ############################ Criteria AW ###################################################################
+  @Test12
   @SID_30
   Scenario: Add Forensics with invalid Attack Name in Criteria - AW
     Then UI Click Button "New Forensics Tab"
     Then UI Click Button "Product Tab" with value "AppWall"
-    Then UI Set Text Field "Forensics Name" To "Criteria Test"
+    Then UI Set Text Field "Forensics Name" To "AW Criteria Test Attack Name"
     Then UI Click Button "Criteria Tab"
     Then UI Click Button "Criteria Attribute Expand"
     Then UI Click Button "Criteria Attribute Selected" with value "Attack Name"
@@ -547,7 +549,7 @@ Feature: Negative Forensics tests to validate Error Messages
   Scenario: Add Forensics with invalid Cluster IP in Criteria - AW
     Then UI Click Button "New Forensics Tab"
     Then UI Click Button "Product Tab" with value "AppWall"
-    Then UI Set Text Field "Forensics Name" To "Criteria Test"
+    Then UI Set Text Field "Forensics Name" To "AW Criteria Test Cluster IP"
     Then UI Click Button "Criteria Tab"
     Then UI Click Button "Criteria Attribute Expand"
     Then UI Click Button "Criteria Attribute Selected" with value "Cluster IP"
@@ -566,7 +568,7 @@ Feature: Negative Forensics tests to validate Error Messages
   Scenario: Add Forensics with invalid Destination IP in Criteria - AW
     Then UI Click Button "New Forensics Tab"
     Then UI Click Button "Product Tab" with value "AppWall"
-    Then UI Set Text Field "Forensics Name" To "Criteria Test"
+    Then UI Set Text Field "Forensics Name" To "AW Criteria Test Destination IP"
     Then UI Click Button "Criteria Tab"
     Then UI Click Button "Criteria Attribute Expand"
     Then UI Click Button "Criteria Attribute Selected" with value "Destination IP"
@@ -581,11 +583,12 @@ Feature: Negative Forensics tests to validate Error Messages
     Then UI Click Button "cancel"
     Then UI Click Button "No"
 
+  @Test12
   @SID_33
   Scenario: Add Forensics with invalid Device Host Name in Criteria - AW
     Then UI Click Button "New Forensics Tab"
     Then UI Click Button "Product Tab" with value "AppWall"
-    Then UI Set Text Field "Forensics Name" To "Criteria Test"
+    Then UI Set Text Field "Forensics Name" To "AW Criteria Test Device Host Name"
     Then UI Click Button "Criteria Tab"
     Then UI Click Button "Criteria Attribute Expand"
     Then UI Click Button "Criteria Attribute Selected" with value "Device Host Name"
@@ -600,11 +603,12 @@ Feature: Negative Forensics tests to validate Error Messages
     Then UI Click Button "cancel"
     Then UI Click Button "No"
 
+  @Test12
   @SID_34
   Scenario: Add Forensics with invalid Directory in Criteria - AW
     Then UI Click Button "New Forensics Tab"
     Then UI Click Button "Product Tab" with value "AppWall"
-    Then UI Set Text Field "Forensics Name" To "Criteria Test"
+    Then UI Set Text Field "Forensics Name" To "AW Criteria Test Directory"
     Then UI Click Button "Criteria Tab"
     Then UI Click Button "Criteria Attribute Expand"
     Then UI Click Button "Criteria Attribute Selected" with value "Directory"
@@ -619,11 +623,12 @@ Feature: Negative Forensics tests to validate Error Messages
     Then UI Click Button "cancel"
     Then UI Click Button "No"
 
+  @Test12
   @SID_35
   Scenario: Add Forensics with invalid Module in Criteria - AW
     Then UI Click Button "New Forensics Tab"
     Then UI Click Button "Product Tab" with value "AppWall"
-    Then UI Set Text Field "Forensics Name" To "Criteria Test"
+    Then UI Set Text Field "Forensics Name" To "AW Criteria Test Module"
     Then UI Click Button "Criteria Tab"
     Then UI Click Button "Criteria Attribute Expand"
     Then UI Click Button "Criteria Attribute Selected" with value "Module"
@@ -638,11 +643,12 @@ Feature: Negative Forensics tests to validate Error Messages
     Then UI Click Button "cancel"
     Then UI Click Button "No"
 
+  @Test12
   @SID_36
   Scenario: Add Forensics with invalid Transaction ID in Criteria - AW
     Then UI Click Button "New Forensics Tab"
     Then UI Click Button "Product Tab" with value "AppWall"
-    Then UI Set Text Field "Forensics Name" To "Criteria Test"
+    Then UI Set Text Field "Forensics Name" To "AW Criteria Test Transaction ID"
     Then UI Click Button "Criteria Tab"
     Then UI Click Button "Criteria Attribute Expand"
     Then UI Click Button "Criteria Attribute Selected" with value "Transaction ID"
@@ -661,7 +667,7 @@ Feature: Negative Forensics tests to validate Error Messages
   Scenario: Add Forensics with invalid Source IP in Criteria - AW
     Then UI Click Button "New Forensics Tab"
     Then UI Click Button "Product Tab" with value "AppWall"
-    Then UI Set Text Field "Forensics Name" To "Criteria Test"
+    Then UI Set Text Field "Forensics Name" To "AW Criteria Test Source IP"
     Then UI Click Button "Criteria Tab"
     Then UI Click Button "Criteria Attribute Expand"
     Then UI Click Button "Criteria Attribute Selected" with value "Source IP"
@@ -680,7 +686,7 @@ Feature: Negative Forensics tests to validate Error Messages
   Scenario: Add Forensics with invalid Source Port in Criteria - AW
     Then UI Click Button "New Forensics Tab"
     Then UI Click Button "Product Tab" with value "AppWall"
-    Then UI Set Text Field "Forensics Name" To "Criteria Test"
+    Then UI Set Text Field "Forensics Name" To "AW Criteria Test Source Port"
     Then UI Click Button "Criteria Tab"
     Then UI Click Button "Criteria Attribute Expand"
     Then UI Click Button "Criteria Attribute Selected" with value "Source Port"
@@ -695,11 +701,12 @@ Feature: Negative Forensics tests to validate Error Messages
     Then UI Click Button "cancel"
     Then UI Click Button "No"
 
+  @Test12
   @SID_39
   Scenario: Add Forensics with invalid Tunnel in Criteria - AW
     Then UI Click Button "New Forensics Tab"
     Then UI Click Button "Product Tab" with value "AppWall"
-    Then UI Set Text Field "Forensics Name" To "Criteria Test"
+    Then UI Set Text Field "Forensics Name" To "AW Criteria Test Tunnel"
     Then UI Click Button "Criteria Tab"
     Then UI Click Button "Criteria Attribute Expand"
     Then UI Click Button "Criteria Attribute Selected" with value "Tunnel"
@@ -714,11 +721,12 @@ Feature: Negative Forensics tests to validate Error Messages
     Then UI Click Button "cancel"
     Then UI Click Button "No"
 
+  @Test12
   @SID_40
   Scenario: Add Forensics with invalid User Name in Criteria - AW
     Then UI Click Button "New Forensics Tab"
     Then UI Click Button "Product Tab" with value "AppWall"
-    Then UI Set Text Field "Forensics Name" To "Criteria Test"
+    Then UI Set Text Field "Forensics Name" To "AW Criteria Test User Name"
     Then UI Click Button "Criteria Tab"
     Then UI Click Button "Criteria Attribute Expand"
     Then UI Click Button "Criteria Attribute Selected" with value "User Name"
@@ -733,11 +741,12 @@ Feature: Negative Forensics tests to validate Error Messages
     Then UI Click Button "cancel"
     Then UI Click Button "No"
 
+  @Test12
   @SID_41
   Scenario: Add Forensics with invalid Web Application Name in Criteria - AW
     Then UI Click Button "New Forensics Tab"
     Then UI Click Button "Product Tab" with value "AppWall"
-    Then UI Set Text Field "Forensics Name" To "Criteria Test"
+    Then UI Set Text Field "Forensics Name" To "Criteria Test Web Application Name"
     Then UI Click Button "Criteria Tab"
     Then UI Click Button "Criteria Attribute Expand"
     Then UI Click Button "Criteria Attribute Selected" with value "Web Application Name"

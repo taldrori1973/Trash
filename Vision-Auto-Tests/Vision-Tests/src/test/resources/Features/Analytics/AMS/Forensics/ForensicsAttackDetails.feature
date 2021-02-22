@@ -1,34 +1,34 @@
-@Analytics_ADC @TC105998 @Test12
+@Analytics_ADC @TC105998
 Feature: Forensic Attack details Tests
 
 
-#  @SID_1
-#  Scenario: Clean system data
-#    * CLI kill all simulator attacks on current vision
-#    Given CLI Reset radware password
-#    # Sleeping in order to let collector cache clean
-#    Then Sleep "20"
-##    * REST Delete ES index "dp-traffic-*"
-##    * REST Delete ES index "dp-https-stats-*"
-##    * REST Delete ES index "dp-https-rt-*"
-##    * REST Delete ES index "dp-five-*"
-#    * REST Delete ES index "dp-*"
-#
-#    * REST Delete ES index "forensics-*"
-#    * REST Delete ES index "dpforensics-*"
-#    Then REST Request "PUT" for "Connectivity->Inactivity Timeout for Configuration"
-#      | type | value                                 |
-#      | body | sessionInactivTimeoutConfiguration=60 |
-#    * CLI Clear vision logs
-#
-#  @SID_2
-#  Scenario: Run DP simulator
-#    Given CLI simulate 1 attacks of type "VRM_attacks" on "DefensePro" 10 and wait 250 seconds
+  @SID_1
+  Scenario: Clean system data
+    * CLI kill all simulator attacks on current vision
+    Given CLI Reset radware password
+    # Sleeping in order to let collector cache clean
+    Then Sleep "20"
+#    * REST Delete ES index "dp-traffic-*"
+#    * REST Delete ES index "dp-https-stats-*"
+#    * REST Delete ES index "dp-https-rt-*"
+#    * REST Delete ES index "dp-five-*"
+    * REST Delete ES index "dp-*"
+
+    * REST Delete ES index "forensics-*"
+    * REST Delete ES index "dpforensics-*"
+    Then REST Request "PUT" for "Connectivity->Inactivity Timeout for Configuration"
+      | type | value                                 |
+      | body | sessionInactivTimeoutConfiguration=60 |
+    * CLI Clear vision logs
+
+  @SID_2
+  Scenario: Run DP simulator
+    Given CLI simulate 1 attacks of type "VRM_attacks" on "DefensePro" 10 and wait 250 seconds
 
   @SID_3
   Scenario: VRM - Login to VRM "Wizard" Test
     Given UI Login with user "sys_admin" and password "radware"
-#    * REST Vision Install License Request "vision-AVA-Max-attack-capacity"
+   * REST Vision Install License Request "vision-AVA-Max-attack-capacity"
     Then UI Navigate to "New Forensics" page via homepage
     Then UI Click Button "New Forensics Tab"
 
