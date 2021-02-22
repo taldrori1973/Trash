@@ -1,9 +1,9 @@
 @TC119483
+
 Feature: Edit DefenseFlow Parameters
 
   @SID_1
   Scenario: Login and Navigate
-    * REST Delete ES index "forensics-*"
     Given UI Login with user "sys_admin" and password "radware"
     Then UI Navigate to "New Forensics" page via homepage
 
@@ -67,7 +67,6 @@ Feature: Edit DefenseFlow Parameters
       | Time Definitions.Date | Quick:Today |
     Then UI "Validate" Forensics With Name "Forensics DefenseFlow"
       | Time Definitions.Date | Quick:Today |
-    Then UI Text of "Forensics Time Type" equal to "Today"
 
   @SID_10
   Scenario: Edit Time
@@ -128,11 +127,11 @@ Feature: Edit DefenseFlow Parameters
   @SID_18
   Scenario: Edit Scope
     Then UI "Edit" Forensics With Name "Forensics DefenseFlow"
-      | Product           | DefenseFlow   |
-      | Protected Objects | PO Name Space |
+      | Product           | DefenseFlow |
+      | Protected Objects | PO_1        |
     Then UI "Validate" Forensics With Name "Forensics DefenseFlow"
-      | Product           | DefenseFlow   |
-      | Protected Objects | PO Name Space |
+      | Product           | DefenseFlow |
+      | Protected Objects | PO_1        |
 
   @SID_19
   Scenario: Edit Criteria
@@ -142,22 +141,26 @@ Feature: Edit DefenseFlow Parameters
       | Criteria | Event Criteria:Action,Operator:Not Equals,Value:Http 403 Forbidden |
 
   @SID_20
-  Scenario: Edit Name
-    Then UI "Edit" Forensics With Name "Forensics DefenseFlow"
-      | New Forensics Name | Forensics DefenseFlow Updated |
-    Then UI "Validate" Forensics With Name "Forensics DefenseFlow Updated"
-      | Product               | DefenseFlow                                                                                                      |
-      | Protected Objects     | PO Name Space                                                                                                    |
-      | Criteria              | Event Criteria:Action,Operator:Not Equals,Value:Http 403 Forbidden                                               |
-      | Output                | Direction                                                                                                        |
-      | Format                | Select: HTML                                                                                                     |
-      | Time Definitions.Date | Quick:1Y |
-      | Schedule              | Run Every:Monthly, On Time:+6H, At Months:[AUG]                                                                  |
-      | Share                 | FTP:checked, FTP.Location:172.17.164.10, FTP.Path:/home/radware/ftp/, FTP.Username:radware, FTP.Password:radware |
-      | Share                 | Email:[automation.vision2@radware.com],Subject:myEdit subject,Body:myEdit body                                   |
-    Then UI Delete Forensics With Name "Forensics DefenseFlow Updated"
+  Scenario: Edit Forensics Product
+    Then UI Click Button "Edit Forensics" with value "Forensics DefenseFlow"
+    Then UI Validate the attribute of "data-debug-enabled" are "EQUAL" to
+      | label   | param       | value |
+      | Product | DefensePro  | false |
+      | Product | DefenseFlow | true  |
+      | Product | AppWall     | false |
+    Then UI Click Button "save"
 
   @SID_21
+  Scenario: Edit Name
+    Then UI Click Button "Edit Forensics" with value "Forensics DefenseFlow"
+    Then UI Set Text Field "Forensics Name" To "Forensics DefenseFlow Updated"
+    Then UI Click Button "save"
+    Then UI Validate Element Existence By Label "My Forensics" if Exists "true" with value "Forensics DefenseFlow Updated"
+    Then UI Validate Element Existence By Label "My Forensics" if Exists "false" with value "Forensics DefenseFlow"
+    Then UI Delete Forensics With Name "Forensics DefenseFlow Updated"
+    Then UI Validate Element Existence By Label "My Forensics" if Exists "false" with value "Forensics DefenseFlow Updated"
+
+  @SID_22
   Scenario: Logout
     Then UI logout and close browser
 

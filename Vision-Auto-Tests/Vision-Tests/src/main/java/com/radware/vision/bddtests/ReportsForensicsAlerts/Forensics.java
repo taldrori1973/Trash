@@ -268,7 +268,7 @@ public class Forensics extends ReportsForensicsAlertsAbstract {
         if (basicRestResult != null) {
             errorMessage.append(validateTimeDefinition(new JSONObject(basicRestResult.get("timeRangeDefinition").toString()), map, forensicsName));
             errorMessage.append(validateScheduleDefinition(basicRestResult, map, forensicsName));
-            errorMessage.append(validateFormatDefinition(new JSONObject(new JSONArray(basicRestResult.get("exportFormats").toString()).get(0).toString()), map));
+            errorMessage.append(validateFormatForensicsIgnoreDetailsInExport(basicRestResult,map));
             errorMessage.append(validateShareDefinition(new JSONObject(basicRestResult.get("deliveryMethod").toString()), map));
             errorMessage.append(validateScopeSelection(basicRestResult, map));
             errorMessage.append(validateOutput(basicRestResult, map));
@@ -278,6 +278,26 @@ public class Forensics extends ReportsForensicsAlertsAbstract {
             BaseTestUtils.report(errorMessage.toString(), Reporter.FAIL);
     }
 
+    private StringBuilder validateFormatForensicsIgnoreDetailsInExport(JSONObject basicRestResult ,Map<String, String> map){
+        StringBuilder errorMessage = new StringBuilder();
+        if(map.containsKey("Format")){
+            switch (new JSONObject(map.get("Format")).get("Select").toString()) {
+                case "HTML":
+                case "CSV":
+                    if ((!basicRestResult.get("ignoreDetailsInExport").toString().equals("true")))
+                        errorMessage.append("The Actual format is not equal to expected ");
+                     else
+                        errorMessage.append(validateFormatDefinition(new JSONObject(new JSONArray(basicRestResult.get("exportFormats").toString()).get(0).toString()), map));
+                     break;
+                case "CSV With Attack Details":
+                case "CSVWithDetails":
+                    if(!basicRestResult.get("ignoreDetailsInExport").toString().equalsIgnoreCase("false") || !new JSONObject(new JSONArray(basicRestResult.get("exportFormats").toString()).get(0).toString()).get("type").toString().equalsIgnoreCase("csv"))
+                        errorMessage.append("The Actual format is not equal to expected ");
+                    break;
+            }
+        }
+        return errorMessage;
+    }
     private StringBuilder validateOutput(JSONObject basicRestResult, Map<String, String> map) {
         StringBuilder errorMessage = new StringBuilder();
         if (map.containsKey("Output"))
@@ -568,7 +588,7 @@ public class Forensics extends ReportsForensicsAlertsAbstract {
     }
 
     private void editScopeSelection(Map<String, String> map, String reportName) throws Exception {
-        if (map.containsKey("devices"))
+        if (map.containsKey("devices") || map.containsKey("Protected Objects") || map.containsKey("Applications") )
             selectScopeSelection(map);
     }
 

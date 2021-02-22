@@ -1,9 +1,9 @@
 @TC119482
+
 Feature: Edit DefensePro Parameters
 
   @SID_1
   Scenario: Login and Navigate
-    * REST Delete ES index "forensics-*"
     Given UI Login with user "sys_admin" and password "radware"
     Then UI Navigate to "New Forensics" page via homepage
 
@@ -41,9 +41,9 @@ Feature: Edit DefensePro Parameters
   @SID_6
   Scenario: Edit Format
     Then UI "Edit" Forensics With Name "Forensics DefensePro"
-      | Format | Select: CSVWithDetails |
+      | Format | Select: CSV With Attack Details |
     Then UI "Validate" Forensics With Name "Forensics DefensePro"
-      | Format | Select: CSVWithDetails |
+      | Format | Select: CSV With Attack Details |
 
   @SID_7
   Scenario: Edit Format
@@ -80,7 +80,6 @@ Feature: Edit DefensePro Parameters
     Then UI "Validate" Forensics With Name "Forensics DefensePro"
       | Time Definitions.Date | Quick:This Month |
 
-
   @SID_13
   Scenario: Edit Time
     Then UI "Edit" Forensics With Name "Forensics DefensePro"
@@ -94,7 +93,6 @@ Feature: Edit DefensePro Parameters
       | Time Definitions.Date | Quick:1W |
     Then UI "Validate" Forensics With Name "Forensics DefensePro"
       | Time Definitions.Date | Quick:1W |
-
 
   @SID_15
   Scenario: Edit Time
@@ -159,22 +157,26 @@ Feature: Edit DefensePro Parameters
       | Criteria | Event Criteria:Action,Operator:Not Equals,Value:Http 403 Forbidden |
 
   @SID_23
-  Scenario: Edit Name
-    Then UI "Edit" Forensics With Name "Forensics DefensePro"
-      | New Forensics Name | Forensics DefensePro Updated |
-    Then UI "Validate" Forensics With Name "Forensics DefensePro Updated"
-      | Product               | DefensePro                                                                                                       |
-      | devices               | index:10,policies:[Policy15],ports:[1]                                                                           |
-      | Criteria              | Event Criteria:Action,Operator:Not Equals,Value:Http 403 Forbidden                                               |
-      | Output                | Direction                                                                                                        |
-      | Format                | Select: HTML                                                                                                     |
-      | Time Definitions.Date | Quick:1Y                                                                                                         |
-      | Schedule              | Run Every:Monthly, On Time:+6H, At Months:[AUG]                                                                  |
-      | Share                 | FTP:checked, FTP.Location:172.17.164.10, FTP.Path:/home/radware/ftp/, FTP.Username:radware, FTP.Password:radware |
-      | Share                 | Email:[automation.vision2@radware.com],Subject:myEdit subject,Body:myEdit body                                   |
-    Then UI Delete Forensics With Name "Forensics DefensePro Updated"
+  Scenario: Edit Forensics Product
+    Then UI Click Button "Edit Forensics" with value "Forensics DefensePro"
+    Then UI Validate the attribute of "data-debug-enabled" are "EQUAL" to
+      | label   | param       | value |
+      | Product | DefensePro  | true  |
+      | Product | DefenseFlow | false |
+      | Product | AppWall     | false |
+    Then UI Click Button "save"
 
   @SID_24
+  Scenario: Edit Name
+    Then UI Click Button "Edit Forensics" with value "Forensics DefensePro"
+    Then UI Set Text Field "Forensics Name" To "Forensics DefensePro Updated"
+    Then UI Click Button "save"
+    Then UI Validate Element Existence By Label "My Forensics" if Exists "true" with value "Forensics DefensePro Updated"
+    Then UI Validate Element Existence By Label "My Forensics" if Exists "false" with value "Forensics DefensePro"
+    Then UI Delete Forensics With Name "Forensics DefensePro Updated"
+    Then UI Validate Element Existence By Label "My Forensics" if Exists "false" with value "Forensics DefensePro Updated"
+
+  @SID_25
   Scenario: Logout
     Then UI logout and close browser
 
