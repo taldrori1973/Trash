@@ -1,35 +1,34 @@
-@Analytics_ADC @TC105998
-
+@Analytics_ADC @TC105998 @Test12
 Feature: Forensic Attack details Tests
 
 
-  @SID_1
-  Scenario: Clean system data
-    * CLI kill all simulator attacks on current vision
-    Given CLI Reset radware password
-    # Sleeping in order to let collector cache clean
-    Then Sleep "20"
-#    * REST Delete ES index "dp-traffic-*"
-#    * REST Delete ES index "dp-https-stats-*"
-#    * REST Delete ES index "dp-https-rt-*"
-#    * REST Delete ES index "dp-five-*"
-    * REST Delete ES index "dp-*"
-
-    * REST Delete ES index "forensics-*"
-    * REST Delete ES index "dpforensics-*"
-    Then REST Request "PUT" for "Connectivity->Inactivity Timeout for Configuration"
-      | type | value                                 |
-      | body | sessionInactivTimeoutConfiguration=60 |
-    * CLI Clear vision logs
-
-  @SID_2
-  Scenario: Run DP simulator
-    Given CLI simulate 1 attacks of type "VRM_attacks" on "DefensePro" 10 and wait 250 seconds
+#  @SID_1
+#  Scenario: Clean system data
+#    * CLI kill all simulator attacks on current vision
+#    Given CLI Reset radware password
+#    # Sleeping in order to let collector cache clean
+#    Then Sleep "20"
+##    * REST Delete ES index "dp-traffic-*"
+##    * REST Delete ES index "dp-https-stats-*"
+##    * REST Delete ES index "dp-https-rt-*"
+##    * REST Delete ES index "dp-five-*"
+#    * REST Delete ES index "dp-*"
+#
+#    * REST Delete ES index "forensics-*"
+#    * REST Delete ES index "dpforensics-*"
+#    Then REST Request "PUT" for "Connectivity->Inactivity Timeout for Configuration"
+#      | type | value                                 |
+#      | body | sessionInactivTimeoutConfiguration=60 |
+#    * CLI Clear vision logs
+#
+#  @SID_2
+#  Scenario: Run DP simulator
+#    Given CLI simulate 1 attacks of type "VRM_attacks" on "DefensePro" 10 and wait 250 seconds
 
   @SID_3
   Scenario: VRM - Login to VRM "Wizard" Test
     Given UI Login with user "sys_admin" and password "radware"
-    * REST Vision Install License Request "vision-AVA-Max-attack-capacity"
+#    * REST Vision Install License Request "vision-AVA-Max-attack-capacity"
     Then UI Navigate to "New Forensics" page via homepage
     Then UI Click Button "New Forensics Tab"
 
@@ -194,23 +193,23 @@ Feature: Forensic Attack details Tests
     Then UI Validate "Forensics.Table" Table rows count EQUALS to 3 with offset 2
     * UI Click Button "Forensics.Clear Refine"
 
-  @SID_20
-  Scenario: Validate attack details refine by pps
-    When UI click Table row by keyValue or Index with elementLabel "Forensics.Table" findBy columnName "Attack ID" findBy cellValue "800-1525623158"
-    And UI Click Button "Refine View"
-    And UI Select Multi items from dropdown "Forensics.Attack Details.Refine.Dropdown" apply
-      | pps |
-    Then UI Validate "Forensics.Table" Table rows count EQUALS to 1
-    * UI Click Button "Forensics.Clear Refine"
+#  @SID_20
+#  Scenario: Validate attack details refine by pps
+#    When UI click Table row by keyValue or Index with elementLabel "Forensics.Table" findBy columnName "Attack ID" findBy cellValue "800-1525623158"
+#    And UI Click Button "Refine View"
+#    And UI Select Multi items from dropdown "Forensics.Attack Details.Refine.Dropdown" apply
+#      | pps |
+#    Then UI Validate "Forensics.Table" Table rows count EQUALS to 1
+#    * UI Click Button "Forensics.Clear Refine"
 
-  @SID_21
-  Scenario: Validate attack details refine by Mbps
-    When UI click Table row by keyValue or Index with elementLabel "Forensics.Table" findBy columnName "Attack ID" findBy cellValue "800-1525623158"
-    And UI Click Button "Refine View"
-    And UI Select Multi items from dropdown "Forensics.Attack Details.Refine.Dropdown" apply
-      | Mbps |
-    Then UI Validate "Forensics.Table" Table rows count EQUALS to 1
-    * UI Click Button "Forensics.Clear Refine"
+#  @SID_21
+#  Scenario: Validate attack details refine by Mbps
+#    When UI click Table row by keyValue or Index with elementLabel "Forensics.Table" findBy columnName "Attack ID" findBy cellValue "800-1525623158"
+#    And UI Click Button "Refine View"
+#    And UI Select Multi items from dropdown "Forensics.Attack Details.Refine.Dropdown" apply
+#      | Mbps |
+#    Then UI Validate "Forensics.Table" Table rows count EQUALS to 1
+#    * UI Click Button "Forensics.Clear Refine"
 
   @SID_22
   Scenario: Validate attack details refine by Physical Port
@@ -289,7 +288,8 @@ Feature: Forensic Attack details Tests
   @SID_29
   Scenario: VRM - Login to VRM "Wizard" Test
     Given UI Login with user "sys_admin" and password "radware"
-    And UI Navigate to "AMS Forensics" page via homePage
+    Then UI Navigate to "New Forensics" page via homepage
+    Then UI Click Button "New Forensics Tab"
 
   @SID_30
   Scenario: New attack and create forensics view
@@ -316,8 +316,8 @@ Feature: Forensic Attack details Tests
     Then UI Text of "Forensics.Attack Details.Detail" with extension "Direction" equal to "In"
 
     Then UI Text of "Forensics.Attack Details.Detail" with extension "Attack Name" equal to "network flood IPv4 TCP-SYN-ACK"
-    Then UI Text of "Forensics.Attack Details.Detail" with extension "Mbps" equal to "157.25"
-    Then UI Text of "Forensics.Attack Details.Detail" with extension "pps" equal to "161491"
+#    Then UI Text of "Forensics.Attack Details.Detail" with extension "Mbps" equal to "157.25"
+#    Then UI Text of "Forensics.Attack Details.Detail" with extension "pps" equal to "161491"
     Then UI Text of "Forensics.Attack Details.Detail" with extension "Physical Port" equal to "1"
     Then UI Text of "Forensics.Attack Details.Detail" with extension "Protocol" equal to "TCP"
     Then UI Text of "Forensics.Attack Details.Detail" with extension "Radware ID" equal to "78"
@@ -356,8 +356,8 @@ Feature: Forensic Attack details Tests
     Then UI Text of "Forensics.Attack Details.Detail" with extension "Direction" equal to "In"
     Then UI Validate Element Existence By Label "Forensics.Attack Details.Detail" if Exists "true" with value "Duration"
     Then UI Text of "Forensics.Attack Details.Detail" with extension "Attack Name" equal to "f1"
-    Then UI Text of "Forensics.Attack Details.Detail" with extension "Mbps" equal to "11.17"
-    Then UI Text of "Forensics.Attack Details.Detail" with extension "pps" equal to "18770"
+#    Then UI Text of "Forensics.Attack Details.Detail" with extension "Mbps" equal to "11.17"
+#    Then UI Text of "Forensics.Attack Details.Detail" with extension "pps" equal to "18770"
     Then UI Text of "Forensics.Attack Details.Detail" with extension "Physical Port" equal to "MNG-1"
     Then UI Text of "Forensics.Attack Details.Detail" with extension "Protocol" equal to "UDP"
     Then UI Text of "Forensics.Attack Details.Detail" with extension "Radware ID" equal to "700000"
@@ -387,8 +387,8 @@ Feature: Forensic Attack details Tests
     Then UI Text of "Forensics.Attack Details.Detail" with extension "Direction" equal to "Unknown"
 
     Then UI Text of "Forensics.Attack Details.Detail" with extension "Attack Name" equal to "SYN Flood HTTP"
-    Then UI Text of "Forensics.Attack Details.Detail" with extension "Mbps" equal to "102.49"
-    Then UI Text of "Forensics.Attack Details.Detail" with extension "pps" equal to "223890"
+#    Then UI Text of "Forensics.Attack Details.Detail" with extension "Mbps" equal to "102.49"
+#    Then UI Text of "Forensics.Attack Details.Detail" with extension "pps" equal to "223890"
     Then UI Text of "Forensics.Attack Details.Detail" with extension "Physical Port" equal to "Multiple"
     Then UI Text of "Forensics.Attack Details.Detail" with extension "Protocol" equal to "TCP"
     Then UI Text of "Forensics.Attack Details.Detail" with extension "Radware ID" equal to "200000"
@@ -425,8 +425,8 @@ Feature: Forensic Attack details Tests
     Then UI Text of "Forensics.Attack Details.Detail" with extension "Direction" equal to "In"
 
     Then UI Text of "Forensics.Attack Details.Detail" with extension "Attack Name" equal to "pkt_rate_lmt_9"
-    Then UI Text of "Forensics.Attack Details.Detail" with extension "Mbps" equal to "0"
-    Then UI Text of "Forensics.Attack Details.Detail" with extension "pps" equal to "1296"
+#    Then UI Text of "Forensics.Attack Details.Detail" with extension "Mbps" equal to "0"
+#    Then UI Text of "Forensics.Attack Details.Detail" with extension "pps" equal to "1296"
     Then UI Text of "Forensics.Attack Details.Detail" with extension "Physical Port" equal to "3"
     Then UI Text of "Forensics.Attack Details.Detail" with extension "Protocol" equal to "TCP"
     Then UI Text of "Forensics.Attack Details.Detail" with extension "Radware ID" equal to "600006"
@@ -463,8 +463,8 @@ Feature: Forensic Attack details Tests
     Then UI Text of "Forensics.Attack Details.Detail" with extension "Direction" equal to "In"
     Then UI Validate Element Existence By Label "Forensics.Attack Details.Detail" if Exists "true" with value "Duration"
     Then UI Text of "Forensics.Attack Details.Detail" with extension "Attack Name" equal to "sign_seets3"
-    Then UI Text of "Forensics.Attack Details.Detail" with extension "Mbps" equal to "0"
-    Then UI Text of "Forensics.Attack Details.Detail" with extension "pps" equal to "1"
+#    Then UI Text of "Forensics.Attack Details.Detail" with extension "Mbps" equal to "0"
+#    Then UI Text of "Forensics.Attack Details.Detail" with extension "pps" equal to "1"
     Then UI Text of "Forensics.Attack Details.Detail" with extension "Physical Port" equal to "MNG-1"
     Then UI Text of "Forensics.Attack Details.Detail" with extension "Protocol" equal to "TCP"
     Then UI Text of "Forensics.Attack Details.Detail" with extension "Radware ID" equal to "320029"
@@ -493,8 +493,8 @@ Feature: Forensic Attack details Tests
     Then UI Text of "Forensics.Attack Details.Detail" with extension "Device IP Address" equal to "172.16.22.50"
     Then UI Text of "Forensics.Attack Details.Detail" with extension "Direction" equal to "Out"
     Then UI Text of "Forensics.Attack Details.Detail" with extension "Attack Name" equal to "Brute Force Web"
-    Then UI Text of "Forensics.Attack Details.Detail" with extension "Mbps" equal to "82.14"
-    Then UI Text of "Forensics.Attack Details.Detail" with extension "pps" equal to "179244"
+#    Then UI Text of "Forensics.Attack Details.Detail" with extension "Mbps" equal to "82.14"
+#    Then UI Text of "Forensics.Attack Details.Detail" with extension "pps" equal to "179244"
     Then UI Text of "Forensics.Attack Details.Detail" with extension "Physical Port" equal to "4"
     Then UI Text of "Forensics.Attack Details.Detail" with extension "Protocol" equal to "TCP"
     Then UI Text of "Forensics.Attack Details.Detail" with extension "Radware ID" equal to "400"
@@ -526,8 +526,8 @@ Feature: Forensic Attack details Tests
     Then UI Text of "Forensics.Attack Details.Detail" with extension "Direction" equal to "Unknown"
 
     Then UI Text of "Forensics.Attack Details.Detail" with extension "Attack Name" equal to "TCP Scan (vertical)"
-    Then UI Text of "Forensics.Attack Details.Detail" with extension "Mbps" equal to "9.33"
-    Then UI Text of "Forensics.Attack Details.Detail" with extension "pps" equal to "9867"
+#    Then UI Text of "Forensics.Attack Details.Detail" with extension "Mbps" equal to "9.33"
+#    Then UI Text of "Forensics.Attack Details.Detail" with extension "pps" equal to "9867"
     Then UI Text of "Forensics.Attack Details.Detail" with extension "Physical Port" equal to "0"
     Then UI Text of "Forensics.Attack Details.Detail" with extension "Protocol" equal to "TCP"
     Then UI Text of "Forensics.Attack Details.Detail" with extension "Radware ID" equal to "350"
@@ -592,7 +592,7 @@ Feature: Forensic Attack details Tests
     Then UI Text of "Forensics.Attack Details.Detail" with extension "Direction" equal to "Unknown"
     Then UI Validate Element Existence By Label "Forensics.Attack Details.Detail" if Exists "true" with value "Duration"
     Then UI Text of "Forensics.Attack Details.Detail" with extension "Attack Name" equal to "DNS flood IPv4 DNS-A"
-    Then UI Text of "Forensics.Attack Details.Detail" with extension "Mbps" equal to "0"
+#    Then UI Text of "Forensics.Attack Details.Detail" with extension "Mbps" equal to "0"
 
     Then UI Text of "Forensics.Attack Details.Detail" with extension "Physical Port" equal to "0"
     Then UI Text of "Forensics.Attack Details.Detail" with extension "Protocol" equal to "UDP"
@@ -641,8 +641,8 @@ Feature: Forensic Attack details Tests
     Then UI Text of "Forensics.Attack Details.Detail" with extension "Direction" equal to "Unknown"
     Then UI Validate Element Existence By Label "Forensics.Attack Details.Detail" if Exists "true" with value "Duration"
     Then UI Text of "Forensics.Attack Details.Detail" with extension "Attack Name" equal to "Incorrect IPv4 checksum"
-    Then UI Text of "Forensics.Attack Details.Detail" with extension "Mbps" equal to "0"
-    Then UI Text of "Forensics.Attack Details.Detail" with extension "pps" equal to "1"
+#    Then UI Text of "Forensics.Attack Details.Detail" with extension "Mbps" equal to "0"
+#    Then UI Text of "Forensics.Attack Details.Detail" with extension "pps" equal to "1"
     Then UI Text of "Forensics.Attack Details.Detail" with extension "Physical Port" equal to "0"
     Then UI Text of "Forensics.Attack Details.Detail" with extension "Protocol" equal to "IP"
     Then UI Text of "Forensics.Attack Details.Detail" with extension "Radware ID" equal to "103"
@@ -686,8 +686,8 @@ Feature: Forensic Attack details Tests
     Then UI Text of "Forensics.Attack Details.Detail" with extension "Direction" equal to "In"
     Then UI Validate Element Existence By Label "Forensics.Attack Details.Detail" if Exists "true" with value "Duration"
     Then UI Text of "Forensics.Attack Details.Detail" with extension "Attack Name" equal to "Black List"
-    Then UI Text of "Forensics.Attack Details.Detail" with extension "Mbps" equal to "12618.09"
-    Then UI Text of "Forensics.Attack Details.Detail" with extension "pps" equal to "12920902"
+#    Then UI Text of "Forensics.Attack Details.Detail" with extension "Mbps" equal to "12618.09"
+#    Then UI Text of "Forensics.Attack Details.Detail" with extension "pps" equal to "12920902"
     Then UI Text of "Forensics.Attack Details.Detail" with extension "Physical Port" equal to "T-1"
     Then UI Text of "Forensics.Attack Details.Detail" with extension "Protocol" equal to "IP"
     Then UI Text of "Forensics.Attack Details.Detail" with extension "Radware ID" equal to "8"
