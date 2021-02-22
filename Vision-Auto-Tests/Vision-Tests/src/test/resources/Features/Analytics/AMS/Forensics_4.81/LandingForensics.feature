@@ -43,21 +43,21 @@ Feature: Landing Forensics
     Then Sleep "35"
 
   @SID_6
-  Scenario: Validate tooltip values
-    Then UI Do Operation "hover" item "INFO Forensics" with value "DefensePro Forensics"
-    Then Sleep "3"
-    Then UI Text of "ToolTip Forensics" with extension "DefensePro Forensics" equal to "ScopeDevice:172.16.22.50Number of policies:49Number of ports:8Device:172.16.22.51Number of policies:49Number of ports:8Device:172.16.22.55Number of policies:1Number of ports:1Time Period1 DayFilter CriteriaNot SelectedOutput FieldsAction; ScheduleNot SelectedFormatCSVDeliveryDelivery:emailRecipients:automation.vision2@radware.comSubject:myEdit subject"
-
-  @SID_7
   Scenario: Deletion Forensics Instance
     Then UI Validate Deletion of Forensics instance "Deletion Forensics Instance" with value "DefensePro Forensics_0"
 
-  @SID_8
+  @SID_7
   Scenario: Edit Forensics and validate
     Given UI "Edit" Forensics With Name "DefensePro Forensics"
       | Format | Select: HTML |
     Given UI "Validate" Forensics With Name "DefensePro Forensics"
       | Format | Select: HTML |
+
+  @SID_8
+  Scenario: Validate tooltip values
+    Then UI Do Operation "hover" item "INFO Forensics" with value "DefensePro Forensics"
+    Then Sleep "3"
+    Then UI Text of "ToolTip Forensics" with extension "DefensePro Forensics" equal to "ScopeDevice:172.16.22.50Number of policies:49Number of ports:8Device:172.16.22.51Number of policies:49Number of ports:8Device:172.16.22.55Number of policies:1Number of ports:1Time Period1 DayFilter CriteriaNot SelectedOutput FieldsAction; ScheduleNot SelectedFormatHTMLDeliveryDelivery:emailRecipients:automation.vision2@radware.comSubject:myEdit subject"
 
   @SID_9
   Scenario: Delete Forensics
