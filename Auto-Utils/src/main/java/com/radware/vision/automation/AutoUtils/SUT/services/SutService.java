@@ -2,6 +2,7 @@ package com.radware.vision.automation.AutoUtils.SUT.services;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.radware.vision.automation.AutoUtils.SUT.dtos.CliConfigurationDto;
 import com.radware.vision.automation.AutoUtils.SUT.dtos.ClientConfigurationDto;
 import com.radware.vision.automation.AutoUtils.SUT.dtos.ServerDto;
 import com.radware.vision.automation.AutoUtils.SUT.dtos.TreeDeviceManagementDto;
@@ -14,6 +15,7 @@ import com.radware.vision.automation.AutoUtils.SUT.repositories.pojos.devices.De
 import com.radware.vision.automation.AutoUtils.SUT.repositories.pojos.servers.ServerPojo;
 import com.radware.vision.automation.AutoUtils.SUT.repositories.pojos.setup.Site;
 import com.radware.vision.automation.AutoUtils.SUT.repositories.pojos.setup.TreeDeviceNode;
+import com.radware.vision.automation.AutoUtils.SUT.repositories.pojos.sut.CliConfiguration;
 import com.radware.vision.automation.AutoUtils.SUT.repositories.pojos.sut.ClientConfiguration;
 import com.radware.vision.automation.AutoUtils.utils.ApplicationPropertiesUtils;
 import org.modelmapper.ModelMapper;
@@ -53,7 +55,10 @@ public class SutService {
         ClientConfiguration clientConfiguration = this.sutDao.findClientConfiguration();
         return modelMapper.map(clientConfiguration, ClientConfigurationDto.class);
     }
-
+    public CliConfigurationDto getVisionCliConfigurations() {
+        CliConfiguration cliConfiguration = this.sutDao.findCliConfiguration();
+        return modelMapper.map(cliConfiguration, CliConfigurationDto.class);
+    }
     public List<String> getVisionSetupTreeSites() {
         List<Site> allSites = this.setupDao.findAllSites();
         return allSites.stream().map(Site::getName).collect(Collectors.toList());

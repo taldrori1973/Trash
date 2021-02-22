@@ -5,6 +5,7 @@ package com.radware.vision.base;
 
 import com.radware.vision.automation.AutoUtils.SUT.controllers.SUTManager;
 import com.radware.vision.automation.AutoUtils.SUT.controllers.SUTManagerImpl;
+import com.radware.vision.automation.AutoUtils.SUT.dtos.CliConfigurationDto;
 import com.radware.vision.automation.AutoUtils.SUT.dtos.ClientConfigurationDto;
 import com.radware.vision.systemManagement.licenseManagement.LicenseGenerator;
 import com.radware.vision.systemManagement.serversManagement.ServersManagement;
@@ -22,6 +23,7 @@ public abstract class TestBase {
 
     protected static ManagementInfo managementInfo;
     protected static ClientConfigurationDto clientConfigurations;
+    protected static CliConfigurationDto cliConfigurations;
     protected static LocalDateTime testStartTime;
 
     static {
@@ -32,6 +34,7 @@ public abstract class TestBase {
 
         managementInfo = getVisionConfigurations().getManagementInfo();
         clientConfigurations = getSutManager().getClientConfigurations();
+        cliConfigurations = getSutManager().getCliConfigurations();
         testStartTime =LocalDateTime.now();
     }
 

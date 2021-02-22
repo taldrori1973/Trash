@@ -13,5 +13,15 @@
       "username": "root",
       "password": "rad123"
     }
+  },
+  "cliConfiguration": {
+    "radwareServerCli": {
+      "userName": "radware",
+      "password": "radware"
+    },
+    "rootServerCli": {
+      "userName": "root",
+      "password": "radware"
+    }
   }
 }

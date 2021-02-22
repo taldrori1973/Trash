@@ -3,9 +3,7 @@ package com.radware.vision.automation.VisionAutoInfra.CLIInfra.Servers;
 import com.radware.automation.tools.basetest.BaseTestUtils;
 import com.radware.automation.tools.utils.IPUtils;
 import com.radware.automation.tools.utils.InvokeUtils;
-//import com.radware.vision.utils.RegexUtils;   ///
-import com.radware.vision.vision_project_cli.menu.Menu;  ///
-//import com.radware.vision.vision_tests.CliTests;     ///
+import com.radware.vision.vision_project_cli.menu.Menu;
 import jsystem.extensions.analyzers.text.GetTextCounter;
 import jsystem.framework.report.Summary;
 import systemobject.terminal.Prompt;
@@ -30,7 +28,7 @@ public class RootServerCli extends ServerCliBase {
 
     @Override
     public void init() throws Exception {
-        BaseTestUtils.reporter.startLevel("Init RootServerCli");
+//        BaseTestUtils.reporter.startLevel("Init RootServerCli");
         super.init();
 //        if (!CliTests.isFirstTimeScenario && isConnectOnInit()) {
 //            getVersionAndBuildFromSever();

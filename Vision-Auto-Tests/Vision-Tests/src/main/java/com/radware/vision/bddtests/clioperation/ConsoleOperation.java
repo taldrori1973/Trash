@@ -4,15 +4,19 @@ import com.radware.automation.tools.basetest.BaseTestUtils;
 import com.radware.automation.tools.basetest.Reporter;
 import com.radware.automation.tools.cli.ServerCliBase;
 import com.radware.vision.automation.VisionAutoInfra.CLIInfra.CliOperations;
+import com.radware.vision.automation.VisionAutoInfra.CLIInfra.Servers.RadwareServerCli;
+import com.radware.vision.automation.VisionAutoInfra.CLIInfra.Servers.RootServerCli;
+import com.radware.vision.base.TestBase;
 import com.radware.vision.bddtests.BddCliTestBase;
 import com.radware.vision.utils.SutUtils;
-import com.radware.vision.vision_project_cli.RadwareServerCli;
-import com.radware.vision.vision_project_cli.RootServerCli;
+//import com.radware.vision.vision_project_cli.RadwareServerCli;
+//import com.radware.vision.vision_project_cli.RootServerCli;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.Optional;
 
 
 public class ConsoleOperation extends BddCliTestBase {
@@ -34,14 +38,15 @@ public class ConsoleOperation extends BddCliTestBase {
 
 
             timeOut = timeOut != null ? timeOut : 30;
-            String Host2 = restTestBase.getVisionServerHA().getHost_2();
-            ServerCliBase radwareServerCli = new RadwareServerCli(Host2, SutUtils.getCurrentVisionRestUserName(), SutUtils.getCurrentVisionRestUserPassword());
-            radwareServerCli.init();
-            radwareServerCli.connect();
+            //           kVision
+//            String Host2 = restTestBase.getVisionServerHA().getHost_2();
+//            ServerCliBase radwareServerCli = new RadwareServerCli(Host2, SutUtils.getCurrentVisionRestUserName(), SutUtils.getCurrentVisionRestUserPassword());
+//            radwareServerCli.init();
+//            radwareServerCli.connect();
 //           kVision
 //            CliOperations.runCommand(radwareServerCli, command, timeOut * 1000);
-        }catch (Exception e){
-            BaseTestUtils.report("Failed to execute command: " + command + ", on vision 2 "+"\n" + parseExceptionBody(e), Reporter.FAIL);
+        } catch (Exception e) {
+            BaseTestUtils.report("Failed to execute command: " + command + ", on vision 2 " + "\n" + parseExceptionBody(e), Reporter.FAIL);
 
         }
     }
@@ -55,14 +60,28 @@ public class ConsoleOperation extends BddCliTestBase {
 
     @Then("^CLI Operations - Run Radware Session command \"([^\"]*)\"$")
     public void runRadwareCommand(String command) {
-//       kVision
-//        CliOperations.runCommand(getRestTestBase().getRadwareServerCli(), command);
+        try {
+            Optional<RadwareServerCli> radwareServerCliOpt = TestBase.serversManagement.getRadwareServerCli();
+            if (!radwareServerCliOpt.isPresent()) {
+                throw new Exception("Radware Server Not found!");
+            }
+            CliOperations.runCommand(radwareServerCliOpt.get(), command);
+        } catch (Exception e) {
+            BaseTestUtils.report(String.format("Error: %s", e.getMessage()), Reporter.FAIL);
+        }
     }
 
     @When("^CLI Operations - Run Root Session command \"(.*)\"$")
     public void runRootCommand(String command) {
-//       kVision
-//        CliOperations.runCommand(getRestTestBase().getRootServerCli(), command);
+        try {
+            Optional<RootServerCli> rootServerCliOpt = TestBase.serversManagement.getRootServerCLI();
+            if (!rootServerCliOpt.isPresent()) {
+                throw new Exception("Root Server Not found!");
+            }
+            CliOperations.runCommand(rootServerCliOpt.get(), command);
+        } catch (Exception e) {
+            BaseTestUtils.report(String.format("Error: %s", e.getMessage()), Reporter.FAIL);
+        }
     }
 
     @When("^CLI Operations - Run Root Session command \"(.*)\" timeout (\\d+)$")
@@ -115,9 +134,10 @@ public class ConsoleOperation extends BddCliTestBase {
     @Then("^CLI Connect Root$")
     public void connectRootCLI() {
         try {
-            RootServerCli rootServerCli = restTestBase.getRootServerCli();
-            rootServerCli.disconnect();
-            rootServerCli.connect();
+            //       kVision
+//            RootServerCli rootServerCli = restTestBase.getRootServerCli();
+//            rootServerCli.disconnect();
+//            rootServerCli.connect();
         } catch (Exception e) {
             BaseTestUtils.report("failed to connect Root CLI: " + e.getMessage(), Reporter.FAIL);
         }
@@ -126,9 +146,10 @@ public class ConsoleOperation extends BddCliTestBase {
     @Then("^CLI Connect Radware$")
     public void connectRadwareCLI() {
         try {
-            RadwareServerCli radwareServerCli = restTestBase.getRadwareServerCli();
-            radwareServerCli.disconnect();
-            radwareServerCli.connect();
+            //       kVision
+//            RadwareServerCli radwareServerCli = restTestBase.getRadwareServerCli();
+//            radwareServerCli.disconnect();
+//            radwareServerCli.connect();
         } catch (Exception e) {
             BaseTestUtils.report("failed to connect Radware CLI: " + e.getMessage(), Reporter.FAIL);
         }

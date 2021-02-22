@@ -4,7 +4,6 @@ import com.radware.automation.tools.basetest.BaseTestUtils;
 import com.radware.automation.tools.basetest.Reporter;
 import com.radware.automation.tools.utils.InvokeUtils;
 import com.radware.vision.utils.RegexUtils;
-import com.radware.vision.vision_tests.CliTests;
 import jsystem.extensions.analyzers.text.GetTextCounter;
 import systemobject.terminal.Prompt;
 
@@ -22,6 +21,7 @@ public class RadwareServerCli extends ServerCliBase {
     private boolean isBeginningTheAPSoluteVisionUpgradeProcessEndsCommand = true;
 
     public RadwareServerCli() {
+        super();
     }
 
     public RadwareServerCli(String host, String user, String password) {
@@ -31,12 +31,12 @@ public class RadwareServerCli extends ServerCliBase {
 
     @Override
     public void init() throws Exception {
-        BaseTestUtils.reporter.startLevel("Init RadwareServerCli");
+//        BaseTestUtils.report("Init RadwareServerCli",Reporter.PASS_NOR_FAIL);
         super.init();
-        if (isConnectOnInit() && !CliTests.isFirstTimeScenario) {
-            InvokeUtils.invokeCommand(null, "", this);
-        }
-        BaseTestUtils.reporter.stopLevel();
+//        if (isConnectOnInit() && !CliTests.isFirstTimeScenario) {
+//            InvokeUtils.invokeCommand(null, "", this);
+//        }
+//        BaseTestUtils.reporter.stopLevel();
     }
 
     public void close() {
@@ -76,7 +76,7 @@ public class RadwareServerCli extends ServerCliBase {
     @Override
     public Prompt[] getPrompts() {
         ArrayList<Prompt> prompts = new ArrayList<Prompt>();
-        BaseTestUtils.reporter.report("********************" + getUser() + " " + getPassword());
+//        BaseTestUtils.reporter.report("********************" + getUser() + " " + getPassword());
         Prompt p = new Prompt();
         p.setCommandEnd(true);
         p.setPrompt("$ ");

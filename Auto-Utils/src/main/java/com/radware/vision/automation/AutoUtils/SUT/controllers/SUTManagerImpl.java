@@ -1,6 +1,7 @@
 package com.radware.vision.automation.AutoUtils.SUT.controllers;
 
 import com.fasterxml.jackson.databind.JsonNode;
+import com.radware.vision.automation.AutoUtils.SUT.dtos.CliConfigurationDto;
 import com.radware.vision.automation.AutoUtils.SUT.dtos.ClientConfigurationDto;
 import com.radware.vision.automation.AutoUtils.SUT.dtos.ServerDto;
 import com.radware.vision.automation.AutoUtils.SUT.dtos.TreeDeviceManagementDto;
@@ -38,6 +39,11 @@ public class SUTManagerImpl implements SUTManager {
     @Override
     public ClientConfigurationDto getClientConfigurations() {
         return this.sutService.getVisionConfigurations();
+    }
+
+    @Override
+    public CliConfigurationDto getCliConfigurations() {
+        return this.sutService.getVisionCliConfigurations();
     }
 
     @Override
