@@ -11,13 +11,11 @@ Feature: Edit AppWall Parameters
   Scenario: create new Forensics AppWall and validate
     Then UI Click Button "New Forensics Tab"
     When UI "Create" Forensics With Name "Forensics AppWall"
-      | Product      | AppWall|
-      | Applications | All         |
-      | Output       | Action      |
+      | Product      | AppWall |
+      | Applications | All     |
     Given UI "Validate" Forensics With Name "Forensics AppWall"
-      | Product      | AppWall|
-      | Applications | All         |
-      | Output       | Action      |
+      | Product      | AppWall |
+      | Applications | All     |
 
   @SID_3
   Scenario: Edit Email
@@ -106,25 +104,25 @@ Feature: Edit AppWall Parameters
   @SID_15
   Scenario: Edit Output
     Then UI "Edit" Forensics With Name "Forensics AppWall"
-      | Output | Direction |
+      | Output | Action |
     Then UI "Validate" Forensics With Name "Forensics AppWall"
-      | Output | Direction |
+      | Output | Action |
 
   @SID_16
   Scenario: Edit Scope
     Then UI "Edit" Forensics With Name "Forensics AppWall"
-      | Product      | AppWall|
-      | Applications | Vision      |
+      | Product      | AppWall |
+      | Applications | Vision  |
     Then UI "Validate" Forensics With Name "Forensics AppWall"
-      | Product      | AppWall|
-      | Applications | Vision      |
+      | Product      | AppWall |
+      | Applications | Vision  |
 
   @SID_17
   Scenario: Edit Criteria
     Then UI "Edit" Forensics With Name "Forensics AppWall"
-      | Criteria | Event Criteria:Action,Operator:Not Equals,Value:Http 403 Forbidden |
+      | Criteria | Event Criteria:Action,Operator:Not Equals,Value:Blocked |
     Then UI "Validate" Forensics With Name "Forensics AppWall"
-      | Criteria | Event Criteria:Action,Operator:Not Equals,Value:Http 403 Forbidden |
+      | Criteria | Event Criteria:Action,Operator:Not Equals,Value:Blocked |
 
   @SID_18
   Scenario: Edit Forensics Product
