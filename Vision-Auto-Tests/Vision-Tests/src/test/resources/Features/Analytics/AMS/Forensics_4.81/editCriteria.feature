@@ -1,7 +1,7 @@
 @TC119781
 
 Feature: Edit Criteria Testes
-
+  
   @SID_1
   Scenario: Login and Navigate
     Given UI Login with user "sys_admin" and password "radware"
@@ -37,7 +37,7 @@ Feature: Edit Criteria Testes
     Then UI Set Text Field "Criteria Value Edit Value" and params "text,1" To "Test"
     Then UI Click Button "save"
     Then UI Text of "Error message title" equal to "Unable to Save"
-    Then UI Text of "Error message description" equal to "The Criteria configuration is improper."
+    Then UI Text of "Error message description" equal to "The configuration of one or more of the criteria conditions is invalid."
     Then UI Click Button "errorMessageOK"
     Then UI Click Button "cancel"
     Then UI Click Button "No"
@@ -52,15 +52,14 @@ Feature: Edit Criteria Testes
     Then UI Click Button "Criteria Delete Condition" with value "1"
     Then UI Validate Element Existence By Label "Criteria Delete Condition" if Exists "false" with value "1"
     Then UI Click Button "save"
-
-
+    
   @SID_6
-  Scenario: add new Criteria that contains two conditions
+  Scenario: add new Criteria condition
     Then UI "Edit" Forensics With Name "DefenseFlow Forensics"
-      | Criteria | Event Criteria:Packet Type,Operator:Equals,Value:SSL; Event Criteria:Risk,Operator:Not Equals,Value:Low; |
+      | Criteria |  Event Criteria:Risk,Operator:Not Equals,Value:Low |
 
   @SID_7
-  Scenario: Edit the second condition on Criteria
+  Scenario: Edit the first condition on Criteria
     Then UI Click Button "My Forensics Tab"
     Then UI Click Button "My Forensics" with value "DefenseFlow Forensics"
     Then UI Click Button "Edit Forensics" with value "DefenseFlow Forensics"
@@ -68,18 +67,18 @@ Feature: Edit Criteria Testes
     Then UI Click Button "Criteria Attribute Selected" with value "Risk"
     Then UI Click Button "Criteria Attribute Selected" with value "Attack Name"
     Then UI Click Button "Criteria Attribute Selected" with value "="
-    Then UI Set Text Field "Criteria Value Edit Value" and params "text,2" To "Test"
+    Then UI Set Text Field "Criteria Value Edit Value" and params "text,1" To "Test"
     Then UI Click Button "save"
 
   @SID_8
-  Scenario: Delete the Second condition on Criteria
+  Scenario: Delete the First condition on Criteria
     Then UI Click Button "My Forensics Tab"
     Then UI Click Button "My Forensics" with value "DefenseFlow Forensics"
     Then UI Click Button "Edit Forensics" with value "DefenseFlow Forensics"
     Then UI Click Button "Criteria Tab"
-    Then UI Validate Element Existence By Label "Criteria Delete Condition" if Exists "true" with value "2"
-    Then UI Click Button "Criteria Delete Condition" with value "2"
-    Then UI Validate Element Existence By Label "Criteria Delete Condition" if Exists "false" with value "2"
+    Then UI Validate Element Existence By Label "Criteria Delete Condition" if Exists "true" with value "1"
+    Then UI Click Button "Criteria Delete Condition" with value "1"
+    Then UI Validate Element Existence By Label "Criteria Delete Condition" if Exists "false" with value "1"
     Then UI Click Button "save"
 
   @SID_9
@@ -88,6 +87,7 @@ Feature: Edit Criteria Testes
 
 
     #    ------------------------------------- DefensePro------------------------------------------------------
+
   @SID_10
   Scenario: create new Forensics_DefensePro and validate
     Then UI Click Button "New Forensics Tab"
@@ -105,72 +105,56 @@ Feature: Edit Criteria Testes
     Then UI Click Button "Criteria Attribute Selected" with value "Protocol"
     Then UI Click Button "Criteria Attribute Selected" with value "Source Port"
     Then UI Click Button "Criteria Attribute Selected" with value "="
+    Then UI Click Button "Edit Criteria Value Expand input" with value "1"
     Then UI Click Button "Criteria Value select input" with value "Range"
     Then UI Set Text Field "Criteria Value Input Label" and params "port-from_1" To "3"
     Then UI Set Text Field "Criteria Value Input Label" and params "port-to_1" To "4"
     Then UI Click Button "save"
 
+  @SID_12
+  Scenario: Edit the First condition on Criteria
+    Then UI Click Button "My Forensics Tab"
+    Then UI Click Button "My Forensics" with value "DefensePro Forensics"
+    Then UI Click Button "Edit Forensics" with value "DefensePro Forensics"
+    Then UI Click Button "Criteria Tab"
+    Then UI Set Text Field "Criteria Value Input Label" and params "port-from_1" To "A"
+    Then UI Set Text Field "Criteria Value Input Label" and params "port-to_1" To "4"
+    Then UI Click Button "save"
+    Then UI Text of "Error message title" equal to "Unable to Save"
+    Then UI Text of "Error message description" equal to "The configuration of one or more of the criteria conditions is invalid."
+    Then UI Click Button "errorMessageOK"
+    Then UI Click Button "cancel"
+    Then UI Click Button "No"
 
-#     ----------------------- Ports bug
+  @SID_13
+  Scenario: Edit the First condition on Criteria
+    Then UI Click Button "My Forensics Tab"
+    Then UI Click Button "My Forensics" with value "DefensePro Forensics"
+    Then UI Click Button "Edit Forensics" with value "DefensePro Forensics"
+    Then UI Click Button "Criteria Tab"
+    Then UI Set Text Field "Criteria Value Input Label" and params "port-from_1" To "3"
+    Then UI Set Text Field "Criteria Value Input Label" and params "port-to_1" To "A"
+    Then UI Click Button "save"
+    Then UI Text of "Error message title" equal to "Unable to Save"
+    Then UI Text of "Error message description" equal to "The configuration of one or more of the criteria conditions is invalid."
+    Then UI Click Button "errorMessageOK"
+    Then UI Click Button "cancel"
+    Then UI Click Button "No"
 
-
-#  @SID_12
-#  Scenario: Edit the First condition on Criteria
-#    Then UI Click Button "My Forensics Tab"
-#    Then UI Click Button "My Forensics" with value "DefensePro Forensics"
-#    Then UI Click Button "Edit Forensics" with value "DefensePro Forensics"
-#    Then UI Click Button "Criteria Tab"
-#    Then UI Click Button "Criteria Attribute Selected" with value "Protocol"
-#    Then UI Click Button "Criteria Attribute Selected" with value "Source Port"
-#    Then UI Click Button "Criteria Attribute Selected" with value "="
-#    Then UI Click Button "Criteria Value select input" with value "Range"
-#    Then UI Set Text Field "Criteria Value Input Label" and params "port-from" To "A"
-#    Then UI Set Text Field "Criteria Value Input Label" and params "port-to" To "4"
-#    Then UI Click Button "save"
-#    Then UI Text of "Error message title" equal to "Unable to Save"
-#    Then UI Text of "Error message description" equal to "The Criteria configuration is improper."
-#    Then UI Click Button "errorMessageOK"
-#    Then UI Click Button "cancel"
-#    Then UI Click Button "No"
-#
-#  @SID_13
-#  Scenario: Edit the First condition on Criteria
-#    Then UI Click Button "My Forensics Tab"
-#    Then UI Click Button "My Forensics" with value "DefensePro Forensics"
-#    Then UI Click Button "Edit Forensics" with value "DefensePro Forensics"
-#    Then UI Click Button "Criteria Tab"
-#    Then UI Click Button "Criteria Attribute Selected" with value "Protocol"
-#    Then UI Click Button "Criteria Attribute Selected" with value "Source Port"
-#    Then UI Click Button "Criteria Attribute Selected" with value "="
-#    Then UI Click Button "Criteria Value select input" with value "Range"
-#    Then UI Set Text Field "Criteria Value Input Label" and params "port-from" To "3"
-#    Then UI Set Text Field "Criteria Value Input Label" and params "port-to" To "A"
-#    Then UI Click Button "save"
-#    Then UI Text of "Error message title" equal to "Unable to Save"
-#    Then UI Text of "Error message description" equal to "The Criteria configuration is improper."
-#    Then UI Click Button "errorMessageOK"
-#    Then UI Click Button "cancel"
-#    Then UI Click Button "No"
-#
-#  @SID_14
-#  Scenario: Edit the First condition on Criteria
-#    Then UI Click Button "My Forensics Tab"
-#    Then UI Click Button "My Forensics" with value "DefensePro Forensics"
-#    Then UI Click Button "Edit Forensics" with value "DefensePro Forensics"
-#    Then UI Click Button "Criteria Tab"
-#    Then UI Click Button "Criteria Attribute Selected" with value "Protocol"
-#    Then UI Click Button "Criteria Attribute Selected" with value "Source Port"
-#    Then UI Click Button "Criteria Attribute Selected" with value "="
-#    Then UI Click Button "Criteria Value select input" with value "Range"
-#    Then UI Set Text Field "Criteria Value Input Label" and params "port-from" To "A"
-#    Then UI Set Text Field "Criteria Value Input Label" and params "port-to" To "A"
-#    Then UI Click Button "save"
-#    Then UI Text of "Error message title" equal to "Unable to Save"
-#    Then UI Text of "Error message description" equal to "The Criteria configuration is improper."
-#    Then UI Click Button "errorMessageOK"
-#    Then UI Click Button "cancel"
-#    Then UI Click Button "No"
-
+  @SID_14
+  Scenario: Edit the First condition on Criteria
+    Then UI Click Button "My Forensics Tab"
+    Then UI Click Button "My Forensics" with value "DefensePro Forensics"
+    Then UI Click Button "Edit Forensics" with value "DefensePro Forensics"
+    Then UI Click Button "Criteria Tab"
+    Then UI Set Text Field "Criteria Value Input Label" and params "port-from_1" To "A"
+    Then UI Set Text Field "Criteria Value Input Label" and params "port-to_1" To "A"
+    Then UI Click Button "save"
+    Then UI Text of "Error message title" equal to "Unable to Save"
+    Then UI Text of "Error message description" equal to "The configuration of one or more of the criteria conditions is invalid."
+    Then UI Click Button "errorMessageOK"
+    Then UI Click Button "cancel"
+    Then UI Click Button "No"
 
   @SID_15
   Scenario: Delete the first condition on Criteria
@@ -184,9 +168,9 @@ Feature: Edit Criteria Testes
     Then UI Click Button "save"
 
   @SID_16
-  Scenario: add new Criteria that contians two conditions
+  Scenario: add new Criteria condition
     Then UI "Edit" Forensics With Name "DefensePro Forensics"
-      | Criteria | Event Criteria:Duration,Operator:Equals,Value:1-5 min; Event Criteria:Direction,Operator:Not Equals,Value:Both; |
+      | Criteria | Event Criteria:Duration,Operator:Not Equals,Value:1-5min |
 
   @SID_17
   Scenario: Edit the First condition on Criteria
@@ -201,14 +185,14 @@ Feature: Edit Criteria Testes
     Then UI Click Button "save"
 
   @SID_18
-  Scenario: Delete the Second condition on Criteria
+  Scenario: Delete the First condition on Criteria
     Then UI Click Button "My Forensics Tab"
     Then UI Click Button "My Forensics" with value "DefensePro Forensics"
     Then UI Click Button "Edit Forensics" with value "DefensePro Forensics"
     Then UI Click Button "Criteria Tab"
-    Then UI Validate Element Existence By Label "Criteria Delete Condition" if Exists "true" with value "2"
-    Then UI Click Button "Criteria Delete Condition" with value "2"
-    Then UI Validate Element Existence By Label "Criteria Delete Condition" if Exists "false" with value "2"
+    Then UI Validate Element Existence By Label "Criteria Delete Condition" if Exists "true" with value "1"
+    Then UI Click Button "Criteria Delete Condition" with value "1"
+    Then UI Validate Element Existence By Label "Criteria Delete Condition" if Exists "false" with value "1"
     Then UI Click Button "save"
 
   @SID_19
@@ -216,27 +200,27 @@ Feature: Edit Criteria Testes
     Then UI Delete Forensics With Name "DefensePro Forensics"
 
         #    ------------------------------------- AppWall------------------------------------------------------
-
+  
   @SID_20
   Scenario: create new Forensics_AppWall and validate
     Then UI Click Button "New Forensics Tab"
     When UI "Create" Forensics With Name "AppWall Forensics"
       | Product      | AppWall                                              |
       | Applications | All                                                  |
-      | Criteria     | Event Criteria:Tunnel,Operator:Not Equals,Value:123 |
-
+      | Criteria | Event Criteria:Action,Operator:Not Equals,Value:Modified |
+  
   @SID_21
   Scenario: Edit the First condition on Criteria
     Then UI Click Button "My Forensics Tab"
     Then UI Click Button "My Forensics" with value "AppWall Forensics"
     Then UI Click Button "Edit Forensics" with value "AppWall Forensics"
     Then UI Click Button "Criteria Tab"
-    Then UI Click Button "Criteria Attribute Selected" with value "Tunnel"
-    Then UI Click Button "Criteria Attribute Selected" with value "Web Application Name"
+    Then UI Click Button "Criteria Attribute Selected" with value "Action"
+    Then UI Click Button "Criteria Attribute Selected" with value "Attack Name"
     Then UI Click Button "Criteria Attribute Selected" with value "="
-    Then UI Set Text Field "Criteria Value Edit Value" and params "text,1" To "Test"
+    Then UI Set Text Field "Criteria Value Edit Value" and params "text,1" To "test"
     Then UI Click Button "save"
-
+  
   @SID_22
   Scenario: Delete the first condition on Criteria
     Then UI Click Button "My Forensics Tab"
@@ -248,39 +232,23 @@ Feature: Edit Criteria Testes
     Then UI Validate Element Existence By Label "Criteria Delete Condition" if Exists "false" with value "1"
     Then UI Click Button "save"
 
+  
   @SID_23
-  Scenario: add new Criteria that contians two conditions
-    Then UI "Edit" Forensics With Name "AppWall Forensics"
-      | Criteria | Event Criteria:Action,Operator:Not Equals,Value:Http 403 Forbidden; Event Criteria:Threat Category,Operator:Not Equals,Value:Dos; |
-
+  Scenario: Delete the First condition on Criteria
+    Then UI Click Button "My Forensics Tab"
+    Then UI Click Button "My Forensics" with value "AppWall Forensics"
+    Then UI Click Button "Edit Forensics" with value "AppWall Forensics"
+    Then UI Click Button "Criteria Tab"
+    Then UI Validate Element Existence By Label "Criteria Delete Condition" if Exists "true" with value "1"
+    Then UI Click Button "Criteria Delete Condition" with value "1"
+    Then UI Validate Element Existence By Label "Criteria Delete Condition" if Exists "false" with value "1"
+    Then UI Click Button "save"
+  
   @SID_24
-  Scenario: Edit the First condition on Criteria
-    Then UI Click Button "My Forensics Tab"
-    Then UI Click Button "My Forensics" with value "AppWall Forensics"
-    Then UI Click Button "Edit Forensics" with value "AppWall Forensics"
-    Then UI Click Button "Criteria Tab"
-    Then UI Click Button "Criteria Attribute Selected" with value "Action"
-    Then UI Click Button "Criteria Attribute Selected" with value "Transaction ID"
-    Then UI Click Button "Criteria Attribute Selected" with value "="
-    Then UI Set Text Field "Criteria Value Edit Value" and params "text,1" To "123"
-    Then UI Click Button "save"
-
-  @SID_25
-  Scenario: Delete the Second condition on Criteria
-    Then UI Click Button "My Forensics Tab"
-    Then UI Click Button "My Forensics" with value "AppWall Forensics"
-    Then UI Click Button "Edit Forensics" with value "AppWall Forensics"
-    Then UI Click Button "Criteria Tab"
-    Then UI Validate Element Existence By Label "Criteria Delete Condition" if Exists "true" with value "2"
-    Then UI Click Button "Criteria Delete Condition" with value "2"
-    Then UI Validate Element Existence By Label "Criteria Delete Condition" if Exists "false" with value "2"
-    Then UI Click Button "save"
-
-  @SID_26
   Scenario: Delete AppWall Forensics
     Then UI Delete Forensics With Name "AppWall Forensics"
 
-  @SID_27
+  @SID_25
   Scenario: Logout
     Then UI logout and close browser
 
