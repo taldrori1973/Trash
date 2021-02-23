@@ -31,12 +31,12 @@ Feature: Forensic Time Selection
     Then UI Click Button "My Forensics" with value "Forensic Time"
     Then UI Click Button "Generate Snapshot Forensics Manually" with value "Forensic Time"
     Then Sleep "35"
-    Then UI Click Button "Views.report" with value "Forensic Time"
-    Then UI Validate "Report.Table" Table rows count EQUALS to 2
-    Then UI Validate Table record values by columns with elementLabel "Report.Table" findBy columnName "Attack ID" findBy cellValue "4-1402580209"
+    Then UI Click Button "Views.Forensic" with value "Forensic Time"
+    Then UI Validate "Forensics.Table" Table rows count EQUALS to 2
+    Then UI Validate Table record values by columns with elementLabel "Forensics.Table" findBy columnName "Attack ID" findBy cellValue "4-1402580209"
       | columnName | value        |
       | Attack ID  | 4-1402580209 |
-    Then UI Validate Table record values by columns with elementLabel "Report.Table" findBy columnName "Attack ID" findBy cellValue "7706-1402580209"
+    Then UI Validate Table record values by columns with elementLabel "Forensics.Table" findBy columnName "Attack ID" findBy cellValue "7706-1402580209"
       | columnName | value           |
       | Attack ID  | 7706-1402580209 |
        # move Anomalies start time back to original
@@ -59,12 +59,12 @@ Feature: Forensic Time Selection
     Then UI Click Button "My Forensics" with value "Forensic Time"
     Then UI Click Button "Generate Snapshot Forensics Manually" with value "Forensic Time"
     Then Sleep "35"
-    Then UI Click Button "Views.report" with value "Forensic Time"
-    Then UI Validate "Report.Table" Table rows count EQUALS to 2
-    Then UI Validate Table record values by columns with elementLabel "Report.Table" findBy columnName "Attack ID" findBy cellValue "4-1402580209"
+    Then UI Click Button "Views.Forensic" with value "Forensic Time"
+    Then UI Validate "Forensics.Table" Table rows count EQUALS to 2
+    Then UI Validate Table record values by columns with elementLabel "Forensics.Table" findBy columnName "Attack ID" findBy cellValue "4-1402580209"
       | columnName | value        |
       | Attack ID  | 4-1402580209 |
-    Then UI Validate Table record values by columns with elementLabel "Report.Table" findBy columnName "Attack ID" findBy cellValue "7706-1402580209"
+    Then UI Validate Table record values by columns with elementLabel "Forensics.Table" findBy columnName "Attack ID" findBy cellValue "7706-1402580209"
       | columnName | value           |
       | Attack ID  | 7706-1402580209 |
           # move Anomalies start time back to original
@@ -86,9 +86,9 @@ Feature: Forensic Time Selection
     Then UI Click Button "My Forensics" with value "Forensic Time"
     Then UI Click Button "Generate Snapshot Forensics Manually" with value "Forensic Time"
     Then Sleep "35"
-    Then UI Click Button "Views.report" with value "Forensic Time"
-    Then UI Validate "Report.Table" Table rows count EQUALS to 1
-    Then UI Validate Table record values by columns with elementLabel "Report.Table" findBy columnName "Attack ID" findBy cellValue "4-1402580209"
+    Then UI Click Button "Views.Forensic" with value "Forensic Time"
+    Then UI Validate "Forensics.Table" Table rows count EQUALS to 1
+    Then UI Validate Table record values by columns with elementLabel "Forensics.Table" findBy columnName "Attack ID" findBy cellValue "4-1402580209"
       | columnName | value        |
       | Attack ID  | 4-1402580209 |
     Then CLI Run remote linux Command "curl -X POST localhost:9200/dp-attack-raw-*/_search -d '{"query":{"bool":{"must":[{"match_all":{}}]}},"from":0,"size":10}' > /opt/radware/storage/maintenance/yesterday.log" on "ROOT_SERVER_CLI"
@@ -110,12 +110,12 @@ Feature: Forensic Time Selection
     Then UI Click Button "My Forensics" with value "Forensic Time"
     Then UI Click Button "Generate Snapshot Forensics Manually" with value "Forensic Time"
     Then Sleep "35"
-    Then UI Click Button "Views.report" with value "Forensic Time"
-    Then UI Validate "Report.Table" Table rows count EQUALS to 2
-    Then UI Validate Table record values by columns with elementLabel "Report.Table" findBy columnName "Attack ID" findBy cellValue "4-1402580209"
+    Then UI Click Button "Views.Forensic" with value "Forensic Time"
+    Then UI Validate "Forensics.Table" Table rows count EQUALS to 2
+    Then UI Validate Table record values by columns with elementLabel "Forensics.Table" findBy columnName "Attack ID" findBy cellValue "4-1402580209"
       | columnName | value        |
       | Attack ID  | 4-1402580209 |
-    Then UI Validate Table record values by columns with elementLabel "Report.Table" findBy columnName "Attack ID" findBy cellValue "7706-1402580209"
+    Then UI Validate Table record values by columns with elementLabel "Forensics.Table" findBy columnName "Attack ID" findBy cellValue "7706-1402580209"
       | columnName | value           |
       | Attack ID  | 7706-1402580209 |
       # move start time 6 days and 23.5 Hrs fwd
@@ -135,12 +135,12 @@ Feature: Forensic Time Selection
     Then UI Click Button "My Forensics" with value "Forensic Time"
     Then UI Click Button "Generate Snapshot Forensics Manually" with value "Forensic Time"
     Then Sleep "35"
-    Then UI Click Button "Views.report" with value "Forensic Time"
-    Then UI Validate "Report.Table" Table rows count EQUALS to 2
-    Then UI Validate Table record values by columns with elementLabel "Report.Table" findBy columnName "Attack ID" findBy cellValue "4-1402580209"
+    Then UI Click Button "Views.Forensic" with value "Forensic Time"
+    Then UI Validate "Forensics.Table" Table rows count EQUALS to 2
+    Then UI Validate Table record values by columns with elementLabel "Forensics.Table" findBy columnName "Attack ID" findBy cellValue "4-1402580209"
       | columnName | value        |
       | Attack ID  | 4-1402580209 |
-    Then UI Validate Table record values by columns with elementLabel "Report.Table" findBy columnName "Attack ID" findBy cellValue "7706-1402580209"
+    Then UI Validate Table record values by columns with elementLabel "Forensics.Table" findBy columnName "Attack ID" findBy cellValue "7706-1402580209"
       | columnName | value           |
       | Attack ID  | 7706-1402580209 |
           # move start time 6 days and 23.5 Hrs fwd
@@ -160,12 +160,12 @@ Feature: Forensic Time Selection
     Then UI Click Button "My Forensics" with value "Forensic Time"
     Then UI Click Button "Generate Snapshot Forensics Manually" with value "Forensic Time"
     Then Sleep "35"
-    Then UI Click Button "Views.report" with value "Forensic Time"
-    Then UI Validate "Report.Table" Table rows count EQUALS to 2
-    Then UI Validate Table record values by columns with elementLabel "Report.Table" findBy columnName "Attack ID" findBy cellValue "4-1402580209"
+    Then UI Click Button "Views.Forensic" with value "Forensic Time"
+    Then UI Validate "Forensics.Table" Table rows count EQUALS to 2
+    Then UI Validate Table record values by columns with elementLabel "Forensics.Table" findBy columnName "Attack ID" findBy cellValue "4-1402580209"
       | columnName | value        |
       | Attack ID  | 4-1402580209 |
-    Then UI Validate Table record values by columns with elementLabel "Report.Table" findBy columnName "Attack ID" findBy cellValue "7706-1402580209"
+    Then UI Validate Table record values by columns with elementLabel "Forensics.Table" findBy columnName "Attack ID" findBy cellValue "7706-1402580209"
       | columnName | value           |
       | Attack ID  | 7706-1402580209 |
        # move start time 28 days and 23.5 hrs fwd
@@ -186,12 +186,12 @@ Feature: Forensic Time Selection
     Then UI Click Button "My Forensics" with value "Forensic Time"
     Then UI Click Button "Generate Snapshot Forensics Manually" with value "Forensic Time"
     Then Sleep "35"
-    Then UI Click Button "Views.report" with value "Forensic Time"
-    Then UI Validate "Report.Table" Table rows count EQUALS to 2
-    Then UI Validate Table record values by columns with elementLabel "Report.Table" findBy columnName "Attack ID" findBy cellValue "4-1402580209"
+    Then UI Click Button "Views.Forensic" with value "Forensic Time"
+    Then UI Validate "Forensics.Table" Table rows count EQUALS to 2
+    Then UI Validate Table record values by columns with elementLabel "Forensics.Table" findBy columnName "Attack ID" findBy cellValue "4-1402580209"
       | columnName | value        |
       | Attack ID  | 4-1402580209 |
-    Then UI Validate Table record values by columns with elementLabel "Report.Table" findBy columnName "Attack ID" findBy cellValue "7706-1402580209"
+    Then UI Validate Table record values by columns with elementLabel "Forensics.Table" findBy columnName "Attack ID" findBy cellValue "7706-1402580209"
       | columnName | value           |
       | Attack ID  | 7706-1402580209 |
         # move start time 28 days and 23.5 hrs fwd
@@ -211,12 +211,12 @@ Feature: Forensic Time Selection
     Then UI Click Button "My Forensics" with value "Forensic Time"
     Then UI Click Button "Generate Snapshot Forensics Manually" with value "Forensic Time"
     Then Sleep "35"
-    Then UI Click Button "Views.report" with value "Forensic Time"
-    Then UI Validate "Report.Table" Table rows count EQUALS to 2
-    Then UI Validate Table record values by columns with elementLabel "Report.Table" findBy columnName "Attack ID" findBy cellValue "4-1402580209"
+    Then UI Click Button "Views.Forensic" with value "Forensic Time"
+    Then UI Validate "Forensics.Table" Table rows count EQUALS to 2
+    Then UI Validate Table record values by columns with elementLabel "Forensics.Table" findBy columnName "Attack ID" findBy cellValue "4-1402580209"
       | columnName | value        |
       | Attack ID  | 4-1402580209 |
-    Then UI Validate Table record values by columns with elementLabel "Report.Table" findBy columnName "Attack ID" findBy cellValue "7706-1402580209"
+    Then UI Validate Table record values by columns with elementLabel "Forensics.Table" findBy columnName "Attack ID" findBy cellValue "7706-1402580209"
       | columnName | value           |
       | Attack ID  | 7706-1402580209 |
        # move start time 88 days and 23.5 hrs fwd
@@ -236,12 +236,12 @@ Feature: Forensic Time Selection
     Then UI Click Button "My Forensics" with value "Forensic Time"
     Then UI Click Button "Generate Snapshot Forensics Manually" with value "Forensic Time"
     Then Sleep "35"
-    Then UI Click Button "Views.report" with value "Forensic Time"
-    Then UI Validate "Report.Table" Table rows count EQUALS to 2
-    Then UI Validate Table record values by columns with elementLabel "Report.Table" findBy columnName "Attack ID" findBy cellValue "4-1402580209"
+    Then UI Click Button "Views.Forensic" with value "Forensic Time"
+    Then UI Validate "Forensics.Table" Table rows count EQUALS to 2
+    Then UI Validate Table record values by columns with elementLabel "Forensics.Table" findBy columnName "Attack ID" findBy cellValue "4-1402580209"
       | columnName | value        |
       | Attack ID  | 4-1402580209 |
-    Then UI Validate Table record values by columns with elementLabel "Report.Table" findBy columnName "Attack ID" findBy cellValue "7706-1402580209"
+    Then UI Validate Table record values by columns with elementLabel "Forensics.Table" findBy columnName "Attack ID" findBy cellValue "7706-1402580209"
       | columnName | value           |
       | Attack ID  | 7706-1402580209 |
         # move start time 11.5 months fwd
@@ -261,12 +261,12 @@ Feature: Forensic Time Selection
     Then UI Click Button "My Forensics" with value "Forensic Time"
     Then UI Click Button "Generate Snapshot Forensics Manually" with value "Forensic Time"
     Then Sleep "35"
-    Then UI Click Button "Views.report" with value "Forensic Time"
-    Then UI Validate "Report.Table" Table rows count EQUALS to 2
-    Then UI Validate Table record values by columns with elementLabel "Report.Table" findBy columnName "Attack ID" findBy cellValue "4-1402580209"
+    Then UI Click Button "Views.Forensic" with value "Forensic Time"
+    Then UI Validate "Forensics.Table" Table rows count EQUALS to 2
+    Then UI Validate Table record values by columns with elementLabel "Forensics.Table" findBy columnName "Attack ID" findBy cellValue "4-1402580209"
       | columnName | value        |
       | Attack ID  | 4-1402580209 |
-    Then UI Validate Table record values by columns with elementLabel "Report.Table" findBy columnName "Attack ID" findBy cellValue "7706-1402580209"
+    Then UI Validate Table record values by columns with elementLabel "Forensics.Table" findBy columnName "Attack ID" findBy cellValue "7706-1402580209"
       | columnName | value           |
       | Attack ID  | 7706-1402580209 |
        # move start time 11.5 months fwd
@@ -287,12 +287,12 @@ Feature: Forensic Time Selection
     Then UI Click Button "My Forensics" with value "Forensic Time"
     Then UI Click Button "Generate Snapshot Forensics Manually" with value "Forensic Time"
     Then Sleep "35"
-    And UI Click Button "Views.report" with value "Forensic Time"
-    Then UI Validate "Report.Table" Table rows count EQUALS to 2
-    Then UI Validate Table record values by columns with elementLabel "Report.Table" findBy columnName "Attack ID" findBy cellValue "7706-1402580209"
+    And UI Click Button "Views.Forensic" with value "Forensic Time"
+    Then UI Validate "Forensics.Table" Table rows count EQUALS to 2
+    Then UI Validate Table record values by columns with elementLabel "Forensics.Table" findBy columnName "Attack ID" findBy cellValue "7706-1402580209"
       | columnName | value           |
       | Attack ID  | 7706-1402580209 |
-    Then UI Validate Table record values by columns with elementLabel "Report.Table" findBy columnName "Attack ID" findBy cellValue "4-1402580209"
+    Then UI Validate Table record values by columns with elementLabel "Forensics.Table" findBy columnName "Attack ID" findBy cellValue "4-1402580209"
       | columnName | value        |
       | Attack ID  | 4-1402580209 |
     Then UI Delete Forensics With Name "Forensic Time"
@@ -312,12 +312,12 @@ Feature: Forensic Time Selection
     Then UI Click Button "My Forensics" with value "Forensic Time"
     Then UI Click Button "Generate Snapshot Forensics Manually" with value "Forensic Time"
     Then Sleep "35"
-    And UI Click Button "Views.report" with value "Forensic Time"
-    Then UI Validate "Report.Table" Table rows count EQUALS to 2
-    Then UI Validate Table record values by columns with elementLabel "Report.Table" findBy columnName "Attack ID" findBy cellValue "7706-1402580209"
+    And UI Click Button "Views.Forensic" with value "Forensic Time"
+    Then UI Validate "Forensics.Table" Table rows count EQUALS to 2
+    Then UI Validate Table record values by columns with elementLabel "Forensics.Table" findBy columnName "Attack ID" findBy cellValue "7706-1402580209"
       | columnName | value           |
       | Attack ID  | 7706-1402580209 |
-    Then UI Validate Table record values by columns with elementLabel "Report.Table" findBy columnName "Attack ID" findBy cellValue "4-1402580209"
+    Then UI Validate Table record values by columns with elementLabel "Forensics.Table" findBy columnName "Attack ID" findBy cellValue "4-1402580209"
       | columnName | value        |
       | Attack ID  | 4-1402580209 |
     Then UI Delete Forensics With Name "Forensic Time"
@@ -336,12 +336,12 @@ Feature: Forensic Time Selection
     Then UI Click Button "My Forensics" with value "Forensic Time"
     Then UI Click Button "Generate Snapshot Forensics Manually" with value "Forensic Time"
     Then Sleep "35"
-    And UI Click Button "Views.report" with value "Forensic Time"
-    Then UI Validate "Report.Table" Table rows count EQUALS to 2
-    Then UI Validate Table record values by columns with elementLabel "Report.Table" findBy columnName "Attack ID" findBy cellValue "7706-1402580209"
+    And UI Click Button "Views.Forensic" with value "Forensic Time"
+    Then UI Validate "Forensics.Table" Table rows count EQUALS to 2
+    Then UI Validate Table record values by columns with elementLabel "Forensics.Table" findBy columnName "Attack ID" findBy cellValue "7706-1402580209"
       | columnName | value           |
       | Attack ID  | 7706-1402580209 |
-    Then UI Validate Table record values by columns with elementLabel "Report.Table" findBy columnName "Attack ID" findBy cellValue "4-1402580209"
+    Then UI Validate Table record values by columns with elementLabel "Forensics.Table" findBy columnName "Attack ID" findBy cellValue "4-1402580209"
       | columnName | value        |
       | Attack ID  | 4-1402580209 |
     Then UI Delete Forensics With Name "Forensic Time"
