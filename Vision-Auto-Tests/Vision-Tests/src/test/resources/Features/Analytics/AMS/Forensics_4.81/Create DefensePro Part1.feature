@@ -279,7 +279,7 @@ Feature:DefensePro Part1
 
   @SID_26
   Scenario: create new Output Destination IP Address,Destination Port,Direction,Protocol,Radware ID,Duration,Total Packets Dropped
-    When UI "Create" Forensics With Name "Output Destination IP Address,Destination Port,Direction,Protocol,Radware ID,Duration,Total Packets Dropped"
+    When UI "Create" Forensics With Name "Output Destination IP Address_Destination Port_Direction_Protocol_Radware ID_Duration_Total Packets Dropped"
       | Product               | DefensePro                                                                                           |
       | Output                | Destination IP Address,Destination Port,Direction,Protocol,Radware ID,Duration,Total Packets Dropped |
       | Criteria              | condition.All:true                                                                                   |
@@ -290,7 +290,7 @@ Feature:DefensePro Part1
 
   @SID_27
   Scenario: create new Output Action,Attack ID,Policy Name,Source IP Address,Destination IP Address,Destination Port,Total Mbits Dropped,Max bps,Physical Port,Risk,VLAN Tag
-    When UI "Create" Forensics With Name "Output Action,Attack ID,Policy Name,Source IP Address,Destination IP Address,Destination Port,Total Mbits Dropped,Max bps,Physical Port,Risk,VLAN Tag"
+    When UI "Create" Forensics With Name "Output Action_Attack ID_Policy Name_Source IP Address_Destination IP Address_Destination Port_Total Mbits Dropped_Max bps_Physical Port_Risk_VLAN Tag"
       | Product               | DefensePro                                                                                                                                      |
       | Output                | Action,Attack ID,Policy Name,Source IP Address,Destination IP Address,Destination Port,Total Mbits Dropped,Max bps,Physical Port,Risk,VLAN Tag  |
       | Criteria              | condition.All:true                                                                                                                              |
@@ -302,7 +302,7 @@ Feature:DefensePro Part1
 
   @SID_28
   Scenario: create new Output Source IP Address,Source Port,Destination IP Address,Radware ID,Duration,Total Packets Dropped,Max pps
-    When UI "Create" Forensics With Name "Output Source IP Address,Source Port,Destination IP Address,Radware ID,Duration,Total Packets Dropped,Max pps"
+    When UI "Create" Forensics With Name "Output Source IP Address_Source Port_Destination IP Address_Radware ID_Duration_Total Packets Dropped_Max pps"
       | Product               | DefensePro                                                                                             |
       | Output                | Source IP Address,Source Port,Destination IP Address,Radware ID,Duration,Total Packets Dropped,Max pps |
       | Criteria              | condition.All:true                                                                                     |
@@ -314,7 +314,7 @@ Feature:DefensePro Part1
 
   @SID_29
   Scenario: create new Output Start Time,End Time,Device IP Address,Threat Category,Attack Name,Action
-    When UI "Create" Forensics With Name "Output Start Time,End Time,Device IP Address,Threat Category,Attack Name,Action"
+    When UI "Create" Forensics With Name "Output Start Time_End Time_Device IP Address_Threat Category_Attack Name_Action"
       | Product               | DefensePro                                                                                                       |
       | Output                | Start Time,End Time,Device IP Address,Threat Category,Attack Name,Action                                         |
       | Criteria              | condition.All:true                                                                                               |
@@ -325,7 +325,7 @@ Feature:DefensePro Part1
 
   @SID_30
   Scenario: create new Output Policy Name,Source IP Address
-    When UI "Create" Forensics With Name "Output Policy Name,Source IP Address"
+    When UI "Create" Forensics With Name "Output Policy Name_Source IP Address"
       | Product               | DefensePro                                                                     |
       | Output                | Policy Name,Source IP Address                                                  |
       | Criteria              | condition.All:true                                                             |
@@ -337,7 +337,7 @@ Feature:DefensePro Part1
 
   @SID_31
   Scenario: create new Output Destination IP Address,Destination Port,Direction
-    When UI "Create" Forensics With Name "Output Destination IP Address,Destination Port,Direction"
+    When UI "Create" Forensics With Name "Output Destination IP Address_Destination Port_Direction"
       | Product               | DefensePro                                                                                                       |
       | Output                | Destination IP Address,Destination Port,Direction                                                                |
       | Criteria              | condition.All:true                                                                                               |
