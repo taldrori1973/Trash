@@ -4,7 +4,7 @@ Feature: Negative Forensics tests to validate Error Messages
   
   @SID_1
   Scenario: Navigate to NEW ForensicsS page
-#    * REST Delete ES index "forensics-*"
+    * REST Delete ES index "forensics-*"
     Then UI Login with user "radware" and password "radware"
     Then UI Navigate to "New Forensics" page via homepage
     Then UI Click Button "New Forensics Tab"
