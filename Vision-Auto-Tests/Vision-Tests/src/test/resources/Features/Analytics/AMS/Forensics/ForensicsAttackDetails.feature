@@ -299,9 +299,9 @@ Feature: Forensic Attack details Tests
 
   @SID_31
   Scenario: VRM - open forensic "Attack details" table
-    When UI Click Button "Views.Expand" with value "Attack_Details"
-    And UI Click Button "Views.Generate Now" with value "Attack_Details"
-    And Sleep "30"
+    Then UI Click Button "My Forensics" with value "Attack_Details"
+    Then UI Click Button "Generate Snapshot Forensics Manually" with value "Attack_Details"
+    Then Sleep "35"
     And UI Click Button "Views.Forensic" with value "Attack_Details"
     Then UI click Table row by keyValue or Index with elementLabel "Forensics.Table" findBy columnName "Attack ID" findBy cellValue "7839-1402580209"
 
@@ -667,8 +667,9 @@ Feature: Forensic Attack details Tests
     And UI Click Button "Tab" with value "criteria-tab"
     Then UI Click Button "Criteria.Any"
     Then UI Click Button "Submit" with value "Submit"
-    Then UI Generate and Validate Forensics With Name "Attack ACL" with Timeout of 180 Seconds
-    And Sleep "30"
+    Then UI Click Button "My Forensics" with value "Attack ACL"
+    Then UI Click Button "Generate Snapshot Forensics Manually" with value "Attack ACL"
+    Then Sleep "35"
     And UI Click Button "Views.Forensic" with value "Attack ACL"
 
   @SID_59

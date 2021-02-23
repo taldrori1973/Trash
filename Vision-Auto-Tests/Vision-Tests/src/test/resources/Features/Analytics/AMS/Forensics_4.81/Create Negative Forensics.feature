@@ -1,10 +1,10 @@
 @TC119593 
 Feature: Negative Forensics tests to validate Error Messages
 
-  @Test12
+  
   @SID_1
   Scenario: Navigate to NEW ForensicsS page
-    * REST Delete ES index "forensics-*"
+#    * REST Delete ES index "forensics-*"
     Then UI Login with user "radware" and password "radware"
     Then UI Navigate to "New Forensics" page via homepage
     Then UI Click Button "New Forensics Tab"
@@ -185,7 +185,7 @@ Feature: Negative Forensics tests to validate Error Messages
     Then UI Set Text Field "Criteria Value Edit Value" and params "text,1" To " "
     Then UI Click Button "save"
     Then UI Text of "Error message title" equal to "Unable to Save"
-    Then UI Text of "Error message description" equal to "The Criteria configuration is improper."
+    Then UI Text of "Error message description" equal to "The configuration of one or more of the criteria conditions is invalid."
     Then UI Click Button "errorMessageOK"
     Then UI Click Button "cancel"
     Then UI Click Button "No"
@@ -205,7 +205,7 @@ Feature: Negative Forensics tests to validate Error Messages
     Then UI Set Text Field "Criteria Value Edit Value" and params "rate,1" To "text"
     Then UI Click Button "save"
     Then UI Text of "Error message title" equal to "Unable to Save"
-    Then UI Text of "Error message description" equal to "The Criteria configuration is improper."
+    Then UI Text of "Error message description" equal to "The configuration of one or more of the criteria conditions is invalid."
     Then UI Click Button "errorMessageOK"
     Then UI Click Button "cancel"
     Then UI Click Button "No"
@@ -224,7 +224,7 @@ Feature: Negative Forensics tests to validate Error Messages
     Then UI Set Text Field "Criteria Value Edit Value" and params "rate,1" To "text"
     Then UI Click Button "save"
     Then UI Text of "Error message title" equal to "Unable to Save"
-    Then UI Text of "Error message description" equal to "The Criteria configuration is improper."
+    Then UI Text of "Error message description" equal to "The configuration of one or more of the criteria conditions is invalid."
     Then UI Click Button "errorMessageOK"
     Then UI Click Button "cancel"
     Then UI Click Button "No"
@@ -244,7 +244,7 @@ Feature: Negative Forensics tests to validate Error Messages
     Then UI Set Text Field "Criteria Value Edit Value" and params "ip,1" To "text"
     Then UI Click Button "save"
     Then UI Text of "Error message title" equal to "Unable to Save"
-    Then UI Text of "Error message description" equal to "The Criteria configuration is improper."
+    Then UI Text of "Error message description" equal to "The configuration of one or more of the criteria conditions is invalid."
     Then UI Click Button "errorMessageOK"
     Then UI Click Button "cancel"
     Then UI Click Button "No"
@@ -263,12 +263,12 @@ Feature: Negative Forensics tests to validate Error Messages
     Then UI Set Text Field "Criteria Value Edit Value" and params "port-from,1" To "text"
     Then UI Click Button "save"
     Then UI Text of "Error message title" equal to "Unable to Save"
-    Then UI Text of "Error message description" equal to "The Criteria configuration is improper."
+    Then UI Text of "Error message description" equal to "The configuration of one or more of the criteria conditions is invalid."
     Then UI Click Button "errorMessageOK"
     Then UI Click Button "cancel"
     Then UI Click Button "No"
 
-  @Test12
+
   @SID_17
   Scenario: Add Forensics with invalid Source IP in Criteria - DP
     Then UI Click Button "New Forensics Tab"
@@ -283,7 +283,7 @@ Feature: Negative Forensics tests to validate Error Messages
     Then UI Set Text Field "Criteria Value Edit Value" and params "ip,1" To "text"
     Then UI Click Button "save"
     Then UI Text of "Error message title" equal to "Unable to Save"
-    Then UI Text of "Error message description" equal to "The Criteria configuration is improper."
+    Then UI Text of "Error message description" equal to "The configuration of one or more of the criteria conditions is invalid."
     Then UI Click Button "errorMessageOK"
     Then UI Click Button "cancel"
     Then UI Click Button "No"
@@ -302,7 +302,7 @@ Feature: Negative Forensics tests to validate Error Messages
     Then UI Set Text Field "Criteria Value Edit Value" and params "port-from,1" To "text"
     Then UI Click Button "save"
     Then UI Text of "Error message title" equal to "Unable to Save"
-    Then UI Text of "Error message description" equal to "The Criteria configuration is improper."
+    Then UI Text of "Error message description" equal to "The configuration of one or more of the criteria conditions is invalid."
     Then UI Click Button "errorMessageOK"
     Then UI Click Button "cancel"
     Then UI Click Button "No"
@@ -321,7 +321,7 @@ Feature: Negative Forensics tests to validate Error Messages
     Then UI Set Text Field "Criteria Value Edit Value" and params "rate,1" To "text"
     Then UI Click Button "save"
     Then UI Text of "Error message title" equal to "Unable to Save"
-    Then UI Text of "Error message description" equal to "The Criteria configuration is improper."
+    Then UI Text of "Error message description" equal to "The configuration of one or more of the criteria conditions is invalid."
     Then UI Click Button "errorMessageOK"
     Then UI Click Button "cancel"
     Then UI Click Button "No"
@@ -340,14 +340,14 @@ Feature: Negative Forensics tests to validate Error Messages
     Then UI Set Text Field "Criteria Value Edit Value" and params "rate,1" To "text"
     Then UI Click Button "save"
     Then UI Text of "Error message title" equal to "Unable to Save"
-    Then UI Text of "Error message description" equal to "The Criteria configuration is improper."
+    Then UI Text of "Error message description" equal to "The configuration of one or more of the criteria conditions is invalid."
     Then UI Click Button "errorMessageOK"
     Then UI Click Button "cancel"
     Then UI Click Button "No"
 
 
     ############################ Criteria DF ###################################################################
-  @Test12
+
   @SID_21
   Scenario: Add Forensics with invalid Attack ID in Criteria - DF
     Then UI Click Button "New Forensics Tab"
@@ -362,7 +362,7 @@ Feature: Negative Forensics tests to validate Error Messages
     Then UI Set Text Field "Criteria Value Edit Value" and params "text,1" To "text"
     Then UI Click Button "save"
     Then UI Text of "Error message title" equal to "Unable to Save"
-    Then UI Text of "Error message description" equal to "The Criteria configuration is improper."
+    Then UI Text of "Error message description" equal to "The configuration of one or more of the criteria conditions is invalid."
     Then UI Click Button "errorMessageOK"
     Then UI Click Button "cancel"
     Then UI Click Button "No"
@@ -382,7 +382,7 @@ Feature: Negative Forensics tests to validate Error Messages
     Then UI Set Text Field "Criteria Value Edit Value" and params "rate,1" To "text"
     Then UI Click Button "save"
     Then UI Text of "Error message title" equal to "Unable to Save"
-    Then UI Text of "Error message description" equal to "The Criteria configuration is improper."
+    Then UI Text of "Error message description" equal to "The configuration of one or more of the criteria conditions is invalid."
     Then UI Click Button "errorMessageOK"
     Then UI Click Button "cancel"
     Then UI Click Button "No"
@@ -401,7 +401,7 @@ Feature: Negative Forensics tests to validate Error Messages
     Then UI Set Text Field "Criteria Value Edit Value" and params "rate,1" To "text"
     Then UI Click Button "save"
     Then UI Text of "Error message title" equal to "Unable to Save"
-    Then UI Text of "Error message description" equal to "The Criteria configuration is improper."
+    Then UI Text of "Error message description" equal to "The configuration of one or more of the criteria conditions is invalid."
     Then UI Click Button "errorMessageOK"
     Then UI Click Button "cancel"
     Then UI Click Button "No"
@@ -421,7 +421,7 @@ Feature: Negative Forensics tests to validate Error Messages
     Then UI Set Text Field "Criteria Value Edit Value" and params "ip,1" To "text"
     Then UI Click Button "save"
     Then UI Text of "Error message title" equal to "Unable to Save"
-    Then UI Text of "Error message description" equal to "The Criteria configuration is improper."
+    Then UI Text of "Error message description" equal to "The configuration of one or more of the criteria conditions is invalid."
     Then UI Click Button "errorMessageOK"
     Then UI Click Button "cancel"
     Then UI Click Button "No"
@@ -440,12 +440,12 @@ Feature: Negative Forensics tests to validate Error Messages
     Then UI Set Text Field "Criteria Value Edit Value" and params "port-from,1" To "text"
     Then UI Click Button "save"
     Then UI Text of "Error message title" equal to "Unable to Save"
-    Then UI Text of "Error message description" equal to "The Criteria configuration is improper."
+    Then UI Text of "Error message description" equal to "The configuration of one or more of the criteria conditions is invalid."
     Then UI Click Button "errorMessageOK"
     Then UI Click Button "cancel"
     Then UI Click Button "No"
 
-  @Test12
+
   @SID_26
   Scenario: Add Forensics with invalid Source IP in Criteria - DF
     Then UI Click Button "New Forensics Tab"
@@ -460,12 +460,12 @@ Feature: Negative Forensics tests to validate Error Messages
     Then UI Set Text Field "Criteria Value Edit Value" and params "ip,1" To "text"
     Then UI Click Button "save"
     Then UI Text of "Error message title" equal to "Unable to Save"
-    Then UI Text of "Error message description" equal to "The Criteria configuration is improper."
+    Then UI Text of "Error message description" equal to "The configuration of one or more of the criteria conditions is invalid."
     Then UI Click Button "errorMessageOK"
     Then UI Click Button "cancel"
     Then UI Click Button "No"
 
-  @Test12
+
   @SID_27
   Scenario: Add Forensics with invalid Source Port in Criteria - DF
     Then UI Click Button "New Forensics Tab"
@@ -480,7 +480,7 @@ Feature: Negative Forensics tests to validate Error Messages
     Then UI Set Text Field "Criteria Value Edit Value" and params "port-from,1" To "text"
     Then UI Click Button "save"
     Then UI Text of "Error message title" equal to "Unable to Save"
-    Then UI Text of "Error message description" equal to "The Criteria configuration is improper."
+    Then UI Text of "Error message description" equal to "The configuration of one or more of the criteria conditions is invalid."
     Then UI Click Button "errorMessageOK"
     Then UI Click Button "cancel"
     Then UI Click Button "No"
@@ -499,7 +499,7 @@ Feature: Negative Forensics tests to validate Error Messages
     Then UI Set Text Field "Criteria Value Edit Value" and params "rate,1" To "text"
     Then UI Click Button "save"
     Then UI Text of "Error message title" equal to "Unable to Save"
-    Then UI Text of "Error message description" equal to "The Criteria configuration is improper."
+    Then UI Text of "Error message description" equal to "The configuration of one or more of the criteria conditions is invalid."
     Then UI Click Button "errorMessageOK"
     Then UI Click Button "cancel"
     Then UI Click Button "No"
@@ -518,14 +518,14 @@ Feature: Negative Forensics tests to validate Error Messages
     Then UI Set Text Field "Criteria Value Edit Value" and params "rate,1" To "text"
     Then UI Click Button "save"
     Then UI Text of "Error message title" equal to "Unable to Save"
-    Then UI Text of "Error message description" equal to "The Criteria configuration is improper."
+    Then UI Text of "Error message description" equal to "The configuration of one or more of the criteria conditions is invalid."
     Then UI Click Button "errorMessageOK"
     Then UI Click Button "cancel"
     Then UI Click Button "No"
 
 
     ############################ Criteria AW ###################################################################
-  @Test12
+  
   @SID_30
   Scenario: Add Forensics with invalid Attack Name in Criteria - AW
     Then UI Click Button "New Forensics Tab"
@@ -540,7 +540,7 @@ Feature: Negative Forensics tests to validate Error Messages
     Then UI Set Text Field "Criteria Value Edit Value" and params "text,1" To " "
     Then UI Click Button "save"
     Then UI Text of "Error message title" equal to "Unable to Save"
-    Then UI Text of "Error message description" equal to "The Criteria configuration is improper."
+    Then UI Text of "Error message description" equal to "The configuration of one or more of the criteria conditions is invalid."
     Then UI Click Button "errorMessageOK"
     Then UI Click Button "cancel"
     Then UI Click Button "No"
@@ -559,7 +559,7 @@ Feature: Negative Forensics tests to validate Error Messages
     Then UI Set Text Field "Criteria Value Edit Value" and params "ip,1" To "11"
     Then UI Click Button "save"
     Then UI Text of "Error message title" equal to "Unable to Save"
-    Then UI Text of "Error message description" equal to "The Criteria configuration is improper."
+    Then UI Text of "Error message description" equal to "The configuration of one or more of the criteria conditions is invalid."
     Then UI Click Button "errorMessageOK"
     Then UI Click Button "cancel"
     Then UI Click Button "No"
@@ -578,12 +578,12 @@ Feature: Negative Forensics tests to validate Error Messages
     Then UI Set Text Field "Criteria Value Edit Value" and params "ip,1" To "11"
     Then UI Click Button "save"
     Then UI Text of "Error message title" equal to "Unable to Save"
-    Then UI Text of "Error message description" equal to "The Criteria configuration is improper."
+    Then UI Text of "Error message description" equal to "The configuration of one or more of the criteria conditions is invalid."
     Then UI Click Button "errorMessageOK"
     Then UI Click Button "cancel"
     Then UI Click Button "No"
 
-  @Test12
+  
   @SID_33
   Scenario: Add Forensics with invalid Device Host Name in Criteria - AW
     Then UI Click Button "New Forensics Tab"
@@ -598,12 +598,12 @@ Feature: Negative Forensics tests to validate Error Messages
     Then UI Set Text Field "Criteria Value Edit Value" and params "text,1" To " "
     Then UI Click Button "save"
     Then UI Text of "Error message title" equal to "Unable to Save"
-    Then UI Text of "Error message description" equal to "The Criteria configuration is improper."
+    Then UI Text of "Error message description" equal to "The configuration of one or more of the criteria conditions is invalid."
     Then UI Click Button "errorMessageOK"
     Then UI Click Button "cancel"
     Then UI Click Button "No"
 
-  @Test12
+  
   @SID_34
   Scenario: Add Forensics with invalid Directory in Criteria - AW
     Then UI Click Button "New Forensics Tab"
@@ -618,12 +618,12 @@ Feature: Negative Forensics tests to validate Error Messages
     Then UI Set Text Field "Criteria Value Edit Value" and params "text,1" To " "
     Then UI Click Button "save"
     Then UI Text of "Error message title" equal to "Unable to Save"
-    Then UI Text of "Error message description" equal to "The Criteria configuration is improper."
+    Then UI Text of "Error message description" equal to "The configuration of one or more of the criteria conditions is invalid."
     Then UI Click Button "errorMessageOK"
     Then UI Click Button "cancel"
     Then UI Click Button "No"
 
-  @Test12
+  
   @SID_35
   Scenario: Add Forensics with invalid Module in Criteria - AW
     Then UI Click Button "New Forensics Tab"
@@ -638,12 +638,12 @@ Feature: Negative Forensics tests to validate Error Messages
     Then UI Set Text Field "Criteria Value Edit Value" and params "text,1" To " "
     Then UI Click Button "save"
     Then UI Text of "Error message title" equal to "Unable to Save"
-    Then UI Text of "Error message description" equal to "The Criteria configuration is improper."
+    Then UI Text of "Error message description" equal to "The configuration of one or more of the criteria conditions is invalid."
     Then UI Click Button "errorMessageOK"
     Then UI Click Button "cancel"
     Then UI Click Button "No"
 
-  @Test12
+  
   @SID_36
   Scenario: Add Forensics with invalid Transaction ID in Criteria - AW
     Then UI Click Button "New Forensics Tab"
@@ -658,7 +658,7 @@ Feature: Negative Forensics tests to validate Error Messages
     Then UI Set Text Field "Criteria Value Edit Value" and params "text,1" To " "
     Then UI Click Button "save"
     Then UI Text of "Error message title" equal to "Unable to Save"
-    Then UI Text of "Error message description" equal to "The Criteria configuration is improper."
+    Then UI Text of "Error message description" equal to "The configuration of one or more of the criteria conditions is invalid."
     Then UI Click Button "errorMessageOK"
     Then UI Click Button "cancel"
     Then UI Click Button "No"
@@ -677,7 +677,7 @@ Feature: Negative Forensics tests to validate Error Messages
     Then UI Set Text Field "Criteria Value Edit Value" and params "ip,1" To " "
     Then UI Click Button "save"
     Then UI Text of "Error message title" equal to "Unable to Save"
-    Then UI Text of "Error message description" equal to "The Criteria configuration is improper."
+    Then UI Text of "Error message description" equal to "The configuration of one or more of the criteria conditions is invalid."
     Then UI Click Button "errorMessageOK"
     Then UI Click Button "cancel"
     Then UI Click Button "No"
@@ -696,12 +696,12 @@ Feature: Negative Forensics tests to validate Error Messages
     Then UI Set Text Field "Criteria Value Edit Value" and params "port-from,1" To " "
     Then UI Click Button "save"
     Then UI Text of "Error message title" equal to "Unable to Save"
-    Then UI Text of "Error message description" equal to "The Criteria configuration is improper."
+    Then UI Text of "Error message description" equal to "The configuration of one or more of the criteria conditions is invalid."
     Then UI Click Button "errorMessageOK"
     Then UI Click Button "cancel"
     Then UI Click Button "No"
 
-  @Test12
+  
   @SID_39
   Scenario: Add Forensics with invalid Tunnel in Criteria - AW
     Then UI Click Button "New Forensics Tab"
@@ -716,12 +716,12 @@ Feature: Negative Forensics tests to validate Error Messages
     Then UI Set Text Field "Criteria Value Edit Value" and params "text,1" To " "
     Then UI Click Button "save"
     Then UI Text of "Error message title" equal to "Unable to Save"
-    Then UI Text of "Error message description" equal to "The Criteria configuration is improper."
+    Then UI Text of "Error message description" equal to "The configuration of one or more of the criteria conditions is invalid."
     Then UI Click Button "errorMessageOK"
     Then UI Click Button "cancel"
     Then UI Click Button "No"
 
-  @Test12
+  
   @SID_40
   Scenario: Add Forensics with invalid User Name in Criteria - AW
     Then UI Click Button "New Forensics Tab"
@@ -736,12 +736,12 @@ Feature: Negative Forensics tests to validate Error Messages
     Then UI Set Text Field "Criteria Value Edit Value" and params "text,1" To " "
     Then UI Click Button "save"
     Then UI Text of "Error message title" equal to "Unable to Save"
-    Then UI Text of "Error message description" equal to "The Criteria configuration is improper."
+    Then UI Text of "Error message description" equal to "The configuration of one or more of the criteria conditions is invalid."
     Then UI Click Button "errorMessageOK"
     Then UI Click Button "cancel"
     Then UI Click Button "No"
 
-  @Test12
+  
   @SID_41
   Scenario: Add Forensics with invalid Web Application Name in Criteria - AW
     Then UI Click Button "New Forensics Tab"
@@ -756,7 +756,7 @@ Feature: Negative Forensics tests to validate Error Messages
     Then UI Set Text Field "Criteria Value Edit Value" and params "text,1" To " "
     Then UI Click Button "save"
     Then UI Text of "Error message title" equal to "Unable to Save"
-    Then UI Text of "Error message description" equal to "The Criteria configuration is improper."
+    Then UI Text of "Error message description" equal to "The configuration of one or more of the criteria conditions is invalid."
     Then UI Click Button "errorMessageOK"
     Then UI Click Button "cancel"
     Then UI Click Button "No"
