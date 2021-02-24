@@ -133,7 +133,7 @@ Feature:Create DefensePro Part3
       | Share                 | Email:[automation.vision2@radware.com],Subject:myEdit subject,Body:myEdit body |
       | Format                | Select: CSV                                                                    |
 
-#  @SID_13
+  @SID_13
   Scenario: create new Output Total Packets Dropped Protocol Equal
     When UI "Create" Forensics With Name "Output Total Packets Dropped Protocol Equal"
       | Product               | DefensePro                                                                                                       |
