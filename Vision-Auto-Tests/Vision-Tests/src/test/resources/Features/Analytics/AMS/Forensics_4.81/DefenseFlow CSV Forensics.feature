@@ -45,13 +45,6 @@ Feature: DefenseFlow CSV Forensics
       | Output            | Start Time,End Time,Threat Category,Attack Name,Policy Name,Source IP Address,Destination IP Address,Destination Port,Direction,Protocol,Device IP Address,Action,Attack ID,Source Port,Radware ID,Duration,Total Packets Dropped,Max pps,Total Mbits Dropped,Max bps,Physical Port,Risk,VLAN Tag,Packet Type                                                                                                             |
       | Format            | Select: CSV                                                                                                      |
       | Share             | FTP:checked, FTP.Location:172.17.164.10, FTP.Path:/home/radware/ftp/, FTP.Username:radware, FTP.Password:radware |
-    Given UI "Validate" Forensics With Name "Forensics_DefenseFlow"
-      | Product           | DefenseFlow                                                                                                      |
-      | Protected Objects | All                                                                                                              |
-      | Output            | Start Time,End Time,Threat Category,Attack Name,Policy Name,Source IP Address,Destination IP Address,Destination Port,Direction,Protocol,Device IP Address,Action,Attack ID,Source Port,Radware ID,Duration,Total Packets Dropped,Max pps,Total Mbits Dropped,Max bps,Physical Port,Risk,VLAN Tag,Packet Type                                                                                                              |
-      | Format            | Select: CSV                                                                                                      |
-      | Share             | FTP:checked, FTP.Location:172.17.164.10, FTP.Path:/home/radware/ftp/, FTP.Username:radware, FTP.Password:radware |
-
 
   @SID_6
   Scenario: Clear FTP server logs and generate the report
