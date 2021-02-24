@@ -238,7 +238,7 @@ Feature: VRM Real Time Status Bar Alerts
   # edit ES raisedtime over the 15 minutes
     And CLI Run remote linux Command "curl -XPOST localhost:9200/alert/_update_by_query/?pretty -d '{"query": {"match": {"module": "DEVICE_HEALTH_ERRORS"}},"script": {"source": "ctx._source.raisedTime = 'ctx._source.raisedTime-1080000'"}}'" on "ROOT_SERVER_CLI"
     And CLI Run remote linux Command "curl -XPOST localhost:9200/alert/_update_by_query/?pretty -d '{"query": {"match": {"module": "DEVICE_THROUGHPUT_LICENSE_EXCEEDED_ERRORS"}},"script": {"source": "ctx._source.raisedTime = 'ctx._source.raisedTime-1080000'"}}'" on "ROOT_SERVER_CLI"
-    And CLI Run remote linux Command "curl -XPOST localhost:9200/alert/_update_by_query/?pretty -d '{"query": {"match": {"module": "DEVICE_THROUGHPUT_LICENSE_ERRORS"}},"script": {"source": "ctx._source.raisedTime = 'ctx._source.raisedTime-1080000'"}}'" on "ROOT_SERVER_CLI" and wait 60 seconds
+    And CLI Run remote linux Command "curl -XPOST localhost:9200/alert/_update_by_query/?pretty -d '{"query": {"match": {"module": "DEVICE_THROUGHPUT_LICENSE_ERRORS"}},"script": {"source": "ctx._source.raisedTime = 'ctx._source.raisedTime-1080000'"}}'" on "ROOT_SERVER_CLI" and halt 60 seconds
     Then UI Login with user "sys_admin" and password "radware"
     When UI Navigate to "DefensePro Monitoring Dashboard" page via homePage
     And Sleep "2"

@@ -12,6 +12,7 @@ import com.radware.vision.bddtests.basicoperations.BasicOperationsSteps;
 import com.radware.vision.bddtests.clioperation.FileSteps;
 import com.radware.vision.automation.AutoUtils.Operators.OperatorsEnum;
 import com.radware.vision.infra.testhandlers.cli.CliOperations;
+import com.radware.vision.vision_handlers.NewVmHandler;
 import com.radware.vision.vision_project_cli.RootServerCli;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
@@ -39,7 +40,7 @@ public class RemoteSshCommandsTests extends BddCliTestBase {
         }
     }
 
-    @When("^CLI Run remote linux Command \"(.*)\" on \"(.*)\" and wait (\\d+) seconds$")
+    @When("^CLI Run remote linux Command \"(.*)\" on \"(.*)\" and halt (\\d+) seconds$")
     public void runRemoteCommand(String commandToExecute, SUTEntryType sutEntryType, int waitTimeout) {
         try {
             RemoteProcessExecutor remoteProcessExecutor = new RemoteProcessExecutor("", "");
@@ -157,8 +158,8 @@ public class RemoteSshCommandsTests extends BddCliTestBase {
     @When("^CLI Run remote linux Command \"(.*)\" on \"(.*)\"(?: with timeOut (\\d+))?$")
     public void runCLICommand(String commandToExecute, SUTEntryType sutEntryType, Integer timeOut) {
         try {
-            timeOut = timeOut != null ? timeOut : 40;
-            CliOperations.runCommand(getSUTEntryTypeByServerCliBase(sutEntryType), commandToExecute, timeOut * 1000);
+            timeOut = timeOut != null ? (timeOut * 1000) : CliOperations.DEFAULT_TIME_OUT;
+            CliOperations.runCommand(getSUTEntryTypeByServerCliBase(sutEntryType), commandToExecute, timeOut);
         } catch (Exception e) {
             BaseTestUtils.report("Failed to execute command: " + commandToExecute + ", on " + sutEntryType + "\n" + parseExceptionBody(e), Reporter.FAIL);
         }
@@ -459,6 +460,14 @@ public class RemoteSshCommandsTests extends BddCliTestBase {
             CliOperations.runCommand(restTestBase.getRootServerCli(), "yes | /restore_radware_user_stand_alone.sh", CliOperations.DEFAULT_TIME_OUT);
         }
     }
-
+    @Given("^CLI Wait for Vision Re-Connection(?: (\\d+) seconds)?$")
+    public static void waitForVisionReConnection(Integer timeOut) {
+        try {
+            timeOut = timeOut == null? 300 : timeOut;
+            NewVmHandler.waitForServerConnection(timeOut * 1000, restTestBase.getRootServerCli());
+        } catch (InterruptedException e) {
+            BaseTestUtils.report(e.getMessage(), Reporter.FAIL);
+        }
+    }
 
 }

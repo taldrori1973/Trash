@@ -8,8 +8,7 @@ public class Comparator {
 
     public static boolean compareResults(String expectedResult, String actualResult, OperatorsEnum operatorsEnum, Integer offset) {
         boolean bTestSuccess = false;
-        int iActualResult, iExpectedResult;
-
+        float fActualResult, fExpectedResult;
         try {
             switch (operatorsEnum) {
                 case CONTAINS:
@@ -21,13 +20,13 @@ public class Comparator {
                 case EQUALS:
                     //Numbers with offset
                     if (offset != null && offset > 0) {
-                        iActualResult = Integer.parseInt(actualResult.trim());
-                        iExpectedResult = Integer.parseInt(expectedResult.trim());
-                        if (iActualResult >= (iExpectedResult - offset) && iActualResult <= (iExpectedResult + offset))
+                        fActualResult = Float.parseFloat(actualResult.trim());
+                        fExpectedResult = Float.parseFloat(expectedResult.trim());
+                        if (fActualResult >= (fExpectedResult - offset) && fActualResult <= (fExpectedResult + offset))
                             bTestSuccess = true;
                         else
-                            failureMessage = String.format("Expected values between: %d and %d. Actual: %d",
-                                    iExpectedResult - offset, iExpectedResult + offset, iActualResult);
+                            failureMessage = String.format("Expected values between: %.1f and %.1f. Actual: %.1f",
+                                    fExpectedResult - offset, fExpectedResult + offset, fActualResult);
                         //Numbers with no offset or strings
                     } else if (!actualResult.trim().equals(expectedResult)) {
                         failureMessage = "Actual \"" + actualResult + "\" is not equal to \"" + expectedResult + "\"";
@@ -41,29 +40,29 @@ public class Comparator {
                         bTestSuccess = true;
                     break;
                 case GT:
-                    iActualResult = Integer.parseInt(actualResult.trim());
-                    if (!(iActualResult > Integer.parseInt(expectedResult))) {
+                    fActualResult = Float.parseFloat(actualResult.trim());
+                    if (!(fActualResult > Float.parseFloat(expectedResult))) {
                         failureMessage = "Actual \"" + actualResult + "\" is not greater than \"" + expectedResult + "\"";
                     } else
                         bTestSuccess = true;
                     break;
                 case GTE:
-                    iActualResult = Integer.parseInt(actualResult.trim());
-                    if (!(iActualResult >= Integer.parseInt(expectedResult))) {
+                    fActualResult = Float.parseFloat(actualResult.trim());
+                    if (!(fActualResult >= Float.parseFloat(expectedResult))) {
                         failureMessage = "Actual \"" + actualResult + "\" is not equal or greater than \"" + expectedResult + "\"";
                     } else
                         bTestSuccess = true;
                     break;
                 case LT:
-                    iActualResult = Integer.parseInt(actualResult.trim());
-                    if (!(iActualResult < Integer.parseInt(expectedResult))) {
+                    fActualResult = Float.parseFloat(actualResult.trim());
+                    if (!(fActualResult < Float.parseFloat(expectedResult))) {
                         failureMessage = "Actual \"" + actualResult + "\" is not less than \"" + expectedResult + "\"";
                     } else
                         bTestSuccess = true;
                     break;
                 case LTE:
-                    iActualResult = Integer.parseInt(actualResult.trim());
-                    if (!(iActualResult <= Integer.parseInt(expectedResult))) {
+                    fActualResult = Float.parseFloat(actualResult.trim());
+                    if (!(fActualResult <= Float.parseFloat(expectedResult))) {
                         failureMessage = "Actual \"" + actualResult + "\" is not equal or less than \"" + expectedResult + "\"";
                     } else
                         bTestSuccess = true;

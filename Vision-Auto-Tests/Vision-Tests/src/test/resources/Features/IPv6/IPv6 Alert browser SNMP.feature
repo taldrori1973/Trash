@@ -88,7 +88,7 @@ Feature: IPv6 Alert Browser SNMP
     Then CLI Operations - Run Root Session command "mysql -prad123 vision_ng -e "delete from alrt_fltr_to_severities where severity=(select row_id from alertsfilter where name='ProfileV6');""
     Then CLI Operations - Run Root Session command "mysql -prad123 vision_ng -e "delete from alrt_fltr_to_modules where module=(select row_id from alertsfilter where name='ProfileV6');""
     Then CLI Operations - Run Root Session command "mysql -prad123 vision_ng -e "delete from alertsfilter where name='ProfileV6';""
-    Given CLI Run remote linux Command "service vision restart" on "ROOT_SERVER_CLI" and wait 185 seconds
+    Given CLI Run remote linux Command "service vision restart" on "ROOT_SERVER_CLI" and halt 185 seconds
     * CLI Check if logs contains
       | logType | expression | isExpected   |
       | ALL     | fatal      | NOT_EXPECTED |

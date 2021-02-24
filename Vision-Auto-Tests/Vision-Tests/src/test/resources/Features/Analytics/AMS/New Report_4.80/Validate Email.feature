@@ -6,7 +6,7 @@ Feature: Validate Email
     * CLI kill all simulator attacks on current vision
     Given CLI Reset radware password
     * REST Delete ES index "dp-*"
-    Given CLI Run remote linux Command "service vision restart" on "ROOT_SERVER_CLI" and wait 185 seconds
+    Given CLI Run remote linux Command "service vision restart" on "ROOT_SERVER_CLI" and halt 185 seconds
 
   @SID_2
   Scenario: keep reports copy on file system
