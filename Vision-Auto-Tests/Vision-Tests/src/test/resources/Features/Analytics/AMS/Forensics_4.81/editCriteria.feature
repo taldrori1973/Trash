@@ -1,7 +1,8 @@
 @TC119781
 
 Feature: Edit Criteria Testes
-  
+  @run
+
   @SID_1
   Scenario: Login and Navigate
     Given UI Login with user "sys_admin" and password "radware"
@@ -200,7 +201,7 @@ Feature: Edit Criteria Testes
     Then UI Delete Forensics With Name "DefensePro Forensics"
 
         #    ------------------------------------- AppWall------------------------------------------------------
-  
+  @run
   @SID_20
   Scenario: create new Forensics_AppWall and validate
     Then UI Click Button "New Forensics Tab"
@@ -208,7 +209,8 @@ Feature: Edit Criteria Testes
       | Product      | AppWall                                              |
       | Applications | All                                                  |
       | Criteria | Event Criteria:Action,Operator:Not Equals,Value:Modified |
-  
+  @run
+
   @SID_21
   Scenario: Edit the First condition on Criteria
     Then UI Click Button "My Forensics Tab"
@@ -220,7 +222,7 @@ Feature: Edit Criteria Testes
     Then UI Click Button "Criteria Attribute Selected" with value "="
     Then UI Set Text Field "Criteria Value Edit Value" and params "text,1" To "test"
     Then UI Click Button "save"
-  
+
   @SID_22
   Scenario: Delete the first condition on Criteria
     Then UI Click Button "My Forensics Tab"
@@ -232,23 +234,11 @@ Feature: Edit Criteria Testes
     Then UI Validate Element Existence By Label "Criteria Delete Condition" if Exists "false" with value "1"
     Then UI Click Button "save"
 
-  
   @SID_23
-  Scenario: Delete the First condition on Criteria
-    Then UI Click Button "My Forensics Tab"
-    Then UI Click Button "My Forensics" with value "AppWall Forensics"
-    Then UI Click Button "Edit Forensics" with value "AppWall Forensics"
-    Then UI Click Button "Criteria Tab"
-    Then UI Validate Element Existence By Label "Criteria Delete Condition" if Exists "true" with value "1"
-    Then UI Click Button "Criteria Delete Condition" with value "1"
-    Then UI Validate Element Existence By Label "Criteria Delete Condition" if Exists "false" with value "1"
-    Then UI Click Button "save"
-  
-  @SID_24
   Scenario: Delete AppWall Forensics
     Then UI Delete Forensics With Name "AppWall Forensics"
 
-  @SID_25
+  @SID_24
   Scenario: Logout
     Then UI logout and close browser
 
