@@ -204,6 +204,8 @@ public class Forensics extends ReportsForensicsAlertsAbstract {
                     break;
                 }
                 case "ATTACK RATE IN BPS":
+                case "MAX PPS":
+                case "MAX BPS":
                 case "ATTACK RATE IN PPS": {
                     BasicOperationsHandler.setTextField("attributeValueRate", condition.get("RateValue").toString());
                     BasicOperationsHandler.clickButton("Criteria Value Expand input");
