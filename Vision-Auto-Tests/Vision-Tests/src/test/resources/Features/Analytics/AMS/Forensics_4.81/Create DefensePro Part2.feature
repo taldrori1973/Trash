@@ -12,7 +12,7 @@ Feature:Create DefensePro Part2
     When UI "Create" Forensics With Name "Output Total Mbits Dropped Action Not Equals"
       | Product               | DefensePro                                                                     |
       | Output                | Total Mbits Dropped                                                            |
-      | Criteria              | Event Criteria:Action,Operator:Not Equals,Value:Http 403 Forbidden           |
+      | Criteria              | Event Criteria:Action,Operator:Not Equals,Value:Http 403 Forbidden             |
       | devices               | All                                                                            |
       | Schedule              | Run Every:Daily,On Time:+2m                                                    |
       | Share                 | Email:[automation.vision2@radware.com],Subject:myEdit subject,Body:myEdit body |
@@ -23,7 +23,7 @@ Feature:Create DefensePro Part2
     When UI "Create" Forensics With Name "Output Max bps Action Not Equals"
       | Product               | DefensePro                                                                                                       |
       | Output                | Max bps                                                                                                          |
-      | Criteria              | Event Criteria:Action,Operator:Not Equals,Value:Http 403 Forbidden Reset Dest                                  |
+      | Criteria              | Event Criteria:Action,Operator:Not Equals,Value:Http 403 Forbidden Reset Dest                                    |
       | devices               | All                                                                                                              |
       | Time Definitions.Date | Absolute:[27.02.1971 01:00, +0d]                                                                                 |
       | Schedule              | Run Every:Weekly, On Time:+6H, At Days:[SUN]                                                                     |
@@ -35,7 +35,7 @@ Feature:Create DefensePro Part2
     When UI "Create" Forensics With Name "Output Physical Port Action Not Equals"
       | Product               | DefensePro                                                                                                                                       |
       | Output                | Physical Port                                                                                                                                    |
-      | Criteria              | Event Criteria:Action,Operator:Not Equals,Value:[Modified,Source Reset,Source and Destination Reset,Http 200 Ok,Http 403 Forbidden Reset Dest] |
+      | Criteria              | Event Criteria:Action,Operator:Not Equals,Value:[Modified,Source Reset,Source and Destination Reset,Http 200 Ok,Http 403 Forbidden Reset Dest]   |
       | devices               | index:10                                                                                                                                         |
       | Time Definitions.Date | Relative:[Hours,2]                                                                                                                               |
       | Schedule              | Run Every:once, On Time:+6H                                                                                                                      |
@@ -45,13 +45,13 @@ Feature:Create DefensePro Part2
   @SID_5
   Scenario: create new Output Risk Action Not Equals
     When UI "Create" Forensics With Name "Output Risk Action Not Equals"
-      | Product               | DefensePro                                                                                                                                                                                                                                 |
-      | Output                | Risk                                                                                                                                                                                                                                       |
+      | Product               | DefensePro                                                                                                                                                                                                                               |
+      | Output                | Risk                                                                                                                                                                                                                                     |
       | Criteria              | Event Criteria:Action,Operator:Not Equals,Value:[Modified,Forward,Drop,Source Reset,Destination Reset,Source and Destination Reset,Bypass,Challenge,Http 200 Ok,Http 200 Ok Reset Dest,Http 403 Forbidden,Http 403 Forbidden Reset Dest] |
-      | devices               | All                                                                                                                                                                                                                                        |
-      | Time Definitions.Date | Quick:1M                                                                                                                                                                                                                                   |
-      | Share                 | FTP:checked, FTP.Location:172.17.164.10, FTP.Path:/home/radware/ftp/, FTP.Username:radware, FTP.Password:radware                                                                                                                           |
-      | Format                | Select: CSV                                                                                                                                                                                                                                |
+      | devices               | All                                                                                                                                                                                                                                      |
+      | Time Definitions.Date | Quick:1M                                                                                                                                                                                                                                 |
+      | Share                 | FTP:checked, FTP.Location:172.17.164.10, FTP.Path:/home/radware/ftp/, FTP.Username:radware, FTP.Password:radware                                                                                                                         |
+      | Format                | Select: CSV                                                                                                                                                                                                                              |
 
   @SID_6
   Scenario: create new Output VLAN Tag Attack ID Not Equals
@@ -75,7 +75,7 @@ Feature:Create DefensePro Part2
       | Time Definitions.Date | Relative:[Days,2]                                                                                                |
       | Schedule              | Run Every:Daily,On Time:+2m                                                                                      |
       | Share                 | FTP:checked, FTP.Location:172.17.164.10, FTP.Path:/home/radware/ftp/, FTP.Username:radware, FTP.Password:radware |
-      | Format                | Select: CSV With Attack Details                                                                                   |
+      | Format                | Select: CSV With Attack Details                                                                                  |
 
   @SID_8
   Scenario: create new Output Action,Attack ID,Policy Name,Source IP Address,Destination IP Address,Destination Port,Total Mbits Dropped,Max bps,Physical Port,Risk,VLAN Tag Attack Name Equals
@@ -120,14 +120,14 @@ Feature:Create DefensePro Part2
       | Time Definitions.Date | Absolute:[27.02.1971 01:00, +0d]                                                                                 |
       | Schedule              | Run Every:Monthly, On Time:+6H, At Months:[APR]                                                                  |
       | Share                 | FTP:checked, FTP.Location:172.17.164.10, FTP.Path:/home/radware/ftp/, FTP.Username:radware, FTP.Password:radware |
-      | Format                | Select: CSV With Attack Details                                                                                   |
+      | Format                | Select: CSV With Attack Details                                                                                  |
 
   @SID_12
   Scenario: create new Output Destination IP Address,Destination Port,Direction Attack Rate in bps Greater than
     When UI "Create" Forensics With Name "Output Destination IP Address_Destination Port_Direction Attack Rate in bps Greater than"
       | Product               | DefensePro                                                                     |
       | Output                | Destination IP Address,Destination Port,Direction                              |
-      | Criteria              | Event Criteria:Attack Rate in bps,Operator:Greater than,RateValue:1.7,Unit:G   |
+      | Criteria              | Event Criteria:Attack Rate in bps,Operator:Greater than,RateValue:17,Unit:G    |
       | devices               | index:10                                                                       |
       | Time Definitions.Date | Relative:[Weeks,2]                                                             |
       | Schedule              | Run Every:Weekly, On Time:+6H, At Days:[SUN]                                   |
@@ -173,7 +173,7 @@ Feature:Create DefensePro Part2
     When UI "Create" Forensics With Name "Output Start Time Attack Rate in pps Greater than"
       | Product               | DefensePro                                                                     |
       | Output                | Start Time                                                                     |
-      | Criteria              | Event Criteria:Attack Rate in pps,Operator:Greater than,RateValue:1.7,Unit:G   |
+      | Criteria              | Event Criteria:Attack Rate in pps,Operator:Greater than,RateValue:17,Unit:G    |
       | devices               | index:10                                                                       |
       | Time Definitions.Date | Absolute:[27.02.1971 01:00, +0d]                                               |
       | Schedule              | Run Every:Monthly, On Time:+6H, At Months:[MAR]                                |
@@ -188,7 +188,7 @@ Feature:Create DefensePro Part2
       | Criteria              | Event Criteria:Attack Rate in pps,Operator:Greater than,RateValue:1,Unit:T                                       |
       | devices               | All                                                                                                              |
       | Time Definitions.Date | Relative:[Weeks,2]                                                                                               |
-#      | Schedule              | Run Every:once, On Time:+6H                                                                                      |
+      | Schedule              | Run Every:once, On Time:+6H                                                                                      |
       | Share                 | FTP:checked, FTP.Location:172.17.164.10, FTP.Path:/home/radware/ftp/, FTP.Username:radware, FTP.Password:radware |
       | Format                | Select: CSV                                                                                                      |
 
@@ -212,7 +212,7 @@ Feature:Create DefensePro Part2
       | devices               | All                                                                                                              |
       | Time Definitions.Date | Quick:3M                                                                                                         |
       | Share                 | FTP:checked, FTP.Location:172.17.164.10, FTP.Path:/home/radware/ftp/, FTP.Username:radware, FTP.Password:radware |
-      | Format                | Select: CSV With Attack Details                                                                                   |
+      | Format                | Select: CSV With Attack Details                                                                                  |
 
   @SID_20
   Scenario: create new Output Action Destination IP Equal
@@ -258,14 +258,14 @@ Feature:Create DefensePro Part2
       | Time Definitions.Date | Absolute:[27.02.1971 01:00, +0d]                                                                                 |
       | Schedule              | Run Every:Monthly, On Time:+6H, At Months:[JAN]                                                                  |
       | Share                 | FTP:checked, FTP.Location:172.17.164.10, FTP.Path:/home/radware/ftp/, FTP.Username:radware, FTP.Password:radware |
-      | Format                | Select: CSV With Attack Details                                                                                   |
+      | Format                | Select: CSV With Attack Details                                                                                  |
 
   @SID_24
   Scenario: create new Output Source Port Destination Port Equal
     When UI "Create" Forensics With Name "Output Source Port Destination Port Equal"
       | Product               | DefensePro                                                                     |
       | Output                | Source Port                                                                    |
-      | Criteria              | Event Criteria:Destination Port,Operator:Equals,portType:Single,portValue:80     |
+      | Criteria              | Event Criteria:Destination Port,Operator:Equals,portType:Single,portValue:80   |
       | devices               | index:10                                                                       |
       | Time Definitions.Date | Relative:[Days,3]                                                              |
       | Schedule              | Run Every:Daily,On Time:+2m                                                    |
@@ -277,7 +277,7 @@ Feature:Create DefensePro Part2
     When UI "Create" Forensics With Name "Output Destination IP Address Destination Port Not Equal"
       | Product               | DefensePro                                                                                                       |
       | Output                | Destination IP Address                                                                                           |
-      | Criteria              | Event Criteria:Destination Port,Operator:Not Equals,portType:Single,portValue:0                                    |
+      | Criteria              | Event Criteria:Destination Port,Operator:Not Equals,portType:Single,portValue:0                                  |
       | devices               | All                                                                                                              |
       | Time Definitions.Date | Relative:[Weeks,4]                                                                                               |
       | Schedule              | Run Every:Weekly, On Time:+6H, At Days:[WED]                                                                     |
@@ -289,7 +289,7 @@ Feature:Create DefensePro Part2
     When UI "Create" Forensics With Name "Output Destination Port Destination Port Equal"
       | Product               | DefensePro                                                                     |
       | Output                | Destination Port                                                               |
-      | Criteria              | Event Criteria:Destination Port,Operator:Equals,portType:Single,portValue:53     |
+      | Criteria              | Event Criteria:Destination Port,Operator:Equals,portType:Single,portValue:53   |
       | devices               | All                                                                            |
       | Share                 | Email:[automation.vision2@radware.com],Subject:myEdit subject,Body:myEdit body |
       | Format                | Select: CSV                                                                    |
@@ -299,31 +299,31 @@ Feature:Create DefensePro Part2
     When UI "Create" Forensics With Name "Output Direction Destination Port Equal"
       | Product               | DefensePro                                                                                                       |
       | Output                | Direction                                                                                                        |
-      | Criteria              | Event Criteria:Destination Port,Operator:Equals,portType:Range,portFrom:1,portTo:20                         |
+      | Criteria              | Event Criteria:Destination Port,Operator:Equals,portType:Range,portFrom:1,portTo:20                              |
       | devices               | All                                                                                                              |
       | Time Definitions.Date | Absolute:[27.02.1971 01:00, +0d]                                                                                 |
       | Schedule              | Run Every:Monthly, On Time:+6H, At Months:[JAN]                                                                  |
       | Share                 | FTP:checked, FTP.Location:172.17.164.10, FTP.Path:/home/radware/ftp/, FTP.Username:radware, FTP.Password:radware |
-      | Format                | Select: CSV With Attack Details                                                                                   |
+      | Format                | Select: CSV With Attack Details                                                                                  |
 
   @SID_28
   Scenario: create new Output Protocol Destination Port Not Equal
     When UI "Create" Forensics With Name "Output Protocol Destination Port Not Equal"
-      | Product               | DefensePro                                                                                     |
-      | Output                | Protocol                                                                                       |
-      | Criteria              | Event Criteria:Destination Port,Operator:Not Equals,portType:Port Range,portFrom:90,portTo:100 |
-      | devices               | index:10                                                                                       |
-      | Time Definitions.Date | Relative:[Days,2]                                                                              |
-      | Schedule              | Run Every:Daily,On Time:+2m                                                                    |
-      | Share                 | Email:[automation.vision2@radware.com],Subject:myEdit subject,Body:myEdit body                 |
-      | Format                | Select: HTML                                                                                   |
+      | Product               | DefensePro                                                                                |
+      | Output                | Protocol                                                                                  |
+      | Criteria              | Event Criteria:Destination Port,Operator:Not Equals,portType:Range,portFrom:90,portTo:100 |
+      | devices               | index:10                                                                                  |
+      | Time Definitions.Date | Relative:[Days,2]                                                                         |
+      | Schedule              | Run Every:Daily,On Time:+2m                                                               |
+      | Share                 | Email:[automation.vision2@radware.com],Subject:myEdit subject,Body:myEdit body            |
+      | Format                | Select: HTML                                                                              |
 
   @SID_29
   Scenario: create new Output Radware ID Direction Equal
     When UI "Create" Forensics With Name "Output Radware ID Direction Equal"
       | Product               | DefensePro                                                                     |
       | Output                | Radware ID                                                                     |
-      | Criteria              | Event Criteria:Direction,Operator:Equals,Value:[Inbound]                       |
+      | Criteria              | Event Criteria:Direction,Operator:Equals,Value:[In]                            |
       | devices               | index:10                                                                       |
       | Time Definitions.Date | Relative:[Days,2]                                                              |
       | Schedule              | Run Every:Daily,On Time:+2m                                                    |
@@ -335,7 +335,7 @@ Feature:Create DefensePro Part2
     When UI "Create" Forensics With Name "Output Duration Direction Equal"
       | Product               | DefensePro                                                                                                       |
       | Output                | Duration                                                                                                         |
-      | Criteria              | Event Criteria:Direction,Operator:Equals,Value:[Outbound]                                                        |
+      | Criteria              | Event Criteria:Direction,Operator:Equals,Value:[Out]                                                             |
       | devices               | All                                                                                                              |
       | Time Definitions.Date | Relative:[Weeks,2]                                                                                               |
       | Schedule              | Run Every:Weekly, On Time:+6H, At Days:[WED]                                                                     |
@@ -371,7 +371,7 @@ Feature:Create DefensePro Part2
     When UI "Create" Forensics With Name "Output Total Mbits Dropped Direction Not Equal"
       | Product               | DefensePro                                                                     |
       | Output                | Total Mbits Dropped                                                            |
-      | Criteria              | Event Criteria:Direction,Operator:Not Equals,Value:[Outbound,Unknown]          |
+      | Criteria              | Event Criteria:Direction,Operator:Not Equals,Value:[Out,Unknown]               |
       | devices               | index:10                                                                       |
       | Schedule              | Run Every:Weekly, On Time:+6H, At Days:[THU]                                   |
       | Share                 | Email:[automation.vision2@radware.com],Subject:myEdit subject,Body:myEdit body |
@@ -382,7 +382,7 @@ Feature:Create DefensePro Part2
     When UI "Create" Forensics With Name "Output Max bps Direction Equal"
       | Product               | DefensePro                                                                                                       |
       | Output                | Max bps                                                                                                          |
-      | Criteria              | Event Criteria:Direction,Operator:Equals,Value:[Inbound,Outbound,Unknown,both]                                   |
+      | Criteria              | Event Criteria:Direction,Operator:Equals,Value:[In,Out,Unknown,Both]                                   |
       | devices               | index:10                                                                                                         |
       | Time Definitions.Date | Absolute:[27.02.1971 01:00, +0d]                                                                                 |
       | Schedule              | Run Every:Monthly, On Time:+6H, At Months:[JUN]                                                                  |
@@ -394,10 +394,10 @@ Feature:Create DefensePro Part2
     When UI "Create" Forensics With Name "Output Physical Port Direction Not Equal"
       | Product               | DefensePro                                                                         |
       | Output                | Physical Port                                                                      |
-      | Criteria              | Event Criteria:Direction,Operator:Not Equals,Value:[Inbound,Outbound,Unknown,both] |
+      | Criteria              | Event Criteria:Direction,Operator:Not Equals,Value:[In,Out,Unknown,Both] |
       | devices               | index:10                                                                           |
       | Time Definitions.Date | Relative:[Months,4]                                                                |
-#      | Schedule              | Run Every:once, On Time:+6H                                                        |
+      | Schedule              | Run Every:once, On Time:+6H                                                        |
       | Share                 | Email:[automation.vision2@radware.com],Subject:myEdit subject,Body:myEdit body     |
       | Format                | Select: HTML                                                                       |
 
@@ -406,7 +406,7 @@ Feature:Create DefensePro Part2
     When UI "Create" Forensics With Name "Output Risk Duration Equal"
       | Product               | DefensePro                                                                                                       |
       | Output                | Risk                                                                                                             |
-      | Criteria              | Event Criteria:Duration,Operator:Equals,Value:[Less than 1 min]                                                  |
+      | Criteria              | Event Criteria:Duration,Operator:Equals,Value:[lessThanOneMin]                                                   |
       | devices               | index:10                                                                                                         |
       | Time Definitions.Date | Quick:1M                                                                                                         |
       | Share                 | FTP:checked, FTP.Location:172.17.164.10, FTP.Path:/home/radware/ftp/, FTP.Username:radware, FTP.Password:radware |
@@ -417,41 +417,41 @@ Feature:Create DefensePro Part2
     When UI "Create" Forensics With Name "Output VLAN Tag Duration Equal"
       | Product               | DefensePro                                                                     |
       | Output                | VLAN Tag                                                                       |
-      | Criteria              | Event Criteria:Duration,Operator:Equals,Value:[1-5 min]                        |
+      | Criteria              | Event Criteria:Duration,Operator:Equals,Value:[1-5min]                         |
       | devices               | All                                                                            |
       | Share                 | Email:[automation.vision2@radware.com],Subject:myEdit subject,Body:myEdit body |
       | Format                | Select: CSV                                                                    |
 
   @SID_38
   Scenario: create new Output Destination IP Address,Destination Port,Direction,Protocol,Radware ID,Duration,Total Packets Dropped Duration Equal
-    When UI "Create" Forensics With Name "Output Destination IP Address,Destination Port,Direction,Protocol,Radware ID,Duration,Total Packets Dropped Duration Equal"
+    When UI "Create" Forensics With Name "Output Destination IP Address_Destination Port_Direction_Protocol_Radware ID_Duration_Total Packets Dropped Duration Equal"
       | Product               | DefensePro                                                                                                       |
       | Output                | Destination IP Address,Destination Port,Direction,Protocol,Radware ID,Duration,Total Packets Dropped             |
-      | Criteria              | Event Criteria:Duration,Operator:Equals,Value:[5-10 min]                                                         |
+      | Criteria              | Event Criteria:Duration,Operator:Equals,Value:[5-10min]                                                          |
       | devices               | All                                                                                                              |
       | Time Definitions.Date | Absolute:[27.02.1971 01:00, +0d]                                                                                 |
       | Schedule              | Run Every:Monthly, On Time:+6H, At Months:[OCT]                                                                  |
       | Share                 | FTP:checked, FTP.Location:172.17.164.10, FTP.Path:/home/radware/ftp/, FTP.Username:radware, FTP.Password:radware |
-      | Format                | Select: CSV With Attack Details                                                                                   |
+      | Format                | Select: CSV With Attack Details                                                                                  |
 
   @SID_39
   Scenario: create new Output Action,Attack ID,Policy Name,Source IP Address,Destination IP Address,Destination Port,Total Mbits Dropped,Max bps,Physical Port,Risk,VLAN Tag Duration Equal
-    When UI "Create" Forensics With Name "Output Action,Attack ID,Policy Name,Source IP Address,Destination IP Address,Destination Port,Total Mbits Dropped,Max bps,Physical Port,Risk,VLAN Tag Duration Equal"
-      | Product               | DefensePro                                                                                                                                      |
+    When UI "Create" Forensics With Name "Output Action_Attack ID_Policy Name_Source IP Address_Destination IP Address_Destination Port_Total Mbits Dropped_Max bps_Physical Port_Risk_VLAN Tag Duration Equal"
+      | Product               | DefensePro                                                                                                                                     |
       | Output                | Action,Attack ID,Policy Name,Source IP Address,Destination IP Address,Destination Port,Total Mbits Dropped,Max bps,Physical Port,Risk,VLAN Tag |
-      | Criteria              | Event Criteria:Duration,Operator:Equals,Value:[10-30 min]                                                                                       |
-      | devices               | index:10                                                                                                                                        |
-      | Time Definitions.Date | Relative:[Days,3]                                                                                                                               |
-      | Schedule              | Run Every:Weekly, On Time:+6H, At Days:[SUN]                                                                                                    |
-      | Share                 | Email:[automation.vision2@radware.com],Subject:myEdit subject,Body:myEdit body                                                                  |
-      | Format                | Select: HTML                                                                                                                                    |
+      | Criteria              | Event Criteria:Duration,Operator:Equals,Value:[10-30min]                                                                                       |
+      | devices               | index:10                                                                                                                                       |
+      | Time Definitions.Date | Relative:[Days,3]                                                                                                                              |
+      | Schedule              | Run Every:Weekly, On Time:+6H, At Days:[SUN]                                                                                                   |
+      | Share                 | Email:[automation.vision2@radware.com],Subject:myEdit subject,Body:myEdit body                                                                 |
+      | Format                | Select: HTML                                                                                                                                   |
 
   @SID_40
   Scenario: create new Output Source IP Address,Source Port,Destination IP Address,Radware ID,Duration,Total Packets Dropped,Max pps Duration Equal
-    When UI "Create" Forensics With Name "Output Source IP Address,Source Port,Destination IP Address,Radware ID,Duration,Total Packets Dropped,Max pps Duration Equal"
+    When UI "Create" Forensics With Name "Output Source IP Address_Source Port_Destination IP Address_Radware ID_Duration_Total Packets Dropped_Max pps Duration Equal"
       | Product               | DefensePro                                                                                                       |
       | Output                | Source IP Address,Source Port,Destination IP Address,Radware ID,Duration,Total Packets Dropped,Max pps           |
-      | Criteria              | Event Criteria:Duration,Operator:Equals,Value:[30-60 min]                                                        |
+      | Criteria              | Event Criteria:Duration,Operator:Equals,Value:[30-60min]                                                         |
       | devices               | All                                                                                                              |
       | Time Definitions.Date | Relative:[Months,2]                                                                                              |
       | Schedule              | Run Every:Daily,On Time:+2m                                                                                      |
@@ -460,10 +460,10 @@ Feature:Create DefensePro Part2
 
   @SID_41
   Scenario: create new Output Start Time,End Time,Device IP Address,Threat Category,Attack Name,Action Duration Equal
-    When UI "Create" Forensics With Name "Output Start Time,End Time,Device IP Address,Threat Category,Attack Name,Action Duration Equal"
+    When UI "Create" Forensics With Name "Output Start Time_End Time_Device IP Address_Threat Category_Attack Name_Action Duration Equal"
       | Product               | DefensePro                                                                     |
       | Output                | Start Time,End Time,Device IP Address,Threat Category,Attack Name,Action       |
-      | Criteria              | Event Criteria:Duration,Operator:Equals,Value:[More than 1 hour]               |
+      | Criteria              | Event Criteria:Duration,Operator:Equals,Value:[moreThanOneHour]               |
       | devices               | All                                                                            |
       | Time Definitions.Date | Quick:1D                                                                       |
       | Schedule              | Run Every:Weekly, On Time:+6H, At Days:[FRI]                                   |
@@ -472,22 +472,22 @@ Feature:Create DefensePro Part2
 
   @SID_42
   Scenario: create new Output Policy Name,Source IP Address Duration Not Equal
-    When UI "Create" Forensics With Name "Output Policy Name,Source IP Address Not Duration Equal"
+    When UI "Create" Forensics With Name "Output Policy Name_Source IP Address Not Duration Equal"
       | Product               | DefensePro                                                                                                       |
       | Output                | Policy Name,Source IP Address                                                                                    |
-      | Criteria              | Event Criteria:Duration,Operator:Not Equals,Value:[5-10 min,10-30 min,30-60 min]                                 |
+      | Criteria              | Event Criteria:Duration,Operator:Not Equals,Value:[5-10min,10-30min,30-60min]                                    |
       | devices               | All                                                                                                              |
       | Time Definitions.Date | Absolute:[27.02.1971 01:00, +0d]                                                                                 |
-#      | Schedule              | Run Every:once, On Time:+6H                                                                                      |
+      | Schedule              | Run Every:once, On Time:+6H                                                                                      |
       | Share                 | FTP:checked, FTP.Location:172.17.164.10, FTP.Path:/home/radware/ftp/, FTP.Username:radware, FTP.Password:radware |
       | Format                | Select: CSV With Attack Details                                                                                  |
 
   @SID_43
   Scenario: create new Output Destination IP Address,Destination Port,Direction Duration Equal
-    When UI "Create" Forensics With Name "Output Destination IP Address,Destination Port,Direction Duration Equal"
+    When UI "Create" Forensics With Name "Output Destination IP Address_Destination Port_Direction Duration Equal"
       | Product               | DefensePro                                                                       |
       | Output                | Destination IP Address,Destination Port,Direction                                |
-      | Criteria              | Event Criteria:Duration,Operator:Equals,Value:[Less than 1 min,More than 1 hour] |
+      | Criteria              | Event Criteria:Duration,Operator:Equals,Value:[lessThanOneMin,moreThanOneHour] |
       | devices               | index:10                                                                         |
       | Share                 | Email:[automation.vision2@radware.com],Subject:myEdit subject,Body:myEdit body   |
       | Format                | Select: HTML                                                                     |
@@ -497,7 +497,7 @@ Feature:Create DefensePro Part2
     When UI "Create" Forensics With Name "Output All Duration Equal"
       | Product               | DefensePro                                                                                                                                                                                                                                                                                         |
       | Output                | Start Time,End Time,Device IP Address,Threat Category,Attack Name,Action,Attack ID,Policy Name,Source IP Address,Source Port,Destination IP Address,Destination Port,Direction,Protocol,Radware ID,Duration,Total Packets Dropped,Max pps,Total Mbits Dropped,Max bps,Physical Port,Risk,VLAN Tag  |
-      | Criteria              | Event Criteria:Duration,Operator:Equals,Value:[Less than 1 min,1-5 min,5-10 min,10-30 min,30-60 min,More than 1 hour]                                                                                                                                                                              |
+      | Criteria              | Event Criteria:Duration,Operator:Equals,Value:[lessThanOneMin,1-5min,5-10min,10-30min,30-60min,moreThanOneHour]                                                                                                                                                                              |
       | devices               | All                                                                                                                                                                                                                                                                                                |
       | Time Definitions.Date | Relative:[Days,2]                                                                                                                                                                                                                                                                                  |
       | Schedule              | Run Every:Daily,On Time:+2m                                                                                                                                                                                                                                                                        |
@@ -509,7 +509,7 @@ Feature:Create DefensePro Part2
     When UI "Create" Forensics With Name "Output Start Time Duration Not Equal"
       | Product               | DefensePro                                                                     |
       | Output                | Start Time                                                                     |
-      | Criteria              | Event Criteria:Duration,Operator:Not Equals,Value:[1-5 min,5-10 min,10-30 min] |
+      | Criteria              | Event Criteria:Duration,Operator:Not Equals,Value:[1-5min,5-10min,10-30min] |
       | devices               | All                                                                            |
       | Schedule              | Run Every:Daily,On Time:+2m                                                    |
       | Share                 | Email:[automation.vision2@radware.com],Subject:myEdit subject,Body:myEdit body |
@@ -520,7 +520,7 @@ Feature:Create DefensePro Part2
     When UI "Create" Forensics With Name "Output End Time Duration Not Equal"
       | Product               | DefensePro                                                                                                                |
       | Output                | End Time                                                                                                                  |
-      | Criteria              | Event Criteria:Duration,Operator:Not Equals,Value:[Less than 1 min,1-5 min,5-10 min,10-30 min,30-60 min,More than 1 hour] |
+      | Criteria              | Event Criteria:Duration,Operator:Not Equals,Value:[lessThanOneMin,1-5min,5-10min,10-30min,30-60min,moreThanOneHour] |
       | devices               | All                                                                                                                       |
       | Time Definitions.Date | Relative:[Weeks,2]                                                                                                        |
       | Schedule              | Run Every:Weekly, On Time:+6H, At Days:[THU]                                                                              |
@@ -555,7 +555,7 @@ Feature:Create DefensePro Part2
     When UI "Create" Forensics With Name "Output Attack Name1 Max bps Greater than"
       | Product               | DefensePro                                                                     |
       | Output                | Attack Name                                                                    |
-      | Criteria              | Event Criteria:Max bps,Operator:Greater than,RateValue:1.7,Unit:G              |
+      | Criteria              | Event Criteria:Max bps,Operator:Greater than,RateValue:17,Unit:G               |
       | devices               | All                                                                            |
       | Schedule              | Run Every:Weekly, On Time:+6H, At Days:[THU]                                   |
       | Share                 | Email:[automation.vision2@radware.com],Subject:myEdit subject,Body:myEdit body |
@@ -571,7 +571,7 @@ Feature:Create DefensePro Part2
       | Time Definitions.Date | Absolute:[27.02.1971 01:00, +0d]                                                                                 |
       | Schedule              | Run Every:Monthly, On Time:+6H, At Months:[MAR]                                                                  |
       | Share                 | FTP:checked, FTP.Location:172.17.164.10, FTP.Path:/home/radware/ftp/, FTP.Username:radware, FTP.Password:radware |
-      | Format                | Select: CSV With Attack Details                                                                                   |
+      | Format                | Select: CSV With Attack Details                                                                                  |
 
   @SID_51
   Scenario: Logout

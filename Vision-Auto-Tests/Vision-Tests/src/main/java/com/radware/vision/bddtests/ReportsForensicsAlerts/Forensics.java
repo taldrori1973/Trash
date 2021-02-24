@@ -60,8 +60,8 @@ public class Forensics extends ReportsForensicsAlertsAbstract {
                 return new JSONObject("{\"Application Name\":\"webApp\",\"Device Host Name\":\"appwallHostName\",\"Received Time\":\"receivedTimeStamp\",\"Packets\":\"packetCount\",\"Destination IP\":\"destAddress\",\"Source IP\":\"sourceAddress\",\"Start Time\":\"startTime\",\"Threat Category\":\"category\",\"Attack Name\":\"name\",\"Policy Name\":\"ruleName\",\"Source IP Address\":\"sourceIp\",\"Destination IP Address\":\"destinationIp\",\"Destination Port\":\"destPort\",\"Direction\":\"direction\",\"Protocol\":\"protocol\",\"Device IP\":\"appwallIP\",\"End Time\":\"endTime\",\"Action\":\"action\",\"Attack ID\":\"attackIpsId\",\"Source Port\":\"sourcePort\",\"Radware ID\":\"radwareId\",\"Duration\":\"duration\",\"Max pps\":\"maxAttackPacketRatePps\",\"Max bps\":\"maxAttackRateBps\",\"Physical Port\":\"physicalPort\",\"Risk\":\"risk\",\"VLAN Tag\":\"vlanTag\",\"Packet Type\":\"packetType\"}");
             case "":
             case "defensepro":
-                default:
-                    return new JSONObject("{\"Application Name\":\"webApp\",\"Device Host Name\":\"appwallHostName\",\"Received Time\":\"receivedTimeStamp\",\"Packets\":\"packetCount\",\"Destination IP\":\"destAddress\",\"Source IP\":\"sourceAddress\",\"Start Time\":\"startTime\",\"Threat Category\":\"category\",\"Attack Name\":\"name\",\"Policy Name\":\"ruleName\",\"Source IP Address\":\"sourceIp\",\"Destination IP Address\":\"destinationIp\",\"Destination Port\":\"destPort\",\"Direction\":\"direction\",\"Protocol\":\"protocol\",\"Device IP\":\"appwallIP\",\"End Time\":\"endTime\",\"Action\":\"actionType\",\"Attack ID\":\"attackIpsId\",\"Source Port\":\"sourcePort\",\"Radware ID\":\"radwareId\",\"Duration\":\"duration\",\"Max pps\":\"maxAttackPacketRatePps\",\"Max bps\":\"maxAttackRateBps\",\"Physical Port\":\"physicalPort\",\"Risk\":\"risk\",\"VLAN Tag\":\"vlanTag\",\"Packet Type\":\"packetType\"}");
+            default:
+                return new JSONObject("{\"Application Name\":\"webApp\",\"Device Host Name\":\"appwallHostName\",\"Received Time\":\"receivedTimeStamp\",\"Packets\":\"packetCount\",\"Destination IP\":\"destAddress\",\"Source IP\":\"sourceAddress\",\"Start Time\":\"startTime\",\"Threat Category\":\"category\",\"Attack Name\":\"name\",\"Policy Name\":\"ruleName\",\"Source IP Address\":\"sourceIp\",\"Destination IP Address\":\"destinationIp\",\"Destination Port\":\"destPort\",\"Direction\":\"direction\",\"Protocol\":\"protocol\",\"Device IP\":\"appwallIP\",\"End Time\":\"endTime\",\"Action\":\"actionType\",\"Attack ID\":\"attackIpsId\",\"Source Port\":\"sourcePort\",\"Radware ID\":\"radwareId\",\"Duration\":\"duration\",\"Max pps\":\"maxAttackPacketRatePps\",\"Max bps\":\"maxAttackRateBps\",\"Physical Port\":\"physicalPort\",\"Risk\":\"risk\",\"VLAN Tag\":\"vlanTag\",\"Packet Type\":\"packetType\"}");
         }
     }
 
@@ -164,55 +164,55 @@ public class Forensics extends ReportsForensicsAlertsAbstract {
     }
 
     private void selectAttributeValuesCriteria(JSONObject condition) throws Exception {
-            switch (condition.get("Event Criteria").toString().toUpperCase()) {
-                case "ACTION":
-                case "DIRECTION":
-                case "DURATION":
-                case "PROTOCOL":
-                case "RISK":
-                case "THREAT CATEGORY": {
-                    BasicOperationsHandler.clickButton("Criteria Value Expand");
-                    String valuesText = condition.get("Value").toString().charAt(0) == '[' ? condition.get("Value").toString().replaceAll("(\\[)|(])|(\")", "") : condition.get("Value").toString();
-                    List<String> values = new ArrayList<>();
-                    Collections.addAll(values, valuesText.split(","));
-                    for (String value : values)
-                        WebUiTools.check("Criteria Value Selected", value, true);
-                    break;
-                }
-                case "ATTACK ID":
-                case "ATTACK NAME": {
-                    BasicOperationsHandler.setTextField("Criteria Value Input", condition.get("Value").toString());
-                    break;
-                }
-                case "DESTINATION IP":
-                case "SOURCE IP": {
-                    WebUiTools.check("attributeValueExpand", "", true);
-                    WebUiTools.check("attributeValueSelect", condition.get("IPType").toString(), true);
-                    BasicOperationsHandler.setTextField("attributeValueIPInput", condition.get("IPValue").toString());
-                    break;
-                }
-                case "DESTINATION PORT":
-                case "SOURCE PORT": {
-                    WebUiTools.check("attributeValueExpand", "", true);
-                    WebUiTools.check("attributeValueSelect", condition.get("portType").toString(), true);
-                    if (condition.has("portValue"))
-                        BasicOperationsHandler.setTextField("attributeValuePortFrom", condition.get("portValue").toString());
-                    else {
-                        BasicOperationsHandler.setTextField("attributeValuePortFrom", condition.get("portFrom").toString());
-                        BasicOperationsHandler.setTextField("attributeValueIPInput", condition.get("portTo").toString());
-                    }
-                    break;
-                }
-                case "ATTACK RATE IN BPS":
-                case "MAX PPS":
-                case "MAX BPS":
-                case "ATTACK RATE IN PPS": {
-                    BasicOperationsHandler.setTextField("attributeValueRate", condition.get("RateValue").toString());
-                    BasicOperationsHandler.clickButton("Criteria Value Expand input");
-                    WebUiTools.check("attributeValueSelect", condition.get("Unit").toString(), true);
-                    break;
-                }
+        switch (condition.get("Event Criteria").toString().toUpperCase()) {
+            case "ACTION":
+            case "DIRECTION":
+            case "DURATION":
+            case "PROTOCOL":
+            case "RISK":
+            case "THREAT CATEGORY": {
+                BasicOperationsHandler.clickButton("Criteria Value Expand");
+                String valuesText = condition.get("Value").toString().charAt(0) == '[' ? condition.get("Value").toString().replaceAll("(\\[)|(])|(\")", "") : condition.get("Value").toString();
+                List<String> values = new ArrayList<>();
+                Collections.addAll(values, valuesText.split(","));
+                for (String value : values)
+                    WebUiTools.check("Criteria Value Selected", value, true);
+                break;
             }
+            case "ATTACK ID":
+            case "ATTACK NAME": {
+                BasicOperationsHandler.setTextField("Criteria Value Input", condition.get("Value").toString());
+                break;
+            }
+            case "DESTINATION IP":
+            case "SOURCE IP": {
+                WebUiTools.check("attributeValueExpand", "", true);
+                WebUiTools.check("attributeValueSelect", condition.get("IPType").toString(), true);
+                BasicOperationsHandler.setTextField("attributeValueIPInput", condition.get("IPValue").toString());
+                break;
+            }
+            case "DESTINATION PORT":
+            case "SOURCE PORT": {
+                WebUiTools.check("attributeValueExpand", "", true);
+                WebUiTools.check("attributeValueSelect", condition.get("portType").toString(), true);
+                if (condition.has("portValue"))
+                    BasicOperationsHandler.setTextField("attributeValuePortFrom", condition.get("portValue").toString());
+                else {
+                    BasicOperationsHandler.setTextField("attributeValuePortFrom", condition.get("portFrom").toString());
+                    BasicOperationsHandler.setTextField("attributeValuePortTo", condition.get("portTo").toString());
+                }
+                break;
+            }
+            case "ATTACK RATE IN BPS":
+            case "MAX PPS":
+            case "MAX BPS":
+            case "ATTACK RATE IN PPS": {
+                BasicOperationsHandler.setTextField("attributeValueRate", condition.get("RateValue").toString());
+                BasicOperationsHandler.clickButton("Criteria Value Expand input");
+                WebUiTools.check("attributeValueSelect", condition.get("Unit").toString(), true);
+                break;
+            }
+        }
     }
 
     private String getCriteriaOperator(String operator) throws Exception {
@@ -288,9 +288,9 @@ public class Forensics extends ReportsForensicsAlertsAbstract {
                 case "CSV":
                     if ((!basicRestResult.get("ignoreDetailsInExport").toString().equals("true")))
                         errorMessage.append("The Actual format is not equal to expected ");
-                     else
+                    else
                         errorMessage.append(validateFormatDefinition(new JSONObject(new JSONArray(basicRestResult.get("exportFormats").toString()).get(0).toString()), map));
-                     break;
+                    break;
                 case "CSV With Attack Details":
                 case "CSVWithDetails":
                     if(!basicRestResult.get("ignoreDetailsInExport").toString().equalsIgnoreCase("false") || !new JSONObject(new JSONArray(basicRestResult.get("exportFormats").toString()).get(0).toString()).get("type").toString().equalsIgnoreCase("csv"))
@@ -605,3 +605,4 @@ public class Forensics extends ReportsForensicsAlertsAbstract {
     }
 
 }
+
