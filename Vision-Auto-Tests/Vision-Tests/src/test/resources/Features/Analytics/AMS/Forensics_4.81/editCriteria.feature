@@ -1,7 +1,7 @@
 @TC119781
 
 Feature: Edit Criteria Testes
-  @run
+ 
 
   @SID_1
   Scenario: Login and Navigate
@@ -201,7 +201,7 @@ Feature: Edit Criteria Testes
     Then UI Delete Forensics With Name "DefensePro Forensics"
 
         #    ------------------------------------- AppWall------------------------------------------------------
-  @run
+ 
   @SID_20
   Scenario: create new Forensics_AppWall and validate
     Then UI Click Button "New Forensics Tab"
@@ -209,7 +209,7 @@ Feature: Edit Criteria Testes
       | Product      | AppWall                                              |
       | Applications | All                                                  |
       | Criteria | Event Criteria:Action,Operator:Not Equals,Value:Modified |
-  @run
+ 
 
   @SID_21
   Scenario: Edit the First condition on Criteria
