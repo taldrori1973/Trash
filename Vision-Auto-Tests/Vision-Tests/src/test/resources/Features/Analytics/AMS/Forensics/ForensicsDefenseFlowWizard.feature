@@ -20,12 +20,12 @@ Feature: Defense Flow Forensic Wizard
     When CLI Operations - Run Radware Session command "system df management-ip get"
     Then CLI Operations - Verify that output contains regex "DefenseFlow Management IP Address: 172.17.164.10"
 
-    
+    @Test12
   @SID_3 @Sanity
   Scenario: Login and navigate to forensics
     Given UI Login with user "radware" and password "radware"
-#    * REST Vision Install License Request "vision-AVA-Max-attack-capacity"
-#    * REST Vision Install License Request "vision-reporting-module-AMS"
+    * REST Vision Install License Request "vision-AVA-Max-attack-capacity"
+    * REST Vision Install License Request "vision-reporting-module-AMS"
     Then UI Navigate to "New Forensics" page via homepage
     Then UI Click Button "New Forensics Tab"
 
@@ -133,12 +133,12 @@ Feature: Defense Flow Forensic Wizard
 
 
 #    ------------------- Ahlam - Add test for Connection PPS  -----------------
-  
+  @Test12
   @SID_16
   Scenario: create forensic definition Second_view
     Given UI "Create" Forensics With Name "Category_ConnectionPPS"
       | Product | DefenseFlow |
-      | Criteria | Event Criteria:Threat Category,Operator:Equals,Value:[Connection PPS]; |
+      | Criteria | Event Criteria:Threat Category,Operator:Equals,Value:Connection PPS |
       | Output  | Start Time,End Time,Attack Name,Action,Attack ID,Policy Name,Source IP Address,Source Port,Max pps,Max bps |
       | Time Definitions.Date | Quick:1D |
       | Format | Select: CSV |
