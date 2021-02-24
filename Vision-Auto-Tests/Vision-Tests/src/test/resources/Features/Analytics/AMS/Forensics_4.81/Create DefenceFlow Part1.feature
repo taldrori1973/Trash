@@ -46,23 +46,23 @@ Feature:Create DefenseFlow Part1
   @SID_5
   Scenario: create new Output Threat Category
     When UI "Create" Forensics With Name "Output Threat Category"
-      | Product  | DefenseFlow                                                                    |
-      | Output   | Threat Category                                                                |
-      | Criteria | condition.All:true                                                             |
-      | devices  | All                                                                            |
-      | Share    | Email:[automation.vision2@radware.com],Subject:myEdit subject,Body:myEdit body |
-      | Format   | Select: CSV                                                                    |
+      | Product               | DefenseFlow                                                                    |
+      | Output                | Threat Category                                                                |
+      | Criteria              | condition.All:true                                                             |
+      | devices               | All                                                                            |
+      | Share                 | Email:[automation.vision2@radware.com],Subject:myEdit subject,Body:myEdit body |
+      | Format                | Select: CSV                                                                    |
 
   @SID_6
   Scenario: create new Output Attack Name1
     When UI "Create" Forensics With Name "Output Attack Name1"
-      | Product  | DefenseFlow                                                                                                      |
-      | Output   | Attack Name                                                                                                      |
-      | Criteria | condition.All:true                                                                                               |
-      | devices  | All                                                                                                              |
-      | Schedule | Run Every:Monthly, On Time:+6H, At Months:[AUG]                                                                  |
-      | Share    | FTP:checked, FTP.Location:172.17.164.10, FTP.Path:/home/radware/ftp/, FTP.Username:radware, FTP.Password:radware |
-      | Format   | Select: CSV With Attack Details                                                                                  |
+      | Product               | DefenseFlow                                                                                                      |
+      | Output                | Attack Name                                                                                                      |
+      | Criteria              | condition.All:true                                                                                               |
+      | devices               | All                                                                                                              |
+      | Schedule              | Run Every:Monthly, On Time:+6H, At Months:[AUG]                                                                  |
+      | Share                 | FTP:checked, FTP.Location:172.17.164.10, FTP.Path:/home/radware/ftp/, FTP.Username:radware, FTP.Password:radware |
+      | Format                | Select: CSV With Attack Details                                                                                  |
 
   @SID_7
   Scenario: create new Output Attack Name2
@@ -91,23 +91,23 @@ Feature:Create DefenseFlow Part1
   @SID_9
   Scenario: create new Output Attack ID
     When UI "Create" Forensics With Name "Output Attack ID"
-      | Product  | DefenseFlow                                                                    |
-      | Output   | Attack ID                                                                      |
-      | Criteria | condition.All:true                                                             |
-      | devices  | All                                                                            |
-      | Share    | Email:[automation.vision2@radware.com],Subject:myEdit subject,Body:myEdit body |
-      | Format   | Select: CSV                                                                    |
+      | Product               | DefenseFlow                                                                    |
+      | Output                | Attack ID                                                                      |
+      | Criteria              | condition.All:true                                                             |
+      | devices               | All                                                                            |
+      | Share                 | Email:[automation.vision2@radware.com],Subject:myEdit subject,Body:myEdit body |
+      | Format                | Select: CSV                                                                    |
 
   @SID_10
   Scenario: create new Output Policy Name
     When UI "Create" Forensics With Name "Output Policy Name"
-      | Product  | DefenseFlow                                                                                                      |
-      | Output   | Policy Name                                                                                                      |
-      | Criteria | condition.All:true                                                                                               |
-      | devices  | All                                                                                                              |
-      | Schedule | Run Every:Monthly, On Time:+6H, At Months:[AUG]                                                                  |
-      | Share    | FTP:checked, FTP.Location:172.17.164.10, FTP.Path:/home/radware/ftp/, FTP.Username:radware, FTP.Password:radware |
-      | Format   | Select: CSV With Attack Details                                                                                  |
+      | Product               | DefenseFlow                                                                                                      |
+      | Output                | Policy Name                                                                                                      |
+      | Criteria              | condition.All:true                                                                                               |
+      | devices               | All                                                                                                              |
+      | Schedule              | Run Every:Monthly, On Time:+6H, At Months:[AUG]                                                                  |
+      | Share                 | FTP:checked, FTP.Location:172.17.164.10, FTP.Path:/home/radware/ftp/, FTP.Username:radware, FTP.Password:radware |
+      | Format                | Select: CSV With Attack Details                                                                                  |
 
   @SID_11
   Scenario: create new Output Source IP Address
@@ -136,23 +136,23 @@ Feature:Create DefenseFlow Part1
   @SID_13
   Scenario: create new Output Destination IP Address
     When UI "Create" Forensics With Name "Output Destination IP Address"
-      | Product  | DefenseFlow                                                                    |
-      | Output   | Destination IP Address                                                         |
-      | Criteria | condition.All:true                                                             |
-      | devices  | All                                                                            |
-      | Share    | Email:[automation.vision2@radware.com],Subject:myEdit subject,Body:myEdit body |
-      | Format   | Select: CSV                                                                    |
+      | Product               | DefenseFlow                                                                    |
+      | Output                | Destination IP Address                                                         |
+      | Criteria              | condition.All:true                                                             |
+      | devices               | All                                                                            |
+      | Share                 | Email:[automation.vision2@radware.com],Subject:myEdit subject,Body:myEdit body |
+      | Format                | Select: CSV                                                                    |
 
   @SID_14
   Scenario: create new Output Destination Port
     When UI "Create" Forensics With Name "Output Destination Port"
-      | Product  | DefenseFlow                                                                                                      |
-      | Output   | Destination Port                                                                                                 |
-      | Criteria | condition.All:true                                                                                               |
-      | devices  | All                                                                                                              |
-      | Schedule | Run Every:Monthly, On Time:+6H, At Months:[AUG]                                                                  |
-      | Share    | FTP:checked, FTP.Location:172.17.164.10, FTP.Path:/home/radware/ftp/, FTP.Username:radware, FTP.Password:radware |
-      | Format   | Select: CSV With Attack Details                                                                                  |
+      | Product               | DefenseFlow                                                                                                      |
+      | Output                | Destination Port                                                                                                 |
+      | Criteria              | condition.All:true                                                                                               |
+      | devices               | All                                                                                                              |
+      | Schedule              | Run Every:Monthly, On Time:+6H, At Months:[AUG]                                                                  |
+      | Share                 | FTP:checked, FTP.Location:172.17.164.10, FTP.Path:/home/radware/ftp/, FTP.Username:radware, FTP.Password:radware |
+      | Format                | Select: CSV With Attack Details                                                                                  |
 
   @SID_15
   Scenario: create new Output Direction
@@ -263,38 +263,38 @@ Feature:Create DefenseFlow Part1
   @SID_24
   Scenario: create new Output Risk
     When UI "Create" Forensics With Name "Output Risk"
-      | Product  | DefenseFlow                                                                    |
-      | Output   | Risk                                                                           |
-      | Criteria | condition.All:true                                                             |
-      | devices  | All                                                                            |
-      | Schedule | Run Every:Monthly, On Time:+6H, At Months:[MAR]                                |
-      | Share    | Email:[automation.vision2@radware.com],Subject:myEdit subject,Body:myEdit body |
-      | Format   | Select: HTML                                                                   |
+      | Product               | DefenseFlow                                                                    |
+      | Output                | Risk                                                                           |
+      | Criteria              | condition.All:true                                                             |
+      | devices               | All                                                                            |
+      | Schedule              | Run Every:Monthly, On Time:+6H, At Months:[MAR]                                |
+      | Share                 | Email:[automation.vision2@radware.com],Subject:myEdit subject,Body:myEdit body |
+      | Format                | Select: HTML                                                                   |
 
   @SID_25
   Scenario: create new Output VLAN Tag
     When UI "Create" Forensics With Name "Output VLAN Tag"
-      | Product  | DefenseFlow                                                                    |
-      | Output   | VLAN Tag                                                                       |
-      | Criteria | condition.All:true                                                             |
-      | devices  | All                                                                            |
-      | Share    | Email:[automation.vision2@radware.com],Subject:myEdit subject,Body:myEdit body |
-      | Format   | Select: CSV                                                                    |
+      | Product               | DefenseFlow                                                                    |
+      | Output                | VLAN Tag                                                                       |
+      | Criteria              | condition.All:true                                                             |
+      | devices               | All                                                                            |
+      | Share                 | Email:[automation.vision2@radware.com],Subject:myEdit subject,Body:myEdit body |
+      | Format                | Select: CSV                                                                    |
 
   @SID_26
   Scenario: create new Output Destination IP Address,Destination Port,Direction,Protocol,Radware ID,Duration,Total Packets Dropped
     When UI "Create" Forensics With Name "Output Destination IP Address_Destination Port_Direction_Protocol_Radware ID_Duration_Total Packets Dropped"
-      | Product  | DefenseFlow                                                                                                      |
-      | Output   | Destination IP Address,Destination Port,Direction,Protocol,Radware ID,Duration,Total Packets Dropped             |
-      | Criteria | condition.All:true                                                                                               |
-      | devices  | All                                                                                                              |
-      | Schedule | Run Every:Monthly, On Time:+6H, At Months:[AUG]                                                                  |
-      | Share    | FTP:checked, FTP.Location:172.17.164.10, FTP.Path:/home/radware/ftp/, FTP.Username:radware, FTP.Password:radware |
-      | Format   | Select: CSV With Attack Details                                                                                  |
+      | Product               | DefenseFlow                                                                                                      |
+      | Output                | Destination IP Address,Destination Port,Direction,Protocol,Radware ID,Duration,Total Packets Dropped             |
+      | Criteria              | condition.All:true                                                                                               |
+      | devices               | All                                                                                                              |
+      | Schedule              | Run Every:Monthly, On Time:+6H, At Months:[AUG]                                                                  |
+      | Share                 | FTP:checked, FTP.Location:172.17.164.10, FTP.Path:/home/radware/ftp/, FTP.Username:radware, FTP.Password:radware |
+      | Format                | Select: CSV With Attack Details                                                                                  |
 
   @SID_27
   Scenario: create new Output Action,Attack ID,Policy Name,Source IP Address,Destination IP Address,Destination Port,Total Mbits Dropped,Max bps,Physical Port,Risk,VLAN Tag
-    When UI "Create" Forensics With Name "Output Action,Attack ID_Policy Name_Source IP Address_Destination IP Address_Destination Port_Total Mbits Dropped_Max bps_Physical Port_Risk_VLAN Tag"
+    When UI "Create" Forensics With Name "Output Action_Attack ID_Policy Name_Source IP Address_Destination IP Address_Destination Port_Total Mbits Dropped_Max bps_Physical Port_Risk_VLAN Tag"
       | Product               | DefenseFlow                                                                                                                                    |
       | Output                | Action,Attack ID,Policy Name,Source IP Address,Destination IP Address,Destination Port,Total Mbits Dropped,Max bps,Physical Port,Risk,VLAN Tag |
       | Criteria              | condition.All:true                                                                                                                             |
@@ -306,7 +306,7 @@ Feature:Create DefenseFlow Part1
 
   @SID_28
   Scenario: create new Output Source IP Address,Source Port,Destination IP Address,Radware ID,Duration,Total Packets Dropped,Max pps
-    When UI "Create" Forensics With Name "Output Source IP Address,Source Port_Destination IP Address_Radware ID_Duration_Total Packets Dropped_Max pps"
+    When UI "Create" Forensics With Name "Output Source IP Address_Source Port_Destination IP Address_Radware ID_Duration_Total Packets Dropped_Max pps"
       | Product               | DefenseFlow                                                                                                      |
       | Output                | Source IP Address,Source Port,Destination IP Address,Radware ID,Duration,Total Packets Dropped,Max pps           |
       | Criteria              | condition.All:true                                                                                               |
@@ -319,23 +319,23 @@ Feature:Create DefenseFlow Part1
   @SID_29
   Scenario: create new Output Start Time,End Time,Device IP Address,Threat Category,Attack Name,Action
     When UI "Create" Forensics With Name "Output Start Time_End Time_Device IP Address_Threat Category_Attack Name_Action"
-      | Product  | DefenseFlow                                                                    |
-      | Output   | Start Time,End Time,Device IP Address,Threat Category,Attack Name,Action       |
-      | Criteria | condition.All:true                                                             |
-      | devices  | All                                                                            |
-      | Share    | Email:[automation.vision2@radware.com],Subject:myEdit subject,Body:myEdit body |
-      | Format   | Select: CSV                                                                    |
+      | Product               | DefenseFlow                                                                    |
+      | Output                | Start Time,End Time,Device IP Address,Threat Category,Attack Name,Action       |
+      | Criteria              | condition.All:true                                                             |
+      | devices               | All                                                                            |
+      | Share                 | Email:[automation.vision2@radware.com],Subject:myEdit subject,Body:myEdit body |
+      | Format                | Select: CSV                                                                    |
 
   @SID_30
   Scenario: create new Output Policy Name,Source IP Address
     When UI "Create" Forensics With Name "Output Policy Name_Source IP Address"
-      | Product  | DefenseFlow                                                                                                      |
-      | Output   | Policy Name,Source IP Address                                                                                    |
-      | Criteria | condition.All:true                                                                                               |
-      | devices  | All                                                                                                              |
-      | Schedule | Run Every:Monthly, On Time:+6H, At Months:[AUG]                                                                  |
-      | Share    | FTP:checked, FTP.Location:172.17.164.10, FTP.Path:/home/radware/ftp/, FTP.Username:radware, FTP.Password:radware |
-      | Format   | Select: CSV With Attack Details                                                                                  |
+      | Product               | DefenseFlow                                                                                                      |
+      | Output                | Policy Name,Source IP Address                                                                                    |
+      | Criteria              | condition.All:true                                                                                               |
+      | devices               | All                                                                                                              |
+      | Schedule              | Run Every:Monthly, On Time:+6H, At Months:[AUG]                                                                  |
+      | Share                 | FTP:checked, FTP.Location:172.17.164.10, FTP.Path:/home/radware/ftp/, FTP.Username:radware, FTP.Password:radware |
+      | Format                | Select: CSV With Attack Details                                                                                  |
 
   @SID_31
   Scenario: create new Output Destination IP Address,Destination Port,Direction
@@ -411,12 +411,12 @@ Feature:Create DefenseFlow Part1
   @SID_37
   Scenario: create new Output Attack Name1 Equals
     When UI "Create" Forensics With Name "Output Attack Name1 Equals"
-      | Product  | DefenseFlow                                                                    |
-      | Output   | Attack Name                                                                    |
-      | Criteria | Event Criteria:Action,Operator:Equals,Value:Destination Reset                  |
-      | devices  | All                                                                            |
-      | Share    | Email:[automation.vision2@radware.com],Subject:myEdit subject,Body:myEdit body |
-      | Format   | Select: CSV                                                                    |
+      | Product               | DefenseFlow                                                                    |
+      | Output                | Attack Name                                                                    |
+      | Criteria              | Event Criteria:Action,Operator:Equals,Value:Destination Reset                  |
+      | devices               | All                                                                            |
+      | Share                 | Email:[automation.vision2@radware.com],Subject:myEdit subject,Body:myEdit body |
+      | Format                | Select: CSV                                                                    |
 
   @SID_38
   Scenario: create new Output Attack Name2 Equals
@@ -480,12 +480,12 @@ Feature:Create DefenseFlow Part1
   @SID_43
   Scenario: create new Output Source Port Equals
     When UI "Create" Forensics With Name "Output Source Port Equals"
-      | Product  | DefenseFlow                                                                    |
-      | Output   | Source Port                                                                    |
-      | Criteria | Event Criteria:Action,Operator:Equals,Value:Http 403 Forbidden                 |
-      | devices  | index:10                                                                       |
-      | Share    | Email:[automation.vision2@radware.com],Subject:myEdit subject,Body:myEdit body |
-      | Format   | Select: HTML                                                                   |
+      | Product               | DefenseFlow                                                                    |
+      | Output                | Source Port                                                                    |
+      | Criteria              | Event Criteria:Action,Operator:Equals,Value:Http 403 Forbidden                 |
+      | devices               | index:10                                                                       |
+      | Share                 | Email:[automation.vision2@radware.com],Subject:myEdit subject,Body:myEdit body |
+      | Format                | Select: HTML                                                                   |
 
   @SID_44
   Scenario: create new Output Destination IP Address Equals
@@ -502,20 +502,20 @@ Feature:Create DefenseFlow Part1
   @SID_45
   Scenario: create new Output Destination Port Equals
     When UI "Create" Forensics With Name "Output Destination Port Equals"
-      | Product  | DefenseFlow                                                                                                                              |
-      | Output   | Destination Port                                                                                                                         |
-      | Criteria | Event Criteria:Action,Operator:Equals,Value:Modified,Source Reset,Source and Destination Reset,Http 200 Ok,Http 403 Forbidden Reset Dest |
-      | devices  | All                                                                                                                                      |
-      | Schedule | Run Every:Daily,On Time:+2m                                                                                                              |
-      | Share    | Email:[automation.vision2@radware.com],Subject:myEdit subject,Body:myEdit body                                                           |
-      | Format   | Select: CSV                                                                                                                              |
+      | Product               | DefenseFlow                                                                                                                              |
+      | Output                | Destination Port                                                                                                                         |
+      | Criteria              | Event Criteria:Action,Operator:Equals,Value:[Modified,Source Reset,Source and Destination Reset,Http 200 Ok,Http 403 Forbidden Reset Dest] |
+      | devices               | All                                                                                                                                      |
+      | Schedule              | Run Every:Daily,On Time:+2m                                                                                                              |
+      | Share                 | Email:[automation.vision2@radware.com],Subject:myEdit subject,Body:myEdit body                                                           |
+      | Format                | Select: CSV                                                                                                                              |
 
   @SID_46
   Scenario: create new Output Direction Equals
     When UI "Create" Forensics With Name "Output Direction Equals"
       | Product               | DefenseFlow                                                                                                                                                                                                                        |
       | Output                | Direction                                                                                                                                                                                                                          |
-      | Criteria              | Event Criteria:Action,Operator:Equals,Value:Modified,Forward,Drop,Source Reset,Destination Reset,Source and Destination Reset,Bypass,Challenge,Http 200 Ok,Http 200 Ok Reset Dest,Http 403 Forbidden,Http 403 Forbidden Reset Dest |
+      | Criteria              | Event Criteria:Action,Operator:Equals,Value:[Modified,Forward,Drop,Source Reset,Destination Reset,Source and Destination Reset,Bypass,Challenge,Http 200 Ok,Http 200 Ok Reset Dest,Http 403 Forbidden,Http 403 Forbidden Reset Dest] |
       | devices               | All                                                                                                                                                                                                                                |
       | Time Definitions.Date | Relative:[Weeks,2]                                                                                                                                                                                                                 |
       | Schedule              | Run Every:Weekly, On Time:+6H, At Days:[THU]                                                                                                                                                                                       |

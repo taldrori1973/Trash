@@ -58,7 +58,7 @@ Feature:Create DefenseFlow Part2
     When UI "Create" Forensics With Name "Output VLAN Tag Attack ID Equals"
       | Product               | DefenseFlow                                                                                                      |
       | Output                | VLAN Tag                                                                                                         |
-      | Criteria              | Event Criteria:Attack ID,Operator:Equals,Value:33-33                                                             |
+      | Criteria              | Event Criteria:Attack ID,Operator:Equals,Value:3333                                                             |
       | devices               | All                                                                                                              |
       | Time Definitions.Date | Relative:[Hours,2]                                                                                               |
       | Schedule              | Run Every:Weekly, On Time:+6H, At Days:[WED]                                                                     |
@@ -67,7 +67,7 @@ Feature:Create DefenseFlow Part2
 
   @SID_7
   Scenario: create new Output Destination IP Address,Destination Port,Direction,Protocol,Radware ID,Duration,Total Packets Dropped Attack ID Not Equals
-    When UI "Create" Forensics With Name "Output Destination IP Address,Destination Port,Direction,Protocol,Radware ID,Duration,Total Packets Dropped Attack ID Not Equals"
+    When UI "Create" Forensics With Name "Output Destination IP Address_Destination Port_Direction_Protocol_Radware ID_Duration_Total Packets Dropped Attack ID Not Equals"
       | Product               | DefenseFlow                                                                                                      |
       | Output                | Destination IP Address,Destination Port,Direction,Protocol,Radware ID,Duration,Total Packets Dropped             |
       | Criteria              | Event Criteria:Attack ID,Operator:Not Equals,Value:111111                                                        |
@@ -77,7 +77,7 @@ Feature:Create DefenseFlow Part2
 
   @SID_8
   Scenario: create new Output Action,Attack ID,Policy Name,Source IP Address,Destination IP Address,Destination Port,Total Mbits Dropped,Max bps,Physical Port,Risk,VLAN Tag Attack Name Equals
-    When UI "Create" Forensics With Name "Output Action,Attack ID,Policy Name,Source IP Address,Destination IP Address,Destination Port,Total Mbits Dropped,Max bps,Physical Port,Risk,VLAN Tag Attack Name Equals"
+    When UI "Create" Forensics With Name "Output Action_Attack ID_Policy Name_Source IP Address_Destination IP Address_Destination Port_Total Mbits Dropped_Max bps_Physical Port_Risk_VLAN Tag Attack Name Equals"
       | Product               | DefenseFlow                                                                                                                                     |
       | Output                | Action,Attack ID,Policy Name,Source IP Address,Destination IP Address,Destination Port,Total Mbits Dropped,Max bps,Physical Port,Risk,VLAN Tag |
       | Criteria              | Event Criteria:Attack Name,Operator:Equals,Value:TCP Port Scan                                                                                  |
@@ -88,7 +88,7 @@ Feature:Create DefenseFlow Part2
 
   @SID_9
   Scenario: create new Output Source IP Address,Source Port,Destination IP Address,Radware ID,Duration,Total Packets Dropped,Max pps Attack Name Not Equals
-    When UI "Create" Forensics With Name "Output Source IP Address,Source Port,Destination IP Address,Radware ID,Duration,Total Packets Dropped,Max pps Attack Name Not Equals"
+    When UI "Create" Forensics With Name "Output Source IP Address_Source Port_Destination IP Address_Radware ID_Duration_Total Packets Dropped_Max pps Attack Name Not Equals"
       | Product               | DefenseFlow                                                                                                      |
       | Output                | Source IP Address,Source Port,Destination IP Address,Radware ID,Duration,Total Packets Dropped,Max pps           |
       | Criteria              | Event Criteria:Attack Name,Operator:Not Equals,Value:Conn_Limit                                                  |
@@ -100,7 +100,7 @@ Feature:Create DefenseFlow Part2
 
   @SID_10
   Scenario: create new Output Start Time,End Time,Device IP Address,Threat Category,Attack Name,Action Attack Rate in bps Greater than
-    When UI "Create" Forensics With Name "Output Start Time,End Time,Device IP Address,Threat Category,Attack Name,Action Attack Rate in bps Greater than"
+    When UI "Create" Forensics With Name "Output Start Time_End Time_Device IP Address_Threat Category_Attack Name_Action Attack Rate in bps Greater than"
       | Product               | DefenseFlow                                                                                                      |
       | Output                | Start Time,End Time,Device IP Address,Threat Category,Attack Name,Action                                         |
       | Criteria              | Event Criteria:Attack Rate in bps,Operator:Greater than,RateValue:500,Unit:M                                     |
@@ -112,7 +112,7 @@ Feature:Create DefenseFlow Part2
 
   @SID_11
   Scenario: create new Output Policy Name,Source IP Address Attack Rate in bps Greater than
-    When UI "Create" Forensics With Name "Output Policy Name,Source IP Address Attack Rate in bps Greater than"
+    When UI "Create" Forensics With Name "Output Policy Name_Source IP Address Attack Rate in bps Greater than"
       | Product               | DefenseFlow                                                                    |
       | Output                | Policy Name,Source IP Address                                                  |
       | Criteria              | Event Criteria:Attack Rate in bps,Operator:Greater than,RateValue:17778,Unit:K |
@@ -124,10 +124,10 @@ Feature:Create DefenseFlow Part2
 
   @SID_12
   Scenario: create new Output Destination IP Address,Destination Port,Direction Attack Rate in bps Greater than
-    When UI "Create" Forensics With Name "Output Destination IP Address,Destination Port,Direction Attack Rate in bps Greater than"
+    When UI "Create" Forensics With Name "Output Destination IP Address_Destination Port_Direction Attack Rate in bps Greater than"
       | Product               | DefenseFlow                                                                                                      |
       | Output                | Destination IP Address,Destination Port,Direction                                                                |
-      | Criteria              | Event Criteria:Attack Rate in bps,Operator:Greater than,RateValue:1.7,Unit:G                                     |
+      | Criteria              | Event Criteria:Attack Rate in bps,Operator:Greater than,RateValue:17,Unit:G                                     |
       | devices               | All                                                                                                              |
       | Time Definitions.Date | Quick:3M                                                                                                         |
       | Schedule              | Run Every:Monthly, On Time:+6H, At Months:[DEC]                                                                  |
@@ -171,7 +171,7 @@ Feature:Create DefenseFlow Part2
     When UI "Create" Forensics With Name "Output Start Time Attack Rate in pps Greater than"
       | Product               | DefenseFlow                                                                                                      |
       | Output                | Start Time                                                                                                       |
-      | Criteria              | Event Criteria:Attack Rate in pps,Operator:Greater than,RateValue:1.7,Unit:G                                     |
+      | Criteria              | Event Criteria:Attack Rate in pps,Operator:Greater than,RateValue:17,Unit:G                                     |
       | devices               | All                                                                                                              |
       | Time Definitions.Date | Absolute:[27.02.1971 01:00, +0d]                                                                                 |
       | Schedule              | Run Every:Monthly, On Time:+6H, At Months:[OCT]                                                                  |
@@ -263,7 +263,7 @@ Feature:Create DefenseFlow Part2
     When UI "Create" Forensics With Name "Output Source Port Destination Port Equal"
       | Product               | DefenseFlow                                                                                                      |
       | Output                | Source Port                                                                                                      |
-      | Criteria              | Event Criteria:Destination Port,Operator:Equals,portType:Port,portValue:80                                       |
+      | Criteria              | Event Criteria:Destination Port,Operator:Equals,portType:Single,portValue:80                                       |
       | devices               | All                                                                                                              |
       | Time Definitions.Date | Relative:[Weeks,2]                                                                                               |
       | Schedule              | Run Every:Weekly, On Time:+6H, At Days:[THU]                                                                     |
@@ -275,7 +275,7 @@ Feature:Create DefenseFlow Part2
     When UI "Create" Forensics With Name "Output Destination IP Address Destination Port Not Equal"
       | Product               | DefenseFlow                                                                    |
       | Output                | Destination IP Address                                                         |
-      | Criteria              | Event Criteria:Destination Port,Operator:Not Equals,portType:Port,portValue:0  |
+      | Criteria              | Event Criteria:Destination Port,Operator:Not Equals,portType:Single,portValue:0  |
       | devices               | index:10                                                                       |
       | Time Definitions.Date | Absolute:[27.02.1971 01:00, +0d]                                               |
       | Schedule              | Run Every:Monthly, On Time:+6H, At Months:[MAY]                                |
@@ -287,7 +287,7 @@ Feature:Create DefenseFlow Part2
     When UI "Create" Forensics With Name "Output Destination Port Destination Port Equal"
       | Product               | DefenseFlow                                                                                                      |
       | Output                | Destination Port                                                                                                 |
-      | Criteria              | Event Criteria:Destination Port,Operator:Equals,portType:Port,portValue:53                                       |
+      | Criteria              | Event Criteria:Destination Port,Operator:Equals,portType:Single,portValue:53                                       |
       | devices               | All                                                                                                              |
       | Time Definitions.Date | Relative:[Months,2]                                                                                              |
       | Share                 | FTP:checked, FTP.Location:172.17.164.10, FTP.Path:/home/radware/ftp/, FTP.Username:radware, FTP.Password:radware |
@@ -298,7 +298,7 @@ Feature:Create DefenseFlow Part2
     When UI "Create" Forensics With Name "Output Direction Destination Port Equal"
       | Product               | DefenseFlow                                                                              |
       | Output                | Direction                                                                                |
-      | Criteria              | Event Criteria:Destination Port,Operator:Equals,portType:Port Range,portFrom:1,portTo:20 |
+      | Criteria              | Event Criteria:Destination Port,Operator:Equals,portType:Range,portFrom:1,portTo:20 |
       | devices               | All                                                                                      |
       | Schedule              | Run Every:Weekly, On Time:+6H, At Days:[THU]                                             |
       | Share                 | Email:[automation.vision2@radware.com],Subject:myEdit subject,Body:myEdit body           |
@@ -309,7 +309,7 @@ Feature:Create DefenseFlow Part2
     When UI "Create" Forensics With Name "Output Protocol Destination Port Not Equal"
       | Product               | DefenseFlow                                                                                                      |
       | Output                | Protocol                                                                                                         |
-      | Criteria              | Event Criteria:Destination Port,Operator:Not Equals,portType:Port Range,portFrom:90,portTo:100                   |
+      | Criteria              | Event Criteria:Destination Port,Operator:Not Equals,portType:Range,portFrom:90,portTo:100                   |
       | devices               | All                                                                                                              |
       | Time Definitions.Date | Absolute:[27.02.1971 01:00, +0d]                                                                                 |
       | Schedule              | Run Every:Monthly, On Time:+6H, At Months:[APR]                                                                  |
@@ -321,7 +321,7 @@ Feature:Create DefenseFlow Part2
     When UI "Create" Forensics With Name "Output Radware ID Direction Equal"
       | Product               | DefenseFlow                                                                    |
       | Output                | Radware ID                                                                     |
-      | Criteria              | Event Criteria:Direction,Operator:Equals,Value:[Inbound]                       |
+      | Criteria              | Event Criteria:Direction,Operator:Equals,Value:[In]                       |
       | devices               | index:10                                                                       |
       | Time Definitions.Date | Relative:[Weeks,2]                                                             |
       | Share                 | Email:[automation.vision2@radware.com],Subject:myEdit subject,Body:myEdit body |
@@ -332,7 +332,7 @@ Feature:Create DefenseFlow Part2
     When UI "Create" Forensics With Name "Output Duration Direction Equal"
       | Product               | DefenseFlow                                                                                                      |
       | Output                | Duration                                                                                                         |
-      | Criteria              | Event Criteria:Direction,Operator:Equals,Value:[Outbound]                                                        |
+      | Criteria              | Event Criteria:Direction,Operator:Equals,Value:[Out]                                                        |
       | devices               | All                                                                                                              |
       | Schedule              | Run Every:Once, On Time:+6H                                                                                      |
       | Share                 | FTP:checked, FTP.Location:172.17.164.10, FTP.Path:/home/radware/ftp/, FTP.Username:radware, FTP.Password:radware |
@@ -366,7 +366,7 @@ Feature:Create DefenseFlow Part2
     When UI "Create" Forensics With Name "Output Total Mbits Dropped Direction Not Equal"
       | Product               | DefenseFlow                                                                    |
       | Output                | Total Mbits Dropped                                                            |
-      | Criteria              | Event Criteria:Direction,Operator:Not Equals,Value:[Outbound,Unknown]          |
+      | Criteria              | Event Criteria:Direction,Operator:Not Equals,Value:[Out,Unknown]          |
       | devices               | index:10                                                                       |
       | Time Definitions.Date | Absolute:[27.02.1971 01:00, +0d]                                               |
       | Schedule              | Run Every:Monthly, On Time:+6H, At Months:[MAR]                                |
@@ -378,7 +378,7 @@ Feature:Create DefenseFlow Part2
     When UI "Create" Forensics With Name "Output Max bps Direction Equal"
       | Product               | DefenseFlow                                                                                                      |
       | Output                | Max bps                                                                                                         |
-      | Criteria              | Event Criteria:Direction,Operator:Equals,Value:[Inbound,Outbound,Unknown,both]                                   |
+      | Criteria              | Event Criteria:Direction,Operator:Equals,Value:[In,Out,Unknown,both]                                   |
       | devices               | All                                                                                                              |
       | Time Definitions.Date | Relative:[Hours,2]                                                                                               |
       | Schedule              | Run Every:Weekly, On Time:+6H, At Days:[WED]                                                                     |
@@ -390,7 +390,7 @@ Feature:Create DefenseFlow Part2
     When UI "Create" Forensics With Name "Output Physical Port Direction Not Equal"
       | Product               | DefenseFlow                                                                        |
       | Output                | Physical Port                                                                      |
-      | Criteria              | Event Criteria:Direction,Operator:Not Equals,Value:[Inbound,Outbound,Unknown,both] |
+      | Criteria              | Event Criteria:Direction,Operator:Not Equals,Value:[In,Out,Unknown,both] |
       | devices               | All                                                                                |
       | Share                 | Email:[automation.vision2@radware.com],Subject:myEdit subject,Body:myEdit body     |
       | Format                | Select: CSV                                                                        |
@@ -400,7 +400,7 @@ Feature:Create DefenseFlow Part2
     When UI "Create" Forensics With Name "Output Risk Duration Equal"
       | Product               | DefenseFlow                                                                                                      |
       | Output                | Risk                                                                                                             |
-      | Criteria              | Event Criteria:Duration,Operator:Equals,Value:[Less than 1 min]                                                  |
+      | Criteria              | Event Criteria:Duration,Operator:Equals,Value:[lessThanOneMin]                                                  |
       | devices               | All                                                                                                              |
       | Schedule              | Run Every:Monthly, On Time:+6H, At Months:[AUG]                                                                  |
       | Share                 | FTP:checked, FTP.Location:172.17.164.10, FTP.Path:/home/radware/ftp/, FTP.Username:radware, FTP.Password:radware |
@@ -411,7 +411,7 @@ Feature:Create DefenseFlow Part2
     When UI "Create" Forensics With Name "Output VLAN Tag Duration Equal"
       | Product               | DefenseFlow                                                                    |
       | Output                | VLAN Tag                                                                       |
-      | Criteria              | Event Criteria:Duration,Operator:Equals,Value:[1-5 min]                        |
+      | Criteria              | Event Criteria:Duration,Operator:Equals,Value:[1-5min]                        |
       | devices               | index:10                                                                       |
       | Time Definitions.Date | Absolute:[27.02.1971 01:00, +0d]                                               |
       | Schedule              | Run Every:Monthly, On Time:+6H, At Months:[MAR]                                |
@@ -420,10 +420,10 @@ Feature:Create DefenseFlow Part2
 
   @SID_38
   Scenario: create new Output Destination IP Address,Destination Port,Direction,Protocol,Radware ID,Duration,Total Packets Dropped Duration Equal
-    When UI "Create" Forensics With Name "Output Destination IP Address,Destination Port,Direction,Protocol,Radware ID,Duration,Total Packets Dropped Duration Equal"
+    When UI "Create" Forensics With Name "Output Destination IP Address_Destination Port_Direction_Protocol_Radware ID_Duration_Total Packets Dropped Duration Equal"
       | Product               | DefenseFlow                                                                                                      |
       | Output                | Destination IP Address,Destination Port,Direction,Protocol,Radware ID,Duration,Total Packets Dropped             |
-      | Criteria              | Event Criteria:Duration,Operator:Equals,Value:[5-10 min]                                                         |
+      | Criteria              | Event Criteria:Duration,Operator:Equals,Value:[5-10min]                                                         |
       | devices               | All                                                                                                              |
       | Time Definitions.Date | Relative:[Weeks,2]                                                                                               |
       | Schedule              | Run Every:Daily,On Time:+2m                                                                                      |
@@ -432,10 +432,10 @@ Feature:Create DefenseFlow Part2
 
   @SID_39
   Scenario: create new Output Action,Attack ID,Policy Name,Source IP Address,Destination IP Address,Destination Port,Total Mbits Dropped,Max bps,Physical Port,Risk,VLAN Tag Duration Equal
-    When UI "Create" Forensics With Name "Output Action,Attack ID,Policy Name,Source IP Address,Destination IP Address,Destination Port,Total Mbits Dropped,Max bps,Physical Port,Risk,VLAN Tag Duration Equal"
+    When UI "Create" Forensics With Name "Output Action_Attack ID_Policy Name_Source IP Address_Destination IP Address_Destination Port_Total Mbits Dropped_Max bps_Physical Port_Risk_VLAN Tag Duration Equal"
       | Product               | DefenseFlow                                                                                                                                     |
       | Output                | Action,Attack ID,Policy Name,Source IP Address,Destination IP Address,Destination Port,Total Mbits Dropped,Max bps,Physical Port,Risk,VLAN Tag |
-      | Criteria              | Event Criteria:Duration,Operator:Equals,Value:[10-30 min]                                                                                       |
+      | Criteria              | Event Criteria:Duration,Operator:Equals,Value:[10-30min]                                                                                       |
       | devices               | All                                                                                                                                             |
       | Time Definitions.Date | Absolute:[27.02.1971 01:00, +0d]                                                                                                                |
       | Schedule              | Run Every:Weekly, On Time:+6H, At Days:[SUN]                                                                                                    |
@@ -444,10 +444,10 @@ Feature:Create DefenseFlow Part2
 
   @SID_40
   Scenario: create new Output Source IP Address,Source Port,Destination IP Address,Radware ID,Duration,Total Packets Dropped,Max pps Duration Equal
-    When UI "Create" Forensics With Name "Output Source IP Address,Source Port,Destination IP Address,Radware ID,Duration,Total Packets Dropped,Max pps Duration Equal"
+    When UI "Create" Forensics With Name "Output Source IP Address_Source Port_Destination IP Address_Radware ID_Duration_Total Packets Dropped_Max pps Duration Equal"
       | Product               | DefenseFlow                                                                                                      |
       | Output                | Source IP Address,Source Port,Destination IP Address,Radware ID,Duration,Total Packets Dropped,Max pps           |
-      | Criteria              | Event Criteria:Duration,Operator:Equals,Value:[30-60 min]                                                        |
+      | Criteria              | Event Criteria:Duration,Operator:Equals,Value:[30-60min]                                                        |
       | devices               | All                                                                                                              |
       | Time Definitions.Date | Quick:3M                                                                                                         |
       | Schedule              | Run Every:Monthly, On Time:+6H, At Months:[DEC]                                                                  |
@@ -456,10 +456,10 @@ Feature:Create DefenseFlow Part2
 
   @SID_41
   Scenario: create new Output Start Time,End Time,Device IP Address,Threat Category,Attack Name,Action Duration Equal
-    When UI "Create" Forensics With Name "Output Start Time,End Time,Device IP Address,Threat Category,Attack Name,Action Duration Equal"
+    When UI "Create" Forensics With Name "Output Start Time_End Time_Device IP Address_Threat Category_Attack Name_Action Duration Equal"
       | Product               | DefenseFlow                                                                    |
       | Output                | Start Time,End Time,Device IP Address,Threat Category,Attack Name,Action       |
-      | Criteria              | Event Criteria:Duration,Operator:Equals,Value:[More than 1 hour]               |
+      | Criteria              | Event Criteria:Duration,Operator:Equals,Value:[moreThanOneHour]               |
       | devices               | index:10                                                                       |
       | Time Definitions.Date | Quick:This Month                                                               |
       | Share                 | Email:[automation.vision2@radware.com],Subject:myEdit subject,Body:myEdit body |
@@ -467,10 +467,10 @@ Feature:Create DefenseFlow Part2
 
   @SID_42
   Scenario: create new Output Policy Name,Source IP Address Duration Not Equal
-    When UI "Create" Forensics With Name "Output Policy Name,Source IP Address Not Duration Equal"
+    When UI "Create" Forensics With Name "Output Policy Name_Source IP Address Not Duration Equal"
       | Product               | DefenseFlow                                                                      |
       | Output                | Policy Name,Source IP Address                                                    |
-      | Criteria              | Event Criteria:Duration,Operator:Not Equals,Value:[5-10 min,10-30 min,30-60 min] |
+      | Criteria              | Event Criteria:Duration,Operator:Not Equals,Value:[5-10min,10-30min,30-60min] |
       | devices               | index:10                                                                         |
       | Schedule              | Run Every:Monthly, On Time:+6H, At Months:[MAR]                                  |
       | Share                 | Email:[automation.vision2@radware.com],Subject:myEdit subject,Body:myEdit body   |
@@ -478,10 +478,10 @@ Feature:Create DefenseFlow Part2
 
   @SID_43
   Scenario: create new Output Destination IP Address,Destination Port,Direction Duration Equal
-    When UI "Create" Forensics With Name "Output Destination IP Address,Destination Port,Direction Duration Equal"
+    When UI "Create" Forensics With Name "Output Destination IP Address_Destination Port_Direction Duration Equal"
       | Product               | DefenseFlow                                                                       |
       | Output                | Destination IP Address,Destination Port,Direction                                |
-      | Criteria              | Event Criteria:Duration,Operator:Equals,Value:[Less than 1 min,More than 1 hour] |
+      | Criteria              | Event Criteria:Duration,Operator:Equals,Value:[lessThanOneMin,moreThanOneHour] |
       | devices               | index:10                                                                         |
       | Share                 | Email:[automation.vision2@radware.com],Subject:myEdit subject,Body:myEdit body   |
       | Format                | Select: CSV                                                                      |
@@ -492,7 +492,7 @@ Feature:Create DefenseFlow Part2
     When UI "Create" Forensics With Name "Output All Duration Equal"
       | Product               | DefenseFlow                                                                                                                                                                                                                                                                                        |
       | Output                | Start Time,End Time,Device IP Address,Threat Category,Attack Name,Action,Attack ID,Policy Name,Source IP Address,Source Port,Destination IP Address,Destination Port,Direction,Protocol,Radware ID,Duration,Total Packets Dropped,Max pps,Total Mbits Dropped,Max bps,Physical Port,Risk,VLAN Tag |
-      | Criteria              | Event Criteria:Duration,Operator:Equals,Value:[Less than 1 min,1-5 min,5-10 min,10-30 min,30-60 min,More than 1 hour]                                                                                                                                                                              |
+      | Criteria              | Event Criteria:Duration,Operator:Equals,Value:[lessThanOneMin,1-5min,5-10min,10-30min,30-60min,moreThanOneMin]                                                                                                                                                                              |
       | devices               | All                                                                                                                                                                                                                                                                                                |
       | Schedule              | Run Every:Monthly, On Time:+6H, At Months:[AUG]                                                                                                                                                                                                                                                    |
       | Share                 | FTP:checked, FTP.Location:172.17.164.10, FTP.Path:/home/radware/ftp/, FTP.Username:radware, FTP.Password:radware                                                                                                                                                                                   |
@@ -503,7 +503,7 @@ Feature:Create DefenseFlow Part2
     When UI "Create" Forensics With Name "Output Start Time Duration Not Equal"
       | Product               | DefenseFlow                                                                    |
       | Output                | Start Time                                                                     |
-      | Criteria              | Event Criteria:Duration,Operator:Not Equals,Value:[1-5 min,5-10 min,10-30 min] |
+      | Criteria              | Event Criteria:Duration,Operator:Not Equals,Value:[1-5min,5-10min,10-30min] |
       | devices               | index:10                                                                       |
       | Time Definitions.Date | Absolute:[27.02.1971 01:00, +0d]                                               |
       | Schedule              | Run Every:Monthly, On Time:+6H, At Months:[MAR]                                |
@@ -515,7 +515,7 @@ Feature:Create DefenseFlow Part2
     When UI "Create" Forensics With Name "Output End Time Duration Not Equal"
       | Product               | DefenseFlow                                                                                                               |
       | Output                | End Time                                                                                                                  |
-      | Criteria              | Event Criteria:Duration,Operator:Not Equals,Value:[Less than 1 min,1-5 min,5-10 min,10-30 min,30-60 min,More than 1 hour] |
+      | Criteria              | Event Criteria:Duration,Operator:Not Equals,Value:[lessThanOneMin,1-5min,5-10min,10-30min,30-60min,moreThanOneMin] |
       | devices               | All                                                                                                                       |
       | Time Definitions.Date | Relative:[Weeks,2]                                                                                                        |
       | Schedule              | Run Every:Daily,On Time:+2m                                                                                               |
@@ -548,7 +548,7 @@ Feature:Create DefenseFlow Part2
     When UI "Create" Forensics With Name "Output Attack Name1 Max bps Greater than"
       | Product               | DefenseFlow                                                                    |
       | Output                | Attack Name                                                                    |
-      | Criteria              | Event Criteria:Max bps,Operator:Greater than,RateValue:1.7,Unit:G              |
+      | Criteria              | Event Criteria:Max bps,Operator:Greater than,RateValue:17,Unit:G              |
       | devices               | index:10                                                                       |
       | Time Definitions.Date | Absolute:[27.02.1971 01:00, +0d]                                               |
       | Schedule              | Run Every:Monthly, On Time:+6H, At Months:[MAR]                                |
