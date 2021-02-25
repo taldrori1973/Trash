@@ -74,6 +74,11 @@ public class Forensics extends ReportsForensicsAlertsAbstract {
             selectScopeSelection(map);
             createForensicsParam(name, map);
             BasicOperationsHandler.clickButton("save");
+            if (WebUiTools.getWebElement("Error message description") != null)
+            {
+                BasicOperationsHandler.clickButton("errorMessageOK", "");
+                throw new Exception("Forensics create has failed because " + WebUiTools.getWebElement("Error message description").getText());
+            }
         }catch (Exception e)
         {
             cancelView();
