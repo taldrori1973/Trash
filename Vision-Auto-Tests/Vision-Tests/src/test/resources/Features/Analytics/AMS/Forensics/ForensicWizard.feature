@@ -82,7 +82,7 @@ Feature: Forensic Wizard
 
     Then CLI Connect Radware
     
-    Then UI Validate max generate snapshot in Forensics is 10 when add 5 snapshots
+    Then UI Validate max generate snapshot in Forensics is 10 when add 11 snapshots
 
   @SID_11 @Sanity
   Scenario: Logout
