@@ -43,13 +43,13 @@ Feature: DefenseFlow HTML Forensics
       | Product           | DefenseFlow                                                                                                                                                                                                                                                                                                   |
       | Protected Objects | All                                                                                                                                                                                                                                                                                                           |
       | Output            | Start Time,End Time,Threat Category,Attack Name,Policy Name,Source IP Address,Destination IP Address,Destination Port,Direction,Protocol,Device IP Address,Action,Attack ID,Source Port,Radware ID,Duration,Total Packets Dropped,Max pps,Total Mbits Dropped,Max bps,Physical Port,Risk,VLAN Tag,Packet Type |
-      | Format            | Select: CSV                                                                                                                                                                                                                                                                                                   |
+      | Format            | Select: HTML                                                                                                                                                                                                                                                                                                   |
       | Share             | FTP:checked, FTP.Location:172.17.164.10, FTP.Path:/home/radware/ftp/, FTP.Username:radware, FTP.Password:radware                                                                                                                                                                                              |
     Given UI "Validate" Forensics With Name "Forensics_DefenseFlow"
       | Product           | DefenseFlow                                                                                                                                                                                                                                                                                                   |
       | Protected Objects | All                                                                                                                                                                                                                                                                                                           |
       | Output            | Start Time,End Time,Threat Category,Attack Name,Policy Name,Source IP Address,Destination IP Address,Destination Port,Direction,Protocol,Device IP Address,Action,Attack ID,Source Port,Radware ID,Duration,Total Packets Dropped,Max pps,Total Mbits Dropped,Max bps,Physical Port,Risk,VLAN Tag,Packet Type |
-      | Format            | Select: CSV                                                                                                                                                                                                                                                                                                   |
+      | Format            | Select: HTML                                                                                                                                                                                                                                                                                                   |
       | Share             | FTP:checked, FTP.Location:172.17.164.10, FTP.Path:/home/radware/ftp/, FTP.Username:radware, FTP.Password:radware                                                                                                                                                                                              |
 
   @SID_6
@@ -60,12 +60,12 @@ Feature: DefenseFlow HTML Forensics
 
   @SID_7
   Scenario: Validate Forensics.Table
-    And UI Click Button "Views.Forensic" with value "Forensics_DefenseFlow"
+    And UI Click Button "Views.Forensic" with value "Forensics_DefenseFlow,0"
     Then UI Validate "Forensics.Table" Table rows count EQUALS to 278
 
   @SID_8
   Scenario: Validate Threat Category
-    And UI Click Button "Views.Forensic" with value "Forensics_DefenseFlow"
+    And UI Click Button "Views.Forensic" with value "Forensics_DefenseFlow,0"
     Then UI Validate "Forensics.Table" Table rows count EQUALS to 278
     Then UI click Table row by keyValue or Index with elementLabel "Forensics.Table" findBy columnName "Threat Category" findBy cellValue "Behavioral DoS"
     And UI Click Button "Refine View"
@@ -127,26 +127,19 @@ Feature: DefenseFlow HTML Forensics
     And UI Click Button "Apply"
     Then UI Validate "Forensics.Table" Table rows count EQUALS to 12
     And UI Click Button "Clear Refine"
-    Then UI click Table row by keyValue or Index with elementLabel "Forensics.Table" findBy columnName "Attack Name" findBy cellValue "network flood IPv6 TCP-SYN"
+    Then UI click Table row by keyValue or Index with elementLabel "Forensics.Table" findBy columnName "Attack Name" findBy cellValue "network flood IPv4 TCP-SYN"
     And UI Click Button "Refine View"
     And UI Click Button "Refine by"
     And UI Click Button "Refine by Value" with value "name"
     And UI Click Button "Apply"
     Then UI Validate "Forensics.Table" Table rows count EQUALS to 8
     And UI Click Button "Clear Refine"
-    Then UI click Table row by keyValue or Index with elementLabel "Forensics.Table" findBy columnName "Attack Name" findBy cellValue "network flood Protection"
+    Then UI click Table row by keyValue or Index with elementLabel "Forensics.Table" findBy columnName "Attack Name" findBy cellValue "HTTPS Flood Protection"
     And UI Click Button "Refine View"
     And UI Click Button "Refine by"
     And UI Click Button "Refine by Value" with value "name"
     And UI Click Button "Apply"
     Then UI Validate "Forensics.Table" Table rows count EQUALS to 9
-    And UI Click Button "Clear Refine"
-    Then UI click Table row by keyValue or Index with elementLabel "Forensics.Table" findBy columnName "Attack Name" findBy cellValue "External report"
-    And UI Click Button "Refine View"
-    And UI Click Button "Refine by"
-    And UI Click Button "Refine by Value" with value "name"
-    And UI Click Button "Apply"
-    Then UI Validate "Forensics.Table" Table rows count EQUALS to 7
     And UI Click Button "Clear Refine"
     Then UI click Table row by keyValue or Index with elementLabel "Forensics.Table" findBy columnName "Attack Name" findBy cellValue "DOSS-NTP-monlist-flood"
     And UI Click Button "Refine View"
@@ -158,7 +151,7 @@ Feature: DefenseFlow HTML Forensics
 
   @SID_10
   Scenario: Validate Action
-    And UI Click Button "Views.Forensic" with value "Forensics_DefenseFlow"
+    And UI Click Button "Views.Forensic" with value "Forensics_DefenseFlow,0"
     Then UI Validate "Forensics.Table" Table rows count EQUALS to 278
     Then UI click Table row by keyValue or Index with elementLabel "Forensics.Table" findBy columnName "Action" findBy cellValue "Drop"
     And UI Click Button "Refine View"
@@ -170,15 +163,6 @@ Feature: DefenseFlow HTML Forensics
 
   @SID_11
   Scenario: Validate Protocol
-    And UI Click Button "Views.Forensic" with value "Forensics_DefenseFlow"
-    Then UI Validate "Forensics.Table" Table rows count EQUALS to 278
-    Then UI click Table row by keyValue or Index with elementLabel "Forensics.Table" findBy columnName "Protocol" findBy cellValue "ICMP"
-    And UI Click Button "Refine View"
-    And UI Click Button "Refine by"
-    And UI Click Button "Refine by Value" with value "protocol"
-    And UI Click Button "Apply"
-    Then UI Validate "Forensics.Table" Table rows count EQUALS to 9
-    And UI Click Button "Clear Refine"
     Then UI click Table row by keyValue or Index with elementLabel "Forensics.Table" findBy columnName "Protocol" findBy cellValue "IP"
     And UI Click Button "Refine View"
     And UI Click Button "Refine by"
@@ -192,19 +176,5 @@ Feature: DefenseFlow HTML Forensics
     And UI Click Button "Refine by Value" with value "protocol"
     And UI Click Button "Apply"
     Then UI Validate "Forensics.Table" Table rows count EQUALS to 76
-    And UI Click Button "Clear Refine"
-    Then UI click Table row by keyValue or Index with elementLabel "Forensics.Table" findBy columnName "Protocol" findBy cellValue "TCP"
-    And UI Click Button "Refine View"
-    And UI Click Button "Refine by"
-    And UI Click Button "Refine by Value" with value "protocol"
-    And UI Click Button "Apply"
-    Then UI Validate "Forensics.Table" Table rows count EQUALS to 151
-    And UI Click Button "Clear Refine"
-    Then UI click Table row by keyValue or Index with elementLabel "Forensics.Table" findBy columnName "Protocol" findBy cellValue "UDP"
-    And UI Click Button "Refine View"
-    And UI Click Button "Refine by"
-    And UI Click Button "Refine by Value" with value "protocol"
-    And UI Click Button "Apply"
-    Then UI Validate "Forensics.Table" Table rows count EQUALS to 33
     And UI Click Button "Clear Refine"
 
