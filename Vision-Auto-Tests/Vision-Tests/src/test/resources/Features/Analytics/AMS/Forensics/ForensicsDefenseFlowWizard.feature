@@ -20,12 +20,14 @@ Feature: Defense Flow Forensic Wizard
     When CLI Operations - Run Radware Session command "system df management-ip get"
     Then CLI Operations - Verify that output contains regex "DefenseFlow Management IP Address: 172.17.164.10"
 
+    @Test12
   @SID_3 @Sanity
   Scenario: Login and navigate to forensics
     Given UI Login with user "radware" and password "radware"
     * REST Vision Install License Request "vision-AVA-Max-attack-capacity"
     * REST Vision Install License Request "vision-reporting-module-AMS"
-    And UI Navigate to "AMS Forensics" page via homePage
+    Then UI Navigate to "New Forensics" page via homepage
+    Then UI Click Button "New Forensics Tab"
 
   @SID_4 @Sanity
   Scenario: Run DF attacks
@@ -34,98 +36,110 @@ Feature: Defense Flow Forensic Wizard
       | #visionIP |
       | " Terminated" |
 
+  
   @SID_5 @Sanity
   Scenario: create forensic definition Wizard_test
     Given UI "Create" Forensics With Name "Wizard_test"
       | Product | DefenseFlow |
-      | Output  | Start Time, End Time, Attack Name, Action, Attack ID, Policy Name, Source IP Address, Source Port, Max pps, Max bps |
+      | Output  | Start Time,End Time,Attack Name,Action,Attack ID,Policy Name,Source IP Address,Source Port,Max pps,Max bps |
       | Time Definitions.Date | Quick:1D |
       | Format | Select: CSV |
       | Share  | FTP:checked, FTP.Location:172.17.164.10, FTP.Path:/home/radware/ftp/, FTP.Username:radware, FTP.Password:radware |
 
+#    When UI "Create" Forensics With Name "Wizard_test"
+#      | Product               | DefenseFlow                                                                                                      |
+#      | Output                | Destination IP Address,Destination Port,Direction,Protocol,Radware ID,Duration,Total Packets Dropped             |
+#      | Criteria              | Event Criteria:Action,Operator:Not Equals,Value:Http 403 Forbidden                                             |
+#      | devices               | All                                                                                                              |
+#      | Schedule              | Run Every:Once, On Time:+6H                                                                                      |
+#      | Share                 | FTP:checked, FTP.Location:172.17.164.10, FTP.Path:/home/radware/ftp/, FTP.Username:radware, FTP.Password:radware |
+#      | Format                | Select: CSV                                                                                                      |
+
+  
   @SID_6 @Sanity
   Scenario: create forensic definition Second_view
     Given UI "Create" Forensics With Name "Source_Address"
       | Product | DefenseFlow |
       | Criteria | Event Criteria:Source IP,Operator:Equals,IPType:IPv4,IPValue:100.100.100.103; |
-      | Output  | Start Time, End Time, Attack Name, Action, Attack ID, Policy Name, Source IP Address, Source Port, Max pps, Max bps |
+      | Output  | Start Time,End Time,Attack Name,Action,Attack ID,Policy Name,Source IP Address,Source Port,Max pps,Max bps |
       | Time Definitions.Date | Quick:1D |
       | Format | Select: CSV |
       | Share  | FTP:checked, FTP.Location:172.17.164.10, FTP.Path:/home/radware/ftp/, FTP.Username:radware, FTP.Password:radware |
 
   @SID_7 @Sanity
   Scenario: Forensic wizard test Validate ForensicsView
-    When UI Click Button "Views.Expand" with value "Wizard_test"
-    Then UI Validate Element Existence By Label "Views.Generate Now" if Exists "true" with value "Wizard_test"
-
+    Then UI Click Button "My Forensics" with value "Wizard_test"
+    Then UI Validate Element Existence By Label "Generate Snapshot Forensics Manually" if Exists "true" with value "Wizard_test"
 
   @SID_8 @Sanity
   Scenario: Forensic wizard test Generate Now
-    When UI Click Button "Views.Generate Now" with value "Wizard_test"
-    And Sleep "120"
-    When UI Click Button "Views.report" with value "Wizard_test"
-
-
+    Then UI Click Button "Generate Snapshot Forensics Manually" with value "Wizard_test"
+    Then Sleep "35"
+    When UI Click Button "Views.Forensic" with value "Wizard_test"
+    
   @SID_9
   Scenario: VRM - Forensic wizard test Validate Table
-    Then UI Validate Table record values by columns with elementLabel "Report.Table" findBy index 0
+    Then UI Validate Table record values by columns with elementLabel "Forensics.Table" findBy index 0
       | columnName | value |
       | Action     | Drop  |
-    Then UI click Table row by keyValue or Index with elementLabel "Report.Table" findBy index 0
-    Then UI Text of "Report.Attack Details.Detail" with extension "Action" equal to "Drop"
-    Then UI Click Button "Report.Attack Details.Close"
+    Then UI click Table row by keyValue or Index with elementLabel "Forensics.Table" findBy index 0
+    Then UI Text of "Forensics.Attack Details.Detail" with extension "Action" equal to "Drop"
+    Then UI Click Button "Forensics.Attack Details.Close"
 
   @SID_10
   Scenario: VRM - Validate Forensic "Wizard" Delete Wizard
-    When UI Delete "Wizard_test" and Cancel
-    Then UI Validate Element Existence By Label "Views" if Exists "true" with value "Wizard_test"
-    When UI Delete "Wizard_test" and Approve
+    Then UI Click Button "Delete Forensics" with value "Wizard_test"
+    Then UI Click Button "Cancel Delete Forensics"
+    Then UI Validate Element Existence By Label "My Forensics" if Exists "true" with value "Wizard_test"
+    Then UI Delete Forensics With Name "Wizard_test"
     And Sleep "1"
-    Then UI Validate Element Existence By Label "Views" if Exists "false" with value "Wizard_test"
+    Then UI Validate Element Existence By Label "My Forensics" if Exists "false" with value "Wizard_test"
 
   @SID_11 @Sanity
   Scenario: Forensic wizard test Validate ForensicsView
-    When UI Click Button "Views.Expand" with value "Source_Address"
-    Then UI Validate Element Existence By Label "Views.Generate Now" if Exists "true" with value "Source_Address"
+    Then UI Click Button "My Forensics" with value "Source_Address"
+    Then UI Validate Element Existence By Label "Generate Snapshot Forensics Manually" if Exists "true" with value "Source_Address"
 
   @SID_12 @Sanity
   Scenario: Forensic wizard test Generate Now
-    When UI Click Button "Views.Generate Now" with value "Source_Address"
-    When UI Click Button "Views.report" with value "Source_Address"
+    When UI Click Button "Generate Snapshot Forensics Manually" with value "Source_Address"
+    When UI Click Button "Views.Forensic" with value "Source_Address"
 
   @SID_13
   Scenario: VRM - Forensic wizard test Validate Table
-    Then UI Validate Table record values by columns with elementLabel "Report.Table" findBy index 0
+    Then UI Validate Table record values by columns with elementLabel "Forensics.Table" findBy index 0
       | columnName | value |
       | Source IP Address     | 100.100.100.103  |
-    Then UI click Table row by keyValue or Index with elementLabel "Report.Table" findBy index 0
-    Then UI Text of "Report.Attack Details.Detail" with extension "Action" equal to "Drop"
-    Then UI Click Button "Report.Attack Details.Close"
+    Then UI click Table row by keyValue or Index with elementLabel "Forensics.Table" findBy index 0
+    Then UI Text of "Forensics.Attack Details.Detail" with extension "Action" equal to "Drop"
+    Then UI Click Button "Forensics.Attack Details.Close"
 
   @SID_14
   Scenario: Validate attack details refine by Action
-    When UI click Table row by keyValue or Index with elementLabel "Report.Table" findBy columnName "Attack Name" findBy cellValue "HTTP (recv.pps)"
-    And UI Click Button "Report.Attack Details.Refine View"
-    And UI Select Multi items from dropdown "Report.Attack Details.Refine.Dropdown" apply
+    When UI click Table row by keyValue or Index with elementLabel "Forensics.Table" findBy columnName "Attack Name" findBy cellValue "HTTP (recv.pps)"
+    And UI Click Button "Refine View"
+    And UI Select Multi items from dropdown "Refine by" apply
       | Attack Name |
-    Then UI Validate "Report.Table" Table rows count EQUALS to 3
-    * UI Click Button "Report.Clear Refine"
+    Then UI Validate "Forensics.Table" Table rows count EQUALS to 3
+    * UI Click Button "Clear Refine"
   @SID_15
   Scenario: VRM - Validate Forensic "Wizard" Delete Wizard
-    When UI Delete "Source_Address" and Cancel
-    Then UI Validate Element Existence By Label "Views" if Exists "true" with value "Source_Address"
-    When UI Delete "Source_Address" and Approve
+    Then UI Click Button "Delete Forensics" with value "Source_Address"
+    Then UI Click Button "Cancel Delete Forensics"
+    Then UI Validate Element Existence By Label "My Forensics" if Exists "true" with value "Source_Address"
+    Then UI Delete Forensics With Name "Source_Address"
     And Sleep "1"
-    Then UI Validate Element Existence By Label "Views" if Exists "false" with value "Source_Address"
+    Then UI Validate Element Existence By Label "My Forensics" if Exists "false" with value "Source_Address"
+
 
 #    ------------------- Ahlam - Add test for Connection PPS  -----------------
-
+  @Test12
   @SID_16
   Scenario: create forensic definition Second_view
     Given UI "Create" Forensics With Name "Category_ConnectionPPS"
       | Product | DefenseFlow |
-      | Criteria | Event Criteria:Threat Category,Operator:Equals,Value:[Connection PPS]; |
-      | Output  | Start Time, End Time, Attack Name, Action, Attack ID, Policy Name, Source IP Address, Source Port, Max pps, Max bps |
+      | Criteria | Event Criteria:Threat Category,Operator:Equals,Value:Connection PPS |
+      | Output  | Start Time,End Time,Attack Name,Action,Attack ID,Policy Name,Source IP Address,Source Port,Max pps,Max bps |
       | Time Definitions.Date | Quick:1D |
       | Format | Select: CSV |
       | Share  | FTP:checked, FTP.Location:172.17.164.10, FTP.Path:/home/radware/ftp/, FTP.Username:radware, FTP.Password:radware |
@@ -133,17 +147,16 @@ Feature: Defense Flow Forensic Wizard
 
   @SID_17
   Scenario: Forensic wizard test Validate ForensicsView
-    When UI Click Button "Views.Expand" with value "Category_ConnectionPPS"
-    Then UI Validate Element Existence By Label "Views.Generate Now" if Exists "true" with value "Category_ConnectionPPS"
+    Then UI Click Button "My Forensics" with value "Category_ConnectionPPS"
+    Then UI Validate Element Existence By Label "Generate Snapshot Forensics Manually" if Exists "true" with value "Category_ConnectionPPS"
 
 
   @SID_18
   Scenario: Forensic wizard test Generate Now
-    When UI Click Button "Views.Generate Now" with value "Category_ConnectionPPS"
-    And Sleep "120"
-    When UI Click Button "Views.report" with value "Category_ConnectionPPS"
-    Then UI Validate "Report.Table" Table rows count EQUALS to 1
-
+    Then UI Click Button "Generate Snapshot Forensics Manually" with value "Category_ConnectionPPS"
+    Then Sleep "35"
+    When UI Click Button "Views.Forensic" with value "Category_ConnectionPPS"
+    Then UI Validate "Forensics.Table" Table rows count EQUALS to 1
 
   @SID_19 @Sanity
   Scenario: Logout
