@@ -1,11 +1,6 @@
 Feature: topNAttacks
 
 
-
-  @runSetup
-  @SID_1
-
-
   @SID_1
   Scenario: keep reports copy on file system
     Given CLI Reset radware password
@@ -35,35 +30,38 @@ Feature: topNAttacks
     * CLI simulate 1 attacks of type "IP_FEED_Modified" on "DefensePro" 10 and wait 80 seconds
 
 
+  @SID_5
   Scenario: Login as sys_admin and update Attack Description File
     Given UI Login with user "radware" and password "radware"
     When UI Navigate to "DefensePro Monitoring Dashboard" page via homePage
 
-
+  @SID_6
   Scenario: validate Top attacks sources in 2drill down
     Then Sleep "3"
     Given UI click Table row by keyValue or Index with elementLabel "Protection Policies.Table" findBy columnName "Device" findBy cellValue "DP_172.15.22.50"
     Then UI Validate Element Existence By Label "topAttackSource" if Exists "true" with value "0"
     Then UI Validate Element Existence By Label "topAttackDestination" if Exists "true" with value "0"
 
-
+  @SID_7
   Scenario: validate 3 drill down
     And UI click Table row by keyValue or Index with elementLabel "Protection Policies.Protections Table" findBy columnName "Protection Name" findBy cellValue "DNS Flood"
     And UI click Table row by keyValue or Index with elementLabel "Protection Policies.Events Table" findBy columnName "Source Address" findBy cellValue "0.0.0.0"
     Then UI Validate Text field "TOP ATTACK SOURCES.IP" with params "0" EQUALS "192.85.1.7"
 
+  @SID_8
   Scenario: validate global policy
     When UI Navigate to "DefensePro Monitoring Dashboard" page via homePage
     Given UI click Table row by keyValue or Index with elementLabel "Protection Policies.Table" findBy columnName "Policy Name" findBy cellValue "Global Policy"
 
-    Scenario: validate analytics dashboard
-      When UI Navigate to "DefensePro Analytics Dashboard" page via homePage
+  @SID_9
+  Scenario: validate analytics dashboard
+    When UI Navigate to "DefensePro Analytics Dashboard" page via homePage
 
-
-      Scenario: validate Rbac
-        Then UI Logout
-        * CLI simulate 1 attacks of type "VRM_attacks" on "DefensePro" 10 and wait 100 seconds
-        Given UI Login with user "userWithPolicy" and password "radware"
-        When UI Navigate to "DefensePro Monitoring Dashboard" page via homePage
-        Given UI click Table row by keyValue or Index with elementLabel "Protection Policies.Table" findBy index 0
-         Then UI Validate Text field "TOP ATTACK SOURCES.IP" with params "0" MatchRegex "^((?!192.85.1.7|2.2.2.1|192.85.1.2|1.1.1.1|1.3.5.8).)*"
+  @SID_10
+  Scenario: validate Rbac
+    Then UI Logout
+    * CLI simulate 1 attacks of type "VRM_attacks" on "DefensePro" 10 and wait 100 seconds
+    Given UI Login with user "userWithPolicy" and password "radware"
+    When UI Navigate to "DefensePro Monitoring Dashboard" page via homePage
+    Given UI click Table row by keyValue or Index with elementLabel "Protection Policies.Table" findBy index 0
+    Then UI Validate Text field "TOP ATTACK SOURCES.IP" with params "0" MatchRegex "^((?!192.85.1.7|2.2.2.1|192.85.1.2|1.1.1.1|1.3.5.8).)*"
