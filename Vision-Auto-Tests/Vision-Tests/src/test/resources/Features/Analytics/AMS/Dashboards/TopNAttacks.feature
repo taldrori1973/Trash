@@ -62,4 +62,8 @@ Feature: topNAttacks
 
       Scenario: validate Rbac
         Then UI Logout
-        Given UI Login with user "radware" and password "radware"
+        * CLI simulate 1 attacks of type "VRM_attacks" on "DefensePro" 10 and wait 100 seconds
+        Given UI Login with user "userWithPolicy" and password "radware"
+        When UI Navigate to "DefensePro Monitoring Dashboard" page via homePage
+        Given UI click Table row by keyValue or Index with elementLabel "Protection Policies.Table" findBy index 0
+        Then UI Validate Text field "TOP ATTACK SOURCES.IP" with params "0" MatchRegex "^((?!192.85.1.7|2.2.2.1|192.85.1.2|1.1.1.1|1.3.5.8).)*"
