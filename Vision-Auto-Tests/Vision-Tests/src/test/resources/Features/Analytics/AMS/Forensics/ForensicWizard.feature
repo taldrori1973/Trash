@@ -1,4 +1,4 @@
-@VRM_Report2 @TC106006 
+@VRM_Report2 @TC106006
 Feature: Forensic Wizard
 
 
@@ -11,6 +11,7 @@ Feature: Forensic Wizard
 #    * REST Delete ES index "dp-https-rt-*"
 #    * REST Delete ES index "dp-five-*"
     * REST Delete ES index "dp-*"
+    * REST Delete ES index "forensics-*"
 
     And REST Request "PUT" for "Connectivity->Inactivity Timeout for Configuration"
       | type | value                                 |
@@ -21,11 +22,11 @@ Feature: Forensic Wizard
   Scenario: Run DP simulator PCAPs for Top Attacks test
     Given CLI simulate 1 attacks of type "rest_anomalies" on "DefensePro" 10 and wait 30 seconds
 
-  
+  @Test12
   @SID_3 @Sanity
   Scenario: Login and navigate to forensic
     Given UI Login with user "sys_admin" and password "radware"
-    * REST Vision Install License Request "vision-AVA-Max-attack-capacity"
+#    * REST Vision Install License Request "vision-AVA-Max-attack-capacity"
     Then UI Navigate to "New Forensics" page via homepage
 #    Then UI Click Button "New Forensics Tab"
 
@@ -46,7 +47,7 @@ Feature: Forensic Wizard
     Then UI Click Button "Generate Snapshot Forensics Manually" with value "Wizard_test"
     Then Sleep "35"
 
-    When UI Click Button "Views.Forensic" with value "Wizard_test"
+    When UI Click Button "Views.Forensic" with value "Wizard_test,0"
 
   @SID_7
   Scenario: VRM - Forensic wizard test Validate Table
@@ -70,11 +71,18 @@ Feature: Forensic Wizard
      When UI "Create" Forensics With Name "Loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooongname"
       |Basic Info|Description:looooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooongDescreption|
 
-  
+  @Test12
   @SID_10
   Scenario: VRM forensic validate max 10 generations in view
+    Given UI "Create" Forensics With Name "validateMaxViews"
+      | Output  | Action,Attack ID,Start Time,Threat Category,Radware ID,Device IP Address,Attack Name,Duration,Packet Type,Max bps,Policy Name,Risk |
+
+    Then UI Click Button "My Forensics" with value "validateMaxViews"
+    Then UI Validate Element Existence By Label "Generate Snapshot Forensics Manually" if Exists "true" with value "validateMaxViews"
+
     Then CLI Connect Radware
-    Then UI Validate max generate Forensics is 10
+    
+    Then UI Validate max generate snapshot in Forensics is 10 when add 5 snapshots
 
   @SID_11 @Sanity
   Scenario: Logout

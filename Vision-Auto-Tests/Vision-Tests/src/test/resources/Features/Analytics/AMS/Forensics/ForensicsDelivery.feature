@@ -11,6 +11,7 @@ Feature: Forensics Delivery
 #    * REST Delete ES index "dp-https-rt-*"
 #    * REST Delete ES index "dp-five-*"
     * REST Delete ES index "dp-*"
+    * REST Delete ES index "forensics-*"
     Given CLI Reset radware password
     When REST Vision Install License Request "vision-AVA-Max-attack-capacity"
     When CLI Operations - Run Radware Session command "system user authentication-mode set TACACS+"
@@ -34,7 +35,7 @@ Feature: Forensics Delivery
     And UI Set Text Field "SMTP Server Address" To "172.17.164.10"
     And UI Set Text Field "SMTP Port" To "25"
     And UI Click Button "Submit"
-    And UI Navigate to "AMS Forensics" page via homepage
+    Then UI Navigate to "New Forensics" page via homepage
 
   @SID_3
   Scenario: validate Forensics Report empty delivery
@@ -44,7 +45,9 @@ Feature: Forensics Delivery
       | Format   | Select: HTML |
 
     When CLI Run remote linux Command "echo "cleared" $(date) > /var/spool/mail/forensicuser" on "GENERIC_LINUX_SERVER"
-    When UI Generate and Validate Forensics With Name "Email Validate" with Timeout of 300 Seconds
+    Then UI Click Button "My Forensics" with value "Email Validate"
+    Then UI Click Button "Generate Snapshot Forensics Manually" with value "Email Validate"
+    Then Sleep "35"
 
     Then CLI Run linux Command "grep "From qa_test@radware.com" /var/spool/mail/forensicuser |wc -l" on "GENERIC_LINUX_SERVER" and validate result EQUALS "1"
     Then CLI Run linux Command "grep "X-Original-To: automation.vision1@forensic.local" /var/spool/mail/forensicuser |wc -l" on "GENERIC_LINUX_SERVER" and validate result EQUALS "1"
@@ -61,11 +64,13 @@ Feature: Forensics Delivery
   @SID_5
   Scenario: login and generate the forensic report "Email Validate"
     Given UI Login with user "sys_admin" and password "radware"
-    Then UI Navigate to "AMS Forensics" page via homepage
-    Then UI Generate and Validate Forensics With Name "Email Validate" with Timeout of 300 Seconds
-    And Sleep "30"
+    Then UI Navigate to "New Forensics" page via homepage
+    
+    Then UI Click Button "My Forensics" with value "Email Validate"
+    Then UI Click Button "Generate Snapshot Forensics Manually" with value "Email Validate"
+    Then Sleep "35"
     #For debug use to have the ability to view what was generated
-    Then UI Click Button "Views.report" with value "Email Validate"
+    Then UI Click Button "Views.Forensic" with value "Email Validate,0"
     Then Sleep "5"
 
   @SID_6
@@ -188,7 +193,7 @@ Feature: Forensics Delivery
   @SID_11
   Scenario: Modify Forensics Report email no FTP content CSV attachment
     Given UI Login with user "sys_admin" and password "radware"
-    Then UI Navigate to "AMS Forensics" page via homepage
+    Then UI Navigate to "New Forensics" page via homepage
     When UI "Edit" Forensics With Name "Email Validate"
       | Format  | Select: CSV |
 
@@ -205,8 +210,10 @@ Feature: Forensics Delivery
   Scenario: Tc105524 validate Forensics Report email no FTP content CSV attachment
     Then CLI Run remote linux Command "echo "cleared" $(date) > /var/spool/mail/forensicuser" on "GENERIC_LINUX_SERVER"
     Given UI Login with user "sys_admin" and password "radware"
-    Then UI Navigate to "AMS Forensics" page via homepage
-    Then UI Generate and Validate Forensics With Name "Email Validate" with Timeout of 300 Seconds
+    Then UI Navigate to "New Forensics" page via homepage
+    Then UI Click Button "My Forensics" with value "Wizard_test"
+    Then UI Click Button "Generate Snapshot Forensics Manually" with value "Wizard_test"
+    Then Sleep "35"
     Then CLI Run remote linux Command "cat /var/spool/mail/forensicuser > /tmp/forensic_csv.log" on "GENERIC_LINUX_SERVER"
     Then CLI Run linux Command "grep "Content-Disposition: attachment;" /var/spool/mail/forensicuser | wc -l" on "GENERIC_LINUX_SERVER" and validate result EQUALS "1"
     Then CLI Run linux Command "grep -oP "filename=\"Email Validate_(\d{4})-(\d{2})-(\d{2})_(\d{2})-(\d{2})-(\d{2}).zip\"" /var/spool/mail/forensicuser | wc -l" on "GENERIC_LINUX_SERVER" and validate result EQUALS "1"
@@ -226,7 +233,7 @@ Feature: Forensics Delivery
   @SID_15
   Scenario: VRM - Login to VRM and go to forensic
     Given UI Login with user "sys_admin" and password "radware"
-    Then UI Navigate to "AMS Forensics" page via homepage
+    Then UI Navigate to "New Forensics" page via homepage
 
   @SID_16
   Scenario: Create Forensics Report FTP_export by server IP no email
@@ -235,7 +242,10 @@ Feature: Forensics Delivery
       | Output  | Action,Attack ID,Start Time,Source IP Address,Source Port,Destination IP Address,Destination Port,Direction,Protocol,Threat Category,Radware ID,Device IP Address,Attack Name,End Time,Duration,Packets,Mbits,Physical Port,,Risk, Policy Name |
       | Format  | Select: CSV                                                                                                     |
     Then CLI Run remote linux Command "rm -f /home/radware/ftp/FTP_export*.zip /home/radware/ftp/FTP_export*.csv" on "GENERIC_LINUX_SERVER"
-    Then UI Generate and Validate Forensics With Name "FTP_export" with Timeout of 300 Seconds
+
+    Then UI Click Button "My Forensics" with value "FTP_export"
+    Then UI Click Button "Generate Snapshot Forensics Manually" with value "FTP_export"
+    Then Sleep "35"
 
   @SID_17
   Scenario: validate Forensics Report FTP csv file
@@ -300,8 +310,10 @@ Feature: Forensics Delivery
 ##    Then UI Click Button "Summary Card" with value "initial"
 #    Then UI Click Button "Submit" with value "Submit"
     Then UI Navigate to "AMS Reports" page via homePage
-    Then UI Navigate to "AMS Forensics" page via homepage
-    Then UI Generate and Validate Forensics With Name "FTP_export" with Timeout of 300 Seconds
+    Then UI Navigate to "New Forensics" page via homepage
+    Then UI Click Button "My Forensics" with value "FTP_export"
+    Then UI Click Button "Generate Snapshot Forensics Manually" with value "FTP_export"
+    Then Sleep "35"
     Then CLI Run remote linux Command "unzip -o /home/radware/ftp/FTP_export*.zip -d /home/radware/ftp/" on "GENERIC_LINUX_SERVER"
     Then CLI Run linux Command "cat /home/radware/ftp/FTP_export*.csv |wc -l" on "GENERIC_LINUX_SERVER" and validate result EQUALS "2"
 

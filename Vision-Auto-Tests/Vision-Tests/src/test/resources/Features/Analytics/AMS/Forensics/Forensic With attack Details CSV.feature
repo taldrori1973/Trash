@@ -12,6 +12,7 @@ Feature: Forensics CSV with Attack details
 #    * REST Delete ES index "dp-https-rt-*"
 #    * REST Delete ES index "dp-five-*"
     * REST Delete ES index "dp-*"
+    * REST Delete ES index "forensics-*"
     * REST Vision Install License Request "vision-AVA-Max-attack-capacity"
 
   @SID_2
@@ -21,7 +22,7 @@ Feature: Forensics CSV with Attack details
   @SID_3
   Scenario: login and go to forensic tab
     Given UI Login with user "sys_admin" and password "radware"
-    Then UI Navigate to "AMS Forensics" page via homePage
+    Then UI Navigate to "New Forensics" page via homepage
 
   @SID_4
   Scenario: Create Forensics Report csv_detailed
@@ -33,8 +34,9 @@ Feature: Forensics CSV with Attack details
   @SID_5
   Scenario: Clear FTP server logs and generate the report
     Then CLI Run remote linux Command "rm -f /home/radware/ftp/TC112730*.zip /home/radware/ftp/TC112730*.csv" on "GENERIC_LINUX_SERVER"
-    Then UI Generate and Validate Forensics With Name "TC112730" with Timeout of 300 Seconds
-    Then Sleep "30"
+    Then UI Click Button "My Forensics" with value "TC112730"
+    Then UI Click Button "Generate Snapshot Forensics Manually" with value "TC112730"
+    Then Sleep "35"
 
   @SID_6
   Scenario: Unzip CSV file
