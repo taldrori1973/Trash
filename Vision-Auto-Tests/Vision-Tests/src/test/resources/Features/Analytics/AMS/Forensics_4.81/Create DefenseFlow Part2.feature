@@ -378,7 +378,7 @@ Feature:Create DefenseFlow Part2
     When UI "Create" Forensics With Name "Output Max bps Direction Equal"
       | Product               | DefenseFlow                                                                                                      |
       | Output                | Max bps                                                                                                         |
-      | Criteria              | Event Criteria:Direction,Operator:Equals,Value:[In,Out,Unknown,both]                                   |
+      | Criteria              | Event Criteria:Direction,Operator:Equals,Value:[In,Out,Unknown,Both]                                   |
       | devices               | All                                                                                                              |
       | Time Definitions.Date | Relative:[Hours,2]                                                                                               |
       | Schedule              | Run Every:Weekly, On Time:+6H, At Days:[WED]                                                                     |
@@ -390,7 +390,7 @@ Feature:Create DefenseFlow Part2
     When UI "Create" Forensics With Name "Output Physical Port Direction Not Equal"
       | Product               | DefenseFlow                                                                        |
       | Output                | Physical Port                                                                      |
-      | Criteria              | Event Criteria:Direction,Operator:Not Equals,Value:[In,Out,Unknown,both] |
+      | Criteria              | Event Criteria:Direction,Operator:Not Equals,Value:[In,Out,Unknown,Both] |
       | devices               | All                                                                                |
       | Share                 | Email:[automation.vision2@radware.com],Subject:myEdit subject,Body:myEdit body     |
       | Format                | Select: CSV                                                                        |
@@ -492,7 +492,7 @@ Feature:Create DefenseFlow Part2
     When UI "Create" Forensics With Name "Output All Duration Equal"
       | Product               | DefenseFlow                                                                                                                                                                                                                                                                                        |
       | Output                | Start Time,End Time,Device IP Address,Threat Category,Attack Name,Action,Attack ID,Policy Name,Source IP Address,Source Port,Destination IP Address,Destination Port,Direction,Protocol,Radware ID,Duration,Total Packets Dropped,Max pps,Total Mbits Dropped,Max bps,Physical Port,Risk,VLAN Tag |
-      | Criteria              | Event Criteria:Duration,Operator:Equals,Value:[lessThanOneMin,1-5min,5-10min,10-30min,30-60min,moreThanOneMin]                                                                                                                                                                              |
+      | Criteria              | Event Criteria:Duration,Operator:Equals,Value:[lessThanOneMin,1-5min,5-10min,10-30min,30-60min,moreThanOneHour]                                                                                                                                                                              |
       | devices               | All                                                                                                                                                                                                                                                                                                |
       | Schedule              | Run Every:Monthly, On Time:+6H, At Months:[AUG]                                                                                                                                                                                                                                                    |
       | Share                 | FTP:checked, FTP.Location:172.17.164.10, FTP.Path:/home/radware/ftp/, FTP.Username:radware, FTP.Password:radware                                                                                                                                                                                   |
@@ -515,7 +515,7 @@ Feature:Create DefenseFlow Part2
     When UI "Create" Forensics With Name "Output End Time Duration Not Equal"
       | Product               | DefenseFlow                                                                                                               |
       | Output                | End Time                                                                                                                  |
-      | Criteria              | Event Criteria:Duration,Operator:Not Equals,Value:[lessThanOneMin,1-5min,5-10min,10-30min,30-60min,moreThanOneMin] |
+      | Criteria              | Event Criteria:Duration,Operator:Not Equals,Value:[lessThanOneMin,1-5min,5-10min,10-30min,30-60min,moreThanOneHour] |
       | devices               | All                                                                                                                       |
       | Time Definitions.Date | Relative:[Weeks,2]                                                                                                        |
       | Schedule              | Run Every:Daily,On Time:+2m                                                                                               |
