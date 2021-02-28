@@ -175,6 +175,7 @@ public class Forensics extends ReportsForensicsAlertsAbstract {
             case "DURATION":
             case "PROTOCOL":
             case "RISK":
+            case "Severity":
             case "THREAT CATEGORY": {
                 BasicOperationsHandler.clickButton("Criteria Value Expand");
                 String valuesText = condition.get("Value").toString().charAt(0) == '[' ? condition.get("Value").toString().replaceAll("(\\[)|(])|(\")", "") : condition.get("Value").toString();
@@ -184,11 +185,16 @@ public class Forensics extends ReportsForensicsAlertsAbstract {
                     WebUiTools.check("Criteria Value Selected", value, true);
                 break;
             }
+            case "Device Host Name":
             case "ATTACK ID":
+            case "Directory":
+            case "Module":
+            case "Transaction ID":
             case "ATTACK NAME": {
                 BasicOperationsHandler.setTextField("Criteria Value Input", condition.get("Value").toString());
                 break;
             }
+            case "Device IP":
             case "DESTINATION IP":
             case "SOURCE IP": {
                 WebUiTools.check("attributeValueExpand", "", true);
