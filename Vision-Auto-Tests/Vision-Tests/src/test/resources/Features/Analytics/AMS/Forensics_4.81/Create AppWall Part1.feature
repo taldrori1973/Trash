@@ -10,12 +10,12 @@ Feature:Create AppWall Part1
   @SID_2
   Scenario: create new Output Date and Time
     When UI "Create" Forensics With Name " Output Date and Time"
-      | Product               | AppWall                                                                        |
-      | Output                | Date and Time                                                                  |
-      | Criteria              | condition.All:true                                                             |
-      | devices               | index:10                                                                       |
-      | Share                 | Email:[automation.vision2@radware.com],Subject:myEdit subject,Body:myEdit body |
-      | Format                | Select: HTML                                                                   |
+      | Product  | AppWall                                                                        |
+      | Output   | Date and Time                                                                  |
+      | Criteria | condition.All:true                                                             |
+      | devices  | index:10                                                                       |
+      | Share    | Email:[automation.vision2@radware.com],Subject:myEdit subject,Body:myEdit body |
+      | Format   | Select: HTML                                                                   |
 
   @SID_3
   Scenario: create new Output Device IP
@@ -32,13 +32,13 @@ Feature:Create AppWall Part1
   @SID_4
   Scenario: create new Output Source IP
     When UI "Create" Forensics With Name " Output Source IP"
-      | Product               | AppWall                                                                        |
-      | Output                | Source IP                                                                      |
-      | Criteria              | condition.All:true                                                             |
-      | devices               | index:10                                                                       |
-      | Schedule              | Run Every:Daily,On Time:+2m                                                    |
-      | Share                 | Email:[automation.vision2@radware.com],Subject:myEdit subject,Body:myEdit body |
-      | Format                | Select: HTML                                                                   |
+      | Product  | AppWall                                                                        |
+      | Output   | Source IP                                                                      |
+      | Criteria | condition.All:true                                                             |
+      | devices  | index:10                                                                       |
+      | Schedule | Run Every:Daily,On Time:+2m                                                    |
+      | Share    | Email:[automation.vision2@radware.com],Subject:myEdit subject,Body:myEdit body |
+      | Format   | Select: HTML                                                                   |
 
   @SID_5
   Scenario: create new Output Destination IP Address
@@ -50,7 +50,7 @@ Feature:Create AppWall Part1
       | Time Definitions.Date | Relative:[Weeks,2]                                                                                               |
       | Schedule              | Run Every:Weekly, On Time:+6H, At Days:[THU]                                                                     |
       | Share                 | FTP:checked, FTP.Location:172.17.164.10, FTP.Path:/home/radware/ftp/, FTP.Username:radware, FTP.Password:radware |
-      | Format                | Select: CSV With Attack Details                                                                                   |
+      | Format                | Select: CSV With Attack Details                                                                                  |
 
   @SID_6
   Scenario: create new Output Source Port
@@ -78,13 +78,13 @@ Feature:Create AppWall Part1
   @SID_8
   Scenario: create new Output Web Application Name
     When UI "Create" Forensics With Name " Output Web Application Name"
-      | Product               | AppWall                                                                        |
-      | Output                | Web Application Name                                                           |
-      | Criteria              | condition.All:true                                                             |
-      | devices               | index:10                                                                       |
-      | Schedule              | Run Every:Weekly, On Time:+6H, At Days:[TUE]                                   |
-      | Share                 | Email:[automation.vision2@radware.com],Subject:myEdit subject,Body:myEdit body |
-      | Format                | Select: CSV                                                                    |
+      | Product  | AppWall                                                                        |
+      | Output   | Web Application Name                                                           |
+      | Criteria | condition.All:true                                                             |
+      | devices  | index:10                                                                       |
+      | Schedule | Run Every:Weekly, On Time:+6H, At Days:[TUE]                                   |
+      | Share    | Email:[automation.vision2@radware.com],Subject:myEdit subject,Body:myEdit body |
+      | Format   | Select: CSV                                                                    |
 
   @SID_9
   Scenario: create new Output Event Description
@@ -96,7 +96,7 @@ Feature:Create AppWall Part1
       | Time Definitions.Date | Absolute:[27.02.1971 01:00, +0d]                                                                                 |
       | Schedule              | Run Every:Monthly, On Time:+6H, At Months:[APR]                                                                  |
       | Share                 | FTP:checked, FTP.Location:172.17.164.10, FTP.Path:/home/radware/ftp/, FTP.Username:radware, FTP.Password:radware |
-      | Format                | Select: CSV With Attack Details                                                                                   |
+      | Format                | Select: CSV With Attack Details                                                                                  |
 
   @SID_10
   Scenario: create new Output Action
@@ -112,13 +112,13 @@ Feature:Create AppWall Part1
   @SID_11
   Scenario: create new Output Attack Name
     When UI "Create" Forensics With Name " Output Attack Name"
-      | Product               | AppWall                                                                                                          |
-      | Output                | Attack Name                                                                                                      |
-      | Criteria              | condition.All:true                                                                                               |
-      | devices               | index:10                                                                                                         |
-      | Schedule              | Run Every:Once, On Time:+6H                                                                                      |
-      | Share                 | FTP:checked, FTP.Location:172.17.164.10, FTP.Path:/home/radware/ftp/, FTP.Username:radware, FTP.Password:radware |
-      | Format                | Select: CSV                                                                                                      |
+      | Product  | AppWall                                                                                                          |
+      | Output   | Attack Name                                                                                                      |
+      | Criteria | condition.All:true                                                                                               |
+      | devices  | index:10                                                                                                         |
+      | Schedule | Run Every:Once, On Time:+6H                                                                                      |
+      | Share    | FTP:checked, FTP.Location:172.17.164.10, FTP.Path:/home/radware/ftp/, FTP.Username:radware, FTP.Password:radware |
+      | Format   | Select: CSV                                                                                                      |
 
   @SID_12
   Scenario: create new Output Device Host Name
@@ -141,7 +141,7 @@ Feature:Create AppWall Part1
       | Time Definitions.Date | Quick:This Month                                                                                                 |
       | Schedule              | Run Every:Once, On Time:+6H                                                                                      |
       | Share                 | FTP:checked, FTP.Location:172.17.164.10, FTP.Path:/home/radware/ftp/, FTP.Username:radware, FTP.Password:radware |
-      | Format                | Select: CSV With Attack Details                                                                                   |
+      | Format                | Select: CSV With Attack Details                                                                                  |
 
   @SID_14
   Scenario: create new Output Module
@@ -170,23 +170,23 @@ Feature:Create AppWall Part1
   @SID_16
   Scenario: create new Output Threat Category
     When UI "Create" Forensics With Name " Output Threat Category"
-      | Product               | AppWall                                                                        |
-      | Output                | Threat Category                                                                |
-      | Criteria              | condition.All:true                                                             |
-      | devices               | index:10                                                                       |
-      | Share                 | Email:[automation.vision2@radware.com],Subject:myEdit subject,Body:myEdit body |
-      | Format                | Select: CSV                                                                    |
+      | Product  | AppWall                                                                        |
+      | Output   | Threat Category                                                                |
+      | Criteria | condition.All:true                                                             |
+      | devices  | index:10                                                                       |
+      | Share    | Email:[automation.vision2@radware.com],Subject:myEdit subject,Body:myEdit body |
+      | Format   | Select: CSV                                                                    |
 
   @SID_17
   Scenario: create new Output Transaction ID
     When UI "Create" Forensics With Name " Output Transaction ID"
-      | Product               | AppWall                                                                                                          |
-      | Output                | Transaction ID                                                                                                   |
-      | Criteria              | condition.All:true                                                                                               |
-      | devices               | index:10                                                                                                         |
-      | Schedule              | Run Every:Monthly, On Time:+6H, At Months:[AUG]                                                                  |
-      | Share                 | FTP:checked, FTP.Location:172.17.164.10, FTP.Path:/home/radware/ftp/, FTP.Username:radware, FTP.Password:radware |
-      | Format                | Select: CSV With Attack Details                                                                                   |
+      | Product  | AppWall                                                                                                          |
+      | Output   | Transaction ID                                                                                                   |
+      | Criteria | condition.All:true                                                                                               |
+      | devices  | index:10                                                                                                         |
+      | Schedule | Run Every:Monthly, On Time:+6H, At Months:[AUG]                                                                  |
+      | Share    | FTP:checked, FTP.Location:172.17.164.10, FTP.Path:/home/radware/ftp/, FTP.Username:radware, FTP.Password:radware |
+      | Format   | Select: CSV With Attack Details                                                                                  |
 
   @SID_18
   Scenario: create new Output Tunnel
@@ -215,115 +215,115 @@ Feature:Create AppWall Part1
   @SID_20
   Scenario: create new Output all1
     When UI "Create" Forensics With Name " Output all1"
-      | Product               | AppWall                                                                                                                                                                                                                          |
+      | Product               | AppWall                                                                                                                                                                                                                                      |
       | Output                | Date and Time,Device IP,Source IP,Destination IP Address,Source Port,Cluster Manager IP,Web Application Name,Event Description,Action,Attack Name,Device Host Name,Directory,Module,Severity,Threat Category,Transaction ID,Tunnel,User Name |
-      | Criteria              | condition.All:true                                                                                                                                                                                                               |
-      | devices               | index:10                                                                                                                                                                                                                         |
-      | Time Definitions.Date | Absolute:[27.02.1971 01:00, +0d]                                                                                                                                                                                                 |
-      | Schedule              | Run Every:Weekly, On Time:+6H, At Days:[SUN]                                                                                                                                                                                     |
-      | Share                 | Email:[automation.vision2@radware.com],Subject:myEdit subject,Body:myEdit body                                                                                                                                                   |
-      | Format                | Select: CSV                                                                                                                                                                                                                      |
+      | Criteria              | condition.All:true                                                                                                                                                                                                                           |
+      | devices               | index:10                                                                                                                                                                                                                                     |
+      | Time Definitions.Date | Absolute:[27.02.1971 01:00, +0d]                                                                                                                                                                                                             |
+      | Schedule              | Run Every:Weekly, On Time:+6H, At Days:[SUN]                                                                                                                                                                                                 |
+      | Share                 | Email:[automation.vision2@radware.com],Subject:myEdit subject,Body:myEdit body                                                                                                                                                               |
+      | Format                | Select: CSV                                                                                                                                                                                                                                  |
 
   @SID_21
   Scenario: create new Output all2
     When UI "Create" Forensics With Name " Output all2"
-      | Product               | AppWall                                                                                                                                                                                                                          |
+      | Product               | AppWall                                                                                                                                                                                                                                      |
       | Output                | Date and Time,Device IP,Source IP,Destination IP Address,Source Port,Cluster Manager IP,Web Application Name,Event Description,Action,Attack Name,Device Host Name,Directory,Module,Severity,Threat Category,Transaction ID,Tunnel,User Name |
-      | Criteria              | condition.All:true                                                                                                                                                                                                               |
-      | devices               | index:10                                                                                                                                                                                                                         |
-      | Time Definitions.Date | Quick:3M                                                                                                                                                                                                                         |
-      | Schedule              | Run Every:Monthly, On Time:+6H, At Months:[DEC]                                                                                                                                                                                  |
-      | Share                 | FTP:checked, FTP.Location:172.17.164.10, FTP.Path:/home/radware/ftp/, FTP.Username:radware, FTP.Password:radware                                                                                                                 |
-      | Format                | Select: CSV With Attack Details                                                                                                                                                                                                   |
+      | Criteria              | condition.All:true                                                                                                                                                                                                                           |
+      | devices               | index:10                                                                                                                                                                                                                                     |
+      | Time Definitions.Date | Quick:3M                                                                                                                                                                                                                                     |
+      | Schedule              | Run Every:Monthly, On Time:+6H, At Months:[DEC]                                                                                                                                                                                              |
+      | Share                 | FTP:checked, FTP.Location:172.17.164.10, FTP.Path:/home/radware/ftp/, FTP.Username:radware, FTP.Password:radware                                                                                                                             |
+      | Format                | Select: CSV With Attack Details                                                                                                                                                                                                              |
 
   @SID_22
   Scenario: create new Output all3
     When UI "Create" Forensics With Name " Output all3"
-      | Product               | AppWall                                                                                                                                                                                                                          |
+      | Product               | AppWall                                                                                                                                                                                                                                      |
       | Output                | Date and Time,Device IP,Source IP,Destination IP Address,Source Port,Cluster Manager IP,Web Application Name,Event Description,Action,Attack Name,Device Host Name,Directory,Module,Severity,Threat Category,Transaction ID,Tunnel,User Name |
-      | Criteria              | condition.All:true                                                                                                                                                                                                               |
-      | devices               | index:10                                                                                                                                                                                                                         |
-      | Time Definitions.Date | Quick:This Month                                                                                                                                                                                                                 |
-      | Share                 | Email:[automation.vision2@radware.com],Subject:myEdit subject,Body:myEdit body                                                                                                                                                   |
-      | Format                | Select: HTML                                                                                                                                                                                                                     |
+      | Criteria              | condition.All:true                                                                                                                                                                                                                           |
+      | devices               | index:10                                                                                                                                                                                                                                     |
+      | Time Definitions.Date | Quick:This Month                                                                                                                                                                                                                             |
+      | Share                 | Email:[automation.vision2@radware.com],Subject:myEdit subject,Body:myEdit body                                                                                                                                                               |
+      | Format                | Select: HTML                                                                                                                                                                                                                                 |
 
   @SID_23
   Scenario: create new Output all4
     When UI "Create" Forensics With Name " Output all4"
-      | Product               | AppWall                                                                                                                                                                                                                          |
-      | Output                | Date and Time,Device IP,Source IP,Destination IP Address,Source Port,Cluster Manager IP,Web Application Name,Event Description,Action,Attack Name,Device Host Name,Directory,Module,Severity,Threat Category,Transaction ID,Tunnel,User Name |
-      | Criteria              | condition.All:true                                                                                                                                                                                                               |
-      | devices               | index:10                                                                                                                                                                                                                         |
-      | Schedule              | Run Every:Monthly, On Time:+6H, At Months:[MAR]                                                                                                                                                                                  |
-      | Share                 | Email:[automation.vision2@radware.com],Subject:myEdit subject,Body:myEdit body                                                                                                                                                   |
-      | Format                | Select: HTML                                                                                                                                                                                                                     |
+      | Product  | AppWall                                                                                                                                                                                                                                      |
+      | Output   | Date and Time,Device IP,Source IP,Destination IP Address,Source Port,Cluster Manager IP,Web Application Name,Event Description,Action,Attack Name,Device Host Name,Directory,Module,Severity,Threat Category,Transaction ID,Tunnel,User Name |
+      | Criteria | condition.All:true                                                                                                                                                                                                                           |
+      | devices  | index:10                                                                                                                                                                                                                                     |
+      | Schedule | Run Every:Monthly, On Time:+6H, At Months:[MAR]                                                                                                                                                                                              |
+      | Share    | Email:[automation.vision2@radware.com],Subject:myEdit subject,Body:myEdit body                                                                                                                                                               |
+      | Format   | Select: HTML                                                                                                                                                                                                                                 |
 
   @SID_24
   Scenario: create new Output all5
     When UI "Create" Forensics With Name " Output all5"
-      | Product               | AppWall                                                                                                                                                                                                                          |
-      | Output                | Date and Time,Device IP,Source IP,Destination IP Address,Source Port,Cluster Manager IP,Web Application Name,Event Description,Action,Attack Name,Device Host Name,Directory,Module,Severity,Threat Category,Transaction ID,Tunnel,User Name |
-      | Criteria              | condition.All:true                                                                                                                                                                                                               |
-      | devices               | index:10                                                                                                                                                                                                                         |
-      | Share                 | Email:[automation.vision2@radware.com],Subject:myEdit subject,Body:myEdit body                                                                                                                                                   |
-      | Format                | Select: CSV                                                                                                                                                                                                                      |
+      | Product  | AppWall                                                                                                                                                                                                                                      |
+      | Output   | Date and Time,Device IP,Source IP,Destination IP Address,Source Port,Cluster Manager IP,Web Application Name,Event Description,Action,Attack Name,Device Host Name,Directory,Module,Severity,Threat Category,Transaction ID,Tunnel,User Name |
+      | Criteria | condition.All:true                                                                                                                                                                                                                           |
+      | devices  | index:10                                                                                                                                                                                                                                     |
+      | Share    | Email:[automation.vision2@radware.com],Subject:myEdit subject,Body:myEdit body                                                                                                                                                               |
+      | Format   | Select: CSV                                                                                                                                                                                                                                  |
 
   @SID_25
   Scenario: create new Output all6
     When UI "Create" Forensics With Name " Output all6"
-      | Product               | AppWall                                                                                                                                                                                                                          |
-      | Output                | Date and Time,Device IP,Source IP,Destination IP Address,Source Port,Cluster Manager IP,Web Application Name,Event Description,Action,Attack Name,Device Host Name,Directory,Module,Severity,Threat Category,Transaction ID,Tunnel,User Name |
-      | Criteria              | condition.All:true                                                                                                                                                                                                               |
-      | devices               | index:10                                                                                                                                                                                                                         |
-      | Schedule              | Run Every:Monthly, On Time:+6H, At Months:[AUG]                                                                                                                                                                                  |
-      | Share                 | FTP:checked, FTP.Location:172.17.164.10, FTP.Path:/home/radware/ftp/, FTP.Username:radware, FTP.Password:radware                                                                                                                 |
-      | Format                | Select: CSV With Attack Details                                                                                                                                                                                                   |
+      | Product  | AppWall                                                                                                                                                                                                                                      |
+      | Output   | Date and Time,Device IP,Source IP,Destination IP Address,Source Port,Cluster Manager IP,Web Application Name,Event Description,Action,Attack Name,Device Host Name,Directory,Module,Severity,Threat Category,Transaction ID,Tunnel,User Name |
+      | Criteria | condition.All:true                                                                                                                                                                                                                           |
+      | devices  | index:10                                                                                                                                                                                                                                     |
+      | Schedule | Run Every:Monthly, On Time:+6H, At Months:[AUG]                                                                                                                                                                                              |
+      | Share    | FTP:checked, FTP.Location:172.17.164.10, FTP.Path:/home/radware/ftp/, FTP.Username:radware, FTP.Password:radware                                                                                                                             |
+      | Format   | Select: CSV With Attack Details                                                                                                                                                                                                              |
 
   @SID_26
   Scenario: create new Output all7
     When UI "Create" Forensics With Name " Output all7"
-      | Product               | AppWall                                                                                                                                                                                                                          |
+      | Product               | AppWall                                                                                                                                                                                                                                      |
       | Output                | Date and Time,Device IP,Source IP,Destination IP Address,Source Port,Cluster Manager IP,Web Application Name,Event Description,Action,Attack Name,Device Host Name,Directory,Module,Severity,Threat Category,Transaction ID,Tunnel,User Name |
-      | Criteria              | condition.All:true                                                                                                                                                                                                               |
-      | devices               | index:10                                                                                                                                                                                                                         |
-      | Time Definitions.Date | Absolute:[27.02.1971 01:00, +0d]                                                                                                                                                                                                 |
-      | Schedule              | Run Every:Monthly, On Time:+6H, At Months:[MAR]                                                                                                                                                                                  |
-      | Share                 | Email:[automation.vision2@radware.com],Subject:myEdit subject,Body:myEdit body                                                                                                                                                   |
-      | Format                | Select: HTML                                                                                                                                                                                                                     |
+      | Criteria              | condition.All:true                                                                                                                                                                                                                           |
+      | devices               | index:10                                                                                                                                                                                                                                     |
+      | Time Definitions.Date | Absolute:[27.02.1971 01:00, +0d]                                                                                                                                                                                                             |
+      | Schedule              | Run Every:Monthly, On Time:+6H, At Months:[MAR]                                                                                                                                                                                              |
+      | Share                 | Email:[automation.vision2@radware.com],Subject:myEdit subject,Body:myEdit body                                                                                                                                                               |
+      | Format                | Select: HTML                                                                                                                                                                                                                                 |
 
   @SID_27
   Scenario: create new Output all8
     When UI "Create" Forensics With Name " Output all8"
-      | Product               | AppWall                                                                                                                                                                                                                          |
+      | Product               | AppWall                                                                                                                                                                                                                                      |
       | Output                | Date and Time,Device IP,Source IP,Destination IP Address,Source Port,Cluster Manager IP,Web Application Name,Event Description,Action,Attack Name,Device Host Name,Directory,Module,Severity,Threat Category,Transaction ID,Tunnel,User Name |
-      | Criteria              | condition.All:true                                                                                                                                                                                                               |
-      | devices               | index:10                                                                                                                                                                                                                         |
-      | Time Definitions.Date | Relative:[Weeks,2]                                                                                                                                                                                                               |
-      | Schedule              | Run Every:Daily,On Time:+2m                                                                                                                                                                                                      |
-      | Share                 | FTP:checked, FTP.Location:172.17.164.10, FTP.Path:/home/radware/ftp/, FTP.Username:radware, FTP.Password:radware                                                                                                                 |
-      | Format                | Select: CSV                                                                                                                                                                                                                      |
+      | Criteria              | condition.All:true                                                                                                                                                                                                                           |
+      | devices               | index:10                                                                                                                                                                                                                                     |
+      | Time Definitions.Date | Relative:[Weeks,2]                                                                                                                                                                                                                           |
+      | Schedule              | Run Every:Daily,On Time:+2m                                                                                                                                                                                                                  |
+      | Share                 | FTP:checked, FTP.Location:172.17.164.10, FTP.Path:/home/radware/ftp/, FTP.Username:radware, FTP.Password:radware                                                                                                                             |
+      | Format                | Select: CSV                                                                                                                                                                                                                                  |
 
 
   @SID_28
   Scenario: create new Output Event Description,Action,Attack Name,Device Host Name
     When UI "Create" Forensics With Name " Output Event Description_Action_Attack Name_Device Host Name"
-      | Product               | AppWall                                                                        |
-      | Output                | Event Description,Action,Attack Name,Device Host Name                          |
-      | Criteria              | condition.All:true                                                             |
-      | devices               | index:10                                                                       |
-      | Share                 | Email:[automation.vision2@radware.com],Subject:myEdit subject,Body:myEdit body |
-      | Format                | Select: CSV                                                                    |
+      | Product  | AppWall                                                                        |
+      | Output   | Event Description,Action,Attack Name,Device Host Name                          |
+      | Criteria | condition.All:true                                                             |
+      | devices  | index:10                                                                       |
+      | Share    | Email:[automation.vision2@radware.com],Subject:myEdit subject,Body:myEdit body |
+      | Format   | Select: CSV                                                                    |
 
   @SID_29
   Scenario: create new Output Device IP,Source IP,Destination IP Address,Cluster Manager IP
-    When UI "Create" Forensics With Name " Output Device IP_Source IP,Destination IP Address_Cluster Manager IP"
-      | Product               | AppWall                                                                                                          |
-      | Output                | Device IP,Source IP,Destination IP Address,Cluster Manager IP                                                    |
-      | Criteria              | condition.All:true                                                                                               |
-      | devices               | index:10                                                                                                         |
-      | Schedule              | Run Every:Monthly, On Time:+6H, At Months:[AUG]                                                                  |
-      | Share                 | FTP:checked, FTP.Location:172.17.164.10, FTP.Path:/home/radware/ftp/, FTP.Username:radware, FTP.Password:radware |
-      | Format                | Select: CSV With Attack Details                                                                                   |
+    When UI "Create" Forensics With Name "Output Device IP_Source IP_Destination IP Address_Cluster Manager IP"
+      | Product  | AppWall                                                                                                          |
+      | Output   | Device IP,Source IP,Destination IP Address,Cluster Manager IP                                                    |
+      | Criteria | condition.All:true                                                                                               |
+      | devices  | index:10                                                                                                         |
+      | Schedule | Run Every:Monthly, On Time:+6H, At Months:[AUG]                                                                  |
+      | Share    | FTP:checked, FTP.Location:172.17.164.10, FTP.Path:/home/radware/ftp/, FTP.Username:radware, FTP.Password:radware |
+      | Format   | Select: CSV With Attack Details                                                                                  |
 
   @SID_30
   Scenario: create new Output Date and Time,Destination IP Address
@@ -370,7 +370,7 @@ Feature:Create AppWall Part1
       | Time Definitions.Date | Quick:This Month                                                                                                              |
       | Schedule              | Run Every:Once, On Time:+6H                                                                                                   |
       | Share                 | FTP:checked, FTP.Location:172.17.164.10, FTP.Path:/home/radware/ftp/, FTP.Username:radware, FTP.Password:radware              |
-      | Format                | Select: CSV With Attack Details                                                                                                |
+      | Format                | Select: CSV With Attack Details                                                                                               |
 
   @SID_34
   Scenario: create new Output Date and Time,Device IP,Source IP,Destination IP Address,Action,Threat Category
@@ -418,7 +418,7 @@ Feature:Create AppWall Part1
       | Time Definitions.Date | Quick:3M                                                                                                         |
       | Schedule              | Run Every:Monthly, On Time:+6H, At Months:[DEC]                                                                  |
       | Share                 | FTP:checked, FTP.Location:172.17.164.10, FTP.Path:/home/radware/ftp/, FTP.Username:radware, FTP.Password:radware |
-      | Format                | Select: CSV With Attack Details                                                                                   |
+      | Format                | Select: CSV With Attack Details                                                                                  |
 
   @SID_38
   Scenario: create new Output Source IP,Directory
@@ -434,41 +434,41 @@ Feature:Create AppWall Part1
   @SID_39
   Scenario: create new Output Destination IP Address,Cluster Manager IP,Event Description,Device Host Name,Severity,User Name Equal Action
     When UI "Create" Forensics With Name " Output Destination IP Address_Cluster Manager IP_Event Description_Device Host Name_Severity_User Name Equal Action"
-      | Product               | AppWall                                                                                          |
-      | Output                | Destination IP Address,Cluster Manager IP,Event Description,Device Host Name,Severity,User Name  |
-      | Criteria              | Event Criteria:Action,Operator:Equals,Actions:Modified                                           |
-      | devices               | index:10                                                                                         |
-      | Schedule              | Run Every:Monthly, On Time:+6H, At Months:[MAR]                                                  |
-      | Share                 | Email:[automation.vision2@radware.com],Subject:myEdit subject,Body:myEdit body                   |
-      | Format                | Select: HTML                                                                                     |
+      | Product  | AppWall                                                                                         |
+      | Output   | Destination IP Address,Cluster Manager IP,Event Description,Device Host Name,Severity,User Name |
+      | Criteria | Event Criteria:Action,Operator:Equals,Value:[Modified]                                          |
+      | devices  | index:10                                                                                        |
+      | Schedule | Run Every:Monthly, On Time:+6H, At Months:[MAR]                                                 |
+      | Share    | Email:[automation.vision2@radware.com],Subject:myEdit subject,Body:myEdit body                  |
+      | Format   | Select: HTML                                                                                    |
 
   @SID_40
   Scenario: create new Output Date and Time Equal Action
     When UI "Create" Forensics With Name " Output Date and Time Equal Action"
-      | Product               | AppWall                                                                        |
-      | Output                | Date and Time                                                                  |
-      | Criteria              | Event Criteria:Action,Operator:Equals,Actions:Blocked                          |
-      | devices               | All                                                                            |
-      | Share                 | Email:[automation.vision2@radware.com],Subject:myEdit subject,Body:myEdit body |
-      | Format                | Select: CSV                                                                    |
+      | Product  | AppWall                                                                        |
+      | Output   | Date and Time                                                                  |
+      | Criteria | Event Criteria:Action,Operator:Equals,Value:[Blocked]                          |
+      | devices  | All                                                                            |
+      | Share    | Email:[automation.vision2@radware.com],Subject:myEdit subject,Body:myEdit body |
+      | Format   | Select: CSV                                                                    |
 
   @SID_41
   Scenario: create new Output Destination IP Address,Source Port,Cluster Manager IP,Web Application Name,Event Description,Action,Attack Name,Device Host Name,Directory,Module,Severity,Threat Category Not Equal Action
     When UI "Create" Forensics With Name " Output Destination IP Address,Source Port_Cluster Manager IP_Web Application Name_Event Description_Action_Attack Name_Device Host Name_Directory_Module_Severity_Threat Category Not Equal Action"
-      | Product               | AppWall                                                                                                                                                                    |
-      | Output                | Destination IP Address,Source Port,Cluster Manager IP,Web Application Name,Event Description,Action,Attack Name,Device Host Name,Directory,Module,Severity,Threat Category |
-      | Criteria              | Event Criteria:Action,Operator:Not Equals,Actions:Reported                                                                                                                 |
-      | devices               | All                                                                                                                                                                        |
-      | Schedule              | Run Every:Monthly, On Time:+6H, At Months:[AUG]                                                                                                                            |
-      | Share                 | FTP:checked, FTP.Location:172.17.164.10, FTP.Path:/home/radware/ftp/, FTP.Username:radware, FTP.Password:radware                                                           |
-      | Format                | Select: CSV With Attack Details                                                                                                                                             |
+      | Product  | AppWall                                                                                                                                                                    |
+      | Output   | Destination IP Address,Source Port,Cluster Manager IP,Web Application Name,Event Description,Action,Attack Name,Device Host Name,Directory,Module,Severity,Threat Category |
+      | Criteria | Event Criteria:Action,Operator:Not Equals,Value:[Reported]                                                                                                                 |
+      | devices  | All                                                                                                                                                                        |
+      | Schedule | Run Every:Monthly, On Time:+6H, At Months:[AUG]                                                                                                                            |
+      | Share    | FTP:checked, FTP.Location:172.17.164.10, FTP.Path:/home/radware/ftp/, FTP.Username:radware, FTP.Password:radware                                                           |
+      | Format   | Select: CSV With Attack Details                                                                                                                                            |
 
   @SID_42
   Scenario: create new Output Date and Time,Device IP,Source IP,Transaction ID,Tunnel Equal Action
     When UI "Create" Forensics With Name " Output Date and Time_Device IP_Source IP_Transaction ID_Tunnel Equal Action"
       | Product               | AppWall                                                                        |
       | Output                | Date and Time,Device IP,Source IP,Transaction ID,Tunnel                        |
-      | Criteria              | Event Criteria:Action,Operator:Equals,Actions:Modified,Blocked,Reported        |
+      | Criteria              | Event Criteria:Action,Operator:Equals,Value:[Modified,Blocked,Reported]        |
       | devices               | index:10                                                                       |
       | Time Definitions.Date | Absolute:[27.02.1971 01:00, +0d]                                               |
       | Schedule              | Run Every:Monthly, On Time:+6H, At Months:[MAR]                                |
@@ -480,7 +480,7 @@ Feature:Create AppWall Part1
     When UI "Create" Forensics With Name " Output all1 Not Equal Action"
       | Product               | AppWall                                                                                                                                                                                                                                      |
       | Output                | Date and Time,Device IP,Source IP,Destination IP Address,Source Port,Cluster Manager IP,Web Application Name,Event Description,Action,Attack Name,Device Host Name,Directory,Module,Severity,Threat Category,Transaction ID,Tunnel,User Name |
-      | Criteria              | Event Criteria:Action,Operator:Not Equals,Actions:Modified,Reported                                                                                                                                                                          |
+      | Criteria              | Event Criteria:Action,Operator:Not Equals,Value:[Modified,Reported]                                                                                                                                                                          |
       | devices               | All                                                                                                                                                                                                                                          |
       | Time Definitions.Date | Relative:[Weeks,2]                                                                                                                                                                                                                           |
       | Schedule              | Run Every:Daily,On Time:+2m                                                                                                                                                                                                                  |
@@ -490,23 +490,23 @@ Feature:Create AppWall Part1
   @SID_44
   Scenario: create new Output all2 Not Equal Action
     When UI "Create" Forensics With Name " Output all2 Not Equal Action"
-      | Product               | AppWall                                                                                                                                                                                                                                      |
-      | Output                | Date and Time,Device IP,Source IP,Destination IP Address,Source Port,Cluster Manager IP,Web Application Name,Event Description,Action,Attack Name,Device Host Name,Directory,Module,Severity,Threat Category,Transaction ID,Tunnel,User Name |
-      | Criteria              | Event Criteria:Action,Operator:Not Equals,Actions:Modified,Blocked                                                                                                                                                                           |
-      | devices               | All                                                                                                                                                                                                                                          |
-      | Share                 | Email:[automation.vision2@radware.com],Subject:myEdit subject,Body:myEdit body                                                                                                                                                               |
-      | Format                | Select: CSV                                                                                                                                                                                                                                  |
+      | Product  | AppWall                                                                                                                                                                                                                                      |
+      | Output   | Date and Time,Device IP,Source IP,Destination IP Address,Source Port,Cluster Manager IP,Web Application Name,Event Description,Action,Attack Name,Device Host Name,Directory,Module,Severity,Threat Category,Transaction ID,Tunnel,User Name |
+      | Criteria | Event Criteria:Action,Operator:Not Equals,Value:[Modified,Blocked]                                                                                                                                                                           |
+      | devices  | All                                                                                                                                                                                                                                          |
+      | Share    | Email:[automation.vision2@radware.com],Subject:myEdit subject,Body:myEdit body                                                                                                                                                               |
+      | Format   | Select: CSV                                                                                                                                                                                                                                  |
 
   @SID_45
   Scenario: create new Output all3 Not Equal Action
     When UI "Create" Forensics With Name " Output all3 Not Equal Action"
-      | Product               | AppWall                                                                                                                                                                                                                                      |
-      | Output                | Date and Time,Device IP,Source IP,Destination IP Address,Source Port,Cluster Manager IP,Web Application Name,Event Description,Action,Attack Name,Device Host Name,Directory,Module,Severity,Threat Category,Transaction ID,Tunnel,User Name |
-      | Criteria              | Event Criteria:Action,Operator:Not Equals,Actions:Modified,Blocked,Reported                                                                                                                                                                  |
-      | devices               | All                                                                                                                                                                                                                                          |
-      | Schedule              | Run Every:Monthly, On Time:+6H, At Months:[AUG]                                                                                                                                                                                              |
-      | Share                 | FTP:checked, FTP.Location:172.17.164.10, FTP.Path:/home/radware/ftp/, FTP.Username:radware, FTP.Password:radware                                                                                                                             |
-      | Format                | Select: CSV With Attack Details                                                                                                                                                                                                               |
+      | Product  | AppWall                                                                                                                                                                                                                                      |
+      | Output   | Date and Time,Device IP,Source IP,Destination IP Address,Source Port,Cluster Manager IP,Web Application Name,Event Description,Action,Attack Name,Device Host Name,Directory,Module,Severity,Threat Category,Transaction ID,Tunnel,User Name |
+      | Criteria | Event Criteria:Action,Operator:Not Equals,Value:[Modified,Blocked,Reported]                                                                                                                                                                  |
+      | devices  | All                                                                                                                                                                                                                                          |
+      | Schedule | Run Every:Monthly, On Time:+6H, At Months:[AUG]                                                                                                                                                                                              |
+      | Share    | FTP:checked, FTP.Location:172.17.164.10, FTP.Path:/home/radware/ftp/, FTP.Username:radware, FTP.Password:radware                                                                                                                             |
+      | Format   | Select: CSV With Attack Details                                                                                                                                                                                                              |
 
   @SID_46
   Scenario: create new Output all1 Equal Attack Name
@@ -553,7 +553,7 @@ Feature:Create AppWall Part1
       | Time Definitions.Date | Quick:This Month                                                                                                                                                                                                                             |
       | Schedule              | Run Every:Once, On Time:+6H                                                                                                                                                                                                                  |
       | Share                 | FTP:checked, FTP.Location:172.17.164.10, FTP.Path:/home/radware/ftp/, FTP.Username:radware, FTP.Password:radware                                                                                                                             |
-      | Format                | Select: CSV With Attack Details                                                                                                                                                                                                               |
+      | Format                | Select: CSV With Attack Details                                                                                                                                                                                                              |
 
   @SID_50
   Scenario: create new Output all3 Not Equal Cluster IP
@@ -582,12 +582,12 @@ Feature:Create AppWall Part1
   @SID_52
   Scenario: create new Output all5 Equal Cluster IP
     When UI "Create" Forensics With Name " Output all5 Equal Cluster IP"
-      | Product               | AppWall                                                                                                                                                                                                                                      |
-      | Output                | Date and Time,Device IP,Source IP,Destination IP Address,Source Port,Cluster Manager IP,Web Application Name,Event Description,Action,Attack Name,Device Host Name,Directory,Module,Severity,Threat Category,Transaction ID,Tunnel,User Name |
-      | Criteria              | Event Criteria:Cluster IP,Operator:Not Equals,IPType:IPv6,IPValue:fe80::23a1:b152                                                                                                                                                            |
-      | devices               | All                                                                                                                                                                                                                                          |
-      | Share                 | Email:[automation.vision2@radware.com],Subject:myEdit subject,Body:myEdit body                                                                                                                                                               |
-      | Format                | Select: CSV                                                                                                                                                                                                                                  |
+      | Product  | AppWall                                                                                                                                                                                                                                      |
+      | Output   | Date and Time,Device IP,Source IP,Destination IP Address,Source Port,Cluster Manager IP,Web Application Name,Event Description,Action,Attack Name,Device Host Name,Directory,Module,Severity,Threat Category,Transaction ID,Tunnel,User Name |
+      | Criteria | Event Criteria:Cluster IP,Operator:Not Equals,IPType:IPv6,IPValue:fe80::23a1:b152                                                                                                                                                            |
+      | devices  | All                                                                                                                                                                                                                                          |
+      | Share    | Email:[automation.vision2@radware.com],Subject:myEdit subject,Body:myEdit body                                                                                                                                                               |
+      | Format   | Select: CSV                                                                                                                                                                                                                                  |
 
   @SID_53
   Scenario: Logout
