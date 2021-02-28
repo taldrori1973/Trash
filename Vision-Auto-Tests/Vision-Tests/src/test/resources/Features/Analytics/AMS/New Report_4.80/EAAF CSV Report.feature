@@ -32,23 +32,26 @@ Feature: EAAF CSV Report
     # run NON EAAF attacks PCAP - this made in order to check whether system distinguish between EAAF and NON EAAF attacks
     * CLI simulate 1 attacks of type "VRM_attacks" on "DefensePro" 10 and wait 100 seconds
 
+  
   @SID_5
   Scenario: VRM - enabling emailing and go to VRM Reports Tab
     Given UI Login with user "radware" and password "radware"
     * REST Vision Install License Request "vision-AVA-Max-attack-capacity"
 
+  
   @SID_6
   Scenario: Navigate to AMS Reports
     And UI Navigate to "AMS Reports" page via homePage
 
+  
   @SID_7
   Scenario: create new Total Hits Summary1
     Given UI "Create" Report With Name "EAAF CSV"
-      | Template              | reportType:EAAF , Widgets:[ALL],devices:[All] |
+      | Template              | reportType:ERT Active Attackers Feed , Widgets:[ALL],devices:[All] |
       | Time Definitions.Date | Quick:15m                                     |
       | Format                | Select: CSV                                   |
     Then UI "Validate" Report With Name "EAAF CSV"
-      | Template              | reportType:EAAF , Widgets:[ALL],devices:[All] |
+      | Template              | reportType:ERT Active Attackers Feed , Widgets:[ALL],devices:[All] |
       | Time Definitions.Date | Quick:15m                                     |
       | Format                | Select: CSV                                   |
 

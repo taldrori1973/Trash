@@ -14,33 +14,33 @@ Feature: EAAF ScopeSelections Reports
   @SID_3
   Scenario: Create and validate EAAF Report All Devices
     Given UI "Create" Report With Name "EAAF Report All Devices"
-      | Template | reportType:EAAF , Widgets:[{Top Malicious IP Addresses:[Volume]}] ,devices:[All] |
+      | Template | reportType:ERT Active Attackers Feed , Widgets:[{Top Malicious IP Addresses:[Volume]}] ,devices:[All] |
     Then UI "Validate" Report With Name "EAAF Report All Devices"
-      | Template | reportType:EAAF , Widgets:[{Top Malicious IP Addresses:[Volume]}] ,devices:[All] |
+      | Template | reportType:ERT Active Attackers Feed , Widgets:[{Top Malicious IP Addresses:[Volume]}] ,devices:[All] |
     Then UI Delete Report With Name "EAAF Report All Devices"
 
   @SID_4
   Scenario: Create and validate EAAF Report with device index 11
     Given UI "Create" Report With Name "EAAF Report with device index 10"
-      | Template | reportType:EAAF , Widgets:[{Top Malicious IP Addresses:[Volume]}] ,devices:[{deviceIndex:10}] |
+      | Template | reportType:ERT Active Attackers Feed , Widgets:[{Top Malicious IP Addresses:[Volume]}] ,devices:[{deviceIndex:10}] |
     Then UI "Validate" Report With Name "EAAF Report with device index 10"
-      | Template | reportType:EAAF , Widgets:[{Top Malicious IP Addresses:[Volume]}] ,devices:[{deviceIndex:10}] |
+      | Template | reportType:ERT Active Attackers Feed , Widgets:[{Top Malicious IP Addresses:[Volume]}] ,devices:[{deviceIndex:10}] |
     Then UI Delete Report With Name "EAAF Report with device index 10"
 
   @SID_5
   Scenario: Create and validate EAAF Report with device index 11 and Policy 1_https
     Given UI "Create" Report With Name "EAAF Report with device index 11 and Policy 1_https"
-      | Template | reportType:EAAF , Widgets:[{Top Malicious IP Addresses:[Volume]}] ,devices:[{deviceIndex:11 , devicePolicies:[1_https]}]|
+      | Template | reportType:ERT Active Attackers Feed , Widgets:[{Top Malicious IP Addresses:[Volume]}] ,devices:[{deviceIndex:11 , devicePolicies:[1_https]}]|
     Then UI "Validate" Report With Name "EAAF Report with device index 11 and Policy 1_https"
-      | Template | reportType:EAAF , Widgets:[{Top Malicious IP Addresses:[Volume]}] ,devices:[{deviceIndex:11 , devicePolicies:[1_https]}]|
+      | Template | reportType:ERT Active Attackers Feed , Widgets:[{Top Malicious IP Addresses:[Volume]}] ,devices:[{deviceIndex:11 , devicePolicies:[1_https]}]|
     Then UI Delete Report With Name "EAAF Report with device index 11 and Policy 1_https"
 
   @SID_6
   Scenario: Create and validate EAAF Report with device index 11 and Policies BDOS and 1_https
     Given UI "Create" Report With Name "EAAF Report with device index 11 and Policies BDOS and 1_https"
-      | Template | reportType:EAAF , Widgets:[{Top Malicious IP Addresses:[Volume]}] ,devices:[{deviceIndex:11 , devicePolicies:[BDOS,1_https]}]|
+      | Template | reportType:ERT Active Attackers Feed , Widgets:[{Top Malicious IP Addresses:[Volume]}] ,devices:[{deviceIndex:11 , devicePolicies:[BDOS,1_https]}]|
     Then UI "Validate" Report With Name "EAAF Report with device index 11 and Policies BDOS and 1_https"
-      | Template | reportType:EAAF , Widgets:[{Top Malicious IP Addresses:[Volume]}] ,devices:[{deviceIndex:11 , devicePolicies:[BDOS,1_https]}]|
+      | Template | reportType:ERT Active Attackers Feed , Widgets:[{Top Malicious IP Addresses:[Volume]}] ,devices:[{deviceIndex:11 , devicePolicies:[BDOS,1_https]}]|
     Then UI Delete Report With Name "EAAF Report with device index 11 and Policies BDOS and 1_https"
 
   @SID_7
