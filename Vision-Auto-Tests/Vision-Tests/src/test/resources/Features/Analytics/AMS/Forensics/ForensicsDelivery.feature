@@ -41,7 +41,7 @@ Feature: Forensics Delivery
   Scenario: validate Forensics Report empty delivery
     Given UI "Create" Forensics With Name "Email Validate"
       | Share    | Email:[automation.vision1@forensic.local],Subject:Forensic Email Validate                                     |
-      | Output   | Action,Attack ID,Start Time,Source IP Address,Source Port,Destination IP Address,Destination Port,Direction,Protocol,Threat Category,Radware ID,Device IP Address,Attack Name,End Time,Duration,Packets,Mbits,Physical Port,Policy Name,Risk |
+      | Output   | Action,Attack ID,Start Time,Source IP Address,Source Port,Destination IP Address,Destination Port,Direction,Protocol,Threat Category,Radware ID,Device IP Address,Attack Name,End Time,Duration,Packet Type,Physical Port,Policy Name,Risk |
       | Format   | Select: HTML |
 
     When CLI Run remote linux Command "echo "cleared" $(date) > /var/spool/mail/forensicuser" on "GENERIC_LINUX_SERVER"
@@ -239,7 +239,7 @@ Feature: Forensics Delivery
   Scenario: Create Forensics Report FTP_export by server IP no email
     When UI "Create" Forensics With Name "FTP_export"
       | Share   | FTP:checked, FTP.Location:172.17.164.10, FTP.Path:/home/radware/ftp/, FTP.Username:radware, FTP.Password:radware|
-      | Output  | Action,Attack ID,Start Time,Source IP Address,Source Port,Destination IP Address,Destination Port,Direction,Protocol,Threat Category,Radware ID,Device IP Address,Attack Name,End Time,Duration,Packets,Mbits,Physical Port,,Risk, Policy Name |
+      | Output  | Action,Attack ID,Start Time,Source IP Address,Source Port,Destination IP Address,Destination Port,Direction,Protocol,Threat Category,Radware ID,Device IP Address,Attack Name,End Time,Duration,Packet Type,Physical Port,,Risk,Policy Name |
       | Format  | Select: CSV                                                                                                     |
     Then CLI Run remote linux Command "rm -f /home/radware/ftp/FTP_export*.zip /home/radware/ftp/FTP_export*.csv" on "GENERIC_LINUX_SERVER"
 

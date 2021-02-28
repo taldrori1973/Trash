@@ -3,6 +3,8 @@ Feature: EAAF ScopeSelections Reports
   @SID_1
   Scenario: Login
     Then UI Login with user "radware" and password "radware"
+    * REST Vision Install License Request "vision-AVA-Max-attack-capacity"
+    * REST Vision Install License Request "vision-reporting-module-AMS"
 
   @SID_2
   Scenario: Navigate to NEW REPORTS page

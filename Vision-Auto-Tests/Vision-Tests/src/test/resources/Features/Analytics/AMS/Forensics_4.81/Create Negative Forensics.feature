@@ -6,6 +6,8 @@ Feature: Negative Forensics tests to validate Error Messages
   Scenario: Navigate to NEW ForensicsS page
     * REST Delete ES index "forensics-*"
     Then UI Login with user "radware" and password "radware"
+    * REST Vision Install License Request "vision-AVA-AppWall"
+    * REST Vision Install License Request "vision-AVA-Max-attack-capacity"
     Then UI Navigate to "New Forensics" page via homepage
     Then UI Click Button "New Forensics Tab"
   
@@ -16,7 +18,7 @@ Feature: Negative Forensics tests to validate Error Messages
     Then UI Text of "Error message description" equal to "Invalid configuration. Specify a name."
     Then UI Click Button "errorMessageOK"
     Then UI Click Button "cancel"
-    Then UI Click Button "No"
+
 
   
   @SID_3
@@ -387,6 +389,7 @@ Feature: Negative Forensics tests to validate Error Messages
     Then UI Click Button "cancel"
     Then UI Click Button "No"
 
+  
   @SID_23
   Scenario: Add Forensics with invalid Attack Rate in pps in Criteria - DF
     Then UI Click Button "New Forensics Tab"
