@@ -1,6 +1,7 @@
 @DFForensics @TC113513
 Feature: Defense Flow Forensic Wizard
 
+  
   @SID_1 @Sanity
   Scenario: Clean system data before Forensics Appwall Test
     Given CLI kill all simulator attacks on current vision
@@ -15,13 +16,14 @@ Feature: Defense Flow Forensic Wizard
       | body | sessionInactivTimeoutConfiguration=60 |
     * CLI Clear vision logs
 
+  
   @SID_2 @Sanity
   Scenario: Change DF management IP to IP of Generic Linux
     When CLI Operations - Run Radware Session command "system df management-ip set 172.17.164.10"
     When CLI Operations - Run Radware Session command "system df management-ip get"
     Then CLI Operations - Verify that output contains regex "DefenseFlow Management IP Address: 172.17.164.10"
 
-    
+  
   @SID_3 @Sanity
   Scenario: Login and navigate to forensics
     Given UI Login with user "radware" and password "radware"
@@ -89,15 +91,18 @@ Feature: Defense Flow Forensic Wizard
     And Sleep "1"
     Then UI Validate Element Existence By Label "My Forensics" if Exists "false" with value "Wizard_test"
 
+  
   @SID_11 @Sanity
   Scenario: Forensic Source_Address Validate ForensicsView
     Then UI Click Button "My Forensics" with value "Source_Address"
     Then UI Validate Element Existence By Label "Generate Snapshot Forensics Manually" if Exists "true" with value "Source_Address"
 
+  
   @SID_12 @Sanity
   Scenario: Forensic wizard test Generate Source_Address
     When UI Click Button "Generate Snapshot Forensics Manually" with value "Source_Address"
     When UI Click Button "Views.Forensic" with value "Source_Address,0"
+
   
   @SID_13
   Scenario: Forensic wizard test Validate Table
@@ -108,6 +113,7 @@ Feature: Defense Flow Forensic Wizard
     Then UI Text of "Forensics.Attack Details.Detail" with extension "Action" equal to "Drop"
     Then UI Click Button "Forensics.Attack Details.Close"
 
+  
   @SID_14
   Scenario: Validate attack details refine by Action
     When UI click Table row by keyValue or Index with elementLabel "Forensics.Table" findBy columnName "Attack Name" findBy cellValue "HTTP (recv.pps)"
@@ -127,6 +133,7 @@ Feature: Defense Flow Forensic Wizard
 
 
 #    ------------------- Ahlam - Add test for Connection PPS  -----------------
+
   
   @SID_16
   Scenario: create forensic definition Category_ConnectionPPS
@@ -138,13 +145,13 @@ Feature: Defense Flow Forensic Wizard
       | Format | Select: CSV |
       | Share  | FTP:checked, FTP.Location:172.17.164.10, FTP.Path:/home/radware/ftp/, FTP.Username:radware, FTP.Password:radware |
 
-
+  
   @SID_17
   Scenario: Forensic Category_ConnectionPPS Validate ForensicsView
     Then UI Click Button "My Forensics" with value "Category_ConnectionPPS"
     Then UI Validate Element Existence By Label "Generate Snapshot Forensics Manually" if Exists "true" with value "Category_ConnectionPPS"
 
-
+  
   @SID_18
   Scenario: Forensic wizard test Generate Category_ConnectionPPS
     Then UI Click Button "Generate Snapshot Forensics Manually" with value "Category_ConnectionPPS"

@@ -9,7 +9,7 @@ Feature: Forensics 10K
 #    * REST Delete ES index "dp-https-rt-*"
 #    * REST Delete ES index "dp-five-*"
     * REST Delete ES index "dp-*"
-#    * REST Delete ES index "forensics-*"
+    * REST Delete ES index "forensics-*"
 #    * REST Delete ES index "dpforensics-*"
     * CLI Clear vision logs
     Then CLI Run remote linux Command "rm -f /opt/radware/storage/forensics/*" on "ROOT_SERVER_CLI"
@@ -40,7 +40,8 @@ Feature: Forensics 10K
   Scenario: Login and navigate to forensic page
     Given UI Login with user "sys_admin" and password "radware"
     Then REST Vision Install License Request "vision-AVA-Max-attack-capacity"
-    And UI Navigate to "AMS Forensics" page via homePage
+    Then UI Navigate to "New Forensics" page via homepage
+    Then UI Click Button "New Forensics Tab"
 
   @SID_7
   Scenario: create forensic definition
@@ -49,14 +50,16 @@ Feature: Forensics 10K
 
   @SID_8
   Scenario: generate forensic report
-    Then UI Generate and Validate Forensics With Name "Forensic_10K" with Timeout of 300 Seconds
-    Then Sleep "30"
+    Then UI Click Button "My Forensics" with value "Forensic_10K"
+    Then UI Click Button "Generate Snapshot Forensics Manually" with value "Forensic_10K"
+    Then Sleep "35"
+    When UI Click Button "Views.Forensic" with value "Forensic_10K,0"
 
   @SID_9
   Scenario: validate number of records in forensic table
-    And UI Click Button "Views.report" with value "Forensic_10K"
+    And UI Click Button "Views.Forensic" with value "Forensic_10K"
     Then Sleep "15"
-    * UI Validate "Report.Table" Table rows count EQUALS to 10000
+    * UI Validate "Forensics.Table" Table rows count EQUALS to 10000
 
   @SID_10
   Scenario: validate existence of "export" button

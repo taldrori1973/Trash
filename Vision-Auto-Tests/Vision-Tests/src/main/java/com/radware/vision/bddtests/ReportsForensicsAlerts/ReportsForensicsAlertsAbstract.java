@@ -45,7 +45,7 @@ abstract public class ReportsForensicsAlertsAbstract implements ReportsForensics
         templateWidgets.put("HTTPS Flood", 1);
         templateWidgets.put("DefenseFlow Analytics", 13);
         templateWidgets.put("AppWall", 7);
-        templateWidgets.put("EAAF", 5);
+        templateWidgets.put("ERT Active Attackers Feed", 5);
         templateWidgets.put("System and Network", 1);
         templateWidgets.put("Application", 6);
         widgets = Collections.unmodifiableMap(templateWidgets);

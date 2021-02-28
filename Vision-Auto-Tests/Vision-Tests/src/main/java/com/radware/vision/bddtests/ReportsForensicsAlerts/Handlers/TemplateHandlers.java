@@ -55,7 +55,7 @@ public class TemplateHandlers {
                 return new SystemAndNetworkScopeSelection(new JSONArray(templateJsonObject.get("Applications").toString()), templateParam);
             case "APPLICATION":
                 return new ApplicationScopeSelection(new JSONArray(templateJsonObject.get("Applications").toString()), templateParam);
-            case "EAAF":
+            case "ERT ACTIVE ATTACKERS FEED":
                 return new EAAFScopeSelection(new JSONArray(templateJsonObject.get("devices").toString()), templateParam);
        //         return new EAAFScopeSelection(new JSONArray(), templateParam);
             case "DEFENSEPRO BEHAVIORAL PROTECTIONS":
@@ -629,7 +629,7 @@ public class TemplateHandlers {
     public static class EAAFScopeSelection extends DPScopeSelection {
         EAAFScopeSelection(JSONArray deviceJSONArray, String templateParam) {
             super(deviceJSONArray, templateParam);
-            type = "EAAF";
+            type = "ERT Active Attackers Feed";
             saveButtonText = "SaveEAAFScopeSelection";
         }
     }
