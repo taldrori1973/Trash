@@ -22,11 +22,11 @@ Feature: Forensic Wizard
   Scenario: Run DP simulator PCAPs for Top Attacks test
     Given CLI simulate 1 attacks of type "rest_anomalies" on "DefensePro" 10 and wait 30 seconds
 
-  @Test12
+  
   @SID_3 @Sanity
   Scenario: Login and navigate to forensic
     Given UI Login with user "sys_admin" and password "radware"
-#    * REST Vision Install License Request "vision-AVA-Max-attack-capacity"
+   * REST Vision Install License Request "vision-AVA-Max-attack-capacity"
     Then UI Navigate to "New Forensics" page via homepage
 #    Then UI Click Button "New Forensics Tab"
 
@@ -71,7 +71,7 @@ Feature: Forensic Wizard
      When UI "Create" Forensics With Name "Loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooongname"
       |Basic Info|Description:looooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooongDescreption|
 
-  @Test12
+  
   @SID_10
   Scenario: VRM forensic validate max 10 generations in view
     Given UI "Create" Forensics With Name "validateMaxViews"

@@ -33,7 +33,7 @@ Feature: Forensics Edit Definition
     Then UI Click Button "My Forensics" with value "Test Edit"
     Then UI Click Button "Generate Snapshot Forensics Manually" with value "Test Edit"
     Then Sleep "35"
-    And UI Click Button "Views.Forensic" with value "Test Edit"
+    And UI Click Button "Views.Forensic" with value "Test Edit,0"
     Then UI Validate "Forensics.Table" Table rows count EQUALS to 3
     Then UI Validate Deletion of Forensics instance "Deletion Forensics Instance" with value "Test Edit_0"
 
@@ -88,7 +88,7 @@ Feature: Forensics Edit Definition
     Then UI Click Button "My Forensics" with value "Test Edit"
     Then UI Click Button "Generate Snapshot Forensics Manually" with value "Test Edit"
     Then Sleep "35"
-    And UI Click Button "Views.Forensic" with value "Test Edit"
+    And UI Click Button "Views.Forensic" with value "Test Edit,0"
     Then UI Validate "Forensics.Table" Table rows count EQUALS to 1
     Then UI Validate Deletion of Forensics instance "Deletion Forensics Instance" with value "Test Edit_0"
 
@@ -103,7 +103,7 @@ Feature: Forensics Edit Definition
     Then UI Click Button "My Forensics" with value "Test Edit"
     Then UI Click Button "Generate Snapshot Forensics Manually" with value "Test Edit"
     Then Sleep "35"
-    And UI Click Button "Views.Forensic" with value "Test Edit"
+    And UI Click Button "Views.Forensic" with value "Test Edit,0"
     Then UI Validate "Forensics.Table" Table rows count EQUALS to 1
     Then UI Delete Forensics With Name "Test Edit"
 

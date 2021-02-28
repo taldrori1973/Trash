@@ -39,7 +39,7 @@ Feature: Forensic Attack details Tests
     Then UI Click Button "My Forensics" with value "Attack Details1"
     Then UI Click Button "Generate Snapshot Forensics Manually" with value "Attack Details1"
     Then Sleep "35"
-    And UI Click Button "Views.Forensic" with value "Attack Details1"
+    And UI Click Button "Views.Forensic" with value "Attack Details1,0"
 
  ######################################################### Refine ########################################################################
 
@@ -302,7 +302,7 @@ Feature: Forensic Attack details Tests
     Then UI Click Button "My Forensics" with value "Attack_Details"
     Then UI Click Button "Generate Snapshot Forensics Manually" with value "Attack_Details"
     Then Sleep "35"
-    And UI Click Button "Views.Forensic" with value "Attack_Details"
+    And UI Click Button "Views.Forensic" with value "Attack_Details,0"
     Then UI click Table row by keyValue or Index with elementLabel "Forensics.Table" findBy columnName "Attack ID" findBy cellValue "7839-1402580209"
 
   @SID_32
@@ -670,7 +670,7 @@ Feature: Forensic Attack details Tests
     Then UI Click Button "My Forensics" with value "Attack ACL"
     Then UI Click Button "Generate Snapshot Forensics Manually" with value "Attack ACL"
     Then Sleep "35"
-    And UI Click Button "Views.Forensic" with value "Attack ACL"
+    And UI Click Button "Views.Forensic" with value "Attack ACL,0"
 
   @SID_59
     Scenario: Enter to 78-1536381752 details
