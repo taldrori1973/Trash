@@ -53,11 +53,11 @@ Feature: Landing Forensics
     Given UI "Validate" Forensics With Name "DefensePro Forensics"
       | Format | Select: HTML |
 
-  @SID_8
-  Scenario: Validate tooltip values
-    Then UI Do Operation "hover" item "INFO Forensics" with value "DefensePro Forensics"
-    Then Sleep "3"
-    Then UI Text of "ToolTip Forensics" with extension "DefensePro Forensics" equal to "ScopeDevice:172.16.22.50Number of policies:49Number of ports:8Device:172.16.22.51Number of policies:49Number of ports:8Device:172.16.22.55Number of policies:1Number of ports:1Time Period1 DayFilter CriteriaNot SelectedOutput FieldsActionScheduleNot SelectedFormatHTMLDeliveryDelivery:emailRecipients:automation.vision2@radware.comSubject:myEdit subject"
+#  @SID_8
+#  Scenario: Validate tooltip values
+#    Then UI Do Operation "hover" item "INFO Forensics" with value "DefensePro Forensics"
+#    Then Sleep "3"
+#    Then UI Text of "ToolTip Forensics" with extension "DefensePro Forensics" equal to "ScopeDevice:172.16.22.50Number of policies:49Number of ports:8Device:172.16.22.51Number of policies:49Number of ports:8Device:172.16.22.55Number of policies:1Number of ports:1Time Period1 DayFilter CriteriaNot SelectedOutput FieldsActionScheduleNot SelectedFormatHTMLDeliveryDelivery:emailRecipients:automation.vision2@radware.comSubject:myEdit subject"
 
   @SID_9
   Scenario: Delete Forensics
