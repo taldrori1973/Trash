@@ -168,7 +168,7 @@ Feature:Create DefenseFlow Part3
       | Format                | Select: CSV With Attack Details                                                                                   |
 
   @SID_16
-  Scenario: create new Output Max Kbps Protocol Not Equal
+  Scenario: create new Output Max bps Protocol Not Equal
     When UI "Create" Forensics With Name "Output Max bps Protocol Not Equal"
       | Product               | DefenseFlow                                                                    |
       | Output                | Max bps                                                                       |
@@ -227,7 +227,7 @@ Feature:Create DefenseFlow Part3
       | Format                | Select: HTML                                                                                         |
 
   @SID_21
-  Scenario: create new Output Action,Attack ID,Policy Name,Source IP Address,Destination IP Address,Destination Port,Total Mbits Dropped,Max Kbps,Physical Port,Risk,VLAN Tag Risk Equal
+  Scenario: create new Output Action,Attack ID,Policy Name,Source IP Address,Destination IP Address,Destination Port,Total Mbits Dropped,Max bps,Physical Port,Risk,VLAN Tag Risk Equal
     When UI "Create" Forensics With Name "Output Action_Attack ID_Policy Name_Source IP Address_Destination IP Address_Destination Port_Total Mbits Dropped_Max bps_Physical Port_Risk_VLAN Tag Risk Equal"
       | Product               | DefenseFlow                                                                                                                                     |
       | Output                | Action,Attack ID,Policy Name,Source IP Address,Destination IP Address,Destination Port,Total Mbits Dropped,Max bps,Physical Port,Risk,VLAN Tag |
@@ -287,7 +287,7 @@ Feature:Create DefenseFlow Part3
   Scenario: create new Output All Risk Equal
     When UI "Create" Forensics With Name "Output All Risk Equal"
       | Product               | DefenseFlow                                                                                                                                                                                                                                                                                        |
-      | Output                | Start Time,End Time,Device IP Address,Threat Category,Attack Name,Action,Attack ID,Policy Name,Source IP Address,Source Port,Destination IP Address,Destination Port,Direction,Protocol,Radware ID,Duration,Total Packets Dropped,Max pps,Total Mbits Dropped,Max Kbps,Physical Port,Risk,VLAN Tag |
+      | Output                | Start Time,End Time,Device IP Address,Threat Category,Attack Name,Action,Attack ID,Policy Name,Source IP Address,Source Port,Destination IP Address,Destination Port,Direction,Protocol,Radware ID,Duration,Total Packets Dropped,Max pps,Total Mbits Dropped,Max bps,Physical Port,Risk,VLAN Tag |
       | Criteria              | Event Criteria:Risk,Operator:Equals,Value:[Low,Medium]                                                                                                                                                                                                                                             |
       | devices               | All                                                                                                                                                                                                                                                                                                |
       | Share                 | Email:[automation.vision2@radware.com],Subject:myEdit subject,Body:myEdit body                                                                                                                                                                                                                     |
@@ -526,10 +526,10 @@ Feature:Create DefenseFlow Part3
       | Format                | Select: CSV                                                                                                      |
 
   @SID_47
-  Scenario: create new Output Max Kbps Threat Category Equal
-    When UI "Create" Forensics With Name "Output Max Kbps Threat Category Equal"
+  Scenario: create new Output Max bps Threat Category Equal
+    When UI "Create" Forensics With Name "Output Max bps Threat Category Equal"
       | Product               | DefenseFlow                                                                    |
-      | Output                | Max Kbps                                                                       |
+      | Output                | Max bps                                                                       |
       | Criteria              | Event Criteria:Threat Category,Operator:Equals,Value:[Intrusions]              |
       | devices               | index:10                                                                       |
       | Time Definitions.Date | Quick:1Y                                                                       |
@@ -574,7 +574,7 @@ Feature:Create DefenseFlow Part3
 
   @SID_51
   Scenario: create new Output Destination IP Address,Destination Port,Direction,Protocol,Radware ID,Duration,Total Packets Dropped Threat Category Equal
-    When UI "Create" Forensics With Name "Output Destination IP Address_Destination Port_Direction,Protocol_Radware ID_Duration_Total Packets Dropped Threat Category Equal"
+    When UI "Create" Forensics With Name "Output Destination IP Address_Destination Port_Direction_Protocol_Radware ID_Duration_Total Packets Dropped Threat Category Equal"
       | Product               | DefenseFlow                                                                                          |
       | Output                | Destination IP Address,Destination Port,Direction,Protocol,Radware ID,Duration,Total Packets Dropped |
       | Criteria              | Event Criteria:Threat Category,Operator:Equals,Value:[StatefulAcl]                                  |
@@ -583,10 +583,10 @@ Feature:Create DefenseFlow Part3
       | Format                | Select: CSV                                                                                          |
 
   @SID_52
-  Scenario: create new Output Action,Attack ID,Policy Name,Source IP Address,Destination IP Address,Destination Port,Total Mbits Dropped,Max Kbps,Physical Port,Risk,VLAN Tag Threat Category Equal
-    When UI "Create" Forensics With Name "Output Action_Attack ID_Policy Name_Source IP Address_Destination IP Address_Destination Port_Total Mbits Dropped_Max Kbps_Physical Port_Risk_VLAN Tag Threat Category Equal"
+  Scenario: create new Output Action,Attack ID,Policy Name,Source IP Address,Destination IP Address,Destination Port,Total Mbits Dropped,Max bps,Physical Port,Risk,VLAN Tag Threat Category Equal
+    When UI "Create" Forensics With Name "Output Action_Attack ID_Policy Name_Source IP Address_Destination IP Address_Destination Port_Total Mbits Dropped_Max bps_Physical Port_Risk_VLAN Tag Threat Category Equal"
       | Product               | DefenseFlow                                                                                                                                      |
-      | Output                | Action,Attack ID,Policy Name,Source IP Address,Destination IP Address,Destination Port,Total Mbits Dropped,Max Kbps,Physical Port,Risk,VLAN Tag  |
+      | Output                | Action,Attack ID,Policy Name,Source IP Address,Destination IP Address,Destination Port,Total Mbits Dropped,Max bps,Physical Port,Risk,VLAN Tag  |
       | Criteria              | Event Criteria:Threat Category,Operator:Equals,Value:[DNS]                                                                                 |
       | devices               | index:10                                                                                                                                         |
       | Schedule              | Run Every:Monthly, On Time:+6H, At Months:[AUG]                                                                                                  |
@@ -645,7 +645,7 @@ Feature:Create DefenseFlow Part3
   Scenario: create new Output All Threat Category Equal
     When UI "Create" Forensics With Name "Output All Threat Category Equal"
       | Product               | DefenseFlow                                                                                                                                                                                                                                                                                        |
-      | Output                | Start Time,End Time,Device IP Address,Threat Category,Attack Name,Action,Attack ID,Policy Name,Source IP Address,Source Port,Destination IP Address,Destination Port,Direction,Protocol,Radware ID,Duration,Total Packets Dropped,Max pps,Total Mbits Dropped,Max Kbps,Physical Port,Risk,VLAN Tag |
+      | Output                | Start Time,End Time,Device IP Address,Threat Category,Attack Name,Action,Attack ID,Policy Name,Source IP Address,Source Port,Destination IP Address,Destination Port,Direction,Protocol,Radware ID,Duration,Total Packets Dropped,Max pps,Total Mbits Dropped,Max bps,Physical Port,Risk,VLAN Tag |
       | Criteria              | Event Criteria:Threat Category,Operator:Equals,Value:[ConnectionPPS]                                                                                                                                                                                                                              |
       | devices               | index:10                                                                                                                                                                                                                                                                                           |
       | Time Definitions.Date | Quick:This Month                                                                                                                                                                                                                                                                                   |
