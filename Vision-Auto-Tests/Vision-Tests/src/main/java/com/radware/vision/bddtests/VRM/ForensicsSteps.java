@@ -86,6 +86,11 @@ public class ForensicsSteps extends BddUITestBase {
         forensicsHandler.uiValidateMaxGenerateView(maxValue);
     }
 
+    @Then("^UI Validate max generate snapshot in Forensics is (\\d+) when add (\\d+) snapshots$")
+    public void uiValidateMaxGenerateSnapshoutForensicsIs(int maxValue, int snapNum) throws Exception {
+        forensicsHandler.uiValidateMaxGenerateSanpshotView(maxValue,snapNum);
+    }
+
     @Then("^UI Generate (and Validate )?Forensics With Name \"([^\"]*)\" with Timeout of (\\d+) Seconds$")
     public void uiGenerateAndValidateReportWithNameWithTimeoutOfSeconds(String Validate,String reportName ,int timeout) throws Exception {
         Map<String,String> map=new HashMap<>();

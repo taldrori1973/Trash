@@ -869,7 +869,10 @@ public class BasicOperationsHandler {
 
     public static WebElement getDisplayedWebElement(String label, String params) {
         VisionDebugIdsManager.setLabel(label);
-        VisionDebugIdsManager.setParams(params);
+        if (params != null)
+            VisionDebugIdsManager.setParams(params.split(","));
+        else
+            VisionDebugIdsManager.setParams(params);
         ComponentLocator elementLocator = ComponentLocatorFactory.getEqualLocatorByDbgId(VisionDebugIdsManager.getDataDebugId());
         return WebUIUtils.fluentWaitDisplayedEnabled(elementLocator.getBy(), WebUIUtils.SHORT_WAIT_TIME, false);
     }
