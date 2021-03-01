@@ -10,23 +10,28 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Properties;
 
+
 public class JDBCConnectionSingleton {
     private static final String JDBC_DRIVER = "com.mysql.jdbc.Driver";
-    private static final String DB_USER_NAME = "root";
-    private static final String DB_PASSWORD = "rad123";
-    private static final String SERVER_USER_NAME = "root";
-    private static final String SERVER_PASSWORD = "radware";
     private static String DB_URL_PATTERN = "jdbc:mysql://localhost:%s/%s";
 
     private int localPort;
     private Session session;
     private String host;
+    private String dbUserNme;
+    private String dbPassword;
+    private String serverUserName;
+    private String serverPassword;
     private Map<VisionDBSchema, Connection> openConnections;
     private static JDBCConnectionSingleton _instance = new JDBCConnectionSingleton();
 
     private JDBCConnectionSingleton() {
         super();
         this.host = SUTManagerImpl.getInstance().getClientConfigurations().getHostIp();
+        this.dbUserNme = SUTManagerImpl.getInstance().getClientConfigurations().getSqlDbConnectionUsername();
+        this.dbPassword = SUTManagerImpl.getInstance().getClientConfigurations().getSqlDbConnectionPassword();
+        this.serverUserName = SUTManagerImpl.getInstance().getCliConfigurations().getRootServerCliUserName();
+        this.serverPassword = SUTManagerImpl.getInstance().getCliConfigurations().getRootServerCliPassword();
         this.openConnections = new HashMap();
     }
 
@@ -80,18 +85,18 @@ public class JDBCConnectionSingleton {
         Properties properties = new Properties();
         properties.put("StrictHostKeyChecking", "no");
         JSch jsch = new JSch();
-        session = jsch.getSession(SERVER_USER_NAME, host, 22);
-        session.setPassword(SERVER_PASSWORD);
+        session = jsch.getSession(serverUserName, host, 22);
+        session.setPassword(serverPassword);
         session.setConfig(properties);
         session.connect();
-        localPort = session.setPortForwardingL(0, host, 3306);
+        localPort = session.setPortForwardingL(0, host, Integer.parseInt(SUTManagerImpl.getInstance().getClientConfigurations().getSqlDbConnectionDefaultPort()));
     }
 
     private Connection createSchemaConnection(VisionDBSchema schema) throws ClassNotFoundException, IllegalAccessException, InstantiationException, SQLException {
         Connection connection = null;
         Class.forName(JDBC_DRIVER).newInstance();
         String url = String.format(DB_URL_PATTERN, localPort, schema.toString().toLowerCase());
-        connection = DriverManager.getConnection(url, DB_USER_NAME, DB_PASSWORD);
+        connection = DriverManager.getConnection(url, dbUserNme, dbPassword);
         return connection;
     }
 
