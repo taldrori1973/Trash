@@ -57,7 +57,7 @@ import java.util.*;
 public abstract class WebUITestBase extends TestBase {
     protected boolean doTheVisionLabRestart = false;
     public static String retrievedParamValue = "";
-    public static RestManagement restTestBase;
+    public static RestTestBase restTestBase;
     public static VisionWebUIUtils webUtils;
     public static String restOperationsUsername;
     public static String restOperationsPassword;
@@ -170,14 +170,14 @@ public abstract class WebUITestBase extends TestBase {
         setDeviceName(deviceName);
     }
 
-    public void coreInit() throws Exception {
+    public void coreInit() {
         if (!isRestInit) {
 
             isRestInit = true;
 //
 //            devicesManager = DevicesManager.getInstance("devices");
-            restTestBase = new RestManagement();
-            restTestBase.init();
+//            restTestBase = new RestTestBase();
+//            restTestBase.init();
 //            BaseHandler.restTestBase = restTestBase;
 //            BaseHandler.devicesManager = devicesManager;
         }
