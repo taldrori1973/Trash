@@ -1,86 +1,121 @@
-package com.radware.vision.automation.DatabaseStepHandlers.mariaDB.client;
-
-import com.radware.vision.automation.AutoUtils.SUT.controllers.SUTManager;
-import com.radware.vision.automation.AutoUtils.SUT.controllers.SUTManagerImpl;
-
-import java.sql.*;
-import java.util.HashMap;
-import java.util.Map;
-
-public class JDBCConnectionSingleton {
-    private static final String JDBC_DRIVER = "com.mysql.jdbc.Driver";
-    private static String DB_URL_PATTERN = "jdbc:mysql://%s:%s/%s";
-
-    private SUTManager sutManager;
-    private String host;
-    private String port;
-    private String userName;
-    private String password;
-    private Map<VisionDBSchema, Connection> openConnections;
-
-    private static JDBCConnectionSingleton _instance = new JDBCConnectionSingleton();
-
-    private JDBCConnectionSingleton() {
-        super();
-        this.sutManager = SUTManagerImpl.getInstance();
-        this.host = sutManager.getClientConfigurations().getHostIp();
-        this.port = sutManager.getClientConfigurations().getSqlDbConnectionDefaultPort();
-        this.userName = sutManager.getClientConfigurations().getSqlDbConnectionUsername();
-        this.password = sutManager.getClientConfigurations().getSqlDbConnectionPassword();
-        this.openConnections = new HashMap<>();
-    }
-
-    public static JDBCConnectionSingleton getInstance() {
-        return _instance;
-    }
-
-    public Connection getDBConnection(VisionDBSchema schema) throws JDBCConnectionException {
-        if (openConnections.containsKey(schema)) {
-            Connection currentConnection = openConnections.get(schema);
-            if (isConnectionStillUp(currentConnection)) return currentConnection;
-            openConnections.remove(schema);
-        }
-
-        try {
-            Connection newConnection = createSchemaConnection(schema);
-            this.openConnections.put(schema, newConnection);
-            return openConnections.get(schema);
-
-        } catch (InstantiationException | SQLException | IllegalAccessException | ClassNotFoundException e) {
-            throw new JDBCConnectionException(e.getMessage());
-        }
-    }
-
-    private boolean isConnectionStillUp(Connection connection) {
-        Statement statement = null;
-        try {
-            statement = connection.createStatement();
-            ResultSet result = statement.executeQuery("SELECT 1");
-            if (result.next() && result.getInt(1) == 1) return true;
-        } catch (SQLException e) {
-            return false;
-        }
-        return false;
-    }
-
-    public void closeAllConnections() {
-        try {
-            for (VisionDBSchema conn : this.openConnections.keySet()) {
-                openConnections.get(conn).close();
-            }
-            this.openConnections.clear();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-    }
-
-
-    private Connection createSchemaConnection(VisionDBSchema schema) throws ClassNotFoundException, IllegalAccessException, InstantiationException, SQLException {
-        Connection connection = null;
-        Class.forName(JDBC_DRIVER).newInstance();
-        String url = String.format(DB_URL_PATTERN, this.host, this.port, schema.toString().toLowerCase());
-        connection = DriverManager.getConnection(url, this.userName, this.password);
-        return connection;
-    }
-
-}
+//package com.radware.vision.infra.visionDatabase.jdbc;
+//
+//import basejunit.RestTestBase;
+//import com.jcraft.jsch.JSch;
+//import com.jcraft.jsch.JSchException;
+//import com.jcraft.jsch.Session;
+//import com.radware.vision.automation.AutoUtils.SUT.controllers.SUTManagerImpl;
+//import com.radware.vision.automation.DatabaseStepHandlers.mariaDB.client.JDBCConnectionException;
+//import com.radware.vision.automation.DatabaseStepHandlers.mariaDB.client.VisionDBSchema;
+//import com.radware.vision.automation.VisionAutoInfra.CLIInfra.Servers.RootServerCli;
+//import com.radware.vision.infra.testhandlers.cli.CliOperations;
+//
+//import java.sql.*;
+//import java.util.HashMap;
+//import java.util.Map;
+//import java.util.Optional;
+//import java.util.Properties;
+//
+//public class JDBCConnectionSingleton {
+//    private static final String JDBC_DRIVER = "com.mysql.jdbc.Driver";
+//    private static final String DB_USER_NAME = "root";
+//    private static final String DB_PASSWORD = "rad123";
+//    private static final String SERVER_USER_NAME = "root";
+//    private static final String SERVER_PASSWORD = "radware";
+//    private static String DB_URL_PATTERN = "jdbc:mysql://localhost:%s/%s";
+//
+//    private int localPort;
+//    private Session session;
+//    private boolean privilegesGranted;
+//    private RestTestBase restTestBase;
+//    private String host;
+//    private Map<VisionDBSchema, Connection> openConnections;
+//
+//    private static JDBCConnectionSingleton _instance = new JDBCConnectionSingleton();
+//
+//    private JDBCConnectionSingleton() {
+//        super();
+//        this.restTestBase = new RestTestBase();
+//        this.host = SUTManagerImpl.getInstance().getClientConfigurations().getHostIp();
+//        this.openConnections = new HashMap();
+//    }
+//
+//    public static JDBCConnectionSingleton getInstance() {
+//        return _instance;
+//    }
+//
+//    public Connection getDBConnection(VisionDBSchema schema) throws JDBCConnectionException {
+//        if (openConnections.containsKey(schema)) {
+//            Connection currentConnection = openConnections.get(schema);
+//            if (isConnectionStillUp(currentConnection)) return currentConnection;
+//            openConnections.remove(schema);
+//        }
+//
+//        try {
+//            if (!privilegesGranted) grantAllPrivilegesToConnectDP();
+//            if (this.session==null ||!this.session.isConnected()) connectSshSession();
+//            Connection newConnection = createSchemaConnection(schema);
+//            this.openConnections.put(schema, newConnection);
+//            return openConnections.get(schema);
+//
+//        } catch (JSchException | InstantiationException | SQLException | IllegalAccessException | ClassNotFoundException e) {
+//            throw new JDBCConnectionException(e.getMessage());
+//        }
+//    }
+//
+//    private boolean isConnectionStillUp(Connection connection) {
+//        Statement statement = null;
+//        try {
+//            statement = connection.createStatement();
+//            ResultSet result = statement.executeQuery("SELECT 1");
+//            if (result.next() && result.getInt(1) == 1) return true;
+//        } catch (SQLException e) {
+//            return false;
+//        }
+//        return false;
+//    }
+//
+//    public void closeAllConnections() {
+//        try {
+//            for (VisionDBSchema conn : this.openConnections.keySet()) {
+//                openConnections.get(conn).close();
+//            }
+//            this.openConnections.clear();
+//            this.session.disconnect();
+//        } catch (SQLException e) {
+//            e.printStackTrace();
+//        }
+//    }
+//
+//
+//    private void grantAllPrivilegesToConnectDP() {
+//        Optional<RootServerCli> rootServerCliOpt = TestBase.serversManagement.getRootServerCLI();
+//        if (!rootServerCliOpt.isPresent()) {
+//            throw new Exception("Root Server Not found!");
+//        }
+//        CliOperations.runCommand(rootServerCliOpt.get(), command);
+//        CliOperations.runCommand(SUTManagerImpl.getInstance().getCliConfigurations().ge,
+//                "mysql -uroot -prad123 -e \"grant all on *.* to 'root'@'" + host + "' identified by 'rad123'\"");
+//        privilegesGranted = true;
+//    }
+//
+//    private void connectSshSession() throws JSchException {
+//        Properties properties = new Properties();
+//        properties.put("StrictHostKeyChecking", "no");
+//        JSch jsch = new JSch();
+//        session = jsch.getSession(SERVER_USER_NAME, host, 22);
+//        session.setPassword(SERVER_PASSWORD);
+//        session.setConfig(properties);
+//        session.connect();
+//        localPort = session.setPortForwardingL(0, host, 3306);
+//    }
+//
+//    private Connection createSchemaConnection(VisionDBSchema schema) throws ClassNotFoundException, IllegalAccessException, InstantiationException, SQLException {
+//        Connection connection = null;
+//        Class.forName(JDBC_DRIVER).newInstance();
+//        String url = String.format(DB_URL_PATTERN, localPort, schema.toString().toLowerCase());
+//        connection = DriverManager.getConnection(url, DB_USER_NAME, DB_PASSWORD);
+//        return connection;
+//    }
+//
+//}
