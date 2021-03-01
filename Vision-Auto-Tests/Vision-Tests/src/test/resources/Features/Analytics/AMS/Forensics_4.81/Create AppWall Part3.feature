@@ -17,7 +17,7 @@ Feature:Create AppWall Part3
       | Time Definitions.Date | Quick:3M                                                                                                                                             |
       | Schedule              | Run Every:Monthly, On Time:+6H, At Months:[DEC]                                                                                                      |
       | Share                 | FTP:checked, FTP.Location:172.17.164.10, FTP.Path:/home/radware/ftp/, FTP.Username:radware, FTP.Password:radware                                     |
-      | Format                | Select: CSV With Attack Detailss                                                                                                                       |
+      | Format                | Select: CSV With Attack Details                                                                                                                       |
 
   @SID_3
   Scenario: create new Threat Category2 Equal
