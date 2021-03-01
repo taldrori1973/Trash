@@ -436,12 +436,12 @@ Feature:Create AppWall Part1
     When UI "Create" Forensics With Name " Output Destination IP Address_Cluster Manager IP_Event Description_Device Host Name_Severity_User Name Equal Action"
       | Product               | AppWall                                                                                          |
       | Output                | Destination IP Address,Cluster Manager IP,Event Description,Device Host Name,Severity,User Name  |
-      | Criteria              | Event Criteria:Action,Operator:Equals,Actions:Modified                                           |
+      | Criteria              | Event Criteria:Action,Operator:Equals,Value:Modified                                           |
       | devices               | index:10                                                                                         |
       | Schedule              | Run Every:Monthly, On Time:+6H, At Months:[MAR]                                                  |
       | Share                 | Email:[automation.vision2@radware.com],Subject:myEdit subject,Body:myEdit body                   |
       | Format                | Select: HTML                                                                                     |
-
+#
   @SID_40
   Scenario: create new Output Date and Time Equal Action
     When UI "Create" Forensics With Name " Output Date and Time Equal Action"
@@ -454,10 +454,10 @@ Feature:Create AppWall Part1
 
   @SID_41
   Scenario: create new Output Destination IP Address,Source Port,Cluster Manager IP,Web Application Name,Event Description,Action,Attack Name,Device Host Name,Directory,Module,Severity,Threat Category Not Equal Action
-    When UI "Create" Forensics With Name " Output Destination IP Address,Source Port_Cluster Manager IP_Web Application Name_Event Description_Action_Attack Name_Device Host Name_Directory_Module_Severity_Threat Category Not Equal Action"
+    When UI "Create" Forensics With Name " Output Destination IP Address_Source Port_Cluster Manager IP_Web Application Name_Event Description_Action_Attack Name_Device Host Name_Directory_Module_Severity_Threat Category Not Equal Action"
       | Product               | AppWall                                                                                                                                                                    |
       | Output                | Destination IP Address,Source Port,Cluster Manager IP,Web Application Name,Event Description,Action,Attack Name,Device Host Name,Directory,Module,Severity,Threat Category |
-      | Criteria              | Event Criteria:Action,Operator:Not Equals,Actions:Reported                                                                                                                 |
+      | Criteria              | Event Criteria:Action,Operator:Not Equals,Value:Reported                                                                                                                 |
       | devices               | All                                                                                                                                                                        |
       | Schedule              | Run Every:Monthly, On Time:+6H, At Months:[AUG]                                                                                                                            |
       | Share                 | FTP:checked, FTP.Location:172.17.164.10, FTP.Path:/home/radware/ftp/, FTP.Username:radware, FTP.Password:radware                                                           |
@@ -468,7 +468,7 @@ Feature:Create AppWall Part1
     When UI "Create" Forensics With Name " Output Date and Time_Device IP_Source IP_Transaction ID_Tunnel Equal Action"
       | Product               | AppWall                                                                        |
       | Output                | Date and Time,Device IP,Source IP,Transaction ID,Tunnel                        |
-      | Criteria              | Event Criteria:Action,Operator:Equals,Actions:Modified,Blocked,Reported        |
+      | Criteria              | Event Criteria:Action,Operator:Equals,Value:[Modified,Blocked,Reported]        |
       | devices               | index:10                                                                       |
       | Time Definitions.Date | Absolute:[27.02.1971 01:00, +0d]                                               |
       | Schedule              | Run Every:Monthly, On Time:+6H, At Months:[MAR]                                |
@@ -553,7 +553,7 @@ Feature:Create AppWall Part1
       | Time Definitions.Date | Quick:This Month                                                                                                                                                                                                                             |
       | Schedule              | Run Every:Once, On Time:+6H                                                                                                                                                                                                                  |
       | Share                 | FTP:checked, FTP.Location:172.17.164.10, FTP.Path:/home/radware/ftp/, FTP.Username:radware, FTP.Password:radware                                                                                                                             |
-      | Format                | Select: CSV With Attack Details                                                                                                                                                                                                               |
+      | Format                | Select: CSV With Attack Details                                                                                                                                                                                                              |
 
   @SID_50
   Scenario: create new Output all3 Not Equal Cluster IP
