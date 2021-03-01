@@ -76,8 +76,9 @@ public class Forensics extends ReportsForensicsAlertsAbstract {
             BasicOperationsHandler.clickButton("save");
             if (WebUiTools.getWebElement("Error message description") != null)
             {
+                String internalErrorMessage = WebUiTools.getWebElement("Error message description").getText();
                 BasicOperationsHandler.clickButton("errorMessageOK", "");
-                throw new Exception("Forensics create has failed because " + WebUiTools.getWebElement("Error message description").getText());
+                throw new Exception("Forensics create has failed because " + internalErrorMessage);
             }
         }catch (Exception e)
         {
