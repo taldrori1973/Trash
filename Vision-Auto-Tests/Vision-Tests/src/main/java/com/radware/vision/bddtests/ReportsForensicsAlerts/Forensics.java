@@ -190,6 +190,9 @@ public class Forensics extends ReportsForensicsAlertsAbstract {
             case "ATTACK ID":
             case "DIRECTORY":
             case "MODULE":
+            case "TUNNEL":
+            case "USER NAME":
+            case "WEB APPLICATION NAME":
             case "TRANSACTION ID":
             case "ATTACK NAME": {
                 BasicOperationsHandler.setTextField("Criteria Value Input", condition.get("Value").toString());
