@@ -170,14 +170,14 @@ public abstract class WebUITestBase extends TestBase {
         setDeviceName(deviceName);
     }
 
-    public void coreInit() {
+    public void coreInit() throws Exception{
         if (!isRestInit) {
 
             isRestInit = true;
 //
 //            devicesManager = DevicesManager.getInstance("devices");
-//            restTestBase = new RestTestBase();
-//            restTestBase.init();
+            restTestBase = new RestManagement();
+            restTestBase.init();
 //            BaseHandler.restTestBase = restTestBase;
 //            BaseHandler.devicesManager = devicesManager;
         }
