@@ -105,8 +105,8 @@ Feature: Edit AppWall Parameters
   Scenario: Edit Output
     Then UI "Edit" Forensics With Name "Forensics AppWall"
       | Output | Action |
-    Then UI "Validate" Forensics With Name "Forensics AppWall"
-      | Output | Action |
+#    Then UI "Validate" Forensics With Name "Forensics AppWall"
+#      | Output | Action |
 
   @SID_16
   Scenario: Edit Scope
