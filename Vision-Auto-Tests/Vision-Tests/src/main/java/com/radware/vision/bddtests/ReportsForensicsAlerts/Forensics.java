@@ -55,7 +55,7 @@ public class Forensics extends ReportsForensicsAlertsAbstract {
         switch (productName.toLowerCase())
         {
             case "defenseflow":
-                return new JSONObject("{\"Application Name\":\"webApp\",\"Device Host Name\":\"appwallHostName\",\"Received Time\":\"receivedTimeStamp\",\"Packets\":\"packetCount\",\"Destination IP\":\"destAddress\",\"Source IP\":\"sourceAddress\",\"Start Time\":\"startTime\",\"Threat Category\":\"category\",\"Attack Name\":\"name\",\"Policy Name\":\"ruleName\",\"Source IP Address\":\"sourceIp\",\"Destination IP Address\":\"destinationIp\",\"Destination Port\":\"destPort\",\"Direction\":\"direction\",\"Protocol\":\"protocol\",\"Device IP\":\"appwallIP\",\"End Time\":\"endTime\",\"Action\":\"actionType\",\"Attack ID\":\"attackIpsId\",\"Source Port\":\"sourcePort\",\"Radware ID\":\"radwareId\",\"Duration\":\"duration\",\"Max pps\":\"maxAttackPacketRatePps\",\"Max bps\":\"maxAttackRateBps\",\"Physical Port\":\"physicalPort\",\"Risk\":\"risk\",\"VLAN Tag\":\"vlanTag\",\"Packet Type\":\"packetType\"}");
+                return new JSONObject("{\"Application Name\":\"webApp\",\"Device Host Name\":\"appwallHostName\",\"Received Time\":\"receivedTimeStamp\",\"Total Packets Dropped\":\"packetCount\",\"Destination IP\":\"destAddress\",\"Source IP\":\"sourceAddress\",\"Start Time\":\"startTime\",\"Threat Category\":\"category\",\"Attack Name\":\"name\",\"Policy Name\":\"ruleName\",\"Source IP Address\":\"sourceAddress\",\"Destination IP Address\":\"destAddress\",\"Destination Port\":\"destPort\",\"Direction\":\"direction\",\"Protocol\":\"protocol\",\"Device IP\":\"appwallIP\",\"End Time\":\"endTime\",\"Action\":\"actionType\",\"Attack ID\":\"attackIpsId\",\"Source Port\":\"sourcePort\",\"Radware ID\":\"radwareId\",\"Duration\":\"duration\",\"Max pps\":\"maxAttackPacketRatePps\",\"Max bps\":\"maxAttackRateBps\",\"Physical Port\":\"physicalPort\",\"Risk\":\"risk\",\"VLAN Tag\":\"vlanTag\",\"Packet Type\":\"packetType\"}");
             case "appwall":
                 return new JSONObject("{\"Application Name\":\"webApp\",\"Device Host Name\":\"appwallHostName\",\"Received Time\":\"receivedTimeStamp\",\"Packets\":\"packetCount\",\"Destination IP\":\"destAddress\",\"Source IP\":\"sourceAddress\",\"Start Time\":\"startTime\",\"Threat Category\":\"category\",\"Attack Name\":\"name\",\"Policy Name\":\"ruleName\",\"Source IP Address\":\"sourceIp\",\"Destination IP Address\":\"destinationIp\",\"Destination Port\":\"destPort\",\"Direction\":\"direction\",\"Protocol\":\"protocol\",\"Device IP\":\"appwallIP\",\"End Time\":\"endTime\",\"Action\":\"action\",\"Attack ID\":\"attackIpsId\",\"Source Port\":\"sourcePort\",\"Radware ID\":\"radwareId\",\"Duration\":\"duration\",\"Max pps\":\"maxAttackPacketRatePps\",\"Max bps\":\"maxAttackRateBps\",\"Physical Port\":\"physicalPort\",\"Risk\":\"risk\",\"VLAN Tag\":\"vlanTag\",\"Packet Type\":\"packetType\"}");
             case "":
@@ -290,7 +290,7 @@ public class Forensics extends ReportsForensicsAlertsAbstract {
             errorMessage.append(validateShareDefinition(new JSONObject(basicRestResult.get("deliveryMethod").toString()), map));
             errorMessage.append(validateScopeSelection(basicRestResult, map));
             errorMessage.append(validateOutput(basicRestResult, map));
-            errorMessage.append(validateCriteriaDefinition(basicRestResult, map, errorMessage));
+            errorMessage.append(validateCriteriaDefinition(basicRestResult, map));
         } else errorMessage.append("No Forensics Defined with name ").append(forensicsName).append("/n");
         if (errorMessage.length() != 0)
             BaseTestUtils.report(errorMessage.toString(), Reporter.FAIL);
@@ -337,7 +337,7 @@ public class Forensics extends ReportsForensicsAlertsAbstract {
             for (Object output : actualOutputs)
             {
                 if (!expectedOutputs.contains(output))
-                    errorMessage.append("The output " + output + " in actual output and it isn't contained in the expected definition/n");
+                    errorMessage.append("The output " + output + " in actual output it isn't contained in the expected definition\n");
             }
         }
         return errorMessage;
@@ -456,7 +456,8 @@ public class Forensics extends ReportsForensicsAlertsAbstract {
             errorMessage.append("The expected " + devicesKey + " number is " + expectedDevices.size() + " But the actual " + devicesKey + " number is " + actualDevices.size() + "/n");
     }
 
-    protected StringBuilder validateCriteriaDefinition(JSONObject basicRestResult, Map<String, String> map, StringBuilder errorMessage) {
+    protected StringBuilder validateCriteriaDefinition(JSONObject basicRestResult, Map<String, String> map) {
+        StringBuilder errorMessage = new StringBuilder();
         if (map.containsKey("Criteria"))
         {
             JSONObject actualDefinition = new JSONObject(basicRestResult.get("metadata").toString().replace("\\", ""));
