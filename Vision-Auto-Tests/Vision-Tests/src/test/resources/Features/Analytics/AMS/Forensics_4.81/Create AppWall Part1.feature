@@ -316,7 +316,7 @@ Feature:Create AppWall Part1
 
   @SID_29
   Scenario: create new Output Device IP,Source IP,Destination IP Address,Cluster Manager IP
-    When UI "Create" Forensics With Name " Output Device IP_Source IP,Destination IP Address_Cluster Manager IP"
+    When UI "Create" Forensics With Name " Output Device IP_Source IP_Destination IP Address_Cluster Manager IP"
       | Product               | AppWall                                                                                                          |
       | Output                | Device IP,Source IP,Destination IP Address,Cluster Manager IP                                                    |
       | Criteria              | condition.All:true                                                                                               |
@@ -447,7 +447,7 @@ Feature:Create AppWall Part1
     When UI "Create" Forensics With Name " Output Date and Time Equal Action"
       | Product               | AppWall                                                                        |
       | Output                | Date and Time                                                                  |
-      | Criteria              | Event Criteria:Action,Operator:Equals,Actions:Blocked                          |
+      | Criteria              | Event Criteria:Action,Operator:Equals,Value:Blocked                          |
       | devices               | All                                                                            |
       | Share                 | Email:[automation.vision2@radware.com],Subject:myEdit subject,Body:myEdit body |
       | Format                | Select: CSV                                                                    |
@@ -480,7 +480,7 @@ Feature:Create AppWall Part1
     When UI "Create" Forensics With Name " Output all1 Not Equal Action"
       | Product               | AppWall                                                                                                                                                                                                                                      |
       | Output                | Date and Time,Device IP,Source IP,Destination IP Address,Source Port,Cluster Manager IP,Web Application Name,Event Description,Action,Attack Name,Device Host Name,Directory,Module,Severity,Threat Category,Transaction ID,Tunnel,User Name |
-      | Criteria              | Event Criteria:Action,Operator:Not Equals,Actions:Modified,Reported                                                                                                                                                                          |
+      | Criteria              | Event Criteria:Action,Operator:Not Equals,Value:[Modified,Reported]                                                                                                                                                                          |
       | devices               | All                                                                                                                                                                                                                                          |
       | Time Definitions.Date | Relative:[Weeks,2]                                                                                                                                                                                                                           |
       | Schedule              | Run Every:Daily,On Time:+2m                                                                                                                                                                                                                  |
@@ -492,7 +492,7 @@ Feature:Create AppWall Part1
     When UI "Create" Forensics With Name " Output all2 Not Equal Action"
       | Product               | AppWall                                                                                                                                                                                                                                      |
       | Output                | Date and Time,Device IP,Source IP,Destination IP Address,Source Port,Cluster Manager IP,Web Application Name,Event Description,Action,Attack Name,Device Host Name,Directory,Module,Severity,Threat Category,Transaction ID,Tunnel,User Name |
-      | Criteria              | Event Criteria:Action,Operator:Not Equals,Actions:Modified,Blocked                                                                                                                                                                           |
+      | Criteria              | Event Criteria:Action,Operator:Not Equals,Value:[Modified,Blocked]                                                                                                                                                                           |
       | devices               | All                                                                                                                                                                                                                                          |
       | Share                 | Email:[automation.vision2@radware.com],Subject:myEdit subject,Body:myEdit body                                                                                                                                                               |
       | Format                | Select: CSV                                                                                                                                                                                                                                  |
@@ -502,7 +502,7 @@ Feature:Create AppWall Part1
     When UI "Create" Forensics With Name " Output all3 Not Equal Action"
       | Product               | AppWall                                                                                                                                                                                                                                      |
       | Output                | Date and Time,Device IP,Source IP,Destination IP Address,Source Port,Cluster Manager IP,Web Application Name,Event Description,Action,Attack Name,Device Host Name,Directory,Module,Severity,Threat Category,Transaction ID,Tunnel,User Name |
-      | Criteria              | Event Criteria:Action,Operator:Not Equals,Actions:Modified,Blocked,Reported                                                                                                                                                                  |
+      | Criteria              | Event Criteria:Action,Operator:Not Equals,Value:[Modified,Blocked,Reported]                                                                                                                                                                  |
       | devices               | All                                                                                                                                                                                                                                          |
       | Schedule              | Run Every:Monthly, On Time:+6H, At Months:[AUG]                                                                                                                                                                                              |
       | Share                 | FTP:checked, FTP.Location:172.17.164.10, FTP.Path:/home/radware/ftp/, FTP.Username:radware, FTP.Password:radware                                                                                                                             |
