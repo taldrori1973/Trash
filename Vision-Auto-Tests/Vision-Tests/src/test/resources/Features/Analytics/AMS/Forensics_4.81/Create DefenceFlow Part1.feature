@@ -15,7 +15,7 @@ Feature:Create DefenseFlow Part1
       | Criteria              | condition.All:true                                                                                               |
       | devices               | All                                                                                                              |
       | Time Definitions.Date | Quick:This Month                                                                                                 |
- #     | Schedule              | Run Every:Once, On Time:+6H                                                                                      |
+      | Schedule              | Run Every:Once, On Time:+6H                                                                                      |
       | Share                 | FTP:checked, FTP.Location:172.17.164.10, FTP.Path:/home/radware/ftp/, FTP.Username:radware, FTP.Password:radware |
       | Format                | Select: CSV With Attack Details                                                                                  |
     Then UI "Validate" Forensics With Name " Output Device IP Address"
@@ -24,165 +24,165 @@ Feature:Create DefenseFlow Part1
       | Criteria              | condition.All:true                                                                                               |
       | devices               | All                                                                                                              |
       | Time Definitions.Date | Quick:This Month                                                                                                 |
-#      | Schedule              | Run Every:Once, On Time:+6H                                                                                      |
+      | Schedule              | Run Every:Once, On Time:+6H                                                                                      |
       | Share                 | FTP:checked, FTP.Location:172.17.164.10, FTP.Path:/home/radware/ftp/, FTP.Username:radware, FTP.Password:radware |
       | Format                | Select: CSV With Attack Details                                                                                  |
-#
-#  @SID_3
-#  Scenario: create new Output End Time
-#    Given UI "Create" Forensics With Name "Output End Time"
-#      | Product               | DefenseFlow                                                                    |
-#      | Output                | End Time                                                                       |
-#      | Criteria              | condition.All:true                                                             |
-#      | devices               | index:10                                                                       |
-#      | Time Definitions.Date | Absolute:[27.02.1971 01:00, +0d]                                               |
-#      | Schedule              | Run Every:Monthly, On Time:+6H, At Months:[MAR]                                |
-#      | Share                 | Email:[automation.vision2@radware.com],Subject:myEdit subject,Body:myEdit body |
-#      | Format                | Select: HTML                                                                   |
-#      When UI "Validate" Forensics With Name "Output End Time"
-#      | Product               | DefenseFlow                                                                    |
-#      | Output                | End Time                                                                       |
-#      | Criteria              | condition.All:true                                                             |
-#      | devices               | index:10                                                                       |
-#      | Time Definitions.Date | Absolute:[27.02.1971 01:00, +0d]                                               |
-#      | Schedule              | Run Every:Monthly, On Time:+6H, At Months:[MAR]                                |
-#      | Share                 | Email:[automation.vision2@radware.com],Subject:myEdit subject,Body:myEdit body |
-#      | Format                | Select: HTML                                                                   |
-#
-#  @SID_4
-#  Scenario: create new Output Start Time
-#    Given UI "Create" Forensics With Name "Output Start Time"
-#      | Product               | DefenseFlow                                                                                                      |
-#      | Output                | Start Time                                                                                                       |
-#      | Criteria              | condition.All:true                                                                                               |
-#      | devices               | All                                                                                                              |
-#      | Time Definitions.Date | Relative:[Hours,2]                                                                                               |
-#      | Schedule              | Run Every:Weekly, On Time:+6H, At Days:[WED]                                                                     |
-#      | Share                 | FTP:checked, FTP.Location:172.17.164.10, FTP.Path:/home/radware/ftp/, FTP.Username:radware, FTP.Password:radware |
-#      | Format                | Select: CSV                                                                                                      |
-#    When UI "Validate" Forensics With Name "Output Start Time"
-#      | Product               | DefenseFlow                                                                                                      |
-#      | Output                | Start Time                                                                                                       |
-#      | Criteria              | condition.All:true                                                                                               |
-#      | devices               | All                                                                                                              |
-#      | Time Definitions.Date | Relative:[Hours,2]                                                                                               |
-#      | Schedule              | Run Every:Weekly, On Time:+6H, At Days:[WED]                                                                     |
-#      | Share                 | FTP:checked, FTP.Location:172.17.164.10, FTP.Path:/home/radware/ftp/, FTP.Username:radware, FTP.Password:radware |
-#      | Format                | Select: CSV                                                                                                      |
-#
-#  @SID_5
-#  Scenario: create new Output Threat Category
-#    Given UI "Create" Forensics With Name "Output Threat Category"
-#      | Product               | DefenseFlow                                                                    |
-#      | Output                | Threat Category                                                                |
-#      | Criteria              | condition.All:true                                                             |
-#      | devices               | All                                                                            |
-#      | Share                 | Email:[automation.vision2@radware.com],Subject:myEdit subject,Body:myEdit body |
-#      | Format                | Select: CSV                                                                    |
-#    When UI "Validate" Forensics With Name "Output Threat Category"
-#      | Product               | DefenseFlow                                                                    |
-#      | Output                | Threat Category                                                                |
-#      | Criteria              | condition.All:true                                                             |
-#      | devices               | All                                                                            |
-#      | Share                 | Email:[automation.vision2@radware.com],Subject:myEdit subject,Body:myEdit body |
-#      | Format                | Select: CSV                                                                    |
-#
-#  @SID_6
-#  Scenario: create new Output Attack Name1
-#    Given UI "Create" Forensics With Name "Output Attack Name1"
-#      | Product               | DefenseFlow                                                                                                      |
-#      | Output                | Attack Name                                                                                                      |
-#      | Criteria              | condition.All:true                                                                                               |
-#      | devices               | All                                                                                                              |
-#      | Schedule              | Run Every:Monthly, On Time:+6H, At Months:[AUG]                                                                  |
-#      | Share                 | FTP:checked, FTP.Location:172.17.164.10, FTP.Path:/home/radware/ftp/, FTP.Username:radware, FTP.Password:radware |
-#      | Format                | Select: CSV With Attack Details                                                                                  |
-#    When UI "Validate" Forensics With Name "Output Attack Name1"
-#      | Product               | DefenseFlow                                                                                                      |
-#      | Output                | Attack Name                                                                                                      |
-#      | Criteria              | condition.All:true                                                                                               |
-#      | devices               | All                                                                                                              |
-#      | Schedule              | Run Every:Monthly, On Time:+6H, At Months:[AUG]                                                                  |
-#      | Share                 | FTP:checked, FTP.Location:172.17.164.10, FTP.Path:/home/radware/ftp/, FTP.Username:radware, FTP.Password:radware |
-#      | Format                | Select: CSV With Attack Details                                                                                  |
-#
-#  @SID_7
-#  Scenario: create new Output Attack Name2
-#    Given UI "Create" Forensics With Name "Output Attack Name2"
-#      | Product               | DefenseFlow                                                                    |
-#      | Output                | Attack Name                                                                    |
-#      | Criteria              | condition.All:true                                                             |
-#      | devices               | index:10                                                                       |
-#      | Time Definitions.Date | Absolute:[27.02.1971 01:00, +0d]                                               |
-#      | Schedule              | Run Every:Monthly, On Time:+6H, At Months:[MAR]                                |
-#      | Share                 | Email:[automation.vision2@radware.com],Subject:myEdit subject,Body:myEdit body |
-#      | Format                | Select: HTML                                                                   |
-#    When UI "Validate" Forensics With Name "Output Attack Name2"
-#      | Product               | DefenseFlow                                                                    |
-#      | Output                | Attack Name                                                                    |
-#      | Criteria              | condition.All:true                                                             |
-#      | devices               | index:10                                                                       |
-#      | Time Definitions.Date | Absolute:[27.02.1971 01:00, +0d]                                               |
-#      | Schedule              | Run Every:Monthly, On Time:+6H, At Months:[MAR]                                |
-#      | Share                 | Email:[automation.vision2@radware.com],Subject:myEdit subject,Body:myEdit body |
-#      | Format                | Select: HTML                                                                   |
-#
-#  @SID_8
-#  Scenario: create new Output Action
-#    Given UI "Create" Forensics With Name "Output Action"
-#      | Product               | DefenseFlow                                                                                                      |
-#      | Output                | Action                                                                                                           |
-#      | Criteria              | condition.All:true                                                                                               |
-#      | devices               | All                                                                                                              |
-#      | Time Definitions.Date | Relative:[Weeks,2]                                                                                               |
-#      | Schedule              | Run Every:Daily,On Time:+2m                                                                                      |
-#      | Share                 | FTP:checked, FTP.Location:172.17.164.10, FTP.Path:/home/radware/ftp/, FTP.Username:radware, FTP.Password:radware |
-#      | Format                | Select: CSV                                                                                                      |
-#    When UI "Validate" Forensics With Name "Output Action"
-#      | Product               | DefenseFlow                                                                                                      |
-#      | Output                | Action                                                                                                           |
-#      | Criteria              | condition.All:true                                                                                               |
-#      | devices               | All                                                                                                              |
-#      | Time Definitions.Date | Relative:[Weeks,2]                                                                                               |
-#      | Schedule              | Run Every:Daily,On Time:+2m                                                                                      |
-#      | Share                 | FTP:checked, FTP.Location:172.17.164.10, FTP.Path:/home/radware/ftp/, FTP.Username:radware, FTP.Password:radware |
-#      | Format                | Select: CSV                                                                                                      |
-#
-#  @SID_9
-#  Scenario: create new Output Attack ID
-#    Given UI "Create" Forensics With Name "Output Attack ID"
-#      | Product               | DefenseFlow                                                                    |
-#      | Output                | Attack ID                                                                      |
-#      | Criteria              | condition.All:true                                                             |
-#      | devices               | All                                                                            |
-#      | Share                 | Email:[automation.vision2@radware.com],Subject:myEdit subject,Body:myEdit body |
-#      | Format                | Select: CSV                                                                    |
-#    When UI "Validate" Forensics With Name "Output Attack ID"
-#      | Product               | DefenseFlow                                                                    |
-#      | Output                | Attack ID                                                                      |
-#      | Criteria              | condition.All:true                                                             |
-#      | devices               | All                                                                            |
-#      | Share                 | Email:[automation.vision2@radware.com],Subject:myEdit subject,Body:myEdit body |
-#      | Format                | Select: CSV                                                                    |
-#
-#  @SID_10
-#  Scenario: create new Output Policy Name
-#    Given UI "Create" Forensics With Name "Output Policy Name"
-#      | Product               | DefenseFlow                                                                                                      |
-#      | Output                | Policy Name                                                                                                      |
-#      | Criteria              | condition.All:true                                                                                               |
-#      | devices               | All                                                                                                              |
-#      | Schedule              | Run Every:Monthly, On Time:+6H, At Months:[AUG]                                                                  |
-#      | Share                 | FTP:checked, FTP.Location:172.17.164.10, FTP.Path:/home/radware/ftp/, FTP.Username:radware, FTP.Password:radware |
-#      | Format                | Select: CSV With Attack Details                                                                                  |
-#    When UI "Validate" Forensics With Name "Output Policy Name"
-#      | Product               | DefenseFlow                                                                                                      |
-#      | Output                | Policy Name                                                                                                      |
-#      | Criteria              | condition.All:true                                                                                               |
-#      | devices               | All                                                                                                              |
-#      | Schedule              | Run Every:Monthly, On Time:+6H, At Months:[AUG]                                                                  |
-#      | Share                 | FTP:checked, FTP.Location:172.17.164.10, FTP.Path:/home/radware/ftp/, FTP.Username:radware, FTP.Password:radware |
-#      | Format                | Select: CSV With Attack Details                                                                                  |
+
+  @SID_3
+  Scenario: create new Output End Time
+    Given UI "Create" Forensics With Name "Output End Time"
+      | Product               | DefenseFlow                                                                    |
+      | Output                | End Time                                                                       |
+      | Criteria              | condition.All:true                                                             |
+      | devices               | index:10                                                                       |
+      | Time Definitions.Date | Absolute:[27.02.1971 01:00, +0d]                                               |
+      | Schedule              | Run Every:Monthly, On Time:+6H, At Months:[MAR]                                |
+      | Share                 | Email:[automation.vision2@radware.com],Subject:myEdit subject,Body:myEdit body |
+      | Format                | Select: HTML                                                                   |
+      When UI "Validate" Forensics With Name "Output End Time"
+      | Product               | DefenseFlow                                                                    |
+      | Output                | End Time                                                                       |
+      | Criteria              | condition.All:true                                                             |
+      | devices               | index:10                                                                       |
+      | Time Definitions.Date | Absolute:[27.02.1971 01:00, +0d]                                               |
+      | Schedule              | Run Every:Monthly, On Time:+6H, At Months:[MAR]                                |
+      | Share                 | Email:[automation.vision2@radware.com],Subject:myEdit subject,Body:myEdit body |
+      | Format                | Select: HTML                                                                   |
+
+  @SID_4
+  Scenario: create new Output Start Time
+    Given UI "Create" Forensics With Name "Output Start Time"
+      | Product               | DefenseFlow                                                                                                      |
+      | Output                | Start Time                                                                                                       |
+      | Criteria              | condition.All:true                                                                                               |
+      | devices               | All                                                                                                              |
+      | Time Definitions.Date | Relative:[Hours,2]                                                                                               |
+      | Schedule              | Run Every:Weekly, On Time:+6H, At Days:[WED]                                                                     |
+      | Share                 | FTP:checked, FTP.Location:172.17.164.10, FTP.Path:/home/radware/ftp/, FTP.Username:radware, FTP.Password:radware |
+      | Format                | Select: CSV                                                                                                      |
+    When UI "Validate" Forensics With Name "Output Start Time"
+      | Product               | DefenseFlow                                                                                                      |
+      | Output                | Start Time                                                                                                       |
+      | Criteria              | condition.All:true                                                                                               |
+      | devices               | All                                                                                                              |
+      | Time Definitions.Date | Relative:[Hours,2]                                                                                               |
+      | Schedule              | Run Every:Weekly, On Time:+6H, At Days:[WED]                                                                     |
+      | Share                 | FTP:checked, FTP.Location:172.17.164.10, FTP.Path:/home/radware/ftp/, FTP.Username:radware, FTP.Password:radware |
+      | Format                | Select: CSV                                                                                                      |
+
+  @SID_5
+  Scenario: create new Output Threat Category
+    Given UI "Create" Forensics With Name "Output Threat Category"
+      | Product               | DefenseFlow                                                                    |
+      | Output                | Threat Category                                                                |
+      | Criteria              | condition.All:true                                                             |
+      | devices               | All                                                                            |
+      | Share                 | Email:[automation.vision2@radware.com],Subject:myEdit subject,Body:myEdit body |
+      | Format                | Select: CSV                                                                    |
+    When UI "Validate" Forensics With Name "Output Threat Category"
+      | Product               | DefenseFlow                                                                    |
+      | Output                | Threat Category                                                                |
+      | Criteria              | condition.All:true                                                             |
+      | devices               | All                                                                            |
+      | Share                 | Email:[automation.vision2@radware.com],Subject:myEdit subject,Body:myEdit body |
+      | Format                | Select: CSV                                                                    |
+
+  @SID_6
+  Scenario: create new Output Attack Name1
+    Given UI "Create" Forensics With Name "Output Attack Name1"
+      | Product               | DefenseFlow                                                                                                      |
+      | Output                | Attack Name                                                                                                      |
+      | Criteria              | condition.All:true                                                                                               |
+      | devices               | All                                                                                                              |
+      | Schedule              | Run Every:Monthly, On Time:+6H, At Months:[AUG]                                                                  |
+      | Share                 | FTP:checked, FTP.Location:172.17.164.10, FTP.Path:/home/radware/ftp/, FTP.Username:radware, FTP.Password:radware |
+      | Format                | Select: CSV With Attack Details                                                                                  |
+    When UI "Validate" Forensics With Name "Output Attack Name1"
+      | Product               | DefenseFlow                                                                                                      |
+      | Output                | Attack Name                                                                                                      |
+      | Criteria              | condition.All:true                                                                                               |
+      | devices               | All                                                                                                              |
+      | Schedule              | Run Every:Monthly, On Time:+6H, At Months:[AUG]                                                                  |
+      | Share                 | FTP:checked, FTP.Location:172.17.164.10, FTP.Path:/home/radware/ftp/, FTP.Username:radware, FTP.Password:radware |
+      | Format                | Select: CSV With Attack Details                                                                                  |
+
+  @SID_7
+  Scenario: create new Output Attack Name2
+    Given UI "Create" Forensics With Name "Output Attack Name2"
+      | Product               | DefenseFlow                                                                    |
+      | Output                | Attack Name                                                                    |
+      | Criteria              | condition.All:true                                                             |
+      | devices               | index:10                                                                       |
+      | Time Definitions.Date | Absolute:[27.02.1971 01:00, +0d]                                               |
+      | Schedule              | Run Every:Monthly, On Time:+6H, At Months:[MAR]                                |
+      | Share                 | Email:[automation.vision2@radware.com],Subject:myEdit subject,Body:myEdit body |
+      | Format                | Select: HTML                                                                   |
+    When UI "Validate" Forensics With Name "Output Attack Name2"
+      | Product               | DefenseFlow                                                                    |
+      | Output                | Attack Name                                                                    |
+      | Criteria              | condition.All:true                                                             |
+      | devices               | index:10                                                                       |
+      | Time Definitions.Date | Absolute:[27.02.1971 01:00, +0d]                                               |
+      | Schedule              | Run Every:Monthly, On Time:+6H, At Months:[MAR]                                |
+      | Share                 | Email:[automation.vision2@radware.com],Subject:myEdit subject,Body:myEdit body |
+      | Format                | Select: HTML                                                                   |
+
+  @SID_8
+  Scenario: create new Output Action
+    Given UI "Create" Forensics With Name "Output Action"
+      | Product               | DefenseFlow                                                                                                      |
+      | Output                | Action                                                                                                           |
+      | Criteria              | condition.All:true                                                                                               |
+      | devices               | All                                                                                                              |
+      | Time Definitions.Date | Relative:[Weeks,2]                                                                                               |
+      | Schedule              | Run Every:Daily,On Time:+2m                                                                                      |
+      | Share                 | FTP:checked, FTP.Location:172.17.164.10, FTP.Path:/home/radware/ftp/, FTP.Username:radware, FTP.Password:radware |
+      | Format                | Select: CSV                                                                                                      |
+    When UI "Validate" Forensics With Name "Output Action"
+      | Product               | DefenseFlow                                                                                                      |
+      | Output                | Action                                                                                                           |
+      | Criteria              | condition.All:true                                                                                               |
+      | devices               | All                                                                                                              |
+      | Time Definitions.Date | Relative:[Weeks,2]                                                                                               |
+      | Schedule              | Run Every:Daily,On Time:+2m                                                                                      |
+      | Share                 | FTP:checked, FTP.Location:172.17.164.10, FTP.Path:/home/radware/ftp/, FTP.Username:radware, FTP.Password:radware |
+      | Format                | Select: CSV                                                                                                      |
+
+  @SID_9
+  Scenario: create new Output Attack ID
+    Given UI "Create" Forensics With Name "Output Attack ID"
+      | Product               | DefenseFlow                                                                    |
+      | Output                | Attack ID                                                                      |
+      | Criteria              | condition.All:true                                                             |
+      | devices               | All                                                                            |
+      | Share                 | Email:[automation.vision2@radware.com],Subject:myEdit subject,Body:myEdit body |
+      | Format                | Select: CSV                                                                    |
+    When UI "Validate" Forensics With Name "Output Attack ID"
+      | Product               | DefenseFlow                                                                    |
+      | Output                | Attack ID                                                                      |
+      | Criteria              | condition.All:true                                                             |
+      | devices               | All                                                                            |
+      | Share                 | Email:[automation.vision2@radware.com],Subject:myEdit subject,Body:myEdit body |
+      | Format                | Select: CSV                                                                    |
+
+  @SID_10
+  Scenario: create new Output Policy Name
+    Given UI "Create" Forensics With Name "Output Policy Name"
+      | Product               | DefenseFlow                                                                                                      |
+      | Output                | Policy Name                                                                                                      |
+      | Criteria              | condition.All:true                                                                                               |
+      | devices               | All                                                                                                              |
+      | Schedule              | Run Every:Monthly, On Time:+6H, At Months:[AUG]                                                                  |
+      | Share                 | FTP:checked, FTP.Location:172.17.164.10, FTP.Path:/home/radware/ftp/, FTP.Username:radware, FTP.Password:radware |
+      | Format                | Select: CSV With Attack Details                                                                                  |
+    When UI "Validate" Forensics With Name "Output Policy Name"
+      | Product               | DefenseFlow                                                                                                      |
+      | Output                | Policy Name                                                                                                      |
+      | Criteria              | condition.All:true                                                                                               |
+      | devices               | All                                                                                                              |
+      | Schedule              | Run Every:Monthly, On Time:+6H, At Months:[AUG]                                                                  |
+      | Share                 | FTP:checked, FTP.Location:172.17.164.10, FTP.Path:/home/radware/ftp/, FTP.Username:radware, FTP.Password:radware |
+      | Format                | Select: CSV With Attack Details                                                                                  |
   @SID_11
   Scenario: create new Output Source IP Address
     Given UI "Create" Forensics With Name "Output Source IP Address"
@@ -204,26 +204,26 @@ Feature:Create DefenseFlow Part1
       | Share                 | Email:[automation.vision2@radware.com],Subject:myEdit subject,Body:myEdit body |
       | Format                | Select: HTML                                                                   |
 
-#  @SID_12
-#  Scenario: create new Output Source Port
-#    Given UI "Create" Forensics With Name "Output Source Port"
-#      | Product               | DefenseFlow                                                                                                      |
-#      | Output                | Source Port                                                                                                      |
-#      | Criteria              | condition.All:true                                                                                               |
-#      | devices               | All                                                                                                              |
-#      | Time Definitions.Date | Relative:[Weeks,2]                                                                                               |
-#      | Schedule              | Run Every:Daily,On Time:+2m                                                                                      |
-#      | Share                 | FTP:checked, FTP.Location:172.17.164.10, FTP.Path:/home/radware/ftp/, FTP.Username:radware, FTP.Password:radware |
-#      | Format                | Select: CSV                                                                                                      |
-#    When UI "Validate" Forensics With Name "Output Source Port"
-#      | Product               | DefenseFlow                                                                                                      |
-#      | Output                | Source Port                                                                                                      |
-#      | Criteria              | condition.All:true                                                                                               |
-#      | devices               | All                                                                                                              |
-#      | Time Definitions.Date | Relative:[Weeks,2]                                                                                               |
-#      | Schedule              | Run Every:Daily,On Time:+2m                                                                                      |
-#      | Share                 | FTP:checked, FTP.Location:172.17.164.10, FTP.Path:/home/radware/ftp/, FTP.Username:radware, FTP.Password:radware |
-#      | Format                | Select: CSV                                                                                                      |
+  @SID_12
+  Scenario: create new Output Source Port
+    Given UI "Create" Forensics With Name "Output Source Port"
+      | Product               | DefenseFlow                                                                                                      |
+      | Output                | Source Port                                                                                                      |
+      | Criteria              | condition.All:true                                                                                               |
+      | devices               | All                                                                                                              |
+      | Time Definitions.Date | Relative:[Weeks,2]                                                                                               |
+      | Schedule              | Run Every:Daily,On Time:+2m                                                                                      |
+      | Share                 | FTP:checked, FTP.Location:172.17.164.10, FTP.Path:/home/radware/ftp/, FTP.Username:radware, FTP.Password:radware |
+      | Format                | Select: CSV                                                                                                      |
+    When UI "Validate" Forensics With Name "Output Source Port"
+      | Product               | DefenseFlow                                                                                                      |
+      | Output                | Source Port                                                                                                      |
+      | Criteria              | condition.All:true                                                                                               |
+      | devices               | All                                                                                                              |
+      | Time Definitions.Date | Relative:[Weeks,2]                                                                                               |
+      | Schedule              | Run Every:Daily,On Time:+2m                                                                                      |
+      | Share                 | FTP:checked, FTP.Location:172.17.164.10, FTP.Path:/home/radware/ftp/, FTP.Username:radware, FTP.Password:radware |
+      | Format                | Select: CSV                                                                                                      |
 
   @SID_13
   Scenario: create new Output Destination IP Address
@@ -242,85 +242,85 @@ Feature:Create DefenseFlow Part1
       | Share                 | Email:[automation.vision2@radware.com],Subject:myEdit subject,Body:myEdit body |
       | Format                | Select: CSV                                                                    |
 
-#  @SID_14
-#  Scenario: create new Output Destination Port
-#    Given UI "Create" Forensics With Name "Output Destination Port"
-#      | Product               | DefenseFlow                                                                                                      |
-#      | Output                | Destination Port                                                                                                 |
-#      | Criteria              | condition.All:true                                                                                               |
-#      | devices               | All                                                                                                              |
-#      | Schedule              | Run Every:Monthly, On Time:+6H, At Months:[AUG]                                                                  |
-#      | Share                 | FTP:checked, FTP.Location:172.17.164.10, FTP.Path:/home/radware/ftp/, FTP.Username:radware, FTP.Password:radware |
-#      | Format                | Select: CSV With Attack Details                                                                                  |
-#    When UI "Validate" Forensics With Name "Output Destination Port"
-#      | Product               | DefenseFlow                                                                                                      |
-#      | Output                | Destination Port                                                                                                 |
-#      | Criteria              | condition.All:true                                                                                               |
-#      | devices               | All                                                                                                              |
-#      | Schedule              | Run Every:Monthly, On Time:+6H, At Months:[AUG]                                                                  |
-#      | Share                 | FTP:checked, FTP.Location:172.17.164.10, FTP.Path:/home/radware/ftp/, FTP.Username:radware, FTP.Password:radware |
-#      | Format                | Select: CSV With Attack Details                                                                                  |
-#
-#  @SID_15
-#  Scenario: create new Output Direction
-#    Given UI "Create" Forensics With Name "Output Direction"
-#      | Product               | DefenseFlow                                                                    |
-#      | Output                | Direction                                                                      |
-#      | Criteria              | condition.All:true                                                             |
-#      | devices               | index:10                                                                       |
-#      | Time Definitions.Date | Absolute:[27.02.1971 01:00, +0d]                                               |
-#      | Schedule              | Run Every:Monthly, On Time:+6H, At Months:[MAR]                                |
-#      | Share                 | Email:[automation.vision2@radware.com],Subject:myEdit subject,Body:myEdit body |
-#      | Format                | Select: HTML                                                                   |
-#    When UI "Validate" Forensics With Name "Output Direction"
-#      | Product               | DefenseFlow                                                                    |
-#      | Output                | Direction                                                                      |
-#      | Criteria              | condition.All:true                                                             |
-#      | devices               | index:10                                                                       |
-#      | Time Definitions.Date | Absolute:[27.02.1971 01:00, +0d]                                               |
-#      | Schedule              | Run Every:Monthly, On Time:+6H, At Months:[MAR]                                |
-#      | Share                 | Email:[automation.vision2@radware.com],Subject:myEdit subject,Body:myEdit body |
-#      | Format                | Select: HTML                                                                   |
-#
-#  @SID_16
-#  Scenario: create new Output Protocol
-#    Given UI "Create" Forensics With Name "Output Protocol"
-#      | Product               | DefenseFlow                                                                                                      |
-#      | Output                | Protocol                                                                                                         |
-#      | Criteria              | condition.All:true                                                                                               |
-#      | devices               | All                                                                                                              |
-#      | Time Definitions.Date | Relative:[Weeks,2]                                                                                               |
-#      | Schedule              | Run Every:Daily,On Time:+2m                                                                                      |
-#      | Share                 | FTP:checked, FTP.Location:172.17.164.10, FTP.Path:/home/radware/ftp/, FTP.Username:radware, FTP.Password:radware |
-#      | Format                | Select: CSV                                                                                                      |
-#    When UI "Validate" Forensics With Name "Output Protocol"
-#      | Product               | DefenseFlow                                                                                                      |
-#      | Output                | Protocol                                                                                                         |
-#      | Criteria              | condition.All:true                                                                                               |
-#      | devices               | All                                                                                                              |
-#      | Time Definitions.Date | Relative:[Weeks,2]                                                                                               |
-#      | Schedule              | Run Every:Daily,On Time:+2m                                                                                      |
-#      | Share                 | FTP:checked, FTP.Location:172.17.164.10, FTP.Path:/home/radware/ftp/, FTP.Username:radware, FTP.Password:radware |
-#      | Format                | Select: CSV                                                                                                      |
-#
-#  @SID_17
-#  Scenario: create new Output Radware ID
-#    Given UI "Create" Forensics With Name "Output Radware ID"
-#      | Product               | DefenseFlow                                                                    |
-#      | Output                | Radware ID                                                                     |
-#      | Criteria              | condition.All:true                                                             |
-#      | devices               | All                                                                            |
-#      | Time Definitions.Date | Quick:1Y                                                                       |
-#      | Share                 | Email:[automation.vision2@radware.com],Subject:myEdit subject,Body:myEdit body |
-#      | Format                | Select: CSV                                                                    |
-#    When UI "Validate" Forensics With Name "Output Radware ID"
-#      | Product               | DefenseFlow                                                                    |
-#      | Output                | Radware ID                                                                     |
-#      | Criteria              | condition.All:true                                                             |
-#      | devices               | All                                                                            |
-#      | Time Definitions.Date | Quick:1Y                                                                       |
-#      | Share                 | Email:[automation.vision2@radware.com],Subject:myEdit subject,Body:myEdit body |
-#      | Format                | Select: CSV                                                                    |
+  @SID_14
+  Scenario: create new Output Destination Port
+    Given UI "Create" Forensics With Name "Output Destination Port"
+      | Product               | DefenseFlow                                                                                                      |
+      | Output                | Destination Port                                                                                                 |
+      | Criteria              | condition.All:true                                                                                               |
+      | devices               | All                                                                                                              |
+      | Schedule              | Run Every:Monthly, On Time:+6H, At Months:[AUG]                                                                  |
+      | Share                 | FTP:checked, FTP.Location:172.17.164.10, FTP.Path:/home/radware/ftp/, FTP.Username:radware, FTP.Password:radware |
+      | Format                | Select: CSV With Attack Details                                                                                  |
+    When UI "Validate" Forensics With Name "Output Destination Port"
+      | Product               | DefenseFlow                                                                                                      |
+      | Output                | Destination Port                                                                                                 |
+      | Criteria              | condition.All:true                                                                                               |
+      | devices               | All                                                                                                              |
+      | Schedule              | Run Every:Monthly, On Time:+6H, At Months:[AUG]                                                                  |
+      | Share                 | FTP:checked, FTP.Location:172.17.164.10, FTP.Path:/home/radware/ftp/, FTP.Username:radware, FTP.Password:radware |
+      | Format                | Select: CSV With Attack Details                                                                                  |
+
+  @SID_15
+  Scenario: create new Output Direction
+    Given UI "Create" Forensics With Name "Output Direction"
+      | Product               | DefenseFlow                                                                    |
+      | Output                | Direction                                                                      |
+      | Criteria              | condition.All:true                                                             |
+      | devices               | index:10                                                                       |
+      | Time Definitions.Date | Absolute:[27.02.1971 01:00, +0d]                                               |
+      | Schedule              | Run Every:Monthly, On Time:+6H, At Months:[MAR]                                |
+      | Share                 | Email:[automation.vision2@radware.com],Subject:myEdit subject,Body:myEdit body |
+      | Format                | Select: HTML                                                                   |
+    When UI "Validate" Forensics With Name "Output Direction"
+      | Product               | DefenseFlow                                                                    |
+      | Output                | Direction                                                                      |
+      | Criteria              | condition.All:true                                                             |
+      | devices               | index:10                                                                       |
+      | Time Definitions.Date | Absolute:[27.02.1971 01:00, +0d]                                               |
+      | Schedule              | Run Every:Monthly, On Time:+6H, At Months:[MAR]                                |
+      | Share                 | Email:[automation.vision2@radware.com],Subject:myEdit subject,Body:myEdit body |
+      | Format                | Select: HTML                                                                   |
+
+  @SID_16
+  Scenario: create new Output Protocol
+    Given UI "Create" Forensics With Name "Output Protocol"
+      | Product               | DefenseFlow                                                                                                      |
+      | Output                | Protocol                                                                                                         |
+      | Criteria              | condition.All:true                                                                                               |
+      | devices               | All                                                                                                              |
+      | Time Definitions.Date | Relative:[Weeks,2]                                                                                               |
+      | Schedule              | Run Every:Daily,On Time:+2m                                                                                      |
+      | Share                 | FTP:checked, FTP.Location:172.17.164.10, FTP.Path:/home/radware/ftp/, FTP.Username:radware, FTP.Password:radware |
+      | Format                | Select: CSV                                                                                                      |
+    When UI "Validate" Forensics With Name "Output Protocol"
+      | Product               | DefenseFlow                                                                                                      |
+      | Output                | Protocol                                                                                                         |
+      | Criteria              | condition.All:true                                                                                               |
+      | devices               | All                                                                                                              |
+      | Time Definitions.Date | Relative:[Weeks,2]                                                                                               |
+      | Schedule              | Run Every:Daily,On Time:+2m                                                                                      |
+      | Share                 | FTP:checked, FTP.Location:172.17.164.10, FTP.Path:/home/radware/ftp/, FTP.Username:radware, FTP.Password:radware |
+      | Format                | Select: CSV                                                                                                      |
+
+  @SID_17
+  Scenario: create new Output Radware ID
+    Given UI "Create" Forensics With Name "Output Radware ID"
+      | Product               | DefenseFlow                                                                    |
+      | Output                | Radware ID                                                                     |
+      | Criteria              | condition.All:true                                                             |
+      | devices               | All                                                                            |
+      | Time Definitions.Date | Quick:1Y                                                                       |
+      | Share                 | Email:[automation.vision2@radware.com],Subject:myEdit subject,Body:myEdit body |
+      | Format                | Select: CSV                                                                    |
+    When UI "Validate" Forensics With Name "Output Radware ID"
+      | Product               | DefenseFlow                                                                    |
+      | Output                | Radware ID                                                                     |
+      | Criteria              | condition.All:true                                                             |
+      | devices               | All                                                                            |
+      | Time Definitions.Date | Quick:1Y                                                                       |
+      | Share                 | Email:[automation.vision2@radware.com],Subject:myEdit subject,Body:myEdit body |
+      | Format                | Select: CSV                                                                    |
 
   @SID_18
   Scenario: create new Output Duration
@@ -645,7 +645,7 @@ Feature:Create DefenseFlow Part1
     Given UI "Create" Forensics With Name "Output End Time Equals"
       | Product               | DefenseFlow                                                                                                      |
       | Output                | End Time                                                                                                         |
-      | Criteria              | Event Criteria:Action,Operator:Equals,Value:Forward                                                              |
+      | Criteria              | Event Criteria:Action,Operator:Equals,Value:Modified                                                              |
       | devices               | All                                                                                                              |
       | Time Definitions.Date | Quick:This Month                                                                                                 |
       | Schedule              | Run Every:Once, On Time:+6H                                                                                      |
@@ -654,7 +654,7 @@ Feature:Create DefenseFlow Part1
     When UI "Validate" Forensics With Name "Output End Time Equals"
       | Product               | DefenseFlow                                                                                                      |
       | Output                | End Time                                                                                                         |
-      | Criteria              | Event Criteria:Action,Operator:Equals,Value:Forward                                                              |
+      | Criteria              | Event Criteria:Action,Operator:Equals,Value:Modified                                                              |
       | devices               | All                                                                                                              |
       | Time Definitions.Date | Quick:This Month                                                                                                 |
       | Schedule              | Run Every:Once, On Time:+6H                                                                                      |
