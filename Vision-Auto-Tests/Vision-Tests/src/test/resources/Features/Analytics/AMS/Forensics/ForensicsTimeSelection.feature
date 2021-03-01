@@ -2,6 +2,7 @@
 
 Feature: Forensic Time Selection
 
+  
   @SID_1
   Scenario: Clean DB and generate attacks
     When CLI kill all simulator attacks on current vision
@@ -12,7 +13,7 @@ Feature: Forensic Time Selection
     And CLI simulate 1 attacks of type "rest_dos" on "DefensePro" 10
     And CLI simulate 1 attacks of type "rest_anomalies" on "DefensePro" 10 and wait 22 seconds
 
-
+  
   @SID_2
   Scenario: Login and go to forensics
     Given UI Login with user "sys_admin" and password "radware"
@@ -149,11 +150,11 @@ Feature: Forensic Time Selection
 
 
    ######################   QUICK ONE MONTH   #################################################
-
+  
   @SID_8
   Scenario: Forensic Time Quick Range One Month
     # move start time 28 days and 23.5 hrs back
-    When CLI Run remote linux Command "curl -XPOST localhost:9200/dp-attack-raw-*/_update_by_query/?pretty -d '{"query": {"match": {"attackIpsId": "4-1402580209"}},"script": {"source": "ctx._source.startTime = 'ctx._source.startTime-2503800000L'"}}'" on "ROOT_SERVER_CLI"
+#    When CLI Run remote linux Command "curl -XPOST localhost:9200/dp-attack-raw-*/_update_by_query/?pretty -d '{"query": {"match": {"attackIpsId": "4-1402580209"}},"script": {"source": "ctx._source.startTime = 'ctx._source.startTime-2503800000L'"}}'" on "ROOT_SERVER_CLI"
     Then UI "Create" Forensics With Name "Forensic Time"
       | Output                | Attack ID,Start Time |
       | Time Definitions.Date | Quick:1M             |
