@@ -82,7 +82,7 @@ public class Forensics extends ReportsForensicsAlertsAbstract {
         }catch (Exception e)
         {
             cancelView();
-            BaseTestUtils.report(e.getMessage(), Reporter.FAIL);
+            BaseTestUtils.report(e.toString(), Reporter.FAIL);
         }
     }
 
