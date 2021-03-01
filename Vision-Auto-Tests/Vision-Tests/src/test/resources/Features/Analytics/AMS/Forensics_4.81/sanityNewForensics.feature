@@ -1073,6 +1073,7 @@ Feature: Basic tests for Forensics parameters
 
   @SID_56
   Scenario: Validate Criteria Action Attribute
+    Then UI Click Button "New Forensics Tab"
     Then UI Click Button "Product Tab" with value "DefensePro"
     Then UI Click Button "New Forensics Tab"
     Then UI Click Button "Criteria Tab"
