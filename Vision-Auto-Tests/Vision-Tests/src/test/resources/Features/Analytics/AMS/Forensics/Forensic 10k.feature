@@ -53,11 +53,11 @@ Feature: Forensics 10K
     Then UI Click Button "My Forensics" with value "Forensic_10K"
     Then UI Click Button "Generate Snapshot Forensics Manually" with value "Forensic_10K"
     Then Sleep "35"
-    When UI Click Button "Views.Forensic" with value "Forensic_10K,0"
+
 
   @SID_9
   Scenario: validate number of records in forensic table
-    And UI Click Button "Views.Forensic" with value "Forensic_10K"
+    When UI Click Button "Views.Forensic" with value "Forensic_10K,0"
     Then Sleep "15"
     * UI Validate "Forensics.Table" Table rows count EQUALS to 10000
 

@@ -17,7 +17,7 @@ Feature:Create AppWall Part3
       | Time Definitions.Date | Quick:3M                                                                                                                                             |
       | Schedule              | Run Every:Monthly, On Time:+6H, At Months:[DEC]                                                                                                      |
       | Share                 | FTP:checked, FTP.Location:172.17.164.10, FTP.Path:/home/radware/ftp/, FTP.Username:radware, FTP.Password:radware                                     |
-      | Format                | Select: CSV With Attack Details                                                                                                                       |
+      | Format                | Select: CSV With Attack Detailss                                                                                                                       |
 
   @SID_3
   Scenario: create new Threat Category2 Equal
@@ -40,7 +40,7 @@ Feature:Create AppWall Part3
       | Time Definitions.Date | Quick:3M                                                                                                                      |
       | Schedule              | Run Every:Monthly, On Time:+6H, At Months:[DEC]                                                                               |
       | Share                 | FTP:checked, FTP.Location:172.17.164.10, FTP.Path:/home/radware/ftp/, FTP.Username:radware, FTP.Password:radware              |
-      | Format                | Select: CSV with Attack Detail                                                                                                |
+      | Format                | Select: CSV With Attack Details                                                                                               |
 
   @SID_5
   Scenario: create new Threat Category4 Equal
@@ -84,7 +84,7 @@ Feature:Create AppWall Part3
       | Time Definitions.Date | Absolute:[27.02.1971 01:00, +0d]                                                                                 |
       | Schedule              | Run Every:Monthly, On Time:+6H, At Months:[OCT]                                                                  |
       | Share                 | FTP:checked, FTP.Location:172.17.164.10, FTP.Path:/home/radware/ftp/, FTP.Username:radware, FTP.Password:radware |
-      | Format                | Select: CSV with Attack Detail                                                                                   |
+      | Format                | Select: CSV With Attack Details                                                                                  |
 
   @SID_9
   Scenario: create new Threat Category8 Equal
@@ -131,7 +131,7 @@ Feature:Create AppWall Part3
       | Time Definitions.Date | Absolute:[27.02.1971 01:00, +0d]                                                                                                                                           |
       | Schedule              | Run Every:once, On Time:+6H                                                                                                                                                |
       | Share                 | FTP:checked, FTP.Location:172.17.164.10, FTP.Path:/home/radware/ftp/, FTP.Username:radware, FTP.Password:radware                                                           |
-      | Format                | Select: CSV with Attack Detail                                                                                                                                             |
+      | Format                | Select: CSV With Attack Details                                                                                                                                            |
 
   @SID_13
   Scenario: create new Threat Category12 Equal
@@ -176,7 +176,7 @@ Feature:Create AppWall Part3
       | Time Definitions.Date | Relative:[Weeks,2]                                                                                               |
       | Schedule              | Run Every:Weekly, On Time:+6H, At Days:[THU]                                                                     |
       | Share                 | FTP:checked, FTP.Location:172.17.164.10, FTP.Path:/home/radware/ftp/, FTP.Username:radware, FTP.Password:radware |
-      | Format                | Select: CSV with Attack Detail                                                                                   |
+      | Format                | Select: CSV With Attack Details                                                                                  |
 
   @SID_17
   Scenario: create new Threat Category16 Equal
@@ -222,7 +222,7 @@ Feature:Create AppWall Part3
       | Time Definitions.Date | Absolute:[27.02.1971 01:00, +0d]                                                                                 |
       | Schedule              | Run Every:Monthly, On Time:+6H, At Months:[APR]                                                                  |
       | Share                 | FTP:checked, FTP.Location:172.17.164.10, FTP.Path:/home/radware/ftp/, FTP.Username:radware, FTP.Password:radware |
-      | Format                | Select: CSV with Attack Detail                                                                                   |
+      | Format                | Select: CSV With Attack Details                                                                                  |
 
   @SID_21
   Scenario: create new Threat Category20 Equal
@@ -267,7 +267,7 @@ Feature:Create AppWall Part3
       | Time Definitions.Date | Quick:This Month                                                                                                 |
       | Schedule              | Run Every:Once, On Time:+6H                                                                                      |
       | Share                 | FTP:checked, FTP.Location:172.17.164.10, FTP.Path:/home/radware/ftp/, FTP.Username:radware, FTP.Password:radware |
-      | Format                | Select: CSV with Attack Detail                                                                                   |
+      | Format                | Select: CSV With Attack Details                                                                                  |
 
   @SID_25
   Scenario: create new Threat Category24 Equal
@@ -286,7 +286,7 @@ Feature:Create AppWall Part3
     When UI "Create" Forensics With Name "Threat Category25 Equal"
       | Product               | AppWall                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  |
       | Output                | Date and Time                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            |
-      | Criteria              | Event Criteria:Threat Category,Operator:Equals,Value:[TTP RFC Violation,Dos,Information Leakage,Automation,Path Traversal,Response Format Violation,XML & Web Services Violation,Cross site Request Forgery (CSRF),Remote File Inclusion,Authentication & Authorization,Hot Link,Misconfiguration,Insecure Communication,Session Management,File Upload Violation,Injection,Evasion,Input Validation,Logical Attacks,Brute Force,Cross Site Scripting,Access Control,Request Format Violation,Intrusion] |
+      | Criteria              | Event Criteria:Threat Category,Operator:Equals,Value:[Dos,Information Leakage,Automation,Path Traversal,Response Format Violation,XML & Web Services Violation,Cross site Request Forgery (CSRF),Remote File Inclusion,Authentication & Authorization,Hot Link,Misconfiguration,Insecure Communication,Session Management,File Upload Violation,Injection,Evasion,Input Validation,Logical Attacks,Brute Force,Cross Site Scripting,Access Control,Request Format Violation,Intrusion] |
       | devices               | All                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      |
       | Time Definitions.Date | Relative:[Hours,2]                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       |
       | Schedule              | Run Every:Weekly, On Time:+6H, At Days:[WED]                                                                                                                                                                                                                                                                                                                                                                                                                                                             |
@@ -312,14 +312,14 @@ Feature:Create AppWall Part3
       | devices               | All                                                                                                              |
       | Schedule              | Run Every:Monthly, On Time:+6H, At Months:[AUG]                                                                  |
       | Share                 | FTP:checked, FTP.Location:172.17.164.10, FTP.Path:/home/radware/ftp/, FTP.Username:radware, FTP.Password:radware |
-      | Format                | Select: CSV with Attack Detail                                                                                   |
+      | Format                | Select: CSV With Attack Details                                                                                  |
 
   @SID_29
   Scenario: create new Threat Category28 Not Equal
     When UI "Create" Forensics With Name "Threat Category28 Not Equal"
       | Product               | AppWall                                                                                                                                                                                                                                       |
       | Output                | Date and Time,Device IP,Source IP,Destination IP Address,Source Port,Cluster Manager IP,Web Application Name,Event Description,Action,Attack Name,Device Host Name,Directory,Module,Severity,Threat Category,Transaction ID,Tunnel,User Name  |
-      | Criteria              | Event Criteria:Threat Category,Operator:Not Equals,Value:[TTP RFC Violation,Dos,Information Leakage,Automation,Path Traversal,Response Format Violation,XML & Web Services Violation,Cross site Request Forgery (CSRF)]                       |
+      | Criteria              | Event Criteria:Threat Category,Operator:Not Equals,Value:[Dos,Information Leakage,Automation,Path Traversal,Response Format Violation,XML & Web Services Violation,Cross site Request Forgery (CSRF)]                       |
       | devices               | index:10                                                                                                                                                                                                                                      |
       | Time Definitions.Date | Absolute:[27.02.1971 01:00, +0d]                                                                                                                                                                                                              |
       | Schedule              | Run Every:Monthly, On Time:+6H, At Months:[MAR]                                                                                                                                                                                               |
@@ -359,7 +359,7 @@ Feature:Create AppWall Part3
       | devices               | All                                                                                                                                                                                                                                           |
       | Schedule              | Run Every:Monthly, On Time:+6H, At Months:[DEC]                                                                                                                                                                                               |
       | Share                 | FTP:checked, FTP.Location:172.17.164.10, FTP.Path:/home/radware/ftp/, FTP.Username:radware, FTP.Password:radware                                                                                                                              |
-      | Format                | Select: CSV with Attack Detail                                                                                                                                                                                                                |
+      | Format                | Select: CSV With Attack Details                                                                                                                                                                                                               |
 
   @SID_33
   Scenario: create new Threat Category32 Not Equal
@@ -382,7 +382,7 @@ Feature:Create AppWall Part3
       | Time Definitions.Date | Quick:3M                                                                                                         |
       | Schedule              | Run Every:Monthly, On Time:+6H, At Months:[DEC]                                                                  |
       | Share                 | FTP:checked, FTP.Location:172.17.164.10, FTP.Path:/home/radware/ftp/, FTP.Username:radware, FTP.Password:radware |
-      | Format                | Select: CSV with Attack Detail                                                                                   |
+      | Format                | Select: CSV With Attack Details                                                                                  |
 
   @SID_35
   Scenario: create new Threat Category34 Not Equal
@@ -421,12 +421,12 @@ Feature:Create AppWall Part3
     When UI "Create" Forensics With Name "Tunnel Equal"
       | Product               | AppWall                                                                                                                                                                                                                                       |
       | Output                | Date and Time,Device IP,Source IP,Destination IP Address,Source Port,Cluster Manager IP,Web Application Name,Event Description,Action,Attack Name,Device Host Name,Directory,Module,Severity,Threat Category,Transaction ID,Tunnel,User Name  |
-      | Criteria              | Event Criteria:Tunnel,Operator:Equals,Value:Name                                                                                                                                                                                              |
+      | Criteria              | Event Criteria:Tunnel,Operator:Equals,Value:[Name]                                                                                                                                                                                            |
       | devices               | All                                                                                                                                                                                                                                           |
       | Time Definitions.Date | Absolute:[27.02.1971 01:00, +0d]                                                                                                                                                                                                              |
       | Schedule              | Run Every:Monthly, On Time:+6H, At Months:[OCT]                                                                                                                                                                                               |
       | Share                 | FTP:checked, FTP.Location:172.17.164.10, FTP.Path:/home/radware/ftp/, FTP.Username:radware, FTP.Password:radware                                                                                                                              |
-      | Format                | Select: CSV with Attack Detail                                                                                                                                                                                                                |
+      | Format                | Select: CSV With Attack Details                                                                                                                                                                                                               |
 
   @SID_39
   Scenario: create new Tunnel Not Equal
@@ -473,7 +473,7 @@ Feature:Create AppWall Part3
       | Time Definitions.Date | Absolute:[27.02.1971 01:00, +0d]                                                                                                                                                                                                              |
       | Schedule              | Run Every:once, On Time:+6H                                                                                                                                                                                                                   |
       | Share                 | FTP:checked, FTP.Location:172.17.164.10, FTP.Path:/home/radware/ftp/, FTP.Username:radware, FTP.Password:radware                                                                                                                              |
-      | Format                | Select: CSV with Attack Detail                                                                                                                                                                                                                |
+      | Format                | Select: CSV With Attack Details                                                                                                                                                                                                                |
 
   @SID_43
   Scenario: create new Web Application Name Not Equal
@@ -490,7 +490,7 @@ Feature:Create AppWall Part3
     When UI "Create" Forensics With Name "Custom Conditions1"
       | Product               | AppWall                                                                                                                                                                                                                                       |
       | Output                | Date and Time,Device IP,Source IP,Destination IP Address,Source Port,Cluster Manager IP,Web Application Name,Event Description,Action,Attack Name,Device Host Name,Directory,Module,Severity,Threat Category,Transaction ID,Tunnel,User Name  |
-      | Criteria              | Event Criteria:Threat Category,Operator:Equals,Value:[Session Management],Event Criteria:Module,Operator:Equals,Value:Name,condition.Custom:1 AND 2                                                                                           |
+      | Criteria              | Event Criteria:Threat Category,Operator:Equals,Value:[Session Management];Event Criteria:Module,Operator:Equals,Value:Name,condition.Custom:1 AND 2                                                                                           |
       | devices               | All                                                                                                                                                                                                                                           |
       | Time Definitions.Date | Relative:[Days,2]                                                                                                                                                                                                                             |
       | Schedule              | Run Every:Daily,On Time:+2m                                                                                                                                                                                                                   |
@@ -502,7 +502,7 @@ Feature:Create AppWall Part3
     When UI "Create" Forensics With Name "Custom Conditions2"
       | Product               | AppWall                                                                                                                                                                                                                                       |
       | Output                | Date and Time,Device IP,Source IP,Destination IP Address,Source Port,Cluster Manager IP,Web Application Name,Event Description,Action,Attack Name,Device Host Name,Directory,Module,Severity,Threat Category,Transaction ID,Tunnel,User Name  |
-      | Criteria              | Event Criteria:Severity,Operator:Equals,Value:[error],Event Criteria:Source Port,Operator:Equals,portType:Port,portValue:1024,condition.Custom:1 OR 2                                                                                         |
+      | Criteria              | Event Criteria:Severity,Operator:Equals,Value:[error];Event Criteria:Source Port,Operator:Equals,portType:Single,portValue:1024,condition.Custom:1 OR 2                                                                                         |
       | devices               | All                                                                                                                                                                                                                                           |
       | Schedule              | Run Every:Daily,On Time:+2m                                                                                                                                                                                                                   |
       | Share                 | Email:[automation.vision2@radware.com],Subject:myEdit subject,Body:myEdit body                                                                                                                                                                |
@@ -513,12 +513,12 @@ Feature:Create AppWall Part3
     When UI "Create" Forensics With Name "Custom Conditions3"
       | Product               | AppWall                                                                                                                                                                                                                                       |
       | Output                | Date and Time,Device IP,Source IP,Destination IP Address,Source Port,Cluster Manager IP,Web Application Name,Event Description,Action,Attack Name,Device Host Name,Directory,Module,Severity,Threat Category,Transaction ID,Tunnel,User Name  |
-      | Criteria              | Event Criteria:Action,Operator:Equals,Actions:Modified,Blocked,Reported,Event Criteria:Severity,Operator:Equals,Value:[alert],Event Criteria:User Name,Operator:Equals,Value:Name,condition.Custom:1 AND 2 OR 3                               |
+      | Criteria              | Event Criteria:Action,Operator:Equals,Value:[Modified,Blocked,Reported];Event Criteria:Severity,Operator:Equals,Value:[alert];Event Criteria:User Name,Operator:Equals,Value:Name,condition.Custom:1 AND 2 OR 3                               |
       | devices               | index:10                                                                                                                                                                                                                                      |
       | Time Definitions.Date | Relative:[Weeks,2]                                                                                                                                                                                                                            |
       | Schedule              | Run Every:Weekly, On Time:+6H, At Days:[THU]                                                                                                                                                                                                  |
       | Share                 | FTP:checked, FTP.Location:172.17.164.10, FTP.Path:/home/radware/ftp/, FTP.Username:radware, FTP.Password:radware                                                                                                                              |
-      | Format                | Select: CSV with Attack Detail                                                                                                                                                                                                                |
+      | Format                | Select: CSV With Attack Details                                                                                                                                                                                                                |
 
   @SID_47
   Scenario: Logout

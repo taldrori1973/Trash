@@ -47,12 +47,12 @@ Feature: EAAF ScopeSelections Reports
   Scenario: Validate Enable and Disable to change policy
     Then UI Click Button "New Report Tab"
     Then UI Set Text Field "Report Name" To "EAAF Report Disable to change policy"
-    Then UI Click Button "Add Template" with value "EAAF"
-    Then UI Click Button "Open Scope Selection" with value "EAAF"
+    Then UI Click Button "Add Template" with value "ERT Active Attackers Feed"
+    Then UI Click Button "Open Scope Selection" with value "ERT Active Attackers Feed"
     And UI VRM Select device from dashboard and Save Filter
       | index | ports | policies |
       | 10    |       |          |
-    Then UI Click Button "Open Scope Selection" with value "EAAF"
+    Then UI Click Button "Open Scope Selection" with value "ERT Active Attackers Feed"
     Then UI Validate Element Existence By Label "EAAFScopeSelectionChange" if Exists "true" with value "172.16.22.50_disabled"
     Then UI Validate Element Existence By Label "EAAFScopeSelectionChange" if Exists "false" with value "172.16.22.50"
     Then UI Click Button "SaveEAAFScopeSelection"
@@ -62,12 +62,12 @@ Feature: EAAF ScopeSelections Reports
   Scenario: Validate Enable and Enable to change policy
     Then UI Click Button "New Report Tab"
     Then UI Set Text Field "Report Name" To "EAAF Report Enable to change policy"
-    Then UI Click Button "Add Template" with value "EAAF"
-    Then UI Click Button "Open Scope Selection" with value "EAAF"
+    Then UI Click Button "Add Template" with value "ERT Active Attackers Feed"
+    Then UI Click Button "Open Scope Selection" with value "ERT Active Attackers Feed"
     And UI VRM Select device from dashboard and Save Filter
       | index | ports | policies |
       | 11    |       | 1_https  |
-    Then UI Click Button "Open Scope Selection" with value "EAAF"
+    Then UI Click Button "Open Scope Selection" with value "ERT Active Attackers Feed"
     Then UI Validate Element Existence By Label "EAAFScopeSelectionChange" if Exists "false" with value "172.16.22.51_disabled"
     Then UI Validate Element Existence By Label "EAAFScopeSelectionChange" if Exists "true" with value "172.16.22.51"
     Then UI Click Button "EAAFScopeSelectionChange" with value "172.16.22.51"
