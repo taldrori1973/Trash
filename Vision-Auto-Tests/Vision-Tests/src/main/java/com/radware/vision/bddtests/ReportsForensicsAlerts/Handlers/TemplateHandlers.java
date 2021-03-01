@@ -740,7 +740,7 @@ public class TemplateHandlers {
             case "DefenseFlow Analytics":
                 validateOptionsWidgetOnDefenseFlowAnalytics(widgetTitle, expectedWidgetJSONObject, actualWidgetJSONObject, errorMessage);
                 break;
-            case "EAAF":
+            case "ERT Active Attackers Feed":
                 validateOptionsWidgetOnEAAF(widgetTitle, expectedWidgetJSONObject, actualWidgetJSONObject, errorMessage);
                 break;
             default:
