@@ -195,6 +195,7 @@ public class Forensics extends ReportsForensicsAlertsAbstract {
                 BasicOperationsHandler.setTextField("Criteria Value Input", condition.get("Value").toString());
                 break;
             }
+            case "CLUSTER IP":
             case "DEVICE IP":
             case "DESTINATION IP":
             case "SOURCE IP": {
