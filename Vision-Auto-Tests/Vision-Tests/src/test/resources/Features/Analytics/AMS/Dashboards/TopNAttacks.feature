@@ -38,15 +38,15 @@ Feature: topNAttacks
   @SID_6
   Scenario: validate Top attacks sources in 2drill down
     Then Sleep "3"
-    Given UI click Table row by keyValue or Index with elementLabel "Protection Policies.Table" findBy columnName "Device" findBy cellValue "DP_172.15.22.50"
+    Given UI click Table row by keyValue or Index with elementLabel "Protection Policies.Table" findBy columnName "Device" findBy cellValue "DefensePro_172.16.22.50"
     Then UI Validate Element Existence By Label "topAttackSource" if Exists "true" with value "0"
     Then UI Validate Element Existence By Label "topAttackDestination" if Exists "true" with value "0"
 
   @SID_7
   Scenario: validate 3 drill down
-    And UI click Table row by keyValue or Index with elementLabel "Protection Policies.Protections Table" findBy columnName "Protection Name" findBy cellValue "DNS Flood"
-    And UI click Table row by keyValue or Index with elementLabel "Protection Policies.Events Table" findBy columnName "Source Address" findBy cellValue "0.0.0.0"
-    Then UI Validate Text field "TOP ATTACK SOURCES.IP" with params "0" EQUALS "192.85.1.7"
+    And UI click Table row by keyValue or Index with elementLabel "Protection Policies.Protections Table" findBy columnName "Protection Name" findBy cellValue "Traffic Filters"
+    And UI click Table row by keyValue or Index with elementLabel "Protection Policies.Events Table" findBy columnName "Source Address" findBy cellValue "149.85.1.2"
+    Then UI Validate Text field "TOP ATTACK SOURCES.IP" with params "0" EQUALS "149.85.1.2"
 
   @SID_8
   Scenario: validate global policy
