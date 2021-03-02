@@ -6,6 +6,9 @@ Feature: Edit Criteria Testes
   @SID_1
   Scenario: Login and Navigate
     Given UI Login with user "sys_admin" and password "radware"
+    * REST Vision Install License Request "vision-AVA-Max-attack-capacity"
+    * REST Vision Install License Request "vision-AVA-AppWall"
+    * REST Vision Install License Request "vision-reporting-module-AMS"
     Then UI Navigate to "New Forensics" page via homepage
 
 #    ------------------------------------- DefenseFlow------------------------------------------------------

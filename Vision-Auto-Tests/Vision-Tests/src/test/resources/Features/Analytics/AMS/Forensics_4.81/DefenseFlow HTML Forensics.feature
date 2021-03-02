@@ -6,6 +6,8 @@ Feature: DefenseFlow HTML Forensics
   Scenario: Clean system data
     * CLI kill all simulator attacks on current vision
     * REST Vision Install License Request "vision-AVA-Max-attack-capacity"
+    * REST Vision Install License Request "vision-AVA-AppWall"
+    * REST Vision Install License Request "vision-reporting-module-AMS"
     * REST Delete ES index "df-attack*"
     * REST Delete ES index "forensics-*"
     * CLI Clear vision logs

@@ -4,6 +4,9 @@ Feature: Basic tests for Forensics parameters
   @SID_1
   Scenario: Navigate to NEW ForensicsS page
     Then UI Login with user "radware" and password "radware"
+    * REST Vision Install License Request "vision-AVA-Max-attack-capacity"
+    * REST Vision Install License Request "vision-AVA-AppWall"
+    * REST Vision Install License Request "vision-reporting-module-AMS"
     Then UI Navigate to "New Forensics" page via homepage
     Then UI Click Button "New Forensics Tab"
 
