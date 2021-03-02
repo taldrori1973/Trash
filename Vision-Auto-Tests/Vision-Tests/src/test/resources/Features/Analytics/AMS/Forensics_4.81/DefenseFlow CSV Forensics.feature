@@ -339,8 +339,11 @@ Feature: DefenseFlow CSV Forensics
 #  Scenario: Delete Forensics
 #    Then UI Delete Forensics With Name "Forensics_DefenseFlow"
 
-
   @SID_30
+  Scenario: Clear SMTP server log files
+    Given Clear email history for user "setup"
+    
+  @SID_31
   Scenario: create new Forensics_DefenseFlow and validate
     When UI "Create" Forensics With Name "Forensics_DefenseFlow"
       | Product               | DefenseFlow                                                                                                                                                                                                                                                                                                   |
@@ -351,18 +354,18 @@ Feature: DefenseFlow CSV Forensics
       | Criteria              | Event Criteria:Action,Operator:Not Equals,Value:Http 403 Forbidden                                                                                                                                                                                                                                            |
       | Time Definitions.Date | Quick:Today                                                                                                                                                                                                                                                                                                   |
   
-  @SID_31
+  @SID_32
   Scenario: Validate delivery card and generate Forensics
     Then UI Click Button "My Forensics" with value "Forensics_DefenseFlow"
     Then UI Click Button "Generate Snapshot Forensics Manually" with value "Forensics_DefenseFlow"
     Then Sleep "35"
 
-  @SID_32
+  @SID_33
   Scenario: Validate Forensics.Table
     And UI Click Button "Views.Forensic" with value "Forensics_DefenseFlow,0"
     Then UI Validate "Forensics.Table" Table rows count EQUALS to 278
 
-  @SID_33
+  @SID_34
   Scenario: Validate Report Forensics received content
     #subject
     Then Validate "setup" user eMail expression "grep "Subject: Validate Email"" EQUALS "1"
@@ -373,11 +376,15 @@ Feature: DefenseFlow CSV Forensics
     #To
     Then Validate "setup" user eMail expression "grep "X-Original-To: maha@.*.local"" EQUALS "1"
     
-  @SID_34
+  @SID_35
   Scenario: Clear SMTP server log files
     Given Clear email history for user "setup"
 
-  @SID_35
+  @SID_36
+  Scenario: Delete Forensics
+    Then UI Delete Forensics With Name "Forensics_DefenseFlow"
+
+  @SID_37
   Scenario: Logout
     Then UI logout and close browser
 
