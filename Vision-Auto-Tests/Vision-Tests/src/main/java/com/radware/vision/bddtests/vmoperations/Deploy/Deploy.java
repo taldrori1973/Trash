@@ -78,9 +78,12 @@ public abstract class Deploy {
             String currentBuild = visionInfo.getVisionBuild();
             String currentVersion = visionInfo.getVisionVersion();
             String currentFeatureBranch = visionInfo.getVisionBranch();
-            //Version compare need to take under consideration hot fixes, such as 4.80.xx. there is a corner case if same build will appear on both 4.80.00 and 4.80.xx
+
+            //Version compare need to take under consideration hot fixes, such as 4.80.xx.
+            // there is a corner case if same build will appear on both 4.80.00 and 4.80.xx
             String cutCurrentVersion = currentVersion.substring(0, currentVersion.lastIndexOf('.'));
             String cutNeededVersion = version.substring(0, version.lastIndexOf('.'));
+
             isSetupNeeded = !cutCurrentVersion.equals(cutNeededVersion) ||
                     !currentBuild.equals(this.build) ||
                     !currentFeatureBranch.equals(this.featureBranch.toLowerCase());
