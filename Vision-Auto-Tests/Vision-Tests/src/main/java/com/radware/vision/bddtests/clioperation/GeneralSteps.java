@@ -109,6 +109,11 @@ public class GeneralSteps extends BddCliTestBase {
         WebUiTools.check(label, params, selectOrUnselect.equalsIgnoreCase("select"));
     }
 
+    @Then("^UI Check and (UnSelect|Select) Element with label \"([^\"]*)\"(?: and params \"([^\"]*)\")?$")
+    public void checkAndClickElementWithLabelAndParams(String selectOrUnselect, String label, String params) throws Exception {
+        WebUiTools.check(label, params, selectOrUnselect.equalsIgnoreCase("select")? true : false);
+    }
+
     private enum ServerLogType {
         ALL(""),
         TOMCAT("/opt/radware/mgt-server/third-party/tomcat/logs/*.log"),
