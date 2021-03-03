@@ -19,7 +19,7 @@ Feature: Forensics Multiple IP
   Scenario: VRM - Login to VRM Forensic and do data manipulation
     Given UI Login with user "radware" and password "radware"
     Then REST Vision Install License Request "vision-AVA-Max-attack-capacity"
-    And UI Navigate to "AMS Forensics" page via homePage
+    And UI Navigate to "New Forensics" page via homePage
 
   @SID_4
   Scenario: VRM - Add New Forensics Report criteria - Destination IP - Equals
@@ -27,9 +27,11 @@ Feature: Forensics Multiple IP
       | devices  | index:10                                                                     |
       | Criteria | Event Criteria:Destination IP,Operator:Equals,IPType:IPv4,IPValue:10.0.0.18; |
       | Output   | Attack Name,Attack ID,Source IP Address,Destination IP Address,Protocol      |
-    When UI Generate and Validate Forensics With Name "Destination IP Criteria" with Timeout of 180 Seconds
-    And Sleep "30"
-    And UI Click Button "Views.report" with value "Destination IP Criteria"
+#    When UI Generate and Validate Forensics With Name "Destination IP Criteria" with Timeout of 180 Seconds
+    And UI Click Button "My Forensics" with value "Destination IP Criteria"
+    And UI Click Button "Generate Snapshot Forensics Manually" with value "Destination IP Criteria"
+    And Sleep "60"
+    And UI Click Button "Views.Forensic" with value "Destination IP Criteria,0"
     Then UI Validate "Report.Table" Table rows count EQUALS to 2
     Then UI Validate Table record values by columns with elementLabel "Report.Table" findBy columnName "Attack Name" findBy cellValue "network flood IPv4 TCP-SYN"
       | columnName             | value      |
@@ -42,7 +44,7 @@ Feature: Forensics Multiple IP
       | Protocol               | UDP        |
       | Source IP Address      | 192.85.1.2 |
     And UI Navigate to "AMS Reports" page via homePage
-    And UI Navigate to "AMS Forensics" page via homePage
+    And UI Navigate to "New Forensics" page via homePage
 
   @SID_5
   Scenario: VRM - Add New Forensics Report criteria - Destination IP - Not Equals
@@ -50,12 +52,14 @@ Feature: Forensics Multiple IP
       | devices  | index:10                                                                         |
       | Criteria | Event Criteria:Destination IP,Operator:Not Equals,IPType:IPv4,IPValue:10.0.0.18; |
       | Output   | Attack Name,Attack ID,Source IP Address,Destination IP Address                   |
-    When UI Generate and Validate Forensics With Name "Not Equals Destination IP Criteria" with Timeout of 180 Seconds
-    And Sleep "30"
-    And UI Click Button "Views.report" with value "Not Equals Destination IP Criteria"
+#    When UI Generate and Validate Forensics With Name "Not Equals Destination IP Criteria" with Timeout of 180 Seconds
+    And UI Click Button "My Forensics" with value "Not Equals Destination IP Criteria"
+    And UI Click Button "Generate Snapshot Forensics Manually" with value "Not Equals Destination IP Criteria"
+    And Sleep "60"
+    And UI Click Button "Views.Forensic" with value "Not Equals Destination IP Criteria,0"
     Then UI Validate "Report.Table" Table rows count EQUALS to 0
     And UI Navigate to "AMS Reports" page via homePage
-    And UI Navigate to "AMS Forensics" page via homePage
+    And UI Navigate to "New Forensics" page via homePage
 
   @SID_6
   Scenario: VRM - Add New Forensics Report criteria - Source IP - Equals
@@ -63,11 +67,13 @@ Feature: Forensics Multiple IP
       | devices  | index:10                                                                 |
       | Criteria | Event Criteria:Source IP,Operator:Equals,IPType:IPv4,IPValue:192.85.1.2; |
       | Output   | Attack Name,Attack ID,Source IP Address,Destination IP Address           |
-    When UI Generate and Validate Forensics With Name "Source IP Criteria" with Timeout of 180 Seconds
+#    When UI Generate and Validate Forensics With Name "Source IP Criteria" with Timeout of 180 Seconds
+    And UI Click Button "My Forensics" with value "Source IP Criteria"
+    And UI Click Button "Generate Snapshot Forensics Manually" with value "Source IP Criteria"
     And UI Navigate to "AMS Reports" page via homePage
-    And UI Navigate to "AMS Forensics" page via homePage
-    And UI Click Button "Views.Expand" with value "Source IP Criteria"
-    And UI Click Button "Views.report" with value "Source IP Criteria"
+    And UI Navigate to "New Forensics" page via homePage
+    And UI Click Button "My Forensics" with value "Source IP Criteria"
+    And UI Click Button "Views.Forensic" with value "Source IP Criteria,0"
     Then UI Validate "Report.Table" Table rows count EQUALS to 2
     Then UI Validate Table record values by columns with elementLabel "Report.Table" findBy columnName "Attack Name" findBy cellValue "network flood IPv4 TCP-SYN"
       | columnName             | value    |
@@ -76,7 +82,7 @@ Feature: Forensics Multiple IP
       | columnName             | value    |
       | Destination IP Address | Multiple |
     And UI Navigate to "AMS Reports" page via homePage
-    And UI Navigate to "AMS Forensics" page via homePage
+    And UI Navigate to "New Forensics" page via homePage
 
   @SID_7
   Scenario: VRM - Add New Forensics Report criteria - Source IP - Not Equals
@@ -84,21 +90,25 @@ Feature: Forensics Multiple IP
       | devices  | index:10                                                                     |
       | Criteria | Event Criteria:Source IP,Operator:Not Equals,IPType:IPv4,IPValue:192.85.1.2; |
       | Output   | Attack Name,Attack ID,Source IP Address,Destination IP Address               |
-    When UI Generate and Validate Forensics With Name "Not Equals Source IP Criteria" with Timeout of 180 Seconds
-    And Sleep "30"
-    And UI Click Button "Views.report" with value "Not Equals Source IP Criteria"
+#    When UI Generate and Validate Forensics With Name "Not Equals Source IP Criteria" with Timeout of 180 Seconds
+    And UI Click Button "My Forensics" with value "Not Equals Source IP Criteria"
+    And UI Click Button "Generate Snapshot Forensics Manually" with value "Not Equals Source IP Criteria"
+    And Sleep "60"
+    And UI Click Button "Views.Forensic" with value "Not Equals Source IP Criteria,0"
     Then UI Validate "Report.Table" Table rows count EQUALS to 0
     And UI Navigate to "AMS Reports" page via homePage
-    And UI Navigate to "AMS Forensics" page via homePage
+    And UI Navigate to "New Forensics" page via homePage
 
   @SID_8
   Scenario: VRM - Add New Forensics Report criteria - All Criteria
     When UI "Create" Forensics With Name "All Criteria"
       | devices | index:10                                                       |
       | Output  | Attack Name,Attack ID,Source IP Address,Destination IP Address |
-    When UI Generate and Validate Forensics With Name "All Criteria" with Timeout of 180 Seconds
-    And Sleep "30"
-    And UI Click Button "Views.report" with value "All Criteria"
+#    When UI Generate and Validate Forensics With Name "All Criteria" with Timeout of 180 Seconds
+    And UI Click Button "My Forensics" with value "All Criteria"
+    And UI Click Button "Generate Snapshot Forensics Manually" with value "All Criteria"
+    And Sleep "60"
+    And UI Click Button "Views.Forensic" with value "All Criteria,0"
     Then UI Validate "Report.Table" Table rows count EQUALS to 2
     Then UI Validate Table record values by columns with elementLabel "Report.Table" findBy columnName "Attack Name" findBy cellValue "network flood IPv4 TCP-SYN"
       | columnName             | value    |
@@ -107,7 +117,7 @@ Feature: Forensics Multiple IP
       | columnName             | value    |
       | Destination IP Address | Multiple |
     And UI Navigate to "AMS Reports" page via homePage
-    And UI Navigate to "AMS Forensics" page via homePage
+    And UI Navigate to "New Forensics" page via homePage
 
   @SID_9
   Scenario: Cleanup
