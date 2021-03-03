@@ -4,6 +4,8 @@ import com.radware.automation.webui.VisionDebugIdsManager;
 import com.radware.automation.webui.WebUIUtils;
 import com.radware.automation.webui.widgets.ComponentLocator;
 import com.radware.automation.webui.widgets.ComponentLocatorFactory;
+import org.openqa.selenium.ElementNotInteractableException;
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebElement;
 
 import java.util.Arrays;
@@ -97,9 +99,15 @@ public class WebUiTools {
         }catch (Exception e)
         {
             webElement = WebUIUtils.fluentWait(ComponentLocatorFactory.getLocatorByXpathDbgId(VisionDebugIdsManager.getDataDebugId()).getBy());
-            WebUIUtils.scrollIntoView(webElement);
-            WebUIUtils.sleep(4);
-            webElement.click();
+            try
+            {
+                WebUIUtils.scrollIntoView(webElement);
+                WebUIUtils.sleep(4);
+                webElement.click();
+            }catch (ElementNotInteractableException eNIE)
+            {
+                ((JavascriptExecutor) WebUIUtils.getDriver()).executeScript("arguments[0].click();", webElement);
+            }
         }
     }
 
