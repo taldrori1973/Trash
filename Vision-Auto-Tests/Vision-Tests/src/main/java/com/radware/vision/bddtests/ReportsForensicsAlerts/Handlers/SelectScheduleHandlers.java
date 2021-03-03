@@ -193,8 +193,10 @@ public class SelectScheduleHandlers {
         @Override
         public void create() throws Exception {
             setTimeInput();
-            if (!dayOfMonth.equals("-1"))
+            if (!dayOfMonth.equals("-1")) {
+                WebUiTools.getWebElement("Scheduling On Day of Month").clear();
                 BasicOperationsHandler.setTextField("Scheduling On Day of Month", dayOfMonth, true);
+            }
             selectDaysOrMonths("Schedule Month", months);
         }
 

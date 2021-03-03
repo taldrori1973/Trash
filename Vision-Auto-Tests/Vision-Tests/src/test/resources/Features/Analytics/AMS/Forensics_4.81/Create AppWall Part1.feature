@@ -132,7 +132,7 @@ Feature:Create AppWall Part1
       | Time Definitions.Date | Relative:[Months,2]                                                                                              |
       | Share                 | FTP:checked, FTP.Location:172.17.164.10, FTP.Path:/home/radware/ftp/, FTP.Username:radware, FTP.Password:radware |
       | Format                | Select: CSV                                                                                                      |
-    Then UI Delete Forensics With Name " Output Cluster Manager IP"
+    Then UI Delete Forensics With Name " Output Cluster Manager IP "
 
   @SID_8
   Scenario: create new Output Web Application Name
