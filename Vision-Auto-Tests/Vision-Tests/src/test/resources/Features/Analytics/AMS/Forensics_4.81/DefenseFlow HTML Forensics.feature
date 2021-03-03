@@ -207,13 +207,15 @@ Feature: DefenseFlow HTML Forensics
 
   @SID_15
   Scenario: Clear FTP server logs and generate the report
-    Then Sleep "80"
+    Then Sleep "100"
     And UI Navigate to "AMS Reports" page via homePage
     And UI Navigate to "New Forensics" page via homepage
     Then CLI Run remote linux Command "rm -f /home/radware/ftp/Forensics_DefenseFlow*.zip /home/radware/ftp/Forensics_DefenseFlow*.csv" on "GENERIC_LINUX_SERVER"
 
   @SID_16
   Scenario: Validate Forensics.Table
+    Then UI Click Button "My Forensics Tab"
+    Then UI Click Button "My Forensics" with value "Forensics_DefenseFlow"
     And UI Click Button "Views.Forensic" with value "Forensics_DefenseFlow,0"
     Then UI Validate "Forensics.Table" Table rows count EQUALS to 278
 

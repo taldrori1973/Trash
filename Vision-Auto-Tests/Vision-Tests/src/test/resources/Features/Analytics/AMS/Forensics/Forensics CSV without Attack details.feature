@@ -254,7 +254,7 @@ Feature: Forensics CSV without Attack details
 
   @SID_19
   Scenario: Modify any dynamic values in DB
-    Then Sleep "80"
+    Then Sleep "100"
     And UI Navigate to "AMS Reports" page via homePage
     And UI Navigate to "New Forensics" page via homepage
     #All units in mSec but in CSV/UI will be shown in seconds
@@ -268,6 +268,8 @@ Feature: Forensics CSV without Attack details
 
   @SID_20
   Scenario: Validate Forensics.Table
+    Then UI Click Button "My Forensics Tab"
+    Then UI Click Button "My Forensics" with value "csv_without_details"
     And UI Click Button "Views.Forensic" with value "csv_without_details,0"
     Then UI Validate "Forensics.Table" Table rows count EQUALS to 8
 
