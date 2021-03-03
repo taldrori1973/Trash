@@ -1,4 +1,4 @@
-@TC118899 @Test12
+@TC118899
 Feature: EAAF CSV Report
 
   

@@ -5,6 +5,9 @@ Feature:Create AppWall Part3
   Scenario: Navigate to NEW REPORTS page
     * REST Delete ES index "forensics-*"
     Then UI Login with user "radware" and password "radware"
+    * REST Vision Install License Request "vision-AVA-Max-attack-capacity"
+    * REST Vision Install License Request "vision-AVA-AppWall"
+    * REST Vision Install License Request "vision-reporting-module-AMS"
     Then UI Navigate to "New Forensics" page via homePage
 
   @SID_2
@@ -17,7 +20,7 @@ Feature:Create AppWall Part3
       | Time Definitions.Date | Quick:3M                                                                                                                                             |
       | Schedule              | Run Every:Monthly, On Time:+6H, At Months:[DEC]                                                                                                      |
       | Share                 | FTP:checked, FTP.Location:172.17.164.10, FTP.Path:/home/radware/ftp/, FTP.Username:radware, FTP.Password:radware                                     |
-      | Format                | Select: CSV With Attack Detailss                                                                                                                       |
+      | Format                | Select: CSV With Attack Details                                                                                                                       |
 
   @SID_3
   Scenario: create new Threat Category2 Equal
