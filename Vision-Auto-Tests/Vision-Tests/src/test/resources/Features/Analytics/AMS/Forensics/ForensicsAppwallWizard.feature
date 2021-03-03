@@ -1,4 +1,4 @@
-@AWForensics @TC113209 
+@AWForensics @TC113209
 Feature: Appwall Forensic Wizard
 
   @SID_1 @Sanity
@@ -30,6 +30,7 @@ Feature: Appwall Forensic Wizard
     Then UI Navigate to "New Forensics" page via homepage
     Then UI Click Button "New Forensics Tab"
 
+    
   @SID_3
   Scenario: Run AW attacks
     When CLI Run remote linux Command on "GENERIC_LINUX_SERVER"
@@ -61,7 +62,7 @@ Feature: Appwall Forensic Wizard
     Then UI Click Button "Generate Snapshot Forensics Manually" with value "Wizard_test"
     Then Sleep "35"
     
-    When UI Click Button "Views.Forensic" with value "Wizard_test"
+    When UI Click Button "Views.Forensic" with value "Wizard_test,0"
 
   @SID_7
   Scenario: VRM - Forensic wizard test Validate Table
