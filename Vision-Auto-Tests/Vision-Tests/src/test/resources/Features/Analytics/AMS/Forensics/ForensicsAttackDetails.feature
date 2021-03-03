@@ -1,7 +1,7 @@
 @Analytics_ADC @TC105998
 Feature: Forensic Attack details Tests
 
-
+  
   @SID_1
   Scenario: Clean system data
     * CLI kill all simulator attacks on current vision
@@ -21,10 +21,12 @@ Feature: Forensic Attack details Tests
       | body | sessionInactivTimeoutConfiguration=60 |
     * CLI Clear vision logs
 
+  
   @SID_2
   Scenario: Run DP simulator
     Given CLI simulate 1 attacks of type "VRM_attacks" on "DefensePro" 10 and wait 250 seconds
 
+  
   @SID_3
   Scenario: VRM - Login to VRM "Wizard" Test
     Given UI Login with user "sys_admin" and password "radware"
@@ -32,6 +34,7 @@ Feature: Forensic Attack details Tests
     Then UI Navigate to "New Forensics" page via homepage
     Then UI Click Button "New Forensics Tab"
 
+  
   @SID_4
   Scenario: VRM - Add New Forensics Report Attack details1
     When UI "Create" Forensics With Name "Attack Details1"
@@ -257,6 +260,7 @@ Feature: Forensic Attack details Tests
     Then UI Validate "Forensics.Table" Table rows count EQUALS to 10
     * UI Click Button "Forensics.Clear Refine"
 
+  
   @SID_27
   Scenario: Validate attack details refine by group 2
     When UI click Table row by keyValue or Index with elementLabel "Forensics.Table" findBy columnName "Attack ID" findBy cellValue "800-1525623158"
@@ -271,20 +275,20 @@ Feature: Forensic Attack details Tests
     * UI Click Button "Forensics.Clear Refine"
 
 ##################################################### Attack PCAP file ####################################################################
-
+  
   @SID_28
   Scenario: Validate downloaded capture file
-    Then Delete downloaded file with name "attack_800-1525623158_packets.cap"
+    Then Delete downloaded file with name "attack_800-1525623158_packets.pcap"
     When UI click Table row by keyValue or Index with elementLabel "Forensics.Table" findBy columnName "Attack ID" findBy cellValue "800-1525623158"
     And UI Click Button "Forensics.Attack Details.DownloadPCAP"
-    Then Validate downloaded file size with name "attack_800-1525623158_packets.cap" equal to 304
-    Then Delete downloaded file with name "attack_800-1525623158_packets.cap"
+    Then Validate downloaded file size with name "attack_800-1525623158_packets.pcap" equal to 304
+    Then Delete downloaded file with name "attack_800-1525623158_packets.pcap"
     When UI Click Button "Forensics.Attack Details.Close"
     And UI logout and close browser
 
 
 ##################################################### Attack Details ####################################################################
-
+  
   @SID_29
   Scenario: VRM - Login to VRM "Wizard" Test
     Given UI Login with user "sys_admin" and password "radware"
@@ -296,7 +300,7 @@ Feature: Forensic Attack details Tests
     Given CLI simulate 1 attacks of type "rest_traffic_filter" on "DefensePro" 10 and wait 50 seconds
     When UI "Create" Forensics With Name "Attack_Details"
       | Output | Start Time,Action,Attack ID,Threat Category,Duration |
-
+  
   @SID_31
   Scenario: VRM - open forensic "Attack details" table
     Then UI Click Button "My Forensics" with value "Attack_Details"
@@ -304,7 +308,7 @@ Feature: Forensic Attack details Tests
     Then Sleep "35"
     And UI Click Button "Views.Forensic" with value "Attack_Details,0"
     Then UI click Table row by keyValue or Index with elementLabel "Forensics.Table" findBy columnName "Attack ID" findBy cellValue "7839-1402580209"
-
+  
   @SID_32
   Scenario: Validate Behavioral DoS table
     Then UI Text of "Forensics.Attack Details.Detail" with extension "Action" equal to "Drop"
@@ -337,14 +341,17 @@ Feature: Forensic Attack details Tests
     Then UI Text of "Forensics.Attack Details.Detail.Real-Time Signature.Parameter" with extension "1" equal to "sequence-number"
     Then UI Text of "Forensics.Attack Details.Detail.Real-Time Signature.Value/s" with extension "1" equal to "123456"
 
+  
   @SID_33
   Scenario: close attack details details
     Then UI Click Button "Forensics.Attack Details.Close"
 
+  
   @SID_34
   Scenario: Enter to 34-2206430105 details
     Given UI click Table row by keyValue or Index with elementLabel "Forensics.Table" findBy columnName "Attack ID" findBy cellValue "34-2206430105"
 
+  
   @SID_35
   Scenario: Validate Traffic Filters details
     Then UI Text of "Forensics.Attack Details.Detail" with extension "Action" equal to "Drop"
