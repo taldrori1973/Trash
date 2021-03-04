@@ -1316,7 +1316,7 @@ Feature:Create DefenseFlow Part3
     Given UI "Create" Forensics With Name "Output Start Time_End Time_Device IP Address_Action_Source IP Address_Source Port_Destination IP Address_Destination Port Custom"
       | Product               | DefenseFlow                                                                                                                                  |
       | Output                | Start Time,End Time,Device IP Address,Action,Source IP Address,Source Port,Destination IP Address,Destination Port                           |
-      | Criteria              | Event Criteria:Action,Operator:Not Equals,Value:Challenge,Event Criteria:Threat Category,Operator:Equals,Value:[ACL],condition.Custom:1 OR 2 |
+      | Criteria              | Event Criteria:Action,Operator:Not Equals,Value:Challenge;Event Criteria:Threat Category,Operator:Equals,Value:[ACL],condition.Custom:1 OR 2 |
       | devices               | index:10                                                                                                                                     |
       | Time Definitions.Date | Absolute:[27.02.1971 01:00, +0d]                                                                                                             |
       | Schedule              | Run Every:once, On Time:+6H                                                                                                                  |
@@ -1325,7 +1325,7 @@ Feature:Create DefenseFlow Part3
     Then UI "Validate" Forensics With Name "Output Start Time_End Time_Device IP Address_Action_Source IP Address_Source Port_Destination IP Address_Destination Port Custom"
       | Product               | DefenseFlow                                                                                                                                  |
       | Output                | Start Time,End Time,Device IP Address,Action,Source IP Address,Source Port,Destination IP Address,Destination Port                           |
-      | Criteria              | Event Criteria:Action,Operator:Not Equals,Value:Challenge,Event Criteria:Threat Category,Operator:Equals,Value:[ACL],condition.Custom:1 OR 2 |
+      | Criteria              | Event Criteria:Action,Operator:Not Equals,Value:Challenge;Event Criteria:Threat Category,Operator:Equals,Value:[ACL],condition.Custom:1 OR 2 |
       | devices               | index:10                                                                                                                                     |
       | Time Definitions.Date | Absolute:[27.02.1971 01:00, +0d]                                                                                                             |
       | Schedule              | Run Every:once, On Time:+6H                                                                                                                  |
