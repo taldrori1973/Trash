@@ -8,7 +8,7 @@ Feature: Negative Forensics tests to validate Error Messages
     Then UI Login with user "radware" and password "radware"
     * REST Vision Install License Request "vision-AVA-AppWall"
     * REST Vision Install License Request "vision-AVA-Max-attack-capacity"
-    Then UI Navigate to "New Forensics" page via homepage
+    Then UI Navigate to "AMS Forensics" page via homepage
     Then UI Click Button "New Forensics Tab"
   
   @SID_2

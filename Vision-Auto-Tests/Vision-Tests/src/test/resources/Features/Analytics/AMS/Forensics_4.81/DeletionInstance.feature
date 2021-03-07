@@ -12,7 +12,7 @@ Feature: Deletion Instance
 
   @SID_2
   Scenario: Navigate to NEW ForensicsS page
-    Then UI Navigate to "New Forensics" page via homepage
+    Then UI Navigate to "AMS Forensics" page via homepage
     Then UI Click Button "New Forensics Tab"
 
   @SID_3

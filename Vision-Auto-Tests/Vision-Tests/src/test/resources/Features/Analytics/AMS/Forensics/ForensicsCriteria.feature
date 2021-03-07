@@ -28,7 +28,7 @@ Feature: Forensic Criteria Tests
   Scenario: VRM - Login to VRM Forensic and do data manipulation
     Given UI Login with user "sys_admin" and password "radware"
     Then REST Vision Install License Request "vision-AVA-Max-attack-capacity"
-    And UI Navigate to "New Forensics" page via homePage
+    Then UI Navigate to "AMS Forensics" page via homepage
     # adjust duration of attack because it is around 60 sec
     Then CLI Run remote linux Command "curl -XPOST localhost:9200/dp-attack-raw-*/_update_by_query -d '{"query": {"match": {"attackIpsId": "136-1424505529"}},"script": {"source": "ctx._source.duration = '56000'"}}'" on "ROOT_SERVER_CLI"
 

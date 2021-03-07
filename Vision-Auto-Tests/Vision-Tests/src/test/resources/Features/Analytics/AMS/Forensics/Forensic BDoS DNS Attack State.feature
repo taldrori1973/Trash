@@ -22,7 +22,7 @@ Feature: AMS forensic BDoS and DNS Attack State
   Scenario: Login and enter forensic tab
     Given UI Login with user "sys_admin" and password "radware"
     Then REST Vision Install License Request "vision-AVA-Max-attack-capacity"
-    Then UI Navigate to "New Forensics" page via homepage
+    Then UI Navigate to "AMS Forensics" page via homepage
 
   @SID_4
   Scenario: Create forensic report for BDoS and DNS attacks

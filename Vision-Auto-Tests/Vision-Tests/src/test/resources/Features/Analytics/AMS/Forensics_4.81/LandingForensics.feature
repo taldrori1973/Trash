@@ -1,4 +1,4 @@
-@TC119417
+@TC119417 @Test12
 
 Feature: Landing Forensics
 
@@ -8,7 +8,7 @@ Feature: Landing Forensics
     * REST Vision Install License Request "vision-AVA-Max-attack-capacity"
     * REST Vision Install License Request "vision-AVA-AppWall"
     * REST Vision Install License Request "vision-reporting-module-AMS"
-    Then UI Navigate to "New Forensics" page via homepage
+    Then UI Navigate to "AMS Forensics" page via homepage
 
 #-------------------------- DefensePro----------------------------------------
   @SID_2

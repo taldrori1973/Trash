@@ -8,7 +8,7 @@ Feature:Create DefenseFlow Part2
     * REST Vision Install License Request "vision-AVA-Max-attack-capacity"
     * REST Vision Install License Request "vision-AVA-AppWall"
     * REST Vision Install License Request "vision-reporting-module-AMS"
-    Then UI Navigate to "New Forensics" page via homePage
+    Then UI Navigate to "AMS Forensics" page via homepage
 
   @SID_2
   Scenario: create new Output Total Mbits Dropped Action Not Equals

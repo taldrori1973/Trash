@@ -40,7 +40,7 @@ Feature: Forensics CSV without Attack details
     And UI Set Text Field "SMTP Server Address" To "172.17.164.10"
     And UI Set Text Field "SMTP Port" To "25"
     And UI Click Button "Submit"
-    And UI Navigate to "New Forensics" page via homepage
+    Then UI Navigate to "AMS Forensics" page via homepage
     Given Clear email history for user "setup"
 
 
@@ -256,7 +256,7 @@ Feature: Forensics CSV without Attack details
   Scenario: Modify any dynamic values in DB
     Then Sleep "100"
     And UI Navigate to "AMS Reports" page via homePage
-    And UI Navigate to "New Forensics" page via homepage
+    Then UI Navigate to "AMS Forensics" page via homepage
     #All units in mSec but in CSV/UI will be shown in seconds
     #Less than 1000 mSec are rounded to 0
     Then CLI Run remote linux Command "curl -XPOST "localhost:9200/dp-attack-raw-*/_update_by_query/?conflicts=proceed&pretty" -d '{"query": {"bool": {"must": [{"term": {"attackIpsId": "7839-1402580209"}}]}},"script": {"source": "ctx._source.duration ='20000'"},"size": 1}'" on "ROOT_SERVER_CLI"

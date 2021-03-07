@@ -19,7 +19,7 @@ Feature: Forensics Multiple IP
   Scenario: VRM - Login to VRM Forensic and do data manipulation
     Given UI Login with user "radware" and password "radware"
     Then REST Vision Install License Request "vision-AVA-Max-attack-capacity"
-    And UI Navigate to "New Forensics" page via homePage
+    Then UI Navigate to "AMS Forensics" page via homepage
 
   @SID_4
   Scenario: VRM - Add New Forensics Report criteria - Destination IP - Equals
@@ -44,7 +44,7 @@ Feature: Forensics Multiple IP
       | Protocol               | UDP        |
       | Source IP Address      | 192.85.1.2 |
     And UI Navigate to "AMS Reports" page via homePage
-    And UI Navigate to "New Forensics" page via homePage
+    Then UI Navigate to "AMS Forensics" page via homepage
 
   @SID_5
   Scenario: VRM - Add New Forensics Report criteria - Destination IP - Not Equals
@@ -59,7 +59,7 @@ Feature: Forensics Multiple IP
     And UI Click Button "Views.Forensic" with value "Not Equals Destination IP Criteria,0"
     Then UI Validate "Report.Table" Table rows count EQUALS to 0
     And UI Navigate to "AMS Reports" page via homePage
-    And UI Navigate to "New Forensics" page via homePage
+    Then UI Navigate to "AMS Forensics" page via homepage
 
   @SID_6
   Scenario: VRM - Add New Forensics Report criteria - Source IP - Equals
@@ -71,7 +71,7 @@ Feature: Forensics Multiple IP
     And UI Click Button "My Forensics" with value "Source IP Criteria"
     And UI Click Button "Generate Snapshot Forensics Manually" with value "Source IP Criteria"
     And UI Navigate to "AMS Reports" page via homePage
-    And UI Navigate to "New Forensics" page via homePage
+    Then UI Navigate to "AMS Forensics" page via homepage
     And UI Click Button "My Forensics" with value "Source IP Criteria"
     And UI Click Button "Views.Forensic" with value "Source IP Criteria,0"
     Then UI Validate "Report.Table" Table rows count EQUALS to 2
@@ -82,7 +82,7 @@ Feature: Forensics Multiple IP
       | columnName             | value    |
       | Destination IP Address | Multiple |
     And UI Navigate to "AMS Reports" page via homePage
-    And UI Navigate to "New Forensics" page via homePage
+    Then UI Navigate to "AMS Forensics" page via homepage
 
   @SID_7
   Scenario: VRM - Add New Forensics Report criteria - Source IP - Not Equals
@@ -97,7 +97,7 @@ Feature: Forensics Multiple IP
     And UI Click Button "Views.Forensic" with value "Not Equals Source IP Criteria,0"
     Then UI Validate "Report.Table" Table rows count EQUALS to 0
     And UI Navigate to "AMS Reports" page via homePage
-    And UI Navigate to "New Forensics" page via homePage
+    Then UI Navigate to "AMS Forensics" page via homepage
 
   @SID_8
   Scenario: VRM - Add New Forensics Report criteria - All Criteria
@@ -117,7 +117,7 @@ Feature: Forensics Multiple IP
       | columnName             | value    |
       | Destination IP Address | Multiple |
     And UI Navigate to "AMS Reports" page via homePage
-    And UI Navigate to "New Forensics" page via homePage
+    Then UI Navigate to "AMS Forensics" page via homepage
 
   @SID_9
   Scenario: Cleanup
