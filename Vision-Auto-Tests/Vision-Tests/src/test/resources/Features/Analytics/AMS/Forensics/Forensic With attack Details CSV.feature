@@ -22,7 +22,7 @@ Feature: Forensics CSV with Attack details
   @SID_3
   Scenario: login and go to forensic tab
     Given UI Login with user "sys_admin" and password "radware"
-    Then UI Navigate to "New Forensics" page via homepage
+    Then UI Navigate to "AMS Forensics" page via homepage
 
   @SID_4
   Scenario: Create Forensics Report csv_detailed

@@ -52,7 +52,7 @@ Feature: DefenseFlow CSV Forensics
     And UI Set Text Field "SMTP Server Address" To "172.17.164.10"
     And UI Set Text Field "SMTP Port" To "25"
     And UI Click Button "Submit"
-    And UI Navigate to "New Forensics" page via homepage
+    Then UI Navigate to "AMS Forensics" page via homepage
 
   @SID_5
   Scenario: create new Forensics_DefenseFlow and validate
@@ -278,7 +278,7 @@ Feature: DefenseFlow CSV Forensics
   Scenario: Clear FTP server logs and generate the report
     Then Sleep "100"
     And UI Navigate to "AMS Reports" page via homePage
-    And UI Navigate to "New Forensics" page via homepage
+    Then UI Navigate to "AMS Forensics" page via homepage
     Then CLI Run remote linux Command "rm -f /home/radware/ftp/Forensics_DefenseFlow*.zip /home/radware/ftp/Forensics_DefenseFlow*.csv" on "GENERIC_LINUX_SERVER"
 
   @SID_22

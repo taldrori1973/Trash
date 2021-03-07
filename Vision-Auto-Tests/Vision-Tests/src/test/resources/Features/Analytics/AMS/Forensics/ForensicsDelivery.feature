@@ -35,7 +35,7 @@ Feature: Forensics Delivery
     And UI Set Text Field "SMTP Server Address" To "172.17.164.10"
     And UI Set Text Field "SMTP Port" To "25"
     And UI Click Button "Submit"
-    Then UI Navigate to "New Forensics" page via homepage
+    Then UI Navigate to "AMS Forensics" page via homepage
 
   @SID_3
   Scenario: validate Forensics Report empty delivery
@@ -64,7 +64,7 @@ Feature: Forensics Delivery
   @SID_5
   Scenario: login and generate the forensic report "Email Validate"
     Given UI Login with user "sys_admin" and password "radware"
-    Then UI Navigate to "New Forensics" page via homepage
+    Then UI Navigate to "AMS Forensics" page via homepage
     
     Then UI Click Button "My Forensics" with value "Email Validate"
     Then UI Click Button "Generate Snapshot Forensics Manually" with value "Email Validate"
@@ -193,7 +193,7 @@ Feature: Forensics Delivery
   @SID_11
   Scenario: Modify Forensics Report email no FTP content CSV attachment
     Given UI Login with user "sys_admin" and password "radware"
-    Then UI Navigate to "New Forensics" page via homepage
+    Then UI Navigate to "AMS Forensics" page via homepage
     When UI "Edit" Forensics With Name "Email Validate"
       | Format  | Select: CSV |
 
@@ -210,7 +210,7 @@ Feature: Forensics Delivery
   Scenario: Tc105524 validate Forensics Report email no FTP content CSV attachment
     Then CLI Run remote linux Command "echo "cleared" $(date) > /var/spool/mail/forensicuser" on "GENERIC_LINUX_SERVER"
     Given UI Login with user "sys_admin" and password "radware"
-    Then UI Navigate to "New Forensics" page via homepage
+    Then UI Navigate to "AMS Forensics" page via homepage
     Then UI Click Button "My Forensics" with value "Wizard_test"
     Then UI Click Button "Generate Snapshot Forensics Manually" with value "Wizard_test"
     Then Sleep "35"
@@ -233,7 +233,7 @@ Feature: Forensics Delivery
   @SID_15
   Scenario: VRM - Login to VRM and go to forensic
     Given UI Login with user "sys_admin" and password "radware"
-    Then UI Navigate to "New Forensics" page via homepage
+    Then UI Navigate to "AMS Forensics" page via homepage
 
   @SID_16
   Scenario: Create Forensics Report FTP_export by server IP no email
@@ -310,7 +310,7 @@ Feature: Forensics Delivery
 ##    Then UI Click Button "Summary Card" with value "initial"
 #    Then UI Click Button "Submit" with value "Submit"
     Then UI Navigate to "AMS Reports" page via homePage
-    Then UI Navigate to "New Forensics" page via homepage
+    Then UI Navigate to "AMS Forensics" page via homepage
     Then UI Click Button "My Forensics" with value "FTP_export"
     Then UI Click Button "Generate Snapshot Forensics Manually" with value "FTP_export"
     Then Sleep "35"

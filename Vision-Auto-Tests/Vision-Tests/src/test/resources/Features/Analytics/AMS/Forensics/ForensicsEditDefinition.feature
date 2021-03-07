@@ -23,7 +23,7 @@ Feature: Forensics Edit Definition
   Scenario: VRM - Login to VRM "Wizard" Test
     Given UI Login with user "sys_admin" and password "radware"
     Then REST Vision Install License Request "vision-AVA-Max-attack-capacity"
-    Then UI Navigate to "New Forensics" page via homepage
+    Then UI Navigate to "AMS Forensics" page via homepage
 
 
   @SID_4

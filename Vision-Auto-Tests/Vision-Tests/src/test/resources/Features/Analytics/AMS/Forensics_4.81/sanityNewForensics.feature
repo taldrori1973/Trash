@@ -7,7 +7,7 @@ Feature: Basic tests for Forensics parameters
     * REST Vision Install License Request "vision-AVA-Max-attack-capacity"
     * REST Vision Install License Request "vision-AVA-AppWall"
     * REST Vision Install License Request "vision-reporting-module-AMS"
-    Then UI Navigate to "New Forensics" page via homepage
+    Then UI Navigate to "AMS Forensics" page via homepage
     Then UI Click Button "New Forensics Tab"
 
   @SID_2
@@ -551,7 +551,7 @@ Feature: Basic tests for Forensics parameters
   @SID_40
   Scenario: Forensics Output
     Then UI Navigate to "AMS REPORTS" page via homepage
-    Then UI Navigate to "New Forensics" page via homepage
+    Then UI Navigate to "AMS Forensics" page via homepage
     Then UI Click Button "My Forensics Tab"
     Then UI Click Button "New Forensics Tab"
     Then UI Validate Text field "Output Tab" CONTAINS "*"

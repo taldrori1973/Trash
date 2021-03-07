@@ -12,7 +12,7 @@ Feature: Forensics 10K
     * REST Delete ES index "forensics-*"
 #    * REST Delete ES index "dpforensics-*"
     * CLI Clear vision logs
-    Then CLI Run remote linux Command "rm -f /opt/radware/storage/forensics/*" on "ROOT_SERVER_CLI"
+    Then CLI Run remote linux Command "rm -rf /opt/radware/storage/forensics/*" on "ROOT_SERVER_CLI"
     Then CLI Run remote linux Command "rm -f /opt/radware/storage/largecsv/*" on "ROOT_SERVER_CLI"
 
   @SID_2
@@ -40,7 +40,7 @@ Feature: Forensics 10K
   Scenario: Login and navigate to forensic page
     Given UI Login with user "sys_admin" and password "radware"
     Then REST Vision Install License Request "vision-AVA-Max-attack-capacity"
-    Then UI Navigate to "New Forensics" page via homepage
+    Then UI Navigate to "AMS Forensics" page via homepage
     Then UI Click Button "New Forensics Tab"
 
   @SID_7
@@ -77,4 +77,4 @@ Feature: Forensics 10K
   @SID_13
   Scenario: unzip and validate number of lines in generated csv file
     Then CLI Run remote linux Command "unzip -d /opt/radware/storage/forensics/ /opt/radware/storage/forensics/Forensic_10K_*.zip" on "ROOT_SERVER_CLI"
-    Then CLI Run linux Command "wc -l < /opt/radware/storage/forensics/Forensic_10K_*.csv" on "ROOT_SERVER_CLI" and validate result EQUALS "25001"
+    Then CLI Run linux Command "wc -l < /opt/radware/storage/forensics/opt/radware/storage/forensics/Forensic_10K_*.csv" on "ROOT_SERVER_CLI" and validate result EQUALS "25001"

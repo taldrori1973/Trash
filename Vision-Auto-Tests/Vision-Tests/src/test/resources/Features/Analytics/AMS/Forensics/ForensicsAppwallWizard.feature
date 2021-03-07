@@ -27,7 +27,7 @@ Feature: Appwall Forensic Wizard
       | httpUsername  | user1    |
       | visionMgtPort | G1       |
     Then Browser Refresh Page
-    Then UI Navigate to "New Forensics" page via homepage
+    Then UI Navigate to "AMS Forensics" page via homepage
     Then UI Click Button "New Forensics Tab"
 
     
