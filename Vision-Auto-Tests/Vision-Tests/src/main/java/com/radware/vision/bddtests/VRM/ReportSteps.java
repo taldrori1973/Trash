@@ -2,6 +2,8 @@ package com.radware.vision.bddtests.VRM;
 
 import com.radware.automation.tools.basetest.BaseTestUtils;
 import com.radware.automation.tools.basetest.Reporter;
+import com.radware.automation.webui.WebUIUtils;
+import com.radware.automation.webui.widgets.ComponentLocator;
 import com.radware.vision.automation.tools.exceptions.selenium.TargetWebElementNotFoundException;
 import com.radware.vision.bddtests.BddUITestBase;
 import com.radware.vision.bddtests.ReportsForensicsAlerts.Forensics;
@@ -9,8 +11,10 @@ import com.radware.vision.bddtests.ReportsForensicsAlerts.Report;
 import com.radware.vision.infra.testhandlers.vrm.VRMHandler;
 import com.radware.vision.infra.testhandlers.vrm.VRMReportsHandler;
 import com.radware.vision.infra.testhandlers.vrm.enums.vrmActions;
+import cucumber.api.PendingException;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
+import org.openqa.selenium.support.How;
 
 import java.util.HashMap;
 import java.util.List;
@@ -214,4 +218,10 @@ public class ReportSteps extends BddUITestBase {
         new Report().expandReportParameters();
     }
 
+    @Then("^UI Validate generate report with name \"([^\"]*)\" is exist$")
+    public void validateGenerateReportWithNameIsExist(String reportName){
+        if (WebUIUtils.fluentWait(new ComponentLocator(How.XPATH, "//div[@id='react-app']//*[text()='" + reportName + "']").getBy())== null)
+            BaseTestUtils.report("The generate report " + reportName + " isn't appearing in the UI!", Reporter.FAIL);
+
+    }
 }

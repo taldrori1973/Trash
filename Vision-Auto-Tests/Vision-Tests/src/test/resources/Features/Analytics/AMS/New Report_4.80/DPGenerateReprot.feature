@@ -77,8 +77,19 @@ Feature: DPGenerateReport
       | 44160 | 10  | Legitimate Traffic |
       | 46000 | 10  | Total Traffic      |
 
-
   @SID_10
+  Scenario: validate that generate report exist in UI
+  Scenario: create new OWASP Top 10 1
+    Given UI "Create" Report With Name "DP Report"
+      | Template-1            | reportType:DefensePro Analytics , Widgets:[{Traffic Bandwidth:[pps,Outbound,All Policies]}]  ,devices:[All] |
+    Then UI "Generate" Report With Name "DP Report"
+      | timeOut | 60 |
+
+    Then UI Click Button "Log Preview" with value "DP Report_0"
+    Then UI Validate generate report with name "DP Report" is exist
+
+
+  @SID_11
   Scenario: start IPTABLES
     Then CLI Run linux Command "service iptables start" on "ROOT_SERVER_CLI" and validate result CONTAINS "Loading additional modules"
 

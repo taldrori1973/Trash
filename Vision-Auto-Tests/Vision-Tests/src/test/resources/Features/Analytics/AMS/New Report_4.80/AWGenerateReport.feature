@@ -91,4 +91,15 @@ Feature: AWGenerateReport
     Scenario: start IPTABLES
       Then CLI Run linux Command "service iptables start" on "ROOT_SERVER_CLI" and validate result CONTAINS "Loading additional modules"
 
+  @SID_11
+  Scenario: validate that generate report exist in UI
+  Scenario: create new OWASP Top 10 1
+    Given UI "Create" Report With Name "Automation AppWall Report"
+      | Template              | reportType:AppWall , Widgets:[ALL],Applications:[All],showTable:true |
+      | Logo                  | reportLogoPNG.png                                                    |
+      | Time Definitions.Date | Quick:15m                                                            |
+    Then UI "Generate" Report With Name "Automation AppWall Report"
+      | timeOut | 60 |
 
+    Then UI Click Button "Log Preview" with value "Automation AppWall Report_0"
+    Then UI Validate generate report with name "Automation AppWall Report" is exist
