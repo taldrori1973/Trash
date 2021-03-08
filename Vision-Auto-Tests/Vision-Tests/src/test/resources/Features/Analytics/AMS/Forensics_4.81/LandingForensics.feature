@@ -1,4 +1,4 @@
-@TC119417 @Test12
+@TC119417
 
 Feature: Landing Forensics
 

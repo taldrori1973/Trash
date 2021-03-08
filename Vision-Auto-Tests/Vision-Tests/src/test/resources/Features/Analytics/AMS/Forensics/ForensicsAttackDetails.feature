@@ -28,7 +28,7 @@ Feature: Forensic Attack details Tests
 
   
   @SID_3
-  Scenario: VRM - Login to VRM "Wizard" Test
+  Scenario: VRM - Login to VRM Forensics
     Given UI Login with user "sys_admin" and password "radware"
    * REST Vision Install License Request "vision-AVA-Max-attack-capacity"
     Then UI Navigate to "AMS Forensics" page via homepage
@@ -339,7 +339,7 @@ Feature: Forensic Attack details Tests
 
     Then UI Text of "Forensics.Attack Details.Detail.Real-Time Signature.Operator" with extension "1" equal to "OR"
     Then UI Text of "Forensics.Attack Details.Detail.Real-Time Signature.Parameter" with extension "1" equal to "sequence-number"
-    Then UI Text of "Forensics.Attack Details.Detail.Real-Time Signature.Value/s" with extension "1" equal to "123456"
+    Then UI Text of "Forensics.Attack Details.Detail.Real-Time Signature.Values" with extension "1" equal to "123456"
 
   
   @SID_33
