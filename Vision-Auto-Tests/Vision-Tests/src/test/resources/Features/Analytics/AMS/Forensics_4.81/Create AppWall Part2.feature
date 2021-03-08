@@ -258,7 +258,7 @@ Feature:Create AppWall Part2
       | devices               | All                                                                            |
       | Share                 | Email:[automation.vision2@radware.com],Subject:myEdit subject,Body:myEdit body |
       | Format                | Select: CSV                                                                    |
-    Then UI Delete Forensics With Name "Output Event Description_Action_Attack Name_Device Host Name Equal Device I"
+    Then UI Delete Forensics With Name "Output Event Description_Action_Attack Name_Device Host Name Equal Device IP"
 
   @SID_14
   Scenario: create new Directory Equal
@@ -614,7 +614,7 @@ Feature:Create AppWall Part2
       | Schedule              | Run Every:Weekly, On Time:+6H, At Days:[THU]                                                                     |
       | Share                 | FTP:checked, FTP.Location:172.17.164.10, FTP.Path:/home/radware/ftp/, FTP.Username:radware, FTP.Password:radware |
       | Format                | Select: CSV With Attack Details                                                                                  |
-    Then UI Delete Forensics With Name "Severity11 Equale"
+    Then UI Delete Forensics With Name "Severity11 Equal"
 
   @SID_31
   Scenario: create new Severity12 Equal
@@ -718,7 +718,7 @@ Feature:Create AppWall Part2
       | Time Definitions.Date | Relative:[Weeks,2]                                                                                                                 |
       | Share                 | Email:[automation.vision2@radware.com],Subject:myEdit subject,Body:myEdit body                                                     |
       | Format                | Select: HTML                                                                                                                       |
-    Then UI Delete Forensics With Name "Severity16 Equale"
+    Then UI Delete Forensics With Name "Severity16 Equal"
 
   @SID_36
   Scenario: create new Severity17 Not Equal
