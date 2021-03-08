@@ -6,10 +6,6 @@ Feature: Forensics Delivery
   Scenario: Clean system data
     When CLI kill all simulator attacks on current vision
     When CLI Clear vision logs
-#    * REST Delete ES index "dp-traffic-*"
-#    * REST Delete ES index "dp-https-stats-*"
-#    * REST Delete ES index "dp-https-rt-*"
-#    * REST Delete ES index "dp-five-*"
     * REST Delete ES index "dp-*"
     * REST Delete ES index "forensics-*"
     Given CLI Reset radware password
@@ -40,9 +36,11 @@ Feature: Forensics Delivery
   @SID_3
   Scenario: validate Forensics Report empty delivery
     Given UI "Create" Forensics With Name "Email Validate"
-      | Share    | Email:[automation.vision1@forensic.local],Subject:Forensic Email Validate                                     |
-      | Output   | Action,Attack ID,Start Time,Source IP Address,Source Port,Destination IP Address,Destination Port,Direction,Protocol,Threat Category,Radware ID,Device IP Address,Attack Name,End Time,Duration,Packet Type,Physical Port,Policy Name,Risk |
-      | Format   | Select: HTML |
+      | Share  | Email:[automation.vision1@forensic.local],Subject:Forensic Email Validate                                                                                                                                                                  |
+      | Output | Action,Attack ID,Start Time,Source IP Address,Source Port,Destination IP Address,Destination Port,Direction,Protocol,Threat Category,Radware ID,Device IP Address,Attack Name,End Time,Duration,Packet Type,Physical Port,Policy Name,Risk |
+      | Format | Select: HTML                                                                                                                                                                                                                               |
+
+
 
     When CLI Run remote linux Command "echo "cleared" $(date) > /var/spool/mail/forensicuser" on "GENERIC_LINUX_SERVER"
     Then UI Click Button "My Forensics" with value "Email Validate"
@@ -65,7 +63,7 @@ Feature: Forensics Delivery
   Scenario: login and generate the forensic report "Email Validate"
     Given UI Login with user "sys_admin" and password "radware"
     Then UI Navigate to "AMS Forensics" page via homepage
-    
+
     Then UI Click Button "My Forensics" with value "Email Validate"
     Then UI Click Button "Generate Snapshot Forensics Manually" with value "Email Validate"
     Then Sleep "35"
@@ -157,19 +155,19 @@ Feature: Forensics Delivery
     Then CLI Operations - Verify that output contains regex "(\d{2})"
 
     Then CLI Run remote linux Command "awk -F "</th><th>" '{printf $18}' /var/spool/mail/forensicuser;echo" on "GENERIC_LINUX_SERVER"
-    Then CLI Operations - Verify that output contains regex "Physical Port"
+    Then CLI Operations - Verify that output contains regex "Packet Type"
     Then CLI Run remote linux Command "awk -F "</td><td>" '{printf $18}' /var/spool/mail/forensicuser;echo" on "GENERIC_LINUX_SERVER"
+    Then CLI Operations - Verify that output contains regex "\bRegular\b"
+
+    Then CLI Run remote linux Command "awk -F "</th><th>" '{printf $19}' /var/spool/mail/forensicuser;echo" on "GENERIC_LINUX_SERVER"
+    Then CLI Operations - Verify that output contains regex "Physical Port"
+    Then CLI Run remote linux Command "awk -F "</td><td>" '{printf $19}' /var/spool/mail/forensicuser;echo" on "GENERIC_LINUX_SERVER"
     Then CLI Operations - Verify that output contains regex "\b1\b"
 
     Then CLI Run remote linux Command "grep -oP '(?<=<th>)[^</th>]*' /var/spool/mail/forensicuser | tail -1" on "GENERIC_LINUX_SERVER"
     Then CLI Operations - Verify that output contains regex "\bRisk\b"
     Then CLI Run remote linux Command "grep -oP '(?<=<td>)[^</td>]*' /var/spool/mail/forensicuser | tail -1" on "GENERIC_LINUX_SERVER"
     Then CLI Operations - Verify that output contains regex "\bLow\b"
-
-#    Then CLI Run remote linux Command "awk -F "</th><th>" '{printf $20}' /var/spool/mail/forensicuser;echo" on "GENERIC_LINUX_SERVER"
-#    Then CLI Operations - Verify that output contains regex "Risk"
-#    Then CLI Run remote linux Command "awk -F "</td><td>" '{printf $20}' /var/spool/mail/forensicuser;echo" on "GENERIC_LINUX_SERVER"
-#    Then CLI Operations - Verify that output contains regex "\bLow\b"
 
   @SID_7
   Scenario: Logout
@@ -195,33 +193,13 @@ Feature: Forensics Delivery
     Given UI Login with user "sys_admin" and password "radware"
     Then UI Navigate to "AMS Forensics" page via homepage
     When UI "Edit" Forensics With Name "Email Validate"
-      | Format  | Select: CSV |
-
-#    Then UI Click Button "Edit" with value "Email Validate"
-#    And UI Click Button "Tab" with value "delivery-tab"
-#    Then UI Click Button "Export Report as CSV" with value "CSV"
-#    Then UI Click Button "Submit" with value "Submit"
+      | Format | Select: CSV |
 
   @SID_12
   Scenario: Logout
     Then UI Logout
 
   @SID_13
-  Scenario: Tc105524 validate Forensics Report email no FTP content CSV attachment
-    Then CLI Run remote linux Command "echo "cleared" $(date) > /var/spool/mail/forensicuser" on "GENERIC_LINUX_SERVER"
-    Given UI Login with user "sys_admin" and password "radware"
-    Then UI Navigate to "AMS Forensics" page via homepage
-    Then UI Click Button "My Forensics" with value "Wizard_test"
-    Then UI Click Button "Generate Snapshot Forensics Manually" with value "Wizard_test"
-    Then Sleep "35"
-    Then CLI Run remote linux Command "cat /var/spool/mail/forensicuser > /tmp/forensic_csv.log" on "GENERIC_LINUX_SERVER"
-    Then CLI Run linux Command "grep "Content-Disposition: attachment;" /var/spool/mail/forensicuser | wc -l" on "GENERIC_LINUX_SERVER" and validate result EQUALS "1"
-    Then CLI Run linux Command "grep -oP "filename=\"Email Validate_(\d{4})-(\d{2})-(\d{2})_(\d{2})-(\d{2})-(\d{2}).zip\"" /var/spool/mail/forensicuser | wc -l" on "GENERIC_LINUX_SERVER" and validate result EQUALS "1"
-    # Then CLI Run linux Command "grep "S.No,Start Time,End Time,Device IP,Threat Category,Attack Name,Policy Name,Action,Attack ID,Source IP,Source Port,Destination IP,Destination Port,Direction,Protocol,Radware ID,Duration,Packets,Mbits,Physical Port,Risk" /var/spool/mail/forensicuser |wc -l" on "GENERIC_LINUX_SERVER" and validate result EQUALS "1"
-    # Then CLI Run linux Command "grep -oP "1,(\d{2})/(\d{2})/201(\d{1}) (\d{2}):(\d{2}):(\d{2}),(\d{2})/(\d{2})/201(\d{1}) (\d{2}):(\d{2}):(\d{2}),172.16.22.50,Intrusions,tim,BDOS,Drop,7716-1402580209,192.85.1.77,1055,1.1.1.9,80,In,TCP,300000,(\d{2}),4,0.00,1,Low" /var/spool/mail/forensicuser |wc -l" on "GENERIC_LINUX_SERVER" and validate result EQUALS "1"
-    Then UI Logout
-
-  @SID_14
   Scenario: VRM - go to vision and disable emailing
     Given UI Login with user "sys_admin" and password "radware"
     And UI Go To Vision
@@ -230,30 +208,29 @@ Feature: Forensics Delivery
     And UI Click Button "Submit"
     Then UI Logout
 
-  @SID_15
+  @SID_14
   Scenario: VRM - Login to VRM and go to forensic
     Given UI Login with user "sys_admin" and password "radware"
     Then UI Navigate to "AMS Forensics" page via homepage
 
-  @SID_16
+  @SID_15
   Scenario: Create Forensics Report FTP_export by server IP no email
     When UI "Create" Forensics With Name "FTP_export"
-      | Share   | FTP:checked, FTP.Location:172.17.164.10, FTP.Path:/home/radware/ftp/, FTP.Username:radware, FTP.Password:radware|
-      | Output  | Action,Attack ID,Start Time,Source IP Address,Source Port,Destination IP Address,Destination Port,Direction,Protocol,Threat Category,Radware ID,Device IP Address,Attack Name,End Time,Duration,Packet Type,Physical Port,,Risk,Policy Name |
-      | Format  | Select: CSV                                                                                                     |
+      | Share  | FTP:checked, FTP.Location:172.17.164.10, FTP.Path:/home/radware/ftp/, FTP.Username:radware, FTP.Password:radware                                                                                                                           |
+      | Output | Action,Attack ID,Start Time,Source IP Address,Source Port,Destination IP Address,Destination Port,Direction,Protocol,Threat Category,Radware ID,Device IP Address,Attack Name,End Time,Duration,Packet Type,Physical Port,Policy Name,Risk |
+      | Format | Select: CSV                                                                                                                                                                                                                                |
     Then CLI Run remote linux Command "rm -f /home/radware/ftp/FTP_export*.zip /home/radware/ftp/FTP_export*.csv" on "GENERIC_LINUX_SERVER"
 
     Then UI Click Button "My Forensics" with value "FTP_export"
     Then UI Click Button "Generate Snapshot Forensics Manually" with value "FTP_export"
     Then Sleep "35"
 
-  @SID_17
+  @SID_16
   Scenario: validate Forensics Report FTP csv file
     Then Sleep "3"
     # validate csv number of rows, columns order, values
     Then CLI Run remote linux Command "unzip -o /home/radware/ftp/FTP_export*.zip -d /home/radware/ftp/" on "GENERIC_LINUX_SERVER"
     Then CLI Run linux Command "cat /home/radware/ftp/FTP_export*.csv |wc -l" on "GENERIC_LINUX_SERVER" and validate result EQUALS "2"
-    Then CLI Run linux Command "cat /home/radware/ftp/FTP_export*.csv |grep "S.No,Start Time,End Time,Device IP Address,Threat Category,Attack Name,Policy Name,Action,Attack ID,Source IP Address,Source Port,Destination IP Address,Destination Port,Direction,Protocol,Radware ID,Duration,Physical Port,Risk" |wc -l" on "GENERIC_LINUX_SERVER" and validate result EQUALS "1"
     Then CLI Run linux Command "cat /home/radware/ftp/FTP_export*.csv |head -1|awk -F "," '{printf $1}';echo" on "GENERIC_LINUX_SERVER" and validate result EQUALS "S.No"
     Then CLI Run linux Command "cat /home/radware/ftp/FTP_export*.csv |head -1|awk -F "," '{printf $2}';echo" on "GENERIC_LINUX_SERVER" and validate result EQUALS "Start Time"
     Then CLI Run linux Command "cat /home/radware/ftp/FTP_export*.csv |head -1|awk -F "," '{printf $3}';echo" on "GENERIC_LINUX_SERVER" and validate result EQUALS "End Time"
@@ -271,10 +248,10 @@ Feature: Forensics Delivery
     Then CLI Run linux Command "cat /home/radware/ftp/FTP_export*.csv |head -1|awk -F "," '{printf $15}';echo" on "GENERIC_LINUX_SERVER" and validate result EQUALS "Protocol"
     Then CLI Run linux Command "cat /home/radware/ftp/FTP_export*.csv |head -1|awk -F "," '{printf $16}';echo" on "GENERIC_LINUX_SERVER" and validate result EQUALS "Radware ID"
     Then CLI Run linux Command "cat /home/radware/ftp/FTP_export*.csv |head -1|awk -F "," '{printf $17}';echo" on "GENERIC_LINUX_SERVER" and validate result EQUALS "Duration"
-    Then CLI Run linux Command "cat /home/radware/ftp/FTP_export*.csv |head -1|awk -F "," '{printf $18}';echo" on "GENERIC_LINUX_SERVER" and validate result EQUALS "Physical Port"
-    Then CLI Run linux Command "cat /home/radware/ftp/FTP_export*.csv |head -1|awk -F "," '{printf $19}';echo" on "GENERIC_LINUX_SERVER" and validate result EQUALS "Risk"
+    Then CLI Run linux Command "cat /home/radware/ftp/FTP_export*.csv |head -1|awk -F "," '{printf $18}';echo" on "GENERIC_LINUX_SERVER" and validate result EQUALS "Packet Type"
+    Then CLI Run linux Command "cat /home/radware/ftp/FTP_export*.csv |head -1|awk -F "," '{printf $19}';echo" on "GENERIC_LINUX_SERVER" and validate result EQUALS "Physical Port"
+    Then CLI Run linux Command "cat /home/radware/ftp/FTP_export*.csv |head -1|awk -F "," '{printf $20}';echo" on "GENERIC_LINUX_SERVER" and validate result EQUALS "Risk"
 
-    Then CLI Run linux Command "cat /home/radware/ftp/FTP_export*.csv |grep -oP "1,(\d{2})/(\d{2})/202(\d{1}) (\d{2}):(\d{2}):(\d{2}),(\d{2})/(\d{2})/202(\d{1}) (\d{2}):(\d{2}):(\d{2}),172.16.22.50,Intrusions,tim,BDOS,Drop,7716-1402580209,192.85.1.77,1055,1.1.1.9,80,In,TCP,300000,(\d{2}),1,Low" |wc -l" on "GENERIC_LINUX_SERVER" and validate result EQUALS "1"
     Then CLI Run linux Command "cat /home/radware/ftp/FTP_export*.csv |head -2|tail -1|awk -F "," '{printf $1}';echo" on "GENERIC_LINUX_SERVER" and validate result EQUALS "1"
     Then CLI Run linux Command "cat /home/radware/ftp/FTP_export*.csv |head -2|tail -1|awk -F "," '{printf $4}';echo" on "GENERIC_LINUX_SERVER" and validate result EQUALS "172.16.22.50"
     Then CLI Run linux Command "cat /home/radware/ftp/FTP_export*.csv |head -2|tail -1|awk -F "," '{printf $5}';echo" on "GENERIC_LINUX_SERVER" and validate result EQUALS "Intrusions"
@@ -289,26 +266,19 @@ Feature: Forensics Delivery
     Then CLI Run linux Command "cat /home/radware/ftp/FTP_export*.csv |head -2|tail -1|awk -F "," '{printf $14}';echo" on "GENERIC_LINUX_SERVER" and validate result EQUALS "In"
     Then CLI Run linux Command "cat /home/radware/ftp/FTP_export*.csv |head -2|tail -1|awk -F "," '{printf $15}';echo" on "GENERIC_LINUX_SERVER" and validate result EQUALS "TCP"
     Then CLI Run linux Command "cat /home/radware/ftp/FTP_export*.csv |head -2|tail -1|awk -F "," '{printf $16}';echo" on "GENERIC_LINUX_SERVER" and validate result EQUALS "300000"
-    Then CLI Run linux Command "cat /home/radware/ftp/FTP_export*.csv |head -2|tail -1|awk -F "," '{printf $18}';echo" on "GENERIC_LINUX_SERVER" and validate result EQUALS "1"
-    Then CLI Run linux Command "cat /home/radware/ftp/FTP_export*.csv |head -2|tail -1|awk -F "," '{printf $19}';echo" on "GENERIC_LINUX_SERVER" and validate result EQUALS "Low"
+    Then CLI Run linux Command "cat /home/radware/ftp/FTP_export*.csv |head -2|tail -1|awk -F "," '{printf $18}';echo" on "GENERIC_LINUX_SERVER" and validate result EQUALS "Regular"
+    Then CLI Run linux Command "cat /home/radware/ftp/FTP_export*.csv |head -2|tail -1|awk -F "," '{printf $19}';echo" on "GENERIC_LINUX_SERVER" and validate result EQUALS "1"
+    Then CLI Run linux Command "cat /home/radware/ftp/FTP_export*.csv |head -2|tail -1|awk -F "," '{printf $20}';echo" on "GENERIC_LINUX_SERVER" and validate result EQUALS "Low"
 
     Then CLI Run remote linux Command "cp /home/radware/ftp/FTP_export*.csv /tmp/" on "GENERIC_LINUX_SERVER"
 
-  @SID_18
+  @SID_17
   Scenario: validate Forensics Report FTP export by server name
     Then CLI Operations - Run Root Session command "sed -i '/myftp/d' /etc/hosts"
     Then CLI Operations - Run Root Session command "echo "172.17.164.10 myftp" >> /etc/hosts"
     Then CLI Run remote linux Command "rm -f /home/radware/ftp/FTP_export*.zip /home/radware/ftp/FTP_export*.csv" on "GENERIC_LINUX_SERVER"
     When UI "Edit" Forensics With Name "FTP_export"
-      | Share   | FTP:checked, FTP.Location:myftp, FTP.Path:/home/radware/ftp/, FTP.Username:radware, FTP.Password:radware|
-
-#    Then UI Click Button "Edit" with value "FTP_export"
-#    And UI Click Button "Tab" with value "share-tab"
-#    And UI Click Button by id "ftp"
-##    Then UI Click Button "Delivery Card" with value "initial"
-#    Then UI Set Text Field "Send.FTP Location" To "myftp"
-##    Then UI Click Button "Summary Card" with value "initial"
-#    Then UI Click Button "Submit" with value "Submit"
+      | Share | FTP:checked, FTP.Location:myftp, FTP.Path:/home/radware/ftp/, FTP.Username:radware, FTP.Password:radware |
     Then UI Navigate to "AMS Reports" page via homePage
     Then UI Navigate to "AMS Forensics" page via homepage
     Then UI Click Button "My Forensics" with value "FTP_export"
@@ -317,25 +287,17 @@ Feature: Forensics Delivery
     Then CLI Run remote linux Command "unzip -o /home/radware/ftp/FTP_export*.zip -d /home/radware/ftp/" on "GENERIC_LINUX_SERVER"
     Then CLI Run linux Command "cat /home/radware/ftp/FTP_export*.csv |wc -l" on "GENERIC_LINUX_SERVER" and validate result EQUALS "2"
 
-  @SID_19
+  @SID_18
   Scenario: validate username digits in FTP
     When UI "Create" Forensics With Name "FTPDigits"
-      |Share| FTP:checked, FTP.Location:172.17.164.10, FTP.Path:/home/radware/ftp/, FTP.Username:123123, FTP.Password:radware|
-    Then UI Validate Element Existence By Label "Views.Expand" if Exists "true" with value "FTPDigits"
+      | Share | FTP:checked, FTP.Location:172.17.164.10, FTP.Path:/home/radware/ftp/, FTP.Username:123123, FTP.Password:radware |
+    Then UI Validate Element Existence By Label "My Forensics" if Exists "true" with value "FTPDigits"
+    Then UI Delete Forensics With Name "Email Validate"
+    Then UI Delete Forensics With Name "FTP_export"
+    Then UI Delete Forensics With Name "FTPDigits"
 
-#  Scenario:  validate Forensics Report email and ftp content HTML
-#  Scenario:  validate Forensics Report no email no ftp
 
- #   TODO
-#    Scenario: Forensic report larger than 10k file
-#      run cli command Benny tool from file
-#      create forensic with matching date
-#      generate
-#      remote linux unzip
-#      remote linuc wc -l
-#      remote linux del file
-
-  @SID_20
+  @SID_19
   Scenario: Cleanup
     Given UI logout and close browser
     * CLI Check if logs contains
