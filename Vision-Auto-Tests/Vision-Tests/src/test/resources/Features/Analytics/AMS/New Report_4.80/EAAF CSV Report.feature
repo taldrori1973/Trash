@@ -1,7 +1,6 @@
 @TC118899
 Feature: EAAF CSV Report
 
-  
   @SID_2
   Scenario: Clear old reports on file-system
     Then CLI Run remote linux Command "rm -f /opt/radware/mgt-server/third-party/tomcat/bin/VRM_report_*.zip" on "ROOT_SERVER_CLI"
@@ -69,18 +68,18 @@ Feature: EAAF CSV Report
 
   @SID_10
   Scenario: EAAF report validate CSV file Totals in Selected Time Frame number of lines
-    Then CLI Run linux Command "cat "/opt/radware/mgt-server/third-party/tomcat/bin/Totals\ in\ Selected\ Time\ Frame-ERT\ Active\ Attackers\ Feed" |wc -l" on "ROOT_SERVER_CLI" and validate result EQUALS "2"
+    Then CLI Run linux Command "cat "/opt/radware/mgt-server/third-party/tomcat/bin/Totals\ in\ Selected\ Time\ Frame-ERT\ Active\ Attackers\ Feed.csv" |wc -l" on "ROOT_SERVER_CLI" and validate result EQUALS "2"
 
   @SID_11
   Scenario: EAAF report validate CSV file Totals in Selected Time Frame header
-    Then CLI Run linux Command "cat "/opt/radware/mgt-server/third-party/tomcat/bin/Totals\ in\ Selected\ Time\ Frame-ERT\ Active\ Attackers\ Feed"|head -1|tail -1|grep volume,categoryAgg,distinct_count,packets|wc -l " on "ROOT_SERVER_CLI" and validate result EQUALS "1"
+    Then CLI Run linux Command "cat "/opt/radware/mgt-server/third-party/tomcat/bin/Totals\ in\ Selected\ Time\ Frame-ERT\ Active\ Attackers\ Feed.csv"|head -1|tail -1|grep volume,categoryAgg,distinct_count,packets|wc -l " on "ROOT_SERVER_CLI" and validate result EQUALS "1"
   
   @SID_12
   Scenario: EAAF report validate CSV file Totals in Selected Time Frame content
-#    Then CLI Run linux Command "cat "/opt/radware/mgt-server/third-party/tomcat/bin/Totals\ in\ Selected\ Time\ Frame-ERT\ Active\ Attackers\ Feed"|head -2|tail -1|grep 112923,ACL,507,140317|wc -l " on "ROOT_SERVER_CLI" and validate result EQUALS "1"
-#    Then CLI Run linux Command "cat "/opt/radware/mgt-server/third-party/tomcat/bin/Totals\ in\ Selected\ Time\ Frame-ERT\ Active\ Attackers\ Feed"|head -2|awk -F "," '{printf $1}';echo" on "ROOT_SERVER_CLI" and validate result CONTAINS "112"
-    Then CLI Run linux Command "cat "/opt/radware/mgt-server/third-party/tomcat/bin/Totals\ in\ Selected\ Time\ Frame-ERT\ Active\ Attackers\ Feed"|head -2|awk -F "," '{printf $2}';echo" on "ROOT_SERVER_CLI" and validate result CONTAINS "ACL"
-#    Then CLI Run linux Command "cat "/opt/radware/mgt-server/third-party/tomcat/bin/Totals\ in\ Selected\ Time\ Frame-ERT\ Active\ Attackers\ Feed"|head -2|awk -F "," '{printf $4}';echo" on "ROOT_SERVER_CLI" and validate result CONTAINS "140"
+#    Then CLI Run linux Command "cat "/opt/radware/mgt-server/third-party/tomcat/bin/Totals\ in\ Selected\ Time\ Frame-ERT\ Active\ Attackers\ Feed.csv"|head -2|tail -1|grep 112923,ACL,507,140317|wc -l " on "ROOT_SERVER_CLI" and validate result EQUALS "1"
+#    Then CLI Run linux Command "cat "/opt/radware/mgt-server/third-party/tomcat/bin/Totals\ in\ Selected\ Time\ Frame-ERT\ Active\ Attackers\ Feed.csv"|head -2|awk -F "," '{printf $1}';echo" on "ROOT_SERVER_CLI" and validate result CONTAINS "112"
+    Then CLI Run linux Command "cat "/opt/radware/mgt-server/third-party/tomcat/bin/Totals\ in\ Selected\ Time\ Frame-ERT\ Active\ Attackers\ Feed.csv"|head -2|awk -F "," '{printf $2}';echo" on "ROOT_SERVER_CLI" and validate result CONTAINS "ACL"
+#    Then CLI Run linux Command "cat "/opt/radware/mgt-server/third-party/tomcat/bin/Totals\ in\ Selected\ Time\ Frame-ERT\ Active\ Attackers\ Feed.csv"|head -2|awk -F "," '{printf $4}';echo" on "ROOT_SERVER_CLI" and validate result CONTAINS "140"
 
   @SID_13
   Scenario: EAAF report validate CSV file Top Malicious IP Addresses number of lines

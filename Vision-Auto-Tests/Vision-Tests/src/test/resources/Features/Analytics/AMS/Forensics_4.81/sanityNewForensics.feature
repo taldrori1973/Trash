@@ -1099,10 +1099,10 @@ Feature: Basic tests for Forensics parameters
     Then UI Click Button "Criteria Delete Condition" with value "1"
 
   @SID_57
-  Scenario: Validate Criteria Attack ID Attribute
+  Scenario: Validate Criteria Radware ID Attribute
     Then UI Click Button "Criteria Tab"
     Then UI Click Button "Criteria Attribute Expand"
-    Then UI Click Button "Criteria Attribute Selected" with value "Attack ID"
+    Then UI Click Button "Criteria Attribute Selected" with value "Radware ID"
     Then UI Click Button "Criteria Attribute Selected" with value "="
     Then UI Validate Element Existence By Label "Add Condition" if Exists "true" with value "disabled"
     Then UI Validate Element Existence By Label "Add Condition" if Exists "false" with value "enabled"

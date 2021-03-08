@@ -40,8 +40,6 @@ Feature: Forensics Delivery
       | Output | Action,Attack ID,Start Time,Source IP Address,Source Port,Destination IP Address,Destination Port,Direction,Protocol,Threat Category,Radware ID,Device IP Address,Attack Name,End Time,Duration,Packet Type,Physical Port,Policy Name,Risk |
       | Format | Select: HTML                                                                                                                                                                                                                               |
 
-
-
     When CLI Run remote linux Command "echo "cleared" $(date) > /var/spool/mail/forensicuser" on "GENERIC_LINUX_SERVER"
     Then UI Click Button "My Forensics" with value "Email Validate"
     Then UI Click Button "Generate Snapshot Forensics Manually" with value "Email Validate"
