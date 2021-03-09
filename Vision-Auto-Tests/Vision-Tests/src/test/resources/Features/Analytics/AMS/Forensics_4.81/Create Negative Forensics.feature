@@ -174,13 +174,13 @@ Feature: Negative Forensics tests to validate Error Messages
 ############################ Criteria DP ###################################################################
   
   @SID_12
-  Scenario: Add Forensics with invalid Attack ID in Criteria - DP
+  Scenario: Add Forensics with invalid Radware ID in Criteria - DP
     Then UI Click Button "New Forensics Tab"
     Then UI Click Button "Product Tab" with value "DefensePro"
-    Then UI Set Text Field "Forensics Name" To "DP Criteria Test Attack ID"
+    Then UI Set Text Field "Forensics Name" To "DP Criteria Test Radware ID"
     Then UI Click Button "Criteria Tab"
     Then UI Click Button "Criteria Attribute Expand"
-    Then UI Click Button "Criteria Attribute Selected" with value "Attack ID"
+    Then UI Click Button "Criteria Attribute Selected" with value "Radware ID"
     Then UI Click Button "Criteria Attribute Selected" with value "="
     Then UI Set Text Field "Criteria Value Input Label" and params "text" To "123"
     Then UI Click Button "Add Condition" with value "enabled"
@@ -351,13 +351,13 @@ Feature: Negative Forensics tests to validate Error Messages
     ############################ Criteria DF ###################################################################
 
   @SID_21
-  Scenario: Add Forensics with invalid Attack ID in Criteria - DF
+  Scenario: Add Forensics with invalid Radware ID in Criteria - DF
     Then UI Click Button "New Forensics Tab"
     Then UI Click Button "Product Tab" with value "DefenseFlow"
-    Then UI Set Text Field "Forensics Name" To "DF Criteria Test Attack ID"
+    Then UI Set Text Field "Forensics Name" To "DF Criteria Test Radware ID"
     Then UI Click Button "Criteria Tab"
     Then UI Click Button "Criteria Attribute Expand"
-    Then UI Click Button "Criteria Attribute Selected" with value "Attack ID"
+    Then UI Click Button "Criteria Attribute Selected" with value "Radware ID"
     Then UI Click Button "Criteria Attribute Selected" with value "="
     Then UI Set Text Field "Criteria Value Input Label" and params "text" To "123"
     Then UI Click Button "Add Condition" with value "enabled"
