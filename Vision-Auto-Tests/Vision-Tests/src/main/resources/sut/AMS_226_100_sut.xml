@@ -205,39 +205,68 @@
             <writeCommunity>public</writeCommunity>
         </defenseProDevices>
 
+<!--        <defenseProDevices index="10">-->
+<!--            <class>com.radware.vision.automation.tools.sutsystemobjects.devicesinfo.DeviceInfo</class>-->
+<!--            <deviceName>DefensePro_172.19.226.16</deviceName>-->
+<!--            <deviceIp>172.19.226.16</deviceIp>-->
+<!--            <username>radware</username>-->
+<!--            <password>radware1</password>-->
+<!--            <readCommunity>public</readCommunity>-->
+<!--            <writeCommunity>public</writeCommunity>-->
+<!--            <macAddress>00:50:56:90:c8:6d</macAddress>-->
+<!--        </defenseProDevices>-->
+
+<!--        <defenseProDevices index="11">-->
+<!--            <class>com.radware.vision.automation.tools.sutsystemobjects.devicesinfo.DeviceInfo</class>-->
+<!--            <deviceName>DefensePro_172.19.226.17</deviceName>-->
+<!--            <deviceIp>172.19.226.17</deviceIp>-->
+<!--            <username>radware</username>-->
+<!--            <password>radware1</password>-->
+<!--            <readCommunity>public</readCommunity>-->
+<!--            <writeCommunity>public</writeCommunity>-->
+<!--            <macAddress>00:50:56:90:97:e7</macAddress>-->
+<!--        </defenseProDevices>-->
+
+<!--        <defenseProDevices index="12">-->
+<!--            <class>com.radware.vision.automation.tools.sutsystemobjects.devicesinfo.DeviceInfo</class>-->
+<!--            <deviceName>DefensePro_172.19.226.18</deviceName>-->
+<!--            <deviceIp>172.19.226.18</deviceIp>-->
+<!--            <username>radware</username>-->
+<!--            <password>radware1</password>-->
+<!--            <readCommunity>public</readCommunity>-->
+<!--            <writeCommunity>public</writeCommunity>-->
+<!--            <macAddress>00:50:56:90:95:db</macAddress>-->
+<!--        </defenseProDevices>-->
         <defenseProDevices index="10">
             <class>com.radware.vision.automation.tools.sutsystemobjects.devicesinfo.DeviceInfo</class>
-            <deviceName>DefensePro_172.19.226.16</deviceName>
-            <deviceIp>172.19.226.16</deviceIp>
+            <deviceName>DefensePro_172.16.22.50</deviceName>
+            <deviceIp>172.16.22.50</deviceIp>
             <username>radware</username>
             <password>radware1</password>
             <readCommunity>public</readCommunity>
             <writeCommunity>public</writeCommunity>
-            <macAddress>00:50:56:90:c8:6d</macAddress>
+            <macAddress>2c:b6:93:45:fd:00</macAddress>
         </defenseProDevices>
-
         <defenseProDevices index="11">
             <class>com.radware.vision.automation.tools.sutsystemobjects.devicesinfo.DeviceInfo</class>
-            <deviceName>DefensePro_172.19.226.17</deviceName>
-            <deviceIp>172.19.226.17</deviceIp>
+            <deviceName>DefensePro_172.16.22.51</deviceName>
+            <deviceIp>172.16.22.51</deviceIp>
             <username>radware</username>
             <password>radware1</password>
             <readCommunity>public</readCommunity>
             <writeCommunity>public</writeCommunity>
-            <macAddress>00:50:56:90:97:e7</macAddress>
+            <macAddress>2c:b6:93:55:03:c0</macAddress>
         </defenseProDevices>
-
         <defenseProDevices index="12">
             <class>com.radware.vision.automation.tools.sutsystemobjects.devicesinfo.DeviceInfo</class>
-            <deviceName>DefensePro_172.19.226.18</deviceName>
-            <deviceIp>172.19.226.18</deviceIp>
+            <deviceName>DefensePro_172.16.22.55</deviceName>
+            <deviceIp>172.16.22.55</deviceIp>
             <username>radware</username>
             <password>radware1</password>
             <readCommunity>public</readCommunity>
             <writeCommunity>public</writeCommunity>
-            <macAddress>00:50:56:90:95:db</macAddress>
+            <macAddress>00:50:56:98:13:c3</macAddress>
         </defenseProDevices>
-
         <defenseProDevices index="20">
             <class>com.radware.vision.automation.tools.sutsystemobjects.devicesinfo.DeviceInfo</class>
             <deviceName>DefensePro_50.50.7.1</deviceName>
