@@ -195,7 +195,7 @@ Feature: Forensics Output
 
     Then UI Click Button "Views.Forensic" with value "radware_radware3,0"
 
-    Then UI Validate Table record values by columns with elementLabel "Forensics.Table" findBy index 0
+    Then UI Validate Table record values by columns with elementLabel "Forensics.Table" findBy index 1
       | columnName             | value                                     |
       |Action                  |  Drop                                     |
       |Source IP Address       |  1.1.1.1                                  |
@@ -221,7 +221,7 @@ Feature: Forensics Output
 
     Then UI Click Button "Views.Forensic" with value "radware_radware3,0"
 
-    Then UI Validate Table record values by columns with elementLabel "Forensics.Table" findBy index 0
+    Then UI Validate Table record values by columns with elementLabel "Forensics.Table" findBy index 1
       | columnName             | value                                     |
       |Policy Name             |  Black_IPV4                               |
 

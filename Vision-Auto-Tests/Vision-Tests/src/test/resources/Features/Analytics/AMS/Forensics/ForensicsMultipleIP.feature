@@ -10,6 +10,8 @@ Feature: Forensics Multiple IP
 #    * REST Delete ES index "dp-https-rt-*"
 #    * REST Delete ES index "dp-five-*"
     * REST Delete ES index "dp-*"
+    * REST Delete ES index "forensics-*"
+    * REST Delete ES index "dpforensics-*"
 
   @SID_2
   Scenario: Run DP simulator

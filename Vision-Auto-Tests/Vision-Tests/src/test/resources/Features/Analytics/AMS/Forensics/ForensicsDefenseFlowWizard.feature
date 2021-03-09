@@ -1,7 +1,7 @@
 @DFForensics @TC113513
 Feature: Defense Flow Forensic Wizard
 
-  
+
   @SID_1 @Sanity
   Scenario: Clean system data before Forensics Appwall Test
     Given CLI kill all simulator attacks on current vision
@@ -16,7 +16,7 @@ Feature: Defense Flow Forensic Wizard
       | body | sessionInactivTimeoutConfiguration=60 |
     * CLI Clear vision logs
 
-  
+
   @SID_2 @Sanity
   Scenario: Change DF management IP to IP of Generic Linux
     When CLI Operations - Run Radware Session command "system df management-ip set 172.17.164.10"
@@ -31,7 +31,8 @@ Feature: Defense Flow Forensic Wizard
     * REST Vision Install License Request "vision-reporting-module-AMS"
     Then UI Navigate to "AMS Forensics" page via homepage
     Then UI Click Button "New Forensics Tab"
-  
+
+
   @SID_4 @Sanity
   Scenario: Run DF attacks
     When CLI Run remote linux Command on "GENERIC_LINUX_SERVER"
@@ -139,7 +140,7 @@ Feature: Defense Flow Forensic Wizard
   Scenario: create forensic definition Category_ConnectionPPS
     Given UI "Create" Forensics With Name "Category_ConnectionPPS"
       | Product | DefenseFlow |
-      | Criteria | Event Criteria:Threat Category,Operator:Equals,Value:[ConnectionPPS] |
+      | Criteria              | Event Criteria:Threat Category,Operator:Equals,Value:[Connection PPS]                       |
       | Output  | Start Time,End Time,Attack Name,Action,Attack ID,Policy Name,Source IP Address,Source Port,Max pps,Max bps |
       | Time Definitions.Date | Quick:1D |
       | Format | Select: CSV |
