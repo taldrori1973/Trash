@@ -428,18 +428,18 @@ Feature: Forensic Criteria Tests
 
   @SID_32
   Scenario: VRM - Forensics Table Sorting
-    Then UI Validate Table record values by columns with elementLabel "Forensics.Table" findBy index 0
-      | columnName | value          |
-      | Attack ID  | 7447-1402580209 |
-    Then UI Validate Table record values by columns with elementLabel "Forensics.Table" findBy index 3
-      | columnName | value           |
-      | Attack ID  | 803-1525623158 |
-    Then UI Validate Table record values by columns with elementLabel "Forensics.Table" findBy index 5
-      | columnName | value         |
-      | Attack ID  | 46-1407864418 |
-    Then UI Validate Table record values by columns with elementLabel "Forensics.Table" findBy index 2
-      | columnName | value         |
-      | Attack ID  | 37-1491757775 |
+#    Then UI Validate Table record values by columns with elementLabel "Forensics.Table" findBy index 0
+#      | columnName | value          |
+#      | Attack ID  | 7447-1402580209 |
+#    Then UI Validate Table record values by columns with elementLabel "Forensics.Table" findBy index 3
+#      | columnName | value           |
+#      | Attack ID  | 803-1525623158 |
+#    Then UI Validate Table record values by columns with elementLabel "Forensics.Table" findBy index 5
+#      | columnName | value         |
+#      | Attack ID  | 46-1407864418 |
+#    Then UI Validate Table record values by columns with elementLabel "Forensics.Table" findBy index 2
+#      | columnName | value         |
+#      | Attack ID  | 37-1491757775 |
     Then UI Delete Forensics With Name "Criteria_AND"
 
 
