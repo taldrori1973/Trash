@@ -43,13 +43,6 @@ Feature: Edit DefenseFlow Parameters
     Then UI "Validate" Forensics With Name "Forensics DefenseFlow"
       | Format | Select: CSV |
 
-  @SID_6
-  Scenario: Edit Format
-    Then UI "Edit" Forensics With Name "Forensics DefenseFlow"
-      | Format | Select: CSVWithDetails |
-    Then UI "Validate" Forensics With Name "Forensics DefenseFlow"
-      | Format | Select: CSVWithDetails |
-
   @SID_7
   Scenario: Edit Format
     Then UI "Edit" Forensics With Name "Forensics DefenseFlow"
