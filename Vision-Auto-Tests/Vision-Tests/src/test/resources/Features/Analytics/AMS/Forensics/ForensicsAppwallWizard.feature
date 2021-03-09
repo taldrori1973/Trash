@@ -1,6 +1,7 @@
 @AWForensics @TC113209
 Feature: Appwall Forensic Wizard
 
+  
   @SID_1 @Sanity
   Scenario: Clean system data before Forensics Appwall Test
     * CLI kill all simulator attacks on current vision
@@ -30,7 +31,7 @@ Feature: Appwall Forensic Wizard
     Then UI Navigate to "AMS Forensics" page via homepage
     Then UI Click Button "New Forensics Tab"
 
-    
+  
   @SID_3
   Scenario: Run AW attacks
     When CLI Run remote linux Command on "GENERIC_LINUX_SERVER"
