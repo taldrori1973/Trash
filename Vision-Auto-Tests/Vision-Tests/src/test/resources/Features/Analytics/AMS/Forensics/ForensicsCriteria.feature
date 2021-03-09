@@ -35,41 +35,41 @@ Feature: Forensic Criteria Tests
 # #06 #############################################################################################################################################
 
   @SID_4
-  Scenario: VRM - Add New Forensics Report criteria - Action - Equals
+  Scenario: VRM - Add New Forensics criteria - Action - Equals
     When UI "Create" Forensics With Name "Action Criteria"
       | Criteria | Event Criteria:Action,Operator:Equals,Value:Drop |
       | Output   | Start Time,Attack ID,Action                      |
     Then UI Click Button "My Forensics" with value "Action Criteria"
     Then UI Click Button "Generate Snapshot Forensics Manually" with value "Action Criteria"
     Then Sleep "35"
-    And UI Click Button "Views.Forensic" with value "Action Criteria"
-    Then UI Validate "Forensics.Table" Table rows count EQUALS to 27
+    And UI Click Button "Views.Forensic" with value "Action Criteria,0"
+    Then UI Validate "Forensics.Table" Table rows count EQUALS to 653
     Then UI Validate Table record values by columns with elementLabel "Forensics.Table" findBy index 0
       | columnName | value |
       | Action     | Drop  |
     Then UI Delete Forensics With Name "Action Criteria"
 
   @SID_5
-  Scenario: VRM - Add New Forensics Report criteria - Action - Not Equals
+  Scenario: VRM - Add New Forensics criteria - Action - Not Equals
     When UI "Create" Forensics With Name "Not Action Criteria"
       | Criteria | Event Criteria:Action,Operator:Not Equals,Value:Drop |
       | Output   | Start Time,Attack ID,Action                          |
     Then UI Click Button "My Forensics" with value "Not Action Criteria"
     Then UI Click Button "Generate Snapshot Forensics Manually" with value "Not Action Criteria"
     Then Sleep "35"
-    And UI Click Button "Views.Forensic" with value "Not Action Criteria"
+    And UI Click Button "Views.Forensic" with value "Not Action Criteria,0"
     Then UI Validate "Forensics.Table" Table rows count EQUALS to 9
     Then UI Delete Forensics With Name "Not Action Criteria"
 
   @SID_6
-  Scenario: VRM - Add New Forensics Report criteria - Attack Name - Equals
+  Scenario: VRM - Add New Forensics criteria - Attack Name - Equals
     When UI "Create" Forensics With Name "Attack name Criteria"
       | Criteria | Event Criteria:Attack Name,Operator:Equals,Value:Incorrect IPv4 checksum |
       | Output   | Attack ID,Attack Name                                                    |
     Then UI Click Button "My Forensics" with value "Attack name Criteria"
     Then UI Click Button "Generate Snapshot Forensics Manually" with value "Attack name Criteria"
     Then Sleep "35"
-    And UI Click Button "Views.Forensic" with value "Attack name Criteria"
+    And UI Click Button "Views.Forensic" with value "Attack name Criteria,0"
     Then UI Validate "Forensics.Table" Table rows count EQUALS to 4
     Then UI Validate Table record values by columns with elementLabel "Forensics.Table" findBy index 0
       | columnName  | value                   |
@@ -77,181 +77,159 @@ Feature: Forensic Criteria Tests
     Then UI Delete Forensics With Name "Attack name Criteria"
 
   @SID_7
-  Scenario: VRM - Add New Forensics Report criteria - Attack Name - Not Equals
+  Scenario: VRM - Add New Forensics criteria - Attack Name - Not Equals
     When UI "Create" Forensics With Name "Not Attack name Criteria"
       | Criteria | Event Criteria:Attack Name,Operator:Not Equals,Value:Incorrect IPv4 checksum |
       | Output   | Start Time,Attack ID,Attack Name                                             |
     Then UI Click Button "My Forensics" with value "Not Attack name Criteria"
     Then UI Click Button "Generate Snapshot Forensics Manually" with value "Not Attack name Criteria"
     Then Sleep "35"
-    And UI Click Button "Views.Forensic" with value "Not Attack name Criteria"
-    Then UI Validate "Forensics.Table" Table rows count EQUALS to 32
+    And UI Click Button "Views.Forensic" with value "Not Attack name Criteria,0"
+    Then UI Validate "Forensics.Table" Table rows count EQUALS to 658
     Then UI Delete Forensics With Name "Not Attack name Criteria"
 
-
-#  @SID_8
-#  Scenario: VRM - Add New Forensics Report criteria - Attack ID - Equals
-#    When UI "Create" Forensics With Name "Attack ID Criteria"
-#      | Criteria | Event Criteria:Attack ID,Operator:Equals,Value:136-1414505529 |
-#      | Output   | Start Time,Attack ID                                          |
-#    Then UI Click Button "My Forensics" with value "Attack ID Criteria"
-#    Then UI Click Button "Generate Snapshot Forensics Manually" with value "Attack ID Criteria"
-#    Then Sleep "35"
-#    And UI Click Button "Views.Forensic" with value "Attack ID Criteria"
-#    Then UI Validate "Forensics.Table" Table rows count EQUALS to 1
-#    Then UI Delete Forensics With Name "Attack ID Criteria"
-
-#  @SID_9
-#  Scenario: VRM - Add New Forensics Report criteria - Attack ID - Not Equals
-#    When UI "Create" Forensics With Name "Not Attack ID Criteria"
-#      | Criteria | Event Criteria:Attack ID,Operator:Not Equals,Value:136-1414505529 |
-#      | Output   | Start Time,Attack ID                                              |
-#    Then UI Click Button "My Forensics" with value "Not Attack ID Criteria"
-#    Then UI Click Button "Generate Snapshot Forensics Manually" with value "Not Attack ID Criteria"
-#    Then Sleep "35"
-#    And UI Click Button "Views.Forensic" with value "Not Attack ID Criteria"
-#    Then UI Validate "Forensics.Table" Table rows count EQUALS to 36
-#    Then UI Delete Forensics With Name "Not Attack ID Criteria"
-
-
-  @SID_10
-  Scenario: VRM - Add New Forensics Report criteria - Destination IP - Equals
+  @SID_8
+  Scenario: VRM - Add New Forensics criteria - Destination IP - Equals
     When UI "Create" Forensics With Name "Destination IP Criteria"
       | Criteria | Event Criteria:Destination IP,Operator:Equals,IPType:IPv4,IPValue:1.1.1.1 |
       | Output   | Start Time,Attack ID                                                      |
     Then UI Click Button "My Forensics" with value "Destination IP Criteria"
     Then UI Click Button "Generate Snapshot Forensics Manually" with value "Destination IP Criteria"
     Then Sleep "35"
-    And UI Click Button "Views.Forensic" with value "Destination IP Criteria"
+    And UI Click Button "Views.Forensic" with value "Destination IP Criteria,0"
     Then UI Validate "Forensics.Table" Table rows count EQUALS to 2
     Then UI Delete Forensics With Name "Destination IP Criteria"
 
-  @SID_11
-  Scenario: VRM - Add New Forensics Report criteria - Destination IP - Not Equals
+  @SID_9
+  Scenario: VRM - Add New Forensics criteria - Destination IP - Not Equals
     When UI "Create" Forensics With Name "Not Destination IP Criteria"
       | Criteria | Event Criteria:Destination IP,Operator:Not Equals,IPType:IPv4,IPValue:1.1.1.1 |
       | Output   | Start Time,Attack ID                                                          |
     Then UI Click Button "My Forensics" with value "Not Destination IP Criteria"
     Then UI Click Button "Generate Snapshot Forensics Manually" with value "Not Destination IP Criteria"
     Then Sleep "35"
-    And UI Click Button "Views.Forensic" with value "Not Destination IP Criteria"
-    Then UI Validate "Forensics.Table" Table rows count EQUALS to 35
+    And UI Click Button "Views.Forensic" with value "Not Destination IP Criteria,0"
+    Then UI Validate "Forensics.Table" Table rows count EQUALS to 660
     Then UI Delete Forensics With Name "Not Destination IP Criteria"
 
-  @SID_12
-  Scenario: VRM - Add New Forensics Report criteria - Destination Port Range - Equals
-    When UI "Create" Forensics With Name "Destination port range Criteria"
-      | Criteria | Event Criteria:Destination Port,Operator:Equals,portType:Port Range,portFrom:52,portTo:53 |
-      | Output   | Start Time,Attack ID                                                                      |
-    Then UI Click Button "My Forensics" with value "Destination port range Criteria"
-    Then UI Click Button "Generate Snapshot Forensics Manually" with value "Destination port range Criteria"
+  @SID_10
+  Scenario: VRM - Add New Forensics criteria - Destination Range - Equals
+    When UI "Create" Forensics With Name "Destination Range Criteria"
+      | Criteria | Event Criteria:Destination Port,Operator:Equals,portType:Range,portFrom:52,portTo:53 |
+      | Output   | Start Time,Attack ID                                                                 |
+    Then UI Click Button "My Forensics" with value "Destination Range Criteria"
+    Then UI Click Button "Generate Snapshot Forensics Manually" with value "Destination Range Criteria"
     Then Sleep "35"
-    And UI Click Button "Views.Forensic" with value "Destination port range Criteria"
+    And UI Click Button "Views.Forensic" with value "Destination Range Criteria,0"
     Then UI Validate "Forensics.Table" Table rows count EQUALS to 2
-    Then UI Delete Forensics With Name "Destination port range Criteria"
+    Then UI Delete Forensics With Name "Destination Range Criteria"
 
-
-  @SID_13
-  Scenario: VRM - Add New Forensics Report criteria - Destination Port Range - Not Equals
-    When UI "Create" Forensics With Name "Not Destination port range Criteria"
-      | Criteria | Event Criteria:Destination Port,Operator:Not Equals,portType:Port Range,portFrom:52,portTo:53 |
-      | Output   | Start Time,Attack ID                                                                          |
-    Then UI Click Button "My Forensics" with value "Not Destination port range Criteria"
-    Then UI Click Button "Generate Snapshot Forensics Manually" with value "Not Destination port range Criteria"
+  @SID_11
+  Scenario: VRM - Add New Forensics criteria - Destination Range - Not Equals
+    When UI "Create" Forensics With Name "Not Destination Range Criteria"
+      | Criteria | Event Criteria:Destination Port,Operator:Not Equals,portType:Range,portFrom:52,portTo:53 |
+      | Output   | Start Time,Attack ID                                                                     |
+    Then UI Click Button "My Forensics" with value "Not Destination Range Criteria"
+    Then UI Click Button "Generate Snapshot Forensics Manually" with value "Not Destination Range Criteria"
     Then Sleep "35"
-    And UI Click Button "Views.Forensic" with value "Not Destination port range Criteria"
-    Then UI Validate "Forensics.Table" Table rows count EQUALS to 35
-    Then UI Delete Forensics With Name "Not Destination port range Criteria"
+    And UI Click Button "Views.Forensic" with value "Not Destination Range Criteria,0"
+    Then UI Validate "Forensics.Table" Table rows count EQUALS to 660
+    Then UI Delete Forensics With Name "Not Destination Range Criteria"
 
-  @SID_14
-  Scenario: VRM - Add New Forensics Report criteria - Destination Port - Equals
+  @SID_12
+  Scenario: VRM - Add New Forensics criteria - Destination Port - Equals
     When UI "Create" Forensics With Name "Destination Port Criteria"
-      | Criteria | Event Criteria:Destination Port,Operator:Equals,portType:Port,portValue:80 |
-      | Output   | Start Time,Attack ID                                                       |
+      | Criteria | Event Criteria:Destination Port,Operator:Equals,portType:Single,portValue:80 |
+      | Output   | Start Time,Attack ID                                                         |
     Then UI Click Button "My Forensics" with value "Destination Port Criteria"
     Then UI Click Button "Generate Snapshot Forensics Manually" with value "Destination Port Criteria"
     Then Sleep "35"
-    And UI Click Button "Views.Forensic" with value "Destination Port Criteria"
+    And UI Click Button "Views.Forensic" with value "Destination Port Criteria,0"
     Then UI Validate "Forensics.Table" Table rows count EQUALS to 8
     Then UI Delete Forensics With Name "Destination Port Criteria"
 
-  @SID_15
-  Scenario: VRM - Add New Forensics Report criteria - Destination Port - Not Equals
+  @SID_13
+  Scenario: VRM - Add New Forensics criteria - Destination Port - Not Equals
     When UI "Create" Forensics With Name "Not Destination Port Criteria"
-      | Criteria | Event Criteria:Destination Port,Operator:Not Equals,portType:Port,portValue:80 |
-      | Output   | Start Time,Attack ID                                                           |
+      | Criteria | Event Criteria:Destination Port,Operator:Not Equals,portType:Single,portValue:80 |
+      | Output   | Start Time,Attack ID                                                             |
     Then UI Click Button "My Forensics" with value "Not Destination Port Criteria"
     Then UI Click Button "Generate Snapshot Forensics Manually" with value "Not Destination Port Criteria"
     Then Sleep "35"
-    And UI Click Button "Views.Forensic" with value "Not Destination Port Criteria"
-    Then UI Validate "Forensics.Table" Table rows count EQUALS to 29
+    And UI Click Button "Views.Forensic" with value "Not Destination Port Criteria,0"
+    Then UI Validate "Forensics.Table" Table rows count EQUALS to 654
     Then UI Delete Forensics With Name "Not Destination Port Criteria"
+
+  
+
+#    ----------------------- Inbound = In -> in data debug id
+#  
+#  @SID_14
+#  Scenario: VRM - Add New Forensics criteria - Direction - Equals
+#    When UI "Create" Forensics With Name "Direction Criteria"
+#      | Criteria | Event Criteria:Direction,Operator:Equals,Value:Inbound |
+#      | Output   | Start Time,Attack ID,Direction                         |
+#    Then UI Click Button "My Forensics" with value "Direction Criteria"
+#    Then UI Click Button "Generate Snapshot Forensics Manually" with value "Direction Criteria"
+#    Then Sleep "35"
+#    And UI Click Button "Views.Forensic" with value "Direction Criteria,0"
+#    Then UI Validate "Forensics.Table" Table rows count EQUALS to 16
+#    Then UI Validate Table record values by columns with elementLabel "Forensics.Table" findBy index 0
+#      | columnName | value |
+#      | Direction  | In    |
+#    Then UI Delete Forensics With Name "Direction Criteria"
+#
+#  
+#  @SID_15
+#  Scenario: VRM - Add New Forensics criteria - Direction - Not Equals
+#    When UI "Create" Forensics With Name "Not Direction Criteria"
+#      | Criteria | Event Criteria:Direction,Operator:Not Equals,Value:Inbound |
+#      | Output   | Start Time,Attack ID,Direction                             |
+#    Then UI Click Button "My Forensics" with value "Not Direction Criteria"
+#    Then UI Click Button "Generate Snapshot Forensics Manually" with value "Not Direction Criteria"
+#    Then Sleep "35"
+#    And UI Click Button "Views.Forensic" with value "Not Direction Criteria,0"
+#    Then UI Validate "Forensics.Table" Table rows count EQUALS to 21
+#    Then UI Delete Forensics With Name "Not Direction Criteria"
 
 
   @SID_16
-  Scenario: VRM - Add New Forensics Report criteria - Direction - Equals
-    When UI "Create" Forensics With Name "Direction Criteria"
-      | Criteria | Event Criteria:Direction,Operator:Equals,Value:[Inbound] |
-      | Output   | Start Time,Attack ID,Direction                           |
-    Then UI Click Button "My Forensics" with value "Direction Criteria"
-    Then UI Click Button "Generate Snapshot Forensics Manually" with value "Direction Criteria"
-    Then Sleep "35"
-    And UI Click Button "Views.Forensic" with value "Direction Criteria"
-    Then UI Validate "Forensics.Table" Table rows count EQUALS to 16
-    Then UI Validate Table record values by columns with elementLabel "Forensics.Table" findBy index 0
-      | columnName | value |
-      | Direction  | In    |
-    Then UI Delete Forensics With Name "Direction Criteria"
-
-  @SID_17
-  Scenario: VRM - Add New Forensics Report criteria - Direction - Not Equals
-    When UI "Create" Forensics With Name "Not Direction Criteria"
-      | Criteria | Event Criteria:Direction,Operator:Not Equals,Value:[Inbound] |
-      | Output   | Start Time,Attack ID,Direction                               |
-    Then UI Click Button "My Forensics" with value "Not Direction Criteria"
-    Then UI Click Button "Generate Snapshot Forensics Manually" with value "Not Direction Criteria"
-    Then Sleep "35"
-    And UI Click Button "Views.Forensic" with value "Not Direction Criteria"
-    Then UI Validate "Forensics.Table" Table rows count EQUALS to 21
-    Then UI Delete Forensics With Name "Not Direction Criteria"
-
-  @SID_18
-  Scenario: VRM - Add New Forensics Report criteria - Duration - Equals
+  Scenario: VRM - Add New Forensics criteria - Duration - Equals
     When UI "Create" Forensics With Name "Duration Criteria"
-      | Criteria | Event Criteria:Duration,Operator:Equals,Value:[Less than 1 min] |
-      | Output   | Start Time,Attack ID,Duration                                   |
+      | Criteria | Event Criteria:Duration,Operator:Equals,Value:lessThanOneMin |
+      | Output   | Start Time,Attack ID,Duration                                |
     Then UI Click Button "My Forensics" with value "Duration Criteria"
     Then UI Click Button "Generate Snapshot Forensics Manually" with value "Duration Criteria"
     Then Sleep "35"
-    And UI Click Button "Views.Forensic" with value "Duration Criteria"
-    Then UI Validate "Forensics.Table" Table rows count EQUALS to 34
+    And UI Click Button "Views.Forensic" with value "Duration Criteria,0"
+    Then UI Validate "Forensics.Table" Table rows count EQUALS to 36
     Then UI Delete Forensics With Name "Duration Criteria"
 
-  @SID_19
-  Scenario: VRM - Add New Forensics Report criteria - Duration - Not Equals
+  @SID_17
+  Scenario: VRM - Add New Forensics criteria - Duration - Not Equals
     When UI "Create" Forensics With Name "Not Duration Criteria"
-      | Criteria | Event Criteria:Duration,Operator:Not Equals,Value:[Less than 1 min] |
-      | Output   | Start Time,Attack ID,Duration                                       |
+      | Criteria | Event Criteria:Duration,Operator:Not Equals,Value:lessThanOneMin |
+      | Output   | Start Time,Attack ID,Duration                                    |
     Then UI Click Button "My Forensics" with value "Not Duration Criteria"
     Then UI Click Button "Generate Snapshot Forensics Manually" with value "Not Duration Criteria"
     Then Sleep "35"
-    And UI Click Button "Views.Forensic" with value "Not Duration Criteria"
-    Then UI Validate "Forensics.Table" Table rows count EQUALS to 3
+    And UI Click Button "Views.Forensic" with value "Not Duration Criteria,0"
+    Then UI Validate "Forensics.Table" Table rows count EQUALS to 626
     Then UI Delete Forensics With Name "Not Duration Criteria"
 
 # ###########################################################################
 
 
-  @SID_20
-  Scenario: VRM - Add New Forensics Report criteria - Protocol - Equals
+  @SID_18
+  Scenario: VRM - Add New Forensics criteria - Protocol - Equals
     When UI "Create" Forensics With Name "Protocol Criteria"
-      | Criteria | Event Criteria:Protocol,Operator:Equals,Value:[IP] |
-      | Output   | Start Time,Attack ID,Protocol                      |
+      | Criteria | Event Criteria:Protocol,Operator:Equals,Value:IP |
+      | Output   | Start Time,Attack ID,Protocol                    |
     Then UI Click Button "My Forensics" with value "Protocol Criteria"
     Then UI Click Button "Generate Snapshot Forensics Manually" with value "Protocol Criteria"
     Then Sleep "35"
-    And UI Click Button "Views.Forensic" with value "Protocol Criteria"
-    Then UI Validate "Forensics.Table" Table rows count EQUALS to 11
+    And UI Click Button "Views.Forensic" with value "Protocol Criteria,0"
+    Then UI Validate "Forensics.Table" Table rows count EQUALS to 636
     Then UI Validate Table record values by columns with elementLabel "Forensics.Table" findBy index 0
       | columnName | value |
       | Protocol   | IP    |
@@ -263,174 +241,170 @@ Feature: Forensic Criteria Tests
       | Protocol   | IP    |
     Then UI Delete Forensics With Name "Protocol Criteria"
 
-  @SID_21
-  Scenario: VRM - Add New Forensics Report criteria - Protocol - Not Equals
+  @SID_19
+  Scenario: VRM - Add New Forensics criteria - Protocol - Not Equals
     When UI "Create" Forensics With Name "Not Protocol Criteria"
-      | Criteria | Event Criteria:Protocol,Operator:Not Equals,Value:[IP] |
-      | Output   | Start Time,Attack ID,Protocol                          |
+      | Criteria | Event Criteria:Protocol,Operator:Not Equals,Value:IP |
+      | Output   | Start Time,Attack ID,Protocol                        |
     Then UI Click Button "My Forensics" with value "Not Protocol Criteria"
     Then UI Click Button "Generate Snapshot Forensics Manually" with value "Not Protocol Criteria"
     Then Sleep "35"
-    And UI Click Button "Views.Forensic" with value "Not Protocol Criteria"
+    And UI Click Button "Views.Forensic" with value "Not Protocol Criteria,0"
     Then UI Validate "Forensics.Table" Table rows count EQUALS to 26
     Then UI Delete Forensics With Name "Not Protocol Criteria"
 
 
-  @SID_22
-  Scenario: VRM - Add New Forensics Report criteria - Risk - Equals
+  @SID_20
+  Scenario: VRM - Add New Forensics criteria - Risk - Equals
     When UI "Create" Forensics With Name "Risk Criteria"
-      | Criteria | Event Criteria:Risk,Operator:Equals,Value:[Low] |
-      | Output   | Start Time,Attack ID,Risk                       |
+      | Criteria | Event Criteria:Risk,Operator:Equals,Value:Low |
+      | Output   | Start Time,Attack ID,Risk                     |
     Then UI Click Button "My Forensics" with value "Risk Criteria"
     Then UI Click Button "Generate Snapshot Forensics Manually" with value "Risk Criteria"
     Then Sleep "35"
-    And UI Click Button "Views.Forensic" with value "Risk Criteria"
-    Then UI Validate "Forensics.Table" Table rows count EQUALS to 11
+    And UI Click Button "Views.Forensic" with value "Risk Criteria,0"
+    Then UI Validate "Forensics.Table" Table rows count EQUALS to 636
     Then UI Validate Table record values by columns with elementLabel "Forensics.Table" findBy index 0
       | columnName | value |
       | Risk       | Low   |
     Then UI Delete Forensics With Name "Risk Criteria"
 
-  @SID_23
-  Scenario: VRM - Add New Forensics Report criteria - Risk - Not Equals
+  @SID_21
+  Scenario: VRM - Add New Forensics criteria - Risk - Not Equals
     When UI "Create" Forensics With Name "Not Risk Criteria"
-      | Criteria | Event Criteria:Risk,Operator:Not Equals,Value:[Low] |
-      | Output   | Start Time,Attack ID,Risk                           |
+      | Criteria | Event Criteria:Risk,Operator:Not Equals,Value:Low |
+      | Output   | Start Time,Attack ID,Risk                         |
     Then UI Click Button "My Forensics" with value "Not Risk Criteria"
     Then UI Click Button "Generate Snapshot Forensics Manually" with value "Not Risk Criteria"
     Then Sleep "35"
-    And UI Click Button "Views.Forensic" with value "Not Risk Criteria"
+    And UI Click Button "Views.Forensic" with value "Not Risk Criteria,0"
     Then UI Validate "Forensics.Table" Table rows count EQUALS to 26
     Then UI Delete Forensics With Name "Not Risk Criteria"
 
-
-  @SID_24
-  Scenario: VRM - Add New Forensics Report criteria - Source IP - Equals
+  @SID_22
+  Scenario: VRM - Add New Forensics criteria - Source IP - Equals
     When UI "Create" Forensics With Name "Source IP Criteria"
       | Criteria | Event Criteria:Source IP,Operator:Equals,IPType:IPv4,IPValue:0.0.0.0 |
       | Output   | Start Time,Attack ID                                                 |
     Then UI Click Button "My Forensics" with value "Source IP Criteria"
     Then UI Click Button "Generate Snapshot Forensics Manually" with value "Source IP Criteria"
     Then Sleep "35"
-    And UI Click Button "Views.Forensic" with value "Source IP Criteria"
-    Then UI Validate "Forensics.Table" Table rows count EQUALS to 6
+    And UI Click Button "Views.Forensic" with value "Source IP Criteria,0"
+    Then UI Validate "Forensics.Table" Table rows count EQUALS to 0
     Then UI Delete Forensics With Name "Source IP Criteria"
 
-
-  @SID_25
-  Scenario: VRM - Add New Forensics Report criteria - Source IP - Not Equals
+  @SID_23
+  Scenario: VRM - Add New Forensics criteria - Source IP - Not Equals
     When UI "Create" Forensics With Name "Not Source IP Criteria"
       | Criteria | Event Criteria:Source IP,Operator:Not Equals,IPType:IPv4,IPValue:0.0.0.0 |
       | Output   | Start Time,Attack ID                                                     |
     Then UI Click Button "My Forensics" with value "Not Source IP Criteria"
     Then UI Click Button "Generate Snapshot Forensics Manually" with value "Not Source IP Criteria"
     Then Sleep "35"
-    And UI Click Button "Views.Forensic" with value "Not Source IP Criteria"
-    Then UI Validate "Forensics.Table" Table rows count EQUALS to 30
+    And UI Click Button "Views.Forensic" with value "Not Source IP Criteria,0"
+    Then UI Validate "Forensics.Table" Table rows count EQUALS to 656
     Then UI Delete Forensics With Name "Not Source IP Criteria"
 
-
-  @SID_26
-  Scenario: VRM - Add New Forensics Report criteria - Source Port - Equals
+  @SID_24
+  Scenario: VRM - Add New Forensics criteria - Source Port - Equals
     When UI "Create" Forensics With Name "Source Port Criteria"
-      | Criteria | Event Criteria:Source Port,Operator:Equals,portType:Port,portValue:0 |
-      | Output   | Start Time,Attack ID                                                 |
+      | Criteria | Event Criteria:Source Port,Operator:Equals,portType:Single,portValue:0 |
+      | Output   | Start Time,Attack ID                                                   |
     Then UI Click Button "My Forensics" with value "Source Port Criteria"
     Then UI Click Button "Generate Snapshot Forensics Manually" with value "Source Port Criteria"
     Then Sleep "35"
-    And UI Click Button "Views.Forensic" with value "Source Port Criteria"
-    Then UI Validate "Forensics.Table" Table rows count EQUALS to 17
+    And UI Click Button "Views.Forensic" with value "Source Port Criteria,0"
+    Then UI Validate "Forensics.Table" Table rows count EQUALS to 636
     Then UI Delete Forensics With Name "Source Port Criteria"
 
-
-  @SID_27
-  Scenario: VRM - Add New Forensics Report criteria - Source Port - Not Equals
+  @SID_25
+  Scenario: VRM - Add New Forensics criteria - Source Port - Not Equals
     When UI "Create" Forensics With Name "Not Source Port Criteria"
-      | Criteria | Event Criteria:Source Port,Operator:Not Equals,portType:Port,portValue:0 |
-      | Output   | Start Time,Attack ID                                                     |
+      | Criteria | Event Criteria:Source Port,Operator:Not Equals,portType:Single,portValue:0 |
+      | Output   | Start Time,Attack ID                                                       |
     Then UI Click Button "My Forensics" with value "Not Source Port Criteria"
     Then UI Click Button "Generate Snapshot Forensics Manually" with value "Not Source Port Criteria"
     Then Sleep "35"
-    And UI Click Button "Views.Forensic" with value "Not Source Port Criteria"
-    Then UI Validate "Forensics.Table" Table rows count EQUALS to 20
+    And UI Click Button "Views.Forensic" with value "Not Source Port Criteria,0"
+    Then UI Validate "Forensics.Table" Table rows count EQUALS to 26
     Then UI Delete Forensics With Name "Not Source Port Criteria"
 
 
-  @SID_28
-  Scenario: VRM - Add New Forensics Report criteria - Threat Category - Equals
+  @SID_26
+  Scenario: VRM - Add New Forensics criteria - Threat Category - Equals
     When UI "Create" Forensics With Name "Category Criteria"
-      | Criteria | Event Criteria:Threat Category,Operator:Equals,Value:[ACL] |
-      | Output   | Start Time,Attack ID,Threat Category                       |
+      | Criteria | Event Criteria:Threat Category,Operator:Equals,Value:ACL |
+      | Output   | Start Time,Attack ID,Threat Category                     |
     Then UI Click Button "My Forensics" with value "Category Criteria"
     Then UI Click Button "Generate Snapshot Forensics Manually" with value "Category Criteria"
     Then Sleep "35"
-    And UI Click Button "Views.Forensic" with value "Category Criteria"
-    Then UI Validate "Forensics.Table" Table rows count EQUALS to 3
+    And UI Click Button "Views.Forensic" with value "Category Criteria,0"
+    Then UI Validate "Forensics.Table" Table rows count EQUALS to 628
     Then UI Delete Forensics With Name "Category Criteria"
 
-  @SID_29
-  Scenario: VRM - Add New Forensics Report criteria - Threat Category - Not Equals
+  @SID_27
+  Scenario: VRM - Add New Forensics criteria - Threat Category - Not Equals
     When UI "Create" Forensics With Name "Not Category Criteria"
-      | Criteria | Event Criteria:Threat Category,Operator:Not Equals,Value:[ACL] |
-      | Output   | Start Time,Attack ID,Threat Category                           |
-    Then UI Click Button "My Forensics" with value "Not Destination IP Criteria"
-    Then UI Click Button "Generate Snapshot Forensics Manually" with value "Not Destination IP Criteria"
+      | Criteria | Event Criteria:Threat Category,Operator:Not Equals,Value:ACL |
+      | Output   | Start Time,Attack ID,Threat Category                         |
+    Then UI Click Button "My Forensics" with value "Not Category Criteria"
+    Then UI Click Button "Generate Snapshot Forensics Manually" with value "Not Category Criteria"
     Then Sleep "35"
-    And UI Click Button "Views.Forensic" with value "Not Category Criteria"
+    And UI Click Button "Views.Forensic" with value "Not Category Criteria,0"
     Then UI Validate "Forensics.Table" Table rows count EQUALS to 34
     Then UI Delete Forensics With Name "Not Category Criteria"
 
-
-  @SID_30
-  Scenario: VRM - Add New Forensics Report criteria - Threat Category - multiple Not Equals
+  @SID_28
+  Scenario: VRM - Add New Forensics criteria - Threat Category - multiple Not Equals
     When UI "Create" Forensics With Name "Multiple Not Category Criteria"
-      | Criteria | Event Criteria:Threat Category,Operator:Not Equals,Value:[ACL,Anti Scanning,Behavioral DoS,DoS,HTTP Flood,Intrusions,Cracking Protection,SYN Flood,Anomalies,Stateful ACL,DNS Flood,Bandwidth Management,Traffic Filters] |
-      | Output   | Start Time,Attack ID,Threat Category                                                                                                                                                                                      |
+      | Criteria | Event Criteria:Threat Category,Operator:Not Equals,Value:[ACL,AntiScanning,BehavioralDOS,DOSShield,Intrusions,CrackingProtection,SynFlood,Anomalies,StatefulAcl,DNS,BWM,TrafficFilters] |
+      | Output   | Start Time,Attack ID,Threat Category                                                                                                                                                            |
     Then UI Click Button "My Forensics" with value "Multiple Not Category Criteria"
     Then UI Click Button "Generate Snapshot Forensics Manually" with value "Multiple Not Category Criteria"
     Then Sleep "35"
-    And UI Click Button "Views.Forensic" with value "Multiple Not Category Criteria"
-    Then UI Validate "Forensics.Table" Table rows count EQUALS to 37
+    And UI Click Button "Views.Forensic" with value "Multiple Not Category Criteria,0"
+    Then UI Validate "Forensics.Table" Table rows count EQUALS to 662
     Then UI Delete Forensics With Name "Multiple Not Category Criteria"
 
 
-  @SID_47
-  Scenario: VRM - Add New Forensics Report criteria - Threat Category - Equals Connection PPS
+  @SID_29
+  Scenario: VRM - Add New Forensics criteria - Threat Category - Equals Connection PPS
     When UI "Create" Forensics With Name "Category Criteria"
-      | Criteria | Event Criteria:Threat Category,Operator:Equals,Value:[Connection PPS] |
-      | Output   | Start Time,Attack ID,Threat Category                                  |
+      | Criteria | Event Criteria:Threat Category,Operator:Equals,Value:ConnectionPPS |
+      | Output   | Start Time,Attack ID,Threat Category                               |
     Then UI Click Button "My Forensics" with value "Category Criteria"
     Then UI Click Button "Generate Snapshot Forensics Manually" with value "Category Criteria"
     Then Sleep "35"
-    And UI Click Button "Views.Forensic" with value "Category Criteria"
+    And UI Click Button "Views.Forensic" with value "Category Criteria,0"
     Then UI Validate "Forensics.Table" Table rows count EQUALS to 1
     Then UI Delete Forensics With Name "Category Criteria"
 
-  @SID_48
-  Scenario: VRM - Add New Forensics Report criteria - Threat Category - Not Equals Connection PPS
+
+  @SID_30
+  Scenario: VRM - Add New Forensics criteria - Threat Category - Not Equals Connection PPS
     When UI "Create" Forensics With Name "Category Criteria"
-      | Criteria | Event Criteria:Threat Category,Operator:Not Equals,Value:[Connection PPS] |
-      | Output   | Start Time,Attack ID,Threat Category                                      |
+      | Criteria | Event Criteria:Threat Category,Operator:Not Equals,Value:ConnectionPPS |
+      | Output   | Start Time,Attack ID,Threat Category                                   |
     Then UI Click Button "My Forensics" with value "Category Criteria"
     Then UI Click Button "Generate Snapshot Forensics Manually" with value "Category Criteria"
     Then Sleep "35"
-    And UI Click Button "Views.Forensic" with value "Category Criteria"
-    Then UI Validate "Forensics.Table" Table rows count EQUALS to 36
+    And UI Click Button "Views.Forensic" with value "Category Criteria,0"
+    Then UI Validate "Forensics.Table" Table rows count EQUALS to 661
     Then UI Delete Forensics With Name "Category Criteria"
 
 # 11 ##################################################################################################################
-
+ 
   @SID_31
-  Scenario: VRM - Forensics Report criteria - All Conditions
+  Scenario: VRM - Forensics criteria - All Conditions
     # manipulate start time of 7447-1402580209 in favour of sort test
     Then CLI Run remote linux Command "curl -XPOST localhost:9200/dp-attack-raw-*/_update_by_query -d '{"query": {"match": {"attackIpsId": "7447-1402580209"}},"script": {"inline": "ctx._source.startTime = 'ctx._source.startTime+10000'"}}'" on "ROOT_SERVER_CLI"
     When UI "Create" Forensics With Name "Criteria_AND"
-      | Criteria | Event Criteria:Action,Operator:Equals,Value:[Forward,Drop]Event Criteria:Risk,Operator:Equals,Value:[High,Low]Event Criteria:Protocol,Operator:Equals,Value:UDP |
-      | Output   | Start Time,Action,Attack ID,Direction,Protocol,Threat Category,Attack Name,Risk                                                                                 |
+      | Criteria | Event Criteria:Action,Operator:Equals,Value:[Forward,Drop];Event Criteria:Risk,Operator:Equals,Value:[High,Low];Event Criteria:Protocol,Operator:Equals,Value:UDP |
+      | Output   | Start Time,Action,Attack ID,Direction,Protocol,Threat Category,Attack Name,Risk                                                                               |
     Then UI Click Button "My Forensics" with value "Criteria_AND"
     Then UI Click Button "Generate Snapshot Forensics Manually" with value "Criteria_AND"
     Then Sleep "35"
-    And UI Click Button "Views.Forensic" with value "Criteria_AND"
+    And UI Click Button "Views.Forensic" with value "Criteria_AND,0"
     Then UI Validate "Forensics.Table" Table rows count EQUALS to 6
     Then UI Validate Table record values by columns with elementLabel "Forensics.Table" findBy columnName "Attack ID" findBy cellValue "803-1525623158"
       | columnName | value |
@@ -451,27 +425,29 @@ Feature: Forensic Criteria Tests
       | columnName | value   |
       | Action     | Forward |
 
+
   @SID_32
   Scenario: VRM - Forensics Table Sorting
     Then UI Validate Table record values by columns with elementLabel "Forensics.Table" findBy index 0
       | columnName | value          |
-      | Attack ID  | 803-1525623158 |
+      | Attack ID  | 7447-1402580209 |
     Then UI Validate Table record values by columns with elementLabel "Forensics.Table" findBy index 3
       | columnName | value           |
-      | Attack ID  | 7447-1402580209 |
+      | Attack ID  | 803-1525623158 |
     Then UI Validate Table record values by columns with elementLabel "Forensics.Table" findBy index 5
       | columnName | value         |
       | Attack ID  | 46-1407864418 |
     Then UI Validate Table record values by columns with elementLabel "Forensics.Table" findBy index 2
       | columnName | value         |
-      | Attack ID  | 36-1491757775 |
+      | Attack ID  | 37-1491757775 |
     Then UI Delete Forensics With Name "Criteria_AND"
 
+
   @SID_33
-  Scenario: VRM - Forensics Report criteria - Any Condition
+  Scenario: VRM - Forensics criteria - Any Condition
     When UI "Create" Forensics With Name "Criteria_OR"
-      | Criteria | Event Criteria:Action,Operator:Equals,Value:[Forward,Drop]Event Criteria:Risk,Operator:Equals,Value:[High,Low]Event Criteria:Protocol,Operator:Equals,Value:UDP |
-      | Output   | Start Time,Action,Attack ID,Direction,Protocol,Threat Category,Attack Name,Risk                                                                                 |
+      | Criteria | Event Criteria:Action,Operator:Equals,Value:[Forward,Drop];Event Criteria:Risk,Operator:Equals,Value:[High,Low];Event Criteria:Protocol,Operator:Equals,Value:UDP |
+      | Output   | Start Time,Action,Attack ID,Direction,Protocol,Threat Category,Attack Name,Risk                                                                               |
     Then UI Click Button "My Forensics" with value "Criteria_OR"
     Then UI Click Button "Edit Forensics" with value "Criteria_OR"
     Then UI Click Button "Criteria Tab"
@@ -480,20 +456,16 @@ Feature: Forensic Criteria Tests
     Then UI Click Button "My Forensics" with value "Criteria_OR"
     Then UI Click Button "Generate Snapshot Forensics Manually" with value "Criteria_OR"
     Then Sleep "35"
-    And UI Click Button "Views.Forensic" with value "Criteria_OR"
-    Then UI Validate "Forensics.Table" Table rows count EQUALS to 34
+    And UI Click Button "Views.Forensic" with value "Criteria_OR,0"
+    Then UI Validate "Forensics.Table" Table rows count EQUALS to 659
     Then UI Delete Forensics With Name "Criteria_OR"
-#    Then UI Click Button "Edit" with value "Criteria_OR"
-#    Then UI Click Button "Expand Collapse"
-#    And UI Click Button "Tab" with value "criteria-tab"
-#    Then UI Click Button "Criteria.Any"
-#    Then UI Click Button "Submit" with value "Submit"
 
+  
   @SID_34
-  Scenario: VRM - Forensics Report criteria - Custom Condition
+  Scenario: VRM - Forensics criteria - Custom Condition
     When UI "Create" Forensics With Name "Criteria_Custom"
-      | Criteria | Event Criteria:Action,Operator:Equals,Value:[Drop]Event Criteria:Protocol,Operator:Not Equals,Value:[UDP]Event Criteria:Action,Operator:Equals,Value:ForwardEvent Criteria:Protocol,Operator:Equals,Value:[UDP] |
-      | Output   | Start Time,Action,Attack ID,Direction,Protocol,Threat Category,Attack Name,Risk                                                                                                                                 |
+      | Criteria | Event Criteria:Action,Operator:Equals,Value:Drop;Event Criteria:Protocol,Operator:Not Equals,Value:UDP;Event Criteria:Action,Operator:Equals,Value:Forward;Event Criteria:Protocol,Operator:Equals,Value:UDP |
+      | Output   | Start Time,Action,Attack ID,Direction,Protocol,Threat Category,Attack Name,Risk                                                                                                                              |
     Then UI Click Button "My Forensics" with value "Criteria_Custom"
     Then UI Click Button "Edit Forensics" with value "Criteria_Custom"
     Then UI Click Button "Criteria Tab"
@@ -503,129 +475,11 @@ Feature: Forensic Criteria Tests
     Then UI Click Button "My Forensics" with value "Criteria_Custom"
     Then UI Click Button "Generate Snapshot Forensics Manually" with value "Criteria_Custom"
     Then Sleep "35"
-    And UI Click Button "Views.Forensic" with value "Criteria_Custom"
-    Then UI Validate "Forensics.Table" Table rows count EQUALS to 30
+    And UI Click Button "Views.Forensic" with value "Criteria_Custom,0"
+    Then UI Validate "Forensics.Table" Table rows count EQUALS to 655
     Then UI Delete Forensics With Name "Criteria_Custom"
-#    And UI Click Button "Edit" with value "Criteria_Custom"
-#    Then UI Click Button "Expand Collapse"
-#    And UI Click Button "Tab" with value "criteria-tab"
-#    And scroll Into View to label "Criteria.Custom checkBox"
-#    Then UI Click Button "Criteria.Custom checkBox"
-#    Then UI Click Button "Submit" with value "Submit"
-
 
   @SID_35
-  Scenario: VRM - Forensics Report criteria - All Conditions max selections
-    When UI "Create" Forensics With Name "Criteria_10_Conditions"
-      | Criteria | Event Criteria:Protocol,Operator:Not Equals,Value:Non-IP Event Criteria:Risk,Operator:Not Equals,Value:Info Event Criteria:Direction,Operator:Not Equals,Value:Both Event Criteria:Attack Name,Operator:Not Equals,Value:TCP Mid Flow packet Event Criteria:Duration,Operator:Not Equals,Value:[More than 1 hour] Event Criteria:Direction,Operator:Equals,Value:Inbound Event Criteria:Attack ID,Operator:Not Equals,Value:803-1525623158 Event Criteria:Attack ID,Operator:Not Equals,Value:800-1525623158 Event Criteria:Attack ID,Operator:Not Equals,Value:37-1491757775 Event Criteria:Action,Operator:Equals,Value:[Drop] |
-      | Output   | Start Time,Action,Attack ID,Direction,Protocol,Threat Category,Attack Name,Risk                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  |
-    Then UI Click Button "My Forensics" with value "Criteria_10_Conditions"
-    Then UI Click Button "Generate Snapshot Forensics Manually" with value "Criteria_10_Conditions"
-    Then Sleep "35"
-    And UI Click Button "Views.Forensic" with value "Criteria_10_Conditions"
-    Then UI Validate "Forensics.Table" Table rows count EQUALS to 9
-    Then UI Delete Forensics With Name "Criteria_10_Conditions"
-
-
-#  @SID_36
-#  Scenario: modify one attack's rate value to over 2TB
-#    Then CLI Run remote linux Command "curl -XPOST "localhost:9200/dp-attack-raw-*/_update_by_query/?conflicts=proceed" -d '{"query":{"bool": {"must": [{"match": {"attackIpsId": "7839-1402580209"}}]}},"script": {"inline": "ctx._source.averageAttackPacketRatePps ='3000000000L' ctx._source.averageAttackRateBps = '2001000000000L'"}}'" on "ROOT_SERVER_CLI"
-#
-#  @SID_37
-#  Scenario: VRM - Forensics Report criteria - PPS greater than Kilo
-#    When UI "Create" Forensics With Name "PPS greater than K"
-#      | Criteria | Event Criteria:Attack Rate in pps,Operator:Greater than,RateValue:2,Unit:K |
-#      | Output   | Start Time,Action,Attack ID,Threat Category,Attack Name,Risk                |
-#    And UI Navigate to "AMS Reports" page via homePage
-#    And UI Navigate to "New Forensics" page via homePage
-#    When UI Generate and Validate Forensics With Name "PPS greater than K" with Timeout of 300 Seconds
-#    And UI Click Button "Views.Forensic" with value "PPS greater than K"
-#    Then UI Validate "Forensics.Table" Table rows count EQUALS to 10
-#
-#  @SID_38
-#  Scenario: VRM - Forensics Report criteria - PPS greater than Mega
-#    When UI "Create" Forensics With Name "PPS greater than M"
-#      | Criteria | Event Criteria:Attack Rate in pps,Operator:Greater than,RateValue:2,Unit:M |
-#      | Output   | Start Time,Action,Attack ID,Threat Category,Attack Name,Risk                |
-#    And UI Navigate to "AMS Reports" page via homePage
-#    And UI Navigate to "New Forensics" page via homePage
-#    When UI Generate and Validate Forensics With Name "PPS greater than M" with Timeout of 300 Seconds
-#    And UI Click Button "Views.Forensic" with value "PPS greater than M"
-#    Then UI Validate "Forensics.Table" Table rows count EQUALS to 3
-#
-#  @SID_39
-#  Scenario: VRM - Forensics Report criteria - PPS greater than Giga
-#    When UI "Create" Forensics With Name "PPS greater than G"
-#      | Criteria | Event Criteria:Attack Rate in pps,Operator:Greater than,RateValue:2,Unit:G |
-#      | Output   | Start Time,Action,Attack ID,Threat Category,Attack Name,Risk                |
-#    And UI Navigate to "AMS Reports" page via homePage
-#    And UI Navigate to "New Forensics" page via homePage
-#    When UI Generate and Validate Forensics With Name "PPS greater than G" with Timeout of 300 Seconds
-#    And UI Click Button "Views.Forensic" with value "PPS greater than G"
-#    Then UI Validate "Forensics.Table" Table rows count EQUALS to 1
-#
-#  @SID_40
-#  Scenario: modify one attack's rate value to over 2TB
-#    Then CLI Run remote linux Command "curl -XPOST "localhost:9200/dp-attack-raw-*/_update_by_query/?conflicts=proceed" -d '{"query":{"bool": {"must": [{"match": {"attackIpsId": "7839-1402580209"}}]}},"script": {"inline": "ctx._source.averageAttackPacketRatePps ='2001000000000L' ctx._source.averageAttackRateBps = '2001000000000L'"}}'" on "ROOT_SERVER_CLI"
-#
-#  @SID_41
-#  Scenario: VRM - Forensics Report criteria - PPS greater than Tera
-#    When UI "Create" Forensics With Name "PPS greater than T"
-#      | Criteria | Event Criteria:Attack Rate in pps,Operator:Greater than,RateValue:2,Unit:T |
-#      | Output   | Start Time,Action,Attack ID,Threat Category,Attack Name,Risk                |
-#    And UI Navigate to "AMS Reports" page via homePage
-#    And UI Navigate to "New Forensics" page via homePage
-#    When UI Generate and Validate Forensics With Name "PPS greater than T" with Timeout of 300 Seconds
-#    And UI Click Button "Views.Forensic" with value "PPS greater than T"
-#    Then UI Validate "Forensics.Table" Table rows count EQUALS to 1
-#
-#  @SID_42
-#  Scenario: VRM - Forensics Report criteria - bps greater than Kilo
-#    When UI "Create" Forensics With Name "bps greater than K"
-#      | Criteria | Event Criteria:Attack Rate in bps,Operator:Greater than,RateValue:3900,Unit:K |
-#      | Output   | Start Time,Action,Attack ID,Threat Category,Attack Name,Risk                   |
-#    And UI Navigate to "AMS Reports" page via homePage
-#    And UI Navigate to "New Forensics" page via homePage
-#    When UI Generate and Validate Forensics With Name "bps greater than K" with Timeout of 300 Seconds
-#    And UI Click Button "Views.Forensic" with value "bps greater than K"
-#    Then CLI Run remote linux Command "curl -XPOST localhost:9200/dp-attack-raw-*/_search -d '{"query":{"bool":{"must":[{"match_all":{}}]}},"from":0,"size":1000}' > /opt/radware/storage/bps.txt" on "ROOT_SERVER_CLI"
-#    Then UI Validate "Forensics.Table" Table rows count EQUALS to 9
-#
-#  @SID_43
-#  Scenario: VRM - Forensics Report criteria - bps greater than Mega
-#    When UI "Create" Forensics With Name "bps greater than M"
-#      | Criteria | Event Criteria:Attack Rate in bps,Operator:Greater than,RateValue:2,Unit:M |
-#      | Output   | Start Time,Action,Attack ID,Threat Category,Attack Name,Risk                |
-#    And UI Navigate to "AMS Reports" page via homePage
-#    And UI Navigate to "New Forensics" page via homePage
-#    When UI Generate and Validate Forensics With Name "bps greater than M" with Timeout of 300 Seconds
-#    And UI Click Button "Views.Forensic" with value "bps greater than M"
-#    Then UI Validate "Forensics.Table" Table rows count EQUALS to 10
-#
-#  @SID_44
-#  Scenario: VRM - Forensics Report criteria - bps greater than Giga
-#    When UI "Create" Forensics With Name "bps greater than G"
-#      | Criteria | Event Criteria:Attack Rate in bps,Operator:Greater than,RateValue:2,Unit:G |
-#      | Output   | Start Time,Action,Attack ID,Threat Category,Attack Name,Risk                |
-#    And UI Navigate to "AMS Reports" page via homePage
-#    And UI Navigate to "New Forensics" page via homePage
-#    When UI Generate and Validate Forensics With Name "bps greater than G" with Timeout of 300 Seconds
-#    And UI Click Button "Views.Forensic" with value "bps greater than G"
-#    Then UI Validate "Forensics.Table" Table rows count EQUALS to 3
-#
-#
-#  @SID_45
-#  Scenario: VRM - Forensics Report criteria - bps greater than Tera
-#    When UI "Create" Forensics With Name "bps greater than T"
-#      | Criteria | Event Criteria:Attack Rate in bps,Operator:Greater than,RateValue:2,Unit:T |
-#      | Output   | Start Time,Action,Attack ID,Threat Category,Attack Name,Risk                |
-#    And UI Navigate to "AMS Reports" page via homePage
-#    And UI Navigate to "New Forensics" page via homePage
-#    When UI Generate and Validate Forensics With Name "bps greater than T" with Timeout of 300 Seconds
-#    And UI Click Button "Views.Forensic" with value "bps greater than T"
-#    Then UI Validate "Forensics.Table" Table rows count EQUALS to 1
-
-  @SID_46
   Scenario: Cleanup
     Then UI Open "Configurations" Tab
     Given UI logout and close browser
