@@ -95,46 +95,6 @@ Feature:Create DefenseFlow Part2
     Then UI Delete Forensics With Name "Output Risk Action Not Equals"
 
   @SID_6
-  Scenario: create new Output VLAN Tag Attack ID Equals
-    Given UI "Create" Forensics With Name "Output VLAN Tag Attack ID Equals"
-      | Product               | DefenseFlow                                                                                                      |
-      | Output                | VLAN Tag                                                                                                         |
-      | Criteria              | Event Criteria:Radware ID,Operator:Equals,Value:3333                                                              |
-      | devices               | All                                                                                                              |
-      | Time Definitions.Date | Relative:[Hours,2]                                                                                               |
-      | Schedule              | Run Every:Weekly, On Time:+6H, At Days:[WED]                                                                     |
-      | Share                 | FTP:checked, FTP.Location:172.17.164.10, FTP.Path:/home/radware/ftp/, FTP.Username:radware, FTP.Password:radware |
-      | Format                | Select: CSV                                                                                                      |
-    Then UI "Validate" Forensics With Name "Output VLAN Tag Attack ID Equals"
-      | Product               | DefenseFlow                                                                                                      |
-      | Output                | VLAN Tag                                                                                                         |
-      | Criteria              | Event Criteria:Radware ID,Operator:Equals,Value:3333                                                              |
-      | devices               | All                                                                                                              |
-      | Time Definitions.Date | Relative:[Hours,2]                                                                                               |
-      | Schedule              | Run Every:Weekly, On Time:+6H, At Days:[WED]                                                                     |
-      | Share                 | FTP:checked, FTP.Location:172.17.164.10, FTP.Path:/home/radware/ftp/, FTP.Username:radware, FTP.Password:radware |
-      | Format                | Select: CSV                                                                                                      |
-    Then UI Delete Forensics With Name "Output VLAN Tag Attack ID Equals"
-
-  @SID_7
-  Scenario: create new Output Destination IP Address,Destination Port,Direction,Protocol,Radware ID,Duration,Total Packets Dropped Attack ID Not Equals
-    Given UI "Create" Forensics With Name "Output Destination IP Address_Destination Port_Direction_Protocol_Radware ID_Duration_Total Packets Dropped Attack ID Not Equals"
-      | Product               | DefenseFlow                                                                                                      |
-      | Output                | Destination IP Address,Destination Port,Direction,Protocol,Radware ID,Duration,Total Packets Dropped             |
-      | Criteria              | Event Criteria:Radware ID,Operator:Not Equals,Value:111111                                                        |
-      | devices               | All                                                                                                              |
-      | Share                 | Email:[automation.vision2@radware.com],Subject:myEdit subject,Body:myEdit body                                   |
-      | Format                | Select: CSV                                                                                                      |
-    Then UI "Validate" Forensics With Name "Output Destination IP Address_Destination Port_Direction_Protocol_Radware ID_Duration_Total Packets Dropped Attack ID Not Equals"
-      | Product               | DefenseFlow                                                                                                      |
-      | Output                | Destination IP Address,Destination Port,Direction,Protocol,Radware ID,Duration,Total Packets Dropped             |
-      | Criteria              | Event Criteria:Radware ID,Operator:Not Equals,Value:111111                                                        |
-      | devices               | All                                                                                                              |
-      | Share                 | Email:[automation.vision2@radware.com],Subject:myEdit subject,Body:myEdit body                                   |
-      | Format                | Select: CSV                                                                                                      |
-    Then UI Delete Forensics With Name "Output Destination IP Address_Destination Port_Direction_Protocol_Radware ID_Duration_Total Packets Dropped Attack ID Not Equals"
-
-  @SID_8
   Scenario: create new Output Action,Attack ID,Policy Name,Source IP Address,Destination IP Address,Destination Port,Total Mbits Dropped,Max bps,Physical Port,Risk,VLAN Tag Attack Name Equals
     Given UI "Create" Forensics With Name "Output Action_Attack ID_Policy Name_Source IP Address_Destination IP Address_Destination Port_Total Mbits Dropped_Max bps_Physical Port_Risk_VLAN Tag Attack Name Equals"
       | Product               | DefenseFlow                                                                                                                                    |
@@ -154,7 +114,7 @@ Feature:Create DefenseFlow Part2
       | Format                | Select: CSV With Attack Details                                                                                                                |
     Then UI Delete Forensics With Name "Output Action_Attack ID_Policy Name_Source IP Address_Destination IP Address_Destination Port_Total Mbits Dropped_Max bps_Physical Port_Risk_VLAN Tag Attack Name Equals"
 
-  @SID_9
+  @SID_7
   Scenario: create new Output Source IP Address,Source Port,Destination IP Address,Radware ID,Duration,Total Packets Dropped,Max pps Attack Name Not Equals
     Given UI "Create" Forensics With Name "Output Source IP Address_Source Port_Destination IP Address_Radware ID_Duration_Total Packets Dropped_Max pps Attack Name Not Equals"
       | Product               | DefenseFlow                                                                                                      |
@@ -176,7 +136,7 @@ Feature:Create DefenseFlow Part2
       | Format                | Select: HTML                                                                                                     |
     Then UI Delete Forensics With Name "Output Source IP Address_Source Port_Destination IP Address_Radware ID_Duration_Total Packets Dropped_Max pps Attack Name Not Equals"
 
-  @SID_10
+  @SID_8
   Scenario: create new Output Start Time,End Time,Device IP Address,Threat Category,Attack Name,Action Attack Rate in bps Greater than
     Given UI "Create" Forensics With Name "Output Start Time_End Time_Device IP Address_Threat Category_Attack Name_Action Attack Rate in bps Greater than"
       | Product               | DefenseFlow                                                                                                      |
@@ -198,7 +158,7 @@ Feature:Create DefenseFlow Part2
       | Format                | Select: CSV                                                                                                      |
     Then UI Delete Forensics With Name "Output Start Time_End Time_Device IP Address_Threat Category_Attack Name_Action Attack Rate in bps Greater than"
 
-  @SID_11
+  @SID_9
   Scenario: create new Output Policy Name,Source IP Address Attack Rate in bps Greater than
     Given UI "Create" Forensics With Name "Output Policy Name_Source IP Address Attack Rate in bps Greater than"
       | Product               | DefenseFlow                                                                    |
@@ -220,7 +180,7 @@ Feature:Create DefenseFlow Part2
       | Format                | Select: CSV                                                                    |
     Then UI Delete Forensics With Name "Output Policy Name_Source IP Address Attack Rate in bps Greater than"
 
-  @SID_12
+  @SID_10
   Scenario: create new Output Destination IP Address,Destination Port,Direction Attack Rate in bps Greater than
     Given UI "Create" Forensics With Name "Output Destination IP Address_Destination Port_Direction Attack Rate in bps Greater than"
       | Product               | DefenseFlow                                                                                                      |
@@ -242,7 +202,7 @@ Feature:Create DefenseFlow Part2
       | Format                | Select: CSV With Attack Details                                                                                  |
     Then UI Delete Forensics With Name "Output Destination IP Address_Destination Port_Direction Attack Rate in bps Greater than"
 
-  @SID_13
+  @SID_11
   Scenario: create new Output All Attack Rate in bps Greater than
     Given UI "Create" Forensics With Name "Output All Attack Rate in bps Greater than"
       | Product               | DefenseFlow                                                                                                                                                                                                                                                                                       |
@@ -262,7 +222,7 @@ Feature:Create DefenseFlow Part2
       | Format                | Select: HTML                                                                                                                                                                                                                                                                                      |
     Then UI Delete Forensics With Name "Output All Attack Rate in bps Greater than"
 
-  @SID_14
+  @SID_12
   Scenario: create new Output Device IP Address Attack Rate in pps Greater than
     Given UI "Create" Forensics With Name "Output Device IP Address Attack Rate in pps Greater than"
       | Product               | DefenseFlow                                                                    |
@@ -282,7 +242,7 @@ Feature:Create DefenseFlow Part2
       | Format                | Select: HTML                                                                   |
     Then UI Delete Forensics With Name "Output Device IP Address Attack Rate in pps Greater than"
 
-  @SID_15
+  @SID_13
   Scenario: create new Output End Time Attack Rate in pps Greater than
     Given UI "Create" Forensics With Name "Output End Time Attack Rate in pps Greater than"
       | Product               | DefenseFlow                                                                    |
@@ -300,7 +260,7 @@ Feature:Create DefenseFlow Part2
       | Format                | Select: CSV                                                                    |
     Then UI Delete Forensics With Name "Output End Time Attack Rate in pps Greater than"
 
-  @SID_16
+  @SID_14
   Scenario: create new Output Start Time Attack Rate in pps Greater than
     Given UI "Create" Forensics With Name "Output Start Time Attack Rate in pps Greater than"
       | Product               | DefenseFlow                                                                                                      |
@@ -322,7 +282,7 @@ Feature:Create DefenseFlow Part2
       | Format                | Select: CSV With Attack Details                                                                                  |
     Then UI Delete Forensics With Name "Output Start Time Attack Rate in pps Greater than"
 
-  @SID_17
+  @SID_15
   Scenario: create new Output Threat Category Attack Rate in pps Greater than
     Given UI "Create" Forensics With Name "Output Threat Category Attack Rate in pps Greater than"
       | Product               | DefenseFlow                                                                    |
@@ -344,7 +304,7 @@ Feature:Create DefenseFlow Part2
       | Format                | Select: HTML                                                                   |
     Then UI Delete Forensics With Name "Output Threat Category Attack Rate in pps Greater than"
 
-  @SID_18
+  @SID_16
   Scenario: create new Output Attack Name1 Destination IP Equal
     Given UI "Create" Forensics With Name "Output Attack Name1 Destination IP Equal"
       | Product               | DefenseFlow                                                                                                      |
@@ -364,7 +324,7 @@ Feature:Create DefenseFlow Part2
       | Format                | Select: CSV                                                                                                      |
     Then UI Delete Forensics With Name "Output Attack Name1 Destination IP Equal"
 
-  @SID_19
+  @SID_17
   Scenario: create new Output Attack Name2 Destination IP Not Equal
     Given UI "Create" Forensics With Name "Output Attack Name2 Destination IP Not Equal"
       | Product               | DefenseFlow                                                                    |
@@ -386,7 +346,7 @@ Feature:Create DefenseFlow Part2
       | Format                | Select: CSV                                                                    |
     Then UI Delete Forensics With Name "Output Attack Name2 Destination IP Not Equal"
 
-  @SID_20
+  @SID_18
   Scenario: create new Output Action Destination IP Equal
     Given UI "Create" Forensics With Name "Output Action Destination IP Equal"
       | Product               | DefenseFlow                                                                                                      |
@@ -408,7 +368,7 @@ Feature:Create DefenseFlow Part2
       | Format                | Select: CSV With Attack Details                                                                                  |
     Then UI Delete Forensics With Name "Output Action Destination IP Equal"
 
-  @SID_21
+  @SID_19
   Scenario: create new Output Attack ID Destination IP Not Equal
     Given UI "Create" Forensics With Name "Output Attack ID Destination IP Not Equal"
       | Product               | DefenseFlow                                                                                    |
@@ -426,7 +386,7 @@ Feature:Create DefenseFlow Part2
       | Format                | Select: HTML                                                                                   |
     Then UI Delete Forensics With Name "Output Attack ID Destination IP Not Equal"
 
-  @SID_22
+  @SID_20
   Scenario: create new Output Policy Name Destination IP Equal
     Given UI "Create" Forensics With Name "Output Policy Name Destination IP Equal"
       | Product               | DefenseFlow                                                                                                      |
@@ -448,7 +408,7 @@ Feature:Create DefenseFlow Part2
       | Format                | Select: CSV                                                                                                      |
     Then UI Delete Forensics With Name "Output Policy Name Destination IP Equal"
 
-  @SID_23
+  @SID_21
   Scenario: create new Output Source IP Address Destination IP Equal
     Given UI "Create" Forensics With Name "Output Source IP Address Destination IP Equal"
       | Product               | DefenseFlow                                                                                   |
@@ -468,7 +428,7 @@ Feature:Create DefenseFlow Part2
       | Format                | Select: CSV                                                                                   |
     Then UI Delete Forensics With Name "Output Source IP Address Destination IP Equal"
 
-  @SID_24
+  @SID_22
   Scenario: create new Output Source Port Destination Port Equal
     Given UI "Create" Forensics With Name "Output Source Port Destination Port Equal"
       | Product               | DefenseFlow                                                                                                      |
@@ -490,7 +450,7 @@ Feature:Create DefenseFlow Part2
       | Format                | Select: CSV With Attack Details                                                                                  |
     Then UI Delete Forensics With Name "Output Source Port Destination Port Equal"
 
-  @SID_25
+  @SID_23
   Scenario: create new Output Destination IP Address Destination Port Not Equal
     Given UI "Create" Forensics With Name "Output Destination IP Address Destination Port Not Equal"
       | Product               | DefenseFlow                                                                     |
@@ -512,7 +472,7 @@ Feature:Create DefenseFlow Part2
       | Format                | Select: HTML                                                                    |
     Then UI Delete Forensics With Name "Output Destination IP Address Destination Port Not Equal"
 
-  @SID_26
+  @SID_24
   Scenario: create new Output Destination Port Destination Port Equal
     Given UI "Create" Forensics With Name "Output Destination Port Destination Port Equal"
       | Product               | DefenseFlow                                                                                                      |
@@ -532,7 +492,7 @@ Feature:Create DefenseFlow Part2
       | Format                | Select: CSV                                                                                                      |
     Then UI Delete Forensics With Name "Output Destination Port Destination Port Equal"
 
-  @SID_27
+  @SID_25
   Scenario: create new Output Direction Destination Port Equal
     Given UI "Create" Forensics With Name "Output Direction Destination Port Equal"
       | Product               | DefenseFlow                                                                         |
@@ -552,7 +512,7 @@ Feature:Create DefenseFlow Part2
       | Format                | Select: CSV                                                                         |
     Then UI Delete Forensics With Name "Output Direction Destination Port Equal"
 
-  @SID_28
+  @SID_26
   Scenario: create new Output Protocol Destination Port Not Equal
     Given UI "Create" Forensics With Name "Output Protocol Destination Port Not Equal"
       | Product               | DefenseFlow                                                                                                      |
@@ -574,7 +534,7 @@ Feature:Create DefenseFlow Part2
       | Format                | Select: CSV With Attack Details                                                                                  |
     Then UI Delete Forensics With Name "Output Protocol Destination Port Not Equal"
 
-  @SID_29
+  @SID_27
   Scenario: create new Output Radware ID Direction Equal
     Given UI "Create" Forensics With Name "Output Radware ID Direction Equal"
       | Product               | DefenseFlow                                                                    |
@@ -594,7 +554,7 @@ Feature:Create DefenseFlow Part2
       | Format                | Select: HTML                                                                   |
     Then UI Delete Forensics With Name "Output Radware ID Direction Equal"
 
-  @SID_30
+  @SID_28
   Scenario: create new Output Duration Direction Equal
     Given UI "Create" Forensics With Name "Output Duration Direction Equal"
       | Product               | DefenseFlow                                                                                                      |
@@ -614,7 +574,7 @@ Feature:Create DefenseFlow Part2
       | Format                | Select: CSV                                                                                                      |
     Then UI Delete Forensics With Name "Output Duration Direction Equal"
 
-  @SID_31
+  @SID_29
   Scenario: create new Output Total Packets Dropped Direction Equal
     Given UI "Create" Forensics With Name "Output Total Packets Dropped Direction Equal"
       | Product               | DefenseFlow                                                                    |
@@ -634,7 +594,7 @@ Feature:Create DefenseFlow Part2
       | Format                | Select: CSV                                                                    |
     Then UI Delete Forensics With Name "Output Total Packets Dropped Direction Equal"
 
-  @SID_32
+  @SID_30
   Scenario: create new Output Max pps Direction Equal
     Given UI "Create" Forensics With Name "Output Max pps Direction Equal"
       | Product               | DefenseFlow                                                                                                      |
@@ -656,7 +616,7 @@ Feature:Create DefenseFlow Part2
       | Format                | Select: CSV With Attack Details                                                                                  |
     Then UI Delete Forensics With Name "Output Max pps Direction Equal"
 
-  @SID_33
+  @SID_31
   Scenario: create new Output Total Mbits Dropped Direction Not Equal
     Given UI "Create" Forensics With Name "Output Total Mbits Dropped Direction Not Equal"
       | Product               | DefenseFlow                                                                    |
@@ -678,7 +638,7 @@ Feature:Create DefenseFlow Part2
       | Format                | Select: HTML                                                                   |
     Then UI Delete Forensics With Name "Output Total Mbits Dropped Direction Not Equal"
 
-  @SID_34
+  @SID_32
   Scenario: create new Output Max bps Direction Equal
     Given UI "Create" Forensics With Name "Output Max bps Direction Equal"
       | Product               | DefenseFlow                                                                                                      |
@@ -700,7 +660,7 @@ Feature:Create DefenseFlow Part2
       | Format                | Select: CSV                                                                                                      |
     Then UI Delete Forensics With Name "Output Max bps Direction Equal"
 
-  @SID_35
+  @SID_33
   Scenario: create new Output Physical Port Direction Not Equal
     Given UI "Create" Forensics With Name "Output Physical Port Direction Not Equal"
       | Product               | DefenseFlow                                                                    |
@@ -718,7 +678,7 @@ Feature:Create DefenseFlow Part2
       | Format                | Select: CSV                                                                    |
     Then UI Delete Forensics With Name "Output Physical Port Direction Not Equal"
 
-  @SID_36
+  @SID_34
   Scenario: create new Output Risk Duration Equal
     Given UI "Create" Forensics With Name "Output Risk Duration Equal"
       | Product               | DefenseFlow                                                                                                      |
@@ -738,7 +698,7 @@ Feature:Create DefenseFlow Part2
       | Format                | Select: CSV With Attack Details                                                                                  |
     Then UI Delete Forensics With Name "Output Risk Duration Equal"
 
-  @SID_37
+  @SID_35
   Scenario: create new Output VLAN Tag Duration Equal
     Given UI "Create" Forensics With Name "Output VLAN Tag Duration Equal"
       | Product               | DefenseFlow                                                                    |
@@ -760,7 +720,7 @@ Feature:Create DefenseFlow Part2
       | Format                | Select: HTML                                                                   |
     Then UI Delete Forensics With Name "Output VLAN Tag Duration Equal"
 
-  @SID_38
+  @SID_36
   Scenario: create new Output Destination IP Address,Destination Port,Direction,Protocol,Radware ID,Duration,Total Packets Dropped Duration Equal
     Given UI "Create" Forensics With Name "Output Destination IP Address_Destination Port_Direction_Protocol_Radware ID_Duration_Total Packets Dropped Duration Equal"
       | Product               | DefenseFlow                                                                                                      |
@@ -782,7 +742,7 @@ Feature:Create DefenseFlow Part2
       | Format                | Select: CSV                                                                                                      |
     Then UI Delete Forensics With Name "Output Destination IP Address_Destination Port_Direction_Protocol_Radware ID_Duration_Total Packets Dropped Duration Equal"
 
-  @SID_39
+  @SID_37
   Scenario: create new Output Action,Attack ID,Policy Name,Source IP Address,Destination IP Address,Destination Port,Total Mbits Dropped,Max bps,Physical Port,Risk,VLAN Tag Duration Equal
     Given UI "Create" Forensics With Name "Output Action_Attack ID_Policy Name_Source IP Address_Destination IP Address_Destination Port_Total Mbits Dropped_Max bps_Physical Port_Risk_VLAN Tag Duration Equal"
       | Product               | DefenseFlow                                                                                                                                    |
@@ -804,7 +764,7 @@ Feature:Create DefenseFlow Part2
       | Format                | Select: CSV                                                                                                                                    |
     Then UI Delete Forensics With Name "Output Action_Attack ID_Policy Name_Source IP Address_Destination IP Address_Destination Port_Total Mbits Dropped_Max bps_Physical Port_Risk_VLAN Tag Duration Equal"
 
-  @SID_40
+  @SID_38
   Scenario: create new Output Source IP Address,Source Port,Destination IP Address,Radware ID,Duration,Total Packets Dropped,Max pps Duration Equal
     Given UI "Create" Forensics With Name "Output Source IP Address_Source Port_Destination IP Address_Radware ID_Duration_Total Packets Dropped_Max pps Duration Equal"
       | Product               | DefenseFlow                                                                                                      |
@@ -826,7 +786,7 @@ Feature:Create DefenseFlow Part2
       | Format                | Select: CSV With Attack Details                                                                                  |
     Then UI Delete Forensics With Name "Output Source IP Address_Source Port_Destination IP Address_Radware ID_Duration_Total Packets Dropped_Max pps Duration Equal"
 
-  @SID_41
+  @SID_39
   Scenario: create new Output Start Time,End Time,Device IP Address,Threat Category,Attack Name,Action Duration Equal
     Given UI "Create" Forensics With Name "Output Start Time_End Time_Device IP Address_Threat Category_Attack Name_Action Duration Equal"
       | Product               | DefenseFlow                                                                    |
@@ -846,7 +806,7 @@ Feature:Create DefenseFlow Part2
       | Format                | Select: HTML                                                                   |
     Then UI Delete Forensics With Name "Output Start Time_End Time_Device IP Address_Threat Category_Attack Name_Action Duration Equal"
 
-  @SID_42
+  @SID_40
   Scenario: create new Output Policy Name,Source IP Address Duration Not Equal
     Given UI "Create" Forensics With Name "Output Policy Name_Source IP Address Not Duration Equal"
       | Product               | DefenseFlow                                                                    |
@@ -866,7 +826,7 @@ Feature:Create DefenseFlow Part2
       | Format                | Select: HTML                                                                   |
     Then UI Delete Forensics With Name "Output Policy Name_Source IP Address Not Duration Equal"
 
-  @SID_43
+  @SID_41
   Scenario: create new Output Destination IP Address,Destination Port,Direction Duration Equal
     Given UI "Create" Forensics With Name "Output Destination IP Address_Destination Port_Direction Duration Equal"
       | Product               | DefenseFlow                                                                    |
@@ -884,7 +844,7 @@ Feature:Create DefenseFlow Part2
       | Format                | Select: CSV                                                                    |
     Then UI Delete Forensics With Name "Output Destination IP Address_Destination Port_Direction Duration Equal"
 
-  @SID_44
+  @SID_42
   Scenario: create new Output All Duration Equal
     Given UI "Create" Forensics With Name "Output All Duration Equal"
       | Product               | DefenseFlow                                                                                                                                                                                                                                                                                       |
@@ -904,7 +864,7 @@ Feature:Create DefenseFlow Part2
       | Format                | Select: CSV With Attack Details                                                                                                                                                                                                                                                                   |
     Then UI Delete Forensics With Name "Output All Duration Equal"
 
-  @SID_45
+  @SID_43
   Scenario: create new Output Start Time Duration Not Equal
     Given UI "Create" Forensics With Name "Output Start Time Duration Not Equal"
       | Product               | DefenseFlow                                                                    |
@@ -926,7 +886,7 @@ Feature:Create DefenseFlow Part2
       | Format                | Select: HTML                                                                   |
     Then UI Delete Forensics With Name "Output Start Time Duration Not Equal"
 
-  @SID_46
+  @SID_44
   Scenario: create new Output End Time Duration Not Equal
     Given UI "Create" Forensics With Name "Output End Time Duration Not Equal"
       | Product               | DefenseFlow                                                                                                         |
@@ -948,7 +908,7 @@ Feature:Create DefenseFlow Part2
       | Format                | Select: CSV                                                                                                         |
     Then UI Delete Forensics With Name "Output End Time Duration Not Equal"
 
-  @SID_47
+  @SID_45
   Scenario: create new Output Device IP Address Max bps Greater than
     Given UI "Create" Forensics With Name "Output Device IP Address Max bps Greater than"
       | Product               | DefenseFlow                                                                    |
@@ -966,7 +926,7 @@ Feature:Create DefenseFlow Part2
       | Format                | Select: CSV                                                                    |
     Then UI Delete Forensics With Name "Output Device IP Address Max bps Greater than"
 
-  @SID_48
+  @SID_46
   Scenario: create new Output Threat Category Max bps Greater than
     Given UI "Create" Forensics With Name "Output Threat Category Max bps Greater than"
       | Product               | DefenseFlow                                                                                                      |
@@ -986,7 +946,7 @@ Feature:Create DefenseFlow Part2
       | Format                | Select: CSV With Attack Details                                                                                  |
     Then UI Delete Forensics With Name "Output Threat Category Max bps Greater than"
 
-  @SID_49
+  @SID_47
   Scenario: create new Output Attack Name1 Max bps Greater than
     Given UI "Create" Forensics With Name "Output Attack Name1 Max bps Greater than"
       | Product               | DefenseFlow                                                                    |
@@ -1008,7 +968,7 @@ Feature:Create DefenseFlow Part2
       | Format                | Select: HTML                                                                   |
     Then UI Delete Forensics With Name "Output Attack Name1 Max bps Greater than"
 
-  @SID_50
+  @SID_48
   Scenario: create new Output Attack Name2 Max bps Greater than
     Given UI "Create" Forensics With Name "Output Attack Name2 Max bps Greater than"
       | Product               | DefenseFlow                                                                                                      |
@@ -1030,6 +990,6 @@ Feature:Create DefenseFlow Part2
       | Format                | Select: CSV                                                                                                      |
     Then UI Delete Forensics With Name "Output Attack Name2 Max bps Greater than"
 
-  @SID_51
+  @SID_49
   Scenario: Logout
     Then UI logout and close browser
