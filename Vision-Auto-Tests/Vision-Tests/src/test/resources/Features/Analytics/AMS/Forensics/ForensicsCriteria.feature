@@ -2,7 +2,6 @@
 
 Feature: Forensic Criteria Tests
 
-  
   @SID_1
   Scenario: Clean system data
 #    * CLI kill all simulator attacks on current vision
@@ -14,7 +13,7 @@ Feature: Forensic Criteria Tests
       | body | sessionInactivTimeoutConfiguration=60 |
     * CLI Clear vision logs
 
-  
+
   @SID_2
   Scenario: Run DP simulator
     Given CLI simulate 1 attacks of type "VRM_attacks" on "DefensePro" 10
@@ -23,7 +22,7 @@ Feature: Forensic Criteria Tests
     And CLI simulate 2 attacks of type "https_new2" on "DefensePro" 11 with loopDelay 15000 and wait 230 seconds
     Given CLI simulate 1 attacks of type "pps_traps" on "DefensePro" 10
 
-  
+
   @SID_3
   Scenario: VRM - Login to VRM Forensic and do data manipulation
     Given UI Login with user "sys_admin" and password "radware"
@@ -160,44 +159,39 @@ Feature: Forensic Criteria Tests
     Then UI Validate "Forensics.Table" Table rows count EQUALS to 654
     Then UI Delete Forensics With Name "Not Destination Port Criteria"
 
-  
+  @SID_14
+  Scenario: VRM - Add New Forensics criteria - Direction - Equals
+    When UI "Create" Forensics With Name "Direction Criteria"
+      | Criteria | Event Criteria:Direction,Operator:Equals,Value:Inbound |
+      | Output   | Start Time,Attack ID,Direction                         |
+    Then UI Click Button "My Forensics" with value "Direction Criteria"
+    Then UI Click Button "Generate Snapshot Forensics Manually" with value "Direction Criteria"
+    Then Sleep "35"
+    And UI Click Button "Views.Forensic" with value "Direction Criteria,0"
+    Then UI Validate "Forensics.Table" Table rows count EQUALS to 16
+    Then UI Validate Table record values by columns with elementLabel "Forensics.Table" findBy index 0
+      | columnName | value |
+      | Direction  | In    |
+    Then UI Delete Forensics With Name "Direction Criteria"
 
-#    ----------------------- Inbound = In -> in data debug id
-#  
-#  @SID_14
-#  Scenario: VRM - Add New Forensics criteria - Direction - Equals
-#    When UI "Create" Forensics With Name "Direction Criteria"
-#      | Criteria | Event Criteria:Direction,Operator:Equals,Value:Inbound |
-#      | Output   | Start Time,Attack ID,Direction                         |
-#    Then UI Click Button "My Forensics" with value "Direction Criteria"
-#    Then UI Click Button "Generate Snapshot Forensics Manually" with value "Direction Criteria"
-#    Then Sleep "35"
-#    And UI Click Button "Views.Forensic" with value "Direction Criteria,0"
-#    Then UI Validate "Forensics.Table" Table rows count EQUALS to 16
-#    Then UI Validate Table record values by columns with elementLabel "Forensics.Table" findBy index 0
-#      | columnName | value |
-#      | Direction  | In    |
-#    Then UI Delete Forensics With Name "Direction Criteria"
-#
-#  
-#  @SID_15
-#  Scenario: VRM - Add New Forensics criteria - Direction - Not Equals
-#    When UI "Create" Forensics With Name "Not Direction Criteria"
-#      | Criteria | Event Criteria:Direction,Operator:Not Equals,Value:Inbound |
-#      | Output   | Start Time,Attack ID,Direction                             |
-#    Then UI Click Button "My Forensics" with value "Not Direction Criteria"
-#    Then UI Click Button "Generate Snapshot Forensics Manually" with value "Not Direction Criteria"
-#    Then Sleep "35"
-#    And UI Click Button "Views.Forensic" with value "Not Direction Criteria,0"
-#    Then UI Validate "Forensics.Table" Table rows count EQUALS to 21
-#    Then UI Delete Forensics With Name "Not Direction Criteria"
+  @SID_15
+  Scenario: VRM - Add New Forensics criteria - Direction - Not Equals
+    When UI "Create" Forensics With Name "Not Direction Criteria"
+      | Criteria | Event Criteria:Direction,Operator:Not Equals,Value:Inbound |
+      | Output   | Start Time,Attack ID,Direction                             |
+    Then UI Click Button "My Forensics" with value "Not Direction Criteria"
+    Then UI Click Button "Generate Snapshot Forensics Manually" with value "Not Direction Criteria"
+    Then Sleep "35"
+    And UI Click Button "Views.Forensic" with value "Not Direction Criteria,0"
+    Then UI Validate "Forensics.Table" Table rows count EQUALS to 21
+    Then UI Delete Forensics With Name "Not Direction Criteria"
 
 
   @SID_16
   Scenario: VRM - Add New Forensics criteria - Duration - Equals
     When UI "Create" Forensics With Name "Duration Criteria"
-      | Criteria | Event Criteria:Duration,Operator:Equals,Value:lessThanOneMin |
-      | Output   | Start Time,Attack ID,Duration                                |
+      | Criteria | Event Criteria:Duration,Operator:Equals,Value:Less than 1 min |
+      | Output   | Start Time,Attack ID,Duration                                 |
     Then UI Click Button "My Forensics" with value "Duration Criteria"
     Then UI Click Button "Generate Snapshot Forensics Manually" with value "Duration Criteria"
     Then Sleep "35"
@@ -208,8 +202,8 @@ Feature: Forensic Criteria Tests
   @SID_17
   Scenario: VRM - Add New Forensics criteria - Duration - Not Equals
     When UI "Create" Forensics With Name "Not Duration Criteria"
-      | Criteria | Event Criteria:Duration,Operator:Not Equals,Value:lessThanOneMin |
-      | Output   | Start Time,Attack ID,Duration                                    |
+      | Criteria | Event Criteria:Duration,Operator:Not Equals,Value:Less than 1 min |
+      | Output   | Start Time,Attack ID,Duration                                     |
     Then UI Click Button "My Forensics" with value "Not Duration Criteria"
     Then UI Click Button "Generate Snapshot Forensics Manually" with value "Not Duration Criteria"
     Then Sleep "35"
@@ -357,8 +351,8 @@ Feature: Forensic Criteria Tests
   @SID_28
   Scenario: VRM - Add New Forensics criteria - Threat Category - multiple Not Equals
     When UI "Create" Forensics With Name "Multiple Not Category Criteria"
-      | Criteria | Event Criteria:Threat Category,Operator:Not Equals,Value:[ACL,AntiScanning,BehavioralDOS,DOSShield,Intrusions,CrackingProtection,SynFlood,Anomalies,StatefulAcl,DNS,BWM,TrafficFilters] |
-      | Output   | Start Time,Attack ID,Threat Category                                                                                                                                                            |
+      | Criteria | Event Criteria:Threat Category,Operator:Not Equals,Value:[ACL,Anti Scanning,Behavioral DoS,DoS,Intrusions,Cracking Protection,SYN Flood,Anomalies,Stateful ACL,DNS Flood,Bandwidth Management,Traffic Filters] |
+      | Output   | Start Time,Attack ID,Threat Category                                                                                                                                                                           |
     Then UI Click Button "My Forensics" with value "Multiple Not Category Criteria"
     Then UI Click Button "Generate Snapshot Forensics Manually" with value "Multiple Not Category Criteria"
     Then Sleep "35"
@@ -370,8 +364,8 @@ Feature: Forensic Criteria Tests
   @SID_29
   Scenario: VRM - Add New Forensics criteria - Threat Category - Equals Connection PPS
     When UI "Create" Forensics With Name "Category Criteria"
-      | Criteria | Event Criteria:Threat Category,Operator:Equals,Value:ConnectionPPS |
-      | Output   | Start Time,Attack ID,Threat Category                               |
+      | Criteria | Event Criteria:Threat Category,Operator:Equals,Value:Connection PPS |
+      | Output   | Start Time,Attack ID,Threat Category                                |
     Then UI Click Button "My Forensics" with value "Category Criteria"
     Then UI Click Button "Generate Snapshot Forensics Manually" with value "Category Criteria"
     Then Sleep "35"
@@ -383,8 +377,8 @@ Feature: Forensic Criteria Tests
   @SID_30
   Scenario: VRM - Add New Forensics criteria - Threat Category - Not Equals Connection PPS
     When UI "Create" Forensics With Name "Category Criteria"
-      | Criteria | Event Criteria:Threat Category,Operator:Not Equals,Value:ConnectionPPS |
-      | Output   | Start Time,Attack ID,Threat Category                                   |
+      | Criteria | Event Criteria:Threat Category,Operator:Not Equals,Value:Connection PPS |
+      | Output   | Start Time,Attack ID,Threat Category                                    |
     Then UI Click Button "My Forensics" with value "Category Criteria"
     Then UI Click Button "Generate Snapshot Forensics Manually" with value "Category Criteria"
     Then Sleep "35"
@@ -393,14 +387,14 @@ Feature: Forensic Criteria Tests
     Then UI Delete Forensics With Name "Category Criteria"
 
 # 11 ##################################################################################################################
- 
+
   @SID_31
   Scenario: VRM - Forensics criteria - All Conditions
     # manipulate start time of 7447-1402580209 in favour of sort test
     Then CLI Run remote linux Command "curl -XPOST localhost:9200/dp-attack-raw-*/_update_by_query -d '{"query": {"match": {"attackIpsId": "7447-1402580209"}},"script": {"inline": "ctx._source.startTime = 'ctx._source.startTime+10000'"}}'" on "ROOT_SERVER_CLI"
     When UI "Create" Forensics With Name "Criteria_AND"
       | Criteria | Event Criteria:Action,Operator:Equals,Value:[Forward,Drop];Event Criteria:Risk,Operator:Equals,Value:[High,Low];Event Criteria:Protocol,Operator:Equals,Value:UDP |
-      | Output   | Start Time,Action,Attack ID,Direction,Protocol,Threat Category,Attack Name,Risk                                                                               |
+      | Output   | Start Time,Action,Attack ID,Direction,Protocol,Threat Category,Attack Name,Risk                                                                                   |
     Then UI Click Button "My Forensics" with value "Criteria_AND"
     Then UI Click Button "Generate Snapshot Forensics Manually" with value "Criteria_AND"
     Then Sleep "35"
@@ -447,7 +441,7 @@ Feature: Forensic Criteria Tests
   Scenario: VRM - Forensics criteria - Any Condition
     When UI "Create" Forensics With Name "Criteria_OR"
       | Criteria | Event Criteria:Action,Operator:Equals,Value:[Forward,Drop];Event Criteria:Risk,Operator:Equals,Value:[High,Low];Event Criteria:Protocol,Operator:Equals,Value:UDP |
-      | Output   | Start Time,Action,Attack ID,Direction,Protocol,Threat Category,Attack Name,Risk                                                                               |
+      | Output   | Start Time,Action,Attack ID,Direction,Protocol,Threat Category,Attack Name,Risk                                                                                   |
     Then UI Click Button "My Forensics" with value "Criteria_OR"
     Then UI Click Button "Edit Forensics" with value "Criteria_OR"
     Then UI Click Button "Criteria Tab"
@@ -460,7 +454,7 @@ Feature: Forensic Criteria Tests
     Then UI Validate "Forensics.Table" Table rows count EQUALS to 659
     Then UI Delete Forensics With Name "Criteria_OR"
 
-  
+
   @SID_34
   Scenario: VRM - Forensics criteria - Custom Condition
     When UI "Create" Forensics With Name "Criteria_Custom"
