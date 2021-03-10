@@ -42,7 +42,7 @@ Feature: Forensic Criteria Tests
     Then UI Click Button "Generate Snapshot Forensics Manually" with value "Action Criteria"
     Then Sleep "35"
     And UI Click Button "Views.Forensic" with value "Action Criteria,0"
-    Then UI Validate "Forensics.Table" Table rows count EQUALS to 653
+    Then UI Validate "Forensics.Table" Table rows count EQUALS to 25
     Then UI Validate Table record values by columns with elementLabel "Forensics.Table" findBy index 0
       | columnName | value |
       | Action     | Drop  |
@@ -84,7 +84,7 @@ Feature: Forensic Criteria Tests
     Then UI Click Button "Generate Snapshot Forensics Manually" with value "Not Attack name Criteria"
     Then Sleep "35"
     And UI Click Button "Views.Forensic" with value "Not Attack name Criteria,0"
-    Then UI Validate "Forensics.Table" Table rows count EQUALS to 658
+    Then UI Validate "Forensics.Table" Table rows count EQUALS to 30
     Then UI Delete Forensics With Name "Not Attack name Criteria"
 
   @SID_8
@@ -108,7 +108,7 @@ Feature: Forensic Criteria Tests
     Then UI Click Button "Generate Snapshot Forensics Manually" with value "Not Destination IP Criteria"
     Then Sleep "35"
     And UI Click Button "Views.Forensic" with value "Not Destination IP Criteria,0"
-    Then UI Validate "Forensics.Table" Table rows count EQUALS to 660
+    Then UI Validate "Forensics.Table" Table rows count EQUALS to 32
     Then UI Delete Forensics With Name "Not Destination IP Criteria"
 
   @SID_10
@@ -132,7 +132,7 @@ Feature: Forensic Criteria Tests
     Then UI Click Button "Generate Snapshot Forensics Manually" with value "Not Destination Range Criteria"
     Then Sleep "35"
     And UI Click Button "Views.Forensic" with value "Not Destination Range Criteria,0"
-    Then UI Validate "Forensics.Table" Table rows count EQUALS to 660
+    Then UI Validate "Forensics.Table" Table rows count EQUALS to 32
     Then UI Delete Forensics With Name "Not Destination Range Criteria"
 
   @SID_12
@@ -144,7 +144,7 @@ Feature: Forensic Criteria Tests
     Then UI Click Button "Generate Snapshot Forensics Manually" with value "Destination Port Criteria"
     Then Sleep "35"
     And UI Click Button "Views.Forensic" with value "Destination Port Criteria,0"
-    Then UI Validate "Forensics.Table" Table rows count EQUALS to 8
+    Then UI Validate "Forensics.Table" Table rows count EQUALS to 7
     Then UI Delete Forensics With Name "Destination Port Criteria"
 
   @SID_13
@@ -156,7 +156,7 @@ Feature: Forensic Criteria Tests
     Then UI Click Button "Generate Snapshot Forensics Manually" with value "Not Destination Port Criteria"
     Then Sleep "35"
     And UI Click Button "Views.Forensic" with value "Not Destination Port Criteria,0"
-    Then UI Validate "Forensics.Table" Table rows count EQUALS to 654
+    Then UI Validate "Forensics.Table" Table rows count EQUALS to 27
     Then UI Delete Forensics With Name "Not Destination Port Criteria"
 
   @SID_14
@@ -168,7 +168,7 @@ Feature: Forensic Criteria Tests
     Then UI Click Button "Generate Snapshot Forensics Manually" with value "Direction Criteria"
     Then Sleep "35"
     And UI Click Button "Views.Forensic" with value "Direction Criteria,0"
-    Then UI Validate "Forensics.Table" Table rows count EQUALS to 16
+    Then UI Validate "Forensics.Table" Table rows count EQUALS to 14
     Then UI Validate Table record values by columns with elementLabel "Forensics.Table" findBy index 0
       | columnName | value |
       | Direction  | In    |
@@ -183,7 +183,7 @@ Feature: Forensic Criteria Tests
     Then UI Click Button "Generate Snapshot Forensics Manually" with value "Not Direction Criteria"
     Then Sleep "35"
     And UI Click Button "Views.Forensic" with value "Not Direction Criteria,0"
-    Then UI Validate "Forensics.Table" Table rows count EQUALS to 21
+    Then UI Validate "Forensics.Table" Table rows count EQUALS to 20
     Then UI Delete Forensics With Name "Not Direction Criteria"
 
 
@@ -196,7 +196,7 @@ Feature: Forensic Criteria Tests
     Then UI Click Button "Generate Snapshot Forensics Manually" with value "Duration Criteria"
     Then Sleep "35"
     And UI Click Button "Views.Forensic" with value "Duration Criteria,0"
-    Then UI Validate "Forensics.Table" Table rows count EQUALS to 36
+    Then UI Validate "Forensics.Table" Table rows count EQUALS to 0
     Then UI Delete Forensics With Name "Duration Criteria"
 
   @SID_17
@@ -208,7 +208,7 @@ Feature: Forensic Criteria Tests
     Then UI Click Button "Generate Snapshot Forensics Manually" with value "Not Duration Criteria"
     Then Sleep "35"
     And UI Click Button "Views.Forensic" with value "Not Duration Criteria,0"
-    Then UI Validate "Forensics.Table" Table rows count EQUALS to 626
+    Then UI Validate "Forensics.Table" Table rows count EQUALS to 34
     Then UI Delete Forensics With Name "Not Duration Criteria"
 
 # ###########################################################################
@@ -223,7 +223,7 @@ Feature: Forensic Criteria Tests
     Then UI Click Button "Generate Snapshot Forensics Manually" with value "Protocol Criteria"
     Then Sleep "35"
     And UI Click Button "Views.Forensic" with value "Protocol Criteria,0"
-    Then UI Validate "Forensics.Table" Table rows count EQUALS to 636
+    Then UI Validate "Forensics.Table" Table rows count EQUALS to 9
     Then UI Validate Table record values by columns with elementLabel "Forensics.Table" findBy index 0
       | columnName | value |
       | Protocol   | IP    |
@@ -244,7 +244,7 @@ Feature: Forensic Criteria Tests
     Then UI Click Button "Generate Snapshot Forensics Manually" with value "Not Protocol Criteria"
     Then Sleep "35"
     And UI Click Button "Views.Forensic" with value "Not Protocol Criteria,0"
-    Then UI Validate "Forensics.Table" Table rows count EQUALS to 26
+    Then UI Validate "Forensics.Table" Table rows count EQUALS to 25
     Then UI Delete Forensics With Name "Not Protocol Criteria"
 
 
@@ -257,7 +257,7 @@ Feature: Forensic Criteria Tests
     Then UI Click Button "Generate Snapshot Forensics Manually" with value "Risk Criteria"
     Then Sleep "35"
     And UI Click Button "Views.Forensic" with value "Risk Criteria,0"
-    Then UI Validate "Forensics.Table" Table rows count EQUALS to 636
+    Then UI Validate "Forensics.Table" Table rows count EQUALS to 9
     Then UI Validate Table record values by columns with elementLabel "Forensics.Table" findBy index 0
       | columnName | value |
       | Risk       | Low   |
@@ -272,7 +272,7 @@ Feature: Forensic Criteria Tests
     Then UI Click Button "Generate Snapshot Forensics Manually" with value "Not Risk Criteria"
     Then Sleep "35"
     And UI Click Button "Views.Forensic" with value "Not Risk Criteria,0"
-    Then UI Validate "Forensics.Table" Table rows count EQUALS to 26
+    Then UI Validate "Forensics.Table" Table rows count EQUALS to 25
     Then UI Delete Forensics With Name "Not Risk Criteria"
 
   @SID_22
@@ -296,7 +296,7 @@ Feature: Forensic Criteria Tests
     Then UI Click Button "Generate Snapshot Forensics Manually" with value "Not Source IP Criteria"
     Then Sleep "35"
     And UI Click Button "Views.Forensic" with value "Not Source IP Criteria,0"
-    Then UI Validate "Forensics.Table" Table rows count EQUALS to 656
+    Then UI Validate "Forensics.Table" Table rows count EQUALS to 28
     Then UI Delete Forensics With Name "Not Source IP Criteria"
 
   @SID_24
@@ -308,7 +308,7 @@ Feature: Forensic Criteria Tests
     Then UI Click Button "Generate Snapshot Forensics Manually" with value "Source Port Criteria"
     Then Sleep "35"
     And UI Click Button "Views.Forensic" with value "Source Port Criteria,0"
-    Then UI Validate "Forensics.Table" Table rows count EQUALS to 636
+    Then UI Validate "Forensics.Table" Table rows count EQUALS to 16
     Then UI Delete Forensics With Name "Source Port Criteria"
 
   @SID_25
@@ -320,7 +320,7 @@ Feature: Forensic Criteria Tests
     Then UI Click Button "Generate Snapshot Forensics Manually" with value "Not Source Port Criteria"
     Then Sleep "35"
     And UI Click Button "Views.Forensic" with value "Not Source Port Criteria,0"
-    Then UI Validate "Forensics.Table" Table rows count EQUALS to 26
+    Then UI Validate "Forensics.Table" Table rows count EQUALS to 18
     Then UI Delete Forensics With Name "Not Source Port Criteria"
 
 
@@ -333,7 +333,7 @@ Feature: Forensic Criteria Tests
     Then UI Click Button "Generate Snapshot Forensics Manually" with value "Category Criteria"
     Then Sleep "35"
     And UI Click Button "Views.Forensic" with value "Category Criteria,0"
-    Then UI Validate "Forensics.Table" Table rows count EQUALS to 628
+    Then UI Validate "Forensics.Table" Table rows count EQUALS to 2
     Then UI Delete Forensics With Name "Category Criteria"
 
   @SID_27
@@ -345,7 +345,7 @@ Feature: Forensic Criteria Tests
     Then UI Click Button "Generate Snapshot Forensics Manually" with value "Not Category Criteria"
     Then Sleep "35"
     And UI Click Button "Views.Forensic" with value "Not Category Criteria,0"
-    Then UI Validate "Forensics.Table" Table rows count EQUALS to 34
+    Then UI Validate "Forensics.Table" Table rows count EQUALS to 32
     Then UI Delete Forensics With Name "Not Category Criteria"
 
   @SID_28
@@ -357,7 +357,7 @@ Feature: Forensic Criteria Tests
     Then UI Click Button "Generate Snapshot Forensics Manually" with value "Multiple Not Category Criteria"
     Then Sleep "35"
     And UI Click Button "Views.Forensic" with value "Multiple Not Category Criteria,0"
-    Then UI Validate "Forensics.Table" Table rows count EQUALS to 662
+    Then UI Validate "Forensics.Table" Table rows count EQUALS to 34
     Then UI Delete Forensics With Name "Multiple Not Category Criteria"
 
 
@@ -370,7 +370,7 @@ Feature: Forensic Criteria Tests
     Then UI Click Button "Generate Snapshot Forensics Manually" with value "Category Criteria"
     Then Sleep "35"
     And UI Click Button "Views.Forensic" with value "Category Criteria,0"
-    Then UI Validate "Forensics.Table" Table rows count EQUALS to 1
+    Then UI Validate "Forensics.Table" Table rows count EQUALS to 0
     Then UI Delete Forensics With Name "Category Criteria"
 
 
@@ -383,7 +383,7 @@ Feature: Forensic Criteria Tests
     Then UI Click Button "Generate Snapshot Forensics Manually" with value "Category Criteria"
     Then Sleep "35"
     And UI Click Button "Views.Forensic" with value "Category Criteria,0"
-    Then UI Validate "Forensics.Table" Table rows count EQUALS to 661
+    Then UI Validate "Forensics.Table" Table rows count EQUALS to 34
     Then UI Delete Forensics With Name "Category Criteria"
 
 # 11 ##################################################################################################################
@@ -451,7 +451,7 @@ Feature: Forensic Criteria Tests
     Then UI Click Button "Generate Snapshot Forensics Manually" with value "Criteria_OR"
     Then Sleep "35"
     And UI Click Button "Views.Forensic" with value "Criteria_OR,0"
-    Then UI Validate "Forensics.Table" Table rows count EQUALS to 659
+    Then UI Validate "Forensics.Table" Table rows count EQUALS to 31
     Then UI Delete Forensics With Name "Criteria_OR"
 
 
@@ -470,7 +470,7 @@ Feature: Forensic Criteria Tests
     Then UI Click Button "Generate Snapshot Forensics Manually" with value "Criteria_Custom"
     Then Sleep "35"
     And UI Click Button "Views.Forensic" with value "Criteria_Custom,0"
-    Then UI Validate "Forensics.Table" Table rows count EQUALS to 655
+    Then UI Validate "Forensics.Table" Table rows count EQUALS to 27
     Then UI Delete Forensics With Name "Criteria_Custom"
 
   @SID_35
