@@ -819,7 +819,7 @@ Feature: Basic tests for Forensics parameters
     Then UI Validate the attribute "aria-selected" Of Label "Output Value" With Params "Physical Port" is "EQUALS" to "false"
     Then UI Validate the attribute "aria-selected" Of Label "Output Value" With Params "Risk" is "EQUALS" to "false"
     Then UI Validate the attribute "aria-selected" Of Label "Output Value" With Params "VLAN Tag" is "EQUALS" to "false"
-    Then UI Validate the attribute "aria-selected" Of Label "Output Value" With Params "Packet Type" is "EQUALS" to "false"
+
     Then UI Click Button "outputExpandOrCollapse"
 
     Then UI Validate Text field "Output Error Message" CONTAINS "This field cannot be empty."
@@ -852,7 +852,7 @@ Feature: Basic tests for Forensics parameters
     Then UI Validate the attribute "aria-selected" Of Label "Output Value" With Params "Physical Port" is "EQUALS" to "true"
     Then UI Validate the attribute "aria-selected" Of Label "Output Value" With Params "Risk" is "EQUALS" to "true"
     Then UI Validate the attribute "aria-selected" Of Label "Output Value" With Params "VLAN Tag" is "EQUALS" to "true"
-    Then UI Validate the attribute "aria-selected" Of Label "Output Value" With Params "Packet Type" is "EQUALS" to "true"
+
     Then UI Click Button "outputExpandOrCollapse"
 
   
@@ -883,7 +883,7 @@ Feature: Basic tests for Forensics parameters
     Then UI Validate the attribute "aria-selected" Of Label "Output Value" With Params "Physical Port" is "EQUALS" to "false"
     Then UI Validate the attribute "aria-selected" Of Label "Output Value" With Params "Risk" is "EQUALS" to "false"
     Then UI Validate the attribute "aria-selected" Of Label "Output Value" With Params "VLAN Tag" is "EQUALS" to "false"
-    Then UI Validate the attribute "aria-selected" Of Label "Output Value" With Params "Packet Type" is "EQUALS" to "false"
+
     Then UI Click Button "outputExpandOrCollapse"
 
     Then UI Validate Text field "Output Error Message" CONTAINS "This field cannot be empty."
@@ -918,7 +918,7 @@ Feature: Basic tests for Forensics parameters
     Then UI Validate the attribute "aria-selected" Of Label "Output Value" With Params "Physical Port" is "EQUALS" to "true"
     Then UI Validate the attribute "aria-selected" Of Label "Output Value" With Params "Risk" is "EQUALS" to "true"
     Then UI Validate the attribute "aria-selected" Of Label "Output Value" With Params "VLAN Tag" is "EQUALS" to "true"
-    Then UI Validate the attribute "aria-selected" Of Label "Output Value" With Params "Packet Type" is "EQUALS" to "true"
+
     Then UI Click Button "outputExpandOrCollapse"
     Then UI Click Button "save"
     Then UI Validate Element Existence By Label "My Forensics" if Exists "true" with value "Add All Output DF"
@@ -948,7 +948,7 @@ Feature: Basic tests for Forensics parameters
     Then UI Validate the attribute "aria-selected" Of Label "Output Value" With Params "Physical Port" is "EQUALS" to "true"
     Then UI Validate the attribute "aria-selected" Of Label "Output Value" With Params "Risk" is "EQUALS" to "true"
     Then UI Validate the attribute "aria-selected" Of Label "Output Value" With Params "VLAN Tag" is "EQUALS" to "true"
-    Then UI Validate the attribute "aria-selected" Of Label "Output Value" With Params "Packet Type" is "EQUALS" to "true"
+
     Then UI Click Button "outputExpandOrCollapse"
     Then UI Click Button "save"
     Then UI Validate Element Existence By Label "My Forensics" if Exists "true" with value "Add All Output DF"
