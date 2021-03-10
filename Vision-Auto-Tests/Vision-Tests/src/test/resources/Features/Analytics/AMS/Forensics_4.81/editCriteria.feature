@@ -174,7 +174,7 @@ Feature: Edit Criteria Testes
   @SID_16
   Scenario: add new Criteria condition
     Then UI "Edit" Forensics With Name "DefensePro Forensics"
-      | Criteria | Event Criteria:Duration,Operator:Not Equals,Value:1-5min |
+      | Criteria | Event Criteria:Duration,Operator:Not Equals,Value:1-5 min |
 
   @SID_17
   Scenario: Edit the First condition on Criteria
