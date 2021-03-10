@@ -68,7 +68,7 @@ public class AlertsSteps extends WebUITestBase {
     @Then("^UI Validate Alert record Content by KeyValue with columnName \"(.*)\" with content \"(.*)\"( closeAlertsModule)?$")
     public void verifyAlertContentByKeyValue(String key, String value, String closeAlertsModule, List<Table.TableDataSets> tableData) {
         try {
-            boolean closeAlertsTable = closeAlertsModule != null ? true : false;
+            boolean closeAlertsTable = closeAlertsModule != null;
             if (!(AlertsHandler.validateAlertContentByKeyValue(key, value, closeAlertsTable, tableData))) {
                 BaseTestUtils.report("Verify Alert record Content by KeyValue: " + value + "\n.", Reporter.FAIL);
             }

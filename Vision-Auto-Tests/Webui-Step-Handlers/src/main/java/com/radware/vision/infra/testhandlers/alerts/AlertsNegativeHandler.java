@@ -53,13 +53,14 @@ public class AlertsNegativeHandler {
     public static void moduleCheckWarning() {
         alertsNegativeBase();
         ModuleSetter setter = new ModuleSetter();
-        setter.checkModules(ModuleSetter.modulesAll);
+        //setter.checkModules(ModuleSetter.modulesAll);
         setter.uncheckModulesAll();
         try {
 
             WebUIVisionBasePage.submit(WebUIStringsVision.getAlertsFIlterSubmitButton());
         } catch (Exception e) {
             RestTestBase.report.report("Test: " + "\n.", Reporter.FAIL);
+           // RestTestBase.report.report("Test: " + "\n.", Reporter.PASS);
         }
     }
 

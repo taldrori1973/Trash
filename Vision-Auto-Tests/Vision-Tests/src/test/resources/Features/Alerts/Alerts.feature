@@ -6,14 +6,12 @@ Feature: Alert browser
   Scenario: Add devices for Alerts
     Given CLI Reset radware password
     * REST Request "PUT" for "Connectivity->Inactivity Timeout for Configuration"
-  | type | value                                 |
-  | body | sessionInactivTimeoutConfiguration=60 |
+      | type | value                                 |
+      | body | sessionInactivTimeoutConfiguration=60 |
 
   @SID_2
   Scenario: Acknowledge and unAcknowledge Alerts
     Given UI Login with user "radware" and password "radware"
-    Then UI Go To Vision
-#    Then UI Navigate to page via menu "Configuration"
     Then UI validate Alerts Filter by KeyValue
       | devicesList        |              |
       | selectAllDevices   | true         |
@@ -37,83 +35,52 @@ Feature: Alert browser
       | groupsList         |                |
       | ackUnackStatusList | Unacknowledged |
       | restoreDefaults    | true           |
-#    Then UI Logout
 
   @SID_3
   Scenario: Device Type Alteon
     Then UI validate Alerts Filter by KeyValue
-      | devicesList        |                |
-      | selectAllDevices   | true           |
-      | raisedTimeUnit     | Hour/s         |
-      | raisedTimeValue    | 24             |
-      | severityList       |                |
-      | modulesList        |                |
-      | devicesTypeList    | Alteon         |
-      | groupsList         |                |
-      | ackUnackStatusList |                |
-      | restoreDefaults    | true           |
-#    Then UI Logout
+      | devicesList        |        |
+      | selectAllDevices   | true   |
+      | raisedTimeUnit     | Hour/s |
+      | raisedTimeValue    | 24     |
+      | severityList       |        |
+      | modulesList        |        |
+      | devicesTypeList    | Alteon |
+      | groupsList         |        |
+      | ackUnackStatusList |        |
+      | restoreDefaults    | true   |
 
   @SID_4
   Scenario: Device Type DefebsePro
     Then UI validate Alerts Filter by KeyValue
-      | devicesList        |                |
-      | selectAllDevices   | true           |
-      | raisedTimeUnit     | Hour/s         |
-      | raisedTimeValue    | 24             |
-      | severityList       |                |
-      | modulesList        |                |
-      | devicesTypeList    | DefensePro     |
-      | groupsList         |                |
-      | ackUnackStatusList |                |
-      | restoreDefaults    | true           |
-#    Then UI Logout
+      | devicesList        |            |
+      | selectAllDevices   | true       |
+      | raisedTimeUnit     | Hour/s     |
+      | raisedTimeValue    | 24         |
+      | severityList       |            |
+      | modulesList        |            |
+      | devicesTypeList    | DefensePro |
+      | groupsList         |            |
+      | ackUnackStatusList |            |
+      | restoreDefaults    | true       |
 
   @SID_5
   Scenario: Device Type Vision
     Then UI validate Alerts Filter by KeyValue
-      | devicesList        |                |
-      | selectAllDevices   | true           |
-      | raisedTimeUnit     | Hour/s         |
-      | raisedTimeValue    | 24             |
-      | severityList       |                |
-      | modulesList        |                |
-      | devicesTypeList    | Vision         |
-      | groupsList         |                |
-      | ackUnackStatusList |                |
-      | restoreDefaults    | true           |
+      | devicesList        |        |
+      | selectAllDevices   | true   |
+      | raisedTimeUnit     | Hour/s |
+      | raisedTimeValue    | 24     |
+      | severityList       |        |
+      | modulesList        |        |
+      | devicesTypeList    | Vision |
+      | groupsList         |        |
+      | ackUnackStatusList |        |
+      | restoreDefaults    | true   |
 
   @SID_6
   Scenario: Default Devices Selection
     Then UI validate SelectAllDevices Filter
-
-#  @SID_7
-#  Scenario: Multi Devices
-#    When UI Login with user "radware" and password "radware"
-#    Then UI validate Alerts Filter by KeyValue
-#      | devicesList        |Alt_172.16.62.60_vADC-2,Alt_172.16.62.60_vADC-3,Alt_172.16.62.60_vADC-4,Alt_172.16.62.60_vADC-5|
-#      | selectAllDevices   | true           |
-#      | raisedTimeUnit     | Hour/s         |
-#      | raisedTimeValue    | 1              |
-#      | severityList       |                |
-#      | modulesList        | Device General |
-#      | devicesTypeList    | Alteon         |
-#      | groupsList         |                |
-#      | ackUnackStatusList |                |
-#      | restoreDefaults    | true           |
-#
-#    Then UI validate Alerts Filter by KeyValue
-#      | devicesList        |                |
-#      | selectAllDevices   | true           |
-#      | raisedTimeUnit     | Hour/s         |
-#      | raisedTimeValue    | 1              |
-#      | severityList       |                |
-#      | modulesList        |                |
-#      | devicesTypeList    |                |
-#      | groupsList         |                |
-#      | ackUnackStatusList |                |
-#      | restoreDefaults    | true           |
-#    Then UI Logout
 
   @SID_8
   Scenario: Single Devices
@@ -140,7 +107,6 @@ Feature: Alert browser
       | groupsList         |                         |
       | ackUnackStatusList |                         |
       | restoreDefaults    | true                    |
-#    Then UI Logout
 
   @SID_9
   Scenario: Filter General Filtering
@@ -181,7 +147,6 @@ Feature: Alert browser
       | groupsList         |                |
       | ackUnackStatusList |                |
       | restoreDefaults    | true           |
-#    Then UI Logout
 
   @SID_11
   Scenario: Device Security
@@ -195,7 +160,7 @@ Feature: Alert browser
       | devicesTypeList    |                 |
       | groupsList         |                 |
       | ackUnackStatusList |                 |
-      | restoreDefaults    | true           |
+      | restoreDefaults    | true            |
 
   @SID_12
   Scenario: Security Reporting
@@ -210,13 +175,15 @@ Feature: Alert browser
       | groupsList         |                    |
       | ackUnackStatusList |                    |
       | restoreDefaults    | true               |
-
-  @SID_13
-  Scenario: Uncheck Module
-    Then UI module Check Negative
     Then UI Logout
 
-  @SID_14
+
+#  @SID_13
+#  Scenario: Uncheck Module
+#    Then UI module Check Negative
+#    Then UI Logout
+
+  @SID_13
   Scenario: Vision Configuration
     When UI Login with user "radware" and password "radware"
     Then UI validate Alerts Filter by KeyValue
@@ -230,9 +197,8 @@ Feature: Alert browser
       | groupsList         |                      |
       | ackUnackStatusList |                      |
       | restoreDefaults    | true                 |
-#    Then UI Logout
 
-  @SID_15
+  @SID_14
   Scenario: Vision Control
     Then UI validate Alerts Filter by KeyValue
       | devicesList        |                |
@@ -246,7 +212,7 @@ Feature: Alert browser
       | ackUnackStatusList |                |
       | restoreDefaults    | true           |
 
-  @SID_16
+  @SID_15
   Scenario: Vision General
     Then UI validate Alerts Filter by KeyValue
       | devicesList        |                |
@@ -259,9 +225,8 @@ Feature: Alert browser
       | groupsList         |                |
       | ackUnackStatusList |                |
       | restoreDefaults    | true           |
-#    Then UI Logout
 
-  @SID_17
+  @SID_16
   Scenario: Raised Time
     Then UI validate Alerts Filter by KeyValue
       | devicesList        |        |
@@ -275,48 +240,8 @@ Feature: Alert browser
       | ackUnackStatusList |        |
       | restoreDefaults    | true   |
     Then UI validate RaisedTimeFilter with raisedTimeUnit "HOURS" with raisedTimeValue "1"
-#
-#    Then UI validate Alerts Filter by KeyValue
-#      | devicesList        |        |
-#      | selectAllDevices   | false  |
-#      | raisedTimeUnit     | Hour/s |
-#      | raisedTimeValue    | 8      |
-#      | severityList       |        |
-#      | modulesList        |        |
-#      | devicesTypeList    |        |
-#      | groupsList         |        |
-#      | ackUnackStatusList |        |
-#      | restoreDefaults    | true   |
-#    Then UI validate RaisedTimeFilter with raisedTimeUnit "HOURS" with raisedTimeValue "8"
-#
-#    Then UI validate Alerts Filter by KeyValue
-#      | devicesList        |        |
-#      | selectAllDevices   | false  |
-#      | raisedTimeUnit     | Hour/s |
-#      | raisedTimeValue    | 24     |
-#      | severityList       |        |
-#      | modulesList        |        |
-#      | devicesTypeList    |        |
-#      | groupsList         |        |
-#      | ackUnackStatusList |        |
-#      | restoreDefaults    | true   |
-#    Then UI validate RaisedTimeFilter with raisedTimeUnit "HOURS" with raisedTimeValue "24"
-#
-#    Then UI validate Alerts Filter by KeyValue
-#      | devicesList        |        |
-#      | selectAllDevices   | false  |
-#      | raisedTimeUnit     | Hour/s |
-#      | raisedTimeValue    | 15     |
-#      | severityList       |        |
-#      | modulesList        |        |
-#      | devicesTypeList    |        |
-#      | groupsList         |        |
-#      | ackUnackStatusList |        |
-#      | restoreDefaults    | true   |
-#    Then UI validate RaisedTimeFilter with raisedTimeUnit "MINUTES" with raisedTimeValue "15"
-#    Then UI Logout
 
-  @SID_18
+  @SID_17
   Scenario: Restore Defaults
     Then UI validate Alerts Filter by KeyValue
       | devicesList        |        |
@@ -331,7 +256,7 @@ Feature: Alert browser
       | restoreDefaults    | true   |
     Then UI Logout
 
-  @SID_19
+  @SID_18
   Scenario: Critical Alerts
     When UI Login with user "radware" and password "radware"
     Then UI validate Alerts Filter by KeyValue
@@ -347,7 +272,7 @@ Feature: Alert browser
       | restoreDefaults    | False    |
     Then UI Logout
 
-  @SID_20
+  @SID_19
   Scenario: Information Alerts
     When UI Login with user "radware" and password "radware"
     Then UI validate Alerts Filter by KeyValue
@@ -362,59 +287,59 @@ Feature: Alert browser
       | ackUnackStatusList |             |
       | restoreDefaults    | true        |
 
-  @SID_21
+  @SID_20
   Scenario: Major Alerts
     Then UI validate Alerts Filter by KeyValue
-      | devicesList        |             |
-      | selectAllDevices   | true        |
-      | raisedTimeUnit     | Hour/s      |
-      | raisedTimeValue    | 24          |
-      | severityList       | Major       |
-      | modulesList        |             |
-      | devicesTypeList    |             |
-      | groupsList         |             |
-      | ackUnackStatusList |             |
-      | restoreDefaults    | true        |
+      | devicesList        |        |
+      | selectAllDevices   | true   |
+      | raisedTimeUnit     | Hour/s |
+      | raisedTimeValue    | 24     |
+      | severityList       | Major  |
+      | modulesList        |        |
+      | devicesTypeList    |        |
+      | groupsList         |        |
+      | ackUnackStatusList |        |
+      | restoreDefaults    | true   |
 
-  @SID_22
+  @SID_21
   Scenario: Minor Alerts
     Then UI validate Alerts Filter by KeyValue
-      | devicesList        |             |
-      | selectAllDevices   | true        |
-      | raisedTimeUnit     | Hour/s      |
-      | raisedTimeValue    | 24          |
-      | severityList       | Minor       |
-      | modulesList        |             |
-      | devicesTypeList    |             |
-      | groupsList         |             |
-      | ackUnackStatusList |             |
-      | restoreDefaults    | true        |
+      | devicesList        |        |
+      | selectAllDevices   | true   |
+      | raisedTimeUnit     | Hour/s |
+      | raisedTimeValue    | 24     |
+      | severityList       | Minor  |
+      | modulesList        |        |
+      | devicesTypeList    |        |
+      | groupsList         |        |
+      | ackUnackStatusList |        |
+      | restoreDefaults    | true   |
 
-  @SID_23
+  @SID_22
   Scenario: Uncheck Severity
     Then UI Severity Check Negative
 
-  @SID_24
+  @SID_23
   Scenario: Warning Alerts
     Then UI validate Alerts Filter by KeyValue
-      | devicesList        |             |
-      | selectAllDevices   | true        |
-      | raisedTimeUnit     | Hour/s      |
-      | raisedTimeValue    | 1           |
-      | severityList       | Warning     |
-      | modulesList        |             |
-      | devicesTypeList    |             |
-      | groupsList         |             |
-      | ackUnackStatusList |             |
-      | restoreDefaults    | true        |
+      | devicesList        |         |
+      | selectAllDevices   | true    |
+      | raisedTimeUnit     | Hour/s  |
+      | raisedTimeValue    | 1       |
+      | severityList       | Warning |
+      | modulesList        |         |
+      | devicesTypeList    |         |
+      | groupsList         |         |
+      | ackUnackStatusList |         |
+      | restoreDefaults    | true    |
 
-  @SID_25
+  @SID_24
   Scenario: Refresh Interval
     Then UI set  RefreshInterval "60"
     Then UI set  RefreshInterval "120"
     Then UI Logout
 
-  @SID_26
+  @SID_25
   Scenario: Acknowledge All Alerts in view
     When UI Login with user "radware" and password "radware"
     Then UI Acknowledge Unacknowledge Alerts "unacknowledge" by listOfRowIndexes "1"
@@ -431,7 +356,7 @@ Feature: Alert browser
     Then UI acknowledge All Alerts
     Then UI Logout
 
-  @SID_27
+  @SID_26
   Scenario: Auto Refresh Button
     When UI Login with user "radware" and password "radware"
     Then UI Auto Refresh Alerts OnOFF "ON"
@@ -439,38 +364,93 @@ Feature: Alert browser
     Then UI Auto Refresh Alerts OnOFF "OFF"
     Then UI Logout
 
-  @SID_28
-  Scenario: Clear Selected Alert
-    When UI Login with user "radware" and password "radware"
-    Then UI clear Alerts by listOfRowIndexes "4"
-    Then UI clear Alerts by listOfRowIndexes "4"
-    Then UI Logout
+#  @SID_28
+#  Scenario: Clear Selected Alert
+#    When UI Login with user "radware" and password "radware"
+#    Then UI clear Alerts by listOfRowIndexes "4"
+#    Then UI clear Alerts by listOfRowIndexes "4"
+#    Then UI Logout
 
-  @SID_29
+  @SID_27
   Scenario: Clear All Alerts Button
     When UI Login with user "radware" and password "radware"
     Then UI validate Alerts Filter by KeyValue
-      | devicesList        |             |
-      | selectAllDevices   | false       |
-      | raisedTimeUnit     | Minute/s    |
-      | raisedTimeValue    | 60          |
-      | severityList       | Warning     |
-      | modulesList        |             |
-      | devicesTypeList    |             |
-      | groupsList         |             |
-      | ackUnackStatusList |             |
-      | restoreDefaults    | true        |
+      | devicesList        |          |
+      | selectAllDevices   | false    |
+      | raisedTimeUnit     | Minute/s |
+      | raisedTimeValue    | 60       |
+      | severityList       | Warning  |
+      | modulesList        |          |
+      | devicesTypeList    |          |
+      | groupsList         |          |
+      | ackUnackStatusList |          |
+      | restoreDefaults    | true     |
     Then UI clear All Alerts with TimeOut 0
     Then UI Logout
 
-#  @SID_30
-#  Scenario: delete Devices for Alerts
-#    When UI Login with user "radware" and password "radware"
-#    Then UI Delete Multiple Devices - By device Names "Alt_172.16.62.60_vADC-2,Alt_172.16.62.60_vADC-3,Alt_172.16.62.60_vADC-4,Alt_172.16.62.60_vADC-5"
-#    Then UI Delete "DefensePro" device with index 2 from topology tree
-#    Then UI open Topology Tree view "PhysicalContainers" site
-#    Then UI Delete physical "Alteon" device with index 6 from topology tree
-#    Then UI Logout
+  @SID_28
+  Scenario: Preparations - clear all alerts and delete local user
+    Given UI Login with user "radware" and password "radware"
+    Then REST Delete ES index "alert"
+    Given That Current Vision is Logged In
+    Given Create Following RUNTIME Parameters by Sending Request Specification from File "Vision/SystemConfigItemList" with label "Get Local Users"
+      | ormID | $[?(@.name=='cucumber')].ormID |
+    Given New Request Specification from File "Vision/SystemConfigItemList" with label "Delete an Item from the Server"
+    And The Request Path Parameters Are
+      | item | user     |
+      | id   | ${ormID} |
+    When Send Request with the Given Specification
+
+
+  @SID_29
+  Scenario: Create Local User and Validate alert
+    Given That Current Vision is Logged In
+    Given Create Following RUNTIME Parameters by Sending Request Specification from File "Vision/SystemConfigItemList" with label "Get Local Users"
+      | ormID | $[?(@.name=='cucumber')].ormID |
+    Given New Request Specification from File "Vision/SystemConfigItemList" with label "Delete an Item from the Server"
+    And The Request Path Parameters Are
+      | item | user     |
+      | id   | ${ormID} |
+    When Send Request with the Given Specification
+    Given New Request Specification from File "Vision/SystemConfigItemList" with label "Create Local User"
+    Given The Request Body is the following Object
+      | jsonPath                                                       | value                     |
+      | $.name                                                         | "cucumber"                |
+      | $.password                                                     | "Radware1234!@#$"         |
+      | $.requireDeviceLock                                            | true                      |
+      | $.userSettings.userLocale                                      | "en_US"                   |
+      | $.parameters.roleGroupPairList[0].groupName                    | "[ALL]"                   |
+      | $.parameters.roleGroupPairList[0].roleName                     | "SYS_ADMIN"               |
+      | $.networkPolicies[0].networkProtectionRuleId.deviceId          | "[ALL]"                   |
+      | $.networkPolicies[0].networkProtectionRuleId.rsIDSNewRulesName | "[ALL]"                   |
+      | $.roleGroupPairList[0].groupName                               | "[ALL]"                   |
+      | $.roleGroupPairList[0].roleName                                | "SYS_ADMIN"               |
+    When Send Request with the Given Specification
+    Then Validate That Response Status Code Is OK
+    Then Validate That Response Body Contains
+      | jsonPath | value |
+      | $.status | "ok"  |
+    Then Sleep "40"
+    Then UI Validate Alert record Content by KeyValue with columnName "Message" with content "User radware added account cucumber."
+      | columnName   | value           |
+      | Severity     | Info            |
+      | Module       | Vision General  |
+      | Product Name | Vision          |
+      | User Name    | radware         |
+
+  @SID_30
+  Scenario: Delete Local User
+    Given That Current Vision is Logged In
+    Given Create Following RUNTIME Parameters by Sending Request Specification from File "Vision/SystemConfigItemList" with label "Get Local Users"
+      | ormID | $[?(@.name=='cucumber')].ormID |
+    Given New Request Specification from File "Vision/SystemConfigItemList" with label "Delete an Item from the Server"
+    And The Request Path Parameters Are
+      | item | user     |
+      | id   | ${ormID} |
+    When Send Request with the Given Specification
+    Then UI logout and close browser
+
+
 
 
 
