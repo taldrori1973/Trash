@@ -203,7 +203,7 @@ Feature:Create DefenseFlow Part3
     Given UI "Create" Forensics With Name "Output Radware ID Protocol Equal"
       | Product               | DefenseFlow                                                                                                      |
       | Output                | Radware ID                                                                                                       |
-      | Criteria              | Event Criteria:Protocol,Operator:Equals,Value:[NonIP]                                                            |
+      | Criteria              | Event Criteria:Protocol,Operator:Equals,Value:[Non-IP]                                                            |
       | devices               | All                                                                                                              |
       | Schedule              | Run Every:Monthly, On Time:+6H, At Months:[AUG]                                                                  |
       | Share                 | FTP:checked, FTP.Location:172.17.164.10, FTP.Path:/home/radware/ftp/, FTP.Username:radware, FTP.Password:radware |
@@ -211,7 +211,7 @@ Feature:Create DefenseFlow Part3
     Then UI "Validate" Forensics With Name "Output Radware ID Protocol Equal"
       | Product               | DefenseFlow                                                                                                      |
       | Output                | Radware ID                                                                                                       |
-      | Criteria              | Event Criteria:Protocol,Operator:Equals,Value:[NonIP]                                                            |
+      | Criteria              | Event Criteria:Protocol,Operator:Equals,Value:[Non-IP]                                                            |
       | devices               | All                                                                                                              |
       | Schedule              | Run Every:Monthly, On Time:+6H, At Months:[AUG]                                                                  |
       | Share                 | FTP:checked, FTP.Location:172.17.164.10, FTP.Path:/home/radware/ftp/, FTP.Username:radware, FTP.Password:radware |
@@ -247,7 +247,7 @@ Feature:Create DefenseFlow Part3
     Given UI "Create" Forensics With Name "Output Total Packets Dropped Protocol Equal"
       | Product               | DefenseFlow                                                                                                      |
       | Output                | Total Packets Dropped                                                                                            |
-      | Criteria              | Event Criteria:Protocol,Operator:Equals,Value:[ICMPV6]                                                           |
+      | Criteria              | Event Criteria:Protocol,Operator:Equals,Value:[ICMPv6]                                                           |
       | devices               | All                                                                                                              |
       | Time Definitions.Date | Relative:[Weeks,2]                                                                                               |
       | Schedule              | Run Every:Daily,On Time:+2m                                                                                      |
@@ -256,7 +256,7 @@ Feature:Create DefenseFlow Part3
     Then UI "Validate" Forensics With Name "Output Total Packets Dropped Protocol Equal"
       | Product               | DefenseFlow                                                                                                      |
       | Output                | Total Packets Dropped                                                                                            |
-      | Criteria              | Event Criteria:Protocol,Operator:Equals,Value:[ICMPV6]                                                           |
+      | Criteria              | Event Criteria:Protocol,Operator:Equals,Value:[ICMPv6]                                                           |
       | devices               | All                                                                                                              |
       | Time Definitions.Date | Relative:[Weeks,2]                                                                                               |
       | Schedule              | Run Every:Daily,On Time:+2m                                                                                      |
@@ -287,7 +287,7 @@ Feature:Create DefenseFlow Part3
     Given UI "Create" Forensics With Name "Output Total Mbits Dropped Protocol Equal"
       | Product               | DefenseFlow                                                                                                      |
       | Output                | Total Mbits Dropped                                                                                              |
-      | Criteria              | Event Criteria:Protocol,Operator:Equals,Value:[IP,TCP,UDP,ICMP,IGMP,NonIP,SCTP,ICMPV6,Other]                     |
+      | Criteria              | Event Criteria:Protocol,Operator:Equals,Value:[IP,TCP,UDP,ICMP,IGMP,Non-IP,SCTP,ICMPv6,Other]                     |
       | devices               | index:10                                                                                                         |
       | Schedule              | Run Every:Monthly, On Time:+6H, At Months:[AUG]                                                                  |
       | Share                 | FTP:checked, FTP.Location:172.17.164.10, FTP.Path:/home/radware/ftp/, FTP.Username:radware, FTP.Password:radware |
@@ -295,7 +295,7 @@ Feature:Create DefenseFlow Part3
     Then UI "Validate" Forensics With Name "Output Total Mbits Dropped Protocol Equal"
       | Product               | DefenseFlow                                                                                                      |
       | Output                | Total Mbits Dropped                                                                                              |
-      | Criteria              | Event Criteria:Protocol,Operator:Equals,Value:[IP,TCP,UDP,ICMP,IGMP,NonIP,SCTP,ICMPV6,Other]                     |
+      | Criteria              | Event Criteria:Protocol,Operator:Equals,Value:[IP,TCP,UDP,ICMP,IGMP,Non-IP,SCTP,ICMPv6,Other]                     |
       | devices               | index:10                                                                                                         |
       | Schedule              | Run Every:Monthly, On Time:+6H, At Months:[AUG]                                                                  |
       | Share                 | FTP:checked, FTP.Location:172.17.164.10, FTP.Path:/home/radware/ftp/, FTP.Username:radware, FTP.Password:radware |
@@ -307,7 +307,7 @@ Feature:Create DefenseFlow Part3
     Given UI "Create" Forensics With Name "Output Max bps Protocol Not Equal"
       | Product               | DefenseFlow                                                                    |
       | Output                | Max bps                                                                        |
-      | Criteria              | Event Criteria:Protocol,Operator:Not Equals,Value:[ICMP,IGMP,NonIP]            |
+      | Criteria              | Event Criteria:Protocol,Operator:Not Equals,Value:[ICMP,IGMP,Non-IP]            |
       | devices               | index:10                                                                       |
       | Time Definitions.Date | Absolute:[27.02.1971 01:00, +0d]                                               |
       | Schedule              | Run Every:Monthly, On Time:+6H, At Months:[MAR]                                |
@@ -316,7 +316,7 @@ Feature:Create DefenseFlow Part3
     Then UI "Validate" Forensics With Name "Output Max bps Protocol Not Equal"
       | Product               | DefenseFlow                                                                    |
       | Output                | Max bps                                                                        |
-      | Criteria              | Event Criteria:Protocol,Operator:Not Equals,Value:[ICMP,IGMP,NonIP]            |
+      | Criteria              | Event Criteria:Protocol,Operator:Not Equals,Value:[ICMP,IGMP,Non-IP]            |
       | devices               | index:10                                                                       |
       | Time Definitions.Date | Absolute:[27.02.1971 01:00, +0d]                                               |
       | Schedule              | Run Every:Monthly, On Time:+6H, At Months:[MAR]                                |
@@ -351,7 +351,7 @@ Feature:Create DefenseFlow Part3
     Given UI "Create" Forensics With Name "Output Risk Protocol Equal"
       | Product               | DefenseFlow                                                                    |
       | Output                | Risk                                                                           |
-      | Criteria              | Event Criteria:Protocol,Operator:Equals,Value:[ICMPV6,Other]                   |
+      | Criteria              | Event Criteria:Protocol,Operator:Equals,Value:[ICMPv6,Other]                   |
       | devices               | All                                                                            |
       | Time Definitions.Date | Quick:1Y                                                                       |
       | Share                 | Email:[automation.vision2@radware.com],Subject:myEdit subject,Body:myEdit body |
@@ -359,7 +359,7 @@ Feature:Create DefenseFlow Part3
     Then UI "Validate" Forensics With Name "Output Risk Protocol Equal"
       | Product               | DefenseFlow                                                                    |
       | Output                | Risk                                                                           |
-      | Criteria              | Event Criteria:Protocol,Operator:Equals,Value:[ICMPV6,Other]                   |
+      | Criteria              | Event Criteria:Protocol,Operator:Equals,Value:[ICMPv6,Other]                   |
       | devices               | All                                                                            |
       | Time Definitions.Date | Quick:1Y                                                                       |
       | Share                 | Email:[automation.vision2@radware.com],Subject:myEdit subject,Body:myEdit body |
@@ -371,7 +371,7 @@ Feature:Create DefenseFlow Part3
     Given UI "Create" Forensics With Name "Output VLAN Tag Protocol Not Equal"
       | Product               | DefenseFlow                                                                                                      |
       | Output                | VLAN Tag                                                                                                         |
-      | Criteria              | Event Criteria:Protocol,Operator:Not Equals,Value:[IP,TCP,UDP,ICMP,IGMP,NonIP,SCTP,ICMPV6,Other]                 |
+      | Criteria              | Event Criteria:Protocol,Operator:Not Equals,Value:[IP,TCP,UDP,ICMP,IGMP,Non-IP,SCTP,ICMPv6,Other]                 |
       | devices               | All                                                                                                              |
       | Time Definitions.Date | Quick:This Month                                                                                                 |
       | Schedule              | Run Every:Once, On Time:+6H                                                                                      |
@@ -380,7 +380,7 @@ Feature:Create DefenseFlow Part3
     Then UI "Validate" Forensics With Name "Output VLAN Tag Protocol Not Equal"
       | Product               | DefenseFlow                                                                                                      |
       | Output                | VLAN Tag                                                                                                         |
-      | Criteria              | Event Criteria:Protocol,Operator:Not Equals,Value:[IP,TCP,UDP,ICMP,IGMP,NonIP,SCTP,ICMPV6,Other]                 |
+      | Criteria              | Event Criteria:Protocol,Operator:Not Equals,Value:[IP,TCP,UDP,ICMP,IGMP,Non-IP,SCTP,ICMPv6,Other]                 |
       | devices               | All                                                                                                              |
       | Time Definitions.Date | Quick:This Month                                                                                                 |
       | Schedule              | Run Every:Once, On Time:+6H                                                                                      |
@@ -858,7 +858,7 @@ Feature:Create DefenseFlow Part3
     Given UI "Create" Forensics With Name "Output Radware ID Threat Category Equal"
       | Product               | DefenseFlow                                                                                                      |
       | Output                | Radware ID                                                                                                       |
-      | Criteria              | Event Criteria:Threat Category,Operator:Equals,Value:[AntiScanning]                                              |
+      | Criteria              | Event Criteria:Threat Category,Operator:Equals,Value:[Anti Scanning]                                              |
       | devices               | index:10                                                                                                         |
       | Time Definitions.Date | Relative:[Months,2]                                                                                              |
       | Share                 | FTP:checked, FTP.Location:172.17.164.10, FTP.Path:/home/radware/ftp/, FTP.Username:radware, FTP.Password:radware |
@@ -866,7 +866,7 @@ Feature:Create DefenseFlow Part3
     Then UI "Validate" Forensics With Name "Output Radware ID Threat Category Equal"
       | Product               | DefenseFlow                                                                                                      |
       | Output                | Radware ID                                                                                                       |
-      | Criteria              | Event Criteria:Threat Category,Operator:Equals,Value:[AntiScanning]                                              |
+      | Criteria              | Event Criteria:Threat Category,Operator:Equals,Value:[Anti Scanning]                                              |
       | devices               | index:10                                                                                                         |
       | Time Definitions.Date | Relative:[Months,2]                                                                                              |
       | Share                 | FTP:checked, FTP.Location:172.17.164.10, FTP.Path:/home/radware/ftp/, FTP.Username:radware, FTP.Password:radware |
@@ -878,7 +878,7 @@ Feature:Create DefenseFlow Part3
     Given UI "Create" Forensics With Name "Output Duration Threat Category Equal"
       | Product               | DefenseFlow                                                                    |
       | Output                | Duration                                                                       |
-      | Criteria              | Event Criteria:Threat Category,Operator:Equals,Value:[BehavioralDOS]           |
+      | Criteria              | Event Criteria:Threat Category,Operator:Equals,Value:[Behavioral DoS]           |
       | devices               | index:10                                                                       |
       | Schedule              | Run Every:Weekly, On Time:+6H, At Days:[THU]                                   |
       | Share                 | Email:[automation.vision2@radware.com],Subject:myEdit subject,Body:myEdit body |
@@ -886,7 +886,7 @@ Feature:Create DefenseFlow Part3
     Then UI "Validate" Forensics With Name "Output Duration Threat Category Equal"
       | Product               | DefenseFlow                                                                    |
       | Output                | Duration                                                                       |
-      | Criteria              | Event Criteria:Threat Category,Operator:Equals,Value:[BehavioralDOS]           |
+      | Criteria              | Event Criteria:Threat Category,Operator:Equals,Value:[Behavioral DoS]           |
       | devices               | index:10                                                                       |
       | Schedule              | Run Every:Weekly, On Time:+6H, At Days:[THU]                                   |
       | Share                 | Email:[automation.vision2@radware.com],Subject:myEdit subject,Body:myEdit body |
@@ -898,7 +898,7 @@ Feature:Create DefenseFlow Part3
     Given UI "Create" Forensics With Name "Output Total Packets Dropped Threat Category Equal"
       | Product               | DefenseFlow                                                                                                      |
       | Output                | Total Packets Dropped                                                                                            |
-      | Criteria              | Event Criteria:Threat Category,Operator:Equals,Value:[DOSShield]                                                 |
+      | Criteria              | Event Criteria:Threat Category,Operator:Equals,Value:[DoS]                                                 |
       | devices               | index:10                                                                                                         |
       | Time Definitions.Date | Absolute:[27.02.1971 01:00, +0d]                                                                                 |
       | Schedule              | Run Every:Monthly, On Time:+6H, At Months:[APR]                                                                  |
@@ -907,7 +907,7 @@ Feature:Create DefenseFlow Part3
     Then UI "Validate" Forensics With Name "Output Total Packets Dropped Threat Category Equal"
       | Product               | DefenseFlow                                                                                                      |
       | Output                | Total Packets Dropped                                                                                            |
-      | Criteria              | Event Criteria:Threat Category,Operator:Equals,Value:[DOSShield]                                                 |
+      | Criteria              | Event Criteria:Threat Category,Operator:Equals,Value:[DoS]                                                 |
       | devices               | index:10                                                                                                         |
       | Time Definitions.Date | Absolute:[27.02.1971 01:00, +0d]                                                                                 |
       | Schedule              | Run Every:Monthly, On Time:+6H, At Months:[APR]                                                                  |
@@ -920,7 +920,7 @@ Feature:Create DefenseFlow Part3
     Given UI "Create" Forensics With Name "Output Max pps Threat Category Equal"
       | Product               | DefenseFlow                                                                    |
       | Output                | Max pps                                                                        |
-      | Criteria              | Event Criteria:Threat Category,Operator:Equals,Value:[HttpFlood]               |
+      | Criteria              | Event Criteria:Threat Category,Operator:Equals,Value:[HTTP Flood]               |
       | devices               | index:10                                                                       |
       | Time Definitions.Date | Relative:[Weeks,2]                                                             |
       | Share                 | Email:[automation.vision2@radware.com],Subject:myEdit subject,Body:myEdit body |
@@ -928,7 +928,7 @@ Feature:Create DefenseFlow Part3
     Then UI "Validate" Forensics With Name "Output Max pps Threat Category Equal"
       | Product               | DefenseFlow                                                                    |
       | Output                | Max pps                                                                        |
-      | Criteria              | Event Criteria:Threat Category,Operator:Equals,Value:[HttpFlood]               |
+      | Criteria              | Event Criteria:Threat Category,Operator:Equals,Value:[HTTP Flood]               |
       | devices               | index:10                                                                       |
       | Time Definitions.Date | Relative:[Weeks,2]                                                             |
       | Share                 | Email:[automation.vision2@radware.com],Subject:myEdit subject,Body:myEdit body |
@@ -940,7 +940,7 @@ Feature:Create DefenseFlow Part3
     Given UI "Create" Forensics With Name "Output Total Mbits Dropped Threat Category Equal"
       | Product               | DefenseFlow                                                                                                      |
       | Output                | Total Mbits Dropped                                                                                              |
-      | Criteria              | Event Criteria:Threat Category,Operator:Equals,Value:[Https]                                                     |
+      | Criteria              | Event Criteria:Threat Category,Operator:Equals,Value:[HTTPS Flood]                                                     |
       | devices               | index:10                                                                                                         |
       | Schedule              | Run Every:Once, On Time:+6H                                                                                      |
       | Share                 | FTP:checked, FTP.Location:172.17.164.10, FTP.Path:/home/radware/ftp/, FTP.Username:radware, FTP.Password:radware |
@@ -948,7 +948,7 @@ Feature:Create DefenseFlow Part3
     Then UI "Validate" Forensics With Name "Output Total Mbits Dropped Threat Category Equal"
       | Product               | DefenseFlow                                                                                                      |
       | Output                | Total Mbits Dropped                                                                                              |
-      | Criteria              | Event Criteria:Threat Category,Operator:Equals,Value:[Https]                                                     |
+      | Criteria              | Event Criteria:Threat Category,Operator:Equals,Value:[HTTPS Flood]                                                     |
       | devices               | index:10                                                                                                         |
       | Schedule              | Run Every:Once, On Time:+6H                                                                                      |
       | Share                 | FTP:checked, FTP.Location:172.17.164.10, FTP.Path:/home/radware/ftp/, FTP.Username:radware, FTP.Password:radware |
@@ -980,7 +980,7 @@ Feature:Create DefenseFlow Part3
     Given UI "Create" Forensics With Name "Output Physical Port Threat Category Equal"
       | Product               | DefenseFlow                                                                                                      |
       | Output                | Physical Port                                                                                                    |
-      | Criteria              | Event Criteria:Threat Category,Operator:Equals,Value:[CrackingProtection]                                        |
+      | Criteria              | Event Criteria:Threat Category,Operator:Equals,Value:[Cracking Protection]                                        |
       | devices               | index:10                                                                                                         |
       | Time Definitions.Date | Quick:This Month                                                                                                 |
       | Schedule              | Run Every:Once, On Time:+6H                                                                                      |
@@ -989,7 +989,7 @@ Feature:Create DefenseFlow Part3
     Then UI "Validate" Forensics With Name "Output Physical Port Threat Category Equal"
       | Product               | DefenseFlow                                                                                                      |
       | Output                | Physical Port                                                                                                    |
-      | Criteria              | Event Criteria:Threat Category,Operator:Equals,Value:[CrackingProtection]                                        |
+      | Criteria              | Event Criteria:Threat Category,Operator:Equals,Value:[Cracking Protection]                                        |
       | devices               | index:10                                                                                                         |
       | Time Definitions.Date | Quick:This Month                                                                                                 |
       | Schedule              | Run Every:Once, On Time:+6H                                                                                      |
@@ -1002,7 +1002,7 @@ Feature:Create DefenseFlow Part3
     Given UI "Create" Forensics With Name "Output Risk Threat Category Equal"
       | Product               | DefenseFlow                                                                    |
       | Output                | Risk                                                                           |
-      | Criteria              | Event Criteria:Threat Category,Operator:Equals,Value:[SynFlood]                |
+      | Criteria              | Event Criteria:Threat Category,Operator:Equals,Value:[SYN Flood]                |
       | devices               | index:10                                                                       |
       | Time Definitions.Date | Absolute:[27.02.1971 01:00, +0d]                                               |
       | Schedule              | Run Every:Monthly, On Time:+6H, At Months:[MAR]                                |
@@ -1011,7 +1011,7 @@ Feature:Create DefenseFlow Part3
     Then UI "Validate" Forensics With Name "Output Risk Threat Category Equal"
       | Product               | DefenseFlow                                                                    |
       | Output                | Risk                                                                           |
-      | Criteria              | Event Criteria:Threat Category,Operator:Equals,Value:[SynFlood]                |
+      | Criteria              | Event Criteria:Threat Category,Operator:Equals,Value:[SYN Flood]                |
       | devices               | index:10                                                                       |
       | Time Definitions.Date | Absolute:[27.02.1971 01:00, +0d]                                               |
       | Schedule              | Run Every:Monthly, On Time:+6H, At Months:[MAR]                                |
@@ -1046,14 +1046,14 @@ Feature:Create DefenseFlow Part3
     Given UI "Create" Forensics With Name "Output Destination IP Address_Destination Port_Direction_Protocol_Radware ID_Duration_Total Packets Dropped Threat Category Equal"
       | Product               | DefenseFlow                                                                                          |
       | Output                | Destination IP Address,Destination Port,Direction,Protocol,Radware ID,Duration,Total Packets Dropped |
-      | Criteria              | Event Criteria:Threat Category,Operator:Equals,Value:[StatefulAcl]                                   |
+      | Criteria              | Event Criteria:Threat Category,Operator:Equals,Value:[Stateful ACL]                                   |
       | devices               | index:10                                                                                             |
       | Share                 | Email:[automation.vision2@radware.com],Subject:myEdit subject,Body:myEdit body                       |
       | Format                | Select: CSV                                                                                          |
     Then UI "Validate" Forensics With Name "Output Destination IP Address_Destination Port_Direction_Protocol_Radware ID_Duration_Total Packets Dropped Threat Category Equal"
       | Product               | DefenseFlow                                                                                          |
       | Output                | Destination IP Address,Destination Port,Direction,Protocol,Radware ID,Duration,Total Packets Dropped |
-      | Criteria              | Event Criteria:Threat Category,Operator:Equals,Value:[StatefulAcl]                                   |
+      | Criteria              | Event Criteria:Threat Category,Operator:Equals,Value:[Stateful ACL]                                   |
       | devices               | index:10                                                                                             |
       | Share                 | Email:[automation.vision2@radware.com],Subject:myEdit subject,Body:myEdit body                       |
       | Format                | Select: CSV                                                                                          |
@@ -1084,7 +1084,7 @@ Feature:Create DefenseFlow Part3
     Given UI "Create" Forensics With Name "Output Source IP Address_Source Port_Destination IP Address_Radware ID_Duration_Total Packets Dropped_Max pps Threat Category Equal"
       | Product               | DefenseFlow                                                                                            |
       | Output                | Source IP Address,Source Port,Destination IP Address,Radware ID,Duration,Total Packets Dropped,Max pps |
-      | Criteria              | Event Criteria:Threat Category,Operator:Equals,Value:[BWM]                                             |
+      | Criteria              | Event Criteria:Threat Category,Operator:Equals,Value:[Bandwidth Management]                                             |
       | devices               | index:10                                                                                               |
       | Time Definitions.Date | Absolute:[27.02.1971 01:00, +0d]                                                                       |
       | Schedule              | Run Every:Monthly, On Time:+6H, At Months:[MAR]                                                        |
@@ -1093,7 +1093,7 @@ Feature:Create DefenseFlow Part3
     Then UI "Validate" Forensics With Name "Output Source IP Address_Source Port_Destination IP Address_Radware ID_Duration_Total Packets Dropped_Max pps Threat Category Equal"
       | Product               | DefenseFlow                                                                                            |
       | Output                | Source IP Address,Source Port,Destination IP Address,Radware ID,Duration,Total Packets Dropped,Max pps |
-      | Criteria              | Event Criteria:Threat Category,Operator:Equals,Value:[BWM]                                             |
+      | Criteria              | Event Criteria:Threat Category,Operator:Equals,Value:[Bandwidth Management]                                             |
       | devices               | index:10                                                                                               |
       | Time Definitions.Date | Absolute:[27.02.1971 01:00, +0d]                                                                       |
       | Schedule              | Run Every:Monthly, On Time:+6H, At Months:[MAR]                                                        |
@@ -1106,7 +1106,7 @@ Feature:Create DefenseFlow Part3
     Given UI "Create" Forensics With Name "Output Start Time_End Time_Device IP Address_Threat Category_Attack Name_Action Threat Category Equal"
       | Product               | DefenseFlow                                                                                                      |
       | Output                | Start Time,End Time,Device IP Address,Threat Category,Attack Name,Action                                         |
-      | Criteria              | Event Criteria:Threat Category,Operator:Equals,Value:[TrafficFilters]                                            |
+      | Criteria              | Event Criteria:Threat Category,Operator:Equals,Value:[Traffic Filters]                                            |
       | devices               | index:10                                                                                                         |
       | Time Definitions.Date | Relative:[Weeks,2]                                                                                               |
       | Schedule              | Run Every:Daily,On Time:+2m                                                                                      |
@@ -1115,7 +1115,7 @@ Feature:Create DefenseFlow Part3
     Then UI "Validate" Forensics With Name "Output Start Time_End Time_Device IP Address_Threat Category_Attack Name_Action Threat Category Equal"
       | Product               | DefenseFlow                                                                                                      |
       | Output                | Start Time,End Time,Device IP Address,Threat Category,Attack Name,Action                                         |
-      | Criteria              | Event Criteria:Threat Category,Operator:Equals,Value:[TrafficFilters]                                            |
+      | Criteria              | Event Criteria:Threat Category,Operator:Equals,Value:[Traffic Filters]                                            |
       | devices               | index:10                                                                                                         |
       | Time Definitions.Date | Relative:[Weeks,2]                                                                                               |
       | Schedule              | Run Every:Daily,On Time:+2m                                                                                      |
@@ -1128,7 +1128,7 @@ Feature:Create DefenseFlow Part3
     Given UI "Create" Forensics With Name "Output Policy Name_Source IP Address Threat Category Equal"
       | Product               | DefenseFlow                                                                    |
       | Output                | Policy Name,Source IP Address                                                  |
-      | Criteria              | Event Criteria:Threat Category,Operator:Equals,Value:[ErtFeed]                 |
+      | Criteria              | Event Criteria:Threat Category,Operator:Equals,Value:[Malicious IP Addresses]                 |
       | devices               | index:10                                                                       |
       | Time Definitions.Date | Absolute:[27.02.1971 01:00, +0d]                                               |
       | Schedule              | Run Every:Weekly, On Time:+6H, At Days:[SUN]                                   |
@@ -1137,7 +1137,7 @@ Feature:Create DefenseFlow Part3
     Then UI "Validate" Forensics With Name "Output Policy Name_Source IP Address Threat Category Equal"
       | Product               | DefenseFlow                                                                    |
       | Output                | Policy Name,Source IP Address                                                  |
-      | Criteria              | Event Criteria:Threat Category,Operator:Equals,Value:[ErtFeed]                 |
+      | Criteria              | Event Criteria:Threat Category,Operator:Equals,Value:[Malicious IP Addresses]                 |
       | devices               | index:10                                                                       |
       | Time Definitions.Date | Absolute:[27.02.1971 01:00, +0d]                                               |
       | Schedule              | Run Every:Weekly, On Time:+6H, At Days:[SUN]                                   |
@@ -1150,7 +1150,7 @@ Feature:Create DefenseFlow Part3
     Given UI "Create" Forensics With Name "Output Destination IP Address_Destination Port_Direction Threat Category Equal"
       | Product               | DefenseFlow                                                                                                      |
       | Output                | Destination IP Address,Destination Port,Direction                                                                |
-      | Criteria              | Event Criteria:Threat Category,Operator:Equals,Value:[GeoFeed]                                                   |
+      | Criteria              | Event Criteria:Threat Category,Operator:Equals,Value:[Geolocation]                                                   |
       | devices               | index:10                                                                                                         |
       | Time Definitions.Date | Quick:3M                                                                                                         |
       | Schedule              | Run Every:Monthly, On Time:+6H, At Months:[DEC]                                                                  |
@@ -1159,7 +1159,7 @@ Feature:Create DefenseFlow Part3
     Then UI "Validate" Forensics With Name "Output Destination IP Address_Destination Port_Direction Threat Category Equal"
       | Product               | DefenseFlow                                                                                                      |
       | Output                | Destination IP Address,Destination Port,Direction                                                                |
-      | Criteria              | Event Criteria:Threat Category,Operator:Equals,Value:[GeoFeed]                                                   |
+      | Criteria              | Event Criteria:Threat Category,Operator:Equals,Value:[Geolocation]                                                   |
       | devices               | index:10                                                                                                         |
       | Time Definitions.Date | Quick:3M                                                                                                         |
       | Schedule              | Run Every:Monthly, On Time:+6H, At Months:[DEC]                                                                  |
@@ -1172,7 +1172,7 @@ Feature:Create DefenseFlow Part3
     Given UI "Create" Forensics With Name "Output All Threat Category Equal"
       | Product               | DefenseFlow                                                                                                                                                                                                                                                                                       |
       | Output                | Start Time,End Time,Device IP Address,Threat Category,Attack Name,Action,Attack ID,Policy Name,Source IP Address,Source Port,Destination IP Address,Destination Port,Direction,Protocol,Radware ID,Duration,Total Packets Dropped,Max pps,Total Mbits Dropped,Max bps,Physical Port,Risk,VLAN Tag |
-      | Criteria              | Event Criteria:Threat Category,Operator:Equals,Value:[ConnectionPPS]                                                                                                                                                                                                                              |
+      | Criteria              | Event Criteria:Threat Category,Operator:Equals,Value:[Connection PPS]                                                                                                                                                                                                                              |
       | devices               | index:10                                                                                                                                                                                                                                                                                          |
       | Time Definitions.Date | Quick:This Month                                                                                                                                                                                                                                                                                  |
       | Share                 | Email:[automation.vision2@radware.com],Subject:myEdit subject,Body:myEdit body                                                                                                                                                                                                                    |
@@ -1180,7 +1180,7 @@ Feature:Create DefenseFlow Part3
     Then UI "Validate" Forensics With Name "Output All Threat Category Equal"
       | Product               | DefenseFlow                                                                                                                                                                                                                                                                                       |
       | Output                | Start Time,End Time,Device IP Address,Threat Category,Attack Name,Action,Attack ID,Policy Name,Source IP Address,Source Port,Destination IP Address,Destination Port,Direction,Protocol,Radware ID,Duration,Total Packets Dropped,Max pps,Total Mbits Dropped,Max bps,Physical Port,Risk,VLAN Tag |
-      | Criteria              | Event Criteria:Threat Category,Operator:Equals,Value:[ConnectionPPS]                                                                                                                                                                                                                              |
+      | Criteria              | Event Criteria:Threat Category,Operator:Equals,Value:[Connection PPS]                                                                                                                                                                                                                              |
       | devices               | index:10                                                                                                                                                                                                                                                                                          |
       | Time Definitions.Date | Quick:This Month                                                                                                                                                                                                                                                                                  |
       | Share                 | Email:[automation.vision2@radware.com],Subject:myEdit subject,Body:myEdit body                                                                                                                                                                                                                    |
@@ -1192,7 +1192,7 @@ Feature:Create DefenseFlow Part3
     Given UI "Create" Forensics With Name "Output Start Timen Threat Category Equal"
       | Product               | DefenseFlow                                                                                                                                                                                                                       |
       | Output                | Start Time                                                                                                                                                                                                                        |
-      | Criteria              | Event Criteria:Threat Category,Operator:Equals,Value:[ACL,AntiScanning,BehavioralDOS,DOSShield,HttpFlood,Https,Intrusions,CrackingProtection,SynFlood,Anomalies,StatefulAcl,DNS,BWM,TrafficFilters,ErtFeed,GeoFeed,ConnectionPPS] |
+      | Criteria              | Event Criteria:Threat Category,Operator:Equals,Value:[ACL,Anti Scanning,Behavioral DoS,DoS,HTTP Flood,HTTPS Flood,Intrusions,Cracking Protection,SYN Flood,Anomalies,Stateful Acl,DNS Flood,Bandwidth Management,Traffic Filters,Malicious IP Addresses,Geolocation,Connection PPS] |
       | devices               | index:10                                                                                                                                                                                                                          |
       | Schedule              | Run Every:Monthly, On Time:+6H, At Months:[MAR]                                                                                                                                                                                   |
       | Share                 | Email:[automation.vision2@radware.com],Subject:myEdit subject,Body:myEdit body                                                                                                                                                    |
@@ -1200,7 +1200,7 @@ Feature:Create DefenseFlow Part3
     Then UI "Validate" Forensics With Name "Output Start Timen Threat Category Equal"
       | Product               | DefenseFlow                                                                                                                                                                                                                       |
       | Output                | Start Time                                                                                                                                                                                                                        |
-      | Criteria              | Event Criteria:Threat Category,Operator:Equals,Value:[ACL,AntiScanning,BehavioralDOS,DOSShield,HttpFlood,Https,Intrusions,CrackingProtection,SynFlood,Anomalies,StatefulAcl,DNS,BWM,TrafficFilters,ErtFeed,GeoFeed,ConnectionPPS] |
+      | Criteria              | Event Criteria:Threat Category,Operator:Equals,Value:[ACL,Anti Scanning,Behavioral DoS,DoS,HTTP Flood,HTTPS Flood,Intrusions,Cracking Protection,SYN Flood,Anomalies,Stateful Acl,DNS Flood,Bandwidth Management,Traffic Filters,Malicious IP Addresses,Geolocation,Connection PPS] |
       | devices               | index:10                                                                                                                                                                                                                          |
       | Schedule              | Run Every:Monthly, On Time:+6H, At Months:[MAR]                                                                                                                                                                                   |
       | Share                 | Email:[automation.vision2@radware.com],Subject:myEdit subject,Body:myEdit body                                                                                                                                                    |
@@ -1212,14 +1212,14 @@ Feature:Create DefenseFlow Part3
     Given UI "Create" Forensics With Name "Output End Time Threat Category Equal"
       | Product               | DefenseFlow                                                                                                             |
       | Output                | End Time                                                                                                                |
-      | Criteria              | Event Criteria:Threat Category,Operator:Equals,Value:[AntiScanning,BehavioralDOS,DOSShield,CrackingProtection,SynFlood] |
+      | Criteria              | Event Criteria:Threat Category,Operator:Equals,Value:[Anti Scanning,Behavioral DoS,DoS,Cracking Protection,SYN Flood] |
       | devices               | index:10                                                                                                                |
       | Share                 | Email:[automation.vision2@radware.com],Subject:myEdit subject,Body:myEdit body                                          |
       | Format                | Select: CSV                                                                                                             |
     Then UI "Validate" Forensics With Name "Output End Time Threat Category Equal"
       | Product               | DefenseFlow                                                                                                             |
       | Output                | End Time                                                                                                                |
-      | Criteria              | Event Criteria:Threat Category,Operator:Equals,Value:[AntiScanning,BehavioralDOS,DOSShield,CrackingProtection,SynFlood] |
+      | Criteria              | Event Criteria:Threat Category,Operator:Equals,Value:[Anti Scanning,Behavioral DoS,DoS,Cracking Protection,SYN Flood] |
       | devices               | index:10                                                                                                                |
       | Share                 | Email:[automation.vision2@radware.com],Subject:myEdit subject,Body:myEdit body                                          |
       | Format                | Select: CSV                                                                                                             |
@@ -1230,7 +1230,7 @@ Feature:Create DefenseFlow Part3
     Given UI "Create" Forensics With Name "Output Device IP Address Threat Category Not Equal"
       | Product               | DefenseFlow                                                                                                             |
       | Output                | Device IP Address                                                                                                       |
-      | Criteria              | Event Criteria:Threat Category,Operator:Not Equals,Value:[HttpFlood,Https,Anomalies,StatefulAcl,TrafficFilters,ErtFeed] |
+      | Criteria              | Event Criteria:Threat Category,Operator:Not Equals,Value:[HTTP Flood,HTTPS Flood,Anomalies,Stateful Acl,Traffic Filters] |
       | devices               | index:10                                                                                                                |
       | Time Definitions.Date | Absolute:[27.02.1971 01:00, +0d]                                                                                        |
       | Schedule              | Run Every:Monthly, On Time:+6H, At Months:[OCT]                                                                         |
@@ -1239,7 +1239,7 @@ Feature:Create DefenseFlow Part3
     Then UI "Validate" Forensics With Name "Output Device IP Address Threat Category Not Equal"
       | Product               | DefenseFlow                                                                                                             |
       | Output                | Device IP Address                                                                                                       |
-      | Criteria              | Event Criteria:Threat Category,Operator:Not Equals,Value:[HttpFlood,Https,Anomalies,StatefulAcl,TrafficFilters,ErtFeed] |
+      | Criteria              | Event Criteria:Threat Category,Operator:Not Equals,Value:[HTTP Flood,HTTPS Flood,Anomalies,Stateful Acl,Traffic Filters] |
       | devices               | index:10                                                                                                                |
       | Time Definitions.Date | Absolute:[27.02.1971 01:00, +0d]                                                                                        |
       | Schedule              | Run Every:Monthly, On Time:+6H, At Months:[OCT]                                                                         |
@@ -1252,7 +1252,7 @@ Feature:Create DefenseFlow Part3
     Given UI "Create" Forensics With Name "Output Threat Category Threat Category Not Equal"
       | Product               | DefenseFlow                                                                    |
       | Output                | Threat Category                                                                |
-      | Criteria              | Event Criteria:Threat Category,Operator:Not Equals,Value:[DNS,ConnectionPPS]   |
+      | Criteria              | Event Criteria:Threat Category,Operator:Not Equals,Value:[DNS Flood,Connection PPS]   |
       | devices               | index:10                                                                       |
       | Time Definitions.Date | Relative:[Days,2]                                                              |
       | Schedule              | Run Every:Weekly, On Time:+6H, At Days:[SUN]                                   |
@@ -1261,7 +1261,7 @@ Feature:Create DefenseFlow Part3
     Then UI "Validate" Forensics With Name "Output Threat Category Threat Category Not Equal"
       | Product               | DefenseFlow                                                                    |
       | Output                | Threat Category                                                                |
-      | Criteria              | Event Criteria:Threat Category,Operator:Not Equals,Value:[DNS,ConnectionPPS]   |
+      | Criteria              | Event Criteria:Threat Category,Operator:Not Equals,Value:[DNS Flood,Connection PPS]   |
       | devices               | index:10                                                                       |
       | Time Definitions.Date | Relative:[Days,2]                                                              |
       | Schedule              | Run Every:Weekly, On Time:+6H, At Days:[SUN]                                   |
@@ -1274,7 +1274,7 @@ Feature:Create DefenseFlow Part3
     Given UI "Create" Forensics With Name "Output Attack Name1_Protocol_Radware ID_Duration_Total Packets Dropped_Max pps Threat Category Not Equal"
       | Product               | DefenseFlow                                                                                                                                                                                       |
       | Output                | Attack Name,Protocol,Radware ID,Duration,Total Packets Dropped,Max pps                                                                                                                            |
-      | Criteria              | Event Criteria:Threat Category,Operator:Not Equals,Value:[ACL,AntiScanning,BehavioralDOS,DOSShield,HttpFlood,Intrusions,CrackingProtection,SynFlood,Anomalies,StatefulAcl,DNS,BWM,TrafficFilters] |
+      | Criteria              | Event Criteria:Threat Category,Operator:Not Equals,Value:[ACL,Anti Scanning,Behavioral DoS,DoS,HTTP Flood,Intrusions,Cracking Protection,SYN Flood,Anomalies,Stateful Acl,DNS Flood,Traffic Filters] |
       | devices               | index:10                                                                                                                                                                                          |
       | Time Definitions.Date | Relative:[Months,2]                                                                                                                                                                               |
       | Share                 | FTP:checked, FTP.Location:172.17.164.10, FTP.Path:/home/radware/ftp/, FTP.Username:radware, FTP.Password:radware                                                                                  |
@@ -1282,7 +1282,7 @@ Feature:Create DefenseFlow Part3
     Then UI "Validate" Forensics With Name "Output Attack Name1_Protocol_Radware ID_Duration_Total Packets Dropped_Max pps Threat Category Not Equal"
       | Product               | DefenseFlow                                                                                                                                                                                       |
       | Output                | Attack Name,Protocol,Radware ID,Duration,Total Packets Dropped,Max pps                                                                                                                            |
-      | Criteria              | Event Criteria:Threat Category,Operator:Not Equals,Value:[ACL,AntiScanning,BehavioralDOS,DOSShield,HttpFlood,Intrusions,CrackingProtection,SynFlood,Anomalies,StatefulAcl,DNS,BWM,TrafficFilters] |
+      | Criteria              | Event Criteria:Threat Category,Operator:Not Equals,Value:[ACL,Anti Scanning,Behavioral DoS,DoS,HTTP Flood,Intrusions,Cracking Protection,SYN Flood,Anomalies,Stateful Acl,DNS Flood,Traffic Filters] |
       | devices               | index:10                                                                                                                                                                                          |
       | Time Definitions.Date | Relative:[Months,2]                                                                                                                                                                               |
       | Share                 | FTP:checked, FTP.Location:172.17.164.10, FTP.Path:/home/radware/ftp/, FTP.Username:radware, FTP.Password:radware                                                                                  |
@@ -1294,7 +1294,7 @@ Feature:Create DefenseFlow Part3
     Given UI "Create" Forensics With Name "Output Attack Name2_Protocol_Radware ID_Duration_Total Packets Dropped_Max pps Custom"
       | Product               | DefenseFlow                                                                                                                                         |
       | Output                | Attack Name,Protocol,Radware ID,Duration,Total Packets Dropped,Max pps                                                                              |
-      | Criteria              | Event Criteria:Action,Operator:Not Equals,Value:Http 403 Forbidden;Event Criteria:Duration,Operator:Equals,Value:[5-10min],condition.Custom:1 AND 2 |
+      | Criteria              | Event Criteria:Action,Operator:Not Equals,Value:Http 403 Forbidden;Event Criteria:Duration,Operator:Equals,Value:[5-10 min],condition.Custom:1 AND 2 |
       | devices               | index:10                                                                                                                                            |
       | Time Definitions.Date | Quick:1D                                                                                                                                            |
       | Schedule              | Run Every:Weekly, On Time:+6H, At Days:[FRI]                                                                                                        |
@@ -1303,7 +1303,7 @@ Feature:Create DefenseFlow Part3
     Then UI "Validate" Forensics With Name "Output Attack Name2_Protocol_Radware ID_Duration_Total Packets Dropped_Max pps Custom"
       | Product               | DefenseFlow                                                                                                                                         |
       | Output                | Attack Name,Protocol,Radware ID,Duration,Total Packets Dropped,Max pps                                                                              |
-      | Criteria              | Event Criteria:Action,Operator:Not Equals,Value:Http 403 Forbidden;Event Criteria:Duration,Operator:Equals,Value:[5-10min],condition.Custom:1 AND 2 |
+      | Criteria              | Event Criteria:Action,Operator:Not Equals,Value:Http 403 Forbidden;Event Criteria:Duration,Operator:Equals,Value:[5-10 min],condition.Custom:1 AND 2 |
       | devices               | index:10                                                                                                                                            |
       | Time Definitions.Date | Quick:1D                                                                                                                                            |
       | Schedule              | Run Every:Weekly, On Time:+6H, At Days:[FRI]                                                                                                        |
