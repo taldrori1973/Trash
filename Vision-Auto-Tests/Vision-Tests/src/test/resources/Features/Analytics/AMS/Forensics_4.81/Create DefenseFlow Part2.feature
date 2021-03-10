@@ -99,7 +99,7 @@ Feature:Create DefenseFlow Part2
     Given UI "Create" Forensics With Name "Output VLAN Tag Attack ID Equals"
       | Product               | DefenseFlow                                                                                                      |
       | Output                | VLAN Tag                                                                                                         |
-      | Criteria              | Event Criteria:Attack ID,Operator:Equals,Value:3333                                                              |
+      | Criteria              | Event Criteria:Radware ID,Operator:Equals,Value:3333                                                              |
       | devices               | All                                                                                                              |
       | Time Definitions.Date | Relative:[Hours,2]                                                                                               |
       | Schedule              | Run Every:Weekly, On Time:+6H, At Days:[WED]                                                                     |
@@ -108,7 +108,7 @@ Feature:Create DefenseFlow Part2
     Then UI "Validate" Forensics With Name "Output VLAN Tag Attack ID Equals"
       | Product               | DefenseFlow                                                                                                      |
       | Output                | VLAN Tag                                                                                                         |
-      | Criteria              | Event Criteria:Attack ID,Operator:Equals,Value:3333                                                              |
+      | Criteria              | Event Criteria:Radware ID,Operator:Equals,Value:3333                                                              |
       | devices               | All                                                                                                              |
       | Time Definitions.Date | Relative:[Hours,2]                                                                                               |
       | Schedule              | Run Every:Weekly, On Time:+6H, At Days:[WED]                                                                     |
@@ -121,14 +121,14 @@ Feature:Create DefenseFlow Part2
     Given UI "Create" Forensics With Name "Output Destination IP Address_Destination Port_Direction_Protocol_Radware ID_Duration_Total Packets Dropped Attack ID Not Equals"
       | Product               | DefenseFlow                                                                                                      |
       | Output                | Destination IP Address,Destination Port,Direction,Protocol,Radware ID,Duration,Total Packets Dropped             |
-      | Criteria              | Event Criteria:Attack ID,Operator:Not Equals,Value:111111                                                        |
+      | Criteria              | Event Criteria:Radware ID,Operator:Not Equals,Value:111111                                                        |
       | devices               | All                                                                                                              |
       | Share                 | Email:[automation.vision2@radware.com],Subject:myEdit subject,Body:myEdit body                                   |
       | Format                | Select: CSV                                                                                                      |
     Then UI "Validate" Forensics With Name "Output Destination IP Address_Destination Port_Direction_Protocol_Radware ID_Duration_Total Packets Dropped Attack ID Not Equals"
       | Product               | DefenseFlow                                                                                                      |
       | Output                | Destination IP Address,Destination Port,Direction,Protocol,Radware ID,Duration,Total Packets Dropped             |
-      | Criteria              | Event Criteria:Attack ID,Operator:Not Equals,Value:111111                                                        |
+      | Criteria              | Event Criteria:Radware ID,Operator:Not Equals,Value:111111                                                        |
       | devices               | All                                                                                                              |
       | Share                 | Email:[automation.vision2@radware.com],Subject:myEdit subject,Body:myEdit body                                   |
       | Format                | Select: CSV                                                                                                      |
@@ -723,7 +723,7 @@ Feature:Create DefenseFlow Part2
     Given UI "Create" Forensics With Name "Output Risk Duration Equal"
       | Product               | DefenseFlow                                                                                                      |
       | Output                | Risk                                                                                                             |
-      | Criteria              | Event Criteria:Duration,Operator:Equals,Value:[lessThanOneMin]                                                   |
+      | Criteria              | Event Criteria:Duration,Operator:Equals,Value:[Less than 1 min]                                                   |
       | devices               | All                                                                                                              |
       | Schedule              | Run Every:Monthly, On Time:+6H, At Months:[AUG]                                                                  |
       | Share                 | FTP:checked, FTP.Location:172.17.164.10, FTP.Path:/home/radware/ftp/, FTP.Username:radware, FTP.Password:radware |
@@ -731,7 +731,7 @@ Feature:Create DefenseFlow Part2
     Then UI "Validate" Forensics With Name "Output Risk Duration Equal"
       | Product               | DefenseFlow                                                                                                      |
       | Output                | Risk                                                                                                             |
-      | Criteria              | Event Criteria:Duration,Operator:Equals,Value:[lessThanOneMin]                                                   |
+      | Criteria              | Event Criteria:Duration,Operator:Equals,Value:[Less than 1 min]                                                   |
       | devices               | All                                                                                                              |
       | Schedule              | Run Every:Monthly, On Time:+6H, At Months:[AUG]                                                                  |
       | Share                 | FTP:checked, FTP.Location:172.17.164.10, FTP.Path:/home/radware/ftp/, FTP.Username:radware, FTP.Password:radware |
@@ -743,7 +743,7 @@ Feature:Create DefenseFlow Part2
     Given UI "Create" Forensics With Name "Output VLAN Tag Duration Equal"
       | Product               | DefenseFlow                                                                    |
       | Output                | VLAN Tag                                                                       |
-      | Criteria              | Event Criteria:Duration,Operator:Equals,Value:[1-5min]                         |
+      | Criteria              | Event Criteria:Duration,Operator:Equals,Value:[1-5 min]                         |
       | devices               | index:10                                                                       |
       | Time Definitions.Date | Absolute:[27.02.1971 01:00, +0d]                                               |
       | Schedule              | Run Every:Monthly, On Time:+6H, At Months:[MAR]                                |
@@ -752,7 +752,7 @@ Feature:Create DefenseFlow Part2
     Then UI "Validate" Forensics With Name "Output VLAN Tag Duration Equal"
       | Product               | DefenseFlow                                                                    |
       | Output                | VLAN Tag                                                                       |
-      | Criteria              | Event Criteria:Duration,Operator:Equals,Value:[1-5min]                         |
+      | Criteria              | Event Criteria:Duration,Operator:Equals,Value:[1-5 min]                         |
       | devices               | index:10                                                                       |
       | Time Definitions.Date | Absolute:[27.02.1971 01:00, +0d]                                               |
       | Schedule              | Run Every:Monthly, On Time:+6H, At Months:[MAR]                                |
@@ -765,7 +765,7 @@ Feature:Create DefenseFlow Part2
     Given UI "Create" Forensics With Name "Output Destination IP Address_Destination Port_Direction_Protocol_Radware ID_Duration_Total Packets Dropped Duration Equal"
       | Product               | DefenseFlow                                                                                                      |
       | Output                | Destination IP Address,Destination Port,Direction,Protocol,Radware ID,Duration,Total Packets Dropped             |
-      | Criteria              | Event Criteria:Duration,Operator:Equals,Value:[5-10min]                                                          |
+      | Criteria              | Event Criteria:Duration,Operator:Equals,Value:[5-10 min]                                                          |
       | devices               | All                                                                                                              |
       | Time Definitions.Date | Relative:[Weeks,2]                                                                                               |
       | Schedule              | Run Every:Daily,On Time:+2m                                                                                      |
@@ -774,7 +774,7 @@ Feature:Create DefenseFlow Part2
     Then UI "Validate" Forensics With Name "Output Destination IP Address_Destination Port_Direction_Protocol_Radware ID_Duration_Total Packets Dropped Duration Equal"
       | Product               | DefenseFlow                                                                                                      |
       | Output                | Destination IP Address,Destination Port,Direction,Protocol,Radware ID,Duration,Total Packets Dropped             |
-      | Criteria              | Event Criteria:Duration,Operator:Equals,Value:[5-10min]                                                          |
+      | Criteria              | Event Criteria:Duration,Operator:Equals,Value:[5-10 min]                                                          |
       | devices               | All                                                                                                              |
       | Time Definitions.Date | Relative:[Weeks,2]                                                                                               |
       | Schedule              | Run Every:Daily,On Time:+2m                                                                                      |
@@ -787,7 +787,7 @@ Feature:Create DefenseFlow Part2
     Given UI "Create" Forensics With Name "Output Action_Attack ID_Policy Name_Source IP Address_Destination IP Address_Destination Port_Total Mbits Dropped_Max bps_Physical Port_Risk_VLAN Tag Duration Equal"
       | Product               | DefenseFlow                                                                                                                                    |
       | Output                | Action,Attack ID,Policy Name,Source IP Address,Destination IP Address,Destination Port,Total Mbits Dropped,Max bps,Physical Port,Risk,VLAN Tag |
-      | Criteria              | Event Criteria:Duration,Operator:Equals,Value:[10-30min]                                                                                       |
+      | Criteria              | Event Criteria:Duration,Operator:Equals,Value:[10-30 min]                                                                                       |
       | devices               | All                                                                                                                                            |
       | Time Definitions.Date | Absolute:[27.02.1971 01:00, +0d]                                                                                                               |
       | Schedule              | Run Every:Weekly, On Time:+6H, At Days:[SUN]                                                                                                   |
@@ -796,7 +796,7 @@ Feature:Create DefenseFlow Part2
     Then UI "Validate" Forensics With Name "Output Action_Attack ID_Policy Name_Source IP Address_Destination IP Address_Destination Port_Total Mbits Dropped_Max bps_Physical Port_Risk_VLAN Tag Duration Equal"
       | Product               | DefenseFlow                                                                                                                                    |
       | Output                | Action,Attack ID,Policy Name,Source IP Address,Destination IP Address,Destination Port,Total Mbits Dropped,Max bps,Physical Port,Risk,VLAN Tag |
-      | Criteria              | Event Criteria:Duration,Operator:Equals,Value:[10-30min]                                                                                       |
+      | Criteria              | Event Criteria:Duration,Operator:Equals,Value:[10-30 min]                                                                                       |
       | devices               | All                                                                                                                                            |
       | Time Definitions.Date | Absolute:[27.02.1971 01:00, +0d]                                                                                                               |
       | Schedule              | Run Every:Weekly, On Time:+6H, At Days:[SUN]                                                                                                   |
@@ -809,7 +809,7 @@ Feature:Create DefenseFlow Part2
     Given UI "Create" Forensics With Name "Output Source IP Address_Source Port_Destination IP Address_Radware ID_Duration_Total Packets Dropped_Max pps Duration Equal"
       | Product               | DefenseFlow                                                                                                      |
       | Output                | Source IP Address,Source Port,Destination IP Address,Radware ID,Duration,Total Packets Dropped,Max pps           |
-      | Criteria              | Event Criteria:Duration,Operator:Equals,Value:[30-60min]                                                         |
+      | Criteria              | Event Criteria:Duration,Operator:Equals,Value:[30-60 min]                                                         |
       | devices               | All                                                                                                              |
       | Time Definitions.Date | Quick:3M                                                                                                         |
       | Schedule              | Run Every:Monthly, On Time:+6H, At Months:[DEC]                                                                  |
@@ -818,7 +818,7 @@ Feature:Create DefenseFlow Part2
     Then UI "Validate" Forensics With Name "Output Source IP Address_Source Port_Destination IP Address_Radware ID_Duration_Total Packets Dropped_Max pps Duration Equal"
       | Product               | DefenseFlow                                                                                                      |
       | Output                | Source IP Address,Source Port,Destination IP Address,Radware ID,Duration,Total Packets Dropped,Max pps           |
-      | Criteria              | Event Criteria:Duration,Operator:Equals,Value:[30-60min]                                                         |
+      | Criteria              | Event Criteria:Duration,Operator:Equals,Value:[30-60 min]                                                         |
       | devices               | All                                                                                                              |
       | Time Definitions.Date | Quick:3M                                                                                                         |
       | Schedule              | Run Every:Monthly, On Time:+6H, At Months:[DEC]                                                                  |
@@ -831,7 +831,7 @@ Feature:Create DefenseFlow Part2
     Given UI "Create" Forensics With Name "Output Start Time_End Time_Device IP Address_Threat Category_Attack Name_Action Duration Equal"
       | Product               | DefenseFlow                                                                    |
       | Output                | Start Time,End Time,Device IP Address,Threat Category,Attack Name,Action       |
-      | Criteria              | Event Criteria:Duration,Operator:Equals,Value:[moreThanOneHour]                |
+      | Criteria              | Event Criteria:Duration,Operator:Equals,Value:[More than 1 hour]                |
       | devices               | index:10                                                                       |
       | Time Definitions.Date | Quick:This Month                                                               |
       | Share                 | Email:[automation.vision2@radware.com],Subject:myEdit subject,Body:myEdit body |
@@ -839,7 +839,7 @@ Feature:Create DefenseFlow Part2
     Then UI "Validate" Forensics With Name "Output Start Time_End Time_Device IP Address_Threat Category_Attack Name_Action Duration Equal"
       | Product               | DefenseFlow                                                                    |
       | Output                | Start Time,End Time,Device IP Address,Threat Category,Attack Name,Action       |
-      | Criteria              | Event Criteria:Duration,Operator:Equals,Value:[moreThanOneHour]                |
+      | Criteria              | Event Criteria:Duration,Operator:Equals,Value:[More than 1 hour]                |
       | devices               | index:10                                                                       |
       | Time Definitions.Date | Quick:This Month                                                               |
       | Share                 | Email:[automation.vision2@radware.com],Subject:myEdit subject,Body:myEdit body |
@@ -851,7 +851,7 @@ Feature:Create DefenseFlow Part2
     Given UI "Create" Forensics With Name "Output Policy Name_Source IP Address Not Duration Equal"
       | Product               | DefenseFlow                                                                    |
       | Output                | Policy Name,Source IP Address                                                  |
-      | Criteria              | Event Criteria:Duration,Operator:Not Equals,Value:[5-10min,10-30min,30-60min]  |
+      | Criteria              | Event Criteria:Duration,Operator:Not Equals,Value:[5-10 min,10-30 min,30-60 min]  |
       | devices               | index:10                                                                       |
       | Schedule              | Run Every:Monthly, On Time:+6H, At Months:[MAR]                                |
       | Share                 | Email:[automation.vision2@radware.com],Subject:myEdit subject,Body:myEdit body |
@@ -859,7 +859,7 @@ Feature:Create DefenseFlow Part2
     Then UI "Validate" Forensics With Name "Output Policy Name_Source IP Address Not Duration Equal"
       | Product               | DefenseFlow                                                                    |
       | Output                | Policy Name,Source IP Address                                                  |
-      | Criteria              | Event Criteria:Duration,Operator:Not Equals,Value:[5-10min,10-30min,30-60min]  |
+      | Criteria              | Event Criteria:Duration,Operator:Not Equals,Value:[5-10 min,10-30 min,30-60 min]  |
       | devices               | index:10                                                                       |
       | Schedule              | Run Every:Monthly, On Time:+6H, At Months:[MAR]                                |
       | Share                 | Email:[automation.vision2@radware.com],Subject:myEdit subject,Body:myEdit body |
@@ -871,14 +871,14 @@ Feature:Create DefenseFlow Part2
     Given UI "Create" Forensics With Name "Output Destination IP Address_Destination Port_Direction Duration Equal"
       | Product               | DefenseFlow                                                                    |
       | Output                | Destination IP Address,Destination Port,Direction                              |
-      | Criteria              | Event Criteria:Duration,Operator:Equals,Value:[lessThanOneMin,moreThanOneHour] |
+      | Criteria              | Event Criteria:Duration,Operator:Equals,Value:[Less than 1 min,More than 1 hour] |
       | devices               | index:10                                                                       |
       | Share                 | Email:[automation.vision2@radware.com],Subject:myEdit subject,Body:myEdit body |
       | Format                | Select: CSV                                                                    |
     Then UI "Validate" Forensics With Name "Output Destination IP Address_Destination Port_Direction Duration Equal"
       | Product               | DefenseFlow                                                                    |
       | Output                | Destination IP Address,Destination Port,Direction                              |
-      | Criteria              | Event Criteria:Duration,Operator:Equals,Value:[lessThanOneMin,moreThanOneHour] |
+      | Criteria              | Event Criteria:Duration,Operator:Equals,Value:[Less than 1 min,More than 1 hour] |
       | devices               | index:10                                                                       |
       | Share                 | Email:[automation.vision2@radware.com],Subject:myEdit subject,Body:myEdit body |
       | Format                | Select: CSV                                                                    |
@@ -889,7 +889,7 @@ Feature:Create DefenseFlow Part2
     Given UI "Create" Forensics With Name "Output All Duration Equal"
       | Product               | DefenseFlow                                                                                                                                                                                                                                                                                       |
       | Output                | Start Time,End Time,Device IP Address,Threat Category,Attack Name,Action,Attack ID,Policy Name,Source IP Address,Source Port,Destination IP Address,Destination Port,Direction,Protocol,Radware ID,Duration,Total Packets Dropped,Max pps,Total Mbits Dropped,Max bps,Physical Port,Risk,VLAN Tag |
-      | Criteria              | Event Criteria:Duration,Operator:Equals,Value:[lessThanOneMin,1-5min,5-10min,10-30min,30-60min,moreThanOneHour]                                                                                                                                                                                   |
+      | Criteria              | Event Criteria:Duration,Operator:Equals,Value:[Less than 1 min,1-5 min,5-10 min,10-30 min,30-60 min,More than 1 hour]                                                                                                                                                                                   |
       | devices               | All                                                                                                                                                                                                                                                                                               |
       | Schedule              | Run Every:Monthly, On Time:+6H, At Months:[AUG]                                                                                                                                                                                                                                                   |
       | Share                 | FTP:checked, FTP.Location:172.17.164.10, FTP.Path:/home/radware/ftp/, FTP.Username:radware, FTP.Password:radware                                                                                                                                                                                  |
@@ -897,7 +897,7 @@ Feature:Create DefenseFlow Part2
     Then UI "Validate" Forensics With Name "Output All Duration Equal"
       | Product               | DefenseFlow                                                                                                                                                                                                                                                                                       |
       | Output                | Start Time,End Time,Device IP Address,Threat Category,Attack Name,Action,Attack ID,Policy Name,Source IP Address,Source Port,Destination IP Address,Destination Port,Direction,Protocol,Radware ID,Duration,Total Packets Dropped,Max pps,Total Mbits Dropped,Max bps,Physical Port,Risk,VLAN Tag |
-      | Criteria              | Event Criteria:Duration,Operator:Equals,Value:[lessThanOneMin,1-5min,5-10min,10-30min,30-60min,moreThanOneHour]                                                                                                                                                                                   |
+      | Criteria              | Event Criteria:Duration,Operator:Equals,Value:[Less than 1 min,1-5 min,5-10 min,10-30 min,30-60 min,More than 1 hour]                                                                                                                                                                                   |
       | devices               | All                                                                                                                                                                                                                                                                                               |
       | Schedule              | Run Every:Monthly, On Time:+6H, At Months:[AUG]                                                                                                                                                                                                                                                   |
       | Share                 | FTP:checked, FTP.Location:172.17.164.10, FTP.Path:/home/radware/ftp/, FTP.Username:radware, FTP.Password:radware                                                                                                                                                                                  |
@@ -909,7 +909,7 @@ Feature:Create DefenseFlow Part2
     Given UI "Create" Forensics With Name "Output Start Time Duration Not Equal"
       | Product               | DefenseFlow                                                                    |
       | Output                | Start Time                                                                     |
-      | Criteria              | Event Criteria:Duration,Operator:Not Equals,Value:[1-5min,5-10min,10-30min]    |
+      | Criteria              | Event Criteria:Duration,Operator:Not Equals,Value:[1-5 min,5-10 min,10-30 min]    |
       | devices               | index:10                                                                       |
       | Time Definitions.Date | Absolute:[27.02.1971 01:00, +0d]                                               |
       | Schedule              | Run Every:Monthly, On Time:+6H, At Months:[MAR]                                |
@@ -918,7 +918,7 @@ Feature:Create DefenseFlow Part2
     Then UI "Validate" Forensics With Name "Output Start Time Duration Not Equal"
       | Product               | DefenseFlow                                                                    |
       | Output                | Start Time                                                                     |
-      | Criteria              | Event Criteria:Duration,Operator:Not Equals,Value:[1-5min,5-10min,10-30min]    |
+      | Criteria              | Event Criteria:Duration,Operator:Not Equals,Value:[1-5 min,5-10 min,10-30 min]    |
       | devices               | index:10                                                                       |
       | Time Definitions.Date | Absolute:[27.02.1971 01:00, +0d]                                               |
       | Schedule              | Run Every:Monthly, On Time:+6H, At Months:[MAR]                                |
@@ -931,7 +931,7 @@ Feature:Create DefenseFlow Part2
     Given UI "Create" Forensics With Name "Output End Time Duration Not Equal"
       | Product               | DefenseFlow                                                                                                         |
       | Output                | End Time                                                                                                            |
-      | Criteria              | Event Criteria:Duration,Operator:Not Equals,Value:[lessThanOneMin,1-5min,5-10min,10-30min,30-60min,moreThanOneHour] |
+      | Criteria              | Event Criteria:Duration,Operator:Not Equals,Value:[Less than 1 min,1-5 min,5-10 min,10-30 min,30-60 min,More than 1 hou] |
       | devices               | All                                                                                                                 |
       | Time Definitions.Date | Relative:[Weeks,2]                                                                                                  |
       | Schedule              | Run Every:Daily,On Time:+2m                                                                                         |
@@ -940,7 +940,7 @@ Feature:Create DefenseFlow Part2
     Then UI "Validate" Forensics With Name "Output End Time Duration Not Equal"
       | Product               | DefenseFlow                                                                                                         |
       | Output                | End Time                                                                                                            |
-      | Criteria              | Event Criteria:Duration,Operator:Not Equals,Value:[lessThanOneMin,1-5min,5-10min,10-30min,30-60min,moreThanOneHour] |
+      | Criteria              | Event Criteria:Duration,Operator:Not Equals,Value:[Less than 1 min,1-5 min,5-10 min,10-30 min,30-60 min,More than 1 hou] |
       | devices               | All                                                                                                                 |
       | Time Definitions.Date | Relative:[Weeks,2]                                                                                                  |
       | Schedule              | Run Every:Daily,On Time:+2m                                                                                         |
