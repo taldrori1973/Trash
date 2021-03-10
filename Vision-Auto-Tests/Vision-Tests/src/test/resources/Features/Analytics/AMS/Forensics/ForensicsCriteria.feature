@@ -160,43 +160,38 @@ Feature: Forensic Criteria Tests
     Then UI Validate "Forensics.Table" Table rows count EQUALS to 654
     Then UI Delete Forensics With Name "Not Destination Port Criteria"
 
-  
+  @SID_14
+  Scenario: VRM - Add New Forensics criteria - Direction - Equals
+    When UI "Create" Forensics With Name "Direction Criteria"
+      | Criteria | Event Criteria:Direction,Operator:Equals,Value:Inbound |
+      | Output   | Start Time,Attack ID,Direction                         |
+    Then UI Click Button "My Forensics" with value "Direction Criteria"
+    Then UI Click Button "Generate Snapshot Forensics Manually" with value "Direction Criteria"
+    Then Sleep "35"
+    And UI Click Button "Views.Forensic" with value "Direction Criteria,0"
+    Then UI Validate "Forensics.Table" Table rows count EQUALS to 16
+    Then UI Validate Table record values by columns with elementLabel "Forensics.Table" findBy index 0
+      | columnName | value |
+      | Direction  | In    |
+    Then UI Delete Forensics With Name "Direction Criteria"
 
-#    ----------------------- Inbound = In -> in data debug id
-#  
-#  @SID_14
-#  Scenario: VRM - Add New Forensics criteria - Direction - Equals
-#    When UI "Create" Forensics With Name "Direction Criteria"
-#      | Criteria | Event Criteria:Direction,Operator:Equals,Value:Inbound |
-#      | Output   | Start Time,Attack ID,Direction                         |
-#    Then UI Click Button "My Forensics" with value "Direction Criteria"
-#    Then UI Click Button "Generate Snapshot Forensics Manually" with value "Direction Criteria"
-#    Then Sleep "35"
-#    And UI Click Button "Views.Forensic" with value "Direction Criteria,0"
-#    Then UI Validate "Forensics.Table" Table rows count EQUALS to 16
-#    Then UI Validate Table record values by columns with elementLabel "Forensics.Table" findBy index 0
-#      | columnName | value |
-#      | Direction  | In    |
-#    Then UI Delete Forensics With Name "Direction Criteria"
-#
-#  
-#  @SID_15
-#  Scenario: VRM - Add New Forensics criteria - Direction - Not Equals
-#    When UI "Create" Forensics With Name "Not Direction Criteria"
-#      | Criteria | Event Criteria:Direction,Operator:Not Equals,Value:Inbound |
-#      | Output   | Start Time,Attack ID,Direction                             |
-#    Then UI Click Button "My Forensics" with value "Not Direction Criteria"
-#    Then UI Click Button "Generate Snapshot Forensics Manually" with value "Not Direction Criteria"
-#    Then Sleep "35"
-#    And UI Click Button "Views.Forensic" with value "Not Direction Criteria,0"
-#    Then UI Validate "Forensics.Table" Table rows count EQUALS to 21
-#    Then UI Delete Forensics With Name "Not Direction Criteria"
+  @SID_15
+  Scenario: VRM - Add New Forensics criteria - Direction - Not Equals
+    When UI "Create" Forensics With Name "Not Direction Criteria"
+      | Criteria | Event Criteria:Direction,Operator:Not Equals,Value:Inbound |
+      | Output   | Start Time,Attack ID,Direction                             |
+    Then UI Click Button "My Forensics" with value "Not Direction Criteria"
+    Then UI Click Button "Generate Snapshot Forensics Manually" with value "Not Direction Criteria"
+    Then Sleep "35"
+    And UI Click Button "Views.Forensic" with value "Not Direction Criteria,0"
+    Then UI Validate "Forensics.Table" Table rows count EQUALS to 21
+    Then UI Delete Forensics With Name "Not Direction Criteria"
 
 
   @SID_16
   Scenario: VRM - Add New Forensics criteria - Duration - Equals
     When UI "Create" Forensics With Name "Duration Criteria"
-      | Criteria | Event Criteria:Duration,Operator:Equals,Value:lessThanOneMin |
+      | Criteria | Event Criteria:Duration,Operator:Equals,Value:Less than 1 min |
       | Output   | Start Time,Attack ID,Duration                                |
     Then UI Click Button "My Forensics" with value "Duration Criteria"
     Then UI Click Button "Generate Snapshot Forensics Manually" with value "Duration Criteria"
@@ -208,7 +203,7 @@ Feature: Forensic Criteria Tests
   @SID_17
   Scenario: VRM - Add New Forensics criteria - Duration - Not Equals
     When UI "Create" Forensics With Name "Not Duration Criteria"
-      | Criteria | Event Criteria:Duration,Operator:Not Equals,Value:lessThanOneMin |
+      | Criteria | Event Criteria:Duration,Operator:Not Equals,Value:Less than 1 min |
       | Output   | Start Time,Attack ID,Duration                                    |
     Then UI Click Button "My Forensics" with value "Not Duration Criteria"
     Then UI Click Button "Generate Snapshot Forensics Manually" with value "Not Duration Criteria"
