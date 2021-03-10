@@ -1458,7 +1458,7 @@ Feature: Basic tests for Forensics parameters
     Then UI Validate Element Existence By Label "Add Condition" if Exists "false" with value "enabled"
     Then UI Validate Element Existence By Label "Add Condition" if Exists "true" with value "disabled"
     Then UI Click Button "Criteria Value Expand"
-    Then UI Click Button "Criteria Value Selected" with value "lessThanOneMin"
+    Then UI Click Button "Criteria Value Selected" with value "Less than 1 min"
     Then UI Validate Element Existence By Label "Add Condition" if Exists "false" with value "disabled"
     Then UI Validate Element Existence By Label "Add Condition" if Exists "true" with value "enabled"
     Then UI Click Button "Add Condition" with value "enabled"
