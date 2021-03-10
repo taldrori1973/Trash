@@ -130,7 +130,6 @@ Feature: Basic tests for Forensics parameters
 #    Then UI Text of "Forensics Format Type" with extension "csv" equal to "CSV W/Details"
 
 
-
   @SID_12
   Scenario: Forensics DefensePro Format
     Then UI Click Button "Product Tab" with value "DefenseFlow"
@@ -139,7 +138,6 @@ Feature: Basic tests for Forensics parameters
       | label                               | param | value |
       | Format HTML Type                    |       | true  |
       | Format CSV Type                     |       | false |
-      | Format CSV With Attack Details Type |       | false |
     Then UI Text of "Forensics Format Type" with extension "html" equal to "HTML"
 
     Then UI Click Button "Format CSV Type"
@@ -147,7 +145,6 @@ Feature: Basic tests for Forensics parameters
       | label                               | param | value |
       | Format HTML Type                    |       | false |
       | Format CSV Type                     |       | true  |
-      | Format CSV With Attack Details Type |       | false |
     Then UI Text of "Forensics Format Type" with extension "csv" equal to "CSV"
 
   @SID_13
@@ -158,7 +155,6 @@ Feature: Basic tests for Forensics parameters
       | label                               | param | value |
       | Format HTML Type                    |       | true  |
       | Format CSV Type                     |       | false |
-      | Format CSV With Attack Details Type |       | false |
     Then UI Text of "Forensics Format Type" with extension "html" equal to "HTML"
 
     Then UI Click Button "Format CSV Type"
@@ -166,7 +162,6 @@ Feature: Basic tests for Forensics parameters
       | label                               | param | value |
       | Format HTML Type                    |       | false |
       | Format CSV Type                     |       | true  |
-      | Format CSV With Attack Details Type |       | false |
     Then UI Text of "Forensics Format Type" with extension "csv" equal to "CSV"
 
   ##################### Name Section tests ###############################
