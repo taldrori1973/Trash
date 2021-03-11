@@ -110,7 +110,7 @@ public class GeneralSteps extends BddCliTestBase {
     }
 
     @Then("^UI Check and Select Report Menu Element with label \"([^\"]*)\"(?: and params \"([^\"]*)\")?$")
-    public void checkAndClickElementWithLabelAndParams(String selectOrUnselect, String label, String params) throws Exception {
+    public void checkAndClickElementWithLabelAndParams(String label, String params) throws Exception {
         WebUiTools.check(label, params, false);
     }
 
