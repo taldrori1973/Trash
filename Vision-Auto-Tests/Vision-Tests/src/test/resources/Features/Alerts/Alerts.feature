@@ -226,22 +226,22 @@ Feature: Alert browser
       | ackUnackStatusList |                |
       | restoreDefaults    | true           |
 
-  @SID_16
-  Scenario: Raised Time
-    Then UI validate Alerts Filter by KeyValue
-      | devicesList        |        |
-      | selectAllDevices   | false  |
-      | raisedTimeUnit     | Hour/s |
-      | raisedTimeValue    | 1      |
-      | severityList       |        |
-      | modulesList        |        |
-      | devicesTypeList    |        |
-      | groupsList         |        |
-      | ackUnackStatusList |        |
-      | restoreDefaults    | true   |
-    Then UI validate RaisedTimeFilter with raisedTimeUnit "HOURS" with raisedTimeValue "1"
+#  @SID_16
+#  Scenario: Raised Time
+#    Then UI validate Alerts Filter by KeyValue
+#      | devicesList        |        |
+#      | selectAllDevices   | false  |
+#      | raisedTimeUnit     | Hour/s |
+#      | raisedTimeValue    | 1      |
+#      | severityList       |        |
+#      | modulesList        |        |
+#      | devicesTypeList    |        |
+#      | groupsList         |        |
+#      | ackUnackStatusList |        |
+#      | restoreDefaults    | true   |
+#    Then UI validate RaisedTimeFilter with raisedTimeUnit "HOURS" with raisedTimeValue "1"
 
-  @SID_17
+  @SID_16
   Scenario: Restore Defaults
     Then UI validate Alerts Filter by KeyValue
       | devicesList        |        |
@@ -256,7 +256,7 @@ Feature: Alert browser
       | restoreDefaults    | true   |
     Then UI Logout
 
-  @SID_18
+  @SID_17
   Scenario: Critical Alerts
     When UI Login with user "radware" and password "radware"
     Then UI validate Alerts Filter by KeyValue
@@ -272,7 +272,7 @@ Feature: Alert browser
       | restoreDefaults    | False    |
     Then UI Logout
 
-  @SID_19
+  @SID_18
   Scenario: Information Alerts
     When UI Login with user "radware" and password "radware"
     Then UI validate Alerts Filter by KeyValue
@@ -287,7 +287,7 @@ Feature: Alert browser
       | ackUnackStatusList |             |
       | restoreDefaults    | true        |
 
-  @SID_20
+  @SID_19
   Scenario: Major Alerts
     Then UI validate Alerts Filter by KeyValue
       | devicesList        |        |
@@ -301,7 +301,7 @@ Feature: Alert browser
       | ackUnackStatusList |        |
       | restoreDefaults    | true   |
 
-  @SID_21
+  @SID_20
   Scenario: Minor Alerts
     Then UI validate Alerts Filter by KeyValue
       | devicesList        |        |
@@ -315,11 +315,11 @@ Feature: Alert browser
       | ackUnackStatusList |        |
       | restoreDefaults    | true   |
 
-  @SID_22
+  @SID_21
   Scenario: Uncheck Severity
     Then UI Severity Check Negative
 
-  @SID_23
+  @SID_22
   Scenario: Warning Alerts
     Then UI validate Alerts Filter by KeyValue
       | devicesList        |         |
@@ -333,13 +333,13 @@ Feature: Alert browser
       | ackUnackStatusList |         |
       | restoreDefaults    | true    |
 
-  @SID_24
+  @SID_23
   Scenario: Refresh Interval
     Then UI set  RefreshInterval "60"
     Then UI set  RefreshInterval "120"
     Then UI Logout
 
-  @SID_25
+  @SID_24
   Scenario: Acknowledge All Alerts in view
     When UI Login with user "radware" and password "radware"
     Then UI Acknowledge Unacknowledge Alerts "unacknowledge" by listOfRowIndexes "1"
@@ -356,7 +356,7 @@ Feature: Alert browser
     Then UI acknowledge All Alerts
     Then UI Logout
 
-  @SID_26
+  @SID_25
   Scenario: Auto Refresh Button
     When UI Login with user "radware" and password "radware"
     Then UI Auto Refresh Alerts OnOFF "ON"
@@ -371,7 +371,7 @@ Feature: Alert browser
 #    Then UI clear Alerts by listOfRowIndexes "4"
 #    Then UI Logout
 
-  @SID_27
+  @SID_26
   Scenario: Clear All Alerts Button
     When UI Login with user "radware" and password "radware"
     Then UI validate Alerts Filter by KeyValue
@@ -388,7 +388,7 @@ Feature: Alert browser
     Then UI clear All Alerts with TimeOut 0
     Then UI Logout
 
-  @SID_28
+  @SID_27
   Scenario: Preparations - clear all alerts and delete local user
     Given UI Login with user "radware" and password "radware"
     Then REST Delete ES index "alert"
@@ -402,7 +402,7 @@ Feature: Alert browser
     When Send Request with the Given Specification
 
 
-  @SID_29
+  @SID_28
   Scenario: Create Local User and Validate alert
     Given That Current Vision is Logged In
     Given Create Following RUNTIME Parameters by Sending Request Specification from File "Vision/SystemConfigItemList" with label "Get Local Users"
@@ -430,7 +430,7 @@ Feature: Alert browser
     Then Validate That Response Body Contains
       | jsonPath | value |
       | $.status | "ok"  |
-    Then Sleep "40"
+    Then Sleep "60"
     Then UI Validate Alert record Content by KeyValue with columnName "Message" with content "User radware added account cucumber."
       | columnName   | value           |
       | Severity     | Info            |
@@ -438,7 +438,7 @@ Feature: Alert browser
       | Product Name | Vision          |
       | User Name    | radware         |
 
-  @SID_30
+  @SID_29
   Scenario: Delete Local User
     Given That Current Vision is Logged In
     Given Create Following RUNTIME Parameters by Sending Request Specification from File "Vision/SystemConfigItemList" with label "Get Local Users"
