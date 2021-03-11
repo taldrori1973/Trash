@@ -187,7 +187,7 @@ public class Forensics extends ReportsForensicsAlertsAbstract {
                 break;
             }
             case "DEVICE HOST NAME":
-            case "ATTACK ID":
+            case "RADWARE ID":
             case "DIRECTORY":
             case "MODULE":
             case "TUNNEL":
