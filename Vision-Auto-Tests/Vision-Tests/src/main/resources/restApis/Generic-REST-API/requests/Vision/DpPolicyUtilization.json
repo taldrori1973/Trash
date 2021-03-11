@@ -1,0 +1,14 @@
+{
+  "deviceName": "Vision",
+  "fileName": "DpPolicyUtilization",
+  "description": "Dp Policy Utilization",
+  "api": [
+    {
+      "label": "Dp Policy Utilization",
+      "method": "POST",
+      "basePath": "/mgmt/vrm/reporting/policy-utilization/search",
+      "produces": "application/json",
+      "description": "Dp Policy Utilization "
+    }
+  ]
+}

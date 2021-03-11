@@ -1,7 +1,7 @@
 @TC113494
 Feature: DefenseFlow Activations Reports CSV
 
-  @SID_13
+  @SID_1
   Scenario: revert DefenseFlow to snapshot
     Then Revert DefenseFlow to snapshot
     * CLI kill all simulator attacks on current vision
@@ -9,7 +9,7 @@ Feature: DefenseFlow Activations Reports CSV
     * REST Delete ES index "df-attack*"
     * CLI Clear vision logs
 
-  @SID_14
+  @SID_2
   Scenario: Start Attack PO_101
     Given That Current Vision is Logged In
     Given New Request Specification from File "Vision/ExternalAttackDetection" with label "Attack Start"
@@ -32,7 +32,7 @@ Feature: DefenseFlow Activations Reports CSV
       | jsonPath | value |
       | $.status | "ok"  |
 
-  @SID_15
+  @SID_3
   Scenario: Start Attack PO_102
     Given That Current Vision is Logged In
     Given New Request Specification from File "Vision/ExternalAttackDetection" with label "Attack Start"
@@ -55,7 +55,7 @@ Feature: DefenseFlow Activations Reports CSV
       | jsonPath | value |
       | $.status | "ok"  |
 
-  @SID_16
+  @SID_4
   Scenario: Start Attack PO_103
     Given That Current Vision is Logged In
     Given New Request Specification from File "Vision/ExternalAttackDetection" with label "Attack Start"
@@ -78,7 +78,7 @@ Feature: DefenseFlow Activations Reports CSV
       | jsonPath | value |
       | $.status | "ok"  |
 
-  @SID_17
+  @SID_5
   Scenario: Start Attack PO_104
     Given That Current Vision is Logged In
     Given New Request Specification from File "Vision/ExternalAttackDetection" with label "Attack Start"
@@ -101,7 +101,7 @@ Feature: DefenseFlow Activations Reports CSV
       | jsonPath | value |
       | $.status | "ok"  |
 
-  @SID_18
+  @SID_6
   Scenario: Start Attack PO_105
     Given That Current Vision is Logged In
     Given New Request Specification from File "Vision/ExternalAttackDetection" with label "Attack Start"
@@ -124,7 +124,7 @@ Feature: DefenseFlow Activations Reports CSV
       | jsonPath | value |
       | $.status | "ok"  |
 
-  @SID_19
+  @SID_7
   Scenario: Start Attack PO_106
     Given That Current Vision is Logged In
     Given New Request Specification from File "Vision/ExternalAttackDetection" with label "Attack Start"
@@ -147,7 +147,7 @@ Feature: DefenseFlow Activations Reports CSV
       | jsonPath | value |
       | $.status | "ok"  |
 
-  @SID_20
+  @SID_8
   Scenario: Start Attack PO_107
     Given That Current Vision is Logged In
     Given New Request Specification from File "Vision/ExternalAttackDetection" with label "Attack Start"
@@ -170,7 +170,7 @@ Feature: DefenseFlow Activations Reports CSV
       | jsonPath | value |
       | $.status | "ok"  |
 
-  @SID_21
+  @SID_9
   Scenario: Start Attack PO_108
     Given That Current Vision is Logged In
     Given New Request Specification from File "Vision/ExternalAttackDetection" with label "Attack Start"
@@ -193,7 +193,7 @@ Feature: DefenseFlow Activations Reports CSV
       | jsonPath | value |
       | $.status | "ok"  |
 
-  @SID_22
+  @SID_10
   Scenario: Start Attack PO_109
     Given That Current Vision is Logged In
     Given New Request Specification from File "Vision/ExternalAttackDetection" with label "Attack Start"
@@ -216,7 +216,7 @@ Feature: DefenseFlow Activations Reports CSV
       | jsonPath | value |
       | $.status | "ok"  |
 
-  @SID_23
+  @SID_11
   Scenario: Start Attack PO_111
     Given That Current Vision is Logged In
     Given New Request Specification from File "Vision/ExternalAttackDetection" with label "Attack Start"
@@ -239,7 +239,7 @@ Feature: DefenseFlow Activations Reports CSV
       | jsonPath | value |
       | $.status | "ok"  |
 
-  @SID_24
+  @SID_12
   Scenario: Start Attack PO_112
     Given That Current Vision is Logged In
     Given New Request Specification from File "Vision/ExternalAttackDetection" with label "Attack Start"
@@ -262,7 +262,7 @@ Feature: DefenseFlow Activations Reports CSV
       | jsonPath | value |
       | $.status | "ok"  |
 
-  @SID_25
+  @SID_13
   Scenario: Start Attack PO_113
     Given That Current Vision is Logged In
     Given New Request Specification from File "Vision/ExternalAttackDetection" with label "Attack Start"
@@ -285,7 +285,7 @@ Feature: DefenseFlow Activations Reports CSV
       | jsonPath | value |
       | $.status | "ok"  |
 
-  @SID_26
+  @SID_14
   Scenario: Start Attack PO_114
     Given That Current Vision is Logged In
     Given New Request Specification from File "Vision/ExternalAttackDetection" with label "Attack Start"
@@ -308,7 +308,7 @@ Feature: DefenseFlow Activations Reports CSV
       | jsonPath | value |
       | $.status | "ok"  |
 
-  @SID_27
+  @SID_15
   Scenario: Start Attack PO_115
     Given That Current Vision is Logged In
     Given New Request Specification from File "Vision/ExternalAttackDetection" with label "Attack Start"
@@ -331,99 +331,100 @@ Feature: DefenseFlow Activations Reports CSV
       | jsonPath | value |
       | $.status | "ok"  |
 
-  @SID_28
+  @SID_16
   Scenario: waiting to fetch Data from DefenseFlow
     Then Sleep "300"
 
-  @SID_1
+  @SID_17
   Scenario: keep reports copy on file system
     Then CLI Run remote linux Command "sed -i 's/vrm.scheduled.reports.delete.after.delivery=.*$/vrm.scheduled.reports.delete.after.delivery=false/g' /opt/radware/mgt-server/third-party/tomcat/conf/reporter.properties" on "ROOT_SERVER_CLI"
     Then CLI Run remote linux Command "/opt/radware/mgt-server/bin/collectors_service.sh restart" on "ROOT_SERVER_CLI" with timeOut 720
 
-  @SID_2
+  @SID_18
   Scenario: Clear data
-    Then CLI Operations - Run Root Session command "yes|restore_radware_user_password" timeout 15
-    * REST Delete ES index "dp-*"
+    Given CLI Reset radware password
+#    * REST Delete ES index "dp-*"
     Then CLI Run remote linux Command "rm -f /opt/radware/mgt-server/third-party/tomcat/bin/VRM_report_*.zip" on "ROOT_SERVER_CLI"
     Then CLI Run remote linux Command "rm -f /opt/radware/mgt-server/third-party/tomcat/bin/*.csv" on "ROOT_SERVER_CLI"
     * CLI Clear vision logs
 
 
-  @SID_3
+  @SID_19
   Scenario:Login
     Then REST Vision Install License Request "vision-AVA-Max-attack-capacity"
-    Given UI Login with user "sys_admin" and password "radware"
+    Given UI Login with user "radware" and password "radware"
 
 
-  @SID_4
+  @SID_20
   Scenario: Navigate to AMS report
     And UI Navigate to "AMS Reports" page via homePage
 
-  @SID_5
+  @SID_21
   Scenario: Create DefenseFlow report
-    When UI "Create" Report With Name "OverallDFReport"
-      | reportType     | DefenseFlow Analytics Dashboard                                                                                                                                                          |
-      | projectObjects | All                                                                                                                                                                                      |
-      | Design         | Add:[Top 10 Attacks by Duration (hh:mm:ss),Top 10 Attacks by Rate (Gbps),Top 10 Attacks by Rate (Mpps),DDoS Peak Attack per Selected Period,DDoS Attack Activations per Selected Period] |
-      | Format         | Select: CSV                                                                                                                                                                              |
-    Then UI Validate Element Existence By Label "Reports List Item" if Exists "true" with value "OverallDFReport"
+    Given UI "Create" Report With Name "DFCSV"
+      | Template | reportType:DefenseFlow Analytics,Widgets:[Top 10 Activations by Duration,Top 10 Activations by Attack Rate (Gbps),Top 10 Activations by Attack Rate (Mpps),DDoS Attack Activations per Period,DDoS Peak Attack per Period], Protected Objects:[All] |
+      | Format   | Select: CSV                                                                                                                                                                                                                                         |
 
-  @SID_6
+
+  @SID_22
   Scenario: Generate Report
-    Then UI Generate and Validate Report With Name "OverallDFReport" with Timeout of 120 Seconds
+    Then UI Click Button "My Report" with value "DFCSV"
+    Then UI Click Button "Generate Report Manually" with value "DFCSV"
+    Then Sleep "35"
 
+  @SID_23
   Scenario: VRM report unzip local CSV file
     Then CLI Run remote linux Command "unzip -o -d /opt/radware/mgt-server/third-party/tomcat/bin/ /opt/radware/mgt-server/third-party/tomcat/bin/VRM_report_*.zip" on "ROOT_SERVER_CLI"
 
-  @SID_7
+  @SID_24
   Scenario: VRM report validate CSV file DDoS_Attack Activations per Selected Period.csv
-    Then CLI Run linux Command "cat /opt/radware/mgt-server/third-party/tomcat/bin/DDoS_Attack*.csv |wc -l" on "ROOT_SERVER_CLI" and validate result EQUALS "2"
-    Then CLI Run linux Command "cat /opt/radware/mgt-server/third-party/tomcat/bin/DDoS_Attack*.csv|head -1|tail -1|grep updateTime,distinct_count|wc -l " on "ROOT_SERVER_CLI" and validate result EQUALS "1"
-    Then CLI Run linux Command "cat /opt/radware/mgt-server/third-party/tomcat/bin/DDoS_Attack*.csv|head -2|tail -1|grep 14|wc -l" on "ROOT_SERVER_CLI" and validate result EQUALS "1"
+#    Then CLI Run linux Command "cat "/opt/radware/mgt-server/third-party/tomcat/bin/DDoS Attack Activations per Period-DefenseFlow Analytics.csv" |wc -l" on "ROOT_SERVER_CLI" and validate result EQUALS "5"
+    Then CLI Run linux Command "cat "/opt/radware/mgt-server/third-party/tomcat/bin/DDoS Attack Activations per Period-DefenseFlow Analytics.csv"|head -1|tail -1|grep updateTime,distinct_count|wc -l " on "ROOT_SERVER_CLI" and validate result EQUALS "1"
+    Then CLI Run linux Command "cat "/opt/radware/mgt-server/third-party/tomcat/bin/DDoS Attack Activations per Period-DefenseFlow Analytics.csv"|head -2|tail -1|grep 14|wc -l" on "ROOT_SERVER_CLI" and validate result EQUALS "1"
 
-  @SID_8
+  @SID_25
   Scenario: VRM report validate CSV file DDoS_Peak Attack per Selected Period
-    Then CLI Run linux Command "cat /opt/radware/mgt-server/third-party/tomcat/bin/"DDoS_Peak Attack per Selected Period.csv" |wc -l" on "ROOT_SERVER_CLI" and validate result EQUALS "2"
-    Then CLI Run linux Command "cat /opt/radware/mgt-server/third-party/tomcat/bin/"DDoS_Peak Attack per Selected Period.csv"|head -1|tail -1|grep maxBandwidthBps,updateTime,activationId,protectedObjectName,destinationNetwork|wc -l " on "ROOT_SERVER_CLI" and validate result EQUALS "1"
-    Then CLI Run linux Command "cat /opt/radware/mgt-server/third-party/tomcat/bin/"DDoS_Peak Attack per Selected Period.csv"|head -2|tail -1|grep 1231371200000,.*,14,PO_115,80.75.0.0/32|wc -l " on "ROOT_SERVER_CLI" and validate result EQUALS "1"
+#    Then CLI Run linux Command "cat "/opt/radware/mgt-server/third-party/tomcat/bin/DDoS Peak Attack per Period-DefenseFlow Analytics.csv" |wc -l" on "ROOT_SERVER_CLI" and validate result EQUALS "2"
+    Then CLI Run linux Command "cat "/opt/radware/mgt-server/third-party/tomcat/bin/DDoS Peak Attack per Period-DefenseFlow Analytics.csv"|head -1|tail -1|grep maxBandwidthBps,updateTime,activationId,protectedObjectName,destinationNetwork|wc -l " on "ROOT_SERVER_CLI" and validate result EQUALS "1"
+    Then CLI Run linux Command "cat "/opt/radware/mgt-server/third-party/tomcat/bin/DDoS Peak Attack per Period-DefenseFlow Analytics.csv"|head -2|tail -1|grep 1231371200000,.*,16,PO_115,80.75.0.0/32|wc -l " on "ROOT_SERVER_CLI" and validate result EQUALS "1"
 
-  @SID_9
+  @SID_26
   Scenario: VRM report validate CSV file Top_10 Attacks by Duration
-    Then CLI Run linux Command " cat /opt/radware/mgt-server/third-party/tomcat/bin/"Top_10 Attacks by Duration (hh_mm:ss).csv" |wc -l" on "ROOT_SERVER_CLI" and validate result EQUALS "11"
-    Then CLI Run linux Command "cat /opt/radware/mgt-server/third-party/tomcat/bin/"Top_10 Attacks by Duration (hh_mm:ss).csv"|head -1|tail -1|grep duration,distinct_count,activationId,protectedObjectName,destinationNetwork|wc -l " on "ROOT_SERVER_CLI" and validate result EQUALS "1"
+    Then CLI Run linux Command " cat "/opt/radware/mgt-server/third-party/tomcat/bin/Top 10 Activations by Duration-DefenseFlow Analytics.csv" |wc -l" on "ROOT_SERVER_CLI" and validate result EQUALS "11"
+    Then CLI Run linux Command "cat "/opt/radware/mgt-server/third-party/tomcat/bin/Top 10 Activations by Duration-DefenseFlow Analytics.csv"|head -1|tail -1|grep duration,distinct_count,activationId,protectedObjectName,destinationNetwork|wc -l " on "ROOT_SERVER_CLI" and validate result EQUALS "1"
 
-  @SID_10
+  @SID_27
   Scenario: VRM report validate CSV file Top_10 Attacks by Rate Gbps
-    Then CLI Run linux Command " cat /opt/radware/mgt-server/third-party/tomcat/bin/"Top_10 Attacks by Rate (Gbps).csv" |wc -l" on "ROOT_SERVER_CLI" and validate result EQUALS "11"
-    Then CLI Run linux Command "cat /opt/radware/mgt-server/third-party/tomcat/bin/"Top_10 Attacks by Rate (Gbps).csv"|head -1|tail -1|grep maxBandwidthBps,distinct_count,activationId,protectedObjectName,destinationNetwork|wc -l " on "ROOT_SERVER_CLI" and validate result EQUALS "1"
-    Then CLI Run linux Command "cat /opt/radware/mgt-server/third-party/tomcat/bin/"Top_10 Attacks by Rate (Gbps).csv"|head -2|tail -1|grep 1231371200000,1,14,PO_115,80.75.0.0/32|wc -l " on "ROOT_SERVER_CLI" and validate result EQUALS "1"
-    Then CLI Run linux Command "cat /opt/radware/mgt-server/third-party/tomcat/bin/"Top_10 Attacks by Rate (Gbps).csv"|head -3|tail -1|grep 1151371200000,1,13,PO_114,80.74.0.0/32|wc -l " on "ROOT_SERVER_CLI" and validate result EQUALS "1"
-    Then CLI Run linux Command "cat /opt/radware/mgt-server/third-party/tomcat/bin/"Top_10 Attacks by Rate (Gbps).csv"|head -4|tail -1|grep 1071371200000,1,12,PO_113,80.73.0.0/32|wc -l " on "ROOT_SERVER_CLI" and validate result EQUALS "1"
-    Then CLI Run linux Command "cat /opt/radware/mgt-server/third-party/tomcat/bin/"Top_10 Attacks by Rate (Gbps).csv"|head -5|tail -1|grep 991371200000,1,11,PO_112,80.72.0.0/32|wc -l " on "ROOT_SERVER_CLI" and validate result EQUALS "1"
-    Then CLI Run linux Command "cat /opt/radware/mgt-server/third-party/tomcat/bin/"Top_10 Attacks by Rate (Gbps).csv"|head -6|tail -1|grep 911371200000,1,10,PO_111,80.71.0.0/32|wc -l " on "ROOT_SERVER_CLI" and validate result EQUALS "1"
-    Then CLI Run linux Command "cat /opt/radware/mgt-server/third-party/tomcat/bin/"Top_10 Attacks by Rate (Gbps).csv"|head -7|tail -1|grep 751371200000,1,9,PO_109,70.79.0.0/32|wc -l " on "ROOT_SERVER_CLI" and validate result EQUALS "1"
-    Then CLI Run linux Command "cat /opt/radware/mgt-server/third-party/tomcat/bin/"Top_10 Attacks by Rate (Gbps).csv"|head -8|tail -1|grep 671371200000,1,8,PO_108,70.78.0.0/32|wc -l " on "ROOT_SERVER_CLI" and validate result EQUALS "1"
-    Then CLI Run linux Command "cat /opt/radware/mgt-server/third-party/tomcat/bin/"Top_10 Attacks by Rate (Gbps).csv"|head -9|tail -1|grep 591371200000,1,7,PO_107,70.77.0.0/32|wc -l " on "ROOT_SERVER_CLI" and validate result EQUALS "1"
-    Then CLI Run linux Command "cat /opt/radware/mgt-server/third-party/tomcat/bin/"Top_10 Attacks by Rate (Gbps).csv"|head -10|tail -1|grep 511371200000,1,6,PO_106,70.76.0.0/32|wc -l " on "ROOT_SERVER_CLI" and validate result EQUALS "1"
-    Then CLI Run linux Command "cat /opt/radware/mgt-server/third-party/tomcat/bin/"Top_10 Attacks by Rate (Gbps).csv"|head -11|tail -1|grep 431371200000,1,5,PO_105,70.75.0.0/32|wc -l " on "ROOT_SERVER_CLI" and validate result EQUALS "1"
+    Then CLI Run linux Command " cat "/opt/radware/mgt-server/third-party/tomcat/bin/Top 10 Activations by Attack Rate (Gbps)-DefenseFlow Analytics.csv" |wc -l" on "ROOT_SERVER_CLI" and validate result EQUALS "11"
+    Then CLI Run linux Command "cat "/opt/radware/mgt-server/third-party/tomcat/bin/Top 10 Activations by Attack Rate (Gbps)-DefenseFlow Analytics.csv"|head -1|tail -1|grep maxBandwidthBps,distinct_count,activationId,protectedObjectName,destinationNetwork|wc -l " on "ROOT_SERVER_CLI" and validate result EQUALS "1"
+    Then CLI Run linux Command "cat "/opt/radware/mgt-server/third-party/tomcat/bin/Top 10 Activations by Attack Rate (Gbps)-DefenseFlow Analytics.csv"|head -2|tail -1|grep 1231371200000,1,16,PO_115,80.75.0.0/32|wc -l " on "ROOT_SERVER_CLI" and validate result EQUALS "1"
+    Then CLI Run linux Command "cat "/opt/radware/mgt-server/third-party/tomcat/bin/Top 10 Activations by Attack Rate (Gbps)-DefenseFlow Analytics.csv"|head -3|tail -1|grep 1151371200000,1,15,PO_114,80.74.0.0/32|wc -l " on "ROOT_SERVER_CLI" and validate result EQUALS "1"
+    Then CLI Run linux Command "cat "/opt/radware/mgt-server/third-party/tomcat/bin/Top 10 Activations by Attack Rate (Gbps)-DefenseFlow Analytics.csv"|head -4|tail -1|grep 1071371200000,1,14,PO_113,80.73.0.0/32|wc -l " on "ROOT_SERVER_CLI" and validate result EQUALS "1"
+    Then CLI Run linux Command "cat "/opt/radware/mgt-server/third-party/tomcat/bin/Top 10 Activations by Attack Rate (Gbps)-DefenseFlow Analytics.csv"|head -5|tail -1|grep 991371200000,1,13,PO_112,80.72.0.0/32|wc -l " on "ROOT_SERVER_CLI" and validate result EQUALS "1"
+    Then CLI Run linux Command "cat "/opt/radware/mgt-server/third-party/tomcat/bin/Top 10 Activations by Attack Rate (Gbps)-DefenseFlow Analytics.csv"|head -6|tail -1|grep 911371200000,1,12,PO_111,80.71.0.0/32|wc -l " on "ROOT_SERVER_CLI" and validate result EQUALS "1"
+    Then CLI Run linux Command "cat "/opt/radware/mgt-server/third-party/tomcat/bin/Top 10 Activations by Attack Rate (Gbps)-DefenseFlow Analytics.csv"|head -7|tail -1|grep 751371200000,1,11,PO_109,70.79.0.0/32|wc -l " on "ROOT_SERVER_CLI" and validate result EQUALS "1"
+    Then CLI Run linux Command "cat "/opt/radware/mgt-server/third-party/tomcat/bin/Top 10 Activations by Attack Rate (Gbps)-DefenseFlow Analytics.csv"|head -8|tail -1|grep 671371200000,1,10,PO_108,70.78.0.0/32|wc -l " on "ROOT_SERVER_CLI" and validate result EQUALS "1"
+    Then CLI Run linux Command "cat "/opt/radware/mgt-server/third-party/tomcat/bin/Top 10 Activations by Attack Rate (Gbps)-DefenseFlow Analytics.csv"|head -9|tail -1|grep 591371200000,1,9,PO_107,70.77.0.0/32|wc -l " on "ROOT_SERVER_CLI" and validate result EQUALS "1"
+    Then CLI Run linux Command "cat "/opt/radware/mgt-server/third-party/tomcat/bin/Top 10 Activations by Attack Rate (Gbps)-DefenseFlow Analytics.csv"|head -10|tail -1|grep 511371200000,1,8,PO_106,70.76.0.0/32|wc -l " on "ROOT_SERVER_CLI" and validate result EQUALS "1"
+    Then CLI Run linux Command "cat "/opt/radware/mgt-server/third-party/tomcat/bin/Top 10 Activations by Attack Rate (Gbps)-DefenseFlow Analytics.csv"|head -11|tail -1|grep 431371200000,1,7,PO_105,70.75.0.0/32|wc -l " on "ROOT_SERVER_CLI" and validate result EQUALS "1"
 
-  @SID_11
-  Scenario: VRM report validate CSV file Top_10 Attacks by Rate Mpps
-    Then CLI Run linux Command "cat /opt/radware/mgt-server/third-party/tomcat/bin/"Top_10 Attacks by Rate (Mpps).csv" |wc -l" on "ROOT_SERVER_CLI" and validate result EQUALS "11"
-    Then CLI Run linux Command "cat /opt/radware/mgt-server/third-party/tomcat/bin/"Top_10 Attacks by Rate (Mpps).csv"|head -1|tail -1|grep distinct_count,maxPacketRatePps,activationId,protectedObjectName,destinationNetwork|wc -l " on "ROOT_SERVER_CLI" and validate result EQUALS "1"
-    Then CLI Run linux Command "cat /opt/radware/mgt-server/third-party/tomcat/bin/"Top_10 Attacks by Rate (Mpps).csv"|head -2|tail -1|grep 1,15087000000,14,PO_115,80.75.0.0/32|wc -l " on "ROOT_SERVER_CLI" and validate result EQUALS "1"
-    Then CLI Run linux Command "cat /opt/radware/mgt-server/third-party/tomcat/bin/"Top_10 Attacks by Rate (Mpps).csv"|head -3|tail -1|grep 1,14087000000,13,PO_114,80.74.0.0/32|wc -l " on "ROOT_SERVER_CLI" and validate result EQUALS "1"
-    Then CLI Run linux Command "cat /opt/radware/mgt-server/third-party/tomcat/bin/"Top_10 Attacks by Rate (Mpps).csv"|head -4|tail -1|grep 1,13087000000,12,PO_113,80.73.0.0/32|wc -l " on "ROOT_SERVER_CLI" and validate result EQUALS "1"
-    Then CLI Run linux Command "cat /opt/radware/mgt-server/third-party/tomcat/bin/"Top_10 Attacks by Rate (Mpps).csv"|head -5|tail -1|grep 1,12087000000,11,PO_112,80.72.0.0/32|wc -l " on "ROOT_SERVER_CLI" and validate result EQUALS "1"
-    Then CLI Run linux Command "cat /opt/radware/mgt-server/third-party/tomcat/bin/"Top_10 Attacks by Rate (Mpps).csv"|head -6|tail -1|grep 1,11087000000,10,PO_111,80.71.0.0/32|wc -l " on "ROOT_SERVER_CLI" and validate result EQUALS "1"
-    Then CLI Run linux Command "cat /opt/radware/mgt-server/third-party/tomcat/bin/"Top_10 Attacks by Rate (Mpps).csv"|head -7|tail -1|grep 1,9087000000,9,PO_109,70.79.0.0/32|wc -l " on "ROOT_SERVER_CLI" and validate result EQUALS "1"
-    Then CLI Run linux Command "cat /opt/radware/mgt-server/third-party/tomcat/bin/"Top_10 Attacks by Rate (Mpps).csv"|head -8|tail -1|grep 1,8087000000,8,PO_108,70.78.0.0/32|wc -l " on "ROOT_SERVER_CLI" and validate result EQUALS "1"
-    Then CLI Run linux Command "cat /opt/radware/mgt-server/third-party/tomcat/bin/"Top_10 Attacks by Rate (Mpps).csv"|head -9|tail -1|grep 1,7087000000,7,PO_107,70.77.0.0/32|wc -l " on "ROOT_SERVER_CLI" and validate result EQUALS "1"
-    Then CLI Run linux Command "cat /opt/radware/mgt-server/third-party/tomcat/bin/"Top_10 Attacks by Rate (Mpps).csv"|head -10|tail -1|grep 1,6087000000,6,PO_106,70.76.0.0/32|wc -l " on "ROOT_SERVER_CLI" and validate result EQUALS "1"
-    Then CLI Run linux Command "cat /opt/radware/mgt-server/third-party/tomcat/bin/"Top_10 Attacks by Rate (Mpps).csv"|head -11|tail -1|grep 1,5087000000,5,PO_105,70.75.0.0/32|wc -l " on "ROOT_SERVER_CLI" and validate result EQUALS "1"
-
-  @SID_12
+  @SID_28
+  Scenario: VRM report validate CSV file Top 10 Activations by Attack Rate (Mpps)
+    Then CLI Run linux Command "cat "/opt/radware/mgt-server/third-party/tomcat/bin/Top 10 Activations by Attack Rate (Mpps)-DefenseFlow Analytics.csv" |wc -l" on "ROOT_SERVER_CLI" and validate result EQUALS "11"
+    Then CLI Run linux Command "cat "/opt/radware/mgt-server/third-party/tomcat/bin/Top 10 Activations by Attack Rate (Mpps)-DefenseFlow Analytics.csv"|head -1|tail -1|grep distinct_count,maxPacketRatePps,activationId,protectedObjectName,destinationNetwork|wc -l " on "ROOT_SERVER_CLI" and validate result EQUALS "1"
+    Then CLI Run linux Command "cat "/opt/radware/mgt-server/third-party/tomcat/bin/Top 10 Activations by Attack Rate (Mpps)-DefenseFlow Analytics.csv"|head -2|tail -1|grep 1,15087000000,16,PO_115,80.75.0.0/32|wc -l " on "ROOT_SERVER_CLI" and validate result EQUALS "1"
+    Then CLI Run linux Command "cat "/opt/radware/mgt-server/third-party/tomcat/bin/Top 10 Activations by Attack Rate (Mpps)-DefenseFlow Analytics.csv"|head -3|tail -1|grep 1,14087000000,15,PO_114,80.74.0.0/32|wc -l " on "ROOT_SERVER_CLI" and validate result EQUALS "1"
+    Then CLI Run linux Command "cat "/opt/radware/mgt-server/third-party/tomcat/bin/Top 10 Activations by Attack Rate (Mpps)-DefenseFlow Analytics.csv"|head -4|tail -1|grep 1,13087000000,14,PO_113,80.73.0.0/32|wc -l " on "ROOT_SERVER_CLI" and validate result EQUALS "1"
+    Then CLI Run linux Command "cat "/opt/radware/mgt-server/third-party/tomcat/bin/Top 10 Activations by Attack Rate (Mpps)-DefenseFlow Analytics.csv"|head -5|tail -1|grep 1,12087000000,13,PO_112,80.72.0.0/32|wc -l " on "ROOT_SERVER_CLI" and validate result EQUALS "1"
+    Then CLI Run linux Command "cat "/opt/radware/mgt-server/third-party/tomcat/bin/Top 10 Activations by Attack Rate (Mpps)-DefenseFlow Analytics.csv"|head -6|tail -1|grep 1,11087000000,12,PO_111,80.71.0.0/32|wc -l " on "ROOT_SERVER_CLI" and validate result EQUALS "1"
+    Then CLI Run linux Command "cat "/opt/radware/mgt-server/third-party/tomcat/bin/Top 10 Activations by Attack Rate (Mpps)-DefenseFlow Analytics.csv"|head -7|tail -1|grep 1,9087000000,11,PO_109,70.79.0.0/32|wc -l " on "ROOT_SERVER_CLI" and validate result EQUALS "1"
+    Then CLI Run linux Command "cat "/opt/radware/mgt-server/third-party/tomcat/bin/Top 10 Activations by Attack Rate (Mpps)-DefenseFlow Analytics.csv"|head -8|tail -1|grep 1,8087000000,10,PO_108,70.78.0.0/32|wc -l " on "ROOT_SERVER_CLI" and validate result EQUALS "1"
+    Then CLI Run linux Command "cat "/opt/radware/mgt-server/third-party/tomcat/bin/Top 10 Activations by Attack Rate (Mpps)-DefenseFlow Analytics.csv"|head -9|tail -1|grep 1,7087000000,9,PO_107,70.77.0.0/32|wc -l " on "ROOT_SERVER_CLI" and validate result EQUALS "1"
+    Then CLI Run linux Command "cat "/opt/radware/mgt-server/third-party/tomcat/bin/Top 10 Activations by Attack Rate (Mpps)-DefenseFlow Analytics.csv"|head -10|tail -1|grep 1,6087000000,8,PO_106,70.76.0.0/32|wc -l " on "ROOT_SERVER_CLI" and validate result EQUALS "1"
+    Then CLI Run linux Command "cat "/opt/radware/mgt-server/third-party/tomcat/bin/Top 10 Activations by Attack Rate (Mpps)-DefenseFlow Analytics.csv"|head -11|tail -1|grep 1,5087000000,7,PO_105,70.75.0.0/32|wc -l " on "ROOT_SERVER_CLI" and validate result EQUALS "1"
+  @SID_30
   Scenario: Cleanup
+    Then UI Delete Report With Name "DFCSV"
     Given UI logout and close browser
     * CLI Check if logs contains
       | logType | expression | isExpected   |

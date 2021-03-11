@@ -3,9 +3,13 @@ Feature: Forensics CSV without Attack details
 
   @SID_1
   Scenario: Clean system data
-    Then CLI Operations - Run Root Session command "yes|restore_radware_user_password" timeout 15
+    Given CLI Reset radware password
     * CLI kill all simulator attacks on current vision
     * CLI Clear vision logs
+#    * REST Delete ES index "dp-traffic-*"
+#    * REST Delete ES index "dp-https-stats-*"
+#    * REST Delete ES index "dp-https-rt-*"
+#    * REST Delete ES index "dp-five-*"
     * REST Delete ES index "dp-*"
     * REST Vision Install License Request "vision-AVA-Max-attack-capacity"
 
@@ -48,7 +52,7 @@ Feature: Forensics CSV without Attack details
   Scenario: Clear FTP server logs and generate the report
     Then CLI Run remote linux Command "rm -f /home/radware/ftp/csv_without_details*.zip /home/radware/ftp/csv_without_details*.csv" on "GENERIC_LINUX_SERVER"
     Then UI Generate and Validate Forensics With Name "csv_without_details" with Timeout of 300 Seconds
-    Then Sleep "5"
+    Then Sleep "30"
 
   @SID_7
   Scenario: Unzip CSV file

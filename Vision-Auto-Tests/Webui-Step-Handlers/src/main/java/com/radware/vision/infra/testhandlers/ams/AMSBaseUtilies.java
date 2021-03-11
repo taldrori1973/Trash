@@ -1,4 +1,4 @@
-package com.radware.vision.infra.testhandlers.ams;
+package com.radware.vision.infra.testhandlers.vrm;
 
 import com.radware.automation.react.widgets.impl.ReactDateControl;
 import com.radware.automation.react.widgets.impl.ReactSelectControl;
@@ -19,17 +19,19 @@ import com.radware.vision.automation.tools.exceptions.web.DropdownItemNotFoundEx
 import com.radware.vision.automation.tools.exceptions.web.DropdownNotOpenedException;
 import com.radware.vision.automation.tools.sutsystemobjects.devicesinfo.DeviceInfo;
 import com.radware.vision.automation.tools.sutsystemobjects.devicesinfo.enums.SUTDeviceType;
+import com.radware.vision.vision_project_cli.RadwareServerCli;
+import com.radware.vision.vision_project_cli.RootServerCli;
 import com.radware.vision.infra.testhandlers.baseoperations.BasicOperationsHandler;
-import com.radware.vision.infra.testhandlers.ams.enums.vrmActions;
+import com.radware.vision.infra.testhandlers.cli.CliOperations;
+import com.radware.vision.infra.testhandlers.vrm.enums.vrmActions;
 import com.radware.vision.infra.utils.ReportsUtils;
 import com.radware.vision.infra.utils.TimeUtils;
 import com.radware.vision.infra.utils.json.CustomizedJsonManager;
-import com.radware.vision.utils.SutUtils;
-import com.radware.vision.vision_project_cli.RadwareServerCli;
-import com.radware.vision.vision_project_cli.RootServerCli;
 import org.json.JSONArray;
 import org.json.JSONObject;
+import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
+import org.openqa.selenium.StaleElementReferenceException;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.How;
 
@@ -44,64 +46,79 @@ import static com.radware.vision.infra.testhandlers.BaseHandler.restTestBase;
 import static com.radware.vision.infra.utils.ReportsUtils.addErrorMessage;
 import static com.radware.vision.infra.utils.ReportsUtils.reportErrors;
 
-public class AMSBaseUtilies {
+public class VRMBaseUtilies {
 
-    AMSHandler AMSHandler = new AMSHandler();
+    VRMHandler vrmHandler = new VRMHandler();
     public static LocalDateTime scheduleLocalDateTime = LocalDateTime.now();
+    public static String oldOrNew = "new"; // "old"/"new"
     public static LocalDateTime timeDefinitionLocalDateTime;
 
 
-    public void BaseAMSOperation(vrmActions operationType, String vrmBaseName, Map<String, String> entry) throws Exception {
+    public void BaseVRMOperation(vrmActions operationType, String vrmBaseName, Map<String, String> entry, RootServerCli rootServerCli) throws Exception {
         Map<String, String> map = null;
         if (operationType != vrmActions.GENERATE)
             map = CustomizedJsonManager.fixJson(entry);
 
         switch (operationType.name().toUpperCase()) {
             case "CREATE":
-                AMSCreateBase(vrmBaseName, map);
+                switch (oldOrNew) {
+                    case "old":
+                        createVRMBase(vrmBaseName, map);
+                        break;
+                    case "new":
+                        createVRMBaseNew(vrmBaseName, map);
+                        break;
+                }
                 break;
             case "VALIDATE":
-                AMSValidateBase(vrmBaseName, map);
+                validateVRMBase(rootServerCli, vrmBaseName, map);
                 break;
             case "EDIT":
-                AMSEditBase(vrmBaseName, map);
+                switch (oldOrNew) {
+                    case "old":
+                        editVRMBase(vrmBaseName, map);
+                        break;
+                    case "new":
+                        editVRMBaseNew(vrmBaseName, map);
+                        break;
+                }
                 break;
             case "GENERATE":
-                AMSGenerateBase(vrmBaseName, entry);
+                generateVRMBase(vrmBaseName, entry);
                 break;
             case "ISEXIST":
-                isExistAMSBase(vrmBaseName, map);
+                isExistVRMBase(vrmBaseName, map);
                 break;
         }
     }
 
-    protected void AMSEditBase(String vrmBaseName, Map<String, String> map) throws Exception {
+    protected void editVRMBase(String vrmBaseName, Map<String, String> map) throws Exception {
     }
 
-    protected void AMSValidateBase(String vrmBaseName, Map<String, String> map) throws TargetWebElementNotFoundException {
+    protected void editVRMBaseNew(String vrmBaseName, Map<String, String> map) throws Exception {
     }
 
-    protected void AMSCreateBase(String vrmBaseName, Map<String, String> map) throws TargetWebElementNotFoundException {
+    protected void validateVRMBase(RootServerCli rootServerCli, String vrmBaseName, Map<String, String> map) throws TargetWebElementNotFoundException , Exception{
     }
 
-    protected void AMSGenerateBase(String vrmBaseName, Map<String, String> map) throws TargetWebElementNotFoundException {
+    protected void createVRMBase(String vrmBaseName, Map<String, String> map) throws Exception {
+    }
+
+    protected void generateVRMBase(String vrmBaseName, Map<String, String> map) throws TargetWebElementNotFoundException {
+    }
+
+    protected void createVRMBaseNew(String vrmBaseName, Map<String, String> map) throws TargetWebElementNotFoundException {
     }
 
     protected boolean isExistVRMBaseResult(String vrmBaseName, Map<String, String> map) {
         return false;
     }
 
-    protected void isExistAMSBase(String vrmBaseName, Map<String, String> map) {
+    protected void isExistVRMBase(String vrmBaseName, Map<String, String> map) {
     }
 
 
     protected void selectDevices(Map<String, String> map) throws Exception {
-//        if ((map.get("reportType") != null && map.get("reportType").equalsIgnoreCase("HTTPS Flood")) && (map.get("devices") != null || map.get("policy") == null))
-//            BaseTestUtils.report("HTTPS Flood Scope Selection is by Policy , Can't Select Devices", Reporter.FAIL);
-//        if (map.get("policy") != null) {
-//            selectPolicy(map.get("policy"));
-//            return;
-//        }
         if ((map.get("reportType") != null)) {
             switch ((map.get("reportType").toLowerCase())) {
                 case "https flood":
@@ -110,19 +127,19 @@ public class AMSBaseUtilies {
                     return;
                 case "appwall dashboard":
                 case "defenseflow analytics dashboard": {
-                    List<AMSHandler.DpApplicationFilter> devicesEntries = new ArrayList<>();
+                    List<VRMHandler.DpApplicationFilter> devicesEntries = new ArrayList<>();
                     if (map.get("projectObjects") != null || map.get("webApplications") != null) {
                         String type = map.get("projectObjects") != null ? "projectObjects" : map.get("webApplications") != null ? "webApplications" : "";
                         String[] devices = !map.get(type).matches("(All|all|)") ? map.get(type).split(",") : new String[0];
                         for (String appName : devices) {
-                            devicesEntries.add(new AMSHandler.DpApplicationFilter(appName));
+                            devicesEntries.add(new VRMHandler.DpApplicationFilter(appName));
                         }
                         if (devices.length == 0)
-                            devicesEntries.add(new AMSHandler.DpApplicationFilter("All"));
+                            devicesEntries.add(new VRMHandler.DpApplicationFilter("All"));
                     } else {
-                        devicesEntries.add(new AMSHandler.DpApplicationFilter("All"));
+                        devicesEntries.add(new VRMHandler.DpApplicationFilter("All"));
                     }
-                    AMSHandler.selectApplications(devicesEntries, map.get("reportType").toLowerCase().startsWith("defenseflow") ? "defenseflow" : "appwall", false);
+                    vrmHandler.selectApplications(devicesEntries, map.get("reportType").toLowerCase().startsWith("defenseflow") ? "defenseflow" : "appwall", false);
                     return;
                 }
                 case "defensepro behavioral protections dashboard":
@@ -136,11 +153,11 @@ public class AMSBaseUtilies {
     }
 
     private void selectDefenseProDevices(Map<String, String> map) {
-        List<AMSHandler.DpDeviceFilter> devicesEntries = new ArrayList<>();
+        List<VRMHandler.DpDeviceFilter> devicesEntries = new ArrayList<>();
         if (map.containsKey("devices")) {
             devicesEntries = extractDevicesList(map);
         }
-        AMSHandler.innerSelectDeviceWithPoliciesAndPorts(null, SUTDeviceType.DefensePro, devicesEntries);
+        vrmHandler.innerSelectDeviceWithPoliciesAndPorts(null, SUTDeviceType.DefensePro, devicesEntries);
     }
 
     private static void selectPolicy(String policy) {
@@ -192,7 +209,7 @@ public class AMSBaseUtilies {
 
     }
 
-    public static List<AMSHandler.DpDeviceFilter> extractDevicesList(Map<String, String> map) {
+    public List<VRMHandler.DpDeviceFilter> extractDevicesList(Map<String, String> map) {
 
         JSONArray devicesJsonArray = new JSONArray();
         try {
@@ -204,10 +221,10 @@ public class AMSBaseUtilies {
                 devicesJsonArray.put(deviceJsonObject);
             }
         }
-        List<AMSHandler.DpDeviceFilter> devicesEntries = new ArrayList<AMSHandler.DpDeviceFilter>();
+        List<VRMHandler.DpDeviceFilter> devicesEntries = new ArrayList<>();
         for (int i = 0; i < devicesJsonArray.length(); i++) {
-            AMSHandler.DpDeviceFilter deviceEntry = new AMSHandler.DpDeviceFilter();
-//            deviceEntry.index = ((JSONObject) devicesJsonArray.get(i)).getInt("index");
+            VRMHandler.DpDeviceFilter deviceEntry = new VRMHandler.DpDeviceFilter();
+            deviceEntry.index = ((JSONObject) devicesJsonArray.get(i)).getInt("index");
             deviceEntry.ports = ((JSONObject) devicesJsonArray.get(i)).toMap().getOrDefault("ports", "").toString().replaceAll("(])|(\\[)", "");
             deviceEntry.policies = ((JSONObject) devicesJsonArray.get(i)).toMap().getOrDefault("policies", "").toString().replaceAll("(])|(\\[)", "");
             devicesEntries.add(deviceEntry);
@@ -267,8 +284,8 @@ public class AMSBaseUtilies {
                 BasicOperationsHandler.clickButton("Quick Range");
                 BasicOperationsHandler.clickButton("TimeFrame", timeDefinitionJSONObject.getString("Quick"));
 
-            } else if (!timeDefinitionJSONObject.isNull("Absolute")) {//timeDefinitionJSONObject.toMap().containsKey("Absolute"
-//
+            } else if (!timeDefinitionJSONObject.isNull("Absolute")) {//timeDefinitionJSONObject.toMap().containsKey("Absolute")
+
                 BasicOperationsHandler.clickButton("Absolute");
                 JSONArray absoluteJArray = new JSONArray();
                 try {
@@ -297,6 +314,7 @@ public class AMSBaseUtilies {
             try {
                 setDateString("Time Frame From", absoluteFormat.format(TimeUtils.getAddedDate(absoluteJArray.get(0).toString().trim())));
             } catch (Exception e) {
+                BaseTestUtils.report(e.getMessage(),Reporter.FAIL);
             }
         } else {
             String fromDate = absoluteJArray.get(0).toString();
@@ -319,6 +337,7 @@ public class AMSBaseUtilies {
             try {
                 BasicOperationsHandler.setTextField("Time Frame From", absoluteFormat.format(TimeUtils.getAddedDate(absoluteJArray.get(0).toString().trim())));
             } catch (Exception e) {
+                BaseTestUtils.report(e.getMessage(), Reporter.FAIL);
             }
         } else {
             String fromDate = absoluteJArray.get(0).toString();
@@ -350,7 +369,6 @@ public class AMSBaseUtilies {
     }
 
     private void ClickRelativeDateNew(JSONArray timeDefinitions) throws TargetWebElementNotFoundException {
-//        BasicOperationsHandler.newSelectItemFromDropDown("From Time Selection", timeDefinitions.get(0).toString());
         BasicOperationsHandler.clickButton("Time Relative Period", timeDefinitions.get(0).toString());
         BasicOperationsHandler.setTextField("Time Relative Period Input", timeDefinitions.get(0).toString(), timeDefinitions.get(1).toString(), false);
     }
@@ -378,6 +396,7 @@ public class AMSBaseUtilies {
             try {
                 onTime = scheduleJson.toMap().get("On Time").toString();
             } catch (Exception e) {
+                BaseTestUtils.report(e.getMessage(), Reporter.FAIL);
             }
             if (onTime.contains("+") || onTime.contains("-")) {
                 scheduleLocalDateTime = TimeUtils.getAddedDate(scheduleJson.toMap().get("On Time").toString().trim());
@@ -499,6 +518,7 @@ public class AMSBaseUtilies {
                 try {
                     realOnTime = scheduleJson.getString("On Time");
                 } catch (Exception e) {
+                    BaseTestUtils.report(e.getMessage(), Reporter.FAIL);
                 }
                 BasicOperationsHandler.setTextField("Scheduling At Time", realOnTime);
             }
@@ -516,12 +536,12 @@ public class AMSBaseUtilies {
             }
 
             String runEvery = scheduleJson.getString("Run Every");
-//            BasicOperationsHandler.newSelectItemFromDropDown("Scheduling Run Every", runEvery);
             BasicOperationsHandler.clickButton("Schedule Run Every", runEvery);
             String onTime = "??";
             try {
                 onTime = scheduleJson.toMap().get("On Time").toString();
             } catch (Exception e) {
+                BaseTestUtils.report(e.getMessage(), Reporter.FAIL);
             }
             if (onTime.contains("+") || onTime.contains("-")) {
                 scheduleLocalDateTime = TimeUtils.getAddedDate(scheduleJson.toMap().get("On Time").toString().trim());
@@ -532,7 +552,6 @@ public class AMSBaseUtilies {
                 if (runEvery.contains("Once")) {
                     DateTimeFormatter onDayFormat = DateTimeFormatter.ofPattern("yyyy-MM-dd");
                     String onDay = onDayFormat.format(scheduleLocalDateTime);
-//                    setDateString("Scheduling On Day", onDay);
                     BasicOperationsHandler.setTextField("Scheduling On Day", onDay);
                 }
                 if (runEvery.contains("Weekly")) {
@@ -637,7 +656,6 @@ public class AMSBaseUtilies {
                     }
                     if (runEvery.contains("Once")) {
                         if (scheduleJson.toMap().containsKey("On Day"))
-//                            setDateString("Scheduling On Day", scheduleJson.getString("On Day").trim());
                             BasicOperationsHandler.setTextField("Scheduling On Day", scheduleJson.getString("On Day").trim());
                     }
                 }
@@ -645,6 +663,7 @@ public class AMSBaseUtilies {
                 try {
                     realOnTime = scheduleJson.getString("On Time");
                 } catch (Exception e) {
+                    BaseTestUtils.report(e.getMessage(),Reporter.FAIL);
                 }
                 BasicOperationsHandler.setTextField("Scheduling At Time", realOnTime);
             }
@@ -690,15 +709,21 @@ public class AMSBaseUtilies {
 
         if (map.containsKey("Share")) {
             JSONObject deliveryJsonObject = new JSONObject(map.get("Share"));
-            String Emails;
+            String eMails;
             if (!deliveryJsonObject.isNull("Email")) {
-                Emails = deliveryJsonObject.getJSONArray("Email").toString().replaceAll("(])|(\\[)|(\")", "");
-
+                eMails = deliveryJsonObject.getJSONArray("Email").toString().replaceAll("(])|(\\[)|(\")", "");
+                eMails = eMails.replaceAll("\\s","");
+                List<String> emailList = Arrays.asList(eMails.split(","));
+                emailList.forEach(mail->{
+                    if(!mail.contains("@"))
+                        emailList.set(emailList.indexOf(mail),String.format("%s@%s.local",mail,restTestBase.getRootServerCli().getHost()));
+                });
+                eMails = String.join(",",emailList);
                 VisionDebugIdsManager.setLabel("Send Email Enable");
                 String debugId = VisionDebugIdsManager.getDataDebugId();
                 BasicOperationsHandler.clickSwitchButton(WebElementType.Data_Debug_Id, debugId, OnOffStatus.ON);
 
-                BasicOperationsHandler.setTextField("Email Recipients", Emails);
+                BasicOperationsHandler.setTextField("Email Recipients", eMails);
                 BasicOperationsHandler.setTextField("Send Email Subject", deliveryJsonObject.getString("Subject"));
                 if (!deliveryJsonObject.isNull("Body")) {
                     BasicOperationsHandler.setTextField("Send Email Body", deliveryJsonObject.getString("Body"));
@@ -722,6 +747,7 @@ public class AMSBaseUtilies {
                     BasicOperationsHandler.clickButton("Delete Email", String.valueOf(i) + "_Delete");
                 }
             } catch (Exception e) {
+                BaseTestUtils.report(e.getMessage(), Reporter.FAIL);
             }
 
         }
@@ -776,6 +802,7 @@ public class AMSBaseUtilies {
                 BasicOperationsHandler.newSelectItemFromDropDown("Scheduling Run Every", "Daily");
                 BasicOperationsHandler.clickButton("Scheduling At Time", "");
             } catch (Exception e) {
+                BaseTestUtils.report(e.getMessage(), Reporter.FAIL);
             }
 
             selectSchedule(map);
@@ -817,13 +844,8 @@ public class AMSBaseUtilies {
 
             BasicOperationsHandler.setTextField("Email Recipients", "");
             BasicOperationsHandler.setTextField("Send Email Subject", "");
-//            VisionDebugIdsManager.setLabel("Email Recipients");
-//            ClickOperationsHandler.setTextToElement(ComponentLocatorFactory.getEqualLocatorByDbgId(VisionDebugIdsManager.getDataDebugId()).getLocatorValue(), "", true, true);
-//            VisionDebugIdsManager.setLabel("Send Email Subject");
-//            ClickOperationsHandler.setTextToElement(ComponentLocatorFactory.getEqualLocatorByDbgId(VisionDebugIdsManager.getDataDebugId()).getLocatorValue(), "", true, true);
             Delivery(map);
         }
-
     }
 
     protected void editShare(Map<String, String> map) throws TargetWebElementNotFoundException {
@@ -853,10 +875,16 @@ public class AMSBaseUtilies {
         try {
             openDevicePort(null);
         } catch (Exception e) {
+            BaseTestUtils.report(e.getMessage(), Reporter.FAIL);
         }
-                AMSCreateBase("validateMaxViews", new HashMap<>());
+        switch (oldOrNew) {
+            case "old":
+                createVRMBase("validateMaxViews", new HashMap<>());
+            case "new":
+                createVRMBaseNew("validateMaxViews", new HashMap<>());
+        }
         BasicOperationsHandler.clickButton("Views.Expand", "validateMaxViews");
-        List<String> snapshotsName = new ArrayList<>();
+        List<String> snapshotsName;
         snapshotsName = getViewsList(maxValue);
         List<WebElement> snapshots = getSnapshotElements();
         if (snapshots.size() != maxValue) {
@@ -874,48 +902,48 @@ public class AMSBaseUtilies {
         ReportsUtils.reportErrors();
     }
 
-//    public void uivalidateMaxGenerateTemplateView(int maxValue) throws Exception {
-//        validateMaxGenerateTemplateView(maxValue);
-//    }
+    public void uivalidateMaxGenerateTemplateView(int maxValue) throws Exception {
+        validateMaxGenerateTemplateView(maxValue);
+    }
 
 
-//    protected void validateMaxGenerateTemplateView(int maxValue) throws Exception {
-//
-//        int iCurrentIndex;
-//
-//        // Format for leading zerros
-//        String srtFormat = String.format("%%0%dd", 2);
-//        String strReportName;
-//
-//        // loop the create and verify the allowed maximum report template number
-//        for (iCurrentIndex = 1; iCurrentIndex <= maxValue; iCurrentIndex++) {
-//            // Set report name
-//            strReportName = String.format(srtFormat, iCurrentIndex) + "_report";
-//
-//            // create a report
-//            createVRMBase(strReportName, new HashMap<>());
-//
-//            // verify report was created by expanding the report
-//            if (!isExistVRMBaseResult(strReportName, new HashMap<>())) {
-//                addErrorMessage("report number " + iCurrentIndex + "didn't create, but the maximum allowed template reports  is - " + maxValue);
-//            }
-//        }
-//
-//        // Set report name of the excided report template (max =1)
-//        strReportName = String.format(srtFormat, iCurrentIndex) + "_report";
-//
-//        // create a report
-//        createVRMBase(strReportName, new HashMap<>());
-//
-//        if (isExistVRMBaseResult(strReportName, new HashMap<>())) {
-//            // if didn't got exception the report tamplate (max + 1 exist) creating an error to the log
-//            addErrorMessage("report " + strReportName + "excided the maximum allowed template reports, The maximum allowed reports are: " + iCurrentIndex);
-//        }
-//
-//        // insert the errors (if exist) to the log
-//        ReportsUtils.reportErrors();
-//    }
-//
+    protected void validateMaxGenerateTemplateView(int maxValue) throws Exception {
+
+        int iCurrentIndex;
+
+        // Format for leading zerros
+        String srtFormat = String.format("%%0%dd", 2);
+        String strReportName;
+
+        // loop the create and verify the allowed maximum report template number
+        for (iCurrentIndex = 1; iCurrentIndex <= maxValue; iCurrentIndex++) {
+            // Set report name
+            strReportName = String.format(srtFormat, iCurrentIndex) + "_report";
+
+            // create a report
+            createVRMBase(strReportName, new HashMap<>());
+
+            // verify report was created by expanding the report
+            if (!isExistVRMBaseResult(strReportName, new HashMap<>())) {
+                addErrorMessage("report number " + iCurrentIndex + "didn't create, but the maximum allowed template reports  is - " + maxValue);
+            }
+        }
+
+        // Set report name of the excided report template (max =1)
+        strReportName = String.format(srtFormat, iCurrentIndex) + "_report";
+
+        // create a report
+        createVRMBase(strReportName, new HashMap<>());
+
+        if (isExistVRMBaseResult(strReportName, new HashMap<>())) {
+            // if didn't got exception the report tamplate (max + 1 exist) creating an error to the log
+            addErrorMessage("report " + strReportName + "excided the maximum allowed template reports, The maximum allowed reports are: " + iCurrentIndex);
+        }
+
+        // insert the errors (if exist) to the log
+        ReportsUtils.reportErrors();
+    }
+
     protected List<WebElement> getSnapshotElements() {
         return null;
     }
@@ -939,30 +967,24 @@ public class AMSBaseUtilies {
     public static void openDevicePort(String host) {
         RadwareServerCli radwareServerCli = restTestBase.getRadwareServerCli();
         RootServerCli rootServerCli = restTestBase.getRootServerCli();
-        try {
-            if (host == null) {
-                host = SutUtils.getCurrentVisionIp();
-            }
-            if (host != null && !host.equals(SutUtils.getCurrentVisionIp())) {
-
-                radwareServerCli = new RadwareServerCli(host, SutUtils.getCurrentVisionRestUserName(), SutUtils.getCurrentVisionRestUserPassword());
+        if (host == null) {
+            host = restTestBase.getRadwareServerCli().getHost();
+        }
+        if (host != null && !host.equals(restTestBase.getRadwareServerCli().getHost())) {
+            try {
+                radwareServerCli = new RadwareServerCli(host, restTestBase.getRadwareServerCli().getUser(), restTestBase.getRootServerCli().getPassword());
                 radwareServerCli.init();
-//              kvision
-//               decide what to do with root user
                 rootServerCli = new RootServerCli(host, restTestBase.getRootServerCli().getUser(), restTestBase.getRootServerCli().getPassword());
                 rootServerCli.init();
+            } catch (Exception e) {
+                BaseTestUtils.report("Failed to build with host: " + host + " " + e.getMessage(), Reporter.FAIL);
             }
-        } catch (Exception e) {
-            BaseTestUtils.report("Failed to build with host: " + host + " " + e.getMessage(), Reporter.FAIL);
         }
-//        CliOperations.runCommand(rootServerCli, "service iptables stop");
         String commandToExecute = "net firewall open-port 10080 open";
-//       kVision
-//        CliOperations.runCommand(radwareServerCli, commandToExecute);
+        CliOperations.runCommand(radwareServerCli, commandToExecute);
         String port = "10080";
         commandToExecute = "curl -X POST --header 'Content-Type: application/json' --header 'Accept: */*' 'http://" + host + ":" + port + "/reporter/mgmt/monitor/reporter/internal-dashboard/scheduledTasks?jobClassName=com.reporter.scheduled.report.vrm.retention.VrmScheduledReportRetentionTask'";
-//       kVision
-//        CliOperations.runCommand(rootServerCli, commandToExecute);
+        CliOperations.runCommand(rootServerCli, commandToExecute);
     }
 
     /**
@@ -1037,7 +1059,7 @@ public class AMSBaseUtilies {
         }
     }
 
-    public void validateFilter(String text, String searchLabel, List<AMSHandler.LabelParam> elementsExist) throws Exception {
+    public void validateFilter(String text, String searchLabel, List<VRMHandler.LabelParam> elementsExist, String prefixLabel) throws Exception {
         if ((text == null || text.equals("")) && elementsExist.size() > 0) {
             BaseTestUtils.report("have to put text ", Reporter.FAIL);
         }
@@ -1046,17 +1068,16 @@ public class AMSBaseUtilies {
             return;
         }
         BasicOperationsHandler.setTextField(searchLabel, text);
-        for (AMSHandler.LabelParam element : elementsExist) {
-
-            if (WebUIUtils.fluentWait(ComponentLocatorFactory.getLocatorByXpathDbgId(element.getDataDebugId()).getBy(), WebUIUtils.DEFAULT_WAIT_TIME, false) == null) {
-                addErrorMessage("the label '" + element.getLabel() + "' with param: '" + element.getParam() + "' is not exist OR text: \"" + text + "\" is not correct");
+        VisionDebugIdsManager.setLabel(prefixLabel);
+        Set<String> elementsDebugIds = getElementsSet();
+        for (VRMHandler.LabelParam element : elementsExist) {
+            VisionDebugIdsManager.setLabel(prefixLabel);
+            VisionDebugIdsManager.setParams(element.getParam());
+            if (!elementsDebugIds.contains(VisionDebugIdsManager.getDataDebugId())) {
+                addErrorMessage("the label '" + prefixLabel + "' with param: '" + element.getParam() + "' is not exist OR text: \"" + text + "\" is not correct");
             }
         }
-
-
         reportErrors();
-
-
     }
 
     public void validateFilterNumbering(String text, String label, String searchLabel, int expectedNumber) throws Exception {
@@ -1064,12 +1085,32 @@ public class AMSBaseUtilies {
         VisionDebugIdsManager.setLabel(label);
         VisionDebugIdsManager.setParams("");
         Thread.sleep(15 * 1000);
-        List<WebElement> filterElements = WebUIUtils.fluentWaitMultiple(ComponentLocatorFactory.getLocatorByXpathDbgId(VisionDebugIdsManager.getDataDebugId()).getBy(), WebUIUtils.DEFAULT_WAIT_TIME, false);
-        if (filterElements.size() != expectedNumber) {
-            BaseTestUtils.report("actual number : '" + filterElements.size() + "' is not equal to expected number : '" + expectedNumber + "' ", Reporter.FAIL);
+        Set<String> elementsDebugIds = getElementsSet();
+        if (elementsDebugIds.size() != expectedNumber) {
+            BaseTestUtils.report("actual number : '" + elementsDebugIds.size() + "' is not equal to expected number : '" + expectedNumber + "' ", Reporter.FAIL);
         } else {
             BaseTestUtils.report("actual number equal to expected number ", Reporter.PASS);
         }
+    }
+
+    private Set<String> getElementsSet() {
+        Set<String> elementsDebugIds = new HashSet<>();
+        int elemntsCount = -1;
+        while (elementsDebugIds.size() > elemntsCount) {
+            elemntsCount = elementsDebugIds.size();
+            List<WebElement> elements = WebUIUtils.fluentWaitMultiple(ComponentLocatorFactory.getLocatorByXpathDbgId(VisionDebugIdsManager.getDataDebugId().split("%s")[0]).getBy());
+            elements.forEach(n -> {
+                try {
+                    elementsDebugIds.add(n.getAttribute("data-debug-id"));
+                } catch (StaleElementReferenceException exception) {
+                    WebUIUtils.sleep(1);
+                    elementsDebugIds.add(n.getAttribute("data-debug-id"));
+                }
+            });
+            WebUIUtils.scrollIntoView(ComponentLocatorFactory.getEqualLocatorByDbgId(elements.get(elements.size() - 1).getAttribute("data-debug-id")));
+            WebUIUtils.sleep(1);
+        }
+        return elementsDebugIds;
     }
 
     public void DesignNew(Map<String, String> map) throws TargetWebElementNotFoundException {
@@ -1143,12 +1184,19 @@ public class AMSBaseUtilies {
                     for (String entry : widgetMap.keySet()) {
                         entry = entry.trim();
                         try {
-                            ArrayList<String> widgetOptions = (ArrayList<String>) widgetMap.get(entry);
+                            ArrayList<Object> widgetOptions = (ArrayList) widgetMap.get(entry);
                             ComponentLocator optionLocator = new ComponentLocator(How.XPATH, "//*[@data-debug-id='dd-list_draggable-item_" + entry + "']//div[@data-debug-id='expand-icon-down']");
                             WebUIComponent webUIComponent = new WebUIComponent(optionLocator);
                             ((JavascriptExecutor) WebUIUtils.getDriver()).executeScript("arguments[0].click();", webUIComponent.getWebElement());
-                            for (String option : widgetOptions) {
-                                BasicOperationsHandler.clickButton("Widget Option", option + "_" + entry);
+                            for (Object option : widgetOptions) {
+                                if (option.getClass().getName().equalsIgnoreCase("java.util.HashMap")) {
+                                    VisionDebugIdsManager.setLabel("Widget Option");
+                                    VisionDebugIdsManager.setParams(((Map) option).keySet().toArray()[0].toString());
+                                    WebElement wb = WebUIUtils.fluentWait(ComponentLocatorFactory.getLocatorByXpathDbgId(VisionDebugIdsManager.getDataDebugId()).getBy());
+                                    ((JavascriptExecutor) WebUIUtils.getDriver()).executeScript("arguments[0].value='" + ((Map) option).get(((Map) option).keySet().toArray()[0]).toString() + "';", wb.findElement(By.xpath("./input")));
+                                    wb.findElement(By.xpath("./input")).click();
+                                } else
+                                    BasicOperationsHandler.clickButton("Widget Option", option + "_" + entry);
                             }
                             widgetsList.add(entry);
                         } catch (Exception e) {
@@ -1159,7 +1207,7 @@ public class AMSBaseUtilies {
                     widgetsList.add(addWidgetsText.getString(i).trim());
                 }
             }
-            AMSHandler.uiVRMDragAndDropWidgets(widgetsList);
+            vrmHandler.uiVRMDragAndDropWidgets(widgetsList);
         }
     }
 
@@ -1262,10 +1310,11 @@ public class AMSBaseUtilies {
         BasicOperationsHandler.clickButton("Generate Now", reportName);
 
 //        WebElement result = UIUtils.fluentWaitClickable(generateButton, Long.valueOf(map.get("timeout")), false);
-        WebElement result = clickableTimeout(generateButton, Long.valueOf(map.get("timeout")));
+        WebElement result = clickableTimeout(generateButton, Long.parseLong(map.get("timeout")));
         LocalTime end = LocalTime.now();
         Duration duration = Duration.between(start, end);
 
+        assert reportLogsStatusBefore != null;
         String lastTimeBefore = reportLogsStatusBefore.get("lastLogTime");
         littleWaitingForGenerationSnapshotDisplayed(reportContainer, lastTimeBefore);
 
@@ -1304,8 +1353,7 @@ public class AMSBaseUtilies {
             BasicOperationsHandler.clickButton("Reports List Item", reportName);
 
         WebElement generateButton = BasicOperationsHandler.isItemAvailableById("Generate Now", reportName);
-        if (generateButton == null) BaseTestUtils.report(reportName + " Generate Button not found", Reporter.FAIL)
-                ;
+        if (generateButton == null) BaseTestUtils.report(reportName + " Generate Button not found", Reporter.FAIL);
         return generateButton;
     }
 

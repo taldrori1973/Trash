@@ -47,7 +47,10 @@ public class HomePage {
         switch (tab.toLowerCase()) {
             case "adc reports":
             case "ams reports":
-                return "Reports";
+                return "REPORTS";
+//            case "ams new reports":
+//            case "adc new reports":
+//                return "NEW REPORTS";
             case "automation":
                 return "Automation.Toolbox";
             case "home":return "HomePage";
@@ -67,48 +70,21 @@ public class HomePage {
         BasicOperationsHandler.clickButton(label, value);
     }
 
-//    private static void openItem(String item) throws Exception {
-//        VisionDebugIdsManager.setLabel(item);
-//        WebElement itemElement = WebUIUtils.fluentWait(ComponentLocatorFactory.getLocatorByDbgId(VisionDebugIdsManager.getDataDebugId()).getBy());
-//        if (itemElement != null) {
-//            WebElement titledItem = getTitledItem(itemElement);
-//            if (titledItem == null || titledItem.getAttribute("aria-expanded").equalsIgnoreCase("false"))
-//                BasicOperationsHandler.clickButton(item, "");
-//        } else throw new Exception("The element of " + item + " isn't found");
-//    }
-
-//here I validate if item's parent is title or not (if it has children)
-//    private static WebElement getTitledItem(WebElement itemElement) {
-//        WebElement itemParentElement = itemElement.findElement(By.xpath("./.."));
-//        if (itemParentElement.getAttribute("class").equals("ant-menu-submenu-title"))
-//            return itemParentElement;
-//        return null;
-//
-//    }
-
-
     private static void openItem(String item) throws Exception {
         VisionDebugIdsManager.setLabel(item);
         WebElement itemElement = WebUIUtils.fluentWait(ComponentLocatorFactory.getLocatorByDbgId(VisionDebugIdsManager.getDataDebugId()).getBy());
         if (itemElement != null) {
-            if(itemElement.findElement(By.xpath("./..")).getAttribute("class").contains("sub-menu-children")){
-                WebElement itemParentElement = itemElement.findElement(By.xpath("./../.."));
-                if (itemParentElement.getAttribute("class").contains("sub-menu-collapsed")){
-                    BasicOperationsHandler.clickButton(item, "");
-                }
-            }
-            else{
+            WebElement navigatorParentElement = getTitledItem(itemElement);
+            if (navigatorParentElement == null || navigatorParentElement.findElement(By.xpath("/.//ancestor::li")).getAttribute("class").contains("collapsed"))
                 BasicOperationsHandler.clickButton(item, "");
-            }
-
         } else throw new Exception("The element of " + item + " isn't found");
     }
 
-
-
+    //here I validate if item's parent is title or not (if it has children, if it isn't a navigator)
+    // we returned its parent and if it isn't a navigator returned null
     private static WebElement getTitledItem(WebElement itemElement) {
         WebElement itemParentElement = itemElement.findElement(By.xpath("./.."));
-        if (itemParentElement.getAttribute("class").equals("sub-menu-collapsed"))
+        if (itemParentElement.getAttribute("class").contains("sub-menu-children"))
             return itemParentElement;
         return null;
 
@@ -120,7 +96,7 @@ public class HomePage {
             VisionDebugIdsManager.setLabel(item);
             WebElement itemElement = WebUIUtils.fluentWait(ComponentLocatorFactory.getLocatorByDbgId(VisionDebugIdsManager.getDataDebugId()).getBy(), WebUIUtils.SHORT_WAIT_TIME);
             if (itemElement == null) {
-                navigateFromHomePage("HOME");
+                navigateFromHomePage("VISION SETTINGS");
                 return "The Navigator " + item + " should be exist, But it doesn't";
             }
             if(itemElement.findElement(By.xpath("./..")).getAttribute("class").contains("sub-menu-children")){
@@ -129,7 +105,7 @@ public class HomePage {
                 }
             }
         }
-        navigateFromHomePage("HOME");
+        navigateFromHomePage("VISION SETTINGS");
         return "";
     }
 

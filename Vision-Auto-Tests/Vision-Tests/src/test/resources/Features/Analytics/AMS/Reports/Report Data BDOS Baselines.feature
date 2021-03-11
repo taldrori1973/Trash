@@ -11,7 +11,11 @@ Feature: VRM AMS Report Data BDoS baselines
   Scenario: Clear Database latest traffic index and old reports on file-system
     Then CLI kill all simulator attacks on current vision
     Then CLI Clear vision logs
-    Then REST Delete ES index "dp-*"
+#    * REST Delete ES index "dp-traffic-*"
+#    * REST Delete ES index "dp-https-stats-*"
+#    * REST Delete ES index "dp-https-rt-*"
+#    * REST Delete ES index "dp-five-*"
+    * REST Delete ES index "dp-*"
     * REST Vision Install License Request "vision-AVA-Max-attack-capacity"
     Then Sleep "5"
 
@@ -21,7 +25,7 @@ Feature: VRM AMS Report Data BDoS baselines
     Given CLI simulate 4 attacks of type "baselines_pol_1" on "DefensePro" 10 with loopDelay 15000 and wait 60 seconds
     Then CLI Run remote linux Command "rm -f /opt/radware/mgt-server/third-party/tomcat/bin/VRM_report_*.zip" on "ROOT_SERVER_CLI"
 
-  
+
   @SID_4
   Scenario: Login to VRM AMS reports tab
     Given UI Login with user "sys_admin" and password "radware"
@@ -52,50 +56,55 @@ Feature: VRM AMS Report Data BDoS baselines
 
   @SID_9
   Scenario: VRM report validate CSV file BDoS-ICMP IPv4/bps/In headers
-    Then CLI Run linux Command "cat /opt/radware/mgt-server/third-party/tomcat/bin/BDoS-ICMP.csv |head -1|grep "deviceIp,normal,policyName,enrichmentContainer,protection,isTcp,isIpv4,units,timeStamp,fast,id,partial,direction,full" |wc -l" on "ROOT_SERVER_CLI" and validate result EQUALS "1"
+    Then CLI Run linux Command "cat /opt/radware/mgt-server/third-party/tomcat/bin/BDoS-ICMP.csv |head -1|grep "deviceIp,normal,fullExcluded,policyName,enrichmentContainer,protection,isTcp,isIpv4,units,timeStamp,fast,id,partial,direction,full" |wc -l" on "ROOT_SERVER_CLI" and validate result EQUALS "1"
     Then CLI Run linux Command "cat /opt/radware/mgt-server/third-party/tomcat/bin/BDoS-ICMP.csv |head -1|awk -F"," '{print $1}'" on "ROOT_SERVER_CLI" and validate result EQUALS "deviceIp"
     Then CLI Run linux Command "cat /opt/radware/mgt-server/third-party/tomcat/bin/BDoS-ICMP.csv |head -1|awk -F"," '{print $2}'" on "ROOT_SERVER_CLI" and validate result EQUALS "normal"
-    Then CLI Run linux Command "cat /opt/radware/mgt-server/third-party/tomcat/bin/BDoS-ICMP.csv |head -1|awk -F"," '{print $3}'" on "ROOT_SERVER_CLI" and validate result EQUALS "policyName"
-    Then CLI Run linux Command "cat /opt/radware/mgt-server/third-party/tomcat/bin/BDoS-ICMP.csv |head -1|awk -F"," '{print $5}'" on "ROOT_SERVER_CLI" and validate result EQUALS "protection"
-    Then CLI Run linux Command "cat /opt/radware/mgt-server/third-party/tomcat/bin/BDoS-ICMP.csv |head -1|awk -F"," '{print $6}'" on "ROOT_SERVER_CLI" and validate result EQUALS "isTcp"
-    Then CLI Run linux Command "cat /opt/radware/mgt-server/third-party/tomcat/bin/BDoS-ICMP.csv |head -1|awk -F"," '{print $7}'" on "ROOT_SERVER_CLI" and validate result EQUALS "isIpv4"
-    Then CLI Run linux Command "cat /opt/radware/mgt-server/third-party/tomcat/bin/BDoS-ICMP.csv |head -1|awk -F"," '{print $8}'" on "ROOT_SERVER_CLI" and validate result EQUALS "units"
-    Then CLI Run linux Command "cat /opt/radware/mgt-server/third-party/tomcat/bin/BDoS-ICMP.csv |head -1|awk -F"," '{print $9}'" on "ROOT_SERVER_CLI" and validate result EQUALS "timeStamp"
-    Then CLI Run linux Command "cat /opt/radware/mgt-server/third-party/tomcat/bin/BDoS-ICMP.csv |head -1|awk -F"," '{print $12}'" on "ROOT_SERVER_CLI" and validate result EQUALS "partial"
-    Then CLI Run linux Command "cat /opt/radware/mgt-server/third-party/tomcat/bin/BDoS-ICMP.csv |head -1|awk -F"," '{print $13}'" on "ROOT_SERVER_CLI" and validate result EQUALS "direction"
-    Then CLI Run linux Command "cat /opt/radware/mgt-server/third-party/tomcat/bin/BDoS-ICMP.csv |head -1|awk -F"," '{print $14}'" on "ROOT_SERVER_CLI" and validate result EQUALS "full"
+    Then CLI Run linux Command "cat /opt/radware/mgt-server/third-party/tomcat/bin/BDoS-ICMP.csv |head -1|awk -F"," '{print $3}'" on "ROOT_SERVER_CLI" and validate result EQUALS "fullExcluded"
+    Then CLI Run linux Command "cat /opt/radware/mgt-server/third-party/tomcat/bin/BDoS-ICMP.csv |head -1|awk -F"," '{print $4}'" on "ROOT_SERVER_CLI" and validate result EQUALS "policyName"
+    Then CLI Run linux Command "cat /opt/radware/mgt-server/third-party/tomcat/bin/BDoS-ICMP.csv |head -1|awk -F"," '{print $5}'" on "ROOT_SERVER_CLI" and validate result EQUALS "enrichmentContainer"
+    Then CLI Run linux Command "cat /opt/radware/mgt-server/third-party/tomcat/bin/BDoS-ICMP.csv |head -1|awk -F"," '{print $6}'" on "ROOT_SERVER_CLI" and validate result EQUALS "protection"
+    Then CLI Run linux Command "cat /opt/radware/mgt-server/third-party/tomcat/bin/BDoS-ICMP.csv |head -1|awk -F"," '{print $7}'" on "ROOT_SERVER_CLI" and validate result EQUALS "isTcp"
+    Then CLI Run linux Command "cat /opt/radware/mgt-server/third-party/tomcat/bin/BDoS-ICMP.csv |head -1|awk -F"," '{print $8}'" on "ROOT_SERVER_CLI" and validate result EQUALS "isIpv4"
+    Then CLI Run linux Command "cat /opt/radware/mgt-server/third-party/tomcat/bin/BDoS-ICMP.csv |head -1|awk -F"," '{print $9}'" on "ROOT_SERVER_CLI" and validate result EQUALS "units"
+    Then CLI Run linux Command "cat /opt/radware/mgt-server/third-party/tomcat/bin/BDoS-ICMP.csv |head -1|awk -F"," '{print $10}'" on "ROOT_SERVER_CLI" and validate result EQUALS "timeStamp"
+    Then CLI Run linux Command "cat /opt/radware/mgt-server/third-party/tomcat/bin/BDoS-ICMP.csv |head -1|awk -F"," '{print $11}'" on "ROOT_SERVER_CLI" and validate result EQUALS "partial"
+    Then CLI Run linux Command "cat /opt/radware/mgt-server/third-party/tomcat/bin/BDoS-ICMP.csv |head -1|awk -F"," '{print $12}'" on "ROOT_SERVER_CLI" and validate result EQUALS "direction"
+    Then CLI Run linux Command "cat /opt/radware/mgt-server/third-party/tomcat/bin/BDoS-ICMP.csv |head -1|awk -F"," '{print $13}'" on "ROOT_SERVER_CLI" and validate result EQUALS "full"
 
-    Then CLI Run linux Command "cat /opt/radware/mgt-server/third-party/tomcat/bin/BDoS-ICMP.csv |head -7| tail -1|grep "timeStamp,deviceIp,suspectedAttack,policyName,enrichmentContainer,protection,isTcp,id,isIpv4,units,direction,suspectedEdge" |wc -l" on "ROOT_SERVER_CLI" and validate result EQUALS "1"
-    Then CLI Run linux Command "cat /opt/radware/mgt-server/third-party/tomcat/bin/BDoS-ICMP.csv |head -7| tail -1|awk -F"," '{print $1}'" on "ROOT_SERVER_CLI" and validate result EQUALS "timeStamp"
-    Then CLI Run linux Command "cat /opt/radware/mgt-server/third-party/tomcat/bin/BDoS-ICMP.csv |head -7| tail -1|awk -F"," '{print $2}'" on "ROOT_SERVER_CLI" and validate result EQUALS "deviceIp"
-    Then CLI Run linux Command "cat /opt/radware/mgt-server/third-party/tomcat/bin/BDoS-ICMP.csv |head -7| tail -1|awk -F"," '{print $3}'" on "ROOT_SERVER_CLI" and validate result EQUALS "suspectedAttack"
-    Then CLI Run linux Command "cat /opt/radware/mgt-server/third-party/tomcat/bin/BDoS-ICMP.csv |head -7| tail -1|awk -F"," '{print $4}'" on "ROOT_SERVER_CLI" and validate result EQUALS "policyName"
-    Then CLI Run linux Command "cat /opt/radware/mgt-server/third-party/tomcat/bin/BDoS-ICMP.csv |head -7| tail -1|awk -F"," '{print $5}'" on "ROOT_SERVER_CLI" and validate result EQUALS "enrichmentContainer"
-    Then CLI Run linux Command "cat /opt/radware/mgt-server/third-party/tomcat/bin/BDoS-ICMP.csv |head -7| tail -1|awk -F"," '{print $6}'" on "ROOT_SERVER_CLI" and validate result EQUALS "protection"
-    Then CLI Run linux Command "cat /opt/radware/mgt-server/third-party/tomcat/bin/BDoS-ICMP.csv |head -7| tail -1|awk -F"," '{print $7}'" on "ROOT_SERVER_CLI" and validate result EQUALS "isTcp"
-    Then CLI Run linux Command "cat /opt/radware/mgt-server/third-party/tomcat/bin/BDoS-ICMP.csv |head -7| tail -1|awk -F"," '{print $8}'" on "ROOT_SERVER_CLI" and validate result EQUALS "id"
-    Then CLI Run linux Command "cat /opt/radware/mgt-server/third-party/tomcat/bin/BDoS-ICMP.csv |head -7| tail -1|awk -F"," '{print $9}'" on "ROOT_SERVER_CLI" and validate result EQUALS "isIpv4"
-    Then CLI Run linux Command "cat /opt/radware/mgt-server/third-party/tomcat/bin/BDoS-ICMP.csv |head -7| tail -1|awk -F"," '{print $10}'" on "ROOT_SERVER_CLI" and validate result EQUALS "units"
-    Then CLI Run linux Command "cat /opt/radware/mgt-server/third-party/tomcat/bin/BDoS-ICMP.csv |head -7| tail -1|awk -F"," '{print $11}'" on "ROOT_SERVER_CLI" and validate result EQUALS "direction"
-    Then CLI Run linux Command "cat /opt/radware/mgt-server/third-party/tomcat/bin/BDoS-ICMP.csv |head -7| tail -1|awk -F"," '{print $12}'" on "ROOT_SERVER_CLI" and validate result EQUALS "suspectedEdge"
+    Then CLI Run linux Command "cat /opt/radware/mgt-server/third-party/tomcat/bin/BDoS-ICMP.csv |head -7| tail -1|grep "deviceIp,policyName,enrichmentContainer,protection,isTcp,isIpv4,units,timeStamp,suspectedAttack,suspectedEdgeAdv,suspectedAttackAdv,id,direction,suspectedEdge" |wc -l" on "ROOT_SERVER_CLI" and validate result EQUALS "1"
+    Then CLI Run linux Command "cat /opt/radware/mgt-server/third-party/tomcat/bin/BDoS-ICMP.csv |head -7| tail -1|awk -F"," '{print $1}'" on "ROOT_SERVER_CLI" and validate result EQUALS "deviceIp"
+    Then CLI Run linux Command "cat /opt/radware/mgt-server/third-party/tomcat/bin/BDoS-ICMP.csv |head -7| tail -1|awk -F"," '{print $2}'" on "ROOT_SERVER_CLI" and validate result EQUALS "policyName"
+    Then CLI Run linux Command "cat /opt/radware/mgt-server/third-party/tomcat/bin/BDoS-ICMP.csv |head -7| tail -1|awk -F"," '{print $3}'" on "ROOT_SERVER_CLI" and validate result EQUALS "enrichmentContainer"
+    Then CLI Run linux Command "cat /opt/radware/mgt-server/third-party/tomcat/bin/BDoS-ICMP.csv |head -7| tail -1|awk -F"," '{print $4}'" on "ROOT_SERVER_CLI" and validate result EQUALS "protection"
+    Then CLI Run linux Command "cat /opt/radware/mgt-server/third-party/tomcat/bin/BDoS-ICMP.csv |head -7| tail -1|awk -F"," '{print $5}'" on "ROOT_SERVER_CLI" and validate result EQUALS "isTcp"
+    Then CLI Run linux Command "cat /opt/radware/mgt-server/third-party/tomcat/bin/BDoS-ICMP.csv |head -7| tail -1|awk -F"," '{print $6}'" on "ROOT_SERVER_CLI" and validate result EQUALS "isIpv4"
+    Then CLI Run linux Command "cat /opt/radware/mgt-server/third-party/tomcat/bin/BDoS-ICMP.csv |head -7| tail -1|awk -F"," '{print $7}'" on "ROOT_SERVER_CLI" and validate result EQUALS "units"
+    Then CLI Run linux Command "cat /opt/radware/mgt-server/third-party/tomcat/bin/BDoS-ICMP.csv |head -7| tail -1|awk -F"," '{print $8}'" on "ROOT_SERVER_CLI" and validate result EQUALS "timeStamp"
+    Then CLI Run linux Command "cat /opt/radware/mgt-server/third-party/tomcat/bin/BDoS-ICMP.csv |head -7| tail -1|awk -F"," '{print $9}'" on "ROOT_SERVER_CLI" and validate result EQUALS "suspectedAttack"
+    Then CLI Run linux Command "cat /opt/radware/mgt-server/third-party/tomcat/bin/BDoS-ICMP.csv |head -7| tail -1|awk -F"," '{print $10}'" on "ROOT_SERVER_CLI" and validate result EQUALS "suspectedEdgeAdv"
+    Then CLI Run linux Command "cat /opt/radware/mgt-server/third-party/tomcat/bin/BDoS-ICMP.csv |head -7| tail -1|awk -F"," '{print $11}'" on "ROOT_SERVER_CLI" and validate result EQUALS "suspectedAttackAdv"
+    Then CLI Run linux Command "cat /opt/radware/mgt-server/third-party/tomcat/bin/BDoS-ICMP.csv |head -7| tail -1|awk -F"," '{print $12}'" on "ROOT_SERVER_CLI" and validate result EQUALS "id"
+    Then CLI Run linux Command "cat /opt/radware/mgt-server/third-party/tomcat/bin/BDoS-ICMP.csv |head -7| tail -1|awk -F"," '{print $13}'" on "ROOT_SERVER_CLI" and validate result EQUALS "direction"
+    Then CLI Run linux Command "cat /opt/radware/mgt-server/third-party/tomcat/bin/BDoS-ICMP.csv |head -7| tail -1|awk -F"," '{print $14}'" on "ROOT_SERVER_CLI" and validate result EQUALS "suspectedEdge"
 
   @SID_10
   Scenario: VRM report validate CSV file BDoS-ICMP IPv4/bps/In content
-    Then CLI Run linux Command "cat /opt/radware/mgt-server/third-party/tomcat/bin/BDoS-ICMP.csv |head -2|tail -1|grep -oP "172.16.22.50,92,pol_1,{},icmp,false,true,bps,$(date +"%B %d %Y [0-9][0-9]:[0-9][0-9]"),,,45600,In,1040" |wc -l" on "ROOT_SERVER_CLI" and validate result EQUALS "1"
+    Then CLI Run linux Command "cat /opt/radware/mgt-server/third-party/tomcat/bin/BDoS-ICMP.csv |head -2|tail -1|grep -oP "172.16.22.50,92,-1,pol_1,{},icmp,false,true,bps,$(date +"%B %d %Y [0-9][0-9]:[0-9][0-9]"),,,45600,In,1040" |wc -l" on "ROOT_SERVER_CLI" and validate result EQUALS "1"
     Then CLI Run linux Command "cat /opt/radware/mgt-server/third-party/tomcat/bin/BDoS-ICMP.csv |head -2|tail -1|awk -F"," '{print $1}'" on "ROOT_SERVER_CLI" and validate result EQUALS "172.16.22.50"
     Then CLI Run linux Command "cat /opt/radware/mgt-server/third-party/tomcat/bin/BDoS-ICMP.csv |head -2|tail -1|awk -F"," '{print $2}'" on "ROOT_SERVER_CLI" and validate result EQUALS "92"
-    Then CLI Run linux Command "cat /opt/radware/mgt-server/third-party/tomcat/bin/BDoS-ICMP.csv |head -2|tail -1|awk -F"," '{print $3}'" on "ROOT_SERVER_CLI" and validate result EQUALS "pol_1"
-    Then CLI Run linux Command "cat /opt/radware/mgt-server/third-party/tomcat/bin/BDoS-ICMP.csv |head -2|tail -1|awk -F"," '{print $4}'" on "ROOT_SERVER_CLI" and validate result EQUALS "{}"
-    Then CLI Run linux Command "cat /opt/radware/mgt-server/third-party/tomcat/bin/BDoS-ICMP.csv |head -2|tail -1|awk -F"," '{print $5}'" on "ROOT_SERVER_CLI" and validate result EQUALS "icmp"
-    Then CLI Run linux Command "cat /opt/radware/mgt-server/third-party/tomcat/bin/BDoS-ICMP.csv |head -2|tail -1|awk -F"," '{print $6}'" on "ROOT_SERVER_CLI" and validate result EQUALS "false"
-    Then CLI Run linux Command "cat /opt/radware/mgt-server/third-party/tomcat/bin/BDoS-ICMP.csv |head -2|tail -1|awk -F"," '{print $7}'" on "ROOT_SERVER_CLI" and validate result EQUALS "true"
-    Then CLI Run linux Command "cat /opt/radware/mgt-server/third-party/tomcat/bin/BDoS-ICMP.csv |head -2|tail -1|awk -F"," '{print $8}'" on "ROOT_SERVER_CLI" and validate result EQUALS "bps"
-    Then CLI Run linux Command "cat /opt/radware/mgt-server/third-party/tomcat/bin/BDoS-ICMP.csv |head -2|tail -1|awk -F"," '{print $12}'" on "ROOT_SERVER_CLI" and validate result EQUALS "45600"
-    Then CLI Run linux Command "cat /opt/radware/mgt-server/third-party/tomcat/bin/BDoS-ICMP.csv |head -2|tail -1|awk -F"," '{print $13}'" on "ROOT_SERVER_CLI" and validate result EQUALS "In"
-    Then CLI Run linux Command "cat /opt/radware/mgt-server/third-party/tomcat/bin/BDoS-ICMP.csv |head -2|tail -1|awk -F"," '{print $14}'" on "ROOT_SERVER_CLI" and validate result EQUALS "1040"
+    Then CLI Run linux Command "cat /opt/radware/mgt-server/third-party/tomcat/bin/BDoS-ICMP.csv |head -2|tail -1|awk -F"," '{print $3}'" on "ROOT_SERVER_CLI" and validate result EQUALS "-1"
+    Then CLI Run linux Command "cat /opt/radware/mgt-server/third-party/tomcat/bin/BDoS-ICMP.csv |head -2|tail -1|awk -F"," '{print $4}'" on "ROOT_SERVER_CLI" and validate result EQUALS "pol_1"
+    Then CLI Run linux Command "cat /opt/radware/mgt-server/third-party/tomcat/bin/BDoS-ICMP.csv |head -2|tail -1|awk -F"," '{print $5}'" on "ROOT_SERVER_CLI" and validate result EQUALS "{}"
+    Then CLI Run linux Command "cat /opt/radware/mgt-server/third-party/tomcat/bin/BDoS-ICMP.csv |head -2|tail -1|awk -F"," '{print $6}'" on "ROOT_SERVER_CLI" and validate result EQUALS "icmp"
+    Then CLI Run linux Command "cat /opt/radware/mgt-server/third-party/tomcat/bin/BDoS-ICMP.csv |head -2|tail -1|awk -F"," '{print $7}'" on "ROOT_SERVER_CLI" and validate result EQUALS "false"
+    Then CLI Run linux Command "cat /opt/radware/mgt-server/third-party/tomcat/bin/BDoS-ICMP.csv |head -2|tail -1|awk -F"," '{print $8}'" on "ROOT_SERVER_CLI" and validate result EQUALS "true"
+    Then CLI Run linux Command "cat /opt/radware/mgt-server/third-party/tomcat/bin/BDoS-ICMP.csv |head -2|tail -1|awk -F"," '{print $9}'" on "ROOT_SERVER_CLI" and validate result EQUALS "bps"
+    Then CLI Run linux Command "cat /opt/radware/mgt-server/third-party/tomcat/bin/BDoS-ICMP.csv |head -2|tail -1|awk -F"," '{print $13}'" on "ROOT_SERVER_CLI" and validate result EQUALS "45600"
+    Then CLI Run linux Command "cat /opt/radware/mgt-server/third-party/tomcat/bin/BDoS-ICMP.csv |head -2|tail -1|awk -F"," '{print $14}'" on "ROOT_SERVER_CLI" and validate result EQUALS "In"
+    Then CLI Run linux Command "cat /opt/radware/mgt-server/third-party/tomcat/bin/BDoS-ICMP.csv |head -2|tail -1|awk -F"," '{print $15}'" on "ROOT_SERVER_CLI" and validate result EQUALS "1040"
 
-    Then CLI Run linux Command "cat /opt/radware/mgt-server/third-party/tomcat/bin/BDoS-ICMP.csv |head -8|tail -1|grep -oP "$(date +"%B %d %Y [0-9][0-9]:[0-9][0-9]"),172.16.22.50,323.81723,pol_1,{},icmp,false,,true,bps,In,182.09581" |wc -l" on "ROOT_SERVER_CLI" and validate result EQUALS "1"
-    Then CLI Run linux Command "cat /opt/radware/mgt-server/third-party/tomcat/bin/BDoS-ICMP.csv |head -8|tail -1|awk -F "," '{print $1}' |grep -oP "$(date +"%B %d %Y [0-9][0-9]:[0-9][0-9]")"|wc -l" on "ROOT_SERVER_CLI" and validate result EQUALS "1"
+    Then CLI Run linux Command "cat /opt/radware/mgt-server/third-party/tomcat/bin/BDoS-ICMP.csv |head -8|tail -1|grep -oP "172.16.22.50,pol_1,{},icmp,false,true,bps,$(date +"%B %d %Y [0-9][0-9]:[0-9][0-9]"),323.81723,-1.0,-1.0,,In,182.09581" |wc -l" on "ROOT_SERVER_CLI" and validate result EQUALS "1"
+    Then CLI Run linux Command "cat /opt/radware/mgt-server/third-party/tomcat/bin/BDoS-ICMP.csv |head -8|tail -1|awk -F "," '{print $1}' |grep -oP "172.16.22.50"|wc -l" on "ROOT_SERVER_CLI" and validate result EQUALS "1"
 
   @SID_11
   Scenario: VRM report validate CSV file BDoS-UDP_Fragmented IPv4/bps/In number of lines
@@ -103,9 +112,11 @@ Feature: VRM AMS Report Data BDoS baselines
 
   @SID_12
   Scenario: VRM report validate CSV file BDoS-UDP_Fragmented IPv4/bps/In headers
-    Then CLI Run linux Command "cat /opt/radware/mgt-server/third-party/tomcat/bin/BDoS-UDP_Fragmented.csv |head -1|grep "deviceIp,normal,policyName,enrichmentContainer,protection,isTcp,isIpv4,units,timeStamp,fast,id,partial,direction,full" |wc -l" on "ROOT_SERVER_CLI" and validate result EQUALS "1"
-    Then CLI Run linux Command "cat /opt/radware/mgt-server/third-party/tomcat/bin/BDoS-UDP_Fragmented.csv |head -7| tail -1|grep "timeStamp,deviceIp,suspectedAttack,policyName,enrichmentContainer,protection,isTcp,id,isIpv4,units,direction,suspectedEdge" |wc -l " on "ROOT_SERVER_CLI" and validate result EQUALS "1"
+    Then CLI Run linux Command "cat /opt/radware/mgt-server/third-party/tomcat/bin/BDoS-UDP_Fragmented.csv |head -1|grep "deviceIp,normal,fullExcluded,policyName,enrichmentContainer,protection,isTcp,isIpv4,units,timeStamp,fast,id,partial,direction,full" |wc -l" on "ROOT_SERVER_CLI" and validate result EQUALS "1"
+    Then CLI Run linux Command "cat /opt/radware/mgt-server/third-party/tomcat/bin/BDoS-UDP_Fragmented.csv |head -7| tail -1|grep "deviceIp,policyName,enrichmentContainer,protection,isTcp,isIpv4,units,timeStamp,suspectedAttack,suspectedEdgeAdv,suspectedAttackAdv,id,direction,suspectedEdge" |wc -l" on "ROOT_SERVER_CLI" and validate result EQUALS "1"
 
+
+#    to be continue...
   @SID_13
   Scenario: VRM report validate CSV file BDoS-UDP_Fragmented IPv4/bps/In content
     Then CLI Run linux Command "cat /opt/radware/mgt-server/third-party/tomcat/bin/BDoS-UDP_Fragmented.csv |head -2|tail -1|grep -oP "172.16.22.50,768,pol_1,{},udp-frag,false,true,bps,$(date +"%B %d %Y [0-9][0-9]:[0-9][0-9]"),,,45120,In,46960" |wc -l" on "ROOT_SERVER_CLI" and validate result EQUALS "1"
@@ -227,29 +238,28 @@ Feature: VRM AMS Report Data BDoS baselines
       | Time Definitions.Date | Relative:[Hours,1]                                                                                                                                                                                                                                                                                                                                                                                                       |
 
 
-    
   @SID_36
   Scenario: Delete old zip files on file system
     Then CLI Run remote linux Command "rm -f /opt/radware/mgt-server/third-party/tomcat/bin/VRM_report_*.zip" on "ROOT_SERVER_CLI"
 
-  
+
   @SID_37
   Scenario: Generate the report "BDOS baselines IPv6 PPS Outbound"
     And UI Navigate to "AMS Alerts" page via homePage
     And UI Navigate to "AMS Reports" page via homePage
     Then UI Generate and Validate Report With Name "BDOS baselines IPv6 PPS Outbound" with Timeout of 300 Seconds
 
-  
+
   @SID_38
   Scenario: VRM report unzip local CSV file
     Then CLI Run remote linux Command "unzip -o -d /opt/radware/mgt-server/third-party/tomcat/bin/ /opt/radware/mgt-server/third-party/tomcat/bin/VRM_report_*.zip" on "ROOT_SERVER_CLI"
 
-  
+
   @SID_39
   Scenario: VRM report validate CSV file BDoS-TCP_SYN ACK IPv6/PPS/Out number of lines
     Then CLI Run linux Command "cat /opt/radware/mgt-server/third-party/tomcat/bin/BDoS-TCP_SYN\ ACK.csv |wc -l" on "ROOT_SERVER_CLI" and validate result EQUALS "11"
 
-  
+
   @SID_40
   Scenario: VRM report validate CSV file BDoS-TCP_SYN ACK IPv6/PPS/Out headers
     Then CLI Run linux Command "cat /opt/radware/mgt-server/third-party/tomcat/bin/BDoS-TCP_SYN\ ACK.csv |head -1|grep "deviceIp,normal,policyName,enrichmentContainer,protection,isTcp,isIpv4,units,timeStamp,fast,id,partial,direction,full" |wc -l" on "ROOT_SERVER_CLI" and validate result EQUALS "1"
@@ -283,7 +293,6 @@ Feature: VRM AMS Report Data BDoS baselines
     Then CLI Run linux Command "cat /opt/radware/mgt-server/third-party/tomcat/bin/BDoS-TCP_SYN\ ACK.csv |head -7|tail -1|awk -F"," '{print $12}'" on "ROOT_SERVER_CLI" and validate result EQUALS "suspectedEdge"
 
 
-  
   @SID_41
   Scenario: VRM report validate CSV file BDoS-TCP_SYN ACK IPv6/bPS/Out content
     Then CLI Run linux Command "cat /opt/radware/mgt-server/third-party/tomcat/bin/BDoS-TCP_SYN\ ACK.csv |head -2|tail -1|grep -oP "172.16.22.50,322,pol_1,{},tcp-syn-ack,true,true,bps,$(date +"%B %d %Y [0-9][0-9]:[0-9][0-9]"),,,44000,In,66680"|wc -l" on "ROOT_SERVER_CLI" and validate result EQUALS "1"
@@ -321,6 +330,6 @@ Feature: VRM AMS Report Data BDoS baselines
       | JBOSS       | fatal        | NOT_EXPECTED |
       | TOMCAT      | fatal        | NOT_EXPECTED |
       | TOMCAT2     | fatal        | NOT_EXPECTED |
-    Then UI Navigate to "HOME" page via homePage
+    Then UI Navigate to "VISION SETTINGS" page via homePage
     * UI logout and close browser
     * CLI kill all simulator attacks on current vision

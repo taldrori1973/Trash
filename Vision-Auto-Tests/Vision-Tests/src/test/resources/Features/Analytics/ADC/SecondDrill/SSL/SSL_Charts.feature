@@ -19,9 +19,9 @@ Feature: ADC dashboard Second Drill - SSL
 
   @SID_4
   Scenario: Login
-    Then REST Login with user "sys_admin" and password "radware"
+    Then REST Login with user "radware" and password "radware"
     Then REST Vision Install License Request "vision-reporting-module-ADC"
-    Then UI Login with user "sys_admin" and password "radware"
+    Then UI Login with user "radware" and password "radware"
     When UI Navigate to "Application Dashboard" page via homePage
 
 
@@ -80,10 +80,10 @@ Feature: ADC dashboard Second Drill - SSL
   @SID_9
   Scenario: Validate Key Exchange Algorithms widget
     Then UI Validate Pie Chart data "Key Exchange Algorithms"
-      | label | data | offset |
-      | RSA   | 750  | 60     |
-      | DHE   | 780  | 60     |
-      | ECDHE | 810  | 60     |
+      | label | data |
+      | RSA   | 750  |
+      | DHE   | 780  |
+      | ECDHE | 810  |
 
   @SID_10
   Scenario: Validate Key Exchange Algorithms Widget attributes

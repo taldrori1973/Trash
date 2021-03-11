@@ -3,7 +3,7 @@ Feature: DDoS attackers feed
 
   @Functional @SID_1
   Scenario: DDos Feed Setup - login and add DPs
-    Then CLI Operations - Run Root Session command "yes|restore_radware_user_password" timeout 15
+    Given CLI Reset radware password
     Given UI Login with user "radware" and password "radware"
     Then UI Add "DefensePro" with index 5 on "Default" site
     Then UI Add "DefensePro" with index 4 on "Default" site

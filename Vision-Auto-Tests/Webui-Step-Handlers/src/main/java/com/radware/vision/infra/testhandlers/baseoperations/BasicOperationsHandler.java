@@ -29,7 +29,6 @@ import com.radware.automation.webui.widgets.api.Widget;
 import com.radware.automation.webui.widgets.impl.WebUICheckbox;
 import com.radware.automation.webui.widgets.impl.WebUIComponent;
 import com.radware.automation.webui.widgets.impl.WebUITextField;
-import com.radware.vision.automation.AutoUtils.Operators.OperatorsEnum;
 import com.radware.vision.automation.tools.exceptions.misc.NoSuchOperationException;
 import com.radware.vision.automation.tools.exceptions.selenium.TargetWebElementNotFoundException;
 import com.radware.vision.automation.tools.sutsystemobjects.devicesinfo.enums.SUTDeviceType;
@@ -38,25 +37,24 @@ import com.radware.vision.infra.base.pages.VisionWebUILogin;
 import com.radware.vision.infra.base.pages.navigation.HomePage;
 import com.radware.vision.infra.base.pages.navigation.WebUIUpperBar;
 import com.radware.vision.infra.base.pages.navigation.WebUIVisionBasePage;
+import com.radware.vision.automation.AutoUtils.Operators.OperatorsEnum;
 import com.radware.vision.infra.enums.UpperBarItems;
 import com.radware.vision.infra.testhandlers.BaseHandler;
 import com.radware.vision.infra.testhandlers.baseoperations.enums.Operation;
-import com.radware.vision.infra.testhandlers.ams.AMSBaseUtilies;
+import com.radware.vision.infra.testhandlers.vrm.VRMBaseUtilies;
+import com.radware.vision.infra.testhandlers.vrm.VRMHandler;
 import com.radware.vision.infra.utils.*;
-import com.radware.vision.vision_project_cli.MysqlClientCli;
 import com.radware.vision.vision_project_cli.RadwareServerCli;
 import com.radware.vision.vision_project_cli.RootServerCli;
 import com.radware.vision.vision_project_cli.menu.Menu;
+import junit.framework.SystemTestCase;
 import org.openqa.selenium.*;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.How;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
-import java.io.ByteArrayInputStream;
-import java.io.File;
-import java.io.IOException;
-import java.io.InputStream;
+import java.io.*;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
@@ -87,7 +85,7 @@ public class BasicOperationsHandler {
             e.printStackTrace();
         }
         //get window handlers as list
-        List<String> browserTabs = new ArrayList<>(WebUIUtils.getDriver().getWindowHandles());
+        List<String> browserTabs = new ArrayList<String>(WebUIUtils.getDriver().getWindowHandles());
         //switch to new tab
         WebUIUtils.getDriver().switchTo().window(browserTabs.get(tabIndex));
     }
@@ -100,7 +98,7 @@ public class BasicOperationsHandler {
             e.printStackTrace();
         }
         //get window handlers as list
-        List<String> browserTabs = new ArrayList<>(WebUIUtils.getDriver().getWindowHandles());
+        List<String> browserTabs = new ArrayList<String>(WebUIUtils.getDriver().getWindowHandles());
         //switch to new tab
         return browserTabs.size();
     }
@@ -215,10 +213,12 @@ public class BasicOperationsHandler {
                 throw new Exception("Element not found");
             }
             WebUICheckbox checkbox = new WebUICheckbox(new ComponentLocator(How.ID, elementId));
-            if (selectCheckbox) {
-                checkbox.check();
-            } else {
-                checkbox.uncheck();
+            if (checkbox != null) {
+                if (selectCheckbox) {
+                    checkbox.check();
+                } else {
+                    checkbox.uncheck();
+                }
             }
         } catch (Exception e) {
             BaseTestUtils.report("Failed to set the CheckBox selection: " + elementId, Reporter.FAIL);
@@ -243,7 +243,7 @@ public class BasicOperationsHandler {
     }
 
     /**
-     * @param label taken from debug ID property file
+     * @param label
      * @param params for id's that only will be known at test run time
      */
     public static WebElement clickButton(String label, String... params) throws TargetWebElementNotFoundException {
@@ -385,13 +385,29 @@ public class BasicOperationsHandler {
         return WebUIVisionBasePage.getCurrentPage().getContainer().getTextField(label).getValue();
     }
 
+
+    public static void isTextEqualValue(String label, String expectedValue, String param) {
+        VisionDebugIdsManager.setLabel(label);
+        VisionDebugIdsManager.setParams(param);
+        String actualValue = WebUIVisionBasePage.getCurrentPage().getContainer().getLabel(label).getInnerText();
+        if (actualValue.contains(expectedValue)) {
+            BaseTestUtils.report("Successfully validated element value: " + label + " equals to " + expectedValue , Reporter.PASS);
+        } else {
+            BaseTestUtils.report("Failed to validate element value: " + label +  " ,Expected result is: " + expectedValue +" but Actual value is: " + actualValue, Reporter.FAIL);
+        }
+    }
+
     /**
      * This check will rely on the way that selenium does it
      *
-     * @param LabelName taken from debug ID property file
+     * @param LabelName
      * @param params    for id's that only will be known at test run time
-     * @return is element selected
+     * @return
      */
+
+
+
+
     public static boolean isItemSelected(String LabelName, String... params) {
 
         VisionDebugIdsManager.setLabel(LabelName);
@@ -413,7 +429,8 @@ public class BasicOperationsHandler {
         if (param != null)
             VisionDebugIdsManager.setParams(param);
         ComponentLocator locator = new ComponentLocator(How.ID, VisionDebugIdsManager.getDataDebugId());
-        return WebUIUtils.fluentWaitDisplayed(locator.getBy(), WebUIUtils.DEFAULT_WAIT_TIME, false);
+        WebElement element = WebUIUtils.fluentWaitDisplayed(locator.getBy(), WebUIUtils.DEFAULT_WAIT_TIME, false);
+        return element;
 
     }
 
@@ -426,11 +443,6 @@ public class BasicOperationsHandler {
         }
     }
 
-    public static boolean isElementExists(String LabelName, boolean isExists, String param) {
-        WebElement element = isItemAvailableById(LabelName, param);
-        return element != null && isExists || element == null && !isExists;
-    }
-
     public static void isElementSelected(String LabelName, boolean isSelected, String param) {
         WebElement element = isItemAvailableById(LabelName, param);
         if (element != null && (element.getAttribute("class").contains("selected") == isSelected)) {
@@ -440,9 +452,14 @@ public class BasicOperationsHandler {
         }
     }
 
+    public static boolean isElementExists(String LabelName, boolean isExists, String param) {
+        WebElement element = isItemAvailableById(LabelName, param);
+        return element != null && isExists || element == null && !isExists;
+    }
+
     /**
-     * @param LabelName taken from debug ID property file
-     * @param params for id's that only will be known at test run time
+     * @param LabelName
+     * @param params
      * @return if the class attribute contains "selected" returns true else false
      */
     public static boolean isItemSelectedByClass(String LabelName, String... params) {
@@ -456,8 +473,8 @@ public class BasicOperationsHandler {
     /**
      * Validate Item's text is equal to value
      *
-     * @param item taken from debug ID property file
-     * @return string in element
+     * @param item
+     * @return
      */
     public static String getItemValue(String item, String... params) throws TargetWebElementNotFoundException {
         VisionDebugIdsManager.setLabel(item);
@@ -469,16 +486,17 @@ public class BasicOperationsHandler {
                     String.format("%s %s and param %s", messagePrefix, item, params);
             throw new TargetWebElementNotFoundException(errorMessage);
         }
-        return widget.getInnerText();
+        String itemValue = widget.getInnerText();
+        return itemValue;
     }
 
     /**
      * Validate Item's text is contains the value
      *
-     * @param item taken from debug ID property file
-     * @param expectedValue string to compare
-     * @param params for id's that only will be known at test run time
-     * @return true if match else false
+     * @param item
+     * @param expectedValue
+     * @param params
+     * @return
      */
     public static boolean isItemValueContains(String item, String params, String expectedValue) {
         String itemValue = null;
@@ -493,9 +511,9 @@ public class BasicOperationsHandler {
     /**
      * Validate Item's text contains value
      *
-     * @param item from debug ID property file
-     * @param expectedValue string to match
-     * @return true if match else false
+     * @param item
+     * @param expectedValue
+     * @return
      */
     public static boolean isItemValueContains(String item, String expectedValue) {
         VisionDebugIdsManager.setLabel(item);
@@ -512,7 +530,7 @@ public class BasicOperationsHandler {
             visionWebUILogin.setUsername(username);
             visionWebUILogin.setUPassword(password);
             visionWebUILogin.login();
-            WebUIUtils.sleep(10);
+            WebUIUtils.sleep(15);
             String loginStatusMsg = verifyLogin();
             if (loginStatusMsg.isEmpty()) {
                 BaseTestUtils.report("Failed to Login with username:" + username + " " + "Password: " + password + ", Error:\n" + loginStatusMsg, Reporter.FAIL);
@@ -591,7 +609,7 @@ public class BasicOperationsHandler {
 
     public static String verifyLogin() {
 
-        WebElement webElement;
+        WebElement webElement = null;
         try {
             //Makes sure browser is maximized or the user name will not be seem.
             WebUIDriver.getDriver().manage().window().maximize();
@@ -615,6 +633,7 @@ public class BasicOperationsHandler {
     public static boolean isLoggedOut(long waitTimeout) {
         if (!isLoggedIn)
             return true;
+//        ComponentLocator locator = new ComponentLocator(How.ID, WebUIStringsVision.getVisionLoginIcon());
         ComponentLocator locator = new ComponentLocator(How.XPATH, "//*[@data-debug-id='card-header_']");
         try {
             WebElement headerElement = WebUIUtils.fluentWaitDisplayed(locator.getBy(), waitTimeout, false);
@@ -642,12 +661,13 @@ public class BasicOperationsHandler {
     }
 
     public static void settings() {
-        try {
-            HomePage.navigateFromHomePage(PropertiesFilesUtils.mapAllPropertyFiles("Navigations").get("VISION SETTINGS"));
-            WebUIUtils.fluentWait(ComponentLocatorFactory.getLocatorById("gwt-debug-System").getBy()).click();
-            WebUIBasePage.closeAllYellowMessages();
-        } catch (Exception ignore) {
-        }
+        navigateFromHomePage("VISION SETTINGS");
+        WebUIBasePage.closeAllYellowMessages();
+    try
+    {
+        HomePage.navigateFromHomePage(PropertiesFilesUtils.mapAllPropertyFiles("Navigations").get("VISION SETTINGS"));
+        WebUIUtils.fluentWait(ComponentLocatorFactory.getLocatorById("gwt-debug-System").getBy()).click();
+    }catch (Exception ignore){}
         //Verify the click
         if (!new VisionServerInfoPane().getDeviceName().equals("APSolute Vision")) {
             ReportsUtils.reportAndTakeScreenShot("Failed To Go To Vision ", Reporter.FAIL);
@@ -704,15 +724,6 @@ public class BasicOperationsHandler {
 
     public static void setWaitAfterClick(long timeout) {
         WebUIUtils.waitAfterClickOperation = timeout;
-    }
-
-    public static String setMysqlGlobalVariable(RootServerCli rootServerCli, MysqlClientCli mysqlClientCli, String
-            varName, String varValue) throws Exception {
-        rootServerCli.addDBPermissionsToConnectoToMySql("vision.radware");
-        mysqlClientCli.openMysqlShell(mysqlClientCli.getSqlUser(), mysqlClientCli.getSqlPassword());
-        String commandResult = mysqlClientCli.runSqlFromMysqlShell("set " + varName + "=" + varValue + ";");
-        InvokeUtils.invokeCommand("quit", mysqlClientCli);
-        return commandResult;
     }
 
     public static void appendMyCnfFile(RootServerCli rootServerCli, String varName, String varValue) throws
@@ -783,10 +794,10 @@ public class BasicOperationsHandler {
         randomFileName += ".png";
         inputStream = ImageCompression.compressFile(inputStream);
 
-        BaseTestUtils.reporter.saveFile(randomFileName, ByteStreams.toByteArray(inputStream));
+        SystemTestCase.report.saveFile(randomFileName, ByteStreams.toByteArray(inputStream));
 
         String imageSource = randomFileName;
-        BaseTestUtils.reporter.reportHtml(time + " Screenshot. ", "<img src=" + imageSource + " alt=screenshot width=1280 height=848>", true);
+        SystemTestCase.report.reportHtml(time + " Screenshot. ", "<img src=" + imageSource + " alt=screenshot width=1280 height=848>", true);
     }
 
     public static void setIsLoggedIn(boolean isLoggedIn) {
@@ -904,7 +915,10 @@ public class BasicOperationsHandler {
     public static void uiValidateClassContentOfWithParamsIsEQUALSCONTAINSTo(String attribute, String label, String params, String compare, String value, String expectedErrorMessage) {
         if (params == null) params = "";
         VisionDebugIdsManager.setLabel(label);
-        VisionDebugIdsManager.setParams(params.split(","));
+        if (params != null)
+            VisionDebugIdsManager.setParams(params.split(","));
+        else
+            VisionDebugIdsManager.setParams(params);
         WebElement element = WebUIUtils.fluentWait(ComponentLocatorFactory.getLocatorByXpathDbgId(VisionDebugIdsManager.getDataDebugId()).getBy());
         if (element == null) {
             BaseTestUtils.report("no Element with locator: " + ComponentLocatorFactory.getLocatorByXpathDbgId(VisionDebugIdsManager.getDataDebugId()), Reporter.FAIL);
@@ -919,6 +933,7 @@ public class BasicOperationsHandler {
         String errorMessage = "The EXPECTED value of : '" + label + "' with params: '" + params + "' is not equal to '" + actualStatus + "' ";
         switch (compare) {
             case "EQUAL":
+            case "EQUALS":
                 if (!element.getAttribute(attribute).equalsIgnoreCase(value)) {
                     if (expectedErrorMessage != null) errorMessage = expectedErrorMessage;
                     BaseTestUtils.report(errorMessage, Reporter.FAIL);
@@ -939,6 +954,31 @@ public class BasicOperationsHandler {
                 }
                 break;
         }
+    }
+
+
+    public static void uiValidationItemsOrderInList(String label, String attribute, String compare, String value, List<VRMHandler.DfProtectedObject> entries) {
+
+        VisionDebugIdsManager.setLabel(label);
+        VisionDebugIdsManager.setParams("");
+
+        List<WebElement> checkedItems = WebUIUtils.fluentWaitMultiple(new ComponentLocator(How.XPATH,"//*[contains(@data-debug-id,'" + VisionDebugIdsManager.getDataDebugId() + "') and contains(@" + attribute + ",'" + value + "')]").getBy());
+
+        if(checkedItems != null){
+            for (int i=0; i<entries.size(); i++)
+            {
+                if (!checkedItems.get(entries.get(i).index).getText().equals(entries.get(i).name))
+                    BaseTestUtils.report("The Expected value in index " + entries.get(i).index + " is: " +
+                            "" + entries.get(i).name + " But Actual Value is: " + checkedItems.get(entries.get(i).index).getText(), Reporter.FAIL);
+            }
+
+        }else{
+
+            BaseTestUtils.report("There are no selected Items found ", Reporter.FAIL);
+        }
+
+
+
     }
 
 
@@ -975,20 +1015,23 @@ public class BasicOperationsHandler {
         builder.click(svgElement).build().perform();
     }
 
-    public static void uploadFileToVision(String name, String label, String param) {
+    public static void uploadFileToVision(String name, String label, String param) throws IOException {
         WebElement elem;
-
-        String basePath = FileUtils.getAbsoluteProjectPath() + "src" + File.separator + "main" + File.separator + "resources" + File.separator;
-        String uploadFilePath = basePath + File.separator + "uploadedFiles" + (System.getProperty("os.name").contains("Windows") ? "\\" : "/") + name;
+        Properties properties = new Properties();        //function to upload file from project
+//        properties.load(new FileInputStream("jsystem.properties"));
+//        String basePath = properties.getProperty("resources.src");
+        String basePath = FileUtils.getAbsoluteProjectPath()+ "src" + File.separator + "main" + File.separator + "resources" + File.separator;
+        String uploadFilePath = basePath  + File.separator + "uploadedFiles" + (System.getProperty("os.name").contains("Windows")? "\\":"/") + name;
         BaseTestUtils.report("Path of Uploaded file is: " + uploadFilePath, Reporter.PASS_NOR_FAIL);
         BaseTestUtils.report("The label is: " + label, Reporter.PASS_NOR_FAIL);
-        if (label != null) {
+        if(label!= null){
             VisionDebugIdsManager.setLabel(label);
             VisionDebugIdsManager.setParams(param);
             String debugId = VisionDebugIdsManager.getDataDebugId();
             BaseTestUtils.report("The debug id is: " + debugId, Reporter.PASS_NOR_FAIL);
-            elem = WebUIUtils.fluentWait(new ComponentLocator(How.XPATH, "//*[contains(@data-debug-id,'" + debugId + "')]/..//input[@type='file']").getBy(), WebUIUtils.SHORT_WAIT_TIME, false);
-        } else {
+            elem = WebUIUtils.fluentWait(new ComponentLocator(How.XPATH,"//*[contains(@data-debug-id,'" + debugId +"')]/..//input[@type='file']").getBy(),WebUIUtils.SHORT_WAIT_TIME, false);
+        }
+        else {
             elem = WebUIDriver.getDriver().findElement(By.xpath("//input[@type='file']"));
         }
         elem.sendKeys(uploadFilePath);
@@ -998,24 +1041,24 @@ public class BasicOperationsHandler {
 
     public static void openDeviceList(String label) throws Exception {
 
-        switch (label) {
+        switch(label){
             case "Devices":
-                label = "Device Selection";
+                label="Device Selection";
                 BasicOperationsHandler.clickButton(label, "");
                 break;
             case "Reports":
-                //   openTab(label);
+             //   openTab(label);
                 clickButton("Add New", "");
-                clickButton("Template", "");
+                clickButton("Template","");
                 BasicOperationsHandler.clickButton("DefensePro Behavioral Protections Template", "");
                 clickButton("Widget Apply");
-                AMSBaseUtilies.expandViews(true);
+                VRMBaseUtilies.expandViews(true);
                 break;
             case "Forensics":
             case "Alerts":
-                // openTab(label);
+               // openTab(label);
                 clickButton("Add New", "");
-                AMSBaseUtilies.expandViews(true);
+                VRMBaseUtilies.expandViews(true);
                 break;
         }
 
@@ -1033,10 +1076,10 @@ public class BasicOperationsHandler {
     private static void closeAllPopups() {
         ComponentLocator locator = ComponentLocatorFactory.getLocatorByClass("ant-modal-close");
         if ((WebUIUtils.fluentWait(locator.getBy(), WebUIUtils.SHORT_WAIT_TIME)) != null && WebUIUtils.fluentWait(locator.getBy(), WebUIUtils.SHORT_WAIT_TIME).isDisplayed())
-            try {
-                WebUIUtils.fluentWaitClick(locator.getBy(), WebUIUtils.SHORT_WAIT_TIME, false).click();
-            } catch (ElementNotInteractableException ignore) {
-            }
+            try
+            {
+                WebUIUtils.fluentWaitClick(locator.getBy(), WebUIUtils.SHORT_WAIT_TIME,  false).click();
+            }catch (ElementNotInteractableException ignore){}
 
     }
 

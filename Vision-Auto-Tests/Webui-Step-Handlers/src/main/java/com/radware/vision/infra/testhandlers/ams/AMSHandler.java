@@ -1,4 +1,4 @@
-package com.radware.vision.infra.testhandlers.ams;
+package com.radware.vision.infra.testhandlers.vrm;
 
 import com.google.common.collect.Lists;
 import com.radware.automation.react.widgets.impl.ReactDropdown;
@@ -22,9 +22,6 @@ import com.radware.automation.webui.widgets.impl.WebUICheckbox;
 import com.radware.automation.webui.widgets.impl.WebUIComponent;
 import com.radware.automation.webui.widgets.impl.WebUITextField;
 import com.radware.jsonparsers.impl.JsonUtils;
-import com.radware.vision.automation.AutoUtils.SUT.controllers.SUTManagerImpl;
-import com.radware.vision.automation.AutoUtils.SUT.dtos.TreeDeviceManagementDto;
-import com.radware.vision.automation.VisionAutoInfra.CLIInfra.CliOperations;
 import com.radware.vision.automation.tools.exceptions.selenium.TargetWebElementNotFoundException;
 import com.radware.vision.automation.tools.exceptions.web.SessionStorageException;
 import com.radware.vision.automation.tools.sutsystemobjects.devicesinfo.enums.SUTDeviceType;
@@ -32,7 +29,8 @@ import com.radware.vision.infra.base.pages.navigation.WebUIVisionBasePage;
 import com.radware.vision.infra.enums.WebElementType;
 import com.radware.vision.infra.testhandlers.baseoperations.BasicOperationsHandler;
 import com.radware.vision.infra.testhandlers.baseoperations.clickoperations.ClickOperationsHandler;
-import com.radware.vision.infra.testhandlers.ams.enums.VRMDashboards;
+import com.radware.vision.infra.testhandlers.cli.CliOperations;
+import com.radware.vision.infra.testhandlers.vrm.enums.VRMDashboards;
 import com.radware.vision.infra.utils.ReportsUtils;
 import com.radware.vision.infra.utils.TimeUtils;
 import com.radware.vision.vision_project_cli.RootServerCli;
@@ -42,11 +40,15 @@ import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.How;
 
+import java.sql.Timestamp;
 import java.time.Duration;
 import java.time.LocalDateTime;
 import java.time.Period;
 import java.time.format.DateTimeFormatter;
 import java.util.*;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+import java.util.stream.Collectors;
 import java.util.stream.StreamSupport;
 
 import static com.radware.vision.infra.testhandlers.BaseHandler.devicesManager;
@@ -56,19 +58,19 @@ import static com.radware.vision.infra.utils.ReportsUtils.reportErrors;
 import static jodd.util.ThreadUtil.sleep;
 
 
-public class AMSHandler {
-    private static final String LABEL = "label";
-    private static final String DATA = "data";
-    private static final String DATASETS = "datasets";
-    private static final String LABELS = "labels";
-    private static final String BACKGROUND_COLOR = "backgroundColor";
-    private static final String SHAPE = "shapeType";
-    private static final String SHAPE_COLOR = "colors";
-    private static JSONObject foundObject;
-    private SessionStorage sessionStorage;
-    private LocalStorage localStorage;
+public class VRMHandler {
+    protected static final String LABEL = "label";
+    protected static final String DATA = "data";
+    protected static final String DATASETS = "datasets";
+    protected static final String LABELS = "labels";
+    protected static final String BACKGROUND_COLOR = "backgroundColor";
+    protected static final String SHAPE = "shapeType";
+    protected static final String SHAPE_COLOR = "colors";
+    protected static JSONObject foundObject;
+    protected SessionStorage sessionStorage;
+    protected LocalStorage localStorage;
 
-    public AMSHandler() {
+    public VRMHandler() {
         this.sessionStorage = new SessionStorageImpl();
         this.localStorage = new LocalStorageImpl();
     }
@@ -131,12 +133,10 @@ public class AMSHandler {
         if (dataSets != null && legends != null) {
             entries.forEach(entry -> {
                 Objects.requireNonNull(entry.legendName, "Legend can't be null");
-                if (isLegendNameExistAndShouldReturn(chart, entry) || isLabanAndEntryExists(chart, entry)) {
-                    scrollAndTakeScreenshot(chart);
-                    return;
-                }
+                if (isLegendNameExistAndShouldReturn(chart, entry)) return;
+                if (isLabanAndEntryExists(chart, entry)) return;
                 int legendIndex;
-                legendIndex = legends.toList().indexOf(entry.legendName);
+                legendIndex = legends.toList().stream().map(s-> String.valueOf(s)).collect(Collectors.toList()).indexOf(entry.legendName);
                 if (legendIndex == -1) {
                     addErrorMessage("There is no legend with name " + entry.legendName);
                     scrollAndTakeScreenshot(chart);
@@ -150,7 +150,7 @@ public class AMSHandler {
                 if (entry.offset != null && entry.offset != 0) {
                     int maxValue = Integer.parseInt(entry.value) + entry.offset;
                     int minValue = Integer.parseInt(entry.value) - entry.offset;
-                    if (!((Integer.parseInt(actualData) > maxValue) || (Integer.parseInt(actualData) < minValue))) {
+                    if ((Integer.parseInt(actualData) > maxValue) || (Integer.parseInt(actualData) < minValue)) {
                         addErrorMessage("The EXPECTED between " + maxValue + " and " + minValue + ", The ACTUAL value of " + entry.legendName + " is " + actualData);
                         scrollAndTakeScreenshot(chart);
                     }
@@ -159,14 +159,23 @@ public class AMSHandler {
                     addErrorMessage("There is no match found in --> the EXPECTED data is " + entry.toString() + " and the ACTUAL value is " + actualData);
                     scrollAndTakeScreenshot(chart);
                 }
+
+                if (entry.min != null)
+                {
+                    int actualCount = dataArray.toList().stream().map(s->s.toString().equals(entry.value)).collect(Collectors.toList()).size();
+                    if(actualCount < entry.min)
+                        addErrorMessage("The count of value " + entry.value + " is " + actualCount + " but the expected is " + entry.count);
+                    scrollAndTakeScreenshot(chart);
+
+                }
             });
         }
         reportErrors();
     }
 
-    private boolean isLegendNameExistAndShouldReturn(String chart, StackBarData entry) {
+    protected boolean isLegendNameExistAndShouldReturn(String chart, StackBarData entry) {
         boolean returnValue = entry.legendNameExist != null;
-        entry.legendNameExist = entry.legendNameExist == null ? true : entry.legendNameExist;
+        entry.legendNameExist = entry.legendNameExist == null || entry.legendNameExist;
         JSONArray legends = getLabelsFromData(chart);
         if (!((legends.toList().contains(entry.legendName) && entry.legendNameExist) || (!legends.toList().contains(entry.legendName) && !entry.legendNameExist))) {
 //            addErrorMessage("The existence of " + entry.legendName + " is " + entry.legendNameExist + " but ACTUAL is " + legends.toList().contains(entry.legendName));
@@ -175,7 +184,7 @@ public class AMSHandler {
         return returnValue;
     }
 
-    private boolean isLabanAndEntryExists(String chart, StackBarData entry) {
+    protected boolean isLabanAndEntryExists(String chart, StackBarData entry) {
         entry.exist = entry.exist == null ? true : entry.exist;
         if (!(isLabelExist(chart, entry.label)) && entry.exist || (isLabelExist(chart, entry.label)) && !entry.exist) {
 //            addErrorMessage("The existence of " + entry.label + " is " + entry.exist + " but ACTUAL is " + isLabelExist(chart, entry.label));
@@ -207,6 +216,17 @@ public class AMSHandler {
                     double maxValue = entry.count + countOffset;
                     if (actualCount > maxValue || actualCount < minValue)
                         addErrorMessage("The Actual count of value " + entry.value + " of label " + entry.label + " in chart " + chart + " is " + actualCount + " and the Expected is between minCount " + (minValue) + " and maxCount " + (maxValue));
+                    return;
+                }
+                if (entry.min != null)
+                {
+                    int actualCount = 0;
+                    for (Object value : dataArray) {
+                        if (value.toString().equals(entry.value))
+                            actualCount++;
+                    }
+                    if (actualCount < entry.min)
+                        addErrorMessage("The Actual count of value " + entry.value + " of label " + entry.label + " in chart " + chart + " is " + actualCount + " and the Expected minCount is " + entry.min);
                     return;
                 }
 
@@ -246,17 +266,20 @@ public class AMSHandler {
      */
     public void validateChartDataOfDataSets(String chart, String label, String columnGraph, List<Data> entries) {
 
+
         Objects.requireNonNull(chart, "Chart is equal to null");
         Objects.requireNonNull(label, "Label is equal to null");
         getObjectFromDataSets(chart, label, columnGraph);
         JSONArray data = (JSONArray) foundObject.get(DATA);
 
         entries.forEach(entry -> {
-            entry.count = entry.count == null ? -1 : entry.count;
-            entry.exist = entry.exist == null ? true : entry.exist;
-            entry.index = entry.index == null ? -1 : entry.index;
+            entry.count = (entry.count == null) ? -1 : entry.count;
+            entry.exist = entry.exist == null || entry.exist;
+            entry.index = (entry.index == null) ? -1 : entry.index;
+            entry.value = (entry.value == null) ? null : entry.value;
+            entry.valueOffset = (entry.value == null) ? 0 : entry.valueOffset;
 
-            if (!(isLabelExist(chart, label)) && entry.exist || (isLabelExist(chart, label)) && !entry.exist) {
+            if (isLabelExist(chart, label) ^ entry.exist) {
                 return;
             }
             if ((!isLabelExist(chart, label)) && !entry.exist) {
@@ -264,8 +287,8 @@ public class AMSHandler {
             }
 
             long valueAppearances = StreamSupport.stream(data.spliterator(), false)
-                    .map(s -> String.valueOf(s))
-                    .filter(s -> s.equals(entry.value))
+                    .map(String::valueOf)
+                    .filter(s -> isDataMatch(entry, s))
                     .count();
             if (entry.min != null) {
                 if (valueAppearances < entry.min) {
@@ -274,13 +297,24 @@ public class AMSHandler {
                 }
             } else if (entry.count > 0) {
                 // Value has offset that is not "0"
-                if (entry.offset != null && entry.offset != 0) {
-                    int maxVal = entry.count + entry.offset;
-                    int minVal = entry.count - entry.offset;
-                    if (valueAppearances > maxVal || valueAppearances < minVal) {
-                        addErrorMessage("The ACTUAL count of the label " + label + " in the chart " + chart + " is " + valueAppearances + " and the EXPECTED is between " + minVal
-                                + " and " + maxVal);
-                        scrollAndTakeScreenshot(chart);
+                if (entry.offset != null && entry.offset != 0 || entry.valueOffset != 0) {
+                    if (entry.valueOffset != 0) {
+                        double actualValue = (Double) data.get(entry.index);
+                        double maxVal = actualValue + entry.valueOffset;
+                        double minVal = actualValue - entry.valueOffset;
+                        if (actualValue > maxVal || actualValue < minVal) {
+                            addErrorMessage("The ACTUAL value of the label " + label + " in the chart " + chart + " is " + valueAppearances + " and the EXPECTED is between " + minVal
+                                    + " and " + maxVal);
+                            scrollAndTakeScreenshot(chart);
+                        }
+                    } else {
+                        int maxVal = entry.count + entry.offset;
+                        int minVal = entry.count - entry.offset;
+                        if (valueAppearances > maxVal || valueAppearances < minVal) {
+                            addErrorMessage("The ACTUAL count of the label " + label + " in the chart " + chart + " is " + valueAppearances + " and the EXPECTED is between " + minVal
+                                    + " and " + maxVal);
+                            scrollAndTakeScreenshot(chart);
+                        }
                     }
                 }
                 //Value does not have offset or offset is "0"
@@ -289,7 +323,7 @@ public class AMSHandler {
                     scrollAndTakeScreenshot(chart);
                 }
             }
-            if (entry.index != -1) {
+            if (entry.index != -1 && entry.valueOffset == 0) {
                 if (!data.get(entry.index).toString().trim().equalsIgnoreCase(entry.value.trim())) {
                     addErrorMessage("The ACTUAL value of the index " + entry.index + " is: " + data.get(entry.index) + " BUT the EXPECTED is " + entry.value);
                 }
@@ -298,12 +332,20 @@ public class AMSHandler {
         reportErrors();
     }
 
+    protected boolean isDataMatch(Data entry, String s) {
+        if (!s.matches("\\d+\\.\\d+|\\d+"))
+            return s.equals(entry.value);
+        else if (entry.value.matches("\\d+\\.\\d+|\\d+"))
+            return Double.parseDouble(s) >= (Double.parseDouble(entry.value)- entry.valueOffset) && (Double.parseDouble(s) <= (Double.parseDouble(entry.value)+ entry.valueOffset));
+        else return false;
+    }
+
     /**
      * @param chart - Session storage key
      * @param label - Chart internal key
      * @return true if the label exists at the web's chart
      */
-    private boolean isLabelExist(String chart, String label) {
+    protected boolean isLabelExist(String chart, String label) {
         JSONArray dataArray = null;
         try {
             Map jsonMap = getSessionStorage(chart);
@@ -326,7 +368,7 @@ public class AMSHandler {
      * @param chart     - Session storage key (for report use only)
      * @return updates foundObject parameter with JSONObject that found at in given JSONArray and returns it
      */
-    private JSONObject getObjectFromDataArray(JSONArray dataArray, String label, String chart) {
+    protected JSONObject getObjectFromDataArray(JSONArray dataArray, String label, String chart) {
         try {
             foundObject = StreamSupport.stream(dataArray.spliterator(), false)
                     .map(JSONObject.class::cast)
@@ -344,7 +386,7 @@ public class AMSHandler {
      * @param label - Chart internal key
      * @return update the foundObject parameter with JSONArray that found at sessionStorage->DATA->DATASETS and returns  it
      */
-    private JSONObject getObjectFromDataSets(String chart, String label, String columnGraph) {
+    protected JSONObject getObjectFromDataSets(String chart, String label, String columnGraph) {
         JSONArray dataArray;
         try {
             Map jsonMap = getSessionStorage(chart);
@@ -373,7 +415,7 @@ public class AMSHandler {
      * @param chart - Session storage key
      * @return it returns JSONArray that found at sessionStorage->DATA->DATASETS
      */
-    private JSONArray getObjectArraysFromDataSets(String chart) {
+    protected JSONArray getObjectArraysFromDataSets(String chart) {
         JSONArray dataArray;
         try {
             Map jsonMap = getSessionStorage(chart);
@@ -390,7 +432,7 @@ public class AMSHandler {
      * @param chart - Session storage key
      * @return it update foundObject parameter with JSONObject that found at sessionStorage->DATA->DATASETS->get(0) and returns it
      */
-    private JSONObject getObjectFromDataSets(String chart) {
+    protected JSONObject getObjectFromDataSets(String chart) {
         JSONArray dataArray;
         try {
             Map jsonMap = getSessionStorage(chart);
@@ -408,7 +450,7 @@ public class AMSHandler {
      * @param chart - Session storage key
      * @return it returns JSONArray that found at sessionStorage->DATA->LABELS
      */
-    private JSONArray getLabelsFromData(String chart) {
+    protected JSONArray getLabelsFromData(String chart) {
 
         Map jsonMap = null;
         try {
@@ -444,7 +486,10 @@ public class AMSHandler {
         VisionDebugIdsManager.setLabel("Chart");
         VisionDebugIdsManager.setParams(chart);
         try {
-            WebUIUtils.scrollIntoView(ComponentLocatorFactory.getEqualLocatorByDbgId(VisionDebugIdsManager.getDataDebugId()));
+            WebElement element = WebUIUtils.fluentWait(ComponentLocatorFactory.getEqualLocatorByDbgId(VisionDebugIdsManager.getDataDebugId()).getBy());
+            if (element == null)
+                return;
+            WebUIUtils.scrollIntoView(element,true);
         } catch (Exception e) {
             BaseTestUtils.report(e.getMessage(), Reporter.FAIL);
         }
@@ -589,7 +634,7 @@ public class AMSHandler {
         reportErrors();
     }
 
-    private static void scrollAndTakeScreenshot(String chart) {
+    protected static void scrollAndTakeScreenshot(String chart) {
         scroll(chart);
         WebUIUtils.forceGenerateAndReportScreenshot();
     }
@@ -627,19 +672,24 @@ public class AMSHandler {
             }
 
             if (entry.data != null) {
-                if (entry.offset == 0) {
-                    if (!dataArray.get(labelIndex).toString().equals(entry.data)) {
-                        addErrorMessage("The ACTUAL data of label: " + entry.label + " in chart " + chart + " is " + dataArray.get(labelIndex).toString() + " The EXPECTED is " + entry.data);
+                double entryData = Double.parseDouble(entry.data);
+                Double dataFromArray = Double.parseDouble(dataArray.get(labelIndex).toString());
+                if (entry.offset == 0 && entry.offsetPercentage == null) {
+                    if (!dataFromArray.equals(entryData)) {
+                        addErrorMessage("The ACTUAL data of label: " + entry.label + " in chart " + chart + " is " + dataFromArray.toString() + " The EXPECTED is " + entryData);
                         scrollAndTakeScreenshot(chart);
                     }
                 } else {
-                    int dataInteger = (int) (Double.parseDouble(entry.data));
-                    if ((Integer.parseInt(dataArray.get(labelIndex).toString()) > (dataInteger + entry.offset)) || (Integer.parseInt(dataArray.get(labelIndex).toString()) < (dataInteger - entry.offset))) {
-
-                        addErrorMessage("The EXPECTED between " + (dataInteger + entry.offset) + " and " + (dataInteger - entry.offset) + ", The ACTUAL value of " + entry.label + " is " + dataArray.get(labelIndex).toString());
+                    Pattern pattern = Pattern.compile("((\\d+)(\\.\\d+)?)%");
+                    Matcher matcher = pattern.matcher(entry.offsetPercentage);
+                    if (matcher.matches()) {
+                        double percentage = Double.parseDouble(matcher.group(1)) / 100.0;
+                        entry.offset =(int) (entryData * percentage);
                     }
-
+                    if (!(entryData - entry.offset <= dataFromArray || entryData + entry.offset >= dataFromArray))
+                        addErrorMessage("The EXPECTED between " + (entryData + entry.offset) + " and " + (entryData - entry.offset) + ", The ACTUAL value of " + entry.label + " is " + dataFromArray);
                 }
+
             }
 
 
@@ -657,6 +707,7 @@ public class AMSHandler {
             }
 
         });
+
         reportErrors();
     }
 
@@ -667,7 +718,7 @@ public class AMSHandler {
      * @param isExist        - Does session storage expected to exist
      */
     public void isSessionStorageExists(String sessionStorage, Boolean isExist) {
-        boolean expected = isExist == null ? true : isExist;
+        boolean expected = isExist == null || isExist;
         if (this.sessionStorage.isSessionStorageExists(sessionStorage) != expected) {
             BaseTestUtils.report(String.format("Session Storage {%s} expected existence to be [%s], actual [%s]", sessionStorage, expected, !expected), Reporter.FAIL);
         }
@@ -705,6 +756,7 @@ public class AMSHandler {
                         switch (deviceType.toLowerCase()) {
                             case "defenseflow":
                             case "appwall":
+                            case "alteon":
                                 VisionDebugIdsManager.setLabel("Filter");
                                 TextField textField = WebUIVisionBasePage.getCurrentPage().getContainer().getTextField(VisionDebugIdsManager.getDataDebugId());
                                 BasicOperationsHandler.setTextField("Filter", "");
@@ -799,7 +851,7 @@ public class AMSHandler {
     }
 
 
-    private void uiVRMSelectWidgets() {
+    protected void uiVRMSelectWidgets() {
 //      Open widget selection popup
         WebUIVisionBasePage.getCurrentPage().getContainer().getWidget("").click();
 //      Remove all
@@ -823,43 +875,45 @@ public class AMSHandler {
 
             entries.forEach(entry -> {
                 String deviceIp = null;
+                String deviceName = null;
                 try {
-                    if (entry.setId != null) {
-                        Optional<TreeDeviceManagementDto> deviceOpt = SUTManagerImpl.getInstance().getTreeDeviceManagement(entry.setId);
-                        if (!deviceOpt.isPresent()) {
-                            throw new Exception(String.format("No Device with \"%s\" Set ID found in this setup", entry.setId));
-                        }
-                        deviceIp = deviceOpt.get().getManagementIp();
+                    if (entry.index == null) {
+                        throw new Exception("Index entry is empty please enter it!");
+                    }
+                    if (deviceType == null) {
+                        deviceIp = devicesManager.getDeviceInfo(SUTDeviceType.DefensePro, entry.index).getDeviceIp();
+                        deviceName = devicesManager.getDeviceInfo(SUTDeviceType.DefensePro, entry.index).getDeviceName();
                     } else {
-                        throw new Exception("device setId entry is empty.");
+                        deviceIp = devicesManager.getDeviceInfo(deviceType, entry.index).getDeviceIp();
+                        deviceName = devicesManager.getDeviceInfo(SUTDeviceType.DefensePro, entry.index).getDeviceName();
                     }
 
                 } catch (Exception e) {
                     BaseTestUtils.report(e.getMessage(), e);
                 }
                 //select the device
-                checkbox.setLocator(ComponentLocatorFactory.getEqualLocatorByDbgId("scopeSelection_deviceIP_" + deviceIp + "_Label"));
+                checkbox.setLocator(ComponentLocatorFactory.getEqualLocatorByDbgId("scopeSelection_" + deviceName + "_Label"));
                 checkbox.check();
                 boolean changePolicies = entry.policies != null && !entry.policies.equals("");
                 boolean changePorts = entry.ports != null && !entry.ports.equals("");
                 if (changePolicies || changePorts) {
                     //click on change
-                    ClickOperationsHandler.clickWebElement(ComponentLocatorFactory.getEqualLocatorByDbgId("scopeSelection_change_" + deviceIp), false);
-                    String policyPrefix = "scopeSelection_deviceIP_" + deviceIp + "_policiesLabel_";
-                    String portPrefix = "scopeSelection_deviceIP_" + deviceIp + "_portsLabel_";
-                    String policySearch = "scopeSelection_deviceIP_[" + deviceIp + "]_policy_Text";
-                    String portSearch = "scopeSelection_deviceIP_[" + deviceIp + "]_port_Text";
+                    ClickOperationsHandler.clickWebElement(ComponentLocatorFactory.getEqualLocatorByDbgId("scopeSelection_change_" + deviceName), false);
+                    String policyPrefix = "scopeSelection_" + deviceName + "_policiesLabel_";
+                    String portPrefix = "scopeSelection_" + deviceName + "_portsLabel_";
+                    String policySearch = "scopeSelection_[" + deviceName + "]_policy_Text";
+                    String portSearch = "scopeSelection_[" + deviceName + "]_port_Text";
                     List<String> policiesList, portsList;
                     if (changePolicies) {
                         WebUITextField policyText = new WebUITextField(ComponentLocatorFactory.getEqualLocatorByDbgId(policySearch));
-                        WebUIUtils.scrollIntoView(policyText.getWebElement());
+                        WebUIUtils.scrollIntoView(policyText.getWebElement(), true);
                         if (!entry.policies.equalsIgnoreCase("ALL")) {
                             policiesList = Arrays.asList(entry.policies.split("(,)"));
                             for (String policy : policiesList) {
                                 policyText.type(policy.trim());
                                 if (WebUIUtils.fluentWait(ComponentLocatorFactory.getEqualLocatorByDbgId(policyPrefix + policy.trim()).getBy(), WebUIUtils.DEFAULT_WAIT_TIME / 2) == null) {
                                     policyText.type(""); //clear
-                                    scrollUntilElementDisplayed(ComponentLocatorFactory.getLocatorByXpathDbgId("scopeSelection_deviceIP_" + deviceIp + "_policiesLabel_"), ComponentLocatorFactory.getEqualLocatorByDbgId(policyPrefix + policy.trim()));
+                                    scrollUntilElementDisplayed(ComponentLocatorFactory.getLocatorByXpathDbgId("scopeSelection_" + deviceName + "_policiesLabel_"), ComponentLocatorFactory.getEqualLocatorByDbgId(policyPrefix + policy.trim()));
                                 } else if (!WebUIUtils.fluentWait(ComponentLocatorFactory.getEqualLocatorByDbgId(policyPrefix + policy.trim()).getBy()).isDisplayed()) {
                                     WebUIUtils.scrollIntoView(WebUIUtils.fluentWait(ComponentLocatorFactory.getEqualLocatorByDbgId(policyPrefix + policy.trim()).getBy()));
                                 }
@@ -867,7 +921,7 @@ public class AMSHandler {
                                 checkbox.check();
                             }
                         } else {
-                            LazyView lazyView = new LazyViewImpl(ComponentLocatorFactory.getEqualLocatorByDbgId("VRM_Scope_Selection_policies_DefensePro_" + deviceIp), new ComponentLocator(How.XPATH, "//lablel"));
+                            LazyView lazyView = new LazyViewImpl(ComponentLocatorFactory.getEqualLocatorByDbgId("VRM_Scope_Selection_policies_" + deviceName), new ComponentLocator(How.XPATH, "//lablel"));
                             policiesList = lazyView.getViewValues();
                             for (String policy : policiesList) {
                                 policyText.type(policy.trim());
@@ -886,7 +940,7 @@ public class AMSHandler {
                                 checkbox.check();
                             }
                         } else {
-                            LazyView lazyView = new LazyViewImpl(ComponentLocatorFactory.getEqualLocatorByDbgId("VRM_Scope_Selection_policies_DefensePro_" + deviceIp), new ComponentLocator(How.XPATH, "//lablel"));
+                            LazyView lazyView = new LazyViewImpl(ComponentLocatorFactory.getEqualLocatorByDbgId("VRM_Scope_Selection_policies_" + deviceName), new ComponentLocator(How.XPATH, "//lablel"));
                             portsList = lazyView.getViewValues();
                             for (String port : portsList) {
                                 portText.type(port.trim());
@@ -928,7 +982,7 @@ public class AMSHandler {
      * @param targetElementLocator this target comparator of element who we'r seeking about
      *                             this method searches about an element in list - and do scroll to this element
      */
-    private void scrollUntilElementDisplayed(ComponentLocator elementsLocator, ComponentLocator targetElementLocator) {
+    public void scrollUntilElementDisplayed(ComponentLocator elementsLocator, ComponentLocator targetElementLocator, boolean isScrollElementToTop) {
         if (WebUIUtils.fluentWait(targetElementLocator.getBy(), WebUIUtils.DEFAULT_WAIT_TIME) != null) //if targetElement exist
             return;
 
@@ -936,10 +990,14 @@ public class AMSHandler {
         if (firstElementInList == null) //if the list is empty
             BaseTestUtils.report("The list is empty", Reporter.FAIL);
 
-        if (!isTargetLocatorExistInList(elementsLocator, targetElementLocator))
+        if (!isTargetLocatorExistInList(elementsLocator, targetElementLocator, isScrollElementToTop))
             BaseTestUtils.report("The target Element '" + targetElementLocator.getLocatorValue() + "' is not found", Reporter.FAIL);
         else
             WebUIUtils.scrollIntoView(WebUIUtils.fluentWait(targetElementLocator.getBy()));
+    }
+    public void scrollUntilElementDisplayed(ComponentLocator elementsLocator, ComponentLocator targetElementLocator)
+    {
+        scrollUntilElementDisplayed(elementsLocator, targetElementLocator, false);
     }
 
     /**
@@ -950,7 +1008,7 @@ public class AMSHandler {
      * <p>
      * this method do scrolls until find the target element
      */
-    private boolean isTargetLocatorExistInList(ComponentLocator elementsLocator, ComponentLocator targetElementLocator) {
+    protected boolean isTargetLocatorExistInList(ComponentLocator elementsLocator, ComponentLocator targetElementLocator, boolean isScrollElementToTop) {
         List<String> elementsTextsList = new ArrayList();
 
         while (!isTargetLocatorExist(targetElementLocator)) {
@@ -960,13 +1018,15 @@ public class AMSHandler {
             for (WebElement element : elementsShouldBeAddedList) {
                 elementsTextsList.add(element.getText());
             }
-            WebUIUtils.scrollIntoView(elementsShouldBeAddedList.size() != 0 ? elementsShouldBeAddedList.get(elementsShouldBeAddedList.size() - 1) : null);
+            if (isScrollElementToTop)
+                ((JavascriptExecutor)WebUIUtils.getDriver()).executeScript("arguments[0].scrollIntoView();", elementsShouldBeAddedList.get(elementsShouldBeAddedList.size() - 1));
+            else WebUIUtils.scrollIntoView(elementsShouldBeAddedList.size() != 0 ? elementsShouldBeAddedList.get(elementsShouldBeAddedList.size() - 1) : null);
         }
 
         return isTargetLocatorExist(targetElementLocator);
     }
 
-    private boolean isTargetLocatorExist(ComponentLocator targetElementLocator) {
+    protected boolean isTargetLocatorExist(ComponentLocator targetElementLocator) {
         return WebUIUtils.fluentWait(targetElementLocator.getBy(), WebUIUtils.DEFAULT_WAIT_TIME / 2) != null;
     }
 
@@ -975,7 +1035,7 @@ public class AMSHandler {
      * @param elementsShouldBeAddedList list of the new elements that should be added
      * @return return just the new elements - elements their texts aren't found in the elementsTextsList
      */
-    private List<WebElement> extractJustNewElements(List<String> elementsTextsList, List<WebElement> elementsShouldBeAddedList) {
+    protected List<WebElement> extractJustNewElements(List<String> elementsTextsList, List<WebElement> elementsShouldBeAddedList) {
         if (!elementsTextsList.isEmpty()) {
             Collections.reverse(elementsShouldBeAddedList);
             int i = 0;
@@ -1020,8 +1080,7 @@ public class AMSHandler {
             //count the policies
             int actualPoliciesNumber = new LazyViewImpl(ComponentLocatorFactory.getEqualLocatorByDbgId("VRM_Scope_Selection_policies_DefensePro_" + deviceIp), new ComponentLocator(How.XPATH, "//label")).getViewValues().size();
             if (entry.total.equalsIgnoreCase("All")) {
-//               kVision
-//                CliOperations.runCommand(restTestBase.getRootServerCli(), String.format("mysql -u root -prad123 vision_ng -e \"select * from security_policies_view where device_ip='%s'\" | grep \"Network Protection\" | grep -v + | grep -v ALL | wc -l", deviceIp));
+                CliOperations.runCommand(restTestBase.getRootServerCli(), String.format("mysql -u root -prad123 vision_ng -e \"select * from security_policies_view where device_ip='%s'\" | grep \"Network Protection\" | grep -v + | grep -v ALL | wc -l", deviceIp));
                 int totalDpPolicesNumber = Integer.valueOf(CliOperations.lastRow);
                 if (String.valueOf(actualPoliciesNumber).equals(totalDpPolicesNumber)) {
                     addErrorMessage(String.format("device [%s] ->Actual polices total number [%s] , Expected \"All =\" [%s]", deviceIp, actualPoliciesNumber, totalDpPolicesNumber));
@@ -1070,7 +1129,7 @@ public class AMSHandler {
         reportErrors();
     }
 
-    private LocalDateTime getLocalDateTime(String amount, String amountType, LocalDateTime localDateTime) {
+    protected LocalDateTime getLocalDateTime(String amount, String amountType, LocalDateTime localDateTime) {
         switch (amountType) {
             case "M":
                 localDateTime = localDateTime.plusMonths(Integer.parseInt(amount));
@@ -1105,7 +1164,7 @@ public class AMSHandler {
         String amountType = interval.split("\\d+")[1].trim();
         switch (amountType) {
             case "s":
-                sleep(Integer.valueOf(amount) * 1000);
+                sleep(Integer.parseInt(amount) * 1000);
                 break;
             case "m":
                 sleep(Integer.valueOf(amount) * 1000 * 60);
@@ -1185,10 +1244,12 @@ public class AMSHandler {
                         index = i;
                 }
                 if (index == -1 || index == legends.length()) {
-                    addErrorMessage("No label with date " + expectedTime);
+                    scrollAndTakeScreenshot(chart);
+                    addErrorMessage("No label with date " + expectedTime.format(inputFormatter));
                 } else {
-                    if (!((entry.value >= (Double.valueOf(data.get(index).toString())) - entry.offset) && (entry.value <= (Double.valueOf(data.get(index).toString())) + entry.offset))) {
+                    if (!((entry.value >= (Double.parseDouble(data.get(index).toString())) - entry.offset) && (entry.value <= (Double.valueOf(data.get(index).toString())) + entry.offset))) {
                         addErrorMessage("In the label " + expectedTime + " The EXPECTED value is " + entry.value + " but the ACTUAL is " + data.get(index) + " with offset " + entry.offset);
+                        scrollAndTakeScreenshot(chart);
                     }
                 }
             }
@@ -1215,6 +1276,12 @@ public class AMSHandler {
                     "countOffset=" + countOffset +
                     '}';
         }
+    }
+
+    public static class ToggleData {
+        String text;
+        String value;
+        Boolean selected;
     }
 
     public static class DataSize {
@@ -1249,6 +1316,7 @@ public class AMSHandler {
         Integer min;
         Boolean exist;
         Integer index;
+        double valueOffset;
 
         @Override
         public String toString() {
@@ -1258,6 +1326,7 @@ public class AMSHandler {
                     ", offset=" + offset +
                     ", exist=" + exist +
                     ", index=" + index +
+                    ", valueOffset=" + valueOffset +
                     '}';
         }
     }
@@ -1271,6 +1340,7 @@ public class AMSHandler {
         String legendName;
         Integer count;
         Integer countOffset;
+        Integer min;
 
         @Override
         public String toString() {
@@ -1288,7 +1358,7 @@ public class AMSHandler {
     }
 
     public static class PieChart {
-        String label, data, backgroundcolor, shapeType, colors;
+        String label, data, backgroundcolor, shapeType, colors, offsetPercentage;
         int offset = 0;
         Boolean exist;
 
@@ -1302,12 +1372,13 @@ public class AMSHandler {
                     ", colors='" + colors + '\'' +
                     ", exist=" + exist +
                     ", offset=" + offset +
+                    ", offsetPercentage=" + offsetPercentage +
                     '}';
         }
     }
 
     public static class DpDeviceFilter {
-        public String setId;
+        public Integer index;
         public String ports;
         public String policies;
         String virtualServices;
@@ -1319,6 +1390,11 @@ public class AMSHandler {
         public DpApplicationFilter(String name) {
             this.name = name;
         }
+    }
+
+    public static class DfProtectedObject{
+        public String name;
+        public Integer index;
     }
 
     public static class DevicesAndPolices {
@@ -1333,8 +1409,8 @@ public class AMSHandler {
     }
 
     public static class LabelParam {
-        private String param = "";
-        private String label = "";
+        protected String param = "";
+        protected String label = "";
         public boolean exist;
 
         public String getDataDebugId() {
@@ -1350,6 +1426,7 @@ public class AMSHandler {
         public String getParam() {
             return param;
         }
+
     }
 
     /**
@@ -1358,31 +1435,30 @@ public class AMSHandler {
      * @param fromIndex - is an index of label in the session storage.
      * @param toIndex   - is an index of label in the sesison storage
      * @param chart     - chart name
+     * @parm timeFormat
      */
-    public void selectTimeFromTo(int fromIndex, int toIndex, String chart) {
+    public void selectTimeFromTo(int fromIndex, int toIndex, String chart, String timeFormat) {
         try {
             Objects.requireNonNull(chart, "Chart is equal to null");
             JSONArray dataArray;
             Map jsonMap = getSessionStorage(chart);
             jsonMap = JsonUtils.getJsonMap(jsonMap.get(DATA));
             dataArray = (JSONArray) jsonMap.get(LABELS);
-            DateTimeFormatter inputFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'");
+            DateTimeFormatter inputFormatter = DateTimeFormatter.ofPattern(timeFormat != null ? timeFormat : "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'");
 
             if (dataArray.length() < toIndex)
                 BaseTestUtils.report("There is no Enough data in Session Storage", Reporter.FAIL);
             LocalDateTime from = LocalDateTime.parse((CharSequence) dataArray.get(fromIndex), inputFormatter);
             LocalDateTime to = LocalDateTime.parse((CharSequence) dataArray.get(toIndex), inputFormatter);
-            LocalDateTime fromGMT = from.plusHours(2);
-            LocalDateTime toGMT = to.plusHours(2);
             VisionDebugIdsManager.setLabel("Traffic Bandwidth FromTo");
             VisionDebugIdsManager.setParams("from");
             WebElement firstElement = WebUIUtils.fluentWait(ComponentLocatorFactory.getLocatorByXpathDbgId(VisionDebugIdsManager.getDataDebugId()).getBy(), WebUIUtils.DEFAULT_WAIT_TIME, false);
             JavascriptExecutor executor = (JavascriptExecutor) WebUIUtils.getDriver();
-            executor.executeScript("arguments[1].value = arguments[0]; ", fromGMT.toString(), firstElement);
+            executor.executeScript("arguments[1].value = arguments[0]; ", Timestamp.valueOf(from).getTime(), firstElement);
 
             VisionDebugIdsManager.setParams("to");
             WebElement secondElement = WebUIUtils.fluentWait(ComponentLocatorFactory.getLocatorByXpathDbgId(VisionDebugIdsManager.getDataDebugId()).getBy(), WebUIUtils.DEFAULT_WAIT_TIME, false);
-            executor.executeScript("arguments[1].value = arguments[0]; ", toGMT.toString(), secondElement);
+            executor.executeScript("arguments[1].value = arguments[0]; ", Timestamp.valueOf(to).getTime(), secondElement);
             WebElement button = WebUIUtils.fluentWait(ComponentLocatorFactory.getLocatorByXpathDbgId("qa-call-attacks-dialog").getBy(), WebUIUtils.DEFAULT_WAIT_TIME, false);
             executor.executeScript("arguments[0].click(); ", button);
 
@@ -1415,15 +1491,12 @@ public class AMSHandler {
     }
 
     public void validateMemoryUtilization() throws Exception {
-//      kvision
-//          replace root user usage
         RootServerCli rootServerCli = new RootServerCli(restTestBase.getRootServerCli().getHost(), restTestBase.getRootServerCli().getUser(), restTestBase.getRootServerCli().getPassword());
         rootServerCli.init();
         InvokeUtils.invokeCommand(null, "yum install stress", rootServerCli, 3 * 60 * 1000, true);
         InvokeUtils.invokeCommand(null, "sudo yum install -y epel-release", rootServerCli, 3 * 60 * 1000, true);
         InvokeUtils.invokeCommand(null, "sudo yum install -y stress", rootServerCli, 3 * 60 * 1000, true);
-//     kVision
-//        CliOperations.runCommand(rootServerCli, "free");
+        CliOperations.runCommand(rootServerCli, "free");
         int number;
         String warningRising;
         String warningFalling;
@@ -1480,7 +1553,7 @@ public class AMSHandler {
             BaseTestUtils.report("Failed to get Falling memory Warning ", Reporter.FAIL);
     }
 
-    private void changeValuesMemoryUtilization(String warningRising, String errorRising, String warningFalling, String errorFalling) {
+    protected void changeValuesMemoryUtilization(String warningRising, String errorRising, String warningFalling, String errorFalling) {
         if (WebUIUtils.fluentWait(new ComponentLocator(How.ID, "gwt-debug-ConfigTab_EDIT_AlertBrowser.Alerts_Submit").getBy(), WebUIUtils.DEFAULT_WAIT_TIME, false) != null)
             WebUIUtils.fluentWaitClick((new ComponentLocator(How.ID, "gwt-debug-ConfigTab_EDIT_AlertBrowser.Alerts_Submit")).getBy(), WebUIUtils.DEFAULT_WAIT_TIME, false);
         WebUIUtils.fluentWaitClick(new ComponentLocator(How.XPATH, "//*[contains(@id,'CellID_parameterName')]//div[contains(text(),'MEMORY')]").getBy(), WebUIUtils.DEFAULT_WAIT_TIME, false);
@@ -1593,13 +1666,13 @@ public class AMSHandler {
             entries.forEach(entry -> {
                 String deviceIp = null;
                 try {
-                    if (entry.setId == null) {
+                    if (entry.index == null) {
                         throw new Exception("Index entry is empty please enter it!");
                     }
                     if (deviceType == null) {
-//                        deviceIp = devicesManager.getDeviceInfo(SUTDeviceType.DefensePro, entry.setId).getDeviceIp();
+                        deviceIp = devicesManager.getDeviceInfo(SUTDeviceType.DefensePro, entry.index).getDeviceIp();
                     } else {
-//                        deviceIp = devicesManager.getDeviceInfo(deviceType, entry.setId).getDeviceIp();
+                        deviceIp = devicesManager.getDeviceInfo(deviceType, entry.index).getDeviceIp();
                     }
 
                 } catch (Exception e) {

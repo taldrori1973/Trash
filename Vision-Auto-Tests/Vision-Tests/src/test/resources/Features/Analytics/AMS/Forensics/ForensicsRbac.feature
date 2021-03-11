@@ -13,9 +13,9 @@ Feature: Forensics RBAC
 
   @SID_2
   Scenario: Forensics RBAC generate attacks
-    Then CLI Operations - Run Root Session command "yes|restore_radware_user_password" timeout 15
-#    * REST Login with user "radware" and password "radware"
-    * REST Vision Install License Request "vision-AVA-Max-attack-capacity"
+    Given CLI Reset radware password
+    When CLI Operations - Run Radware Session command "system user authentication-mode set TACACS+"
+    When REST Vision Install License Request "vision-AVA-Max-attack-capacity"
     When CLI simulate 1 attacks of type "Ascan_Policy14" on "DefensePro" 10
     When CLI simulate 1 attacks of type "rest_dos" on "DefensePro" 11
     When CLI simulate 1 attacks of type "rest_anomalies" on "DefensePro" 10 and wait 22 seconds
@@ -60,7 +60,7 @@ Feature: Forensics RBAC
     | | |
     When UI Click Button "Views" with value "Only Device 10"
     And UI Click Button "Views.Generate Now" with value "Only Device 10"
-    And Sleep "5"
+    And Sleep "30"
     And UI Click Button "Views.report" with value "Only Device 10"
     And Sleep "3"
     Then UI Validate "Report.Table" Table rows count EQUALS to 2
@@ -90,10 +90,10 @@ Feature: Forensics RBAC
     Then UI Validate Element Existence By Label "Delete" if Exists "false" with value "AllDevAllPol"
     Then UI Validate Element Existence By Label "Edit" if Exists "false" with value "AllDevAllPol"
     Then UI Validate Element Existence By Label "Views.Expand" if Exists "false" with value "AllDevAllPol"
-    Then UI Validate Element Existence By Label "Views" if Exists "true" with value "Device10_Policy15"
-    Then UI Validate Element Existence By Label "Delete" if Exists "true" with value "Device10_Policy15"
-    Then UI Validate Element Existence By Label "Edit" if Exists "true" with value "Device10_Policy15"
-    Then UI Validate Element Existence By Label "Views.Expand" if Exists "true" with value "Device10_Policy15"
+    Then UI Validate Element Existence By Label "Views" if Exists "false" with value "Device10_Policy15"
+    Then UI Validate Element Existence By Label "Delete" if Exists "false" with value "Device10_Policy15"
+    Then UI Validate Element Existence By Label "Edit" if Exists "false" with value "Device10_Policy15"
+    Then UI Validate Element Existence By Label "Views.Expand" if Exists "false" with value "Device10_Policy15"
     And UI Logout
 
   @SID_9
@@ -104,6 +104,7 @@ Feature: Forensics RBAC
       | | |
     When UI Click Button "Views" with value "Only Policy14"
     And UI Click Button "Views.Generate Now" with value "Only Policy14"
+    And Sleep "30"
     And UI Click Button "Views.report" with value "Only Policy14"
     Then UI Validate "Report.Table" Table rows count EQUALS to 1
     Then UI Validate Table record values by columns with elementLabel "Report.Table" findBy index 0

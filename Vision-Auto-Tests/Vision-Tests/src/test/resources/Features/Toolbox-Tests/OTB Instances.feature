@@ -15,14 +15,14 @@ Feature: OTB Workflow - Instances
     Then UI Validate Text field with Class "ant-message-custom-content ant-message-success" "Equals" To "The workflow uploaded successfully"
 
   @SID_3
-  Scenario: create instance to calcualtor
+  Scenario: create instance to calculator
     Then UI Click Button "create instance" with value "calculator"
     Then UI Set Text Field "Workflow Name" To "calc10" enter Key false
     Then UI Click Button "Run Create"
     Then UI Click Button "Dismiss"
 
   @SID_4
-  Scenario: validate number of insatnces to calculator is increased
+  Scenario: validate number of instances to calculator is increased
     Then UI Validate Text field "instances" with params "calculator" EQUALS "Instances (1)"
 
   @SID_5

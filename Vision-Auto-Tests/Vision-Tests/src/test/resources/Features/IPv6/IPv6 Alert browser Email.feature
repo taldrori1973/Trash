@@ -3,7 +3,7 @@ Feature: IPv6 Alert Browser Email
 
   @SID_1
   Scenario: IPv6 Login and go to email settings
-    Then CLI Operations - Run Root Session command "yes|restore_radware_user_password" timeout 15
+    Given CLI Reset radware password
     Given UI Login with user "radware" and password "radware"
     And UI Go To Vision
     Then UI Navigate to page "System->General Settings->Alert Settings->Alert Browser"

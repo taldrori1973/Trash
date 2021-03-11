@@ -2604,7 +2604,7 @@ Feature: VRM BDoS baselines
     Then UI Validate Line Chart data "BDoS-IGMP" with Label "Total Traffic"
       | value | count | offset |
       | 5550  | 13    | 6      |
-    And UI Navigate to "HOME" page via homePage
+    Then UI Navigate to "VISION SETTINGS" page via homePage
     And UI Logout
 
   #   END IGMP BASIC
@@ -2724,7 +2724,7 @@ Feature: VRM BDoS baselines
     Then UI Validate Line Chart data "BDoS-TCP SYN" with Label "Suspected Edge"
       | value | count | offset |
       | 464   | 13    | 6      |
-    And UI Navigate to "HOME" page via homePage
+    Then UI Navigate to "VISION SETTINGS" page via homePage
     And UI logout and close browser
 
 
@@ -2749,7 +2749,7 @@ Feature: VRM BDoS baselines
       | value | count | offset |
       | null  | 31    | 31     |
     # Then UI Validate Session Storage "BDoS-TCP SYN" exists "true"
-    And UI Navigate to "HOME" page via homePage
+    Then UI Navigate to "VISION SETTINGS" page via homePage
     And UI logout and close browser
 
   @SID_78
@@ -2849,7 +2849,7 @@ Feature: VRM BDoS baselines
     Then UI Do Operation "Select" item "BDoS-UDP-1 Outbound"
     Then UI Do Operation "Select" item "BDoS-UDP-1 pps"
 
-    And UI Navigate to "HOME" page via homePage
+    Then UI Navigate to "VISION SETTINGS" page via homePage
     Then UI logout and close browser
 
   @SID_81

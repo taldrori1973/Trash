@@ -55,32 +55,16 @@
                 <class>com.radware.vision.vision_project_cli.VisionSetup</class>
                 <setupMode>physical</setupMode>
                 <!--<setupMode>Fresh Install</setupMode>-->
-                <snapshot>3.110-GA</snapshot>
+                <snapshot></snapshot>
                 <vmPrefix>VisionAuto-VRM-Upgrade-10.205.191.42</vmPrefix>
             </visionSetup>
         </visionServer>
-        <linuxFileServer>
-            <class>com.radware.automation.tools.cli.LinuxFileServer</class>
-            <host>172.17.164.100</host>
-            <user>root</user>
-            <password>radware</password>
-            <connectOnInit>false</connectOnInit>
-        </linuxFileServer>
         <alteonServer>
             <class>com.radware.automation.tools.cli.AlteonServer</class>
             <host>172.17.164.40</host>
             <user>admin</user>
             <password>admin</password>
         </alteonServer>
-        <mysqlClient>
-            <class>com.radware.vision.vision_project_cli.MysqlClientCli</class>
-            <host>172.17.164.100</host>
-            <user>root</user>
-            <password>radware</password>
-            <userExternalViewer>external</userExternalViewer>
-            <passwordExternalViewer>viewer</passwordExternalViewer>
-            <targetVisionHost/>
-        </mysqlClient>
     </visionCli>
     <visionLab>
         <class>systemobjects.VisionLab</class>
@@ -153,8 +137,8 @@
             <class>com.radware.vision.automation.tools.sutsystemobjects.devicesinfo.DeviceInfo</class>
             <deviceName>DefensePro_172.16.22.25</deviceName>
             <deviceIp>172.16.22.25</deviceIp>
-            <username>radware</username>
-            <password>radware</password>
+            <username>automation</username>
+            <password>radware1</password>
             <readCommunity>public</readCommunity>
             <writeCommunity>public</writeCommunity>
             <macAddress>00:03:b2:52:6b:00</macAddress>

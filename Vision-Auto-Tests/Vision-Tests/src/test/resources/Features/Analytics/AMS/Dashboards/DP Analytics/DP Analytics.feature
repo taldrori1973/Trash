@@ -1,6 +1,7 @@
 @DP_Analytics @TC105989
 
 Feature: DP ANALYTICS
+
   @SID_1
   Scenario: Clean system attacks,database and logs
     * REST Send simple body request from File "Vision/SystemManagement.json" with label "Set Authentication Mode"
@@ -10,6 +11,7 @@ Feature: DP ANALYTICS
     # wait until collector cache clean up
     * Sleep "15"
     * REST Delete ES index "dp-*"
+    * CLI Clear vision logs
 
   @SID_2
   Scenario: Run DP simulator PCAPs for Attacks by Protection Policy  widget
@@ -20,8 +22,8 @@ Feature: DP ANALYTICS
     * CLI simulate 1 attacks of type "VRM_attacks" on SetId "DefensePro_Set_5" and wait 240 seconds with attack ID
     # Wait to avoid ES issue when running curl one after another
     And Sleep "5"
+
   @SID_3
-  @Ramez0207
   Scenario: Login and add widgets
     When UI Login with user "radware" and password "radware"
     * REST Vision Install License Request "vision-AVA-Max-attack-capacity"
@@ -30,6 +32,7 @@ Feature: DP ANALYTICS
     And UI Do Operation "Select" item "Global Time Filter.Quick Range" with value "3H"
 
     # ================= ATTACKS BY MITIGATION ACTION ================= #
+
   @SID_4
   Scenario: VRM - Validate Dashboards "Attacks by Mitigation Action" Chart data for all DP machines
     * Sleep "5"
@@ -58,19 +61,19 @@ Feature: DP ANALYTICS
   Scenario: VRM - Validate Dashboards "Attacks by Mitigation Action" Chart widget styling attributes
     Then UI Validate Line Chart attributes "Attacks by Mitigation Action" with Label "shlomi"
       | attribute       | value   |
-      | backgroundColor | #00BDEE |
+      | backgroundColor | #04C2A0 |
     Then  UI Validate Line Chart attributes "Attacks by Mitigation Action" with Label "BDOS"
       | attribute       | value   |
-      | backgroundColor | #6CB9FF |
+      | backgroundColor | #4388C8 |
     Then UI Validate Line Chart attributes "Attacks by Mitigation Action" with Label "Packet Anomalies"
       | attribute       | value   |
-      | backgroundColor | #04C2A0 |
+      | backgroundColor | #FFC107 |
     Then UI Validate Line Chart attributes "Attacks by Mitigation Action" with Label "shlomchik"
       | attribute       | value   |
-      | backgroundColor | #088EB1 |
+      | backgroundColor | #108282 |
     Then UI Validate Line Chart attributes "Attacks by Mitigation Action" with Label "Black_IPV6"
       | attribute       | value   |
-      | backgroundColor | #4388C8 |
+      | backgroundColor | #088EB1 |
 
   @SID_6
   Scenario: VRM - Validate Dashboards "Attacks by Mitigation Action" Chart data for one selected DP machine
@@ -124,6 +127,7 @@ Feature: DP ANALYTICS
       | pol_1  | 1     | Drop       |
       | shlomi | 5     | Drop       |
       | BDOS   | 1     | Forward    |
+
   @SID_9
   Scenario: VRM - Validate Dashboards "Attacks by Mitigation Action" Chart data for selected port and policies
     When UI Do Operation "Select" item "Device Selection"
@@ -134,6 +138,7 @@ Feature: DP ANALYTICS
       | label  | value | legendName |
       | shlomi | 5     | Drop       |
       | BDOS   | 4     | Drop       |
+
   @SID_10
   Scenario: VRM - NEGATIVE: Validate Dashboards "Attacks by Mitigation Action" Chart data doesn't exist for policy without relevant data
     When UI Do Operation "Select" item "Device Selection"
@@ -154,9 +159,9 @@ Feature: DP ANALYTICS
 
   @SID_12
   Scenario: Attacks by Mitigation Action Cleanup
-#    * CLI Check if logs contains
-#      | logType | expression | isExpected   |
-#      | ALL     | fatal      | NOT_EXPECTED |
+    * CLI Check if logs contains
+      | logType | expression | isExpected   |
+      | ALL     | fatal      | NOT_EXPECTED |
     * UI Logout
 
       # ================= ATTACKS BY PROTECTION POLICY ================= #
@@ -194,7 +199,6 @@ Feature: DP ANALYTICS
       | network flood IPv6 TCP-SYN-ACK | 3     | POL_IPV6         |
       | network flood IPv6 UDP         | 3     | POL_IPV6         |
     Then UI Total "Attacks by Protection Policy" legends equal to 10
-
 
   @SID_15
   Scenario: VRM - Validate Dashboards "Attacks by Protection Policy" Chart data for one selected DP machine
@@ -284,9 +288,9 @@ Feature: DP ANALYTICS
 
   @SID_21
   Scenario: Attacks by Protection Policy Cleanup
-#    * CLI Check if logs contains
-#      | logType | expression | isExpected   |
-#      | ALL     | fatal      | NOT_EXPECTED |
+    * CLI Check if logs contains
+      | logType | expression | isExpected   |
+      | ALL     | fatal      | NOT_EXPECTED |
     * UI Logout
 
       # ================= Attacks by Threat Category ================= #
@@ -380,19 +384,18 @@ Feature: DP ANALYTICS
       | label       | data |
       | StatefulACL | 5    |
 
-
   @SID_28
   Scenario: Attacks by Threat Category Cleanup
-#    * CLI Check if logs contains
-#      | logType | expression | isExpected   |
-#      | ALL     | fatal      | NOT_EXPECTED |
+    * CLI Check if logs contains
+      | logType | expression | isExpected   |
+      | ALL     | fatal      | NOT_EXPECTED |
     * UI Logout
 
       # ================= ATTACK CATEGORIES BY BANDWIDTH ================= #
 
   @SID_29
   Scenario: Login
-    When UI Login with user "radware" and password "radware"
+    When UI Login with user "sys_admin" and password "radware"
     Then UI Navigate to "DefensePro Analytics Dashboard" page via homePage
     And UI Do Operation "Select" item "Global Time Filter"
     And UI Do Operation "Select" item "Global Time Filter.Quick Range" with value "3H"
@@ -407,18 +410,18 @@ Feature: DP ANALYTICS
       | DefensePro_Set_2 |       |          |
       | DefensePro_Set_3 |       |          |
     Then UI Validate StackBar data with widget "Attack Categories by Bandwidth"
-      | label        | value     | legendName     |
-      | Black_IPV6   | 154503126 | ACL            |
-      | Black_IPV4   | 1311063   | ACL            |
-      | BDOS         | 483084    | BehavioralDOS  |
-      | POL_IPV6     | 77960358  | BehavioralDOS  |
-      | policy1      | 418728    | SynFlood       |
-      | BDOS         | 339831    | DOSShield      |
-      | policy1      | 28674     | Anti-Scanning  |
-      | bbt-sc1      | 252324    | ServerCracking |
-      | shlomchik    | 61683     | BWM            |
-      | 1            | 2856      | DNS            |
-      | Seets_policy | 3         | Intrusions     |
+      | label        | value     | legendName     | offset |
+      | Black_IPV6   | 154503126 | ACL            | 1000   |
+      | Black_IPV4   | 1311063   | ACL            | 1000   |
+      | BDOS         | 483084    | BehavioralDOS  | 1000   |
+      | POL_IPV6     | 77960358  | BehavioralDOS  | 1000   |
+      | policy1      | 418728    | SynFlood       | 1000   |
+      | BDOS         | 339831    | DOSShield      | 1000   |
+      | policy1      | 28674     | Anti-Scanning  | 1000   |
+      | bbt-sc1      | 252324    | ServerCracking | 1000   |
+      | shlomchik    | 61683     | BWM            | 1000   |
+      | 1            | 2856      | DNS            | 1000   |
+      | Seets_policy | 3         | Intrusions     | 1000   |
     Then UI Total "Attack Categories by Bandwidth" legends equal to 9
 
   @SID_31
@@ -428,18 +431,18 @@ Feature: DP ANALYTICS
       | setId            | ports | policies |
       | DefensePro_Set_1 |       |          |
     Then UI Validate StackBar data with widget "Attack Categories by Bandwidth"
-      | label        | value    | legendName     |
-      | Black_IPV6   | 51501042 | ACL            |
-      | Black_IPV4   | 437021   | ACL            |
-      | BDOS         | 161028   | BehavioralDOS  |
-      | POL_IPV6     | 25986786 | BehavioralDOS  |
-      | policy1      | 139576   | SynFlood       |
-      | BDOS         | 113277   | DOSShield      |
-      | policy1      | 9558     | Anti-Scanning  |
-      | bbt-sc1      | 84108    | ServerCracking |
-      | shlomchik    | 20561    | BWM            |
-      | 1            | 952      | DNS            |
-      | Seets_policy | 1        | Intrusions     |
+      | label        | value    | legendName     | offset |
+      | Black_IPV6   | 51501042 | ACL            | 1000   |
+      | Black_IPV4   | 437021   | ACL            | 1000   |
+      | BDOS         | 161028   | BehavioralDOS  | 1000   |
+      | POL_IPV6     | 25986786 | BehavioralDOS  | 1000   |
+      | policy1      | 139576   | SynFlood       | 1000   |
+      | BDOS         | 113277   | DOSShield      | 1000   |
+      | policy1      | 9558     | Anti-Scanning  | 1000   |
+      | bbt-sc1      | 84108    | ServerCracking | 1000   |
+      | shlomchik    | 20561    | BWM            | 1000   |
+      | 1            | 952      | DNS            | 1000   |
+      | Seets_policy | 1        | Intrusions     | 1000   |
     Then UI Total "Attack Categories by Bandwidth" legends equal to 9
 
   @SID_32
@@ -510,9 +513,9 @@ Feature: DP ANALYTICS
 
   @SID_37
   Scenario: Attack Categories by Bandwidth Cleanup
-#    * CLI Check if logs contains
-#      | logType | expression | isExpected   |
-#      | ALL     | fatal      | NOT_EXPECTED |
+    * CLI Check if logs contains
+      | logType | expression | isExpected   |
+      | ALL     | fatal      | NOT_EXPECTED |
     * UI Logout
 
       # ================= TOP ATTACKS DESTINATION ================= #
@@ -525,15 +528,15 @@ Feature: DP ANALYTICS
     And UI Do Operation "Select" item "Global Time Filter.Quick Range" with value "3H"
     * Sleep "5"
 
-  @SID_39
-  Scenario: VRM - Validate Dashboards "Top Attack Destination" chart data on All devices
+  @SID_38
+  Scenario: VRM - Validate Dashboards "Top Attack Destinations" chart data on All devices
     When UI Do Operation "Select" item "Device Selection"
     And UI VRM Select device from dashboard and Save Filter
       | setId            | ports | policies |
       | DefensePro_Set_1 |       |          |
       | DefensePro_Set_2 |       |          |
       | DefensePro_Set_3 |       |          |
-    Then UI Validate Pie Chart data "Top Attack Destination"
+    Then UI Validate Pie Chart data "Top Attack Destinations"
       | label                                   | data |
       | 0.0.0.0                                 | 15   |
       | 1.1.1.10                                | 15   |
@@ -548,12 +551,12 @@ Feature: DP ANALYTICS
 
 
   @SID_40
-  Scenario: VRM - Validate Dashboards "Top Attack Destination" chart data on one device
+  Scenario: VRM - Validate Dashboards "Top Attack Destinations" chart data on one device
     When UI Do Operation "Select" item "Device Selection"
     And UI VRM Select device from dashboard and Save Filter
       | setId            | ports | policies |
       | DefensePro_Set_1 |       |          |
-    Then UI Validate Pie Chart data "Top Attack Destination"
+    Then UI Validate Pie Chart data "Top Attack Destinations"
       | label                                   | data |
       | 0.0.0.0                                 | 5    |
       | 1.1.1.10                                | 5    |
@@ -574,7 +577,7 @@ Feature: DP ANALYTICS
       | setId            | ports | policies |
       | DefensePro_Set_1 | 1,3   |          |
       | DefensePro_Set_2 | 1,3   |          |
-    Then UI Validate Pie Chart data "Top Attack Destination"
+    Then UI Validate Pie Chart data "Top Attack Destinations"
       | label        | data |
       | 1.1.1.1      | 2    |
       | 1.1.1.10     | 10   |
@@ -590,7 +593,7 @@ Feature: DP ANALYTICS
     And UI VRM Select device from dashboard and Save Filter
       | setId            | ports | policies |
       | DefensePro_Set_1 | 1     | BDOS     |
-    Then UI Validate Pie Chart data "Top Attack Destination"
+    Then UI Validate Pie Chart data "Top Attack Destinations"
       | label   | data |
       | 1.1.1.1 | 1    |
       | 1.1.1.8 | 2    |
@@ -603,7 +606,7 @@ Feature: DP ANALYTICS
     And UI VRM Select device from dashboard and Save Filter
       | setId            | ports | policies |
       | DefensePro_Set_1 |       | BDOS     |
-    Then UI Validate Pie Chart data "Top Attack Destination"
+    Then UI Validate Pie Chart data "Top Attack Destinations"
       | label   | data |
       | 1.1.1.1 | 1    |
       | 0.0.0.0 | 1    |
@@ -614,7 +617,7 @@ Feature: DP ANALYTICS
   @SID_44
   Scenario: NEGATIVE - Validate Chart data doesn't exist for policy without relevant data
     When UI Do Operation "Select" item "Device Selection"
-    And UI VRM Select device from dashboard and Save Filter
+    Then UI Validate Text field by id "17f01010-4023-4157-87dd-8c5792577149" CONTAINS "No Data Available"
       | setId            | ports | policies |
       | DefensePro_Set_1 |       | Policy15 |
     Then UI Validate Text field by id "17f01010-4023-4157-87dd-8c5792577149" CONTAINS "No Data Available"
@@ -631,9 +634,9 @@ Feature: DP ANALYTICS
 
   @SID_46
   Scenario: TOP ATTACKS DESTINATION Cleanup
-#    * CLI Check if logs contains
-#      | logType | expression | isExpected   |
-#      | ALL     | fatal      | NOT_EXPECTED |
+    * CLI Check if logs contains
+      | logType | expression | isExpected   |
+      | ALL     | fatal      | NOT_EXPECTED |
     * UI Logout
 
       # ================= TOP ATTACKS ================= #
@@ -765,9 +768,9 @@ Feature: DP ANALYTICS
 
   @SID_55
   Scenario: Top Attacks Cleanup
-#    * CLI Check if logs contains
-#      | logType | expression | isExpected   |
-#      | ALL     | fatal      | NOT_EXPECTED |
+    * CLI Check if logs contains
+      | logType | expression | isExpected   |
+      | ALL     | fatal      | NOT_EXPECTED |
     * UI Logout
 
       # ================= Top Attacks by Bandwidth ================= #
@@ -788,40 +791,40 @@ Feature: DP ANALYTICS
       | DefensePro_Set_1 |       |          |
       | DefensePro_Set_2 |       |          |
       | DefensePro_Set_3 |       |          |
-    Then UI Validate StackBar data with widget "Top Attacks by Bandwidth"
-      | label      | value     | legendName                     |
-      | BDOS       | 483084    | network flood IPv4 TCP-SYN-ACK |
-      | BDOS       | 339831    | DOSS-Anomaly-TCP-SYN-RST       |
-      | policy1    | 418728    | SYN Flood HTTP                 |
-      | policy1    | 28674     | TCP Scan (vertical)            |
-      | bbt-sc1    | 252324    | Brute Force Web                |
-      | POL_IPV6   | 38889231  | network flood IPv6 TCP-SYN-ACK |
-      | POL_IPV6   | 39071127  | network flood IPv6 UDP         |
-      | Black_IPV6 | 154503126 | Black List                     |
-      | Black_IPV4 | 1311063   | Black List                     |
-      | shlomchik  | 61683     | BWM Limit Alert                |
-    Then UI Total "Top Attacks by Bandwidth" legends equal to 10
+    Then UI Validate StackBar data with widget "Top Attacks by Volume"
+      | label      | value     | legendName                     | offset   |
+      | BDOS       | 483084    | network flood IPv4 TCP-SYN-ACK | 1000     |
+      | BDOS       | 339831    | DOSS-Anomaly-TCP-SYN-RST       | 1000     |
+      | policy1    | 418728    | SYN Flood HTTP                 | 1000     |
+      | policy1    | 28674     | TCP Scan (vertical)            | 1000     |
+      | bbt-sc1    | 252324    | Brute Force Web                | 1000     |
+      | POL_IPV6   | 38889231  | network flood IPv6 TCP-SYN-ACK | 1000     |
+      | POL_IPV6   | 39071127  | network flood IPv6 UDP         | 1000     |
+      | Black_IPV6 | 175000000 | Black List                     | 25000000 |
+      | Black_IPV4 | 1700000   | Black List                     | 1000000  |
+      | shlomchik  | 61683     | BWM Limit Alert                | 1000     |
+    Then UI Total "Top Attacks by Volume" legends equal to 10
 
 
   @SID_58
-  Scenario: VRM - Validate Dashboards "Top Attacks by Bandwidth" Chart data for one selected DP machine
+  Scenario: VRM - Validate Dashboards "Top Attacks by Volume" Chart data for one selected DP machine
     When UI Do Operation "Select" item "Device Selection"
     And UI VRM Select device from dashboard and Save Filter
       | setId            | ports | policies |
       | DefensePro_Set_1 |       |          |
-    Then UI Validate StackBar data with widget "Top Attacks by Bandwidth"
-      | label      | value    | legendName                     |
-      | BDOS       | 161028   | network flood IPv4 TCP-SYN-ACK |
-      | BDOS       | 113277   | DOSS-Anomaly-TCP-SYN-RST       |
-      | policy1    | 139576   | SYN Flood HTTP                 |
-      | policy1    | 9558     | TCP Scan (vertical)            |
-      | bbt-sc1    | 84108    | Brute Force Web                |
-      | POL_IPV6   | 12963077 | network flood IPv6 TCP-SYN-ACK |
-      | POL_IPV6   | 13023709 | network flood IPv6 UDP         |
-      | Black_IPV6 | 51501042 | Black List                     |
-      | Black_IPV4 | 437021   | Black List                     |
-      | shlomchik  | 20561    | BWM Limit Alert                |
-    Then UI Total "Top Attacks by Bandwidth" legends equal to 10
+    Then UI Validate StackBar data with widget "Top Attacks by Volume"
+      | label      | value    | legendName                     | offset |
+      | BDOS       | 161028   | network flood IPv4 TCP-SYN-ACK | 1000   |
+      | BDOS       | 113277   | DOSS-Anomaly-TCP-SYN-RST       | 1000   |
+      | policy1    | 139576   | SYN Flood HTTP                 | 1000   |
+      | policy1    | 9558     | TCP Scan (vertical)            | 1000   |
+      | bbt-sc1    | 84108    | Brute Force Web                | 1000   |
+      | POL_IPV6   | 12963077 | network flood IPv6 TCP-SYN-ACK | 1000   |
+      | POL_IPV6   | 13023709 | network flood IPv6 UDP         | 1000   |
+      | Black_IPV6 | 51501042 | Black List                     | 1000   |
+      | Black_IPV4 | 437021   | Black List                     | 1000   |
+      | shlomchik  | 20561    | BWM Limit Alert                | 1000   |
+    Then UI Total "Top Attacks by Volume" legends equal to 10
 
 
   @SID_59
@@ -831,77 +834,83 @@ Feature: DP ANALYTICS
       | setId            | ports | policies |
       | DefensePro_Set_1 | 4     |          |
       | DefensePro_Set_2 | 4     |          |
-    Then UI Validate StackBar data with widget "Top Attacks by Bandwidth"
-      | label   | value  | legendName      |
-      | bbt-sc1 | 168216 | Brute Force Web |
-    Then UI Total "Top Attacks by Bandwidth" legends equal to 1
+    Then UI Validate StackBar data with widget "Top Attacks by Volume"
+      | label   | value  | legendName      | offset |
+      | bbt-sc1 | 168216 | Brute Force Web | 1000   |
+    Then UI Total "Top Attacks by Volume" legends equal to 1
 
 
   @SID_60
-  Scenario: VRM - Validate Dashboards "Top Attacks by Bandwidth" Chart data for one selected policies
+  Scenario: VRM - Validate Dashboards "Top Attacks by Volume" Chart data for one selected policies
     When UI Do Operation "Select" item "Device Selection"
     And UI VRM Select device from dashboard and Save Filter
       | setId            | ports | policies |
       | DefensePro_Set_1 |       | BDOS     |
       | DefensePro_Set_2 |       | BDOS     |
-    Then UI Validate StackBar data with widget "Top Attacks by Bandwidth"
-      | label | value  | legendName                     |
-      | BDOS  | 322056 | network flood IPv4 TCP-SYN-ACK |
-      | BDOS  | 226554 | DOSS-Anomaly-TCP-SYN-RST       |
-    Then UI Total "Top Attacks by Bandwidth" legends equal to 2
+    Then UI Validate StackBar data with widget "Top Attacks by Volume"
+      | label | value  | legendName                     | offset |
+      | BDOS  | 322056 | network flood IPv4 TCP-SYN-ACK | 1000   |
+      | BDOS  | 226554 | DOSS-Anomaly-TCP-SYN-RST       | 1000   |
+    Then UI Total "Top Attacks by Volume" legends equal to 2
+
 
   @SID_61
-  Scenario: VRM - Validate Dashboards "Top Attacks by Bandwidth" Chart data for selected port and policies
+  Scenario: VRM - Validate Dashboards "Top Attacks by Volume" Chart data for selected port and policies
     When UI Do Operation "Select" item "Device Selection"
     And UI VRM Select device from dashboard and Save Filter
       | setId            | ports | policies |
       | DefensePro_Set_1 | 1,4   | BDOS     |
       | DefensePro_Set_2 | 1,4   | BDOS     |
     * Sleep "2"
-    Then UI Validate StackBar data with widget "Top Attacks by Bandwidth"
-      | label | value  | legendName                     |
-      | BDOS  | 226554 | DOSS-Anomaly-TCP-SYN-RST       |
-      | BDOS  | 322056 | network flood IPv4 TCP-SYN-ACK |
-    Then UI Total "Top Attacks by Bandwidth" legends equal to 2
+    Then UI Validate StackBar data with widget "Top Attacks by Volume"
+      | label | value  | legendName                     | offset |
+      | BDOS  | 226554 | DOSS-Anomaly-TCP-SYN-RST       | 1000   |
+      | BDOS  | 322056 | network flood IPv4 TCP-SYN-ACK | 1000   |
+    Then UI Total "Top Attacks by Volume" legends equal to 2
 
 
   @SID_62
-  Scenario: VRM - NEGATIVE: Validate Dashboards "Top Attacks by Bandwidth" Chart data doesn't exist for policy without relevant data
-    Then UI Validate StackBar data with widget "Top Attacks by Bandwidth"
-      | label   | value  | legendName      | exist | legendNameExist |
-      | bbt-sc1 | 168216 | Brute Force Web | false | false           |
-
+  Scenario: VRM - NEGATIVE: Validate Dashboards "Top Attacks by Volume" Chart data doesn't exist for policy without relevant data
+    Then UI Validate StackBar data with widget "Top Attacks by Volume"
+      | label   | value  | legendName      | exist | legendNameExist | offset |
+      | bbt-sc1 | 168216 | Brute Force Web | false | false           | 1000   |
 
   @SID_63
-  Scenario: VRM - NEGATIVE: Validate Dashboards "Top Attacks by Bandwidth" data doesn't exist for policy with traffic and port with no traffic
+  Scenario: VRM - NEGATIVE: Validate Dashboards "Top Attacks by Volume" data doesn't exist for policy with traffic and port with no traffic
     When UI Do Operation "Select" item "Device Selection"
     And UI VRM Select device from dashboard and Save Filter
       | setId            | ports | policies |
       | DefensePro_Set_1 | 1     |          |
       | DefensePro_Set_2 | 1     |          |
-    Then UI Validate StackBar data with widget "Top Attacks by Bandwidth"
-      | label      | value     | legendName                     | exist | legendNameExist |
-      | policy1    | 279152    | SYN Flood HTTP                 | false | false           |
-      | policy1    | 19116     | TCP Scan (vertical)            | false | false           |
-      | bbt-sc1    | 168216    | Brute Force Web                | false | false           |
-      | POL_IPV6   | 26047418  | network flood IPv6 TCP-SYN-ACK | false | false           |
-      | POL_IPV6   | 25926154  | network flood IPv6 UDP         | false | false           |
-      | Black_IPV6 | 103002084 | Black List                     | false | false           |
-      | Black_IPV4 | 874042    | Black List                     | false | false           |
-      | shlomchik  | 41122     | BWM Limit Alert                | false | false           |
-      | 1          | 1904      | DNS flood IPv4 DNS-A           | false | false           |
+    Then UI Validate StackBar data with widget "Top Attacks by Volume"
+      | label      | value     | legendName                     | exist | legendNameExist | offset |
+      | policy1    | 279152    | SYN Flood HTTP                 | false | false           | 1000   |
+      | policy1    | 19116     | TCP Scan (vertical)            | false | false           | 1000   |
+      | bbt-sc1    | 168216    | Brute Force Web                | false | false           | 1000   |
+      | POL_IPV6   | 26047418  | network flood IPv6 TCP-SYN-ACK | false | false           | 1000   |
+      | POL_IPV6   | 25926154  | network flood IPv6 UDP         | false | false           | 1000   |
+      | Black_IPV6 | 103002084 | Black List                     | false | false           | 1000   |
+      | Black_IPV4 | 874042    | Black List                     | false | false           | 1000   |
+      | shlomchik  | 41122     | BWM Limit Alert                | false | false           | 1000   |
+      | 1          | 1904      | DNS flood IPv4 DNS-A           | false | false           | 1000   |
 
   @SID_64
-  Scenario: Top Attacks by Bandwidth Cleanup
-#    * CLI Check if logs contains
-#      | logType | expression | isExpected   |
-#      | ALL     | fatal      | NOT_EXPECTED |
+  Scenario: Top Attacks by Volume Cleanup
+    * CLI Check if logs contains
+      | logType | expression | isExpected   |
+      | ALL     | fatal      | NOT_EXPECTED |
     * UI Logout
 
       # ================= TOP ATTACKS BY DURATION ================= #
+
   @SID_65
   Scenario: Login
     When UI Login with user "radware" and password "radware"
+    Then CLI Run remote linux Command "curl -XPOST localhost:9200/dp-attack-raw-*/_update_by_query -d '{"query": {"bool": {"must": [{"match": {"name": "network flood IPv4 TCP-SYN-ACK"}},{"match": {"attackIpsId": "7839-2258218226"}}],"must_not": [],"should": []}},"script": {"source": "ctx._source.duration = '68000'"}}'" on "ROOT_SERVER_CLI"
+    Then CLI Run remote linux Command "curl -XPOST localhost:9200/dp-attack-raw-*/_update_by_query -d '{"query": {"bool": {"must": [{"match": {"name": "HTTP Page Flood Attack"}},{"match": {"attackIpsId": "7841-2258218226"}}],"must_not": [],"should": []}},"script": {"source": "ctx._source.duration = '20000'"}}'" on "ROOT_SERVER_CLI"
+    Then CLI Run remote linux Command "curl -XPOST localhost:9200/dp-attack-raw-*/_update_by_query -d '{"query": {"bool": {"must": [{"match": {"name": "HTTP Page Flood Attack"}},{"match": {"attackIpsId": "7841-1402580209"}}],"must_not": [],"should": []}},"script": {"source": "ctx._source.duration = '20000'"}}'" on "ROOT_SERVER_CLI"
+    Then CLI Run remote linux Command "curl -XPOST localhost:9200/dp-attack-raw-*/_update_by_query -d '{"query": {"bool": {"must": [{"match": {"name": "HTTP Page Flood Attack"}},{"match": {"attackIpsId": "7841-2325327090"}}],"must_not": [],"should": []}},"script": {"source": "ctx._source.duration = '20000'"}}'" on "ROOT_SERVER_CLI"
+
     Then UI Navigate to "DefensePro Analytics Dashboard" page via homePage
     And UI Do Operation "Select" item "Global Time Filter"
     And UI Do Operation "Select" item "Global Time Filter.Quick Range" with value "3H"
@@ -921,20 +930,26 @@ Feature: DP ANALYTICS
       | label                          | value | legendName      |
       | Black List                     | 9     | Less than 1 min |
       | Incorrect IPv4 checksum        | 12    | Less than 1 min |
+ #    | pkt_rate_lmt_9                 | 3     | Less than 1 min |
+ #    | sign_seets3                    | 3     | Less than 1 min |
       | TCP Mid Flow packet            | 15    | Less than 1 min |
+ #    | TCP Scan (vertical)            | 3     | Less than 1 min |
+ #    | tim                            | 3     | Less than 1 min |
       | BWM Limit Alert                | 9     | Less than 1 min |
       | DNS flood IPv4 DNS-A           | 9     | Less than 1 min |
       | DOSS-Anomaly-TCP-SYN-RST       | 6     | Less than 1 min |
-      | network flood IPv4 TCP-SYN-ACK | 6     | Less than 1 min |
-      | Brute Force Web                | 3     | Less than 1 min |
-      | HTTP Page Flood Attack         | 3     | Less than 1 min |
+      | network flood IPv4 TCP-SYN-ACK | 5     | Less than 1 min |
+#      | HTTP Page Flood Attack         | 3     | Less than 1 min |
       | network flood IPv6 UDP-FRAG    | 6     | Less than 1 min |
       | SYN Flood HTTP                 | 3     | 1-5 min         |
       | TCP Scan (vertical)            | 3     | 1-5 min         |
+      | network flood IPv4 TCP-SYN-ACK | 1     | 1-5 min         |
+
     Then UI Total "Top Attacks by Duration-1" legends equal to 2
 
   @SID_67
   Scenario: VRM - Validate Dashboards "Top Attacks by Duration" Chart data for one selected DP machine
+    Then CLI Run remote linux Command "curl -XPOST localhost:9200/dp-attack-raw-*/_update_by_query -d '{"query": {"bool": {"must": [{"match": {"name": "HTTP Page Flood Attack"}},{"match": {"attackIpsId": "7841-1402580209"}}],"must_not": [],"should": []}},"script": {"source": "ctx._source.duration = '34000'"}}'" on "ROOT_SERVER_CLI"
     When UI Do Operation "Select" item "Device Selection"
     And UI VRM Select device from dashboard and Save Filter
       | setId            | ports | policies |
@@ -943,13 +958,16 @@ Feature: DP ANALYTICS
       | label                          | value | legendName      |
       | Black List                     | 3     | Less than 1 min |
       | Incorrect IPv4 checksum        | 4     | Less than 1 min |
+   #  | pkt_rate_lmt_9                 | 1     | Less than 1 min |
+   #  | sign_seets3                    | 1     | Less than 1 min |
       | TCP Mid Flow packet            | 5     | Less than 1 min |
+   #  | TCP Scan (vertical)            | 1     | Less than 1 min |
+   #  | tim                            | 1     | Less than 1 min |
       | BWM Limit Alert                | 3     | Less than 1 min |
       | DNS flood IPv4 DNS-A           | 3     | Less than 1 min |
       | DOSS-Anomaly-TCP-SYN-RST       | 2     | Less than 1 min |
       | network flood IPv4 TCP-SYN-ACK | 2     | Less than 1 min |
-      | Brute Force Web                | 1     | Less than 1 min |
-      | HTTP Page Flood Attack         | 1     | Less than 1 min |
+#      | HTTP Page Flood Attack         | 1     | Less than 1 min |
       | network flood IPv6 UDP-FRAG    | 2     | Less than 1 min |
       | SYN Flood HTTP                 | 1     | 1-5 min         |
       | TCP Scan (vertical)            | 1     | 1-5 min         |
@@ -1001,9 +1019,9 @@ Feature: DP ANALYTICS
 
   @SID_71
   Scenario: Top Attacks by Duration Cleanup
-#    * CLI Check if logs contains
-#      | logType | expression | isExpected   |
-#      | ALL     | fatal      | NOT_EXPECTED |
+    * CLI Check if logs contains
+      | logType | expression | isExpected   |
+      | ALL     | fatal      | NOT_EXPECTED |
     * UI Logout
 
       # ================= Top Attacks by Protocol ================= #
@@ -1115,9 +1133,9 @@ Feature: DP ANALYTICS
 
   @SID_78
   Scenario: Top Attacks by Protocol Cleanup
-#    * CLI Check if logs contains
-#      | logType | expression | isExpected   |
-#      | ALL     | fatal      | NOT_EXPECTED |
+    * CLI Check if logs contains
+      | logType | expression | isExpected   |
+      | ALL     | fatal      | NOT_EXPECTED |
     * UI Logout
 
       # ================= TOP ATTACKS SOURCES ================= #
@@ -1214,9 +1232,9 @@ Feature: DP ANALYTICS
 
   @SID_86
   Scenario: Top Attack Sources Cleanup
-#    * CLI Check if logs contains
-#      | logType | expression | isExpected   |
-#      | ALL     | fatal      | NOT_EXPECTED |
+    * CLI Check if logs contains
+      | logType | expression | isExpected   |
+      | ALL     | fatal      | NOT_EXPECTED |
     * UI Logout
 
 
@@ -1275,12 +1293,11 @@ Feature: DP ANALYTICS
       | label       | data |
       | 10.10.1.200 | 2    |
 
-
   @SID_92
   Scenario: Top Probed IP Addresses Cleanup
-#    * CLI Check if logs contains
-#      | logType | expression | isExpected   |
-#      | ALL     | fatal      | NOT_EXPECTED |
+    * CLI Check if logs contains
+      | logType | expression | isExpected   |
+      | ALL     | fatal      | NOT_EXPECTED |
     * UI Logout
 
       # ================= TOP SCANNERS ================= #
@@ -1366,17 +1383,18 @@ Feature: DP ANALYTICS
 
   @SID_101
   Scenario: Top Attacks Scanners Cleanup
-#    * CLI Check if logs contains
-#      | logType | expression | isExpected   |
-#      | ALL     | fatal      | NOT_EXPECTED |
+    * CLI Check if logs contains
+      | logType | expression | isExpected   |
+      | ALL     | fatal      | NOT_EXPECTED |
     * UI Logout
 
   @Sanity @SID_102
   Scenario: Sanity
     * CLI kill all simulator attacks on current vision
     * REST Delete ES index "dp-*"
-    * CLI simulate 1 attacks of type "rest_anomalies" on SetId "DefensePro_Set_1"
-    * CLI simulate 1 attacks of type "rest_intrusion" on SetId "DefensePro_Set_1" and wait 30 seconds
+    * CLI simulate 1 attacks of type "rest_anomalies" on "DefensePro" 10
+    * CLI simulate 1 attacks of type "rest_intrusion" on "DefensePro" 10 and wait 30 seconds
+    * CLI Clear vision logs
     Given UI Login with user "radware" and password "radware"
     Then UI Navigate to "DefensePro Analytics Dashboard" page via homePage
     Then Sleep "5"
@@ -1393,9 +1411,9 @@ Feature: DP ANALYTICS
   @Sanity @SID_103
   Scenario: Stop attack and search for bad logs
     * CLI kill all simulator attacks on current vision
-#    * CLI Check if logs contains
-#      | logType | expression | isExpected   |
-#      | ALL     | fatal      | NOT_EXPECTED |
+    * CLI Check if logs contains
+      | logType | expression | isExpected   |
+      | ALL     | fatal      | NOT_EXPECTED |
 
   @Sanity @SID_104
   Scenario: Cleanup

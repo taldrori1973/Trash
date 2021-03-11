@@ -1,7 +1,7 @@
 @VRM_Report2 @TC106010
-
 Feature: Report Wizard edit and update - new form
 
+  
   @SID_1
   Scenario: Login and navigate to the Reports Wizard
     Given UI Login with user "sys_admin" and password "radware"
@@ -9,13 +9,13 @@ Feature: Report Wizard edit and update - new form
 #    When UI Add "DefensePro" with index 10 on "Default" site
     Then Sleep "5"
     And UI Navigate to "AMS Reports" page via homePage
-    Then UI Validate Element Existence By Label "Add New" if Exists "true"
 
+  
   @SID_2
   Scenario: VRM Reports - new Report VRM_Edit_and_Update
     # defualt New report
     Given UI "Create" Report With Name "Edit_and_Update_Test_report"
-      | reportType            | DefensePro Analytics Dashboard     |
+      | reportType            | DefensePro Analytics     |
       | devices               | index:10,ports:[1],policies:[BDOS] |
       | Time Definitions.Date | Quick:Today                        |
       | Schedule              | Run Every:Monthly,On Time:+2m      |
@@ -34,11 +34,11 @@ Feature: Report Wizard edit and update - new form
 #   # Then UI Click Button "Summary Card" with value "initial"
 #    Then UI Click Button "Submit" with value "Submit"
 
-
+  
   @SID_3
   Scenario: VRM validate report details
     Then UI "Validate" Report With Name "Edit_and_Update_Test_report"
-      | reportType            | DefensePro Analaytic Dashboard                                       |
+      | reportType            | DefensePro Analytics                                       |
       | devices               | index:10,ports:[1],policies:[BDOS]                                   |
       | Time Definitions.Date | Quick:Today                                                          |
       | Schedule              | Run Every:Monthly,On Time:+2m                                        |
@@ -55,7 +55,7 @@ Feature: Report Wizard edit and update - new form
     ################################################
     #           Devices Test Edit/Update           #
     ################################################
-
+  
   @SID_4
   Scenario: VRM Reports - Two devices Devices Test Edit/Update
     Given UI "Edit" Report With Name "Edit_and_Update_Test_report"
@@ -71,7 +71,7 @@ Feature: Report Wizard edit and update - new form
       | devices |  |
 
     Then UI "Validate" Report With Name "Edit_and_Update_Test_report"
-      | devices |  |
+      | devices | index:11,ports:[1],policies:[BDOS] |
 
 
   @SID_6
@@ -108,6 +108,10 @@ Feature: Report Wizard edit and update - new form
       | Share | Email:[automation.vision2@radware.com],Subject:mySubjectEdit,Body:myBodyEdit |
 
   @SID_8
+  Scenario: Delete report
+    Then UI Delete Report With Name "Edit_and_Update_Test_report"
+
+  @SID_9
   Scenario: Cleanup
     Given UI logout and close browser
     * CLI Check if logs contains

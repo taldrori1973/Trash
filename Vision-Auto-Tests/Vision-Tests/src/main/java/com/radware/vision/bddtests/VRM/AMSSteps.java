@@ -1,10 +1,12 @@
 package com.radware.vision.bddtests.VRM;
 
 import com.radware.vision.automation.tools.sutsystemobjects.devicesinfo.enums.SUTDeviceType;
+import com.radware.vision.bddtests.ReportsForensicsAlerts.Report;
 import com.radware.vision.infra.testhandlers.alteon.securitymonitoring.dashboardview.sslinspection.enums.QuickRange;
-import com.radware.vision.infra.testhandlers.ams.AMSHandler;
-import com.radware.vision.infra.testhandlers.ams.AMSHandler.*;
-import com.radware.vision.infra.testhandlers.ams.AMSReportsHandler;
+import com.radware.vision.infra.testhandlers.vrm.VRMHandler;
+import com.radware.vision.infra.testhandlers.vrm.VRMHandler.*;
+import com.radware.vision.infra.testhandlers.vrm.VRMReportsHandler;
+import cucumber.api.PendingException;
 import cucumber.api.java.en.And;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
@@ -13,25 +15,25 @@ import cucumber.api.java.en.When;
 import java.util.List;
 
 
-public class AMSSteps {
+public class VRMSteps {
 
-    private AMSHandler AMSHandler = new AMSHandler();
-    private AMSReportsHandler vrmReportsHandler = new AMSReportsHandler();
+    private VRMHandler vrmHandler = new VRMHandler();
+    private VRMReportsHandler vrmReportsHandler = new VRMReportsHandler();
 
 
     @Then("^UI Validate (?:column chart \"([^\"]*)\" for )?Line Chart attributes \"([^\"]*)\" with Label \"([^\"]*)\"$")
     public void uiValidateLineChartAttributes(String columnChart, String chart, String label, List<DataSets> entries) {
-        AMSHandler.validateChartDataSets(chart, label, columnChart, entries);
+        vrmHandler.validateChartDataSets(chart, label, columnChart, entries);
     }
 
     @Then("^UI Validate StackBar data with widget \"([^\"]*)\"$")
     public void uiValidateStackBarDataWithWidget(String chart, List<StackBarData> entries) {
-        AMSHandler.validateStackBarData(chart, entries);
+        vrmHandler.validateStackBarData(chart, entries);
     }
 
     @Then("^UI Validate StackBar Timedata with widget \"([^\"]*)\"$")
     public void uiValidateStackBarTimedataWithWidget(String chart, List<StackBarData> entries) {
-        AMSHandler.uiValidateStackBarTimeDataWithWidget(chart, entries);
+        vrmHandler.uiValidateStackBarTimeDataWithWidget(chart, entries);
     }
 
     @Then("^UI Validate VRM Report Existence by Name \"(.*)\" if Exists \"(true|false)\"$")
@@ -46,28 +48,28 @@ public class AMSSteps {
 
     @Then("^UI Validate (?:column chart \"([^\"]*)\" for )?Line Chart data \"([^\"]*)\" with Label \"([^\"]*)\"$")
     public void uiValidateLineChartData(String columnChart, String chart, String label, List<Data> entries) {
-        AMSHandler.validateChartDataOfDataSets(chart, label, columnChart, entries);
+        vrmHandler.validateChartDataOfDataSets(chart, label, columnChart, entries);
     }
 
     @Then("^UI Validate Pie Chart attributes \"([^\"]*)\"$")
     public void uiValidatePieChartAttributes(String chart, List<DataSets> entries) {
         /*without validate*/
-        AMSHandler.validatePieChartDataSets(chart, entries);
+        vrmHandler.validatePieChartDataSets(chart, entries);
     }
 
     @Then("^UI Validate Pie Chart data \"([^\"]*)\"$")
     public void uiValidatePieChartData(String chart, List<PieChart> entries) {
-        AMSHandler.validatePieChartDataOfDataSets(chart, entries);
+        vrmHandler.validatePieChartDataOfDataSets(chart, entries);
     }
 
     @Then("^UI Total Pie Chart data \"([^\"]*)\"$")
     public void uiTotalPieChartData(String chart, List<DataSize> entries) {
-        AMSHandler.validatePieChartDataOfDataSetsSize(chart, entries);
+        vrmHandler.validatePieChartDataOfDataSetsSize(chart, entries);
     }
 
     @Then("^UI Total (?:column chart \"([^\"]*)\" for )?Line Chart data \"([^\"]*)\" With Label \"([^\"]*)\"$")
     public void uiTotalLineChartDataWithLabel(String columnChart, String chart, String label, List<DataSize> entries) {
-        AMSHandler.validateLineChartDataOfDataSetsSize(chart, label, columnChart, entries);
+        vrmHandler.validateLineChartDataOfDataSetsSize(chart, label, columnChart, entries);
 
     }
 
@@ -80,17 +82,17 @@ public class AMSSteps {
      */
     @When("^UI VRM Select device from dashboard( and Save Filter)?(?: device type \"(.*)\")?$")
     public void selectDeviceWithPoliciesAndPorts(String saveFilter, SUTDeviceType deviceType, List<DpDeviceFilter> entries) {
-        AMSHandler.innerSelectDeviceWithPoliciesAndPorts(saveFilter, deviceType, entries, true);
+        vrmHandler.innerSelectDeviceWithPoliciesAndPorts(saveFilter, deviceType, entries, true);
     }
 
     @When("^UI Select device from dashboard(?: device type \"(.*)\")?$")
     public void selectDeviceWithPolicies(SUTDeviceType deviceType, List<DpDeviceFilter> entries) {
-        AMSHandler.innerSelectDeviceWithPoliciesAndPortsTestClickChange(deviceType, entries);
+        vrmHandler.innerSelectDeviceWithPoliciesAndPortsTestClickChange(deviceType, entries);
     }
 
     @Then("^UI validate if policy is Exist$")
     public void validatepolicyIsExist(List<Polices> entries) {
-        AMSHandler.innerSelectDeviceWithPoliciesAndPortsTest(entries);
+        vrmHandler.innerSelectDeviceWithPoliciesAndPortsTest(entries);
     }
 
     /**
@@ -100,17 +102,17 @@ public class AMSSteps {
      */
     @Then("^UI VRM Validate Devices policies$")
     public void uiVRMValidateDevicesPolicies(List<DevicesAndPolices> entries) {
-        AMSHandler.validateDevicePolicies(entries);
+        vrmHandler.validateDevicePolicies(entries);
     }
 
     @When("^UI VRM Drag And Drop \"([^\"]*)\" chart with X offset (-?\\d+) and Y offset (-?\\d+)$")
     public void dragAndDropVRMChart(String elementName, int xOffset, int yOffset) {
-        AMSHandler.dragAndDropVRMChart(elementName, xOffset, yOffset);
+        vrmHandler.dragAndDropVRMChart(elementName, xOffset, yOffset);
     }
 
     @When("^UI VRM Resize \"([^\"]*)\" chart with X offset (-?\\d+) and Y offset (-?\\d+)$")
     public void resizeVRMChart(String elementName, int xOffset, int yOffset) {
-        AMSHandler.resizeVRMChart(elementName, xOffset, yOffset);
+        vrmHandler.resizeVRMChart(elementName, xOffset, yOffset);
     }
 
     /**
@@ -120,7 +122,7 @@ public class AMSSteps {
      */
     @Then("^UI VRM Total Available Device's (\\d+)$")
     public void uiVRMTotalAvailableDeviceS(int totalNumOfDevices) {
-        AMSHandler.uiVRMTotalAvailableDeviceS(totalNumOfDevices);
+        vrmHandler.uiVRMTotalAvailableDeviceS(totalNumOfDevices);
     }
 
     /**
@@ -130,7 +132,7 @@ public class AMSSteps {
      */
     @When("^UI VRM Select Widgets$")
     public void uiVRMSelectWidgets(List<String> entries) {
-        AMSHandler.uiVRMSelectWidgets(entries);
+        vrmHandler.uiVRMSelectWidgets(entries);
     }
 
     /**
@@ -139,7 +141,7 @@ public class AMSSteps {
      */
     @When("^UI VRM Clear All Widgets$")
     public void uiVRMSelectWidgets() {
-        AMSHandler.uiVRMSelectWidgets(null);
+        vrmHandler.uiVRMSelectWidgets(null);
     }
 
     /**
@@ -150,7 +152,7 @@ public class AMSSteps {
      */
     @Then("^UI Total \"(.*)\" legends equal to (\\d+)$")
     public void uiTotalLegendsEqualTo(String chart, int total) {
-        AMSHandler.ValidateTotalLegends(chart, total);
+        vrmHandler.ValidateTotalLegends(chart, total);
     }
 
     /**
@@ -161,7 +163,7 @@ public class AMSSteps {
      */
     @Then("^UI Validate Session Storage \"(.*)\" exists \"(true|false)\"$")
     public void isSessionStorageExists(String sessionStorage, Boolean isExist) {
-        AMSHandler.isSessionStorageExists(sessionStorage, isExist);
+        vrmHandler.isSessionStorageExists(sessionStorage, isExist);
     }
 
     /**
@@ -171,43 +173,43 @@ public class AMSSteps {
      */
     @When("^UI Remove Session Storage \"(.*)\"$")
     public void removeSessionStorage(String sessionStorage) {
-        AMSHandler.removeSessionStorage(sessionStorage);
+        vrmHandler.removeSessionStorage(sessionStorage);
     }
 
 
     @And("^UI Select scope from dashboard and Save Filter device type \"([^\"]*)\"$")
     public void uiVRMSelectApplicationFromDashboardAndSaveFilterDeviceType(String deviceType, List<DpApplicationFilter> entries) throws Exception {
-        AMSHandler.selectApplications(entries,deviceType, true);
+        vrmHandler.selectApplications(entries,deviceType, true);
     }
 
     @Then("^UI Validate Line Chart rate time with \"([^\"]*)\"(?: with offset \"([^\"]*)\")? for \"([^\"]*)\" chart$")
     public void uiValidateLineChartRateTimeWithForWidget(String rate, String offset, String chart) throws Exception {
-        AMSHandler.validateLineChartRateTime(rate, offset, chart);
+        vrmHandler.validateLineChartRateTime(rate, offset, chart);
     }
 
     @Then("^UI validate dataSets of lineChart \"([^\"]*)\" with size \"([^\"]*)\"$")
     public void uiValidateDataSetsOfChartWithSize(String chart, String size) {
-        AMSHandler.uiValidateDataSetsOfChartWithSize(chart, Integer.valueOf(size));
+        vrmHandler.uiValidateDataSetsOfChartWithSize(chart, Integer.valueOf(size));
     }
 
     @Then("^UI validate refresh interval of \"([^\"]*)\" for Line chart \"([^\"]*)\"$")
     public void uiValidateRefreshIntervalForLineChart(String interval, String chart) {
-        AMSHandler.uiValidateRefreshIntervalForLineChart(interval, chart);
+        vrmHandler.uiValidateRefreshIntervalForLineChart(interval, chart);
     }
 
     @Then("^UI validate max time frame in line chart \"([^\"]*)\" equals to \"([^\"]*)\"(?: with offset \"([^\"]*)\")?$")
     public void uiValidateMaxTimeFrameInLineChartEqualsTo(String chart, String maxIntervalTime, Integer offset) {
-        AMSHandler.uiValidateMaxTimeFrameInLineChartEqualsTo(chart, maxIntervalTime, offset);
+        vrmHandler.uiValidateMaxTimeFrameInLineChartEqualsTo(chart, maxIntervalTime, offset);
     }
 
     @Then("^UI Validate Line Chart data \"([^\"]*)\" with LabelTime$")
     public void uiValidateLineChartDataWithLabelTime(String chart, List<DataTime> entries) {
-        AMSHandler.uiValidateLineChartDataWithLabelTime(chart, entries);
+        vrmHandler.uiValidateLineChartDataWithLabelTime(chart, entries);
     }
 
-    @Then("^UI Select Time From: (\\d+) To: (\\d+) Time, in Line Chart data \"([^\"]*)\"$")
-    public void uiSelectFromTo(int from, int to, String chart) {
-        AMSHandler.selectTimeFromTo(from, to, chart);
+    @Then("^UI Select Time From: (\\d+) To: (\\d+) Time, in Line Chart data \"([^\"]*)\"(?: with timeFormat \"([^\"]*)\")?$")
+    public void uiSelectFromTo(int from, int to, String chart, String timeFormat) {
+        vrmHandler.selectTimeFromTo(from, to, chart, timeFormat);
     }
 
     /**
@@ -217,12 +219,39 @@ public class AMSSteps {
      */
     @Given("^UI clear (Session|Local) storage")
     public void clearStorageByType(String storageType) {
-        AMSHandler.clearStorageByType(storageType);
+        vrmHandler.clearStorageByType(storageType);
     }
 
     @Then("^Validate Memory Utilization$")
     public void validateMemoryUtilization() throws Exception {
-        AMSHandler.validateMemoryUtilization();
+        vrmHandler.validateMemoryUtilization();
+    }
+
+
+    @Then("^Validate Line Chart data \"([^\"]*)\" with Label \"([^\"]*)\" in report \"([^\"]*)\"$")
+    public void validateLineChartDataWithLabelInReport(String chart, String label, String reportName,  List<VRMHandler.Data> entries) throws Throwable {
+        new Report().getVRMReportsChartsHandler(reportName).validateChartDataOfDataSets(chart, label, null, entries);
+    }
+
+    @Then("^UI Validate StackBar data with widget \"([^\"]*)\" in report \"([^\"]*)\"$")
+    public void uiValidateStackBarDataWithWidgetInReport(String chart, String reportName, List<StackBarData> entries) throws Throwable {
+        new Report().getVRMReportsChartsHandler(reportName).validateStackBarData(chart, entries);
+    }
+
+    @Then("^UI Validate Pie Chart data \"([^\"]*)\" in Report \"([^\"]*)\"$")
+    public void uiValidatePieChartDataInReport(String chart, String reportName, List<PieChart> entries) throws Throwable {
+        new Report().getVRMReportsChartsHandler(reportName).validatePieChartDataOfDataSets(chart, entries);
+    }
+
+    @Then("^UI Validate Line Chart data \"([^\"]*)\" with LabelTime in report \"([^\"]*)\"$")
+    public void uiValidateLineChartDataWithLabelTimeInReport(String chart,String reportName, List<DataTime> entries) throws Throwable {
+        new Report().getVRMReportsChartsHandler(reportName).uiValidateLineChartDataWithLabelTime(chart, entries);
+    }
+
+    @Then("^UI Validate StackBar Timedata with widget \"([^\"]*)\" in report \"([^\"]*)\"$")
+    public void uiValidateStackBarTimedataWithWidgetInReport(String chart, String reportName, List<StackBarData> entries) throws NoSuchFieldException {
+        new Report().getVRMReportsChartsHandler(reportName).uiValidateStackBarTimeDataWithWidget(chart, entries);
+
     }
 }
 

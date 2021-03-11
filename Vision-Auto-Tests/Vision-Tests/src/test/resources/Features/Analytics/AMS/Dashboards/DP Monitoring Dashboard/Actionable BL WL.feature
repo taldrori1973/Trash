@@ -4,7 +4,13 @@ Feature: Actionable Black And White List
   @SID_1
   Scenario: Clean system data before "Protection Policies" test
     * CLI kill all simulator attacks on current vision
+#    * REST Delete ES index "dp-traffic-*"
+#    * REST Delete ES index "dp-https-stats-*"
+#    * REST Delete ES index "dp-https-rt-*"
+#    * REST Delete ES index "dp-five-*"
+
     * REST Delete ES index "dp-*"
+
     Then REST Vision Install License Request "vision-AVA-Max-attack-capacity"
     Then REST Request "POST" for "Vdirect->Sync Devices"
       | type                 | value |

@@ -1,0 +1,14 @@
+{
+  "deviceName": "Vision",
+  "fileName": "Monitoring Settings",
+  "description": "Devices monitoring settings",
+  "api": [
+    {
+      "label": "Set Monitoring Settings",
+      "method": "PUT",
+      "basePath": "mgmt/system/config/item/monitoringsettings",
+      "produces": "application/json",
+      "description": "Sets monitoring timeouts"
+    }
+  ]
+}

@@ -128,6 +128,8 @@ public class ToolboxHandler {
         showActionPanel(actionName, actionParentGroupName);
 
         String runButtonXpath = ToolboxHandler.generateActionItemRunWithParamsXpath(actionName, actionParentGroupName);
+        WebUIUtils.sleep(1);
+        WebUIUtils.waitUntilElementGetAppear(WebUIUtils.fluentWait(new ComponentLocator(How.XPATH, runButtonXpath).getBy()),3);
         ComponentLocator runButtonLocator = new ComponentLocator(How.XPATH, runButtonXpath);
         WebUIButton runButton = new WebUIButton(new WebUIComponent(runButtonLocator));
         runButton.click();

@@ -1,10 +1,15 @@
 @DP_Analytics @TC106015
-
 Feature: VRM AMS Session Timeout
 
   @SID_1
   Scenario: Navigate to Vision Connectivity and set values
+#    * REST Delete ES index "dp-traffic-*"
+#    * REST Delete ES index "dp-https-stats-*"
+#    * REST Delete ES index "dp-https-rt-*"
+#    * REST Delete ES index "dp-five-*"
     * REST Delete ES index "dp-*"
+
+    * CLI kill all simulator attacks on current vision
     Then REST Delete ES document with data ""module": "DEVICE_HEALTH_ERRORS"" from index "alert"
     Given UI Login with user "sys_admin" and password "radware"
     Then REST Vision Install License Request "vision-AVA-Max-attack-capacity"
@@ -29,7 +34,7 @@ Feature: VRM AMS Session Timeout
   Scenario: VRM validate AMS Alerts availability while configuration session expired
     Then UI "Create" Alerts With Name "Alert_timeout"
       | Criteria | Event Criteria:Attack ID,Operator:Equals,Value:7839-3402580209; |
-      | Schedule   | checkBox:Trigger,alertsPerHour:60                             |
+      | Schedule | checkBox:Trigger,alertsPerHour:60                               |
   #generate attack to trigger the alert rule
     Then CLI simulate 1 attacks of type "VRM_Alert_Severity" on "DefensePro" 10 and wait 110 seconds
     Then UI "Uncheck" all the Toggle Alerts
@@ -53,14 +58,22 @@ Feature: VRM AMS Session Timeout
     And UI Navigate to "AMS Forensics" page via homePage
     Then UI "Create" Forensics With Name "Forensics_timeout"
       |  |  |
-    And UI Open "Reports" Tab
-    And UI Open "Forensics" Tab
+    And UI Navigate to "AMS Reports" page via homePage
+    And UI Navigate to "AMS Forensics" page via homePage
     When UI Click Button "Views.Expand" with value "Forensics_timeout"
     And UI Click Button "Views.Generate Now" with value "Forensics_timeout"
     And UI Click Button "Views.report" with value "Forensics_timeout"
+    And set Tab "HomePage"
+    And UI Click Button "ANALYTICS AMS"
+    And UI Click Button "DefensePro Monitoring Dashboard"
+    And Sleep "15"
+    And set Tab "DefensePro Monitoring Dashboard"
+    Then UI Validate Element Existence By Label "Protection Policies.GO BACK" if Exists "false"
+    Then UI logout and close browser
 
   @SID_7
   Scenario: VRM validate AMS Dashboard availability while configuration session expired
+    Given UI Login with user "sys_admin" and password "radware"
     When UI Navigate to "DefensePro Monitoring Dashboard" page via homePage
     Then CLI simulate 1 attacks of type "DP_single_Oper_oos" on "DefensePro" 10 and wait 30 seconds
     Then UI Do Operation "Select" item "Device Selection"
@@ -68,7 +81,6 @@ Feature: VRM AMS Session Timeout
       | index | ports | policies |
       | 10    |       |          |
     Then UI Text of "Health Error Count" equal to "1 Errors"
-    Then UI Validate Element Existence By Label "Health.Warning" if Exists "true"
     Then UI Click Button "Health Error Count" with value "1 Errors"
     Then UI Validate "Alerts Table" Table rows count EQUALS to 1
     Then UI Click Button "Close Alert Table" with value "Close"

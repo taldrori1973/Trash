@@ -2,10 +2,8 @@
 Feature: IPv6 LLS-GEL Installation
   @SID_1
   Scenario: verify lls service status is Not running
-    Then CLI Operations - Run Root Session command "yes|restore_radware_user_password" timeout 15
-#    Given CLI Run remote linux Command "mysql -prad123 vision_ng -e "update lls_server set min_required_ram='16';"" on "ROOT_SERVER_CLI"
-    Given MYSQL UPDATE "lls_server" Table in "VISION_NG" Schema SET "min_required_ram" Column Value as 16 WHERE ""
-
+    Given CLI Reset radware password
+    Given CLI Run remote linux Command "mysql -prad123 vision_ng -e "update lls_server set min_required_ram='16';"" on "ROOT_SERVER_CLI"
     Then REST Login with user "radware" and password "radware"
     Then CLI Set config sync mode to "disabled" with timeout 1000
     Then CLI Clear vision logs
@@ -26,9 +24,9 @@ Feature: IPv6 LLS-GEL Installation
 
   @SID_5
   Scenario: Validate LLS version
-    Then CLI Run linux Command "cat /opt/radware/storage/llsinstall/license-server-*/version.txt" on "ROOT_SERVER_CLI" and validate result EQUALS "2.3.0-1"
+    Then CLI Run linux Command "cat /opt/radware/storage/llsinstall/license-server-*/version.txt" on "ROOT_SERVER_CLI" and validate result EQUALS "2.4.0-2"
     When CLI Operations - Run Radware Session command "system lls version"
-    Then CLI Operations - Verify that output contains regex ".*2.3.0-1*"
+    Then CLI Operations - Verify that output contains regex ".*2.4.0-2*"
 
   @SID_6
   Scenario: verify lls disable
@@ -66,7 +64,7 @@ Feature: IPv6 LLS-GEL Installation
   @SID_10
   Scenario: install lls UAT mode
     Then CLI Operations - Run Radware Session command "system config-sync mode set disabled" timeout 1000
-    Then CLI LLS standalone install, "UAT" mode, timeout 1000
+    Then CLI LLS standalone install, "UAT" mode, timeout 1500
 
   @SID_11
   Scenario: verify lls service status is running after UAT install
@@ -92,9 +90,7 @@ Feature: IPv6 LLS-GEL Installation
 
   @SID_15
   Scenario: revert back to requiered RAM
-#    Given CLI Run remote linux Command "mysql -prad123 vision_ng -e "update lls_server set min_required_ram='24';"" on "ROOT_SERVER_CLI"
-    Given MYSQL UPDATE "lls_server" Table in "VISION_NG" Schema SET "min_required_ram" Column Value as 24 WHERE ""
-
+    Given CLI Run remote linux Command "mysql -prad123 vision_ng -e "update lls_server set min_required_ram='24';"" on "ROOT_SERVER_CLI"
 
   @SID_16
   Scenario: Check logs

@@ -29,9 +29,10 @@ public class LicenseSteps extends BddRestTestBase {
     public void installLicenses(String licensePrefix, String fromDate, String toDate) {
         try {
             LicenseManagement licenseManagement;
-            if (fromDate != null ^ toDate != null)
-                BaseTestUtils.report(String.format("from date and to date should be both null or NOT null"), Reporter.FAIL);
-
+            if (fromDate != null ^ toDate != null) {
+                BaseTestUtils.report("from date and to date should be both null or NOT null, exit code", Reporter.FAIL);
+                return;
+            }
             if (fromDate == null)
                 licenseManagement = new LicenseManagement(licensePrefix, null, null);
 

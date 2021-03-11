@@ -58,9 +58,16 @@ public class TopologyTreeRestSteps extends BddRestTestBase {
      * | httpPassword  | radware1 |
      * | httpsPassword | radware1 |
      */
+
     @Then("^REST Add \"(.*)\" Device To topology Tree with Name \"(.*)\" and Management IP \"(.*)\" into site \"(.*)\"$")
     public void restAddDeviceToTopologyTreeWithAndManagementIPWithOptionalValues(String type, String name, String ip, String site, List<TopologyTreeRestHandler.Data> dataTable) {
         TopologyTreeRestHandler.addDeviceToTopologyTree(type, name, ip, site, dataTable);
+    }
+
+
+    @Then("^REST Add \"(.*)\" site To topology Tree under \"(.*)\" site$")
+    public void restAddSiteToTopologyTree(String site, String name) {
+        TopologyTreeRestHandler.addSiteToTopologyTree(site, name);
     }
 
     /**

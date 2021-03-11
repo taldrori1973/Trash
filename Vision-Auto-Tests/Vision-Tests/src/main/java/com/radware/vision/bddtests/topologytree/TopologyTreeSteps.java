@@ -179,6 +179,8 @@ public class TopologyTreeSteps extends BddUITestBase {
             DeviceInfo deviceInfo = devicesManager.getDeviceInfo(deviceType, deviceIndex);
             elementName = deviceInfo.getDeviceName();
             TopologyTreeHandler.deleteDevice(elementName, topologyTreeTab);
+        } catch (NullPointerException e) {
+            BaseTestUtils.report(e.getMessage(), Reporter.PASS_NOR_FAIL);
         } catch (Exception e) {
             BaseTestUtils.report("Device with Name: " + elementName + " " + "may not have been properly deleted, " + e.getMessage(), Reporter.FAIL);
 

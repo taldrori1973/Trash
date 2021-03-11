@@ -35,9 +35,9 @@ Feature: LLS-GEL Installation
 
   @SID_5
   Scenario: Validate LLS version
-    Then CLI Run linux Command "cat /opt/radware/storage/llsinstall/license-server-*/version.txt" on "ROOT_SERVER_CLI" and validate result EQUALS "2.3.0-1"
+    Then CLI Run linux Command "cat /opt/radware/storage/llsinstall/license-server-*/version.txt" on "ROOT_SERVER_CLI" and validate result EQUALS "2.4.0-2"
     When CLI Operations - Run Radware Session command "system lls version"
-    Then CLI Operations - Verify that output contains regex ".*2.3.0-1*"
+    Then CLI Operations - Verify that output contains regex ".*2.4.0-2*"
 
   @SID_6
   Scenario: verify lls disable

@@ -1,5 +1,7 @@
 package com.radware.vision.infra.testhandlers.system.usermanagement.localusers;
 
+import com.radware.automation.tools.basetest.BaseTestUtils;
+import com.radware.automation.tools.basetest.Reporter;
 import com.radware.automation.webui.WebUIUtils;
 import com.radware.automation.webui.webdriver.WebUIDriver;
 import com.radware.automation.webui.widgets.ComponentLocator;
@@ -7,7 +9,10 @@ import com.radware.vision.infra.base.pages.dialogboxes.AreYouSureDialogBox;
 import com.radware.vision.infra.base.pages.navigation.WebUIVisionBasePage;
 import com.radware.vision.infra.base.pages.system.usermanagement.localusers.*;
 import com.radware.vision.infra.testhandlers.baseoperations.BasicOperationsHandler;
+import com.radware.vision.infra.testhandlers.cli.CliOperations;
 import com.radware.vision.infra.utils.WebUIStringsVision;
+import com.radware.vision.utils.RegexUtils;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.How;
 
 import java.util.ArrayList;
@@ -29,40 +34,51 @@ public class LocalUsersHandler {
         }
     }
 
+    public static void NavigateToUserRoleGroup() {
+        ComponentLocator tabLocator = new ComponentLocator(How.ID, "gwt-debug-UserManagement.Users.Column_1_Tab");
+        ComponentLocator tableAddButton = new ComponentLocator(How.ID, "gwt-debug-roleGroupPairList_NEW");
+        WebUIUtils.fluentWaitClick(tabLocator.getBy(), WebUIUtils.DEFAULT_WAIT_TIME, false);
+        WebUIUtils.fluentWaitClick(tableAddButton.getBy(), WebUIUtils.DEFAULT_WAIT_TIME, false);
+    }
 
     public static void addUser(String username, String fullName, String address, String organisation, String phoneNumber, String permissions, String networkPolicies, String password) {
+        List<String> permissionsList = Arrays.asList(permissions.split(","));
 
         NavigateHereIfNeedTo();
 
-        AuthorizedNetworkPolicies authorizedNetworkPolicies = new AuthorizedNetworkPolicies();
-        User newUser = localUsers.newUser();
-        newUser.setUsername(username);
-        if (fullName != null && !fullName.isEmpty())
-            newUser.setFullname(fullName);
-        if (organisation != null && !organisation.isEmpty())
-            newUser.setContactInfoOrg(organisation);
-        if (address != null && !address.isEmpty())
-            newUser.setContactInfoAddress(address);
-        if (phoneNumber != null && !phoneNumber.isEmpty())
-            newUser.setContactInfoPhone(phoneNumber);
+        UserEntry expUserEntry = new UserEntry(username, new PermissionEntry(permissionsList.get(0), "ALL"));
+        if (!LocalUsersHandler.isUserExists(expUserEntry, null)) {
+            AuthorizedNetworkPolicies authorizedNetworkPolicies = new AuthorizedNetworkPolicies();
+            User newUser = localUsers.newUser();
+            newUser.setUsername(username);
+            if (fullName != null && !fullName.isEmpty())
+                newUser.setFullname(fullName);
+            if (organisation != null && !organisation.isEmpty())
+                newUser.setContactInfoOrg(organisation);
+            if (address != null && !address.isEmpty())
+                newUser.setContactInfoAddress(address);
+            if (phoneNumber != null && !phoneNumber.isEmpty())
+                newUser.setContactInfoPhone(phoneNumber);
 
-        addPermissions(parsePermissions(permissions), newUser);
-        if (networkPolicies != null && !networkPolicies.isEmpty()) {
-            AuthorizedNetworkPoliciesHandler.selectNetworkPolices(networkPolicies, authorizedNetworkPolicies);
+            addPermissions(parsePermissions(permissions), newUser);
+            if (networkPolicies != null && !networkPolicies.isEmpty()) {
+                AuthorizedNetworkPoliciesHandler.selectNetworkPolices(networkPolicies, authorizedNetworkPolicies);
+            }
+
+            if (password != null && !password.isEmpty()) {
+                newUser.addPassword(password);
+            }
+
+            BasicOperationsHandler.delay(2);
+
+            WebUIDriver.getListenerManager().getWebUIDriverEventListener().setWaitBeforeEventOperation(Long.valueOf(5 * 1000));
+
+            //Check if it timing issue in jenkins
+            WebUIUtils.sleep(3);
+
+            newUser.submit();
+            LocalUsersHandler.isUserExists(expUserEntry, 30);
         }
-
-        if (password != null && !password.isEmpty()) {
-            newUser.addPassword(password);
-        }
-
-        BasicOperationsHandler.delay(2);
-
-        WebUIDriver.getListenerManager().getWebUIDriverEventListener().setWaitBeforeEventOperation(Long.valueOf(5 * 1000));
-
-        //Check if it timing issue in jenkins
-        WebUIUtils.sleep(3);
-
-        newUser.submit();
     }
 
     public static void editUser(String username, String fullName, String address, String organisation, String phoneNumber, String permissions, String permissionsToRemove, String networkPoliciesToRemove, String networkPoliciesToAdd) {
@@ -98,7 +114,29 @@ public class LocalUsersHandler {
 
     public static void deleteUser(String username) {
         NavigateHereIfNeedTo();
-        localUsers.deleteUser("User Name", username);
+        try{
+            WebElement element = WebUIUtils.fluentWait(new ComponentLocator(How.ID, "gwt-debug-totalRows").getBy(), WebUIUtils.DEFAULT_WAIT_TIME, false);
+            int totalRows = Integer.parseInt(Arrays.asList(element.getText().split(": ")).get(1));
+
+            for(int i = 0; i<totalRows; i++){
+                element = WebUIUtils.fluentWait(new ComponentLocator(How.ID, "gwt-debug-User_RowID_"+ i +"_CellID_name").getBy(), WebUIUtils.DEFAULT_WAIT_TIME, false);
+                if(element.getText().equalsIgnoreCase(username)){
+
+                    element = WebUIUtils.fluentWait(new ComponentLocator(How.CSS,"#gwt-debug-User_RowID_"+ i +"_CellID_name #close").getBy(), WebUIUtils.DEFAULT_WAIT_TIME, false);
+                    element.click();
+
+                    element = WebUIUtils.fluentWait(new ComponentLocator(How.ID, "gwt-debug-Dialog_Box_Yes").getBy(), WebUIUtils.DEFAULT_WAIT_TIME, false);
+                    element.click();
+                    break;
+                }
+        }
+
+        }catch(Exception e){
+            BaseTestUtils.report("Failed to delete the user: "+ username + e.getCause(), Reporter.FAIL);
+
+        }
+
+
     }
 
     public static void enableUser(String username) {
@@ -180,14 +218,28 @@ public class LocalUsersHandler {
         }
     }
 
-    public static boolean isUserExists(UserEntry userToSearch) {
-        List<UserEntry> users = LocalUsersHandler.getExistingUsers();
-        for (UserEntry currentUser : users) {
-            if (currentUser.getUsername().equals(userToSearch.getUsername())) {
-                if (currentUser.equals(userToSearch)) {
-                    return true;
+    /**
+     *
+     * @param userToSearch UserEntry object
+     * @param timeout in seconds to search for user
+     * @return true if user exists
+     */
+    public static boolean isUserExists(UserEntry userToSearch, Integer timeout) {
+        timeout = timeout == null ? 0 : timeout * 1000;
+        long startTime = System.currentTimeMillis();
+        try {
+            do {
+                List<UserEntry> users = LocalUsersHandler.getExistingUsers();
+                for (UserEntry currentUser : users) {
+                    if (currentUser.getUsername().equals(userToSearch.getUsername())) {
+                        if (currentUser.getUsername().equals(userToSearch.getUsername())) {
+                            return true;
+                        }
+                    }
                 }
-            }
+            } while (System.currentTimeMillis() - startTime < timeout);
+        } catch (Exception e) {
+            BaseTestUtils.report(e.getMessage(), Reporter.FAIL);
         }
         return false;
     }

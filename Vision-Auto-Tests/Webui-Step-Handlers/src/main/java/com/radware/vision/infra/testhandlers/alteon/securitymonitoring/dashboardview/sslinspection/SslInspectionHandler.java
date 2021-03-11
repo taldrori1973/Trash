@@ -2,8 +2,8 @@ package com.radware.vision.infra.testhandlers.alteon.securitymonitoring.dashboar
 
 import com.radware.automation.tools.basetest.Reporter;
 import com.radware.automation.webui.widgets.ComponentLocator;
-import com.radware.vision.automation.AutoUtils.Operators.OperatorsEnum;
 import com.radware.vision.automation.tools.exceptions.selenium.TargetWebElementNotFoundException;
+import com.radware.vision.automation.AutoUtils.Operators.OperatorsEnum;
 import com.radware.vision.infra.enums.WebElementType;
 import com.radware.vision.infra.testhandlers.alteon.securitymonitoring.dashboardview.sslinspection.enums.DeleteOrLeaveIt;
 import com.radware.vision.infra.testhandlers.alteon.securitymonitoring.dashboardview.sslinspection.enums.SslInspectionTabs;

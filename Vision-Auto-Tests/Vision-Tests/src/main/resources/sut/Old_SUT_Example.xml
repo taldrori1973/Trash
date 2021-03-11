@@ -41,33 +41,17 @@
                 <class>com.radware.vision.vision_project_cli.VisionSetup</class>
                 <!--<setupMode>Fresh Install| Upgrade</setupMode>-->
                 <setupMode>Upgrade</setupMode>
-                <snapshot>4.30.00-GA</snapshot>
+                <snapshot>Current-3</snapshot>
                 <!--<vmPrefix>This field is relevant for fresh installed VM</vmPrefix>-->
                 <vmPrefix>VisionAuto-VRM-Upgrade</vmPrefix>
             </visionSetup>
         </visionServer>
-        <linuxFileServer>
-            <class>com.radware.automation.tools.cli.LinuxFileServer</class>
-            <host>172.17.164.100</host>
-            <user>root</user>
-            <password>radware</password>
-            <connectOnInit>false</connectOnInit>
-        </linuxFileServer>
         <alteonServer>
             <class>com.radware.automation.tools.cli.AlteonServer</class>
             <host>172.17.164.40</host>
             <user>admin</user>
             <password>admin</password>
         </alteonServer>
-        <mysqlClient>
-            <class>com.radware.vision.vision_project_cli.MysqlClientCli</class>
-            <host>172.17.164.100</host>
-            <user>root</user>
-            <password>radware</password>
-            <userExternalViewer>external</userExternalViewer>
-            <passwordExternalViewer>viewer</passwordExternalViewer>
-            <targetVisionHost/>
-        </mysqlClient>
         <visionRadwareFirstTime>
             <class>com.radware.vision.vision_project_cli.VisionRadwareFirstTime
             </class>
@@ -155,7 +139,7 @@
             <deviceName>DefensePro_172.16.22.25</deviceName>
             <deviceIp>172.16.22.25</deviceIp>
             <username>automation</username>
-            <password>radware</password>
+            <password>radware1</password>
             <readCommunity>public</readCommunity>
             <writeCommunity>public</writeCommunity>
             <macAddress>00:03:b2:52:6b:00</macAddress>
@@ -240,8 +224,8 @@
         </defenseProDevices>
         <defenseProDevices index="20">
             <class>com.radware.vision.automation.tools.sutsystemobjects.devicesinfo.DeviceInfo</class>
-            <deviceName>DefensePro_50.50.7.1</deviceName>
-            <deviceIp>50.50.7.1</deviceIp>
+            <deviceName>DefensePro_50.50.7.3</deviceName>
+            <deviceIp>50.50.7.3</deviceIp>
             <username>radware</username>
             <password>radware</password>
             <readCommunity>public</readCommunity>
@@ -250,8 +234,8 @@
         </defenseProDevices>
         <defenseProDevices index="21">
             <class>com.radware.vision.automation.tools.sutsystemobjects.devicesinfo.DeviceInfo</class>
-            <deviceName>DefensePro_50.50.7.2</deviceName>
-            <deviceIp>50.50.7.2</deviceIp>
+            <deviceName>DefensePro_50.50.7.4</deviceName>
+            <deviceIp>50.50.7.4</deviceIp>
             <username>radware</username>
             <password>radware</password>
             <readCommunity>public</readCommunity>
@@ -365,16 +349,16 @@
             <deviceName>Alteon_172.17.164.17</deviceName>
             <deviceIp>172.17.164.17</deviceIp>
             <username>admin</username>
-            <password>Mayaev8*</password>
+            <password>shimon1!$4</password>
             <readCommunity>public</readCommunity>
             <writeCommunity>private</writeCommunity>
         </alteonDevices>
         <alteonDevices index="15">
             <class>com.radware.vision.automation.tools.sutsystemobjects.devicesinfo.DeviceInfo</class>
             <deviceName>Alteon_172.17.164.18</deviceName>
-            <deviceIp>172.17.164.18</deviceIp>
+            <deviceIp>172.16.101.101</deviceIp>
             <username>admin</username>
-            <password>Mayaev8*</password>
+            <password>admin</password>
             <readCommunity>public</readCommunity>
             <writeCommunity>private</writeCommunity>
         </alteonDevices>

@@ -1,4 +1,4 @@
-package com.radware.vision.infra.testhandlers.ams;
+package com.radware.vision.infra.testhandlers.vrm;
 
 import com.radware.automation.tools.basetest.BaseTestUtils;
 import com.radware.automation.tools.basetest.Reporter;
@@ -8,12 +8,10 @@ import com.radware.automation.webui.widgets.ComponentLocator;
 import com.radware.automation.webui.widgets.ComponentLocatorFactory;
 import com.radware.automation.webui.widgets.impl.WebUICheckbox;
 import com.radware.automation.webui.widgets.impl.WebUIDropdownStandard;
-import com.radware.vision.automation.DatabaseStepHandlers.elasticSearch.ElasticSearchHandler;
 import com.radware.vision.automation.tools.exceptions.selenium.TargetWebElementNotFoundException;
-import com.radware.vision.infra.testhandlers.baseoperations.BasicOperationsHandler;
-import com.radware.vision.infra.testhandlers.ams.enums.vrmActions;
 import com.radware.vision.vision_project_cli.RootServerCli;
-import org.json.JSONException;
+import com.radware.vision.infra.testhandlers.baseoperations.BasicOperationsHandler;
+import com.radware.vision.infra.testhandlers.vrm.enums.vrmActions;
 import org.json.JSONObject;
 import org.openqa.selenium.support.How;
 
@@ -24,11 +22,26 @@ import java.util.Map;
 public class AMSAlertsHandlers extends ForensicsHandler {
 
 
-    public void AMSAlertsOperation(vrmActions operationType, String alertsName, Map<String, String> alertsEntry) throws Exception {
-        BaseAMSOperation(operationType, alertsName, alertsEntry);
+    public void VRMAlertsOperation(vrmActions operationType, String alertsName, Map<String, String> alertsEntry, RootServerCli rootServerCli) throws Exception {
+        BaseVRMOperation(operationType, alertsName, alertsEntry, rootServerCli);
     }
 
-    protected void AMSEditBase(String alertsName, Map<String, String> map) throws TargetWebElementNotFoundException {
+    protected void editVRMBase(String alertsName, Map<String, String> map) throws Exception {
+        enterToEdit(alertsName);
+        editGeneral(alertsName, map);
+        BasicOperationsHandler.clickButton("Scope Selection Card", "initial");
+        editDevices(map);
+        BasicOperationsHandler.clickButton("Criteria Card", "initial");
+        editCriteria(map);
+        BasicOperationsHandler.clickButton("Schedule Card", "initial");
+        editSchedule(map);
+        BasicOperationsHandler.clickButton("Delivery Card", "initial");
+        editDelivery(map);
+        BasicOperationsHandler.clickButton("Summary Card", "initial");
+        BasicOperationsHandler.clickButton("Submit", "");
+    }
+
+    protected void editVRMBaseNew(String alertsName, Map<String, String> map) throws TargetWebElementNotFoundException {
         try {
             enterToEdit(alertsName);
             expandViews(true);
@@ -45,34 +58,36 @@ public class AMSAlertsHandlers extends ForensicsHandler {
 
     }
 
-    protected void AMSValidateBase(RootServerCli rootServerCli, String alertsName, Map<String, String> map) {
-        ElasticSearchHandler.waitForESDocument("rt-alert-def-vrm-ty-rt-alert-def-vrm", "name",
-                alertsName, 0);
-        JSONObject basicRestResult = ElasticSearchHandler.getESDocumentByField("rt-alert-def-vrm-ty-rt-alert-def-vrm",
-                "name", alertsName);
-        if (basicRestResult == null) {
-            BaseTestUtils.report("Could not find document: " + alertsName, Reporter.FAIL);
-            return;
-        }
+    protected void validateVRMBase(RootServerCli rootServerCli, String alertsName, Map<String, String> map) {
+    }
+
+    protected void createVRMBase(String alertsName, Map<String, String> map) throws Exception {
+        try {
+            EnterToCreatingView(alertsName);
+            selectBasicInfo(alertsName, map);
+            BasicOperationsHandler.clickButton("Next", "");
+            selectDevices(map);
+            BasicOperationsHandler.clickButton("Next", "");
+            selectCriteria(map);
+            BasicOperationsHandler.clickButton("Next", "");
+            selectSchedule(map);
+            BasicOperationsHandler.clickButton("Next", "");
+            Delivery(map);
+            BasicOperationsHandler.clickButton("Next", "");
+            BasicOperationsHandler.clickButton("Submit", "");
+        } finally {
             try {
-                StringBuilder errorMessage = new StringBuilder();
-                String ObjectString = basicRestResult.get("content").toString().replace("\\", "");
-                JSONObject restResult = new JSONObject(ObjectString);
-                errorMessage.append(AMSReportsHandler.validateCustomizedOption(restResult, map, alertsName));
-                errorMessage.append(AMSReportsHandler.validateDevices(restResult.getJSONArray("scopeSelection"), map));
-                errorMessage.append(AMSReportsHandler.validateTimeDefinitions(restResult.get("timeRange"), map));
-                errorMessage.append(AMSReportsHandler.validateSchedule(basicRestResult.get("schedulingDefinition"), map));
-                errorMessage.append(AMSReportsHandler.validateDelivery(basicRestResult.get("deliveryMethod"), map));
-                errorMessage.append(AMSReportsHandler.validateDesign(restResult.get("currentGridsterContent"), map));
-                errorMessage.append(AMSReportsHandler.validateFormat(basicRestResult.get("exportFormat"), map));
-                if (errorMessage.length() != 0)
-                    BaseTestUtils.report(errorMessage.toString(), Reporter.FAIL);
-            } catch (JSONException e) {
+                VisionDebugIdsManager.setLabel("Close");
+                ComponentLocator closeLocator = ComponentLocatorFactory.getEqualLocatorByDbgId(VisionDebugIdsManager.getDataDebugId());
+                WebUIUtils.fluentWaitClick(closeLocator.getBy(), 2, false);
+                BasicOperationsHandler.clickButton("Close", "");
+            } catch (Exception e) {
                 BaseTestUtils.report(e.getMessage(), Reporter.FAIL);
             }
         }
+    }
 
-    protected void AMSCreateBase(String alertsName, Map<String, String> map) throws TargetWebElementNotFoundException {
+    protected void createVRMBaseNew(String alertsName, Map<String, String> map) throws TargetWebElementNotFoundException {
         try {
             deleteVRMBase(alertsName);
             BasicOperationsHandler.clickButton("Add New", "");
@@ -86,6 +101,7 @@ public class AMSAlertsHandlers extends ForensicsHandler {
             BasicOperationsHandler.clickButton("Submit", "");
         } catch (Exception e) {
             BasicOperationsHandler.clickButton("Cancel");
+            BaseTestUtils.report("Could not terminate form due to:\n" + e.getMessage() + "\nOperation Canceled", Reporter.FAIL);
         }
     }
 
@@ -118,7 +134,6 @@ public class AMSAlertsHandlers extends ForensicsHandler {
                     BasicOperationsHandler.clickButton("Schedule.Custom");
                     BasicOperationsHandler.setTextField("Schedule.Trigger this rule", scheduleMap.getOrDefault("triggerThisRule", "0").toString());
                     BasicOperationsHandler.setTextField("Schedule.Within", scheduleMap.getOrDefault("Within", "0").toString());
-//                    BasicOperationsHandler.selectItemFromDropDown("Schedule.Select time unit", scheduleMap.getOrDefault("selectTimeUnit", "").toString());
                     break;
             }
             BasicOperationsHandler.setTextField("Schedule.Alerts per hour", scheduleMap.getOrDefault("alertsPerHour", "8").toString());
@@ -143,7 +158,11 @@ public class AMSAlertsHandlers extends ForensicsHandler {
                 if (!basicInfoJson.isNull("Remedy")){
                     BasicOperationsHandler.setTextField("Basic Info.Remedy", basicInfoJson.getString("Remedy"));
                 }
-                String severity= "Severity";
+                String severity = "Basic Info.Severity";
+                switch (oldOrNew)
+                {
+                    case "new":severity = "Severity";
+                }
                 if (!basicInfoJson.isNull(severity)){
                     VisionDebugIdsManager.setLabel("Basic Info.Severity");
                     ComponentLocator severityLocator = ComponentLocatorFactory.getEqualLocatorByDbgId(VisionDebugIdsManager.getDataDebugId());
@@ -213,10 +232,12 @@ public class AMSAlertsHandlers extends ForensicsHandler {
         return size;
     }
 
-    public void checkORUncheckSpecificToogleAlert(boolean isCheck, String alertName) {
+    public void checkORUncheckSpecificToggleAlert(boolean isCheck, String alertName) {
 
         ComponentLocator labelLocator = new ComponentLocator(How.XPATH, "(//*[contains(@data-debug-id,'vrm-alerts-toggle-alerts-" + alertName + "')])");
         WebUICheckbox checkboxElement = new WebUICheckbox(labelLocator);
+        if(checkboxElement.getWebElement()==null)
+            BaseTestUtils.report("Could not find checkbox with locator: " + labelLocator.toString(), Reporter.FAIL);
         if (isCheck) {
 
                 if(checkboxElement.getAttribute("class").contains("closed"))

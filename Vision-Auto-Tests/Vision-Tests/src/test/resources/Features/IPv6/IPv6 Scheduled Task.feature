@@ -33,7 +33,7 @@ Feature: IPv6 Scheduled task Backup Alteon
 
   @SID_3
   Scenario: Login and go to scheduler screen
-    Then CLI Operations - Run Root Session command "yes|restore_radware_user_password" timeout 15
+    Given CLI Reset radware password
     Given UI Login with user "radware" and password "radware"
     Then UI Go To Vision
     Then UI Add new Site "Alteons-IPv6" under Parent "Default"

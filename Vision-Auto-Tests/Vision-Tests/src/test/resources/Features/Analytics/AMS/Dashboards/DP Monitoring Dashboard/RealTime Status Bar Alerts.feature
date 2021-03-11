@@ -19,7 +19,7 @@ Feature: VRM Real Time Status Bar Alerts
     When UI Navigate to "DefensePro Monitoring Dashboard" page via homePage
 #    And Sleep "3"
     Then UI Text of "Health Error Count" equal to "2 Errors"
-    Then UI Validate Element Existence By Label "Health.Warning" if Exists "true"
+#    Then UI Validate Element Existence By Label "Health.Warning" if Exists "true"
 
   @SID_3
   Scenario: Operational alerts table
@@ -37,8 +37,10 @@ Feature: VRM Real Time Status Bar Alerts
     Then UI Logout
 
   @SID_5
+
   Scenario: Operational alerts RBAC
     Given UI Login with user "sec_admin_all_pol" and password "radware"
+
     When UI Navigate to "DefensePro Monitoring Dashboard" page via homePage
     Then UI Text of "Health Error Count" equal to "1 Errors"
     Then UI Logout
@@ -46,6 +48,7 @@ Feature: VRM Real Time Status Bar Alerts
   @SID_6
   Scenario: Operational alerts RBAC alert table
     Given UI Login with user "sec_admin_all_pol" and password "radware"
+
     When UI Navigate to "DefensePro Monitoring Dashboard" page via homePage
     Then UI Text of "Health Error Count" equal to "1 Errors"
     Then UI Click Button "Health Error Count" with value "1 Errors"
@@ -126,7 +129,7 @@ Feature: VRM Real Time Status Bar Alerts
     Then CLI Run remote linux Command "curl -XPOST localhost:9200/alert/_update_by_query/?pretty -d '{"query": {"match": {"module": "DEVICE_HEALTH_ERRORS"}},"script": {"source": "ctx._source.raisedTime = 'ctx._source.raisedTime-1080000'"}}'" on "ROOT_SERVER_CLI"
     Then CLI Run remote linux Command "curl -XPOST localhost:9200/alert/_update_by_query/?pretty -d '{"query": {"match": {"module": "DEVICE_THROUGHPUT_LICENSE_ERRORS"}},"script": {"source": "ctx._source.raisedTime = 'ctx._source.raisedTime-1080000'"}}'" on "ROOT_SERVER_CLI" and wait 45 seconds
     Then UI Text of "Health Error Count" equal to "0 Errors"
-    Then UI Validate Element Existence By Label "Health.Ok" if Exists "true"
+#    Then UI Validate Element Existence By Label "Health.Ok" if Exists "true"
     And UI logout and close browser
 
   @SID_10
@@ -159,8 +162,8 @@ Feature: VRM Real Time Status Bar Alerts
     And Sleep "4"
     Then UI Text of "Utilization Throughput Status" equal to "1 Errors"
     Then UI Text of "Health Error Count" equal to "0 Errors"
-    Then UI Validate Element Existence By Label "Throughput.Warning" if Exists "true"
-    Then UI Validate Element Existence By Label "Health.Warning" if Exists "false"
+#    Then UI Validate Element Existence By Label "Throughput.Warning" if Exists "true"
+#    Then UI Validate Element Existence By Label "Health.Warning" if Exists "false"
     And UI Logout
 
   @SID_13
@@ -187,15 +190,15 @@ Feature: VRM Real Time Status Bar Alerts
     And Sleep "2"
     Then UI Text of "Utilization Throughput Status" equal to "1 Errors"
     Then UI Text of "Health Error Count" equal to "0 Errors"
-    Then UI Validate Element Existence By Label "Throughput.Error" if Exists "true"
-    Then UI Validate Element Existence By Label "Health.Warning" if Exists "false"
+#    Then UI Validate Element Existence By Label "Throughput.Error" if Exists "true"
+#    Then UI Validate Element Existence By Label "Health.Warning" if Exists "false"
     And UI Logout
     Given UI Login with user "sys_admin" and password "radware"
     When UI Navigate to "DefensePro Monitoring Dashboard" page via homePage
     And Sleep "2"
     Then UI Text of "Utilization Throughput Status" equal to "2 Errors"
     Then UI Text of "Health Error Count" equal to "0 Errors"
-    Then UI Validate Element Existence By Label "Throughput.Error" if Exists "true"
+#    Then UI Validate Element Existence By Label "Throughput.Error" if Exists "true"
     And UI Logout
 
   @SID_15
@@ -219,14 +222,14 @@ Feature: VRM Real Time Status Bar Alerts
     Given UI Login with user "sys_admin" and password "radware"
     When UI Navigate to "DefensePro Monitoring Dashboard" page via homePage
     And Sleep "2"
-    Then UI Text of "Utilization Throughput Status" equal to "2 Errors"
+    Then UI Text of "Utilization Throughput Status" equal to "1 Errors"
     Then UI Do Operation "Select" item "Device Selection"
     Then UI VRM Select device from dashboard and Save Filter
       | index | ports | policies |
       | 11    |       |          |
     And Sleep "2"
     Then UI Text of "Utilization Throughput Status" equal to "1 Errors"
-    Then UI Validate Element Existence By Label "Throughput.Warning" if Exists "true"
+#    Then UI Validate Element Existence By Label "Throughput.Warning" if Exists "true"
     And UI Logout
 
   @SID_17
@@ -234,14 +237,14 @@ Feature: VRM Real Time Status Bar Alerts
   # edit ES raise time over the 15 minutes
     And CLI Run remote linux Command "curl -XPOST localhost:9200/alert/_update_by_query/?pretty -d '{"query": {"match": {"module": "DEVICE_HEALTH_ERRORS"}},"script": {"source": "ctx._source.raisedTime = 'ctx._source.raisedTime-1080000'"}}'" on "ROOT_SERVER_CLI"
     And CLI Run remote linux Command "curl -XPOST localhost:9200/alert/_update_by_query/?pretty -d '{"query": {"match": {"module": "DEVICE_THROUGHPUT_LICENSE_EXCEEDED_ERRORS"}},"script": {"source": "ctx._source.raisedTime = 'ctx._source.raisedTime-1080000'"}}'" on "ROOT_SERVER_CLI"
-    And CLI Run remote linux Command "curl -XPOST localhost:9200/alert/_update_by_query/?pretty -d '{"query": {"match": {"module": "DEVICE_THROUGHPUT_LICENSE_ERRORS"}},"script": {"source": "ctx._source.raisedTime = 'ctx._source.raisedTime-1080000'"}}'" on "ROOT_SERVER_CLI" and wait 60 seconds
+    And CLI Run remote linux Command "curl -XPOST localhost:9200/alert/_update_by_query/?pretty -d '{"query": {"match": {"module": "DEVICE_THROUGHPUT_LICENSE_ERRORS"}},"script": {"source": "ctx._source.raisedTime = 'ctx._source.raisedTime-1080000'"}}'" on "ROOT_SERVER_CLI" and halt 60 seconds
     Then UI Login with user "sys_admin" and password "radware"
     When UI Navigate to "DefensePro Monitoring Dashboard" page via homePage
     And Sleep "2"
     Then UI Text of "Health Error Count" equal to "0 Errors"
     Then UI Text of "Utilization Throughput Status" equal to "0 Errors"
-    Then UI Validate Element Existence By Label "Throughput.Ok" if Exists "true"
-    Then UI Validate Element Existence By Label "Health.Ok" if Exists "true"
+#    Then UI Validate Element Existence By Label "Throughput.Ok" if Exists "true"
+#    Then UI Validate Element Existence By Label "Health.Ok" if Exists "true"
     And UI Logout
 
   @SID_18

@@ -13,25 +13,28 @@ Feature: AMS DefenseFlow Traffic Dashboard
     * REST Vision Install License Request "vision-AVA-Max-attack-capacity"
 
   @SID_2
+  Scenario: Change DF management IP to IP of Generic Linux
+    When CLI Operations - Run Radware Session command "system df management-ip set 172.17.164.10"
+    When CLI Operations - Run Radware Session command "system df management-ip get"
+    Then CLI Operations - Verify that output contains regex "DefenseFlow Management IP Address: 172.17.164.10"
+
+  @SID_3
   Scenario: Generate DefenseFlow traffic events
     When CLI Run remote linux Command on "GENERIC_LINUX_SERVER" and wait 120 seconds and wait for prompt "False"
       | "nohup /home/radware/curl_DF_traffic_auto.sh " |
-      | #visionIP                                |
-      | " PO_300 20"                             |
+      | #visionIP                                      |
+      | " PO_101 20"                                   |
 
-  @SID_3
+  @SID_4
   Scenario: VRM - Login to AMS DefenseFlow Analytics Dashboard
     Given UI Login with user "sys_admin" and password "radware"
     And UI Navigate to "DefenseFlow Analytics Dashboard" page via homePage
-#    Then UI Do Operation "Select" item "Global Time Filter"
-#    Then UI Do Operation "Select" item "Global Time Filter.Quick Range" with value "2m"
 
-  @SID_4
+  @SID_5
   Scenario: Validate traffic BW all POs
     Then UI Validate Line Chart data "Traffic Bandwidth" with Label "Inbound"
       | value                                         | min |
       | 8083.1999999999998181010596454143524169921875 | 4   |
-
     Then UI Validate Line Chart data "Traffic Bandwidth" with Label "Dropped"
       | value | min |
       | 4016  | 4   |
@@ -46,9 +49,8 @@ Feature: AMS DefenseFlow Traffic Dashboard
       | 1620  | 4   |
 
 
-  @SID_5
+  @SID_6
   Scenario: Validate Traffic Rate - All POs
-
     Then UI Validate Line Chart data "Traffic Rate" with Label "Inbound"
       | value  | min |
       | 700933 | 4   |
@@ -58,16 +60,14 @@ Feature: AMS DefenseFlow Traffic Dashboard
     Then UI Validate Line Chart data "Traffic Rate" with Label "Discarded Inbound"
       | value | min |
       | 32000 | 4   |
-
     Then UI Validate Line Chart data "Traffic Rate" with Label "Clean"
       | value  | min |
       | 109300 | 4   |
-
     Then UI Validate Line Chart data "Traffic Rate" with Label "Diverted"
       | value  | min |
       | 425000 | 4   |
 
-  @SID_6
+  @SID_7
   Scenario: select two POs
     When UI Do Operation "Select" item "Protected Objects"
     Then UI Select scope from dashboard and Save Filter device type "defenseflow"
@@ -75,12 +75,11 @@ Feature: AMS DefenseFlow Traffic Dashboard
       | PO_200 |
 
 
-  @SID_7
+  @SID_8
   Scenario: Validate Traffic Bandwidth - part of POs
     Then UI Validate Line Chart data "Traffic Bandwidth" with Label "Inbound"
       | value                                         | count |
       | 8083.1999999999998181010596454143524169921875 | 0     |
-
     Then UI Validate Line Chart data "Traffic Bandwidth" with Label "Dropped"
       | value | count |
       | 4016  | 0     |
@@ -94,7 +93,7 @@ Feature: AMS DefenseFlow Traffic Dashboard
       | value | count |
       | 1620  | 0     |
 
-  @SID_8
+  @SID_9
   Scenario: Validate Traffic Rate - part of POs
 
     Then UI Validate Line Chart data "Traffic Rate" with Label "Inbound"
@@ -106,40 +105,33 @@ Feature: AMS DefenseFlow Traffic Dashboard
     Then UI Validate Line Chart data "Traffic Rate" with Label "Discarded Inbound"
       | value | count |
       | 32000 | 0     |
-
     Then UI Validate Line Chart data "Traffic Rate" with Label "Clean"
       | value  | count |
       | 109300 | 0     |
-
     Then UI Validate Line Chart data "Traffic Rate" with Label "Diverted"
       | value  | count |
       | 425000 | 0     |
 
-
-  @SID_9
+  @SID_10
   Scenario: Validate Line Chart attributes
     Then UI Validate Line Chart attributes "Traffic Bandwidth" with Label "Inbound"
-      | attribute | value              |
-      | color     | rgb(169, 207, 233) |
-
+      | attribute | value   |
+      | color     | #088EB1 |
     Then UI Validate Line Chart attributes "Traffic Bandwidth" with Label "Discarded Inbound"
-      | attribute | value              |
-      | color     | rgb(128, 128, 128) |
-
+      | attribute | value   |
+      | color     | #858585 |
     Then UI Validate Line Chart attributes "Traffic Bandwidth" with Label "Clean"
-      | attribute | value            |
-      | color     | rgb(170,206,186) |
-
+      | attribute | value   |
+      | color     | #04C2A0 |
     Then UI Validate Line Chart attributes "Traffic Rate" with Label "Dropped"
-      | attribute | value                  |
-      | color     | rgba(236, 52, 52, 0.3) |
-
+      | attribute | value   |
+      | color     | #F41414 |
     Then UI Validate Line Chart attributes "Traffic Rate" with Label "Diverted"
-      | attribute | value              |
-      | color     | rgba(140,186,70,1) |
+      | attribute | value   |
+      | color     | #108282 |
     Then CLI kill all simulator attacks on current vision
 
-  @SID_10
+  @SID_11
   Scenario: Search for bad logs
     * CLI kill all simulator attacks on current vision
     * CLI Check if logs contains
@@ -147,7 +139,7 @@ Feature: AMS DefenseFlow Traffic Dashboard
       | ALL     | fatal      | NOT_EXPECTED |
       | ALL     | error      | NOT_EXPECTED |
 
-  @SID_10
+  @SID_12
   Scenario: Cleanup
-    And UI Navigate to "HOME" page via homePage
+    Then UI Navigate to "VISION SETTINGS" page via homePage
     Then UI logout and close browser

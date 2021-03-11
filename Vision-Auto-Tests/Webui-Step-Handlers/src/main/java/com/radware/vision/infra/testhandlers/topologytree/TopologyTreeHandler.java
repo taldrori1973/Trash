@@ -452,7 +452,11 @@ public class TopologyTreeHandler {
         ComponentLocator locator = new ComponentLocator(How.XPATH, "//div[contains(@id,'" + WebUIStrings.getDeviceTreeNode(node) + "')]");
 
         element = WebUIUtils.fluentWaitDisplayed(locator.getBy(), WebUIUtils.defaultVisibilityTimeout, false);
-        element.click();
+        try {
+            element.click();
+        } catch (NullPointerException e) {
+            throw new NullPointerException(deviceName + " doesn't exist");
+        }
         //get rid of the device info pane after clicking on it
         MouseUtils.hover(new ComponentLocator(How.ID, WebUIStringsVision.getAlertsMaximizeButton()));
 

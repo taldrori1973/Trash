@@ -15,10 +15,7 @@ import models.StatusCode;
 import org.modelmapper.ModelMapper;
 
 import java.io.IOException;
-import java.util.List;
-import java.util.Optional;
-import java.util.Set;
-import java.util.Stack;
+import java.util.*;
 import java.util.stream.Collectors;
 
 /**
@@ -35,7 +32,7 @@ public class RepositoryService {
 
     public RepositoryService(String repoName) throws IOException {
         this.objectMapper = new ObjectMapper();
-        this.jFrogRestAPI = new JFrogRestAPI("jFrogBuildsArtifactory",repoName);
+        this.jFrogRestAPI = new JFrogRestAPI("jFrogBuildsArtifactory", repoName);
     }
 
 
@@ -57,14 +54,51 @@ public class RepositoryService {
             buildPojo = getFile(branchPojo, build, fileType, jenkinsJob);//build under branch
         }
         ArtifactFilePojo filePojo = getFile(buildPojo, fileType);
-        ModelMapper modelMapper=new ModelMapper();
+        ModelMapper modelMapper = new ModelMapper();
         JFrogFileModel jFrogFileModel = modelMapper.map(filePojo, JFrogFileModel.class);
         jFrogFileModel.setType(fileType);
         return jFrogFileModel;
     }
 
+    public JFrogFileModel getFile(FileType fileType, Integer build, String branch) throws Exception {
+
+        ArtifactFolderPojo buildPojo;
+        ArtifactPojo artifactPojo = getPojo("", StatusCode.OK, ArtifactPojo.class);
+        String artifactPojoPtah = artifactPojo.getPath().getPath();
+        ArtifactFolderPojo artifactPojoFolder = getPojo(artifactPojoPtah, StatusCode.OK, ArtifactFolderPojo.class);
+        ArtifactFolderPojo branchPojo = getBranch(artifactPojoFolder, branch.toLowerCase());// in Artifactory all folders are lower case
+        if (branchPojo == null) {
+            buildPojo = getFile(artifactPojoFolder, build, fileType, "master");//build under version
+        } else {
+            buildPojo = getFile(branchPojo, build, fileType, branch);//build under branch
+        }
+        ArtifactFilePojo filePojo = getFile(buildPojo, fileType);
+        ModelMapper modelMapper = new ModelMapper();
+        JFrogFileModel jFrogFileModel = modelMapper.map(filePojo, JFrogFileModel.class);
+        jFrogFileModel.setType(fileType);
+        return jFrogFileModel;
+    }
+
+    public JFrogFileModel getFileFromLastExtendedBuild(FileType fileType, String branch) throws Exception {
+
+        ArtifactFolderPojo buildPojo;
+        ArtifactPojo artifactPojo = getPojo("", StatusCode.OK, ArtifactPojo.class);
+        String artifactPojoPtah = artifactPojo.getPath().getPath();
+        ArtifactFolderPojo artifactPojoFolder = getPojo(artifactPojoPtah, StatusCode.OK, ArtifactFolderPojo.class);
+        ArtifactFolderPojo branchPojo = getBranch(artifactPojoFolder, branch.toLowerCase());// in Artifactory all folders are lower case
+        String path = branchPojo.getPath().getPath().substring(1) + "/" + getLastSuccessfulExtendedBuild(branchPojo, branch);
+        buildPojo = getPojo(path, StatusCode.OK, ArtifactFolderPojo.class);
+        ArtifactFilePojo filePojo = getFile(buildPojo, fileType);
+        ModelMapper modelMapper = new ModelMapper();
+        JFrogFileModel jFrogFileModel = modelMapper.map(filePojo, JFrogFileModel.class);
+        jFrogFileModel.setType(fileType);
+        return jFrogFileModel;
+    }
+
+
     private ArtifactFilePojo getFile(ArtifactFolderPojo buildPojo, FileType fileType) throws Exception {
-        List<ArtifactChildPojo> filterByFileType = buildPojo.getChildren().stream().filter(artifactChildPojo -> artifactChildPojo.getUri().getPath().endsWith(fileType.getExtension())).collect(Collectors.toList());
+        List<ArtifactChildPojo> filterByFileType = buildPojo.getChildren().stream().filter(artifactChildPojo ->
+                artifactChildPojo.getUri().getPath().substring(1).matches(fileType.getExtension())).collect(Collectors.toList());
         if (filterByFileType.size() == 0)
             throw new Exception(String.format("No File with extension %s was found", fileType.getExtension()));
         if (filterByFileType.size() > 1) throw new Exception(
@@ -74,10 +108,9 @@ public class RepositoryService {
                         filterByFileType.toString(),
                         this.getClass().getName()
                 ));
-
         String path = String.format("%s%s", buildPojo.getPath().getPath().substring(1), filterByFileType.get(0).getUri().toString());
-
-        return getPojo(path,StatusCode.OK,ArtifactFilePojo.class);
+        fileType.setFileName(filterByFileType.get(0).getUri().toString().substring(1));
+        return getPojo(path, StatusCode.OK, ArtifactFilePojo.class);
     }
 
 
@@ -86,8 +119,8 @@ public class RepositoryService {
             String path = buildParent.getPath().getPath().substring(1) + "/" + build;
             if (isChildExistByUri(buildParent.getChildren(), build.toString()) && containsFileType(fileType, path)) {//build exist and contains the the file type
 
-                BuildPojo buildInfo = JenkinsAPI.getBuildInfo(jenkinsJob, build);//get build data from jenkins
-
+//                BuildPojo buildInfo = JenkinsAPI.getBuildInfo(jenkinsJob, build);//get build data from jenkins
+                BuildPojo buildInfo = JenkinsAPI.getBuildInfoCvision(jenkinsJob, build);
 //                if the build still building or finish building not successfully
                 if (buildInfo.isBuilding() || !buildInfo.getResult().equals("SUCCESS"))
                     throw new Exception(String.format("The Build \"%s\" is building or failed", build));
@@ -96,13 +129,12 @@ public class RepositoryService {
             } else
                 throw new Exception(String.format("The Build \"%s\" not found under %s OR the build not contains \"%s\" file type", build, buildParent.getPath().getPath(), fileType.getExtension()));
         } else {//latest build
-
             build = getLastSuccessfulBuild(buildParent, fileType, jenkinsJob);
             String path = buildParent.getPath().getPath().substring(1) + "/" + build;
             return getPojo(path, StatusCode.OK, ArtifactFolderPojo.class);
-
         }
     }
+
 
     private Integer getLastSuccessfulBuild(ArtifactFolderPojo buildParent, FileType fileType, String jenkinsJob) throws Exception {
 //        build array of builds number
@@ -115,14 +147,14 @@ public class RepositoryService {
             last = builds.pop();
             String buildPath = buildParent.getPath().getPath().substring(1) + "/" + last;
             if (containsFileType(fileType, buildPath)) {
-                BuildPojo buildInfo = JenkinsAPI.getBuildInfo(jenkinsJob, last);
+//                BuildPojo buildInfo = JenkinsAPI.getBuildInfo(jenkinsJob, last);
+                BuildPojo buildInfo = JenkinsAPI.getBuildInfoCvision(jenkinsJob, last);
                 if (buildInfo.isBuilding()) continue;
                 if (buildInfo.getResult().equals("SUCCESS")) return last;
             }
         }
         throw new Exception("No Success Build was found ");
     }
-
 
     private Stack<Integer> countingSort(Set<Integer> buildsNumbers) {
         int minBuildNumber = buildsNumbers.stream().min(Integer::compareTo).orElse(0);//for example 601
@@ -142,7 +174,7 @@ public class RepositoryService {
 
     private boolean containsFileType(FileType fileType, String buildPath) throws Exception {
         ArtifactFolderPojo buildPojo = getPojo(buildPath, StatusCode.OK, ArtifactFolderPojo.class);
-        return buildPojo.getChildren().stream().anyMatch(artifactChildPojo -> artifactChildPojo.getUri().getPath().endsWith(fileType.getExtension()));
+        return buildPojo.getChildren().stream().anyMatch(artifactChildPojo -> artifactChildPojo.getUri().getPath().substring(1).matches(fileType.getExtension()));
     }
 
     private ArtifactFolderPojo getBranch(ArtifactFolderPojo branchParent, String branch) throws Exception {
@@ -193,4 +225,46 @@ public class RepositoryService {
         RestResponse restResponse = jFrogRestAPI.sendRequest(path, expectedStatusCode);
         return objectMapper.readValue(restResponse.getBody().getBodyAsString(), clazz);
     }
+
+
+    private Integer getLastSuccessfulExtendedBuild(ArtifactFolderPojo buildParent, String jenkinsJob) throws Exception {
+//        build array of builds number
+        Set<Integer> buildsNumbers = buildParent.getChildren().stream().map(buildChildPojo -> Integer.parseInt(buildChildPojo.getUri().getPath().substring(1))).collect(Collectors.toSet());
+        Stack<Integer> builds = countingSort(buildsNumbers);
+        Integer last;
+        while (!builds.isEmpty()) {
+            last = builds.pop();
+            String buildPath = buildParent.getPath().getPath().substring(1) + "/" + last;
+            if (isExtended(buildPath)) {
+                BuildPojo buildInfo = JenkinsAPI.getBuildInfoCvision(jenkinsJob, last);
+                if (buildInfo.isBuilding()) continue;
+                if (buildInfo.getResult().equals("SUCCESS")) return last;
+            }
+        }
+        throw new Exception("No Success Build was found ");
+    }
+
+    private boolean isExtended(String path) {
+        try {
+            Map<String, String> queryParams = new HashMap<>();
+            if (path == null) path = "";
+            queryParams.put("repoKey", jFrogRestAPI.getRepoName());
+            queryParams.put("path", String.format("%s/cm.version.txt", path));
+            RestResponse restResponse = jFrogRestAPI.sendRequest("Get Artifact Properties", queryParams, StatusCode.OK);
+            return restResponse.getBody().getBodyAsString().toLowerCase().contains("extended");
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return true;
+    }
+
+
+    public int getLastExtendedBuildNumberFromBranch(String branch) throws Exception {
+        ArtifactPojo artifactPojo = getPojo("", StatusCode.OK, ArtifactPojo.class);
+        String artifactPojoPtah = artifactPojo.getPath().getPath();
+        ArtifactFolderPojo artifactPojoFolder = getPojo(artifactPojoPtah, StatusCode.OK, ArtifactFolderPojo.class);
+        ArtifactFolderPojo branchPojo = getBranch(artifactPojoFolder, branch);
+        return getLastSuccessfulExtendedBuild(branchPojo, branch);
+    }
+
 }

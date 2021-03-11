@@ -1,0 +1,14 @@
+{
+  "deviceName": "DefenseFlow",
+  "fileName": "DefenseFlowAPI",
+  "description": "DefenseFlow Rest API",
+  "api": [
+    {
+      "label": "Register to vision",
+      "method": "PUT",
+      "basePath": "/rest/v2/configure/vision-register",
+      "produces": "application/json",
+      "description": "Register to vision"
+    }
+  ]
+}

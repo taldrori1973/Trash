@@ -265,7 +265,7 @@ public class ForensicsHandler extends AMSBaseUtilies {
                 selectMultiActionSelectItemFromDropDown("Criteria.ValueNew", valueEntries);
             }
 
-            case "ATTACK ID":
+            case "RADWARE ID":
             case "ATTACK NAME": {
                 BasicOperationsHandler.setTextField("Criteria.ValueTextBoxNew", criteriaObject.get("Value").toString());
                 break;

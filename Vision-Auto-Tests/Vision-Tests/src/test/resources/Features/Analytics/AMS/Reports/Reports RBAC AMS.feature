@@ -74,10 +74,10 @@ Feature: VRM AMS Reports RBAC
     Given UI Login with user "sec_mon_Policy14" and password "radware"
     Then UI Navigate to "AMS Reports" page via homePage
     Then UI Validate VRM Report Existence by Name "Analytics_AllDevAllPol" if Exists "false"
-    Then UI Validate VRM Report Existence by Name "Analytics_Dev10Policy14" if Exists "true"
+#    Then UI Validate VRM Report Existence by Name "Analytics_Dev10Policy14" if Exists "true" ### DE53359 is not a bug
     Then UI Validate VRM Report Existence by Name "Analytics_Dev10AllPol" if Exists "false"
     Then UI Validate VRM Report Existence by Name "Baseline_AllDevAllPol" if Exists "false"
-    Then UI Validate VRM Report Existence by Name "Baseline_Dev10Policy14" if Exists "true"
+#    Then UI Validate VRM Report Existence by Name "Baseline_Dev10Policy14" if Exists "true" ### DE53359 is not a bug
     Then UI Validate VRM Report Existence by Name "Baseline_Dev10AllPol" if Exists "false"
     Then UI Validate VRM Report Existence by Name "Analytics_Dev10Policy14Dev11Policy14" if Exists "false"
     Then UI Validate VRM Report Existence by Name "Baseline_Dev10Policy14Dev11pol_1" if Exists "false"

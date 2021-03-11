@@ -3,7 +3,7 @@ Feature: Add Edit Delete Device DP
 
   @SID_1
   Scenario: Open the SitesAndClusters  Containers
-    Then CLI Operations - Run Root Session command "yes|restore_radware_user_password" timeout 15
+    Given CLI Reset radware password
     Given UI Login with user "radware" and password "radware"
     Then UI Open "Configurations" Tab
     Then UI Go To Vision
