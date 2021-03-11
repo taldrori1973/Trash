@@ -10,7 +10,9 @@ import com.radware.automation.webui.widgets.ComponentLocatorFactory;
 import com.radware.automation.webui.widgets.api.Widget;
 import com.radware.automation.webui.widgets.impl.table.WebUITable;
 import com.radware.restcore.VisionRestClient;
+import com.radware.vision.RestClientsFactory;
 import com.radware.vision.automation.AutoUtils.Operators.OperatorsEnum;
+import com.radware.vision.automation.AutoUtils.utils.SystemProperties;
 import com.radware.vision.automation.tools.exceptions.selenium.TargetWebElementNotFoundException;
 import com.radware.vision.automation.tools.sutsystemobjects.devicesinfo.DeviceInfo;
 import com.radware.vision.automation.tools.sutsystemobjects.devicesinfo.enums.SUTDeviceType;
@@ -35,7 +37,6 @@ import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
 import models.RestResponse;
 import models.StatusCode;
-import net.bytebuddy.implementation.bytecode.Throw;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Cookie;
 import org.openqa.selenium.Keys;
@@ -48,6 +49,7 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
+import java.time.temporal.ChronoUnit;
 import java.util.HashMap;
 import java.util.List;
 
@@ -591,7 +593,7 @@ public class BasicOperationsSteps extends BddUITestBase {
 
             }
         } catch (Exception e) {
-            report.report("Failed to get Table for label: " + columnName + " \n" + parseExceptionBody(e), Reporter.FAIL);
+            BaseTestUtils.report("Failed to get Table for label: " + columnName + " \n" + parseExceptionBody(e), Reporter.FAIL);
         }
     }
 

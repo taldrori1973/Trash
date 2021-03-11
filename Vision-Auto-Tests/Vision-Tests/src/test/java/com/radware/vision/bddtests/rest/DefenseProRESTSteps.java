@@ -2,7 +2,7 @@ package com.radware.vision.bddtests.rest;
 
 import com.radware.automation.tools.basetest.BaseTestUtils;
 import com.radware.automation.tools.basetest.Reporter;
-import com.radware.vision.infra.testhandlers.ams.AMSHandler;
+import com.radware.vision.infra.testhandlers.vrm.AMSHandler;
 import com.radware.vision.infra.testresthandlers.DefenseProRESTHandler;
 import cucumber.api.java.en.And;
 import cucumber.api.java.en.Given;

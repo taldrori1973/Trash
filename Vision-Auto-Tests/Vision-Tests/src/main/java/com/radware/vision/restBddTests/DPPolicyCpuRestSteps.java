@@ -7,7 +7,7 @@ import com.jayway.jsonpath.JsonPath;
 import com.jayway.jsonpath.Option;
 import com.radware.automation.tools.basetest.BaseTestUtils;
 import com.radware.automation.tools.basetest.Reporter;
-import com.radware.vision.infra.testhandlers.cli.CliOperations;
+import com.radware.vision.automation.VisionAutoInfra.CLIInfra.CliOperations;
 import com.radware.vision.utils.BodyEntry;
 import com.radware.vision.vision_project_cli.RootServerCli;
 import cucumber.api.java.en.Then;
@@ -29,7 +29,8 @@ public class DPPolicyCpuRestSteps {
         RestTestBase restTestBase = new RestTestBase();
         RootServerCli rootServerCli = new RootServerCli(restTestBase.getRootServerCli().getHost(), restTestBase.getRootServerCli().getUser(), restTestBase.getRootServerCli().getPassword());
         rootServerCli.init();
-        CliOperations.runCommand(rootServerCli, script, 2 * 60 * 1000, false, false, false);
+        //kVision
+//        CliOperations.runCommand(rootServerCli, script, 2 * 60 * 1000, false, false, false);
     }
 
     @Then("^Run Helper Script For DpCpuPolicyUtilization$")

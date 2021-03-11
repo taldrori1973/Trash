@@ -1,12 +1,12 @@
 package com.radware.vision.tools.rest;
 
 import com.radware.vision.restAPI.GenericVisionRestAPI;
-import com.radware.vision.restBddTests.utils.UriUtils;
+import com.radware.vision.utils.UriUtils;
 import lombok.Getter;
 import models.RestRequestSpecification;
 import models.RestResponse;
 
-import static com.radware.vision.restBddTests.utils.SutUtils.*;
+import static com.radware.vision.utils.SutUtils.*;
 
 public class CurrentVisionRestAPI {
 

@@ -1,8 +1,8 @@
 package com.radware.vision.bddtests.VRM;
 
 import com.radware.vision.bddtests.BddUITestBase;
-import com.radware.vision.infra.testhandlers.ams.AMSAlertsHandlers;
-import com.radware.vision.infra.testhandlers.ams.enums.vrmActions;
+import com.radware.vision.infra.testhandlers.vrm.AMSAlertsHandlers;
+import com.radware.vision.infra.testhandlers.vrm.enums.vrmActions;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.When;
 
@@ -48,7 +48,8 @@ public class AMSAlertsSteps extends BddUITestBase {
      * */
     @Given("^UI \"(Create|Validate|Edit|Generate|Isexist)\" Alerts With Name \"([^\"]*)\"( negative)?$")
     public void uiReportWithName(vrmActions operationType, String reportName, String negative, Map<String,String> reportsEntry) throws Throwable {
-        alertsHandlers.AMSAlertsOperation(operationType, reportName, reportsEntry);
+        //kvision
+//        alertsHandlers.VRMAlertsOperation(operationType, reportName, reportsEntry, restTestBase.getRootServerCli());
     }
 
     @When("^UI Delete Alerts With Name \"([^\"]*)\"$")

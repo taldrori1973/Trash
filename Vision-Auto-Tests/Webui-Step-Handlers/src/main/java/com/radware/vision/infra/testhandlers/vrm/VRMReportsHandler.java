@@ -196,7 +196,7 @@ public class VRMReportsHandler extends VRMBaseUtilies {
         }
     }
 
-    protected void validateVRMBase(RootServerCli rootServerCli, String reportName, Map<String, String> map)throws Exception {
+    protected void validateVRMBase(RootServerCli rootServerCli, String reportName, Map<String, String> map) throws Exception {
         EnterToValidateOrEdit(reportName);
 //        new Report().validate(rootServerCli, reportName, map);
         JSONObject basicRestResult = waitForESDocument(rootServerCli, "reportName", reportName, "vrm-scheduled-report-definition-vrm", 0);

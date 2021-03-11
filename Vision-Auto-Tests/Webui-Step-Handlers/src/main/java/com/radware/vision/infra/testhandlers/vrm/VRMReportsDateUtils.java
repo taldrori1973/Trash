@@ -1,4 +1,4 @@
-package com.radware.vision.infra.testhandlers.ams;
+package com.radware.vision.infra.testhandlers.vrm;
 
 import com.radware.automation.webui.WebUIUtils;
 import com.radware.automation.webui.widgets.ComponentLocator;
@@ -9,7 +9,7 @@ import com.radware.vision.infra.utils.TimeUtils;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 
-public class AMSReportsDateUtils {
+public class VRMReportsDateUtils {
     Long startTimeActual = null;
     Long endTimeActual  = null;
     Long endTimeExpected = null;
@@ -19,7 +19,7 @@ public class AMSReportsDateUtils {
     String timeRangeString = "";
     long minute = 1000 * 60;
     GregorianCalendar calendar = new GregorianCalendar();
-    public AMSReportsDateUtils() {
+    public VRMReportsDateUtils() {
     }
 
     public void setStartEndTime(QuickRange timePeriod){

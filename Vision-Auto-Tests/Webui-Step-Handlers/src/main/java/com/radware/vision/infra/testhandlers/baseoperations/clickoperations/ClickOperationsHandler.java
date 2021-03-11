@@ -14,13 +14,15 @@ import com.radware.automation.webui.widgets.impl.WebUIDropdown;
 import com.radware.automation.webui.widgets.impl.WebUIDualList;
 import com.radware.automation.webui.widgets.impl.WebUIDualListScripts;
 import com.radware.vision.automation.AutoUtils.Operators.OperatorsEnum;
-import com.radware.vision.automation.AutoUtils.utils.SystemProperties;
+import com.radware.vision.infra.base.pages.navigation.WebUIVisionBasePage;
 import com.radware.vision.infra.enums.DualListSides;
 import com.radware.vision.infra.enums.VisionTableIDs;
 import com.radware.vision.infra.enums.WebElementType;
 import com.radware.vision.infra.testhandlers.baseoperations.BasicOperationsHandler;
 import com.radware.vision.infra.utils.GeneralUtils;
 import com.radware.vision.infra.utils.ReportsUtils;
+import jsystem.framework.RunProperties;
+import org.apache.commons.lang3.math.NumberUtils;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.How;
@@ -28,6 +30,11 @@ import org.openqa.selenium.support.How;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
+import static java.util.Objects.nonNull;
+import static org.apache.commons.lang3.math.NumberUtils.isParsable;
 
 /**
  * Created by AviH on 03-Dec-17.
@@ -122,9 +129,8 @@ public class ClickOperationsHandler {
 
     public static void setTextToElement(WebElementType elementType, String elementId, String inputText, boolean enterKey) {
         try {
-            SystemProperties systemProperties = SystemProperties.get_instance();
-            if (systemProperties.containsKey(inputText)) {
-                inputText = systemProperties.getValueByKey(inputText);
+            if (RunProperties.getInstance().getRunProperties().containsKey(inputText)) {
+                inputText = RunProperties.getInstance().getRunProperties().getProperty(inputText);
             }
             WebUIUtils.setIsTriggerPopupSearchEvent(true);
             switch (elementType) {
@@ -155,10 +161,10 @@ public class ClickOperationsHandler {
         }
     }
 
-    public static void validateTextFieldElementByLabel(String elementSelector, String params, String expectedText, OperatorsEnum validationType, int cutCharsNumber) {
+    public static void validateTextFieldElementByLabel(String elementSelector, String params, String expectedText, String regex, OperatorsEnum validationType, int cutCharsNumber) {
         try {
             WebElement element = BasicOperationsHandler.isItemAvailableById(elementSelector, params);
-            validateTextField(element, elementSelector, expectedText, validationType, cutCharsNumber);
+            validateTextField(element, elementSelector, expectedText, regex, validationType, cutCharsNumber);
         } catch (Exception e) {
             BaseTestUtils.report("Failed to get the Text from element with ID: " + elementSelector + " it may not be visible", Reporter.FAIL);
         }
@@ -175,7 +181,7 @@ public class ClickOperationsHandler {
     public static void validateTextFieldElementById(String elementSelector, String expectedText, OperatorsEnum validationType, int cutCharsNumber) {
         try {
             WebElement element = WebUIUtils.fluentWaitDisplayed(new ComponentLocator(How.ID, elementSelector).getBy(), WebUIUtils.DEFAULT_WAIT_TIME, false);
-            validateTextField(element, elementSelector, expectedText, validationType, cutCharsNumber);
+            validateTextField(element, elementSelector, expectedText, null, validationType, cutCharsNumber);
         } catch (Exception e) {
             BaseTestUtils.report("Failed to get the Text from element with ID: " + elementSelector + " it may not be visible", Reporter.FAIL);
         }
@@ -185,44 +191,117 @@ public class ClickOperationsHandler {
         try {
 //            WebElement element = WebUIUtils.fluentWaitDisplayed(new ComponentLocator(How.CLASS_NAME, elementSelector).getBy(), WebUIUtils.DEFAULT_WAIT_TIME, false);
             WebElement element = WebUIUtils.fluentWaitDisplayed(new ComponentLocator(How.XPATH, "//*[@class='" + elementSelector + "']").getBy(), WebUIUtils.DEFAULT_WAIT_TIME, false);
-            validateTextField(element, elementSelector, expectedText, validationType, cutCharsNumber);
+            validateTextField(element, elementSelector, expectedText, null, validationType, cutCharsNumber);
         } catch (Exception e) {
             BaseTestUtils.report("Failed to get the Text from element with Class: " + elementSelector + " it may not be visible", Reporter.FAIL);
         }
     }
 
-    public static void validateTextField(WebElement element, String elementSelector, String expectedText, OperatorsEnum validationType, int cutCharsNumber) {
+    public static void validateTextField(WebElement element, String elementSelector, String expectedValue, String regex, OperatorsEnum validationOperation, int cutCharsNumber) {
         try {
-            List<String> expectedTextList = expectedText != null ? Arrays.asList(expectedText.split("\\|")) : Arrays.asList("".split("\\|"));
-            String actualText = element.getAttribute("value");
-            boolean contains = false;
-            if (actualText == null || actualText.equals("")) {
-                actualText = element.getText();
-            }
-            String finalExpectedText = "";
-            finalExpectedText = (expectedText.contains("\n") && expectedText.lastIndexOf("\n") == expectedText.length() - 1) ? expectedText.substring(0, expectedText.lastIndexOf("\n")) : expectedText;
+//            The expectedValue for Contains Operation could be on the following format: value|value|...|value,
+//            if the actual value contains one of these values , the test will pass:
+            List<String> expectedTextList = expectedValue != null ? Arrays.asList(expectedValue.split("\\|")) : null;
 
-            if (!(expectedText == null && actualText.equals(""))) {
-                switch (validationType) {
+//            TODO this line is duplicated by another methods -> should be packed as a method
+            String actualValue = element.getAttribute("value");//get the actual value from the UI Element
+
+
+            boolean contains = false;
+//            if the element value attribute returns null or EMPTY , try to get the actual from getText()
+            if (actualValue == null || actualValue.equals("")) {
+                actualValue = element.getText();
+            }
+
+
+            String finalExpectedValue = "";
+//            remove new line chars
+            finalExpectedValue = nonNull(expectedValue) && (expectedValue.contains("\n") && expectedValue.lastIndexOf("\n") == expectedValue.length() - 1) ? expectedValue.substring(0, expectedValue.lastIndexOf("\n")) : expectedValue;
+
+//            if regex is defined: the operation will work on the regex Group1
+//            for example if the regex value is: "Total Packets: (\d+)" actual value is "Total Packets: 2,903"
+//            we need to check if the actual value is GTE expected value.
+//            in this case regex matching Group(1) will return "2,903" and this is our new actual value that will be compared with the expected value let's say 2900
+            if (nonNull(regex)) {
+                Pattern pattern = Pattern.compile(regex);
+                Matcher matcher = pattern.matcher(actualValue);
+                if (matcher.matches()) {//if the regex not matches the actual value , then no need to continue
+                    actualValue = matcher.group(1);
+                } else BaseTestUtils.report(
+                        String.format("The Regex provided is not matches the actual value.\nRegex: \"%s\"\nActual Value: \"%s\"", regex, actualValue),
+                        Reporter.FAIL);
+
+            }
+
+            double expectedAsNumber = 0;
+            double actualAsNumber = 0;
+            if (validationOperation.equals(OperatorsEnum.GTE) ||
+                    validationOperation.equals(OperatorsEnum.GT) ||
+                    validationOperation.equals(OperatorsEnum.LTE) ||
+                    validationOperation.equals(OperatorsEnum.LT)) {//The Expected and actual Values should be casted to Numbers
+                if (NumberUtils.isParsable(finalExpectedValue.replaceAll(",","")) && isParsable(actualValue.replaceAll(",",""))) {
+                    expectedAsNumber = Double.parseDouble(finalExpectedValue.replaceAll(",",""));
+                    actualAsNumber = Double.parseDouble(actualValue.replaceAll(",",""));
+                } else {
+                    BaseTestUtils.reporter.report(
+                            String.format("The Expexcted Value and/or the Actual Value is/are not numbers, the GTE,GT,LTE and LT operations are for numbers only." +
+                                    "\nActual Value: %s\nExpected Value: %s", actualValue, finalExpectedValue),
+                            Reporter.FAIL);
+                }
+            }
+            /*
+            Now we have 3 parameters for test:
+            1. expectedTextList : for Contains Operation
+            2. finalExpectedValue
+            3. actualValue
+             */
+            if ((validationOperation.equals(OperatorsEnum.CONTAINS) && nonNull(expectedTextList)) ||
+                    (!validationOperation.equals(OperatorsEnum.CONTAINS) && nonNull(finalExpectedValue) && nonNull(actualValue))) {
+                switch (validationOperation) {
                     case CONTAINS:
-                        for (int i = 0; i < expectedTextList.size(); i++) {
-                            if (actualText.contains(expectedTextList.get(i).substring(0, expectedTextList.get(i).length() - cutCharsNumber))) {
+                        for (String expectedText : expectedTextList) {
+                            if (actualValue.contains(expectedText.substring(0, expectedText.length() - cutCharsNumber))) {
                                 contains = true;
+                                break;
                             }
                         }
+                        if (expectedTextList.isEmpty())
+                            contains = true;//if the array of expected values is empty . the test pass
                         if (!contains) {
-                            BaseTestUtils.report("TextField Validation Failed. Expected Text is:" + expectedTextList + " Actual Text is:" + actualText, Reporter.FAIL);
+                            BaseTestUtils.report("TextField Validation Failed. Expected Text is:" + expectedTextList + " Actual Text is:" + actualValue, Reporter.FAIL);
                         }
                         break;
                     case EQUALS:
-                        if (!finalExpectedText.equals(actualText)) {
-                            BaseTestUtils.report("TextField Validation Failed. Expected Text is:" + expectedText + " Actual Text is:" + actualText, Reporter.FAIL);
+                        if (isParsable(finalExpectedValue.replaceAll(",","")) && isParsable(actualValue.replaceAll(",",""))) {//if the both values is number then compare numbers
+                            if (Double.parseDouble(finalExpectedValue.replaceAll(",","")) != Double.parseDouble(actualValue.replaceAll(",",""))) {
+                                BaseTestUtils.report("TextField Validation Failed. Expected Value is:" + Double.parseDouble(finalExpectedValue) + " Actual Value is:" + Double.parseDouble(actualValue), Reporter.FAIL);
+                            }
+                        } else {//compare strings
+                            if (!finalExpectedValue.equals(actualValue)) {
+                                BaseTestUtils.report("TextField Validation Failed. Expected Text is:" + expectedValue + " Actual Text is:" + actualValue, Reporter.FAIL);
+                            }
                         }
                         break;
                     case MatchRegex:
-                        if (!actualText.matches(expectedText)) {
-                            BaseTestUtils.report("TextField Validation Failed. Expected Text is:" + expectedText + " Actual Text is:" + actualText, Reporter.FAIL);
+                        if (!actualValue.matches(expectedValue)) {
+                            BaseTestUtils.report("TextField Validation Failed.Actual Value not Matched the Expected Regex. Expected Regex is:" + expectedValue + " Actual Text is:" + actualValue, Reporter.FAIL);
                         }
+                        break;
+                    case GTE:
+                        if (actualAsNumber < expectedAsNumber)
+                            BaseTestUtils.report("TextField Validation Failed. The Actual Value :" + actualAsNumber + " Expected to be greater than or Equal the expected value: " + expectedValue, Reporter.FAIL);
+                        break;
+                    case GT:
+                        if (actualAsNumber <= expectedAsNumber)
+                            BaseTestUtils.report("TextField Validation Failed. The Actual Value :" + actualAsNumber + " Expected to be greater than the expected value: " + expectedValue, Reporter.FAIL);
+                        break;
+                    case LTE:
+                        if (actualAsNumber > expectedAsNumber)
+                            BaseTestUtils.report("TextField Validation Failed. The Actual Value :" + actualAsNumber + " Expected to be Lower than or Equal the expected value: " + expectedValue, Reporter.FAIL);
+                        break;
+                    case LT:
+                        if (actualAsNumber >= expectedAsNumber)
+                            BaseTestUtils.report("TextField Validation Failed. The Actual Value :" + actualAsNumber + " Expected to be Lower than the expected value: " + expectedValue, Reporter.FAIL);
                         break;
                 }
             }
@@ -471,4 +550,22 @@ public class ClickOperationsHandler {
             BaseTestUtils.report("Failed to validate Tooltip, Expected value: " + expectedTooltipValue + ", Actual value: " + actualTooltipValue, Reporter.FAIL);
         }
     }
+
+
+    public static void clickOnSwitchButton(String label, String params, String state) {
+        VisionDebugIdsManager.setLabel(label);
+        VisionDebugIdsManager.setParams(params);
+        if (state.equalsIgnoreCase("off")) {
+            if (WebUIUtils.fluentWait(ComponentLocatorFactory.getLocatorByXpathDbgId(VisionDebugIdsManager.getDataDebugId()).getBy()).getAttribute("aria-checked").equals("true")) {
+                WebUIVisionBasePage.getCurrentPage().getContainer().getButton(label).click();
+            }
+        }
+
+        if (state.equalsIgnoreCase("on")) {
+            if (WebUIUtils.fluentWait(ComponentLocatorFactory.getLocatorByXpathDbgId(VisionDebugIdsManager.getDataDebugId()).getBy()).getAttribute("aria-checked").equals("false")) {
+                WebUIVisionBasePage.getCurrentPage().getContainer().getButton(label).click();
+            }
+        }
+    }
+
 }

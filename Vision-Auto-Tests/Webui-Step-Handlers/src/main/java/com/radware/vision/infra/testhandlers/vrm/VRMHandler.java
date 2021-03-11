@@ -22,6 +22,7 @@ import com.radware.automation.webui.widgets.impl.WebUICheckbox;
 import com.radware.automation.webui.widgets.impl.WebUIComponent;
 import com.radware.automation.webui.widgets.impl.WebUITextField;
 import com.radware.jsonparsers.impl.JsonUtils;
+import com.radware.vision.automation.VisionAutoInfra.CLIInfra.CliOperations;
 import com.radware.vision.automation.tools.exceptions.selenium.TargetWebElementNotFoundException;
 import com.radware.vision.automation.tools.exceptions.web.SessionStorageException;
 import com.radware.vision.automation.tools.sutsystemobjects.devicesinfo.enums.SUTDeviceType;
@@ -29,7 +30,6 @@ import com.radware.vision.infra.base.pages.navigation.WebUIVisionBasePage;
 import com.radware.vision.infra.enums.WebElementType;
 import com.radware.vision.infra.testhandlers.baseoperations.BasicOperationsHandler;
 import com.radware.vision.infra.testhandlers.baseoperations.clickoperations.ClickOperationsHandler;
-import com.radware.vision.infra.testhandlers.cli.CliOperations;
 import com.radware.vision.infra.testhandlers.vrm.enums.VRMDashboards;
 import com.radware.vision.infra.utils.ReportsUtils;
 import com.radware.vision.infra.utils.TimeUtils;
@@ -136,7 +136,7 @@ public class VRMHandler {
                 if (isLegendNameExistAndShouldReturn(chart, entry)) return;
                 if (isLabanAndEntryExists(chart, entry)) return;
                 int legendIndex;
-                legendIndex = legends.toList().stream().map(s-> String.valueOf(s)).collect(Collectors.toList()).indexOf(entry.legendName);
+                legendIndex = legends.toList().stream().map(s -> String.valueOf(s)).collect(Collectors.toList()).indexOf(entry.legendName);
                 if (legendIndex == -1) {
                     addErrorMessage("There is no legend with name " + entry.legendName);
                     scrollAndTakeScreenshot(chart);
@@ -160,10 +160,9 @@ public class VRMHandler {
                     scrollAndTakeScreenshot(chart);
                 }
 
-                if (entry.min != null)
-                {
-                    int actualCount = dataArray.toList().stream().map(s->s.toString().equals(entry.value)).collect(Collectors.toList()).size();
-                    if(actualCount < entry.min)
+                if (entry.min != null) {
+                    int actualCount = dataArray.toList().stream().map(s -> s.toString().equals(entry.value)).collect(Collectors.toList()).size();
+                    if (actualCount < entry.min)
                         addErrorMessage("The count of value " + entry.value + " is " + actualCount + " but the expected is " + entry.count);
                     scrollAndTakeScreenshot(chart);
 
@@ -218,8 +217,7 @@ public class VRMHandler {
                         addErrorMessage("The Actual count of value " + entry.value + " of label " + entry.label + " in chart " + chart + " is " + actualCount + " and the Expected is between minCount " + (minValue) + " and maxCount " + (maxValue));
                     return;
                 }
-                if (entry.min != null)
-                {
+                if (entry.min != null) {
                     int actualCount = 0;
                     for (Object value : dataArray) {
                         if (value.toString().equals(entry.value))
@@ -336,7 +334,7 @@ public class VRMHandler {
         if (!s.matches("\\d+\\.\\d+|\\d+"))
             return s.equals(entry.value);
         else if (entry.value.matches("\\d+\\.\\d+|\\d+"))
-            return Double.parseDouble(s) >= (Double.parseDouble(entry.value)- entry.valueOffset) && (Double.parseDouble(s) <= (Double.parseDouble(entry.value)+ entry.valueOffset));
+            return Double.parseDouble(s) >= (Double.parseDouble(entry.value) - entry.valueOffset) && (Double.parseDouble(s) <= (Double.parseDouble(entry.value) + entry.valueOffset));
         else return false;
     }
 
@@ -489,7 +487,7 @@ public class VRMHandler {
             WebElement element = WebUIUtils.fluentWait(ComponentLocatorFactory.getEqualLocatorByDbgId(VisionDebugIdsManager.getDataDebugId()).getBy());
             if (element == null)
                 return;
-            WebUIUtils.scrollIntoView(element,true);
+            WebUIUtils.scrollIntoView(element, true);
         } catch (Exception e) {
             BaseTestUtils.report(e.getMessage(), Reporter.FAIL);
         }
@@ -684,7 +682,7 @@ public class VRMHandler {
                     Matcher matcher = pattern.matcher(entry.offsetPercentage);
                     if (matcher.matches()) {
                         double percentage = Double.parseDouble(matcher.group(1)) / 100.0;
-                        entry.offset =(int) (entryData * percentage);
+                        entry.offset = (int) (entryData * percentage);
                     }
                     if (!(entryData - entry.offset <= dataFromArray || entryData + entry.offset >= dataFromArray))
                         addErrorMessage("The EXPECTED between " + (entryData + entry.offset) + " and " + (entryData - entry.offset) + ", The ACTUAL value of " + entry.label + " is " + dataFromArray);
@@ -995,8 +993,8 @@ public class VRMHandler {
         else
             WebUIUtils.scrollIntoView(WebUIUtils.fluentWait(targetElementLocator.getBy()));
     }
-    public void scrollUntilElementDisplayed(ComponentLocator elementsLocator, ComponentLocator targetElementLocator)
-    {
+
+    public void scrollUntilElementDisplayed(ComponentLocator elementsLocator, ComponentLocator targetElementLocator) {
         scrollUntilElementDisplayed(elementsLocator, targetElementLocator, false);
     }
 
@@ -1019,8 +1017,9 @@ public class VRMHandler {
                 elementsTextsList.add(element.getText());
             }
             if (isScrollElementToTop)
-                ((JavascriptExecutor)WebUIUtils.getDriver()).executeScript("arguments[0].scrollIntoView();", elementsShouldBeAddedList.get(elementsShouldBeAddedList.size() - 1));
-            else WebUIUtils.scrollIntoView(elementsShouldBeAddedList.size() != 0 ? elementsShouldBeAddedList.get(elementsShouldBeAddedList.size() - 1) : null);
+                ((JavascriptExecutor) WebUIUtils.getDriver()).executeScript("arguments[0].scrollIntoView();", elementsShouldBeAddedList.get(elementsShouldBeAddedList.size() - 1));
+            else
+                WebUIUtils.scrollIntoView(elementsShouldBeAddedList.size() != 0 ? elementsShouldBeAddedList.get(elementsShouldBeAddedList.size() - 1) : null);
         }
 
         return isTargetLocatorExist(targetElementLocator);
@@ -1080,7 +1079,8 @@ public class VRMHandler {
             //count the policies
             int actualPoliciesNumber = new LazyViewImpl(ComponentLocatorFactory.getEqualLocatorByDbgId("VRM_Scope_Selection_policies_DefensePro_" + deviceIp), new ComponentLocator(How.XPATH, "//label")).getViewValues().size();
             if (entry.total.equalsIgnoreCase("All")) {
-                CliOperations.runCommand(restTestBase.getRootServerCli(), String.format("mysql -u root -prad123 vision_ng -e \"select * from security_policies_view where device_ip='%s'\" | grep \"Network Protection\" | grep -v + | grep -v ALL | wc -l", deviceIp));
+                //kVision
+//                CliOperations.runCommand(restTestBase.getRootServerCli(), String.format("mysql -u root -prad123 vision_ng -e \"select * from security_policies_view where device_ip='%s'\" | grep \"Network Protection\" | grep -v + | grep -v ALL | wc -l", deviceIp));
                 int totalDpPolicesNumber = Integer.valueOf(CliOperations.lastRow);
                 if (String.valueOf(actualPoliciesNumber).equals(totalDpPolicesNumber)) {
                     addErrorMessage(String.format("device [%s] ->Actual polices total number [%s] , Expected \"All =\" [%s]", deviceIp, actualPoliciesNumber, totalDpPolicesNumber));
@@ -1392,7 +1392,7 @@ public class VRMHandler {
         }
     }
 
-    public static class DfProtectedObject{
+    public static class DfProtectedObject {
         public String name;
         public Integer index;
     }
@@ -1496,7 +1496,8 @@ public class VRMHandler {
         InvokeUtils.invokeCommand(null, "yum install stress", rootServerCli, 3 * 60 * 1000, true);
         InvokeUtils.invokeCommand(null, "sudo yum install -y epel-release", rootServerCli, 3 * 60 * 1000, true);
         InvokeUtils.invokeCommand(null, "sudo yum install -y stress", rootServerCli, 3 * 60 * 1000, true);
-        CliOperations.runCommand(rootServerCli, "free");
+        //kVision
+//        CliOperations.runCommand(rootServerCli, "free");
         int number;
         String warningRising;
         String warningFalling;

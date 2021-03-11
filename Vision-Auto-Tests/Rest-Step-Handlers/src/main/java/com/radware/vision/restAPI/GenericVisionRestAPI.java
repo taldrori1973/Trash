@@ -4,13 +4,15 @@ import com.radware.vision.RestStepResult;
 import com.radware.vision.restTestHandler.GenericStepsHandler;
 import com.radware.vision.restTestHandler.RestClientsStepsHandler;
 import controllers.RestApiManagement;
-import lombok.Data;
 import lombok.Getter;
 import models.RestRequestSpecification;
 import models.RestResponse;
 import restInterface.RestApi;
 
 import java.net.ConnectException;
+
+import static com.radware.vision.utils.SutUtils.*;
+import static com.radware.vision.utils.UriUtils.buildUrlFromProtocolAndIp;
 
 @Getter
 public class GenericVisionRestAPI {
@@ -22,6 +24,24 @@ public class GenericVisionRestAPI {
     private String username;
     private String password;
     private String licenseKey;
+
+    /**
+     * This is for Current Vision Requests , using Sut Params
+     * @param requestFilePath
+     * @param requestLabel
+     * @throws NoSuchFieldException
+     */
+    public GenericVisionRestAPI(String requestFilePath, String requestLabel) throws NoSuchFieldException {
+        this(
+                buildUrlFromProtocolAndIp(getCurrentVisionRestProtocol(), getCurrentVisionIp())
+                , getCurrentVisionRestPort()
+                , getCurrentVisionRestUserName()
+                , getCurrentVisionRestUserPassword()
+                , null
+                , requestFilePath
+                , requestLabel
+        );
+    }
 
     /**
      * @param baseUri             : the request will be sent to https://<visionIp>

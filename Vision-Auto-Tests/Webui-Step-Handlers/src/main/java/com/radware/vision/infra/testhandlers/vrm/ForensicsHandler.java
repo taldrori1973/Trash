@@ -1,4 +1,4 @@
-package com.radware.vision.infra.testhandlers.ams;
+package com.radware.vision.infra.testhandlers.vrm;
 
 
 import com.google.common.collect.Lists;
@@ -10,7 +10,7 @@ import com.radware.automation.webui.widgets.ComponentLocator;
 import com.radware.automation.webui.widgets.ComponentLocatorFactory;
 import com.radware.vision.automation.tools.exceptions.selenium.TargetWebElementNotFoundException;
 import com.radware.vision.infra.testhandlers.baseoperations.BasicOperationsHandler;
-import com.radware.vision.infra.testhandlers.ams.enums.vrmActions;
+import com.radware.vision.infra.testhandlers.vrm.enums.vrmActions;
 import com.radware.vision.vision_project_cli.RootServerCli;
 import org.apache.commons.lang3.StringUtils;
 import org.json.JSONArray;
@@ -21,11 +21,11 @@ import org.openqa.selenium.WebElement;
 
 import java.util.*;
 
-public class ForensicsHandler extends AMSBaseUtilies {
+public class ForensicsHandler extends VRMBaseUtilies {
 
 
     public void VRMForensicsOperation(vrmActions operationType, String forensicsName, Map<String, String> forensicsEntry, RootServerCli rootServerCli) throws Exception {
-        BaseAMSOperation(operationType, forensicsName, forensicsEntry);
+        BaseVRMOperation(operationType, forensicsName, forensicsEntry,rootServerCli);
     }
 
     protected void AMSValidateBase(RootServerCli rootServerCli, String forensicsName, Map<String, String> map) {
@@ -384,7 +384,7 @@ public class ForensicsHandler extends AMSBaseUtilies {
     }
 
     @Override
-    protected void AMSGenerateBase(String reportName, Map<String, String> map) throws TargetWebElementNotFoundException {
+    protected void generateVRMBase(String reportName, Map<String, String> map) throws TargetWebElementNotFoundException {
         generate(reportName, map);
     }
 

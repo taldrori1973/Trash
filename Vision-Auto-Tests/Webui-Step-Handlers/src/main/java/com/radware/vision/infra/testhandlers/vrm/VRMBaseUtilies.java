@@ -1,5 +1,4 @@
 package com.radware.vision.infra.testhandlers.vrm;
-
 import com.radware.automation.react.widgets.impl.ReactDateControl;
 import com.radware.automation.react.widgets.impl.ReactSelectControl;
 import com.radware.automation.react.widgets.impl.enums.OnOffStatus;
@@ -14,6 +13,7 @@ import com.radware.automation.webui.widgets.ComponentLocator;
 import com.radware.automation.webui.widgets.ComponentLocatorFactory;
 import com.radware.automation.webui.widgets.impl.WebUICheckbox;
 import com.radware.automation.webui.widgets.impl.WebUIComponent;
+import com.radware.vision.automation.VisionAutoInfra.CLIInfra.CliOperations;
 import com.radware.vision.automation.tools.exceptions.selenium.TargetWebElementNotFoundException;
 import com.radware.vision.automation.tools.exceptions.web.DropdownItemNotFoundException;
 import com.radware.vision.automation.tools.exceptions.web.DropdownNotOpenedException;
@@ -22,7 +22,6 @@ import com.radware.vision.automation.tools.sutsystemobjects.devicesinfo.enums.SU
 import com.radware.vision.vision_project_cli.RadwareServerCli;
 import com.radware.vision.vision_project_cli.RootServerCli;
 import com.radware.vision.infra.testhandlers.baseoperations.BasicOperationsHandler;
-import com.radware.vision.infra.testhandlers.cli.CliOperations;
 import com.radware.vision.infra.testhandlers.vrm.enums.vrmActions;
 import com.radware.vision.infra.utils.ReportsUtils;
 import com.radware.vision.infra.utils.TimeUtils;
@@ -981,10 +980,12 @@ public class VRMBaseUtilies {
             }
         }
         String commandToExecute = "net firewall open-port 10080 open";
-        CliOperations.runCommand(radwareServerCli, commandToExecute);
+        //kVision
+        // CliOperations.runCommand(radwareServerCli, commandToExecute);
         String port = "10080";
         commandToExecute = "curl -X POST --header 'Content-Type: application/json' --header 'Accept: */*' 'http://" + host + ":" + port + "/reporter/mgmt/monitor/reporter/internal-dashboard/scheduledTasks?jobClassName=com.reporter.scheduled.report.vrm.retention.VrmScheduledReportRetentionTask'";
-        CliOperations.runCommand(rootServerCli, commandToExecute);
+        //kVision
+//        CliOperations.runCommand(rootServerCli, commandToExecute);
     }
 
     /**

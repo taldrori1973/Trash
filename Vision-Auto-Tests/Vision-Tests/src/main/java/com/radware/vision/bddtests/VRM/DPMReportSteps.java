@@ -2,7 +2,7 @@ package com.radware.vision.bddtests.VRM;
 
 import com.radware.vision.bddtests.BddUITestBase;
 import com.radware.vision.infra.testhandlers.DPM.DPMReportHandler;
-import com.radware.vision.infra.testhandlers.ams.enums.vrmActions;
+import com.radware.vision.infra.testhandlers.vrm.enums.vrmActions;
 import cucumber.api.java.en.Given;
 
 import java.util.Map;

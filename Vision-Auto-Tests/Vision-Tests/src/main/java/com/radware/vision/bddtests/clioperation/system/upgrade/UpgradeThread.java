@@ -2,11 +2,11 @@ package com.radware.vision.bddtests.clioperation.system.upgrade;
 
 import com.radware.automation.tools.basetest.BaseTestUtils;
 import com.radware.automation.tools.basetest.Reporter;
+import com.radware.vision.automation.VisionAutoInfra.CLIInfra.CliOperations;
+import com.radware.vision.automation.VisionAutoInfra.CLIInfra.Servers.RadwareServerCli;
+import com.radware.vision.automation.VisionAutoInfra.CLIInfra.Servers.RootServerCli;
 import com.radware.vision.bddtests.clioperation.FileSteps;
 import com.radware.vision.bddtests.vmoperations.Deploy.Upgrade;
-import com.radware.vision.infra.testhandlers.cli.CliOperations;
-import com.radware.vision.vision_project_cli.RadwareServerCli;
-import com.radware.vision.vision_project_cli.RootServerCli;
 import com.radware.vision.bddtests.vmoperations.VMOperationsSteps;
 import enums.SUTEntryType;
 

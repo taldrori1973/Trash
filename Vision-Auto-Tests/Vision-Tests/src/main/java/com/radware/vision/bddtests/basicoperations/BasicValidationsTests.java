@@ -14,7 +14,6 @@ import com.radware.vision.automation.AutoUtils.Operators.OperatorsEnum;
 import com.radware.vision.automation.tools.sutsystemobjects.devicesinfo.enums.SUTDeviceType;
 import com.radware.vision.bddtests.BddUITestBase;
 import com.radware.vision.infra.enums.DeviceDriverType;
-import com.radware.vision.infra.enums.EqualsOrContains;
 import com.radware.vision.infra.enums.FindByType;
 import com.radware.vision.infra.enums.PopupDialogBoxTexts;
 import com.radware.vision.infra.testhandlers.DPM.VirtsTableHandler;

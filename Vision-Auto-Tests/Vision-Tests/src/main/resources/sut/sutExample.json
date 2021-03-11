@@ -1,7 +1,7 @@
 {
   "setupFile": "fullSetup.json",
   "clientConfiguration": {
-    "hostIp": "172.17.164.101",
+    "hostIp": "172.17.164.102",
     "userName": "radware",
     "password": "radware",
     "restConnection": {
