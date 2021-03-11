@@ -1,4 +1,4 @@
-@Analytics_ADC @TC105998
+@Analytics_ADC @TC105998 
 Feature: Forensic Attack details Tests
 
   
@@ -8,10 +8,6 @@ Feature: Forensic Attack details Tests
     Given CLI Reset radware password
     # Sleeping in order to let collector cache clean
     Then Sleep "20"
-#    * REST Delete ES index "dp-traffic-*"
-#    * REST Delete ES index "dp-https-stats-*"
-#    * REST Delete ES index "dp-https-rt-*"
-#    * REST Delete ES index "dp-five-*"
     * REST Delete ES index "dp-*"
 
     * REST Delete ES index "forensics-*"
@@ -26,7 +22,7 @@ Feature: Forensic Attack details Tests
   Scenario: Run DP simulator
     Given CLI simulate 1 attacks of type "VRM_attacks" on "DefensePro" 10 and wait 250 seconds
 
-  
+
   @SID_3
   Scenario: VRM - Login to VRM Forensics
     Given UI Login with user "sys_admin" and password "radware"
@@ -34,7 +30,7 @@ Feature: Forensic Attack details Tests
     Then UI Navigate to "AMS Forensics" page via homepage
     Then UI Click Button "New Forensics Tab"
 
-  
+
   @SID_4
   Scenario: VRM - Add New Forensics Report Attack details1
     When UI "Create" Forensics With Name "Attack Details1"
@@ -295,11 +291,13 @@ Feature: Forensic Attack details Tests
     Then UI Navigate to "AMS Forensics" page via homepage
     Then UI Click Button "New Forensics Tab"
 
+  
   @SID_30
   Scenario: New attack and create forensics view
     Given CLI simulate 1 attacks of type "rest_traffic_filter" on "DefensePro" 10 and wait 50 seconds
     When UI "Create" Forensics With Name "Attack_Details"
       | Output | Start Time,Action,Attack ID,Threat Category,Duration |
+
   
   @SID_31
   Scenario: VRM - open forensic "Attack details" table
@@ -307,10 +305,12 @@ Feature: Forensic Attack details Tests
     Then UI Click Button "Generate Snapshot Forensics Manually" with value "Attack_Details"
     Then Sleep "35"
     And UI Click Button "Views.Forensic" with value "Attack_Details,0"
-    Then UI click Table row by keyValue or Index with elementLabel "Forensics.Table" findBy columnName "Attack ID" findBy cellValue "7839-1402580209"
+
+
   
   @SID_32
   Scenario: Validate Behavioral DoS table
+    Then UI click Table row by keyValue or Index with elementLabel "Forensics.Table" findBy columnName "Attack ID" findBy cellValue "7839-1402580209"
     Then UI Text of "Forensics.Attack Details.Detail" with extension "Action" equal to "Drop"
     Then UI Text of "Forensics.Attack Details.Detail" with extension "Attack ID" equal to "7839-1402580209"
     Then UI Text of "Forensics.Attack Details.Detail" with extension "Threat Category" equal to "Behavioral DoS"
@@ -331,7 +331,7 @@ Feature: Forensic Attack details Tests
     Then UI Text of "Forensics.Attack Details.Detail" with extension "Source Port" equal to "1024"
     Then UI Text of "Forensics.Attack Details.Detail" with extension "Status" equal to "Terminated"
     Then UI Text of "Forensics.Attack Details.Detail" with extension "VLAN Tag" equal to "N/A"
-    Then UI Text of "Forensics.Attack Details.Detail" with extension "State" equal to "footprint-applied"
+    Then UI Text of "Forensics.Attack Details.Detail" with extension "State" equal to "Real-Time Signature Blocking"
     Then UI Text of "Forensics.Attack Details.Detail" with extension "Packet Size" equal to "124"
     Then UI Text of "Forensics.Attack Details.Detail" with extension "Source L4 Port" equal to "1024"
     Then UI Text of "Forensics.Attack Details.Detail" with extension "TCP Sequence Number" equal to "123456"
@@ -343,7 +343,7 @@ Feature: Forensic Attack details Tests
 
   
   @SID_33
-  Scenario: close attack details details
+  Scenario: close attack Behavioral DoS details
     Then UI Click Button "Forensics.Attack Details.Close"
 
   
@@ -376,7 +376,7 @@ Feature: Forensic Attack details Tests
     Then UI Text of "Forensics.Attack Details.Detail" with extension "VLAN Tag" equal to "N/A"
 
   @SID_36
-  Scenario: close attack details details
+  Scenario: close attack Traffic Filters details
     Then UI Click Button "Forensics.Attack Details.Close"
 
   @SID_37
@@ -405,7 +405,6 @@ Feature: Forensic Attack details Tests
     Then UI Text of "Forensics.Attack Details.Detail" with extension "Source Port" equal to "Multiple"
     Then UI Text of "Forensics.Attack Details.Detail" with extension "Status" equal to "Terminated"
     Then UI Text of "Forensics.Attack Details.Detail" with extension "VLAN Tag" equal to "Multiple"
-    Then UI Text of "Forensics.Attack Details.Detail" with extension "Average Attack Rate" equal to "9947"
     Then UI Text of "Forensics.Attack Details.Detail" with extension "Activation Threshold" equal to "2500"
     Then UI Text of "Forensics.Attack Details.Detail" with extension "Attack Volume" equal to "208889"
     Then UI Text of "Forensics.Attack Details.Detail" with extension "TCP Challenge" equal to "Transparent Proxy"
@@ -414,7 +413,7 @@ Feature: Forensic Attack details Tests
     Then UI Text of "Forensics.Attack Details.Detail" with extension "HTTP Auth. List" equal to "0"
 
   @SID_39
-  Scenario: close attack details details
+  Scenario: close attack SYN Flood details
     Then UI Click Button "Forensics.Attack Details.Close"
 
   @SID_40
@@ -451,7 +450,7 @@ Feature: Forensic Attack details Tests
     Then UI Text of "Forensics.Attack Details.Detail" with extension "Average Packet Rate [Packet/Sec]" equal to "30"
 
   @SID_42
-  Scenario: close attack details details
+  Scenario: close attack DoS details
     Then UI Click Button "Forensics.Attack Details.Close"
 
   @SID_43
@@ -483,7 +482,7 @@ Feature: Forensic Attack details Tests
     Then UI Text of "Forensics.Attack Details.Detail" with extension "VLAN Tag" equal to "N/A"
 
   @SID_45
-  Scenario: close attack details details
+  Scenario: close attack Intrusions details
     Then UI Click Button "Forensics.Attack Details.Close"
 
   @SID_46
@@ -515,13 +514,13 @@ Feature: Forensic Attack details Tests
     Then UI Validate Element Existence By Label "Forensics.Attack Details.Detail" if Exists "true" with value "Duration"
 
   @SID_48
-  Scenario: close attack details details
+  Scenario: close attack Server Cracking details
     Then UI Click Button "Forensics.Attack Details.Close"
-
+  
   @SID_49
   Scenario: Enter to 136-1414505529 details
     Given UI click Table row by keyValue or Index with elementLabel "Forensics.Table" findBy columnName "Attack ID" findBy cellValue "136-1414505529"
-
+  
   @SID_50
   Scenario: Validate Anti-Scanning details
     Then UI Text of "Forensics.Attack Details.Detail" with extension "Action" equal to "Drop"
@@ -554,7 +553,7 @@ Feature: Forensic Attack details Tests
 
     Then UI Text of "Forensics.Attack Details.Detail.Real-Time Signature.Operator" with extension "1" equal to "OR"
     Then UI Text of "Forensics.Attack Details.Detail.Real-Time Signature.Parameter" with extension "1" equal to "destination-ip"
-    Then UI Text of "Forensics.Attack Details.Detail.Real-Time Signature.Value/s" with extension "1" equal to "10.10.1.200"
+    Then UI Text of "Forensics.Attack Details.Detail.Real-Time Signature.Values" with extension "1" equal to "10.10.1.200"
 
     Then UI Text of "Forensics.Attack Details.Detail.Real-Time Signature.Outer Value" with extension "2" equal to "]"
 
@@ -564,30 +563,30 @@ Feature: Forensic Attack details Tests
 
     Then UI Text of "Forensics.Attack Details.Detail.Real-Time Signature.Operator" with extension "5" equal to "AND"
     Then UI Text of "Forensics.Attack Details.Detail.Real-Time Signature.Parameter" with extension "5" equal to "ttl"
-    Then UI Text of "Forensics.Attack Details.Detail.Real-Time Signature.Value/s" with extension "5" equal to "255"
+    Then UI Text of "Forensics.Attack Details.Detail.Real-Time Signature.Values" with extension "5" equal to "255"
 
     Then UI Text of "Forensics.Attack Details.Detail.Real-Time Signature.Operator" with extension "6" equal to "AND"
     Then UI Text of "Forensics.Attack Details.Detail.Real-Time Signature.Parameter" with extension "6" equal to "packet-size"
-    Then UI Text of "Forensics.Attack Details.Detail.Real-Time Signature.Value/s" with extension "6" equal to "124"
+    Then UI Text of "Forensics.Attack Details.Detail.Real-Time Signature.Values" with extension "6" equal to "124"
 
     Then UI Text of "Forensics.Attack Details.Detail.Real-Time Signature.Operator" with extension "7" equal to "AND"
     Then UI Text of "Forensics.Attack Details.Detail.Real-Time Signature.Parameter" with extension "7" equal to "sequence-number"
-    Then UI Text of "Forensics.Attack Details.Detail.Real-Time Signature.Value/s" with extension "7" equal to "123456"
+    Then UI Text of "Forensics.Attack Details.Detail.Real-Time Signature.Values" with extension "7" equal to "123456"
 
     Then UI Text of "Forensics.Attack Details.Detail.Real-Time Signature.Outer Value" with extension "8" equal to "]"
 
     Then UI Text of "Forensics.Attack Details.Detail.Real-Time Signature.Operator" with extension "9" equal to "AND"
     Then UI Text of "Forensics.Attack Details.Detail.Real-Time Signature.Parameter" with extension "9" equal to "source-ip"
-    Then UI Text of "Forensics.Attack Details.Detail.Real-Time Signature.Value/s" with extension "9" equal to "192.85.1.2"
-
+    Then UI Text of "Forensics.Attack Details.Detail.Real-Time Signature.Values" with extension "9" equal to "192.85.1.2"
+  
   @SID_51
-  Scenario: close attack details details
+  Scenario: close attack Anti-Scanning details
     Then UI Click Button "Forensics.Attack Details.Close"
-
+  
   @SID_52
   Scenario: Enter to 7447-1402580209 details
     Given UI click Table row by keyValue or Index with elementLabel "Forensics.Table" findBy columnName "Attack ID" findBy cellValue "7447-1402580209"
-
+  
   @SID_53
   Scenario: Validate DNS Flood details
     Then UI Text of "Forensics.Attack Details.Detail" with extension "Action" equal to "Forward"
@@ -610,7 +609,7 @@ Feature: Forensic Attack details Tests
     Then UI Text of "Forensics.Attack Details.Detail" with extension "Source Port" equal to "0"
     Then UI Text of "Forensics.Attack Details.Detail" with extension "Status" equal to "Terminated"
     Then UI Text of "Forensics.Attack Details.Detail" with extension "VLAN Tag" equal to "N/A"
-    Then UI Text of "Forensics.Attack Details.Detail" with extension "State" equal to "footprint-applied"
+    Then UI Text of "Forensics.Attack Details.Detail" with extension "State" equal to "Real-Time Signature Challenge"
     Then UI Text of "Forensics.Attack Details.Detail" with extension "DNS ID" equal to "1"
     Then UI Text of "Forensics.Attack Details.Detail" with extension "DNS Query Count" equal to "1"
     Then UI Text of "Forensics.Attack Details.Detail" with extension "L4 Checksum" equal to "10117"
@@ -621,16 +620,16 @@ Feature: Forensic Attack details Tests
 
     Then UI Text of "Forensics.Attack Details.Detail.Real-Time Signature.Operator" with extension "1" equal to "OR"
     Then UI Text of "Forensics.Attack Details.Detail.Real-Time Signature.Parameter" with extension "1" equal to "checksum"
-    Then UI Text of "Forensics.Attack Details.Detail.Real-Time Signature.Value/s" with extension "1" equal to "10117"
+    Then UI Text of "Forensics.Attack Details.Detail.Real-Time Signature.Values" with extension "1" equal to "10117"
 
     Then UI Text of "Forensics.Attack Details.Detail.Real-Time Signature.Outer Value" with extension "2" equal to "]"
 
 #    Then UI Validate Text field "Forensics.Attack Details.Detail.whitelist_0" have value "mail.gooooooooooooooooooooo.uk"
 #    Then UI Validate Text field "Forensics.Attack Details.Detail.whitelist_1" have value "gmail.google.com"
 #    Then UI Validate Text field "Forensics.Attack Details.Detail.whitelist_2" have value "www.google.com"
-
+  
   @SID_54
-  Scenario: close attack details details
+  Scenario: close attack DNS Flood details
     Then UI Click Button "Forensics.Attack Details.Close"
 
   @SID_55
@@ -664,25 +663,27 @@ Feature: Forensic Attack details Tests
   Scenario: Close report details
     When UI Click Button "Forensics.Attack Details.Close"
 
+  
   @SID_58
   Scenario: VRM - Add New Forensics Report Attack ACL or 34-2206430105 for samples
     When UI "Create" Forensics With Name "Attack ACL"
-      | Criteria | Event Criteria:Threat Category,Operator:Equals,Value:[ACL]; Event Criteria:Attack ID,Operator:Equals,Value:34-2206430105; |
+      | Criteria | Event Criteria:Threat Category,Operator:Equals,Value:ACL; Event Criteria:Radware ID,Operator:Equals,Value:700000 |
       | Output   | Action,Attack ID,Threat Category,Duration                   |
-    Then UI Click Button "Edit" with value "Attack ACL"
-    Then UI Click Button "Expand Collapse"
-    And UI Click Button "Tab" with value "criteria-tab"
-    Then UI Click Button "Criteria.Any"
-    Then UI Click Button "Submit" with value "Submit"
+    Then UI Click Button "Edit Forensics" with value "Attack ACL"
+    Then UI Click Button "Criteria Tab"
+    Then UI Select Element with label "Criteria Apply To" and params "any"
+    Then UI Click Button "save"
     Then UI Click Button "My Forensics" with value "Attack ACL"
     Then UI Click Button "Generate Snapshot Forensics Manually" with value "Attack ACL"
     Then Sleep "35"
     And UI Click Button "Views.Forensic" with value "Attack ACL,0"
+  
 
   @SID_59
     Scenario: Enter to 78-1536381752 details
     Given UI click Table row by keyValue or Index with elementLabel "Forensics.Table" findBy columnName "Attack ID" findBy cellValue "78-1536381752"
 
+  
   @SID_60
   Scenario: Validate ACL details
     Then UI Text of "Forensics.Attack Details.Detail" with extension "Action" equal to "Drop"
@@ -706,11 +707,13 @@ Feature: Forensic Attack details Tests
     Then UI Text of "Forensics.Attack Details.Detail" with extension "Status" equal to "Occurred"
     Then UI Text of "Forensics.Attack Details.Detail" with extension "VLAN Tag" equal to "N/A"
 
+
   @SID_61
-  Scenario: close attack details details
+  Scenario: close attack ACL details
     Then UI Click Button "Forensics.Attack Details.Close"
 
 ##################################################### Attack sampled data ####################################################################
+  
   @SID_62
   Scenario: validate Forensic sampled data
     Given UI click Table row by keyValue or Index with elementLabel "Forensics.Table" findBy columnName "Attack ID" findBy cellValue "34-2206430105"
