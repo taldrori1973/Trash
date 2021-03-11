@@ -10,6 +10,17 @@ Feature: Alert browser
       | body | sessionInactivTimeoutConfiguration=60 |
 
   @SID_2
+  Scenario Outline:Setup 1 - Add New Devices
+
+    Then REST Add "Alteon" Device To topology Tree with Name "<Device Name>" and Management IP "<Device IP>" into site "<Site>"
+      | attribute     | value |
+      | visionMgtPort | G2    |
+    Examples:
+      | Device Name | Device IP | Site    |
+      | Alt_1.1.1.1 | 1.1.1.1   | Default |
+      | Alt_2.2.2.2 | 2.2.2.2   | Default |
+
+  @SID_3
   Scenario: Acknowledge and unAcknowledge Alerts
     Given UI Login with user "radware" and password "radware"
     Then UI validate Alerts Filter by KeyValue
@@ -36,7 +47,7 @@ Feature: Alert browser
       | ackUnackStatusList | Unacknowledged |
       | restoreDefaults    | true           |
 
-  @SID_3
+  @SID_4
   Scenario: Device Type Alteon
     Then UI validate Alerts Filter by KeyValue
       | devicesList        |        |
@@ -50,7 +61,7 @@ Feature: Alert browser
       | ackUnackStatusList |        |
       | restoreDefaults    | true   |
 
-  @SID_4
+  @SID_5
   Scenario: Device Type DefebsePro
     Then UI validate Alerts Filter by KeyValue
       | devicesList        |            |
@@ -64,7 +75,7 @@ Feature: Alert browser
       | ackUnackStatusList |            |
       | restoreDefaults    | true       |
 
-  @SID_5
+  @SID_6
   Scenario: Device Type Vision
     Then UI validate Alerts Filter by KeyValue
       | devicesList        |        |
@@ -78,35 +89,35 @@ Feature: Alert browser
       | ackUnackStatusList |        |
       | restoreDefaults    | true   |
 
-  @SID_6
+  @SID_7
   Scenario: Default Devices Selection
     Then UI validate SelectAllDevices Filter
 
   @SID_8
   Scenario: Single Devices
     Then UI validate Alerts Filter by KeyValue
-      | devicesList        | Alt_172.16.62.60_vADC-2 |
-      | selectAllDevices   | false                   |
-      | raisedTimeUnit     | Hour/s                  |
-      | raisedTimeValue    | 24                      |
-      | severityList       |                         |
-      | modulesList        | Device General          |
-      | devicesTypeList    | Alteon                  |
-      | groupsList         |                         |
-      | ackUnackStatusList |                         |
-      | restoreDefaults    | true                    |
+      | devicesList        | Alt_1.1.1.1    |
+      | selectAllDevices   | false          |
+      | raisedTimeUnit     | Hour/s         |
+      | raisedTimeValue    | 24             |
+      | severityList       |                |
+      | modulesList        | Device General |
+      | devicesTypeList    | Alteon         |
+      | groupsList         |                |
+      | ackUnackStatusList |                |
+      | restoreDefaults    | true           |
 
     Then UI validate Alerts Filter by KeyValue
-      | devicesList        | Alt_172.16.62.60_vADC-3 |
-      | selectAllDevices   | false                   |
-      | raisedTimeUnit     | Hour/s                  |
-      | raisedTimeValue    | 24                      |
-      | severityList       |                         |
-      | modulesList        | Device General          |
-      | devicesTypeList    | Alteon                  |
-      | groupsList         |                         |
-      | ackUnackStatusList |                         |
-      | restoreDefaults    | true                    |
+      | devicesList        | Alt_2.2.2.2    |
+      | selectAllDevices   | false          |
+      | raisedTimeUnit     | Hour/s         |
+      | raisedTimeValue    | 24             |
+      | severityList       |                |
+      | modulesList        | Device General |
+      | devicesTypeList    | Alteon         |
+      | groupsList         |                |
+      | ackUnackStatusList |                |
+      | restoreDefaults    | true           |
 
   @SID_9
   Scenario: Filter General Filtering
@@ -123,7 +134,7 @@ Feature: Alert browser
       | restoreDefaults    | true                          |
 
     Then UI validate Alerts Filter by KeyValue
-      | devicesList        | Alt_172.16.62.60_vADC-2                                                                              |
+      | devicesList        | Alt_1.1.1.1                                                                                          |
       | selectAllDevices   | false                                                                                                |
       | raisedTimeUnit     | Hour/s                                                                                               |
       | raisedTimeValue    | 24                                                                                                   |
@@ -389,6 +400,13 @@ Feature: Alert browser
     Then UI Logout
 
   @SID_27
+  Scenario: Tear Down - Delete Devices
+#    When UI Open "Configurations" Tab
+    Then REST Login with user "radware" and password "radware"
+    Then REST Delete Device By IP "1.1.1.1"
+    Then REST Delete Device By IP "2.2.2.2"
+
+  @SID_28
   Scenario: Preparations - clear all alerts and delete local user
     Given UI Login with user "radware" and password "radware"
     Then REST Delete ES index "alert"
@@ -402,7 +420,7 @@ Feature: Alert browser
     When Send Request with the Given Specification
 
 
-  @SID_28
+  @SID_29
   Scenario: Create Local User and Validate alert
     Given That Current Vision is Logged In
     Given Create Following RUNTIME Parameters by Sending Request Specification from File "Vision/SystemConfigItemList" with label "Get Local Users"
@@ -414,17 +432,17 @@ Feature: Alert browser
     When Send Request with the Given Specification
     Given New Request Specification from File "Vision/SystemConfigItemList" with label "Create Local User"
     Given The Request Body is the following Object
-      | jsonPath                                                       | value                     |
-      | $.name                                                         | "cucumber"                |
-      | $.password                                                     | "Radware1234!@#$"         |
-      | $.requireDeviceLock                                            | true                      |
-      | $.userSettings.userLocale                                      | "en_US"                   |
-      | $.parameters.roleGroupPairList[0].groupName                    | "[ALL]"                   |
-      | $.parameters.roleGroupPairList[0].roleName                     | "SYS_ADMIN"               |
-      | $.networkPolicies[0].networkProtectionRuleId.deviceId          | "[ALL]"                   |
-      | $.networkPolicies[0].networkProtectionRuleId.rsIDSNewRulesName | "[ALL]"                   |
-      | $.roleGroupPairList[0].groupName                               | "[ALL]"                   |
-      | $.roleGroupPairList[0].roleName                                | "SYS_ADMIN"               |
+      | jsonPath                                                       | value             |
+      | $.name                                                         | "cucumber"        |
+      | $.password                                                     | "Radware1234!@#$" |
+      | $.requireDeviceLock                                            | true              |
+      | $.userSettings.userLocale                                      | "en_US"           |
+      | $.parameters.roleGroupPairList[0].groupName                    | "[ALL]"           |
+      | $.parameters.roleGroupPairList[0].roleName                     | "SYS_ADMIN"       |
+      | $.networkPolicies[0].networkProtectionRuleId.deviceId          | "[ALL]"           |
+      | $.networkPolicies[0].networkProtectionRuleId.rsIDSNewRulesName | "[ALL]"           |
+      | $.roleGroupPairList[0].groupName                               | "[ALL]"           |
+      | $.roleGroupPairList[0].roleName                                | "SYS_ADMIN"       |
     When Send Request with the Given Specification
     Then Validate That Response Status Code Is OK
     Then Validate That Response Body Contains
@@ -432,13 +450,13 @@ Feature: Alert browser
       | $.status | "ok"  |
     Then Sleep "60"
     Then UI Validate Alert record Content by KeyValue with columnName "Message" with content "User radware added account cucumber."
-      | columnName   | value           |
-      | Severity     | Info            |
-      | Module       | Vision General  |
-      | Product Name | Vision          |
-      | User Name    | radware         |
+      | columnName   | value          |
+      | Severity     | Info           |
+      | Module       | Vision General |
+      | Product Name | Vision         |
+      | User Name    | radware        |
 
-  @SID_29
+  @SID_30
   Scenario: Delete Local User
     Given That Current Vision is Logged In
     Given Create Following RUNTIME Parameters by Sending Request Specification from File "Vision/SystemConfigItemList" with label "Get Local Users"
