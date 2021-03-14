@@ -85,7 +85,7 @@ Feature: Forensics CSV without Attack details
   @SID_9
   Scenario: Validate detailed csv DNS
     Then CLI Run linux Command "cat /home/radware/ftp/csv_without_details_*.csv |wc -l" on "GENERIC_LINUX_SERVER" and validate result EQUALS "9"
-    Then CLI Run linux Command "cat /home/radware/ftp/csv_without_details_*.csv|head -$(echo $(grep -n "DNS flood IPv4 DNS-A" /home/radware/ftp/csv_without_details_*.csv |cut -f1 -d:)|bc)|tail -1|cut -d ',' -f 5" on "GENERIC_LINUX_SERVER" and validate result EQUALS "DNS"
+    Then CLI Run linux Command "cat /home/radware/ftp/csv_without_details_*.csv|head -$(echo $(grep -n "DNS flood IPv4 DNS-A" /home/radware/ftp/csv_without_details_*.csv |cut -f1 -d:)|bc)|tail -1|cut -d ',' -f 5" on "GENERIC_LINUX_SERVER" and validate result EQUALS "DNS-Protection"
     Then CLI Run linux Command "cat /home/radware/ftp/csv_without_details_*.csv|head -$(echo $(grep -n "DNS flood IPv4 DNS-A" /home/radware/ftp/csv_without_details_*.csv |cut -f1 -d:)|bc)|tail -1|cut -d ',' -f 7" on "GENERIC_LINUX_SERVER" and validate result EQUALS "BDOS"
     Then CLI Run linux Command "cat /home/radware/ftp/csv_without_details_*.csv|head -$(echo $(grep -n "DNS flood IPv4 DNS-A" /home/radware/ftp/csv_without_details_*.csv |cut -f1 -d:)|bc)|tail -1|cut -d ',' -f 9" on "GENERIC_LINUX_SERVER" and validate result EQUALS "7447-1402580209"
     Then CLI Run linux Command "cat /home/radware/ftp/csv_without_details_*.csv|head -$(echo $(grep -n "DNS flood IPv4 DNS-A" /home/radware/ftp/csv_without_details_*.csv |cut -f1 -d:)|bc)|tail -1|cut -d ',' -f 10" on "GENERIC_LINUX_SERVER" and validate result EQUALS "0.0.0.0"
@@ -103,7 +103,7 @@ Feature: Forensics CSV without Attack details
 
   @SID_10
   Scenario: Validate detailed csv BDoS
-    Then CLI Run linux Command "cat /home/radware/ftp/csv_without_details_*.csv|head -$(echo $(grep -n "7839-1402580209" /home/radware/ftp/csv_without_details_*.csv |cut -f1 -d:)|bc)|tail -1|cut -d ',' -f 5" on "GENERIC_LINUX_SERVER" and validate result EQUALS "BehavioralDOS"
+    Then CLI Run linux Command "cat /home/radware/ftp/csv_without_details_*.csv|head -$(echo $(grep -n "7839-1402580209" /home/radware/ftp/csv_without_details_*.csv |cut -f1 -d:)|bc)|tail -1|cut -d ',' -f 5" on "GENERIC_LINUX_SERVER" and validate result EQUALS "Behavioral-DoS"
     Then CLI Run linux Command "cat /home/radware/ftp/csv_without_details_*.csv|head -$(echo $(grep -n "7839-1402580209" /home/radware/ftp/csv_without_details_*.csv |cut -f1 -d:)|bc)|tail -1|cut -d ',' -f 6" on "GENERIC_LINUX_SERVER" and validate result EQUALS "network flood IPv4 TCP-SYN-ACK"
     Then CLI Run linux Command "cat /home/radware/ftp/csv_without_details_*.csv|head -$(echo $(grep -n "7839-1402580209" /home/radware/ftp/csv_without_details_*.csv |cut -f1 -d:)|bc)|tail -1|cut -d ',' -f 7" on "GENERIC_LINUX_SERVER" and validate result EQUALS "BDOS"
     Then CLI Run linux Command "cat /home/radware/ftp/csv_without_details_*.csv|head -$(echo $(grep -n "7839-1402580209" /home/radware/ftp/csv_without_details_*.csv |cut -f1 -d:)|bc)|tail -1|cut -d ',' -f 8" on "GENERIC_LINUX_SERVER" and validate result EQUALS "Drop"
@@ -123,7 +123,7 @@ Feature: Forensics CSV without Attack details
 
   @SID_11
   Scenario: Validate detailed csv anti-scan
-    Then CLI Run linux Command "cat /home/radware/ftp/csv_without_details_*.csv|head -$(echo $(grep -n "TCP Scan (vertical)" /home/radware/ftp/csv_without_details_*.csv |cut -f1 -d:)|bc)|tail -1|cut -d ',' -f 5" on "GENERIC_LINUX_SERVER" and validate result EQUALS "AntiScanning"
+    Then CLI Run linux Command "cat /home/radware/ftp/csv_without_details_*.csv|head -$(echo $(grep -n "TCP Scan (vertical)" /home/radware/ftp/csv_without_details_*.csv |cut -f1 -d:)|bc)|tail -1|cut -d ',' -f 5" on "GENERIC_LINUX_SERVER" and validate result EQUALS "Anti-Scanning"
     Then CLI Run linux Command "cat /home/radware/ftp/csv_without_details_*.csv|head -$(echo $(grep -n "TCP Scan (vertical)" /home/radware/ftp/csv_without_details_*.csv |cut -f1 -d:)|bc)|tail -1|cut -d ',' -f 7" on "GENERIC_LINUX_SERVER" and validate result EQUALS "policy1"
     Then CLI Run linux Command "cat /home/radware/ftp/csv_without_details_*.csv|head -$(echo $(grep -n "TCP Scan (vertical)" /home/radware/ftp/csv_without_details_*.csv |cut -f1 -d:)|bc)|tail -1|cut -d ',' -f 8" on "GENERIC_LINUX_SERVER" and validate result EQUALS "Drop"
     Then CLI Run linux Command "cat /home/radware/ftp/csv_without_details_*.csv|head -$(echo $(grep -n "TCP Scan (vertical)" /home/radware/ftp/csv_without_details_*.csv |cut -f1 -d:)|bc)|tail -1|cut -d ',' -f 9" on "GENERIC_LINUX_SERVER" and validate result EQUALS "136-1414505529"
@@ -142,7 +142,7 @@ Feature: Forensics CSV without Attack details
 
   @SID_12
   Scenario: Validate detailed csv traffic filters
-    Then CLI Run linux Command "cat /home/radware/ftp/csv_without_details_*.csv|head -$(echo $(grep -n "f1" /home/radware/ftp/csv_without_details_*.csv |cut -f1 -d:)|bc)|tail -1|cut -d ',' -f 5" on "GENERIC_LINUX_SERVER" and validate result EQUALS "TrafficFilters"
+    Then CLI Run linux Command "cat /home/radware/ftp/csv_without_details_*.csv|head -$(echo $(grep -n "f1" /home/radware/ftp/csv_without_details_*.csv |cut -f1 -d:)|bc)|tail -1|cut -d ',' -f 5" on "GENERIC_LINUX_SERVER" and validate result EQUALS "Traffic-Filters"
     Then CLI Run linux Command "cat /home/radware/ftp/csv_without_details_*.csv|head -$(echo $(grep -n "f1" /home/radware/ftp/csv_without_details_*.csv |cut -f1 -d:)|bc)|tail -1|cut -d ',' -f 7" on "GENERIC_LINUX_SERVER" and validate result EQUALS "aaa4"
     Then CLI Run linux Command "cat /home/radware/ftp/csv_without_details_*.csv|head -$(echo $(grep -n "f1" /home/radware/ftp/csv_without_details_*.csv |cut -f1 -d:)|bc)|tail -1|cut -d ',' -f 8" on "GENERIC_LINUX_SERVER" and validate result EQUALS "Drop"
     Then CLI Run linux Command "cat /home/radware/ftp/csv_without_details_*.csv|head -$(echo $(grep -n "f1" /home/radware/ftp/csv_without_details_*.csv |cut -f1 -d:)|bc)|tail -1|cut -d ',' -f 9" on "GENERIC_LINUX_SERVER" and validate result EQUALS "34-2206430105"
@@ -161,7 +161,7 @@ Feature: Forensics CSV without Attack details
 
   @SID_13
   Scenario: Validate detailed csv Server Cracking
-    Then CLI Run linux Command "cat /home/radware/ftp/csv_without_details_*.csv|head -$(echo $(grep -n "Brute Force Web" /home/radware/ftp/csv_without_details_*.csv |cut -f1 -d:)|bc)|tail -1|cut -d ',' -f 5" on "GENERIC_LINUX_SERVER" and validate result EQUALS "ServerCracking"
+    Then CLI Run linux Command "cat /home/radware/ftp/csv_without_details_*.csv|head -$(echo $(grep -n "Brute Force Web" /home/radware/ftp/csv_without_details_*.csv |cut -f1 -d:)|bc)|tail -1|cut -d ',' -f 5" on "GENERIC_LINUX_SERVER" and validate result EQUALS "Cracking-Protection"
     Then CLI Run linux Command "cat /home/radware/ftp/csv_without_details_*.csv|head -$(echo $(grep -n "Brute Force Web" /home/radware/ftp/csv_without_details_*.csv |cut -f1 -d:)|bc)|tail -1|cut -d ',' -f 7" on "GENERIC_LINUX_SERVER" and validate result EQUALS "bbt-sc1"
     Then CLI Run linux Command "cat /home/radware/ftp/csv_without_details_*.csv|head -$(echo $(grep -n "Brute Force Web" /home/radware/ftp/csv_without_details_*.csv |cut -f1 -d:)|bc)|tail -1|cut -d ',' -f 8" on "GENERIC_LINUX_SERVER" and validate result EQUALS "Drop"
     Then CLI Run linux Command "cat /home/radware/ftp/csv_without_details_*.csv|head -$(echo $(grep -n "Brute Force Web" /home/radware/ftp/csv_without_details_*.csv |cut -f1 -d:)|bc)|tail -1|cut -d ',' -f 9" on "GENERIC_LINUX_SERVER" and validate result EQUALS "7840-1402580209"
@@ -200,7 +200,7 @@ Feature: Forensics CSV without Attack details
 
   @SID_15
   Scenario: Validate detailed csv BehavioralDOS - 2
-    Then CLI Run linux Command "cat /home/radware/ftp/csv_without_details_*.csv|head -$(echo $(grep -n "42-1514816419" /home/radware/ftp/csv_without_details_*.csv |cut -f1 -d:)|bc)|tail -1|cut -d ',' -f 5" on "GENERIC_LINUX_SERVER" and validate result EQUALS "BehavioralDOS"
+    Then CLI Run linux Command "cat /home/radware/ftp/csv_without_details_*.csv|head -$(echo $(grep -n "42-1514816419" /home/radware/ftp/csv_without_details_*.csv |cut -f1 -d:)|bc)|tail -1|cut -d ',' -f 5" on "GENERIC_LINUX_SERVER" and validate result EQUALS "Behavioral-DoS"
     Then CLI Run linux Command "cat /home/radware/ftp/csv_without_details_*.csv|head -$(echo $(grep -n "42-1514816419" /home/radware/ftp/csv_without_details_*.csv |cut -f1 -d:)|bc)|tail -1|cut -d ',' -f 6" on "GENERIC_LINUX_SERVER" and validate result EQUALS "network flood IPv4 TCP-SYN-ACK"
     Then CLI Run linux Command "cat /home/radware/ftp/csv_without_details_*.csv|head -$(echo $(grep -n "42-1514816419" /home/radware/ftp/csv_without_details_*.csv |cut -f1 -d:)|bc)|tail -1|cut -d ',' -f 7" on "GENERIC_LINUX_SERVER" and validate result EQUALS "pol_1"
     Then CLI Run linux Command "cat /home/radware/ftp/csv_without_details_*.csv|head -$(echo $(grep -n "42-1514816419" /home/radware/ftp/csv_without_details_*.csv |cut -f1 -d:)|bc)|tail -1|cut -d ',' -f 8" on "GENERIC_LINUX_SERVER" and validate result EQUALS "Drop"
@@ -211,7 +211,6 @@ Feature: Forensics CSV without Attack details
     Then CLI Run linux Command "cat /home/radware/ftp/csv_without_details_*.csv|head -$(echo $(grep -n "42-1514816419" /home/radware/ftp/csv_without_details_*.csv |cut -f1 -d:)|bc)|tail -1|cut -d ',' -f 14" on "GENERIC_LINUX_SERVER" and validate result EQUALS "Unknown"
     Then CLI Run linux Command "cat /home/radware/ftp/csv_without_details_*.csv|head -$(echo $(grep -n "42-1514816419" /home/radware/ftp/csv_without_details_*.csv |cut -f1 -d:)|bc)|tail -1|cut -d ',' -f 15" on "GENERIC_LINUX_SERVER" and validate result EQUALS "TCP"
     Then CLI Run linux Command "cat /home/radware/ftp/csv_without_details_*.csv|head -$(echo $(grep -n "42-1514816419" /home/radware/ftp/csv_without_details_*.csv |cut -f1 -d:)|bc)|tail -1|cut -d ',' -f 16" on "GENERIC_LINUX_SERVER" and validate result EQUALS "78"
-    Then CLI Run linux Command "cat /home/radware/ftp/csv_without_details_*.csv|head -$(echo $(grep -n "42-1514816419" /home/radware/ftp/csv_without_details_*.csv |cut -f1 -d:)|bc)|tail -1|cut -d ',' -f 17" on "GENERIC_LINUX_SERVER" and validate result EQUALS "182"
     Then CLI Run linux Command "cat /home/radware/ftp/csv_without_details_*.csv|head -$(echo $(grep -n "42-1514816419" /home/radware/ftp/csv_without_details_*.csv |cut -f1 -d:)|bc)|tail -1|cut -d ',' -f 18" on "GENERIC_LINUX_SERVER" and validate result EQUALS "0"
     Then CLI Run linux Command "cat /home/radware/ftp/csv_without_details_*.csv|head -$(echo $(grep -n "42-1514816419" /home/radware/ftp/csv_without_details_*.csv |cut -f1 -d:)|bc)|tail -1|cut -d ',' -f 19" on "GENERIC_LINUX_SERVER" and validate result EQUALS "Regular"
     Then CLI Run linux Command "cat /home/radware/ftp/csv_without_details_*.csv|head -$(echo $(grep -n "42-1514816419" /home/radware/ftp/csv_without_details_*.csv |cut -f1 -d:)|bc)|tail -1|cut -d ',' -f 20" on "GENERIC_LINUX_SERVER" and validate result EQUALS "0.00"
@@ -220,7 +219,7 @@ Feature: Forensics CSV without Attack details
 
   @SID_16
   Scenario: Validate detailed csv DOS Shield
-    Then CLI Run linux Command "cat /home/radware/ftp/csv_without_details_*.csv|head -$(echo $(grep -n "DOSS-Anomaly-TCP-SYN-RST" /home/radware/ftp/csv_without_details_*.csv |cut -f1 -d:)|bc)|tail -1|cut -d ',' -f 5" on "GENERIC_LINUX_SERVER" and validate result EQUALS "DOSShield"
+    Then CLI Run linux Command "cat /home/radware/ftp/csv_without_details_*.csv|head -$(echo $(grep -n "DOSS-Anomaly-TCP-SYN-RST" /home/radware/ftp/csv_without_details_*.csv |cut -f1 -d:)|bc)|tail -1|cut -d ',' -f 5" on "GENERIC_LINUX_SERVER" and validate result EQUALS "DoS"
     Then CLI Run linux Command "cat /home/radware/ftp/csv_without_details_*.csv|head -$(echo $(grep -n "DOSS-Anomaly-TCP-SYN-RST" /home/radware/ftp/csv_without_details_*.csv |cut -f1 -d:)|bc)|tail -1|cut -d ',' -f 7" on "GENERIC_LINUX_SERVER" and validate result EQUALS "BDOS"
     Then CLI Run linux Command "cat /home/radware/ftp/csv_without_details_*.csv|head -$(echo $(grep -n "DOSS-Anomaly-TCP-SYN-RST" /home/radware/ftp/csv_without_details_*.csv |cut -f1 -d:)|bc)|tail -1|cut -d ',' -f 8" on "GENERIC_LINUX_SERVER" and validate result EQUALS "Drop"
     Then CLI Run linux Command "cat /home/radware/ftp/csv_without_details_*.csv|head -$(echo $(grep -n "DOSS-Anomaly-TCP-SYN-RST" /home/radware/ftp/csv_without_details_*.csv |cut -f1 -d:)|bc)|tail -1|cut -d ',' -f 9" on "GENERIC_LINUX_SERVER" and validate result EQUALS "7706-1402580209"
@@ -270,6 +269,8 @@ Feature: Forensics CSV without Attack details
   Scenario: Validate Forensics.Table
     Then UI Click Button "My Forensics Tab"
     Then UI Click Button "My Forensics" with value "csv_without_details"
+    Then UI Click Button "Generate Snapshot Forensics Manually" with value "csv_without_details"
+    Then Sleep "35"
     And UI Click Button "Views.Forensic" with value "csv_without_details,0"
     Then UI Validate "Forensics.Table" Table rows count EQUALS to 8
 
@@ -281,7 +282,7 @@ Feature: Forensics CSV without Attack details
   @SID_22
   Scenario: Validate detailed csv DNS
     Then CLI Run linux Command "cat /home/radware/ftp/csv_without_details_*.csv |wc -l" on "GENERIC_LINUX_SERVER" and validate result EQUALS "9"
-    Then CLI Run linux Command "cat /home/radware/ftp/csv_without_details_*.csv|head -$(echo $(grep -n "DNS flood IPv4 DNS-A" /home/radware/ftp/csv_without_details_*.csv |cut -f1 -d:)|bc)|tail -1|cut -d ',' -f 5" on "GENERIC_LINUX_SERVER" and validate result EQUALS "DNS"
+    Then CLI Run linux Command "cat /home/radware/ftp/csv_without_details_*.csv|head -$(echo $(grep -n "DNS flood IPv4 DNS-A" /home/radware/ftp/csv_without_details_*.csv |cut -f1 -d:)|bc)|tail -1|cut -d ',' -f 5" on "GENERIC_LINUX_SERVER" and validate result EQUALS "DNS-Protection"
     Then CLI Run linux Command "cat /home/radware/ftp/csv_without_details_*.csv|head -$(echo $(grep -n "DNS flood IPv4 DNS-A" /home/radware/ftp/csv_without_details_*.csv |cut -f1 -d:)|bc)|tail -1|cut -d ',' -f 7" on "GENERIC_LINUX_SERVER" and validate result EQUALS "BDOS"
     Then CLI Run linux Command "cat /home/radware/ftp/csv_without_details_*.csv|head -$(echo $(grep -n "DNS flood IPv4 DNS-A" /home/radware/ftp/csv_without_details_*.csv |cut -f1 -d:)|bc)|tail -1|cut -d ',' -f 9" on "GENERIC_LINUX_SERVER" and validate result EQUALS "7447-1402580209"
     Then CLI Run linux Command "cat /home/radware/ftp/csv_without_details_*.csv|head -$(echo $(grep -n "DNS flood IPv4 DNS-A" /home/radware/ftp/csv_without_details_*.csv |cut -f1 -d:)|bc)|tail -1|cut -d ',' -f 10" on "GENERIC_LINUX_SERVER" and validate result EQUALS "0.0.0.0"
@@ -299,7 +300,7 @@ Feature: Forensics CSV without Attack details
 
   @SID_23
   Scenario: Validate detailed csv BDoS
-    Then CLI Run linux Command "cat /home/radware/ftp/csv_without_details_*.csv|head -$(echo $(grep -n "7839-1402580209" /home/radware/ftp/csv_without_details_*.csv |cut -f1 -d:)|bc)|tail -1|cut -d ',' -f 5" on "GENERIC_LINUX_SERVER" and validate result EQUALS "BehavioralDOS"
+    Then CLI Run linux Command "cat /home/radware/ftp/csv_without_details_*.csv|head -$(echo $(grep -n "7839-1402580209" /home/radware/ftp/csv_without_details_*.csv |cut -f1 -d:)|bc)|tail -1|cut -d ',' -f 5" on "GENERIC_LINUX_SERVER" and validate result EQUALS "Behavioral-DoS"
     Then CLI Run linux Command "cat /home/radware/ftp/csv_without_details_*.csv|head -$(echo $(grep -n "7839-1402580209" /home/radware/ftp/csv_without_details_*.csv |cut -f1 -d:)|bc)|tail -1|cut -d ',' -f 6" on "GENERIC_LINUX_SERVER" and validate result EQUALS "network flood IPv4 TCP-SYN-ACK"
     Then CLI Run linux Command "cat /home/radware/ftp/csv_without_details_*.csv|head -$(echo $(grep -n "7839-1402580209" /home/radware/ftp/csv_without_details_*.csv |cut -f1 -d:)|bc)|tail -1|cut -d ',' -f 7" on "GENERIC_LINUX_SERVER" and validate result EQUALS "BDOS"
     Then CLI Run linux Command "cat /home/radware/ftp/csv_without_details_*.csv|head -$(echo $(grep -n "7839-1402580209" /home/radware/ftp/csv_without_details_*.csv |cut -f1 -d:)|bc)|tail -1|cut -d ',' -f 8" on "GENERIC_LINUX_SERVER" and validate result EQUALS "Drop"
@@ -319,7 +320,7 @@ Feature: Forensics CSV without Attack details
 
   @SID_24
   Scenario: Validate detailed csv anti-scan
-    Then CLI Run linux Command "cat /home/radware/ftp/csv_without_details_*.csv|head -$(echo $(grep -n "TCP Scan (vertical)" /home/radware/ftp/csv_without_details_*.csv |cut -f1 -d:)|bc)|tail -1|cut -d ',' -f 5" on "GENERIC_LINUX_SERVER" and validate result EQUALS "AntiScanning"
+    Then CLI Run linux Command "cat /home/radware/ftp/csv_without_details_*.csv|head -$(echo $(grep -n "TCP Scan (vertical)" /home/radware/ftp/csv_without_details_*.csv |cut -f1 -d:)|bc)|tail -1|cut -d ',' -f 5" on "GENERIC_LINUX_SERVER" and validate result EQUALS "Anti-Scanning"
     Then CLI Run linux Command "cat /home/radware/ftp/csv_without_details_*.csv|head -$(echo $(grep -n "TCP Scan (vertical)" /home/radware/ftp/csv_without_details_*.csv |cut -f1 -d:)|bc)|tail -1|cut -d ',' -f 7" on "GENERIC_LINUX_SERVER" and validate result EQUALS "policy1"
     Then CLI Run linux Command "cat /home/radware/ftp/csv_without_details_*.csv|head -$(echo $(grep -n "TCP Scan (vertical)" /home/radware/ftp/csv_without_details_*.csv |cut -f1 -d:)|bc)|tail -1|cut -d ',' -f 8" on "GENERIC_LINUX_SERVER" and validate result EQUALS "Drop"
     Then CLI Run linux Command "cat /home/radware/ftp/csv_without_details_*.csv|head -$(echo $(grep -n "TCP Scan (vertical)" /home/radware/ftp/csv_without_details_*.csv |cut -f1 -d:)|bc)|tail -1|cut -d ',' -f 9" on "GENERIC_LINUX_SERVER" and validate result EQUALS "136-1414505529"
@@ -338,7 +339,7 @@ Feature: Forensics CSV without Attack details
 
   @SID_25
   Scenario: Validate detailed csv traffic filters
-    Then CLI Run linux Command "cat /home/radware/ftp/csv_without_details_*.csv|head -$(echo $(grep -n "f1" /home/radware/ftp/csv_without_details_*.csv |cut -f1 -d:)|bc)|tail -1|cut -d ',' -f 5" on "GENERIC_LINUX_SERVER" and validate result EQUALS "TrafficFilters"
+    Then CLI Run linux Command "cat /home/radware/ftp/csv_without_details_*.csv|head -$(echo $(grep -n "f1" /home/radware/ftp/csv_without_details_*.csv |cut -f1 -d:)|bc)|tail -1|cut -d ',' -f 5" on "GENERIC_LINUX_SERVER" and validate result EQUALS "Traffic-Filters"
     Then CLI Run linux Command "cat /home/radware/ftp/csv_without_details_*.csv|head -$(echo $(grep -n "f1" /home/radware/ftp/csv_without_details_*.csv |cut -f1 -d:)|bc)|tail -1|cut -d ',' -f 7" on "GENERIC_LINUX_SERVER" and validate result EQUALS "aaa4"
     Then CLI Run linux Command "cat /home/radware/ftp/csv_without_details_*.csv|head -$(echo $(grep -n "f1" /home/radware/ftp/csv_without_details_*.csv |cut -f1 -d:)|bc)|tail -1|cut -d ',' -f 8" on "GENERIC_LINUX_SERVER" and validate result EQUALS "Drop"
     Then CLI Run linux Command "cat /home/radware/ftp/csv_without_details_*.csv|head -$(echo $(grep -n "f1" /home/radware/ftp/csv_without_details_*.csv |cut -f1 -d:)|bc)|tail -1|cut -d ',' -f 9" on "GENERIC_LINUX_SERVER" and validate result EQUALS "34-2206430105"
@@ -357,7 +358,7 @@ Feature: Forensics CSV without Attack details
 
   @SID_26
   Scenario: Validate detailed csv Server Cracking
-    Then CLI Run linux Command "cat /home/radware/ftp/csv_without_details_*.csv|head -$(echo $(grep -n "Brute Force Web" /home/radware/ftp/csv_without_details_*.csv |cut -f1 -d:)|bc)|tail -1|cut -d ',' -f 5" on "GENERIC_LINUX_SERVER" and validate result EQUALS "ServerCracking"
+    Then CLI Run linux Command "cat /home/radware/ftp/csv_without_details_*.csv|head -$(echo $(grep -n "Brute Force Web" /home/radware/ftp/csv_without_details_*.csv |cut -f1 -d:)|bc)|tail -1|cut -d ',' -f 5" on "GENERIC_LINUX_SERVER" and validate result EQUALS "Cracking-Protection"
     Then CLI Run linux Command "cat /home/radware/ftp/csv_without_details_*.csv|head -$(echo $(grep -n "Brute Force Web" /home/radware/ftp/csv_without_details_*.csv |cut -f1 -d:)|bc)|tail -1|cut -d ',' -f 7" on "GENERIC_LINUX_SERVER" and validate result EQUALS "bbt-sc1"
     Then CLI Run linux Command "cat /home/radware/ftp/csv_without_details_*.csv|head -$(echo $(grep -n "Brute Force Web" /home/radware/ftp/csv_without_details_*.csv |cut -f1 -d:)|bc)|tail -1|cut -d ',' -f 8" on "GENERIC_LINUX_SERVER" and validate result EQUALS "Drop"
     Then CLI Run linux Command "cat /home/radware/ftp/csv_without_details_*.csv|head -$(echo $(grep -n "Brute Force Web" /home/radware/ftp/csv_without_details_*.csv |cut -f1 -d:)|bc)|tail -1|cut -d ',' -f 9" on "GENERIC_LINUX_SERVER" and validate result EQUALS "7840-1402580209"
@@ -396,7 +397,7 @@ Feature: Forensics CSV without Attack details
 
   @SID_28
   Scenario: Validate detailed csv BehavioralDOS - 2
-    Then CLI Run linux Command "cat /home/radware/ftp/csv_without_details_*.csv|head -$(echo $(grep -n "42-1514816419" /home/radware/ftp/csv_without_details_*.csv |cut -f1 -d:)|bc)|tail -1|cut -d ',' -f 5" on "GENERIC_LINUX_SERVER" and validate result EQUALS "BehavioralDOS"
+    Then CLI Run linux Command "cat /home/radware/ftp/csv_without_details_*.csv|head -$(echo $(grep -n "42-1514816419" /home/radware/ftp/csv_without_details_*.csv |cut -f1 -d:)|bc)|tail -1|cut -d ',' -f 5" on "GENERIC_LINUX_SERVER" and validate result EQUALS "Behavioral-DoS"
     Then CLI Run linux Command "cat /home/radware/ftp/csv_without_details_*.csv|head -$(echo $(grep -n "42-1514816419" /home/radware/ftp/csv_without_details_*.csv |cut -f1 -d:)|bc)|tail -1|cut -d ',' -f 6" on "GENERIC_LINUX_SERVER" and validate result EQUALS "network flood IPv4 TCP-SYN-ACK"
     Then CLI Run linux Command "cat /home/radware/ftp/csv_without_details_*.csv|head -$(echo $(grep -n "42-1514816419" /home/radware/ftp/csv_without_details_*.csv |cut -f1 -d:)|bc)|tail -1|cut -d ',' -f 7" on "GENERIC_LINUX_SERVER" and validate result EQUALS "pol_1"
     Then CLI Run linux Command "cat /home/radware/ftp/csv_without_details_*.csv|head -$(echo $(grep -n "42-1514816419" /home/radware/ftp/csv_without_details_*.csv |cut -f1 -d:)|bc)|tail -1|cut -d ',' -f 8" on "GENERIC_LINUX_SERVER" and validate result EQUALS "Drop"
@@ -407,7 +408,6 @@ Feature: Forensics CSV without Attack details
     Then CLI Run linux Command "cat /home/radware/ftp/csv_without_details_*.csv|head -$(echo $(grep -n "42-1514816419" /home/radware/ftp/csv_without_details_*.csv |cut -f1 -d:)|bc)|tail -1|cut -d ',' -f 14" on "GENERIC_LINUX_SERVER" and validate result EQUALS "Unknown"
     Then CLI Run linux Command "cat /home/radware/ftp/csv_without_details_*.csv|head -$(echo $(grep -n "42-1514816419" /home/radware/ftp/csv_without_details_*.csv |cut -f1 -d:)|bc)|tail -1|cut -d ',' -f 15" on "GENERIC_LINUX_SERVER" and validate result EQUALS "TCP"
     Then CLI Run linux Command "cat /home/radware/ftp/csv_without_details_*.csv|head -$(echo $(grep -n "42-1514816419" /home/radware/ftp/csv_without_details_*.csv |cut -f1 -d:)|bc)|tail -1|cut -d ',' -f 16" on "GENERIC_LINUX_SERVER" and validate result EQUALS "78"
-    Then CLI Run linux Command "cat /home/radware/ftp/csv_without_details_*.csv|head -$(echo $(grep -n "42-1514816419" /home/radware/ftp/csv_without_details_*.csv |cut -f1 -d:)|bc)|tail -1|cut -d ',' -f 17" on "GENERIC_LINUX_SERVER" and validate result EQUALS "182"
     Then CLI Run linux Command "cat /home/radware/ftp/csv_without_details_*.csv|head -$(echo $(grep -n "42-1514816419" /home/radware/ftp/csv_without_details_*.csv |cut -f1 -d:)|bc)|tail -1|cut -d ',' -f 18" on "GENERIC_LINUX_SERVER" and validate result EQUALS "0"
     Then CLI Run linux Command "cat /home/radware/ftp/csv_without_details_*.csv|head -$(echo $(grep -n "42-1514816419" /home/radware/ftp/csv_without_details_*.csv |cut -f1 -d:)|bc)|tail -1|cut -d ',' -f 19" on "GENERIC_LINUX_SERVER" and validate result EQUALS "Regular"
     Then CLI Run linux Command "cat /home/radware/ftp/csv_without_details_*.csv|head -$(echo $(grep -n "42-1514816419" /home/radware/ftp/csv_without_details_*.csv |cut -f1 -d:)|bc)|tail -1|cut -d ',' -f 20" on "GENERIC_LINUX_SERVER" and validate result EQUALS "0.00"
@@ -416,7 +416,7 @@ Feature: Forensics CSV without Attack details
 
   @SID_29
   Scenario: Validate detailed csv DOS Shield
-    Then CLI Run linux Command "cat /home/radware/ftp/csv_without_details_*.csv|head -$(echo $(grep -n "DOSS-Anomaly-TCP-SYN-RST" /home/radware/ftp/csv_without_details_*.csv |cut -f1 -d:)|bc)|tail -1|cut -d ',' -f 5" on "GENERIC_LINUX_SERVER" and validate result EQUALS "DOSShield"
+    Then CLI Run linux Command "cat /home/radware/ftp/csv_without_details_*.csv|head -$(echo $(grep -n "DOSS-Anomaly-TCP-SYN-RST" /home/radware/ftp/csv_without_details_*.csv |cut -f1 -d:)|bc)|tail -1|cut -d ',' -f 5" on "GENERIC_LINUX_SERVER" and validate result EQUALS "DoS"
     Then CLI Run linux Command "cat /home/radware/ftp/csv_without_details_*.csv|head -$(echo $(grep -n "DOSS-Anomaly-TCP-SYN-RST" /home/radware/ftp/csv_without_details_*.csv |cut -f1 -d:)|bc)|tail -1|cut -d ',' -f 7" on "GENERIC_LINUX_SERVER" and validate result EQUALS "BDOS"
     Then CLI Run linux Command "cat /home/radware/ftp/csv_without_details_*.csv|head -$(echo $(grep -n "DOSS-Anomaly-TCP-SYN-RST" /home/radware/ftp/csv_without_details_*.csv |cut -f1 -d:)|bc)|tail -1|cut -d ',' -f 8" on "GENERIC_LINUX_SERVER" and validate result EQUALS "Drop"
     Then CLI Run linux Command "cat /home/radware/ftp/csv_without_details_*.csv|head -$(echo $(grep -n "DOSS-Anomaly-TCP-SYN-RST" /home/radware/ftp/csv_without_details_*.csv |cut -f1 -d:)|bc)|tail -1|cut -d ',' -f 9" on "GENERIC_LINUX_SERVER" and validate result EQUALS "7706-1402580209"

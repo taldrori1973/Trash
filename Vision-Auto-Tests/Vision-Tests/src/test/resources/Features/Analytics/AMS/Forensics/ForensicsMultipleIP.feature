@@ -34,13 +34,13 @@ Feature: Forensics Multiple IP
     And UI Click Button "Generate Snapshot Forensics Manually" with value "Destination IP Criteria"
     And Sleep "60"
     And UI Click Button "Views.Forensic" with value "Destination IP Criteria,0"
-    Then UI Validate "Report.Table" Table rows count EQUALS to 2
-    Then UI Validate Table record values by columns with elementLabel "Report.Table" findBy columnName "Attack Name" findBy cellValue "network flood IPv4 TCP-SYN"
+    Then UI Validate "Forensics.Table" Table rows count EQUALS to 2
+    Then UI Validate Table record values by columns with elementLabel "Forensics.Table" findBy columnName "Attack Name" findBy cellValue "network flood IPv4 TCP-SYN"
       | columnName             | value      |
       | Destination IP Address | 10.0.0.18  |
       | Protocol               | TCP        |
       | Source IP Address      | 192.85.1.2 |
-    Then UI Validate Table record values by columns with elementLabel "Report.Table" findBy columnName "Attack Name" findBy cellValue "network flood IPv4 UDP"
+    Then UI Validate Table record values by columns with elementLabel "Forensics.Table" findBy columnName "Attack Name" findBy cellValue "network flood IPv4 UDP"
       | columnName             | value      |
       | Destination IP Address | 10.0.0.18  |
       | Protocol               | UDP        |
@@ -59,7 +59,7 @@ Feature: Forensics Multiple IP
     And UI Click Button "Generate Snapshot Forensics Manually" with value "Not Equals Destination IP Criteria"
     And Sleep "60"
     And UI Click Button "Views.Forensic" with value "Not Equals Destination IP Criteria,0"
-    Then UI Validate "Report.Table" Table rows count EQUALS to 0
+    Then UI Validate "Forensics.Table" Table rows count EQUALS to 0
     And UI Navigate to "AMS Reports" page via homePage
     Then UI Navigate to "AMS Forensics" page via homepage
 
@@ -76,11 +76,11 @@ Feature: Forensics Multiple IP
     Then UI Navigate to "AMS Forensics" page via homepage
     And UI Click Button "My Forensics" with value "Source IP Criteria"
     And UI Click Button "Views.Forensic" with value "Source IP Criteria,0"
-    Then UI Validate "Report.Table" Table rows count EQUALS to 2
-    Then UI Validate Table record values by columns with elementLabel "Report.Table" findBy columnName "Attack Name" findBy cellValue "network flood IPv4 TCP-SYN"
+    Then UI Validate "Forensics.Table" Table rows count EQUALS to 2
+    Then UI Validate Table record values by columns with elementLabel "Forensics.Table" findBy columnName "Attack Name" findBy cellValue "network flood IPv4 TCP-SYN"
       | columnName             | value    |
       | Destination IP Address | Multiple |
-    Then UI Validate Table record values by columns with elementLabel "Report.Table" findBy columnName "Attack Name" findBy cellValue "network flood IPv4 UDP"
+    Then UI Validate Table record values by columns with elementLabel "Forensics.Table" findBy columnName "Attack Name" findBy cellValue "network flood IPv4 UDP"
       | columnName             | value    |
       | Destination IP Address | Multiple |
     And UI Navigate to "AMS Reports" page via homePage
@@ -97,7 +97,7 @@ Feature: Forensics Multiple IP
     And UI Click Button "Generate Snapshot Forensics Manually" with value "Not Equals Source IP Criteria"
     And Sleep "60"
     And UI Click Button "Views.Forensic" with value "Not Equals Source IP Criteria,0"
-    Then UI Validate "Report.Table" Table rows count EQUALS to 0
+    Then UI Validate "Forensics.Table" Table rows count EQUALS to 0
     And UI Navigate to "AMS Reports" page via homePage
     Then UI Navigate to "AMS Forensics" page via homepage
 
@@ -111,11 +111,11 @@ Feature: Forensics Multiple IP
     And UI Click Button "Generate Snapshot Forensics Manually" with value "All Criteria"
     And Sleep "60"
     And UI Click Button "Views.Forensic" with value "All Criteria,0"
-    Then UI Validate "Report.Table" Table rows count EQUALS to 2
-    Then UI Validate Table record values by columns with elementLabel "Report.Table" findBy columnName "Attack Name" findBy cellValue "network flood IPv4 TCP-SYN"
+    Then UI Validate "Forensics.Table" Table rows count EQUALS to 2
+    Then UI Validate Table record values by columns with elementLabel "Forensics.Table" findBy columnName "Attack Name" findBy cellValue "network flood IPv4 TCP-SYN"
       | columnName             | value    |
       | Destination IP Address | Multiple |
-    Then UI Validate Table record values by columns with elementLabel "Report.Table" findBy columnName "Attack Name" findBy cellValue "network flood IPv4 UDP"
+    Then UI Validate Table record values by columns with elementLabel "Forensics.Table" findBy columnName "Attack Name" findBy cellValue "network flood IPv4 UDP"
       | columnName             | value    |
       | Destination IP Address | Multiple |
     And UI Navigate to "AMS Reports" page via homePage

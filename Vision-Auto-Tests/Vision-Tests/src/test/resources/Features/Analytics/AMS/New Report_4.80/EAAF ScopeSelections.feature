@@ -1,4 +1,5 @@
 @TC119118
+
 Feature: EAAF ScopeSelections Reports
   @SID_1
   Scenario: Login
@@ -46,7 +47,7 @@ Feature: EAAF ScopeSelections Reports
   @SID_7
   Scenario: Validate Enable and Disable to change policy
     Then UI Click Button "New Report Tab"
-    Then UI Check and Select Element with label "Report Parameter Menu"
+    Then UI Check and Select Report Menu Element with label "Report Parameter Menu"
     Then UI Set Text Field "Report Name" To "EAAF Report Disable to change policy"
     Then UI Click Button "Add Template" with value "ERT Active Attackers Feed"
     Then UI Click Button "Open Scope Selection" with value "ERT Active Attackers Feed"
@@ -62,7 +63,7 @@ Feature: EAAF ScopeSelections Reports
   @SID_8
   Scenario: Validate Enable and Enable to change policy
     Then UI Click Button "New Report Tab"
-    Then UI Check and Select Element with label "Report Parameter Menu"
+    Then UI Check and Select Report Menu Element with label "Report Parameter Menu"
     Then UI Set Text Field "Report Name" To "EAAF Report Enable to change policy"
     Then UI Click Button "Add Template" with value "ERT Active Attackers Feed"
     Then UI Click Button "Open Scope Selection" with value "ERT Active Attackers Feed"

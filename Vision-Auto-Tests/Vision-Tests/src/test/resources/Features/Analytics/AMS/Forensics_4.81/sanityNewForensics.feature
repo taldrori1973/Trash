@@ -130,7 +130,6 @@ Feature: Basic tests for Forensics parameters
 #    Then UI Text of "Forensics Format Type" with extension "csv" equal to "CSV W/Details"
 
 
-
   @SID_12
   Scenario: Forensics DefensePro Format
     Then UI Click Button "Product Tab" with value "DefenseFlow"
@@ -139,7 +138,6 @@ Feature: Basic tests for Forensics parameters
       | label                               | param | value |
       | Format HTML Type                    |       | true  |
       | Format CSV Type                     |       | false |
-      | Format CSV With Attack Details Type |       | false |
     Then UI Text of "Forensics Format Type" with extension "html" equal to "HTML"
 
     Then UI Click Button "Format CSV Type"
@@ -147,7 +145,6 @@ Feature: Basic tests for Forensics parameters
       | label                               | param | value |
       | Format HTML Type                    |       | false |
       | Format CSV Type                     |       | true  |
-      | Format CSV With Attack Details Type |       | false |
     Then UI Text of "Forensics Format Type" with extension "csv" equal to "CSV"
 
   @SID_13
@@ -158,7 +155,6 @@ Feature: Basic tests for Forensics parameters
       | label                               | param | value |
       | Format HTML Type                    |       | true  |
       | Format CSV Type                     |       | false |
-      | Format CSV With Attack Details Type |       | false |
     Then UI Text of "Forensics Format Type" with extension "html" equal to "HTML"
 
     Then UI Click Button "Format CSV Type"
@@ -166,7 +162,6 @@ Feature: Basic tests for Forensics parameters
       | label                               | param | value |
       | Format HTML Type                    |       | false |
       | Format CSV Type                     |       | true  |
-      | Format CSV With Attack Details Type |       | false |
     Then UI Text of "Forensics Format Type" with extension "csv" equal to "CSV"
 
   ##################### Name Section tests ###############################
@@ -827,7 +822,7 @@ Feature: Basic tests for Forensics parameters
   
   @SID_48
   Scenario: Forensics Output - select all output option of DefenseFlow
-    Then select forensics Output with details "Start Time,End Time,Threat Category,Attack Name,Policy Name,Source IP Address,Destination IP Address,Destination Port,Direction,Protocol,Device IP Address,Action,Attack ID,Source Port,Radware ID,Duration,Total Packets Dropped,Max pps,Total Mbits Dropped,Max bps,Physical Port,Risk,VLAN Tag,Packet Type"
+    Then select forensics Output with details "Start Time,End Time,Threat Category,Attack Name,Policy Name,Source IP Address,Destination IP Address,Destination Port,Direction,Protocol,Device IP Address,Action,Attack ID,Source Port,Radware ID,Duration,Total Packets Dropped,Max pps,Total Mbits Dropped,Max bps,Physical Port,Risk,VLAN Tag"
     Then UI Click Button "outputExpandOrCollapse"
     Then UI Validate the attribute "aria-selected" Of Label "Output Value" With Params "Start Time" is "EQUALS" to "true"
     Then UI Validate the attribute "aria-selected" Of Label "Output Value" With Params "End Time" is "EQUALS" to "true"

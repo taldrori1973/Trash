@@ -36,20 +36,18 @@ Feature: Forensics RBAC
     Then UI Navigate to "AMS Forensics" page via homepage
     When UI "Create" Forensics With Name "sec_mon_all_pol_radware"
       |  |  |
-    Then UI Validate Element Existence By Label "Views" if Exists "false" with value "AllDevAllPol"
-    Then UI Validate Element Existence By Label "Delete" if Exists "false" with value "AllDevAllPol"
-    Then UI Validate Element Existence By Label "Edit" if Exists "false" with value "AllDevAllPol"
-    Then UI Validate Element Existence By Label "Views.Expand" if Exists "false" with value "AllDevAllPol"
+    Then UI Validate Element Existence By Label "INFO Forensics" if Exists "false" with value "AllDevAllPol"
+    Then UI Validate Element Existence By Label "Delete Forensics" if Exists "false" with value "AllDevAllPol"
+    Then UI Validate Element Existence By Label "Edit Forensics" if Exists "false" with value "AllDevAllPol"
     * UI logout and close browser
 
   @SID_5
   Scenario: Forensics RBAC restricted user ALL can view definition of admin same device
     Given UI Login with user "sec_mon_all_pol" and password "radware"
     Then UI Navigate to "AMS Forensics" page via homepage
-    Then UI Validate Element Existence By Label "Views" if Exists "true" with value "Device10_Policy15"
-    Then UI Validate Element Existence By Label "Delete" if Exists "true" with value "Device10_Policy15"
-    Then UI Validate Element Existence By Label "Edit" if Exists "true" with value "Device10_Policy15"
-    Then UI Validate Element Existence By Label "Views.Expand" if Exists "true" with value "Device10_Policy15"
+    Then UI Validate Element Existence By Label "INFO Forensics" if Exists "true" with value "Device10_Policy15"
+    Then UI Validate Element Existence By Label "Delete Forensics" if Exists "true" with value "Device10_Policy15"
+    Then UI Validate Element Existence By Label "Edit Forensics" if Exists "true" with value "Device10_Policy15"
     And UI Logout
 
   @SID_6
@@ -58,16 +56,17 @@ Feature: Forensics RBAC
     Then UI Navigate to "AMS Forensics" page via homepage
     When UI "Create" Forensics With Name "Only Device 10"
     | | |
-    When UI Click Button "Views" with value "Only Device 10"
-    And UI Click Button "Views.Generate Now" with value "Only Device 10"
-    And Sleep "30"
-    And UI Click Button "Views.report" with value "Only Device 10"
+    Then UI Click Button "My Forensics" with value "Only Device 10"
+    Then UI Click Button "Generate Snapshot Forensics Manually" with value "Only Device 10"
+    Then Sleep "35"
+    And UI Click Button "Views.Forensic" with value "Only Device 10,0"
     And Sleep "3"
-    Then UI Validate "Report.Table" Table rows count EQUALS to 2
-    Then UI Validate Table record values by columns with elementLabel "Report.Table" findBy index 0
+
+    Then UI Validate "Forensics.Table" Table rows count EQUALS to 2
+    Then UI Validate Table record values by columns with elementLabel "Forensics.Table" findBy index 0
       | columnName | value   |
       | Direction  | Unknown |
-    Then UI Validate Table record values by columns with elementLabel "Report.Table" findBy index 1
+    Then UI Validate Table record values by columns with elementLabel "Forensics.Table" findBy index 1
       | columnName | value   |
       | Direction  | Unknown |
     And UI Logout
@@ -76,24 +75,21 @@ Feature: Forensics RBAC
   Scenario: Forensics RBAC admin can view definition of restricted user
     Given UI Login with user "sys_admin" and password "radware"
     Then UI Navigate to "AMS Forensics" page via homepage
-    Then UI Validate Element Existence By Label "Views" if Exists "true" with value "sec_mon_all_pol_radware"
-    Then UI Validate Element Existence By Label "Delete" if Exists "true" with value "sec_mon_all_pol_radware"
-    Then UI Validate Element Existence By Label "Edit" if Exists "true" with value "sec_mon_all_pol_radware"
-    Then UI Validate Element Existence By Label "Views.Expand" if Exists "true" with value "sec_mon_all_pol_radware"
+    Then UI Validate Element Existence By Label "INFO Forensics" if Exists "true" with value "sec_mon_all_pol_radware"
+    Then UI Validate Element Existence By Label "Delete Forensics" if Exists "true" with value "sec_mon_all_pol_radware"
+    Then UI Validate Element Existence By Label "Edit Forensics" if Exists "true" with value "sec_mon_all_pol_radware"
     * UI logout and close browser
 
   @SID_8
   Scenario: Forensics RBAC restricted user POLICY can view only same policy definition
     Given UI Login with user "sec_mon" and password "radware"
     Then UI Navigate to "AMS Forensics" page via homepage
-    Then UI Validate Element Existence By Label "Views" if Exists "false" with value "AllDevAllPol"
-    Then UI Validate Element Existence By Label "Delete" if Exists "false" with value "AllDevAllPol"
-    Then UI Validate Element Existence By Label "Edit" if Exists "false" with value "AllDevAllPol"
-    Then UI Validate Element Existence By Label "Views.Expand" if Exists "false" with value "AllDevAllPol"
-    Then UI Validate Element Existence By Label "Views" if Exists "false" with value "Device10_Policy15"
-    Then UI Validate Element Existence By Label "Delete" if Exists "false" with value "Device10_Policy15"
-    Then UI Validate Element Existence By Label "Edit" if Exists "false" with value "Device10_Policy15"
-    Then UI Validate Element Existence By Label "Views.Expand" if Exists "false" with value "Device10_Policy15"
+    Then UI Validate Element Existence By Label "INFO Forensics" if Exists "false" with value "AllDevAllPol"
+    Then UI Validate Element Existence By Label "Delete Forensics" if Exists "false" with value "AllDevAllPol"
+    Then UI Validate Element Existence By Label "Edit Forensics" if Exists "false" with value "AllDevAllPol"
+    Then UI Validate Element Existence By Label "INFO Forensics" if Exists "false" with value "Device10_Policy15"
+    Then UI Validate Element Existence By Label "Delete Forensics" if Exists "false" with value "Device10_Policy15"
+    Then UI Validate Element Existence By Label "Edit Forensics" if Exists "false" with value "Device10_Policy15"
     And UI Logout
 
   @SID_9
@@ -102,12 +98,12 @@ Feature: Forensics RBAC
     Then UI Navigate to "AMS Forensics" page via homepage
     When UI "Create" Forensics With Name "Only Policy14"
       | | |
-    When UI Click Button "Views" with value "Only Policy14"
-    And UI Click Button "Views.Generate Now" with value "Only Policy14"
-    And Sleep "30"
-    And UI Click Button "Views.report" with value "Only Policy14"
-    Then UI Validate "Report.Table" Table rows count EQUALS to 1
-    Then UI Validate Table record values by columns with elementLabel "Report.Table" findBy index 0
+    Then UI Click Button "My Forensics" with value "Only Policy14"
+    Then UI Validate Element Existence By Label "Generate Snapshot Forensics Manually" if Exists "true" with value "Only Policy14"
+    Then UI Click Button "Generate Snapshot Forensics Manually" with value "Only Policy14"
+    Then Sleep "35"
+    And UI Click Button "Views.Forensic" with value "Only Policy14,0"
+    Then UI Validate Table record values by columns with elementLabel "Forensics.Table" findBy index 0
       | columnName  | value    |
       | Policy Name | Policy14 |
 
