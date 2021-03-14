@@ -223,3 +223,5 @@ Scenario: Clear SMTP server log files
 Given Clear email history for user "setup"
 
 @SID_28
+Scenario: Logout
+  Then UI logout and close browser
