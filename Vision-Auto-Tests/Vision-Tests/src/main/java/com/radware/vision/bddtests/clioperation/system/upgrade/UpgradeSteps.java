@@ -6,7 +6,7 @@ import com.radware.automation.tools.utils.InvokeUtils;
 import com.radware.vision.automation.VisionAutoInfra.CLIInfra.CliOperations;
 import com.radware.vision.bddtests.BddCliTestBase;
 import com.radware.vision.bddtests.vmoperations.VMOperationsSteps;
-import com.radware.vision.enums.GlobalProperties;
+import com.radware.vision.automation.VisionAutoInfra.CLIInfra.enums.GlobalProperties;
 import com.radware.vision.enums.VisionDeployType;
 import com.radware.vision.vision_handlers.system.upgrade.visionserver.VisionDeployment;
 import com.radware.vision.vision_handlers.system.upgrade.visionserver.VisionServer;

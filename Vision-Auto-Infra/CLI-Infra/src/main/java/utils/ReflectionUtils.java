@@ -1,8 +1,7 @@
 package utils;
 
 
-import com.radware.automation.tools.licensekeys.LicenseVisionUtils;
-
+import com.radware.vision.automation.VisionAutoInfra.CLIInfra.LicenseVisionUtils;
 import java.lang.reflect.Method;
 
 

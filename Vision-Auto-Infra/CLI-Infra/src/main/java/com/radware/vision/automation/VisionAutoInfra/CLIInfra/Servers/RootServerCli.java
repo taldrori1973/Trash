@@ -3,7 +3,7 @@ package com.radware.vision.automation.VisionAutoInfra.CLIInfra.Servers;
 import com.radware.automation.tools.basetest.BaseTestUtils;
 import com.radware.automation.tools.utils.IPUtils;
 import com.radware.automation.tools.utils.InvokeUtils;
-import com.radware.vision.vision_project_cli.menu.Menu;
+import com.radware.vision.automation.VisionAutoInfra.CLIInfra.menu.Menu;
 import jsystem.extensions.analyzers.text.GetTextCounter;
 import jsystem.framework.report.Summary;
 import systemobject.terminal.Prompt;
