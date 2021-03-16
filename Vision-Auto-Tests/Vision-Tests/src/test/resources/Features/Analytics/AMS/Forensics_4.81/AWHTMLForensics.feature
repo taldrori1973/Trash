@@ -112,8 +112,8 @@ Feature: AW HTML Forensics
     Then UI Delete Forensics With Name "Forensics_AW"
 
   @SID_12
-  Scenario: create new Forensics_AWFTP and validate
-    When UI "Create" Forensics With Name "Forensics_AWFTP"
+  Scenario: create new Forensics_MAIL and validate
+    When UI "Create" Forensics With Name "Forensics_MAIL"
       | Product               | AppWall                                                  |
       | Application           | All                                                      |
       | Format                | Select: HTML                                             |
@@ -123,20 +123,20 @@ Feature: AW HTML Forensics
 
   @SID_13
   Scenario: Validate delivery card and generate Forensics
-    Then UI Click Button "My Forensics" with value "Forensics_AWFTP"
-    Then UI Click Button "Generate Snapshot Forensics Manually" with value "Forensics_AWFTP"
+    Given Setup email server
+    Given Clear email history for user "setup"
+    Then UI Click Button "My Forensics" with value "Forensics_MAIL"
+    Then UI Click Button "Generate Snapshot Forensics Manually" with value "Forensics_MAIL"
     Then Sleep "35"
 
   @SID_14
   Scenario: Validate Forensics.Table
-    And UI Click Button "Views.Forensic" with value "Forensics_AWFTP,0"
+    And UI Click Button "Views.Forensic" with value "Forensics_MAIL,0"
     Then UI Validate "Forensics.Table" Table rows count EQUALS to 29
 
 
   @SID_15
   Scenario: Validate Report Forensics received content
-    Given Setup email server
-    Given Clear email history for user "setup"
     #subject
     Then Validate "setup" user eMail expression "grep "Subject: Validate Email"" EQUALS "1"
     #body
@@ -148,27 +148,27 @@ Feature: AW HTML Forensics
 
 
   @SID_16
-  Scenario: create new Forensics_AWFTP and validate
-    Then UI Click Button "Deletion Forensics Instance" with value "Forensics_AWFTP_0"
-    When UI "Edit" Forensics With Name "Forensics_AWFTP"
+  Scenario: create new Forensics_MAIL and validate
+    Then UI Click Button "Deletion Forensics Instance" with value "Forensics_MAIL_0"
+    When UI "Edit" Forensics With Name "Forensics_MAIL"
       | Schedule | Run Every:Daily,On Time:+2m |
       | output   | Add All                     |
     Then Sleep "180"
     Then UI Click Button "New Forensics Tab"
     Then UI Click Button "My Forensics Tab"
     Then Sleep "5"
-    Then UI Click Button "My Forensics" with value "Forensics_AWFTP"
-    And UI Click Button "Views.Forensic" with value "Forensics_AWFTP,0"
+    Then UI Click Button "My Forensics" with value "Forensics_MAIL"
+    And UI Click Button "Views.Forensic" with value "Forensics_MAIL,0"
     Then UI Validate "Forensics.Table" Table rows count EQUALS to 29
 
   @SID_17
   Scenario: Delete Forensics
-    Then UI Delete Forensics With Name "Forensics_AWFTP"
+    Then UI Delete Forensics With Name "Forensics_MAIL"
 
   @SID_18
   Scenario: Clear SMTP server log files
     Given Clear email history for user "setup"
-    Then CLI Run remote linux Command "rm -f /home/radware/ftp/Forensics_AWFTP*.zip /home/radware/ftp/Forensics_AW*.csv" on "GENERIC_LINUX_SERVER"
+    Then CLI Run remote linux Command "rm -f /home/radware/ftp/Forensics_MAIL*.zip /home/radware/ftp/Forensics_AW*.csv" on "GENERIC_LINUX_SERVER"
 
   @SID_19
   Scenario: Logout
