@@ -20,7 +20,7 @@ Feature:Create AppWall Part3
       | Time Definitions.Date | Quick:3M                                                                                                                                             |
       | Schedule              | Run Every:Monthly, On Time:+6H, At Months:[DEC]                                                                                                      |
       | Share                 | FTP:checked, FTP.Location:172.17.164.10, FTP.Path:/home/radware/ftp/, FTP.Username:radware, FTP.Password:radware                                     |
-      | Format                | Select: CSV With Attack Details                                                                                                                      |
+      | Format                | Select: CSV                                                                                                                     |
     Then UI "Validate" Forensics With Name "Threat Category1 Equal"
       | Product               | AppWall                                                                                                                                              |
       | Output                | Web Application Name,Event Description,Action,Attack Name,Device Host Name,Directory,Module,Severity,Threat Category,Transaction ID,Tunnel,User Name |
@@ -29,7 +29,7 @@ Feature:Create AppWall Part3
       | Time Definitions.Date | Quick:3M                                                                                                                                             |
       | Schedule              | Run Every:Monthly, On Time:+6H, At Months:[DEC]                                                                                                      |
       | Share                 | FTP:checked, FTP.Location:172.17.164.10, FTP.Path:/home/radware/ftp/, FTP.Username:radware, FTP.Password:radware                                     |
-      | Format                | Select: CSV With Attack Details                                                                                                                      |
+      | Format                | Select: CSV                                                                                                                     |
     Then UI Delete Forensics With Name "Threat Category1 Equal"
 
   @SID_3
@@ -62,7 +62,7 @@ Feature:Create AppWall Part3
       | Time Definitions.Date | Quick:3M                                                                                                                      |
       | Schedule              | Run Every:Monthly, On Time:+6H, At Months:[DEC]                                                                               |
       | Share                 | FTP:checked, FTP.Location:172.17.164.10, FTP.Path:/home/radware/ftp/, FTP.Username:radware, FTP.Password:radware              |
-      | Format                | Select: CSV With Attack Details                                                                                               |
+      | Format                | Select: CSV                                                                                              |
     Then UI "Validate" Forensics With Name "Threat Category3 Equal"
       | Product               | AppWall                                                                                                                       |
       | Output                | Web Application Name,Event Description,Attack Name,Device Host Name,Directory,Module,Severity,Transaction ID,Tunnel,User Name |
@@ -71,7 +71,7 @@ Feature:Create AppWall Part3
       | Time Definitions.Date | Quick:3M                                                                                                                      |
       | Schedule              | Run Every:Monthly, On Time:+6H, At Months:[DEC]                                                                               |
       | Share                 | FTP:checked, FTP.Location:172.17.164.10, FTP.Path:/home/radware/ftp/, FTP.Username:radware, FTP.Password:radware              |
-      | Format                | Select: CSV With Attack Details                                                                                               |
+      | Format                | Select: CSV                                                                                              |
     Then UI Delete Forensics With Name "Threat Category3 Equal"
 
   @SID_5
@@ -142,7 +142,7 @@ Feature:Create AppWall Part3
       | Time Definitions.Date | Absolute:[27.02.1971 01:00, +0d]                                                                                 |
       | Schedule              | Run Every:Monthly, On Time:+6H, At Months:[OCT]                                                                  |
       | Share                 | FTP:checked, FTP.Location:172.17.164.10, FTP.Path:/home/radware/ftp/, FTP.Username:radware, FTP.Password:radware |
-      | Format                | Select: CSV With Attack Details                                                                                  |
+      | Format                | Select: CSV                                                                                 |
     Then UI "Validate" Forensics With Name "Threat Category7 Equal"
       | Product               | AppWall                                                                                                          |
       | Output                | Cluster Manager IP,Attack Name                                                                                   |
@@ -151,7 +151,7 @@ Feature:Create AppWall Part3
       | Time Definitions.Date | Absolute:[27.02.1971 01:00, +0d]                                                                                 |
       | Schedule              | Run Every:Monthly, On Time:+6H, At Months:[OCT]                                                                  |
       | Share                 | FTP:checked, FTP.Location:172.17.164.10, FTP.Path:/home/radware/ftp/, FTP.Username:radware, FTP.Password:radware |
-      | Format                | Select: CSV With Attack Details                                                                                  |
+      | Format                | Select: CSV                                                                                 |
     Then UI Delete Forensics With Name "Threat Category7 Equal"
 
   @SID_9
@@ -228,7 +228,7 @@ Feature:Create AppWall Part3
       | Time Definitions.Date | Absolute:[27.02.1971 01:00, +0d]                                                                                                                                           |
       | Schedule              | Run Every:once, On Time:+6H                                                                                                                                                |
       | Share                 | FTP:checked, FTP.Location:172.17.164.10, FTP.Path:/home/radware/ftp/, FTP.Username:radware, FTP.Password:radware                                                           |
-      | Format                | Select: CSV With Attack Details                                                                                                                                            |
+      | Format                | Select: CSV                                                                                                                                           |
     Then UI "Validate" Forensics With Name "Threat Category11 Equal"
       | Product               | AppWall                                                                                                                                                                    |
       | Output                | Destination IP Address,Source Port,Cluster Manager IP,Web Application Name,Event Description,Action,Attack Name,Device Host Name,Directory,Module,Severity,Threat Category |
@@ -237,7 +237,7 @@ Feature:Create AppWall Part3
       | Time Definitions.Date | Absolute:[27.02.1971 01:00, +0d]                                                                                                                                           |
       | Schedule              | Run Every:once, On Time:+6H                                                                                                                                                |
       | Share                 | FTP:checked, FTP.Location:172.17.164.10, FTP.Path:/home/radware/ftp/, FTP.Username:radware, FTP.Password:radware                                                           |
-      | Format                | Select: CSV With Attack Details                                                                                                                                            |
+      | Format                | Select: CSV                                                                                                                                           |
     Then UI Delete Forensics With Name "Threat Category11 Equal"
 
   @SID_13
@@ -310,7 +310,7 @@ Feature:Create AppWall Part3
       | Time Definitions.Date | Relative:[Weeks,2]                                                                                               |
       | Schedule              | Run Every:Weekly, On Time:+6H, At Days:[THU]                                                                     |
       | Share                 | FTP:checked, FTP.Location:172.17.164.10, FTP.Path:/home/radware/ftp/, FTP.Username:radware, FTP.Password:radware |
-      | Format                | Select: CSV With Attack Details                                                                                  |
+      | Format                | Select: CSV                                                                                 |
     Then UI "Validate" Forensics With Name "Threat Category15 Equal"
       | Product               | AppWall                                                                                                          |
       | Output                | Date and Time,Source Port                                                                                        |
@@ -319,7 +319,7 @@ Feature:Create AppWall Part3
       | Time Definitions.Date | Relative:[Weeks,2]                                                                                               |
       | Schedule              | Run Every:Weekly, On Time:+6H, At Days:[THU]                                                                     |
       | Share                 | FTP:checked, FTP.Location:172.17.164.10, FTP.Path:/home/radware/ftp/, FTP.Username:radware, FTP.Password:radware |
-      | Format                | Select: CSV With Attack Details                                                                                  |
+      | Format                | Select: CSV                                                                                 |
     Then UI Delete Forensics With Name "Threat Category15 Equal"
 
   @SID_17
@@ -394,7 +394,7 @@ Feature:Create AppWall Part3
       | Time Definitions.Date | Absolute:[27.02.1971 01:00, +0d]                                                                                 |
       | Schedule              | Run Every:Monthly, On Time:+6H, At Months:[APR]                                                                  |
       | Share                 | FTP:checked, FTP.Location:172.17.164.10, FTP.Path:/home/radware/ftp/, FTP.Username:radware, FTP.Password:radware |
-      | Format                | Select: CSV With Attack Details                                                                                  |
+      | Format                | Select: CSV                                                                                 |
     Then UI "Validate" Forensics With Name "Threat Category19 Equal"
       | Product               | AppWall                                                                                                          |
       | Output                | Date and Time,Device IP,Source IP,Destination IP Address,Action,Threat Category                                  |
@@ -403,7 +403,7 @@ Feature:Create AppWall Part3
       | Time Definitions.Date | Absolute:[27.02.1971 01:00, +0d]                                                                                 |
       | Schedule              | Run Every:Monthly, On Time:+6H, At Months:[APR]                                                                  |
       | Share                 | FTP:checked, FTP.Location:172.17.164.10, FTP.Path:/home/radware/ftp/, FTP.Username:radware, FTP.Password:radware |
-      | Format                | Select: CSV With Attack Details                                                                                  |
+      | Format                | Select: CSV                                                                                 |
     Then UI Delete Forensics With Name "Threat Category19 Equal"
 
   @SID_21
@@ -476,7 +476,7 @@ Feature:Create AppWall Part3
       | Time Definitions.Date | Quick:This Month                                                                                                 |
       | Schedule              | Run Every:Once, On Time:+6H                                                                                      |
       | Share                 | FTP:checked, FTP.Location:172.17.164.10, FTP.Path:/home/radware/ftp/, FTP.Username:radware, FTP.Password:radware |
-      | Format                | Select: CSV With Attack Details                                                                                  |
+      | Format                | Select: CSV                                                                                 |
     Then UI "Validate" Forensics With Name "Threat Category23 Equal"
       | Product               | AppWall                                                                                                          |
       | Output                | Source IP                                                                                                        |
@@ -485,7 +485,7 @@ Feature:Create AppWall Part3
       | Time Definitions.Date | Quick:This Month                                                                                                 |
       | Schedule              | Run Every:Once, On Time:+6H                                                                                      |
       | Share                 | FTP:checked, FTP.Location:172.17.164.10, FTP.Path:/home/radware/ftp/, FTP.Username:radware, FTP.Password:radware |
-      | Format                | Select: CSV With Attack Details                                                                                  |
+      | Format                | Select: CSV                                                                                 |
     Then UI Delete Forensics With Name "Threat Category23 Equal"
 
   @SID_25
@@ -559,7 +559,7 @@ Feature:Create AppWall Part3
       | devices               | All                                                                                                              |
       | Schedule              | Run Every:Monthly, On Time:+6H, At Months:[AUG]                                                                  |
       | Share                 | FTP:checked, FTP.Location:172.17.164.10, FTP.Path:/home/radware/ftp/, FTP.Username:radware, FTP.Password:radware |
-      | Format                | Select: CSV With Attack Details                                                                                  |
+      | Format                | Select: CSV                                                                                 |
     Then UI "Validate" Forensics With Name "Threat Category27 Not Equal"
       | Product               | AppWall                                                                                                          |
       | Output                | Date and Time,Device IP,Source IP,Transaction ID,Tunnel                                                          |
@@ -567,7 +567,7 @@ Feature:Create AppWall Part3
       | devices               | All                                                                                                              |
       | Schedule              | Run Every:Monthly, On Time:+6H, At Months:[AUG]                                                                  |
       | Share                 | FTP:checked, FTP.Location:172.17.164.10, FTP.Path:/home/radware/ftp/, FTP.Username:radware, FTP.Password:radware |
-      | Format                | Select: CSV With Attack Details                                                                                  |
+      | Format                | Select: CSV                                                                                 |
     Then UI Delete Forensics With Name "Threat Category27 Not Equal"
 
   @SID_29
@@ -645,7 +645,7 @@ Feature:Create AppWall Part3
       | devices               | All                                                                                                                                                                                                                                           |
       | Schedule              | Run Every:Monthly, On Time:+6H, At Months:[DEC]                                                                                                                                                                                               |
       | Share                 | FTP:checked, FTP.Location:172.17.164.10, FTP.Path:/home/radware/ftp/, FTP.Username:radware, FTP.Password:radware                                                                                                                              |
-      | Format                | Select: CSV With Attack Details                                                                                                                                                                                                               |
+      | Format                | Select: CSV                                                                                                                                                                                                              |
     Then UI "Validate" Forensics With Name "Threat Category31 Not Equal"
       | Product               | AppWall                                                                                                                                                                                                                                       |
       | Output                | Date and Time,Device IP,Source IP,Destination IP Address,Source Port,Cluster Manager IP,Web Application Name,Event Description,Action,Attack Name,Device Host Name,Directory,Module,Severity,Threat Category,Transaction ID,Tunnel,User Name  |
@@ -653,7 +653,7 @@ Feature:Create AppWall Part3
       | devices               | All                                                                                                                                                                                                                                           |
       | Schedule              | Run Every:Monthly, On Time:+6H, At Months:[DEC]                                                                                                                                                                                               |
       | Share                 | FTP:checked, FTP.Location:172.17.164.10, FTP.Path:/home/radware/ftp/, FTP.Username:radware, FTP.Password:radware                                                                                                                              |
-      | Format                | Select: CSV With Attack Details                                                                                                                                                                                                               |
+      | Format                | Select: CSV                                                                                                                                                                                                              |
     Then UI Delete Forensics With Name "Threat Category31 Not Equal"
 
   @SID_33
@@ -686,7 +686,7 @@ Feature:Create AppWall Part3
       | Time Definitions.Date | Quick:3M                                                                                                         |
       | Schedule              | Run Every:Monthly, On Time:+6H, At Months:[DEC]                                                                  |
       | Share                 | FTP:checked, FTP.Location:172.17.164.10, FTP.Path:/home/radware/ftp/, FTP.Username:radware, FTP.Password:radware |
-      | Format                | Select: CSV With Attack Details                                                                                  |
+      | Format                | Select: CSV                                                                                 |
     Then UI "Validate" Forensics With Name "Threat Category33 Not Equal"
       | Product               | AppWall                                                                                                          |
       | Output                | Date and Time,Device IP,Source Port,Web Application Name,Action,Attack Name,Threat Category,Transaction ID       |
@@ -695,7 +695,7 @@ Feature:Create AppWall Part3
       | Time Definitions.Date | Quick:3M                                                                                                         |
       | Schedule              | Run Every:Monthly, On Time:+6H, At Months:[DEC]                                                                  |
       | Share                 | FTP:checked, FTP.Location:172.17.164.10, FTP.Path:/home/radware/ftp/, FTP.Username:radware, FTP.Password:radware |
-      | Format                | Select: CSV With Attack Details                                                                                  |
+      | Format                | Select: CSV                                                                                 |
     Then UI Delete Forensics With Name "Threat Category33 Not Equal"
 
   @SID_35
@@ -766,7 +766,7 @@ Feature:Create AppWall Part3
       | Time Definitions.Date | Absolute:[27.02.1971 01:00, +0d]                                                                                                                                                                                                              |
       | Schedule              | Run Every:Monthly, On Time:+6H, At Months:[OCT]                                                                                                                                                                                               |
       | Share                 | FTP:checked, FTP.Location:172.17.164.10, FTP.Path:/home/radware/ftp/, FTP.Username:radware, FTP.Password:radware                                                                                                                              |
-      | Format                | Select: CSV With Attack Details                                                                                                                                                                                                               |
+      | Format                | Select: CSV                                                                                                                                                                                                              |
     Then UI "Validate" Forensics With Name "Tunnel Equal"
       | Product               | AppWall                                                                                                                                                                                                                                       |
       | Output                | Date and Time,Device IP,Source IP,Destination IP Address,Source Port,Cluster Manager IP,Web Application Name,Event Description,Action,Attack Name,Device Host Name,Directory,Module,Severity,Threat Category,Transaction ID,Tunnel,User Name  |
@@ -775,7 +775,7 @@ Feature:Create AppWall Part3
       | Time Definitions.Date | Absolute:[27.02.1971 01:00, +0d]                                                                                                                                                                                                              |
       | Schedule              | Run Every:Monthly, On Time:+6H, At Months:[OCT]                                                                                                                                                                                               |
       | Share                 | FTP:checked, FTP.Location:172.17.164.10, FTP.Path:/home/radware/ftp/, FTP.Username:radware, FTP.Password:radware                                                                                                                              |
-      | Format                | Select: CSV With Attack Details                                                                                                                                                                                                               |
+      | Format                | Select: CSV                                                                                                                                                                                                              |
     Then UI Delete Forensics With Name "Tunnel Equal"
 
   @SID_39
@@ -852,7 +852,7 @@ Feature:Create AppWall Part3
       | Time Definitions.Date | Absolute:[27.02.1971 01:00, +0d]                                                                                                                                                                                                              |
       | Schedule              | Run Every:once, On Time:+6H                                                                                                                                                                                                                   |
       | Share                 | FTP:checked, FTP.Location:172.17.164.10, FTP.Path:/home/radware/ftp/, FTP.Username:radware, FTP.Password:radware                                                                                                                              |
-      | Format                | Select: CSV With Attack Details                                                                                                                                                                                                               |
+      | Format                | Select: CSV                                                                                                                                                                                                              |
     Then UI "Validate" Forensics With Name "Web Application Name Equal"
       | Product               | AppWall                                                                                                                                                                                                                                       |
       | Output                | Date and Time,Device IP,Source IP,Destination IP Address,Source Port,Cluster Manager IP,Web Application Name,Event Description,Action,Attack Name,Device Host Name,Directory,Module,Severity,Threat Category,Transaction ID,Tunnel,User Name  |
@@ -861,7 +861,7 @@ Feature:Create AppWall Part3
       | Time Definitions.Date | Absolute:[27.02.1971 01:00, +0d]                                                                                                                                                                                                              |
       | Schedule              | Run Every:once, On Time:+6H                                                                                                                                                                                                                   |
       | Share                 | FTP:checked, FTP.Location:172.17.164.10, FTP.Path:/home/radware/ftp/, FTP.Username:radware, FTP.Password:radware                                                                                                                              |
-      | Format                | Select: CSV With Attack Details                                                                                                                                                                                                               |
+      | Format                | Select: CSV                                                                                                                                                                                                              |
     Then UI Delete Forensics With Name "Web Application Name Equal"
 
   @SID_43
@@ -934,7 +934,7 @@ Feature:Create AppWall Part3
       | Time Definitions.Date | Relative:[Weeks,2]                                                                                                                                                                                                                            |
       | Schedule              | Run Every:Weekly, On Time:+6H, At Days:[THU]                                                                                                                                                                                                  |
       | Share                 | FTP:checked, FTP.Location:172.17.164.10, FTP.Path:/home/radware/ftp/, FTP.Username:radware, FTP.Password:radware                                                                                                                              |
-      | Format                | Select: CSV With Attack Details                                                                                                                                                                                                               |
+      | Format                | Select: CSV                                                                                                                                                                                                              |
     Then UI "Validate" Forensics With Name "Custom Conditions3"
       | Product               | AppWall                                                                                                                                                                                                                                       |
       | Output                | Date and Time,Device IP,Source IP,Destination IP Address,Source Port,Cluster Manager IP,Web Application Name,Event Description,Action,Attack Name,Device Host Name,Directory,Module,Severity,Threat Category,Transaction ID,Tunnel,User Name  |
@@ -943,7 +943,7 @@ Feature:Create AppWall Part3
       | Time Definitions.Date | Relative:[Weeks,2]                                                                                                                                                                                                                            |
       | Schedule              | Run Every:Weekly, On Time:+6H, At Days:[THU]                                                                                                                                                                                                  |
       | Share                 | FTP:checked, FTP.Location:172.17.164.10, FTP.Path:/home/radware/ftp/, FTP.Username:radware, FTP.Password:radware                                                                                                                              |
-      | Format                | Select: CSV With Attack Details                                                                                                                                                                                                               |
+      | Format                | Select: CSV                                                                                                                                                                                                              |
     Then UI Delete Forensics With Name "Custom Conditions3"
 
   @SID_47
