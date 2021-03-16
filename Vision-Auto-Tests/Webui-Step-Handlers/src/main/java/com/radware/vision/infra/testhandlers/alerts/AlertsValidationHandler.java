@@ -10,7 +10,6 @@ import com.radware.vision.infra.tablepagesnavigation.NavigateTable;
 import com.radware.vision.infra.testhandlers.baseoperations.BasicOperationsHandler;
 import org.json.JSONObject;
 import testhandlers.Device;
-
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -21,7 +20,7 @@ import java.util.List;
 public class AlertsValidationHandler {
     public static boolean validateClearAllAlerts() {
         Alerts alerts = new Alerts();
-        if(!alerts.isAlertsTableOpen()){
+        if (!alerts.isAlertsTableOpen()) {
             alerts.alertsMaximize();
         }
         return alerts.validateClearAllAlertsAction();
@@ -29,7 +28,7 @@ public class AlertsValidationHandler {
 
     public static boolean validateAckAllAlerts() {
         Alerts alerts = new Alerts();
-        if(!alerts.isAlertsTableOpen()){
+        if (!alerts.isAlertsTableOpen()) {
             alerts.alertsMaximize();
         }
         return alerts.validateAckAllAlertsAction();
@@ -40,7 +39,7 @@ public class AlertsValidationHandler {
         alerts.alertsMaximize();
         alerts.autoRefreshAlertsOff();
         String resultMessage = "";
-        resultMessage =  resultMessage.concat(alerts.validateTableData(expectedTableData));
+        resultMessage = resultMessage.concat(alerts.validateTableData(expectedTableData));
         alerts.alertsMinimize();
         return resultMessage;
     }
@@ -54,10 +53,7 @@ public class AlertsValidationHandler {
         alerts.alertsMinimize();
         JSONObject json = new JSONObject(result);
         int lastCriticalAlertNumber = Integer.parseInt(json.get("lastCriticalAlertNumber").toString());
-        if (table.getRowCount() <= lastCriticalAlertNumber) {
-            return true;
-        }
-        return false;
+        return table.getRowCount() <= lastCriticalAlertNumber;
     }
 
     public static long validateRefreshInterval(VisionRestClient visionRestClient, com.radware.vision.pojomodel.helpers.constants.ImConstants$VisionMgtPortEnumPojo visionMgtPort) {

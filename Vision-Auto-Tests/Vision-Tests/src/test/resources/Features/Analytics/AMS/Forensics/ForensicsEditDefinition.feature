@@ -54,34 +54,7 @@ Feature: Forensics Edit Definition
       | Schedule              | Run Every:Daily,On Time:+2m                                        |
       | Delivery              | Email:[automation.vision1@radware.com],Subject:mySubject           |
 
-#  @SID_7
-#  Scenario: Validate forensics definition edit all fields
-#    And UI Click Button "Edit" with value "Test Edit"
-#    And UI Click Button "Summary Card" with value "initial"
-#    Then UI Validate Text field "Summary.Name" EQUALS "Name: Test Edit"
-#    Then UI Validate Text field "Summary.Description" EQUALS "Description: desc"
-#    Then UI Validate Text field "Summary.Time Period" EQUALS "Time Period: 1M"
-#    Then UI Validate Text field "Summary.Scope" EQUALS "Device: DefensePro_172.16.22.51 Policies: BDOS"
-#    Then UI Validate Text field "Summary.Criteria" EQUALS "{"index":1,"criteria":"actionType","operator":"equals","values":[{"description":"Forward","value":"Forward","defaultProps":{"value":"Forward","description":"Forward","debugId":"Forward","caption":"Item","id":"Item","selected":false}}]}"
-#    Then UI Validate Text field "Summary.Output" EQUALS "Start Time Action Attack ID Risk"
-#    Then UI Validate Text field "Summary.Schedule" EQUALS "type: daily, time: 10:00, timeZone: GMT+0200"
-#    When UI Click Button "Close"
-#
-#  @SID_8
-#  Scenario: Validate forensics definition after fields
-#    And UI Click Button "Edit" with value "Test Edit"
-#    And UI Click Button "Summary Card" with value "initial"
-#    Then UI Validate Text field "Summary.Name" EQUALS "Name: Test Edit"
-#    Then UI Validate Text field "Summary.Description" EQUALS "Description: desc"
-#    Then UI Validate Text field "Summary.Time Period" EQUALS "Time Period: 1M"
-#    Then UI Validate Text field "Summary.Scope" EQUALS "Device: DefensePro_172.16.22.51 Policies: BDOS"
-#    Then UI Validate Text field "Summary.Criteria" EQUALS "{"index":1,"criteria":"actionType","operator":"equals","values":[{"description":"Forward","value":"Forward","defaultProps":{"value":"Forward","description":"Forward","debugId":"Forward","caption":"Item","id":"Item","selected":false}}]}"
-#    Then UI Validate Text field "Summary.Output" EQUALS "Start Time Action Attack ID Risk"
-#    Then UI Validate Text field "Summary.Schedule" EQUALS "type: daily, time: 10:00, timeZone: GMT+0200"
-#    When UI Click Button "Close"
-
-
-  @SID_9
+  @SID_7
   Scenario: Validate forensics definition edit criteria
     When UI "Edit" Forensics With Name "Test Edit"
       | Criteria | Event Criteria:Protocol,Operator:Not Equals,Value:IP |
@@ -90,11 +63,8 @@ Feature: Forensics Edit Definition
     Then Sleep "35"
     And UI Click Button "Views.Forensic" with value "Test Edit,0"
     Then UI Validate "Forensics.Table" Table rows count EQUALS to 1
-    Then UI Validate Deletion of Forensics instance "Deletion Forensics Instance" with value "Test Edit_0"
 
-
-
-  @SID_10
+  @SID_8
   Scenario: Validate forensics definition edit time definition
     # move one attack 48 hours backwards
     When CLI Run remote linux Command "curl -XPOST localhost:9200/dp-attack-raw-*/_update_by_query/?pretty -d '{"query": {"match": {"attackIpsId": "78-1526381752"}},"script": {"source": "ctx._source.startTime = 'ctx._source.startTime-172800000'"}}'" on "ROOT_SERVER_CLI"
@@ -107,9 +77,7 @@ Feature: Forensics Edit Definition
     Then UI Validate "Forensics.Table" Table rows count EQUALS to 1
     Then UI Delete Forensics With Name "Test Edit"
 
-
-
-  @SID_11
+  @SID_9
   Scenario: Cleanup
     Given UI logout and close browser
     * CLI Check if logs contains
