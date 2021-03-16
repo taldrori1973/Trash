@@ -206,9 +206,7 @@ public class AlertsHandler {
 
     public static void autoRefreshOff(boolean isMinimize) {
         Alerts alerts = new Alerts();
-        if(!alerts.isAlertsTableOpen()) {
-            alerts.alertsMaximize();
-        }
+        alerts.alertsMaximize();
         alerts.autoRefreshAlertsOff();
         if(isMinimize){
             alerts.alertsMinimize();

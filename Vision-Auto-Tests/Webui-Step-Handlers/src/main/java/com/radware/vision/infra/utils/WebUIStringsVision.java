@@ -270,7 +270,7 @@ public class WebUIStringsVision {
     /*****************************************************************************************/
     static final String VRM_REPORT_LIST_ITEM_CONTAINER_ID = "vrm-forensics-views-list-item-container_";
 
-    public static String getVRMReportListItemIdByName(String name){
+    public static String getVRMReportListItemIdByName(String name) {
         return VRM_REPORT_LIST_ITEM_CONTAINER_ID.concat(name);
     }
 
@@ -391,6 +391,9 @@ public class WebUIStringsVision {
 
 
     public static String getAlertsModuleCombo(String module) {
+        if (module.equals("vision analytics alerts")) {
+            return GWT_DEBUG + "rt_alerts" + WIDGET_INPUT;
+        }
         if (module.contains("vision")) {
             return GWT_DEBUG + ALERTS_MODULE_VISION_TYPE + module.substring(module.indexOf(" ") + 1) + WIDGET_INPUT;
         } else {
@@ -528,7 +531,7 @@ public class WebUIStringsVision {
     static final String LEFT_MENU_PANE_CONFIGURATION_SYSTEM = "TopicsStack_Configuration.System";
     static final String LEFT_VISION_MENU_PANE_CONFIGURATION_SYSTEM = "System";
     static final String MIDDLE_VISION_MENU_PANE_CONFIGURATION_DASHBOARDS = "Dashboards";
-    
+
     static final String LEFT_MENU_PANE_CONFIGURATION_PREFERENCES = "Preferences";
 
     public static String getLeftMenuPaneConfigurationSystem() {
@@ -538,6 +541,7 @@ public class WebUIStringsVision {
     public static String getLeftMenuPaneConfigurationVisionSystem() {
         return GWT_DEBUG + LEFT_VISION_MENU_PANE_CONFIGURATION_SYSTEM;
     }
+
     public static String getMiddleMenuPaneConfigurationVisionDashboards() {
         return GWT_DEBUG + MIDDLE_VISION_MENU_PANE_CONFIGURATION_DASHBOARDS;
     }

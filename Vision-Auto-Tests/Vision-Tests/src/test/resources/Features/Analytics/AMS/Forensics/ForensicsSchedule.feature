@@ -14,21 +14,20 @@ Feature: Forensics Schedule
       | type | value                                 |
       | body | sessionInactivTimeoutConfiguration=60 |
 
-
+  
   @SID_2
   Scenario: VRM - Loging to VRM "Wizard" Test
     Then REST Vision Install License Request "vision-AVA-Max-attack-capacity"
     Given UI Login with user "sys_admin" and password "radware"
     Then UI Navigate to "AMS Forensics" page via homepage
 
+  
   @SID_3
   Scenario: VRM - Add New Forensics view Daily schedule
     When UI "Create" Forensics With Name "Daily Report"
       | Schedule              | Run Every:Daily,On Time:10:00 AM |
-    When UI Click Button "Edit" with value "Daily Report"
-    Then UI Click Button "Expand Collapse"
-    And UI Click Button "Tab" with value "schedule-tab"
-#    Then UI Validate Text field "Scheduling Run Every" CONTAINS "Daily"
+    When UI Click Button "Edit Forensics" with value "Daily Report"
+    Then UI Click Button "Schedule Tab"
     Then UI Validate the attribute "Class" Of Label "Schedule Run Every" With Params "Daily" is "CONTAINS" to "selected"
     Then UI Validate Text field "Scheduling At Time" CONTAINS "10:00"
     Then UI Click Button "Close" with value ""
@@ -48,11 +47,7 @@ Feature: Forensics Schedule
       | Time Definitions.Date | Quick:This Month             |
       | Schedule              | Run Every:Daily, On Time:+2m |
 
-#  @SID_6
-#  Scenario: VRM - Add New Forensics Report schedule (current time + 2 min) - weekly
-#    When UI "Create" Forensics With Name "weekly Forensic"
-#      | Time Definitions.Date | Quick:This Month              |
-#      | Schedule              | Run Every:Weekly, On Time:+2m |
+
 
   @SID_6
   Scenario: VRM - Add New Forensics Report schedule (Any day at 19:30) - weekly
@@ -65,9 +60,8 @@ Feature: Forensics Schedule
 
   @SID_8
   Scenario: VRM - Edit weekly schedule Wednesday
-    Then UI Click Button "Edit" with value "weekly_Forensic"
-    Then UI Click Button "Expand Collapse"
-    And UI Click Button "Tab" with value "schedule-tab"
+    Then UI Click Button "Edit Forensics" with value "weekly_Forensic"
+    Then UI Click Button "Schedule Tab"
     Then UI Click Button "Scheduling Week Day" with value "WED"
     Then UI Click Button "Submit" with value "Submit"
 
@@ -95,27 +89,25 @@ Feature: Forensics Schedule
 
   @SID_13
   Scenario: VRM Forensic schedule - validate report once was generated
-    Then UI Click Button "Views.Expand" with value "Once Report"
-    Then UI Validate Element Existence By Label "Views.report" if Exists "true" with value "Once Report"
-    Then UI Click Button "Views.Expand" with value "Once Report"
+
+    Then UI Click Button "My Forensics" with value "Once Report"
+    Then UI Validate Element Existence By Label "Generate Snapshot Forensics Manually" if Exists "true" with value "Once Report"
+    Then UI Click Button "My Forensics" with value "Once Report"
 
   @SID_14
   Scenario: VRM Forensic schedule - validate report daily was generated
-    And UI Click Button "Views.Expand" with value "daily Forensic"
-    Then UI Validate Element Existence By Label "Views.report" if Exists "true" with value "daily Forensic"
-    And UI Click Button "Views.Expand" with value "daily Forensic"
+    Then UI Click Button "My Forensics" with value "daily Forensic"
+    Then UI Validate Element Existence By Label "Generate Snapshot Forensics Manually" if Exists "true" with value "daily Forensic"
+    Then UI Click Button "My Forensics" with value "daily Forensic"
 
-#  @SID_15
-#  Scenario: VRM Forensic schedule - validate report weekly was generated
-#    And UI Click Button "Views.Expand" with value "weekly Forensic"
-#    Then UI Validate Element Existence By Label "Views.report" if Exists "true" with value "weekly Forensic"
-#    And UI Click Button "Views.Expand" with value "weekly Forensic"
 
   @SID_15
   Scenario: VRM Forensic schedule - validate report monthly was generated
-    And UI Click Button "Views.Expand" with value "monthly Forensic"
-    Then UI Validate Element Existence By Label "Views.report" if Exists "true" with value "monthly Forensic"
-    And UI Click Button "Views.Expand" with value "monthly Forensic"
+    Then UI Click Button "My Forensics" with value "monthly Forensic"
+    Then UI Validate Element Existence By Label "Generate Snapshot Forensics Manually" if Exists "true" with value "monthly Forensic"
+    Then UI Click Button "My Forensics" with value "monthly Forensic"
+
+
 
   @SID_16
   Scenario: Cleanup and check logs
