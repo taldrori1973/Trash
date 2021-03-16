@@ -84,12 +84,12 @@ Feature: Forensics RBAC
   Scenario: Forensics RBAC restricted user POLICY can view only same policy definition
     Given UI Login with user "sec_mon" and password "radware"
     Then UI Navigate to "AMS Forensics" page via homepage
-    Then UI Validate Element Existence By Label "INFO Forensics" if Exists "false" with value "AllDevAllPol"
-    Then UI Validate Element Existence By Label "Delete Forensics" if Exists "false" with value "AllDevAllPol"
-    Then UI Validate Element Existence By Label "Edit Forensics" if Exists "false" with value "AllDevAllPol"
-    Then UI Validate Element Existence By Label "INFO Forensics" if Exists "false" with value "Device10_Policy15"
-    Then UI Validate Element Existence By Label "Delete Forensics" if Exists "false" with value "Device10_Policy15"
-    Then UI Validate Element Existence By Label "Edit Forensics" if Exists "false" with value "Device10_Policy15"
+    Then UI Validate Element Existence By Label "INFO Forensics" if Exists "true" with value "AllDevAllPol"
+    Then UI Validate Element Existence By Label "Delete Forensics" if Exists "true" with value "AllDevAllPol"
+    Then UI Validate Element Existence By Label "Edit Forensics" if Exists "true" with value "AllDevAllPol"
+    Then UI Validate Element Existence By Label "INFO Forensics" if Exists "true" with value "Device10_Policy15"
+    Then UI Validate Element Existence By Label "Delete Forensics" if Exists "true" with value "Device10_Policy15"
+    Then UI Validate Element Existence By Label "Edit Forensics" if Exists "true" with value "Device10_Policy15"
     And UI Logout
 
   @SID_9
@@ -108,9 +108,31 @@ Feature: Forensics RBAC
       | Policy Name | Policy14 |
 
   @SID_10
+  Scenario: Validate DF not appears for sec_mon_all_pol
+    Given UI Login with user "sec_mon_all_pol" and password "radware"
+    Then UI Navigate to "AMS Forensics" page via homepage
+    Then UI Click Button "New Forensics Tab"
+    Then UI Validate the attribute of "data-debug-checked" are "EQUAL" to
+      | label     | param       | value |
+      | Product   | DefenseFlow | false |
+    And UI Logout
+
+  @SID_11
+  Scenario: Validate DF not appears for sec_mon
+    Given UI Login with user "sec_mon" and password "radware"
+    Then UI Navigate to "AMS Forensics" page via homepage
+    Then UI Click Button "New Forensics Tab"
+    Then UI Validate the attribute of "data-debug-checked" are "EQUAL" to
+      | label     | param       | value |
+      | Product   | DefenseFlow | false |
+
+  @SID_12
   Scenario: Cleanup
     Given UI logout and close browser
     * CLI Check if logs contains
       | logType | expression                                    | isExpected   |
       | ALL     | fatal                                         | NOT_EXPECTED |
       | JBOSS   | Not authorized operation launched by the user | IGNORE       |
+
+
+
