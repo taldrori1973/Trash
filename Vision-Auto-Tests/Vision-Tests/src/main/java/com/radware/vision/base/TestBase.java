@@ -47,4 +47,5 @@ public abstract class TestBase {
     }
 
     public static LocalDateTime getTestStartTime(){return testStartTime;}
+    public static ServersManagement getServersManagement(){return serversManagement;}
 }

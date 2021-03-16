@@ -4,10 +4,13 @@ import com.radware.automation.bdd.reporter.BddReporterManager;
 import com.radware.automation.tools.basetest.BaseTestUtils;
 import com.radware.automation.tools.basetest.Reporter;
 import com.radware.automation.utils.AutoDBUtils;
+import com.radware.vision.automation.VisionAutoInfra.CLIInfra.Servers.RadwareServerCli;
+import com.radware.vision.automation.VisionAutoInfra.CLIInfra.Servers.RootServerCli;
 import com.radware.vision.automation.tools.esxitool.snapshotoperations.EsxiInfo;
 import com.radware.vision.automation.tools.esxitool.snapshotoperations.VMSnapshotOperations;
 import com.radware.vision.automation.tools.esxitool.snapshotoperations.targetvm.VmNameTargetVm;
 import com.radware.vision.automation.tools.sutsystemobjects.VisionVMs;
+import com.radware.vision.base.TestBase;
 import com.radware.vision.bddtests.BddUITestBase;
 import com.radware.vision.bddtests.clioperation.connections.NewVmSteps;
 import com.radware.vision.bddtests.clioperation.system.upgrade.UpgradeSteps;
@@ -215,42 +218,54 @@ public class VMOperationsSteps extends BddUITestBase {
 
     @Then("^Upgrade or Fresh Install Vision$")
     public void upgradeOrFreshInstallVision() {
-        String setupMode = getVisionSetupAttributeFromSUT("setupMode");
-        if (setupMode == null) throw new NullPointerException("Can't find \"setupMode\" at SUT File");
+        try {
+            String setupMode = getVisionSetupAttributeFromSUT("setupMode");
+            if (setupMode == null) throw new NullPointerException("Can't find \"setupMode\" at SUT File");
 
-        switch (setupMode.toLowerCase()) {
-            case "kvm_upgrade":
-            case "upgrade":
-                Upgrade upgrade = new Upgrade(true, null, restTestBase.getRadwareServerCli(), restTestBase.getRootServerCli());
-                upgrade.deploy();
-                break;
-            case "upgrade_inparallel":
-            case "kvm_upgrade_inparallel":
-                UpgradeSteps.UpgradeVisionToLatestBuildTwoMachines();
-                break;
-            case "kvm_fresh install":
-                FreshInstallKVM freshInstallKVM = new FreshInstallKVM(true, null);
-                freshInstallKVM.deploy();
-                break;
-            case "fresh install_inparallel":
-                freshInstallInParallel();
-                break;
-            case "fresh install":
-                FreshInstallOVA freshInstallOVA = new FreshInstallOVA(true, null);
-                freshInstallOVA.deploy();
-                break;
-            case "physical":
-                Physical physical = new Physical(true, null);
-                physical.deploy();
-                break;
-            default: {
-                BaseTestUtils.report("Setup mode:" + setupMode + " is not familiar.", Reporter.FAIL);
+            switch (setupMode.toLowerCase()) {
+                case "kvm_upgrade":
+                case "upgrade":
+                    Optional<RadwareServerCli> radwareServerCliOpt = TestBase.getServersManagement().getRadwareServerCli();
+                    if (!radwareServerCliOpt.isPresent()) {
+                        throw new Exception("Radware Server Not found!");
+                    }
+                    Optional<RootServerCli> rootServerCliOpt = TestBase.getServersManagement().getRootServerCLI();
+                    if (!rootServerCliOpt.isPresent()) {
+                        throw new Exception("Root Server Not found!");
+                    }
+                    Upgrade upgrade = new Upgrade(true, null, radwareServerCliOpt.get(), rootServerCliOpt.get());
+                    upgrade.deploy();
+                    break;
+                case "upgrade_inparallel":
+                case "kvm_upgrade_inparallel":
+                    UpgradeSteps.UpgradeVisionToLatestBuildTwoMachines();
+                    break;
+                case "kvm_fresh install":
+                    FreshInstallKVM freshInstallKVM = new FreshInstallKVM(true, null);
+                    freshInstallKVM.deploy();
+                    break;
+                case "fresh install_inparallel":
+                    freshInstallInParallel();
+                    break;
+                case "fresh install":
+                    FreshInstallOVA freshInstallOVA = new FreshInstallOVA(true, null);
+                    freshInstallOVA.deploy();
+                    break;
+                case "physical":
+                    Physical physical = new Physical(true, null);
+                    physical.deploy();
+                    break;
+                default: {
+                    BaseTestUtils.report("Setup mode:" + setupMode + " is not familiar.", Reporter.FAIL);
+                }
             }
-        }
-        updateVersionVar();
-        //kVision
+            updateVersionVar();
+            //kVision
 //        CliOperations.runCommand(restTestBase.getRootServerCli(), "chkconfig --level 345 rsyslog on", CliOperations.DEFAULT_TIME_OUT);
 //        CliOperations.runCommand(getRestTestBase().getRootServerCli(), "/usr/sbin/ntpdate -u europe.pool.ntp.org", 2 * 60 * 1000);
+        }catch (Exception e){
+            e.getMessage();
+        }
     }
 
     public static String getVisionSetupAttributeFromSUT(String attribute) {

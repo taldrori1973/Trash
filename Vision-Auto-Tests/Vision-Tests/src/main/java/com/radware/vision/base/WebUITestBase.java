@@ -286,7 +286,7 @@ public abstract class WebUITestBase extends TestBase {
         }
     }
 
-    public void publishBddResults_new() {
+    public void publishBddResults() {
         String status = BddReporterManager.isResultPass() ? "Passed" : "Failed";
 
         Integer testCaseId = BddReporterManager.getStepId();

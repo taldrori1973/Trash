@@ -14,13 +14,13 @@ import com.radware.automation.webui.widgets.ComponentLocatorFactory;
 import com.radware.automation.webui.widgets.impl.WebUICheckbox;
 import com.radware.automation.webui.widgets.impl.WebUIComponent;
 import com.radware.vision.automation.VisionAutoInfra.CLIInfra.CliOperations;
+import com.radware.vision.automation.VisionAutoInfra.CLIInfra.Servers.RadwareServerCli;
+import com.radware.vision.automation.VisionAutoInfra.CLIInfra.Servers.RootServerCli;
 import com.radware.vision.automation.tools.exceptions.selenium.TargetWebElementNotFoundException;
 import com.radware.vision.automation.tools.exceptions.web.DropdownItemNotFoundException;
 import com.radware.vision.automation.tools.exceptions.web.DropdownNotOpenedException;
 import com.radware.vision.automation.tools.sutsystemobjects.devicesinfo.DeviceInfo;
 import com.radware.vision.automation.tools.sutsystemobjects.devicesinfo.enums.SUTDeviceType;
-import com.radware.vision.vision_project_cli.RadwareServerCli;
-import com.radware.vision.vision_project_cli.RootServerCli;
 import com.radware.vision.infra.testhandlers.baseoperations.BasicOperationsHandler;
 import com.radware.vision.infra.testhandlers.vrm.enums.vrmActions;
 import com.radware.vision.infra.utils.ReportsUtils;
@@ -964,17 +964,18 @@ public class VRMBaseUtilies {
     }
 
     public static void openDevicePort(String host) {
-        RadwareServerCli radwareServerCli = restTestBase.getRadwareServerCli();
-        RootServerCli rootServerCli = restTestBase.getRootServerCli();
+        //kvision
+//        RadwareServerCli radwareServerCli = restTestBase.getRadwareServerCli();
+//        RootServerCli rootServerCli = restTestBase.getRootServerCli();
         if (host == null) {
             host = restTestBase.getRadwareServerCli().getHost();
         }
         if (host != null && !host.equals(restTestBase.getRadwareServerCli().getHost())) {
             try {
-                radwareServerCli = new RadwareServerCli(host, restTestBase.getRadwareServerCli().getUser(), restTestBase.getRootServerCli().getPassword());
-                radwareServerCli.init();
-                rootServerCli = new RootServerCli(host, restTestBase.getRootServerCli().getUser(), restTestBase.getRootServerCli().getPassword());
-                rootServerCli.init();
+//                radwareServerCli = new RadwareServerCli(host, restTestBase.getRadwareServerCli().getUser(), restTestBase.getRootServerCli().getPassword());
+//                radwareServerCli.init();
+//                rootServerCli = new RootServerCli(host, restTestBase.getRootServerCli().getUser(), restTestBase.getRootServerCli().getPassword());
+//                rootServerCli.init();
             } catch (Exception e) {
                 BaseTestUtils.report("Failed to build with host: " + host + " " + e.getMessage(), Reporter.FAIL);
             }

@@ -22,3 +22,4 @@ public class BddHooks extends WebUITestBase {
         publishBddResults();
     }
 }
+

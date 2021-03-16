@@ -2,7 +2,9 @@ package com.radware.vision.bddtests.VRM;
 
 import com.radware.automation.tools.basetest.BaseTestUtils;
 import com.radware.automation.tools.basetest.Reporter;
+import com.radware.vision.automation.VisionAutoInfra.CLIInfra.Servers.RootServerCli;
 import com.radware.vision.automation.tools.exceptions.selenium.TargetWebElementNotFoundException;
+import com.radware.vision.base.TestBase;
 import com.radware.vision.bddtests.BddUITestBase;
 import com.radware.vision.bddtests.ReportsForensicsAlerts.Report;
 import com.radware.vision.infra.testhandlers.vrm.VRMHandler;
@@ -14,6 +16,7 @@ import cucumber.api.java.en.When;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
 public class ReportSteps extends BddUITestBase {
     private VRMReportsHandler vrmReportsHandler = new VRMReportsHandler();
@@ -197,7 +200,11 @@ public class ReportSteps extends BddUITestBase {
             Map<String,String> map=new HashMap<>();
             map.put("validation",Validate);
             map.put("timeout",String.valueOf(timeout));
-            vrmReportsHandler.VRMReportOperation(vrmActions.GENERATE,reportName,map,restTestBase.getRootServerCli());
+            Optional<RootServerCli> rootServerCliOpt = TestBase.getServersManagement().getRootServerCLI();
+            if (!rootServerCliOpt.isPresent()) {
+                throw new Exception("Root Server Not found!");
+            }
+            vrmReportsHandler.VRMReportOperation(vrmActions.GENERATE,reportName,map,rootServerCliOpt.get());
         } catch (Exception e) {
             BaseTestUtils.report(e.getMessage(), Reporter.FAIL);
         }

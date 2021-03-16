@@ -12,6 +12,7 @@ import com.radware.vision.automation.tools.sutsystemobjects.devicesinfo.enums.SU
 import com.radware.vision.bddtests.ReportsForensicsAlerts.Report;
 import com.radware.vision.infra.testhandlers.baseoperations.BasicOperationsHandler;
 import com.radware.vision.bddtests.ReportsForensicsAlerts.WebUiTools;
+import com.radware.vision.infra.testhandlers.vrm.VRMHandler;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import org.openqa.selenium.Keys;

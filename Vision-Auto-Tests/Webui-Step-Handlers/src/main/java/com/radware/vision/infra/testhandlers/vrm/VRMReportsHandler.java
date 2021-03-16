@@ -10,9 +10,9 @@ import com.radware.automation.webui.widgets.ComponentLocator;
 import com.radware.automation.webui.widgets.ComponentLocatorFactory;
 import com.radware.automation.webui.widgets.impl.WebUICheckbox;
 import com.radware.automation.webui.widgets.impl.WebUIComponent;
+import com.radware.vision.automation.VisionAutoInfra.CLIInfra.Servers.RootServerCli;
 import com.radware.vision.automation.tools.exceptions.selenium.TargetWebElementNotFoundException;
 import com.radware.vision.automation.tools.sutsystemobjects.devicesinfo.enums.SUTDeviceType;
-import com.radware.vision.vision_project_cli.RootServerCli;
 import com.radware.vision.infra.testhandlers.EmailHandler;
 import com.radware.vision.infra.testhandlers.alteon.securitymonitoring.dashboardview.sslinspection.enums.QuickRange;
 import com.radware.vision.infra.testhandlers.baseoperations.BasicOperationsHandler;
@@ -1182,8 +1182,9 @@ public class VRMReportsHandler extends VRMBaseUtilies {
         long startTime = System.currentTimeMillis();
         do {
             try {
-                foundObject = ElasticSearchHandler.getDocument(rootServerCli, documentFieldName, reportName, indexName);
-                return foundObject;
+                //kvision
+//                foundObject = ElasticSearchHandler.getDocument(rootServerCli, documentFieldName, reportName, indexName);
+//                return foundObject;
             } catch (JSONException e) {
             }
         }
@@ -1193,31 +1194,32 @@ public class VRMReportsHandler extends VRMBaseUtilies {
 
     public void uiValidateTogglesDataInReportWithWidget(String reportName, String widget, List<VRMHandler.ToggleData> entries) {
         String errorMessage = "";
-        JSONObject basicRestResult = waitForESDocument(rootServerCli, "reportName", reportName, "vrm-scheduled-report-definition-vrm", 0);
-        String ObjectString = basicRestResult.get("content").toString().replace("\\", "");
-        JSONObject restResult = new JSONObject(ObjectString);
-        List deliveryList = ((JSONArray) (restResult).get("currentGridsterContent")).toList();
-
-        String udid = "";
-        for (Object a : (ArrayList) deliveryList) {
-            if (((HashMap) a).get("title").toString().equalsIgnoreCase(widget))
-                udid = ((HashMap) a).get("uuid").toString();
-        }
-        for (VRMHandler.ToggleData entry : entries) {
-            boolean textExist = false;
-            for (Object b : ((JSONArray) ((JSONObject) restResult.get("togglesData")).get(udid))) {
-                if (((JSONObject) b).get("text").toString().equalsIgnoreCase(entry.text)) {
-                    textExist = true;
-                    if (!((JSONObject) b).get("value").toString().equalsIgnoreCase(entry.value))
-                        errorMessage = ("The Expected value of " + widget + " in report " + reportName + " in option " + entry.text + " is " + entry.value + " but the actual is " + ((JSONObject) b).get("value").toString() + "/n");
-                    if (!((JSONObject) b).get("selected").toString().equalsIgnoreCase(entry.selected.toString()))
-                        errorMessage = ("The Expected value of " + widget + " in report " + reportName + " in option " + entry.selected + " is " + entry.selected + " but the actual is " + ((JSONObject) b).get("selected").toString() + "/n");
-                    break;
-                }
-            }
-            if (!textExist)
-                errorMessage = ("The option of " + entry.text + " in widget " + widget + " in report " + reportName + "doesn't found " + "/n");
-        }
+        //kvision
+//        JSONObject basicRestResult = waitForESDocument(rootServerCli, "reportName", reportName, "vrm-scheduled-report-definition-vrm", 0);
+//        String ObjectString = basicRestResult.get("content").toString().replace("\\", "");
+//        JSONObject restResult = new JSONObject(ObjectString);
+//        List deliveryList = ((JSONArray) (restResult).get("currentGridsterContent")).toList();
+//
+//        String udid = "";
+//        for (Object a : (ArrayList) deliveryList) {
+//            if (((HashMap) a).get("title").toString().equalsIgnoreCase(widget))
+//                udid = ((HashMap) a).get("uuid").toString();
+//        }
+//        for (VRMHandler.ToggleData entry : entries) {
+//            boolean textExist = false;
+//            for (Object b : ((JSONArray) ((JSONObject) restResult.get("togglesData")).get(udid))) {
+//                if (((JSONObject) b).get("text").toString().equalsIgnoreCase(entry.text)) {
+//                    textExist = true;
+//                    if (!((JSONObject) b).get("value").toString().equalsIgnoreCase(entry.value))
+//                        errorMessage = ("The Expected value of " + widget + " in report " + reportName + " in option " + entry.text + " is " + entry.value + " but the actual is " + ((JSONObject) b).get("value").toString() + "/n");
+//                    if (!((JSONObject) b).get("selected").toString().equalsIgnoreCase(entry.selected.toString()))
+//                        errorMessage = ("The Expected value of " + widget + " in report " + reportName + " in option " + entry.selected + " is " + entry.selected + " but the actual is " + ((JSONObject) b).get("selected").toString() + "/n");
+//                    break;
+//                }
+//            }
+//            if (!textExist)
+//                errorMessage = ("The option of " + entry.text + " in widget " + widget + " in report " + reportName + "doesn't found " + "/n");
+//        }
         if (!errorMessage.equals(""))
             BaseTestUtils.report(errorMessage, Reporter.FAIL);
 
