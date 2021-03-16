@@ -1,4 +1,3 @@
-
 @TC120198
 Feature: AW HTML Forensics
 
@@ -20,12 +19,12 @@ Feature: AW HTML Forensics
   @SID_3 @Sanity
   Scenario: configure the AW in vision
     Then REST Add "AppWall" Device To topology Tree with Name "Appwall_SA_172.17.164.30" and Management IP "172.17.164.30" into site "AW_site"
-      | attribute     | value    |
-      | httpPassword  | 1qaz!QAZ |
-      | httpsPassword | 1qaz!QAZ |
-      | httpsUsername | user1    |
-      | httpUsername  | user1    |
-      | visionMgtPort | G1       |
+      | attribute     | value  |
+      | httpPassword  | kavado |
+      | httpsPassword | kavado |
+      | httpsUsername | admin  |
+      | httpUsername  | admin  |
+      | visionMgtPort | G1     |
     And Sleep "10"
     * CLI Clear vision logs
 
@@ -60,11 +59,11 @@ Feature: AW HTML Forensics
   @SID_6
   Scenario: create new Forensics_AW and validate
     When UI "Create" Forensics With Name "Forensics_AW"
-      | Product               | AppWall                                                                                                                     |
-      | Application           | All                                                                                                                         |
+      | Product               | AppWall                                                                                                                    |
+      | Application           | All                                                                                                                        |
       | Output                | Destination IP Address,Transaction ID,Source IP,Source Port,Web Application Name,Action,Severity,Threat Category,Device IP |
-      | Format                | Select: HTML                                                                                                                |
-      | Time Definitions.Date | Quick:Today                                                                                                                 |
+      | Format                | Select: HTML                                                                                                               |
+      | Time Definitions.Date | Quick:Today                                                                                                                |
 
 
   @SID_7
