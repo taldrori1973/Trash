@@ -33,7 +33,13 @@ Feature: DefenseFlow CSV Forensics
       | #visionIP                                       |
       | " Terminated"                                   |
 
-  
+
+    When CLI Operations - Run Radware Session command "system df management-ip set 172.17.164.10"
+    When CLI Operations - Run Radware Session command "system df management-ip get"
+    Then CLI Operations - Verify that output contains regex "DefenseFlow Management IP Address: 172.17.164.10"
+
+
+
   @SID_4
   Scenario: VRM - Login to VRM "Wizard" Test and enable emailing
     Given UI Login with user "sys_admin" and password "radware"
@@ -277,6 +283,8 @@ Feature: DefenseFlow CSV Forensics
   @SID_21
   Scenario: Clear FTP server logs and generate the report
     Then Sleep "100"
+    Then UI Click Button "My Forensics" with value "Forensics_DefenseFlow"
+    Then UI Click Button "Generate Snapshot Forensics Manually" with value "Forensics_DefenseFlow"
     And UI Navigate to "AMS Reports" page via homePage
     Then UI Navigate to "AMS Forensics" page via homepage
     Then CLI Run remote linux Command "rm -f /home/radware/ftp/Forensics_DefenseFlow*.zip /home/radware/ftp/Forensics_DefenseFlow*.csv" on "GENERIC_LINUX_SERVER"
