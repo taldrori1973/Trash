@@ -12,7 +12,7 @@ Feature:Create AppWall Part2
 
   @SID_2
   Scenario: create new Output all1 Equal Destination IP
-    Given UI "Create" Forensics With Name "Output alll Equal Destination IP"
+    Given UI "Create" Forensics With Name "Output all Equal Destination IP"
       | Product               | AppWall                                                                                                                                                                                                                                      |
       | Output                | Date and Time,Device IP,Source IP,Destination IP Address,Source Port,Cluster Manager IP,Web Application Name,Event Description,Action,Attack Name,Device Host Name,Directory,Module,Severity,Threat Category,Transaction ID,Tunnel,User Name |
       | Criteria              | Event Criteria:Destination IP,Operator:Equals,IPType:IPv4,IPValue:1.1.1.1                                                                                                                                                                    |
@@ -20,7 +20,7 @@ Feature:Create AppWall Part2
       | Schedule              | Run Every:Monthly, On Time:+6H, At Months:[AUG]                                                                                                                                                                                              |
       | Share                 | FTP:checked, FTP.Location:172.17.164.10, FTP.Path:/home/radware/ftp/, FTP.Username:radware, FTP.Password:radware                                                                                                                             |
       | Format                | Select: CSV                                                                                                                                                                                                             |
-    Then UI "Validate" Forensics With Name "Output alll Equal Destination IP"
+    Then UI "Validate" Forensics With Name "Output all Equal Destination IP"
       | Product               | AppWall                                                                                                                                                                                                                                      |
       | Output                | Date and Time,Device IP,Source IP,Destination IP Address,Source Port,Cluster Manager IP,Web Application Name,Event Description,Action,Attack Name,Device Host Name,Directory,Module,Severity,Threat Category,Transaction ID,Tunnel,User Name |
       | Criteria              | Event Criteria:Destination IP,Operator:Equals,IPType:IPv4,IPValue:1.1.1.1                                                                                                                                                                    |
@@ -28,7 +28,7 @@ Feature:Create AppWall Part2
       | Schedule              | Run Every:Monthly, On Time:+6H, At Months:[AUG]                                                                                                                                                                                              |
       | Share                 | FTP:checked, FTP.Location:172.17.164.10, FTP.Path:/home/radware/ftp/, FTP.Username:radware, FTP.Password:radware                                                                                                                             |
       | Format                | Select: CSV                                                                                                                                                                                                             |
-    Then UI Delete Forensics With Name "Output alll Equal Destination IP"
+    Then UI Delete Forensics With Name "Output all Equal Destination IP"
 
   @SID_3
   Scenario: create new Output all2 Not Equal Destination IP
