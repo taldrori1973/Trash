@@ -5,6 +5,7 @@ import com.radware.restcore.GenericRestClient;
 import com.radware.restcore.RestBasicConsts;
 import com.radware.restcore.VisionRestClient;
 import com.radware.restcore.utils.enums.ExpectedHttpCodes;
+import com.radware.vision.automation.base.TestBase;
 
 
 public class RestManagement extends RestTestBase {

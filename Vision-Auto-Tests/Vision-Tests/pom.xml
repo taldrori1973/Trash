@@ -37,6 +37,11 @@
     </pluginRepositories>
 
     <dependencies>
+<!--        <dependency>-->
+<!--            <groupId>com.radware.vision.automation</groupId>-->
+<!--            <artifactId>Vision-Auto-Infra</artifactId>-->
+<!--            <version>${revision}</version>-->
+<!--        </dependency>-->
         <dependency>
             <groupId>com.radware.vision.automation.tools</groupId>
             <artifactId>bdd-tools</artifactId>
@@ -94,11 +99,11 @@
             <artifactId>xml-apis</artifactId>
             <version>1.4.01</version>
         </dependency>
-        <dependency>
-            <groupId>commons-lang</groupId>
-            <artifactId>commons-lang</artifactId>
-            <version>RELEASE</version>
-        </dependency>
+<!--        <dependency>-->
+<!--            <groupId>commons-lang</groupId>-->
+<!--            <artifactId>commons-lang</artifactId>-->
+<!--            <version>RELEASE</version>-->
+<!--        </dependency>-->
         <dependency>
             <groupId>org.jsystemtest</groupId>
             <artifactId>jsystemAgent</artifactId>
@@ -155,7 +160,13 @@
         <dependency>
             <groupId>com.radware.vision.automation</groupId>
             <artifactId>Database-Step-Handlers</artifactId>
-            <version>4.60.00-SNAPSHOT</version>
+            <version>${revision}</version>
+            <scope>compile</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.radware.vision.automation</groupId>
+            <artifactId>Auto-Common</artifactId>
+            <version>${revision}</version>
             <scope>compile</scope>
         </dependency>
     </dependencies>
@@ -190,7 +201,7 @@
                     <dependency>
                         <groupId>com.radware.vision.automation</groupId>
                         <artifactId>Vision-Tests</artifactId>
-                        <version>${parent.version}</version>
+                        <version>${project.parent.version}</version>
                         <scope>runtime</scope>
                     </dependency>
                     <dependency>
@@ -232,20 +243,20 @@
                 </executions>
             </plugin>
 
-            <plugin>
-                <artifactId>maven-dependency-plugin</artifactId>
-                <executions>
-                    <execution>
-                        <phase>install</phase>
-                        <goals>
-                            <goal>copy-dependencies</goal>
-                        </goals>
-                        <configuration>
-                            <outputDirectory>${project.basedir}/lib</outputDirectory>
-                        </configuration>
-                    </execution>
-                </executions>
-            </plugin>
+<!--            <plugin>-->
+<!--                <artifactId>maven-dependency-plugin</artifactId>-->
+<!--                <executions>-->
+<!--                    <execution>-->
+<!--                        <phase>install</phase>-->
+<!--                        <goals>-->
+<!--                            <goal>copy-dependencies</goal>-->
+<!--                        </goals>-->
+<!--                        <configuration>-->
+<!--                            <outputDirectory>${project.basedir}/lib</outputDirectory>-->
+<!--                        </configuration>-->
+<!--                    </execution>-->
+<!--                </executions>-->
+<!--            </plugin>-->
 
 
             <plugin>
@@ -345,53 +356,53 @@
                 </executions>
             </plugin>
 
-            <plugin>
-                <artifactId>maven-resources-plugin</artifactId>
-                <version>2.6</version>
-                <executions>
-                    <execution>
-                        <id>copy-resources-Webui-Step-Handlers</id>
-                        <!-- here the phase you need -->
-                        <phase>validate</phase>
-                        <goals>
-                            <goal>copy-resources</goal>
-                        </goals>
-                        <configuration>
-                            <outputDirectory>${project.basedir}/target/classes/inputfiles</outputDirectory>
-                            <resources>
-                                <resource>
-                                    <directory>${project.basedir}/../Webui-Step-Handlers/src/main/resources/inputfiles/
-                                    </directory>
-                                    <includes>
-                                        <include>**/*.txt</include>
-                                    </includes>
-                                </resource>
-                            </resources>
-                        </configuration>
-                    </execution>
-                    <execution>
-                        <id>copy-resources-dummy-vision-version-hierarchy</id>
-                        <!-- here the phase you need -->
-                        <phase>validate</phase>
-                        <goals>
-                            <goal>copy-resources</goal>
-                        </goals>
-                        <configuration>
-                            <outputDirectory>${project.basedir}/target/classes/clientdevicedrivers/server
-                            </outputDirectory>
-                            <resources>
-                                <resource>
-                                    <directory>${project.basedir}/src/main/resources/clientdevicedrivers/server
-                                    </directory>
-                                    <includes>
-                                        <include>**/*</include>
-                                    </includes>
-                                </resource>
-                            </resources>
-                        </configuration>
-                    </execution>
-                </executions>
-            </plugin>
+<!--            <plugin>-->
+<!--                <artifactId>maven-resources-plugin</artifactId>-->
+<!--                <version>2.6</version>-->
+<!--                <executions>-->
+<!--                    <execution>-->
+<!--                        <id>copy-resources-Webui-Step-Handlers</id>-->
+<!--                        &lt;!&ndash; here the phase you need &ndash;&gt;-->
+<!--                        <phase>validate</phase>-->
+<!--                        <goals>-->
+<!--                            <goal>copy-resources</goal>-->
+<!--                        </goals>-->
+<!--                        <configuration>-->
+<!--                            <outputDirectory>${project.basedir}/target/classes/inputfiles</outputDirectory>-->
+<!--                            <resources>-->
+<!--                                <resource>-->
+<!--                                    <directory>${project.basedir}/../Webui-Step-Handlers/src/main/resources/inputfiles/-->
+<!--                                    </directory>-->
+<!--                                    <includes>-->
+<!--                                        <include>**/*.txt</include>-->
+<!--                                    </includes>-->
+<!--                                </resource>-->
+<!--                            </resources>-->
+<!--                        </configuration>-->
+<!--                    </execution>-->
+<!--                    <execution>-->
+<!--                        <id>copy-resources-dummy-vision-version-hierarchy</id>-->
+<!--                        &lt;!&ndash; here the phase you need &ndash;&gt;-->
+<!--                        <phase>validate</phase>-->
+<!--                        <goals>-->
+<!--                            <goal>copy-resources</goal>-->
+<!--                        </goals>-->
+<!--                        <configuration>-->
+<!--                            <outputDirectory>${project.basedir}/target/classes/clientdevicedrivers/server-->
+<!--                            </outputDirectory>-->
+<!--                            <resources>-->
+<!--                                <resource>-->
+<!--                                    <directory>${project.basedir}/src/main/resources/clientdevicedrivers/server-->
+<!--                                    </directory>-->
+<!--                                    <includes>-->
+<!--                                        <include>**/*</include>-->
+<!--                                    </includes>-->
+<!--                                </resource>-->
+<!--                            </resources>-->
+<!--                        </configuration>-->
+<!--                    </execution>-->
+<!--                </executions>-->
+<!--            </plugin>-->
         </plugins>
         <resources>
             <!-- include main.properties -->

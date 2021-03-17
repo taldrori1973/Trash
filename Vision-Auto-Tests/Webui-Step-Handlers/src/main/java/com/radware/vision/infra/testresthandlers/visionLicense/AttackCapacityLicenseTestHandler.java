@@ -2,9 +2,13 @@ package com.radware.vision.infra.testresthandlers.visionLicense;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.ObjectReader;
-import com.radware.vision.automation.DatabaseStepHandlers.mariaDB.GenericCRUD;
-import com.radware.vision.automation.DatabaseStepHandlers.mariaDB.client.VisionDBSchema;
+import com.radware.vision.automation.base.TestBase;
+import com.radware.vision.automation.databases.mariaDB.GenericCRUD;
+import com.radware.vision.automation.databases.mariaDB.client.VisionDBSchema;
+import com.radware.vision.automation.VisionAutoInfra.CLIInfra.CliOperations;
+import com.radware.vision.automation.VisionAutoInfra.CLIInfra.Servers.RootServerCli;
 import com.radware.vision.infra.testresthandlers.visionLicense.pojos.AttackCapacityLicensePojo;
+import com.radware.vision.automation.systemManagement.serversManagement.ServersManagement;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
@@ -13,6 +17,7 @@ import java.io.IOException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
+import java.util.Optional;
 
 /**
  * By MohamadI
@@ -126,7 +131,7 @@ public class AttackCapacityLicenseTestHandler extends VisionLicenseTestHandler {
 
         JSONParser parser = new JSONParser();
         JSONObject licenseTypesResponseJson = (JSONObject) parser.parse(licenseTypesResponse);
-        if(licenseTypesResponseJson.get("attackCapacityLicense")!=null && !licenseTypesResponseJson.get("attackCapacityLicense").equals("null")) {
+        if (licenseTypesResponseJson.get("attackCapacityLicense") != null && !licenseTypesResponseJson.get("attackCapacityLicense").equals("null")) {
             licenseTypesResponseJson = (JSONObject) licenseTypesResponseJson.get("attackCapacityLicense");
             licenseTypesResponse = licenseTypesResponseJson.toJSONString();
 
@@ -148,17 +153,24 @@ public class AttackCapacityLicenseTestHandler extends VisionLicenseTestHandler {
         String dateStr = date.format(formatter);
 
         command = command.replace("%s", dateStr);
-//       kVision
-//        CliOperations.runCommand(restTestBase.getRootServerCli(), command);
+
+        ServersManagement serversManagement = TestBase.getServersManagement();
+        Optional<RootServerCli> rootServerCli = serversManagement.getRootServerCLI();
+
+        CliOperations.runCommand(rootServerCli.get(), command);
     }
 
     public static void update_last_server_upgrade_time(long daysToSubtract) {
         String currentDate = "";
-//      kVision
-//        CliOperations.runCommand(restTestBase.getRootServerCli(), "date +%F");
-//        currentDate = currentDate.concat(CliOperations.lastRow);
-//        CliOperations.runCommand(restTestBase.getRootServerCli(), "date +%T");
-//        currentDate = currentDate.concat(" ").concat(CliOperations.lastRow);
+
+        ServersManagement serversManagement = TestBase.getServersManagement();
+        Optional<RootServerCli> rootServerCli = serversManagement.getRootServerCLI();
+        RootServerCli rsc = rootServerCli.get();
+
+        CliOperations.runCommand(rsc, "date +%F");
+        currentDate = currentDate.concat(CliOperations.lastRow);
+        CliOperations.runCommand(rsc, "date +%T");
+        currentDate = currentDate.concat(" ").concat(CliOperations.lastRow);
 
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
         LocalDateTime localDate = LocalDateTime.parse(currentDate, formatter);
@@ -167,9 +179,9 @@ public class AttackCapacityLicenseTestHandler extends VisionLicenseTestHandler {
     }
 
     public static void update_grace_period_state_at_db(GracePeriodState state) throws Exception {
-        int updateNumber = GenericCRUD.updateSingleValue(VisionDBSchema.VISION_NG, "ap", null,"ava_grace_period_state", state.getValue());
-        if(updateNumber!=1){
-            throw new Exception(String.format("ap table grace period value not updated with value: %d",state.getValue()));
+        int updateNumber = GenericCRUD.updateSingleValue(VisionDBSchema.VISION_NG, "ap", null, "ava_grace_period_state", state.getValue());
+        if (updateNumber != 1) {
+            throw new Exception(String.format("ap table grace period value not updated with value: %d", state.getValue()));
         }
     }
 

@@ -3,6 +3,9 @@ package com.radware.vision.infra.testhandlers.csv.model;
 import com.radware.automation.tools.basetest.BaseTestUtils;
 import com.radware.automation.tools.basetest.Reporter;
 import com.radware.vision.automation.VisionAutoInfra.CLIInfra.CliOperations;
+import com.radware.vision.automation.VisionAutoInfra.CLIInfra.Servers.ServerCliBase;
+import com.radware.vision.automation.base.TestBase;
+import com.radware.vision.automation.systemManagement.serversManagement.ServersManagement;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -30,15 +33,14 @@ public class CSVFile {
     }
 
     private void parseCSVToTables() {
-//          kVision
-//             RestTestBase restTestBase = new RestTestBase();
+        ServersManagement serversManagement = TestBase.getServersManagement();
         this.tables = new ArrayList<>();
 
-//      kVision
-//        CliOperations.runCommand(restTestBase.getRootServerCli(), "tail -c 1 \"" + csvFileDir + csvFileName + "\"");
-//        if (!CliOperations.lastOutput.split("\r\n")[1].equals(""))
-//            CliOperations.runCommand(restTestBase.getRootServerCli(), "echo \"\" >>  \"" + csvFileDir + csvFileName + "\"");
-//        CliOperations.runCommand(restTestBase.getRootServerCli(), this.command);
+        ServerCliBase server =  serversManagement.getRootServerCLI().get();
+        CliOperations.runCommand(server, "tail -c 1 \"" + csvFileDir + csvFileName + "\"");
+        if (!CliOperations.lastOutput.split("\r\n")[1].equals(""))
+            CliOperations.runCommand(server, "echo \"\" >>  \"" + csvFileDir + csvFileName + "\"");
+        CliOperations.runCommand(server, this.command);
 
         List<String> csvContent = Arrays.asList(CliOperations.lastOutput.split("\r\n"));
         //The following cloned because can't remove or change csvContent because Arrays.asList return final occurrences.

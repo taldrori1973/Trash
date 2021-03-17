@@ -1,30 +1,24 @@
 package com.radware.vision.bddtests.clioperation;
 
-import basejunit.RestTestBase;
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.radware.automation.tools.utils.ExecuteShellCommands;
 import com.radware.automation.tools.utils.LinuxServerCredential;
 import com.radware.vision.automation.DatabaseStepHandlers.elasticSearch.ElasticSearchHandler;
 import com.radware.vision.automation.DatabaseStepHandlers.elasticSearch.LogsHandler;
-import com.radware.vision.automation.DatabaseStepHandlers.elasticSearch.search.*;
-import com.radware.vision.automation.DatabaseStepHandlers.elasticSearch.search.innerQuery.Match;
-import com.radware.vision.automation.DatabaseStepHandlers.elasticSearch.search.innerQuery.Range;
-import com.radware.vision.automation.DatabaseStepHandlers.elasticSearch.search.innerQuery.TimeStamp;
-import com.radware.vision.base.TestBase;
-import com.radware.vision.bddtests.BddCliTestBase;
+import com.radware.vision.automation.base.TestBase;
+import com.radware.vision.automation.databases.elasticSearch.search.*;
+import com.radware.vision.automation.databases.elasticSearch.search.innerQuery.Match;
+import com.radware.vision.automation.VisionAutoInfra.CLIInfra.CliOperations;
 import com.radware.vision.infra.testhandlers.baseoperations.BasicOperationsHandler;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 
-import java.time.LocalDateTime;
 import java.util.List;
 import java.util.stream.Collectors;
 
 import static com.radware.vision.infra.utils.ReportsUtils.addErrorMessage;
 import static com.radware.vision.infra.utils.ReportsUtils.reportErrors;
 
-public class GeneralSteps extends BddCliTestBase {
+public class GeneralSteps extends TestBase {
 
     @Given("^CLI Clear vision logs$")
     public void clearAllLogs() {
@@ -70,22 +64,21 @@ public class GeneralSteps extends BddCliTestBase {
 
 
     private void searchExpressionInLog(SearchLog object, String command) {
-        LinuxServerCredential rootCredentials = new LinuxServerCredential(getRestTestBase().getRootServerCli().getHost(), getRestTestBase().getRootServerCli().getUser(), getRestTestBase().getRootServerCli().getPassword());
+        LinuxServerCredential rootCredentials = new LinuxServerCredential(clientConfigurations.getHostIp(),
+                cliConfigurations.getRootServerCliUserName(), cliConfigurations.getRootServerCliPassword());
         ExecuteShellCommands executeShellCommands = ExecuteShellCommands.getInstance();
         executeShellCommands.runRemoteShellCommand(rootCredentials, command);
         String output = executeShellCommands.getShellCommandOutput();
         if (output.equals("") && object.getIsExpected().equals(SearchLog.MessageAction.EXPECTED))
             addErrorMessage(object.getLogType().toString() + ": does not contain -> " + object.getExpression());
-        else if (!output.equals("") && object.getIsExpected().equals(SearchLog.MessageAction.NOT_EXPECTED)) {
+        else if (!output.equals("") && object.getIsExpected().equals(SearchLog.MessageAction.NOT_EXPECTED))
             addErrorMessage(object.getLogType().toString() + ": contains -> " + object.getExpression() + "\n" + output);
-        }
     }
 
     @Then("^Service Vision (restart|stop|start) and Wait (\\d+) Minute|Minutes$")
     public void serviceVisionRestartStopStart(String operation, int waitTime) {
-        RestTestBase restTestBase = new RestTestBase();
-//       kvision
-//        CliOperations.runCommand(restTestBase.getRootServerCli(), "service vision " + operation, 90 * 1000);
+        CliOperations.runCommand(serversManagement.getRootServerCLI().get(),
+                "service vision " + operation, 90 * 1000);
         BasicOperationsHandler.delay(60 * waitTime);
     }
 

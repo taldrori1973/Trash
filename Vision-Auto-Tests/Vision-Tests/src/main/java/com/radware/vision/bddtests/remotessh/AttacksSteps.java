@@ -7,8 +7,8 @@ import com.radware.vision.automation.AutoUtils.SUT.controllers.SUTManager;
 import com.radware.vision.automation.AutoUtils.SUT.dtos.TreeDeviceManagementDto;
 import com.radware.vision.automation.VisionAutoInfra.CLIInfra.CliOperations;
 import com.radware.vision.automation.VisionAutoInfra.CLIInfra.Servers.LinuxFileServer;
+import com.radware.vision.automation.base.TestBase;
 import com.radware.vision.automation.tools.sutsystemobjects.devicesinfo.enums.SUTDeviceType;
-import com.radware.vision.base.TestBase;
 import com.radware.vision.bddtests.BddCliTestBase;
 import cucumber.api.java.en.Given;
 
@@ -104,8 +104,8 @@ public class AttacksSteps extends BddCliTestBase {
         String deviceIp;
         String visionIP = clientConfigurations.getHostIp();
         String interFace;
-//        String macAdress = TestBase.getVisionConfigurations().getManagementInfo().getMacAddress();
-        String macAdress = "00:14:69:4c:70:42"; //172.17.1.1 GW mac- used only for kvision
+        String macAdress = TestBase.getVisionConfigurations().getManagementInfo().getMacAddress();
+//        String macAdress = "00:14:69:4c:70:42"; //172.17.1.1 GW mac- used only for kvision
         String commandToExecute = "";
         Optional<LinuxFileServer> genericLinuxServer = TestBase.serversManagement.getLinuxFileServer();
         SUTManager sutManager = TestBase.getSutManager();

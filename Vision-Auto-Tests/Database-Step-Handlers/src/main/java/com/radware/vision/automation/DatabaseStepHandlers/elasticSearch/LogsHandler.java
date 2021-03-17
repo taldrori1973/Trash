@@ -2,13 +2,13 @@ package com.radware.vision.automation.DatabaseStepHandlers.elasticSearch;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.radware.vision.automation.DatabaseStepHandlers.elasticSearch.search.EsQuery;
-import com.radware.vision.automation.DatabaseStepHandlers.elasticSearch.search.SearchLog;
-import com.radware.vision.automation.DatabaseStepHandlers.elasticSearch.search.innerQuery.Match;
-import com.radware.vision.automation.DatabaseStepHandlers.elasticSearch.search.SearchBool;
-import com.radware.vision.automation.DatabaseStepHandlers.elasticSearch.search.SearchQuery;
-import com.radware.vision.automation.DatabaseStepHandlers.elasticSearch.search.innerQuery.Range;
-import com.radware.vision.automation.DatabaseStepHandlers.elasticSearch.search.innerQuery.TimeStamp;
+import com.radware.vision.automation.databases.elasticSearch.search.EsQuery;
+import com.radware.vision.automation.databases.elasticSearch.search.SearchLog;
+import com.radware.vision.automation.databases.elasticSearch.search.innerQuery.Match;
+import com.radware.vision.automation.databases.elasticSearch.search.SearchBool;
+import com.radware.vision.automation.databases.elasticSearch.search.SearchQuery;
+import com.radware.vision.automation.databases.elasticSearch.search.innerQuery.Range;
+import com.radware.vision.automation.databases.elasticSearch.search.innerQuery.TimeStamp;
 
 import java.time.LocalDateTime;
 import java.util.List;

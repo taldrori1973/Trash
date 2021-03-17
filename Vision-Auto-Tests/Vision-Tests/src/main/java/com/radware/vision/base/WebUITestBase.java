@@ -34,6 +34,7 @@ import com.radware.restcommands.RestCommands;
 import com.radware.restcore.VisionRestClient;
 import com.radware.utils.DeviceUtils;
 import com.radware.utils.TreeUtils;
+import com.radware.vision.automation.base.TestBase;
 import com.radware.vision.automation.tools.sutsystemobjects.devicesinfo.DevicesManager;
 import com.radware.vision.infra.enums.DeviceDriverType;
 import com.radware.vision.infra.testhandlers.baseoperations.BasicOperationsHandler;

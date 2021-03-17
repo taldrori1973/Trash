@@ -4,7 +4,6 @@ import com.google.common.collect.Lists;
 import com.radware.automation.react.widgets.impl.ReactDropdown;
 import com.radware.automation.tools.basetest.BaseTestUtils;
 import com.radware.automation.tools.basetest.Reporter;
-import com.radware.automation.tools.utils.InvokeUtils;
 import com.radware.automation.webui.VisionDebugIdsManager;
 import com.radware.automation.webui.WebUIUtils;
 import com.radware.automation.webui.utils.FileUtils;
@@ -25,6 +24,8 @@ import com.radware.jsonparsers.impl.JsonUtils;
 import com.radware.vision.automation.AutoUtils.SUT.controllers.SUTManagerImpl;
 import com.radware.vision.automation.AutoUtils.SUT.dtos.TreeDeviceManagementDto;
 import com.radware.vision.automation.VisionAutoInfra.CLIInfra.CliOperations;
+import com.radware.vision.automation.VisionAutoInfra.CLIInfra.Servers.RootServerCli;
+import com.radware.vision.automation.base.TestBase;
 import com.radware.vision.automation.tools.exceptions.selenium.TargetWebElementNotFoundException;
 import com.radware.vision.automation.tools.exceptions.web.SessionStorageException;
 import com.radware.vision.automation.tools.sutsystemobjects.devicesinfo.enums.SUTDeviceType;
@@ -35,7 +36,7 @@ import com.radware.vision.infra.testhandlers.baseoperations.clickoperations.Clic
 import com.radware.vision.infra.testhandlers.ams.enums.VRMDashboards;
 import com.radware.vision.infra.utils.ReportsUtils;
 import com.radware.vision.infra.utils.TimeUtils;
-import com.radware.vision.vision_project_cli.RootServerCli;
+import com.radware.vision.automation.systemManagement.serversManagement.ServersManagement;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import org.openqa.selenium.JavascriptExecutor;
@@ -50,7 +51,6 @@ import java.util.*;
 import java.util.stream.StreamSupport;
 
 import static com.radware.vision.infra.testhandlers.BaseHandler.devicesManager;
-import static com.radware.vision.infra.testhandlers.BaseHandler.restTestBase;
 import static com.radware.vision.infra.utils.ReportsUtils.addErrorMessage;
 import static com.radware.vision.infra.utils.ReportsUtils.reportErrors;
 import static jodd.util.ThreadUtil.sleep;
@@ -166,7 +166,7 @@ public class AMSHandler {
 
     private boolean isLegendNameExistAndShouldReturn(String chart, StackBarData entry) {
         boolean returnValue = entry.legendNameExist != null;
-        entry.legendNameExist = entry.legendNameExist == null ? true : entry.legendNameExist;
+        entry.legendNameExist = entry.legendNameExist == null || entry.legendNameExist;
         JSONArray legends = getLabelsFromData(chart);
         if (!((legends.toList().contains(entry.legendName) && entry.legendNameExist) || (!legends.toList().contains(entry.legendName) && !entry.legendNameExist))) {
 //            addErrorMessage("The existence of " + entry.legendName + " is " + entry.legendNameExist + " but ACTUAL is " + legends.toList().contains(entry.legendName));
@@ -176,7 +176,7 @@ public class AMSHandler {
     }
 
     private boolean isLabanAndEntryExists(String chart, StackBarData entry) {
-        entry.exist = entry.exist == null ? true : entry.exist;
+        entry.exist = entry.exist == null || entry.exist;
         if (!(isLabelExist(chart, entry.label)) && entry.exist || (isLabelExist(chart, entry.label)) && !entry.exist) {
 //            addErrorMessage("The existence of " + entry.label + " is " + entry.exist + " but ACTUAL is " + isLabelExist(chart, entry.label));
             addErrorMessage("The Label Name of '" + entry.label + "' is Not as expected, Expected result is: " + (entry.exist.equals(true) ? "'exist'" : "'doesn't exist'") + " But Actual result is: " + (isLabelExist(chart, entry.label) ? "'exist'" : "'doesn't exist'"));
@@ -253,7 +253,7 @@ public class AMSHandler {
 
         entries.forEach(entry -> {
             entry.count = entry.count == null ? -1 : entry.count;
-            entry.exist = entry.exist == null ? true : entry.exist;
+            entry.exist = entry.exist == null || entry.exist;
             entry.index = entry.index == null ? -1 : entry.index;
 
             if (!(isLabelExist(chart, label)) && entry.exist || (isLabelExist(chart, label)) && !entry.exist) {
@@ -264,7 +264,7 @@ public class AMSHandler {
             }
 
             long valueAppearances = StreamSupport.stream(data.spliterator(), false)
-                    .map(s -> String.valueOf(s))
+                    .map(String::valueOf)
                     .filter(s -> s.equals(entry.value))
                     .count();
             if (entry.min != null) {
@@ -1020,8 +1020,11 @@ public class AMSHandler {
             //count the policies
             int actualPoliciesNumber = new LazyViewImpl(ComponentLocatorFactory.getEqualLocatorByDbgId("VRM_Scope_Selection_policies_DefensePro_" + deviceIp), new ComponentLocator(How.XPATH, "//label")).getViewValues().size();
             if (entry.total.equalsIgnoreCase("All")) {
-//               kVision
-//                CliOperations.runCommand(restTestBase.getRootServerCli(), String.format("mysql -u root -prad123 vision_ng -e \"select * from security_policies_view where device_ip='%s'\" | grep \"Network Protection\" | grep -v + | grep -v ALL | wc -l", deviceIp));
+                ServersManagement serversManagement = TestBase.getServersManagement();
+                Optional<RootServerCli> rootServerCli = serversManagement.getRootServerCLI();
+                RootServerCli rsc = rootServerCli.get();
+
+                CliOperations.runCommand(rsc, String.format("mysql -u root -prad123 vision_ng -e \"select * from security_policies_view where device_ip='%s'\" | grep \"Network Protection\" | grep -v + | grep -v ALL | wc -l", deviceIp));
                 int totalDpPolicesNumber = Integer.valueOf(CliOperations.lastRow);
                 if (String.valueOf(actualPoliciesNumber).equals(totalDpPolicesNumber)) {
                     addErrorMessage(String.format("device [%s] ->Actual polices total number [%s] , Expected \"All =\" [%s]", deviceIp, actualPoliciesNumber, totalDpPolicesNumber));
@@ -1130,22 +1133,22 @@ public class AMSHandler {
         String amountType = maxIntervalTime.split("\\d+")[1].trim();
         switch (amountType) {
             case "m": {
-                if (!((Long.valueOf(amount)) >= (Math.abs(duration.toMinutes()) - offset) && (Long.valueOf(amount)) <= (Math.abs(duration.toMinutes()) + offset)))
+                if (!((Long.parseLong(amount)) >= (Math.abs(duration.toMinutes()) - offset) && (Long.parseLong(amount)) <= (Math.abs(duration.toMinutes()) + offset)))
                     BaseTestUtils.report("The Expected max interval in " + chart + " is " + maxIntervalTime + " but the Actual " + Math.abs(duration.toMinutes()) + " minutes, with offset " + offset, Reporter.FAIL);
                 break;
             }
             case "H": {
-                if (!((Long.valueOf(amount)) >= (Math.abs(duration.toHours()) - offset) && (Long.valueOf(amount)) <= (Math.abs(duration.toHours()) + offset)))
+                if (!((Long.parseLong(amount)) >= (Math.abs(duration.toHours()) - offset) && (Long.parseLong(amount)) <= (Math.abs(duration.toHours()) + offset)))
                     BaseTestUtils.report("The Expected max interval in " + chart + " is " + maxIntervalTime + " but the Actual " + Math.abs(duration.toHours()) + " Hours, with offset " + offset, Reporter.FAIL);
                 break;
             }
             case "d": {
-                if (!((Long.valueOf(amount)) >= (Math.abs(duration.toDays()) - offset) && (Long.valueOf(amount)) <= (Math.abs(duration.toDays()) + offset)))
+                if (!((Long.parseLong(amount)) >= (Math.abs(duration.toDays()) - offset) && (Long.parseLong(amount)) <= (Math.abs(duration.toDays()) + offset)))
                     BaseTestUtils.report("The Expected max interval in " + chart + " is " + maxIntervalTime + " but the Actual " + Math.abs(duration.toDays()) + " days, with offset " + offset, Reporter.FAIL);
                 break;
             }
             case "M": {
-                if (!(((Long.valueOf(amount)) >= Period.between(firstTime.toLocalDate().plusMonths(offset), lastTime.toLocalDate()).toTotalMonths()) && (Long.valueOf(amount)) <= Period.between(firstTime.toLocalDate().minusMonths(offset), lastTime.toLocalDate()).toTotalMonths()))
+                if (!(((Long.parseLong(amount)) >= Period.between(firstTime.toLocalDate().plusMonths(offset), lastTime.toLocalDate()).toTotalMonths()) && (Long.valueOf(amount)) <= Period.between(firstTime.toLocalDate().minusMonths(offset), lastTime.toLocalDate()).toTotalMonths()))
                     BaseTestUtils.report("The Expected max interval in " + chart + " is " + maxIntervalTime + " but the Actual " + Period.between(firstTime.toLocalDate(), lastTime.toLocalDate()).toTotalMonths() + " Months, with offset " + offset, Reporter.FAIL);
                 break;
             }
@@ -1415,22 +1418,25 @@ public class AMSHandler {
     }
 
     public void validateMemoryUtilization() throws Exception {
-//      kvision
-//          replace root user usage
-        RootServerCli rootServerCli = new RootServerCli(restTestBase.getRootServerCli().getHost(), restTestBase.getRootServerCli().getUser(), restTestBase.getRootServerCli().getPassword());
-        rootServerCli.init();
-        InvokeUtils.invokeCommand(null, "yum install stress", rootServerCli, 3 * 60 * 1000, true);
-        InvokeUtils.invokeCommand(null, "sudo yum install -y epel-release", rootServerCli, 3 * 60 * 1000, true);
-        InvokeUtils.invokeCommand(null, "sudo yum install -y stress", rootServerCli, 3 * 60 * 1000, true);
-//     kVision
-//        CliOperations.runCommand(rootServerCli, "free");
+        ServersManagement serversManagement = TestBase.getServersManagement();
+        Optional<RootServerCli> rootServerCli = serversManagement.getRootServerCLI();
+        RootServerCli rsc = rootServerCli.get();
+
+        CliOperations.runCommand(rsc, "yum install stress", 3 * 60 * 1000, true);
+        CliOperations.runCommand(rsc, "sudo yum install -y epel-release", 3 * 60 * 1000, true);
+        CliOperations.runCommand(rsc, "sudo yum install -y stress", 3 * 60 * 1000, true);
+//        InvokeUtils.invokeCommand(null, "yum install stress", rootServerCli, 3 * 60 * 1000, true);
+//        InvokeUtils.invokeCommand(null, "sudo yum install -y epel-release", rootServerCli, 3 * 60 * 1000, true);
+//        InvokeUtils.invokeCommand(null, "sudo yum install -y stress", rootServerCli, 3 * 60 * 1000, true);
+
+        CliOperations.runCommand(rsc, "free");
         int number;
         String warningRising;
         String warningFalling;
         String errorRising;
         String errorFalling;
         try {
-            String[] a = rootServerCli.getCmdOutput().get(1).split("\\s+");
+            String[] a = rsc.getCmdOutput().get(1).split("\\s+");
             double num = Double.parseDouble(a[2]) / Double.parseDouble(a[1]);
             number = (int) (num * 100);
             if (number >= 85)
@@ -1444,7 +1450,7 @@ public class AMSHandler {
         }
 
         changeValuesMemoryUtilization(warningRising, errorRising, warningFalling, errorFalling);
-        InvokeUtils.invokeCommand(null, "stress  --vm 1 --vm-bytes 9G --vm-hang 30 --timeout 3m", rootServerCli, 4 * 60 * 1000, true, false, true);
+        CliOperations.runCommand(rsc, "stress  --vm 1 --vm-bytes 9G --vm-hang 30 --timeout 3m", 4 * 60 * 1000, true, false, true);
         Thread.sleep(60 * 1000);
         WebUIUtils.fluentWaitClick((new ComponentLocator(How.ID, "gwt-debug-Global_Refresh")).getBy(), WebUIUtils.DEFAULT_WAIT_TIME, false);
         WebUIUtils.fluentWaitClick((new ComponentLocator(How.ID, "gwt-debug-AlertsMaximize")).getBy(), WebUIUtils.DEFAULT_WAIT_TIME, false);
@@ -1457,7 +1463,7 @@ public class AMSHandler {
 
         WebUIUtils.fluentWaitClick((new ComponentLocator(How.ID, "gwt-debug-ConfigTab_EDIT_AlertBrowser.Alerts_Submit")).getBy(), WebUIUtils.DEFAULT_WAIT_TIME, false);
         changeValuesMemoryUtilization(warningRising, "99", String.valueOf(number - 10), "99");
-        InvokeUtils.invokeCommand(null, "stress  --vm 1 --vm-bytes 6G --vm-hang 30 --timeout 3m", rootServerCli, 4 * 60 * 1000, true, false, true);
+        CliOperations.runCommand(rsc, "stress  --vm 1 --vm-bytes 6G --vm-hang 30 --timeout 3m", 4 * 60 * 1000, true, false, true);
         Thread.sleep(60 * 1000);
         WebUIUtils.fluentWaitClick((new ComponentLocator(How.ID, "gwt-debug-Global_Refresh")).getBy(), WebUIUtils.DEFAULT_WAIT_TIME, false);
         WebUIUtils.fluentWaitClick((new ComponentLocator(How.ID, "gwt-debug-AlertsMaximize")).getBy(), WebUIUtils.DEFAULT_WAIT_TIME, false);
@@ -1469,7 +1475,7 @@ public class AMSHandler {
 
         WebUIUtils.fluentWaitClick((new ComponentLocator(How.ID, "gwt-debug-ConfigTab_EDIT_AlertBrowser.Alerts_Submit")).getBy(), WebUIUtils.DEFAULT_WAIT_TIME, false);
         changeValuesMemoryUtilization(warningRising, errorRising, String.valueOf(number - 10), "90");
-        InvokeUtils.invokeCommand(null, "stress  --vm 1 --vm-bytes 9G --vm-hang 30 --timeout 3m", rootServerCli, 4 * 60 * 1000, true, false, true);
+        CliOperations.runCommand(rsc, "stress  --vm 1 --vm-bytes 9G --vm-hang 30 --timeout 3m", 4 * 60 * 1000, true, false, true);
         Thread.sleep(60 * 1000);
 
         WebUIUtils.fluentWaitClick((new ComponentLocator(How.ID, "gwt-debug-Global_Refresh")).getBy(), WebUIUtils.DEFAULT_WAIT_TIME, false);

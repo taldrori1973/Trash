@@ -14,6 +14,11 @@ import com.radware.automation.webui.widgets.ComponentLocator;
 import com.radware.automation.webui.widgets.ComponentLocatorFactory;
 import com.radware.automation.webui.widgets.impl.WebUICheckbox;
 import com.radware.automation.webui.widgets.impl.WebUIComponent;
+import com.radware.vision.automation.VisionAutoInfra.CLIInfra.CliOperations;
+import com.radware.vision.automation.VisionAutoInfra.CLIInfra.Servers.RadwareServerCli;
+import com.radware.vision.automation.VisionAutoInfra.CLIInfra.Servers.RootServerCli;
+import com.radware.vision.automation.base.TestBase;
+import com.radware.vision.automation.systemManagement.serversManagement.ServersManagement;
 import com.radware.vision.automation.tools.exceptions.selenium.TargetWebElementNotFoundException;
 import com.radware.vision.automation.tools.exceptions.web.DropdownItemNotFoundException;
 import com.radware.vision.automation.tools.exceptions.web.DropdownNotOpenedException;
@@ -25,8 +30,6 @@ import com.radware.vision.infra.utils.ReportsUtils;
 import com.radware.vision.infra.utils.TimeUtils;
 import com.radware.vision.infra.utils.json.CustomizedJsonManager;
 import com.radware.vision.utils.SutUtils;
-import com.radware.vision.vision_project_cli.RadwareServerCli;
-import com.radware.vision.vision_project_cli.RootServerCli;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import org.openqa.selenium.JavascriptExecutor;
@@ -40,7 +43,6 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import static com.radware.vision.infra.testhandlers.BaseHandler.devicesManager;
-import static com.radware.vision.infra.testhandlers.BaseHandler.restTestBase;
 import static com.radware.vision.infra.utils.ReportsUtils.addErrorMessage;
 import static com.radware.vision.infra.utils.ReportsUtils.reportErrors;
 
@@ -937,8 +939,10 @@ public class AMSBaseUtilies {
     }
 
     public static void openDevicePort(String host) {
-        RadwareServerCli radwareServerCli = restTestBase.getRadwareServerCli();
-        RootServerCli rootServerCli = restTestBase.getRootServerCli();
+        ServersManagement serversManagement = TestBase.getServersManagement();
+
+        RadwareServerCli radwareServerCli = serversManagement.getRadwareServerCli().get();
+        RootServerCli rootServerCli = serversManagement.getRootServerCLI().get();
         try {
             if (host == null) {
                 host = SutUtils.getCurrentVisionIp();
@@ -947,22 +951,21 @@ public class AMSBaseUtilies {
 
                 radwareServerCli = new RadwareServerCli(host, SutUtils.getCurrentVisionRestUserName(), SutUtils.getCurrentVisionRestUserPassword());
                 radwareServerCli.init();
-//              kvision
-//               decide what to do with root user
-                rootServerCli = new RootServerCli(host, restTestBase.getRootServerCli().getUser(), restTestBase.getRootServerCli().getPassword());
+
+                rootServerCli = new RootServerCli(host, rootServerCli.getUser(), rootServerCli.getPassword());
                 rootServerCli.init();
             }
         } catch (Exception e) {
             BaseTestUtils.report("Failed to build with host: " + host + " " + e.getMessage(), Reporter.FAIL);
         }
-//        CliOperations.runCommand(rootServerCli, "service iptables stop");
+        CliOperations.runCommand(rootServerCli, "service iptables stop");
         String commandToExecute = "net firewall open-port 10080 open";
-//       kVision
-//        CliOperations.runCommand(radwareServerCli, commandToExecute);
+
+        CliOperations.runCommand(radwareServerCli, commandToExecute);
         String port = "10080";
         commandToExecute = "curl -X POST --header 'Content-Type: application/json' --header 'Accept: */*' 'http://" + host + ":" + port + "/reporter/mgmt/monitor/reporter/internal-dashboard/scheduledTasks?jobClassName=com.reporter.scheduled.report.vrm.retention.VrmScheduledReportRetentionTask'";
-//       kVision
-//        CliOperations.runCommand(rootServerCli, commandToExecute);
+
+        CliOperations.runCommand(rootServerCli, commandToExecute);
     }
 
     /**
@@ -1262,10 +1265,11 @@ public class AMSBaseUtilies {
         BasicOperationsHandler.clickButton("Generate Now", reportName);
 
 //        WebElement result = UIUtils.fluentWaitClickable(generateButton, Long.valueOf(map.get("timeout")), false);
-        WebElement result = clickableTimeout(generateButton, Long.valueOf(map.get("timeout")));
+        WebElement result = clickableTimeout(generateButton, Long.parseLong(map.get("timeout")));
         LocalTime end = LocalTime.now();
         Duration duration = Duration.between(start, end);
 
+        assert reportLogsStatusBefore != null;
         String lastTimeBefore = reportLogsStatusBefore.get("lastLogTime");
         littleWaitingForGenerationSnapshotDisplayed(reportContainer, lastTimeBefore);
 

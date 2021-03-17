@@ -2,15 +2,10 @@ package com.radware.vision.bddtests.clioperation;
 
 import com.radware.automation.tools.basetest.BaseTestUtils;
 import com.radware.automation.tools.basetest.Reporter;
-import com.radware.automation.tools.cli.ServerCliBase;
 import com.radware.vision.automation.VisionAutoInfra.CLIInfra.CliOperations;
 import com.radware.vision.automation.VisionAutoInfra.CLIInfra.Servers.RadwareServerCli;
 import com.radware.vision.automation.VisionAutoInfra.CLIInfra.Servers.RootServerCli;
-import com.radware.vision.base.TestBase;
-import com.radware.vision.bddtests.BddCliTestBase;
-import com.radware.vision.utils.SutUtils;
-//import com.radware.vision.vision_project_cli.RadwareServerCli;
-//import com.radware.vision.vision_project_cli.RootServerCli;
+import com.radware.vision.automation.base.TestBase;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
 
@@ -19,17 +14,18 @@ import java.util.List;
 import java.util.Optional;
 
 
-public class ConsoleOperation extends BddCliTestBase {
+public class ConsoleOperation extends TestBase {
 
     /* this for commands contain ? in the last command (help output) */
     @Then("^CLI Operations - Run Radware Session help command \"([^\"]*)\"$")
     public void runRadwareHelpCommand(String command) {
-//kVision
-//        if (command.contains("?")) {
-//            CliOperations.runCommand(getRestTestBase().getRadwareServerCli(), command, CliOperations.DEFAULT_TIME_OUT, false, false, false, null, false);
-//            CliOperations.runCommand(getRestTestBase().getRadwareServerCli(), "nothing", CliOperations.DEFAULT_TIME_OUT);
-//        } else
-//            runRadwareCommand(command);
+        if (command.contains("?")) {
+            CliOperations.runCommand(serversManagement.getRadwareServerCli().get(), command,
+                    CliOperations.DEFAULT_TIME_OUT, false, false, false, null, false);
+            CliOperations.runCommand(serversManagement.getRadwareServerCli().get(),
+                    "nothing", CliOperations.DEFAULT_TIME_OUT);
+        } else
+            runRadwareCommand(command);
     }
 
     @When("^CLI Operations - Run Radware Session command \"([^\"]*)\" on vision 2, timeout (\\d+)$")
@@ -46,7 +42,7 @@ public class ConsoleOperation extends BddCliTestBase {
 //           kVision
 //            CliOperations.runCommand(radwareServerCli, command, timeOut * 1000);
         } catch (Exception e) {
-            BaseTestUtils.report("Failed to execute command: " + command + ", on vision 2 " + "\n" + parseExceptionBody(e), Reporter.FAIL);
+            BaseTestUtils.report("Failed to execute command: " + command + ", on vision 2 " + "\n" + e.getMessage(), Reporter.FAIL);
 
         }
     }
@@ -54,8 +50,7 @@ public class ConsoleOperation extends BddCliTestBase {
     @When("^CLI Operations - Run Radware Session command \"([^\"]*)\" timeout (\\d+)$")
     public void runRadwareCommand(String command, int timeout) {
         int sec = 1000;
-//       kVision
-//        CliOperations.runCommand(getRestTestBase().getRadwareServerCli(), command, timeout * sec);
+        CliOperations.runCommand(serversManagement.getRadwareServerCli().get(), command, timeout * sec);
     }
 
     @Then("^CLI Operations - Run Radware Session command \"([^\"]*)\"$")
@@ -87,8 +82,7 @@ public class ConsoleOperation extends BddCliTestBase {
     @When("^CLI Operations - Run Root Session command \"(.*)\" timeout (\\d+)$")
     public void runRootCommand(String command, int timeout) {
         int sec = 1000;
-//       kVision
-//        CliOperations.runCommand(getRestTestBase().getRootServerCli(), command, timeout * sec);
+        CliOperations.runCommand(serversManagement.getRootServerCLI().get(), command, timeout * sec);
     }
 
     @Then("^CLI Operations - Verify last output contains$")
@@ -96,8 +90,8 @@ public class ConsoleOperation extends BddCliTestBase {
         List<String> lastOutputItems = CliOperations.resultLines;
         StringBuilder result = new StringBuilder();
         for (String out : output) {
-            for (int i = 0; i < lastOutputItems.size(); i++) {
-                if (!lastOutputItems.get(i).contains(out)) {
+            for (String lastOutputItem : lastOutputItems) {
+                if (!lastOutputItem.contains(out)) {
                     result.append("Actual values not contains: ").append(Arrays.asList(out)).append("\n");
                     break;
                 }
@@ -113,7 +107,7 @@ public class ConsoleOperation extends BddCliTestBase {
     public void verifyLogPrintIntervalWithDeviation(int expectedInterval, String logFile, String relevantPrint, int validDeviation) {
         String strCommand = "echo $(date +%s -d $(grep \"" + relevantPrint + "\" " + logFile + " | tail -1 | awk '{print substr($2,0,8)}')) - " + " $(date +%s -d $(grep \"" + relevantPrint + "\" " + logFile + " | tail -2 | head -1 | awk '{print substr($2,0,8)}')) | bc";
         runRootCommand(strCommand);
-        Integer intActualInterval = Integer.valueOf(CliOperations.resultLines.get(CliOperations.resultLines.size() - 1));
+        int intActualInterval = Integer.parseInt(CliOperations.resultLines.get(CliOperations.resultLines.size() - 1));
         CliOperations.verifyDeviationValidity(intActualInterval, expectedInterval, validDeviation);
     }
 
@@ -134,10 +128,9 @@ public class ConsoleOperation extends BddCliTestBase {
     @Then("^CLI Connect Root$")
     public void connectRootCLI() {
         try {
-            //       kVision
-//            RootServerCli rootServerCli = restTestBase.getRootServerCli();
-//            rootServerCli.disconnect();
-//            rootServerCli.connect();
+            RootServerCli rootServerCli = serversManagement.getRootServerCLI().get();
+            rootServerCli.disconnect();
+            rootServerCli.connect();
         } catch (Exception e) {
             BaseTestUtils.report("failed to connect Root CLI: " + e.getMessage(), Reporter.FAIL);
         }
@@ -146,10 +139,9 @@ public class ConsoleOperation extends BddCliTestBase {
     @Then("^CLI Connect Radware$")
     public void connectRadwareCLI() {
         try {
-            //       kVision
-//            RadwareServerCli radwareServerCli = restTestBase.getRadwareServerCli();
-//            radwareServerCli.disconnect();
-//            radwareServerCli.connect();
+            RadwareServerCli radwareServerCli = serversManagement.getRadwareServerCli().get();
+            radwareServerCli.disconnect();
+            radwareServerCli.connect();
         } catch (Exception e) {
             BaseTestUtils.report("failed to connect Radware CLI: " + e.getMessage(), Reporter.FAIL);
         }
@@ -162,14 +154,13 @@ public class ConsoleOperation extends BddCliTestBase {
 
     @Then("^CLI Operations - Using \"(radware|root)\" User to Verify that output contains regex \"(.*)\"( negative)?$")
     public void verifyLastOutputByRegex(String user, String regex, String negative) {
-//       kVision
-//        if (user.equalsIgnoreCase("radware")) {
-//            CliOperations.verifyLastOutputByRegex(regex, restTestBase.getRadwareServerCli());
-//        } else if (user.equalsIgnoreCase("root")) {
-//            CliOperations.verifyLastOutputByRegex(regex, restTestBase.getRootServerCli());
-//        } else {
-//            BaseTestUtils.report(user + " is not supported here!", Reporter.FAIL);
-//        }
+        if (user.equalsIgnoreCase("radware")) {
+            CliOperations.verifyLastOutputByRegex(regex, serversManagement.getRadwareServerCli().get());
+        } else if (user.equalsIgnoreCase("root")) {
+            CliOperations.verifyLastOutputByRegex(regex, serversManagement.getRootServerCLI().get());
+        } else {
+            BaseTestUtils.report(user + " is not supported here!", Reporter.FAIL);
+        }
     }
 
 

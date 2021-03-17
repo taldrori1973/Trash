@@ -5,8 +5,8 @@ import com.radware.automation.tools.basetest.Reporter;
 import com.radware.automation.tools.cli.ServerCliBase;
 import com.radware.vision.automation.AutoUtils.SUT.dtos.ClientConfigurationDto;
 import com.radware.vision.automation.VisionAutoInfra.CLIInfra.CliOperations;
-import com.radware.vision.base.TestBase;
-import com.radware.vision.systemManagement.visionConfigurations.ManagementInfo;
+import com.radware.vision.automation.base.TestBase;
+import com.radware.vision.automation.systemManagement.visionConfigurations.ManagementInfo;
 import com.radware.vision.vision_handlers.system.ConfigSync;
 import com.radware.vision.vision_project_cli.RadwareServerCli;
 

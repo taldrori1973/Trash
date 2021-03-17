@@ -15,6 +15,8 @@
         <module>Rest-Infra</module>
         <module>Webui-Infra</module>
         <module>CLI-Infra</module>
+        <module>Auto-Common</module>
+        <module>Database-Infra</module>
     </modules>
 
 </project>

@@ -6,11 +6,10 @@ import com.radware.automation.tools.basetest.Reporter;
 import com.radware.automation.tools.basetest.RuntimePropertiesEnum;
 import com.radware.automation.tools.utils.InvokeUtils;
 import com.radware.vision.automation.AutoUtils.SUT.dtos.ServerDto;
-import com.radware.vision.base.TestBase;
+import com.radware.vision.automation.base.TestBase;
 import com.radware.vision.enums.YesNo;
 import com.radware.vision.vision_project_cli.menu.Menu;
 import com.radware.vision.vision_tests.CliTests;
-import net.bytebuddy.implementation.bytecode.Throw;
 
 import java.io.IOException;
 import java.util.*;
@@ -114,7 +113,7 @@ public class CliNegative extends BddCliTestBase {
      * general export negative test
      */
     protected void exportNegativeTest(String command, String name, String destination) throws Exception {
-        Optional<ServerDto> linuxFileServer = TestBase.sutManager.getServerById("linuxFileServer");
+        Optional<ServerDto> linuxFileServer = TestBase.getSutManager().getServerById("linuxFileServer");
         String password;
         if (linuxFileServer.isPresent())
             password = linuxFileServer.get().getPassword();
@@ -149,7 +148,7 @@ public class CliNegative extends BddCliTestBase {
      * general import negative test
      */
     protected void importNegativeTest(String command, String location) throws Exception {
-        Optional<ServerDto> linuxFileServer = TestBase.sutManager.getServerById("linuxFileServer");
+        Optional<ServerDto> linuxFileServer = TestBase.getSutManager().getServerById("linuxFileServer");
         String password;
         if (linuxFileServer.isPresent())
             password = linuxFileServer.get().getPassword();

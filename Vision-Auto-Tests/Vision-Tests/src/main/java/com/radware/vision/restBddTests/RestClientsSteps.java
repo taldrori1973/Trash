@@ -4,14 +4,14 @@ package com.radware.vision.restBddTests;
 import com.radware.automation.tools.basetest.BaseTestUtils;
 import com.radware.vision.RestStepResult;
 import com.radware.vision.automation.AutoUtils.SUT.dtos.TreeDeviceManagementDto;
+import com.radware.vision.automation.VisionAutoInfra.CLIInfra.Servers.RadwareServerCli;
+import com.radware.vision.automation.base.TestBase;
 import com.radware.vision.automation.tools.sutsystemobjects.devicesinfo.enums.SUTDeviceType;
-import com.radware.vision.bddtests.BddRestTestBase;
 import com.radware.vision.restTestHandler.RestClientsStepsHandler;
+import com.radware.vision.automation.systemManagement.licenseManagement.LicenseGenerator;
+import com.radware.vision.automation.systemManagement.licenseManagement.VisionLicenses;
 import com.radware.vision.utils.UriUtils;
-import com.radware.vision.vision_project_cli.RadwareServerCli;
 import cucumber.api.java.en.Given;
-import testhandlers.vision.system.generalSettings.LicenseManagementHandler;
-import testhandlers.vision.system.generalSettings.enums.LicenseKeys;
 
 import java.util.Optional;
 
@@ -22,7 +22,7 @@ import static java.util.Objects.isNull;
 import static org.apache.commons.lang3.StringUtils.isBlank;
 import static org.apache.commons.lang3.StringUtils.isEmpty;
 
-public class RestClientsSteps extends BddRestTestBase {
+public class RestClientsSteps extends TestBase {
 
 
     @Given("^That Current Vision(?: (HA))? is Logged In(?: With Username \"([^\"]*)\" and Password \"([^\"]*)\")?(?: With (Activation))?$")
@@ -41,12 +41,12 @@ public class RestClientsSteps extends BddRestTestBase {
         try {
             if (!isNull(activation))
                 if (isNull(isHA)) {
-                    radwareServerCli = getRestTestBase().getRadwareServerCli();
+                    radwareServerCli = TestBase.serversManagement.getRadwareServerCli().get();
                 } else {
-                    radwareServerCli = (RadwareServerCli) getRestTestBase().getRadwareServerCli().clone();
+                    radwareServerCli = (RadwareServerCli) TestBase.serversManagement.getRadwareServerCli().get().clone();
                     radwareServerCli.setHost(getCurrentVisionHAIp());
                 }
-            licenseKey = LicenseManagementHandler.generateLicense(radwareServerCli, LicenseKeys.VISION_ACTIVATION.getLicenseKeys());
+            licenseKey = LicenseGenerator.generateLicense(VisionLicenses.ACTIVATION.getLicensePrefixPattern());
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -82,13 +82,13 @@ public class RestClientsSteps extends BddRestTestBase {
 
         try {
             if (!isNull(activation)) {
-                radwareServerCli = (RadwareServerCli) getRestTestBase().getRadwareServerCli().clone();
+                radwareServerCli = (RadwareServerCli) TestBase.serversManagement.getRadwareServerCli().get().clone();
 
                 radwareServerCli.setHost(ip);
                 radwareServerCli.setUser(username);
                 radwareServerCli.setPassword(password);
 
-                licenseKey = LicenseManagementHandler.generateLicense(radwareServerCli, LicenseKeys.VISION_ACTIVATION.getLicenseKeys());
+                licenseKey = LicenseGenerator.generateLicense(VisionLicenses.ACTIVATION.getLicensePrefixPattern());
             }
         } catch (Exception e) {
             e.printStackTrace();
