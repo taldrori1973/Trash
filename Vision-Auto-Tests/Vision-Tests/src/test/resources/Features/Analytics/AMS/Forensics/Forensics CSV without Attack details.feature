@@ -43,7 +43,7 @@ Feature: Forensics CSV without Attack details
     Then UI Navigate to "AMS Forensics" page via homepage
     Given Clear email history for user "setup"
 
-  @run
+
   @SID_4
   Scenario: Create Forensics forensics csv_without_details
     When UI "Create" Forensics With Name "csv_without_details"
@@ -84,7 +84,7 @@ Feature: Forensics CSV without Attack details
 
   @SID_9
   Scenario: Validate detailed csv DNS
-    Then CLI Run linux Command "cat /home/radware/ftp/csv_without_details_*.csv |wc -l" on "GENERIC_LINUX_SERVER" and validate result EQUALS "9"
+    Then CLI Run linux Command "cat /home/radware/ftp/csv_without_details_*.csv |wc -l" on "GENERIC_LINUX_SERVER" and validate result GTE "9"
     Then CLI Run linux Command "cat /home/radware/ftp/csv_without_details_*.csv|head -$(echo $(grep -n "DNS flood IPv4 DNS-A" /home/radware/ftp/csv_without_details_*.csv |cut -f1 -d:)|bc)|tail -1|cut -d ',' -f 5" on "GENERIC_LINUX_SERVER" and validate result EQUALS "DNS"
     Then CLI Run linux Command "cat /home/radware/ftp/csv_without_details_*.csv|head -$(echo $(grep -n "DNS flood IPv4 DNS-A" /home/radware/ftp/csv_without_details_*.csv |cut -f1 -d:)|bc)|tail -1|cut -d ',' -f 7" on "GENERIC_LINUX_SERVER" and validate result EQUALS "BDOS"
     Then CLI Run linux Command "cat /home/radware/ftp/csv_without_details_*.csv|head -$(echo $(grep -n "DNS flood IPv4 DNS-A" /home/radware/ftp/csv_without_details_*.csv |cut -f1 -d:)|bc)|tail -1|cut -d ',' -f 9" on "GENERIC_LINUX_SERVER" and validate result EQUALS "7447-1402580209"
@@ -161,7 +161,7 @@ Feature: Forensics CSV without Attack details
 
   @SID_13
   Scenario: Validate detailed csv Server Cracking
-    Then CLI Run linux Command "cat /home/radware/ftp/csv_without_details_*.csv|head -$(echo $(grep -n "Brute Force Web" /home/radware/ftp/csv_without_details_*.csv |cut -f1 -d:)|bc)|tail -1|cut -d ',' -f 5" on "GENERIC_LINUX_SERVER" and validate result EQUALS "Cracking-Protection"
+    Then CLI Run linux Command "cat /home/radware/ftp/csv_without_details_*.csv|head -$(echo $(grep -n "Brute Force Web" /home/radware/ftp/csv_without_details_*.csv |cut -f1 -d:)|bc)|tail -1|cut -d ',' -f 5" on "GENERIC_LINUX_SERVER" and validate result EQUALS "ServerCracking"
     Then CLI Run linux Command "cat /home/radware/ftp/csv_without_details_*.csv|head -$(echo $(grep -n "Brute Force Web" /home/radware/ftp/csv_without_details_*.csv |cut -f1 -d:)|bc)|tail -1|cut -d ',' -f 7" on "GENERIC_LINUX_SERVER" and validate result EQUALS "bbt-sc1"
     Then CLI Run linux Command "cat /home/radware/ftp/csv_without_details_*.csv|head -$(echo $(grep -n "Brute Force Web" /home/radware/ftp/csv_without_details_*.csv |cut -f1 -d:)|bc)|tail -1|cut -d ',' -f 8" on "GENERIC_LINUX_SERVER" and validate result EQUALS "Drop"
     Then CLI Run linux Command "cat /home/radware/ftp/csv_without_details_*.csv|head -$(echo $(grep -n "Brute Force Web" /home/radware/ftp/csv_without_details_*.csv |cut -f1 -d:)|bc)|tail -1|cut -d ',' -f 9" on "GENERIC_LINUX_SERVER" and validate result EQUALS "7840-1402580209"
@@ -358,7 +358,7 @@ Feature: Forensics CSV without Attack details
 
   @SID_26
   Scenario: Validate detailed csv Server Cracking
-    Then CLI Run linux Command "cat /home/radware/ftp/csv_without_details_*.csv|head -$(echo $(grep -n "Brute Force Web" /home/radware/ftp/csv_without_details_*.csv |cut -f1 -d:)|bc)|tail -1|cut -d ',' -f 5" on "GENERIC_LINUX_SERVER" and validate result EQUALS "Cracking-Protection"
+    Then CLI Run linux Command "cat /home/radware/ftp/csv_without_details_*.csv|head -$(echo $(grep -n "Brute Force Web" /home/radware/ftp/csv_without_details_*.csv |cut -f1 -d:)|bc)|tail -1|cut -d ',' -f 5" on "GENERIC_LINUX_SERVER" and validate result EQUALS "ServerCracking"
     Then CLI Run linux Command "cat /home/radware/ftp/csv_without_details_*.csv|head -$(echo $(grep -n "Brute Force Web" /home/radware/ftp/csv_without_details_*.csv |cut -f1 -d:)|bc)|tail -1|cut -d ',' -f 7" on "GENERIC_LINUX_SERVER" and validate result EQUALS "bbt-sc1"
     Then CLI Run linux Command "cat /home/radware/ftp/csv_without_details_*.csv|head -$(echo $(grep -n "Brute Force Web" /home/radware/ftp/csv_without_details_*.csv |cut -f1 -d:)|bc)|tail -1|cut -d ',' -f 8" on "GENERIC_LINUX_SERVER" and validate result EQUALS "Drop"
     Then CLI Run linux Command "cat /home/radware/ftp/csv_without_details_*.csv|head -$(echo $(grep -n "Brute Force Web" /home/radware/ftp/csv_without_details_*.csv |cut -f1 -d:)|bc)|tail -1|cut -d ',' -f 9" on "GENERIC_LINUX_SERVER" and validate result EQUALS "7840-1402580209"
@@ -439,6 +439,7 @@ Feature: Forensics CSV without Attack details
 
   @SID_31
   Scenario: Create Forensics forensics csv_without_details
+    Given Clear email history for user "setup"
     When UI "Create" Forensics With Name "csv_without_details"
       | Share                 | FTP:checked, FTP.Location:172.17.164.10, FTP.Path:/home/radware/ftp/, FTP.Username:radware, FTP.Password:radware                                                                                                                                                                                              |
       | Output                | Start Time,End Time,Threat Category,Attack Name,Policy Name,Source IP Address,Destination IP Address,Destination Port,Direction,Protocol,Device IP Address,Action,Attack ID,Source Port,Radware ID,Duration,Total Packets Dropped,Max pps,Total Mbits Dropped,Max bps,Physical Port,Risk,VLAN Tag,Packet Type |
@@ -455,6 +456,11 @@ Feature: Forensics CSV without Attack details
     Then Sleep "35"
 
   @SID_33
+  Scenario: Validate Forensics.Table
+    And UI Click Button "Views.Forensic" with value "csv_without_details,0"
+    Then UI Validate "Forensics.Table" Table rows count GTE to 8
+
+  @SID_34
   Scenario: Validate Report Forensics received content
     #subject
     Then Validate "setup" user eMail expression "grep "Subject: Validate Email"" EQUALS "1"
@@ -465,14 +471,9 @@ Feature: Forensics CSV without Attack details
     #To
     Then Validate "setup" user eMail expression "grep "X-Original-To: maha@.*.local"" EQUALS "1"
 
-  @SID_34
+  @SID_35
   Scenario: Clear SMTP server log files
     Given Clear email history for user "setup"
-
-  @SID_35
-  Scenario: Validate Forensics.Table
-    And UI Click Button "Views.Forensic" with value "csv_without_details,0"
-    Then UI Validate "Forensics.Table" Table rows count GTE to 8
 
   @SID_36
   Scenario: Delete Forensics

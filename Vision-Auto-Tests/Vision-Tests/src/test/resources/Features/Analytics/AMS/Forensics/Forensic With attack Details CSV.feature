@@ -1,5 +1,5 @@
 @TC112730
-@run
+
 Feature: Forensics CSV with Attack details
 
   @SID_1
