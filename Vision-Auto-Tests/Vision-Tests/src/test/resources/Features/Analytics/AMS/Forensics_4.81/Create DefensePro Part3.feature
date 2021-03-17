@@ -15,8 +15,8 @@ Feature:Create DefensePro Part3
     Given UI "Create" Forensics With Name "Output Action Max pps Greater than"
       | Product               | DefensePro                                                                     |
       | Output                | Action                                                                         |
-      | Criteria              | Event Cindex:10 riteria:Max pps,Operator:Greater than,RateValue:500,Unit:M              |
-      | devices               |                                                                       |
+      | Criteria              | Event Criteria:Max pps,Operator:Greater than,RateValue:500,Unit:M              |
+      | devices               | index:10                                                                      |
       | Time Definitions.Date | Relative:[Weeks,2]                                                             |
       | Share                 | Email:[automation.vision2@radware.com],Subject:myEdit subject,Body:myEdit body |
       | Format                | Select: HTML                                                                   |
@@ -612,7 +612,7 @@ Feature:Create DefensePro Part3
       | Schedule              | Run Every:Monthly, On Time:+6H, At Months:[MAR]                                |
       | Share                 | Email:[automation.vision2@radware.com],Subject:myEdit subject,Body:myEdit body |
       | Format                | Select: HTML                                                                   |
-    Then UI Delete Forensics With Name "utput Threat Category Source IP Equal"
+    Then UI Delete Forensics With Name "Output Threat Category Source IP Equal"
 
   @SID_31
   Scenario: create new Output Attack Name1 Source IP Not Equal
@@ -1037,7 +1037,7 @@ Feature:Create DefensePro Part3
     Given UI "Create" Forensics With Name "Output Destination IP Address_Destination Port_Direction_Protocol_Radware ID_Duration_Total Packets Dropped Threat Category Equal"
       | Product               | DefensePro                                                                                                       |
       | Output                | Destination IP Address,Destination Port,Direction,Protocol,Radware ID,Duration,Total Packets Dropped             |
-      | Criteria              | Event Criteria:Threat Category,Operator:Equals,Value:[Stateful Acl]                                               |
+      | Criteria              | Event Criteria:Threat Category,Operator:Equals,Value:[Intrusions]                                               |
       | devices               | All                                                                                                              |
       | Time Definitions.Date | Relative:[Months,4]                                                                                              |
       | Schedule              | Run Every:Monthly, On Time:+6H, At Months:[FEB,MAR]                                                              |
@@ -1046,7 +1046,7 @@ Feature:Create DefensePro Part3
     Then UI "Validate" Forensics With Name "Output Destination IP Address_Destination Port_Direction_Protocol_Radware ID_Duration_Total Packets Dropped Threat Category Equal"
       | Product               | DefensePro                                                                                                       |
       | Output                | Destination IP Address,Destination Port,Direction,Protocol,Radware ID,Duration,Total Packets Dropped             |
-      | Criteria              | Event Criteria:Threat Category,Operator:Equals,Value:[Stateful Acl]                                               |
+      | Criteria              | Event Criteria:Threat Category,Operator:Equals,Value:[Intrusions]                                               |
       | devices               | All                                                                                                              |
       | Time Definitions.Date | Relative:[Months,4]                                                                                              |
       | Schedule              | Run Every:Monthly, On Time:+6H, At Months:[FEB,MAR]                                                              |
@@ -1185,7 +1185,7 @@ Feature:Create DefensePro Part3
     Given UI "Create" Forensics With Name "Output Start Timen Threat Category Equal"
       | Product               | DefensePro                                                                                                                                                                                                                        |
       | Output                | Start Time                                                                                                                                                                                                                        |
-      | Criteria              | Event Criteria:Threat Category,Operator:Equals,Value:[ACL,Anti Scanning,Behavioral DoS,DoS,HTTP Flood,HTTPS Flood,Intrusions,Cracking Protection,SYN Flood,Anomalies,Stateful Acl,DNS Flood,Bandwidth Management,Traffic Filters,Malicious IP Addresses,Geolocation,Connection PPS] |
+      | Criteria              | Event Criteria:Threat Category,Operator:Equals,Value:[ACL,Anti Scanning,Behavioral DoS,DoS,HTTP Flood,HTTPS Flood,Intrusions,Cracking Protection,SYN Flood,Anomalies,DNS Flood,Bandwidth Management,Traffic Filters,Malicious IP Addresses,Geolocation,Connection PPS] |
       | devices               | index:10                                                                                                                                                                                                                          |
       | Time Definitions.Date | Absolute:[27.02.1971 01:00, +0d]                                                                                                                                                                                                  |
       | Schedule              | Run Every:Monthly, On Time:+6H, At Months:[MAY]                                                                                                                                                                                   |
@@ -1194,7 +1194,7 @@ Feature:Create DefensePro Part3
     Then UI "Validate" Forensics With Name "Output Start Timen Threat Category Equal"
       | Product               | DefensePro                                                                                                                                                                                                                        |
       | Output                | Start Time                                                                                                                                                                                                                        |
-      | Criteria              | Event Criteria:Threat Category,Operator:Equals,Value:[ACL,Anti Scanning,Behavioral DoS,DoS,HTTP Flood,HTTPS Flood,Intrusions,Cracking Protection,SYN Flood,Anomalies,Stateful Acl,DNS Flood,Bandwidth Management,Traffic Filters,Malicious IP Addresses,Geolocation,Connection PPS] |
+      | Criteria              | Event Criteria:Threat Category,Operator:Equals,Value:[ACL,Anti Scanning,Behavioral DoS,DoS,HTTP Flood,HTTPS Flood,Intrusions,Cracking Protection,SYN Flood,Anomalies,DNS Flood,Bandwidth Management,Traffic Filters,Malicious IP Addresses,Geolocation,Connection PPS] |
       | devices               | index:10                                                                                                                                                                                                                          |
       | Time Definitions.Date | Absolute:[27.02.1971 01:00, +0d]                                                                                                                                                                                                  |
       | Schedule              | Run Every:Monthly, On Time:+6H, At Months:[MAY]                                                                                                                                                                                   |
@@ -1227,7 +1227,7 @@ Feature:Create DefensePro Part3
     Given UI "Create" Forensics With Name "Output Device IP Address Threat Category Not Equal"
       | Product               | DefensePro                                                                                                              |
       | Output                | Device IP Address                                                                                                       |
-      | Criteria              | Event Criteria:Threat Category,Operator:Not Equals,Value:[HTTP Flood,HTTPS Flood,Anomalies,Stateful Acl,Traffic Filters] |
+      | Criteria              | Event Criteria:Threat Category,Operator:Not Equals,Value:[HTTP Flood,HTTPS Flood,Anomalies,Traffic Filters] |
       | devices               | All                                                                                                                     |
       | Schedule              | Run Every:Weekly, On Time:+6H, At Days:[THU]                                                                            |
       | Share                 | Email:[automation.vision2@radware.com],Subject:myEdit subject,Body:myEdit body                                          |
@@ -1235,7 +1235,7 @@ Feature:Create DefensePro Part3
     Then UI "Validate" Forensics With Name "Output Device IP Address Threat Category Not Equal"
       | Product               | DefensePro                                                                                                              |
       | Output                | Device IP Address                                                                                                       |
-      | Criteria              | Event Criteria:Threat Category,Operator:Not Equals,Value:[HTTP Flood,HTTPS Flood,Anomalies,Stateful Acl,Traffic Filters] |
+      | Criteria              | Event Criteria:Threat Category,Operator:Not Equals,Value:[HTTP Flood,HTTPS Flood,Anomalies,Traffic Filters] |
       | devices               | All                                                                                                                     |
       | Schedule              | Run Every:Weekly, On Time:+6H, At Days:[THU]                                                                            |
       | Share                 | Email:[automation.vision2@radware.com],Subject:myEdit subject,Body:myEdit body                                          |
@@ -1269,7 +1269,7 @@ Feature:Create DefensePro Part3
     Given UI "Create" Forensics With Name "Output Attack Name1_Protocol_Radware ID_Duration_Total Packets Dropped_Max pps Threat Category Not Equal"
       | Product               | DefensePro                                                                                                                                                                                                                             |
       | Output                | Attack Name,Protocol,Radware ID,Duration,Total Packets Dropped,Max pps                                                                                                                                                                 |
-      | Criteria              | Event Criteria:Threat Category,Operator:Not Equals,Value:[ACL,Anti Scanning,Behavioral DoS,DoS,HTTP Flood,Intrusions,Cracking Protection,SYN Flood,Anomalies,Stateful Acl,DNS Flood,Traffic Filters] |
+      | Criteria              | Event Criteria:Threat Category,Operator:Not Equals,Value:[ACL,Anti Scanning,Behavioral DoS,DoS,HTTP Flood,Intrusions,Cracking Protection,SYN Flood,Anomalies,DNS Flood,Traffic Filters] |
       | devices               | index:10                                                                                                                                                                                                                               |
       | Time Definitions.Date | Relative:[Weeks,2]                                                                                                                                                                                                                     |
       | Share                 | Email:[automation.vision2@radware.com],Subject:myEdit subject,Body:myEdit body                                                                                                                                                         |
@@ -1277,7 +1277,7 @@ Feature:Create DefensePro Part3
     Then UI "Validate" Forensics With Name "Output Attack Name1_Protocol_Radware ID_Duration_Total Packets Dropped_Max pps Threat Category Not Equal"
       | Product               | DefensePro                                                                                                                                                                                                                             |
       | Output                | Attack Name,Protocol,Radware ID,Duration,Total Packets Dropped,Max pps                                                                                                                                                                 |
-      | Criteria              | Event Criteria:Threat Category,Operator:Not Equals,Value:[ACL,Anti Scanning,Behavioral DoS,DoS,HTTP Flood,Intrusions,Cracking Protection,SYN Flood,Anomalies,Stateful Acl,DNS Flood,Traffic Filters] |
+      | Criteria              | Event Criteria:Threat Category,Operator:Not Equals,Value:[ACL,Anti Scanning,Behavioral DoS,DoS,HTTP Flood,Intrusions,Cracking Protection,SYN Flood,Anomalies,DNS Flood,Traffic Filters] |
       | devices               | index:10                                                                                                                                                                                                                               |
       | Time Definitions.Date | Relative:[Weeks,2]                                                                                                                                                                                                                     |
       | Share                 | Email:[automation.vision2@radware.com],Subject:myEdit subject,Body:myEdit body                                                                                                                                                         |
@@ -1317,7 +1317,7 @@ Feature:Create DefensePro Part3
     Then UI "Validate" Forensics With Name "Output Start Time_End Time_Device IP Address_Action_Source IP Address_Source Port_Destination IP Address_Destination Port Custom"
       | Product               | DefensePro                                                                                                                                       |
       | Output                | Start Time,End Time,Device IP Address,Action,Source IP Address,Source Port,Destination IP Address,Destination Port                               |
-      | Criteria              | Event Criteria:Action,Operator:Not Equals,Value:Challenge,Event Criteria:Threat Category,Operator:Equals,Value:[Intrusions],condition.Custom:1 OR 2 |
+      | Criteria              | Event Criteria:Action,Operator:Not Equals,Value:Challenge;Event Criteria:Threat Category,Operator:Equals,Value:[Intrusions],condition.Custom:1 OR 2 |
       | devices               | All                                                                                                                                              |
       | Time Definitions.Date | Quick:1Y                                                                                                                                         |
       | Share                 | Email:[automation.vision2@radware.com],Subject:myEdit subject,Body:myEdit body                                                                   |
