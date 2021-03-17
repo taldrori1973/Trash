@@ -121,7 +121,7 @@ Feature:Create DefensePro Part2
     Given UI "Create" Forensics With Name "Output Source IP Address_Source Port_Destination IP Address_Radware ID_Duration_Total Packets Dropped_Max pps Attack Name Not Equals"
       | Product               | DefensePro                                                                                                       |
       | Output                | Source IP Address,Source Port,Destination IP Address,Radware ID,Duration,Total Packets Dropped,Max pps           |
-      | Criteria              | Event Criteria:Attack Name,Operator:Not Equals,Value:[Conn_Limit]                                                |
+      | Criteria              | Event Criteria:Attack Name,Operator:Not Equals,Value:Conn_Limit                                                |
       | devices               | All                                                                                                              |
       | Time Definitions.Date | Relative:[Months,2]                                                                                              |
       | Share                 | FTP:checked, FTP.Location:172.17.164.10, FTP.Path:/home/radware/ftp/, FTP.Username:radware, FTP.Password:radware |
@@ -129,7 +129,7 @@ Feature:Create DefensePro Part2
     Then UI "Validate" Forensics With Name "Output Source IP Address_Source Port_Destination IP Address_Radware ID_Duration_Total Packets Dropped_Max pps Attack Name Not Equals"
       | Product               | DefensePro                                                                                                       |
       | Output                | Source IP Address,Source Port,Destination IP Address,Radware ID,Duration,Total Packets Dropped,Max pps           |
-      | Criteria              | Event Criteria:Attack Name,Operator:Not Equals,Value:[Conn_Limit]                                                |
+      | Criteria              | Event Criteria:Attack Name,Operator:Not Equals,Value:Conn_Limit                                                |
       | devices               | All                                                                                                              |
       | Time Definitions.Date | Relative:[Months,2]                                                                                              |
       | Share                 | FTP:checked, FTP.Location:172.17.164.10, FTP.Path:/home/radware/ftp/, FTP.Username:radware, FTP.Password:radware |
