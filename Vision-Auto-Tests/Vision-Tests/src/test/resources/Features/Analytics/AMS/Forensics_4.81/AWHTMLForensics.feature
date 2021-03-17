@@ -6,6 +6,7 @@ Feature: AW HTML Forensics
     Given CLI kill all simulator attacks on current vision
     Given REST Vision Install License Request "vision-AVA-AppWall"
     Given REST Delete ES index "appwall-v2-attack*"
+    * REST Delete ES index "forensics-*"
     When CLI Operations - Run Radware Session command "system user authentication-mode set TACACS+"
 
   @SID_2 @Sanity
