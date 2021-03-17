@@ -718,7 +718,7 @@ Feature:Create DefenseFlow Part1
       | Schedule              | Run Every:Monthly, On Time:+6H, At Months:[MAR]                                |
       | Share                 | Email:[automation.vision2@radware.com],Subject:myEdit subject,Body:myEdit body |
       | Format                | Select: HTML                                                                   |
-    Then UI Delete Forensics With Name ""Output Device IP Address Equals"
+    Then UI Delete Forensics With Name "Output Device IP Address Equals"
 
   @SID_36
   Scenario: create new Output Threat Category Equals
