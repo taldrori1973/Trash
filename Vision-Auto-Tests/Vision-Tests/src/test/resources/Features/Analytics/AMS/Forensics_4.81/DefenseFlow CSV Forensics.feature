@@ -1,7 +1,7 @@
 @TC119567
 
 Feature: DefenseFlow CSV Forensics
-
+ 
   @SID_1
   Scenario: Clean system data
     * CLI kill all simulator attacks on current vision
@@ -11,13 +11,13 @@ Feature: DefenseFlow CSV Forensics
     * REST Delete ES index "df-attack*"
     * REST Delete ES index "forensics-*"
     * CLI Clear vision logs
-
+ 
   @SID_2
   Scenario: Change DF management IP to IP of Generic Linux
     When CLI Operations - Run Radware Session command "system df management-ip set 172.17.164.10"
     When CLI Operations - Run Radware Session command "system df management-ip get"
     Then CLI Operations - Verify that output contains regex "DefenseFlow Management IP Address: 172.17.164.10"
-
+ 
   @SID_3
   Scenario: Run DF simulator
     When CLI Run remote linux Command on "GENERIC_LINUX_SERVER"
@@ -39,7 +39,7 @@ Feature: DefenseFlow CSV Forensics
     Then CLI Operations - Verify that output contains regex "DefenseFlow Management IP Address: 172.17.164.10"
 
 
-
+ 
   @SID_4
   Scenario: VRM - Login to VRM "Wizard" Test and enable emailing
     Given UI Login with user "sys_admin" and password "radware"
@@ -267,7 +267,7 @@ Feature: DefenseFlow CSV Forensics
   Scenario: Delete Forensics
     Then UI Delete Forensics With Name "Forensics_DefenseFlow"
 
-
+ 
   @SID_20
   Scenario: create new Forensics_DefenseFlow and validate
     When UI "Create" Forensics With Name "Forensics_DefenseFlow"
@@ -279,28 +279,28 @@ Feature: DefenseFlow CSV Forensics
       | Criteria              | Event Criteria:Action,Operator:Not Equals,Value:Http 403 Forbidden                                                                                                                                                                                                                                            |
       | Time Definitions.Date | Quick:Today                                                                                                                                                                                                                                                                                                   |
       | Schedule              | Run Every:Daily,On Time:+2m                                                                                                                                                                                                                                                                                   |
-
+ 
   @SID_21
   Scenario: Clear FTP server logs and generate the report
     Then Sleep "100"
-    Then UI Click Button "My Forensics" with value "Forensics_DefenseFlow"
-    Then UI Click Button "Generate Snapshot Forensics Manually" with value "Forensics_DefenseFlow"
+#    Then UI Click Button "My Forensics" with value "Forensics_DefenseFlow"
+#    Then UI Click Button "Generate Snapshot Forensics Manually" with value "Forensics_DefenseFlow"
     And UI Navigate to "AMS Reports" page via homePage
     Then UI Navigate to "AMS Forensics" page via homepage
     Then CLI Run remote linux Command "rm -f /home/radware/ftp/Forensics_DefenseFlow*.zip /home/radware/ftp/Forensics_DefenseFlow*.csv" on "GENERIC_LINUX_SERVER"
-
+ 
   @SID_22
   Scenario: Validate Forensics.Table
     Then UI Click Button "My Forensics Tab"
     Then UI Click Button "My Forensics" with value "Forensics_DefenseFlow"
     And UI Click Button "Views.Forensic" with value "Forensics_DefenseFlow,0"
     Then UI Validate "Forensics.Table" Table rows count EQUALS to 278
-
+ 
   @SID_23
   Scenario: Unzip CSV file
     Then CLI Run remote linux Command "unzip -o /home/radware/ftp/Forensics_DefenseFlow*.zip -d /home/radware/ftp/" on "GENERIC_LINUX_SERVER"
     Then Sleep "3"
-
+ 
   @SID_24
   Scenario: Validate the First line in Forensics_DefenseFlow_*.csv File
     Then CLI Run linux Command "cat /home/radware/ftp/Forensics_DefenseFlow_*.csv |wc -l" on "GENERIC_LINUX_SERVER" and validate result EQUALS "279"
@@ -327,29 +327,29 @@ Feature: DefenseFlow CSV Forensics
     Then CLI Run linux Command "cat /home/radware/ftp/Forensics_DefenseFlow_*.csv|head -1|tail -1|awk -F "," '{printf $21}';echo" on "GENERIC_LINUX_SERVER" and validate result EQUALS "Physical Port"
     Then CLI Run linux Command "cat /home/radware/ftp/Forensics_DefenseFlow_*.csv|head -1|tail -1|awk -F "," '{printf $22}';echo" on "GENERIC_LINUX_SERVER" and validate result EQUALS "Risk"
     Then CLI Run linux Command "cat /home/radware/ftp/Forensics_DefenseFlow_*.csv|head -1|tail -1|awk -F "," '{printf $23}';echo" on "GENERIC_LINUX_SERVER" and validate result EQUALS "Vlan tag"
-
+ 
   @SID_25
   Scenario: Validate Threat Category
     Then CLI Run linux Command "sed -n '1d;p' /home/radware/ftp/Forensics_DefenseFlow_*.csv| awk -F "," '{print $4}' | sort | uniq| wc -l" on "GENERIC_LINUX_SERVER" and validate result EQUALS "1"
     Then CLI Run linux Command "cat /home/radware/ftp/Forensics_DefenseFlow_*.csv |grep -w  BehavioralDOS|wc -l" on "GENERIC_LINUX_SERVER" and validate result EQUALS "278"
-
+ 
   @SID_26
   Scenario: Validate Attack Name
     Then CLI Run linux Command "sed -n '1d;p' /home/radware/ftp/Forensics_DefenseFlow_*.csv| awk -F "," '{print $5}' | sort | uniq| wc -l" on "GENERIC_LINUX_SERVER" and validate result EQUALS "11"
-
+ 
   @SID_27
   Scenario: Validate Action
     Then CLI Run linux Command "sed -n '1d;p' /home/radware/ftp/Forensics_DefenseFlow_*.csv| awk -F "," '{print $7}' | sort | uniq| wc -l" on "GENERIC_LINUX_SERVER" and validate result EQUALS "1"
     Then CLI Run linux Command "cat /home/radware/ftp/Forensics_DefenseFlow_*.csv |grep -w  Drop|wc -l" on "GENERIC_LINUX_SERVER" and validate result EQUALS "278"
-
+ 
   @SID_28
   Scenario: Validate Protocol
     Then CLI Run linux Command "sed -n '1d;p' /home/radware/ftp/Forensics_DefenseFlow_*.csv| awk -F "," '{print $14}' | sort | uniq| wc -l" on "GENERIC_LINUX_SERVER" and validate result EQUALS "5"
-
+ 
   @SID_29
   Scenario: Delete Forensics
     Then UI Delete Forensics With Name "Forensics_DefenseFlow"
-
+ 
   @SID_30
   Scenario: Clear SMTP server log files
     Given Clear email history for user "setup"
