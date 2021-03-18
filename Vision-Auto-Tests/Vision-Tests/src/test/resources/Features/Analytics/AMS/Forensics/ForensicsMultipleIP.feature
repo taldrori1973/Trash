@@ -59,7 +59,7 @@ Feature: Forensics Multiple IP
     And UI Click Button "Generate Snapshot Forensics Manually" with value "Not Equals Destination IP Criteria"
     And Sleep "60"
     And UI Click Button "Views.Forensic" with value "Not Equals Destination IP Criteria,0"
-    Then UI Validate "Forensics.Table" Table rows count EQUALS to 0
+    Then UI Validate "Forensics.Table" Table rows count EQUALS to 2
     And UI Navigate to "AMS Reports" page via homePage
     Then UI Navigate to "AMS Forensics" page via homepage
 

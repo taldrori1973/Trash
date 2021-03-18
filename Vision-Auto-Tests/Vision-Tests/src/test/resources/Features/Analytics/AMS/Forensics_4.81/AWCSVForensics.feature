@@ -134,6 +134,7 @@ Feature: AW CSV Forensics
   @SID_16
   Scenario: Delete Forensics
     Then UI Delete Forensics With Name "Forensics_AW"
+    Then CLI Run remote linux Command "rm -f /home/radware/ftp/Forensics_AW*.zip /home/radware/ftp/Forensics_AW*.csv" on "GENERIC_LINUX_SERVER"
 
 
   @SID_17
@@ -141,7 +142,7 @@ Feature: AW CSV Forensics
     When UI "Create" Forensics With Name "Forensics_AW_Schedule"
       | Product     | AppWall                                                                                                          |
       | Application | All                                                                                                              |
-      | output      | Add All                                                                                                          |
+      | Output      | Add All                                                                                                          |
       | Format      | Select: CSV                                                                                                      |
       | Share       | FTP:checked, FTP.Location:172.17.164.10, FTP.Path:/home/radware/ftp/, FTP.Username:radware, FTP.Password:radware |
       | Criteria    | Event Criteria:Action,Operator:Not Equals,Value:Reported                                                         |
@@ -153,7 +154,6 @@ Feature: AW CSV Forensics
     Then Sleep "130"
     And UI Navigate to "AMS Reports" page via homePage
     Then UI Navigate to "AMS Forensics" page via homepage
-    Then CLI Run remote linux Command "rm -f /home/radware/ftp/Forensics_AW*.zip /home/radware/ftp/Forensics_AW*.csv" on "GENERIC_LINUX_SERVER"
 
   @SID_19
   Scenario: Validate Forensics.Table
@@ -169,17 +169,25 @@ Feature: AW CSV Forensics
 
   @SID_21
   Scenario: Validate the First line in Forensics_AW_*.csv File
-    Then CLI Run linux Command "cat /home/radware/ftp/Forensics_AW_Schedule_*.csv |wc -l" on "GENERIC_LINUX_SERVER" and validate result EQUALS "29"
-    Then CLI Run linux Command "cat /home/radware/ftp/Forensics_AW_*.csv |wc -l" on "GENERIC_LINUX_SERVER" and validate result EQUALS "30"
-    Then CLI Run linux Command "cat /home/radware/ftp/Forensics_AW_*.csv|head -1|tail -1|awk -F "," '{printf $1}';echo" on "GENERIC_LINUX_SERVER" and validate result EQUALS "Device IP"
-    Then CLI Run linux Command "cat /home/radware/ftp/Forensics_AW_*.csv|head -1|tail -1|awk -F "," '{printf $2}';echo" on "GENERIC_LINUX_SERVER" and validate result EQUALS "Source IP"
-    Then CLI Run linux Command "cat /home/radware/ftp/Forensics_AW_*.csv|head -1|tail -1|awk -F "," '{printf $3}';echo" on "GENERIC_LINUX_SERVER" and validate result EQUALS "Destination IP"
-    Then CLI Run linux Command "cat /home/radware/ftp/Forensics_AW_*.csv|head -1|tail -1|awk -F "," '{printf $4}';echo" on "GENERIC_LINUX_SERVER" and validate result EQUALS "Source Port"
-    Then CLI Run linux Command "cat /home/radware/ftp/Forensics_AW_*.csv|head -1|tail -1|awk -F "," '{printf $5}';echo" on "GENERIC_LINUX_SERVER" and validate result EQUALS "Application Name"
-    Then CLI Run linux Command "cat /home/radware/ftp/Forensics_AW_*.csv|head -1|tail -1|awk -F "," '{printf $6}';echo" on "GENERIC_LINUX_SERVER" and validate result EQUALS "Action"
-    Then CLI Run linux Command "cat /home/radware/ftp/Forensics_AW_*.csv|head -1|tail -1|awk -F "," '{printf $7}';echo" on "GENERIC_LINUX_SERVER" and validate result EQUALS "Severity"
-    Then CLI Run linux Command "cat /home/radware/ftp/Forensics_AW_*.csv|head -1|tail -1|awk -F "," '{printf $8}';echo" on "GENERIC_LINUX_SERVER" and validate result EQUALS "Violation Category"
-    Then CLI Run linux Command "cat /home/radware/ftp/Forensics_AW_*.csv|head -1|tail -1|awk -F "," '{printf $9}';echo" on "GENERIC_LINUX_SERVER" and validate result EQUALS "Transaction ID"
+    Then CLI Run linux Command "cat /home/radware/ftp/Forensics_AW_Schedule_*.csv |wc -l" on "GENERIC_LINUX_SERVER" and validate result EQUALS "234"
+    Then CLI Run linux Command "cat /home/radware/ftp/Forensics_AW_Schedule_*.csv|head -1|tail -1|awk -F "," '{printf $1}';echo" on "GENERIC_LINUX_SERVER" and validate result EQUALS "Date and Time"
+    Then CLI Run linux Command "cat /home/radware/ftp/Forensics_AW_Schedule_*.csv|head -1|tail -1|awk -F "," '{printf $2}';echo" on "GENERIC_LINUX_SERVER" and validate result EQUALS "Device IP"
+    Then CLI Run linux Command "cat /home/radware/ftp/Forensics_AW_Schedule_*.csv|head -1|tail -1|awk -F "," '{printf $3}';echo" on "GENERIC_LINUX_SERVER" and validate result EQUALS "Source IP"
+    Then CLI Run linux Command "cat /home/radware/ftp/Forensics_AW_Schedule_*.csv|head -1|tail -1|awk -F "," '{printf $4}';echo" on "GENERIC_LINUX_SERVER" and validate result EQUALS "Destination IP"
+    Then CLI Run linux Command "cat /home/radware/ftp/Forensics_AW_Schedule_*.csv|head -1|tail -1|awk -F "," '{printf $5}';echo" on "GENERIC_LINUX_SERVER" and validate result EQUALS "Source Port"
+    Then CLI Run linux Command "cat /home/radware/ftp/Forensics_AW_Schedule_*.csv|head -1|tail -1|awk -F "," '{printf $6}';echo" on "GENERIC_LINUX_SERVER" and validate result EQUALS "Cluster Manager IP"
+    Then CLI Run linux Command "cat /home/radware/ftp/Forensics_AW_Schedule_*.csv|head -1|tail -1|awk -F "," '{printf $7}';echo" on "GENERIC_LINUX_SERVER" and validate result EQUALS "Application Name"
+    Then CLI Run linux Command "cat /home/radware/ftp/Forensics_AW_Schedule_*.csv|head -1|tail -1|awk -F "," '{printf $8}';echo" on "GENERIC_LINUX_SERVER" and validate result EQUALS "Event Description"
+    Then CLI Run linux Command "cat /home/radware/ftp/Forensics_AW_Schedule_*.csv|head -1|tail -1|awk -F "," '{printf $9}';echo" on "GENERIC_LINUX_SERVER" and validate result EQUALS "Action"
+    Then CLI Run linux Command "cat /home/radware/ftp/Forensics_AW_Schedule_*.csv|head -1|tail -1|awk -F "," '{printf $10}';echo" on "GENERIC_LINUX_SERVER" and validate result EQUALS "Attack Name"
+#    Then CLI Run linux Command "cat /home/radware/ftp/Forensics_AW_Schedule_*.csv|head -1|tail -1|awk -F "," '{printf $11}';echo" on "GENERIC_LINUX_SERVER" and validate result EQUALS "null"
+    Then CLI Run linux Command "cat /home/radware/ftp/Forensics_AW_Schedule_*.csv|head -1|tail -1|awk -F "," '{printf $12}';echo" on "GENERIC_LINUX_SERVER" and validate result EQUALS "Directory"
+    Then CLI Run linux Command "cat /home/radware/ftp/Forensics_AW_Schedule_*.csv|head -1|tail -1|awk -F "," '{printf $13}';echo" on "GENERIC_LINUX_SERVER" and validate result EQUALS "Module"
+    Then CLI Run linux Command "cat /home/radware/ftp/Forensics_AW_Schedule_*.csv|head -1|tail -1|awk -F "," '{printf $14}';echo" on "GENERIC_LINUX_SERVER" and validate result EQUALS "Severity"
+    Then CLI Run linux Command "cat /home/radware/ftp/Forensics_AW_Schedule_*.csv|head -1|tail -1|awk -F "," '{printf $15}';echo" on "GENERIC_LINUX_SERVER" and validate result EQUALS "Violation Category"
+    Then CLI Run linux Command "cat /home/radware/ftp/Forensics_AW_Schedule_*.csv|head -1|tail -1|awk -F "," '{printf $16}';echo" on "GENERIC_LINUX_SERVER" and validate result EQUALS "Transaction ID"
+    Then CLI Run linux Command "cat /home/radware/ftp/Forensics_AW_Schedule_*.csv|head -1|tail -1|awk -F "," '{printf $17}';echo" on "GENERIC_LINUX_SERVER" and validate result EQUALS "Tunnel"
+    Then CLI Run linux Command "cat /home/radware/ftp/Forensics_AW_Schedule_*.csv|head -1|tail -1|awk -F "," '{printf $18}';echo" on "GENERIC_LINUX_SERVER" and validate result EQUALS "User Name"
 
 
   @SID_22
@@ -187,9 +195,9 @@ Feature: AW CSV Forensics
     Given Clear email history for user "setup"
 
   @SID_23
-  Scenario: create new Forensics_AW and validate
+  Scenario: create new Forensics_AW_Email and validate
     When UI "Create" Forensics With Name "Forensics_AW_Email"
-      | Product               | Appwall                                              |
+      | Product               | AppWall                                              |
       | Format                | Select: CSV                                          |
       | Share                 | Email:[ayoub],Subject:Validate Email,Body:Email Body |
       | Time Definitions.Date | Quick:Today                                          |
