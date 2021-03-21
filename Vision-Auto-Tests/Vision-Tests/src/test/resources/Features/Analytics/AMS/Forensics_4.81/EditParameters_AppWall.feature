@@ -8,6 +8,15 @@ Feature: Edit AppWall Parameters
     * REST Vision Install License Request "vision-AVA-Max-attack-capacity"
     * REST Vision Install License Request "vision-AVA-AppWall"
     * REST Vision Install License Request "vision-reporting-module-AMS"
+    Then REST Add "AppWall" Device To topology Tree with Name "Appwall_SA_172.17.164.30" and Management IP "172.17.164.30" into site "AW_site"
+      | attribute     | value  |
+      | httpPassword  | kavado |
+      | httpsPassword | kavado |
+      | httpsUsername | admin  |
+      | httpUsername  | admin  |
+      | visionMgtPort | G1     |
+    And Sleep "10"
+    * CLI Clear vision logs
     Then UI Navigate to "AMS Forensics" page via homepage
 
   @SID_2
