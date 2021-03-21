@@ -9,6 +9,8 @@ Feature: AMS DefenseFlow Activations Dashboard
     * REST Delete ES index "df-attack*"
     * CLI Clear vision logs
 
+
+
   @SID_2
   Scenario: Start Attack PO_101
     Given That Current Vision is Logged In

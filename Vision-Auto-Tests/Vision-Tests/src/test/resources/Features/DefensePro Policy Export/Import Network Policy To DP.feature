@@ -17,9 +17,9 @@ Feature: DefensePro Network Policy Import to Device
 
   @SID_3
   Scenario: Delete Network template from vision if exists
-    Then CLI Operations - Run Root Session command "yes|restore_radware_user_password" timeout 15
-#    Then CLI Run remote linux Command "mysql -prad123 vision_ng -e "delete from device_exported_file where name='auto_import_DP';"" on "ROOT_SERVER_CLI"
-    Then MYSQL DELETE FROM "device_exported_file" Table in "VISION_NG" Schema WHERE "name='auto_import_DP'"
+    Given CLI Reset radware password
+    Then CLI Run remote linux Command "mysql -prad123 vision_ng -e "delete from device_exported_file where name='auto_import_DP';"" on "ROOT_SERVER_CLI"
+
   @SID_4
   Scenario: Upload network policy to vision
     When CLI Run remote linux Command on "GENERIC_LINUX_SERVER"

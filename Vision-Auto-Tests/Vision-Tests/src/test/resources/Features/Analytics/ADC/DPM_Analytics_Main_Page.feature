@@ -22,7 +22,7 @@ Feature: DPM Analytics Main Page
 
   @Sanity @SID_4
   Scenario: Login to ADC application dashboard
-    Then CLI Operations - Run Root Session command "yes|restore_radware_user_password" timeout 15
+    Given CLI Reset radware password
     Then REST Vision Install License Request "vision-reporting-module-ADC"
     Then UI Login with user "ADC_Administrator_auto_fake" and password "radware"
 
@@ -32,7 +32,8 @@ Feature: DPM Analytics Main Page
 
   @Sanity @SID_5
   Scenario: DPM - Validate device's amount and status
-    Then UI Text of "Application Selection" equal to "APPLICATIONS 10/10"
+    #the space is another div that is part of css therefore we have no space
+    Then UI Text of "Application Selection" equal to "APPLICATIONS10/10"
     Then UI Text of "upDevices" equal to "3"
     Then UI Text of "maintenanceDevices" equal to "0"
     Then UI Text of "downDevices" equal to "0"

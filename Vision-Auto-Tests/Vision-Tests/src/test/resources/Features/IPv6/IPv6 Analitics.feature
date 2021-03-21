@@ -4,7 +4,7 @@ Feature: IPv6 Analytics test
   @SID_1
   Scenario: Login and cleanup
     Then CLI Run remote linux Command "curl -XDELETE localhost:9200/adc-system-raw-*" on "ROOT_SERVER_CLI"
-    Then CLI Operations - Run Root Session command "yes|restore_radware_user_password" timeout 15
+    Given CLI Reset radware password
 #    Then REST Vision Install License Request "vision-reporting-module-ADC"
     Given UI Login with user "radware" and password "radware"
 

@@ -55,11 +55,11 @@ Feature: ADC dashboard Current Totals Widget
 
   @SID_8
   Scenario: Validation: data correctness and exact 1 Gbps presentation
-    When UI Navigate to "HOME" page via homePage
+    When UI Navigate to "VISION SETTINGS" page via homePage
     Then UI logout and close browser
     Then UI Login with user "sys_admin" and password "radware"
     When UI Navigate to "Application Dashboard" page via homePage
-    When UI Navigate to "HOME" page via homePage
+    When UI Navigate to "VISION SETTINGS" page via homePage
     When UI Navigate to "System and Network Dashboard" page via homePage
     Then UI click Table row by keyValue or Index with elementLabel "Devices table" findBy columnName "Device Name" findBy cellValue "Alteon_50.50.101.32"
     Then UI Click Button "NetworkTab"

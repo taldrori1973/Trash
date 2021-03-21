@@ -1,4 +1,4 @@
-@ADC_Report @TC105968
+@ADC_Report @TC`105968
 
 Feature: DPM - Report Wizard Creation
 
@@ -11,16 +11,16 @@ Feature: DPM - Report Wizard Creation
 
   @SID_2
   Scenario: ADC - Add new Report
-    Given UI "Create" DPMReport With Name "ADCcreateReport1"
-      | reportType            | Application Report                                                   |
-      | devices               | virts:[Rejith_32326515:88]                                        |
-      | Time Definitions.Date | Quick:30m                                                            |
+    Given UI "Create" Report With Name "ADCcreateReport1"
+      | Template              | reportType:Application , Widgets:[Requests per Second,End-to-End Time] ,Applications:[Rejith_32326515:80] |
+      | Time Definitions.Date | Quick:30m                                                                                                 |
       | Share              | Email:[automation.vision1@radware.com],Subject:mySubject,Body:myBody |
-    Given UI "Validate" DPMReport With Name "ADCcreateReport1"
-      | reportType            | Application Report                                                   |
-      | devices               | virts:[Rejith_32326515:88]                                        |
-      | Time Definitions.Date | Quick:30m                                                            |
+    Then UI "Validate" Report With Name "ADCcreateReport1"
+      | Template              | reportType:Application , Widgets:[Requests per Second,End-to-End Time] ,Applications:[Rejith_32326515:80] |
+      | Time Definitions.Date | Quick:30m                                                                                                 |
       | Share              | Email:[automation.vision1@radware.com],Subject:mySubject,Body:myBody |
+    Then UI Delete Report With Name "ADCcreateReport1"
+
 #    When UI Click Button "Edit" with value "createReport1"
 #    When UI Click Button "Next" with value ""
 #    When UI Click Button "Back" with value ""

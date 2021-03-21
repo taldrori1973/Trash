@@ -5,6 +5,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.radware.vision.RestClientsFactory;
 import com.radware.vision.restTestHandler.GenericStepsHandler;
 import controllers.RestApiManagement;
+import lombok.Data;
 import models.RestRequestSpecification;
 import models.RestResponse;
 import models.StatusCode;
@@ -20,6 +21,7 @@ import java.util.Map;
  * Date: 6/29/2020
  * Time: 3:33 PM
  */
+@Data
 public class JFrogRestAPI {
 
     private String baseUri;
@@ -56,6 +58,17 @@ public class JFrogRestAPI {
 
         restRequestSpecification.setPathParams(pathParams);
 
+        RestResponse restResponse = RestApiManagement.getRestApi().sendRequest(restRequestSpecification);
+        if (!restResponse.getStatusCode().equals(expectedStatusCode))
+            throw new Exception(restResponse.getBody().getBodyAsString());
+        return restResponse;
+    }
+
+    public RestResponse sendRequest(String Label, Map<String, String> queryParams, StatusCode expectedStatusCode) throws Exception {
+        NoAuthRestClient connection = RestClientsFactory.getNoAuthConnection(this.baseUri, this.connectionPort);
+        connection.switchTo();
+        RestRequestSpecification restRequestSpecification = GenericStepsHandler.createNewRestRequestSpecification("/ThirdPartyAPIs/jfrog.json", Label);
+        restRequestSpecification.setQueryParams(queryParams);
         RestResponse restResponse = RestApiManagement.getRestApi().sendRequest(restRequestSpecification);
         if (!restResponse.getStatusCode().equals(expectedStatusCode))
             throw new Exception(restResponse.getBody().getBodyAsString());

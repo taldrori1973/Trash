@@ -23,7 +23,7 @@ Feature: Create and Delete Sites Physical container
     Given MYSQL DELETE FROM "site_tree_elem_abs" Table in "VISION_NG" Schema WHERE "name='Site1_Physical'"
   @SID_2
   Scenario: Open the Physical Containers
-    Then CLI Operations - Run Root Session command "yes|restore_radware_user_password" timeout 15
+    Given CLI Reset radware password
     Given UI Login with user "radware" and password "radware"
     Then UI Go To Vision
     Then UI open Topology Tree view "PhysicalContainers" site

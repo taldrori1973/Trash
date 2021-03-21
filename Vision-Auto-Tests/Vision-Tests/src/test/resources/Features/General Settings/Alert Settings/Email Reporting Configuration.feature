@@ -4,7 +4,7 @@ Feature: Alert Settings - Email Reporting Configuration
 
   @SID_1
   Scenario: Email setup requirements and clear logs
-    Then CLI Operations - Run Root Session command "yes|restore_radware_user_password" timeout 15
+    Given CLI Reset radware password
     Then CLI Operations - Run Root Session command "sed -i '/mymail.local/d' /etc/hosts"
     Then CLI Operations - Run Root Session command "echo "172.17.164.10 mymail.local" >> /etc/hosts"
 #    Then CLI Operations - Run Root Session command "mysql -prad123 vision_ng -e "delete from alrt_fltr_to_ids where device_id=(select fk_alerts_mail_filter from alertsmailnotifiersettings);""

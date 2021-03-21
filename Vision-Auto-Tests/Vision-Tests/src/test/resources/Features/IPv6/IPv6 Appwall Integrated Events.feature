@@ -23,7 +23,7 @@ Feature: IPv6 Appwall Events
 
   @SID_2
   Scenario: Open the SitesAndClusters Containers
-    Then CLI Operations - Run Root Session command "yes|restore_radware_user_password" timeout 15
+    Given CLI Reset radware password
     Given UI Login with user "radware" and password "radware"
 #    Then REST Vision Install License Request "vision-AVA-Max-attack-capacity"
     Then UI open Topology Tree view "SitesAndClusters" site
@@ -97,7 +97,7 @@ Feature: IPv6 Appwall Events
     Then UI Validate Pie Chart data "OWASPCATEGORY"
       | label | data |
       | A5    | 1    |
-    And UI Navigate to "HOME" page via homepage
+    Then UI Navigate to "VISION SETTINGS" page via homePage
 
   @SID_13
   Scenario: Delete Alteon devices from tree

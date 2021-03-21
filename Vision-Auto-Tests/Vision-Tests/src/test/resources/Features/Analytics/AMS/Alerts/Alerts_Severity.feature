@@ -7,7 +7,12 @@ Feature: VRM Alerts Severity
     * CLI kill all simulator attacks on current vision
     * REST Delete ES index "rt-alert-def-vrm"
     * REST Delete ES index "alert"
+#    * REST Delete ES index "dp-traffic-*"
+#    * REST Delete ES index "dp-https-stats-*"
+#    * REST Delete ES index "dp-https-rt-*"
+#    * REST Delete ES index "dp-five-*"
     * REST Delete ES index "dp-*"
+
     * CLI Clear vision logs
 
   @SID_2
@@ -99,7 +104,7 @@ Feature: VRM Alerts Severity
 
   @SID_11
   Scenario: go back to vision
-    And UI Navigate to "HOME" page via homePage
+    Then UI Navigate to "VISION SETTINGS" page via homePage
 
   @SID_12
   Scenario: VRM Validate Alert browser details severity Warning

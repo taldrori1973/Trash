@@ -6,10 +6,15 @@ Feature: Forensic Attack details Tests
   @SID_1
   Scenario: Clean system data
     * CLI kill all simulator attacks on current vision
-    Then CLI Operations - Run Root Session command "yes|restore_radware_user_password" timeout 15
+    Given CLI Reset radware password
     # Sleeping in order to let collector cache clean
     Then Sleep "20"
+#    * REST Delete ES index "dp-traffic-*"
+#    * REST Delete ES index "dp-https-stats-*"
+#    * REST Delete ES index "dp-https-rt-*"
+#    * REST Delete ES index "dp-five-*"
     * REST Delete ES index "dp-*"
+
     * REST Delete ES index "forensics-*"
     * REST Delete ES index "dpforensics-*"
     Then REST Request "PUT" for "Connectivity->Inactivity Timeout for Configuration"
@@ -32,6 +37,7 @@ Feature: Forensic Attack details Tests
     When UI "Create" Forensics With Name "Attack Details1"
       | Output | Action,Attack ID,Threat Category,Duration |
     Then UI Generate and Validate Forensics With Name "Attack Details1" with Timeout of 180 Seconds
+    And Sleep "30"
     And UI Click Button "Views.report" with value "Attack Details1"
 
  ######################################################### Refine ########################################################################
@@ -187,11 +193,11 @@ Feature: Forensic Attack details Tests
     * UI Click Button "Report.Clear Refine"
 
   @SID_20
-  Scenario: Validate attack details refine by Packets
+  Scenario: Validate attack details refine by pps
     When UI click Table row by keyValue or Index with elementLabel "Report.Table" findBy columnName "Attack ID" findBy cellValue "800-1525623158"
     And UI Click Button "Report.Attack Details.Refine View"
     And UI Select Multi items from dropdown "Report.Attack Details.Refine.Dropdown" apply
-      | Packets |
+      | pps |
     Then UI Validate "Report.Table" Table rows count EQUALS to 1
     * UI Click Button "Report.Clear Refine"
 
@@ -293,6 +299,7 @@ Feature: Forensic Attack details Tests
   Scenario: VRM - open forensic "Attack details" table
     When UI Click Button "Views.Expand" with value "Attack_Details"
     And UI Click Button "Views.Generate Now" with value "Attack_Details"
+    And Sleep "30"
     And UI Click Button "Views.report" with value "Attack_Details"
     Then UI click Table row by keyValue or Index with elementLabel "Report.Table" findBy columnName "Attack ID" findBy cellValue "7839-1402580209"
 
@@ -659,6 +666,7 @@ Feature: Forensic Attack details Tests
     Then UI Click Button "Criteria.Any"
     Then UI Click Button "Submit" with value "Submit"
     Then UI Generate and Validate Forensics With Name "Attack ACL" with Timeout of 180 Seconds
+    And Sleep "30"
     And UI Click Button "Views.report" with value "Attack ACL"
 
   @SID_59

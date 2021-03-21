@@ -11,11 +11,11 @@
       "description": "Retrieves Vision Management Info : macAddress, hostname ,defenseFlowId, defensePipeUrl, hardwarePlatform,activeServerMacAddress, serverSoftwareVersion, certificateHash"
     },
     {
-      "label": "Log Out",
+      "label": "Add Site to TopologyTree",
       "method": "POST",
-      "basePath": "/mgmt/system/user/logout",
+      "basePath": "/mgmt/system/config/tree/site",
       "produces": "application/json",
-      "description": "Log Out from vision"
+      "description": "Add New Site to TopologyTree"
     },
     {
       "label": "Set Authentication Mode",
@@ -23,6 +23,27 @@
       "basePath": "/mgmt/system/config/item/globalaaaparameters",
       "produces": "application/json",
       "description": "Set Authentication Mode"
+    },
+    {
+      "label": "Get Management Info Ex",
+      "method": "GET",
+      "basePath": "/mgmt/system/config/item/mngtinfoex",
+      "produces": "application/json",
+      "description": "Retrieves Vision Management Info : macAddress, hostname ,defenseFlowId, defensePipeUrl, hardwarePlatform,activeServerMacAddress, serverSoftwareVersion, certificateHash, branch"
+    },
+    {
+      "label": "Get Share Path State",
+      "method": "GET",
+      "basePath": "mgmt/system/config/itemlist/apm/sharepathstate",
+      "produces": "application/json",
+      "description": "Retrieves Vision Share path Info : An indication for APM status"
+    },
+    {
+      "label": "Log Out",
+      "method": "POST",
+      "basePath": "/mgmt/system/user/logout",
+      "produces": "application/json",
+      "description": "Log Out from vision"
     },
     {
       "label": "Install License",

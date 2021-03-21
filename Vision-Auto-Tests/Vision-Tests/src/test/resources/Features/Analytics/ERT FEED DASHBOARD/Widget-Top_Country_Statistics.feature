@@ -6,7 +6,11 @@ Feature: EAAF Widget - Top Country Statistics
     * CLI kill all simulator attacks on current vision
     # wait until collector cache clean up
     * Sleep "15"
-    * REST Delete ES index "dp-*"
+#  * REST Delete ES index "dp-traffic-*"
+#  * REST Delete ES index "dp-https-stats-*"
+#  * REST Delete ES index "dp-https-rt-*"
+#  * REST Delete ES index "dp-five-*"
+  * REST Delete ES index "dp-*"
     * CLI Clear vision logs
     * CLI Run remote linux Command "curl -X GET localhost:9200/_cat/indices?v | grep dp-attack-raw >> /opt/radware/storage/maintenance/dp-attack-before-streaming" on "ROOT_SERVER_CLI"
     * CLI Run remote linux Command "curl -X POST localhost:9200/dp-attack-raw-*/_search -d '{"query":{"bool":{"must":[{"match_all":{}}],"must_not":[],"should":[]}},"from":0,"size":1000,"sort":[],"aggs":{}}' >> /opt/radware/storage/maintenance/attack-raw-index-before-stream" on "ROOT_SERVER_CLI"
@@ -15,7 +19,7 @@ Feature: EAAF Widget - Top Country Statistics
     * CLI simulate 1 attacks of type "IP_FEED_Modified" on "DefensePro" 10 and wait 150 seconds
   @SID_3
   Scenario: Login and navigate to EAAF dashboard
-    Given UI Login with user "sys_admin" and password "radware"
+    Given UI Login with user "radware" and password "radware"
     * REST Vision Install License Request "vision-AVA-Max-attack-capacity"
 #    Given UI Login with user "sys_admin" and password "radware"
 #    When UI Open Upper Bar Item "EAAF Dashboard"
@@ -91,7 +95,7 @@ Feature: EAAF Widget - Top Country Statistics
   Scenario: Validate Volume amount per IP
 # Validate Volume amount per IP
     Then UI Validate Text field "TOTAL Country Events value" with params "0" EQUALS "38.03 M"
-    Then UI Validate Text field "TOTAL Country Events value" with params "1" EQUALS "19.85 M"
+    Then UI Validate Text field "TOTAL Country Events value" with params "1" On Regex "(\d+.\d+) M" GTE "19.85"
     Then UI Validate Text field "TOTAL Country Events value" with params "2" EQUALS "19.16 M"
     Then UI Validate Text field "TOTAL Country Events value" with params "3" EQUALS "18.95 M"
     Then UI Validate Text field "TOTAL Country Events value" with params "4" EQUALS "8.68 M"
@@ -198,7 +202,7 @@ Feature: EAAF Widget - Top Country Statistics
   Scenario: Validate Volume amount per IP on Top Attacking Countries Widget
 # Validate Volume amount per IP
     Then UI Validate Text field "TOTAL Country Events value" with params "0" EQUALS "38.03 M"
-    Then UI Validate Text field "TOTAL Country Events value" with params "1" EQUALS "19.85 M"
+    Then UI Validate Text field "TOTAL Country Events value" with params "1" On Regex "(\d+.\d+) M" GTE "19.85"
     Then UI Validate Text field "TOTAL Country Events value" with params "2" EQUALS "19.16 M"
     Then UI Validate Text field "TOTAL Country Events value" with params "3" EQUALS "18.95 M"
     Then UI Validate Text field "TOTAL Country Events value" with params "4" EQUALS "8.68 M"
@@ -218,7 +222,7 @@ Feature: EAAF Widget - Top Country Statistics
   @SID_28
   Scenario: Cleanup
 #    Then UI Open "Configurations" Tab
-    When UI Navigate to "HOME" page via homePage
+    When UI Navigate to "VISION SETTINGS" page via homePage
     Then UI logout and close browser
 
 

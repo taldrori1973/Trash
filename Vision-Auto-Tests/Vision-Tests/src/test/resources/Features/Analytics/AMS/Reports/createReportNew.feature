@@ -1,13 +1,12 @@
 @VRM_Report2
 @TC107944
-
 Feature: create AMS Report New Form
 
   @SID_1
   Scenario: Login and navigate to the AMS Reports Wizard
-    Then CLI Operations - Run Root Session command "yes|restore_radware_user_password" timeout 15
+    Given CLI Reset radware password
     Then REST Vision Install License Request "vision-AVA-Max-attack-capacity"
-#    Then CLI Run remote linux Command "mysql -prad123 vision_ng -e "select license_str,is_expired+0 from vision_license;"" on "ROOT_SERVER_CLI"
+    And REST Delete ES index "vrm-scheduled-report-definition-vrm"
     Then REST Request "PUT" for "Connectivity->Inactivity Timeout for Configuration"
       | type | value                                 |
       | body | sessionInactivTimeoutConfiguration=60 |
@@ -157,7 +156,6 @@ Feature: create AMS Report New Form
   @SID_20
   Scenario: Validate Scope Selection Search
     Then UI Click Button "Edit" with value "new"
-#    When UI "Edit" Report With Name "new"
     Then UI Validate Scope Selection Search With Element Type "DefensePro" And Device index 10
 
   @SID_21
@@ -199,11 +197,11 @@ Feature: create AMS Report New Form
     When UI Click Button "Add New"
     When UI Click Button "Select Template"
     When UI Click Button "DefensePro Analytics Template"
-    Then UI Validate Search The Text "Top Attacks by" in Search Label "Widget Filter Default" if this elements exist
-      | label         | param                    |
-      | Widget Select | Top Attacks by Duration  |
-      | Widget Select | Top Attacks by Bandwidth |
-      | Widget Select | Top Attacks by Protocol  |
+    Then UI Validate Search The Text "Top Attacks by" in Search Label "Widget Filter Default" if this elements exist with prefix label "Widget Select"
+      | param                    |
+      | Top Attacks by Duration  |
+      | Top Attacks by Bandwidth |
+      | Top Attacks by Protocol  |
     Then UI Click Button "Widget Close"
     Then UI Click Button "Discard Changes"
     Then UI Click Button "Cancel"
@@ -211,8 +209,9 @@ Feature: create AMS Report New Form
   @SID_26
   Scenario: AMS Reports - Validate Search Filter With Expected Elements Number
     When UI Click Button "Add New"
-    When UI Click Button "Select Template"
-    When UI Click Button "DefensePro Analytics Template"
+    And UI Click Button "Select Template"
+    And UI Click Button "DefensePro Analytics Template"
+    And UI Click Button By JavascriptExecutor with label "Clear All"
     Then UI Validate Search Numbering With text: "Top Attacks by" And Element Label: "Widget Select" In Search Label "Widget Filter Default" If this equal to 3
     Then UI Click Button "Widget Close"
     Then UI Click Button "Discard Changes"
@@ -230,8 +229,7 @@ Feature: create AMS Report New Form
     Given UI "Create" Report With Name "DeleteAllReport"
       | reportType | DefensePro Analytics Dashboard |
       | Design     | Delete:[ALL], Add:[ALL]        |
-    Then UI Click Button "Widgets Selection Cancel"
-    Then UI Click Button "Cancel"
+
 
   @SID_29
   Scenario: Create Behavioral Protections Report with all the widgets

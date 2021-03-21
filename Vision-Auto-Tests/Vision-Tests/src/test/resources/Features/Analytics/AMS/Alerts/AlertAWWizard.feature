@@ -8,13 +8,14 @@ Feature: VRM AW Alerts
     * REST Delete ES index "alert"
     * REST Delete ES index "appwall-v2-attack-raw*"
     Then CLI Run remote linux Command "echo "cleared" $(date) > /var/spool/mail/alertuser" on "GENERIC_LINUX_SERVER"
+    Then CLI Run remote linux Command "/opt/radware/mgt-server/bin/collectors_service.sh restart" on "ROOT_SERVER_CLI" with timeOut 720
     And Sleep "5"
     * CLI Clear vision logs
 
 
   @SID_2
   Scenario: VRM - enabling emailing and go to VRM Alerts Tab
-    Given UI Login with user "radware" and password "radware"
+    Given UI Login with user "sys_admin" and password "radware"
     * REST Vision Install License Request "vision-AVA-Max-attack-capacity"
     * REST Vision Install License Request "vision-AVA-AppWall"
     * REST Vision Install License Request "vision-reporting-module-AMS"
@@ -48,8 +49,9 @@ Feature: VRM AW Alerts
       | Product | Appwall |
       | Basic Info | Description:Alert Delivery Description,Impact: Our network is down,Remedy: Please protect real quick!,Severity:Critical     |
       | Criteria   | Event Criteria:Action,Operator:Not Equals,Value:[Forward];     |
-      | Schedule   | checkBox:Trigger,alertsPerHour:1                                                                                            |
+      | Schedule   | checkBox:Trigger,alertsPerHour:60                                                                                           |
       | Share      | Email:[automation.vision1@alert.local, automation.vision2@alert.local],Subject:Alert Delivery Subj,Body:Alert Delivery Body |
+    And Sleep "120"
 
   @SID_4
   Scenario: Run DP simulator VRM_Alert_Severity
@@ -57,7 +59,7 @@ Feature: VRM AW Alerts
     When CLI Run remote linux Command on "GENERIC_LINUX_SERVER"
       | "/home/radware/AW_Attacks/sendAW_Attacks.sh "                     |
       | #visionIP                                                         |
-      | " 172.17.164.30 1 "/home/radware/AW_Attacks/AppwallAttackTypes/"" |
+      | " 172.17.164.30 1 "/home/radware/AW_Attacks/AWAlertTest/"" |
     And Sleep "95"
 
   @SID_5
@@ -84,7 +86,7 @@ Feature: VRM AW Alerts
 
   @SID_10
   Scenario: Verify Alert Email Delivery attack details
-    Then CLI Run linux Command "grep -o -e "2000::0001" -e "<td>80</td>" -e "SYN Flood HTTP" -e "policy1" -e "TCP" -e "Unknown" /var/spool/mail/alertuser |wc -l" on "GENERIC_LINUX_SERVER" and validate result EQUALS "60"
+    Then CLI Run linux Command "grep -o -e "2000::0001" -e "<td>80</td>" -e "SYN Flood HTTP" -e "policy1" -e "TCP" -e "Unknown" /var/spool/mail/alertuser |wc -l" on "GENERIC_LINUX_SERVER" and validate result EQUALS "4"
 
   @SID_11
   Scenario: VRM - go to vision and disable emailing

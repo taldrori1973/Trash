@@ -3,10 +3,10 @@
 Feature: Design Report Wizard
 
 
-#  @SID_1
-#  Scenario: VRM Reports Cleanup
-#    Then CLI Operations - Run Root Session command "yes|restore_radware_user_password" timeout 15
-#    * REST Delete ES index "vrm-scheduled-report-*"
+  @SID_1
+  Scenario: VRM Reports Cleanup
+    Given CLI Reset radware password
+    * REST Delete ES index "vrm-scheduled-report-*"
 
 
   @SID_2

@@ -6,34 +6,42 @@ import com.radware.automation.tools.basetest.Reporter;
 import com.radware.automation.tools.utils.ComparableUtils;
 import com.radware.automation.webui.VisionDebugIdsManager;
 import com.radware.automation.webui.WebUIUtils;
+import com.radware.automation.webui.widgets.ComponentLocator;
 import com.radware.automation.webui.widgets.ComponentLocatorFactory;
 import com.radware.automation.webui.widgets.api.TextField;
 import com.radware.automation.webui.widgets.impl.WebUITextField;
 import com.radware.vision.automation.tools.exceptions.misc.NoSuchOperationException;
 import com.radware.vision.automation.tools.exceptions.selenium.TargetWebElementNotFoundException;
+import com.radware.vision.automation.tools.sutsystemobjects.devicesinfo.enums.SUTDeviceType;
 import com.radware.vision.infra.base.pages.navigation.WebUIVisionBasePage;
 import com.radware.vision.infra.enums.DeviceDriverType;
 import com.radware.vision.infra.testhandlers.baseoperations.BasicOperationsHandler;
 import com.radware.vision.infra.testhandlers.baseoperations.TableHandler;
 import com.radware.vision.infra.testhandlers.baseoperations.clickoperations.ClickOperationsHandler;
-import com.radware.vision.infra.testhandlers.ams.AMSHandler;
-import com.radware.vision.infra.testhandlers.ams.AMSReportsHandler;
+import com.radware.vision.infra.testhandlers.vrm.VRMHandler;
+import com.radware.vision.infra.testhandlers.vrm.VRMReportsHandler;
 import com.radware.vision.infra.utils.ReportsUtils;
 import cucumber.api.java.en.And;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
-import org.openqa.selenium.WebElement;
+import org.openqa.selenium.*;
+import org.openqa.selenium.support.How;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.FluentWait;
+import org.openqa.selenium.support.ui.Wait;
 
+import java.time.Duration;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
 
 import static com.radware.vision.infra.utils.ReportsUtils.reportErrors;
 
+
 public class GenericSteps extends BddUITestBase {
 
-    private AMSReportsHandler amsReportsHandler = new AMSReportsHandler();
+    private VRMReportsHandler vrmReportsHandler = new VRMReportsHandler();
     private TableHandler tableHandler = new TableHandler();
 
     public GenericSteps() throws Exception {
@@ -80,36 +88,73 @@ public class GenericSteps extends BddUITestBase {
 
     @When("^UI Click Button \"([^\"]*)\"(?: with value \"([^\"]*)\")?$")
     public WebElement buttonClick(String label, String param) throws TargetWebElementNotFoundException {
-        if (param == null)
-            return BasicOperationsHandler.clickButton(label, param);
-        else {
-            String[] params = param.split(",");
-            try {
+        try {
+            if (param == null)
+                return BasicOperationsHandler.clickButton(label, param);
+            else {
+                String[] params = param.split(",");
                 return BasicOperationsHandler.clickButton(label, params);
-            } catch (TargetWebElementNotFoundException e) {
-                BaseTestUtils.report("No Element with data-debug-id " + VisionDebugIdsManager.getDataDebugId(), Reporter.FAIL);
             }
-            return null;
+        } catch (TargetWebElementNotFoundException e) {
+            BaseTestUtils.report("No Element with data-debug-id " + VisionDebugIdsManager.getDataDebugId(), Reporter.FAIL);
+        }
+        return null;
+    }
+
+    /**
+     * @param saveServer - string to check if data
+     * @param servers    - list of DataServers
+     * @throws TargetWebElementNotFoundException
+     */
+    @When("UI Select Server( and [S|s]ave)?")
+    public void selectServer(String saveServer, List<DataServer> servers) throws TargetWebElementNotFoundException {
+        if (servers.size() == 0) {
+            BaseTestUtils.report("No server has been selected, 1 server is required", Reporter.FAIL);
+        }
+        // In case there are several servers - select the first one
+        DataServer server = servers.get(0);
+        // click button servers
+        buttonClick("Servers Button", (String) null);
+        // set text field
+        uiSetTextFieldTo("Server Selection.Search", null, server.name, false);
+        // lazy scrolling and click the chosen server
+        VisionDebugIdsManager.setLabel("Server Selection");
+        VisionDebugIdsManager.setParams(server.name, server.device, server.policy);
+        ComponentLocator targetElementLocator = ComponentLocatorFactory.getEqualLocatorByDbgId(VisionDebugIdsManager.getDataDebugId());
+        String valueElementsLocator = "//*[contains(@data-debug-id, 'radio-" + server.name + "') and contains(@data-debug-id, 'parent')]";
+        ComponentLocator elementsLocator = new ComponentLocator(How.XPATH, valueElementsLocator);
+        new VRMHandler().scrollUntilElementDisplayed(elementsLocator, targetElementLocator);
+        buttonClick("Server Selection.Server Name", server.toString());
+        if (saveServer != null) {
+            buttonClick("Server Selection.Save", (String) null);
         }
     }
 
+    @When("^UI Click Button By JavascriptExecutor with label \"([^\"]*)\"(?: with value \"([^\"]*)\")?$")
+    public void clickButtonByJavaScript(String label, String param) {
+        VisionDebugIdsManager.setLabel(label);
+        VisionDebugIdsManager.setParams(param);
+        WebElement webElement = WebUIUtils.fluentWait(ComponentLocatorFactory.getLocatorByXpathDbgId(VisionDebugIdsManager.getDataDebugId()).getBy());
+        ((JavascriptExecutor) WebUIUtils.getDriver()).executeScript("arguments[0].click();", webElement);
+    }
+
     @When("^UI Click Button \"([^\"]*)\" with params$")
-    public static void buttonClick(String label, List<AMSHandler.DpDeviceFilter> entries){
+    public static void buttonClick(String label, List<VRMHandler.DpDeviceFilter> entries) {
 
         entries.forEach(entry -> {
             String param = null;
             try {
 //                if (entry.index != null) {
 //                    param = devicesManager.getDeviceInfo(SUTDeviceType.DefensePro, entry.index).getDeviceIp();
-                String[] params = param.split(",");
-                    try {
-                         BasicOperationsHandler.clickButton(label, params);
-                    } catch (TargetWebElementNotFoundException e) {
-                        BaseTestUtils.report("No Element with data-debug-id " + VisionDebugIdsManager.getDataDebugId(), Reporter.FAIL);
-                    }
-
-//                }else{
-                     BasicOperationsHandler.clickButton(label, param);
+//                    String[] params = param.split(",");
+//                    try {
+//                        BasicOperationsHandler.clickButton(label, params);
+//                    } catch (TargetWebElementNotFoundException e) {
+//                        BaseTestUtils.report("No Element with data-debug-id " + VisionDebugIdsManager.getDataDebugId(), Reporter.FAIL);
+//                    }
+//
+//                } else {
+                    BasicOperationsHandler.clickButton(label, param);
 //                }
 
             } catch (Exception e) {
@@ -133,7 +178,7 @@ public class GenericSteps extends BddUITestBase {
 
     @Then("^UI validate Date by Label \"([^\"]*)\"(?: with time Format \"([^\"]*)\")?(?: by error threshold in minutes \"([^\"]*)\")?$")
     public void validateDate(String dateLabel, String timeFormat, String thresholdInMinutes) {
-        amsReportsHandler.validateSimpleDate(dateLabel, timeFormat, thresholdInMinutes);
+        vrmReportsHandler.validateSimpleDate(dateLabel, timeFormat, thresholdInMinutes);
     }
 
     @When("^UI Select \"([^\"]*)\" from dropdown \"([^\"]*)\"$")
@@ -188,28 +233,43 @@ public class GenericSteps extends BddUITestBase {
     @Then("^UI Text of \"([^\"]*)\"(?: with extension \"(.*)\")? equal to \"([^\"]*)\"$")
     public void uiTextOfEqualTo(String label, String params, String expectedValue) throws TargetWebElementNotFoundException {
         String actualValue = null;
-        try {
-            if (params == null)
-                actualValue = BasicOperationsHandler.getItemValue(label, params);
-            else {
-                String[] params_values = params.split(",");
-                actualValue = BasicOperationsHandler.getItemValue(label, params_values);
-            }
-        } catch (TargetWebElementNotFoundException e) {
-            e.printStackTrace();
-        }
-        if (actualValue == null) {
-            String errorMessage = "Element Value with label " + label + " returns null";
-            BaseTestUtils.report(errorMessage, Reporter.FAIL);
-            throw new TargetWebElementNotFoundException(errorMessage);
-        }
-        if (!actualValue.trim().equals(expectedValue)) {
+
+        VisionDebugIdsManager.setLabel(label);
+        VisionDebugIdsManager.setParams(params);
+
+        ComponentLocator locator = ComponentLocatorFactory.getEqualLocatorByDbgId(VisionDebugIdsManager.getDataDebugId());
+
+        Wait<WebDriver> wait = new FluentWait<>(WebUIUtils.getDriver()).
+                withTimeout(Duration.ofMillis(WebUIUtils.DEFAULT_WAIT_TIME)).
+                pollingEvery(Duration.ofMillis(2)).
+                ignoring(StaleElementReferenceException.class, WebDriverException.class);
+
+        boolean displayed = wait.until(ExpectedConditions.presenceOfElementLocated(locator.getBy())).isDisplayed();
+        if (displayed) {
             try {
-                AMSHandler.scroll("Table_Attack Details");
-            } catch (Exception e) {
+                if (params == null)
+                    actualValue = BasicOperationsHandler.getItemValue(label, params);
+                else {
+                    String[] params_values = params.split(",");
+                    actualValue = BasicOperationsHandler.getItemValue(label, params_values);
+                }
+            } catch (TargetWebElementNotFoundException e) {
+                e.printStackTrace();
             }
-            ReportsUtils.reportAndTakeScreenShot(String.join(" : ", label + "-" + params, "Actual is \"" + actualValue + "\" but is not equal to \"" + expectedValue + "\""), Reporter.FAIL);
-        }
+            if (actualValue == null) {
+                String errorMessage = "Element Value with label " + label + " returns null";
+                BaseTestUtils.report(errorMessage, Reporter.FAIL);
+                throw new TargetWebElementNotFoundException(errorMessage);
+            }
+            if (!actualValue.trim().equals(expectedValue)) {
+                try {
+                    VRMHandler.scroll("Table_Attack Details");
+                } catch (Exception e) {
+                }
+                ReportsUtils.reportAndTakeScreenShot(String.join(" : ", label + "-" + params, "Actual is \"" + actualValue + "\" but is not equal to \"" + expectedValue + "\""), Reporter.FAIL);
+            }
+        } else
+            BaseTestUtils.report(String.format("Web Element located by %s is not diplayed", locator.getBy()), Reporter.FAIL);
     }
 
     /**
@@ -233,6 +293,7 @@ public class GenericSteps extends BddUITestBase {
             BaseTestUtils.report(errorMessage, Reporter.FAIL);
             throw new TargetWebElementNotFoundException(errorMessage);
         }
+        expectedValue.replaceAll(" ", "");
         List<String> expectedValueList = Arrays.asList(expectedValue.replaceAll(" ", "").split(","));
         List<String> actualValuesList = Arrays.asList(actualValue.substring(actualValue.indexOf(prefix) + prefix.length()).split(prefix));
         for (int i = 0; i < actualValuesList.size(); i++) {
@@ -251,7 +312,7 @@ public class GenericSteps extends BddUITestBase {
      * @param expectedValue - the text that you want to compare
      * @param params        - adding to debugs id
      */
-    @Then("^UI Text of \"([^\"]*)\"(?: with extension \"(.*)\")? contains \"([^\"]*)\"$")
+    @Then("^UI Text of \"([^\"]*)\"(?: with extension \"(.*)\")? contains \"(.*)\"$")
     public void uiTextContains(String label, String params, String expectedValue) {
         String actualValue = null;
         try {
@@ -281,7 +342,7 @@ public class GenericSteps extends BddUITestBase {
 
         boolean isSelected = BasicOperationsHandler.isItemSelectedByClass(label, params);
         if (!ComparableUtils.equals(isSelected, expected)) {
-            String errorMessage = String.format("Item with name : %s Does not match the expected result : %s", String.join(".", label, params), expected);
+            String errorMessage = String.format("Item with name : %s Does not match the expected result : %s", String.join(".", label, params), String.valueOf(expected));
             BaseTestUtils.report(errorMessage, Reporter.FAIL);
         }
     }
@@ -388,8 +449,24 @@ public class GenericSteps extends BddUITestBase {
         WebUIUtils.fluentWait(ComponentLocatorFactory.getCssLocatorByAttribute(attribute, value).getBy()).click();
     }
 
+    @When("^UI set \"([^\"]*)\" switch button to \"([^\"]*)\"$")
+    public void clickOnSwitchButton(String label, String state) throws TargetWebElementNotFoundException {
+        ClickOperationsHandler.clickOnSwitchButton(label, null, state);
+    }
 
-    private static class ElementAttribute {
+    static class DataServer {
+        String name;
+        String device;
+        String policy;
+
+        @Override
+        public String toString() {
+            return this.name + "," + this.device + "," + this.policy;
+        }
+    }
+
+
+    private class ElementAttribute {
         String name;
         String value;
     }

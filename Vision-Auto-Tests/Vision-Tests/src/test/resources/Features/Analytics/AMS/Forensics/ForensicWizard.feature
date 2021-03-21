@@ -2,16 +2,22 @@
 Feature: Forensic Wizard
 
 
-  @SID_1
+  @SID_1 @Sanity
   Scenario: Clean system data before Top Attacks test
-    * CLI kill all simulator attacks on current vision
+    And CLI Reset radware password
+    Given CLI kill all simulator attacks on current vision
+#    * REST Delete ES index "dp-traffic-*"
+#    * REST Delete ES index "dp-https-stats-*"
+#    * REST Delete ES index "dp-https-rt-*"
+#    * REST Delete ES index "dp-five-*"
     * REST Delete ES index "dp-*"
-    Then REST Request "PUT" for "Connectivity->Inactivity Timeout for Configuration"
+
+    And REST Request "PUT" for "Connectivity->Inactivity Timeout for Configuration"
       | type | value                                 |
       | body | sessionInactivTimeoutConfiguration=60 |
-    * CLI Clear vision logs
+    And CLI Clear vision logs
 
-  @SID_2
+  @SID_2 @Sanity
   Scenario: Run DP simulator PCAPs for Top Attacks test
     Given CLI simulate 1 attacks of type "rest_anomalies" on "DefensePro" 10 and wait 30 seconds
 
@@ -36,6 +42,7 @@ Feature: Forensic Wizard
   @SID_6 @Sanity
   Scenario: Forensic wizard test Generate Now
     When UI Click Button "Views.Generate Now" with value "Wizard_test"
+    And Sleep "30"
     When UI Click Button "Views.report" with value "Wizard_test"
 
   @SID_7
@@ -64,7 +71,7 @@ Feature: Forensic Wizard
     Then CLI Connect Radware
     Then UI Validate max generate Forensics is 10
 
-  @SID_11
+  @SID_11 @Sanity
   Scenario: Logout
     When UI logout and close browser
     Then CLI Check if logs contains

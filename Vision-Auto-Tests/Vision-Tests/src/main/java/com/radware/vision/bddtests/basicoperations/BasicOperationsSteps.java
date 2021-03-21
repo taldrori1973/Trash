@@ -13,10 +13,13 @@ import com.radware.restcore.VisionRestClient;
 import com.radware.vision.RestClientsFactory;
 import com.radware.vision.automation.AutoUtils.Operators.OperatorsEnum;
 import com.radware.vision.automation.AutoUtils.utils.SystemProperties;
+import com.radware.vision.automation.tools.exceptions.selenium.TargetWebElementNotFoundException;
 import com.radware.vision.automation.tools.sutsystemobjects.devicesinfo.DeviceInfo;
 import com.radware.vision.automation.tools.sutsystemobjects.devicesinfo.enums.SUTDeviceType;
 import com.radware.vision.base.WebUITestSetup;
 import com.radware.vision.bddtests.BddUITestBase;
+import com.radware.vision.bddtests.ReportsForensicsAlerts.Report;
+import com.radware.vision.bddtests.ReportsForensicsAlerts.WebUiTools;
 import com.radware.vision.infra.base.pages.navigation.HomePage;
 import com.radware.vision.infra.base.pages.navigation.WebUIVisionBasePage;
 import com.radware.vision.infra.enums.*;
@@ -24,6 +27,7 @@ import com.radware.vision.infra.testhandlers.baseoperations.BasicOperationsByNam
 import com.radware.vision.infra.testhandlers.baseoperations.BasicOperationsHandler;
 import com.radware.vision.infra.testhandlers.baseoperations.clickoperations.ClickOperationsHandler;
 import com.radware.vision.infra.testhandlers.topologytree.TopologyTreeHandler;
+import com.radware.vision.infra.testhandlers.vrm.VRMHandler;
 import com.radware.vision.infra.utils.TimeUtils;
 import com.radware.vision.infra.utils.VisionWebUIUtils;
 import com.radware.vision.restAPI.GenericVisionRestAPI;
@@ -33,7 +37,6 @@ import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
 import models.RestResponse;
 import models.StatusCode;
-import net.bytebuddy.implementation.bytecode.Throw;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Cookie;
 import org.openqa.selenium.Keys;
@@ -41,9 +44,12 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.How;
 import restInterface.client.SessionBasedRestClient;
 
+import java.io.IOException;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
+import java.time.temporal.ChronoUnit;
 import java.util.HashMap;
 import java.util.List;
 
@@ -53,6 +59,8 @@ import static com.radware.vision.utils.SutUtils.*;
 import static com.radware.vision.utils.SutUtils.getCurrentVisionRestUserPassword;
 import static com.radware.vision.utils.UriUtils.buildUrlFromProtocolAndIp;
 
+import static com.radware.vision.infra.utils.ReportsUtils.addErrorMessage;
+import static com.radware.vision.infra.utils.ReportsUtils.reportErrors;
 /**
  * Created by AviH on 30-Nov-17.
  */
@@ -64,16 +72,24 @@ public class BasicOperationsSteps extends BddUITestBase {
     }
 
     @Given("^UI Go To Vision$")
-    public void goToVision() throws Exception {
-        setDeviceName(null);
-        BasicOperationsHandler.settings();
+    public void goToVision() {
+        try {
+            setDeviceName(null);
+            BasicOperationsHandler.settings();
+        } catch (Exception e) {
+            BaseTestUtils.report(e.getMessage(), Reporter.FAIL);
+        }
     }
 
     @Given("^UI Select \"(.*)\" device from tree with index (\\d+)$")
-    public void selectDeviceFromTree(SUTDeviceType deviceType, int deviceIndex) throws Exception {
-        DeviceInfo deviceInfo = devicesManager.getDeviceInfo(deviceType, deviceIndex);
-        setDeviceName(deviceInfo.getDeviceName());
-        TopologyTreeHandler.clickTreeNode(deviceInfo.getDeviceName());
+    public void selectDeviceFromTree(SUTDeviceType deviceType, int deviceIndex) {
+        try {
+            DeviceInfo deviceInfo = devicesManager.getDeviceInfo(deviceType, deviceIndex);
+            setDeviceName(deviceInfo.getDeviceName());
+            TopologyTreeHandler.clickTreeNode(deviceInfo.getDeviceName());
+        } catch (Exception e) {
+            BaseTestUtils.report(e.getMessage(), Reporter.FAIL);
+        }
     }
 
     @Given("^UI Open Device Info Pane$")
@@ -335,7 +351,7 @@ public class BasicOperationsSteps extends BddUITestBase {
      * @param dualListID   - dual list ID
      */
     @Then("^UI DualList Move deviceIndex (\\d+) deviceType \"(.*)\" DualList Items to \"(LEFT|RIGHT)\" , dual list id \"(.*)\"$")
-    public void moveDualListItems(int deviceIndex, SUTDeviceType deviceType, DualListSides dualListSide, String dualListID) throws Exception {
+    public void moveDualListItems(int deviceIndex, SUTDeviceType deviceType, DualListSides dualListSide, String dualListID) {
         try {
             DeviceInfo deviceInfo = devicesManager.getDeviceInfo(deviceType, deviceIndex);
             String itemName = deviceType.getDeviceType() + "_" + deviceInfo.getDeviceIp();
@@ -414,16 +430,20 @@ public class BasicOperationsSteps extends BddUITestBase {
     }
 
     @Then("^UI validate port number \"([^\"]*)\" for alteon name \"([^\"]*)\"(?: with params \"([^\"]*)\")? with status \"([^\"]*)\"$")
-    public void uiValidateAlteonNameWithParamsWithStatus(String portNumber, String label, String params, String expectedStatus) throws Exception {
-        VisionDebugIdsManager.setLabel(label);
-        VisionDebugIdsManager.setParams(params != null ? params : "");
-        String actualStatus = WebUIUtils.getHiddenText(ComponentLocatorFactory.getLocatorByDbgId(VisionDebugIdsManager.getDataDebugId()).getBy());
-        if (!(actualStatus.contains("port_" + portNumber + "-") || actualStatus.contains("-"))) {
-            BaseTestUtils.report("The actual status should contains the word 'port'" + portNumber + "- BUT the actualStatus is " + actualStatus, Reporter.FAIL);
-        }
-        actualStatus = actualStatus.split("port_" + portNumber + "-")[1].split(" port")[0].trim();
-        if (!expectedStatus.equalsIgnoreCase(actualStatus)) {
-            BaseTestUtils.report("The ACTUAL status of port_" + portNumber + "of " + VisionDebugIdsManager.getDataDebugId() + "is " + actualStatus + ", But the EXPECTED is " + expectedStatus, Reporter.FAIL);
+    public void uiValidateAlteonNameWithParamsWithStatus(String portNumber, String label, String params, String expectedStatus) {
+        try {
+            VisionDebugIdsManager.setLabel(label);
+            VisionDebugIdsManager.setParams(params != null ? params : "");
+            String actualStatus = WebUIUtils.getHiddenText(ComponentLocatorFactory.getLocatorByDbgId(VisionDebugIdsManager.getDataDebugId()).getBy());
+            if (!(actualStatus.contains("port_" + portNumber + "-") || actualStatus.contains("-"))) {
+                BaseTestUtils.report("The actual status should contains the word 'port'" + portNumber + "- BUT the actualStatus is " + actualStatus, Reporter.FAIL);
+            }
+            actualStatus = actualStatus.split("port_" + portNumber + "-")[1].split(" port")[0].trim();
+            if (!expectedStatus.equalsIgnoreCase(actualStatus)) {
+                BaseTestUtils.report("The ACTUAL status of port_" + portNumber + "of " + VisionDebugIdsManager.getDataDebugId() + "is " + actualStatus + ", But the EXPECTED is " + expectedStatus, Reporter.FAIL);
+            }
+        } catch (TargetWebElementNotFoundException e) {
+            BaseTestUtils.report(e.getMessage(), Reporter.FAIL);
         }
     }
 
@@ -475,6 +495,13 @@ public class BasicOperationsSteps extends BddUITestBase {
     @Then("^UI Validate the attribute \"([^\"]*)\" Of Label \"([^\"]*)\"(?: With Params \"([^\"]*)\")?(?: with errorMessage \"([^\"]*)\")? is \"(EQUALS|CONTAINS|NOT CONTAINS)\" to \"(.*)\"$")
     public void uiValidateClassContentOfWithParamsIsEQUALSCONTAINSTo(String attribute, String label, String params, String expectedErrorMessage, String compare, String value) {
         BasicOperationsHandler.uiValidateClassContentOfWithParamsIsEQUALSCONTAINSTo(attribute, label, params, compare, value, expectedErrorMessage);
+    }
+
+    @Then("^UI Validate order of labels \"([^\"]*)\" with attribute \"([^\"]*)\" that \"(EQUALS|CONTAINS|NOT CONTAINS)\" value of \"([^\"]*)\"$")
+    public void uiValidateOrderOfLabelsWithAttributeThatValueOf(String label, String attribute, String compare, String value, List<VRMHandler.DfProtectedObject> entries) {
+        BasicOperationsHandler.uiValidationItemsOrderInList(label, attribute, compare, value, entries);
+
+
     }
 
     @Then("^UI clear (\\d+) characters in \"([^\"]*)\"(?: with params \"([^\"]*)\")?(?: with enter Key \"(true|false)\")?$")
@@ -571,20 +598,28 @@ public class BasicOperationsSteps extends BddUITestBase {
     }
 
     @Then("^UI Click on upBar Button \"([^\"]*)\"( without navigate to another page)?$")
-    public void uiClickOnUpBarButton(String label, String withoutNavigateToAnotherPage) throws Throwable {
-        if (withoutNavigateToAnotherPage == null)
-            VisionDebugIdsManager.setTab("upBar");
-        BasicOperationsHandler.clickButton(label);
+    public void uiClickOnUpBarButton(String label, String withoutNavigateToAnotherPage) {
+        try {
+            if (withoutNavigateToAnotherPage == null)
+                VisionDebugIdsManager.setTab("upBar");
+            BasicOperationsHandler.clickButton(label);
+        } catch (TargetWebElementNotFoundException e) {
+            BaseTestUtils.report(e.getMessage(), Reporter.FAIL);
+        }
     }
 
     @When("^UI Set Text Field \"([^\"]*)\"(?: and params \"([^\"]*)\")? To \"([^\"]*)\" by sendkeys")
-    public void uiSetTextFieldAndParamsToByJavaScript(String label, String params, String value) throws Throwable {
-        VisionDebugIdsManager.setLabel(label);
-        VisionDebugIdsManager.setParams(params);
-        if (WebUIUtils.fluentWait(new ComponentLocator(How.XPATH, "//*[@data-debug-id= '" + VisionDebugIdsManager.getDataDebugId() + "']").getBy()) == null)
-            throw new Exception("No Element with data-debug-id " + VisionDebugIdsManager.getDataDebugId());
-        WebUIUtils.getDriver().findElement(new ComponentLocator(How.XPATH, "//*[@data-debug-id= '" + VisionDebugIdsManager.getDataDebugId() + "']").getBy()).clear();
-        WebUIUtils.getDriver().findElement(new ComponentLocator(How.XPATH, "//*[@data-debug-id= '" + VisionDebugIdsManager.getDataDebugId() + "']").getBy()).sendKeys(value);
+    public void uiSetTextFieldAndParamsToByJavaScript(String label, String params, String value) {
+        try {
+            VisionDebugIdsManager.setLabel(label);
+            VisionDebugIdsManager.setParams(params);
+            if (WebUIUtils.fluentWait(new ComponentLocator(How.XPATH, "//*[@data-debug-id= '" + VisionDebugIdsManager.getDataDebugId() + "']").getBy()) == null)
+                throw new Exception("No Element with data-debug-id " + VisionDebugIdsManager.getDataDebugId());
+            WebUIUtils.getDriver().findElement(new ComponentLocator(How.XPATH, "//*[@data-debug-id= '" + VisionDebugIdsManager.getDataDebugId() + "']").getBy()).clear();
+            WebUIUtils.getDriver().findElement(new ComponentLocator(How.XPATH, "//*[@data-debug-id= '" + VisionDebugIdsManager.getDataDebugId() + "']").getBy()).sendKeys(value);
+        } catch (Exception e) {
+            BaseTestUtils.report(e.getMessage(), Reporter.FAIL);
+        }
     }
 
     @When("^close popup if it exists by button \"([^\"]*)\"(?: with params \"([^\"]*)\")?$")
@@ -601,10 +636,128 @@ public class BasicOperationsSteps extends BddUITestBase {
     }
 
     @Then("^Validate Navigation to \"([^\"]*)\" is disabled$")
-    public void validateNavigationToIsDisabled(String tab) throws Throwable {
-        Thread.sleep(10 * 1000);
-        boolean isDisabled = BasicOperationsHandler.isNavigationDisabled(tab);
-        assert isDisabled;
+    public void validateNavigationToIsDisabled(String tab) {
+        try {
+            Thread.sleep(10 * 1000);
+            boolean isDisabled = BasicOperationsHandler.isNavigationDisabled(tab);
+            assert isDisabled;
+        } catch (Exception e) {
+            BaseTestUtils.report(e.getMessage(), Reporter.FAIL);
+        }
+    }
+
+    @Then("^UI Validate the attribute of \"([^\"]*)\" are \"(EQUAL|CONTAINS|NOT CONTAINS)\" to$")
+    public void uiValidateTheAttributesOfAreTo(String attribute  , String compare, List<ParameterSelected> listParamters) {
+        uiValidateClassContentOfWithParamsIsEQUALSCONTAINSToListParameters(listParamters,attribute, compare);
+    }
+
+    public static void uiValidateClassContentOfWithParamsIsEQUALSCONTAINSToListParameters(List<ParameterSelected> listParamters, String attribute, String compare)
+    {
+        for (ParameterSelected parameter : listParamters) { //all the parameters that selected to compare with values
+            VisionDebugIdsManager.setLabel(parameter.label);
+            VisionDebugIdsManager.setParams(parameter.param);
+
+            WebElement element = WebUIUtils.fluentWait(ComponentLocatorFactory.getLocatorByXpathDbgId(VisionDebugIdsManager.getDataDebugId()).getBy());
+            if (element == null) {
+                addErrorMessage("No " + attribute + " attribute in element that contains " + VisionDebugIdsManager.getDataDebugId() + " in this data-debug-id");
+            }
+            else{
+                String actualStatus = element.getAttribute(attribute);
+                String errorMessage = "The EXPECTED value of : '" + parameter.label + "' with params: '" + parameter.param + "' is not equal to '" + actualStatus + "' ";
+                switch (compare) {
+                    case "EQUAL":
+                    case "EQUALS":
+                        if (!element.getAttribute(attribute).equalsIgnoreCase(parameter.value)) {
+                            addErrorMessage(errorMessage);
+                        }
+                        break;
+                    case "CONTAINS":
+                        if (!element.getAttribute(attribute).contains(parameter.value)) {
+                            errorMessage.replaceFirst(" is not equal to ", " is not contained in ");
+                            addErrorMessage(errorMessage);
+                        }
+                        break;
+                    case "NOT CONTAINS":
+                        if (element.getAttribute(attribute).contains(parameter.value)) {
+                            errorMessage.replaceFirst(" is not equal to ", " is contained in ");
+                            addErrorMessage(errorMessage);
+                        }
+                        break;
+                }
+            }
+        }
+        reportErrors();
+    }
+
+    @Then("^validate webUI CSS value \"([^\"]*)\" of label \"([^\"]*)\"(?: with params \"([^\"]*)\")? equals \"([^\"]*)\"$")
+    public void validateWebUICSSOfLabelWithParams(String cssKey, String label, String param,String cssValue) {
+       VisionDebugIdsManager.setLabel(label);
+       VisionDebugIdsManager.setParams(param);
+       WebElement element = WebUIUtils.fluentWait(ComponentLocatorFactory.getLocatorByXpathDbgId(VisionDebugIdsManager.getDataDebugId()).getBy());
+       if(element==null)
+           BaseTestUtils.report("This element with label : "+label+" and params: "+param+ " is not exist", Reporter.FAIL);
+       else if(!element.getCssValue(cssKey).equals(cssValue))
+           BaseTestUtils.report("This element with cssKey : "+cssKey+" and cssValue: "+cssValue+ " not equal to "+element.getCssValue(cssKey), Reporter.FAIL);
+    }
+
+    @Then("^UI Select Time of label \"([^\"]*)\"(?: with params \"([^\"]*)\")? with value \"([^\"]*)\" and pattern \"([^\"]*)\"$")
+    public void uiSelectTimeOfLabelWithParamsWithValue(String label, String param, String timeValue, String pattern) {
+        LocalDateTime scheduleTime = readTime(timeValue, pattern);
+        fillTime(label, param, scheduleTime);
+    }
+
+    private LocalDateTime readTime(String timeValue, String pattern) {
+        if (TimeUtils.isWithComputing(timeValue))
+            return TimeUtils.getAddedDate(timeValue);
+        else
+            return LocalDateTime.parse(timeValue, DateTimeFormatter.ofPattern(pattern));
+    }
+
+    public static void fillTime(String label, String params, LocalDateTime scheduleTime) {
+        WebUiTools.getWebElement(label, params).click();
+        selectDate(label, params, scheduleTime);
+        WebUiTools.getWebElement(label, params).click();
+        WebUiTools.getWebElement(label, params).findElement(By.xpath("./..//td[@class='rdtTimeToggle']")).click();
+        selectHoursOrMinutes(label, params, "hours", scheduleTime);
+        selectHoursOrMinutes(label, params, "minutes", scheduleTime);
+    }
+
+    private static void selectHoursOrMinutes(String label, String params, String HoursOrMinutes, LocalDateTime scheduleTime) {
+        int differenceValue = Integer.valueOf(WebUiTools.getWebElement(label, params).findElement(By.xpath("(./..//div[@class='rdtCount'])[" + (HoursOrMinutes.toLowerCase().equalsIgnoreCase("hours")?"1":"2") + "]")).getText()) - (HoursOrMinutes.toLowerCase().equalsIgnoreCase("hours")?scheduleTime.getHour():scheduleTime.getMinute());
+        for(int i=0; i<Math.abs(differenceValue); i++)
+            WebUiTools.getWebElement(label, params).findElement(By.xpath("(./..//div[@class='rdtCounter'])[" + (HoursOrMinutes.toLowerCase().equalsIgnoreCase("hours")?"1":"2") + "]//span[.='" + (differenceValue>0?"▼":"▲") + "']")).click();
+    }
+    private static void selectDate(String label, String params, LocalDateTime scheduleTime) {
+        LocalDate actualLocalDate = LocalDate.parse("01 " + WebUiTools.getWebElement(label, params).findElement(By.xpath("./..//*[@class='rdtPicker']//*[@class='rdtSwitch']")).getText(), DateTimeFormatter.ofPattern("dd MMMM yyyy"));
+        int monthsDifference = (int) ChronoUnit.MONTHS.between(actualLocalDate.withDayOfMonth(1), scheduleTime.withDayOfMonth(1));
+        while(monthsDifference != 0)
+        {
+            WebUiTools.getWebElement(label, params).findElement(By.xpath("./..//*[@class='rdtPicker']//*[@class='rdt" + (monthsDifference>0?"Next":"Prev") + "']")).click();
+            monthsDifference = monthsDifference>0?monthsDifference-1:monthsDifference+1;
+        }
+        WebUiTools.getWebElement(label, params).findElement(By.xpath("./..//td[@data-value='" + scheduleTime.getDayOfMonth() + "'][not(contains(@class,'rdtOld'))]")).click();
+    }
+
+    @Then("^UI Validate Deletion of (Report|Forensics|Alert) instance \"([^\"]*)\" with value \"([^\"]*)\"$")
+    public void uiValidateDeletionOfReportInstanceWithValue(String type ,String label, String params) {
+        try {
+            switch (type.toLowerCase())
+            {
+                case "report":
+                    new Report().deletionReportInstance(label,params);
+                    break;
+    //            case "forensics": new Forensics().deletionReportInstance(label,params);break;
+    //            case "Alert": new Alert().deletionReportInstance(label,params);break;
+            }
+        } catch (Exception e) {
+            BaseTestUtils.report(e.getMessage(), Reporter.FAIL);
+        }
+    }
+
+    public static class ParameterSelected {
+        String label;
+        String param ;
+        String value;
     }
 
     static public class TableEntry {
@@ -615,22 +768,92 @@ public class BasicOperationsSteps extends BddUITestBase {
     }
 
     @Then("Upload file \"([^\"]*)\"(?: to \"([^\"]*)\")?(?: for element \"([^\"]*)\")?$")
-    public void uploadFileToVision(String name, String label, String param) throws Exception {
-        BasicOperationsHandler.uploadFileToVision(name, label, param);
+    public void uploadFileToVision(String name, String label, String param) {
+        try {
+            BasicOperationsHandler.uploadFileToVision(name, label, param);
+        } catch (IOException e) {
+            BaseTestUtils.report(e.getMessage(), Reporter.FAIL);
+        }
     }
 
     @Then("UI Validate Number Of Elements Label \"([^\"]*)\" With Params \"([^\"]*)\" If Equal to (\\d+)$")
-    public void numOfElements(String label, String params, int exbectedNumber) {
+    public void numOfElements(String label, String params, int expectedNumber) {
         VisionDebugIdsManager.setLabel(label);
         VisionDebugIdsManager.setParams(params);
         String dataDebugId = VisionDebugIdsManager.getDataDebugId();
         int sizeOfList = WebUIUtils.fluentWaitMultiple(ComponentLocatorFactory.getLocatorByDbgId(dataDebugId).getBy()).size();
-        if (sizeOfList != exbectedNumber)
-            BaseTestUtils.report("the size : " + sizeOfList + " is not equal to : " + exbectedNumber + " ", Reporter.FAIL);
+        if (sizeOfList != expectedNumber)
+            BaseTestUtils.report("the size : " + sizeOfList + " is not equal to : " + expectedNumber + " ", Reporter.FAIL);
     }
 
     @Then("^UI open devices list of \"([^\"]*)\"$")
-    public void uiOpenDeviceSelection(String label) throws Exception {
-        BasicOperationsHandler.openDeviceList(label);
+    public void uiOpenDeviceSelection(String label) {
+        try {
+            BasicOperationsHandler.openDeviceList(label);
+        } catch (Exception e) {
+            BaseTestUtils.report(e.getMessage(), Reporter.FAIL);
+        }
     }
+
+    @Then("^UI Validate that number of elements of label \"([^\"]*)\" with value \"([^\"]*)\" is \"([^\"]*)\"$")
+    public void uiValidateThatNumberOfElementsOfLabelWithValueIs(String label, String value, int count) {
+        VisionDebugIdsManager.setLabel(label);
+        VisionDebugIdsManager.setParams(value != null ? value : "");
+        int actualcount = WebUIUtils.fluentWaitMultiple(ComponentLocatorFactory.getLocatorByXpathDbgId(VisionDebugIdsManager.getDataDebugId()).getBy()).size();
+        if (count != actualcount)
+            BaseTestUtils.report("The expected count of Label " + label + "with value " + value + "is " + count + "But the Actual is " + actualcount, Reporter.FAIL);
+    }
+
+
+// .... Maha test ....
+    @Then("^MahaTest click on \"([^\"]*)\"$")
+    public void mahatestClickOn(String buttonName) {
+        // Write code here that turns the phrase above into concrete actions
+        VisionDebugIdsManager.setLabel(buttonName);
+        VisionDebugIdsManager.setParams("");
+        WebUIUtils.fluentWait((ComponentLocatorFactory.getLocatorByXpathDbgId(VisionDebugIdsManager.getDataDebugId())).getBy()).click();
+//        throw new PendingException();
+    }
+
+
+    @Then("^UI Unclick all the attributes \"([^\"]*)\" is \"(EQUALS|CONTAINS)\" to \"([^\"]*)\"$")
+    public void uiUnclickAllTheAttributesOf(String attribute ,String compare, String value, List<ParameterSelected> listParameters ) {
+        try {
+            for (ParameterSelected parameter : listParameters) {
+                VisionDebugIdsManager.setLabel(parameter.label);
+                VisionDebugIdsManager.setParams(parameter.param);
+                WebElement element = WebUIUtils.fluentWait(ComponentLocatorFactory.getLocatorByXpathDbgId(VisionDebugIdsManager.getDataDebugId()).getBy());
+                if (element == null) {
+                    addErrorMessage("No " + attribute + " attribute in element that contains " + VisionDebugIdsManager.getDataDebugId() + " in this data-debug-id");
+                }
+                else {
+                    String actualStatus = element.getAttribute(attribute);
+                    switch (compare) {
+                        case "EQUALS":
+                            if (element.getAttribute(attribute).equalsIgnoreCase(value)) {
+                                BasicOperationsHandler.clickButton(parameter.label, parameter.param);
+                            }
+                            break;
+                        case "CONTAINS":
+                            if (element.getAttribute(attribute).contains(value)) {
+                                BasicOperationsHandler.clickButton(parameter.label, parameter.param);
+                            }
+                            break;
+                    }
+                }
+            }
+            reportErrors();
+        } catch (TargetWebElementNotFoundException e) {
+            BaseTestUtils.report(e.getMessage(), Reporter.FAIL);
+        }
+    }
+
+        public static class ClickParameter{
+        String label;
+        String param ;
+        }
+
+
+
+//checkbox_select-all_Label
 }

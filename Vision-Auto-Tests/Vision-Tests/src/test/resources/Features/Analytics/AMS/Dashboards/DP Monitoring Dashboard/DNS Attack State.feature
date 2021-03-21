@@ -8,7 +8,9 @@ Feature: AMS DNS Attack State
 
   @SID_2
   Scenario: generate DNS attacks with all possible states
-    Given CLI simulate 20 attacks of type "DNS_States" on "DefensePro" 10 with loopDelay 15000 and wait 40 seconds
+    Given CLI simulate 20 attacks of type "DNS_States" on "DefensePro" 11 with loopDelay 15000 and wait 40 seconds
+
+
   @SID_3
   Scenario: Login and enter attacks table
     Given UI Login with user "sys_admin" and password "radware"
@@ -17,11 +19,15 @@ Feature: AMS DNS Attack State
     Then UI click Table row by keyValue or Index with elementLabel "Protection Policies.Table" findBy columnName "Policy Name" findBy cellValue "pol_1"
     Then UI click Table row by keyValue or Index with elementLabel "Protection Policies.Protections Table" findBy columnName "Protection Name" findBy cellValue "DNS Flood"
 
+
   @SID_4
   Scenario: validate DNS State attack 41-1528993409 Real-Time Signature Analysis
     Then UI click Table row by keyValue or Index with elementLabel "Protection Policies.Events Table" findBy columnName "Attack ID" findBy cellValue "41-1528993409"
     Then UI Validate Text field "Characteristics.State" EQUALS "State:Real-Time Signature Analysis"
     Then UI Click Button "Protection Policies.GO BACK" with value "<< GO BACK"
+
+
+
   @SID_5
   Scenario: validate DNS State attack 42-1528993409 Real-Time Signature Challenge
     Then UI click Table row by keyValue or Index with elementLabel "Protection Policies.Protections Table" findBy columnName "Protection Name" findBy cellValue "DNS Flood"

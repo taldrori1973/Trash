@@ -9,7 +9,12 @@ Feature: ADC- Create Report share
 
   @SID_2
   Scenario: Clear Database and old reports on file-system
+#    * REST Delete ES index "dp-traffic-*"
+#    * REST Delete ES index "dp-https-stats-*"
+#    * REST Delete ES index "dp-https-rt-*"
+#    * REST Delete ES index "dp-five-*"
     * REST Delete ES index "dp-*"
+
     Then CLI Run remote linux Command "rm -f /opt/radware/mgt-server/third-party/tomcat/bin/VRM_report_*.zip" on "ROOT_SERVER_CLI"
     Then CLI Run remote linux Command "rm -f /opt/radware/mgt-server/third-party/tomcat/bin/*.csv" on "ROOT_SERVER_CLI"
 
@@ -65,7 +70,7 @@ Feature: ADC- Create Report share
 
 
   @SID_7
-  Scenario: Validate Report Email recieved content
+  Scenario: Validate Report Email received content
     Then CLI Run remote linux Command "cat /var/spool/mail/reportuser > /tmp/reportdelivery.log" on "GENERIC_LINUX_SERVER"
     Then CLI Run linux Command "cat /var/spool/mail/reportuser|tr -d "="|tr -d "\n"|grep -o "Subject: report delivery Subject ADC" |wc -l" on "GENERIC_LINUX_SERVER" and validate result EQUALS "1"
     Then CLI Run linux Command "cat /var/spool/mail/radware|tr -d "="|tr -d "\n"|grep -o "Subject: report delivery Subject ADC" |wc -l" on "GENERIC_LINUX_SERVER" and validate result EQUALS "1"

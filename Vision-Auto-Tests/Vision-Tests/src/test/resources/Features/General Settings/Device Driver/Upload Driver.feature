@@ -15,5 +15,6 @@ Feature: Upload Device Driver
   @Sanity
   @SID_3
   Scenario: REST update all drivers to latest
+    Given CLI Reset radware password
     Then REST Request "PUT" for "Device Driver->Update Latest All"
       | type | value |

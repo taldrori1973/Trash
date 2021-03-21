@@ -20,7 +20,8 @@ public class VisionServerSteps extends BddCliTestBase {
         if (!restTestBase.getRadwareServerCli().isConnected()) {
             restTestBase.getRadwareServerCli().connect();
         }
-        VisionServer.waitForVisionServerServicesToStart(restTestBase.getRadwareServerCli(), timeout);
+        if(!VisionServer.waitForVisionServerServicesToStart(restTestBase.getRadwareServerCli(), timeout))
+            BaseTestUtils.report("Not all services are up till timeout", Reporter.FAIL);
     }
 
     @When("^CLI Vision Server SubMenu Test$")

@@ -3,7 +3,7 @@ Feature: IPv6 OTB Workflow
 
   @SID_1
   Scenario: Navigate to OTB WF page
-    Then CLI Operations - Run Root Session command "yes|restore_radware_user_password" timeout 15
+    Given CLI Reset radware password
     Given UI Login with user "radware" and password "radware"
     Then UI Navigate to "AUTOMATION" page via homePage
     When set Tab "Automation.Toolbox"

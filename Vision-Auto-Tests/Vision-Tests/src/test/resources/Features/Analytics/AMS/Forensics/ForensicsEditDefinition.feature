@@ -5,6 +5,10 @@ Feature: Forensics Edit Definition
   @SID_1
   Scenario: Clean system data
     * CLI kill all simulator attacks on current vision
+#    * REST Delete ES index "dp-traffic-*"
+#    * REST Delete ES index "dp-https-stats-*"
+#    * REST Delete ES index "dp-https-rt-*"
+#    * REST Delete ES index "dp-five-*"
     * REST Delete ES index "dp-*"
     * REST Delete ES index "forensics-*"
     * REST Delete ES index "dpforensics-*"
@@ -27,6 +31,7 @@ Feature: Forensics Edit Definition
       |  |  |
     When UI Click Button "Views" with value "Test Edit"
     And UI Click Button "Views.Generate Now" with value "Test Edit"
+    And Sleep "30"
     And UI Click Button "Views.report" with value "Test Edit"
     Then UI Validate "Report.Table" Table rows count EQUALS to 3
 
@@ -83,7 +88,7 @@ Feature: Forensics Edit Definition
       | Criteria | Event Criteria:Action,Operator:Equals,Value:[Drop]; |
     When UI Click Button "Views" with value "EDIT_1"
     And UI Click Button "Views.Generate Now" with value "EDIT_1"
-    And Sleep "4"
+    And Sleep "30"
     And UI Click Button "Views.report" with value "EDIT_1"
     Then UI Validate "Report.Table" Table rows count EQUALS to 1
 
@@ -93,7 +98,7 @@ Feature: Forensics Edit Definition
       | devices | index:10; |
     When UI Click Button "Views" with value "EDIT_1"
     And UI Click Button "Views.Generate Now" with value "EDIT_1"
-    And Sleep "5"
+    And Sleep "30"
     And UI Click Button "Views.report" with value "EDIT_1"
     And Sleep "3"
     Then UI Validate "Report.Table" Table rows count EQUALS to 2
@@ -106,7 +111,7 @@ Feature: Forensics Edit Definition
       | Time Definitions.Date | Relative:[Hours,12] |
     When UI Click Button "Views" with value "EDIT_1"
     And UI Click Button "Views.Generate Now" with value "EDIT_1"
-    And Sleep "4"
+    And Sleep "30"
     And UI Click Button "Views.report" with value "EDIT_1"
     Then UI Validate "Report.Table" Table rows count EQUALS to 2
 

@@ -1,17 +1,14 @@
 package com.radware.vision.bddtests.VRM;
 
+import com.radware.vision.automation.VisionAutoInfra.CLIInfra.Servers.RootServerCli;
+import com.radware.vision.base.TestBase;
 import com.radware.vision.bddtests.BddUITestBase;
 import com.radware.vision.infra.testhandlers.DPM.DPMReportHandler;
-import com.radware.vision.infra.testhandlers.ams.enums.vrmActions;
+import com.radware.vision.infra.testhandlers.vrm.enums.vrmActions;
 import cucumber.api.java.en.Given;
 
 import java.util.Map;
-
-
-
-
-
-
+import java.util.Optional;
 
 
 public class DPMReportSteps extends BddUITestBase {
@@ -72,6 +69,10 @@ public class DPMReportSteps extends BddUITestBase {
 
     @Given("^UI \"(Create|Validate|Edit)\" DPMReport With Name \"([^\"]*)\"$")
     public void uiReportWithName(vrmActions operationType, String reportName, Map<String,String> reportsEntry) throws Throwable {
-        dpmReportsHandler.VRMReportOperation(operationType, reportName, reportsEntry);
+        Optional<RootServerCli> rootServerCliOpt = TestBase.getServersManagement().getRootServerCLI();
+        if (!rootServerCliOpt.isPresent()) {
+            throw new Exception("Root Server Not found!");
+        }
+        dpmReportsHandler.VRMReportOperation(operationType, reportName, reportsEntry, rootServerCliOpt.get());
     }
 }

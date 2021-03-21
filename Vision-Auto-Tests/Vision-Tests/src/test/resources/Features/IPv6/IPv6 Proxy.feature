@@ -10,7 +10,7 @@ Feature: IPv6 Proxy Functionality
   @SID_2
   Scenario: Login and navigate to Connectivity page
     * CLI Clear vision logs
-    Then CLI Operations - Run Root Session command "yes|restore_radware_user_password" timeout 15
+    Given CLI Reset radware password
     Given UI Login with user "radware" and password "radware"
     Then UI Go To Vision
     Then UI Navigate to page "System->General Settings->Connectivity"

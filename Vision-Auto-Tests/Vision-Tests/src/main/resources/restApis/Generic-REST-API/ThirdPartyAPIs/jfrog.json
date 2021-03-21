@@ -1,7 +1,7 @@
 {
   "jFrogBuildsArtifactory": {
     "connectionProtocol": "http",
-    "connectionHost": "devart01",
+    "connectionHost": "10.175.95.151",
     "connectionPort": 8081,
     "userName": null,
     "password": null

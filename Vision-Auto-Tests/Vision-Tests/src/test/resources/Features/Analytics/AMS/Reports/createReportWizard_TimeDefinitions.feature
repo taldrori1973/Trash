@@ -8,14 +8,18 @@ Feature: Report Wizard_Time_Definitions
   @SID_1
   Scenario: Clean DB and generate attacks
     When CLI kill all simulator attacks on current vision
-    Given REST Delete ES index "dp-*"
+#    * REST Delete ES index "dp-traffic-*"
+#    * REST Delete ES index "dp-https-stats-*"
+#    * REST Delete ES index "dp-https-rt-*"
+#    * REST Delete ES index "dp-five-*"
+    * REST Delete ES index "dp-*"
     When CLI Clear vision logs
     And CLI simulate 1 attacks of type "rest_dos" on "DefensePro" 10
     And CLI simulate 1 attacks of type "rest_anomalies" on "DefensePro" 10 and wait 22 seconds
 #  @VRM_Time_1
   @SID_2
   Scenario: Clean system data before test
-    Then CLI Operations - Run Root Session command "yes|restore_radware_user_password" timeout 15
+    Given CLI Reset radware password
     * REST Vision Install License Request "vision-AVA-Max-attack-capacity"
     * REST Request "PUT" for "Connectivity->Inactivity Timeout for Configuration"
       | type | value                                 |
@@ -448,7 +452,7 @@ Feature: Report Wizard_Time_Definitions
 
 
     # move Anomalies start time 31 Days -> 63 Days backwards
-    # we shouldnot  find any data
+    # No data should be find
     When CLI Run remote linux Command "curl -XPOST localhost:9200/dp-attack-raw-*/_update_by_query/?pretty -d '{"query": {"match": {"attackIpsId": "4-1402580209"}},"script": {"source": "ctx._source.startTime = 'ctx._source.startTime-2678400000'"}}'" on "ROOT_SERVER_CLI"
 
     #ToDo verify data displayed in the report

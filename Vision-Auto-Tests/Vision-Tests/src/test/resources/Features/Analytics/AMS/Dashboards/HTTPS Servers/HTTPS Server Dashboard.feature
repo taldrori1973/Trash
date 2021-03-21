@@ -1,22 +1,23 @@
-@TC107643
+@TC107643 
 Feature: HTTPS Server Dashboard
 
+  
   @SID_1
   Scenario: Clear data
     * CLI kill all simulator attacks on current vision
-    Then CLI Operations - Run Root Session command "yes|restore_radware_user_password" timeout 15
-    * REST Delete ES index "dp-*"
-#    * REST Delete ES index "dp-attack-*"
+    Given CLI Reset radware password
+#    * REST Delete ES index "dp-traffic-*"
+#    * REST Delete ES index "dp-https-stats-*"
 #    * REST Delete ES index "dp-https-rt-*"
-#    * REST Delete ES index "dp-daily-https-rt-*"
-#    * REST Delete ES index "dp-hourly-https-rt-*"
-#    * REST Delete ES index "dp-https-stats*"
-
+#    * REST Delete ES index "dp-five-*"
+    * REST Delete ES index "dp-*"
+  
   @SID_2
   Scenario: Update Policies
     Given REST Login with user "radware" and password "radware"
     Then REST Update Policies for All DPs
 
+  
   @SID_3
   Scenario:Login and Navigate to HTTPS Server Dashboard
     Given UI Login with user "sys_admin" and password "radware"
@@ -24,20 +25,17 @@ Feature: HTTPS Server Dashboard
     And UI Navigate to "HTTPS Flood Dashboard" page via homePage
     Given Rest Add Policy "pol1" To DP "172.16.22.51" if Not Exist
     And Rest Add new Rule "https_servers_automation" in Profile "ProfileHttpsflood" to Policy "pol1" to DP "172.16.22.51"
-#    When UI Click Button "Widgets Selection"
-#    When UI Click Button "Select Outbound Widget"
-#    When UI Click Button "Add Selected Widgets"
 
+  
   @SID_4
   Scenario: Run DP simulator PCAPs for "HTTPS attacks"
     Given CLI simulate 2 attacks of type "HTTPS" on "DefensePro" 11 with loopDelay 5000 and wait 60 seconds
 
   @SID_5
   Scenario: Select Server
-    When UI Click Button "Servers Button"
-    When UI Set Text Field "Server Selection.Search" To "test"
-    Then UI Click Button "Server Selection.Server Name" with value "test,DefensePro_172.16.22.51,pol1"
-    Then UI Click Button "Server Selection.Save"
+    When UI Select Server and save
+      | name | device                  | policy        |
+      | test | DefensePro_172.16.22.51 | pol1          |
     * Sleep "60"
 
       ##Https Flood - Info Card
@@ -76,10 +74,9 @@ Feature: HTTPS Server Dashboard
       | borderWidth               | 1       |
       | pointHoverRadius          | 4       |
       | pointHoverBorderWidth     | 1       |
-      | backgroundColor           | #6296BA |
-      | pointHoverBackgroundColor | #6296BA |
-      | color                     | #6296BA |
-     #| shapeType                 | line-vertical |
+      | backgroundColor           | #006e8a |
+      | pointHoverBackgroundColor | #006e8a |
+      | color                     | #006e8a |
 
   @SID_9
   Scenario: Validate Https Flood distributed size graph data - Real Time Traffic
@@ -101,17 +98,15 @@ Feature: HTTPS Server Dashboard
       | borderCapStyle            | butt    |
       | borderDashOffset          | 0       |
       | borderJoinStyle           | miter   |
-      | borderWidth               | 3       |
+      | borderWidth               | 2       |
       | pointHoverRadius          | 0       |
       | pointHoverBorderWidth     | 0       |
-      | backgroundColor           | #3C4144 |
-      | pointHoverBackgroundColor | #3C4144 |
-      | color                     | #3C4144 |
-     #| shapeType                 | cross-dash |
+      | backgroundColor           | #3f3f3f |
+      | pointHoverBackgroundColor | #3f3f3f |
+      | color                     | #3f3f3f |
       | type                      | line    |
-      | borderColor               | #3C4144 |
+      | borderColor               | #3f3f3f |
       | pointHitRadius            | 0       |
-     #| borderDash                | [10, 5]    |
 
   @SID_11
   Scenario: Validate Https Flood distributed size graph data - Attack Edge
@@ -121,7 +116,7 @@ Feature: HTTPS Server Dashboard
       | 1          | 1     | 1     | 0      |
       | 0.47802296 | 1     | 4     | 0      |
 
-  @SID_11
+  @SID_12
   Scenario: Validate Https Flood distributed size graph style - Attack Edge
     Then UI Validate Line Chart attributes "Request-Size Distribution" with Label "Attack Edge"
       | attribute                 | value   |
@@ -134,11 +129,9 @@ Feature: HTTPS Server Dashboard
       | borderWidth               | 1       |
       | pointHoverRadius          | 4       |
       | pointHoverBorderWidth     | 1       |
-      | backgroundColor           | #F39C12 |
-      | pointHoverBackgroundColor | #F39C12 |
-      | color                     | #F39C12 |
-     #| shapeType                 | plus    |
-     #| borderColor               | #F39C12 |
+      | backgroundColor           | #ffc107 |
+      | pointHoverBackgroundColor | #ffc107 |
+      | color                     | #ffc107 |
       | pointHitRadius            | 0       |
       | borderDash                | []      |
 
@@ -165,11 +158,9 @@ Feature: HTTPS Server Dashboard
       | borderWidth               | 1       |
       | pointHoverRadius          | 4       |
       | pointHoverBorderWidth     | 1       |
-      | backgroundColor           | #E74C3C |
-      | pointHoverBackgroundColor | #E74C3C |
-      | color                     | #E74C3C |
-     #| shapeType                 | plus    |
-     #| borderColor               | #E74C3C |
+      | backgroundColor           | #f41414 |
+      | pointHoverBackgroundColor | #f41414 |
+      | color                     | #f41414 |
       | pointHitRadius            | 0       |
       | borderDash                | []      |
 
@@ -212,73 +203,14 @@ Feature: HTTPS Server Dashboard
       | value   | count | offset |
       | 17500.0 | 2     | 1      |
 
-#  @SID_21
-#  Scenario: Validate Https Flood baseline graph 24H
-#    When UI Click Button "Time Picker"
-#    When UI Click Button "Time Range 24H" with value "24H"
-#    Then UI Validate Line Chart data "Requests per Second" with Label "Legitimate Traffic"
-#      | value | count | offset |
-#      | null  | 24    | 1      |
-#
-#  @SID_22
-#  Scenario: Validate Https Flood baseline graph 12H
-#    When UI Click Button "Time Picker"
-#    When UI Click Button "Time Range 12H" with value "12H"
-#    Then UI Validate Line Chart data "Requests per Second" with Label "Legitimate Traffic"
-#      | value | count | offset |
-#      | null  | 12    | 1      |
-#
-#  @SID_23
-#  Scenario: Validate Https Flood baseline graph 6H
-#    When UI Click Button "Time Picker"
-#    When UI Click Button "Time Range 6H" with value "6H"
-#    Then UI Validate Line Chart data "Requests per Second" with Label "Legitimate Traffic"
-#      | value | count | offset |
-#      | null  | 6     | 1      |
-#
-#  @SID_24
-#  Scenario: Validate Https Flood baseline graph 3H
-#    When UI Click Button "Time Picker"
-#    When UI Click Button "Time Range 3H" with value "3H"
-#    Then UI Validate Line Chart data "Requests per Second" with Label "Legitimate Traffic"
-#      | value | count | offset |
-#      | null  | 3     | 1      |
-#
-#  @SID_25
-#  Scenario: Validate Https Flood baseline graph 1H
-#    When UI Click Button "Time Picker"
-#    When UI Click Button "Time Range 1H" with value "1H"
-#    Then UI Validate Line Chart data "Requests per Second" with Label "Legitimate Traffic"
-#      | value   | count | offset |
-#      | null    | 238   | 1      |
-#      | 17500.0 | 2     | 1      |
-#
-#  @SID_26
-#  Scenario: Validate Https Flood baseline graph 30m
-#    When UI Click Button "Time Picker"
-#    When UI Click Button "Time Range 30m" with value "30m"
-#    Then UI Validate Line Chart data "Requests per Second" with Label "Legitimate Traffic"
-#      | value   | count | offset |
-#      | null    | 118   | 1      |
-#      | 17500.0 | 2     | 1      |
-#
-#  @SID_27
-#  Scenario: Validate Https Flood baseline graph 15m
-#    When UI Click Button "Time Picker"
-#    When UI Click Button "Time Range 15m" with value "15m"
-#    Then UI Validate Line Chart data "Requests per Second" with Label "Legitimate Traffic"
-#      | value   | count | offset |
-#      | null    | 57    | 1      |
-#      | 17500.0 | 2     | 1      |
-
-  @SID_28
+  @SID_21
   Scenario: Validate Https Flood baseline graph Transitory Baseline styling
     Then UI Validate Line Chart attributes "Requests per Second" with Label "Transitory Baseline"
       | attribute             | value   |
-      | backgroundColor       | #8CBA46 |
+      | backgroundColor       | #04c2a0 |
       | steppedLine           | true    |
       | pointHoverBorderWidth | 1       |
-      | borderColor           | #8CBA46 |
+      | borderColor           | #04c2a0 |
       | pointHitRadius        | 10      |
       | pointRadius           | 0       |
       | pointHoverRadius      | 4       |
@@ -289,51 +221,51 @@ Feature: HTTPS Server Dashboard
       | lineTension           | 0.35    |
       | fill                  | false   |
 
-  @SID_29
+  @SID_22
   Scenario: Validate Https Flood baseline graph Transitory Attack Edge styling
     Then UI Validate Line Chart attributes "Requests per Second" with Label "Transitory Attack Edge"
-      | attribute             | value          |
-      | backgroundColor       | rgb(154, 1, 1) |
-      | steppedLine           | true           |
-      | pointHoverBorderWidth | 1              |
-      | borderColor           | rgb(154, 1, 1) |
-      | pointHitRadius        | 10             |
-      | pointRadius           | 0              |
-      | pointHoverRadius      | 4              |
-      | borderJoinStyle       | miter          |
-      | borderDashOffset      | 0              |
-      | borderWidth           | 2.5            |
-      | borderCapStyle        | butt           |
-      | lineTension           | 0.35           |
-      | fill                  | false          |
+      | attribute             | value   |
+      | backgroundColor       | #aa0a13 |
+      | steppedLine           | true    |
+      | pointHoverBorderWidth | 1       |
+      | borderColor           | #aa0a13 |
+      | pointHitRadius        | 10      |
+      | pointRadius           | 0       |
+      | pointHoverRadius      | 4       |
+      | borderJoinStyle       | miter   |
+      | borderDashOffset      | 0       |
+      | borderWidth           | 2.5     |
+      | borderCapStyle        | butt    |
+      | lineTension           | 0.35    |
+      | fill                  | false   |
 
-  @SID_30
+  @SID_23
   Scenario: Validate Https Flood baseline graph Total Traffic styling
     Then UI Validate Line Chart attributes "Requests per Second" with Label "Total Traffic"
-      | attribute             | value                    |
-      | backgroundColor       | rgba(169, 207, 233, 0.8) |
-      | pointHoverBorderWidth | 1                        |
-      | borderColor           | rgb(169, 207, 233)       |
-      | pointHitRadius        | 10                       |
-      | pointRadius           | 0                        |
-      | pointHoverRadius      | 4                        |
-      | borderJoinStyle       | miter                    |
-      | borderDashOffset      | 0                        |
-      | borderWidth           | 1                        |
-      | borderCapStyle        | butt                     |
-      | lineTension           | 0.35                     |
-      | fill                  | true                     |
-      | borderColor           | rgb(169, 207, 233)       |
-      | color                 | rgba(169, 207, 233, 0.8) |
+      | attribute             | value   |
+      | backgroundColor       | #9aeeea |
+      | pointHoverBorderWidth | 1       |
+      | borderColor           | #088eb1 |
+      | pointHitRadius        | 10      |
+      | pointRadius           | 0       |
+      | pointHoverRadius      | 4       |
+      | borderJoinStyle       | miter   |
+      | borderDashOffset      | 0       |
+      | borderWidth           | 1       |
+      | borderCapStyle        | butt    |
+      | lineTension           | 0.35    |
+      | fill                  | true    |
+      | borderColor           | #088eb1 |
+      | color                 | #9aeeea |
 
-  @SID_31
+  @SID_24
   Scenario: Validate Https Flood baseline graph Long Trend Baseline styling
     Then UI Validate Line Chart attributes "Requests per Second" with Label "Long-Term Trend Baseline"
       | attribute             | value   |
-      | backgroundColor       | #67853B |
+      | backgroundColor       | #0a7474 |
       | steppedLine           | true    |
       | pointHoverBorderWidth | 1       |
-      | borderColor           | #67853B |
+      | borderColor           | #0a7474 |
       | pointHitRadius        | 10      |
       | pointRadius           | 0       |
       | pointHoverRadius      | 4       |
@@ -344,14 +276,14 @@ Feature: HTTPS Server Dashboard
       | lineTension           | 0.35    |
       | fill                  | false   |
 
-  @SID_32
+  @SID_25
   Scenario: Validate Https Flood baseline graph Long Trend Attack Edge styling
     Then UI Validate Line Chart attributes "Requests per Second" with Label "Long-Term Trend Attack Edge"
       | attribute             | value   |
-      | backgroundColor       | #EC3434 |
+      | backgroundColor       | #FF4441 |
       | steppedLine           | true    |
       | pointHoverBorderWidth | 1       |
-      | borderColor           | #EC3434 |
+      | borderColor           | #ff4441 |
       | pointHitRadius        | 10      |
       | pointRadius           | 0       |
       | pointHoverRadius      | 4       |
@@ -362,332 +294,42 @@ Feature: HTTPS Server Dashboard
       | lineTension           | 0.35    |
       | fill                  | false   |
 
-  @SID_33
+  @SID_26
   Scenario: Validate Https Flood baseline graph Legitimate Traffic styling
     Then UI Validate Line Chart attributes "Requests per Second" with Label "Legitimate Traffic"
-      | attribute             | value                 |
-      | backgroundColor       | rgba(66, 75, 83, 0.5) |
-      | pointHoverBorderWidth | 1                     |
-      | borderColor           | rgba(66, 75, 83, 0.5) |
-      | pointHitRadius        | 10                    |
-      | pointRadius           | 0                     |
-      | pointHoverRadius      | 4                     |
-      | borderJoinStyle       | miter                 |
-      | borderDashOffset      | 0                     |
-      | borderWidth           | 1                     |
-      | borderCapStyle        | butt                  |
-      | lineTension           | 0.35                  |
-      | fill                  | true                  |
-      | color                 | rgba(66, 75, 83, 0.5) |
+      | attribute             | value   |
+      | backgroundColor       | #9ec3cb |
+      | pointHoverBorderWidth | 1       |
+      | borderColor           | #4388c8 |
+      | pointHitRadius        | 10      |
+      | pointRadius           | 0       |
+      | pointHoverRadius      | 4       |
+      | borderJoinStyle       | miter   |
+      | borderDashOffset      | 0       |
+      | borderWidth           | 1       |
+      | borderCapStyle        | butt    |
+      | lineTension           | 0.35    |
+      | fill                  | true    |
+      | color                 | #9ec3cb |
 
-
-  ##https Otbound tests - Response Bandwidth
-
-#  @SID_34
-#  Scenario: Validate Https Response Bandwidth graph Transitory Baseline data
-#    Then UI Validate Line Chart data "Response Bandwidth" with Label "Transitory Baseline"
-#      | value              | count | offset |
-#      | null       | 57    | 1      |
-#      | 10070.6284 | 2     | 1      |
-#
-#  @SID_35
-#  Scenario: Validate Https Response Bandwidth graph Transitory Attack Edge data
-#    Then UI Validate Line Chart data "Response Bandwidth" with Label "Transitory Attack Edge"
-#      | value              | count | offset |
-#      | null               | 57    | 1      |
-#      | 15120.576985000002 | 2     | 1      |
-#
-#  @SID_36
-#  Scenario: Validate Https Response Bandwidth graph Long Trend Baseline data
-#    Then UI Validate Line Chart data "Response Bandwidth" with Label "Long-Term Trend Baseline"
-#      | value    | count | offset |
-#      | null     | 57    | 1      |
-#      | 140.9568 | 2     | 1      |
-#
-#  @SID_37
-#  Scenario: Validate Https Response Bandwidth graph Long-Term Trend Attack Edge data
-#    Then UI Validate Line Chart data "Response Bandwidth" with Label "Long-Term Trend Attack Edge"
-#      | value     | count | offset |
-#      | null      | 57    | 1      |
-#      | 240.82397 | 2     | 1      |
-#
-#  @SID_38
-#  Scenario: Validate Https Response Bandwidth graph Legitimate Traffic data
-#    Then UI Validate Line Chart data "Response Bandwidth" with Label "Real-Time Traffic"
-#      | value  | count | offset |
-#      | null   | 57    | 1      |
-#      | 6379.5 | 2     | 1      |
-#
-#  @SID_39
-#  Scenario: Validate Https Response Bandwidth graph 24H
-#    When UI Click Button "Time Picker"
-#    When UI Click Button "Time Range 24H" with value "24H"
-#    Then UI Validate Line Chart data "Average Response Size" with Label "Real-Time Traffic"
-#      | value | count | offset |
-#      | null  | 24    | 1      |
-#    Then UI Validate Line Chart data "Response Bandwidth" with Label "Long-Term Trend Attack Edge"
-#      | value | count | offset |
-#      | null  | 24    | 1      |
-#
-#  @SID_40
-#  Scenario: Validate Https Response Bandwidth graph 12H
-#    When UI Click Button "Time Picker"
-#    When UI Click Button "Time Range 12H" with value "12H"
-#    Then UI Validate Line Chart data "Average Response Size" with Label "Real-Time Traffic"
-#      | value | count | offset |
-#      | null  | 12    | 1      |
-#    Then UI Validate Line Chart data "Response Bandwidth" with Label "Long-Term Trend Attack Edge"
-#      | value | count | offset |
-#      | null  | 12    | 1      |
-#
-#  @SID_41
-#  Scenario: Validate Https Response Bandwidth graph 6H
-#    When UI Click Button "Time Picker"
-#    When UI Click Button "Time Range 6H" with value "6H"
-#    Then UI Validate Line Chart data "Average Response Size" with Label "Real-Time Traffic"
-#      | value | count | offset |
-#      | null  | 6    | 1      |
-#    Then UI Validate Line Chart data "Response Bandwidth" with Label "Long-Term Trend Attack Edge"
-#      | value | count | offset |
-#      | null  | 6    | 1      |
-#
-#  @SID_42
-#  Scenario: Validate Https Response Bandwidth graph 3H
-#    When UI Click Button "Time Picker"
-#    When UI Click Button "Time Range 3H" with value "3H"
-#    Then UI Validate Line Chart data "Average Response Size" with Label "Real-Time Traffic"
-#      | value | count | offset |
-#      | null  | 3    | 1      |
-#    Then UI Validate Line Chart data "Response Bandwidth" with Label "Long-Term Trend Attack Edge"
-#      | value | count | offset |
-#      | null  | 3    | 1      |
-#
-#  @SID_43
-#  Scenario: Validate Https Response Bandwidth graph 1H
-#    When UI Click Button "Time Picker"
-#    When UI Click Button "Time Range 1H" with value "1H"
-#    Then UI Validate Line Chart data "Average Response Size" with Label "Real-Time Traffic"
-#      | value | count | offset |
-#      | null  | 238   | 1      |
-#    Then UI Validate Line Chart data "Response Bandwidth" with Label "Long-Term Trend Attack Edge"
-#      | value | count | offset |
-#      | null  | 238   | 1      |
-#
-#  @SID_44
-#  Scenario: Validate Https Response Bandwidth graph 30m
-#    When UI Click Button "Time Picker"
-#    When UI Click Button "Time Range 30m" with value "30m"
-#    Then UI Validate Line Chart data "Average Response Size" with Label "Real-Time Traffic"
-#      | value | count | offset |
-#      | null  | 118   | 1      |
-#    Then UI Validate Line Chart data "Response Bandwidth" with Label "Long-Term Trend Attack Edge"
-#      | value | count | offset |
-#      | null  | 118   | 1      |
-#
-#  @SID_45
-#  Scenario: Validate Https Response Bandwidth graph 15m
-#    When UI Click Button "Time Picker"
-#    When UI Click Button "Time Range 15m" with value "15m"
-#    Then UI Validate Line Chart data "Average Response Size" with Label "Real-Time Traffic"
-#      | value | count | offset |
-#      | null  | 58    | 1      |
-#    Then UI Validate Line Chart data "Response Bandwidth" with Label "Long-Term Trend Attack Edge"
-#      | value | count | offset |
-#      | null  | 58    | 1      |
-#
-#  @SID_46
-#  Scenario: Validate Https Response Bandwidth graph Transitory Baseline styling
-#    Then UI Validate Line Chart attributes "Response Bandwidth" with Label "Transitory Baseline"
-#      | attribute             | value   |
-#      | backgroundColor       | #8CBA46 |
-#      | steppedLine           | true    |
-#      | pointHoverBorderWidth | 1       |
-#      | borderColor           | #8CBA46 |
-#      | pointHitRadius        | 10      |
-#      | pointRadius           | 0       |
-#      | pointHoverRadius      | 4       |
-#      | borderJoinStyle       | miter   |
-#      | borderWidth           | 2.5     |
-#      | borderDashOffset      | 0       |
-#      | borderCapStyle        | butt    |
-#      | lineTension           | 0.35    |
-#      | fill                  | false   |
-#
-#  @SID_47
-#  Scenario: Validate Https Response Bandwidth graph Transitory Attack Edge styling
-#    Then UI Validate Line Chart attributes "Response Bandwidth" with Label "Transitory Attack Edge"
-#      | attribute             | value          |
-#      | backgroundColor       | rgb(154, 1, 1) |
-#      | steppedLine           | true           |
-#      | pointHoverBorderWidth | 1              |
-#      | borderColor           | rgb(154, 1, 1) |
-#      | pointHitRadius        | 10             |
-#      | pointRadius           | 0              |
-#      | pointHoverRadius      | 4              |
-#      | borderJoinStyle       | miter          |
-#      | borderDashOffset      | 0              |
-#      | borderWidth           | 2.5            |
-#      | borderCapStyle        | butt           |
-#      | lineTension           | 0.35           |
-#      | fill                  | false          |
-#
-#  @SID_48
-#  Scenario: Validate Https Response Bandwidth graph Long Trend Baseline styling
-#    Then UI Validate Line Chart attributes "Response Bandwidth" with Label "Long-Term Trend Baseline"
-#      | attribute             | value   |
-#      | backgroundColor       | #67853B |
-#      | steppedLine           | true    |
-#      | pointHoverBorderWidth | 1       |
-#      | borderColor           | #67853B |
-#      | pointHitRadius        | 10      |
-#      | pointRadius           | 0       |
-#      | pointHoverRadius      | 4       |
-#      | borderJoinStyle       | miter   |
-#      | borderDashOffset      | 0       |
-#      | borderWidth           | 2.5     |
-#      | borderCapStyle        | butt    |
-#      | lineTension           | 0.35    |
-#      | fill                  | false   |
-#
-#  @SID_49
-#  Scenario: Validate Https Response Bandwidth graph Long Trend Attack Edge styling
-#    Then UI Validate Line Chart attributes "Response Bandwidth" with Label "Long-Term Trend Attack Edge"
-#      | attribute             | value   |
-#      | backgroundColor       | #EC3434 |
-#      | steppedLine           | true    |
-#      | pointHoverBorderWidth | 1       |
-#      | borderColor           | #EC3434 |
-#      | pointHitRadius        | 10      |
-#      | pointRadius           | 0       |
-#      | pointHoverRadius      | 4       |
-#      | borderJoinStyle       | miter   |
-#      | borderDashOffset      | 0       |
-#      | borderWidth           | 2.5     |
-#      | borderCapStyle        | butt    |
-#      | lineTension           | 0.35    |
-#      | fill                  | false   |
-#
-#  @SID_50
-#  Scenario: Validate Https Response Bandwidth graph Legitimate Traffic styling
-#    Then UI Validate Line Chart attributes "Response Bandwidth" with Label "Real-Time Traffic"
-#      | attribute             | value                    |
-#      | backgroundColor       | rgba(169, 207, 233, 0.8) |
-#      | pointHoverBorderWidth | 1                        |
-#      | borderColor           | rgba(169, 207, 233, 0.8) |
-#      | pointHitRadius        | 10                       |
-#      | pointRadius           | 0                        |
-#      | pointHoverRadius      | 4                        |
-#      | borderJoinStyle       | miter                    |
-#      | borderDashOffset      | 0                        |
-#      | borderWidth           | 1                        |
-#      | borderCapStyle        | butt                     |
-#      | lineTension           | 0.35                     |
-#      | fill                  | true                     |
-#      | color                 | rgba(169, 207, 233, 0.8) |
-#
-#  ##https Otbound tests - Average Response Size
-#
-#  @SID_51
-#  Scenario: Validate Https Average Response Size graph Long Trend Baseline data
-#    Then UI Validate Line Chart data "Average Response Size" with Label "Long-Term Trend Baseline"
-#      | value              | count | offset |
-#      | null               | 57    | 3      |
-#      | 370.47839999999997 | 2     | 1      |
-#
-#  @SID_52
-#  Scenario: Validate Https Average Response Size graph Long-Term Trend Attack Edge data
-#    Then UI Validate Line Chart data "Average Response Size" with Label "Long-Term Trend Attack Edge"
-#      | value       | count | offset |
-#      | null        | 57    | 3      |
-#      | 5620.761985 | 2     | 1      |
-#
-#  @SID_53
-#  Scenario: Validate Https Average Response Size graph Legitimate Traffic data
-#    Then UI Validate Line Chart data "Average Response Size" with Label "Real-Time Traffic"
-#      | value  | count | offset |
-#      | null   | 57    | 3      |
-#      | 6129.5 | 2     | 1      |
-#
-#  @SID_54
-#  Scenario: Validate Https Average Response Size graph Long Trend Baseline styling
-#    Then UI Validate Line Chart attributes "Average Response Size" with Label "Long-Term Trend Baseline"
-#      | attribute             | value   |
-#      | backgroundColor       | #67853B |
-#      | steppedLine           | true    |
-#      | pointHoverBorderWidth | 1       |
-#      | borderColor           | #67853B |
-#      | pointHitRadius        | 10      |
-#      | pointRadius           | 0       |
-#      | pointHoverRadius      | 4       |
-#      | borderJoinStyle       | miter   |
-#      | borderDashOffset      | 0       |
-#      | borderWidth           | 2.5     |
-#      | borderCapStyle        | butt    |
-#      | lineTension           | 0.35    |
-#      | fill                  | false   |
-#
-#  @SID_55
-#  Scenario: Validate Https Average Response Size graph Long Trend Attack Edge styling
-#    Then UI Validate Line Chart attributes "Average Response Size" with Label "Long-Term Trend Attack Edge"
-#      | attribute             | value   |
-#      | backgroundColor       | #EC3434 |
-#      | steppedLine           | true    |
-#      | pointHoverBorderWidth | 1       |
-#      | borderColor           | #EC3434 |
-#      | pointHitRadius        | 10      |
-#      | pointRadius           | 0       |
-#      | pointHoverRadius      | 4       |
-#      | borderJoinStyle       | miter   |
-#      | borderDashOffset      | 0       |
-#      | borderWidth           | 2.5     |
-#      | borderCapStyle        | butt    |
-#      | lineTension           | 0.35    |
-#      | fill                  | false   |
-#
-#  @SID_56
-#  Scenario: Validate Https Average Response Size graph Legitimate Traffic styling
-#    Then UI Validate Line Chart attributes "Average Response Size" with Label "Real-Time Traffic"
-#      | attribute             | value                    |
-#      | backgroundColor       | rgba(169, 207, 233, 0.8) |
-#      | pointHoverBorderWidth | 1                        |
-#      | borderColor           | rgb(169, 207, 233)       |
-#      | pointHitRadius        | 10                       |
-#      | pointRadius           | 0                        |
-#      | pointHoverRadius      | 4                        |
-#      | borderJoinStyle       | miter                    |
-#      | borderDashOffset      | 0                        |
-#      | borderWidth           | 1                        |
-#      | borderCapStyle        | butt                     |
-#      | lineTension           | 0.35                     |
-#      | fill                  | true                     |
-#      | color                 | rgba(169, 207, 233, 0.8) |
-
-
-# verify 1. refrest occured 2. new data displayed
-  @SID_57
+# verify 1. refresh occurred 2. new data displayed
+  
+  @SID_27
   Scenario: Run DP simulator PCAPs for Https Flood - Make Change
     Given CLI simulate 2 attacks of type "HTTPS-Twist" on "DefensePro" 11 with loopDelay 5000 and wait 180 seconds
 
+  
+  @SID_28
   Scenario: Re-Select Server
-#    When UI Open Upper Bar Item "AMS"
-#    When UI Open "Dashboards" Tab
-#    Then UI Open "HTTPS Servers Dashboard" Sub Tab
+    Given UI Navigate to "DefensePro Monitoring Dashboard" page via homePage
+    And UI Navigate to "HTTPS Flood Dashboard" page via homePage
     When UI Click Button "Servers Button"
     When UI Set Text Field "Server Selection.Search" To "test"
     Then UI Click Button "Server Selection.Server Name" with value "test,DefensePro_172.16.22.51,pol1"
     Then UI Click Button "Server Selection.Save"
 
-#  @SID_58
-#  Scenario: Validate Https Flood distributed size graph data - Baseline - After Change
-#    Then UI Validate Line Chart data "Request-Size Distribution" with Label "Baseline"
-#      | value       | count | index | offset      |
-#      | 0.6         | 1     | 0     | 0.1         |
-#      | 0.97232455  | 1     | 1     | 0.00000001  |
-#      | 0.77        | 1     | 2     | 0.01        |
-#      | 0.027675444 | 1     | 4     | 0.000000001 |
-#      | 0           | 46    | 5     | 0.1         |
-
-  @SID_59
+  
+  @SID_29
   Scenario: Validate Https Flood distributed size graph data - Real Time Traffic - After Change
     Then UI Validate Line Chart data "Request-Size Distribution" with Label "Real-Time Traffic"
       | value      | count | index | offset |
@@ -697,15 +339,16 @@ Feature: HTTPS Server Dashboard
       | 0.81       | 1     | 4     | 0      |
       | 0.5        | 1     | 49    | 0      |
 
-  @SID_60
+  
+  @SID_30
   Scenario: Validate Https Flood distributed size graph data - Attack Edge - After Change
     Then UI Validate Line Chart data "Request-Size Distribution" with Label "Attack Edge"
-      | value      | count | index | offset     |
-      | 0          | 48    | 0     | 0          |
-      | 1          | 1     | 1     | 0          |
-      | 0.47802296 | 1     | 4     | 0.00000001 |
+      | value      | count | index | valueOffset |
+      | 0          | 48    | 0     | 0           |
+      | 0.47802296 | 1     | 4     | 1           |
+      | 1          | 1     | 1     | 0           |
 
-  @SID_61
+  @SID_31
   Scenario: Validate Https Flood distributed size graph data - Under Attack - After Change
     Then UI Validate Line Chart data "Request-Size Distribution" with Label "Under Attack"
       | value      | count | index | offset |
@@ -715,6 +358,6 @@ Feature: HTTPS Server Dashboard
       | 0.81       | 1     | 4     | 0      |
       | 0.5        | 1     | 49    | 0      |
 
-  @SID_62
+  @SID_32
   Scenario: Logout
     Then UI logout and close browser

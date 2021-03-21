@@ -3,19 +3,26 @@ package com.radware.vision.bddtests.vmoperations;
 import com.radware.automation.bdd.reporter.BddReporterManager;
 import com.radware.automation.tools.basetest.BaseTestUtils;
 import com.radware.automation.tools.basetest.Reporter;
-import com.radware.automation.tools.utils.InvokeUtils;
-import com.radware.vision.automation.VisionAutoInfra.CLIInfra.CliOperations;
+import com.radware.automation.utils.AutoDBUtils;
+import com.radware.vision.automation.VisionAutoInfra.CLIInfra.Servers.RadwareServerCli;
+import com.radware.vision.automation.VisionAutoInfra.CLIInfra.Servers.RootServerCli;
 import com.radware.vision.automation.tools.esxitool.snapshotoperations.EsxiInfo;
 import com.radware.vision.automation.tools.esxitool.snapshotoperations.VMSnapshotOperations;
 import com.radware.vision.automation.tools.esxitool.snapshotoperations.targetvm.VmNameTargetVm;
 import com.radware.vision.automation.tools.sutsystemobjects.VisionVMs;
+import com.radware.vision.base.TestBase;
 import com.radware.vision.bddtests.BddUITestBase;
 import com.radware.vision.bddtests.clioperation.connections.NewVmSteps;
 import com.radware.vision.bddtests.clioperation.system.upgrade.UpgradeSteps;
-import com.radware.vision.bddtests.rest.BasicRestOperationsSteps;
-import com.radware.vision.utils.RegexUtils;
+import com.radware.vision.bddtests.defenseFlow.defenseFlowDevice;
+import com.radware.vision.bddtests.visionsettings.VisionInfo;
+import com.radware.vision.bddtests.vmoperations.Deploy.FreshInstallKVM;
+import com.radware.vision.bddtests.vmoperations.Deploy.FreshInstallOVA;
+import com.radware.vision.bddtests.vmoperations.Deploy.Physical;
+import com.radware.vision.bddtests.vmoperations.Deploy.Upgrade;
+import com.radware.vision.enums.VisionDeployType;
 import com.radware.vision.vision_handlers.NewVmHandler;
-import com.radware.vision.vision_handlers.system.VisionServer;
+import com.radware.vision.vision_handlers.system.upgrade.visionserver.VisionDeployment;
 import com.radware.vision.vision_project_cli.VisionCli;
 import com.radware.vision.vision_project_cli.VisionRadwareFirstTime;
 import cucumber.api.DataTable;
@@ -27,14 +34,22 @@ import jsystem.framework.system.SystemManagerImpl;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.*;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
-import static com.radware.vision.test_utils.DeployOva.getLastSuccessfulBuildNumberFromArtifactory;
+import static com.radware.vision.bddtests.remotessh.RemoteSshCommandsTests.resetPassword;
+
 
 public class VMOperationsSteps extends BddUITestBase {
 
+    public static VMOperationsSteps newInstance() throws Exception {
+        return new VMOperationsSteps();
+    }
+
     public VMOperationsSteps() throws Exception {
+    }
+
+    @When("Upgrade Vision According To SUT Snapshot(?: to Version \"([^\"]*)\")?(?: Build \"([^\"]*)\")?$")
+    public void upgradeAccordingToSnapshot(String upgradeToVersion, String build) throws Exception {
+        VmSnapShotOperations.newInstance().upgradeAccordingToSnapshot(upgradeToVersion, build);
     }
 
     /**
@@ -42,17 +57,21 @@ public class VMOperationsSteps extends BddUITestBase {
      * @param snapshotName - VM snapshot
      * @param withMemory   - option take snapshot with memory
      */
-    @When("^Take snapshot from Vision number (\\d+) with name \"(.*)\"( with memory)?$")
-    public void takeSnapshot(int vmNumber, String snapshotName, String withMemory) {
-        try {
-            boolean withMem = withMemory != null;
-            VisionVMs visionVMs = restTestBase.getVisionVMs();
-            String vmName = visionVMs.getVMNameByIndex(vmNumber);
-            EsxiInfo esxiInfo = new EsxiInfo(visionVMs.getvCenterURL(), visionVMs.getUserName(), visionVMs.getPassword(), visionVMs.getResourcePool());
-            VMSnapshotOperations.newInstance().doSnapshot(new VmNameTargetVm(esxiInfo, vmName), snapshotName, withMem);
-        } catch (Exception e) {
-            BaseTestUtils.report("Error creating snapshot: " + parseExceptionBody(e), Reporter.FAIL);
-        }
+    @When("^Take VMWare snapshot from Vision number (\\d+) with name \"(.*)\"( with memory)?$")
+    public void takeSnapshot(int vmNumber, String snapshotName, String withMemory) throws Exception {
+        VmSnapShotOperations.newInstance().takeSnapshotVMWare(vmNumber, snapshotName, withMemory);
+    }
+
+    @When("^Rename VMWare Snapshot \"([^\"]*)\" to \"([^\"]*)\"(?: with description \"([^\"]*)\")?$")
+    public void renameSnapshot(String snapshotName, String newSnapshotName, String descriptionOfSnapshot) throws Exception {
+        if (descriptionOfSnapshot == null)
+            descriptionOfSnapshot = "Automation";
+        VmSnapShotOperations.newInstance().renameSnapshotVMWare(snapshotName, newSnapshotName, descriptionOfSnapshot);
+    }
+
+    @When("^Delete VMWare Snapshot \"([^\"]*)\"$")
+    public void deleteSnapshot(String snapshotName) throws Exception {
+        VmSnapShotOperations.newInstance().deleteSnapshotVMWare(snapshotName);
     }
 
     /**
@@ -60,62 +79,25 @@ public class VMOperationsSteps extends BddUITestBase {
      */
     @When("^Revert Vision number (\\d+) to snapshot$")
     public void revertSnapshot(int vmNumber) throws Exception {
-        try {
-            String snapshot = getVisionSetupAttributeFromSUT("snapshot");
-            if (snapshot == null || snapshot.equals("")) {
-                BaseTestUtils.report("Could not find snapshot in SUT file performing internal upgrade", Reporter.PASS_NOR_FAIL);
-                return;
-            }
-            VisionVMs visionVMs = restTestBase.getVisionVMs();
-            String vmName = visionVMs.getVMNameByIndex(vmNumber);
-            EsxiInfo esxiInfo = new EsxiInfo(visionVMs.getvCenterURL(), visionVMs.getUserName(), visionVMs.getPassword(), visionVMs.getResourcePool());
-            BaseTestUtils.report("Reverting to snapshot " + snapshot, Reporter.PASS_NOR_FAIL);
-            VMSnapshotOperations.newInstance().switchToSnapshot(new VmNameTargetVm(esxiInfo, vmName), snapshot, true);
-            BaseTestUtils.report("Revert done", Reporter.PASS_NOR_FAIL);
-            Thread.sleep(6 * 60 * 1000);
-            if (VisionServer.waitForVisionServerServicesToStartHA(restTestBase.getRadwareServerCli(), 45 * 60 * 1000))
-                BaseTestUtils.report("All services up", Reporter.PASS);
-            else {
-                BaseTestUtils.report("Not all services up.", Reporter.FAIL);
-            }
-        } catch (Exception e) {
-            BaseTestUtils.report("Error reverting snapshot: " + parseExceptionBody(e), Reporter.FAIL);
-        } finally {
-            restTestBase.getRadwareServerCli().setConnectOnInit(true);
-            restTestBase.getRadwareServerCli().init();
-            restTestBase.getRootServerCli().setConnectOnInit(true);
-            restTestBase.getRootServerCli().init();
-        }
+        VmSnapShotOperations.newInstance().revertVMWareSnapshot(vmNumber, true);
     }
 
     @When("^Revert DefenseFlow to snapshot$")
-    public void DfenseFlowRevertToSnapshot() throws Exception {
-//     kVision
-//        try {
+    public void DfenseFlowRevertToSnapshot() {
+        try {
+            //Kvision
 //            defenseFlowDevice DF = (defenseFlowDevice) system.getSystemObject("defenseFlowDevice");
 //            EsxiInfo esxiInfo = new EsxiInfo(DF.getvCenterURL(), DF.getvCenterUserName(), DF.getvCenterPassword(), DF.getResourcePool());
 //            BaseTestUtils.report("Reverting Defense Flow to snapshot " + DF.getSnapshot(), Reporter.PASS_NOR_FAIL);
 //            VMSnapshotOperations.newInstance().switchToSnapshot(new VmNameTargetVm(esxiInfo, DF.vmName), DF.snapshot, true);
-//            Thread.sleep(10 * 60 * 1000);
-//            BaseTestUtils.report("DefenseFlow Revert done.", Reporter.PASS_NOR_FAIL);
-//        } catch (Exception e) {
-//        }
+            Thread.sleep(10 * 60 * 1000);
+            BaseTestUtils.report("DefenseFlow Revert done.", Reporter.PASS_NOR_FAIL);
+        } catch (Exception e) {
+            BaseTestUtils.report("Revert failed:\n" + e.getMessage(), Reporter.FAIL);
+        }
     }
 
 
-    //    private boolean waitForServerConnection(long timeout, CliConnectionImpl connection) throws InterruptedException {
-//        long startTime = System.currentTimeMillis();
-//        while (System.currentTimeMillis() - startTime < timeout) {
-//            try {
-//                connection.connect();
-//                return true;
-//            } catch (Exception e) {
-//                Thread.sleep(10000);
-//                continue;
-//            }
-//        }
-//        return false;
-//    }
     public void deleteKvm() throws Exception {
         NewVmHandler handler = new NewVmHandler();
         String vmName = handler.visionRadwareFirstTime.getVmName() + handler.visionRadwareFirstTime.getIp();
@@ -123,117 +105,95 @@ public class VMOperationsSteps extends BddUITestBase {
     }
 
     public static void revertKvmSnapshot(String snapshotName, VisionRadwareFirstTime visionRadwareFirstTime) throws Exception {
-        String vmName = visionRadwareFirstTime.getVmName() + visionRadwareFirstTime.getIp();
-//       kVision
-//        CliOperations.runCommand(visionRadwareFirstTime, "virsh list --all");
-        boolean isContained = RegexUtils.isStringContainsThePattern(vmName, CliOperations.lastOutput);
-        if (!isContained) {
-            throw new Exception("the " + vmName + "does not exist");
-        }
-        int DEFAULT_KVM_CLI_TIMEOUT = 3000;
-//       kVision
-//        CliOperations.runCommand(visionRadwareFirstTime, "virsh start " + vmName, DEFAULT_KVM_CLI_TIMEOUT);
-        Thread.sleep(60 * 1000);
-        BaseTestUtils.report("Reverting to snapshot.", Reporter.PASS_NOR_FAIL);
-//       kVision
-//        CliOperations.runCommand(visionRadwareFirstTime, "virsh snapshot-revert --domain " + vmName + " --snapshotname " + snapshotName, 15 * 60 * 1000);
-        BaseTestUtils.report("Starting server after revert.", Reporter.PASS_NOR_FAIL);
-//       kVision
-//        CliOperations.runCommand(visionRadwareFirstTime, "virsh start " + vmName, DEFAULT_KVM_CLI_TIMEOUT);
-        String error = ".*Domain not found.*";
-        isContained = RegexUtils.isStringContainsThePattern(error, CliOperations.lastOutput);
-        if (isContained) {
-            String domain = "vision_auto_" + visionRadwareFirstTime.getIp();
-            throw new Exception("error: Domain not found: no domain with matching name '" + domain + "' ");
-        }
-//      kVision
-//        CliOperations.runCommand(visionRadwareFirstTime, "virsh domstate " + vmName, DEFAULT_KVM_CLI_TIMEOUT);
-        isContained = RegexUtils.isStringContainsThePattern("running", CliOperations.lastRow);
-        if (!isContained)
-            BaseTestUtils.report("Server is not running. status is: " + CliOperations.lastOutput, Reporter.FAIL);
-
-        Thread.sleep(6 * 60 * 1000);
-        if (VisionServer.waitForVisionServerServicesToStartHA(restTestBase.getRadwareServerCli(), 45 * 60 * 1000))
-            BaseTestUtils.report("All services up", Reporter.PASS);
-        else {
-            BaseTestUtils.report("Not all services up.", Reporter.FAIL);
-        }
-
+        VmSnapShotOperations.newInstance().revertKvmSnapshot(snapshotName, visionRadwareFirstTime);
     }
+
+    @When("^Take KVM Snapshot \"(.*)\"$")
+    public void createKVmSnapshot(String snapshotName) throws Exception {
+        VmSnapShotOperations.newInstance().takeKVmSnapshot(snapshotName);
+    }
+
 
     @Then("^Prerequisite for Setup(\\s+force)?$")
     public void prerequisiteForSetup(String force) {
-//        kVision
-//        if (force != null || isSetupNeeded()) {
-//            try {
-//                String setupMode = getVisionSetupAttributeFromSUT("setupMode");
-//                VisionRadwareFirstTime visionRadwareFirstTime = (VisionRadwareFirstTime) system.getSystemObject("visionRadwareFirstTime");
-//                if (setupMode == null) throw new NullPointerException("Can't find \"setupMode\" at SUT File");
-//                String snapshot = getVisionSetupAttributeFromSUT("snapshot");
-//                if ((snapshot == null || snapshot.equals("")) && setupMode.toLowerCase().contains("upgrade")) {
-//                    BaseTestUtils.report("Could not find snapshot in SUT file performing internal upgrade", Reporter.PASS);
-//                    return;
-//                }
-//                switch (setupMode.toLowerCase()) {
-//                    case "kvm_upgrade_inparallel":
-//                        revert_kvm_upgrade_InParallel(snapshot, visionRadwareFirstTime);
-//                        break;
-//
-//                    case "upgrade_inparallel":
-//                        revertSnapshot(1);
-//                        revertSnapshot(2);
-//                        break;
-//
-//                    case "kvm_upgrade":
-//                        revertKvmSnapshot(snapshot, visionRadwareFirstTime);
-//                        break;
-//
-//                    case "upgrade":
-//                        revertSnapshot(1);
-//                        break;
-//
-//                    case "fresh install_inparallel":
-//                    case "fresh install":
-//                        prefreshInstall();
-//                        break;
-//
-//                    case "kvm_fresh install":
-//                        deleteKvm();
-//                        break;
-//
-//                    case "physical":
-//                        break;
-//                }
-//                if (setupMode.toLowerCase().contains("upgrade")) {
-//                    afterUpgrade();
-//                }
-//
-//            } catch (Exception e) {
-//                e.printStackTrace();
-//                BaseTestUtils.report(e.getMessage() + " ", Reporter.FAIL);
-//            }
-//        }
+        String setupMode;
+        String snapshot;
+        VisionRadwareFirstTime visionRadwareFirstTime;
+        try {
+            setupMode = getVisionSetupAttributeFromSUT("setupMode");
+            //kVision
+//            visionRadwareFirstTime = (VisionRadwareFirstTime) system.getSystemObject("visionRadwareFirstTime");
+            if (setupMode == null) throw new NullPointerException("Can't find \"setupMode\" at SUT File");
+            snapshot = getVisionSetupAttributeFromSUT("snapshot");
+            if ((snapshot == null || snapshot.equals("")) && setupMode.toLowerCase().contains("upgrade")) {
+                BaseTestUtils.report("Could not find snapshot in SUT file performing internal upgrade", Reporter.PASS);
+                return;
+            }
+            /* Fresh section */
+            switch (setupMode.toLowerCase()) {
+                case "fresh install_inparallel":
+                case "fresh install":
+                    preFreshInstall();
+                    return;
+
+                case "kvm_fresh install":
+                    deleteKvm();
+                    return;
+
+                case "physical":
+                    return;
+                /* Upgrade section */
+                case "kvm_upgrade_inparallel":
+                    //Kvision
+//                    revert_kvm_upgrade_InParallel(snapshot, visionRadwareFirstTime);
+                    afterUpgrade();
+                    return;
+
+                case "upgrade_inparallel":
+                    revertSnapshot(1);
+                    revertSnapshot(2);
+                    afterUpgrade();
+                    return;
+
+                case "kvm_upgrade":
+                    //kVision
+//                    revertKvmSnapshot(snapshot, visionRadwareFirstTime);
+                    afterUpgrade();
+                    return;
+
+                case "upgrade":
+                    revertSnapshot(1);
+                    afterUpgrade();
+                    return;
+                default:
+                    BaseTestUtils.report("What is wrong with you man? there is no such a mode as: " + setupMode, Reporter.FAIL);
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            BaseTestUtils.report(e.getMessage() + " ", Reporter.FAIL);
+        }
     }
 
-    private void afterUpgrade() throws Exception {
-        InvokeUtils.invokeCommand(null, "yes|restore_radware_user_password", restTestBase.getRootServerCli(), 15 * 1000, true, false, true);
+    private void afterUpgrade() {
+        resetPassword();
         updateVersionVar();
     }
 
     private void revert_kvm_upgrade_InParallel(String snapshot, VisionRadwareFirstTime visionRadwareFirstTime) throws Exception {
-//        kVision
-//        KVMSnapShotThread firstMachine = new KVMSnapShotThread(snapshot, visionRadwareFirstTime);
-//        firstMachine.start();
+        KVMSnapShotThread firstMachine = new KVMSnapShotThread(snapshot, visionRadwareFirstTime);
+        firstMachine.start();
+        //kVision
 //        visionRadwareFirstTime = (VisionRadwareFirstTime) system.getSystemObject("visionRadwareFirstTime2");
-//        KVMSnapShotThread secondMachine = new KVMSnapShotThread(snapshot, visionRadwareFirstTime);
-//        secondMachine.start();
-//        while (true) {
-//            if (!firstMachine.isAlive() && !secondMachine.isAlive())
-//                break;
-//        }
+        KVMSnapShotThread secondMachine = new KVMSnapShotThread(snapshot, visionRadwareFirstTime);
+        secondMachine.start();
+        while (true) {
+            if (!firstMachine.isAlive() && !secondMachine.isAlive())
+                break;
+        }
     }
 
-    private void prefreshInstall() {
+    private void preFreshInstall() {
         NewVmSteps newVmSteps = new NewVmSteps();
         String vmPrefix = getVisionSetupAttributeFromSUT("vmPrefix");
         if (vmPrefix == null) throw new NullPointerException("Can't find \"vmPrefix\" at SUT File");
@@ -258,72 +218,57 @@ public class VMOperationsSteps extends BddUITestBase {
 
     @Then("^Upgrade or Fresh Install Vision$")
     public void upgradeOrFreshInstallVision() {
-        UpgradeSteps upgradeSteps = new UpgradeSteps();
-        if (!isSetupNeeded()) return;
-        String setupMode = getVisionSetupAttributeFromSUT("setupMode");
-        if (setupMode == null) throw new NullPointerException("Can't find \"setupMode\" at SUT File");
-        String version = readVisionVersionFromPomFile();
-        String build = "";
-        build = BaseTestUtils.getRuntimeProperty("BUILD", build);//get build from portal
-        boolean isAPM = getVisionSetupAttributeFromSUT("isAPM") != null && Boolean.parseBoolean(getVisionSetupAttributeFromSUT("isAPM"));
+        try {
+            String setupMode = getVisionSetupAttributeFromSUT("setupMode");
+            if (setupMode == null) throw new NullPointerException("Can't find \"setupMode\" at SUT File");
 
-        switch (setupMode.toLowerCase()) {
-            case "kvm_upgrade":
-            case "upgrade":
-                upgradeSteps.UpgradeVisionServer(version, build);
-                break;
-
-            case "upgrade_inparallel":
-            case "kvm_upgrade_inparallel":
-                upgradeSteps.UpgradeVisionToLatestBuildTwoMachines();
-                break;
-
-            case "kvm_fresh install":
-                NewVmHandler vmHandler = new NewVmHandler();
-                try {
-                    vmHandler.firstTimeWizardKVM(isAPM, version, build);
-                } catch (Exception e) {
-                    BaseTestUtils.report(e.getMessage(), Reporter.FAIL);
+            switch (setupMode.toLowerCase()) {
+                case "kvm_upgrade":
+                case "upgrade":
+                    Optional<RadwareServerCli> radwareServerCliOpt = TestBase.getServersManagement().getRadwareServerCli();
+                    if (!radwareServerCliOpt.isPresent()) {
+                        throw new Exception("Radware Server Not found!");
+                    }
+                    Optional<RootServerCli> rootServerCliOpt = TestBase.getServersManagement().getRootServerCLI();
+                    if (!rootServerCliOpt.isPresent()) {
+                        throw new Exception("Root Server Not found!");
+                    }
+                    Upgrade upgrade = new Upgrade(true, null, radwareServerCliOpt.get(), rootServerCliOpt.get());
+                    upgrade.deploy();
+                    break;
+                case "upgrade_inparallel":
+                case "kvm_upgrade_inparallel":
+                    UpgradeSteps.UpgradeVisionToLatestBuildTwoMachines();
+                    break;
+                case "kvm_fresh install":
+                    FreshInstallKVM freshInstallKVM = new FreshInstallKVM(true, null);
+                    freshInstallKVM.deploy();
+                    break;
+                case "fresh install_inparallel":
+                    freshInstallInParallel();
+                    break;
+                case "fresh install":
+                    FreshInstallOVA freshInstallOVA = new FreshInstallOVA(true, null);
+                    freshInstallOVA.deploy();
+                    break;
+                case "physical":
+                    Physical physical = new Physical(true, null);
+                    physical.deploy();
+                    break;
+                default: {
+                    BaseTestUtils.report("Setup mode:" + setupMode + " is not familiar.", Reporter.FAIL);
                 }
-                break;
-
-            case "fresh install_inparallel":
-                freshInstallInParallel();
-                break;
-
-            case "fresh install":
-                VisionVMs visionVMs = restTestBase.getVisionVMs();
-                NewVmSteps newVmSteps = new NewVmSteps();
-                String vmName = getVisionSetupAttributeFromSUT("vmPrefix");
-                if (vmName == null) throw new NullPointerException("Can't find \"vmPrefix\" at SUT File");
-
-                List<String> columnNames = Arrays.asList("version", "build", "NewVmName", "isAPM");
-                List<String> values;
-                values = Arrays.asList(version, build, vmName, String.valueOf(isAPM));
-                List<List<String>> row = Arrays.asList(columnNames, values);
-                DataTable dataTable = DataTable.create(row, Locale.getDefault(), "version", "build", "NewVmName", "isAPM");
-                newVmSteps.firstTimeWizardOva(dataTable, visionVMs);
-                break;
-
-            case "physical":
-                try {
-                    NewVmHandler newVmHandler = new NewVmHandler();
-                    newVmHandler.firstTimeWizardIso(version, build);
-                    BasicRestOperationsSteps basicRestOperationsSteps = new BasicRestOperationsSteps();
-                    basicRestOperationsSteps.loginWithActivation("radware", "radware");
-                } catch (Exception e) {
-                    BaseTestUtils.report(e.getMessage(), Reporter.FAIL);
-                }
-                break;
-
-            default: {
-                BaseTestUtils.report("Setup mode:" + setupMode + " is not familiar.", Reporter.FAIL);
             }
+            updateVersionVar();
+            //kVision
+//        CliOperations.runCommand(restTestBase.getRootServerCli(), "chkconfig --level 345 rsyslog on", CliOperations.DEFAULT_TIME_OUT);
+//        CliOperations.runCommand(getRestTestBase().getRootServerCli(), "/usr/sbin/ntpdate -u europe.pool.ntp.org", 2 * 60 * 1000);
+        }catch (Exception e){
+            e.getMessage();
         }
-        updateVersionVar();
     }
 
-    private String getVisionSetupAttributeFromSUT(String attribute) {
+    public static String getVisionSetupAttributeFromSUT(String attribute) {
         VisionCli visionCli = null;
         try {
             visionCli = (VisionCli) SystemManagerImpl.getInstance().getSystemObject("visionCli");
@@ -342,17 +287,15 @@ public class VMOperationsSteps extends BddUITestBase {
                 return visionCli.visionServer.visionSetup.getVmPrefix();
             case "FileNamePrefix":
                 return visionCli.visionServer.visionSetup.getFileNamePrefix();
-            case "isAPM":
-                return visionCli.visionServer.visionSetup.getIsAPM();
+            case "serverType":
+                return visionCli.visionServer.visionSetup.getServerType();
         }
         return null;
     }
 
-    public String readVisionVersionFromPomFile() {
+    public static String readVisionVersionFromPomFile() {
         Properties properties = new Properties();
-
-        InputStream inputStream = getClass().getClassLoader().getResourceAsStream("vision-tests-pom.properties");
-
+        InputStream inputStream = VMOperationsSteps.class.getClassLoader().getResourceAsStream("vision-tests-pom.properties");
         if (inputStream != null) {
             try {
                 properties.load(inputStream);
@@ -360,7 +303,6 @@ public class VMOperationsSteps extends BddUITestBase {
                 e.printStackTrace();
             }
         }
-
         return properties.getProperty("vision-version");
     }
 
@@ -368,14 +310,12 @@ public class VMOperationsSteps extends BddUITestBase {
         boolean isSetupNeeded;
         String version = readVisionVersionFromPomFile();
 //        String versionPrefix = version.substring(0, 4);//example : 4.10.00 --> 4.10
-        String build = System.getenv("BUILD");//get build from portal
-        if (build == null || build.equals("") || build.equals("0"))
-            try {
-                BaseTestUtils.report("No build was supplied. Going for latest", Reporter.PASS);
-                build = getLastSuccessfulBuildNumberFromArtifactory(NewVmHandler.jenkinsURL);//Latest Build
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
+        String build = BaseTestUtils.getRuntimeProperty("BUILD", null); //get build from portal
+//        restTestBase.getRootServerCli().getVersionNumebr();
+        if (build == null || build.equals("") || build.equals("0")) {
+            BaseTestUtils.report("No build was supplied. Going for latest", Reporter.PASS);
+            build = new VisionDeployment(VisionDeployType.ANY, version, build).getBuild();//Latest Build
+        }
         String currentBuild = FeatureRunner.getBuild();
         String currentVersion = FeatureRunner.getVersion();
 
@@ -386,7 +326,8 @@ public class VMOperationsSteps extends BddUITestBase {
             BaseTestUtils.report("Needed Build: " + build, Reporter.PASS);
             BaseTestUtils.report("Needed Version: " + version, Reporter.PASS);
         }
-
+        //Lock the build
+        AutoDBUtils.updateTaskBuild(build);
         return isSetupNeeded;
     }
 
@@ -394,26 +335,18 @@ public class VMOperationsSteps extends BddUITestBase {
      * Update variables for local objects and automation portal regrading the new version and build.
      * Relevant to be used after revert to snapshot and upgrade
      */
-    private void updateVersionVar() {
-        String version = "";
-        String build = "";
-        try {
-//           kVision
-//            CliOperations.runCommand(restTestBase.getRootServerCli(), "service vision version");
-            String x = CliOperations.lastOutput;
-            Pattern pattern = Pattern.compile("APSolute\\s+Vision\\s+(\\d+\\.\\d+\\.\\d+)\\s+\\(build\\s+(\\d+)\\)");
-            Matcher matcher = pattern.matcher(x);
-            if (matcher.find()) {
-                version = matcher.group(1);
-                build = matcher.group(2);
-            }
-        } catch (Exception e) {
-            BaseTestUtils.report("Failed to get version and build from server", Reporter.FAIL);
-        }
+    public static void updateVersionVar() {
+        //kVision
+//        VisionInfo visionInfo = new VisionInfo(getRestTestBase().getGenericRestClient().getDeviceIp());
+//        String version = visionInfo.getVisionVersion();
+//        String featureBranch = visionInfo.getVisionBranch();
+//        String build = visionInfo.getVisionBuild();
         //update runtime variables
-        restTestBase.getRootServerCli().setVersionNumebr(version);
-        restTestBase.getRootServerCli().setBuildNumber(build);
+//        restTestBase.getRootServerCli().setVersionNumebr(version);
+//        restTestBase.getRootServerCli().setBuildNumber(build);
         //Update portal
-        FeatureRunner.update_version_build_mode(version, build, BddReporterManager.getRunMode());
+//        FeatureRunner.update_version_build_mode(version, build, BddReporterManager.getRunMode());
+//        FeatureRunner.update_station_sutName(restTestBase.getRootServerCli().getHost(), System.getProperty("SUT"));
+
     }
 }

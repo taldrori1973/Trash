@@ -37,6 +37,11 @@
 
     <dependencies>
         <dependency>
+            <groupId>com.radware.vision.automation</groupId>
+            <artifactId>Auto-Utils</artifactId>
+            <version>${revision}</version>
+        </dependency>
+        <dependency>
             <groupId>com.radware.automation</groupId>
             <artifactId>automation-web-elements-infra</artifactId>
             <version>ALTDPVISION-${artifact-type}-SNAPSHOT</version>

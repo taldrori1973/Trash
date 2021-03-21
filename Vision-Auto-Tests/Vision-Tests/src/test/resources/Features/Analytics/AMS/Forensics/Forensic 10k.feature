@@ -4,6 +4,10 @@ Feature: Forensics 10K
   @SID_1
   Scenario: Clean system data
     * CLI kill all simulator attacks on current vision
+#    * REST Delete ES index "dp-traffic-*"
+#    * REST Delete ES index "dp-https-stats-*"
+#    * REST Delete ES index "dp-https-rt-*"
+#    * REST Delete ES index "dp-five-*"
     * REST Delete ES index "dp-*"
 #    * REST Delete ES index "forensics-*"
 #    * REST Delete ES index "dpforensics-*"
@@ -36,8 +40,6 @@ Feature: Forensics 10K
   Scenario: Login and navigate to forensic page
     Given UI Login with user "sys_admin" and password "radware"
     Then REST Vision Install License Request "vision-AVA-Max-attack-capacity"
-#    And UI Open Upper Bar Item "AMS"
-#    And UI Open "Forensics" Tab
     And UI Navigate to "AMS Forensics" page via homePage
 
   @SID_7
@@ -48,6 +50,7 @@ Feature: Forensics 10K
   @SID_8
   Scenario: generate forensic report
     Then UI Generate and Validate Forensics With Name "Forensic_10K" with Timeout of 300 Seconds
+    Then Sleep "30"
 
   @SID_9
   Scenario: validate number of records in forensic table

@@ -13,6 +13,7 @@ import com.radware.vision.infra.testhandlers.BaseHandler;
 import com.radware.vision.infra.testresthandlers.BasicRestOperationsHandler;
 import com.radware.vision.infra.utils.TimeUtils;
 import com.radware.vision.vision_project_cli.RootServerCli;
+import cucumber.api.PendingException;
 import cucumber.api.java.en.And;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
@@ -22,6 +23,7 @@ import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
+import org.openqa.selenium.WebElement;
 import testhandlers.VisionRestApiHandler;
 import testhandlers.vision.system.UserManagement.UserManagementSettingsHandler;
 import testhandlers.vision.system.UserManagement.enums.UserManagementSettingsKeys;
@@ -492,8 +494,8 @@ public class BasicRestOperationsSteps extends BddRestTestBase {
     }
 
     @Then("^REST Validate existence reports$")
-    public void restValidateExistenceReports(List <BasicRestOperationsHandler.ExistenceReport> reports) {
-        List <BasicRestOperationsHandler.RestRequestElements> requestEntries = new ArrayList<>();
+    public void restValidateExistenceReports(List<BasicRestOperationsHandler.ExistenceReport> reports) {
+        List<BasicRestOperationsHandler.RestRequestElements> requestEntries = new ArrayList<>();
         requestEntries.add(new BasicRestOperationsHandler.RestRequestElements("Returned status code", "200"));
         BasicRestOperationsHandler.validateExistenceReports(reports, visionRestApiBuilder(HttpMethodEnum.GET, "DefenseFlow->getReports", requestEntries));
     }

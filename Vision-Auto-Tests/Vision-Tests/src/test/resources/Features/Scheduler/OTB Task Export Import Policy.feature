@@ -4,7 +4,7 @@ Feature: Task OTB DefensePro Export-Import policy
 
   @SID_1
   Scenario: Login and go to scheduler screen
-    Then CLI Operations - Run Root Session command "yes|restore_radware_user_password" timeout 15
+    Given CLI Reset radware password
     Given UI Login with user "sys_admin" and password "radware"
     Then REST Request "POST" for "Vdirect->Sync Devices"
       | type                 | value |

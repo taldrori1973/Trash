@@ -17,15 +17,25 @@ import com.radware.automation.webui.widgets.ComponentLocatorFactory;
 import com.radware.automation.webui.widgets.api.table.AbstractColumn;
 import com.radware.automation.webui.widgets.api.table.AbstractTable;
 import com.radware.automation.webui.widgets.impl.table.BasicTable;
+import com.radware.automation.webui.widgets.impl.table.BasicTableWithPagination;
 import com.radware.automation.webui.widgets.impl.table.WebUITable;
 import com.radware.vision.automation.AutoUtils.Operators.OperatorsEnum;
 import com.radware.vision.infra.testhandlers.baseoperations.sortingFolder.SortableColumn;
 import com.radware.vision.infra.testhandlers.baseoperations.sortingFolder.SortingDataSet;
 import com.radware.vision.infra.testhandlers.baseoperations.sortingFolder.TableSortingHandler;
 import com.radware.vision.infra.utils.ReportsUtils;
+import org.openqa.selenium.StaleElementReferenceException;
+import org.openqa.selenium.WebDriverException;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.interactions.Actions;
+import org.openqa.selenium.interactions.Locatable;
+import org.openqa.selenium.interactions.internal.Coordinates;
 import org.openqa.selenium.support.How;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.FluentWait;
+import org.openqa.selenium.support.ui.Wait;
 
+import java.time.Duration;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
@@ -38,7 +48,7 @@ import static com.radware.vision.infra.utils.ReportsUtils.addErrorMessage;
 
 public class TableHandler {
     AbstractTable table;
-//    String REACT_TABLE_OLD = "list-wrapper";
+    //    String REACT_TABLE_OLD = "list-wrapper";
     String REACT_GRID = "genericTableWrapper";
     String Simple_Table = "groups-and-content-rule-expand-row-legends";
     public final String BASIC_TABLE = "vrm-generic-table";
@@ -95,7 +105,7 @@ public class TableHandler {
                 actualRowsCount = getReactGridRowCount();
             }
             boolean isValid;
-            isValid = compareResults(String.valueOf(count), String.valueOf(actualRowsCount), operatorsEnum,offset);
+            isValid = compareResults(String.valueOf(count), String.valueOf(actualRowsCount), operatorsEnum, offset);
             if (isValid) {
                 BaseTestUtils.report("Table Rows count = " + count, Reporter.PASS);
             } else {
@@ -141,6 +151,7 @@ public class TableHandler {
         String tableSelector = VisionDebugIdsManager.getDataDebugId();
         ComponentLocator tableLocator = ComponentLocatorFactory.getEqualLocatorByDbgId(tableSelector);
         WebElement tableElement = WebUIUtils.fluentWait(tableLocator.getBy(), WebUIUtils.NAVIGATION_TREE_WAIT_TIME, false);
+        WebUIUtils.scrollIntoView(tableElement,true);
         try {
             constructTable(tableSelector, tableLocator, tableElement, withReadAllTable);
         } catch (Exception e) {
@@ -154,8 +165,10 @@ public class TableHandler {
     private void constructTable(String tableSelector, ComponentLocator tableLocator, WebElement tableElement, boolean withReadAllTable) throws Exception {
         if (tableElement != null) {
             String classValue = WebUIUtils.fluentWaitAttribute(tableLocator.getBy(), WebUIUtils.MAX_RENDER_WAIT_TIME, true, "class", null);
-            if (classValue.contains(BASIC_TABLE) || tableSelector.contains("instances-table"))
+            if (classValue.contains(BASIC_TABLE) || tableSelector.contains("instances-table") || tableSelector.contains("table_sample-data-table"))
                 table = new BasicTable(tableLocator, withReadAllTable);
+            else if (tableSelector.contains("table_attacksTable"))
+                table = new BasicTableWithPagination(tableLocator, withReadAllTable);
             else if (tableSelector.contains(REACT_GRID) || classValue.contains(REACT_GRID))
                 table = new ReactGridTable(tableLocator, withReadAllTable);
             else if (tableSelector.equals("default-eventtable"))
@@ -220,7 +233,7 @@ public class TableHandler {
     }
 
     public void validateTableRowByKeyValue(String label, String columnName, String value) throws Exception {
-        setTable(label, true);
+        setTable(label, false);
         int rowIndexFound = -1;
         if (columnName != null && value != null) {
             rowIndexFound = table.getRowIndex(columnName, value);
@@ -323,6 +336,40 @@ public class TableHandler {
 
         }
     }
+
+    public boolean fluentWaitTableByRowsNumber(String label, String extension, OperatorsEnum operatorsEnum, int rowsNumber) throws Exception {
+
+        setTable(label, extension, false);
+
+        Wait<AbstractTable> wait = new FluentWait<>(table).
+                withTimeout(Duration.ofMillis(5 * WebUIUtils.DEFAULT_WAIT_TIME)).
+                pollingEvery(Duration.ofMillis(10)).
+                ignoring(StaleElementReferenceException.class, WebDriverException.class);
+
+        return wait.until(table -> {
+            try {
+                setTable(label, extension, false);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            int rowCount = table.getRowCount();
+            switch (operatorsEnum) {
+                case LTE:
+                    return rowCount <= rowsNumber;
+                case GTE:
+                    return rowCount >= rowsNumber;
+                case LT:
+                    return rowCount < rowsNumber;
+                case GT:
+                    return rowCount > rowsNumber;
+                case EQUALS:
+                    return rowCount == rowsNumber;
+            }
+            return false;
+
+        });
+    }
+
 
     static public class TableValues {
         public String columnName;

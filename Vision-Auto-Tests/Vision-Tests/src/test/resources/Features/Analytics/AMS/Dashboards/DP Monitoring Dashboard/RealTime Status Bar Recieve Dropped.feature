@@ -25,7 +25,7 @@ Feature: VRM Real Time Status Bar Received Dropped
       | title | 1,459,480.00                                                                                                           |
       | style | width: 59%; background-color: rgb(159, 204, 237); height: 100%; position: relative; color: white; border-radius: 15px; |
     Then UI Validate Text field "Total Traffic Received text" EQUALS "1.46 G"
-    When UI Navigate to "HOME" page via homePage
+    When UI Navigate to "VISION SETTINGS" page via homePage
 
   @SID_3
   Scenario: Receive Drop Real Time Filter Device
@@ -78,7 +78,7 @@ Feature: VRM Real Time Status Bar Received Dropped
       | title | 729,740.00                                                                                                             |
       | style | width: 59%; background-color: rgb(159, 204, 237); height: 100%; position: relative; color: white; border-radius: 15px; |
     Then UI Validate Text field "Total Traffic Received text" EQUALS "729.74 M"
-    When UI Navigate to "HOME" page via homePage
+    When UI Navigate to "VISION SETTINGS" page via homePage
     And UI Logout
 
 

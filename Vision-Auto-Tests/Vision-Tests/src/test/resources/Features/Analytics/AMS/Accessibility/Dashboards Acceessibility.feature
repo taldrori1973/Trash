@@ -5,6 +5,10 @@ Feature: VRM AMS dashboard Accessibility
   @SID_1
   Scenario: Clean system data
     * CLI kill all simulator attacks on current vision
+#    * REST Delete ES index "dp-traffic-*"
+#    * REST Delete ES index "dp-https-stats-*"
+#    * REST Delete ES index "dp-https-rt-*"
+#    * REST Delete ES index "dp-five-*"
     * REST Delete ES index "dp-*"
     * Sleep "60"
 
@@ -130,7 +134,7 @@ Feature: VRM AMS dashboard Accessibility
 
   @SID_16
   Scenario: Go back to vision
-    And UI Navigate to "HOME" page via homePage
+    Then UI Navigate to "VISION SETTINGS" page via homePage
   @SID_17
   Scenario: TC105648 validate Accessibility patterns baselines
     When UI Navigate to "DefensePro Behavioral Protections Dashboard" page via homePage
@@ -168,7 +172,7 @@ Feature: VRM AMS dashboard Accessibility
       | attribute | value                    |
       | shapeType | plus                     |
       | color     | rgba(141, 190, 214, 0.1) |
-    And UI Navigate to "Home" page via homePage
+    Then UI Navigate to "VISION SETTINGS" page via homePage
 
   @SID_18
   Scenario: validate Accessibility clear settings

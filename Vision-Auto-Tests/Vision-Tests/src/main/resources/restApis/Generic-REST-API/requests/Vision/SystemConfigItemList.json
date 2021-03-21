@@ -68,20 +68,6 @@
       "method": "DELETE",
       "basePath": "/mgmt/system/config/itemlist/{item}/{id}",
       "produces": "application/json"
-    },
-    {
-      "label": "User Management Settings",
-      "description": "Manage User Authentication setup",
-      "method": "PUT",
-      "basePath": "mgmt/system/config/item/globalaaaparameters",
-      "produces": "application/json"
-    },
-    {
-      "label": "User Management Connections Settings",
-      "description": "Manage Connections timeouts",
-      "method": "PUT",
-      "basePath": "mgmt/system/config/item/connectionsettings",
-      "produces": "application/json"
     }
   ]
 }

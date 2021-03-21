@@ -7,13 +7,8 @@ Feature: LLS_GEL_freshInstall
 
   @SID_2
   Scenario: verify lls service status is Not running
-#    Given CLI Run remote linux Command "mysql -prad123 vision_ng -e "update lls_server set min_required_ram='16';"" on "ROOT_SERVER_CLI"
-    Given MYSQL UPDATE "lls_server" Table in "VISION_NG" Schema SET "min_required_ram" Column Value as 16 WHERE ""
-
-#    kVision TODO HA
-#    Given CLI Run remote linux Command on Vision 2 "mysql -prad123 vision_ng -e "update lls_server set min_required_ram='16';"" on "ROOT_SERVER_CLI"
-#    Given MYSQL UPDATE "lls_server" Table in "VISION_NG" Schema SET "min_required_ram" Column Value as 16 WHERE ""
-
+    Given CLI Run remote linux Command "mysql -prad123 vision_ng -e "update lls_server set min_required_ram='16';"" on "ROOT_SERVER_CLI"
+    Given CLI Run remote linux Command on Vision 2 "mysql -prad123 vision_ng -e "update lls_server set min_required_ram='16';"" on "ROOT_SERVER_CLI"
     Given CLI Run remote linux Command on Vision 2 "echo 'cleared' $(date)|tee /opt/radware/storage/maintenance/logs/lls/lls_install_display.log" on "ROOT_SERVER_CLI"
     Then REST Login with activation with user "radware" and password "radware"
 #    Then CLI Clear vision logs
@@ -39,9 +34,9 @@ Feature: LLS_GEL_freshInstall
 
   @SID_6
   Scenario: Validate LLS version
-    Then CLI Run linux Command "cat /opt/radware/storage/llsinstall/license-server-*/version.txt" on "ROOT_SERVER_CLI" and validate result EQUALS "2.3.0-1"
+    Then CLI Run linux Command "cat /opt/radware/storage/llsinstall/license-server-*/version.txt" on "ROOT_SERVER_CLI" and validate result EQUALS "2.4.0-2"
     When CLI Operations - Run Radware Session command "system lls version"
-    Then CLI Operations - Verify that output contains regex ".*2.3.0-1*"
+    Then CLI Operations - Verify that output contains regex ".*2.4.0-2*"
 
   @SID_7
   Scenario: verify lls disable
@@ -129,7 +124,7 @@ Feature: LLS_GEL_freshInstall
     Then REST Login with activation with user "radware" and password "radware"
     Then REST Add "Alteon" Device To topology Tree with Name "172.17.141.17" and Management IP "172.17.141.17" into site "Default"
       | attribute | value |
-    Then REST Add "Alteon" Device To topology Tree with Name "172.17.141.18" and Management IP "172.17.141.18" into site "Default"
+    Then REST Add "Alteon" Device To topology Tree with Name "172.17.164.18" and Management IP "172.17.164.18" into site "Default"
       | attribute | value |
 
   @SID_17
@@ -181,7 +176,7 @@ Feature: LLS_GEL_freshInstall
     Then UI Click Button "Entitlement Card"
     Then UI Click Button "Allocate"
     Then UI Click Button "Instance Select"
-    Then UI Click Button "Instance" with value "172.17.141.18_/_172.17.141.18"
+    Then UI Click Button "Instance" with value "172.17.164.18_/_172.17.164.18"
     Then UI Click Button "Select Throughput"
     Then UI Click Button "Throughput" with value "25_Mbps"
     Then UI Click Button "addon"
@@ -202,7 +197,7 @@ Feature: LLS_GEL_freshInstall
   @SID_34
   Scenario: validate instance added to table
 #    Then UI Click Button "Entitlement Card"
-    Then UI validate Table row by keyValue with elementLabel "instances table" findBy columnName "Instance Name" findBy cellValue "172.17.141.18"
+    Then UI validate Table row by keyValue with elementLabel "instances table" findBy columnName "Instance Name" findBy cellValue "172.17.164.18"
     Then UI validate Table row by keyValue with elementLabel "instances table" findBy columnName "Instance Name" findBy cellValue "172.17.141.17"
     Then UI Validate "instances table" Table rows count EQUALS to 2
 
@@ -216,7 +211,7 @@ Feature: LLS_GEL_freshInstall
   @SID_36
   Scenario: Deallocate instance, and validate instances table is updated
     Then UI Click Button "Entitlement Card"
-    Then UI click Table row by keyValue or Index with elementLabel "instances table" findBy columnName "Instance Name" findBy cellValue "172.17.141.18"
+    Then UI click Table row by keyValue or Index with elementLabel "instances table" findBy columnName "Instance Name" findBy cellValue "172.17.164.18"
     Then UI Click Button "deallocate"
     Then UI Click Button "Activate button"
     Then UI Validate "instances table" Table rows count EQUALS to 1
@@ -227,7 +222,7 @@ Feature: LLS_GEL_freshInstall
     Then UI Click Button "Entitlement Card"
     Then UI Click Button "Allocate"
     Then UI Click Button "Instance Select"
-    Then UI Click Button "Instance" with value "172.17.141.18_/_172.17.141.18"
+    Then UI Click Button "Instance" with value "172.17.164.18_/_172.17.164.18"
     Then UI Click Button "Select Throughput"
     Then UI Click Button "Throughput" with value "25_Mbps"
     Then UI Click Button "addon"
@@ -236,13 +231,13 @@ Feature: LLS_GEL_freshInstall
   @SID_38
   Scenario: validate instance added to table
 #    Then UI Click Button "Entitlement Card"
-    Then UI validate Table row by keyValue with elementLabel "instances table" findBy columnName "Instance Name" findBy cellValue "172.17.141.18"
+    Then UI validate Table row by keyValue with elementLabel "instances table" findBy columnName "Instance Name" findBy cellValue "172.17.164.18"
     Then UI Validate "instances table" Table rows count EQUALS to 2
 
   @SID_39
   Scenario: Deallocate instance, and validate instances table is updated
     Then UI Click Button "Entitlement Card"
-    Then UI click Table row by keyValue or Index with elementLabel "instances table" findBy columnName "Instance Name" findBy cellValue "172.17.141.18"
+    Then UI click Table row by keyValue or Index with elementLabel "instances table" findBy columnName "Instance Name" findBy cellValue "172.17.164.18"
     Then UI Click Button "deallocate"
     Then UI Click Button "Activate button"
     Then UI Validate "instances table" Table rows count EQUALS to 1

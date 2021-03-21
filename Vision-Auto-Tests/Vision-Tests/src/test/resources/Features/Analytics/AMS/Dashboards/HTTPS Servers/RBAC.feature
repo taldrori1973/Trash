@@ -3,7 +3,7 @@ Feature: HTTPS Flood Dashboard - RBAC
 
   @SID_1
   Scenario: Update Policies
-    * CLI Operations - Run Root Session command "yes|restore_radware_user_password" timeout 15
+    Given CLI Reset radware password
     * REST Login with activation with user "radware" and password "radware"
     Given REST Login with user "radware" and password "radware"
     Then REST Vision Install License Request "vision-AVA-Max-attack-capacity"

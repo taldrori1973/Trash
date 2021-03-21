@@ -26,11 +26,11 @@ Feature: Second Drill - Validate General Charts
     When UI Navigate to "Application Dashboard" page via homePage
   @SID_5
   Scenario: Navigate to Virtual Service
-    Then Sleep "3"
-    Then UI click Table row by keyValue or Index with elementLabel "virts table" findBy columnName "Application Name" findBy cellValue "Rejith_32326515:80"
+    Given Sleep "3"
+    When UI click Table row by keyValue or Index with elementLabel "virts table" findBy columnName "Application Name" findBy cellValue "Rejith_32326515:80"
     Then UI Validate Text field "Virtual Service.Name" with params "Rejith_32326515:80" EQUALS "Rejith_32326515:80"
-    And UI Do Operation "Select" item "Global Time Filter"
-    And UI Do Operation "Select" item "Global Time Filter.Quick Range" with value "2m"
+    When UI Do Operation "Select" item "Global Time Filter"
+    When UI Do Operation "Select" item "Global Time Filter.Quick Range" with value "2m"
 
 #Validate Widgets Titles
   @SID_6

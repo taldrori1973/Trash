@@ -5,14 +5,18 @@ Feature: VRM AMS Report Data DNS baselines
   Scenario: keep reports copy on file system
     Then CLI Run remote linux Command "sed -i 's/vrm.scheduled.reports.delete.after.delivery=.*$/vrm.scheduled.reports.delete.after.delivery=false/g' /opt/radware/mgt-server/third-party/tomcat/conf/reporter.properties" on "ROOT_SERVER_CLI"
     Then CLI Run remote linux Command "/opt/radware/mgt-server/bin/collectors_service.sh restart" on "ROOT_SERVER_CLI" with timeOut 720
-    Then CLI Operations - Run Root Session command "yes|restore_radware_user_password" timeout 15
+    Given CLI Reset radware password
     Then Sleep "90"
 
   @SID_2
   Scenario: Clear Database latest traffic index and old reports on file-system
     Then CLI kill all simulator attacks on current vision
     Then CLI Clear vision logs
-    Then REST Delete ES index "dp-*"
+#    * REST Delete ES index "dp-traffic-*"
+#    * REST Delete ES index "dp-https-stats-*"
+#    * REST Delete ES index "dp-https-rt-*"
+#    * REST Delete ES index "dp-five-*"
+    * REST Delete ES index "dp-*"
     Then REST Request "PUT" for "Connectivity->Inactivity Timeout for Configuration"
       | type | value                                 |
       | body | sessionInactivTimeoutConfiguration=60 |
@@ -25,6 +29,7 @@ Feature: VRM AMS Report Data DNS baselines
     Given CLI kill all simulator attacks on current vision
     Given CLI simulate 4 attacks of type "baselines_pol_1" on "DefensePro" 10 with loopDelay 15000 and wait 60 seconds
     Then CLI Run remote linux Command "rm -f /opt/radware/mgt-server/third-party/tomcat/bin/VRM_report_*.zip" on "ROOT_SERVER_CLI"
+    Then CLI Run remote linux Command "rm -f /opt/radware/mgt-server/third-party/tomcat/bin/*.csv" on "ROOT_SERVER_CLI"
 
   @SID_4
   Scenario: Login to VRM AMS reports tab
@@ -44,11 +49,7 @@ Feature: VRM AMS Report Data DNS baselines
 
   @SID_6
   Scenario: Generate the report "DNS Baselines Report IPv4"
-    Then UI Navigate to "AMS Alerts" page via homePage
-    Then UI Navigate to "AMS Reports" page via homePage
     Then UI Generate and Validate Report With Name "DNS Baselines Report IPv4" with Timeout of 300 Seconds
-#    And UI Click Button "Title" with value "DNS Baselines Report IPv4"
-#    And UI Click Button "Generate Now" with value "DNS Baselines Report IPv4"
     Then Sleep "10"
 
   @SID_7
@@ -520,6 +521,5 @@ Feature: VRM AMS Report Data DNS baselines
       | JBOSS       | fatal        | NOT_EXPECTED |
       | TOMCAT      | fatal        | NOT_EXPECTED |
       | TOMCAT2     | fatal        | NOT_EXPECTED |
-#    Then UI Open "Configurations" Tab
     * UI logout and close browser
     * CLI kill all simulator attacks on current vision

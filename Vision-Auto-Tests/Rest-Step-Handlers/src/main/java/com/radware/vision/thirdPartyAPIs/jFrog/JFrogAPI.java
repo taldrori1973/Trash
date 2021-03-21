@@ -49,4 +49,34 @@ public class JFrogAPI {
 
     }
 
+    /**
+     * This method search for a build when the hierarchy is Repository--> Branch--> Build
+      * @param fileType  file type to search for
+     * @param build      desired build number
+     * @param repoName  in which repository to search for a build i.e. local, release
+     * @param branch    in which branch to search , if branch is null , will search on the default branch (master)
+     * @return         The requested build file info
+     */
+    public static JFrogFileModel getBuild(FileType fileType,  Integer build, String repoName, String branch) throws Exception {
+        if (branch == null || branch=="") branch = "master";
+        if (build == null) build = 0;
+        RepositoryService repositoryService=new RepositoryService(repoName);
+        return repositoryService.getFile(fileType,build,branch);
+    }
+    /**
+     * This method return the last extended build  from a given branch when the hierarchy is Repository--> Branch--> Build
+     * @param fileType  file type to search for
+     * @param repoName  in which repository to search for a build i.e. local, release
+     * @param branch    in which branch to search , if branch is null , will search on the default branch (master)
+     * @return          The Last extended build file info under a given branch
+     */
+    public static JFrogFileModel getLastExtendedBuildFromFeatureBranch(FileType fileType,String repoName, String branch) throws Exception {
+        if (branch == null || branch=="") branch = "master";
+        RepositoryService repositoryService=new RepositoryService(repoName);
+        return repositoryService.getFileFromLastExtendedBuild(fileType,branch);
+    }
+
+
+
+
 }

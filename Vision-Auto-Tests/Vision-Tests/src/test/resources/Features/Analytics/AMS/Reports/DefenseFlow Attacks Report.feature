@@ -11,6 +11,12 @@ Feature: DefenseFlow Attacks Reports
     * REST Delete ES index "vrm-scheduled-report-result-*"
     * CLI Clear vision logs
 
+  @SID_31
+  Scenario: Change DF managment IP to IP of Generic Linux
+    When CLI Operations - Run Radware Session command "system df management-ip set 172.17.164.10"
+    When CLI Operations - Run Radware Session command "system df management-ip get"
+    Then CLI Operations - Verify that output contains regex "DefenseFlow Management IP Address: 172.17.164.10"
+
   @SID_2
   Scenario: Run DF simulator
     When CLI Run remote linux Command on "GENERIC_LINUX_SERVER"
@@ -92,7 +98,7 @@ Feature: DefenseFlow Attacks Reports
     Then UI Validate Element Existence By Label "Reports List Item" if Exists "false" with value "OverallDFReport"
 
   @SID_11
-  Scenario: Validate Report Email recieved content
+  Scenario: Validate Report Email received content
     Then CLI Run remote linux Command "cat /var/spool/mail/reportuser > /tmp/reportdelivery.log" on "GENERIC_LINUX_SERVER"
     Then CLI Run linux Command "grep "X-Original-To: DF_attack@report.local" /var/spool/mail/reportuser |wc -l" on "GENERIC_LINUX_SERVER" and validate result EQUALS "1"
 
@@ -212,7 +218,7 @@ Feature: DefenseFlow Attacks Reports
 
   @SID_23
   Scenario: logout
-    When UI Navigate to "HOME" page via homePage
+    When UI Navigate to "VISION SETTINGS" page via homePage
     And UI Go To Vision
     And UI Navigate to page "System->General Settings->APSolute Vision Analytics Settings->Email Reporting Configurations"
     And UI Set Checkbox "Enable" To "false"

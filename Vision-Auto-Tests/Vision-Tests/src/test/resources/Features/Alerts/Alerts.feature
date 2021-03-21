@@ -4,7 +4,7 @@ Feature: Alert browser
 
   @SID_1
   Scenario: Add devices for Alerts
-    Then CLI Operations - Run Root Session command "yes|restore_radware_user_password" timeout 15
+    Given CLI Reset radware password
     * REST Request "PUT" for "Connectivity->Inactivity Timeout for Configuration"
   | type | value                                 |
   | body | sessionInactivTimeoutConfiguration=60 |

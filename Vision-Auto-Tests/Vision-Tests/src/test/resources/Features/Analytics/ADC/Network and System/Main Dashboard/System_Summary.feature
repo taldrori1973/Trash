@@ -3,7 +3,7 @@ Feature:System and Network Dashboard - System Summary
 
   @SID_1
   Scenario: Login With UI and REST
-    Then CLI Operations - Run Root Session command "yes|restore_radware_user_password" timeout 15
+    Given CLI Reset radware password
     When UI Login with user "sys_admin" and password "radware"
     When REST Login with user "radware" and password "radware"
     Then REST Vision Install License Request "vision-reporting-module-ADC"

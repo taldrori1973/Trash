@@ -3,16 +3,19 @@
 Feature: VRM Alerts Criteria
 
 
-  
   @SID_1 @HTTPS_FLOOD
   Scenario: Clean system data
     Then CLI kill all simulator attacks on current vision
     Then REST Delete ES index "rt-alert-def-vrm"
     Then REST Delete ES index "alert"
-    Then REST Delete ES index "dp-*"
+#    * REST Delete ES index "dp-traffic-*"
+#    * REST Delete ES index "dp-https-stats-*"
+#    * REST Delete ES index "dp-https-rt-*"
+#    * REST Delete ES index "dp-five-*"
+    * REST Delete ES index "dp-*"
+
     Then CLI Clear vision logs
 
-  
   @SID_2
   Scenario: increase inactivity timeout to maximum
     Given UI Login with user "sys_admin" and password "radware"
@@ -24,7 +27,6 @@ Feature: VRM Alerts Criteria
     Then UI Click Button "Submit"
     Then UI Logout
 
-  
   @SID_3 @HTTPS_FLOOD
   Scenario: VRM - Login to VRM "Alerts" tab
     Given UI Login with user "sys_admin" and password "radware"
@@ -32,12 +34,12 @@ Feature: VRM Alerts Criteria
 
       ###################    CREATE All ALERT Types   ######################################################
 
-  @SID_4
-  Scenario: Create Alerts Criteria Action proxy FWD challenge
-    When UI "Create" Alerts With Name "Alert_Action proxy FWD Chlng"
-      | Basic Info | Description:proxy FWD challenge,Impact: absolutely no impact at all, Remedy: call support Immediately now |
-      | Criteria   | Event Criteria:Action,Operator:Equals,Value:[Proxy,Forward,Challenge];                                    |
-      | Schedule   | triggerThisRule:7,Within:10,selectTimeUnit:minutes,alertsPerHour:60                                       |
+#  @SID_4
+#  Scenario: Create Alerts Criteria Action proxy FWD challenge
+#    When UI "Create" Alerts With Name "Alert_Action proxy FWD Chlng"
+#      | Basic Info | Description:proxy FWD challenge,Impact: absolutely no impact at all, Remedy: call support Immediately now |
+#      | Criteria   | Event Criteria:Action,Operator:Equals,Value:[Proxy,Forward,Challenge];                                    |
+#      | Schedule   | triggerThisRule:7,Within:10,selectTimeUnit:minutes,alertsPerHour:60                                       |
 
   @SID_5
   Scenario: Create Alerts Criteria Action Challenge
@@ -53,12 +55,12 @@ Feature: VRM Alerts Criteria
       | Criteria   | Event Criteria:Action,Operator:Equals,Value:[Bypass]; |
       | Schedule   | checkBox:Trigger,alertsPerHour:60                     |
 
-  @SID_7
-  Scenario: Create Alerts Criteria Action Negative
-    When UI "Create" Alerts With Name "Alert_Action_negative"
-      | Basic Info | Description:Action Negative                                          |
-      | Criteria   | Event Criteria:Action,Operator:Not Equals,Value:[Proxy,Forward];     |
-      | Schedule   | triggerThisRule:29,Within:10,selectTimeUnit:minutes,alertsPerHour:60 |
+#  @SID_7
+#  Scenario: Create Alerts Criteria Action Negative
+#    When UI "Create" Alerts With Name "Alert_Action_negative"
+#      | Basic Info | Description:Action Negative                                          |
+#      | Criteria   | Event Criteria:Action,Operator:Not Equals,Value:[Proxy,Forward];     |
+#      | Schedule   | triggerThisRule:29,Within:10,selectTimeUnit:minutes,alertsPerHour:60 |
 
   @SID_8
   Scenario: Create Alerts Criteria Attack Name
@@ -222,8 +224,8 @@ Feature: VRM Alerts Criteria
       | Schedule   | triggerThisRule:32,Within:10,selectTimeUnit:minutes,alertsPerHour:60  |
 
   @SID_31
-  Scenario: Create Alerts Criteria non-selected DP
-    When UI "Create" Alerts With Name "non-selected DP"
+  Scenario: Create Alerts Criteria non_selected DP
+    When UI "Create" Alerts With Name "non_selected DP"
       | Basic Info | Description:DP 12                                       |
       | devices    | index:12                                                |
       | Criteria   | Event Criteria:Attack ID,Operator:Not Equals,Value:123; |
@@ -351,10 +353,10 @@ Feature: VRM Alerts Criteria
       | devices  | index:10                                                                    |
       | Criteria | Event Criteria:Attack Rate in pps,Operator:Greater than,RateValue:1,Unit:T; |
       | Schedule | checkBox:Trigger,alertsPerHour:60                                           |
+    Then CLI Run remote linux Command "rm -f /opt/radware/storage/maintenance/catalina.out*" on "ROOT_SERVER_CLI"
     Then CLI Run remote linux Command "cp /opt/radware/mgt-server/third-party/tomcat/logs/catalina.out /opt/radware/storage/maintenance/catalina.out1" on "ROOT_SERVER_CLI"
     Then CLI Run remote linux Command "curl -XGET localhost:9200/rt-alert-def-vrm/_search?pretty -d '{"query":{"bool":{"must":[{"wildcard":{"name":"*"}}]}},"from":0,"size":50}' > /opt/radware/storage/maintenance/alerts_id.txt" on "ROOT_SERVER_CLI"
 
-  
   @SID_144
   Scenario: Create Alerts Criteria Category  - Equal Connection PPS
     When UI "Create" Alerts With Name "Alert_Category connection PPS"
@@ -362,7 +364,6 @@ Feature: VRM Alerts Criteria
       | Criteria   | Event Criteria:Threat Category,Operator:Equals,Value:[Connection PPS]; |
       | Schedule   | checkBox:Trigger,alertsPerHour:60     |
 
-  
   @SID_49 @HTTPS_FLOOD
     Scenario: Clear alert browser and Run DP simulator
 #    Given CLI simulate 1 attacks of type "rest_traffic_filter" on "DefensePro" 11
@@ -372,7 +373,6 @@ Feature: VRM Alerts Criteria
     Then UI Navigate to "AMS Forensics" page via homePage
     Then UI Navigate to "AMS Alerts" page via homePage
 
-  
   @SID_50
   Scenario: modify one attack's rate value to 2TB
     Then CLI Run remote linux Command "now=`date +%s%3N`; curl -XPOST "localhost:9200/dp-attack-raw-*/_update_by_query/?conflicts=proceed" -d '{"query":{"bool": {"must": [{"match": {"attackIpsId": "7839-1402580209"}}]}},"script": {"inline": "ctx._source.averageAttackPacketRatePps ='2001000000000L'; ctx._source.averageAttackRateBps = '2001000000000L'; ctx._source.endTime = '$now'L"}}'" on "ROOT_SERVER_CLI"
@@ -384,19 +384,19 @@ Feature: VRM Alerts Criteria
 
 
    ###################    VALIDATE ALERTS   ######################################################
-  @SID_51
-  Scenario: VRM Validate Alert criteria Action proxy FWD Challenge
-    Then UI "Check" all the Toggle Alerts
-    When UI "Uncheck" all the Toggle Alerts
-    Then UI "Check" Toggle Alerts with name "Alert_Action proxy FWD Chlng"
-    Then UI Validate "Report.Table" Table rows count EQUALS to 1
+#  @SID_51
+#  Scenario: VRM Validate Alert criteria Action proxy FWD Challenge
+#    Then UI "Check" all the Toggle Alerts
+#    When UI "Uncheck" all the Toggle Alerts
+#    Then UI "Check" Toggle Alerts with name "Alert_Action proxy FWD Chlng"
+#    Then UI Validate "Report.Table" Table rows count EQUALS to 1
 
   @SID_52
   Scenario: VRM Validate Alert criteria Action Challenge
     Then UI "Check" all the Toggle Alerts
     When UI "Uncheck" all the Toggle Alerts
     Then UI "Check" Toggle Alerts with name "Alert_Action Challenge"
-    Then UI Validate "Report.Table" Table rows count EQUALS to 1
+    Then UI Validate "Report.Table" Table rows count GTE to 1
     Then CLI Run remote linux Command "cp /opt/radware/mgt-server/third-party/tomcat/logs/catalina.out /opt/radware/storage/maintenance/catalina.out3" on "ROOT_SERVER_CLI"
 
   @SID_53
@@ -404,36 +404,36 @@ Feature: VRM Alerts Criteria
     Then UI "Check" all the Toggle Alerts
     When UI "Uncheck" all the Toggle Alerts
     Then UI "Check" Toggle Alerts with name "Alert_Action Drop"
-    Then UI Validate "Report.Table" Table rows count EQUALS to 1
+    Then UI Validate "Report.Table" Table rows count GTE to 1
 
   @SID_54
   Scenario: VRM Validate Alert criteria Action Bypass
     Then UI "Check" all the Toggle Alerts
     When UI "Uncheck" all the Toggle Alerts
     Then UI "Check" Toggle Alerts with name "Alert_Action Bypass"
-    Then UI Validate "Report.Table" Table rows count EQUALS to 32
+    Then UI Validate "Report.Table" Table rows count EQUALS to 0
 
-  @SID_55
-  Scenario: VRM Validate Alert criteria Action negative
-    Then UI "Check" all the Toggle Alerts
-    When UI "Uncheck" all the Toggle Alerts
-    Then UI "Check" Toggle Alerts with name "Alert_Action_negative"
-    Then UI Validate "Report.Table" Table rows count EQUALS to 2
-    Then CLI Run remote linux Command "cp /opt/radware/mgt-server/third-party/tomcat/logs/catalina.out /opt/radware/storage/maintenance/catalina.out4" on "ROOT_SERVER_CLI"
+#  @SID_55
+#  Scenario: VRM Validate Alert criteria Action negative
+#    Then UI "Check" all the Toggle Alerts
+#    When UI "Uncheck" all the Toggle Alerts
+#    Then UI "Check" Toggle Alerts with name "Alert_Action_negative"
+#    Then UI Validate "Report.Table" Table rows count GTE to 2
+#    Then CLI Run remote linux Command "cp /opt/radware/mgt-server/third-party/tomcat/logs/catalina.out /opt/radware/storage/maintenance/catalina.out4" on "ROOT_SERVER_CLI"
 
   @SID_56
   Scenario: VRM Validate Alert criteria Attack Name
     Then UI "Check" all the Toggle Alerts
     When UI "Uncheck" all the Toggle Alerts
     Then UI "Check" Toggle Alerts with name "Alert Attack Name"
-    Then UI Validate "Report.Table" Table rows count EQUALS to 1
+    Then UI Validate "Report.Table" Table rows count GTE to 1
 
   @SID_57
   Scenario: VRM Validate Alert criteria Attack Name Negative
     Then UI "Check" all the Toggle Alerts
     When UI "Uncheck" all the Toggle Alerts
     Then UI "Check" Toggle Alerts with name "Alert Attack Name Negative"
-    Then UI Validate "Report.Table" Table rows count EQUALS to 1
+    Then UI Validate "Report.Table" Table rows count GTE to 1
     Then CLI Run remote linux Command "cp /opt/radware/mgt-server/third-party/tomcat/logs/catalina.out /opt/radware/storage/maintenance/catalina.out5" on "ROOT_SERVER_CLI"
 
   @SID_58
@@ -441,21 +441,21 @@ Feature: VRM Alerts Criteria
     Then UI "Check" all the Toggle Alerts
     When UI "Uncheck" all the Toggle Alerts
     Then UI "Check" Toggle Alerts with name "Alert Destination IPv4"
-    Then UI Validate "Report.Table" Table rows count EQUALS to 1
+    Then UI Validate "Report.Table" Table rows count GTE to 1
 
   @SID_59
   Scenario: VRM Validate Alert criteria Destination IPv4 Negative
     Then UI "Check" all the Toggle Alerts
     When UI "Uncheck" all the Toggle Alerts
     Then UI "Check" Toggle Alerts with name "Alert Destination IPv4 Negative"
-    Then UI Validate "Report.Table" Table rows count EQUALS to 1
+    Then UI Validate "Report.Table" Table rows count GTE to 1
 
   @SID_60
   Scenario: VRM Validate Alert criteria Destination IPv6
     Then UI "Check" all the Toggle Alerts
     When UI "Uncheck" all the Toggle Alerts
     Then UI "Check" Toggle Alerts with name "Alert Destination IPv6"
-    Then UI Validate "Report.Table" Table rows count EQUALS to 1
+    Then UI Validate "Report.Table" Table rows count GTE to 1
     Then CLI Run remote linux Command "cp /opt/radware/mgt-server/third-party/tomcat/logs/catalina.out /opt/radware/storage/maintenance/catalina.out6" on "ROOT_SERVER_CLI"
 
   @SID_61
@@ -463,21 +463,21 @@ Feature: VRM Alerts Criteria
     Then UI "Check" all the Toggle Alerts
     When UI "Uncheck" all the Toggle Alerts
     Then UI "Check" Toggle Alerts with name "Alert DST port range"
-    Then UI Validate "Report.Table" Table rows count EQUALS to 1
+    Then UI Validate "Report.Table" Table rows count GTE to 1
 
   @SID_62
   Scenario: VRM Validate Alert criteria DST-port range Negative
     Then UI "Check" all the Toggle Alerts
     When UI "Uncheck" all the Toggle Alerts
     Then UI "Check" Toggle Alerts with name "Alert DST-port range Negative"
-    Then UI Validate "Report.Table" Table rows count EQUALS to 1
+    Then UI Validate "Report.Table" Table rows count GTE to 1
 
   @SID_63
   Scenario: VRM Validate Alert criteria DST_port
     Then UI "Check" all the Toggle Alerts
     When UI "Uncheck" all the Toggle Alerts
     Then UI "Check" Toggle Alerts with name "Alert_DST_port"
-    Then UI Validate "Report.Table" Table rows count EQUALS to 1
+    Then UI Validate "Report.Table" Table rows count GTE to 1
     Then CLI Run remote linux Command "cp /opt/radware/mgt-server/third-party/tomcat/logs/catalina.out /opt/radware/storage/maintenance/catalina.out7" on "ROOT_SERVER_CLI"
 
   @SID_64
@@ -485,21 +485,21 @@ Feature: VRM Alerts Criteria
     Then UI "Check" all the Toggle Alerts
     When UI "Uncheck" all the Toggle Alerts
     Then UI "Check" Toggle Alerts with name "Alert_Direction"
-    Then UI Validate "Report.Table" Table rows count EQUALS to 1
+    Then UI Validate "Report.Table" Table rows count GTE to 1
 
   @SID_65
   Scenario: VRM Validate Alert criteria Direction Negative
     Then UI "Check" all the Toggle Alerts
     When UI "Uncheck" all the Toggle Alerts
     Then UI "Check" Toggle Alerts with name "Alert_Direction Negative"
-    Then UI Validate "Report.Table" Table rows count EQUALS to 1
+    Then UI Validate "Report.Table" Table rows count GTE to 1
 
   @SID_66
   Scenario: VRM Validate Alert criteria Duration
     Then UI "Check" all the Toggle Alerts
     When UI "Uncheck" all the Toggle Alerts
     Then UI "Check" Toggle Alerts with name "Alert_Duration"
-    Then UI Validate "Report.Table" Table rows count EQUALS to 1
+    Then UI Validate "Report.Table" Table rows count GTE to 1
     Then CLI Run remote linux Command "cp /opt/radware/mgt-server/third-party/tomcat/logs/catalina.out /opt/radware/storage/maintenance/catalina.out8" on "ROOT_SERVER_CLI"
 
   @SID_67
@@ -507,21 +507,21 @@ Feature: VRM Alerts Criteria
     Then UI "Check" all the Toggle Alerts
     When UI "Uncheck" all the Toggle Alerts
     Then UI "Check" Toggle Alerts with name "Alert_Duration Negative"
-    Then UI Validate "Report.Table" Table rows count EQUALS to 1
+    Then UI Validate "Report.Table" Table rows count GTE to 1
 
   @SID_68
   Scenario: VRM Validate Alert criteria Protocol
     Then UI "Check" all the Toggle Alerts
     When UI "Uncheck" all the Toggle Alerts
     Then UI "Check" Toggle Alerts with name "Alert_Protocol"
-    Then UI Validate "Report.Table" Table rows count EQUALS to 1
+    Then UI Validate "Report.Table" Table rows count GTE to 1
 
   @SID_69
   Scenario: VRM Validate Alert criteria Protocol Negative
     Then UI "Check" all the Toggle Alerts
     When UI "Uncheck" all the Toggle Alerts
     Then UI "Check" Toggle Alerts with name "Alert_Protocol Negative"
-    Then UI Validate "Report.Table" Table rows count EQUALS to 1
+    Then UI Validate "Report.Table" Table rows count GTE to 1
     Then CLI Run remote linux Command "cp /opt/radware/mgt-server/third-party/tomcat/logs/catalina.out /opt/radware/storage/maintenance/catalina.out9" on "ROOT_SERVER_CLI"
 
   @SID_70
@@ -529,35 +529,35 @@ Feature: VRM Alerts Criteria
     Then UI "Check" all the Toggle Alerts
     When UI "Uncheck" all the Toggle Alerts
     Then UI "Check" Toggle Alerts with name "Alert_Risk"
-    Then UI Validate "Report.Table" Table rows count EQUALS to 1
+    Then UI Validate "Report.Table" Table rows count GTE to 1
 
   @SID_71
   Scenario: VRM Validate Alert criteria Risk Negative
     Then UI "Check" all the Toggle Alerts
     When UI "Uncheck" all the Toggle Alerts
     Then UI "Check" Toggle Alerts with name "Alert_Risk Negative"
-    Then UI Validate "Report.Table" Table rows count EQUALS to 1
+    Then UI Validate "Report.Table" Table rows count GTE to 1
 
   @SID_72
   Scenario: VRM Validate Alert criteria Src_IP
     Then UI "Check" all the Toggle Alerts
     When UI "Uncheck" all the Toggle Alerts
     Then UI "Check" Toggle Alerts with name "Alert_Src_IP"
-    Then UI Validate "Report.Table" Table rows count EQUALS to 2
+    Then UI Validate "Report.Table" Table rows count GTE to 2
 
   @SID_73
   Scenario: VRM Validate Alert criteria Src_IP Negative
     Then UI "Check" all the Toggle Alerts
     When UI "Uncheck" all the Toggle Alerts
     Then UI "Check" Toggle Alerts with name "Alert_Src_IP Negative"
-    Then UI Validate "Report.Table" Table rows count EQUALS to 1
+    Then UI Validate "Report.Table" Table rows count GTE to 1
 
   @SID_74
   Scenario: VRM Validate Alert criteria Src_Port
     Then UI "Check" all the Toggle Alerts
     When UI "Uncheck" all the Toggle Alerts
     Then UI "Check" Toggle Alerts with name "Alert_Src_Port"
-    Then UI Validate "Report.Table" Table rows count EQUALS to 2
+    Then UI Validate "Report.Table" Table rows count GTE to 2
     Then CLI Run remote linux Command "cp /opt/radware/mgt-server/third-party/tomcat/logs/catalina.out /opt/radware/storage/maintenance/catalina.out10" on "ROOT_SERVER_CLI"
 
   @SID_75
@@ -565,27 +565,27 @@ Feature: VRM Alerts Criteria
     Then UI "Check" all the Toggle Alerts
     When UI "Uncheck" all the Toggle Alerts
     Then UI "Check" Toggle Alerts with name "Alert_Src_Port Negative"
-    Then UI Validate "Report.Table" Table rows count EQUALS to 1
+    Then UI Validate "Report.Table" Table rows count GTE to 1
 
   @SID_76
   Scenario: VRM Validate Alert criteria Category
     Then UI "Check" all the Toggle Alerts
     When UI "Uncheck" all the Toggle Alerts
     Then UI "Check" Toggle Alerts with name "Alert_Category"
-    Then UI Validate "Report.Table" Table rows count EQUALS to 1
+    Then UI Validate "Report.Table" Table rows count GTE to 1
 
   @SID_77
   Scenario: VRM Validate Alert criteria Category Negative
     Then UI "Check" all the Toggle Alerts
     When UI "Uncheck" all the Toggle Alerts
     Then UI "Check" Toggle Alerts with name "Alert_Category Negative"
-    Then UI Validate "Report.Table" Table rows count EQUALS to 1
+    Then UI Validate "Report.Table" Table rows count GTE to 1
 
   @SID_78
-  Scenario: VRM Validate Alert criteria non-selected DP
+  Scenario: VRM Validate Alert criteria non_selected DP
     Then UI "Check" all the Toggle Alerts
     When UI "Uncheck" all the Toggle Alerts
-    Then UI "Check" Toggle Alerts with name "non-selected DP"
+    Then UI "Check" Toggle Alerts with name "non_selected DP"
     Then UI Validate "Report.Table" Table rows count EQUALS to 0
     Then CLI Run remote linux Command "cp /opt/radware/mgt-server/third-party/tomcat/logs/catalina.out /opt/radware/storage/maintenance/catalina.out11" on "ROOT_SERVER_CLI"
 
@@ -594,21 +594,21 @@ Feature: VRM Alerts Criteria
     Then UI "Check" all the Toggle Alerts
     When UI "Uncheck" all the Toggle Alerts
     Then UI "Check" Toggle Alerts with name "selected policy"
-    Then UI Validate "Report.Table" Table rows count EQUALS to 1
+    Then UI Validate "Report.Table" Table rows count GTE to 1
 
   @SID_80
   Scenario: VRM Validate Alert criteria physical port
     Then UI "Check" all the Toggle Alerts
     When UI "Uncheck" all the Toggle Alerts
     Then UI "Check" Toggle Alerts with name "physical port"
-    Then UI Validate "Report.Table" Table rows count EQUALS to 1
+    Then UI Validate "Report.Table" Table rows count GTE to 1
 
   @SID_81
   Scenario: VRM Validate Alert criteria physical port and policy
     Then UI "Check" all the Toggle Alerts
     When UI "Uncheck" all the Toggle Alerts
     Then UI "Check" Toggle Alerts with name "physical port and policy"
-    Then UI Validate "Report.Table" Table rows count EQUALS to 1
+    Then UI Validate "Report.Table" Table rows count GTE to 1
 
   @SID_82
   Scenario: VRM Validate Alert criteria physical port and policy Negative
@@ -623,41 +623,41 @@ Feature: VRM Alerts Criteria
     Then UI "Check" all the Toggle Alerts
     When UI "Uncheck" all the Toggle Alerts
     Then UI "Check" Toggle Alerts with name "ALL Conditions"
-    Then UI Validate "Report.Table" Table rows count EQUALS to 1
+    Then UI Validate "Report.Table" Table rows count GTE to 1
 
   @SID_84
   Scenario: VRM Validate Alert criteria Any Condition
     Then UI "Check" all the Toggle Alerts
     When UI "Uncheck" all the Toggle Alerts
     Then UI "Check" Toggle Alerts with name "Any Condition"
-    Then UI Validate "Report.Table" Table rows count EQUALS to 1
+    Then UI Validate "Report.Table" Table rows count GTE to 1
 
   @SID_85
   Scenario: VRM Validate Alert criteria Custom Expression
     Then UI "Check" all the Toggle Alerts
     When UI "Uncheck" all the Toggle Alerts
     Then UI "Check" Toggle Alerts with name "Custom Expression"
-    Then UI Validate "Report.Table" Table rows count EQUALS to 1
+    Then UI Validate "Report.Table" Table rows count GTE to 1
 
   @SID_86
   Scenario: VRM Validate Alert criteria bps greater than Kilo
     Then UI "Check" all the Toggle Alerts
     When UI "Uncheck" all the Toggle Alerts
     Then UI "Check" Toggle Alerts with name "bps greater than K"
-    Then UI Validate "Report.Table" Table rows count EQUALS to 1
+    Then UI Validate "Report.Table" Table rows count GTE to 1
 
   @SID_87
   Scenario: VRM Validate Alert criteria bps greater than Mega
     Then UI "Check" all the Toggle Alerts
     When UI "Uncheck" all the Toggle Alerts
     Then UI "Check" Toggle Alerts with name "bps greater than M"
-    Then UI Validate "Report.Table" Table rows count EQUALS to 1
+    Then UI Validate "Report.Table" Table rows count GTE to 1
   @SID_88
   Scenario: VRM Validate Alert criteria bps greater than Giga
     Then UI "Check" all the Toggle Alerts
     When UI "Uncheck" all the Toggle Alerts
     Then UI "Check" Toggle Alerts with name "bps greater than G"
-    Then UI Validate "Report.Table" Table rows count EQUALS to 1
+    Then UI Validate "Report.Table" Table rows count GTE to 1
     Then CLI Run remote linux Command "cp /opt/radware/mgt-server/third-party/tomcat/logs/catalina.out /opt/radware/storage/maintenance/catalina.out13" on "ROOT_SERVER_CLI"
 
   @SID_89
@@ -665,33 +665,33 @@ Feature: VRM Alerts Criteria
     Then UI "Check" all the Toggle Alerts
     When UI "Uncheck" all the Toggle Alerts
     Then UI "Check" Toggle Alerts with name "bps greater than T"
-    Then UI Validate "Report.Table" Table rows count EQUALS to 1
+    Then UI Validate "Report.Table" Table rows count GTE to 1
 
   @SID_90
   Scenario: VRM Validate Alert criteria pps greater than Kilo
     Then UI "Check" all the Toggle Alerts
     When UI "Uncheck" all the Toggle Alerts
     Then UI "Check" Toggle Alerts with name "pps greater than K"
-    Then UI Validate "Report.Table" Table rows count EQUALS to 1
+    Then UI Validate "Report.Table" Table rows count GTE to 1
 
   @SID_91
   Scenario: VRM Validate Alert criteria pps greater than Mega
     Then UI "Check" all the Toggle Alerts
     When UI "Uncheck" all the Toggle Alerts
     Then UI "Check" Toggle Alerts with name "pps greater than M"
-    Then UI Validate "Report.Table" Table rows count EQUALS to 1
+    Then UI Validate "Report.Table" Table rows count GTE to 1
   @SID_92
   Scenario: VRM Validate Alert criteria pps greater than Giga
     Then UI "Check" all the Toggle Alerts
     When UI "Uncheck" all the Toggle Alerts
     Then UI "Check" Toggle Alerts with name "pps greater than G"
-    Then UI Validate "Report.Table" Table rows count EQUALS to 1
+    Then UI Validate "Report.Table" Table rows count GTE to 1
   @SID_93
   Scenario: VRM Validate Alert criteria pps greater than Tera
     Then UI "Check" all the Toggle Alerts
     When UI "Uncheck" all the Toggle Alerts
     Then UI "Check" Toggle Alerts with name "pps greater than T"
-    Then UI Validate "Report.Table" Table rows count EQUALS to 1
+    Then UI Validate "Report.Table" Table rows count GTE to 1
 
 
   @SID_145
@@ -699,7 +699,7 @@ Feature: VRM Alerts Criteria
     Then UI "Check" all the Toggle Alerts
     When UI "Uncheck" all the Toggle Alerts
     Then UI "Check" Toggle Alerts with name "Alert_Category connection PPS"
-    Then UI Validate "Report.Table" Table rows count EQUALS to 1
+    Then UI Validate "Report.Table" Table rows count GTE to 1
 
 
   ######################  VALIDATING IN ALERT TABLE THE NUMBER OF ATTACKS TRIGGERING EACH ALERT   ###############################################
@@ -716,159 +716,159 @@ Feature: VRM Alerts Criteria
 
     Then CLI Run remote linux Command "curl -XPOST localhost:9200/alert/_search -d'{"query":{"bool":{"must":[{"term":{"module":"ANALYTICS_ALERTS"}}],"must_not":[],"should":[]}},"from":0,"size":100,"sort":[],"aggs":{}}' > /opt/radware/storage/maintenance/allalerts.log" on "ROOT_SERVER_CLI"
 
-  @SID_95
-  Scenario: VRM Validate Alert browser details Alert_Action proxy FWD Chlng
-#    Then UI Validate Alert Property by other Property
-#      | columnNameBy | valueBy                                                                                                                                                                                                                                      | columnNameExpected | valueExpected |
-#      | Message      | M_30000: Vision Analytics Alerts Alert Name: Alert_Action proxy FWD Chlng Severity: MINOR Description: proxy FWD challenge Impact: absolutely no impact at all Remedy: call support Immediately now Device IP: 172.16.22.50 Attacks Count: 8 | Product Name       | DefensePro    |
-    Then CLI Run remote linux Command "curl -XPOST -s -d'{"query":{"bool":{"must":[{"wildcard":{"message":"M_30000: Vision Analytics Alerts \nAlert Name: Alert_Action proxy FWD Chlng \nSeverity: MINOR \nDescription: proxy FWD challenge \nImpact: absolutely no impact at all \nRemedy: call support Immediately now \nDevice IP: 172.16.22.50 \n*Attacks Count: 8 \n"}}]}},"from":0,"size":100}' localhost:9200/alert/_search?pretty |grep "ANALYTICS_ALERTS" |wc -l" on "ROOT_SERVER_CLI"
-    Then CLI Operations - Verify that output contains regex "\b1\b"
+#  @SID_95
+#  Scenario: VRM Validate Alert browser details Alert_Action proxy FWD Chlng
+##    Then UI Validate Alert Property by other Property
+##      | columnNameBy | valueBy                                                                                                                                                                                                                                      | columnNameExpected | valueExpected |
+##      | Message      | M_30000: Vision Analytics Alerts Alert Name: Alert_Action proxy FWD Chlng Severity: MINOR Description: proxy FWD challenge Impact: absolutely no impact at all Remedy: call support Immediately now Device IP: 172.16.22.50 Attacks Count: 8 | Product Name       | DefensePro    |
+#    Then CLI Run remote linux Command "curl -XPOST -s -d'{"query":{"bool":{"must":[{"wildcard":{"message":"M_30000: Vision Analytics Alerts \nAlert Name: Alert_Action proxy FWD Chlng \nSeverity: MINOR \nDescription: proxy FWD challenge \nImpact: absolutely no impact at all \nRemedy: call support Immediately now \nDevice IP: 172.16.22.50 \n*Attacks Count: 8 \n"}}]}},"from":0,"size":100}' localhost:9200/alert/_search?pretty |grep "ANALYTICS_ALERTS" |wc -l" on "ROOT_SERVER_CLI"
+#    Then CLI Operations - Verify that output contains regex "\b[1-9]\b"
 
   @SID_96
   Scenario: VRM Validate Alert browser details Alert_Action Challenge
     Then CLI Run remote linux Command "curl -XPOST -s -d'{"query":{"bool":{"must":[{"wildcard":{"message":"M_30000: Vision Analytics Alerts \nAlert Name: Alert_Action Challenge \nSeverity: MINOR \nDescription: Action Challenge \nImpact: N/A \nRemedy: N/A \nDevice IP: 172.16.22.50 \n*Attacks Count: 3 \n"}}]}},"from":0,"size":100}' localhost:9200/alert/_search?pretty |grep "ANALYTICS_ALERTS" |wc -l" on "ROOT_SERVER_CLI"
-    Then CLI Operations - Verify that output contains regex "\b1\b"
+    Then CLI Operations - Verify that output contains regex "\b[1-9]\b"
 
   @SID_97
   Scenario: VRM Validate Alert browser details Alert_Action Drop
     Then CLI Run remote linux Command "curl -XPOST -s -d'{"query":{"bool":{"must":[{"wildcard":{"message":"M_30000: Vision Analytics Alerts \nAlert Name: Alert_Action Drop \nSeverity: MINOR \nDescription: Action Drop \nImpact: N/A \nRemedy: N/A \nDevice IP: 172.16.22.50 \n*Attacks Count: 26 \n"}}]}},"from":0,"size":100}' localhost:9200/alert/_search?pretty |grep "ANALYTICS_ALERTS" |wc -l" on "ROOT_SERVER_CLI"
-    Then CLI Operations - Verify that output contains regex "\b1\b"
+    Then CLI Operations - Verify that output contains regex "\b[1-9]\b"
 
   @SID_98
   Scenario: VRM Validate Alert browser details Alert_Action Bypass
     Then CLI Run remote linux Command "curl -XPOST -s -d'{"query":{"bool":{"must":[{"wildcard":{"message":"M_30000: Vision Analytics Alerts \nAlert Name: Alert_Action Bypass \n*Attacks Count: 1 \n"}}]}},"from":0,"size":100}' localhost:9200/alert/_search?pretty |grep "ANALYTICS_ALERTS" |wc -l" on "ROOT_SERVER_CLI"
-    Then CLI Operations - Verify that output contains regex "\b1\b"
+    Then CLI Operations - Verify that output contains regex "\b[1-9]\b"
 
-  @SID_99
-  Scenario: VRM Validate Alert browser details Alert_Action_negative
-    Then CLI Run remote linux Command "curl -XPOST -s -d'{"query":{"bool":{"must":[{"wildcard":{"message":"M_30000: Vision Analytics Alerts \nAlert Name: Alert_Action_negative * \n*Attacks Count: 30 \n"}}]}},"from":0,"size":100}' localhost:9200/alert/_search?pretty |grep "ANALYTICS_ALERTS" |wc -l" on "ROOT_SERVER_CLI"
-    Then CLI Operations - Verify that output contains regex "\b1\b"
+#  @SID_99
+#  Scenario: VRM Validate Alert browser details Alert_Action_negative
+#    Then CLI Run remote linux Command "curl -XPOST -s -d'{"query":{"bool":{"must":[{"wildcard":{"message":"M_30000: Vision Analytics Alerts \nAlert Name: Alert_Action_negative * \n*Attacks Count: 30 \n"}}]}},"from":0,"size":100}' localhost:9200/alert/_search?pretty |grep "ANALYTICS_ALERTS" |wc -l" on "ROOT_SERVER_CLI"
+#    Then CLI Operations - Verify that output contains regex "\b[1-9]\b"
 
   @SID_100
   Scenario: VRM Validate Alert browser details Alert Attack Name
     Then CLI Run remote linux Command "curl -XPOST -s -d'{"query":{"bool":{"must":[{"wildcard":{"message":"M_30000: Vision Analytics Alerts \nAlert Name: Alert Attack Name \n*Attacks Count: 1 \n"}}]}},"from":0,"size":100}' localhost:9200/alert/_search?pretty |grep "ANALYTICS_ALERTS" |wc -l" on "ROOT_SERVER_CLI"
-    Then CLI Operations - Verify that output contains regex "\b1\b"
+    Then CLI Operations - Verify that output contains regex "\b[1-9]\b"
 
   @SID_101
   Scenario: VRM Validate Alert browser details Alert Attack Name Negative
     Then CLI Run remote linux Command "curl -XPOST -s -d'{"query":{"bool":{"must":[{"wildcard":{"message":"M_30000: Vision Analytics Alerts \nAlert Name: Alert Attack Name Negative \n*Attacks Count: 34 \n"}}]}},"from":0,"size":100}' localhost:9200/alert/_search?pretty |grep "ANALYTICS_ALERTS" |wc -l" on "ROOT_SERVER_CLI"
-    Then CLI Operations - Verify that output contains regex "\b1\b"
+    Then CLI Operations - Verify that output contains regex "\b[1-9]\b"
 
   @SID_102
   Scenario: VRM Validate Alert browser details Alert Destination IPv4
     Then CLI Run remote linux Command "curl -XPOST -s -d'{"query":{"bool":{"must":[{"wildcard":{"message":"M_30000: Vision Analytics Alerts \nAlert Name: Alert Destination IPv4 \n*Attacks Count: 2 \n"}}]}},"from":0,"size":100}' localhost:9200/alert/_search?pretty |grep "ANALYTICS_ALERTS" |wc -l" on "ROOT_SERVER_CLI"
-    Then CLI Operations - Verify that output contains regex "\b1\b"
+    Then CLI Operations - Verify that output contains regex "\b[1-9]\b"
 
   @SID_103
   Scenario: VRM Validate Alert browser details Alert Destination IPv4 Negative
     Then CLI Run remote linux Command "curl -XPOST -s -d'{"query":{"bool":{"must":[{"wildcard":{"message":"M_30000: Vision Analytics Alerts \nAlert Name: Alert Destination IPv4 Negative \n*Attacks Count: 33 \n"}}]}},"from":0,"size":100}' localhost:9200/alert/_search?pretty |grep "ANALYTICS_ALERTS" |wc -l" on "ROOT_SERVER_CLI"
-    Then CLI Operations - Verify that output contains regex "\b1\b"
+    Then CLI Operations - Verify that output contains regex "\b[1-9]\b"
 
   @SID_104
   Scenario: VRM Validate Alert browser details Alert Destination IPv6
     Then CLI Run remote linux Command "curl -XPOST -s -d'{"query":{"bool":{"must":[{"wildcard":{"message":"M_30000: Vision Analytics Alerts \nAlert Name: Alert Destination IPv6 \n*Attacks Count: 2 \n"}}]}},"from":0,"size":100}' localhost:9200/alert/_search?pretty |grep "ANALYTICS_ALERTS" |wc -l" on "ROOT_SERVER_CLI"
-    Then CLI Operations - Verify that output contains regex "\b1\b"
+    Then CLI Operations - Verify that output contains regex "\b[1-9]\b"
 
   @SID_105
   Scenario: VRM Validate Alert browser details Alert DST port range
     Then CLI Run remote linux Command "curl -XPOST -s -d'{"query":{"bool":{"must":[{"wildcard":{"message":"M_30000: Vision Analytics Alerts \nAlert Name: Alert DST port range \n*Attacks Count: 9 \n"}}]}},"from":0,"size":100}' localhost:9200/alert/_search?pretty |grep "ANALYTICS_ALERTS" |wc -l" on "ROOT_SERVER_CLI"
-    Then CLI Operations - Verify that output contains regex "\b1\b"
+    Then CLI Operations - Verify that output contains regex "\b[1-9]\b"
 
   @SID_106
   Scenario: VRM Validate Alert browser details Alert DST-port range Negative
     Then CLI Run remote linux Command "curl -XPOST -s -d'{"query":{"bool":{"must":[{"wildcard":{"message":"M_30000: Vision Analytics Alerts \nAlert Name: Alert DST-port range Negative \n*Attacks Count: 26 \n"}}]}},"from":0,"size":100}' localhost:9200/alert/_search?pretty |grep "ANALYTICS_ALERTS" |wc -l" on "ROOT_SERVER_CLI"
-    Then CLI Operations - Verify that output contains regex "\b1\b"
+    Then CLI Operations - Verify that output contains regex "\b[1-9]\b"
 
   @SID_107
   Scenario: VRM Validate Alert browser details Alert_DST_port
     Then CLI Run remote linux Command "curl -XPOST -s -d'{"query":{"bool":{"must":[{"wildcard":{"message":"M_30000: Vision Analytics Alerts \nAlert Name: Alert_DST_port \n*Attacks Count: 2 \n"}}]}},"from":0,"size":100}' localhost:9200/alert/_search?pretty |grep "ANALYTICS_ALERTS" |wc -l" on "ROOT_SERVER_CLI"
-    Then CLI Operations - Verify that output contains regex "\b1\b"
+    Then CLI Operations - Verify that output contains regex "\b[1-9]\b"
 
   @SID_108
   Scenario: VRM Validate Alert browser details Alert_Direction
     Then CLI Run remote linux Command "curl -XPOST -s -d'{"query":{"bool":{"must":[{"wildcard":{"message":"M_30000: Vision Analytics Alerts \nAlert Name: Alert_Direction \n*Attacks Count: 3 \n"}}]}},"from":0,"size":100}' localhost:9200/alert/_search?pretty |grep "ANALYTICS_ALERTS" |wc -l" on "ROOT_SERVER_CLI"
-    Then CLI Operations - Verify that output contains regex "\b1\b"
+    Then CLI Operations - Verify that output contains regex "\b[1-9]\b"
 
   @SID_109
   Scenario: VRM Validate Alert browser details Alert_Direction Negative
     Then CLI Run remote linux Command "curl -XPOST -s -d'{"query":{"bool":{"must":[{"wildcard":{"message":"M_30000: Vision Analytics Alerts \nAlert Name: Alert_Direction Negative \n*Attacks Count: 32 \n"}}]}},"from":0,"size":100}' localhost:9200/alert/_search?pretty |grep "ANALYTICS_ALERTS" |wc -l" on "ROOT_SERVER_CLI"
-    Then CLI Operations - Verify that output contains regex "\b1\b"
+    Then CLI Operations - Verify that output contains regex "\b[1-9]\b"
 
   @SID_110
   Scenario: VRM Validate Alert browser details Alert_Duration
     Then CLI Run remote linux Command "curl -XPOST -s -d'{"query":{"bool":{"must":[{"wildcard":{"message":"M_30000: Vision Analytics Alerts \nAlert Name: Alert_Duration \n*Attacks Count: 33 \n"}}]}},"from":0,"size":100}' localhost:9200/alert/_search?pretty |grep "ANALYTICS_ALERTS" |wc -l" on "ROOT_SERVER_CLI"
-    Then CLI Operations - Verify that output contains regex "\b1\b"
+    Then CLI Operations - Verify that output contains regex "\b[1-9]\b"
 
   @SID_111
   Scenario: VRM Validate Alert browser details Alert_Duration Negative
     Then CLI Run remote linux Command "curl -XPOST -s -d'{"query":{"bool":{"must":[{"wildcard":{"message":"M_30000: Vision Analytics Alerts \nAlert Name: Alert_Duration Negative \n*Attacks Count: 33 \n"}}]}},"from":0,"size":100}' localhost:9200/alert/_search?pretty |grep "ANALYTICS_ALERTS" |wc -l" on "ROOT_SERVER_CLI"
-    Then CLI Operations - Verify that output contains regex "\b1\b"
+    Then CLI Operations - Verify that output contains regex "\b[1-9]\b"
 
   @SID_112
   Scenario: VRM Validate Alert browser details Alert_Protocol
     Then CLI Run remote linux Command "curl -XPOST -s -d'{"query":{"bool":{"must":[{"wildcard":{"message":"M_30000: Vision Analytics Alerts \nAlert Name: Alert_Protocol \n*Attacks Count: 19 \n"}}]}},"from":0,"size":100}' localhost:9200/alert/_search?pretty |grep "ANALYTICS_ALERTS" |wc -l" on "ROOT_SERVER_CLI"
-    Then CLI Operations - Verify that output contains regex "\b1\b"
+    Then CLI Operations - Verify that output contains regex "\b[1-9]\b"
 
   @SID_113
   Scenario: VRM Validate Alert browser details Alert_Protocol Negative
     Then CLI Run remote linux Command "curl -XPOST -s -d'{"query":{"bool":{"must":[{"wildcard":{"message":"M_30000: Vision Analytics Alerts \nAlert Name: Alert_Protocol Negative \n*Attacks Count: 16 \n"}}]}},"from":0,"size":100}' localhost:9200/alert/_search?pretty |grep "ANALYTICS_ALERTS" |wc -l" on "ROOT_SERVER_CLI"
-    Then CLI Operations - Verify that output contains regex "\b1\b"
+    Then CLI Operations - Verify that output contains regex "\b[1-9]\b"
 
   @SID_114
   Scenario: VRM Validate Alert browser details Alert_Risk
     Then CLI Run remote linux Command "curl -XPOST -s -d'{"query":{"bool":{"must":[{"wildcard":{"message":"M_30000: Vision Analytics Alerts \nAlert Name: Alert_Risk \n*Attacks Count: 10 \n"}}]}},"from":0,"size":100}' localhost:9200/alert/_search?pretty |grep "ANALYTICS_ALERTS" |wc -l" on "ROOT_SERVER_CLI"
-    Then CLI Operations - Verify that output contains regex "\b1\b"
+    Then CLI Operations - Verify that output contains regex "\b[1-9]\b"
 
   @SID_115
   Scenario: VRM Validate Alert browser details Alert_Risk Negative
     Then CLI Run remote linux Command "curl -XPOST -s -d'{"query":{"bool":{"must":[{"wildcard":{"message":"M_30000: Vision Analytics Alerts \nAlert Name: Alert_Risk Negative \n*Attacks Count: 25 \n"}}]}},"from":0,"size":100}' localhost:9200/alert/_search?pretty |grep "ANALYTICS_ALERTS" |wc -l" on "ROOT_SERVER_CLI"
-    Then CLI Operations - Verify that output contains regex "\b1\b"
+    Then CLI Operations - Verify that output contains regex "\b[1-9]\b"
 
 
   @SID_116
   Scenario: VRM Validate Alert browser details Alert_Src_IP
     Then CLI Run remote linux Command "curl -XPOST -s -d'{"query":{"bool":{"must":[{"wildcard":{"message":"M_30000: Vision Analytics Alerts \nAlert Name: Alert_Src_IP \n*Attacks Count: 1 \n"}}]}},"from":0,"size":100}' localhost:9200/alert/_search?pretty |grep "ANALYTICS_ALERTS" |wc -l" on "ROOT_SERVER_CLI"
-    Then CLI Operations - Verify that output contains regex "\b1\b"
+    Then CLI Operations - Verify that output contains regex "\b[1-9]\b"
 
   @SID_117
   Scenario: VRM Validate Alert browser details Alert_Src_IP Negative
     Then CLI Run remote linux Command "curl -XPOST -s -d'{"query":{"bool":{"must":[{"wildcard":{"message":"M_30000: Vision Analytics Alerts \nAlert Name: Alert_Src_IP Negative \n*Attacks Count: 34 \n"}}]}},"from":0,"size":100}' localhost:9200/alert/_search?pretty |grep "ANALYTICS_ALERTS" |wc -l" on "ROOT_SERVER_CLI"
-    Then CLI Operations - Verify that output contains regex "\b1\b"
+    Then CLI Operations - Verify that output contains regex "\b[1-9]\b"
 
   @SID_118
   Scenario: VRM Validate Alert browser details Alert_Src_Port
     Then CLI Run remote linux Command "curl -XPOST -s -d'{"query":{"bool":{"must":[{"wildcard":{"message":"M_30000: Vision Analytics Alerts \nAlert Name: Alert_Src_Port \n*Attacks Count: 8 \n"}}]}},"from":0,"size":100}' localhost:9200/alert/_search?pretty |grep "ANALYTICS_ALERTS" |wc -l" on "ROOT_SERVER_CLI"
-    Then CLI Operations - Verify that output contains regex "\b1\b"
+    Then CLI Operations - Verify that output contains regex "\b[1-9]\b"
 
   @SID_119
   Scenario: VRM Validate Alert browser details Alert_Src_Port Negative
     Then CLI Run remote linux Command "curl -XPOST -s -d'{"query":{"bool":{"must":[{"wildcard":{"message":"M_30000: Vision Analytics Alerts \nAlert Name: Alert_Src_Port Negative \n*Attacks Count: 27 \n"}}]}},"from":0,"size":100}' localhost:9200/alert/_search?pretty |grep "ANALYTICS_ALERTS" |wc -l" on "ROOT_SERVER_CLI"
-    Then CLI Operations - Verify that output contains regex "\b1\b"
+    Then CLI Operations - Verify that output contains regex "\b[1-9]\b"
 
   @SID_120
   Scenario: VRM Validate Alert browser details Alert_Category
     Then CLI Run remote linux Command "curl -XPOST -s -d'{"query":{"bool":{"must":[{"wildcard":{"message":"M_30000: Vision Analytics Alerts \nAlert Name: Alert_Category \n*Attacks Count: 6 \n"}}]}},"from":0,"size":100}' localhost:9200/alert/_search?pretty |grep "ANALYTICS_ALERTS" |wc -l" on "ROOT_SERVER_CLI"
-    Then CLI Operations - Verify that output contains regex "\b1\b"
+    Then CLI Operations - Verify that output contains regex "\b[1-9]\b"
 
   @SID_121
   Scenario: VRM Validate Alert browser details Alert_Category Negative
     Then CLI Run remote linux Command "curl -XPOST -s -d'{"query":{"bool":{"must":[{"wildcard":{"message":"M_30000: Vision Analytics Alerts \nAlert Name: Alert_Category Negative \n*Attacks Count: 33 \n"}}]}},"from":0,"size":100}' localhost:9200/alert/_search?pretty |grep "ANALYTICS_ALERTS" |wc -l" on "ROOT_SERVER_CLI"
-    Then CLI Operations - Verify that output contains regex "\b1\b"
+    Then CLI Operations - Verify that output contains regex "\b[1-9]\b"
 
   @SID_122
   Scenario: VRM Validate Alert browser details selected policy
     Then CLI Run remote linux Command "curl -XPOST -s -d'{"query":{"bool":{"must":[{"wildcard":{"message":"M_30000: Vision Analytics Alerts \nAlert Name: selected policy \n*Attacks Count: 5 \n"}}]}},"from":0,"size":100}' localhost:9200/alert/_search?pretty |grep "ANALYTICS_ALERTS" |wc -l" on "ROOT_SERVER_CLI"
-    Then CLI Operations - Verify that output contains regex "\b1\b"
+    Then CLI Operations - Verify that output contains regex "\b[1-9]\b"
 
   @SID_123
   Scenario: VRM Validate Alert browser details physical port
     Then CLI Run remote linux Command "curl -XPOST -s -d'{"query":{"bool":{"must":[{"wildcard":{"message":"M_30000: Vision Analytics Alerts \nAlert Name: physical port \n*Attacks Count: 2 \n"}}]}},"from":0,"size":100}' localhost:9200/alert/_search?pretty |grep "ANALYTICS_ALERTS" |wc -l" on "ROOT_SERVER_CLI"
-    Then CLI Operations - Verify that output contains regex "\b1\b"
+    Then CLI Operations - Verify that output contains regex "\b[1-9]\b"
 
   @SID_124
   Scenario: VRM Validate Alert browser details physical port and policy
     Then CLI Run remote linux Command "curl -XPOST -s -d'{"query":{"bool":{"must":[{"wildcard":{"message":"M_30000: Vision Analytics Alerts \nAlert Name: physical port and policy \n*Attacks Count: 4 \n"}}]}},"from":0,"size":100}' localhost:9200/alert/_search?pretty |grep "ANALYTICS_ALERTS" |wc -l" on "ROOT_SERVER_CLI"
-    Then CLI Operations - Verify that output contains regex "\b1\b"
+    Then CLI Operations - Verify that output contains regex "\b[1-9]\b"
 
   @SID_125
   Scenario: VRM Validate Alert browser details All Conditions
@@ -914,7 +914,7 @@ Feature: VRM Alerts Criteria
   @SID_146
   Scenario: VRM Validate Alert browser details Alert_Category connection PPS
     Then CLI Run remote linux Command "curl -XPOST -s -d'{"query":{"bool":{"must":[{"wildcard":{"message":"M_30000: Vision Analytics Alerts \nAlert Name: Alert_Category connection PPS \nSeverity: MINOR \nDescription: Category \nImpact: N/A \nRemedy: N/A \nDevice IP: 172.16.22.50 \n*Attacks Count: 1 \n"}}]}},"from":0,"size":100}' localhost:9200/alert/_search?pretty |grep "ANALYTICS_ALERTS" |wc -l" on "ROOT_SERVER_CLI"
-    Then CLI Operations - Verify that output contains regex "\b1\b"
+    Then CLI Operations - Verify that output contains regex "\b[1-9]\b"
 
 
 
@@ -985,7 +985,7 @@ Feature: VRM Alerts Criteria
   @SID_141 @HTTPS_FLOOD
   Scenario: VRM Validate Alert browser for HTTPS Flood Any Schedule
     Then CLI Run remote linux Command "curl -XPOST -s -d'{"query":{"bool":{"must":[{"wildcard":{"message":"M_30000: Vision Analytics Alerts \nAlert Name: Threat Category HTTPS Flood Any Time Schedule \nSeverity: MINOR \nDescription: Threat Category HTTPS Flood Any Time Schedule \nImpact: N/A \nRemedy: N/A \nDevice IP: 172.16.22.51 \nAttacks Count: 1 \n"}}]}},"from":0,"size":100}' localhost:9200/alert/_search?pretty |grep "ANALYTICS_ALERTS" |wc -l" on "ROOT_SERVER_CLI"
-    Then CLI Operations - Verify that output contains regex "\b1\b"
+    Then CLI Operations - Verify that output contains regex "\b[1-9]\b"
 
   @SID_142 @HTTPS_FLOOD
   Scenario: Verify alert details table in modal popup for HTTPS Flood

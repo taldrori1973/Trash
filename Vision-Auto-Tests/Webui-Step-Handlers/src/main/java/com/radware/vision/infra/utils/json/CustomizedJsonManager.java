@@ -101,10 +101,30 @@ public class CustomizedJsonManager {
         String valueBetweenBrackets = value.substring(1, value.length() - 1);
         List<String> eachValue = Arrays.asList(valueBetweenBrackets.split(","));
         StringJoiner result = new StringJoiner(",", "[", "]");
-        for (int i = 0; i < eachValue.size(); i++) {
-            result.add("\"" + eachValue.get(i) + "\"");
+        for (String s : eachValue) {
+            String res="";
+            s=s.trim();
+            if (s.contains(":") && (s.contains("{")|| s.contains("[") || s.contains("]") || s.contains("}"))) {
+                String[] stringArray = s.split(":");
+                for (String stringValue : stringArray)
+                {
+                    String fixWord = "";
+                    stringValue = stringValue.trim();
+                    fixWord = stringValue.startsWith("[")|stringValue.startsWith("{")? stringValue.split(stringValue.split("^(\\[|\\{)+")[1])[0] + "\"" +  stringValue.split("^(\\[|\\{)+")[1].trim() : "\"" + stringValue.trim();
+                    fixWord = fixWord.replaceAll("[\\p{Cf}]","").trim();
+                    fixWord = fixWord.endsWith("}")|fixWord.endsWith("]")? fixWord.split("(\\]+|}+)+$")[0].trim() + "\"" + fixWord.substring(fixWord.split("(\\]+|}+)+$")[0].trim().length())
+                            : fixWord.trim() + "\"";
+                    res+= (res.equalsIgnoreCase("")?"":":") + fixWord.trim();
+                }
+            } else {
+                res = s.startsWith("{") || s.startsWith("{")? s.split(s.split("^(\\[|\\{)+")[0])[0].trim() + "\"" + s.split("^(\\[|\\{)+")[0].trim():"\"" + s.trim();
+                res = res.replaceAll("[\\p{Cf}]","").trim();
+                res = res.endsWith("}") | res.endsWith("]") ? res.split("(\\]+|}+)+$")[0].trim()  + "\"" + res.substring(res.split("(\\]+|}+)+$")[0].trim().length()): res.trim() + "\"";
+            }
+            result.add(res);
         }
-        return result.toString();
+        return (new StringBuilder(result.toString()).chars().filter(ch->ch=='[').count()+1 == new StringBuilder(result.toString()).chars().filter(ch->ch==']').count()?
+                result.toString().substring(0, result.toString().length()-1): result.toString());
 
     }
 
@@ -114,18 +134,13 @@ public class CustomizedJsonManager {
         //Reconnect the string arrays
         for (int i = 0; i < childObjects.size(); i++) {
             String currentValue = childObjects.get(i);
-            if (currentValue.contains("[") && !currentValue.contains("]")) {
-                String temp = "";
-                while (!currentValue.contains("]")) {
-                    temp += currentValue + ",";
+                StringBuilder temp = new StringBuilder(currentValue);
+                while (temp.chars().filter(ch -> ch == '[').count()!= temp.chars().filter(ch -> ch == ']').count()) {
                     i++;
                     currentValue = childObjects.get(i);
+                    temp.append(",").append(currentValue);
                 }
-                temp += currentValue;
-
-                list.add(temp);
-            } else list.add(currentValue);
-
+                list.add(temp.toString());
         }
 
         return list;

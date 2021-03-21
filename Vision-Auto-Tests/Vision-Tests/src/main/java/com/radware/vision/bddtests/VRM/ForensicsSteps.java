@@ -1,14 +1,17 @@
 package com.radware.vision.bddtests.VRM;
 
 
+import com.radware.vision.automation.VisionAutoInfra.CLIInfra.Servers.RootServerCli;
+import com.radware.vision.base.TestBase;
 import com.radware.vision.bddtests.BddUITestBase;
-import com.radware.vision.infra.testhandlers.ams.ForensicsHandler;
-import com.radware.vision.infra.testhandlers.ams.enums.vrmActions;
+import com.radware.vision.infra.testhandlers.vrm.ForensicsHandler;
+import com.radware.vision.infra.testhandlers.vrm.enums.vrmActions;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Optional;
 
 public class ForensicsSteps extends BddUITestBase {
     private ForensicsHandler forensicsHandler = new ForensicsHandler();
@@ -73,7 +76,11 @@ public class ForensicsSteps extends BddUITestBase {
      * */
     @Given("^UI \"(Create|Validate|Edit|Generate|Isexist)\" Forensics With Name \"([^\"]*)\"( negative)?$")
     public void uiReportWithName(vrmActions operationType, String reportName, String negative, Map<String,String> reportsEntry) throws Throwable {
-        forensicsHandler.VRMForensicsOperation(operationType, reportName, reportsEntry, restTestBase.getRootServerCli());
+        Optional<RootServerCli> rootServerCliOpt = TestBase.getServersManagement().getRootServerCLI();
+        if (!rootServerCliOpt.isPresent()) {
+            throw new Exception("Root Server Not found!");
+        }
+        forensicsHandler.VRMForensicsOperation(operationType, reportName, reportsEntry, rootServerCliOpt.get());
     }
 
     @Then("^UI Validate max generate Forensics is (\\d+)$")
@@ -86,6 +93,10 @@ public class ForensicsSteps extends BddUITestBase {
         Map<String,String> map=new HashMap<>();
         map.put("validation",Validate);
         map.put("timeout",String.valueOf(timeout));
-        forensicsHandler.VRMForensicsOperation(vrmActions.GENERATE,reportName,map,restTestBase.getRootServerCli());
+        Optional<RootServerCli> rootServerCliOpt = TestBase.getServersManagement().getRootServerCLI();
+        if (!rootServerCliOpt.isPresent()) {
+            throw new Exception("Root Server Not found!");
+        }
+        forensicsHandler.VRMForensicsOperation(vrmActions.GENERATE,reportName,map,rootServerCliOpt.get());
     }
 }

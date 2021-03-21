@@ -2,7 +2,7 @@ package com.radware.vision.bddtests.rest;
 
 import com.radware.automation.tools.basetest.BaseTestUtils;
 import com.radware.automation.tools.basetest.Reporter;
-import com.radware.vision.infra.testhandlers.ams.AMSHandler;
+import com.radware.vision.infra.testhandlers.vrm.VRMHandler;
 import com.radware.vision.infra.testresthandlers.DefenseProRESTHandler;
 import cucumber.api.java.en.And;
 import cucumber.api.java.en.Given;
@@ -27,7 +27,7 @@ public class DefenseProRESTSteps {
     }
 
     @Given("^Rest Add Policy \"([^\"]*)\" To DP if Not Exist$")
-    public void restAddPolicyToDPIfNotExist(String policyName, List<AMSHandler.DpDeviceFilter> entries ) {
+    public void restAddPolicyToDPIfNotExist(String policyName, List<VRMHandler.DpDeviceFilter> entries ) {
         DefenseProRESTHandler.addNewPolicy(policyName, entries);
     }
 
@@ -39,7 +39,7 @@ public class DefenseProRESTSteps {
     }
 
     @Given("^Rest delete Policy \"([^\"]*)\" from DP if Exist$")
-    public void restDeletePolicyFromDPIfNotExist(String policyName, List<AMSHandler.DpDeviceFilter> entries) {
+    public void restDeletePolicyFromDPIfNotExist(String policyName, List<VRMHandler.DpDeviceFilter> entries) {
         DefenseProRESTHandler.deletePolicy(policyName, entries);
     }
 
