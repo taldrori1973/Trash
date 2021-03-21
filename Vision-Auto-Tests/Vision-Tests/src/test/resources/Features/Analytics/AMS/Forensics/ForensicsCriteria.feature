@@ -108,7 +108,7 @@ Feature: Forensic Criteria Tests
     Then UI Click Button "Generate Snapshot Forensics Manually" with value "Not Destination IP Criteria"
     Then Sleep "35"
     And UI Click Button "Views.Forensic" with value "Not Destination IP Criteria,0"
-    Then UI Validate "Forensics.Table" Table rows count GTE to 32
+    Then UI Validate "Forensics.Table" Table rows count GTE to 20
     Then UI Delete Forensics With Name "Not Destination IP Criteria"
 
   @SID_10
@@ -296,7 +296,7 @@ Feature: Forensic Criteria Tests
     Then UI Click Button "Generate Snapshot Forensics Manually" with value "Not Source IP Criteria"
     Then Sleep "35"
     And UI Click Button "Views.Forensic" with value "Not Source IP Criteria,0"
-    Then UI Validate "Forensics.Table" Table rows count GTE to 28
+    Then UI Validate "Forensics.Table" Table rows count GTE to 20
     Then UI Delete Forensics With Name "Not Source IP Criteria"
 
   @SID_24
