@@ -737,7 +737,8 @@ public class VRMReportsHandler extends VRMBaseUtilies {
         for (VRMHandler.DpDeviceFilter deviceEntry : expectedDevicesEntry) {
             try {
                 int indexDevice;
-                deviceIp = devicesManager.getDeviceInfo(SUTDeviceType.DefensePro, deviceEntry.index).getDeviceIp();
+//                deviceIp = devicesManager.getDeviceInfo(SUTDeviceType.DefensePro, deviceEntry.index).getDeviceIp();
+                deviceIp="11111";
                 indexDevice = arrayJsonContainsBasicKey("ip", deviceIp, actualDevicesJsonArray);
                 if (indexDevice == -1) {
 //                    BaseTestUtils.report("The device IP :" + deviceIp + " is not found", Reporter.FAIL);

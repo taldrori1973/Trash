@@ -221,13 +221,13 @@ public class VRMBaseUtilies {
             }
         }
         List<VRMHandler.DpDeviceFilter> devicesEntries = new ArrayList<>();
-        for (int i = 0; i < devicesJsonArray.length(); i++) {
-            VRMHandler.DpDeviceFilter deviceEntry = new VRMHandler.DpDeviceFilter();
-            deviceEntry.index = ((JSONObject) devicesJsonArray.get(i)).getInt("index");
-            deviceEntry.ports = ((JSONObject) devicesJsonArray.get(i)).toMap().getOrDefault("ports", "").toString().replaceAll("(])|(\\[)", "");
-            deviceEntry.policies = ((JSONObject) devicesJsonArray.get(i)).toMap().getOrDefault("policies", "").toString().replaceAll("(])|(\\[)", "");
-            devicesEntries.add(deviceEntry);
-        }
+//        for (int i = 0; i < devicesJsonArray.length(); i++) {
+//            VRMHandler.DpDeviceFilter deviceEntry = new VRMHandler.DpDeviceFilter();
+//            deviceEntry.setId = ((JSONObject) devicesJsonArray.get(i)).getInt("index");
+//            deviceEntry.ports = ((JSONObject) devicesJsonArray.get(i)).toMap().getOrDefault("ports", "").toString().replaceAll("(])|(\\[)", "");
+//            deviceEntry.policies = ((JSONObject) devicesJsonArray.get(i)).toMap().getOrDefault("policies", "").toString().replaceAll("(])|(\\[)", "");
+//            devicesEntries.add(deviceEntry);
+//        }
         return devicesEntries;
     }
 

@@ -34,6 +34,8 @@ import com.radware.vision.infra.testhandlers.vrm.enums.VRMDashboards;
 import com.radware.vision.infra.utils.ReportsUtils;
 import com.radware.vision.infra.utils.TimeUtils;
 import com.radware.vision.vision_project_cli.RootServerCli;
+import com.radware.vision.automation.AutoUtils.SUT.controllers.SUTManagerImpl;
+import com.radware.vision.automation.AutoUtils.SUT.dtos.TreeDeviceManagementDto;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import org.openqa.selenium.JavascriptExecutor;
@@ -875,15 +877,15 @@ public class VRMHandler {
                 String deviceIp = null;
                 String deviceName = null;
                 try {
-                    if (entry.index == null) {
-                        throw new Exception("Index entry is empty please enter it!");
-                    }
-                    if (deviceType == null) {
-                        deviceIp = devicesManager.getDeviceInfo(SUTDeviceType.DefensePro, entry.index).getDeviceIp();
-                        deviceName = devicesManager.getDeviceInfo(SUTDeviceType.DefensePro, entry.index).getDeviceName();
+                    if (entry.setId != null) {
+                        Optional<TreeDeviceManagementDto> deviceOpt = SUTManagerImpl.getInstance().getTreeDeviceManagement(entry.setId);
+                        if (!deviceOpt.isPresent()) {
+                            throw new Exception(String.format("No Device with \"%s\" Set ID found in this setup", entry.setId));
+                        }
+                        deviceIp = deviceOpt.get().getManagementIp();
+                        deviceName=deviceOpt.get().getDeviceName();
                     } else {
-                        deviceIp = devicesManager.getDeviceInfo(deviceType, entry.index).getDeviceIp();
-                        deviceName = devicesManager.getDeviceInfo(SUTDeviceType.DefensePro, entry.index).getDeviceName();
+                        throw new Exception("device setId entry is empty.");
                     }
 
                 } catch (Exception e) {
@@ -1378,7 +1380,7 @@ public class VRMHandler {
     }
 
     public static class DpDeviceFilter {
-        public Integer index;
+        public String setId;
         public String ports;
         public String policies;
         String virtualServices;
@@ -1667,15 +1669,16 @@ public class VRMHandler {
             entries.forEach(entry -> {
                 String deviceIp = null;
                 try {
-                    if (entry.index == null) {
-                        throw new Exception("Index entry is empty please enter it!");
-                    }
-                    if (deviceType == null) {
-                        deviceIp = devicesManager.getDeviceInfo(SUTDeviceType.DefensePro, entry.index).getDeviceIp();
-                    } else {
-                        deviceIp = devicesManager.getDeviceInfo(deviceType, entry.index).getDeviceIp();
-                    }
 
+                    if (entry.setId != null) {
+                        Optional<TreeDeviceManagementDto> deviceOpt = SUTManagerImpl.getInstance().getTreeDeviceManagement(entry.setId);
+                        if (!deviceOpt.isPresent()) {
+                            throw new Exception(String.format("No Device with \"%s\" Set ID found in this setup", entry.setId));
+                        }
+                        deviceIp = deviceOpt.get().getManagementIp();
+                    } else {
+                        throw new Exception("device setId entry is empty.");
+                    }
                 } catch (Exception e) {
                     BaseTestUtils.report(e.getMessage(), e);
                 }

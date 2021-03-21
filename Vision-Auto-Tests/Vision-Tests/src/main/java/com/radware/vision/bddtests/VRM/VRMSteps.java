@@ -82,6 +82,7 @@ public class VRMSteps {
      */
     @When("^UI VRM Select device from dashboard( and Save Filter)?(?: device type \"(.*)\")?$")
     public void selectDeviceWithPoliciesAndPorts(String saveFilter, SUTDeviceType deviceType, List<DpDeviceFilter> entries) {
+        int x;
         vrmHandler.innerSelectDeviceWithPoliciesAndPorts(saveFilter, deviceType, entries, true);
     }
 
