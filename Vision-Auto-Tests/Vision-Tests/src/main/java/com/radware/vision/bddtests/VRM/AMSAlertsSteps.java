@@ -49,7 +49,6 @@ public class AMSAlertsSteps extends BddUITestBase {
      * */
     @Given("^UI \"(Create|Validate|Edit|Generate|Isexist)\" Alerts With Name \"([^\"]*)\"( negative)?$")
     public void uiReportWithName(vrmActions operationType, String reportName, String negative, Map<String,String> reportsEntry) throws Throwable {
-        //kvision
         alertsHandlers.VRMAlertsOperation(operationType, reportName, reportsEntry,
                 TestBase.getServersManagement().getRootServerCLI().get());
     }
