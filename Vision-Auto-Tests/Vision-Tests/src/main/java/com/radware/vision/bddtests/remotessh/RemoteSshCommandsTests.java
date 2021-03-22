@@ -37,12 +37,11 @@ public class RemoteSshCommandsTests extends TestBase {
     }
 
     @When("^CLI Run remote linux Command \"(.*)\" on \"(.*)\" and halt (\\d+) seconds$")
-    public void runRemoteCommand(String commandToExecute, SUTEntryType sutEntryType, int waitTimeout) {
+    public void runRemoteCommand(String commandToExecute, ServersManagement.ServerIds sutEntryType, int waitTimeout) {
         try {
             RemoteProcessExecutor remoteProcessExecutor = new RemoteProcessExecutor("", "");
-//            kVision
-//            remoteProcessExecutor.execCommand(commandToExecute, getSUTEntryType(sutEntryType));
-            Thread.sleep(waitTimeout * 1000);
+            remoteProcessExecutor.execCommand(commandToExecute, serversManagement.getServerById(sutEntryType));
+            Thread.sleep(waitTimeout * 1000L);
         } catch (Exception e) {
             BaseTestUtils.report("Failed to run command: " + commandToExecute, Reporter.FAIL);
         }
@@ -104,10 +103,10 @@ public class RemoteSshCommandsTests extends TestBase {
 
         try {
             timeOut = timeOut != null ? timeOut : "180";
-            CliOperations.runCommand(serversManagement.getRootServerCLI().get(), commandToExecute, Integer.valueOf(timeOut) * 1000);
+            CliOperations.runCommand(serversManagement.getRootServerCLI().get(), commandToExecute, Integer.parseInt(timeOut) * 1000);
             commandToExecute = "/ADC_networkIndexVerification.sh " + deviceIp;
 
-            CliOperations.runCommand(serversManagement.getRootServerCLI().get(), commandToExecute, Integer.valueOf(timeOut) * 1000);
+            CliOperations.runCommand(serversManagement.getRootServerCLI().get(), commandToExecute, Integer.parseInt(timeOut) * 1000);
             String actualResult = CliOperations.lastRow;
             if (!actualResult.equals("Success"))
                 BaseTestUtils.report("ADC Aggregation verification failed on \"" + deviceIp + "\" with the following output \"" + actualResult + "\"", Reporter.FAIL);
@@ -124,7 +123,7 @@ public class RemoteSshCommandsTests extends TestBase {
 
         try {
             timeOut = timeOut != null ? timeOut : "120";
-            CliOperations.runCommand(serversManagement.getRootServerCLI().get(), commandToExecute, Integer.valueOf(timeOut) * 1000);
+            CliOperations.runCommand(serversManagement.getRootServerCLI().get(), commandToExecute, Integer.parseInt(timeOut) * 1000);
             String actualResult = CliOperations.lastRow;
             if (!actualResult.equals("Success"))
                 BaseTestUtils.report("ADC retention verification failed for index \"" + indexName + "\" with the following output \"" + actualResult + "\"", Reporter.FAIL);
@@ -142,7 +141,7 @@ public class RemoteSshCommandsTests extends TestBase {
 
         try {
             timeOut = timeOut != null ? timeOut : "120";
-            CliOperations.runCommand(serversManagement.getRootServerCLI().get(), commandToExecute, Integer.valueOf(timeOut) * 1000);
+            CliOperations.runCommand(serversManagement.getRootServerCLI().get(), commandToExecute, Integer.parseInt(timeOut) * 1000);
             String actualResult = CliOperations.lastRow;
             if (!actualResult.equals("Success"))
                 BaseTestUtils.report("AW retention verification failed for index \"" + indexName + "\" with the following output \"" + actualResult + "\"", Reporter.FAIL);
@@ -191,7 +190,7 @@ public class RemoteSshCommandsTests extends TestBase {
         }
         try {
             timeOut = timeOut != null ? timeOut : "30";
-            CliOperations.runCommand(server, commandToExecute, Integer.valueOf(timeOut) * 1000);
+            CliOperations.runCommand(server, commandToExecute, Integer.parseInt(timeOut) * 1000);
         } catch (Exception e) {
             BaseTestUtils.report("Failed to execute command: " + commandToExecute + ", on " + sutEntryType + "\n" + e.getMessage(), Reporter.FAIL);
         }
@@ -364,10 +363,9 @@ public class RemoteSshCommandsTests extends TestBase {
             String serverIp = clientConfigurations.getHostIp();
             commandToExecute = String.format("python3 /home/radware/TED/cef/cef_messages_dir.py -a 1 -i \"%s\" -p \"5140\" -dir \"/home/radware/TED/automation/%s\" -t", serverIp, filename);
 
-//          kvision
-//            int timeOut = 30;
-//            CliOperations.runCommand(getSUTEntryTypeByServerCliBase(GENERIC_LINUX_SERVER),
-//                    commandToExecute, timeOut * 1000);
+            int timeOut = 30;
+            CliOperations.runCommand(serversManagement.getLinuxFileServer().get(),
+                    commandToExecute, timeOut * 1000);
 
         } catch (Exception e) {
             BaseTestUtils.report("Failed to execute command: " + commandToExecute + ", on " +
@@ -386,13 +384,12 @@ public class RemoteSshCommandsTests extends TestBase {
             serverCliBase.connect();
             String domain = getSetUpDomain();
             String file = "/etc/postfix/virtual";
-            int actualResult = -1;
+            int actualResult;
             String commandToExecute = String.format("grep -c \"%s\" %s", domain, file);
             CliOperations.runCommand(serverCliBase, commandToExecute, 10 * 1000);
             actualResult = parseInt(CliOperations.lastRow.trim());
             if(actualResult == 0) //need to add
             {
-                //kvision
                 commandToExecute = "sudo useradd " + domain;
                 CliOperations.runCommand(serverCliBase, commandToExecute, 10 * 1000);
                 commandToExecute = String.format("sudo touch /var/mail/%s", domain);
