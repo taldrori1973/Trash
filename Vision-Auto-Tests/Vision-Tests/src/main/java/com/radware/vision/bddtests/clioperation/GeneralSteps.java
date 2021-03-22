@@ -8,6 +8,7 @@ import com.radware.vision.automation.base.TestBase;
 import com.radware.vision.automation.databases.elasticSearch.search.*;
 import com.radware.vision.automation.databases.elasticSearch.search.innerQuery.Match;
 import com.radware.vision.automation.VisionAutoInfra.CLIInfra.CliOperations;
+import com.radware.vision.bddtests.ReportsForensicsAlerts.WebUiTools;
 import com.radware.vision.infra.testhandlers.baseoperations.BasicOperationsHandler;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
@@ -89,7 +90,7 @@ public class GeneralSteps extends TestBase {
 
 
     private void searchExpressionInLog(SearchLog object, String command) {
-        LinuxServerCredential rootCredentials = new LinuxServerCredential(getRestTestBase().getRootServerCli().getHost(), getRestTestBase().getRootServerCli().getUser(), getRestTestBase().getRootServerCli().getPassword());
+        LinuxServerCredential rootCredentials = new LinuxServerCredential(clientConfigurations.getHostIp(), cliConfigurations.getRootServerCliUserName(), cliConfigurations.getRootServerCliPassword());
         ExecuteShellCommands executeShellCommands = ExecuteShellCommands.getInstance();
         executeShellCommands.runRemoteShellCommand(rootCredentials, command);
         String output = executeShellCommands.getShellCommandOutput();
@@ -102,9 +103,7 @@ public class GeneralSteps extends TestBase {
 
     @Then("^Service Vision (restart|stop|start) and Wait (\\d+) Minute|Minutes$")
     public void serviceVisionRestartStopStart(String operation,int waitTime) {
-        RestTestBase restTestBase = new RestTestBase();
-        //kvision
-//        CliOperations.runCommand(restTestBase.getRootServerCli(), "service vision " + operation, 90 * 1000);
+        CliOperations.runCommand(serversManagement.getRootServerCLI().get(), "service vision " + operation, 90 * 1000);
         BasicOperationsHandler.delay(60*waitTime);
     }
 

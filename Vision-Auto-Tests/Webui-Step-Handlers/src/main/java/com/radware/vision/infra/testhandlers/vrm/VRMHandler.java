@@ -21,6 +21,8 @@ import com.radware.automation.webui.widgets.impl.WebUICheckbox;
 import com.radware.automation.webui.widgets.impl.WebUIComponent;
 import com.radware.automation.webui.widgets.impl.WebUITextField;
 import com.radware.jsonparsers.impl.JsonUtils;
+import com.radware.vision.automation.AutoUtils.SUT.controllers.SUTManagerImpl;
+import com.radware.vision.automation.AutoUtils.SUT.dtos.TreeDeviceManagementDto;
 import com.radware.vision.automation.VisionAutoInfra.CLIInfra.CliOperations;
 import com.radware.vision.automation.VisionAutoInfra.CLIInfra.Servers.RootServerCli;
 import com.radware.vision.automation.base.TestBase;
@@ -840,7 +842,7 @@ public class VRMHandler {
                     }
                 }
                 if (!dragged) {
-                    BaseTestUtils.report("The Widget: " + widgetName + " has Not Draged", Reporter.FAIL);
+                    BaseTestUtils.report("The Widget: " + widgetName + " has Not Dragged", Reporter.FAIL);
                 }
             }
 

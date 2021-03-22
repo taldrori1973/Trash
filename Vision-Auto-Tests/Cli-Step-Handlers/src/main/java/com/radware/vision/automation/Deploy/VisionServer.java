@@ -1,6 +1,7 @@
-package com.radware.vision.automation.VisionAutoInfra.CLIInfra.Deploy;
+package com.radware.vision.automation.Deploy;
 
 
+import com.aqua.sysobj.conn.CliConnectionImpl;
 import com.radware.automation.tools.basetest.BaseTestUtils;
 import com.radware.automation.tools.basetest.Reporter;
 import com.radware.automation.tools.utils.ExecuteShellCommands;
@@ -166,5 +167,18 @@ public class VisionServer {
         }
         return false;
     }
+    public static boolean waitForServerConnection(long timeout, CliConnectionImpl connection) throws InterruptedException {
+        long startTime = System.currentTimeMillis();
+        while (System.currentTimeMillis() - startTime < timeout) {
+            try {
+                connection.connect();
+                return true;
+            } catch (Exception e) {
+                Thread.sleep(10000);
+            }
+        }
+        return false;
+    }
+
 }
 

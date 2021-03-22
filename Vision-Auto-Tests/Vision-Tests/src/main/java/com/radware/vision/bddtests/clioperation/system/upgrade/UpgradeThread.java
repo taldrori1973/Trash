@@ -5,6 +5,7 @@ import com.radware.automation.tools.basetest.Reporter;
 import com.radware.vision.automation.VisionAutoInfra.CLIInfra.CliOperations;
 import com.radware.vision.automation.VisionAutoInfra.CLIInfra.Servers.RadwareServerCli;
 import com.radware.vision.automation.VisionAutoInfra.CLIInfra.Servers.RootServerCli;
+import com.radware.vision.automation.systemManagement.serversManagement.ServersManagement;
 import com.radware.vision.bddtests.clioperation.FileSteps;
 import com.radware.vision.bddtests.vmoperations.Deploy.Upgrade;
 import com.radware.vision.bddtests.vmoperations.VMOperationsSteps;
@@ -48,7 +49,8 @@ public class UpgradeThread extends Thread {
             BaseTestUtils.report("Waiting for services on server:" + rootServerCli.getHost(), Reporter.PASS_NOR_FAIL);
             com.radware.vision.vision_handlers.system.VisionServer.waitForVisionServerServicesToStartHA(radwareServerCli, 20 * 60 * 1000);
             FileSteps f = new FileSteps();
-            f.scp("/home/radware/Scripts/restore_radware_user_stand_alone.sh", SUTEntryType.GENERIC_LINUX_SERVER, SUTEntryType.ROOT_SERVER_CLI, "/");
+            f.scp("/home/radware/Scripts/restore_radware_user_stand_alone.sh", ServersManagement.ServerIds.LINUX_FILE_SERVER,
+                    ServersManagement.ServerIds.ROOT_SERVER_CLI, "/");
             CliOperations.runCommand(rootServerCli, "yes | /restore_radware_user_stand_alone.sh", CliOperations.DEFAULT_TIME_OUT);
             CliOperations.runCommand(rootServerCli, "/usr/sbin/ntpdate -u europe.pool.ntp.org", 2 * 60 * 1000);
         } catch (InterruptedException e) {

@@ -89,6 +89,11 @@
             <artifactId>vision-rest-framework</artifactId>
             <version>${artifact-type}-${revision}</version>
         </dependency>
+         <dependency>
+            <groupId>com.radware.vision.automation</groupId>
+            <artifactId>Cli-Step-Handlers</artifactId>
+            <version>${revision}</version>
+        </dependency>
         <dependency>
             <groupId>xml-apis</groupId>
             <artifactId>xml-apis</artifactId>

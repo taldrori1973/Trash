@@ -4,17 +4,12 @@ import com.radware.automation.tools.basetest.BaseTestUtils;
 import com.radware.automation.tools.basetest.Reporter;
 import com.radware.vision.automation.VisionAutoInfra.CLIInfra.Servers.RadwareServerCli;
 import com.radware.vision.automation.VisionAutoInfra.CLIInfra.Servers.RootServerCli;
-import com.radware.vision.base.TestBase;
-import com.radware.vision.base.WebUITestBase;
 import com.radware.vision.bddtests.clioperation.system.upgrade.UpgradeSteps;
 import com.radware.vision.thirdPartyAPIs.jFrog.models.FileType;
-import com.radware.vision.vision_handlers.system.upgrade.visionserver.VisionServer;
 
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Optional;
 
-import static com.radware.vision.bddtests.vmoperations.VMOperationsSteps.getVisionSetupAttributeFromSUT;
 
 public class Upgrade extends Deploy {
     private static final Map<String, String> LAST_SUPPORTED_UPGRADE_VERSION = new HashMap<String, String>() {{

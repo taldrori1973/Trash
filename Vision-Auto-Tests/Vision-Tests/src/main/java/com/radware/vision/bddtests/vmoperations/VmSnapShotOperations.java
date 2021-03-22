@@ -18,6 +18,7 @@ import com.radware.vision.vision_project_cli.VisionRadwareFirstTime;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 
+import static com.radware.vision.automation.Deploy.VisionServer.waitForServerConnection;
 import static com.radware.vision.bddtests.remotessh.RemoteSshCommandsTests.resetPassword;
 
 
@@ -141,7 +142,7 @@ public class VmSnapShotOperations extends BddUITestBase {
 
     private void setupServerAfterRevert() throws Exception {
         int connectTimeOut = 10 * 60 * 1000;
-        NewVmHandler.waitForServerConnection(connectTimeOut, getRestTestBase().getRootServerCli());
+        waitForServerConnection(connectTimeOut, getRestTestBase().getRootServerCli());
         //kvision
 //        CliOperations.runCommand(getRestTestBase().getRootServerCli(), "chkconfig --level 345 rsyslog on", 2 * 60 * 1000);
 //        CliOperations.runCommand(getRestTestBase().getRootServerCli(), "/usr/sbin/ntpdate -u europe.pool.ntp.org", 2 * 60 * 1000);

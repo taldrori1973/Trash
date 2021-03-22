@@ -1,21 +1,14 @@
 package com.radware.vision.bddtests.vmoperations;
 
-import com.radware.automation.bdd.reporter.BddReporterManager;
 import com.radware.automation.tools.basetest.BaseTestUtils;
 import com.radware.automation.tools.basetest.Reporter;
 import com.radware.automation.utils.AutoDBUtils;
 import com.radware.vision.automation.VisionAutoInfra.CLIInfra.Servers.RadwareServerCli;
 import com.radware.vision.automation.VisionAutoInfra.CLIInfra.Servers.RootServerCli;
-import com.radware.vision.automation.tools.esxitool.snapshotoperations.EsxiInfo;
-import com.radware.vision.automation.tools.esxitool.snapshotoperations.VMSnapshotOperations;
-import com.radware.vision.automation.tools.esxitool.snapshotoperations.targetvm.VmNameTargetVm;
-import com.radware.vision.automation.tools.sutsystemobjects.VisionVMs;
-import com.radware.vision.base.TestBase;
+import com.radware.vision.automation.base.TestBase;
 import com.radware.vision.bddtests.BddUITestBase;
 import com.radware.vision.bddtests.clioperation.connections.NewVmSteps;
 import com.radware.vision.bddtests.clioperation.system.upgrade.UpgradeSteps;
-import com.radware.vision.bddtests.defenseFlow.defenseFlowDevice;
-import com.radware.vision.bddtests.visionsettings.VisionInfo;
 import com.radware.vision.bddtests.vmoperations.Deploy.FreshInstallKVM;
 import com.radware.vision.bddtests.vmoperations.Deploy.FreshInstallOVA;
 import com.radware.vision.bddtests.vmoperations.Deploy.Physical;

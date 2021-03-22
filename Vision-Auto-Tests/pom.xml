@@ -16,6 +16,7 @@
         <module>Webui-Step-Handlers</module>
         <module>Rest-Step-Handlers</module>
         <module>Database-Step-Handlers</module>
+        <module>Cli-Step-Handlers</module>
 
     </modules>
 </project>

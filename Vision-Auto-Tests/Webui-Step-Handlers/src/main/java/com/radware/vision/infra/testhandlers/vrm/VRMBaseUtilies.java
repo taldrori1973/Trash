@@ -717,7 +717,8 @@ public class VRMBaseUtilies {
                 List<String> emailList = Arrays.asList(eMails.split(","));
                 emailList.forEach(mail->{
                     if(!mail.contains("@"))
-                        emailList.set(emailList.indexOf(mail),String.format("%s@%s.local",mail,restTestBase.getRootServerCli().getHost()));
+                        emailList.set(emailList.indexOf(mail),String.format("%s@%s.local",mail,
+                                TestBase.getServersManagement().getRootServerCLI().get().getHost()));
                 });
                 eMails = String.join(",",emailList);
                 VisionDebugIdsManager.setLabel("Send Email Enable");

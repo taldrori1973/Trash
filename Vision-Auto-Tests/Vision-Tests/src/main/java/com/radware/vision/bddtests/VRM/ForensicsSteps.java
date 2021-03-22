@@ -2,8 +2,7 @@ package com.radware.vision.bddtests.VRM;
 
 
 import com.radware.vision.automation.VisionAutoInfra.CLIInfra.Servers.RootServerCli;
-import com.radware.vision.base.TestBase;
-import com.radware.vision.bddtests.BddUITestBase;
+import com.radware.vision.automation.base.TestBase;
 import com.radware.vision.infra.testhandlers.vrm.ForensicsHandler;
 import com.radware.vision.infra.testhandlers.vrm.enums.vrmActions;
 import cucumber.api.java.en.Given;
@@ -13,7 +12,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
 
-public class ForensicsSteps extends BddUITestBase {
+public class ForensicsSteps extends TestBase {
     private ForensicsHandler forensicsHandler = new ForensicsHandler();
 
     public ForensicsSteps() throws Exception {

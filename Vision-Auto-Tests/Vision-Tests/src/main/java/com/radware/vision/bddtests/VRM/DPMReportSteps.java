@@ -1,7 +1,7 @@
 package com.radware.vision.bddtests.VRM;
 
 import com.radware.vision.automation.VisionAutoInfra.CLIInfra.Servers.RootServerCli;
-import com.radware.vision.base.TestBase;
+import com.radware.vision.automation.base.TestBase;
 import com.radware.vision.bddtests.BddUITestBase;
 import com.radware.vision.infra.testhandlers.DPM.DPMReportHandler;
 import com.radware.vision.infra.testhandlers.vrm.enums.vrmActions;
