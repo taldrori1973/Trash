@@ -9,6 +9,7 @@ import com.radware.vision.infra.testhandlers.baseoperations.BasicOperationsHandl
 import com.radware.vision.bddtests.ReportsForensicsAlerts.WebUiTools;
 import com.radware.vision.infra.utils.TimeUtils;
 import org.json.JSONObject;
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.How;
 import java.time.LocalDateTime;
@@ -61,14 +62,20 @@ public class SelectScheduleHandlers {
 
         abstract public void create() throws Exception;
         abstract public void validate(JSONObject actualScheduleJson, StringBuilder errorMessage, Map<String, LocalDateTime> schedulingDates, String name);
+        protected String getPattern(){return dailyTimePattern;}
 
         protected void saveScheduleTime(String pattern)
         {
             if (isWithComputing())
                 scheduleTime = getScheduleComputingTime();
             else
-                scheduleTime = LocalDateTime.parse(expectedScheduleJson.get("On Time").toString().trim(), DateTimeFormatter.ofPattern(pattern));
+                scheduleTime = getNonComputingTime(pattern);
         }
+
+        protected LocalDateTime getNonComputingTime(String pattern) {
+            return LocalDateTime.parse(expectedScheduleJson.get("On Time").toString().trim() + "01.01.20", DateTimeFormatter.ofPattern(pattern + "dd.MM.yy"));
+        }
+
         protected String getActualTime() {return actualScheduleJson.get(actualTimeKey).toString();}
 
         protected String getExpectedValidateTime(Map<String, LocalDateTime> schedulingDates, String name) {
@@ -86,7 +93,7 @@ public class SelectScheduleHandlers {
             if (isWithComputing())
                 return TimeUtils.getTimeAsText(scheduleTime, pattern);
             else
-                return expectedScheduleJson.get("On Time").toString().trim();
+                return LocalTime.parse(expectedScheduleJson.get("On Time").toString().trim(),DateTimeFormatter.ofPattern(getPattern())).format(DateTimeFormatter.ofPattern(pattern));
         }
 
         void validateTime(JSONObject actualScheduleJson, StringBuilder errorMessage, Map<String, LocalDateTime> schedulingDates, String name) {
@@ -106,7 +113,7 @@ public class SelectScheduleHandlers {
                 WebElement timeElement = WebUIUtils.fluentWait(new ComponentLocator(How.XPATH, "//div[contains(@class,'ant-time-picker-panel-select')][" + i + "]//li[.='"+ timePartsArray[i-1] + "']").getBy(), 25000);
                 WebUIUtils.scrollIntoView(timeElement, true);
                 WebUIUtils.sleep(2);
-                timeElement.click();
+                ((JavascriptExecutor) WebUIUtils.getDriver()).executeScript("arguments[0].click();", timeElement);
                 WebUiTools.getWebElement("apply Time Button").click();
             }
         }
@@ -146,6 +153,7 @@ public class SelectScheduleHandlers {
             this.expectedScheduleJson = scheduleJson;
             saveScheduleTime(onceTimePattern);
         }
+        protected String getPattern(){return onceTimePattern;}
 
         protected String getExpectedValidateTime(Map<String, LocalDateTime> schedulingDates, String name)
         {
@@ -159,6 +167,9 @@ public class SelectScheduleHandlers {
             return actualScheduleJson.get("date").toString() + " " + super.getActualTime();
         }
 
+        protected LocalDateTime getNonComputingTime(String pattern) {
+            return LocalDateTime.parse(expectedScheduleJson.get("On Time").toString().trim(), DateTimeFormatter.ofPattern(pattern));
+        }
         @Override
         public void create() throws TargetWebElementNotFoundException {
             BasicOperationsSteps.fillTime("Schedule Once Time", "", scheduleTime);
