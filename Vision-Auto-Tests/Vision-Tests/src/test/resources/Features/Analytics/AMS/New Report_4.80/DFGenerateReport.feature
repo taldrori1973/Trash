@@ -91,6 +91,7 @@ Feature: DFGenerateReport
   @SID_8
   Scenario: validate that generate report exist in UI
   Scenario: create new OWASP Top 10 1
+    And UI Navigate to "AMS Reports" page via homePage
     Given UI "Create" Report With Name "DF Report"
       | Template              | reportType:DefenseFlow Analytics,Widgets:[DDoS Attack Activations per Period],Protected Objects:[All], showTable:true |
       | Time Definitions.Date | Quick:This Week                                                                                                       |
