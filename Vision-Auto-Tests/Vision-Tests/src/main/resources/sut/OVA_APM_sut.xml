@@ -41,7 +41,7 @@
                 <class>com.radware.vision.vision_project_cli.VisionSetup</class>
                 <!--<setupMode>Fresh Install| Upgrade</setupMode>-->
                 <setupMode>Fresh Install</setupMode>
-                <!--<serverType>ova | apm | highscale</serverType>-->
+                <!--<serverType>ova | apm | basic</serverType>-->
                 <serverType>apm</serverType>
                 <snapshot></snapshot>
                 <!--<vmPrefix>This field is relevant for fresh installed VM</vmPrefix>-->
