@@ -1,4 +1,4 @@
-@VRM_Report2 @TC106003 @Test12
+@VRM_Report2 @TC106003
 Feature: Forensics RBAC
 
   @SID_1
