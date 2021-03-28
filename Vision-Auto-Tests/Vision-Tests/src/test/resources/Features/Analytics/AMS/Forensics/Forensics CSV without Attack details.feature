@@ -448,7 +448,6 @@ Feature: Forensics CSV without Attack details
       | Share                 | Email:[maha],Subject:Validate Email,Body:Email Body                                                                                                                                                                                                                                                           |
       | Criteria              | Event Criteria:Action,Operator:Not Equals,Value:Http 403 Forbidden                                                                                                                                                                                                                                            |
       | Time Definitions.Date | Quick:Today                                                                                                                                                                                                                                                                                                   |
-      | Schedule              | Run Every:Daily,On Time:+2m                                                                                                                                                                                                                                                                                   |
 
   @SID_32
   Scenario: Clear FTP server logs and generate the forensics
