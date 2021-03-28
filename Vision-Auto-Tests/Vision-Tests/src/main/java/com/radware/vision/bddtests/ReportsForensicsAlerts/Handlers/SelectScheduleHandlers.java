@@ -205,10 +205,19 @@ public class SelectScheduleHandlers {
         public void create() throws Exception {
             setTimeInput();
             if (!dayOfMonth.equals("-1")) {
-                WebUiTools.getWebElement("Scheduling On Day of Month").clear();
-                BasicOperationsHandler.setTextField("Scheduling On Day of Month", dayOfMonth, true);
+                setTextDayOfMonth();
+                if (!WebUiTools.getWebElement("Scheduling On Day of Month").getAttribute("value").equals(dayOfMonth))
+                {
+                    WebUIUtils.sleep(1);
+                    setTextDayOfMonth();
+                }
             }
             selectDaysOrMonths("Schedule Month", months);
+        }
+
+        protected void setTextDayOfMonth() throws TargetWebElementNotFoundException {
+            WebUiTools.getWebElement("Scheduling On Day of Month").clear();
+            BasicOperationsHandler.setTextField("Scheduling On Day of Month", dayOfMonth, true);
         }
 
         @Override
