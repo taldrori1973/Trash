@@ -118,9 +118,7 @@ Feature: AMS DefenseFlow Traffic Dashboard
     Then UI Validate Line Chart attributes "Traffic Bandwidth" with Label "Clean"
       | attribute | value   |
       | color     | #04C2A0 |
-    Then UI Validate Line Chart attributes "Traffic Rate" with Label "Dropped"
-      | attribute | value   |
-      | color     | #F41414 |
+
     Then UI Validate Line Chart attributes "Traffic Rate" with Label "Diverted"
       | attribute | value   |
       | color     | #108282 |
