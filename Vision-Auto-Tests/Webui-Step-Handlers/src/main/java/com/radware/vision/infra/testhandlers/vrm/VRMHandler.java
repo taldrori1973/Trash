@@ -1024,7 +1024,7 @@ public class VRMHandler {
                 if (isScrollElementToTop)
                     ((JavascriptExecutor)WebUIUtils.getDriver()).executeScript("arguments[0].scrollIntoView();", WebUIUtils.fluentWaitMultiple(elementsLocator.getBy()).get(elementsShouldBeAddedList.size() - 1));
                 else WebUIUtils.scrollIntoView(elementsShouldBeAddedList.size() != 0 ? elementsShouldBeAddedList.get(elementsShouldBeAddedList.size() - 1) : null);
-            }catch (StaleElementReferenceException ignore){}
+            }catch (Exception ignore){}
         }
 
         return isTargetLocatorExist(targetElementLocator);
