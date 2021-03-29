@@ -206,6 +206,7 @@ public class VmSnapShotOperations extends BddUITestBase {
         switch (setupMode.toLowerCase()) {
             case "upgrade":
                 revertVMWareSnapshot(defaultVMWareNumber, snapshotFromSut);
+                Thread.sleep(3000);
                 visionInfo = new VisionInfo(getVisionServerIp());
                 upgradeSteps.UpgradeVisionServerFromOldVersion(NEXT_VERSION.get(visionInfo.getVisionVersion()));
                 VmSnapShotOperations.newInstance().renameSnapshotVMWare(snapshotName, "temporarySnapshot", "temporary");
@@ -216,6 +217,7 @@ public class VmSnapShotOperations extends BddUITestBase {
 
             case "kvm_upgrade":
                 VmSnapShotOperations.newInstance().revertKvmSnapshot(snapshotName, visionRadwareFirstTime);
+                Thread.sleep(3000);
                 visionInfo = new VisionInfo(getVisionServerIp());
                 upgradeSteps.UpgradeVisionServerFromOldVersion(NEXT_VERSION.get(visionInfo.getVisionVersion()));
                 VmSnapShotOperations.newInstance().deleteKvmSnapshot(snapshotName);
