@@ -1,6 +1,7 @@
 @TC119592
 Feature:Create DefensePro Part3
 
+  
   @SID_1
   Scenario: Navigate to NEW REPORTS page
     * REST Delete ES index "forensics-*"
@@ -1304,12 +1305,13 @@ Feature:Create DefensePro Part3
       | Format                | Select: CSV                                                                                                                                            |
     Then UI Delete Forensics With Name "Output Attack Name2_Protocol_Radware ID_Duration_Total Packets Dropped_Max pps Custom"
 
+  
   @SID_64
   Scenario: create new Output Start Time,End Time,Device IP Address,Action,Source IP Address,Source Port,Destination IP Address,Destination Port Custom
     Given UI "Create" Forensics With Name "Output Start Time_End Time_Device IP Address_Action_Source IP Address_Source Port_Destination IP Address_Destination Port Custom"
       | Product               | DefensePro                                                                                                                                       |
       | Output                | Start Time,End Time,Device IP Address,Action,Source IP Address,Source Port,Destination IP Address,Destination Port                               |
-      | Criteria              | Event Criteria:Action,Operator:Not Equals,Value:Challenge,Event Criteria:Threat Category,Operator:Equals,Value:[Intrusions],condition.Custom:1 OR 2 |
+      | Criteria              | Event Criteria:Action,Operator:Not Equals,Value:Challenge;Event Criteria:Threat Category,Operator:Equals,Value:[Intrusions],condition.Custom:1 OR 2 |
       | devices               | All                                                                                                                                              |
       | Time Definitions.Date | Quick:1Y                                                                                                                                         |
       | Share                 | Email:[automation.vision2@radware.com],Subject:myEdit subject,Body:myEdit body                                                                   |
