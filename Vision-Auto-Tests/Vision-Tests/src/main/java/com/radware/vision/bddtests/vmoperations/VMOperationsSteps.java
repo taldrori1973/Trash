@@ -45,9 +45,9 @@ public class VMOperationsSteps extends BddUITestBase {
     public VMOperationsSteps() throws Exception {
     }
 
-    @When("Upgrade Vision According To SUT Snapshot(?: to Version \"([^\"]*)\")?(?: Build \"([^\"]*)\")?$")
-    public void upgradeAccordingToSnapshot(String upgradeToVersion, String build) throws Exception {
-        VmSnapShotOperations.newInstance().upgradeAccordingToSnapshot(upgradeToVersion, build);
+    @When("Upgrade Vision According To SUT Snapshot$")
+    public void upgradeAccordingToSnapshot() throws Exception {
+        VmSnapShotOperations.newInstance().upgradeAccordingToSnapshot();
     }
 
     /**

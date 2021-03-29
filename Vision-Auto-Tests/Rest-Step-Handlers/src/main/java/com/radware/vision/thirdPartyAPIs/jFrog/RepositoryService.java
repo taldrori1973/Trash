@@ -267,4 +267,37 @@ public class RepositoryService {
         return getLastSuccessfulExtendedBuild(branchPojo, branch);
     }
 
+    public JFrogFileModel getFileUnderVersion(FileType fileType, String version) throws Exception {
+
+        ArtifactFolderPojo buildPojo;
+        ArtifactPojo artifactPojo = getPojo("", StatusCode.OK, ArtifactPojo.class);
+        String artifactPojoPtah = artifactPojo.getPath().getPath();
+        ArtifactFolderPojo artifactPojoFolder = getPojo(artifactPojoPtah, StatusCode.OK, ArtifactFolderPojo.class);
+        ArtifactFolderPojo versionPojo = getBranch(artifactPojoFolder, version.toLowerCase());// in Artifactory all folders are lower case
+        buildPojo = getFileFromJfrog(versionPojo, fileType);//build under branch
+        ArtifactFilePojo filePojo = getFile(buildPojo, fileType);
+        ModelMapper modelMapper = new ModelMapper();
+        JFrogFileModel jFrogFileModel = modelMapper.map(filePojo, JFrogFileModel.class);
+        jFrogFileModel.setType(fileType);
+        return jFrogFileModel;
+    }
+
+    private ArtifactFolderPojo getFileFromJfrog(ArtifactFolderPojo buildParent, FileType fileType) throws Exception {
+        Integer build = getLastSuccessfulBuildUnderOldVersion(buildParent, fileType);
+        String path = buildParent.getPath().getPath().substring(1) + "/" + build;
+        return getPojo(path, StatusCode.OK, ArtifactFolderPojo.class);
+    }
+
+    private Integer getLastSuccessfulBuildUnderOldVersion(ArtifactFolderPojo buildParent, FileType fileType) throws Exception {
+        Set<Integer> buildsNumbers = buildParent.getChildren().stream().map(buildChildPojo -> Integer.parseInt(buildChildPojo.getUri().getPath().substring(1))).collect(Collectors.toSet());
+        Stack<Integer> builds = countingSort(buildsNumbers);
+        Integer last;
+        while (!builds.isEmpty()) {
+            last = builds.pop();
+            String buildPath = buildParent.getPath().getPath().substring(1) + "/" + last;
+            if (containsFileType(fileType, buildPath)) return last;
+        }
+        throw new Exception("No Success Build was found ");
+    }
+
 }
