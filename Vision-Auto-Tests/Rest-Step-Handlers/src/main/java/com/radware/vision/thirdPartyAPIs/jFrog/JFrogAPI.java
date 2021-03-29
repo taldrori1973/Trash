@@ -11,7 +11,6 @@ import com.radware.vision.thirdPartyAPIs.jFrog.models.JFrogFileModel;
 public class JFrogAPI {
 
 
-
     /**
      * This method search for a build when the hierarchy is Version--> Branch--> Build
      *
@@ -26,7 +25,7 @@ public class JFrogAPI {
         if (version == null) version = "Latest";
         if (branch == null) branch = "master";
         if (build == null) build = 0;
-        RepositoryService repositoryService=new RepositoryService(repoName);
+        RepositoryService repositoryService = new RepositoryService(repoName);
         return repositoryService.getFile(fileType, version, branch, build);
 
     }
@@ -43,7 +42,7 @@ public class JFrogAPI {
     public static JFrogFileModel getBuild(FileType fileType, String repoName, String version, Integer build) throws Exception {
         if (version == null) version = "Latest";
         if (build == null) build = 0;
-        RepositoryService repositoryService=new RepositoryService(repoName);
+        RepositoryService repositoryService = new RepositoryService(repoName);
 
         return repositoryService.getFile(fileType, version, null, build);
 
@@ -51,32 +50,46 @@ public class JFrogAPI {
 
     /**
      * This method search for a build when the hierarchy is Repository--> Branch--> Build
-      * @param fileType  file type to search for
-     * @param build      desired build number
-     * @param repoName  in which repository to search for a build i.e. local, release
-     * @param branch    in which branch to search , if branch is null , will search on the default branch (master)
-     * @return         The requested build file info
+     *
+     * @param fileType file type to search for
+     * @param build    desired build number
+     * @param repoName in which repository to search for a build i.e. local, release
+     * @param branch   in which branch to search , if branch is null , will search on the default branch (master)
+     * @return The requested build file info
      */
-    public static JFrogFileModel getBuild(FileType fileType,  Integer build, String repoName, String branch) throws Exception {
-        if (branch == null || branch=="") branch = "master";
+    public static JFrogFileModel getBuild(FileType fileType, Integer build, String repoName, String branch) throws Exception {
+        if (branch == null || branch == "") branch = "master";
         if (build == null) build = 0;
-        RepositoryService repositoryService=new RepositoryService(repoName);
-        return repositoryService.getFile(fileType,build,branch);
+        RepositoryService repositoryService = new RepositoryService(repoName);
+        return repositoryService.getFile(fileType, build, branch);
     }
+
     /**
      * This method return the last extended build  from a given branch when the hierarchy is Repository--> Branch--> Build
-     * @param fileType  file type to search for
-     * @param repoName  in which repository to search for a build i.e. local, release
-     * @param branch    in which branch to search , if branch is null , will search on the default branch (master)
-     * @return          The Last extended build file info under a given branch
+     *
+     * @param fileType file type to search for
+     * @param repoName in which repository to search for a build i.e. local, release
+     * @param branch   in which branch to search , if branch is null , will search on the default branch (master)
+     * @return The Last extended build file info under a given branch
      */
-    public static JFrogFileModel getLastExtendedBuildFromFeatureBranch(FileType fileType,String repoName, String branch) throws Exception {
-        if (branch == null || branch=="") branch = "master";
-        RepositoryService repositoryService=new RepositoryService(repoName);
-        return repositoryService.getFileFromLastExtendedBuild(fileType,branch);
+    public static JFrogFileModel getLastExtendedBuildFromFeatureBranch(FileType fileType, String repoName, String branch) throws Exception {
+        if (branch == null || branch == "") branch = "master";
+        RepositoryService repositoryService = new RepositoryService(repoName);
+        return repositoryService.getFileFromLastExtendedBuild(fileType, branch);
     }
 
-
+    /**
+     * This method search for a build under old version and return latest build, hierarchy is "vision-release-local"--> Build
+     *
+     * @param fileType file type to search for
+     * @param version  the version user want to get a release build from it.
+     * @return The requested build file info
+     */
+    public static JFrogFileModel getBuildFromOldVersion(FileType fileType, String version) throws Exception {
+        if (version == null || version == "") throw new Exception(" You should supply Version to find a build!!");
+        RepositoryService repositoryService = new RepositoryService("vision-release-local");
+        return repositoryService.getFileUnderVersion(fileType, version);
+    }
 
 
 }
