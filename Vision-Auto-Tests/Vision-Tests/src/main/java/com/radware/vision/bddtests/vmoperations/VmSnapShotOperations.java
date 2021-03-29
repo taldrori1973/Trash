@@ -21,6 +21,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import static com.radware.vision.bddtests.remotessh.RemoteSshCommandsTests.resetPassword;
+import static com.radware.vision.vision_handlers.NewVmHandler.waitForServerConnection;
 
 
 public class VmSnapShotOperations extends BddUITestBase {
@@ -145,7 +146,7 @@ public class VmSnapShotOperations extends BddUITestBase {
 
     private void setupServerAfterRevert() throws Exception {
         int connectTimeOut = 10 * 60 * 1000;
-        NewVmHandler.waitForServerConnection(connectTimeOut, getRestTestBase().getRootServerCli());
+        waitForServerConnection(connectTimeOut, getRestTestBase().getRootServerCli());
         CliOperations.runCommand(getRestTestBase().getRootServerCli(), "chkconfig --level 345 rsyslog on", 2 * 60 * 1000);
         CliOperations.runCommand(getRestTestBase().getRootServerCli(), "/usr/sbin/ntpdate -u europe.pool.ntp.org", 2 * 60 * 1000);
         resetPassword();
@@ -206,7 +207,10 @@ public class VmSnapShotOperations extends BddUITestBase {
         switch (setupMode.toLowerCase()) {
             case "upgrade":
                 revertVMWareSnapshot(defaultVMWareNumber, snapshotFromSut);
-                Thread.sleep(3000);
+                if (!waitForServerConnection(2700000L, restTestBase.getRootServerCli())) {
+                    BaseTestUtils.report("Could not connect to device: " + restTestBase.getRootServerCli().getHost(), 1);
+                }
+
                 visionInfo = new VisionInfo(getVisionServerIp());
                 upgradeSteps.UpgradeVisionServerFromOldVersion(NEXT_VERSION.get(visionInfo.getVisionVersion()));
                 VmSnapShotOperations.newInstance().renameSnapshotVMWare(snapshotName, "temporarySnapshot", "temporary");
@@ -217,7 +221,10 @@ public class VmSnapShotOperations extends BddUITestBase {
 
             case "kvm_upgrade":
                 VmSnapShotOperations.newInstance().revertKvmSnapshot(snapshotName, visionRadwareFirstTime);
-                Thread.sleep(3000);
+                revertVMWareSnapshot(defaultVMWareNumber, snapshotFromSut);
+                if (!waitForServerConnection(2700000L, restTestBase.getRootServerCli())) {
+                    BaseTestUtils.report("Could not connect to device: " + restTestBase.getRootServerCli().getHost(), 1);
+                }
                 visionInfo = new VisionInfo(getVisionServerIp());
                 upgradeSteps.UpgradeVisionServerFromOldVersion(NEXT_VERSION.get(visionInfo.getVisionVersion()));
                 VmSnapShotOperations.newInstance().deleteKvmSnapshot(snapshotName);
