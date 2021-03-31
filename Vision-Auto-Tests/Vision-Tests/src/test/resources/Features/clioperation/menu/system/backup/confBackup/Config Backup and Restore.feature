@@ -105,8 +105,11 @@ Feature: Backup and Restore
 
   @SID_16
   Scenario: Restore validation AMS forensic results
-    Then UI Generate and Validate Forensics With Name "Forensic backup restore" with Timeout of 300 Seconds
+    Then UI Click Button "My Forensics" with value "Forensic backup restore"
+    Then UI Click Button "Generate Snapshot Forensics Manually" with value "Forensic backup restore"
+    Then Sleep "35"
     Then UI Logout
+
 
   @SID_17
   Scenario: Restore validation local user
