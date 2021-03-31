@@ -10,7 +10,6 @@ Feature: AMS DefenseFlow Activations Dashboard
     * CLI Clear vision logs
 
 
-
   @SID_2
   Scenario: Start Attack PO_101
     Given That Current Vision is Logged In
@@ -342,6 +341,8 @@ Feature: AMS DefenseFlow Activations Dashboard
     Given UI Login with user "radware" and password "radware"
     * REST Vision Install License Request "vision-AVA-Max-attack-capacity"
     And UI Navigate to "DefenseFlow Analytics Dashboard" page via homePage
+    Then UI Do Operation "Select" item "Global Time Filter"
+    And UI select time range from "-3d" to "-1m"
 
   @SID_18
   Scenario: Validate DDoS Peak Attack per Period (bits) - All POs
@@ -447,9 +448,9 @@ Feature: AMS DefenseFlow Activations Dashboard
 
 
   @SID_23
-  Scenario: change Time range to 12H
+  Scenario: change Time range to -3d
     Then UI Do Operation "Select" item "Global Time Filter"
-    Then UI Do Operation "Select" item "Global Time Filter.Quick Range" with value "12H"
+    And UI select time range from "-3d" to "-1m"
 
   @SID_24
   Scenario: Validate DDoS Peak Attack per Period (bits) - All POs
@@ -518,7 +519,7 @@ Feature: AMS DefenseFlow Activations Dashboard
       | PO_105 |
       | PO_106 |
     Then UI Do Operation "Select" item "Global Time Filter"
-    Then UI Do Operation "Select" item "Global Time Filter.Quick Range" with value "15m"
+    And UI select time range from "-3d" to "-1m"
 
   @SID_30
   Scenario: Validate DDoS Peak Attack per Selected Period - 3 PO's
