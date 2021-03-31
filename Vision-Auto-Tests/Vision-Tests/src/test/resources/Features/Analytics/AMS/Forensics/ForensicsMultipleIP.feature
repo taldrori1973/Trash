@@ -72,6 +72,7 @@ Feature: Forensics Multiple IP
 #    When UI Generate and Validate Forensics With Name "Source IP Criteria" with Timeout of 180 Seconds
     And UI Click Button "My Forensics" with value "Source IP Criteria"
     And UI Click Button "Generate Snapshot Forensics Manually" with value "Source IP Criteria"
+    Then Sleep "60"
     And UI Navigate to "AMS Reports" page via homePage
     Then UI Navigate to "AMS Forensics" page via homepage
     And UI Click Button "My Forensics" with value "Source IP Criteria"
