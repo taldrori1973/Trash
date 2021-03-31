@@ -416,9 +416,10 @@ public class BasicOperationsSteps extends BddUITestBase {
      */
     @Then("^UI select time range(?: from \"([^\"]*)\")?(?: to \"([^\"]*)\")?$")
     public void uiSelectTimeRangeFromTo(String fromDate, String toDate) {
-        DateTimeFormatter timeRangeFormat = DateTimeFormatter.ofPattern("dd.MM.YYYY, HH:mm");
+        DateTimeFormatter timeRangeFormat = DateTimeFormatter.ofPattern("dd.MM.YYYY HH:mm:ss");
         if (fromDate != null) {
-            By locator = new ComponentLocator(How.XPATH, "//*[@class='date-from']//input").getBy();
+//            By locator = new ComponentLocator(How.XPATH, "//*[@class='date-from']//input").getBy();
+            By locator = new ComponentLocator(How.XPATH, "//div[.='From']/..//input").getBy();
             String fromDateText = (fromDate.contains("+") || fromDate.contains("-")) ? timeRangeFormat.format(TimeUtils.getAddedDate(fromDate)) : fromDate;
             WebUIUtils.fluentWait(locator, WebUIUtils.DEFAULT_WAIT_TIME, false).clear();
             WebUIUtils.fluentWaitSendText("", locator, WebUIUtils.DEFAULT_WAIT_TIME, false);
@@ -428,13 +429,15 @@ public class BasicOperationsSteps extends BddUITestBase {
             WebUIUtils.fluentWaitSendText(fromDateText, locator, WebUIUtils.DEFAULT_WAIT_TIME, false);
         }
         if (toDate != null) {
-            By locator = new ComponentLocator(How.XPATH, "//*[@class='date-to']//input").getBy();
+//            By locator = new ComponentLocator(How.XPATH, "//*[@class='date-to']//input").getBy();
+            By locator = new ComponentLocator(How.XPATH, "//div[.='To']/..//input").getBy();
             String toDateText = (toDate.contains("+") || toDate.contains("-")) ? timeRangeFormat.format(TimeUtils.getAddedDate(toDate)) : toDate;
             WebUIUtils.fluentWaitSendText("", locator, WebUIUtils.DEFAULT_WAIT_TIME, false);
             WebUIUtils.fluentWait(locator, WebUIUtils.DEFAULT_WAIT_TIME, false).clear();
             WebUIUtils.fluentWaitSendText(toDateText, locator, WebUIUtils.DEFAULT_WAIT_TIME, false);
         }
-        WebUIUtils.fluentWaitClick(ComponentLocatorFactory.getLocatorByXpathDbgId("Date-Range-Picker-Apply").getBy(), WebUIUtils.DEFAULT_WAIT_TIME, false);
+        By locator = new ComponentLocator(How.XPATH, "//div[.='Apply']//button").getBy();
+        WebUIUtils.fluentWaitClick(locator, WebUIUtils.DEFAULT_WAIT_TIME, false);
     }
 
     @Then("^UI validate arrow with label \"(.*)\" and params \"(.*)\" if \"(COLLAPSED|EXPENDED)\"$")
