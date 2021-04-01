@@ -124,10 +124,10 @@ Feature: Edit AppWall Parameters
   Scenario: Edit Scope
     Then UI "Edit" Forensics With Name "Forensics AppWall"
       | Product      | AppWall        |
-      | Applications | 172.17.167.177 |
+      | Applications | A1 |
     Then UI "Validate" Forensics With Name "Forensics AppWall"
       | Product      | AppWall        |
-      | Applications | 172.17.167.177 |
+      | Applications | A1 |
 
   @SID_17
   Scenario: Edit Criteria
